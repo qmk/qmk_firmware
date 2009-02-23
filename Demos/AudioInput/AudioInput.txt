@@ -1,0 +1,48 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage Audio Input Device Demo
+ *  
+ *  Audio demonstration application. This gives a simple reference
+ *  application for implementing a USB Audio Input device using the
+ *  basic USB Audio drivers in all modern OSes (i.e. no special drivers
+ *  required).
+ *  
+ *  On startup the system will automatically enumerate and function
+ *  as a USB microphone. Incomming audio from the ADC channel 1 will
+ *  be sampled and sent to the host computer.
+ *  
+ *  To use, connect a microphone to the ADC channel 2.
+ *  
+ *  Under Windows, if a driver request dialogue pops up, select the option
+ *  to automatically install the appropriate drivers.
+ *  
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Audio Class</td>
+ *   </tr>
+ *   <tr> 
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Standard Audio Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Audio Class Specification</td>
+ *    <td>USBIF Audio Class Terminal Types Specification</td>
+ *    <td>USBIF Audio Data Formats Specification</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Usable Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ */

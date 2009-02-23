@@ -1,0 +1,52 @@
+;     Windows LUFA RNDIS Setup File
+; Copyright (c) 2000 Microsoft Corporation
+
+[Version]
+Signature           = "$Windows NT$"
+Class               = Net
+ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider            = %COMPANY%
+DriverVer           = 06/21/2006,6.0.6000.16384
+;CatalogFile        = device.cat
+
+[Manufacturer]
+%COMPANY%         = RndisDevices,NTx86,NTamd64,NTia64
+
+; Decoration for x86 architecture
+[RndisDevices.NTx86]
+%RNDISDEV%    = RNDIS.NT.5.1, USB\VID_03EB&PID_204C
+
+; Decoration for x64 architecture
+[RndisDevices.NTamd64]
+%RNDISDEV%    = RNDIS.NT.5.1, USB\VID_03EB&PID_204C
+
+; Decoration for ia64 architecture
+[RndisDevices.NTia64]
+%RNDISDEV%    = RNDIS.NT.5.1, USB\VID_03EB&PID_204C
+
+;@@@ This is the common setting for setup
+[ControlFlags]
+ExcludeFromSelect=*
+
+; DDInstall section
+; References the in-build Netrndis.inf
+[RNDIS.NT.5.1]
+Characteristics = 0x84   ; NCF_PHYSICAL + NCF_HAS_UI
+BusType         = 15
+; NEVER REMOVE THE FOLLOWING REFERENCE FOR NETRNDIS.INF
+include         = netrndis.inf
+needs           = Usb_Rndis.ndi
+AddReg          = Rndis_AddReg_Vista
+
+; DDInstal.Services section
+[RNDIS.NT.5.1.Services]
+include     = netrndis.inf
+needs       = Usb_Rndis.ndi.Services
+
+; No sys copyfiles - the sys files are already in-build 
+; (part of the operating system).
+
+; Modify these strings for your device as needed.
+[Strings] 
+COMPANY="LUFA Library"
+RNDISDEV="LUFA USB RNDIS Demo"

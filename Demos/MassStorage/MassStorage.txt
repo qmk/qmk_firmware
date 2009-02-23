@@ -1,0 +1,54 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage Mass Storage Device Demo
+ *
+ *  Dual LUN Mass Storage demonstration application. This gives a simple
+ *  reference application for implementing a multiple LUN USB Mass Storage
+ *  device using the basic USB UFI drivers in all modern OSes (i.e. no
+ *  special drivers required).
+ *  
+ *  On startup the system will automatically enumerate and function as an
+ *  external mass storage device with two LUNs (seperate disks) which may
+ *  be formatted and used in the same manner as commercial USB Mass Storage
+ *  devices.
+ *  	
+ *  You will need to format the mass storage drives upon first run of this
+ *  demonstration - as the device acts only as a data block transport between
+ *  the host and the storage media, it does not matter what file system is used,
+ *  as the data interpretation is performed by the host and not the USB device.
+ *  
+ *  This demo is not restricted to only two LUNs; by changing the TOTAL_LUNS
+ *  value in MassStorageDualLUN.h, any number of LUNs can be used (from 1 to
+ *  255), with each LUN being allocated an equal portion of the available
+ *  Dataflash memory.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Mass Storage Device</td>
+ *   </tr>
+ *   <tr> 
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Bulk-Only Transport</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Mass Storage Standard</td>
+ *    <td>USB Bulk-Only Transport Standard</td>
+ *    <td>SCSI Primary Commands Specification</td>
+ *    <td>SCSI Block Commands Specification</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Usable Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ */

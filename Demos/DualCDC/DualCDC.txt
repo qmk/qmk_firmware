@@ -1,0 +1,57 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage Dual Communications Device Class Device (Dual Virtual Serial Port)
+ *
+ *  Dual Communications Device Class demonstration application.
+ *  This gives a simple reference application for implementing
+ *  a compound device with dual CDC functions acting as a pair
+ *  of virtual serial ports. This demo uses Interface Association
+ *  Descriptors to link together the pair of related CDC
+ *  descriptors for each virtual serial port, which may not be
+ *  supported in all OSes - Windows Vista is supported, as is
+ *  XP (although the latter may need a hotfix to function).
+ *  
+ *  Joystick actions are transmitted to the host as strings
+ *  through the first serial port. The device does not respond to
+ *  serial data sent from the host in the first serial port.
+ *  
+ *  The second serial port echoes back data sent from the host.
+ *  
+ *  After running this demo for the first time on a new computer,
+ *  you will need to supply the .INF file located in this demo
+ *  project's directory as the device's driver when running under
+ *  Windows. This will enable Windows to use its inbuilt CDC drivers,
+ *  negating the need for custom drivers for the device. Other
+ *  Operating Systems should automatically use their own inbuilt
+ *  CDC-ACM drivers.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Miscellaneous Device Class</td>
+ *    <td>( Sub-Interface: Communications Device Class (CDC) )</td>
+ *   </tr>
+ *   <tr> 
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Common Class</td> 
+ *    <td>( Sub-Interface: Abstract Control Model (ACM) )</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Interface Association Descriptor ECN</td>
+ *    <td>USBIF CDC Class Standard</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Usable Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ */
