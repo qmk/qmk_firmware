@@ -1,0 +1,119 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \dir Common
+ *  \brief Common library header files.
+ *  
+ *  This folder contains header files which are common to all parts of the LUFA library. They may be used freely in
+ *  user applications.
+ *
+ *  \dir MemoryAllocator
+ *  \brief Auto-defragmenting dynamic memory allocation library.
+ *  
+ *  This folder contains a simple handle-based dynamic memory allocation library, capable of handing out memory in
+ *  block chunks. As new memory is allocated, the library will defragment the already allocated memory to ensure
+ *  optimal memory usage. It is not used within the LUFA library, and is provided as a convenience for user applications.
+ *
+ *  \dir Scheduler
+ *  \brief Simple round-robbin scheduler.
+ *  
+ *  This folder contains the simple LUFA round-robbin scheduler, provided as a convenience for user applications. It
+ *  is very simple in design, and is intended to make code easier to read, rather than providing a complete RTOS kernel.
+ *
+ *  \dir Drivers
+ *  \brief Library hardware and software drivers.
+ *  
+ *  This folder contains all the library hardware and software drivers for each supported board and USB AVR
+ *  microcontroller model.
+ * 
+ *  \dir Drivers/Misc
+ *  \brief Miscellaneous driver files.
+ *  
+ *  This folder contains drivers for aspects other than the USB interface, board hardware or AVR peripherals.
+ * 
+ *  \dir Drivers/AT90USBXXX
+ *  \brief USB AVR peripheral driver files.
+ *  
+ *  This folder contains drivers for several of the AVR internal peripherals such as the USART, compatible with
+ *  all USB AVR models.
+ *
+ *  \dir Drivers/AT90USBXXX/AT90USBXXX67
+ *  \brief AT90USBXXX6, AT90USBXXX7 and ATMEGAXXU4 AVR model peripheral driver files. Its original name is due to legacy
+ *  reasons.
+ *  
+ *  This folder contains drivers for several of the AVR internal peripherals such as the USART, compatible only with
+ *  the AT90USBXXX6, AT90USBXXX7 and ATMEGAXXU4 USB AVR models, such as the AT90USB1287. Its contents should <b>not</b> be
+ *  included by the user application - the dispatch header file located in the parent AT90USBXXX directory should be used
+ *  instead.
+ *
+ *  \dir Drivers/USB
+ *  \brief USB controller peripheral driver files.
+ *  
+ *  This folder contains the main header files required to implement the USB interface in the USB supporting AVR models.
+ *  The header files contained directly in this folder should be included in the user application in order to gain USB
+ *  functionality, and the appropriate C source files in the LowLevel and HighLevel driver folders added to the compile
+ *  and link stages.
+ *
+ *  \dir Drivers/USB/LowLevel
+ *  \brief Low level USB driver files.
+ *  
+ *  This folder contains low level USB driver source files required to implement USB functionality on the USB AVR microcontrollers.
+ *
+ *  \dir Drivers/USB/HighLevel
+ *  \brief High level USB driver files.
+ *  
+ *  This folder contains high level USB driver source files required to implement USB functionality on the USB AVR microcontrollers.
+ *
+ *  \dir Drivers/USB/Class
+ *  \brief USB Class helper driver files.
+ *  
+ *  This folder contains drivers for implementing functionality of standardized USB classes. These are not used directly by the library,
+ *  but provide a standard and library-maintained way of implementing functionality from some of the defined USB classes without extensive
+ *  development effort. Is is recommended that these drivers be used where possible to reduce maintenance of user applications.
+ *
+ *  \dir Drivers/Board
+ *  \brief Board hardware driver files.
+ *  
+ *  This folder contains drivers for interfacing with the physical hardware on supported commercial boards, primarily from
+ *  the Atmel corporation. Header files in this folder should be included in user applications requring the functionality of
+ *  hardware placed on supported boards.
+ *
+ *  \dir Drivers/Board/USBKEY
+ *  \brief USBKEY board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the Atmel USBKEY demonstration board. The header files in this folder should
+ *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
+ *  should be included instead.
+ *
+ *  \dir Drivers/Board/STK526
+ *  \brief STK526 board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the Atmel STK526 development board. The header files in this folder should
+ *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
+ *  should be included instead.
+ *
+ *  \dir Drivers/Board/STK525
+ *  \brief STK525 board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the Atmel STK525 development board. The header files in this folder should
+ *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
+ *  should be included instead.
+ *
+ *  \dir Drivers/Board/RZUSBSTICK
+ *  \brief RZUSBSTICK board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the Atmel RZUSBSTICK board, as used in the Atmel "Raven" wireless kits. The header
+ *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located in
+ *  the parent Board directory should be included instead.
+ *
+ *  \dir DriverStubs
+ *  \brief Driver stub header files for custom boards, to allow the LUFA board drivers to operate.
+ *  
+ *  This contains stub files for the LUFA board drivers. If the LUFA board drivers are used with board hardare other than those
+ *  directly supported by the library, the BOARD parameter of the application's makefile can be set to "USER", and these stub files
+ *  copied to the "/Board/" directory of the application's folder. When fleshed out with working driver code for the custom board,
+ *  the corresponding LUFA board APIs will work correctly with the non-standard board hardware.
+ */

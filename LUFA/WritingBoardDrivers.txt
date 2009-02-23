@@ -1,0 +1,26 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page Page_WritingBoardDrivers Writing LUFA Board Drivers
+ *
+ *  LUFA ships with several basic pre-made board drivers, to control hardware present on the supported board
+ *  hardware - such as Dataflash ICs, LEDs, Joysticks, or other hardware peripherals. When compiling an application
+ *  which makes use of one or more board drivers located in LUFA/Drivers/Board, you must also indicate what board
+ *  hardware you are using in your project makefile. This is done by defining the BOARD macro using the -D switch
+ *  passed to the compiler, with a constant of BOARD_{Name}. For example <b>-DBOARD=BOARD_USBKEY</b> instructs the
+ *  compiler to use the USBKEY board hardware drivers.
+ *
+ *  If your application does not use *any* board level drivers, you can ommit the definition of the BOARD macro.
+ *  However, some users may wish to write their own custom board hardware drivers which are to remain compatible
+ *  with the LUFA hardware API. To do this, the BOARD macro should be defined to the value BOARD_USER. This indicates
+ *  that the board level drivers should be located in a folder named "Board" located inside the application's folder.
+ *
+ *  When used, the driver stub files located in the DriverStubs folder should be copied to the user Board directory,
+ *  and fleshed out to include the values and code needed to control the custom board hardware. Once done, the existing
+ *  LUFA board level APIs (accessed in the regular LUFA/Drivers/Board/ folder) will redirect to the user board drivers,
+ *  maintaining code compatibility and allowing for a different board to be selected through the project makefile with
+ *  no code changes.
+ */

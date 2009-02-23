@@ -1,0 +1,167 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page TokenSummary Summary of Compile Tokens
+ *
+ *  The following lists all the possible tokens which can be defined in a project makefile, and passed to the
+ *  compiler via the -D switch, to alter the LUFA library code. These tokens may alter the library behaviour,
+ *  or remove features unused by a given application in order to save flash space.
+ *
+ *  \section Sec_SummaryNonUSBTokens Non USB Related Tokens
+ *  This section describes compile tokens which affect non-USB sections of the LUFA library.
+ *
+ *  <b>DISABLE_TERMINAL_CODES</b> - TerminalCodes.h \n
+ *  If an application contains ANSI terminal control codes listed in TerminalCodes.h, it might be desired to remove them
+ *  at compile time for use with a terminal which is non-ANSI control code aware, without modifying the source code. If
+ *  this token is defined, all ANSI control codes in the application code from the TerminalCodes.h header are removed from
+ *  the source code at compile time.
+ *
+ *  <b>NUM_BLOCKS</b> - DynAlloc.h \n
+ *  Sets the number of allocable blocks in the psudo-heap of the dynamic memory allocation driver. This should be
+ *  defined as a constant larger than zero.
+ *
+ *  <b>BLOCK_SIZE</b> - DynAlloc.h \n
+ *  Sets the size of each allocable block in the psudo-heap of the dynamic memory allocation driver. This should be
+ *  defined as a constant larger than zero.
+ *
+ *  <b>NUM_HANDLES</b> - DynAlloc.h \n
+ *  Sets the maximum number of managed memory handles which can be handed out by the dynamic memory allocation driver
+ *  simultaneously, before a handle (and its associated allocated memory) must be freed.
+ *
+ *  \section Sec_SummaryUSBClassTokens USB Class Driver Related Tokens
+ *  This section describes compile tokens which affect USB class-specific drivers in the LUFA library.
+ *
+ *  <b>HID_ENABLE_FEATURE_PROCESSING</b> - HIDParser.h \n
+ *  Define this token to enable the processing of FEATURE HID report items, if any, into the processed HID structure.
+ *  By default FEATURE items (which are device features settable by the host but not directly visible by the user) are
+ *  skipped when processing a device HID report.
+ *
+ *  <b>HID_INCLUDE_CONSTANT_DATA_ITEMS</b> - HIDParser.h \n
+ *  By default, constant data items (usually used as spacers to align seperate report items to a byte or word boundary)
+ *  in the HID report are skipped during report processing. It is highly unusual for an application to make any use of
+ *  constant data items (as they do not carry any useful data and only occupy limited RAM) however if required defining
+ *  this switch will put constant data items into the processed HID report structure.
+ *
+ *  <b>HID_STATETABLE_STACK_DEPTH</b> - HIDParser.h \n
+ *  HID reports may contain PUSH and POP elements, to store and retrieve the current HID state table onto a stack. This
+ *  allows for reports to save the state table before modifying it slightly for a data item, and then restore the previous
+ *  state table in a compact manner. This token may be defined to a non-zero value to give the maximum depth of the state
+ *  table stack. If not defined, this defaults to the value indicated in the HID.h file documentation.
+ *
+ *  <b>HID_USAGE_STACK_DEPTH</b> - HIDParser.h \n
+ *  HID reports generally contain many USAGE elements, which are assigned to INPUT, OUTPUT and FEATURE items in succession
+ *  when multiple items are defined at once (via REPORT COUNT elements). This allows for several items to be defined with
+ *  different usages in a compact manner. This token may be defined to a non-zero value to set the maximum depth of the
+ *  usage stack, indicating the maximum number of USAGE items which can be stored tempoarily until the next INPUT, OUTPUT
+ *  and FEATURE item. If not defined, this defaults to the value indicated in the HID.h file documentation.
+ *
+ *  <b>HID_MAX_COLLECTIONS</b> - HIDParser.h \n
+ *  HID reports generally contain several COLLECTION elements, used to group related data items together. Collection information
+ *  is stored seperately in the processed usage structure (and referred to by the data elements in the structure) to save space.
+ *  This token may be defined to a non-zero value to set the maximum number of COLLECTION items which can be processed by the
+ *  parser into the resultant processed report structure. If not defined, this defaults to the value indicated in the HID.h file
+ *  documentation.
+ *
+ *  <b>HID_MAX_REPORTITEMS</b> - HIDParser.h \n
+ *  All HID reports contain one or more INPUT, OUTPUT and/or FEATURE items describing the data which can be sent to and from the HID
+ *  device. Each item has associated usages, bit offsets in the item reports and other associated data indicating the manner in which
+ *  the report data should be interpreted by the host. This token may be defined to a non-zero value to set the maximum number of
+ *  data elements which can be stored in the processed HID report strucuture, including INPUT, OUTPUT and (if enabled) FEATURE items.
+ *  If a item has a multiple count (i.e. a REPORT COUNT of more than 1), each item in the report count is placed seperately in the
+ *  processed HID report table. If not defined, this defaults to the value indicated in the HID.h file documentation.
+ *
+ *  \section Sec_SummaryUSBTokens USB Driver Related Tokens
+ *  This section describes compile tokens which affect USB driver stack as a whole in the LUFA library.
+ *
+ *  <b>USE_RAM_DESCRIPTORS</b> - StdDescriptors.h \n
+ *  Define this token to indicate to the USB driver that device descriptors are stored in RAM, rather than the default of
+ *  the AVR's flash. RAM descriptors may be desirable in applications where speed or minimizing flash usage is more important
+ *  than RAM usage, or applications where the descriptors need to be modified at runtime.
+ *
+ *  <b>USE_EEPROM_DESCRIPTORS</b> - StdDescriptors.h \n
+ *  Similar to USE_RAM_DESCRIPTORS, but descriptors are stored in the AVR's EEPROM memory rather than RAM.
+ *
+ *  <b>USE_NONSTANDARD_DESCRIPTOR_NAMES</b> - StdDescriptors.h \n
+ *  The USB 2.0 standard gives some rather obscure names for the elements in the standard descriptor types (device, configuration,
+ *  string, endpoint, etc.). By default the LUFA library uses these names in its predefined descriptor structure types for
+ *  compatibility. If this token is defined, the structure element names are switched to the LUFA-specific but more descriptive
+ *  names documented in the StdDescriptors.h source file.
+ *
+ *  <b>FIXED_CONTROL_ENDPOINT_SIZE</b> - Endpoint.h \n
+ *  By default, the library determines the size of the control endpoint (when in device mode) by reading the device descriptor.
+ *  Normally this reduces the amount of configuration required for the library, allows the value to change dynamically (if
+ *  descriptors are stored in EEPROM or RAM rather than flash memory) and reduces code maintenance. However, this token can be
+ *  defined to a non-zero value instead to give the size in bytes of the control endpoint, to reduce the size of the compiled
+ *  binary at the expense of flexibility.
+ *
+ *  <b>STATIC_ENDPOINT_CONFIGURATION</b> - Endpoint.h \n
+ *  By default, the endpoint configuration routine is designed to accept dynamic inputs, so that the endpoints can be configured
+ *  using variable values known only at runtime. This allows for a great deal of flexibility, however uses a small amount of binary
+ *  space which may be wasted if all endpoint configurations are static and known at compile time. Define this token via the -D switch
+ *  to optimize the endpoint configuration routine for constant inputs, to reduce the size of the compiled binary at the expense of
+ *  flexibility. Note that with this option dynamic values may still be used, but will result in many times more code to be generated than
+ *  if the option was disabled. This is designed to be used only if the FIXED_CONTROL_ENDPOINT_SIZE option is also used.
+ *
+ *  <b>USE_SINGLE_DEVICE_CONFIGURATION</b> - DevChapter9.h \n
+ *  By default, the library determines the number of configurations a USB device supports by reading the device descriptor. This reduces
+ *  the amount of configuration required to set up the library, and allows the value to change dynamically (if descriptors are stored in
+ *  EEPROM or RAM rather than flash memory) and reduces code maintenance. However, many USB device projects use only a single configuration.
+ *  Defining this token enables single-configuration mode, reducing the compiled size of the binary at the expense of flexibility.
+ *
+ *  <b>NO_CLEARSET_FEATURE_REQUEST</b> - DevChapter9.h \n
+ *  In some limited USB device applications, the Get Feature and Set Feature requests are not used - this is when the device does not have
+ *  device level features (such as remote wakeup) nor any data endpoints beyond the mandatory control endpoint. In such limited situations,
+ *  this token may be defined to remove the handling of the Get Feature and Set Feature Chapter 9 requests to save space. Generally, this
+ *  is usually only useful in (some) bootloaders.
+ *
+ *  <b>NO_STREAM_CALLBACKS</b> - Endpoint.h, Pipe.h \n
+ *  Both the endpoint and the pipe driver code contains stream functions, allowing for arrays of data to be sent to or from the
+ *  host easily via a single function call (rather than complex routines worrying about sending full packets, waiting for the endpoint/
+ *  pipe to become ready, etc.). By default, these stream functions require a callback function which is executed after each byte processed,
+ *  allowing for early-aborts of stream transfers by the application. If callbacks are not required in an application, they can be removed
+ *  by defining this token, reducing the compiled binary size. When removed, the stream functions no longer accept a callback function as
+ *  a parameter.
+ *
+ *  <b>USB_HOST_TIMEOUT_MS</b> - Host.h \n
+ *  When a control transfer is initiated in host mode to an attached device, a timeout is used to abort the transfer if the attached
+ *  device fails to respond within the timeout period. This token may be defined to a non-zero value to set the timeout period for
+ *  control transfers, specified in milliseconds. If not defined, the default value specified in Host.h is used instead.
+ *
+ *  <b>HOST_DEVICE_SETTLE_DELAY_MS</b> - Host.h \n
+ *  Some devices require a delay of up to 5 seconds after they are connected to VBUS before the enumeration process can be started, or
+ *  they will fail to enumerate correctly. By placing a delay before the enumeration process, it can be ensured that the bus has settled
+ *  back to a known idle state before communications occur with the device. This token may be defined to a non-zero value to set the
+ *  device settle period, specified in milliseconds. If not defined, the default value specified in Host.h is used instead.
+ *
+ *  <b>USE_STATIC_OPTIONS</b> - LowLevel.h \n
+ *  By default, the USB_Init() function accepts dynamic options at runtime to alter the library behaviour, including whether the USB pad
+ *  voltage regulator is enabled, and the device speed when in device mode. By defining this token to a mask comprised of the USB options
+ *  mask defines usually passed as the Options parameter to USB_Init(), the resulting compiled binary can be decreased in size by removing
+ *  the dynamic options code, and replacing it with the statically set options. When defined, the USB_Init() function no longer accepts an
+ *  Options parameter.
+ *
+ *  <b>USB_DEVICE_ONLY</b> - LowLevel.h \n
+ *  For the USB AVR models supporting both device and host USB modes, the USB_Init() function contains a Mode parameter which specifies the
+ *  mode the library should be initialized to. If only device mode is required, the code for USB host mode can be removed from the binary to
+ *  save space. When defined, the USB_Init() function no longer accepts a Mode parameter. This define is irrelevent on smaller USB AVRs which
+ *  do not support host mode.
+ *
+ *  <b>USB_HOST_ONLY</b> - LowLevel.h \n
+ *  Same as USB_DEVICE_ONLY, except the library is fixed to USB host mode rather than USB device mode. Not available on some USB AVR models.
+ *
+ *  <b>USB_STREAM_TIMEOUT_MS</b> - LowLevel.h \n
+ *  When endpoint and/or pipe stream functions are used, by default there is a timeout between each transfer which the connected device or host
+ *  must satisfy, or the stream function aborts the remaining data transfer. This token may be defined to a non-zero value to set the timeout
+ *  period for stream transfers, specified in milliseconds. If not defined, the default value specified in LowLevel.h is used instead.
+ *
+ *  <b>NO_LIMITED_CONTROLLER_CONNECT</b> - Events.h \n
+ *  On the smaller USB AVRs, the USB controller lacks VBUS events to determine the physical connection state of the USB bus to a host. In lieu of
+ *  VBUS events, the library attempts to determine the connection state via the bus suspension and wake up events instead. This however may be
+ *  slightly inaccurate due to the possibility of the host suspending the bus while the device is still connected. If accurate connection status is
+ *  required, the VBUS line of the USB connector should be routed to an AVR pin to detect its level, so that the USB_IsConnected global
+ *  can be accurately set and the USB_Connect and USB_Disconnect events manually raised by the RAISE_EVENT macro. When defined, this token disables
+ *  the library's auto-detection of the connection state by the aformentioned suspension and wake up events.
+ */

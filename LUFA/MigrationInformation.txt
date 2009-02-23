@@ -1,0 +1,230 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page Page_Migration Migrating from Older Versions
+ *
+ *  Below is migration information for updating existing projects based on previous versions of the LUFA library
+ *  to the next version released. It does not indicate all new additions to the library in each version change, only
+ *  areas relevant to making older projects compatible with the API changes of each new release.
+ *
+ * \section Sec_MigrationXXXXXX Migrating from 090209 to XXXXXX
+ *
+ *
+ * \section Sec_Migration090209 Migrating from 081217 to 090209
+ *
+ *  <b>Device Mode</b>
+ *    - The ENDPOINT_MAX_ENDPOINTS constant has been renamed to the more appropriate name of ENDPOINT_TOTAL_ENDPOINTS.
+ *    - The USB_STREAM_TIMEOUT_MS stream timeout default period has been extended to 100ms. This can be overridden in the user
+ *      makefile if desired to restore the previous 50ms timeout.
+ *
+ *  <b>Host Mode</b>
+ *    - The PIPE_MAX_ENDPOINTS constant has been renamed to the more appropriate name of PIPE_TOTAL_ENDPOINTS.
+ *    - The USB_STREAM_TIMEOUT_MS stream timeout default period has been extended to 100ms. This can be overridden in the user
+ *      makefile if desired to restore the previous 50ms timeout.
+ *    - The USB_DeviceEnumerationFailed event now contains a second "SubErrorCode" parameter, giving the error code of the function
+ *      which failed.
+ *    - The HID_PARSE_Sucessful enum member constant has been corrected to HID_PARSE_Successful.
+ *
+ *  <b>Non-USB Library Components</b>
+ *    - The previous SPI_SendByte() functionality is now located in SPI_TransferByte(). SPI_SendByte() now discards the return byte
+ *      for speed, to compliment the new SPI_ReceiveByte() function. If two-way SPI transfers are required, calls to SPI_SendByte()
+ *      should be changed to SPI_TransferByte().
+ *    - The serial driver now sets the Tx line as an output explicitly, and enables the pullup of the Rx line.
+ *    - The Serial_Init() and SerialStream_Init() functions now take a second DoubleSpeed parameter, which indicates if the USART
+ *      should be initialized in double speed mode - useful in some circumstances for attaining baud rates not usually possible at
+ *      the given AVR clock speed.
+ *
+ *  <b>Library Demos</b>
+ *    - Most library demos have been enhanced and/or had errors corrected. All users of all demos should upgrade their codebase to
+ *      the latest demo versions.
+ *
+ * \section Sec_Migration171208 Migrating from V1.5.3 to 081217
+ *
+ *  <b>All</b>
+ *    - The MyUSB project name has been changed to LUFA (Lightweight Framework for USB AVRs). All references to MyUSB, including macro names,
+ *      have been changed to LUFA.
+ *
+ *  <b>Library Demos</b>
+ *    - The ReconfigureUSART() routine in the USBtoSerial demo was not being called after new line encoding
+ *      parameters were set by the host. Projects built on the USBtoSerial code should update to the latest version.
+ *    - The HID Parser now supports multiple report (on a single endpoint) HID devices. The MouseHostWithParser and
+ *      KeyboardHostWithPaser demos use the updated API functions to function correctly on such devices. Projects
+ *      built on either "WithParser" demo should update to the latest code.
+ *    - The RNDIS demo TCP stack has been modified so that connections can be properly closed. It is still not
+ *      recommended that the MyUSB RNDIS demo TCP/IP stack be used for anything other than demonstration purposes,
+ *      as it is neither a full nor a standards compliant implementation.
+ *
+ *  <b>Non-USB Library Components</b>
+ *    - The Serial_IsCharRecieved() macro has been changed to the correct spelling of Serial_IsCharReceived() in Serial.h.
+ *
+ *  <b>Device Mode</b>
+ *    - The MANUAL_PLL_CONTROL compile time token has been removed, and replaced with a USB_OPT_MANUAL_PLL mask
+ *      to be used in the Options parameter of the USB_Init() function.
+ *    - Calling USB_Init() now forces a complete USB interface reset and enumeration, even if the USB interface is
+ *      currently initialized.
+ *    - Interrupts are now disabled when processing control requests, to avoid problems with interrupts causing the library
+ *      or user request processing code to exceed the strict USB timing requirements on control transfers.
+ *    - The USB Reset event now resets and disables all device endpoints. If user code depends on endpoints remaining configured
+ *      after a Reset event, it should be altered to explicitly re-initialize all user endpoints.
+ *    - The prototype for the GetDescriptor function has been changed, as the return value was redundant. The function now
+ *      returns the size of the descriptor, rather than passing it back via a parameter, or returns NO_DESCRIPTOR if the specified
+ *      descriptor does not exist.
+ *    - The NO_DESCRIPTOR_STRING macro has been renamed NO_DESCRIPTOR, and is now also used as a possible return value for the
+ *      GetDescriptor function.
+ *
+ *  <b>Host Mode</b>
+ *    - The MANUAL_PLL_CONTROL compile time token has been removed, and replaced with a USB_OPT_MANUAL_PLL mask
+ *      to be used in the Options parameter of the USB_Init() function.
+ *    - The HID report parser now supports multiple Report IDs. The HID report parser GetReportItemInfo() and
+ *      SetReportItemInfo() routines now return a boolean, set if the requested report item was located in the
+ *      current report. If sending a report to a multi-report device, the first byte of the report is automatically
+ *      set to the report ID of the given report item.
+ *    - Calling USB_Init() now forces a complete USB interface reset and enumeration, even if the USB interface is
+ *      currently initialized.
+ *
+ *
+ * \section Sec_Migration152 Migrating from V1.5.2 to V1.5.3
+ *
+ *  <b>Library Demos</b>
+ *    - Previously, all demos contained a serial number string descriptor, filled with all zeros. A serial number
+ *      string is required in Mass Storage devices, or devices which are to retain settings when moved between
+ *      ports on a machine. As people were not changing the serial number value, this was causing conflicts and so
+ *      the serial number descriptor has been removed from all but the Mass Storage demo, which requires it.
+ *    - The AudioOut and AudioIn demos did not previously silence their endpoints when the host has deactivated
+ *      them. Projects built upon either demo should upgrade to the latest code.
+ *    - The FEATURE_ENDPOINT macro has been renamed FEATURE_ENDPOINT_HALT, and is now correctly documented.
+ *    - The MassStoreHost demo contained errors which caused it to lock up randomly on certain devices. Projects built
+ *      on the MassStoreDemo code should update to the latest version.
+ *    - The Interrupt type endpoint in the CDC based demos previously had a polling interval of 0x02, which caused
+ *      problems on some Linux systems. This has been changed to 0xFF, projects built on the CDC demos should upgrade
+ *      to the latest code.
+ *    - The HID keyboard and mouse demos were not previously boot mode compatible. To enable boot mode support, projects
+ *      built on the keyboard or mouse demos (or derivatives) should upgrade to the latest code.
+ *    - The Mass Storage demo was not previously standards compliant. Projects built on the Mass Storage demo should
+ *      upgrade to the latest code.
+ *    - The USART was not being reconfigured after the host sent new encoding settings in the USBtoSerial demo. This was
+ *      previously discovered and fixed, but the change was lost. Projects built on the USBtoSerial demo should update
+ *      to the latest code.
+ *
+ *  <b>Device Mode</b>
+ *    - The endpoint non-control stream functions now have a default timeout of 50ms between packets in the stream.
+ *      If this timeout is exceeded, the function returns the new ENDPOINT_RWSTREAM_ERROR_Timeout error value. The
+ *      timeout value can be overridden by defining the USB_STREAM_TIMEOUT_MS in the project makefile to the desired
+ *      timeout duration in ms.
+ *    - Rather than returning fixed values, the flags indicating if the device has Remote Wakeup currently enabled
+ *      and/or is self-powered are now accessed and set through the new USB_RemoteWakeupEnabled and
+ *      USB_CurrentlySelfPowered macros. See the DevChapter9.h documentation for more details.
+ *    - All endpoint stream functions now require an extra Callback function parameter. Existing code may be updated
+ *      to either supply NO_STREAM_CALLBACK as the extra parameter, or disable stream callbacks altogether by pasing
+ *      the token NO_STREAM_CALLBACKS to the compiler using the -D switch.
+ *
+ *  <b>Host Mode</b>
+ *    - The pipe non-control stream functions now have a default timeout of 50ms between packets in the stream.
+ *      If this timeout is exceeded, the function returns the new PIPE_RWSTREAM_ERROR_Timeout error value. The
+ *      timeout value can be overridden by defining the USB_STREAM_TIMEOUT_MS in the project makefile to the desired
+ *      timeout duration in ms.
+ *    - CollectionPath_t has been renamed to HID_CollectionPath_t to be more in line with the other HID parser structures.
+ *    - All pipe stream functions now require an extra Callback function parameter. Existing code may be updated
+ *      to either supply NO_STREAM_CALLBACK as the extra parameter, or disable stream callbacks altogether by pasing
+ *      the token NO_STREAM_CALLBACKS to the compiler using the -D switch.
+ *
+ *
+ * \section Sec_Migration151 Migrating from V1.5.1 to V1.5.2
+ *
+ *  <b>Library Demos</b>
+ *    - The RNDIS demo application has been updated so that it is functional on Linux under earlier implementations
+ *      of the RNDIS specification, which had non-standard behaviour. Projects built upon the demo should upgrade
+ *      to the latest code.
+ *    - The DFU class bootloader has had several bugs corrected in this release. It is recommended that where
+ *      possible any existing devices upgrade to the latest bootloader code.
+ *
+ *
+ * \section Sec_Migration150 Migrating from V1.5.0 to V1.5.1
+ *
+ *  <b>Library Demos</b>
+ *    - The USBtoSerial demo was broken in the 1.5.0 release, due to incorrect register polling in place of the
+ *      global "Transmitting" flag. The change has been reverted in this release. Projects built upon the demo
+ *      should upgrade to the latest code.
+ *    - The HID class demos did not implement the mandatory GetReport HID class request. Projects built upon the HID
+ *      demos should upgrade to the latest code.
+ *    - The HID class demos incorrectly reported themselves as boot-protocol enabled HID devices in their descriptors.
+ *      Projects built upon the HID demos should upgrade to the latest code.
+ *    - The MIDI device demo had incorrect AudioStreaming interface descriptors. Projects built upon the MIDI demo
+ *      should upgrade to the latest code.
+ *    - The AudioOut demo did not correctly tristate the speaker pins when USB was disconnected, wasting power.
+ *      Projects built upon the AudioOut demo should upgrade to the latest code.
+ *
+ *
+ * \section Sec_Migration141 Migrating from V1.4.1 to V1.5.0
+ *
+ *  <b>Library Demos</b>
+ *    - Previous versions of the library demos had incorrectly encoded BCD version numbers in the descriptors. To
+ *      avoid such mistakes in the future, the VERSION_BCD macro has been added to StdDescriptors.h. Existing
+ *      projects should at least manually correct the BCD version numbers, or preferably update the descriptors to
+ *      encode the version number in BCD format using the new macro.
+ *    - The mandatory GetReport class-specific request was accidentally ommitted from previous versions of the demos
+ *      based on the Human Interface Device (HID) class. This has been corrected, and any user projects based on the
+ *      HID demos should also be updated accordingly.
+ *    - The CDC demos now correctly send an empty packet directly after a full packet, to end the transmission.
+ *      Failure to do this on projects which always or frequently send full packets will cause buffering issues on
+ *      the host OS. All CDC user projects are advised to update their transmission routines in the same manner as
+ *      the library CDC demos.
+ *    - The previous interrupt-driven Endpoint/Pipe demos did not properly save and restore the currently selected
+ *      Endpoint/Pipe when the ISR fired. This has been corrected - user projects based on the interrupt driven
+ *      demos should also update to properly save and restore the selected Endpoint/Pipe.
+ *
+ *  <b>Non-USB Library Components</b>
+ *    - The Atomic.h and ISRMacro.h header files in MyUSB/Common have been removed, as the library is now only
+ *      compatible with avr-libc library versions newer than the time before the functionality of the deleted
+ *      headers was available.
+ *
+ *  <b>Device Mode</b>
+ *    - The GetDescriptor function (see StdDescriptors.h) now has a new prototype, with altered parameter names and
+ *      functions. Existing projects will need to update the GetDescriptor implementation to reflect the new API.
+ *      The previously split Type and Index parameters are now passed as the original wValue parameter to the
+ *      function, to make way for the USB specification wIndex parameter which is <i>not</i> the same as the
+ *      previous Index parameter.
+ *    - The USB_UnhandledControlPacket event (see Events.h) now has new parameter names, to be in line with the
+ *      official USB specification. Existing code will need to be altered to use the new parameter names.
+ *    - The USB_CreateEndpoints event (see Events.h) has been renamed to USB_ConfigurationChanged, which is more
+ *      appropriate. It fires in an identical manner to the previously named event, thus the only change to be made
+ *      is the event name itself in the user project.
+ *    - The USB_Descriptor_Language_t structure no longer exists in StdDescriptors.h, as this was a
+ *      psudo-descriptor modelled on the string descriptor. It is replaced by the true USB_Descriptor_String_t type
+ *      descriptor as indicated in the USB specification, thus all device code must be updated accordingly.
+ *    - The names of several Endpoint macros have been changed to be more consistant with the rest of the library,
+ *      with no implementation changes. This means that existing code can be altered to use the new macro names
+ *      with no other considerations required. See Endpoint.h for the new macro names.
+ *    - The previous version of the MassStorage demo had an incorrect value in the SCSI_Request_Sense_Response_t
+ *      strucuture named SenseData in SCSI.c which caused some problems with some hosts. User projects based on this
+ *      demo should correct the structure value to maintain compatibility across multiple OS platforms.
+ *    - By default, the descriptor structures use the official USB specification names for the elements. Previous
+ *      versions of the library used non-standard (but more verbose) names, which are still usable in the current
+ *      and future releases when the correct compile time option is enabled. See the StdDescriptors.h file
+ *      documentation for more details.
+ *
+ *  <b>Host Mode</b>
+ *    - The USB_Host_Request_Header_t structure in HostChapter9.h (used for issuing control requests) has had its
+ *      members renamed to the official USB specification names for requests. Existing code will need to be updated
+ *      to use the new names.
+ *    - The names of several Pipe macros have been changed to be more consistant with the rest of the library,
+ *      with no implementation changes. This means that existing code can be altered to use the new macro names
+ *      with no other considerations required. See Pipe.h for the new macro names.
+ *    - By default, the descriptor structures use the official USB specification names for the elements. Previous
+ *      versions of the library used non-standard (but more verbose) names, which are still usable in the current
+ *      and future releases when the correct compile time option is enabled. See the StdDescriptors.h file
+ *      documentation for more details.
+ *    - The names of the macros in Host.h for controlling the SOF generation have been renamed, see the Host.h
+ *      module documentation for the new macro names.
+ *
+ *  <b>Dual Role Mode</b>
+ *    - The OTG.h header file has been corrected so that the macros now perform their stated functions. Any existing
+ *      projects using custom headers to fix the broken OTG header should now be altered to once again use the OTG
+ *      header inside the library.
+ *    - The USB_DeviceEnumerationComplete event (see Events.h) now also fires in Device mode, when the host has
+ *      finished enumerating the device. Projects relying on the event only firing in Host mode should be updated
+ *      so that the event action only ocurrs when the USB_Mode global is set to USB_MODE_HOST.
+ */

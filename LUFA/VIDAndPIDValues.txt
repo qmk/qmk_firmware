@@ -1,0 +1,224 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page Page_VIDPID VID and PID values
+ *
+ *  The LUFA library uses VID/PID combinations generously donated by Atmel. The following VID/PID combinations
+ *  are used within the LUFA demos, and thus may be re-used by derivations of each demo. Free PID values may be
+ *  used by future LUFA demo projects.
+ *
+ *  These VID/PID values should not be used in commercial designs under any circumstances. Private projects may
+ *  use the following values freely, but must accept any collisions due to other LUFA derived private projects
+ *  sharing identical values. It is suggested that private projects using interfaces compatible with existing
+ *  demos share the save VID/PID value.
+ *
+ *  <table>
+ *
+ *   <tr>
+ *    <td>
+ *     <b>VID</b>
+ *    </td>
+ *    <td>
+ *     <b>PID</b>
+ *    </td>
+ *    <td>
+ *     <b>Usage</b>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2040
+ *    </td>
+ *    <td>
+ *     Test Application
+ *    </td>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2041
+ *    </td>
+ *    <td>
+ *     Mouse Demo Application (and derivatives)
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2042
+ *    </td>
+ *    <td>
+ *     Keyboard Demo Application (and derivatives)
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2043
+ *    </td>
+ *    <td>
+ *     Joystick Demo Application
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2044
+ *    </td>
+ *    <td>
+ *     CDC Demo Application
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2045
+ *    </td>
+ *    <td>
+ *     Mass Storage Demo Application
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2046
+ *    </td>
+ *    <td>
+ *     Audio Output Demo Application
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2047
+ *    </td>
+ *    <td>
+ *     Audio Input Demo Application
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2048
+ *    </td>
+ *    <td>
+ *     MIDI Demo Application
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2049
+ *    </td>
+ *    <td>
+ *     MagStripe Project
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x204A
+ *    </td>
+ *    <td>
+ *     CDC Bootloader
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x204B
+ *    </td>
+ *    <td>
+ *     USB to Serial Demo Application
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x204C
+ *    </td>
+ *    <td>
+ *     RNDIS Demo Application
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x204D
+ *    </td>
+ *    <td>
+ *     Keyboard and Mouse Combination Demo Application
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x204E
+ *    </td>
+ *    <td>
+ *     Dual CDC Demo Application
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x204F
+ *    </td>
+ *    <td>
+ *     AVRISP Programmer Project
+ *    </td>
+ *   </tr>
+ *
+ *  </table>
+ */

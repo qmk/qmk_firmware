@@ -1,0 +1,22 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page Page_BuildLibrary Building as a Linkable Library
+ *
+ *  The LUFA library can be built as a proper linkable library (with the extention .a) under AVR-GCC, so that
+ *  the library does not need to be recompiled with each revision of a user project. Instructions for creating
+ *  a library from a given source tree can be found in the AVR-GCC user manual included in the WinAVR install
+ *  /Docs/ directory.
+ *
+ *  However, building the library is <b>not recommended</b>, as the static (compile-time) options will be
+ *  unable to be changed without a recompilation of the LUFA code. Therefore, if the library is to be built
+ *  from the LUFA source, it should be made to be application-specific and compiled with the static options
+ *  that are required for each project (which should be recorded along with the library).
+ *
+ *  Normal library use has the library components compiled in at the same point as the application code, as
+ *  demonstrated in the library demos and applications. This is the preferred method, as the library is recompiled
+ *  each time to ensure that all static options for a particular application are applied.
+ */
