@@ -1,0 +1,104 @@
+ubuntu@ubuntu:~/LUFA/Bootloaders/LUFA_DFU_Bootloader_AT90USB162$  sudo avrdude -vv -F -P /dev/ttyACM0 -c avr910 -p usb162 -U flash:w:BootloaderDFU.hex
+
+avrdude: Version 5.5, compiled on May  9 2008 at 13:04:46
+         Copyright (c) 2000-2005 Brian Dean, http://www.bdmicro.com/
+
+         System wide configuration file is "/etc/avrdude.conf"
+         User configuration file is "/home/ubuntu/.avrduderc"
+         User configuration file does not exist or is not a regular file, skipping
+
+         Using Port            : /dev/ttyACM0
+         Using Programmer      : avr910
+         AVR Part              : AT90USB162
+         Chip Erase delay      : 9000 us
+         PAGEL                 : PD7
+         BS2                   : PA0
+         RESET disposition     : dedicated
+         RETRY pulse           : SCK
+         serial program mode   : yes
+         parallel program mode : yes
+         Timeout               : 200
+         StabDelay             : 100
+         CmdexeDelay           : 25
+         SyncLoops             : 32
+         ByteDelay             : 0
+         PollIndex             : 3
+         PollValue             : 0x53
+         Memory Detail         :
+
+                                  Block Poll               Page                       Polled
+           Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+           eeprom        65    10     8    0 no        512    4      0  9000  9000 0x00 0x00
+           flash         65     6   128    0 yes     16384  128    128  4500  4500 0x00 0x00
+           lfuse          0     0     0    0 no          1    0      0  9000  9000 0x00 0x00
+           hfuse          0     0     0    0 no          1    0      0  9000  9000 0x00 0x00
+           efuse          0     0     0    0 no          1    0      0  9000  9000 0x00 0x00
+           lock           0     0     0    0 no          1    0      0  9000  9000 0x00 0x00
+           calibration    0     0     0    0 no          1    0      0     0     0 0x00 0x00
+           signature      0     0     0    0 no          3    0      0     0     0 0x00 0x00
+
+         Programmer Type : avr910
+         Description     : Atmel Low Cost Serial Programmer
+
+Found programmer: Id = "AVR ISP"; type = S
+    Software Version = 2.3; Hardware Version = 1.0
+Programmer supports auto addr increment.
+
+Programmer supports the following devices:
+    Device code: 0x55 = ATtiny12
+    Device code: 0x56 = ATtiny15
+    Device code: 0x5e = ATtiny2313
+    Device code: 0x76 = ATMEGA8
+    Device code: 0x74 = ATMEGA6450
+    Device code: 0x72 = ATMEGA32
+    Device code: 0x45 = ATMEGA64
+    Device code: 0x74 = ATMEGA6450
+    Device code: 0x43 = ATMEGA128
+    Device code: 0x63 = ATMEGA162
+    Device code: 0x78 = ATMEGA169
+    Device code: 0x6c = AT90S4434
+    Device code: 0x38 = AT90S8515
+    Device code: 0x65 = (unknown)
+
+avrdude: warning: selected device is not supported by programmer: usb162
+avrdude: AVR device initialized and ready to accept instructions
+
+Reading | ################################################## | 100% 0.00s
+
+avrdude: Device signature = 0x1e9482
+avrdude: safemode: lfuse reads as 5E
+avrdude: safemode: hfuse reads as D9
+avrdude: safemode: efuse reads as F4
+avrdude: NOTE: FLASH memory has been specified, an erase cycle will be performed
+         To disable this feature, specify the -D option.
+avrdude: erasing chip
+avrdude: reading input file "BootloaderDFU.hex"
+avrdude: input file BootloaderDFU.hex auto detected as Intel Hex
+avrdude: writing flash (16066 bytes):
+
+Writing | ################################################## | 100% 33.39s
+
+
+
+avrdude: 16066 bytes of flash written
+avrdude: verifying flash memory against BootloaderDFU.hex:
+avrdude: load data flash data from input file BootloaderDFU.hex:
+avrdude: input file BootloaderDFU.hex auto detected as Intel Hex
+avrdude: input file BootloaderDFU.hex contains 16066 bytes
+avrdude: reading on-chip flash data:
+
+Reading | ################################################## | 100% 16.07s
+
+
+
+avrdude: verifying ...
+avrdude: 16066 bytes of flash verified
+
+avrdude: safemode: lfuse reads as 5E
+avrdude: safemode: hfuse reads as D9
+avrdude: safemode: efuse reads as F4
+avrdude: safemode: Fuses OK
+
+avrdude done.  Thank you.
+

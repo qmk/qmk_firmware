@@ -1,0 +1,176 @@
+Instructions for converting the LUFA USBtoSerial Demo to an AVR ISP Programmer.
+By Opendous Inc., Copyright under the Creative Commons Attribution License:
+http://creativecommons.org/licenses/by/3.0/
+
+1) Start with the LUFA/Demos/USBtoSerial firmware.
+    - rename USBtoSerial.c, USBtoSerial.h, and USBtoSerial.aps to
+      AVRISP_Programmer.*
+    - edit AVRISP_Programmer.aps and rename all instances of "USBtoSerial" to
+      "AVRISP_Programmer"
+    - copy AVRISP_Programmer.txt from an older version of AVRISP_Programmer
+
+2) Edit makefile by changing TARGET from "USBtoSerial" to "AVRISP_Programmer"
+
+3) Edit AVRISP_Programmer.h:
+    - change ifdef _USB_TO_SERIAL_H to _AVRISP_PROGRAMMER_H_
+    - rename ReconfigureUSART(void) to ReconfigureSPI(void)
+    - add  void processHostSPIRequest(void);  &  void delay_ms(uint8_t dly);
+    - replace the define for Serial.h with one for SPI.h:
+      #include <libs/LUFA/Drivers/AT90USBXXX/SPI.h>
+
+4) Make alterations to Descriptors.c
+    - change manufacturer string to "www.AVRopendous.org", length=19
+    - change product string to "LUFA-Based AVR ISP Programmer", length=29
+
+5) Edit Ringbuff.h to enable the Peek Command:  #define BUFF_USEPEEK
+
+6) Edit AVRISP_Programmer.c:
+    - change #include "USBtoSerial.h"  to  #include "AVRISP_Programmer.h"
+    - change BUTTLOADTAG(ProjName to "LUFA AVR910 ISP Programmer"
+    - in main(), rename ReconfigureUSART() to Reconfigure();
+    - in EVENT_HANDLER(USB_UnhandledControlPacket), rename ReconfigureUSART
+    - delete the ISRs: ISR(USART1_RX_vect)  &  ISR(USART1_TX_vect)
+    - delete ReconfigureUSART(void)
+    - add  void ReconfigureSPI(void),  void processHostSPIRequest(void),
+      and  void delay_ms(uint8_t dly)  from a previous version
+    - add Timer1 and SPI initialization code to main():
+	    /* Hardware Initialization */
+	    //LEDs_Init();
+	    DDRB = 0;
+	    PORTB = 0;
+	    DDRC |= ((1 << PC2) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)); //AT90USBxx2
+	    // PC2 is also used for RESET, so set it HIGH initially - note 'P' command sets it to LOW (Active)
+	    PORTC |= ((1 << PC2) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)); //AT90USBxx2
+	    DDRD = 0;
+	    PORTD = (1 << PB7); // only PB7(HWB) should be High as this is the bootloader pin
+	    // Prepare PortB for SPI - set PB0(^SS), PB1(SCK), PB2(MOSI) as output as well as all other pins except PB3(MISO)
+	    DDRB = (1 << PB0) | (1 << PB1) | (1 << PB2) | (0 << PB3) | (1 << PB4) | (1 << PB5) | (1 << PB6) | (1 << PB7);
+	    PORTB |= (1 << PB0);
+
+	    // initialize Timer1 for use in delay function
+	    TCCR1A = 0;
+	    //TCCR1B = (1 << CS10); // no prescaling, use CLK
+	    TCCR1B = ((1 << CS12) | (1 << CS10)); // prescale by CLK/1024
+	    // 8MHz/1024 = 7813 ticks per second --> ~8 ticks per millisecond (ms)
+	    timerval = TCNT1; // start timer1
+
+    - In TASK(CDC_Task) in the
+        if (USB_IsConnected) {
+            if (Endpoint_ReadWriteAllowed()) {
+                while (Endpoint_BytesInEndpoint()) {
+                    ...
+      structure, after  Buffer_StoreElement(&Rx_Buffer, Endpoint_Read_Byte()):
+
+        /* Each time there is an element, check which comand should be
+	        run and if enough data is available to run that command.
+	        There are 1-byte, 2-byte, 3-byte, 4-byte commands, and 5-byte commands
+	        Remember that the "which command" byte counts as 1 */
+        if (Rx_Buffer.Elements == 0) {
+	        // do nothing, wait for data
+        } else {
+	        tempByte = Buffer_PeekElement(&Rx_Buffer); // peek at first element
+
+		        /* make sure the issued command and associated data are all ready */
+	        if (Rx_Buffer.Elements == 1) { // zero data byte command
+		        if ((tempByte == 'P') | (tempByte == 'a') | (tempByte == 'm') |
+		        (tempByte == 'R') | (tempByte == 'd') | (tempByte == 'e') |
+		        (tempByte == 'L') | (tempByte == 's') | (tempByte == 't') | 
+		        (tempByte == 'S') | (tempByte == 'V') | (tempByte == 'v') |
+		        (tempByte == 'p') | (tempByte == 'F')) {
+            	processHostSPIRequest(); // command has enough data, process it
+		        }
+	        } else if (Rx_Buffer.Elements == 2) { // one data byte command
+		        if ((tempByte == 'T') | (tempByte == 'c') | (tempByte == 'C') |
+			        (tempByte == 'D') | (tempByte == 'l') | (tempByte == 'f') |
+			        (tempByte == 'x') | (tempByte == 'y')) {
+			        processHostSPIRequest(); // command has enough data, process it
+		        }
+	        } else if (Rx_Buffer.Elements == 3) { // two data byte command
+		        if ((tempByte == 'A') | (tempByte == 'Z')) {
+			        processHostSPIRequest(); // command has enough data, process it
+		        }
+	        } else if (Rx_Buffer.Elements == 4) { // three data byte command
+		        if ((tempByte == ':')) {
+            	processHostSPIRequest(); // command has enough data, process it
+		        }
+	        } else if (Rx_Buffer.Elements == 5) { // four data byte command
+		        if ((tempByte == '.')) {
+			        processHostSPIRequest(); // command has enough data, process it
+		        }
+	        } else {
+		        // do nothing
+	        }
+        }
+
+    - need to add code to flush the buffer.  Change:
+        /* Check if Rx buffer contains data */
+		if (Rx_Buffer.Elements)
+		{
+			/* Initiate the transmission of the buffer contents if USART idle*/
+			if (!(Transmitting))
+			{
+				Transmitting = true;
+				Serial_TxByte(Buffer_GetElement(&Rx_Buffer));
+			}
+		}
+      To:
+        /* Check if Rx buffer contains data */
+		if (Rx_Buffer.Elements)
+		{
+			/* Initiate the transmission of the buffer contents if USART idle*/
+			if (!(Transmitting))
+			{
+				Transmitting = true;
+				/* The following flushes the receive buffer to prepare for new
+                   data and commands. Need to flush the buffer as the command
+                   byte which is peeked above needs to be dealt with, otherwise
+                   the command bytes will overflow the buffer eventually */
+				//Buffer_GetElement(&Rx_Buffer); // also works
+				Buffer_Initialize(&Rx_Buffer);
+			}
+		}
+
+    - need to add the following defines and globals:
+        #define RESETPORT       PORTB
+        #define RESETPIN        PB0
+        #define RESETPORT2      PORTC
+        #define RESETPIN2       PC2
+        #define CR_HEX          '\r'
+
+        #define DELAY_VERYSHORT    0x01
+        #define DELAY_SHORT        0x02
+        #define DELAY_MEDIUM       0x03
+        #define DELAY_LONG         0x05
+        #define DELAY_MULTIPLE     0x04
+
+        /*  AVR Device Codes - Can have a maximum of 14 but can be any you want.
+            Note that these are completely irrelevent.  If AVRdude supports a
+            device, then that device is programmable.  Use -F switch to ignore
+            device codes. */
+        #define AVRDEVCODE01	0x55 /* ATtiny12 */
+        #define AVRDEVCODE02	0x56 /* ATtiny15 */
+        #define AVRDEVCODE03	0x5E /* ATtiny261 */
+        #define AVRDEVCODE04	0x76 /* ATmega8 */
+        #define AVRDEVCODE05	0x74 /* ATmega16 */
+        #define AVRDEVCODE06	0x72 /* ATmega32 */
+        #define AVRDEVCODE07	0x45 /* ATmega64 */
+        #define AVRDEVCODE08	0x74 /* ATmega644 */
+        #define AVRDEVCODE09	0x43 /* ATmega128 */
+        #define AVRDEVCODE10	0x63 /* ATmega162 */
+        #define AVRDEVCODE11	0x78 /* ATmega169 */
+        #define AVRDEVCODE12	0x6C /* AT90S4434 */
+        #define AVRDEVCODE13	0x38 /* AT90S8515A */
+        #define AVRDEVCODE14	0x65 /* AT90S8555 */
+
+        /* some global variables used throughout */
+        uint8_t tempIOreg = 0;
+        uint8_t tempIOreg2 = 0;
+        uint8_t tempIOreg3 = 0;
+        uint8_t tempIOreg4 = 0;
+        uint8_t dataWidth = 0;
+        uint8_t firstRun = 1;
+        uint8_t deviceCode = 0;
+        uint8_t tempByte = 0;
+        uint16_t currAddress = 0;
+        uint16_t timerval = 0;
+

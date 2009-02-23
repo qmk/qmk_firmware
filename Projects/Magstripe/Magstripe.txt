@@ -1,0 +1,85 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage Denver Gingerich's USBSnoop Magnetic Card Reader Project
+ * 
+ *  Firmware for a USB AVR powered USB TTL magnetic stripe reader (using a card
+ *  reader such as the Omron V3B-4K) by Denver Gingerich. This project is designed
+ *  to be used with the open source Stripe Snoop project at http://stripesnoop.sourceforge.net/.
+ * 
+ *  See http://ossguy.com/ss_usb/ for the USB reader hardware project website,
+ *  including construction and support details.
+ * 
+ *  To use, connect your magentic card reader device to the USB AVR as follows (pin and port mapping may be adjusted
+ *  from the project makefile):
+ * 
+ *  <table>
+ *   <tr>
+ *    <td><b>Signal:</b></td>
+ *    <td><b>AVR Port:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>Track 1 Data</td>
+ *    <td>PORTC, Pin 1</td>
+ *   </tr>
+ *   <tr>
+ *    <td>Track 1 Clock</td>
+ *    <td>PORTC, Pin 2</td>
+ *   </tr>
+ *   <tr>
+ *    <td>Track 2 Data</td>
+ *    <td>PORTC, Pin 3</td>
+ *   </tr>
+ *   <tr>
+ *    <td>Track 2 Clock</td>
+ *    <td>PORTC, Pin 0</td>
+ *   </tr>
+ *   <tr>
+ *    <td>Track 3 Data</td>
+ *    <td>PORTC, Pin 5</td>
+ *   </tr>
+ *   <tr>
+ *    <td>Track 3 Clock</td>
+ *    <td>PORTC, Pin 6</td>
+ *   </tr>
+ *   <tr>
+ *    <td>Card Detect</td>
+ *    <td>PORTC, Pin 4</td>
+ *   </tr>
+ *  </table>
+ *
+ * 
+ *  This project is based on the LUFA Keyboard demonstration application,
+ *  written by Denver Gingerich.
+ *
+ *  This application uses a keyboard HID driver to communicate the data collected
+ *  a TTL magnetic stripe reader to the connected computer. The raw bitstream
+ *  obtained from the magnetic stripe reader is "typed" through the keyboard
+ *  driver as 0's and 1's. After every card swipe, the demo will send a return key.
+ *
+ * <table>
+ *  <tr>
+ *   <td><b>USB Mode:</b></td>
+ *   <td>Device</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Class:</b></td>
+ *   <td>Human Interface Device (HID)</td>
+ *  </tr>
+ *  <tr> 
+ *   <td><b>USB Subclass:</b></td>
+ *   <td>Keyboard</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Relevant Standards:</b></td>
+ *   <td>USBIF HID Standard, USBIF HID Usage Tables</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Usable Speeds:</b></td>
+ *   <td>Low Speed Mode, Full Speed Mode</td>
+ *  </tr>
+ * </table>
+ */
