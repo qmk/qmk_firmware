@@ -19,6 +19,8 @@
   *    slowed down the enumeration of HID devices too much
   *  - Increased the number of bits per track which can be read in the MagStripe project to 20480 when compiled for the AT90USBXXX6/7
   *  - Fixed KeyboardMouse demo discarding the wIndex value in the REQ_GetReport request
+  *  - USBtoSerial demo now discards all Rx data when not connected to a USB host, rather than buffering characters for transmission
+  *    next time the device is attached to a host.
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *
