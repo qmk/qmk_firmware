@@ -1,0 +1,40 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage CDC Class USB AVR Bootloader
+ * 
+ * This bootloader enumerates to the host as a CDC Class device (virtual serial port), allowing for AVR109
+ * protocol compatible programming software to load firmware onto the AVR.	
+ *  
+ * Out of the box this bootloader builds for the USB1287, and will fit into 4KB of bootloader space. If
+ * you wish to enlarge this space and/or change the AVR model, you will need to edit the BOOT_START and MCU
+ * values in the accompanying makefile.
+ *  
+ * This bootloader is compatible with the open source application AVRDUDE, or Atmel's AVRPROG.
+ *
+ * <table>
+ *  <tr>
+ *   <td><b>USB Mode:</b></td>
+ *   <td>Device</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Class:</b></td>
+ *   <td>Communications Device Class (CDC)</td>
+ *  </tr>
+ *  <tr> 
+ *   <td><b>USB Subclass:</b></td>
+ *   <td>Abstract Control Model (ACM)</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Relevant Standards:</b></td>
+ *   <td>USBIF CDC Class Standard</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Usable Speeds:</b></td>
+ *   <td>Full Speed Mode</td>
+ *  </tr>
+ * </table>
+ */

@@ -1,0 +1,41 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage Teensy HID Class USB AVR Bootloader
+ * 
+ * This bootloader enumerates to the host as a HID Class device, allowing for Teensy compatible programming
+ * software to load firmware onto the AVR, such as the official software at http://www.pjrc.com/teensy/.
+ *  
+ * Out of the box this bootloader builds for the USB162, and will fit into 2KB of bootloader space.
+ *
+ * This spoofs (with permission) the offical Teensy bootloader's VID and PID, so that the software remains
+ * compatible with no changes.
+ *  
+ * <table>
+ *  <tr>
+ *   <td><b>USB Mode:</b></td>
+ *   <td>Device</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Class:</b></td>
+ *   <td>Human Interface Device Class (HID)</td>
+ *  </tr>
+ *  <tr> 
+ *   <td><b>USB Subclass:</b></td>
+ *   <td>N/A</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Relevant Standards:</b></td>
+ *   <td>USBIF HID Class Standard</td>
+ *   <td>Teensy Programming Protocol Details</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Usable Speeds:</b></td>
+ *   <td>Low Speed Mode</td>
+ *   <td>Full Speed Mode</td>
+ *  </tr>
+ * </table>
+ */

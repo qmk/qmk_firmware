@@ -1,0 +1,52 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage DFU Class USB AVR Bootloader
+ *  
+ *  This bootloader enumerates to the host as a DFU Class device, allowing for DFU-compatible programming
+ *  software to load firmware onto the AVR.
+ *  
+ *  This bootloader is compatible with Atmel's FLIP application. However, it requires the use of Atmel's
+ *  DFU drivers. You will need to install Atmel's DFU drivers prior to using this bootloader.
+ *  
+ *  As an open-source option, this bootloader is also compatible with the Linux Atmel USB DFU Programmer
+ *  software, available for download at http://sourceforge.net/projects/dfu-programmer/.
+ *  
+ *  If SECURE_MODE is defined as true, upon startup the bootloader will be locked, with only the chip erase
+ *  function available (similar to Atmel's DFU bootloader). If SECURE_MODE is defined as false, all functions 
+ *  are usable on startup without the prerequisite firmware erase.
+ *  
+ *  Out of the box this bootloader builds for the USB1287, and should fit into 4KB of bootloader space. If
+ *  you wish to enlarge this space and/or change the AVR model, you will need to edit the BOOT_START and MCU
+ *  values in the accompanying makefile.
+ *  
+ *  <b>NOTE:</b> This device spoofs Atmel's DFU Bootloader USB VID and PID so that the Atmel DFU bootloader
+ *               drivers included with FLIP will work. If you do not wish to use Atmel's ID codes, please
+ *               manually change them in Descriptors.c and alter your driver's INF file accordingly.
+ *
+ * <table>
+ *  <tr>
+ *   <td><b>USB Mode:</b></td>
+ *   <td>Device</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Class:</b></td>
+ *   <td>Device Firmware Update Class (DFU)</td>
+ *  </tr>
+ *  <tr> 
+ *   <td><b>USB Subclass:</b></td>
+ *   <td>None</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Relevant Standards:</b></td>
+ *   <td>USBIF DFU Class Standard, Atmel USB Bootloader Datasheet</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Usable Speeds:</b></td>
+ *   <td>Full Speed Mode</td>
+ *  </tr>
+ * </table>
+ */
