@@ -37,6 +37,7 @@
 #define _AVRISP_PROGRAMMER_H_
 
 	/* Includes: */
+		#include <util/delay.h>
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/interrupt.h>
@@ -189,6 +190,5 @@
 		void ReconfigureSPI(void);
 		void UpdateStatus(uint8_t CurrentStatus);
 		void processHostSPIRequest(void);
-		void delay_ms(uint8_t dly);
 
 #endif

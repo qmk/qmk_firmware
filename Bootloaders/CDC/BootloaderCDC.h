@@ -127,9 +127,9 @@
 
 	/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_BOOTLOADERCDC_C) || defined(__DOXYGEN__)
-			static void ProgramReadWriteMemoryBlock(const uint8_t Command);
+			static void    ReadWriteMemoryBlock(const uint8_t Command);
 			static uint8_t FetchNextCommandByte(void);
-			static void WriteNextResponseByte(const uint8_t Response);
+			static void    WriteNextResponseByte(const uint8_t Response);
 		#endif
 
 #endif

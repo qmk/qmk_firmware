@@ -90,6 +90,20 @@ BOARD  = USBKEY
 F_CPU = 8000000
 
 
+# Input clock frequency.
+#     This will define a symbol, F_CLOCK, in all source code files equal to the 
+#     input clock frequency (before any prescaling is performed). This value may
+#     differ from F_CPU if prescaling is used on the latter, and is required as the
+#     raw input clock is fed directly to the PLL sections of the AVR for high speed
+#     clock generation for the USB and other AVR subsections. Do NOT tack on a 'UL'
+#     at the end, this will be done automatically to create a 32-bit value in your
+#     source code.
+#
+#     If no clock division is performed on the input clock inside the AVR (via the
+#     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
+F_CLOCK = 8000000
+
+
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
@@ -167,7 +181,8 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
-CDEFS  = -DF_CPU=$(F_CPU)UL -DBOARD=BOARD_$(BOARD) -DUSE_NONSTANDARD_DESCRIPTOR_NAMES
+CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD)
+CDEFS += -DUSE_NONSTANDARD_DESCRIPTOR_NAMES
 CDEFS += -DNUM_BLOCKS=100 -DBLOCK_SIZE=8 -DNUM_HANDLES=20
 
 

@@ -12,6 +12,14 @@
  *
  * \section Sec_MigrationXXXXXX Migrating from 090209 to XXXXXX
  *
+ *  <b>All</b>
+ *    - LUFA projects must now give the raw input clock frequency (before any prescaling) as a compile time constant "F_CLOCK",
+ *      defined in the project makefile and passed to the compiler via the -D switch.
+ *    - The makefile EEPROM programming targets for FLIP and dfu-programmer no longer program in the FLASH data in addition to the
+ *      EEPROM data into the device. If both are to be programmed, both the EEPROM and FLASH programming targets must be called.
+ *
+ *  <b>Library Demos</b>
+ *    - The USBtoSerial demo now discards all data when not connected to a host, rather than buffering it for later transmission.
  *
  * \section Sec_Migration090209 Migrating from 081217 to 090209
  *

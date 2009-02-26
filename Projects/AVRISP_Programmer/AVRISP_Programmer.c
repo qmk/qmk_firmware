@@ -116,7 +116,7 @@ BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
 #define AVRDEVCODE02	0x56 /* ATtiny15 */
 #define AVRDEVCODE03	0x5E /* ATtiny261 */
 #define AVRDEVCODE04	0x76 /* ATmega8 */
-#define AVRDEVCODE05	0x74 /*ATmega16 */
+#define AVRDEVCODE05	0x74 /* ATmega16 */
 #define AVRDEVCODE06	0x72 /* ATmega32 */
 #define AVRDEVCODE07	0x45 /* ATmega64 */
 #define AVRDEVCODE08	0x74 /* ATmega644 */
@@ -155,20 +155,8 @@ RingBuff_t Tx_Buffer;
 /** Flag to indicate if the USART is currently transmitting data from the Rx_Buffer circular buffer. */
 volatile bool Transmitting = false;
 
-
 /* some global variables used throughout */
-uint8_t tempIOreg = 0;
-uint8_t tempIOreg2 = 0;
-uint8_t tempIOreg3 = 0;
-uint8_t tempIOreg4 = 0;
-uint8_t dataWidth = 0;
-uint8_t firstRun = 1;
-uint8_t deviceCode = 0;
-uint8_t tempByte = 0;
 uint16_t currAddress = 0;
-uint16_t timerval = 0;
-
-
 
 /** Main program entry point. This routine configures the hardware required by the application, then
     starts the scheduler to run the application tasks.
@@ -185,9 +173,7 @@ int main(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	ReconfigureSPI();
-    // prepare PortB
-	DDRB = 0;
-	PORTB = 0;
+
 	DDRC |= ((1 << PC2) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)); //AT90USBxx2
 	// PC2 is also used for RESET, so set it HIGH initially - note 'P' command sets it to LOW (Active)
 	PORTC |= ((1 << PC2) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)); //AT90USBxx2
@@ -198,15 +184,7 @@ int main(void)
 	PORTB |= (1 << PB0);
     // make sure DataFlash devices to not interfere - deselect them by setting PE0 and PE1 HIGH:
     PORTE = 0xFF;
-    DDRE = 0xFF;
-
-	// initialize Timer1 for use in delay function
-	TCCR1A = 0;
-	//TCCR1B = (1 << CS10); // no prescaling, use CLK
-	TCCR1B = ((1 << CS12) | (1 << CS10)); // prescale by CLK/1024
-	// 8MHz/1024 = 7813 ticks per second --> ~8 ticks per millisecond (ms)
-	timerval = TCNT1; // start timer1
-
+    DDRE  = 0xFF;
 
 	/* Ringbuffer Initialization */
 	Buffer_Initialize(&Rx_Buffer);
@@ -320,17 +298,6 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_SetControlLineState:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-#if 0
-				/* NOTE: Here you can read in the line state mask from the host, to get the current state of the output handshake
-				         lines. The mask is read in from the wValue parameter, and can be masked against the CONTROL_LINE_OUT_* masks
-				         to determine the RTS and DTR line states using the following code:
-				*/
-
-				uint16_t wIndex = Endpoint_Read_Word_LE();
-					
-				// Do something with the given line states in wIndex
-#endif
-				
 				/* Acknowedge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSetupReceived();
 				
@@ -347,30 +314,6 @@ TASK(CDC_Task)
 {
 	if (USB_IsConnected)
 	{
-#if 0
-		/* NOTE: Here you can use the notification endpoint to send back line state changes to the host, for the special RS-232
-				 handshake signal lines (and some error states), via the CONTROL_LINE_IN_* masks and the following code:
-		*/
-
-		USB_Notification_Header_t Notification = (USB_Notification_Header_t)
-			{
-				NotificationType: (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-				Notification:     NOTIF_SerialState,
-				wValue:           0,
-				wIndex:           0,
-				wLength:          sizeof(uint16_t),
-			};
-			
-		uint16_t LineStateMask;
-		
-		// Set LineStateMask here to a mask of CONTROL_LINE_IN_* masks to set the input handshake line states to send to the host
-		
-		Endpoint_SelectEndpoint(CDC_NOTIFICATION_EPNUM);
-		Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
-		Endpoint_Write_Stream_LE(&LineStateMask, sizeof(LineStateMask));
-		Endpoint_ClearCurrentBank();
-#endif
-
 		/* Select the Serial Rx Endpoint */
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
 		
@@ -385,71 +328,40 @@ TASK(CDC_Task)
 				/* Store each character from the endpoint */
 				Buffer_StoreElement(&Rx_Buffer, Endpoint_Read_Byte());
 
-
-
-
-                /* Each time there is an element, check which comand should be
-	                run and if enough data is available to run that command.
-	                There are 1-byte, 2-byte, 3-byte, 4-byte commands, and 5-byte commands
-	                Remember that the "which command" byte counts as 1 */
-                if (Rx_Buffer.Elements == 0) {
-	                // do nothing, wait for data
-                } else {
-	                tempByte = Buffer_PeekElement(&Rx_Buffer); // peek at first element
-
-		                /* make sure the issued command and associated data are all ready */
-	                if (Rx_Buffer.Elements == 1) { // zero data byte command
-		                if ((tempByte == 'P') | (tempByte == 'a') | (tempByte == 'm') |
-		                (tempByte == 'R') | (tempByte == 'd') | (tempByte == 'e') |
-		                (tempByte == 'L') | (tempByte == 's') | (tempByte == 't') | 
-		                (tempByte == 'S') | (tempByte == 'V') | (tempByte == 'v') |
-		                (tempByte == 'p') | (tempByte == 'F')) {
-                    	processHostSPIRequest(); // command has enough data, process it
-		                }
-	                } else if (Rx_Buffer.Elements == 2) { // one data byte command
-		                if ((tempByte == 'T') | (tempByte == 'c') | (tempByte == 'C') |
-			                (tempByte == 'D') | (tempByte == 'l') | (tempByte == 'f') |
-			                (tempByte == 'x') | (tempByte == 'y')) {
-			                processHostSPIRequest(); // command has enough data, process it
-		                }
-	                } else if (Rx_Buffer.Elements == 3) { // two data byte command
-		                if ((tempByte == 'A') | (tempByte == 'Z')) {
-			                processHostSPIRequest(); // command has enough data, process it
-		                }
-	                } else if (Rx_Buffer.Elements == 4) { // three data byte command
-		                if ((tempByte == ':')) {
-                    	processHostSPIRequest(); // command has enough data, process it
-		                }
-	                } else if (Rx_Buffer.Elements == 5) { // four data byte command
-		                if ((tempByte == '.')) {
-			                processHostSPIRequest(); // command has enough data, process it
-		                }
-	                } else {
-		                // do nothing
-	                }
+                /* Run the given command once enough data is available. */
+                if (Rx_Buffer.Elements)
+				{
+					const uint8_t ZeroDataByteCommands[]  = {'P', 'a', 'm', 'R', 'd', 'e', 'L', 's', 't', 'S', 'V', 'v', 'p', 'F'};
+					const uint8_t OneDataByteCommands[]   = {'T', 'c', 'C', 'D', 'l', 'f', 'x', 'y'};
+					const uint8_t TwoDataByteCommands[]   = {'A', 'Z'};
+					const uint8_t ThreeDataByteCommands[] = {':'};
+					const uint8_t FourDataByteCommands[]  = {'.'};
+					
+					const struct
+					{
+						const uint8_t  TotalCommands;
+						const uint8_t* CommandBytes;
+					} AVR910Commands[] = {{sizeof(ZeroDataByteCommands),  ZeroDataByteCommands},
+					                      {sizeof(OneDataByteCommands),   OneDataByteCommands},
+					                      {sizeof(TwoDataByteCommands),   TwoDataByteCommands},
+					                      {sizeof(ThreeDataByteCommands), ThreeDataByteCommands},
+					                      {sizeof(FourDataByteCommands),  FourDataByteCommands}};
+					
+					/* Determine the data length of the issued command */
+					uint8_t CommandDataLength = (Rx_Buffer.Elements - 1);
+					
+					/* Loop through each of the possible command bytes allowable from the given command data length */
+					for (uint8_t CurrentCommand = 0; CurrentCommand < AVR910Commands[CommandDataLength].TotalCommands; CurrentCommand++)
+					{
+						/* If issues command matches an allowable command, process it */
+						if (Buffer_PeekElement(&Rx_Buffer) == AVR910Commands[CommandDataLength].CommandBytes[CurrentCommand])
+						  processHostSPIRequest();
+					}
                 }
-
-
-
 			}
 			
 			/* Clear the endpoint buffer */
 			Endpoint_ClearCurrentBank();
-		}
-		
-		/* Check if Rx buffer contains data */
-		if (Rx_Buffer.Elements)
-		{
-			/* Initiate the transmission of the buffer contents if USART idle */
-			if (!(Transmitting))
-			{
-				Transmitting = true;
-				/* The following flushes the receive buffer to prepare for new data and commands */
-				/* Need to flush the buffer as the command byte which is peeked above needs to be */
-				/*  dealt with, otherwise the command bytes will overflow the buffer eventually */
-				//Buffer_GetElement(&Rx_Buffer); // works also
-				Buffer_Initialize(&Rx_Buffer);
-			}
 		}
 
 		/* Select the Serial Tx Endpoint */
@@ -484,12 +396,10 @@ TASK(CDC_Task)
 	}
 }
 
-
-
 /** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
-    log to a serial port, or anything else that is suitable for status updates.
+ *  log to a serial port, or anything else that is suitable for status updates.
  *
-    \param CurrentStatus  Current status of the system, from the USBtoSerial_StatusCodes_t enum
+ *  \param CurrentStatus  Current status of the system, from the USBtoSerial_StatusCodes_t enum
  */
 void UpdateStatus(uint8_t CurrentStatus)
 {
@@ -513,21 +423,11 @@ void UpdateStatus(uint8_t CurrentStatus)
 	LEDs_SetAllLEDs(LEDMask);
 }
 
-
 /** Reconfigures SPI to match the current serial port settings issued by the host. */
 void ReconfigureSPI(void)
 {
 	uint8_t SPCRmask = (1 << SPE) | (1 << MSTR); // always enable SPI as Master
 	uint8_t SPSRmask = 0;
-
-	/* Determine data width */
-	if (LineCoding.ParityType == Parity_Odd) {
-		dataWidth = 16;
-	} else if (LineCoding.ParityType == Parity_Even) {
-		dataWidth = 32;
-	} else if (LineCoding.ParityType == Parity_None) {
-		dataWidth = 8;
-	}
 
 	/* Determine stop bits - 1.5 stop bits is set as 1 stop bit due to hardware limitations */
 	/* For SPI, determine whether format is LSB or MSB */
@@ -579,14 +479,6 @@ void ReconfigureSPI(void)
 
 	SPCR = SPCRmask;
 	SPSR = SPSRmask;
-
-	// only read if first run
-	if (firstRun) {
-		tempIOreg = SPSR; //need to read to initiliaze
-		tempIOreg = SPDR; //need to read to initiliaze
-		firstRun = 0;
-	}
-
 }
 
 
@@ -642,20 +534,20 @@ void processHostSPIRequest(void) {
 		//PORTB = 0; // set clock to zero
 		RESETPORT = (1 << RESETPIN); // set RESET pin on target to 1
 		RESETPORT2 = (1 << RESETPIN2);
-		delay_ms(DELAY_SHORT);
+		_delay_ms(DELAY_SHORT);
 		//RESETPORT = (RESETPORT & ~(1 << RESETPIN)); // set RESET pin on target to 0 - Active
 		RESETPORT = 0x00;
 		RESETPORT2 = 0;
-		delay_ms(DELAY_SHORT);
+		_delay_ms(DELAY_SHORT);
 		SPI_SendByte(0xAC);
 		SPI_SendByte(0x53);
 		SPI_SendByte(0x00);
 		SPI_SendByte(0x00);
-		delay_ms(DELAY_VERYSHORT);
+		_delay_ms(DELAY_VERYSHORT);
 		Buffer_StoreElement(&Tx_Buffer, CR_HEX); // return carriage return (CR_HEX) if successful
 
 	} else if (firstByte == 'T') { // Select device type
-		deviceCode = Buffer_GetElement(&Rx_Buffer); // set device type
+		Buffer_GetElement(&Rx_Buffer); // set device type
 		Buffer_StoreElement(&Tx_Buffer, CR_HEX); // return carriage return (CR_HEX) if successful
 
 	} else if (firstByte == 'a') { // Report autoincrement address
@@ -675,7 +567,7 @@ void processHostSPIRequest(void) {
 		SPI_SendByte((currAddress >> 8)); // high byte
 		SPI_SendByte((currAddress)); // low byte
 		SPI_SendByte(readByte1); // data
-		delay_ms(DELAY_MEDIUM); // certain MCUs require a delay of about 24585 cycles
+		_delay_ms(DELAY_MEDIUM); // certain MCUs require a delay of about 24585 cycles
 		Buffer_StoreElement(&Tx_Buffer, CR_HEX); // return carriage return (CR_HEX) if successful
 
 	} else if (firstByte == 'C') { // Write program memory, high byte
@@ -694,7 +586,7 @@ void processHostSPIRequest(void) {
 		SPI_SendByte((currAddress >> 8)); // high byte
 		SPI_SendByte((currAddress)); // low byte
 		SPI_SendByte(0x00);
-		delay_ms(DELAY_LONG);
+		_delay_ms(DELAY_LONG);
 		Buffer_StoreElement(&Tx_Buffer, CR_HEX); // return carriage return (CR_HEX) if successful
 
 	} else if (firstByte == 'R') { // Read Program Memory
@@ -719,7 +611,7 @@ void processHostSPIRequest(void) {
 		SPI_SendByte((currAddress >> 8)); // high byte
 		SPI_SendByte((currAddress)); // low byte
 		SPI_SendByte(readByte1); // data
-		delay_ms(DELAY_MEDIUM);
+		_delay_ms(DELAY_MEDIUM);
 		currAddress++; // increment currAddress
 		Buffer_StoreElement(&Tx_Buffer, CR_HEX); // return carriage return (CR_HEX) if successful
 
@@ -738,7 +630,7 @@ void processHostSPIRequest(void) {
 		SPI_SendByte(0x80);
 		SPI_SendByte(0x04);
 		SPI_SendByte(0x00);
-		delay_ms(DELAY_LONG);
+		_delay_ms(DELAY_LONG);
 		Buffer_StoreElement(&Tx_Buffer, CR_HEX); // return carriage return (CR_HEX) if successful
 
 	} else if (firstByte == 'l') { // write lock bits
@@ -748,7 +640,7 @@ void processHostSPIRequest(void) {
 		SPI_SendByte(((0x06 & readByte1) | 0xE0)); // TODO - is this correct???
 		SPI_SendByte(0x00);
 		SPI_SendByte(0x00);
-		delay_ms(DELAY_MEDIUM);
+		_delay_ms(DELAY_MEDIUM);
 		Buffer_StoreElement(&Tx_Buffer, CR_HEX); // return carriage return (CR_HEX) if successful
 
 	} else if (firstByte == 'f') { // write fuse bits
@@ -840,7 +732,7 @@ void processHostSPIRequest(void) {
 		SPI_SendByte(readByte3);
 		readByte1 = SPI_TransferByte(0x00);
 		Buffer_StoreElement(&Tx_Buffer, readByte1);
-		delay_ms(DELAY_MEDIUM);
+		_delay_ms(DELAY_MEDIUM);
 		Buffer_StoreElement(&Tx_Buffer, CR_HEX); // return carriage return (CR_HEX) if successful
 
 	} else if (firstByte == '.') { // New Universal Command
@@ -854,7 +746,7 @@ void processHostSPIRequest(void) {
 		SPI_SendByte(readByte3);
 		readByte1 = SPI_TransferByte(readByte4);
 		Buffer_StoreElement(&Tx_Buffer, readByte1);
-		delay_ms(DELAY_MEDIUM);
+		_delay_ms(DELAY_MEDIUM);
 		Buffer_StoreElement(&Tx_Buffer, CR_HEX); // return carriage return (CR_HEX) if successful
 
 	} else if (firstByte == 'Z') { // Special test command
@@ -868,19 +760,3 @@ void processHostSPIRequest(void) {
 	}
 }
 
-
-void delay_ms(uint8_t dly) {
-	uint16_t endtime = 0;
-
-	endtime = TCNT1;
-	if (endtime > 63486) {
-		endtime = (dly * DELAY_MULTIPLE);
-	} else {
-		endtime += (dly * DELAY_MULTIPLE);
-	}
-
-	timerval = TCNT1;
-	while (timerval < endtime) {
-		timerval = TCNT1;
-	}
-}

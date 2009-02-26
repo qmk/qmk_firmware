@@ -21,6 +21,8 @@
   *  - Fixed KeyboardMouse demo discarding the wIndex value in the REQ_GetReport request
   *  - USBtoSerial demo now discards all Rx data when not connected to a USB host, rather than buffering characters for transmission
   *    next time the device is attached to a host.
+  *  - Added new F_CLOCK compile time constant to the library and makefiles, to give the raw input clock (used to feed the PLL before any
+  *    clock prescaling is performed) frequency, so that the PLL prescale mask can be determined
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *

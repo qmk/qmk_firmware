@@ -57,12 +57,20 @@
  *  directory into a /Board/ folder inside the application directory, and the stub driver completed with the appropriate code to drive the
  *  custom board's hardware.
  *
- *  \subsection SSec_F_CPU The F_CPU Parameter
- *  This parameter indicates the target AVR's master clock frequency, in Hz. Consult your AVR model's datasheet for allowable clock frequencies
- *  if the USB interface is to be operational.
+ *  \subsection SSec_F_CLOCK The F_CLOCK Parameter
+ *  This parameter indicates the target AVR's input clock frequency, in Hz. This is the actual clock input, before any prescaling is performed. In the
+ *  USB AVR architecture, the input clock before any prescaling is fed directly to the PLL subsystem, and thus the PLL is derived directly from the
+ *  clock input. The PLL then feeds the USB and other sections of the AVR with the correct upscaled frequencies required for those sections to function.
  *
- *  <b>Note that this value does not actually *alter* the AVR's clock frequency</b>, it is just a way to indicate to the library the clock frequency
+ *  <b>Note that this value does not actually *alter* the AVR's input clock frequency</b>, it is just a way to indicate to the library the clock frequency
  *  of the AVR as set by the AVR's fuses. If this value does not reflect the actual running frequency of the AVR, incorrect operation of one of more
+ *  library components will ocurr.
+ *
+ *  \subsection SSec_F_CPU The F_CPU Parameter
+ *  This parameter indicates the target AVR's master CPU clock frequency, in Hz.
+ *
+ *  <b>Note that this value does not actually *alter* the AVR's CPU clock frequency</b>, it is just a way to indicate to the library the clock frequency
+ *  of the AVR core as set by the AVR's fuses. If this value does not reflect the actual running frequency of the AVR, incorrect operation of one of more
  *  library components will ocurr.
  *
  *  \subsection SSec_CDEFS The CDEFS Parameter

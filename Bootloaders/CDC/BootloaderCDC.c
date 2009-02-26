@@ -207,7 +207,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
  *
  *  \param Command  Single character AVR910 protocol command indicating what memory operation to perform
  */
-static void ProgramReadWriteMemoryBlock(const uint8_t Command)
+static void ReadWriteMemoryBlock(const uint8_t Command)
 {
 	uint16_t BlockSize;
 	char     MemoryType;
@@ -503,7 +503,7 @@ TASK(CDC_Task)
 		else if ((Command == 'B') || (Command == 'g'))
 		{
 			/* Delegate the block write/read to a seperate function for clarity */
-			ProgramReadWriteMemoryBlock(Command);
+			ReadWriteMemoryBlock(Command);
 		}
 		else if (Command == 'R')
 		{

@@ -90,6 +90,20 @@ BOARD  = USBKEY
 F_CPU = 8000000
 
 
+# Input clock frequency.
+#     This will define a symbol, F_CLOCK, in all source code files equal to the 
+#     input clock frequency (before any prescaling is performed). This value may
+#     differ from F_CPU if prescaling is used on the latter, and is required as the
+#     raw input clock is fed directly to the PLL sections of the AVR for high speed
+#     clock generation for the USB and other AVR subsections. Do NOT tack on a 'UL'
+#     at the end, this will be done automatically to create a 32-bit value in your
+#     source code.
+#
+#     If no clock division is performed on the input clock inside the AVR (via the
+#     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
+F_CLOCK = 8000000
+
+
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
@@ -162,10 +176,12 @@ BOOT_START = 0xC000
 
 
 # Place -D or -U options here for C sources
-CDEFS  = -DF_CPU=$(F_CPU)UL -DBOARD=BOARD_$(BOARD) -DUSE_NONSTANDARD_DESCRIPTOR_NAMES -DSTATIC_ENDPOINT_CONFIGURATION
-CDEFS += -DUSB_DEVICE_ONLY -DUSE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
-CDEFS += -DUSE_RAM_DESCRIPTORS -DBOOT_START_ADDR=$(BOOT_START)UL -DFIXED_CONTROL_ENDPOINT_SIZE=8 -DUSE_SINGLE_DEVICE_CONFIGURATION
-CDEFS += -DNO_CLEARSET_FEATURE_REQUEST
+CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD)
+CDEFS += -DUSB_DEVICE_ONLY -DUSE_NONSTANDARD_DESCRIPTOR_NAMES -DNO_CLEARSET_FEATURE_REQUES
+CDEFS += -DSTATIC_ENDPOINT_CONFIGURATION -DFIXED_CONTROL_ENDPOINT_SIZE=8
+CDEFS += -DUSE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
+CDEFS += -DUSE_RAM_DESCRIPTORS -DBOOT_START_ADDR=$(BOOT_START)UL -DUSE_SINGLE_DEVICE_CONFIGURATION
+
 
 # Place -D or -U options here for ASM sources
 ADEFS = -DF_CPU=$(F_CPU)
