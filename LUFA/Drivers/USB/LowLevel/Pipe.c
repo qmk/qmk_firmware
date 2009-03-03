@@ -68,7 +68,7 @@ void Pipe_ClearPipes(void)
 
 uint8_t Pipe_WaitUntilReady(void)
 {
-	uint8_t TimeoutMSRem = USB_STREAM_TIMEOUT_MS;
+	uint16_t TimeoutMSRem = USB_STREAM_TIMEOUT_MS;
 
 	USB_INT_Clear(USB_INT_HSOFI);
 

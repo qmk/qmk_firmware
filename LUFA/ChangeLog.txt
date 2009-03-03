@@ -23,6 +23,9 @@
   *    next time the device is attached to a host.
   *  - Added new F_CLOCK compile time constant to the library and makefiles, to give the raw input clock (used to feed the PLL before any
   *    clock prescaling is performed) frequency, so that the PLL prescale mask can be determined
+  *  - Changed stream wait timeout counter to be 16-bit, so that very long timeout periods can be set for correct communications with
+  *    badly designed hosts or devices which greatly exceed the USB specification limits
+  *  - Mass Storage Host demo now uses a USB_STREAM_TIMEOUT_MS of two seconds to maintain compatibility with poorly designed devices
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *
