@@ -41,8 +41,9 @@
  *        may be neccesary to retry the functions in the module several times
  *        after they have returned and error to successfully send the command
  *        to the device. Some devices may also need to have the stream function
- *        timeout period extended beyond 100ms by defining USB_STREAM_TIMEOUT_MS
- *        to a larger value in the project makefile and passing it to the compiler
+ *        timeout period extended beyond 100ms (some badly designed devices exceeding
+ *        1.5 seconds occasionally) by defining USB_STREAM_TIMEOUT_MS to a
+ *        larger value in the project makefile and passing it to the compiler
  *        via the -D switch.
  */
  
