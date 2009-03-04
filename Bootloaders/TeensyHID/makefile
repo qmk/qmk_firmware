@@ -32,18 +32,6 @@
 # make program = Download the hex file to the device, using avrdude.
 #                Please customize the avrdude settings below first!
 #
-# make dfu = Download the hex file to the device, using dfu-programmer (must
-#            have dfu-programmer installed).
-#
-# make flip = Download the hex file to the device, using Atmel FLIP (must
-#             have Atmel FLIP installed).
-#
-# make dfu-ee = Download the eeprom file to the device, using dfu-programmer
-#               (must have dfu-programmer installed).
-#
-# make flip-ee = Download the eeprom file to the device, using Atmel FLIP
-#                (must have Atmel FLIP installed).
-#
 # make doxygen = Generate DoxyGen documentation for the project (must have
 #                DoxyGen installed)
 #
@@ -527,26 +515,6 @@ gccversion :
 program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
-flip: $(TARGET).hex
-	batchisp -hardware usb -device $(MCU) -operation erase f
-	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
-	batchisp -hardware usb -device $(MCU) -operation start reset 0
-
-dfu: $(TARGET).hex
-	dfu-programmer $(MCU) erase
-	dfu-programmer $(MCU) flash --debug 1 $(TARGET).hex
-	dfu-programmer $(MCU) reset
-
-flip-ee: $(TARGET).hex $(TARGET).eep
-	copy $(TARGET).eep $(TARGET)eep.hex
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(TARGET)eep.hex program
-	batchisp -hardware usb -device $(MCU) -operation start reset 0
-
-dfu-ee: $(TARGET).hex $(TARGET).eep
-	dfu-programmer $(MCU) erase
-	dfu-programmer $(MCU) eeprom --debug 1 $(TARGET).eep
-	dfu-programmer $(MCU) reset
 
 # Generate avr-gdb config/init file which does the following:
 #     define the reset signal, load the target file, connect to target, and set 

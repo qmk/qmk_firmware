@@ -56,85 +56,85 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Mask for Pipe_GetErrorFlags(), indicating that a CRC error occurred in the pipe on the received data. */
-			#define PIPE_ERRORFLAG_CRC16                   (1 << 4)
+			#define PIPE_ERRORFLAG_CRC16            (1 << 4)
 
 			/** Mask for Pipe_GetErrorFlags(), indicating that a hardware timeout error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_TIMEOUT                 (1 << 3)
+			#define PIPE_ERRORFLAG_TIMEOUT          (1 << 3)
 
 			/** Mask for Pipe_GetErrorFlags(), indicating that a hardware PID error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_PID                     (1 << 2)
+			#define PIPE_ERRORFLAG_PID              (1 << 2)
 
 			/** Mask for Pipe_GetErrorFlags(), indicating that a hardware data PID error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_DATAPID                 (1 << 1)
+			#define PIPE_ERRORFLAG_DATAPID          (1 << 1)
 
 			/** Mask for Pipe_GetErrorFlags(), indicating that a hardware data toggle error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_DATATGL                 (1 << 0)
+			#define PIPE_ERRORFLAG_DATATGL          (1 << 0)
 
 			/** Token mask for Pipe_ConfigurePipe(). This sets the pipe as a SETUP token (for CONTROL type pipes),
 			 *  which will trigger a control request on the attached device when data is written to the pipe.
 			 */
-			#define PIPE_TOKEN_SETUP                       (0b00 << PTOKEN0)
+			#define PIPE_TOKEN_SETUP                (0b00 << PTOKEN0)
 
 			/** Token mask for Pipe_ConfigurePipe(). This sets the pipe as a IN token (for non-CONTROL type pipes),
 			 *  indicating that the pipe data will flow from device to host.
 			 */
-			#define PIPE_TOKEN_IN                          (0b01 << PTOKEN0)
+			#define PIPE_TOKEN_IN                   (0b01 << PTOKEN0)
 
 			/** Token mask for Pipe_ConfigurePipe(). This sets the pipe as a IN token (for non-CONTROL type pipes),
 			 *  indicating that the pipe data will flow from host to device.
 			 */
-			#define PIPE_TOKEN_OUT                         (0b10 << PTOKEN0)
+			#define PIPE_TOKEN_OUT                  (0b10 << PTOKEN0)
 
 			/** Mask for the bank mode selection for the Pipe_ConfigurePipe() macro. This indicates that the pipe
 			 *  should have one single bank, which requires less USB FIFO memory but results in slower transfers as
 			 *  only one USB device (the AVR or the attached device) can access the pipe's bank at the one time.
 			 */
-			#define PIPE_BANK_SINGLE                       0
+			#define PIPE_BANK_SINGLE                (0 << EPBK0)
 
 			/** Mask for the bank mode selection for the Pipe_ConfigurePipe() macro. This indicates that the pipe
 			 *  should have two banks, which requires more USB FIFO memory but results in faster transfers as one
 			 *  USB device (the AVR or the attached device) can access one bank while the other accesses the second
 			 *  bank.
 			 */
-			#define PIPE_BANK_DOUBLE                       (1 << EPBK0)
+			#define PIPE_BANK_DOUBLE                (1 << EPBK0)
 			
 			/** Pipe address for the default control pipe, which always resides in address 0. This is
 			 *  defined for convenience to give more readable code when used with the pipe macros.
 			 */
-			#define PIPE_CONTROLPIPE                       0
+			#define PIPE_CONTROLPIPE                0
 
 			/** Default size of the default control pipe's bank, until altered by the Endpoint0Size value 
 			 *  in the device descriptor of the attached device.
 			 */
-			#define PIPE_CONTROLPIPE_DEFAULT_SIZE          8
+			#define PIPE_CONTROLPIPE_DEFAULT_SIZE   8
 			
 			/** Pipe number mask, for masking against pipe addresses to retrieve the pipe's numerical address
 			 *  in the device.
 			 */
-			#define PIPE_PIPENUM_MASK                      0x07
+			#define PIPE_PIPENUM_MASK               0x07
 
 			/** Total number of pipes (including the default control pipe at address 0) which may be used in
 			 *  the device. Different USB AVR models support different amounts of pipes, this value reflects
 			 *  the maximum number of pipes for the currently selected AVR model.
 			 */
-			#define PIPE_TOTAL_PIPES                       7
+			#define PIPE_TOTAL_PIPES                7
 
 			/** Size in bytes of the largest pipe bank size possible in the device. Not all banks on each AVR
 			 *  model supports the largest bank size possible on the device; different pipe numbers support
 			 *  different maximum bank sizes. This value reflects the largest possible bank of any pipe on the
 			 *  currently selected USB AVR model.
 			 */
-			#define PIPE_MAX_SIZE                          256
+			#define PIPE_MAX_SIZE                   256
 
 			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  numerical address in the attached device.
 			 */
-			#define PIPE_EPNUM_MASK                        0x07
+			#define PIPE_EPNUM_MASK                 0x07
 
 			/** Endpoint bank size mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  bank size in the attached device.
 			 */
-			#define PIPE_EPSIZE_MASK                       0x7FF
+			#define PIPE_EPSIZE_MASK                0x7FF
 
 			/** Interrupt definition for the pipe IN interrupt (for INTERRUPT type pipes). Should be used with
 			 *  the USB_INT_* macros located in USBInterrupt.h.
@@ -143,12 +143,12 @@
 			 *  elapsed and the pipe is ready for the next packet from the attached device to be read out from its
 			 *  FIFO buffer (if received).
 			 *
-			 *  This interrupt must be enabled on *each* pipe which requires it (after the pipe is selected), and
-			 *  will fire the common pipe interrupt vector.
+			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
+			 *        is selected), and will fire the common pipe interrupt vector.
 			 *
 			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 */
-			#define PIPE_INT_IN                            UPIENX, (1 << RXINE) , UPINTX, (1 << RXINI)
+			#define PIPE_INT_IN                     UPIENX, (1 << RXINE) , UPINTX, (1 << RXINI)
 
 			/** Interrupt definition for the pipe OUT interrupt (for INTERRUPT type pipes). Should be used with
 			 *  the USB_INT_* macros located in USBInterrupt.h.
@@ -157,11 +157,12 @@
 			 *  has elapsed and the pipe is ready for a packet to be written to the pipe's FIFO buffer and sent
 			 *  to the attached device (if required).
 			 *  
-			 *  This interrupt must be enabled on *each* pipe which requires it (after the pipe is selected), and
-			 *  will fire the common pipe interrupt vector.
+			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
+			 *        is selected), and will fire the common pipe interrupt vector.
 			 *
-			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.			 */
-			#define PIPE_INT_OUT                           UPIENX, (1 << TXOUTE), UPINTX, (1 << TXOUTI)
+			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
+			 */
+			#define PIPE_INT_OUT                   UPIENX, (1 << TXOUTE), UPINTX, (1 << TXOUTI)
 
 			/** Interrupt definition for the pipe SETUP bank ready interrupt (for CONTROL type pipes). Should be
 			 *  used with the USB_INT_* macros located in USBInterrupt.h.
@@ -169,12 +170,12 @@
 			 *  This interrupt will fire if enabled on an CONTROL type pipe when the pipe is ready for a new
 			 *  control request.
 			 *
-			 *  This interrupt must be enabled on *each* pipe which requires it (after the pipe is selected), and
-			 *  will fire the common pipe interrupt vector.
+			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
+			 *        is selected), and will fire the common pipe interrupt vector.
 			 *
 			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 */
-			#define PIPE_INT_SETUP                         UPIENX, (1 << TXSTPE) , UPINTX, (1 << TXSTPI)
+			#define PIPE_INT_SETUP                 UPIENX, (1 << TXSTPE) , UPINTX, (1 << TXSTPI)
 
 			/** Interrupt definition for the pipe error interrupt. Should be used with the USB_INT_* macros
 			 *  located in USBInterrupt.h.
@@ -182,14 +183,14 @@
 			 *  This interrupt will fire if enabled on a particular pipe if an error occurs on that pipe, such
 			 *  as a CRC mismatch error.
 			 *
-			 *  This interrupt must be enabled on *each* pipe which requires it (after the pipe is selected), and
-			 *  will fire the common pipe interrupt vector.
+			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
+			 *        is selected), and will fire the common pipe interrupt vector.
 			 *
 			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 *
 			 *  \see Pipe_GetErrorFlags() for more information on the pipe errors.
 			 */
-			#define PIPE_INT_ERROR                         UPIENX, (1 << PERRE), UPINTX, (1 << PERRI)
+			#define PIPE_INT_ERROR                 UPIENX, (1 << PERRE), UPINTX, (1 << PERRI)
 
 			/** Interrupt definition for the pipe NAK received interrupt. Should be used with the USB_INT_* macros
 			 *  located in USBInterrupt.h.
@@ -197,14 +198,14 @@
 			 *  This interrupt will fire if enabled on a particular pipe if an attached device returns a NAK in
 			 *  response to a sent packet.
 			 *
-			 *  This interrupt must be enabled on *each* pipe which requires it (after the pipe is selected), and
-			 *  will fire the common pipe interrupt vector.
+			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
+			 *        is selected), and will fire the common pipe interrupt vector.
 			 *
 			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 *
 			 *  \see Pipe_IsNAKReceived() for more information on pipe NAKs.
 			 */
-			#define PIPE_INT_NAK                         UPIENX, (1 << NAKEDE), UPINTX, (1 << NAKEDI)
+			#define PIPE_INT_NAK                   UPIENX, (1 << NAKEDE), UPINTX, (1 << NAKEDI)
 
 			/** Interrupt definition for the pipe STALL received interrupt. Should be used with the USB_INT_* macros
 			 *  located in USBInterrupt.h.
@@ -212,28 +213,28 @@
 			 *  This interrupt will fire if enabled on a particular pipe if an attached device returns a STALL on the
 			 *  currently selected pipe. This will also fire if the pipe is an isochronous pipe and a CRC error occurs.
 			 *
-			 *  This interrupt must be enabled on *each* pipe which requires it (after the pipe is selected), and
-			 *  will fire the common pipe interrupt vector.
+			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
+			 *        is selected), and will fire the common pipe interrupt vector.
 			 *
 			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 */
-			#define PIPE_INT_STALL                       UPIENX, (1 << RXSTALLE), UPINTX, (1 << RXSTALLI)
+			#define PIPE_INT_STALL                 UPIENX, (1 << RXSTALLE), UPINTX, (1 << RXSTALLI)
 
 			/** Indicates the number of bytes currently stored in the current pipe's selected bank. */
-			#define Pipe_BytesInPipe()                     UPBCX
+			#define Pipe_BytesInPipe()             UPBCX
 
 			/** Resets the desired pipe, including the pipe banks and flags. */
-			#define Pipe_ResetPipe(pipenum)        MACROS{ UPRST    =  (1 << pipenum); UPRST = 0;                  }MACROE
+			#define Pipe_ResetPipe(pipenum)        MACROS{ UPRST = (1 << pipenum); UPRST = 0; }MACROE
 
 			/** Selects the given pipe number. Any pipe operations which do not require the pipe number to be
 			 *  indicated will operate on the currently selected pipe.
 			 */
-			#define Pipe_SelectPipe(pipenum)       MACROS{ UPNUM    =  pipenum;                                    }MACROE
+			#define Pipe_SelectPipe(pipenum)       MACROS{ UPNUM = pipenum; }MACROE
 
 			/** Returns the pipe address of the currently selected pipe. This is typically used to save the
 			 *  currently selected pipe number so that it can be restored after another pipe has been manipulated.
 			 */
-			#define Pipe_GetCurrentPipe()                 (UPNUM   &   PIPE_PIPENUM_MASK)
+			#define Pipe_GetCurrentPipe()          (UPNUM & PIPE_PIPENUM_MASK)
 
 			/** Enables the currently selected pipe so that data can be sent and received through it to and from
 			 *  an attached device.
@@ -241,78 +242,78 @@
 			 *  \note Pipes must first be configured properly rather than just being enabled via the
 			 *        Pipe_ConfigurePipe() macro, which calls Pipe_EnablePipe() automatically.
 			 */
-			#define Pipe_EnablePipe()              MACROS{ UPCONX  |=  (1 << PEN);                                 }MACROE
+			#define Pipe_EnablePipe()              MACROS{ UPCONX |= (1 << PEN); }MACROE
 
 			/** Disables the currently selected pipe so that data cannot be sent and received through it to and
 			 *  from an attached device.
 			 */
-			#define Pipe_DisablePipe()             MACROS{ UPCONX  &= ~(1 << PEN);                                 }MACROE
+			#define Pipe_DisablePipe()             MACROS{ UPCONX &= ~(1 << PEN); }MACROE
 
 			/** Returns true if the currently selected pipe is enabled, false otherwise. */
-			#define Pipe_IsEnabled()                     ((UPCONX  &   (1 << PEN)) ? true : false)
+			#define Pipe_IsEnabled()               ((UPCONX & (1 << PEN)) ? true : false)
 
 			/** Sets the token for the currently selected endpoint to one of the tokens specified by the PIPE_TOKEN_*
 			 *  masks. This should only be used on CONTROL type endpoints, to allow for bidirectional transfer of
 			 *  data during control requests.
 			 */
-			#define Pipe_SetToken(token)           MACROS{ UPCFG0X  = ((UPCFG0X & ~PIPE_TOKEN_MASK) | token);      }MACROE
+			#define Pipe_SetToken(token)           MACROS{ UPCFG0X = ((UPCFG0X & ~PIPE_TOKEN_MASK) | token); }MACROE
 			
 			/** Configures the currently selected pipe to allow for an unlimited number of IN requests. */
-			#define Pipe_SetInfiniteINRequests()   MACROS{ UPCONX  |=  (1 << INMODE);                              }MACROE
+			#define Pipe_SetInfiniteINRequests()   MACROS{ UPCONX |= (1 << INMODE); }MACROE
 
 			/** Configures the currently selected pipe to only allow the specified number of IN requests to be
 			 *  accepted by the pipe before it is automatically frozen.
 			 */
-			#define Pipe_SetFiniteINRequests(n)    MACROS{ UPCONX  &= ~(1 << INMODE); UPINRQX = n;                 }MACROE
+			#define Pipe_SetFiniteINRequests(n)    MACROS{ UPCONX &= ~(1 << INMODE); UPINRQX = n; }MACROE
 
 			/** Returns true if the currently selected pipe is configured, false otherwise. */
-			#define Pipe_IsConfigured()                  ((UPSTAX  & (1 << CFGOK)) ? true : false)
+			#define Pipe_IsConfigured()            ((UPSTAX  & (1 << CFGOK)) ? true : false)
 
 			/** Sets the period between interrupts for an INTERRUPT type pipe to a specified number of milliseconds. */
-			#define Pipe_SetInterruptPeriod(ms)    MACROS{ UPCFG2X  = ms;                                          }MACROE
+			#define Pipe_SetInterruptPeriod(ms)    MACROS{ UPCFG2X = ms; }MACROE
 
 			/** Returns a mask indicating which pipe's interrupt periods have elapsed, indicating that the pipe should
 			 *  be serviced.
 			 */
-			#define Pipe_GetPipeInterrupts()               UPINT
+			#define Pipe_GetPipeInterrupts()       UPINT
 
 			/** Clears the interrupt flag for the specified pipe number. */
-			#define Pipe_ClearPipeInterrupt(n)     MACROS{ UPINT   &= ~(1 << n);                                   }MACROE
+			#define Pipe_ClearPipeInterrupt(n)     MACROS{ UPINT &= ~(1 << n); }MACROE
 
 			/** Returns true if the specified pipe's interrupt period has elapsed, false otherwise. */
-			#define Pipe_HasPipeInterrupted(n)           ((UPINT   &   (1 << n)) ? true : false)
+			#define Pipe_HasPipeInterrupted(n)     ((UPINT & (1 << n)) ? true : false)
 			
 			/** Clears the pipe bank, and switches to the alternate bank if the currently selected pipe is
 			 *  dual-banked. When cleared, this either frees the bank up for the next packet from the host
 			 *  (if the endpoint is of the OUT direction) or sends the packet contents to the host (if the
 			 *  pipe is of the IN direction).
 			 */
-			#define Pipe_ClearCurrentBank()        MACROS{ UPINTX  &= ~(1 << FIFOCON);                             }MACROE
+			#define Pipe_ClearCurrentBank()        MACROS{ UPINTX &= ~(1 << FIFOCON); }MACROE
 
 			/** Unfreezes the pipe, allowing it to communicate with an attached device. */
-			#define Pipe_Unfreeze()                MACROS{ UPCONX  &= ~(1 << PFREEZE);                             }MACROE
+			#define Pipe_Unfreeze()                MACROS{ UPCONX &= ~(1 << PFREEZE); }MACROE
 
 			/** Freezes the pipe, preventing it from communicating with an attached device. */
-			#define Pipe_Freeze()                  MACROS{ UPCONX  |=  (1 << PFREEZE);                             }MACROE
+			#define Pipe_Freeze()                  MACROS{ UPCONX |= (1 << PFREEZE); }MACROE
 
 			/** Clears the master pipe error flag. */
-			#define Pipe_ClearError()              MACROS{ UPINTX  &= ~(1 << PERRI);                               }MACROE
+			#define Pipe_ClearError()              MACROS{ UPINTX &= ~(1 << PERRI); }MACROE
 
 			/** Returns true if the master pipe error flag is set for the currently selected pipe, indicating that
 			 *  some sort of hardware error has occurred on the pipe.
 			 *
 			 *  \see Pipe_GetErrorFlags() macro for information on retreiving the exact error flag.
 			 */
-			#define Pipe_IsError()                       ((UPINTX  &   (1 << PERRI)) ? true : false)
+			#define Pipe_IsError()                 ((UPINTX & (1 << PERRI)) ? true : false)
 			
 			/** Clears all the currently selected pipe's hardware error flags, but does not clear the master error
 			 *  flag for the pipe. */
-			#define Pipe_ClearErrorFlags()         MACROS{ UPERRX   = 0;                                           }MACROE
+			#define Pipe_ClearErrorFlags()         MACROS{ UPERRX = 0; }MACROE
 
 			/** Returns a mask of the hardware error flags which have occured on the currently selected pipe. This
 			 *  value can then be masked against the PIPE_ERRORFLAG_* masks to determine what error has occurred.
 			 */
-			#define Pipe_GetErrorFlags()                   UPERRX
+			#define Pipe_GetErrorFlags()           UPERRX
 
 			/** Returns true if the currently selected pipe may be read from (if data is waiting in the pipe
 			 *  bank and the pipe is an IN direction, or if the bank is not yet full if the pipe is an OUT
@@ -320,40 +321,40 @@
 			 *  is an IN direction and no packet has been received, or if the pipe is an OUT direction and the
 			 *  pipe bank is full.
 			 */
-			#define Pipe_ReadWriteAllowed()              ((UPINTX  & (1 << RWAL)) ? true : false)
+			#define Pipe_ReadWriteAllowed()        ((UPINTX & (1 << RWAL)) ? true : false)
 
 			/** Clears the flag indicating that a SETUP request has been sent to the attached device from the
 			 *  currently selected CONTROL type pipe.
 			 */
-			#define Pipe_ClearSetupSent()          MACROS{ UPINTX  &= ~(1 << TXSTPI);                              }MACROE
+			#define Pipe_ClearSetupSent()          MACROS{ UPINTX &= ~(1 << TXSTPI); }MACROE
 
 			/** Returns true if no SETUP request is currently being sent to the attached device, false otherwise. */
-			#define Pipe_IsSetupSent()                   ((UPINTX  &   (1 << TXSTPI)) ? true : false)
+			#define Pipe_IsSetupSent()             ((UPINTX & (1 << TXSTPI)) ? true : false)
 
 			/** Returns true if the currently selected pipe has been stalled by the attached device, false otherwise. */
-			#define Pipe_IsStalled()                     ((UPINTX  &   (1 << RXSTALLI)) ? true : false)
+			#define Pipe_IsStalled()               ((UPINTX & (1 << RXSTALLI)) ? true : false)
 
 			/** Clears the stall condition on the currently selected pipe. */
-			#define Pipe_ClearStall()              MACROS{ UPINTX  &= ~(1 << RXSTALLI);                            }MACROE             
+			#define Pipe_ClearStall()              MACROS{ UPINTX &= ~(1 << RXSTALLI); }MACROE             
 
 			/** Returns true if an IN request has been received on the currently selected CONTROL type pipe, false
 			 *  otherwise.
 			 */
-			#define Pipe_IsSetupINReceived()             ((UPINTX  &   (1 << RXINI)) ? true : false)
+			#define Pipe_IsSetupINReceived()       ((UPINTX & (1 << RXINI)) ? true : false)
 
 			/** Returns true if the currently selected CONTROL type pipe is ready to send an OUT request, false
 			 *  otherwise.
 			 */
-			#define Pipe_IsSetupOUTReady()               ((UPINTX  &   (1 << TXOUTI)) ? true : false)
+			#define Pipe_IsSetupOUTReady()         ((UPINTX & (1 << TXOUTI)) ? true : false)
 
 			/** Acknowedges the reception of a setup IN request from the attached device on the currently selected
 			 *  CONTROL type endpoint, allowing for the transmission of a setup OUT packet, or the reception of
 			 *  another setup IN packet.
 			 */
-			#define Pipe_ClearSetupIN()            MACROS{ UPINTX  &= ~(1 << RXINI); UPINTX &= ~(1 << FIFOCON);    }MACROE
+			#define Pipe_ClearSetupIN()            MACROS{ UPINTX &= ~(1 << RXINI); UPINTX &= ~(1 << FIFOCON); }MACROE
 
 			/** Sends the currently selected CONTROL type pipe's contents to the device as a setup OUT packet. */
-			#define Pipe_ClearSetupOUT()           MACROS{ UPINTX  &= ~(1 << TXOUTI); UPINTX &= ~(1 << FIFOCON);   }MACROE
+			#define Pipe_ClearSetupOUT()           MACROS{ UPINTX &= ~(1 << TXOUTI); UPINTX &= ~(1 << FIFOCON); }MACROE
 			
 			/** Returns true if the device sent a NAK (Negative Acknowedge) in response to the last sent packet on
 			 *  the currently selected pipe. This ocurrs when the host sends a packet to the device, but the device
@@ -361,13 +362,13 @@
 			 *  received, it must be cleard using Pipe_ClearNAKReceived() before the previous (or any other) packet
 			 *  can be re-sent.
 			 */
-			#define Pipe_IsNAKReceived()                 ((UPINTX & (1 << NAKEDI)) ? true : false)
+			#define Pipe_IsNAKReceived()           ((UPINTX & (1 << NAKEDI)) ? true : false)
 
 			/** Clears the NAK condition on the currently selected pipe.
 			 *
 			 *  \see Pipe_IsNAKReceived() for more details.
 			 */
-			#define Pipe_ClearNAKReceived()        MACROS{ UPINTX &= ~(1 << NAKEDI);                              }MACROE
+			#define Pipe_ClearNAKReceived()        MACROS{ UPINTX &= ~(1 << NAKEDI); }MACROE
 
 		/* Enums: */
 			/** Enum for the possible error return codes of the Pipe_WaitUntilReady function */
@@ -401,19 +402,21 @@
 
 		/* Inline Functions: */
 			/** Reads one byte from the currently selected pipe's bank, for OUT direction pipes. */
-			static inline uint8_t Pipe_Read_Byte(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t Pipe_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_Read_Byte(void)
 			{
 				return UPDATX;
 			}
 
 			/** Writes one byte from the currently selected pipe's bank, for IN direction pipes. */
+			static inline void Pipe_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Byte(const uint8_t Byte)
 			{
 				UPDATX = Byte;
 			}
 
 			/** Discards one byte from the currently selected pipe's bank, for OUT direction pipes. */
+			static inline void Pipe_Discard_Byte(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Discard_Byte(void)
 			{
 				uint8_t Dummy;
@@ -424,7 +427,7 @@
 			/** Reads two bytes from the currently selected pipe's bank in little endian format, for OUT
 			 *  direction pipes.
 			 */
-			static inline uint16_t Pipe_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint16_t Pipe_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_Read_Word_LE(void)
 			{
 				uint16_t Data;
@@ -438,7 +441,7 @@
 			/** Reads two bytes from the currently selected pipe's bank in big endian format, for OUT
 			 *  direction pipes.
 			 */
-			static inline uint16_t Pipe_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint16_t Pipe_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_Read_Word_BE(void)
 			{
 				uint16_t Data;
@@ -452,6 +455,7 @@
 			/** Writes two bytes to the currently selected pipe's bank in little endian format, for IN
 			 *  direction pipes.
 			 */
+			static inline void Pipe_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_LE(const uint16_t Word)
 			{
 				UPDATX = (Word & 0xFF);
@@ -461,6 +465,7 @@
 			/** Writes two bytes to the currently selected pipe's bank in big endian format, for IN
 			 *  direction pipes.
 			 */
+			static inline void Pipe_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_BE(const uint16_t Word)
 			{
 				UPDATX = (Word >> 8);
@@ -468,6 +473,7 @@
 			}
 
 			/** Discards two bytes from the currently selected pipe's bank, for OUT direction pipes. */
+			static inline void Pipe_Ignore_Word(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Ignore_Word(void)
 			{
 				uint8_t Dummy;
@@ -479,7 +485,7 @@
 			/** Reads four bytes from the currently selected pipe's bank in little endian format, for OUT
 			 *  direction pipes.
 			 */
-			static inline uint32_t Pipe_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint32_t Pipe_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Pipe_Read_DWord_LE(void)
 			{
 				union
@@ -499,7 +505,7 @@
 			/** Reads four bytes from the currently selected pipe's bank in big endian format, for OUT
 			 *  direction pipes.
 			 */
-			static inline uint32_t Pipe_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint32_t Pipe_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Pipe_Read_DWord_BE(void)
 			{
 				union
@@ -519,6 +525,7 @@
 			/** Writes four bytes to the currently selected pipe's bank in little endian format, for IN
 			 *  direction pipes.
 			 */
+			static inline void Pipe_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord)
 			{
 				Pipe_Write_Word_LE(DWord);
@@ -527,7 +534,8 @@
 			
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
 			 *  direction pipes.
-			 */			
+			 */
+			static inline void Pipe_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord)
 			{
 				Pipe_Write_Word_BE(DWord >> 16);
@@ -535,6 +543,7 @@
 			}			
 			
 			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes. */
+			static inline void Pipe_Ignore_DWord(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Ignore_DWord(void)
 			{
 				uint8_t Dummy;
@@ -754,14 +763,14 @@
 		/* Macros: */
 			#define PIPE_TOKEN_MASK                    (0x03 << PTOKEN0)
 
-			#define Pipe_AllocateMemory()          MACROS{ UPCFG1X |=  (1 << ALLOC);                               }MACROE
-			#define Pipe_DeallocateMemory()        MACROS{ UPCFG1X &= ~(1 << ALLOC);                               }MACROE
+			#define Pipe_AllocateMemory()          MACROS{ UPCFG1X |=  (1 << ALLOC); }MACROE
+			#define Pipe_DeallocateMemory()        MACROS{ UPCFG1X &= ~(1 << ALLOC); }MACROE
 
 		/* Function Prototypes: */
 			void Pipe_ClearPipes(void);
 
 		/* Inline Functions: */
-			static inline uint8_t Pipe_BytesToEPSizeMask(uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYSINLINE;
+			static inline uint8_t Pipe_BytesToEPSizeMask(uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_BytesToEPSizeMask(uint16_t Bytes)
 			{
 				if (Bytes <= 8)

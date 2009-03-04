@@ -108,7 +108,7 @@
 			 *
 			 *  \return Last response byte from the dataflash
 			 */
-			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte) ATTR_ALWAYSINLINE;
+			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte)
 			{
 				return SPI_TransferByte(Byte);
@@ -118,7 +118,7 @@
 			 *
 			 *  \param Byte of data to send to the dataflash
 			 */
-			static inline void Dataflash_SendByte(const uint8_t Byte) ATTR_ALWAYSINLINE;
+			static inline void Dataflash_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SendByte(const uint8_t Byte)
 			{
 				SPI_SendByte(Byte);
@@ -128,7 +128,7 @@
 			 *
 			 *  \return Last response byte from the dataflash
 			 */
-			static inline uint8_t Dataflash_ReceiveByte(void) ATTR_ALWAYSINLINE ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t Dataflash_ReceiveByte(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Dataflash_ReceiveByte(void)
 			{
 				return SPI_ReceiveByte();

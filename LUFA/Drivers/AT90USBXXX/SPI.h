@@ -98,7 +98,7 @@
 			 *
 			 *  \return Response byte from the attached SPI device
 			 */
-			static inline uint8_t SPI_TransferByte(const uint8_t Byte) ATTR_ALWAYSINLINE;
+			static inline uint8_t SPI_TransferByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline uint8_t SPI_TransferByte(const uint8_t Byte)
 			{
 				SPDR = Byte;
@@ -111,7 +111,7 @@
 			 *
 			 *  \param Byte Byte to send through the SPI interface
 			 */
-			static inline void SPI_SendByte(const uint8_t Byte) ATTR_ALWAYSINLINE;
+			static inline void SPI_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void SPI_SendByte(const uint8_t Byte)
 			{
 				SPDR = Byte;
@@ -123,7 +123,7 @@
 			 *
 			 *  \return The response byte from the attached SPI device
 			 */
-			static inline uint8_t SPI_ReceiveByte(void) ATTR_ALWAYSINLINE ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t SPI_ReceiveByte(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t SPI_ReceiveByte(void)
 			{
 				SPDR = 0x00;

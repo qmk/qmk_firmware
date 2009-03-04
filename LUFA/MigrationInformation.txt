@@ -21,6 +21,9 @@
  *  <b>Library Demos</b>
  *    - The USBtoSerial demo now discards all data when not connected to a host, rather than buffering it for later transmission.
  *
+ *  <b>Non-USB Library Components</b>
+ *    - The ATTR_ALWAYSINLINE function attribute macro has been renamed to ATTR_ALWAYS_INLINE.
+ *
  * \section Sec_Migration090209 Migrating from 081217 to 090209
  *
  *  <b>Device Mode</b>

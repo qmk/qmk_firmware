@@ -535,9 +535,9 @@ flip-ee: $(TARGET).hex $(TARGET).eep
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 
 dfu-ee: $(TARGET).hex $(TARGET).eep
-	dfu-programmer $(MCU) erase
-	dfu-programmer $(MCU) eeprom --debug 1 $(TARGET).eep
+	dfu-programmer $(MCU) flash-eeprom --debug 1 --suppress-bootloader-mem $(TARGET).eep
 	dfu-programmer $(MCU) reset
+
 
 # Generate avr-gdb config/init file which does the following:
 #     define the reset signal, load the target file, connect to target, and set 
@@ -677,10 +677,11 @@ clean: begin clean_list clean_binary end
 
 clean_binary:
 	$(REMOVE) $(TARGET).hex
-
+	
 clean_list:
 	@echo $(MSG_CLEANING)
 	$(REMOVE) $(TARGET).eep
+	$(REMOVE) $(TARGET)eep.hex
 	$(REMOVE) $(TARGET).cof
 	$(REMOVE) $(TARGET).elf
 	$(REMOVE) $(TARGET).map
@@ -715,4 +716,4 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 finish end sizebefore sizeafter gccversion  \
 build elf hex eep lss sym coff extcoff      \
 clean clean_list clean_binary program debug \
-gdb-config doxygen dfu flip
+gdb-config doxygen dfu flip flip-ee dfu-ee

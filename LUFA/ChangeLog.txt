@@ -8,7 +8,7 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
-  *  - Added new BluetoothHost demo
+  *  - Added new incomplete BluetoothHost demo
   *  - Changed AVRISP Programmer descriptors to use a newly allocated 0x204F PID value
   *  - Fixed MagStripe project configuration descriptor containing an unused (blank) endpoint descriptor
   *  - Incorporated makefile changes by Denver Gingerich to retain compatibility with stock (non-WinAVR) AVR-GCC installations
@@ -26,6 +26,8 @@
   *  - Changed stream wait timeout counter to be 16-bit, so that very long timeout periods can be set for correct communications with
   *    badly designed hosts or devices which greatly exceed the USB specification limits
   *  - Mass Storage Host demo now uses a USB_STREAM_TIMEOUT_MS of two seconds to maintain compatibility with poorly designed devices
+  *  - Function attribute ATTR_ALWAYSINLINE renamed to ATTR_ALWAYS_INLINE to match other function attribute macro naming conventions
+  *  - Added ATTR_ALWAYS_INLINE attribute to several key inlined library components, to ensure they are inlined in all circumstances
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *

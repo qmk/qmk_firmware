@@ -58,69 +58,69 @@
 			/** Endpoint data direction mask for Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the OUT direction - i.e. data flows from host to device.
 			 */
-			#define ENDPOINT_DIR_OUT                           0
+			#define ENDPOINT_DIR_OUT                      (0 << EPDIR)
 
 			/** Endpoint data direction mask for Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the IN direction - i.e. data flows from device to host.
 			 */
-			#define ENDPOINT_DIR_IN                            (1 << EPDIR)
+			#define ENDPOINT_DIR_IN                       (1 << EPDIR)
 
 			/** Mask for the bank mode selection for the Endpoint_ConfigureEndpoint() macro. This indicates
 			 *  that the endpoint should have one single bank, which requires less USB FIFO memory but results
 			 *  in slower transfers as only one USB device (the AVR or the host) can access the endpoint's
 			 *  bank at the one time.
 			 */
-			#define ENDPOINT_BANK_SINGLE                       0
+			#define ENDPOINT_BANK_SINGLE                  (0 << EPBK0)
 
 			/** Mask for the bank mode selection for the Endpoint_ConfigureEndpoint() macro. This indicates
 			 *  that the endpoint should have two banks, which requires more USB FIFO memory but results
 			 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
 			 *  accesses the second bank.
 			 */
-			#define ENDPOINT_BANK_DOUBLE                       (1 << EPBK0)
+			#define ENDPOINT_BANK_DOUBLE                  (1 << EPBK0)
 			
 			/** Endpoint address for the default control endpoint, which always resides in address 0. This is
 			 *  defined for convenience to give more readable code when used with the endpoint macros.
 			 */
-			#define ENDPOINT_CONTROLEP                         0
+			#define ENDPOINT_CONTROLEP                    0
 
 			/** Default size of the default control endpoint's bank, until altered by the Endpoint0Size value 
 			 *  in the device descriptor. Not available if the FIXED_CONTROL_ENDPOINT_SIZE token is defined.
 			 */
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
-				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE            8
+				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE   8
 			#endif
 			
 			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  numerical address in the device.
 			 */
-			#define ENDPOINT_EPNUM_MASK                        0b111
+			#define ENDPOINT_EPNUM_MASK                   0b111
 
 			/** Endpoint bank size mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  bank size in the device.
 			 */
-			#define ENDPOINT_EPSIZE_MASK                       0x7FF
+			#define ENDPOINT_EPSIZE_MASK                  0x7FF
 			
 			/** Maximum size in bytes of a given endpoint.
 			 *
 			 *  \param n  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */				
-			#define ENDPOINT_MAX_SIZE(n)                      _ENDPOINT_GET_MAXSIZE(n)
+			#define ENDPOINT_MAX_SIZE(n)                  _ENDPOINT_GET_MAXSIZE(n)
 
 			/** Indicates if the given endpoint supports double banking.
 			 *
 			 *  \param n  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */				
-			#define ENDPOINT_DOUBLEBANK_SUPPORTED(n)          _ENDPOINT_GET_DOUBLEBANK(n)
+			#define ENDPOINT_DOUBLEBANK_SUPPORTED(n)      _ENDPOINT_GET_DOUBLEBANK(n)
 
 			#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER) || defined(__DOXYGEN__)
 				/** Total number of endpoints (including the default control endpoint at address 0) which may
 				 *  be used in the device. Different USB AVR models support different amounts of endpoints,
 				 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
 				 */
-				#define ENDPOINT_TOTAL_ENDPOINTS                7
+				#define ENDPOINT_TOTAL_ENDPOINTS          7
 			#else
-				#define ENDPOINT_TOTAL_ENDPOINTS                5			
+				#define ENDPOINT_TOTAL_ENDPOINTS          5			
 			#endif
 
 			/** Interrupt definition for the endpoint SETUP interrupt (for CONTROL type endpoints). Should be
@@ -128,8 +128,13 @@
 			 *
 			 *  This interrupt will fire if enabled on a CONTROL type endpoint if a new control packet is
 			 *  received from the host.
+			 *
+			 *  \note This interrupt must be enabled and cleared on *each* endpoint which requires it (after the
+			 *        endpoint is selected), and will fire the common endpoint interrupt vector.
+			 *
+			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 */
-			#define ENDPOINT_INT_SETUP                         UEIENX, (1 << RXSTPE), UEINTX, (1 << RXSTPI)
+			#define ENDPOINT_INT_SETUP                    UEIENX, (1 << RXSTPE), UEINTX, (1 << RXSTPI)
 
 			/** Interrupt definition for the endpoint IN interrupt (for INTERRUPT type endpoints). Should be
 			 *  used with the USB_INT_* macros located in USBInterrupt.h.
@@ -137,8 +142,13 @@
 			 *  This interrupt will fire if enabled on an INTERRUPT type endpoint if a the endpoint interrupt
 			 *  period has elapsed and the endpoint is ready for a new packet to be written to its FIFO buffer
 			 *  (if required).
+			 *
+			 *  \note This interrupt must be enabled and cleared on *each* endpoint which requires it (after the
+			 *        endpoint is selected), and will fire the common endpoint interrupt vector.
+			 *
+			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 */
-			#define ENDPOINT_INT_IN                            UEIENX, (1 << TXINE) , UEINTX, (1 << TXINI)
+			#define ENDPOINT_INT_IN                       UEIENX, (1 << TXINE) , UEINTX, (1 << TXINI)
 
 			/** Interrupt definition for the endpoint OUT interrupt (for INTERRUPT type endpoints). Should be
 			 *  used with the USB_INT_* macros located in USBInterrupt.h.
@@ -146,21 +156,26 @@
 			 *  This interrupt will fire if enabled on an INTERRUPT type endpoint if a the endpoint interrupt
 			 *  period has elapsed and the endpoint is ready for a packet from the host to be read from its
 			 *  FIFO buffer (if received).
+			 *
+			 *  \note This interrupt must be enabled and cleared on *each* endpoint which requires it (after the
+			 *        endpoint is selected), and will fire the common endpoint interrupt vector.
+			 *
+			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 */
-			#define ENDPOINT_INT_OUT                           UEIENX, (1 << RXOUTE), UEINTX, (1 << RXOUTI)
+			#define ENDPOINT_INT_OUT                      UEIENX, (1 << RXOUTE), UEINTX, (1 << RXOUTI)
 			
 			#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER) || defined(__DOXYGEN__)
 				/** Indicates the number of bytes currently stored in the current endpoint's selected bank. */
-				#define Endpoint_BytesInEndpoint()             UEBCX
+				#define Endpoint_BytesInEndpoint()        UEBCX
 			#else
-				#define Endpoint_BytesInEndpoint()             UEBCLX
+				#define Endpoint_BytesInEndpoint()        UEBCLX
 			#endif
 			
 			/** Returns the endpoint address of the currently selected endpoint. This is typically used to save
 			 *  the currently selected endpoint number so that it can be restored after another endpoint has
 			 *  been manipulated.
 			 */
-			#define Endpoint_GetCurrentEndpoint()             (UENUM   &   ENDPOINT_EPNUM_MASK)
+			#define Endpoint_GetCurrentEndpoint()         (UENUM & ENDPOINT_EPNUM_MASK)
 			
 			/** Selects the given endpoint number. If the address from the device descriptors is used, the
 			 *  value should be masked with the ENDPOINT_EPNUM_MASK constant to extract only the endpoint
@@ -169,12 +184,12 @@
 			 *  Any endpoint operations which do not require the endpoint number to be indicated will operate on
 			 *  the currently selected endpoint.
 			 */
-			#define Endpoint_SelectEndpoint(epnum)     MACROS{ UENUM    =  epnum;                         }MACROE
+			#define Endpoint_SelectEndpoint(epnum)        MACROS{ UENUM = epnum; }MACROE
 
 			/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB controller's
 			 *  In and Out pointers to the bank's contents.
 			 */
-			#define Endpoint_ResetFIFO(epnum)          MACROS{ UERST    =  (1 << epnum); UERST = 0;       }MACROE
+			#define Endpoint_ResetFIFO(epnum)             MACROS{ UERST = (1 << epnum); UERST = 0; }MACROE
 
 			/** Enables the currently selected endpoint so that data can be sent and received through it to
 			 *  and from a host.
@@ -182,15 +197,15 @@
 			 *  \note Endpoints must first be configured properly rather than just being enabled via the
 			 *        Endpoint_ConfigureEndpoint() macro, which calls Endpoint_EnableEndpoint() automatically.
 			 */
-			#define Endpoint_EnableEndpoint()          MACROS{ UECONX  |=  (1 << EPEN);                   }MACROE
+			#define Endpoint_EnableEndpoint()             MACROS{ UECONX |= (1 << EPEN); }MACROE
 
 			/** Disables the currently selected endpoint so that data cannot be sent and received through it
 			 *  to and from a host.
 			 */
-			#define Endpoint_DisableEndpoint()         MACROS{ UECONX  &= ~(1 << EPEN);                   }MACROE
+			#define Endpoint_DisableEndpoint()            MACROS{ UECONX &= ~(1 << EPEN); }MACROE
 
 			/** Returns true if the currently selected endpoint is enabled, false otherwise. */
-			#define Endpoint_IsEnabled()                     ((UECONX  &   (1 << EPEN)) ? true : false)
+			#define Endpoint_IsEnabled()                  ((UECONX & (1 << EPEN)) ? true : false)
 
 			/** Returns true if the currently selected endpoint may be read from (if data is waiting in the endpoint
 			 *  bank and the endpoint is an OUT direction, or if the bank is not yet full if the endpoint is an
@@ -198,53 +213,53 @@
 			 *  the endpoint is an OUT direction and no packet has been received, or if the endpoint is an IN
 			 *  direction and the endpoint bank is full.
 			 */
-			#define Endpoint_ReadWriteAllowed()              ((UEINTX  & (1 << RWAL)) ? true : false)
+			#define Endpoint_ReadWriteAllowed()           ((UEINTX & (1 << RWAL)) ? true : false)
 
 			/** Returns true if the currently selected endpoint is configured, false otherwise. */
-			#define Endpoint_IsConfigured()                  ((UESTA0X & (1 << CFGOK)) ? true : false)
+			#define Endpoint_IsConfigured()               ((UESTA0X & (1 << CFGOK)) ? true : false)
 
 			/** Returns a mask indicating which INTERRUPT type endpoints have interrupted - i.e. their
 			 *  interrupt duration has elapsed. Which endpoints have interrupted can be determined by
 			 *  masking the return value against (1 << {Endpoint Number}).
 			 */
-			#define Endpoint_GetEndpointInterrupts()           UEINT
+			#define Endpoint_GetEndpointInterrupts()      UEINT
 
 			/** Clears the endpoint interrupt flag. This clears the specified endpoint number's interrupt
 			 *  mask in the endpoint interrupt flag register.
 			 */
-			#define Endpoint_ClearEndpointInterrupt(n) MACROS{ UEINT   &= ~(1 << n);                     }MACROE
+			#define Endpoint_ClearEndpointInterrupt(n)    MACROS{ UEINT &= ~(1 << n); }MACROE
 
 			/** Returns true if the specified endpoint number has interrupted (valid only for INTERRUPT type
 			 *  endpoints), false otherwise.
 			 */
-			#define Endpoint_HasEndpointInterrupted(n)       ((UEINT   &   (1 << n)) ? true : false)
+			#define Endpoint_HasEndpointInterrupted(n)    ((UEINT & (1 << n)) ? true : false)
 
 			/** Clears the currently selected endpoint bank, and switches to the alternate bank if the currently
 			 *  selected endpoint is dual-banked. When cleared, this either frees the bank up for the next packet
 			 *  from the host (if the endpoint is of the OUT direction) or sends the packet contents to the host
 			 *  (if the endpoint is of the IN direction).
 			 */
-			#define Endpoint_ClearCurrentBank()       MACROS{ UEINTX  &= ~(1 << FIFOCON);               }MACROE
+			#define Endpoint_ClearCurrentBank()           MACROS{ UEINTX &= ~(1 << FIFOCON); }MACROE
 			
 			/** Returns true if the current CONTROL type endpoint is ready for an IN packet, false otherwise. */
-			#define Endpoint_IsSetupINReady()               ((UEINTX  & (1 << TXINI))  ? true : false)
+			#define Endpoint_IsSetupINReady()             ((UEINTX & (1 << TXINI))  ? true : false)
 
 			/** Returns true if the current CONTROL type endpoint is ready for an OUT packet, false otherwise. */
-			#define Endpoint_IsSetupOUTReceived()           ((UEINTX  & (1 << RXOUTI)) ? true : false)
+			#define Endpoint_IsSetupOUTReceived()         ((UEINTX & (1 << RXOUTI)) ? true : false)
 
 			/** Returns true if the current CONTROL type endpoint is ready for a SETUP packet, false otherwise. */
-			#define Endpoint_IsSetupReceived()              ((UEINTX  & (1 << RXSTPI)) ? true : false)
+			#define Endpoint_IsSetupReceived()            ((UEINTX & (1 << RXSTPI)) ? true : false)
 
 			/** Clears a received SETUP packet on the currently selected CONTROL type endpoint. */
-			#define Endpoint_ClearSetupReceived()      MACROS{ UEINTX  &= ~(1 << RXSTPI);                }MACROE
+			#define Endpoint_ClearSetupReceived()         MACROS{ UEINTX &= ~(1 << RXSTPI); }MACROE
 
 			/** Sends an IN packet to the host on the currently selected CONTROL type endpoint. */
-			#define Endpoint_ClearSetupIN()            MACROS{ UEINTX  &= ~(1 << TXINI);                 }MACROE
+			#define Endpoint_ClearSetupIN()               MACROS{ UEINTX &= ~(1 << TXINI); }MACROE
 
 			/** Acknowedges an OUT packet to the host on the currently selected CONTROL type endpoint, freeing
 			 *  up the endpoint for the next packet.
 			 */
-			#define Endpoint_ClearSetupOUT()           MACROS{ UEINTX  &= ~(1 << RXOUTI);                }MACROE
+			#define Endpoint_ClearSetupOUT()              MACROS{ UEINTX &= ~(1 << RXOUTI); }MACROE
 
 			/** Stalls the current endpoint, indicating to the host that a logical problem occured with the
 			 *  indicated endpoint and that the current transfer sequence should be aborted. This provides a
@@ -255,16 +270,16 @@
 			 *  is called, or the host issues a CLEAR FEATURE request to the device for the currently selected
 			 *  endpoint.
 			 */
-			#define Endpoint_StallTransaction()        MACROS{ UECONX  |=  (1 << STALLRQ);               }MACROE
+			#define Endpoint_StallTransaction()           MACROS{ UECONX |= (1 << STALLRQ); }MACROE
 
 			/** Clears the stall on the currently selected endpoint. */
-			#define Endpoint_ClearStall()              MACROS{ UECONX  |=  (1 << STALLRQC);              }MACROE
+			#define Endpoint_ClearStall()                 MACROS{ UECONX |= (1 << STALLRQC); }MACROE
 
 			/** Returns true if the currently selected endpoint is stalled, false othewise. */
-			#define Endpoint_IsStalled()                     ((UECONX  &   (1 << STALLRQ)) ? true : false)
+			#define Endpoint_IsStalled()                  ((UECONX & (1 << STALLRQ)) ? true : false)
 
 			/** Resets the data toggle of the currently selected endpoint. */
-			#define Endpoint_ResetDataToggle()         MACROS{ UECONX  |=  (1 << RSTDT);                 }MACROE
+			#define Endpoint_ResetDataToggle()            MACROS{ UECONX |= (1 << RSTDT); }MACROE
 
 		/* Enums: */
 			/** Enum for the possible error return codes of the Endpoint_WaitUntilReady function */
@@ -311,19 +326,21 @@
 
 		/* Inline Functions: */
 			/** Reads one byte from the currently selected endpoint's bank, for OUT direction endpoints. */
-			static inline uint8_t Endpoint_Read_Byte(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t Endpoint_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_Read_Byte(void)
 			{
 				return UEDATX;
 			}
 
 			/** Writes one byte from the currently selected endpoint's bank, for IN direction endpoints. */
+			static inline void Endpoint_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Byte(const uint8_t Byte)
 			{
 				UEDATX = Byte;
 			}
 
 			/** Discards one byte from the currently selected endpoint's bank, for OUT direction endpoints. */
+			static inline void Endpoint_Discard_Byte(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Discard_Byte(void)
 			{
 				uint8_t Dummy;
@@ -334,7 +351,7 @@
 			/** Reads two bytes from the currently selected endpoint's bank in little endian format, for OUT
 			 *  direction endpoints.
 			 */
-			static inline uint16_t Endpoint_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint16_t Endpoint_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_Read_Word_LE(void)
 			{
 				uint16_t Data;
@@ -348,7 +365,7 @@
 			/** Reads two bytes from the currently selected endpoint's bank in big endian format, for OUT
 			 *  direction endpoints.
 			 */
-			static inline uint16_t Endpoint_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint16_t Endpoint_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_Read_Word_BE(void)
 			{
 				uint16_t Data;
@@ -362,6 +379,7 @@
 			/** Writes two bytes to the currently selected endpoint's bank in little endian format, for IN
 			 *  direction endpoints.
 			 */
+			static inline void Endpoint_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Word_LE(const uint16_t Word)
 			{
 				UEDATX = (Word & 0xFF);
@@ -371,6 +389,7 @@
 			/** Writes two bytes to the currently selected endpoint's bank in big endian format, for IN
 			 *  direction endpoints.
 			 */
+			static inline void Endpoint_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Word_BE(const uint16_t Word)
 			{
 				UEDATX = (Word >> 8);
@@ -378,6 +397,7 @@
 			}
 
 			/** Discards two bytes from the currently selected endpoint's bank, for OUT direction endpoints. */
+			static inline void Endpoint_Discard_Word(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Discard_Word(void)
 			{
 				uint8_t Dummy;
@@ -389,7 +409,7 @@
 			/** Reads four bytes from the currently selected endpoint's bank in little endian format, for OUT
 			 *  direction endpoints.
 			 */
-			static inline uint32_t Endpoint_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint32_t Endpoint_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Endpoint_Read_DWord_LE(void)
 			{
 				union
@@ -409,7 +429,7 @@
 			/** Reads four bytes from the currently selected endpoint's bank in big endian format, for OUT
 			 *  direction endpoints.
 			 */
-			static inline uint32_t Endpoint_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint32_t Endpoint_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Endpoint_Read_DWord_BE(void)
 			{
 				union
@@ -429,22 +449,29 @@
 			/** Writes four bytes to the currently selected endpoint's bank in little endian format, for IN
 			 *  direction endpoints.
 			 */
+			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord)
 			{
-				Endpoint_Write_Word_LE(DWord);
-				Endpoint_Write_Word_LE(DWord >> 16);
+				UEDATX = (DWord &  0xFF);
+				UEDATX = (DWord >> 8);
+				UEDATX = (DWord >> 16);
+				UEDATX = (DWord >> 24);
 			}
 			
 			/** Writes four bytes to the currently selected endpoint's bank in big endian format, for IN
 			 *  direction endpoints.
 			 */
+			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord)
 			{
-				Endpoint_Write_Word_BE(DWord >> 16);
-				Endpoint_Write_Word_BE(DWord);
+				UEDATX = (DWord >> 24);
+				UEDATX = (DWord >> 16);
+				UEDATX = (DWord >> 8);
+				UEDATX = (DWord &  0xFF);
 			}
 
 			/** Discards four bytes from the currently selected endpoint's bank, for OUT direction endpoints. */
+			static inline void Endpoint_Discard_DWord(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Discard_DWord(void)
 			{
 				uint8_t Dummy;
@@ -810,7 +837,7 @@
 			bool Endpoint_ConfigureEndpointStatic(const uint8_t Number, const uint8_t UECFG0XData, const uint8_t UECFG1XData);
 			
 		/* Inline Functions: */
-			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYSINLINE;
+			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
 			{
 				if (Bytes <= 8)

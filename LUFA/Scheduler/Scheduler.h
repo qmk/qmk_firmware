@@ -175,7 +175,7 @@
 			 *  \param DelayCounter  Counter which is storing the starting tick count for a given delay.
 			 */
 			static inline void Scheduler_ResetDelay(SchedulerDelayCounter_t* const DelayCounter)
-			                                        ATTR_NON_NULL_PTR_ARG(1);
+			                                        ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
 			static inline void Scheduler_ResetDelay(SchedulerDelayCounter_t* const DelayCounter)
 			{
 				ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
@@ -229,12 +229,13 @@
 			#define MAX_DELAYCTR_COUNT                0xFFFF
 
 		/* Inline Functions: */
+			static inline void Scheduler_InitScheduler(const uint8_t TotalTasks) ATTR_ALWAYS_INLINE;
 			static inline void Scheduler_InitScheduler(const uint8_t TotalTasks)
 			{
 				Scheduler_TotalTasks = TotalTasks;
 			}
 		
-			static inline void Scheduler_GoSchedule(const uint8_t TotalTasks) ATTR_NO_RETURN;
+			static inline void Scheduler_GoSchedule(const uint8_t TotalTasks) ATTR_NO_RETURN ATTR_ALWAYS_INLINE;
 			static inline void Scheduler_GoSchedule(const uint8_t TotalTasks)
 			{
 				Scheduler_InitScheduler(TotalTasks);
