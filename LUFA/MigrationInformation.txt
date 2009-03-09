@@ -17,6 +17,8 @@
  *      defined in the project makefile and passed to the compiler via the -D switch.
  *    - The makefile EEPROM programming targets for FLIP and dfu-programmer no longer program in the FLASH data in addition to the
  *      EEPROM data into the device. If both are to be programmed, both the EEPROM and FLASH programming targets must be called.
+ *    - As the avr-libc macro has been corrected in recent avr-libc distributions, the SetSystemClockPrescaler() macro has been removed.
+ *      Include <avr/power.h> and call clock_prescale_set(clock_div_1); instead on recent avr-libc distributions.
  *
  *  <b>Library Demos</b>
  *    - The USBtoSerial demo now discards all data when not connected to a host, rather than buffering it for later transmission.

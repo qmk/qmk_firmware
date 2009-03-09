@@ -35,6 +35,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
+		#include <avr/power.h>
 		#include <stdbool.h>
 		#include <string.h>
 

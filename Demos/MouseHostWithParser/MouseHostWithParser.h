@@ -35,6 +35,7 @@
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/pgmspace.h>
+		#include <avr/power.h>
 		#include <stdio.h>
 
 		#include <LUFA/Version.h>                                // Library Version Information

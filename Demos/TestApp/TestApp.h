@@ -40,6 +40,7 @@
 		#include <avr/io.h>
 		#include <avr/interrupt.h>
 		#include <avr/wdt.h>
+		#include <avr/power.h>
 
 		#include <LUFA/Version.h>                               // Library Version Information
 		#include <LUFA/Drivers/USB/USB.h>                       // USB Functionality

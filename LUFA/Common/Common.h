@@ -88,27 +88,6 @@
 			                                } }MACROE
 
 		/* Inline Functions: */
-			/** Function for reliably setting the AVR's system clock prescaler, using inline assembly. This function
-			 *  is guaranteed to operate reliably regardless of optimization setting or other compile time options. 
-			 *
-			 *  \param PrescalerMask   The mask of the new prescaler setting for CLKPR
-			 */
-			static inline void SetSystemClockPrescaler(uint8_t PrescalerMask)
-			{
-					uint8_t tmp = (1 << CLKPCE);
-					__asm__ __volatile__ (
-							"in __tmp_reg__,__SREG__" "\n\t"
-							"cli" "\n\t"
-							"sts %1, %0" "\n\t"
-							"sts %1, %2" "\n\t"
-							"out __SREG__, __tmp_reg__"
-							: /* no outputs */
-							: "d" (tmp),
-							  "M" (_SFR_MEM_ADDR(CLKPR)),
-							  "d" (PrescalerMask)
-							: "r0");
-			}
-
 			/** Function to reverse the individual bits in a byte - i.e. bit 7 is moved to bit 0, bit 6 to bit 1,
 			 *  etc.
 			 *

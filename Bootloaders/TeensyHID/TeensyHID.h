@@ -41,6 +41,7 @@
 		#include <avr/wdt.h>
 		#include <avr/boot.h>
 		#include <avr/wdt.h>
+		#include <avr/power.h>
 		#include <util/delay.h>
 		#include <stdbool.h>
 

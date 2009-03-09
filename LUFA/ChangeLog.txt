@@ -28,6 +28,7 @@
   *  - Mass Storage Host demo now uses a USB_STREAM_TIMEOUT_MS of two seconds to maintain compatibility with poorly designed devices
   *  - Function attribute ATTR_ALWAYSINLINE renamed to ATTR_ALWAYS_INLINE to match other function attribute macro naming conventions
   *  - Added ATTR_ALWAYS_INLINE attribute to several key inlined library components, to ensure they are inlined in all circumstances
+  *  - Removed SetSystemClockPrescaler() macro, the clock_prescale_set() avr-libc macro has been corrected in recent avr-libc versions
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *

@@ -40,6 +40,7 @@
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/interrupt.h>
+		#include <avr/power.h>
 
 		#include "Descriptors.h"
 		#include "RingBuff.h"

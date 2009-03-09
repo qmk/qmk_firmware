@@ -37,10 +37,11 @@
 #define _AVRISP_PROGRAMMER_H_
 
 	/* Includes: */
-		#include <util/delay.h>
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/interrupt.h>
+		#include <avr/power.h>
+		#include <util/delay.h>
 
 		#include "Descriptors.h"
 		#include "RingBuff.h"
