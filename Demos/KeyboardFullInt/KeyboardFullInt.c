@@ -404,6 +404,15 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 		USB_KeyboardReport_Data_t KeyboardReportData;
 		bool                      SendReport;
 	
+		/* Select the Keyboard Report Endpoint */
+		Endpoint_SelectEndpoint(KEYBOARD_EPNUM);
+
+		/* Clear the endpoint IN interrupt flag */
+		USB_INT_Clear(ENDPOINT_INT_IN);
+
+		/* Clear the Keyboard Report endpoint interrupt */
+		Endpoint_ClearEndpointInterrupt(KEYBOARD_EPNUM);
+
 		/* Create the next keyboard report for transmission to the host */
 		SendReport = GetNextReport(&KeyboardReportData);
 	
@@ -420,21 +429,12 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 		/* Check to see if a report should be issued */
 		if (SendReport)
 		{
-			/* Select the Keyboard Report Endpoint */
-			Endpoint_SelectEndpoint(KEYBOARD_EPNUM);
-
-			/* Clear the endpoint IN interrupt flag */
-			USB_INT_Clear(ENDPOINT_INT_IN);
-
-			/* Clear the Keyboard Report endpoint interrupt */
-			Endpoint_ClearEndpointInterrupt(KEYBOARD_EPNUM);
-
 			/* Write Keyboard Report Data */
 			Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
-
-			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearCurrentBank();
 		}
+
+		/* Finalize the stream transfer to send the last packet */
+		Endpoint_ClearCurrentBank();
 	}
 
 	/* Check if Keyboard LED status Endpoint has interrupted */

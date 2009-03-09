@@ -345,6 +345,15 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 		USB_MouseReport_Data_t MouseReportData;
 		bool                   SendReport = true;
 		
+		/* Select the Mouse Report Endpoint */
+		Endpoint_SelectEndpoint(MOUSE_EPNUM);
+
+		/* Clear the endpoint IN interrupt flag */
+		USB_INT_Clear(ENDPOINT_INT_IN);
+
+		/* Clear the Mouse Report endpoint interrupt and select the endpoint */
+		Endpoint_ClearEndpointInterrupt(MOUSE_EPNUM);
+
 		/* Create the next mouse report for transmission to the host */
 		GetNextReport(&MouseReportData);
 		
@@ -367,15 +376,6 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 		/* Check to see if a report should be issued */
 		if (SendReport)
 		{
-			/* Select the Mouse Report Endpoint */
-			Endpoint_SelectEndpoint(MOUSE_EPNUM);
-
-			/* Clear the endpoint IN interrupt flag */
-			USB_INT_Clear(ENDPOINT_INT_IN);
-
-			/* Clear the Mouse Report endpoint interrupt and select the endpoint */
-			Endpoint_ClearEndpointInterrupt(MOUSE_EPNUM);
-
 			/* Write Mouse Report Data */
 			Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData));
 		}
