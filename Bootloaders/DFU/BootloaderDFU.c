@@ -677,7 +677,7 @@ static void ProcessWriteCommand(void)
 static void ProcessReadCommand(void)
 {
 	const uint8_t BootloaderInfo[3] = {BOOTLOADER_VERSION, BOOTLOADER_ID_BYTE1, BOOTLOADER_ID_BYTE2};
-	const uint8_t SignatureInfo[3]  = {SIGNATURE_BYTE_1, SIGNATURE_BYTE_2, SIGNATURE_BYTE_3};
+	const uint8_t SignatureInfo[3]  = {SIGNATURE_0, SIGNATURE_1, SIGNATURE_2};
 
 	uint8_t DataIndexToRead = SentCommand.Data[1];
 
