@@ -193,7 +193,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 					Scheduler_SetTaskMode(USB_Audio_Task, TASK_STOP);				
 				}
 				
-				/* Handshake the request */
+				/* Acknowledge status stage */
+				while (!(Endpoint_IsSetupINReady()));
 				Endpoint_ClearSetupIN();
 			}
 
@@ -249,7 +250,7 @@ TASK(USB_Audio_Task)
 		/* Check to see if the bank is now empty */
 		if (!(Endpoint_ReadWriteAllowed()))
 		{
-			/* Acknowedge the packet, clear the bank ready for the next packet */
+			/* Acknowledge the packet, clear the bank ready for the next packet */
 			Endpoint_ClearCurrentBank();
 		}
 

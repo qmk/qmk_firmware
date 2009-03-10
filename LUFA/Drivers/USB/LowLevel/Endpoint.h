@@ -256,7 +256,7 @@
 			/** Sends an IN packet to the host on the currently selected CONTROL type endpoint. */
 			#define Endpoint_ClearSetupIN()               MACROS{ UEINTX &= ~(1 << TXINI); }MACROE
 
-			/** Acknowedges an OUT packet to the host on the currently selected CONTROL type endpoint, freeing
+			/** Acknowledges an OUT packet to the host on the currently selected CONTROL type endpoint, freeing
 			 *  up the endpoint for the next packet.
 			 */
 			#define Endpoint_ClearSetupOUT()              MACROS{ UEINTX &= ~(1 << RXOUTI); }MACROE
@@ -667,7 +667,7 @@
 			                                ) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in little endian,
-			 *  sending full packets to the host as needed. The host OUT acknowedgement is not automatically cleared
+			 *  sending full packets to the host as needed. The host OUT acknowledgement is not automatically cleared
 			 *  in both failure and success states; the user is responsible for manually clearing the setup OUT to
 			 *  finalize the transfer via the Endpoint_ClearSetupOUT() macro.
 			 *
@@ -684,7 +684,7 @@
 			uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in big endian,
-			 *  sending full packets to the host as needed. The host OUT acknowedgement is not automatically cleared
+			 *  sending full packets to the host as needed. The host OUT acknowledgement is not automatically cleared
 			 *  in both failure and success states; the user is responsible for manually clearing the setup OUT to
 			 *  finalize the transfer via the Endpoint_ClearSetupOUT() macro.
 			 *
@@ -701,7 +701,7 @@
 			uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in little endian,
-			 *  discarding fully read packets from the host as needed. The device IN acknowedgement is not
+			 *  discarding fully read packets from the host as needed. The device IN acknowledgement is not
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
 			 *  setup IN to finalize the transfer via the Endpoint_ClearSetupIN() macro.
 			 *
@@ -718,7 +718,7 @@
 			uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length)  ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in big endian,
-			 *  discarding fully read packets from the host as needed. The device IN acknowedgement is not
+			 *  discarding fully read packets from the host as needed. The device IN acknowledgement is not
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
 			 *  setup IN to finalize the transfer via the Endpoint_ClearSetupIN() macro.
 			 *

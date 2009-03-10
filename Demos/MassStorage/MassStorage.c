@@ -159,10 +159,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_MassStorageReset:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Indicate that the current transfer should be aborted */
-				IsMassStoreReset = true;
-			
 				Endpoint_ClearSetupReceived();
+
+				/* Indicate that the current transfer should be aborted */
+				IsMassStoreReset = true;			
+
+				/* Acknowledge status stage */
+				while (!(Endpoint_IsSetupINReady()));
 				Endpoint_ClearSetupIN();
 			}
 
@@ -171,9 +174,15 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Indicate to the host the number of supported LUNs (virtual disks) on the device */
-				Endpoint_ClearSetupReceived();			
+				Endpoint_ClearSetupReceived();
+
 				Endpoint_Write_Byte(TOTAL_LUNS - 1);
+				
 				Endpoint_ClearSetupIN();
+				
+				/* Acknowledge status stage */
+				while (!(Endpoint_IsSetupOUTReceived()));
+				Endpoint_ClearSetupOUT();
 			}
 			
 			break;

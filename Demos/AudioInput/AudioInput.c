@@ -163,7 +163,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 					Scheduler_SetTaskMode(USB_Audio_Task, TASK_STOP);				
 				}
 				
-				/* Handshake the request */
+				/* Acknowledge status stage */
+				while (!(Endpoint_IsSetupINReady()));
 				Endpoint_ClearSetupIN();
 			}
 

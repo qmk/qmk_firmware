@@ -57,7 +57,7 @@ bool RunBootloader = true;
 
 /** Flag to indicate if the bootloader is waiting to exit. When the host requests the bootloader to exit and
  *  jump to the application address it specifies, it sends two sequential commands which must be properly
- *  acknowedged. Upon reception of the first the RunBootloader flag is cleared and the WaitForExit flag is set,
+ *  acknowledged. Upon reception of the first the RunBootloader flag is cleared and the WaitForExit flag is set,
  *  causing the bootloader to wait for the final exit command before shutting down.
  */
 bool WaitForExit = false;
@@ -305,7 +305,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 
 			Endpoint_ClearSetupOUT();
 
-			/* Send ZLP to the host to acknowedge the request */
+			/* Acknowledge status stage */
+			while (!(Endpoint_IsSetupINReady()));
 			Endpoint_ClearSetupIN();
 				
 			break;
@@ -392,7 +393,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 
 			Endpoint_ClearSetupIN();
 
-			/* Send ZLP to the host to acknowedge the request */
+			/* Acknowledge status stage */
 			while (!(Endpoint_IsSetupOUTReceived()));
 			Endpoint_ClearSetupOUT();
 
@@ -415,6 +416,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 
 			Endpoint_ClearSetupIN();
 			
+			/* Acknowledge status stage */
 			while (!(Endpoint_IsSetupOUTReceived()));
 			Endpoint_ClearSetupOUT();
 	
@@ -424,9 +426,11 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			
 			/* Reset the status value variable to the default OK status */
 			DFU_Status = OK;
-			
-			Endpoint_ClearSetupIN();
 
+			/* Acknowledge status stage */
+			while (!(Endpoint_IsSetupINReady()));
+			Endpoint_ClearSetupIN();
+			
 			break;
 		case DFU_GETSTATE:
 			Endpoint_ClearSetupReceived();
@@ -436,6 +440,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		
 			Endpoint_ClearSetupIN();
 			
+			/* Acknowledge status stage */
 			while (!(Endpoint_IsSetupOUTReceived()));
 			Endpoint_ClearSetupOUT();
 
@@ -446,6 +451,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			/* Reset the current state variable to the default idle state */
 			DFU_State = dfuIDLE;
 			
+			/* Acknowledge status stage */
+			while (!(Endpoint_IsSetupINReady()));
 			Endpoint_ClearSetupIN();
 
 			break;

@@ -144,10 +144,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 
 				Endpoint_ClearSetupOUT();
 
-				/* Wait until the host is ready to receive the request confirmation */
+				/* Acknowledge status stage */
 				while (!(Endpoint_IsSetupINReady()));
-				
-				/* Handshake the request by sending an empty IN packet */
 				Endpoint_ClearSetupIN();
 			}
 			

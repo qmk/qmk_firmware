@@ -212,10 +212,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				/* Clear the endpoint data */
 				Endpoint_ClearSetupOUT();
 
-				/* Wait until the host is ready to receive the request confirmation */
+				/* Acknowledge status stage */
 				while (!(Endpoint_IsSetupINReady()));
-				
-				/* Handshake the request by sending an empty IN packet */
 				Endpoint_ClearSetupIN();
 			}
 			
@@ -230,6 +228,10 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				
 				/* Send the flag to the host */
 				Endpoint_ClearSetupIN();
+
+				/* Acknowledge status stage */
+				while (!(Endpoint_IsSetupOUTReceived()));
+				Endpoint_ClearSetupOUT();
 			}
 			
 			break;
@@ -244,7 +246,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				/* Set or clear the flag depending on what the host indicates that the current Protocol should be */
 				UsingReportProtocol = (wValue != 0x0000);
 
-				/* Send an empty packet to acknowedge the command */
+				/* Acknowledge status stage */
+				while (!(Endpoint_IsSetupINReady()));
 				Endpoint_ClearSetupIN();
 			}
 			
@@ -260,7 +263,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				/* Get idle period in MSB */
 				IdleCount = (wValue >> 8);
 				
-				/* Send an empty packet to acknowedge the command */
+				/* Acknowledge status stage */
+				while (!(Endpoint_IsSetupINReady()));
 				Endpoint_ClearSetupIN();
 			}
 			
@@ -275,6 +279,10 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				
 				/* Send the flag to the host */
 				Endpoint_ClearSetupIN();
+
+				/* Acknowledge status stage */
+				while (!(Endpoint_IsSetupOUTReceived()));
+				Endpoint_ClearSetupOUT();
 			}
 
 			break;

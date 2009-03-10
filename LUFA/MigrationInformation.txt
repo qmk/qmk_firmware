@@ -22,6 +22,9 @@
  *
  *  <b>Library Demos</b>
  *    - The USBtoSerial demo now discards all data when not connected to a host, rather than buffering it for later transmission.
+ *    - Most demos, bootloaders and applications have had their control request handling code corrected, to properly send the status
+ *      stage in all handled requests. If you are using code based off one of the library demos, bootloaders or applications, you should
+ *      update to the latest revisions.
  *
  *  <b>Non-USB Library Components</b>
  *    - The ATTR_ALWAYSINLINE function attribute macro has been renamed to ATTR_ALWAYS_INLINE.

@@ -167,6 +167,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				
 				Endpoint_ClearSetupIN();
 				
+				/* Acknowledge status stage */
 				while (!(Endpoint_IsSetupOUTReceived()));
 				Endpoint_ClearSetupOUT();
 			}
@@ -184,6 +185,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 
 				Endpoint_ClearSetupOUT();
 
+				/* Acknowledge status stage */
 				while (!(Endpoint_IsSetupINReady()));
 				Endpoint_ClearSetupIN();
 			}
@@ -194,6 +196,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			{
 				Endpoint_ClearSetupReceived();
 				
+				/* Acknowledge status stage */
 				while (!(Endpoint_IsSetupINReady()));
 				Endpoint_ClearSetupIN();
 			}

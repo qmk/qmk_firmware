@@ -171,7 +171,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_GetLineEncoding:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{	
-				/* Acknowedge the SETUP packet, ready for data transfer */
+				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSetupReceived();
 
 				/* Write the line coding data to the control endpoint */
@@ -185,7 +185,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_SetLineEncoding:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Acknowedge the SETUP packet, ready for data transfer */
+				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSetupReceived();
 
 				/* Read the line coding data in from the host into the global struct */
@@ -210,10 +210,11 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				// Do something with the given line states in wIndex
 #endif
 				
-				/* Acknowedge the SETUP packet, ready for data transfer */
+				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSetupReceived();
 				
-				/* Send an empty packet to acknowedge the command */
+				/* Acknowledge status stage */
+				while (!(Endpoint_IsSetupINReady()));
 				Endpoint_ClearSetupIN();
 			}
 	

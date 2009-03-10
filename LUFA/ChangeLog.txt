@@ -29,13 +29,15 @@
   *  - Function attribute ATTR_ALWAYSINLINE renamed to ATTR_ALWAYS_INLINE to match other function attribute macro naming conventions
   *  - Added ATTR_ALWAYS_INLINE attribute to several key inlined library components, to ensure they are inlined in all circumstances
   *  - Removed SetSystemClockPrescaler() macro, the clock_prescale_set() avr-libc macro has been corrected in recent avr-libc versions
+  *  - Fixed incorrect/missing control status stage transfers on demos, bootloaders and applications (thanks to Nate Lawson)
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *
   *  - PWM timer mode in AudioOut demo changed to Fast PWM for speed
   *  - Updated Magstripe project to work with the latest hardware revision
   *  - Fixed library not responding to the BCERRI flag correctly in host mode, leading to device lockups
-  *  - Fixed library handling Get Descriptor requests when not addressed as standard requests to the device or interface
+  *  - Fixed library handling Get Descriptor requests when not addressed as standard requests to the device or interface (thanks to
+  *    Nate Lawson)
   *  - Fixed serious data corruption issue in MassStorage demo dataflash write routine
   *  - Added new NO_CLEARSET_FEATURE_REQUEST compile time token
   *  - USB task now restores previous global interrupt state after execution, rather than forcing global interrupts to be enabled
@@ -326,7 +328,7 @@
   *  - Added Endpoint_Read_Stream, Endpoint_Write_Stream, Pipe_Read_Stream and Pipe_Write_Stream functions
   *    (including Big and Little Endian variants)
   *  - Made Dataflash functions inline for speed, removed now empty Dataflash.c driver file
-  *  - Added new SetSystemClockPrescaler() macro - thanks to Joerg Wunsch
+  *  - Added new SetSystemClockPrescaler() macro (thanks to Joerg Wunsch)
   *  - Fixed Endpoint_ClearStall() to function correctly on full USB controller AVRs (AT90USBXXX6/7)
   *  - Endpoint_Setup_In_Clear() and Endpoint_Setup_Out_Clear() no longer set FIFOCON, in line with the
   *    directives in the datasheet

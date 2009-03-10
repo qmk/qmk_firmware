@@ -205,7 +205,7 @@
 			#if !defined(USB_STREAM_TIMEOUT_MS) || defined(__DOXYGEN__)
 				/** Constant for the maximum software timeout period of the USB data stream transfer functions
 				 *  (both control and standard) when in either device or host mode. If the next packet of a stream
-				 *  is not received or acknowedged within this time period, the stream function will fail.
+				 *  is not received or acknowledged within this time period, the stream function will fail.
 				 *
 				 *  This value may be overridden in the user project makefile as the value of the 
 				 *  USB_STREAM_TIMEOUT_MS token, and passed to the compiler using the -D switch.

@@ -347,7 +347,7 @@
 			 */
 			#define Pipe_IsSetupOUTReady()         ((UPINTX & (1 << TXOUTI)) ? true : false)
 
-			/** Acknowedges the reception of a setup IN request from the attached device on the currently selected
+			/** Acknowledges the reception of a setup IN request from the attached device on the currently selected
 			 *  CONTROL type endpoint, allowing for the transmission of a setup OUT packet, or the reception of
 			 *  another setup IN packet.
 			 */
@@ -356,7 +356,7 @@
 			/** Sends the currently selected CONTROL type pipe's contents to the device as a setup OUT packet. */
 			#define Pipe_ClearSetupOUT()           MACROS{ UPINTX &= ~(1 << TXOUTI); UPINTX &= ~(1 << FIFOCON); }MACROE
 			
-			/** Returns true if the device sent a NAK (Negative Acknowedge) in response to the last sent packet on
+			/** Returns true if the device sent a NAK (Negative Acknowledge) in response to the last sent packet on
 			 *  the currently selected pipe. This ocurrs when the host sends a packet to the device, but the device
 			 *  is not currently ready to handle the packet (i.e. its endpoint banks are full). Once a NAK has been
 			 *  received, it must be cleard using Pipe_ClearNAKReceived() before the previous (or any other) packet
