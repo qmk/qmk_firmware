@@ -111,11 +111,10 @@
  *  EEPROM or RAM rather than flash memory) and reduces code maintenance. However, many USB device projects use only a single configuration.
  *  Defining this token enables single-configuration mode, reducing the compiled size of the binary at the expense of flexibility.
  *
- *  <b>NO_CLEARSET_FEATURE_REQUEST</b> - DevChapter9.h \n
- *  In some limited USB device applications, the Get Feature and Set Feature requests are not used - this is when the device does not have
- *  device level features (such as remote wakeup) nor any data endpoints beyond the mandatory control endpoint. In such limited situations,
- *  this token may be defined to remove the handling of the Get Feature and Set Feature Chapter 9 requests to save space. Generally, this
- *  is usually only useful in (some) bootloaders.
+ *  <b>FEATURELESS_CONTROL_ONLY_DEVICE</b> - DevChapter9.h \n
+ *  In some limited USB device applications, device features (other than self-power) and endpoints other than the control endpoint aren't
+ *  used. In such limited situations, this token may be defined to remove the handling of the Set Feature Chapter 9 request entirely and
+ *  parts of the Get Feature chapter 9 request to save space. Generally, this is usually only useful in (some) bootloaders.
  *
  *  <b>NO_STREAM_CALLBACKS</b> - Endpoint.h, Pipe.h \n
  *  Both the endpoint and the pipe driver code contains stream functions, allowing for arrays of data to be sent to or from the

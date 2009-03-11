@@ -55,7 +55,7 @@ void USB_Device_ProcessControlPacket(void)
 			}
 
 			break;
-#if !defined(NO_CLEARSET_FEATURE_REQUEST)
+#if !defined(FEATURELESS_CONTROL_ONLY_DEVICE)
 		case REQ_ClearFeature:
 		case REQ_SetFeature:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT))
@@ -238,7 +238,9 @@ static void USB_Device_GetStatus(const uint8_t bmRequestType)
 
 	Endpoint_Discard_Word();
 
+#if !defined(FEATURELESS_CONTROL_ONLY_DEVICE)
 	uint8_t wIndex_LSB = Endpoint_Read_Byte();
+#endif
 	
 	switch (bmRequestType)
 	{
@@ -250,12 +252,14 @@ static void USB_Device_GetStatus(const uint8_t bmRequestType)
 			  CurrentStatus |= FEATURE_REMOTE_WAKEUP_ENABLED;
 			
 			break;
+#if !defined(FEATURELESS_CONTROL_ONLY_DEVICE)
 		case (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_ENDPOINT):
 			Endpoint_SelectEndpoint(wIndex_LSB);
 
 			CurrentStatus = Endpoint_IsStalled();
 
 			break;
+#endif
 	}
 	
 	Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);			  
@@ -268,7 +272,7 @@ static void USB_Device_GetStatus(const uint8_t bmRequestType)
 	Endpoint_ClearSetupOUT();
 }
 
-#if !defined(NO_CLEARSET_FEATURE_REQUEST)
+#if !defined(FEATURELESS_CONTROL_ONLY_DEVICE)
 static void USB_Device_ClearSetFeature(const uint8_t bRequest, const uint8_t bmRequestType)
 {
 	uint16_t wValue = Endpoint_Read_Word_LE();

@@ -29,6 +29,12 @@
  *  <b>Non-USB Library Components</b>
  *    - The ATTR_ALWAYSINLINE function attribute macro has been renamed to ATTR_ALWAYS_INLINE.
  *
+ *  <b>Device Mode</b>
+ *    - The NO_CLEARSET_FEATURE_REQUEST compile time token has been renamed to NO_FEATURELESS_CONTROL_ONLY_DEVICE, and its function expanded
+ *      to also remove parts of the Get Status chapter 9 request to further reduce code usage. On all applications currently using the 
+ *      NO_CLEARSET_FEATURE_REQUEST compile time token, it can be replaced with the NO_FEATURELESS_CONTROL_ONLY_DEVICE token with no further
+ *      modifications required.
+ *
  * \section Sec_Migration090209 Migrating from 081217 to 090209
  *
  *  <b>Device Mode</b>
