@@ -447,7 +447,7 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
 # Default target.
-all: begin gccversion sizebefore build checkhooks checklibmode sizeafter end
+all: begin gccversion sizebefore build checkhooks checklibmode checkboard sizeafter end
 
 # Change the build target to build a HEX file or a library.
 build: elf hex eep lss sym
@@ -496,8 +496,8 @@ checkhooks: build
 	@$(shell) (grep -s '^Event.*LUFA/.*\\.o' $(TARGET).map | \
 	           cut -d' ' -f1 | cut -d'_' -f2- | grep ".*") || \
 			   echo "(None)"
-	@echo ----- End Unhooked LUFA Events -----
-	
+	@echo ------------------------------------
+
 checklibmode:
 	@echo
 	@echo ----------- Library Mode -----------
@@ -506,6 +506,12 @@ checklibmode:
 	          || echo "No specific mode (both device and host mode allowable)."
 	@echo ------------------------------------
 
+checkboard:
+	@echo
+	@echo ---------- Selected Board ----------
+	@echo Selected board model is $(BOARD).
+	@echo ------------------------------------
+	
 # Display compiler version information.
 gccversion : 
 	@$(CC) --version
@@ -515,8 +521,7 @@ gccversion :
 # Program the device.  
 program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
-	
-	
+
 
 # Generate avr-gdb config/init file which does the following:
 #     define the reset signal, load the target file, connect to target, and set 
@@ -656,10 +661,11 @@ clean: begin clean_list clean_binary end
 
 clean_binary:
 	$(REMOVE) $(TARGET).hex
-
+	
 clean_list:
 	@echo $(MSG_CLEANING)
 	$(REMOVE) $(TARGET).eep
+	$(REMOVE) $(TARGET)eep.hex
 	$(REMOVE) $(TARGET).cof
 	$(REMOVE) $(TARGET).elf
 	$(REMOVE) $(TARGET).map
@@ -667,8 +673,6 @@ clean_list:
 	$(REMOVE) $(TARGET).lss
 	$(REMOVE) $(SRC:%.c=$(OBJDIR)/%.o)
 	$(REMOVE) $(SRC:%.c=$(OBJDIR)/%.lst)
-	$(REMOVE) $(ASRC:%.S=$(OBJDIR)/%.o)
-	$(REMOVE) $(ASRC:%.S=$(OBJDIR)/%.lst)
 	$(REMOVE) $(SRC:.c=.s)
 	$(REMOVE) $(SRC:.c=.d)
 	$(REMOVE) $(SRC:.c=.i)
@@ -679,7 +683,7 @@ doxygen:
 	@echo Generating Project Documentation...
 	@doxygen Doxygen.conf
 	@echo Documentation Generation Complete.
-	
+
 clean_doxygen:
 	rm -rf Documentation
 
@@ -692,8 +696,8 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Listing of phony targets.
-.PHONY : all checkhooks checklibmode begin  \
-finish end sizebefore sizeafter gccversion  \
-build elf hex eep lss sym coff extcoff      \
-clean clean_list clean_binary program debug \
-gdb-config doxygen clean_doxygen
+.PHONY : all checkhooks checklibmode checkboard   \
+begin finish end sizebefore sizeafter gccversion  \
+build elf hex eep lss sym coff extcoff clean      \
+clean_list clean_binary program debug gdb-config  \
+doxygen

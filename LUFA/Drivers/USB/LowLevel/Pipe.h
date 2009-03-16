@@ -761,7 +761,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define PIPE_TOKEN_MASK                    (0x03 << PTOKEN0)
+			#define PIPE_TOKEN_MASK                (0x03 << PTOKEN0)
 
 			#define Pipe_AllocateMemory()          MACROS{ UPCFG1X |=  (1 << ALLOC); }MACROE
 			#define Pipe_DeallocateMemory()        MACROS{ UPCFG1X &= ~(1 << ALLOC); }MACROE
@@ -781,7 +781,7 @@
 				  return (2 << EPSIZE0);
 				else if (Bytes <= 64)
 				  return (3 << EPSIZE0);
-				else if (Bytes <= (8 << 4))
+				else if (Bytes <= 128)
 				  return (4 << EPSIZE0);
 				else
 				  return (5 << EPSIZE0);

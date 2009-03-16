@@ -446,7 +446,7 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
 # Default target.
-all: begin gccversion sizebefore build checkhooks checklibmode sizeafter end
+all: begin gccversion sizebefore build checkhooks checklibmode checkboard sizeafter end
 
 # Change the build target to build a HEX file or a library.
 build: elf hex eep lss sym
@@ -495,8 +495,8 @@ checkhooks: build
 	@$(shell) (grep -s '^Event.*LUFA/.*\\.o' $(TARGET).map | \
 	           cut -d' ' -f1 | cut -d'_' -f2- | grep ".*") || \
 			   echo "(None)"
-	@echo ----- End Unhooked LUFA Events -----
-	
+	@echo ------------------------------------
+
 checklibmode:
 	@echo
 	@echo ----------- Library Mode -----------
@@ -505,6 +505,12 @@ checklibmode:
 	          || echo "No specific mode (both device and host mode allowable)."
 	@echo ------------------------------------
 
+checkboard:
+	@echo
+	@echo ---------- Selected Board ----------
+	@echo Selected board model is $(BOARD).
+	@echo ------------------------------------
+	
 # Display compiler version information.
 gccversion : 
 	@$(CC) --version
@@ -654,10 +660,11 @@ clean: begin clean_list clean_binary end
 
 clean_binary:
 	$(REMOVE) $(TARGET).hex
-
+	
 clean_list:
 	@echo $(MSG_CLEANING)
 	$(REMOVE) $(TARGET).eep
+	$(REMOVE) $(TARGET)eep.hex
 	$(REMOVE) $(TARGET).cof
 	$(REMOVE) $(TARGET).elf
 	$(REMOVE) $(TARGET).map
@@ -675,7 +682,7 @@ doxygen:
 	@echo Generating Project Documentation...
 	@doxygen Doxygen.conf
 	@echo Documentation Generation Complete.
-	
+
 clean_doxygen:
 	rm -rf Documentation
 
@@ -688,8 +695,8 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Listing of phony targets.
-.PHONY : all checkhooks checklibmode begin  \
-finish end sizebefore sizeafter gccversion  \
-build elf hex eep lss sym coff extcoff      \
-clean clean_list clean_binary program debug \
-gdb-config doxygen
+.PHONY : all checkhooks checklibmode checkboard   \
+begin finish end sizebefore sizeafter gccversion  \
+build elf hex eep lss sym coff extcoff clean      \
+clean_list clean_binary program debug gdb-config  \
+doxygen
