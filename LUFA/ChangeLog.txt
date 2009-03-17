@@ -37,6 +37,7 @@
   *    to Kenneth Clubb)
   *  - Added DataflashManager_WriteBlocks_RAM() and DataflashManager_ReadBlocks_RAM() functions to the MassStorage demo, to allow for easy
   *    interfacing with a FAT library for dataflash file level access
+  *  - Incomplete non-functional BluetoothHost demo removed until it has reached a stable state to prevent confusion
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *
