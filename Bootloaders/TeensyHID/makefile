@@ -75,7 +75,7 @@ BOARD  = USBKEY
 #         F_CPU = 16000000
 #         F_CPU = 18432000
 #         F_CPU = 20000000
-F_CPU = 8000000
+F_CPU = 16000000
 
 
 # Input clock frequency.
@@ -89,7 +89,7 @@ F_CPU = 8000000
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_CLOCK = 8000000
+F_CLOCK = 16000000
 
 
 # Output format. (can be srec, ihex, binary)

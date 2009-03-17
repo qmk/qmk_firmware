@@ -316,13 +316,13 @@ bool GetNextReport(USB_KeyboardReport_Data_t* ReportData)
 		if (OddReport)
 		{
 			/* Set the report key code to the key code for the next data bit */
-			ReportData->KeyCode[0] = BitBuffer_GetNextBit(Buffer) ? KEY_1 : KEY_0;
+			ReportData->KeyCode = BitBuffer_GetNextBit(Buffer) ? KEY_1 : KEY_0;
 			
 			/* If buffer is now empty, a new line must be sent instead of the terminating bit */
 			if (!(Buffer->Elements))
 			{
 				/* Set the keycode to the code for an enter key press */
-				ReportData->KeyCode[0] = KEY_ENTER;				
+				ReportData->KeyCode = KEY_ENTER;				
 			}
 		}
 

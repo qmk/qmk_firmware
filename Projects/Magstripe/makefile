@@ -66,7 +66,7 @@ MCU = at90usb1287
 # Target board (see library BoardTypes.h documentation, USER or blank for projects not requiring
 # LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
 # "Board" inside the application directory.
-BOARD  = USBKEY
+BOARD  = USER
 
 
 # Processor frequency.
@@ -101,7 +101,7 @@ F_CPU = 16000000
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_CLOCK = 8000000
+F_CLOCK = 16000000
 
 
 # Output format. (can be srec, ihex, binary)

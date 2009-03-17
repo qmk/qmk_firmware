@@ -98,7 +98,7 @@
 		{
 			uint8_t Modifier; /**< Modifier byte, indicating pressed modifier keys such as CTRL or ALT */
 			uint8_t Reserved; /**< Reserved for OEM use, always set to 0 */
-			uint8_t KeyCode[6]; /**< Key code array for pressed keys - up to six can be given simultaneously */
+			uint8_t KeyCode; /**< Key code array for pressed keys - up to six can be given simultaneously */
 		} USB_KeyboardReport_Data_t;
 
 	/* Event Handlers: */
