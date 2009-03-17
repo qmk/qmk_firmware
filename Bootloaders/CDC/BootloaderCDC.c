@@ -52,7 +52,7 @@ CDC_Line_Coding_t LineCoding = { BaudRateBPS: 9600,
  *  and is used when reading or writing to the AVRs memory (either FLASH or EEPROM depending on the issued
  *  command.)
  */
-uint16_t CurrAddress;
+uint32_t CurrAddress;
 
 /** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
  *  via a soft reset. When cleared, the bootloader will abort, the USB interface will shut down and the application
@@ -223,101 +223,101 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 	
 	MemoryType =  FetchNextCommandByte();
 
-	if ((MemoryType == 'E') || (MemoryType == 'F'))
+	if ((MemoryType != 'E') && (MemoryType != 'F'))
 	{
-		/* Check if command is to read memory */
-		if (Command == 'g')
-		{
-			/* Re-enable RWW section */
-			boot_rww_enable();
-
-			while (BlockSize--)
-			{
-				if (MemoryType == 'E')
-				{
-					/* Read the next EEPROM byte into the endpoint */
-					WriteNextResponseByte(eeprom_read_byte((uint8_t*)CurrAddress));
-
-					/* Increment the address counter after use */
-					CurrAddress++;
-				}
-				else
-				{
-					/* Read the next FLASH byte from the current FLASH page */
-					#if defined(RAMPZ)
-					WriteNextResponseByte(pgm_read_byte_far(((uint32_t)CurrAddress << 1) + HighByte));
-					#else
-					WriteNextResponseByte(pgm_read_byte((CurrAddress << 1) + HighByte));					
-					#endif
-					
-					/* If both bytes in current word have been read, increment the address counter */
-					if (HighByte)
-					  CurrAddress++;
-					
-					HighByte ^= 1;
-				}
-			}
-		}
-		else
-		{
-			uint32_t PageStartAddress = ((uint32_t)CurrAddress << 1);
-	
-			if (MemoryType == 'F')
-			{
-				boot_page_erase(PageStartAddress);
-				boot_spm_busy_wait();
-			}
-			
-			while (BlockSize--)
-			{
-				if (MemoryType == 'E')
-				{
-					/* Write the next EEPROM byte from the endpoint */
-					eeprom_write_byte((uint8_t*)CurrAddress, FetchNextCommandByte());					
-
-					/* Increment the address counter after use */
-					CurrAddress++;
-				}
-				else
-				{	
-					/* If both bytes in current word have been written, increment the address counter */
-					if (HighByte)
-					{
-						/* Write the next FLASH word to the current FLASH page */
-						boot_page_fill(((uint32_t)CurrAddress << 1), ((FetchNextCommandByte() << 8) | LowByte));
-
-						HighByte = false;
-						
-						/* Increment the address counter after use */
-						CurrAddress++;
-					}
-					else
-					{
-						LowByte = FetchNextCommandByte();
-					
-						HighByte = true;
-					}
-				}
-			}
-
-			/* If in FLASH programming mode, commit the page after writing */
-			if (MemoryType == 'F')
-			{
-				/* Commit the flash page to memory */
-				boot_page_write(PageStartAddress);
-				
-				/* Wait until write operation has completed */
-				boot_spm_busy_wait();
-			}
+		/* Send error byte back to the host */
+		WriteNextResponseByte('?');
 		
-			/* Send response byte back to the host */
-			WriteNextResponseByte('\r');		
+		return;
+	}
+
+	/* Check if command is to read memory */
+	if (Command == 'g')
+	{
+		/* Re-enable RWW section */
+		boot_rww_enable();
+
+		while (BlockSize--)
+		{
+			if (MemoryType == 'E')
+			{
+				/* Read the next EEPROM byte into the endpoint */
+				WriteNextResponseByte(eeprom_read_byte((uint8_t*)(uint16_t)(CurrAddress >> 1)));
+
+				/* Increment the address counter after use */
+				CurrAddress += 2;
+			}
+			else
+			{
+				/* Read the next FLASH byte from the current FLASH page */
+				#if defined(RAMPZ)
+				WriteNextResponseByte(pgm_read_byte_far(CurrAddress | HighByte));
+				#else
+				WriteNextResponseByte(pgm_read_byte(CurrAddress | HighByte));					
+				#endif
+				
+				/* If both bytes in current word have been read, increment the address counter */
+				if (HighByte)
+				  CurrAddress += 2;
+				
+				HighByte = !HighByte;
+			}
 		}
 	}
 	else
 	{
-		/* Send error byte back to the host */
-		WriteNextResponseByte('?');
+		uint32_t PageStartAddress = CurrAddress;
+
+		if (MemoryType == 'F')
+		{
+			boot_page_erase(PageStartAddress);
+			boot_spm_busy_wait();
+		}
+		
+		while (BlockSize--)
+		{
+			if (MemoryType == 'F')
+			{	
+				/* If both bytes in current word have been written, increment the address counter */
+				if (HighByte)
+				{
+					/* Write the next FLASH word to the current FLASH page */
+					boot_page_fill(CurrAddress, ((FetchNextCommandByte() << 8) | LowByte));
+
+					/* Increment the address counter after use */
+					CurrAddress += 2;
+
+					HighByte = false;
+				}
+				else
+				{
+					LowByte = FetchNextCommandByte();
+				
+					HighByte = true;
+				}
+			}
+			else
+			{
+				/* Write the next EEPROM byte from the endpoint */
+				eeprom_write_byte((uint8_t*)(uint16_t)(CurrAddress >> 1), FetchNextCommandByte());					
+
+				/* Increment the address counter after use */
+				CurrAddress += 2;
+			}
+		}
+
+		/* If in FLASH programming mode, commit the page after writing */
+		if (MemoryType == 'F')
+		{
+			/* Commit the flash page to memory */
+			boot_page_write(PageStartAddress);
+			
+			/* Wait until write operation has completed */
+			boot_spm_busy_wait();
+		}
+	
+		/* Send response byte back to the host */
+		WriteNextResponseByte('\r');		
 	}
 }
 
@@ -402,8 +402,8 @@ TASK(CDC_Task)
 		else if (Command == 'A')
 		{
 			/* Set the current address to that given by the host */
-			CurrAddress  = (FetchNextCommandByte() << 8);
-			CurrAddress |=  FetchNextCommandByte();
+			CurrAddress   = (FetchNextCommandByte() << 9);
+			CurrAddress  |= (FetchNextCommandByte() << 1);
 
 			/* Send confirmation byte back to the host */
 			WriteNextResponseByte('\r');
@@ -426,9 +426,9 @@ TASK(CDC_Task)
 		}
 		else if (Command == 's')
 		{
-			WriteNextResponseByte(boot_signature_byte_get(4));
-			WriteNextResponseByte(boot_signature_byte_get(2));
-			WriteNextResponseByte(boot_signature_byte_get(0));		
+			WriteNextResponseByte(SIGNATURE_0);
+			WriteNextResponseByte(SIGNATURE_1);
+			WriteNextResponseByte(SIGNATURE_2);		
 		}
 		else if (Command == 'b')
 		{
@@ -478,24 +478,29 @@ TASK(CDC_Task)
 		{
 			WriteNextResponseByte(boot_lock_fuse_bits_get(GET_EXTENDED_FUSE_BITS));		
 		}
-		else if ((Command == 'C') || (Command == 'c'))
-		{
-			if (Command == 'c')
-			{
-				/* Increment the address if the second byte is being written */
-				CurrAddress++;
-			}
-			
+		else if (Command == 'C')
+		{			
 			/* Write the high byte to the current flash page */
-			boot_page_fill(((uint32_t)CurrAddress << 1), FetchNextCommandByte());
+			boot_page_fill(CurrAddress, FetchNextCommandByte());
+
+			/* Send confirmation byte back to the host */
+			WriteNextResponseByte('\r');		
+		}
+		else if (Command == 'c')
+		{			
+			/* Write the low byte to the current flash page */
+			boot_page_fill(CurrAddress | 1, FetchNextCommandByte());
 			
+			/* Increment the address */
+			CurrAddress += 2;
+
 			/* Send confirmation byte back to the host */
 			WriteNextResponseByte('\r');		
 		}
 		else if (Command == 'm')
 		{
 			/* Commit the flash page to memory */
-			boot_page_write((uint32_t)CurrAddress << 1);
+			boot_page_write(CurrAddress);
 			
 			/* Wait until write operation has completed */
 			boot_spm_busy_wait();
@@ -511,9 +516,9 @@ TASK(CDC_Task)
 		else if (Command == 'R')
 		{
 			#if defined(RAMPZ)
-			uint16_t ProgramWord = pgm_read_word_far(((uint32_t)CurrAddress << 1));
+			uint16_t ProgramWord = pgm_read_word_far(CurrAddress);
 			#else
-			uint16_t ProgramWord = pgm_read_word(CurrAddress << 1);			
+			uint16_t ProgramWord = pgm_read_word(CurrAddress);			
 			#endif
 			
 			WriteNextResponseByte(ProgramWord >> 8);
@@ -522,10 +527,10 @@ TASK(CDC_Task)
 		else if (Command == 'D')
 		{
 			/* Read the byte from the endpoint and write it to the EEPROM */
-			eeprom_write_byte((uint8_t*)CurrAddress, FetchNextCommandByte());
+			eeprom_write_byte((uint8_t*)(uint16_t)(CurrAddress >> 1), FetchNextCommandByte());
 			
 			/* Increment the address after use */			
-			CurrAddress++;
+			CurrAddress += 2;
 	
 			/* Send confirmation byte back to the host */
 			WriteNextResponseByte('\r');		
@@ -533,10 +538,10 @@ TASK(CDC_Task)
 		else if (Command == 'd')
 		{
 			/* Read the EEPROM byte and write it to the endpoint */
-			WriteNextResponseByte(eeprom_read_byte((uint8_t*)CurrAddress));
+			WriteNextResponseByte(eeprom_read_byte((uint8_t*)(uint16_t)(CurrAddress >> 1)));
 
 			/* Increment the address after use */
-			CurrAddress++;
+			CurrAddress += 2;
 		}
 		else if (Command == 27)
 		{

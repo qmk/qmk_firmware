@@ -113,6 +113,9 @@ EVENT_HANDLER(USB_Connect)
 
 	/* Indicate USB enumerating */
 	UpdateStatus(Status_USBEnumerating);
+
+	/* Default to report protocol on connect */
+	UsingReportProtocol = true;
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
@@ -140,9 +143,6 @@ EVENT_HANDLER(USB_ConfigurationChanged)
 
 	/* Indicate USB connected and ready */
 	UpdateStatus(Status_USBReady);
-
-	/* Default to report protocol on connect */
-	UsingReportProtocol = true;
 
 	/* Start running mouse reporting task */
 	Scheduler_SetTaskMode(USB_Mouse_Report, TASK_RUN);
