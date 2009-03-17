@@ -33,6 +33,8 @@
   *  - The NO_CLEARSET_FEATURE_REQUEST compile time token has been renamed to NO_FEATURELESS_CONTROL_ONLY_DEVICE, and its function expanded
   *    to also remove parts of the Get Status chapter 9 request to further reduce code usage
   *  - Makefile updated to include output giving the currently selected BOARD parameter value
+  *  - Board Dataflash driver now allows for dataflash ICs which use different shifts for setting the current page/byte address (thanks
+  *    to Kenneth Clubb)
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *

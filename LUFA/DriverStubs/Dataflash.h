@@ -78,4 +78,40 @@
 			/** Total number of pages inside each of the board's dataflash ICs. */
 			#define DATAFLASH_PAGES                      // TODO: Replace with the total number of pages inside one of the Dataflash ICs
 
+		/* Inline Functions: */
+			/** Selects a dataflash IC from the given page number, which should range from 0 to
+			 *  ((DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS) - 1). For boards containing only one
+			 *  dataflash IC, this will select DATAFLASH_CHIP1. If the given page number is outside
+			 *  the total number of pages contained in the boards dataflash ICs, all dataflash ICs
+			 *  are deselected.
+			 *
+			 *  \param PageAddress  Address of the page to manipulate, ranging from
+			 *                      ((DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS) - 1).
+			 */
+			static inline void Dataflash_SelectChipFromPage(const uint16_t PageAddress)
+			{
+				Dataflash_DeselectChip();
+				
+				if (PageAddress >= (DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS))
+				  return;
+
+				// TODO: If more than one dataflash chip, select the correct chip from the page address here
+				Dataflash_SelectChip(DATAFLASH_CHIP1);
+			}
+
+			/** Sends a set of page and buffer address bytes to the currently selected dataflash IC, for use with
+			 *  dataflash commands which require a complete 24-byte address.
+			 *
+			 *  \param PageAddress  Page address within the selected dataflash IC
+			 *  \param BufferByte   Address within the dataflash's buffer
+			 */
+			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress, const uint16_t BufferByte)
+			{	
+				// TODO: If more than one dataflash chip, adjust absolute page address to be correct for the current chip,
+				//       also the shifts may need to be altered to suit the dataflash model being used				
+				Dataflash_SendByte(PageAddress >> 5);
+				Dataflash_SendByte((PageAddress << 3) | (BufferByte >> 8));
+				Dataflash_SendByte(BufferByte);
+			}
+			
 #endif
