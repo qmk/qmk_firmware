@@ -35,6 +35,8 @@
   *  - Makefile updated to include output giving the currently selected BOARD parameter value
   *  - Board Dataflash driver now allows for dataflash ICs which use different shifts for setting the current page/byte address (thanks
   *    to Kenneth Clubb)
+  *  - Added DataflashManager_WriteBlocks_RAM() and DataflashManager_ReadBlocks_RAM() functions to the MassStorage demo, to allow for easy
+  *    interfacing with a FAT library for dataflash file level access
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *
