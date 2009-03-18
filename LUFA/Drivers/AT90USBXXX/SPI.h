@@ -68,10 +68,10 @@
 			#define SPI_SPEED_FCPU_DIV_32          (SPI_USE_DOUBLESPEED | (1 << SPR1))
 
 			/** SPI prescaler mask for SPI_Init(). Divides the system clock by a factor of 64. */
-			#define SPI_SPEED_FCPU_DIV_64          (SPI_USE_DOUBLESPEED | (1 << SPR1) | (1 < SPR0))
+			#define SPI_SPEED_FCPU_DIV_64          (SPI_USE_DOUBLESPEED | (1 << SPR1) | (1 << SPR0))
 
 			/** SPI prescaler mask for SPI_Init(). Divides the system clock by a factor of 128. */
-			#define SPI_SPEED_FCPU_DIV_128         ((1 << SPR1) | (1 < SPR0))
+			#define SPI_SPEED_FCPU_DIV_128         ((1 << SPR1) | (1 << SPR0))
 
 		/* Inline Functions: */
 			/** Initializes the SPI subsystem, ready for transfers. Must be called before calling any other

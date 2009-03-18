@@ -39,6 +39,7 @@
   *    interfacing with a FAT library for dataflash file level access
   *  - Incomplete non-functional BluetoothHost demo removed until it has reached a stable state to prevent confusion
   *  - Corrected CDC class bootloader to fix a few bugs, changed address counter to store x2 addresses for convenience
+  *  - Fixed typos in the SPI driver SPI_SPEED_FCPU_DIV_64 and SPI_SPEED_FCPU_DIV_128 masks (thanks to Markus Zocholl)
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *
