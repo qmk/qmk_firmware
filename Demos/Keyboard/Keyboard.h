@@ -113,7 +113,7 @@
 		HANDLES_EVENT(USB_UnhandledControlPacket);
 		
 	/* Function Prototypes: */
-		bool CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData);
+		void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData);
 		void ProcessLEDReport(uint8_t LEDReport);
 		static inline void SendNextReport(void);
 		static inline void ReceiveNextReport(void);

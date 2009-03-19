@@ -113,6 +113,11 @@ int main(void)
  */
 EVENT_HANDLER(USB_Connect)
 {
+	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+	/* Start USB management task */
+	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
+	#endif
+
 	/* Indicate USB enumerating */
 	UpdateStatus(Status_USBEnumerating);
 
@@ -334,14 +339,10 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 /** Fills the given HID report data structure with the next HID report to send to the host.
  *
  *  \param ReportData  Pointer to a HID report data structure to be filled
- *
- *  \return Boolean true if the new report differs from the last report, false otherwise
  */
-bool CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
+void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
 {
-	static uint8_t PrevJoyStatus = 0;
-	uint8_t        JoyStatus_LCL        = Joystick_GetStatus();
-	bool           InputChanged         = false;
+	uint8_t JoyStatus_LCL = Joystick_GetStatus();
 
 	/* Clear the report contents */
 	memset(ReportData, 0, sizeof(USB_KeyboardReport_Data_t));
@@ -358,15 +359,6 @@ bool CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
 
 	if (JoyStatus_LCL & JOY_PRESS)
 	  ReportData->KeyCode[0] = 0x08; // E
-	  
-	/* Check if the new report is different to the previous report */
-	InputChanged = (uint8_t)(PrevJoyStatus ^ JoyStatus_LCL);
-
-	/* Save the current joystick status for later comparison */
-	PrevJoyStatus = JoyStatus_LCL;
-
-	/* Return whether the new report is different to the previous report or not */
-	return InputChanged;
 }
 
 /** Processes a received LED report, and updates the board LEDs states to match.
@@ -394,19 +386,25 @@ void ProcessLEDReport(uint8_t LEDReport)
 static inline void SendNextReport(void)
 {
 	USB_KeyboardReport_Data_t KeyboardReportData;
-	bool                      SendReport;
+	bool                      SendReport = true;
 	
 	/* Create the next keyboard report for transmission to the host */
-	SendReport = CreateKeyboardReport(&KeyboardReportData);
+	CreateKeyboardReport(&KeyboardReportData);
 	
-	/* Check if the idle period is set and has elapsed */
-	if (IdleCount && !(IdleMSRemaining))
+	/* Check if the idle period is set */
+	if (IdleCount)
 	{
-		/* Idle period elapsed, indicate that a report must be sent */
-		SendReport = true;
-		
-		/* Reset the idle time remaining counter, must multiply by 4 to get the duration in milliseconds */
-		IdleMSRemaining = (IdleCount << 2);
+		/* Check if idle period has elapsed */
+		if (!(IdleMSRemaining))
+		{
+			/* Reset the idle time remaining counter, must multiply by 4 to get the duration in milliseconds */
+			IdleMSRemaining = (IdleCount << 2);
+		}
+		else
+		{
+			/* Idle period not elapsed, indicate that a report must not be sent */
+			SendReport = false;			
+		}
 	}
 	
 	/* Select the Keyboard Report Endpoint */

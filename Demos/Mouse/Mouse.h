@@ -113,7 +113,7 @@
 		HANDLES_EVENT(USB_UnhandledControlPacket);
 
 	/* Function Prototypes: */
-		bool CreateMouseReport(USB_MouseReport_Data_t* ReportData);
+		void CreateMouseReport(USB_MouseReport_Data_t* ReportData);
 		void UpdateStatus(uint8_t CurrentStatus);
 
 #endif

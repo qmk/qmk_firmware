@@ -113,9 +113,11 @@ int main(void)
  */
 EVENT_HANDLER(USB_Connect)
 {
+	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
 	/* Start USB management task */
 	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
-
+	#endif
+	
 	/* Indicate USB enumerating */
 	UpdateStatus(Status_USBEnumerating);
 
@@ -307,15 +309,10 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 /** Fills the given HID report data structure with the next HID report to send to the host.
  *
  *  \param ReportData  Pointer to a HID report data structure to be filled
- *
- *  \return Boolean true if the new report differs from the last report, false otherwise
  */
-bool CreateMouseReport(USB_MouseReport_Data_t* ReportData)
+void CreateMouseReport(USB_MouseReport_Data_t* ReportData)
 {
-	static uint8_t PrevJoyStatus = 0;
-	static bool    PrevHWBStatus = false;
-	uint8_t        JoyStatus_LCL = Joystick_GetStatus();
-	bool           InputChanged  = false;
+	uint8_t JoyStatus_LCL = Joystick_GetStatus();
 	
 	/* Clear the report contents */
 	memset(ReportData, 0, sizeof(USB_MouseReport_Data_t));
@@ -335,16 +332,6 @@ bool CreateMouseReport(USB_MouseReport_Data_t* ReportData)
 	  
 	if (HWB_GetStatus())
 	  ReportData->Button |= (1 << 1);
-
-	/* Check if the new report is different to the previous report */
-	InputChanged = ((uint8_t)(PrevJoyStatus ^ JoyStatus_LCL) | (uint8_t)(HWB_GetStatus() ^ PrevHWBStatus));
-
-	/* Save the current joystick and HWB status for later comparison */
-	PrevJoyStatus = JoyStatus_LCL;
-	PrevHWBStatus = HWB_GetStatus();
-
-	/* Return whether the new report is different to the previous report or not */
-	return InputChanged;
 }
 
 /** Sends the next HID report to the host, via the keyboard data endpoint. */
