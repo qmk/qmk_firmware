@@ -5,19 +5,10 @@
  */
  
 /** \mainpage Mouse Host With HID Descriptor Parser Demo
- *  
- *  Mouse host demonstration application. This gives a simple reference
- *  application for implementing a USB Mouse host, for USB mice using
- *  the standard mouse HID profile. It uses a HID parser for the HID
- *  reports, allowing for correct operation across all USB mice. This
- *  demo supports mice with a single HID report.
- *  
- *  Mouse movement and button presses are displayed on the board LEDs.
- *  On connection to a USB mouse, the report items will be processed and
- *  printed as a formatted list through the USART before the mouse is
- *  fully enumerated.
- *  
- *  Currently only single interface mice are supported.
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
  *
  *  <table>
  *   <tr>
@@ -39,6 +30,33 @@
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
  *    <td>Low Speed Mode, Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Mouse host demonstration application. This gives a simple reference
+ *  application for implementing a USB Mouse host, for USB mice using
+ *  the standard mouse HID profile. It uses a HID parser for the HID
+ *  reports, allowing for correct operation across all USB mice. This
+ *  demo supports mice with a single HID report.
+ *  
+ *  Mouse movement and button presses are displayed on the board LEDs.
+ *  On connection to a USB mouse, the report items will be processed and
+ *  printed as a formatted list through the USART before the mouse is
+ *  fully enumerated.
+ *  
+ *  Currently only single interface mice are supported.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
  *   </tr>
  *  </table>
  */

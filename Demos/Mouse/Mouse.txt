@@ -6,17 +6,9 @@
  
 /** \mainpage Mouse Device Demo
  *
- *  Mouse demonstration application. This gives a simple reference
- *  application for implementing a USB Mouse using the basic USB HID
- *  drivers in all modern OSes (i.e. no special drivers required). It is
- *  boot protocol compatible, and thus works under compatible BIOS as if
- *  it was a native mouse (e.g. PS/2).
- *  
- *  On startup the system will automatically enumerate and function
- *  as a mouse when the USB connection to a host is present. To use
- *  the mouse, move the joystick to move the pointer, and push the
- *  joystick inwards to simulate a left-button click. The HWB serves as
- *  the right mouse button.
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
  *
  *  <table>
  *   <tr>
@@ -38,6 +30,46 @@
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
  *    <td>Low Speed Mode, Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Mouse demonstration application. This gives a simple reference
+ *  application for implementing a USB Mouse using the basic USB HID
+ *  drivers in all modern OSes (i.e. no special drivers required). It is
+ *  boot protocol compatible, and thus works under compatible BIOS as if
+ *  it was a native mouse (e.g. PS/2).
+ *  
+ *  On startup the system will automatically enumerate and function
+ *  as a mouse when the USB connection to a host is present. To use
+ *  the mouse, move the joystick to move the pointer, and push the
+ *  joystick inwards to simulate a left-button click. The HWB serves as
+ *  the right mouse button.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Define Name:</b></td>
+ *    <td><b>Location:</b></td>
+ *    <td><b>Description:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>INTERRUPT_CONTROL_ENDPOINT</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, this causes the demo to enable interrupts for the control endpoint,
+ *        which services control requests from the host. If not defined, the control endpoint
+ *        is serviced via polling using the task scheduler.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>INTERRUPT_DATA_ENDPOINT</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, this causes the demo to enable interrupts for the data endpoint,
+ *        which services outgoing mouse button and movement reports to the host. If not defined,
+ *        the data endpoint is serviced via polling using the task scheduler.</td>
  *   </tr>
  *  </table>
  */

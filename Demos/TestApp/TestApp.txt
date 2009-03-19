@@ -6,25 +6,9 @@
  
 /** \mainpage Test Application for the LUFA library
  *
- *  Test application. Demonstrates several aspects of the LUFA
- *  Library. On startup the current temperature will be printed
- *  through the USART every 10 seconds, and the current joystick
- *  position will be indicated via the LEDs on the selected board.
- *  Pressing the HWB will initiate the USB subsystem, enumerating
- *  the device (which has <b>no actual functionality beyond
- *  enumeration as a device or as a host in this demo</b>, and serves
- *  only to demonstrate the USB portion of the library). It will
- *  also suspend the joystick and temperature monitoring tasks.
- * 
- *  Pressing the HWB a second time will turn off the USB system
- *  and resume the temperature printing task (but not the joystick
- *  monitoring task).
+ *  \section SSec_Info USB Information:
  *
- *  When activated, the USB events will be printed through the
- *  serial USART.
- *
- *  When the USB subsystem is activated, the board LEDs will show
- *  the current USB status.
+ *  The following table gives a rundown of the USB utilization of this demo.
  *
  *  <table>
  *   <tr>
@@ -46,6 +30,40 @@
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
  *    <td>Low Speed Mode, Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Test application. Demonstrates several aspects of the LUFA
+ *  Library. On startup the current temperature will be printed
+ *  through the USART every 10 seconds, and the current joystick
+ *  position will be indicated via the LEDs on the selected board.
+ *  Pressing the HWB will initiate the USB subsystem, enumerating
+ *  the device (which has <b>no actual functionality beyond
+ *  enumeration as a device or as a host in this demo</b>, and serves
+ *  only to demonstrate the USB portion of the library). It will
+ *  also suspend the joystick and temperature monitoring tasks.
+ * 
+ *  Pressing the HWB a second time will turn off the USB system
+ *  and resume the temperature printing task (but not the joystick
+ *  monitoring task).
+ *
+ *  When activated, the USB events will be printed through the
+ *  serial USART.
+ *
+ *  When the USB subsystem is activated, the board LEDs will show
+ *  the current USB status.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
  *   </tr>
  *  </table>
  */

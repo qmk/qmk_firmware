@@ -58,12 +58,6 @@ all:
 
 	make -C Mouse clean
 	make -C Mouse all
-
-	make -C MouseFullInt clean
-	make -C MouseFullInt all
-
-	make -C MouseViaInt clean
-	make -C MouseViaInt all
 	
 	make -C MouseHost clean
 	make -C MouseHost all
@@ -102,8 +96,6 @@ all:
 	make -C MassStorageHost $@
 	make -C MIDI $@
 	make -C Mouse $@
-	make -C MouseFullInt $@
-	make -C MouseViaInt $@
 	make -C MouseHost $@
 	make -C MouseHostWithParser $@
 	make -C MouseHostViaInt $@

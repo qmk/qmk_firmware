@@ -34,13 +34,6 @@
  *  is responsible for the initial application hardware configuration.
  */
  
-/* ---   Project Configuration (Choose ONE)   --- */
-//#define AUDIO_OUT_MONO
-#define AUDIO_OUT_STEREO
-//#define AUDIO_OUT_LEDS
-//#define AUDIO_OUT_PORTC
-/* --- --- --- --- --- --- --- ---  ---  ---  --- */
-
 #include "AudioOutput.h"
 
 /* Project Tags, for reading out using the ButtLoad project */

@@ -6,19 +6,9 @@
  
 /** \mainpage Communications Device Class Device (Virtual Serial Port)
  *
- *  Communications Device Class demonstration application.
- *  This gives a simple reference application for implementing
- *  a CDC device acting as a virtual serial port. Joystick
- *  actions are transmitted to the host as strings. The device
- *  does not respond to serial data sent from the host.
- *  
- *  After running this demo for the first time on a new computer,
- *  you will need to supply the .INF file located in this demo
- *  project's directory as the device's driver when running under
- *  Windows. This will enable Windows to use its inbuilt CDC drivers,
- *  negating the need for custom drivers for the device. Other
- *  Operating Systems should automatically use their own inbuilt
- *  CDC-ACM drivers.
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
  *
  *  <table>
  *   <tr>
@@ -40,6 +30,34 @@
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
  *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Communications Device Class demonstration application.
+ *  This gives a simple reference application for implementing
+ *  a CDC device acting as a virtual serial port. Joystick
+ *  actions are transmitted to the host as strings. The device
+ *  does not respond to serial data sent from the host.
+ *  
+ *  After running this demo for the first time on a new computer,
+ *  you will need to supply the .INF file located in this demo
+ *  project's directory as the device's driver when running under
+ *  Windows. This will enable Windows to use its inbuilt CDC drivers,
+ *  negating the need for custom drivers for the device. Other
+ *  Operating Systems should automatically use their own inbuilt
+ *  CDC-ACM drivers.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
  *   </tr>
  *  </table>
  */

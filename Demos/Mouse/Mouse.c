@@ -45,8 +45,13 @@ BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
 /* Scheduler Task List */
 TASK_LIST
 {
+	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
 	{ Task: USB_USBTask          , TaskStatus: TASK_STOP },
+	#endif
+	
+	#if !defined(INTERRUPT_DATA_ENDPOINT)
 	{ Task: USB_Mouse_Report     , TaskStatus: TASK_STOP },
+	#endif
 };
 
 /* Global Variables */
@@ -118,14 +123,34 @@ EVENT_HANDLER(USB_Connect)
 	UsingReportProtocol = true;
 }
 
+/** Event handler for the USB_Reset event. This fires when the USB interface is reset by the USB host, before the
+ *  enumeration process begins, and enables the control endpoint interrupt so that control requests can be handled
+ *  asynchronously when they arrive rather than when the control endpoint is polled manually.
+ */
+EVENT_HANDLER(USB_Reset)
+{
+	#if defined(INTERRUPT_CONTROL_ENDPOINT)
+	/* Select the control endpoint */
+	Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
+
+	/* Enable the endpoint SETUP interrupt ISR for the control endpoint */
+	USB_INT_Enable(ENDPOINT_INT_SETUP);
+	#endif
+}
+
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
  *  the status LEDs and stops the USB management and Mouse reporting tasks.
  */
 EVENT_HANDLER(USB_Disconnect)
 {
-	/* Stop running mouse reporting and USB management tasks */
+	/* Stop running keyboard reporting and USB management tasks */
+	#if !defined(INTERRUPT_DATA_ENDPOINT)
 	Scheduler_SetTaskMode(USB_Mouse_Report, TASK_STOP);
+	#endif
+
+	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
 	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
+	#endif
 
 	/* Indicate USB not ready */
 	UpdateStatus(Status_USBNotReady);
@@ -141,11 +166,18 @@ EVENT_HANDLER(USB_ConfigurationChanged)
 		                       ENDPOINT_DIR_IN, MOUSE_EPSIZE,
 	                           ENDPOINT_BANK_SINGLE);
 
+	#if defined(INTERRUPT_DATA_ENDPOINT)
+	/* Enable the endpoint IN interrupt ISR for the report endpoint */
+	USB_INT_Enable(ENDPOINT_INT_IN);
+	#endif
+
 	/* Indicate USB connected and ready */
 	UpdateStatus(Status_USBReady);
 
+	#if !defined(INTERRUPT_DATA_ENDPOINT)
 	/* Start running mouse reporting task */
 	Scheduler_SetTaskMode(USB_Mouse_Report, TASK_RUN);
+	#endif
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
@@ -163,7 +195,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				USB_MouseReport_Data_t MouseReportData;
 
 				/* Create the next mouse report for transmission to the host */
-				GetNextReport(&MouseReportData);
+				CreateMouseReport(&MouseReportData);
 
 				/* Ignore report type and ID number value */
 				Endpoint_Discard_Word();
@@ -278,7 +310,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  *
  *  \return Boolean true if the new report differs from the last report, false otherwise
  */
-bool GetNextReport(USB_MouseReport_Data_t* ReportData)
+bool CreateMouseReport(USB_MouseReport_Data_t* ReportData)
 {
 	static uint8_t PrevJoyStatus = 0;
 	static bool    PrevHWBStatus = false;
@@ -315,6 +347,45 @@ bool GetNextReport(USB_MouseReport_Data_t* ReportData)
 	return InputChanged;
 }
 
+/** Sends the next HID report to the host, via the keyboard data endpoint. */
+static inline void SendNextReport(void)
+{
+	USB_MouseReport_Data_t MouseReportData;
+	bool                   SendReport = true;
+	
+	/* Create the next mouse report for transmission to the host */
+	CreateMouseReport(&MouseReportData);
+	
+	/* Check if the idle period is set*/
+	if (IdleCount)
+	{
+		/* Determine if the idle period has elapsed */
+		if (!(IdleMSRemaining))
+		{
+			/* Reset the idle time remaining counter, must multiply by 4 to get the duration in milliseconds */
+			IdleMSRemaining = (IdleCount << 2);		
+		}
+		else
+		{
+			/* Idle period not elapsed, indicate that a report must not be sent */
+			SendReport = false;
+		}
+	}
+	
+	/* Select the Mouse Report Endpoint */
+	Endpoint_SelectEndpoint(MOUSE_EPNUM);
+
+	/* Check if Mouse Endpoint Ready for Read/Write and if we should send a new report */
+	if (Endpoint_ReadWriteAllowed() && SendReport)
+	{
+		/* Write Mouse Report Data */
+		Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData));
+		
+		/* Finalize the stream transfer to send the last packet */
+		Endpoint_ClearCurrentBank();
+	}
+}
+
 /** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
  *  log to a serial port, or anything else that is suitable for status updates.
  *
@@ -342,45 +413,57 @@ void UpdateStatus(uint8_t CurrentStatus)
 	LEDs_SetAllLEDs(LEDMask);
 }
 
+#if !defined(INTERRUPT_DATA_ENDPOINT)
 /** Task to manage HID report generation and transmission to the host, when in report mode. */
 TASK(USB_Mouse_Report)
 {
-	USB_MouseReport_Data_t MouseReportData;
-	bool                   SendReport = true;
-	
-	/* Create the next mouse report for transmission to the host */
-	GetNextReport(&MouseReportData);
-	
-	/* Check if the idle period is set*/
-	if (IdleCount)
-	{
-		/* Determine if the idle period has elapsed */
-		if (!(IdleMSRemaining))
-		{
-			/* Reset the idle time remaining counter, must multiply by 4 to get the duration in milliseconds */
-			IdleMSRemaining = (IdleCount << 2);		
-		}
-		else
-		{
-			/* Idle period not elapsed, indicate that a report must not be sent */
-			SendReport = false;
-		}
-	}
-	
 	/* Check if the USB system is connected to a host */
 	if (USB_IsConnected)
+	{
+		/* Send the next mouse report to the host */
+		SendNextReport();
+	}
+}
+#endif
+
+/** ISR for the general Pipe/Endpoint interrupt vector. This ISR fires when an endpoint's status changes (such as
+ *  a packet has been received) on an endpoint with its corresponding ISR enabling bits set. This is used to send
+ *  HID packets to the host each time the HID interrupt endpoints polling period elapses, as managed by the USB
+ *  controller. It is also used to respond to standard and class specific requests send to the device on the control
+ *  endpoint, by handing them off to the LUFA library when they are received.
+ */
+ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
+{
+	#if defined(INTERRUPT_CONTROL_ENDPOINT)
+	/* Check if the control endpoint has received a request */
+	if (Endpoint_HasEndpointInterrupted(ENDPOINT_CONTROLEP))
+	{
+		/* Clear the endpoint interrupt */
+		Endpoint_ClearEndpointInterrupt(ENDPOINT_CONTROLEP);
+
+		/* Process the control request */
+		USB_USBTask();
+
+		/* Handshake the endpoint setup interrupt - must be after the call to USB_USBTask() */
+		USB_INT_Clear(ENDPOINT_INT_SETUP);
+	}
+	#endif
+	
+	#if defined(INTERRUPT_DATA_ENDPOINT)
+	/* Check if mouse endpoint has interrupted */
+	if (Endpoint_HasEndpointInterrupted(MOUSE_EPNUM))
 	{
 		/* Select the Mouse Report Endpoint */
 		Endpoint_SelectEndpoint(MOUSE_EPNUM);
 
-		/* Check if Mouse Endpoint Ready for Read/Write and if we should send a new report */
-		if (Endpoint_ReadWriteAllowed() && SendReport)
-		{
-			/* Write Mouse Report Data */
-			Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData));
-			
-			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearCurrentBank();
-		}
+		/* Clear the endpoint IN interrupt flag */
+		USB_INT_Clear(ENDPOINT_INT_IN);
+
+		/* Clear the Mouse Report endpoint interrupt and select the endpoint */
+		Endpoint_ClearEndpointInterrupt(MOUSE_EPNUM);
+
+		/* Send the next mouse report to the host */
+		SendNextReport();
 	}
+	#endif
 }

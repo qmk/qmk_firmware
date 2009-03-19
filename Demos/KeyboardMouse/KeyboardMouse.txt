@@ -6,22 +6,9 @@
  
 /** \mainpage Dual HID Keyboard and Mouse Device Demo
  *
- *  Keyboard/Mouse demonstration application. This gives a simple reference
- *  application for implementing a composite device containing both USB Keyboard
- *  and USB Mouse functionality using the basic USB HID drivers in all modern OSes
- *  (i.e. no special drivers required). This example uses two seperate HID
- *  interfaces for each function. It is boot protocol compatible, and thus works under
- *  compatible BIOS as if it was a native keyboard and mouse (e.g. PS/2).
- *  
- *  On startup the system will automatically enumerate and function
- *  as a keyboard when the USB connection to a host is present and the HWB is not
- *  pressed. When enabled, manipulate the joystick to send the letters
- *  a, b, c, d and e. See the USB HID documentation for more information
- *  on sending keyboard event and keypresses.
- *  
- *  When the HWB is pressed, the mouse mode is enabled. When enabled, move the
- *  joystick to move the pointer, and push the joystick inwards to simulate a
- *  left-button click.
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
  *
  *  <table>
  *   <tr>
@@ -43,6 +30,37 @@
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
  *    <td>Low Speed Mode, Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Keyboard/Mouse demonstration application. This gives a simple reference
+ *  application for implementing a composite device containing both USB Keyboard
+ *  and USB Mouse functionality using the basic USB HID drivers in all modern OSes
+ *  (i.e. no special drivers required). This example uses two seperate HID
+ *  interfaces for each function. It is boot protocol compatible, and thus works under
+ *  compatible BIOS as if it was a native keyboard and mouse (e.g. PS/2).
+ *  
+ *  On startup the system will automatically enumerate and function
+ *  as a keyboard when the USB connection to a host is present and the HWB is not
+ *  pressed. When enabled, manipulate the joystick to send the letters
+ *  a, b, c, d and e. See the USB HID documentation for more information
+ *  on sending keyboard event and keypresses.
+ *  
+ *  When the HWB is pressed, the mouse mode is enabled. When enabled, move the
+ *  joystick to move the pointer, and push the joystick inwards to simulate a
+ *  left-button click.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
  *   </tr>
  *  </table>
  */

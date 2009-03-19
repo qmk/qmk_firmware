@@ -6,18 +6,9 @@
  
 /** \mainpage Joystick Device Demo
  *
- *  Joystick demonstration application. This gives a simple reference
- *  application for implementing a USB Keyboard device, for USB Joysticks
- *  using the standard Keyboard HID profile.
- *  
- *  This device will show up as a generic joystick device, with two buttons.
- *  Pressing the joystick inwards is the first button, and the HWB button
- *  is the second.
- *  
- *  Moving the joystick on the selected board moves the joystick location on
- *  the host computer.
- *  
- *  Currently only single interface joysticks are supported.
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
  *
  *  <table>
  *   <tr>
@@ -39,6 +30,33 @@
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
  *    <td>Low Speed Mode, Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Joystick demonstration application. This gives a simple reference
+ *  application for implementing a USB Keyboard device, for USB Joysticks
+ *  using the standard Keyboard HID profile.
+ *  
+ *  This device will show up as a generic joystick device, with two buttons.
+ *  Pressing the joystick inwards is the first button, and the HWB button
+ *  is the second.
+ *  
+ *  Moving the joystick on the selected board moves the joystick location on
+ *  the host computer.
+ *  
+ *  Currently only single interface joysticks are supported.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
  *   </tr>
  *  </table>
  */

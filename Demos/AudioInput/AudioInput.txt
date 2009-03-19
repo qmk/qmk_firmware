@@ -5,21 +5,10 @@
  */
  
 /** \mainpage Audio Input Device Demo
- *  
- *  Audio demonstration application. This gives a simple reference
- *  application for implementing a USB Audio Input device using the
- *  basic USB Audio drivers in all modern OSes (i.e. no special drivers
- *  required).
- *  
- *  On startup the system will automatically enumerate and function
- *  as a USB microphone. Incomming audio from the ADC channel 1 will
- *  be sampled and sent to the host computer.
- *  
- *  To use, connect a microphone to the ADC channel 2.
- *  
- *  Under Windows, if a driver request dialogue pops up, select the option
- *  to automatically install the appropriate drivers.
- *  
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
  *
  *  <table>
  *   <tr>
@@ -43,6 +32,39 @@
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
  *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Audio demonstration application. This gives a simple reference
+ *  application for implementing a USB Audio Input device using the
+ *  basic USB Audio drivers in all modern OSes (i.e. no special drivers
+ *  required).
+ *  
+ *  On startup the system will automatically enumerate and function
+ *  as a USB microphone. Incomming audio from the ADC channel 1 will
+ *  be sampled and sent to the host computer.
+ *  
+ *  To use, connect a microphone to the ADC channel 2.
+ *  
+ *  Under Windows, if a driver request dialogue pops up, select the option
+ *  to automatically install the appropriate drivers.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Define Name:</b></td>
+ *    <td><b>Location:</b></td>
+ *    <td><b>Description:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>MICROPHONE_BIASED_TO_HALF_RAIL</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, this alters the demo so that the half VCC bias of the microphone input is subtracted.</td>
  *   </tr>
  *  </table>
  */

@@ -5,7 +5,11 @@
  */
  
 /** \mainpage RNDIS Class Ethernet Demo (with Webserver/Telnet)
- *  
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
  *  Remote Network Driver Interface demonstration application.
  *  This gives a simple reference application for implementing
  *  a CDC RNDIS device acting as a simple network interface for
@@ -37,6 +41,8 @@
  *  recommended that it be replaced with an external open source TCP/IP
  *  stack that is feature complete, such as the uIP stack.
  *
+ *  \section SSec_Description Project Description: 
+ *
  *  <table>
  *   <tr>
  *    <td><b>USB Mode:</b></td>
@@ -57,6 +63,53 @@
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
  *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Define Name:</b></td>
+ *    <td><b>Location:</b></td>
+ *    <td><b>Description:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_ETHERNET</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, received Ethernet headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_ARP</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, received ARP headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_IP</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, received IP headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_ICMP</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, received ICMP headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_TCP</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, received TCP headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_UDP</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, received UDP headers will not be decoded and printed to the device serial port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_DECODE_DHCP</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, received DHCP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *  </table>
  */

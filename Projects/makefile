@@ -16,10 +16,6 @@
 all:
 	make -C Magstripe clean
 	make -C Magstripe all
-	
-	make -C AVRISP_Programmer clean
-	make -C AVRISP_Programmer all
 
 %:
 	make -C Magstripe $@
-	make -C AVRISP_Programmer $@

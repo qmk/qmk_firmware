@@ -33,10 +33,6 @@
  *  Main source file for the Audio Input demo. This file contains the main tasks of the demo and
  *  is responsible for the initial application hardware configuration.
  */
- 
-/* ---  Project Configuration  --- */
-//#define MICROPHONE_BIASED_TO_HALF_RAIL
-/* --- --- --- --- --- --- --- --- */
 
 #include "AudioInput.h"
 

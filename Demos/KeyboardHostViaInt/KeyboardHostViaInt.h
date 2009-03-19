@@ -59,7 +59,7 @@
 		#define KEYBOARD_DATAPIPE              1
 
 		/** HID Class Specific request to set the report protocol mode */
-		#define REQ_SetProtocol             0x0B
+		#define REQ_SetProtocol                0x0B
 
 	/* Type Defines: */
 		/** Type define for a standard Boot Protocol Keyboard report */

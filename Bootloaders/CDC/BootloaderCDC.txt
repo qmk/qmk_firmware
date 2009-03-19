@@ -5,15 +5,10 @@
  */
  
 /** \mainpage CDC Class USB AVR Bootloader
- * 
- * This bootloader enumerates to the host as a CDC Class device (virtual serial port), allowing for AVR109
- * protocol compatible programming software to load firmware onto the AVR.	
- *  
- * Out of the box this bootloader builds for the USB1287, and will fit into 4KB of bootloader space. If
- * you wish to enlarge this space and/or change the AVR model, you will need to edit the BOOT_START and MCU
- * values in the accompanying makefile.
- *  
- * This bootloader is compatible with the open source application AVRDUDE, or Atmel's AVRPROG.
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
  *
  * <table>
  *  <tr>
@@ -37,4 +32,27 @@
  *   <td>Full Speed Mode</td>
  *  </tr>
  * </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ * This bootloader enumerates to the host as a CDC Class device (virtual serial port), allowing for AVR109
+ * protocol compatible programming software to load firmware onto the AVR.	
+ *  
+ * Out of the box this bootloader builds for the USB1287, and will fit into 4KB of bootloader space. If
+ * you wish to enlarge this space and/or change the AVR model, you will need to edit the BOOT_START and MCU
+ * values in the accompanying makefile.
+ *  
+ * This bootloader is compatible with the open source application AVRDUDE, or Atmel's AVRPROG.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
  */

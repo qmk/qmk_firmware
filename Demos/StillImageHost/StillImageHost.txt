@@ -5,14 +5,10 @@
  */
  
 /** \mainpage Still Image Host Demo
- *  
- *  Still Image host demonstration application. This gives a simple reference
- *  application for implementing a Still Image host, for USB devices such as
- *  digital cameras.
- *  
- *  This demo will enumerate an attached USB Still Image device, print out its
- *  information structure, open a session with the device and finally close the
- *  session.
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
  *
  *  <table>
  *   <tr>
@@ -35,6 +31,28 @@
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
  *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Still Image host demonstration application. This gives a simple reference
+ *  application for implementing a Still Image host, for USB devices such as
+ *  digital cameras.
+ *  
+ *  This demo will enumerate an attached USB Still Image device, print out its
+ *  information structure, open a session with the device and finally close the
+ *  session.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
  *   </tr>
  *  </table>
  */

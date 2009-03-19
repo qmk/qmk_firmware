@@ -140,6 +140,15 @@ EVENT_HANDLER(USB_Reset)
  */
 EVENT_HANDLER(USB_Disconnect)
 {
+	/* Stop running keyboard reporting and USB management tasks */
+	#if !defined(INTERRUPT_DATA_ENDPOINT)
+	Scheduler_SetTaskMode(USB_Keyboard_Report, TASK_STOP);
+	#endif
+
+	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
+	#endif
+	
 	/* Indicate USB not ready */
 	UpdateStatus(Status_USBNotReady);
 }
@@ -171,6 +180,11 @@ EVENT_HANDLER(USB_ConfigurationChanged)
 
 	/* Indicate USB connected and ready */
 	UpdateStatus(Status_USBReady);
+
+	#if !defined(INTERRUPT_DATA_ENDPOINT)
+	/* Start running keyboard reporting task */
+	Scheduler_SetTaskMode(USB_Keyboard_Report, TASK_RUN);
+	#endif
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific

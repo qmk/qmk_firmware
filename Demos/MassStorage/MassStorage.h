@@ -62,8 +62,9 @@
 		/** Maximum length of a SCSI command which can be issued by the device or host in a Mass Storage bulk wrapper. */
 		#define MAX_SCSI_COMMAND_LENGTH    16
 		
-		/** Total number of Logical Units (drives) in the device. By default, the total device capacity is shared equally between
-		 *  each drive - this can be set to any positive non-zero amount. */
+		/** Total number of Logical Units (drives) in the device. The total device capacity is shared equally between
+		 *  each drive - this can be set to any positive non-zero amount.
+		 */
 		#define TOTAL_LUNS                 2
 		
 		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */

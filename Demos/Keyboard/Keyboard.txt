@@ -34,6 +34,7 @@
  *  </table>
  *
  *  \section SSec_Description Project Description:
+ *
  *  Keyboard demonstration application. This gives a simple reference application
  *  for implementing a USB Keyboard using the basic USB HID drivers in all modern
  *  OSes (i.e. no special drivers required). It is boot protocol compatible, and thus

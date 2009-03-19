@@ -103,6 +103,9 @@
 		/** Indicates that this module will catch the USB_Disconnect event when thrown by the library. */
 		HANDLES_EVENT(USB_Disconnect);
 
+		/** Indicates that this module will catch the USB_Reset event when thrown by the library. */
+		HANDLES_EVENT(USB_Reset);
+
 		/** Indicates that this module will catch the USB_ConfigurationChanged event when thrown by the library. */
 		HANDLES_EVENT(USB_ConfigurationChanged);
 
@@ -110,7 +113,7 @@
 		HANDLES_EVENT(USB_UnhandledControlPacket);
 
 	/* Function Prototypes: */
-		bool GetNextReport(USB_MouseReport_Data_t* ReportData);
+		bool CreateMouseReport(USB_MouseReport_Data_t* ReportData);
 		void UpdateStatus(uint8_t CurrentStatus);
 
 #endif

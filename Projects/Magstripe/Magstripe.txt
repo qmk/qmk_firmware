@@ -5,7 +5,36 @@
  */
  
 /** \mainpage Denver Gingerich's USBSnoop Magnetic Card Reader Project
- * 
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ * <table>
+ *  <tr>
+ *   <td><b>USB Mode:</b></td>
+ *   <td>Device</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Class:</b></td>
+ *   <td>Human Interface Device (HID)</td>
+ *  </tr>
+ *  <tr> 
+ *   <td><b>USB Subclass:</b></td>
+ *   <td>Keyboard</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Relevant Standards:</b></td>
+ *   <td>USBIF HID Standard, USBIF HID Usage Tables</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Usable Speeds:</b></td>
+ *   <td>Low Speed Mode, Full Speed Mode</td>
+ *  </tr>
+ * </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
  *  Firmware for a USB AVR powered USB TTL magnetic stripe reader (using a card
  *  reader such as the Omron V3B-4K) by Denver Gingerich. This project is designed
  *  to be used with the open source Stripe Snoop project at http://stripesnoop.sourceforge.net/.
@@ -51,7 +80,6 @@
  *   </tr>
  *  </table>
  *
- * 
  *  This project is based on the LUFA Keyboard demonstration application,
  *  written by Denver Gingerich.
  *
@@ -60,26 +88,20 @@
  *  obtained from the magnetic stripe reader is "typed" through the keyboard
  *  driver as 0's and 1's. After every card swipe, the demo will send a return key.
  *
- * <table>
- *  <tr>
- *   <td><b>USB Mode:</b></td>
- *   <td>Device</td>
- *  </tr>
- *  <tr>
- *   <td><b>USB Class:</b></td>
- *   <td>Human Interface Device (HID)</td>
- *  </tr>
- *  <tr> 
- *   <td><b>USB Subclass:</b></td>
- *   <td>Keyboard</td>
- *  </tr>
- *  <tr>
- *   <td><b>Relevant Standards:</b></td>
- *   <td>USBIF HID Standard, USBIF HID Usage Tables</td>
- *  </tr>
- *  <tr>
- *   <td><b>Usable Speeds:</b></td>
- *   <td>Low Speed Mode, Full Speed Mode</td>
- *  </tr>
- * </table>
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Define Name:</b></td>
+ *    <td><b>Location:</b></td>
+ *    <td><b>Description:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>MAX_BITS</td>
+ *    <td>CircularBitBuffer.h</td>
+ *    <td>Gives the maximum number of bits per track which can be buffered by the device for later transmission to a host.</td>
+ *   </tr>
+ *  </table>
  */
