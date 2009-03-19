@@ -337,8 +337,9 @@ void CreateMouseReport(USB_MouseReport_Data_t* ReportData)
 /** Sends the next HID report to the host, via the keyboard data endpoint. */
 static inline void SendNextReport(void)
 {
-	USB_MouseReport_Data_t MouseReportData;
-	bool                   SendReport = true;
+	static USB_MouseReport_Data_t PrevMouseReportData;
+	USB_MouseReport_Data_t        MouseReportData;
+	bool                          SendReport = true;
 	
 	/* Create the next mouse report for transmission to the host */
 	CreateMouseReport(&MouseReportData);
@@ -354,10 +355,13 @@ static inline void SendNextReport(void)
 		}
 		else
 		{
-			/* Idle period not elapsed, indicate that a report must not be sent */
-			SendReport = false;
+			/* Idle period not elapsed, indicate that a report must not be sent unless the report has changed */
+			SendReport = (memcmp(&PrevMouseReportData, &MouseReportData, sizeof(USB_MouseReport_Data_t)) != 0);
 		}
 	}
+
+	/* Save the current report data for later comparison to check for changes */
+	PrevMouseReportData = MouseReportData;
 	
 	/* Select the Mouse Report Endpoint */
 	Endpoint_SelectEndpoint(MOUSE_EPNUM);

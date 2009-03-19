@@ -385,8 +385,9 @@ void ProcessLEDReport(uint8_t LEDReport)
 /** Sends the next HID report to the host, via the keyboard data endpoint. */
 static inline void SendNextReport(void)
 {
-	USB_KeyboardReport_Data_t KeyboardReportData;
-	bool                      SendReport = true;
+	static USB_KeyboardReport_Data_t PrevKeyboardReportData;
+	USB_KeyboardReport_Data_t        KeyboardReportData;
+	bool                             SendReport = true;
 	
 	/* Create the next keyboard report for transmission to the host */
 	CreateKeyboardReport(&KeyboardReportData);
@@ -402,11 +403,14 @@ static inline void SendNextReport(void)
 		}
 		else
 		{
-			/* Idle period not elapsed, indicate that a report must not be sent */
-			SendReport = false;			
+			/* Idle period not elapsed, indicate that a report must not be sent unless the report has changed */
+			SendReport = (memcmp(&PrevKeyboardReportData, &KeyboardReportData, sizeof(USB_KeyboardReport_Data_t)) != 0);
 		}
 	}
 	
+	/* Save the current report data for later comparison to check for changes */
+	PrevKeyboardReportData = KeyboardReportData;
+
 	/* Select the Keyboard Report Endpoint */
 	Endpoint_SelectEndpoint(KEYBOARD_EPNUM);
 
