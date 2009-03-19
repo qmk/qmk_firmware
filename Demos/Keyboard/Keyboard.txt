@@ -5,18 +5,10 @@
  */
  
 /** \mainpage Keyboard Device Demo
- *  
- *  Keyboard demonstration application. This gives a simple reference
- *  application for implementing a USB Keyboard using the basic USB HID
- *  drivers in all modern OSes (i.e. no special drivers required). It is
- *  boot protocol compatible, and thus works under compatible BIOS as if
- *  it was a native keyboard (e.g. PS/2).
- *  
- *  On startup the system will automatically enumerate and function
- *  as a keyboard when the USB connection to a host is present. To use
- *  the keyboard example, manipulate the joystick to send the letters
- *  a, b, c, d and e. See the USB HID documentation for more information
- *  on sending keyboard event and keypresses.
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
  *
  *  <table>
  *   <tr>
@@ -38,6 +30,44 @@
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
  *    <td>Low Speed Mode, Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description:
+ *  Keyboard demonstration application. This gives a simple reference application
+ *  for implementing a USB Keyboard using the basic USB HID drivers in all modern
+ *  OSes (i.e. no special drivers required). It is boot protocol compatible, and thus
+ *  works under compatible BIOS as if it was a native keyboard (e.g. PS/2).
+ *  
+ *  On startup the system will automatically enumerate and function
+ *  as a keyboard when the USB connection to a host is present. To use
+ *  the keyboard example, manipulate the joystick to send the letters
+ *  a, b, c, d and e. See the USB HID documentation for more information
+ *  on sending keyboard event and keypresses.
+ *
+ *  \section SSec_Options Project Options
+ *  
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Define Name:</b></td>
+ *    <td><b>Location:</b></td>
+ *    <td><b>Description:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>INTERRUPT_CONTROL_ENDPOINT</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, this causes the demo to enable interrupts for the control endpoint,
+ *        which services control requests from the host. If not defined, the control endpoint
+ *        is serviced via polling using the task scheduler.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>INTERRUPT_DATA_ENDPOINT</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, this causes the demo to enable interrupts for the data endpoints,
+ *        which services incomming LED reports and outgoing key status reports to and from the host.
+ *        If not defined, the data endpoints are serviced via polling using the task scheduler.</td>
  *   </tr>
  *  </table>
  */

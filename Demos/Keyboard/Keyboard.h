@@ -9,7 +9,7 @@
 /*
   Copyright 2009  Denver Gingerich (denver [at] ossguy [dot] com)
       Based on code by Dean Camera (dean [at] fourwalledcubicle [dot] com)
-	  
+
   Permission to use, copy, modify, and distribute this software
   and its documentation for any purpose and without fee is hereby
   granted, provided that the above copyright notice appear in all
@@ -33,7 +33,7 @@
  *
  *  Header file for Keyboard.c.
  */
- 
+
 #ifndef _KEYBOARD_H_
 #define _KEYBOARD_H_
 
@@ -48,14 +48,11 @@
 		#include "Descriptors.h"
 
 		#include <LUFA/Version.h>                    // Library Version Information
+		#include <LUFA/Scheduler/Scheduler.h>        // Simple scheduler for task management
 		#include <LUFA/Common/ButtLoadTag.h>         // PROGMEM tags readable by the ButtLoad project
 		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
 		#include <LUFA/Drivers/Board/Joystick.h>     // Joystick driver
 		#include <LUFA/Drivers/Board/LEDs.h>         // LEDs driver
-		#include <LUFA/Scheduler/Scheduler.h>        // Simple scheduler for task management
-		
-	/* Task Definitions: */
-		TASK(USB_Keyboard_Report);
 
 	/* Macros: */
 		/** HID Class specific request to get the next HID report from the device. */
@@ -76,6 +73,9 @@
 		/** HID Class specific request to set the current HID protocol in use, either report or boot. */
 		#define REQ_SetProtocol    0x0B
 		
+	/* Task Definitions: */
+		TASK(USB_Keyboard_Report);
+
 	/* Type Defines: */
 		/** Type define for the keyboard HID report structure, for creating and sending HID reports to the host PC.
 		 *  This mirrors the layout described to the host in the HID report descriptor, in Descriptors.c.
@@ -103,6 +103,9 @@
 		/** Indicates that this module will catch the USB_Disconnect event when thrown by the library. */
 		HANDLES_EVENT(USB_Disconnect);
 
+		/** Indicates that this module will catch the USB_Reset event when thrown by the library. */
+		HANDLES_EVENT(USB_Reset);
+
 		/** Indicates that this module will catch the USB_ConfigurationChanged event when thrown by the library. */
 		HANDLES_EVENT(USB_ConfigurationChanged);
 
@@ -110,8 +113,10 @@
 		HANDLES_EVENT(USB_UnhandledControlPacket);
 		
 	/* Function Prototypes: */
-		bool GetNextReport(USB_KeyboardReport_Data_t* ReportData);
+		bool CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData);
 		void ProcessLEDReport(uint8_t LEDReport);
+		static inline void SendNextReport(void);
+		static inline void ReceiveNextReport(void);
 		void UpdateStatus(uint8_t CurrentStatus);
 		
 #endif

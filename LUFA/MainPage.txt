@@ -38,6 +38,12 @@
  *  \section Sec_License License
  *  The LUFA library is currently released under the MIT licence, included below.
  *
+ *  Commercial entities can opt out of the public disclosure clause in this license
+ *  for a one-time US$1500 payment. This provides a non-exclusive modified MIT licensed which
+ *  allows for the free use of the LUFA library, bootloaders and (where the sole copyright
+ *  is attributed to Dean Camera) demos without public disclosure within an organisation. Please
+ *  contact the author for more information.
+ *
  *  \verbatim
  *  Permission to use, copy, modify, and distribute this software
  *  and its documentation for any purpose and without fee is hereby

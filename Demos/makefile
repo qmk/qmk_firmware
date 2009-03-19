@@ -38,12 +38,6 @@ all:
 	make -C Keyboard clean
 	make -C Keyboard all
 
-	make -C KeyboardFullInt clean
-	make -C KeyboardFullInt all
-
-	make -C KeyboardViaInt clean
-	make -C KeyboardViaInt all
-
 	make -C KeyboardHost clean
 	make -C KeyboardHost all
 	
@@ -101,8 +95,6 @@ all:
 	make -C Joystick $@
 	make -C KeyboardMouse $@
 	make -C Keyboard $@
-	make -C KeyboardFullInt $@
-	make -C KeyboardViaInt $@
 	make -C KeyboardHost $@
 	make -C KeyboardHostWithParser $@
 	make -C KeyboardHostViaInt $@

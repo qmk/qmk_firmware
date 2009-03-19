@@ -194,9 +194,9 @@ USB_Descriptor_String_t PROGMEM LanguageString =
  */
 USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
-	Header:                 {Size: USB_STRING_LEN(11), Type: DTYPE_String},
+	Header:                 {Size: USB_STRING_LEN(16), Type: DTYPE_String},
 		
-	UnicodeString:          L"Dean Camera"
+	UnicodeString:          L"Denver Gingerich"
 };
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
