@@ -44,9 +44,6 @@ all:
 	make -C KeyboardHostWithParser clean
 	make -C KeyboardHostWithParser all
 
-	make -C KeyboardHostViaInt clean
-	make -C KeyboardHostViaInt all
-
 	make -C MassStorage clean
 	make -C MassStorage all
 
@@ -64,9 +61,6 @@ all:
 
 	make -C MouseHostWithParser clean
 	make -C MouseHostWithParser all
-
-	make -C MouseHostViaInt clean
-	make -C MouseHostViaInt all
 
 	make -C RNDISEthernet clean
 	make -C RNDISEthernet all
@@ -91,14 +85,12 @@ all:
 	make -C Keyboard $@
 	make -C KeyboardHost $@
 	make -C KeyboardHostWithParser $@
-	make -C KeyboardHostViaInt $@
 	make -C MassStorage $@
 	make -C MassStorageHost $@
 	make -C MIDI $@
 	make -C Mouse $@
 	make -C MouseHost $@
 	make -C MouseHostWithParser $@
-	make -C MouseHostViaInt $@
 	make -C RNDISEthernet $@
 	make -C StillImageHost $@
 	make -C TestApp $@

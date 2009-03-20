@@ -176,6 +176,51 @@ void UpdateStatus(uint8_t CurrentStatus)
 	LEDs_SetAllLEDs(LEDMask);
 }
 
+/** Reads in and processes the next report from the attached device, displaying the report
+ *  contents on the board LEDs and via the serial port.
+ */
+void ReadNextReport(void)
+{
+	USB_MouseReport_Data_t MouseReport;
+	uint8_t                LEDMask = LEDS_NO_LEDS;
+
+	/* Select the mouse report data in pipe */
+	Pipe_SelectPipe(MOUSE_DATAPIPE);
+
+	/* Ensure pipe contains data and is ready to be read before continuing */
+	if (!(Pipe_ReadWriteAllowed()))
+	  return;
+
+	/* Read in mouse report data */
+	Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport));				
+		
+	/* Clear the IN endpoint, ready for next data packet */
+	Pipe_ClearCurrentBank();
+		
+	/* Alter status LEDs according to mouse X movement */
+	if (MouseReport.X > 0)
+	  LEDMask |= LEDS_LED1;
+	else if (MouseReport.X < 0)
+	  LEDMask |= LEDS_LED2;
+		
+	/* Alter status LEDs according to mouse Y movement */
+	if (MouseReport.Y > 0)
+	  LEDMask |= LEDS_LED3;
+	else if (MouseReport.Y < 0)
+	  LEDMask |= LEDS_LED4;
+
+	/* Alter status LEDs according to mouse button position */
+	if (MouseReport.Button)
+	  LEDMask  = LEDS_ALL_LEDS;
+	
+	LEDs_SetAllLEDs(LEDMask);
+	
+	/* Print mouse report data through the serial port */
+	printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
+												  MouseReport.Y,
+												  MouseReport.Button);
+}
+
 /** Task to set the configuration of the attached device after it has been enumerated, and to read and process
  *  HID reports from the device and display the results onto the board LEDs.
  */
@@ -262,49 +307,45 @@ TASK(USB_Mouse_Host)
 			
 			USB_HostState = HOST_STATE_Ready;
 			break;
+		#if !defined(INTERRUPT_DATA_PIPE)
 		case HOST_STATE_Ready:
 			/* Select and unfreeze mouse data pipe */
-			Pipe_SelectPipe(MOUSE_DATAPIPE);	
+			Pipe_SelectPipe(MOUSE_DATAPIPE);
 			Pipe_Unfreeze();
 
-			/* Check if data has been received from the attached mouse */
+			/* If a report has been received, read and process it */
 			if (Pipe_ReadWriteAllowed())
-			{
-				USB_MouseReport_Data_t MouseReport;
-				uint8_t                LEDMask = LEDS_NO_LEDS;
-
-				/* Read in mouse report data */
-				Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport));				
-					
-				/* Clear the IN endpoint, ready for next data packet */
-				Pipe_ClearCurrentBank();
-
-				/* Alter status LEDs according to mouse X movement */
-				if (MouseReport.X > 0)
-				  LEDMask |= LEDS_LED1;
-				else if (MouseReport.X < 0)
-				  LEDMask |= LEDS_LED2;
-				
-				/* Alter status LEDs according to mouse Y movement */
-				if (MouseReport.Y > 0)
-				  LEDMask |= LEDS_LED3;
-				else if (MouseReport.Y < 0)
-				  LEDMask |= LEDS_LED4;
-
-				/* Alter status LEDs according to mouse button position */
-				if (MouseReport.Button)
-				  LEDMask = LEDS_ALL_LEDS;
-				  
-				LEDs_SetAllLEDs(LEDMask);
-				
-				/* Print mouse report data through the serial port */
-				printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
-				                                              MouseReport.Y,
-				                                              MouseReport.Button);
-			}
+			  ReadNextReport();
 
 			/* Freeze mouse data pipe */
 			Pipe_Freeze();
 			break;
+		#endif
 	}
 }
+
+#if defined(INTERRUPT_DATA_PIPE)
+/** Interrupt handler for the Endpoint/Pipe interrupt vector. This interrupt fires each time an enabled
+ *  pipe interrupt occurs on a pipe which has had that interrupt enabled.
+ */
+ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
+{
+	/* Check to see if the mouse data pipe has caused the interrupt */
+	if (Pipe_HasPipeInterrupted(MOUSE_DATAPIPE))
+	{
+		/* Clear the pipe interrupt, and select the mouse pipe */
+		Pipe_ClearPipeInterrupt(MOUSE_DATAPIPE);
+		Pipe_SelectPipe(MOUSE_DATAPIPE);	
+
+		/* Check to see if the pipe IN interrupt has fired */
+		if (USB_INT_HasOccurred(PIPE_INT_IN) && USB_INT_IsEnabled(PIPE_INT_IN))
+		{
+			/* Clear interrupt flag */
+			USB_INT_Clear(PIPE_INT_IN);		
+
+			/* Read and process the next report from the device */
+			ReadNextReport();
+		}
+	}
+}
+#endif

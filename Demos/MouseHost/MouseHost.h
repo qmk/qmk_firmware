@@ -40,6 +40,7 @@
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/pgmspace.h>
+		#include <avr/interrupt.h>
 		#include <avr/power.h>
 		#include <stdio.h>
 
@@ -92,5 +93,6 @@
 
 	/* Function Prototypes: */
 		void UpdateStatus(uint8_t CurrentStatus);
+		void ReadNextReport(void);
 		
 #endif

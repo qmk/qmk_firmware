@@ -77,7 +77,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 	/* Get the keyboard interface's data endpoint descriptor */
 	if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                                                NextInterfaceKeyboardDataEndpoint))
+	                                   NextInterfaceKeyboardDataEndpoint))
 	{
 		/* Descriptor not found, error out */
 		return NoEndpointFound;
@@ -91,6 +91,15 @@ uint8_t ProcessConfigurationDescriptor(void)
 	                   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
 
 	Pipe_SetInfiniteINRequests();
+
+	#if defined(INTERRUPT_DATA_PIPE)
+	Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
+
+	/* Enable the pipe IN interrupt for the data pipe */
+	USB_INT_Enable(PIPE_INT_IN);	
+	#endif
+
+	Pipe_Unfreeze();
 			
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;

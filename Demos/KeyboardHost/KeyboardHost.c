@@ -176,6 +176,56 @@ void UpdateStatus(uint8_t CurrentStatus)
 	LEDs_SetAllLEDs(LEDMask);
 }
 
+/** Reads in and processes the next report from the attached device, displaying the report
+ *  contents on the board LEDs and via the serial port.
+ */
+void ReadNextReport(void)
+{
+	USB_KeyboardReport_Data_t KeyboardReport;
+		
+	/* Select the keyboard report data in pipe */
+	Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
+
+	/* Ensure pipe contains data and is ready to be read before continuing */
+	if (!(Pipe_ReadWriteAllowed()))
+	  return;
+
+	/* Read in keyboard report data */
+	Pipe_Read_Stream_LE(&KeyboardReport, sizeof(KeyboardReport));
+					
+	/* Clear the IN endpoint, ready for next data packet */
+	Pipe_ClearCurrentBank();
+
+	/* Indicate if the modifier byte is non-zero (special key such as shift is being pressed) */
+	LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);
+	
+	/* Check if a key has been pressed */
+	if (KeyboardReport.KeyCode)
+	{
+		/* Toggle status LED to indicate keypress */
+		if (LEDs_GetLEDs() & LEDS_LED2)
+		  LEDs_TurnOffLEDs(LEDS_LED2);
+		else
+		  LEDs_TurnOnLEDs(LEDS_LED2);
+			  
+		char PressedKey = 0;
+
+		/* Retrieve pressed key character if alphanumeric */
+		if ((KeyboardReport.KeyCode >= 0x04) && (KeyboardReport.KeyCode <= 0x1D))
+		  PressedKey = (KeyboardReport.KeyCode - 0x04) + 'A';
+		else if ((KeyboardReport.KeyCode >= 0x1E) && (KeyboardReport.KeyCode <= 0x27))
+		  PressedKey = (KeyboardReport.KeyCode - 0x1E) + '0';
+		else if (KeyboardReport.KeyCode == 0x2C)
+		  PressedKey = ' ';						
+		else if (KeyboardReport.KeyCode == 0x28)
+		  PressedKey = '\n';
+			 
+		/* Print the pressed key character out through the serial port if valid */
+		if (PressedKey)
+		  putchar(PressedKey);
+	}
+}
+
 /** Task to set the configuration of the attached device after it has been enumerated, and to read and process
  *  HID reports from the device and display the results onto the board LEDs.
  */
@@ -261,54 +311,44 @@ TASK(USB_Keyboard_Host)
 				
 			USB_HostState = HOST_STATE_Ready;
 			break;
+		#if !defined(INTERRUPT_DATA_PIPE)
 		case HOST_STATE_Ready:
 			/* Select and unfreeze keyboard data pipe */
 			Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
 			Pipe_Unfreeze();
 
-			/* Check if data has been received from the attached keyboard */
+			/* If a report has been received, read and process it */
 			if (Pipe_ReadWriteAllowed())
-			{
-				USB_KeyboardReport_Data_t KeyboardReport;
-					
-				/* Read in keyboard report data */
-				Pipe_Read_Stream_LE(&KeyboardReport, sizeof(KeyboardReport));
-								
-				/* Clear the IN endpoint, ready for next data packet */
-				Pipe_ClearCurrentBank();
-
-				/* Indicate if the modifier byte is non-zero */
-				LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);
-				
-				/* Check if a key has been pressed */
-				if (KeyboardReport.KeyCode)
-				{
-					/* Toggle status LED to indicate keypress */
-					if (LEDs_GetLEDs() & LEDS_LED2)
-					  LEDs_TurnOffLEDs(LEDS_LED2);
-					else
-					  LEDs_TurnOnLEDs(LEDS_LED2);
-						  
-					char PressedKey = 0;
-
-					/* Retrieve pressed key character if alphanumeric */
-					if ((KeyboardReport.KeyCode >= 0x04) && (KeyboardReport.KeyCode <= 0x1D))
-					  PressedKey = (KeyboardReport.KeyCode - 0x04) + 'A';
-					else if ((KeyboardReport.KeyCode >= 0x1E) && (KeyboardReport.KeyCode <= 0x27))
-					  PressedKey = (KeyboardReport.KeyCode - 0x1E) + '0';
-					else if (KeyboardReport.KeyCode == 0x2C)
-					  PressedKey = ' ';						
-					else if (KeyboardReport.KeyCode == 0x28)
-					  PressedKey = '\n';
-						 
-					/* Print the pressed key character out through the serial port if valid */
-					if (PressedKey)
-					  putchar(PressedKey);
-				}
-			}
+			  ReadNextReport();
 
 			/* Freeze keyboard data pipe */
 			Pipe_Freeze();
 			break;
+		#endif
 	}
 }
+
+#if defined(INTERRUPT_DATA_PIPE)
+/** Interrupt handler for the Endpoint/Pipe interrupt vector. This interrupt fires each time an enabled
+ *  pipe interrupt occurs on a pipe which has had that interrupt enabled.
+ */
+ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
+{
+	/* Check to see if the keyboard data pipe has caused the interrupt */
+	if (Pipe_HasPipeInterrupted(KEYBOARD_DATAPIPE))
+	{
+		/* Clear the pipe interrupt, and select the keyboard pipe */
+		Pipe_ClearPipeInterrupt(KEYBOARD_DATAPIPE);
+		Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
+
+		/* Check to see if the pipe IN interrupt has fired */
+		if (USB_INT_HasOccurred(PIPE_INT_IN) && USB_INT_IsEnabled(PIPE_INT_IN))
+		{
+			/* Clear interrupt flag */
+			USB_INT_Clear(PIPE_INT_IN);		
+
+			/* Read and process the next report from the device */
+			ReadNextReport();
+	}
+}
+#endif

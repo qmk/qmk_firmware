@@ -41,6 +41,7 @@
 		#include <avr/wdt.h>
 		#include <avr/pgmspace.h>
 		#include <avr/power.h>
+		#include <avr/interrupt.h>
 		#include <stdio.h>
 
 		#include <LUFA/Version.h>                                // Library Version Information
@@ -92,5 +93,6 @@
 
 	/* Function Prototypes: */
 		void UpdateStatus(uint8_t CurrentStatus);
+		void ReadNextReport(void);
 		
 #endif
