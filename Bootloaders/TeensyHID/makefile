@@ -106,17 +106,22 @@ TARGET = TeensyHID
 OBJDIR = .
 
 
+# Path to the LUFA library
+LUFA_PATH = ../..
+
+
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c                                          \
-	  Descriptors.c                                        \
-	  ../../LUFA/Drivers/USB/LowLevel/LowLevel.c           \
-	  ../../LUFA/Drivers/USB/LowLevel/Endpoint.c           \
-	  ../../LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
-	  ../../LUFA/Drivers/USB/HighLevel/USBTask.c           \
-	  ../../LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
-	  ../../LUFA/Drivers/USB/HighLevel/Events.c            \
-	  ../../LUFA/Drivers/USB/HighLevel/StdDescriptors.c    \
-	  
+SRC = $(TARGET).c                                                 \
+	  Descriptors.c                                               \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c            \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/StdDescriptors.c    \
+
+
 # List C++ source files here. (C dependencies are automatically generated.)
 CPPSRC = 
 
@@ -148,7 +153,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = ../../
+EXTRAINCDIRS = $(LUFA_PATH)/
 
 
 # Compiler flag to set the C Standard level.

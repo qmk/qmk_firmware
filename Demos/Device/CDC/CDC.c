@@ -308,6 +308,12 @@ TASK(CDC_Task)
 		
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearCurrentBank();
+
+		/* Wait until the endpoint is ready for another packet */
+		while (!(Endpoint_ReadWriteAllowed()));
+		
+		/* Send an empty packet to ensure that the host does not buffer data sent to it */
+		Endpoint_ClearCurrentBank();
 	}
 
 	/* Select the Serial Rx Endpoint */

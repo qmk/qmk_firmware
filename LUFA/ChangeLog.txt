@@ -41,6 +41,7 @@
   *  - Keyboard and Mouse device demos (normal, data interrupt and fully interrupt driven) combined into unified keyboard and mouse demos
   *  - Keyboard and Mouse host demos (normal and data interrupt driven) combined into unified keyboard and mouse demos
   *  - Removed AVRISP_Programmer project due to code quality concerns
+  *  - Fixed CDC demo not sending an empty packet after each transfer to prevent the host from buffering incomming data
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *
