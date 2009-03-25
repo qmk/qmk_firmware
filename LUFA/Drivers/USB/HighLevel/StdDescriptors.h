@@ -497,7 +497,7 @@
 			 *
 			 *  \note By default, the library expects all descriptors to be located in flash memory via the PROGMEM attribute.
 			 *        If descriptors should be located in RAM or EEPROM instead (to speed up access in the case of RAM, or to
-			 *        allow the descriptors to be changed dynamically at runtime) either the USE_SRAM_DESCRIPTORS or the 
+			 *        allow the descriptors to be changed dynamically at runtime) either the USE_RAM_DESCRIPTORS or the 
 			 *        USE_EEPROM_DESCRIPTORS tokens may be defined in the project makefile and passed to the compiler by the -D
 			 *        switch.
 			 *

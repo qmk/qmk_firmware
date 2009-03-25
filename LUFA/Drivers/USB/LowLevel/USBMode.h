@@ -65,8 +65,8 @@
 				#error USB_HOST_ONLY and USB_DEVICE_ONLY are mutually exclusive.
 			#endif
 
-			#if (defined(USB_RAM_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS))
-				#error USB_RAM_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
+			#if (defined(USE_RAM_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS))
+				#error USE_RAM_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
 			#endif
 
 			#if defined(USE_STATIC_OPTIONS)
