@@ -84,5 +84,10 @@
  *    <td>When defined, this outputs the audio samples in mono to port C of the microcontroller, for connection to an
  *        external DAC.</td>
  *   </tr>
+ *   <tr>
+ *    <td>AUDIO_SAMPLE_FREQUENCY</td>
+ *    <td>Descriptors.h</td>
+ *    <td>Gives the audio sample rate per channel for the audio stream, in Hz.</td>
+ *   </tr>
  *  </table>
  */

@@ -66,5 +66,10 @@
  *    <td>Makefile CDEFS</td>
  *    <td>When defined, this alters the demo so that the half VCC bias of the microphone input is subtracted.</td>
  *   </tr>
+ *   <tr>
+ *    <td>AUDIO_SAMPLE_FREQUENCY</td>
+ *    <td>Descriptors.h</td>
+ *    <td>Gives the audio sample rate per channel for the audio stream, in Hz.</td>
+ *   </tr>
  *  </table>
  */
