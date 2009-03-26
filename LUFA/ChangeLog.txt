@@ -43,6 +43,7 @@
   *  - Removed AVRISP_Programmer project due to code quality concerns
   *  - Fixed CDC demo not sending an empty packet after each transfer to prevent the host from buffering incomming data
   *  - Fixed documentation typoes and preprocessor checks relating to misspellings of the USE_RAM_DESCRIPTORS token (thanks to Ian Gregg)
+  *  - Fixed USBTask.h not conditionally including HostChapter9.h only when CAN_BE_DEVICE is defined (thanks to Ian Gregg)
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *

@@ -46,8 +46,9 @@
 		#include "../HighLevel/USBTask.h"
 
 		#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-		#include "StreamCallbacks.h"
+			#include "StreamCallbacks.h"
 		#endif
+		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {

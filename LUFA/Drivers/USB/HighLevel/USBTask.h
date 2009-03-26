@@ -46,10 +46,13 @@
 		
 		#include "../../../Scheduler/Scheduler.h"
 		#include "../LowLevel/LowLevel.h"
-		#include "../LowLevel/HostChapter9.h"
 		#include "../LowLevel/USBMode.h"
 		#include "Events.h"
 		#include "StdDescriptors.h"
+
+		#if defined(USB_CAN_BE_HOST)
+			#include "../LowLevel/HostChapter9.h"
+		#endif		
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
