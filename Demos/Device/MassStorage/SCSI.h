@@ -74,31 +74,31 @@
 		 */
 		typedef struct
 		{
-			unsigned int DeviceType          : 5;
-			unsigned int PeripheralQualifier : 3;
+			unsigned char DeviceType          : 5;
+			unsigned char PeripheralQualifier : 3;
 			
-			unsigned int _RESERVED1          : 7;
-			unsigned int Removable           : 1;
+			unsigned char _RESERVED1          : 7;
+			unsigned char Removable           : 1;
 			
 			uint8_t      Version;
 			
-			unsigned int ResponseDataFormat  : 4;
-			unsigned int _RESERVED2          : 1;
-			unsigned int NormACA             : 1;
-			unsigned int TrmTsk              : 1;
-			unsigned int AERC                : 1;
+			unsigned char ResponseDataFormat  : 4;
+			unsigned char _RESERVED2          : 1;
+			unsigned char NormACA             : 1;
+			unsigned char TrmTsk              : 1;
+			unsigned char AERC                : 1;
 
 			uint8_t      AdditionalLength;
 			uint8_t      _RESERVED3[2];
 
-			unsigned int SoftReset           : 1;
-			unsigned int CmdQue              : 1;
-			unsigned int _RESERVED4          : 1;
-			unsigned int Linked              : 1;
-			unsigned int Sync                : 1;
-			unsigned int WideBus16Bit        : 1;
-			unsigned int WideBus32Bit        : 1;
-			unsigned int RelAddr             : 1;
+			unsigned char SoftReset           : 1;
+			unsigned char CmdQue              : 1;
+			unsigned char _RESERVED4          : 1;
+			unsigned char Linked              : 1;
+			unsigned char Sync                : 1;
+			unsigned char WideBus16Bit        : 1;
+			unsigned char WideBus32Bit        : 1;
+			unsigned char RelAddr             : 1;
 			
 			uint8_t      VendorID[8];
 			uint8_t      ProductID[16];
@@ -114,11 +114,11 @@
 			
 			uint8_t      SegmentNumber;
 			
-			unsigned int SenseKey            : 4;
-			unsigned int _RESERVED1          : 1;
-			unsigned int ILI                 : 1;
-			unsigned int EOM                 : 1;
-			unsigned int FileMark            : 1;
+			unsigned char SenseKey            : 4;
+			unsigned char _RESERVED1          : 1;
+			unsigned char ILI                 : 1;
+			unsigned char EOM                 : 1;
+			unsigned char FileMark            : 1;
 			
 			uint8_t      Information[4];
 			uint8_t      AdditionalLength;

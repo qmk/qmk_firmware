@@ -70,18 +70,18 @@
 		/** Type define of an IP packet header. */
 		typedef struct
 		{
-			unsigned int  HeaderLength   : 4; /**< Total length of the packet header, in 4-byte blocks */
-			unsigned int  Version        : 4; /**< IP protocol version */
-			unsigned int  TypeOfService  : 8; /**< Special service type identifier, indicating delay/throughput/reliability levels */
-			unsigned int  TotalLength    : 16; /**< Total length of the IP packet, in bytes */
+			unsigned char  HeaderLength   : 4; /**< Total length of the packet header, in 4-byte blocks */
+			unsigned char  Version        : 4; /**< IP protocol version */
+			uint8_t        TypeOfService; /**< Special service type identifier, indicating delay/throughput/reliability levels */
+			uint16_t       TotalLength; /**< Total length of the IP packet, in bytes */
 
-			unsigned int  Identification : 16; /**< Idenfication value for identifying fragmented packets */
-			unsigned int  FragmentOffset : 13; /**< Offset of this IP fragment */
-			unsigned int  Flags          : 3; /**< Fragment flags, to indicate if a packet is fragmented */
+			uint16_t       Identification; /**< Idenfication value for identifying fragmented packets */
+			unsigned int   FragmentOffset : 13; /**< Offset of this IP fragment */
+			unsigned int   Flags          : 3; /**< Fragment flags, to indicate if a packet is fragmented */
 
-			unsigned int  TTL            : 8; /**< Maximum allowable number of hops to reach the packet destination */
-			unsigned int  Protocol       : 8; /**< Encapsulated protocol type */
-			unsigned int  HeaderChecksum : 16; /**< Ethernet checksum of the IP header */
+			uint8_t        TTL; /**< Maximum allowable number of hops to reach the packet destination */
+			uint8_t        Protocol; /**< Encapsulated protocol type */
+			uint16_t       HeaderChecksum; /**< Ethernet checksum of the IP header */
 			
 			IP_Address_t  SourceAddress; /**< Source protocol IP address of the packet */
 			IP_Address_t  DestinationAddress; /**< Destination protocol IP address of the packet */

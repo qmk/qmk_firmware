@@ -109,16 +109,16 @@
 		 */
 		typedef struct
 		{
-			unsigned int ReponseCode         : 7;
-			unsigned int Valid               : 1;
+			unsigned char ReponseCode         : 7;
+			unsigned char Valid               : 1;
 			
 			uint8_t      SegmentNumber;
 			
-			unsigned int SenseKey            : 4;
-			unsigned int _RESERVED1          : 1;
-			unsigned int ILI                 : 1;
-			unsigned int EOM                 : 1;
-			unsigned int FileMark            : 1;
+			unsigned char SenseKey            : 4;
+			unsigned char _RESERVED1          : 1;
+			unsigned char ILI                 : 1;
+			unsigned char EOM                 : 1;
+			unsigned char FileMark            : 1;
 			
 			uint8_t      Information[4];
 			uint8_t      AdditionalLength;
