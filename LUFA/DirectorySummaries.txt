@@ -109,6 +109,13 @@
  *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located in
  *  the parent Board directory should be included instead.
  *
+ *  \dir Drivers/Board/ATAVRUSBRF01
+ *  \brief ATAVRUSBRF01 board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the Atmel ATAVRUSBRF01 board, as used in several Atmel wireless demo kits. The header
+ *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located in
+ *  the parent Board directory should be included instead.
+ *
  *  \dir DriverStubs
  *  \brief Driver stub header files for custom boards, to allow the LUFA board drivers to operate.
  *  

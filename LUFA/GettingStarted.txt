@@ -34,7 +34,8 @@
  *
  *    - <b>MCU</b>, the target AVR processor.
  *    - <b>BOARD</b>, the target board hardware
- *    - <b>F_CPU</b>, the target AVR master clock frequency
+ *    - <b>F_CLOCK</b>, the target raw master clock frequency, before any prescaling is performed
+ *    - <b>F_CPU</b>, the target AVR CPU master clock frequency, after any prescaling
  *    - <b>CDEFS</b>, the C preprocessor defines which configure the source code
  *
  *  These values should be changed to reflect the build hardware.

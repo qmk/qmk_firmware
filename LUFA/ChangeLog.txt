@@ -28,7 +28,7 @@
   *  - Added ATTR_ALWAYS_INLINE attribute to several key inlined library components, to ensure they are inlined in all circumstances
   *  - Removed SetSystemClockPrescaler() macro, the clock_prescale_set() avr-libc macro has been corrected in recent avr-libc versions
   *  - Fixed incorrect/missing control status stage transfers on demos, bootloaders and applications (thanks to Nate Lawson)
-  *  - The NO_CLEARSET_FEATURE_REQUEST compile time token has been renamed to NO_FEATURELESS_CONTROL_ONLY_DEVICE, and its function expanded
+  *  - The NO_CLEARSET_FEATURE_REQUEST compile time token has been renamed to FEATURELESS_CONTROL_ONLY_DEVICE, and its function expanded
   *    to also remove parts of the Get Status chapter 9 request to further reduce code usage
   *  - Makefile updated to include output giving the currently selected BOARD parameter value
   *  - Board Dataflash driver now allows for dataflash ICs which use different shifts for setting the current page/byte address (thanks
