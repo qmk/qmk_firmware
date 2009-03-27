@@ -137,7 +137,7 @@
 			 */
 			static inline void ADC_SetupChannel(const uint8_t Channel)
 			{
-				DDRD  &= ~(1 << Channel);
+				DDRF  &= ~(1 << Channel);
 				DIDR0 |=  (1 << Channel);
 			}
 			
