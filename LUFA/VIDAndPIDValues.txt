@@ -216,7 +216,7 @@
  *     0x204F
  *    </td>
  *    <td>
- *     AVRISP Programmer Project
+ *     ** Not Currently Allocated **
  *    </td>
  *   </tr>
  *

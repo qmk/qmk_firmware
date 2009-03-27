@@ -8,7 +8,6 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
-  *  - Changed AVRISP Programmer descriptors to use a newly allocated 0x204F PID value
   *  - Fixed MagStripe project configuration descriptor containing an unused (blank) endpoint descriptor
   *  - Incorporated makefile changes by Denver Gingerich to retain compatibility with stock (non-WinAVR) AVR-GCC installations
   *  - Fixed makefile EEPROM programming targets programming FLASH data in addition to EEPROM data
