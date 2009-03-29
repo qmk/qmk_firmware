@@ -26,6 +26,9 @@ all:
 	make -C DualCDC clean
 	make -C DualCDC all
 
+	make -C GenericHID clean
+	make -C GenericHID all
+
 	make -C Joystick clean
 	make -C Joystick all
 
@@ -55,6 +58,7 @@ all:
 	make -C AudioOutput $@
 	make -C CDC $@
 	make -C DualCDC $@
+	make -C GenericHID $@
 	make -C Joystick $@
 	make -C Keyboard $@
 	make -C KeyboardMouse $@

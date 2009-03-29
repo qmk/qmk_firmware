@@ -44,6 +44,8 @@
   *  - Fixed documentation typos and preprocessor checks relating to misspellings of the USE_RAM_DESCRIPTORS token (thanks to Ian Gregg)
   *  - Fixed USBTask.h not conditionally including HostChapter9.h only when CAN_BE_DEVICE is defined (thanks to Ian Gregg)
   *  - Fixed incorrect ADC driver init register manipulation (thanks to Tobias)
+  *  - Added new GenericHID device demo application
+  *
   *
   *  \section Sec_ChangeLog090209 Version 090209
   *
@@ -99,6 +101,7 @@
   *  - Fixed CDC Host demo not searching through both CDC interfaces for endpoints
   *  - Fixed incorrect Product String descriptor length in the DFU class bootloader
   *
+  *
   *  \section Sec_ChangeLog081224 Version 081224
   *
   *  - MyUSB name changed to LUFA, the Lightweight USB Framework for AVRs
@@ -148,6 +151,7 @@
   *  - USB_RemoteWakeupEnabled is now correctly set and cleared by SetFeature and ClearFeature requests from the host
   *  - Changed prototype of GetDescriptor, so that it now returns the descriptor size (or zero if the descriptor doesn't exist)
   *    rather than passing the size back to the caller through a parameter and returning a boolean
+  *
   *
   *  \section Sec_ChangeLog153 Version 1.5.3 - Released 2nd October, 2008
   *

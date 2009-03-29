@@ -216,7 +216,7 @@
  *     0x204F
  *    </td>
  *    <td>
- *     ** Not Currently Allocated **
+ *     Generic HID Demo Application
  *    </td>
  *   </tr>
  *
