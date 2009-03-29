@@ -15,7 +15,7 @@
   *  - Fixed Configuration Descriptor search routine freezing when a comparitor returned a failure
   *  - Removed HID report item serial dump in the MouseHostWithParser and KeyboardHostWithParser - useful only for debugging, and
   *    slowed down the enumeration of HID devices too much
-  *  - Increased the number of bits per track which can be read in the MagStripe project to 20480 when compiled for the AT90USBXXX6/7
+  *  - Increased the number of bits per track which can be read in the MagStripe project to 8192 when compiled for the AT90USBXXX6/7
   *  - Fixed KeyboardMouse demo discarding the wIndex value in the REQ_GetReport request
   *  - USBtoSerial demo now discards all Rx data when not connected to a USB host, rather than buffering characters for transmission
   *    next time the device is attached to a host.
@@ -41,7 +41,7 @@
   *  - Keyboard and Mouse host demos (normal and data interrupt driven) combined into unified keyboard and mouse demos
   *  - Removed AVRISP_Programmer project due to code quality concerns
   *  - Fixed CDC demo not sending an empty packet after each transfer to prevent the host from buffering incomming data
-  *  - Fixed documentation typoes and preprocessor checks relating to misspellings of the USE_RAM_DESCRIPTORS token (thanks to Ian Gregg)
+  *  - Fixed documentation typos and preprocessor checks relating to misspellings of the USE_RAM_DESCRIPTORS token (thanks to Ian Gregg)
   *  - Fixed USBTask.h not conditionally including HostChapter9.h only when CAN_BE_DEVICE is defined (thanks to Ian Gregg)
   *  - Fixed incorrect ADC driver init register manipulation (thanks to Tobias)
   *
