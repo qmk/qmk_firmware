@@ -12,11 +12,13 @@
  *  This is due to two reasons; one, it is the hardware the author posesses, and two, it is the most popular Atmel
  *  USB demonstration board to date.
  *
+ *
  *  \section Sec_Prerequisites Prerequisites
  *  Before you can compile any of the LUFA library code or demos, you will need a recent distribution of avr-libc (1.6.2+)
  *  and the AVR-GCC (4.2+) compiler. For Windows users, the best way to obtain these is the WinAVR project
  *  (http://winavr.sourceforge.net) as this provides a single-file setup for everything required to compile your
  *  own AVR projects.
+ *
  *
  *  \section Sec_Configuring Configuring the Demos, Bootloaders and Projects
  *  If the target AVR model, clock speed, board or other settings are different to the current settings, they must be changed
@@ -84,6 +86,7 @@
  *  interface speed (Low or Full speed) and other LUFA configuration options can be set here - refer to the library documentation for details on the
  *  configuration parameters.
  *
+ *
  *  \section Sec_Compiling Compiling a LUFA Application
  *  Compiling the LUFA demos, applications and/or bootloaders is very simple. LUFA comes with makefile scripts for
  *  each individual demo, bootloader and project folder, as well as scripts in the /Demos/, /Bootloaders/, /Projects/
@@ -103,6 +106,7 @@
  *  Each demo, project and bootloader contains an AVRStudio project (.aps) which can be used to build each project. Once opened
  *  in AVRStudio, the project can be built and cleaned using the GUI buttons or menus. Note that the AVRStudio project files make
  *  use of the external project makefile, thus the procedure for configuring a demo remains the same regardless of the build environment.
+ *
  *
  *  \section Sec_Programming Programming a USB AVR
  *  Once you have built an application, you will need a way to program in the resulting ".HEX" file (and, if your

@@ -36,6 +36,7 @@
  *      NO_CLEARSET_FEATURE_REQUEST compile time token, it can be replaced with the FEATURELESS_CONTROL_ONLY_DEVICE token with no further
  *      modifications required.
  *
+ *
  * \section Sec_Migration090209 Migrating from 081217 to 090209
  *
  *  <b>Device Mode</b>
@@ -63,6 +64,7 @@
  *  <b>Library Demos</b>
  *    - Most library demos have been enhanced and/or had errors corrected. All users of all demos should upgrade their codebase to
  *      the latest demo versions.
+ *
  *
  * \section Sec_Migration171208 Migrating from V1.5.3 to 081217
  *

@@ -62,8 +62,8 @@
 			 *
 			 *  //...
 			 *  // Inside some routine:
-			 *  if (Endpoint_Write_CStream_LE(DataBuffer, sizeof(DataBuffer), GlobalNotSet) == 
-			 *                                ENDPOINT_RWSTREAM_ERROR_CallbackAborted)
+			 *  if (Endpoint_Write_Stream_LE(DataBuffer, sizeof(DataBuffer), GlobalNotSet) == 
+			 *                               ENDPOINT_RWSTREAM_ERROR_CallbackAborted)
 			 *  {
 			 *      // Do something when the callback aborted the transfer early
 			 *  }
@@ -81,7 +81,7 @@
 			enum StreamCallback_Return_ErrorCodes_t
 			{
 				STREAMCALLBACK_Continue            = 0, /**< Continue sending or receiving the stream. */
-				STREAMCALLBACK_Abort               = 1, /**< Abort the stream send or reciving process. */
+				STREAMCALLBACK_Abort               = 1, /**< Abort the stream send or receiving process. */
 			};
 			
 #endif

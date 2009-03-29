@@ -10,6 +10,7 @@
  *  compiler via the -D switch, to alter the LUFA library code. These tokens may alter the library behaviour,
  *  or remove features unused by a given application in order to save flash space.
  *
+ *
  *  \section Sec_SummaryNonUSBTokens Non USB Related Tokens
  *  This section describes compile tokens which affect non-USB sections of the LUFA library.
  *
@@ -30,6 +31,7 @@
  *  <b>NUM_HANDLES</b> - DynAlloc.h \n
  *  Sets the maximum number of managed memory handles which can be handed out by the dynamic memory allocation driver
  *  simultaneously, before a handle (and its associated allocated memory) must be freed.
+ *
  *
  *  \section Sec_SummaryUSBClassTokens USB Class Driver Related Tokens
  *  This section describes compile tokens which affect USB class-specific drivers in the LUFA library.
@@ -72,6 +74,7 @@
  *  data elements which can be stored in the processed HID report strucuture, including INPUT, OUTPUT and (if enabled) FEATURE items.
  *  If a item has a multiple count (i.e. a REPORT COUNT of more than 1), each item in the report count is placed seperately in the
  *  processed HID report table. If not defined, this defaults to the value indicated in the HID.h file documentation.
+ *
  *
  *  \section Sec_SummaryUSBTokens USB Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack as a whole in the LUFA library.

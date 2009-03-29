@@ -23,6 +23,7 @@
  *  library API more streamlined and robust. You can download AVR-GCC for free in a convenient windows package, 
  *  from the the WinAVR website.
  *
+ *
  *  \section Sec_Links Library Links
  *  Project Homepage: http://www.fourwalledcubicle.com/LUFA.php \n
  *  Development Blog: http://www.fourwalledcubicle.com/blog \n
@@ -34,6 +35,7 @@
  *  avr-libc Website: http://www.nongnu.org/avr-libc/ \n
  *
  *  USB-IF Website: http://www.usb.org \n
+ *
  *
  *  \section Sec_License License
  *  The LUFA library is currently released under the MIT licence, included below.
@@ -64,6 +66,7 @@
  *  this software.
  *  \endverbatim
  *
+ *
  *  \section Sec_Demos Demos and Bootloaders
  *  The LUFA library ships with several different host and device demos, located in the /Demos/ subdirectory.
  *  If this directory is missing, please re-download the project from the project homepage.
@@ -71,6 +74,7 @@
  *  Also included with the library are two fully functional bootloaders, loacated in the /Bootloaders/ subdirectory.
  *  The DFU class bootloader is compatible with Atmel's FLIP software or the open source dfu-programmer project, and
  *  the CDC class (AVR109 protocol) is compatible with such open source software as AVRDUDE and AVR-OSP.
+ *
  *
  *  \section Sec_Donations Donate
  *  I am a 20 year old University student studying for a double degree in Computer Science and Electronics
