@@ -48,7 +48,7 @@
 			 *  Stream callback functions should return a value from the StreamCallback_Return_ErrorCodes_t
 			 *  enum.
 			 *
-			 *  Usage Example (Device Endpoint, but applicable for Host pipes also):
+			 *  Usage Example (Device Endpoint, but applicable for Host Pipes also):
 			 *  \code
 			 *  STREAM_CALLBACK(GlobalNotSet); // Callback Prototype
 			 *

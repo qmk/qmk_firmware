@@ -10,7 +10,7 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
- * \section Sec_MigrationXXXXXX Migrating from 090209 to XXXXXX
+ * \section Sec_Migration090401 Migrating from 090209 to 090401
  *
  *  <b>All</b>
  *    - LUFA projects must now give the raw input clock frequency (before any prescaling) as a compile time constant "F_CLOCK",

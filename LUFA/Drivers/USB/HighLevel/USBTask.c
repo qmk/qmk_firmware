@@ -94,7 +94,7 @@ static void USB_HostTask(void)
 				if ((SubErrorCode = USB_Host_WaitMS(1)) != HOST_WAITERROR_Successful)
 				{
 					USB_HostState = PostWaitState;
-					ErrorCode    = HOST_ENUMERROR_WaitStage;
+					ErrorCode     = HOST_ENUMERROR_WaitStage;
 					break;
 				}
 				

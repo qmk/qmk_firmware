@@ -6,7 +6,7 @@
    
  /** \page Page_ChangeLog Project Changelog
   *
-  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  \section Sec_ChangeLog090401 Version 090401
   *
   *  - Fixed MagStripe project configuration descriptor containing an unused (blank) endpoint descriptor
   *  - Incorporated makefile changes by Denver Gingerich to retain compatibility with stock (non-WinAVR) AVR-GCC installations

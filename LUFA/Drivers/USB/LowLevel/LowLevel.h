@@ -109,20 +109,24 @@
 			 */
 			#define USB_MODE_DEVICE                    1
 
-			/** Mode mask for the USB_CurrentMode global and the USB_Init() function. This indicates that the
-			 *  USB interface is or should be initialized in the USB host mode.
-			 *
-			 *  \note Not all USB AVRs support host mode.
-			 */
-			#define USB_MODE_HOST                      2
-
-			/** Mode mask for the the USB_Init() function. This indicates that the USB interface should be
-			 *  initialized into whatever mode the UID pin of the USB AVR indicates, and that the device
-			 *  should swap over its mode when the level of the UID pin changes during operation.
-			 *
-			 *  \note Not all USB AVRs support host mode, and thus UID mode.
-			 */
-			#define USB_MODE_UID                       3
+			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
+				/** Mode mask for the USB_CurrentMode global and the USB_Init() function. This indicates that the
+				 *  USB interface is or should be initialized in the USB host mode.
+				 *
+				 *  \note This token is not available on AVR models which do not support host mode.
+				 */
+				#define USB_MODE_HOST                      2
+			#endif
+			
+			#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
+				/** Mode mask for the the USB_Init() function. This indicates that the USB interface should be
+				 *  initialized into whatever mode the UID pin of the USB AVR indicates, and that the device
+				 *  should swap over its mode when the level of the UID pin changes during operation.
+				 *
+				 *  \note This token is not available on AVR models which do not support both host and device modes.
+				 */
+				#define USB_MODE_UID                       3
+			#endif
 			
 			/** Regulator disable option mask for USB_Init(). This indicates that the internal 3.3V USB data pad
 			 *  regulator should be enabled to regulate the data pin voltages to within the USB standard.
@@ -181,10 +185,14 @@
 			 */
 			#define EP_TYPE_MASK                       0b11
 
-			/** Returns boolean true if the VBUS line is currently high (i.e. the USB host is supplying power),
-			 *  otherwise returns false.
-			 */
-			#define USB_VBUS_GetStatus()             ((USBSTA & (1 << VBUS)) ? true : false)
+			#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER) || defined(__DOXYGEN__)
+				/** Returns boolean true if the VBUS line is currently high (i.e. the USB host is supplying power),
+				 *  otherwise returns false.
+				 *
+				 *  \note This token is not available on some AVR models which do not support hardware VBUS monitoring.
+				 */
+				#define USB_VBUS_GetStatus()             ((USBSTA & (1 << VBUS)) ? true : false)
+			#endif
 
 			/** Detaches the device from the USB bus. This has the effect of removing the device from any
 			 *  host if, ceasing USB communications. If no host is present, this prevents any host from
@@ -353,19 +361,18 @@
 			#define USB_Interface_Reset()      MACROS{ uint8_t Temp = USBCON; USBCON = (Temp & ~(1 << USBE)); \
 			                                           USBCON = (Temp | (1 << USBE));           }MACROE
 	
-		/* Inline Functions: */		
+		/* Inline Functions: */
+			#if defined(USB_CAN_BE_BOTH)
 			static inline uint8_t USB_GetUSBModeFromUID(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t USB_GetUSBModeFromUID(void)
 			{
-				#if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__))
 				if (USBSTA & (1 << ID))
 				  return USB_MODE_DEVICE;
 				else
 				  return USB_MODE_HOST;
-				#else
-				return USB_MODE_DEVICE;
-				#endif
 			}
+			#endif
+			
 	#endif
 	
 	/* Disable C linkage for C++ Compilers: */
