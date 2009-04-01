@@ -102,7 +102,7 @@
 			 */
 			#define USB_Host_ResumeBus()               MACROS{ UHCON |=  (1 << SOFEN);          }MACROE 
 
-			/** Suspends the USB bus, preventing any communications from occuring between the host and attached
+			/** Suspends the USB bus, preventing any communications from occurring between the host and attached
 			 *  device until the bus has been resumed. This stops the transmission of the 1MS Start Of Frame
 			 *  messages to the device.
 			 */
@@ -192,14 +192,14 @@
 				                                      *   event.
 				                                      */
 				HOST_ENUMERROR_WaitStage        = 1, /**< One of the delays between enumeration steps failed
-				                                      *   to complete successfuly, due to a timeout or other
+				                                      *   to complete successfully, due to a timeout or other
 				                                      *   error.
 				                                      */
 				HOST_ENUMERROR_NoDeviceDetected = 2, /**< No device was detected, despite the USB data lines
 				                                      *   indicating the attachment of a device.
 				                                      */
 				HOST_ENUMERROR_ControlError     = 3, /**< One of the enumeration control requests failed to
-				                                      *   complete successfuly.
+				                                      *   complete successfully.
 													  */
 				HOST_ENUMERROR_PipeConfigError  = 4, /**< The default control pipe (address 0) failed to
 				                                      *   configure correctly.

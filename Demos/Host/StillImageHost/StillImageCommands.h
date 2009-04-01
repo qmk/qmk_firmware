@@ -62,7 +62,7 @@
 		                                        (params * sizeof(PIMA_SendBlock.Params[0])))
 
 	/* Type Defines: */
-		/** Type define for a PIMA container, use to send commands and receieve responses to and from an
+		/** Type define for a PIMA container, use to send commands and receive responses to and from an
 		 *  attached Still Image device.
 		 */
 		typedef struct

@@ -51,7 +51,7 @@
 		/** Protocol IP address of the virtual server machine */
 		#define SERVER_IP_ADDRESS                { 10,     0,    0,    2}
 
-		/** Protocol IP address of the broadcase address */
+		/** Protocol IP address of the broadcast address */
 		#define BROADCAST_IP_ADDRESS             {0xFF, 0xFF, 0xFF, 0xFF}
 
 		/** Default Time To Live (TTL) value for sent packets, indicating the maximum allowable hops until their destination is reached */
@@ -75,7 +75,7 @@
 			uint8_t        TypeOfService; /**< Special service type identifier, indicating delay/throughput/reliability levels */
 			uint16_t       TotalLength; /**< Total length of the IP packet, in bytes */
 
-			uint16_t       Identification; /**< Idenfication value for identifying fragmented packets */
+			uint16_t       Identification; /**< Identification value for identifying fragmented packets */
 			unsigned int   FragmentOffset : 13; /**< Offset of this IP fragment */
 			unsigned int   Flags          : 3; /**< Fragment flags, to indicate if a packet is fragmented */
 

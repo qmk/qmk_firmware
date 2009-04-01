@@ -87,7 +87,7 @@
 			uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
 			                      *   CDCDevice_LineCodingParity_t enum
 			                      */
-			uint8_t  DataBits; /**< Bits of data per charater of the virtual serial port */
+			uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
 		} CDC_Line_Coding_t;
 		
 	/* Enums: */

@@ -78,7 +78,7 @@ BitBuffer_t Track2Data;
 /** Circular buffer to hold the read bits from track 3 of the inserted magnetic card. */
 BitBuffer_t Track3Data;
 
-/** Delay counter between sucessive key strokes. This is to prevent the OS from ignoring multiple keys in a short
+/** Delay counter between successive key strokes. This is to prevent the OS from ignoring multiple keys in a short
  *  period of time due to key repeats. Two milliseconds works for most OSes.
  */
 uint8_t KeyDelayRemaining;
@@ -312,7 +312,7 @@ bool GetNextReport(USB_KeyboardReport_Data_t* ReportData)
 		/* Set the flag indicating that a null report must eventually be sent to release all pressed keys */
 		MustRelease = true;
 
-		/* Only send the next key on odd reports, so that they are interpersed with null reports to release keys */
+		/* Only send the next key on odd reports, so that they are interspersed with null reports to release keys */
 		if (OddReport)
 		{
 			/* Set the report key code to the key code for the next data bit */
@@ -337,12 +337,12 @@ bool GetNextReport(USB_KeyboardReport_Data_t* ReportData)
 	return false;
 }
 
-/** Task to read out data from inserted magnetic cards and place the seperate track data into their respective
+/** Task to read out data from inserted magnetic cards and place the separate track data into their respective
  *  data buffers for later sending to the host as keyboard key presses.
  */
 TASK(Magstripe_Read)
 {
-	/* Arrays to hold the buffer pointers, clock and data bit masks for the seperate card tracks */
+	/* Arrays to hold the buffer pointers, clock and data bit masks for the separate card tracks */
 	const struct
 	{
 		BitBuffer_t* Buffer;
@@ -396,7 +396,7 @@ TASK(Magstripe_Read)
 }
 
 /** Task for the magnetic card reading and keyboard report generation. This task waits until a card is inserted,
- *  then reads off the card data and sends it to the host as a series of keyboard keypresses via keyboard reports.
+ *  then reads off the card data and sends it to the host as a series of keyboard key presses via keyboard reports.
  */
 TASK(USB_Keyboard_Report)
 {

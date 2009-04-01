@@ -236,7 +236,7 @@ TASK(USB_Audio_Task)
 		/* Clear the sample reload timer */
 		TIFR0 |= (1 << OCF0A);
 
-		/* Retreive the signed 16-bit left and right audio samples */
+		/* Retrieve the signed 16-bit left and right audio samples */
 		int16_t LeftSample_16Bit  = (int16_t)Endpoint_Read_Word_LE();
 		int16_t RightSample_16Bit = (int16_t)Endpoint_Read_Word_LE();
 

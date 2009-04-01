@@ -31,7 +31,7 @@
 /** \file
  *
  *  Standard USB device descriptor defines and retrieval routines, for USB devices. This module contains
- *  strucutures and macros for the easy creation of standard USB descriptors in USB device projects.
+ *  structures and macros for the easy creation of standard USB descriptors in USB device projects.
  *
  *  All standard descriptors have their elements named in an identical manner to the official USB specification,
  *  however slightly more verbose alternate (non-standard) names are also supplied if the macro
@@ -245,7 +245,7 @@
 				uint16_t                ReleaseNumber; /**< Product release (version) number. */
 				
 				uint8_t                 ManufacturerStrIndex; /**< String index for the manufacturer's name. The
-                                                               *   host will request this string via a seperate
+                                                               *   host will request this string via a separate
 			                                                   *   control request for the string descriptor.
 				                                               *
 				                                               *   \note If no string supplied, use NO_DESCRIPTOR.
@@ -255,7 +255,7 @@
 				                                          *  \see ManufacturerStrIndex structure entry.
 				                                          */
 				uint8_t                 SerialNumStrIndex; /**< String index for the product's globally unique hexadecimal
-				                                            *   serial number, in uppercase Unicoded ASCII.
+				                                            *   serial number, in uppercase Unicode ASCII.
 				                                            *
 				                                            *  \see ManufacturerStrIndex structure entry.
 				                                            */
@@ -363,7 +363,7 @@
 
 			/** Type define for a standard interface association descriptor.
 			 *
-			 *  This descriptor has been added as a suppliment to the USB2.0 standard, in the ECN located at
+			 *  This descriptor has been added as a supplement to the USB2.0 standard, in the ECN located at
 			 *  <a>http://www.usb.org/developers/docs/InterfaceAssociationDescriptor_ecn.pdf</a>. It allows compound
 			 *  devices with multiple interfaces related to the same function to have the multiple interfaces bound
 			 *  together at the point of enumeration, loading one generic driver for all the interfaces in the single
@@ -425,7 +425,7 @@
 				                                       *   maximum packet size that the endpoint can receive at a time.
 				                                       */
 				
-				uint8_t                 PollingIntervalMS; /**< Polling interval in milliseconds for the endpont
+				uint8_t                 PollingIntervalMS; /**< Polling interval in milliseconds for the endpoint
 				                                            *   if it is an INTERRUPT or ISOCHRONOUS type.
 				                                            */
 				#else

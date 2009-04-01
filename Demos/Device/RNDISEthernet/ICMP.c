@@ -40,7 +40,7 @@
 /** Processes an ICMP packet inside an Ethernet frame, and writes the appropriate response
  *  to the output Ethernet frame if the host is issuing a ICMP ECHO request.
  *
- *  \param InDataStart   Pointer to the start of the incomming packet's ICMP header
+ *  \param InDataStart   Pointer to the start of the incoming packet's ICMP header
  *  \param OutDataStart  Pointer to the start of the outgoing packet's ICMP header
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise

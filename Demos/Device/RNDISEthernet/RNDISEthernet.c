@@ -99,7 +99,7 @@ EVENT_HANDLER(USB_Connect)
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
- *  the status LEDs and stops all the relevent tasks.
+ *  the status LEDs and stops all the relevant tasks.
  */
 EVENT_HANDLER(USB_Disconnect)
 {
@@ -114,7 +114,7 @@ EVENT_HANDLER(USB_Disconnect)
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host sets the current configuration
- *  of the USB device after enumeration, and configures the RNDIS device endpoints and starts the relevent tasks.
+ *  of the USB device after enumeration, and configures the RNDIS device endpoints and starts the relevant tasks.
  */
 EVENT_HANDLER(USB_ConfigurationChanged)
 {
@@ -238,7 +238,7 @@ void UpdateStatus(uint8_t CurrentStatus)
 }
 
 /** Task to manage the sending and receiving of encapsulated RNDIS data and notifications. This removes the RNDIS
- *  wrapper from recieved Ethernet frames and places them in the FrameIN global buffer, or adds the RNDIS wrapper
+ *  wrapper from received Ethernet frames and places them in the FrameIN global buffer, or adds the RNDIS wrapper
  *  to a frame in the FrameOUT global before sending the buffer contents to the host.
  */
 TASK(RNDIS_Task)

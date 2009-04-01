@@ -66,7 +66,7 @@
 		#error The selected board does not contain a joystick.
 	#endif
 
-	/* Psudo-Functions for Doxygen: */
+	/* Pseudo-Functions for Doxygen: */
 	#if defined(__DOXYGEN__)
 		/** Initializes the joystick driver so that the joystick position can be read. This sets the appropriate
 		 *  I/O pins to inputs with their pull-ups enabled.

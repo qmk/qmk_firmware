@@ -94,7 +94,7 @@
 
 			/** Indicates if the device is currently suspended by the host. While suspended, the device is
 			 *  to enter a low power state until resumed by the host. While suspended no USB traffic to or
-			 *  from the device can ocurr (except for Remote Wakeup requests).
+			 *  from the device can occur (except for Remote Wakeup requests).
 			 *
 			 *  This macro returns true if the USB communications have been suspended by the host, false
 			 *  otherwise.

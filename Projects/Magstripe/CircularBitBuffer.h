@@ -46,7 +46,7 @@
 	/* Macros: */
 		#if (defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
 		     defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__)) || defined(__DOXYGEN__)
-			/** Maximum number of bits which can be stored into a bit buffer. The memory usage is one eigth of this value per buffer. */
+			/** Maximum number of bits which can be stored into a bit buffer. The memory usage is one eighth of this value per buffer. */
 			#define MAX_BITS 8192
 		#else
 			#define MAX_BITS 1024

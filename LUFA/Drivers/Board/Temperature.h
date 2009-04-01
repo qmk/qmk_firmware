@@ -72,16 +72,16 @@
 			/** Initializes the temperature sensor driver, including setting up the appropriate ADC channel.
 			 *  This must be called before any other temperature sensor routines.
 			 *
-			 *  The ADC itself (not the ADC channel) must be configured seperately before calling the temperature
+			 *  The ADC itself (not the ADC channel) must be configured separately before calling the temperature
 			 *  sensor functions.
 			 */
 			#define Temperature_Init() ADC_SetupChannel(TEMP_ADC_CHANNEL);
 
 		/* Function Prototypes: */
 			/** Performs a complete ADC on the temperature sensor channel, and converts the result into a
-			 *  valid temperature between TEMP_MIN_TEMP and TEMP_MAX_TEMP in degrees Celcius.
+			 *  valid temperature between TEMP_MIN_TEMP and TEMP_MAX_TEMP in degrees Celsius.
 			 *
-			 *  \return Signed temperature in degrees Celcius
+			 *  \return Signed temperature in degrees Celsius
 			 */
 			int8_t Temperature_GetTemperature(void) ATTR_WARN_UNUSED_RESULT;
 

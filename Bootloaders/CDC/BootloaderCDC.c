@@ -510,7 +510,7 @@ TASK(CDC_Task)
 		}
 		else if ((Command == 'B') || (Command == 'g'))
 		{
-			/* Delegate the block write/read to a seperate function for clarity */
+			/* Delegate the block write/read to a separate function for clarity */
 			ReadWriteMemoryBlock(Command);
 		}
 		else if (Command == 'R')

@@ -220,7 +220,7 @@
 			bool GetReportItemInfo(const uint8_t* ReportData, HID_ReportItem_t* const ReportItem)
 			                       ATTR_NON_NULL_PTR_ARG(1, 2);
 
-			/** Retreives the given report item's value out of the Value member of the report item's
+			/** Retrieves the given report item's value out of the Value member of the report item's
 			 *  HID_ReportItem_t structure and places it into the correct position in the HID report
 			 *  buffer. The report buffer is assumed to have the appropriate bits cleared before calling
 			 *  this function (i.e., the buffer should be explicitly cleared before report values are added).

@@ -79,7 +79,7 @@
 			#define USB_INT_IsEnabled(int)                 ((USB_INT_GET_EN_REG(int)   &    USB_INT_GET_EN_MASK(int)) ? true : false)
 
 			/** Returns boolean true if the given interrupt flag is set (i.e. the condition for the interrupt has occurred,
-			 *  but the interrupt vector is not neccesarily enabled), otherwise returns false.
+			 *  but the interrupt vector is not necessarily enabled), otherwise returns false.
 			 */
 			#define USB_INT_HasOccurred(int)               ((USB_INT_GET_INT_REG(int)  &    USB_INT_GET_INT_MASK(int)) ? true : false)
 		

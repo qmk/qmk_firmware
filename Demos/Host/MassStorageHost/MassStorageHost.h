@@ -66,7 +66,7 @@
 			Status_EnumerationError = 3, /**< Software error while enumerating the attached USB device */
 			Status_HardwareError    = 4, /**< Hardware error while enumerating the attached USB device */
 			Status_Busy             = 5, /**< Busy reading or writing to the attached Mass Storage device */
-			Status_SCSICommandError = 6, /**< Error sending or recieving a command to or from the attached SCSI device */
+			Status_SCSICommandError = 6, /**< Error sending or receiving a command to or from the attached SCSI device */
 		};
 
 	/* Task Definitions: */

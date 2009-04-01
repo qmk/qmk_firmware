@@ -82,7 +82,7 @@
 			 *  host mode indicates that VBUS should be applied and a session started.
 			 *
 			 *  There are two different methods of sending a SRP - either pulses on the VBUS line, or by
-			 *  pulsing the Data + line via the internal pullup resistor. The SRP mode is given as the
+			 *  pulsing the Data + line via the internal pull-up resistor. The SRP mode is given as the
 			 *  "type" parameter, and can be either USB_OTG_SRP_VBUS or USB_OTG_STP_DATA.
 			 */
 			#define USB_OTG_DEV_Initiate_SRP(type)     MACROS{ OTGCON = ((OTGCON & ~(1 << SRPSEL)) | (type | (1 << SRPREQ))); }MACROE

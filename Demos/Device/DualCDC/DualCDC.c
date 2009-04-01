@@ -57,7 +57,7 @@ TASK_LIST
  *
  *  These values are set by the host via a class-specific request, however they are not required to be used accurately.
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
- *  serial link characteristics and instead sends and recieves data in endpoint streams.
+ *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
 CDC_Line_Coding_t LineCoding1 = { BaudRateBPS: 9600,
                                   CharFormat:  OneStopBit,
@@ -70,7 +70,7 @@ CDC_Line_Coding_t LineCoding1 = { BaudRateBPS: 9600,
  *
  *  These values are set by the host via a class-specific request, however they are not required to be used accurately.
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
- *  serial link characteristics and instead sends and recieves data in endpoint streams.
+ *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
 CDC_Line_Coding_t LineCoding2 = { BaudRateBPS: 9600,
                                   CharFormat:  OneStopBit,
@@ -80,7 +80,7 @@ CDC_Line_Coding_t LineCoding2 = { BaudRateBPS: 9600,
 /** String to print through the first virtual serial port when the joystick is pressed upwards. */
 char JoystickUpString[]      = "Joystick Up\r\n";
 
-/** String to print through the first virtual serial port when the joystick is pressed downwards. */
+/** String to print through the first virtual serial port when the joystick is pressed downward. */
 char JoystickDownString[]    = "Joystick Down\r\n";
 
 /** String to print through the first virtual serial port when the joystick is pressed left. */
@@ -324,7 +324,7 @@ TASK(CDC1_Task)
 	  Endpoint_ClearCurrentBank();
 }
 
-/** Function to manage CDC data transmission and reception to and from the host for the second CDC interface, which echos back
+/** Function to manage CDC data transmission and reception to and from the host for the second CDC interface, which echoes back
  *  all data sent to it from the host.
  */
 TASK(CDC2_Task)
@@ -335,13 +335,13 @@ TASK(CDC2_Task)
 	/* Check to see if any data has been received */
 	if (Endpoint_ReadWriteAllowed())
 	{
-		/* Create a temp buffer big enough to hold the incomming endpoint packet */
+		/* Create a temp buffer big enough to hold the incoming endpoint packet */
 		uint8_t  Buffer[Endpoint_BytesInEndpoint()];
 		
-		/* Remember how large the incomming packet is */
+		/* Remember how large the incoming packet is */
 		uint16_t DataLength = Endpoint_BytesInEndpoint();
 	
-		/* Read in the incomming packet into the buffer */
+		/* Read in the incoming packet into the buffer */
 		Endpoint_Read_Stream_LE(&Buffer, DataLength);
 
 		/* Finalize the stream transfer to send the last packet */

@@ -224,7 +224,7 @@
 			unsigned char          Reserved : 4; /**< Reserved, must be all 0 */
 			unsigned char          DataOffset : 4; /**< Offset of the data from the start of the header, in 4 byte chunks */
 			uint8_t                Flags; /**< TCP packet flags */
-			uint16_t               WindowSize; /**< Current data window size (bytes remaning in reception buffer) */
+			uint16_t               WindowSize; /**< Current data window size (bytes remaining in reception buffer) */
 			
 			uint16_t               Checksum; /**< TCP checksum */
 			uint16_t               UrgentPointer; /**< Urgent data pointer */

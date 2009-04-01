@@ -32,7 +32,7 @@
  *
  *  This file contains macros for applying GCC specific attributes to functions to control various optimizer
  *  and code generation features of the compiler. Attributes may be placed in the function prototype in any
- *  order, and multiple attributes can be specified for a single function via a space seperated list.
+ *  order, and multiple attributes can be specified for a single function via a space separated list.
  *
  *  \note Do not include this file directly, rather include the Common.h header file instead to gain this file's
  *        functionality.
@@ -49,11 +49,11 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Indicates to the compiler that the function can not ever return, so that any stack restoring or
-			 *  return code may be ommited by the compiler in the resulting binary.
+			 *  return code may be omitted by the compiler in the resulting binary.
 			 */
 			#define ATTR_NO_RETURN              __attribute__ ((noreturn))
 
-			/** Places the function in one of the initilization sections, which execute before the main function
+			/** Places the function in one of the initialization sections, which execute before the main function
 			 *  of the application. The init function number can be specified as "x", as an integer. Refer to the
 			 *  avr-libc manual for more information on the initialization sections.
 			 */
@@ -65,12 +65,12 @@
 			#define ATTR_WARN_UNUSED_RESULT     __attribute__ ((warn_unused_result))
 
 			/** Indicates that the specified parameters of the function are pointers which should never be NULL.
-			 *  When applied as a 1-based comma seperated list the compiler will emmit a warning if the specified
+			 *  When applied as a 1-based comma separated list the compiler will emit a warning if the specified
 			 *  parameters are known at compiler time to be NULL at the point of calling the function.
 			 */
 			#define ATTR_NON_NULL_PTR_ARG(...)  __attribute__ ((nonnull (__VA_ARGS__)))
 
-			/** Removes any preample or postample from the function. When used, the function will not have any
+			/** Removes any preamble or postamble from the function. When used, the function will not have any
 			 *  register or stack saving code. This should be used with caution, and when used the programmer
 			 *  is responsible for maintaining stack and register integrity.
 			 */

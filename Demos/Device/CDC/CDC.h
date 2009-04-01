@@ -98,17 +98,17 @@
 		#define CONTROL_LINE_IN_RING         (1 << 3)
 
 		/** Mask for use with the a NOTIF_SerialState class specific notification from the device to the host,
-		 *  to indicate that a framing error has ocurred on the virtual serial port.
+		 *  to indicate that a framing error has occurred on the virtual serial port.
 		 */
 		#define CONTROL_LINE_IN_FRAMEERROR   (1 << 4)
 
 		/** Mask for use with the a NOTIF_SerialState class specific notification from the device to the host,
-		 *  to indicate that a parity error has ocurred on the virtual serial port.
+		 *  to indicate that a parity error has occurred on the virtual serial port.
 		 */
 		#define CONTROL_LINE_IN_PARITYERROR  (1 << 5)
 
 		/** Mask for use with the a NOTIF_SerialState class specific notification from the device to the host,
-		 *  to indicate that a data overrun error has ocurred on the virtual serial port.
+		 *  to indicate that a data overrun error has occurred on the virtual serial port.
 		 */
 		#define CONTROL_LINE_IN_OVERRUNERROR (1 << 6)
 		
@@ -138,7 +138,7 @@
 			uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
 			                      *   CDCDevice_LineCodingParity_t enum
 			                      */
-			uint8_t  DataBits; /**< Bits of data per charater of the virtual serial port */
+			uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
 		} CDC_Line_Coding_t;
 		
 		/** Type define for a CDC notification, sent to the host via the CDC notification endpoint to indicate a

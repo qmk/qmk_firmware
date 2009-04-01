@@ -80,7 +80,7 @@ int main(void)
 	/* Turn on interrupts */
 	sei();
 
-    /* Startup message via USART */
+    /* Start-up message via USART */
 	puts_P(PSTR(ESC_RESET ESC_BG_WHITE ESC_INVERSE_ON ESC_ERASE_DISPLAY
 	       "LUFA Demo running.\r\n" ESC_INVERSE_OFF));
 
@@ -130,7 +130,7 @@ TASK(TestApp_CheckJoystick)
  */
 TASK(TestApp_CheckTemp)
 {
-	static SchedulerDelayCounter_t DelayCounter = 10000; // Force immediate run on startup
+	static SchedulerDelayCounter_t DelayCounter = 10000; // Force immediate run on start-up
 
 	/* Task runs every 10000 ticks, 10 seconds for this demo */
 	if (Scheduler_HasDelayElapsed(10000, &DelayCounter))
@@ -161,7 +161,7 @@ TASK(TestApp_CheckHWB)
 			/* Set flag, indicating that current pressed state has been handled */
 			IsPressed = true;
 			
-			/* First start of the USB interface permenantly blocks the joystick task */
+			/* First start of the USB interface permanently blocks the joystick task */
 			if (BlockingJoystickTask == false)
 			{
 				Scheduler_SetTaskMode(TestApp_CheckJoystick, TASK_STOP);

@@ -97,13 +97,13 @@
 				#define DESCRIPTOR_SIZE(DescriptorPtr)    DESCRIPTOR_CAST(DescriptorPtr, USB_Descriptor_Header_t).bLength
 			#endif
 			
-			/** Creates a prototype for or begins a descriptor comparitor routine. Descriptor comparitor routines are 
+			/** Creates a prototype for or begins a descriptor comparator routine. Descriptor comparator routines are 
 			 *  small search routines which are passed a pointer to the current sub descriptor in the configuration
 			 *  descriptor, and which analyse the sub descriptor to determine whether or not it matches the routine's
-			 *  search parameters. Comparitor routines provide a powerful way to scan through the config descriptor
+			 *  search parameters. Comparator routines provide a powerful way to scan through the config descriptor
 			 *  for certain descriptors matching unique criteria.
 			 *
-			 *  Comparitor routines are passed in a single pointer named CurrentDescriptor, and should return a value
+			 *  Comparator routines are passed in a single pointer named CurrentDescriptor, and should return a value
 			 *  of a member of the DSEARCH_Return_ErrorCodes_t enum.
 			 */
 			#define DESCRIPTOR_COMPARATOR(name)           uint8_t DCOMP_##name (void* const CurrentDescriptor)
@@ -117,7 +117,7 @@
 			 *
 			 *  \param DSize    Pointer to an int storing the remaining bytes in the configuration descriptor
 			 *  \param DPos     Pointer to the current position in the configuration descriptor
-			 *  \param DSearch  Name of the comparitor search function to use on the configuration descriptor
+			 *  \param DSearch  Name of the comparator search function to use on the configuration descriptor
 			 *
 			 *  \return Value of one of the members of the DSEARCH_Comp_Return_ErrorCodes_t enum
 			 *
@@ -156,7 +156,7 @@
 			/** Enum for return values of USB_Host_GetNextDescriptorComp() */
 			enum DSEARCH_Comp_Return_ErrorCodes_t
 			{
-				Descriptor_Search_Comp_Found           = 0, /**< Configuration descriptor now points to decriptor which matches
+				Descriptor_Search_Comp_Found           = 0, /**< Configuration descriptor now points to descriptor which matches
 				                                             *   search criteria of the given comparator function. */
 				Descriptor_Search_Comp_Fail            = 1, /**< Comparator function returned Descriptor_Search_Fail. */
 				Descriptor_Search_Comp_EndOfDescriptor = 2, /**< End of configuration descriptor reached before match found. */

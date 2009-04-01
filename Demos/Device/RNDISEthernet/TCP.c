@@ -60,7 +60,7 @@ TASK(TCP_Task)
 {
 	/* Task to hand off TCP packets to and from the listening applications. */
 
-	/* Run each application in sequence, to process incomming and generate outgoing packets */
+	/* Run each application in sequence, to process incoming and generate outgoing packets */
 	for (uint8_t CSTableEntry = 0; CSTableEntry < MAX_TCP_CONNECTIONS; CSTableEntry++)
 	{
 		/* Find the corresponding port entry in the port table */
@@ -179,7 +179,7 @@ void TCP_Init(void)
  */
 bool TCP_SetPortState(uint16_t Port, uint8_t State, void (*Handler)(TCP_ConnectionState_t*, TCP_ConnectionBuffer_t*))
 {
-	/* Note, Port number should be specified in BIG endian to simplfy network code */
+	/* Note, Port number should be specified in BIG endian to simplify network code */
 
 	/* Check to see if the port entry is already in the port state table */
 	for (uint8_t PTableEntry = 0; PTableEntry < MAX_TCP_CONNECTIONS; PTableEntry++)
@@ -226,7 +226,7 @@ bool TCP_SetPortState(uint16_t Port, uint8_t State, void (*Handler)(TCP_Connecti
  */
 uint8_t TCP_GetPortState(uint16_t Port)
 {
-	/* Note, Port number should be specified in BIG endian to simplfy network code */
+	/* Note, Port number should be specified in BIG endian to simplify network code */
 
 	for (uint8_t PTableEntry = 0; PTableEntry < MAX_TCP_CONNECTIONS; PTableEntry++)
 	{
@@ -251,7 +251,7 @@ uint8_t TCP_GetPortState(uint16_t Port)
  */
 bool TCP_SetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16_t RemotePort, uint8_t State)
 {
-	/* Note, Port number should be specified in BIG endian to simplfy network code */
+	/* Note, Port number should be specified in BIG endian to simplify network code */
 
 	for (uint8_t CSTableEntry = 0; CSTableEntry < MAX_TCP_CONNECTIONS; CSTableEntry++)
 	{
@@ -291,7 +291,7 @@ bool TCP_SetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16_t 
  */
 uint8_t TCP_GetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16_t RemotePort)
 {
-	/* Note, Port number should be specified in BIG endian to simplfy network code */
+	/* Note, Port number should be specified in BIG endian to simplify network code */
 
 	for (uint8_t CSTableEntry = 0; CSTableEntry < MAX_TCP_CONNECTIONS; CSTableEntry++)
 	{
@@ -318,7 +318,7 @@ uint8_t TCP_GetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16
  */
 TCP_ConnectionInfo_t* TCP_GetConnectionInfo(uint16_t Port, IP_Address_t RemoteAddress, uint16_t RemotePort)
 {
-	/* Note, Port number should be specified in BIG endian to simplfy network code */
+	/* Note, Port number should be specified in BIG endian to simplify network code */
 
 	for (uint8_t CSTableEntry = 0; CSTableEntry < MAX_TCP_CONNECTIONS; CSTableEntry++)
 	{
@@ -337,8 +337,8 @@ TCP_ConnectionInfo_t* TCP_GetConnectionInfo(uint16_t Port, IP_Address_t RemoteAd
 /** Processes a TCP packet inside an Ethernet frame, and writes the appropriate response
  *  to the output Ethernet frame if one is created by a application handler.
  *
- *  \param IPHeaderInStart    Pointer to the start of the incomming packet's IP header
- *  \param TCPHeaderInStart   Pointer to the start of the incomming packet's TCP header
+ *  \param IPHeaderInStart    Pointer to the start of the incoming packet's IP header
+ *  \param TCPHeaderInStart   Pointer to the start of the incoming packet's TCP header
  *  \param TCPHeaderOutStart  Pointer to the start of the outgoing packet's TCP header
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE if no
@@ -357,7 +357,7 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart, void* TCPHeaderInStart, void
 
 	bool PacketResponse = false;
 		
-	/* Check if the destination port is open and allows incomming connections */
+	/* Check if the destination port is open and allows incoming connections */
 	if (TCP_GetPortState(TCPHeaderIN->DestinationPort) == TCP_Port_Open)
 	{
 		/* Detect SYN from host to start a connection */
@@ -375,7 +375,7 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart, void* TCPHeaderInStart, void
 		}
 		else
 		{
-			/* Process the incomming TCP packet based on the current connection state for the sender and port */
+			/* Process the incoming TCP packet based on the current connection state for the sender and port */
 			switch (TCP_GetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress, TCPHeaderIN->SourcePort))
 			{
 				case TCP_Connection_Listen:
@@ -470,7 +470,7 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart, void* TCPHeaderInStart, void
 						}
 						else
 						{
-							/* Buffer is currently in use by the application, defer processing of the incomming packet */
+							/* Buffer is currently in use by the application, defer processing of the incoming packet */
 							return NO_PROCESS;
 						}
 					}
@@ -591,7 +591,7 @@ static uint16_t TCP_Checksum16(void* TCPHeaderOutStart, IP_Address_t SourceAddre
 {
 	uint32_t Checksum = 0;
 	
-	/* TCP/IP checksums are the addition of the one's compliment of each word including the IP psudo-header,
+	/* TCP/IP checksums are the addition of the one's compliment of each word including the IP pseudo-header,
 	   complimented */
 	
 	Checksum += ((uint16_t*)&SourceAddress)[0];

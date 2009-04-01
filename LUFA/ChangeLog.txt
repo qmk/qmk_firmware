@@ -13,6 +13,7 @@
   *  - KeyboardHost, MouseHost and GenericHIDHost demos now save and restore the currently selected pipe inside the pipe ISR
   *  - Changed GenericHID device demo to use the LUFA scheduler, added INTERRUPT_DATA_ENDPOINT and INTERRUPT_CONTROL_ENDPOINT compile
   *    time options
+  *  - All comments in the library, bootloaders, demos and projects have now been spell-checked and spelling mistakes/typos corrected
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *

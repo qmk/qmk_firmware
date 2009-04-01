@@ -76,7 +76,7 @@
 			 */
 			extern volatile bool USB_IsConnected;
 
-			/** Indicates if the USB interface is currently initialized but not neccesarily connected to a host
+			/** Indicates if the USB interface is currently initialized but not necessarily connected to a host
 			 *  or device (i.e. if USB_Init() has been run). If this is false, all other library globals are invalid.
 			 *
 			 *  \note This variable should be treated as read-only in the user application, and never manually
@@ -166,10 +166,10 @@
 			 *  The USB task must be serviced within 50mS in all modes, when needed. The task may be serviced 
 			 *  at all times, or (for minimum CPU consumption):
 			 *
-			 *    - In device mode, it may be disabled at startup, enabled on the firing of the USB_Connect event
+			 *    - In device mode, it may be disabled at start-up, enabled on the firing of the USB_Connect event
 			 *    and disabled again on the firing of the USB_Disconnect event.
 			 *
-			 *    - In host mode, it may be disabled at startup, enabled on the firing of the USB_DeviceAttached
+			 *    - In host mode, it may be disabled at start-up, enabled on the firing of the USB_DeviceAttached
 			 *    event and disabled again on the firing of the USB_DeviceUnattached event.
 			 *
 			 *  \see Events.h for more information on the USB events.

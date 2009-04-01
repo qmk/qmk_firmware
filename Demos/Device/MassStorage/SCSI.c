@@ -38,7 +38,7 @@
 #define  INCLUDE_FROM_SCSI_C
 #include "SCSI.h"
 
-/** Structure to hold the SCSI reponse data to a SCSI INQUIRY command. This gives information about the device's
+/** Structure to hold the SCSI response data to a SCSI INQUIRY command. This gives information about the device's
  *  features and capabilities.
  */
 SCSI_Inquiry_Response_t InquiryData = 
@@ -88,7 +88,7 @@ void SCSI_DecodeSCSICommand(void)
 {
 	bool CommandSuccess = false;
 
-	/* Run the apropriate SCSI command hander function based on the passed command */
+	/* Run the appropriate SCSI command hander function based on the passed command */
 	switch (CommandBlock.SCSICommandData[0])
 	{
 		case SCSI_CMD_INQUIRY:
@@ -235,7 +235,7 @@ static bool SCSI_Command_Read_Capacity_10(void)
 	return true;
 }
 
-/** Command processing for an issued SCSI SEND DIAGNOSTIC command. This command peforms a quick check of the Dataflash ICs on the
+/** Command processing for an issued SCSI SEND DIAGNOSTIC command. This command performs a quick check of the Dataflash ICs on the
  *  board, and indicates if they are present and functioning correctly. Only the Self-Test portion of the diagnostic command is
  *  supported.
  *

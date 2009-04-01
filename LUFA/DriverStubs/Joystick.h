@@ -81,7 +81,7 @@
 		#if !defined(__DOXYGEN__)
 			static inline void Joystick_Init(void)
 			{
-				// TODO: Initialize joystick port pins as inputs with pullups
+				// TODO: Initialize joystick port pins as inputs with pull-ups
 			};
 			
 			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;

@@ -75,7 +75,7 @@ int main(void)
 	/* Initialize USB Subsystem */
 	USB_Init();
 
-	/* Startup message */
+	/* Start-up message */
 	puts_P(PSTR(ESC_RESET ESC_BG_WHITE ESC_INVERSE_ON ESC_ERASE_DISPLAY
 	       "Still Image Host Demo running.\r\n" ESC_INVERSE_OFF));
 		   
@@ -132,7 +132,7 @@ EVENT_HANDLER(USB_HostError)
 	for(;;);
 }
 
-/** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occured while
+/** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
 EVENT_HANDLER(USB_DeviceEnumerationFailed)
@@ -165,7 +165,7 @@ TASK(USB_SImage_Host)
 					wLength:       0,
 				};
 
-			/* Send the request, display error and wait for device detatch if request fails */
+			/* Send the request, display error and wait for device detach if request fails */
 			if (USB_Host_SendControlRequest(NULL) != HOST_SENDCONTROL_Successful)
 			{
 				puts_P(PSTR("Control error.\r\n"));
@@ -223,7 +223,7 @@ TASK(USB_SImage_Host)
 			/* Send the GETDEVICEINFO block */
 			SImage_SendBlockHeader();
 			
-			/* Recieve the response data block */
+			/* Receive the response data block */
 			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_ERROR_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
@@ -274,7 +274,7 @@ TASK(USB_SImage_Host)
 			UnicodeToASCII(DeviceInfoPos, DeviceVersion);
 			printf_P(PSTR("   Device Version: %s\r\n"), DeviceVersion);
 
-			/* Recieve the final response block from the device */
+			/* Receive the final response block from the device */
 			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_ERROR_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
@@ -302,7 +302,7 @@ TASK(USB_SImage_Host)
 			/* Send the OPENSESSION block, open a session with an ID of 0x0001 */
 			SImage_SendBlockHeader();
 			
-			/* Recieve the response block from the device */
+			/* Receive the response block from the device */
 			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_ERROR_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
@@ -330,7 +330,7 @@ TASK(USB_SImage_Host)
 			/* Send the CLOSESESSION block, close the session with an ID of 0x0001 */
 			SImage_SendBlockHeader();
 			
-			/* Recieve the response block from the device */
+			/* Receive the response block from the device */
 			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_ERROR_NoError)
 			{
 				ShowCommandError(ErrorCode, false);

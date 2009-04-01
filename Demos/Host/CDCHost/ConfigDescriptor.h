@@ -73,7 +73,7 @@
 			DescriptorTooLarge              = 2, /**< The device's Configuration Descriptor is too large to process */
 			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
 			NoCDCInterfaceFound             = 4, /**< A compatible CDC interface was not found in the device's Configuration Descriptor */
-			NoEndpointFound                 = 5, /**< Cmpatible CDC endpoints were not found in the device's CDC interface */
+			NoEndpointFound                 = 5, /**< Compatible CDC endpoints were not found in the device's CDC interface */
 		};
 
 	/* Configuration Descriptor Comparison Functions: */

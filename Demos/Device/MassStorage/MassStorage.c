@@ -56,7 +56,7 @@ CommandBlockWrapper_t  CommandBlock;
 /** Structure to hold the latest Command Status Wrapper to return to the host, containing the status of the last issued command. */
 CommandStatusWrapper_t CommandStatus = { Signature: CSW_SIGNATURE };
 
-/** Flag to asyncronously abort any in-progress data transfers upon the reception of a mass storage reset command. */
+/** Flag to asynchronously abort any in-progress data transfers upon the reception of a mass storage reset command. */
 volatile bool          IsMassStoreReset = false;
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -262,7 +262,7 @@ TASK(USB_MassStorage)
 				/* Return command status block to the host */
 				ReturnCommandStatus();
 				
-				/* Check if a Mass Storage Reset ocurred */
+				/* Check if a Mass Storage Reset occurred */
 				if (IsMassStoreReset)
 				{
 					/* Reset the data endpoint banks */

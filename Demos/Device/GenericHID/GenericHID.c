@@ -268,7 +268,7 @@ TASK(USB_HID_Report)
 		
 		if (Endpoint_ReadWriteAllowed())
 		{
-			/* Create a tempoary buffer to hold the read in report from the host */
+			/* Create a temporary buffer to hold the read in report from the host */
 			uint8_t GenericData[GENERIC_REPORT_SIZE];
 			
 			/* Read Generic Report Data */
@@ -285,7 +285,7 @@ TASK(USB_HID_Report)
 		
 		if (Endpoint_ReadWriteAllowed())
 		{
-			/* Create a tempoary buffer to hold the report to send to the host */
+			/* Create a temporary buffer to hold the report to send to the host */
 			uint8_t GenericData[GENERIC_REPORT_SIZE];
 			
 			/* Create Generic Report Data */

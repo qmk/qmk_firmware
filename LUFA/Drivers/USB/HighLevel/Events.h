@@ -58,7 +58,7 @@
 		/* Macros: */
 			/** Raises a given event name, with the specified parameters. For events with no parameters the
 			 *  only argument to the macro is the event name, events with parameters list the parameter values
-			 *  after the name as a comma seperated list.
+			 *  after the name as a comma separated list.
 			 *
 			 *  When a given event is fired, its corresponding event handler code is executed.
 			 *
@@ -75,7 +75,7 @@
 			 */
 			#define RAISE_EVENT(e, ...)                 Event_ ## e (__VA_ARGS__)
 
-			/** Indicates that a given module can raise a given event. This is the equivelent of putting the
+			/** Indicates that a given module can raise a given event. This is the equivalent of putting the
 			 *  event function's prototype into the module, but in a cleaner way. Each event which may be
 			 *  fired via the RAISE_EVENT macro in the module should have an accompanying RAISES_EVENT
 			 *  prototype in the module's header file.
@@ -100,7 +100,7 @@
 			 *
 			 *  Only one event handler may be defined in any user project for each individual event. Events may
 			 *  or may not have parameters - for each event, refer to its documentation elsewhere in this module
-			 *  to determine the presense and purpose of any event parameters.
+			 *  to determine the presence and purpose of any event parameters.
 			 *
 			 *  Usage Example:
 			 *  \code
@@ -115,7 +115,7 @@
 			 */
 			#define EVENT_HANDLER(e)                    void Event_ ## e e ## _P
 			
-			/** Indicates that a given module handles an event. This is the equivelent of putting the
+			/** Indicates that a given module handles an event. This is the equivalent of putting the
 			 *  event function's prototype into the module, but in a cleaner way. Each event which may be
 			 *  handled via the EVENT_HANDLER macro in the module should have an accompanying HANDLES_EVENT
 			 *  prototype in the module's header file.
@@ -136,7 +136,7 @@
 			 */
 			#define HANDLES_EVENT(e)                    EVENT_HANDLER(e)
 			
-		/* Psudo-Functions for Doxygen: */
+		/* Pseudo-Functions for Doxygen: */
 		#if defined(__DOXYGEN__)
 			/** Event for VBUS level change. This event fires when the VBUS line of the USB AVR changes from
 			 *  high to low or vice-versa.
@@ -165,7 +165,7 @@
 			 *  has been attached (but not yet fully enumerated), or when in device mode and the device is connected
 			 *  to a host, beginning the enumeration process.
 			 *
-			 *  When in device mode, this can be used to progmatically start the USB management task to reduce
+			 *  When in device mode, this can be used to programmatically start the USB management task to reduce
 			 *  CPU usage.
 			 *
 			 *  \note For the smaller USB AVRs (AT90USBXX2) with limited USB controllers, VBUS is not available to the USB controller.
@@ -183,7 +183,7 @@
 			 *  attached and enumerated device has been disconnected, or when in device mode and the device is
 			 *  disconnected from the host.
 			 *
-			 *  When in device mode, this can be used to progmatically stop the USB management task to reduce
+			 *  When in device mode, this can be used to programmatically stop the USB management task to reduce
 			 *  CPU usage.
 			 *
 			 *  \note For the smaller USB AVRs (AT90USBXX2) with limited USB controllers, VBUS is not available to the USB controller.
@@ -231,7 +231,7 @@
 			
 			/** Event for USB device attachment. This event fires when a the USB interface is in host mode, and
 			 *  a USB device has been connected to the USB interface. This is interrupt driven, thus fires before
-			 *  the standard USB_DeviceConnect event and so can be used to programatically start the USB management
+			 *  the standard USB_DeviceConnect event and so can be used to programmatically start the USB management
 			 *  task to reduce CPU consumption.
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
@@ -245,7 +245,7 @@
 
 			/** Event for USB device removal. This event fires when a the USB interface is in host mode, and
 			 *  a USB device has been removed the USB interface whether or not it has been enumerated. This
-			 *  can be used to programatically stop the USB management task to reduce CPU consumption.
+			 *  can be used to programmatically stop the USB management task to reduce CPU consumption.
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *

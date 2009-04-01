@@ -183,7 +183,7 @@
 			uint8_t                   SourceID; /**< Source ID value of the audio source input into this feature unit */
 			
 			uint8_t                   ControlSize; /**< Size of each element in the ChanelControlls array */
-			uint8_t                   ChannelControls[3]; /**< Feature masks for the control channel, and each seperate audio channel */
+			uint8_t                   ChannelControls[3]; /**< Feature masks for the control channel, and each separate audio channel */
 			
 			uint8_t                   FeatureUnitStrIndex; /**< Index of a string descriptor describing this descriptor within the device */
 		} USB_AudioFeatureUnit_t;
@@ -202,7 +202,7 @@
 			uint8_t                   AssociatedOutputTerminal; /**< ID of associated output terminal, for physically grouped terminals
 			                                                     *   such as the speaker and microphone of a phone handset
 			                                                     */
-			uint8_t                   TotalChannels; /**< Total number of seperate audio channels within this interface (right, left, etc.) */
+			uint8_t                   TotalChannels; /**< Total number of separate audio channels within this interface (right, left, etc.) */
 			uint16_t                  ChannelConfig; /**< CHANNEL_* masks indicating what channel layout is supported by this terminal */
 			
 			uint8_t                   ChannelStrIndex; /**< Index of a string descriptor describing this channel within the device */

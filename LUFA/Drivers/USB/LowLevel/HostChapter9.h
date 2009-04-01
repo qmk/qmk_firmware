@@ -77,7 +77,7 @@
 				HOST_SENDCONTROL_DeviceDisconnect = 1, /**< The attached device was disconnected during the
 				                                        *   request transfer.
 				                                        */
-				HOST_SENDCONTROL_PipeError        = 2, /**< An error occured in the pipe while sending the request. */
+				HOST_SENDCONTROL_PipeError        = 2, /**< An error occurred in the pipe while sending the request. */
 				HOST_SENDCONTROL_SetupStalled     = 3, /**< The attached device stalled the request, usually
 				                                        *   indicating that the request is unsupported on the device.
 				                                        */

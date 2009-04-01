@@ -79,7 +79,7 @@ int main(void)
 	LEDs_Init();
 	ReconfigureUSART();
 	
-	/* Ringbuffer Initialization */
+	/* Ring buffer Initialization */
 	Buffer_Initialize(&Rx_Buffer);
 	Buffer_Initialize(&Tx_Buffer);
 	

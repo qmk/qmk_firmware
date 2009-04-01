@@ -74,7 +74,7 @@ int main(void)
 	/* Indicate USB not ready */
 	UpdateStatus(Status_USBNotReady);
 
-	/* Startup message */
+	/* Start-up message */
 	puts_P(PSTR(ESC_RESET ESC_BG_WHITE ESC_INVERSE_ON ESC_ERASE_DISPLAY
 	       "MassStore Host Demo running.\r\n" ESC_INVERSE_OFF));
 		   
@@ -137,7 +137,7 @@ EVENT_HANDLER(USB_HostError)
 	for(;;);
 }
 
-/** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occured while
+/** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
 EVENT_HANDLER(USB_DeviceEnumerationFailed)
@@ -170,7 +170,7 @@ TASK(USB_MassStore_Host)
 					wLength:       0,
 				};
 				
-			/* Send the request, display error and wait for device detatch if request fails */
+			/* Send the request, display error and wait for device detach if request fails */
 			if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
 			{
 				puts_P(PSTR("Control Error (Set Configuration).\r\n"));
@@ -222,7 +222,7 @@ TASK(USB_MassStore_Host)
 				break;
 			}
 			
-			/* Send the request, display error and wait for device detatch if request fails */
+			/* Send the request, display error and wait for device detach if request fails */
 			if ((ErrorCode = MassStore_GetMaxLUN(&MassStore_MaxLUNIndex)) != HOST_SENDCONTROL_Successful)
 			{	
 				ShowDiskReadError(PSTR("Get Max LUN"), ErrorCode);
@@ -240,7 +240,7 @@ TASK(USB_MassStore_Host)
 			}
 			
 			/* Get sense data from the device - many devices will not accept any other commands until the sense data
-			 * is read - both on startup and after a failed command */
+			 * is read - both on start-up and after a failed command */
 			SCSI_Request_Sense_Response_t SenseData;
 			if ((ErrorCode = MassStore_RequestSense(0, &SenseData)) != 0)
 			{
@@ -397,7 +397,7 @@ void UpdateStatus(uint8_t CurrentStatus)
 	LEDs_SetAllLEDs(LEDMask);
 }
 
-/** Indicates that a communication error has ocurred with the attached Mass Storage Device,
+/** Indicates that a communication error has occurred with the attached Mass Storage Device,
  *  printing error codes to the serial port and waiting until the device is removed before
  *  continuing.
  *

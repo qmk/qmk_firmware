@@ -32,7 +32,7 @@
  *
  *  Functions, macros and enums related to endpoint management when in USB Device mode. This
  *  module contains the endpoint management macros, as well as endpoint interrupt and data
- *  send/recieve functions for various datatypes.
+ *  send/recieve functions for various data types.
  */
  
 #ifndef __ENDPOINT_H__
@@ -210,7 +210,7 @@
 
 			/** Returns true if the currently selected endpoint may be read from (if data is waiting in the endpoint
 			 *  bank and the endpoint is an OUT direction, or if the bank is not yet full if the endpoint is an
-			 *  IN direction). This function will return false if an error has occured in the endpoint, or if
+			 *  IN direction). This function will return false if an error has occurred in the endpoint, or if
 			 *  the endpoint is an OUT direction and no packet has been received, or if the endpoint is an IN
 			 *  direction and the endpoint bank is full.
 			 */
@@ -262,10 +262,10 @@
 			 */
 			#define Endpoint_ClearSetupOUT()              MACROS{ UEINTX &= ~(1 << RXOUTI); }MACROE
 
-			/** Stalls the current endpoint, indicating to the host that a logical problem occured with the
+			/** Stalls the current endpoint, indicating to the host that a logical problem occurred with the
 			 *  indicated endpoint and that the current transfer sequence should be aborted. This provides a
 			 *  way for devices to indicate invalid commands to the host so that the current transfer can be
-			 *  aborted and the host can begin its own recovery seqeuence.
+			 *  aborted and the host can begin its own recovery sequence.
 			 *
 			 *  The currently selected endpoint remains stalled until either the Endpoint_ClearStall() macro
 			 *  is called, or the host issues a CLEAR FEATURE request to the device for the currently selected
@@ -276,7 +276,7 @@
 			/** Clears the stall on the currently selected endpoint. */
 			#define Endpoint_ClearStall()                 MACROS{ UECONX |= (1 << STALLRQC); }MACROE
 
-			/** Returns true if the currently selected endpoint is stalled, false othewise. */
+			/** Returns true if the currently selected endpoint is stalled, false otherwise. */
 			#define Endpoint_IsStalled()                  ((UECONX & (1 << STALLRQ)) ? true : false)
 
 			/** Resets the data toggle of the currently selected endpoint. */
@@ -552,12 +552,12 @@
 			 *
 			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter ommitted.
+			 *  and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
 			 *  \param Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param Callback  Name of a callback routine to call between sucessive USB packet transfers, NULL if no callback
+			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -576,13 +576,13 @@
 			 *
 			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter ommitted.
+			 *  and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
 			 *  \param Buffer    Pointer to the source data buffer to read from.
 			 *  \param Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param Callback  Name of a callback routine to call between sucessive USB packet transfers, NULL if no callback
+			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -601,13 +601,13 @@
 			 *
 			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter ommitted.
+			 *  and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
 			 *  \param Buffer    Pointer to the source data buffer to read from.
 			 *  \param Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param Callback  Name of a callback routine to call between sucessive USB packet transfers, NULL if no callback
+			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -626,13 +626,13 @@
 			 *
 			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter ommitted.
+			 *  and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
 			 *  \param Buffer    Pointer to the destination data buffer to write to.
 			 *  \param Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param Callback  Name of a callback routine to call between sucessive USB packet transfers, NULL if no callback
+			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -651,13 +651,13 @@
 			 *
 			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter ommitted.
+			 *  and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
 			 *  \param Buffer    Pointer to the destination data buffer to write to.
 			 *  \param Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param Callback  Name of a callback routine to call between sucessive USB packet transfers, NULL if no callback
+			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -749,27 +749,27 @@
 			#define Endpoint_Ignore_DWord()                     Endpoint_Discard_DWord()
 		
 			/** Alias for Endpoint_Read_Word_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#define Endpoint_Read_Word()                        Endpoint_Read_Word_LE()   
 
 			/** Alias for Endpoint_Write_Word_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#define Endpoint_Write_Word(Word)                   Endpoint_Write_Word_LE(Word)
 
 			/** Alias for Endpoint_Read_DWord_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#define Endpoint_Read_DWord()                       Endpoint_Read_DWord_LE()
 
 			/** Alias for Endpoint_Write_DWord_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#define Endpoint_Write_DWord(DWord)                 Endpoint_Write_DWord_LE(DWord)
 
 			/** Alias for Endpoint_Read_Stream_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#if !defined(NO_STREAM_CALLBACKS)
 				#define Endpoint_Read_Stream(Buffer, Length, Callback) Endpoint_Read_Stream_LE(Buffer, Length, Callback)
@@ -778,7 +778,7 @@
 			#endif
 
 			/** Alias for Endpoint_Write_Stream_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#if !defined(NO_STREAM_CALLBACKS)
 				#define Endpoint_Write_Stream(Buffer, Length, Callback) Endpoint_Write_Stream_LE(Buffer, Length, Callback)
@@ -787,12 +787,12 @@
 			#endif
 
 			/** Alias for Endpoint_Read_Control_Stream_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#define Endpoint_Read_Control_Stream(Data, Length)  Endpoint_Read_Control_Stream_LE(Data, Length)
 
 			/** Alias for Endpoint_Write_Control_Stream_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#define Endpoint_Write_Control_Stream(Data, Length) Endpoint_Write_Control_Stream_LE(Data, Length)			
 			

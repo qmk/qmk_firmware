@@ -54,7 +54,7 @@
 		/** Command Block Wrapper signature byte, for verification of valid CBW blocks */
 		#define CBW_SIGNATURE                    0x43425355UL
 
-		/** Command Statuc Wrapper signature byte, for verification of valid CSW blocks */
+		/** Command Static Wrapper signature byte, for verification of valid CSW blocks */
 		#define CSW_SIGNATURE                    0x53425355UL
 		
 		/** Data direction mask for the Flags field of a CBW, indicating Host-to-Device transfer direction */
@@ -98,13 +98,13 @@
 		{
 			uint32_t Signature; /**< Command status signature, always equal to CSW_SIGNATURE */
 			uint32_t Tag; /**< Current CBW tag, to positively associate a CBW with a CSW */
-			uint32_t DataTransferResidue; /**< Length of data not transfered */
+			uint32_t DataTransferResidue; /**< Length of data not transferred */
 			uint8_t  Status; /**< Command status, a value from the MassStorageHost_CommandStatusCodes_t enum */
 		} CommandStatusWrapper_t;
 		
 		/** Type define for a SCSI Sense structure. Structures of this type are filled out by the
 		 *  device via the MassStore_RequestSense() function, indicating the current sense data of the
-		 *  device (giving explitic error codes for the last issued command). For details of the
+		 *  device (giving explicit error codes for the last issued command). For details of the
 		 *  structure contents, refer to the SCSI specifications.
 		 */
 		typedef struct

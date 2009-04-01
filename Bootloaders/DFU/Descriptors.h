@@ -44,11 +44,11 @@
 		#define DTYPE_DFUFunctional               0x21
 		
 		/** DFU attribute mask, indicating that the DFU device will detach and re-attach when a DFU_DETACH
-		 *  command is issued, rather than the host issing a USB Reset.
+		 *  command is issued, rather than the host issuing a USB Reset.
 		 */
 		#define ATTR_WILL_DETATCH                 (1 << 3)
 
-		/** DFU attribute mask, indicating that the DFU device can communicate during the manefestation phase
+		/** DFU attribute mask, indicating that the DFU device can communicate during the manifestation phase
 		 *  (memory programming phase).
 		 */
 		#define ATTR_MANEFESTATION_TOLLERANT      (1 << 2)

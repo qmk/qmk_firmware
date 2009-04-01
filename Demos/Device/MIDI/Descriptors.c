@@ -278,7 +278,7 @@ USB_Descriptor_String_t PROGMEM ProductString =
 
 /** This function is called by the library when in device mode, and must be overridden (see StdDescriptors.h
  *  documentation) by the application code so that the address and size of a requested descriptor can be given
- *  to the USB library. When the device recieves a Get Descriptor request on the control endpoint, this function
+ *  to the USB library. When the device receives a Get Descriptor request on the control endpoint, this function
  *  is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
  *  USB host.
  */

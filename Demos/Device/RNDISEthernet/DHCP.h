@@ -102,7 +102,7 @@
 			uint8_t  HardwareAddressLength;  /**< Length in bytes of a hardware (MAC) address on the network */
 			uint8_t  Hops; /**< Number of hops required to reach the server, unused */
 
-			uint32_t TransactionID; /**< Unique ID of the DHCP packet, for postive matching between sent and recieved packets */
+			uint32_t TransactionID; /**< Unique ID of the DHCP packet, for positive matching between sent and received packets */
 
 			uint16_t ElapsedSeconds; /**< Elapsed seconds since the request was made */
 			uint16_t Flags; /**< BOOTP packet flags */

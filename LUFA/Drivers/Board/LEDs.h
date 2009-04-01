@@ -68,7 +68,7 @@
 		#include "Board/LEDs.h"
 	#endif
 	
-	/* Psudo-Functions for Doxygen: */
+	/* Pseudo-Functions for Doxygen: */
 	#if defined(__DOXYGEN__)
 		/** Initializes the board LED driver so that the LEDs can be controlled. This sets the appropriate port
 		 *  I/O pins as outputs, and sets the LEDs to default to off.

@@ -31,7 +31,7 @@
 /** \file
  *
  *  This file contains macros which are common to all library elements, and which may be useful in user code. It
- *  also includes other common headees, such as Atomic.h, FunctionAttributes.h and BoardTypes.h.
+ *  also includes other common headers, such as Atomic.h, FunctionAttributes.h and BoardTypes.h.
  */
 
 #ifndef __COMMON_H__
@@ -49,27 +49,27 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */		
-			/** Macro for encasing other multi-statment macros. This should be used along with an opening brace
+			/** Macro for encasing other multi-statement macros. This should be used along with an opening brace
 			 *  before the start of any multi-statement macro, so that the macros contents as a whole are treated
-			 *  as a discreete block and not as a list of seperate statements which may cause problems when used as
-			 *  a block (such as inline IF statments).
+			 *  as a discrete block and not as a list of separate statements which may cause problems when used as
+			 *  a block (such as inline IF statements).
 			 */
 			#define MACROS                  do
 
-			/** Macro for encasing other multi-statment macros. This should be used along with a preceeding closing
+			/** Macro for encasing other multi-statement macros. This should be used along with a preceding closing
 			 *  brace at the end of any multi-statement macro, so that the macros contents as a whole are treated
-			 *  as a discreete block and not as a list of seperate statements which may cause problems when used as
-			 *  a block (such as inline IF statments).
+			 *  as a discrete block and not as a list of separate statements which may cause problems when used as
+			 *  a block (such as inline IF statements).
 			 */
 			#define MACROE                  while (0)
 			
-			/** Defines a volatile NOP statment which cannot be optimized out by the compiler, and thus can always
+			/** Defines a volatile NOP statement which cannot be optimized out by the compiler, and thus can always
 			 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimizer
 			 *  removes/reorders code to the point where break points cannot reliably be set.
 			 */
 			#define JTAG_DEBUG_POINT()      asm volatile ("NOP" ::)
 
-			/** Defines an explicit JTAG break point in the resulting binary via the ASM BREAK statment. When
+			/** Defines an explicit JTAG break point in the resulting binary via the ASM BREAK statement. When
 			 *  a JTAG is used, this causes the program execution to halt when reached until manually resumed. */
 			#define JTAG_DEBUG_BREAK()      asm volatile ("BREAK" ::)
 			

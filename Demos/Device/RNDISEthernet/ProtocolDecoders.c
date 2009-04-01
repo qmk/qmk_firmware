@@ -29,7 +29,7 @@
 */
 
 /* Protocol decoders for Ethernet, TCP, IP, ICMP and ARP. Each of these routines
-   accepts a header to the appropriate protocol and prints out pertient information
+   accepts a header to the appropriate protocol and prints out pertinent information
    on the packet through the serial port.
    
    To disable printing of a specific protocol, define the token NO_DECODE_{Protocol}
@@ -39,7 +39,7 @@
 /** \file
  *
  *  Protocol decoding routines, for the plain-text decoding of Ethernet frames for debugging purposes.
- *  Enabled protocol decoders will print incomming Ethernet frame contents through the USART in a human
+ *  Enabled protocol decoders will print incoming Ethernet frame contents through the USART in a human
  *  readable format.
  *
  *  Note that the USART is a slow transmission medium, and will slow down packet processing considerably.

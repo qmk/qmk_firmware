@@ -40,8 +40,8 @@
 /** Processes a DHCP packet inside an Ethernet frame, and writes the appropriate response
  *  to the output Ethernet frame if the host is requesting or accepting an IP address.
  *
- *  \param IPHeaderInStart     Pointer to the start of the incomming packet's IP header
- *  \param DHCPHeaderInStart   Pointer to the start of the incomming packet's DHCP header
+ *  \param IPHeaderInStart     Pointer to the start of the incoming packet's IP header
+ *  \param DHCPHeaderInStart   Pointer to the start of the incoming packet's DHCP header
  *  \param DHCPHeaderOutStart  Pointer to the start of the outgoing packet's DHCP header
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise
@@ -72,12 +72,12 @@ int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart, void* DHCPHeaderInStart, v
 	memcpy(&DHCPHeaderOUT->ClientHardwareAddress, &DHCPHeaderIN->ClientHardwareAddress, sizeof(MAC_Address_t));
 	DHCPHeaderOUT->Cookie                = SwapEndian_32(DHCP_MAGIC_COOKIE);
 	
-	/* Alter the incomming IP packet header so that the corrected IP source and destinations are used - this means that
+	/* Alter the incoming IP packet header so that the corrected IP source and destinations are used - this means that
 	   when the response IP header is generated, it will use the corrected addresses and not the null/broatcast addresses */
 	IPHeaderIN->SourceAddress      = ClientIPAddress;
 	IPHeaderIN->DestinationAddress = ServerIPAddress;
 
-	/* Process the incomming DHCP packet options */
+	/* Process the incoming DHCP packet options */
 	while (DHCPOptionsINStart[0] != DHCP_OPTION_END)
 	{	
 		/* Find the Message Type DHCP option, to determine the type of DHCP packet */

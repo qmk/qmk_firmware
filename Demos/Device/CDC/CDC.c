@@ -56,7 +56,7 @@ TASK_LIST
  *
  *  These values are set by the host via a class-specific request, however they are not required to be used accurately.
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
- *  serial link characteristics and instead sends and recieves data in endpoint streams.
+ *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
 CDC_Line_Coding_t LineCoding = { BaudRateBPS: 9600,
                                  CharFormat:  OneStopBit,
@@ -66,7 +66,7 @@ CDC_Line_Coding_t LineCoding = { BaudRateBPS: 9600,
 /** String to print through the virtual serial port when the joystick is pressed upwards. */
 char JoystickUpString[]      = "Joystick Up\r\n";
 
-/** String to print through the virtual serial port when the joystick is pressed downwards. */
+/** String to print through the virtual serial port when the joystick is pressed downward. */
 char JoystickDownString[]    = "Joystick Down\r\n";
 
 /** String to print through the virtual serial port when the joystick is pressed left. */

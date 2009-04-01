@@ -68,7 +68,7 @@
 		#error The selected board does not contain a HWB.
 	#endif
 	
-	/* Psudo-Functions for Doxygen: */
+	/* Pseudo-Functions for Doxygen: */
 	#if defined(__DOXYGEN__)
 		/** Initializes the HWB driver, so that the current button position can be read. This sets the appropriate
 		 *  I/O pin to an input with pull-up enabled.

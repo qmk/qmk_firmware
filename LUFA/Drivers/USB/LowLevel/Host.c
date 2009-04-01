@@ -93,8 +93,8 @@ void USB_Host_ResetDevice(void)
 	
 	for (uint8_t MSRem = 10; MSRem != 0; MSRem--)
 	{
-		/* Workaround for powerless-pullup devices. After a USB bus reset,
-		   all disconnection interrupts are supressed while a USB frame is
+		/* Workaround for powerless-pull-up devices. After a USB bus reset,
+		   all disconnection interrupts are suppressed while a USB frame is
 		   looked for - if it is found within 10ms, the device is still
 		   present.                                                        */
 

@@ -117,7 +117,7 @@
 		} USB_AudioStreamEndpoint_Std_t;
 
 		/** Type define for an Audio class specific MIDI IN jack. This gives information to the host on a MIDI input, either
-		 *  a physical input jack, or a logical jack (recieving input data internally, or from the host via an endpoint).
+		 *  a physical input jack, or a logical jack (receiving input data internally, or from the host via an endpoint).
 		 */
 		typedef struct
 		{

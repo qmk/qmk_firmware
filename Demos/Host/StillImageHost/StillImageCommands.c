@@ -111,7 +111,7 @@ uint8_t SImage_RecieveBlockHeader(void)
 		/* Check to see if a new frame has been issued (1ms elapsed) */
 		if (USB_INT_HasOccurred(USB_INT_HSOFI))
 		{
-			/* Clear the flag and decrement the timout period counter */
+			/* Clear the flag and decrement the timeout period counter */
 			USB_INT_Clear(USB_INT_HSOFI);
 			TimeoutMSRem--;
 

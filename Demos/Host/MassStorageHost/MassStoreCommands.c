@@ -37,8 +37,8 @@
  *  to a FAT library to give file-level access to an attached device's contents.
  *
  *  \note Many Mass Storage devices on the market are non-compliant to the
- *        specifications and thus can proove difficult to interface with. It
- *        may be neccesary to retry the functions in the module several times
+ *        specifications and thus can prove difficult to interface with. It
+ *        may be necessary to retry the functions in the module several times
  *        after they have returned and error to successfully send the command
  *        to the device. Some devices may also need to have the stream function
  *        timeout period extended beyond 100ms (some badly designed devices exceeding
@@ -52,17 +52,17 @@
 
 /* Globals: */
 /** Current CBW to send to the device. This is automatically filled by the routines
- *  in this file and is not externally accessable.
+ *  in this file and is not externally accessible.
  */
 static CommandBlockWrapper_t  SCSICommandBlock;
 
 /** Current CSW received from the device. This is automatically filled by the routines
- *  in this file and is externally accessable so that the return codes may be checked.
+ *  in this file and is externally accessible so that the return codes may be checked.
  */
 CommandStatusWrapper_t        SCSICommandStatus;
 
 /** Current Tag value used in issued CBWs to the device. This is automatically incremented
- *  by the routines in this file, and is not externally accessable.
+ *  by the routines in this file, and is not externally accessible.
  */
 static uint32_t               MassStore_Tag = 1;
 
@@ -122,7 +122,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 		/* Check to see if a new frame has been issued (1ms elapsed) */
 		if (USB_INT_HasOccurred(USB_INT_HSOFI))
 		{
-			/* Clear the flag and decrement the timout period counter */
+			/* Clear the flag and decrement the timeout period counter */
 			USB_INT_Clear(USB_INT_HSOFI);
 			TimeoutMSRem--;
 

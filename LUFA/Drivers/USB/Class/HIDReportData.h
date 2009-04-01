@@ -84,7 +84,7 @@
 			/** HID_ReportItem_t.ItemFlags flag for buffered bytes. */
 			#define IOF_BUFFEREDBYTES        (1 << 8)
 
-			/** HID_ReportItem_t.ItemFlags flag for bitfield data. */
+			/** HID_ReportItem_t.ItemFlags flag for bit field data. */
 			#define IOF_BITFIELD             (0 << 8)
 
 	/* Private Interface - For use in library only: */

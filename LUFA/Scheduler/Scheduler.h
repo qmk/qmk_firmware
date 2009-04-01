@@ -30,10 +30,10 @@
 
 /** \file
  *
- *  Simple round-robbin cooperative scheduler for use in basic projects where non realtime tasks need
+ *  Simple round-robbin cooperative scheduler for use in basic projects where non real-time tasks need
  *  to be executed. Each task is executed in sequence, and can be enabled or disabled individually or as a group.
  *
- *  For a task to yield it must return, thus each task should have persistant data marked with the static attribute.
+ *  For a task to yield it must return, thus each task should have persistent data marked with the static attribute.
  *
  *  Usage Example:
  *  \code
@@ -126,8 +126,8 @@
 			#define Scheduler_Start()                 Scheduler_GoSchedule(TOTAL_TASKS);
 			
 			/** Initializes the scheduler so that the scheduler functions can be called before the scheduler itself
-			 *  is started. This must be exeucted before any scheduler function calls other than Scheduler_Start(),
-			 *  and can be ommitted if no such functions could be called before the scheduler is started.
+			 *  is started. This must be executed before any scheduler function calls other than Scheduler_Start(),
+			 *  and can be omitted if no such functions could be called before the scheduler is started.
 			 */
 			#define Scheduler_Init()                  Scheduler_InitScheduler(TOTAL_TASKS);
 
@@ -194,7 +194,7 @@
 			 *
 			 *  Usage Example:
 			 *  \code
-			 *      static SchedulerDelayCounter_t DelayCounter = 10000; // Force immediate run on startup
+			 *      static SchedulerDelayCounter_t DelayCounter = 10000; // Force immediate run on start-up
 			 *				 
 			 *      // Task runs every 10000 ticks, 10 seconds for this demo
 			 *      if (Scheduler_HasDelayElapsed(10000, &DelayCounter))

@@ -39,7 +39,7 @@
 /** Processes an IP packet inside an Ethernet frame, and writes the appropriate response
  *  to the output Ethernet frame if one is created by a subprotocol handler.
  *
- *  \param InDataStart   Pointer to the start of the incomming packet's IP header
+ *  \param InDataStart   Pointer to the start of the incoming packet's IP header
  *  \param OutDataStart  Pointer to the start of the outgoing packet's IP header
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE if no

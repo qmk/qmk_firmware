@@ -32,7 +32,7 @@
  *
  *  Functions, macros and enums related to pipe management when in USB Host mode. This
  *  module contains the pipe management macros, as well as pipe interrupt and data
- *  send/recieve functions for various datatypes.
+ *  send/recieve functions for various data types.
  */
  
 #ifndef __PIPE_H__
@@ -303,7 +303,7 @@
 			/** Returns true if the master pipe error flag is set for the currently selected pipe, indicating that
 			 *  some sort of hardware error has occurred on the pipe.
 			 *
-			 *  \see Pipe_GetErrorFlags() macro for information on retreiving the exact error flag.
+			 *  \see Pipe_GetErrorFlags() macro for information on retrieving the exact error flag.
 			 */
 			#define Pipe_IsError()                 ((UPINTX & (1 << PERRI)) ? true : false)
 			
@@ -311,14 +311,14 @@
 			 *  flag for the pipe. */
 			#define Pipe_ClearErrorFlags()         MACROS{ UPERRX = 0; }MACROE
 
-			/** Returns a mask of the hardware error flags which have occured on the currently selected pipe. This
+			/** Returns a mask of the hardware error flags which have occurred on the currently selected pipe. This
 			 *  value can then be masked against the PIPE_ERRORFLAG_* masks to determine what error has occurred.
 			 */
 			#define Pipe_GetErrorFlags()           UPERRX
 
 			/** Returns true if the currently selected pipe may be read from (if data is waiting in the pipe
 			 *  bank and the pipe is an IN direction, or if the bank is not yet full if the pipe is an OUT
-			 *  direction). This function will return false if an error has occured in the pipe, or if the pipe
+			 *  direction). This function will return false if an error has occurred in the pipe, or if the pipe
 			 *  is an IN direction and no packet has been received, or if the pipe is an OUT direction and the
 			 *  pipe bank is full.
 			 */
@@ -358,9 +358,9 @@
 			#define Pipe_ClearSetupOUT()           MACROS{ UPINTX &= ~(1 << TXOUTI); UPINTX &= ~(1 << FIFOCON); }MACROE
 			
 			/** Returns true if the device sent a NAK (Negative Acknowledge) in response to the last sent packet on
-			 *  the currently selected pipe. This ocurrs when the host sends a packet to the device, but the device
+			 *  the currently selected pipe. This occurs when the host sends a packet to the device, but the device
 			 *  is not currently ready to handle the packet (i.e. its endpoint banks are full). Once a NAK has been
-			 *  received, it must be cleard using Pipe_ClearNAKReceived() before the previous (or any other) packet
+			 *  received, it must be cleared using Pipe_ClearNAKReceived() before the previous (or any other) packet
 			 *  can be re-sent.
 			 */
 			#define Pipe_IsNAKReceived()           ((UPINTX & (1 << NAKEDI)) ? true : false)
@@ -607,11 +607,11 @@
 			 *
 			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter ommitted.
+			 *  and this function has the Callback parameter omitted.
 			 *
 			 *  \param Buffer    Pointer to the source data buffer to read from.
 			 *  \param Length    Number of bytes to read for the currently selected pipe into the buffer.
-			 *  \param Callback  Name of a callback routine to call between sucessive USB packet transfers, NULL if no callback
+			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -629,11 +629,11 @@
 			 *
 			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter ommitted.
+			 *  and this function has the Callback parameter omitted.
 			 *
 			 *  \param Buffer    Pointer to the source data buffer to read from.
 			 *  \param Length    Number of bytes to read for the currently selected pipe into the buffer.
-			 *  \param Callback  Name of a callback routine to call between sucessive USB packet transfers, NULL if no callback
+			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -651,10 +651,10 @@
 			 *
 			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter ommitted.
+			 *  and this function has the Callback parameter omitted.
 			 *
 			 *  \param Length  Number of bytes to send via the currently selected pipe.
-			 *  \param Callback  Name of a callback routine to call between sucessive USB packet transfers, NULL if no callback
+			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -672,11 +672,11 @@
 			 *
 			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter ommitted.
+			 *  and this function has the Callback parameter omitted.
 			 *
 			 *  \param Buffer    Pointer to the source data buffer to write to.
 			 *  \param Length    Number of bytes to read for the currently selected pipe to read from.
-			 *  \param Callback  Name of a callback routine to call between sucessive USB packet transfers, NULL if no callback
+			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -694,11 +694,11 @@
 			 *
 			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter ommitted.
+			 *  and this function has the Callback parameter omitted.
 			 *
 			 *  \param Buffer    Pointer to the source data buffer to write to.
 			 *  \param Length    Number of bytes to read for the currently selected pipe to read from.
-			 *  \param Callback  Name of a callback routine to call between sucessive USB packet transfers, NULL if no callback
+			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -722,27 +722,27 @@
 			#define Pipe_Ignore_DWord()                Pipe_Discard_DWord()
 
 			/** Alias for Pipe_Read_Word_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#define Pipe_Read_Word()                   Pipe_Read_Word_LE()
 
 			/** Alias for Pipe_Write_Word_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#define Pipe_Write_Word(Word)              Pipe_Write_Word_LE(Word)
 
 			/** Alias for Pipe_Read_DWord_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#define Pipe_Read_DWord()                  Pipe_Read_DWord_LE()
 
 			/** Alias for Pipe_Write_DWord_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#define Pipe_Write_DWord(DWord)            Pipe_Write_DWord_LE(DWord)
 
 			/** Alias for Pipe_Read_Stream_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#if !defined(NO_STREAM_CALLBACKS)
 				#define Pipe_Read_Stream(Buffer, Length, Callback) Pipe_Read_Stream_LE(Buffer, Length, Callback)
@@ -751,7 +751,7 @@
 			#endif
 
 			/** Alias for Pipe_Write_Stream_LE(). By default USB transfers use little endian format, thus
-			 *  the command with no endianness specifier indicates little endian mode.
+			 *  the command with no endianness specified indicates little endian mode.
 			 */
 			#if !defined(NO_STREAM_CALLBACKS)
 				#define Pipe_Write_Stream(Buffer, Length, Callback) Pipe_Read_Stream_LE(Buffer, Length, Callback)

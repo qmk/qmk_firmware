@@ -539,7 +539,7 @@ static void LoadStartEndAddresses(void)
 	EndAddr   = Address[1].Word;
 }
 
-/** Handler for a Memory Program command issued by the host. This routine handles the preperations needed
+/** Handler for a Memory Program command issued by the host. This routine handles the preparations needed
  *  to write subsequent data from the host into the specified memory.
  */
 static void ProcessMemProgCommand(void)
@@ -569,7 +569,7 @@ static void ProcessMemProgCommand(void)
 	}
 }
 
-/** Handler for a Memory Read command issued by the host. This routine handles the preperations needed
+/** Handler for a Memory Read command issued by the host. This routine handles the preparations needed
  *  to read subsequent data from the specified memory out to the host, as well as implementing the memory
  *  blank check command.
  */

@@ -31,14 +31,14 @@
 /** \file
  *
  *  Ethernet frame packet handling routines. This protocol handles the processing of raw Ethernet
- *  frames sent and receieved, deferring the processing of subpacket protocols to the appropriate
+ *  frames sent and received, deferring the processing of subpacket protocols to the appropriate
  *  protocol handlers, such as DHCP or ARP.
  */
  
 #include "Ethernet.h"
 
 /* Global Variables: */
-/** Ethernet Frame buffer structure, to hold the incomming Ethernet frame from the host. */
+/** Ethernet Frame buffer structure, to hold the incoming Ethernet frame from the host. */
 Ethernet_Frame_Info_t FrameIN;
 
 /** Ethernet Frame buffer structure, to hold the outgoing Ethernet frame to the host. */
@@ -60,14 +60,14 @@ const IP_Address_t  BroadcastIPAddress  = {BROADCAST_IP_ADDRESS};
 const IP_Address_t  ClientIPAddress     = {CLIENT_IP_ADDRESS};
 
 
-/** Processes an incomming Ethernet frame, and writes the appropriate response to the output Ethernet
+/** Processes an incoming Ethernet frame, and writes the appropriate response to the output Ethernet
  *  frame buffer if the sub protocol handlers create a valid response.
  */
 void Ethernet_ProcessPacket(void)
 {
 	DecodeEthernetFrameHeader(FrameIN.FrameData);
 
-	/* Cast the incomming Ethernet frame to the Ethernet header type */
+	/* Cast the incoming Ethernet frame to the Ethernet header type */
 	Ethernet_Frame_Header_t* FrameINHeader  = (Ethernet_Frame_Header_t*)&FrameIN.FrameData;
 	Ethernet_Frame_Header_t* FrameOUTHeader = (Ethernet_Frame_Header_t*)&FrameOUT.FrameData;
 	
@@ -91,7 +91,7 @@ void Ethernet_ProcessPacket(void)
 				break;
 		}
 		
-		/* Protcol processing routine has filled a response, complete the ethernet frame header */
+		/* Protocol processing routine has filled a response, complete the ethernet frame header */
 		if (RetSize > 0)
 		{
 			/* Fill out the response Ethernet frame header */
