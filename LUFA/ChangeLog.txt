@@ -7,8 +7,12 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *
   *  - Added new GenericHIDHost demo
   *  - Corrections to the KeyboardHost and MouseHost demos' pipe handling to freeze and unfreeze the data pipes at the point of use
+  *  - KeyboardHost, MouseHost and GenericHIDHost demos now save and restore the currently selected pipe inside the pipe ISR
+  *  - Changed GenericHID device demo to use the LUFA scheduler, added INTERRUPT_DATA_ENDPOINT and INTERRUPT_CONTROL_ENDPOINT compile
+  *    time options
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *

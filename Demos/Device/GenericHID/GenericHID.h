@@ -47,6 +47,7 @@
 		#include "Descriptors.h"
 
 		#include <LUFA/Version.h>                    // Library Version Information
+		#include <LUFA/Scheduler/Scheduler.h>        // Simple scheduler for task management
 		#include <LUFA/Common/ButtLoadTag.h>         // PROGMEM tags readable by the ButtLoad project
 		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
 		#include <LUFA/Drivers/Board/LEDs.h>         // LEDs driver
@@ -79,6 +80,9 @@
 
 		/** Indicates that this module will catch the USB_ConfigurationChanged event when thrown by the library. */
 		HANDLES_EVENT(USB_ConfigurationChanged);
+	
+	/* Task Definitions: */
+		TASK(USB_HID_Report);
 
 	/* Function Prototypes: */
 		void UpdateStatus(uint8_t CurrentStatus);

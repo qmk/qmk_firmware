@@ -350,6 +350,9 @@ TASK(USB_HID_Host)
  */
 ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 {
+	/* Save previously selected pipe before selecting a new pipe */
+	uint8_t PrevSelectedPipe = Pipe_GetCurrentPipe();
+
 	/* Check to see if the HID data IN pipe has caused the interrupt */
 	if (Pipe_HasPipeInterrupted(HID_DATA_IN_PIPE))
 	{
@@ -367,5 +370,8 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 			ReadNextReport();
 		}
 	}
+
+	/* Restore previously selected pipe */
+	Pipe_SelectPipe(PrevSelectedPipe);
 }
 #endif

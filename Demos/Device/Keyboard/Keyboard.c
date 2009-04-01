@@ -545,4 +545,3 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 	}
 	#endif
 }
-

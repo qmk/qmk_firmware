@@ -350,6 +350,9 @@ TASK(USB_Keyboard_Host)
  */
 ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 {
+	/* Save previously selected pipe before selecting a new pipe */
+	uint8_t PrevSelectedPipe = Pipe_GetCurrentPipe();
+
 	/* Check to see if the keyboard data pipe has caused the interrupt */
 	if (Pipe_HasPipeInterrupted(KEYBOARD_DATAPIPE))
 	{
@@ -366,5 +369,8 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 			/* Read and process the next report from the device */
 			ReadNextReport();
 	}
+	
+	/* Restore previously selected pipe */
+	Pipe_SelectPipe(PrevSelectedPipe);
 }
 #endif
