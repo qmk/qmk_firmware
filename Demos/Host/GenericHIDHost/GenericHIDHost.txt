@@ -4,7 +4,7 @@
  *  documentation pages. It is not a project source file.
  */
  
-/** \mainpage Keyboard Host Demo
+/** \mainpage Generic HID Host Demo
  *
  *  \section SSec_Info USB Information:
  *
@@ -35,21 +35,12 @@
  *
  *  \section SSec_Description Project Description: 
  *
- *  Keyboard host demonstration application. This gives a simple reference
- *  application for implementing a USB keyboard, for USB keyboards using
- *  the standard keyboard HID profile.
- *  
- *  Pressed alpha-numeric, enter or space key is transmitted through the serial
- *  USART at serial settings 9600, 8, N, 1.
- *  
- *  This uses a naive method where the keyboard is set to Boot Protocol mode, so
- *  that the report structure is fixed and known. A better implementation
- *  uses the HID report parser for correct report data processing across
- *  all compatable mice with advanced characteristics, as shown in the
- *  KeyboardHostWithParser demo application.
- *  
- *  Currently only single interface keyboards are supported.
+ *  Generic HID host demonstration application. This gives a simple reference
+ *  application for implementing a Genric HID USB host, for any device implementing
+ *  the HID profile.
  *
+ *  Received reports from the attached device are printed to the serial port.
+ *  
  *  \section SSec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
@@ -63,7 +54,7 @@
  *   <tr>
  *    <td>INTERRUPT_DATA_ENDPOINT</td>
  *    <td>Makefile CDEFS</td>
- *    <td>When defined, this causes the demo to enable interrupts for the data pipe,
+ *    <td>When defined, this causes the demo to enable interrupts for the data IN pipe,
  *        which services reports from the device. If not defined, the data pipe is
  *        serviced via polling using the task scheduler.</td>
  *   </tr>

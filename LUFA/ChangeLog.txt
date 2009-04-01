@@ -6,6 +6,10 @@
    
  /** \page Page_ChangeLog Project Changelog
   *
+  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  - Added new GenericHIDHost demo
+  *  - Corrections to the KeyboardHost and MouseHost demos' pipe handling to freeze and unfreeze the data pipes at the point of use
+  *
   *  \section Sec_ChangeLog090401 Version 090401
   *
   *  - Fixed MagStripe project configuration descriptor containing an unused (blank) endpoint descriptor

@@ -30,14 +30,14 @@
 
 /** \file
  *
- *  Main source file for the MouseHost demo. This file contains the main tasks of
+ *  Main source file for the GenericHIDHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
  
-#include "MouseHost.h"
+#include "GenericHIDHost.h"
 
 /* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA Mouse Host App");
+BUTTLOADTAG(ProjName,    "LUFA GenHid Host App");
 BUTTLOADTAG(BuildTime,   __TIME__);
 BUTTLOADTAG(BuildDate,   __DATE__);
 BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
@@ -46,7 +46,7 @@ BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
 TASK_LIST
 {
 	{ Task: USB_USBTask          , TaskStatus: TASK_STOP },
-	{ Task: USB_Mouse_Host       , TaskStatus: TASK_STOP },
+	{ Task: USB_HID_Host         , TaskStatus: TASK_STOP },
 };
 
 
@@ -77,7 +77,7 @@ int main(void)
 
 	/* Startup message */
 	puts_P(PSTR(ESC_RESET ESC_BG_WHITE ESC_INVERSE_ON ESC_ERASE_DISPLAY
-	       "Mouse Host Demo running.\r\n" ESC_INVERSE_OFF));
+	       "Generic HID Host Demo running.\r\n" ESC_INVERSE_OFF));
 		   
 	/* Scheduling - routine never returns, so put this last in the main function */
 	Scheduler_Start();
@@ -100,9 +100,9 @@ EVENT_HANDLER(USB_DeviceAttached)
  */
 EVENT_HANDLER(USB_DeviceUnattached)
 {
-	/* Stop mouse and USB management task */
+	/* Stop HID and USB management task */
 	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-	Scheduler_SetTaskMode(USB_Mouse_Host, TASK_STOP);
+	Scheduler_SetTaskMode(USB_HID_Host, TASK_STOP);
 
 	puts_P(PSTR("Device Unattached.\r\n"));
 	UpdateStatus(Status_USBNotReady);
@@ -113,8 +113,8 @@ EVENT_HANDLER(USB_DeviceUnattached)
  */
 EVENT_HANDLER(USB_DeviceEnumerationComplete)
 {
-	/* Start Mouse Host task */
-	Scheduler_SetTaskMode(USB_Mouse_Host, TASK_RUN);
+	/* Start HID Host task */
+	Scheduler_SetTaskMode(USB_HID_Host, TASK_RUN);
 
 	/* Indicate device enumeration complete */
 	UpdateStatus(Status_USBReady);
@@ -148,7 +148,7 @@ EVENT_HANDLER(USB_DeviceEnumerationFailed)
 /** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
  *  log to a serial port, or anything else that is suitable for status updates.
  *
- *  \param CurrentStatus  Current status of the system, from the MouseHost_StatusCodes_t enum
+ *  \param CurrentStatus  Current status of the system, from the GenericHIDHost_StatusCodes_t enum
  */
 void UpdateStatus(uint8_t CurrentStatus)
 {
@@ -181,67 +181,96 @@ void UpdateStatus(uint8_t CurrentStatus)
  */
 void ReadNextReport(void)
 {
-	USB_MouseReport_Data_t MouseReport;
-	uint8_t                LEDMask = LEDS_NO_LEDS;
-
-	/* Select mouse data pipe */
-	Pipe_SelectPipe(MOUSE_DATAPIPE);	
-
-	#if !defined(INTERRUPT_DATA_PIPE)
-	/* Unfreeze mouse data pipe */
+	/* Select and unfreeze HID data IN pipe */
+	Pipe_SelectPipe(HID_DATA_IN_PIPE);
 	Pipe_Unfreeze();
-	#endif
 
 	/* Ensure pipe contains data and is ready to be read before continuing */
 	if (!(Pipe_ReadWriteAllowed()))
 	{
 		#if !defined(INTERRUPT_DATA_PIPE)
-		/* Refreeze mouse data pipe */
+		/* Refreeze HID data IN pipe */
 		Pipe_Freeze();
 		#endif
-
+		
 		return;
 	}
+	
+	uint8_t ReportINData[Pipe_BytesInPipe()];
 
-	/* Read in mouse report data */
-	Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport));				
+	/* Read in HID report data */
+	Pipe_Read_Stream_LE(&ReportINData, sizeof(ReportINData));				
 		
 	/* Clear the IN endpoint, ready for next data packet */
 	Pipe_ClearCurrentBank();
-		
-	/* Alter status LEDs according to mouse X movement */
-	if (MouseReport.X > 0)
-	  LEDMask |= LEDS_LED1;
-	else if (MouseReport.X < 0)
-	  LEDMask |= LEDS_LED2;
-		
-	/* Alter status LEDs according to mouse Y movement */
-	if (MouseReport.Y > 0)
-	  LEDMask |= LEDS_LED3;
-	else if (MouseReport.Y < 0)
-	  LEDMask |= LEDS_LED4;
-
-	/* Alter status LEDs according to mouse button position */
-	if (MouseReport.Button)
-	  LEDMask  = LEDS_ALL_LEDS;
 	
-	LEDs_SetAllLEDs(LEDMask);
+	/* Print report data through the serial port */
+	for (uint16_t CurrByte = 0; CurrByte < sizeof(ReportINData); CurrByte++)
+	  printf_P(PSTR("0x%02X "), ReportINData[CurrByte]);
 	
-	/* Print mouse report data through the serial port */
-	printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
-												  MouseReport.Y,
-												  MouseReport.Button);
-
+	puts_P(PSTR("\r\n"));
+	
 	#if !defined(INTERRUPT_DATA_PIPE)
-	/* Refreeze mouse data pipe */
+	/* Refreeze HID data IN pipe */
 	Pipe_Freeze();
 	#endif
 }
 
-/** Task to set the configuration of the attached device after it has been enumerated, and to read and process
- *  HID reports from the device and display the results onto the board LEDs.
+/** Writes a report to the attached device.
+ *
+ *  \param ReportOUTData  Buffer containing the report to send to the device
+ *  \param ReportLength  Length of the report to send
  */
-TASK(USB_Mouse_Host)
+void WriteNextReport(uint8_t ReportOUTData, uint16_t ReportLength)
+{
+	/* Select and unfreeze HID data OUT pipe */
+	Pipe_SelectPipe(HID_DATA_IN_PIPE);
+	
+	/* Not all HID devices have an OUT endpoint (some require OUT reports to be sent over the
+	 * control endpoint instead) - check to see if the OUT endpoint has been initialized */
+	if (Pipe_IsConfigured())
+	{
+		Pipe_Unfreeze();
+
+		/* Ensure pipe is ready to be written to before continuing */
+		if (!(Pipe_ReadWriteAllowed()))
+		{
+			/* Refreeze the data OUT pipe */
+			Pipe_Freeze();
+			
+			return;
+		}
+
+		/* Read in HID report data */
+		Pipe_Write_Stream_LE(&ReportOUTData, ReportLength);				
+			
+		/* Clear the OUT endpoint, send last data packet */
+		Pipe_ClearCurrentBank();
+
+		/* Refreeze the data OUT pipe */
+		Pipe_Freeze();
+	}
+	else
+	{
+		/* Class specific request to send a HID report to the device */
+		USB_HostRequest = (USB_Host_Request_Header_t)
+			{
+				bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+				bRequest:      REQ_SetReport,
+				wValue:        0,
+				wIndex:        0,
+				wLength:       ReportLength,
+			};
+
+		/* Send the request to the device */
+		USB_Host_SendControlRequest(ReportOUTData);
+	}
+}
+
+/** Task to set the configuration of the attached device after it has been enumerated, and to read and process
+ *  HID reports from the device and to send reports if desired.
+ */
+TASK(USB_HID_Host)
 {
 	uint8_t ErrorCode;
 
@@ -296,43 +325,18 @@ TASK(USB_Mouse_Host)
 				break;
 			}
 		
-			/* HID class request to set the mouse protocol to the Boot Protocol */
-			USB_HostRequest = (USB_Host_Request_Header_t)
-				{
-					bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-					bRequest:      REQ_SetProtocol,
-					wValue:        0,
-					wIndex:        0,
-					wLength:       0,
-				};
-
-			/* Send the request, display error and wait for device detatch if request fails */
-			if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
-			{
-				puts_P(PSTR("Control Error (Set Protocol).\r\n"));
-				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
-
-				/* Indicate error status */
-				UpdateStatus(Status_EnumerationError);
-				
-				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
-				break;
-			}
-
-			#if defined(INTERRUPT_DATA_PIPE)			
-			/* Select and unfreeze mouse data pipe */
-			Pipe_SelectPipe(MOUSE_DATAPIPE);	
+			#if defined(INTERRUPT_DATA_PIPE)					
+			/* Select and unfreeze HID data IN pipe */
+			Pipe_SelectPipe(HID_DATA_IN_PIPE);
 			Pipe_Unfreeze();
 			#endif
 
-			puts_P(PSTR("Mouse Enumerated.\r\n"));
-			
+			puts_P(PSTR("HID Device Enumerated.\r\n"));
+					
 			USB_HostState = HOST_STATE_Ready;
 			break;
 		#if !defined(INTERRUPT_DATA_PIPE)
 		case HOST_STATE_Ready:
-			/* If a report has been received, read and process it */
 			ReadNextReport();
 
 			break;
@@ -346,12 +350,12 @@ TASK(USB_Mouse_Host)
  */
 ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 {
-	/* Check to see if the mouse data pipe has caused the interrupt */
-	if (Pipe_HasPipeInterrupted(MOUSE_DATAPIPE))
+	/* Check to see if the HID data IN pipe has caused the interrupt */
+	if (Pipe_HasPipeInterrupted(HID_DATA_IN_PIPE))
 	{
-		/* Clear the pipe interrupt, and select the mouse pipe */
-		Pipe_ClearPipeInterrupt(MOUSE_DATAPIPE);
-		Pipe_SelectPipe(MOUSE_DATAPIPE);	
+		/* Clear the pipe interrupt, and select the data IN pipe */
+		Pipe_ClearPipeInterrupt(HID_DATA_IN_PIPE);
+		Pipe_SelectPipe(HID_DATA_IN_PIPE);	
 
 		/* Check to see if the pipe IN interrupt has fired */
 		if (USB_INT_HasOccurred(PIPE_INT_IN) && USB_INT_IsEnabled(PIPE_INT_IN))

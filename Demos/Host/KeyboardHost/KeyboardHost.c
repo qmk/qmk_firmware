@@ -183,13 +183,25 @@ void ReadNextReport(void)
 {
 	USB_KeyboardReport_Data_t KeyboardReport;
 		
-	/* Select the keyboard report data in pipe */
+	/* Select keyboard data pipe */
 	Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
+
+	#if !defined(INTERRUPT_DATA_PIPE)
+	/* Unfreeze keyboard data pipe */
+	Pipe_Unfreeze();
+	#endif
 
 	/* Ensure pipe contains data and is ready to be read before continuing */
 	if (!(Pipe_ReadWriteAllowed()))
-	  return;
+	{
+		#if !defined(INTERRUPT_DATA_PIPE)
+		/* Refreeze keyboard data pipe */
+		Pipe_Freeze();
+		#endif
 
+		return;
+	}
+	
 	/* Read in keyboard report data */
 	Pipe_Read_Stream_LE(&KeyboardReport, sizeof(KeyboardReport));
 					
@@ -224,6 +236,11 @@ void ReadNextReport(void)
 		if (PressedKey)
 		  putchar(PressedKey);
 	}
+	
+	#if !defined(INTERRUPT_DATA_PIPE)
+	/* Refreeze keyboard data pipe */
+	Pipe_Freeze();
+	#endif
 }
 
 /** Task to set the configuration of the attached device after it has been enumerated, and to read and process
@@ -307,22 +324,21 @@ TASK(USB_Keyboard_Host)
 				break;
 			}
 
+			#if defined(INTERRUPT_DATA_PIPE)			
+			/* Select and unfreeze keyboard data pipe */
+			Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
+			Pipe_Unfreeze();
+			#endif
+
 			puts_P(PSTR("Keyboard Enumerated.\r\n"));
-				
+
 			USB_HostState = HOST_STATE_Ready;
 			break;
 		#if !defined(INTERRUPT_DATA_PIPE)
 		case HOST_STATE_Ready:
-			/* Select and unfreeze keyboard data pipe */
-			Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
-			Pipe_Unfreeze();
-
 			/* If a report has been received, read and process it */
-			if (Pipe_ReadWriteAllowed())
-			  ReadNextReport();
+			ReadNextReport();
 
-			/* Freeze keyboard data pipe */
-			Pipe_Freeze();
 			break;
 		#endif
 	}

@@ -17,6 +17,9 @@ all:
 	make -C CDCHost clean
 	make -C CDCHost all	
 
+	make -C GenericHIDHost clean
+	make -C GenericHIDHost all	
+
 	make -C KeyboardHost clean
 	make -C KeyboardHostWithParser all	
 
@@ -34,6 +37,7 @@ all:
 
 %:
 	make -C CDCHost $@
+	make -C GenericHIDHost $@
 	make -C KeyboardHost $@
 	make -C KeyboardHostWithParser $@
 	make -C MassStorageHost $@

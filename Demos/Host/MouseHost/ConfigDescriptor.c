@@ -98,8 +98,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 	/* Enable the pipe IN interrupt for the data pipe */
 	USB_INT_Enable(PIPE_INT_IN);	
 	#endif
-
-	Pipe_Unfreeze();
 			
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;

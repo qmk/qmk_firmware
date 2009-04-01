@@ -43,12 +43,14 @@
  *
  *  This routine searches for a HID interface descriptor containing at least one Interrupt type IN endpoint.
  *
- *  \return An error code from the KeyboardHost_GetConfigDescriptorDataCodes_t enum.
+ *  \return An error code from the GenericHIDHost_GetConfigDescriptorDataCodes_t enum.
  */
 uint8_t ProcessConfigurationDescriptor(void)
 {
 	uint8_t* ConfigDescriptorData;
 	uint16_t ConfigDescriptorSize;
+	
+	uint8_t  FoundEndpoints = 0;
 	
 	/* Get Configuration Descriptor size from the device */
 	if (USB_Host_GetDeviceConfigDescriptor(&ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
@@ -68,36 +70,58 @@ uint8_t ProcessConfigurationDescriptor(void)
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return InvalidConfigDataReturned;
 	
-	/* Get the keyboard interface from the configuration descriptor */
-	if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextKeyboardInterface))
+	/* Get the HID interface from the configuration descriptor */
+	if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextHIDInterface))
 	{
 		/* Descriptor not found, error out */
 		return NoHIDInterfaceFound;
 	}
 
-	/* Get the keyboard interface's data endpoint descriptor */
-	if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                                   NextInterfaceKeyboardDataEndpoint))
+	while (FoundEndpoints != ((1 << HID_DATA_IN_PIPE) | (1 << HID_DATA_OUT_PIPE)))
 	{
-		/* Descriptor not found, error out */
-		return NoEndpointFound;
+		/* Get the next HID interface's data endpoint descriptor */
+		if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+										   NextInterfaceHIDDataEndpoint))
+		{
+			/* Not all HID devices have an OUT endpoint - if we've reached the end of the HID descriptor
+			 * but only found the mandatory IN endpoint, it's safe to continue with the device enumeration */
+			if (FoundEndpoints == (1 << HID_DATA_IN_PIPE))
+			  break;
+				
+			/* Descriptor not found, error out */
+			return NoEndpointFound;
+		}
+		
+		/* Retrieve the endpoint address from the endpoint descriptor */
+		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
+
+		/* If the endpoint is a IN type endpoint */
+		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
+		{
+			/* Configure the HID data IN pipe */
+			Pipe_ConfigurePipe(HID_DATA_IN_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
+							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+
+			Pipe_SetInfiniteINRequests();
+
+			#if defined(INTERRUPT_DATA_PIPE)
+			Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
+
+			/* Enable the pipe IN interrupt for the data pipe */
+			USB_INT_Enable(PIPE_INT_IN);	
+			#endif
+			
+			FoundEndpoints |= (1 << HID_DATA_IN_PIPE);
+		}
+		else
+		{
+			/* Configure the HID data OUT pipe */
+			Pipe_ConfigurePipe(HID_DATA_OUT_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_OUT,
+							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+			
+			FoundEndpoints |= (1 << HID_DATA_OUT_PIPE);		
+		}
 	}
-	
-	/* Retrieve the endpoint address from the endpoint descriptor */
-	USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
-
-	/* Configure the keyboard data pipe */
-	Pipe_ConfigurePipe(KEYBOARD_DATAPIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-	                   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-
-	Pipe_SetInfiniteINRequests();
-
-	#if defined(INTERRUPT_DATA_PIPE)
-	Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
-
-	/* Enable the pipe IN interrupt for the data pipe */
-	USB_INT_Enable(PIPE_INT_IN);	
-	#endif
 			
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;
@@ -107,22 +131,24 @@ uint8_t ProcessConfigurationDescriptor(void)
  *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
  *  descriptor processing if an incompatible descriptor configuration is found.
  *
- *  This comparator searches for the next Interface descriptor of the correct Keyboard HID Class and Protocol values.
+ *  This comparator searches for the next Interface descriptor of the correct HID Class value.
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-DESCRIPTOR_COMPARATOR(NextKeyboardInterface)
+DESCRIPTOR_COMPARATOR(NextHIDInterface)
 {
+	/* Determine if the current descriptor is an interface descriptor */
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
 		/* Check the HID descriptor class and protocol, break out if correct class/protocol interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == KEYBOARD_CLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == KEYBOARD_PROTOCOL))
+		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class == HID_CLASS)
 		{
+			/* Indicate that the descriptor being searched for has been found */
 			return Descriptor_Search_Found;
 		}
 	}
 	
+	/* Current descriptor does not match what this comparator is looking for */
 	return Descriptor_Search_NotFound;
 }
 
@@ -130,22 +156,25 @@ DESCRIPTOR_COMPARATOR(NextKeyboardInterface)
  *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
  *  descriptor processing if an incompatible descriptor configuration is found.
  *
- *  This comparator searches for the next IN Endpoint descriptor inside the current interface descriptor,
+ *  This comparator searches for the next Endpoint descriptor inside the current interface descriptor,
  *  aborting the search if another interface descriptor is found before the required endpoint.
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-DESCRIPTOR_COMPARATOR(NextInterfaceKeyboardDataEndpoint)
+DESCRIPTOR_COMPARATOR(NextInterfaceHIDDataEndpoint)
 {
+	/* Determine the type of the current descriptor */
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
-		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Endpoint_t).EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		  return Descriptor_Search_Found;
+		/* Indicate that the descriptor being searched for has been found */
+		return Descriptor_Search_Found;
 	}
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
+		/* Indicate that the search has failed prematurely and should be aborted */
 		return Descriptor_Search_Fail;
 	}
 
+	/* Current descriptor does not match what this comparator is looking for */
 	return Descriptor_Search_NotFound;
 }
