@@ -4,28 +4,27 @@
  *  documentation pages. It is not a project source file.
  */
 
-/** \page LUFAPoweredProjects User Projects Powered by LUFA
+/** \page Page_LUFAPoweredProjects User Projects Powered by LUFA
  *
  *  LUFA is currently in use all around the world, in many applications both commercial and non-commercial. Below is a
  *  list of known public LUFA powered projects, which all use the LUFA library in some way. Feel free to visit each project's
  *  home page for more information on each project.
  *
- *  If you have a project that you would like to add to this list, please contact my via the details on the main page of this
+ *  If you have a project that you would like to add to this list, please contact me via the details on the main page of this
  *  documentation.
  *
  *
- *  Benito #7, an AVR Programmer: http://www.dorkbotpdx.org/blog/feurig/benito_7_the_next_big_thing \n
- *  Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/ \n
- *  USB10 AKA "The Ferret", a USB162 development board: http://www.soc-machines.com \n
- *  Bicycle POV: http://www.code.google.com/p/bicycleledpov/ \n
- *  Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/ \n
- *  ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en \n
- *  Lightweight CC110x USB dongle for 868MHz Protocols: http://busware.de/tiki-index.php?page=CUL \n
- *  AVROpendous, an open design/source AT90USB162 development board: http://avropendous.org/ \n
- *  USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001 \n
- *  USB to Serial Bridge, via SPI and I2C: http://www.tty1.net/userial/ \n
- *  Teensy, another tiny AT90USB162 development board: http://www.pjrc.com/teensy/index.html \n
- *  SEGA Megadrive/Genesis Development Cartridge: http://www.spritesmind.net/_GenDev/forum/viewtopic.php?t=464 \n
- *  CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig \n
- *
+ *  - Benito #7, an AVR Programmer: http://www.dorkbotpdx.org/blog/feurig/benito_7_the_next_big_thing
+ *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
+ *  - USB10 AKA "The Ferret", a USB162 development board: http://www.soc-machines.com
+ *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
+ *  - Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
+ *  - ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
+ *  - Lightweight CC110x USB dongle for 868MHz Protocols: http://busware.de/tiki-index.php?page=CUL
+ *  - AVROpendous, an open design/source AT90USB162 development board: http://avropendous.org/
+ *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
+ *  - USB to Serial Bridge, via SPI and I2C: http://www.tty1.net/userial/
+ *  - Teensy, another tiny AT90USB162 development board: http://www.pjrc.com/teensy/index.html
+ *  - SEGA Megadrive/Genesis Development Cartridge: http://www.spritesmind.net/_GenDev/forum/viewtopic.php?t=464
+ *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
  */
