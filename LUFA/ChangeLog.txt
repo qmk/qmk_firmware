@@ -45,6 +45,7 @@
   *  - Fixed USBTask.h not conditionally including HostChapter9.h only when USB_CAN_BE_HOST is defined (thanks to Ian Gregg)
   *  - Fixed incorrect ADC driver init register manipulation (thanks to Tobias)
   *  - Added new GenericHID device demo application
+  *  - Fixed Still Image Host SImage_SendData() function not clearing the pipe bank after sending data
   *
   *
   *  \section Sec_ChangeLog090209 Version 090209

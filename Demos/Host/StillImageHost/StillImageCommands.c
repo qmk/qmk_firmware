@@ -202,6 +202,9 @@ void SImage_SendData(void* Buffer, uint16_t Bytes)
 	/* Write the data contents to the pipe */
 	Pipe_Write_Stream_LE(Buffer, Bytes);
 
+	/* Send the last packet to the attached device */
+	Pipe_ClearCurrentBank();
+
 	/* Freeze the pipe again after use */
 	Pipe_Freeze();
 }
