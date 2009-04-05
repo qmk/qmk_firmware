@@ -44,7 +44,8 @@
 		#include <stdbool.h>
 		
 		#include "LowLevel.h"
-		#include "StdRequestType.h"
+		#include "../HighLevel/USBMode.h"
+		#include "../HighLevel/StdRequestType.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

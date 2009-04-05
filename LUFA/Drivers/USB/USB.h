@@ -55,7 +55,13 @@
 		#endif
 		
 	/* Includes: */
-		#include "LowLevel/USBMode.h"
+		#include "Highlevel/USBMode.h"
+		#include "HighLevel/USBTask.h"
+		#include "HighLevel/USBInterrupt.h"
+		#include "HighLevel/Events.h"
+		#include "HighLevel/StdDescriptors.h"
+
+		#include "LowLevel/LowLevel.h"
 	
 		#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
 			#include "LowLevel/Host.h"
@@ -72,12 +78,6 @@
 		#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
 			#include "LowLevel/OTG.h"
 		#endif
-
-		#include "LowLevel/LowLevel.h"
-		#include "HighLevel/USBTask.h"
-		#include "HighLevel/USBInterrupt.h"
-		#include "HighLevel/Events.h"
-		#include "HighLevel/StdDescriptors.h"
 		
 #endif
 

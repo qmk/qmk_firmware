@@ -47,7 +47,7 @@
 		#include <avr/io.h>
 		
 		#include "../../../Common/Common.h"
-		#include "../LowLevel/USBMode.h"
+		#include "USBMode.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

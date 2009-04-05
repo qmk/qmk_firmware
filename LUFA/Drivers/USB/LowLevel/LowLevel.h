@@ -42,8 +42,10 @@
 		#include <avr/interrupt.h>
 		#include <stdbool.h>
 		
-		#include "USBMode.h"
+		#include "../HighLevel/USBMode.h"
+
 		#include "../../../Common/Common.h"
+		#include "../HighLevel/USBMode.h"
 		#include "../HighLevel/Events.h"
 		#include "../HighLevel/USBTask.h"
 		#include "../HighLevel/USBInterrupt.h"

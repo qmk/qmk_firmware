@@ -28,7 +28,6 @@
   this software.
 */
 
-#include "../LowLevel/USBMode.h"
 #include "USBInterrupt.h"
 
 void USB_INT_DisableAllInterrupts(void)

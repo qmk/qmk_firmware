@@ -28,7 +28,8 @@
   this software.
 */
 
-#include "../LowLevel/USBMode.h"
+#include "USBMode.h"
+
 #if defined(USB_CAN_BE_DEVICE)
 
 #include "StdDescriptors.h"

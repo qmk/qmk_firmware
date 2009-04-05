@@ -46,8 +46,8 @@
 		
 		#include "../HighLevel/StdDescriptors.h"
 		#include "../HighLevel/Events.h"
+		#include "../HighLevel/StdRequestType.h"
 		#include "LowLevel.h"
-		#include "StdRequestType.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

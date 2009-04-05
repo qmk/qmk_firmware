@@ -28,7 +28,8 @@
   this software.
 */
 
-#include "USBMode.h"
+#include "../HighLevel/USBMode.h"
+
 #if defined(USB_CAN_BE_HOST)
 
 #define  INCLUDE_FROM_HOSTCHAPTER9_C

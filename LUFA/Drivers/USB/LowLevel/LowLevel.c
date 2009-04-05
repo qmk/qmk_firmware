@@ -28,8 +28,6 @@
   this software.
 */
 
-#include "USBMode.h"
-
 #include "LowLevel.h"
 
 #if (!defined(USB_HOST_ONLY) && !defined(USB_DEVICE_ONLY))

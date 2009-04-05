@@ -43,7 +43,7 @@
 		
 		#include "../../../Common/Common.h"
 		#include "../LowLevel/LowLevel.h"
-		#include "../LowLevel/USBMode.h"
+		#include "USBMode.h"
 		#include "Events.h"
 		
 	/* Enable C linkage for C++ Compilers: */

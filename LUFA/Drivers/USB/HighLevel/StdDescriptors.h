@@ -52,7 +52,7 @@
 		#include <stdbool.h>
 
 		#include "../../../Common/Common.h"
-		#include "../LowLevel/USBMode.h"
+		#include "USBMode.h"
 		#include "Events.h"
 		
 		#if defined(USB_CAN_BE_DEVICE)

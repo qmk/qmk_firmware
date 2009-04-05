@@ -27,7 +27,9 @@
   arising out of or in connection with the use or performance of
   this software.
 */
-#include "USBMode.h"
+
+#include "../HighLevel/USBMode.h"
+
 #if defined(USB_CAN_BE_HOST)
 
 #define  INCLUDE_FROM_PIPE_C

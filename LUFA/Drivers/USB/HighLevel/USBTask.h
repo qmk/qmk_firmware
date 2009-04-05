@@ -46,7 +46,7 @@
 		
 		#include "../../../Scheduler/Scheduler.h"
 		#include "../LowLevel/LowLevel.h"
-		#include "../LowLevel/USBMode.h"
+		#include "USBMode.h"
 		#include "Events.h"
 		#include "StdDescriptors.h"
 
