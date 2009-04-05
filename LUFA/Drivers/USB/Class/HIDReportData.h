@@ -90,39 +90,41 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define DATA_SIZE_MASK           0b00000011
-			#define TYPE_MASK                0b00001100
-			#define TAG_MASK                 0b11110000
+			#define DATA_SIZE_MASK           0x03
+			#define TYPE_MASK                0x0C
+			#define TAG_MASK                 0xF0
 
-			#define DATA_SIZE_0              0b00000000
-			#define DATA_SIZE_1              0b00000001
-			#define DATA_SIZE_2              0b00000010
-			#define DATA_SIZE_4              0b00000011
+			#define DATA_SIZE_0              0x00
+			#define DATA_SIZE_1              0x01
+			#define DATA_SIZE_2              0x02
+			#define DATA_SIZE_4              0x03
 			
-			#define TYPE_MAIN                0b00000000
-			#define TYPE_GLOBAL              0b00000100
-			#define TYPE_LOCAL               0b00001000
+			#define TYPE_MAIN                0x00
+			#define TYPE_GLOBAL              0x04
+			#define TYPE_LOCAL               0x08
 			
-			#define TAG_MAIN_INPUT           0b10000000
-			#define TAG_MAIN_OUTPUT          0b10010000
-			#define TAG_MAIN_COLLECTION      0b10100000
-			#define TAG_MAIN_FEATURE         0b10110000
-			#define TAG_MAIN_ENDCOLLECTION   0b11000000
-			#define TAG_GLOBAL_USAGEPAGE     0b00000000
-			#define TAG_GLOBAL_LOGICALMIN    0b00010000
-			#define TAG_GLOBAL_LOGICALMAX    0b00100000
-			#define TAG_GLOBAL_PHYSMIN       0b00110000
-			#define TAG_GLOBAL_PHYSMAX       0b01000000
-			#define TAG_GLOBAL_UNITEXP       0b01010000
-			#define TAG_GLOBAL_UNIT          0b01100000
-			#define TAG_GLOBAL_REPORTSIZE    0b01110000
-			#define TAG_GLOBAL_REPORTID      0b10000000
-			#define TAG_GLOBAL_REPORTCOUNT   0b10010000
-			#define TAG_GLOBAL_PUSH          0b10100000
-			#define TAG_GLOBAL_POP           0b10110000
-			#define TAG_LOCAL_USAGE          0b00000000
-			#define TAG_LOCAL_USAGEMIN       0b00010000
-			#define TAG_LOCAL_USAGEMAX       0b00100000
+			#define TAG_MAIN_INPUT           0x80
+			#define TAG_MAIN_OUTPUT          0x90
+			#define TAG_MAIN_COLLECTION      0xA0
+			#define TAG_MAIN_FEATURE         0xB0
+			#define TAG_MAIN_ENDCOLLECTION   0xC0
+
+			#define TAG_GLOBAL_USAGEPAGE     0x00
+			#define TAG_GLOBAL_LOGICALMIN    0x10
+			#define TAG_GLOBAL_LOGICALMAX    0x20
+			#define TAG_GLOBAL_PHYSMIN       0x30
+			#define TAG_GLOBAL_PHYSMAX       0x40
+			#define TAG_GLOBAL_UNITEXP       0x50
+			#define TAG_GLOBAL_UNIT          0x60
+			#define TAG_GLOBAL_REPORTSIZE    0x70
+			#define TAG_GLOBAL_REPORTID      0x80
+			#define TAG_GLOBAL_REPORTCOUNT   0x90
+			#define TAG_GLOBAL_PUSH          0xA0
+			#define TAG_GLOBAL_POP           0xB0
+			
+			#define TAG_LOCAL_USAGE          0x00
+			#define TAG_LOCAL_USAGEMIN       0x10
+			#define TAG_LOCAL_USAGEMAX       0x20
 	#endif
 		
 #endif

@@ -95,7 +95,7 @@
 			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  numerical address in the device.
 			 */
-			#define ENDPOINT_EPNUM_MASK                   0b111
+			#define ENDPOINT_EPNUM_MASK                   0x03
 
 			/** Endpoint bank size mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  bank size in the device.

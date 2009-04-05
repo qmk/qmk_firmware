@@ -52,6 +52,11 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
+			/** Mask for determining the type of an endpoint from an endpoint descriptor. This should then be compared
+			 *  with the EP_TYPE_* masks to determine the exact type of the endpoint.
+			 */
+			#define EP_TYPE_MASK                       0x03
+
 			/** Casts a pointer to a descriptor inside the configuration descriptor into a pointer to the given
 			 *  descriptor type.
 			 *

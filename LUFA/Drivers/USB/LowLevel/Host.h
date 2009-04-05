@@ -221,7 +221,7 @@
 			#define USB_Host_VBUS_Auto_Off()        MACROS{ OTGCON |=  (1 << VBUSRQC);        }MACROE
 			#define USB_Host_VBUS_Manual_Off()      MACROS{ PORTE  &= ~(1 << 7);              }MACROE
 
-			#define USB_Host_SetDeviceAddress(addr) MACROS{ UHADDR  =  (addr & 0b01111111);   }MACROE
+			#define USB_Host_SetDeviceAddress(addr) MACROS{ UHADDR  =  (addr & 0x7F);         }MACROE
 
 		/* Enums: */
 			enum USB_Host_WaitMSErrorCodes_t

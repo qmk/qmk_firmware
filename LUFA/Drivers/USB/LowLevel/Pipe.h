@@ -74,17 +74,17 @@
 			/** Token mask for Pipe_ConfigurePipe(). This sets the pipe as a SETUP token (for CONTROL type pipes),
 			 *  which will trigger a control request on the attached device when data is written to the pipe.
 			 */
-			#define PIPE_TOKEN_SETUP                (0b00 << PTOKEN0)
+			#define PIPE_TOKEN_SETUP                (0 << PTOKEN0)
 
 			/** Token mask for Pipe_ConfigurePipe(). This sets the pipe as a IN token (for non-CONTROL type pipes),
 			 *  indicating that the pipe data will flow from device to host.
 			 */
-			#define PIPE_TOKEN_IN                   (0b01 << PTOKEN0)
+			#define PIPE_TOKEN_IN                   (1 << PTOKEN0)
 
 			/** Token mask for Pipe_ConfigurePipe(). This sets the pipe as a IN token (for non-CONTROL type pipes),
 			 *  indicating that the pipe data will flow from host to device.
 			 */
-			#define PIPE_TOKEN_OUT                  (0b10 << PTOKEN0)
+			#define PIPE_TOKEN_OUT                  (2 << PTOKEN0)
 
 			/** Mask for the bank mode selection for the Pipe_ConfigurePipe() macro. This indicates that the pipe
 			 *  should have one single bank, which requires less USB FIFO memory but results in slower transfers as

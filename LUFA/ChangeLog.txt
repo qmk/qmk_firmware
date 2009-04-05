@@ -20,6 +20,8 @@
   *    to early-abort
   *  - Move StdRequestType.h, StreamCallbacks.h, USBMode.h from the LowLevel USB driver directory to the HighLevel USB driver directory,
   *    where they are more suited
+  *  - Removed all binary constants and replaced with decimal or hexadecimal constants so that unpatched GCC compilers can still build the
+  *    code without having to be itself patched and recompiled first
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *

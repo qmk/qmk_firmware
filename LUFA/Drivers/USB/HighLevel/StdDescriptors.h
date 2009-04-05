@@ -108,69 +108,69 @@
 			 *  descriptor's ConfigAttributes value to indicate that the specified configuration can draw its power
 			 *  from the host's VBUS line.
 			 */
-			#define USB_CONFIG_ATTR_BUSPOWERED        0b10000000
+			#define USB_CONFIG_ATTR_BUSPOWERED        0x80
 
 			/** Can be masked with other configuration descriptor attributes for a USB_Descriptor_Configuration_Header_t
 			 *  descriptor's ConfigAttributes value to indicate that the specified configuration can draw its power
 			 *  from the device's own power source.
 			 */
-			#define USB_CONFIG_ATTR_SELFPOWERED       0b11000000
+			#define USB_CONFIG_ATTR_SELFPOWERED       0xC0
 
 			/** Can be masked with other configuration descriptor attributes for a USB_Descriptor_Configuration_Header_t
 			 *  descriptor's ConfigAttributes value to indicate that the specified configuration supports the
 			 *  remote wakeup feature of the USB standard, allowing a suspended USB device to wake up the host upon
 			 *  request.
 			 */
-			#define USB_CONFIG_ATTR_REMOTEWAKEUP      0b10100000
+			#define USB_CONFIG_ATTR_REMOTEWAKEUP      0xA0
 
 			/** Can be masked with other endpoint descriptor attributes for a USB_Descriptor_Endpoint_t descriptor's
 			 *  Attributes value to indicate that the specified endpoint is not synchronized.
 			 *
 			 *  \see The USB specification for more details on the possible Endpoint attributes.
 			 */
-			#define ENDPOINT_ATTR_NO_SYNC             (0b00 << 2)
+			#define ENDPOINT_ATTR_NO_SYNC             (0 << 2)
 
 			/** Can be masked with other endpoint descriptor attributes for a USB_Descriptor_Endpoint_t descriptor's
 			 *  Attributes value to indicate that the specified endpoint is asynchronous.
 			 *
 			 *  \see The USB specification for more details on the possible Endpoint attributes.
 			 */
-			#define ENDPOINT_ATTR_ASYNC               (0b01 << 2)
+			#define ENDPOINT_ATTR_ASYNC               (1 << 2)
 
 			/** Can be masked with other endpoint descriptor attributes for a USB_Descriptor_Endpoint_t descriptor's
 			 *  Attributes value to indicate that the specified endpoint is adaptive.
 			 *
 			 *  \see The USB specification for more details on the possible Endpoint attributes.
 			 */
-			#define ENDPOINT_ATTR_ADAPTIVE            (0b10 << 2)
+			#define ENDPOINT_ATTR_ADAPTIVE            (2 << 2)
 
 			/** Can be masked with other endpoint descriptor attributes for a USB_Descriptor_Endpoint_t descriptor's
 			 *  Attributes value to indicate that the specified endpoint is synchronized.
 			 *
 			 *  \see The USB specification for more details on the possible Endpoint attributes.
 			 */
-			#define ENDPOINT_ATTR_SYNC                (0b11 << 2)
+			#define ENDPOINT_ATTR_SYNC                (3 << 2)
 			
 			/** Can be masked with other endpoint descriptor attributes for a USB_Descriptor_Endpoint_t descriptor's
 			 *  Attributes value to indicate that the specified endpoint is used for data transfers.
 			 *
 			 *  \see The USB specification for more details on the possible Endpoint usage attributes.
 			 */
-			#define ENDPOINT_USAGE_DATA               (0b00 << 4)
+			#define ENDPOINT_USAGE_DATA               (0 << 4)
 
 			/** Can be masked with other endpoint descriptor attributes for a USB_Descriptor_Endpoint_t descriptor's
 			 *  Attributes value to indicate that the specified endpoint is used for feedback.
 			 *
 			 *  \see The USB specification for more details on the possible Endpoint usage attributes.
 			 */
-			#define ENDPOINT_USAGE_FEEDBACK           (0b01 << 4)
+			#define ENDPOINT_USAGE_FEEDBACK           (1 << 4)
 
 			/** Can be masked with other endpoint descriptor attributes for a USB_Descriptor_Endpoint_t descriptor's
 			 *  Attributes value to indicate that the specified endpoint is used for implicit feedback.
 			 *
 			 *  \see The USB specification for more details on the possible Endpoint usage attributes.
 			 */
-			#define ENDPOINT_USAGE_IMPLICIT_FEEDBACK  (0b10 << 4)
+			#define ENDPOINT_USAGE_IMPLICIT_FEEDBACK  (2 << 4)
 
 			/** Gives a void pointer to the specified descriptor (of any type). */
 			#define DESCRIPTOR_ADDRESS(Descriptor)    ((void*)&Descriptor)
