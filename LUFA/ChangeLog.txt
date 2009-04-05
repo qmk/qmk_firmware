@@ -15,6 +15,8 @@
   *    time options
   *  - All comments in the library, bootloaders, demos and projects have now been spell-checked and spelling mistakes/typos corrected
   *  - Added new PIMA_DATA_SIZE() define to the Still Image Host demo
+  *  - Add call to MassStore_WaitForDataReceived() in MassStore_GetReturnedStatus() to ensure that the CSW has been received in the extended
+  *    MSC timeout period before continuing, to prevent long processing delays from causing the MassStore_GetReturnedStatus() to early-abort
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *

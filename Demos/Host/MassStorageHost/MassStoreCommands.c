@@ -215,6 +215,10 @@ static uint8_t MassStore_GetReturnedStatus(void)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_ERROR_NoError;
 
+	/* If an error in the command ocurred, abort */
+	if (MassStore_WaitForDataReceived() != NoError)
+	  return;
+
 	/* Select the IN data pipe for data reception */
 	Pipe_SelectPipe(MASS_STORE_DATA_IN_PIPE);
 	Pipe_Unfreeze();
