@@ -50,9 +50,16 @@
  *
  *  <table>
  *   <tr>
- *    <td>
- *     None
- *    </td>
+ *    <td><b>Define Name:</b></td>
+ *    <td><b>Location:</b></td>
+ *    <td><b>Description:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>SIGNATURE_0, SIGNATURE_1, SIGNATURE_2</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>AVR part signature bytes. These are normally defined as part of the AVR device header files in recent avr-libc
+ *        distributions. If your avr-libc library is out of date and does not define these values, you can define them
+ *        manually in the makefile CDEFS.</td>
  *   </tr>
  *  </table>
  */

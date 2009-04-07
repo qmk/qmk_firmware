@@ -48,6 +48,11 @@
 
 		#include <LUFA/Drivers/USB/USB.h>                // USB Functionality
 
+	/* Preprocessor Checks: */
+		#if !defined(SIGNATURE_0) || !defined(SIGNATURE_1) || !defined(SIGNATURE_2)
+			#error Device signature byte constants are not defined due to outdated avr-libc version. See demo documentation.
+		#endif
+
 	/* Macros: */
 		/** CDC Class Specific request to get the line encoding on a CDC-ACM virtual serial port, including the
 		 *  baud rate, parity, stop bits and data bits.

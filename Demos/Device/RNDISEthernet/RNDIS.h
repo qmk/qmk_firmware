@@ -55,10 +55,10 @@
 		#define REMOTE_NDIS_VERSION_MINOR             0x00
 	
 		/** RNDIS request to issue a host-to-device NDIS command */
-		#define SEND_ENCAPSULATED_COMMAND             0x00
+		#define REQ_SendEncapsulatedCommand           0x00
 
 		/** RNDIS request to issue a device-to-host NDIS response */
-		#define GET_ENCAPSULATED_RESPONSE             0x01
+		#define REQ_GetEncapsulatedResponse           0x01
 		
 	/* Enums: */
 		/** Enum for the possible NDIS adapter states. */

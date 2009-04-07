@@ -48,7 +48,12 @@
 		#include "Descriptors.h"
 		
 		#include <LUFA/Drivers/USB/USB.h>                // USB Functionality
-		
+	
+	/* Preprocessor Checks: */
+		#if !defined(SIGNATURE_0) || !defined(SIGNATURE_1) || !defined(SIGNATURE_2)
+			#error Device signature byte constants are not defined due to outdated avr-libc version. See demo documentation.
+		#endif
+	
 	/* Macros: */
 		/** Configuration define. Define this token to true to case the bootloader to reject all memory commands
 		 *  until a memory erase has been performed. When used in conjunction with the lockbits of the AVR, this

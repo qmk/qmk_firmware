@@ -17,11 +17,13 @@
   *  - Added new PIMA_DATA_SIZE() define to the Still Image Host demo
   *  - Add call to MassStore_WaitForDataReceived() in MassStore_GetReturnedStatus() to ensure that the CSW has been received in the
   *    extended MSC timeout period before continuing, to prevent long processing delays from causing the MassStore_GetReturnedStatus()
-  *    to early-abort
+  *    to early-abort (thanks to Dmitry Maksimov)
   *  - Move StdRequestType.h, StreamCallbacks.h, USBMode.h from the LowLevel USB driver directory to the HighLevel USB driver directory,
   *    where they are more suited
   *  - Removed all binary constants and replaced with decimal or hexadecimal constants so that unpatched GCC compilers can still build the
   *    code without having to be itself patched and recompiled first
+  *  - Added preprocessor checks and documentation to the bootloaders giving information about missing SIGNATURE_x defines due to
+  *    outdated avr-libc versions.
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *

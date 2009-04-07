@@ -386,7 +386,7 @@ STREAM_CALLBACK(AbortOnMassStoreReset)
 /** ISR for the general Pipe/Endpoint interrupt vector. This ISR fires when a control request has been issued to the control endpoint,
  *  so that the request can be processed. As several elements of the Mass Storage implementation require asynchronous control requests
  *  (such as endpoint stall clearing and Mass Storage Reset requests during data transfers) this is done via interrupts rather than
- *  polling.
+ *  polling so that they can be processed regardless of the rest of the application's state.
  */
 ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 {

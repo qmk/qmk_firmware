@@ -158,7 +158,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 	/* Process RNDIS class commands */
 	switch (bRequest)
 	{
-		case SEND_ENCAPSULATED_COMMAND:
+		case REQ_SendEncapsulatedCommand:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Clear the SETUP packet, ready for data transfer */
@@ -175,7 +175,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			}
 			
 			break;
-		case GET_ENCAPSULATED_RESPONSE:
+		case REQ_GetEncapsulatedResponse:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Check if a response to the last message is ready */
