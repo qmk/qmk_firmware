@@ -24,6 +24,8 @@
   *    code without having to be itself patched and recompiled first
   *  - Added preprocessor checks and documentation to the bootloaders giving information about missing SIGNATURE_x defines due to
   *    outdated avr-libc versions.
+  *  - Added support to the CDCHost demo for devices with mutiple CDC interfaces which are not the correct ACM type preceeding the desired
+  *    ACM CDC interface
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *

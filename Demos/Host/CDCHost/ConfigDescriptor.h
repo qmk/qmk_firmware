@@ -77,7 +77,8 @@
 		};
 
 	/* Configuration Descriptor Comparison Functions: */
-		DESCRIPTOR_COMPARATOR(NextCDCInterface);
+		DESCRIPTOR_COMPARATOR(NextCDCControlInterface);
+		DESCRIPTOR_COMPARATOR(NextCDCDataInterface);
 		DESCRIPTOR_COMPARATOR(NextInterfaceCDCDataEndpoint);
 
 	/* Function Prototypes: */

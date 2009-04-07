@@ -69,8 +69,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return InvalidConfigDataReturned;
 	
-	/* Get the CDC interface from the configuration descriptor */
-	if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextCDCInterface))
+	/* Get the CDC control interface from the configuration descriptor */
+	if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextCDCControlInterface))
 	{
 		/* Descriptor not found, error out */
 		return NoCDCInterfaceFound;
@@ -83,11 +83,24 @@ uint8_t ProcessConfigurationDescriptor(void)
 		if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                                   NextInterfaceCDCDataEndpoint))
 		{
-			/* Get the next CDC interface from the configuration descriptor (CDC class has two CDC interfaces) */
-			if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextCDCInterface))
+			/* Check to see if the control interface's notification pipe has been found, if so search for the data interface */
+			if (FoundEndpoints & (1 << CDC_NOTIFICATIONPIPE))
 			{
-				/* Descriptor not found, error out */
-				return NoCDCInterfaceFound;
+				/* Get the next CDC data interface from the configuration descriptor (CDC class has two CDC interfaces) */
+				if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextCDCDataInterface))
+				{
+					/* Descriptor not found, error out */
+					return NoCDCInterfaceFound;
+				}
+			}
+			else
+			{
+				/* Get the next CDC control interface from the configuration descriptor (CDC class has two CDC interfaces) */
+				if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextCDCControlInterface))
+				{
+					/* Descriptor not found, error out */
+					return NoCDCInterfaceFound;
+				}
 			}
 
 			/* Fetch the next bulk or interrupt endpoint from the current CDC interface */
@@ -155,11 +168,11 @@ uint8_t ProcessConfigurationDescriptor(void)
  *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
  *  descriptor processing if an incompatible descriptor configuration is found.
  *
- *  This comparator searches for the next Interface descriptor of the correct CDC Class, Subclass and Protocol values.
+ *  This comparator searches for the next Interface descriptor of the correct CDC control Class, Subclass and Protocol values.
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-DESCRIPTOR_COMPARATOR(NextCDCInterface)
+DESCRIPTOR_COMPARATOR(NextCDCControlInterface)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -170,7 +183,23 @@ DESCRIPTOR_COMPARATOR(NextCDCInterface)
 		{
 			return Descriptor_Search_Found;
 		}
+	}
+	
+	return Descriptor_Search_NotFound;
+}
 
+/** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
+ *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
+ *  descriptor processing if an incompatible descriptor configuration is found.
+ *
+ *  This comparator searches for the next Interface descriptor of the correct CDC data Class, Subclass and Protocol values.
+ *
+ *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
+ */
+DESCRIPTOR_COMPARATOR(NextCDCDataInterface)
+{
+	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	{
 		/* Check the CDC descriptor class, subclass and protocol, break out if correct data interface found */
 		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == CDC_DATA_CLASS)    &&
 		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == CDC_DATA_SUBCLASS) &&
