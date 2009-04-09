@@ -145,7 +145,7 @@ EVENT_HANDLER(USB_Reset)
  */
 EVENT_HANDLER(USB_Disconnect)
 {
-	/* Stop running keyboard reporting and USB management tasks */
+	/* Stop running mouse reporting and USB management tasks */
 	#if !defined(INTERRUPT_DATA_ENDPOINT)
 	Scheduler_SetTaskMode(USB_Mouse_Report, TASK_STOP);
 	#endif

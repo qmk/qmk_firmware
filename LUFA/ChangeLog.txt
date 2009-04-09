@@ -26,6 +26,7 @@
   *    outdated avr-libc versions.
   *  - Added support to the CDCHost demo for devices with mutiple CDC interfaces which are not the correct ACM type preceeding the desired
   *    ACM CDC interface
+  *  - Fixed GenericHID demo not starting USB and HID management tasks when not using interrupt driven modes (thanks to Carl Kjeldsen)
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *

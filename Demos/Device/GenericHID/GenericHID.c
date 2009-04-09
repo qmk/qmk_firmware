@@ -103,6 +103,11 @@ EVENT_HANDLER(USB_Reset)
  */
 EVENT_HANDLER(USB_Connect)
 {
+	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+	/* Start USB management task */
+	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
+	#endif
+
 	/* Indicate USB enumerating */
 	UpdateStatus(Status_USBEnumerating);
 }
@@ -112,6 +117,15 @@ EVENT_HANDLER(USB_Connect)
  */
 EVENT_HANDLER(USB_Disconnect)
 {
+	/* Stop running HID reporting and USB management tasks */
+	#if !defined(INTERRUPT_DATA_ENDPOINT)
+	Scheduler_SetTaskMode(USB_HID_Report, TASK_STOP);
+	#endif
+
+	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
+	#endif
+
 	/* Indicate USB not ready */
 	UpdateStatus(Status_USBNotReady);
 }
