@@ -284,7 +284,7 @@ TASK(RNDIS_Task)
 			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_PACKET_MSG_t));
 
 			/* Stall the request if the data is too large */
-			if (RNDISPacketHeader.MessageLength > ETHERNET_FRAME_SIZE_MAX)
+			if (RNDISPacketHeader.DataLength > ETHERNET_FRAME_SIZE_MAX)
 			{
 				Endpoint_StallTransaction();
 				return;

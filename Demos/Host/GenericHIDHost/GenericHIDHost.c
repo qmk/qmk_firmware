@@ -221,10 +221,10 @@ void ReadNextReport(void)
  *  \param ReportOUTData  Buffer containing the report to send to the device
  *  \param ReportLength  Length of the report to send
  */
-void WriteNextReport(uint8_t ReportOUTData, uint16_t ReportLength)
+void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength)
 {
 	/* Select and unfreeze HID data OUT pipe */
-	Pipe_SelectPipe(HID_DATA_IN_PIPE);
+	Pipe_SelectPipe(HID_DATA_OUT_PIPE);
 	
 	/* Not all HID devices have an OUT endpoint (some require OUT reports to be sent over the
 	 * control endpoint instead) - check to see if the OUT endpoint has been initialized */
@@ -242,7 +242,7 @@ void WriteNextReport(uint8_t ReportOUTData, uint16_t ReportLength)
 		}
 
 		/* Read in HID report data */
-		Pipe_Write_Stream_LE(&ReportOUTData, ReportLength);				
+		Pipe_Write_Stream_LE(ReportOUTData, ReportLength);				
 			
 		/* Clear the OUT endpoint, send last data packet */
 		Pipe_ClearCurrentBank();

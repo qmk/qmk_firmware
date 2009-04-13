@@ -88,6 +88,6 @@
 	/* Function Prototypes: */
 		void UpdateStatus(uint8_t CurrentStatus);
 		void ReadNextReport(void);
-		void WriteNextReport(uint8_t ReportOUTData, uint16_t ReportLength);
+		void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength);
 		
 #endif

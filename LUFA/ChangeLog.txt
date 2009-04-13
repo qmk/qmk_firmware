@@ -27,6 +27,8 @@
   *  - Added support to the CDCHost demo for devices with mutiple CDC interfaces which are not the correct ACM type preceeding the desired
   *    ACM CDC interface
   *  - Fixed GenericHID demo not starting USB and HID management tasks when not using interrupt driven modes (thanks to Carl Kjeldsen)
+  *  - Fixed RNDISEthenet demo checking the incorrect message field for packet size constraints (thanks to Jonathan)
+  *  - Fixed WriteNextReport code in the GenericHIDHost demo using incorrect parameter types and not selecting the correct endpoint
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *
