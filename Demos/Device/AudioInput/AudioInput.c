@@ -95,7 +95,7 @@ EVENT_HANDLER(USB_Connect)
 	UpdateStatus(Status_USBEnumerating);
 
 	/* Sample reload timer initialization */
-	OCR0A   = (F_CPU / AUDIO_SAMPLE_FREQUENCY) - ((F_CPU % AUDIO_SAMPLE_FREQUENCY) == 0 ? 1 : 0);
+	OCR0A   = (F_CPU / AUDIO_SAMPLE_FREQUENCY) - 1;
 	TCCR0A  = (1 << WGM01);  // CTC mode
 	TCCR0B  = (1 << CS00);   // Fcpu speed
 }
