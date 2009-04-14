@@ -29,6 +29,8 @@
   *  - Fixed GenericHID demo not starting USB and HID management tasks when not using interrupt driven modes (thanks to Carl Kjeldsen)
   *  - Fixed RNDISEthenet demo checking the incorrect message field for packet size constraints (thanks to Jonathan)
   *  - Fixed WriteNextReport code in the GenericHIDHost demo using incorrect parameter types and not selecting the correct endpoint
+  *  - Adjusted sample CTC timer calculations in the AudioOutput and AudioInput demos to account for situations where the division results
+  *    in a value with no remainder, requiring one to be subtracted from the result (thanks to Robin Theunis)
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *
