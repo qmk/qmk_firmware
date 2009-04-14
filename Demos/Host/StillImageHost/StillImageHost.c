@@ -165,6 +165,9 @@ TASK(USB_SImage_Host)
 					wLength:       0,
 				};
 
+			/* Select the control pipe for the request transfer */
+			Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 			/* Send the request, display error and wait for device detach if request fails */
 			if (USB_Host_SendControlRequest(NULL) != HOST_SENDCONTROL_Successful)
 			{

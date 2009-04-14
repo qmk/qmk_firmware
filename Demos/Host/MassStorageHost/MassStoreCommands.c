@@ -256,6 +256,9 @@ uint8_t MassStore_ClearPipeStall(const uint8_t EndpointNum)
 			wLength:       0,
 		};
 	
+	/* Select the control pipe for the request transfer */
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 	return USB_Host_SendControlRequest(NULL);
 }
 
@@ -275,6 +278,9 @@ uint8_t MassStore_MassStorageReset(void)
 			wLength:       0,
 		};
 	
+	/* Select the control pipe for the request transfer */
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 	return USB_Host_SendControlRequest(NULL);
 }
 
@@ -298,6 +304,9 @@ uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex)
 			wLength:       1,
 		};
 		
+	/* Select the control pipe for the request transfer */
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 	if ((ErrorCode = USB_Host_SendControlRequest(MaxLUNIndex)) == HOST_SENDCONTROL_SetupStalled)
 	{
 		/* Clear the pipe stall */

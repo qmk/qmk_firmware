@@ -12,6 +12,12 @@
  *
  * \section Sec_MigrationXXXXXX Migrating from 090401 to XXXXXX
  *
+ *  <b>Host Mode</b>
+ *    - The USB_Host_SendControlRequest() function no longer automatically selects the Control pipe (pipe 0) to allow it to be used on
+ *      other control type pipes. Care should be taken to ensure that the Control pipe is always selected before the function is called
+ *      in existing projects where the Control pipe is to be operated on.
+ *    - The USB Host management task now saves and restores the currently selected pipe before and after the task runs. Projects no longer
+ *      need to manage this manually when calling the USB management task.
  *
  * \section Sec_Migration090401 Migrating from 090209 to 090401
  *

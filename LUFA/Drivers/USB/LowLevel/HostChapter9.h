@@ -95,7 +95,7 @@
 		/* Function Prototypes: */
 			/** Sends the request stored in the USB_HostRequest global structure to the attached device,
 			 *  and transfers the data stored in the buffer to the device, or from the device to the buffer
-			 *  as requested.
+			 *  as requested. The transfer is made on the currently selected pipe.
 			 *
 			 *  \param BufferPtr  Pointer to the start of the data buffer if the request has a data stage, or
 			 *                    NULL if the request transfers no data to or from the device.

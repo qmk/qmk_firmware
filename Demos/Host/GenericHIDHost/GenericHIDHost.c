@@ -262,6 +262,9 @@ void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength)
 				wLength:       ReportLength,
 			};
 
+		/* Select the control pipe for the request transfer */
+		Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 		/* Send the request to the device */
 		USB_Host_SendControlRequest(ReportOUTData);
 	}
@@ -287,6 +290,9 @@ TASK(USB_HID_Host)
 					wIndex:        0,
 					wLength:       0,
 				};
+
+			/* Select the control pipe for the request transfer */
+			Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
 			/* Send the request, display error and wait for device detach if request fails */
 			if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)

@@ -56,6 +56,9 @@ uint8_t GetHIDReportData(void)
 			wLength:       HIDReportSize,
 		};
 
+	/* Select the control pipe for the request transfer */
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 	/* Send control request to retrieve the HID report from the attached device */
 	if (USB_Host_SendControlRequest(HIDReportData) != HOST_SENDCONTROL_Successful)
 	  return ParseControlError;

@@ -31,6 +31,9 @@
   *  - Fixed WriteNextReport code in the GenericHIDHost demo using incorrect parameter types and not selecting the correct endpoint
   *  - Adjusted sample CTC timer calculations in the AudioOutput and AudioInput demos to account for situations where the division results
   *    in a value with no remainder, requiring one to be subtracted from the result (thanks to Robin Theunis)
+  *  - The USB_Host_SendControlRequest() function no longer automatically selects the Control pipe (pipe 0), so that other control type
+  *    pipes can be used with the function
+  *  - The USB Host management task now saves and restores the currently selected pipe before and after the task completes
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *

@@ -86,6 +86,10 @@ static void USB_HostTask(void)
 	static uint16_t WaitMSRemaining;
 	static uint8_t  PostWaitState;
 
+	uint8_t PrevPipe = Pipe_GetCurrentPipe();
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 	switch (USB_HostState)
 	{
 		case HOST_STATE_WaitForDevice:
@@ -249,5 +253,7 @@ static void USB_HostTask(void)
 
 		USB_ResetInterface();
 	}
+	
+	Pipe_SelectPipe(PrevPipe);
 }
 #endif

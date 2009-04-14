@@ -272,5 +272,8 @@ uint8_t SImage_ClearPipeStall(const uint8_t PipeEndpointNum)
 			wLength:       0,
 		};
 	
+	/* Select the control pipe for the request transfer */
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 	return USB_Host_SendControlRequest(NULL);
 }

@@ -259,6 +259,9 @@ TASK(USB_Mouse_Host)
 					wLength:       0,
 				};
 
+			/* Select the control pipe for the request transfer */
+			Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 			/* Send the request, display error and wait for device detach if request fails */
 			if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
 			{
@@ -305,6 +308,9 @@ TASK(USB_Mouse_Host)
 					wIndex:        0,
 					wLength:       0,
 				};
+
+			/* Select the control pipe for the request transfer */
+			Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
 			/* Send the request, display error and wait for device detach if request fails */
 			if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)

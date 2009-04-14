@@ -43,6 +43,8 @@ uint8_t USB_Host_GetDeviceConfigDescriptor(uint16_t* const ConfigSizePtr, void* 
 			wLength:       sizeof(USB_Descriptor_Configuration_Header_t),
 		};
 	
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 	if (BufferPtr == NULL)
 	{
 		uint8_t ConfigHeader[sizeof(USB_Descriptor_Configuration_Header_t)];
