@@ -219,9 +219,11 @@ void ReadNextReport(void)
 /** Writes a report to the attached device.
  *
  *  \param ReportOUTData  Buffer containing the report to send to the device
+ *  \param ReportIndex  Index of the report in the device (zero if the device does not use multiple reports)
+ *  \param ReportType  Type of report to send, either HID_REPORTTYPE_OUTPUT or HID_REPORTTYPE_FEATURE
  *  \param ReportLength  Length of the report to send
  */
-void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength)
+void WriteNextReport(uint8_t* ReportOUTData, uint8_t ReportIndex, uint8_t ReportType, uint16_t ReportLength)
 {
 	/* Select and unfreeze HID data OUT pipe */
 	Pipe_SelectPipe(HID_DATA_OUT_PIPE);
@@ -240,8 +242,12 @@ void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength)
 			
 			return;
 		}
+		
+		/* If the report index is used, send it before the report data */
+		if (ReportIndex)
+		  Pipe_Write_Byte(ReportIndex);
 
-		/* Read in HID report data */
+		/* Write out HID report data */
 		Pipe_Write_Stream_LE(ReportOUTData, ReportLength);				
 			
 		/* Clear the OUT endpoint, send last data packet */
@@ -257,7 +263,7 @@ void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength)
 			{
 				bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
 				bRequest:      REQ_SetReport,
-				wValue:        0,
+				wValue:        ((ReportType << 8) | ReportIndex),
 				wIndex:        0,
 				wLength:       ReportLength,
 			};

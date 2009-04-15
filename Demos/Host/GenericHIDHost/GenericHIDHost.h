@@ -64,6 +64,12 @@
 		/** HID Class specific request to send a HID report to the device. */
 		#define REQ_SetReport                    0x09
 		
+		/** HID Report type specifier, for output reports to a device */
+		#define HID_REPORTTYPE_OUTPUT            0x02
+		
+		/** HID Report type specifier, for feature reports to a device */
+		#define HID_REPORTTYPE_FEATURE           0x03
+
 	/* Task Definitions: */
 		TASK(USB_HID_Host);
 

@@ -27,13 +27,14 @@
   *  - Added support to the CDCHost demo for devices with mutiple CDC interfaces which are not the correct ACM type preceeding the desired
   *    ACM CDC interface
   *  - Fixed GenericHID demo not starting USB and HID management tasks when not using interrupt driven modes (thanks to Carl Kjeldsen)
-  *  - Fixed RNDISEthenet demo checking the incorrect message field for packet size constraints (thanks to Jonathan)
+  *  - Fixed RNDISEthenet demo checking the incorrect message field for packet size constraints (thanks to Jonathan Oakley)
   *  - Fixed WriteNextReport code in the GenericHIDHost demo using incorrect parameter types and not selecting the correct endpoint
   *  - Adjusted sample CTC timer calculations in the AudioOutput and AudioInput demos to match the CTC calculations in the AVR datasheet,
   *    and to fix instances where rounding caused the endpoint to underflow (thanks to Robin Theunis)
   *  - The USB_Host_SendControlRequest() function no longer automatically selects the Control pipe (pipe 0), so that other control type
   *    pipes can be used with the function
   *  - The USB Host management task now saves and restores the currently selected pipe before and after the task completes
+  *  - Fixed GenericHIDHost demo report write routine incorrect for control type requests (thanks to Andrei)
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *

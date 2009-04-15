@@ -273,7 +273,7 @@ void DecodeDHCPHeader(void* InDataStart)
 			}
 		}
 		
-		DHCPOptionsINStart += ((DHCPOptionsINStart[0] == DHCP_OPTION_PAD) ? 1 : (DHCPOptionsINStart[1] + 2));
+		DHCPOptions += ((DHCPOptions[0] == DHCP_OPTION_PAD) ? 1 : (DHCPOptions[1] + 2));
 	}
 
 	#endif
