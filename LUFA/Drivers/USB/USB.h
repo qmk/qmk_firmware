@@ -60,7 +60,7 @@
 		#endif
 		
 	/* Includes: */
-		#include "Highlevel/USBMode.h"
+		#include "HighLevel/USBMode.h"
 		#include "HighLevel/USBTask.h"
 		#include "HighLevel/USBInterrupt.h"
 		#include "HighLevel/Events.h"

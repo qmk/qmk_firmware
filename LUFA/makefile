@@ -23,8 +23,8 @@ LUFA_SRC_FILES =     ./Drivers/USB/LowLevel/LowLevel.c           \
                      ./Scheduler/Scheduler.c                     \
                      ./MemoryAllocator/DynAlloc.c                \
                      ./Drivers/Board/Temperature.c               \
-                     ./Drivers/AT90USBXXX/Serial.c               \
-                     ./Drivers/AT90USBXXX/Serial_Stream.c        \
+                     ./Drivers/Peripheral/Serial.c               \
+                     ./Drivers/Peripheral/Serial_Stream.c        \
 
 all:
 	

@@ -416,9 +416,9 @@
 
 				#define Endpoint_HasEndpointInterrupted(n)    ((UEINT & (1 << n)) ? true : false)
 				
-				#define Endpoint_IsINReady()                 ((UEINTX & (1 << TXINI))  ? true : false)
+				#define Endpoint_IsINReady()                  ((UEINTX & (1 << TXINI))  ? true : false)
 				
-				#define Endpoint_IsOUTReceived()             ((UEINTX & (1 << RXOUTI)) ? true : false)
+				#define Endpoint_IsOUTReceived()              ((UEINTX & (1 << RXOUTI)) ? true : false)
 
 				#define Endpoint_IsSETUPReceived()            ((UEINTX & (1 << RXSTPI)) ? true : false)
 
@@ -428,9 +428,11 @@
 
 				#define Endpoint_ClearControlOUT()            MACROS{ UEINTX &= ~(1 << RXOUTI); }MACROE
 
-				#define Endpoint_ClearIN()                    MACROS{ UEINTX &= ~(1 << TXINI); UEINTX &= ~(1 << FIFOCON); }MACROE
+				#define Endpoint_ClearIN()                    MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << TXINI)); \
+				                                                      UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
 
-				#define Endpoint_ClearOUT()                   MACROS{ UEINTX &= ~(1 << RXOUTI); UEINTX &= ~(1 << FIFOCON); }MACROE
+				#define Endpoint_ClearOUT()                   MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << RXOUTI)); \
+				                                                      UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
 
 				#define Endpoint_StallTransaction()           MACROS{ UECONX |= (1 << STALLRQ); }MACROE
 

@@ -9,7 +9,7 @@
  *  Functions, macros, variables, enums and types related to the control of physical board hardware.
  */
 
-/** @defgroup Group_SubsystemDrivers Subsystem Drivers
+/** @defgroup Group_ChipPeripheralDrivers On-chip Peripheral Drivers
  *
  *  Functions, macros, variables, enums and types related to the control of AVR subsystems.
  */

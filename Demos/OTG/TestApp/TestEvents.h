@@ -42,7 +42,7 @@
 		#include <LUFA/Common/Common.h>                          // Commonly used macros
 		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
 		#include <LUFA/Drivers/Board/LEDs.h>                     // LED driver
-		#include <LUFA/Drivers/AT90USBXXX/Serial_Stream.h>       // USART Stream driver
+		#include <LUFA/Drivers/Peripheral/Serial_Stream.h>       // USART Stream driver
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>             // ANSI Terminal Escape Codes
 		#include <LUFA/Scheduler/Scheduler.h>                    // Simple scheduler for task management
 

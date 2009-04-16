@@ -34,13 +34,13 @@
  *  
  *  This folder contains drivers for aspects other than the USB interface, board hardware or AVR peripherals.
  * 
- *  \dir Drivers/AT90USBXXX
+ *  \dir Drivers/Peripheral
  *  \brief USB AVR peripheral driver files.
  *  
  *  This folder contains drivers for several of the AVR internal peripherals such as the USART, compatible with
  *  all USB AVR models.
  *
- *  \dir Drivers/AT90USBXXX/AT90USBXXX67
+ *  \dir Drivers/Peripheral/AT90USBXXX67
  *  \brief AT90USBXXX6, AT90USBXXX7 and ATMEGAXXU4 AVR model peripheral driver files. Its original name is due to legacy
  *  reasons.
  *  

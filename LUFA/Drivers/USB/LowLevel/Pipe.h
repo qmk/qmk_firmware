@@ -553,15 +553,20 @@
 
 				#define Pipe_IsSETUPSent()             ((UPINTX & (1 << TXSTPI)) ? true : false)
 
-				#define Pipe_ClearIN()                 MACROS{ UPINTX &= ~(1 << RXINI); UPINTX &= ~(1 << FIFOCON); }MACROE
+				#define Pipe_ClearIN()                 MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << RXINI)); \
+				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
 
-				#define Pipe_ClearControlIN()          MACROS{ UPINTX &= ~(1 << RXINI); UPINTX &= ~(1 << FIFOCON); }MACROE
+				#define Pipe_ClearControlIN()          MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << RXINI)); \
+				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
 
-				#define Pipe_ClearOUT()                MACROS{ UPINTX &= ~(1 << TXOUTI); UPINTX &= ~(1 << FIFOCON); }MACROE
+				#define Pipe_ClearOUT()                MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << TXOUTI)); \
+				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
 				
-				#define Pipe_ClearControlOUT()         MACROS{ UPINTX &= ~(1 << TXOUTI); UPINTX &= ~(1 << FIFOCON); }MACROE
+				#define Pipe_ClearControlOUT()         MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << TXOUTI)); \
+				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
 
-				#define Pipe_ClearControlSETUP()       MACROS{ UPINTX &= ~(1 << TXSTPI); UPINTX &= ~(1 << FIFOCON); }MACROE        
+				#define Pipe_ClearControlSETUP()       MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << TXSTPI)); \
+				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
 
 				#define Pipe_IsNAKReceived()           ((UPINTX & (1 << NAKEDI)) ? true : false)
 

@@ -114,7 +114,7 @@
 			 *      }
 			 *  \endcode
 			 */
-			#define TASK_LIST                         extern TaskEntry_t Scheduler_TaskList[]; TaskEntry_t Scheduler_TaskList[] = 
+			#define TASK_LIST                         TaskEntry_t Scheduler_TaskList[] = 
 			
 			/** Constant, giving the maximum delay in scheduler ticks which can be stored in a variable of type
 			 *  SchedulerDelayCounter_t.
@@ -127,16 +127,23 @@
 			/** Task status mode constant, for passing to Scheduler_SetTaskMode() or Scheduler_SetGroupTaskMode(). */
 			#define TASK_STOP                         false
 			
-			/** Starts the scheduler in its infinite loop, executing running tasks. This should be placed at the end
-			 *  of the user application's main() function, as it can never return to the calling function.
-			 */
-			#define Scheduler_Start()                 Scheduler_GoSchedule(TOTAL_TASKS);
-			
-			/** Initializes the scheduler so that the scheduler functions can be called before the scheduler itself
-			 *  is started. This must be executed before any scheduler function calls other than Scheduler_Start(),
-			 *  and can be omitted if no such functions could be called before the scheduler is started.
-			 */
-			#define Scheduler_Init()                  Scheduler_InitScheduler(TOTAL_TASKS);
+		/* Psuedo-Functions: */
+			#if defined(__DOXYGEN__)
+				/** Starts the scheduler in its infinite loop, executing running tasks. This should be placed at the end
+				 *  of the user application's main() function, as it can never return to the calling function.
+				 */
+				void Scheduler_Start(void);
+				
+				/** Initializes the scheduler so that the scheduler functions can be called before the scheduler itself
+				 *  is started. This must be executed before any scheduler function calls other than Scheduler_Start(),
+				 *  and can be omitted if no such functions could be called before the scheduler is started.
+				 */
+				void Scheduler_Init(void);
+			#else
+				#define Scheduler_Start()                 Scheduler_GoSchedule(TOTAL_TASKS);
+				
+				#define Scheduler_Init()                  Scheduler_InitScheduler(TOTAL_TASKS);
+			#endif
 
 		/* Type Defines: */
 			/** Type define for a pointer to a scheduler task. */

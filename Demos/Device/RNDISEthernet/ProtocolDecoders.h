@@ -39,7 +39,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 		
-		#include <LUFA/Drivers/AT90USBXXX/Serial_Stream.h>
+		#include <LUFA/Drivers/Peripheral/Serial_Stream.h>
 		
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"

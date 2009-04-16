@@ -127,8 +127,8 @@ SRC = $(TARGET).c                                                 \
 	  ConfigDescriptor.c                                          \
 	  HIDReport.c                                                 \
 	  $(LUFA_PATH)/LUFA/Scheduler/Scheduler.c                     \
-	  $(LUFA_PATH)/LUFA/Drivers/AT90USBXXX/Serial_Stream.c        \
-	  $(LUFA_PATH)/LUFA/Drivers/AT90USBXXX/Serial.c               \
+	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial_Stream.c        \
+	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/HIDParser.c             \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/ConfigDescriptor.c      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \

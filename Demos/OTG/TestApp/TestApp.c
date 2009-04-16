@@ -130,7 +130,7 @@ TASK(TestApp_CheckTemp)
 	if (Scheduler_HasDelayElapsed(10000, &DelayCounter))
 	{
 		printf_P(PSTR("Current temperature: %d Degrees Celcius\r\n\r\n"),
-		         (int)Temperature_GetTemperature());
+		         (int8_t)Temperature_GetTemperature());
 
 		/* Reset the delay counter, ready to count another 10000 tick interval */
 		Scheduler_ResetDelay(&DelayCounter);

@@ -58,7 +58,7 @@
 	#endif
 
 	/* Includes: */
-	#include "../AT90USBXXX/SPI.h"
+	#include "../Peripheral/SPI.h"
 	#include "../../Common/Common.h"
 		
 	/* Enable C linkage for C++ Compilers: */

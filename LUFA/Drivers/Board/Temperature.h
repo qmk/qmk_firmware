@@ -52,8 +52,8 @@
 	/* Includes: */
 		#include <avr/pgmspace.h>
 
-		#include "../AT90USBXXX/ADC.h"
 		#include "../../Common/Common.h"
+		#include "../Peripheral/ADC.h"
 	
 		#if !defined(BOARD)
 			#error #error BOARD must be set in makefile to a value specified in BoardTypes.h.	

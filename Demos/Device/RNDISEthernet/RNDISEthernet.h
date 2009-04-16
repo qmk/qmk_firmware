@@ -56,7 +56,7 @@
 		#include <LUFA/Drivers/Board/LEDs.h>             // LEDs driver
 		#include <LUFA/Scheduler/Scheduler.h>            // Simple scheduler for task management
 
-		#include <LUFA/Drivers/AT90USBXXX/Serial_Stream.h>
+		#include <LUFA/Drivers/Peripheral/Serial_Stream.h>
 	
 	/* Macros: */
 		/** Notification value to indicate that a frame is ready to be read by the host. */
