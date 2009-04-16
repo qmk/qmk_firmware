@@ -37,12 +37,6 @@
  
 #include "KeyboardMouse.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA MouseKBD App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -150,7 +144,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_GetReport:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_Ignore_Word();
+				Endpoint_Discard_Word();
 			
 				uint16_t wIndex = Endpoint_Read_Word_LE();
 				
@@ -173,7 +167,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				if (wLength > ReportSize)
 				  wLength = ReportSize;
 
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 	
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(ReportData, wLength);
@@ -182,17 +176,17 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				memset(ReportData, 0, ReportSize);
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 			}
 		
 			break;
 		case REQ_SetReport:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Wait until the LED report has been sent by the host */
-				while (!(Endpoint_IsSetupOUTReceived()));
+				while (!(Endpoint_IsOUTReceived()));
 
 				/* Read in the LED report from the host */
 				uint8_t LEDStatus = Endpoint_Read_Byte();
@@ -211,11 +205,11 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				LEDs_SetAllLEDs(LEDMask);
 
 				/* Clear the endpoint data */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 			
 			break;
@@ -281,13 +275,13 @@ TASK(USB_Keyboard)
 		Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
 
 		/* Check if Keyboard Endpoint Ready for Read/Write */
-		if (Endpoint_ReadWriteAllowed())
+		if (Endpoint_IsReadWriteAllowed())
 		{
 			/* Write Keyboard Report Data */
 			Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
 
 			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearCurrentBank();
+			Endpoint_ClearIN();
 
 			/* Clear the report data afterwards */
 			memset(&KeyboardReportData, 0, sizeof(KeyboardReportData));
@@ -297,7 +291,7 @@ TASK(USB_Keyboard)
 		Endpoint_SelectEndpoint(KEYBOARD_OUT_EPNUM);
 
 		/* Check if Keyboard LED Endpoint Ready for Read/Write */
-		if (Endpoint_ReadWriteAllowed())
+		if (Endpoint_IsReadWriteAllowed())
 		{		
 			/* Read in the LED report from the host */
 			uint8_t LEDStatus = Endpoint_Read_Byte();
@@ -316,7 +310,7 @@ TASK(USB_Keyboard)
 			LEDs_SetAllLEDs(LEDMask);
 
 			/* Handshake the OUT Endpoint - clear endpoint and ready for next report */
-			Endpoint_ClearCurrentBank();
+			Endpoint_ClearOUT();
 		}
 	}
 }
@@ -352,13 +346,13 @@ TASK(USB_Mouse)
 		Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
 
 		/* Check if Mouse Endpoint Ready for Read/Write */
-		if (Endpoint_ReadWriteAllowed())
+		if (Endpoint_IsReadWriteAllowed())
 		{
 			/* Write Mouse Report Data */
 			Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData));
 
 			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearCurrentBank();
+			Endpoint_ClearIN();
 
 			/* Clear the report data afterwards */
 			memset(&MouseReportData, 0, sizeof(MouseReportData));

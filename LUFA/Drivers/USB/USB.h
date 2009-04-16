@@ -38,6 +38,11 @@
  *  the USB library unless desired by the library user.
  */
 
+/** @defgroup Group_USB USB - LUFA/Drivers/USB/USB.h
+ *
+ *  Functions, macros, variables, enums and types related to the management of USB communications.
+ */
+
 #ifndef __USB_H__
 #define __USB_H__
 
@@ -78,6 +83,9 @@
 		#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
 			#include "LowLevel/OTG.h"
 		#endif
+		
+		#include "Class/ConfigDescriptor.h"
+		#include "Class/HIDParser.h"
 		
 #endif
 

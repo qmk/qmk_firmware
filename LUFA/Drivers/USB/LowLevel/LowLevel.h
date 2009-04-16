@@ -34,6 +34,14 @@
  *  USB interface in either device or (if supported) host mode.
  */
 
+/** \ingroup Group_USB
+ *  @defgroup Group_USBManagement USB Interface Management
+ *
+ *  Functions, macros, variables, enums and types related to the setup and management of the USB interface.
+ *
+ *  @{
+ */
+
 #ifndef __USBLOWLEVEL_H__
 #define __USBLOWLEVEL_H__
 
@@ -70,7 +78,6 @@
 	/* Preprocessor Checks and Defines: */
 		#if !defined(F_CLOCK)
 			#error F_CLOCK is not defined. You must device F_CLOCK to the frequency of the unprescaled input clock in your project makefile.
-			#define F_CLOCK 0
 		#endif
 	
 		#if (F_CLOCK == 8000000)
@@ -376,3 +383,5 @@
 		#endif
 			
 #endif
+
+/** @} */

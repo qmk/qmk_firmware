@@ -37,12 +37,6 @@
 #define  INCLUDE_FROM_MASSSTORAGE_C
 #include "MassStorage.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA MassStore App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -159,30 +153,30 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_MassStorageReset:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 
 				/* Indicate that the current transfer should be aborted */
 				IsMassStoreReset = true;			
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 
 			break;
 		case REQ_GetMaxLUN:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Indicate to the host the number of supported LUNs (virtual disks) on the device */
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 
+				/* Indicate to the host the number of supported LUNs (virtual disks) on the device */
 				Endpoint_Write_Byte(TOTAL_LUNS - 1);
 				
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 				
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupOUTReceived()));
-				Endpoint_ClearSetupOUT();
+				while (!(Endpoint_IsOUTReceived()));
+				Endpoint_ClearControlOUT();
 			}
 			
 			break;
@@ -234,7 +228,7 @@ TASK(USB_MassStorage)
 		Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
 		
 		/* Check to see if a command from the host has been issued */
-		if (Endpoint_ReadWriteAllowed())
+		if (Endpoint_IsReadWriteAllowed())
 		{	
 			/* Indicate busy */
 			UpdateStatus(Status_ProcessingCommandBlock);
@@ -326,7 +320,7 @@ static bool ReadInCommandBlock(void)
 	  return false;
 
 	/* Finalize the stream transfer to send the last packet */
-	Endpoint_ClearCurrentBank();
+	Endpoint_ClearOUT();
 	
 	return true;
 }
@@ -367,7 +361,7 @@ static void ReturnCommandStatus(void)
 	  return;
 
 	/* Finalize the stream transfer to send the last packet */
-	Endpoint_ClearCurrentBank();
+	Endpoint_ClearIN();
 }
 
 /** Stream callback function for the Endpoint stream read and write functions. This callback will abort the current stream transfer

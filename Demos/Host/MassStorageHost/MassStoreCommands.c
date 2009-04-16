@@ -88,7 +88,7 @@ static uint8_t MassStore_SendCommand(void)
 	  return ErrorCode;
 
 	/* Send the data in the OUT pipe to the attached device */
-	Pipe_ClearCurrentBank();
+	Pipe_ClearOUT();
 
 	/* Some buggy devices require a delay here before the pipe freezing or they will lock up */
 	USB_Host_WaitMS(1);
@@ -117,7 +117,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 	Pipe_Unfreeze();
 
 	/* Wait until data received in the IN pipe */
-	while (!(Pipe_ReadWriteAllowed()))
+	while (!(Pipe_IsINReceived()))
 	{
 		/* Check to see if a new frame has been issued (1ms elapsed) */
 		if (USB_INT_HasOccurred(USB_INT_HSOFI))
@@ -183,6 +183,9 @@ static uint8_t MassStore_SendReceiveData(void* BufferPtr)
 		/* Read in the block data from the pipe */
 		if ((ErrorCode = Pipe_Read_Stream_LE(BufferPtr, BytesRem)) != PIPE_RWSTREAM_ERROR_NoError)
 		  return ErrorCode;
+
+		/* Acknowledge the packet */
+		Pipe_ClearIN();
 	}
 	else
 	{
@@ -193,10 +196,10 @@ static uint8_t MassStore_SendReceiveData(void* BufferPtr)
 		/* Write the block data to the pipe */
 		if ((ErrorCode = Pipe_Write_Stream_LE(BufferPtr, BytesRem)) != PIPE_RWSTREAM_ERROR_NoError)
 		  return ErrorCode;
+
+		/* Acknowledge the packet */
+		Pipe_ClearOUT();
 	}
-	
-	/* Acknowledge the packet */
-	Pipe_ClearCurrentBank();
 
 	/* Some buggy devices require a delay here before the pipe freezing or they will lock up */
 	USB_Host_WaitMS(1);
@@ -216,8 +219,8 @@ static uint8_t MassStore_GetReturnedStatus(void)
 	uint8_t ErrorCode = PIPE_RWSTREAM_ERROR_NoError;
 
 	/* If an error in the command ocurred, abort */
-	if (MassStore_WaitForDataReceived() != NoError)
-	  return;
+	if ((ErrorCode == MassStore_WaitForDataReceived()) != PIPE_RWSTREAM_ERROR_NoError)
+	  return ErrorCode;
 
 	/* Select the IN data pipe for data reception */
 	Pipe_SelectPipe(MASS_STORE_DATA_IN_PIPE);
@@ -228,7 +231,7 @@ static uint8_t MassStore_GetReturnedStatus(void)
 	  return ErrorCode;
 	  
 	/* Clear the data ready for next reception */
-	Pipe_ClearCurrentBank();
+	Pipe_ClearIN();
 
 	/* Some buggy devices require a delay here before the pipe freezing or they will lock up */
 	USB_Host_WaitMS(1);

@@ -66,6 +66,8 @@
 			 *
 			 *  \note This variable should be treated as read-only in the user application, and never manually
 			 *        changed in value.
+			 *
+			 *  \ingroup Group_Device
 			 */
 			extern uint8_t USB_ConfigurationNumber;
 			
@@ -74,12 +76,16 @@
 			 *
 			 *  \note This variable should be treated as read-only in the user application, and never manually
 			 *        changed in value.
+			 *
+			 *  \ingroup Group_Device
 			 */
 			extern bool USB_RemoteWakeupEnabled;
 			
 			/** Indicates if the device is currently being powered by its own power supply, rather than being
 			 *  powered by the host's USB supply. This flag should remain cleared if the device does not
 			 *  support self powered mode, as indicated in the device descriptors.
+			 *
+			 *  \ingroup Group_Device
 			 */
 			extern bool USB_CurrentlySelfPowered;
 

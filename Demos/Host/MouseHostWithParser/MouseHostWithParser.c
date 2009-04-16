@@ -36,12 +36,6 @@
  
 #include "MouseHostWithParser.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA Mouse Host App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -271,79 +265,24 @@ TASK(USB_Mouse_Host)
 			Pipe_SelectPipe(MOUSE_DATAPIPE);	
 			Pipe_Unfreeze();
 
-			/* Check if data has been received from the attached mouse */
-			if (Pipe_ReadWriteAllowed())
+			/* Check to see if a packet has been received */
+			if (Pipe_IsINReceived())
 			{
-				uint8_t LEDMask = LEDS_NO_LEDS;
-
-				/* Create buffer big enough for the report */
-				uint8_t MouseReport[Pipe_BytesInPipe()];
-
-				/* Load in the mouse report */
-				Pipe_Read_Stream_LE(MouseReport, Pipe_BytesInPipe());
-				
-				/* Clear the IN endpoint, ready for next data packet */
-				Pipe_ClearCurrentBank();
-
-				/* Check each HID report item in turn, looking for mouse X/Y/button reports */
-				for (uint8_t ReportNumber = 0; ReportNumber < HIDReportInfo.TotalReportItems; ReportNumber++)
+				/* Check if data has been received from the attached mouse */
+				if (Pipe_IsReadWriteAllowed())
 				{
-					/* Create a temporary item pointer to the next report item */
-					HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
-					
-					bool FoundData;
+					/* Create buffer big enough for the report */
+					uint8_t MouseReport[Pipe_BytesInPipe()];
 
-					if ((ReportItem->Attributes.Usage.Page       == USAGE_PAGE_BUTTON) &&
-					    (ReportItem->ItemType                    == REPORT_ITEM_TYPE_In))
-					{
-						/* Get the mouse button value */
-						FoundData = GetReportItemInfo(MouseReport, ReportItem);
-						
-						/* For multi-report devices - if the requested data was not in the issued report, continue */
-						if (!(FoundData))
-						  continue;
-
-						/* If button is pressed, all LEDs are turned on */
-						if (ReportItem->Value)
-						  LEDMask = LEDS_ALL_LEDS;
-					}
-					else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
-					         ((ReportItem->Attributes.Usage.Usage == USAGE_X)                  ||
-					          (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
-					         (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
-					{
-						/* Get the mouse relative position value */
-						FoundData = GetReportItemInfo(MouseReport, ReportItem);
-						
-						/* For multi-report devices - if the requested data was not in the issued report, continue */
-						if (!(FoundData))
-						  continue;
-						  
-						int16_t DeltaMovement;
-						
-						if (ReportItem->Attributes.BitSize > 8)
-						  DeltaMovement = (int16_t)ReportItem->Value;
-						else
-						  DeltaMovement = (int8_t)ReportItem->Value;
-						
-						/* Determine if the report is for the X or Y delta movement */
-						if (ReportItem->Attributes.Usage.Usage == USAGE_X)
-						{
-							/* Turn on the appropriate LED according to direction if the delta is non-zero */
-							if (DeltaMovement)
-							  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED1 : LEDS_LED2);
-						}
-						else
-						{
-							/* Turn on the appropriate LED according to direction if the delta is non-zero */
-							if (DeltaMovement)
-							  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED3 : LEDS_LED4);
-						}
-					}
+					/* Load in the mouse report */
+					Pipe_Read_Stream_LE(MouseReport, Pipe_BytesInPipe());
+				
+					/* Process the read in mouse report from the device */
+					ProcessMouseReport(MouseReport);
 				}
 				
-				/* Display the button information on the board LEDs */
-				LEDs_SetAllLEDs(LEDMask);
+				/* Clear the IN endpoint, ready for next data packet */
+				Pipe_ClearIN();
 			}
 
 			/* Freeze mouse data pipe */
@@ -352,3 +291,72 @@ TASK(USB_Mouse_Host)
 	}
 }
 
+/** Processes a read HID report from an attached mouse, extracting out elements via the HID parser results
+ *  as required and displays movement and button presses on the board LEDs.
+ *
+ *  \param MouseReport  Pointer to a HID report from an attached mouse device
+ */
+void ProcessMouseReport(uint8_t* MouseReport)
+{
+	uint8_t LEDMask = LEDS_NO_LEDS;
+
+	/* Check each HID report item in turn, looking for mouse X/Y/button reports */
+	for (uint8_t ReportNumber = 0; ReportNumber < HIDReportInfo.TotalReportItems; ReportNumber++)
+	{
+		/* Create a temporary item pointer to the next report item */
+		HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
+		
+		bool FoundData;
+
+		if ((ReportItem->Attributes.Usage.Page       == USAGE_PAGE_BUTTON) &&
+			(ReportItem->ItemType                    == REPORT_ITEM_TYPE_In))
+		{
+			/* Get the mouse button value */
+			FoundData = GetReportItemInfo(MouseReport, ReportItem);
+			
+			/* For multi-report devices - if the requested data was not in the issued report, continue */
+			if (!(FoundData))
+			  continue;
+
+			/* If button is pressed, all LEDs are turned on */
+			if (ReportItem->Value)
+			  LEDMask = LEDS_ALL_LEDS;
+		}
+		else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
+				 ((ReportItem->Attributes.Usage.Usage == USAGE_X)                  ||
+				  (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
+				 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
+		{
+			/* Get the mouse relative position value */
+			FoundData = GetReportItemInfo(MouseReport, ReportItem);
+			
+			/* For multi-report devices - if the requested data was not in the issued report, continue */
+			if (!(FoundData))
+			  continue;
+			  
+			int16_t DeltaMovement;
+			
+			if (ReportItem->Attributes.BitSize > 8)
+			  DeltaMovement = (int16_t)ReportItem->Value;
+			else
+			  DeltaMovement = (int8_t)ReportItem->Value;
+			
+			/* Determine if the report is for the X or Y delta movement */
+			if (ReportItem->Attributes.Usage.Usage == USAGE_X)
+			{
+				/* Turn on the appropriate LED according to direction if the delta is non-zero */
+				if (DeltaMovement)
+				  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED1 : LEDS_LED2);
+			}
+			else
+			{
+				/* Turn on the appropriate LED according to direction if the delta is non-zero */
+				if (DeltaMovement)
+				  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED3 : LEDS_LED4);
+			}
+		}
+	}
+	
+	/* Display the button information on the board LEDs */
+	LEDs_SetAllLEDs(LEDMask);
+}

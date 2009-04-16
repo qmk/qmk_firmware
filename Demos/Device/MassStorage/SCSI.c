@@ -174,7 +174,7 @@ static bool SCSI_Command_Inquiry(void)
 	Endpoint_Write_Stream_LE(&PadBytes, (AllocationLength - BytesTransferred), AbortOnMassStoreReset);
 
 	/* Finalize the stream transfer to send the last packet */
-	Endpoint_ClearCurrentBank();
+	Endpoint_ClearIN();
 
 	/* Succeed the command and update the bytes transferred counter */
 	CommandBlock.DataTransferLength -= BytesTransferred;
@@ -201,7 +201,7 @@ static bool SCSI_Command_Request_Sense(void)
 	Endpoint_Write_Stream_LE(&PadBytes, (AllocationLength - BytesTransferred), AbortOnMassStoreReset);
 
 	/* Finalize the stream transfer to send the last packet */
-	Endpoint_ClearCurrentBank();
+	Endpoint_ClearIN();
 
 	/* Succeed the command and update the bytes transferred counter */
 	CommandBlock.DataTransferLength -= BytesTransferred;
@@ -227,7 +227,7 @@ static bool SCSI_Command_Read_Capacity_10(void)
 	  return false;
 
 	/* Send the endpoint data packet to the host */
-	Endpoint_ClearCurrentBank();
+	Endpoint_ClearIN();
 
 	/* Succeed the command and update the bytes transferred counter */
 	CommandBlock.DataTransferLength -= 8;

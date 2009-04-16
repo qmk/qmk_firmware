@@ -37,6 +37,14 @@
  *  \note Do not include this file directly, rather include the Common.h header file instead to gain this file's
  *        functionality.
  */
+ 
+/** \ingroup Group_Common
+ *  @defgroup Group_FuncAttr Function Attributes
+ *
+ *  Macros for easy access GCC function attributes, which can be applied to function prototypes.
+ *
+ *  @{
+ */
 
 #ifndef __FUNCATTR_H__
 #define __FUNCATTR_H__
@@ -108,3 +116,5 @@
 			#define ATTR_ALIAS(x)               __attribute__ ((alias( #x )))
 		
 #endif
+
+/** @} */

@@ -35,6 +35,14 @@
  *
  *  \note These macros are only for AVRs which support the OTG protocol, and do not exist for device-only AVRs.
  */
+ 
+/** \ingroup Group_USB
+ *  @defgroup Group_OTGManagement USB On The Go (OTG) Management
+ *
+ *  Functions, macros, variables, enums and types related to the setup and management of dual role devices.
+ *
+ *  @{
+ */
 
 #ifndef __USBOTG_H__
 #define __USBOTG_H__
@@ -47,46 +55,6 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Initiate a Host Negotiation Protocol request. This indicates to the other connected device
-			 *  that the device wishes to change device/host roles.
-			 */
-			#define USB_OTG_DEV_Request_HNP()          MACROS{ OTGCON |=  (1 << HNPREQ); }MACROE
-
-			/** Cancel a Host Negotiation Protocol request. This stops a pending HNP request to the other
-			 *  connected device.
-			 */
-			#define USB_OTG_DEV_Cancel_HNP_Request()   MACROS{ OTGCON &= ~(1 << HNPREQ); }MACROE
-
-			/** Returns boolean false if not currently sending a HNP to the other connected device, or true
-			 *  if a HNP is currently being issued.
-			 */
-			#define USB_OTG_DEV_IsSendingHNP()               ((OTGCON &   (1 << HNPREQ)) ? true : false)
-			
-			/** Accepts a HNP from a connected device, indicating that both devices should exchange
-			 *  device/host roles.
-			 */
-			#define USB_OTG_HOST_Accept_HNP()          USB_OTG_DEV_Request_HNP()
-
-			/** Rejects a HNP from a connected device, indicating that both devices should remain in their
-			 *  current device/host roles.
-			 */
-			#define USB_OTG_HOST_Reject_HNP()          USB_OTG_DEV_Cancel_HNP_Request()
-			
-			/** Returns boolean false if the connected device is not currently sending a HNP request, or true
-			 *  if a HNP is currently being issued by the connected device.
-			 */
-			#define USB_OTG_HOST_IsHNPReceived()             ((OTGCON &   (1 << HNPREQ)) ? true : false)
-			
-			/** Initiates a Session Request Protocol request. Most OTG devices turn off VBUS when the USB
-			 *  interface is not in use, to conserve power. Sending a SRP to a USB OTG device running in
-			 *  host mode indicates that VBUS should be applied and a session started.
-			 *
-			 *  There are two different methods of sending a SRP - either pulses on the VBUS line, or by
-			 *  pulsing the Data + line via the internal pull-up resistor. The SRP mode is given as the
-			 *  "type" parameter, and can be either USB_OTG_SRP_VBUS or USB_OTG_STP_DATA.
-			 */
-			#define USB_OTG_DEV_Initiate_SRP(type)     MACROS{ OTGCON = ((OTGCON & ~(1 << SRPSEL)) | (type | (1 << SRPREQ))); }MACROE
-
 			/** Mask for the VBUS pulsing method of SRP, supported by some OTG devices.
 			 *
 			 *  \see USB_OTG_DEV_Initiate_SRP()
@@ -99,4 +67,67 @@
 			 */			 
 			#define USB_OTG_STP_DATA                   0
 
+		/* Psuedo-Function Macros: */
+			#if defined(__DOXYGEN__)
+				/** Initiate a Host Negotiation Protocol request. This indicates to the other connected device
+				 *  that the device wishes to change device/host roles.
+				 */
+				static inline void USB_OTG_DEV_Request_HNP(void);
+				
+				/** Cancel a Host Negotiation Protocol request. This stops a pending HNP request to the other
+				 *  connected device.
+				 */
+				static inline void USB_OTG_DEV_Cancel_HNP_Request(void);
+				
+				/** Determines if the device is currently sending a HNP to an attached host.
+				 *
+				 *  \return Boolean true if currently sending a HNP to the other connected device, false otherwise
+				 */
+				static inline bool USB_OTG_DEV_IsSendingHNP(void);
+				
+				/** Accepts a HNP from a connected device, indicating that both devices should exchange
+				 *  device/host roles.
+				 */
+				static inline void USB_OTG_HOST_Accept_HNP(void);
+				
+				/** Rejects a HNP from a connected device, indicating that both devices should remain in their
+				 *  current device/host roles.
+				 */
+				static inline void USB_OTG_HOST_Reject_HNP(void);
+				
+				/** Indicates if the connected device is not currently sending a HNP request.
+				 *
+				 *  \return Boolean true if a HNP is currently being issued by the connected device, false otherwise.
+				 */
+				static inline bool USB_OTG_HOST_IsHNPReceived(void);
+				
+				/** Initiates a Session Request Protocol request. Most OTG devices turn off VBUS when the USB
+				 *  interface is not in use, to conserve power. Sending a SRP to a USB OTG device running in
+				 *  host mode indicates that VBUS should be applied and a session started.
+				 *
+				 *  There are two different methods of sending a SRP - either pulses on the VBUS line, or by
+				 *  pulsing the Data + line via the internal pull-up resistor.
+				 *
+				 *  \param SRPTypeMask  Mask indicating the type of SRP to use, either USB_OTG_SRP_VBUS or USB_OTG_STP_DATA.
+				 */
+				static inline void USB_OTG_DEV_Initiate_SRP(uint8_t SRPTypeMask);
+			#else
+
+				#define USB_OTG_DEV_Request_HNP()          MACROS{ OTGCON |=  (1 << HNPREQ); }MACROE
+
+				#define USB_OTG_DEV_Cancel_HNP_Request()   MACROS{ OTGCON &= ~(1 << HNPREQ); }MACROE
+
+				#define USB_OTG_DEV_IsSendingHNP()               ((OTGCON &   (1 << HNPREQ)) ? true : false)
+				
+				#define USB_OTG_HOST_Accept_HNP()          MACROS{ OTGCON |=  (1 << HNPREQ); }MACROE
+
+				#define USB_OTG_HOST_Reject_HNP()         MACROS{ OTGCON &= ~(1 << HNPREQ); }MACROE
+				
+				#define USB_OTG_HOST_IsHNPReceived()             ((OTGCON &   (1 << HNPREQ)) ? true : false)
+				
+				#define USB_OTG_DEV_Initiate_SRP(type)     MACROS{ OTGCON = ((OTGCON & ~(1 << SRPSEL)) | (type | (1 << SRPREQ))); }MACROE
+			#endif
+	
 #endif
+			
+/** @} */

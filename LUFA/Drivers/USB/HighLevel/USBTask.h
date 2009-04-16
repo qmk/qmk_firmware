@@ -73,6 +73,8 @@
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
 			 *        and disconnection events may be manually fired by RAISE_EVENT(), and the USB_IsConnected global changed manually.
+			 *
+			 *  \ingroup Group_USBManagement
 			 */
 			extern volatile bool USB_IsConnected;
 
@@ -81,6 +83,8 @@
 			 *
 			 *  \note This variable should be treated as read-only in the user application, and never manually
 			 *        changed in value.
+			 *
+			 *  \ingroup Group_USBManagement
 			 */
 			extern volatile bool USB_IsInitialized;
 
@@ -94,6 +98,8 @@
 			 *
 			 *  \note This variable should be treated as read-only in the user application, and never manually
 			 *        changed in value.
+			 *
+			 *  \ingroup Group_Device
 			 */
 			extern volatile bool USB_IsSuspended;
 			#endif
@@ -107,6 +113,8 @@
 			 *  by the library.
 			 *
 			 *  \note This global is only present if the user application can be a USB host.
+			 *
+			 *  \ingroup Group_Host
 			 */
 			extern volatile uint8_t USB_HostState;
 			#endif
@@ -173,6 +181,8 @@
 			 *    event and disabled again on the firing of the USB_DeviceUnattached event.
 			 *
 			 *  \see Events.h for more information on the USB events.
+			 *
+			 *  \ingroup Group_USBManagement
 			 */
 			TASK(USB_USBTask);
 

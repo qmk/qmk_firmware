@@ -33,6 +33,14 @@
  *  USB Device mode related macros and enums. This module contains macros and enums which are used when
  *  the USB controller is initialized in device mode.
  */
+ 
+/** \ingroup Group_USB
+ *  @defgroup Group_Device Device Management
+ *
+ *  Functions, macros, variables, enums and types related to the management of a USB device when in Device mode.
+ *
+ *  @{
+ */
 
 #ifndef __USBDEVICE_H__
 #define __USBDEVICE_H__
@@ -64,42 +72,52 @@
 			 */
 			#define USB_DEVICE_OPT_FULLSPEED               (0 << 0)
 			
-			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
-			 *  be taken out of suspended mode, and communications should resume.
-			 *
-			 *  Typically, this is implemented so that HID devices (mice, keyboards, etc.) can wake up the
-			 *  host computer when the host has suspended all USB devices to enter a low power state.
-			 *
-			 *  \note This macro should only be used if the device has indicated to the host that it
-			 *        supports the Remote Wakeup feature in the device descriptors, and should only be
-			 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
-			 *        the USB_RemoteWakeupEnabled flag is set, see DevChapter9.h documentation).
-			 *
-			 *  \see StdDescriptors.h for more information on the RMWAKEUP feature and device descriptors.
-			 */
-			#define USB_Device_SendRemoteWakeup()   MACROS{ UDCON |= (1 << RMWKUP); }MACROE
+		/* Psuedo-Function Macros: */
+			#if defined(__DOXYGEN__)
+				/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
+				 *  be taken out of suspended mode, and communications should resume.
+				 *
+				 *  Typically, this is implemented so that HID devices (mice, keyboards, etc.) can wake up the
+				 *  host computer when the host has suspended all USB devices to enter a low power state.
+				 *
+				 *  \note This macro should only be used if the device has indicated to the host that it
+				 *        supports the Remote Wakeup feature in the device descriptors, and should only be
+				 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
+				 *        the USB_RemoteWakeupEnabled flag is set, see DevChapter9.h documentation).
+				 *
+				 *  \see StdDescriptors.h for more information on the RMWAKEUP feature and device descriptors.
+				 */
+				static inline void USB_Device_SendRemoteWakeup(void);
+				
+				/** Indicates if a Remote Wakeup request is being sent to the host. This returns true if a
+				 *  remote wakeup is currently being sent, false otherwise.
+				 *
+				 *  This can be used in conjunction with the USB_Device_IsUSBSuspended() macro to determine if
+				 *  a sent RMWAKEUP request was accepted or rejected by the host.
+				 *
+				 *  \note This macro should only be used if the device has indicated to the host that it
+				 *        supports the Remote Wakeup feature in the device descriptors.
+				 *
+				 *  \see StdDescriptors.h for more information on the RMWAKEUP feature and device descriptors.
+				 *
+				 *  \return Boolean true if no Remote Wakeup request is currently being sent, false otherwise
+				 */
+				static inline bool USB_Device_IsRemoteWakeupSent(void);
+				
+				/** Indicates if the device is currently suspended by the host. While suspended, the device is
+				 *  to enter a low power state until resumed by the host. While suspended no USB traffic to or
+				 *  from the device can occur (except for Remote Wakeup requests).
+				 *
+				 *  \return Boolean true if the USB communications have been suspended by the host, false otherwise.
+				 */
+				static inline bool USB_Device_IsUSBSuspended(void);
+			#else
+				#define USB_Device_SendRemoteWakeup()   MACROS{ UDCON |= (1 << RMWKUP); }MACROE
 
-			/** Indicates if a Remote Wakeup request is being sent to the host. This returns true if a
-			 *  remote wakeup is currently being sent, false otherwise.
-			 *
-			 *  This can be used in conjunction with the USB_Device_IsUSBSuspended() macro to determine if
-			 *  a sent RMWAKEUP request was accepted or rejected by the host.
-			 *
-			 *  \note This macro should only be used if the device has indicated to the host that it
-			 *        supports the Remote Wakeup feature in the device descriptors.
-			 *
-			 *  \see StdDescriptors.h for more information on the RMWAKEUP feature and device descriptors.
-			 */
-			#define USB_Device_IsRemoteWakeupSent()       ((UDCON &  (1 << RMWKUP)) ? false : true)
+				#define USB_Device_IsRemoteWakeupSent()       ((UDCON &  (1 << RMWKUP)) ? false : true)
 
-			/** Indicates if the device is currently suspended by the host. While suspended, the device is
-			 *  to enter a low power state until resumed by the host. While suspended no USB traffic to or
-			 *  from the device can occur (except for Remote Wakeup requests).
-			 *
-			 *  This macro returns true if the USB communications have been suspended by the host, false
-			 *  otherwise.
-			 */
-			#define USB_Device_IsUSBSuspended()           ((UDINT &  (1 << SUSPI)) ? true : false)
+				#define USB_Device_IsUSBSuspended()           ((UDINT &  (1 << SUSPI)) ? true : false)
+			#endif
 
 		/* Enums: */
 			/** Enum for the ErrorCode parameter of the USB_DeviceError event.
@@ -122,5 +140,7 @@
 			#define USB_Device_SetLowSpeed()        MACROS{ UDCON |=  (1 << LSM);   }MACROE
 			#define USB_Device_SetHighSpeed()       MACROS{ UDCON &= ~(1 << LSM);   }MACROE
 	#endif
-	
+
 #endif
+
+/** @} */

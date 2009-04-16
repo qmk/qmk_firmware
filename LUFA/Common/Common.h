@@ -33,6 +33,24 @@
  *  This file contains macros which are common to all library elements, and which may be useful in user code. It
  *  also includes other common headers, such as Atomic.h, FunctionAttributes.h and BoardTypes.h.
  */
+ 
+/** @defgroup Group_Common Common Utility Headers - LUFA/Drivers/Common/Common.h
+ *
+ *  Common utility headers containing macros, functions, enums and types which are common to all
+ *  aspects of the library.
+ *
+ *  @{
+ */
+
+/** @defgroup Group_Debugging Debugging Macros
+ *
+ *  Macros for debugging use.
+ */
+ 
+/** @defgroup Group_BitManip Endian and Bit Macros
+ *
+ *  Functions for swapping endianness and reversing bit orders.
+ */
 
 #ifndef __COMMON_H__
 #define __COMMON_H__
@@ -66,14 +84,22 @@
 			/** Defines a volatile NOP statement which cannot be optimized out by the compiler, and thus can always
 			 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimizer
 			 *  removes/reorders code to the point where break points cannot reliably be set.
+			 *
+			 *  \ingroup Group_Debugging
 			 */
 			#define JTAG_DEBUG_POINT()      asm volatile ("NOP" ::)
 
 			/** Defines an explicit JTAG break point in the resulting binary via the ASM BREAK statement. When
-			 *  a JTAG is used, this causes the program execution to halt when reached until manually resumed. */
+			 *  a JTAG is used, this causes the program execution to halt when reached until manually resumed.
+			 *
+			 *  \ingroup Group_Debugging
+			 */
 			#define JTAG_DEBUG_BREAK()      asm volatile ("BREAK" ::)
 			
-			/** Macro for testing condition "x" and breaking via JTAG_DEBUG_BREAK() if the condition is false. */
+			/** Macro for testing condition "x" and breaking via JTAG_DEBUG_BREAK() if the condition is false.
+			 *
+			 *  \ingroup Group_Debugging
+			*/
 			#define JTAG_DEBUG_ASSERT(x)    MACROS{ if (!(x)) { JTAG_DEBUG_BREAK(); } }MACROE
 
 			/** Macro for testing condition "x" and writing debug data to the serial stream if false. As a
@@ -81,6 +107,8 @@
 			 *
 			 *  The serial output takes the form "{FILENAME}: Function {FUNCTION NAME}, Line {LINE NUMBER}: Assertion
 			 *  {x} failed."
+			 *
+			 *  \ingroup Group_Debugging
 			 */
 			#define SERIAL_STREAM_ASSERT(x) MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
 																"Assertion \"%s\" failed.\r\n"),   \
@@ -90,6 +118,8 @@
 		/* Inline Functions: */
 			/** Function to reverse the individual bits in a byte - i.e. bit 7 is moved to bit 0, bit 6 to bit 1,
 			 *  etc.
+			 *
+			 *  \ingroup Group_BitManip
 			 *
 			 *  \param Byte   Byte of data whose bits are to be reversed
 			 */
@@ -105,6 +135,8 @@
 			
 			/** Function to reverse the byte ordering of the individual bytes in a 16 bit number.
 			 *
+			 *  \ingroup Group_BitManip
+			 *
 			 *  \param Word   Word of data whose bytes are to be swapped
 			 */
 			static inline uint16_t SwapEndian_16(uint16_t Word) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
@@ -114,6 +146,8 @@
 			}
 
 			/** Function to reverse the byte ordering of the individual bytes in a 32 bit number.
+			 *
+			 *  \ingroup Group_BitManip
 			 *
 			 *  \param DWord   Double word of data whose bytes are to be swapped
 			 */
@@ -127,6 +161,8 @@
 			}
 
 			/** Function to reverse the byte ordering of the individual bytes in a n byte number.
+			 *
+			 *  \ingroup Group_BitManip
 			 *
 			 *  \param Data   Pointer to a number containing an even number of bytes to be reversed
 			 *  \param Bytes  Length of the data in bytes
@@ -148,3 +184,5 @@
 			}
 
 #endif
+
+/** @} */

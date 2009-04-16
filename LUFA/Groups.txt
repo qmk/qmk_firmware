@@ -1,0 +1,20 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** @defgroup Group_BoardDrivers Board Drivers
+ *
+ *  Functions, macros, variables, enums and types related to the control of physical board hardware.
+ */
+
+/** @defgroup Group_SubsystemDrivers Subsystem Drivers
+ *
+ *  Functions, macros, variables, enums and types related to the control of AVR subsystems.
+ */
+ 
+/** @defgroup Group_MiscDrivers Miscellaneous Drivers
+ *
+ *  Miscellaneous driver Functions, macros, variables, enums and types.
+ */

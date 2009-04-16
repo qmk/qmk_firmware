@@ -37,12 +37,6 @@
  
 #include "Magstripe.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "Magstripe Reader");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -184,30 +178,30 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				if (wLength > sizeof(KeyboardReportData))
 				  wLength = sizeof(KeyboardReportData);
 
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 	
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&KeyboardReportData, wLength);
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 			}
 		
 			break;
 		case REQ_GetProtocol:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Write the current protocol flag to the host */
 				Endpoint_Write_Byte(UsingReportProtocol);
 				
 				/* Send the flag to the host */
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupOUTReceived()));
-				Endpoint_ClearSetupOUT();
+				while (!(Endpoint_IsOUTReceived()));
+				Endpoint_ClearControlOUT();
 			}
 			
 			break;
@@ -217,14 +211,14 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				/* Read in the wValue parameter containing the new protocol mode */
 				uint16_t wValue = Endpoint_Read_Word_LE();
 				
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 
 				/* Set or clear the flag depending on what the host indicates that the current Protocol should be */
 				UsingReportProtocol = (wValue != 0x0000);
 				
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 			
 			break;
@@ -234,31 +228,31 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				/* Read in the wValue parameter containing the idle period */
 				uint16_t wValue = Endpoint_Read_Word_LE();
 				
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Get idle period in MSB */
 				IdleCount = (wValue >> 8);
 				
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 			
 			break;
 		case REQ_GetIdle:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{		
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Write the current idle duration to the host */
 				Endpoint_Write_Byte(IdleCount);
 				
 				/* Send the flag to the host */
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupOUTReceived()));
-				Endpoint_ClearSetupOUT();
+				while (!(Endpoint_IsOUTReceived()));
+				Endpoint_ClearControlOUT();
 			}
 
 			break;
@@ -410,7 +404,7 @@ TASK(USB_Keyboard_Report)
 		Endpoint_SelectEndpoint(KEYBOARD_EPNUM);
 
 		/* Check if Keyboard Endpoint Ready for Read/Write */
-		if (Endpoint_ReadWriteAllowed())
+		if (Endpoint_IsReadWriteAllowed())
 		{
 			/* Only fetch the next key to send once the period between key presses has elapsed */
 			if (!(KeyDelayRemaining))
@@ -436,7 +430,7 @@ TASK(USB_Keyboard_Report)
 				Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(USB_KeyboardReport_Data_t));
 
 				/* Finalize the stream transfer to send the last packet */
-				Endpoint_ClearCurrentBank();
+				Endpoint_ClearIN();
 
 				/* Reset the key delay period counter */
 				KeyDelayRemaining = 2;

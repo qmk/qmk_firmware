@@ -34,6 +34,14 @@
  *  events as VBUS interrupts (on supported USB AVR models), device connections and disconnections, etc.
  */
 
+/** \ingroup Group_USB
+ *  @defgroup Group_USBInterrupt Endpoint and Pipe Interrupts
+ *
+ *  Functions, macros, variables, enums and types related to endpoint and pipe interrupts.
+ *
+ *  @{
+ */
+
 #ifndef __USBINTERRUPT_H__
 #define __USBINTERRUPT_H__
 
@@ -220,5 +228,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
+
+/** @} */

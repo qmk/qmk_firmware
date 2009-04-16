@@ -40,6 +40,14 @@
  *  directory.
  */
  
+/** \ingroup Group_BoardDrivers
+ *  @defgroup Group_Joystick Joystick Driver - LUFA/Drivers/Board/Joystick.h
+ *
+ *  Functions, macros, variables, enums and types related to the control of board joystick.
+ *
+ *  @{
+ */
+
 #ifndef __JOYSTICK_H__
 #define __JOYSTICK_H__
 
@@ -83,3 +91,5 @@
 	#endif
 
 #endif
+
+/** @} */

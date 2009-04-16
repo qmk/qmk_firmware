@@ -34,6 +34,14 @@
  *  flag's meaning when applied to an IN, OUT or FEATURE item.
  */
 
+/** \ingroup Group_HIDParser
+ *  @defgroup Group_HIDIOFConst Input/Output/Feature Masks
+ *
+ *  Masks indicating the type of Input, Output of Feature HID report item.
+ *
+ *  @{
+ */
+ 
 #ifndef __HIDREPORTDATA_H__
 #define __HIDREPORTDATA_H__
 
@@ -126,5 +134,7 @@
 			#define TAG_LOCAL_USAGEMIN       0x10
 			#define TAG_LOCAL_USAGEMAX       0x20
 	#endif
+
+/** @} */
 		
 #endif

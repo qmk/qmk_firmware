@@ -45,7 +45,6 @@
 		#include <stdio.h>
 
 		#include <LUFA/Version.h>                                // Library Version Information
-		#include <LUFA/Common/ButtLoadTag.h>                     // PROGMEM tags readable by the ButtLoad project
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>             // ANSI Terminal Escape Codes
 		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
 		#include <LUFA/Drivers/AT90USBXXX/Serial_Stream.h>       // Serial stream driver
@@ -94,6 +93,6 @@
 	/* Function Prototypes: */
 		void UpdateStatus(uint8_t CurrentStatus);
 		void ReadNextReport(void);
-		void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength);
+		void WriteNextReport(uint8_t* ReportOUTData, uint8_t ReportIndex, uint8_t ReportType, uint16_t ReportLength);
 		
 #endif

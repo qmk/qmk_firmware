@@ -44,6 +44,14 @@
  *  named counterparts, thus they can be correlated easily with the official USB specification.
  */
 
+/** \ingroup Group_USB
+ *  @defgroup Group_Descriptors USB Descriptors
+ *
+ *  Functions, macros, variables, enums and types related to standard USB descriptors.
+ *
+ *  @{
+ */
+ 
 #ifndef __USBDESCRIPTORS_H__
 #define __USBDESCRIPTORS_H__
 
@@ -472,12 +480,6 @@
 				int16_t                 bString[];
 				#endif
 			} USB_Descriptor_String_t;
-			
-			typedef struct
-			{
-				uint16_t Size;
-				void*    Address;
-			} USB_Descriptor_Details_t;
 
 		/* Function Prototypes: */
 			/** Function to retrieve a given descriptor's size and memory location from the given descriptor type value,
@@ -519,5 +521,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+	
 #endif
+
+/** @} */

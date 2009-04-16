@@ -36,6 +36,12 @@
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
  
+/** \ingroup Group_LEDs
+ *  @defgroup Group_LEDs_ATAVRUSBRF01 ATAVRUSBRF01
+ *
+ *  @{
+ */
+ 
 #ifndef __LEDS_ATAVRUSBRF01_H__
 #define __LEDS_ATAVRUSBRF01_H__
 
@@ -118,3 +124,5 @@
 		#endif
 	
 #endif
+
+/** @} */

@@ -36,12 +36,6 @@
  
 #include "GenericHIDHost.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA GenHid Host App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -185,30 +179,34 @@ void ReadNextReport(void)
 	Pipe_SelectPipe(HID_DATA_IN_PIPE);
 	Pipe_Unfreeze();
 
-	/* Ensure pipe contains data and is ready to be read before continuing */
-	if (!(Pipe_ReadWriteAllowed()))
+	/* Check to see if a packet has been received */
+	if (!(Pipe_IsINReceived()))
 	{
 		#if !defined(INTERRUPT_DATA_PIPE)
 		/* Refreeze HID data IN pipe */
 		Pipe_Freeze();
 		#endif
-		
+			
 		return;
 	}
 	
-	uint8_t ReportINData[Pipe_BytesInPipe()];
+	/* Ensure pipe contains data before trying to read from it */
+	if (Pipe_IsReadWriteAllowed())
+	{
+		uint8_t ReportINData[Pipe_BytesInPipe()];
 
-	/* Read in HID report data */
-	Pipe_Read_Stream_LE(&ReportINData, sizeof(ReportINData));				
+		/* Read in HID report data */
+		Pipe_Read_Stream_LE(&ReportINData, sizeof(ReportINData));
+	
+		/* Print report data through the serial port */
+		for (uint16_t CurrByte = 0; CurrByte < sizeof(ReportINData); CurrByte++)
+		  printf_P(PSTR("0x%02X "), ReportINData[CurrByte]);
+		
+		puts_P(PSTR("\r\n"));
+	}
 		
 	/* Clear the IN endpoint, ready for next data packet */
-	Pipe_ClearCurrentBank();
-	
-	/* Print report data through the serial port */
-	for (uint16_t CurrByte = 0; CurrByte < sizeof(ReportINData); CurrByte++)
-	  printf_P(PSTR("0x%02X "), ReportINData[CurrByte]);
-	
-	puts_P(PSTR("\r\n"));
+	Pipe_ClearIN();
 	
 	#if !defined(INTERRUPT_DATA_PIPE)
 	/* Refreeze HID data IN pipe */
@@ -235,7 +233,7 @@ void WriteNextReport(uint8_t* ReportOUTData, uint8_t ReportIndex, uint8_t Report
 		Pipe_Unfreeze();
 
 		/* Ensure pipe is ready to be written to before continuing */
-		if (!(Pipe_ReadWriteAllowed()))
+		if (!(Pipe_IsOUTReady()))
 		{
 			/* Refreeze the data OUT pipe */
 			Pipe_Freeze();
@@ -251,7 +249,7 @@ void WriteNextReport(uint8_t* ReportOUTData, uint8_t ReportIndex, uint8_t Report
 		Pipe_Write_Stream_LE(ReportOUTData, ReportLength);				
 			
 		/* Clear the OUT endpoint, send last data packet */
-		Pipe_ClearCurrentBank();
+		Pipe_ClearOUT();
 
 		/* Refreeze the data OUT pipe */
 		Pipe_Freeze();

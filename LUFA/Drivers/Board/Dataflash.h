@@ -40,6 +40,14 @@
  *  directory.
  */
  
+/** \ingroup Group_BoardDrivers
+ *  @defgroup Group_Dataflash Dataflash Driver - LUFA/Drivers/Board/Dataflash.h
+ *
+ *  Functions, macros, variables, enums and types related to the control of board Dataflash ICs.
+ *
+ *  @{
+ */
+ 
 #ifndef __DATAFLASH_H__
 #define __DATAFLASH_H__
 
@@ -59,21 +67,33 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */
-			/** Returns the mask of the currently selected Dataflash chip, either DATAFLASH_NO_CHIP or a
-			 *  DATAFLASH_CHIPn mask (where n is the chip number).
-			 */
-			#define Dataflash_GetSelectedChip()          (DATAFLASH_CHIPCS_PORT & DATAFLASH_CHIPCS_MASK)
+		/* Psuedo-Function Macros: */
+			#if defined(__DOXYGEN__)
+				/** Determines the currently selected dataflash chip.
+				 *
+				 *  \return Mask of the currently selected Dataflash chip, either DATAFLASH_NO_CHIP if no chip is selected
+				 *  or a DATAFLASH_CHIPn mask (where n is the chip number).
+				 */
+				static inline uint8_t Dataflash_GetSelectedChip(void);
 
-			/** Selects the dataflash chip given as a chip mask, in the form of DATAFLASH_CHIPn (where n
-			 *  is the chip number).
-			 */
-			#define Dataflash_SelectChip(mask)   MACROS{ DATAFLASH_CHIPCS_PORT = ((DATAFLASH_CHIPCS_PORT \
-			                                             & ~DATAFLASH_CHIPCS_MASK) | mask);              }MACROE
+				/** Selects the given dataflash chip.
+				 *
+				 *  \param  ChipMask  Mask of the Dataflash IC to select, in the form of DATAFLASH_CHIPn mask (where n is
+				 *          the chip number).
+				 */
+				static inline void Dataflash_SelectChip(uint8_t ChipMask);
+
+				/** Deselects the current dataflash chip, so that no dataflash is selected. */
+				static inline void Dataflash_DeselectChip(void);
+			#else
+				#define Dataflash_GetSelectedChip()          (DATAFLASH_CHIPCS_PORT & DATAFLASH_CHIPCS_MASK)
+
+				#define Dataflash_SelectChip(mask)   MACROS{ DATAFLASH_CHIPCS_PORT = ((DATAFLASH_CHIPCS_PORT \
+															 & ~DATAFLASH_CHIPCS_MASK) | mask);              }MACROE
+				
+				#define Dataflash_DeselectChip()             Dataflash_SelectChip(DATAFLASH_NO_CHIP)
+			#endif
 			
-			/** Deselects the current dataflash chip, so that no dataflash is selected. */
-			#define Dataflash_DeselectChip()             Dataflash_SelectChip(DATAFLASH_NO_CHIP)
-
 		/* Inline Functions: */
 			/** Sends a byte to the currently selected dataflash IC, and returns a byte from the dataflash.
 			 *
@@ -182,3 +202,5 @@
 		#endif
 	
 #endif
+
+/** @} */

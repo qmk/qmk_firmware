@@ -33,6 +33,14 @@
  *  Driver for the USART subsystem on supported USB AVRs.
  */
  
+/** \ingroup Group_SubsystemDrivers
+ *  @defgroup Group_Serial Serial USART Driver - LUFA/Drivers/AT90USBXXX/Serial.h
+ *
+ *  Functions, macros, variables, enums and types related to the setup of the USART for serial communications.
+ *
+ *  @{
+ */
+ 
 #ifndef __SERIAL_H__
 #define __SERIAL_H__
 
@@ -113,3 +121,5 @@
 		#endif
 		
 #endif
+
+/** @} */

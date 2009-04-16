@@ -33,6 +33,14 @@
  *  Temperature sensor board driver for the USB boards which contain a temperature sensor.
  */
 
+/** \ingroup Group_BoardDrivers
+ *  @defgroup Group_Temperature Temperature Driver - LUFA/Drivers/Board/Temperature.h
+ *
+ *  Functions, macros, variables, enums and types related to the control of board temperature sensors.
+ *
+ *  @{
+ */
+
 #ifndef __TEMPERATURE_H__
 #define __TEMPERATURE_H__
 
@@ -68,14 +76,19 @@
 
 			/** Maximum returnable temperature from the Temperature_GetTemperature() function. */
 			#define TEMP_MAX_TEMP      ((TEMP_TABLE_SIZE - 1) + TEMP_TABLE_OFFSET)
-			
-			/** Initializes the temperature sensor driver, including setting up the appropriate ADC channel.
-			 *  This must be called before any other temperature sensor routines.
-			 *
-			 *  The ADC itself (not the ADC channel) must be configured separately before calling the temperature
-			 *  sensor functions.
-			 */
-			#define Temperature_Init() ADC_SetupChannel(TEMP_ADC_CHANNEL);
+		
+		/* Psuedo-Functions: */
+			#if defined(__DOXYGEN__)
+				/** Initializes the temperature sensor driver, including setting up the appropriate ADC channel.
+				 *  This must be called before any other temperature sensor routines.
+				 *
+				 *  The ADC itself (not the ADC channel) must be configured separately before calling the temperature
+				 *  sensor functions.
+				 */
+				static inline void Temperature_Init(void);
+			#else
+				#define Temperature_Init() ADC_SetupChannel(TEMP_ADC_CHANNEL);
+			#endif
 
 		/* Function Prototypes: */
 			/** Performs a complete ADC on the temperature sensor channel, and converts the result into a
@@ -98,3 +111,5 @@
 		#endif
 		
 #endif
+
+/** @} */

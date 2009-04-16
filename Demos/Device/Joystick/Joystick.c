@@ -36,12 +36,6 @@
 
 #include "Joystick.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA Joystick App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -151,13 +145,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				if (wLength > sizeof(JoystickReportData))
 				  wLength = sizeof(JoystickReportData);
 
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 	
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&JoystickReportData, wLength);
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 			}
 		
 			break;
@@ -241,8 +235,8 @@ TASK(USB_Joystick_Report)
 		/* Select the Joystick Report Endpoint */
 		Endpoint_SelectEndpoint(JOYSTICK_EPNUM);
 
-		/* Check if Joystick Endpoint Ready for Read/Write */
-		if (Endpoint_ReadWriteAllowed())
+		/* Check to see if the host is ready for another packet */
+		if (Endpoint_IsINReady())
 		{
 			USB_JoystickReport_Data_t JoystickReportData;
 			
@@ -253,12 +247,10 @@ TASK(USB_Joystick_Report)
 			Endpoint_Write_Stream_LE(&JoystickReportData, sizeof(JoystickReportData));
 
 			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearCurrentBank();
+			Endpoint_ClearIN();
 			
 			/* Clear the report data afterwards */
-			JoystickReportData.X      = 0;
-			JoystickReportData.Y      = 0;
-			JoystickReportData.Button = 0;
+			memset(&JoystickReportData, 0, sizeof(JoystickReportData));
 		}
 	}
 }

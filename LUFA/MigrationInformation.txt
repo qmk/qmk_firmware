@@ -12,12 +12,48 @@
  *
  * \section Sec_MigrationXXXXXX Migrating from 090401 to XXXXXX
  *
+ *  <b>All</b>
+ *    - The ButtLoadTag.h header has been removed, as it was never used for its intended purpose. Projects should either remove all
+ *      BUTTLOADTAG elements, or download and extract ButtLoadTag.h header from the ButtLoad project.
+ *
+ *  <b>Library Demos</b>
+ *    - Most demos, bootloaders and applications have had significant changes from previous versions. Applications built off of any
+ *      library demos should update to the latest versions.
+ *
+ *  <b>Device Mode</b>
+ *    - The Endpoint_ClearCurrentBank() macro has been removed, and is now replaced with the Endpoint_ClearIN(), Endpoint_ClearOUT(),
+ *      Endpoint_ClearControlIN(), Endpoint_ClearControlOUT() and other related macros. See Endpoint.h documentation for more details
+ *      on the new endpoint management macros.
+ *    - The Endpoint_ReadWriteAllowed() macro has been renamed to Endpoint_IsReadWriteAllowed() to be more consistent with the rest of
+ *      the API naming scheme.
+ *    - The Endpoint_IsSetupINReady() and Endpoint_IsOutReceived() macros have been renamed to Endpoint_IsINReady() and
+ *      Endpoint_IsOUTReceived() respectively.
+ *    - The Endpoint_IsSetupReceived() macro has been renamed to Endpoint_IsSETUPReceived().
+ *    - The Endpoint_ClearSetupReceived() macro has been renamed to Endpoint_ClearControlSETUP().
+ *    - All endpoint read/write/discard aliases which did not have an explicity endianness specifier (such as Endpoint_Read_Word()) have
+ *      been removed for clarity. Existing projects should use the "_LE" suffix on such calls to use the explicit Little Endian versions.
+ *
  *  <b>Host Mode</b>
  *    - The USB_Host_SendControlRequest() function no longer automatically selects the Control pipe (pipe 0) to allow it to be used on
  *      other control type pipes. Care should be taken to ensure that the Control pipe is always selected before the function is called
  *      in existing projects where the Control pipe is to be operated on.
  *    - The USB Host management task now saves and restores the currently selected pipe before and after the task runs. Projects no longer
  *      need to manage this manually when calling the USB management task.
+ *    - The Pipe_ClearCurrentBank() macro has been removed, and is now replaced with the Pipe_ClearIN(), Pipe_ClearOUT(),
+ *      Pipe_ClearControlIN(), Pipe_ClearControlOUT() and other related macros. See Pipe.h documentation for more details on the new pipe
+ *      management macros.
+ *    - The Pipe_ReadWriteAllowed() macro has been renamed to Pipe_IsReadWriteAllowed() to be more consistent with the rest of the API
+ *      naming scheme.
+ *    - The Pipe_IsSetupINReceived() and Pipe_IsOutReady() macros have been renamed to Pipe_IsINReceived() and Pipe_IsOUTReady()
+ *      respectively.
+ *    - The new Pipe_ClearControlSETUP() macro should be used to send CONTROL transactions, rather than the previous Pipe_ClearSetupOUT() macro.
+ *    - The Pipe_IsSetupSent() macro has been renamed to Pipe_IsSETUPSent().
+ *    - The Pipe_ClearSetupSent() macro is no longer applicable and should be removed.
+ *    - All pipe read/write/discard aliases which did not have an explicity endianness specifier (such as Pipe_Read_Word()) have
+ *      been removed for clarity. Existing projects should use the "_LE" suffix on such calls to use the explicit Little Endian versions.
+ *    - The Host_IsResetBusDone() macro has been renamed to Host_IsBusResetComplete().
+ *    - The Pipe_Ignore_Word() function has been renamed to Pipe_Discard_Word() to remain consistent with the rest of the pipe API.
+ *
  *
  * \section Sec_Migration090401 Migrating from 090209 to 090401
  *

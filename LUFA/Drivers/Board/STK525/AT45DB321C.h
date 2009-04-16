@@ -36,6 +36,12 @@
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
  */
 
+/** \ingroup Group_Dataflash_STK525
+ *  @defgroup Group_Dataflash_STK525_AT45DB321C AT45DB321C
+ *
+ *  @{
+ */
+ 
 #ifndef __DATAFLASH_CMDS_H__
 #define __DATAFLASH_CMDS_H__
 
@@ -82,3 +88,5 @@
 			#define DF_CMD_READMANUFACTURERDEVICEINFO       0x9F
 
 #endif
+
+/** @} */

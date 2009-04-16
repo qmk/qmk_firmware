@@ -58,6 +58,8 @@
 			 *
 			 *  \see StdRequestType.h for information on the request type and data.
 			 *  \see The USB 2.0 specification for more information on standard control requests.
+			 *
+			 *  \ingroup Group_PipeControlReq
 			 */
 			typedef struct
 			{
@@ -71,6 +73,8 @@
 		/* Enums: */
 			/** Enum for the USB_Host_SendControlRequest() return code, indicating the reason for the error
 			 *  if the transfer of the request is unsuccessful.
+			 *
+			 *  \ingroup Group_PipeControlReq
 			 */
 			enum USB_Host_SendControlErrorCodes_t
 			{
@@ -89,6 +93,8 @@
 			/** Global for the request to send via the USB_Host_SendControlRequest() function. This
 			 *  global should be filled with the correct control request data before sending the request to
 			 *  the attached device while in host mode.
+			 *
+			 *  \ingroup Group_PipeControlReq
 			 */
 			extern USB_Host_Request_Header_t USB_HostRequest;
 			
@@ -96,6 +102,8 @@
 			/** Sends the request stored in the USB_HostRequest global structure to the attached device,
 			 *  and transfers the data stored in the buffer to the device, or from the device to the buffer
 			 *  as requested. The transfer is made on the currently selected pipe.
+			 *
+			 *  \ingroup Group_PipeControlReq
 			 *
 			 *  \param BufferPtr  Pointer to the start of the data buffer if the request has a data stage, or
 			 *                    NULL if the request transfers no data to or from the device.

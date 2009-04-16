@@ -44,6 +44,14 @@
  *  HID_INCLUDE_CONSTANT_DATA_ITEMS tokens in the user project makefile, passing them to the compiler via the -D
  *  switch.
  */
+ 
+/** \ingroup Group_USB
+ *  @defgroup Group_HIDParser HID Report Parser
+ *
+ *  Functions, macros, variables, enums and types related to the parsing of HID class device report descriptors.
+ *
+ *  @{
+ */
 
 #ifndef __HIDPARSER_H__
 #define __HIDPARSER_H__
@@ -250,3 +258,5 @@
 		#endif
 
 #endif
+
+/** @} */

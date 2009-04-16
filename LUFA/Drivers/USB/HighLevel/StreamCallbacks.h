@@ -35,6 +35,14 @@
  *  stream read/write process.
  */
  
+/** \ingroup Group_USB
+ *  @defgroup Group_StreamCallbacks Endpoint and Pipe Stream Callbacks
+ *
+ *  Functions, macros, variables, enums and types related to endpoint and pipe stream callback functions.
+ *
+ *  @{
+ */
+ 
 #ifndef __STREAMCALLBACK_H__
 #define __STREAMCALLBACK_H__
 
@@ -85,3 +93,5 @@
 			};
 			
 #endif
+
+/** @} */

@@ -38,7 +38,6 @@
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
-		#include <LUFA/Drivers/USB/Class/ConfigDescriptor.h>     // Configuration Descriptor Parser
 		
 		#include "HIDReport.h"
 		

@@ -43,6 +43,14 @@
  *  \endcode
  */
  
+/** \ingroup Group_MiscDrivers
+ *  @defgroup Group_Terminal ANSI Terminal Escape Codes - LUFA/Drivers/Misc/TerminalCodes.h
+ *
+ *  Escape code macros for ANSI compliant text terminals.
+ *
+ *  @{
+ */
+ 
 #ifndef __TERMINALCODES_H__
 #define __TERMINALCODES_H__
 
@@ -174,3 +182,5 @@
 			#define ESC_ERASE_LINE           ANSI_ESCAPE_SEQUENCE("K")
 
 #endif
+
+/** @} */

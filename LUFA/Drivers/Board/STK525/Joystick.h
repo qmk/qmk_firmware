@@ -36,6 +36,12 @@
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
  */
  
+/** \ingroup Group_Joystick
+ *  @defgroup Group_Joystick_STK525 STK525
+ *
+ *  @{
+ */
+ 
 #ifndef __JOYSTICK_STK525_H__
 #define __JOYSTICK_STK525_H__
 
@@ -102,3 +108,5 @@
 		#endif
 	
 #endif
+
+/** @} */

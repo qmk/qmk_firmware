@@ -35,6 +35,12 @@
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
+
+/** \ingroup Group_LEDs
+ *  @defgroup Group_LEDs_RZUSBSTICK RZUSBSTICK
+ *
+ *  @{
+ */
  
 #ifndef __LEDS_RZUSBSTICK_H__
 #define __LEDS_RZUSBSTICK_H__
@@ -139,3 +145,5 @@
 		#endif
 	
 #endif
+
+/** @} */

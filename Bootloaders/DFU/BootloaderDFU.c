@@ -163,7 +163,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 	switch (bRequest)
 	{
 		case DFU_DNLOAD:
-			Endpoint_ClearSetupReceived();
+			Endpoint_ClearControlSETUP();
 			
 			/* Check if bootloader is waiting to terminate */
 			if (WaitForExit)
@@ -178,7 +178,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			/* If the request has a data stage, load it into the command struct */
 			if (SentCommand.DataSize)
 			{
-				while (!(Endpoint_IsSetupOUTReceived()));
+				while (!(Endpoint_IsOUTReceived()));
 
 				/* First byte of the data stage is the DNLOAD request's command */
 				SentCommand.Command = Endpoint_Read_Byte();
@@ -235,8 +235,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 							/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
 							if (!(Endpoint_BytesInEndpoint()))
 							{
-								Endpoint_ClearSetupOUT();
-								while (!(Endpoint_IsSetupOUTReceived()));
+								Endpoint_ClearControlOUT();
+								while (!(Endpoint_IsOUTReceived()));
 							}
 
 							/* Write the next word into the current flash page */
@@ -279,8 +279,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 							/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
 							if (!(Endpoint_BytesInEndpoint()))
 							{
-								Endpoint_ClearSetupOUT();
-								while (!(Endpoint_IsSetupOUTReceived()));
+								Endpoint_ClearControlOUT();
+								while (!(Endpoint_IsOUTReceived()));
 							}
 
 							/* Read the byte from the USB interface and write to to the EEPROM */
@@ -296,17 +296,17 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				}
 			}
 
-			Endpoint_ClearSetupOUT();
+			Endpoint_ClearControlOUT();
 
 			/* Acknowledge status stage */
-			while (!(Endpoint_IsSetupINReady()));
-			Endpoint_ClearSetupIN();
+			while (!(Endpoint_IsINReady()));
+			Endpoint_ClearControlIN();
 				
 			break;
 		case DFU_UPLOAD:
-			Endpoint_ClearSetupReceived();
+			Endpoint_ClearControlSETUP();
 
-			while (!(Endpoint_IsSetupINReady()));
+			while (!(Endpoint_IsINReady()));
 
 			if (DFU_State != dfuUPLOAD_IDLE)
 			{
@@ -343,8 +343,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 						/* Check if endpoint is full - if so clear it and wait until ready for next packet */
 						if (Endpoint_BytesInEndpoint() == FIXED_CONTROL_ENDPOINT_SIZE)
 						{
-							Endpoint_ClearSetupIN();
-							while (!(Endpoint_IsSetupINReady()));
+							Endpoint_ClearControlIN();
+							while (!(Endpoint_IsINReady()));
 						}
 
 						/* Read the flash word and send it via USB to the host */
@@ -368,8 +368,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 						/* Check if endpoint is full - if so clear it and wait until ready for next packet */
 						if (Endpoint_BytesInEndpoint() == FIXED_CONTROL_ENDPOINT_SIZE)
 						{
-							Endpoint_ClearSetupIN();
-							while (!(Endpoint_IsSetupINReady()));
+							Endpoint_ClearControlIN();
+							while (!(Endpoint_IsINReady()));
 						}
 
 						/* Read the EEPROM byte and send it via USB to the host */
@@ -384,15 +384,15 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				DFU_State = dfuIDLE;
 			}
 
-			Endpoint_ClearSetupIN();
+			Endpoint_ClearControlIN();
 
 			/* Acknowledge status stage */
-			while (!(Endpoint_IsSetupOUTReceived()));
-			Endpoint_ClearSetupOUT();
+			while (!(Endpoint_IsOUTReceived()));
+			Endpoint_ClearControlOUT();
 
 			break;
 		case DFU_GETSTATUS:
-			Endpoint_ClearSetupReceived();
+			Endpoint_ClearControlSETUP();
 			
 			/* Write 8-bit status value */
 			Endpoint_Write_Byte(DFU_Status);
@@ -407,46 +407,46 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			/* Write 8-bit state string ID number */
 			Endpoint_Write_Byte(0);
 
-			Endpoint_ClearSetupIN();
+			Endpoint_ClearControlIN();
 			
 			/* Acknowledge status stage */
-			while (!(Endpoint_IsSetupOUTReceived()));
-			Endpoint_ClearSetupOUT();
+			while (!(Endpoint_IsOUTReceived()));
+			Endpoint_ClearControlOUT();
 	
 			break;		
 		case DFU_CLRSTATUS:
-			Endpoint_ClearSetupReceived();
+			Endpoint_ClearControlSETUP();
 			
 			/* Reset the status value variable to the default OK status */
 			DFU_Status = OK;
 
 			/* Acknowledge status stage */
-			while (!(Endpoint_IsSetupINReady()));
-			Endpoint_ClearSetupIN();
+			while (!(Endpoint_IsINReady()));
+			Endpoint_ClearControlIN();
 			
 			break;
 		case DFU_GETSTATE:
-			Endpoint_ClearSetupReceived();
+			Endpoint_ClearControlSETUP();
 			
 			/* Write the current device state to the endpoint */
 			Endpoint_Write_Byte(DFU_State);
 		
-			Endpoint_ClearSetupIN();
+			Endpoint_ClearControlIN();
 			
 			/* Acknowledge status stage */
-			while (!(Endpoint_IsSetupOUTReceived()));
-			Endpoint_ClearSetupOUT();
+			while (!(Endpoint_IsOUTReceived()));
+			Endpoint_ClearControlOUT();
 
 			break;
 		case DFU_ABORT:
-			Endpoint_ClearSetupReceived();
+			Endpoint_ClearControlSETUP();
 			
 			/* Reset the current state variable to the default idle state */
 			DFU_State = dfuIDLE;
 			
 			/* Acknowledge status stage */
-			while (!(Endpoint_IsSetupINReady()));
-			Endpoint_ClearSetupIN();
+			while (!(Endpoint_IsINReady()));
+			Endpoint_ClearControlIN();
 
 			break;
 	}
@@ -463,10 +463,10 @@ static void DiscardFillerBytes(uint8_t NumberOfBytes)
 	{
 		if (!(Endpoint_BytesInEndpoint()))
 		{
-			Endpoint_ClearSetupOUT();
+			Endpoint_ClearControlOUT();
 
 			/* Wait until next data packet received */
-			while (!(Endpoint_IsSetupOUTReceived()));
+			while (!(Endpoint_IsOUTReceived()));
 		}
 
 		Endpoint_Discard_Byte();						

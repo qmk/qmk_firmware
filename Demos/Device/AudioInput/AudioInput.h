@@ -44,7 +44,6 @@
 		#include "Descriptors.h"
 				
 		#include <LUFA/Version.h>                      // Library Version Information
-		#include <LUFA/Common/ButtLoadTag.h>           // PROGMEM tags readable by the ButtLoad project
 		#include <LUFA/Drivers/USB/USB.h>              // USB Functionality
 		#include <LUFA/Drivers/Board/LEDs.h>           // LEDs driver
 		#include <LUFA/Drivers/AT90USBXXX/ADC.h>       // ADC driver

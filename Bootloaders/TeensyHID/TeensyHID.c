@@ -101,10 +101,10 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_SetReport:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Wait until the command (report) has been sent by the host */
-				while (!(Endpoint_IsSetupOUTReceived()));
+				while (!(Endpoint_IsOUTReceived()));
 
 				/* Read in the write destination address */
 				uint16_t PageAddress = Endpoint_Read_Word_LE();
@@ -126,8 +126,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 						/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
 						if (!(Endpoint_BytesInEndpoint()))
 						{
-							Endpoint_ClearSetupOUT();
-							while (!(Endpoint_IsSetupOUTReceived()));
+							Endpoint_ClearControlOUT();
+							while (!(Endpoint_IsOUTReceived()));
 						}
 
 						/* Write the next data word to the FLASH page */
@@ -142,11 +142,11 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 					boot_rww_enable();
 				}
 
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 			
 			break;

@@ -90,7 +90,7 @@ int main(void)
 	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
 	/* Wait until any pending transmissions have completed before shutting down */
-	while (!(Endpoint_ReadWriteAllowed()));
+	while (!(Endpoint_IsINReady()));
 	
 	/* Shut down the USB subsystem */
 	USB_ShutDown();
@@ -160,45 +160,45 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_GetLineEncoding:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 
 				for (uint8_t i = 0; i < sizeof(LineCoding); i++)
 				  Endpoint_Write_Byte(*(LineCodingData++));	
 				
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 				
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupOUTReceived()));
-				Endpoint_ClearSetupOUT();
+				while (!(Endpoint_IsOUTReceived()));
+				Endpoint_ClearControlOUT();
 			}
 			
 			break;
 		case REQ_SetLineEncoding:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 
-				while (!(Endpoint_IsSetupOUTReceived()));
+				while (!(Endpoint_IsOUTReceived()));
 
 				for (uint8_t i = 0; i < sizeof(LineCoding); i++)
 				  *(LineCodingData++) = Endpoint_Read_Byte();
 
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 	
 			break;
 		case REQ_SetControlLineState:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 	
 			break;
@@ -332,10 +332,10 @@ static uint8_t FetchNextCommandByte(void)
 	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
 	
 	/* If OUT endpoint empty, clear it and wait for the next packet from the host */
-	if (!(Endpoint_ReadWriteAllowed()))
+	while (!(Endpoint_IsReadWriteAllowed()))
 	{
-		Endpoint_ClearCurrentBank();
-		while (!(Endpoint_ReadWriteAllowed()));
+		Endpoint_ClearOUT();
+		while (!(Endpoint_IsOUTReceived()));
 	}
 	
 	/* Fetch the next byte from the OUT endpoint */
@@ -353,10 +353,10 @@ static void WriteNextResponseByte(const uint8_t Response)
 	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 	
 	/* If OUT endpoint empty, clear it and wait for the next packet from the host */
-	if (!(Endpoint_ReadWriteAllowed()))
+	if (!(Endpoint_IsReadWriteAllowed()))
 	{
-		Endpoint_ClearCurrentBank();
-		while (!(Endpoint_ReadWriteAllowed()));
+		Endpoint_ClearIN();
+		while (!(Endpoint_IsINReady()));
 	}
 	
 	/* Write the next byte to the OUT endpoint */
@@ -372,7 +372,7 @@ TASK(CDC_Task)
 	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
 	
 	/* Check if endpoint has a command in it sent from the host */
-	if (Endpoint_ReadWriteAllowed())
+	if (Endpoint_IsOUTReceived())
 	{
 		/* Read in the bootloader command (first byte sent from host) */
 		uint8_t Command = FetchNextCommandByte();
@@ -557,22 +557,22 @@ TASK(CDC_Task)
 		Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
 		/* Remember if the endpoint is completely full before clearing it */
-		bool IsEndpointFull = !(Endpoint_ReadWriteAllowed());
+		bool IsEndpointFull = !(Endpoint_IsReadWriteAllowed());
 
 		/* Send the endpoint data to the host */
-		Endpoint_ClearCurrentBank();
+		Endpoint_ClearIN();
 		
 		/* If a full endpoint's worth of data was sent, we need to send an empty packet afterwards to signal end of transfer */
 		if (IsEndpointFull)
 		{
-			while (!(Endpoint_ReadWriteAllowed()));
-			Endpoint_ClearCurrentBank();
+			while (!(Endpoint_IsINReady()));
+			Endpoint_ClearIN();
 		}
 		
 		/* Select the OUT endpoint */
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
 
 		/* Acknowledge the command from the host */
-		Endpoint_ClearCurrentBank();
+		Endpoint_ClearOUT();
 	}
 }

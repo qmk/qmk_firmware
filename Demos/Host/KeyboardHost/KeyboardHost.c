@@ -36,12 +36,6 @@
  
 #include "KeyboardHost.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA KBD Host App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -191,52 +185,57 @@ void ReadNextReport(void)
 	Pipe_Unfreeze();
 	#endif
 
-	/* Ensure pipe contains data and is ready to be read before continuing */
-	if (!(Pipe_ReadWriteAllowed()))
+	/* Check to see if a packet has been received */
+	if (!(Pipe_IsINReceived()))
 	{
 		#if !defined(INTERRUPT_DATA_PIPE)
-		/* Refreeze keyboard data pipe */
+		/* Refreeze HID data IN pipe */
 		Pipe_Freeze();
 		#endif
-
+			
 		return;
 	}
 	
-	/* Read in keyboard report data */
-	Pipe_Read_Stream_LE(&KeyboardReport, sizeof(KeyboardReport));
-					
-	/* Clear the IN endpoint, ready for next data packet */
-	Pipe_ClearCurrentBank();
-
-	/* Indicate if the modifier byte is non-zero (special key such as shift is being pressed) */
-	LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);
-	
-	/* Check if a key has been pressed */
-	if (KeyboardReport.KeyCode)
+	/* Ensure pipe contains data before trying to read from it */
+	if (Pipe_IsReadWriteAllowed())
 	{
-		/* Toggle status LED to indicate keypress */
-		if (LEDs_GetLEDs() & LEDS_LED2)
-		  LEDs_TurnOffLEDs(LEDS_LED2);
-		else
-		  LEDs_TurnOnLEDs(LEDS_LED2);
-			  
-		char PressedKey = 0;
+		/* Read in keyboard report data */
+		Pipe_Read_Stream_LE(&KeyboardReport, sizeof(KeyboardReport));
 
-		/* Retrieve pressed key character if alphanumeric */
-		if ((KeyboardReport.KeyCode >= 0x04) && (KeyboardReport.KeyCode <= 0x1D))
-		  PressedKey = (KeyboardReport.KeyCode - 0x04) + 'A';
-		else if ((KeyboardReport.KeyCode >= 0x1E) && (KeyboardReport.KeyCode <= 0x27))
-		  PressedKey = (KeyboardReport.KeyCode - 0x1E) + '0';
-		else if (KeyboardReport.KeyCode == 0x2C)
-		  PressedKey = ' ';						
-		else if (KeyboardReport.KeyCode == 0x28)
-		  PressedKey = '\n';
-			 
-		/* Print the pressed key character out through the serial port if valid */
-		if (PressedKey)
-		  putchar(PressedKey);
+		/* Indicate if the modifier byte is non-zero (special key such as shift is being pressed) */
+		LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);
+		
+		/* Check if a key has been pressed */
+		if (KeyboardReport.KeyCode)
+		{
+			/* Toggle status LED to indicate keypress */
+			if (LEDs_GetLEDs() & LEDS_LED2)
+			  LEDs_TurnOffLEDs(LEDS_LED2);
+			else
+			  LEDs_TurnOnLEDs(LEDS_LED2);
+				  
+			char PressedKey = 0;
+
+			/* Retrieve pressed key character if alphanumeric */
+			if ((KeyboardReport.KeyCode >= 0x04) && (KeyboardReport.KeyCode <= 0x1D))
+			  PressedKey = (KeyboardReport.KeyCode - 0x04) + 'A';
+			else if ((KeyboardReport.KeyCode >= 0x1E) && (KeyboardReport.KeyCode <= 0x27))
+			  PressedKey = (KeyboardReport.KeyCode - 0x1E) + '0';
+			else if (KeyboardReport.KeyCode == 0x2C)
+			  PressedKey = ' ';						
+			else if (KeyboardReport.KeyCode == 0x28)
+			  PressedKey = '\n';
+				 
+			/* Print the pressed key character out through the serial port if valid */
+			if (PressedKey)
+			  putchar(PressedKey);
+		}
 	}
 	
+						
+	/* Clear the IN endpoint, ready for next data packet */
+	Pipe_ClearIN();
+
 	#if !defined(INTERRUPT_DATA_PIPE)
 	/* Refreeze keyboard data pipe */
 	Pipe_Freeze();

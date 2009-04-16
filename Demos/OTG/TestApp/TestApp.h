@@ -46,7 +46,6 @@
 		#include <LUFA/Drivers/USB/USB.h>                       // USB Functionality
 		#include <LUFA/Scheduler/Scheduler.h>                   // Simple scheduler for task management
 		#include <LUFA/MemoryAllocator/DynAlloc.h>              // Auto-defragmenting Dynamic Memory allocation
-		#include <LUFA/Common/ButtLoadTag.h>                    // PROGMEM tags readable by the ButtLoad project
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>            // ANSI Terminal Escape Codes
 		#include <LUFA/Drivers/AT90USBXXX/ADC.h>                // ADC driver
 		#include <LUFA/Drivers/AT90USBXXX/Serial_Stream.h>      // USART Stream driver

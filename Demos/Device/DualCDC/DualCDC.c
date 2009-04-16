@@ -36,12 +36,6 @@
  
 #include "DualCDC.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA DualCDC App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -195,7 +189,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 	uint8_t* LineCodingData;
 
 	/* Discard the unused wValue parameter */
-	Endpoint_Ignore_Word();
+	Endpoint_Discard_Word();
 
 	/* wIndex indicates the interface being controlled */
 	uint16_t wIndex = Endpoint_Read_Word_LE();
@@ -210,13 +204,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{	
 				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 
 				/* Write the line coding data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(LineCodingData, sizeof(CDC_Line_Coding_t));
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 			}
 			
 			break;
@@ -224,13 +218,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
 				Endpoint_Read_Control_Stream_LE(LineCodingData, sizeof(CDC_Line_Coding_t));
 
 				/* Finalize the stream transfer to clear the last packet from the host */
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 			}
 	
 			break;
@@ -238,11 +232,11 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 	
 			break;
@@ -313,15 +307,21 @@ TASK(CDC1_Task)
 		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString));
 		
 		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearCurrentBank();
+		Endpoint_ClearIN();
+
+		/* Wait until the endpoint is ready for another packet */
+		while (!(Endpoint_IsINReady()));
+		
+		/* Send an empty packet to ensure that the host does not buffer data sent to it */
+		Endpoint_ClearIN();
 	}
 
 	/* Select the Serial Rx Endpoint */
 	Endpoint_SelectEndpoint(CDC1_RX_EPNUM);
 	
 	/* Throw away any received data from the host */
-	if (Endpoint_ReadWriteAllowed())
-	  Endpoint_ClearCurrentBank();
+	if (Endpoint_IsOUTReceived())
+	  Endpoint_ClearOUT();
 }
 
 /** Function to manage CDC data transmission and reception to and from the host for the second CDC interface, which echoes back
@@ -333,7 +333,7 @@ TASK(CDC2_Task)
 	Endpoint_SelectEndpoint(CDC2_RX_EPNUM);
 	
 	/* Check to see if any data has been received */
-	if (Endpoint_ReadWriteAllowed())
+	if (Endpoint_IsOUTReceived())
 	{
 		/* Create a temp buffer big enough to hold the incoming endpoint packet */
 		uint8_t  Buffer[Endpoint_BytesInEndpoint()];
@@ -345,7 +345,7 @@ TASK(CDC2_Task)
 		Endpoint_Read_Stream_LE(&Buffer, DataLength);
 
 		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearCurrentBank();
+		Endpoint_ClearOUT();
 
 		/* Select the Serial Tx Endpoint */
 		Endpoint_SelectEndpoint(CDC2_TX_EPNUM);
@@ -354,6 +354,12 @@ TASK(CDC2_Task)
 		Endpoint_Write_Stream_LE(&Buffer, DataLength);
 
 		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearCurrentBank();
+		Endpoint_ClearIN();
+
+		/* Wait until the endpoint is ready for the next packet */
+		while (!(Endpoint_IsINReady()));
+
+		/* Send an empty packet to prevent host buffering */
+		Endpoint_ClearIN();
 	}
 }

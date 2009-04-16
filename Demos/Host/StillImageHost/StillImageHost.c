@@ -36,11 +36,6 @@
 
 #include "StillImageHost.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA SIMG Host App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -243,7 +238,7 @@ TASK(USB_SImage_Host)
 			SImage_ReadData(DeviceInfo, DeviceInfoSize);
 			
 			/* Once all the data has been read, the pipe must be cleared before the response can be sent */
-			Pipe_ClearCurrentBank();
+			Pipe_ClearIN();
 			
 			/* Create a pointer for walking through the info dataset */
 			uint8_t* DeviceInfoPos = DeviceInfo;

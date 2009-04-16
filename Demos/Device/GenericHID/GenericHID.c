@@ -36,12 +36,6 @@
 
 #include "GenericHID.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA GenHID App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -171,7 +165,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_GetReport:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 	
 				uint8_t GenericData[GENERIC_REPORT_SIZE];
 				
@@ -181,32 +175,32 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				Endpoint_Write_Control_Stream_LE(&GenericData, sizeof(GenericData));
 
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 			}
 		
 			break;
 		case REQ_SetReport:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Wait until the generic report has been sent by the host */
-				while (!(Endpoint_IsSetupOUTReceived()));
+				while (!(Endpoint_IsOUTReceived()));
 
 				uint8_t GenericData[GENERIC_REPORT_SIZE];
 
-				Endpoint_Read_Control_Stream(&GenericData, sizeof(GenericData));
+				Endpoint_Read_Control_Stream_LE(&GenericData, sizeof(GenericData));
 
 				ProcessGenericHIDReport(GenericData);
 			
 				/* Clear the endpoint data */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 
 				/* Wait until the host is ready to receive the request confirmation */
-				while (!(Endpoint_IsSetupINReady()));
+				while (!(Endpoint_IsINReady()));
 				
 				/* Handshake the request by sending an empty IN packet */
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 			}
 			
 			break;
@@ -280,24 +274,30 @@ TASK(USB_HID_Report)
 	{
 		Endpoint_SelectEndpoint(GENERIC_OUT_EPNUM);
 		
-		if (Endpoint_ReadWriteAllowed())
+		/* Check to see if a packet has been sent from the host */
+		if (Endpoint_IsOUTReceived())
 		{
-			/* Create a temporary buffer to hold the read in report from the host */
-			uint8_t GenericData[GENERIC_REPORT_SIZE];
-			
-			/* Read Generic Report Data */
-			Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData));
-			
-			/* Process Generic Report Data */
-			ProcessGenericHIDReport(GenericData);
+			/* Check to see if the packet contains data */
+			if (Endpoint_IsReadWriteAllowed())
+			{
+				/* Create a temporary buffer to hold the read in report from the host */
+				uint8_t GenericData[GENERIC_REPORT_SIZE];
+				
+				/* Read Generic Report Data */
+				Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData));
+				
+				/* Process Generic Report Data */
+				ProcessGenericHIDReport(GenericData);
+			}
 
 			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearCurrentBank();
+			Endpoint_ClearOUT();
 		}	
 
 		Endpoint_SelectEndpoint(GENERIC_IN_EPNUM);
 		
-		if (Endpoint_ReadWriteAllowed())
+		/* Check to see if the host is ready to accept another packet */
+		if (Endpoint_IsINReady())
 		{
 			/* Create a temporary buffer to hold the report to send to the host */
 			uint8_t GenericData[GENERIC_REPORT_SIZE];
@@ -309,7 +309,7 @@ TASK(USB_HID_Report)
 			Endpoint_Write_Stream_LE(&GenericData, sizeof(GenericData));
 
 			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearCurrentBank();
+			Endpoint_ClearIN();
 		}
 	}
 }
@@ -363,7 +363,7 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 		Endpoint_Write_Stream_LE(&GenericData, sizeof(GenericData));
 
 		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearCurrentBank();
+		Endpoint_ClearIN();
 	}
 
 	/* Check if Generic OUT endpoint has interrupted */
@@ -388,7 +388,7 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 		ProcessGenericHIDReport(GenericData);
 
 		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearCurrentBank();
+		Endpoint_ClearOUT();
 	}
 	#endif
 

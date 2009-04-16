@@ -35,6 +35,12 @@
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
  */
+
+/** \ingroup Group_Joystick
+ *  @defgroup Group_Joystick_STK526 STK526
+ *
+ *  @{
+ */
  
 #ifndef __JOYSTICK_STK526_H__
 #define __JOYSTICK_STK526_H__
@@ -99,3 +105,5 @@
 		#endif
 	
 #endif
+
+/** @} */

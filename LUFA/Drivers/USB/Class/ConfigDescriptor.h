@@ -35,6 +35,14 @@
  *  and other descriptor data can be extracted and used as needed.
  */
 
+/** \ingroup Group_Descriptors
+ *  @defgroup Group_ConfigDescriptorParser Configuration Descriptor Parser
+ *
+ *  Functions, macros, variables, enums and types related to the parsing of Configuration Descriptors.
+ *
+ *  @{
+ */
+
 #ifndef __CONFIGDESCRIPTOR_H__
 #define __CONFIGDESCRIPTOR_H__
 
@@ -109,7 +117,7 @@
 			 *  for certain descriptors matching unique criteria.
 			 *
 			 *  Comparator routines are passed in a single pointer named CurrentDescriptor, and should return a value
-			 *  of a member of the DSEARCH_Return_ErrorCodes_t enum.
+			 *  of a member of the DSearch_Return_ErrorCodes_t enum.
 			 */
 			#define DESCRIPTOR_COMPARATOR(name)           uint8_t DCOMP_##name (void* const CurrentDescriptor)
 
@@ -124,7 +132,7 @@
 			 *  \param DPos     Pointer to the current position in the configuration descriptor
 			 *  \param DSearch  Name of the comparator search function to use on the configuration descriptor
 			 *
-			 *  \return Value of one of the members of the DSEARCH_Comp_Return_ErrorCodes_t enum
+			 *  \return Value of one of the members of the DSearch_Comp_Return_ErrorCodes_t enum
 			 *
 			 *  Usage Example:
 			 *  \code
@@ -151,7 +159,7 @@
 			                                              USB_Host_GetNextDescriptorComp_P(DSize, DPos, DCOMP_##DSearch)
 		/* Enums: */
 			/** Enum for return values of a descriptor comparator made with DESCRIPTOR_COMPARATOR. */
-			enum DSEARCH_Return_ErrorCodes_t
+			enum DSearch_Return_ErrorCodes_t
 			{
 				Descriptor_Search_Found                = 0, /**< Current descriptor matches comparator criteria. */
 				Descriptor_Search_Fail                 = 1, /**< No further descriptor could possibly match criteria, fail the search. */
@@ -159,7 +167,7 @@
 			};
 
 			/** Enum for return values of USB_Host_GetNextDescriptorComp() */
-			enum DSEARCH_Comp_Return_ErrorCodes_t
+			enum DSearch_Comp_Return_ErrorCodes_t
 			{
 				Descriptor_Search_Comp_Found           = 0, /**< Configuration descriptor now points to descriptor which matches
 				                                             *   search criteria of the given comparator function. */
@@ -259,5 +267,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
+
+/** @} */

@@ -36,12 +36,6 @@
  
 #include "MouseHost.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA Mouse Host App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -188,49 +182,53 @@ void ReadNextReport(void)
 	Pipe_SelectPipe(MOUSE_DATAPIPE);	
 
 	#if !defined(INTERRUPT_DATA_PIPE)
-	/* Unfreeze mouse data pipe */
+	/* Unfreeze keyboard data pipe */
 	Pipe_Unfreeze();
 	#endif
 
-	/* Ensure pipe contains data and is ready to be read before continuing */
-	if (!(Pipe_ReadWriteAllowed()))
+	/* Check to see if a packet has been received */
+	if (!(Pipe_IsINReceived()))
 	{
 		#if !defined(INTERRUPT_DATA_PIPE)
-		/* Refreeze mouse data pipe */
+		/* Refreeze HID data IN pipe */
 		Pipe_Freeze();
 		#endif
-
+			
 		return;
 	}
 
-	/* Read in mouse report data */
-	Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport));				
-		
-	/* Clear the IN endpoint, ready for next data packet */
-	Pipe_ClearCurrentBank();
-		
-	/* Alter status LEDs according to mouse X movement */
-	if (MouseReport.X > 0)
-	  LEDMask |= LEDS_LED1;
-	else if (MouseReport.X < 0)
-	  LEDMask |= LEDS_LED2;
-		
-	/* Alter status LEDs according to mouse Y movement */
-	if (MouseReport.Y > 0)
-	  LEDMask |= LEDS_LED3;
-	else if (MouseReport.Y < 0)
-	  LEDMask |= LEDS_LED4;
+	/* Ensure pipe contains data before trying to read from it */
+	if (Pipe_IsReadWriteAllowed())
+	{
+		/* Read in mouse report data */
+		Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport));				
 
-	/* Alter status LEDs according to mouse button position */
-	if (MouseReport.Button)
-	  LEDMask  = LEDS_ALL_LEDS;
-	
-	LEDs_SetAllLEDs(LEDMask);
-	
-	/* Print mouse report data through the serial port */
-	printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
-												  MouseReport.Y,
-												  MouseReport.Button);
+		/* Alter status LEDs according to mouse X movement */
+		if (MouseReport.X > 0)
+		  LEDMask |= LEDS_LED1;
+		else if (MouseReport.X < 0)
+		  LEDMask |= LEDS_LED2;
+			
+		/* Alter status LEDs according to mouse Y movement */
+		if (MouseReport.Y > 0)
+		  LEDMask |= LEDS_LED3;
+		else if (MouseReport.Y < 0)
+		  LEDMask |= LEDS_LED4;
+
+		/* Alter status LEDs according to mouse button position */
+		if (MouseReport.Button)
+		  LEDMask  = LEDS_ALL_LEDS;
+		
+		LEDs_SetAllLEDs(LEDMask);
+		
+		/* Print mouse report data through the serial port */
+		printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
+													  MouseReport.Y,
+													  MouseReport.Button);
+	}
+
+	/* Clear the IN endpoint, ready for next data packet */
+	Pipe_ClearIN();
 
 	#if !defined(INTERRUPT_DATA_PIPE)
 	/* Refreeze mouse data pipe */

@@ -39,7 +39,15 @@
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/LEDs.h file in the user project
  *  directory.
  */
- 
+
+/** \ingroup Group_BoardDrivers
+ *  @defgroup Group_LEDs LEDs Driver - LUFA/Drivers/Board/LEDs.h
+ *
+ *  Functions, macros, variables, enums and types related to the control of board LEDs.
+ *
+ *  @{
+ */
+
 #ifndef __LEDS_H__
 #define __LEDS_H__
 
@@ -111,3 +119,5 @@
 	#endif
 
 #endif
+
+/** @} */

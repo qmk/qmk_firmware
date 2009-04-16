@@ -39,6 +39,14 @@
  *
  *  Each event must only have one associated event handler, but can be raised by multiple sources.
  */
+
+/** \ingroup Group_USB
+ *  @defgroup Group_Events USB Events
+ *
+ *  Functions, macros, variables, enums and types related to the management of events from the USB kernel.
+ *
+ *  @{
+ */
  
 #ifndef __USBEVENTS_H__
 #define __USBEVENTS_H__
@@ -436,5 +444,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+	
 #endif
+
+/** @} */

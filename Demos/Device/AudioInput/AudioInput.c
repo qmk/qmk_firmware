@@ -36,12 +36,6 @@
 
 #include "AudioInput.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA AudioIn App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -145,7 +139,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			{
 				uint16_t wValue = Endpoint_Read_Word_LE();
 				
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Check if the host is enabling the audio interface (setting AlternateSetting to 1) */
 				if (wValue)
@@ -160,8 +154,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				}
 				
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 
 			break;
@@ -201,8 +195,8 @@ TASK(USB_Audio_Task)
 	/* Select the audio stream endpoint */
 	Endpoint_SelectEndpoint(AUDIO_STREAM_EPNUM);
 	
-	/* Check if the current endpoint can be read from (contains a packet) and that the next sample should be stored */
-	if (Endpoint_ReadWriteAllowed() && (TIFR0 & (1 << OCF0A)))
+	/* Check if the current endpoint can be written to and that the next sample should be stored */
+	if (Endpoint_IsINReady() && (TIFR0 & (1 << OCF0A)))
 	{
 		/* Clear the sample reload timer */
 		TIFR0 |= (1 << OCF0A);
@@ -219,10 +213,10 @@ TASK(USB_Audio_Task)
 		Endpoint_Write_Word_LE(AudioSample);
 
 		/* Check to see if the bank is now full */
-		if (!(Endpoint_ReadWriteAllowed()))
+		if (!(Endpoint_IsReadWriteAllowed()))
 		{
 			/* Send the full packet to the host */
-			Endpoint_ClearCurrentBank();
+			Endpoint_ClearIN();
 		}
 	}
 }

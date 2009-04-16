@@ -36,12 +36,6 @@
  
 #include "Mouse.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA Mouse App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -212,7 +206,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				if (wLength > sizeof(MouseReportData))
 				  wLength = sizeof(MouseReportData);
 
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 	
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&MouseReportData, wLength);
@@ -221,24 +215,24 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				memset(&MouseReportData, 0, sizeof(MouseReportData));
 
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 			}
 		
 			break;
 		case REQ_GetProtocol:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Write the current protocol flag to the host */
 				Endpoint_Write_Byte(UsingReportProtocol);
 				
 				/* Send the flag to the host */
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupOUTReceived()));
-				Endpoint_ClearSetupOUT();
+				while (!(Endpoint_IsOUTReceived()));
+				Endpoint_ClearControlOUT();
 			}
 			
 			break;
@@ -248,14 +242,14 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				/* Read in the wValue parameter containing the new protocol mode */
 				uint16_t wValue = Endpoint_Read_Word_LE();
 				
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Set or clear the flag depending on what the host indicates that the current Protocol should be */
 				UsingReportProtocol = (wValue != 0x0000);
 				
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 			
 			break;
@@ -265,31 +259,31 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				/* Read in the wValue parameter containing the idle period */
 				uint16_t wValue = Endpoint_Read_Word_LE();
 				
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Get idle period in MSB */
 				IdleCount = (wValue >> 8);
 				
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 			
 			break;
 		case REQ_GetIdle:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{		
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Write the current idle duration to the host */
 				Endpoint_Write_Byte(IdleCount);
 				
 				/* Send the flag to the host */
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupOUTReceived()));
-				Endpoint_ClearSetupOUT();
+				while (!(Endpoint_IsOUTReceived()));
+				Endpoint_ClearControlOUT();
 			}
 
 			break;
@@ -367,13 +361,13 @@ static inline void SendNextReport(void)
 	Endpoint_SelectEndpoint(MOUSE_EPNUM);
 
 	/* Check if Mouse Endpoint Ready for Read/Write and if we should send a new report */
-	if (Endpoint_ReadWriteAllowed() && SendReport)
+	if (Endpoint_IsReadWriteAllowed() && SendReport)
 	{
 		/* Write Mouse Report Data */
 		Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData));
 		
 		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearCurrentBank();
+		Endpoint_ClearIN();
 	}
 }
 

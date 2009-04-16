@@ -34,6 +34,14 @@
  *  direction, request recipient, etc.) can be extracted via masking.
  */
  
+/** \ingroup Group_USB
+ *  @defgroup Group_StdRequest Standard USB Requests
+ *
+ *  Functions, macros, variables, enums and types related to standard USB requests to USB devices.
+ *
+ *  @{
+ */
+
 #ifndef __STDREQTYPE_H__
 #define __STDREQTYPE_H__
 
@@ -181,11 +189,13 @@
 				                              *   device mode. */
 			};
 
-/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define FEATURE_SELFPOWERED_ENABLED     (1 << 0)
-			#define FEATURE_REMOTE_WAKEUP_ENABLED   (1 << 1)
-	#endif
-	
+	/* Private Interface - For use in library only: */
+		#if !defined(__DOXYGEN__)
+			/* Macros: */
+				#define FEATURE_SELFPOWERED_ENABLED     (1 << 0)
+				#define FEATURE_REMOTE_WAKEUP_ENABLED   (1 << 1)
+		#endif
+
 #endif
+
+/** @} */

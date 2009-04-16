@@ -65,6 +65,13 @@
  *  \endcode
  */
  
+/** @defgroup Group_Scheduler Simple Task Scheduler - LUFA/Scheduler/Scheduler.h
+ *
+ *  Simple round-robbin task scheduler. See Scheduler.h description for more details.
+ *
+ *  @{
+ */
+ 
 #ifndef __SCHEDULER_H__
 #define __SCHEDULER_H__
 
@@ -261,3 +268,5 @@
 		#endif
 		
 #endif
+
+/** @} */

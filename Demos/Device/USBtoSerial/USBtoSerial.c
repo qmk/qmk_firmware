@@ -30,12 +30,6 @@
 
 #include "USBtoSerial.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA USB RS232 App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -165,13 +159,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{	
 				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 
 				/* Write the line coding data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(LineCodingData, sizeof(LineCoding));
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 			}
 			
 			break;
@@ -179,13 +173,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
 				Endpoint_Read_Control_Stream_LE(LineCodingData, sizeof(LineCoding));
 
 				/* Finalize the stream transfer to clear the last packet from the host */
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 				
 				/* Reconfigure the USART with the new settings */
 				ReconfigureUSART();
@@ -207,11 +201,11 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 #endif
 				
 				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 	
 			break;
@@ -244,13 +238,13 @@ TASK(CDC_Task)
 		Endpoint_SelectEndpoint(CDC_NOTIFICATION_EPNUM);
 		Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
 		Endpoint_Write_Stream_LE(&LineStateMask, sizeof(LineStateMask));
-		Endpoint_ClearCurrentBank();
+		Endpoint_ClearIN();
 #endif
 
 		/* Select the Serial Rx Endpoint */
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
 		
-		if (Endpoint_ReadWriteAllowed())
+		if (Endpoint_IsOUTReceived())
 		{
 			/* Read the received data endpoint into the transmission buffer */
 			while (Endpoint_BytesInEndpoint())
@@ -263,7 +257,7 @@ TASK(CDC_Task)
 			}
 			
 			/* Clear the endpoint buffer */
-			Endpoint_ClearCurrentBank();
+			Endpoint_ClearOUT();
 		}
 		
 		/* Check if Rx buffer contains data */
@@ -284,27 +278,20 @@ TASK(CDC_Task)
 		if (Tx_Buffer.Elements)
 		{
 			/* Wait until Serial Tx Endpoint Ready for Read/Write */
-			while (!(Endpoint_ReadWriteAllowed()));
-			
-			/* Check before sending the data if the endpoint is completely full */
-			bool IsFull = (Endpoint_BytesInEndpoint() == CDC_TXRX_EPSIZE);
+			while (!(Endpoint_IsReadWriteAllowed()));
 			
 			/* Write the transmission buffer contents to the received data endpoint */
 			while (Tx_Buffer.Elements && (Endpoint_BytesInEndpoint() < CDC_TXRX_EPSIZE))
 			  Endpoint_Write_Byte(Buffer_GetElement(&Tx_Buffer));
 			
 			/* Send the data */
-			Endpoint_ClearCurrentBank();
+			Endpoint_ClearIN();
 
-			/* If a full endpoint was sent, we need to send an empty packet afterwards to terminate the transfer */
-			if (IsFull)
-			{
-				/* Wait until Serial Tx Endpoint Ready for Read/Write */
-				while (!(Endpoint_ReadWriteAllowed()));
+			/* Wait until Serial Tx Endpoint Ready for Read/Write */
+			while (!(Endpoint_IsReadWriteAllowed()));
 
-				/* Send an empty packet to terminate the transfer */
-				Endpoint_ClearCurrentBank();
-			}
+			/* Send an empty packet to terminate the transfer */
+			Endpoint_ClearIN();
 		}
 	}
 }

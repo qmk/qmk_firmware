@@ -36,6 +36,12 @@
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
 
+/** \ingroup Group_LEDs
+ *  @defgroup Group_LEDs_USBKEY USBKEY
+ *
+ *  @{
+ */
+
 #ifndef __LEDS_USBKEY_H__
 #define __LEDS_USBKEY_H__
 
@@ -115,3 +121,5 @@
 		#endif
 		
 #endif
+
+/** @} */

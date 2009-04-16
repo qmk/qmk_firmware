@@ -64,7 +64,7 @@ static void USB_DeviceTask(void)
 	
 		Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
 
-		if (Endpoint_IsSetupReceived())
+		if (Endpoint_IsSETUPReceived())
 		{
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 			{

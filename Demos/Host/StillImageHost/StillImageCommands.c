@@ -72,7 +72,7 @@ void SImage_SendBlockHeader(void)
 		}
 		
 		/* Send the PIMA command block to the attached device */
-		Pipe_ClearCurrentBank();
+		Pipe_ClearOUT();
 	}
 					
 	/* Freeze pipe after use */
@@ -90,7 +90,7 @@ void SImage_RecieveEventHeader(void)
 	Pipe_Read_Stream_LE(&PIMA_EventBlock, sizeof(PIMA_EventBlock));
 	
 	/* Clear the pipe after read complete to prepare for next event */
-	Pipe_ClearCurrentBank();
+	Pipe_ClearIN();
 	
 	/* Freeze the event pipe again after use */
 	Pipe_Freeze();
@@ -106,7 +106,7 @@ uint8_t SImage_RecieveBlockHeader(void)
 	Pipe_Unfreeze();
 	
 	/* Wait until data received on the IN pipe */
-	while (!(Pipe_ReadWriteAllowed()))
+	while (!(Pipe_IsReadWriteAllowed()))
 	{
 		/* Check to see if a new frame has been issued (1ms elapsed) */
 		if (USB_INT_HasOccurred(USB_INT_HSOFI))
@@ -179,7 +179,7 @@ uint8_t SImage_RecieveBlockHeader(void)
 		}
 		
 		/* Clear pipe bank after use */
-		Pipe_ClearCurrentBank();
+		Pipe_ClearIN();
 	}
 	
 	/* Freeze the IN pipe after use */
@@ -203,7 +203,7 @@ void SImage_SendData(void* Buffer, uint16_t Bytes)
 	Pipe_Write_Stream_LE(Buffer, Bytes);
 
 	/* Send the last packet to the attached device */
-	Pipe_ClearCurrentBank();
+	Pipe_ClearOUT();
 
 	/* Freeze the pipe again after use */
 	Pipe_Freeze();

@@ -36,6 +36,15 @@
  *  \note Do not include this file directly, rather include the Common.h header file instead to gain this file's
  *        functionality.
  */
+
+/** \ingroup Group_Common
+ *  @defgroup Group_BoardTypes Board Types
+ *
+ *  Macros for indicating the chosen physical board hardware to the library. These macros should be used when
+ *  defining the BOARD token to the chosen hardware via the -D switch in the project makefile.
+ *
+ *  @{
+ */
 	
 #ifndef __BOARDTYPES_H__
 #define __BOARDTYPES_H__
@@ -70,3 +79,5 @@
 			#define BOARD_USER          5
 
 #endif
+
+/** @} */

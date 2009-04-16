@@ -39,7 +39,15 @@
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/HWB.h file in the user project
  *  directory.
  */
- 
+
+/** \ingroup Group_BoardDrivers
+ *  @defgroup Group_HWB HWB Driver - LUFA/Drivers/Board/HWB.h
+ *
+ *  Functions, macros, variables, enums and types related to the control of board HWB.
+ *
+ *  @{
+ */
+
 #ifndef __HWB_H__
 #define __HWB_H__
 
@@ -85,3 +93,5 @@
 	#endif
 
 #endif
+
+/** @} */

@@ -36,6 +36,12 @@
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
  */
 
+/** \ingroup Group_Dataflash
+ *  @defgroup Group_Dataflash_USBKEY USBKEY
+ *
+ *  @{
+ */
+
 #ifndef __DATAFLASH_USBKEY_H__
 #define __DATAFLASH_USBKEY_H__
 
@@ -114,3 +120,5 @@
 			}		
 
 #endif
+
+/** @} */

@@ -87,7 +87,7 @@ void USB_Host_ResetDevice(void)
 	USB_INT_Disable(USB_INT_DDISCI);
 	
 	USB_Host_ResetBus();
-	while (!(USB_Host_IsResetBusDone()));
+	while (!(USB_Host_IsBusResetComplete()));
 
 	USB_INT_Clear(USB_INT_HSOFI);
 	USB_Host_ResumeBus();	

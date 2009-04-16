@@ -36,6 +36,12 @@
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
  */
 
+/** \ingroup Group_Dataflash
+ *  @defgroup Group_Dataflash_STK525 STK525
+ *
+ *  @{
+ */
+
 #ifndef __DATAFLASH_STK525_H__
 #define __DATAFLASH_STK525_H__
 
@@ -106,3 +112,5 @@
 			}
 			
 #endif
+
+/** @} */

@@ -36,12 +36,6 @@
  
 #include "CDCHost.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA CDC Host App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -244,33 +238,37 @@ TASK(USB_CDC_Host)
 			/* Select and the data IN pipe */
 			Pipe_SelectPipe(CDC_DATAPIPE_IN);
 
-			/* Check if data is in the pipe */
-			if (Pipe_ReadWriteAllowed())
+			/* Check to see if a packet has been received */
+			if (Pipe_IsINReceived())
 			{
-				/* Get the length of the pipe data, and create a new buffer to hold it */
-				uint16_t BufferLength = Pipe_BytesInPipe();
-				uint8_t Buffer[BufferLength];
-				
-				/* Read in the pipe data to the temporary buffer */
-				Pipe_Read_Stream_LE(Buffer, BufferLength);
-				
+				/* Check if data is in the pipe */
+				if (Pipe_IsReadWriteAllowed())
+				{
+					/* Get the length of the pipe data, and create a new buffer to hold it */
+					uint16_t BufferLength = Pipe_BytesInPipe();
+					uint8_t Buffer[BufferLength];
+					
+					/* Read in the pipe data to the temporary buffer */
+					Pipe_Read_Stream_LE(Buffer, BufferLength);
+									
+					/* Print out the buffer contents to the USART */
+					for (uint16_t BufferByte = 0; BufferByte < BufferLength; BufferByte++)
+					  putchar(Buffer[BufferByte]);
+				}
+
 				/* Clear the pipe after it is read, ready for the next packet */
-				Pipe_ClearCurrentBank();
-				
-				/* Print out the buffer contents to the USART */
-				for (uint16_t BufferByte = 0; BufferByte < BufferLength; BufferByte++)
-				  putchar(Buffer[BufferByte]);
+				Pipe_ClearIN();
 			}
 
 			/* Select and unfreeze the notification pipe */
 			Pipe_SelectPipe(CDC_NOTIFICATIONPIPE);
 			Pipe_Unfreeze();
 			
-			/* Check if data is in the pipe */
-			if (Pipe_ReadWriteAllowed())
+			/* Check if a packet has been received */
+			if (Pipe_IsINReceived())
 			{
 				/* Discard the event notification */
-				Pipe_ClearCurrentBank();
+				Pipe_ClearIN();
 			}
 			
 			/* Freeze notification IN pipe after use */

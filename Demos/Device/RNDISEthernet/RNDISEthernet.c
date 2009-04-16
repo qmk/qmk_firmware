@@ -36,12 +36,6 @@
 
 #include "RNDISEthernet.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA RNDIS App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -162,13 +156,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Clear the SETUP packet, ready for data transfer */
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Read in the RNDIS message into the message buffer */
 				Endpoint_Read_Control_Stream_LE(RNDISMessageBuffer, wLength);
 
 				/* Finalize the stream transfer to clear the last packet from the host */
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 
 				/* Process the RNDIS message */
 				ProcessRNDISControlMessage();
@@ -191,13 +185,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				  wLength = MessageHeader->MessageLength;
 
 				/* Clear the SETUP packet, ready for data transfer */
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Write the message response data to the endpoint */
 				Endpoint_Write_Control_Stream_LE(RNDISMessageBuffer, wLength);
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 
 				/* Reset the message header once again after transmission */
 				MessageHeader->MessageLength = 0;
@@ -247,7 +241,7 @@ TASK(RNDIS_Task)
 	Endpoint_SelectEndpoint(CDC_NOTIFICATION_EPNUM);
 
 	/* Check if a message response is ready for the host */
-	if (Endpoint_ReadWriteAllowed() && ResponseReady)
+	if (Endpoint_IsINReady() && ResponseReady)
 	{
 		USB_Notification_t Notification = (USB_Notification_t)
 			{
@@ -262,7 +256,7 @@ TASK(RNDIS_Task)
 		Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
 
 		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearCurrentBank();
+		Endpoint_ClearIN();
 
 		/* Indicate a response is no longer ready */
 		ResponseReady = false;
@@ -278,7 +272,7 @@ TASK(RNDIS_Task)
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
 		
 		/* Check if the data OUT endpoint contains data, and that the IN buffer is empty */
-		if (Endpoint_ReadWriteAllowed() && !(FrameIN.FrameInBuffer))
+		if (Endpoint_IsOUTReceived() && !(FrameIN.FrameInBuffer))
 		{
 			/* Read in the packet message header */
 			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_PACKET_MSG_t));
@@ -294,7 +288,7 @@ TASK(RNDIS_Task)
 			Endpoint_Read_Stream_LE(FrameIN.FrameData, RNDISPacketHeader.DataLength);
 
 			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearCurrentBank();
+			Endpoint_ClearOUT();
 			
 			/* Store the size of the Ethernet frame */
 			FrameIN.FrameLength = RNDISPacketHeader.DataLength;
@@ -307,7 +301,7 @@ TASK(RNDIS_Task)
 		Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 		
 		/* Check if the data IN endpoint is ready for more data, and that the IN buffer is full */
-		if (Endpoint_ReadWriteAllowed() && FrameOUT.FrameInBuffer)
+		if (Endpoint_IsINReady() && FrameOUT.FrameInBuffer)
 		{
 			/* Clear the packet header with all 0s so that the relevant fields can be filled */
 			memset(&RNDISPacketHeader, 0, sizeof(RNDIS_PACKET_MSG_t));
@@ -325,7 +319,7 @@ TASK(RNDIS_Task)
 			Endpoint_Write_Stream_LE(FrameOUT.FrameData, RNDISPacketHeader.DataLength);
 			
 			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearCurrentBank();
+			Endpoint_ClearIN();
 			
 			/* Indicate Ethernet OUT buffer no longer full */
 			FrameOUT.FrameInBuffer = false;

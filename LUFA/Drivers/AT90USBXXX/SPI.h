@@ -33,6 +33,14 @@
  *  Hardware SPI subsystem driver for the supported USB AVRs models.
  */
 
+/** \ingroup Group_SubsystemDrivers
+ *  @defgroup Group_SPI SPI Driver - LUFA/Drivers/AT90USBXXX/SPI.h
+ *
+ *  Functions, macros, variables, enums and types related to the setup of a the SPI port.
+ *
+ *  @{
+ */
+
 #ifndef __SPI_H__
 #define __SPI_H__
 
@@ -137,3 +145,5 @@
 		#endif
 		
 #endif
+
+/** @} */

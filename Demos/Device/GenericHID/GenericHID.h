@@ -48,7 +48,6 @@
 
 		#include <LUFA/Version.h>                    // Library Version Information
 		#include <LUFA/Scheduler/Scheduler.h>        // Simple scheduler for task management
-		#include <LUFA/Common/ButtLoadTag.h>         // PROGMEM tags readable by the ButtLoad project
 		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
 		#include <LUFA/Drivers/Board/LEDs.h>         // LEDs driver
 			

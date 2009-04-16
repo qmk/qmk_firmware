@@ -51,6 +51,13 @@
  *  memory) to be freed. BLOCK_SIZE gives the number of bytes in each memory block.
  */
 
+/** @defgroup Group_MemoryAllocator Dynamic Block Memory Allocator - LUFA/MemoryAllocator/DynAlloc.h
+ *
+ *  Dynamic auto-degragmenting memory block allocator functions. See DynAlloc.h description for more details.
+ *
+ *  @{
+ */
+
 #ifndef __DYN_ALLOC__
 #define __DYN_ALLOC__
 
@@ -180,3 +187,5 @@
 	#endif
 	
 #endif
+
+/** @} */

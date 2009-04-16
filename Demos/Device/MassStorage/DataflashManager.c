@@ -64,7 +64,7 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlo
 	Dataflash_SendAddressBytes(0, CurrDFPageByte);
 
 	/* Wait until endpoint is ready before continuing */
-	while (!(Endpoint_ReadWriteAllowed()));
+	while (!(Endpoint_IsReadWriteAllowed()));
 
 	while (TotalBlocks)
 	{
@@ -74,13 +74,13 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlo
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
 			/* Check if the endpoint is currently empty */
-			if (!(Endpoint_ReadWriteAllowed()))
+			if (!(Endpoint_IsReadWriteAllowed()))
 			{
 				/* Clear the current endpoint bank */
-				Endpoint_ClearCurrentBank();
+				Endpoint_ClearOUT();
 				
 				/* Wait until the host has sent another packet */
-				while (!(Endpoint_ReadWriteAllowed()));
+				while (!(Endpoint_IsReadWriteAllowed()));
 			}
 
 			/* Check if end of dataflash page reached */
@@ -157,8 +157,8 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlo
 	Dataflash_WaitWhileBusy();
 
 	/* If the endpoint is empty, clear it ready for the next packet from the host */
-	if (!(Endpoint_ReadWriteAllowed()))
-	  Endpoint_ClearCurrentBank();
+	if (!(Endpoint_IsReadWriteAllowed()))
+	  Endpoint_ClearOUT();
 
 	/* Deselect all dataflash chips */
 	Dataflash_DeselectChip();
@@ -187,7 +187,7 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress, uint16_t TotalBloc
 	Dataflash_SendByte(0x00);
 	
 	/* Wait until endpoint is ready before continuing */
-	while (!(Endpoint_ReadWriteAllowed()));
+	while (!(Endpoint_IsReadWriteAllowed()));
 	
 	while (TotalBlocks)
 	{
@@ -197,13 +197,13 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress, uint16_t TotalBloc
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
 			/* Check if the endpoint is currently full */
-			if (!(Endpoint_ReadWriteAllowed()))
+			if (!(Endpoint_IsReadWriteAllowed()))
 			{
 				/* Clear the endpoint bank to send its contents to the host */
-				Endpoint_ClearCurrentBank();
+				Endpoint_ClearIN();
 				
 				/* Wait until the endpoint is ready for more data */
-				while (!(Endpoint_ReadWriteAllowed()));
+				while (!(Endpoint_IsReadWriteAllowed()));
 			}
 			
 			/* Check if end of dataflash page reached */
@@ -259,8 +259,8 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress, uint16_t TotalBloc
 	}
 	
 	/* If the endpoint is full, send its contents to the host */
-	if (!(Endpoint_ReadWriteAllowed()))
-	  Endpoint_ClearCurrentBank();
+	if (!(Endpoint_IsReadWriteAllowed()))
+	  Endpoint_ClearIN();
 
 	/* Deselect all dataflash chips */
 	Dataflash_DeselectChip();

@@ -36,14 +36,20 @@
  *        dispatch header located in LUFA/Drivers/AT90USBXXX/ADC.h.
  */
 
+/** \ingroup Group_ADC
+ *  @defgroup Group_ADC_AT90USBXXX67 AT90USBXXX6 and AT90USBXXX7 Models
+ *
+ *  @{
+ */
+ 
 #ifndef __ADC_AT90USBXXX67_H__
 #define __ADC_AT90USBXXX67_H__
 
 	/* Includes: */
+		#include "../../../Common/Common.h"
+		
 		#include <avr/io.h>
 		#include <stdbool.h>
-		
-		#include "../../../Common/Common.h"
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -175,3 +181,5 @@
 		#endif
 		
 #endif
+
+/** @} */

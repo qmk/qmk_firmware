@@ -37,12 +37,6 @@
  
 #include "Keyboard.h"
 
-/* Project Tags, for reading out using the ButtLoad project */
-BUTTLOADTAG(ProjName,    "LUFA Keyboard App");
-BUTTLOADTAG(BuildTime,   __TIME__);
-BUTTLOADTAG(BuildDate,   __DATE__);
-BUTTLOADTAG(LUFAVersion, "LUFA V" LUFA_VERSION_STRING);
-
 /* Scheduler Task List */
 TASK_LIST
 {
@@ -222,23 +216,23 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				if (wLength > sizeof(KeyboardReportData))
 				  wLength = sizeof(KeyboardReportData);
 
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 	
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&KeyboardReportData, wLength);
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 			}
 		
 			break;
 		case REQ_SetReport:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Wait until the LED report has been sent by the host */
-				while (!(Endpoint_IsSetupOUTReceived()));
+				while (!(Endpoint_IsOUTReceived()));
 
 				/* Read in the LED report from the host */
 				uint8_t LEDStatus = Endpoint_Read_Byte();
@@ -247,28 +241,28 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				ProcessLEDReport(LEDStatus);
 			
 				/* Clear the endpoint data */
-				Endpoint_ClearSetupOUT();
+				Endpoint_ClearControlOUT();
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 			
 			break;
 		case REQ_GetProtocol:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Write the current protocol flag to the host */
 				Endpoint_Write_Byte(UsingReportProtocol);
 				
 				/* Send the flag to the host */
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupOUTReceived()));
-				Endpoint_ClearSetupOUT();
+				while (!(Endpoint_IsOUTReceived()));
+				Endpoint_ClearControlOUT();
 			}
 			
 			break;
@@ -278,14 +272,14 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				/* Read in the wValue parameter containing the new protocol mode */
 				uint16_t wValue = Endpoint_Read_Word_LE();
 								
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 
 				/* Set or clear the flag depending on what the host indicates that the current Protocol should be */
 				UsingReportProtocol = (wValue != 0x0000);
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 			
 			break;
@@ -295,31 +289,31 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				/* Read in the wValue parameter containing the idle period */
 				uint16_t wValue = Endpoint_Read_Word_LE();
 				
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Get idle period in MSB */
 				IdleCount = (wValue >> 8);
 				
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupINReady()));
-				Endpoint_ClearSetupIN();
+				while (!(Endpoint_IsINReady()));
+				Endpoint_ClearControlIN();
 			}
 			
 			break;
 		case REQ_GetIdle:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{		
-				Endpoint_ClearSetupReceived();
+				Endpoint_ClearControlSETUP();
 				
 				/* Write the current idle duration to the host */
 				Endpoint_Write_Byte(IdleCount);
 				
 				/* Send the flag to the host */
-				Endpoint_ClearSetupIN();
+				Endpoint_ClearControlIN();
 
 				/* Acknowledge status stage */
-				while (!(Endpoint_IsSetupOUTReceived()));
-				Endpoint_ClearSetupOUT();
+				while (!(Endpoint_IsOUTReceived()));
+				Endpoint_ClearControlOUT();
 			}
 
 			break;
@@ -415,13 +409,13 @@ static inline void SendNextReport(void)
 	Endpoint_SelectEndpoint(KEYBOARD_EPNUM);
 
 	/* Check if Keyboard Endpoint Ready for Read/Write, and if we should send a report */
-	if (Endpoint_ReadWriteAllowed() && SendReport)
+	if (Endpoint_IsReadWriteAllowed() && SendReport)
 	{
 		/* Write Keyboard Report Data */
 		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
 
 		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearCurrentBank();
+		Endpoint_ClearIN();
 	}
 }
 
@@ -431,18 +425,22 @@ static inline void ReceiveNextReport(void)
 	/* Select the Keyboard LED Report Endpoint */
 	Endpoint_SelectEndpoint(KEYBOARD_LEDS_EPNUM);
 
-	/* Check if Keyboard LED Endpoint Ready for Read/Write */
-	if (!(Endpoint_ReadWriteAllowed()))
-	  return;
+	/* Check if Keyboard LED Endpoint contains a packet */
+	if (Endpoint_IsOUTReceived())
+	{
+		/* Check to see if the packet contains data */
+		if (Endpoint_IsReadWriteAllowed())
+		{
+			/* Read in the LED report from the host */
+			uint8_t LEDReport = Endpoint_Read_Byte();
 
-	/* Read in the LED report from the host */
-	uint8_t LEDReport = Endpoint_Read_Byte();
+			/* Process the read LED report from the host */
+			ProcessLEDReport(LEDReport);
+		}
 
-	/* Handshake the OUT Endpoint - clear endpoint and ready for next report */
-	Endpoint_ClearCurrentBank();
-
-	/* Process the read LED report from the host */
-	ProcessLEDReport(LEDReport);
+		/* Handshake the OUT Endpoint - clear endpoint and ready for next report */
+		Endpoint_ClearOUT();
+	}
 }
 
 /** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to

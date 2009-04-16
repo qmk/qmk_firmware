@@ -34,6 +34,14 @@
  *  the USB controller is initialized in host mode.
  */
 
+/** \ingroup Group_USB
+ *  @defgroup Group_Host Host Management
+ *
+ *  Functions, macros, variables, enums and types related to the management of a USB host when in Host mode.
+ *
+ *  @{
+ */
+ 
 #ifndef __USBHOST_H__
 #define __USBHOST_H__
 
@@ -81,64 +89,94 @@
 				 */
 				#define HOST_DEVICE_SETTLE_DELAY_MS        1500
 			#endif
-			
-			/** Resets the USB bus, including the endpoints in any attached device and pipes on the AVR host.
-			 *  USB bus resets leave the default control pipe configured (if already configured).
-			 *
-			 *  If the USB bus has been suspended prior to issuing a bus reset, the attached device will be
-			 *  woken up automatically and the bus resumed after the reset has been correctly issued.
-			 */
-			#define USB_Host_ResetBus()                MACROS{ UHCON |=  (1 << RESET);          }MACROE
-
-			/** Determines if a previously issued bus reset (via the USB_Host_ResetBus() macro) has
-			 *  completed. This macro returns true if no bus reset is currently being sent, false
-			 *  otherwise.
-			 */
-			#define USB_Host_IsResetBusDone()                ((UHCON &   (1 << RESET)) ? false : true)
-			
-			/** Resumes USB communications with an attached and enumerated device, by resuming the transmission
-			 *  of the 1MS Start Of Frame messages to the device. When resumed, USB communications between the
-			 *  host and attached device may occur.
-			 */
-			#define USB_Host_ResumeBus()               MACROS{ UHCON |=  (1 << SOFEN);          }MACROE 
-
-			/** Suspends the USB bus, preventing any communications from occurring between the host and attached
-			 *  device until the bus has been resumed. This stops the transmission of the 1MS Start Of Frame
-			 *  messages to the device.
-			 */
-			#define USB_Host_SuspendBus()              MACROS{ UHCON &= ~(1 << SOFEN);          }MACROE 
-			
-			/** Returns true if the USB bus has been suspended via the use of the USB_Host_SuspendBus() macro,
-			 *  false otherwise. While suspended, no USB communications can occur until the bus is resumed,
-			 *  except for the Remote Wakeup event from the device if supported.
-			 */
-			#define USB_Host_IsBusSuspended()                ((UHCON &   (1 << SOFEN)) ? false : true)
 		
-			/** Returns true if the attached device is currently enumerated in Full Speed mode (12Mb/s), or
-			 *  false if the attached device is enumerated in Low Speed mode (1.5Mb/s).
-			 */
-			#define USB_Host_IsDeviceFullSpeed()             ((USBSTA &  (1 << SPEED)) ? true : false)
+		/* Psuedo-Function Macros: */
+			#if defined(__DOXYGEN__)
+				/** Resets the USB bus, including the endpoints in any attached device and pipes on the AVR host.
+				 *  USB bus resets leave the default control pipe configured (if already configured).
+				 *
+				 *  If the USB bus has been suspended prior to issuing a bus reset, the attached device will be
+				 *  woken up automatically and the bus resumed after the reset has been correctly issued.
+				 */
+				static inline void USB_Host_ResetBus(void);
 
-			/** Returns true if the attached device is currently issuing a Remote Wakeup request, requesting
-			 *  that the host resume the USB bus and wake up the device, false otherwise.
-			 */
-			#define USB_Host_IsRemoteWakeupSent()            ((UHINT &   (1 << RXRSMI)) ? true : false)
+				/** Determines if a previously issued bus reset (via the USB_Host_ResetBus() macro) has
+				 *  completed.
+				 *
+				 *  \return Boolean true if no bus reset is currently being sent, false otherwise.
+				 */
+				static inline void USB_Host_IsBusResetComplete(void);
 
-			/** Clears the flag indicating that a Remote Wakeup request has been issued by an attached
-			 *  device.
-			 */
-			#define USB_Host_ClearRemoteWakeupSent()   MACROS{ UHINT &= ~(1 << RXRSMI);         }MACROE
+				/** Resumes USB communications with an attached and enumerated device, by resuming the transmission
+				 *  of the 1MS Start Of Frame messages to the device. When resumed, USB communications between the
+				 *  host and attached device may occur.
+				 */
+				static inline void USB_Host_ResumeBus(void);
 
-			/** Accepts a Remote Wakeup request from an attached device. This must be issued in response to
-			 *  a device's Remote Wakeup request within 2ms for the request to be accepted and the bus to
-			 *  be resumed.
-			 */
-			#define USB_Host_ResumeFromWakeupRequest() MACROS{ UHCON |=  (1 << RESUME);         }MACROE
+				/** Suspends the USB bus, preventing any communications from occurring between the host and attached
+				 *  device until the bus has been resumed. This stops the transmission of the 1MS Start Of Frame
+				 *  messages to the device.
+				 */
+				static inline void USB_Host_SuspendBus(void);
+				
+				/** Determines if the USB bus has been suspended via the use of the USB_Host_SuspendBus() macro,
+				 *  false otherwise. While suspended, no USB communications can occur until the bus is resumed,
+				 *  except for the Remote Wakeup event from the device if supported.
+				 *
+				 *  \return Boolean true if the bus is currently suspended, false otherwise
+				 */
+				 static inline bool USB_Host_IsBusSuspended(void);
+				 
+				/** Determines if the attached device is currently enumerated in Full Speed mode (12Mb/s), or
+				 *  false if the attached device is enumerated in Low Speed mode (1.5Mb/s).
+				 *
+				 *  \return Boolean true if the attached device is enumerated in Full Speed mode, false otherwise
+				 */
+				static inline bool USB_Host_IsDeviceFullSpeed(void);
+
+				/** Determines if the attached device is currently issuing a Remote Wakeup request, requesting
+				 *  that the host resume the USB bus and wake up the device, false otherwise.
+				 *
+				 *  \return Boolean true if the attached device has sent a Remote Wakeup request, false otherwise
+				 */
+				static inline bool USB_Host_IsRemoteWakeupSent(void);
+
+				/** Clears the flag indicating that a Remote Wakeup request has been issued by an attached device. */
+				static inline void USB_Host_ClearRemoteWakeupSent(void);
+
+				/** Accepts a Remote Wakeup request from an attached device. This must be issued in response to
+				 *  a device's Remote Wakeup request within 2ms for the request to be accepted and the bus to
+				 *  be resumed.
+				 */
+				static inline void USB_Host_ResumeFromWakeupRequest(void);
+				
+				/** Determines if a resume from Remote Wakeup request is currently being sent to an attached
+				 *  device.
+				 *
+				 *  \return Boolean true if no resume request is currently being sent, false otherwise
+				 */
+				static inline bool USB_Host_IsResumeFromWakeupRequestSent(void);
+			#else
+				#define USB_Host_ResetBus()                MACROS{ UHCON |=  (1 << RESET);          }MACROE
+
+				#define USB_Host_IsBusResetComplete()      ((UHCON &   (1 << RESET)) ? false : true)
+
+				#define USB_Host_ResumeBus()               MACROS{ UHCON |=  (1 << SOFEN);          }MACROE 
+
+				#define USB_Host_SuspendBus()              MACROS{ UHCON &= ~(1 << SOFEN);          }MACROE 
+				
+				#define USB_Host_IsBusSuspended()                ((UHCON &   (1 << SOFEN)) ? false : true)
 			
-			/** Returns true if no resume from Remote Wakeup request is currently being sent to an attached
-			 *  device, false otherwise.
-			 */
-			#define USB_Host_IsResumeFromWakeupRequestSent() ((UHCON &   (1 << RESUME)) ? false : true)
+				#define USB_Host_IsDeviceFullSpeed()             ((USBSTA &  (1 << SPEED)) ? true : false)
+
+				#define USB_Host_IsRemoteWakeupSent()            ((UHINT &   (1 << RXRSMI)) ? true : false)
+
+				#define USB_Host_ClearRemoteWakeupSent()   MACROS{ UHINT &= ~(1 << RXRSMI);         }MACROE
+
+				#define USB_Host_ResumeFromWakeupRequest() MACROS{ UHCON |=  (1 << RESUME);         }MACROE
+				
+				#define USB_Host_IsResumeFromWakeupRequestSent() ((UHCON &   (1 << RESUME)) ? false : true)
+			#endif
 
 		/* Enums: */
 			/** Enum for the various states of the USB Host state machine. Only some states are
@@ -241,5 +279,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-
+	
 #endif
+
+/** @} */
