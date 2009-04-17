@@ -33,7 +33,14 @@
  *  USB Human Interface Device (HID) Class report descriptor processing routines. This file allows for the easy
  *  parsing of the complex HID report descriptor, which describes the data that the device transmits to the host.
  *
- *  The processed report is presented back to the user application as a flat structure containing each report
+ */
+ 
+/** \ingroup Group_USB
+ *  @defgroup Group_HIDParser HID Report Parser
+ *
+ *  Functions, macros, variables, enums and types related to the parsing of HID class device report descriptors.
+ *
+ *  The processed HID report is presented back to the user application as a flat structure containing each report
  *  item's IN, OUT and FEATURE (if desired) items along with each item's attributes.
  *
  *  This library portion also allows for easy setting and retrieval of data from a HID report, including devices
@@ -43,12 +50,6 @@
  *  to save on memory. This can be overridden by defining the HID_ENABLE_FEATURE_PROCESSING or
  *  HID_INCLUDE_CONSTANT_DATA_ITEMS tokens in the user project makefile, passing them to the compiler via the -D
  *  switch.
- */
- 
-/** \ingroup Group_USB
- *  @defgroup Group_HIDParser HID Report Parser
- *
- *  Functions, macros, variables, enums and types related to the parsing of HID class device report descriptors.
  *
  *  @{
  */

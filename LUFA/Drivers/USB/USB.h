@@ -33,13 +33,26 @@
  *  Master include file for the library USB functionality. This file should be included in all user projects making
  *  use of the USB portions of the library, instead of including any headers in the USB/LowLevel or USB/HighLevel
  *  directories.
- *
- *  Class specific utility files in USB/Class/ must still be included manually, as they are not normally part of
- *  the USB library unless desired by the library user.
  */
 
 /** @defgroup Group_USB USB - LUFA/Drivers/USB/USB.h
  *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/USB/LowLevel/DevChapter9.c
+ *    - LUFA/Drivers/USB/LowLevel/Endpoint.c
+ *    - LUFA/Drivers/USB/LowLevel/Host.c
+ *    - LUFA/Drivers/USB/LowLevel/HostChapter9.c
+ *    - LUFA/Drivers/USB/LowLevel/LowLevel.c
+ *    - LUFA/Drivers/USB/LowLevel/Pipe.c
+ *    - LUFA/Drivers/USB/HighLevel/Events.c
+ *    - LUFA/Drivers/USB/HighLevel/StdDescriptors.c
+ *    - LUFA/Drivers/USB/HighLevel/USBInterrupt.c
+ *    - LUFA/Drivers/USB/HighLevel/USBTask.c
+ *    - LUFA/Drivers/USB/Class/ConfigDescriptor.c
+ *    - LUFA/Drivers/USB/Class/HIDParser.c
+ *
+ *  \section Module Description
  *  Functions, macros, variables, enums and types related to the management of USB communications.
  */
 

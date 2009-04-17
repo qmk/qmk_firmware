@@ -28,16 +28,11 @@
   this software.
 */
 
-/** \file
- *
- *  USB Host mode related macros and enums. This module contains macros and enums which are used when
- *  the USB controller is initialized in host mode.
- */
-
 /** \ingroup Group_USB
  *  @defgroup Group_Host Host Management
  *
- *  Functions, macros, variables, enums and types related to the management of a USB host when in Host mode.
+ *  USB Host mode related macros and enums. This module contains macros and enums which are used when
+ *  the USB controller is initialized in host mode.
  *
  *  @{
  */

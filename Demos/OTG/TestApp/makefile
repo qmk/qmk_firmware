@@ -131,16 +131,18 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/Board/Temperature.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Pipe.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c       \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c       \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \
+ 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Pipe.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c            \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/StdDescriptors.c    \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/ConfigDescriptor.c      \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/HIDParser.c             \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

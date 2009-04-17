@@ -32,6 +32,17 @@
  *
  *  Simple round-robbin cooperative scheduler for use in basic projects where non real-time tasks need
  *  to be executed. Each task is executed in sequence, and can be enabled or disabled individually or as a group.
+ */
+ 
+/** @defgroup Group_Scheduler Simple Task Scheduler - LUFA/Scheduler/Scheduler.h
+ *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Scheduler/Scheduler.c
+ *
+ *  \section Module Description
+ *  Simple round-robbin cooperative scheduler for use in basic projects where non real-time tasks need
+ *  to be executed. Each task is executed in sequence, and can be enabled or disabled individually or as a group.
  *
  *  For a task to yield it must return, thus each task should have persistent data marked with the static attribute.
  *
@@ -63,11 +74,6 @@
  *      	// Implementation Here
  *      }
  *  \endcode
- */
- 
-/** @defgroup Group_Scheduler Simple Task Scheduler - LUFA/Scheduler/Scheduler.h
- *
- *  Simple round-robbin task scheduler. See Scheduler.h description for more details.
  *
  *  @{
  */

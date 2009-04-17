@@ -28,22 +28,19 @@
   this software.
 */
 
-/** Library events module. This module contains macros and functions relating to the management of library
- *  events, which are small pieces of code similar to ISRs which are run when a given condition is met. Each
- *  event can be fired from multiple places in the user or library code, which may or may not be inside an ISR,
- *  thus each handler should be written to be as small and fast as possible to prevent possible problems.
+/** \ingroup Group_USB
+ *  @defgroup Group_Events USB Events
+ *
+ *  This module contains macros and functions relating to the management of library events, which are small
+ *  pieces of code similar to ISRs which are run when a given condition is met. Each event can be fired from
+ *  multiple places in the user or library code, which may or may not be inside an ISR, thus each handler
+ *  should be written to be as small and fast as possible to prevent possible problems.
  *
  *  Events can be hooked by the user application using the EVENT_HANDLER() and HANDLES_EVENT() macros. If an
  *  event with no associated handler is fired within the library, it by default fires an internal empty stub
  *  function. This is achieved through the use of the GCC compiler's "alias" attribute.
  *
  *  Each event must only have one associated event handler, but can be raised by multiple sources.
- */
-
-/** \ingroup Group_USB
- *  @defgroup Group_Events USB Events
- *
- *  Functions, macros, variables, enums and types related to the management of events from the USB kernel.
  *
  *  @{
  */

@@ -27,18 +27,13 @@
   arising out of or in connection with the use or performance of
   this software.
 */
-
-/** \file
- *
- *  Macros and enums for the stream callback routines in Endpoint.h and Pipe.c. This module contains the
- *  code required to easily set up stream callback functions which can be used to force early abort of a
- *  stream read/write process.
- */
  
 /** \ingroup Group_USB
  *  @defgroup Group_StreamCallbacks Endpoint and Pipe Stream Callbacks
  *
- *  Functions, macros, variables, enums and types related to endpoint and pipe stream callback functions.
+ *  Macros and enums for the stream callback routines in Endpoint.h and Pipe.c. This module contains the
+ *  code required to easily set up stream callback functions which can be used to force early abort of a
+ *  stream read/write process.
  *
  *  @{
  */

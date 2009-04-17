@@ -28,14 +28,6 @@
   this software.
 */
 
-/** \file
- *
- *  Module for device mode request processing. This module allows for the processing of standard control
- *  requests to the default control endpoint while in device mode.
- *
- *  \see Chapter 9 of the USB 2.0 specification.
- */
-
 #ifndef __DEVCHAPTER9_H__
 #define __DEVCHAPTER9_H__
 

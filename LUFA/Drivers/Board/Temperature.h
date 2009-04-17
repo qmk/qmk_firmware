@@ -36,6 +36,11 @@
 /** \ingroup Group_BoardDrivers
  *  @defgroup Group_Temperature Temperature Driver - LUFA/Drivers/Board/Temperature.h
  *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/Board/Temperature.c
+ *
+ *  \section Module Description
  *  Functions, macros, variables, enums and types related to the control of board temperature sensors.
  *
  *  @{

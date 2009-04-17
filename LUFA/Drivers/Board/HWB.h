@@ -43,7 +43,15 @@
 /** \ingroup Group_BoardDrivers
  *  @defgroup Group_HWB HWB Driver - LUFA/Drivers/Board/HWB.h
  *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - None
+ *
+ *  \section Module Description
  *  Functions, macros, variables, enums and types related to the control of board HWB.
+ *
+ *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
+ *  directory. Otherwise, it will include the appropriate built in board driver header file.
  *
  *  @{
  */

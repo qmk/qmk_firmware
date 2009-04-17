@@ -27,19 +27,13 @@
   arising out of or in connection with the use or performance of
   this software.
 */
-
-/** \file
- *
- *  Macros for embedded USB hosts with dual role On The Go capabilities, for managing role exchange. OTG
- *  is a way for two USB dual role devices to talk to one another directly without fixed device/host roles.
- *
- *  \note These macros are only for AVRs which support the OTG protocol, and do not exist for device-only AVRs.
- */
  
 /** \ingroup Group_USB
  *  @defgroup Group_OTGManagement USB On The Go (OTG) Management
  *
- *  Functions, macros, variables, enums and types related to the setup and management of dual role devices.
+ *  This module contains macros for embedded USB hosts with dual role On The Go capabilities, for managing role
+ *  exchange. OTG is a way for two USB dual role devices to talk to one another directly without fixed device/host
+ *  roles.
  *
  *  @{
  */

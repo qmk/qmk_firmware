@@ -35,11 +35,17 @@
  *  USART.
  **/
 
-/** \ingroup Group_SubsystemDrivers
+/** \ingroup Group_PeripheralDrivers
  *  @defgroup Group_SerialStream Serial Stream Driver - LUFA/Drivers/Peripheral/SerialStream.h
  *
- *  Functions, macros, variables, enums and types related to the setup of a serial stream, so that standard printf and other
- *  C stream functions can be used on the serial port.
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/Peripheral/SerialStream.c
+ *
+ *  \section Module Description
+ *  Serial stream driver for the USART subsystem on supported USB AVRs. This makes use of the functions in the
+ *  regular USART driver, but allows the avr-libc standard stream functions (printf, puts, etc.) to work with the
+ *  USART.
  *
  *  @{
  */

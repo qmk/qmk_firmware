@@ -36,12 +36,6 @@
  *        dispatch header located in LUFA/Drivers/Board/HWB.h.
  */
 
-/** \ingroup Group_HWB
- *  @defgroup Group_HWB_ATAVRUSBRF01 ATAVRUSBRF01
- *
- *  @{
- */
- 
 #ifndef __HWB_ATAVRUSBRF01_H__
 #define __HWB_ATAVRUSBRF01_H__
 
@@ -84,4 +78,3 @@
 			
 #endif
 
-/** @} */

@@ -28,16 +28,11 @@
   this software.
 */
 
-/** \file
- *
- *  Contains definitions for the various control request parameters, so that the request details (such as data
- *  direction, request recipient, etc.) can be extracted via masking.
- */
- 
 /** \ingroup Group_USB
  *  @defgroup Group_StdRequest Standard USB Requests
  *
- *  Functions, macros, variables, enums and types related to standard USB requests to USB devices.
+ *  This module contains definitions for the various control request parameters, so that the request
+ *   details (such as data direction, request recipient, etc.) can be extracted via masking.
  *
  *  @{
  */

@@ -33,9 +33,14 @@
  *  Driver for the USART subsystem on supported USB AVRs.
  */
  
-/** \ingroup Group_SubsystemDrivers
+/** \ingroup Group_PeripheralDrivers
  *  @defgroup Group_Serial Serial USART Driver - LUFA/Drivers/Peripheral/Serial.h
  *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/Peripheral/Serial.c
+ *
+ *  \section Module Description
  *  Functions, macros, variables, enums and types related to the setup of the USART for serial communications.
  *
  *  @{
@@ -59,11 +64,6 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */	
-			/** Indicates whether a character has been received through the USART - boolean false if no character
-			 *  has been received, or non-zero if a character is waiting to be read from the reception buffer.
-			 */
-			#define Serial_IsCharReceived() ((UCSR1A & (1 << RXC1)) ? true : false)
-
 			/** Macro for calculating the baud value from a given baud rate when the U2X (double speed) bit is
 			 *  not set.
 			 */
@@ -73,6 +73,17 @@
 			 *  set.
 			 */
 			#define SERIAL_2X_UBBRVAL(baud) (((F_CPU / 8) / baud) - 1)
+
+		/* Psuedo-Functions: */
+			#if defined(__DOXYGEN__)
+				/** Indicates whether a character has been received through the USART.
+				 *
+				 *  \return Boolean true if a character has been received, false otherwise
+				 */
+				static inline bool Serial_IsCharReceived(void);
+			#else
+				#define Serial_IsCharReceived() ((UCSR1A & (1 << RXC1)) ? true : false)
+			#endif
 
 		/* Function Prototypes: */
 			/** Initializes the USART, ready for serial data transmission and reception.

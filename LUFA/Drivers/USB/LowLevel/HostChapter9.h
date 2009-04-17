@@ -28,14 +28,6 @@
   this software.
 */
 
-/** \file
- *
- *  Module for host mode request processing. This module allows for the transmission of standard, class and
- *  vendor control requests to the default control endpoint of an attached device while in host mode.
- *
- *  \see Chapter 9 of the USB 2.0 specification.
- */
-
 #ifndef __HOSTCHAPTER9_H__
 #define __HOSTCHAPTER9_H__
 

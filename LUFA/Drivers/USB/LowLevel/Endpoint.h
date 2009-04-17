@@ -28,17 +28,12 @@
   this software.
 */
 
-/** \file
+/** \ingroup Group_USB
+ *  @defgroup Group_EndpointManagement Endpoint Management
  *
  *  Functions, macros and enums related to endpoint management when in USB Device mode. This
  *  module contains the endpoint management macros, as well as endpoint interrupt and data
  *  send/recieve functions for various data types.
- */
-
-/** \ingroup Group_USB
- *  @defgroup Group_EndpointManagement Endpoint Management
- *
- *  Functions, macros, variables, enums and types related to the setup and management of endpoints while in USB Device mode.
  *
  *  @{
  */

@@ -27,17 +27,12 @@
   arising out of or in connection with the use or performance of
   this software.
 */
-
-/** \file
- *
- *  USB Device mode related macros and enums. This module contains macros and enums which are used when
- *  the USB controller is initialized in device mode.
- */
  
 /** \ingroup Group_USB
  *  @defgroup Group_Device Device Management
  *
- *  Functions, macros, variables, enums and types related to the management of a USB device when in Device mode.
+ *  USB Device mode related macros and enums. This module contains macros and enums which are used when
+ *  the USB controller is initialized in device mode.
  *
  *  @{
  */

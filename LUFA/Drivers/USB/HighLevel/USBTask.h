@@ -27,12 +27,6 @@
   arising out of or in connection with the use or performance of
   this software.
 */
-
-/** \file
- *
- *  Main library USB management task for both Host and Device mode operations. This contains the master
- *  USB_USBTask task which should be periodically run to service both host and device USB projects.
- */
  
 #ifndef __USBTASK_H__
 #define __USBTASK_H__

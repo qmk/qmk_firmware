@@ -28,6 +28,10 @@
   this software.
 */
 
+#include "../HighLevel/USBMode.h"
+
+#if defined(USB_CAN_BE_HOST)
+
 #include "ConfigDescriptor.h"
 
 uint8_t USB_Host_GetDeviceConfigDescriptor(uint16_t* const ConfigSizePtr, void* BufferPtr)
@@ -138,3 +142,5 @@ uint8_t USB_Host_GetNextDescriptorComp_P(uint16_t* BytesRem, uint8_t** CurrConfi
 	
 	return Descriptor_Search_Comp_EndOfDescriptor;
 }
+
+#endif

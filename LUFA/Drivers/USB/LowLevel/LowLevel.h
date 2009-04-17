@@ -28,12 +28,6 @@
   this software.
 */
 
-/** \file
- *
- *  Main low level USB driver. This module manages the low level initialization and shut down of the USB AVR's
- *  USB interface in either device or (if supported) host mode.
- */
-
 /** \ingroup Group_USB
  *  @defgroup Group_USBManagement USB Interface Management
  *

@@ -33,6 +33,18 @@
  *  Dynamic, auto-defragmenting block memory allocator library. This library provides a convenient replacement for
  *  the standard avr-libc dynamic memory allocation routines. Memory is handed out in block chunks, to reduce the
  *  management memory overhead.
+ */
+
+/** @defgroup Group_MemoryAllocator Dynamic Block Memory Allocator - LUFA/MemoryAllocator/DynAlloc.h
+ *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/MemoryAllocator/DynAlloc.c
+ *
+ *  \section Module Description
+ *  Dynamic, auto-defragmenting block memory allocator library. This library provides a convenient replacement for
+ *  the standard avr-libc dynamic memory allocation routines. Memory is handed out in block chunks, to reduce the
+ *  management memory overhead.
  *
  *  Unlike the normal memory allocation routines, this library gives out handles to memory which must be dereferenced
  *  at the exact time of use, rather than handing back direct memory pointers. By using library managed handles
@@ -48,12 +60,7 @@
  *  NUM_BLOCKS indicates the number of memory blocks in the memory psudoheap which can be chained together and handed
  *  to the application via a memory handle. NUM_HANDLES is the maximum number of memory handles (pointing to one or
  *  more chained memory blocks) which can be handed out simultaneously before requiring a handle (and its associated
- *  memory) to be freed. BLOCK_SIZE gives the number of bytes in each memory block.
- */
-
-/** @defgroup Group_MemoryAllocator Dynamic Block Memory Allocator - LUFA/MemoryAllocator/DynAlloc.h
- *
- *  Dynamic auto-degragmenting memory block allocator functions. See DynAlloc.h description for more details.
+ *  memory) to be freed. BLOCK_SIZE gives the number of bytes in each memory block. 
  *
  *  @{
  */

@@ -27,18 +27,13 @@
   arising out of or in connection with the use or performance of
   this software.
 */
-
-/** \file
- *
- *  Functions, macros and enums related to pipe management when in USB Host mode. This
- *  module contains the pipe management macros, as well as pipe interrupt and data
- *  send/recieve functions for various data types.
- */
  
 /** \ingroup Group_USB
  *  @defgroup Group_PipeManagement Pipe Management
  *
- *  Functions, macros, variables, enums and types related to the setup and management of pipes while in USB Device mode.
+ *  This module contains functions, macros and enums related to pipe management when in USB Host mode. This
+ *  module contains the pipe management macros, as well as pipe interrupt and data send/recieve functions
+ *  for various data types.
  *
  *  @{
  */
@@ -55,8 +50,11 @@
  
 /** @defgroup Group_PipeControlReq Pipe Control Request Management
  *
- *  Functions, macros, variables, enums and types related to control request management of pipes.
- */
+ *  Module for host mode request processing. This module allows for the transmission of standard, class and
+ *  vendor control requests to the default control endpoint of an attached device while in host mode.
+ *
+ *  \see Chapter 9 of the USB 2.0 specification.
+ */ 
 
 #ifndef __PIPE_H__
 #define __PIPE_H__
