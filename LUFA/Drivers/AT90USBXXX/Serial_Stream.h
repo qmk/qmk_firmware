@@ -36,7 +36,7 @@
  **/
 
 /** \ingroup Group_SubsystemDrivers
- *  @defgroup Group_SerialStream Serial Stream Driver - LUFA/Drivers/AT90USBXXX/Serial_Stream.h
+ *  @defgroup Group_SerialStream Serial Stream Driver - LUFA/Drivers/Peripheral/Serial_Stream.h
  *
  *  Functions, macros, variables, enums and types related to the setup of a serial stream, so that standard printf and other
  *  C stream functions can be used on the serial port.

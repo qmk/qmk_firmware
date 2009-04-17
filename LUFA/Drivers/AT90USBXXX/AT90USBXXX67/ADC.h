@@ -33,7 +33,7 @@
  *  ADC driver for the AT90USB1287, AT90USB1286, AT90USB647, AT90USB646, ATMEGA16U4 and ATMEGA32U4 AVRs.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the ADC driver
- *        dispatch header located in LUFA/Drivers/AT90USBXXX/ADC.h.
+ *        dispatch header located in LUFA/Drivers/Peripheral/ADC.h.
  */
 
 /** \ingroup Group_ADC
@@ -58,7 +58,7 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(INCLUDE_FROM_ADC_H)
-			#error Do not include this file directly. Include LUFA/Drivers/AT90USBXXX/ADC.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/Peripheral/ADC.h instead.
 		#endif
 
 	/* Public Interface - May be used in end-application: */

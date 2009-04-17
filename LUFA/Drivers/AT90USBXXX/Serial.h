@@ -34,7 +34,7 @@
  */
  
 /** \ingroup Group_SubsystemDrivers
- *  @defgroup Group_Serial Serial USART Driver - LUFA/Drivers/AT90USBXXX/Serial.h
+ *  @defgroup Group_Serial Serial USART Driver - LUFA/Drivers/Peripheral/Serial.h
  *
  *  Functions, macros, variables, enums and types related to the setup of the USART for serial communications.
  *

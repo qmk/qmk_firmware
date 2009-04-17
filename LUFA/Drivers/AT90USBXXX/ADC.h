@@ -37,7 +37,7 @@
  */
 
 /** \ingroup Group_SubsystemDrivers
- *  @defgroup Group_ADC ADC Driver - LUFA/Drivers/AT90USBXXX/ADC.h
+ *  @defgroup Group_ADC ADC Driver - LUFA/Drivers/Peripheral/ADC.h
  */
  
 #ifndef __ADC_H__
