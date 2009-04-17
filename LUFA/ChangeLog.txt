@@ -48,6 +48,7 @@
   *  - Removed old endpoint and pipe aliased read/write/discard routines which did not have an explicit endian specifier for clarity
   *  - Removed the ButtLoadTag.h header file, as no one used for its intended purpose anyway
   *  - Renamed the main Drivers/AT90USBXXX directory to Drivers/Peripheral, renamed the Serial_Stream driver to SerialStream
+  *  - Fixed CDC and USBtoSerial demos freezing where buffers were full while still transmitting or receiving (thanks to Peter Hand)
   *    
   *
   *  \section Sec_ChangeLog090401 Version 090401

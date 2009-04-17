@@ -246,18 +246,19 @@ TASK(CDC_Task)
 		
 		if (Endpoint_IsOUTReceived())
 		{
-			/* Read the received data endpoint into the transmission buffer */
-			while (Endpoint_BytesInEndpoint())
+			/* Read the bytes in from the endpoint into the buffer while space is available */
+			while (Endpoint_BytesInEndpoint() && (BUFF_STATICSIZE - Rx_Buffer.Elements))
 			{
-				/* Wait until the buffer has space for a new character */
-				while (!((BUFF_STATICSIZE - Rx_Buffer.Elements)));
-			
 				/* Store each character from the endpoint */
 				Buffer_StoreElement(&Rx_Buffer, Endpoint_Read_Byte());
 			}
 			
-			/* Clear the endpoint buffer */
-			Endpoint_ClearOUT();
+			/* Check to see if all bytes in the current packet have been read */
+			if (!(Endpoint_BytesInEndpoint()))
+			{
+				/* Clear the endpoint buffer */
+				Endpoint_ClearOUT();
+			}
 		}
 		
 		/* Check if Rx buffer contains data */
@@ -280,18 +281,29 @@ TASK(CDC_Task)
 			/* Wait until Serial Tx Endpoint Ready for Read/Write */
 			while (!(Endpoint_IsReadWriteAllowed()));
 			
-			/* Write the transmission buffer contents to the received data endpoint */
+			/* Write the bytes from the buffer to the endpoint while space is available */
 			while (Tx_Buffer.Elements && (Endpoint_BytesInEndpoint() < CDC_TXRX_EPSIZE))
-			  Endpoint_Write_Byte(Buffer_GetElement(&Tx_Buffer));
+			{
+				/* Write each byte retreived from the buffer to the endpoint */
+				Endpoint_Write_Byte(Buffer_GetElement(&Tx_Buffer));
+			}
+			
+			/* Remember if the packet to send completely fills the endpoint */
+			bool IsFull = (Endpoint_BytesInEndpoint() == CDC_TXRX_EPSIZE);
 			
 			/* Send the data */
 			Endpoint_ClearIN();
 
-			/* Wait until Serial Tx Endpoint Ready for Read/Write */
-			while (!(Endpoint_IsReadWriteAllowed()));
+			/* If no more data to send and the last packet filled the endpoint, send an empty packet to release
+			 * the buffer on the receiver (otherwise all data will be cached until a non-full packet is received) */
+			if (IsFull && !(Tx_Buffer.Elements))
+			{
+				/* Wait until Serial Tx Endpoint Ready for Read/Write */
+				while (!(Endpoint_IsReadWriteAllowed()));
 
-			/* Send an empty packet to terminate the transfer */
-			Endpoint_ClearIN();
+				/* Send an empty packet to terminate the transfer */
+				Endpoint_ClearIN();
+			}
 		}
 	}
 }

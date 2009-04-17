@@ -300,14 +300,22 @@ TASK(CDC_Task)
 		/* Write the String to the Endpoint */
 		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString));
 		
+		/* Remember if the packet to send completely fills the endpoint */
+		bool IsFull = (Endpoint_BytesInEndpoint() == CDC_TXRX_EPSIZE);
+
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
 
-		/* Wait until the endpoint is ready for another packet */
-		while (!(Endpoint_IsINReady()));
-		
-		/* Send an empty packet to ensure that the host does not buffer data sent to it */
-		Endpoint_ClearIN();
+		/* If the last packet filled the endpoint, send an empty packet to release the buffer on 
+		 * the receiver (otherwise all data will be cached until a non-full packet is received) */
+		if (IsFull)
+		{
+			/* Wait until the endpoint is ready for another packet */
+			while (!(Endpoint_IsINReady()));
+			
+			/* Send an empty packet to ensure that the host does not buffer data sent to it */
+			Endpoint_ClearIN();
+		}
 	}
 
 	/* Select the Serial Rx Endpoint */
