@@ -127,7 +127,7 @@ SRC = $(TARGET).c                                                 \
 	  ConfigDescriptor.c                                          \
 	  MassStoreCommands.c                                         \
 	  $(LUFA_PATH)/LUFA/Scheduler/Scheduler.c                     \
-	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial_Stream.c        \
+	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/ConfigDescriptor.c      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \

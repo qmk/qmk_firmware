@@ -16,6 +16,7 @@
  *    - The ButtLoadTag.h header has been removed, as it was never used for its intended purpose. Projects should either remove all
  *      BUTTLOADTAG elements, or download and extract ButtLoadTag.h header from the ButtLoad project.
  *    - The Drivers/AT90USBXXX directory has been renamed to Drivers/Peripheral.
+ *    - The Serial_Stream driver has been renamed to SerialStream to remain consistent with the rest of the library naming scheme.
  *
  *  <b>Library Demos</b>
  *    - Most demos, bootloaders and applications have had significant changes from previous versions. Applications built off of any

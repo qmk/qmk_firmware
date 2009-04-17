@@ -48,7 +48,7 @@
 		#include <LUFA/MemoryAllocator/DynAlloc.h>              // Auto-defragmenting Dynamic Memory allocation
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>            // ANSI Terminal Escape Codes
 		#include <LUFA/Drivers/Peripheral/ADC.h>                // ADC driver
-		#include <LUFA/Drivers/Peripheral/Serial_Stream.h>      // USART Stream driver
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>       // USART Stream driver
 		#include <LUFA/Drivers/Board/Joystick.h>                // Joystick driver
 		#include <LUFA/Drivers/Board/LEDs.h>                    // LED driver
 		#include <LUFA/Drivers/Board/HWB.h>                     // Hardware Button driver

@@ -143,7 +143,7 @@ SRC = $(TARGET).c                                                 \
       $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
       $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/Events.c            \
       $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/StdDescriptors.c    \
-      $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial_Stream.c        \
+      $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
       $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
 
 

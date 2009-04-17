@@ -24,7 +24,7 @@ LUFA_SRC_FILES =     ./Drivers/USB/LowLevel/LowLevel.c           \
                      ./MemoryAllocator/DynAlloc.c                \
                      ./Drivers/Board/Temperature.c               \
                      ./Drivers/Peripheral/Serial.c               \
-                     ./Drivers/Peripheral/Serial_Stream.c        \
+                     ./Drivers/Peripheral/SerialStream.c         \
 
 all:
 	

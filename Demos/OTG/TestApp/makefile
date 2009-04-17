@@ -129,7 +129,7 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Scheduler/Scheduler.c                     \
 	  $(LUFA_PATH)/LUFA/MemoryAllocator/DynAlloc.c                \
 	  $(LUFA_PATH)/LUFA/Drivers/Board/Temperature.c               \
-	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial_Stream.c        \
+	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/LowLevel.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \

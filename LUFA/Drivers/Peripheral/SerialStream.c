@@ -28,7 +28,7 @@
   this software.
 */
 
-#include "Serial_Stream.h"
+#include "SerialStream.h"
 
 FILE USARTStream = FDEV_SETUP_STREAM(SerialStream_TxByte, SerialStream_RxByte, _FDEV_SETUP_RW);
 

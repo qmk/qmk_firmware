@@ -103,7 +103,7 @@
 			#define JTAG_DEBUG_ASSERT(x)    MACROS{ if (!(x)) { JTAG_DEBUG_BREAK(); } }MACROE
 
 			/** Macro for testing condition "x" and writing debug data to the serial stream if false. As a
-			 *  prerequisite for this macro, the serial stream should be configured via the Serial_Stream driver.
+			 *  prerequisite for this macro, the serial stream should be configured via the Peripheral/SerialStream driver.
 			 *
 			 *  The serial output takes the form "{FILENAME}: Function {FUNCTION NAME}, Line {LINE NUMBER}: Assertion
 			 *  {x} failed."

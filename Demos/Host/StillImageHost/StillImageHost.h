@@ -48,7 +48,7 @@
 
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>             // ANSI Terminal Escape Codes
 		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
-		#include <LUFA/Drivers/Peripheral/Serial_Stream.h>       // Serial stream driver
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>        // Serial stream driver
 		#include <LUFA/Drivers/Board/LEDs.h>                     // LED driver
 		#include <LUFA/Scheduler/Scheduler.h>                    // Simple scheduler for task management
 

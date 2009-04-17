@@ -51,12 +51,11 @@
 		#include "ARP.h"
 		#include "Webserver.h"
 
-		#include <LUFA/Version.h>                        // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>                // USB Functionality
-		#include <LUFA/Drivers/Board/LEDs.h>             // LEDs driver
-		#include <LUFA/Scheduler/Scheduler.h>            // Simple scheduler for task management
-
-		#include <LUFA/Drivers/Peripheral/Serial_Stream.h>
+		#include <LUFA/Version.h>                         // Library Version Information
+		#include <LUFA/Drivers/USB/USB.h>                 // USB Functionality
+		#include <LUFA/Drivers/Board/LEDs.h>              // LEDs driver
+		#include <LUFA/Scheduler/Scheduler.h>             // Simple scheduler for task management
+		#include <LUFA/Drivers/Peripheral/SerialStream.h> // Serial stream driver
 	
 	/* Macros: */
 		/** Notification value to indicate that a frame is ready to be read by the host. */
