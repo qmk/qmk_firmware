@@ -50,6 +50,7 @@
 		#include <avr/io.h>
 		
 		#include "../../../Common/Common.h"
+		#include "../HighLevel/USBMode.h"
 		#include "../LowLevel/HostChapter9.h"
 		#include "../HighLevel/StdDescriptors.h"
 		
@@ -58,7 +59,7 @@
 			extern "C" {
 		#endif
 
-	/* Public Interface - May be used in end-application: */
+	/* Public Interface - May be used in end-application: */	
 		/* Macros: */
 			/** Mask for determining the type of an endpoint from an endpoint descriptor. This should then be compared
 			 *  with the EP_TYPE_* masks to determine the exact type of the endpoint.
@@ -121,42 +122,49 @@
 			 */
 			#define DESCRIPTOR_COMPARATOR(name)           uint8_t DCOMP_##name (void* const CurrentDescriptor)
 
-			/** Searches for the next descriptor in the given configuration descriptor using a premade comparator
-			 *  function. The routine updates the position and remaining configuration descriptor bytes values
-			 *  automatically. If a comparator routine fails a search, the descriptor pointer is retreated back
-			 *  so that the next descriptor search invocation will start from the descriptor which first caused the
-			 *  original search to fail. This behaviour allows for one comparator to be used immediately after another
-			 *  has failed, starting the second search from the descriptor which failed the first.
-			 *
-			 *  \param DSize    Pointer to an int storing the remaining bytes in the configuration descriptor
-			 *  \param DPos     Pointer to the current position in the configuration descriptor
-			 *  \param DSearch  Name of the comparator search function to use on the configuration descriptor
-			 *
-			 *  \return Value of one of the members of the DSearch_Comp_Return_ErrorCodes_t enum
-			 *
-			 *  Usage Example:
-			 *  \code
-			 *  DESCRIPTOR_COMPARATOR(EndpointSearcher); // Comparator Prototype
-			 *
-			 *  DESCRIPTOR_COMPARATOR(EndpointSearcher)
-			 *  {
-			 *     if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-			 *         return Descriptor_Search_Found;
-			 *     else
-			 *         return Descriptor_Search_NotFound;
-			 *  }
-			 *
-			 *  //...
-			 *  // After retrieving configuration descriptor:
-			 *  if (USB_Host_GetNextDescriptorComp(&BytesRemaining, &ConfigDescriptorData, EndpointSearcher) ==
-			 *      Descriptor_Search_Comp_Found)
-			 *  {
-			 *      // Do something with the endpoint descriptor
-			 *  }
-			 *  \endcode
-			 */
-			#define USB_Host_GetNextDescriptorComp(DSize, DPos, DSearch) \
-			                                              USB_Host_GetNextDescriptorComp_P(DSize, DPos, DCOMP_##DSearch)
+		/* Psuedo-Functions: */
+			#if defined(__DOXYGEN__)
+				/** Searches for the next descriptor in the given configuration descriptor using a premade comparator
+				 *  function. The routine updates the position and remaining configuration descriptor bytes values
+				 *  automatically. If a comparator routine fails a search, the descriptor pointer is retreated back
+				 *  so that the next descriptor search invocation will start from the descriptor which first caused the
+				 *  original search to fail. This behaviour allows for one comparator to be used immediately after another
+				 *  has failed, starting the second search from the descriptor which failed the first.
+				 *
+				 *  \note This function is available in USB Host mode only.
+				 *
+				 *  \param BytesRem  Pointer to an int storing the remaining bytes in the configuration descriptor
+				 *  \param CurrConfigLoc  Pointer to the current position in the configuration descriptor
+				 *  \param ComparatorRoutine  Name of the comparator search function to use on the configuration descriptor
+				 *
+				 *  \return Value of one of the members of the DSearch_Comp_Return_ErrorCodes_t enum
+				 *
+				 *  Usage Example:
+				 *  \code
+				 *  DESCRIPTOR_COMPARATOR(EndpointSearcher); // Comparator Prototype
+				 *
+				 *  DESCRIPTOR_COMPARATOR(EndpointSearcher)
+				 *  {
+				 *     if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
+				 *         return Descriptor_Search_Found;
+				 *     else
+				 *         return Descriptor_Search_NotFound;
+				 *  }
+				 *
+				 *  //...
+				 *  // After retrieving configuration descriptor:
+				 *  if (USB_Host_GetNextDescriptorComp(&BytesRemaining, &ConfigDescriptorData, EndpointSearcher) ==
+				 *      Descriptor_Search_Comp_Found)
+				 *  {
+				 *      // Do something with the endpoint descriptor
+				 *  }
+				 *  \endcode
+				 */
+				uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ComparatorPtr_t ComparatorRoutine);
+			#else
+				#define USB_GetNextDescriptorComp(DSize, DPos, DSearch) USB_GetNextDescriptorComp_P(DSize, DPos, DCOMP_##DSearch)
+			#endif
+			
 		/* Enums: */
 			/** Enum for return values of a descriptor comparator made with DESCRIPTOR_COMPARATOR. */
 			enum DSearch_Return_ErrorCodes_t
@@ -166,7 +174,7 @@
 				Descriptor_Search_NotFound             = 2, /**< Current descriptor does not match comparator criteria. */
 			};
 
-			/** Enum for return values of USB_Host_GetNextDescriptorComp() */
+			/** Enum for return values of USB_GetNextDescriptorComp(). */
 			enum DSearch_Comp_Return_ErrorCodes_t
 			{
 				Descriptor_Search_Comp_Found           = 0, /**< Configuration descriptor now points to descriptor which matches
@@ -187,31 +195,8 @@
 			 *                    of bytes indicated by ConfigSizePtr of the configuration descriptor will be loaded
 			 *                    into the buffer
 			 */
-			uint8_t USB_Host_GetDeviceConfigDescriptor(uint16_t* const ConfigSizePtr, void* BufferPtr)
-			                                           ATTR_NON_NULL_PTR_ARG(1);
-
-		/* Inline Functions: */
-			/** Skips over the current sub-descriptor inside the configuration descriptor, so that the pointer then
-			    points to the next sub-descriptor. The bytes remaining value is automatically decremented.
-			 *
-			 * \param BytesRem  Pointer to the number of bytes remaining of the configuration descriptor
-			 * \param CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
-			 */
-			static inline void USB_Host_GetNextDescriptor(uint16_t* const BytesRem,
-			                                              uint8_t** const CurrConfigLoc) 
-														  ATTR_NON_NULL_PTR_ARG(1, 2);									  
-			static inline void USB_Host_GetNextDescriptor(uint16_t* const BytesRem,
-			                                              uint8_t** const CurrConfigLoc)
-			{
-				#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
-				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
-				#else
-				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).bLength;				
-				#endif
-
-				*CurrConfigLoc += CurrDescriptorSize;
-				*BytesRem      -= CurrDescriptorSize;
-			}
+			uint8_t USB_GetDeviceConfigDescriptor(uint16_t* const ConfigSizePtr, void* BufferPtr)
+			                                      ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Skips to the next sub-descriptor inside the configuration descriptor of the specified type value.
 			 *  The bytes remaining value is automatically decremented.
@@ -220,10 +205,10 @@
 			 * \param CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
 			 * \param Type  Descriptor type value to search for
 			 */
-			void USB_Host_GetNextDescriptorOfType(uint16_t* const BytesRem,
-			                                      uint8_t** const CurrConfigLoc,
-			                                      const uint8_t Type)
-			                                      ATTR_NON_NULL_PTR_ARG(1, 2);
+			void USB_GetNextDescriptorOfType(uint16_t* const BytesRem,
+			                                 uint8_t** const CurrConfigLoc,
+			                                 const uint8_t Type)
+			                                 ATTR_NON_NULL_PTR_ARG(1, 2);
 
 			/** Skips to the next sub-descriptor inside the configuration descriptor of the specified type value,
 			 *  which must come before a descriptor of the second given type value. If the BeforeType type
@@ -235,11 +220,11 @@
 			 * \param Type  Descriptor type value to search for
 			 * \param BeforeType  Descriptor type value which must not be reached before the given Type descriptor
 			 */
-			void USB_Host_GetNextDescriptorOfTypeBefore(uint16_t* const BytesRem,
-			                                            uint8_t** const CurrConfigLoc,
-			                                            const uint8_t Type,
-			                                            const uint8_t BeforeType)
-			                                            ATTR_NON_NULL_PTR_ARG(1, 2);
+			void USB_GetNextDescriptorOfTypeBefore(uint16_t* const BytesRem,
+			                                       uint8_t** const CurrConfigLoc,
+			                                       const uint8_t Type,
+			                                       const uint8_t BeforeType)
+			                                       ATTR_NON_NULL_PTR_ARG(1, 2);
 
 			/** Skips to the next sub-descriptor inside the configuration descriptor of the specified type value,
 			 *  which must come after a descriptor of the second given type value. The bytes remaining value is
@@ -250,17 +235,42 @@
 			 * \param Type  Descriptor type value to search for
 			 * \param AfterType  Descriptor type value which must be reached before the given Type descriptor
 			 */
-			void USB_Host_GetNextDescriptorOfTypeAfter(uint16_t* const BytesRem,
-			                                           uint8_t** const CurrConfigLoc,
-			                                           const uint8_t Type,
-			                                           const uint8_t AfterType)
-			                                           ATTR_NON_NULL_PTR_ARG(1, 2);
+			void USB_GetNextDescriptorOfTypeAfter(uint16_t* const BytesRem,
+			                                      uint8_t** const CurrConfigLoc,
+			                                      const uint8_t Type,
+			                                      const uint8_t AfterType)
+			                                      ATTR_NON_NULL_PTR_ARG(1, 2);
+
+		/* Inline Functions: */
+			/** Skips over the current sub-descriptor inside the configuration descriptor, so that the pointer then
+			    points to the next sub-descriptor. The bytes remaining value is automatically decremented.
+			 *
+			 * \param BytesRem  Pointer to the number of bytes remaining of the configuration descriptor
+			 * \param CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
+			 */
+			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem,
+			                                         uint8_t** const CurrConfigLoc) 
+			                                         ATTR_NON_NULL_PTR_ARG(1, 2);									  
+			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem,
+			                                         uint8_t** const CurrConfigLoc)
+			{
+				#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
+				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
+				#else
+				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).bLength;				
+				#endif
+
+				*CurrConfigLoc += CurrDescriptorSize;
+				*BytesRem      -= CurrDescriptorSize;
+			}
 			
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
+		/* Type Defines: */
+			typedef uint8_t (* const ComparatorPtr_t)(void* const);
+
 		/* Function Prototypes: */
-			uint8_t USB_Host_GetNextDescriptorComp_P(uint16_t* BytesRem, uint8_t** CurrConfigLoc,
-                                                     uint8_t (* const ComparatorRoutine)(void* const));
+			uint8_t USB_GetNextDescriptorComp_P(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ComparatorPtr_t ComparatorRoutine);
 	#endif
 			
 	/* Disable C linkage for C++ Compilers: */

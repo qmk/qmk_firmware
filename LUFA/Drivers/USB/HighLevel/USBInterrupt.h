@@ -31,9 +31,9 @@
 /** \ingroup Group_USB
  *  @defgroup Group_USBInterrupt Endpoint and Pipe Interrupts
  *
- *  Main USB interrupt vector handler. This file manages the main USB interrupt vector, for handling such
- *  events as VBUS interrupts (on supported USB AVR models), device connections and disconnections, etc.
- *  as well as providing easy to use macros for the management of the Endpoint/Pipe interrupt vector.
+ *  This module manages the main USB interrupt vector, for handling such events as VBUS interrupts
+ *  (on supported USB AVR models), device connections and disconnections, etc. as well as providing
+ *  easy to use macros for the management of the unified Endpoint/Pipe interrupt vector.
  *
  *  @{
  */

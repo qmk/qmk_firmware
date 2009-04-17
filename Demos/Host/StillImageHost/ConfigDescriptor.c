@@ -52,7 +52,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  FoundEndpoints = 0;
 	
 	/* Get Configuration Descriptor size from the device */
-	if (USB_Host_GetDeviceConfigDescriptor(&ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
+	if (USB_GetDeviceConfigDescriptor(&ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
 	  return ControlError;
 	
 	/* Ensure that the Configuration Descriptor isn't too large */
@@ -63,14 +63,14 @@ uint8_t ProcessConfigurationDescriptor(void)
 	ConfigDescriptorData = alloca(ConfigDescriptorSize);
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
-	USB_Host_GetDeviceConfigDescriptor(&ConfigDescriptorSize, ConfigDescriptorData);
+	USB_GetDeviceConfigDescriptor(&ConfigDescriptorSize, ConfigDescriptorData);
 	
 	/* Validate returned data - ensure first entry is a configuration header descriptor */
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return InvalidConfigDataReturned;
 	
 	/* Get the Still Image interface from the configuration descriptor */
-	if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextStillImageInterface))
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextStillImageInterface))
 	{
 		/* Descriptor not found, error out */
 		return NoInterfaceFound;
@@ -80,7 +80,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	while (FoundEndpoints != ((1 << SIMAGE_EVENTS_PIPE) | (1 << SIMAGE_DATA_IN_PIPE) | (1 << SIMAGE_DATA_OUT_PIPE)))
 	{
 		/* Fetch the next endpoint from the current Still Image interface */
-		if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                                   NextSImageInterfaceDataEndpoint))
 		{
 			/* Descriptor not found, error out */

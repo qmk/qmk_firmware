@@ -49,6 +49,9 @@
   *  - Removed the ButtLoadTag.h header file, as no one used for its intended purpose anyway
   *  - Renamed the main Drivers/AT90USBXXX directory to Drivers/Peripheral, renamed the Serial_Stream driver to SerialStream
   *  - Fixed CDC and USBtoSerial demos freezing where buffers were full while still transmitting or receiving (thanks to Peter Hand)
+  *  - Removed "Host_" section of the function names in ConfigDescriptor.h, as most of the routines can now be used in device mode on the
+  *    device descriptor
+  *  - Renamed functions in the HID parser to have a "USB_" prefix and the acronym "HID" in the name
   *    
   *
   *  \section Sec_ChangeLog090401 Version 090401

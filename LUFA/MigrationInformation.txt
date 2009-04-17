@@ -57,6 +57,9 @@
  *    - The Pipe_Ignore_Word() function has been renamed to Pipe_Discard_Word() to remain consistent with the rest of the pipe API.
  *    - It is no longer needed to manually include the headers from LUFA/Drivers/USB/Class, as they are now included along with the rest
  *      of the USB headers when LUFA/Drivers/USB/USB.h is included.
+ *    - Functions in the ConfigDescriptor.h header file no longer have "Host_" as part of their names.
+ *    - The ProcessHIDReport() has been renamed to USB_ProcessHIDReport(), GetReportItemInfo() has been renamed to USB_GetHIDReportItemInfo()
+ *      and SetReportItemInfo() has been renamed to USB_GetHIDReportItemInfo().
  *
  *
  * \section Sec_Migration090401 Migrating from 090209 to 090401
