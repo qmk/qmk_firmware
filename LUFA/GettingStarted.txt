@@ -9,7 +9,7 @@
  *  Out of the box, LUFA contains a large number of pre-made class demos for you to test, experiment with and
  *  ultimately build upon for your own projects. All the demos come pre-configured to build and run correctly
  *  on the AT90USB1287 AVR microcontroller, mounted on the Atmel USBKEY board and running at an 8MHz master clock.
- *  This is due to two reasons; one, it is the hardware the author posesses, and two, it is the most popular Atmel
+ *  This is due to two reasons; one, it is the hardware the author possesses, and two, it is the most popular Atmel
  *  USB demonstration board to date.
  *
  *
@@ -25,10 +25,11 @@
  *  and the project recompiled from the source code before being programmed into the AVR microcontroller. Most project
  *  configuration options are located in the "makefile" build script inside each LUFA application's folder, however some
  *  demo or application-specific configuration settings (such as the output format in the AudioOut demo) are located in the
- *  main .c source file of the project.
+ *  main .c source file of the project. See each project's individual documentation for application-specific configuration
+ *  values.
  *
  *  Each project "makefile" contains all the script and configuration data required to compile each project. When opened with
- *  any regular basic text editor such as Notepad or Wordpad (ensure that the save format is a pure ASCII text format) the
+ *  any regular basic text editor such as Notepad or WordPad (ensure that the save format is a pure ASCII text format) the
  *  build configuration settings may be altered.
  *
  *  Inside each makefile, a number of configuration variables are located, with the format "<VARIABLE NAME> = <VALUE>". For
@@ -67,18 +68,18 @@
  *
  *  <b>Note that this value does not actually *alter* the AVR's input clock frequency</b>, it is just a way to indicate to the library the clock frequency
  *  of the AVR as set by the AVR's fuses. If this value does not reflect the actual running frequency of the AVR, incorrect operation of one of more
- *  library components will ocurr.
+ *  library components will occur.
  *
  *  \subsection SSec_F_CPU The F_CPU Parameter
  *  This parameter indicates the target AVR's master CPU clock frequency, in Hz.
  *
  *  <b>Note that this value does not actually *alter* the AVR's CPU clock frequency</b>, it is just a way to indicate to the library the clock frequency
  *  of the AVR core as set by the AVR's fuses. If this value does not reflect the actual running frequency of the AVR, incorrect operation of one of more
- *  library components will ocurr.
+ *  library components will occur.
  *
  *  \subsection SSec_CDEFS The CDEFS Parameter
  *  Most applications will actually have multiple CDEF lines, which are concatenated together with the "+=" operator. This ensures that large
- *  numbers of configuration options remain readable by splitting up groups of options into seperate lines.
+ *  numbers of configuration options remain readable by splitting up groups of options into separate lines.
  *
  *  Normally, these options do not need to be altered to allow an application to compile and run correctly on a different board or AVR to the
  *  current configuration - if the options are incorrect, then the demo is most likely incompatible with the chosen USB AVR model and cannot be
@@ -97,7 +98,7 @@
  *
  *  \subsection SSec_CommandLine Via the Command Line
  *  To build a project from the source via the command line, the command <b>"make all"</b> should be executed from the command line in the directory
- *  of interest. To remove compiled files (including the binary output, all intermediatary files and all diagnostic output
+ *  of interest. To remove compiled files (including the binary output, all intermediately files and all diagnostic output
  *  files), execute <b>"make clean"</b>. Once a "make all" has been run and no errors were encountered, the resulting binary will
  *  be located in the generated ".HEX" file. If your project makes use of pre-initialized EEPROM variables, the generated ".EEP"
  *  file will contain the project's EEPROM data.

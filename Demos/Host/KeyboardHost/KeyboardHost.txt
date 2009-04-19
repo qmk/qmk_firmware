@@ -45,7 +45,7 @@
  *  This uses a naive method where the keyboard is set to Boot Protocol mode, so
  *  that the report structure is fixed and known. A better implementation
  *  uses the HID report parser for correct report data processing across
- *  all compatable mice with advanced characteristics, as shown in the
+ *  all compatible mice with advanced characteristics, as shown in the
  *  KeyboardHostWithParser demo application.
  *  
  *  Currently only single interface keyboards are supported.

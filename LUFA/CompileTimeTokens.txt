@@ -21,11 +21,11 @@
  *  the source code at compile time.
  *
  *  <b>NUM_BLOCKS</b> - ( \ref Group_MemoryAllocator ) \n
- *  Sets the number of allocable blocks in the psudo-heap of the dynamic memory allocation driver. This should be
+ *  Sets the number of allocable blocks in the pseudo-heap of the dynamic memory allocation driver. This should be
  *  defined as a constant larger than zero.
  *
  *  <b>BLOCK_SIZE</b> - ( \ref Group_MemoryAllocator ) \n
- *  Sets the size of each allocable block in the psudo-heap of the dynamic memory allocation driver. This should be
+ *  Sets the size of each allocable block in the pseudo-heap of the dynamic memory allocation driver. This should be
  *  defined as a constant larger than zero.
  *
  *  <b>NUM_HANDLES</b> - ( \ref Group_MemoryAllocator ) \n
@@ -42,7 +42,7 @@
  *  skipped when processing a device HID report.
  *
  *  <b>HID_INCLUDE_CONSTANT_DATA_ITEMS</b> - ( \ref Group_HIDParser ) \n
- *  By default, constant data items (usually used as spacers to align seperate report items to a byte or word boundary)
+ *  By default, constant data items (usually used as spacers to align separate report items to a byte or word boundary)
  *  in the HID report are skipped during report processing. It is highly unusual for an application to make any use of
  *  constant data items (as they do not carry any useful data and only occupy limited RAM) however if required defining
  *  this switch will put constant data items into the processed HID report structure.
@@ -57,12 +57,12 @@
  *  HID reports generally contain many USAGE elements, which are assigned to INPUT, OUTPUT and FEATURE items in succession
  *  when multiple items are defined at once (via REPORT COUNT elements). This allows for several items to be defined with
  *  different usages in a compact manner. This token may be defined to a non-zero value to set the maximum depth of the
- *  usage stack, indicating the maximum number of USAGE items which can be stored tempoarily until the next INPUT, OUTPUT
+ *  usage stack, indicating the maximum number of USAGE items which can be stored temporarily until the next INPUT, OUTPUT
  *  and FEATURE item. If not defined, this defaults to the value indicated in the HID.h file documentation.
  *
  *  <b>HID_MAX_COLLECTIONS</b> - ( \ref Group_HIDParser ) \n
  *  HID reports generally contain several COLLECTION elements, used to group related data items together. Collection information
- *  is stored seperately in the processed usage structure (and referred to by the data elements in the structure) to save space.
+ *  is stored separately in the processed usage structure (and referred to by the data elements in the structure) to save space.
  *  This token may be defined to a non-zero value to set the maximum number of COLLECTION items which can be processed by the
  *  parser into the resultant processed report structure. If not defined, this defaults to the value indicated in the HID.h file
  *  documentation.
@@ -71,8 +71,8 @@
  *  All HID reports contain one or more INPUT, OUTPUT and/or FEATURE items describing the data which can be sent to and from the HID
  *  device. Each item has associated usages, bit offsets in the item reports and other associated data indicating the manner in which
  *  the report data should be interpreted by the host. This token may be defined to a non-zero value to set the maximum number of
- *  data elements which can be stored in the processed HID report strucuture, including INPUT, OUTPUT and (if enabled) FEATURE items.
- *  If a item has a multiple count (i.e. a REPORT COUNT of more than 1), each item in the report count is placed seperately in the
+ *  data elements which can be stored in the processed HID report structure, including INPUT, OUTPUT and (if enabled) FEATURE items.
+ *  If a item has a multiple count (i.e. a REPORT COUNT of more than 1), each item in the report count is placed separately in the
  *  processed HID report table. If not defined, this defaults to the value indicated in the HID.h file documentation.
  *
  *
@@ -148,7 +148,7 @@
  *  <b>USB_DEVICE_ONLY</b> - ( \ref Group_USBManagement ) \n
  *  For the USB AVR models supporting both device and host USB modes, the USB_Init() function contains a Mode parameter which specifies the
  *  mode the library should be initialized to. If only device mode is required, the code for USB host mode can be removed from the binary to
- *  save space. When defined, the USB_Init() function no longer accepts a Mode parameter. This define is irrelevent on smaller USB AVRs which
+ *  save space. When defined, the USB_Init() function no longer accepts a Mode parameter. This define is irrelevant on smaller USB AVRs which
  *  do not support host mode.
  *
  *  <b>USB_HOST_ONLY</b> - ( \ref Group_USBManagement ) \n
@@ -165,5 +165,5 @@
  *  slightly inaccurate due to the possibility of the host suspending the bus while the device is still connected. If accurate connection status is
  *  required, the VBUS line of the USB connector should be routed to an AVR pin to detect its level, so that the USB_IsConnected global
  *  can be accurately set and the USB_Connect and USB_Disconnect events manually raised by the RAISE_EVENT macro. When defined, this token disables
- *  the library's auto-detection of the connection state by the aformentioned suspension and wake up events.
+ *  the library's auto-detection of the connection state by the aforementioned suspension and wake up events.
  */

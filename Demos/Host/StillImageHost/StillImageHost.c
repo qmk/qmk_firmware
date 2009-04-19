@@ -417,7 +417,7 @@ void UpdateStatus(uint8_t CurrentStatus)
 /** Displays a PIMA command error via the device's serial port.
  *
  *  \param ErrorCode          Error code of the function which failed to complete successfully
- *  \param ResponseErrorCode  Indicates if the error is due to a command failed indication from the device, or a communication failure
+ *  \param ResponseCodeError  Indicates if the error is due to a command failed indication from the device, or a communication failure
  */
 void ShowCommandError(uint8_t ErrorCode, bool ResponseCodeError)
 {

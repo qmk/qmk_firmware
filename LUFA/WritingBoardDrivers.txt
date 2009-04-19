@@ -13,7 +13,7 @@
  *  passed to the compiler, with a constant of BOARD_{Name}. For example <b>-DBOARD=BOARD_USBKEY</b> instructs the
  *  compiler to use the USBKEY board hardware drivers.
  *
- *  If your application does not use *any* board level drivers, you can ommit the definition of the BOARD macro.
+ *  If your application does not use *any* board level drivers, you can omit the definition of the BOARD macro.
  *  However, some users may wish to write their own custom board hardware drivers which are to remain compatible
  *  with the LUFA hardware API. To do this, the BOARD macro should be defined to the value BOARD_USER. This indicates
  *  that the board level drivers should be located in a folder named "Board" located inside the application's folder.

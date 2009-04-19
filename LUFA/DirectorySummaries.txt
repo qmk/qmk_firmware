@@ -78,7 +78,7 @@
  *  \brief Board hardware driver files.
  *  
  *  This folder contains drivers for interfacing with the physical hardware on supported commercial boards, primarily from
- *  the Atmel corporation. Header files in this folder should be included in user applications requring the functionality of
+ *  the Atmel corporation. Header files in this folder should be included in user applications requiring the functionality of
  *  hardware placed on supported boards.
  *
  *  \dir Drivers/Board/USBKEY
@@ -119,7 +119,7 @@
  *  \dir DriverStubs
  *  \brief Driver stub header files for custom boards, to allow the LUFA board drivers to operate.
  *  
- *  This contains stub files for the LUFA board drivers. If the LUFA board drivers are used with board hardare other than those
+ *  This contains stub files for the LUFA board drivers. If the LUFA board drivers are used with board hardware other than those
  *  directly supported by the library, the BOARD parameter of the application's makefile can be set to "USER", and these stub files
  *  copied to the "/Board/" directory of the application's folder. When fleshed out with working driver code for the custom board,
  *  the corresponding LUFA board APIs will work correctly with the non-standard board hardware.

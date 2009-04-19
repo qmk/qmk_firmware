@@ -44,9 +44,9 @@
  *  As an open-source option, this bootloader is also compatible with the Linux Atmel USB DFU Programmer
  *  software, available for download at http://sourceforge.net/projects/dfu-programmer/.
  *  
- *  If SECURE_MODE is defined as true, upon startup the bootloader will be locked, with only the chip erase
+ *  If SECURE_MODE is defined as true, upon start-up the bootloader will be locked, with only the chip erase
  *  function available (similar to Atmel's DFU bootloader). If SECURE_MODE is defined as false, all functions 
- *  are usable on startup without the prerequisite firmware erase.
+ *  are usable on start-up without the prerequisite firmware erase.
  *  
  *  Out of the box this bootloader builds for the USB1287, and should fit into 4KB of bootloader space. If
  *  you wish to enlarge this space and/or change the AVR model, you will need to edit the BOOT_START and MCU
@@ -69,8 +69,8 @@
  *   <tr>
  *    <td>SECURE_MODE</td>
  *    <td>BootloaderDFU.h</td>
- *    <td>If defined to true, the bootloader will not accept any memory commands other than a chip erase on statup, until an
- *        erase has been perfomed. This can be used in conjunction with the AVR's lockbits to prevent the AVRs firmware from
+ *    <td>If defined to true, the bootloader will not accept any memory commands other than a chip erase on start-up, until an
+ *        erase has been performed. This can be used in conjunction with the AVR's lockbits to prevent the AVRs firmware from
  *        being dumped by unauthorized persons.</td>
  *   </tr>
  *   <tr>

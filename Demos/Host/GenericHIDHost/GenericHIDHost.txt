@@ -36,7 +36,7 @@
  *  \section SSec_Description Project Description: 
  *
  *  Generic HID host demonstration application. This gives a simple reference
- *  application for implementing a Genric HID USB host, for any device implementing
+ *  application for implementing a Generic HID USB host, for any device implementing
  *  the HID profile.
  *
  *  Received reports from the attached device are printed to the serial port.

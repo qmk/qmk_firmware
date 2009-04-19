@@ -42,7 +42,7 @@
  *  
  * Out of the box this bootloader builds for the USB162, and will fit into 2KB of bootloader space.
  *
- * This spoofs (with permission) the offical Teensy bootloader's VID and PID, so that the software remains
+ * This spoofs (with permission) the official Teensy bootloader's VID and PID, so that the software remains
  * compatible with no changes.
  *
  *  \section SSec_Options Project Options

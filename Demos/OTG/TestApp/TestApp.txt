@@ -36,7 +36,7 @@
  *  \section SSec_Description Project Description: 
  *
  *  Test application. Demonstrates several aspects of the LUFA
- *  Library. On startup the current temperature will be printed
+ *  Library. On start-up the current temperature will be printed
  *  through the USART every 10 seconds, and the current joystick
  *  position will be indicated via the LEDs on the selected board.
  *  Pressing the HWB will initiate the USB subsystem, enumerating

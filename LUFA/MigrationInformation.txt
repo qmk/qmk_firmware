@@ -32,7 +32,7 @@
  *      Endpoint_IsOUTReceived() respectively.
  *    - The Endpoint_IsSetupReceived() macro has been renamed to Endpoint_IsSETUPReceived().
  *    - The Endpoint_ClearSetupReceived() macro has been renamed to Endpoint_ClearControlSETUP().
- *    - All endpoint read/write/discard aliases which did not have an explicity endianness specifier (such as Endpoint_Read_Word()) have
+ *    - All endpoint read/write/discard aliases which did not have an explicitly endianness specifier (such as Endpoint_Read_Word()) have
  *      been removed for clarity. Existing projects should use the "_LE" suffix on such calls to use the explicit Little Endian versions.
  *
  *  <b>Host Mode</b>
@@ -51,7 +51,7 @@
  *    - The new Pipe_ClearControlSETUP() macro should be used to send CONTROL transactions, rather than the previous Pipe_ClearSetupOUT() macro.
  *    - The Pipe_IsSetupSent() macro has been renamed to Pipe_IsSETUPSent().
  *    - The Pipe_ClearSetupSent() macro is no longer applicable and should be removed.
- *    - All pipe read/write/discard aliases which did not have an explicity endianness specifier (such as Pipe_Read_Word()) have
+ *    - All pipe read/write/discard aliases which did not have an explicitly endianness specifier (such as Pipe_Read_Word()) have
  *      been removed for clarity. Existing projects should use the "_LE" suffix on such calls to use the explicit Little Endian versions.
  *    - The Host_IsResetBusDone() macro has been renamed to Host_IsBusResetComplete().
  *    - The Pipe_Ignore_Word() function has been renamed to Pipe_Discard_Word() to remain consistent with the rest of the pipe API.
@@ -196,7 +196,7 @@
  *      and/or is self-powered are now accessed and set through the new USB_RemoteWakeupEnabled and
  *      USB_CurrentlySelfPowered macros. See the DevChapter9.h documentation for more details.
  *    - All endpoint stream functions now require an extra Callback function parameter. Existing code may be updated
- *      to either supply NO_STREAM_CALLBACK as the extra parameter, or disable stream callbacks altogether by pasing
+ *      to either supply NO_STREAM_CALLBACK as the extra parameter, or disable stream callbacks altogether by passing
  *      the token NO_STREAM_CALLBACKS to the compiler using the -D switch.
  *
  *  <b>Host Mode</b>
@@ -206,7 +206,7 @@
  *      timeout duration in ms.
  *    - CollectionPath_t has been renamed to HID_CollectionPath_t to be more in line with the other HID parser structures.
  *    - All pipe stream functions now require an extra Callback function parameter. Existing code may be updated
- *      to either supply NO_STREAM_CALLBACK as the extra parameter, or disable stream callbacks altogether by pasing
+ *      to either supply NO_STREAM_CALLBACK as the extra parameter, or disable stream callbacks altogether by passing
  *      the token NO_STREAM_CALLBACKS to the compiler using the -D switch.
  *
  *
@@ -243,7 +243,7 @@
  *      avoid such mistakes in the future, the VERSION_BCD macro has been added to StdDescriptors.h. Existing
  *      projects should at least manually correct the BCD version numbers, or preferably update the descriptors to
  *      encode the version number in BCD format using the new macro.
- *    - The mandatory GetReport class-specific request was accidentally ommitted from previous versions of the demos
+ *    - The mandatory GetReport class-specific request was accidentally omitted from previous versions of the demos
  *      based on the Human Interface Device (HID) class. This has been corrected, and any user projects based on the
  *      HID demos should also be updated accordingly.
  *    - The CDC demos now correctly send an empty packet directly after a full packet, to end the transmission.
@@ -271,13 +271,13 @@
  *      appropriate. It fires in an identical manner to the previously named event, thus the only change to be made
  *      is the event name itself in the user project.
  *    - The USB_Descriptor_Language_t structure no longer exists in StdDescriptors.h, as this was a
- *      psudo-descriptor modelled on the string descriptor. It is replaced by the true USB_Descriptor_String_t type
+ *      pseudo-descriptor modelled on the string descriptor. It is replaced by the true USB_Descriptor_String_t type
  *      descriptor as indicated in the USB specification, thus all device code must be updated accordingly.
- *    - The names of several Endpoint macros have been changed to be more consistant with the rest of the library,
+ *    - The names of several Endpoint macros have been changed to be more consistent with the rest of the library,
  *      with no implementation changes. This means that existing code can be altered to use the new macro names
  *      with no other considerations required. See Endpoint.h for the new macro names.
  *    - The previous version of the MassStorage demo had an incorrect value in the SCSI_Request_Sense_Response_t
- *      strucuture named SenseData in SCSI.c which caused some problems with some hosts. User projects based on this
+ *      structure named SenseData in SCSI.c which caused some problems with some hosts. User projects based on this
  *      demo should correct the structure value to maintain compatibility across multiple OS platforms.
  *    - By default, the descriptor structures use the official USB specification names for the elements. Previous
  *      versions of the library used non-standard (but more verbose) names, which are still usable in the current
@@ -288,7 +288,7 @@
  *    - The USB_Host_Request_Header_t structure in HostChapter9.h (used for issuing control requests) has had its
  *      members renamed to the official USB specification names for requests. Existing code will need to be updated
  *      to use the new names.
- *    - The names of several Pipe macros have been changed to be more consistant with the rest of the library,
+ *    - The names of several Pipe macros have been changed to be more consistent with the rest of the library,
  *      with no implementation changes. This means that existing code can be altered to use the new macro names
  *      with no other considerations required. See Pipe.h for the new macro names.
  *    - By default, the descriptor structures use the official USB specification names for the elements. Previous
@@ -304,5 +304,5 @@
  *      header inside the library.
  *    - The USB_DeviceEnumerationComplete event (see Events.h) now also fires in Device mode, when the host has
  *      finished enumerating the device. Projects relying on the event only firing in Host mode should be updated
- *      so that the event action only ocurrs when the USB_Mode global is set to USB_MODE_HOST.
+ *      so that the event action only occurs when the USB_Mode global is set to USB_MODE_HOST.
  */

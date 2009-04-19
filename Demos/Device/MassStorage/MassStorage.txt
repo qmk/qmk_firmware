@@ -43,8 +43,8 @@
  *  device using the basic USB UFI drivers in all modern OSes (i.e. no
  *  special drivers required).
  *  
- *  On startup the system will automatically enumerate and function as an
- *  external mass storage device with two LUNs (seperate disks) which may
+ *  On start-up the system will automatically enumerate and function as an
+ *  external mass storage device with two LUNs (separate disks) which may
  *  be formatted and used in the same manner as commercial USB Mass Storage
  *  devices.
  *  	

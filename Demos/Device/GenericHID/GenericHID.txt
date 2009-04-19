@@ -40,7 +40,7 @@
  *  OSes (i.e. no special drivers required). It accepts and sends up to 255 byte reports to
  *  and from a USB Host, and by default transmits the last sent report back to the host.
  *  
- *  On startup the system will automatically enumerate and function as a vendor HID device.
+ *  On start-up the system will automatically enumerate and function as a vendor HID device.
  *  When controlled by a custom HID class application, reports can be sent and received by
  *  both the standard data endpoint and control request methods defined in the HID specification.
  *
@@ -71,7 +71,7 @@
  *    <td>INTERRUPT_DATA_ENDPOINT</td>
  *    <td>Makefile CDEFS</td>
  *    <td>When defined, this causes the demo to enable interrupts for the data endpoints,
- *        which services incomming LED reports and outgoing key status reports to and from the host.
+ *        which services incoming LED reports and outgoing key status reports to and from the host.
  *        If not defined, the data endpoints are serviced via polling using the task scheduler.</td>
  *   </tr>
  *  </table>

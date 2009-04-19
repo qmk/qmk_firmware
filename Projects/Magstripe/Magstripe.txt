@@ -42,7 +42,7 @@
  *  See http://ossguy.com/ss_usb/ for the USB reader hardware project website,
  *  including construction and support details.
  * 
- *  To use, connect your magentic card reader device to the USB AVR as follows (pin and port mapping may be adjusted
+ *  To use, connect your magnetic card reader device to the USB AVR as follows (pin and port mapping may be adjusted
  *  from the project makefile):
  * 
  *  <table>

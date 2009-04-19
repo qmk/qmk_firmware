@@ -26,7 +26,7 @@
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
  *    <td>USBIF Audio Class Specification</td>
- *    <td>USB-MIDI Audio Class Extention Specification</td>
+ *    <td>USB-MIDI Audio Class Extension Specification</td>
  *    <td>General MIDI Specification</td>
  *   </tr>
  *   <tr>

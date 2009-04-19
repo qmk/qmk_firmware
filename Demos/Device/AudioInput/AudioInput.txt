@@ -42,8 +42,8 @@
  *  basic USB Audio drivers in all modern OSes (i.e. no special drivers
  *  required).
  *  
- *  On startup the system will automatically enumerate and function
- *  as a USB microphone. Incomming audio from the ADC channel 1 will
+ *  On start-up the system will automatically enumerate and function
+ *  as a USB microphone. Incoming audio from the ADC channel 1 will
  *  be sampled and sent to the host computer.
  *  
  *  To use, connect a microphone to the ADC channel 2.

@@ -261,14 +261,14 @@ bool SImage_IsEventReceived(void)
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
-uint8_t SImage_ClearPipeStall(const uint8_t PipeEndpointNum)
+uint8_t SImage_ClearPipeStall(const uint8_t EndpointNum)
 {
 	USB_HostRequest = (USB_Host_Request_Header_t)
 		{
 			bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT),
 			bRequest:      REQ_ClearFeature,
 			wValue:        FEATURE_ENDPOINT_HALT,
-			wIndex:        PipeEndpointNum,
+			wIndex:        EndpointNum,
 			wLength:       0,
 		};
 	

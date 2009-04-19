@@ -15,7 +15,7 @@
  *  hogs the processor, preventing another from running before some sort of timeout is exceeded). Unlike normal RTOS
  *  tasks, each LUFA scheduler task is a regular function, and thus must be designed to be called, and designed to
  *  return to the calling scheduler function repeatedly. Data which must be preserved between task calls should be
- *  declared as global or (prefferably) as a static local variable inside the task.
+ *  declared as global or (preferably) as a static local variable inside the task.
  *
  *  The scheduler consists of a task list, listing all the tasks which can be executed by the scheduler. Once started,
  *  each task is then called one after another, unless the task is stopped by another running task or interrupt.
