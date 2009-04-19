@@ -82,7 +82,7 @@
 			/** Maximum returnable temperature from the Temperature_GetTemperature() function. */
 			#define TEMP_MAX_TEMP      ((TEMP_TABLE_SIZE - 1) + TEMP_TABLE_OFFSET)
 		
-		/* Psuedo-Functions: */
+		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Initializes the temperature sensor driver, including setting up the appropriate ADC channel.
 				 *  This must be called before any other temperature sensor routines.

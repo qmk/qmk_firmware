@@ -133,7 +133,7 @@
 			/** Task status mode constant, for passing to Scheduler_SetTaskMode() or Scheduler_SetGroupTaskMode(). */
 			#define TASK_STOP                         false
 			
-		/* Psuedo-Functions: */
+		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Starts the scheduler in its infinite loop, executing running tasks. This should be placed at the end
 				 *  of the user application's main() function, as it can never return to the calling function.

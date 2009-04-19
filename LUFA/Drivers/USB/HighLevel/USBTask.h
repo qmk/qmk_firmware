@@ -86,7 +86,7 @@
 			/** Indicates if the USB interface is currently suspended by the host when in device mode. When suspended,
 			 *  the device should consume minimal power, and cannot communicate to the host. If Remote Wakeup is
 			 *  supported by the device and USB_RemoteWakeupEnabled is true, suspension can be terminated by the device
-			 *  by issuing a Remote Wakup request.
+			 *  by issuing a Remote Wakeup request.
 			 *
 			 *  \note This global is only present if the user application can be a USB device.
 			 *

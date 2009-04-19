@@ -137,11 +137,11 @@ DESCRIPTOR_COMPARATOR(NextMassStorageInterface)
 		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == MASS_STORE_SUBCLASS) &&
 		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == MASS_STORE_PROTOCOL))
 		{
-			return Descriptor_Search_Found;
+			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
 	
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }
 
 /** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
@@ -162,12 +162,12 @@ DESCRIPTOR_COMPARATOR(NextInterfaceBulkDataEndpoint)
 
 		/* Check the endpoint type, break out if correct BULK type endpoint found */
 		if (EndpointType == EP_TYPE_BULK)
-		  return Descriptor_Search_Found;
+		  return DESCRIPTOR_SEARCH_Found;
 	}
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		return Descriptor_Search_Fail;
+		return DESCRIPTOR_SEARCH_Fail;
 	}
 
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }

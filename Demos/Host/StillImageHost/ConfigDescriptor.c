@@ -156,11 +156,11 @@ DESCRIPTOR_COMPARATOR(NextStillImageInterface)
 		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == SIMAGE_SUBCLASS) &&
 		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == SIMAGE_PROTOCOL))
 		{
-			return Descriptor_Search_Found;
+			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
 	
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }
 
 /** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
@@ -180,12 +180,12 @@ DESCRIPTOR_COMPARATOR(NextSImageInterfaceDataEndpoint)
 		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
 	
 		if ((EndpointType == EP_TYPE_BULK) || (EndpointType == EP_TYPE_INTERRUPT))
-		  return Descriptor_Search_Found;
+		  return DESCRIPTOR_SEARCH_Found;
 	}
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		return Descriptor_Search_Fail;
+		return DESCRIPTOR_SEARCH_Fail;
 	}
 
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }

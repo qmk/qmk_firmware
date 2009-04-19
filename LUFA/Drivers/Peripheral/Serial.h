@@ -74,7 +74,7 @@
 			 */
 			#define SERIAL_2X_UBBRVAL(baud) (((F_CPU / 8) / baud) - 1)
 
-		/* Psuedo-Functions: */
+		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Indicates whether a character has been received through the USART.
 				 *

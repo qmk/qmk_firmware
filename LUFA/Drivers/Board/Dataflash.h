@@ -75,7 +75,7 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Psuedo-Function Macros: */
+		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Determines the currently selected dataflash chip.
 				 *

@@ -28,7 +28,7 @@
  *      on the new endpoint management macros.
  *    - The Endpoint_ReadWriteAllowed() macro has been renamed to Endpoint_IsReadWriteAllowed() to be more consistent with the rest of
  *      the API naming scheme.
- *    - The Endpoint_IsSetupINReady() and Endpoint_IsOutReceived() macros have been renamed to Endpoint_IsINReady() and
+ *    - The Endpoint_IsSetupINReady() and Endpoint_IsSetupOutReceived() macros have been renamed to Endpoint_IsINReady() and
  *      Endpoint_IsOUTReceived() respectively.
  *    - The Endpoint_IsSetupReceived() macro has been renamed to Endpoint_IsSETUPReceived().
  *    - The Endpoint_ClearSetupReceived() macro has been renamed to Endpoint_ClearControlSETUP().
@@ -60,7 +60,8 @@
  *    - Functions in the ConfigDescriptor.h header file no longer have "Host_" as part of their names.
  *    - The ProcessHIDReport() has been renamed to USB_ProcessHIDReport(), GetReportItemInfo() has been renamed to USB_GetHIDReportItemInfo()
  *      and SetReportItemInfo() has been renamed to USB_GetHIDReportItemInfo().
- *
+ *    - The values of the DSearch_Return_ErrorCodes_t and DSearch_Comp_Return_ErrorCodes_t enums have had their respective "Descriptor_Search"
+ *      and "Descriptor_Search_Comp" prefixes changed to all caps.
  *
  * \section Sec_Migration090401 Migrating from 090209 to 090401
  *

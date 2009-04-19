@@ -178,7 +178,7 @@
 			 */
 			#define ENDPOINT_INT_OUT                      UEIENX, (1 << RXOUTE), UEINTX, (1 << RXOUTI)
 			
-		/* Psuedo-Function Macros: */
+		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Indicates the number of bytes currently stored in the current endpoint's selected bank.
 				 *

@@ -310,7 +310,7 @@ void ProcessKeyboardReport(uint8_t* KeyboardReport)
 			(ReportItem->ItemType                   == REPORT_ITEM_TYPE_In))
 		{
 			/* Retrieve the keyboard scancode from the report data retrieved from the device */
-			bool FoundData = GetReportItemInfo(KeyboardReport, ReportItem);
+			bool FoundData = USB_GetHIDReportItemInfo(KeyboardReport, ReportItem);
 			
 			/* For multi-report devices - if the requested data was not in the issued report, continue */
 			if (!(FoundData))

@@ -173,7 +173,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 				
 			Class:                  0x03,
 			SubClass:               0x01,
-			Protocol:               0x00,
+			Protocol:               0x01,
 				
 			InterfaceStrIndex:      NO_DESCRIPTOR
 		},
@@ -219,8 +219,8 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			TotalEndpoints:         1,
 				
 			Class:                  0x03,
-			SubClass:               0x02,
-			Protocol:               0x00,
+			SubClass:               0x01,
+			Protocol:               0x02,
 				
 			InterfaceStrIndex:      NO_DESCRIPTOR
 		},

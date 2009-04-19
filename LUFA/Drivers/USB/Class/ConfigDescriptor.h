@@ -122,7 +122,7 @@
 			 */
 			#define DESCRIPTOR_COMPARATOR(name)           uint8_t DCOMP_##name (void* const CurrentDescriptor)
 
-		/* Psuedo-Functions: */
+		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Searches for the next descriptor in the given configuration descriptor using a premade comparator
 				 *  function. The routine updates the position and remaining configuration descriptor bytes values
@@ -146,9 +146,9 @@
 				 *  DESCRIPTOR_COMPARATOR(EndpointSearcher)
 				 *  {
 				 *     if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-				 *         return Descriptor_Search_Found;
+				 *         return DESCRIPTOR_SEARCH_Found;
 				 *     else
-				 *         return Descriptor_Search_NotFound;
+				 *         return DESCRIPTOR_SEARCH_NotFound;
 				 *  }
 				 *
 				 *  //...
@@ -169,18 +169,18 @@
 			/** Enum for return values of a descriptor comparator made with DESCRIPTOR_COMPARATOR. */
 			enum DSearch_Return_ErrorCodes_t
 			{
-				Descriptor_Search_Found                = 0, /**< Current descriptor matches comparator criteria. */
-				Descriptor_Search_Fail                 = 1, /**< No further descriptor could possibly match criteria, fail the search. */
-				Descriptor_Search_NotFound             = 2, /**< Current descriptor does not match comparator criteria. */
+				DESCRIPTOR_SEARCH_Found                = 0, /**< Current descriptor matches comparator criteria. */
+				DESCRIPTOR_SEARCH_Fail                 = 1, /**< No further descriptor could possibly match criteria, fail the search. */
+				DESCRIPTOR_SEARCH_NotFound             = 2, /**< Current descriptor does not match comparator criteria. */
 			};
 
 			/** Enum for return values of USB_GetNextDescriptorComp(). */
 			enum DSearch_Comp_Return_ErrorCodes_t
 			{
-				Descriptor_Search_Comp_Found           = 0, /**< Configuration descriptor now points to descriptor which matches
+				DESCRIPTOR_SEARCH_COMP_Found           = 0, /**< Configuration descriptor now points to descriptor which matches
 				                                             *   search criteria of the given comparator function. */
-				Descriptor_Search_Comp_Fail            = 1, /**< Comparator function returned Descriptor_Search_Fail. */
-				Descriptor_Search_Comp_EndOfDescriptor = 2, /**< End of configuration descriptor reached before match found. */
+				DESCRIPTOR_SEARCH_COMP_Fail            = 1, /**< Comparator function returned Descriptor_Search_Fail. */
+				DESCRIPTOR_SEARCH_COMP_EndOfDescriptor = 2, /**< End of configuration descriptor reached before match found. */
 			};
 	
 		/* Function Prototypes: */

@@ -123,11 +123,11 @@ DESCRIPTOR_COMPARATOR(NextMouseInterface)
 		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == MOUSE_CLASS) &&
 		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == MOUSE_PROTOCOL))
 		{
-			return Descriptor_Search_Found;
+			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
 	
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }
 
 /** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
@@ -144,14 +144,14 @@ DESCRIPTOR_COMPARATOR(NextInterfaceMouseDataEndpoint)
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
 		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Endpoint_t).EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		  return Descriptor_Search_Found;
+		  return DESCRIPTOR_SEARCH_Found;
 	}
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		return Descriptor_Search_Fail;
+		return DESCRIPTOR_SEARCH_Fail;
 	}
 
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }
 
 /** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
@@ -165,7 +165,7 @@ DESCRIPTOR_COMPARATOR(NextInterfaceMouseDataEndpoint)
 DESCRIPTOR_COMPARATOR(NextHID)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_HID)
-	  return Descriptor_Search_Found;
+	  return DESCRIPTOR_SEARCH_Found;
 	else
-	  return Descriptor_Search_NotFound;	  
+	  return DESCRIPTOR_SEARCH_NotFound;	  
 }

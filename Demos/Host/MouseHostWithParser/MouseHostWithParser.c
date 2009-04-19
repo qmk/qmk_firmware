@@ -312,7 +312,7 @@ void ProcessMouseReport(uint8_t* MouseReport)
 			(ReportItem->ItemType                    == REPORT_ITEM_TYPE_In))
 		{
 			/* Get the mouse button value */
-			FoundData = GetReportItemInfo(MouseReport, ReportItem);
+			FoundData = USB_GetHIDReportItemInfo(MouseReport, ReportItem);
 			
 			/* For multi-report devices - if the requested data was not in the issued report, continue */
 			if (!(FoundData))
@@ -328,7 +328,7 @@ void ProcessMouseReport(uint8_t* MouseReport)
 				 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
 		{
 			/* Get the mouse relative position value */
-			FoundData = GetReportItemInfo(MouseReport, ReportItem);
+			FoundData = USB_GetHIDReportItemInfo(MouseReport, ReportItem);
 			
 			/* For multi-report devices - if the requested data was not in the issued report, continue */
 			if (!(FoundData))

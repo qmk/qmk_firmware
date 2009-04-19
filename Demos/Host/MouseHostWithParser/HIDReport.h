@@ -37,7 +37,7 @@
 #define _HID_REPORT_H_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>            // HID Class Report Parser
+		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
 		
 		#include "MouseHostWithParser.h"
 

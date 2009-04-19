@@ -242,7 +242,7 @@
 			 */
 			#define PIPE_INT_STALL                 UPIENX, (1 << RXSTALLE), UPINTX, (1 << RXSTALLI)
 
-		/* Psuedo-Function Macros: */
+		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Indicates the number of bytes currently stored in the current pipes's selected bank.
 				 *
@@ -367,7 +367,7 @@
 				 *
 				 *  \see Pipe_GetErrorFlags() macro for information on retrieving the exact error flag.
 				 *
-				 *  \return Boolean true if an error has ocurred on the selected pipe, false otherwise
+				 *  \return Boolean true if an error has occurred on the selected pipe, false otherwise
 				 */
 				static inline bool Pipe_IsError(void);
 				
@@ -379,7 +379,7 @@
 				/** Gets a mask of the hardware error flags which have occurred on the currently selected pipe. This
 				 *  value can then be masked against the PIPE_ERRORFLAG_* masks to determine what error has occurred.
 				 *
-				 *  \return  Mask comprising of PIPE_ERRORFLAG_* bits indicating what error has ocurred on the selected pipe
+				 *  \return  Mask comprising of PIPE_ERRORFLAG_* bits indicating what error has occurred on the selected pipe
 				 */
 				static inline uint8_t Pipe_GetErrorFlags(void);
 				

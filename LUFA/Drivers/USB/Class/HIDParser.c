@@ -30,7 +30,7 @@
 
 #include "HIDParser.h"
 
-uint8_t ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID_ReportInfo_t* const ParserData)
+uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID_ReportInfo_t* const ParserData)
 {
 	HID_StateTable_t  StateTable[HID_STATETABLE_STACK_DEPTH];
 	HID_StateTable_t* CurrStateTable               = &StateTable[0];
@@ -275,7 +275,7 @@ uint8_t ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID_Rep
 	return HID_PARSE_Successful;
 }
 
-bool GetReportItemInfo(const uint8_t* ReportData, HID_ReportItem_t* const ReportItem)
+bool USB_GetHIDReportItemInfo(const uint8_t* ReportData, HID_ReportItem_t* const ReportItem)
 {
 	uint16_t DataBitsRem  = ReportItem->Attributes.BitSize;
 	uint16_t CurrentBit   = ReportItem->BitOffset;
@@ -303,7 +303,7 @@ bool GetReportItemInfo(const uint8_t* ReportData, HID_ReportItem_t* const Report
 	return true;
 }
 
-void SetReportItemInfo(uint8_t* ReportData, const HID_ReportItem_t* ReportItem)
+void USB_SetHIDReportItemInfo(uint8_t* ReportData, const HID_ReportItem_t* ReportItem)
 {
 	uint16_t DataBitsRem  = ReportItem->Attributes.BitSize;
 	uint16_t CurrentBit   = ReportItem->BitOffset;

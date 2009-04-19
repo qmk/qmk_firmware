@@ -181,11 +181,11 @@ DESCRIPTOR_COMPARATOR(NextCDCControlInterface)
 		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == CDC_CONTROL_SUBCLASS) &&
 		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == CDC_CONTROL_PROTOCOL))
 		{
-			return Descriptor_Search_Found;
+			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
 	
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }
 
 /** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
@@ -205,11 +205,11 @@ DESCRIPTOR_COMPARATOR(NextCDCDataInterface)
 		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == CDC_DATA_SUBCLASS) &&
 		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == CDC_DATA_PROTOCOL))
 		{
-			return Descriptor_Search_Found;
+			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
 	
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }
 
 /** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
@@ -230,12 +230,12 @@ DESCRIPTOR_COMPARATOR(NextInterfaceCDCDataEndpoint)
 		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
 	
 		if ((EndpointType == EP_TYPE_BULK) || (EndpointType == EP_TYPE_INTERRUPT))
-		  return Descriptor_Search_Found;
+		  return DESCRIPTOR_SEARCH_Found;
 	}
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		return Descriptor_Search_Fail;
+		return DESCRIPTOR_SEARCH_Fail;
 	}
 
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }

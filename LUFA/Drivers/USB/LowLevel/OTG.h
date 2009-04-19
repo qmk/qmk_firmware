@@ -61,7 +61,7 @@
 			 */			 
 			#define USB_OTG_STP_DATA                   0
 
-		/* Psuedo-Function Macros: */
+		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Initiate a Host Negotiation Protocol request. This indicates to the other connected device
 				 *  that the device wishes to change device/host roles.

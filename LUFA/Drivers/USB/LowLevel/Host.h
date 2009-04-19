@@ -85,7 +85,7 @@
 				#define HOST_DEVICE_SETTLE_DELAY_MS        1500
 			#endif
 		
-		/* Psuedo-Function Macros: */
+		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Resets the USB bus, including the endpoints in any attached device and pipes on the AVR host.
 				 *  USB bus resets leave the default control pipe configured (if already configured).

@@ -69,15 +69,15 @@ uint8_t ProcessConfigurationDescriptor(void)
 	  return InvalidConfigDataReturned;
 	
 	/* Get the mouse interface from the configuration descriptor */
-	if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextMouseInterface))
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextMouseInterface))
 	{
 		/* Descriptor not found, error out */
 		return NoHIDInterfaceFound;
 	}
 
 	/* Get the mouse interface's data endpoint descriptor */
-	if (USB_Host_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                                                NextInterfaceMouseDataEndpoint))
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+	                              NextInterfaceMouseDataEndpoint))
 	{
 		/* Descriptor not found, error out */
 		return NoEndpointFound;
@@ -121,12 +121,12 @@ DESCRIPTOR_COMPARATOR(NextMouseInterface)
 		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == MOUSE_PROTOCOL))
 		{
 			/* Indicate that the descriptor being searched for has been found */
-			return Descriptor_Search_Found;
+			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
 	
 	/* Current descriptor does not match what this comparator is looking for */
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }
 
 /** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
@@ -147,15 +147,15 @@ DESCRIPTOR_COMPARATOR(NextInterfaceMouseDataEndpoint)
 		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Endpoint_t).EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 		{
 			/* Indicate that the descriptor being searched for has been found */
-			return Descriptor_Search_Found;
+			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
 		/* Indicate that the search has failed prematurely and should be aborted */
-		return Descriptor_Search_Fail;
+		return DESCRIPTOR_SEARCH_Fail;
 	}
 
 	/* Current descriptor does not match what this comparator is looking for */
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }

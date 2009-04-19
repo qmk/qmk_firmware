@@ -117,9 +117,9 @@ DESCRIPTOR_COMPARATOR(NextKeyboardInterface)
 	{
 		/* Check the HID descriptor class and protocol, break out if correct class/protocol interface found */
 		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == KEYBOARD_CLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == KEYBOARD_PROTOCOL))
+		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Subclass == KEYBOARD_SUBCLASS))
 		{
-			return Descriptor_Search_Found;
+			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
 	
@@ -140,12 +140,12 @@ DESCRIPTOR_COMPARATOR(NextInterfaceKeyboardDataEndpoint)
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
 		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Endpoint_t).EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		  return Descriptor_Search_Found;
+		  return DESCRIPTOR_SEARCH_Found;
 	}
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		return Descriptor_Search_Fail;
+		return DESCRIPTOR_SEARCH_Fail;
 	}
 
-	return Descriptor_Search_NotFound;
+	return DESCRIPTOR_SEARCH_NotFound;
 }

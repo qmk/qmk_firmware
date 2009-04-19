@@ -125,9 +125,9 @@ uint8_t USB_GetNextDescriptorComp_P(uint16_t* BytesRem, uint8_t** CurrConfigLoc,
 
 		USB_GetNextDescriptor(BytesRem, CurrConfigLoc);
 
-		if ((ErrorCode = ComparatorRoutine(*CurrConfigLoc)) != Descriptor_Search_NotFound)
+		if ((ErrorCode = ComparatorRoutine(*CurrConfigLoc)) != DESCRIPTOR_SEARCH_NotFound)
 		{
-			if (ErrorCode == Descriptor_Search_Fail)
+			if (ErrorCode == DESCRIPTOR_SEARCH_Fail)
 			{
 				*CurrConfigLoc = PrevDescLoc;
 				*BytesRem      = PrevBytesRem;
@@ -137,5 +137,5 @@ uint8_t USB_GetNextDescriptorComp_P(uint16_t* BytesRem, uint8_t** CurrConfigLoc,
 		}
 	}
 	
-	return Descriptor_Search_Comp_EndOfDescriptor;
+	return DESCRIPTOR_SEARCH_COMP_EndOfDescriptor;
 }

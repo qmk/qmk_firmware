@@ -67,7 +67,7 @@
 			 */
 			#define USB_DEVICE_OPT_FULLSPEED               (0 << 0)
 			
-		/* Psuedo-Function Macros: */
+		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
 				 *  be taken out of suspended mode, and communications should resume.

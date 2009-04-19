@@ -66,7 +66,7 @@
 		#if !defined(__DOXYGEN__)
 			static inline void HWB_Init(void)
 			{
-				// TODO: Initialize the appropriate port pin as an input here, with pullup
+				// TODO: Initialize the appropriate port pin as an input here, with pull-up
 			}
 
 			static inline bool HWB_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
