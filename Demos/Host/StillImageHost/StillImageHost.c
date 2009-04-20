@@ -39,8 +39,8 @@
 /* Scheduler Task List */
 TASK_LIST
 {
-	{ Task: USB_USBTask          , TaskStatus: TASK_STOP },
-	{ Task: USB_SImage_Host      , TaskStatus: TASK_STOP },
+	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
+	{ .Task = USB_SImage_Host      , .TaskStatus = TASK_STOP },
 };
 
 
@@ -153,11 +153,11 @@ TASK(USB_SImage_Host)
 			/* Standard request to set the device configuration to configuration 1 */
 			USB_HostRequest = (USB_Host_Request_Header_t)
 				{
-					bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
-					bRequest:      REQ_SetConfiguration,
-					wValue:        1,
-					wIndex:        0,
-					wLength:       0,
+					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
+					.bRequest      = REQ_SetConfiguration,
+					.wValue        = 1,
+					.wIndex        = 0,
+					.wLength       = 0,
 				};
 
 			/* Select the control pipe for the request transfer */
@@ -211,11 +211,11 @@ TASK(USB_SImage_Host)
 			
 			PIMA_SendBlock = (PIMA_Container_t)
 				{
-					DataLength:    PIMA_COMMAND_SIZE(0),
-					Type:          CType_CommandBlock,
-					Code:          PIMA_OPERATION_GETDEVICEINFO,
-					TransactionID: 0x00000000,
-					Params:        {},
+					.DataLength    = PIMA_COMMAND_SIZE(0),
+					.Type          = CType_CommandBlock,
+					.Code          = PIMA_OPERATION_GETDEVICEINFO,
+					.TransactionID = 0x00000000,
+					.Params        = {},
 				};
 			
 			/* Send the GETDEVICEINFO block */
@@ -290,11 +290,11 @@ TASK(USB_SImage_Host)
 			
 			PIMA_SendBlock = (PIMA_Container_t)
 				{
-					DataLength:    PIMA_COMMAND_SIZE(1),
-					Type:          CType_CommandBlock,
-					Code:          PIMA_OPERATION_OPENSESSION,
-					TransactionID: 0x00000000,
-					Params:        {0x00000001},
+					.DataLength    = PIMA_COMMAND_SIZE(1),
+					.Type          = CType_CommandBlock,
+					.Code          = PIMA_OPERATION_OPENSESSION,
+					.TransactionID = 0x00000000,
+					.Params        = {0x00000001},
 				};
 			
 			/* Send the OPENSESSION block, open a session with an ID of 0x0001 */
@@ -318,11 +318,11 @@ TASK(USB_SImage_Host)
 
 			PIMA_SendBlock = (PIMA_Container_t)
 				{
-					DataLength:    PIMA_COMMAND_SIZE(1),
-					Type:          CType_CommandBlock,
-					Code:          PIMA_OPERATION_CLOSESESSION,
-					TransactionID: 0x00000001,
-					Params:        {0x00000001},
+					.DataLength    = PIMA_COMMAND_SIZE(1),
+					.Type          = CType_CommandBlock,
+					.Code          = PIMA_OPERATION_CLOSESESSION,
+					.TransactionID = 0x00000001,
+					.Params        = {0x00000001},
 				};
 			
 			/* Send the CLOSESESSION block, close the session with an ID of 0x0001 */

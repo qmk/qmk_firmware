@@ -39,8 +39,8 @@
 /* Scheduler Task List */
 TASK_LIST
 {
-	{ Task: USB_USBTask          , TaskStatus: TASK_STOP },
-	{ Task: CDC_Task             , TaskStatus: TASK_STOP },
+	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
+	{ .Task = CDC_Task             , .TaskStatus = TASK_STOP },
 };
 
 /* Globals: */
@@ -52,10 +52,10 @@ TASK_LIST
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineCoding = { BaudRateBPS: 9600,
-                                 CharFormat:  OneStopBit,
-                                 ParityType:  Parity_None,
-                                 DataBits:    8            };
+CDC_Line_Coding_t LineCoding = { .BaudRateBPS = 9600,
+                                 .CharFormat  = OneStopBit,
+                                 .ParityType  = Parity_None,
+                                 .DataBits    = 8            };
 
 /** String to print through the virtual serial port when the joystick is pressed upwards. */
 char JoystickUpString[]      = "Joystick Up\r\n";
@@ -256,11 +256,11 @@ TASK(CDC_Task)
 	*/
 	USB_Notification_Header_t Notification = (USB_Notification_Header_t)
 		{
-			NotificationType: (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			Notification:     NOTIF_SerialState,
-			wValue:           0,
-			wIndex:           0,
-			wLength:          sizeof(uint16_t),
+			.NotificationType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
+			.Notification     = NOTIF_SerialState,
+			.wValue           = 0,
+			.wIndex           = 0,
+			.wLength          = sizeof(uint16_t),
 		};
 		
 	uint16_t LineStateMask;

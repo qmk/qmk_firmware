@@ -171,11 +171,11 @@ static void USB_HostTask(void)
 		case HOST_STATE_Default:
 			USB_HostRequest = (USB_Host_Request_Header_t)
 				{
-					bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
-					bRequest:      REQ_GetDescriptor,
-					wValue:        (DTYPE_Device << 8),
-					wIndex:        0,
-					wLength:       PIPE_CONTROLPIPE_DEFAULT_SIZE,
+					.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
+					.bRequest      = REQ_GetDescriptor,
+					.wValue        = (DTYPE_Device << 8),
+					.wIndex        = 0,
+					.wLength       = PIPE_CONTROLPIPE_DEFAULT_SIZE,
 				};
 
 			uint8_t DataBuffer[PIPE_CONTROLPIPE_DEFAULT_SIZE];
@@ -216,11 +216,11 @@ static void USB_HostTask(void)
 			
 			USB_HostRequest = (USB_Host_Request_Header_t)
 				{
-					bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
-					bRequest:      REQ_SetAddress,
-					wValue:        USB_HOST_DEVICEADDRESS,
-					wIndex:        0,
-					wLength:       0,
+					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
+					.bRequest      = REQ_SetAddress,
+					.wValue        = USB_HOST_DEVICEADDRESS,
+					.wIndex        = 0,
+					.wLength       = 0,
 				};
 
 			if ((SubErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)

@@ -39,8 +39,8 @@
 /* Scheduler Task List */
 TASK_LIST
 {
-	{ Task: USB_USBTask          , TaskStatus: TASK_STOP },
-	{ Task: USB_MIDI_Task        , TaskStatus: TASK_STOP },
+	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
+	{ .Task = USB_MIDI_Task        , .TaskStatus = TASK_STOP },
 };
 
 /** Main program entry point. This routine configures the hardware required by the application, then

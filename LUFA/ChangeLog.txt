@@ -55,6 +55,7 @@
   *  - Fixed incorrect HID interface class and subclass values in the Mouse and KeyboardMouse demos (thanks to Brian Dickman)
   *  - Capitalised the "Descriptor_Search" and "Descriptor_Search_Comp" prefixes of the values in the DSearch_Return_ErrorCodes_t and
   *    DSearch_Comp_Return_ErrorCodes_t enums
+  *  - Changed over all deprecated GCC structure tag initializers to the standardized C99 format (thanks to Mike Alexander)
   *    
   *
   *  \section Sec_ChangeLog090401 Version 090401

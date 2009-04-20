@@ -40,9 +40,9 @@
 /* Scheduler Task List */
 TASK_LIST
 {
-	{ Task: USB_USBTask          , TaskStatus: TASK_STOP },
-	{ Task: USB_Keyboard_Report  , TaskStatus: TASK_STOP },
-	{ Task: Magstripe_Read       , TaskStatus: TASK_STOP },
+	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
+	{ .Task = USB_Keyboard_Report  , .TaskStatus = TASK_STOP },
+	{ .Task = Magstripe_Read       , .TaskStatus = TASK_STOP },
 };
 
 /* Global Variables */

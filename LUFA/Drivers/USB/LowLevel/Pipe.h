@@ -805,8 +805,8 @@
 			 *
 			 *  \ingroup Group_PipeRW
 			 */
-			static inline void Pipe_Ignore_DWord(void) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_Ignore_DWord(void)
+			static inline void Pipe_Discard_DWord(void) ATTR_ALWAYS_INLINE;
+			static inline void Pipe_Discard_DWord(void)
 			{
 				uint8_t Dummy;
 				
@@ -853,8 +853,6 @@
 
 			/** Spinloops until the currently selected non-control pipe is ready for the next packed of data
 			 *  to be read or written to it.
-			 *
-			 *  \note This routine should not be called on CONTROL type pipes.
 			 *
 			 *  \ingroup Group_PipeRW
 			 *

@@ -54,7 +54,8 @@
  *    - All pipe read/write/discard aliases which did not have an explicitly endianness specifier (such as Pipe_Read_Word()) have
  *      been removed for clarity. Existing projects should use the "_LE" suffix on such calls to use the explicit Little Endian versions.
  *    - The Host_IsResetBusDone() macro has been renamed to Host_IsBusResetComplete().
- *    - The Pipe_Ignore_Word() function has been renamed to Pipe_Discard_Word() to remain consistent with the rest of the pipe API.
+ *    - The Pipe_Ignore_Word() and Pipe_Ignore_DWord() functions have been renamed to Pipe_Discard_Word() and Pipe_Discard_DWord() to remain
+ *      consistent with the rest of the pipe API.
  *    - It is no longer needed to manually include the headers from LUFA/Drivers/USB/Class, as they are now included along with the rest
  *      of the USB headers when LUFA/Drivers/USB/USB.h is included.
  *    - Functions in the ConfigDescriptor.h header file no longer have "Host_" as part of their names.

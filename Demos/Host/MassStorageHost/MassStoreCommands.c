@@ -252,11 +252,11 @@ uint8_t MassStore_ClearPipeStall(const uint8_t EndpointNum)
 {
 	USB_HostRequest = (USB_Host_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT),
-			bRequest:      REQ_ClearFeature,
-			wValue:        FEATURE_ENDPOINT_HALT,
-			wIndex:        EndpointNum,
-			wLength:       0,
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT),
+			.bRequest      = REQ_ClearFeature,
+			.wValue        = FEATURE_ENDPOINT_HALT,
+			.wIndex        = EndpointNum,
+			.wLength       = 0,
 		};
 	
 	/* Select the control pipe for the request transfer */
@@ -274,11 +274,11 @@ uint8_t MassStore_MassStorageReset(void)
 {
 	USB_HostRequest = (USB_Host_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			bRequest:      REQ_MassStorageReset,
-			wValue:        0,
-			wIndex:        0,
-			wLength:       0,
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+			.bRequest      = REQ_MassStorageReset,
+			.wValue        = 0,
+			.wIndex        = 0,
+			.wLength       = 0,
 		};
 	
 	/* Select the control pipe for the request transfer */
@@ -300,11 +300,11 @@ uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex)
 
 	USB_HostRequest = (USB_Host_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			bRequest:      REQ_GetMaxLUN,
-			wValue:        0,
-			wIndex:        0,
-			wLength:       1,
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
+			.bRequest      = REQ_GetMaxLUN,
+			.wValue        = 0,
+			.wIndex        = 0,
+			.wLength       = 1,
 		};
 		
 	/* Select the control pipe for the request transfer */
@@ -337,17 +337,17 @@ uint8_t MassStore_RequestSense(const uint8_t LUNIndex, const SCSI_Request_Sense_
 	/* Create a CBW with a SCSI command to issue REQUEST SENSE command */
 	SCSICommandBlock = (CommandBlockWrapper_t)
 		{
-			Header:
+			.Header =
 				{
-					Signature:          CBW_SIGNATURE,
-					Tag:                MassStore_Tag,
-					DataTransferLength: sizeof(SCSI_Request_Sense_Response_t),
-					Flags:              COMMAND_DIRECTION_DATA_IN,
-					LUN:                LUNIndex,
-					SCSICommandLength:  6
+					.Signature          = CBW_SIGNATURE,
+					.Tag                = MassStore_Tag,
+					.DataTransferLength = sizeof(SCSI_Request_Sense_Response_t),
+					.Flags              = COMMAND_DIRECTION_DATA_IN,
+					.LUN                = LUNIndex,
+					.SCSICommandLength  = 6
 				},
 					
-			SCSICommandData:
+			.SCSICommandData =
 				{
 					SCSI_CMD_REQUEST_SENSE,
 					0x00,                   // Reserved
@@ -404,17 +404,17 @@ uint8_t MassStore_ReadDeviceBlock(const uint8_t LUNIndex, const uint32_t BlockAd
 	/* Create a CBW with a SCSI command to read in the given blocks from the device */
 	SCSICommandBlock = (CommandBlockWrapper_t)
 		{
-			Header:
+			.Header =
 				{
-					Signature:          CBW_SIGNATURE,
-					Tag:                MassStore_Tag,
-					DataTransferLength: ((uint32_t)Blocks * BlockSize),
-					Flags:              COMMAND_DIRECTION_DATA_IN,
-					LUN:                LUNIndex,
-					SCSICommandLength:  10
+					.Signature          = CBW_SIGNATURE,
+					.Tag                = MassStore_Tag,
+					.DataTransferLength = ((uint32_t)Blocks * BlockSize),
+					.Flags              = COMMAND_DIRECTION_DATA_IN,
+					.LUN                = LUNIndex,
+					.SCSICommandLength  = 10
 				},
 					
-			SCSICommandData:
+			.SCSICommandData =
 				{
 					SCSI_CMD_READ_10,
 					0x00,                   // Unused (control bits, all off)
@@ -475,17 +475,17 @@ uint8_t MassStore_WriteDeviceBlock(const uint8_t LUNIndex, const uint32_t BlockA
 	/* Create a CBW with a SCSI command to write the given blocks to the device */
 	SCSICommandBlock = (CommandBlockWrapper_t)
 		{
-			Header:
+			.Header =
 				{
-					Signature:          CBW_SIGNATURE,
-					Tag:                MassStore_Tag,
-					DataTransferLength: ((uint32_t)Blocks * BlockSize),
-					Flags:              COMMAND_DIRECTION_DATA_OUT,
-					LUN:                LUNIndex,
-					SCSICommandLength:  10
+					.Signature          = CBW_SIGNATURE,
+					.Tag                = MassStore_Tag,
+					.DataTransferLength = ((uint32_t)Blocks * BlockSize),
+					.Flags              = COMMAND_DIRECTION_DATA_OUT,
+					.LUN                = LUNIndex,
+					.SCSICommandLength  = 10
 				},
 					
-			SCSICommandData:
+			.SCSICommandData =
 				{
 					SCSI_CMD_WRITE_10,
 					0x00,                   // Unused (control bits, all off)
@@ -534,17 +534,17 @@ uint8_t MassStore_TestUnitReady(const uint8_t LUNIndex)
 	/* Create a CBW with a SCSI command to issue TEST UNIT READY command */
 	SCSICommandBlock = (CommandBlockWrapper_t)
 		{
-			Header:
+			.Header =
 				{
-					Signature:          CBW_SIGNATURE,
-					Tag:                MassStore_Tag,
-					DataTransferLength: 0,
-					Flags:              COMMAND_DIRECTION_DATA_IN,
-					LUN:                LUNIndex,
-					SCSICommandLength:  6
+					.Signature          = CBW_SIGNATURE,
+					.Tag                = MassStore_Tag,
+					.DataTransferLength = 0,
+					.Flags              = COMMAND_DIRECTION_DATA_IN,
+					.LUN                = LUNIndex,
+					.SCSICommandLength  = 6
 				},
 					
-			SCSICommandData:
+			.SCSICommandData =
 				{
 					SCSI_CMD_TEST_UNIT_READY,
 					0x00,                   // Reserved
@@ -583,17 +583,17 @@ uint8_t MassStore_ReadCapacity(const uint8_t LUNIndex, SCSI_Capacity_t* const Ca
 	/* Create a CBW with a SCSI command to issue READ CAPACITY command */
 	SCSICommandBlock = (CommandBlockWrapper_t)
 		{
-			Header:
+			.Header =
 				{
-					Signature:          CBW_SIGNATURE,
-					Tag:                MassStore_Tag,
-					DataTransferLength: 8,
-					Flags:              COMMAND_DIRECTION_DATA_IN,
-					LUN:                LUNIndex,
-					SCSICommandLength:  10
+					.Signature          = CBW_SIGNATURE,
+					.Tag                = MassStore_Tag,
+					.DataTransferLength = 8,
+					.Flags              = COMMAND_DIRECTION_DATA_IN,
+					.LUN                = LUNIndex,
+					.SCSICommandLength  = 10
 				},
 					
-			SCSICommandData:
+			.SCSICommandData =
 				{
 					SCSI_CMD_READ_CAPACITY_10,
 					0x00,                   // Reserved
@@ -655,17 +655,17 @@ uint8_t MassStore_PreventAllowMediumRemoval(const uint8_t LUNIndex, const bool P
 	/* Create a CBW with a SCSI command to issue PREVENT ALLOW MEDIUM REMOVAL command */
 	SCSICommandBlock = (CommandBlockWrapper_t)
 		{
-			Header:
+			.Header =
 				{
-					Signature:          CBW_SIGNATURE,
-					Tag:                MassStore_Tag,
-					DataTransferLength: 0,
-					Flags:              COMMAND_DIRECTION_DATA_OUT,
-					LUN:                LUNIndex,
-					SCSICommandLength:  6
+					.Signature          = CBW_SIGNATURE,
+					.Tag                = MassStore_Tag,
+					.DataTransferLength = 0,
+					.Flags              = COMMAND_DIRECTION_DATA_OUT,
+					.LUN                = LUNIndex,
+					.SCSICommandLength  = 6
 				},
 					
-			SCSICommandData:
+			.SCSICommandData =
 				{
 					SCSI_CMD_PREVENT_ALLOW_MEDIUM_REMOVAL,
 					0x00,                   // Reserved

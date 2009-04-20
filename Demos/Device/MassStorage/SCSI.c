@@ -43,31 +43,31 @@
  */
 SCSI_Inquiry_Response_t InquiryData = 
 	{
-		DeviceType:          0,
-		PeripheralQualifier: 0,
+		.DeviceType          = 0,
+		.PeripheralQualifier = 0,
 			
-		Removable:           true,
+		.Removable           = true,
 			
-		Version:             0,
+		.Version             = 0,
 			
-		ResponseDataFormat:  2,
-		NormACA:             false,
-		TrmTsk:              false,
-		AERC:                false,
+		.ResponseDataFormat  = 2,
+		.NormACA             = false,
+		.TrmTsk              = false,
+		.AERC                = false,
 
-		AdditionalLength:    0x1F,
+		.AdditionalLength    = 0x1F,
 			
-		SoftReset:           false,
-		CmdQue:              false,
-		Linked:              false,
-		Sync:                false,
-		WideBus16Bit:        false,
-		WideBus32Bit:        false,
-		RelAddr:             false,
+		.SoftReset           = false,
+		.CmdQue              = false,
+		.Linked              = false,
+		.Sync                = false,
+		.WideBus16Bit        = false,
+		.WideBus32Bit        = false,
+		.RelAddr             = false,
 		
-		VendorID:            "LUFA",
-		ProductID:           "Dataflash Disk",
-		RevisionID:          {'0','.','0','0'},
+		.VendorID            = "LUFA",
+		.ProductID           = "Dataflash Disk",
+		.RevisionID          = {'0','.','0','0'},
 	};
 
 /** Structure to hold the sense data for the last issued SCSI command, which is returned to the host after a SCSI REQUEST SENSE
@@ -75,8 +75,8 @@ SCSI_Inquiry_Response_t InquiryData =
  */
 SCSI_Request_Sense_Response_t SenseData =
 	{
-		ResponseCode:        0x70,
-		AdditionalLength:    0x0A,
+		.ResponseCode        = 0x70,
+		.AdditionalLength    = 0x0A,
 	};
 
 

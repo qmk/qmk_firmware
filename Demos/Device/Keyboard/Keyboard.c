@@ -41,11 +41,11 @@
 TASK_LIST
 {
 	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
-	{ Task: USB_USBTask          , TaskStatus: TASK_STOP },
+	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
 	#endif
 	
 	#if !defined(INTERRUPT_DATA_ENDPOINT)
-	{ Task: USB_Keyboard_Report  , TaskStatus: TASK_STOP },
+	{ .Task = USB_Keyboard_Report  , .TaskStatus = TASK_STOP },
 	#endif
 };
 

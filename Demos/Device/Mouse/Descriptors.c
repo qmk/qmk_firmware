@@ -80,24 +80,24 @@ USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
  */
 USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
-	Header:                 {Size: sizeof(USB_Descriptor_Device_t), Type: DTYPE_Device},
+	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 		
-	USBSpecification:       VERSION_BCD(01.10),
-	Class:                  0x00,
-	SubClass:               0x00,
-	Protocol:               0x00,
+	.USBSpecification       = VERSION_BCD(01.10),
+	.Class                  = 0x00,
+	.SubClass               = 0x00,
+	.Protocol               = 0x00,
 				
-	Endpoint0Size:          8,
+	.Endpoint0Size          = 8,
 		
-	VendorID:               0x03EB,
-	ProductID:              0x2041,
-	ReleaseNumber:          0x0000,
+	.VendorID               = 0x03EB,
+	.ProductID              = 0x2041,
+	.ReleaseNumber          = 0x0000,
 		
-	ManufacturerStrIndex:   0x01,
-	ProductStrIndex:        0x02,
-	SerialNumStrIndex:      NO_DESCRIPTOR,
+	.ManufacturerStrIndex   = 0x01,
+	.ProductStrIndex        = 0x02,
+	.SerialNumStrIndex      = NO_DESCRIPTOR,
 		
-	NumberOfConfigurations: 1
+	.NumberOfConfigurations = 1
 };
 
 /** Configuration descriptor structure. This descriptor, located in FLASH memory, describes the usage
@@ -107,56 +107,56 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
  */
 USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
-	Config:
+	.Config = 
 		{
-			Header:                 {Size: sizeof(USB_Descriptor_Configuration_Header_t), Type: DTYPE_Configuration},
+			.Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
-			TotalConfigurationSize: sizeof(USB_Descriptor_Configuration_t),
-			TotalInterfaces:        1,
+			.TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
+			.TotalInterfaces        = 1,
 				
-			ConfigurationNumber:    1,
-			ConfigurationStrIndex:  NO_DESCRIPTOR,
+			.ConfigurationNumber    = 1,
+			.ConfigurationStrIndex  = NO_DESCRIPTOR,
 				
-			ConfigAttributes:       (USB_CONFIG_ATTR_BUSPOWERED | USB_CONFIG_ATTR_SELFPOWERED),
+			.ConfigAttributes       = (USB_CONFIG_ATTR_BUSPOWERED | USB_CONFIG_ATTR_SELFPOWERED),
 			
-			MaxPowerConsumption:    USB_CONFIG_POWER_MA(100)
+			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
 		
-	Interface:
+	.Interface = 
 		{
-			Header:                 {Size: sizeof(USB_Descriptor_Interface_t), Type: DTYPE_Interface},
+			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			InterfaceNumber:        0x00,
-			AlternateSetting:       0x00,
+			.InterfaceNumber        = 0x00,
+			.AlternateSetting       = 0x00,
 			
-			TotalEndpoints:         1,
+			.TotalEndpoints         = 1,
 				
-			Class:                  0x03,
-			SubClass:               0x01,
-			Protocol:               0x02,
+			.Class                  = 0x03,
+			.SubClass               = 0x01,
+			.Protocol               = 0x02,
 				
-			InterfaceStrIndex:      NO_DESCRIPTOR
+			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	MouseHID:
+	.MouseHID = 
 		{
-			Header:                 {Size: sizeof(USB_Descriptor_HID_t), Type: DTYPE_HID},
+			.Header                 = {.Size = sizeof(USB_Descriptor_HID_t), .Type = DTYPE_HID},
 									 
-			HIDSpec:          		VERSION_BCD(01.11),
-			CountryCode:      		0x00,
-			TotalHIDReports:        0x01,
-			HIDReportType:    		DTYPE_Report,
-			HIDReportLength:        sizeof(MouseReport)
+			.HIDSpec                = VERSION_BCD(01.11),
+			.CountryCode            = 0x00,
+			.TotalHIDReports        = 0x01,
+			.HIDReportType          = DTYPE_Report,
+			.HIDReportLength        = sizeof(MouseReport)
 		},
 
-	MouseEndpoint:
+	.MouseEndpoint = 
 		{
-			Header:                 {Size: sizeof(USB_Descriptor_Endpoint_t), Type: DTYPE_Endpoint},
+			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 										 
-			EndpointAddress:        (ENDPOINT_DESCRIPTOR_DIR_IN | MOUSE_EPNUM),
-			Attributes:       		EP_TYPE_INTERRUPT,
-			EndpointSize:           MOUSE_EPSIZE,
-			PollingIntervalMS:		0x02
+			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | MOUSE_EPNUM),
+			.Attributes             = EP_TYPE_INTERRUPT,
+			.EndpointSize           = MOUSE_EPSIZE,
+			.PollingIntervalMS      = 0x02
 		}	
 };
 
@@ -166,9 +166,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
  */
 USB_Descriptor_String_t PROGMEM LanguageString =
 {
-	Header:                 {Size: USB_STRING_LEN(1), Type: DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
 		
-	UnicodeString:          {LANGUAGE_ID_ENG}
+	.UnicodeString          = {LANGUAGE_ID_ENG}
 };
 
 /** Manufacturer descriptor string. This is a Unicode string containing the manufacturer's details in human readable
@@ -177,9 +177,9 @@ USB_Descriptor_String_t PROGMEM LanguageString =
  */
 USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
-	Header:                 {Size: USB_STRING_LEN(11), Type: DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 		
-	UnicodeString:          L"Dean Camera"
+	.UnicodeString          = L"Dean Camera"
 };
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
@@ -188,9 +188,9 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  */
 USB_Descriptor_String_t PROGMEM ProductString =
 {
-	Header:                 {Size: USB_STRING_LEN(15), Type: DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(15), .Type = DTYPE_String},
 		
-	UnicodeString:          L"LUFA Mouse Demo"
+	.UnicodeString          = L"LUFA Mouse Demo"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see StdDescriptors.h
@@ -235,11 +235,11 @@ uint16_t USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** c
 			}
 			
 			break;
-		case DTYPE_HID:
+		case DTYPE_HID: 
 			Address = DESCRIPTOR_ADDRESS(ConfigurationDescriptor.MouseHID);
 			Size    = sizeof(USB_Descriptor_HID_t);
 			break;
-		case DTYPE_Report:
+		case DTYPE_Report: 
 			Address = DESCRIPTOR_ADDRESS(MouseReport);
 			Size    = sizeof(MouseReport);
 			break;

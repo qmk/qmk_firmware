@@ -39,10 +39,10 @@
 /* Scheduler Task List */
 TASK_LIST
 {
-	{ Task: USB_USBTask          , TaskStatus: TASK_STOP },
-	{ Task: Ethernet_Task        , TaskStatus: TASK_STOP },
-	{ Task: TCP_Task             , TaskStatus: TASK_STOP },
-	{ Task: RNDIS_Task           , TaskStatus: TASK_STOP },
+	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
+	{ .Task = Ethernet_Task        , .TaskStatus = TASK_STOP },
+	{ .Task = TCP_Task             , .TaskStatus = TASK_STOP },
+	{ .Task = RNDIS_Task           , .TaskStatus = TASK_STOP },
 };
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -245,11 +245,11 @@ TASK(RNDIS_Task)
 	{
 		USB_Notification_t Notification = (USB_Notification_t)
 			{
-				bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-				bNotification: NOTIF_RESPONSE_AVAILABLE,
-				wValue:        0,
-				wIndex:        0,
-				wLength:       0,
+				.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
+				.bNotification = NOTIF_RESPONSE_AVAILABLE,
+				.wValue        = 0,
+				.wIndex        = 0,
+				.wLength       = 0,
 			};
 		
 		/* Indicate that a message response is ready for the host */

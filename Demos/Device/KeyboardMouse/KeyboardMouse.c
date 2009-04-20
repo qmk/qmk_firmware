@@ -40,9 +40,9 @@
 /* Scheduler Task List */
 TASK_LIST
 {
-	{ Task: USB_USBTask               , TaskStatus: TASK_STOP },
-	{ Task: USB_Mouse                 , TaskStatus: TASK_RUN },
-	{ Task: USB_Keyboard              , TaskStatus: TASK_RUN },
+	{ .Task = USB_USBTask               , .TaskStatus = TASK_STOP },
+	{ .Task = USB_Mouse                 , .TaskStatus = TASK_RUN  },
+	{ .Task = USB_Keyboard              , .TaskStatus = TASK_RUN  },
 };
 
 /* Global Variables */

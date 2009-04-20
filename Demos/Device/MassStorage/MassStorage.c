@@ -40,7 +40,7 @@
 /* Scheduler Task List */
 TASK_LIST
 {
-	{ Task: USB_MassStorage      , TaskStatus: TASK_STOP },
+	{ .Task = USB_MassStorage      , .TaskStatus = TASK_STOP },
 };
 
 /* Global Variables */
@@ -48,7 +48,7 @@ TASK_LIST
 CommandBlockWrapper_t  CommandBlock;
 
 /** Structure to hold the latest Command Status Wrapper to return to the host, containing the status of the last issued command. */
-CommandStatusWrapper_t CommandStatus = { Signature: CSW_SIGNATURE };
+CommandStatusWrapper_t CommandStatus = { .Signature = CSW_SIGNATURE };
 
 /** Flag to asynchronously abort any in-progress data transfers upon the reception of a mass storage reset command. */
 volatile bool          IsMassStoreReset = false;

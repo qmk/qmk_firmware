@@ -43,10 +43,10 @@
  *  current encoding options, including baud rate, character format, parity mode and total number of 
  *  bits in each data chunk.
  */
-CDC_Line_Coding_t LineCoding = { BaudRateBPS: 9600,
-                                 CharFormat:  OneStopBit,
-                                 ParityType:  Parity_None,
-                                 DataBits:    8            };
+CDC_Line_Coding_t LineCoding = { .BaudRateBPS = 9600,
+                                 .CharFormat  = OneStopBit,
+                                 .ParityType  = Parity_None,
+                                 .DataBits    = 8            };
 
 /** Current address counter. This stores the current address of the FLASH or EEPROM as set by the host,
  *  and is used when reading or writing to the AVRs memory (either FLASH or EEPROM depending on the issued

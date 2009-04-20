@@ -49,11 +49,11 @@ uint8_t GetHIDReportData(void)
 	
 	USB_HostRequest = (USB_Host_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE),
-			bRequest:      REQ_GetDescriptor,
-			wValue:        (DTYPE_Report << 8),
-			wIndex:        0,
-			wLength:       HIDReportSize,
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE),
+			.bRequest      = REQ_GetDescriptor,
+			.wValue        = (DTYPE_Report << 8),
+			.wIndex        = 0,
+			.wLength       = HIDReportSize,
 		};
 
 	/* Select the control pipe for the request transfer */

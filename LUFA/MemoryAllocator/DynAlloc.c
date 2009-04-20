@@ -38,8 +38,8 @@ struct
 	uint8_t Mem_Block_Flags[(NUM_BLOCKS / 4) + ((NUM_BLOCKS % 4) ? 1 : 0)];
 	uint8_t FlagMaskLookupMask[4];
 	uint8_t FlagMaskLookupNum[4];
-} Mem_MemData = {FlagMaskLookupMask:  {(3 << 0), (3 << 2), (3 << 4), (3 << 6)},
-                 FlagMaskLookupNum:   {      0,        2,        4,        6}};
+} Mem_MemData = {.FlagMaskLookupMask = {(3 << 0), (3 << 2), (3 << 4), (3 << 6)},
+                 .FlagMaskLookupNum  = {      0,        2,        4,        6}};
 
 static uint8_t Mem_GetBlockFlags(const Block_Number_t BlockNum)
 {

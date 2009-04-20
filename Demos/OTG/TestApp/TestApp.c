@@ -39,10 +39,10 @@
 /* Scheduler Task List */
 TASK_LIST
 {
-	{ Task: TestApp_CheckJoystick, TaskStatus: TASK_RUN  },
-	{ Task: TestApp_CheckHWB     , TaskStatus: TASK_RUN  },
-	{ Task: TestApp_CheckTemp    , TaskStatus: TASK_RUN  },
-	{ Task: USB_USBTask          , TaskStatus: TASK_RUN  },
+	{ .Task = TestApp_CheckJoystick, .TaskStatus = TASK_RUN  },
+	{ .Task = TestApp_CheckHWB     , .TaskStatus = TASK_RUN  },
+	{ .Task = TestApp_CheckTemp    , .TaskStatus = TASK_RUN  },
+	{ .Task = USB_USBTask          , .TaskStatus = TASK_RUN  },
 };
 
 /** Main program entry point. This routine configures the hardware required by the application, then

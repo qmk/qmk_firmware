@@ -37,11 +37,11 @@ uint8_t USB_GetDeviceConfigDescriptor(uint16_t* const ConfigSizePtr, void* Buffe
 
 	USB_HostRequest = (USB_Host_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
-			bRequest:      REQ_GetDescriptor,
-			wValue:        (DTYPE_Configuration << 8),
-			wIndex:        0,
-			wLength:       sizeof(USB_Descriptor_Configuration_Header_t),
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
+			.bRequest      = REQ_GetDescriptor,
+			.wValue        = (DTYPE_Configuration << 8),
+			.wIndex        = 0,
+			.wLength       = sizeof(USB_Descriptor_Configuration_Header_t),
 		};
 	
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);

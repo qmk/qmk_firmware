@@ -55,8 +55,8 @@
  *      
  *      TASK_LIST
  *      {
- *      	{ Task: MyTask1, TaskStatus: TASK_RUN, GroupID: 1  },
- *      	{ Task: MyTask2, TaskStatus: TASK_RUN, GroupID: 1  },
+ *      	{ .Task = MyTask1, .TaskStatus = TASK_RUN, .GroupID = 1  },
+ *      	{ .Task = MyTask2, .TaskStatus = TASK_RUN, .GroupID = 1  },
  *      }
  *
  *      int main(void)
@@ -115,7 +115,7 @@
 			 *  \code
 			 *      TASK_LIST
 			 *      {
-			 *           { Task: MyTask1, TaskStatus: TASK_RUN, GroupID: 1 },
+			 *           { .Task = MyTask1, .TaskStatus = TASK_RUN, .GroupID = 1 },
 			 *           // More task entries here
 			 *      }
 			 *  \endcode

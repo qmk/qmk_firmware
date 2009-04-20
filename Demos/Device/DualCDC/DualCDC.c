@@ -39,9 +39,9 @@
 /* Scheduler Task List */
 TASK_LIST
 {
-	{ Task: USB_USBTask          , TaskStatus: TASK_STOP },
-	{ Task: CDC1_Task            , TaskStatus: TASK_STOP },
-	{ Task: CDC2_Task            , TaskStatus: TASK_STOP },
+	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
+	{ .Task = CDC1_Task            , .TaskStatus = TASK_STOP },
+	{ .Task = CDC2_Task            , .TaskStatus = TASK_STOP },
 };
 
 /* Globals: */
@@ -53,10 +53,10 @@ TASK_LIST
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineCoding1 = { BaudRateBPS: 9600,
-                                  CharFormat:  OneStopBit,
-                                  ParityType:  Parity_None,
-                                  DataBits:    8            };
+CDC_Line_Coding_t LineCoding1 = { .BaudRateBPS = 9600,
+                                  .CharFormat  = OneStopBit,
+                                  .ParityType  = Parity_None,
+                                  .DataBits    = 8            };
 
 /** Contains the current baud rate and other settings of the second virtual serial port. While this demo does not use
  *  the physical USART and thus does not use these settings, they must still be retained and returned to the host
@@ -66,10 +66,10 @@ CDC_Line_Coding_t LineCoding1 = { BaudRateBPS: 9600,
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineCoding2 = { BaudRateBPS: 9600,
-                                  CharFormat:  OneStopBit,
-                                  ParityType:  Parity_None,
-                                  DataBits:    8            };
+CDC_Line_Coding_t LineCoding2 = { .BaudRateBPS = 9600,
+                                  .CharFormat  = OneStopBit,
+                                  .ParityType  = Parity_None,
+                                  .DataBits    = 8            };
 								  
 /** String to print through the first virtual serial port when the joystick is pressed upwards. */
 char JoystickUpString[]      = "Joystick Up\r\n";

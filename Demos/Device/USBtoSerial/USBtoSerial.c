@@ -33,8 +33,8 @@
 /* Scheduler Task List */
 TASK_LIST
 {
-	{ Task: USB_USBTask          , TaskStatus: TASK_STOP },
-	{ Task: CDC_Task             , TaskStatus: TASK_STOP },
+	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
+	{ .Task = CDC_Task             , .TaskStatus = TASK_STOP },
 };
 
 /* Globals: */
@@ -43,10 +43,10 @@ TASK_LIST
  *  These values are set by the host via a class-specific request, and the physical USART should be reconfigured to match the
  *  new settings each time they are changed by the host.
  */
-CDC_Line_Coding_t LineCoding = { BaudRateBPS: 9600,
-                                 CharFormat:  OneStopBit,
-                                 ParityType:  Parity_None,
-                                 DataBits:    8            };
+CDC_Line_Coding_t LineCoding = { .BaudRateBPS = 9600,
+                                 .CharFormat  = OneStopBit,
+                                 .ParityType  = Parity_None,
+                                 .DataBits    = 8            };
 
 /** Ring (circular) buffer to hold the RX data - data from the host to the attached device on the serial port. */
 RingBuff_t Rx_Buffer;
@@ -224,11 +224,11 @@ TASK(CDC_Task)
 
 		USB_Notification_Header_t Notification = (USB_Notification_Header_t)
 			{
-				NotificationType: (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-				Notification:     NOTIF_SerialState,
-				wValue:           0,
-				wIndex:           0,
-				wLength:          sizeof(uint16_t),
+				.NotificationType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
+				.Notification     = NOTIF_SerialState,
+				.wValue           = 0,
+				.wIndex           = 0,
+				.wLength          = sizeof(uint16_t),
 			};
 			
 		uint16_t LineStateMask;
@@ -244,6 +244,7 @@ TASK(CDC_Task)
 		/* Select the Serial Rx Endpoint */
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
 		
+		/* Check to see if a packet has been received from the host */
 		if (Endpoint_IsOUTReceived())
 		{
 			/* Read the bytes in from the endpoint into the buffer while space is available */

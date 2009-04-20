@@ -225,7 +225,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 						{
 							uint16_t Words[2];
 							uint32_t Long;
-						} CurrFlashAddress                 = {Words: {StartAddr, Flash64KBPage}};
+						} CurrFlashAddress                 = {.Words = {StartAddr, Flash64KBPage}};
 						
 						uint32_t CurrFlashPageStartAddress = CurrFlashAddress.Long;
 						uint8_t  WordsInFlashPage          = 0;
@@ -336,7 +336,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 					{
 						uint16_t Words[2];
 						uint32_t Long;
-					} CurrFlashAddress = {Words: {StartAddr, Flash64KBPage}};
+					} CurrFlashAddress = {.Words = {StartAddr, Flash64KBPage}};
 
 					while (WordsRemaining--)
 					{
@@ -531,8 +531,8 @@ static void LoadStartEndAddresses(void)
 	{
 		uint8_t  Bytes[2];
 		uint16_t Word;
-	} Address[2] = {{Bytes: {SentCommand.Data[2], SentCommand.Data[1]}},
-	                {Bytes: {SentCommand.Data[4], SentCommand.Data[3]}}};
+	} Address[2] = {{.Bytes = {SentCommand.Data[2], SentCommand.Data[1]}},
+	                {.Bytes = {SentCommand.Data[4], SentCommand.Data[3]}}};
 		
 	/* Load in the start and ending read addresses from the sent data packet */
 	StartAddr = Address[0].Word;
@@ -557,7 +557,7 @@ static void ProcessMemProgCommand(void)
 			{
 				uint16_t Words[2];
 				uint32_t Long;
-			} CurrFlashAddress = {Words: {StartAddr, Flash64KBPage}};
+			} CurrFlashAddress = {.Words = {StartAddr, Flash64KBPage}};
 			
 			/* Erase the current page's temp buffer */
 			boot_page_erase(CurrFlashAddress.Long);
@@ -639,7 +639,7 @@ static void ProcessWriteCommand(void)
 				{
 					uint8_t  Bytes[2];
 					AppPtr_t FuncPtr;
-				} Address = {Bytes: {SentCommand.Data[4], SentCommand.Data[3]}};
+				} Address = {.Bytes = {SentCommand.Data[4], SentCommand.Data[3]}};
 
 				AppStartPtr = Address.FuncPtr;
 				
