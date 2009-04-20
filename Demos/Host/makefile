@@ -21,7 +21,7 @@ all:
 	make -C GenericHIDHost all	
 
 	make -C KeyboardHost clean
-	make -C KeyboardHostWithParser all	
+	make -C KeyboardHost all	
 
 	make -C MassStorageHost clean
 	make -C MassStorageHost all	
