@@ -156,13 +156,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Clear the SETUP packet, ready for data transfer */
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Read in the RNDIS message into the message buffer */
 				Endpoint_Read_Control_Stream_LE(RNDISMessageBuffer, wLength);
 
 				/* Finalize the stream transfer to clear the last packet from the host */
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 
 				/* Process the RNDIS message */
 				ProcessRNDISControlMessage();
@@ -185,13 +185,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				  wLength = MessageHeader->MessageLength;
 
 				/* Clear the SETUP packet, ready for data transfer */
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Write the message response data to the endpoint */
 				Endpoint_Write_Control_Stream_LE(RNDISMessageBuffer, wLength);
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 
 				/* Reset the message header once again after transmission */
 				MessageHeader->MessageLength = 0;

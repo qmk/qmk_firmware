@@ -59,7 +59,7 @@ bool Endpoint_ConfigureEndpointStatic(const uint8_t Number, const uint8_t UECFG0
 	Endpoint_SelectEndpoint(Number);
 	Endpoint_EnableEndpoint();
 
-	UECFG1X = 0;	
+	UECFG1X = 0;
 
 	UECFG0X = UECFG0XData;
 	UECFG1X = UECFG1XData;
@@ -307,7 +307,7 @@ uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length)
 		}
 		
 		SendZLP = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
-		Endpoint_ClearControlIN();
+		Endpoint_ClearIN();
 	}
 	
 	if (Endpoint_IsOUTReceived())
@@ -316,7 +316,7 @@ uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length)
 	if (SendZLP)
 	{
 		while (!(Endpoint_IsINReady()));
-		Endpoint_ClearControlIN();
+		Endpoint_ClearIN();
 	}
 	
 	while (!(Endpoint_IsOUTReceived()));
@@ -341,7 +341,7 @@ uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length)
 		}
 		
 		SendZLP = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
-		Endpoint_ClearControlIN();
+		Endpoint_ClearIN();
 	}
 	
 	if (Endpoint_IsOUTReceived())
@@ -350,7 +350,7 @@ uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length)
 	if (SendZLP)
 	{
 		while (!(Endpoint_IsINReady()));
-		Endpoint_ClearControlIN();
+		Endpoint_ClearIN();
 	}
 	
 	while (!(Endpoint_IsOUTReceived()));
@@ -373,7 +373,7 @@ uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length)
 			Length--;
 		}
 		
-		Endpoint_ClearControlOUT();
+		Endpoint_ClearOUT();
 	}
 	
 	while (!(Endpoint_IsINReady()));
@@ -396,7 +396,7 @@ uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer, uint16_t Length)
 			Length--;
 		}
 		
-		Endpoint_ClearControlOUT();
+		Endpoint_ClearOUT();
 	}
 	
 	while (!(Endpoint_IsINReady()));

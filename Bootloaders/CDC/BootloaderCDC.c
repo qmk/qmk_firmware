@@ -160,45 +160,45 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_GetLineEncoding:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 
 				for (uint8_t i = 0; i < sizeof(LineCoding); i++)
 				  Endpoint_Write_Byte(*(LineCodingData++));	
 				
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 				
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 			}
 			
 			break;
 		case REQ_SetLineEncoding:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 
 				while (!(Endpoint_IsOUTReceived()));
 
 				for (uint8_t i = 0; i < sizeof(LineCoding); i++)
 				  *(LineCodingData++) = Endpoint_Read_Byte();
 
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 			}
 	
 			break;
 		case REQ_SetControlLineState:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 			}
 	
 			break;

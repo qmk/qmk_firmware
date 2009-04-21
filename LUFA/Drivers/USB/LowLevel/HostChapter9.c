@@ -58,7 +58,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 	for (uint8_t HeaderByte = 0; HeaderByte < sizeof(USB_Host_Request_Header_t); HeaderByte++)
 	  Pipe_Write_Byte(*(HeaderStream++));
 
-	Pipe_ClearControlSETUP();
+	Pipe_ClearSETUP();
 	
 	if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_SetupSent)))
 	  goto End_Of_Control_Send;
@@ -91,7 +91,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 				}
 
 				Pipe_Freeze();
-				Pipe_ClearControlIN();
+				Pipe_ClearIN();
 			}
 		}
 
@@ -101,7 +101,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 		if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_OutReady)))
 		  goto End_Of_Control_Send;
 
-		Pipe_ClearControlOUT();
+		Pipe_ClearOUT();
 
 		if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_OutReady)))
 		  goto End_Of_Control_Send;
@@ -124,7 +124,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 					DataLen--;
 				}
 				
-				Pipe_ClearControlOUT();
+				Pipe_ClearOUT();
 			}
 
 			if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_OutReady)))
@@ -139,7 +139,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 		if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_InReceived)))
 		  goto End_Of_Control_Send;
 
-		Pipe_ClearControlIN();
+		Pipe_ClearIN();
 	}
 
 End_Of_Control_Send:

@@ -23,15 +23,14 @@
  *      library demos should update to the latest versions.
  *
  *  <b>Device Mode</b>
- *    - The Endpoint_ClearCurrentBank() macro has been removed, and is now replaced with the Endpoint_ClearIN(), Endpoint_ClearOUT(),
- *      Endpoint_ClearControlIN(), Endpoint_ClearControlOUT() and other related macros. See Endpoint.h documentation for more details
- *      on the new endpoint management macros.
+ *    - The Endpoint_ClearCurrentBank() macro has been removed, and is now replaced with the Endpoint_ClearIN(), Endpoint_ClearOUT() 
+ *      macros. See Endpoint.h documentation for more details on the new endpoint management macros.
  *    - The Endpoint_ReadWriteAllowed() macro has been renamed to Endpoint_IsReadWriteAllowed() to be more consistent with the rest of
  *      the API naming scheme.
  *    - The Endpoint_IsSetupINReady() and Endpoint_IsSetupOutReceived() macros have been renamed to Endpoint_IsINReady() and
  *      Endpoint_IsOUTReceived() respectively.
  *    - The Endpoint_IsSetupReceived() macro has been renamed to Endpoint_IsSETUPReceived().
- *    - The Endpoint_ClearSetupReceived() macro has been renamed to Endpoint_ClearControlSETUP().
+ *    - The Endpoint_ClearSetupReceived() macro has been renamed to Endpoint_ClearSETUP().
  *    - All endpoint read/write/discard aliases which did not have an explicitly endianness specifier (such as Endpoint_Read_Word()) have
  *      been removed for clarity. Existing projects should use the "_LE" suffix on such calls to use the explicit Little Endian versions.
  *
@@ -41,14 +40,13 @@
  *      in existing projects where the Control pipe is to be operated on.
  *    - The USB Host management task now saves and restores the currently selected pipe before and after the task runs. Projects no longer
  *      need to manage this manually when calling the USB management task.
- *    - The Pipe_ClearCurrentBank() macro has been removed, and is now replaced with the Pipe_ClearIN(), Pipe_ClearOUT(),
- *      Pipe_ClearControlIN(), Pipe_ClearControlOUT() and other related macros. See Pipe.h documentation for more details on the new pipe
- *      management macros.
+ *    - The Pipe_ClearCurrentBank() macro has been removed, and is now replaced with the Pipe_ClearIN(), Pipe_ClearOUT() macros. See
+ *      Pipe.h documentation for more details on the new pipe management macros.
  *    - The Pipe_ReadWriteAllowed() macro has been renamed to Pipe_IsReadWriteAllowed() to be more consistent with the rest of the API
  *      naming scheme.
  *    - The Pipe_IsSetupINReceived() and Pipe_IsOutReady() macros have been renamed to Pipe_IsINReceived() and Pipe_IsOUTReady()
  *      respectively.
- *    - The new Pipe_ClearControlSETUP() macro should be used to send CONTROL transactions, rather than the previous Pipe_ClearSetupOUT() macro.
+ *    - The new Pipe_ClearSETUP() macro should be used to send SETUP transactions, rather than the previous Pipe_ClearSetupOUT() macro.
  *    - The Pipe_IsSetupSent() macro has been renamed to Pipe_IsSETUPSent().
  *    - The Pipe_ClearSetupSent() macro is no longer applicable and should be removed.
  *    - All pipe read/write/discard aliases which did not have an explicitly endianness specifier (such as Pipe_Read_Word()) have

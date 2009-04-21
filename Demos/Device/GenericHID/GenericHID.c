@@ -165,7 +165,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_GetReport:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 	
 				uint8_t GenericData[GENERIC_REPORT_SIZE];
 				
@@ -175,14 +175,14 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				Endpoint_Write_Control_Stream_LE(&GenericData, sizeof(GenericData));
 
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 			}
 		
 			break;
 		case REQ_SetReport:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Wait until the generic report has been sent by the host */
 				while (!(Endpoint_IsOUTReceived()));
@@ -194,13 +194,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				ProcessGenericHIDReport(GenericData);
 			
 				/* Clear the endpoint data */
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 
 				/* Wait until the host is ready to receive the request confirmation */
 				while (!(Endpoint_IsINReady()));
 				
 				/* Handshake the request by sending an empty IN packet */
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 			}
 			
 			break;

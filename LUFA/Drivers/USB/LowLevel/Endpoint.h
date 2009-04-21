@@ -309,41 +309,19 @@
 				 *
 				 *  \note This is not applicable for non CONTROL type endpoints.			 
 				 */
-				static inline void Endpoint_ClearControlSETUP(void);
+				static inline void Endpoint_ClearSETUP(void);
 				
-				/** Sends an IN packet to the host on the currently selected CONTROL type endpoint, freeing up the
-				 *  endpoint for the next packet.
+				/** Sends an IN packet to the host on the currently selected endpoint, freeing up the endpoint for the
+				 *  next packet and switching to the alternative endpoint bank if double banked.
 				 *
 				 *  \ingroup Group_EndpointPacketManagement
-				 *
-				 *  \note For non CONTROL type endpoints, use Endpoint_ClearIN() instead.			 
-				 */
-				static inline void Endpoint_ClearControlIN(void);
-				
-				/** Acknowledges an OUT packet to the host on the currently selected CONTROL type endpoint, freeing
-				 *  up the endpoint for the next packet.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 *
-				 *  \note For non CONTROL type endpoints, use Endpoint_ClearOUT() instead.
-				 */
-				static inline void Endpoint_ClearControlOUT(void);
-				
-				/** Sends an IN packet to the host on the currently selected non CONTROL type endpoint, freeing
-				 *  up the endpoint for the next packet and switching to the alternative endpoint bank if double banked.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 *
-				 *  \note For CONTROL type endpoints, use Endpoint_ClearControlIN() instead.
 				 */
 				static inline void Endpoint_ClearIN(void);
 				
-				/** Acknowledges an OUT packet to the host on the currently selected non CONTROL type endpoint, freeing
-				 *  up the endpoint for the next packet and switching to the alternative endpoint bank if double banked.
+				/** Acknowledges an OUT packet to the host on the currently selected endpoint, freeing up the endpoint
+				 *  for the next packet and switching to the alternative endpoint bank if double banked.
 				 *
 				 *  \ingroup Group_EndpointPacketManagement
-				 *
-				 *  \note For CONTROL type endpoints, use Endpoint_ClearControlOUT() instead.
 				 */
 				static inline void Endpoint_ClearOUT(void);
 				
@@ -417,11 +395,7 @@
 
 				#define Endpoint_IsSETUPReceived()            ((UEINTX & (1 << RXSTPI)) ? true : false)
 
-				#define Endpoint_ClearControlSETUP()          MACROS{ UEINTX &= ~(1 << RXSTPI); }MACROE
-
-				#define Endpoint_ClearControlIN()             MACROS{ UEINTX &= ~(1 << TXINI); }MACROE
-
-				#define Endpoint_ClearControlOUT()            MACROS{ UEINTX &= ~(1 << RXOUTI); }MACROE
+				#define Endpoint_ClearSETUP()                 MACROS{ UEINTX &= ~(1 << RXSTPI); }MACROE
 
 				#define Endpoint_ClearIN()                    MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << TXINI)); \
 				                                                      UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
@@ -900,7 +874,7 @@
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in little endian,
 			 *  sending full packets to the host as needed. The host OUT acknowledgement is not automatically cleared
 			 *  in both failure and success states; the user is responsible for manually clearing the setup OUT to
-			 *  finalize the transfer via the Endpoint_ClearControlOUT() macro.
+			 *  finalize the transfer via the Endpoint_ClearOUT() macro.
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -919,7 +893,7 @@
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in big endian,
 			 *  sending full packets to the host as needed. The host OUT acknowledgement is not automatically cleared
 			 *  in both failure and success states; the user is responsible for manually clearing the setup OUT to
-			 *  finalize the transfer via the Endpoint_ClearControlOUT() macro.
+			 *  finalize the transfer via the Endpoint_ClearOUT() macro.
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -938,7 +912,7 @@
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in little endian,
 			 *  discarding fully read packets from the host as needed. The device IN acknowledgement is not
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
-			 *  setup IN to finalize the transfer via the Endpoint_ClearControlIN() macro.
+			 *  setup IN to finalize the transfer via the Endpoint_ClearIN() macro.
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -952,12 +926,12 @@
 			 *
 			 *  \return A value from the Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length)  ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in big endian,
 			 *  discarding fully read packets from the host as needed. The device IN acknowledgement is not
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
-			 *  setup IN to finalize the transfer via the Endpoint_ClearControlIN() macro.
+			 *  setup IN to finalize the transfer via the Endpoint_ClearIN() macro.
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -971,7 +945,7 @@
 			 *
 			 *  \return A value from the Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer, uint16_t Length)  ATTR_NON_NULL_PTR_ARG(1);		
+			uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);		
 			
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

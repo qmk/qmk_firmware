@@ -36,14 +36,13 @@
   *  - The USB Host management task now saves and restores the currently selected pipe before and after the task completes
   *  - Fixed GenericHIDHost demo report write routine incorrect for control type requests (thanks to Andrei Krainev)
   *  - Removed Endpoint_ClearCurrentBank() and Pipe_ClearCurrentBank() in favour of new Endpoint_ClearIN(), Endpoint_ClearOUT(),
-  *    Endpoint_ClearControlIN(), Endpoint_ClearControlOUT(), Pipe_ClearIN(), Pipe_ClearOUT(), Pipe_ClearControlIN() and
-  *    Pipe_ClearControlOUT() macros (done to allow for the detection of packets of zero length)
+  *    Pipe_ClearIN() and Pipe_ClearOUT() macros (done to allow for the detection of packets of zero length)
   *  - Renamed *_ReadWriteAllowed() macros to *_IsReadWriteAllowed() to remain consistent with the rest of the LUFA API
   *  - Endpoint_IsSetupReceived() macro has been renamed to Endpoint_IsSETUPReceived(), Endpoint_ClearSetupReceived() macro has been
-  *    renamed to Endpoint_ClearControlSETUP(), the Pipe_IsSetupSent() macro has been renamed to Pipe_IsSETUPSent() and the
+  *    renamed to Endpoint_ClearSETUP(), the Pipe_IsSetupSent() macro has been renamed to Pipe_IsSETUPSent() and the
   *    Pipe_ClearSetupSent() macro is no longer applicable and should be removed - changes made to compliment the new endpoint and pipe
   *    bank management API
-  *  - Updated all demos, bootloaders and projects to use the new endpoint and pipe management APIs (thanks to Roman Thiel)
+  *  - Updated all demos, bootloaders and projects to use the new endpoint and pipe management APIs (thanks to Roman Thiel (Curetis AG))
   *  - Updated library doxygen documentation, added groups, changed documentation macro functions to real functions for clarity
   *  - Removed old endpoint and pipe aliased read/write/discard routines which did not have an explicit endian specifier for clarity
   *  - Removed the ButtLoadTag.h header file, as no one used for its intended purpose anyway

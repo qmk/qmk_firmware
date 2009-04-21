@@ -420,38 +420,16 @@
 				 */
 				static inline bool Pipe_IsSETUPSent(void);
 				
-				/** Acknowledges the reception of a setup IN request from the attached device on the currently selected
-				 *  CONTROL type pipe, freeing the bank ready for the next packet.
-				 *
-				 *  \ingroup Group_PipePacketManagement
-				 *
-				 *  \note For non CONTROL type pipes, use Pipe_ClearIN() instead.			 
-				 */
-				static inline void Pipe_ClearControlIN(void);
-
-				/** Sends the currently selected pipe's contents to the device as an OUT packet on the selected pipe, freeing
-				 *  the bank ready for the next packet.
-				 *
-				 *  \ingroup Group_PipePacketManagement
-				 *
-				 *  \note For non CONTROL type pipes, use Pipe_ClearOUT() instead.	
-				 */
-				static inline void Pipe_ClearControlOUT(void);
-
 				/** Sends the currently selected CONTROL type pipe's contents to the device as a SETUP packet.
 				 *
-				 *  \ingroup Group_PipePacketManagement
-				 *
-				 *  \note This is not applicable for non CONTROL type pipes.			
+				 *  \ingroup Group_PipePacketManagement		
 				 */
-				static inline void Pipe_ClearControlSETUP(void);
+				static inline void Pipe_ClearSETUP(void);
 
 				/** Acknowledges the reception of a setup IN request from the attached device on the currently selected
 				 *  pipe, freeing the bank ready for the next packet.
 				 *
 				 *  \ingroup Group_PipePacketManagement
-				 *
-				 *  \note For CONTROL type pipes, use Pipe_ClearControlIN() instead.	
 				 */
 				static inline void Pipe_ClearIN(void);
 
@@ -459,8 +437,6 @@
 				 *  the bank ready for the next packet.
 				 *
 				 *  \ingroup Group_PipePacketManagement
-				 *
-				 *  \note For CONTROL type pipes, use Pipe_ClearControlOUT() instead.	
 				 */
 				static inline void Pipe_ClearOUT(void);
 
@@ -554,16 +530,10 @@
 				#define Pipe_ClearIN()                 MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << RXINI)); \
 				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
 
-				#define Pipe_ClearControlIN()          MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << RXINI)); \
-				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
-
 				#define Pipe_ClearOUT()                MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << TXOUTI)); \
 				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
 				
-				#define Pipe_ClearControlOUT()         MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << TXOUTI)); \
-				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
-
-				#define Pipe_ClearControlSETUP()       MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << TXSTPI)); \
+				#define Pipe_ClearSETUP()              MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << TXSTPI)); \
 				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
 
 				#define Pipe_IsNAKReceived()           ((UPINTX & (1 << NAKEDI)) ? true : false)

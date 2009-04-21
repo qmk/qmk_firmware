@@ -101,7 +101,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_SetReport:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Wait until the command (report) has been sent by the host */
 				while (!(Endpoint_IsOUTReceived()));
@@ -126,7 +126,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 						/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
 						if (!(Endpoint_BytesInEndpoint()))
 						{
-							Endpoint_ClearControlOUT();
+							Endpoint_ClearOUT();
 							while (!(Endpoint_IsOUTReceived()));
 						}
 
@@ -142,11 +142,11 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 					boot_rww_enable();
 				}
 
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 			}
 			
 			break;

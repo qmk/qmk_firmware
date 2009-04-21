@@ -159,13 +159,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{	
 				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(LineCodingData, sizeof(LineCoding));
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 			}
 			
 			break;
@@ -173,13 +173,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
 				Endpoint_Read_Control_Stream_LE(LineCodingData, sizeof(LineCoding));
 
 				/* Finalize the stream transfer to clear the last packet from the host */
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 				
 				/* Reconfigure the USART with the new settings */
 				ReconfigureUSART();
@@ -201,11 +201,11 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 #endif
 				
 				/* Acknowledge the SETUP packet, ready for data transfer */
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 			}
 	
 			break;

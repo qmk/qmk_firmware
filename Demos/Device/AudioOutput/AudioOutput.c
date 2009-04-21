@@ -166,7 +166,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			{
 				uint16_t wValue = Endpoint_Read_Word_LE();
 				
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Check if the host is enabling the audio interface (setting AlternateSetting to 1) */
 				if (wValue)
@@ -182,7 +182,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 			}
 
 			break;

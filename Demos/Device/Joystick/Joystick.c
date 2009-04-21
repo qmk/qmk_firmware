@@ -145,13 +145,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				if (wLength > sizeof(JoystickReportData))
 				  wLength = sizeof(JoystickReportData);
 
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 	
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&JoystickReportData, wLength);
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 			}
 		
 			break;

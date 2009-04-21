@@ -167,7 +167,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				if (wLength > ReportSize)
 				  wLength = ReportSize;
 
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 	
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(ReportData, wLength);
@@ -176,14 +176,14 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				memset(ReportData, 0, ReportSize);
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 			}
 		
 			break;
 		case REQ_SetReport:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Wait until the LED report has been sent by the host */
 				while (!(Endpoint_IsOUTReceived()));
@@ -205,11 +205,11 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				LEDs_SetAllLEDs(LEDMask);
 
 				/* Clear the endpoint data */
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 			}
 			
 			break;

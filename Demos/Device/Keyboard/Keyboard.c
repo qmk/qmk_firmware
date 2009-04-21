@@ -216,20 +216,20 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				if (wLength > sizeof(KeyboardReportData))
 				  wLength = sizeof(KeyboardReportData);
 
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 	
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&KeyboardReportData, wLength);
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 			}
 		
 			break;
 		case REQ_SetReport:
 			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Wait until the LED report has been sent by the host */
 				while (!(Endpoint_IsOUTReceived()));
@@ -241,28 +241,28 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				ProcessLEDReport(LEDStatus);
 			
 				/* Clear the endpoint data */
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 			}
 			
 			break;
 		case REQ_GetProtocol:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Write the current protocol flag to the host */
 				Endpoint_Write_Byte(UsingReportProtocol);
 				
 				/* Send the flag to the host */
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 			}
 			
 			break;
@@ -272,14 +272,14 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				/* Read in the wValue parameter containing the new protocol mode */
 				uint16_t wValue = Endpoint_Read_Word_LE();
 								
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 
 				/* Set or clear the flag depending on what the host indicates that the current Protocol should be */
 				UsingReportProtocol = (wValue != 0x0000);
 
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 			}
 			
 			break;
@@ -289,31 +289,31 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				/* Read in the wValue parameter containing the idle period */
 				uint16_t wValue = Endpoint_Read_Word_LE();
 				
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Get idle period in MSB */
 				IdleCount = (wValue >> 8);
 				
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 			}
 			
 			break;
 		case REQ_GetIdle:
 			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{		
-				Endpoint_ClearControlSETUP();
+				Endpoint_ClearSETUP();
 				
 				/* Write the current idle duration to the host */
 				Endpoint_Write_Byte(IdleCount);
 				
 				/* Send the flag to the host */
-				Endpoint_ClearControlIN();
+				Endpoint_ClearIN();
 
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearControlOUT();
+				Endpoint_ClearOUT();
 			}
 
 			break;

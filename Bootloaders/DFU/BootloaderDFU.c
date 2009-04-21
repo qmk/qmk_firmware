@@ -163,7 +163,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 	switch (bRequest)
 	{
 		case DFU_DNLOAD:
-			Endpoint_ClearControlSETUP();
+			Endpoint_ClearSETUP();
 			
 			/* Check if bootloader is waiting to terminate */
 			if (WaitForExit)
@@ -235,7 +235,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 							/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
 							if (!(Endpoint_BytesInEndpoint()))
 							{
-								Endpoint_ClearControlOUT();
+								Endpoint_ClearOUT();
 								while (!(Endpoint_IsOUTReceived()));
 							}
 
@@ -279,7 +279,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 							/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
 							if (!(Endpoint_BytesInEndpoint()))
 							{
-								Endpoint_ClearControlOUT();
+								Endpoint_ClearOUT();
 								while (!(Endpoint_IsOUTReceived()));
 							}
 
@@ -296,15 +296,15 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				}
 			}
 
-			Endpoint_ClearControlOUT();
+			Endpoint_ClearOUT();
 
 			/* Acknowledge status stage */
 			while (!(Endpoint_IsINReady()));
-			Endpoint_ClearControlIN();
+			Endpoint_ClearIN();
 				
 			break;
 		case DFU_UPLOAD:
-			Endpoint_ClearControlSETUP();
+			Endpoint_ClearSETUP();
 
 			while (!(Endpoint_IsINReady()));
 
@@ -343,7 +343,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 						/* Check if endpoint is full - if so clear it and wait until ready for next packet */
 						if (Endpoint_BytesInEndpoint() == FIXED_CONTROL_ENDPOINT_SIZE)
 						{
-							Endpoint_ClearControlIN();
+							Endpoint_ClearIN();
 							while (!(Endpoint_IsINReady()));
 						}
 
@@ -368,7 +368,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 						/* Check if endpoint is full - if so clear it and wait until ready for next packet */
 						if (Endpoint_BytesInEndpoint() == FIXED_CONTROL_ENDPOINT_SIZE)
 						{
-							Endpoint_ClearControlIN();
+							Endpoint_ClearIN();
 							while (!(Endpoint_IsINReady()));
 						}
 
@@ -384,15 +384,15 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				DFU_State = dfuIDLE;
 			}
 
-			Endpoint_ClearControlIN();
+			Endpoint_ClearIN();
 
 			/* Acknowledge status stage */
 			while (!(Endpoint_IsOUTReceived()));
-			Endpoint_ClearControlOUT();
+			Endpoint_ClearOUT();
 
 			break;
 		case DFU_GETSTATUS:
-			Endpoint_ClearControlSETUP();
+			Endpoint_ClearSETUP();
 			
 			/* Write 8-bit status value */
 			Endpoint_Write_Byte(DFU_Status);
@@ -407,46 +407,46 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			/* Write 8-bit state string ID number */
 			Endpoint_Write_Byte(0);
 
-			Endpoint_ClearControlIN();
+			Endpoint_ClearIN();
 			
 			/* Acknowledge status stage */
 			while (!(Endpoint_IsOUTReceived()));
-			Endpoint_ClearControlOUT();
+			Endpoint_ClearOUT();
 	
 			break;		
 		case DFU_CLRSTATUS:
-			Endpoint_ClearControlSETUP();
+			Endpoint_ClearSETUP();
 			
 			/* Reset the status value variable to the default OK status */
 			DFU_Status = OK;
 
 			/* Acknowledge status stage */
 			while (!(Endpoint_IsINReady()));
-			Endpoint_ClearControlIN();
+			Endpoint_ClearIN();
 			
 			break;
 		case DFU_GETSTATE:
-			Endpoint_ClearControlSETUP();
+			Endpoint_ClearSETUP();
 			
 			/* Write the current device state to the endpoint */
 			Endpoint_Write_Byte(DFU_State);
 		
-			Endpoint_ClearControlIN();
+			Endpoint_ClearIN();
 			
 			/* Acknowledge status stage */
 			while (!(Endpoint_IsOUTReceived()));
-			Endpoint_ClearControlOUT();
+			Endpoint_ClearOUT();
 
 			break;
 		case DFU_ABORT:
-			Endpoint_ClearControlSETUP();
+			Endpoint_ClearSETUP();
 			
 			/* Reset the current state variable to the default idle state */
 			DFU_State = dfuIDLE;
 			
 			/* Acknowledge status stage */
 			while (!(Endpoint_IsINReady()));
-			Endpoint_ClearControlIN();
+			Endpoint_ClearIN();
 
 			break;
 	}
@@ -463,7 +463,7 @@ static void DiscardFillerBytes(uint8_t NumberOfBytes)
 	{
 		if (!(Endpoint_BytesInEndpoint()))
 		{
-			Endpoint_ClearControlOUT();
+			Endpoint_ClearOUT();
 
 			/* Wait until next data packet received */
 			while (!(Endpoint_IsOUTReceived()));
