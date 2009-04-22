@@ -250,7 +250,7 @@ static uint8_t MassStore_GetReturnedStatus(void)
  */
 uint8_t MassStore_ClearPipeStall(const uint8_t EndpointNum)
 {
-	USB_HostRequest = (USB_Host_Request_Header_t)
+	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT),
 			.bRequest      = REQ_ClearFeature,
@@ -272,7 +272,7 @@ uint8_t MassStore_ClearPipeStall(const uint8_t EndpointNum)
  */
 uint8_t MassStore_MassStorageReset(void)
 {
-	USB_HostRequest = (USB_Host_Request_Header_t)
+	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
 			.bRequest      = REQ_MassStorageReset,
@@ -298,7 +298,7 @@ uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex)
 {
 	uint8_t ErrorCode;
 
-	USB_HostRequest = (USB_Host_Request_Header_t)
+	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
 			.bRequest      = REQ_GetMaxLUN,

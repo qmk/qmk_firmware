@@ -33,9 +33,10 @@
 #define  INCLUDE_FROM_USBTASK_C
 #include "USBTask.h"
 
-volatile bool      USB_IsSuspended;
-volatile bool      USB_IsConnected;
-volatile bool      USB_IsInitialized;
+volatile bool        USB_IsSuspended;
+volatile bool        USB_IsConnected;
+volatile bool        USB_IsInitialized;
+USB_Request_Header_t USB_ControlRequest;
 
 #if defined(USB_CAN_BE_HOST)
 volatile uint8_t   USB_HostState;
@@ -169,7 +170,7 @@ static void USB_HostTask(void)
 			USB_HostState = HOST_STATE_Default;
 			break;
 		case HOST_STATE_Default:
-			USB_HostRequest = (USB_Host_Request_Header_t)
+			USB_ControlRequest = (USB_Request_Header_t)
 				{
 					.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
 					.bRequest      = REQ_GetDescriptor,
@@ -214,7 +215,7 @@ static void USB_HostTask(void)
 
 			Pipe_SetInfiniteINRequests();
 			
-			USB_HostRequest = (USB_Host_Request_Header_t)
+			USB_ControlRequest = (USB_Request_Header_t)
 				{
 					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
 					.bRequest      = REQ_SetAddress,

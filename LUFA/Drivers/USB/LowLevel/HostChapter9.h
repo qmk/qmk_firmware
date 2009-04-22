@@ -45,23 +45,6 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Type Defines: */
-			/** Type define for a standard USB control request.
-			 *
-			 *  \see StdRequestType.h for information on the request type and data.
-			 *  \see The USB 2.0 specification for more information on standard control requests.
-			 *
-			 *  \ingroup Group_PipeControlReq
-			 */
-			typedef struct
-			{
-				uint8_t  bmRequestType; /**< Type of the request. */
-				uint8_t  bRequest; /**< Request command code. */
-				uint16_t wValue; /**< wValue parameter of the request. */
-				uint16_t wIndex; /**< wIndex parameter of the request. */
-				uint16_t wLength; /**< Length of the data to transfer in bytes. */
-			} USB_Host_Request_Header_t;
-
 		/* Enums: */
 			/** Enum for the USB_Host_SendControlRequest() return code, indicating the reason for the error
 			 *  if the transfer of the request is unsuccessful.
@@ -81,17 +64,8 @@
 				HOST_SENDCONTROL_SoftwareTimeOut  = 4, /**< The request or data transfer timed out. */
 			};
 			
-		/* Global Variables: */
-			/** Global for the request to send via the USB_Host_SendControlRequest() function. This
-			 *  global should be filled with the correct control request data before sending the request to
-			 *  the attached device while in host mode.
-			 *
-			 *  \ingroup Group_PipeControlReq
-			 */
-			extern USB_Host_Request_Header_t USB_HostRequest;
-			
 		/* Function Prototypes: */
-			/** Sends the request stored in the USB_HostRequest global structure to the attached device,
+			/** Sends the request stored in the USB_ControlRequest global structure to the attached device,
 			 *  and transfers the data stored in the buffer to the device, or from the device to the buffer
 			 *  as requested. The transfer is made on the currently selected pipe.
 			 *

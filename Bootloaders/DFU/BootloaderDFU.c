@@ -151,16 +151,10 @@ EVENT_HANDLER(USB_Disconnect)
  */
 EVENT_HANDLER(USB_UnhandledControlPacket)
 {
-	/* Discard unused wIndex value */
-	Endpoint_Discard_Word();
-	
-	/* Discard unused wValue value */
-	Endpoint_Discard_Word();
-
 	/* Get the size of the command and data from the wLength value */
-	SentCommand.DataSize = Endpoint_Read_Word_LE();
+	SentCommand.DataSize = USB_ControlRequest.wLength;
 
-	switch (bRequest)
+	switch (USB_ControlRequest.bRequest)
 	{
 		case DFU_DNLOAD:
 			Endpoint_ClearSETUP();

@@ -39,6 +39,7 @@
 		#include "../HighLevel/StdDescriptors.h"
 		#include "../HighLevel/Events.h"
 		#include "../HighLevel/StdRequestType.h"
+		#include "../HighLevel/USBTask.h"
 		#include "LowLevel.h"
 
 	/* Enable C linkage for C++ Compilers: */
@@ -118,9 +119,9 @@
 				static void USB_Device_SetConfiguration(void);
 				static void USB_Device_GetConfiguration(void);
 				static void USB_Device_GetDescriptor(void);
-				static void USB_Device_GetStatus(const uint8_t bmRequestType);
+				static void USB_Device_GetStatus(void);
 				#if !defined(FEATURELESS_CONTROL_ONLY_DEVICE)
-				static void USB_Device_ClearSetFeature(const uint8_t bRequest, const uint8_t bmRequestType);
+				static void USB_Device_ClearSetFeature(void);
 				#endif
 			#endif
 	#endif

@@ -292,8 +292,9 @@ uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
 
 uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length)
 {
-	uint8_t* DataStream = (uint8_t*)Buffer;
-	bool     SendZLP    = true;
+	uint8_t* DataStream    = (uint8_t*)Buffer;
+	bool     LastPacketFull = false;
+	bool     ShortTransfer = (Length < USB_ControlRequest.wLength);
 	
 	while (Length && !(Endpoint_IsOUTReceived()))
 	{
@@ -306,14 +307,14 @@ uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length)
 			Length--;
 		}
 		
-		SendZLP = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
+		LastPacketFull = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
 		Endpoint_ClearIN();
 	}
 	
 	if (Endpoint_IsOUTReceived())
 	  return ENDPOINT_RWCSTREAM_ERROR_HostAborted;
 	
-	if (SendZLP)
+	if (LastPacketFull || ShortTransfer)
 	{
 		while (!(Endpoint_IsINReady()));
 		Endpoint_ClearIN();
@@ -326,8 +327,9 @@ uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length)
 
 uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length)
 {
-	uint8_t* DataStream = (uint8_t*)(Buffer + Length - 1);
-	bool     SendZLP    = true;
+	uint8_t* DataStream     = (uint8_t*)(Buffer + Length - 1);
+	bool     LastPacketFull = false;
+	bool     ShortTransfer  = (Length < USB_ControlRequest.wLength);
 	
 	while (Length && !(Endpoint_IsOUTReceived()))
 	{
@@ -340,14 +342,14 @@ uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length)
 			Length--;
 		}
 		
-		SendZLP = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
+		LastPacketFull = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
 		Endpoint_ClearIN();
 	}
 	
 	if (Endpoint_IsOUTReceived())
 	  return ENDPOINT_RWCSTREAM_ERROR_HostAborted;
 	
-	if (SendZLP)
+	if (LastPacketFull || ShortTransfer)
 	{
 		while (!(Endpoint_IsINReady()));
 		Endpoint_ClearIN();

@@ -55,6 +55,10 @@
   *  - Capitalised the "Descriptor_Search" and "Descriptor_Search_Comp" prefixes of the values in the DSearch_Return_ErrorCodes_t and
   *    DSearch_Comp_Return_ErrorCodes_t enums
   *  - Changed over all deprecated GCC structure tag initializers to the standardized C99 format (thanks to Mike Alexander)
+  *  - USB_HostRequest renamed to USB_ControlRequest, entire control request header is now read into USB_ControlRequest in Device mode
+  *    rather than having the library pass only partially read header data to the application
+  *  - The USB_UnhandledControlPacket event has had its parameters removed, in favour of accessing the new USB_ControlRequest structure
+  *  - The Endpoint control stream functions now correctly send a ZLP to the host when less data than requested is sent
   *    
   *
   *  \section Sec_ChangeLog090401 Version 090401

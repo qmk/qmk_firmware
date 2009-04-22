@@ -35,15 +35,13 @@
 #define  INCLUDE_FROM_HOSTCHAPTER9_C
 #include "HostChapter9.h"
 
-USB_Host_Request_Header_t USB_HostRequest;
-
 uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 {
-	uint8_t* HeaderStream   = (uint8_t*)&USB_HostRequest;
+	uint8_t* HeaderStream   = (uint8_t*)&USB_ControlRequest;
 	uint8_t* DataStream     = (uint8_t*)BufferPtr;
 	bool     BusSuspended   = USB_Host_IsBusSuspended();
 	uint8_t  ReturnStatus   = HOST_SENDCONTROL_Successful;
-	uint16_t DataLen        = USB_HostRequest.wLength;
+	uint16_t DataLen        = USB_ControlRequest.wLength;
 
 	USB_Host_ResumeBus();
 	
@@ -55,7 +53,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 
 	Pipe_Unfreeze();
 
-	for (uint8_t HeaderByte = 0; HeaderByte < sizeof(USB_Host_Request_Header_t); HeaderByte++)
+	for (uint8_t HeaderByte = 0; HeaderByte < sizeof(USB_Request_Header_t); HeaderByte++)
 	  Pipe_Write_Byte(*(HeaderStream++));
 
 	Pipe_ClearSETUP();
@@ -68,7 +66,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 	if ((ReturnStatus = USB_Host_WaitMS(1)) != HOST_WAITERROR_Successful)
 	  goto End_Of_Control_Send;
 
-	if ((USB_HostRequest.bmRequestType & CONTROL_REQTYPE_DIRECTION) == REQDIR_DEVICETOHOST)
+	if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_DIRECTION) == REQDIR_DEVICETOHOST)
 	{
 		Pipe_SetToken(PIPE_TOKEN_IN);
 		

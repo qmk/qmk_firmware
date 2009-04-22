@@ -160,10 +160,10 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 	uint8_t* LineCodingData = (uint8_t*)&LineCoding;
 
 	/* Process CDC specific control requests */
-	switch (bRequest)
+	switch (USB_ControlRequest.bRequest)
 	{
 		case REQ_GetLineEncoding:
-			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{	
 				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
@@ -177,7 +177,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			
 			break;
 		case REQ_SetLineEncoding:
-			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
@@ -191,18 +191,12 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 	
 			break;
 		case REQ_SetControlLineState:
-			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-#if 0
 				/* NOTE: Here you can read in the line state mask from the host, to get the current state of the output handshake
-				         lines. The mask is read in from the wValue parameter, and can be masked against the CONTROL_LINE_OUT_* masks
-				         to determine the RTS and DTR line states using the following code:
+				         lines. The mask is read in from the wValue parameter in USB_ControlRequest, and can be masked against the
+						 CONTROL_LINE_OUT_* masks to determine the RTS and DTR line states using the following code:
 				*/
-
-				uint16_t wIndex = Endpoint_Read_Word_LE();
-					
-				// Do something with the given line states in wIndex
-#endif
 				
 				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();

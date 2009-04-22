@@ -193,33 +193,20 @@ EVENT_HANDLER(USB_ConfigurationChanged)
 EVENT_HANDLER(USB_UnhandledControlPacket)
 {
 	/* Handle HID Class specific requests */
-	switch (bRequest)
+	switch (USB_ControlRequest.bRequest)
 	{
 		case REQ_GetReport:
-			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				USB_KeyboardReport_Data_t KeyboardReportData;
 
 				/* Create the next keyboard report for transmission to the host */
 				CreateKeyboardReport(&KeyboardReportData);
 
-				/* Ignore report type and ID number value */
-				Endpoint_Discard_Word();
-				
-				/* Ignore unused Interface number value */
-				Endpoint_Discard_Word();
-
-				/* Read in the number of bytes in the report to send to the host */
-				uint16_t wLength = Endpoint_Read_Word_LE();
-				
-				/* If trying to send more bytes than exist to the host, clamp the value at the report size */
-				if (wLength > sizeof(KeyboardReportData))
-				  wLength = sizeof(KeyboardReportData);
-
 				Endpoint_ClearSETUP();
 	
 				/* Write the report data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(&KeyboardReportData, wLength);
+				Endpoint_Write_Control_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
@@ -227,7 +214,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		
 			break;
 		case REQ_SetReport:
-			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
 				
@@ -250,7 +237,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			
 			break;
 		case REQ_GetProtocol:
-			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
 				
@@ -267,15 +254,12 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			
 			break;
 		case REQ_SetProtocol:
-			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Read in the wValue parameter containing the new protocol mode */
-				uint16_t wValue = Endpoint_Read_Word_LE();
-								
 				Endpoint_ClearSETUP();
 
 				/* Set or clear the flag depending on what the host indicates that the current Protocol should be */
-				UsingReportProtocol = (wValue != 0x0000);
+				UsingReportProtocol = (USB_ControlRequest.wValue != 0x0000);
 
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
@@ -284,15 +268,12 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			
 			break;
 		case REQ_SetIdle:
-			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Read in the wValue parameter containing the idle period */
-				uint16_t wValue = Endpoint_Read_Word_LE();
-				
 				Endpoint_ClearSETUP();
 				
 				/* Get idle period in MSB */
-				IdleCount = (wValue >> 8);
+				IdleCount = (USB_ControlRequest.wValue >> 8);
 				
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
@@ -301,7 +282,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			
 			break;
 		case REQ_GetIdle:
-			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{		
 				Endpoint_ClearSETUP();
 				

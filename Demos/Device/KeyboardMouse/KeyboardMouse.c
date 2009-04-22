@@ -139,17 +139,13 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 	uint8_t  ReportSize;
 
 	/* Handle HID Class specific requests */
-	switch (bRequest)
+	switch (USB_ControlRequest.bRequest)
 	{
 		case REQ_GetReport:
-			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_Discard_Word();
-			
-				uint16_t wIndex = Endpoint_Read_Word_LE();
-				
 				/* Determine if it is the mouse or the keyboard data that is being requested */
-				if (!(wIndex))
+				if (!(USB_ControlRequest.wIndex))
 				{
 					ReportData = (uint8_t*)&KeyboardReportData;
 					ReportSize = sizeof(KeyboardReportData);
@@ -160,17 +156,10 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 					ReportSize = sizeof(MouseReportData);
 				}
 
-				/* Read in the number of bytes in the report to send to the host */
-				uint16_t wLength = Endpoint_Read_Word_LE();
-				
-				/* If trying to send more bytes than exist to the host, clamp the value at the report size */
-				if (wLength > ReportSize)
-				  wLength = ReportSize;
-
 				Endpoint_ClearSETUP();
 	
 				/* Write the report data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(ReportData, wLength);
+				Endpoint_Write_Control_Stream_LE(ReportData, ReportSize);
 
 				/* Clear the report data afterwards */
 				memset(ReportData, 0, ReportSize);
@@ -181,7 +170,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		
 			break;
 		case REQ_SetReport:
-			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
 				

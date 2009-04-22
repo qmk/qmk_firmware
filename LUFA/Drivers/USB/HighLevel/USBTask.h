@@ -40,6 +40,7 @@
 		
 		#include "../../../Scheduler/Scheduler.h"
 		#include "../LowLevel/LowLevel.h"
+		#include "StdRequestType.h"
 		#include "USBMode.h"
 		#include "Events.h"
 		#include "StdDescriptors.h"
@@ -82,6 +83,14 @@
 			 */
 			extern volatile bool USB_IsInitialized;
 
+			/** Structure containing the last received Control request when in Device mode (for use in user-applications
+			 *  inside of the USB_UnhandledControlPacket() event, or for filling up with a control request to issue when
+			 *  in Host mode before calling USB_Host_SendControlRequest().
+			 *
+			 *  \ingroup Group_USBManagement
+			 */
+			 extern USB_Request_Header_t USB_ControlRequest;
+			
 			#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
 			/** Indicates if the USB interface is currently suspended by the host when in device mode. When suspended,
 			 *  the device should consume minimal power, and cannot communicate to the host. If Remote Wakeup is

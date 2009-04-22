@@ -33,6 +33,9 @@
  *    - The Endpoint_ClearSetupReceived() macro has been renamed to Endpoint_ClearSETUP().
  *    - All endpoint read/write/discard aliases which did not have an explicitly endianness specifier (such as Endpoint_Read_Word()) have
  *      been removed for clarity. Existing projects should use the "_LE" suffix on such calls to use the explicit Little Endian versions.
+ *    - The USB_UnhandledControlPacket event no longer has any parameters. User code should no longer attempt to read in the remainder of
+ *      the Control Request header as all Control Request header data is now preloaded by the library and made available in the
+ *      USB_ControlRequest structure.
  *
  *  <b>Host Mode</b>
  *    - The USB_Host_SendControlRequest() function no longer automatically selects the Control pipe (pipe 0) to allow it to be used on
@@ -61,6 +64,8 @@
  *      and SetReportItemInfo() has been renamed to USB_GetHIDReportItemInfo().
  *    - The values of the DSearch_Return_ErrorCodes_t and DSearch_Comp_Return_ErrorCodes_t enums have had their respective "Descriptor_Search"
  *      and "Descriptor_Search_Comp" prefixes changed to all caps.
+ *    - The USB_HostRequest global has been renamed to USB_ControlRequest, and is used in Device mode also. The USB_Host_Request_Header_t
+ *      structure type has been renamed to USB_Request_Header_t.
  *
  * \section Sec_Migration090401 Migrating from 090209 to 090401
  *

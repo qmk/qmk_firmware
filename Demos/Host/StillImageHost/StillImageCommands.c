@@ -263,7 +263,7 @@ bool SImage_IsEventReceived(void)
  */
 uint8_t SImage_ClearPipeStall(const uint8_t EndpointNum)
 {
-	USB_HostRequest = (USB_Host_Request_Header_t)
+	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT),
 			.bRequest      = REQ_ClearFeature,

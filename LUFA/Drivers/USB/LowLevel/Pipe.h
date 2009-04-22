@@ -389,6 +389,8 @@
 				 *  is an IN direction and no packet (or an empty packet) has been received, or if the pipe is an OUT
 				 *  direction and the pipe bank is full.
 				 *
+				 *  \note This function is not valid on CONTROL type pipes.
+				 *
 				 *  \ingroup Group_PipePacketManagement
 				 *  
 				 *  \return Boolean true if the currently selected pipe may be read from or written to, depending on its direction

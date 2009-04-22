@@ -305,7 +305,7 @@
 			 *        parameters (wValue, wIndex, wLength, and Data) remain in the control endpoint bank until
 			 *        read out by the user application for processing.
 			 */
-			void USB_UnhandledControlPacket(const uint8_t bRequest, const uint8_t bmRequestType);
+			void USB_UnhandledControlPacket(void);
 
 			/** Event for USB configuration number changed. This event fires when a the USB host changes the
 			 *  selected configuration number while in device mode. This event should be hooked in device
@@ -392,7 +392,7 @@
 			#endif
 			
 			#if defined(USB_CAN_BE_DEVICE)
-				#define USB_UnhandledControlPacket_P    (const uint8_t bRequest, const uint8_t bmRequestType)
+				#define USB_UnhandledControlPacket_P    (void)
 				#define USB_ConfigurationChanged_P      (void)
 				#define USB_Suspend_P                   (void)
 				#define USB_WakeUp_P                    (void)

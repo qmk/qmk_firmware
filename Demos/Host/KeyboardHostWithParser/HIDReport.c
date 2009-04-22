@@ -47,7 +47,7 @@ uint8_t GetHIDReportData(void)
 	/* Create a buffer big enough to hold the entire returned HID report */
 	uint8_t HIDReportData[HIDReportSize];
 	
-	USB_HostRequest = (USB_Host_Request_Header_t)
+	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE),
 			.bRequest      = REQ_GetDescriptor,

@@ -37,7 +37,7 @@
 
 uint8_t USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
 
-bool Pipe_ConfigurePipe(const uint8_t  Number, const uint8_t Type, const uint8_t Token, const uint8_t EndpointNumber,
+bool Pipe_ConfigurePipe(const uint8_t Number, const uint8_t Type, const uint8_t Token, const uint8_t EndpointNumber,
 						const uint16_t Size, const uint8_t Banks)
 {
 	Pipe_SelectPipe(Number);

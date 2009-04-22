@@ -122,33 +122,20 @@ EVENT_HANDLER(USB_ConfigurationChanged)
 EVENT_HANDLER(USB_UnhandledControlPacket)
 {
 	/* Handle HID Class specific requests */
-	switch (bRequest)
+	switch (USB_ControlRequest.bRequest)
 	{
 		case REQ_GetReport:
-			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				USB_JoystickReport_Data_t JoystickReportData;
 				
 				/* Create the next HID report to send to the host */				
 				GetNextReport(&JoystickReportData);
-
-				/* Ignore report type and ID number value */
-				Endpoint_Discard_Word();
 				
-				/* Ignore unused Interface number value */
-				Endpoint_Discard_Word();
-
-				/* Read in the number of bytes in the report to send to the host */
-				uint16_t wLength = Endpoint_Read_Word_LE();
-				
-				/* If trying to send more bytes than exist to the host, clamp the value at the report size */
-				if (wLength > sizeof(JoystickReportData))
-				  wLength = sizeof(JoystickReportData);
-
 				Endpoint_ClearSETUP();
 	
 				/* Write the report data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(&JoystickReportData, wLength);
+				Endpoint_Write_Control_Stream_LE(&JoystickReportData, sizeof(JoystickReportData));
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();

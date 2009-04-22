@@ -257,7 +257,7 @@ void WriteNextReport(uint8_t* ReportOUTData, uint8_t ReportIndex, uint8_t Report
 	else
 	{
 		/* Class specific request to send a HID report to the device */
-		USB_HostRequest = (USB_Host_Request_Header_t)
+		USB_ControlRequest = (USB_Request_Header_t)
 			{
 				.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
 				.bRequest      = REQ_SetReport,
@@ -286,7 +286,7 @@ TASK(USB_HID_Host)
 	{
 		case HOST_STATE_Addressed:
 			/* Standard request to set the device configuration to configuration 1 */
-			USB_HostRequest = (USB_Host_Request_Header_t)
+			USB_ControlRequest = (USB_Request_Header_t)
 				{
 					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
 					.bRequest      = REQ_SetConfiguration,

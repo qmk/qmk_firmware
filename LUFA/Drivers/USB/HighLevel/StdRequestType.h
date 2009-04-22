@@ -135,6 +135,20 @@
 			 */
 			#define FEATURE_REMOTE_WAKEUP           0x01
 
+		/* Type Defines: */
+			/** Type define for a standard USB control request.
+			 *
+			 *  \see The USB 2.0 specification for more information on standard control requests.
+			 */
+			typedef struct
+			{
+				uint8_t  bmRequestType; /**< Type of the request. */
+				uint8_t  bRequest; /**< Request command code. */
+				uint16_t wValue; /**< wValue parameter of the request. */
+				uint16_t wIndex; /**< wIndex parameter of the request. */
+				uint16_t wLength; /**< Length of the data to transfer in bytes. */
+			} USB_Request_Header_t;
+
 		/* Enums: */
 			/** Enumeration for the various standard request commands. These commands are applicable when the
 			 *  request type is REQTYPE_STANDARD (with the exception of REQ_GetDescriptor, which is always

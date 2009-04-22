@@ -35,7 +35,7 @@ uint8_t USB_GetDeviceConfigDescriptor(uint16_t* const ConfigSizePtr, void* Buffe
 {
 	uint8_t ErrorCode;
 
-	USB_HostRequest = (USB_Host_Request_Header_t)
+	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
 			.bRequest      = REQ_GetDescriptor,
@@ -60,7 +60,7 @@ uint8_t USB_GetDeviceConfigDescriptor(uint16_t* const ConfigSizePtr, void* Buffe
 	}
 	else
 	{
-		USB_HostRequest.wLength = *ConfigSizePtr;
+		USB_ControlRequest.wLength = *ConfigSizePtr;
 		
 		ErrorCode      = USB_Host_SendControlRequest(BufferPtr);				
 	}

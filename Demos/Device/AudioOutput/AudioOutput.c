@@ -158,18 +158,16 @@ EVENT_HANDLER(USB_ConfigurationChanged)
 EVENT_HANDLER(USB_UnhandledControlPacket)
 {
 	/* Process General and Audio specific control requests */
-	switch (bRequest)
+	switch (USB_ControlRequest.bRequest)
 	{
 		case REQ_SetInterface:
 			/* Set Interface is not handled by the library, as its function is application-specific */
-			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE))
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE))
 			{
-				uint16_t wValue = Endpoint_Read_Word_LE();
-				
 				Endpoint_ClearSETUP();
 				
 				/* Check if the host is enabling the audio interface (setting AlternateSetting to 1) */
-				if (wValue)
+				if (USB_ControlRequest.wValue)
 				{
 					/* Start audio task */
 					Scheduler_SetTaskMode(USB_Audio_Task, TASK_RUN);
