@@ -114,7 +114,7 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Enums: */
-			/** Enum for indicating what type of report item an entry in a HID_ReportInfo_t ReportItem array is */
+			/** Enum for indicating what type of report item an entry in a \ref HID_ReportInfo_t ReportItem array is */
 			enum HID_ReportItemTypes_t
 			{
 				REPORT_ITEM_TYPE_In                   = 0, /**< Indicates that the item is an IN report type. */
@@ -122,16 +122,16 @@
 				REPORT_ITEM_TYPE_Feature              = 2, /**< Indicates that the item is a FEATURE report type. */
 			};
 			
-			/** Enum for the possible error codes in the return value of the ProcessHIDReport() function */
+			/** Enum for the possible error codes in the return value of the \ref USB_ProcessHIDReport() function */
 			enum HID_Parse_ErrorCodes_t
 			{
 				HID_PARSE_Successful                  = 0, /**< Successful parse of the HID report descriptor, no error. */
-				HID_PARSE_HIDStackOverflow            = 1, /**< More than HID_STATETABLE_STACK_DEPTH nested PUSHes in the report. */ 
+				HID_PARSE_HIDStackOverflow            = 1, /**< More than \ref HID_STATETABLE_STACK_DEPTH nested PUSHes in the report. */ 
 				HID_PARSE_HIDStackUnderflow           = 2, /**< A POP was found when the state table stack was empty. */
-				HID_PARSE_InsufficientReportItems     = 3, /**< More than HID_MAX_REPORTITEMS report items in the report. */
+				HID_PARSE_InsufficientReportItems     = 3, /**< More than \ref HID_MAX_REPORTITEMS report items in the report. */
 				HID_PARSE_UnexpectedEndCollection     = 4, /**< END COLLECTION found without matching COLLECTION item. */
-				HID_PARSE_InsufficientCollectionPaths = 5, /**< More than HID_MAX_COLLECTIONS collections in the report. */
-				HID_PARSE_UsageStackOverflow          = 6, /**< More than HID_USAGE_STACK_DEPTH usages listed in a row. */
+				HID_PARSE_InsufficientCollectionPaths = 5, /**< More than \ref HID_MAX_COLLECTIONS collections in the report. */
+				HID_PARSE_UsageStackOverflow          = 6, /**< More than \ref HID_USAGE_STACK_DEPTH usages listed in a row. */
 			};
 		
 		/* Type Defines: */		
@@ -162,7 +162,7 @@
 			 */
 			typedef struct CollectionPath
 			{
-				uint8_t                      Type;   /**< Collection type (for example "Generic Desktop"). */
+				uint8_t                      Type;   /**< Collection type (e.g. "Generic Desktop"). */
 				HID_Usage_t                  Usage;  /**< Collection usage. */
 				struct CollectionPath*       Parent; /**< Reference to parent collection, or NULL if root collection. */
 			} HID_CollectionPath_t;
@@ -207,22 +207,22 @@
 			
 		/* Function Prototypes: */
 			/** Function to process a given HID report returned from an attached device, and store it into a given
-			 *  HID_ReportInfo_t structure.
+			 *  \ref HID_ReportInfo_t structure.
 			 *
 			 *  \param ReportData  Buffer containing the device's HID report table
 			 *  \param ReportSize  Size in bytes of the HID report table
-			 *  \param ParserData  Pointer to a HID_ReportInfo_t instance for the parser output
+			 *  \param ParserData  Pointer to a \ref HID_ReportInfo_t instance for the parser output
 			 *
-			 *  \return A value in the HID_Parse_ErrorCodes_t enum
+			 *  \return A value in the \ref HID_Parse_ErrorCodes_t enum
 			 */
 			uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID_ReportInfo_t* const ParserData)
 			                             ATTR_NON_NULL_PTR_ARG(1, 3);
 
 			/** Extracts the given report item's value out of the given HID report and places it into the Value
-			 *  member of the report item's HID_ReportItem_t structure.
+			 *  member of the report item's \ref HID_ReportItem_t structure.
 			 *
 			 *  \param ReportData  Buffer containing an IN or FEATURE report from an attached device
-			 *  \param ReportItem  Pointer to the report item of interest in a HID_ReportInfo_t ReportItem array
+			 *  \param ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
 			 *
 			 *  \returns Boolean true if the item to retrieve was located in the given report, false otherwise
 			 */
@@ -230,14 +230,14 @@
 			                              ATTR_NON_NULL_PTR_ARG(1, 2);
 
 			/** Retrieves the given report item's value out of the Value member of the report item's
-			 *  HID_ReportItem_t structure and places it into the correct position in the HID report
+			 *  \ref HID_ReportItem_t structure and places it into the correct position in the HID report
 			 *  buffer. The report buffer is assumed to have the appropriate bits cleared before calling
 			 *  this function (i.e., the buffer should be explicitly cleared before report values are added).
 			 *
 			 *  If the device has multiple HID reports, the report ID is set to the report ID of the given item.
 			 *
 			 *  \param ReportData  Buffer holding the current OUT report data
-			 *  \param ReportItem  Pointer to the report item of interest in a HID_ReportInfo_t ReportItem array
+			 *  \param ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
 			 */
 			void USB_SetHIDReportItemInfo(uint8_t* ReportData, const HID_ReportItem_t* ReportItem)
 			                              ATTR_NON_NULL_PTR_ARG(1, 2);

@@ -47,7 +47,7 @@
 			 *  these functions are used) which allow the user application to abort the transfer when certain
 			 *  arbitrary conditions are met.
 			 *
-			 *  Stream callback functions should return a value from the StreamCallback_Return_ErrorCodes_t
+			 *  Stream callback functions should return a value from the \ref StreamCallback_Return_ErrorCodes_t
 			 *  enum.
 			 *
 			 *  Usage Example (Device Endpoint, but applicable for Host Pipes also):

@@ -69,24 +69,24 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Endpoint data direction mask for Endpoint_ConfigureEndpoint(). This indicates that the endpoint
+			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the OUT direction - i.e. data flows from host to device.
 			 */
 			#define ENDPOINT_DIR_OUT                      (0 << EPDIR)
 
-			/** Endpoint data direction mask for Endpoint_ConfigureEndpoint(). This indicates that the endpoint
+			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the IN direction - i.e. data flows from device to host.
 			 */
 			#define ENDPOINT_DIR_IN                       (1 << EPDIR)
 
-			/** Mask for the bank mode selection for the Endpoint_ConfigureEndpoint() macro. This indicates
+			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
 			 *  that the endpoint should have one single bank, which requires less USB FIFO memory but results
 			 *  in slower transfers as only one USB device (the AVR or the host) can access the endpoint's
 			 *  bank at the one time.
 			 */
 			#define ENDPOINT_BANK_SINGLE                  (0 << EPBK0)
 
-			/** Mask for the bank mode selection for the Endpoint_ConfigureEndpoint() macro. This indicates
+			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
 			 *  that the endpoint should have two banks, which requires more USB FIFO memory but results
 			 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
 			 *  accesses the second bank.
@@ -146,7 +146,7 @@
 			 *  \note This interrupt must be enabled and cleared on *each* endpoint which requires it (after the
 			 *        endpoint is selected), and will fire the common endpoint interrupt vector.
 			 *
-			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
+			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 */
 			#define ENDPOINT_INT_SETUP                    UEIENX, (1 << RXSTPE), UEINTX, (1 << RXSTPI)
 
@@ -160,7 +160,7 @@
 			 *  \note This interrupt must be enabled and cleared on *each* endpoint which requires it (after the
 			 *        endpoint is selected), and will fire the common endpoint interrupt vector.
 			 *
-			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
+			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 */
 			#define ENDPOINT_INT_IN                       UEIENX, (1 << TXINE) , UEINTX, (1 << TXINI)
 
@@ -174,7 +174,7 @@
 			 *  \note This interrupt must be enabled and cleared on *each* endpoint which requires it (after the
 			 *        endpoint is selected), and will fire the common endpoint interrupt vector.
 			 *
-			 *  \see ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
+			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 */
 			#define ENDPOINT_INT_OUT                      UEIENX, (1 << RXOUTE), UEINTX, (1 << RXOUTI)
 			
@@ -200,7 +200,7 @@
 				static inline uint8_t Endpoint_GetCurrentEndpoint(void);
 				
 				/** Selects the given endpoint number. If the address from the device descriptors is used, the
-				 *  value should be masked with the ENDPOINT_EPNUM_MASK constant to extract only the endpoint
+				 *  value should be masked with the \ref ENDPOINT_EPNUM_MASK constant to extract only the endpoint
 				 *  number (and discarding the endpoint direction bit).
 				 *
 				 *  Any endpoint operations which do not require the endpoint number to be indicated will operate on
@@ -220,8 +220,7 @@
 				/** Enables the currently selected endpoint so that data can be sent and received through it to
 				 *  and from a host.
 				 *
-				 *  \note Endpoints must first be configured properly rather than just being enabled via the
-				 *        Endpoint_ConfigureEndpoint() macro, which calls Endpoint_EnableEndpoint() automatically.
+				 *  \note Endpoints must first be configured properly via \ref Endpoint_ConfigureEndpoint().
 				 */
 				static inline void Endpoint_EnableEndpoint(void);
 
@@ -330,7 +329,7 @@
 				 *  way for devices to indicate invalid commands to the host so that the current transfer can be
 				 *  aborted and the host can begin its own recovery sequence.
 				 *
-				 *  The currently selected endpoint remains stalled until either the Endpoint_ClearStall() macro
+				 *  The currently selected endpoint remains stalled until either the \ref Endpoint_ClearStall() macro
 				 *  is called, or the host issues a CLEAR FEATURE request to the device for the currently selected
 				 *  endpoint.
 				 *
@@ -415,7 +414,7 @@
 			#endif
 
 		/* Enums: */
-			/** Enum for the possible error return codes of the Endpoint_WaitUntilReady function.
+			/** Enum for the possible error return codes of the \ref Endpoint_WaitUntilReady() function.
 			 *
 			 *  \ingroup Group_EndpointRW
 			 */
@@ -430,7 +429,7 @@
 				                                                 */	
 				ENDPOINT_READYWAIT_Timeout                 = 3, /**< The host failed to accept or send the next packet
 				                                                 *   within the software timeout period set by the
-				                                                 *   USB_STREAM_TIMEOUT_MS macro.
+				                                                 *   \ref USB_STREAM_TIMEOUT_MS macro.
 				                                                 */
 			};
 		
@@ -449,7 +448,7 @@
 				                                                 */
 				ENDPOINT_RWSTREAM_ERROR_Timeout            = 2, /**< The host failed to accept or send the next packet
 				                                                 *   within the software timeout period set by the
-				                                                 *   USB_STREAM_TIMEOUT_MS macro.
+				                                                 *   \ref USB_STREAM_TIMEOUT_MS macro.
 				                                                 */
 				ENDPOINT_RWSTREAM_ERROR_CallbackAborted    = 3, /**< Indicates that the stream's callback function
 			                                                     *   aborted the transfer early.
@@ -703,15 +702,15 @@
 			 *  device (i.e. endpoint 1 should be configured before endpoint 2 and so on).
 			 *
 			 *  The endpoint type may be one of the EP_TYPE_* macros listed in LowLevel.h and the direction
-			 *  may be either ENDPOINT_DIR_OUT or ENDPOINT_DIR_IN.
+			 *  may be either \ref ENDPOINT_DIR_OUT or \ref ENDPOINT_DIR_IN.
 			 *
 			 *  The bank size must indicate the maximum packet size that the endpoint can handle. Different
 			 *  endpoint numbers can handle different maximum packet sizes - refer to the chosen USB AVR's
 			 *  datasheet to determine the maximum bank size for each endpoint.
 			 *
-			 *  The banking mode may be either ENDPOINT_BANK_SINGLE or ENDPOINT_BANK_DOUBLE.
+			 *  The banking mode may be either \ref ENDPOINT_BANK_SINGLE or \ref ENDPOINT_BANK_DOUBLE.
 			 *
-			 *  The success of this routine can be determined via the Endpoint_IsConfigured() macro.
+			 *  The success of this routine can be determined via the \ref Endpoint_IsConfigured() macro.
 			 *
 			 *  By default, the routine is entirely dynamic, and will accept both constant and variable inputs.
 			 *  If dynamic configuration is unused, a small space savings can be made by defining the
@@ -733,18 +732,18 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \return A value from the Endpoint_WaitUntilReady_ErrorCodes_t enum.
+			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_WaitUntilReady(void);
 
 			/** Reads and discards the given number of bytes from the endpoint from the given buffer,
 			 *  discarding fully read packets from the host as needed. The last packet is not automatically
 			 *  discarded once the remaining bytes has been read; the user is responsible for manually
-			 *  discarding the last packet from the host via the Endpoint_ClearOUT() macro. Between
+			 *  discarding the last packet from the host via the \ref Endpoint_ClearOUT() macro. Between
 			 *  each USB packet, the given stream callback function is executed repeatedly until the next
 			 *  packet is ready, allowing for early aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
+			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
 			 *  and this function has the Callback parameter omitted.
 			 *
@@ -755,7 +754,7 @@
 			 *  \param Length    Number of bytes to send via the currently selected endpoint.
 			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
-			 *  \return A value from the Endpoint_Stream_RW_ErrorCodes_t enum.
+			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Discard_Stream(uint16_t Length
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
@@ -766,11 +765,11 @@
 			/** Writes the given number of bytes to the endpoint from the given buffer in little endian,
 			 *  sending full packets to the host as needed. The last packet filled is not automatically sent;
 			 *  the user is responsible for manually sending the last written packet to the host via the
-			 *  Endpoint_ClearIN() macro. Between each USB packet, the given stream callback function
+			 *  \ref Endpoint_ClearIN() macro. Between each USB packet, the given stream callback function
 			 *  is executed repeatedly until the endpoint is ready to accept the next packet, allowing for early
 			 *  aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
+			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
 			 *  and this function has the Callback parameter omitted.
 			 *
@@ -782,7 +781,7 @@
 			 *  \param Length    Number of bytes to read for the currently selected endpoint into the buffer.
 			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
-			 *  \return A value from the Endpoint_Stream_RW_ErrorCodes_t enum.
+			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Write_Stream_LE(const void* Buffer, uint16_t Length
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
@@ -793,11 +792,11 @@
 			/** Writes the given number of bytes to the endpoint from the given buffer in big endian,
 			 *  sending full packets to the host as needed. The last packet filled is not automatically sent;
 			 *  the user is responsible for manually sending the last written packet to the host via the
-			 *  Endpoint_ClearIN() macro. Between each USB packet, the given stream callback function
+			 *  \ref Endpoint_ClearIN() macro. Between each USB packet, the given stream callback function
 			 *  is executed repeatedly until the endpoint is ready to accept the next packet, allowing for early
 			 *  aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
+			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
 			 *  and this function has the Callback parameter omitted.
 			 *
@@ -809,7 +808,7 @@
 			 *  \param Length    Number of bytes to read for the currently selected endpoint into the buffer.
 			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
-			 *  \return A value from the Endpoint_Stream_RW_ErrorCodes_t enum.
+			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Write_Stream_BE(const void* Buffer, uint16_t Length
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
@@ -820,11 +819,11 @@
 			/** Reads the given number of bytes from the endpoint from the given buffer in little endian,
 			 *  discarding fully read packets from the host as needed. The last packet is not automatically
 			 *  discarded once the remaining bytes has been read; the user is responsible for manually
-			 *  discarding the last packet from the host via the Endpoint_ClearOUT() macro. Between
+			 *  discarding the last packet from the host via the \ref Endpoint_ClearOUT() macro. Between
 			 *  each USB packet, the given stream callback function is executed repeatedly until the endpoint
 			 *  is ready to accept the next packet, allowing for early aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
+			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
 			 *  and this function has the Callback parameter omitted.
 			 *
@@ -836,7 +835,7 @@
 			 *  \param Length    Number of bytes to send via the currently selected endpoint.
 			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
-			 *  \return A value from the Endpoint_Stream_RW_ErrorCodes_t enum.
+			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
@@ -847,11 +846,11 @@
 			/** Reads the given number of bytes from the endpoint from the given buffer in big endian,
 			 *  discarding fully read packets from the host as needed. The last packet is not automatically
 			 *  discarded once the remaining bytes has been read; the user is responsible for manually
-			 *  discarding the last packet from the host via the Endpoint_ClearOUT() macro. Between
+			 *  discarding the last packet from the host via the \ref Endpoint_ClearOUT() macro. Between
 			 *  each USB packet, the given stream callback function is executed repeatedly until the endpoint
 			 *  is ready to accept the next packet, allowing for early aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the STREAM_CALLBACK() macro. If the token
+			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
 			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
 			 *  and this function has the Callback parameter omitted.
 			 *
@@ -863,7 +862,7 @@
 			 *  \param Length    Number of bytes to send via the currently selected endpoint.
 			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
-			 *  \return A value from the Endpoint_Stream_RW_ErrorCodes_t enum.
+			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
@@ -874,7 +873,7 @@
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in little endian,
 			 *  sending full packets to the host as needed. The host OUT acknowledgement is not automatically cleared
 			 *  in both failure and success states; the user is responsible for manually clearing the setup OUT to
-			 *  finalize the transfer via the Endpoint_ClearOUT() macro.
+			 *  finalize the transfer via the \ref Endpoint_ClearOUT() macro.
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -886,14 +885,14 @@
 			 *  \param Buffer  Pointer to the source data buffer to read from.
 			 *  \param Length  Number of bytes to read for the currently selected endpoint into the buffer.
 			 *
-			 *  \return A value from the Endpoint_ControlStream_RW_ErrorCodes_t enum.
+			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in big endian,
 			 *  sending full packets to the host as needed. The host OUT acknowledgement is not automatically cleared
 			 *  in both failure and success states; the user is responsible for manually clearing the setup OUT to
-			 *  finalize the transfer via the Endpoint_ClearOUT() macro.
+			 *  finalize the transfer via the \ref Endpoint_ClearOUT() macro.
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -905,14 +904,14 @@
 			 *  \param Buffer  Pointer to the source data buffer to read from.
 			 *  \param Length  Number of bytes to read for the currently selected endpoint into the buffer.
 			 *
-			 *  \return A value from the Endpoint_ControlStream_RW_ErrorCodes_t enum.
+			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in little endian,
 			 *  discarding fully read packets from the host as needed. The device IN acknowledgement is not
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
-			 *  setup IN to finalize the transfer via the Endpoint_ClearIN() macro.
+			 *  setup IN to finalize the transfer via the \ref Endpoint_ClearIN() macro.
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -924,14 +923,14 @@
 			 *  \param Buffer  Pointer to the destination data buffer to write to.
 			 *  \param Length  Number of bytes to send via the currently selected endpoint.
 			 *
-			 *  \return A value from the Endpoint_ControlStream_RW_ErrorCodes_t enum.
+			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in big endian,
 			 *  discarding fully read packets from the host as needed. The device IN acknowledgement is not
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
-			 *  setup IN to finalize the transfer via the Endpoint_ClearIN() macro.
+			 *  setup IN to finalize the transfer via the \ref Endpoint_ClearIN() macro.
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -943,7 +942,7 @@
 			 *  \param Buffer  Pointer to the destination data buffer to write to.
 			 *  \param Length  Number of bytes to send via the currently selected endpoint.
 			 *
-			 *  \return A value from the Endpoint_ControlStream_RW_ErrorCodes_t enum.
+			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);		
 			

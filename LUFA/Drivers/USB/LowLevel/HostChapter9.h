@@ -46,7 +46,7 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Enums: */
-			/** Enum for the USB_Host_SendControlRequest() return code, indicating the reason for the error
+			/** Enum for the \ref USB_Host_SendControlRequest() return code, indicating the reason for the error
 			 *  if the transfer of the request is unsuccessful.
 			 *
 			 *  \ingroup Group_PipeControlReq
@@ -65,7 +65,7 @@
 			};
 			
 		/* Function Prototypes: */
-			/** Sends the request stored in the USB_ControlRequest global structure to the attached device,
+			/** Sends the request stored in the \ref USB_ControlRequest global structure to the attached device,
 			 *  and transfers the data stored in the buffer to the device, or from the device to the buffer
 			 *  as requested. The transfer is made on the currently selected pipe.
 			 *
@@ -74,7 +74,7 @@
 			 *  \param BufferPtr  Pointer to the start of the data buffer if the request has a data stage, or
 			 *                    NULL if the request transfers no data to or from the device.
 			 *
-			 *  \return A value from the USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
 			uint8_t USB_Host_SendControlRequest(void* BufferPtr);
 			

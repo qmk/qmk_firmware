@@ -207,7 +207,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(LineCodingData, sizeof(CDC_Line_Coding_t));
+				Endpoint_Write_Control_Stream_LE(LineCodingData, sizeof(CDC_Line_Coding_t), Endpoint_MemSpaceCallback_RAM);
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
@@ -304,7 +304,7 @@ TASK(CDC1_Task)
 		Endpoint_SelectEndpoint(CDC1_TX_EPNUM);
 
 		/* Write the String to the Endpoint */
-		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString));
+		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString), Endpoint_MemSpaceCallback_RAM);
 		
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
@@ -351,7 +351,7 @@ TASK(CDC2_Task)
 		Endpoint_SelectEndpoint(CDC2_TX_EPNUM);
 		
 		/* Write the received data to the endpoint */
-		Endpoint_Write_Stream_LE(&Buffer, DataLength);
+		Endpoint_Write_Stream_LE(&Buffer, DataLength, Endpoint_MemSpaceCallback_RAM);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();

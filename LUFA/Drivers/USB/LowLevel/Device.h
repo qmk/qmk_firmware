@@ -51,7 +51,7 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER) || defined(__DOXYGEN__)
-				/** Mask for the Options parameter of the USB_Init() function. This indicates that the
+				/** Mask for the Options parameter of the \ref USB_Init() function. This indicates that the
 				 *  USB interface should be initialized in low speed (1.5Mb/s) mode.
 				 *
 				 *  \note Low Speed mode is not available on all USB AVR models.
@@ -78,7 +78,7 @@
 				 *  \note This macro should only be used if the device has indicated to the host that it
 				 *        supports the Remote Wakeup feature in the device descriptors, and should only be
 				 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
-				 *        the USB_RemoteWakeupEnabled flag is set, see DevChapter9.h documentation).
+				 *        the \ref USB_RemoteWakeupEnabled flag is set).
 				 *
 				 *  \see StdDescriptors.h for more information on the RMWAKEUP feature and device descriptors.
 				 */
@@ -87,7 +87,7 @@
 				/** Indicates if a Remote Wakeup request is being sent to the host. This returns true if a
 				 *  remote wakeup is currently being sent, false otherwise.
 				 *
-				 *  This can be used in conjunction with the USB_Device_IsUSBSuspended() macro to determine if
+				 *  This can be used in conjunction with the \ref USB_Device_IsUSBSuspended() macro to determine if
 				 *  a sent RMWAKEUP request was accepted or rejected by the host.
 				 *
 				 *  \note This macro should only be used if the device has indicated to the host that it
@@ -99,9 +99,9 @@
 				 */
 				static inline bool USB_Device_IsRemoteWakeupSent(void);
 				
-				/** Indicates if the device is currently suspended by the host. While suspended, the device is
-				 *  to enter a low power state until resumed by the host. While suspended no USB traffic to or
-				 *  from the device can occur (except for Remote Wakeup requests).
+				/** Indicates if the device is currently suspended by the host. Whilst suspended, the device is
+				 *  to enter a low power state until resumed by the host. No USB traffic to or from the device
+				 *  can occur (except for Remote Wakeup requests) during suspension by the host.
 				 *
 				 *  \return Boolean true if the USB communications have been suspended by the host, false otherwise.
 				 */
@@ -115,17 +115,17 @@
 			#endif
 
 		/* Enums: */
-			/** Enum for the ErrorCode parameter of the USB_DeviceError event.
+			/** Enum for the ErrorCode parameter of the \ref USB_DeviceError event.
 			 *
 			 *  \see Events.h for more information on this event.
 			 */
 			enum USB_Device_ErrorCodes_t
 			{
-				DEVICE_ERROR_GetDescriptorNotHooked        = 0, /**< Indicates that the GetDescriptor() method
+				DEVICE_ERROR_GetDescriptorNotHooked        = 0, /**< Indicates that the \ref USB_GetDescriptor() method
 				                                                 *   has not been hooked by the user application.
 				                                                 *
 				                                                 *   \see StdDescriptors.h for more information on
-				                                                 *        the GetDescriptor() method.
+				                                                 *        the \ref USB_GetDescriptor() method.
 				                                                 */
 			};
 

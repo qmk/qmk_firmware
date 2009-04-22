@@ -102,18 +102,18 @@
 		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Mode mask for the USB_CurrentMode global. This indicates that the USB interface is currently not
+			/** Mode mask for the \ref USB_CurrentMode global. This indicates that the USB interface is currently not
 			 *  initialized into any mode.
 			 */
 			#define USB_MODE_NONE                      0
 
-			/** Mode mask for the USB_CurrentMode global and the USB_Init() function. This indicates that the
+			/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the
 			 *  USB interface is or should be initialized in the USB device mode.
 			 */
 			#define USB_MODE_DEVICE                    1
 
 			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
-				/** Mode mask for the USB_CurrentMode global and the USB_Init() function. This indicates that the
+				/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the
 				 *  USB interface is or should be initialized in the USB host mode.
 				 *
 				 *  \note This token is not available on AVR models which do not support host mode.
@@ -122,7 +122,7 @@
 			#endif
 			
 			#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
-				/** Mode mask for the the USB_Init() function. This indicates that the USB interface should be
+				/** Mode mask for the the \ref USB_Init() function. This indicates that the USB interface should be
 				 *  initialized into whatever mode the UID pin of the USB AVR indicates, and that the device
 				 *  should swap over its mode when the level of the UID pin changes during operation.
 				 *
@@ -131,27 +131,27 @@
 				#define USB_MODE_UID                       3
 			#endif
 			
-			/** Regulator disable option mask for USB_Init(). This indicates that the internal 3.3V USB data pad
+			/** Regulator disable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
 			 *  regulator should be enabled to regulate the data pin voltages to within the USB standard.
 			 *
 			 *  \note See USB AVR data sheet for more information on the internal pad regulator.
 			 */
 			#define USB_OPT_REG_DISABLED               (1 << 1)
 
-			/** Regulator enable option mask for USB_Init(). This indicates that the internal 3.3V USB data pad
+			/** Regulator enable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
 			 *  regulator should be disabled and the AVR's VCC level used for the data pads.
 			 *
 			 *  \note See USB AVR data sheet for more information on the internal pad regulator.
 			 */
 			#define USB_OPT_REG_ENABLED                (0 << 1)
 			
-			/** Manual PLL control option mask for USB_Init(). This indicates to the library that the user application
+			/** Manual PLL control option mask for \ref USB_Init(). This indicates to the library that the user application
 			 *  will take full responsibility for controlling the AVR's PLL (used to generate the high frequency clock
 			 *  that the USB controller requires) and ensuring that it is locked at the correct frequency for USB operations.
 			 */
 			#define USB_OPT_MANUAL_PLL                 (1 << 2)
 
-			/** Automatic PLL control option mask for USB_Init(). This indicates to the library that the library should
+			/** Automatic PLL control option mask for \ref USB_Init(). This indicates to the library that the library should
 			 *  take full responsibility for controlling the AVR's PLL (used to generate the high frequency clock
 			 *  that the USB controller requires) and ensuring that it is locked at the correct frequency for USB operations.
 			 */
@@ -192,7 +192,7 @@
 
 			/** Detaches the device from the USB bus. This has the effect of removing the device from any
 			 *  host if, ceasing USB communications. If no host is present, this prevents any host from
-			 *  enumerating the device once attached until USB_Attach() is called.
+			 *  enumerating the device once attached until \ref USB_Attach() is called.
 			 */
 			#define USB_Detach()                    MACROS{ UDCON  |=  (1 << DETACH);  }MACROE
 
@@ -212,7 +212,7 @@
 				 *  is not received or acknowledged within this time period, the stream function will fail.
 				 *
 				 *  This value may be overridden in the user project makefile as the value of the 
-				 *  USB_STREAM_TIMEOUT_MS token, and passed to the compiler using the -D switch.
+				 *  \ref USB_STREAM_TIMEOUT_MS token, and passed to the compiler using the -D switch.
 				 */
 				#define USB_STREAM_TIMEOUT_MS       100
 			#endif
@@ -229,7 +229,7 @@
 			 *  interface reset and re-enumeration.
 			 *
 			 *  \param Mode     This is a mask indicating what mode the USB interface is to be initialized to.
-			 *                  Valid mode masks are USB_MODE_DEVICE, USB_MODE_HOST or USB_MODE_UID.
+			 *                  Valid mode masks are \ref USB_MODE_DEVICE, \ref USB_MODE_HOST or \ref USB_MODE_UID.
 			 *
 			 *  \param Options  Mask indicating the options which should be used when initializing the USB
 			 *                  interface to control the USB interface's behaviour. This should be comprised of
@@ -272,7 +272,7 @@
 			
 			/** Shuts down the USB interface. This turns off the USB interface after deallocating all USB FIFO
 			 *  memory, endpoints and pipes. When turned off, no USB functionality can be used until the interface
-			 *  is restarted with the USB_Init() function.
+			 *  is restarted with the \ref USB_Init() function.
 			 */
 			void USB_ShutDown(void);
 
@@ -283,11 +283,11 @@
 
 		/* Enums: */
 			/** Enum for error codes relating to the powering on of the USB interface. These error codes are
-			 *  used in the ErrorCode parameter value of the USB_PowerOnFail event.
+			 *  used in the ErrorCode parameter value of the \ref USB_PowerOnFail event.
 			 */
 			enum USB_PowerOnErrorCodes_t
 			{
-				POWERON_ERROR_NoUSBModeSpecified       = 0, /**< Indicates that USB_Init() was called with an
+				POWERON_ERROR_NoUSBModeSpecified       = 0, /**< Indicates that \ref USB_Init() was called with an
 			                                                 *   invalid or missing Mode parameter.
 			                                                 */
 			};
@@ -305,7 +305,7 @@
 			
 			#if !defined(USE_STATIC_OPTIONS) || defined(__DOXYGEN__)
 				extern volatile uint8_t USB_Options;
-				/** Indicates the current USB options that the USB interface was initialized with when USB_Init()
+				/** Indicates the current USB options that the USB interface was initialized with when \ref USB_Init()
 				 *  was called. This value will be one of the USB_MODE_* masks defined elsewhere in this module.
 				 *
 				 *  \note This variable should be treated as read-only in the user application, and never manually
@@ -314,7 +314,7 @@
 			#endif
 
 		/* Throwable Events: */
-			/** This module raises the USB_Disconnect event if the USB interface is reset (such as during a mode
+			/** This module raises the \ref USB_Disconnect event if the USB interface is reset (such as during a mode
 			 *  change while in UID mode) while the USB interface is connected to a device when in host mode, or
 			 *  a host while in device mode.
 			 *

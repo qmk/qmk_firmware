@@ -175,10 +175,10 @@
 			/** Moves the cursor to the left the given number of columns. */
 			#define ESC_CURSOR_BACKWARD(C)   ANSI_ESCAPE_SEQUENCE(#C "D")
 
-			/** Saves the current cursor position so that it may be restored with ESC_CURSOR_POS_RESTORE. */
+			/** Saves the current cursor position so that it may be restored with \ref ESC_CURSOR_POS_RESTORE. */
 			#define ESC_CURSOR_POS_SAVE      ANSI_ESCAPE_SEQUENCE("s")
 
-			/** Restores the cursor position to the last position saved with ESC_CURSOR_POS_SAVE. */
+			/** Restores the cursor position to the last position saved with \ref ESC_CURSOR_POS_SAVE. */
 			#define ESC_CURSOR_POS_RESTORE   ANSI_ESCAPE_SEQUENCE("u")
 			
 			/** Erases the entire display, returning the cursor to the top left. */

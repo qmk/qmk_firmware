@@ -120,7 +120,7 @@
 				static inline void ADC_Init(uint8_t Mode);
 				
 				/** Turns off the ADC. If this is called, any further ADC operations will require a call to
-				 *  ADC_Init() before the ADC can be used again.
+				 *  \ref ADC_Init() before the ADC can be used again.
 				 */
 				static inline void ADC_Off(void);
 				
@@ -133,7 +133,7 @@
 				/** Indicates if the current ADC conversion is completed, or still in progress.
 				 *
 				 *  \return Boolean false if the reading is still taking place, or true if the conversion is
-				 *          complete and ready to be read out with ADC_GetResult()
+				 *          complete and ready to be read out with \ref ADC_GetResult()
 				 */
 				static inline bool ADC_IsReadingComplete(void);
 				
@@ -168,8 +168,8 @@
 			}
 			
 			/** Starts the reading of the given channel, but does not wait until the conversion has completed.
-			 *  Once executed, the conversion status can be determined via the ADC_IsReadingComplete() macro and
-			 *  the result read via the ADC_GetResult() macro.
+			 *  Once executed, the conversion status can be determined via the \ref ADC_IsReadingComplete() macro and
+			 *  the result read via the \ref ADC_GetResult() macro.
 			 *
 			 *  \param MUXMask  Mask comprising of an ADC channel number, reference mask and adjustment mask
 			 */

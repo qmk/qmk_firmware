@@ -220,5 +220,197 @@
  *    </td>
  *   </tr>
  *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2060
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2061
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2062
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2063
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2064
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2065
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2066
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2067
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2068
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x2069
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x206A
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x206B
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x206C
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x206D
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x206E
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
+ *   <tr>
+ *    <td>
+ *     0x03EB
+ *    </td>
+ *    <td>
+ *     0x206F
+ *    </td>
+ *    <td>
+ *     <i>Currently Unallocated</i>
+ *    </td>
+ *   </tr>
+ *
  *  </table>
  */

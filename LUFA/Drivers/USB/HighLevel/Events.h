@@ -36,7 +36,7 @@
  *  multiple places in the user or library code, which may or may not be inside an ISR, thus each handler
  *  should be written to be as small and fast as possible to prevent possible problems.
  *
- *  Events can be hooked by the user application using the EVENT_HANDLER() and HANDLES_EVENT() macros. If an
+ *  Events can be hooked by the user application using the \ref EVENT_HANDLER() and \ref HANDLES_EVENT() macros. If an
  *  event with no associated handler is fired within the library, it by default fires an internal empty stub
  *  function. This is achieved through the use of the GCC compiler's "alias" attribute.
  *
@@ -82,7 +82,7 @@
 
 			/** Indicates that a given module can raise a given event. This is the equivalent of putting the
 			 *  event function's prototype into the module, but in a cleaner way. Each event which may be
-			 *  fired via the RAISE_EVENT macro in the module should have an accompanying RAISES_EVENT
+			 *  fired via the \ref RAISE_EVENT macro in the module should have an accompanying \ref RAISES_EVENT
 			 *  prototype in the module's header file.
 			 *
 			 *  Usage Examples:
@@ -122,7 +122,7 @@
 			
 			/** Indicates that a given module handles an event. This is the equivalent of putting the
 			 *  event function's prototype into the module, but in a cleaner way. Each event which may be
-			 *  handled via the EVENT_HANDLER macro in the module should have an accompanying HANDLES_EVENT
+			 *  handled via the \ref EVENT_HANDLER macro in the module should have an accompanying \ref HANDLES_EVENT
 			 *  prototype in the module's header file.
 			 *
 			 *  Usage Examples:
@@ -178,7 +178,7 @@
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
-			 *        and disconnection events may be manually fired by RAISE_EVENT(), and the USB_IsConnected global changed manually.
+			 *        and disconnection events may be manually fired by \ref RAISE_EVENT(), and the \ref USB_IsConnected global changed manually.
 			 *
 			 *  \see USBTask.h for more information on the USB management task and reducing CPU usage.
 			 */
@@ -196,7 +196,7 @@
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
-			 *        and disconnection events may be manually fired by RAISE_EVENT(), and the USB_IsConnected global changed manually.
+			 *        and disconnection events may be manually fired by \ref RAISE_EVENT(), and the \ref USB_IsConnected global changed manually.
 			 *
 			 *  \see USBTask.h for more information on the USB management task and reducing CPU usage.
 			 */
@@ -205,7 +205,7 @@
 			/** Event for USB device power on failure. This event fires when the USB interface fails to
 			 *  initialize correctly due to a hardware or software fault.
 			 *
-			 *  \param ErrorCode  Error code indicating the failure reason, a value in USB_PowerOnErrorCodes_t
+			 *  \param ErrorCode  Error code indicating the failure reason, a value in \ref USB_PowerOnErrorCodes_t
 			 *                    located in LowLevel.h.
 			 */
 			void USB_PowerOnFail(const uint8_t ErrorCode);
@@ -224,7 +224,7 @@
 			/** Event for USB host error. This event fires when a hardware fault has occurred whilst the USB
 			 *  interface is in host mode.
 			 *
-			 *  \param ErrorCode  Error code indicating the failure reason, a value in USB_Host_ErrorCodes_t
+			 *  \param ErrorCode  Error code indicating the failure reason, a value in \ref USB_Host_ErrorCodes_t
 			 *                    located in Host.h.
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
@@ -236,7 +236,7 @@
 			
 			/** Event for USB device attachment. This event fires when a the USB interface is in host mode, and
 			 *  a USB device has been connected to the USB interface. This is interrupt driven, thus fires before
-			 *  the standard USB_DeviceConnect event and so can be used to programmatically start the USB management
+			 *  the standard \ref USB_Connect event and so can be used to programmatically start the USB management
 			 *  task to reduce CPU consumption.
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
@@ -291,19 +291,13 @@
 			 *  issued to the device which must be handled appropriately. Due to the strict timing requirements
 			 *  on control transfers, interrupts are disabled during control request processing.
 			 *
-			 *  \param bRequest       Request value, indicating what command the host has issued.
-			 *  \param bmRequestType  Mask indicating the request data direction (if any), type and recipient.
-			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        LowLevel.h documentation).
 			 *
 			 *  \note Requests should be handled in the same manner as described in the USB 2.0 Specification,
-			 *        or appropriate class' specification. In all instances, the library has already read the
-			 *        request bmRequestType and bRequest values out (into the Request and RequestType parameters
-			 *        respectively) so that it can correctly determine if it is able to handle the request
-			 *        internally, or hand off the request to the user application via this event. Other request
-			 *        parameters (wValue, wIndex, wLength, and Data) remain in the control endpoint bank until
-			 *        read out by the user application for processing.
+			 *        or appropriate class specification. In all instances, the library has already read the
+			 *        request SETUP parameters into the \ref USB_ControlRequest structure which should then be used
+			 *        by the application to determine how to handle the issued request.
 			 */
 			void USB_UnhandledControlPacket(void);
 
@@ -311,7 +305,7 @@
 			 *  selected configuration number while in device mode. This event should be hooked in device
 			 *  applications to create the endpoints and configure the device for the selected configuration.
 			 *
-			 *  This event fires after the value of USB_ConfigurationNumber has been changed.
+			 *  This event fires after the value of \ref USB_ConfigurationNumber has been changed.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        LowLevel.h documentation).
@@ -325,7 +319,7 @@
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        LowLevel.h documentation).
 			 *
-			 *  \see USB_WakeUp() event for accompanying Wake Up event.
+			 *  \see \ref USB_WakeUp() event for accompanying Wake Up event.
 			 */
 			void USB_Suspend(void);
 
@@ -337,7 +331,7 @@
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        LowLevel.h documentation).
 			 *
-			 *  \see USB_Suspend() event for accompanying Suspend event.
+			 *  \see \ref USB_Suspend() event for accompanying Suspend event.
 			 */
 			void USB_WakeUp(void);
 
@@ -356,7 +350,7 @@
 			 *  and an error occurs which prevents it from operating normally.
 			 *
 			 *  \param ErrorCode  Error code indicating the source of the error. One of the values in the
-			 *                    USB_Device_ErrorCodes_t enum located in Device.h.
+			 *                    \ref USB_Device_ErrorCodes_t enum located in Device.h.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        LowLevel.h documentation).

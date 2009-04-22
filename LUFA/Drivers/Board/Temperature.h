@@ -76,10 +76,10 @@
 			/** ADC channel number for the temperature sensor. */
 			#define TEMP_ADC_CHANNEL   0
 			
-			/** Minimum returnable temperature from the Temperature_GetTemperature() function. */
+			/** Minimum returnable temperature from the \ref Temperature_GetTemperature() function. */
 			#define TEMP_MIN_TEMP      TEMP_TABLE_OFFSET
 
-			/** Maximum returnable temperature from the Temperature_GetTemperature() function. */
+			/** Maximum returnable temperature from the \ref Temperature_GetTemperature() function. */
 			#define TEMP_MAX_TEMP      ((TEMP_TABLE_SIZE - 1) + TEMP_TABLE_OFFSET)
 		
 		/* Pseudo-Function Macros: */
@@ -97,7 +97,7 @@
 
 		/* Function Prototypes: */
 			/** Performs a complete ADC on the temperature sensor channel, and converts the result into a
-			 *  valid temperature between TEMP_MIN_TEMP and TEMP_MAX_TEMP in degrees Celsius.
+			 *  valid temperature between \ref TEMP_MIN_TEMP and \ref TEMP_MAX_TEMP in degrees Celsius.
 			 *
 			 *  \return Signed temperature in degrees Celsius
 			 */

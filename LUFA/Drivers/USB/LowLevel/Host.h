@@ -68,7 +68,7 @@
 				 *  library will return a timeout error code.
 				 *
 				 *  This value may be overridden in the user project makefile as the value of the 
-				 *  USB_HOST_TIMEOUT_MS token, and passed to the compiler using the -D switch.
+				 *  \ref USB_HOST_TIMEOUT_MS token, and passed to the compiler using the -D switch.
 				 */
 				#define USB_HOST_TIMEOUT_MS                1000
 			#endif
@@ -95,7 +95,7 @@
 				 */
 				static inline void USB_Host_ResetBus(void);
 
-				/** Determines if a previously issued bus reset (via the USB_Host_ResetBus() macro) has
+				/** Determines if a previously issued bus reset (via the \ref USB_Host_ResetBus() macro) has
 				 *  completed.
 				 *
 				 *  \return Boolean true if no bus reset is currently being sent, false otherwise.
@@ -114,7 +114,7 @@
 				 */
 				static inline void USB_Host_SuspendBus(void);
 				
-				/** Determines if the USB bus has been suspended via the use of the USB_Host_SuspendBus() macro,
+				/** Determines if the USB bus has been suspended via the use of the \ref USB_Host_SuspendBus() macro,
 				 *  false otherwise. While suspended, no USB communications can occur until the bus is resumed,
 				 *  except for the Remote Wakeup event from the device if supported.
 				 *
@@ -200,28 +200,28 @@
 				HOST_STATE_Suspended                    = 13, /**< May be implemented by the user project. */
 			};
 			
-			/** Enum for the error codes for the USB_HostError event.
+			/** Enum for the error codes for the \ref USB_HostError event.
 			 *
 			 *  \see Events.h for more information on this event.
 			 */
 			enum USB_Host_ErrorCodes_t
 			{
 				HOST_ERROR_VBusVoltageDip       = 0, /**< VBUS voltage dipped to an unacceptable level. This
-				                                      *  error may be the result of an attached device drawing
+				                                      *   error may be the result of an attached device drawing
 				                                      *   too much current from the VBUS line, or due to the
 				                                      *   AVR's power source being unable to supply sufficient
 				                                      *   current.
 				                                      */
 			};
 			
-			/** Enum for the error codes for the USB_DeviceEnumerationFailed event.
+			/** Enum for the error codes for the \ref USB_DeviceEnumerationFailed event.
 			 *
 			 *  \see Events.h for more information on this event.
 			 */
 			enum USB_Host_EnumerationErrorCodes_t
 			{
 				HOST_ENUMERROR_NoError          = 0, /**< No error occurred. Used internally, this is not a valid
-				                                      *   ErrorCode parameter value for the USB_DeviceEnumerationFailed
+				                                      *   ErrorCode parameter value for the \ref USB_DeviceEnumerationFailed
 				                                      *   event.
 				                                      */
 				HOST_ENUMERROR_WaitStage        = 1, /**< One of the delays between enumeration steps failed

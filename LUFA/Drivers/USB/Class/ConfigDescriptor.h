@@ -118,7 +118,7 @@
 			 *  for certain descriptors matching unique criteria.
 			 *
 			 *  Comparator routines are passed in a single pointer named CurrentDescriptor, and should return a value
-			 *  of a member of the DSearch_Return_ErrorCodes_t enum.
+			 *  of a member of the \ref DSearch_Return_ErrorCodes_t enum.
 			 */
 			#define DESCRIPTOR_COMPARATOR(name)           uint8_t DCOMP_##name (void* const CurrentDescriptor)
 
@@ -137,7 +137,7 @@
 				 *  \param CurrConfigLoc  Pointer to the current position in the configuration descriptor
 				 *  \param ComparatorRoutine  Name of the comparator search function to use on the configuration descriptor
 				 *
-				 *  \return Value of one of the members of the DSearch_Comp_Return_ErrorCodes_t enum
+				 *  \return Value of one of the members of the \ref DSearch_Comp_Return_ErrorCodes_t enum
 				 *
 				 *  Usage Example:
 				 *  \code
@@ -166,7 +166,7 @@
 			#endif
 			
 		/* Enums: */
-			/** Enum for return values of a descriptor comparator made with DESCRIPTOR_COMPARATOR. */
+			/** Enum for return values of a descriptor comparator made with \ref DESCRIPTOR_COMPARATOR. */
 			enum DSearch_Return_ErrorCodes_t
 			{
 				DESCRIPTOR_SEARCH_Found                = 0, /**< Current descriptor matches comparator criteria. */
@@ -174,7 +174,7 @@
 				DESCRIPTOR_SEARCH_NotFound             = 2, /**< Current descriptor does not match comparator criteria. */
 			};
 
-			/** Enum for return values of USB_GetNextDescriptorComp(). */
+			/** Enum for return values of \ref USB_GetNextDescriptorComp(). */
 			enum DSearch_Comp_Return_ErrorCodes_t
 			{
 				DESCRIPTOR_SEARCH_COMP_Found           = 0, /**< Configuration descriptor now points to descriptor which matches

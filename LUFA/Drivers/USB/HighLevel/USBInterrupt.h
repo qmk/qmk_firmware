@@ -70,7 +70,7 @@
 
 			/** Disables the given USB interrupt vector.
 			 *
-			 *  \see USB_INT_Enable()
+			 *  \see \ref USB_INT_Enable()
 			 */
 			#define USB_INT_Disable(int)             MACROS{ USB_INT_GET_EN_REG(int)   &= ~(USB_INT_GET_EN_MASK(int));  }MACROE
 
@@ -96,7 +96,7 @@
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
-			 *        and disconnection events may be manually fired by RAISE_EVENT(), and the USB_IsConnected global changed manually.
+			 *        and disconnection events may be manually fired by \ref RAISE_EVENT(), and the USB_IsConnected global changed manually.
 			 */
 			RAISES_EVENT(USB_Connect);
 
@@ -108,7 +108,7 @@
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
-			 *        and disconnection events may be manually fired by RAISE_EVENT(), and the USB_IsConnected global changed manually.
+			 *        and disconnection events may be manually fired by \ref RAISE_EVENT(), and the USB_IsConnected global changed manually.
 			 */
 			RAISES_EVENT(USB_Disconnect);
 
