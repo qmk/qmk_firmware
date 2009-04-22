@@ -51,7 +51,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	.SubClass               = 0x00,
 	.Protocol               = 0x00,
 				
-	.Endpoint0Size          = 8,
+	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 		
 	.VendorID               = 0x03EB,
 	.ProductID              = 0x2048,

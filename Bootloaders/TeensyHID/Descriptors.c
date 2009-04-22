@@ -71,7 +71,7 @@ USB_Descriptor_Device_t DeviceDescriptor =
 	.SubClass               = 0x00,
 	.Protocol               = 0x00,
 				
-	.Endpoint0Size          = 8,
+	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 		
 	.VendorID               = 0x16C0,
 	.ProductID              = 0x0478,
