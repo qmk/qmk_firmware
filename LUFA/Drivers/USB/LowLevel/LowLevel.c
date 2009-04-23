@@ -162,7 +162,7 @@ void USB_ResetInterface(void)
 	USB_RemoteWakeupEnabled  = false;
 	USB_CurrentlySelfPowered = false;
 	#endif
-		
+	
 	if (!(USB_Options & USB_OPT_MANUAL_PLL))
 	{
 		#if defined(USB_MODIFIED_FULL_CONTROLLER)
@@ -223,7 +223,12 @@ void USB_ResetInterface(void)
 	
 	#if defined(USB_DEVICE_ONLY)	
 	USB_INT_Enable(USB_INT_SUSPEND);
-	USB_INT_Enable(USB_INT_EORSTI);	
+	USB_INT_Enable(USB_INT_EORSTI);
+
+	#if defined(CONTROL_ONLY_DEVICE)
+	UENUM = ENDPOINT_CONTROLEP;
+	#endif
+		
 	#elif defined(USB_HOST_ONLY)
 	USB_Host_HostMode_On();
 	
@@ -240,6 +245,10 @@ void USB_ResetInterface(void)
 	{
 		USB_INT_Enable(USB_INT_SUSPEND);
 		USB_INT_Enable(USB_INT_EORSTI);
+
+		#if defined(CONTROL_ONLY_DEVICE)
+		UENUM = ENDPOINT_CONTROLEP;
+		#endif
 	}
 	else if (USB_CurrentMode == USB_MODE_HOST)
 	{

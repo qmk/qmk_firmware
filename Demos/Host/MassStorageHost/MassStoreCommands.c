@@ -75,7 +75,7 @@ static uint8_t MassStore_SendCommand(void)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_ERROR_NoError;
 
-	/* Each transmission should have a unique tag value, excluding valued 0 and 0xFFFFFFFF */
+	/* Each transmission should have a unique tag value, excluding values 0 and 0xFFFFFFFF */
 	if (++MassStore_Tag == 0xFFFFFFFF)
 	  MassStore_Tag = 1;
 

@@ -46,31 +46,31 @@ void USB_Device_ProcessControlPacket(void)
 	
 	for (uint8_t RequestHeaderByte = 0; RequestHeaderByte < sizeof(USB_Request_Header_t); RequestHeaderByte++)
 	  *(RequestHeader++) = Endpoint_Read_Byte();
+	  
+	uint8_t bmRequestType = USB_ControlRequest.bmRequestType;
 	
 	switch (USB_ControlRequest.bRequest)
 	{
 		case REQ_GetStatus:
-			if ((USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE)) ||
-			    (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_ENDPOINT)))
+			if ((bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE)) ||
+			    (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_ENDPOINT)))
 			{
 				USB_Device_GetStatus();
 				RequestHandled = true;
 			}
 
 			break;
-#if !defined(FEATURELESS_CONTROL_ONLY_DEVICE)
 		case REQ_ClearFeature:
 		case REQ_SetFeature:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT))
+			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT))
 			{
 				USB_Device_ClearSetFeature();
 				RequestHandled = true;
 			}
 
 			break;
-#endif
 		case REQ_SetAddress:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE))
+			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE))
 			{
 				USB_Device_SetAddress();
 				RequestHandled = true;
@@ -78,8 +78,8 @@ void USB_Device_ProcessControlPacket(void)
 
 			break;
 		case REQ_GetDescriptor:
-			if ((USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE)) ||
-			    (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE)))
+			if ((bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE)) ||
+			    (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE)))
 			{
 				USB_Device_GetDescriptor();
 				RequestHandled = true;
@@ -87,7 +87,7 @@ void USB_Device_ProcessControlPacket(void)
 			
 			break;
 		case REQ_GetConfiguration:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE))
+			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE))
 			{
 				USB_Device_GetConfiguration();
 				RequestHandled = true;
@@ -95,7 +95,7 @@ void USB_Device_ProcessControlPacket(void)
 
 			break;
 		case REQ_SetConfiguration:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE))
+			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE))
 			{
 				USB_Device_SetConfiguration();
 				RequestHandled = true;
@@ -124,7 +124,7 @@ static void USB_Device_SetAddress(void)
 	
 	while (!(Endpoint_IsINReady()));
 
-	UDADDR = ((1 << ADDEN) | (USB_ControlRequest.wValue & 0x7F));
+	UDADDR = ((1 << ADDEN) | ((uint8_t)USB_ControlRequest.wValue & 0x7F));
 
 	return;
 }
@@ -134,17 +134,17 @@ static void USB_Device_SetConfiguration(void)
 	bool    AlreadyConfigured = (USB_ConfigurationNumber != 0);
 
 #if defined(USE_SINGLE_DEVICE_CONFIGURATION)
-	if (USB_ControlRequest.wValue > 1)
+	if ((uint8_t)USB_ControlRequest.wValue > 1)
 #else
 	USB_Descriptor_Device_t* DevDescriptorPtr;
 
 	if ((USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DevDescriptorPtr) == NO_DESCRIPTOR) ||
 	#if defined(USE_RAM_DESCRIPTORS)
-	    (USB_ControlRequest.wValue > DevDescriptorPtr->NumberOfConfigurations))
+	    ((uint8_t)USB_ControlRequest.wValue > DevDescriptorPtr->NumberOfConfigurations))
 	#elif defined (USE_EEPROM_DESCRIPTORS)
-	    (USB_ControlRequest.wValue > eeprom_read_byte(&DevDescriptorPtr->NumberOfConfigurations)))
+	    ((uint8_t)USB_ControlRequest.wValue > eeprom_read_byte(&DevDescriptorPtr->NumberOfConfigurations)))
 	#else
-	    (USB_ControlRequest.wValue > pgm_read_byte(&DevDescriptorPtr->NumberOfConfigurations)))
+	    ((uint8_t)USB_ControlRequest.wValue > pgm_read_byte(&DevDescriptorPtr->NumberOfConfigurations)))
 	#endif
 #endif
 	{
@@ -153,7 +153,7 @@ static void USB_Device_SetConfiguration(void)
 	
 	Endpoint_ClearSETUP();
 
-	USB_ConfigurationNumber = USB_ControlRequest.wValue;
+	USB_ConfigurationNumber = (uint8_t)USB_ControlRequest.wValue;
 
 	Endpoint_ClearIN();
 
@@ -245,9 +245,9 @@ static void USB_Device_GetStatus(void)
 			  CurrentStatus |= FEATURE_REMOTE_WAKEUP_ENABLED;
 			
 			break;
-#if !defined(FEATURELESS_CONTROL_ONLY_DEVICE)
+#if !defined(CONTROL_ONLY_DEVICE)
 		case (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_ENDPOINT):
-			Endpoint_SelectEndpoint(USB_ControlRequest.wIndex);
+			Endpoint_SelectEndpoint((uint8_t)USB_ControlRequest.wIndex);
 
 			CurrentStatus = Endpoint_IsStalled();
 
@@ -267,15 +267,20 @@ static void USB_Device_GetStatus(void)
 	Endpoint_ClearOUT();
 }
 
-#if !defined(FEATURELESS_CONTROL_ONLY_DEVICE)
 static void USB_Device_ClearSetFeature(void)
 {	
 	switch (USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT)
 	{
+		case REQREC_DEVICE:
+			if ((uint8_t)USB_ControlRequest.wValue == FEATURE_REMOTE_WAKEUP)
+			  USB_RemoteWakeupEnabled = (USB_ControlRequest.bRequest == REQ_SetFeature);
+			
+			break;			
+#if !defined(CONTROL_ONLY_DEVICE)
 		case REQREC_ENDPOINT:
-			if (USB_ControlRequest.wValue == FEATURE_ENDPOINT_HALT)
+			if ((uint8_t)USB_ControlRequest.wValue == FEATURE_ENDPOINT_HALT)
 			{
-				uint8_t EndpointIndex = (USB_ControlRequest.wIndex & ENDPOINT_EPNUM_MASK);
+				uint8_t EndpointIndex = ((uint8_t)USB_ControlRequest.wIndex & ENDPOINT_EPNUM_MASK);
 				
 				if (EndpointIndex != ENDPOINT_CONTROLEP)
 				{
@@ -302,8 +307,8 @@ static void USB_Device_ClearSetFeature(void)
 			}
 			
 			break;
+#endif
 	}
 }
-#endif
 
 #endif

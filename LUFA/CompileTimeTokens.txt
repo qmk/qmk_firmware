@@ -114,10 +114,10 @@
  *  EEPROM or RAM rather than flash memory) and reduces code maintenance. However, many USB device projects use only a single configuration.
  *  Defining this token enables single-configuration mode, reducing the compiled size of the binary at the expense of flexibility.
  *
- *  <b>FEATURELESS_CONTROL_ONLY_DEVICE</b> \n
- *  In some limited USB device applications, device features (other than self-power) and endpoints other than the control endpoint aren't
- *  used. In such limited situations, this token may be defined to remove the handling of the Set Feature Chapter 9 request entirely and
- *  parts of the Get Feature chapter 9 request to save space. Generally, this is usually only useful in (some) bootloaders and is best avoided.
+ *  <b>CONTROL_ONLY_DEVICE</b> \n
+ *  In some limited USB device applications, there are no device endpoints other than the control endpoint; i.e. all device communication
+ *  is through control endpoint requests. Defining this token will remove several features related to the selection and control of device
+ *  endpoints internally, saving space. Generally, this is usually only useful in (some) bootloaders and is best avoided.
  *
  *  <b>NO_STREAM_CALLBACKS</b> - ( \ref Group_EndpointPacketManagement , \ref Group_PipePacketManagement )\n
  *  Both the endpoint and the pipe driver code contains stream functions, allowing for arrays of data to be sent to or from the

@@ -165,10 +165,10 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_GetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
+				uint8_t GenericData[GENERIC_REPORT_SIZE];
+
 				Endpoint_ClearSETUP();
 	
-				uint8_t GenericData[GENERIC_REPORT_SIZE];
-				
 				CreateGenericHIDReport(GenericData);
 
 				/* Write the report data to the control endpoint */
@@ -182,12 +182,12 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_SetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
+				uint8_t GenericData[GENERIC_REPORT_SIZE];
+
 				Endpoint_ClearSETUP();
 				
 				/* Wait until the generic report has been sent by the host */
 				while (!(Endpoint_IsOUTReceived()));
-
-				uint8_t GenericData[GENERIC_REPORT_SIZE];
 
 				Endpoint_Read_Control_Stream_LE(&GenericData, sizeof(GenericData));
 

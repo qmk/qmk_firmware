@@ -120,9 +120,7 @@
 				static void USB_Device_GetConfiguration(void);
 				static void USB_Device_GetDescriptor(void);
 				static void USB_Device_GetStatus(void);
-				#if !defined(FEATURELESS_CONTROL_ONLY_DEVICE)
 				static void USB_Device_ClearSetFeature(void);
-				#endif
 			#endif
 	#endif
 

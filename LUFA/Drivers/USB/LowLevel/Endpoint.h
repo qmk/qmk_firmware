@@ -127,14 +127,18 @@
 			 */				
 			#define ENDPOINT_DOUBLEBANK_SUPPORTED(n)      _ENDPOINT_GET_DOUBLEBANK(n)
 
-			#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER) || defined(__DOXYGEN__)
-				/** Total number of endpoints (including the default control endpoint at address 0) which may
-				 *  be used in the device. Different USB AVR models support different amounts of endpoints,
-				 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
-				 */
-				#define ENDPOINT_TOTAL_ENDPOINTS          7
+			#if !defined(CONTROL_ONLY_DEVICE)
+				#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER) || defined(__DOXYGEN__)
+					/** Total number of endpoints (including the default control endpoint at address 0) which may
+					 *  be used in the device. Different USB AVR models support different amounts of endpoints,
+					 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
+					 */
+					#define ENDPOINT_TOTAL_ENDPOINTS          7
+				#else
+					#define ENDPOINT_TOTAL_ENDPOINTS          5			
+				#endif
 			#else
-				#define ENDPOINT_TOTAL_ENDPOINTS          5			
+				#define ENDPOINT_TOTAL_ENDPOINTS              1
 			#endif
 
 			/** Interrupt definition for the endpoint SETUP interrupt (for CONTROL type endpoints). Should be
@@ -366,9 +370,17 @@
 					#define Endpoint_BytesInEndpoint()        UEBCLX
 				#endif
 				
-				#define Endpoint_GetCurrentEndpoint()         (UENUM & ENDPOINT_EPNUM_MASK)
+				#if !defined(CONTROL_ONLY_DEVICE)
+					#define Endpoint_GetCurrentEndpoint()     (UENUM & ENDPOINT_EPNUM_MASK)
+				#else
+					#define Endpoint_GetCurrentEndpoint()     ENDPOINT_CONTROLEP
+				#endif
 				
-				#define Endpoint_SelectEndpoint(epnum)        MACROS{ UENUM = epnum; }MACROE
+				#if !defined(CONTROL_ONLY_DEVICE)
+					#define Endpoint_SelectEndpoint(epnum)    MACROS{ UENUM = epnum; }MACROE
+				#else
+					#define Endpoint_SelectEndpoint(epnum)    (void)epnum
+				#endif
 
 				#define Endpoint_ResetFIFO(epnum)             MACROS{ UERST = (1 << epnum); UERST = 0; }MACROE
 
@@ -378,8 +390,10 @@
 
 				#define Endpoint_IsEnabled()                  ((UECONX & (1 << EPEN)) ? true : false)
 
-				#define Endpoint_IsReadWriteAllowed()         ((UEINTX & (1 << RWAL)) ? true : false)
-
+				#if !defined(CONTROL_ONLY_DEVICE)
+					#define Endpoint_IsReadWriteAllowed()     ((UEINTX & (1 << RWAL)) ? true : false)
+				#endif
+				
 				#define Endpoint_IsConfigured()               ((UESTA0X & (1 << CFGOK)) ? true : false)
 
 				#define Endpoint_GetEndpointInterrupts()      UEINT
@@ -396,11 +410,19 @@
 
 				#define Endpoint_ClearSETUP()                 MACROS{ UEINTX &= ~(1 << RXSTPI); }MACROE
 
-				#define Endpoint_ClearIN()                    MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << TXINI)); \
-				                                                      UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
+				#if !defined(CONTROL_ONLY_DEVICE)
+					#define Endpoint_ClearIN()                MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << TXINI)); \
+					                                                  UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
+				#else
+					#define Endpoint_ClearIN()                MACROS{ UEINTX &= ~(1 << TXINI); }MACROE
+				#endif
 
-				#define Endpoint_ClearOUT()                   MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << RXOUTI)); \
-				                                                      UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
+				#if !defined(CONTROL_ONLY_DEVICE)
+					#define Endpoint_ClearOUT()               MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << RXOUTI)); \
+					                                                  UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
+				#else
+					#define Endpoint_ClearOUT()               MACROS{ UEINTX &= ~(1 << RXOUTI); }MACROE			
+				#endif
 
 				#define Endpoint_StallTransaction()           MACROS{ UECONX |= (1 << STALLRQ); }MACROE
 
@@ -725,6 +747,8 @@
 			bool Endpoint_ConfigureEndpoint(const uint8_t  Number, const uint8_t Type, const uint8_t Direction,
 			                                const uint16_t Size, const uint8_t Banks);
 
+			#if !defined(CONTROL_ONLY_DEVICE)
+
 			/** Spinloops until the currently selected non-control endpoint is ready for the next packet of data
 			 *  to be read or written to it.
 			 *
@@ -869,6 +893,8 @@
 			                                , uint8_t (* const Callback)(void)
 			#endif
 			                                ) ATTR_NON_NULL_PTR_ARG(1);
+
+			#endif
 
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in little endian,
 			 *  sending full packets to the host as needed. The host OUT acknowledgement is not automatically cleared

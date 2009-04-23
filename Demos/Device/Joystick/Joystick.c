@@ -129,11 +129,11 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			{
 				USB_JoystickReport_Data_t JoystickReportData;
 				
+				Endpoint_ClearSETUP();
+
 				/* Create the next HID report to send to the host */				
 				GetNextReport(&JoystickReportData);
-				
-				Endpoint_ClearSETUP();
-	
+					
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&JoystickReportData, sizeof(JoystickReportData));
 				

@@ -200,11 +200,11 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			{
 				USB_KeyboardReport_Data_t KeyboardReportData;
 
+				Endpoint_ClearSETUP();
+	
 				/* Create the next keyboard report for transmission to the host */
 				CreateKeyboardReport(&KeyboardReportData);
 
-				Endpoint_ClearSETUP();
-	
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
 				

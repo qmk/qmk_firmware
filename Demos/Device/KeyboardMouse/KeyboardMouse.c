@@ -144,6 +144,8 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_GetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
+				Endpoint_ClearSETUP();
+	
 				/* Determine if it is the mouse or the keyboard data that is being requested */
 				if (!(USB_ControlRequest.wIndex))
 				{
@@ -156,8 +158,6 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 					ReportSize = sizeof(MouseReportData);
 				}
 
-				Endpoint_ClearSETUP();
-	
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(ReportData, ReportSize);
 

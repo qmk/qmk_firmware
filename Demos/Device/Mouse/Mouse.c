@@ -190,10 +190,10 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 			{
 				USB_MouseReport_Data_t MouseReportData;
 
+				Endpoint_ClearSETUP();
+
 				/* Create the next mouse report for transmission to the host */
 				CreateMouseReport(&MouseReportData);
-
-				Endpoint_ClearSETUP();
 	
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&MouseReportData, sizeof(MouseReportData));

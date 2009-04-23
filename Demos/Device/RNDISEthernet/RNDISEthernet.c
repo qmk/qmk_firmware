@@ -172,6 +172,9 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 		case REQ_GetEncapsulatedResponse:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
+				/* Clear the SETUP packet, ready for data transfer */
+				Endpoint_ClearSETUP();
+				
 				/* Check if a response to the last message is ready */
 				if (!(MessageHeader->MessageLength))
 				{
@@ -180,9 +183,6 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 					MessageHeader->MessageLength = 1;
 				}
 
-				/* Clear the SETUP packet, ready for data transfer */
-				Endpoint_ClearSETUP();
-				
 				/* Write the message response data to the endpoint */
 				Endpoint_Write_Control_Stream_LE(RNDISMessageBuffer, MessageHeader->MessageLength);
 				

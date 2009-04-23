@@ -36,6 +36,7 @@
  *    - The USB_UnhandledControlPacket event no longer has any parameters. User code should no longer attempt to read in the remainder of
  *      the Control Request header as all Control Request header data is now preloaded by the library and made available in the
  *      USB_ControlRequest structure.
+ *    - The FEATURELESS_CONTROL_ONLY_DEVICE token has been renamed to CONTROL_ONLY_DEVICE.
  *
  *  <b>Host Mode</b>
  *    - The USB_Host_SendControlRequest() function no longer automatically selects the Control pipe (pipe 0) to allow it to be used on

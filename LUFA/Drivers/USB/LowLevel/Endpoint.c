@@ -82,6 +82,7 @@ void Endpoint_ClearEndpoints(void)
 	}
 }
 
+#if !defined(CONTROL_ONLY_DEVICE)
 uint8_t Endpoint_WaitUntilReady(void)
 {
 	uint16_t TimeoutMSRem = USB_STREAM_TIMEOUT_MS;
@@ -289,6 +290,7 @@ uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
 	
 	return ENDPOINT_RWSTREAM_ERROR_NoError;
 }
+#endif
 
 uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length)
 {
