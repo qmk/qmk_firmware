@@ -39,22 +39,12 @@
 uint8_t USB_ControlEndpointSize = ENDPOINT_CONTROLEP_DEFAULT_SIZE;
 #endif
 
-#if !defined(STATIC_ENDPOINT_CONFIGURATION)
-bool Endpoint_ConfigureEndpoint(const uint8_t  Number, const uint8_t Type, const uint8_t Direction,
-			                    const uint16_t Size, const uint8_t Banks)
+uint8_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size)
 {
-	Endpoint_SelectEndpoint(Number);
-	Endpoint_EnableEndpoint();
-
-	UECFG1X = 0;	
-
-	UECFG0X = ((Type << EPTYPE0) | Direction);
-	UECFG1X = ((1 << ALLOC) | Banks | Endpoint_BytesToEPSizeMask(Size));
-
-	return Endpoint_IsConfigured();
+	return Endpoint_BytesToEPSizeMask(Size);
 }
-#else
-bool Endpoint_ConfigureEndpointStatic(const uint8_t Number, const uint8_t UECFG0XData, const uint8_t UECFG1XData)
+
+bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number, const uint8_t UECFG0XData, const uint8_t UECFG1XData)
 {
 	Endpoint_SelectEndpoint(Number);
 	Endpoint_EnableEndpoint();
@@ -66,7 +56,6 @@ bool Endpoint_ConfigureEndpointStatic(const uint8_t Number, const uint8_t UECFG0
 
 	return Endpoint_IsConfigured();
 }
-#endif
 
 void Endpoint_ClearEndpoints(void)
 {

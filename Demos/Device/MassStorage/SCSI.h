@@ -67,7 +67,13 @@
 
 		/** Macro for the SCSI_Command_ReadWrite_10() function, to indicate that data is to be written to the storage medium. */
 		#define DATA_WRITE     false
+
+		/** Value for the DeviceType entry in the SCSI_Inquiry_Response_t enum, indicating a Block Media device. */
+		#define DEVICE_TYPE_BLOCK 0x00
 		
+		/** Value for the DeviceType entry in the SCSI_Inquiry_Response_t enum, indicating a CD-ROM device. */
+		#define DEVICE_TYPE_CDROM 0x05
+
 	/* Type Defines: */
 		/** Type define for a SCSI response structure to a SCSI INQUIRY command. For details of the
 		 *  structure contents, refer to the SCSI specifications.

@@ -60,7 +60,9 @@
   *  - The USB_UnhandledControlPacket event has had its parameters removed, in favour of accessing the new USB_ControlRequest structure
   *  - The Endpoint control stream functions now correctly send a ZLP to the host when less data than requested is sent
   *  - Fixed USB_RemoteWakeupEnabled flag never being set (the REMOTE WAKEUP Set Feature request was not being handled)
-  *  - Renamed the FEATURELESS_CONTROL_ONLY_DEVICE compile-time token to CONTROL_ONLY_DEVICE 
+  *  - Renamed the FEATURELESS_CONTROL_ONLY_DEVICE compile-time token to CONTROL_ONLY_DEVICE
+  *  - Endpoint configuration is now refined to give better output when all configurations have static inputs - removed the now useless
+  *    STATIC_ENDPOINT_CONFIGURATION compile time token
   *    
   *
   *  \section Sec_ChangeLog090401 Version 090401

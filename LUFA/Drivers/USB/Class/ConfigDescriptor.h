@@ -162,7 +162,7 @@
 				 */
 				uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ComparatorPtr_t ComparatorRoutine);
 			#else
-				#define USB_GetNextDescriptorComp(DSize, DPos, DSearch) USB_GetNextDescriptorComp_P(DSize, DPos, DCOMP_##DSearch)
+				#define USB_GetNextDescriptorComp(DSize, DPos, DSearch) USB_GetNextDescriptorComp_Prv(DSize, DPos, DCOMP_##DSearch)
 			#endif
 			
 		/* Enums: */
@@ -270,7 +270,7 @@
 			typedef uint8_t (* const ComparatorPtr_t)(void* const);
 
 		/* Function Prototypes: */
-			uint8_t USB_GetNextDescriptorComp_P(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ComparatorPtr_t ComparatorRoutine);
+			uint8_t USB_GetNextDescriptorComp_Prv(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ComparatorPtr_t ComparatorRoutine);
 	#endif
 			
 	/* Disable C linkage for C++ Compilers: */

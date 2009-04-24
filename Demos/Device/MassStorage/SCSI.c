@@ -43,7 +43,7 @@
  */
 SCSI_Inquiry_Response_t InquiryData = 
 	{
-		.DeviceType          = 0,
+		.DeviceType          = DEVICE_TYPE_BLOCK,
 		.PeripheralQualifier = 0,
 			
 		.Removable           = true,

@@ -98,15 +98,7 @@
  *  Normally this reduces the amount of configuration required for the library, allows the value to change dynamically (if
  *  descriptors are stored in EEPROM or RAM rather than flash memory) and reduces code maintenance. However, this token can be
  *  defined to a non-zero value instead to give the size in bytes of the control endpoint, to reduce the size of the compiled
- *  binary at the expense of flexibility.
- *
- *  <b>STATIC_ENDPOINT_CONFIGURATION</b> - ( \ref Group_EndpointManagement ) \n
- *  By default, the endpoint configuration routine is designed to accept dynamic inputs, so that the endpoints can be configured
- *  using variable values known only at runtime. This allows for a great deal of flexibility, however uses a small amount of binary
- *  space which may be wasted if all endpoint configurations are static and known at compile time. Define this token via the -D switch
- *  to optimize the endpoint configuration routine for constant inputs, to reduce the size of the compiled binary at the expense of
- *  flexibility. Note that with this option dynamic values may still be used, but will result in many times more code to be generated than
- *  if the option was disabled. This is designed to be used only if the FIXED_CONTROL_ENDPOINT_SIZE option is also used.
+ *  binary.
  *
  *  <b>USE_SINGLE_DEVICE_CONFIGURATION</b> - ( \ref Group_Device ) \n
  *  By default, the library determines the number of configurations a USB device supports by reading the device descriptor. This reduces

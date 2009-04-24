@@ -734,11 +734,6 @@
 			 *
 			 *  The success of this routine can be determined via the \ref Endpoint_IsConfigured() macro.
 			 *
-			 *  By default, the routine is entirely dynamic, and will accept both constant and variable inputs.
-			 *  If dynamic configuration is unused, a small space savings can be made by defining the
-			 *  STATIC_ENDPOINT_CONFIGURATION macro via the -D switch to the compiler, to optimize for constant
-			 *  input values.
-			 *
 			 *  \note This routine will select the specified endpoint, and the endpoint will remain selected
 			 *        once the routine completes regardless of if the endpoint configuration succeeds.
 			 *
@@ -1002,38 +997,33 @@
 				#define ENDPOINT_DETAILS_EP4               64,  true			
 			#endif
 
-			#if defined(STATIC_ENDPOINT_CONFIGURATION)
-				#define Endpoint_ConfigureEndpoint(Number, Type, Direction, Size, Banks)        \
-				                                     Endpoint_ConfigureEndpointStatic(Number,   \
-				                                              ((Type << EPTYPE0) | Direction),  \
-				                                              ((1 << ALLOC) | Banks | Endpoint_BytesToEPSizeMask(Size)));
-			#endif
-
+			#define Endpoint_ConfigureEndpoint(Number, Type, Direction, Size, Banks)            \
+			                                    Endpoint_ConfigureEndpoint_Prv(Number,          \
+			                                              ((Type << EPTYPE0) | Direction),      \
+			                                              ((1 << ALLOC) | Banks |               \
+			                                                (__builtin_constant_p(Size) ?       \
+			                                                 Endpoint_BytesToEPSizeMask(Size) :  \
+			                                                 Endpoint_BytesToEPSizeMaskDynamic(Size))))
+													
 		/* Function Prototypes: */
-			void Endpoint_ClearEndpoints(void);
-			bool Endpoint_ConfigureEndpointStatic(const uint8_t Number, const uint8_t UECFG0XData, const uint8_t UECFG1XData);
+			void    Endpoint_ClearEndpoints(void);
+			uint8_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size);
+			bool    Endpoint_ConfigureEndpoint_Prv(const uint8_t Number, const uint8_t UECFG0XData, const uint8_t UECFG1XData);
 			
 		/* Inline Functions: */
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
 			{
-				if (Bytes <= 8)
-				  return (0 << EPSIZE0);
-				else if (Bytes <= 16)
-				  return (1 << EPSIZE0);
-				else if (Bytes <= 32)
-				  return (2 << EPSIZE0);
-				#if defined(USB_LIMITED_CONTROLLER)
-				else
-				  return (3 << EPSIZE0);
-				#else
-				else if (Bytes <= 64)
-				  return (3 << EPSIZE0);
-				else if (Bytes <= 128)
-				  return (4 << EPSIZE0);
-				else
-				  return (5 << EPSIZE0);
-				#endif
+				uint8_t  MaskVal    = 0;
+				uint16_t CheckBytes = 8;
+				
+				while (CheckBytes < Bytes)
+				{
+					MaskVal++;
+					CheckBytes <<= 1;
+				}
+				
+				return (MaskVal << EPSIZE0);
 			};
 
 	#endif
