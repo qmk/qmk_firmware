@@ -63,6 +63,9 @@
   *  - Renamed the FEATURELESS_CONTROL_ONLY_DEVICE compile-time token to CONTROL_ONLY_DEVICE
   *  - Endpoint configuration is now refined to give better output when all configurations have static inputs - removed the now useless
   *    STATIC_ENDPOINT_CONFIGURATION compile time token
+  *  - Fixed SPI driver init function not clearing SPI2X bit when not needed
+  *  - Fixed PREVENT ALLOW MEDIUM REMOVAL command issuing in the MassStorageHost demo using incorrect parameters (thanks to Mike Alex)
+  *  - Fixed MassStorageHost demo broken due to an incorrect if statement test in MassStore_GetReturnedStatus()
   *    
   *
   *  \section Sec_ChangeLog090401 Version 090401

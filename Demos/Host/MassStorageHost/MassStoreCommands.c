@@ -89,10 +89,9 @@ static uint8_t MassStore_SendCommand(void)
 
 	/* Send the data in the OUT pipe to the attached device */
 	Pipe_ClearOUT();
-
-	/* Some buggy devices require a delay here before the pipe freezing or they will lock up */
-	USB_Host_WaitMS(1);
 	
+	while(!(Pipe_IsOUTReady()));
+
 	/* Freeze pipe after use */
 	Pipe_Freeze();
 	
@@ -199,10 +198,9 @@ static uint8_t MassStore_SendReceiveData(void* BufferPtr)
 
 		/* Acknowledge the packet */
 		Pipe_ClearOUT();
+		
+		while (!(Pipe_IsOUTReady()));
 	}
-
-	/* Some buggy devices require a delay here before the pipe freezing or they will lock up */
-	USB_Host_WaitMS(1);
 	
 	/* Freeze used pipe after use */
 	Pipe_Freeze();
@@ -219,7 +217,7 @@ static uint8_t MassStore_GetReturnedStatus(void)
 	uint8_t ErrorCode = PIPE_RWSTREAM_ERROR_NoError;
 
 	/* If an error in the command ocurred, abort */
-	if ((ErrorCode == MassStore_WaitForDataReceived()) != PIPE_RWSTREAM_ERROR_NoError)
+	if ((ErrorCode = MassStore_WaitForDataReceived()) != PIPE_RWSTREAM_ERROR_NoError)
 	  return ErrorCode;
 
 	/* Select the IN data pipe for data reception */
@@ -232,9 +230,6 @@ static uint8_t MassStore_GetReturnedStatus(void)
 	  
 	/* Clear the data ready for next reception */
 	Pipe_ClearIN();
-
-	/* Some buggy devices require a delay here before the pipe freezing or they will lock up */
-	USB_Host_WaitMS(1);
 	
 	/* Freeze the IN pipe after use */
 	Pipe_Freeze();
@@ -587,7 +582,7 @@ uint8_t MassStore_ReadCapacity(const uint8_t LUNIndex, SCSI_Capacity_t* const Ca
 				{
 					.Signature          = CBW_SIGNATURE,
 					.Tag                = MassStore_Tag,
-					.DataTransferLength = 8,
+					.DataTransferLength = sizeof(SCSI_Capacity_t),
 					.Flags              = COMMAND_DIRECTION_DATA_IN,
 					.LUN                = LUNIndex,
 					.SCSICommandLength  = 10
@@ -680,7 +675,7 @@ uint8_t MassStore_PreventAllowMediumRemoval(const uint8_t LUNIndex, const bool P
 	MassStore_SendCommand();
 
 	/* Read in the returned CSW from the device */
-	if ((ReturnCode = MassStore_GetReturnedStatus()) != PIPE_RWSTREAM_ERROR_NoError)
+	if ((ReturnCode = MassStore_GetReturnedStatus()))
 	{
 		Pipe_Freeze();
 		return ReturnCode;

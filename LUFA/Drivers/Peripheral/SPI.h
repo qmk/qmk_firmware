@@ -102,7 +102,9 @@
 				          (PrescalerMask & ~SPI_USE_DOUBLESPEED));
 				
 				if (PrescalerMask & SPI_USE_DOUBLESPEED)
-				  SPSR = (1 << SPI2X);
+				  SPSR |= (1 << SPI2X);
+				else
+				  SPSR &= ~(1 << SPI2X);
 			}
 			
 			/** Sends and receives a byte through the SPI interface, blocking until the transfer is complete.

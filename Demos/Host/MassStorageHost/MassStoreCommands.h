@@ -109,10 +109,9 @@
 		 */
 		typedef struct
 		{
-			unsigned char ReponseCode         : 7;
-			unsigned char Valid               : 1;
-			
-			uint8_t      SegmentNumber;
+			uint8_t       ReponseCode;
+
+			uint8_t       SegmentNumber;
 			
 			unsigned char SenseKey            : 4;
 			unsigned char _RESERVED1          : 1;
