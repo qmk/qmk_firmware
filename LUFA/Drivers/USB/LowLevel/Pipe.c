@@ -114,7 +114,7 @@ uint8_t Pipe_Write_Stream_LE(const void* Data, uint16_t Length
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
 
-	while (Length--)
+	while (Length)
 	{
 		if (!(Pipe_IsReadWriteAllowed()))
 		{
@@ -131,6 +131,7 @@ uint8_t Pipe_Write_Stream_LE(const void* Data, uint16_t Length
 		else
 		{
 			Pipe_Write_Byte(*(DataStream++));
+			Length--;
 		}
 	}
 
@@ -149,7 +150,7 @@ uint8_t Pipe_Write_Stream_BE(const void* Data, uint16_t Length
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
 
-	while (Length--)
+	while (Length)
 	{
 		if (!(Pipe_IsReadWriteAllowed()))
 		{
@@ -166,6 +167,7 @@ uint8_t Pipe_Write_Stream_BE(const void* Data, uint16_t Length
 		else
 		{
 			Pipe_Write_Byte(*(DataStream--));
+			Length--;
 		}
 	}
 
@@ -183,7 +185,7 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
 
-	while (Length--)
+	while (Length)
 	{
 		if (!(Pipe_IsReadWriteAllowed()))
 		{
@@ -200,6 +202,7 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 		else
 		{
 			Pipe_Discard_Byte();
+			Length--;
 		}
 	}
 
@@ -218,7 +221,7 @@ uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
 
-	while (Length--)
+	while (Length)
 	{
 		if (!(Pipe_IsReadWriteAllowed()))
 		{
@@ -235,6 +238,7 @@ uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length
 		else
 		{
 			*(DataStream++) = Pipe_Read_Byte();
+			Length--;
 		}
 	}
 
@@ -253,7 +257,7 @@ uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
 
-	while (Length--)
+	while (Length)
 	{
 		if (!(Pipe_IsReadWriteAllowed()))
 		{
@@ -270,6 +274,7 @@ uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length
 		else
 		{
 			*(DataStream--) = Pipe_Read_Byte();
+			Length--;
 		}
 	}
 	

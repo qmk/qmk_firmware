@@ -117,7 +117,7 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
 
-	while (Length--)
+	while (Length)
 	{
 		if (!(Endpoint_IsReadWriteAllowed()))
 		{
@@ -134,6 +134,7 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 		else
 		{
 			Endpoint_Discard_Byte();
+			Length--;
 		}
 	}
 	
@@ -152,7 +153,7 @@ uint8_t Endpoint_Write_Stream_LE(const void* Buffer, uint16_t Length
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
 
-	while (Length--)
+	while (Length)
 	{
 		if (!(Endpoint_IsReadWriteAllowed()))
 		{
@@ -169,6 +170,7 @@ uint8_t Endpoint_Write_Stream_LE(const void* Buffer, uint16_t Length
 		else
 		{
 			Endpoint_Write_Byte(*(DataStream++));
+			Length--;
 		}
 	}
 	
@@ -187,7 +189,7 @@ uint8_t Endpoint_Write_Stream_BE(const void* Buffer, uint16_t Length
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
 
-	while (Length--)
+	while (Length)
 	{
 		if (!(Endpoint_IsReadWriteAllowed()))
 		{
@@ -204,6 +206,7 @@ uint8_t Endpoint_Write_Stream_BE(const void* Buffer, uint16_t Length
 		else
 		{
 			Endpoint_Write_Byte(*(DataStream--));
+			Length--;
 		}
 	}
 	
@@ -222,7 +225,7 @@ uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
 
-	while (Length--)
+	while (Length)
 	{
 		if (!(Endpoint_IsReadWriteAllowed()))
 		{
@@ -239,6 +242,7 @@ uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length
 		else
 		{
 			*(DataStream++) = Endpoint_Read_Byte();
+			Length--;
 		}
 	}
 	
@@ -257,7 +261,7 @@ uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
 
-	while (Length--)
+	while (Length)
 	{
 		if (!(Endpoint_IsReadWriteAllowed()))
 		{
@@ -274,6 +278,7 @@ uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
 		else
 		{
 			*(DataStream--) = Endpoint_Read_Byte();
+			Length--;
 		}
 	}
 	
@@ -294,7 +299,6 @@ uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length)
 		while (Length && (Endpoint_BytesInEndpoint() < USB_ControlEndpointSize))
 		{
 			Endpoint_Write_Byte(*(DataStream++));
-			
 			Length--;
 		}
 		
@@ -329,7 +333,6 @@ uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length)
 		while (Length && (Endpoint_BytesInEndpoint() < USB_ControlEndpointSize))
 		{
 			Endpoint_Write_Byte(*(DataStream--));
-			
 			Length--;
 		}
 		
@@ -362,7 +365,6 @@ uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length)
 		while (Length && Endpoint_BytesInEndpoint())
 		{
 			*(DataStream++) = Endpoint_Read_Byte();
-			
 			Length--;
 		}
 		
@@ -385,7 +387,6 @@ uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer, uint16_t Length)
 		while (Length && Endpoint_BytesInEndpoint())
 		{
 			*(DataStream--) = Endpoint_Read_Byte();
-			
 			Length--;
 		}
 		
