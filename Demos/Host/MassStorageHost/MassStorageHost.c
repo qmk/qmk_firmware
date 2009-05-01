@@ -408,7 +408,7 @@ void UpdateStatus(uint8_t CurrentStatus)
  */
 void ShowDiskReadError(char* CommandString, bool FailedAtSCSILayer, uint8_t ErrorCode)
 {
-	if (CommandFailed)
+	if (FailedAtSCSILayer)
 	{
 		/* Display the error code */
 		printf_P(PSTR(ESC_BG_RED "SCSI command error (%S).\r\n"), CommandString);
