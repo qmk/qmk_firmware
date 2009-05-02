@@ -66,6 +66,7 @@
   *  - Fixed SPI driver init function not clearing SPI2X bit when not needed
   *  - Fixed PREVENT ALLOW MEDIUM REMOVAL command issuing in the MassStorageHost demo using incorrect parameters (thanks to Mike Alex)
   *  - Fixed MassStorageHost demo broken due to an incorrect if statement test in MassStore_GetReturnedStatus()
+  *  - Fixed reversed signature byte ordering in the CDC bootloader (thanks to Johannes Raschke)
   *    
   *
   *  \section Sec_ChangeLog090401 Version 090401

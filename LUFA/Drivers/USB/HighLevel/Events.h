@@ -265,11 +265,11 @@
 			 *  in host mode, and an attached USB device has failed to enumerate completely.
 			 *
 			 *  \param ErrorCode  Error code indicating the failure reason, a value in 
-			 *                    USB_Host_EnumerationErrorCodes_t located in Host.h.
+			 *                    \ref USB_Host_EnumerationErrorCodes_t located in Host.h.
 			 *
 			 *  \param SubErrorCode  Sub error code indicating the reason for failure - for example, if the
 			 *                       ErrorCode parameter indicates a control error, this will give the error
-			 *                       code returned by the USB_Host_SendControlRequest() function.
+			 *                       code returned by the \ref USB_Host_SendControlRequest() function.
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *

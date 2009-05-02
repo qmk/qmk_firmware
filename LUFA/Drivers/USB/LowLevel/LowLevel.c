@@ -150,10 +150,10 @@ void USB_ResetInterface(void)
 	USB_INT_DisableAllInterrupts();
 	USB_INT_ClearAllInterrupts();
 
-	USB_IsConnected          = false;
+	USB_IsConnected = false;
 
 	#if defined(USB_CAN_BE_HOST)
-	USB_HostState            = HOST_STATE_Unattached;
+	USB_HostState = HOST_STATE_Unattached;
 	#endif
 
 	#if defined(USB_CAN_BE_DEVICE)

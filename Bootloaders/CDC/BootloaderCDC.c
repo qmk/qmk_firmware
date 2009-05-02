@@ -424,9 +424,9 @@ TASK(CDC_Task)
 		}
 		else if (Command == 's')
 		{
-			WriteNextResponseByte(SIGNATURE_0);
-			WriteNextResponseByte(SIGNATURE_1);
 			WriteNextResponseByte(SIGNATURE_2);		
+			WriteNextResponseByte(SIGNATURE_1);
+			WriteNextResponseByte(SIGNATURE_0);
 		}
 		else if (Command == 'b')
 		{
