@@ -198,7 +198,7 @@ USB_Descriptor_String_t LanguageString =
  */
 USB_Descriptor_String_t ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(15), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
 		
 	.UnicodeString          = L"AVR CDC Bootloader"
 };

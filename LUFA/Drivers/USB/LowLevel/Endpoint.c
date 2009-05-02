@@ -288,9 +288,11 @@ uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
 
 uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length)
 {
-	uint8_t* DataStream    = (uint8_t*)Buffer;
+	uint8_t* DataStream     = (uint8_t*)Buffer;
 	bool     LastPacketFull = false;
-	bool     ShortTransfer = (Length < USB_ControlRequest.wLength);
+	
+	if (Length > USB_ControlRequest.wLength)
+	  Length = USB_ControlRequest.wLength;
 	
 	while (Length && !(Endpoint_IsOUTReceived()))
 	{
@@ -309,7 +311,7 @@ uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length)
 	if (Endpoint_IsOUTReceived())
 	  return ENDPOINT_RWCSTREAM_ERROR_HostAborted;
 	
-	if (LastPacketFull || ShortTransfer)
+	if (LastPacketFull)
 	{
 		while (!(Endpoint_IsINReady()));
 		Endpoint_ClearIN();
@@ -324,26 +326,29 @@ uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length)
 {
 	uint8_t* DataStream     = (uint8_t*)(Buffer + Length - 1);
 	bool     LastPacketFull = false;
-	bool     ShortTransfer  = (Length < USB_ControlRequest.wLength);
 	
+	if (Length > USB_ControlRequest.wLength)
+	  Length = USB_ControlRequest.wLength;
+
 	while (Length && !(Endpoint_IsOUTReceived()))
 	{
-		while (!(Endpoint_IsINReady()));
-		
-		while (Length && (Endpoint_BytesInEndpoint() < USB_ControlEndpointSize))
+		if (Endpoint_IsINReady())
 		{
-			Endpoint_Write_Byte(*(DataStream--));
-			Length--;
+			while (Length && (Endpoint_BytesInEndpoint() < USB_ControlEndpointSize))
+			{
+				Endpoint_Write_Byte(*(DataStream--));
+				Length--;
+			}
+			
+			LastPacketFull = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
+			Endpoint_ClearIN();
 		}
-		
-		LastPacketFull = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
-		Endpoint_ClearIN();
 	}
 	
 	if (Endpoint_IsOUTReceived())
 	  return ENDPOINT_RWCSTREAM_ERROR_HostAborted;
 	
-	if (LastPacketFull || ShortTransfer)
+	if (LastPacketFull)
 	{
 		while (!(Endpoint_IsINReady()));
 		Endpoint_ClearIN();
@@ -360,15 +365,16 @@ uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length)
 	
 	while (Length)
 	{
-		while (!(Endpoint_IsOUTReceived()));
-		
-		while (Length && Endpoint_BytesInEndpoint())
+		if (Endpoint_IsOUTReceived())
 		{
-			*(DataStream++) = Endpoint_Read_Byte();
-			Length--;
+			while (Length && Endpoint_BytesInEndpoint())
+			{
+				*(DataStream++) = Endpoint_Read_Byte();
+				Length--;
+			}
+			
+			Endpoint_ClearOUT();
 		}
-		
-		Endpoint_ClearOUT();
 	}
 	
 	while (!(Endpoint_IsINReady()));
@@ -382,15 +388,16 @@ uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer, uint16_t Length)
 	
 	while (Length)
 	{
-		while (!(Endpoint_IsOUTReceived()));
-		
-		while (Length && Endpoint_BytesInEndpoint())
+		if (Endpoint_IsOUTReceived())
 		{
-			*(DataStream--) = Endpoint_Read_Byte();
-			Length--;
+			while (Length && Endpoint_BytesInEndpoint())
+			{
+				*(DataStream--) = Endpoint_Read_Byte();
+				Length--;
+			}
+			
+			Endpoint_ClearOUT();
 		}
-		
-		Endpoint_ClearOUT();
 	}
 	
 	while (!(Endpoint_IsINReady()));

@@ -82,7 +82,7 @@
 		#define BOOTLOADER_HWVERSION_MINOR   0x00
 
 		/** Eight character bootloader firmware identifier reported to the host when requested */
-		#define SOFTWARE_IDENTIFIER          "LUFA-CDC"
+		#define SOFTWARE_IDENTIFIER          "LUFACDC"
 
 	/* Event Handlers: */
 		/** Indicates that this module will catch the USB_Disconnect event when thrown by the library. */
