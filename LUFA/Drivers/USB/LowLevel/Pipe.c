@@ -122,7 +122,7 @@ uint8_t Pipe_Write_Stream_LE(const void* Data, uint16_t Length
 				
 			#if !defined(NO_STREAM_CALLBACKS)
 			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return PIPE_RWSTREAM_ERROR_CallbackAborted;
+			  return PIPE_RWSTREAM_CallbackAborted;
 			#endif
 
 			if ((ErrorCode = Pipe_WaitUntilReady()))
@@ -135,7 +135,7 @@ uint8_t Pipe_Write_Stream_LE(const void* Data, uint16_t Length
 		}
 	}
 
-	return PIPE_RWSTREAM_ERROR_NoError;
+	return PIPE_RWSTREAM_NoError;
 }
 
 uint8_t Pipe_Write_Stream_BE(const void* Data, uint16_t Length
@@ -158,7 +158,7 @@ uint8_t Pipe_Write_Stream_BE(const void* Data, uint16_t Length
 				
 			#if !defined(NO_STREAM_CALLBACKS)
 			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return PIPE_RWSTREAM_ERROR_CallbackAborted;
+			  return PIPE_RWSTREAM_CallbackAborted;
 			#endif
 
 			if ((ErrorCode = Pipe_WaitUntilReady()))
@@ -171,7 +171,7 @@ uint8_t Pipe_Write_Stream_BE(const void* Data, uint16_t Length
 		}
 	}
 
-	return PIPE_RWSTREAM_ERROR_NoError;
+	return PIPE_RWSTREAM_NoError;
 }
 
 uint8_t Pipe_Discard_Stream(uint16_t Length
@@ -193,7 +193,7 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 				
 			#if !defined(NO_STREAM_CALLBACKS)
 			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return PIPE_RWSTREAM_ERROR_CallbackAborted;
+			  return PIPE_RWSTREAM_CallbackAborted;
 			#endif
 
 			if ((ErrorCode = Pipe_WaitUntilReady()))
@@ -206,7 +206,7 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 		}
 	}
 
-	return PIPE_RWSTREAM_ERROR_NoError;
+	return PIPE_RWSTREAM_NoError;
 }
 
 uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length
@@ -229,7 +229,7 @@ uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length
 				
 			#if !defined(NO_STREAM_CALLBACKS)
 			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return PIPE_RWSTREAM_ERROR_CallbackAborted;
+			  return PIPE_RWSTREAM_CallbackAborted;
 			#endif
 
 			if ((ErrorCode = Pipe_WaitUntilReady()))
@@ -242,7 +242,7 @@ uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length
 		}
 	}
 
-	return PIPE_RWSTREAM_ERROR_NoError;
+	return PIPE_RWSTREAM_NoError;
 }
 
 uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length
@@ -265,7 +265,7 @@ uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length
 				
 			#if !defined(NO_STREAM_CALLBACKS)
 			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return PIPE_RWSTREAM_ERROR_CallbackAborted;
+			  return PIPE_RWSTREAM_CallbackAborted;
 			#endif
 
 			if ((ErrorCode = Pipe_WaitUntilReady()))
@@ -278,7 +278,7 @@ uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length
 		}
 	}
 	
-	return PIPE_RWSTREAM_ERROR_NoError;
+	return PIPE_RWSTREAM_NoError;
 }
 
 #endif

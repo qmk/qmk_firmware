@@ -18,6 +18,9 @@
  *    - The Drivers/AT90USBXXX directory has been renamed to Drivers/Peripheral.
  *    - The Serial_Stream driver has been renamed to SerialStream to remain consistent with the rest of the library naming scheme.
  *
+ *  <b>Dual Role Mode</b>
+ *    - The USB_PowerOnFail even has been renamed to USB_InitFailure.
+ *
  *  <b>Library Demos</b>
  *    - Most demos, bootloaders and applications have had significant changes from previous versions. Applications built off of any
  *      library demos should update to the latest versions.
@@ -38,6 +41,8 @@
  *      USB_ControlRequest structure.
  *    - The FEATURELESS_CONTROL_ONLY_DEVICE token has been renamed to CONTROL_ONLY_DEVICE.
  *    - The STATIC_ENDPOINT_CONFIGURATION is no longer applicable as the library will apply this optimization when appropriate automatically.
+ *    - The values of the Endpoint_Stream_RW_ErrorCodes_t and Endpoint_ControlStream_RW_ErrorCodes_t enums have had the "ERROR_" portion
+ *      of their names removed.
  *
  *  <b>Host Mode</b>
  *    - The USB_Host_SendControlRequest() function no longer automatically selects the Control pipe (pipe 0) to allow it to be used on
@@ -68,6 +73,8 @@
  *      and "Descriptor_Search_Comp" prefixes changed to all caps.
  *    - The USB_HostRequest global has been renamed to USB_ControlRequest, and is used in Device mode also. The USB_Host_Request_Header_t
  *      structure type has been renamed to USB_Request_Header_t.
+ *    - The values of the Pipe_Stream_RW_ErrorCodes_t enum have had the "ERROR_" portion of their names removed.
+ *
  *
  * \section Sec_Migration090401 Migrating from 090209 to 090401
  *

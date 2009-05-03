@@ -92,7 +92,7 @@ void USB_Init(
 	}
 	else
 	{
-		RAISE_EVENT(USB_PowerOnFail, POWERON_ERROR_NoUSBModeSpecified);
+		RAISE_EVENT(USB_InitFailure, USB_INITERROR_NoUSBModeSpecified);
 		return;
 	}
 	#endif

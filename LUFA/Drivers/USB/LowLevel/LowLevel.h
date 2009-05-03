@@ -285,9 +285,9 @@
 			/** Enum for error codes relating to the powering on of the USB interface. These error codes are
 			 *  used in the ErrorCode parameter value of the \ref USB_PowerOnFail event.
 			 */
-			enum USB_PowerOnErrorCodes_t
+			enum USB_InitErrorCodes_t
 			{
-				POWERON_ERROR_NoUSBModeSpecified       = 0, /**< Indicates that \ref USB_Init() was called with an
+				USB_INITERROR_NoUSBModeSpecified       = 0, /**< Indicates that \ref USB_Init() was called with an
 			                                                 *   invalid or missing Mode parameter.
 			                                                 */
 			};
@@ -328,7 +328,7 @@
 				 *
 				 *  \see Events.h for more information on this event.
 				 */
-				RAISES_EVENT(USB_PowerOnFail);
+				RAISES_EVENT(USB_InitFailure);
 			#endif
 			
 	/* Private Interface - For use in library only: */

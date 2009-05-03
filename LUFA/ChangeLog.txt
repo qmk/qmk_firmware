@@ -54,6 +54,10 @@
   *  - Fixed incorrect HID interface class and subclass values in the Mouse and KeyboardMouse demos (thanks to Brian Dickman)
   *  - Capitalised the "Descriptor_Search" and "Descriptor_Search_Comp" prefixes of the values in the DSearch_Return_ErrorCodes_t and
   *    DSearch_Comp_Return_ErrorCodes_t enums
+  *  - Removed "ERROR" from the enum names in the endpoint and pipe stream error code enums
+  *  - Renamed the USB_PowerOnErrorCodes_t enum to USB_InitErrorCodes_t, renamed the POWERON_ERROR_NoUSBModeSpecified enum value to
+  *    USB_INITERROR_NoUSBModeSpecified
+  *  - Renamed USB_PowerOnFail event to USB_InitFailure
   *  - Changed over all deprecated GCC structure tag initializers to the standardized C99 format (thanks to Mike Alexander)
   *  - USB_HostRequest renamed to USB_ControlRequest, entire control request header is now read into USB_ControlRequest in Device mode
   *    rather than having the library pass only partially read header data to the application

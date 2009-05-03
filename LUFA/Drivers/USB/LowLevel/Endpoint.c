@@ -125,7 +125,7 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 
 			#if !defined(NO_STREAM_CALLBACKS)
 			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return ENDPOINT_RWSTREAM_ERROR_CallbackAborted;
+			  return ENDPOINT_RWSTREAM_CallbackAborted;
 			#endif
 
 			if ((ErrorCode = Endpoint_WaitUntilReady()))
@@ -138,7 +138,7 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 		}
 	}
 	
-	return ENDPOINT_RWSTREAM_ERROR_NoError;
+	return ENDPOINT_RWSTREAM_NoError;
 }
 
 uint8_t Endpoint_Write_Stream_LE(const void* Buffer, uint16_t Length
@@ -161,7 +161,7 @@ uint8_t Endpoint_Write_Stream_LE(const void* Buffer, uint16_t Length
 			
 			#if !defined(NO_STREAM_CALLBACKS)
 			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return ENDPOINT_RWSTREAM_ERROR_CallbackAborted;
+			  return ENDPOINT_RWSTREAM_CallbackAborted;
 			#endif
 
 			if ((ErrorCode = Endpoint_WaitUntilReady()))
@@ -174,7 +174,7 @@ uint8_t Endpoint_Write_Stream_LE(const void* Buffer, uint16_t Length
 		}
 	}
 	
-	return ENDPOINT_RWSTREAM_ERROR_NoError;
+	return ENDPOINT_RWSTREAM_NoError;
 }
 
 uint8_t Endpoint_Write_Stream_BE(const void* Buffer, uint16_t Length
@@ -197,7 +197,7 @@ uint8_t Endpoint_Write_Stream_BE(const void* Buffer, uint16_t Length
 
 			#if !defined(NO_STREAM_CALLBACKS)
 			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return ENDPOINT_RWSTREAM_ERROR_CallbackAborted;
+			  return ENDPOINT_RWSTREAM_CallbackAborted;
 			#endif
 
 			if ((ErrorCode = Endpoint_WaitUntilReady()))
@@ -210,7 +210,7 @@ uint8_t Endpoint_Write_Stream_BE(const void* Buffer, uint16_t Length
 		}
 	}
 	
-	return ENDPOINT_RWSTREAM_ERROR_NoError;
+	return ENDPOINT_RWSTREAM_NoError;
 }
 
 uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length
@@ -233,7 +233,7 @@ uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length
 
 			#if !defined(NO_STREAM_CALLBACKS)
 			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return ENDPOINT_RWSTREAM_ERROR_CallbackAborted;
+			  return ENDPOINT_RWSTREAM_CallbackAborted;
 			#endif
 
 			if ((ErrorCode = Endpoint_WaitUntilReady()))
@@ -246,7 +246,7 @@ uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length
 		}
 	}
 	
-	return ENDPOINT_RWSTREAM_ERROR_NoError;
+	return ENDPOINT_RWSTREAM_NoError;
 }
 
 uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
@@ -269,7 +269,7 @@ uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
 
 			#if !defined(NO_STREAM_CALLBACKS)
 			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return ENDPOINT_RWSTREAM_ERROR_CallbackAborted;
+			  return ENDPOINT_RWSTREAM_CallbackAborted;
 			#endif
 
 			if ((ErrorCode = Endpoint_WaitUntilReady()))
@@ -282,7 +282,7 @@ uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
 		}
 	}
 	
-	return ENDPOINT_RWSTREAM_ERROR_NoError;
+	return ENDPOINT_RWSTREAM_NoError;
 }
 #endif
 
@@ -309,7 +309,7 @@ uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length)
 	}
 	
 	if (Endpoint_IsOUTReceived())
-	  return ENDPOINT_RWCSTREAM_ERROR_HostAborted;
+	  return ENDPOINT_RWCSTREAM_HostAborted;
 	
 	if (LastPacketFull)
 	{
@@ -319,7 +319,7 @@ uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length)
 	
 	while (!(Endpoint_IsOUTReceived()));
 
-	return ENDPOINT_RWCSTREAM_ERROR_NoError;
+	return ENDPOINT_RWCSTREAM_NoError;
 }
 
 uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length)
@@ -346,7 +346,7 @@ uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length)
 	}
 	
 	if (Endpoint_IsOUTReceived())
-	  return ENDPOINT_RWCSTREAM_ERROR_HostAborted;
+	  return ENDPOINT_RWCSTREAM_HostAborted;
 	
 	if (LastPacketFull)
 	{
@@ -356,7 +356,7 @@ uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length)
 	
 	while (!(Endpoint_IsOUTReceived()));
 
-	return ENDPOINT_RWCSTREAM_ERROR_NoError;
+	return ENDPOINT_RWCSTREAM_NoError;
 }
 
 uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length)
@@ -379,7 +379,7 @@ uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length)
 	
 	while (!(Endpoint_IsINReady()));
 	
-	return ENDPOINT_RWCSTREAM_ERROR_NoError;
+	return ENDPOINT_RWCSTREAM_NoError;
 }
 
 uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer, uint16_t Length)
@@ -402,7 +402,7 @@ uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer, uint16_t Length)
 	
 	while (!(Endpoint_IsINReady()));
 
-	return ENDPOINT_RWCSTREAM_ERROR_NoError;
+	return ENDPOINT_RWCSTREAM_NoError;
 }
 
 #endif

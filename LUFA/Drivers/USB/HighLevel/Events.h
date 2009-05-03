@@ -202,13 +202,15 @@
 			 */
 			void USB_Disconnect(void);
 			
-			/** Event for USB device power on failure. This event fires when the USB interface fails to
+			/** Event for USB initialization failure. This event fires when the USB interface fails to
 			 *  initialize correctly due to a hardware or software fault.
 			 *
-			 *  \param ErrorCode  Error code indicating the failure reason, a value in \ref USB_PowerOnErrorCodes_t
+			 *  \note This event only exists on USB AVR models which support dual role modes.
+			 *
+			 *  \param ErrorCode  Error code indicating the failure reason, a value in \ref USB_InitErrorCodes_t
 			 *                    located in LowLevel.h.
 			 */
-			void USB_PowerOnFail(const uint8_t ErrorCode);
+			void USB_InitFailure(const uint8_t ErrorCode);
 
 			/** Event for USB mode pin level change. This event fires when the USB interface is set to dual role
 			 *  mode, and the UID pin level has changed to indicate a new mode (device or host). This event fires
@@ -374,7 +376,7 @@
 			#define USB_DeviceEnumerationComplete_P     (void)
 			
 			#if defined(USB_CAN_BE_BOTH)
-				#define USB_PowerOnFail_P               (const uint8_t ErrorCode)
+				#define USB_InitFailure_P               (const uint8_t ErrorCode)
 				#define USB_UIDChange_P                 (void)
 			#endif
 
@@ -409,7 +411,7 @@
 				ALIAS_STUB(USB_DeviceEnumerationComplete);
 				
 				#if defined(USB_CAN_BE_BOTH)
-					ALIAS_STUB(USB_PowerOnFail);
+					ALIAS_STUB(USB_InitFailure);
 					ALIAS_STUB(USB_UIDChange);
 				#endif
 				

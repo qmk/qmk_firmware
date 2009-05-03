@@ -568,18 +568,18 @@
 			 */
 			enum Pipe_Stream_RW_ErrorCodes_t
 			{
-				PIPE_RWSTREAM_ERROR_NoError            = 0, /**< Command completed successfully, no error. */
-				PIPE_RWSTREAM_ERROR_PipeStalled        = 1, /**< The device stalled the pipe during the transfer. */		
-				PIPE_RWSTREAM_ERROR_DeviceDisconnected = 2, /**< Device was disconnected from the host during
-			                                                 *   the transfer.
-			                                                 */		
-				PIPE_RWSTREAM_ERROR_Timeout            = 3, /**< The device failed to accept or send the next packet
-				                                             *   within the software timeout period set by the
-				                                             *   \ref USB_STREAM_TIMEOUT_MS macro.
-				                                             */
-				PIPE_RWSTREAM_ERROR_CallbackAborted    = 4, /**< Indicates that the stream's callback function aborted
-			                                                 *   the transfer early.
-				                                             */
+				PIPE_RWSTREAM_NoError            = 0, /**< Command completed successfully, no error. */
+				PIPE_RWSTREAM_PipeStalled        = 1, /**< The device stalled the pipe during the transfer. */		
+				PIPE_RWSTREAM_DeviceDisconnected = 2, /**< Device was disconnected from the host during
+			                                           *   the transfer.
+			                                           */		
+				PIPE_RWSTREAM_Timeout            = 3, /**< The device failed to accept or send the next packet
+				                                       *   within the software timeout period set by the
+				                                       *   \ref USB_STREAM_TIMEOUT_MS macro.
+				                                       */
+				PIPE_RWSTREAM_CallbackAborted    = 4, /**< Indicates that the stream's callback function aborted
+			                                           *   the transfer early.
+				                                       */
 			};
 
 		/* Inline Functions: */

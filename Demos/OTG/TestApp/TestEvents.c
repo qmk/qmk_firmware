@@ -139,7 +139,7 @@ EVENT_HANDLER(USB_UIDChange)
  *  Event handler for the USB_PowerOnFail event. When fired, the event is logged to the USART and the program
  *  execution aborted.
  */
-EVENT_HANDLER(USB_PowerOnFail)
+EVENT_HANDLER(USB_InitFailure)
 {
 	char* ModeStrPtr;
 	

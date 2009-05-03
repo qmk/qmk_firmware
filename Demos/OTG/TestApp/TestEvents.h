@@ -74,8 +74,8 @@
 		/** Indicates that this module will catch the USB_UIDChange event when thrown by the library. */
 		HANDLES_EVENT(USB_UIDChange);
 
-		/** Indicates that this module will catch the USB_PowerOnFail event when thrown by the library. */
-		HANDLES_EVENT(USB_PowerOnFail);
+		/** Indicates that this module will catch the USB_InitFailure event when thrown by the library. */
+		HANDLES_EVENT(USB_InitFailure);
 
 		/** Indicates that this module will catch the USB_HostError event when thrown by the library. */
 		HANDLES_EVENT(USB_HostError);
