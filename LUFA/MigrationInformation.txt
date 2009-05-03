@@ -20,6 +20,8 @@
  *
  *  <b>Dual Role Mode</b>
  *    - The USB_PowerOnFail even has been renamed to USB_InitFailure.
+ *    - The functions in OTG.h have been renamed to remain more consistent with the library API. See the functions in OTG.h for more
+ *      details.
  *
  *  <b>Library Demos</b>
  *    - Most demos, bootloaders and applications have had significant changes from previous versions. Applications built off of any

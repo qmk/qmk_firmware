@@ -283,7 +283,7 @@
 
 		/* Enums: */
 			/** Enum for error codes relating to the powering on of the USB interface. These error codes are
-			 *  used in the ErrorCode parameter value of the \ref USB_PowerOnFail event.
+			 *  used in the ErrorCode parameter value of the \ref USB_InitFailure event.
 			 */
 			enum USB_InitErrorCodes_t
 			{
