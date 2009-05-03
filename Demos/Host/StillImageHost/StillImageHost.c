@@ -222,7 +222,7 @@ TASK(USB_SImage_Host)
 			SImage_SendBlockHeader();
 			
 			/* Receive the response data block */
-			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_ERROR_NoError)
+			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
 				break;
@@ -273,7 +273,7 @@ TASK(USB_SImage_Host)
 			printf_P(PSTR("   Device Version: %s\r\n"), DeviceVersion);
 
 			/* Receive the final response block from the device */
-			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_ERROR_NoError)
+			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
 				break;
@@ -301,7 +301,7 @@ TASK(USB_SImage_Host)
 			SImage_SendBlockHeader();
 			
 			/* Receive the response block from the device */
-			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_ERROR_NoError)
+			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
 				break;
@@ -329,7 +329,7 @@ TASK(USB_SImage_Host)
 			SImage_SendBlockHeader();
 			
 			/* Receive the response block from the device */
-			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_ERROR_NoError)
+			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
 				break;

@@ -119,7 +119,7 @@ uint8_t SImage_RecieveBlockHeader(void)
 			if (!(TimeoutMSRem))
 			{
 				/* Return error code */
-				return PIPE_RWSTREAM_ERROR_Timeout;
+				return PIPE_RWSTREAM_Timeout;
 			}
 		}
 		
@@ -132,7 +132,7 @@ uint8_t SImage_RecieveBlockHeader(void)
 			SImage_ClearPipeStall(SIMAGE_DATA_OUT_PIPE);
 
 			/* Return error code and break out of the loop */
-			return PIPE_RWSTREAM_ERROR_PipeStalled;
+			return PIPE_RWSTREAM_PipeStalled;
 		}
 
 		Pipe_SelectPipe(SIMAGE_DATA_IN_PIPE);
@@ -144,14 +144,14 @@ uint8_t SImage_RecieveBlockHeader(void)
 			SImage_ClearPipeStall(SIMAGE_DATA_IN_PIPE);
 
 			/* Return error code */
-			return PIPE_RWSTREAM_ERROR_PipeStalled;
+			return PIPE_RWSTREAM_PipeStalled;
 		}
 		  
 		/* Check to see if the device was disconnected, if so exit function */
 		if (!(USB_IsConnected))
 		{
 			/* Return error code */
-			return PIPE_RWSTREAM_ERROR_DeviceDisconnected;
+			return PIPE_RWSTREAM_DeviceDisconnected;
 		}
 	};
 	
@@ -185,7 +185,7 @@ uint8_t SImage_RecieveBlockHeader(void)
 	/* Freeze the IN pipe after use */
 	Pipe_Freeze();
 	
-	return PIPE_RWSTREAM_ERROR_NoError;
+	return PIPE_RWSTREAM_NoError;
 }
 
 /** Function to send the given data to the device, after a command block has been issued.
