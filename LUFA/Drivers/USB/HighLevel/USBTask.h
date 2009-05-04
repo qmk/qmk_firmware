@@ -127,28 +127,28 @@
 				/** This module raises the \ref USB_Connect event when a USB device has been connected whilst in host
 				 *  mode, but not yet enumerated.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_Connect);
 
 				/** This module raises the \ref USB_DeviceAttached event when in host mode, and a device is attached
 				 *  to the AVR's USB interface.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_DeviceAttached);
 
 				/** This module raises the \ref USB_DeviceUnattached event when in host mode, and a device is removed
 				 *  from the AVR's USB interface.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_DeviceUnattached);
 				
 				/** This module raises the \ref USB_DeviceEnumerationFailed event when in host mode, and an
 				 *  attached USB device has failed to successfully enumerated.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_DeviceEnumerationFailed);
 
@@ -156,14 +156,14 @@
 				 *  attached USB device has been successfully enumerated and ready to be used by the user
 				 *  application.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_DeviceEnumerationComplete);
 
 				/** This module raises the \ref USB_Disconnect event when an attached USB device is removed from the USB
 				 *  bus.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_Disconnect);
 			#endif
@@ -183,7 +183,7 @@
 			 *    - In host mode, it may be disabled at start-up, enabled on the firing of the \ref USB_DeviceAttached
 			 *    event and disabled again on the firing of the \ref USB_DeviceUnattached event.
 			 *
-			 *  \see Events.h for more information on the USB events.
+			 *  \see \ref Group_Events for more information on the USB events.
 			 *
 			 *  \ingroup Group_USBManagement
 			 */

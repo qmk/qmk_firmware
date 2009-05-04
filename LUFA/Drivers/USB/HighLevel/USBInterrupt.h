@@ -118,7 +118,7 @@
 				 *
 				 *  \note Not all USB AVR models support VBUS interrupts; this event only exists on supported AVRs.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_VBUSChange);
 
@@ -126,7 +126,7 @@
 				 *
 				 *  \note Not all USB AVR models support VBUS interrupts; this event only exists on supported AVRs.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_VBUSConnect);
 
@@ -134,7 +134,7 @@
 				 *
 				 *  \note Not all USB AVR models support VBUS interrupts; this event only exists on supported AVRs.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_VBUSDisconnect);
 			#endif
@@ -143,21 +143,21 @@
 				/** This module raises the Suspended event when the host suspends the USB interface of the AVR
 				 *  whilst running in device mode.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_Suspend);
 
 				/** This module raises the Wake Up event when the host resumes the USB interface of the AVR
 				 *  whilst running in device mode.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_WakeUp);
 
 				/** This module raises the USB Reset event when the host resets the USB interface of the AVR
 				 *  whilst running in device mode.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_Reset);
 			#endif
@@ -168,7 +168,7 @@
 				 *
 				 *  \note Not all USB AVR models support host mode; this event only exists on supported AVRs.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_HostError);
 
@@ -177,7 +177,7 @@
 				 *
 				 *  \note Not all USB AVR models support host mode; this event only exists on supported AVRs.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_DeviceUnattached);
 			#endif
@@ -188,7 +188,7 @@
 				 *  \note Not all USB AVR models support host mode and thus the UID pin; this event only exists on
 				 *        supported AVRs.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_UIDChange);
 			#endif

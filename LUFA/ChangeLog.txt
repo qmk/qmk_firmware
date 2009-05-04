@@ -42,7 +42,7 @@
   *    renamed to Endpoint_ClearSETUP(), the Pipe_IsSetupSent() macro has been renamed to Pipe_IsSETUPSent() and the
   *    Pipe_ClearSetupSent() macro is no longer applicable and should be removed - changes made to compliment the new endpoint and pipe
   *    bank management API
-  *  - Updated all demos, bootloaders and projects to use the new endpoint and pipe management APIs (thanks to Roman Thiel (Curetis AG))
+  *  - Updated all demos, bootloaders and projects to use the new endpoint and pipe management APIs (thanks to Roman Thiel from Curetis AG)
   *  - Updated library doxygen documentation, added groups, changed documentation macro functions to real functions for clarity
   *  - Removed old endpoint and pipe aliased read/write/discard routines which did not have an explicit endian specifier for clarity
   *  - Removed the ButtLoadTag.h header file, as no one used for its intended purpose anyway
@@ -72,6 +72,8 @@
   *  - Fixed PREVENT ALLOW MEDIUM REMOVAL command issuing in the MassStorageHost demo using incorrect parameters (thanks to Mike Alex)
   *  - Fixed MassStorageHost demo broken due to an incorrect if statement test in MassStore_GetReturnedStatus()
   *  - Fixed reversed signature byte ordering in the CDC bootloader (thanks to Johannes Raschke)
+  *  - Changed PIPE_CONTROLPIPE_DEFAULT_SIZE from 8 to 64 to try to prevent problems with faulty devices which do not respect the given
+  *    wLength value when reading in the device descriptor
   *    
   *
   *  \section Sec_ChangeLog090401 Version 090401

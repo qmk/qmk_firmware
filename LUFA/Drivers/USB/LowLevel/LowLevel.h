@@ -118,7 +118,7 @@
 				 *
 				 *  \note This token is not available on AVR models which do not support host mode.
 				 */
-				#define USB_MODE_HOST                      2
+				#define USB_MODE_HOST                  2
 			#endif
 			
 			#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
@@ -159,25 +159,25 @@
 
 			/** Mask for a CONTROL type endpoint or pipe.
 			 *
-			 *  \note See Endpoint.h and Pipe.h headers for endpoint/pipe functions.
+			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
 			 */
 			#define EP_TYPE_CONTROL                    0x00
 
 			/** Mask for an ISOCHRONOUS type endpoint or pipe.
 			 *
-			 *  \note See Endpoint.h and Pipe.h headers for endpoint/pipe functions.
+			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
 			 */
 			#define EP_TYPE_ISOCHRONOUS                0x01
 
 			/** Mask for a BULK type endpoint or pipe.
 			 *
-			 *  \note See Endpoint.h and Pipe.h headers for endpoint/pipe functions.
+			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
 			 */
 			#define EP_TYPE_BULK                       0x02
 
 			/** Mask for an INTERRUPT type endpoint or pipe.
 			 *
-			 *  \note See Endpoint.h and Pipe.h headers for endpoint/pipe functions.
+			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
 			 */
 			#define EP_TYPE_INTERRUPT                  0x03
 
@@ -304,13 +304,13 @@
 			#endif
 			
 			#if !defined(USE_STATIC_OPTIONS) || defined(__DOXYGEN__)
-				extern volatile uint8_t USB_Options;
 				/** Indicates the current USB options that the USB interface was initialized with when \ref USB_Init()
 				 *  was called. This value will be one of the USB_MODE_* masks defined elsewhere in this module.
 				 *
 				 *  \note This variable should be treated as read-only in the user application, and never manually
 				 *        changed in value.
 				 */
+				extern volatile uint8_t USB_Options;
 			#endif
 
 		/* Throwable Events: */

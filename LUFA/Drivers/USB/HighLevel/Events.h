@@ -219,7 +219,7 @@
 			 *  \note This event only exists on USB AVR models which support dual role modes.
 			 *
 			 *  \note This event does not exist if the USB_DEVICE_ONLY or USB_HOST_ONLY tokens have been supplied
-			 *        to the compiler (see LowLevel.h documentation).
+			 *        to the compiler (see \ref Group_USBManagement documentation).
 			 */
 			void USB_UIDChange(void);
 
@@ -232,7 +232,7 @@
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *
 			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
-			 *        LowLevel.h documentation).
+			 *        \ref Group_USBManagement documentation).
 			 */
 			void USB_HostError(const uint8_t ErrorCode);
 			
@@ -244,9 +244,9 @@
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *
 			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
-			 *        LowLevel.h documentation).
+			 *        \ref Group_USBManagement documentation).
 			 *
-			 *  \see USBTask.h for more information on the USB management task and reducing CPU usage.
+			 *  \see \ref TASK(USB_USBTask) for more information on the USB management task and reducing CPU usage.
 			 */
 			void USB_DeviceAttached(void);
 
@@ -257,9 +257,9 @@
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *
 			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
-			 *        LowLevel.h documentation).
+			 *        \ref Group_USBManagement documentation).
 			 *
-			 *  \see USBTask.h for more information on the USB management task and reducing CPU usage.
+			 *  \see \ref TASK(USB_USBTask) for more information on the USB management task and reducing CPU usage.
 			 */
 			void USB_DeviceUnattached(void);
 			
@@ -276,7 +276,7 @@
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *
 			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
-			 *        LowLevel.h documentation).
+			 *        \ref Group_USBManagement documentation).
 			 */
 			void USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
 
@@ -294,7 +294,7 @@
 			 *  on control transfers, interrupts are disabled during control request processing.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
-			 *        LowLevel.h documentation).
+			 *        \ref Group_USBManagement documentation).
 			 *
 			 *  \note Requests should be handled in the same manner as described in the USB 2.0 Specification,
 			 *        or appropriate class specification. In all instances, the library has already read the
@@ -310,7 +310,7 @@
 			 *  This event fires after the value of \ref USB_ConfigurationNumber has been changed.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
-			 *        LowLevel.h documentation).
+			 *        \ref Group_USBManagement documentation).
 			 */
 			void USB_ConfigurationChanged(void);
 
@@ -319,7 +319,7 @@
 			 *  the device over to a low power state until the host wakes up the device.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
-			 *        LowLevel.h documentation).
+			 *        \ref Group_USBManagement documentation).
 			 *
 			 *  \see \ref USB_WakeUp() event for accompanying Wake Up event.
 			 */
@@ -331,7 +331,7 @@
 			 *  mode.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
-			 *        LowLevel.h documentation).
+			 *        \ref Group_USBManagement documentation).
 			 *
 			 *  \see \ref USB_Suspend() event for accompanying Suspend event.
 			 */
@@ -344,7 +344,7 @@
 			 *  disabled.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
-			 *        LowLevel.h documentation).
+			 *        \ref Group_USBManagement documentation).
 			 */
 			void USB_Reset(void);
 			
@@ -355,7 +355,7 @@
 			 *                    \ref USB_Device_ErrorCodes_t enum located in Device.h.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
-			 *        LowLevel.h documentation).
+			 *        \ref Group_USBManagement documentation).
 			 */
 			void USB_DeviceError(const uint8_t ErrorCode);
 		#endif

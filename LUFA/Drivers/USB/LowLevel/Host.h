@@ -179,8 +179,7 @@
 			 *
 			 *  For information on each state, refer to the USB 2.0 specification. Some states have
 			 *
-			 *  \see USBTask.h for information on the global variable USB_HostState, which stores the
-			 *       current host state machine state.
+			 *  \see \ref USB_HostState, which stores the current host state machine state.
 			 */
 			enum USB_Host_States_t
 			{
@@ -202,7 +201,7 @@
 			
 			/** Enum for the error codes for the \ref USB_HostError event.
 			 *
-			 *  \see Events.h for more information on this event.
+			 *  \see \ref Group_Events for more information on this event.
 			 */
 			enum USB_Host_ErrorCodes_t
 			{
@@ -216,7 +215,7 @@
 			
 			/** Enum for the error codes for the \ref USB_DeviceEnumerationFailed event.
 			 *
-			 *  \see Events.h for more information on this event.
+			 *  \see \ref Group_Events for more information on this event.
 			 */
 			enum USB_Host_EnumerationErrorCodes_t
 			{

@@ -86,14 +86,14 @@
 			/** This module raises the \ref USB_UnhandledControlPacket event when a request to the default control
 			 *  endpoint has been received, but the library does not implement an internal handler for it.
 			 *
-			 *  \see Events.h for more information on this event.
+			 *  \see \ref Group_Events for more information on this event.
 			 */
 			RAISES_EVENT(USB_UnhandledControlPacket);
 
 			/** This module raises the \ref USB_ConfigurationChanged event when the host issues a \ref REQ_SetConfiguration
 			 *  device request, to change the currently selected configuration number.
 			 *
-			 *  \see Events.h for more information on this event.
+			 *  \see \ref Group_Events for more information on this event.
 			 */
 			RAISES_EVENT(USB_ConfigurationChanged);
 
@@ -101,7 +101,7 @@
 			 *  enumeration of the device (i.e. when a \ref REQ_SetConfiguration request changes the current configuration
 			 *  number from 0 to a non-zero value).
 			 *
-			 *  \see Events.h for more information on this event.
+			 *  \see \ref Group_Events for more information on this event.
 			 */
 			RAISES_EVENT(USB_DeviceEnumerationComplete);
 	

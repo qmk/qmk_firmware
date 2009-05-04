@@ -128,7 +128,7 @@
 			/** Default size of the default control pipe's bank, until altered by the Endpoint0Size value 
 			 *  in the device descriptor of the attached device.
 			 */
-			#define PIPE_CONTROLPIPE_DEFAULT_SIZE   8
+			#define PIPE_CONTROLPIPE_DEFAULT_SIZE   64
 			
 			/** Pipe number mask, for masking against pipe addresses to retrieve the pipe's numerical address
 			 *  in the device.
@@ -955,6 +955,10 @@
 		/* Macros: */
 			#define PIPE_TOKEN_MASK                (0x03 << PTOKEN0)
 
+			#if !defined(ENDPOINT_CONTROLEP)
+				#define ENDPOINT_CONTROLEP         0
+			#endif
+			
 			#define Pipe_AllocateMemory()          MACROS{ UPCFG1X |=  (1 << ALLOC); }MACROE
 			#define Pipe_DeallocateMemory()        MACROS{ UPCFG1X &= ~(1 << ALLOC); }MACROE
 

@@ -96,7 +96,7 @@
 
 			/** Returns the descriptor's type, expressed as the 8-bit type value in the header of the descriptor.
 			 *  This value's meaning depends on the descriptor's placement in the descriptor, but standard type
-			 *  values can be accessed in the DescriptorTypes_t enum located in USB/HighLevel/StdDescriptors.h.
+			 *  values can be accessed in the \ref USB_DescriptorTypes_t enum.
 			 */
 			#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES) || defined(__DOXYGEN__)
 				#define DESCRIPTOR_TYPE(DescriptorPtr)    DESCRIPTOR_CAST(DescriptorPtr, USB_Descriptor_Header_t).Type

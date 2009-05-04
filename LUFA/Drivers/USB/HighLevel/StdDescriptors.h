@@ -76,12 +76,12 @@
 			#define NO_DESCRIPTOR                     0
 			
 			/** Macro to calculate the power value for the device descriptor, from a given number of milliamps. */
-			#define USB_CONFIG_POWER_MA(x)            (x >> 1)
+			#define USB_CONFIG_POWER_MA(mA)            (mA >> 1)
 
 			/** Macro to calculate the Unicode length of a string with a given number of Unicode characters.
 			 *  Should be used in string descriptor's headers for giving the string descriptor's byte length.
 			 */
-			#define USB_STRING_LEN(x)                 (sizeof(USB_Descriptor_Header_t) + (x << 1))
+			#define USB_STRING_LEN(str)               (sizeof(USB_Descriptor_Header_t) + (str << 1))
 			
 			/** Macro to encode a given four digit floating point version number (e.g. 01.23) into Binary Coded
 			 *  Decimal format for descriptor fields requiring BCD encoding, such as the USB version number in the
@@ -183,7 +183,7 @@
 				/** This module raises the Device Error event while in device mode, if the \ref USB_GetDescriptor()
 				 *  routine is not hooked in the user application to properly return descriptors to the library.
 				 *
-				 *  \see Events.h for more information on this event.
+				 *  \see \ref Group_Events for more information on this event.
 				 */
 				RAISES_EVENT(USB_DeviceError);
 			#endif
@@ -206,10 +206,9 @@
 		/* Type Defines: */
 			/** Type define for all descriptor's header, indicating the descriptor's length and type.
 			 *
-			 *  \note The non-standard structure element names are documented here - see the StdDescriptors.h file
-			 *        documentation for more information on the two descriptor naming schemes. If the
-			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements with names
-			 *        identical to those listed in the USB standard.
+			 *  \note The non-standard structure element names are documented here. If the
+			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements 
+			 *        with names identical to those listed in the USB standard.
 			 */
 			typedef struct
 			{
@@ -226,10 +225,9 @@
 			
 			/** Type define for a standard device descriptor.
 			 *
-			 *  \note The non-standard structure element names are documented here - see the StdDescriptors.h file
-			 *        documentation for more information on the two descriptor naming schemes. If the
-			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements with names
-			 *        identical to those listed in the USB standard.
+			 *  \note The non-standard structure element names are documented here. If the
+			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements 
+			 *        with names identical to those listed in the USB standard.
 			 */
 			typedef struct
 			{
@@ -286,10 +284,9 @@
 
 			/** Type define for a standard configuration descriptor.
 			 *
-			 *  \note The non-standard structure element names are documented here - see the StdDescriptors.h file
-			 *        documentation for more information on the two descriptor naming schemes. If the
-			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements with names
-			 *        identical to those listed in the USB standard.
+			 *  \note The non-standard structure element names are documented here. If the
+			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements 
+			 *        with names identical to those listed in the USB standard.
 			 */
 			typedef struct
 			{
@@ -326,10 +323,9 @@
 
 			/** Type define for a standard interface descriptor.
 			 *
-			 *  \note The non-standard structure element names are documented here - see the StdDescriptors.h file
-			 *        documentation for more information on the two descriptor naming schemes. If the
-			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements with names
-			 *        identical to those listed in the USB standard.
+			 *  \note The non-standard structure element names are documented here. If the
+			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements 
+			 *        with names identical to those listed in the USB standard.
 			 */
 			typedef struct
 			{
@@ -372,10 +368,9 @@
 			 *  together at the point of enumeration, loading one generic driver for all the interfaces in the single
 			 *  function. Read the ECN for more information.
 			 *
-			 *  \note The non-standard structure element names are documented here - see the StdDescriptors.h file
-			 *        documentation for more information on the two descriptor naming schemes. If the
-			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements with names
-			 *        identical to those listed in the USB standard.
+			 *  \note The non-standard structure element names are documented here. If the
+			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements 
+			 *        with names identical to those listed in the USB standard.
 			 */
 			typedef struct
 			{
@@ -406,10 +401,9 @@
 
 			/** Type define for a standard endpoint descriptor.
 			 *
-			 *  \note The non-standard structure element names are documented here - see the StdDescriptors.h file
-			 *        documentation for more information on the two descriptor naming schemes. If the
-			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements with names
-			 *        identical to those listed in the USB standard.
+			 *  \note The non-standard structure element names are documented here. If the
+			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements 
+			 *        with names identical to those listed in the USB standard.
 			*/
 			typedef struct
 			{
@@ -448,10 +442,9 @@
 			 *  This structure should also be used for string index 0, which contains the supported language IDs for
 			 *  the device as an array.
 			 *
-			 *  \note The non-standard structure element names are documented here - see the StdDescriptors.h file
-			 *        documentation for more information on the two descriptor naming schemes. If the
-			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements with names
-			 *        identical to those listed in the USB standard.
+			 *  \note The non-standard structure element names are documented here. If the
+			 *        USE_NONSTANDARD_DESCRIPTOR_NAMES token is not set, this structure contains elements 
+			 *        with names identical to those listed in the USB standard.
 			 */
 			typedef struct
 			{

@@ -80,7 +80,7 @@
 				 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
 				 *        the \ref USB_RemoteWakeupEnabled flag is set).
 				 *
-				 *  \see StdDescriptors.h for more information on the RMWAKEUP feature and device descriptors.
+				 *  \see \ref Group_Descriptors for more information on the RMWAKEUP feature and device descriptors.
 				 */
 				static inline void USB_Device_SendRemoteWakeup(void);
 				
@@ -93,7 +93,7 @@
 				 *  \note This macro should only be used if the device has indicated to the host that it
 				 *        supports the Remote Wakeup feature in the device descriptors.
 				 *
-				 *  \see StdDescriptors.h for more information on the RMWAKEUP feature and device descriptors.
+				 *  \see \ref Group_Descriptors for more information on the RMWAKEUP feature and device descriptors.
 				 *
 				 *  \return Boolean true if no Remote Wakeup request is currently being sent, false otherwise
 				 */
@@ -124,7 +124,7 @@
 				DEVICE_ERROR_GetDescriptorNotHooked        = 0, /**< Indicates that the \ref USB_GetDescriptor() method
 				                                                 *   has not been hooked by the user application.
 				                                                 *
-				                                                 *   \see StdDescriptors.h for more information on
+				                                                 *   \see \ref Group_Descriptors for more information on
 				                                                 *        the \ref USB_GetDescriptor() method.
 				                                                 */
 			};

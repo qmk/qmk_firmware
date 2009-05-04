@@ -157,7 +157,7 @@ static void USB_HostTask(void)
 			break;
 		case HOST_STATE_Powered:
 			Pipe_ConfigurePipe(PIPE_CONTROLPIPE, EP_TYPE_CONTROL,
-							   PIPE_TOKEN_SETUP, PIPE_CONTROLPIPE,
+							   PIPE_TOKEN_SETUP, ENDPOINT_CONTROLEP,
 							   PIPE_CONTROLPIPE_DEFAULT_SIZE, PIPE_BANK_SINGLE);		
 		
 			if (!(Pipe_IsConfigured()))
@@ -203,7 +203,7 @@ static void USB_HostTask(void)
 			Pipe_ResetPipe(PIPE_CONTROLPIPE);
 			
 			Pipe_ConfigurePipe(PIPE_CONTROLPIPE, EP_TYPE_CONTROL,
-			                   PIPE_TOKEN_SETUP, PIPE_CONTROLPIPE,
+			                   PIPE_TOKEN_SETUP, ENDPOINT_CONTROLEP,
 			                   USB_ControlPipeSize, PIPE_BANK_SINGLE);
 
 			if (!(Pipe_IsConfigured()))
