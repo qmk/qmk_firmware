@@ -53,6 +53,14 @@
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file.
  *
+ *  \note To make code as compatible as possible, it is assumed that all boards carry a minimum of four LEDs. If
+ *        a board contains less than four LEDs, the remaining LED masks are defined to 0 so as to have no effect.
+ *        If other behaviour is desired, either alias the remaining LED masks to existing LED masks via the -D 
+ *        switch in the project makefile, or alias them to nothing in the makefile to cause compilation errors when
+ *        a non-existing LED is referenced in application code. Note that this means that it is possible to make
+ *        compatible code for a board with no LEDs by making a board LED driver (see \ref Page_WritingBoardDrivers)
+ *        which contains only stub functions and defines no LEDs.
+ *
  *  @{
  */
 
@@ -82,6 +90,22 @@
 		#include "ATAVRUSBRF01/LEDs.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
+	#endif
+	
+	#if !defined(LEDS_LED1)
+		#define LEDS_LED1      0
+	#endif
+
+	#if !defined(LEDS_LED2)
+		#define LEDS_LED2      0
+	#endif
+
+	#if !defined(LEDS_LED3)
+		#define LEDS_LED3      0
+	#endif
+
+	#if !defined(LEDS_LED4)
+		#define LEDS_LED4      0
 	#endif
 	
 	/* Pseudo-Functions for Doxygen: */

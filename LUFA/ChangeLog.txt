@@ -74,6 +74,9 @@
   *  - Fixed reversed signature byte ordering in the CDC bootloader (thanks to Johannes Raschke)
   *  - Changed PIPE_CONTROLPIPE_DEFAULT_SIZE from 8 to 64 to try to prevent problems with faulty devices which do not respect the given
   *    wLength value when reading in the device descriptor
+  *  - Fixed missing semicolon in the ATAVRUSBRF01 LED board driver code (thanks to Morten Lund)
+  *  - Changed LED board driver code to define dummy LED masks for the first four board LEDs, so that user code can be compiled for boards
+  *    with less than four LEDs without code modifications (thanks to Morten Lund)
   *    
   *
   *  \section Sec_ChangeLog090401 Version 090401
