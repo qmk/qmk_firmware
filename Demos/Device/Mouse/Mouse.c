@@ -81,7 +81,7 @@ int main(void)
 	/* Hardware Initialization */
 	Joystick_Init();
 	LEDs_Init();
-	HWB_Init();
+	Buttons_Init();
 	
 	/* Millisecond timer initialization, with output compare interrupt enabled for the idle timing */
 	OCR0A  = 0x7D;
@@ -305,7 +305,7 @@ void CreateMouseReport(USB_MouseReport_Data_t* ReportData)
 	if (JoyStatus_LCL & JOY_PRESS)
 	  ReportData->Button  = (1 << 0);
 	  
-	if (HWB_GetStatus())
+	if (Buttons_GetStatus() & BUTTONS_BUTTON1)
 	  ReportData->Button |= (1 << 1);
 }
 

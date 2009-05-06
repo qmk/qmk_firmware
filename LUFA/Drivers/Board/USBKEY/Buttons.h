@@ -28,20 +28,16 @@
   this software.
 */
 
-/*
-   This is a stub driver header file, for implementing custom board
-   layout hardware with compatible LUFA board specific drivers. If
-   the library is configured to use the BOARD_USER board mode, this
-   driver file should be completed and copied into the "/Board/" folder
-   inside the application's folder.
+/** \file
+ *
+ *  Board specific Buttons driver header for the USBKEY.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
+ *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
+ */
 
-   This stub is for the board-specific component of the LUFA HWB (Hardware
-   Button, a physical button on most Atmel USB boards) driver. This could
-   alternately be driven from any button connected to the USB AVR.
-*/
- 
-#ifndef __HWB_USER_H__
-#define __HWB_USER_H__
+#ifndef __BUTTONS_USBKEY_H__
+#define __BUTTONS_USBKEY_H__
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -49,30 +45,33 @@
 
 		#include "../../../Common/Common.h"
 
-		// TODO: Add any required includes here
-
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
 		#endif
 
 	/* Preprocessor Checks: */
-		#if !defined(INCLUDE_FROM_HWB_H)
-			#error Do not include this file directly. Include LUFA/Drivers/Board/HWB.h instead.
+		#if !defined(INCLUDE_FROM_BUTTONS_H)
+			#error Do not include this file directly. Include LUFA/Drivers/Board/Buttons.h instead.
 		#endif
 		
 	/* Public Interface - May be used in end-application: */
+		/* Macros: */
+			/** Button mask for the first button on the board. */
+			#define BUTTONS_BUTTON1      (1 << 2)
+	
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
-			static inline void HWB_Init(void)
+			static inline void Buttons_Init(void)
 			{
-				// TODO: Initialize the appropriate port pin as an input here, with pull-up
+				DDRE  &= ~BUTTONS_BUTTON1;
+				PORTE |=  BUTTONS_BUTTON1;
 			}
 
-			static inline bool HWB_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
-			static inline bool HWB_GetStatus(void)
+			static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t Buttons_GetStatus(void)
 			{
-				// TODO: Return current button status here, debounced if required
+				return ((PINE & BUTTONS_BUTTON1) ^ BUTTONS_BUTTON1);
 			}
 		#endif
 
@@ -82,3 +81,4 @@
 		#endif
 			
 #endif
+

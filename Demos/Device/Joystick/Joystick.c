@@ -58,7 +58,7 @@ int main(void)
 	/* Hardware Initialization */
 	Joystick_Init();
 	LEDs_Init();
-	HWB_Init();
+	Buttons_Init();
 	
 	/* Indicate USB not ready */
 	UpdateStatus(Status_USBNotReady);
@@ -173,7 +173,7 @@ bool GetNextReport(USB_JoystickReport_Data_t* ReportData)
 	if (JoyStatus_LCL & JOY_PRESS)
 	  ReportData->Button  = (1 << 1);
 	  
-	if (HWB_GetStatus())
+	if (Buttons_GetStatus() & BUTTONS_BUTTON1)
 	  ReportData->Button |= (1 << 0);
 	  
 	/* Check if the new report is different to the previous report */

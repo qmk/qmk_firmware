@@ -52,7 +52,7 @@
 		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>        // Serial stream driver
 		#include <LUFA/Drivers/Board/LEDs.h>                     // LEDs driver
-		#include <LUFA/Drivers/Board/HWB.h>                      // Hardware Button driver
+		#include <LUFA/Drivers/Board/Buttons.h>                  // Board Buttons driver
 		#include <LUFA/Scheduler/Scheduler.h>                    // Simple scheduler for task management
 
 	/* Enums: */

@@ -51,12 +51,12 @@
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>       // USART Stream driver
 		#include <LUFA/Drivers/Board/Joystick.h>                // Joystick driver
 		#include <LUFA/Drivers/Board/LEDs.h>                    // LED driver
-		#include <LUFA/Drivers/Board/HWB.h>                     // Hardware Button driver
+		#include <LUFA/Drivers/Board/Buttons.h>                 // Board Buttons driver
 		#include <LUFA/Drivers/Board/Temperature.h>             // Temperature sensor driver
 		
 	/* Task Definitions: */
 		TASK(TestApp_CheckJoystick);
-		TASK(TestApp_CheckHWB);
+		TASK(TestApp_CheckButton);
 		TASK(TestApp_CheckTemp);
 
 #endif

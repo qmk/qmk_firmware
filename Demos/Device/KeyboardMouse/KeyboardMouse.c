@@ -240,8 +240,8 @@ TASK(USB_Keyboard)
 {
 	uint8_t JoyStatus_LCL = Joystick_GetStatus();
 
-	/* Check if HWB is not pressed, if so mouse mode enabled */
-	if (!(HWB_GetStatus()))
+	/* Check if board button is not pressed, if so mouse mode enabled */
+	if (!(Buttons_GetStatus() & BUTTONS_BUTTON1))
 	{
 		if (JoyStatus_LCL & JOY_UP)
 		  KeyboardReportData.KeyCode[0] = 0x04; // A
@@ -311,8 +311,8 @@ TASK(USB_Mouse)
 {
 	uint8_t JoyStatus_LCL = Joystick_GetStatus();
 
-	/* Check if HWB is pressed, if so mouse mode enabled */
-	if (HWB_GetStatus())
+	/* Check if board button is pressed, if so mouse mode enabled */
+	if (Buttons_GetStatus() & BUTTONS_BUTTON1)
 	{
 		if (JoyStatus_LCL & JOY_UP)
 		  MouseReportData.Y =  1;

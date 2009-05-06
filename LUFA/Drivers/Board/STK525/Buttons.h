@@ -30,14 +30,20 @@
 
 /** \file
  *
- *  Board specific HWB driver header for the STK526.
+ *  Board specific Buttons driver header for the STK525.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the HWB driver
- *        dispatch header located in LUFA/Drivers/Board/HWB.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
+ *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  */
 
-#ifndef __HWB_STK526_H__
-#define __HWB_STK526_H__
+#ifndef __BUTTONS_STK525_H__
+#define __BUTTONS_STK525_H__
+
+	/* Includes: */
+		#include <avr/io.h>
+		#include <stdbool.h>
+
+		#include "../../../Common/Common.h"
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -51,29 +57,33 @@
 		#endif
 
 	/* Preprocessor Checks: */
-		#if !defined(INCLUDE_FROM_HWB_H)
-			#error Do not include this file directly. Include LUFA/Drivers/Board/HWB.h instead.
+		#if !defined(INCLUDE_FROM_BUTTONS_H)
+			#error Do not include this file directly. Include LUFA/Drivers/Board/Buttons.h instead.
 		#endif
 		
 	/* Public Interface - May be used in end-application: */
+		/* Macros: */
+			/** Button mask for the first button on the board. */
+			#define BUTTONS_BUTTON1      (1 << 2)
+	
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
-			static inline void HWB_Init(void)
+			static inline void Buttons_Init(void)
 			{
-				DDRD  &= ~(1 << 7);
-				PORTD |=  (1 << 7);
+				DDRE  &= ~BUTTONS_BUTTON1;
+				PORTE |=  BUTTONS_BUTTON1;
 			}
 
-			static inline bool HWB_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
-			static inline bool HWB_GetStatus(void)
+			static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t Buttons_GetStatus(void)
 			{
-				return (!(PIND & (1 << 7)));
+				return ((PINE & BUTTONS_BUTTON1) ^ BUTTONS_BUTTON1);
 			}
 		#endif
-			
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
 		#endif
-	
+			
 #endif

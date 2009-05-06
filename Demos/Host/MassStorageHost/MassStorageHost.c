@@ -63,7 +63,7 @@ int main(void)
 	/* Hardware Initialization */
 	SerialStream_Init(9600, false);
 	LEDs_Init();
-	HWB_Init();
+	Buttons_Init();
 	
 	/* Indicate USB not ready */
 	UpdateStatus(Status_USBNotReady);
@@ -319,10 +319,10 @@ TASK(USB_MassStore_Host)
 				puts_P(PSTR("\r\n"));
 			}
 			
-			puts_P(PSTR("\r\n\r\nPress HWB to read entire ASCII contents of disk...\r\n\r\n"));
+			puts_P(PSTR("\r\n\r\nPress board button to read entire ASCII contents of disk...\r\n\r\n"));
 			
-			/* Wait for HWB to be pressed */
-			while (!(HWB_GetStatus()))
+			/* Wait for the board button to be pressed */
+			while (!(Buttons_GetStatus() & BUTTONS_BUTTON1))
 			{
 				/* Abort if device removed */
 				if (!(USB_IsConnected))

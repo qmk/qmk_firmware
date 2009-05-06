@@ -77,6 +77,7 @@
   *  - Fixed missing semicolon in the ATAVRUSBRF01 LED board driver code (thanks to Morten Lund)
   *  - Changed LED board driver code to define dummy LED masks for the first four board LEDs, so that user code can be compiled for boards
   *    with less than four LEDs without code modifications (thanks to Morten Lund)
+  *  - Changed HWB board driver to Buttons driver, to allow for the support of future boards with more than one mounted GPIO button
   *    
   *
   *  \section Sec_ChangeLog090401 Version 090401

@@ -30,25 +30,25 @@
 
 /** \file
  *
- *  This file is the master dispatch header file for the board-specific HWB driver, for boards containing a
- *  physical pushbutton connected to the AVR's HWB IO pin.
+ *  This file is the master dispatch header file for the board-specific Buttons driver, for boards containing
+ *  physical pushbuttons connected to the AVR's GPIO pins.
  *
- *  User code should include this file, which will in turn include the correct HWB driver header file for the
+ *  User code should include this file, which will in turn include the correct Button driver header file for the
  *  currently selected board.
  *
- *  If the BOARD value is set to BOARD_USER, this will include the /Board/HWB.h file in the user project
+ *  If the BOARD value is set to BOARD_USER, this will include the /Board/Buttons.h file in the user project
  *  directory.
  */
 
 /** \ingroup Group_BoardDrivers
- *  @defgroup Group_HWB HWB Driver - LUFA/Drivers/Board/HWB.h
+ *  @defgroup Group_Buttons Buttons Driver - LUFA/Drivers/Board/Buttons.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the control of board HWB.
+ *  Functions, macros, variables, enums and types related to the control of physical board GPIO buttons.
  *
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file.
@@ -56,12 +56,12 @@
  *  @{
  */
 
-#ifndef __HWB_H__
-#define __HWB_H__
+#ifndef __BUTTONS_H__
+#define __BUTTONS_H__
 
 	/* Macros: */
 	#if !defined(__DOXYGEN__)
-		#define INCLUDE_FROM_HWB_H
+		#define INCLUDE_FROM_BUTTONS_H
 		#define INCLUDE_FROM_BOARD_DRIVER
 	#endif
 
@@ -71,33 +71,33 @@
 	#if !defined(BOARD)
 		#error BOARD must be set in makefile to a value specified in BoardTypes.h.
 	#elif (BOARD == BOARD_USBKEY)
-		#include "USBKEY/HWB.h"
+		#include "USBKEY/BUTTONS.h"
 	#elif (BOARD == BOARD_STK525)
-		#include "STK525/HWB.h"
+		#include "STK525/BUTTONS.h"
 	#elif (BOARD == BOARD_STK526)
-		#include "STK526/HWB.h"
+		#include "STK526/BUTTONS.h"
 	#elif (BOARD == BOARD_ATAVRUSBRF01)
-		#include "ATAVRUSBRF01/HWB.h"
+		#include "ATAVRUSBRF01/BUTTONS.h"
 	#elif (BOARD == BOARD_USER)
-		#include "Board/HWB.h"		
+		#include "Board/BUTTONS.h"		
 	#else
-		#error The selected board does not contain a HWB.
+		#error The selected board does not contain any GPIO buttons.
 	#endif
 	
 	/* Pseudo-Functions for Doxygen: */
 	#if defined(__DOXYGEN__)
-		/** Initializes the HWB driver, so that the current button position can be read. This sets the appropriate
-		 *  I/O pin to an input with pull-up enabled.
+		/** Initializes the BUTTONS driver, so that the current button position can be read. This sets the appropriate
+		 *  I/O pins to an inputs with pull-ups enabled.
 		 *
-		 *  This must be called before any HWB functions are used.
+		 *  This must be called before any Button driver functions are used.
 		 */
-		static inline void HWB_Init(void);
+		static inline void Buttons_Init(void);
 		
-		/** Returns the current position of the HWB button on the board.
+		/** Returns a mask indicating which board buttons are currently pressed.
 		 *
-		 *  \return Boolean true if the button is currently pressed, false otherwise
+		 *  \return Mask indicating which board buttons are currently pressed
 		 */
-		static inline bool HWB_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+		static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 	#endif
 
 #endif

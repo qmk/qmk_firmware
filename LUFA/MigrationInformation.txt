@@ -17,6 +17,7 @@
  *      BUTTLOADTAG elements, or download and extract ButtLoadTag.h header from the ButtLoad project.
  *    - The Drivers/AT90USBXXX directory has been renamed to Drivers/Peripheral.
  *    - The Serial_Stream driver has been renamed to SerialStream to remain consistent with the rest of the library naming scheme.
+ *    - The HWB driver has changed to the Buttons driver. See the board Buttons driver documentation for the new API.
  *
  *  <b>Dual Role Mode</b>
  *    - The USB_PowerOnFail even has been renamed to USB_InitFailure.

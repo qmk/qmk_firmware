@@ -58,7 +58,7 @@ int main(void)
 	/* Hardware Initialization */
 	Joystick_Init();
 	LEDs_Init();
-	HWB_Init();
+	Buttons_Init();
 
 	/* Indicate USB not ready */
 	UpdateStatus(Status_USBNotReady);
@@ -134,8 +134,8 @@ TASK(USB_MIDI_Task)
 		uint8_t JoystickStatus  = Joystick_GetStatus();
 		uint8_t JoystickChanges = (JoystickStatus ^ PrevJoystickStatus);
 		
-		/* Get HWB status - if set use channel 10 (percussion), otherwise use channel 1 */
-		uint8_t Channel = ((HWB_GetStatus()) ? MIDI_CHANNEL(10) : MIDI_CHANNEL(1));
+		/* Get board button status - if pressed use channel 10 (percussion), otherwise use channel 1 */
+		uint8_t Channel = ((Buttons_GetStatus() & BUTTONS_BUTTON1) ? MIDI_CHANNEL(10) : MIDI_CHANNEL(1));
 
 		if (JoystickChanges & JOY_LEFT)
 		  SendMIDINoteChange(0x3C, (JoystickStatus & JOY_LEFT), 0, Channel);

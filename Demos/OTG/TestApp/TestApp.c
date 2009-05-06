@@ -40,7 +40,7 @@
 TASK_LIST
 {
 	{ .Task = TestApp_CheckJoystick, .TaskStatus = TASK_RUN  },
-	{ .Task = TestApp_CheckHWB     , .TaskStatus = TASK_RUN  },
+	{ .Task = TestApp_CheckButton  , .TaskStatus = TASK_RUN  },
 	{ .Task = TestApp_CheckTemp    , .TaskStatus = TASK_RUN  },
 	{ .Task = USB_USBTask          , .TaskStatus = TASK_RUN  },
 };
@@ -63,7 +63,7 @@ int main(void)
 	Temperature_Init();
 	Joystick_Init();
 	LEDs_Init();
-	HWB_Init();
+	Buttons_Init();
 	
 	/* Millisecond timer initialization, with output compare interrupt enabled */
 	OCR0A  = 0x7D;
@@ -137,17 +137,17 @@ TASK(TestApp_CheckTemp)
 	}	
 }
 
-/** Task responsible for checking the HWB button position, and start-stopping other tasks and the USB
+/** Task responsible for checking the board's first button' position, and start-stopping other tasks and the USB
  *  interface in response to user joystick movements.
  */
-TASK(TestApp_CheckHWB)
+TASK(TestApp_CheckButton)
 {
 	static SchedulerDelayCounter_t DelayCounter = 0;
 	static bool                    IsPressed;
 	static bool                    BlockingJoystickTask;
 	
-	/* Check if HWB pressed (start USB) */
-	if (HWB_GetStatus() == true)
+	/* Check if board button pressed (start USB) */
+	if (Buttons_GetStatus() & BUTTONS_BUTTON1)
 	{
 		/* Debounce - check 100 ticks later to see if button is still being pressed */
 		if ((IsPressed == false) && (Scheduler_HasDelayElapsed(100, &DelayCounter)))
@@ -185,7 +185,7 @@ TASK(TestApp_CheckHWB)
 	}
     else
     {
-		/* HWB not pressed - reset debounce interval counter and press handled flag */
+		/* Board button not pressed - reset debounce interval counter and press handled flag */
 		Scheduler_ResetDelay(&DelayCounter);
 		IsPressed = false;
 	}
