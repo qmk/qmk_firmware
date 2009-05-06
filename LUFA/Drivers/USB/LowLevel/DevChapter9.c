@@ -274,6 +274,8 @@ static void USB_Device_ClearSetFeature(void)
 		case REQREC_DEVICE:
 			if ((uint8_t)USB_ControlRequest.wValue == FEATURE_REMOTE_WAKEUP)
 			  USB_RemoteWakeupEnabled = (USB_ControlRequest.bRequest == REQ_SetFeature);
+			else
+			  return;
 			
 			break;			
 #if !defined(CONTROL_ONLY_DEVICE)
@@ -282,33 +284,38 @@ static void USB_Device_ClearSetFeature(void)
 			{
 				uint8_t EndpointIndex = ((uint8_t)USB_ControlRequest.wIndex & ENDPOINT_EPNUM_MASK);
 				
-				if (EndpointIndex != ENDPOINT_CONTROLEP)
-				{
-					Endpoint_SelectEndpoint(EndpointIndex);
+				if (EndpointIndex == ENDPOINT_CONTROLEP)
+				  return;
 
-					if (Endpoint_IsEnabled())
-					{				
-						if (USB_ControlRequest.bRequest == REQ_ClearFeature)
-						{
-							Endpoint_ClearStall();
-							Endpoint_ResetFIFO(EndpointIndex);
-							Endpoint_ResetDataToggle();
-						}
-						else
-						{
-							Endpoint_StallTransaction();						
-						}
+				Endpoint_SelectEndpoint(EndpointIndex);
+
+				if (Endpoint_IsEnabled())
+				{				
+					if (USB_ControlRequest.bRequest == REQ_ClearFeature)
+					{
+						Endpoint_ClearStall();
+						Endpoint_ResetFIFO(EndpointIndex);
+						Endpoint_ResetDataToggle();
 					}
-
-					Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
-					Endpoint_ClearSETUP();
-					Endpoint_ClearIN();
+					else
+					{
+						Endpoint_StallTransaction();						
+					}
 				}
 			}
 			
 			break;
 #endif
 	}
+
+	Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
+
+	Endpoint_ClearSETUP();
+
+	Endpoint_ClearIN();
+
+	while (!(Endpoint_IsOUTReceived()));
+	Endpoint_ClearOUT();
 }
 
 #endif
