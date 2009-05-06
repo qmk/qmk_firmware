@@ -287,7 +287,8 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  */
 void CreateMouseReport(USB_MouseReport_Data_t* ReportData)
 {
-	uint8_t JoyStatus_LCL = Joystick_GetStatus();
+	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
+	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
 	
 	/* Clear the report contents */
 	memset(ReportData, 0, sizeof(USB_MouseReport_Data_t));
@@ -305,7 +306,7 @@ void CreateMouseReport(USB_MouseReport_Data_t* ReportData)
 	if (JoyStatus_LCL & JOY_PRESS)
 	  ReportData->Button  = (1 << 0);
 	  
-	if (Buttons_GetStatus() & BUTTONS_BUTTON1)
+	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 	  ReportData->Button |= (1 << 1);
 }
 

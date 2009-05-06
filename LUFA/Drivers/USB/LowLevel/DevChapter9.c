@@ -131,7 +131,7 @@ static void USB_Device_SetAddress(void)
 
 static void USB_Device_SetConfiguration(void)
 {
-	bool    AlreadyConfigured = (USB_ConfigurationNumber != 0);
+	bool AlreadyConfigured = (USB_ConfigurationNumber != 0);
 
 #if defined(USE_SINGLE_DEVICE_CONFIGURATION)
 	if ((uint8_t)USB_ControlRequest.wValue > 1)
@@ -188,7 +188,7 @@ static void USB_Device_GetDescriptor(void)
 	#if defined(USE_RAM_DESCRIPTORS)
 	Endpoint_Write_Control_Stream_LE(DescriptorPointer, DescriptorSize);
 	#else
-	bool     SendZLP;
+	bool SendZLP;
 	
 	if (USB_ControlRequest.wLength > DescriptorSize)
 	  USB_ControlRequest.wLength = DescriptorSize;

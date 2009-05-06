@@ -153,9 +153,10 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
  */
 bool GetNextReport(USB_JoystickReport_Data_t* ReportData)
 {
-	static uint8_t PrevJoyStatus = 0;
-	uint8_t        JoyStatus_LCL        = Joystick_GetStatus();
-	bool           InputChanged         = false;
+	static uint8_t PrevJoyStatus    = 0;
+	uint8_t        JoyStatus_LCL    = Joystick_GetStatus();
+	uint8_t        ButtonStatus_LCL = Buttons_GetStatus();
+	bool           InputChanged     = false;
 
 	/* Clear the report contents */
 	memset(ReportData, 0, sizeof(USB_JoystickReport_Data_t));
@@ -173,14 +174,15 @@ bool GetNextReport(USB_JoystickReport_Data_t* ReportData)
 	if (JoyStatus_LCL & JOY_PRESS)
 	  ReportData->Button  = (1 << 1);
 	  
-	if (Buttons_GetStatus() & BUTTONS_BUTTON1)
+	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 	  ReportData->Button |= (1 << 0);
 	  
 	/* Check if the new report is different to the previous report */
-	InputChanged = (uint8_t)(PrevJoyStatus ^ JoyStatus_LCL);
+	InputChanged = (uint8_t)(PrevJoyStatus ^ JoyStatus_LCL) | (uint8_t)(PrevButtonStatus ^ ButtonStatus_LCL);
 
 	/* Save the current joystick status for later comparison */
-	PrevJoyStatus = JoyStatus_LCL;
+	PrevJoyStatus    = JoyStatus_LCL;
+	PrevButtonStatus = ButtonStatus_LCL;
 
 	/* Return whether the new report is different to the previous report or not */
 	return InputChanged;
