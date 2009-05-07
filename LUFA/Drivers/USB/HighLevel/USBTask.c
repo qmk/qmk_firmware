@@ -83,11 +83,10 @@ static void USB_HostTask(void)
 {
 	uint8_t ErrorCode    = HOST_ENUMERROR_NoError;
 	uint8_t SubErrorCode = HOST_ENUMERROR_NoError;
+	uint8_t PrevPipe     = Pipe_GetCurrentPipe();
 	
 	static uint16_t WaitMSRemaining;
 	static uint8_t  PostWaitState;
-
-	uint8_t PrevPipe = Pipe_GetCurrentPipe();
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
@@ -176,10 +175,10 @@ static void USB_HostTask(void)
 					.bRequest      = REQ_GetDescriptor,
 					.wValue        = (DTYPE_Device << 8),
 					.wIndex        = 0,
-					.wLength       = PIPE_CONTROLPIPE_DEFAULT_SIZE,
+					.wLength       = 8,
 				};
 
-			uint8_t DataBuffer[PIPE_CONTROLPIPE_DEFAULT_SIZE];
+			uint8_t DataBuffer[8];
 
 			if ((SubErrorCode = USB_Host_SendControlRequest(DataBuffer)) != HOST_SENDCONTROL_Successful)
 			{

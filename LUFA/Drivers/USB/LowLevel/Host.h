@@ -60,7 +60,7 @@
 			 *  and that the address used is not important (other than the fact that it is non-zero), a
 			 *  fixed value is specified by the library.
 			 */
-			#define USB_HOST_DEVICEADDRESS             1
+			#define USB_HOST_DEVICEADDRESS                 1
 
 			#if !defined(USB_HOST_TIMEOUT_MS) || defined(__DOXYGEN__)
 				/** Constant for the maximum software timeout period of sent USB control transactions to an attached
@@ -244,7 +244,7 @@
 			#define USB_Host_HostMode_On()          MACROS{ USBCON |=  (1 << HOST);           }MACROE
 			#define USB_Host_HostMode_Off()         MACROS{ USBCON &= ~(1 << HOST);           }MACROE
 
-			#define USB_Host_VBUS_Auto_Enable()     MACROS{ OTGCON &= ~(1 << VBUSHWC); UHWCON |=  (1 << UVCONE);                    }MACROE
+			#define USB_Host_VBUS_Auto_Enable()     MACROS{ OTGCON &= ~(1 << VBUSHWC); UHWCON |=  (1 << UVCONE);                   }MACROE
 			#define USB_Host_VBUS_Manual_Enable()   MACROS{ OTGCON |=  (1 << VBUSHWC); UHWCON &= ~(1 << UVCONE); DDRE |= (1 << 7); }MACROE
 
 			#define USB_Host_VBUS_Auto_On()         MACROS{ OTGCON |= (1 << VBUSREQ);         }MACROE

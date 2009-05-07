@@ -165,7 +165,7 @@ static void USB_Device_SetConfiguration(void)
 
 void USB_Device_GetConfiguration(void)
 {
-	Endpoint_ClearSETUP();	
+	Endpoint_ClearSETUP();
 
 	Endpoint_Write_Byte(USB_ConfigurationNumber);
 	
