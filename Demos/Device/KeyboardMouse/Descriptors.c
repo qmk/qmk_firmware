@@ -184,7 +184,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
-			.TotalHIDReports        = 0x01,
+			.TotalReportDescriptors = 1,
 			.HIDReportType          = DTYPE_Report,
 			.HIDReportLength        = sizeof(KeyboardReport)
 		},
@@ -231,7 +231,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
-			.TotalHIDReports        = 0x01,
+			.TotalReportDescriptors = 1,
 			.HIDReportType          = DTYPE_Report,
 			.HIDReportLength        = sizeof(MouseReport)
 		},

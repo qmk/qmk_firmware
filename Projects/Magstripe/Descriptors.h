@@ -54,7 +54,7 @@
 			uint16_t                HIDSpec; /**< HID specification implemented by the device, in BCD form */
 			uint8_t                 CountryCode; /**< Country code for the country the HID device is localised for */
 		
-			uint8_t                 TotalHIDReports; /**< Total number of HID reports linked to this HID interface */
+			uint8_t                 TotalHIDDescriptors; /**< Total number of HID reports linked to this HID interface */
 
 			uint8_t                 HIDReportType; /**< Type of the first HID report descriptor */
 			uint16_t                HIDReportLength; /**< Length of the first HID report descriptor */

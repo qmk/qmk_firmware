@@ -50,7 +50,7 @@
 			uint16_t                HIDSpec;
 			uint8_t                 CountryCode;
 		
-			uint8_t                 TotalHIDReports;
+			uint8_t                 TotalHIDDescriptors;
 
 			uint8_t                 HIDReportType;
 			uint16_t                HIDReportLength;

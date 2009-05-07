@@ -72,7 +72,7 @@
 			uint16_t                 HIDSpec; /**< Implemented HID class specification, in BCD encoded format */
 			uint8_t                  CountryCode; /**< Country code value for localized hardware */
 		
-			uint8_t                  TotalHIDReports; /**< Total number of HID report descriptors in the current interface */
+			uint8_t                  TotalHIDDescriptors; /**< Total number of HID report descriptors in the current interface */
 
 			uint8_t                  HIDReportType; /**< HID report type of the first HID report descriptor */
 			uint16_t                 HIDReportLength; /**< Total size in bytes of the first HID report descriptor */
