@@ -71,15 +71,15 @@
 	#if !defined(BOARD)
 		#error BOARD must be set in makefile to a value specified in BoardTypes.h.
 	#elif (BOARD == BOARD_USBKEY)
-		#include "USBKEY/BUTTONS.h"
+		#include "USBKEY/Buttons.h"
 	#elif (BOARD == BOARD_STK525)
-		#include "STK525/BUTTONS.h"
+		#include "STK525/Buttons.h"
 	#elif (BOARD == BOARD_STK526)
-		#include "STK526/BUTTONS.h"
+		#include "STK526/Buttons.h"
 	#elif (BOARD == BOARD_ATAVRUSBRF01)
-		#include "ATAVRUSBRF01/BUTTONS.h"
+		#include "ATAVRUSBRF01/Buttons.h"
 	#elif (BOARD == BOARD_USER)
-		#include "Board/BUTTONS.h"		
+		#include "Board/Buttons.h"		
 	#else
 		#error The selected board does not contain any GPIO buttons.
 	#endif

@@ -154,6 +154,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 bool GetNextReport(USB_JoystickReport_Data_t* ReportData)
 {
 	static uint8_t PrevJoyStatus    = 0;
+	static uint8_t PrevButtonStatus = 0;
 	uint8_t        JoyStatus_LCL    = Joystick_GetStatus();
 	uint8_t        ButtonStatus_LCL = Buttons_GetStatus();
 	bool           InputChanged     = false;
