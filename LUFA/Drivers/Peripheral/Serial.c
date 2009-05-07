@@ -30,18 +30,6 @@
 
 #include "Serial.h"
 
-void Serial_Init(const uint32_t BaudRate, const bool DoubleSpeed)
-{
-	UCSR1A = ((DoubleSpeed) ? (1 << U2X1) : 0);
-	UCSR1B = ((1 << RXEN1)  | (1 << TXEN1));
-	UCSR1C = ((1 << UCSZ11) | (1 << UCSZ10));
-	
-	DDRD  |= (1 << 3);	
-	PORTD |= (1 << 2);
-	
-	UBRR1  = SERIAL_UBBRVAL(BaudRate);
-}
-
 void Serial_TxString_P(const char *FlashStringPtr)
 {
 	uint8_t CurrByte;

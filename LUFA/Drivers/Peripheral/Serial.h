@@ -63,7 +63,7 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */	
+		/* Macros: */
 			/** Macro for calculating the baud value from a given baud rate when the U2X (double speed) bit is
 			 *  not set.
 			 */
@@ -86,13 +86,6 @@
 			#endif
 
 		/* Function Prototypes: */
-			/** Initializes the USART, ready for serial data transmission and reception.
-			 *
-			 *  \param BaudRate     Baud rate to configure the USART to
-			 *  \param DoubleSpeed  Enables double speed mode when set, halving the sample time to double the baud rate
-			 */
-			void Serial_Init(const uint32_t BaudRate, const bool DoubleSpeed);
-
 			/** Transmits a given string located in program space (FLASH) through the USART.
 			 *
 			 *  \param FlashStringPtr  Pointer to a string located in program space
@@ -106,6 +99,24 @@
 			void Serial_TxString(const char *StringPtr) ATTR_NON_NULL_PTR_ARG(1);
 
 		/* Inline Functions: */
+			/** Initializes the USART, ready for serial data transmission and reception. This initialises the interface to
+			 *  standard 8-bit, no parity, 1 stop bit settings suitable for most applications.
+			 *
+			 *  \param BaudRate     Serial baud rate, in bits per second
+			 *  \param DoubleSpeed  Enables double speed mode when set, halving the sample time to double the baud rate
+			 */
+			static inline void Serial_Init(const uint32_t BaudRate, const bool DoubleSpeed)
+			{
+				UCSR1A = (DoubleSpeed ? (1 << U2X1) : 0);
+				UCSR1B = ((1 << TXEN1)  | (1 << RXEN1));
+				UCSR1C = ((1 << UCSZ11) | (1 << UCSZ10));
+				
+				DDRD  |= (1 << 3);	
+				PORTD |= (1 << 2);
+				
+				UBRR1  = (DoubleSpeed ? SERIAL_2X_UBBRVAL(BaudRate) : SERIAL_UBBRVAL(BaudRate));
+			}
+
 			/** Transmits a given byte through the USART.
 			 *
 			 *  \param DataByte  Byte to transmit through the USART
