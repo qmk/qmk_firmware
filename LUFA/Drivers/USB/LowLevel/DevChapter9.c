@@ -118,8 +118,6 @@ static void USB_Device_SetAddress(void)
 {
 	Endpoint_ClearSETUP();
 	
-	while (!(Endpoint_IsINReady()));
-	
 	Endpoint_ClearIN();
 	
 	while (!(Endpoint_IsINReady()));
@@ -299,7 +297,7 @@ static void USB_Device_ClearSetFeature(void)
 					}
 					else
 					{
-						Endpoint_StallTransaction();						
+						Endpoint_StallTransaction();
 					}
 				}
 			}
@@ -313,9 +311,6 @@ static void USB_Device_ClearSetFeature(void)
 	Endpoint_ClearSETUP();
 
 	Endpoint_ClearIN();
-
-	while (!(Endpoint_IsOUTReceived()));
-	Endpoint_ClearOUT();
 }
 
 #endif
