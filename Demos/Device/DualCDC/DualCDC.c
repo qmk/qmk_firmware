@@ -186,16 +186,8 @@ EVENT_HANDLER(USB_ConfigurationChanged)
  */
 EVENT_HANDLER(USB_UnhandledControlPacket)
 {
-	uint8_t* LineCodingData;
-
-	/* Discard the unused wValue parameter */
-	Endpoint_Discard_Word();
-
-	/* wIndex indicates the interface being controlled */
-	uint16_t wIndex = Endpoint_Read_Word_LE();
-
 	/* Determine which interface's Line Coding data is being set from the wIndex parameter */
-	LineCodingData = (wIndex == 0) ? (uint8_t*)&LineCoding1 : (uint8_t*)&LineCoding2;
+	uint8_t* LineCodingData = (USB_ControlRequest.wIndex == 0) ? (uint8_t*)&LineCoding1 : (uint8_t*)&LineCoding2;
 
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)

@@ -15,10 +15,10 @@
  *  microcontrollers, released under the MIT license.
  *
  *  Currently supported AVR models:
- *   - AT90USB1286 (USB Host and Device)
+ *   - AT90USB1286 (USB Device Only)
  *   - AT90USB1287 (USB Host and Device)
  *   - AT90USB646 (USB Device Only)
- *   - AT90USB647 (USB Device Only)
+ *   - AT90USB647 (USB Host and Device)
  *   - AT90USB162 (USB Device Only)
  *   - AT90USB82 (USB Device Only)
  *   - ATMEGA16U4 (USB Device Only)

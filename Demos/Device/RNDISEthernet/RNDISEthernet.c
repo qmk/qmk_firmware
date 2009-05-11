@@ -140,15 +140,6 @@ EVENT_HANDLER(USB_ConfigurationChanged)
  */
 EVENT_HANDLER(USB_UnhandledControlPacket)
 {
-	/* Discard the unused wValue parameter */
-	Endpoint_Discard_Word();
-
-	/* Discard the unused wIndex parameter */
-	Endpoint_Discard_Word();
-
-	/* Read in the wLength parameter */
-	uint16_t wLength = Endpoint_Read_Word_LE();
-
 	/* Process RNDIS class commands */
 	switch (USB_ControlRequest.bRequest)
 	{
@@ -159,7 +150,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 				Endpoint_ClearSETUP();
 				
 				/* Read in the RNDIS message into the message buffer */
-				Endpoint_Read_Control_Stream_LE(RNDISMessageBuffer, wLength);
+				Endpoint_Read_Control_Stream_LE(RNDISMessageBuffer, USB_ControlRequest.wLength);
 
 				/* Finalize the stream transfer to clear the last packet from the host */
 				Endpoint_ClearIN();

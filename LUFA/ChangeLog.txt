@@ -8,6 +8,11 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
+  *  - Fixed bug in RNDISEthernet and DualCDC demos not using the correct USB_ControlRequest structure for control request data
+  *  - Fixed documentation showing incorrect USB mode support on the supported AVRs list
+  *
+  *  \section Sec_ChangeLog090510 Version 090510
+  *
   *  - Added new GenericHIDHost demo
   *  - Corrections to the KeyboardHost and MouseHost demos' pipe handling to freeze and unfreeze the data pipes at the point of use
   *  - KeyboardHost, MouseHost and GenericHIDHost demos now save and restore the currently selected pipe inside the pipe ISR
