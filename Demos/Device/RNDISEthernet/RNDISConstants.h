@@ -82,6 +82,7 @@
 		#define OID_GEN_CURRENT_PACKET_FILTER         0x0001010EUL
 		#define OID_GEN_MAXIMUM_TOTAL_SIZE            0x00010111UL
 		#define OID_GEN_MEDIA_CONNECT_STATUS          0x00010114UL
+		#define OID_GEN_PHYSICAL_MEDIUM               0x00010202UL
 		#define OID_GEN_XMIT_OK                       0x00020101UL
 		#define OID_GEN_RCV_OK                        0x00020102UL
 		#define OID_GEN_XMIT_ERROR                    0x00020103UL

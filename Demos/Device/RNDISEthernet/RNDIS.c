@@ -50,6 +50,7 @@ static char           PROGMEM AdapterVendorDescription[] = "LUFA RNDIS Adapter";
 static const uint32_t PROGMEM AdapterSupportedOIDList[]  =
 							{
 								OID_GEN_SUPPORTED_LIST,
+								OID_GEN_PHYSICAL_MEDIUM,
 								OID_GEN_HARDWARE_STATUS,
 								OID_GEN_MEDIA_SUPPORTED,
 								OID_GEN_MEDIA_IN_USE,
@@ -251,6 +252,13 @@ static bool ProcessNDISQuery(uint32_t OId, void* QueryData, uint16_t QuerySize,
 			
 			/* Copy the list of supported NDIS OID tokens to the response buffer */
 			memcpy_P(ResponseData, AdapterSupportedOIDList, sizeof(AdapterSupportedOIDList));
+			
+			return true;
+		case OID_GEN_PHYSICAL_MEDIUM:
+			*ResponseSize = sizeof(uint32_t);
+			
+			/* Indicate that the device is a true ethernet link */
+			*((uint32_t*)ResponseData) = 0;
 			
 			return true;
 		case OID_GEN_HARDWARE_STATUS:

@@ -10,6 +10,8 @@
   *
   *  - Fixed bug in RNDISEthernet and DualCDC demos not using the correct USB_ControlRequest structure for control request data
   *  - Fixed documentation showing incorrect USB mode support on the supported AVRs list
+  *  - Fixed RNDISEthernet not working under Linux due to Linux requiring an "optional" request which was unhandled
+  *
   *
   *  \section Sec_ChangeLog090510 Version 090510
   *
