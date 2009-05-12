@@ -102,13 +102,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
 
 			Pipe_SetInfiniteINRequests();
-
-			#if defined(INTERRUPT_DATA_PIPE)
-			Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
-
-			/* Enable the pipe IN interrupt for the data pipe */
-			USB_INT_Enable(PIPE_INT_IN);	
-			#endif
 			
 			FoundEndpoints |= (1 << HID_DATA_IN_PIPE);
 		}
