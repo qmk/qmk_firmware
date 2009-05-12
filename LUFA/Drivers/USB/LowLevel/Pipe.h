@@ -158,34 +158,6 @@
 			 */
 			#define PIPE_EPSIZE_MASK                0x7FF
 
-			/** Interrupt definition for the pipe IN interrupt (for INTERRUPT type pipes). Should be used with
-			 *  the USB_INT_* macros located in USBInterrupt.h.
-			 *
-			 *  This interrupt will fire if enabled on an INTERRUPT type pipe if the pipe interrupt period has
-			 *  elapsed and the pipe is ready for the next packet from the attached device to be read out from its
-			 *  FIFO buffer (if received).
-			 *
-			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
-			 *        is selected), and will fire the common pipe interrupt vector.
-			 *
-			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
-			 */
-			#define PIPE_INT_IN                     UPIENX, (1 << RXINE) , UPINTX, (1 << RXINI)
-
-			/** Interrupt definition for the pipe OUT interrupt (for INTERRUPT type pipes). Should be used with
-			 *  the USB_INT_* macros located in USBInterrupt.h.
-			 *
-			 *  This interrupt will fire if enabled on an INTERRUPT type endpoint if a the pipe interrupt period
-			 *  has elapsed and the pipe is ready for a packet to be written to the pipe's FIFO buffer and sent
-			 *  to the attached device (if required).
-			 *  
-			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
-			 *        is selected), and will fire the common pipe interrupt vector.
-			 *
-			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
-			 */
-			#define PIPE_INT_OUT                   UPIENX, (1 << TXOUTE), UPINTX, (1 << TXOUTI)
-
 			/** Interrupt definition for the pipe SETUP bank ready interrupt (for CONTROL type pipes). Should be
 			 *  used with the USB_INT_* macros located in USBInterrupt.h.
 			 *
@@ -336,12 +308,6 @@
 				 *  \return Mask whose bits indicate which pipes have interrupted
 				 */
 				static inline uint8_t Pipe_GetPipeInterrupts(void);
-				
-				/** Clears the interrupt flag for the specified pipe number.
-				 *
-				 *  \param PipeNumber  Index of the pipe whose interrupt flag is to be cleared
-				 */
-				static inline void Pipe_ClearPipeInterrupt(uint8_t PipeNumber);
 				
 				/** Determines if the specified pipe number has interrupted (valid only for INTERRUPT type
 				 *  pipes).
@@ -503,8 +469,6 @@
 				#define Pipe_SetInterruptPeriod(ms)    MACROS{ UPCFG2X = ms; }MACROE
 
 				#define Pipe_GetPipeInterrupts()       UPINT
-
-				#define Pipe_ClearPipeInterrupt(n)     MACROS{ UPINT &= ~(1 << n); }MACROE
 
 				#define Pipe_HasPipeInterrupted(n)     ((UPINT & (1 << n)) ? true : false)
 

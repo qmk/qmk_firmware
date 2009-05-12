@@ -64,12 +64,5 @@
  *        which services control requests from the host. If not defined, the control endpoint
  *        is serviced via polling using the task scheduler.</td>
  *   </tr>
- *   <tr>
- *    <td>INTERRUPT_DATA_ENDPOINT</td>
- *    <td>Makefile CDEFS</td>
- *    <td>When defined, this causes the demo to enable interrupts for the data endpoint,
- *        which services outgoing mouse button and movement reports to the host. If not defined,
- *        the data endpoint is serviced via polling using the task scheduler.</td>
- *   </tr>
  *  </table>
  */

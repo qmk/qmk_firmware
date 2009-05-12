@@ -12,6 +12,16 @@
  *
  * \section Sec_MigrationXXXXXX Migrating from 090510 to XXXXXX
  *
+ *  <b>Device Mode</b>
+ *    - Support for non-control data endpoint interrupts has been dropped due to many issues in the implementation. All existing
+ *      projects using interrupts on non-control endpoints should switch to polling.
+ *    - The Endpoint_ClearEndpointInterrupt() macro has been deleted and references to it should be removed.
+ *
+ *  <b>Device Mode</b>
+ *    - Support for non-control data pipe interrupts has been dropped due to many issues in the implementation. All existing
+ *      projects using interrupts on non-control pipes should switch to polling.
+ *    - The Pipe_ClearPipeInterrupt() macro has been deleted and references to it should be removed.
+ *
  *
  * \section Sec_Migration090510 Migrating from 090401 to 090510
  *

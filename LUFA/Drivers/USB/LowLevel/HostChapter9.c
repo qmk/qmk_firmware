@@ -155,7 +155,7 @@ static uint8_t USB_Host_Wait_For_Setup_IOS(const uint8_t WaitType)
 {
 	uint16_t TimeoutCounter = USB_HOST_TIMEOUT_MS;
 	
-	while (!(((WaitType == USB_HOST_WAITFOR_SetupSent)  && Pipe_IsSETUPSent())       ||
+	while (!(((WaitType == USB_HOST_WAITFOR_SetupSent)  && Pipe_IsSETUPSent())  ||
 	         ((WaitType == USB_HOST_WAITFOR_InReceived) && Pipe_IsINReceived()) ||
 	         ((WaitType == USB_HOST_WAITFOR_OutReady)   && Pipe_IsOUTReady())))
 	{

@@ -56,16 +56,9 @@
  *
  *  <table>
  *   <tr>
- *    <td><b>Define Name:</b></td>
- *    <td><b>Location:</b></td>
- *    <td><b>Description:</b></td>
- *   </tr>
- *   <tr>
- *    <td>INTERRUPT_DATA_ENDPOINT</td>
- *    <td>Makefile CDEFS</td>
- *    <td>When defined, this causes the demo to enable interrupts for the data pipe,
- *        which services reports from the device. If not defined, the data pipe is
- *        serviced via polling using the task scheduler.</td>
+ *    <td>
+ *     None
+ *    </td>
  *   </tr>
  *  </table>
  */

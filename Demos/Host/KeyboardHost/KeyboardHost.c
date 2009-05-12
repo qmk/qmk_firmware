@@ -180,18 +180,14 @@ void ReadNextReport(void)
 	/* Select keyboard data pipe */
 	Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
 
-	#if !defined(INTERRUPT_DATA_PIPE)
 	/* Unfreeze keyboard data pipe */
 	Pipe_Unfreeze();
-	#endif
 
 	/* Check to see if a packet has been received */
 	if (!(Pipe_IsINReceived()))
 	{
-		#if !defined(INTERRUPT_DATA_PIPE)
 		/* Refreeze HID data IN pipe */
 		Pipe_Freeze();
-		#endif
 			
 		return;
 	}
@@ -231,15 +227,12 @@ void ReadNextReport(void)
 			  putchar(PressedKey);
 		}
 	}
-	
-						
+		
 	/* Clear the IN endpoint, ready for next data packet */
 	Pipe_ClearIN();
 
-	#if !defined(INTERRUPT_DATA_PIPE)
 	/* Refreeze keyboard data pipe */
 	Pipe_Freeze();
-	#endif
 }
 
 /** Task to set the configuration of the attached device after it has been enumerated, and to read and process
@@ -329,53 +322,14 @@ TASK(USB_Keyboard_Host)
 				break;
 			}
 
-			#if defined(INTERRUPT_DATA_PIPE)			
-			/* Select and unfreeze keyboard data pipe */
-			Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
-			Pipe_Unfreeze();
-			#endif
-
 			puts_P(PSTR("Keyboard Enumerated.\r\n"));
 
 			USB_HostState = HOST_STATE_Ready;
 			break;
-		#if !defined(INTERRUPT_DATA_PIPE)
 		case HOST_STATE_Ready:
 			/* If a report has been received, read and process it */
 			ReadNextReport();
 
 			break;
-		#endif
 	}
 }
-
-#if defined(INTERRUPT_DATA_PIPE)
-/** Interrupt handler for the Endpoint/Pipe interrupt vector. This interrupt fires each time an enabled
- *  pipe interrupt occurs on a pipe which has had that interrupt enabled.
- */
-ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
-{
-	/* Save previously selected pipe before selecting a new pipe */
-	uint8_t PrevSelectedPipe = Pipe_GetCurrentPipe();
-
-	/* Check to see if the keyboard data pipe has caused the interrupt */
-	if (Pipe_HasPipeInterrupted(KEYBOARD_DATAPIPE))
-	{
-		/* Clear the pipe interrupt, and select the keyboard pipe */
-		Pipe_ClearPipeInterrupt(KEYBOARD_DATAPIPE);
-		Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
-
-		/* Check to see if the pipe IN interrupt has fired */
-		if (USB_INT_HasOccurred(PIPE_INT_IN) && USB_INT_IsEnabled(PIPE_INT_IN))
-		{
-			/* Clear interrupt flag */
-			USB_INT_Clear(PIPE_INT_IN);		
-
-			/* Read and process the next report from the device */
-			ReadNextReport();
-	}
-	
-	/* Restore previously selected pipe */
-	Pipe_SelectPipe(PrevSelectedPipe);
-}
-#endif

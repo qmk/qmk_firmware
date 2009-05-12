@@ -153,34 +153,6 @@
 			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
 			 */
 			#define ENDPOINT_INT_SETUP                    UEIENX, (1 << RXSTPE), UEINTX, (1 << RXSTPI)
-
-			/** Interrupt definition for the endpoint IN interrupt (for INTERRUPT type endpoints). Should be
-			 *  used with the USB_INT_* macros located in USBInterrupt.h.
-			 *
-			 *  This interrupt will fire if enabled on an INTERRUPT type endpoint if a the endpoint interrupt
-			 *  period has elapsed and the endpoint is ready for a new packet to be written to its FIFO buffer
-			 *  (if required).
-			 *
-			 *  \note This interrupt must be enabled and cleared on *each* endpoint which requires it (after the
-			 *        endpoint is selected), and will fire the common endpoint interrupt vector.
-			 *
-			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
-			 */
-			#define ENDPOINT_INT_IN                       UEIENX, (1 << TXINE) , UEINTX, (1 << TXINI)
-
-			/** Interrupt definition for the endpoint OUT interrupt (for INTERRUPT type endpoints). Should be
-			 *  used with the USB_INT_* macros located in USBInterrupt.h.
-			 *
-			 *  This interrupt will fire if enabled on an INTERRUPT type endpoint if a the endpoint interrupt
-			 *  period has elapsed and the endpoint is ready for a packet from the host to be read from its
-			 *  FIFO buffer (if received).
-			 *
-			 *  \note This interrupt must be enabled and cleared on *each* endpoint which requires it (after the
-			 *        endpoint is selected), and will fire the common endpoint interrupt vector.
-			 *
-			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
-			 */
-			#define ENDPOINT_INT_OUT                      UEIENX, (1 << RXOUTE), UEINTX, (1 << RXOUTI)
 			
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
@@ -264,13 +236,6 @@
 				 *  \return Mask whose bits indicate which endpoints have interrupted
 				 */
 				static inline uint8_t Endpoint_GetEndpointInterrupts(void);
-				
-				/** Clears the endpoint interrupt flag. This clears the specified endpoint number's interrupt
-				 *  mask in the endpoint interrupt flag register.
-				 *
-				 *  \param EndpointNumber  Index of the endpoint whose interrupt flag should be cleared
-				 */
-				static inline void Endpoint_ClearEndpointInterrupt(uint8_t EndpointNumber);
 				
 				/** Determines if the specified endpoint number has interrupted (valid only for INTERRUPT type
 				 *  endpoints).
@@ -397,8 +362,6 @@
 				#define Endpoint_IsConfigured()               ((UESTA0X & (1 << CFGOK)) ? true : false)
 
 				#define Endpoint_GetEndpointInterrupts()      UEINT
-
-				#define Endpoint_ClearEndpointInterrupt(n)    MACROS{ UEINT &= ~(1 << n); }MACROE
 
 				#define Endpoint_HasEndpointInterrupted(n)    ((UEINT & (1 << n)) ? true : false)
 				

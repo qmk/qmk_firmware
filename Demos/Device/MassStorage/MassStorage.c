@@ -387,9 +387,6 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 	/* Check if the control endpoint has received a request */
 	if (Endpoint_HasEndpointInterrupted(ENDPOINT_CONTROLEP))
 	{
-		/* Clear the endpoint interrupt */
-		Endpoint_ClearEndpointInterrupt(ENDPOINT_CONTROLEP);
-
 		/* Process the control request */
 		USB_USBTask();
 

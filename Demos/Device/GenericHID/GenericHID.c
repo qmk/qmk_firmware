@@ -43,9 +43,7 @@ TASK_LIST
 	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
 	#endif
 	
-	#if !defined(INTERRUPT_DATA_ENDPOINT)
 	{ .Task = USB_HID_Report       , .TaskStatus = TASK_STOP },
-	#endif
 };
 
 /** Static buffer to hold the last received report from the host, so that it can be echoed back in the next sent report */
@@ -112,9 +110,7 @@ EVENT_HANDLER(USB_Connect)
 EVENT_HANDLER(USB_Disconnect)
 {
 	/* Stop running HID reporting and USB management tasks */
-	#if !defined(INTERRUPT_DATA_ENDPOINT)
 	Scheduler_SetTaskMode(USB_HID_Report, TASK_STOP);
-	#endif
 
 	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
 	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
@@ -134,20 +130,10 @@ EVENT_HANDLER(USB_ConfigurationChanged)
 		                       ENDPOINT_DIR_IN, GENERIC_EPSIZE,
 	                           ENDPOINT_BANK_SINGLE);
 
-	#if defined(INTERRUPT_DATA_ENDPOINT)
-	/* Enable the endpoint IN interrupt ISR for the report endpoint */
-	USB_INT_Enable(ENDPOINT_INT_IN);
-	#endif
-
 	/* Setup Generic OUT Report Endpoint */
 	Endpoint_ConfigureEndpoint(GENERIC_OUT_EPNUM, EP_TYPE_INTERRUPT,
 		                       ENDPOINT_DIR_OUT, GENERIC_EPSIZE,
 	                           ENDPOINT_BANK_SINGLE);
-
-	#if defined(INTERRUPT_DATA_ENDPOINT)
-	/* Enable the endpoint OUT interrupt ISR for the report endpoint */
-	USB_INT_Enable(ENDPOINT_INT_OUT);
-	#endif
 
 	/* Indicate USB connected and ready */
 	UpdateStatus(Status_USBReady);
@@ -266,7 +252,6 @@ void CreateGenericHIDReport(uint8_t* DataArray)
 	  DataArray[i] = LastReceived[i];
 }
 
-#if !defined(INTERRUPT_DATA_ENDPOINT)
 TASK(USB_HID_Report)
 {
 	/* Check if the USB system is connected to a host */
@@ -313,8 +298,8 @@ TASK(USB_HID_Report)
 		}
 	}
 }
-#endif
 
+#if defined(INTERRUPT_CONTROL_ENDPOINT)
 /** ISR for the general Pipe/Endpoint interrupt vector. This ISR fires when an endpoint's status changes (such as
  *  a packet has been received) on an endpoint with its corresponding ISR enabling bits set. This is used to send
  *  HID packets to the host each time the HID interrupt endpoints polling period elapses, as managed by the USB
@@ -325,7 +310,6 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 	/* Save previously selected endpoint before selecting a new endpoint */
 	uint8_t PrevSelectedEndpoint = Endpoint_GetCurrentEndpoint();
 
-	#if defined(INTERRUPT_CONTROL_ENDPOINT)
 	/* Check if the control endpoint has received a request */
 	if (Endpoint_HasEndpointInterrupted(ENDPOINT_CONTROLEP))
 	{
@@ -338,60 +322,8 @@ ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
 		/* Handshake the endpoint setup interrupt - must be after the call to USB_USBTask() */
 		USB_INT_Clear(ENDPOINT_INT_SETUP);
 	}
-	#endif
-
-	#if defined(INTERRUPT_DATA_ENDPOINT)
-	/* Check if Generic IN endpoint has interrupted */
-	if (Endpoint_HasEndpointInterrupted(GENERIC_IN_EPNUM))
-	{
-		/* Select the Generic IN Report Endpoint */
-		Endpoint_SelectEndpoint(GENERIC_IN_EPNUM);
-
-		/* Clear the endpoint IN interrupt flag */
-		USB_INT_Clear(ENDPOINT_INT_IN);
-
-		/* Clear the Generic IN Report endpoint interrupt and select the endpoint */
-		Endpoint_ClearEndpointInterrupt(GENERIC_IN_EPNUM);
-
-		/* Create a temporary buffer to hold the report to send to the host */
-		uint8_t GenericData[GENERIC_REPORT_SIZE];
-		
-		/* Create Generic Report Data */
-		CreateGenericHIDReport(GenericData);
-
-		/* Write Generic Report Data */
-		Endpoint_Write_Stream_LE(&GenericData, sizeof(GenericData));
-
-		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearIN();
-	}
-
-	/* Check if Generic OUT endpoint has interrupted */
-	if (Endpoint_HasEndpointInterrupted(GENERIC_OUT_EPNUM))
-	{
-		/* Select the Generic OUT Report Endpoint */
-		Endpoint_SelectEndpoint(GENERIC_OUT_EPNUM);
-
-		/* Clear the endpoint OUT Interrupt flag */
-		USB_INT_Clear(ENDPOINT_INT_OUT);
-
-		/* Clear the Generic OUT Report endpoint interrupt and select the endpoint */
-		Endpoint_ClearEndpointInterrupt(GENERIC_OUT_EPNUM);
-
-		/* Create a temporary buffer to hold the read in report from the host */
-		uint8_t GenericData[GENERIC_REPORT_SIZE];
-		
-		/* Read Generic Report Data */
-		Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData));
-		
-		/* Process Generic Report Data */
-		ProcessGenericHIDReport(GenericData);
-
-		/* Finalize the stream transfer to send the last packet */
-		Endpoint_ClearOUT();
-	}
-	#endif
 
 	/* Restore previously selected endpoint */
 	Endpoint_SelectEndpoint(PrevSelectedEndpoint);
 }
+#endif

@@ -182,10 +182,8 @@ void ReadNextReport(void)
 	/* Check to see if a packet has been received */
 	if (!(Pipe_IsINReceived()))
 	{
-		#if !defined(INTERRUPT_DATA_PIPE)
 		/* Refreeze HID data IN pipe */
 		Pipe_Freeze();
-		#endif
 			
 		return;
 	}
@@ -208,10 +206,8 @@ void ReadNextReport(void)
 	/* Clear the IN endpoint, ready for next data packet */
 	Pipe_ClearIN();
 	
-	#if !defined(INTERRUPT_DATA_PIPE)
 	/* Refreeze HID data IN pipe */
 	Pipe_Freeze();
-	#endif
 }
 
 /** Writes a report to the attached device.
@@ -345,43 +341,9 @@ TASK(USB_HID_Host)
 					
 			USB_HostState = HOST_STATE_Ready;
 			break;
-		#if !defined(INTERRUPT_DATA_PIPE)
 		case HOST_STATE_Ready:
 			ReadNextReport();
 
 			break;
-		#endif
 	}
 }
-
-#if defined(INTERRUPT_DATA_PIPE)
-/** Interrupt handler for the Endpoint/Pipe interrupt vector. This interrupt fires each time an enabled
- *  pipe interrupt occurs on a pipe which has had that interrupt enabled.
- */
-ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
-{
-	/* Save previously selected pipe before selecting a new pipe */
-	uint8_t PrevSelectedPipe = Pipe_GetCurrentPipe();
-
-	/* Check to see if the HID data IN pipe has caused the interrupt */
-	if (Pipe_HasPipeInterrupted(HID_DATA_IN_PIPE))
-	{
-		/* Clear the pipe interrupt, and select the data IN pipe */
-		Pipe_ClearPipeInterrupt(HID_DATA_IN_PIPE);
-		Pipe_SelectPipe(HID_DATA_IN_PIPE);	
-
-		/* Check to see if the pipe IN interrupt has fired */
-		if (USB_INT_HasOccurred(PIPE_INT_IN) && USB_INT_IsEnabled(PIPE_INT_IN))
-		{
-			/* Clear interrupt flag */
-			USB_INT_Clear(PIPE_INT_IN);		
-
-			/* Read and process the next report from the device */
-			ReadNextReport();
-		}
-	}
-
-	/* Restore previously selected pipe */
-	Pipe_SelectPipe(PrevSelectedPipe);
-}
-#endif
