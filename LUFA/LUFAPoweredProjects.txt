@@ -28,4 +28,5 @@
  *  - SEGA Megadrive/Genesis Development Cartridge: http://www.spritesmind.net/_GenDev/forum/viewtopic.php?t=464
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
  *  - Opendous-JTAG, an open source JTAG device: http://code.google.com/p/opendous-jtag/
+ *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  */

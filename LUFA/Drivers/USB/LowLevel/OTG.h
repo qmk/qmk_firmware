@@ -106,7 +106,6 @@
 				 */
 				static inline void USB_OTG_Dev_InitiateSRP(uint8_t SRPTypeMask);
 			#else
-
 				#define USB_OTG_Device_RequestHNP()         MACROS{ OTGCON |=  (1 << HNPREQ); }MACROE
 
 				#define USB_OTG_Device_CancelHNPRequest()   MACROS{ OTGCON &= ~(1 << HNPREQ); }MACROE

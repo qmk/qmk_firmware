@@ -398,7 +398,7 @@
 
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_EVENTS_C)
-				void USB_Event_Stub (void) ATTR_CONST;
+				void USB_Event_Stub(void) ATTR_CONST;
 
 				#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER)
 					ALIAS_STUB(USB_VBUSChange);

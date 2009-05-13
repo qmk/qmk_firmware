@@ -265,8 +265,12 @@
 			};
 
 		/* Function Prototypes: */
+			void    USB_Host_ProcessNextHostState(void);
 			uint8_t USB_Host_WaitMS(uint8_t MS);
-			void    USB_Host_ResetDevice(void);
+			
+			#if defined(INCLUDE_FROM_HOST_C)
+				static void USB_Host_ResetDevice(void);
+			#endif
 	#endif
 
 	/* Disable C linkage for C++ Compilers: */
