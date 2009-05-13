@@ -62,7 +62,8 @@ void USB_Device_ProcessControlPacket(void)
 			break;
 		case REQ_ClearFeature:
 		case REQ_SetFeature:
-			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT))
+			if ((bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE)) ||
+			    (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT)))
 			{
 				USB_Device_ClearSetFeature();
 				RequestHandled = true;
