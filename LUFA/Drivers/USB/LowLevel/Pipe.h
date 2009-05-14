@@ -158,62 +158,6 @@
 			 */
 			#define PIPE_EPSIZE_MASK                0x7FF
 
-			/** Interrupt definition for the pipe SETUP bank ready interrupt (for CONTROL type pipes). Should be
-			 *  used with the USB_INT_* macros located in USBInterrupt.h.
-			 *
-			 *  This interrupt will fire if enabled on an CONTROL type pipe when the pipe is ready for a new
-			 *  control request.
-			 *
-			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
-			 *        is selected), and will fire the common pipe interrupt vector.
-			 *
-			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
-			 */
-			#define PIPE_INT_SETUP                 UPIENX, (1 << TXSTPE) , UPINTX, (1 << TXSTPI)
-
-			/** Interrupt definition for the pipe error interrupt. Should be used with the USB_INT_* macros
-			 *  located in USBInterrupt.h.
-			 *
-			 *  This interrupt will fire if enabled on a particular pipe if an error occurs on that pipe, such
-			 *  as a CRC mismatch error.
-			 *
-			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
-			 *        is selected), and will fire the common pipe interrupt vector.
-			 *
-			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
-			 *
-			 *  \see \ref Pipe_GetErrorFlags() for more information on the pipe errors.
-			 */
-			#define PIPE_INT_ERROR                 UPIENX, (1 << PERRE), UPINTX, (1 << PERRI)
-
-			/** Interrupt definition for the pipe NAK received interrupt. Should be used with the USB_INT_* macros
-			 *  located in USBInterrupt.h.
-			 *
-			 *  This interrupt will fire if enabled on a particular pipe if an attached device returns a NAK in
-			 *  response to a sent packet.
-			 *
-			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
-			 *        is selected), and will fire the common pipe interrupt vector.
-			 *
-			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
-			 *
-			 *  \see \ref Pipe_IsNAKReceived() for more information on pipe NAKs.
-			 */
-			#define PIPE_INT_NAK                   UPIENX, (1 << NAKEDE), UPINTX, (1 << NAKEDI)
-
-			/** Interrupt definition for the pipe STALL received interrupt. Should be used with the USB_INT_* macros
-			 *  located in USBInterrupt.h.
-			 *
-			 *  This interrupt will fire if enabled on a particular pipe if an attached device returns a STALL on the
-			 *  currently selected pipe. This will also fire if the pipe is an isochronous pipe and a CRC error occurs.
-			 *
-			 *  \note This interrupt must be enabled and cleared on *each* pipe which requires it (after the pipe
-			 *        is selected), and will fire the common pipe interrupt vector.
-			 *
-			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
-			 */
-			#define PIPE_INT_STALL                 UPIENX, (1 << RXSTALLE), UPINTX, (1 << RXSTALLI)
-
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Indicates the number of bytes currently stored in the current pipes's selected bank.

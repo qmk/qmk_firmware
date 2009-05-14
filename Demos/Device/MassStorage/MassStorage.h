@@ -134,9 +134,6 @@
 		STREAM_CALLBACK(AbortOnMassStoreReset);
 
 	/* Event Handlers: */
-		/** Indicates that this module will catch the USB_Reset event when thrown by the library. */
-		HANDLES_EVENT(USB_Reset);
-
 		/** Indicates that this module will catch the USB_Connect event when thrown by the library. */
 		HANDLES_EVENT(USB_Connect);
 

@@ -183,6 +183,9 @@
 			 *    - In host mode, it may be disabled at start-up, enabled on the firing of the \ref USB_DeviceAttached
 			 *    event and disabled again on the firing of the \ref USB_DeviceUnattached event.
 			 *
+			 *  If in device mode (only), the control endpoint can instead be managed via interrupts entirely by the library
+			 *  by defining the INTERRUPT_CONTROL_ENDPOINT token and passing it to the compiler via the -D switch.
+			 *
 			 *  \see \ref Group_Events for more information on the USB events.
 			 *
 			 *  \ingroup Group_USBManagement

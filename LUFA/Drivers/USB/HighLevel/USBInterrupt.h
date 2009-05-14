@@ -28,16 +28,6 @@
   this software.
 */
 
-/** \ingroup Group_USB
- *  @defgroup Group_USBInterrupt Endpoint and Pipe Interrupts
- *
- *  This module manages the main USB interrupt vector, for handling such events as VBUS interrupts
- *  (on supported USB AVR models), device connections and disconnections, etc. as well as providing
- *  easy to use macros for the management of the unified Endpoint/Pipe interrupt vector.
- *
- *  @{
- */
-
 #ifndef __USBINTERRUPT_H__
 #define __USBINTERRUPT_H__
 
@@ -56,37 +46,6 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */
-			/** Vector name for the common endpoint and pipe vector. This can be used to write an ISR handler
-			 *  for the endpoint and pipe events, to make certain USB functions interrupt rather than poll
-			 *  driven.
-			 */
-			#define ENDPOINT_PIPE_vect                       USB_COM_vect
-	
-			/** Enables the given USB interrupt vector (such as the ENDPOINT_INT_* and PIPE_INT_* vectors in
-			 *  Endpoint.h and Pipe.h).
-			 */
-			#define USB_INT_Enable(int)              MACROS{ USB_INT_GET_EN_REG(int)   |=   USB_INT_GET_EN_MASK(int);   }MACROE
-
-			/** Disables the given USB interrupt vector.
-			 *
-			 *  \see \ref USB_INT_Enable()
-			 */
-			#define USB_INT_Disable(int)             MACROS{ USB_INT_GET_EN_REG(int)   &= ~(USB_INT_GET_EN_MASK(int));  }MACROE
-
-			/** Resets the given USB interrupt flag, so that the interrupt is re-primed for the next firing. */
-			#define USB_INT_Clear(int)               MACROS{ USB_INT_GET_INT_REG(int)  &= ~(USB_INT_GET_INT_MASK(int)); }MACROE
-			
-			/** Returns boolean false if the given USB interrupt is disabled, or true if the interrupt is currently
-			 *  enabled.
-			 */
-			#define USB_INT_IsEnabled(int)                 ((USB_INT_GET_EN_REG(int)   &    USB_INT_GET_EN_MASK(int)) ? true : false)
-
-			/** Returns boolean true if the given interrupt flag is set (i.e. the condition for the interrupt has occurred,
-			 *  but the interrupt vector is not necessarily enabled), otherwise returns false.
-			 */
-			#define USB_INT_HasOccurred(int)               ((USB_INT_GET_INT_REG(int)  &    USB_INT_GET_INT_MASK(int)) ? true : false)
-		
 		/* Throwable Events: */
 			/** This module raises the USB Connected interrupt when the AVR is attached to a host while in device
 			 *  USB mode.
@@ -196,6 +155,12 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
+			#define USB_INT_Enable(int)              MACROS{ USB_INT_GET_EN_REG(int)   |=   USB_INT_GET_EN_MASK(int);   }MACROE
+			#define USB_INT_Disable(int)             MACROS{ USB_INT_GET_EN_REG(int)   &= ~(USB_INT_GET_EN_MASK(int));  }MACROE
+			#define USB_INT_Clear(int)               MACROS{ USB_INT_GET_INT_REG(int)  &= ~(USB_INT_GET_INT_MASK(int)); }MACROE
+			#define USB_INT_IsEnabled(int)                 ((USB_INT_GET_EN_REG(int)   &    USB_INT_GET_EN_MASK(int)) ? true : false)
+			#define USB_INT_HasOccurred(int)               ((USB_INT_GET_INT_REG(int)  &    USB_INT_GET_INT_MASK(int)) ? true : false)
+
 			#define USB_INT_GET_EN_REG(a, b, c, d)           a
 			#define USB_INT_GET_EN_MASK(a, b, c, d)          b
 			#define USB_INT_GET_INT_REG(a, b, c, d)          c
@@ -214,6 +179,7 @@
 			#define USB_INT_HSOFI                            UHIEN,  (1 << HSOFE)  , UHINT , (1 << HSOFI)
 			#define USB_INT_RSTI                             UHIEN , (1 << RSTE)   , UHINT , (1 << RSTI)
 			#define USB_INT_SRPI                             OTGIEN, (1 << SRPE)   , OTGINT, (1 << SRPI)
+			#define USB_INT_ENDPOINT_SETUP                   UEIENX, (1 << RXSTPE) , UEINTX, (1 << RXSTPI)
 	
 		/* Function Prototypes: */
 			void USB_INT_ClearAllInterrupts(void);
@@ -226,5 +192,3 @@
 		#endif
 
 #endif
-
-/** @} */

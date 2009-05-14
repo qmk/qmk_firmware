@@ -85,19 +85,6 @@ int main(void)
 	Scheduler_Start();
 }
 
-/** Event handler for the USB_Reset event. This fires when the USB interface is reset by the USB host, before the
- *  enumeration process begins, and enables the control endpoint interrupt so that control requests can be handled
- *  asynchronously when they arrive rather than when the control endpoint is polled manually.
- */
-EVENT_HANDLER(USB_Reset)
-{
-	/* Select the control endpoint */
-	Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
-
-	/* Enable the endpoint SETUP interrupt ISR for the control endpoint */
-	USB_INT_Enable(ENDPOINT_INT_SETUP);
-}
-
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs. */
 EVENT_HANDLER(USB_Connect)
 {
@@ -375,22 +362,4 @@ STREAM_CALLBACK(AbortOnMassStoreReset)
 	
 	/* Continue with the current stream operation */
 	return STREAMCALLBACK_Continue;
-}
-
-/** ISR for the general Pipe/Endpoint interrupt vector. This ISR fires when a control request has been issued to the control endpoint,
- *  so that the request can be processed. As several elements of the Mass Storage implementation require asynchronous control requests
- *  (such as endpoint stall clearing and Mass Storage Reset requests during data transfers) this is done via interrupts rather than
- *  polling so that they can be processed regardless of the rest of the application's state.
- */
-ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
-{
-	/* Check if the control endpoint has received a request */
-	if (Endpoint_HasEndpointInterrupted(ENDPOINT_CONTROLEP))
-	{
-		/* Process the control request */
-		USB_USBTask();
-
-		/* Handshake the endpoint setup interrupt - must be after the call to USB_USBTask() */
-		USB_INT_Clear(ENDPOINT_INT_SETUP);
-	}
 }

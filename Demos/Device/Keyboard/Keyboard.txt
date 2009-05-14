@@ -52,16 +52,9 @@
  *
  *  <table>
  *   <tr>
- *    <td><b>Define Name:</b></td>
- *    <td><b>Location:</b></td>
- *    <td><b>Description:</b></td>
- *   </tr>
- *   <tr>
- *    <td>INTERRUPT_CONTROL_ENDPOINT</td>
- *    <td>Makefile CDEFS</td>
- *    <td>When defined, this causes the demo to enable interrupts for the control endpoint,
- *        which services control requests from the host. If not defined, the control endpoint
- *        is serviced via polling using the task scheduler.</td>
+ *    <td>
+ *     None
+ *    </td>
  *   </tr>
  *  </table>
  */

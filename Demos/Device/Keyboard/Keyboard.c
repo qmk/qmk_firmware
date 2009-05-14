@@ -40,10 +40,7 @@
 /* Scheduler Task List */
 TASK_LIST
 {
-	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
-	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
-	#endif
-	
+	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },	
 	{ .Task = USB_Keyboard_Report  , .TaskStatus = TASK_STOP },
 };
 
@@ -105,31 +102,14 @@ int main(void)
  */
 EVENT_HANDLER(USB_Connect)
 {
-	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
 	/* Start USB management task */
 	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
-	#endif
 
 	/* Indicate USB enumerating */
 	UpdateStatus(Status_USBEnumerating);
 
 	/* Default to report protocol on connect */
 	UsingReportProtocol = true;
-}
-
-/** Event handler for the USB_Reset event. This fires when the USB interface is reset by the USB host, before the
- *  enumeration process begins, and enables the control endpoint interrupt so that control requests can be handled
- *  asynchronously when they arrive rather than when the control endpoint is polled manually.
- */
-EVENT_HANDLER(USB_Reset)
-{
-	#if defined(INTERRUPT_CONTROL_ENDPOINT)
-	/* Select the control endpoint */
-	Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
-
-	/* Enable the endpoint SETUP interrupt ISR for the control endpoint */
-	USB_INT_Enable(ENDPOINT_INT_SETUP);
-	#endif
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
@@ -139,10 +119,7 @@ EVENT_HANDLER(USB_Disconnect)
 {
 	/* Stop running keyboard reporting and USB management tasks */
 	Scheduler_SetTaskMode(USB_Keyboard_Report, TASK_STOP);
-
-	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
 	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-	#endif
 	
 	/* Indicate USB not ready */
 	UpdateStatus(Status_USBNotReady);
@@ -445,30 +422,3 @@ TASK(USB_Keyboard_Report)
 		ReceiveNextReport();
 	}
 }
-
-#if defined(INTERRUPT_CONTROL_ENDPOINT)
-/** ISR for the general Pipe/Endpoint interrupt vector. This ISR fires when an endpoint's status changes (such as
- *  a packet has been received) on an endpoint with its corresponding ISR enabling bits set. This is used to send
- *  HID packets to the host each time the HID interrupt endpoints polling period elapses, as managed by the USB
- *  controller. It is also used to respond to standard and class specific requests send to the device on the control
- *  endpoint, by handing them off to the LUFA library when they are received.
- */
-ISR(ENDPOINT_PIPE_vect, ISR_BLOCK)
-{
-	/* Save previously selected endpoint before selecting a new endpoint */
-	uint8_t PrevSelectedEndpoint = Endpoint_GetCurrentEndpoint();
-
-	/* Check if the control endpoint has received a request */
-	if (Endpoint_HasEndpointInterrupted(ENDPOINT_CONTROLEP))
-	{
-		/* Process the control request */
-		USB_USBTask();
-
-		/* Handshake the endpoint setup interrupt - must be after the call to USB_USBTask() */
-		USB_INT_Clear(ENDPOINT_INT_SETUP);
-	}
-	
-	/* Restore previously selected endpoint */
-	Endpoint_SelectEndpoint(PrevSelectedEndpoint);	
-}
-#endif

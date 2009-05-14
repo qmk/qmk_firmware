@@ -158,4 +158,9 @@
  *  required, the VBUS line of the USB connector should be routed to an AVR pin to detect its level, so that the USB_IsConnected global
  *  can be accurately set and the USB_Connect and USB_Disconnect events manually raised by the RAISE_EVENT macro. When defined, this token disables
  *  the library's auto-detection of the connection state by the aforementioned suspension and wake up events.
+ *
+ *  <b>INTERRUPT_CONTROL_ENDPOINT</b> - ( \ref Group_USBManagement ) \n
+ *  Some applications prefer to not call the USB_USBTask() management task reguarly while in device mode, as it can complicate code significantly.
+ *  Instead, when device mode is used this token can be passed to the library via the -D switch to allow the library to manage the USB control
+ *  endpoint entirely via interrupts asynchronously to the user application.
  */

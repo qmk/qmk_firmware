@@ -140,19 +140,6 @@
 			#else
 				#define ENDPOINT_TOTAL_ENDPOINTS              1
 			#endif
-
-			/** Interrupt definition for the endpoint SETUP interrupt (for CONTROL type endpoints). Should be
-			 *  used with the USB_INT_* macros located in USBInterrupt.h.
-			 *
-			 *  This interrupt will fire if enabled on a CONTROL type endpoint if a new control packet is
-			 *  received from the host.
-			 *
-			 *  \note This interrupt must be enabled and cleared on *each* endpoint which requires it (after the
-			 *        endpoint is selected), and will fire the common endpoint interrupt vector.
-			 *
-			 *  \see \ref ENDPOINT_PIPE_vect for more information on the common pipe and endpoint interrupt vector.
-			 */
-			#define ENDPOINT_INT_SETUP                    UEIENX, (1 << RXSTPE), UEINTX, (1 << RXSTPI)
 			
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)

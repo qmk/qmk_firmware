@@ -14,6 +14,7 @@
   *  - Fixed Mouse and Keyboard device demos not acting in accordance with the HID specification for idle periods (thanks to Brian Dickman)
   *  - Removed support for endpoint/pipe non-control interrupts; these did not act in the way users expected, and had many subtle issues
   *  - Fixed Device Mode not handling Set Feature and Clear Feature Chapter 9 requests that are addressed to the device (thanks to Brian Dickman)
+  *  - Moved control endpoint interrupt handling into the library itself, enable via the new INTERRUPT_CONTROL_ENDPOINT token
   *
   *
   *  \section Sec_ChangeLog090510 Version 090510

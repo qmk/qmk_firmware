@@ -105,9 +105,6 @@
 		/** Indicates that this module will catch the USB_Disconnect event when thrown by the library. */
 		HANDLES_EVENT(USB_Disconnect);
 
-		/** Indicates that this module will catch the USB_Reset event when thrown by the library. */
-		HANDLES_EVENT(USB_Reset);
-
 		/** Indicates that this module will catch the USB_ConfigurationChanged event when thrown by the library. */
 		HANDLES_EVENT(USB_ConfigurationChanged);
 

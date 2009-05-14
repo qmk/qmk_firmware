@@ -58,6 +58,11 @@
  *  255), with each LUN being allocated an equal portion of the available
  *  Dataflash memory.
  *
+ *  The USB control endpoint is managed entirely by the library using endpoint
+ *  interrupts, as the INTERRUPT_CONTROL_ENDPOINT option is enabled. This allows for
+ *  the host to reset the Mass Storage device state during long transfers without
+ *  the need for complicated polling logic.
+ *
  *  \section SSec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.

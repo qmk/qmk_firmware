@@ -331,12 +331,6 @@ TASK(USB_HID_Host)
 				break;
 			}
 		
-			#if defined(INTERRUPT_DATA_PIPE)					
-			/* Select and unfreeze HID data IN pipe */
-			Pipe_SelectPipe(HID_DATA_IN_PIPE);
-			Pipe_Unfreeze();
-			#endif
-
 			puts_P(PSTR("HID Device Enumerated.\r\n"));
 					
 			USB_HostState = HOST_STATE_Ready;

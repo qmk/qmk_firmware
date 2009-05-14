@@ -174,6 +174,10 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		                           ENDPOINT_DIR_OUT, USB_ControlEndpointSize,
 		                           ENDPOINT_BANK_SINGLE);
 
+		#if defined(INTERRUPT_CONTROL_ENDPOINT)
+		USB_INT_Enable(USB_INT_ENDPOINT_SETUP);
+		#endif
+
 		RAISE_EVENT(USB_Reset);
 	}
 	#endif
@@ -249,3 +253,16 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 	}
 	#endif
 }
+
+#if defined(INTERRUPT_CONTROL_ENDPOINT)
+ISR(USB_COM_vect, ISR_BLOCK)
+{
+	uint8_t PrevSelectedEndpoint = Endpoint_GetCurrentEndpoint();
+
+	USB_USBTask();
+
+	USB_INT_Clear(USB_INT_ENDPOINT_SETUP);
+	
+	Endpoint_SelectEndpoint(PrevSelectedEndpoint);	
+}
+#endif
