@@ -10,12 +10,12 @@
   *
   *  - Fixed bug in RNDISEthernet and DualCDC demos not using the correct USB_ControlRequest structure for control request data
   *  - Fixed documentation showing incorrect USB mode support on the supported AVRs list
-  *  - Fixed RNDISEthernet not working under Linux due to Linux requiring an "optional" request which was unhandled
+  *  - Fixed RNDISEthernet not working under Linux due to Linux requiring an "optional" RNDIS request which was unhandled
   *  - Fixed Mouse and Keyboard device demos not acting in accordance with the HID specification for idle periods (thanks to Brian Dickman)
   *  - Removed support for endpoint/pipe non-control interrupts; these did not act in the way users expected, and had many subtle issues
   *  - Fixed Device Mode not handling Set Feature and Clear Feature Chapter 9 requests that are addressed to the device (thanks to Brian Dickman)
   *  - Moved control endpoint interrupt handling into the library itself, enable via the new INTERRUPT_CONTROL_ENDPOINT token
-  *  - Fixed CDCHost not clearing configured endpoints and resetting configured endpoints mask when a partially enumerated invalid CDC
+  *  - Fixed CDCHost not clearing configured pipes and resetting configured pipes mask when a partially enumerated invalid CDC
   *    interface is skipped
   *
   *

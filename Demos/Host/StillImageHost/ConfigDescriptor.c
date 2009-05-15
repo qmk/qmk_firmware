@@ -70,7 +70,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 	  return InvalidConfigDataReturned;
 	
 	/* Get the Still Image interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextStillImageInterface))
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+	                              NextStillImageInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoInterfaceFound;
@@ -81,7 +82,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	{
 		/* Fetch the next endpoint from the current Still Image interface */
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-		                                   NextSImageInterfaceDataEndpoint))
+		                              NextSImageInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			/* Descriptor not found, error out */
 			return NoEndpointFound;

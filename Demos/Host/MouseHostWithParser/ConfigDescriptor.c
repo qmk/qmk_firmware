@@ -49,7 +49,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 {
 	uint8_t* ConfigDescriptorData;
 	uint16_t ConfigDescriptorSize;
-	uint8_t  ErrorCode;
 	
 	/* Get Configuration Descriptor size from the device */
 	if (USB_GetDeviceConfigDescriptor(&ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
@@ -70,14 +69,16 @@ uint8_t ProcessConfigurationDescriptor(void)
 	  return InvalidConfigDataReturned;
 	
 	/* Get the mouse interface from the configuration descriptor */
-	if ((ErrorCode = USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextMouseInterface)))
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+	                              NextMouseInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoHIDInterfaceFound;
 	}
 	
 	/* Get the mouse interface's HID descriptor */
-	if ((ErrorCode = USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextHID)))
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+	                              NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoHIDDescriptorFound;
@@ -87,8 +88,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 	HIDReportSize = DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_HID_t).HIDReportLength;
 
 	/* Get the mouse interface's data endpoint descriptor */
-	if ((ErrorCode = USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                                                NextInterfaceMouseDataEndpoint)))
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+	                              NextInterfaceMouseDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoEndpointFound;

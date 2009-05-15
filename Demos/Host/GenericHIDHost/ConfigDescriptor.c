@@ -71,7 +71,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 	  return InvalidConfigDataReturned;
 	
 	/* Get the HID interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextHIDInterface))
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+	                              NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoHIDInterfaceFound;
@@ -80,7 +81,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 	while (FoundEndpoints != ((1 << HID_DATA_IN_PIPE) | (1 << HID_DATA_OUT_PIPE)))
 	{
 		/* Get the next HID interface's data endpoint descriptor */
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextInterfaceHIDDataEndpoint))
+		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		                              NextInterfaceHIDDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			/* Not all HID devices have an OUT endpoint - if we've reached the end of the HID descriptor
 			 * but only found the mandatory IN endpoint, it's safe to continue with the device enumeration */

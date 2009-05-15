@@ -69,7 +69,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 	  return InvalidConfigDataReturned;
 	
 	/* Get the mouse interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextMouseInterface))
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+	                              NextMouseInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoHIDInterfaceFound;
@@ -77,7 +78,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 	/* Get the mouse interface's data endpoint descriptor */
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              NextInterfaceMouseDataEndpoint))
+	                              NextInterfaceMouseDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoEndpointFound;
