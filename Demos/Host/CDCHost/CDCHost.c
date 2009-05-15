@@ -246,7 +246,7 @@ TASK(USB_CDC_Host)
 				{
 					/* Get the length of the pipe data, and create a new buffer to hold it */
 					uint16_t BufferLength = Pipe_BytesInPipe();
-					uint8_t Buffer[BufferLength];
+					uint8_t  Buffer[BufferLength];
 					
 					/* Read in the pipe data to the temporary buffer */
 					Pipe_Read_Stream_LE(Buffer, BufferLength);
@@ -267,7 +267,7 @@ TASK(USB_CDC_Host)
 			/* Check if a packet has been received */
 			if (Pipe_IsINReceived())
 			{
-				/* Discard the event notification */
+				/* Discard the unused event notification */
 				Pipe_ClearIN();
 			}
 			

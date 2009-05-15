@@ -264,13 +264,18 @@
 				*BytesRem      -= CurrDescriptorSize;
 			}
 			
+		/* Type Defines: */
+			/** Type define for a Configuration Descriptor comparator function (function taking a pointer to an array
+			 *  of type void, returning a uint8_t value).
+			 *
+			 *  \see \ref USB_GetNextDescriptorComp function for more details
+			 */
+			typedef uint8_t (* const ConfigComparatorPtr_t)(void* const);
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Type Defines: */
-			typedef uint8_t (* const ComparatorPtr_t)(void* const);
-
 		/* Function Prototypes: */
-			uint8_t USB_GetNextDescriptorComp_Prv(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ComparatorPtr_t ComparatorRoutine);
+			uint8_t USB_GetNextDescriptorComp_Prv(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine);
 	#endif
 			
 	/* Disable C linkage for C++ Compilers: */

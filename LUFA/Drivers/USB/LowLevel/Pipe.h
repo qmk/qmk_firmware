@@ -759,7 +759,7 @@
 			 */
 			uint8_t Pipe_Write_Stream_LE(const void* Buffer, uint16_t Length
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-			                             , uint8_t (* const Callback)(void)
+			                             , StreamCallbackPtr_t Callback
 			#endif
 			                             ) ATTR_NON_NULL_PTR_ARG(1);				
 
@@ -783,7 +783,7 @@
 			 */
 			uint8_t Pipe_Write_Stream_BE(const void* Buffer, uint16_t Length
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-			                             , uint8_t (* const Callback)(void)
+			                             , StreamCallbackPtr_t Callback
 			#endif
 			                             ) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -806,7 +806,7 @@
 			 */
 			uint8_t Pipe_Discard_Stream(uint16_t Length
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-			                            , uint8_t (* const Callback)(void)
+			                            , StreamCallbackPtr_t Callback
 			#endif
 			                            );
 
@@ -830,7 +830,7 @@
 			 */
 			uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-			                            , uint8_t (* const Callback)(void)
+			                            , StreamCallbackPtr_t Callback
 			#endif
 			                            ) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -854,7 +854,7 @@
 			 */
 			uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-			                            , uint8_t (* const Callback)(void)
+			                            , StreamCallbackPtr_t Callback
 			#endif
 			                            ) ATTR_NON_NULL_PTR_ARG(1);
 			

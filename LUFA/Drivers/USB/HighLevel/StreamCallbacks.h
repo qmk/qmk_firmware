@@ -85,7 +85,15 @@
 				STREAMCALLBACK_Continue            = 0, /**< Continue sending or receiving the stream. */
 				STREAMCALLBACK_Abort               = 1, /**< Abort the stream send or receiving process. */
 			};
-			
+
+		/* Type Defines: */
+			/** Type define for a Stream Callback function (function taking no arguments and retuning a
+			 *  uint8_t value).
+			 *
+			 *  \see \ref STREAM_CALLBACK macro for more details
+			 */
+			typedef uint8_t (* const StreamCallbackPtr_t)(void);
+		
 #endif
 
 /** @} */

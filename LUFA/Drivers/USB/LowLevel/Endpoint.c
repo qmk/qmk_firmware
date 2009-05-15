@@ -74,7 +74,11 @@ void Endpoint_ClearEndpoints(void)
 #if !defined(CONTROL_ONLY_DEVICE)
 uint8_t Endpoint_WaitUntilReady(void)
 {
+	#if (USB_STREAM_TIMEOUT_MS < 0xFF)
+	uint8_t  TimeoutMSRem = USB_STREAM_TIMEOUT_MS;	
+	#else
 	uint16_t TimeoutMSRem = USB_STREAM_TIMEOUT_MS;
+	#endif
 
 	USB_INT_Clear(USB_INT_SOFI);
 
@@ -108,7 +112,7 @@ uint8_t Endpoint_WaitUntilReady(void)
 
 uint8_t Endpoint_Discard_Stream(uint16_t Length
 #if !defined(NO_STREAM_CALLBACKS)
-                                , uint8_t (* const Callback)(void)
+                                , StreamCallbackPtr_t Callback
 #endif
 								)
 {
@@ -143,7 +147,7 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 
 uint8_t Endpoint_Write_Stream_LE(const void* Buffer, uint16_t Length
 #if !defined(NO_STREAM_CALLBACKS)
-                                 , uint8_t (* const Callback)(void)
+                                 , StreamCallbackPtr_t Callback
 #endif
 								 )
 {
@@ -179,7 +183,7 @@ uint8_t Endpoint_Write_Stream_LE(const void* Buffer, uint16_t Length
 
 uint8_t Endpoint_Write_Stream_BE(const void* Buffer, uint16_t Length
 #if !defined(NO_STREAM_CALLBACKS)
-                                 , uint8_t (* const Callback)(void)
+                                 , StreamCallbackPtr_t Callback
 #endif
 								 )
 {
@@ -215,7 +219,7 @@ uint8_t Endpoint_Write_Stream_BE(const void* Buffer, uint16_t Length
 
 uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length
 #if !defined(NO_STREAM_CALLBACKS)
-                                 , uint8_t (* const Callback)(void)
+                                 , StreamCallbackPtr_t Callback
 #endif
 								 )
 {
@@ -251,7 +255,7 @@ uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length
 
 uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
 #if !defined(NO_STREAM_CALLBACKS)
-                                 , uint8_t (* const Callback)(void)
+                                 , StreamCallbackPtr_t Callback
 #endif
 								 )
 {

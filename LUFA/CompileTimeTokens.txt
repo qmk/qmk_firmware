@@ -50,27 +50,27 @@
  *  <b>HID_STATETABLE_STACK_DEPTH</b> - ( \ref Group_HIDParser ) \n
  *  HID reports may contain PUSH and POP elements, to store and retrieve the current HID state table onto a stack. This
  *  allows for reports to save the state table before modifying it slightly for a data item, and then restore the previous
- *  state table in a compact manner. This token may be defined to a non-zero value to give the maximum depth of the state
+ *  state table in a compact manner. This token may be defined to a non-zero 8-bit value to give the maximum depth of the state
  *  table stack. If not defined, this defaults to the value indicated in the HID.h file documentation.
  *
  *  <b>HID_USAGE_STACK_DEPTH</b> - ( \ref Group_HIDParser ) \n
  *  HID reports generally contain many USAGE elements, which are assigned to INPUT, OUTPUT and FEATURE items in succession
  *  when multiple items are defined at once (via REPORT COUNT elements). This allows for several items to be defined with
- *  different usages in a compact manner. This token may be defined to a non-zero value to set the maximum depth of the
+ *  different usages in a compact manner. This token may be defined to a non-zero 8-bit value to set the maximum depth of the
  *  usage stack, indicating the maximum number of USAGE items which can be stored temporarily until the next INPUT, OUTPUT
  *  and FEATURE item. If not defined, this defaults to the value indicated in the HID.h file documentation.
  *
  *  <b>HID_MAX_COLLECTIONS</b> - ( \ref Group_HIDParser ) \n
  *  HID reports generally contain several COLLECTION elements, used to group related data items together. Collection information
  *  is stored separately in the processed usage structure (and referred to by the data elements in the structure) to save space.
- *  This token may be defined to a non-zero value to set the maximum number of COLLECTION items which can be processed by the
+ *  This token may be defined to a non-zero 8-bit value to set the maximum number of COLLECTION items which can be processed by the
  *  parser into the resultant processed report structure. If not defined, this defaults to the value indicated in the HID.h file
  *  documentation.
  *
  *  <b>HID_MAX_REPORTITEMS</b> - ( \ref Group_HIDParser ) \n
  *  All HID reports contain one or more INPUT, OUTPUT and/or FEATURE items describing the data which can be sent to and from the HID
  *  device. Each item has associated usages, bit offsets in the item reports and other associated data indicating the manner in which
- *  the report data should be interpreted by the host. This token may be defined to a non-zero value to set the maximum number of
+ *  the report data should be interpreted by the host. This token may be defined to a non-zero 8-bit value to set the maximum number of
  *  data elements which can be stored in the processed HID report structure, including INPUT, OUTPUT and (if enabled) FEATURE items.
  *  If a item has a multiple count (i.e. a REPORT COUNT of more than 1), each item in the report count is placed separately in the
  *  processed HID report table. If not defined, this defaults to the value indicated in the HID.h file documentation.
@@ -121,14 +121,14 @@
  *
  *  <b>USB_HOST_TIMEOUT_MS</b> - ( \ref Group_Host ) \n
  *  When a control transfer is initiated in host mode to an attached device, a timeout is used to abort the transfer if the attached
- *  device fails to respond within the timeout period. This token may be defined to a non-zero value to set the timeout period for
+ *  device fails to respond within the timeout period. This token may be defined to a non-zero 16-bit value to set the timeout period for
  *  control transfers, specified in milliseconds. If not defined, the default value specified in Host.h is used instead.
  *
  *  <b>HOST_DEVICE_SETTLE_DELAY_MS</b> - ( \ref Group_Host ) \n
  *  Some devices require a delay of up to 5 seconds after they are connected to VBUS before the enumeration process can be started, or
  *  they will fail to enumerate correctly. By placing a delay before the enumeration process, it can be ensured that the bus has settled
- *  back to a known idle state before communications occur with the device. This token may be defined to a non-zero value to set the
- *  device settle period, specified in milliseconds. If not defined, the default value specified in Host.h is used instead.
+ *  back to a known idle state before communications occur with the device. This token may be defined to a non-zero 16-bit value to set
+ *  the device settle period, specified in milliseconds. If not defined, the default value specified in Host.h is used instead.
  *
  *  <b>USE_STATIC_OPTIONS</b> - ( \ref Group_USBManagement ) \n
  *  By default, the USB_Init() function accepts dynamic options at runtime to alter the library behaviour, including whether the USB pad
@@ -148,7 +148,7 @@
  *
  *  <b>USB_STREAM_TIMEOUT_MS</b> - ( \ref Group_USBManagement ) \n
  *  When endpoint and/or pipe stream functions are used, by default there is a timeout between each transfer which the connected device or host
- *  must satisfy, or the stream function aborts the remaining data transfer. This token may be defined to a non-zero value to set the timeout
+ *  must satisfy, or the stream function aborts the remaining data transfer. This token may be defined to a non-zero 16-bit value to set the timeout
  *  period for stream transfers, specified in milliseconds. If not defined, the default value specified in LowLevel.h is used instead.
  *
  *  <b>NO_LIMITED_CONTROLLER_CONNECT</b> - ( \ref Group_Events ) \n

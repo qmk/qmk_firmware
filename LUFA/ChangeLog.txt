@@ -17,6 +17,8 @@
   *  - Moved control endpoint interrupt handling into the library itself, enable via the new INTERRUPT_CONTROL_ENDPOINT token
   *  - Fixed CDCHost not clearing configured pipes and resetting configured pipes mask when a partially enumerated invalid CDC
   *    interface is skipped
+  *  - Clarified the size of library tokens which accept integer values in the Compile Time Tokens page, values now use the smallest datatype
+  *    inside the library that is able to hold their defined value to save space
   *
   *
   *  \section Sec_ChangeLog090510 Version 090510
