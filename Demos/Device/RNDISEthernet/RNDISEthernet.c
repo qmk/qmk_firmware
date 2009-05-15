@@ -113,16 +113,16 @@ EVENT_HANDLER(USB_Disconnect)
 EVENT_HANDLER(USB_ConfigurationChanged)
 {
 	/* Setup CDC Notification, Rx and Tx Endpoints */
-	Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
 	Endpoint_ConfigureEndpoint(CDC_TX_EPNUM, EP_TYPE_BULK,
 		                       ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
 	                           ENDPOINT_BANK_SINGLE);
 
 	Endpoint_ConfigureEndpoint(CDC_RX_EPNUM, EP_TYPE_BULK,
 		                       ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
+	                           ENDPOINT_BANK_SINGLE);
+
+	Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
+		                       ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
 	                           ENDPOINT_BANK_SINGLE);
 
 	/* Indicate USB connected and ready */

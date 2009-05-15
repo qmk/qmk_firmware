@@ -95,6 +95,14 @@ uint8_t ProcessConfigurationDescriptor(void)
 			}
 			else
 			{
+				/* Clear the found endpoints mask, since any already processed endpoints aren't in the CDC interface we need */
+				FoundEndpoints = 0;
+
+				/* Disable any already configured endpoints from the invalid CDC interfaces */
+				Endpoint_DisableEndpoint(CDC_NOTIFICATIONPIPE);
+				Endpoint_DisableEndpoint(CDC_DATAPIPE_IN);
+				Endpoint_DisableEndpoint(CDC_DATAPIPE_OUT);
+			
 				/* Get the next CDC control interface from the configuration descriptor (CDC class has two CDC interfaces) */
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, NextCDCControlInterface))
 				{
