@@ -175,9 +175,6 @@
 			 */
 			#define ENDPOINT_USAGE_IMPLICIT_FEEDBACK  (2 << 4)
 
-			/** Gives a void pointer to the specified descriptor (of any type). */
-			#define DESCRIPTOR_ADDRESS(Descriptor)    ((void*)&Descriptor)
-
 		/* Events: */
 			#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
 				/** This module raises the Device Error event while in device mode, if the \ref USB_GetDescriptor()
@@ -483,7 +480,7 @@
 			 *                            otherwise zero for standard descriptors, or as defined in a class-specific
 			 *                            standards.
 			 *  \param DescriptorAddress  Pointer to the descriptor in memory. This should be set by the routine to
-			 *                            the location of the descriptor, found by the \ref DESCRIPTOR_ADDRESS() macro.
+			 *                            the address of the descriptor.
 			 *
 			 *  \note By default, the library expects all descriptors to be located in flash memory via the PROGMEM attribute.
 			 *        If descriptors should be located in RAM or EEPROM instead (to speed up access in the case of RAM, or to

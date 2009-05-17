@@ -17,6 +17,8 @@
  *      projects using interrupts on non-control endpoints should switch to polling. For control interrupts, the library can
  *      manage the control endpoint via interrupts automatically by compiling with the INTERRUPT_CONTROL_ENDPOINT token defined.
  *    - The Endpoint_ClearEndpointInterrupt() macro has been deleted and references to it should be removed.
+ *    - The DESCRIPTOR_ADDRESS() macro has been removed. User applications should use normal casts to obtain a descriptor's memory
+ *      address.
  *
  *  <b>Device Mode</b>
  *    - Support for non-control data pipe interrupts has been dropped due to many issues in the implementation. All existing

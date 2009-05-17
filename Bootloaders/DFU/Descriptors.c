@@ -154,22 +154,22 @@ uint16_t USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** c
 	switch (DescriptorType)
 	{
 		case DTYPE_Device:
-			Address = DESCRIPTOR_ADDRESS(DeviceDescriptor);
+			Address = &DeviceDescriptor;
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
 		case DTYPE_Configuration: 
-			Address = DESCRIPTOR_ADDRESS(ConfigurationDescriptor);
+			Address = &ConfigurationDescriptor;
 			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_String: 
 			if (!(DescriptorNumber))
 			{
-				Address = DESCRIPTOR_ADDRESS(LanguageString);
+				Address = &LanguageString;
 				Size    = LanguageString.Header.Size;
 			}
 			else
 			{
-				Address = DESCRIPTOR_ADDRESS(ProductString);
+				Address = &ProductString;
 				Size    = ProductString.Header.Size;
 			}
 			

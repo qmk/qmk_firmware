@@ -207,37 +207,37 @@ uint16_t USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** c
 	switch (DescriptorType)
 	{
 		case DTYPE_Device:
-			Address = DESCRIPTOR_ADDRESS(DeviceDescriptor);
+			Address = (void*)&DeviceDescriptor;
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
 		case DTYPE_Configuration:
-			Address = DESCRIPTOR_ADDRESS(ConfigurationDescriptor);
+			Address = (void*)&ConfigurationDescriptor;
 			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_String:
 			switch (DescriptorNumber)
 			{
 				case 0x00:
-					Address = DESCRIPTOR_ADDRESS(LanguageString);
+					Address = (void*)&LanguageString;
 					Size    = pgm_read_byte(&LanguageString.Header.Size);
 					break;
 				case 0x01:
-					Address = DESCRIPTOR_ADDRESS(ManufacturerString);
+					Address = (void*)&ManufacturerString;
 					Size    = pgm_read_byte(&ManufacturerString.Header.Size);
 					break;
 				case 0x02:
-					Address = DESCRIPTOR_ADDRESS(ProductString);
+					Address = (void*)&ProductString;
 					Size    = pgm_read_byte(&ProductString.Header.Size);
 					break;
 			}
 			
 			break;
 		case DTYPE_HID:
-			Address = DESCRIPTOR_ADDRESS(ConfigurationDescriptor.KeyboardHID);
+			Address = (void*)&ConfigurationDescriptor.KeyboardHID;
 			Size    = sizeof(USB_Descriptor_HID_t);
 			break;
 		case DTYPE_Report:
-			Address = DESCRIPTOR_ADDRESS(KeyboardReport);
+			Address = (void*)&KeyboardReport;
 			Size    = sizeof(KeyboardReport);
 			break;
 	}

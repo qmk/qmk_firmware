@@ -249,6 +249,11 @@ TASK(USB_MassStorage)
 					/* Reset the data endpoint banks */
 					Endpoint_ResetFIFO(MASS_STORAGE_OUT_EPNUM);
 					Endpoint_ResetFIFO(MASS_STORAGE_IN_EPNUM);
+					
+					Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
+					Endpoint_ClearStall();
+					Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
+					Endpoint_ClearStall();
 
 					/* Clear the abort transfer flag */
 					IsMassStoreReset = false;
