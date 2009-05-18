@@ -75,12 +75,11 @@
 			NoEndpointFound                 = 5, /**< Compatible CDC endpoints were not found in the device's CDC interface */
 		};
 
-	/* Configuration Descriptor Comparison Functions: */
-		DESCRIPTOR_COMPARATOR(NextCDCControlInterface);
-		DESCRIPTOR_COMPARATOR(NextCDCDataInterface);
-		DESCRIPTOR_COMPARATOR(NextInterfaceCDCDataEndpoint);
-
 	/* Function Prototypes: */
 		uint8_t ProcessConfigurationDescriptor(void);	
-
+		
+		uint8_t DComp_NextCDCControlInterface(void* CurrentDescriptor);
+		uint8_t DComp_NextCDCDataInterface(void* CurrentDescriptor);
+		uint8_t DComp_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor);
+		
 #endif

@@ -118,7 +118,7 @@ int main(void)
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
  *  starts the library USB task to begin the enumeration and USB management process.
  */
-EVENT_HANDLER(USB_Connect)
+void EVENT_USB_Connect(void)
 {
 	/* Start USB management task */
 	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
@@ -130,7 +130,7 @@ EVENT_HANDLER(USB_Connect)
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
  *  the status LEDs and stops the USB management and CDC management tasks.
  */
-EVENT_HANDLER(USB_Disconnect)
+void EVENT_USB_Disconnect(void)
 {
 	/* Stop running CDC and USB management tasks */
 	Scheduler_SetTaskMode(CDC1_Task, TASK_STOP);
@@ -144,7 +144,7 @@ EVENT_HANDLER(USB_Disconnect)
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
  *  of the USB device after enumeration - the device endpoints are configured and the CDC management tasks are started.
  */
-EVENT_HANDLER(USB_ConfigurationChanged)
+void EVENT_USB_ConfigurationChanged(void)
 {
 	/* Setup CDC Notification, Rx and Tx Endpoints for the first CDC */
 	Endpoint_ConfigureEndpoint(CDC1_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
@@ -184,7 +184,7 @@ EVENT_HANDLER(USB_ConfigurationChanged)
  *  control requests that are not handled internally by the USB library (including the CDC control commands,
  *  which are all issued via the control endpoint), so that they can be handled appropriately for the application.
  */
-EVENT_HANDLER(USB_UnhandledControlPacket)
+void EVENT_USB_UnhandledControlPacket(void)
 {
 	/* Determine which interface's Line Coding data is being set from the wIndex parameter */
 	uint8_t* LineCodingData = (USB_ControlRequest.wIndex == 0) ? (uint8_t*)&LineCoding1 : (uint8_t*)&LineCoding2;

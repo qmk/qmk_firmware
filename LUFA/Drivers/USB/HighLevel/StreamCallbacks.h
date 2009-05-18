@@ -32,7 +32,8 @@
  *  @defgroup Group_StreamCallbacks Endpoint and Pipe Stream Callbacks
  *
  *  Macros and enums for the stream callback routines. This module contains the code required to easily set up
- *  stream callback functions which can be used to force early abort of a stream read/write process.
+ *  stream callback functions which can be used to force early abort of a stream read/write process. Each callback
+ *  should take no arguments, and return a value from the \ref StreamCallback_Return_ErrorCodes_t enum.
  *
  *  @{
  */
@@ -42,37 +43,6 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Creates a prototype for or begins a stream callback routine. Stream callback routines are small
-			 *  routines which are executed during stream read or writes (if the callback-enabled versions of
-			 *  these functions are used) which allow the user application to abort the transfer when certain
-			 *  arbitrary conditions are met.
-			 *
-			 *  Stream callback functions should return a value from the \ref StreamCallback_Return_ErrorCodes_t
-			 *  enum.
-			 *
-			 *  Usage Example (Device Endpoint, but applicable for Host Pipes also):
-			 *  \code
-			 *  STREAM_CALLBACK(GlobalNotSet); // Callback Prototype
-			 *
-			 *  STREAM_CALLBACK(GlobalNotSet)
-			 *  {
-			 *     if (MyGlobal == false)
-			 *         return ENDPOINT_STREAMCALLBACK_Continue;
-			 *     else
-			 *         return ENDPOINT_STREAMCALLBACK_Abort;
-			 *  }
-			 *
-			 *  //...
-			 *  // Inside some routine:
-			 *  if (Endpoint_Write_Stream_LE(DataBuffer, sizeof(DataBuffer), GlobalNotSet) == 
-			 *                               ENDPOINT_RWSTREAM_ERROR_CallbackAborted)
-			 *  {
-			 *      // Do something when the callback aborted the transfer early
-			 *  }
-			 *  \endcode
-			 */
-			#define STREAM_CALLBACK(name) uint8_t name (void)
-
 			/** Used with the Endpoint and Pipe stream functions as the callback function parameter, indicating that the stream
 			 *  call has no callback function to be called between USB packets.
 			 */

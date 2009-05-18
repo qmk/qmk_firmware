@@ -505,7 +505,7 @@ sizeafter:
 checkhooks: build
 	@echo
 	@echo ------- Unhooked LUFA Events -------
-	@$(shell) (grep -s '^Event.*LUFA/.*\\.o' $(TARGET).map | \
+	@$(shell) (grep -s '^EVENT_.*LUFA/.*\\.o' $(TARGET).map | \
 	           cut -d' ' -f1 | cut -d'_' -f2- | grep ".*") || \
 			   echo "(None)"
 	@echo ------------------------------------

@@ -82,15 +82,14 @@
 			Status_EnumerationError = 3, /**< Software error while enumerating the attached USB device */
 			Status_HardwareError    = 4, /**< Hardware error while enumerating the attached USB device */
 		};
-		
-	/* Event Handlers: */
-		HANDLES_EVENT(USB_DeviceAttached);
-		HANDLES_EVENT(USB_DeviceUnattached);
-		HANDLES_EVENT(USB_DeviceEnumerationComplete);
-		HANDLES_EVENT(USB_HostError);
-		HANDLES_EVENT(USB_DeviceEnumerationFailed);
 
 	/* Function Prototypes: */
+		void EVENT_USB_HostError(const uint8_t ErrorCode);
+		void EVENT_USB_DeviceAttached(void);
+		void EVENT_USB_DeviceUnattached(void);
+		void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
+		void EVENT_USB_DeviceEnumerationComplete(void);
+
 		void UpdateStatus(uint8_t CurrentStatus);
 		void ReadNextReport(void);
 		void WriteNextReport(uint8_t* ReportOUTData, uint8_t ReportIndex, uint8_t ReportType, uint16_t ReportLength);

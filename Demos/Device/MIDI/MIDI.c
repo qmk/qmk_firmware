@@ -74,7 +74,7 @@ int main(void)
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs. */
-EVENT_HANDLER(USB_Connect)
+void EVENT_USB_Connect(void)
 {
 	/* Start USB management task */
 	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
@@ -86,7 +86,7 @@ EVENT_HANDLER(USB_Connect)
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
  *  the status LEDs, disables the sample update and PWM output timers and stops the USB and MIDI management tasks.
  */
-EVENT_HANDLER(USB_Disconnect)
+void EVENT_USB_Disconnect(void)
 {
 	/* Stop running audio and USB management tasks */
 	Scheduler_SetTaskMode(USB_MIDI_Task, TASK_STOP);
@@ -99,7 +99,7 @@ EVENT_HANDLER(USB_Disconnect)
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
  *  of the USB device after enumeration - the device endpoints are configured and the MIDI management task started.
  */
-EVENT_HANDLER(USB_ConfigurationChanged)
+void EVENT_USB_ConfigurationChanged(void)
 {
 	/* Setup MIDI stream endpoints */
 	Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK,

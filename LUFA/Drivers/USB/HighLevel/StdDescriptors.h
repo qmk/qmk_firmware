@@ -175,16 +175,6 @@
 			 */
 			#define ENDPOINT_USAGE_IMPLICIT_FEEDBACK  (2 << 4)
 
-		/* Events: */
-			#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
-				/** This module raises the Device Error event while in device mode, if the \ref USB_GetDescriptor()
-				 *  routine is not hooked in the user application to properly return descriptors to the library.
-				 *
-				 *  \see \ref Group_Events for more information on this event.
-				 */
-				RAISES_EVENT(USB_DeviceError);
-			#endif
-			
 		/* Enums: */
 			/** Enum for the possible standard descriptor types, as given in each descriptor's header. */
 			enum USB_DescriptorTypes_t

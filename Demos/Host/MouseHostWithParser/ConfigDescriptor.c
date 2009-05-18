@@ -70,7 +70,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	
 	/* Get the mouse interface from the configuration descriptor */
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              NextMouseInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DComp_NextMouseInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoHIDInterfaceFound;
@@ -78,7 +78,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	
 	/* Get the mouse interface's HID descriptor */
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DComp_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoHIDDescriptorFound;
@@ -89,7 +89,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 	/* Get the mouse interface's data endpoint descriptor */
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              NextInterfaceMouseDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DComp_NextInterfaceMouseDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoEndpointFound;
@@ -116,7 +116,7 @@ uint8_t ProcessConfigurationDescriptor(void)
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-DESCRIPTOR_COMPARATOR(NextMouseInterface)
+uint8_t DComp_NextMouseInterface(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -140,7 +140,7 @@ DESCRIPTOR_COMPARATOR(NextMouseInterface)
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-DESCRIPTOR_COMPARATOR(NextInterfaceMouseDataEndpoint)
+uint8_t DComp_NextInterfaceMouseDataEndpoint(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
@@ -163,7 +163,7 @@ DESCRIPTOR_COMPARATOR(NextInterfaceMouseDataEndpoint)
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-DESCRIPTOR_COMPARATOR(NextHID)
+uint8_t DComp_NextHID(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_HID)
 	  return DESCRIPTOR_SEARCH_Found;

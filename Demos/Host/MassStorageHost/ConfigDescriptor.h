@@ -65,12 +65,11 @@
 			NoInterfaceFound                = 4, /**< A compatible MSD interface was not found in the device's Configuration Descriptor */
 			NoEndpointFound                 = 5, /**< The correct MSD endpoint descriptors were not found in the device's MSD interface */
 		};
-
-	/* Configuration Descriptor Comparison Functions: */
-		DESCRIPTOR_COMPARATOR(NextMassStorageInterface);
-		DESCRIPTOR_COMPARATOR(NextInterfaceBulkDataEndpoint);
-
+		
 	/* Function Prototypes: */
 		uint8_t ProcessConfigurationDescriptor(void);	
 
+		uint8_t DComp_NextMassStorageInterface(void* CurrentDescriptor);
+		uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor);
+		
 #endif

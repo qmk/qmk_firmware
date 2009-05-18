@@ -139,7 +139,7 @@ int main (void)
 /** Event handler for the USB_Disconnect event. This indicates that the bootloader should exit and the user
  *  application started.
  */
-EVENT_HANDLER(USB_Disconnect)
+void EventHandler_USB_Disconnect(void)
 {
 	/* Upon disconnection, run user application */
 	RunBootloader = false;
@@ -149,7 +149,7 @@ EVENT_HANDLER(USB_Disconnect)
  *  control requests that are not handled internally by the USB library (including the DFU commands, which are
  *  all issued via the control endpoint), so that they can be handled appropriately for the application.
  */
-EVENT_HANDLER(USB_UnhandledControlPacket)
+void EventHandler_USB_UnhandledControlPacket(void)
 {
 	/* Get the size of the command and data from the wLength value */
 	SentCommand.DataSize = USB_ControlRequest.wLength;

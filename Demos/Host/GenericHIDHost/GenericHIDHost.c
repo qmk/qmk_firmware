@@ -80,7 +80,7 @@ int main(void)
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
  *  starts the library USB task to begin the enumeration and USB management process.
  */
-EVENT_HANDLER(USB_DeviceAttached)
+void EVENT_USB_DeviceAttached(void)
 {
 	puts_P(PSTR("Device Attached.\r\n"));
 	UpdateStatus(Status_USBEnumerating);
@@ -92,7 +92,7 @@ EVENT_HANDLER(USB_DeviceAttached)
 /** Event handler for the USB_DeviceUnattached event. This indicates that a device has been removed from the host, and
  *  stops the library USB task management process.
  */
-EVENT_HANDLER(USB_DeviceUnattached)
+void EVENT_USB_DeviceUnattached(void)
 {
 	/* Stop HID and USB management task */
 	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
@@ -105,7 +105,7 @@ EVENT_HANDLER(USB_DeviceUnattached)
 /** Event handler for the USB_DeviceEnumerationComplete event. This indicates that a device has been successfully
  *  enumerated by the host and is now ready to be used by the application.
  */
-EVENT_HANDLER(USB_DeviceEnumerationComplete)
+void EVENT_USB_DeviceEnumerationComplete(void)
 {
 	/* Start HID Host task */
 	Scheduler_SetTaskMode(USB_HID_Host, TASK_RUN);
@@ -115,7 +115,7 @@ EVENT_HANDLER(USB_DeviceEnumerationComplete)
 }
 
 /** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
-EVENT_HANDLER(USB_HostError)
+void EVENT_USB_HostError(const uint8_t ErrorCode)
 {
 	USB_ShutDown();
 
@@ -129,7 +129,7 @@ EVENT_HANDLER(USB_HostError)
 /** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
-EVENT_HANDLER(USB_DeviceEnumerationFailed)
+void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
 {
 	puts_P(PSTR(ESC_BG_RED "Dev Enum Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);

@@ -191,15 +191,11 @@
 			errUNKNOWN                   = 14,
 			errSTALLEDPKT	             = 15
 		};
-		
-	/* Event Handlers: */
-		/** Indicates that this module will catch the USB_Disconnect event when thrown by the library. */
-		HANDLES_EVENT(USB_Disconnect);
-
-		/** Indicates that this module will catch the USB_UnhandledControlPacket event when thrown by the library. */
-		HANDLES_EVENT(USB_UnhandledControlPacket);
-		
+				
 	/* Function Prototypes: */
+		void EVENT_USB_Disconnect(void);
+		void EVENT_USB_UnhandledControlPacket(void);
+
 		#if defined(INCLUDE_FROM_BOOTLOADER_C)
 			static void DiscardFillerBytes(uint8_t NumberOfBytes);
 			static void ProcessBootloaderCommand(void);

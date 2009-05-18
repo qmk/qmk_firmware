@@ -92,7 +92,7 @@ void USB_Init(
 	}
 	else
 	{
-		RAISE_EVENT(USB_InitFailure, USB_INITERROR_NoUSBModeSpecified);
+		EVENT_USB_InitFailure(USB_INITERROR_NoUSBModeSpecified);
 		return;
 	}
 	#endif
@@ -111,7 +111,7 @@ void USB_Init(
 void USB_ShutDown(void)
 {
 	if (USB_IsConnected)
-	  RAISE_EVENT(USB_Disconnect);
+	  EVENT_USB_Disconnect();
 
 	USB_Detach();
 

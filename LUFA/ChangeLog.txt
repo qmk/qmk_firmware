@@ -20,6 +20,10 @@
   *  - Clarified the size of library tokens which accept integer values in the Compile Time Tokens page, values now use the smallest datatype
   *    inside the library that is able to hold their defined value to save space
   *  - Removed DESCRIPTOR_ADDRESS() macro as it was largely supurflous and only served to obfuscate code
+  *  - Rewritten event system to remove all macros, to make user code clearer
+  *  - Fixed incorrect ENDPOINT_EPNUM_MASK mask preventing endpoints above EP3 from being selected (thanks to Jonathan Oakley)
+  *  - Removed STREAM_CALLBACK() macro - callbacks now use regular function definitions to clarify user code
+  *  - Removed DESCRIPTOR_COMPARATOR() macro - comparators should now use regular function definitions to clarify user code
   *
   *
   *  \section Sec_ChangeLog090510 Version 090510

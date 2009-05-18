@@ -86,7 +86,7 @@ int main(void)
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs. */
-EVENT_HANDLER(USB_Connect)
+void EventHandler_USB_Connect(void)
 {
 	/* Indicate USB enumerating */
 	UpdateStatus(Status_USBEnumerating);
@@ -98,7 +98,7 @@ EVENT_HANDLER(USB_Connect)
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
  *  the status LEDs and stops the Mass Storage management task.
  */
-EVENT_HANDLER(USB_Disconnect)
+void EventHandler_USB_Disconnect(void)
 {
 	/* Stop running mass storage task */
 	Scheduler_SetTaskMode(USB_MassStorage, TASK_STOP);
@@ -110,7 +110,7 @@ EVENT_HANDLER(USB_Disconnect)
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
  *  of the USB device after enumeration - the device endpoints are configured and the Mass Storage management task started.
  */
-EVENT_HANDLER(USB_ConfigurationChanged)
+void EventHandler_USB_ConfigurationChanged(void)
 {
 	/* Setup Mass Storage In and Out Endpoints */
 	Endpoint_ConfigureEndpoint(MASS_STORAGE_IN_EPNUM, EP_TYPE_BULK,
@@ -132,7 +132,7 @@ EVENT_HANDLER(USB_ConfigurationChanged)
  *  control requests that are not handled internally by the USB library (including the Mass Storage class-specific
  *  requests) so that they can be handled appropriately for the application.
  */
-EVENT_HANDLER(USB_UnhandledControlPacket)
+void EventHandler_USB_UnhandledControlPacket(void)
 {
 	/* Process UFI specific control requests */
 	switch (USB_ControlRequest.bRequest)
@@ -283,7 +283,7 @@ static bool ReadInCommandBlock(void)
 
 	/* Read in command block header */
 	Endpoint_Read_Stream_LE(&CommandBlock, (sizeof(CommandBlock) - sizeof(CommandBlock.SCSICommandData)),
-	                        AbortOnMassStoreReset);
+	                        StreamCallback_AbortOnMassStoreReset);
 
 	/* Check if the current command is being aborted by the host */
 	if (IsMassStoreReset)
@@ -305,7 +305,7 @@ static bool ReadInCommandBlock(void)
 	/* Read in command block command data */
 	Endpoint_Read_Stream_LE(&CommandBlock.SCSICommandData,
 	                        CommandBlock.SCSICommandLength,
-	                        AbortOnMassStoreReset);
+	                        StreamCallback_AbortOnMassStoreReset);
 	  
 	/* Check if the current command is being aborted by the host */
 	if (IsMassStoreReset)
@@ -346,7 +346,7 @@ static void ReturnCommandStatus(void)
 	
 	/* Write the CSW to the endpoint */
 	Endpoint_Write_Stream_LE(&CommandStatus, sizeof(CommandStatus),
-	                          AbortOnMassStoreReset);
+	                          StreamCallback_AbortOnMassStoreReset);
 	
 	/* Check if the current command is being aborted by the host */
 	if (IsMassStoreReset)
@@ -359,7 +359,7 @@ static void ReturnCommandStatus(void)
 /** Stream callback function for the Endpoint stream read and write functions. This callback will abort the current stream transfer
  *  if a Mass Storage Reset request has been issued to the control endpoint.
  */
-STREAM_CALLBACK(AbortOnMassStoreReset)
+uint8_t StreamCallback_AbortOnMassStoreReset(void)
 {	
 	/* Abort if a Mass Storage reset command was received */
 	if (IsMassStoreReset)

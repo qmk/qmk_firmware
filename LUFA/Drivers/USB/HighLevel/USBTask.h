@@ -67,7 +67,7 @@
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
-			 *        and disconnection events may be manually fired by \ref RAISE_EVENT(), and the \ref USB_IsConnected global changed manually.
+			 *        and disconnection events may be manually fired, and the \ref USB_IsConnected global changed manually.
 			 *
 			 *  \ingroup Group_USBManagement
 			 */
@@ -84,7 +84,7 @@
 			extern volatile bool USB_IsInitialized;
 
 			/** Structure containing the last received Control request when in Device mode (for use in user-applications
-			 *  inside of the \ref USB_UnhandledControlPacket() event, or for filling up with a control request to issue when
+			 *  inside of the \ref EVENT_USB_UnhandledControlPacket() event, or for filling up with a control request to issue when
 			 *  in Host mode before calling \ref USB_Host_SendControlRequest().
 			 *
 			 *  \ingroup Group_USBManagement
@@ -122,52 +122,6 @@
 			extern volatile uint8_t USB_HostState;
 			#endif
 
-		/* Throwable Events: */
-			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
-				/** This module raises the \ref USB_Connect event when a USB device has been connected whilst in host
-				 *  mode, but not yet enumerated.
-				 *
-				 *  \see \ref Group_Events for more information on this event.
-				 */
-				RAISES_EVENT(USB_Connect);
-
-				/** This module raises the \ref USB_DeviceAttached event when in host mode, and a device is attached
-				 *  to the AVR's USB interface.
-				 *
-				 *  \see \ref Group_Events for more information on this event.
-				 */
-				RAISES_EVENT(USB_DeviceAttached);
-
-				/** This module raises the \ref USB_DeviceUnattached event when in host mode, and a device is removed
-				 *  from the AVR's USB interface.
-				 *
-				 *  \see \ref Group_Events for more information on this event.
-				 */
-				RAISES_EVENT(USB_DeviceUnattached);
-				
-				/** This module raises the \ref USB_DeviceEnumerationFailed event when in host mode, and an
-				 *  attached USB device has failed to successfully enumerated.
-				 *
-				 *  \see \ref Group_Events for more information on this event.
-				 */
-				RAISES_EVENT(USB_DeviceEnumerationFailed);
-
-				/** This module raises the \ref USB_DeviceEnumerationComplete event when in host mode, and an
-				 *  attached USB device has been successfully enumerated and ready to be used by the user
-				 *  application.
-				 *
-				 *  \see \ref Group_Events for more information on this event.
-				 */
-				RAISES_EVENT(USB_DeviceEnumerationComplete);
-
-				/** This module raises the \ref USB_Disconnect event when an attached USB device is removed from the USB
-				 *  bus.
-				 *
-				 *  \see \ref Group_Events for more information on this event.
-				 */
-				RAISES_EVENT(USB_Disconnect);
-			#endif
-
 		/* Tasks: */
 			/** This is the main USB management task. The USB driver requires that this task be executed
 			 *  continuously when the USB system is active (device attached in host mode, or attached to a host
@@ -177,11 +131,11 @@
 			 *  The USB task must be serviced within 50mS in all modes, when needed. The task may be serviced 
 			 *  at all times, or (for minimum CPU consumption):
 			 *
-			 *    - In device mode, it may be disabled at start-up, enabled on the firing of the \ref USB_Connect event
-			 *    and disabled again on the firing of the \ref USB_Disconnect event.
+			 *    - In device mode, it may be disabled at start-up, enabled on the firing of the \ref EVENT_USB_Connect() event
+			 *    and disabled again on the firing of the \ref EVENT_USB_Disconnect() event.
 			 *
-			 *    - In host mode, it may be disabled at start-up, enabled on the firing of the \ref USB_DeviceAttached
-			 *    event and disabled again on the firing of the \ref USB_DeviceUnattached event.
+			 *    - In host mode, it may be disabled at start-up, enabled on the firing of the \ref EVENT_USB_DeviceAttached()
+			 *    event and disabled again on the firing of the \ref EVENT_USB_DeviceUnattached() event.
 			 *
 			 *  If in device mode (only), the control endpoint can instead be managed via interrupts entirely by the library
 			 *  by defining the INTERRUPT_CONTROL_ENDPOINT token and passing it to the compiler via the -D switch.

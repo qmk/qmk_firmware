@@ -60,15 +60,9 @@
 		#define REQ_SetReport             0x09
 		
 		#define TEENSY_STARTAPPLICATION   0xFFFF
-
-	/* Event Handlers: */
-		/** Indicates that this module will catch the USB_Disconnect event when thrown by the library. */
-		HANDLES_EVENT(USB_Disconnect);
-
-		/** Indicates that this module will catch the USB_ConfigurationChanged event when thrown by the library. */
-		HANDLES_EVENT(USB_ConfigurationChanged);
-
-		/** Indicates that this module will catch the USB_UnhandledControlPacket event when thrown by the library. */
-		HANDLES_EVENT(USB_UnhandledControlPacket);
+		
+	/* Function Prototypes: */
+		void EVENT_USB_ConfigurationChanged(void);
+		void EVENT_USB_UnhandledControlPacket(void);
 		
 #endif

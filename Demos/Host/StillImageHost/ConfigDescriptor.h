@@ -66,11 +66,10 @@
 			NoEndpointFound                 = 5, /**< The correct SI endpoint descriptors were not found in the device's SI interface */
 		};
 	
-	/* Configuration Descriptor Comparison Functions: */
-		DESCRIPTOR_COMPARATOR(NextStillImageInterface);
-		DESCRIPTOR_COMPARATOR(NextSImageInterfaceDataEndpoint);
-
 	/* Function Prototypes: */
-		uint8_t ProcessConfigurationDescriptor(void);	
+		uint8_t ProcessConfigurationDescriptor(void);
+
+		uint8_t DComp_NextStillImageInterface(void* CurrentDescriptor);
+		uint8_t DComp_NextSImageInterfaceDataEndpoint(void* CurrentDescriptor);
 
 #endif

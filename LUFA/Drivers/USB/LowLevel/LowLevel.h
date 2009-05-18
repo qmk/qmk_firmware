@@ -283,7 +283,7 @@
 
 		/* Enums: */
 			/** Enum for error codes relating to the powering on of the USB interface. These error codes are
-			 *  used in the ErrorCode parameter value of the \ref USB_InitFailure event.
+			 *  used in the ErrorCode parameter value of the \ref EVENT_USB_InitFailure() event.
 			 */
 			enum USB_InitErrorCodes_t
 			{
@@ -313,24 +313,6 @@
 				extern volatile uint8_t USB_Options;
 			#endif
 
-		/* Throwable Events: */
-			/** This module raises the \ref USB_Disconnect event if the USB interface is reset (such as during a mode
-			 *  change while in UID mode) while the USB interface is connected to a device when in host mode, or
-			 *  a host while in device mode.
-			 *
-			 *  \see Events.h for more information on this event.
-			 */
-			RAISES_EVENT(USB_Disconnect);
-			
-			#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
-				/** This module raises the Power On Failure event when an error occurs while initializing the USB
-				 *  interface.
-				 *
-				 *  \see Events.h for more information on this event.
-				 */
-				RAISES_EVENT(USB_InitFailure);
-			#endif
-			
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */

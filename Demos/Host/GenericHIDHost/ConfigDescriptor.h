@@ -60,11 +60,10 @@
 			NoEndpointFound                 = 5, /**< A compatible HID IN endpoint was not found in the device's HID interface */
 		};	
 
-	/* Configuration Descriptor Comparison Functions: */
-		DESCRIPTOR_COMPARATOR(NextHIDInterface);
-		DESCRIPTOR_COMPARATOR(NextInterfaceHIDDataEndpoint);
-
 	/* Function Prototypes: */
-		uint8_t ProcessConfigurationDescriptor(void);	
+		uint8_t ProcessConfigurationDescriptor(void);
+
+		uint8_t DComp_NextHIDInterface(void* CurrentDescriptor);
+		uint8_t DComp_NextInterfaceHIDDataEndpoint(void* CurrentDescriptor);
 
 #endif

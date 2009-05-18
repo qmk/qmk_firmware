@@ -61,13 +61,12 @@
 			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
 			NoHIDInterfaceFound             = 4, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
 			NoEndpointFound                 = 5, /**< A compatible HID IN endpoint was not found in the device's HID interface */
-		};	
-
-	/* Configuration Descriptor Comparison Functions: */
-		DESCRIPTOR_COMPARATOR(NextMouseInterface);
-		DESCRIPTOR_COMPARATOR(NextInterfaceMouseDataEndpoint);
+		};
 
 	/* Function Prototypes: */
-		uint8_t ProcessConfigurationDescriptor(void);	
+		uint8_t ProcessConfigurationDescriptor(void);
+
+		uint8_t DComp_NextMouseInterface(void* CurrentDescriptor);
+		uint8_t DComp_NextInterfaceMouseDataEndpoint(void* CurrentDescriptor);
 
 #endif

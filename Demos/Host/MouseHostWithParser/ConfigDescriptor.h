@@ -69,13 +69,12 @@
 			NoHIDDescriptorFound            = 5, /**< A compatible HID descriptor was not found in the device's HID interface */
 			NoEndpointFound                 = 5, /**< A compatible HID IN endpoint was not found in the device's HID interface */
 		};
-	
-	/* Configuration Descriptor Comparison Functions: */
-		DESCRIPTOR_COMPARATOR(NextMouseInterface);
-		DESCRIPTOR_COMPARATOR(NextInterfaceMouseDataEndpoint);
-		DESCRIPTOR_COMPARATOR(NextHID);
 
 	/* Function Prototypes: */
-		uint8_t ProcessConfigurationDescriptor(void);	
+		uint8_t ProcessConfigurationDescriptor(void);
+
+		uint8_t DComp_NextMouseInterface(void* CurrentDescriptor);
+		uint8_t DComp_NextInterfaceMouseDataEndpoint(void* CurrentDescriptor);
+		uint8_t DComp_NextHID(void* CurrentDescriptor);
 
 #endif

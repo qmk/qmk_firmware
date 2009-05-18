@@ -115,14 +115,14 @@ int main(void)
 }
 
 /** Event handler for the USB_Connect event. This starts the USB task. */
-EVENT_HANDLER(USB_Connect)
+void EVENT_USB_Connect(void)
 {
 	/* Start USB management task */
 	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
 }
 
 /** Event handler for the USB_Disconnect event. This stops the USB and keyboard report tasks. */
-EVENT_HANDLER(USB_Disconnect)
+void EVENT_USB_Disconnect(void)
 {
 	/* Stop running keyboard reporting, card reading and USB management tasks */
 	Scheduler_SetTaskMode(USB_Keyboard_Report, TASK_STOP);
@@ -133,7 +133,7 @@ EVENT_HANDLER(USB_Disconnect)
 /** Event handler for the USB_ConfigurationChanged event. This configures the device's endpoints ready
  *  to relay reports to the host, and starts the keyboard report task.
  */
-EVENT_HANDLER(USB_ConfigurationChanged)
+void EVENT_USB_ConfigurationChanged(void)
 {
 	/* Setup Keyboard Keycode Report Endpoint */
 	Endpoint_ConfigureEndpoint(KEYBOARD_EPNUM, EP_TYPE_INTERRUPT,
@@ -152,7 +152,7 @@ EVENT_HANDLER(USB_ConfigurationChanged)
  *  control requests that are not handled internally by the USB library, so that they can be handled appropriately
  *  for the application.
  */
-EVENT_HANDLER(USB_UnhandledControlPacket)
+void EVENT_USB_UnhandledControlPacket(void)
 {
 	/* Handle HID Class specific requests */
 	switch (USB_ControlRequest.bRequest)

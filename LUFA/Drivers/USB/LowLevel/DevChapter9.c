@@ -106,7 +106,7 @@ void USB_Device_ProcessControlPacket(void)
 	}
 
 	if (!(RequestHandled))
-	  RAISE_EVENT(USB_UnhandledControlPacket);
+	  EVENT_USB_UnhandledControlPacket();
 	  
 	if (Endpoint_IsSETUPReceived())
 	{
@@ -157,9 +157,9 @@ static void USB_Device_SetConfiguration(void)
 	Endpoint_ClearIN();
 
 	if (!(AlreadyConfigured) && USB_ConfigurationNumber)
-	  RAISE_EVENT(USB_DeviceEnumerationComplete);
+	  EVENT_USB_DeviceEnumerationComplete();
 
-	RAISE_EVENT(USB_ConfigurationChanged);
+	EVENT_USB_ConfigurationChanged();
 }
 
 void USB_Device_GetConfiguration(void)

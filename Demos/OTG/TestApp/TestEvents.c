@@ -55,19 +55,19 @@ static void Abort_Program(void)
 }
 
 /** Event handler for the USB_VBUSChange event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_VBUSChange)
+void EVENT_USB_VBUSChange(void)
 {
 	puts_P(PSTR(EVENT_PREFIX "VBUS Change\r\n"));
 }
 
 /** Event handler for the USB_VBUSConnect event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_VBUSConnect)
+void EVENT_USB_VBUSConnect(void)
 {
 	puts_P(PSTR(EVENT_PREFIX "VBUS +\r\n"));
 }
 
 /** Event handler for the USB_VBUSDisconnect event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_VBUSDisconnect)
+void EVENT_USB_VBUSDisconnect(void)
 {
 	puts_P(PSTR(EVENT_PREFIX "VBUS -\r\n"));
 }
@@ -76,7 +76,7 @@ EVENT_HANDLER(USB_VBUSDisconnect)
  *  Event handler for the USB_Connect event. When fired, the event is logged to the USART and the
  *  USB task started.
  */
-EVENT_HANDLER(USB_Connect)
+void EVENT_USB_Connect(void)
 {
 	puts_P(PSTR(EVENT_PREFIX "USB  +\r\n"));
 	LEDs_SetAllLEDs(LEDS_LED2 | LEDS_LED3 | LEDS_LED4);
@@ -88,7 +88,7 @@ EVENT_HANDLER(USB_Connect)
  *  Event handler for the USB_Disconnect event. When fired, the event is logged to the USART and the
  *  USB task stopped.
  */
-EVENT_HANDLER(USB_Disconnect)
+void EVENT_USB_Disconnect(void)
 {
 	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
 
@@ -97,27 +97,27 @@ EVENT_HANDLER(USB_Disconnect)
 }
 
 /** Event handler for the USB_Suspend event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_Suspend)
+void EVENT_USB_Suspend(void)
 {
 	puts_P(PSTR(EVENT_PREFIX ESC_BG_YELLOW "USB Sleep\r\n"));
 	LEDs_SetAllLEDs(LEDS_ALL_LEDS);
 }
 
 /** Event handler for the USB_WakeUp event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_WakeUp)
+void EVENT_USB_WakeUp(void)
 {
 	puts_P(PSTR(EVENT_PREFIX ESC_BG_GREEN "USB Wakeup\r\n"));
 	LEDs_SetAllLEDs(LEDS_LED2 | LEDS_LED4);
 }
 
 /** Event handler for the USB_Reset event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_Reset)
+void EVENT_USB_Reset(void)
 {
 	puts_P(PSTR(EVENT_PREFIX "USB Reset\r\n"));
 }
 
 /** Event handler for the USB_UIDChange event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_UIDChange)
+void EVENT_USB_UIDChange(void)
 {
 	char* ModeStrPtr;
 
@@ -139,7 +139,7 @@ EVENT_HANDLER(USB_UIDChange)
  *  Event handler for the USB_PowerOnFail event. When fired, the event is logged to the USART and the program
  *  execution aborted.
  */
-EVENT_HANDLER(USB_InitFailure)
+void EVENT_USB_InitFailure(const uint8_t ErrorCode)
 {
 	char* ModeStrPtr;
 	
@@ -162,7 +162,7 @@ EVENT_HANDLER(USB_InitFailure)
  *  Event handler for the USB_HostError event. When fired, the event is logged to the USART and the program
  *  execution aborted.
  */
-EVENT_HANDLER(USB_HostError)
+void EVENT_USB_HostError(const uint8_t ErrorCode)
 {
 	puts_P(PSTR(EVENT_PREFIX ESC_BG_RED "Host Mode Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
@@ -171,7 +171,7 @@ EVENT_HANDLER(USB_HostError)
 }
 
 /** Event handler for the USB_DeviceEnumerationFailed event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_DeviceEnumerationFailed)
+void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
 {
 	puts_P(PSTR(ESC_BG_RED "Dev Enum Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
@@ -183,7 +183,7 @@ EVENT_HANDLER(USB_DeviceEnumerationFailed)
  *  Event handler for the USB_DeviceError event. When fired, the event is logged to the USART and the program
  *  execution aborted.
  */
-EVENT_HANDLER(USB_DeviceError)
+void EVENT_USB_DeviceError(const uint8_t ErrorCode)
 {
 	puts_P(PSTR(EVENT_PREFIX ESC_BG_RED "Device Mode Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
@@ -192,7 +192,7 @@ EVENT_HANDLER(USB_DeviceError)
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_UnhandledControlPacket)
+void EVENT_USB_UnhandledControlPacket(void)
 {
 	puts_P(PSTR(EVENT_PREFIX "Ctrl Request\r\n"));
 	printf_P(PSTR(" -- Req Data %d\r\n"), USB_ControlRequest.bRequest);
@@ -201,7 +201,7 @@ EVENT_HANDLER(USB_UnhandledControlPacket)
 }
 
 /** Event handler for the USB_ConfigurationChanged event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_ConfigurationChanged)
+void EVENT_USB_ConfigurationChanged(void)
 {
 	puts_P(PSTR(EVENT_PREFIX "Configuration Number Changed\r\n"));
 
@@ -209,7 +209,7 @@ EVENT_HANDLER(USB_ConfigurationChanged)
 }
 
 /** Event handler for the USB_DeviceAttached event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_DeviceAttached)
+void EVENT_USB_DeviceAttached(void)
 {
 	puts_P(PSTR(EVENT_PREFIX ESC_BG_GREEN "Device +\r\n"));
 
@@ -217,13 +217,13 @@ EVENT_HANDLER(USB_DeviceAttached)
 }
 
 /** Event handler for the USB_DeviceUnattached event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_DeviceUnattached)
+void EVENT_USB_DeviceUnattached(void)
 {
 	puts_P(PSTR(EVENT_PREFIX ESC_BG_YELLOW "Device -\r\n"));
 }
 
 /** Event handler for the USB_DeviceEnumerationComplete event. When fired, the event is logged to the USART. */
-EVENT_HANDLER(USB_DeviceEnumerationComplete)
+void EVENT_USB_DeviceEnumerationComplete(void)
 {
 	puts_P(PSTR(EVENT_PREFIX "Device Enumeration Complete\r\n"));
 }

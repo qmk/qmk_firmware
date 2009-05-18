@@ -745,9 +745,9 @@
 			 *  \ref Pipe_ClearOUT() macro. Between each USB packet, the given stream callback function is
 			 *  executed repeatedly until the next packet is ready, allowing for early aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
-			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter omitted.
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \ingroup Group_PipeRW
 			 *
@@ -769,9 +769,9 @@
 			 *  \ref Pipe_ClearOUT() macro. Between each USB packet, the given stream callback function is
 			 *  executed repeatedly until the next packet is ready, allowing for early aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
-			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter omitted.
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \ingroup Group_PipeRW
 			 *
@@ -793,9 +793,9 @@
 			 *  Between each USB packet, the given stream callback function is executed repeatedly until the next packet is ready,
 			 *  allowing for early aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
-			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter omitted.
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \ingroup Group_PipeRW
 			 *
@@ -816,9 +816,9 @@
 			 *  \ref Pipe_ClearIN() macro. Between each USB packet, the given stream callback function is
 			 *  executed repeatedly until the next packet is ready, allowing for early aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
-			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter omitted.
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \ingroup Group_PipeRW
 			 *
@@ -840,9 +840,9 @@
 			 *  \ref Pipe_ClearIN() macro. Between each USB packet, the given stream callback function is
 			 *  executed repeatedly until the next packet is ready, allowing for early aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
-			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter omitted.
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \ingroup Group_PipeRW
 			 *

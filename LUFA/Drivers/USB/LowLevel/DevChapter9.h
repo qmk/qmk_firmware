@@ -81,29 +81,6 @@
 			 *  \ingroup Group_Device
 			 */
 			extern bool USB_CurrentlySelfPowered;
-
-		/* Throwable Events: */
-			/** This module raises the \ref USB_UnhandledControlPacket event when a request to the default control
-			 *  endpoint has been received, but the library does not implement an internal handler for it.
-			 *
-			 *  \see \ref Group_Events for more information on this event.
-			 */
-			RAISES_EVENT(USB_UnhandledControlPacket);
-
-			/** This module raises the \ref USB_ConfigurationChanged event when the host issues a \ref REQ_SetConfiguration
-			 *  device request, to change the currently selected configuration number.
-			 *
-			 *  \see \ref Group_Events for more information on this event.
-			 */
-			RAISES_EVENT(USB_ConfigurationChanged);
-
-			/** This module raises the \ref USB_DeviceEnumerationComplete event when the host has completed its
-			 *  enumeration of the device (i.e. when a \ref REQ_SetConfiguration request changes the current configuration
-			 *  number from 0 to a non-zero value).
-			 *
-			 *  \see \ref Group_Events for more information on this event.
-			 */
-			RAISES_EVENT(USB_DeviceEnumerationComplete);
 	
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

@@ -98,20 +98,12 @@
 			Status_USBReady       = 2, /**< USB interface is connected and ready */
 		};
 			
-	/* Event Handlers: */
-		/** Indicates that this module will catch the USB_Connect event when thrown by the library. */
-		HANDLES_EVENT(USB_Connect);
-
-		/** Indicates that this module will catch the USB_Disconnect event when thrown by the library. */
-		HANDLES_EVENT(USB_Disconnect);
-
-		/** Indicates that this module will catch the USB_ConfigurationChanged event when thrown by the library. */
-		HANDLES_EVENT(USB_ConfigurationChanged);
-
-		/** Indicates that this module will catch the USB_UnhandledControlPacket event when thrown by the library. */
-		HANDLES_EVENT(USB_UnhandledControlPacket);
-
 	/* Function Prototypes: */
+		void EVENT_USB_Connect(void);
+		void EVENT_USB_Disconnect(void);
+		void EVENT_USB_ConfigurationChanged(void);
+		void EVENT_USB_UnhandledControlPacket(void);
+
 		void CreateMouseReport(USB_MouseReport_Data_t* ReportData);
 		void UpdateStatus(uint8_t CurrentStatus);
 

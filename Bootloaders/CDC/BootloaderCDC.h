@@ -83,16 +83,6 @@
 
 		/** Eight character bootloader firmware identifier reported to the host when requested */
 		#define SOFTWARE_IDENTIFIER          "LUFACDC"
-
-	/* Event Handlers: */
-		/** Indicates that this module will catch the USB_Disconnect event when thrown by the library. */
-		HANDLES_EVENT(USB_Disconnect);
-
-		/** Indicates that this module will catch the USB_ConfigurationChanged event when thrown by the library. */
-		HANDLES_EVENT(USB_ConfigurationChanged);
-
-		/** Indicates that this module will catch the USB_UnhandledControlPacket event when thrown by the library. */
-		HANDLES_EVENT(USB_UnhandledControlPacket);
 		
 	/* Type Defines: */
 		/** Type define for a non-returning pointer to the start of the loaded application in flash memory. */
@@ -132,6 +122,10 @@
 		TASK(CDC_Task);
 
 	/* Function Prototypes: */
+		void EVENT_USB_Disconnect(void);
+		void EVENT_USB_ConfigurationChanged(void);
+		void EVENT_USB_UnhandledControlPacket(void);
+
 		#if defined(INCLUDE_FROM_BOOTLOADERCDC_C) || defined(__DOXYGEN__)
 			static void    ReadWriteMemoryBlock(const uint8_t Command);
 			static uint8_t FetchNextCommandByte(void);

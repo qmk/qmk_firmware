@@ -72,7 +72,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	
 	/* Get the HID interface from the configuration descriptor */
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DComp_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoHIDInterfaceFound;
@@ -82,7 +82,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	{
 		/* Get the next HID interface's data endpoint descriptor */
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-		                              NextInterfaceHIDDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DComp_NextInterfaceHIDDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			/* Not all HID devices have an OUT endpoint - if we've reached the end of the HID descriptor
 			 * but only found the mandatory IN endpoint, it's safe to continue with the device enumeration */
@@ -129,7 +129,7 @@ uint8_t ProcessConfigurationDescriptor(void)
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-DESCRIPTOR_COMPARATOR(NextHIDInterface)
+uint8_t DComp_NextHIDInterface(void* CurrentDescriptor)
 {
 	/* Determine if the current descriptor is an interface descriptor */
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
@@ -155,7 +155,7 @@ DESCRIPTOR_COMPARATOR(NextHIDInterface)
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-DESCRIPTOR_COMPARATOR(NextInterfaceHIDDataEndpoint)
+uint8_t DComp_NextInterfaceHIDDataEndpoint(void* CurrentDescriptor)
 {
 	/* Determine the type of the current descriptor */
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)

@@ -108,7 +108,7 @@
 			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  numerical address in the device.
 			 */
-			#define ENDPOINT_EPNUM_MASK                   0x03
+			#define ENDPOINT_EPNUM_MASK                   0x07
 
 			/** Endpoint bank size mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  bank size in the device.
@@ -712,9 +712,9 @@
 			 *  each USB packet, the given stream callback function is executed repeatedly until the next
 			 *  packet is ready, allowing for early aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
-			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter omitted.
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
@@ -738,9 +738,9 @@
 			 *  is executed repeatedly until the endpoint is ready to accept the next packet, allowing for early
 			 *  aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
-			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter omitted.
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
@@ -765,9 +765,9 @@
 			 *  is executed repeatedly until the endpoint is ready to accept the next packet, allowing for early
 			 *  aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
-			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter omitted.
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
@@ -792,9 +792,9 @@
 			 *  each USB packet, the given stream callback function is executed repeatedly until the endpoint
 			 *  is ready to accept the next packet, allowing for early aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
-			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter omitted.
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
@@ -819,9 +819,9 @@
 			 *  each USB packet, the given stream callback function is executed repeatedly until the endpoint
 			 *  is ready to accept the next packet, allowing for early aborts of stream transfers.
 			 *
-			 *	The callback routine should be created using the \ref STREAM_CALLBACK() macro. If the token
-			 *  NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are disabled
-			 *  and this function has the Callback parameter omitted.
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *

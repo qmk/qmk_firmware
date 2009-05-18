@@ -112,19 +112,6 @@
 		 */
 		#define CONTROL_LINE_IN_OVERRUNERROR (1 << 6)
 		
-	/* Event Handlers: */
-		/** Indicates that this module will catch the USB_Connect event when thrown by the library. */
-		HANDLES_EVENT(USB_Connect);
-
-		/** Indicates that this module will catch the USB_Disconnect event when thrown by the library. */
-		HANDLES_EVENT(USB_Disconnect);
-
-		/** Indicates that this module will catch the USB_ConfigurationChanged event when thrown by the library. */
-		HANDLES_EVENT(USB_ConfigurationChanged);
-
-		/** Indicates that this module will catch the USB_UnhandledControlPacket event when thrown by the library. */
-		HANDLES_EVENT(USB_UnhandledControlPacket);
-		
 	/* Type Defines: */
 		/** Type define for the virtual serial port line encoding settings, for storing the current USART configuration
 		 *  as set by the host via a class specific request.
@@ -186,6 +173,11 @@
 		TASK(CDC_Task);
 
 	/* Function Prototypes: */
+		void EVENT_USB_Connect(void);
+		void EVENT_USB_Disconnect(void);
+		void EVENT_USB_ConfigurationChanged(void);
+		void EVENT_USB_UnhandledControlPacket(void);
+
 		void ReconfigureUSART(void);
 		void UpdateStatus(uint8_t CurrentStatus);
 

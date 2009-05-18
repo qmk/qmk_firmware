@@ -199,7 +199,7 @@
 				HOST_STATE_Suspended                    = 13, /**< May be implemented by the user project. */
 			};
 			
-			/** Enum for the error codes for the \ref USB_HostError event.
+			/** Enum for the error codes for the \ref EVENT_USB_HostError() event.
 			 *
 			 *  \see \ref Group_Events for more information on this event.
 			 */
@@ -213,14 +213,14 @@
 				                                      */
 			};
 			
-			/** Enum for the error codes for the \ref USB_DeviceEnumerationFailed event.
+			/** Enum for the error codes for the \ref EVENT_USB_DeviceEnumerationFailed() event.
 			 *
 			 *  \see \ref Group_Events for more information on this event.
 			 */
 			enum USB_Host_EnumerationErrorCodes_t
 			{
 				HOST_ENUMERROR_NoError          = 0, /**< No error occurred. Used internally, this is not a valid
-				                                      *   ErrorCode parameter value for the \ref USB_DeviceEnumerationFailed
+				                                      *   ErrorCode parameter value for the \ref EVENT_USB_DeviceEnumerationFailed()
 				                                      *   event.
 				                                      */
 				HOST_ENUMERROR_WaitStage        = 1, /**< One of the delays between enumeration steps failed

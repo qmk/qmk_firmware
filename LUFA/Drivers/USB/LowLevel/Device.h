@@ -115,7 +115,7 @@
 			#endif
 
 		/* Enums: */
-			/** Enum for the ErrorCode parameter of the \ref USB_DeviceError event.
+			/** Enum for the ErrorCode parameter of the \ref EVENT_USB_DeviceError() event.
 			 *
 			 *  \see Events.h for more information on this event.
 			 */

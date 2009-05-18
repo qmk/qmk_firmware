@@ -160,41 +160,41 @@
 			{
 				REQ_GetStatus           = 0, /**< Implemented in the library for device, endpoint and interface
 				                              *   recipients. Passed to the user application for other recipients
-				                              *   via the \ref USB_UnhandledControlPacket() event when received in
+				                              *   via the \ref EVENT_USB_UnhandledControlPacket() event when received in
 				                              *   device mode. */
 				REQ_ClearFeature        = 1, /**< Implemented in the library for device, endpoint and interface
 				                              *   recipients. Passed to the user application for other recipients
-				                              *   via the \ref USB_UnhandledControlPacket() event when received in
+				                              *   via the \ref EVENT_USB_UnhandledControlPacket() event when received in
 				                              *   device mode. */
 				REQ_SetFeature          = 3, /**< Implemented in the library for device, endpoint and interface
 				                              *   recipients. Passed to the user application for other recipients
-				                              *   via the \ref USB_UnhandledControlPacket() event when received in
+				                              *   via the \ref EVENT_USB_UnhandledControlPacket() event when received in
 				                              *   device mode. */
 				REQ_SetAddress          = 5, /**< Implemented in the library for the device recipient. Passed
 				                              *   to the user application for other recipients via the
-				                              *   \ref USB_UnhandledControlPacket() event when received in
+				                              *   \ref EVENT_USB_UnhandledControlPacket() event when received in
 				                              *   device mode. */
 				REQ_GetDescriptor       = 6, /**< Implemented in the library for all recipients and all request
 				                              *   types. */
 				REQ_SetDescriptor       = 7, /**< Not implemented in the library, passed to the user application
-				                              *   via the \ref USB_UnhandledControlPacket() event when received in
+				                              *   via the \ref EVENT_USB_UnhandledControlPacket() event when received in
 				                              *   device mode. */
 				REQ_GetConfiguration    = 8, /**< Implemented in the library for the device recipient. Passed
 				                              *   to the user application for other recipients via the
-				                              *   \ref USB_UnhandledControlPacket() event when received in
+				                              *   \ref EVENT_USB_UnhandledControlPacket() event when received in
 				                              *   device mode. */
 				REQ_SetConfiguration    = 9, /**< Implemented in the library for the device recipient. Passed
 				                              *   to the user application for other recipients via the
-				                              *   \ref USB_UnhandledControlPacket() event when received in
+				                              *   \ref EVENT_USB_UnhandledControlPacket() event when received in
 				                              *   device mode. */
 				REQ_GetInterface        = 10, /**< Not implemented in the library, passed to the user application
-				                              *   via the \ref USB_UnhandledControlPacket() event when received in
+				                              *   via the \ref EVENT_USB_UnhandledControlPacket() event when received in
 				                              *   device mode. */
 				REQ_SetInterface        = 11, /**< Not implemented in the library, passed to the user application
-				                              *   via the \ref USB_UnhandledControlPacket() event when received in
+				                              *   via the \ref EVENT_USB_UnhandledControlPacket() event when received in
 				                              *   device mode. */
 				REQ_SynchFrame          = 12, /**< Not implemented in the library, passed to the user application
-				                              *   via the \ref USB_UnhandledControlPacket() event when received in
+				                              *   via the \ref EVENT_USB_UnhandledControlPacket() event when received in
 				                              *   device mode. */
 			};
 

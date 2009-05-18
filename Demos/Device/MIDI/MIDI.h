@@ -80,17 +80,11 @@
 	/* Task Definitions: */
 		TASK(USB_MIDI_Task);
 
-	/* Event Handlers: */
-		/** Indicates that this module will catch the USB_Connect event when thrown by the library. */
-		HANDLES_EVENT(USB_Connect);
-
-		/** Indicates that this module will catch the USB_Disconnect event when thrown by the library. */
-		HANDLES_EVENT(USB_Disconnect);
-
-		/** Indicates that this module will catch the USB_ConfigurationChanged event when thrown by the library. */
-		HANDLES_EVENT(USB_ConfigurationChanged);
-
    /* Function Prototypes: */
+		void EVENT_USB_Connect(void);
+		void EVENT_USB_Disconnect(void);
+		void EVENT_USB_ConfigurationChanged(void);
+
 		void SendMIDINoteChange(const uint8_t Pitch, const bool OnOff,
 		                        const uint8_t CableID, const uint8_t Channel);		
 		void UpdateStatus(uint8_t CurrentStatus);

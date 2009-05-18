@@ -110,63 +110,60 @@
 			#else
 				#define DESCRIPTOR_SIZE(DescriptorPtr)    DESCRIPTOR_CAST(DescriptorPtr, USB_Descriptor_Header_t).bLength
 			#endif
-			
-			/** Creates a prototype for or begins a descriptor comparator routine. Descriptor comparator routines are 
-			 *  small search routines which are passed a pointer to the current sub descriptor in the configuration
-			 *  descriptor, and which analyse the sub descriptor to determine whether or not it matches the routine's
-			 *  search parameters. Comparator routines provide a powerful way to scan through the config descriptor
-			 *  for certain descriptors matching unique criteria.
-			 *
-			 *  Comparator routines are passed in a single pointer named CurrentDescriptor, and should return a value
-			 *  of a member of the \ref DSearch_Return_ErrorCodes_t enum.
-			 */
-			#define DESCRIPTOR_COMPARATOR(name)           uint8_t DCOMP_##name (void* const CurrentDescriptor)
 
-		/* Pseudo-Function Macros: */
-			#if defined(__DOXYGEN__)
-				/** Searches for the next descriptor in the given configuration descriptor using a premade comparator
-				 *  function. The routine updates the position and remaining configuration descriptor bytes values
-				 *  automatically. If a comparator routine fails a search, the descriptor pointer is retreated back
-				 *  so that the next descriptor search invocation will start from the descriptor which first caused the
-				 *  original search to fail. This behaviour allows for one comparator to be used immediately after another
-				 *  has failed, starting the second search from the descriptor which failed the first.
-				 *
-				 *  \note This function is available in USB Host mode only.
-				 *
-				 *  \param BytesRem  Pointer to an int storing the remaining bytes in the configuration descriptor
-				 *  \param CurrConfigLoc  Pointer to the current position in the configuration descriptor
-				 *  \param ComparatorRoutine  Name of the comparator search function to use on the configuration descriptor
-				 *
-				 *  \return Value of one of the members of the \ref DSearch_Comp_Return_ErrorCodes_t enum
-				 *
-				 *  Usage Example:
-				 *  \code
-				 *  DESCRIPTOR_COMPARATOR(EndpointSearcher); // Comparator Prototype
-				 *
-				 *  DESCRIPTOR_COMPARATOR(EndpointSearcher)
-				 *  {
-				 *     if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-				 *         return DESCRIPTOR_SEARCH_Found;
-				 *     else
-				 *         return DESCRIPTOR_SEARCH_NotFound;
-				 *  }
-				 *
-				 *  //...
-				 *  // After retrieving configuration descriptor:
-				 *  if (USB_Host_GetNextDescriptorComp(&BytesRemaining, &ConfigDescriptorData, EndpointSearcher) ==
-				 *      Descriptor_Search_Comp_Found)
-				 *  {
-				 *      // Do something with the endpoint descriptor
-				 *  }
-				 *  \endcode
-				 */
-				uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ComparatorPtr_t ComparatorRoutine);
-			#else
-				#define USB_GetNextDescriptorComp(DSize, DPos, DSearch) USB_GetNextDescriptorComp_Prv(DSize, DPos, DCOMP_##DSearch)
-			#endif
+		/* Type Defines: */
+			/** Type define for a Configuration Descriptor comparator function (function taking a pointer to an array
+			 *  of type void, returning a uint8_t value).
+			 *
+			 *  \see \ref USB_GetNextDescriptorComp function for more details
+			 */
+			typedef uint8_t (* const ConfigComparatorPtr_t)(void* const);
+
+		/* Function Prototypes: */
+			/** Searches for the next descriptor in the given configuration descriptor using a premade comparator
+			 *  function. The routine updates the position and remaining configuration descriptor bytes values
+			 *  automatically. If a comparator routine fails a search, the descriptor pointer is retreated back
+			 *  so that the next descriptor search invocation will start from the descriptor which first caused the
+			 *  original search to fail. This behaviour allows for one comparator to be used immediately after another
+			 *  has failed, starting the second search from the descriptor which failed the first.
+			 *
+			 *  Comparator functions should be standard functions which accept a pointer to the header of the current
+			 *  descriptor inside the configuration descriptor which is being compared, and should return a value from
+			 *  the \ref DSearch_Return_ErrorCodes_t enum as a uint8_t value.
+			 *
+			 *  \note This function is available in USB Host mode only.
+			 *
+			 *  \param BytesRem  Pointer to an int storing the remaining bytes in the configuration descriptor
+			 *  \param CurrConfigLoc  Pointer to the current position in the configuration descriptor
+			 *  \param ComparatorRoutine  Name of the comparator search function to use on the configuration descriptor
+			 *
+			 *  \return Value of one of the members of the \ref DSearch_Comp_Return_ErrorCodes_t enum
+			 *
+			 *  Usage Example:
+			 *  \code
+			 *  uint8_t EndpointSearcher(void* CurrentDescriptor); // Comparator Prototype
+			 *
+			 *  uint8_t EndpointSearcher(void* CurrentDescriptor)
+			 *  {
+			 *     if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
+			 *         return DESCRIPTOR_SEARCH_Found;
+			 *     else
+			 *         return DESCRIPTOR_SEARCH_NotFound;
+			 *  }
+			 *
+			 *  //...
+			 *  // After retrieving configuration descriptor:
+			 *  if (USB_Host_GetNextDescriptorComp(&BytesRemaining, &ConfigDescriptorData, EndpointSearcher) ==
+			 *      Descriptor_Search_Comp_Found)
+			 *  {
+			 *      // Do something with the endpoint descriptor
+			 *  }
+			 *  \endcode
+			 */
+			uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine);
 			
 		/* Enums: */
-			/** Enum for return values of a descriptor comparator made with \ref DESCRIPTOR_COMPARATOR. */
+			/** Enum for return values of a descriptor comparator function. */
 			enum DSearch_Return_ErrorCodes_t
 			{
 				DESCRIPTOR_SEARCH_Found                = 0, /**< Current descriptor matches comparator criteria. */
@@ -263,20 +260,6 @@
 				*CurrConfigLoc += CurrDescriptorSize;
 				*BytesRem      -= CurrDescriptorSize;
 			}
-			
-		/* Type Defines: */
-			/** Type define for a Configuration Descriptor comparator function (function taking a pointer to an array
-			 *  of type void, returning a uint8_t value).
-			 *
-			 *  \see \ref USB_GetNextDescriptorComp function for more details
-			 */
-			typedef uint8_t (* const ConfigComparatorPtr_t)(void* const);
-
-	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)
-		/* Function Prototypes: */
-			uint8_t USB_GetNextDescriptorComp_Prv(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine);
-	#endif
 			
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

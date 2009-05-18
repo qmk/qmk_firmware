@@ -36,7 +36,7 @@
 
 uint16_t USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
 {
-	RAISE_EVENT(USB_DeviceError, DEVICE_ERROR_GetDescriptorNotHooked);
+	EVENT_USB_DeviceError(DEVICE_ERROR_GetDescriptorNotHooked);
 
 	return 0;
 };
