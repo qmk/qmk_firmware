@@ -38,8 +38,7 @@
  *
  *  Events can be hooked by the user application by declaring a handler function with the same name and parameters
  *  listed here. If an event with no user-associated handler is fired within the library, it by default maps to an
- *  internal empty stub function. This trasparent hook system is achieved through the use of the GCC compiler's
- *  "alias" attribute.
+ *  internal empty stub function.
  *
  *  Each event must only have one associated event handler, but can be raised by multiple sources.
  *
@@ -134,8 +133,8 @@
 
 			/** Event for USB mode pin level change. This event fires when the USB interface is set to dual role
 			 *  mode, and the UID pin level has changed to indicate a new mode (device or host). This event fires
-			 *  before the mode is switched to the newly indicated mode but after the \ref USB_Disconnect event has
-			 *  fired (if connected before the role change).
+			 *  before the mode is switched to the newly indicated mode but after the \ref EVENT_USB_Disconnect event
+			 *  has fired (if connected before the role change).
 			 *
 			 *  \note This event only exists on USB AVR models which support dual role modes.
 			 *
