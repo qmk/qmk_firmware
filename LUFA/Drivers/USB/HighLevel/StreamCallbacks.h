@@ -58,9 +58,8 @@
 
 		/* Type Defines: */
 			/** Type define for a Stream Callback function (function taking no arguments and retuning a
-			 *  uint8_t value).
-			 *
-			 *  \see \ref STREAM_CALLBACK macro for more details
+			 *  uint8_t value). Stream callback functions should have an identical function signature if they
+			 *  are to be used as the callback parameter of the stream functions.
 			 */
 			typedef uint8_t (* const StreamCallbackPtr_t)(void);
 		

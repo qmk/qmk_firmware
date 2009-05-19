@@ -709,7 +709,8 @@
 		/* Function Prototypes: */
 			/** Configures the specified pipe number with the given pipe type, token, target endpoint number in the
 			 *  attached device, bank size and banking mode. Pipes should be allocated in ascending order by their
-			 *  address in the device (i.e. pipe 1 should be configured before pipe 2 and so on).
+			 *  address in the device (i.e. pipe 1 should be configured before pipe 2 and so on) to prevent fragmentation
+			 *  of the USB FIFO memory.
 			 *
 			 *  The pipe type may be one of the EP_TYPE_* macros listed in LowLevel.h, the token may be one of the
 			 *  PIPE_TOKEN_* masks.
@@ -721,6 +722,9 @@
 			 *  The banking mode may be either \ref PIPE_BANK_SINGLE or \ref PIPE_BANK_DOUBLE.
 			 *
 			 *  A newly configured pipe is frozen by default, and must be unfrozen before use via the \ref Pipe_Unfreeze() macro.
+			 *
+			 *  \note The default control pipe does not have to be manually configured, as it is automatically
+			 *  configured by the library internally.
 			 *
 			 *  \note This routine will select the specified pipe, and the pipe will remain selected once the
 			 *        routine completes regardless of if the pipe configuration succeeds.

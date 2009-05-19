@@ -24,6 +24,7 @@
   *  - Fixed incorrect ENDPOINT_EPNUM_MASK mask preventing endpoints above EP3 from being selected (thanks to Jonathan Oakley)
   *  - Removed STREAM_CALLBACK() macro - callbacks now use regular function definitions to clarify user code
   *  - Removed DESCRIPTOR_COMPARATOR() macro - comparators should now use regular function definitions to clarify user code
+  *  - USB_IsConnected is now cleared before the USB_Disconnect() event is fired in response to VBUS being removed
   *
   *
   *  \section Sec_ChangeLog090510 Version 090510

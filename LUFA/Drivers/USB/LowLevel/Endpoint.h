@@ -671,7 +671,8 @@
 		/* Function Prototypes: */
 			/** Configures the specified endpoint number with the given endpoint type, direction, bank size
 			 *  and banking mode. Endpoints should be allocated in ascending order by their address in the
-			 *  device (i.e. endpoint 1 should be configured before endpoint 2 and so on).
+			 *  device (i.e. endpoint 1 should be configured before endpoint 2 and so on) to prevent fragmentation
+			 *  of the USB FIFO memory.
 			 *
 			 *  The endpoint type may be one of the EP_TYPE_* macros listed in LowLevel.h and the direction
 			 *  may be either \ref ENDPOINT_DIR_OUT or \ref ENDPOINT_DIR_IN.
@@ -682,7 +683,8 @@
 			 *
 			 *  The banking mode may be either \ref ENDPOINT_BANK_SINGLE or \ref ENDPOINT_BANK_DOUBLE.
 			 *
-			 *  The success of this routine can be determined via the \ref Endpoint_IsConfigured() macro.
+			 *  \note The default control endpoint does not have to be manually configured, as it is automatically
+			 *  configured by the library internally.
 			 *
 			 *  \note This routine will select the specified endpoint, and the endpoint will remain selected
 			 *        once the routine completes regardless of if the endpoint configuration succeeds.

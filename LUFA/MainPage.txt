@@ -88,9 +88,10 @@
  *  The LUFA library ships with several different host and device demos, located in the /Demos/ subdirectory.
  *  If this directory is missing, please re-download the project from the project homepage.
  *
- *  Also included with the library are two fully functional bootloaders, located in the /Bootloaders/ subdirectory.
- *  The DFU class bootloader is compatible with Atmel's FLIP software or the open source dfu-programmer project, and
- *  the CDC class (AVR109 protocol) is compatible with such open source software as AVRDUDE and AVR-OSP.
+ *  Also included with the library are three fully functional bootloaders, located in the /Bootloaders/ subdirectory.
+ *  The DFU class bootloader is compatible with Atmel's FLIP software or the open source dfu-programmer project, the
+ *  CDC class (AVR109 protocol) is compatible with such open source software as AVRDUDE and AVR-OSP, and the TeensyLoader
+ *  HID class bootloader is compatible with the software from PJRC (http://www.pjrc.com/teensy/index.html).
  *
  *
  *  \section Sec_Donations Donate

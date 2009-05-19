@@ -38,7 +38,8 @@
  *
  *  Events can be hooked by the user application by declaring a handler function with the same name and parameters
  *  listed here. If an event with no user-associated handler is fired within the library, it by default maps to an
- *  internal empty stub function. This is achieved through the use of the GCC compiler's "alias" attribute.
+ *  internal empty stub function. This trasparent hook system is achieved through the use of the GCC compiler's
+ *  "alias" attribute.
  *
  *  Each event must only have one associated event handler, but can be raised by multiple sources.
  *
@@ -63,23 +64,24 @@
 		/* Pseudo-Functions for Doxygen: */
 		#if !defined(INCLUDE_FROM_EVENTS_C) || defined(__DOXYGEN__)
 			/** Event for VBUS level change. This event fires when the VBUS line of the USB AVR changes from
-			 *  high to low or vice-versa.
+			 *  high to low or vice-versa, before the new VBUS level is sampled and the appropriate action
+			 *  taken.
 			 *
 			 *  \note This event is only available on USB AVR models which support VBUS notification interrupts.
 			 */
 			void EVENT_USB_VBUSChange(void);
 
-			/** Event for VBUS attachment. This event fires when the VBUS line of the USB AVR changes from
-			 *  low to high, signalling the attachment of the USB device to a host, before the enumeration
-			 *  process has begun.
+			/** Event for VBUS attachment. On the AVR models with a dedicated VBUS pin, this event fires when
+			 *  the VBUS line of the USB AVR changes from low to high (after the VBUS events have been handled),
+			 *  signalling the attachment of the USB device to a host, before the enumeration process has begun.
 			 *
 			 *  \note This event is only available on USB AVR models which support VBUS notification interrupts.
 			 */
 			void EVENT_USB_VBUSConnect(void);
 
-			/** Event for VBUS detachment. This event fires when the VBUS line of the USB AVR changes from
-			 *  high to low, signalling the USB device has been removed from a host whether it has been enumerated
-			 *  or not.
+			/** Event for VBUS attachment. On the AVR models with a dedicated VBUS pin, this event fires when
+			 *  the VBUS line of the USB AVR changes from high to low (after the VBUS events have been handled),
+			 *  signalling the detatchment of the USB device from a host, regardless of its enumeration state.
 			 *
 			 *  \note This event is only available on USB AVR models which support VBUS notification interrupts.
 			 */
@@ -132,7 +134,8 @@
 
 			/** Event for USB mode pin level change. This event fires when the USB interface is set to dual role
 			 *  mode, and the UID pin level has changed to indicate a new mode (device or host). This event fires
-			 *  before the mode is switched to the newly indicated mode.
+			 *  before the mode is switched to the newly indicated mode but after the \ref USB_Disconnect event has
+			 *  fired (if connected before the role change).
 			 *
 			 *  \note This event only exists on USB AVR models which support dual role modes.
 			 *
@@ -233,7 +236,9 @@
 
 			/** Event for USB suspend. This event fires when a the USB host suspends the device by halting its
 			 *  transmission of Start Of Frame pulses to the device. This is generally hooked in order to move
-			 *  the device over to a low power state until the host wakes up the device.
+			 *  the device over to a low power state until the host wakes up the device. If the USB interface is
+			 *  enumerated with the \ref USB_OPT_AUTO_PLL option set, the library will automatically suspend the
+			 *  USB PLL before the event is fired to save power.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
@@ -245,7 +250,8 @@
 			/** Event for USB wake up. This event fires when a the USB interface is suspended while in device
 			 *  mode, and the host wakes up the device by supplying Start Of Frame pulses. This is generally
 			 *  hooked to pull the user application out of a lowe power state and back into normal operating
-			 *  mode.
+			 *  mode. If the USB interface is enumerated with the \ref USB_OPT_AUTO_PLL option set, the library
+			 *  will automatically restart the USB PLL before the event is fired.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
@@ -254,11 +260,9 @@
 			 */
 			void EVENT_USB_WakeUp(void);
 
-			/** Event for USB interface reset. This event fires when a the USB interface is in device mode, and
-			 *  a the USB host requests that the device reset its interface. This is generally hooked so that
-			 *  the USB control endpoint can be switched to interrupt driven mode, by selecting it and calling
-			 *  USB_INT_Enable(ENDPOINT_INT_SETUP). Before this event fires, all device endpoints are reset and
-			 *  disabled.
+			/** Event for USB interface reset. This event fires when the USB interface is in device mode, and
+			 *  a the USB host requests that the device reset its interface. This event fires after the control
+			 *  endpoint has been automatically configured by the library.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).

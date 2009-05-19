@@ -89,14 +89,14 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		}
 		else
 		{
+			USB_IsConnected = false;
+
 			EVENT_USB_Disconnect();
 		
 			USB_Detach();
 			USB_CLK_Freeze();
 			USB_PLL_Off();
 			USB_REG_Off();
-
-			USB_IsConnected = false;
 
 			EVENT_USB_VBUSDisconnect();
 			
