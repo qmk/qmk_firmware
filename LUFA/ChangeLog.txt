@@ -25,6 +25,7 @@
   *  - Removed STREAM_CALLBACK() macro - callbacks now use regular function definitions to clarify user code
   *  - Removed DESCRIPTOR_COMPARATOR() macro - comparators should now use regular function definitions to clarify user code
   *  - USB_IsConnected is now cleared before the USB_Disconnect() event is fired in response to VBUS being removed
+  *  - Fixed incorrect PID value being used in the USBtoSerial project (thanks to Phill)
   *
   *
   *  \section Sec_ChangeLog090510 Version 090510

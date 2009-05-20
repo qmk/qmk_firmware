@@ -128,14 +128,15 @@
 			 *  in device mode) in order to manage USB communications. This task may be executed inside an RTOS,
 			 *  scheduler (e.g. the simple LUFA Scheduler), fast timer ISR or the main user application loop.
 			 *
-			 *  The USB task must be serviced within 50mS in all modes, when needed. The task may be serviced 
-			 *  at all times, or (for minimum CPU consumption):
+			 *  The USB task must be serviced within 30ms while in device mode, or within 1ms while in host mode.
+			 *  The task may be serviced at all times, or (for minimum CPU consumption):
 			 *
 			 *    - In device mode, it may be disabled at start-up, enabled on the firing of the \ref EVENT_USB_Connect() event
 			 *    and disabled again on the firing of the \ref EVENT_USB_Disconnect() event.
 			 *
 			 *    - In host mode, it may be disabled at start-up, enabled on the firing of the \ref EVENT_USB_DeviceAttached()
-			 *    event and disabled again on the firing of the \ref EVENT_USB_DeviceUnattached() event.
+			 *    event and disabled again on the firing of the \ref EVENT_USB_DeviceEnumerationComplete() or
+			 *    \ref EVENT_USB_DeviceEnumerationFailed() events.
 			 *
 			 *  If in device mode (only), the control endpoint can instead be managed via interrupts entirely by the library
 			 *  by defining the INTERRUPT_CONTROL_ENDPOINT token and passing it to the compiler via the -D switch.
