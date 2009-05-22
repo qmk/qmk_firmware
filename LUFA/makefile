@@ -8,18 +8,18 @@
 
 # Makefile for the LUFA library itself.
 
-LUFA_SRC_FILES =     ./Drivers/USB/LowLevel/LowLevel.c           \
+LUFA_SRC_FILES =     ./Drivers/USB/LowLevel/DevChapter9.c        \
                      ./Drivers/USB/LowLevel/Endpoint.c           \
-                     ./Drivers/USB/LowLevel/Pipe.c               \
-                     ./Drivers/USB/LowLevel/DevChapter9.c        \
-                     ./Drivers/USB/LowLevel/HostChapter9.c       \
                      ./Drivers/USB/LowLevel/Host.c               \
-                     ./Drivers/USB/HighLevel/USBTask.c           \
-                     ./Drivers/USB/HighLevel/USBInterrupt.c      \
+                     ./Drivers/USB/LowLevel/HostChapter9.c       \
+                     ./Drivers/USB/LowLevel/LowLevel.c           \
+                     ./Drivers/USB/LowLevel/Pipe.c               \
                      ./Drivers/USB/HighLevel/Events.c            \
                      ./Drivers/USB/HighLevel/StdDescriptors.c    \
-                     ./Drivers/USB/Class/HIDParser.c             \
+                     ./Drivers/USB/HighLevel/USBInterrupt.c      \
+                     ./Drivers/USB/HighLevel/USBTask.c           \
                      ./Drivers/USB/Class/ConfigDescriptor.c      \
+                     ./Drivers/USB/Class/HIDParser.c             \
                      ./Scheduler/Scheduler.c                     \
                      ./MemoryAllocator/DynAlloc.c                \
                      ./Drivers/Board/Temperature.c               \

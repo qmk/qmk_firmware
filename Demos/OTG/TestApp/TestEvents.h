@@ -71,7 +71,6 @@
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_Suspend(void);
 		void EVENT_USB_WakeUp(void);
-		void EVENT_USB_Reset(void);
-		void EVENT_USB_DeviceError(const uint8_t ErrorCode);		
+		void EVENT_USB_Reset(void);	
 		
 #endif

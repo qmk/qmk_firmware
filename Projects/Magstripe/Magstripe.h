@@ -107,7 +107,5 @@
 		void EVENT_USB_UnhandledControlPacket(void);
 	
 		bool GetNextReport(USB_KeyboardReport_Data_t* ReportData);
-		void SendKey(USB_KeyboardReport_Data_t* KeyboardReportData, uint8_t Key);
-		void Send(USB_KeyboardReport_Data_t* KeyboardReportData, bool SendReport);
 		
 #endif

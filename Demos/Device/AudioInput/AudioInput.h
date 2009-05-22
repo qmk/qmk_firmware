@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for AudioOutput.c.
+ *  Header file for AudioInput.c.
  */
  
-#ifndef _AUDIO_OUTPUT_H_
-#define _AUDIO_OUTPUT_H_
+#ifndef _AUDIO_INPUT_H_
+#define _AUDIO_INPUT_H_
 
 	/* Includes: */
 		#include <avr/io.h>

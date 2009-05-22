@@ -46,10 +46,9 @@
  *    - LUFA/Drivers/USB/LowLevel/LowLevel.c
  *    - LUFA/Drivers/USB/LowLevel/Pipe.c
  *    - LUFA/Drivers/USB/HighLevel/Events.c
- *    - LUFA/Drivers/USB/HighLevel/StdDescriptors.c
  *    - LUFA/Drivers/USB/HighLevel/USBInterrupt.c
  *    - LUFA/Drivers/USB/HighLevel/USBTask.c
- *    - LUFA/Drivers/USB/Class/ConfigDescriptor.c
+ *    - LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c
  *    - LUFA/Drivers/USB/Class/HIDParser.c
  *
  *  \section Module Description
@@ -97,7 +96,7 @@
 			#include "LowLevel/OTG.h"
 		#endif
 		
-		#include "Class/ConfigDescriptor.h"
+		#include "HighLevel/ConfigDescriptor.h"
 		#include "Class/HIDParser.h"
 		
 #endif

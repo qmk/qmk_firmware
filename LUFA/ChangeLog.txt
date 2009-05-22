@@ -26,6 +26,8 @@
   *  - Removed DESCRIPTOR_COMPARATOR() macro - comparators should now use regular function definitions to clarify user code
   *  - USB_IsConnected is now cleared before the USB_Disconnect() event is fired in response to VBUS being removed
   *  - Fixed incorrect PID value being used in the USBtoSerial project (thanks to Phill)
+  *  - Deleted StdDescriptors.c, renamed USB_GetDescriptor() to CALLBACK_USB_GetDescriptor, moved ConfigDescriptor.c/.h from the
+  *    LUFA/Drivers/USB/Class/ directory to LUFA/Drivers/USB/HighLevel/ in preperation for the new USB class APIs
   *
   *
   *  \section Sec_ChangeLog090510 Version 090510

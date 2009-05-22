@@ -23,6 +23,11 @@
  *      \ref Group_Events for new API details.
  *    - The STREAM_CALLBACK() macro has been removed. User applications should replace all instances of the macro with regular
  *      function signatures of a function accepting no arguments and returning a uint8_t value.
+ *    - The Event_DeviceError() event no longer exists, as its sole caller (unlinked USB_GetDescriptor() function) now produces a
+ *      compilation error rather than a runtime error. The StdDescriptors.c file no longer exists as a result, and should be removed
+ *      from project makefiles.
+ *    - The USB_GetDescriptor() function has been renamed to CALLBACK_USB_GetDescriptor() to be in line with the new CALLBACK_ function
+ *      prefixes for functions which *must* be implemented in the user application.
  *
  *  <b>Host Mode</b>
  *    - Support for non-control data pipe interrupts has been dropped due to many issues in the implementation. All existing

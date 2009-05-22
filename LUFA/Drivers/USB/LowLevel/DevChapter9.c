@@ -137,7 +137,7 @@ static void USB_Device_SetConfiguration(void)
 #else
 	USB_Descriptor_Device_t* DevDescriptorPtr;
 
-	if ((USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DevDescriptorPtr) == NO_DESCRIPTOR) ||
+	if ((CALLBACK_USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DevDescriptorPtr) == NO_DESCRIPTOR) ||
 	#if defined(USE_RAM_DESCRIPTORS)
 	    ((uint8_t)USB_ControlRequest.wValue > DevDescriptorPtr->NumberOfConfigurations))
 	#elif defined (USE_EEPROM_DESCRIPTORS)
@@ -179,8 +179,11 @@ static void USB_Device_GetDescriptor(void)
 	void*    DescriptorPointer;
 	uint16_t DescriptorSize;
 	
-	if ((DescriptorSize = USB_GetDescriptor(USB_ControlRequest.wValue, USB_ControlRequest.wIndex, &DescriptorPointer)) == NO_DESCRIPTOR)
-	  return;
+	if ((DescriptorSize = CALLBACK_USB_GetDescriptor(USB_ControlRequest.wValue,
+	                                                 USB_ControlRequest.wIndex, &DescriptorPointer)) == NO_DESCRIPTOR)
+	{
+		return;
+	}
 	
 	Endpoint_ClearSETUP();
 	

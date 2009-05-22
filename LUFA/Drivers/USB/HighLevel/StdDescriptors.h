@@ -456,33 +456,6 @@
 				#endif
 			} USB_Descriptor_String_t;
 
-		/* Function Prototypes: */
-			/** Function to retrieve a given descriptor's size and memory location from the given descriptor type value,
-			 *  index and language ID. This function MUST be overridden in the user application (added with full, identical  
-			 *  prototype and name except for the \ref ATTR_WEAK attribute) so that the library can call it to retrieve descriptor 
-			 *  data.
-			 *
-			 *  \param wValue             The type of the descriptor to retrieve in the upper byte, and the index in the 
-			 *                            lower byte (when more than one descriptor of the given type exists, such as the
-			 *                            case of string descriptors). The type may be one of the standard types defined
-			 *                            in the DescriptorTypes_t enum, or may be a class-specific descriptor type value.
-			 *  \param wIndex             The language ID of the string to return if the wValue type indicates DTYPE_String,
-			 *                            otherwise zero for standard descriptors, or as defined in a class-specific
-			 *                            standards.
-			 *  \param DescriptorAddress  Pointer to the descriptor in memory. This should be set by the routine to
-			 *                            the address of the descriptor.
-			 *
-			 *  \note By default, the library expects all descriptors to be located in flash memory via the PROGMEM attribute.
-			 *        If descriptors should be located in RAM or EEPROM instead (to speed up access in the case of RAM, or to
-			 *        allow the descriptors to be changed dynamically at runtime) either the USE_RAM_DESCRIPTORS or the 
-			 *        USE_EEPROM_DESCRIPTORS tokens may be defined in the project makefile and passed to the compiler by the -D
-			 *        switch.
-			 *
-			 *  \return Size in bytes of the descriptor if it exists, zero or \ref NO_DESCRIPTOR otherwise
-			 */
-			uint16_t USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
-									   ATTR_WARN_UNUSED_RESULT ATTR_WEAK ATTR_NON_NULL_PTR_ARG(3);
-
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */

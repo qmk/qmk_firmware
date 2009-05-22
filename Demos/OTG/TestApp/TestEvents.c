@@ -179,18 +179,6 @@ void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t Su
 	printf_P(PSTR(" -- In State %d\r\n"), USB_HostState);
 }
 
-/**
- *  Event handler for the USB_DeviceError event. When fired, the event is logged to the USART and the program
- *  execution aborted.
- */
-void EVENT_USB_DeviceError(const uint8_t ErrorCode)
-{
-	puts_P(PSTR(EVENT_PREFIX ESC_BG_RED "Device Mode Error\r\n"));
-	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
-
-	Abort_Program();
-}
-
 /** Event handler for the USB_UnhandledControlPacket event. When fired, the event is logged to the USART. */
 void EVENT_USB_UnhandledControlPacket(void)
 {

@@ -267,17 +267,6 @@
 			 *        \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_Reset(void);
-			
-			/** Event for USB device mode error. This event fires when the USB interface is in device mode,
-			 *  and an error occurs which prevents it from operating normally.
-			 *
-			 *  \param ErrorCode  Error code indicating the source of the error, a value in
-			 *                    \ref USB_Device_ErrorCodes_t
-			 *
-			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
-			 *        \ref Group_USBManagement documentation).
-			 */
-			void EVENT_USB_DeviceError(const uint8_t ErrorCode);
 		#endif
 		
 	/* Private Interface - For use in library only: */
@@ -314,7 +303,6 @@
 				void EVENT_USB_Suspend(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 				void EVENT_USB_WakeUp(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 				void EVENT_USB_Reset(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
-				void EVENT_USB_DeviceError(const uint8_t ErrorCode) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 			#endif
 	#endif
 
