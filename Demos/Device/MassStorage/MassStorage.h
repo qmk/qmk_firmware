@@ -42,8 +42,9 @@
 		#include <avr/power.h>
 
 		#include "Descriptors.h"
-		#include "SCSI.h"
-		#include "DataflashManager.h"
+
+		#include "Lib/SCSI.h"
+		#include "Lib/DataflashManager.h"
 
 		#include <LUFA/Version.h>                    // Library Version Information
 		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality

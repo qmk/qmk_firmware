@@ -46,8 +46,9 @@
 		#include <string.h>
 
 		#include "Descriptors.h"
-		#include "MagstripeHW.h"
-		#include "CircularBitBuffer.h"
+
+		#include "Lib/MagstripeHW.h"
+		#include "Lib/CircularBitBuffer.h"
 
 		#include <LUFA/Version.h>                    // Library Version Information
 		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality

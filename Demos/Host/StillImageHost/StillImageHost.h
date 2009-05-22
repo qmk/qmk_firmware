@@ -43,8 +43,9 @@
 		#include <stdio.h>
 		
 		#include "ConfigDescriptor.h"
-		#include "PIMACodes.h"
-		#include "StillImageCommands.h"
+
+		#include "Lib/PIMACodes.h"
+		#include "Lib/StillImageCommands.h"
 
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>             // ANSI Terminal Escape Codes
 		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality

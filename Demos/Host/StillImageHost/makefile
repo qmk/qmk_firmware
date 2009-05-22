@@ -124,7 +124,7 @@ LUFA_PATH = ../../..
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
 	  ConfigDescriptor.c                                          \
-	  StillImageCommands.c                                        \
+	  Lib/StillImageCommands.c                                    \
 	  $(LUFA_PATH)/LUFA/Scheduler/Scheduler.c                     \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \

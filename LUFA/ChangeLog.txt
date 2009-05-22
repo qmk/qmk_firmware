@@ -28,6 +28,7 @@
   *  - Fixed incorrect PID value being used in the USBtoSerial project (thanks to Phill)
   *  - Deleted StdDescriptors.c, renamed USB_GetDescriptor() to CALLBACK_USB_GetDescriptor, moved ConfigDescriptor.c/.h from the
   *    LUFA/Drivers/USB/Class/ directory to LUFA/Drivers/USB/HighLevel/ in preperation for the new USB class APIs
+  *  - Moved out each demos' functionality library files (e.g. Ring Buffer library) to /Lib directories for a better directory structure
   *
   *
   *  \section Sec_ChangeLog090510 Version 090510

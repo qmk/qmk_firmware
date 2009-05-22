@@ -45,7 +45,8 @@
 		#include <ctype.h>
 
 		#include "ConfigDescriptor.h"
-		#include "MassStoreCommands.h"
+
+		#include "Lib/MassStoreCommands.h"
 
 		#include <LUFA/Version.h>                                // Library Version Information
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>             // ANSI Terminal Escape Codes

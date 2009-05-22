@@ -45,11 +45,12 @@
 		#include <stdio.h>
 
 		#include "Descriptors.h"
-		#include "RNDIS.h"
-		#include "Ethernet.h"
-		#include "TCP.h"
-		#include "ARP.h"
-		#include "Webserver.h"
+
+		#include "Lib/RNDIS.h"
+		#include "Lib/Ethernet.h"
+		#include "Lib/TCP.h"
+		#include "Lib/ARP.h"
+		#include "Lib/Webserver.h"
 
 		#include <LUFA/Version.h>                         // Library Version Information
 		#include <LUFA/Drivers/USB/USB.h>                 // USB Functionality

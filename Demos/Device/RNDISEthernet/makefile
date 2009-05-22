@@ -125,16 +125,16 @@ LUFA_PATH = ../../..
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
       Descriptors.c                                               \
-      RNDIS.c                                                     \
-	  Ethernet.c                                                  \
-	  ProtocolDecoders.c                                          \
-	  ICMP.c                                                      \
-	  TCP.c                                                       \
-	  UDP.c                                                       \
-	  DHCP.c                                                      \
-	  ARP.c                                                       \
-	  IP.c                                                        \
-	  Webserver.c                                                 \
+      Lib/RNDIS.c                                                 \
+	  Lib/Ethernet.c                                              \
+	  Lib/ProtocolDecoders.c                                      \
+	  Lib/ICMP.c                                                  \
+	  Lib/TCP.c                                                   \
+	  Lib/UDP.c                                                   \
+	  Lib/DHCP.c                                                  \
+	  Lib/ARP.c                                                   \
+	  Lib/IP.c                                                    \
+	  Lib/Webserver.c                                             \
 	  $(LUFA_PATH)/LUFA/Scheduler/Scheduler.c                     \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \

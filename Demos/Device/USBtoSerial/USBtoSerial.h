@@ -43,7 +43,8 @@
 		#include <avr/power.h>
 
 		#include "Descriptors.h"
-		#include "RingBuff.h"
+
+		#include "Lib/RingBuff.h"
 
 		#include <LUFA/Version.h>                         // Library Version Information
 		#include <LUFA/Drivers/USB/USB.h>                 // USB Functionality
