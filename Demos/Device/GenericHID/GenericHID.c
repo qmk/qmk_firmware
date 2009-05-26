@@ -59,6 +59,9 @@ int main(void)
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
 
+	/* Hardware Initialization */
+	LEDs_Init();
+
 	/* Indicate USB not ready */
 	UpdateStatus(Status_USBNotReady);
 

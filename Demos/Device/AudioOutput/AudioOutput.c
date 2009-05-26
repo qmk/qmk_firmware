@@ -75,7 +75,7 @@ int main(void)
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs, and
  *  configures the sample update and PWM timers.
  */
-void EventHandler_USB_Connect(void)
+void EVENT_USB_Connect(void)
 {
 	/* Start USB management task */
 	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
@@ -110,7 +110,7 @@ void EventHandler_USB_Connect(void)
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
  *  the status LEDs, disables the sample update and PWM output timers and stops the USB and Audio management tasks.
  */
-void EventHandler_USB_Disconnect(void)
+void EVENT_USB_Disconnect(void)
 {
 	/* Stop the timers */
 	TCCR0B = 0;
@@ -140,7 +140,7 @@ void EventHandler_USB_Disconnect(void)
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
  *  of the USB device after enumeration - the device endpoints are configured.
  */
-void EventHandler_USB_ConfigurationChanged(void)
+void EVENT_USB_ConfigurationChanged(void)
 {
 	/* Setup audio stream endpoint */
 	Endpoint_ConfigureEndpoint(AUDIO_STREAM_EPNUM, EP_TYPE_ISOCHRONOUS,
@@ -155,7 +155,7 @@ void EventHandler_USB_ConfigurationChanged(void)
  *  control requests that are not handled internally by the USB library (including the Audio class-specific
  *  requests) so that they can be handled appropriately for the application.
  */
-void EventHandler_USB_UnhandledControlPacket(void)
+void EVENT_USB_UnhandledControlPacket(void)
 {
 	/* Process General and Audio specific control requests */
 	switch (USB_ControlRequest.bRequest)

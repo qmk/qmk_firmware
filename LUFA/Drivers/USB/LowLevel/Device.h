@@ -117,8 +117,7 @@
 		/* Function Prototypes: */
 			/** Function to retrieve a given descriptor's size and memory location from the given descriptor type value,
 			 *  index and language ID. This function MUST be overridden in the user application (added with full, identical  
-			 *  prototype and name except for the \ref ATTR_WEAK attribute) so that the library can call it to retrieve descriptor 
-			 *  data.
+			 *  prototype and name so that the library can call it to retrieve descriptor data.
 			 *
 			 *  \param wValue             The type of the descriptor to retrieve in the upper byte, and the index in the 
 			 *                            lower byte (when more than one descriptor of the given type exists, such as the
@@ -139,7 +138,7 @@
 			 *  \return Size in bytes of the descriptor if it exists, zero or \ref NO_DESCRIPTOR otherwise
 			 */
 			uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
-									            ATTR_WARN_UNUSED_RESULT ATTR_WEAK ATTR_NON_NULL_PTR_ARG(3);
+									            ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

@@ -86,7 +86,7 @@ int main(void)
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs. */
-void EventHandler_USB_Connect(void)
+void EVENT_USB_Connect(void)
 {
 	/* Indicate USB enumerating */
 	UpdateStatus(Status_USBEnumerating);
@@ -98,7 +98,7 @@ void EventHandler_USB_Connect(void)
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
  *  the status LEDs and stops the Mass Storage management task.
  */
-void EventHandler_USB_Disconnect(void)
+void EVENT_USB_Disconnect(void)
 {
 	/* Stop running mass storage task */
 	Scheduler_SetTaskMode(USB_MassStorage, TASK_STOP);
@@ -110,7 +110,7 @@ void EventHandler_USB_Disconnect(void)
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
  *  of the USB device after enumeration - the device endpoints are configured and the Mass Storage management task started.
  */
-void EventHandler_USB_ConfigurationChanged(void)
+void EVENT_USB_ConfigurationChanged(void)
 {
 	/* Setup Mass Storage In and Out Endpoints */
 	Endpoint_ConfigureEndpoint(MASS_STORAGE_IN_EPNUM, EP_TYPE_BULK,
@@ -132,7 +132,7 @@ void EventHandler_USB_ConfigurationChanged(void)
  *  control requests that are not handled internally by the USB library (including the Mass Storage class-specific
  *  requests) so that they can be handled appropriately for the application.
  */
-void EventHandler_USB_UnhandledControlPacket(void)
+void EVENT_USB_UnhandledControlPacket(void)
 {
 	/* Process UFI specific control requests */
 	switch (USB_ControlRequest.bRequest)
