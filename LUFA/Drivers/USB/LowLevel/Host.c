@@ -55,7 +55,7 @@ void USB_Host_ProcessNextHostState(void)
 					break;
 				}
 				
-				if (!(WaitMSRemaining--))
+				if (!(--WaitMSRemaining))
 				  USB_HostState = PostWaitState;
 			}
 		
