@@ -136,6 +136,9 @@ void USB_CDC_SendString(USB_ClassInfo_CDC_t* CDCInterfaceInfo, char* Data, uint1
 
 void USB_CDC_SendByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint8_t Data)
 {
+	if (!(USB_IsConnected))
+	  return;
+
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->DataINEndpointNumber);
 
 	if (!(Endpoint_IsReadWriteAllowed()))

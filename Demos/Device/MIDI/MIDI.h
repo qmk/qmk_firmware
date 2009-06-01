@@ -44,49 +44,27 @@
 
 		#include "Descriptors.h"
 				
-		#include <LUFA/Version.h>                            // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>                    // USB Functionality
-		#include <LUFA/Drivers/Board/Joystick.h>             // Joystick driver
-		#include <LUFA/Drivers/Board/LEDs.h>                 // LEDs driver
-		#include <LUFA/Drivers/Board/Buttons.h>              // Board Buttons driver
-		#include <LUFA/Scheduler/Scheduler.h>                // Simple scheduler for task management
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/Board/Buttons.h>
+		#include <LUFA/Drivers/Peripheral/ADC.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/Device/MIDI.h>
 
-   /* Macros: */
-		/** MIDI command for a note on (activation) event */
-		#define MIDI_COMMAND_NOTE_ON         0x90
-
-		/** MIDI command for a note off (deactivation) event */
-		#define MIDI_COMMAND_NOTE_OFF        0x80
-
-		/** Standard key press velocity value used for all note events, as no pressure sensor is mounted */
-		#define MIDI_STANDARD_VELOCITY       64
+	/* Macros: */
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 		
-		/** Convenience macro. MIDI channels are numbered from 1-10 (natural numbers) however the logical channel
-		 *  addresses are zero-indexed. This converts a natural MIDI channel number into the logical channel address.
-		 *
-		 *  \param channel  MIDI channel number to address
-		 */
-		#define MIDI_CHANNEL(channel)        (channel - 1)
-
-	/* Enums: */
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum MIDI_StatusCodes_t
-		{
-			Status_USBNotReady    = 0, /**< USB is not ready (disconnected from a USB host) */
-			Status_USBEnumerating = 1, /**< USB interface is enumerating */
-			Status_USBReady       = 2, /**< USB interface is connected and ready */
-		};
-
-	/* Task Definitions: */
-		TASK(USB_MIDI_Task);
-
-   /* Function Prototypes: */
+	/* Function Prototypes: */
+		void SetupHardware(void);
+		void CheckJoystickMovement(void);
+		
 		void EVENT_USB_Connect(void);
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);
-
-		void SendMIDINoteChange(const uint8_t Pitch, const bool OnOff,
-		                        const uint8_t CableID, const uint8_t Channel);		
-		void UpdateStatus(uint8_t CurrentStatus);
+		void EVENT_USB_UnhandledControlPacket(void);
 		
 #endif

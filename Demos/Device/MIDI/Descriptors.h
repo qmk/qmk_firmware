@@ -38,129 +38,21 @@
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/Device/MIDI.h>
 
 		#include <avr/pgmspace.h>
 
 	/* Macros: */
-		/** Descriptor header constant to indicate a Audio class interface descriptor. */
-		#define DTYPE_AudioInterface        0x24
-
-		/** Descriptor header constant to indicate a Audio class endpoint descriptor. */
-		#define DTYPE_AudioEndpoint         0x25
-
-		/** Audio class descriptor subtype value for a Audio class specific header descriptor. */
-		#define DSUBTYPE_Header             0x01
-
-		/** Audio class descriptor subtype value for a Audio class specific MIDI input jack descriptor. */
-		#define DSUBTYPE_InputJack          0x02
-
-		/** Audio class descriptor subtype value for a Audio class specific MIDI output jack descriptor. */
-		#define DSUBTYPE_OutputJack         0x03
-
-		/** Audio class descriptor subtype value for a general Audio class specific descriptor. */
-		#define DSUBTYPE_General            0x01
-
-		/** Audio class descriptor jack type value for an embedded (logical) MIDI input or output jack. */
-		#define JACKTYPE_EMBEDDED           0x01
-
-		/** Audio class descriptor jack type value for an external (physical) MIDI input or output jack. */
-		#define JACKTYPE_EXTERNAL           0x02
-		
-		/** Endpoint number of the MIDI streaming data OUT endpoint, for host-to-device data transfers. */
-		#define MIDI_STREAM_OUT_EPNUM       1
-
 		/** Endpoint number of the MIDI streaming data IN endpoint, for device-to-host data transfers. */
 		#define MIDI_STREAM_IN_EPNUM        2
+
+		/** Endpoint number of the MIDI streaming data OUT endpoint, for host-to-device data transfers. */
+		#define MIDI_STREAM_OUT_EPNUM       1
 
 		/** Endpoint size in bytes of the Audio isochronous streaming data IN and OUT endpoints. */
 		#define MIDI_STREAM_EPSIZE          64
 		
 	/* Type Defines: */
-		/** Type define for an Audio class specific interface descriptor. This follows a regular interface descriptor to
-		 *  supply extra information about the audio device's layout to the host. See the USB Audio specification for more
-		 *  details.
-		 */
-		typedef struct
-		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class specific descriptors */
-
-			uint16_t                  ACSpecification; /** Binary coded decimal value, indicating the supported Audio Class specification version */
-			uint16_t                  TotalLength; /** Total length of the Audio class specific control descriptors, including this descriptor */
-			
-			uint8_t                   InCollection; /** Total number of audio class interfaces within this device */
-			uint8_t                   InterfaceNumbers[1]; /** Interface numbers of each audio interface */
-		} USB_AudioInterface_AC_t;
-		
-		/** Type define for an Audio class specific MIDI streaming interface descriptor. This indicates to the host
-		 *  how MIDI the specification compliance of the device and the total length of the Audio class specific descriptors.
-		 *  See the USB Audio specification for more details.
-		 */
-		typedef struct
-		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class specific descriptors */
-			
-			uint16_t                  AudioSpecification; /**< Binary coded decimal value, indicating the supported Audio Class specification version */
-			uint16_t                  TotalLength; /**< Total length of the Audio class specific descriptors, including this descriptor */
-		} USB_AudioInterface_MIDI_AS_t;
-		
-		/** Type define for an Audio class specific endpoint descriptor. This contains a regular endpoint 
-		 *  descriptor with a few Audio-class specific extensions. See the USB Audio specification for more details.
-		 */
-		typedef struct
-		{
-			USB_Descriptor_Endpoint_t Endpoint; /**< Standard endpoint descriptor describing the audio endpoint */
-
-			uint8_t                   Refresh; /**< Always set to zero */
-			uint8_t                   SyncEndpointNumber; /**< Endpoint address to send synchronisation information to, if needed (zero otherwise) */
-		} USB_AudioStreamEndpoint_Std_t;
-
-		/** Type define for an Audio class specific MIDI IN jack. This gives information to the host on a MIDI input, either
-		 *  a physical input jack, or a logical jack (receiving input data internally, or from the host via an endpoint).
-		 */
-		typedef struct
-		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class specific descriptors */
-
-			uint8_t                   JackType; /**< Type of jack, one of the JACKTYPE_* mask values */
-			uint8_t                   JackID; /**< ID value of this jack - must be a unique value within the device */
-			
-			uint8_t                   JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device */
-		} USB_MIDI_In_Jack_t;
-
-		/** Type define for an Audio class specific MIDI OUT jack. This gives information to the host on a MIDI output, either
-		 *  a physical output jack, or a logical jack (sending output data internally, or to the host via an endpoint).
-		 */
-		typedef struct
-		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class specific descriptors */
-
-			uint8_t                   JackType; /**< Type of jack, one of the JACKTYPE_* mask values */
-			uint8_t                   JackID; /**< ID value of this jack - must be a unique value within the device */
-			
-			uint8_t                   NumberOfPins; /**< Number of output channels within the jack, either physical or logical */
-			uint8_t                   SourceJackID[1]; /**< ID of each output pin's source data jack */
-			uint8_t                   SourcePinID[1]; /**< Pin number in the input jack of each output pin's source data */
-			
-			uint8_t                   JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device */
-		} USB_MIDI_Out_Jack_t;
-		
-		/** Type define for an Audio class specific extended MIDI jack endpoint descriptor. This contains extra information
-		 *  on the usage of MIDI endpoints used to stream MIDI events in and out of the USB Audio device, and follows an Audio
-		 *  class specific extended MIDI endpoint descriptor. See the USB Audio specification for more details.
-		 */
-		typedef struct
-		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class specific descriptors */
-
-			uint8_t                   TotalEmbeddedJacks; /**< Total number of jacks inside this endpoint */
-			uint8_t                   AssociatedJackID[1]; /**< IDs of each jack inside the endpoint */
-		} USB_MIDI_Jack_Endpoint_t;
-
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
 		 *  vary between devices, and which describe the device's usage to the host.

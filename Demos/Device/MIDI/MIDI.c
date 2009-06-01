@@ -28,25 +28,34 @@
   this software.
 */
 
-/** \file
- *
- *  Main source file for the MIDI input demo. This file contains the main tasks of the demo and
- *  is responsible for the initial application hardware configuration.
- */
-
 #include "MIDI.h"
 
-/* Scheduler Task List */
-TASK_LIST
-{
-	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
-	{ .Task = USB_MIDI_Task        , .TaskStatus = TASK_STOP },
-};
+USB_ClassInfo_MIDI_t Keyboard_MIDI_Interface =
+	{
+		.InterfaceNumber       = 0,
 
-/** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
- */
+		.DataINEndpointNumber  = MIDI_STREAM_IN_EPNUM,
+		.DataINEndpointSize    = MIDI_STREAM_EPSIZE,
+
+		.DataOUTEndpointNumber = MIDI_STREAM_OUT_EPNUM,
+		.DataOUTEndpointSize   = MIDI_STREAM_EPSIZE,
+	};
+	
 int main(void)
+{
+	SetupHardware();
+
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	
+	for (;;)
+	{
+		CheckJoystickMovement();
+	
+		USB_USBTask();
+	}
+}
+
+void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
@@ -59,161 +68,85 @@ int main(void)
 	Joystick_Init();
 	LEDs_Init();
 	Buttons_Init();
-
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-	
-	/* Initialize Scheduler so that it can be used */
-	Scheduler_Init();
-
-	/* Initialize USB Subsystem */
 	USB_Init();
-
-	/* Scheduling - routine never returns, so put this last in the main function */
-	Scheduler_Start();
 }
 
-/** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs. */
-void EVENT_USB_Connect(void)
-{
-	/* Start USB management task */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
-
-	/* Indicate USB enumerating */
-	UpdateStatus(Status_USBEnumerating);
-}
-
-/** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
- *  the status LEDs, disables the sample update and PWM output timers and stops the USB and MIDI management tasks.
- */
-void EVENT_USB_Disconnect(void)
-{
-	/* Stop running audio and USB management tasks */
-	Scheduler_SetTaskMode(USB_MIDI_Task, TASK_STOP);
-	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-}
-
-/** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
- *  of the USB device after enumeration - the device endpoints are configured and the MIDI management task started.
- */
-void EVENT_USB_ConfigurationChanged(void)
-{
-	/* Setup MIDI stream endpoints */
-	Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK,
-		                       ENDPOINT_DIR_OUT, MIDI_STREAM_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
-	Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPNUM, EP_TYPE_BULK,
-		                       ENDPOINT_DIR_IN, MIDI_STREAM_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
-	/* Indicate USB connected and ready */
-	UpdateStatus(Status_USBReady);
-
-	/* Start MIDI task */
-	Scheduler_SetTaskMode(USB_MIDI_Task, TASK_RUN);
-}
-
-/** Task to handle the generation of MIDI note change events in response to presses of the board joystick, and send them
- *  to the host.
- */
-TASK(USB_MIDI_Task)
+void CheckJoystickMovement(void)
 {
 	static uint8_t PrevJoystickStatus;
 
-	/* Select the MIDI IN stream */
-	Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPNUM);
-
-	/* Check if endpoint is ready to be written to */
-	if (Endpoint_IsINReady())
-	{
-		/* Get current joystick mask, XOR with previous to detect joystick changes */
-		uint8_t JoystickStatus  = Joystick_GetStatus();
-		uint8_t JoystickChanges = (JoystickStatus ^ PrevJoystickStatus);
+	uint8_t MIDICommand = 0;
+	uint8_t MIDIPitch;
+	
+	/* Get current joystick mask, XOR with previous to detect joystick changes */
+	uint8_t JoystickStatus  = Joystick_GetStatus();
+	uint8_t JoystickChanges = (JoystickStatus ^ PrevJoystickStatus);
 		
-		/* Get board button status - if pressed use channel 10 (percussion), otherwise use channel 1 */
-		uint8_t Channel = ((Buttons_GetStatus() & BUTTONS_BUTTON1) ? MIDI_CHANNEL(10) : MIDI_CHANNEL(1));
+	/* Get board button status - if pressed use channel 10 (percussion), otherwise use channel 1 */
+	uint8_t Channel = ((Buttons_GetStatus() & BUTTONS_BUTTON1) ? MIDI_CHANNEL(10) : MIDI_CHANNEL(1));
 
-		if (JoystickChanges & JOY_LEFT)
-		  SendMIDINoteChange(0x3C, (JoystickStatus & JOY_LEFT), 0, Channel);
-
-		if (JoystickChanges & JOY_UP)
-		  SendMIDINoteChange(0x3D, (JoystickStatus & JOY_UP), 0, Channel);
-
-		if (JoystickChanges & JOY_RIGHT)
-		  SendMIDINoteChange(0x3E, (JoystickStatus & JOY_RIGHT), 0, Channel);
-
-		if (JoystickChanges & JOY_DOWN)
-		  SendMIDINoteChange(0x3F, (JoystickStatus & JOY_DOWN), 0, Channel);
-
-		if (JoystickChanges & JOY_PRESS)
-		  SendMIDINoteChange(0x3B, (JoystickStatus & JOY_PRESS), 0, Channel);
-
-		/* Save previous joystick value for next joystick change detection */
-		PrevJoystickStatus = JoystickStatus;
-	}
-
-	/* Select the MIDI OUT stream */
-	Endpoint_SelectEndpoint(MIDI_STREAM_OUT_EPNUM);
-
-	/* Check if endpoint is ready to be read from, if so discard its (unused) data */
-	if (Endpoint_IsOUTReceived())
-	  Endpoint_ClearOUT();
-}
-
-/** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
- *  log to a serial port, or anything else that is suitable for status updates.
- *
- *  \param CurrentStatus  Current status of the system, from the MIDI_StatusCodes_t enum
- */
-void UpdateStatus(uint8_t CurrentStatus)
-{
-	uint8_t LEDMask = LEDS_NO_LEDS;
-	
-	/* Set the LED mask to the appropriate LED mask based on the given status code */
-	switch (CurrentStatus)
+	if (JoystickChanges & JOY_LEFT)
 	{
-		case Status_USBNotReady:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_USBEnumerating:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-		case Status_USBReady:
-			LEDMask = (LEDS_LED2 | LEDS_LED4);
-			break;
+		MIDICommand = ((JoystickStatus & JOY_LEFT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+		MIDIPitch   = 0x3C;
+	}
+
+	if (JoystickChanges & JOY_UP)
+	{
+		MIDICommand = ((JoystickStatus & JOY_UP)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+		MIDIPitch   = 0x3D;
+	}
+
+	if (JoystickChanges & JOY_RIGHT)
+	{
+		MIDICommand = ((JoystickStatus & JOY_RIGHT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+		MIDIPitch   = 0x3E;
 	}
 	
-	/* Set the board LEDs to the new LED mask */
-	LEDs_SetAllLEDs(LEDMask);
+	if (JoystickChanges & JOY_DOWN)
+	{
+		MIDICommand = ((JoystickStatus & JOY_DOWN)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+		MIDIPitch   = 0x3F;
+	}
+
+	if (JoystickChanges & JOY_PRESS)
+	{
+		MIDICommand = ((JoystickStatus & JOY_PRESS)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+		MIDIPitch   = 0x3B;
+	}
+	
+	if (MIDICommand)
+	{
+		USB_MIDI_EventPacket_t MIDIEvent = (USB_MIDI_EventPacket_t)
+			{
+				.CableNumber = 0,
+				.Command     = MIDICommand,
+				
+				.Data1       = (MIDICommand << 4) | Channel,
+				.Data2       = MIDIPitch,
+				.Data3       = MIDI_STANDARD_VELOCITY,			
+			};
+			
+		USB_MIDI_SendEventPacket(&Keyboard_MIDI_Interface, &MIDIEvent);
+	}
+
+	PrevJoystickStatus = JoystickStatus;
 }
 
-/** Sends a MIDI note change event (note on or off) to the MIDI output jack, on the given virtual cable ID and channel.
- *
- *  \param Pitch    Pitch of the note to turn on or off
- *  \param OnOff    Set to true if the note is on (being held down), or false otherwise
- *  \param CableID  ID of the virtual cable to send the note change to
- *  \param Channel  MIDI channel number to send the note change event to
- */
-void SendMIDINoteChange(const uint8_t Pitch, const bool OnOff, const uint8_t CableID, const uint8_t Channel)
+void EVENT_USB_Connect(void)
 {
-	/* Wait until endpoint ready for more data */
-	while (!(Endpoint_IsReadWriteAllowed()));
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+}
 
-	/* Check if the message should be a Note On or Note Off command */
-	uint8_t Command = ((OnOff)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+void EVENT_USB_Disconnect(void)
+{
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+}
 
-	/* Write the Packet Header to the endpoint */
-	Endpoint_Write_Byte((CableID << 4) | (Command >> 4));
-
-	/* Write the Note On/Off command with the specified channel, pitch and velocity */
-	Endpoint_Write_Byte(Command | Channel);
-	Endpoint_Write_Byte(Pitch);
-	Endpoint_Write_Byte(MIDI_STANDARD_VELOCITY);
+void EVENT_USB_ConfigurationChanged(void)
+{
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	
-	/* Send the data in the endpoint to the host */
-	Endpoint_ClearIN();
+	if (!(USB_MIDI_ConfigureEndpoints(&Keyboard_MIDI_Interface)))
+	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
