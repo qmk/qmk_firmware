@@ -126,7 +126,6 @@ LUFA_PATH = ../../..
 SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
 	  Lib/RingBuff.c                                              \
-	  $(LUFA_PATH)/LUFA/Scheduler/Scheduler.c                     \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -137,7 +136,7 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/HIDParser.c             \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/CDC.c            \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -184,7 +183,7 @@ CSTANDARD = -std=gnu99
 
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD)
-CDEFS += -DUSE_NONSTANDARD_DESCRIPTOR_NAMES -DNO_STREAM_CALLBACKS -DUSB_DEVICE_ONLY
+CDEFS += -DUSE_NONSTANDARD_DESCRIPTOR_NAMES -DUSB_DEVICE_ONLY
 CDEFS += -DFIXED_CONTROL_ENDPOINT_SIZE=8 -DUSE_SINGLE_DEVICE_CONFIGURATION
 CDEFS += -DUSE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 

@@ -76,8 +76,6 @@ uint8_t Pipe_WaitUntilReady(void)
 	uint16_t TimeoutMSRem = USB_STREAM_TIMEOUT_MS;
 	#endif
 
-	USB_INT_Clear(USB_INT_HSOFI);
-
 	for (;;)
 	{
 		if (Pipe_GetPipeToken() == PIPE_TOKEN_IN)
@@ -96,9 +94,9 @@ uint8_t Pipe_WaitUntilReady(void)
 		else if (!(USB_IsConnected))
 		  return PIPE_READYWAIT_DeviceDisconnected;
 			  
-		if (USB_INT_HasOccurred(USB_INT_HSOFI))
+		if (FrameElapsed)
 		{
-			USB_INT_Clear(USB_INT_HSOFI);
+			FrameElapsed = false;
 
 			if (!(TimeoutMSRem--))
 			  return PIPE_READYWAIT_Timeout;

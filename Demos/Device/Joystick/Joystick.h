@@ -44,19 +44,12 @@
 
 		#include "Descriptors.h"
 
-		#include <LUFA/Version.h>                    // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
-		#include <LUFA/Drivers/Board/Joystick.h>     // Joystick driver
-		#include <LUFA/Drivers/Board/LEDs.h>         // LEDs driver
-		#include <LUFA/Drivers/Board/Buttons.h>      // Board Buttons driver
-		#include <LUFA/Scheduler/Scheduler.h>        // Simple scheduler for task management
-		
-	/* Task Definitions: */
-		TASK(USB_Joystick_Report);
-
-	/* Macros: */
-		/** HID Class specific request to get the next HID report from the device. */
-		#define REQ_GetReport   0x01
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Buttons.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/Device/HID.h>
 
 	/* Type Defines: */
 		/** Type define for the joystick HID report structure, for creating and sending HID reports to the host PC.
@@ -69,22 +62,23 @@
 			uint8_t Button; /**< Bit mask of the currently pressed joystick buttons */
 		} USB_JoystickReport_Data_t;
 			
-	/* Enums: */
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum Joystick_StatusCodes_t
-		{
-			Status_USBNotReady    = 0, /**< USB is not ready (disconnected from a USB host) */
-			Status_USBEnumerating = 1, /**< USB interface is enumerating */
-			Status_USBReady       = 2, /**< USB interface is connected and ready */
-		};
+	/* Macros: */
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
 	/* Function Prototypes: */
+		void SetupHardware(void);
+
 		void EVENT_USB_Connect(void);
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
+		void EVENT_USB_StartOfFrame(void);
 
-		bool GetNextReport(USB_JoystickReport_Data_t* ReportData);
-		void UpdateStatus(uint8_t CurrentStatus);
+		uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData);
+		void     CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo,
+		                                                   void* ReportData, uint16_t ReportSize);
 
 #endif

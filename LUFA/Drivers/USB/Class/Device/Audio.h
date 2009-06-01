@@ -28,42 +28,43 @@
   this software.
 */
 
-/** \file
- *
- *  Header file for Descriptors.c.
- */
- 
-#ifndef _DESCRIPTORS_H_
-#define _DESCRIPTORS_H_
+#ifndef _AUDIO_CLASS_H_
+#define _AUDIO_CLASS_H_
 
 	/* Includes: */
-		#include <avr/pgmspace.h>
+		#include "../../USB.h"
 
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/Device/HID.h>
+		#include <string.h>
+
+	/* Macros: */
+
+	/* Enums: */
 
 	/* Type Defines: */
-		/** Type define for the device configuration descriptor structure. This must be defined in the
-		 *  application code, as the configuration descriptor contains several sub-descriptors which
-		 *  vary between devices, and which describe the device's usage to the host.
-		 */
 		typedef struct
 		{
-			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            Interface;
-			USB_Descriptor_HID_t                  JoystickHID;
-	        USB_Descriptor_Endpoint_t             JoystickEndpoint;
-		} USB_Descriptor_Configuration_t;
-					
-	/* Macros: */
-		/** Endpoint number of the Joystick HID reporting IN endpoint. */
-		#define JOYSTICK_EPNUM               1
+			uint8_t  InterfaceNumber;
 
-		/** Size in bytes of the Joystick HID reporting IN endpoint. */
-		#define JOYSTICK_EPSIZE              8
+			uint8_t  DataINEndpointNumber;
+			uint16_t DataINEndpointSize;
 
+			uint8_t  DataOUTEndpointNumber;
+			uint16_t DataOUTEndpointSize;
+
+			bool     InterfaceEnabled;
+		} USB_ClassInfo_Audio_t;
+		
 	/* Function Prototypes: */
-		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
-											ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
-
+		bool     USB_Audio_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+		void     USB_Audio_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+		void     USB_Audio_USBTask(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+		
+		int8_t   USB_Audio_ReadSample8(void);
+		int16_t  USB_Audio_ReadSample16(void);
+		int32_t  USB_Audio_ReadSample24(void);
+		void     USB_Audio_WriteSample8(int8_t Sample);
+		void     USB_Audio_WriteSample16(int16_t Sample);
+		void     USB_Audio_WriteSample24(int32_t Sample);
+		bool     USB_Audio_IsSampleReceived(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+		bool     USB_Audio_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 #endif

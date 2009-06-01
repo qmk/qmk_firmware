@@ -46,55 +46,33 @@
 
 		#include "Descriptors.h"
 
-		#include "Lib/RNDIS.h"
 		#include "Lib/Ethernet.h"
 		#include "Lib/TCP.h"
 		#include "Lib/ARP.h"
 		#include "Lib/Webserver.h"
 
-		#include <LUFA/Version.h>                         // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>                 // USB Functionality
-		#include <LUFA/Drivers/Board/LEDs.h>              // LEDs driver
-		#include <LUFA/Scheduler/Scheduler.h>             // Simple scheduler for task management
-		#include <LUFA/Drivers/Peripheral/SerialStream.h> // Serial stream driver
-	
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/Device/RNDIS.h>
+
 	/* Macros: */
-		/** Notification value to indicate that a frame is ready to be read by the host. */
-		#define NOTIF_RESPONSE_AVAILABLE                 0x01
-
-	/* Type Defines: */
-		/** Type define for a RNDIS notification message, for transmission to the RNDIS host via the notification
-		 *  Endpoint.
-		 */
-		typedef struct
-		{
-			uint8_t  bmRequestType; /**< Notification type, a mask of values from SrdRequestType.h */
-			uint8_t  bNotification; /**< Notification index, indicating what the RNDIS notification relates to */
-			uint16_t wValue; /**< Two byte notification value parameter */
-			uint16_t wIndex; /**< Two byte notification index parameter */
-			uint16_t wLength; /**< Size of data payload following the notification header */
-		} USB_Notification_t;
-
-	/* Enums: */
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum RNDISEthernet_StatusCodes_t
-		{
-			Status_USBNotReady             = 0, /**< USB is not ready (disconnected from a USB host) */
-			Status_USBEnumerating          = 1, /**< USB interface is enumerating */
-			Status_USBReady                = 2, /**< USB interface is connected and ready */
-			Status_ProcessingEthernetFrame = 3, /**< Currently processing an ethernet frame from the host */
-		};
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+		#define LEDMASK_USB_BUSY          LEDS_LED2
 		
-	/* Tasks: */
-		TASK(RNDIS_Task);
-		TASK(Ethernet_Task);
-
 	/* Function Prototypes: */
+		void SetupHardware(void);
+
 		void EVENT_USB_Connect(void);
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
-
-		void UpdateStatus(uint8_t CurrentStatus);
+		void EVENT_USB_StartOfFrame(void);
+		
+		void CALLBACK_USB_RNDIS_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
 	
 #endif

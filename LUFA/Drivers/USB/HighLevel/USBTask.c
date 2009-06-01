@@ -42,7 +42,7 @@ USB_Request_Header_t USB_ControlRequest;
 volatile uint8_t   USB_HostState;
 #endif
 
-TASK(USB_USBTask)
+void USB_USBTask(void)
 {
 	#if defined(USB_HOST_ONLY)
 		USB_HostTask();

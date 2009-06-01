@@ -40,8 +40,6 @@
 		#include <avr/io.h>
 		#include <stdbool.h>
 		
-		#include <LUFA/Scheduler/Scheduler.h>
-		
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"
 		#include "ProtocolDecoders.h"
@@ -229,14 +227,12 @@
 			uint16_t               Checksum; /**< TCP checksum */
 			uint16_t               UrgentPointer; /**< Urgent data pointer */
 		} TCP_Header_t;
-
-	/* Tasks: */
-		TASK(TCP_Task);
 		
 	/* External Variables: */
 		TCP_PortState_t PortStateTable[MAX_OPEN_TCP_PORTS];
 
 	/* Function Prototypes: */
+		void                  TCP_TCPTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
 		void                  TCP_Init(void);
 		bool                  TCP_SetPortState(uint16_t Port, uint8_t State, void (*Handler)(TCP_ConnectionState_t*, TCP_ConnectionBuffer_t*));
 		uint8_t               TCP_GetPortState(uint16_t Port);

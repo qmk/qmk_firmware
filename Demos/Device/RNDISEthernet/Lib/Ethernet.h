@@ -39,6 +39,8 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <string.h>
+		
+		#include <LUFA/Drivers/USB/Class/Device/RNDIS.h>
 
 		#include "EthernetProtocols.h"
 		#include "ProtocolDecoders.h"
@@ -50,6 +52,9 @@
 		#include "IP.h"
 		
 	/* Macros: */
+		/** Physical MAC address of the USB RNDIS network adapter */
+		#define ADAPTER_MAC_ADDRESS              {0x00, 0x02, 0x00, 0x02, 0x00, 0x02}		
+
 		/** Physical MAC address of the virtual server on the network */
 		#define SERVER_MAC_ADDRESS               {0x00, 0x01, 0x00, 0x01, 0x00, 0x01}		
 
@@ -64,12 +69,6 @@
 		 *  \return True if the addresses match, false otherwise
 		 */
 		#define MAC_COMPARE(MAC1, MAC2)          (memcmp(MAC1, MAC2, sizeof(MAC_Address_t)) == 0)
-
-		/** Maximum size of an incoming or outgoing Ethernet frame in bytes */
-		#define ETHERNET_FRAME_SIZE_MAX          1500
-		
-		/** Minimum size of an Ethernet packet in bytes, to conform to the Ethernet V2 packet standard */
-		#define ETHERNET_VER2_MINSIZE            0x0600
 		
 		/** Return value for all sub protocol handling routines, indicating that no response packet has been generated */
 		#define NO_RESPONSE                      0		
@@ -78,14 +77,6 @@
 		#define NO_PROCESS                       -1
 
 	/* Type Defines: */
-		/** Type define for an Ethernet frame buffer. */
-		typedef struct
-		{
-			uint8_t       FrameData[ETHERNET_FRAME_SIZE_MAX]; /**< Ethernet frame contents */
-			uint16_t      FrameLength; /**< Length in bytes of the Ethernet frame stored in the buffer */
-			bool          FrameInBuffer; /**< Indicates if a frame is currently stored in the buffer */
-		} Ethernet_Frame_Info_t;
-
 		/** Type define for an Ethernet frame header */
 		typedef struct
 		{
@@ -100,9 +91,6 @@
 		} Ethernet_Frame_Header_t;
 		
 	/* External Variables: */
-		extern Ethernet_Frame_Info_t FrameIN;
-		extern Ethernet_Frame_Info_t FrameOUT;
-
 		extern const MAC_Address_t ServerMACAddress;
 		extern const IP_Address_t  ServerIPAddress;
 		extern const MAC_Address_t BroadcastMACAddress;
@@ -110,7 +98,7 @@
 		extern const IP_Address_t  ClientIPAddress;
 		
 	/* Function Prototypes: */
-		void     Ethernet_ProcessPacket(void);
+		void     Ethernet_ProcessPacket(Ethernet_Frame_Info_t* FrameIN, Ethernet_Frame_Info_t* FrameOUT);
 		uint16_t Ethernet_Checksum16(void* Data, uint16_t Bytes);
 		
 #endif

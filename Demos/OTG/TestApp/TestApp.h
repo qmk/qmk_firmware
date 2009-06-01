@@ -45,7 +45,6 @@
 		#include <LUFA/Version.h>                               // Library Version Information
 		#include <LUFA/Drivers/USB/USB.h>                       // USB Functionality
 		#include <LUFA/Scheduler/Scheduler.h>                   // Simple scheduler for task management
-		#include <LUFA/MemoryAllocator/DynAlloc.h>              // Auto-defragmenting Dynamic Memory allocation
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>            // ANSI Terminal Escape Codes
 		#include <LUFA/Drivers/Peripheral/ADC.h>                // ADC driver
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>       // USART Stream driver

@@ -28,29 +28,37 @@
   this software.
 */
 
-/** \file
- *
- *  Main source file for the GenericHID demo. This file contains the main tasks of the demo and
- *  is responsible for the initial application hardware configuration.
- */
-
 #include "GenericHID.h"
 
-/* Scheduler Task List */
-TASK_LIST
-{
-	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
-	{ .Task = USB_HID_Report       , .TaskStatus = TASK_STOP },
-};
+USB_ClassInfo_HID_t Generic_HID_Interface =
+	{
+		.InterfaceNumber         = 0,
 
-/** Static buffer to hold the last received report from the host, so that it can be echoed back in the next sent report */
-static uint8_t LastReceived[GENERIC_REPORT_SIZE];
+		.ReportINEndpointNumber  = GENERIC_IN_EPNUM,
+		.ReportINEndpointSize    = GENERIC_EPSIZE,
+		
+		.ReportOUTEndpointNumber = GENERIC_OUT_EPNUM,
+		.ReportOUTEndpointSize   = GENERIC_EPSIZE,
+		
+		.ReportBufferSize        = GENERIC_REPORT_SIZE,
 
+		.UsingReportProtocol     = true,
+	};
 
-/** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the USB management task.
- */
 int main(void)
+{
+	SetupHardware();
+	
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	
+	for (;;)
+	{
+		USB_HID_USBTask(&Generic_HID_Interface);
+		USB_USBTask();
+	}
+}
+
+void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
@@ -61,220 +69,45 @@ int main(void)
 
 	/* Hardware Initialization */
 	LEDs_Init();
-
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-
-	/* Initialize Scheduler so that it can be used */
-	Scheduler_Init();
-
-	/* Initialize USB Subsystem */
 	USB_Init();
-	
-	/* Scheduling - routine never returns, so put this last in the main function */
-	Scheduler_Start();
 }
 
-/** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
- *  starts the library USB task to begin the enumeration and USB management process.
- */
 void EVENT_USB_Connect(void)
 {
-	/* Start USB management task */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
-
-	/* Indicate USB enumerating */
-	UpdateStatus(Status_USBEnumerating);
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
-/** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
- *  the status LEDs and stops the USB management task.
- */
 void EVENT_USB_Disconnect(void)
 {
-	/* Stop running HID reporting and USB management tasks */
-	Scheduler_SetTaskMode(USB_HID_Report, TASK_STOP);
-	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
-/** Event handler for the USB_ConfigurationChanged event. This is fired when the host sets the current configuration
- *  of the USB device after enumeration, and configures the generic HID device endpoints.
- */
 void EVENT_USB_ConfigurationChanged(void)
 {
-	/* Setup Generic IN Report Endpoint */
-	Endpoint_ConfigureEndpoint(GENERIC_IN_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_IN, GENERIC_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
-	/* Setup Generic OUT Report Endpoint */
-	Endpoint_ConfigureEndpoint(GENERIC_OUT_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_OUT, GENERIC_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
-	/* Indicate USB connected and ready */
-	UpdateStatus(Status_USBReady);
+	if (!(USB_HID_ConfigureEndpoints(&Generic_HID_Interface)))
+	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
- *  control requests that are not handled internally by the USB library (including the HID commands, which are
- *  all issued via the control endpoint), so that they can be handled appropriately for the application.
- */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	/* Handle HID Class specific requests */
-	switch (USB_ControlRequest.bRequest)
-	{
-		case REQ_GetReport:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
-			{
-				uint8_t GenericData[GENERIC_REPORT_SIZE];
-
-				Endpoint_ClearSETUP();
-	
-				CreateGenericHIDReport(GenericData);
-
-				/* Write the report data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(&GenericData, sizeof(GenericData));
-
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearOUT();
-			}
-		
-			break;
-		case REQ_SetReport:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
-			{
-				uint8_t GenericData[GENERIC_REPORT_SIZE];
-
-				Endpoint_ClearSETUP();
-				
-				/* Wait until the generic report has been sent by the host */
-				while (!(Endpoint_IsOUTReceived()));
-
-				Endpoint_Read_Control_Stream_LE(&GenericData, sizeof(GenericData));
-
-				ProcessGenericHIDReport(GenericData);
-			
-				/* Clear the endpoint data */
-				Endpoint_ClearOUT();
-
-				/* Wait until the host is ready to receive the request confirmation */
-				while (!(Endpoint_IsINReady()));
-				
-				/* Handshake the request by sending an empty IN packet */
-				Endpoint_ClearIN();
-			}
-			
-			break;
-	}
+	USB_HID_ProcessControlPacket(&Generic_HID_Interface);
 }
 
-/** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
- *  log to a serial port, or anything else that is suitable for status updates.
- *
- *  \param CurrentStatus  Current status of the system, from the GenericHID_StatusCodes_t enum
- */
-void UpdateStatus(uint8_t CurrentStatus)
+void EVENT_USB_StartOfFrame(void)
 {
-	uint8_t LEDMask = LEDS_NO_LEDS;
-	
-	/* Set the LED mask to the appropriate LED mask based on the given status code */
-	switch (CurrentStatus)
-	{
-		case Status_USBNotReady:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_USBEnumerating:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-		case Status_USBReady:
-			LEDMask = (LEDS_LED2 | LEDS_LED4);
-			break;
-	}
-	
-	/* Set the board LEDs to the new LED mask */
-	LEDs_SetAllLEDs(LEDMask);
+	USB_HID_RegisterStartOfFrame(&Generic_HID_Interface);
 }
 
-/** Function to process the lest received report from the host.
- *
- *  \param DataArray  Pointer to a buffer where the last report data is stored
- */
-void ProcessGenericHIDReport(uint8_t* DataArray)
+uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData)
 {
-	/*
-		This is where you need to process the reports being sent from the host to the device.
-		DataArray is an array holding the last report from the host. This function is called
-		each time the host has sent a report to the device.
-	*/
+	// Create generic HID report here
 	
-	for (uint8_t i = 0; i < GENERIC_REPORT_SIZE; i++)
-	  LastReceived[i] = DataArray[i];
+	return 0;
 }
 
-/** Function to create the next report to send back to the host at the next reporting interval.
- *
- *  \param DataArray  Pointer to a buffer where the next report data should be stored
- */
-void CreateGenericHIDReport(uint8_t* DataArray)
+void CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData, uint16_t ReportSize)
 {
-	/*
-		This is where you need to create reports to be sent to the host from the device. This
-		function is called each time the host is ready to accept a new report. DataArray is 
-		an array to hold the report to the host.
-	*/
-
-	for (uint8_t i = 0; i < GENERIC_REPORT_SIZE; i++)
-	  DataArray[i] = LastReceived[i];
-}
-
-TASK(USB_HID_Report)
-{
-	/* Check if the USB system is connected to a host */
-	if (USB_IsConnected)
-	{
-		Endpoint_SelectEndpoint(GENERIC_OUT_EPNUM);
-		
-		/* Check to see if a packet has been sent from the host */
-		if (Endpoint_IsOUTReceived())
-		{
-			/* Check to see if the packet contains data */
-			if (Endpoint_IsReadWriteAllowed())
-			{
-				/* Create a temporary buffer to hold the read in report from the host */
-				uint8_t GenericData[GENERIC_REPORT_SIZE];
-				
-				/* Read Generic Report Data */
-				Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData));
-				
-				/* Process Generic Report Data */
-				ProcessGenericHIDReport(GenericData);
-			}
-
-			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearOUT();
-		}	
-
-		Endpoint_SelectEndpoint(GENERIC_IN_EPNUM);
-		
-		/* Check to see if the host is ready to accept another packet */
-		if (Endpoint_IsINReady())
-		{
-			/* Create a temporary buffer to hold the report to send to the host */
-			uint8_t GenericData[GENERIC_REPORT_SIZE];
-			
-			/* Create Generic Report Data */
-			CreateGenericHIDReport(GenericData);
-
-			/* Write Generic Report Data */
-			Endpoint_Write_Stream_LE(&GenericData, sizeof(GenericData));
-
-			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearIN();
-		}
-	}
+	// Process received generic HID report here
 }

@@ -40,9 +40,8 @@
 		#include <avr/io.h>
 		#include <avr/pgmspace.h>
 
-		#include <LUFA/Common/Common.h>              // Function Attribute, Atomic, Debug and ISR Macros
-		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
-		#include <LUFA/Drivers/Board/LEDs.h>         // LEDs driver
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/Device/MassStorage.h>
 
 		#include "MassStorage.h"
 		#include "Descriptors.h"
@@ -63,16 +62,16 @@
 		                                                   SenseData.AdditionalSenseQualifier = aqual; }MACROE
 
 		/** Macro for the SCSI_Command_ReadWrite_10() function, to indicate that data is to be read from the storage medium. */
-		#define DATA_READ      true
+		#define DATA_READ           true
 
 		/** Macro for the SCSI_Command_ReadWrite_10() function, to indicate that data is to be written to the storage medium. */
-		#define DATA_WRITE     false
+		#define DATA_WRITE          false
 
 		/** Value for the DeviceType entry in the SCSI_Inquiry_Response_t enum, indicating a Block Media device. */
-		#define DEVICE_TYPE_BLOCK 0x00
+		#define DEVICE_TYPE_BLOCK   0x00
 		
 		/** Value for the DeviceType entry in the SCSI_Inquiry_Response_t enum, indicating a CD-ROM device. */
-		#define DEVICE_TYPE_CDROM 0x05
+		#define DEVICE_TYPE_CDROM   0x05
 
 	/* Type Defines: */
 		/** Type define for a SCSI response structure to a SCSI INQUIRY command. For details of the
@@ -136,14 +135,14 @@
 		} SCSI_Request_Sense_Response_t;
 		
 	/* Function Prototypes: */
-		void SCSI_DecodeSCSICommand(void);
+		bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_t* MSInterfaceInfo);
 		
 		#if defined(INCLUDE_FROM_SCSI_C)
-			static bool SCSI_Command_Inquiry(void);
-			static bool SCSI_Command_Request_Sense(void);
-			static bool SCSI_Command_Read_Capacity_10(void);
-			static bool SCSI_Command_Send_Diagnostic(void);
-			static bool SCSI_Command_ReadWrite_10(const bool IsDataRead);
+			static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_t* MSInterfaceInfo);
+			static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_t* MSInterfaceInfo);
+			static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_t* MSInterfaceInfo);
+			static bool SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_t* MSInterfaceInfo);
+			static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_t* MSInterfaceInfo, const bool IsDataRead);
 		#endif
 		
 #endif

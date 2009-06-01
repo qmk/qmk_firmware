@@ -49,7 +49,6 @@
  *    - LUFA/Drivers/USB/HighLevel/USBInterrupt.c
  *    - LUFA/Drivers/USB/HighLevel/USBTask.c
  *    - LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c
- *    - LUFA/Drivers/USB/Class/HIDParser.c
  *
  *  \section Module Description
  *  Functions, macros, variables, enums and types related to the management of USB communications.
@@ -97,7 +96,6 @@
 		#endif
 		
 		#include "HighLevel/ConfigDescriptor.h"
-		#include "Class/HIDParser.h"
 		
 #endif
 

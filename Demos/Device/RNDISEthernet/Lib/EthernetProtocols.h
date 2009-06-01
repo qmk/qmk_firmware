@@ -71,13 +71,7 @@
 		#define PROTOCOL_OSPF                    89
 		#define PROTOCOL_SCTP                    132
 
-	/* Type Defines: */
-		/** Type define for a physical MAC address of a device on a network */
-		typedef struct
-		{
-			uint8_t       Octets[6]; /**< Individual bytes of a MAC address */
-		} MAC_Address_t;
-		
+	/* Type Defines: */		
 		/** Type define for a protocol IP address of a device on a network */
 		typedef struct
 		{

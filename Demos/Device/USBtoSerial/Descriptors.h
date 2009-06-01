@@ -37,26 +37,12 @@
 #define _DESCRIPTORS_H_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>
-
 		#include <avr/pgmspace.h>
 
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/Device/CDC.h>
+
 	/* Macros: */
-		/** Macro to define a CDC class-specific functional descriptor. CDC functional descriptors have a
-		 *  uniform structure but variable sized data payloads, thus cannot be represented accurately by
-		 *  a single typedef struct. A macro is used instead so that functional descriptors can be created
-		 *  easily by specifying the size of the payload. This allows sizeof() to work correctly.
-		 *
-		 *  \param DataSize  Size in bytes of the CDC functional descriptor's data payload
-		 */
-		#define CDC_FUNCTIONAL_DESCRIPTOR(DataSize)        \
-		     struct                                        \
-		     {                                             \
-		          USB_Descriptor_Header_t Header;          \
-			      uint8_t                 SubType;         \
-		          uint8_t                 Data[DataSize];  \
-		     }
-			 
 		/** Endpoint number of the CDC device-to-host notification IN endpoint. */
 		#define CDC_NOTIFICATION_EPNUM         2
 

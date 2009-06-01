@@ -28,26 +28,32 @@
   this software.
 */
 
-/** \file
- *
- *  Main source file for the Audio Output demo. This file contains the main tasks of the demo and
- *  is responsible for the initial application hardware configuration.
- */
- 
 #include "AudioOutput.h"
 
-/* Scheduler Task List */
-TASK_LIST
-{
-	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
-	{ .Task = USB_Audio_Task       , .TaskStatus = TASK_STOP },
-};
+USB_ClassInfo_Audio_t Speaker_Audio_Interface =
+	{
+		.InterfaceNumber       = 0,
 
+		.DataOUTEndpointNumber = AUDIO_STREAM_EPNUM,
+		.DataOUTEndpointSize   = AUDIO_STREAM_EPSIZE,
+	};
 
-/** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
- */
 int main(void)
+{
+	SetupHardware();
+
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	
+	for (;;)
+	{
+		if (Speaker_Audio_Interface.InterfaceEnabled)
+		  ProcessNextSample();
+
+		USB_USBTask();
+	}
+}
+
+void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
@@ -58,186 +64,19 @@ int main(void)
 
 	/* Hardware Initialization */
 	LEDs_Init();
-	
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-	
-	/* Initialize Scheduler so that it can be used */
-	Scheduler_Init();
-
-	/* Initialize USB Subsystem */
 	USB_Init();
-
-	/* Scheduling - routine never returns, so put this last in the main function */
-	Scheduler_Start();
 }
 
-/** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs, and
- *  configures the sample update and PWM timers.
- */
-void EVENT_USB_Connect(void)
+void ProcessNextSample(void)
 {
-	/* Start USB management task */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
-
-	/* Indicate USB enumerating */
-	UpdateStatus(Status_USBEnumerating);
-	
-	/* Sample reload timer initialization */
-	OCR0A   = (F_CPU / AUDIO_SAMPLE_FREQUENCY) - 1;
-	TCCR0A  = (1 << WGM01);  // CTC mode
-	TCCR0B  = (1 << CS00);   // Fcpu speed
-			
-#if defined(AUDIO_OUT_MONO)
-	/* Set speaker as output */
-	DDRC   |= (1 << 6);
-#elif defined(AUDIO_OUT_STEREO)
-	/* Set speakers as outputs */
-	DDRC   |= ((1 << 6) | (1 << 5));
-#elif defined(AUDIO_OUT_PORTC)
-	/* Set PORTC as outputs */
-	DDRC   |= 0xFF;
-#endif
-
-#if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
-	/* PWM speaker timer initialization */
-	TCCRxA  = ((1 << WGMx0) | (1 << COMxA1) | (1 << COMxA0)
-							| (1 << COMxB1) | (1 << COMxB0)); // Set on match, clear on TOP
-	TCCRxB  = ((1 << WGMx2) | (1 << CSx0));  // Fast 8-Bit PWM, Fcpu speed
-#endif	
-}
-
-/** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
- *  the status LEDs, disables the sample update and PWM output timers and stops the USB and Audio management tasks.
- */
-void EVENT_USB_Disconnect(void)
-{
-	/* Stop the timers */
-	TCCR0B = 0;
-#if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
-	TCCRxB = 0;
-#endif		
-
-#if defined(AUDIO_OUT_MONO)
-	/* Set speaker as input to reduce current draw */
-	DDRC   &= ~(1 << 6);
-#elif defined(AUDIO_OUT_STEREO)
-	/* Set speakers as inputs to reduce current draw */
-	DDRC   &= ~((1 << 6) | (1 << 5));
-#elif defined(AUDIO_OUT_PORTC)
-	/* Set PORTC low */
-	PORTC  = 0x00;
-#endif
-
-	/* Stop running audio and USB management tasks */
-	Scheduler_SetTaskMode(USB_Audio_Task, TASK_STOP);
-	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-}
-
-/** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
- *  of the USB device after enumeration - the device endpoints are configured.
- */
-void EVENT_USB_ConfigurationChanged(void)
-{
-	/* Setup audio stream endpoint */
-	Endpoint_ConfigureEndpoint(AUDIO_STREAM_EPNUM, EP_TYPE_ISOCHRONOUS,
-		                       ENDPOINT_DIR_OUT, AUDIO_STREAM_EPSIZE,
-	                           ENDPOINT_BANK_DOUBLE);
-
-	/* Indicate USB connected and ready */
-	UpdateStatus(Status_USBReady);
-}
-
-/** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
- *  control requests that are not handled internally by the USB library (including the Audio class-specific
- *  requests) so that they can be handled appropriately for the application.
- */
-void EVENT_USB_UnhandledControlPacket(void)
-{
-	/* Process General and Audio specific control requests */
-	switch (USB_ControlRequest.bRequest)
-	{
-		case REQ_SetInterface:
-			/* Set Interface is not handled by the library, as its function is application-specific */
-			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE))
-			{
-				Endpoint_ClearSETUP();
-				
-				/* Check if the host is enabling the audio interface (setting AlternateSetting to 1) */
-				if (USB_ControlRequest.wValue)
-				{
-					/* Start audio task */
-					Scheduler_SetTaskMode(USB_Audio_Task, TASK_RUN);
-				}
-				else
-				{
-					/* Stop audio task */
-					Scheduler_SetTaskMode(USB_Audio_Task, TASK_STOP);				
-				}
-				
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
-			}
-
-			break;
-	}
-}
-
-/** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
- *  log to a serial port, or anything else that is suitable for status updates.
- *
- *  \param CurrentStatus  Current status of the system, from the AudioOutput_StatusCodes_t enum
- */
-void UpdateStatus(uint8_t CurrentStatus)
-{
-	uint8_t LEDMask = LEDS_NO_LEDS;
-	
-	/* Set the LED mask to the appropriate LED mask based on the given status code */
-	switch (CurrentStatus)
-	{
-		case Status_USBNotReady:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_USBEnumerating:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-		case Status_USBReady:
-			LEDMask = (LEDS_LED2 | LEDS_LED4);
-			break;
-	}
-	
-	/* Set the board LEDs to the new LED mask */
-	LEDs_SetAllLEDs(LEDMask);
-}
-
-/** Task to manage the Audio interface, reading in audio samples from the host, and outputting them to the speakers/LEDs as
- *  desired.
- */
-TASK(USB_Audio_Task)
-{
-	/* Select the audio stream endpoint */
-	Endpoint_SelectEndpoint(AUDIO_STREAM_EPNUM);
-	
-	/* Check if the current endpoint can be read from (contains a packet) and that the next sample should be read */
-	if (Endpoint_IsOUTReceived() && (TIFR0 & (1 << OCF0A)))
+	if ((TIFR0 & (1 << OCF0A)) && USB_Audio_IsSampleReceived(&Speaker_Audio_Interface))
 	{
 		/* Clear the sample reload timer */
 		TIFR0 |= (1 << OCF0A);
 
 		/* Retrieve the signed 16-bit left and right audio samples */
-		int16_t LeftSample_16Bit  = (int16_t)Endpoint_Read_Word_LE();
-		int16_t RightSample_16Bit = (int16_t)Endpoint_Read_Word_LE();
-
-		/* Check to see if the bank is now empty */
-		if (!(Endpoint_IsReadWriteAllowed()))
-		{
-			/* Acknowledge the packet, clear the bank ready for the next packet */
-			Endpoint_ClearOUT();
-		}
+		int16_t LeftSample_16Bit  = (int16_t)USB_Audio_ReadSample16();
+		int16_t RightSample_16Bit = (int16_t)USB_Audio_ReadSample16();
 
 		/* Massage signed 16-bit left and right audio samples into signed 8-bit */
 		int8_t  LeftSample_8Bit   = (LeftSample_16Bit  >> 8);
@@ -288,4 +127,70 @@ TASK(USB_Audio_Task)
 		LEDs_SetAllLEDs(LEDMask);
 #endif
 	}
+}
+
+void EVENT_USB_Connect(void)
+{
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+	
+	/* Sample reload timer initialization */
+	OCR0A   = (F_CPU / AUDIO_SAMPLE_FREQUENCY) - 1;
+	TCCR0A  = (1 << WGM01);  // CTC mode
+	TCCR0B  = (1 << CS00);   // Fcpu speed
+
+#if defined(AUDIO_OUT_MONO)
+	/* Set speaker as output */
+	DDRC   |= (1 << 6);
+#elif defined(AUDIO_OUT_STEREO)
+	/* Set speakers as outputs */
+	DDRC   |= ((1 << 6) | (1 << 5));
+#elif defined(AUDIO_OUT_PORTC)
+	/* Set PORTC as outputs */
+	DDRC   |= 0xFF;
+#endif
+
+#if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
+	/* PWM speaker timer initialization */
+	TCCRxA  = ((1 << WGMx0) | (1 << COMxA1) | (1 << COMxA0)
+							| (1 << COMxB1) | (1 << COMxB0)); // Set on match, clear on TOP
+	TCCRxB  = ((1 << WGMx2) | (1 << CSx0));  // Fast 8-Bit PWM, Fcpu speed
+#endif	
+}
+
+/** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
+ *  the status LEDs, disables the sample update and PWM output timers and stops the USB and Audio management tasks.
+ */
+void EVENT_USB_Disconnect(void)
+{
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+
+	/* Stop the timers */
+	TCCR0B = 0;
+#if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
+	TCCRxB = 0;
+#endif		
+
+#if defined(AUDIO_OUT_MONO)
+	/* Set speaker as input to reduce current draw */
+	DDRC   &= ~(1 << 6);
+#elif defined(AUDIO_OUT_STEREO)
+	/* Set speakers as inputs to reduce current draw */
+	DDRC   &= ~((1 << 6) | (1 << 5));
+#elif defined(AUDIO_OUT_PORTC)
+	/* Set PORTC low */
+	PORTC  = 0x00;
+#endif
+}
+
+void EVENT_USB_ConfigurationChanged(void)
+{
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	
+	if (!(USB_Audio_ConfigureEndpoints(&Speaker_Audio_Interface)))
+	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+}
+
+void EVENT_USB_UnhandledControlPacket(void)
+{
+	USB_Audio_ProcessControlPacket(&Speaker_Audio_Interface);
 }

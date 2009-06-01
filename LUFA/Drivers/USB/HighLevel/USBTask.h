@@ -38,7 +38,6 @@
 		#include <stdbool.h>
 		#include <stddef.h>
 		
-		#include "../../../Scheduler/Scheduler.h"
 		#include "../LowLevel/LowLevel.h"
 		#include "StdRequestType.h"
 		#include "USBMode.h"
@@ -122,11 +121,11 @@
 			extern volatile uint8_t USB_HostState;
 			#endif
 
-		/* Tasks: */
+		/* Function Prototypes: */
 			/** This is the main USB management task. The USB driver requires that this task be executed
 			 *  continuously when the USB system is active (device attached in host mode, or attached to a host
 			 *  in device mode) in order to manage USB communications. This task may be executed inside an RTOS,
-			 *  scheduler (e.g. the simple LUFA Scheduler), fast timer ISR or the main user application loop.
+			 *  fast timer ISR or the main user application loop.
 			 *
 			 *  The USB task must be serviced within 30ms while in device mode, or within 1ms while in host mode.
 			 *  The task may be serviced at all times, or (for minimum CPU consumption):
@@ -145,7 +144,7 @@
 			 *
 			 *  \ingroup Group_USBManagement
 			 */
-			TASK(USB_USBTask);
+			void USB_USBTask(void);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

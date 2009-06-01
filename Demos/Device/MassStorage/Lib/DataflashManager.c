@@ -46,7 +46,7 @@
  *  \param BlockAddress  Data block starting address for the write sequence
  *  \param TotalBlocks   Number of blocks of data to write
  */
-void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlocks)
+void DataflashManager_WriteBlocks(USB_ClassInfo_MS_t* MSInterfaceInfo, const uint32_t BlockAddress, uint16_t TotalBlocks)
 {
 	uint16_t CurrDFPage          = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) / DATAFLASH_PAGE_SIZE);
 	uint16_t CurrDFPageByte      = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) % DATAFLASH_PAGE_SIZE);
@@ -142,7 +142,7 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlo
 			BytesInBlockDiv16++;
 
 			/* Check if the current command is being aborted by the host */
-			if (IsMassStoreReset)
+			if (MSInterfaceInfo->IsMassStoreReset)
 			  return;			
 		}
 			
@@ -171,7 +171,7 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlo
  *  \param BlockAddress  Data block starting address for the read sequence
  *  \param TotalBlocks   Number of blocks of data to read
  */
-void DataflashManager_ReadBlocks(const uint32_t BlockAddress, uint16_t TotalBlocks)
+void DataflashManager_ReadBlocks(USB_ClassInfo_MS_t* MSInterfaceInfo, const uint32_t BlockAddress, uint16_t TotalBlocks)
 {
 	uint16_t CurrDFPage          = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) / DATAFLASH_PAGE_SIZE);
 	uint16_t CurrDFPageByte      = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) % DATAFLASH_PAGE_SIZE);
@@ -250,7 +250,7 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress, uint16_t TotalBloc
 			BytesInBlockDiv16++;
 
 			/* Check if the current command is being aborted by the host */
-			if (IsMassStoreReset)
+			if (MSInterfaceInfo->IsMassStoreReset)
 			  return;
 		}
 		
@@ -341,11 +341,7 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress, uint16_t Tota
 			CurrDFPageByteDiv16++;
 
 			/* Increment the block 16 byte block counter */
-			BytesInBlockDiv16++;
-
-			/* Check if the current command is being aborted by the host */
-			if (IsMassStoreReset)
-			  return;			
+			BytesInBlockDiv16++;		
 		}
 			
 		/* Decrement the blocks remaining counter and reset the sub block counter */
@@ -421,10 +417,6 @@ void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress, uint16_t Total
 			
 			/* Increment the block 16 byte block counter */
 			BytesInBlockDiv16++;
-
-			/* Check if the current command is being aborted by the host */
-			if (IsMassStoreReset)
-			  return;
 		}
 		
 		/* Decrement the blocks remaining counter */

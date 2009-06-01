@@ -10,19 +10,6 @@
  *  This folder contains header files which are common to all parts of the LUFA library. They may be used freely in
  *  user applications.
  *
- *  \dir MemoryAllocator
- *  \brief Auto-defragmenting dynamic memory allocation library.
- *  
- *  This folder contains a simple handle-based dynamic memory allocation library, capable of handing out memory in
- *  block chunks. As new memory is allocated, the library will defragment the already allocated memory to ensure
- *  optimal memory usage. It is not used within the LUFA library, and is provided as a convenience for user applications.
- *
- *  \dir Scheduler
- *  \brief Simple round-robbin scheduler.
- *  
- *  This folder contains the simple LUFA round-robbin scheduler, provided as a convenience for user applications. It
- *  is very simple in design, and is intended to make code easier to read, rather than providing a complete RTOS kernel.
- *
  *  \dir Drivers
  *  \brief Library hardware and software drivers.
  *  

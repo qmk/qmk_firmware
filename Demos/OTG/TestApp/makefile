@@ -127,7 +127,6 @@ SRC = $(TARGET).c                                                 \
 	  TestEvents.c                                                \
 	  Descriptors.c                                               \
 	  $(LUFA_PATH)/LUFA/Scheduler/Scheduler.c                     \
-	  $(LUFA_PATH)/LUFA/MemoryAllocator/DynAlloc.c                \
 	  $(LUFA_PATH)/LUFA/Drivers/Board/Temperature.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
@@ -141,7 +140,6 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/HIDParser.c             \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -189,7 +187,6 @@ CSTANDARD = -std=gnu99
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD)
 CDEFS += -DUSE_NONSTANDARD_DESCRIPTOR_NAMES
-CDEFS += -DNUM_BLOCKS=100 -DBLOCK_SIZE=8 -DNUM_HANDLES=20
 
 
 # Place -D or -U options here for ASM sources

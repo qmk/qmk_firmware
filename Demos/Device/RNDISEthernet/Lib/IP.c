@@ -46,7 +46,7 @@
  *           response was generated, NO_PROCESS if the packet processing was deferred until the
  *           next Ethernet packet handler iteration
  */
-int16_t IP_ProcessIPPacket(void* InDataStart, void* OutDataStart)
+int16_t IP_ProcessIPPacket(Ethernet_Frame_Info_t* FrameIN, void* InDataStart, void* OutDataStart)
 {
 	DecodeIPHeader(InDataStart);
 
@@ -69,7 +69,8 @@ int16_t IP_ProcessIPPacket(void* InDataStart, void* OutDataStart)
 	switch (IPHeaderIN->Protocol)
 	{
 		case PROTOCOL_ICMP:
-			RetSize = ICMP_ProcessICMPPacket(&((uint8_t*)InDataStart)[HeaderLengthBytes],
+			RetSize = ICMP_ProcessICMPPacket(FrameIN,
+			                                 &((uint8_t*)InDataStart)[HeaderLengthBytes],
 			                                 &((uint8_t*)OutDataStart)[sizeof(IP_Header_t)]);
 			break;
 		case PROTOCOL_TCP:

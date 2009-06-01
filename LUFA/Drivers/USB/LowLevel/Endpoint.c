@@ -80,8 +80,6 @@ uint8_t Endpoint_WaitUntilReady(void)
 	uint16_t TimeoutMSRem = USB_STREAM_TIMEOUT_MS;
 	#endif
 
-	USB_INT_Clear(USB_INT_SOFI);
-
 	for (;;)
 	{
 		if (Endpoint_GetEndpointDirection() == ENDPOINT_DIR_IN)
@@ -100,9 +98,9 @@ uint8_t Endpoint_WaitUntilReady(void)
 		else if (Endpoint_IsStalled())
 		  return ENDPOINT_READYWAIT_EndpointStalled;
 			  
-		if (USB_INT_HasOccurred(USB_INT_SOFI))
+		if (FrameElapsed)
 		{
-			USB_INT_Clear(USB_INT_SOFI);
+			FrameElapsed = false;
 
 			if (!(TimeoutMSRem--))
 			  return ENDPOINT_READYWAIT_Timeout;

@@ -44,75 +44,26 @@
 
 		#include "Descriptors.h"
 
-		#include <LUFA/Version.h>                        // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>                // USB Functionality
-		#include <LUFA/Drivers/Board/Joystick.h>         // Joystick driver
-		#include <LUFA/Drivers/Board/LEDs.h>             // LEDs driver
-		#include <LUFA/Scheduler/Scheduler.h>            // Simple scheduler for task management
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/Device/CDC.h>
 
 	/* Macros: */
-		/** CDC Class specific request to get the current virtual serial port configuration settings. */
-		#define REQ_GetLineEncoding          0x21
-
-		/** CDC Class specific request to set the current virtual serial port configuration settings. */
-		#define REQ_SetLineEncoding          0x20
-
-		/** CDC Class specific request to set the current virtual serial port handshake line states. */
-		#define REQ_SetControlLineState      0x22
-
-	/* Type Defines: */
-		/** Type define for the virtual serial port line encoding settings, for storing the current USART configuration
-		 *  as set by the host via a class specific request.
-		 */
-		typedef struct
-		{
-			uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
-			uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
-			                      *   CDCDevice_CDC_LineCodingFormats_t enum
-			                      */
-			uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
-			                      *   CDCDevice_LineCodingParity_t enum
-			                      */
-			uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
-		} CDC_Line_Coding_t;
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 		
-	/* Enums: */
-		/** Enum for the possible line encoding formats of a virtual serial port. */
-		enum CDCDevice_CDC_LineCodingFormats_t
-		{
-			OneStopBit          = 0, /**< Each frame contains one stop bit */
-			OneAndAHalfStopBits = 1, /**< Each frame contains one and a half stop bits */
-			TwoStopBits         = 2, /**< Each frame contains two stop bits */
-		};
-		
-		/** Enum for the possible line encoding parity settings of a virtual serial port. */
-		enum CDCDevice_LineCodingParity_t
-		{
-			Parity_None         = 0, /**< No parity bit mode on each frame */
-			Parity_Odd          = 1, /**< Odd parity bit mode on each frame */
-			Parity_Even         = 2, /**< Even parity bit mode on each frame */
-			Parity_Mark         = 3, /**< Mark parity bit mode on each frame */
-			Parity_Space        = 4, /**< Space parity bit mode on each frame */
-		};
-
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum DualCDC_StatusCodes_t
-		{
-			Status_USBNotReady    = 0, /**< USB is not ready (disconnected from a USB host) */
-			Status_USBEnumerating = 1, /**< USB interface is enumerating */
-			Status_USBReady       = 2, /**< USB interface is connected and ready */
-		};
-
-	/* Tasks: */
-		TASK(CDC1_Task);
-		TASK(CDC2_Task);
-
 	/* Function Prototypes: */
+		void SetupHardware(void);
+		void CheckJoystickMovement(void);
+
 		void EVENT_USB_Connect(void);
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
-
-		void UpdateStatus(uint8_t CurrentStatus);
+		void EVENT_USB_StartOfFrame(void);
 		
 #endif

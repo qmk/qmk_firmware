@@ -45,7 +45,7 @@
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise
  */
-int16_t ICMP_ProcessICMPPacket(void* InDataStart, void* OutDataStart)
+int16_t ICMP_ProcessICMPPacket(Ethernet_Frame_Info_t* FrameIN, void* InDataStart, void* OutDataStart)
 {
 	ICMP_Header_t* ICMPHeaderIN  = (ICMP_Header_t*)InDataStart;
 	ICMP_Header_t* ICMPHeaderOUT = (ICMP_Header_t*)OutDataStart;
@@ -62,7 +62,7 @@ int16_t ICMP_ProcessICMPPacket(void* InDataStart, void* OutDataStart)
 		ICMPHeaderOUT->Id       = ICMPHeaderIN->Id;
 		ICMPHeaderOUT->Sequence = ICMPHeaderIN->Sequence;
 		
-		uint16_t DataSize = FrameIN.FrameLength - ((((uint16_t)InDataStart + sizeof(ICMP_Header_t)) - (uint16_t)FrameIN.FrameData));
+		uint16_t DataSize = FrameIN->FrameLength - ((((uint16_t)InDataStart + sizeof(ICMP_Header_t)) - (uint16_t)FrameIN->FrameData));
 		
 		/* Copy the remaining payload to the response - echo requests should echo back any sent data */
 		memcpy(&((uint8_t*)OutDataStart)[sizeof(ICMP_Header_t)],

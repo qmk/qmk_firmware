@@ -38,6 +38,8 @@ volatile uint8_t USB_CurrentMode = USB_MODE_NONE;
 volatile uint8_t USB_Options;
 #endif
 
+volatile bool FrameElapsed;
+
 void USB_Init(
                #if defined(USB_CAN_BE_BOTH)
                const uint8_t Mode
@@ -150,6 +152,8 @@ void USB_ResetInterface(void)
 	USB_INT_DisableAllInterrupts();
 	USB_INT_ClearAllInterrupts();
 
+	FrameElapsed = false;
+
 	USB_IsConnected = false;
 
 	#if defined(USB_CAN_BE_HOST)
@@ -224,6 +228,7 @@ void USB_ResetInterface(void)
 	#if defined(USB_DEVICE_ONLY)	
 	USB_INT_Enable(USB_INT_SUSPEND);
 	USB_INT_Enable(USB_INT_EORSTI);
+	USB_INT_Enable(USB_INT_SOFI);
 
 	#if defined(CONTROL_ONLY_DEVICE)
 	UENUM = ENDPOINT_CONTROLEP;
@@ -240,11 +245,13 @@ void USB_ResetInterface(void)
 	
 	USB_INT_Enable(USB_INT_SRPI);
 	USB_INT_Enable(USB_INT_BCERRI);
+	USB_INT_Enable(USB_INT_HSOFI);
 	#else
 	if (USB_CurrentMode == USB_MODE_DEVICE)
 	{
 		USB_INT_Enable(USB_INT_SUSPEND);
 		USB_INT_Enable(USB_INT_EORSTI);
+		USB_INT_Enable(USB_INT_SOFI);
 
 		#if defined(CONTROL_ONLY_DEVICE)
 		UENUM = ENDPOINT_CONTROLEP;
@@ -262,6 +269,7 @@ void USB_ResetInterface(void)
 		
 		USB_INT_Enable(USB_INT_SRPI);
 		USB_INT_Enable(USB_INT_BCERRI);
+		USB_INT_Enable(USB_INT_HSOFI);
 	}
 	#endif
 }

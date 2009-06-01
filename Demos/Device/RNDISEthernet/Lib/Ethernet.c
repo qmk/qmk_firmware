@@ -38,12 +38,6 @@
 #include "Ethernet.h"
 
 /* Global Variables: */
-/** Ethernet Frame buffer structure, to hold the incoming Ethernet frame from the host. */
-Ethernet_Frame_Info_t FrameIN;
-
-/** Ethernet Frame buffer structure, to hold the outgoing Ethernet frame to the host. */
-Ethernet_Frame_Info_t FrameOUT;
-
 /** Constant for convenience when checking against or setting a MAC address to the virtual server MAC address. */
 const MAC_Address_t ServerMACAddress    = {SERVER_MAC_ADDRESS};
 
@@ -63,31 +57,31 @@ const IP_Address_t  ClientIPAddress     = {CLIENT_IP_ADDRESS};
 /** Processes an incoming Ethernet frame, and writes the appropriate response to the output Ethernet
  *  frame buffer if the sub protocol handlers create a valid response.
  */
-void Ethernet_ProcessPacket(void)
+void Ethernet_ProcessPacket(Ethernet_Frame_Info_t* FrameIN, Ethernet_Frame_Info_t* FrameOUT)
 {
-	DecodeEthernetFrameHeader(FrameIN.FrameData);
+	DecodeEthernetFrameHeader(FrameIN->FrameData);
 
 	/* Cast the incoming Ethernet frame to the Ethernet header type */
-	Ethernet_Frame_Header_t* FrameINHeader  = (Ethernet_Frame_Header_t*)&FrameIN.FrameData;
-	Ethernet_Frame_Header_t* FrameOUTHeader = (Ethernet_Frame_Header_t*)&FrameOUT.FrameData;
+	Ethernet_Frame_Header_t* FrameINHeader  = (Ethernet_Frame_Header_t*)&FrameIN->FrameData;
+	Ethernet_Frame_Header_t* FrameOUTHeader = (Ethernet_Frame_Header_t*)&FrameOUT->FrameData;
 	
 	int16_t                  RetSize        = NO_RESPONSE;
 	
 	/* Ensure frame is addressed to either all (broadcast) or the virtual webserver, and is a type II frame */
 	if ((MAC_COMPARE(&FrameINHeader->Destination, &ServerMACAddress) ||
-	     MAC_COMPARE(&FrameINHeader->Destination, &BroadcastMACAddress)) &&
-		(SwapEndian_16(FrameIN.FrameLength) > ETHERNET_VER2_MINSIZE))
+	     MAC_COMPARE(&FrameINHeader->Destination, &BroadcastMACAddress)))
 	{
 		/* Process the packet depending on its protocol */
 		switch (SwapEndian_16(FrameINHeader->EtherType))
 		{
 			case ETHERTYPE_ARP:
-				RetSize = ARP_ProcessARPPacket(&FrameIN.FrameData[sizeof(Ethernet_Frame_Header_t)],
-				                               &FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t)]);
+				RetSize = ARP_ProcessARPPacket(&FrameIN->FrameData[sizeof(Ethernet_Frame_Header_t)],
+				                               &FrameOUT->FrameData[sizeof(Ethernet_Frame_Header_t)]);
 				break;		
 			case ETHERTYPE_IPV4:
-				RetSize = IP_ProcessIPPacket(&FrameIN.FrameData[sizeof(Ethernet_Frame_Header_t)],
-				                             &FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t)]);
+				RetSize = IP_ProcessIPPacket(FrameIN,
+				                             &FrameIN->FrameData[sizeof(Ethernet_Frame_Header_t)],
+				                             &FrameOUT->FrameData[sizeof(Ethernet_Frame_Header_t)]);
 				break;
 		}
 		
@@ -100,8 +94,8 @@ void Ethernet_ProcessPacket(void)
 			FrameOUTHeader->EtherType       = FrameINHeader->EtherType;
 			
 			/* Set the response length in the buffer and indicate that a response is ready to be sent */
-			FrameOUT.FrameLength            = (sizeof(Ethernet_Frame_Header_t) + RetSize);
-			FrameOUT.FrameInBuffer          = true;
+			FrameOUT->FrameLength           = (sizeof(Ethernet_Frame_Header_t) + RetSize);
+			FrameOUT->FrameInBuffer         = true;
 		}
 	}
 
@@ -109,7 +103,7 @@ void Ethernet_ProcessPacket(void)
 	if (RetSize != NO_PROCESS)
 	{
 		/* Clear the frame buffer */
-		FrameIN.FrameInBuffer = false;
+		FrameIN->FrameInBuffer = false;
 	}
 }
 

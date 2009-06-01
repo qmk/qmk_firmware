@@ -126,7 +126,6 @@ LUFA_PATH = ../..
 SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
 	  Lib/CircularBitBuffer.c                                     \
-	  $(LUFA_PATH)/LUFA/Scheduler/Scheduler.c                     \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -137,7 +136,7 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/HIDParser.c             \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/HID.c            \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

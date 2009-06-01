@@ -180,6 +180,15 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 
 		EVENT_USB_Reset();
 	}
+	
+	if (USB_INT_HasOccurred(USB_INT_SOFI) && USB_INT_IsEnabled(USB_INT_SOFI))
+	{
+		USB_INT_Clear(USB_INT_SOFI);
+
+		FrameElapsed = true;
+		
+		EVENT_USB_StartOfFrame();
+	}
 	#endif
 	
 	#if defined(USB_CAN_BE_HOST)
@@ -231,6 +240,15 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		  EVENT_USB_Disconnect();
 
 		USB_ResetInterface();
+	}
+
+	if (USB_INT_HasOccurred(USB_INT_HSOFI) && USB_INT_IsEnabled(USB_INT_HSOFI))
+	{
+		USB_INT_Clear(USB_INT_HSOFI);
+
+		FrameElapsed = true;
+		
+		EVENT_USB_StartOfFrame();
 	}
 	#endif
 

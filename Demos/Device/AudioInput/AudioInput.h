@@ -43,12 +43,13 @@
 
 		#include "Descriptors.h"
 				
-		#include <LUFA/Version.h>                      // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>              // USB Functionality
-		#include <LUFA/Drivers/Board/LEDs.h>           // LEDs driver
-		#include <LUFA/Drivers/Peripheral/ADC.h>       // ADC driver
-		#include <LUFA/Scheduler/Scheduler.h>          // Simple scheduler for task management
-
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/Peripheral/ADC.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/Device/Audio.h>
+		
 	/* Macros: */
 		/** ADC channel number for the microphone input. */
 		#define MIC_IN_ADC_CHANNEL               2
@@ -59,24 +60,19 @@
 		/** Maximum ADC range for the microphone input. */
 		#define ADC_MAX_RANGE                    0x3FF
 
-	/* Enums: */
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum AudioInput_StatusCodes_t
-		{
-			Status_USBNotReady    = 0, /**< USB is not ready (disconnected from a USB host) */
-			Status_USBEnumerating = 1, /**< USB interface is enumerating */
-			Status_USBReady       = 2, /**< USB interface is connected and ready */
-		};
-
-	/* Task Definitions: */
-		TASK(USB_Audio_Task);
-
+	/* Macros: */
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+		
 	/* Function Prototypes: */
+		void SetupHardware(void);
+		void ProcessNextSample(void);
+		
 		void EVENT_USB_Connect(void);
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
 
-		void UpdateStatus(uint8_t CurrentStatus);
-		
 #endif

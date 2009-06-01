@@ -88,6 +88,6 @@
 		} IP_Header_t;
 		
 	/* Function Prototypes: */
-		int16_t IP_ProcessIPPacket(void* InDataStart, void* OutDataStart);
+		int16_t IP_ProcessIPPacket(Ethernet_Frame_Info_t* FrameIN, void* InDataStart, void* OutDataStart);
 
 #endif

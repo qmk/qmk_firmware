@@ -119,10 +119,10 @@ static uint8_t MassStore_WaitForDataReceived(void)
 	while (!(Pipe_IsINReceived()))
 	{
 		/* Check to see if a new frame has been issued (1ms elapsed) */
-		if (USB_INT_HasOccurred(USB_INT_HSOFI))
+		if (FrameElapsed)
 		{
 			/* Clear the flag and decrement the timeout period counter */
-			USB_INT_Clear(USB_INT_HSOFI);
+			FrameElapsed = false;
 			TimeoutMSRem--;
 
 			/* Check to see if the timeout period for the command has elapsed */

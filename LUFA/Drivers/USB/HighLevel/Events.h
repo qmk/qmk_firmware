@@ -267,6 +267,11 @@
 			 *        \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_Reset(void);
+			
+			/** Event for the USB start of frame interrupt, firing once each millisecond in either device or host
+			 *  mode, while USB frames are being generated or recieved.
+			 */
+			void EVENT_USB_StartOfFrame(void);
 		#endif
 		
 	/* Private Interface - For use in library only: */
@@ -303,6 +308,7 @@
 				void EVENT_USB_Suspend(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 				void EVENT_USB_WakeUp(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 				void EVENT_USB_Reset(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
+				void EVENT_USB_StartOfFrame(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 			#endif
 	#endif
 
