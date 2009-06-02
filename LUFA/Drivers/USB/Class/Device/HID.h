@@ -96,7 +96,7 @@
 			uint8_t  ReportOUTEndpointNumber; /**< Endpoint number of the HID interface's OUT report endpoint, if used */
 			uint16_t ReportOUTEndpointSize;  /**< Size in bytes of the HID interface's OUT report endpoint, if used */
 			
-			uint8_t  ReportBufferSize;
+			uint8_t  ReportINBufferSize;
 
 			bool     UsingReportProtocol; /**< Indicates if the HID interface is set to Boot or Report protocol mode */
 			uint16_t IdleCount; /**< Report idle period, in ms, set by the host */
@@ -106,7 +106,6 @@
 	/* Function Prototypes: */
 		bool USB_HID_ConfigureEndpoints(USB_ClassInfo_HID_t* HIDInterfaceInfo);
 		void USB_HID_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo);
-		void USB_HID_RegisterStartOfFrame(USB_ClassInfo_HID_t* HIDInterfaceInfo);
 		void USB_HID_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo);
 		
 		uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData);

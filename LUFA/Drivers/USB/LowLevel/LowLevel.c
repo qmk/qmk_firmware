@@ -228,8 +228,6 @@ void USB_ResetInterface(void)
 	#if defined(USB_DEVICE_ONLY)	
 	USB_INT_Enable(USB_INT_SUSPEND);
 	USB_INT_Enable(USB_INT_EORSTI);
-	USB_INT_Enable(USB_INT_SOFI);
-
 	#if defined(CONTROL_ONLY_DEVICE)
 	UENUM = ENDPOINT_CONTROLEP;
 	#endif
@@ -245,13 +243,11 @@ void USB_ResetInterface(void)
 	
 	USB_INT_Enable(USB_INT_SRPI);
 	USB_INT_Enable(USB_INT_BCERRI);
-	USB_INT_Enable(USB_INT_HSOFI);
 	#else
 	if (USB_CurrentMode == USB_MODE_DEVICE)
 	{
 		USB_INT_Enable(USB_INT_SUSPEND);
 		USB_INT_Enable(USB_INT_EORSTI);
-		USB_INT_Enable(USB_INT_SOFI);
 
 		#if defined(CONTROL_ONLY_DEVICE)
 		UENUM = ENDPOINT_CONTROLEP;
@@ -269,7 +265,6 @@ void USB_ResetInterface(void)
 		
 		USB_INT_Enable(USB_INT_SRPI);
 		USB_INT_Enable(USB_INT_BCERRI);
-		USB_INT_Enable(USB_INT_HSOFI);
 	}
 	#endif
 }

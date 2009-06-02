@@ -45,7 +45,7 @@ void USB_HID_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 			{
 				Endpoint_ClearSETUP();	
 
-				uint8_t  ReportINData[HIDInterfaceInfo->ReportBufferSize];
+				uint8_t  ReportINData[HIDInterfaceInfo->ReportINBufferSize];
 				uint16_t ReportINSize;
 
 				memset(ReportINData, 0, sizeof(ReportINData));
@@ -146,12 +146,6 @@ bool USB_HID_ConfigureEndpoints(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 	
 	return true;
 }
-
-void USB_HID_RegisterStartOfFrame(USB_ClassInfo_HID_t* HIDInterfaceInfo)
-{
-	if (HIDInterfaceInfo->IdleMSRemaining)
-	  HIDInterfaceInfo->IdleMSRemaining--;
-}
 		
 void USB_HID_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 {
@@ -166,7 +160,7 @@ void USB_HID_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 		if (HIDInterfaceInfo->IdleCount && !(HIDInterfaceInfo->IdleMSRemaining))
 		  HIDInterfaceInfo->IdleMSRemaining = HIDInterfaceInfo->IdleCount;
 
-		uint8_t  ReportINData[HIDInterfaceInfo->ReportBufferSize];
+		uint8_t  ReportINData[HIDInterfaceInfo->ReportINBufferSize];
 		uint16_t ReportINSize;
 
 		memset(ReportINData, 0, sizeof(ReportINData));
@@ -174,13 +168,7 @@ void USB_HID_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 		ReportINSize = CALLBACK_USB_HID_CreateNextHIDReport(HIDInterfaceInfo, ReportINData);
 
 		if (ReportINSize)
-		{
-			Endpoint_Write_Stream_LE(ReportINData, ReportINSize
-			#if !defined(NO_STREAM_CALLBACKS)
-			                         , NO_STREAM_CALLBACK
-			#endif
-			                         );
-		}
+		  Endpoint_Write_Stream_LE(ReportINData, ReportINSize, NO_STREAM_CALLBACK);
 		
 		Endpoint_ClearIN();
 	}
@@ -195,13 +183,7 @@ void USB_HID_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 			uint8_t  ReportOUTData[ReportOUTSize];
 			
 			if (ReportOUTSize)
-			{
-				Endpoint_Read_Stream_LE(ReportOUTData, ReportOUTSize
-				#if !defined(NO_STREAM_CALLBACKS)
-			                            , NO_STREAM_CALLBACK
-				#endif
-			                            );
-			}
+			  Endpoint_Read_Stream_LE(ReportOUTData, ReportOUTSize, NO_STREAM_CALLBACK);
 			  
 			CALLBACK_USB_HID_ProcessReceivedHIDReport(HIDInterfaceInfo, ReportOUTData, ReportOUTSize);
 			

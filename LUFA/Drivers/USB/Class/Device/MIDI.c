@@ -55,36 +55,18 @@ bool USB_MIDI_ConfigureEndpoints(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo)
 	return true;
 }
 
-void USB_MIDI_SendNoteChange(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, const uint8_t Pitch, const bool OnOff,
-                             const uint8_t CableID, const uint8_t Channel)
-{
-	if (!(USB_IsConnected))
-	  return;
-	
-	Endpoint_SelectEndpoint(MIDIInterfaceInfo->DataINEndpointNumber);
-	while (!(Endpoint_IsReadWriteAllowed()));
-
-	uint8_t Command = ((OnOff)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-
-	Endpoint_Write_Byte((CableID << 4) | (Command >> 4));
-
-	Endpoint_Write_Byte(Command | Channel);
-	Endpoint_Write_Byte(Pitch);
-	Endpoint_Write_Byte(MIDI_STANDARD_VELOCITY);
-	
-	Endpoint_ClearIN();
-}
-
 void USB_MIDI_SendEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event)
 {
 	if (!(USB_IsConnected))
 	  return;
 	
 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->DataINEndpointNumber);
-	while (!(Endpoint_IsReadWriteAllowed()));
 
-	Endpoint_Write_Stream_LE(Event, sizeof(USB_MIDI_EventPacket_t), NO_STREAM_CALLBACK);
-	Endpoint_ClearIN();
+	if (Endpoint_IsReadWriteAllowed());
+	{
+		Endpoint_Write_Stream_LE(Event, sizeof(USB_MIDI_EventPacket_t), NO_STREAM_CALLBACK);
+		Endpoint_ClearIN();
+	}
 }
 
 bool USB_MIDI_ReceiveEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event)

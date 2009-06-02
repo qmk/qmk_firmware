@@ -40,7 +40,7 @@ USB_ClassInfo_HID_t Generic_HID_Interface =
 		.ReportOUTEndpointNumber = GENERIC_OUT_EPNUM,
 		.ReportOUTEndpointSize   = GENERIC_EPSIZE,
 		
-		.ReportBufferSize        = GENERIC_REPORT_SIZE,
+		.ReportINBufferSize      = GENERIC_REPORT_SIZE,
 
 		.UsingReportProtocol     = true,
 	};
@@ -70,6 +70,12 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
+
+	/* Millisecond timer initialization, with output compare interrupt enabled for the idle timing */
+	OCR0A  = ((F_CPU / 64) / 1000);
+	TCCR0A = (1 << WGM01);
+	TCCR0B = ((1 << CS01) | (1 << CS00));
+	TIMSK0 = (1 << OCIE0A);
 }
 
 void EVENT_USB_Connect(void)
@@ -95,9 +101,10 @@ void EVENT_USB_UnhandledControlPacket(void)
 	USB_HID_ProcessControlPacket(&Generic_HID_Interface);
 }
 
-void EVENT_USB_StartOfFrame(void)
+ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-	USB_HID_RegisterStartOfFrame(&Generic_HID_Interface);
+	if (Generic_HID_Interface.IdleMSRemaining)
+	  Generic_HID_Interface.IdleMSRemaining--;
 }
 
 uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData)

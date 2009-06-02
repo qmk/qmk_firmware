@@ -41,7 +41,7 @@ USB_ClassInfo_HID_t Keyboard_HID_Interface =
         .ReportOUTEndpointNumber = KEYBOARD_LEDS_EPNUM,
         .ReportOUTEndpointSize   = KEYBOARD_EPSIZE,
         
-		.ReportBufferSize        = sizeof(USB_KeyboardReport_Data_t),
+		.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
 
         .IdleCount               = 500,
     };
@@ -73,6 +73,12 @@ void SetupHardware()
     LEDs_Init();
     Buttons_Init();
     USB_Init();
+
+	/* Millisecond timer initialization, with output compare interrupt enabled for the idle timing */
+	OCR0A  = ((F_CPU / 64) / 1000);
+	TCCR0A = (1 << WGM01);
+	TCCR0B = ((1 << CS01) | (1 << CS00));
+	TIMSK0 = (1 << OCIE0A);
 }
 
 void EVENT_USB_Connect(void)
@@ -98,9 +104,10 @@ void EVENT_USB_UnhandledControlPacket(void)
     USB_HID_ProcessControlPacket(&Keyboard_HID_Interface);
 }
 
-void EVENT_USB_StartOfFrame(void)
+ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-    USB_HID_RegisterStartOfFrame(&Keyboard_HID_Interface);
+	if (Keyboard_HID_Interface.IdleMSRemaining)
+	  Keyboard_HID_Interface.IdleMSRemaining--;
 }
 
 uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData)
