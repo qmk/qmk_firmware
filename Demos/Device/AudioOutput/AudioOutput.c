@@ -62,6 +62,7 @@ int main(void)
 		if (Speaker_Audio_Interface.InterfaceEnabled)
 		  ProcessNextSample();
 
+		USB_Audio_USBTask(&Speaker_Audio_Interface);
 		USB_USBTask();
 	}
 }

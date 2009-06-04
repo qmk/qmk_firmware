@@ -80,6 +80,11 @@ bool USB_Audio_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
 	return true;
 }
 
+void USB_Audio_USBTask(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
+{
+
+}
+
 int8_t USB_Audio_ReadSample8(void)
 {
 	int8_t Sample;

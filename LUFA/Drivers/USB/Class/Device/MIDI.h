@@ -155,6 +155,7 @@
 		
 	/* Function Prototypes: */
 		bool USB_MIDI_ConfigureEndpoints(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
+		void USB_MIDI_ProcessControlPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
 		void USB_MIDI_USBTask(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
 
 		void USB_MIDI_SendEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event);

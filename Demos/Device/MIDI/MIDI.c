@@ -64,6 +64,7 @@ int main(void)
 	{
 		CheckJoystickMovement();
 	
+		USB_MIDI_USBTask(&Keyboard_MIDI_Interface);
 		USB_USBTask();
 	}
 }
@@ -167,4 +168,10 @@ void EVENT_USB_ConfigurationChanged(void)
 	
 	if (!(USB_MIDI_ConfigureEndpoints(&Keyboard_MIDI_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+}
+
+/** Event handler for the library USB Unhandled Control Packet event. */
+void EVENT_USB_UnhandledControlPacket(void)
+{
+	USB_MIDI_ProcessControlPacket(&Keyboard_MIDI_Interface);
 }
