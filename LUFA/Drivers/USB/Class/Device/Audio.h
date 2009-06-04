@@ -28,6 +28,20 @@
   this software.
 */
 
+/** \ingroup Group_USBDeviceClassDrivers
+ *  @defgroup Group_USBClassAudioDevice Audio Device Class Driver - LUFA/Drivers/Class/Device/Audio.h
+ *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/USB/Class/Device/Audio.c
+ *
+ *  \section Module Description
+ *  Functions, macros, variables, enums and types related to the management of USB Audio Class interfaces
+ *  within a USB device.
+ *
+ *  @{
+ */
+
 #ifndef _AUDIO_CLASS_H_
 #define _AUDIO_CLASS_H_
 
@@ -66,60 +80,127 @@
 		/** Audio class descriptor subtype value for an Audio class specific descriptor indicating the format of an audio stream. */
 		#define DSUBTYPE_Format              0x02
 		
-		//@{
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-
 		#define CHANNEL_LEFT_FRONT           (1 << 0)
-		#define CHANNEL_RIGHT_FRONT          (1 << 1)
-		#define CHANNEL_CENTER_FRONT         (1 << 2)
-		#define CHANNEL_LOW_FREQ_ENHANCE     (1 << 3)
-		#define CHANNEL_LEFT_SURROUND        (1 << 4)
-		#define CHANNEL_RIGHT_SURROUND       (1 << 5)
-		#define CHANNEL_LEFT_OF_CENTER       (1 << 6)
-		#define CHANNEL_RIGHT_OF_CENTER      (1 << 7)
-		#define CHANNEL_SURROUND             (1 << 8)
-		#define CHANNEL_SIDE_LEFT            (1 << 9)
-		#define CHANNEL_SIDE_RIGHT           (1 << 10)
-		#define CHANNEL_TOP                  (1 << 11)
-		//@}
 
-		//@{
+		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
+		#define CHANNEL_RIGHT_FRONT          (1 << 1)
+
+		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
+		#define CHANNEL_CENTER_FRONT         (1 << 2)
+
+		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
+		#define CHANNEL_LOW_FREQ_ENHANCE     (1 << 3)
+
+		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
+		#define CHANNEL_LEFT_SURROUND        (1 << 4)
+
+		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
+		#define CHANNEL_RIGHT_SURROUND       (1 << 5)
+
+		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
+		#define CHANNEL_LEFT_OF_CENTER       (1 << 6)
+
+		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
+		#define CHANNEL_RIGHT_OF_CENTER      (1 << 7)
+
+		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
+		#define CHANNEL_SURROUND             (1 << 8)
+
+		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
+		#define CHANNEL_SIDE_LEFT            (1 << 9)
+
+		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
+		#define CHANNEL_SIDE_RIGHT           (1 << 10)
+
+		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
+		#define CHANNEL_TOP                  (1 << 11)
+
+		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
+		#define FEATURE_MUTE                 (1 << 0)
+
+		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
+		#define FEATURE_VOLUME               (1 << 1)
+
+		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
+		#define FEATURE_BASS                 (1 << 2)
+
+		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
+		#define FEATURE_MID                  (1 << 3)
+
+		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
+		#define FEATURE_TREBLE               (1 << 4)
+
+		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
+		#define FEATURE_GRAPHIC_EQUALIZER    (1 << 5)
+
 		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
 
-		#define FEATURE_MUTE                 (1 << 0)
-		#define FEATURE_VOLUME               (1 << 1)
-		#define FEATURE_BASS                 (1 << 2)
-		#define FEATURE_MID                  (1 << 3)
-		#define FEATURE_TREBLE               (1 << 4)
-		#define FEATURE_GRAPHIC_EQUALIZER    (1 << 5)
+		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
 		#define FEATURE_AUTOMATIC_GAIN       (1 << 6)
-		#define FEATURE_DELAY                (1 << 7)
-		#define FEATURE_BASS_BOOST           (1 << 8)
-		#define FEATURE_BASS_LOUDNESS        (1 << 9)
-		//@}
 
-		//@{
-		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		
+		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
+		#define FEATURE_DELAY                (1 << 7)
+
+		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
+		#define FEATURE_BASS_BOOST           (1 << 8)
+
+		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
+		#define FEATURE_BASS_LOUDNESS        (1 << 9)
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_UNDEFINED           0x0100
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_STREAMING           0x0101
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_VENDOR              0x01FF
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_IN_UNDEFINED        0x0200
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_IN_MIC              0x0201
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_IN_DESKTOP_MIC      0x0202
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_IN_PERSONAL_MIC     0x0203
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_IN_OMNIDIR_MIC      0x0204
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_IN_MIC_ARRAY        0x0205
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_IN_PROCESSING_MIC   0x0206
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_IN_OUT_UNDEFINED    0x0300
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_OUT_SPEAKER         0x0301
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_OUT_HEADPHONES      0x0302
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_OUT_HEAD_MOUNTED    0x0303
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_OUT_DESKTOP         0x0304
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_OUT_ROOM            0x0305
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_OUT_COMMUNICATION   0x0306
+
+		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
 		#define TERMINAL_OUT_LOWFREQ         0x0307
-		//@}
 
 		/** Convenience macro, to fill a 24-bit AudioSampleFreq_t structure with the given sample rate as a 24-bit number.
 		 *
@@ -280,31 +361,118 @@
 			uint16_t                  LockDelay; /**< Time required to internally lock endpoint's internal clock recovery circuitry */
 		} USB_AudioStreamEndpoint_Spc_t;	
 
+		/** Type define for an Audio Class interface configuration and state structure. This structure should be used for each Audio
+		 *  Class unit within the device, and passed (per-interface) to the Audio Class driver functions so that each Audio interface
+		 *  has seperate state and configuration data and can be controlled seperately.
+		 */
 		typedef struct
 		{
-			uint8_t  StreamingInterfaceNumber;
+			uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this structure controls */
 
-			uint8_t  DataINEndpointNumber;
-			uint16_t DataINEndpointSize;
+			uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming Audio Streaming data, if available (zero if unused) */
+			uint16_t DataINEndpointSize; /**< Size in bytes of the incomming Audio Streaming data endpoint, if available (zero if unused) */
 
-			uint8_t  DataOUTEndpointNumber;
-			uint16_t DataOUTEndpointSize;
+			uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing Audio Streaming data, if available (zero if unused) */
+			uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing Audio Streaming data endpoint, if available (zero if unused) */
 
-			bool     InterfaceEnabled;
+			bool     InterfaceEnabled; /**< Set and cleared by the class driver to indicate if the host has enabled the streaming endpoints
+			                            *   of the Audio Streaming interface
+			                            */
 		} USB_ClassInfo_Audio_t;
 		
 	/* Function Prototypes: */
+		/** Configures the endpoints of a given Audio interface, ready for use. This should be linked to the library
+		 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration containing the
+		 *  given Audio interface is selected.
+		 *
+		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+		 *
+		 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
+		 */
 		bool     USB_Audio_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+
+		/** Processes incomming control requests from the host, that are directed to the given Audio class interface. This should be
+		 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+		 *
+		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+		 */
 		void     USB_Audio_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+
+		/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
+		 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
+		 *
+		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+		 */
 		void     USB_Audio_USBTask(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 		
+		/** Reads the next 8-bit audio sample from the current audio interface.
+		 *
+		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
+		 *        the correct endpoint is selected and ready for data.
+		 *
+		 *  \return  Signed 8-bit audio sample from the audio interface
+		 */
 		int8_t   USB_Audio_ReadSample8(void);
+
+		/** Reads the next 16-bit audio sample from the current audio interface.
+		 *
+		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
+		 *        the correct endpoint is selected and ready for data.
+		 *
+		 *  \return  Signed 16-bit audio sample from the audio interface
+		 */
 		int16_t  USB_Audio_ReadSample16(void);
+
+		/** Reads the next 24-bit audio sample from the current audio interface.
+		 *
+		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
+		 *        the correct endpoint is selected and ready for data.
+		 *
+		 *  \return  Signed 24-bit audio sample from the audio interface
+		 */
 		int32_t  USB_Audio_ReadSample24(void);
+
+		/** Writes the next 8-bit audio sample to the current audio interface.
+		 *
+		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
+		 *        the correct endpoint is selected and ready for data.
+		 *
+		 *  \param Sample  Signed 8-bit audio sample
+		 */
 		void     USB_Audio_WriteSample8(int8_t Sample);
+
+		/** Writes the next 16-bit audio sample to the current audio interface.
+		 *
+		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
+		 *        the correct endpoint is selected and ready for data.
+		 *
+		 *  \param Sample  Signed 16-bit audio sample
+		 */
 		void     USB_Audio_WriteSample16(int16_t Sample);
+
+		/** Writes the next 24-bit audio sample to the current audio interface.
+		 *
+		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
+		 *        the correct endpoint is selected and ready for data.
+		 *
+		 *  \param Sample  Signed 24-bit audio sample
+		 */
 		void     USB_Audio_WriteSample24(int32_t Sample);
+
+		/** Determines if the given audio interface is ready for a sample to be read from it.
+		 *
+		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+		 *
+		 *  \return Boolean true if the given Audio interface has a sample to be read, false otherwise
+		 */
 		bool     USB_Audio_IsSampleReceived(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+
+		/** Determines if the given audio interface is ready to accept the next sample to be written to it.
+		 *
+		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+		 *
+		 *  \return Boolean true if the given Audio interface is ready to accept the next sample, false otherwise
+		 */
 		bool     USB_Audio_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 
 	/* Disable C linkage for C++ Compilers: */
@@ -313,3 +481,5 @@
 		#endif
 		
 #endif
+
+/** @} */

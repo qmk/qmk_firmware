@@ -28,6 +28,21 @@
   this software.
 */
 
+/** \ingroup Group_USBDeviceClassDrivers
+ *  @defgroup Group_USBClassMIDIDevice MIDI Device Class Driver - LUFA/Drivers/Class/Device/MIDI.h
+ *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/USB/Class/Device/MIDI.c
+ *
+ *  \section Module Description
+ *  Functions, macros, variables, enums and types related to the management of USB MIDI Class interfaces
+ *  within a USB device. Note that the MIDI class is actually a special case of the regular Audio class,
+ *  thus this module depends on structure definitions from the \ref Group_USBClassAudioDevice class driver module.
+ *
+ *  @{
+ */
+
 #ifndef _MIDI_CLASS_H_
 #define _MIDI_CLASS_H_
 
@@ -167,3 +182,5 @@
 		#endif
 		
 #endif
+
+/** @} */

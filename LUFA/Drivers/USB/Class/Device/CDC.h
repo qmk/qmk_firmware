@@ -28,6 +28,20 @@
   this software.
 */
 
+/** \ingroup Group_USBDeviceClassDrivers
+ *  @defgroup Group_USBClassCDCDevice CDC Device Class Driver - LUFA/Drivers/Class/Device/CDC.h
+ *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/USB/Class/Device/CDC.c
+ *
+ *  \section Module Description
+ *  Functions, macros, variables, enums and types related to the management of USB CDC Class interfaces
+ *  within a USB device, for the implementation of CDC-ACM virtual serial ports.
+ *
+ *  @{
+ */
+ 
 #ifndef _CDC_CLASS_H_
 #define _CDC_CLASS_H_
 
@@ -195,3 +209,5 @@
 		#endif
 		
 #endif
+
+/** @} */

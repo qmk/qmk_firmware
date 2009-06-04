@@ -28,6 +28,20 @@
   this software.
 */
 
+/** \ingroup Group_USBDeviceClassDrivers
+ *  @defgroup Group_USBClassHIDDevice HID Device Class Driver - LUFA/Drivers/Class/Device/HID.h
+ *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/USB/Class/Device/HID.c
+ *
+ *  \section Module Description
+ *  Functions, macros, variables, enums and types related to the management of USB HID Class interfaces
+ *  within a USB device.
+ *
+ *  @{
+ */
+ 
 #ifndef _HID_CLASS_H_
 #define _HID_CLASS_H_
 
@@ -122,3 +136,5 @@
 		#endif
 		
 #endif
+
+/** @} */

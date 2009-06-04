@@ -28,6 +28,20 @@
   this software.
 */
 
+/** \ingroup Group_USBDeviceClassDrivers
+ *  @defgroup Group_USBClassMSDevice Mass Storage Device Class Driver - LUFA/Drivers/Class/Device/MassStorage.h
+ *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/USB/Class/Device/MassStorage.c
+ *
+ *  \section Module Description
+ *  Functions, macros, variables, enums and types related to the management of USB Mass Storage Class interfaces
+ *  within a USB device.
+ *
+ *  @{
+ */
+
 #ifndef _MS_CLASS_H_
 #define _MS_CLASS_H_
 
@@ -132,3 +146,5 @@
 		#endif
 		
 #endif
+
+/** @} */

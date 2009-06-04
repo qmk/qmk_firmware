@@ -54,6 +54,33 @@
  *  Functions, macros, variables, enums and types related to the management of USB communications.
  */
 
+/** \ingroup Group_USB
+ *  @defgroup Group_USBClassDrivers USB Class Drivers
+ *
+ *  Drivers for both host and device mode of the standard USB classes, for rapid application development.
+ *  Class drivers give a framework which sits on top of the low level library API, allowing for standard
+ *  USB classes to be implemented in a project with minimal user code. These drivers can be used in
+ *  conjunction with the library low level APIs to implement interfaces both via the class drivers and via
+ *  the standard library APIs.
+ *
+ *  Multiple device mode class drivers can be used within a project, including multiple instances of the
+ *  same class driver.
+ */
+ 
+/** \ingroup Group_USBClassDrivers
+ *  @defgroup Group_USBDeviceClassDrivers Device Class Drivers
+ *
+ *  Device mode drivers for the standard USB classes. These drivers all implement one of the standard USB
+ *  classes, allowing for the class to be easily implemented in a user project.
+ */
+ 
+/** \ingroup Group_USBClassDrivers
+ *  @defgroup Group_USBHostClassDrivers Host Class Drivers
+ *
+ *  Host mode drivers for the standard USB classes. These drivers all implement one of the standard USB
+ *  classes, allowing for the class to be easily implemented in a user project.
+ */
+ 
 #ifndef __USB_H__
 #define __USB_H__
 

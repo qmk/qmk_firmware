@@ -61,6 +61,16 @@
  *  but provide a standard and library-maintained way of implementing functionality from some of the defined USB classes without extensive
  *  development effort. Is is recommended that these drivers be used where possible to reduce maintenance of user applications.
  *
+ *  \dir Drivers/USB/Class/Device
+ *  \brief USB Device Class helper driver files.
+ *  
+ *  Device mode drivers for the standard USB classes.
+ *
+ *  \dir Drivers/USB/Class/Host
+ *  \brief USB Host Class helper driver files.
+ *  
+ *  Host mode drivers for the standard USB classes.
+ *
  *  \dir Drivers/Board
  *  \brief Board hardware driver files.
  *  
