@@ -31,7 +31,7 @@
 /** \file
  *
  *  This file contains dummy handlers for all the possible USB events passed to the
- *  application by the library (see \ref Group_Events documentation for more details on USB events).
+ *  application by the library (see library documentation for more details on USB events).
  *
  *  Each event is caught and printed to the USART so that they may be monitored.
  */
