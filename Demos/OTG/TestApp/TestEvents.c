@@ -79,9 +79,6 @@ void EVENT_USB_VBUSDisconnect(void)
 void EVENT_USB_Connect(void)
 {
 	puts_P(PSTR(EVENT_PREFIX "USB  +\r\n"));
-	LEDs_SetAllLEDs(LEDS_LED2 | LEDS_LED3 | LEDS_LED4);
-	
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
 }
 
 /**
@@ -90,24 +87,19 @@ void EVENT_USB_Connect(void)
  */
 void EVENT_USB_Disconnect(void)
 {
-	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-
 	puts_P(PSTR(EVENT_PREFIX "USB  -\r\n"));
-	LEDs_SetAllLEDs(LEDS_LED2 | LEDS_LED3 | LEDS_LED3);
 }
 
 /** Event handler for the USB_Suspend event. When fired, the event is logged to the USART. */
 void EVENT_USB_Suspend(void)
 {
 	puts_P(PSTR(EVENT_PREFIX ESC_BG_YELLOW "USB Sleep\r\n"));
-	LEDs_SetAllLEDs(LEDS_ALL_LEDS);
 }
 
 /** Event handler for the USB_WakeUp event. When fired, the event is logged to the USART. */
 void EVENT_USB_WakeUp(void)
 {
 	puts_P(PSTR(EVENT_PREFIX ESC_BG_GREEN "USB Wakeup\r\n"));
-	LEDs_SetAllLEDs(LEDS_LED2 | LEDS_LED4);
 }
 
 /** Event handler for the USB_Reset event. When fired, the event is logged to the USART. */
@@ -129,8 +121,6 @@ void EVENT_USB_UIDChange(void)
 	  ModeStrPtr = PSTR("DEVICE");
 	else
 	  ModeStrPtr = PSTR("N/A");
-	
-	LEDs_SetAllLEDs(LEDS_LED2 | LEDS_LED3);
 
 	printf_P(PSTR(" -- New Mode %S\r\n"), ModeStrPtr);
 }
@@ -192,16 +182,12 @@ void EVENT_USB_UnhandledControlPacket(void)
 void EVENT_USB_ConfigurationChanged(void)
 {
 	puts_P(PSTR(EVENT_PREFIX "Configuration Number Changed\r\n"));
-
-	LEDs_SetAllLEDs(LEDS_LED2 | LEDS_LED4);
 }
 
 /** Event handler for the USB_DeviceAttached event. When fired, the event is logged to the USART. */
 void EVENT_USB_DeviceAttached(void)
 {
 	puts_P(PSTR(EVENT_PREFIX ESC_BG_GREEN "Device +\r\n"));
-
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
 }
 
 /** Event handler for the USB_DeviceUnattached event. When fired, the event is logged to the USART. */

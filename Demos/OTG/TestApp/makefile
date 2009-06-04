@@ -126,7 +126,6 @@ LUFA_PATH = ../../..
 SRC = $(TARGET).c                                                 \
 	  TestEvents.c                                                \
 	  Descriptors.c                                               \
-	  $(LUFA_PATH)/LUFA/Scheduler/Scheduler.c                     \
 	  $(LUFA_PATH)/LUFA/Drivers/Board/Temperature.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \

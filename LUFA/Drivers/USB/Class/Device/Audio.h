@@ -389,21 +389,21 @@
 		 *
 		 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 		 */
-		bool     USB_Audio_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+		bool USB_Audio_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 
 		/** Processes incomming control requests from the host, that are directed to the given Audio class interface. This should be
 		 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
 		 *
 		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 		 */
-		void     USB_Audio_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+		void USB_Audio_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 
 		/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
 		 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 		 *
 		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 		 */
-		void     USB_Audio_USBTask(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+		void USB_Audio_USBTask(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 		
 		/** Reads the next 8-bit audio sample from the current audio interface.
 		 *
@@ -412,7 +412,7 @@
 		 *
 		 *  \return  Signed 8-bit audio sample from the audio interface
 		 */
-		int8_t   USB_Audio_ReadSample8(void);
+		int8_t USB_Audio_ReadSample8(void);
 
 		/** Reads the next 16-bit audio sample from the current audio interface.
 		 *
@@ -421,7 +421,7 @@
 		 *
 		 *  \return  Signed 16-bit audio sample from the audio interface
 		 */
-		int16_t  USB_Audio_ReadSample16(void);
+		int16_t USB_Audio_ReadSample16(void);
 
 		/** Reads the next 24-bit audio sample from the current audio interface.
 		 *
@@ -430,7 +430,7 @@
 		 *
 		 *  \return  Signed 24-bit audio sample from the audio interface
 		 */
-		int32_t  USB_Audio_ReadSample24(void);
+		int32_t USB_Audio_ReadSample24(void);
 
 		/** Writes the next 8-bit audio sample to the current audio interface.
 		 *
@@ -439,7 +439,7 @@
 		 *
 		 *  \param Sample  Signed 8-bit audio sample
 		 */
-		void     USB_Audio_WriteSample8(int8_t Sample);
+		void USB_Audio_WriteSample8(int8_t Sample);
 
 		/** Writes the next 16-bit audio sample to the current audio interface.
 		 *
@@ -448,7 +448,7 @@
 		 *
 		 *  \param Sample  Signed 16-bit audio sample
 		 */
-		void     USB_Audio_WriteSample16(int16_t Sample);
+		void USB_Audio_WriteSample16(int16_t Sample);
 
 		/** Writes the next 24-bit audio sample to the current audio interface.
 		 *
@@ -457,7 +457,7 @@
 		 *
 		 *  \param Sample  Signed 24-bit audio sample
 		 */
-		void     USB_Audio_WriteSample24(int32_t Sample);
+		void USB_Audio_WriteSample24(int32_t Sample);
 
 		/** Determines if the given audio interface is ready for a sample to be read from it.
 		 *
@@ -465,7 +465,7 @@
 		 *
 		 *  \return Boolean true if the given Audio interface has a sample to be read, false otherwise
 		 */
-		bool     USB_Audio_IsSampleReceived(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+		bool USB_Audio_IsSampleReceived(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 
 		/** Determines if the given audio interface is ready to accept the next sample to be written to it.
 		 *
@@ -473,7 +473,7 @@
 		 *
 		 *  \return Boolean true if the given Audio interface is ready to accept the next sample, false otherwise
 		 */
-		bool     USB_Audio_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+		bool USB_Audio_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

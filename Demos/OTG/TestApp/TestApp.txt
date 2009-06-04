@@ -42,18 +42,12 @@
  *  Pressing the HWB will initiate the USB subsystem, enumerating
  *  the device (which has <b>no actual functionality beyond
  *  enumeration as a device or as a host in this demo</b>, and serves
- *  only to demonstrate the USB portion of the library). It will
- *  also suspend the joystick and temperature monitoring tasks.
+ *  only to demonstrate the USB portion of the library).
  * 
- *  Pressing the HWB a second time will turn off the USB system
- *  and resume the temperature printing task (but not the joystick
- *  monitoring task).
+ *  Pressing the HWB a second time will turn off the USB system.
  *
  *  When activated, the USB events will be printed through the
  *  serial USART.
- *
- *  When the USB subsystem is activated, the board LEDs will show
- *  the current USB status.
  *
  *  \section SSec_Options Project Options
  *

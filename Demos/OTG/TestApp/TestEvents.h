@@ -39,12 +39,11 @@
 	/* Includes: */
 		#include <avr/io.h>
 
-		#include <LUFA/Common/Common.h>                          // Commonly used macros
-		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
-		#include <LUFA/Drivers/Board/LEDs.h>                     // LED driver
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>        // USART Stream driver
-		#include <LUFA/Drivers/Misc/TerminalCodes.h>             // ANSI Terminal Escape Codes
-		#include <LUFA/Scheduler/Scheduler.h>                    // Simple scheduler for task management
+		#include <LUFA/Common/Common.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Misc/TerminalCodes.h>
 
 	/* Macros: */
 		/** Prefix sent through the USART when an even fires before the actual event message. */

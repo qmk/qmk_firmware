@@ -73,7 +73,7 @@ void USB_CDC_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 				
 				CDCInterfaceInfo->ControlLineState = USB_ControlRequest.wValue;
 				
-				EVENT_USB_CDC_ControLineStateChanged();
+				EVENT_USB_CDC_ControLineStateChanged(CDCInterfaceInfo);
 
 				while (!(Endpoint_IsINReady()));
 				Endpoint_ClearIN();

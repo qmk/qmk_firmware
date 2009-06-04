@@ -167,7 +167,7 @@
 			uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
 			uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
 
-			uint8_t  ControlLineState;
+			uint8_t  ControlLineState; /**< Current control line state, as set by the host */
 
 			struct
 			{
@@ -187,15 +187,36 @@
 			void USB_CDC_Event_Stub(void);
 			void EVENT_USB_CDC_LineEncodingChanged(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 												   ATTR_WEAK ATTR_ALIAS(USB_CDC_Event_Stub);
-			void EVENT_USB_CDC_ControLineStateChanged(void) ATTR_WEAK ATTR_ALIAS(USB_CDC_Event_Stub);; 
+			void EVENT_USB_CDC_ControLineStateChanged(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+			                                          ATTR_WEAK ATTR_ALIAS(USB_CDC_Event_Stub);
 		#endif
 	
-		bool     USB_CDC_ConfigureEndpoints(USB_ClassInfo_CDC_t* CDCInterfaceInfo);
-		void     USB_CDC_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo);
-		void     USB_CDC_USBTask(USB_ClassInfo_CDC_t* CDCInterfaceInfo);
+		/** Configures the endpoints of a given CDC interface, ready for use. This should be linked to the library
+		 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration containing the
+		 *  given CDC interface is selected.
+		 *
+		 *  \param CDCInterfaceInfo  Pointer to a structure containing an CDC Class configuration and state.
+		 *
+		 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
+		 */
+		bool USB_CDC_ConfigureEndpoints(USB_ClassInfo_CDC_t* CDCInterfaceInfo);
+
+		/** Processes incomming control requests from the host, that are directed to the given CDC class interface. This should be
+		 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+		 *
+		 *  \param CDCInterfaceInfo  Pointer to a structure containing an CDC Class configuration and state.
+		 */
+		void USB_CDC_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo);
+
+		/** General management task for a given CDC class interface, required for the correct operation of the interface. This should
+		 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
+		 *
+		 *  \param CDCInterfaceInfo  Pointer to a structure containing an CDC Class configuration and state.
+		 */
+		void USB_CDC_USBTask(USB_ClassInfo_CDC_t* CDCInterfaceInfo);
 
 		void     EVENT_USB_CDC_LineEncodingChanged(USB_ClassInfo_CDC_t* CDCInterfaceInfo);
-		void     EVENT_USB_CDC_ControLineStateChanged(void);
+		void     EVENT_USB_CDC_ControLineStateChanged(USB_ClassInfo_CDC_t* CDCInterfaceInfo);
 
 		void     USB_CDC_SendString(USB_ClassInfo_CDC_t* CDCInterfaceInfo, char* Data, uint16_t Length);
 		void     USB_CDC_SendByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint8_t Data);

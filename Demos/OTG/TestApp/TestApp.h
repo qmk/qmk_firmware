@@ -42,20 +42,21 @@
 		#include <avr/wdt.h>
 		#include <avr/power.h>
 
-		#include <LUFA/Version.h>                               // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>                       // USB Functionality
-		#include <LUFA/Scheduler/Scheduler.h>                   // Simple scheduler for task management
-		#include <LUFA/Drivers/Misc/TerminalCodes.h>            // ANSI Terminal Escape Codes
-		#include <LUFA/Drivers/Peripheral/ADC.h>                // ADC driver
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>       // USART Stream driver
-		#include <LUFA/Drivers/Board/Joystick.h>                // Joystick driver
-		#include <LUFA/Drivers/Board/LEDs.h>                    // LED driver
-		#include <LUFA/Drivers/Board/Buttons.h>                 // Board Buttons driver
-		#include <LUFA/Drivers/Board/Temperature.h>             // Temperature sensor driver
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Misc/TerminalCodes.h>
+		#include <LUFA/Drivers/Peripheral/ADC.h>
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Buttons.h>
+		#include <LUFA/Drivers/Board/Temperature.h>
 		
-	/* Task Definitions: */
-		TASK(TestApp_CheckJoystick);
-		TASK(TestApp_CheckButton);
-		TASK(TestApp_CheckTemp);
+	/* Function Prototypes: */
+		void SetupHardware(void);
+		
+		void CheckJoystick(void);
+		void CheckButton(void);
+		void CheckTemperature(void);
 
 #endif
