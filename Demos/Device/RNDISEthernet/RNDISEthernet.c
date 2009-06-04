@@ -28,8 +28,18 @@
   this software.
 */
 
+/** \file
+ *
+ *  Main source file for the RNDISEthernet demo. This file contains the main tasks of
+ *  the demo and is responsible for the initial application hardware configuration.
+ */
+
 #include "RNDISEthernet.h"
 
+/** LUFA RNDIS Class driver interface configuration and state information. This structure is
+ *  passed to all RNDIS Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
 USB_ClassInfo_RNDIS_t Ethernet_RNDIS_Interface =
 	{
 		.ControlInterfaceNumber     = 0,
@@ -46,13 +56,19 @@ USB_ClassInfo_RNDIS_t Ethernet_RNDIS_Interface =
 		.AdapterVendorDescription   = "LUFA RNDIS Demo Adapter",
 		.AdapterMACAddress          = {ADAPTER_MAC_ADDRESS},
 	};
-	
+
+/** Main program entry point. This routine contains the overall program flow, including initial
+ *  setup of all components and the main program loop.
+ */
 int main(void)
 {
 	SetupHardware();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	
+	TCP_Init();
+	Webserver_Init();
+
 	printf_P(PSTR("\r\n\r\n****** RNDIS Demo running. ******\r\n"));
 
 	for (;;)
@@ -71,6 +87,7 @@ int main(void)
 	}
 }
 
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
@@ -84,22 +101,21 @@ void SetupHardware(void)
 	LEDs_Init();
 	SerialStream_Init(9600, false);
 	USB_Init();
-
-	/* Initialize TCP and Webserver modules */
-	TCP_Init();
-	Webserver_Init();
 }
 
+/** Event handler for the library USB Connection event. */
 void EVENT_USB_Connect(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+    LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
+/** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Disconnect(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+    LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
+/** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -108,6 +124,7 @@ void EVENT_USB_ConfigurationChanged(void)
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
+/** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
 	USB_RNDIS_ProcessControlPacket(&Ethernet_RNDIS_Interface);

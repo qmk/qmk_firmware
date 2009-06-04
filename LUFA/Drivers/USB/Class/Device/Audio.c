@@ -35,7 +35,7 @@ void USB_Audio_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
 	  
-	if (USB_ControlRequest.wIndex != AudioInterfaceInfo->InterfaceNumber)
+	if (USB_ControlRequest.wIndex != AudioInterfaceInfo->StreamingInterfaceNumber)
 	  return;
 
 	switch (USB_ControlRequest.bRequest)

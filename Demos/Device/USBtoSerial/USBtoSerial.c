@@ -28,11 +28,24 @@
   this software.
 */
 
+/** \file
+ *
+ *  Main source file for the USBtoSerial demo. This file contains the main tasks of
+ *  the demo and is responsible for the initial application hardware configuration.
+ */
+
 #include "USBtoSerial.h"
 
+/** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
 RingBuff_t Rx_Buffer;
+
+/** Circular buffer to hold data from the serial port before it is sent to the host. */
 RingBuff_t Tx_Buffer;
 
+/** LUFA CDC Class driver interface configuration and state information. This structure is
+ *  passed to all CDC Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
 USB_ClassInfo_CDC_t VirtualSerial_CDC_Interface =
 	{
 		.ControlInterfaceNumber     = 0,
@@ -47,6 +60,9 @@ USB_ClassInfo_CDC_t VirtualSerial_CDC_Interface =
 		.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
 	};
 
+/** Main program entry point. This routine contains the overall program flow, including initial
+ *  setup of all components and the main program loop.
+ */
 int main(void)
 {
 	SetupHardware();
@@ -77,6 +93,7 @@ int main(void)
 	}
 }
 
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
@@ -92,16 +109,19 @@ void SetupHardware(void)
 	USB_Init();
 }
 
+/** Event handler for the library USB Connection event. */
 void EVENT_USB_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
+/** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
+/** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -110,27 +130,35 @@ void EVENT_USB_ConfigurationChanged(void)
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
+/** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
 	USB_CDC_ProcessControlPacket(&VirtualSerial_CDC_Interface);
 }
 
+/** ISR to manage the reception of data from the serial port, placing received bytes into a circular buffer
+ *  for later transmission to the host.
+ */
 ISR(USART1_RX_vect, ISR_BLOCK)
 {
 	if (USB_IsConnected)
 	  Buffer_StoreElement(&Tx_Buffer, UDR1);
 }
 
+/** Event handler for the CDC Class driver Line Encoding Changed event.
+ *
+ *  \param CDCInterfaceInfo  Pointer to the CDC class interface configuration structure being referenced
+ */
 void EVENT_USB_CDC_LineEncodingChanged(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 {
 	uint8_t ConfigMask = 0;
 
-	if (CDCInterfaceInfo->LineEncoding.ParityType == Parity_Odd)
+	if (CDCInterfaceInfo->LineEncoding.ParityType == CDC_PARITY_Odd)
 	  ConfigMask = ((1 << UPM11) | (1 << UPM10));
-	else if (CDCInterfaceInfo->LineEncoding.ParityType == Parity_Even)
+	else if (CDCInterfaceInfo->LineEncoding.ParityType == CDC_PARITY_Even)
 	  ConfigMask = (1 << UPM11);
 
-	if (CDCInterfaceInfo->LineEncoding.CharFormat == TwoStopBits)
+	if (CDCInterfaceInfo->LineEncoding.CharFormat == CDC_LINEENCODING_TwoStopBits)
 	  ConfigMask |= (1 << USBS1);
 
 	if (CDCInterfaceInfo->LineEncoding.DataBits == 6)

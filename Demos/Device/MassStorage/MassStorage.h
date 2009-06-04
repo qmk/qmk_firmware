@@ -54,12 +54,22 @@
 		#include <LUFA/Drivers/USB/Class/Device/MassStorage.h>
 
 	/* Macros: */
+		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
 		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
 		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+
+		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-		#define LEDMASK_USB_BUSY          LEDS_LED2
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
+		#define LEDMASK_USB_BUSY         (LEDS_LED2)
 		
+		/** Total number of logical drives within the device - must be non-zero. */
 		#define TOTAL_LUNS                2
 		
 		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */

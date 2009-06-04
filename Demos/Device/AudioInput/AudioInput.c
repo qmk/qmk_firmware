@@ -28,16 +28,29 @@
   this software.
 */
 
+/** \file
+ *
+ *  Main source file for the AudioInput demo. This file contains the main tasks of
+ *  the demo and is responsible for the initial application hardware configuration.
+ */
+
 #include "AudioInput.h"
 
+/** LUFA Audio Class driver interface configuration and state information. This structure is
+ *  passed to all Audio Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
 USB_ClassInfo_Audio_t Microphone_Audio_Interface =
 	{
-		.InterfaceNumber      = 0,
+		.StreamingInterfaceNumber = 1,
 
-		.DataINEndpointNumber = AUDIO_STREAM_EPNUM,
-		.DataINEndpointSize   = AUDIO_STREAM_EPSIZE,
+		.DataINEndpointNumber     = AUDIO_STREAM_EPNUM,
+		.DataINEndpointSize       = AUDIO_STREAM_EPSIZE,
 	};
-		
+
+/** Main program entry point. This routine contains the overall program flow, including initial
+ *  setup of all components and the main program loop.
+ */
 int main(void)
 {
 	SetupHardware();
@@ -53,6 +66,7 @@ int main(void)
 	}
 }
 
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
@@ -72,6 +86,9 @@ void SetupHardware(void)
 	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | MIC_IN_ADC_CHANNEL);
 }
 
+/** Processes the next audio sample by reading the last ADC conversion and writing it to the audio
+ *  interface, each time the sample reload timer period elapses to give a constant sample rate.
+ */
 void ProcessNextSample(void)
 {
 	if ((TIFR0 & (1 << OCF0A)) && USB_Audio_IsReadyForNextSample(&Microphone_Audio_Interface))
@@ -90,6 +107,7 @@ void ProcessNextSample(void)
 	}
 }
 
+/** Event handler for the library USB Connection event. */
 void EVENT_USB_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
@@ -100,6 +118,7 @@ void EVENT_USB_Connect(void)
 	TCCR0B  = (1 << CS00);   // Fcpu speed
 }
 
+/** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Disconnect(void)
 {
 	/* Stop the sample reload timer */
@@ -108,6 +127,7 @@ void EVENT_USB_Disconnect(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
+/** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -116,6 +136,7 @@ void EVENT_USB_ConfigurationChanged(void)
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
+/** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
 	USB_Audio_ProcessControlPacket(&Microphone_Audio_Interface);

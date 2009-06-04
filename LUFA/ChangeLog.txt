@@ -6,10 +6,10 @@
    
 ========== TODO: ===========
 	- Document new class drivers
-	- Re-document all demos now that they have changed
 	- Add standardized descriptor names to class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
-	- Add C++ compatibility to class drivers
 	- Disable JTAG in demos
+	- Convert Host mode demos to class drivers
+	- Remake AVRStudio projects to reflect file structure changes
 ============================
 
  /** \page Page_ChangeLog Project Changelog

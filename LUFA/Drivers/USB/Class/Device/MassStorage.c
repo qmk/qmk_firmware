@@ -102,16 +102,16 @@ void USB_MS_USBTask(USB_ClassInfo_MS_t* MSInterfaceInfo)
 	{
 		if (USB_MS_ReadInCommandBlock(MSInterfaceInfo))
 		{
-			if (MSInterfaceInfo->CommandBlock.Flags & COMMAND_DIRECTION_DATA_IN)
+			if (MSInterfaceInfo->CommandBlock.Flags & MS_COMMAND_DIR_DATA_IN)
 			  Endpoint_SelectEndpoint(MSInterfaceInfo->DataINEndpointNumber);
 			  
 			MSInterfaceInfo->CommandStatus.Status              = CALLBACK_USB_MS_SCSICommandReceived(MSInterfaceInfo) ?
-			                                                      Command_Pass : Command_Fail;
-			MSInterfaceInfo->CommandStatus.Signature           = CSW_SIGNATURE;
+			                                                      SCSI_Command_Pass : SCSI_Command_Fail;
+			MSInterfaceInfo->CommandStatus.Signature           = MS_CSW_SIGNATURE;
 			MSInterfaceInfo->CommandStatus.Tag                 = MSInterfaceInfo->CommandBlock.Tag;
 			MSInterfaceInfo->CommandStatus.DataTransferResidue = MSInterfaceInfo->CommandBlock.DataTransferLength;
 
-			if ((MSInterfaceInfo->CommandStatus.Status == Command_Fail) && (MSInterfaceInfo->CommandStatus.DataTransferResidue))
+			if ((MSInterfaceInfo->CommandStatus.Status == SCSI_Command_Fail) && (MSInterfaceInfo->CommandStatus.DataTransferResidue))
 			  Endpoint_StallTransaction();
 			
 			USB_MS_ReturnCommandStatus(MSInterfaceInfo);
@@ -138,12 +138,12 @@ static bool USB_MS_ReadInCommandBlock(USB_ClassInfo_MS_t* MSInterfaceInfo)
 
 	CallbackMSInterfaceInfo = MSInterfaceInfo;
 	Endpoint_Read_Stream_LE(&MSInterfaceInfo->CommandBlock,
-	                        (sizeof(CommandBlockWrapper_t) - MAX_SCSI_COMMAND_LENGTH),
+	                        (sizeof(CommandBlockWrapper_t) - 16),
 	                        StreamCallback_AbortOnMassStoreReset);
 
-	if ((MSInterfaceInfo->CommandBlock.Signature         != CBW_SIGNATURE)              ||
+	if ((MSInterfaceInfo->CommandBlock.Signature         != MS_CBW_SIGNATURE)           ||
 	    (MSInterfaceInfo->CommandBlock.LUN               >= MSInterfaceInfo->TotalLUNs) ||
-		(MSInterfaceInfo->CommandBlock.SCSICommandLength >  MAX_SCSI_COMMAND_LENGTH))
+		(MSInterfaceInfo->CommandBlock.SCSICommandLength >  16))
 	{
 		Endpoint_StallTransaction();
 		Endpoint_SelectEndpoint(MSInterfaceInfo->DataINEndpointNumber);

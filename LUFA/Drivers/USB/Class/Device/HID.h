@@ -36,6 +36,11 @@
 
 		#include <string.h>
 
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Macros: */
 		/** HID Class Specific Request to get the current HID report from the device. */
 		#define REQ_GetReport      0x01
@@ -111,4 +116,9 @@
 		uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData);
 		void     CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData, uint16_t ReportSize);
 
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
+		
 #endif

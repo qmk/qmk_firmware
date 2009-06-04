@@ -48,7 +48,7 @@
  *     0x2041
  *    </td>
  *    <td>
- *     Mouse Demo Application (and derivatives)
+ *     Mouse Demo Application
  *    </td>
  *   </tr>
  *
@@ -60,7 +60,7 @@
  *     0x2042
  *    </td>
  *    <td>
- *     Keyboard Demo Application (and derivatives)
+ *     Keyboard Demo Application
  *    </td>
  *   </tr>
  *

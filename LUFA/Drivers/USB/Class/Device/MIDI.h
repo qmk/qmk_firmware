@@ -37,6 +37,11 @@
 
 		#include <string.h>
 
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Macros: */
 		/** Audio class descriptor subtype value for a Audio class specific MIDI input jack descriptor. */
 		#define DSUBTYPE_InputJack          0x02
@@ -45,10 +50,10 @@
 		#define DSUBTYPE_OutputJack         0x03
 		
 		/** Audio class descriptor jack type value for an embedded (logical) MIDI input or output jack. */
-		#define JACKTYPE_EMBEDDED           0x01
+		#define MIDI_JACKTYPE_EMBEDDED      0x01
 
 		/** Audio class descriptor jack type value for an external (physical) MIDI input or output jack. */
-		#define JACKTYPE_EXTERNAL           0x02
+		#define MIDI_JACKTYPE_EXTERNAL      0x02
 
 		/** MIDI command for a note on (activation) event */
 		#define MIDI_COMMAND_NOTE_ON        0x09
@@ -137,7 +142,7 @@
 
 		typedef struct
 		{
-			uint8_t  InterfaceNumber;
+			uint8_t  StreamingInterfaceNumber;
 
 			uint8_t  DataINEndpointNumber;
 			uint16_t DataINEndpointSize;
@@ -155,4 +160,9 @@
 		void USB_MIDI_SendEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event);
 		bool USB_MIDI_ReceiveEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event);
 
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
+		
 #endif

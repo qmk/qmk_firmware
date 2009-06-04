@@ -165,7 +165,7 @@
 			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 *
-			 *  \see \ref TASK(USB_USBTask) for more information on the USB management task and reducing CPU usage.
+			 *  \see \ref USB_USBTask() for more information on the USB management task and reducing CPU usage.
 			 */
 			void EVENT_USB_DeviceAttached(void);
 
@@ -178,7 +178,7 @@
 			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 *
-			 *  \see \ref TASK(USB_USBTask) for more information on the USB management task and reducing CPU usage.
+			 *  \see \ref USB_USBTask() for more information on the USB management task and reducing CPU usage.
 			 */
 			void EVENT_USB_DeviceUnattached(void);
 			

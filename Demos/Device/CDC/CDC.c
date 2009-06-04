@@ -28,8 +28,18 @@
   this software.
 */
 
+/** \file
+ *
+ *  Main source file for the CDC demo. This file contains the main tasks of
+ *  the demo and is responsible for the initial application hardware configuration.
+ */
+ 
 #include "CDC.h"
 
+/** LUFA CDC Class driver interface configuration and state information. This structure is
+ *  passed to all CDC Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
 USB_ClassInfo_CDC_t VirtualSerial_CDC_Interface =
 	{
 		.ControlInterfaceNumber     = 0,
@@ -44,6 +54,9 @@ USB_ClassInfo_CDC_t VirtualSerial_CDC_Interface =
 		.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
 	};
 
+/** Main program entry point. This routine contains the overall program flow, including initial
+ *  setup of all components and the main program loop.
+ */
 int main(void)
 {
 	SetupHardware();
@@ -63,6 +76,7 @@ int main(void)
 	}
 }
 
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
@@ -78,11 +92,12 @@ void SetupHardware(void)
 	USB_Init();
 }
 
+/** Checks for changes in the position of the board joystick, sending strings to the host upon each change. */
 void CheckJoystickMovement(void)
 {
 	uint8_t     JoyStatus_LCL = Joystick_GetStatus();
 	char*       ReportString  = NULL;
-	static bool ActionSent = false;
+	static bool ActionSent    = false;
 	
 	char* JoystickStrings[] =
 		{
@@ -114,16 +129,19 @@ void CheckJoystickMovement(void)
 	}
 }
 
+/** Event handler for the library USB Connection event. */
 void EVENT_USB_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
+/** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
+/** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -132,6 +150,7 @@ void EVENT_USB_ConfigurationChanged(void)
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
+/** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
 	USB_CDC_ProcessControlPacket(&VirtualSerial_CDC_Interface);

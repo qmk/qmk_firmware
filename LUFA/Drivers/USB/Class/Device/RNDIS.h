@@ -37,6 +37,11 @@
 		#include "../../USB.h"
 		#include "RNDISConstants.h"
 		
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Macros: */
 		/** Implemented RNDIS Version Major */
 		#define REMOTE_NDIS_VERSION_MAJOR             0x01
@@ -252,8 +257,13 @@
 			                                     void* SetData, uint16_t SetSize);	
 		#endif
 
-		void USB_RNDIS_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
 		bool USB_RNDIS_ConfigureEndpoints(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
 		void USB_RNDIS_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
+		void USB_RNDIS_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
+		
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
 		
 #endif

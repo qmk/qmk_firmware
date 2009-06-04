@@ -16,7 +16,6 @@
  *    - Support for non-control data endpoint interrupts has been dropped due to many issues in the implementation. All existing
  *      projects using interrupts on non-control endpoints should switch to polling. For control interrupts, the library can
  *      manage the control endpoint via interrupts automatically by compiling with the INTERRUPT_CONTROL_ENDPOINT token defined.
- *    - The Endpoint_ClearEndpointInterrupt() macro has been deleted and references to it should be removed.
  *    - The DESCRIPTOR_ADDRESS() macro has been removed. User applications should use normal casts to obtain a descriptor's memory
  *      address.
  *    - The library events system has been rewritten, so that all macros have been removed to allow for clearer user code. See
@@ -32,13 +31,12 @@
  *  <b>Host Mode</b>
  *    - Support for non-control data pipe interrupts has been dropped due to many issues in the implementation. All existing
  *      projects using interrupts on non-control pipes should switch to polling.
- *    - The Pipe_ClearPipeInterrupt() macro has been deleted and references to it should be removed.
  *    - The library events system has been rewritten, so that all macros have been removed to allow for clearer user code. See
  *      \ref Group_Events for new API details.
  *    - The STREAM_CALLBACK() macro has been removed. User applications should replace all instances of the macro with regular
  *      function signatures of a function accepting no arguments and returning a uint8_t value.
  *    - The DESCRIPTOR_COMPARATOR() macro has been removed. User applications should replace all instances of the macro with
- *      regular function signatures of a function accepting a pointer to the descriptor to test, and returning a uint8_t value.
+ *      regular function signatures of a function accepting a void pointer to the descriptor to test, and returning a uint8_t value.
  *
  *
  * \section Sec_Migration090510 Migrating from 090401 to 090510

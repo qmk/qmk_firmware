@@ -28,8 +28,18 @@
   this software.
 */
 
+/** \file
+ *
+ *  Main source file for the GenericHID demo. This file contains the main tasks of
+ *  the demo and is responsible for the initial application hardware configuration.
+ */
+
 #include "GenericHID.h"
 
+/** LUFA HID Class driver interface configuration and state information. This structure is
+ *  passed to all HID Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
 USB_ClassInfo_HID_t Generic_HID_Interface =
 	{
 		.InterfaceNumber         = 0,
@@ -45,6 +55,9 @@ USB_ClassInfo_HID_t Generic_HID_Interface =
 		.UsingReportProtocol     = true,
 	};
 
+/** Main program entry point. This routine contains the overall program flow, including initial
+ *  setup of all components and the main program loop.
+ */
 int main(void)
 {
 	SetupHardware();
@@ -58,6 +71,7 @@ int main(void)
 	}
 }
 
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
@@ -78,16 +92,19 @@ void SetupHardware(void)
 	TIMSK0 = (1 << OCIE0A);
 }
 
+/** Event handler for the library USB Connection event. */
 void EVENT_USB_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
+/** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
+/** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -96,17 +113,26 @@ void EVENT_USB_ConfigurationChanged(void)
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
+/** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
 	USB_HID_ProcessControlPacket(&Generic_HID_Interface);
 }
 
+/** ISR to keep track of each millisecond interrupt, for determining the HID class idle period remaining when set. */
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
 	if (Generic_HID_Interface.IdleMSRemaining)
 	  Generic_HID_Interface.IdleMSRemaining--;
 }
 
+/** HID class driver callback function for the creation of HID reports to the host.
+ *
+ *  \param HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
+ *  \param ReportData  Pointer to a buffer where the created report should be stored
+ *
+ *  \return Number of bytes written in the report (or zero if no report is to be sent
+ */
 uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData)
 {
 	// Create generic HID report here
@@ -114,6 +140,12 @@ uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceI
 	return 0;
 }
 
+/** HID class driver callback function for the processing of HID reports from the host.
+ *
+ *  \param HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
+ *  \param ReportData  Pointer to a buffer where the created report has been stored
+ *  \param ReportSize  Size in bytes of the received HID report
+ */
 void CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData, uint16_t ReportSize)
 {
 	// Process received generic HID report here

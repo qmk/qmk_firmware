@@ -28,16 +28,29 @@
   this software.
 */
 
+/** \file
+ *
+ *  Main source file for the AudioOutput demo. This file contains the main tasks of
+ *  the demo and is responsible for the initial application hardware configuration.
+ */
+
 #include "AudioOutput.h"
 
+/** LUFA Audio Class driver interface configuration and state information. This structure is
+ *  passed to all Audio Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
 USB_ClassInfo_Audio_t Speaker_Audio_Interface =
 	{
-		.InterfaceNumber       = 0,
+		.StreamingInterfaceNumber = 1,
 
-		.DataOUTEndpointNumber = AUDIO_STREAM_EPNUM,
-		.DataOUTEndpointSize   = AUDIO_STREAM_EPSIZE,
+		.DataOUTEndpointNumber    = AUDIO_STREAM_EPNUM,
+		.DataOUTEndpointSize      = AUDIO_STREAM_EPSIZE,
 	};
 
+/** Main program entry point. This routine contains the overall program flow, including initial
+ *  setup of all components and the main program loop.
+ */
 int main(void)
 {
 	SetupHardware();
@@ -53,6 +66,7 @@ int main(void)
 	}
 }
 
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
@@ -67,6 +81,9 @@ void SetupHardware(void)
 	USB_Init();
 }
 
+/** Processes the next audio sample by reading the last ADC conversion and writing it to the audio
+ *  interface, each time the sample reload timer period elapses to give a constant sample rate.
+ */
 void ProcessNextSample(void)
 {
 	if ((TIFR0 & (1 << OCF0A)) && USB_Audio_IsSampleReceived(&Speaker_Audio_Interface))
@@ -82,10 +99,10 @@ void ProcessNextSample(void)
 		int8_t  LeftSample_8Bit   = (LeftSample_16Bit  >> 8);
 		int8_t  RightSample_8Bit  = (RightSample_16Bit >> 8);
 			
-#if defined(AUDIO_OUT_MONO)
 		/* Mix the two channels together to produce a mono, 8-bit sample */
 		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
 
+#if defined(AUDIO_OUT_MONO)
 		/* Load the sample into the PWM timer channel */
 		OCRxA = ((uint8_t)MixedSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_STEREO)
@@ -93,42 +110,32 @@ void ProcessNextSample(void)
 		OCRxA = ((uint8_t)LeftSample_8Bit  ^ (1 << 7));
 		OCRxB = ((uint8_t)RightSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_PORTC)
-		/* Mix the two channels together to produce a mono, 8-bit sample */
-		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
-
 		PORTC = MixedSample_8Bit;
 #else
 		uint8_t LEDMask = LEDS_NO_LEDS;
 
-		/* Make left channel positive (absolute) */
-		if (LeftSample_8Bit < 0)
-		  LeftSample_8Bit = -LeftSample_8Bit;
+		/* Make mixed sample value positive (absolute) */
+		if (MixedSample_8Bit < 0)
+		  MixedSample_8Bit = -MixedSample_8Bit;
 
-		/* Make right channel positive (absolute) */
-		if (RightSample_8Bit < 0)
-		  RightSample_8Bit = -RightSample_8Bit;
-
-		/* Set first LED based on sample value */
-		if (LeftSample_8Bit < ((128 / 8) * 1))
-		  LEDMask |= LEDS_LED2;
-		else if (LeftSample_8Bit < ((128 / 8) * 3))
-		  LEDMask |= (LEDS_LED1 | LEDS_LED2);
-		else
+		if (MixedSample_8Bit > ((128 / 8) * 1))
 		  LEDMask |= LEDS_LED1;
-
-		/* Set second LED based on sample value */
-		if (RightSample_8Bit < ((128 / 8) * 1))
-		  LEDMask |= LEDS_LED4;
-		else if (RightSample_8Bit < ((128 / 8) * 3))
-		  LEDMask |= (LEDS_LED3 | LEDS_LED4);
-		else
-		  LEDMask |= LEDS_LED3;
 		  
+		if (MixedSample_8Bit > ((128 / 8) * 2))
+		  LEDMask |= LEDS_LED2;
+		  
+		if (MixedSample_8Bit > ((128 / 8) * 3))
+		  LEDMask |= LEDS_LED3;
+
+		if (MixedSample_8Bit > ((128 / 8) * 4))
+		  LEDMask |= LEDS_LED4;
+
 		LEDs_SetAllLEDs(LEDMask);
 #endif
 	}
 }
 
+/** Event handler for the library USB Connection event. */
 void EVENT_USB_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
@@ -157,16 +164,16 @@ void EVENT_USB_Connect(void)
 #endif	
 }
 
-/** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
- *  the status LEDs, disables the sample update and PWM output timers and stops the USB and Audio management tasks.
- */
+/** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
-	/* Stop the timers */
+	/* Stop the sample reload timer */
 	TCCR0B = 0;
+
 #if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
+	/* Stop the PWM generation timer */
 	TCCRxB = 0;
 #endif		
 
@@ -182,6 +189,7 @@ void EVENT_USB_Disconnect(void)
 #endif
 }
 
+/** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -190,6 +198,7 @@ void EVENT_USB_ConfigurationChanged(void)
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
+/** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
 	USB_Audio_ProcessControlPacket(&Speaker_Audio_Interface);

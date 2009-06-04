@@ -29,10 +29,23 @@
   this software.
 */
  
+/** \file
+ *
+ *  Main source file for the MagStripe reader program. This file contains the main tasks of
+ *  the project and is responsible for the initial application hardware configuration.
+ */
+ 
 #include "Magstripe.h"
 
+/** Bit buffers to hold the read bits for each of the three magnetic card tracks before they are transmitted
+ *  to the host as keyboard presses.
+ */
 BitBuffer_t TrackDataBuffers[3];
 
+/** LUFA HID Class driver interface configuration and state information. This structure is
+ *  passed to all HID Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
 USB_ClassInfo_HID_t Keyboard_HID_Interface =
 	{
 		.InterfaceNumber         = 0,
@@ -43,6 +56,9 @@ USB_ClassInfo_HID_t Keyboard_HID_Interface =
 		.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
 	};
 
+/** Main program entry point. This routine contains the overall program flow, including initial
+ *  setup of all components and the main program loop.
+ */
 int main(void)
 {
 	SetupHardware();
@@ -60,6 +76,7 @@ int main(void)
 	}
 }
 
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
@@ -80,6 +97,9 @@ void SetupHardware(void)
 	TIMSK0 = (1 << OCIE0A);
 }
 
+/** Determines if a card has been inserted, and if so reads in each track's contents into the bit buffers
+ *  until they are read out to the host as a series of keyboard presses.
+ */
 void ReadMagstripeData(void)
 {
 	/* Arrays to hold the buffer pointers, clock and data bit masks for the separate card tracks */
@@ -111,22 +131,32 @@ void ReadMagstripeData(void)
 	}
 }
 
+/** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
 	USB_HID_ConfigureEndpoints(&Keyboard_HID_Interface);
 }
 
+/** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
 	USB_HID_ProcessControlPacket(&Keyboard_HID_Interface);
 }
 
+/** Timer 0 CTC ISR, firing once each millisecond to keep track of elapsed idle time in the HID interface. */
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
 	if (Keyboard_HID_Interface.IdleMSRemaining)
 	  Keyboard_HID_Interface.IdleMSRemaining--;
 }
 
+/** HID Class driver callback function for the creation of a HID report for the host.
+ *
+ *  \param HIDInterfaceInfo  Pointer to the HID interface structure for the HID interface being referenced
+ *  \param ReportData  Pointer to the preallocated report buffer where the created report should be stored
+ *
+ *  \return Number of bytes in the created report
+ */
 uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData)
 {
 	static bool IsKeyReleaseReport;
@@ -168,6 +198,12 @@ uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceI
 	return sizeof(USB_KeyboardReport_Data_t);
 }
 
+/** HID Class driver callback function for the processing of a received HID report from the host.
+ *
+ *  \param HIDInterfaceInfo  Pointer to the HID interface structure for the HID interface being referenced
+ *  \param ReportData  Pointer to the report buffer where the received report is stored
+ *  \param ReportSize  Size in bytes of the report received from the host
+ */
 void CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData, uint16_t ReportSize)
 {
 	// Unused (but mandatory for the HID class driver) in this demo, since there are no Host->Device reports

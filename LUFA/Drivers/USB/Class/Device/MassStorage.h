@@ -36,27 +36,29 @@
 
 		#include <string.h>
 
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Macros: */
 		/** Mass Storage Class specific request to reset the Mass Storage interface, ready for the next command. */
 		#define REQ_MassStorageReset       0xFF
 
 		/** Mass Storage Class specific request to retrieve the total number of Logical Units (drives) in the SCSI device. */
 		#define REQ_GetMaxLUN              0xFE
-
-		/** Maximum length of a SCSI command which can be issued by the device or host in a Mass Storage bulk wrapper. */
-		#define MAX_SCSI_COMMAND_LENGTH    16
 		
 		/** Magic signature for a Command Block Wrapper used in the Mass Storage Bulk-Only transport protocol. */
-		#define CBW_SIGNATURE              0x43425355UL
+		#define MS_CBW_SIGNATURE           0x43425355UL
 
 		/** Magic signature for a Command Status Wrapper used in the Mass Storage Bulk-Only transport protocol. */
-		#define CSW_SIGNATURE              0x53425355UL
+		#define MS_CSW_SIGNATURE           0x53425355UL
 		
 		/** Mask for a Command Block Wrapper's flags attribute to specify a command with data sent from host-to-device. */
-		#define COMMAND_DIRECTION_DATA_OUT (0 << 7)
+		#define MS_COMMAND_DIR_DATA_OUT    (0 << 7)
 
 		/** Mask for a Command Block Wrapper's flags attribute to specify a command with data sent from device-to-host. */
-		#define COMMAND_DIRECTION_DATA_IN  (1 << 7)
+		#define MS_COMMAND_DIR_DATA_IN     (1 << 7)
 
 	/* Type defines: */
 		/** Type define for a Command Block Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
@@ -68,7 +70,7 @@
 			uint8_t  Flags; /**< Command block flags, indicating command data direction */
 			uint8_t  LUN; /**< Logical Unit number this command is issued to */
 			uint8_t  SCSICommandLength; /**< Length of the issued SCSI command within the SCSI command data array */
-			uint8_t  SCSICommandData[MAX_SCSI_COMMAND_LENGTH]; /**< Issued SCSI command in the Command Block */
+			uint8_t  SCSICommandData[16]; /**< Issued SCSI command in the Command Block */
 		} CommandBlockWrapper_t;
 		
 		/** Type define for a Command Status Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
@@ -84,9 +86,9 @@
 		/** Enum for the possible command status wrapper return status codes. */
 		enum MassStorage_CommandStatusCodes_t
 		{
-			Command_Pass = 0, /**< Command completed with no error */
-			Command_Fail = 1, /**< Command failed to complete - host may check the exact error via a SCSI REQUEST SENSE command */
-			Phase_Error  = 2  /**< Command failed due to being invalid in the current phase */
+			SCSI_Command_Pass = 0, /**< Command completed with no error */
+			SCSI_Command_Fail = 1, /**< Command failed to complete - host may check the exact error via a SCSI REQUEST SENSE command */
+			SCSI_Phase_Error  = 2  /**< Command failed due to being invalid in the current phase */
 		};
 		
 	/* Type Defines: */
@@ -118,10 +120,15 @@
 			static uint8_t StreamCallback_AbortOnMassStoreReset(void);
 		#endif
 	
-		void USB_MS_USBTask(USB_ClassInfo_MS_t* MSInterfaceInfo);
 		bool USB_MS_ConfigureEndpoints(USB_ClassInfo_MS_t* MSInterfaceInfo);
 		void USB_MS_ProcessControlPacket(USB_ClassInfo_MS_t* MSInterfaceInfo);
+		void USB_MS_USBTask(USB_ClassInfo_MS_t* MSInterfaceInfo);
 		
 		bool CALLBACK_USB_MS_SCSICommandReceived(USB_ClassInfo_MS_t* MSInterfaceInfo);
+		
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
 		
 #endif

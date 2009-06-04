@@ -19,11 +19,11 @@
  *   - AT90USB1287 (USB Host and Device)
  *   - AT90USB646 (USB Device Only)
  *   - AT90USB647 (USB Host and Device)
- *   - AT90USB162 (USB Device Only)
  *   - AT90USB82 (USB Device Only)
+ *   - AT90USB162 (USB Device Only)
  *   - ATMEGA16U4 (USB Device Only)
- *   - ATMEGA32U6 (USB Device Only)
  *   - ATMEGA32U4 (USB Device Only)
+ *   - ATMEGA32U6 (USB Device Only)
  *
  *  Currently supported Atmel boards:
  *   - AT90USBKEY
@@ -95,9 +95,9 @@
  *
  *
  *  \section Sec_Donations Donate
- *  I am a 20 year old University student studying for a double degree in Computer Science and Electronics
- *  Engineering. This leaves little time for any sort of work or leisure. Please consider donating a small amount
- *  to myself to support this and my future Open Source projects. You can donate any amount via PayPal on my
- *  website, http://www.fourwalledcubicle.com . All donations are greatly appreciated.
+ *  I am a 20 year old University student studying for a double degree in Computer Science and Electronics Engineering.
+ *  The development and support of this library requires much effort from myself. Please consider donating a small amount
+ *  to myself to support this and my future Open Source projects. You can donate any amount via PayPal on my website, 
+ *  http://www.fourwalledcubicle.com . All donations are greatly appreciated.
  */
  

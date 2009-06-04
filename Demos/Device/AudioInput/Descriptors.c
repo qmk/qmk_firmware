@@ -201,7 +201,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.BitResolution            = 16,
 			.SampleFrequencyType      = (sizeof(ConfigurationDescriptor.AudioFormat.SampleFrequencies) / sizeof(AudioSampleFreq_t)),
 		
-			.SampleFrequencies        = {SAMPLE_FREQ(AUDIO_SAMPLE_FREQUENCY)}
+			.SampleFrequencies        = {AUDIO_SAMPLE_FREQ(AUDIO_SAMPLE_FREQUENCY)}
 		},
 	
 	.AudioEndpoint = 

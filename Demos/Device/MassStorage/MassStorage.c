@@ -28,8 +28,18 @@
   this software.
 */
 
+/** \file
+ *
+ *  Main source file for the MassStorage demo. This file contains the main tasks of
+ *  the demo and is responsible for the initial application hardware configuration.
+ */
+
 #include "MassStorage.h"
 
+/** LUFA Mass Storage Class driver interface configuration and state information. This structure is
+ *  passed to all Mass Storage Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
 USB_ClassInfo_MS_t Disk_MS_Interface =
 	{
 		.InterfaceNumber        = 0,
@@ -43,6 +53,9 @@ USB_ClassInfo_MS_t Disk_MS_Interface =
 		.TotalLUNs              = TOTAL_LUNS,
 	};
 
+/** Main program entry point. This routine contains the overall program flow, including initial
+ *  setup of all components and the main program loop.
+ */
 int main(void)
 {
 	SetupHardware();
@@ -56,6 +69,7 @@ int main(void)
 	}
 }
 
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
@@ -74,16 +88,19 @@ void SetupHardware(void)
 	DataflashManager_ResetDataflashProtections();
 }
 
+/** Event handler for the library USB Connection event. */
 void EVENT_USB_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
+/** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
+/** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -92,11 +109,16 @@ void EVENT_USB_ConfigurationChanged(void)
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
+/** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
 	USB_MS_ProcessControlPacket(&Disk_MS_Interface);
 }
 
+/** Mass Storage class driver callback function the reception of SCSI commands from the host, which must be processed.
+ *
+ *  \param MSInterfaceInfo  Pointer to the Mass Storage class interface configuration structure being referenced
+ */
 bool CALLBACK_USB_MS_SCSICommandReceived(USB_ClassInfo_MS_t* MSInterfaceInfo)
 {
 	bool CommandSuccess;

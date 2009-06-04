@@ -20,19 +20,6 @@
  *  this token is defined, all ANSI control codes in the application code from the TerminalCodes.h header are removed from
  *  the source code at compile time.
  *
- *  <b>NUM_BLOCKS</b> - ( \ref Group_MemoryAllocator ) \n
- *  Sets the number of allocable blocks in the pseudo-heap of the dynamic memory allocation driver. This should be
- *  defined as a constant larger than zero.
- *
- *  <b>BLOCK_SIZE</b> - ( \ref Group_MemoryAllocator ) \n
- *  Sets the size of each allocable block in the pseudo-heap of the dynamic memory allocation driver. This should be
- *  defined as a constant larger than zero.
- *
- *  <b>NUM_HANDLES</b> - ( \ref Group_MemoryAllocator ) \n
- *  Sets the maximum number of managed memory handles which can be handed out by the dynamic memory allocation driver
- *  simultaneously, before a handle (and its associated allocated memory) must be freed.
- *
- *
  *  \section Sec_SummaryUSBClassTokens USB Class Driver Related Tokens
  *  This section describes compile tokens which affect USB class-specific drivers in the LUFA library.
  *

@@ -36,6 +36,11 @@
 
 		#include <string.h>
 
+	/* Enable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			extern "C" {
+		#endif
+
 	/* Macros: */
 		/** Descriptor header constant to indicate a Audio class interface descriptor. */
 		#define DTYPE_AudioInterface         0x24
@@ -120,7 +125,7 @@
 		 *
 		 *  \param freq  Required audio sampling frequency in HZ
 		 */
-		#define SAMPLE_FREQ(freq)  {LowWord: ((uint32_t)freq & 0x00FFFF), HighByte: (((uint32_t)freq >> 16) & 0x0000FF)}
+		#define AUDIO_SAMPLE_FREQ(freq)  {LowWord: ((uint32_t)freq & 0x00FFFF), HighByte: (((uint32_t)freq >> 16) & 0x0000FF)}
 		
 		/** Mask for the attributes parameter of an Audio class specific Endpoint descriptor, indicating that the endpoint
 		 *  accepts only filled endpoint packets of audio samples.
@@ -277,7 +282,7 @@
 
 		typedef struct
 		{
-			uint8_t  InterfaceNumber;
+			uint8_t  StreamingInterfaceNumber;
 
 			uint8_t  DataINEndpointNumber;
 			uint16_t DataINEndpointSize;
@@ -301,4 +306,10 @@
 		void     USB_Audio_WriteSample24(int32_t Sample);
 		bool     USB_Audio_IsSampleReceived(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 		bool     USB_Audio_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+
+	/* Disable C linkage for C++ Compilers: */
+		#if defined(__cplusplus)
+			}
+		#endif
+		
 #endif

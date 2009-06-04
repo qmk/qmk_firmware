@@ -28,19 +28,32 @@
   this software.
 */
 
+/** \file
+ *
+ *  Main source file for the MIDI demo. This file contains the main tasks of
+ *  the demo and is responsible for the initial application hardware configuration.
+ */
+
 #include "MIDI.h"
 
+/** LUFA MIDI Class driver interface configuration and state information. This structure is
+ *  passed to all MIDI Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
 USB_ClassInfo_MIDI_t Keyboard_MIDI_Interface =
 	{
-		.InterfaceNumber       = 0,
+		.StreamingInterfaceNumber = 1,
 
-		.DataINEndpointNumber  = MIDI_STREAM_IN_EPNUM,
-		.DataINEndpointSize    = MIDI_STREAM_EPSIZE,
+		.DataINEndpointNumber     = MIDI_STREAM_IN_EPNUM,
+		.DataINEndpointSize       = MIDI_STREAM_EPSIZE,
 
-		.DataOUTEndpointNumber = MIDI_STREAM_OUT_EPNUM,
-		.DataOUTEndpointSize   = MIDI_STREAM_EPSIZE,
+		.DataOUTEndpointNumber    = MIDI_STREAM_OUT_EPNUM,
+		.DataOUTEndpointSize      = MIDI_STREAM_EPSIZE,
 	};
-	
+
+/** Main program entry point. This routine contains the overall program flow, including initial
+ *  setup of all components and the main program loop.
+ */
 int main(void)
 {
 	SetupHardware();
@@ -55,6 +68,7 @@ int main(void)
 	}
 }
 
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
@@ -71,6 +85,7 @@ void SetupHardware(void)
 	USB_Init();
 }
 
+/** Checks for changes in the position of the board joystick, sending MIDI events to the host upon each change. */
 void CheckJoystickMovement(void)
 {
 	static uint8_t PrevJoystickStatus;
@@ -133,16 +148,19 @@ void CheckJoystickMovement(void)
 	PrevJoystickStatus = JoystickStatus;
 }
 
+/** Event handler for the library USB Connection event. */
 void EVENT_USB_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
+/** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
+/** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
