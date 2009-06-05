@@ -5,9 +5,13 @@
  */
    
 ========== TODO: ===========
-	- Document new class drivers (in progress)
-	- Add standardized descriptor names to class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
+	- Document new device class drivers (in progress)
+	- Made new host class drivers
+	- Document new host class drivers
 	- Convert Host mode demos to class drivers
+	- Add in old Host mode demos, convert to schedulerless
+	- Add in incomplete host mode demos
+	- Add standardized descriptor names to class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
 	- Remake AVRStudio projects to reflect file structure changes
 ============================
 

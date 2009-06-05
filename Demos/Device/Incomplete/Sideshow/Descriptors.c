@@ -154,7 +154,7 @@ USB_OSCompatibleIDDescriptor_t PROGMEM DevCompatIDs =
 	                         SubCompatibleID: "UNIV1"}
 };
 
-uint16_t USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
+uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
 {
 	const uint8_t  DescriptorType   = (wValue >> 8);
 	const uint8_t  DescriptorNumber = (wValue & 0xFF);
@@ -165,30 +165,30 @@ uint16_t USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** c
 	switch (DescriptorType)
 	{
 		case DTYPE_Device:
-			Address = DESCRIPTOR_ADDRESS(DeviceDescriptor);
+			Address = (void*)&DeviceDescriptor;
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
 		case DTYPE_Configuration:
-			Address = DESCRIPTOR_ADDRESS(ConfigurationDescriptor);
+			Address = (void*)&ConfigurationDescriptor;
 			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_String:
 			switch (DescriptorNumber)
 			{
 				case 0x00:
-					Address = DESCRIPTOR_ADDRESS(LanguageString);
+					Address = (void*)&LanguageString;
 					Size    = pgm_read_byte(&LanguageString.Header.Size);
 					break;
 				case 0x01:
-					Address = DESCRIPTOR_ADDRESS(ManufacturerString);
+					Address = (void*)&ManufacturerString;
 					Size    = pgm_read_byte(&ManufacturerString.Header.Size);
 					break;
 				case 0x02:
-					Address = DESCRIPTOR_ADDRESS(ProductString);
+					Address = (void*)&ProductString;
 					Size    = pgm_read_byte(&ProductString.Header.Size);
 					break;
 				case 0x03:
-					Address = DESCRIPTOR_ADDRESS(SerialNumberString);
+					Address = (void*)&SerialNumberString;
 					Size    = pgm_read_byte(&SerialNumberString.Header.Size);
 					break;
 				case 0xEE:
@@ -197,7 +197,7 @@ uint16_t USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** c
 					   our device is Sideshow compatible. Most people would be happy using the normal
 					   0xFF 0x?? 0x?? Class/Subclass/Protocol values like the USBIF intended. */
 					   
-					Address = DESCRIPTOR_ADDRESS(OSDescriptorString);
+					Address = (void*)&OSDescriptorString;
 					Size    = pgm_read_byte(&OSDescriptorString.Header.Size);
 					break;
 			}
@@ -221,7 +221,7 @@ bool USB_GetOSFeatureDescriptor(const uint16_t wValue, const uint8_t wIndex,
 		/* Only the Extended Device Compatibility descriptor is supported */
 		if (wIndex == EXTENDED_COMPAT_ID_DESCRIPTOR)
 		{
-			Address = DESCRIPTOR_ADDRESS(DevCompatIDs);
+			Address = (void*)&DevCompatIDs;
 			Size    = sizeof(USB_OSCompatibleIDDescriptor_t);
 		}
 	}
