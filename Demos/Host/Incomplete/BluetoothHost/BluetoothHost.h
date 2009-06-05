@@ -28,38 +28,28 @@
   this software.
 */
 
-/** \file
- *
- *  Header file for AudioInput.c.
- */
- 
-#ifndef _AUDIO_INPUT_H_
-#define _AUDIO_INPUT_H_
+#ifndef _BLUETOOTH_HOST_H_
+#define _BLUETOOTH_HOST_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
+		#include <avr/pgmspace.h>
 		#include <avr/power.h>
+		#include <stdio.h>
 
-		#include "Descriptors.h"
-				
+		#include "BluetoothStack.h"
+
+		#include "DeviceDescriptor.h"
+		#include "ConfigDescriptor.h"
+
 		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Board/Joystick.h>
-		#include <LUFA/Drivers/Peripheral/ADC.h>
+		#include <LUFA/Drivers/Misc/TerminalCodes.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/Device/Audio.h>
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
 		
 	/* Macros: */
-		/** ADC channel number for the microphone input. */
-		#define MIC_IN_ADC_CHANNEL        2
-		
-		/** Maximum ADC sample value for the microphone input. */
-		#define SAMPLE_MAX_RANGE          0xFFFF
-
-		/** Maximum ADC range for the microphone input. */
-		#define ADC_MAX_RANGE             0x3FF
-
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
@@ -71,14 +61,35 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+
+		#define BLUETOOTH_DATA_IN_PIPE          1
+		#define BLUETOOTH_DATA_OUT_PIPE         2
+		#define BLUETOOTH_EVENTS_PIPE           3
+
+	/* Task Definitions: */
+		void Bluetooth_Management_Task(void);
+
+	/* Enums: */
+		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
+		enum MouseHostViaInt_StatusCodes_t
+		{
+			Status_USBNotReady        = 0, /**< USB is not ready (disconnected from a USB device) */
+			Status_USBEnumerating     = 1, /**< USB interface is enumerating */
+			Status_USBReady           = 2, /**< USB interface is connected and ready */
+			Status_EnumerationError   = 3, /**< Software error while enumerating the attached USB device */
+			Status_HardwareError      = 4, /**< Hardware error while enumerating the attached USB device */
+			Status_BluetoothConnected = 5, /**< Bluetooth stack connected to device and idle */
+			Status_BluetoothBusy      = 6, /**< Bluetooth stack busy */ 
+		};
 		
+	/* Event Handlers: */
+		void EVENT_USB_DeviceAttached(void);
+		void EVENT_USB_DeviceUnattached(void);
+		void EVENT_USB_DeviceEnumerationComplete(void);
+		void EVENT_USB_HostError(uint8_t ErrorCode);
+		void EVENT_USB_DeviceEnumerationFailed(uint8_t ErrorCode, uint8_t SubErrorCode);
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void ProcessNextSample(void);
 		
-		void EVENT_USB_Connect(void);
-		void EVENT_USB_Disconnect(void);
-		void EVENT_USB_ConfigurationChanged(void);
-		void EVENT_USB_UnhandledControlPacket(void);
-
 #endif
