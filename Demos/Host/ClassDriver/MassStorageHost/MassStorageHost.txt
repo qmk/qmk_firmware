@@ -1,0 +1,61 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage Mass Storage Host Demo
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Host</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Mass Storage Device</td>
+ *   </tr>
+ *   <tr> 
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Bulk Only</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Mass Storage Standard</td>
+ *    <td>USB Bulk-Only Transport Standard</td>
+ *    <td>SCSI Primary Commands Specification</td>
+ *    <td>SCSI Block Commands Specification</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Usable Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Mass Storage host demonstration application. This gives a simple reference
+ *  application for implementing a USB Mass Storage host, for USB storage devices
+ *  using the standard Mass Storage USB profile.
+ *  
+ *  The first 512 bytes (boot sector) of an attached disk's memory will be dumped
+ *  out of the serial port in HEX and ASCII form when it is attached to the AT90USB1287
+ *  AVR. The device will then wait for HWB to be pressed, whereupon the entire ASCII contents
+ *  of the disk will be dumped to the serial port.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */
