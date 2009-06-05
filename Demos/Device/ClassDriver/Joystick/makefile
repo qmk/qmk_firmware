@@ -119,7 +119,7 @@ OBJDIR = .
 
 
 # Path to the LUFA library
-LUFA_PATH = ../../..
+LUFA_PATH = ../../../..
 
 
 # List C source files here. (C dependencies are automatically generated.)
