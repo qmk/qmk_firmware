@@ -76,7 +76,7 @@
 		/** MIDI command for a note off (deactivation) event */
 		#define MIDI_COMMAND_NOTE_OFF       0x08
 
-		/** Standard key press velocity value used for all note events, as no pressure sensor is mounted */
+		/** Standard key press velocity value used for all note events */
 		#define MIDI_STANDARD_VELOCITY      64
 		
 		/** Convenience macro. MIDI channels are numbered from 1-10 (natural numbers) however the logical channel

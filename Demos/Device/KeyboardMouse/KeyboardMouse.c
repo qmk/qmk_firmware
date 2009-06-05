@@ -48,9 +48,6 @@ USB_ClassInfo_HID_t Keyboard_HID_Interface =
 
 		.ReportINEndpointNumber  = KEYBOARD_IN_EPNUM,
 		.ReportINEndpointSize    = HID_EPSIZE,
-
-		.ReportOUTEndpointNumber = KEYBOARD_OUT_EPNUM,
-		.ReportOUTEndpointSize   = HID_EPSIZE,
 		
 		.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
 
@@ -70,9 +67,6 @@ USB_ClassInfo_HID_t Mouse_HID_Interface =
 		.ReportINEndpointSize    = HID_EPSIZE,
 
 		.ReportINBufferSize      = sizeof(USB_MouseReport_Data_t),
-
-		.ReportOUTEndpointNumber = 0,
-		.ReportOUTEndpointSize   = 0,
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -162,7 +156,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  *
  *  \return Number of bytes written in the report (or zero if no report is to be sent
  */
-uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData)
+uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
 {
 	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
 	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
@@ -221,7 +215,8 @@ uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceI
  *  \param ReportData  Pointer to a buffer where the created report has been stored
  *  \param ReportSize  Size in bytes of the received HID report
  */
-void CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData, uint16_t ReportSize)
+void CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t ReportID,
+                                               void* ReportData, uint16_t ReportSize)
 {
 	if (HIDInterfaceInfo == &Keyboard_HID_Interface)
 	{

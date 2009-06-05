@@ -47,10 +47,11 @@ void USB_HID_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 
 				uint8_t  ReportINData[HIDInterfaceInfo->ReportINBufferSize];
 				uint16_t ReportINSize;
+				uint8_t  ReportID = (USB_ControlRequest.wValue & 0xFF);
 
 				memset(ReportINData, 0, sizeof(ReportINData));
-
-				ReportINSize = CALLBACK_USB_HID_CreateNextHIDReport(HIDInterfaceInfo, ReportINData);
+				
+				ReportINSize = CALLBACK_USB_HID_CreateNextHIDReport(HIDInterfaceInfo, &ReportID, ReportINData);
 
 				Endpoint_Write_Control_Stream_LE(ReportINData, ReportINSize);
 				Endpoint_ClearOUT();
@@ -64,11 +65,12 @@ void USB_HID_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 				
 				uint16_t ReportOUTSize = USB_ControlRequest.wLength;
 				uint8_t  ReportOUTData[ReportOUTSize];
+				uint8_t  ReportID = (USB_ControlRequest.wValue & 0xFF);
 
 				Endpoint_Read_Control_Stream_LE(ReportOUTData, ReportOUTSize);
 				Endpoint_ClearIN();
 				
-				CALLBACK_USB_HID_ProcessReceivedHIDReport(HIDInterfaceInfo, ReportOUTData, ReportOUTSize);
+				CALLBACK_USB_HID_ProcessReceivedHIDReport(HIDInterfaceInfo, ReportID, ReportOUTData, ReportOUTSize);
 			}
 			
 			break;
@@ -135,15 +137,6 @@ bool USB_HID_ConfigureEndpoints(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 		return false;
 	}
 	
-	if (HIDInterfaceInfo->ReportOUTEndpointNumber)
-	{
-		if (!(Endpoint_ConfigureEndpoint(HIDInterfaceInfo->ReportOUTEndpointNumber, EP_TYPE_INTERRUPT,
-										 ENDPOINT_DIR_OUT, HIDInterfaceInfo->ReportOUTEndpointSize, ENDPOINT_BANK_SINGLE)))
-		{
-			return false;
-		}
-	}
-	
 	return true;
 }
 		
@@ -162,32 +155,20 @@ void USB_HID_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 
 		uint8_t  ReportINData[HIDInterfaceInfo->ReportINBufferSize];
 		uint16_t ReportINSize;
+		uint8_t  ReportID = 0;
 
 		memset(ReportINData, 0, sizeof(ReportINData));
 
-		ReportINSize = CALLBACK_USB_HID_CreateNextHIDReport(HIDInterfaceInfo, ReportINData);
+		ReportINSize = CALLBACK_USB_HID_CreateNextHIDReport(HIDInterfaceInfo, &ReportID, ReportINData);
 
 		if (ReportINSize)
-		  Endpoint_Write_Stream_LE(ReportINData, ReportINSize, NO_STREAM_CALLBACK);
+		{
+			if (ReportID)
+			  Endpoint_Write_Stream_LE(&ReportID, sizeof(ReportID), NO_STREAM_CALLBACK);
+
+			Endpoint_Write_Stream_LE(ReportINData, ReportINSize, NO_STREAM_CALLBACK);
+		}
 		
 		Endpoint_ClearIN();
-	}
-	
-	if (HIDInterfaceInfo->ReportOUTEndpointNumber)
-	{
-		Endpoint_SelectEndpoint(HIDInterfaceInfo->ReportOUTEndpointNumber);
-		
-		if (Endpoint_IsOUTReceived())
-		{
-			uint16_t ReportOUTSize = Endpoint_BytesInEndpoint();
-			uint8_t  ReportOUTData[ReportOUTSize];
-			
-			if (ReportOUTSize)
-			  Endpoint_Read_Stream_LE(ReportOUTData, ReportOUTSize, NO_STREAM_CALLBACK);
-			  
-			CALLBACK_USB_HID_ProcessReceivedHIDReport(HIDInterfaceInfo, ReportOUTData, ReportOUTSize);
-			
-			Endpoint_ClearOUT();
-		}
 	}
 }

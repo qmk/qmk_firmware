@@ -136,7 +136,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceNumber        = 0x00,
 			.AlternateSetting       = 0x00,
 			
-			.TotalEndpoints         = 2,
+			.TotalEndpoints         = 1,
 				
 			.Class                  = 0x03,
 			.SubClass               = 0x01,
@@ -165,16 +165,6 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointSize           = KEYBOARD_EPSIZE,
 			.PollingIntervalMS      = 0x04
 		},
-
-	.KeyboardLEDsEndpoint = 
-		{
-			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-
-			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | KEYBOARD_LEDS_EPNUM),
-			.Attributes             = EP_TYPE_INTERRUPT,
-			.EndpointSize           = KEYBOARD_EPSIZE,
-			.PollingIntervalMS      = 0x04
-		}
 };
 
 /** Language descriptor structure. This descriptor, located in FLASH memory, is returned when the host requests

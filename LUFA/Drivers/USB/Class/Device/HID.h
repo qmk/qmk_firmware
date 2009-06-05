@@ -111,9 +111,6 @@
 
 			uint8_t  ReportINEndpointNumber; /**< Endpoint number of the HID interface's IN report endpoint */
 			uint16_t ReportINEndpointSize; /**< Size in bytes of the HID interface's IN report endpoint */
-
-			uint8_t  ReportOUTEndpointNumber; /**< Endpoint number of the HID interface's OUT report endpoint, if used */
-			uint16_t ReportOUTEndpointSize;  /**< Size in bytes of the HID interface's OUT report endpoint, if used */
 			
 			uint8_t  ReportINBufferSize;
 
@@ -127,8 +124,30 @@
 		void USB_HID_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo);
 		void USB_HID_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo);
 		
-		uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData);
-		void     CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, void* ReportData, uint16_t ReportSize);
+		/** HID class driver callback for the user creation of a HID input report. This callback may fire in response to either
+		 *  HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback the
+		 *  user is responsible for the creation of the next HID input report to be sent to the host.
+		 *
+		 *  \param HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
+		 *  \param ReportID  If preset to a non-zero value, this is the report ID being requested by the host. If zero, this should
+		 *                   be set to the report ID of the generated HID input report. If multiple reports are not sent via the
+		 *                   given HID interface, this parameter should be ignored.
+		 *  \param ReportData  Pointer to a buffer where the generated HID report should be stored.
+		 *
+		 *  \return  Number of bytes in the generated input report, or zero if no report is to be sent
+		 */
+		uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData);
+
+		/** HID class driver callback for the user processing of a received HID input report. This callback may fire in response to
+		 *  either HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback
+		 *  the user is responsible for the processing of the received HID output report from the host.
+		 *
+		 *  \param HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
+		 *  \param ReportID  Report ID of the received output report. If multiple reports are not received via the given HID
+		 *                   interface, this parameter should be ignored.
+		 *  \param ReportData  Pointer to a buffer where the received HID report is stored.
+		 */
+		void     CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t ReportID, void* ReportData, uint16_t ReportSize);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

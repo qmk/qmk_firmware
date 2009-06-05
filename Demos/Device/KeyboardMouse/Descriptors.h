@@ -54,7 +54,6 @@
 			USB_Descriptor_Interface_t            KeyboardInterface;
 			USB_Descriptor_HID_t                  KeyboardHID;
 	        USB_Descriptor_Endpoint_t             KeyboardInEndpoint;
-	        USB_Descriptor_Endpoint_t             KeyboardOutEndpoint;
 			USB_Descriptor_Interface_t            MouseInterface;
 			USB_Descriptor_HID_t                  MouseHID;
 	        USB_Descriptor_Endpoint_t             MouseInEndpoint;
@@ -63,9 +62,6 @@
 	/* Macros: */
 		/** Endpoint number of the Keyboard HID reporting IN endpoint. */
 		#define KEYBOARD_IN_EPNUM         1
-
-		/** Endpoint number of the Keyboard HID reporting OUT endpoint. */
-		#define KEYBOARD_OUT_EPNUM        2
 
 		/** Endpoint number of the Mouse HID reporting IN endpoint. */
 		#define MOUSE_IN_EPNUM            3

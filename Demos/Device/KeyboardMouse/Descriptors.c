@@ -169,7 +169,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceNumber        = 0x00,
 			.AlternateSetting       = 0x00,
 			
-			.TotalEndpoints         = 2,
+			.TotalEndpoints         = 1,
 				
 			.Class                  = 0x03,
 			.SubClass               = 0x01,
@@ -194,16 +194,6 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | KEYBOARD_IN_EPNUM),
-			.Attributes             = EP_TYPE_INTERRUPT,
-			.EndpointSize           = HID_EPSIZE,
-			.PollingIntervalMS      = 0x02
-		},
-
-	.KeyboardOutEndpoint = 
-		{
-			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-
-			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | KEYBOARD_OUT_EPNUM),
 			.Attributes             = EP_TYPE_INTERRUPT,
 			.EndpointSize           = HID_EPSIZE,
 			.PollingIntervalMS      = 0x02

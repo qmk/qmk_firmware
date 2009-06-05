@@ -119,7 +119,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceNumber        = 0x00,
 			.AlternateSetting       = 0x00,
 			
-			.TotalEndpoints         = 2,
+			.TotalEndpoints         = 1,
 				
 			.Class                  = 0x03,
 			.SubClass               = 0x00,
@@ -148,16 +148,6 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointSize           = GENERIC_EPSIZE,
 			.PollingIntervalMS      = 0x02
 		},
-
-	.GenericOUTEndpoint = 
-		{
-			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-										 
-			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | GENERIC_OUT_EPNUM),
-			.Attributes             = EP_TYPE_INTERRUPT,
-			.EndpointSize           = GENERIC_EPSIZE,
-			.PollingIntervalMS      = 0x02
-		}
 };
 
 /** Language descriptor structure. This descriptor, located in FLASH memory, is returned when the host requests

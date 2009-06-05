@@ -169,7 +169,7 @@ uint8_t USB_CDC_ReceiveByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 	return DataByte;
 }
 
-void USB_CDC_SendSerialLineStateChanged(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint16_t LineStateMask)
+void USB_CDC_SendSerialLineStateChange(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint16_t LineStateMask)
 {
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->NotificationEndpointNumber);
 	

@@ -53,15 +53,11 @@
 			USB_Descriptor_Interface_t            Interface;
 			USB_Descriptor_HID_t                  GenericHID;
 	        USB_Descriptor_Endpoint_t             GenericINEndpoint;
-	        USB_Descriptor_Endpoint_t             GenericOUTEndpoint;
 		} USB_Descriptor_Configuration_t;
 
 	/* Macros: */
 		/** Endpoint number of the Generic HID reporting IN endpoint. */
 		#define GENERIC_IN_EPNUM          1
-
-		/** Endpoint number of the Generic HID reporting OUT endpoint. */
-		#define GENERIC_OUT_EPNUM         2
 
 		/** Size in bytes of the Generic HID reporting endpoint. */
 		#define GENERIC_EPSIZE            8
