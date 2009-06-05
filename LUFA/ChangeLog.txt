@@ -15,6 +15,12 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
+  *  - Removed psuedo-scheduler, dynamic memory block allocator from the library (no longer needed and not used respectively)
+  *  - Added new class drivers and matching demos to the library for rapid application development
+  *
+  *
+  *  \section Sec_ChangeLog090605 Version 090605
+  *
   *  - Fixed bug in RNDISEthernet and DualCDC demos not using the correct USB_ControlRequest structure for control request data
   *  - Fixed documentation showing incorrect USB mode support on the supported AVRs list
   *  - Fixed RNDISEthernet not working under Linux due to Linux requiring an "optional" RNDIS request which was unhandled
@@ -37,7 +43,6 @@
   *    LUFA/Drivers/USB/Class/ directory to LUFA/Drivers/USB/HighLevel/ in preperation for the new USB class APIs
   *  - Moved out each demos' functionality library files (e.g. Ring Buffer library) to /Lib directories for a better directory structure
   *  - Removed Tx interrupt from the USBtoSerial demo; now sends characters via polling to ensure more time for the Rx interrupt
-  *  - Removed psuedo-scheduler, dynamic memory block allocator from the library (no longer needed and not used respectively)
   *
   *
   *  \section Sec_ChangeLog090510 Version 090510

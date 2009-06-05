@@ -104,6 +104,9 @@
 		 *  within the user application, and passed to each of the HID class driver functions as the
 		 *  HIDInterfaceInfo parameter. The contents of this structure should be set to their correct
 		 *  values when used, or ommitted to force the library to use default values.
+		 *
+		 *  Note that for the HID class driver, host-to-device reports are received via HID class requests
+		 *  rather than a dedicated endpoint to simplify the driver and its interface.
 		 */
 		typedef struct
 		{
