@@ -41,25 +41,11 @@
 
 		#include "Descriptors.h"
 
-		#include <LUFA/Version.h>                    // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
-		#include <LUFA/Drivers/Board/Joystick.h>     // Joystick driver
-		#include <LUFA/Drivers/Board/LEDs.h>         // LEDs driver
-		#include <LUFA/Drivers/Board/Buttons.h>      // Board Buttons driver
-		#include <LUFA/Scheduler/Scheduler.h>        // Simple scheduler for task management
-		
-	/* Task Definitions: */
-		TASK(USB_Keyboard);
-		TASK(USB_Mouse);
-
-	/* Enums: */
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum KeyboardMouse_StatusCodes_t
-		{
-			Status_USBNotReady    = 0, /**< USB is not ready (disconnected from a USB host) */
-			Status_USBEnumerating = 1, /**< USB interface is enumerating */
-			Status_USBReady       = 2, /**< USB interface is connected and ready */
-		};
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Buttons.h>
 		
 	/* Macros: */
 		/** HID Class specific request to get the next HID report from the device. */
@@ -73,6 +59,18 @@
 
 		/** HID Class specific request to set the current HID protocol in use, either report or boot. */
 		#define REQ_SetProtocol    0x0B
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+
+		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 		
 	/* Type Defines: */
 		/** Type define for the keyboard HID report structure, for creating and sending HID reports to the host PC.
@@ -96,11 +94,13 @@
 		} USB_MouseReport_Data_t;
 			
 	/* Function Prototypes: */
+		void SetupHardware(void);
+		void Keyboard_HID_Task(void);
+		void Mouse_HID_Task(void);
+		
 		void EVENT_USB_Connect(void);
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
-
-		void UpdateStatus(uint8_t CurrentStatus);
 		
 #endif

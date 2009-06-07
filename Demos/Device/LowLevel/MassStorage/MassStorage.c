@@ -37,12 +37,6 @@
 #define  INCLUDE_FROM_MASSSTORAGE_C
 #include "MassStorage.h"
 
-/* Scheduler Task List */
-TASK_LIST
-{
-	{ .Task = USB_MassStorage      , .TaskStatus = TASK_STOP },
-};
-
 /* Global Variables */
 /** Structure to hold the latest Command Block Wrapper issued by the host, containing a SCSI command to execute. */
 CommandBlockWrapper_t  CommandBlock;
@@ -58,6 +52,20 @@ volatile bool          IsMassStoreReset = false;
  */
 int main(void)
 {
+	SetupHardware();
+	
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+
+	for (;;)
+	{
+		MassStorage_Task();
+		USB_USBTask();
+	}
+}
+
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
+void SetupHardware(void)
+{
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
@@ -68,28 +76,17 @@ int main(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	Dataflash_Init(SPI_SPEED_FCPU_DIV_2);
+	USB_Init();
 
 	/* Clear Dataflash sector protections, if enabled */
 	DataflashManager_ResetDataflashProtections();
-	
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-	
-	/* Initialize Scheduler so that it can be used */
-	Scheduler_Init();
-
-	/* Initialize USB Subsystem */
-	USB_Init();
-
-	/* Scheduling - routine never returns, so put this last in the main function */
-	Scheduler_Start();
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs. */
 void EVENT_USB_Connect(void)
 {
 	/* Indicate USB enumerating */
-	UpdateStatus(Status_USBEnumerating);
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 	
 	/* Reset the MSReset flag upon connection */
 	IsMassStoreReset = false;
@@ -100,11 +97,8 @@ void EVENT_USB_Connect(void)
  */
 void EVENT_USB_Disconnect(void)
 {
-	/* Stop running mass storage task */
-	Scheduler_SetTaskMode(USB_MassStorage, TASK_STOP);
-
 	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
@@ -122,10 +116,7 @@ void EVENT_USB_ConfigurationChanged(void)
 	                           ENDPOINT_BANK_DOUBLE);
 
 	/* Indicate USB connected and ready */
-	UpdateStatus(Status_USBReady);
-	
-	/* Start mass storage task */
-	Scheduler_SetTaskMode(USB_MassStorage, TASK_RUN);
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
@@ -170,43 +161,10 @@ void EVENT_USB_UnhandledControlPacket(void)
 	}
 }
 
-/** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
- *  log to a serial port, or anything else that is suitable for status updates.
- *
- *  \param CurrentStatus  Current status of the system, from the MassStorage_StatusCodes_t enum
- */
-void UpdateStatus(uint8_t CurrentStatus)
-{
-	uint8_t LEDMask = LEDS_NO_LEDS;
-	
-	/* Set the LED mask to the appropriate LED mask based on the given status code */
-	switch (CurrentStatus)
-	{
-		case Status_USBNotReady:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_USBEnumerating:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-		case Status_USBReady:
-			LEDMask = (LEDS_LED2 | LEDS_LED4);
-			break;
-		case Status_CommandBlockError:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_ProcessingCommandBlock:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-	}
-	
-	/* Set the board LEDs to the new LED mask */
-	LEDs_SetAllLEDs(LEDMask);
-}
-
 /** Task to manage the Mass Storage interface, reading in Command Block Wrappers from the host, processing the SCSI commands they
  *  contain, and returning Command Status Wrappers back to the host to indicate the success or failure of the last issued command.
  */
-TASK(USB_MassStorage)
+void MassStorage_Task(void)
 {
 	/* Check if the USB System is connected to a Host */
 	if (USB_IsConnected)
@@ -216,9 +174,9 @@ TASK(USB_MassStorage)
 		
 		/* Check to see if a command from the host has been issued */
 		if (Endpoint_IsReadWriteAllowed())
-		{	
+		{
 			/* Indicate busy */
-			UpdateStatus(Status_ProcessingCommandBlock);
+			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
 			/* Process sent command block from the host */
 			if (ReadInCommandBlock())
@@ -260,12 +218,12 @@ TASK(USB_MassStorage)
 				}
 
 				/* Indicate ready */
-				UpdateStatus(Status_USBReady);
+				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 			}
 			else
 			{
 				/* Indicate error reading in the command block from the host */
-				UpdateStatus(Status_CommandBlockError);
+				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			}
 		}
 	}

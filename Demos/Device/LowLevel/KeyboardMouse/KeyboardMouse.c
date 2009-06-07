@@ -37,14 +37,6 @@
  
 #include "KeyboardMouse.h"
 
-/* Scheduler Task List */
-TASK_LIST
-{
-	{ .Task = USB_USBTask               , .TaskStatus = TASK_STOP },
-	{ .Task = USB_Mouse                 , .TaskStatus = TASK_RUN  },
-	{ .Task = USB_Keyboard              , .TaskStatus = TASK_RUN  },
-};
-
 /* Global Variables */
 /** Global structure to hold the current keyboard interface HID report, for transmission to the host */
 USB_KeyboardReport_Data_t KeyboardReportData;
@@ -57,6 +49,21 @@ USB_MouseReport_Data_t    MouseReportData;
  */
 int main(void)
 {
+	SetupHardware();
+	
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+
+	for (;;)
+	{
+		Keyboard_HID_Task();
+		Mouse_HID_Task();
+		USB_USBTask();
+	}
+}
+
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
+void SetupHardware(void)
+{
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
@@ -67,18 +74,7 @@ int main(void)
 	/* Hardware Initialization */
 	Joystick_Init();
 	LEDs_Init();
-	
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-	
-	/* Initialize Scheduler so that it can be used */
-	Scheduler_Init();
-
-	/* Initialize USB Subsystem */
 	USB_Init();
-	
-	/* Scheduling - routine never returns, so put this last in the main function */
-	Scheduler_Start();
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
@@ -86,11 +82,8 @@ int main(void)
  */
 void EVENT_USB_Connect(void)
 {
-	/* Start USB management task */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
-
 	/* Indicate USB enumerating */
-	UpdateStatus(Status_USBEnumerating);
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
@@ -98,11 +91,8 @@ void EVENT_USB_Connect(void)
  */
 void EVENT_USB_Disconnect(void)
 {
-	/* Stop running HID reporting and USB management tasks */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-
 	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host sets the current configuration
@@ -126,7 +116,7 @@ void EVENT_USB_ConfigurationChanged(void)
 	                           ENDPOINT_BANK_SINGLE);
 
 	/* Indicate USB connected and ready */
-	UpdateStatus(Status_USBReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
@@ -205,38 +195,11 @@ void EVENT_USB_UnhandledControlPacket(void)
 	}
 }
 
-/** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
- *  log to a serial port, or anything else that is suitable for status updates.
- *
- *  \param CurrentStatus  Current status of the system, from the KeyboardMouse_StatusCodes_t enum
- */
-void UpdateStatus(uint8_t CurrentStatus)
-{
-	uint8_t LEDMask = LEDS_NO_LEDS;
-	
-	/* Set the LED mask to the appropriate LED mask based on the given status code */
-	switch (CurrentStatus)
-	{
-		case Status_USBNotReady:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_USBEnumerating:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-		case Status_USBReady:
-			LEDMask = (LEDS_LED2 | LEDS_LED4);
-			break;
-	}
-	
-	/* Set the board LEDs to the new LED mask */
-	LEDs_SetAllLEDs(LEDMask);
-}
-
 /** Keyboard task. This generates the next keyboard HID report for the host, and transmits it via the
  *  keyboard IN endpoint when the host is ready for more data. Additionally, it processes host LED status
  *  reports sent to the device via the keyboard OUT reporting endpoint.
  */
-TASK(USB_Keyboard)
+void Keyboard_HID_Task(void)
 {
 	uint8_t JoyStatus_LCL = Joystick_GetStatus();
 
@@ -307,7 +270,7 @@ TASK(USB_Keyboard)
 /** Mouse task. This generates the next mouse HID report for the host, and transmits it via the
  *  mouse IN endpoint when the host is ready for more data.
  */
-TASK(USB_Mouse)
+void Mouse_HID_Task(void)
 {
 	uint8_t JoyStatus_LCL = Joystick_GetStatus();
 

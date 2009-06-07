@@ -30,13 +30,6 @@
 
 #include "USBtoSerial.h"
 
-/* Scheduler Task List */
-TASK_LIST
-{
-	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
-	{ .Task = CDC_Task             , .TaskStatus = TASK_STOP },
-};
-
 /* Globals: */
 /** Contains the current baud rate and other settings of the virtual serial port.
  *
@@ -62,6 +55,24 @@ volatile bool Transmitting = false;
  */
 int main(void)
 {
+	SetupHardware();
+
+	/* Ring buffer Initialization */
+	Buffer_Initialize(&Rx_Buffer);
+	Buffer_Initialize(&Tx_Buffer);
+
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	
+	for (;;)
+	{
+		CDC_Task();
+		USB_USBTask();
+	}
+}
+
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
+void SetupHardware(void)
+{
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
@@ -72,22 +83,7 @@ int main(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	ReconfigureUSART();
-	
-	/* Ring buffer Initialization */
-	Buffer_Initialize(&Rx_Buffer);
-	Buffer_Initialize(&Tx_Buffer);
-	
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-	
-	/* Initialize Scheduler so that it can be used */
-	Scheduler_Init();
-
-	/* Initialize USB Subsystem */
-	USB_Init();
-
-	/* Scheduling - routine never returns, so put this last in the main function */
-	Scheduler_Start();
+	USB_Init();	
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
@@ -95,28 +91,21 @@ int main(void)
  */
 void EVENT_USB_Connect(void)
 {
-	/* Start USB management task */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
-
 	/* Indicate USB enumerating */
-	UpdateStatus(Status_USBEnumerating);
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
  *  the status LEDs and stops the USB management and CDC management tasks.
  */
 void EVENT_USB_Disconnect(void)
-{
-	/* Stop running CDC and USB management tasks */
-	Scheduler_SetTaskMode(CDC_Task, TASK_STOP);
-	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-	
+{	
 	/* Reset Tx and Rx buffers, device disconnected */
 	Buffer_Initialize(&Rx_Buffer);
 	Buffer_Initialize(&Tx_Buffer);
 
 	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
@@ -138,10 +127,7 @@ void EVENT_USB_ConfigurationChanged(void)
 	                           ENDPOINT_BANK_SINGLE);
 
 	/* Indicate USB connected and ready */
-	UpdateStatus(Status_USBReady);
-
-	/* Start CDC task */
-	Scheduler_SetTaskMode(CDC_Task, TASK_RUN);
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
@@ -207,7 +193,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 }
 
 /** Task to manage CDC data transmission and reception to and from the host, from and to the physical USART. */
-TASK(CDC_Task)
+void CDC_Task(void)
 {
 	if (USB_IsConnected)
 	{
@@ -307,33 +293,6 @@ ISR(USART1_RX_vect, ISR_BLOCK)
 		/* Character received, store it into the buffer */
 		Buffer_StoreElement(&Tx_Buffer, UDR1);
 	}
-}
-
-/** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
- *  log to a serial port, or anything else that is suitable for status updates.
- *
- *  \param CurrentStatus  Current status of the system, from the USBtoSerial_StatusCodes_t enum
- */
-void UpdateStatus(uint8_t CurrentStatus)
-{
-	uint8_t LEDMask = LEDS_NO_LEDS;
-	
-	/* Set the LED mask to the appropriate LED mask based on the given status code */
-	switch (CurrentStatus)
-	{
-		case Status_USBNotReady:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_USBEnumerating:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-		case Status_USBReady:
-			LEDMask = (LEDS_LED2 | LEDS_LED4);
-			break;
-	}
-	
-	/* Set the board LEDs to the new LED mask */
-	LEDs_SetAllLEDs(LEDMask);
 }
 
 /** Reconfigures the USART to match the current serial port settings issued by the host as closely as possible. */

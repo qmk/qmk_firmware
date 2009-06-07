@@ -37,13 +37,6 @@
  
 #include "Keyboard.h"
 
-/* Scheduler Task List */
-TASK_LIST
-{
-	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },	
-	{ .Task = USB_Keyboard_Report  , .TaskStatus = TASK_STOP },
-};
-
 /* Global Variables */
 /** Indicates what report mode the host has requested, true for normal HID reporting mode, false for special boot
  *  protocol reporting mode.
@@ -67,6 +60,20 @@ uint16_t IdleMSRemaining = 0;
  */
 int main(void)
 {
+	SetupHardware();
+	
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+
+	for (;;)
+	{
+		HID_Task();
+		USB_USBTask();
+	}
+}
+
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
+void SetupHardware(void)
+{
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
@@ -77,24 +84,13 @@ int main(void)
 	/* Hardware Initialization */
 	Joystick_Init();
 	LEDs_Init();
+	USB_Init();
 	
 	/* Millisecond timer initialization, with output compare interrupt enabled for the idle timing */
 	OCR0A  = 0x7D;
 	TCCR0A = (1 << WGM01);
 	TCCR0B = ((1 << CS01) | (1 << CS00));
 	TIMSK0 = (1 << OCIE0A);
-
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-
-	/* Initialize Scheduler so that it can be used */
-	Scheduler_Init();
-
-	/* Initialize USB Subsystem */
-	USB_Init();
-	
-	/* Scheduling - routine never returns, so put this last in the main function */
-	Scheduler_Start();
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
@@ -102,11 +98,8 @@ int main(void)
  */
 void EVENT_USB_Connect(void)
 {
-	/* Start USB management task */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
-
 	/* Indicate USB enumerating */
-	UpdateStatus(Status_USBEnumerating);
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 
 	/* Default to report protocol on connect */
 	UsingReportProtocol = true;
@@ -117,12 +110,8 @@ void EVENT_USB_Connect(void)
  */
 void EVENT_USB_Disconnect(void)
 {
-	/* Stop running keyboard reporting and USB management tasks */
-	Scheduler_SetTaskMode(USB_Keyboard_Report, TASK_STOP);
-	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-	
 	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host sets the current configuration
@@ -141,10 +130,7 @@ void EVENT_USB_ConfigurationChanged(void)
 	                           ENDPOINT_BANK_SINGLE);
 
 	/* Indicate USB connected and ready */
-	UpdateStatus(Status_USBReady);
-
-	/* Start running keyboard reporting task */
-	Scheduler_SetTaskMode(USB_Keyboard_Report, TASK_RUN);
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
@@ -382,35 +368,8 @@ void ReceiveNextReport(void)
 	}
 }
 
-/** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
- *  log to a serial port, or anything else that is suitable for status updates.
- *
- *  \param CurrentStatus  Current status of the system, from the Keyboard_StatusCodes_t enum
- */
-void UpdateStatus(uint8_t CurrentStatus)
-{
-	uint8_t LEDMask = LEDS_NO_LEDS;
-	
-	/* Set the LED mask to the appropriate LED mask based on the given status code */
-	switch (CurrentStatus)
-	{
-		case Status_USBNotReady:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_USBEnumerating:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-		case Status_USBReady:
-			LEDMask = (LEDS_LED2 | LEDS_LED4);
-			break;
-	}
-	
-	/* Set the board LEDs to the new LED mask */
-	LEDs_SetAllLEDs(LEDMask);
-}
-
 /** Function to manage HID report generation and transmission to the host, when in report mode. */
-TASK(USB_Keyboard_Report)
+void HID_Task(void)
 {
 	/* Check if the USB system is connected to a host */
 	if (USB_IsConnected)

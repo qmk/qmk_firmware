@@ -5,14 +5,13 @@
  */
    
 ========== TODO: ===========
-	- Document new device class drivers (in progress)
+	- Fix bootloaders - make compatible with smaller USB AVRS (USB_IsConnected, RAMPZ)
+	- Document new device class drivers
 	- Made new host class drivers
 	- Document new host class drivers
 	- Convert Host mode demos to class drivers
-	- Add in old Host mode demos, convert to schedulerless
-	- Add in incomplete host mode demos
+	- Convert Host mode demos to schedulerless
 	- Add standardized descriptor names to class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
-	- Remake AVRStudio projects to reflect file structure changes
 ============================
 
  /** \page Page_ChangeLog Project Changelog

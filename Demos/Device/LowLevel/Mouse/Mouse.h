@@ -46,15 +46,11 @@
 		
 		#include "Descriptors.h"
 
-		#include <LUFA/Version.h>                    // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
-		#include <LUFA/Drivers/Board/Joystick.h>     // Joystick driver
-		#include <LUFA/Drivers/Board/LEDs.h>         // LEDs driver
-		#include <LUFA/Drivers/Board/Buttons.h>      // Board Buttons driver
-		#include <LUFA/Scheduler/Scheduler.h>        // Simple scheduler for task management
-		
-	/* Task Definitions: */
-		TASK(USB_Mouse_Report);
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Buttons.h>
 
 	/* Macros: */
 		/** Idle period indicating that reports should be sent only when the inputs have changed */
@@ -78,6 +74,18 @@
 		/** HID Class specific request to set the current HID protocol in use, either report or boot. */
 		#define REQ_SetProtocol      0x0B
 
+		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+
+		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+		
 	/* Type Defines: */
 		/** Type define for the mouse HID report structure, for creating and sending HID reports to the host PC.
 		 *  This mirrors the layout described to the host in the HID report descriptor, in Descriptors.c.
@@ -88,17 +96,11 @@
 			int8_t  X; /**< Current mouse delta X movement, as a signed 8-bit integer */
 			int8_t  Y; /**< Current mouse delta Y movement, as a signed 8-bit integer */
 		} USB_MouseReport_Data_t;
-		
-	/* Enums: */
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum Mouse_StatusCodes_t
-		{
-			Status_USBNotReady    = 0, /**< USB is not ready (disconnected from a USB host) */
-			Status_USBEnumerating = 1, /**< USB interface is enumerating */
-			Status_USBReady       = 2, /**< USB interface is connected and ready */
-		};
 			
 	/* Function Prototypes: */
+		void SetupHardware(void);
+		void Mouse_Task(void);
+
 		void EVENT_USB_Connect(void);
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);

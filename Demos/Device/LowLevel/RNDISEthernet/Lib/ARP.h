@@ -40,8 +40,6 @@
 		#include <avr/io.h>
 		#include <string.h>
 		
-		#include <LUFA/Scheduler/Scheduler.h>
-		
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"
 		#include "ProtocolDecoders.h"

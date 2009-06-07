@@ -56,7 +56,7 @@ TCP_ConnectionState_t  ConnectionStateTable[MAX_TCP_CONNECTIONS];
  *  level. If an application produces a response, this task constructs the appropriate Ethernet frame and places it into the Ethernet OUT
  *  buffer for later transmission.
  */
-TASK(TCP_Task)
+void TCP_Task(void)
 {
 	/* Task to hand off TCP packets to and from the listening applications. */
 

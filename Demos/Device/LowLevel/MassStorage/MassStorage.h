@@ -46,11 +46,10 @@
 		#include "Lib/SCSI.h"
 		#include "Lib/DataflashManager.h"
 
-		#include <LUFA/Version.h>                    // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
-		#include <LUFA/Drivers/Board/LEDs.h>         // LEDs driver
-		#include <LUFA/Drivers/Board/Dataflash.h>    // Dataflash chip driver
-		#include <LUFA/Scheduler/Scheduler.h>        // Simple scheduler for task management
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Dataflash.h>
 
 	/* Macros: */
 		/** Mass Storage Class specific request to reset the Mass Storage interface, ready for the next command. */
@@ -82,6 +81,21 @@
 		/** Mask for a Command Block Wrapper's flags attribute to specify a command with data sent from device-to-host. */
 		#define COMMAND_DIRECTION_DATA_IN  (1 << 7)
 
+		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+
+		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
+		#define LEDMASK_USB_BUSY         (LEDS_LED2)
+		
 	/* Type defines: */
 		/** Type define for a Command Block Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
 		typedef struct
@@ -112,32 +126,20 @@
 			Command_Fail = 1, /**< Command failed to complete - host may check the exact error via a SCSI REQUEST SENSE command */
 			Phase_Error  = 2  /**< Command failed due to being invalid in the current phase */
 		};
-
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum MassStorage_StatusCodes_t
-		{
-			Status_USBNotReady            = 0, /**< USB is not ready (disconnected from a USB host) */
-			Status_USBEnumerating         = 1, /**< USB interface is enumerating */
-			Status_USBReady               = 2, /**< USB interface is connected and ready */
-			Status_CommandBlockError      = 3, /**< Processing a SCSI command block from the host */
-			Status_ProcessingCommandBlock = 4, /**< Error during the processing of a SCSI command block from the host */
-		};
 		
 	/* Global Variables: */
 		extern CommandBlockWrapper_t  CommandBlock;
 		extern CommandStatusWrapper_t CommandStatus;
 		extern volatile bool          IsMassStoreReset;
-
-	/* Task Definitions: */
-		TASK(USB_MassStorage);
 		
 	/* Function Prototypes: */
+		void SetupHardware(void);
+		void MassStorage_Task(void);
+	
 		void EVENT_USB_Connect(void);
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
-
-		void UpdateStatus(uint8_t CurrentStatus);
 
 		#if defined(INCLUDE_FROM_MASSSTORAGE_C)
 			static bool ReadInCommandBlock(void);

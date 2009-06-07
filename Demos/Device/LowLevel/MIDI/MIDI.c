@@ -36,17 +36,24 @@
 
 #include "MIDI.h"
 
-/* Scheduler Task List */
-TASK_LIST
-{
-	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
-	{ .Task = USB_MIDI_Task        , .TaskStatus = TASK_STOP },
-};
-
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  starts the scheduler to run the application tasks.
  */
 int main(void)
+{
+	SetupHardware();
+	
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+
+	for (;;)
+	{
+		MIDI_Task();
+		USB_USBTask();
+	}
+}
+
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
+void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
@@ -59,28 +66,14 @@ int main(void)
 	Joystick_Init();
 	LEDs_Init();
 	Buttons_Init();
-
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-	
-	/* Initialize Scheduler so that it can be used */
-	Scheduler_Init();
-
-	/* Initialize USB Subsystem */
 	USB_Init();
-
-	/* Scheduling - routine never returns, so put this last in the main function */
-	Scheduler_Start();
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs. */
 void EVENT_USB_Connect(void)
 {
-	/* Start USB management task */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
-
 	/* Indicate USB enumerating */
-	UpdateStatus(Status_USBEnumerating);
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
@@ -88,12 +81,8 @@ void EVENT_USB_Connect(void)
  */
 void EVENT_USB_Disconnect(void)
 {
-	/* Stop running audio and USB management tasks */
-	Scheduler_SetTaskMode(USB_MIDI_Task, TASK_STOP);
-	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-
 	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
@@ -111,16 +100,13 @@ void EVENT_USB_ConfigurationChanged(void)
 	                           ENDPOINT_BANK_SINGLE);
 
 	/* Indicate USB connected and ready */
-	UpdateStatus(Status_USBReady);
-
-	/* Start MIDI task */
-	Scheduler_SetTaskMode(USB_MIDI_Task, TASK_RUN);
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Task to handle the generation of MIDI note change events in response to presses of the board joystick, and send them
  *  to the host.
  */
-TASK(USB_MIDI_Task)
+void MIDI_Task(void)
 {
 	static uint8_t PrevJoystickStatus;
 
@@ -162,33 +148,6 @@ TASK(USB_MIDI_Task)
 	/* Check if endpoint is ready to be read from, if so discard its (unused) data */
 	if (Endpoint_IsOUTReceived())
 	  Endpoint_ClearOUT();
-}
-
-/** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
- *  log to a serial port, or anything else that is suitable for status updates.
- *
- *  \param CurrentStatus  Current status of the system, from the MIDI_StatusCodes_t enum
- */
-void UpdateStatus(uint8_t CurrentStatus)
-{
-	uint8_t LEDMask = LEDS_NO_LEDS;
-	
-	/* Set the LED mask to the appropriate LED mask based on the given status code */
-	switch (CurrentStatus)
-	{
-		case Status_USBNotReady:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_USBEnumerating:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-		case Status_USBReady:
-			LEDMask = (LEDS_LED2 | LEDS_LED4);
-			break;
-	}
-	
-	/* Set the board LEDs to the new LED mask */
-	LEDs_SetAllLEDs(LEDMask);
 }
 
 /** Sends a MIDI note change event (note on or off) to the MIDI output jack, on the given virtual cable ID and channel.

@@ -36,13 +36,6 @@
 
 #include "GenericHID.h"
 
-/* Scheduler Task List */
-TASK_LIST
-{
-	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
-	{ .Task = USB_HID_Report       , .TaskStatus = TASK_STOP },
-};
-
 /** Static buffer to hold the last received report from the host, so that it can be echoed back in the next sent report */
 static uint8_t LastReceived[GENERIC_REPORT_SIZE];
 
@@ -51,6 +44,20 @@ static uint8_t LastReceived[GENERIC_REPORT_SIZE];
  *  starts the scheduler to run the USB management task.
  */
 int main(void)
+{
+	SetupHardware();
+	
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+
+	for (;;)
+	{
+		HID_Task();
+		USB_USBTask();
+	}
+}
+
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
+void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
@@ -61,18 +68,7 @@ int main(void)
 
 	/* Hardware Initialization */
 	LEDs_Init();
-
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-
-	/* Initialize Scheduler so that it can be used */
-	Scheduler_Init();
-
-	/* Initialize USB Subsystem */
 	USB_Init();
-	
-	/* Scheduling - routine never returns, so put this last in the main function */
-	Scheduler_Start();
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
@@ -80,11 +76,8 @@ int main(void)
  */
 void EVENT_USB_Connect(void)
 {
-	/* Start USB management task */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
-
 	/* Indicate USB enumerating */
-	UpdateStatus(Status_USBEnumerating);
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
@@ -92,12 +85,8 @@ void EVENT_USB_Connect(void)
  */
 void EVENT_USB_Disconnect(void)
 {
-	/* Stop running HID reporting and USB management tasks */
-	Scheduler_SetTaskMode(USB_HID_Report, TASK_STOP);
-	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-
 	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host sets the current configuration
@@ -116,7 +105,7 @@ void EVENT_USB_ConfigurationChanged(void)
 	                           ENDPOINT_BANK_SINGLE);
 
 	/* Indicate USB connected and ready */
-	UpdateStatus(Status_USBReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
@@ -173,33 +162,6 @@ void EVENT_USB_UnhandledControlPacket(void)
 	}
 }
 
-/** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
- *  log to a serial port, or anything else that is suitable for status updates.
- *
- *  \param CurrentStatus  Current status of the system, from the GenericHID_StatusCodes_t enum
- */
-void UpdateStatus(uint8_t CurrentStatus)
-{
-	uint8_t LEDMask = LEDS_NO_LEDS;
-	
-	/* Set the LED mask to the appropriate LED mask based on the given status code */
-	switch (CurrentStatus)
-	{
-		case Status_USBNotReady:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_USBEnumerating:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-		case Status_USBReady:
-			LEDMask = (LEDS_LED2 | LEDS_LED4);
-			break;
-	}
-	
-	/* Set the board LEDs to the new LED mask */
-	LEDs_SetAllLEDs(LEDMask);
-}
-
 /** Function to process the lest received report from the host.
  *
  *  \param DataArray  Pointer to a buffer where the last report data is stored
@@ -232,7 +194,7 @@ void CreateGenericHIDReport(uint8_t* DataArray)
 	  DataArray[i] = LastReceived[i];
 }
 
-TASK(USB_HID_Report)
+void HID_Task(void)
 {
 	/* Check if the USB system is connected to a host */
 	if (USB_IsConnected)

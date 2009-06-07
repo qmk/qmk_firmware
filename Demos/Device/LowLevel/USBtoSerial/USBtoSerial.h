@@ -46,11 +46,10 @@
 
 		#include "Lib/RingBuff.h"
 
-		#include <LUFA/Version.h>                         // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>                 // USB Functionality
-		#include <LUFA/Drivers/Peripheral/Serial.h>       // USART driver
-		#include <LUFA/Drivers/Board/LEDs.h>              // LEDs driver
-		#include <LUFA/Scheduler/Scheduler.h>             // Simple scheduler for task management
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
 
 	/* Macros: */
 		/** CDC Class specific request to get the current virtual serial port configuration settings. */
@@ -112,6 +111,18 @@
 		 *  to indicate that a data overrun error has occurred on the virtual serial port.
 		 */
 		#define CONTROL_LINE_IN_OVERRUNERROR (1 << 6)
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+
+		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 		
 	/* Type Defines: */
 		/** Type define for the virtual serial port line encoding settings, for storing the current USART configuration
@@ -170,16 +181,14 @@
 			Status_USBReady       = 2, /**< USB interface is connected and ready */
 		};
 		
-	/* Tasks: */
-		TASK(CDC_Task);
-
 	/* Function Prototypes: */
+		void SetupHardware(void);
+		void CDC_Task(void);
+		void ReconfigureUSART(void);
+	
 		void EVENT_USB_Connect(void);
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
-
-		void ReconfigureUSART(void);
-		void UpdateStatus(uint8_t CurrentStatus);
 
 #endif

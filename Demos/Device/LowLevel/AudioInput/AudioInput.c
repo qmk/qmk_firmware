@@ -36,18 +36,27 @@
 
 #include "AudioInput.h"
 
-/* Scheduler Task List */
-TASK_LIST
-{
-	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
-	{ .Task = USB_Audio_Task       , .TaskStatus = TASK_STOP },
-};
+/** Flag to indicate if the streaming audio alternative interface has been selected by the host. */
+bool StreamingAudioInterfaceSelected = false;
 
-
-/** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+/** Main program entry point. This routine contains the overall program flow, including initial
+ *  setup of all components and the main program loop.
  */
 int main(void)
+{
+	SetupHardware();
+
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	
+	for (;;)
+	{
+		USB_Audio_Task();
+		USB_USBTask();
+	}
+}
+
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
+void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
@@ -60,21 +69,10 @@ int main(void)
 	LEDs_Init();
 	ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_32);
 	ADC_SetupChannel(MIC_IN_ADC_CHANNEL);
+	USB_Init();
 	
 	/* Start the ADC conversion in free running mode */
 	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | MIC_IN_ADC_CHANNEL);
-	
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-	
-	/* Initialize Scheduler so that it can be used */
-	Scheduler_Init();
-
-	/* Initialize USB Subsystem */
-	USB_Init();
-
-	/* Scheduling - routine never returns, so put this last in the main function */
-	Scheduler_Start();
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs, and
@@ -82,16 +80,13 @@ int main(void)
  */
 void EVENT_USB_Connect(void)
 {
-	/* Start USB management task */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
-
 	/* Indicate USB enumerating */
-	UpdateStatus(Status_USBEnumerating);
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 
 	/* Sample reload timer initialization */
 	OCR0A   = (F_CPU / AUDIO_SAMPLE_FREQUENCY) - 1;
 	TCCR0A  = (1 << WGM01);  // CTC mode
-	TCCR0B  = (1 << CS00);   // Fcpu speed
+	TCCR0B  = (1 << CS00);   // Fcpu speed	
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
@@ -102,12 +97,11 @@ void EVENT_USB_Disconnect(void)
 	/* Stop the sample reload timer */
 	TCCR0B = 0;
 
-	/* Stop running audio and USB management tasks */
-	Scheduler_SetTaskMode(USB_Audio_Task, TASK_STOP);
-	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
+	/* Indicate streaming audio interface not selected */
+	StreamingAudioInterfaceSelected = false;
 
 	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
@@ -121,7 +115,7 @@ void EVENT_USB_ConfigurationChanged(void)
 	                           ENDPOINT_BANK_DOUBLE);
 
 	/* Indicate USB connected and ready */
-	UpdateStatus(Status_USBReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
@@ -140,16 +134,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				Endpoint_ClearSETUP();
 				
 				/* Check if the host is enabling the audio interface (setting AlternateSetting to 1) */
-				if (USB_ControlRequest.wValue)
-				{
-					/* Start audio task */
-					Scheduler_SetTaskMode(USB_Audio_Task, TASK_RUN);
-				}
-				else
-				{
-					/* Stop audio task */
-					Scheduler_SetTaskMode(USB_Audio_Task, TASK_STOP);				
-				}
+				StreamingAudioInterfaceSelected = ((USB_ControlRequest.wValue) != 0);
 				
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
@@ -160,36 +145,13 @@ void EVENT_USB_UnhandledControlPacket(void)
 	}
 }
 
-/** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
- *  log to a serial port, or anything else that is suitable for status updates.
- *
- *  \param CurrentStatus  Current status of the system, from the AudioInput_StatusCodes_t enum
- */
-void UpdateStatus(uint8_t CurrentStatus)
-{
-	uint8_t LEDMask = LEDS_NO_LEDS;
-	
-	/* Set the LED mask to the appropriate LED mask based on the given status code */
-	switch (CurrentStatus)
-	{
-		case Status_USBNotReady:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_USBEnumerating:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-		case Status_USBReady:
-			LEDMask = (LEDS_LED2 | LEDS_LED4);
-			break;
-	}
-	
-	/* Set the board LEDs to the new LED mask */
-	LEDs_SetAllLEDs(LEDMask);
-}
-
 /** Task to manage the Audio interface, reading in ADC samples from the microphone, and them to the host. */
-TASK(USB_Audio_Task)
+void USB_Audio_Task(void)
 {
+	/* Check to see if the streaming interface is selected, if not the host is not receiving audio */
+	if (!(StreamingAudioInterfaceSelected))
+	  return;
+
 	/* Select the audio stream endpoint */
 	Endpoint_SelectEndpoint(AUDIO_STREAM_EPNUM);
 	
