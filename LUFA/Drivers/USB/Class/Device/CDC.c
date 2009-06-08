@@ -130,6 +130,9 @@ void USB_CDC_USBTask(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 
 void USB_CDC_SendString(USB_ClassInfo_CDC_t* CDCInterfaceInfo, char* Data, uint16_t Length)
 {
+	if (!(USB_IsConnected))
+	  return;
+
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->DataINEndpointNumber);
 	Endpoint_Write_Stream_LE(Data, Length, NO_STREAM_CALLBACK);
 }
@@ -159,6 +162,9 @@ uint16_t USB_CDC_BytesReceived(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 
 uint8_t USB_CDC_ReceiveByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 {
+	if (!(USB_IsConnected))
+	  return 0;
+
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->DataOUTEndpointNumber);
 	
 	uint8_t DataByte = Endpoint_Read_Byte();
@@ -171,6 +177,9 @@ uint8_t USB_CDC_ReceiveByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 
 void USB_CDC_SendSerialLineStateChange(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint16_t LineStateMask)
 {
+	if (!(USB_IsConnected))
+	  return;
+
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->NotificationEndpointNumber);
 	
 	USB_Request_Header_t Notification = (USB_Request_Header_t)

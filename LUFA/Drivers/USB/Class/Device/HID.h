@@ -115,7 +115,7 @@
 			uint8_t  ReportINEndpointNumber; /**< Endpoint number of the HID interface's IN report endpoint */
 			uint16_t ReportINEndpointSize; /**< Size in bytes of the HID interface's IN report endpoint */
 			
-			uint8_t  ReportINBufferSize;
+			uint8_t  ReportINBufferSize; /**< Size of the largest possible report to send to the host, for buffer allocation purposes */
 
 			bool     UsingReportProtocol; /**< Indicates if the HID interface is set to Boot or Report protocol mode */
 			uint16_t IdleCount; /**< Report idle period, in ms, set by the host */

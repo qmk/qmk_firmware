@@ -234,10 +234,48 @@
 		 */		
 		void EVENT_USB_CDC_ControLineStateChanged(USB_ClassInfo_CDC_t* CDCInterfaceInfo);
 
+		/** Sends a given string to the attached USB host, if connected. If a host is not connected when the function is called, the
+		 *  string is discarded.
+		 *
+		 *  \param CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+		 *  \param Data  Pointer to the string to send to the host
+		 *  \param Length  Size in bytes of the string to send to the host
+		 */
 		void     USB_CDC_SendString(USB_ClassInfo_CDC_t* CDCInterfaceInfo, char* Data, uint16_t Length);
+		
+		/** Sends a given byte to the attached USB host, if connected. If a host is not connected when the function is called, the
+		 *  byte is discarded.
+		 *
+		 *  \param CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+		 *  \param Data  Byte of data to send to the host
+		 */
 		void     USB_CDC_SendByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint8_t Data);
+		
+		/** Determines the number of bytes received by the CDC interface from the host, waiting to be read.
+		 *
+		 *  \param CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+		 *
+		 *  \return Total number of buffered bytes received from the host
+		 */
 		uint16_t USB_CDC_BytesReceived(USB_ClassInfo_CDC_t* CDCInterfaceInfo);
+		
+		/** Reads a byte of data from the host. If no data is waiting to be read of if a USB host is not connected, the function
+		 *  returns 0. The USB_CDC_BytesReceived() function should be queried before data is recieved to ensure that no data
+		 *  underflow occurs.
+		 *
+		 *  \param CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+		 *
+		 *  \return Next received byte from the host, or 0 if no data received
+		 */
 		uint8_t  USB_CDC_ReceiveByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo);
+		
+		/** Sends a Serial Control Line State Change notification to the host. This should be called when the virtual serial control
+		 *  lines (DCD, DSR, etc.) have changed states, or to give BREAK notfications to the host. Line states persist until they are
+		 *  cleared via a second notification.
+		 *
+		 *  \param CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+		 *  \param LineStateMask  Mask of CDC_CONTROL_LINE_IN_* masks giving the current control line states
+		 */
 		void     USB_CDC_SendSerialLineStateChange(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint16_t LineStateMask);
 
 	/* Disable C linkage for C++ Compilers: */

@@ -5,13 +5,12 @@
  */
    
 ========== TODO: ===========
-	- Fix bootloaders - make compatible with smaller USB AVRS (USB_IsConnected)
 	- Document new device class drivers
-	- Made new host class drivers
+	- Make new host class drivers
 	- Document new host class drivers
 	- Convert Host mode demos to class drivers
-	- Convert Host mode demos to schedulerless
 	- Add standardized descriptor names to class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
+	- Add multiple-report HID demo to the library
 ============================
 
  /** \page Page_ChangeLog Project Changelog

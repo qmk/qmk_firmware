@@ -462,8 +462,10 @@ static void DiscardFillerBytes(uint8_t NumberOfBytes)
 			/* Wait until next data packet received */
 			while (!(Endpoint_IsOUTReceived()));
 		}
-
-		Endpoint_Discard_Byte();						
+		else
+		{
+			Endpoint_Discard_Byte();
+		}
 	}
 }
 
