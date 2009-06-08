@@ -5,7 +5,6 @@
  */
    
 ========== TODO: ===========
-	- Document new device class drivers
 	- Make new host class drivers
 	- Document new host class drivers
 	- Convert Host mode demos to class drivers

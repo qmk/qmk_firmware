@@ -361,9 +361,10 @@
 			uint16_t                  LockDelay; /**< Time required to internally lock endpoint's internal clock recovery circuitry */
 		} USB_AudioStreamEndpoint_Spc_t;	
 
-		/** Type define for an Audio Class interface configuration and state structure. This structure should be used for each Audio
-		 *  Class unit within the device, and passed (per-interface) to the Audio Class driver functions so that each Audio interface
-		 *  has seperate state and configuration data and can be controlled seperately.
+		/** Class state structure. An instance of this structure should be made for each Audio interface
+		 *  within the user application, and passed to each of the Audio class driver functions as the
+		 *  AudioInterfaceInfo parameter. The contents of this structure should be set to their correct
+		 *  values when used, or ommitted to force the library to use default values.
 		 */
 		typedef struct
 		{

@@ -346,7 +346,7 @@ static bool USB_RNDIS_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo
 		case OID_GEN_HARDWARE_STATUS:
 			*ResponseSize = sizeof(uint32_t);
 			
-			*((uint32_t*)ResponseData) = NdisHardwareStatusReady;
+			*((uint32_t*)ResponseData) = NDIS_HardwareStatus_Ready;
 			
 			return true;
 		case OID_GEN_MEDIA_SUPPORTED:

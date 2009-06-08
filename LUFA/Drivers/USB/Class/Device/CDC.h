@@ -151,8 +151,10 @@
 		};
 
 	/* Type Defines: */
-		/** Type define for the virtual serial port line encoding settings, for storing the current USART configuration
-		 *  as set by the host via a class specific request.
+		/** Class state structure. An instance of this structure should be made for each CDC interface
+		 *  within the user application, and passed to each of the CDC class driver functions as the
+		 *  CDCInterfaceInfo parameter. The contents of this structure should be set to their correct
+		 *  values when used, or ommitted to force the library to use default values.
 		 */
 		typedef struct
 		{

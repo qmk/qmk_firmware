@@ -145,35 +145,72 @@
 			uint8_t                   AssociatedJackID[1]; /**< IDs of each jack inside the endpoint */
 		} USB_MIDI_Jack_Endpoint_t;
 
+		/** Type define for a USB MIDI event packet, used to encapsulate sent and received MIDI messages from a USB MIDI interface. */
 		typedef struct
 		{
-			unsigned char Command     : 4;
-			unsigned char CableNumber : 4;
+			unsigned char Command     : 4; /**< MIDI command being sent or received in the event packet */
+			unsigned char CableNumber : 4; /**< Virtual cable number of the event being sent or received in the given MIDI interface */
 			
-			uint8_t Data1;
-			uint8_t Data2;
-			uint8_t Data3;			
+			uint8_t Data1; /**< First byte of data in the MIDI event */
+			uint8_t Data2; /**< Second byte of data in the MIDI event */
+			uint8_t Data3; /**< Third byte of data in the MIDI event */		
 		} USB_MIDI_EventPacket_t;
 
+		/** Class state structure. An instance of this structure should be made for each MIDI interface
+		 *  within the user application, and passed to each of the MIDI class driver functions as the
+		 *  MIDIInterfaceInfo parameter. The contents of this structure should be set to their correct
+		 *  values when used, or ommitted to force the library to use default values.
+		 */
 		typedef struct
 		{
-			uint8_t  StreamingInterfaceNumber;
+			uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this structure controls */
 
-			uint8_t  DataINEndpointNumber;
-			uint16_t DataINEndpointSize;
+			uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming MIDI data, if available (zero if unused) */
+			uint16_t DataINEndpointSize; /**< Size in bytes of the incomming MIDI data endpoint, if available (zero if unused) */
 
-			uint8_t  DataOUTEndpointNumber;
-			uint16_t DataOUTEndpointSize;
-
-			bool     InterfaceEnabled;
+			uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing MIDI data, if available (zero if unused) */
+			uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing MIDI data endpoint, if available (zero if unused) */
 		} USB_ClassInfo_MIDI_t;
 		
 	/* Function Prototypes: */
+		/** Configures the endpoints of a given MIDI interface, ready for use. This should be linked to the library
+		 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
+		 *  containing the given MIDI interface is selected.
+		 *
+		 *  \param MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
+		 *
+		 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
+		 */
 		bool USB_MIDI_ConfigureEndpoints(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
+		
+		/** Processes incomming control requests from the host, that are directed to the given MIDI class interface. This should be
+		 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+		 *
+		 *  \param MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
+		 */		
 		void USB_MIDI_ProcessControlPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
+
+		/** General management task for a given MIDI class interface, required for the correct operation of the interface. This should
+		 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
+		 *
+		 *  \param MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
+		 */
 		void USB_MIDI_USBTask(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
 
+		/** Sends a MIDI event packet to the host. If no host is connected, the event packet is discarded.
+		 *
+		 *  \param MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
+		 *  \param Event  Pointer to a populated USB_MIDI_EventPacket_t structure containing the MIDI event to send
+		 */
 		void USB_MIDI_SendEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event);
+
+		/** Receives a MIDI event packet from the host.
+		 *
+		 *  \param MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
+		 *  \param Event  Pointer to a USB_MIDI_EventPacket_t structure where the received MIDI event is to be placed
+		 *
+		 *  \return Boolean true if a MIDI event packet was received, false otherwise
+		 */
 		bool USB_MIDI_ReceiveEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event);
 
 	/* Disable C linkage for C++ Compilers: */

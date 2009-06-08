@@ -33,7 +33,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/USB/Class/Device/HID.c
+ *    - LUFA/Drivers/USB/Class/Device/RNDIS.c
  *
  *  \section Module Description
  *  Functions, macros, variables, enums and types related to the management of USB RNDIS Ethernet
@@ -69,10 +69,13 @@
 		/** RNDIS request to issue a device-to-host NDIS response */
 		#define REQ_GetEncapsulatedResponse           0x01
 		
+		/** Maximum size in bytes of a RNDIS control message which can be sent or received */
 		#define RNDIS_MESSAGE_BUFFER_SIZE             128
 
+		/** Maximum size in bytes of an Ethernet frame which can be sent or received */
 		#define ETHERNET_FRAME_SIZE_MAX               1500
 		
+		/** Notification request value for a RNDIS Response Available notification */
 		#define NOTIF_ResponseAvailable               1
 		
 	/* Enums: */
@@ -87,11 +90,11 @@
 		/** Enum for the NDIS hardware states */
 		enum NDIS_Hardware_Status_t
 		{
-			NdisHardwareStatusReady, /**< Hardware Ready to accept commands from the host */
-			NdisHardwareStatusInitializing, /**< Hardware busy initializing */
-			NdisHardwareStatusReset, /**< Hardware reset */
-			NdisHardwareStatusClosing, /**< Hardware currently closing */
-			NdisHardwareStatusNotReady /**< Hardware not ready to accept commands from the host */
+			NDIS_HardwareStatus_Ready, /**< Hardware Ready to accept commands from the host */
+			NDIS_HardwareStatus_Initializing, /**< Hardware busy initializing */
+			NDIS_HardwareStatus_Reset, /**< Hardware reset */
+			NDIS_HardwareStatus_Closing, /**< Hardware currently closing */
+			NDIS_HardwareStatus_NotReady /**< Hardware not ready to accept commands from the host */
 		};
 		
 	/* Type Defines: */
@@ -132,30 +135,6 @@
 			uint32_t Reserved;
 		} RNDIS_PACKET_MSG_t;
 
-		typedef struct
-		{
-			uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
-
-			uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
-			uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
-
-			uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
-			uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
-
-			uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
-			uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
-			
-			char*         AdapterVendorDescription;
-			MAC_Address_t AdapterMACAddress;
-
-			uint8_t  RNDISMessageBuffer[RNDIS_MESSAGE_BUFFER_SIZE];
-			bool     ResponseReady;
-			uint8_t  CurrRNDISState;
-			uint32_t CurrPacketFilter;
-			Ethernet_Frame_Info_t FrameIN;
-			Ethernet_Frame_Info_t FrameOUT;
-		} USB_ClassInfo_RNDIS_t;
-		
 		/** Type define for a RNDIS Initialize command message */
 		typedef struct
 		{
@@ -260,7 +239,42 @@
 			uint32_t InformationBufferLength;
 			uint32_t InformationBufferOffset;
 		} RNDIS_QUERY_CMPLT_t;
-		
+
+		/** Class state structure. An instance of this structure should be made for each RNDIS interface
+		 *  within the user application, and passed to each of the RNDIS class driver functions as the
+		 *  RNDISInterfaceInfo parameter. The contents of this structure should be set to their correct
+		 *  values when used, or ommitted to force the library to use default values.
+		 */
+		typedef struct
+		{
+			uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
+
+			uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
+			uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
+
+			uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
+			uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
+
+			uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
+			uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
+			
+			char*         AdapterVendorDescription; /**< String description of the adapter vendor */
+			MAC_Address_t AdapterMACAddress; /**< MAC address of the adapter */
+
+			uint8_t  RNDISMessageBuffer[RNDIS_MESSAGE_BUFFER_SIZE]; /**< Buffer to hold RNDIS messages to and from the host,
+			                                                         *   managed by the class driver
+			                                                         */
+			bool     ResponseReady; /**< Internal flag indicating if a RNDIS message is waiting to be returned to the host */
+			uint8_t  CurrRNDISState; /**< Current RNDIS state of the adapter, a value from the RNDIS_States_t enum */
+			uint32_t CurrPacketFilter; /**< Current packet filter mode, used internally by the class driver */
+			Ethernet_Frame_Info_t FrameIN; /**< Structure holding the last received Ethernet frame from the host, for user
+			                                *   processing
+			                                */
+			Ethernet_Frame_Info_t FrameOUT; /**< Structure holding the next Ethernet frame to send to the host, populated by the
+			                                 *   user application
+			                                 */
+		} USB_ClassInfo_RNDIS_t;
+				
 	/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_RNDIS_CLASS_C)
 			static void USB_RNDIS_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
@@ -271,8 +285,28 @@
 			                                     void* SetData, uint16_t SetSize);	
 		#endif
 
+		/** Configures the endpoints of a given RNDIS interface, ready for use. This should be linked to the library
+		 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
+		 *  containing the given HID interface is selected.
+		 *
+		 *  \param RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
+		 *
+		 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
+		 */
 		bool USB_RNDIS_ConfigureEndpoints(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
+
+		/** Processes incomming control requests from the host, that are directed to the given RNDIS class interface. This should be
+		 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+		 *
+		 *  \param RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
+		 */		
 		void USB_RNDIS_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
+		
+		/** General management task for a given HID class interface, required for the correct operation of the interface. This should
+		 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
+		 *
+		 *  \param RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
+		 */
 		void USB_RNDIS_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
 		
 	/* Disable C linkage for C++ Compilers: */

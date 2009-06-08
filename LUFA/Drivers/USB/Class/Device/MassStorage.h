@@ -106,8 +106,10 @@
 		};
 		
 	/* Type Defines: */
-		/** Type define for the virtual serial port line encoding settings, for storing the current USART configuration
-		 *  as set by the host via a class specific request.
+		/** Class state structure. An instance of this structure should be made for each Mass Storage interface
+		 *  within the user application, and passed to each of the Mass Storage class driver functions as the
+		 *  MSInterfaceInfo parameter. The contents of this structure should be set to their correct
+		 *  values when used, or ommitted to force the library to use default values.
 		 */
 		typedef struct
 		{
@@ -119,12 +121,18 @@
 			uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the Mass Storage interface's OUT data endpoint */
 			uint16_t DataOUTEndpointSize;  /**< Size in bytes of the Mass Storage interface's OUT data endpoint */
 
-			uint8_t  TotalLUNs;
+			uint8_t  TotalLUNs; /**< Total number of logical drives in the Mass Storage interface */
 
-			CommandBlockWrapper_t  CommandBlock;
-			CommandStatusWrapper_t CommandStatus;
+			CommandBlockWrapper_t  CommandBlock; /**< Mass Storage class command block structure, used internally
+			                                      *   by the class driver
+			                                      */
+			CommandStatusWrapper_t CommandStatus; /**< Mass Storage class command status structure, used internally
+			                                      *   by the class driver
+			                                      */
 
-			bool IsMassStoreReset;
+			bool IsMassStoreReset; /**< Flag indicating that the host has requested that the Mass Storage interface be reset
+			                        *   and that all current Mass Storage operations should immediately abort
+									*/
 		} USB_ClassInfo_MS_t;
 		
 	/* Function Prototypes: */
@@ -134,10 +142,39 @@
 			static uint8_t StreamCallback_AbortOnMassStoreReset(void);
 		#endif
 	
+		/** Configures the endpoints of a given Mass Storage interface, ready for use. This should be linked to the library
+		 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
+		 *  containing the given Mass Storage interface is selected.
+		 *
+		 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
+		 *
+		 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
+		 */
 		bool USB_MS_ConfigureEndpoints(USB_ClassInfo_MS_t* MSInterfaceInfo);
+		
+		/** Processes incomming control requests from the host, that are directed to the given Mass Storage class interface. This should be
+		 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+		 *
+		 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
+		 */		
 		void USB_MS_ProcessControlPacket(USB_ClassInfo_MS_t* MSInterfaceInfo);
+
+		/** General management task for a given Mass Storage class interface, required for the correct operation of the interface. This should
+		 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
+		 *
+		 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage configuration and state.
+		 */
 		void USB_MS_USBTask(USB_ClassInfo_MS_t* MSInterfaceInfo);
 		
+		/** Mass Storage class driver callback for the user processing of a received SCSI command. This callback will fire each time the
+		 *  host sends a SCSI command which requires processing by the user application. Inside this callback the user is responsible
+		 *  for the processing of the received SCSI command from the host. The SCSI command is available in the CommandBlock structure
+		 *  inside the Mass Storage class state structure passed as a parameter to the callback function.
+		 *
+		 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
+		 *
+		 *  \return Boolean true if the SCSI command was successfully processed, false otherwise
+		 */
 		bool CALLBACK_USB_MS_SCSICommandReceived(USB_ClassInfo_MS_t* MSInterfaceInfo);
 		
 	/* Disable C linkage for C++ Compilers: */
