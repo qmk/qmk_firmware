@@ -119,13 +119,16 @@ void EVENT_USB_Disconnect(void)
  */ 
 void EVENT_USB_ConfigurationChanged(void)
 {
-	/* Setup Mouse Report Endpoint */
-	Endpoint_ConfigureEndpoint(MOUSE_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_IN, MOUSE_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
 	/* Indicate USB connected and ready */
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	
+	/* Setup Mouse Report Endpoint */
+	if (!(Endpoint_ConfigureEndpoint(MOUSE_EPNUM, EP_TYPE_INTERRUPT,
+		                             ENDPOINT_DIR_IN, MOUSE_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific

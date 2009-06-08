@@ -90,17 +90,23 @@ void EVENT_USB_Disconnect(void)
  */
 void EVENT_USB_ConfigurationChanged(void)
 {
-	/* Setup MIDI stream endpoints */
-	Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK,
-		                       ENDPOINT_DIR_OUT, MIDI_STREAM_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
-	Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPNUM, EP_TYPE_BULK,
-		                       ENDPOINT_DIR_IN, MIDI_STREAM_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
 	/* Indicate USB connected and ready */
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+
+	/* Setup MIDI stream endpoints */
+	if (!(Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK,
+		                             ENDPOINT_DIR_OUT, MIDI_STREAM_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}	
+	
+	if (!(Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPNUM, EP_TYPE_BULK,
+		                             ENDPOINT_DIR_IN, MIDI_STREAM_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
 }
 
 /** Task to handle the generation of MIDI note change events in response to presses of the board joystick, and send them
@@ -159,8 +165,9 @@ void MIDI_Task(void)
  */
 void SendMIDINoteChange(const uint8_t Pitch, const bool OnOff, const uint8_t CableID, const uint8_t Channel)
 {
-	/* Wait until endpoint ready for more data */
-	while (!(Endpoint_IsReadWriteAllowed()));
+	/* If endpoint ready for more data, abort */
+	if (!(Endpoint_IsReadWriteAllowed()))
+	  return;
 
 	/* Check if the message should be a Note On or Note Off command */
 	uint8_t Command = ((OnOff)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);

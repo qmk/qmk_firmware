@@ -116,35 +116,53 @@ void EVENT_USB_Disconnect(void)
  *  of the USB device after enumeration - the device endpoints are configured and the CDC management tasks are started.
  */
 void EVENT_USB_ConfigurationChanged(void)
-{
-	/* Setup CDC Notification, Rx and Tx Endpoints for the first CDC */
-	Endpoint_ConfigureEndpoint(CDC1_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
-	Endpoint_ConfigureEndpoint(CDC1_TX_EPNUM, EP_TYPE_BULK,
-		                       ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
-	Endpoint_ConfigureEndpoint(CDC1_RX_EPNUM, EP_TYPE_BULK,
-		                       ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
-	/* Setup CDC Notification, Rx and Tx Endpoints for the second CDC */
-	Endpoint_ConfigureEndpoint(CDC2_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
-	Endpoint_ConfigureEndpoint(CDC2_TX_EPNUM, EP_TYPE_BULK,
-		                       ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
-	Endpoint_ConfigureEndpoint(CDC2_RX_EPNUM, EP_TYPE_BULK,
-		                       ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-							   
+{							   
 	/* Indicate USB connected and ready */
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+
+	/* Setup CDC Notification, Rx and Tx Endpoints for the first CDC */
+	if (!(Endpoint_ConfigureEndpoint(CDC1_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
+		                             ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
+	
+	if (!(Endpoint_ConfigureEndpoint(CDC1_TX_EPNUM, EP_TYPE_BULK,
+		                             ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
+	
+	if (!(Endpoint_ConfigureEndpoint(CDC1_RX_EPNUM, EP_TYPE_BULK,
+		                             ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
+	
+	/* Setup CDC Notification, Rx and Tx Endpoints for the second CDC */
+	if (!(Endpoint_ConfigureEndpoint(CDC2_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
+		                             ENDPOINT_DIR_IN, CDC_NOTIFICATION_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
+	
+	if (!(Endpoint_ConfigureEndpoint(CDC2_TX_EPNUM, EP_TYPE_BULK,
+		                             ENDPOINT_DIR_IN, CDC_TXRX_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
+	
+	if (!(Endpoint_ConfigureEndpoint(CDC2_RX_EPNUM, EP_TYPE_BULK,
+		                             ENDPOINT_DIR_OUT, CDC_TXRX_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific

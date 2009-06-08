@@ -106,17 +106,23 @@ void EVENT_USB_Disconnect(void)
  */
 void EVENT_USB_ConfigurationChanged(void)
 {
-	/* Setup Mass Storage In and Out Endpoints */
-	Endpoint_ConfigureEndpoint(MASS_STORAGE_IN_EPNUM, EP_TYPE_BULK,
-		                       ENDPOINT_DIR_IN, MASS_STORAGE_IO_EPSIZE,
-	                           ENDPOINT_BANK_DOUBLE);
-
-	Endpoint_ConfigureEndpoint(MASS_STORAGE_OUT_EPNUM, EP_TYPE_BULK,
-		                       ENDPOINT_DIR_OUT, MASS_STORAGE_IO_EPSIZE,
-	                           ENDPOINT_BANK_DOUBLE);
-
 	/* Indicate USB connected and ready */
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+
+	/* Setup Mass Storage In and Out Endpoints */
+	if (!(Endpoint_ConfigureEndpoint(MASS_STORAGE_IN_EPNUM, EP_TYPE_BULK,
+		                       ENDPOINT_DIR_IN, MASS_STORAGE_IO_EPSIZE,
+	                           ENDPOINT_BANK_DOUBLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
+	
+	if (!(Endpoint_ConfigureEndpoint(MASS_STORAGE_OUT_EPNUM, EP_TYPE_BULK,
+		                       ENDPOINT_DIR_OUT, MASS_STORAGE_IO_EPSIZE,
+	                           ENDPOINT_BANK_DOUBLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}							   
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific

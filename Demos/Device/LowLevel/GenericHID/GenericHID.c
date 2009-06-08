@@ -94,18 +94,24 @@ void EVENT_USB_Disconnect(void)
  */
 void EVENT_USB_ConfigurationChanged(void)
 {
-	/* Setup Generic IN Report Endpoint */
-	Endpoint_ConfigureEndpoint(GENERIC_IN_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_IN, GENERIC_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
-	/* Setup Generic OUT Report Endpoint */
-	Endpoint_ConfigureEndpoint(GENERIC_OUT_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_OUT, GENERIC_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
 	/* Indicate USB connected and ready */
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+
+	/* Setup Generic IN Report Endpoint */
+	if (!(Endpoint_ConfigureEndpoint(GENERIC_IN_EPNUM, EP_TYPE_INTERRUPT,
+		                             ENDPOINT_DIR_IN, GENERIC_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
+	
+	/* Setup Generic OUT Report Endpoint */
+	if (!(Endpoint_ConfigureEndpoint(GENERIC_OUT_EPNUM, EP_TYPE_INTERRUPT,
+		                             ENDPOINT_DIR_OUT, GENERIC_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific

@@ -118,19 +118,25 @@ void EVENT_USB_Disconnect(void)
  *  of the USB device after enumeration, and configures the keyboard device endpoints.
  */
 void EVENT_USB_ConfigurationChanged(void)
-{
-	/* Setup Keyboard Keycode Report Endpoint */
-	Endpoint_ConfigureEndpoint(KEYBOARD_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_IN, KEYBOARD_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
-	/* Setup Keyboard LED Report Endpoint */
-	Endpoint_ConfigureEndpoint(KEYBOARD_LEDS_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_OUT, KEYBOARD_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
+{	
 	/* Indicate USB connected and ready */
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+
+	/* Setup Keyboard Keycode Report Endpoint */
+	if (!(Endpoint_ConfigureEndpoint(KEYBOARD_EPNUM, EP_TYPE_INTERRUPT,
+		                             ENDPOINT_DIR_IN, KEYBOARD_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
+	
+	/* Setup Keyboard LED Report Endpoint */
+	if (!(Endpoint_ConfigureEndpoint(KEYBOARD_LEDS_EPNUM, EP_TYPE_INTERRUPT,
+		                             ENDPOINT_DIR_OUT, KEYBOARD_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific

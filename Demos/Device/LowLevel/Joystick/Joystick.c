@@ -92,13 +92,16 @@ void EVENT_USB_Disconnect(void)
  */ 
 void EVENT_USB_ConfigurationChanged(void)
 {
-	/* Setup Joystick Report Endpoint */
-	Endpoint_ConfigureEndpoint(JOYSTICK_EPNUM, EP_TYPE_INTERRUPT,
-		                       ENDPOINT_DIR_IN, JOYSTICK_EPSIZE,
-	                           ENDPOINT_BANK_SINGLE);
-
 	/* Indicate USB connected and ready */
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+
+	/* Setup Joystick Report Endpoint */
+	if (!(Endpoint_ConfigureEndpoint(JOYSTICK_EPNUM, EP_TYPE_INTERRUPT,
+		                             ENDPOINT_DIR_IN, JOYSTICK_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
