@@ -58,6 +58,7 @@ int main(void)
 	{
 		Bluetooth_Stack_Task();
 		Bluetooth_Management_Task();
+		USB_USBTask();
 	}
 }
 

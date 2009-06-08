@@ -98,9 +98,9 @@ uint8_t Endpoint_WaitUntilReady(void)
 		else if (Endpoint_IsStalled())
 		  return ENDPOINT_READYWAIT_EndpointStalled;
 			  
-		if (FrameElapsed)
+		if (USB_INT_HasOccurred(USB_INT_HSOFI))
 		{
-			FrameElapsed = false;
+			USB_INT_Clear(USB_INT_HSOFI);
 
 			if (!(TimeoutMSRem--))
 			  return ENDPOINT_READYWAIT_Timeout;

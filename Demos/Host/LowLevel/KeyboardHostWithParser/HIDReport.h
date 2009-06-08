@@ -37,7 +37,8 @@
 #define _HID_REPORT_H_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/Host/HIDParser.h>
 		
 		#include "KeyboardHostWithParser.h"
 

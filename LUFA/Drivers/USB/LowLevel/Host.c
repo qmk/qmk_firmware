@@ -214,9 +214,9 @@ uint8_t USB_Host_WaitMS(uint8_t MS)
 
 	while (MS)
 	{
-		if (FrameElapsed)
+		if (USB_INT_HasOccurred(USB_INT_HSOFI))
 		{
-			FrameElapsed = false;
+			USB_INT_Clear(USB_INT_HSOFI);
 			MS--;
 		}
 					
@@ -259,9 +259,9 @@ static void USB_Host_ResetDevice(void)
 	USB_Host_ResetBus();
 	while (!(USB_Host_IsBusResetComplete()));
 
-	USB_Host_ResumeBus();	
-	
-	FrameElapsed = false;
+	USB_Host_ResumeBus();
+
+	USB_INT_Clear(USB_INT_HSOFI);
 
 	for (uint8_t MSRem = 10; MSRem != 0; MSRem--)
 	{
@@ -270,10 +270,9 @@ static void USB_Host_ResetDevice(void)
 		   looked for - if it is found within 10ms, the device is still
 		   present.                                                        */
 
-		if (FrameElapsed)
+		if (USB_INT_HasOccurred(USB_INT_HSOFI))
 		{
-			FrameElapsed = false;
-			
+			USB_INT_Clear(USB_INT_HSOFI);
 			USB_INT_Clear(USB_INT_DDISCI);
 			break;
 		}

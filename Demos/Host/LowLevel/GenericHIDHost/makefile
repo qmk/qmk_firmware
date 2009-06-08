@@ -119,13 +119,12 @@ OBJDIR = .
 
 
 # Path to the LUFA library
-LUFA_PATH = ../../..
+LUFA_PATH = ../../../..
 
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
 	  ConfigDescriptor.c                                          \
-	  $(LUFA_PATH)/LUFA/Scheduler/Scheduler.c                     \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \

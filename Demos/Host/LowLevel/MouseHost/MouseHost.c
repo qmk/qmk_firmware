@@ -36,18 +36,27 @@
  
 #include "MouseHost.h"
 
-/* Scheduler Task List */
-TASK_LIST
-{
-	{ .Task = USB_USBTask          , .TaskStatus = TASK_STOP },
-	{ .Task = USB_Mouse_Host       , .TaskStatus = TASK_STOP },
-};
-
-
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  starts the scheduler to run the application tasks.
  */
 int main(void)
+{
+	SetupHardware();
+
+	puts_P(PSTR(ESC_RESET ESC_BG_WHITE ESC_INVERSE_ON ESC_ERASE_DISPLAY
+	       "Mouse HID Host Demo running.\r\n" ESC_INVERSE_OFF));
+
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+
+	for (;;)
+	{
+		Mouse_HID_Task();
+		USB_USBTask();
+	}
+}
+
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
+void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
@@ -59,22 +68,7 @@ int main(void)
 	/* Hardware Initialization */
 	SerialStream_Init(9600, false);
 	LEDs_Init();
-	
-	/* Indicate USB not ready */
-	UpdateStatus(Status_USBNotReady);
-	
-	/* Initialize Scheduler so that it can be used */
-	Scheduler_Init();
-
-	/* Initialize USB Subsystem */
 	USB_Init();
-
-	/* Start-up message */
-	puts_P(PSTR(ESC_RESET ESC_BG_WHITE ESC_INVERSE_ON ESC_ERASE_DISPLAY
-	       "Mouse Host Demo running.\r\n" ESC_INVERSE_OFF));
-		   
-	/* Scheduling - routine never returns, so put this last in the main function */
-	Scheduler_Start();
 }
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
@@ -83,10 +77,7 @@ int main(void)
 void EVENT_USB_DeviceAttached(void)
 {
 	puts_P(PSTR("Device Attached.\r\n"));
-	UpdateStatus(Status_USBEnumerating);
-
-	/* Start USB management task to enumerate the device */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_RUN);
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
 /** Event handler for the USB_DeviceUnattached event. This indicates that a device has been removed from the host, and
@@ -94,12 +85,8 @@ void EVENT_USB_DeviceAttached(void)
  */
 void EVENT_USB_DeviceUnattached(void)
 {
-	/* Stop mouse and USB management task */
-	Scheduler_SetTaskMode(USB_USBTask, TASK_STOP);
-	Scheduler_SetTaskMode(USB_Mouse_Host, TASK_STOP);
-
 	puts_P(PSTR("Device Unattached.\r\n"));
-	UpdateStatus(Status_USBNotReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the USB_DeviceEnumerationComplete event. This indicates that a device has been successfully
@@ -107,11 +94,7 @@ void EVENT_USB_DeviceUnattached(void)
  */
 void EVENT_USB_DeviceEnumerationComplete(void)
 {
-	/* Start Mouse Host task */
-	Scheduler_SetTaskMode(USB_Mouse_Host, TASK_RUN);
-
-	/* Indicate device enumeration complete */
-	UpdateStatus(Status_USBReady);
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
@@ -122,7 +105,7 @@ void EVENT_USB_HostError(const uint8_t ErrorCode)
 	puts_P(PSTR(ESC_BG_RED "Host Mode Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
 
-	UpdateStatus(Status_HardwareError);
+	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 	for(;;);
 }
 
@@ -136,38 +119,7 @@ void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t Su
 	printf_P(PSTR(" -- Sub Error Code %d\r\n"), SubErrorCode);
 	printf_P(PSTR(" -- In State %d\r\n"), USB_HostState);
 
-	UpdateStatus(Status_EnumerationError);
-}
-
-/** Function to manage status updates to the user. This is done via LEDs on the given board, if available, but may be changed to
- *  log to a serial port, or anything else that is suitable for status updates.
- *
- *  \param CurrentStatus  Current status of the system, from the MouseHost_StatusCodes_t enum
- */
-void UpdateStatus(uint8_t CurrentStatus)
-{
-	uint8_t LEDMask = LEDS_NO_LEDS;
-	
-	/* Set the LED mask to the appropriate LED mask based on the given status code */
-	switch (CurrentStatus)
-	{
-		case Status_USBNotReady:
-			LEDMask = (LEDS_LED1);
-			break;
-		case Status_USBEnumerating:
-			LEDMask = (LEDS_LED1 | LEDS_LED2);
-			break;
-		case Status_USBReady:
-			LEDMask = (LEDS_LED2);
-			break;
-		case Status_EnumerationError:
-		case Status_HardwareError:
-			LEDMask = (LEDS_LED1 | LEDS_LED3);
-			break;
-	}
-	
-	/* Set the board LEDs to the new LED mask */
-	LEDs_SetAllLEDs(LEDMask);
+	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
 /** Reads in and processes the next report from the attached device, displaying the report
@@ -233,7 +185,7 @@ void ReadNextReport(void)
 /** Task to set the configuration of the attached device after it has been enumerated, and to read and process
  *  HID reports from the device and display the results onto the board LEDs.
  */
-TASK(USB_Mouse_Host)
+void Mouse_HID_Task(void)
 {
 	uint8_t ErrorCode;
 
@@ -261,7 +213,7 @@ TASK(USB_Mouse_Host)
 				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
 
 				/* Indicate error status */
-				UpdateStatus(Status_EnumerationError);
+				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 				
 				/* Wait until USB device disconnected */
 				while (USB_IsConnected);
@@ -284,7 +236,7 @@ TASK(USB_Mouse_Host)
 				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
 				
 				/* Indicate error status */
-				UpdateStatus(Status_EnumerationError);
+				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
 				/* Wait until USB device disconnected */
 				while (USB_IsConnected);
@@ -311,7 +263,7 @@ TASK(USB_Mouse_Host)
 				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
 
 				/* Indicate error status */
-				UpdateStatus(Status_EnumerationError);
+				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 				
 				/* Wait until USB device disconnected */
 				while (USB_IsConnected);

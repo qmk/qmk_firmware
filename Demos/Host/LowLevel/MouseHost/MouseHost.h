@@ -44,12 +44,11 @@
 		#include <avr/power.h>
 		#include <stdio.h>
 
-		#include <LUFA/Version.h>                                // Library Version Information
-		#include <LUFA/Drivers/Misc/TerminalCodes.h>             // ANSI Terminal Escape Codes
-		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>        // Serial stream driver
-		#include <LUFA/Drivers/Board/LEDs.h>                     // LEDs driver
-		#include <LUFA/Scheduler/Scheduler.h>                    // Simple scheduler for task management
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/Misc/TerminalCodes.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
 		
 		#include "ConfigDescriptor.h"
 		
@@ -60,6 +59,18 @@
 		/** HID Class Specific request to set the report protocol mode */
 		#define REQ_SetProtocol             0x0B
 
+		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+
+		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+
 	/* Type Defines: */
 		/** Type define for a standard Boot Protocol Mouse report */
 		typedef struct
@@ -69,28 +80,16 @@
 			int8_t  Y; /**< Current delta Y movement on the mouse */
 		} USB_MouseReport_Data_t;
 
-	/* Task Definitions: */
-		TASK(USB_Mouse_Host);
-
-	/* Enums: */
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum MouseHost_StatusCodes_t
-		{
-			Status_USBNotReady      = 0, /**< USB is not ready (disconnected from a USB device) */
-			Status_USBEnumerating   = 1, /**< USB interface is enumerating */
-			Status_USBReady         = 2, /**< USB interface is connected and ready */
-			Status_EnumerationError = 3, /**< Software error while enumerating the attached USB device */
-			Status_HardwareError    = 4, /**< Hardware error while enumerating the attached USB device */
-		};
-		
 	/* Function Prototypes: */
+		void Mouse_HID_Task(void);
+		void SetupHardware(void);
+		
 		void EVENT_USB_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_DeviceAttached(void);
 		void EVENT_USB_DeviceUnattached(void);
 		void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
 		void EVENT_USB_DeviceEnumerationComplete(void);
 
-		void UpdateStatus(uint8_t CurrentStatus);
 		void ReadNextReport(void);
 		
 #endif

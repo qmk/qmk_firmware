@@ -38,8 +38,6 @@ volatile uint8_t USB_CurrentMode = USB_MODE_NONE;
 volatile uint8_t USB_Options;
 #endif
 
-volatile bool FrameElapsed;
-
 void USB_Init(
                #if defined(USB_CAN_BE_BOTH)
                const uint8_t Mode
@@ -151,8 +149,6 @@ void USB_ResetInterface(void)
 {
 	USB_INT_DisableAllInterrupts();
 	USB_INT_ClearAllInterrupts();
-
-	FrameElapsed = false;
 
 	USB_IsConnected = false;
 

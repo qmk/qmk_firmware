@@ -47,29 +47,31 @@
 		#include "Lib/PIMACodes.h"
 		#include "Lib/StillImageCommands.h"
 
-		#include <LUFA/Drivers/Misc/TerminalCodes.h>             // ANSI Terminal Escape Codes
-		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>        // Serial stream driver
-		#include <LUFA/Drivers/Board/LEDs.h>                     // LED driver
-		#include <LUFA/Scheduler/Scheduler.h>                    // Simple scheduler for task management
+		#include <LUFA/Drivers/Misc/TerminalCodes.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		
+	/* Macros: */
+		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
-	/* Enums: */
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum StillImageHost_StatusCodes_t
-		{
-			Status_USBNotReady      = 0, /**< USB is not ready (disconnected from a USB device) */
-			Status_USBEnumerating   = 1, /**< USB interface is enumerating */
-			Status_USBReady         = 2, /**< USB interface is connected and ready */
-			Status_EnumerationError = 3, /**< Software error while enumerating the attached USB device */
-			Status_HardwareError    = 4, /**< Hardware error while enumerating the attached USB device */
-			Status_Busy             = 5, /**< Busy reading or writing to the attached Still Image device */
-			Status_PIMACommandError = 6, /**< Error while sending or receiving a PIM command to the attached device */
-		};
+		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
 
-	/* Task Definitions: */
-		TASK(USB_SImage_Host);
+		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
 
+		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
+		#define LEDMASK_USB_BUSY         (LEDS_LED2)
+		
 	/* Function Prototypes: */
+		void StillImage_Task(void);
+		void SetupHardware(void);
+	
 		void EVENT_USB_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_DeviceAttached(void);
 		void EVENT_USB_DeviceUnattached(void);
@@ -78,6 +80,5 @@
 
 		void UnicodeToASCII(uint8_t* restrict UnicodeString, char* restrict Buffer);
 		void ShowCommandError(uint8_t ErrorCode, bool ResponseCodeError);
-		void UpdateStatus(uint8_t CurrentStatus);
 		
 #endif

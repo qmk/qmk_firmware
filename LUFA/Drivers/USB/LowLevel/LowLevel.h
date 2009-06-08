@@ -350,9 +350,6 @@
 				  return USB_MODE_HOST;
 			}
 			#endif
-		
-		/* External Variables: */
-			extern volatile bool FrameElapsed;
 			
 	#endif
 	

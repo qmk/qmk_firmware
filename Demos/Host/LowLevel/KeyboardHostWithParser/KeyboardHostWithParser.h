@@ -38,12 +38,11 @@
 		#include <avr/power.h>
 		#include <stdio.h>
 
-		#include <LUFA/Version.h>                                // Library Version Information
-		#include <LUFA/Drivers/Misc/TerminalCodes.h>             // ANSI Terminal Escape Codes
-		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>        // Serial stream driver
-		#include <LUFA/Drivers/Board/LEDs.h>                     // LEDs driver
-		#include <LUFA/Scheduler/Scheduler.h>                    // Simple scheduler for task management
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/Misc/TerminalCodes.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
 		
 		#include "ConfigDescriptor.h"
 		#include "HIDReport.h"
@@ -52,29 +51,28 @@
 		/** Pipe number for the keyboard report data pipe */
 		#define KEYBOARD_DATAPIPE              1
 
-	/* Enums: */
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum KeyboardHostWithParser_StatusCodes_t
-		{
-			Status_USBNotReady      = 0, /**< USB is not ready (disconnected from a USB device) */
-			Status_USBEnumerating   = 1, /**< USB interface is enumerating */
-			Status_USBReady         = 2, /**< USB interface is connected and ready */
-			Status_EnumerationError = 3, /**< Software error while enumerating the attached USB device */
-			Status_HardwareError    = 4, /**< Hardware error while enumerating the attached USB device */
-			Status_Busy             = 5, /**< Busy dumping HID report items to the serial port */
-		};
+		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
-	/* Task Definitions: */
-		TASK(USB_Keyboard_Host);
+		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
 
+		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+
+		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+		
 	/* Function Prototypes: */
+		void Keyboard_HID_Task(void);
+		void SetupHardware(void);
+
 		void EVENT_USB_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_DeviceAttached(void);
 		void EVENT_USB_DeviceUnattached(void);
 		void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
 		void EVENT_USB_DeviceEnumerationComplete(void);
 
-		void UpdateStatus(uint8_t CurrentStatus);
 		void ProcessKeyboardReport(uint8_t* KeyboardReport);
 		
 #endif

@@ -248,7 +248,7 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 			else
 			{
 				/* Read the next FLASH byte from the current FLASH page */
-				#if defined(RAMPZ)
+				#if (FLASHEND > 0xFFFF)
 				WriteNextResponseByte(pgm_read_byte_far(CurrAddress | HighByte));
 				#else
 				WriteNextResponseByte(pgm_read_byte(CurrAddress | HighByte));					
@@ -513,7 +513,7 @@ TASK(CDC_Task)
 		}
 		else if (Command == 'R')
 		{
-			#if defined(RAMPZ)
+			#if (FLASHEND > 0xFFFF)
 			uint16_t ProgramWord = pgm_read_word_far(CurrAddress);
 			#else
 			uint16_t ProgramWord = pgm_read_word(CurrAddress);			

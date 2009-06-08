@@ -342,7 +342,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 						}
 
 						/* Read the flash word and send it via USB to the host */
-						#if defined(RAMPZ)
+						#if (FLASHEND > 0xFFFF)
 							Endpoint_Write_Word_LE(pgm_read_word_far(CurrFlashAddress.Long));
 						#else
 							Endpoint_Write_Word_LE(pgm_read_word(CurrFlashAddress.Long));							
@@ -585,7 +585,7 @@ static void ProcessMemReadCommand(void)
 		while (CurrFlashAddress < BOOT_START_ADDR)
 		{
 			/* Check if the current byte is not blank */
-			#if defined(RAMPZ)
+			#if (FLASHEND > 0xFFFF)
 			if (pgm_read_byte_far(CurrFlashAddress) != 0xFF)
 			#else
 			if (pgm_read_byte(CurrFlashAddress) != 0xFF)

@@ -5,13 +5,14 @@
  */
    
 ========== TODO: ===========
-	- Fix bootloaders - make compatible with smaller USB AVRS (USB_IsConnected, RAMPZ)
+	- Fix bootloaders - make compatible with smaller USB AVRS (USB_IsConnected)
 	- Document new device class drivers
 	- Made new host class drivers
 	- Document new host class drivers
 	- Convert Host mode demos to class drivers
 	- Convert Host mode demos to schedulerless
 	- Add standardized descriptor names to class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
+	- Device demos error if endpoint config fail
 ============================
 
  /** \page Page_ChangeLog Project Changelog
@@ -20,6 +21,8 @@
   *
   *  - Removed psuedo-scheduler, dynamic memory block allocator from the library (no longer needed and not used respectively)
   *  - Added new class drivers and matching demos to the library for rapid application development
+  *  - Added incomplete device and host mode demos for later enhancement
+  *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

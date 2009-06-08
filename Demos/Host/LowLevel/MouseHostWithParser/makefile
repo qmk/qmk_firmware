@@ -119,14 +119,13 @@ OBJDIR = .
 
 
 # Path to the LUFA library
-LUFA_PATH = ../../..
+LUFA_PATH = ../../../..
 
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
 	  ConfigDescriptor.c                                          \
 	  HIDReport.c                                                 \
-	  $(LUFA_PATH)/LUFA/Scheduler/Scheduler.c                     \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
@@ -139,7 +138,7 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/HIDParser.c             \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/HIDParser.c        \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

@@ -94,9 +94,9 @@ uint8_t Pipe_WaitUntilReady(void)
 		else if (!(USB_IsConnected))
 		  return PIPE_READYWAIT_DeviceDisconnected;
 			  
-		if (FrameElapsed)
+		if (USB_INT_HasOccurred(USB_INT_HSOFI))
 		{
-			FrameElapsed = false;
+			USB_INT_Clear(USB_INT_HSOFI);
 
 			if (!(TimeoutMSRem--))
 			  return PIPE_READYWAIT_Timeout;
