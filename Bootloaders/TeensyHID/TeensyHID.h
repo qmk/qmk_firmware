@@ -59,9 +59,13 @@
 		/** HID Class specific request to send the next HID report to the device. */
 		#define REQ_SetReport             0x09
 		
+		/** Teensy Bootloader special address to start the user application */
 		#define TEENSY_STARTAPPLICATION   0xFFFF
 		
 	/* Function Prototypes: */
+		void SetupHardware(void);
+		void ResetHardware(void);
+
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
 		

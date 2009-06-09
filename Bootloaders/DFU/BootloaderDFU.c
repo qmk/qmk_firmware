@@ -98,6 +98,23 @@ uint16_t EndAddr = 0x0000;
  */
 int main (void)
 {
+	/* Configure hardware required by the bootloader */
+	SetupHardware();
+
+	/* Run the USB management task while the bootloader is supposed to be running */
+	while (RunBootloader || WaitForExit)
+	  USB_USBTask();
+	
+	/* Reset configured hardware back to their original states for the user application */
+	ResetHardware();
+	
+	/* Start the user application */
+	AppStartPtr();
+}
+
+/** Configures all hardware required for the bootloader. */
+void SetupHardware(void)
+{
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
@@ -111,29 +128,17 @@ int main (void)
 
 	/* Initialize the USB subsystem */
 	USB_Init();
+}
 
-	/* Run the USB management task while the bootloader is supposed to be running */
-	while (RunBootloader || WaitForExit)
-	  USB_USBTask();
-	
+/** Resets all configured hardware required for the bootloader back to their original states. */
+void ResetHardware(void)
+{
 	/* Shut down the USB subsystem */
 	USB_ShutDown();
 	
 	/* Relocate the interrupt vector table back to the application section */
 	MCUCR = (1 << IVCE);
 	MCUCR = 0;
-
-	/* Reset any used hardware ports back to their defaults */
-	PORTD = 0;
-	DDRD  = 0;
-	
-	#if defined(PORTE)
-	PORTE = 0;
-	DDRE  = 0;
-	#endif
-	
-	/* Start the user application */
-	AppStartPtr();
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the bootloader should exit and the user

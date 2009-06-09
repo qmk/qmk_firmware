@@ -193,6 +193,9 @@
 		};
 				
 	/* Function Prototypes: */
+		void SetupHardware(void);
+		void ResetHardware(void);
+
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_UnhandledControlPacket(void);
 

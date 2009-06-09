@@ -49,6 +49,27 @@ bool RunBootloader = true;
  */
 int main(void)
 {
+	/* Setup hardware required for the bootloader */
+	SetupHardware();
+	
+	while (RunBootloader)
+	  USB_USBTask();
+	
+	/* Reset all configured hardware to their default states for the user app */
+	ResetHardware();
+
+	/* Wait 100ms to give the host time to register the disconnection */
+	_delay_ms(100);
+
+	/* Enable the watchdog and force a timeout to reset the AVR */
+	wdt_enable(WDTO_250MS);
+					
+	for (;;);
+}
+
+/** Configures all hardware required for the bootloader. */
+void SetupHardware(void)
+{
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
@@ -62,20 +83,13 @@ int main(void)
 
 	/* Initialize USB subsystem */
 	USB_Init();
-	
-	while (RunBootloader)
-	  USB_USBTask();
-	  
-	/* Shut down the USB interface, so that the host will register the disconnection */
+}
+
+/** Resets all configured hardware required for the bootloader back to their original states. */
+void ResetHardware(void)
+{
+	/* Shut down the USB subsystem */
 	USB_ShutDown();
-
-	/* Wait 100ms to give the host time to register the disconnection */
-	_delay_ms(100);
-
-	/* Enable the watchdog and force a timeout to reset the AVR */
-	wdt_enable(WDTO_250MS);
-					
-	for (;;);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This configures the device's endpoints ready

@@ -67,6 +67,26 @@ bool RunBootloader = true;
  */
 int main(void)
 {
+	/* Setup hardware required for the bootloader */
+	SetupHardware();
+
+	while (RunBootloader)
+	{
+		CDC_Task();
+		USB_USBTask();
+	}
+	
+	/* Reset all configured hardware to their default states for the user app */
+	ResetHardware();
+
+	/* Start the user application */
+	AppPtr_t AppStartPtr = (AppPtr_t)0x0000;
+	AppStartPtr();	
+}
+
+/** Configures all hardware required for the bootloader. */
+void SetupHardware(void)
+{
 	/* Disable watchdog if enabled by bootloader/fuses */
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
@@ -80,18 +100,11 @@ int main(void)
 	
 	/* Initialize USB Subsystem */
 	USB_Init();
+}
 
-	while (RunBootloader)
-	{
-		USB_USBTask();
-		CDC_Task();
-	}
-	
-	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
-
-	/* Wait until any pending transmissions have completed before shutting down */
-	while (!(Endpoint_IsINReady()));
-	
+/** Resets all configured hardware required for the bootloader back to their original states. */
+void ResetHardware(void)
+{
 	/* Shut down the USB subsystem */
 	USB_ShutDown();
 	
@@ -99,21 +112,8 @@ int main(void)
 	MCUCR = (1 << IVCE);
 	MCUCR = 0;
 
-	/* Reset any used hardware ports back to their defaults */
-	PORTD = 0;
-	DDRD  = 0;
-	
-	#if defined(PORTE)
-	PORTE = 0;
-	DDRE  = 0;
-	#endif
-	
 	/* Re-enable RWW section */
 	boot_rww_enable();
-
-	/* Start the user application */
-	AppPtr_t AppStartPtr = (AppPtr_t)0x0000;
-	AppStartPtr();	
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the bootloader should exit and the user
@@ -364,7 +364,7 @@ static void WriteNextResponseByte(const uint8_t Response)
 /** Task to read in AVR910 commands from the CDC data OUT endpoint, process them, perform the required actions
  *  and send the appropriate response back to the host.
  */
-TASK(CDC_Task)
+void CDC_Task(void)
 {
 	/* Select the OUT endpoint */
 	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
@@ -566,6 +566,9 @@ TASK(CDC_Task)
 			while (!(Endpoint_IsINReady()));
 			Endpoint_ClearIN();
 		}
+
+		/* Wait until the data has been sent to the host */
+		while (!(Endpoint_IsINReady()));
 		
 		/* Select the OUT endpoint */
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);

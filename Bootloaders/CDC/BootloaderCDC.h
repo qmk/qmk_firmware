@@ -118,10 +118,11 @@
 			Parity_Space        = 4, /**< Space data parity checking */
 		};
 		
-	/* Tasks: */
-		TASK(CDC_Task);
-
 	/* Function Prototypes: */
+		void CDC_Task(void);
+		void SetupHardware(void);
+		void ResetHardware(void);
+
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
