@@ -22,6 +22,8 @@
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed
   *  - Error status LEDs shown when device endpoint configuration fails to complete
   *  - MIDI device demo no longer blocks if a note change event is sent while the endpoint is not ready
+  *  - Fixes to MassStorageHost for better device compatibility (increase command timeout, change MassStore_WaitForDataReceived()
+  *    to only unfreeze and check one data pipe at a time)
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

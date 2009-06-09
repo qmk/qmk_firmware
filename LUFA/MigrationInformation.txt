@@ -10,7 +10,7 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
- * \section Sec_Migration090605 Migrating from 090510 to 090605
+ * \section Sec_MigrationXXXXXX Migrating from 090605 to XXXXXX
  *
  *
  * \section Sec_Migration090605 Migrating from 090510 to 090605

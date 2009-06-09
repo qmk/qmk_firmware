@@ -169,6 +169,7 @@
 		 *  \param ReportID  Report ID of the received output report. If multiple reports are not received via the given HID
 		 *                   interface, this parameter should be ignored.
 		 *  \param ReportData  Pointer to a buffer where the received HID report is stored.
+		 *  \param ReportSize  Size in bytes of the received report from the host.
 		 */
 		void CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t ReportID, void* ReportData, uint16_t ReportSize);
 

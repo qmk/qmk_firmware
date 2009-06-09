@@ -107,10 +107,6 @@ static uint8_t MassStore_WaitForDataReceived(void)
 {
 	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
 
-	/* Unfreeze the OUT pipe so that it can be checked */
-	Pipe_SelectPipe(MASS_STORE_DATA_OUT_PIPE);
-	Pipe_Unfreeze();
-
 	/* Select the IN data pipe for data reception */
 	Pipe_SelectPipe(MASS_STORE_DATA_IN_PIPE);
 	Pipe_Unfreeze();
@@ -130,7 +126,9 @@ static uint8_t MassStore_WaitForDataReceived(void)
 			  return PIPE_RWSTREAM_Timeout;
 		}
 	
+		Pipe_Freeze();
 		Pipe_SelectPipe(MASS_STORE_DATA_OUT_PIPE);
+		Pipe_Unfreeze();
 
 		/* Check if pipe stalled (command failed by device) */
 		if (Pipe_IsStalled())
@@ -140,8 +138,10 @@ static uint8_t MassStore_WaitForDataReceived(void)
 
 			return PIPE_RWSTREAM_PipeStalled;
 		}
-
+		
+		Pipe_Freeze();
 		Pipe_SelectPipe(MASS_STORE_DATA_IN_PIPE);
+		Pipe_Unfreeze();
 
 		/* Check if pipe stalled (command failed by device) */
 		if (Pipe_IsStalled())
@@ -156,6 +156,12 @@ static uint8_t MassStore_WaitForDataReceived(void)
 		if (!(USB_IsConnected))
 		  return PIPE_RWSTREAM_DeviceDisconnected;
 	};
+	
+	Pipe_SelectPipe(MASS_STORE_DATA_IN_PIPE);
+	Pipe_Freeze();
+		
+	Pipe_SelectPipe(MASS_STORE_DATA_OUT_PIPE);
+	Pipe_Freeze();
 
 	return PIPE_RWSTREAM_NoError;
 }
