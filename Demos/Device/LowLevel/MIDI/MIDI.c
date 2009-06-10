@@ -122,6 +122,9 @@ void MIDI_Task(void)
 	/* Check if endpoint is ready to be written to */
 	if (Endpoint_IsINReady())
 	{
+		uint8_t MIDICommand = 0;
+		uint8_t MIDIPitch;
+	
 		/* Get current joystick mask, XOR with previous to detect joystick changes */
 		uint8_t JoystickStatus  = Joystick_GetStatus();
 		uint8_t JoystickChanges = (JoystickStatus ^ PrevJoystickStatus);
@@ -130,20 +133,55 @@ void MIDI_Task(void)
 		uint8_t Channel = ((Buttons_GetStatus() & BUTTONS_BUTTON1) ? MIDI_CHANNEL(10) : MIDI_CHANNEL(1));
 
 		if (JoystickChanges & JOY_LEFT)
-		  SendMIDINoteChange(0x3C, (JoystickStatus & JOY_LEFT), 0, Channel);
+		{
+			MIDICommand = ((JoystickStatus & JOY_LEFT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+			MIDIPitch   = 0x3C;
+		}
 
 		if (JoystickChanges & JOY_UP)
-		  SendMIDINoteChange(0x3D, (JoystickStatus & JOY_UP), 0, Channel);
+		{
+			MIDICommand = ((JoystickStatus & JOY_UP)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+			MIDIPitch   = 0x3D;
+		}
 
 		if (JoystickChanges & JOY_RIGHT)
-		  SendMIDINoteChange(0x3E, (JoystickStatus & JOY_RIGHT), 0, Channel);
-
+		{
+			MIDICommand = ((JoystickStatus & JOY_RIGHT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+			MIDIPitch   = 0x3E;
+		}
+		
 		if (JoystickChanges & JOY_DOWN)
-		  SendMIDINoteChange(0x3F, (JoystickStatus & JOY_DOWN), 0, Channel);
+		{
+			MIDICommand = ((JoystickStatus & JOY_DOWN)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+			MIDIPitch   = 0x3F;
+		}
 
 		if (JoystickChanges & JOY_PRESS)
-		  SendMIDINoteChange(0x3B, (JoystickStatus & JOY_PRESS), 0, Channel);
+		{
+			MIDICommand = ((JoystickStatus & JOY_PRESS)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
+			MIDIPitch   = 0x3B;
+		}
 
+		/* Check if a MIDI command is to be sent */
+		if (MIDICommand)
+		{
+			USB_MIDI_EventPacket_t MIDIEvent = (USB_MIDI_EventPacket_t)
+				{
+					.CableNumber = 0,
+					.Command     = MIDICommand,
+					
+					.Data1       = (MIDICommand << 4) | Channel,
+					.Data2       = MIDIPitch,
+					.Data3       = MIDI_STANDARD_VELOCITY,			
+				};
+				
+			/* Write the MIDI event packet to the endpoint */
+			Endpoint_Write_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
+		
+			/* Send the data in the endpoint to the host */
+			Endpoint_ClearIN();
+		}
+		
 		/* Save previous joystick value for next joystick change detection */
 		PrevJoystickStatus = JoystickStatus;
 	}
@@ -154,32 +192,4 @@ void MIDI_Task(void)
 	/* Check if endpoint is ready to be read from, if so discard its (unused) data */
 	if (Endpoint_IsOUTReceived())
 	  Endpoint_ClearOUT();
-}
-
-/** Sends a MIDI note change event (note on or off) to the MIDI output jack, on the given virtual cable ID and channel.
- *
- *  \param Pitch    Pitch of the note to turn on or off
- *  \param OnOff    Set to true if the note is on (being held down), or false otherwise
- *  \param CableID  ID of the virtual cable to send the note change to
- *  \param Channel  MIDI channel number to send the note change event to
- */
-void SendMIDINoteChange(const uint8_t Pitch, const bool OnOff, const uint8_t CableID, const uint8_t Channel)
-{
-	/* If endpoint ready for more data, abort */
-	if (!(Endpoint_IsReadWriteAllowed()))
-	  return;
-
-	/* Check if the message should be a Note On or Note Off command */
-	uint8_t Command = ((OnOff)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-
-	/* Write the Packet Header to the endpoint */
-	Endpoint_Write_Byte((CableID << 4) | (Command >> 4));
-
-	/* Write the Note On/Off command with the specified channel, pitch and velocity */
-	Endpoint_Write_Byte(Command | Channel);
-	Endpoint_Write_Byte(Pitch);
-	Endpoint_Write_Byte(MIDI_STANDARD_VELOCITY);
-	
-	/* Send the data in the endpoint to the host */
-	Endpoint_ClearIN();
 }

@@ -68,19 +68,6 @@
 
 	/* Task Definitions: */
 		void Bluetooth_Management_Task(void);
-
-	/* Enums: */
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum MouseHostViaInt_StatusCodes_t
-		{
-			Status_USBNotReady        = 0, /**< USB is not ready (disconnected from a USB device) */
-			Status_USBEnumerating     = 1, /**< USB interface is enumerating */
-			Status_USBReady           = 2, /**< USB interface is connected and ready */
-			Status_EnumerationError   = 3, /**< Software error while enumerating the attached USB device */
-			Status_HardwareError      = 4, /**< Hardware error while enumerating the attached USB device */
-			Status_BluetoothConnected = 5, /**< Bluetooth stack connected to device and idle */
-			Status_BluetoothBusy      = 6, /**< Bluetooth stack busy */ 
-		};
 		
 	/* Event Handlers: */
 		void EVENT_USB_DeviceAttached(void);

@@ -180,6 +180,4 @@
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
 
-		void UpdateStatus(uint8_t CurrentStatus);
-
 #endif

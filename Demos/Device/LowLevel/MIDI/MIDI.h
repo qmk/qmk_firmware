@@ -52,10 +52,10 @@
 
    /* Macros: */
 		/** MIDI command for a note on (activation) event */
-		#define MIDI_COMMAND_NOTE_ON         0x90
+		#define MIDI_COMMAND_NOTE_ON         0x09
 
 		/** MIDI command for a note off (deactivation) event */
-		#define MIDI_COMMAND_NOTE_OFF        0x80
+		#define MIDI_COMMAND_NOTE_OFF        0x08
 
 		/** Standard key press velocity value used for all note events, as no pressure sensor is mounted */
 		#define MIDI_STANDARD_VELOCITY       64
@@ -78,6 +78,18 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+
+	/* Type Defines: */
+		/** Type define for a USB MIDI event packet, used to encapsulate sent and received MIDI messages from a USB MIDI interface. */
+		typedef struct
+		{
+			unsigned char Command     : 4; /**< MIDI command being sent or received in the event packet */
+			unsigned char CableNumber : 4; /**< Virtual cable number of the event being sent or received in the given MIDI interface */
+			
+			uint8_t Data1; /**< First byte of data in the MIDI event */
+			uint8_t Data2; /**< Second byte of data in the MIDI event */
+			uint8_t Data3; /**< Third byte of data in the MIDI event */		
+		} USB_MIDI_EventPacket_t;
 		
    /* Function Prototypes: */
 		void SetupHardware(void);
@@ -86,9 +98,5 @@
 		void EVENT_USB_Connect(void);
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);
-
-		void SendMIDINoteChange(const uint8_t Pitch, const bool OnOff,
-		                        const uint8_t CableID, const uint8_t Channel);		
-		void UpdateStatus(uint8_t CurrentStatus);
 		
 #endif

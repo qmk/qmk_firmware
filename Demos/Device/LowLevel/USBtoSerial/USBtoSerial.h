@@ -172,14 +172,6 @@
 			Parity_Mark         = 3, /**< Mark parity bit mode on each frame */
 			Parity_Space        = 4, /**< Space parity bit mode on each frame */
 		};
-
-		/** Enum for the possible status codes for passing to the UpdateStatus() function. */
-		enum USBtoSerial_StatusCodes_t
-		{
-			Status_USBNotReady    = 0, /**< USB is not ready (disconnected from a USB host) */
-			Status_USBEnumerating = 1, /**< USB interface is enumerating */
-			Status_USBReady       = 2, /**< USB interface is connected and ready */
-		};
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);

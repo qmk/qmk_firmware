@@ -63,6 +63,9 @@ int main(void)
 	for (;;)
 	{
 		CheckJoystickMovement();
+		
+		USB_MIDI_EventPacket_t DummyMIDIEvent;
+		USB_MIDI_ReceiveEventPacket(&Keyboard_MIDI_Interface, &DummyMIDIEvent);
 	
 		USB_MIDI_USBTask(&Keyboard_MIDI_Interface);
 		USB_USBTask();
