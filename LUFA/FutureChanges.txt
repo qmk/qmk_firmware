@@ -1,0 +1,22 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+ /** \page Page_FutureChanges Future Changes
+  *
+  *  Below is a list of future changes which are proposed for the LUFA library, but not yet started/complete.
+  *  This gives an unordered list of future changes which will be available in future releases of the library.
+  *  If you have an item to add to this list, please contact the library author via email, the LUFA mailing list,
+  *  or post your suggestion as an enhancement request to the project bug tracker.
+  *
+  *  - Make new host class drivers
+  *  - Document new host class drivers
+  *  - Convert Host mode demos to class drivers
+  *  - Add standardized descriptor names to class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
+  *  - Add multiple-report HID demo to the library
+  *  - Add dual role Mouse Host/Keyboard Device demo to the library
+  *  - Port LUFA to the AVR32 UC3B series microcontrollers
+  *  - Port LUFA to the Atmel ARM7 series microcontrollers
+  */

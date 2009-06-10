@@ -3,14 +3,6 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
-   
-========== TODO: ===========
-	- Make new host class drivers
-	- Document new host class drivers
-	- Convert Host mode demos to class drivers
-	- Add standardized descriptor names to class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
-	- Add multiple-report HID demo to the library
-============================
 
  /** \page Page_ChangeLog Project Changelog
   *
