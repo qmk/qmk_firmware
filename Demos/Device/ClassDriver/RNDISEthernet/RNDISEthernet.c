@@ -82,7 +82,7 @@ int main(void)
 
 		TCP_TCPTask(&Ethernet_RNDIS_Interface);
 
-		USB_RNDIS_USBTask(&Ethernet_RNDIS_Interface);
+		RNDIS_Device_USBTask(&Ethernet_RNDIS_Interface);
 		USB_USBTask();
 	}
 }
@@ -120,12 +120,12 @@ void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
-	if (!(USB_RNDIS_ConfigureEndpoints(&Ethernet_RNDIS_Interface)))
+	if (!(RNDIS_Device_ConfigureEndpoints(&Ethernet_RNDIS_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	USB_RNDIS_ProcessControlPacket(&Ethernet_RNDIS_Interface);
+	RNDIS_Device_ProcessControlPacket(&Ethernet_RNDIS_Interface);
 }

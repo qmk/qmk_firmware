@@ -74,21 +74,24 @@ int main(void)
 
 	for (;;)
 	{
-		for (uint8_t DataBytesRem = USB_CDC_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
+		/* Read bytes from the USB OUT endpoint into the USART transmit buffer */
+		for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
 		{
 			if (!(BUFF_STATICSIZE - Rx_Buffer.Elements))
 			  break;
 			  
-			Buffer_StoreElement(&Rx_Buffer, USB_CDC_ReceiveByte(&VirtualSerial_CDC_Interface));
+			Buffer_StoreElement(&Rx_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 		}
 		
+		/* Read bytes from the USART receive buffer into the USB IN endpoint */
 		if (Tx_Buffer.Elements)
-		  USB_CDC_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&Rx_Buffer));
-		  
+		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&Tx_Buffer));
+		
+		/* Read bytes from the USART transmit buffer into the USART */
 		if (Rx_Buffer.Elements)
 		  Serial_TxByte(Buffer_GetElement(&Rx_Buffer));
 		
-		USB_CDC_USBTask(&VirtualSerial_CDC_Interface);
+		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
 	}
 }
@@ -126,14 +129,14 @@ void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
-	if (!(USB_CDC_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
+	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	USB_CDC_ProcessControlPacket(&VirtualSerial_CDC_Interface);
+	CDC_Device_ProcessControlPacket(&VirtualSerial_CDC_Interface);
 }
 
 /** ISR to manage the reception of data from the serial port, placing received bytes into a circular buffer
@@ -149,7 +152,7 @@ ISR(USART1_RX_vect, ISR_BLOCK)
  *
  *  \param CDCInterfaceInfo  Pointer to the CDC class interface configuration structure being referenced
  */
-void EVENT_USB_CDC_LineEncodingChanged(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 {
 	uint8_t ConfigMask = 0;
 

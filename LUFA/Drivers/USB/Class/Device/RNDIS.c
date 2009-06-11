@@ -62,7 +62,7 @@ static const uint32_t PROGMEM AdapterSupportedOIDList[]  =
 		OID_802_3_XMIT_MORE_COLLISIONS,
 	};
 
-void USB_RNDIS_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
+void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
@@ -80,7 +80,7 @@ void USB_RNDIS_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 				Endpoint_Read_Control_Stream_LE(RNDISInterfaceInfo->RNDISMessageBuffer, USB_ControlRequest.wLength);
 				Endpoint_ClearIN();
 
-				USB_RNDIS_ProcessRNDISControlMessage(RNDISInterfaceInfo);
+				RNDIS_Device_ProcessRNDISControlMessage(RNDISInterfaceInfo);
 			}
 			
 			break;
@@ -107,7 +107,7 @@ void USB_RNDIS_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 	}
 }
 
-bool USB_RNDIS_ConfigureEndpoints(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
+bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 {
 	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->DataINEndpointNumber, EP_TYPE_BULK,
 							         ENDPOINT_DIR_IN, RNDISInterfaceInfo->DataINEndpointSize,
@@ -133,7 +133,7 @@ bool USB_RNDIS_ConfigureEndpoints(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 	return true;
 }
 
-void USB_RNDIS_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
+void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 {
 	if (!(USB_IsConnected))
 	  return;
@@ -205,7 +205,7 @@ void USB_RNDIS_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 	}
 }							
 
-void USB_RNDIS_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
+void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 {
 	/* Note: Only a single buffer is used for both the received message and its response to save SRAM. Because of
 	         this, response bytes should be filled in order so that they do not clobber unread data in the buffer. */
@@ -260,8 +260,8 @@ void USB_RNDIS_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfaceI
 			QUERY_Response->MessageType         = REMOTE_NDIS_QUERY_CMPLT;
 			QUERY_Response->MessageLength       = sizeof(RNDIS_QUERY_CMPLT_t);
 						
-			if (USB_RNDIS_ProcessNDISQuery(RNDISInterfaceInfo, Query_Oid, QueryData, QUERY_Message->InformationBufferLength,
-			                               ResponseData, &ResponseSize))
+			if (RNDIS_Device_ProcessNDISQuery(RNDISInterfaceInfo, Query_Oid, QueryData, QUERY_Message->InformationBufferLength,
+			                                  ResponseData, &ResponseSize))
 			{
 				QUERY_Response->Status                  = REMOTE_NDIS_STATUS_SUCCESS;
 				QUERY_Response->MessageLength          += ResponseSize;
@@ -292,7 +292,7 @@ void USB_RNDIS_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfaceI
 			void* SetData                   = &RNDISInterfaceInfo->RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
 			                                                                          SET_Message->InformationBufferOffset];
 						
-			if (USB_RNDIS_ProcessNDISSet(RNDISInterfaceInfo, SET_Oid, SetData, SET_Message->InformationBufferLength))
+			if (RNDIS_Device_ProcessNDISSet(RNDISInterfaceInfo, SET_Oid, SetData, SET_Message->InformationBufferLength))
 			  SET_Response->Status        = REMOTE_NDIS_STATUS_SUCCESS;
 			else
 			  SET_Response->Status        = REMOTE_NDIS_STATUS_NOT_SUPPORTED;
@@ -324,9 +324,9 @@ void USB_RNDIS_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfaceI
 	}
 }
 
-static bool USB_RNDIS_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo,
-                                       uint32_t OId, void* QueryData, uint16_t QuerySize,
-                                       void* ResponseData, uint16_t* ResponseSize)
+static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo,
+                                          uint32_t OId, void* QueryData, uint16_t QuerySize,
+                                          void* ResponseData, uint16_t* ResponseSize)
 {
 	switch (OId)
 	{
@@ -436,7 +436,7 @@ static bool USB_RNDIS_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo
 	}
 }
 
-static bool USB_RNDIS_ProcessNDISSet(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo, uint32_t OId, void* SetData, uint16_t SetSize)
+static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo, uint32_t OId, void* SetData, uint16_t SetSize)
 {
 	switch (OId)
 	{

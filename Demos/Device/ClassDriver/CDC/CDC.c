@@ -67,11 +67,11 @@ int main(void)
 	{
 		CheckJoystickMovement();
 		
-		uint16_t BytesToDiscard = USB_CDC_BytesReceived(&VirtualSerial_CDC_Interface);
+		uint16_t BytesToDiscard = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface);
 		while (BytesToDiscard--)
-		  USB_CDC_ReceiveByte(&VirtualSerial_CDC_Interface);
+		  CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
-		USB_CDC_USBTask(&VirtualSerial_CDC_Interface);
+		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
 	}
 }
@@ -125,7 +125,7 @@ void CheckJoystickMovement(void)
 	{
 		ActionSent = true;
 		
-		USB_CDC_SendString(&VirtualSerial_CDC_Interface, ReportString, strlen(ReportString));		
+		CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString, strlen(ReportString));		
 	}
 }
 
@@ -146,12 +146,12 @@ void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
-	if (!(USB_CDC_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
+	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	USB_CDC_ProcessControlPacket(&VirtualSerial_CDC_Interface);
+	CDC_Device_ProcessControlPacket(&VirtualSerial_CDC_Interface);
 }

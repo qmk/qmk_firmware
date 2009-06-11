@@ -62,7 +62,7 @@ int main(void)
 		if (Speaker_Audio_Interface.InterfaceEnabled)
 		  ProcessNextSample();
 
-		USB_Audio_USBTask(&Speaker_Audio_Interface);
+		Audio_Device_USBTask(&Speaker_Audio_Interface);
 		USB_USBTask();
 	}
 }
@@ -87,14 +87,14 @@ void SetupHardware(void)
  */
 void ProcessNextSample(void)
 {
-	if ((TIFR0 & (1 << OCF0A)) && USB_Audio_IsSampleReceived(&Speaker_Audio_Interface))
+	if ((TIFR0 & (1 << OCF0A)) && Audio_Device_IsSampleReceived(&Speaker_Audio_Interface))
 	{
 		/* Clear the sample reload timer */
 		TIFR0 |= (1 << OCF0A);
 
 		/* Retrieve the signed 16-bit left and right audio samples */
-		int16_t LeftSample_16Bit  = (int16_t)USB_Audio_ReadSample16();
-		int16_t RightSample_16Bit = (int16_t)USB_Audio_ReadSample16();
+		int16_t LeftSample_16Bit  = (int16_t)Audio_Device_ReadSample16();
+		int16_t RightSample_16Bit = (int16_t)Audio_Device_ReadSample16();
 
 		/* Massage signed 16-bit left and right audio samples into signed 8-bit */
 		int8_t  LeftSample_8Bit   = (LeftSample_16Bit  >> 8);
@@ -195,12 +195,12 @@ void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	
-	if (!(USB_Audio_ConfigureEndpoints(&Speaker_Audio_Interface)))
+	if (!(Audio_Device_ConfigureEndpoints(&Speaker_Audio_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	USB_Audio_ProcessControlPacket(&Speaker_Audio_Interface);
+	Audio_Device_ProcessControlPacket(&Speaker_Audio_Interface);
 }

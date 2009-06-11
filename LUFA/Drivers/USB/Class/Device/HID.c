@@ -30,7 +30,7 @@
 
 #include "HID.h"
 
-void USB_HID_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
+void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
@@ -51,7 +51,7 @@ void USB_HID_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 
 				memset(ReportINData, 0, sizeof(ReportINData));
 				
-				ReportINSize = CALLBACK_USB_HID_CreateNextHIDReport(HIDInterfaceInfo, &ReportID, ReportINData);
+				ReportINSize = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportINData);
 
 				Endpoint_Write_Control_Stream_LE(ReportINData, ReportINSize);
 				Endpoint_ClearOUT();
@@ -70,7 +70,7 @@ void USB_HID_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 				Endpoint_Read_Control_Stream_LE(ReportOUTData, ReportOUTSize);
 				Endpoint_ClearIN();
 				
-				CALLBACK_USB_HID_ProcessReceivedHIDReport(HIDInterfaceInfo, ReportID, ReportOUTData, ReportOUTSize);
+				CALLBACK_HID_Device_ProcessHIDReport(HIDInterfaceInfo, ReportID, ReportOUTData, ReportOUTSize);
 			}
 			
 			break;
@@ -127,7 +127,7 @@ void USB_HID_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 	}
 }
 
-bool USB_HID_ConfigureEndpoints(USB_ClassInfo_HID_t* HIDInterfaceInfo)
+bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 {
 	HIDInterfaceInfo->UsingReportProtocol = true;
 
@@ -140,7 +140,7 @@ bool USB_HID_ConfigureEndpoints(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 	return true;
 }
 		
-void USB_HID_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo)
+void HID_Device_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 {
 	if (!(USB_IsConnected))
 	  return;
@@ -159,7 +159,7 @@ void USB_HID_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 
 		memset(ReportINData, 0, sizeof(ReportINData));
 
-		ReportINSize = CALLBACK_USB_HID_CreateNextHIDReport(HIDInterfaceInfo, &ReportID, ReportINData);
+		ReportINSize = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportINData);
 
 		if (ReportINSize)
 		{

@@ -62,7 +62,7 @@ int main(void)
 		if (Microphone_Audio_Interface.InterfaceEnabled)
 		  ProcessNextSample();
 
-		USB_Audio_USBTask(&Microphone_Audio_Interface);
+		Audio_Device_USBTask(&Microphone_Audio_Interface);
 		USB_USBTask();
 	}
 }
@@ -92,7 +92,7 @@ void SetupHardware(void)
  */
 void ProcessNextSample(void)
 {
-	if ((TIFR0 & (1 << OCF0A)) && USB_Audio_IsReadyForNextSample(&Microphone_Audio_Interface))
+	if ((TIFR0 & (1 << OCF0A)) && Audio_Device_IsReadyForNextSample(&Microphone_Audio_Interface))
 	{
 		TIFR0 |= (1 << OCF0A);
 
@@ -104,7 +104,7 @@ void ProcessNextSample(void)
 		AudioSample -= (SAMPLE_MAX_RANGE / 2));
 #endif
 
-		USB_Audio_WriteSample16(AudioSample);
+		Audio_Device_WriteSample16(AudioSample);
 	}
 }
 
@@ -133,12 +133,12 @@ void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	
-	if (!(USB_Audio_ConfigureEndpoints(&Microphone_Audio_Interface)))
+	if (!(Audio_Device_ConfigureEndpoints(&Microphone_Audio_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	USB_Audio_ProcessControlPacket(&Microphone_Audio_Interface);
+	Audio_Device_ProcessControlPacket(&Microphone_Audio_Interface);
 }

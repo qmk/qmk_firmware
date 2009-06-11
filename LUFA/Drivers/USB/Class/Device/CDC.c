@@ -31,12 +31,12 @@
 #define  INCLUDE_FROM_CDC_CLASS_C
 #include "CDC.h"
 
-void USB_CDC_Event_Stub(void)
+void CDC_Device_Event_Stub(void)
 {
 
 }
 
-void USB_CDC_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+void CDC_Device_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
@@ -62,7 +62,7 @@ void USB_CDC_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 				Endpoint_Read_Control_Stream_LE(&CDCInterfaceInfo->LineEncoding, sizeof(CDCInterfaceInfo->LineEncoding));
 				Endpoint_ClearIN();
 
-				EVENT_USB_CDC_LineEncodingChanged(CDCInterfaceInfo);
+				EVENT_CDC_Device_LineEncodingChanged(CDCInterfaceInfo);
 			}
 	
 			break;
@@ -73,7 +73,7 @@ void USB_CDC_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 				
 				CDCInterfaceInfo->ControlLineState = USB_ControlRequest.wValue;
 				
-				EVENT_USB_CDC_ControLineStateChanged(CDCInterfaceInfo);
+				EVENT_CDC_Device_ControLineStateChanged(CDCInterfaceInfo);
 
 				while (!(Endpoint_IsINReady()));
 				Endpoint_ClearIN();
@@ -83,7 +83,7 @@ void USB_CDC_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 	}
 }
 
-bool USB_CDC_ConfigureEndpoints(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+bool CDC_Device_ConfigureEndpoints(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 {
 	if (!(Endpoint_ConfigureEndpoint(CDCInterfaceInfo->DataINEndpointNumber, EP_TYPE_BULK,
 							         ENDPOINT_DIR_IN, CDCInterfaceInfo->DataINEndpointSize,
@@ -109,7 +109,7 @@ bool USB_CDC_ConfigureEndpoints(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 	return true;
 }
 
-void USB_CDC_USBTask(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+void CDC_Device_USBTask(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 {
 	if (!(USB_IsConnected))
 	  return;
@@ -128,7 +128,7 @@ void USB_CDC_USBTask(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 	Endpoint_ClearIN();
 }
 
-void USB_CDC_SendString(USB_ClassInfo_CDC_t* CDCInterfaceInfo, char* Data, uint16_t Length)
+void CDC_Device_SendString(USB_ClassInfo_CDC_t* CDCInterfaceInfo, char* Data, uint16_t Length)
 {
 	if (!(USB_IsConnected))
 	  return;
@@ -137,7 +137,7 @@ void USB_CDC_SendString(USB_ClassInfo_CDC_t* CDCInterfaceInfo, char* Data, uint1
 	Endpoint_Write_Stream_LE(Data, Length, NO_STREAM_CALLBACK);
 }
 
-void USB_CDC_SendByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint8_t Data)
+void CDC_Device_SendByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint8_t Data)
 {
 	if (!(USB_IsConnected))
 	  return;
@@ -153,14 +153,14 @@ void USB_CDC_SendByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint8_t Data)
 	Endpoint_Write_Byte(Data);	
 }
 
-uint16_t USB_CDC_BytesReceived(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+uint16_t CDC_Device_BytesReceived(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 {
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->DataOUTEndpointNumber);
 
 	return Endpoint_BytesInEndpoint();
 }
 
-uint8_t USB_CDC_ReceiveByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+uint8_t CDC_Device_ReceiveByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 {
 	if (!(USB_IsConnected))
 	  return 0;
@@ -175,7 +175,7 @@ uint8_t USB_CDC_ReceiveByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 	return DataByte;
 }
 
-void USB_CDC_SendSerialLineStateChange(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint16_t LineStateMask)
+void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint16_t LineStateMask)
 {
 	if (!(USB_IsConnected))
 	  return;

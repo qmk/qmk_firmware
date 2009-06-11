@@ -65,9 +65,9 @@ int main(void)
 		CheckJoystickMovement();
 		
 		USB_MIDI_EventPacket_t DummyMIDIEvent;
-		USB_MIDI_ReceiveEventPacket(&Keyboard_MIDI_Interface, &DummyMIDIEvent);
+		MIDI_Device_ReceiveEventPacket(&Keyboard_MIDI_Interface, &DummyMIDIEvent);
 	
-		USB_MIDI_USBTask(&Keyboard_MIDI_Interface);
+		MIDI_Device_USBTask(&Keyboard_MIDI_Interface);
 		USB_USBTask();
 	}
 }
@@ -146,7 +146,7 @@ void CheckJoystickMovement(void)
 				.Data3       = MIDI_STANDARD_VELOCITY,			
 			};
 			
-		USB_MIDI_SendEventPacket(&Keyboard_MIDI_Interface, &MIDIEvent);
+		MIDI_Device_SendEventPacket(&Keyboard_MIDI_Interface, &MIDIEvent);
 	}
 
 	PrevJoystickStatus = JoystickStatus;
@@ -169,12 +169,12 @@ void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	
-	if (!(USB_MIDI_ConfigureEndpoints(&Keyboard_MIDI_Interface)))
+	if (!(MIDI_Device_ConfigureEndpoints(&Keyboard_MIDI_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	USB_MIDI_ProcessControlPacket(&Keyboard_MIDI_Interface);
+	MIDI_Device_ProcessControlPacket(&Keyboard_MIDI_Interface);
 }

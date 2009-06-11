@@ -88,17 +88,17 @@ int main(void)
 		CheckJoystickMovement();
 
 		/* Discard all received data on the first CDC interface */
-		uint16_t BytesToDiscard = USB_CDC_BytesReceived(&VirtualSerial1_CDC_Interface);
+		uint16_t BytesToDiscard = CDC_Device_BytesReceived(&VirtualSerial1_CDC_Interface);
 		while (BytesToDiscard--)
-		  USB_CDC_ReceiveByte(&VirtualSerial1_CDC_Interface);
+		  CDC_Device_ReceiveByte(&VirtualSerial1_CDC_Interface);
 
 		/* Echo all received data on the second CDC interface */
-		uint16_t BytesToEcho = USB_CDC_BytesReceived(&VirtualSerial2_CDC_Interface);
+		uint16_t BytesToEcho = CDC_Device_BytesReceived(&VirtualSerial2_CDC_Interface);
 		while (BytesToEcho--)
-		  USB_CDC_SendByte(&VirtualSerial2_CDC_Interface, USB_CDC_ReceiveByte(&VirtualSerial2_CDC_Interface));
+		  CDC_Device_SendByte(&VirtualSerial2_CDC_Interface, CDC_Device_ReceiveByte(&VirtualSerial2_CDC_Interface));
 		  
-		USB_CDC_USBTask(&VirtualSerial1_CDC_Interface);
-		USB_CDC_USBTask(&VirtualSerial2_CDC_Interface);
+		CDC_Device_USBTask(&VirtualSerial1_CDC_Interface);
+		CDC_Device_USBTask(&VirtualSerial2_CDC_Interface);
 		USB_USBTask();
 	}
 }
@@ -154,7 +154,7 @@ void CheckJoystickMovement(void)
 	{
 		ActionSent = true;
 		
-		USB_CDC_SendString(&VirtualSerial1_CDC_Interface, ReportString, strlen(ReportString));		
+		CDC_Device_SendString(&VirtualSerial1_CDC_Interface, ReportString, strlen(ReportString));		
 	}
 }
 
@@ -175,16 +175,16 @@ void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
-	if (!(USB_CDC_ConfigureEndpoints(&VirtualSerial1_CDC_Interface)))
+	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial1_CDC_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
-	if (!(USB_CDC_ConfigureEndpoints(&VirtualSerial2_CDC_Interface)))
+	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial2_CDC_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	USB_CDC_ProcessControlPacket(&VirtualSerial1_CDC_Interface);
-	USB_CDC_ProcessControlPacket(&VirtualSerial2_CDC_Interface);
+	CDC_Device_ProcessControlPacket(&VirtualSerial1_CDC_Interface);
+	CDC_Device_ProcessControlPacket(&VirtualSerial2_CDC_Interface);
 }

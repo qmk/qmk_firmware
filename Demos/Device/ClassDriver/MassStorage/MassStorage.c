@@ -64,7 +64,7 @@ int main(void)
 
 	for (;;)
 	{
-		USB_MS_USBTask(&Disk_MS_Interface);
+		MS_Device_USBTask(&Disk_MS_Interface);
 		USB_USBTask();
 	}
 }
@@ -105,21 +105,21 @@ void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
-	if (!(USB_MS_ConfigureEndpoints(&Disk_MS_Interface)))
+	if (!(MS_Device_ConfigureEndpoints(&Disk_MS_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	USB_MS_ProcessControlPacket(&Disk_MS_Interface);
+	MS_Device_ProcessControlPacket(&Disk_MS_Interface);
 }
 
 /** Mass Storage class driver callback function the reception of SCSI commands from the host, which must be processed.
  *
  *  \param MSInterfaceInfo  Pointer to the Mass Storage class interface configuration structure being referenced
  */
-bool CALLBACK_USB_MS_SCSICommandReceived(USB_ClassInfo_MS_t* MSInterfaceInfo)
+bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_t* MSInterfaceInfo)
 {
 	bool CommandSuccess;
 	

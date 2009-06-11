@@ -277,12 +277,12 @@
 				
 	/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_RNDIS_CLASS_C)
-			static void USB_RNDIS_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
-			static bool USB_RNDIS_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo, 
-			                                       uint32_t OId, void* QueryData, uint16_t QuerySize,
-										           void* ResponseData, uint16_t* ResponseSize);
-			static bool USB_RNDIS_ProcessNDISSet(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo, uint32_t OId,
-			                                     void* SetData, uint16_t SetSize);	
+			static void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
+			static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo, 
+			                                          uint32_t OId, void* QueryData, uint16_t QuerySize,
+										              void* ResponseData, uint16_t* ResponseSize);
+			static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo, uint32_t OId,
+			                                        void* SetData, uint16_t SetSize);	
 		#endif
 
 		/** Configures the endpoints of a given RNDIS interface, ready for use. This should be linked to the library
@@ -293,21 +293,21 @@
 		 *
 		 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 		 */
-		bool USB_RNDIS_ConfigureEndpoints(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
+		bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
 
 		/** Processes incomming control requests from the host, that are directed to the given RNDIS class interface. This should be
 		 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
 		 *
 		 *  \param RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 		 */		
-		void USB_RNDIS_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
+		void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
 		
 		/** General management task for a given HID class interface, required for the correct operation of the interface. This should
 		 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 		 *
 		 *  \param RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 		 */
-		void USB_RNDIS_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
+		void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
 		
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

@@ -181,28 +181,28 @@
 		 *
 		 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 		 */
-		bool USB_MIDI_ConfigureEndpoints(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
+		bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
 		
 		/** Processes incomming control requests from the host, that are directed to the given MIDI class interface. This should be
 		 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
 		 *
 		 *  \param MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
 		 */		
-		void USB_MIDI_ProcessControlPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
+		void MIDI_Device_ProcessControlPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
 
 		/** General management task for a given MIDI class interface, required for the correct operation of the interface. This should
 		 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 		 *
 		 *  \param MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
 		 */
-		void USB_MIDI_USBTask(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
+		void MIDI_Device_USBTask(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo);
 
 		/** Sends a MIDI event packet to the host. If no host is connected, the event packet is discarded.
 		 *
 		 *  \param MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
 		 *  \param Event  Pointer to a populated USB_MIDI_EventPacket_t structure containing the MIDI event to send
 		 */
-		void USB_MIDI_SendEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event);
+		void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event);
 
 		/** Receives a MIDI event packet from the host.
 		 *
@@ -211,7 +211,7 @@
 		 *
 		 *  \return Boolean true if a MIDI event packet was received, false otherwise
 		 */
-		bool USB_MIDI_ReceiveEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event);
+		bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

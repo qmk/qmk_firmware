@@ -30,7 +30,7 @@
 
 #include "Audio.h"
 
-void USB_Audio_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
+void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
@@ -55,7 +55,7 @@ void USB_Audio_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
 	}
 }
 
-bool USB_Audio_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
+bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
 {
 	if (AudioInterfaceInfo->DataINEndpointNumber)
 	{
@@ -80,12 +80,12 @@ bool USB_Audio_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
 	return true;
 }
 
-void USB_Audio_USBTask(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
+void Audio_Device_USBTask(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
 {
 
 }
 
-int8_t USB_Audio_ReadSample8(void)
+int8_t Audio_Device_ReadSample8(void)
 {
 	int8_t Sample;
 
@@ -97,7 +97,7 @@ int8_t USB_Audio_ReadSample8(void)
 	return Sample;
 }
 
-int16_t USB_Audio_ReadSample16(void)
+int16_t Audio_Device_ReadSample16(void)
 {
 	int16_t Sample;
 
@@ -109,7 +109,7 @@ int16_t USB_Audio_ReadSample16(void)
 	return Sample;
 }
 
-int32_t USB_Audio_ReadSample24(void)
+int32_t Audio_Device_ReadSample24(void)
 {
 	int32_t Sample;
 
@@ -121,7 +121,7 @@ int32_t USB_Audio_ReadSample24(void)
 	return Sample;
 }
 
-void USB_Audio_WriteSample8(int8_t Sample)
+void Audio_Device_WriteSample8(int8_t Sample)
 {
 	Endpoint_Write_Byte(Sample);
 
@@ -129,7 +129,7 @@ void USB_Audio_WriteSample8(int8_t Sample)
 	  Endpoint_ClearIN();
 }
 
-void USB_Audio_WriteSample16(int16_t Sample)
+void Audio_Device_WriteSample16(int16_t Sample)
 {
 	Endpoint_Write_Word_LE(Sample);
 
@@ -137,7 +137,7 @@ void USB_Audio_WriteSample16(int16_t Sample)
 	  Endpoint_ClearIN();
 }
 
-void USB_Audio_WriteSample24(int32_t Sample)
+void Audio_Device_WriteSample24(int32_t Sample)
 {
 	Endpoint_Write_Byte(Sample >> 16);
 	Endpoint_Write_Word_LE(Sample);
@@ -146,13 +146,13 @@ void USB_Audio_WriteSample24(int32_t Sample)
 	  Endpoint_ClearIN();
 }
 
-bool USB_Audio_IsSampleReceived(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
+bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
 {
 	Endpoint_SelectEndpoint(AudioInterfaceInfo->DataOUTEndpointNumber);
 	return Endpoint_IsOUTReceived();
 }
 
-bool USB_Audio_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
+bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
 {
 	Endpoint_SelectEndpoint(AudioInterfaceInfo->DataINEndpointNumber);
 	return Endpoint_IsINReady();

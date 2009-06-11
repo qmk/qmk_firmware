@@ -137,9 +137,9 @@
 		
 	/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_MS_CLASS_C)
-			static void    USB_MS_ReturnCommandStatus(USB_ClassInfo_MS_t* MSInterfaceInfo);
-			static bool    USB_MS_ReadInCommandBlock(USB_ClassInfo_MS_t* MSInterfaceInfo);
-			static uint8_t StreamCallback_AbortOnMassStoreReset(void);
+			static void    MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_t* MSInterfaceInfo);
+			static bool    MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_t* MSInterfaceInfo);
+			static uint8_t StreamCallback_MS_Device_AbortOnMassStoreReset(void);
 		#endif
 	
 		/** Configures the endpoints of a given Mass Storage interface, ready for use. This should be linked to the library
@@ -150,21 +150,21 @@
 		 *
 		 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 		 */
-		bool USB_MS_ConfigureEndpoints(USB_ClassInfo_MS_t* MSInterfaceInfo);
+		bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_t* MSInterfaceInfo);
 		
 		/** Processes incomming control requests from the host, that are directed to the given Mass Storage class interface. This should be
 		 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
 		 *
 		 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
 		 */		
-		void USB_MS_ProcessControlPacket(USB_ClassInfo_MS_t* MSInterfaceInfo);
+		void MS_Device_ProcessControlPacket(USB_ClassInfo_MS_t* MSInterfaceInfo);
 
 		/** General management task for a given Mass Storage class interface, required for the correct operation of the interface. This should
 		 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 		 *
 		 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage configuration and state.
 		 */
-		void USB_MS_USBTask(USB_ClassInfo_MS_t* MSInterfaceInfo);
+		void MS_Device_USBTask(USB_ClassInfo_MS_t* MSInterfaceInfo);
 		
 		/** Mass Storage class driver callback for the user processing of a received SCSI command. This callback will fire each time the
 		 *  host sends a SCSI command which requires processing by the user application. Inside this callback the user is responsible
@@ -175,7 +175,7 @@
 		 *
 		 *  \return Boolean true if the SCSI command was successfully processed, false otherwise
 		 */
-		bool CALLBACK_USB_MS_SCSICommandReceived(USB_ClassInfo_MS_t* MSInterfaceInfo);
+		bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_t* MSInterfaceInfo);
 		
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

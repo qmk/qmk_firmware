@@ -63,7 +63,7 @@ int main(void)
 	
 	for (;;)
 	{
-		USB_HID_USBTask(&Generic_HID_Interface);
+		HID_Device_USBTask(&Generic_HID_Interface);
 		USB_USBTask();
 	}
 }
@@ -106,14 +106,14 @@ void EVENT_USB_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
-	if (!(USB_HID_ConfigureEndpoints(&Generic_HID_Interface)))
+	if (!(HID_Device_ConfigureEndpoints(&Generic_HID_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	USB_HID_ProcessControlPacket(&Generic_HID_Interface);
+	HID_Device_ProcessControlPacket(&Generic_HID_Interface);
 }
 
 /** ISR to keep track of each millisecond interrupt, for determining the HID class idle period remaining when set. */
@@ -130,7 +130,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  *
  *  \return Number of bytes written in the report (or zero if no report is to be sent
  */
-uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
+uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
 {
 	// Create generic HID report here
 	
@@ -143,8 +143,8 @@ uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceI
  *  \param ReportData  Pointer to a buffer where the created report has been stored
  *  \param ReportSize  Size in bytes of the received HID report
  */
-void CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t ReportID,
-                                               void* ReportData, uint16_t ReportSize)
+void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t ReportID,
+                                          void* ReportData, uint16_t ReportSize)
 {
 	// Process received generic HID report here
 }
