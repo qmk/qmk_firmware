@@ -99,7 +99,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.SubClass                 = 0x01,
 			.Protocol                 = 0x00,
 				
-			.InterfaceStrIndex        = NO_DESCRIPTOR			
+			.InterfaceStrIndex        = NO_DESCRIPTOR
 		},
 	
 	.AudioControlInterface_SPC = 
@@ -111,7 +111,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.TotalLength              = sizeof(USB_AudioInterface_AC_t),
 			
 			.InCollection             = 1,
-			.InterfaceNumbers         = {1},			
+			.InterfaceNumbers         = {1},
 		},
 
 	.AudioStreamInterface = 

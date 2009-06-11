@@ -97,7 +97,7 @@ void EVENT_USB_Connect(void)
 #if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
 	/* PWM speaker timer initialization */
 	TCCRxA  = ((1 << WGMx0) | (1 << COMxA1) | (1 << COMxA0)
-							| (1 << COMxB1) | (1 << COMxB0)); // Set on match, clear on TOP
+	                        | (1 << COMxB1) | (1 << COMxB0)); // Set on match, clear on TOP
 	TCCRxB  = ((1 << WGMx2) | (1 << CSx0));  // Fast 8-Bit PWM, Fcpu speed
 #endif	
 }

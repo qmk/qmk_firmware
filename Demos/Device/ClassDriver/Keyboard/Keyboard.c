@@ -43,14 +43,14 @@
  */
 USB_ClassInfo_HID_t Keyboard_HID_Interface =
     {
-        .InterfaceNumber         = 0,
+		.InterfaceNumber         = 0,
 
-        .ReportINEndpointNumber  = KEYBOARD_EPNUM,
-        .ReportINEndpointSize    = KEYBOARD_EPSIZE,
+		.ReportINEndpointNumber  = KEYBOARD_EPNUM,
+		.ReportINEndpointSize    = KEYBOARD_EPSIZE,
 
 		.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
 
-        .IdleCount               = 500,
+		.IdleCount               = 500,
     };
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -58,32 +58,32 @@ USB_ClassInfo_HID_t Keyboard_HID_Interface =
  */
 int main(void)
 {
-    SetupHardware();
+	SetupHardware();
 
-    LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-    
-    for (;;)
-    {
-        USB_HID_USBTask(&Keyboard_HID_Interface);
-        USB_USBTask();
-    }
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	
+	for (;;)
+	{
+		USB_HID_USBTask(&Keyboard_HID_Interface);
+		USB_USBTask();
+	}
 }
 
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware()
 {
-    /* Disable watchdog if enabled by bootloader/fuses */
-    MCUSR &= ~(1 << WDRF);
-    wdt_disable();
+	/* Disable watchdog if enabled by bootloader/fuses */
+	MCUSR &= ~(1 << WDRF);
+	wdt_disable();
 
-    /* Disable clock division */
-    clock_prescale_set(clock_div_1);
+	/* Disable clock division */
+	clock_prescale_set(clock_div_1);
 
-    /* Hardware Initialization */
-    Joystick_Init();
-    LEDs_Init();
-    Buttons_Init();
-    USB_Init();
+	/* Hardware Initialization */
+	Joystick_Init();
+	LEDs_Init();
+	Buttons_Init();
+	USB_Init();
 
 	/* Millisecond timer initialization, with output compare interrupt enabled for the idle timing */
 	OCR0A  = ((F_CPU / 64) / 1000);
@@ -95,28 +95,28 @@ void SetupHardware()
 /** Event handler for the library USB Connection event. */
 void EVENT_USB_Connect(void)
 {
-    LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
 /** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Disconnect(void)
 {
-    LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
-    LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
-    if (!(USB_HID_ConfigureEndpoints(&Keyboard_HID_Interface)))
-      LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	if (!(USB_HID_ConfigureEndpoints(&Keyboard_HID_Interface)))
+	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-    USB_HID_ProcessControlPacket(&Keyboard_HID_Interface);
+	USB_HID_ProcessControlPacket(&Keyboard_HID_Interface);
 }
 
 /** ISR to keep track of each millisecond interrupt, for determining the HID class idle period remaining when set. */
@@ -135,28 +135,28 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  */
 uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
 {
-    USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
-    
-    uint8_t JoyStatus_LCL    = Joystick_GetStatus();
-    uint8_t ButtonStatus_LCL = Buttons_GetStatus();
+	USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
+	
+	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
+	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
 
-    if (JoyStatus_LCL & JOY_UP)
-      KeyboardReport->KeyCode[0] = 0x04; // A
-    else if (JoyStatus_LCL & JOY_DOWN)
-      KeyboardReport->KeyCode[0] = 0x05; // B
+	if (JoyStatus_LCL & JOY_UP)
+	  KeyboardReport->KeyCode[0] = 0x04; // A
+	else if (JoyStatus_LCL & JOY_DOWN)
+	  KeyboardReport->KeyCode[0] = 0x05; // B
 
-    if (JoyStatus_LCL & JOY_LEFT)
-      KeyboardReport->KeyCode[0] = 0x06; // C
-    else if (JoyStatus_LCL & JOY_RIGHT)
-      KeyboardReport->KeyCode[0] = 0x07; // D
+	if (JoyStatus_LCL & JOY_LEFT)
+	  KeyboardReport->KeyCode[0] = 0x06; // C
+	else if (JoyStatus_LCL & JOY_RIGHT)
+	  KeyboardReport->KeyCode[0] = 0x07; // D
 
-    if (JoyStatus_LCL & JOY_PRESS)
-      KeyboardReport->KeyCode[0] = 0x08; // E
-      
-    if (ButtonStatus_LCL & BUTTONS_BUTTON1)
-      KeyboardReport->KeyCode[0] = 0x09; // F
-      
-    return sizeof(USB_KeyboardReport_Data_t);
+	if (JoyStatus_LCL & JOY_PRESS)
+	  KeyboardReport->KeyCode[0] = 0x08; // E
+	  
+	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
+	  KeyboardReport->KeyCode[0] = 0x09; // F
+	  
+	return sizeof(USB_KeyboardReport_Data_t);
 }
 
 /** HID class driver callback function for the processing of HID reports from the host.
@@ -168,17 +168,17 @@ uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceI
 void CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t ReportID,
                                                void* ReportData, uint16_t ReportSize)
 {
-    uint8_t  LEDMask   = LEDS_NO_LEDS;
-    uint8_t* LEDReport = (uint8_t*)ReportData;
+	uint8_t  LEDMask   = LEDS_NO_LEDS;
+	uint8_t* LEDReport = (uint8_t*)ReportData;
 
-    if (*LEDReport & 0x01) // NUM Lock
-      LEDMask |= LEDS_LED1;
-    
-    if (*LEDReport & 0x02) // CAPS Lock
-      LEDMask |= LEDS_LED3;
+	if (*LEDReport & 0x01) // NUM Lock
+	  LEDMask |= LEDS_LED1;
+	
+	if (*LEDReport & 0x02) // CAPS Lock
+	  LEDMask |= LEDS_LED3;
 
-    if (*LEDReport & 0x04) // SCROLL Lock
-      LEDMask |= LEDS_LED4;
-      
-    LEDs_SetAllLEDs(LEDMask);
+	if (*LEDReport & 0x04) // SCROLL Lock
+	  LEDMask |= LEDS_LED4;
+	  
+	LEDs_SetAllLEDs(LEDMask);
 }

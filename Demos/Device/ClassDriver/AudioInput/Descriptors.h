@@ -47,7 +47,7 @@
 			/** Endpoint number of the Audio isochronous streaming data endpoint. */
 			#define AUDIO_STREAM_EPNUM       1
 		#else
-			#define AUDIO_STREAM_EPNUM       3		
+			#define AUDIO_STREAM_EPNUM       3
 		#endif
 		
 		/** Endpoint size in bytes of the Audio isochronous streaming data endpoint. The Windows audio stack requires
@@ -55,10 +55,10 @@
 		 *  USB AVR models will result in unavoidable distorted output.
 		 */
 		#define AUDIO_STREAM_EPSIZE          ENDPOINT_MAX_SIZE(AUDIO_STREAM_EPNUM)
-		
+
 		/** Sample frequency of the data being transmitted through the streaming endpoint. */
 		#define AUDIO_SAMPLE_FREQUENCY       48000
-		
+
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -78,7 +78,7 @@
 			USB_AudioStreamEndpoint_Std_t         AudioEndpoint;
 			USB_AudioStreamEndpoint_Spc_t         AudioEndpoint_SPC;
 		} USB_Descriptor_Configuration_t;
-		
+
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
 		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);

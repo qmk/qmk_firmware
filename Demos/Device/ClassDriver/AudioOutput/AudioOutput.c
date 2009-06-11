@@ -99,7 +99,7 @@ void ProcessNextSample(void)
 		/* Massage signed 16-bit left and right audio samples into signed 8-bit */
 		int8_t  LeftSample_8Bit   = (LeftSample_16Bit  >> 8);
 		int8_t  RightSample_8Bit  = (RightSample_16Bit >> 8);
-			
+
 		/* Mix the two channels together to produce a mono, 8-bit sample */
 		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
 
@@ -160,9 +160,9 @@ void EVENT_USB_Connect(void)
 #if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
 	/* PWM speaker timer initialization */
 	TCCRxA  = ((1 << WGMx0) | (1 << COMxA1) | (1 << COMxA0)
-							| (1 << COMxB1) | (1 << COMxB0)); // Set on match, clear on TOP
+	        | (1 << COMxB1) | (1 << COMxB0)); // Set on match, clear on TOP
 	TCCRxB  = ((1 << WGMx2) | (1 << CSx0));  // Fast 8-Bit PWM, Fcpu speed
-#endif	
+#endif
 }
 
 /** Event handler for the library USB Disconnection event. */
@@ -176,7 +176,7 @@ void EVENT_USB_Disconnect(void)
 #if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
 	/* Stop the PWM generation timer */
 	TCCRxB = 0;
-#endif		
+#endif
 
 #if defined(AUDIO_OUT_MONO)
 	/* Set speaker as input to reduce current draw */

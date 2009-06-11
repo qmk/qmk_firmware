@@ -175,9 +175,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 										 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | CDC_TX_EPNUM),
-			.Attributes       = 		EP_TYPE_BULK,
+			.Attributes             = EP_TYPE_BULK,
 			.EndpointSize           = CDC_TXRX_EPSIZE,
-			.PollingIntervalMS= 		0x00
+			.PollingIntervalMS      = 0x00
 		}
 };
 

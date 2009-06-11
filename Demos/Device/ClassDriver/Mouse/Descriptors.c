@@ -141,7 +141,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 	.MouseHID = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_HID_t), .Type = DTYPE_HID},
-									 
+
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
 			.TotalReportDescriptors = 1,
@@ -152,12 +152,12 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 	.MouseEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-										 
+
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | MOUSE_EPNUM),
 			.Attributes             = EP_TYPE_INTERRUPT,
 			.EndpointSize           = MOUSE_EPSIZE,
 			.PollingIntervalMS      = 0x02
-		}	
+		}
 };
 
 /** Language descriptor structure. This descriptor, located in FLASH memory, is returned when the host requests

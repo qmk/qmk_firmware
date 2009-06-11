@@ -86,7 +86,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	.Class                  = 0x00,
 	.SubClass               = 0x00,
 	.Protocol               = 0x00,
-				
+	
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 		
 	.VendorID               = 0x03EB,
@@ -141,7 +141,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 	.JoystickHID = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_HID_t), .Type = DTYPE_HID},
-									 
+			
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
 			.TotalReportDescriptors = 1,
@@ -152,7 +152,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 	.JoystickEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-										 
+			
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | JOYSTICK_EPNUM),
 			.Attributes             = EP_TYPE_INTERRUPT,
 			.EndpointSize           = JOYSTICK_EPSIZE,

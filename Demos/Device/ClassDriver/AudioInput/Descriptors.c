@@ -45,22 +45,22 @@
 USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
-		
+
 	.USBSpecification       = VERSION_BCD(02.00),
 	.Class                  = 0x00,
 	.SubClass               = 0x00,
 	.Protocol               = 0x00,
-				
+
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
-		
+
 	.VendorID               = 0x03EB,
 	.ProductID              = 0x2047,
 	.ReleaseNumber          = 0x0000,
-		
+
 	.ManufacturerStrIndex   = 0x01,
 	.ProductStrIndex        = 0x02,
 	.SerialNumStrIndex      = NO_DESCRIPTOR,
-		
+
 	.NumberOfConfigurations = 1
 };
 
@@ -80,12 +80,12 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.ConfigurationNumber      = 1,
 			.ConfigurationStrIndex    = NO_DESCRIPTOR,
-				
+
 			.ConfigAttributes         = (USB_CONFIG_ATTR_BUSPOWERED | USB_CONFIG_ATTR_SELFPOWERED),
-			
+
 			.MaxPowerConsumption      = USB_CONFIG_POWER_MA(100)
 		},
-		
+
 	.AudioControlInterface = 
 		{
 			.Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
@@ -94,40 +94,40 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.AlternateSetting         = 0,
 			
 			.TotalEndpoints           = 0,
-				
+
 			.Class                    = 0x01,
 			.SubClass                 = 0x01,
 			.Protocol                 = 0x00,
-				
-			.InterfaceStrIndex        = NO_DESCRIPTOR			
+
+			.InterfaceStrIndex        = NO_DESCRIPTOR
 		},
-	
+
 	.AudioControlInterface_SPC = 
 		{
 			.Header                   = {.Size = sizeof(USB_AudioInterface_AC_t), .Type = DTYPE_AudioInterface},
 			.Subtype                  = DSUBTYPE_Header,
-			
+
 			.ACSpecification          = VERSION_BCD(01.00),
 			.TotalLength              = (sizeof(USB_AudioInterface_AC_t) +
 			                             sizeof(USB_AudioInputTerminal_t) +
-									     sizeof(USB_AudioOutputTerminal_t)),
+			                             sizeof(USB_AudioOutputTerminal_t)),
 			
 			.InCollection             = 1,
-			.InterfaceNumbers         = {1},			
+			.InterfaceNumbers         = {1},
 		},
 
 	.InputTerminal = 
 		{
 			.Header                   = {.Size = sizeof(USB_AudioInputTerminal_t), .Type = DTYPE_AudioInterface},
 			.Subtype                  = DSUBTYPE_InputTerminal,
-		
+
 			.TerminalID               = 0x01,
 			.TerminalType             = TERMINAL_IN_MIC,
 			.AssociatedOutputTerminal = 0x00,
-			
+
 			.TotalChannels            = 1,
 			.ChannelConfig            = 0,
-			
+
 			.ChannelStrIndex          = NO_DESCRIPTOR,
 			.TerminalStrIndex         = NO_DESCRIPTOR
 		},
@@ -136,14 +136,14 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                   = {.Size = sizeof(USB_AudioOutputTerminal_t), .Type = DTYPE_AudioInterface},
 			.Subtype                  = DSUBTYPE_OutputTerminal,
-		
+
 			.TerminalID               = 0x02,
 			.TerminalType             = TERMINAL_STREAMING,
 			.AssociatedInputTerminal  = 0x00,
-			
+
 			.SourceID                 = 0x01,
-			
-			.TerminalStrIndex         = NO_DESCRIPTOR			
+
+			.TerminalStrIndex         = NO_DESCRIPTOR
 		},
 
 	.AudioStreamInterface_Alt0 = 
@@ -152,13 +152,13 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.InterfaceNumber          = 1,
 			.AlternateSetting         = 0,
-			
+
 			.TotalEndpoints           = 0,
-				
+
 			.Class                    = 0x01,
 			.SubClass                 = 0x02,
 			.Protocol                 = 0x00,
-				
+
 			.InterfaceStrIndex        = NO_DESCRIPTOR
 		},
 
@@ -168,27 +168,27 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.InterfaceNumber          = 1,
 			.AlternateSetting         = 1,
-			
+
 			.TotalEndpoints           = 1,
-				
+
 			.Class                    = 0x01,
 			.SubClass                 = 0x02,
 			.Protocol                 = 0x00,
-				
+
 			.InterfaceStrIndex        = NO_DESCRIPTOR
 		},
-		
+
 	.AudioStreamInterface_SPC = 
 		{
 			.Header                   = {.Size = sizeof(USB_AudioInterface_AS_t), .Type = DTYPE_AudioInterface},
 			.Subtype                  = DSUBTYPE_General,
-			
+
 			.TerminalLink             = 0x02,
-			
+
 			.FrameDelay               = 1,
 			.AudioFormat              = 0x0001
 		},
-		
+
 	.AudioFormat = 
 		{
 			.Header                   = {.Size = sizeof(USB_AudioFormat_t), .Type = DTYPE_AudioInterface},
@@ -239,7 +239,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 USB_Descriptor_String_t PROGMEM LanguageString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
-		
+
 	.UnicodeString          = {LANGUAGE_ID_ENG}
 };
 
@@ -250,7 +250,7 @@ USB_Descriptor_String_t PROGMEM LanguageString =
 USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
-		
+
 	.UnicodeString          = L"Dean Camera"
 };
 
@@ -261,7 +261,7 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
 USB_Descriptor_String_t PROGMEM ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
-		
+
 	.UnicodeString          = L"LUFA Audio In Demo"
 };
 

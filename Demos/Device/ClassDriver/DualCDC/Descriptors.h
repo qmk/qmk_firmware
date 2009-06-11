@@ -47,25 +47,25 @@
 		#define CDC1_NOTIFICATION_EPNUM        3
 
 		/** Endpoint number of the first CDC interface's device-to-host data IN endpoint. */
-		#define CDC1_TX_EPNUM                  1	
+		#define CDC1_TX_EPNUM                  1
 
 		/** Endpoint number of the first CDC interface's host-to-device data OUT endpoint. */
-		#define CDC1_RX_EPNUM                  2	
+		#define CDC1_RX_EPNUM                  2
 
 		/** Endpoint number of the second CDC interface's device-to-host notification IN endpoint. */
 		#define CDC2_NOTIFICATION_EPNUM        4
 
 		/** Endpoint number of the second CDC interface's device-to-host data IN endpoint. */
-		#define CDC2_TX_EPNUM                  5	
+		#define CDC2_TX_EPNUM                  5
 
 		/** Endpoint number of the second CDC interface's host-to-device data OUT endpoint. */
-		#define CDC2_RX_EPNUM                  6	
+		#define CDC2_RX_EPNUM                  6
 
 		/** Size in bytes of the CDC device-to-host notification IN endpoints. */
 		#define CDC_NOTIFICATION_EPSIZE        8
 
 		/** Size in bytes of the CDC data IN and OUT endpoints. */
-		#define CDC_TXRX_EPSIZE                16	
+		#define CDC_TXRX_EPSIZE                16
 
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
@@ -99,6 +99,6 @@
 
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
-											ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
+		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
 
 #endif

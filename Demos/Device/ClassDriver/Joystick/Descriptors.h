@@ -54,7 +54,7 @@
 			USB_Descriptor_HID_t                  JoystickHID;
 	        USB_Descriptor_Endpoint_t             JoystickEndpoint;
 		} USB_Descriptor_Configuration_t;
-					
+
 	/* Macros: */
 		/** Endpoint number of the Joystick HID reporting IN endpoint. */
 		#define JOYSTICK_EPNUM               1
@@ -64,6 +64,6 @@
 
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
-											ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
+		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
 
 #endif

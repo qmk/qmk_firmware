@@ -42,18 +42,18 @@
 		#include <avr/power.h>
 
 		#include "Descriptors.h"
-				
+
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/Device/Audio.h>
-		
+
 	/* Macros: */
 		/** ADC channel number for the microphone input. */
 		#define MIC_IN_ADC_CHANNEL        2
-		
+
 		/** Maximum ADC sample value for the microphone input. */
 		#define SAMPLE_MAX_RANGE          0xFFFF
 
@@ -71,11 +71,11 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-		
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void ProcessNextSample(void);
-		
+
 		void EVENT_USB_Connect(void);
 		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_ConfigurationChanged(void);
