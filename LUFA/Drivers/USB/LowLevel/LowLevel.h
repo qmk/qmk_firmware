@@ -107,12 +107,10 @@
 			 */
 			#define USB_MODE_NONE                      0
 
-			#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
-				/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the
-				 *  USB interface is or should be initialized in the USB device mode.
-				 */
-				#define USB_MODE_DEVICE                    1
-			#endif
+			/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the
+			 *  USB interface is or should be initialized in the USB device mode.
+			 */
+			#define USB_MODE_DEVICE                    1
 			
 			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
 				/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the

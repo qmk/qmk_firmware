@@ -165,7 +165,7 @@ void USB_ResetInterface(void)
 	
 	if (!(USB_Options & USB_OPT_MANUAL_PLL))
 	{
-		#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+		#if defined(USB_SERIES_4_AVR)
 		PLLFRQ = ((1 << PLLUSB) | (1 << PDIV3) | (1 << PDIV1));
 		#endif
 
