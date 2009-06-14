@@ -73,6 +73,40 @@
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 		
+	/* Type Defines: */
+		/** Class state structure. An instance of this structure should be made for each CDC interface
+		 *  within the user application, and passed to each of the CDC class driver functions as the
+		 *  CDCInterfaceInfo parameter. The contents of this structure should be set to their correct
+		 *  values when used, or ommitted to force the library to use default values.
+		 */
+		typedef struct
+		{
+			uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
+
+			uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
+			uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
+
+			uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
+			uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
+
+			uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
+			uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
+
+			uint8_t  ControlLineState; /**< Current control line states, as set by the host */
+
+			struct
+			{
+				uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
+				uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
+									  *   CDCDevice_CDC_LineCodingFormats_t enum
+									  */
+				uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
+									  *   CDCDevice_LineCodingParity_t enum
+									  */
+				uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
+			} LineEncoding;
+		} USB_ClassInfo_CDC_Host_t;
+		
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void CDC_Host_Task(void);

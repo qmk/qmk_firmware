@@ -4,30 +4,30 @@
  *  documentation pages. It is not a project source file.
  */
 
-/** \dir Common
+/** \dir LUFA/Common
  *  \brief Common library header files.
  *  
  *  This folder contains header files which are common to all parts of the LUFA library. They may be used freely in
  *  user applications.
  *
- *  \dir Drivers
+ *  \dir LUFA/Drivers
  *  \brief Library hardware and software drivers.
  *  
  *  This folder contains all the library hardware and software drivers for each supported board and USB AVR
  *  microcontroller model.
  * 
- *  \dir Drivers/Misc
+ *  \dir LUFA/Drivers/Misc
  *  \brief Miscellaneous driver files.
  *  
  *  This folder contains drivers for aspects other than the USB interface, board hardware or AVR peripherals.
  * 
- *  \dir Drivers/Peripheral
+ *  \dir LUFA/Drivers/Peripheral
  *  \brief USB AVR peripheral driver files.
  *  
  *  This folder contains drivers for several of the AVR internal peripherals such as the USART, compatible with
  *  all USB AVR models.
  *
- *  \dir Drivers/Peripheral/AT90USBXXX67
+ *  \dir LUFA/Drivers/Peripheral/AT90USBXXX67
  *  \brief AT90USBXXX6, AT90USBXXX7 and ATMEGAXXU4 AVR model peripheral driver files. Its original name is due to legacy
  *  reasons.
  *  
@@ -36,7 +36,7 @@
  *  included by the user application - the dispatch header file located in the parent AT90USBXXX directory should be used
  *  instead.
  *
- *  \dir Drivers/USB
+ *  \dir LUFA/Drivers/USB
  *  \brief USB controller peripheral driver files.
  *  
  *  This folder contains the main header files required to implement the USB interface in the USB supporting AVR models.
@@ -44,76 +44,76 @@
  *  functionality, and the appropriate C source files in the LowLevel and HighLevel driver folders added to the compile
  *  and link stages.
  *
- *  \dir Drivers/USB/LowLevel
+ *  \dir LUFA/Drivers/USB/LowLevel
  *  \brief Low level USB driver files.
  *  
  *  This folder contains low level USB driver source files required to implement USB functionality on the USB AVR microcontrollers.
  *
- *  \dir Drivers/USB/HighLevel
+ *  \dir LUFA/Drivers/USB/HighLevel
  *  \brief High level USB driver files.
  *  
  *  This folder contains high level USB driver source files required to implement USB functionality on the USB AVR microcontrollers.
  *
- *  \dir Drivers/USB/Class
+ *  \dir LUFA/Drivers/USB/Class
  *  \brief USB Class helper driver files.
  *  
  *  This folder contains drivers for implementing functionality of standardized USB classes. These are not used directly by the library,
  *  but provide a standard and library-maintained way of implementing functionality from some of the defined USB classes without extensive
  *  development effort. Is is recommended that these drivers be used where possible to reduce maintenance of user applications.
  *
- *  \dir Drivers/USB/Class/Device
+ *  \dir LUFA/Drivers/USB/Class/Device
  *  \brief USB Device Class helper driver files.
  *  
  *  Device mode drivers for the standard USB classes.
  *
- *  \dir Drivers/USB/Class/Host
+ *  \dir LUFA/Drivers/USB/Class/Host
  *  \brief USB Host Class helper driver files.
  *  
  *  Host mode drivers for the standard USB classes.
  *
- *  \dir Drivers/Board
+ *  \dir LUFA/Drivers/Board
  *  \brief Board hardware driver files.
  *  
  *  This folder contains drivers for interfacing with the physical hardware on supported commercial boards, primarily from
  *  the Atmel corporation. Header files in this folder should be included in user applications requiring the functionality of
  *  hardware placed on supported boards.
  *
- *  \dir Drivers/Board/USBKEY
+ *  \dir LUFA/Drivers/Board/USBKEY
  *  \brief USBKEY board hardware driver files.
  *  
  *  This folder contains drivers for hardware on the Atmel USBKEY demonstration board. The header files in this folder should
  *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
  *  should be included instead.
  *
- *  \dir Drivers/Board/STK526
+ *  \dir LUFA/Drivers/Board/STK526
  *  \brief STK526 board hardware driver files.
  *  
  *  This folder contains drivers for hardware on the Atmel STK526 development board. The header files in this folder should
  *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
  *  should be included instead.
  *
- *  \dir Drivers/Board/STK525
+ *  \dir LUFA/Drivers/Board/STK525
  *  \brief STK525 board hardware driver files.
  *  
  *  This folder contains drivers for hardware on the Atmel STK525 development board. The header files in this folder should
  *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
  *  should be included instead.
  *
- *  \dir Drivers/Board/RZUSBSTICK
+ *  \dir LUFA/Drivers/Board/RZUSBSTICK
  *  \brief RZUSBSTICK board hardware driver files.
  *  
  *  This folder contains drivers for hardware on the Atmel RZUSBSTICK board, as used in the Atmel "Raven" wireless kits. The header
  *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located in
  *  the parent Board directory should be included instead.
  *
- *  \dir Drivers/Board/ATAVRUSBRF01
+ *  \dir LUFA/Drivers/Board/ATAVRUSBRF01
  *  \brief ATAVRUSBRF01 board hardware driver files.
  *  
  *  This folder contains drivers for hardware on the Atmel ATAVRUSBRF01 board, as used in several Atmel wireless demo kits. The header
  *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located in
  *  the parent Board directory should be included instead.
  *
- *  \dir DriverStubs
+ *  \dir LUFA/DriverStubs
  *  \brief Driver stub header files for custom boards, to allow the LUFA board drivers to operate.
  *  
  *  This contains stub files for the LUFA board drivers. If the LUFA board drivers are used with board hardware other than those

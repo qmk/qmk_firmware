@@ -45,22 +45,12 @@
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
-		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		
-		#include "ConfigDescriptor.h"
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/Host/CDC.h>
 		
 	/* Macros: */
-		/** Pipe number for the CDC data IN pipe */
-		#define CDC_DATAPIPE_IN                1
-
-		/** Pipe number for the CDC data OUT pipe */
-		#define CDC_DATAPIPE_OUT               2
-
-		/** Pipe number for the CDC notification pipe */
-		#define CDC_NOTIFICATIONPIPE           3
-
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
@@ -75,7 +65,6 @@
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void CDC_Host_Task(void);
 	
 		void EVENT_USB_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_DeviceAttached(void);

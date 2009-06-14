@@ -46,7 +46,7 @@ BitBuffer_t TrackDataBuffers[3];
  *  passed to all HID Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_HID_t Keyboard_HID_Interface =
+USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 	{
 		.InterfaceNumber         = 0,
 
@@ -157,7 +157,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  *
  *  \return Number of bytes in the created report
  */
-uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
+uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
 {
 	static bool IsKeyReleaseReport;
 	static bool IsNewlineReport;
@@ -204,7 +204,7 @@ uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_t* HIDInterfaceI
  *  \param ReportData  Pointer to the report buffer where the received report is stored
  *  \param ReportSize  Size in bytes of the report received from the host
  */
-void CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t ReportID,
+void CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t ReportID,
                                                void* ReportData, uint16_t ReportSize)
 {
 	// Unused (but mandatory for the HID class driver) in this demo, since there are no Host->Device reports

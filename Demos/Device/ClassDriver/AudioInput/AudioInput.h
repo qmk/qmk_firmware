@@ -48,7 +48,7 @@
 		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/Device/Audio.h>
+		#include <LUFA/Drivers/USB/Class/Audio.h>
 
 	/* Macros: */
 		/** ADC channel number for the microphone input. */

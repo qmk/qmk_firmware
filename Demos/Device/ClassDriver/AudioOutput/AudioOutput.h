@@ -48,7 +48,7 @@
 		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/Device/Audio.h>
+		#include <LUFA/Drivers/USB/Class/Audio.h>
 	
 	/* Macros: */
 		#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))

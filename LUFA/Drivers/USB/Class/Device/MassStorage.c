@@ -28,7 +28,10 @@
   this software.
 */
 
-#define  INCLUDE_FROM_MS_CLASS_C
+#include "../../HighLevel/USBMode.h"
+#if defined(USB_CAN_BE_DEVICE)
+
+#define  INCLUDE_FROM_MS_CLASS_DEVICE_C
 #include "MassStorage.h"
 
 static USB_ClassInfo_MS_t* CallbackMSInterfaceInfo;
@@ -206,3 +209,5 @@ static uint8_t StreamCallback_MS_Device_AbortOnMassStoreReset(void)
 	else
 	  return STREAMCALLBACK_Continue;
 }
+
+#endif

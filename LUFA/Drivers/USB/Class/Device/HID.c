@@ -28,6 +28,9 @@
   this software.
 */
 
+#include "../../HighLevel/USBMode.h"
+#if defined(USB_CAN_BE_DEVICE)
+
 #include "HID.h"
 
 void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
@@ -172,3 +175,5 @@ void HID_Device_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 		Endpoint_ClearIN();
 	}
 }
+
+#endif

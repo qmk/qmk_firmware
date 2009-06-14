@@ -34,8 +34,8 @@
  *  constants, please refer to the Microsoft RNDIS specification.
  */
  
-#ifndef _RNDIS_CONSTANTS_H_
-#define _RNDIS_CONSTANTS_H_
+#ifndef _RNDIS_CONSTANTS_DEVICE_H_
+#define _RNDIS_CONSTANTS_DEVICE_H_
 
 	/* Macros: */
 		#define REMOTE_NDIS_PACKET_MSG                0x00000001UL

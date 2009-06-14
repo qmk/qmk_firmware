@@ -28,7 +28,10 @@
   this software.
 */
 
-#define  INCLUDE_FROM_RNDIS_CLASS_C
+#include "../../HighLevel/USBMode.h"
+#if defined(USB_CAN_BE_DEVICE)
+
+#define  INCLUDE_FROM_RNDIS_CLASS_DEVICE_C
 #include "RNDIS.h"
 
 static const uint32_t PROGMEM AdapterSupportedOIDList[]  =
@@ -454,3 +457,5 @@ static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_t* RNDISInterfaceInf
 			return false;
 	}
 }
+
+#endif

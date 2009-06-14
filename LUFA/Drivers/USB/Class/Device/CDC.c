@@ -28,7 +28,10 @@
   this software.
 */
 
-#define  INCLUDE_FROM_CDC_CLASS_C
+#include "../../HighLevel/USBMode.h"
+#if defined(USB_CAN_BE_DEVICE)
+
+#define  INCLUDE_FROM_CDC_CLASS_DEVICE_C
 #include "CDC.h"
 
 void CDC_Device_Event_Stub(void)
@@ -195,3 +198,5 @@ void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_t* CDCInterfaceInfo
 	Endpoint_Write_Stream_LE(&LineStateMask, sizeof(LineStateMask), NO_STREAM_CALLBACK);
 	Endpoint_ClearIN();
 }
+
+#endif

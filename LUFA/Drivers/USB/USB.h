@@ -67,20 +67,6 @@
  *  same class driver.
  */
  
-/** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBDeviceClassDrivers Device Class Drivers
- *
- *  Device mode drivers for the standard USB classes. These drivers all implement one of the standard USB
- *  classes, allowing for the class to be easily implemented in a user project.
- */
- 
-/** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBHostClassDrivers Host Class Drivers
- *
- *  Host mode drivers for the standard USB classes. These drivers all implement one of the standard USB
- *  classes, allowing for the class to be easily implemented in a user project.
- */
- 
 #ifndef __USB_H__
 #define __USB_H__
 

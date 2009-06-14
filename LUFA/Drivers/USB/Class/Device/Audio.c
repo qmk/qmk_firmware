@@ -28,6 +28,9 @@
   this software.
 */
 
+#include "../../HighLevel/USBMode.h"
+#if defined(USB_CAN_BE_DEVICE)
+
 #include "Audio.h"
 
 void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
@@ -157,3 +160,5 @@ bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo
 	Endpoint_SelectEndpoint(AudioInterfaceInfo->DataINEndpointNumber);
 	return Endpoint_IsINReady();
 }
+
+#endif

@@ -28,6 +28,9 @@
   this software.
 */
 
+#include "../../HighLevel/USBMode.h"
+#if defined(USB_CAN_BE_DEVICE)
+
 #include "MIDI.h"
 
 void MIDI_Device_ProcessControlPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo)
@@ -94,3 +97,5 @@ bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB
 	
 	return true;
 }
+
+#endif
