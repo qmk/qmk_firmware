@@ -275,7 +275,7 @@
 			#if defined(INCLUDE_FROM_EVENTS_C)
 				void USB_Event_Stub(void) ATTR_CONST;
 
-				#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER)
+				#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 					void EVENT_USB_VBUSChange(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 					void EVENT_USB_VBUSConnect(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 					void EVENT_USB_VBUSDisconnect(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);

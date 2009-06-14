@@ -84,11 +84,7 @@
 #ifndef __USB_H__
 #define __USB_H__
 
-	/* Preprocessor Checks: */
-		#if (!(defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__)) && defined(USB_HOST_ONLY))
-			#error USB_HOST_ONLY is not available for the currently selected USB AVR model.
-		#endif
-		
+	/* Preprocessor Checks: */		
 		#if (!(defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
 		       defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
 			   defined(__AVR_AT90USB162__)  || defined(__AVR_AT90USB82__)  ||  \

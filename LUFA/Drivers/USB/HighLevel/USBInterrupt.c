@@ -32,9 +32,9 @@
 
 void USB_INT_DisableAllInterrupts(void)
 {
-	#if defined(USB_FULL_CONTROLLER)
+	#if defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 	USBCON &= ~((1 << VBUSTE) | (1 << IDTE));				
-	#elif defined(USB_MODIFIED_FULL_CONTROLLER)
+	#elif defined(USB_SERIES_4_AVR)
 	USBCON &= ~(1 << VBUSTE);					
 	#endif
 	
@@ -50,7 +50,7 @@ void USB_INT_DisableAllInterrupts(void)
 
 void USB_INT_ClearAllInterrupts(void)
 {
-	#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER)
+	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 	USBINT  = 0;
 	#endif
 	
@@ -67,7 +67,7 @@ void USB_INT_ClearAllInterrupts(void)
 ISR(USB_GEN_vect, ISR_BLOCK)
 {
 	#if defined(USB_CAN_BE_DEVICE)
-	#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER)
+	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 	if (USB_INT_HasOccurred(USB_INT_VBUS) && USB_INT_IsEnabled(USB_INT_VBUS))
 	{
 		USB_INT_Clear(USB_INT_VBUS);
@@ -121,7 +121,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 
 		EVENT_USB_Suspend();
 
-		#if defined(USB_LIMITED_CONTROLLER) && !defined(NO_LIMITED_CONTROLLER_CONNECT)
+		#if defined(USB_SERIES_2_AVR) && !defined(NO_LIMITED_CONTROLLER_CONNECT)
 		if (USB_IsConnected)
 		{
 			USB_IsConnected = false;
@@ -145,7 +145,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		USB_INT_Disable(USB_INT_WAKEUP);
 		USB_INT_Enable(USB_INT_SUSPEND);
 		
-		#if defined(USB_LIMITED_CONTROLLER) && !defined(NO_LIMITED_CONTROLLER_CONNECT)
+		#if defined(USB_SERIES_2_AVR) && !defined(NO_LIMITED_CONTROLLER_CONNECT)
 		if (!(USB_IsConnected))
 		{
 			USB_IsConnected = true;

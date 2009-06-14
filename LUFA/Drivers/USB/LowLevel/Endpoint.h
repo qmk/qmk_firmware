@@ -128,7 +128,7 @@
 			#define ENDPOINT_DOUBLEBANK_SUPPORTED(n)      _ENDPOINT_GET_DOUBLEBANK(n)
 
 			#if !defined(CONTROL_ONLY_DEVICE)
-				#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER) || defined(__DOXYGEN__)
+				#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
 					/** Total number of endpoints (including the default control endpoint at address 0) which may
 					 *  be used in the device. Different USB AVR models support different amounts of endpoints,
 					 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
@@ -316,7 +316,7 @@
 				 */
 				static inline uint8_t Endpoint_GetEndpointDirection(void);
 			#else
-				#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER) || defined(__DOXYGEN__)
+				#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
 					#define Endpoint_BytesInEndpoint()        UEBCX
 				#else
 					#define Endpoint_BytesInEndpoint()        UEBCLX
@@ -933,7 +933,7 @@
 			#define _ENDPOINT_GET_DOUBLEBANK2(details)     _ENDPOINT_GET_DOUBLEBANK3(details)
 			#define _ENDPOINT_GET_DOUBLEBANK3(maxsize, db) db
 			
-			#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER)
+			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 				#define ENDPOINT_DETAILS_EP0               64,  true
 				#define ENDPOINT_DETAILS_EP1               256, true
 				#define ENDPOINT_DETAILS_EP2               64,  true

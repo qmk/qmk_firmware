@@ -43,7 +43,7 @@
 		#include <avr/pgmspace.h>
 
 	/* Macros: */
-		#if defined(USB_FULL_CONTROLLER) || defined(__DOXYGEN__)
+		#if defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
 			/** Endpoint number of the Audio isochronous streaming data endpoint. */
 			#define AUDIO_STREAM_EPNUM       1
 		#else

@@ -48,7 +48,7 @@
 		#include <LUFA/Drivers/Board/LEDs.h>
 	
 	/* Macros: */
-		#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER)
+		#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 			#define TCCRxA          TCCR3A
 			#define TCCRxB          TCCR3B
 			#define OCRxA           OCR3A

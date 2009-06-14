@@ -34,6 +34,7 @@
 void Bluetooth_ProcessACLPackets(void)
 {
 	Bluetooth_ACL_Header_t ACLPacketHeader;
+	Bluetooth_DataPacket_Header_t DataHeader;
 
 	Pipe_SelectPipe(BLUETOOTH_DATA_IN_PIPE);
 	Pipe_SetToken(PIPE_TOKEN_IN);
@@ -46,8 +47,6 @@ void Bluetooth_ProcessACLPackets(void)
 	}
 	  
 	Pipe_Read_Stream_LE(&ACLPacketHeader, sizeof(ACLPacketHeader));
-		
-	Bluetooth_DataPacket_Header_t DataHeader;
 	Pipe_Read_Stream_LE(&DataHeader, sizeof(DataHeader));
 
 	BT_DEBUG("(ACL) Packet Received", NULL);
@@ -68,7 +67,14 @@ void Bluetooth_ProcessACLPackets(void)
 				break;
 			case BLUETOOTH_SIGNAL_CONFIGURATION_REQUEST:
 				Bluetooth_ProcessSignalPacket_ConfigurationRequest(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
-				break;			
+				break;
+			case BLUETOOTH_SIGNAL_INFORMATION_REQUEST:
+				BT_DEBUG("(ACL) -- Information Request, Discarded");
+
+				Pipe_Discard_Stream(ACLPacketHeader.DataLength);
+				Pipe_ClearIN();		
+				Pipe_Freeze();
+				break;
 			default:
 				BT_DEBUG("(ACL) >> Unknown Signalling Command 0x%02X", SignalCommandHeader.Code);
 					

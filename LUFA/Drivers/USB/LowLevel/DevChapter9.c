@@ -179,8 +179,8 @@ static void USB_Device_GetDescriptor(void)
 	void*    DescriptorPointer;
 	uint16_t DescriptorSize;
 	
-	if ((DescriptorSize = CALLBACK_USB_GetDescriptor(USB_ControlRequest.wValue,
-	                                                 USB_ControlRequest.wIndex, &DescriptorPointer)) == NO_DESCRIPTOR)
+	if ((DescriptorSize = CALLBACK_USB_GetDescriptor(USB_ControlRequest.wValue, USB_ControlRequest.wIndex,
+	                                                 &DescriptorPointer)) == NO_DESCRIPTOR)
 	{
 		return;
 	}
@@ -209,7 +209,7 @@ static void USB_Device_GetDescriptor(void)
 		while (USB_ControlRequest.wLength && (Endpoint_BytesInEndpoint() < USB_ControlEndpointSize))
 		{
 			#if defined (USE_EEPROM_DESCRIPTORS)
-			Endpoint_Write_Byte(eeprom_read_byte(DescriptorPointer++));			
+			Endpoint_Write_Byte(eeprom_read_byte(DescriptorPointer++));		
 			#else
 			Endpoint_Write_Byte(pgm_read_byte(DescriptorPointer++));
 			#endif

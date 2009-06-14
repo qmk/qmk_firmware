@@ -48,9 +48,14 @@
 		#include "../HighLevel/StdDescriptors.h"
 		#include "Endpoint.h"
 
+	/* Preprocessor Checks: */
+		#if (defined(USE_RAM_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS))
+			#error USE_RAM_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
+		#endif
+			
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER) || defined(__DOXYGEN__)
+			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
 				/** Mask for the Options parameter of the \ref USB_Init() function. This indicates that the
 				 *  USB interface should be initialized in low speed (1.5Mb/s) mode.
 				 *

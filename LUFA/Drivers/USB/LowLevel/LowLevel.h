@@ -77,22 +77,22 @@
 		#if (F_CLOCK == 8000000)
 			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__))
 				#define USB_PLL_PSC                0
-			#elif (defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB647__)  || \
-			       defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || \
-				   defined(__AVR_ATmega32U6__))
-				#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
 			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
 				#define USB_PLL_PSC                0
+			#elif (defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB1286__) || defined(__AVR_ATmega32U6__))
+				#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
+			#elif (defined(__AVR_AT90USB647__)  || defined(__AVR_AT90USB1287__))
+				#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
 			#endif
 		#elif (F_CLOCK == 16000000)
-			#if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_ATmega32U6__))
-				#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP1))
-			#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__))
-				#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP0))
-			#elif (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__))
+			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__))
 				#define USB_PLL_PSC                (1 << PLLP0)
 			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
 				#define USB_PLL_PSC                (1 << PINDIV)
+			#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_ATmega32U6__))
+				#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP1))
+			#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__))
+				#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP0))
 			#endif
 		#endif
 		
@@ -107,11 +107,13 @@
 			 */
 			#define USB_MODE_NONE                      0
 
-			/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the
-			 *  USB interface is or should be initialized in the USB device mode.
-			 */
-			#define USB_MODE_DEVICE                    1
-
+			#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
+				/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the
+				 *  USB interface is or should be initialized in the USB device mode.
+				 */
+				#define USB_MODE_DEVICE                    1
+			#endif
+			
 			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
 				/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the
 				 *  USB interface is or should be initialized in the USB host mode.
@@ -181,7 +183,7 @@
 			 */
 			#define EP_TYPE_INTERRUPT                  0x03
 
-			#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER) || defined(__DOXYGEN__)
+			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
 				/** Returns boolean true if the VBUS line is currently high (i.e. the USB host is supplying power),
 				 *  otherwise returns false.
 				 *
@@ -320,7 +322,7 @@
 			#define USB_PLL_Off()              MACROS{ PLLCSR   =  0;                           }MACROE
 			#define USB_PLL_IsReady()                ((PLLCSR  &   (1 << PLOCK)) ? true : false)
 
-			#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER)		
+			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 				#define USB_REG_On()           MACROS{ UHWCON  |=  (1 << UVREGE);               }MACROE
 				#define USB_REG_Off()          MACROS{ UHWCON  &= ~(1 << UVREGE);               }MACROE
 			#else

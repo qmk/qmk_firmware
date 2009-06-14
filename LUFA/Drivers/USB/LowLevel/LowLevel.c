@@ -68,7 +68,7 @@ void USB_Init(
 	USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
 	#endif
 	
-	#if defined(USB_DEVICE_ONLY) && defined(USB_FULL_CONTROLLER)
+	#if defined(USB_DEVICE_ONLY) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 	UHWCON |= (1 << UIMOD);
 	#elif defined(USB_HOST_ONLY)
 	UHWCON &= ~(1 << UIMOD);
@@ -99,7 +99,7 @@ void USB_Init(
 	
 	USB_ResetInterface();
 
-	#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER)
+	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 	USB_OTGPAD_On();
 	#endif
 
@@ -136,7 +136,7 @@ void USB_ShutDown(void)
 	USB_Interface_Disable();
 	USB_PLL_Off();
 	
-	#if defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER)
+	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 	USB_OTGPAD_Off();
 	#endif
 
@@ -165,7 +165,7 @@ void USB_ResetInterface(void)
 	
 	if (!(USB_Options & USB_OPT_MANUAL_PLL))
 	{
-		#if defined(USB_MODIFIED_FULL_CONTROLLER)
+		#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 		PLLFRQ = ((1 << PLLUSB) | (1 << PDIV3) | (1 << PDIV1));
 		#endif
 
@@ -189,7 +189,7 @@ void USB_ResetInterface(void)
 	
 	USB_CLK_Unfreeze();
 
-	#if (defined(USB_CAN_BE_DEVICE) && (defined(USB_FULL_CONTROLLER) || defined(USB_MODIFIED_FULL_CONTROLLER)))
+	#if (defined(USB_CAN_BE_DEVICE) && (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)))
 	if (USB_CurrentMode == USB_MODE_DEVICE)
 	{
 		if (USB_Options & USB_DEVICE_OPT_LOWSPEED)

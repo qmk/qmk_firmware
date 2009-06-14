@@ -42,11 +42,13 @@
 			#endif
 			
 			#if (defined(__AVR_AT90USB162__)  || defined(__AVR_AT90USB82__))
-				#define USB_LIMITED_CONTROLLER
+				#define USB_SERIES_2_AVR
 			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-				#define USB_MODIFIED_FULL_CONTROLLER
-			#else
-				#define USB_FULL_CONTROLLER
+				#define USB_SERIES_4_AVR
+			#elif (defined(__AVR_ATmega32U6__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__))
+				#define USB_SERIES_6_AVR
+			#elif (defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1287__))
+				#define USB_SERIES_7_AVR
 			#endif			
 
 			#if (!defined(USB_DEVICE_ONLY) && !defined(USB_HOST_ONLY))
@@ -61,12 +63,10 @@
 				#define USB_CurrentMode USB_MODE_DEVICE
 			#endif
 			
-			#if (defined(USB_HOST_ONLY) && defined(USB_DEVICE_ONLY))
+			#if (!(defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__)) && defined(USB_HOST_ONLY))
+				#error USB_HOST_ONLY is not available for the currently selected USB AVR model.
+			#elif (defined(USB_HOST_ONLY) && defined(USB_DEVICE_ONLY))
 				#error USB_HOST_ONLY and USB_DEVICE_ONLY are mutually exclusive.
-			#endif
-
-			#if (defined(USE_RAM_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS))
-				#error USE_RAM_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
 			#endif
 
 			#if defined(USE_STATIC_OPTIONS)

@@ -16,6 +16,8 @@
   *  - MIDI device demo no longer blocks if a note change event is sent while the endpoint is not ready
   *  - Fixes to MassStorageHost for better device compatibility (increase command timeout, change MassStore_WaitForDataReceived()
   *    to only unfreeze and check one data pipe at a time)
+  *  - Internal per-device preprocessing conditions changed to per-device series rather than per controller group for finer-grain
+  *    internal control
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605
