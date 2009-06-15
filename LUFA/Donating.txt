@@ -7,6 +7,8 @@
 /**
  *  \page Page_Donating Donating to Support This Project
  *
+ *  \image html Author.jpg "Dean Camera, LUFA Developer"
+ *
  *  I am a 20 year old University student studying for a double degree in Computer Science and Electronics Engineering.
  *  The development and support of this library requires much effort from myself, as I am the sole developer, maintainer
  *  and supporter. Please consider donating a small amount to support this and my future Open Source projects - All
