@@ -152,6 +152,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 /** HID class driver callback function for the creation of HID reports to the host.
  *
  *  \param HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
+ *  \param ReportID  Report ID requested by the host if non-zero, otherwise callback should set to the generated report ID
  *  \param ReportData  Pointer to a buffer where the created report should be stored
  *
  *  \return Number of bytes written in the report (or zero if no report is to be sent

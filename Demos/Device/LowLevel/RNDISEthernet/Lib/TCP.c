@@ -581,7 +581,7 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart, void* TCPHeaderInStart, void
  *
  *  \param TCPHeaderOutStart  Pointer to the start of the packet's outgoing TCP header
  *  \param SourceAddress      Source protocol IP address of the outgoing IP header
- *  \param SourceAddress      DestinationAddress protocol IP address of the outgoing IP header
+ *  \param DestinationAddress Destination protocol IP address of the outgoing IP header
  *  \param TCPOutSize         Size in bytes of the TCP data header and payload
  *
  *  \return A 16-bit TCP checksum value
