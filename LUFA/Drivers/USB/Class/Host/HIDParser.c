@@ -28,8 +28,10 @@
   this software.
 */
 
+#include "../../HighLevel/USBMode.h"
+#if defined(USB_CAN_BE_HOST)
+
 #include "HIDParser.h"
-#if defined(CAN_BE_HOST)
 
 uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID_ReportInfo_t* const ParserData)
 {
