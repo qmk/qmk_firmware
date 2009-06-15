@@ -38,7 +38,7 @@
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/Host/HIDParser.h>
+		#include <LUFA/Drivers/USB/Class/HID.h>
 		
 		#include "KeyboardHostWithParser.h"
 

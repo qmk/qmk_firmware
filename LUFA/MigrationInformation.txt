@@ -12,6 +12,12 @@
  *
  * \section Sec_MigrationXXXXXX Migrating from 090605 to XXXXXX
  *
+ *  <b>All</b>
+ *    - The "simple scheduler" has been removed, as it was little more than an abtracted loop and caused much confusion. User
+ *      applications using the scheduler should switch to regular loops instead.
+ *    - The "Dynamic Memory Block Allocator" has been removed, as it was unused in (and unrelated to) the LUFA library and never
+ *      used in user applications. The library is available from the author's website for those wishing to still use it in their
+ *      applications.
  *
  * \section Sec_Migration090605 Migrating from 090510 to 090605
  *

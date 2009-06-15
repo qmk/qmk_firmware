@@ -46,11 +46,10 @@
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
-		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		
-		#include "ConfigDescriptor.h"
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/HID.h>	
 		
 	/* Macros: */
 		/** Pipe number for the keyboard data IN pipe */
