@@ -1,0 +1,17 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \page Page_DevelopingWithLUFA Developing With LUFA
+ *
+ *  \subpage Page_BuildLibrary
+ *  \subpage Page_TokenSummary
+ *  \subpage Page_GettingStarted
+ *  \subpage Page_Migration
+ *  \subpage Page_VIDPID
+ *  \subpage Page_WritingBoardDrivers
+ */
+ 

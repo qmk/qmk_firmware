@@ -1,0 +1,37 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \page Page_Licence License
+ *
+ *  The LUFA library is currently released under the MIT licence, included below.
+ *
+ *  Commercial entities can opt out of the public disclosure clause in this license
+ *  for a one-time US$1500 payment. This provides a non-exclusive modified MIT licensed which
+ *  allows for the free use of the LUFA library, bootloaders and (where the sole copyright
+ *  is attributed to Dean Camera) demos without public disclosure within an organisation. Please
+ *  contact the author for more information.
+ *
+ *  \verbatim
+ *  Permission to use, copy, modify, and distribute this software
+ *  and its documentation for any purpose and without fee is hereby
+ *  granted, provided that the above copyright notice appear in all
+ *  copies and that both that the copyright notice and this
+ *  permission notice and warranty disclaimer appear in supporting
+ *  documentation, and that the name of the author not be used in
+ *  advertising or publicity pertaining to distribution of the
+ *  software without specific, written prior permission.
+ *
+ *  The author disclaim all warranties with regard to this
+ *  software, including all implied warranties of merchantability
+ *  and fitness.  In no event shall the author be liable for any
+ *  special, indirect or consequential damages or any damages
+ *  whatsoever resulting from loss of use, data or profits, whether
+ *  in an action of contract, negligence or other tortious action,
+ *  arising out of or in connection with the use or performance of
+ *  this software.
+ *  \endverbatim
+ */

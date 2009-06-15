@@ -1,0 +1,21 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \page Page_DevelopingWithLUFA Developing With LUFA
+ *
+ *  This section of the manual contains information on LUFA development, such as Getting Started information,
+ *  information on compile-time tuning of the library and other developer-related sections.
+ *
+ *  <b>Subsections:</b>
+ *  - \subpage Page_GettingStarted Getting Started
+ *  - \subpage Page_TokenSummary Summary of Compile Time Tokens
+ *  - \subpage Page_Migration Migrating from an Older LUFA Version
+ *  - \subpage Page_VIDPID Allocated USB VID and PID Values
+ *  - \subpage Page_BuildLibrary Building as a Linkable Library
+ *  - \subpage Page_WritingBoardDrivers How to Write Custom Board Drivers
+ */
+ 

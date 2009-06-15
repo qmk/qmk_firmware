@@ -1,0 +1,21 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/**
+ *  \page Page_Resources Library Resources
+ *
+ *  Project Homepage: http://www.fourwalledcubicle.com/LUFA.php \n
+ *  Development Blog: http://www.fourwalledcubicle.com/blog \n
+ *  Discussion Group: http://groups.google.com/group/myusb-support-list \n
+ *  SVN Access, Bug Reports and Feature Requests: http://code.google.com/p/lufa-lib/ \n
+ *  Author's Website: http://www.fourwalledcubicle.com \n
+ *
+ *  WinAVR Website: http://winavr.sourceforge.net \n
+ *  avr-libc Website: http://www.nongnu.org/avr-libc/ \n
+ *
+ *  USB-IF Website: http://www.usb.org \n
+ */
+ 

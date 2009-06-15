@@ -1,0 +1,20 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \page Page_AboutLUFA About LUFA
+ *
+ *  This section of the manual contains information about the library as a whole, including its supported targets,
+ *  past and planned changes, and links to other projects incorporating LUFA.
+ *
+ *  <b>Subsections:</b>
+ *  - \subpage Page_DeviceSupport Current Device and Hardware Support
+ *  - \subpage Page_Resources LUFA and USB Related Resources
+ *  - \subpage Page_ChangeLog Project Changelog
+ *  - \subpage Page_FutureChanges Planned Changes to the Library
+ *  - \subpage Page_LUFAPoweredProjects Other Projects Using LUFA
+ */
+ 

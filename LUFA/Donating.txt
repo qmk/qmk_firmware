@@ -1,0 +1,17 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \page Page_Donating Donating to Support This Project
+ *
+ *  I am a 20 year old University student studying for a double degree in Computer Science and Electronics Engineering.
+ *  The development and support of this library requires much effort from myself, as I am the sole developer, maintainer
+ *  and supporter. Please consider donating a small amount to support this and my future Open Source projects - All
+ *  donations are <i>greatly</i> appreciated.
+ *
+ *  <b>Donate to this project at http://www.fourwalledcubicle.com </b> via PayPal - Thanks in Advance!
+ */
+ 

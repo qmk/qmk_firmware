@@ -4,7 +4,7 @@
  *  documentation pages. It is not a project source file.
  */
 
-/** \page TokenSummary Summary of Compile Tokens
+/** \page Page_TokenSummary Summary of Compile Tokens
  *
  *  The following lists all the possible tokens which can be defined in a project makefile, and passed to the
  *  compiler via the -D switch, to alter the LUFA library code. These tokens may alter the library behaviour,

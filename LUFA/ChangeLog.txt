@@ -12,8 +12,8 @@
   *  - Added new class drivers and matching demos to the library for rapid application development
   *  - Added incomplete device and host mode demos for later enhancement
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed
-  *  - Error status LEDs shown when device endpoint configuration fails to complete
-  *  - MIDI device demo no longer blocks if a note change event is sent while the endpoint is not ready
+  *  - Error status LEDs shown when device endpoint configuration fails to complete in all demos and projects
+  *  - Low level API MIDI device demo no longer blocks if a note change event is sent while the endpoint is not ready
   *  - Fixes to MassStorageHost for better device compatibility (increase command timeout, change MassStore_WaitForDataReceived()
   *    to only unfreeze and check one data pipe at a time)
   *  - Internal per-device preprocessing conditions changed to per-device series rather than per controller group for finer-grain

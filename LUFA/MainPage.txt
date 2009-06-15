@@ -5,33 +5,12 @@
  */
 
 /**
- *  \mainpage About the LUFA (Formerly MyUSB) Library
+ *  \mainpage General Information
  *
- *  Lightweight USB Framework for AVRs Library, written by Dean Camera.
+ *  Lightweight USB Framework for AVRs Library, written by Dean Camera. 
  *
- *  \section Sec_About About this library
- *
- *  Originally based on the AT90USBKEY from Atmel, it is an open-source, driver for the USB-enabled AVR
- *  microcontrollers, released under the MIT license.
- *
- *  Currently supported AVR models:
- *   - AT90USB1286 (USB Device Only)
- *   - AT90USB1287 (USB Host and Device)
- *   - AT90USB646 (USB Device Only)
- *   - AT90USB647 (USB Host and Device)
- *   - AT90USB82 (USB Device Only)
- *   - AT90USB162 (USB Device Only)
- *   - ATMEGA16U4 (USB Device Only)
- *   - ATMEGA32U4 (USB Device Only)
- *   - ATMEGA32U6 (USB Device Only)
- *
- *  Currently supported Atmel boards:
- *   - AT90USBKEY
- *   - STK525
- *   - STK526
- *   - RZUSBSTICK
- *   - ATAVRUSBRF01
- *   - Custom User Boards
+ *  Originally based on the AT90USBKEY from Atmel, it is an open-source USB library for the USB-enabled AVR
+ *  microcontrollers, released under the MIT license. It now supports a large number of USB AVR models and boards.
  *
  *  The library is currently in a stable release, suitable for download and incorporation into user projects for
  *  both host and device modes. For information about the project progression, check out my blog.
@@ -39,50 +18,6 @@
  *  LUFA is written specifically for the free AVR-GCC compiler, and uses several GCC-only extensions to make the
  *  library API more streamlined and robust. You can download AVR-GCC for free in a convenient windows package, 
  *  from the the WinAVR website.
- *
- *
- *  \section Sec_Links Library Links
- *  Project Homepage: http://www.fourwalledcubicle.com/LUFA.php \n
- *  Development Blog: http://www.fourwalledcubicle.com/blog \n
- *  Discussion Group: http://groups.google.com/group/myusb-support-list \n
- *  SVN Access, Bug Reports and Feature Requests: http://code.google.com/p/lufa-lib/ \n
- *  Author's Website: http://www.fourwalledcubicle.com \n
- *
- *  WinAVR Website: http://winavr.sourceforge.net \n
- *  avr-libc Website: http://www.nongnu.org/avr-libc/ \n
- *
- *  USB-IF Website: http://www.usb.org \n
- *
- *
- *  \section Sec_License License
- *  The LUFA library is currently released under the MIT licence, included below.
- *
- *  Commercial entities can opt out of the public disclosure clause in this license
- *  for a one-time US$1500 payment. This provides a non-exclusive modified MIT licensed which
- *  allows for the free use of the LUFA library, bootloaders and (where the sole copyright
- *  is attributed to Dean Camera) demos without public disclosure within an organisation. Please
- *  contact the author for more information.
- *
- *  \verbatim
- *  Permission to use, copy, modify, and distribute this software
- *  and its documentation for any purpose and without fee is hereby
- *  granted, provided that the above copyright notice appear in all
- *  copies and that both that the copyright notice and this
- *  permission notice and warranty disclaimer appear in supporting
- *  documentation, and that the name of the author not be used in
- *  advertising or publicity pertaining to distribution of the
- *  software without specific, written prior permission.
- *
- *  The author disclaim all warranties with regard to this
- *  software, including all implied warranties of merchantability
- *  and fitness.  In no event shall the author be liable for any
- *  special, indirect or consequential damages or any damages
- *  whatsoever resulting from loss of use, data or profits, whether
- *  in an action of contract, negligence or other tortious action,
- *  arising out of or in connection with the use or performance of
- *  this software.
- *  \endverbatim
- *
  *
  *  \section Sec_Demos Demos and Bootloaders
  *  The LUFA library ships with several different host and device demos, located in the /Demos/ subdirectory.
@@ -93,11 +28,7 @@
  *  CDC class (AVR109 protocol) is compatible with such open source software as AVRDUDE and AVR-OSP, and the TeensyLoader
  *  HID class bootloader is compatible with the software from PJRC (http://www.pjrc.com/teensy/index.html).
  *
- *
- *  \section Sec_Donations Donate
- *  I am a 20 year old University student studying for a double degree in Computer Science and Electronics Engineering.
- *  The development and support of this library requires much effort from myself. Please consider donating a small amount
- *  to myself to support this and my future Open Source projects. You can donate any amount via PayPal on my website, 
- *  http://www.fourwalledcubicle.com . All donations are greatly appreciated.
+ *  <b>Subsections:</b>
+ *  - \subpage Page_Licence Project License
+ *  - \subpage Page_Donating Donating to Support this Project
  */
- 
