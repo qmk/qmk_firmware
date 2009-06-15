@@ -50,6 +50,37 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Type Defines: */
+			typedef struct
+			{
+				bool     IsActive; /**< Indicates if this class driver is currently attached to the device */
+			
+				uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
+
+				uint8_t  DataINPipeNumber; /**< Pipe number of the CDC interface's IN data pipe */
+				uint16_t DataINPipeSize; /**< Size in bytes of the CDC interface's IN data pipe */
+
+				uint8_t  DataOUTPipeNumber; /**< Pipe number of the CDC interface's OUT data pipe */
+				uint16_t DataOUTPipeSize;  /**< Size in bytes of the CDC interface's OUT data pipe */
+
+				uint8_t  NotificationEndpointNumber; /**< Pipe number of the CDC interface's IN notification endpoint, if used */
+				uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
+
+				uint8_t  ControlLineState; /**< Current control line states */
+
+				struct
+				{
+					uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
+					uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
+										  *   CDCDevice_CDC_LineCodingFormats_t enum
+										  */
+					uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
+										  *   CDCDevice_LineCodingParity_t enum
+										  */
+					uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
+				} LineEncoding;
+			} USB_ClassInfo_CDC_Host_t;
+	
 		/* Function Prototypes: */
 			void CDC_Host_Task(void);
 

@@ -28,7 +28,7 @@
   this software.
 */
 
-/** \ingroup Group_USBClassStillImage
+/** \ingroup Group_USBClassSI
  *  @defgroup Group_USBClassStillImageHost Still Image Class Host Mode Driver
  *
  *  \section Module Description

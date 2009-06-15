@@ -43,6 +43,7 @@
  *  the pre-selected data OUT endpoint. This routine reads in OS sized blocks from the endpoint and writes
  *  them to the dataflash in Dataflash page sized blocks.
  *
+ *  \param MSInterfaceInfo  Pointer to a Mass Storage class state structure for the Mass Storage interface being used
  *  \param BlockAddress  Data block starting address for the write sequence
  *  \param TotalBlocks   Number of blocks of data to write
  */
@@ -168,6 +169,7 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_t* MSInterfaceInfo, const uin
  *  the pre-selected data IN endpoint. This routine reads in Dataflash page sized blocks from the Dataflash
  *  and writes them in OS sized blocks to the endpoint.
  *
+ *  \param MSInterfaceInfo  Pointer to a Mass Storage class state structure for the Mass Storage interface being used
  *  \param BlockAddress  Data block starting address for the read sequence
  *  \param TotalBlocks   Number of blocks of data to read
  */

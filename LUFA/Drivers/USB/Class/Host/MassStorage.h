@@ -28,7 +28,7 @@
   this software.
 */
 
-/** \ingroup Group_USBClassMassStorage
+/** \ingroup Group_USBClassMS
  *  @defgroup Group_USBClassMassStorageHost Mass Storage Class Host Mode Driver
  *
  *  \section Module Description
