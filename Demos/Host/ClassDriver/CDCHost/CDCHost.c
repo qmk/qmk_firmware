@@ -36,6 +36,12 @@
  
 #include "CDCHost.h"
 
+/** LUFA CDC Class driver interface configuration and state information. This structure is
+ *  passed to all CDC Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
+USB_ClassInfo_CDC_t VirtualSerial_CDC_Interface;
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  starts the scheduler to run the application tasks.
  */

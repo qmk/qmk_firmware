@@ -49,7 +49,8 @@
 			extern "C" {
 		#endif
 
-	/* Function Prototypes: */
+	/* Public Interface - May be used in end-application: */
+		/* Function Prototypes: */
 		
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

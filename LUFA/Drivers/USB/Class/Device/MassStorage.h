@@ -51,47 +51,53 @@
 			extern "C" {
 		#endif
 
-	/* Function Prototypes: */
-		#if defined(INCLUDE_FROM_MS_CLASS_DEVICE_C)
-			static void    MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_t* MSInterfaceInfo);
-			static bool    MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_t* MSInterfaceInfo);
-			static uint8_t StreamCallback_MS_Device_AbortOnMassStoreReset(void);
-		#endif
-	
-		/** Configures the endpoints of a given Mass Storage interface, ready for use. This should be linked to the library
-		 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
-		 *  containing the given Mass Storage interface is selected.
-		 *
-		 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
-		 *
-		 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
-		 */
-		bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_t* MSInterfaceInfo);
-		
-		/** Processes incomming control requests from the host, that are directed to the given Mass Storage class interface. This should be
-		 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
-		 *
-		 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
-		 */		
-		void MS_Device_ProcessControlPacket(USB_ClassInfo_MS_t* MSInterfaceInfo);
+	/* Public Interface - May be used in end-application: */
+		/* Function Prototypes: */
+			/** Configures the endpoints of a given Mass Storage interface, ready for use. This should be linked to the library
+			 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
+			 *  containing the given Mass Storage interface is selected.
+			 *
+			 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
+			 *
+			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
+			 */
+			bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_t* MSInterfaceInfo);
+			
+			/** Processes incomming control requests from the host, that are directed to the given Mass Storage class interface. This should be
+			 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+			 *
+			 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
+			 */		
+			void MS_Device_ProcessControlPacket(USB_ClassInfo_MS_t* MSInterfaceInfo);
 
-		/** General management task for a given Mass Storage class interface, required for the correct operation of the interface. This should
-		 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
-		 *
-		 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage configuration and state.
-		 */
-		void MS_Device_USBTask(USB_ClassInfo_MS_t* MSInterfaceInfo);
+			/** General management task for a given Mass Storage class interface, required for the correct operation of the interface. This should
+			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
+			 *
+			 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage configuration and state.
+			 */
+			void MS_Device_USBTask(USB_ClassInfo_MS_t* MSInterfaceInfo);
+			
+			/** Mass Storage class driver callback for the user processing of a received SCSI command. This callback will fire each time the
+			 *  host sends a SCSI command which requires processing by the user application. Inside this callback the user is responsible
+			 *  for the processing of the received SCSI command from the host. The SCSI command is available in the CommandBlock structure
+			 *  inside the Mass Storage class state structure passed as a parameter to the callback function.
+			 *
+			 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
+			 *
+			 *  \return Boolean true if the SCSI command was successfully processed, false otherwise
+			 */
+			bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_t* MSInterfaceInfo);
 		
-		/** Mass Storage class driver callback for the user processing of a received SCSI command. This callback will fire each time the
-		 *  host sends a SCSI command which requires processing by the user application. Inside this callback the user is responsible
-		 *  for the processing of the received SCSI command from the host. The SCSI command is available in the CommandBlock structure
-		 *  inside the Mass Storage class state structure passed as a parameter to the callback function.
-		 *
-		 *  \param MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
-		 *
-		 *  \return Boolean true if the SCSI command was successfully processed, false otherwise
-		 */
-		bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_t* MSInterfaceInfo);
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* Function Prototypes: */
+			#if defined(INCLUDE_FROM_MS_CLASS_DEVICE_C)
+				static void    MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_t* MSInterfaceInfo);
+				static bool    MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_t* MSInterfaceInfo);
+				static uint8_t StreamCallback_MS_Device_AbortOnMassStoreReset(void);
+			#endif
+		
+	#endif
 		
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

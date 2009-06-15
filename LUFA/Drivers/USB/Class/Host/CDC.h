@@ -49,16 +49,30 @@
 			extern "C" {
 		#endif
 
-	/* Function Prototypes: */
-		#if defined(INCLUDE_FROM_CDC_CLASS_HOST_C)
-			static uint8_t CDC_Host_ProcessConfigDescriptor(void);
-			static uint8_t DComp_CDC_Host_NextCDCControlInterface(void* CurrentDescriptor);
-			static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* CurrentDescriptor);
-			static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor);
-		#endif
-		
-		void CDC_Host_Task(void);
-		
+	/* Public Interface - May be used in end-application: */
+		/* Function Prototypes: */
+			void CDC_Host_Task(void);
+
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* Macros: */
+			#define CDC_CONTROL_CLASS              0x02
+			#define CDC_CONTROL_SUBCLASS           0x02
+			#define CDC_CONTROL_PROTOCOL           0x01
+			#define CDC_DATA_CLASS                 0x0A
+			#define CDC_DATA_SUBCLASS              0x00
+			#define CDC_DATA_PROTOCOL              0x00
+
+		/* Function Prototypes: */
+			#if defined(INCLUDE_FROM_CDC_CLASS_HOST_C)
+				static uint8_t CDC_Host_ProcessConfigDescriptor(void);
+				static uint8_t DComp_CDC_Host_NextCDCControlInterface(void* CurrentDescriptor);
+				static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* CurrentDescriptor);
+				static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor);
+			#endif
+	
+	#endif
+				
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}

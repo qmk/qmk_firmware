@@ -43,7 +43,7 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(void)
 	if (USB_GetDeviceConfigDescriptor(&ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
 	  return ControlError;
 	
-	if (ConfigDescriptorSize > MAX_CONFIG_DESCRIPTOR_SIZE)
+	if (ConfigDescriptorSize > 512)
 	  return DescriptorTooLarge;
 	  
 	ConfigDescriptorData = alloca(ConfigDescriptorSize);

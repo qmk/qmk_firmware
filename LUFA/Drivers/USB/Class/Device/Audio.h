@@ -51,100 +51,101 @@
 			extern "C" {
 		#endif
 
-	/* Function Prototypes: */
-		/** Configures the endpoints of a given Audio interface, ready for use. This should be linked to the library
-		 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration containing the
-		 *  given Audio interface is selected.
-		 *
-		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
-		 *
-		 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
-		 */
-		bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+	/* Public Interface - May be used in end-application: */
+		/* Function Prototypes: */
+			/** Configures the endpoints of a given Audio interface, ready for use. This should be linked to the library
+			 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration containing the
+			 *  given Audio interface is selected.
+			 *
+			 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *
+			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
+			 */
+			bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 
-		/** Processes incomming control requests from the host, that are directed to the given Audio class interface. This should be
-		 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
-		 *
-		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
-		 */
-		void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+			/** Processes incomming control requests from the host, that are directed to the given Audio class interface. This should be
+			 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+			 *
+			 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 */
+			void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 
-		/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
-		 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
-		 *
-		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
-		 */
-		void Audio_Device_USBTask(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
-		
-		/** Reads the next 8-bit audio sample from the current audio interface.
-		 *
-		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
-		 *        the correct endpoint is selected and ready for data.
-		 *
-		 *  \return  Signed 8-bit audio sample from the audio interface
-		 */
-		int8_t Audio_Device_ReadSample8(void);
+			/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
+			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
+			 *
+			 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 */
+			void Audio_Device_USBTask(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+			
+			/** Reads the next 8-bit audio sample from the current audio interface.
+			 *
+			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
+			 *        the correct endpoint is selected and ready for data.
+			 *
+			 *  \return  Signed 8-bit audio sample from the audio interface
+			 */
+			int8_t Audio_Device_ReadSample8(void);
 
-		/** Reads the next 16-bit audio sample from the current audio interface.
-		 *
-		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
-		 *        the correct endpoint is selected and ready for data.
-		 *
-		 *  \return  Signed 16-bit audio sample from the audio interface
-		 */
-		int16_t Audio_Device_ReadSample16(void);
+			/** Reads the next 16-bit audio sample from the current audio interface.
+			 *
+			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
+			 *        the correct endpoint is selected and ready for data.
+			 *
+			 *  \return  Signed 16-bit audio sample from the audio interface
+			 */
+			int16_t Audio_Device_ReadSample16(void);
 
-		/** Reads the next 24-bit audio sample from the current audio interface.
-		 *
-		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
-		 *        the correct endpoint is selected and ready for data.
-		 *
-		 *  \return  Signed 24-bit audio sample from the audio interface
-		 */
-		int32_t Audio_Device_ReadSample24(void);
+			/** Reads the next 24-bit audio sample from the current audio interface.
+			 *
+			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
+			 *        the correct endpoint is selected and ready for data.
+			 *
+			 *  \return  Signed 24-bit audio sample from the audio interface
+			 */
+			int32_t Audio_Device_ReadSample24(void);
 
-		/** Writes the next 8-bit audio sample to the current audio interface.
-		 *
-		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
-		 *        the correct endpoint is selected and ready for data.
-		 *
-		 *  \param Sample  Signed 8-bit audio sample
-		 */
-		void Audio_Device_WriteSample8(int8_t Sample);
+			/** Writes the next 8-bit audio sample to the current audio interface.
+			 *
+			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
+			 *        the correct endpoint is selected and ready for data.
+			 *
+			 *  \param Sample  Signed 8-bit audio sample
+			 */
+			void Audio_Device_WriteSample8(int8_t Sample);
 
-		/** Writes the next 16-bit audio sample to the current audio interface.
-		 *
-		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
-		 *        the correct endpoint is selected and ready for data.
-		 *
-		 *  \param Sample  Signed 16-bit audio sample
-		 */
-		void Audio_Device_WriteSample16(int16_t Sample);
+			/** Writes the next 16-bit audio sample to the current audio interface.
+			 *
+			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
+			 *        the correct endpoint is selected and ready for data.
+			 *
+			 *  \param Sample  Signed 16-bit audio sample
+			 */
+			void Audio_Device_WriteSample16(int16_t Sample);
 
-		/** Writes the next 24-bit audio sample to the current audio interface.
-		 *
-		 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
-		 *        the correct endpoint is selected and ready for data.
-		 *
-		 *  \param Sample  Signed 24-bit audio sample
-		 */
-		void Audio_Device_WriteSample24(int32_t Sample);
+			/** Writes the next 24-bit audio sample to the current audio interface.
+			 *
+			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
+			 *        the correct endpoint is selected and ready for data.
+			 *
+			 *  \param Sample  Signed 24-bit audio sample
+			 */
+			void Audio_Device_WriteSample24(int32_t Sample);
 
-		/** Determines if the given audio interface is ready for a sample to be read from it.
-		 *
-		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
-		 *
-		 *  \return Boolean true if the given Audio interface has a sample to be read, false otherwise
-		 */
-		bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+			/** Determines if the given audio interface is ready for a sample to be read from it.
+			 *
+			 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *
+			 *  \return Boolean true if the given Audio interface has a sample to be read, false otherwise
+			 */
+			bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 
-		/** Determines if the given audio interface is ready to accept the next sample to be written to it.
-		 *
-		 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
-		 *
-		 *  \return Boolean true if the given Audio interface is ready to accept the next sample, false otherwise
-		 */
-		bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+			/** Determines if the given audio interface is ready to accept the next sample to be written to it.
+			 *
+			 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *
+			 *  \return Boolean true if the given Audio interface is ready to accept the next sample, false otherwise
+			 */
+			bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
