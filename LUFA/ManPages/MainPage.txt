@@ -19,7 +19,7 @@
  *  library API more streamlined and robust. You can download AVR-GCC for free in a convenient windows package, 
  *  from the the WinAVR website.
  *
- *  \section Sec_Demos Demos and Bootloaders
+ *  \section Sec_Demos Demos, Projects and Bootloaders
  *  The LUFA library ships with several different host and device demos, located in the /Demos/ subdirectory.
  *  If this directory is missing, please re-download the project from the project homepage.
  *
@@ -27,6 +27,9 @@
  *  The DFU class bootloader is compatible with Atmel's FLIP software or the open source dfu-programmer project, the
  *  CDC class (AVR109 protocol) is compatible with such open source software as AVRDUDE and AVR-OSP, and the TeensyLoader
  *  HID class bootloader is compatible with the software from PJRC (http://www.pjrc.com/teensy/index.html).
+ *
+ *  User-submitted projects are located in the /Projects/ subdirectory. If you wish to have your LUFA project included,
+ *  please email it to the Library author.
  *
  *  <b>Subsections:</b>
  *  - \subpage Page_Licence Project License

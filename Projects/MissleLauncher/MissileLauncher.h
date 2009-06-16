@@ -30,35 +30,38 @@
 
 /** \file
  *
- *  Header file for AudioInput.c.
+ *  Header file for MissleLauncher.c.
  */
- 
-#ifndef _AUDIO_INPUT_H_
-#define _AUDIO_INPUT_H_
+
+#ifndef _MISSLELAUNCHER_HOST_H_
+#define _MISSLELAUNCHER_HOST_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
+		#include <avr/pgmspace.h>
+		#include <avr/interrupt.h>
 		#include <avr/power.h>
+		#include <string.h>
+		#include <stdio.h>
 
 		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Board/Joystick.h>
-		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/Audio.h>
-
-		#include "Descriptors.h"
-
+		#include <LUFA/Drivers/Board/Buttons.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		
+		#include "ConfigDescriptor.h"
+		
 	/* Macros: */
-		/** ADC channel number for the microphone input. */
-		#define MIC_IN_ADC_CHANNEL        2
+		/** Pipe number for the HID data IN pipe */
+		#define HID_DATA_IN_PIPE                 1
+		
+		/** Pipe number for the HID data OUT pipe */
+		#define HID_DATA_OUT_PIPE                2
 
-		/** Maximum ADC sample value for the microphone input. */
-		#define SAMPLE_MAX_RANGE          0xFFFF
-
-		/** Maximum ADC range for the microphone input. */
-		#define ADC_MAX_RANGE             0x3FF
+		/** HID Class specific request to send a HID report to the device. */
+		#define REQ_SetReport                    0x09
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
@@ -71,14 +74,26 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-
+		
+		/** Size of the Launcher report command buffer */
+		#define LAUNCHER_CMD_BUFFER_SIZE 64
+		
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void ProcessNextSample(void);
 
-		void EVENT_USB_Connect(void);
-		void EVENT_USB_Disconnect(void);
-		void EVENT_USB_ConfigurationChanged(void);
-		void EVENT_USB_UnhandledControlPacket(void);
+		void Read_Joystick_Status(void);
+        void Send_Command_Report(uint8_t* Report, uint16_t ReportSize);
+        void Send_Command(uint8_t* Command);
 
+		void HID_Host_Task(void);
+
+		void EVENT_USB_HostError(const uint8_t ErrorCode);
+		void EVENT_USB_DeviceAttached(void);
+		void EVENT_USB_DeviceUnattached(void);
+		void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
+		void EVENT_USB_DeviceEnumerationComplete(void);
+
+		void DiscardNextReport(void);
+		void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength);
+		
 #endif

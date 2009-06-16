@@ -19,4 +19,6 @@
   *  - Add dual role Mouse Host/Keyboard Device demo to the library
   *  - Port LUFA to the AVR32 UC3B series microcontrollers
   *  - Port LUFA to the Atmel ARM7 series microcontrollers
+  *  - Remake AVRStudio project files
+  *  - Master LUFA include file
   */
