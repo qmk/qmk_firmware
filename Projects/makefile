@@ -17,5 +17,9 @@ all:
 	make -C Magstripe clean
 	make -C Magstripe all
 
+	make -C MissleLauncher clean
+	make -C MissleLauncher all
+
 %:
 	make -C Magstripe $@
+	make -C MissleLauncher $@
