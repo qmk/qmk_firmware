@@ -139,9 +139,9 @@ void CheckJoystickMovement(void)
 		USB_MIDI_EventPacket_t MIDIEvent = (USB_MIDI_EventPacket_t)
 			{
 				.CableNumber = 0,
-				.Command     = MIDICommand,
+				.Command     = (MIDICommand >> 4),
 				
-				.Data1       = (MIDICommand << 4) | Channel,
+				.Data1       = MIDICommand | Channel,
 				.Data2       = MIDIPitch,
 				.Data3       = MIDI_STANDARD_VELOCITY,			
 			};

@@ -77,6 +77,12 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
+			/** Mask for \ref Pipe_GetErrorFlags(), indicating that an overflow error occurred in the pipe on the received data. */
+			#define PIPE_ERRORFLAG_OVERFLOW         (1 << 6)
+
+			/** Mask for \ref Pipe_GetErrorFlags(), indicating that an underflow error occurred in the pipe on the received data. */
+			#define PIPE_ERRORFLAG_UNDERFLOW        (1 << 5)
+
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a CRC error occurred in the pipe on the received data. */
 			#define PIPE_ERRORFLAG_CRC16            (1 << 4)
 
@@ -426,7 +432,10 @@
 				
 				#define Pipe_ClearErrorFlags()         MACROS{ UPERRX = 0; }MACROE
 
-				#define Pipe_GetErrorFlags()           UPERRX
+				#define Pipe_GetErrorFlags()           ((UPERRX & (PIPE_ERRORFLAG_CRC16 | PIPE_ERRORFLAG_TIMEOUT | \
+				                                                   PIPE_ERRORFLAG_PID   | PIPE_ERRORFLAG_DATAPID | \
+				                                                   PIPE_ERRORFLAG_DATATGL))                      | \
+				                                        (UPSTAX & PIPE_ERRORFLAG_OVERFLOW | PIPE_ERRORFLAG_UNDERFLOW))
 
 				#define Pipe_IsReadWriteAllowed()      ((UPINTX & (1 << RWAL)) ? true : false)
 

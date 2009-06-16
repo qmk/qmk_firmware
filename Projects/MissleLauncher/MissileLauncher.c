@@ -64,8 +64,8 @@ uint8_t CMD_LEFTDOWN[8]  = {   0,  1,  0,  0,  1,  0,  8,  8  };
 uint8_t CMD_RIGHTDOWN[8] = {   0,  0,  1,  0,  1,  0,  8,  8  };
 uint8_t CMD_FIRE[8]      = {   0,  0,  0,  0,  0,  1,  8,  8  };
 
-uint8_t *CmdState;
-uint8_t CmdBuffer[LAUNCHER_CMD_BUFFER_SIZE];
+uint8_t* CmdState;
+uint8_t  CmdBuffer[LAUNCHER_CMD_BUFFER_SIZE];
 
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  starts the scheduler to run the application tasks.

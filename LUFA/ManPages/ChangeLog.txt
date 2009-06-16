@@ -21,6 +21,7 @@
   *  - Added new USB_Host_SetDeviceConfiguration() convenience function for easy configuration selection of devices while in USB
   *    host mode
   *  - Added USB Missle Launcher project, submitted by Dave Fletcher
+  *  - Pipe_GetErrorFlags() now returns additional error flags for overflow and underflow errors
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605
