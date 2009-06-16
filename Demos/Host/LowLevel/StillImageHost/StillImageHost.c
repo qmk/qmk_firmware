@@ -133,35 +133,6 @@ void StillImage_Task(void)
 	switch (USB_HostState)
 	{
 		case HOST_STATE_Addressed:
-			/* Standard request to set the device configuration to configuration 1 */
-			USB_ControlRequest = (USB_Request_Header_t)
-				{
-					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
-					.bRequest      = REQ_SetConfiguration,
-					.wValue        = 1,
-					.wIndex        = 0,
-					.wLength       = 0,
-				};
-
-			/* Select the control pipe for the request transfer */
-			Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-			/* Send the request, display error and wait for device detach if request fails */
-			if (USB_Host_SendControlRequest(NULL) != HOST_SENDCONTROL_Successful)
-			{
-				puts_P(PSTR("Control error.\r\n"));
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
-				break;
-			}
-				
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
 			puts_P(PSTR("Getting Config Data.\r\n"));
 		
 			/* Get and process the configuration descriptor data */
@@ -182,6 +153,22 @@ void StillImage_Task(void)
 				break;
 			}
 
+			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
+			{
+				puts_P(PSTR("Control error.\r\n"));
+
+				/* Indicate error via status LEDs */
+				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+
+				/* Wait until USB device disconnected */
+				while (USB_IsConnected);
+				break;
+			}
+				
+			USB_HostState = HOST_STATE_Configured;
+			break;
+		case HOST_STATE_Configured:
 			puts_P(PSTR("Still Image Device Enumerated.\r\n"));
 				
 			USB_HostState = HOST_STATE_Ready;

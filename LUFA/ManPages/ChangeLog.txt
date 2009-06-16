@@ -18,6 +18,8 @@
   *    to only unfreeze and check one data pipe at a time)
   *  - Internal per-device preprocessing conditions changed to per-device series rather than per controller group for finer-grain
   *    internal control
+  *  - Added new USB_Host_SetDeviceConfiguration() convenience function for easy configuration selection of devices while in USB
+  *    host mode
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

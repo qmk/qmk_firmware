@@ -285,4 +285,21 @@ static void USB_Host_ResetDevice(void)
 
 	USB_INT_Enable(USB_INT_DDISCI);
 }
+
+uint8_t USB_Host_SetDeviceConfiguration(uint8_t ConfigNumber)
+{
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
+			.bRequest      = REQ_SetConfiguration,
+			.wValue        = ConfigNumber,
+			.wIndex        = 0,
+			.wLength       = 0,
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
+	return USB_Host_SendControlRequest(NULL);
+}
+
 #endif

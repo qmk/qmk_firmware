@@ -173,6 +173,19 @@
 				#define USB_Host_IsResumeFromWakeupRequestSent() ((UHCON &   (1 << RESUME)) ? false : true)
 			#endif
 
+		/* Function Prototypes: */
+			/** Convenience function. This routine sends a SetConfiguration standard request to the attached
+			 *  device, with the given configuration index. This can be used to easily set the device
+			 *  configuration without creating and sending the request manually.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \param ConfigNumber  Configuration index to send to the device
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_SetDeviceConfiguration(uint8_t ConfigNumber);
+
 		/* Enums: */
 			/** Enum for the various states of the USB Host state machine. Only some states are
 			 *  implemented in the LUFA library - other states are left to the user to implement.
