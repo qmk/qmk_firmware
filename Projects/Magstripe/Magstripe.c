@@ -48,12 +48,20 @@ BitBuffer_t TrackDataBuffers[3];
  */
 USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 	{
-		.InterfaceNumber         = 0,
+		.Config =
+			{
+				.InterfaceNumber         = 0,
 
-		.ReportINEndpointNumber  = KEYBOARD_EPNUM,
-		.ReportINEndpointSize    = KEYBOARD_EPSIZE,
+				.ReportINEndpointNumber  = KEYBOARD_EPNUM,
+				.ReportINEndpointSize    = KEYBOARD_EPSIZE,
+				
+				.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
+			},
 		
-		.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
+		.State =
+			{
+				// Leave all state values to their defaults				
+			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -71,7 +79,7 @@ int main(void)
 		if (Magstripe_GetStatus() & MAG_CARDPRESENT)
 		  ReadMagstripeData();
 
-		USB_HID_USBTask(&Keyboard_HID_Interface);
+		HID_Device_USBTask(&Keyboard_HID_Interface);
 		USB_USBTask();
 	}
 }
@@ -134,20 +142,20 @@ void ReadMagstripeData(void)
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
-	USB_HID_ConfigureEndpoints(&Keyboard_HID_Interface);
+	HID_Device_ConfigureEndpoints(&Keyboard_HID_Interface);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	USB_HID_ProcessControlPacket(&Keyboard_HID_Interface);
+	HID_Device_ProcessControlPacket(&Keyboard_HID_Interface);
 }
 
 /** Timer 0 CTC ISR, firing once each millisecond to keep track of elapsed idle time in the HID interface. */
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-	if (Keyboard_HID_Interface.IdleMSRemaining)
-	  Keyboard_HID_Interface.IdleMSRemaining--;
+	if (Keyboard_HID_Interface.State.IdleMSRemaining)
+	  Keyboard_HID_Interface.State.IdleMSRemaining--;
 }
 
 /** HID Class driver callback function for the creation of a HID report for the host.
@@ -158,7 +166,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  *
  *  \return Number of bytes in the created report
  */
-uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
+uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
 {
 	static bool IsKeyReleaseReport;
 	static bool IsNewlineReport;
@@ -206,8 +214,8 @@ uint16_t CALLBACK_USB_HID_CreateNextHIDReport(USB_ClassInfo_HID_Device_t* HIDInt
  *  \param ReportData  Pointer to the report buffer where the received report is stored
  *  \param ReportSize  Size in bytes of the report received from the host
  */
-void CALLBACK_USB_HID_ProcessReceivedHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t ReportID,
-                                               void* ReportData, uint16_t ReportSize)
+void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t ReportID,
+                                          void* ReportData, uint16_t ReportSize)
 {
 	// Unused (but mandatory for the HID class driver) in this demo, since there are no Host->Device reports
 }
