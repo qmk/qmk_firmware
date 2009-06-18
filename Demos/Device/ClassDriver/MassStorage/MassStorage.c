@@ -40,17 +40,25 @@
  *  passed to all Mass Storage Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_MS_t Disk_MS_Interface =
+USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 	{
-		.InterfaceNumber        = 0,
+		.Config =
+			{
+				.InterfaceNumber        = 0,
 
-		.DataINEndpointNumber   = MASS_STORAGE_IN_EPNUM,
-		.DataINEndpointSize     = MASS_STORAGE_IO_EPSIZE,
+				.DataINEndpointNumber   = MASS_STORAGE_IN_EPNUM,
+				.DataINEndpointSize     = MASS_STORAGE_IO_EPSIZE,
 
-		.DataOUTEndpointNumber  = MASS_STORAGE_OUT_EPNUM,
-		.DataOUTEndpointSize    = MASS_STORAGE_IO_EPSIZE,
+				.DataOUTEndpointNumber  = MASS_STORAGE_OUT_EPNUM,
+				.DataOUTEndpointSize    = MASS_STORAGE_IO_EPSIZE,
 
-		.TotalLUNs              = TOTAL_LUNS,
+				.TotalLUNs              = TOTAL_LUNS,
+			},
+		
+		.State =
+			{
+				// Leave all state values to their defaults
+			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -119,7 +127,7 @@ void EVENT_USB_UnhandledControlPacket(void)
  *
  *  \param MSInterfaceInfo  Pointer to the Mass Storage class interface configuration structure being referenced
  */
-bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_t* MSInterfaceInfo)
+bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 {
 	bool CommandSuccess;
 	

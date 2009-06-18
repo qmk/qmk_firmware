@@ -53,8 +53,6 @@
 		/* Type Defines: */
 			typedef struct
 			{
-				bool     IsActive; /**< Indicates if this class driver is currently attached to the device */
-			
 				uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
 
 				uint8_t  DataINPipeNumber; /**< Pipe number of the CDC interface's IN data pipe */
@@ -63,8 +61,8 @@
 				uint8_t  DataOUTPipeNumber; /**< Pipe number of the CDC interface's OUT data pipe */
 				uint16_t DataOUTPipeSize;  /**< Size in bytes of the CDC interface's OUT data pipe */
 
-				uint8_t  NotificationEndpointNumber; /**< Pipe number of the CDC interface's IN notification endpoint, if used */
-				uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
+				uint8_t  NotificationPipeNumber; /**< Pipe number of the CDC interface's IN notification endpoint, if used */
+				uint16_t NotificationPipeSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
 
 				uint8_t  ControlLineState; /**< Current control line states */
 
@@ -80,9 +78,20 @@
 					uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
 				} LineEncoding;
 			} USB_ClassInfo_CDC_Host_t;
+			
+		/* Enums: */
+			typedef enum
+			{
+				CDC_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
+				CDC_ENUMERROR_ControlError               = 1, /**< A control request to the device failed to complete successfully */
+				CDC_ENUMERROR_DescriptorTooLarge         = 2, /**< The device's Configuration Descriptor is too large to process */
+				CDC_ENUMERROR_InvalidConfigDataReturned  = 3, /**< The device returned an invalid Configuration Descriptor */
+				CDC_ENUMERROR_NoCDCInterfaceFound        = 4, /**< A compatible CDC interface was not found in the device's Configuration Descriptor */
+				CDC_ENUMERROR_NoEndpointFound            = 5, /**< Compatible CDC endpoints were not found in the device's CDC interface */
+			} CDCHost_EnumerationFailure_ErrorCodes_t;
 	
 		/* Function Prototypes: */
-			void CDC_Host_Task(void);
+			void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

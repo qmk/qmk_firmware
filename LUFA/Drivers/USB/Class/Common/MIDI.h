@@ -145,22 +145,6 @@
 			uint8_t Data3; /**< Third byte of data in the MIDI event */		
 		} USB_MIDI_EventPacket_t;
 
-		/** Class state structure. An instance of this structure should be made for each MIDI interface
-		 *  within the user application, and passed to each of the MIDI class driver functions as the
-		 *  MIDIInterfaceInfo parameter. The contents of this structure should be set to their correct
-		 *  values when used, or ommitted to force the library to use default values.
-		 */
-		typedef struct
-		{
-			uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this structure controls */
-
-			uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming MIDI data, if available (zero if unused) */
-			uint16_t DataINEndpointSize; /**< Size in bytes of the incomming MIDI data endpoint, if available (zero if unused) */
-
-			uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing MIDI data, if available (zero if unused) */
-			uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing MIDI data endpoint, if available (zero if unused) */
-		} USB_ClassInfo_MIDI_t;
-
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}

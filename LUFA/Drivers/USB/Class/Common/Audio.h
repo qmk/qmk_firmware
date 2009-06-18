@@ -349,27 +349,7 @@
 
 			uint8_t                   LockDelayUnits; /**< Units used for the LockDelay field, see Audio class specification */
 			uint16_t                  LockDelay; /**< Time required to internally lock endpoint's internal clock recovery circuitry */
-		} USB_AudioStreamEndpoint_Spc_t;	
-
-		/** Class state structure. An instance of this structure should be made for each Audio interface
-		 *  within the user application, and passed to each of the Audio class driver functions as the
-		 *  AudioInterfaceInfo parameter. The contents of this structure should be set to their correct
-		 *  values when used, or ommitted to force the library to use default values.
-		 */
-		typedef struct
-		{
-			uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this structure controls */
-
-			uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming Audio Streaming data, if available (zero if unused) */
-			uint16_t DataINEndpointSize; /**< Size in bytes of the incomming Audio Streaming data endpoint, if available (zero if unused) */
-
-			uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing Audio Streaming data, if available (zero if unused) */
-			uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing Audio Streaming data endpoint, if available (zero if unused) */
-
-			bool     InterfaceEnabled; /**< Set and cleared by the class driver to indicate if the host has enabled the streaming endpoints
-			                            *   of the Audio Streaming interface
-			                            */
-		} USB_ClassInfo_Audio_t;
+		} USB_AudioStreamEndpoint_Spc_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

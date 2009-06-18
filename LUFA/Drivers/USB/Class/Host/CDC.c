@@ -41,22 +41,22 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(void)
 	uint8_t  FoundEndpoints = 0;
 	
 	if (USB_GetDeviceConfigDescriptor(&ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
-	  return ControlError;
+	  return CDC_ENUMERROR_ControlError;
 	
 	if (ConfigDescriptorSize > 512)
-	  return DescriptorTooLarge;
+	  return CDC_ENUMERROR_DescriptorTooLarge;
 	  
 	ConfigDescriptorData = alloca(ConfigDescriptorSize);
 
 	USB_GetDeviceConfigDescriptor(&ConfigDescriptorSize, ConfigDescriptorData);
 	
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
-	  return InvalidConfigDataReturned;
+	  return CDC_ENUMERROR_InvalidConfigDataReturned;
 	
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 	                              DComp_CDC_Host_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
-		return NoCDCInterfaceFound;
+		return CDC_ENUMERROR_NoCDCInterfaceFound;
 	}
 
 	while (FoundEndpoints != ((1 << CDC_NOTIFICATIONPIPE) | (1 << CDC_DATAPIPE_IN) | (1 << CDC_DATAPIPE_OUT)))
@@ -72,7 +72,7 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(void)
 				                              DComp_CDC_Host_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					/* Descriptor not found, error out */
-					return NoCDCInterfaceFound;
+					return CDC_ENUMERROR_NoCDCInterfaceFound;
 				}
 			}
 			else
@@ -89,14 +89,14 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(void)
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 				                              DComp_CDC_Host_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
-					return NoCDCInterfaceFound;
+					return CDC_ENUMERROR_NoCDCInterfaceFound;
 				}
 			}
 
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 			                              DComp_CDC_Host_NextInterfaceCDCDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
-				return NoEndpointFound;
+				return CDC_ENUMERROR_NoEndpointFound;
 			}
 		}
 		
@@ -139,7 +139,7 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(void)
 		}
 	}
 
-	return SuccessfulConfigRead;
+	return CDC_ENUMERROR_NoError;
 }
 
 static uint8_t DComp_CDC_Host_NextCDCControlInterface(void* CurrentDescriptor)
@@ -192,25 +192,19 @@ static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescript
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-void CDC_Host_Task(void)
+void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 {
 	uint8_t ErrorCode;
 
 	switch (USB_HostState)
 	{
 		case HOST_STATE_Addressed:
-			USB_ControlRequest = (USB_Request_Header_t)
-				{
-					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
-					.bRequest      = REQ_SetConfiguration,
-					.wValue        = 1,
-					.wIndex        = 0,
-					.wLength       = 0,
-				};
+			if ((ErrorCode = CDC_Host_ProcessConfigDescriptor()) != SuccessfulConfigRead)
+			{
+				USB_HostState = HOST_STATE_Unattached;
+			}
 
-			Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-			if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
+			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
 				USB_HostState = HOST_STATE_Unattached;
 			}
@@ -218,10 +212,6 @@ void CDC_Host_Task(void)
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-			if ((ErrorCode = CDC_Host_ProcessConfigDescriptor()) != SuccessfulConfigRead)
-			{
-				USB_HostState = HOST_STATE_Unattached;
-			}
 				
 			USB_HostState = HOST_STATE_Ready;
 			break;

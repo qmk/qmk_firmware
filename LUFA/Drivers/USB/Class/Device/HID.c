@@ -33,12 +33,12 @@
 
 #include "HID.h"
 
-void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
+void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
 	  
-	if (USB_ControlRequest.wIndex != HIDInterfaceInfo->InterfaceNumber)
+	if (USB_ControlRequest.wIndex != HIDInterfaceInfo->Config.InterfaceNumber)
 	  return;
 
 	switch (USB_ControlRequest.bRequest)
@@ -48,7 +48,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 			{
 				Endpoint_ClearSETUP();	
 
-				uint8_t  ReportINData[HIDInterfaceInfo->ReportINBufferSize];
+				uint8_t  ReportINData[HIDInterfaceInfo->Config.ReportINBufferSize];
 				uint16_t ReportINSize;
 				uint8_t  ReportID = (USB_ControlRequest.wValue & 0xFF);
 
@@ -82,7 +82,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 			{
 				Endpoint_ClearSETUP();
 
-				Endpoint_Write_Byte(HIDInterfaceInfo->UsingReportProtocol);
+				Endpoint_Write_Byte(HIDInterfaceInfo->State.UsingReportProtocol);
 				Endpoint_ClearIN();
 
 				while (!(Endpoint_IsOUTReceived()));
@@ -95,7 +95,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 			{
 				Endpoint_ClearSETUP();
 
-				HIDInterfaceInfo->UsingReportProtocol = (USB_ControlRequest.wValue != 0x0000);
+				HIDInterfaceInfo->State.UsingReportProtocol = (USB_ControlRequest.wValue != 0x0000);
 				
 				while (!(Endpoint_IsINReady()));
 				Endpoint_ClearIN();
@@ -107,7 +107,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 			{
 				Endpoint_ClearSETUP();
 				
-				HIDInterfaceInfo->IdleCount = ((USB_ControlRequest.wValue >> 8) << 2);
+				HIDInterfaceInfo->State.IdleCount = ((USB_ControlRequest.wValue >> 8) << 2);
 				
 				while (!(Endpoint_IsINReady()));
 				Endpoint_ClearIN();
@@ -119,7 +119,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 			{		
 				Endpoint_ClearSETUP();
 				
-				Endpoint_Write_Byte(HIDInterfaceInfo->IdleCount >> 2);
+				Endpoint_Write_Byte(HIDInterfaceInfo->State.IdleCount >> 2);
 				Endpoint_ClearIN();
 
 				while (!(Endpoint_IsOUTReceived()));
@@ -130,12 +130,12 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 	}
 }
 
-bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_t* HIDInterfaceInfo)
+bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo)
 {
-	HIDInterfaceInfo->UsingReportProtocol = true;
+	HIDInterfaceInfo->State.UsingReportProtocol = true;
 
-	if (!(Endpoint_ConfigureEndpoint(HIDInterfaceInfo->ReportINEndpointNumber, EP_TYPE_INTERRUPT,
-									 ENDPOINT_DIR_IN, HIDInterfaceInfo->ReportINEndpointSize, ENDPOINT_BANK_SINGLE)))
+	if (!(Endpoint_ConfigureEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber, EP_TYPE_INTERRUPT,
+									 ENDPOINT_DIR_IN, HIDInterfaceInfo->Config.ReportINEndpointSize, ENDPOINT_BANK_SINGLE)))
 	{
 		return false;
 	}
@@ -143,20 +143,20 @@ bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_t* HIDInterfaceInfo)
 	return true;
 }
 		
-void HID_Device_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo)
+void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo)
 {
 	if (!(USB_IsConnected))
 	  return;
 
-	Endpoint_SelectEndpoint(HIDInterfaceInfo->ReportINEndpointNumber);
+	Endpoint_SelectEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber);
 	
 	if (Endpoint_IsReadWriteAllowed() &&
-	    !(HIDInterfaceInfo->IdleCount && HIDInterfaceInfo->IdleMSRemaining))
+	    !(HIDInterfaceInfo->State.IdleCount && HIDInterfaceInfo->State.IdleMSRemaining))
 	{
-		if (HIDInterfaceInfo->IdleCount && !(HIDInterfaceInfo->IdleMSRemaining))
-		  HIDInterfaceInfo->IdleMSRemaining = HIDInterfaceInfo->IdleCount;
+		if (HIDInterfaceInfo->State.IdleCount && !(HIDInterfaceInfo->State.IdleMSRemaining))
+		  HIDInterfaceInfo->State.IdleMSRemaining = HIDInterfaceInfo->State.IdleCount;
 
-		uint8_t  ReportINData[HIDInterfaceInfo->ReportINBufferSize];
+		uint8_t  ReportINData[HIDInterfaceInfo->Config.ReportINBufferSize];
 		uint16_t ReportINSize;
 		uint8_t  ReportID = 0;
 

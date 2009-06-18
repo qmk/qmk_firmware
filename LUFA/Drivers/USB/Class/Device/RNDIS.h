@@ -53,6 +53,62 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Type Defines: */
+			/** Configuration information structure for \ref USB_ClassInfo_RNDIS_Device_t RNDIS device interface structures. */
+			typedef struct
+			{
+				uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
+
+				uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
+				uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
+
+				uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
+				uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
+
+				uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
+				uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
+				
+				char*         AdapterVendorDescription; /**< String description of the adapter vendor */
+				MAC_Address_t AdapterMACAddress; /**< MAC address of the adapter */
+			} USB_ClassInfo_MS_Device_Config_t;
+			
+			/** Current State information structure for \ref USB_ClassInfo_RNDIS_Device_t RNDIS device interface structures. */
+			typedef struct
+			{
+				uint8_t  RNDISMessageBuffer[RNDIS_MESSAGE_BUFFER_SIZE]; /**< Buffer to hold RNDIS messages to and from the host,
+																		 *   managed by the class driver
+																		 */
+				bool     ResponseReady; /**< Internal flag indicating if a RNDIS message is waiting to be returned to the host */
+				uint8_t  CurrRNDISState; /**< Current RNDIS state of the adapter, a value from the RNDIS_States_t enum */
+				uint32_t CurrPacketFilter; /**< Current packet filter mode, used internally by the class driver */
+				Ethernet_Frame_Info_t FrameIN; /**< Structure holding the last received Ethernet frame from the host, for user
+												*   processing
+												*/
+				Ethernet_Frame_Info_t FrameOUT; /**< Structure holding the next Ethernet frame to send to the host, populated by the
+												 *   user application
+												 */
+			} USB_ClassInfo_MS_Device_State_t;
+					 
+			/** Class state structure. An instance of this structure should be made for each RNDIS interface
+			 *  within the user application, and passed to each of the RNDIS class driver functions as the
+			 *  RNDISInterfaceInfo parameter. This stores each RNDIS interface's configuration and state information.
+			 */
+			typedef struct
+			{
+				const USB_ClassInfo_MS_Device_Config_t Config; /**< Config data for the USB class interface within
+				                                                *   the device. All elements in this section
+				                                                *   <b>must</b> be set or the interface will fail
+				                                                *   to enumerate and operate correctly.
+				                                                */
+															 
+				USB_ClassInfo_MS_Device_State_t State; /**< State data for the USB class interface within
+				                                        *   the device. All elements in this section
+				                                        *   <b>may</b> be set to initial values, but may
+				                                        *   also be ignored to default to sane values when
+				                                        *   the interface is enumerated.
+				                                        */
+			} USB_ClassInfo_RNDIS_Device_t;
+	
 		/* Function Prototypes: */
 			/** Configures the endpoints of a given RNDIS interface, ready for use. This should be linked to the library
 			 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
@@ -62,31 +118,31 @@
 			 *
 			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 			 */
-			bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
+			bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo);
 
 			/** Processes incomming control requests from the host, that are directed to the given RNDIS class interface. This should be
 			 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
 			 *
 			 *  \param RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 */		
-			void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
+			void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo);
 			
 			/** General management task for a given HID class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
 			 *  \param RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 */
-			void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
+			void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo);
 		
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_RNDIS_CLASS_DEVICE_C)
-			static void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo);
-			static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo, 
+			static void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo);
+			static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo, 
 			                                          uint32_t OId, void* QueryData, uint16_t QuerySize,
 										              void* ResponseData, uint16_t* ResponseSize);
-			static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo, uint32_t OId,
+			static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo, uint32_t OId,
 			                                        void* SetData, uint16_t SetSize);	
 		#endif
 		

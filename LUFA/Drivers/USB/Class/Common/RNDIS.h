@@ -228,41 +228,6 @@
 			uint32_t InformationBufferLength;
 			uint32_t InformationBufferOffset;
 		} RNDIS_QUERY_CMPLT_t;
-
-		/** Class state structure. An instance of this structure should be made for each RNDIS interface
-		 *  within the user application, and passed to each of the RNDIS class driver functions as the
-		 *  RNDISInterfaceInfo parameter. The contents of this structure should be set to their correct
-		 *  values when used, or ommitted to force the library to use default values.
-		 */
-		typedef struct
-		{
-			uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
-
-			uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
-			uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
-
-			uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
-			uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
-
-			uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
-			uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
-			
-			char*         AdapterVendorDescription; /**< String description of the adapter vendor */
-			MAC_Address_t AdapterMACAddress; /**< MAC address of the adapter */
-
-			uint8_t  RNDISMessageBuffer[RNDIS_MESSAGE_BUFFER_SIZE]; /**< Buffer to hold RNDIS messages to and from the host,
-			                                                         *   managed by the class driver
-			                                                         */
-			bool     ResponseReady; /**< Internal flag indicating if a RNDIS message is waiting to be returned to the host */
-			uint8_t  CurrRNDISState; /**< Current RNDIS state of the adapter, a value from the RNDIS_States_t enum */
-			uint32_t CurrPacketFilter; /**< Current packet filter mode, used internally by the class driver */
-			Ethernet_Frame_Info_t FrameIN; /**< Structure holding the last received Ethernet frame from the host, for user
-			                                *   processing
-			                                */
-			Ethernet_Frame_Info_t FrameOUT; /**< Structure holding the next Ethernet frame to send to the host, populated by the
-			                                 *   user application
-			                                 */
-		} USB_ClassInfo_RNDIS_t;
 				
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

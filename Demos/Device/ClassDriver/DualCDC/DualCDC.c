@@ -41,18 +41,26 @@
  *  within a device can be differentiated from one another. This is for the first CDC interface,
  *  which sends strings to the host for each joystick movement.
  */
-USB_ClassInfo_CDC_t VirtualSerial1_CDC_Interface =
+USB_ClassInfo_CDC_Device_t VirtualSerial1_CDC_Interface =
 	{
-		.ControlInterfaceNumber     = 0,
+		.Config =
+			{
+				.ControlInterfaceNumber     = 0,
 
-		.DataINEndpointNumber       = CDC1_TX_EPNUM,
-		.DataINEndpointSize         = CDC_TXRX_EPSIZE,
+				.DataINEndpointNumber       = CDC1_TX_EPNUM,
+				.DataINEndpointSize         = CDC_TXRX_EPSIZE,
 
-		.DataOUTEndpointNumber      = CDC1_RX_EPNUM,
-		.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointNumber      = CDC1_RX_EPNUM,
+				.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
 
-		.NotificationEndpointNumber = CDC1_NOTIFICATION_EPNUM,
-		.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointNumber = CDC1_NOTIFICATION_EPNUM,
+				.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
+			},
+		
+		.State =
+			{
+				// Leave all state values to their defaults
+			}
 	};
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
@@ -60,18 +68,26 @@ USB_ClassInfo_CDC_t VirtualSerial1_CDC_Interface =
  *  within a device can be differentiated from one another. This is for the second CDC interface,
  *  which echos back all received data from the host.
  */
-USB_ClassInfo_CDC_t VirtualSerial2_CDC_Interface =
+USB_ClassInfo_CDC_Device_t VirtualSerial2_CDC_Interface =
 	{
-		.ControlInterfaceNumber     = 2,
+		.Config =
+			{
+				.ControlInterfaceNumber     = 2,
 
-		.DataINEndpointNumber       = CDC2_TX_EPNUM,
-		.DataINEndpointSize         = CDC_TXRX_EPSIZE,
+				.DataINEndpointNumber       = CDC2_TX_EPNUM,
+				.DataINEndpointSize         = CDC_TXRX_EPSIZE,
 
-		.DataOUTEndpointNumber      = CDC2_RX_EPNUM,
-		.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointNumber      = CDC2_RX_EPNUM,
+				.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
 
-		.NotificationEndpointNumber = CDC2_NOTIFICATION_EPNUM,
-		.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointNumber = CDC2_NOTIFICATION_EPNUM,
+				.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
+			},
+			
+		.State =
+			{
+				// Leave all state values to their defaults
+			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial

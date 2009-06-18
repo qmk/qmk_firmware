@@ -33,12 +33,12 @@
 
 #include "Audio.h"
 
-void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
+void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
 	  
-	if (USB_ControlRequest.wIndex != AudioInterfaceInfo->StreamingInterfaceNumber)
+	if (USB_ControlRequest.wIndex != AudioInterfaceInfo->Config.StreamingInterfaceNumber)
 	  return;
 
 	switch (USB_ControlRequest.bRequest)
@@ -48,7 +48,7 @@ void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo
 			{
 				Endpoint_ClearSETUP();
 				
-				AudioInterfaceInfo->InterfaceEnabled = (USB_ControlRequest.wValue != 0);
+				AudioInterfaceInfo->State.InterfaceEnabled = (USB_ControlRequest.wValue != 0);
 				  
 				while (!(Endpoint_IsINReady()));
 				Endpoint_ClearIN();
@@ -58,22 +58,22 @@ void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo
 	}
 }
 
-bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
+bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo)
 {
-	if (AudioInterfaceInfo->DataINEndpointNumber)
+	if (AudioInterfaceInfo->Config.DataINEndpointNumber)
 	{
-		if (!(Endpoint_ConfigureEndpoint(AudioInterfaceInfo->DataINEndpointNumber, EP_TYPE_ISOCHRONOUS,
-										 ENDPOINT_DIR_IN, AudioInterfaceInfo->DataINEndpointSize,
+		if (!(Endpoint_ConfigureEndpoint(AudioInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_ISOCHRONOUS,
+										 ENDPOINT_DIR_IN, AudioInterfaceInfo->Config.DataINEndpointSize,
 										 ENDPOINT_BANK_DOUBLE)))
 		{
 			return false;
 		}
 	}
 
-	if (AudioInterfaceInfo->DataOUTEndpointNumber)
+	if (AudioInterfaceInfo->Config.DataOUTEndpointNumber)
 	{
-		if (!(Endpoint_ConfigureEndpoint(AudioInterfaceInfo->DataOUTEndpointNumber, EP_TYPE_ISOCHRONOUS,
-										 ENDPOINT_DIR_OUT, AudioInterfaceInfo->DataOUTEndpointSize,
+		if (!(Endpoint_ConfigureEndpoint(AudioInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_ISOCHRONOUS,
+										 ENDPOINT_DIR_OUT, AudioInterfaceInfo->Config.DataOUTEndpointSize,
 										 ENDPOINT_BANK_DOUBLE)))
 		{
 			return false;
@@ -83,7 +83,7 @@ bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
 	return true;
 }
 
-void Audio_Device_USBTask(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
+void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo)
 {
 
 }
@@ -149,15 +149,15 @@ void Audio_Device_WriteSample24(int32_t Sample)
 	  Endpoint_ClearIN();
 }
 
-bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
+bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo)
 {
-	Endpoint_SelectEndpoint(AudioInterfaceInfo->DataOUTEndpointNumber);
+	Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataOUTEndpointNumber);
 	return Endpoint_IsOUTReceived();
 }
 
-bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo)
+bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo)
 {
-	Endpoint_SelectEndpoint(AudioInterfaceInfo->DataINEndpointNumber);
+	Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataINEndpointNumber);
 	return Endpoint_IsINReady();
 }
 

@@ -47,7 +47,7 @@
  *  \param BlockAddress  Data block starting address for the write sequence
  *  \param TotalBlocks   Number of blocks of data to write
  */
-void DataflashManager_WriteBlocks(USB_ClassInfo_MS_t* MSInterfaceInfo, const uint32_t BlockAddress, uint16_t TotalBlocks)
+void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const uint32_t BlockAddress, uint16_t TotalBlocks)
 {
 	uint16_t CurrDFPage          = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) / DATAFLASH_PAGE_SIZE);
 	uint16_t CurrDFPageByte      = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) % DATAFLASH_PAGE_SIZE);
@@ -143,7 +143,7 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_t* MSInterfaceInfo, const uin
 			BytesInBlockDiv16++;
 
 			/* Check if the current command is being aborted by the host */
-			if (MSInterfaceInfo->IsMassStoreReset)
+			if (MSInterfaceInfo->State.IsMassStoreReset)
 			  return;			
 		}
 			
@@ -173,7 +173,7 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_t* MSInterfaceInfo, const uin
  *  \param BlockAddress  Data block starting address for the read sequence
  *  \param TotalBlocks   Number of blocks of data to read
  */
-void DataflashManager_ReadBlocks(USB_ClassInfo_MS_t* MSInterfaceInfo, const uint32_t BlockAddress, uint16_t TotalBlocks)
+void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const uint32_t BlockAddress, uint16_t TotalBlocks)
 {
 	uint16_t CurrDFPage          = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) / DATAFLASH_PAGE_SIZE);
 	uint16_t CurrDFPageByte      = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) % DATAFLASH_PAGE_SIZE);
@@ -252,7 +252,7 @@ void DataflashManager_ReadBlocks(USB_ClassInfo_MS_t* MSInterfaceInfo, const uint
 			BytesInBlockDiv16++;
 
 			/* Check if the current command is being aborted by the host */
-			if (MSInterfaceInfo->IsMassStoreReset)
+			if (MSInterfaceInfo->State.IsMassStoreReset)
 			  return;
 		}
 		

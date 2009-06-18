@@ -40,21 +40,29 @@
  *  passed to all RNDIS Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_RNDIS_t Ethernet_RNDIS_Interface =
+USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface =
 	{
-		.ControlInterfaceNumber     = 0,
+		.Config =
+			{
+				.ControlInterfaceNumber     = 0,
 
-		.DataINEndpointNumber       = CDC_TX_EPNUM,
-		.DataINEndpointSize         = CDC_TXRX_EPSIZE,
+				.DataINEndpointNumber       = CDC_TX_EPNUM,
+				.DataINEndpointSize         = CDC_TXRX_EPSIZE,
 
-		.DataOUTEndpointNumber      = CDC_RX_EPNUM,
-		.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointNumber      = CDC_RX_EPNUM,
+				.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
 
-		.NotificationEndpointNumber = CDC_NOTIFICATION_EPNUM,
-		.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
-		
-		.AdapterVendorDescription   = "LUFA RNDIS Demo Adapter",
-		.AdapterMACAddress          = {ADAPTER_MAC_ADDRESS},
+				.NotificationEndpointNumber = CDC_NOTIFICATION_EPNUM,
+				.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
+				
+				.AdapterVendorDescription   = "LUFA RNDIS Demo Adapter",
+				.AdapterMACAddress          = {ADAPTER_MAC_ADDRESS},
+			},
+			
+		.State =
+			{
+				// Leave all state values to their defaults			
+			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -73,10 +81,10 @@ int main(void)
 
 	for (;;)
 	{
-		if (Ethernet_RNDIS_Interface.FrameIN.FrameInBuffer)
+		if (Ethernet_RNDIS_Interface.State.FrameIN.FrameInBuffer)
 		{
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-			Ethernet_ProcessPacket(&Ethernet_RNDIS_Interface.FrameIN, &Ethernet_RNDIS_Interface.FrameOUT);
+			Ethernet_ProcessPacket(&Ethernet_RNDIS_Interface.State.FrameIN, &Ethernet_RNDIS_Interface.State.FrameOUT);
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
 		}
 

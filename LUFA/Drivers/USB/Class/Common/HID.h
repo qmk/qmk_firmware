@@ -71,41 +71,19 @@
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t               Header;
+			USB_Descriptor_Header_t  Header;
 				
-			uint16_t                              HIDSpec;
-			uint8_t                               CountryCode;
+			uint16_t                 HIDSpec;
+			uint8_t                  CountryCode;
 		
-			uint8_t                               TotalReportDescriptors;
+			uint8_t                  TotalReportDescriptors;
 
-			uint8_t                               HIDReportType;
-			uint16_t                              HIDReportLength;
+			uint8_t                  HIDReportType;
+			uint16_t                 HIDReportLength;
 		} USB_Descriptor_HID_t;
 
 		/** Type define for the data type used to store HID report descriptor elements. */
 		typedef uint8_t USB_Descriptor_HIDReport_Datatype_t;
-
-		/** Class state structure. An instance of this structure should be made for each HID interface
-		 *  within the user application, and passed to each of the HID class driver functions as the
-		 *  HIDInterfaceInfo parameter. The contents of this structure should be set to their correct
-		 *  values when used, or ommitted to force the library to use default values.
-		 *
-		 *  Note that for the HID class driver, host-to-device reports are received via HID class requests
-		 *  rather than a dedicated endpoint to simplify the driver and its interface.
-		 */
-		typedef struct
-		{
-			uint8_t  InterfaceNumber; /**< Interface number of the HID interface within the device */
-
-			uint8_t  ReportINEndpointNumber; /**< Endpoint number of the HID interface's IN report endpoint */
-			uint16_t ReportINEndpointSize; /**< Size in bytes of the HID interface's IN report endpoint */
-			
-			uint8_t  ReportINBufferSize; /**< Size of the largest possible report to send to the host, for buffer allocation purposes */
-
-			bool     UsingReportProtocol; /**< Indicates if the HID interface is set to Boot or Report protocol mode */
-			uint16_t IdleCount; /**< Report idle period, in ms, set by the host */
-			uint16_t IdleMSRemaining; /**< Total number of ms remaining before the idle period elapses */
-		} USB_ClassInfo_HID_t;
 
 #endif
 

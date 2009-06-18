@@ -94,36 +94,6 @@
 			SCSI_Command_Fail = 1, /**< Command failed to complete - host may check the exact error via a SCSI REQUEST SENSE command */
 			SCSI_Phase_Error  = 2  /**< Command failed due to being invalid in the current phase */
 		};
-		
-	/* Type Defines: */
-		/** Class state structure. An instance of this structure should be made for each Mass Storage interface
-		 *  within the user application, and passed to each of the Mass Storage class driver functions as the
-		 *  MSInterfaceInfo parameter. The contents of this structure should be set to their correct
-		 *  values when used, or ommitted to force the library to use default values.
-		 */
-		typedef struct
-		{
-			uint8_t  InterfaceNumber; /**< Interface number of the Mass Storage interface within the device */
-
-			uint8_t  DataINEndpointNumber; /**< Endpoint number of the Mass Storage interface's IN data endpoint */
-			uint16_t DataINEndpointSize; /**< Size in bytes of the Mass Storage interface's IN data endpoint */
-
-			uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the Mass Storage interface's OUT data endpoint */
-			uint16_t DataOUTEndpointSize;  /**< Size in bytes of the Mass Storage interface's OUT data endpoint */
-
-			uint8_t  TotalLUNs; /**< Total number of logical drives in the Mass Storage interface */
-
-			CommandBlockWrapper_t  CommandBlock; /**< Mass Storage class command block structure, used internally
-			                                      *   by the class driver
-			                                      */
-			CommandStatusWrapper_t CommandStatus; /**< Mass Storage class command status structure, used internally
-			                                      *   by the class driver
-			                                      */
-
-			bool IsMassStoreReset; /**< Flag indicating that the host has requested that the Mass Storage interface be reset
-			                        *   and that all current Mass Storage operations should immediately abort
-									*/
-		} USB_ClassInfo_MS_t;
 	
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

@@ -42,16 +42,22 @@
  *  within a device can be differentiated from one another. This is for the keyboard HID
  *  interface within the device.
  */
-USB_ClassInfo_HID_t Keyboard_HID_Interface =
+USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 	{
-		.InterfaceNumber         = 0,
+		.Config =
+			{
+				.InterfaceNumber         = 0,
 
-		.ReportINEndpointNumber  = KEYBOARD_IN_EPNUM,
-		.ReportINEndpointSize    = HID_EPSIZE,
-		
-		.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
+				.ReportINEndpointNumber  = KEYBOARD_IN_EPNUM,
+				.ReportINEndpointSize    = HID_EPSIZE,
+				
+				.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
+			},
 
-		.IdleCount               = 500,
+		.State =
+			{
+				.IdleCount               = 500,
+			}
 	};
 	
 /** LUFA HID Class driver interface configuration and state information. This structure is
@@ -59,14 +65,22 @@ USB_ClassInfo_HID_t Keyboard_HID_Interface =
  *  within a device can be differentiated from one another. This is for the mouse HID
  *  interface within the device.
  */
-USB_ClassInfo_HID_t Mouse_HID_Interface =
+USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 	{
-		.InterfaceNumber         = 0,
+		.Config =
+			{
+				.InterfaceNumber         = 0,
 
-		.ReportINEndpointNumber  = MOUSE_IN_EPNUM,
-		.ReportINEndpointSize    = HID_EPSIZE,
+				.ReportINEndpointNumber  = MOUSE_IN_EPNUM,
+				.ReportINEndpointSize    = HID_EPSIZE,
 
-		.ReportINBufferSize      = sizeof(USB_MouseReport_Data_t),
+				.ReportINBufferSize      = sizeof(USB_MouseReport_Data_t),
+			},
+			
+		.State =
+			{
+				// Leave all state values to their defaults
+			}			
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -142,11 +156,11 @@ void EVENT_USB_UnhandledControlPacket(void)
 /** ISR to keep track of each millisecond interrupt, for determining the HID class idle period remaining when set. */
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-	if (Keyboard_HID_Interface.IdleMSRemaining)
-	  Keyboard_HID_Interface.IdleMSRemaining--;
+	if (Keyboard_HID_Interface.State.IdleMSRemaining)
+	  Keyboard_HID_Interface.State.IdleMSRemaining--;
 
-	if (Mouse_HID_Interface.IdleMSRemaining)
-	  Mouse_HID_Interface.IdleMSRemaining--;
+	if (Mouse_HID_Interface.State.IdleMSRemaining)
+	  Mouse_HID_Interface.State.IdleMSRemaining--;
 }
 
 /** HID class driver callback function for the creation of HID reports to the host.
@@ -157,7 +171,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  *
  *  \return Number of bytes written in the report (or zero if no report is to be sent
  */
-uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
+uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
 {
 	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
 	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
@@ -217,7 +231,7 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_t* HIDInterfaceIn
  *  \param ReportData  Pointer to a buffer where the created report has been stored
  *  \param ReportSize  Size in bytes of the received HID report
  */
-void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t ReportID,
+void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t ReportID,
                                           void* ReportData, uint16_t ReportSize)
 {
 	if (HIDInterfaceInfo == &Keyboard_HID_Interface)

@@ -40,16 +40,22 @@
  *  passed to all HID Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_HID_t Generic_HID_Interface =
+USB_ClassInfo_HID_Device_t Generic_HID_Interface =
 	{
-		.InterfaceNumber         = 0,
+		.Config =
+			{
+				.InterfaceNumber         = 0,
 
-		.ReportINEndpointNumber  = GENERIC_IN_EPNUM,
-		.ReportINEndpointSize    = GENERIC_EPSIZE,
-		
-		.ReportINBufferSize      = GENERIC_REPORT_SIZE,
+				.ReportINEndpointNumber  = GENERIC_IN_EPNUM,
+				.ReportINEndpointSize    = GENERIC_EPSIZE,
+				
+				.ReportINBufferSize      = GENERIC_REPORT_SIZE,
+			},
 
-		.UsingReportProtocol     = true,
+		.State =
+			{
+				// Leave all state values to their defaults
+			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -119,8 +125,8 @@ void EVENT_USB_UnhandledControlPacket(void)
 /** ISR to keep track of each millisecond interrupt, for determining the HID class idle period remaining when set. */
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-	if (Generic_HID_Interface.IdleMSRemaining)
-	  Generic_HID_Interface.IdleMSRemaining--;
+	if (Generic_HID_Interface.State.IdleMSRemaining)
+	  Generic_HID_Interface.State.IdleMSRemaining--;
 }
 
 /** HID class driver callback function for the creation of HID reports to the host.
@@ -131,7 +137,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  *
  *  \return Number of bytes written in the report (or zero if no report is to be sent
  */
-uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
+uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
 {
 	// Create generic HID report here
 	
@@ -145,7 +151,7 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_t* HIDInterfaceIn
  *  \param ReportData  Pointer to a buffer where the created report has been stored
  *  \param ReportSize  Size in bytes of the received HID report
  */
-void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t ReportID,
+void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t ReportID,
                                           void* ReportData, uint16_t ReportSize)
 {
 	// Process received generic HID report here

@@ -83,6 +83,6 @@
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
 
-		bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_t* MSInterfaceInfo);
+		bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
 
 #endif

@@ -39,12 +39,12 @@ void CDC_Device_Event_Stub(void)
 
 }
 
-void CDC_Device_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+void CDC_Device_ProcessControlPacket(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
 	  
-	if (USB_ControlRequest.wIndex != CDCInterfaceInfo->ControlInterfaceNumber)
+	if (USB_ControlRequest.wIndex != CDCInterfaceInfo->Config.ControlInterfaceNumber)
 	  return;
 
 	switch (USB_ControlRequest.bRequest)
@@ -53,7 +53,7 @@ void CDC_Device_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				Endpoint_Write_Control_Stream_LE(&CDCInterfaceInfo->LineEncoding, sizeof(CDCInterfaceInfo->LineEncoding));
+				Endpoint_Write_Control_Stream_LE(&CDCInterfaceInfo->State.LineEncoding, sizeof(CDCInterfaceInfo->State.LineEncoding));
 				Endpoint_ClearOUT();
 			}
 			
@@ -62,7 +62,7 @@ void CDC_Device_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				Endpoint_Read_Control_Stream_LE(&CDCInterfaceInfo->LineEncoding, sizeof(CDCInterfaceInfo->LineEncoding));
+				Endpoint_Read_Control_Stream_LE(&CDCInterfaceInfo->State.LineEncoding, sizeof(CDCInterfaceInfo->State.LineEncoding));
 				Endpoint_ClearIN();
 
 				EVENT_CDC_Device_LineEncodingChanged(CDCInterfaceInfo);
@@ -74,7 +74,7 @@ void CDC_Device_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 			{				
 				Endpoint_ClearSETUP();
 				
-				CDCInterfaceInfo->ControlLineState = USB_ControlRequest.wValue;
+				CDCInterfaceInfo->State.ControlLineState = USB_ControlRequest.wValue;
 				
 				EVENT_CDC_Device_ControLineStateChanged(CDCInterfaceInfo);
 
@@ -86,24 +86,24 @@ void CDC_Device_ProcessControlPacket(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 	}
 }
 
-bool CDC_Device_ConfigureEndpoints(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+bool CDC_Device_ConfigureEndpoints(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 {
-	if (!(Endpoint_ConfigureEndpoint(CDCInterfaceInfo->DataINEndpointNumber, EP_TYPE_BULK,
-							         ENDPOINT_DIR_IN, CDCInterfaceInfo->DataINEndpointSize,
+	if (!(Endpoint_ConfigureEndpoint(CDCInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,
+							         ENDPOINT_DIR_IN, CDCInterfaceInfo->Config.DataINEndpointSize,
 							         ENDPOINT_BANK_SINGLE)))
 	{
 		return false;
 	}
 
-	if (!(Endpoint_ConfigureEndpoint(CDCInterfaceInfo->DataOUTEndpointNumber, EP_TYPE_BULK,
-	                                 ENDPOINT_DIR_OUT, CDCInterfaceInfo->DataOUTEndpointSize,
+	if (!(Endpoint_ConfigureEndpoint(CDCInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_BULK,
+	                                 ENDPOINT_DIR_OUT, CDCInterfaceInfo->Config.DataOUTEndpointSize,
 	                                 ENDPOINT_BANK_SINGLE)))
 	{
 		return false;
 	}
 
-	if (!(Endpoint_ConfigureEndpoint(CDCInterfaceInfo->NotificationEndpointNumber, EP_TYPE_INTERRUPT,
-	                                 ENDPOINT_DIR_IN, CDCInterfaceInfo->NotificationEndpointSize,
+	if (!(Endpoint_ConfigureEndpoint(CDCInterfaceInfo->Config.NotificationEndpointNumber, EP_TYPE_INTERRUPT,
+	                                 ENDPOINT_DIR_IN, CDCInterfaceInfo->Config.NotificationEndpointSize,
 	                                 ENDPOINT_BANK_SINGLE)))
 	{
 		return false;
@@ -112,12 +112,12 @@ bool CDC_Device_ConfigureEndpoints(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 	return true;
 }
 
-void CDC_Device_USBTask(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+void CDC_Device_USBTask(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 {
 	if (!(USB_IsConnected))
 	  return;
 
-	Endpoint_SelectEndpoint(CDCInterfaceInfo->DataINEndpointNumber);
+	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataINEndpointNumber);
 
 	if (!(Endpoint_BytesInEndpoint()))
 	  return;
@@ -131,21 +131,21 @@ void CDC_Device_USBTask(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 	Endpoint_ClearIN();
 }
 
-void CDC_Device_SendString(USB_ClassInfo_CDC_t* CDCInterfaceInfo, char* Data, uint16_t Length)
+void CDC_Device_SendString(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, char* Data, uint16_t Length)
 {
 	if (!(USB_IsConnected))
 	  return;
 
-	Endpoint_SelectEndpoint(CDCInterfaceInfo->DataINEndpointNumber);
+	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataINEndpointNumber);
 	Endpoint_Write_Stream_LE(Data, Length, NO_STREAM_CALLBACK);
 }
 
-void CDC_Device_SendByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint8_t Data)
+void CDC_Device_SendByte(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, uint8_t Data)
 {
 	if (!(USB_IsConnected))
 	  return;
 
-	Endpoint_SelectEndpoint(CDCInterfaceInfo->DataINEndpointNumber);
+	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataINEndpointNumber);
 
 	if (!(Endpoint_IsReadWriteAllowed()))
 	{
@@ -156,19 +156,19 @@ void CDC_Device_SendByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint8_t Data)
 	Endpoint_Write_Byte(Data);	
 }
 
-uint16_t CDC_Device_BytesReceived(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+uint16_t CDC_Device_BytesReceived(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 {
-	Endpoint_SelectEndpoint(CDCInterfaceInfo->DataOUTEndpointNumber);
+	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataOUTEndpointNumber);
 
 	return Endpoint_BytesInEndpoint();
 }
 
-uint8_t CDC_Device_ReceiveByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+uint8_t CDC_Device_ReceiveByte(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 {
 	if (!(USB_IsConnected))
 	  return 0;
 
-	Endpoint_SelectEndpoint(CDCInterfaceInfo->DataOUTEndpointNumber);
+	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataOUTEndpointNumber);
 	
 	uint8_t DataByte = Endpoint_Read_Byte();
 	
@@ -178,12 +178,12 @@ uint8_t CDC_Device_ReceiveByte(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
 	return DataByte;
 }
 
-void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_t* CDCInterfaceInfo, uint16_t LineStateMask)
+void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, uint16_t LineStateMask)
 {
 	if (!(USB_IsConnected))
 	  return;
 
-	Endpoint_SelectEndpoint(CDCInterfaceInfo->NotificationEndpointNumber);
+	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.NotificationEndpointNumber);
 	
 	USB_Request_Header_t Notification = (USB_Request_Header_t)
 		{

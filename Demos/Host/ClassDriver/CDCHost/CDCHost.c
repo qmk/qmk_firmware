@@ -40,8 +40,13 @@
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_CDC_t VirtualSerial_CDC_Interface;
-
+USB_ClassInfo_CDC_Host_t VirtualSerial_CDC_Interface =
+	{
+		.DataINPipeNumber       = 1,
+		.DataOUTPipeNumber      = 2,
+		.NotificationPipeNumber = 3,
+	};
+	
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  starts the scheduler to run the application tasks.
  */
@@ -56,6 +61,7 @@ int main(void)
 
 	for (;;)
 	{
+		CDC_Host_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
 	}
 }

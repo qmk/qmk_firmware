@@ -52,6 +52,48 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Type Defines: */
+			/** Configuration information structure for \ref USB_ClassInfo_HID_Device_t HID device interface structures. */
+			typedef struct
+			{
+				uint8_t  InterfaceNumber; /**< Interface number of the HID interface within the device */
+
+				uint8_t  ReportINEndpointNumber; /**< Endpoint number of the HID interface's IN report endpoint */
+				uint16_t ReportINEndpointSize; /**< Size in bytes of the HID interface's IN report endpoint */
+				
+				uint8_t  ReportINBufferSize; /**< Size of the largest possible report to send to the host, for
+				                              *   buffer allocation purposes
+				                              */
+			} USB_ClassInfo_HID_Device_Config_t;
+		
+			/** Current State information structure for \ref USB_ClassInfo_HID_Device_t HID device interface structures. */
+			typedef struct
+			{
+				bool     UsingReportProtocol; /**< Indicates if the HID interface is set to Boot or Report protocol mode */
+				uint16_t IdleCount; /**< Report idle period, in ms, set by the host */
+				uint16_t IdleMSRemaining; /**< Total number of ms remaining before the idle period elapses */			
+			} USB_ClassInfo_HID_Device_State_t;
+
+			/** Class state structure. An instance of this structure should be made for each HID interface
+			 *  within the user application, and passed to each of the HID class driver functions as the
+			 *  HIDInterfaceInfo parameter. This stores each HID interface's configuration and state information.
+			 */
+			typedef struct
+			{
+				const USB_ClassInfo_HID_Device_Config_t Config; /**< Config data for the USB class interface within
+				                                                 *   the device. All elements in this section
+				                                                 *   <b>must</b> be set or the interface will fail
+				                                                 *   to enumerate and operate correctly.
+				                                                 */
+															 
+				USB_ClassInfo_HID_Device_State_t State; /**< State data for the USB class interface within
+				                                         *   the device. All elements in this section
+				                                         *   <b>may</b> be set to initial values, but may
+				                                         *   also be ignored to default to sane values when
+				                                         *   the interface is enumerated.
+				                                         */
+			} USB_ClassInfo_HID_Device_t;
+	
 		/* Function Prototypes: */
 			/** Configures the endpoints of a given HID interface, ready for use. This should be linked to the library
 			 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
@@ -61,21 +103,21 @@
 			 *
 			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 			 */
-			bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_t* HIDInterfaceInfo);
+			bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo);
 			
 			/** Processes incomming control requests from the host, that are directed to the given HID class interface. This should be
 			 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
 			 *
 			 *  \param HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
 			 */		
-			void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_t* HIDInterfaceInfo);
+			void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo);
 
 			/** General management task for a given HID class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
 			 *  \param HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
 			 */
-			void HID_Device_USBTask(USB_ClassInfo_HID_t* HIDInterfaceInfo);
+			void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo);
 			
 			/** HID class driver callback for the user creation of a HID input report. This callback may fire in response to either
 			 *  HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback the
@@ -89,7 +131,7 @@
 			 *
 			 *  \return  Number of bytes in the generated input report, or zero if no report is to be sent
 			 */
-			uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData);
+			uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData);
 
 			/** HID class driver callback for the user processing of a received HID input report. This callback may fire in response to
 			 *  either HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback
@@ -101,7 +143,7 @@
 			 *  \param ReportData  Pointer to a buffer where the received HID report is stored.
 			 *  \param ReportSize  Size in bytes of the received report from the host.
 			 */
-			void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_t* HIDInterfaceInfo, uint8_t ReportID, void* ReportData,
+			void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t ReportID, void* ReportData,
 													  uint16_t ReportSize);
 
 	/* Disable C linkage for C++ Compilers: */

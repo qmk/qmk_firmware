@@ -86,12 +86,12 @@ SCSI_Request_Sense_Response_t SenseData =
  *
  *  \param MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  */
-bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_t* MSInterfaceInfo)
+bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 {
 	bool CommandSuccess = false;
 
 	/* Run the appropriate SCSI command hander function based on the passed command */
-	switch (MSInterfaceInfo->CommandBlock.SCSICommandData[0])
+	switch (MSInterfaceInfo->State.CommandBlock.SCSICommandData[0])
 	{
 		case SCSI_CMD_INQUIRY:
 			CommandSuccess = SCSI_Command_Inquiry(MSInterfaceInfo);			
@@ -116,7 +116,7 @@ bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_t* MSInterfaceInfo)
 		case SCSI_CMD_VERIFY_10:
 			/* These commands should just succeed, no handling required */
 			CommandSuccess = true;
-			MSInterfaceInfo->CommandBlock.DataTransferLength = 0;
+			MSInterfaceInfo->State.CommandBlock.DataTransferLength = 0;
 			break;
 		default:
 			/* Update the SENSE key to reflect the invalid command */
@@ -146,16 +146,16 @@ bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_t* MSInterfaceInfo)
  *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_t* MSInterfaceInfo)
+static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 {
-	uint16_t AllocationLength  = (((uint16_t)MSInterfaceInfo->CommandBlock.SCSICommandData[3] << 8) |
-	                                         MSInterfaceInfo->CommandBlock.SCSICommandData[4]);
+	uint16_t AllocationLength  = (((uint16_t)MSInterfaceInfo->State.CommandBlock.SCSICommandData[3] << 8) |
+	                                         MSInterfaceInfo->State.CommandBlock.SCSICommandData[4]);
 	uint16_t BytesTransferred  = (AllocationLength < sizeof(InquiryData))? AllocationLength :
 	                                                                       sizeof(InquiryData);
 
 	/* Only the standard INQUIRY data is supported, check if any optional INQUIRY bits set */
-	if ((MSInterfaceInfo->CommandBlock.SCSICommandData[1] & ((1 << 0) | (1 << 1))) ||
-	     MSInterfaceInfo->CommandBlock.SCSICommandData[2])
+	if ((MSInterfaceInfo->State.CommandBlock.SCSICommandData[1] & ((1 << 0) | (1 << 1))) ||
+	     MSInterfaceInfo->State.CommandBlock.SCSICommandData[2])
 	{
 		/* Optional but unsupported bits set - update the SENSE key and fail the request */
 		SCSI_SET_SENSE(SCSI_SENSE_KEY_ILLEGAL_REQUEST,
@@ -176,7 +176,7 @@ static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_t* MSInterfaceInfo)
 	Endpoint_ClearIN();
 
 	/* Succeed the command and update the bytes transferred counter */
-	MSInterfaceInfo->CommandBlock.DataTransferLength -= BytesTransferred;
+	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= BytesTransferred;
 	
 	return true;
 }
@@ -188,9 +188,9 @@ static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_t* MSInterfaceInfo)
  *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_t* MSInterfaceInfo)
+static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 {
-	uint8_t  AllocationLength = MSInterfaceInfo->CommandBlock.SCSICommandData[4];
+	uint8_t  AllocationLength = MSInterfaceInfo->State.CommandBlock.SCSICommandData[4];
 	uint8_t  BytesTransferred = (AllocationLength < sizeof(SenseData))? AllocationLength : sizeof(SenseData);
 	
 	uint8_t PadBytes[AllocationLength - BytesTransferred];
@@ -200,7 +200,7 @@ static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_t* MSInterfaceInfo)
 	Endpoint_ClearIN();
 
 	/* Succeed the command and update the bytes transferred counter */
-	MSInterfaceInfo->CommandBlock.DataTransferLength -= BytesTransferred;
+	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= BytesTransferred;
 
 	return true;
 }
@@ -212,7 +212,7 @@ static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_t* MSInterfaceInfo)
  *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_t* MSInterfaceInfo)
+static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 {
 	uint32_t TotalLUNs      = (LUN_MEDIA_BLOCKS - 1);
 	uint32_t MediaBlockSize = VIRTUAL_MEMORY_BLOCK_SIZE;
@@ -222,7 +222,7 @@ static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_t* MSInterfaceInfo)
 	Endpoint_ClearIN();
 	
 	/* Succeed the command and update the bytes transferred counter */
-	MSInterfaceInfo->CommandBlock.DataTransferLength -= 8;
+	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= 8;
 	
 	return true;
 }
@@ -235,12 +235,12 @@ static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_t* MSInterfaceInfo)
  *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static bool SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_t* MSInterfaceInfo)
+static bool SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 {
 	uint8_t ReturnByte;
 
 	/* Check to see if the SELF TEST bit is not set */
-	if (!(MSInterfaceInfo->CommandBlock.SCSICommandData[1] & (1 << 2)))
+	if (!(MSInterfaceInfo->State.CommandBlock.SCSICommandData[1] & (1 << 2)))
 	{
 		/* Only self-test supported - update SENSE key and fail the command */
 		SCSI_SET_SENSE(SCSI_SENSE_KEY_ILLEGAL_REQUEST,
@@ -287,7 +287,7 @@ static bool SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_t* MSInterfaceInfo)
 	#endif
 	
 	/* Succeed the command and update the bytes transferred counter */
-	MSInterfaceInfo->CommandBlock.DataTransferLength = 0;
+	MSInterfaceInfo->State.CommandBlock.DataTransferLength = 0;
 	
 	return true;
 }
@@ -301,20 +301,20 @@ static bool SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_t* MSInterfaceInfo)
  *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_t* MSInterfaceInfo, const bool IsDataRead)
+static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const bool IsDataRead)
 {
 	uint32_t BlockAddress;
 	uint16_t TotalBlocks;
 	
 	/* Load in the 32-bit block address (SCSI uses big-endian, so have to do it byte-by-byte) */
-	((uint8_t*)&BlockAddress)[3] = MSInterfaceInfo->CommandBlock.SCSICommandData[2];
-	((uint8_t*)&BlockAddress)[2] = MSInterfaceInfo->CommandBlock.SCSICommandData[3];
-	((uint8_t*)&BlockAddress)[1] = MSInterfaceInfo->CommandBlock.SCSICommandData[4];
-	((uint8_t*)&BlockAddress)[0] = MSInterfaceInfo->CommandBlock.SCSICommandData[5];
+	((uint8_t*)&BlockAddress)[3] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[2];
+	((uint8_t*)&BlockAddress)[2] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[3];
+	((uint8_t*)&BlockAddress)[1] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[4];
+	((uint8_t*)&BlockAddress)[0] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[5];
 
 	/* Load in the 16-bit total blocks (SCSI uses big-endian, so have to do it byte-by-byte) */
-	((uint8_t*)&TotalBlocks)[1]  = MSInterfaceInfo->CommandBlock.SCSICommandData[7];
-	((uint8_t*)&TotalBlocks)[0]  = MSInterfaceInfo->CommandBlock.SCSICommandData[8];
+	((uint8_t*)&TotalBlocks)[1]  = MSInterfaceInfo->State.CommandBlock.SCSICommandData[7];
+	((uint8_t*)&TotalBlocks)[0]  = MSInterfaceInfo->State.CommandBlock.SCSICommandData[8];
 	
 	/* Check if the block address is outside the maximum allowable value for the LUN */
 	if (BlockAddress >= LUN_MEDIA_BLOCKS)
@@ -329,7 +329,7 @@ static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_t* MSInterfaceInfo, const
 
 	#if (TOTAL_LUNS > 1)
 	/* Adjust the given block address to the real media address based on the selected LUN */
-	BlockAddress += ((uint32_t)MSInterfaceInfo->CommandBlock.LUN * LUN_MEDIA_BLOCKS);
+	BlockAddress += ((uint32_t)MSInterfaceInfo->State.CommandBlock.LUN * LUN_MEDIA_BLOCKS);
 	#endif
 	
 	/* Determine if the packet is a READ (10) or WRITE (10) command, call appropriate function */
@@ -339,7 +339,7 @@ static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_t* MSInterfaceInfo, const
 	  DataflashManager_WriteBlocks(MSInterfaceInfo, BlockAddress, TotalBlocks);
 
 	/* Update the bytes transferred counter and succeed the command */
-	MSInterfaceInfo->CommandBlock.DataTransferLength -= ((uint32_t)TotalBlocks * VIRTUAL_MEMORY_BLOCK_SIZE);
+	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= ((uint32_t)TotalBlocks * VIRTUAL_MEMORY_BLOCK_SIZE);
 	
 	return true;
 }

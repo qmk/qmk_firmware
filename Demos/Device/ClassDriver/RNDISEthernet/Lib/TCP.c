@@ -56,7 +56,7 @@ TCP_ConnectionState_t  ConnectionStateTable[MAX_TCP_CONNECTIONS];
  *  level. If an application produces a response, this task constructs the appropriate Ethernet frame and places it into the Ethernet OUT
  *  buffer for later transmission.
  */
-void TCP_TCPTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
+void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo)
 {
 	/* Task to hand off TCP packets to and from the listening applications. */
 
@@ -76,7 +76,7 @@ void TCP_TCPTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 	}
 	
 	/* Bail out early if there is already a frame waiting to be sent in the Ethernet OUT buffer */
-	if (RNDISInterfaceInfo->FrameOUT.FrameInBuffer)
+	if (RNDISInterfaceInfo->State.FrameOUT.FrameInBuffer)
 	  return;
 	
 	/* Send response packets from each application as the TCP packet buffers are filled by the applications */
@@ -86,11 +86,11 @@ void TCP_TCPTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 		if ((ConnectionStateTable[CSTableEntry].Info.Buffer.Direction == TCP_PACKETDIR_OUT) &&
 		    (ConnectionStateTable[CSTableEntry].Info.Buffer.Ready))
 		{
-			Ethernet_Frame_Header_t* FrameOUTHeader = (Ethernet_Frame_Header_t*)&RNDISInterfaceInfo->FrameOUT.FrameData;
-			IP_Header_t*    IPHeaderOUT  = (IP_Header_t*)&RNDISInterfaceInfo->FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t)];
-			TCP_Header_t*   TCPHeaderOUT = (TCP_Header_t*)&RNDISInterfaceInfo->FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t) +
+			Ethernet_Frame_Header_t* FrameOUTHeader = (Ethernet_Frame_Header_t*)&RNDISInterfaceInfo->State.FrameOUT.FrameData;
+			IP_Header_t*    IPHeaderOUT  = (IP_Header_t*)&RNDISInterfaceInfo->State.FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t)];
+			TCP_Header_t*   TCPHeaderOUT = (TCP_Header_t*)&RNDISInterfaceInfo->State.FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t) +
 			                                                                                      sizeof(IP_Header_t)];						
-			void*           TCPDataOUT     = &RNDISInterfaceInfo->FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t) +
+			void*           TCPDataOUT     = &RNDISInterfaceInfo->State.FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t) +
 			                                                                         sizeof(IP_Header_t) +
 			                                                                         sizeof(TCP_Header_t)];
 
@@ -145,8 +145,8 @@ void TCP_TCPTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 			PacketSize += sizeof(Ethernet_Frame_Header_t);
 
 			/* Set the response length in the buffer and indicate that a response is ready to be sent */
-			RNDISInterfaceInfo->FrameOUT.FrameLength   = PacketSize;
-			RNDISInterfaceInfo->FrameOUT.FrameInBuffer = true;
+			RNDISInterfaceInfo->State.FrameOUT.FrameLength   = PacketSize;
+			RNDISInterfaceInfo->State.FrameOUT.FrameInBuffer = true;
 			
 			ConnectionStateTable[CSTableEntry].Info.Buffer.Ready = false;
 			

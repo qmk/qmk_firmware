@@ -33,27 +33,27 @@
 
 #include "MIDI.h"
 
-void MIDI_Device_ProcessControlPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo)
+void MIDI_Device_ProcessControlPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo)
 {
 
 }
 
-bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo)
+bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo)
 {
-	if (MIDIInterfaceInfo->DataINEndpointNumber)
+	if (MIDIInterfaceInfo->Config.DataINEndpointNumber)
 	{
-		if (!(Endpoint_ConfigureEndpoint(MIDIInterfaceInfo->DataINEndpointNumber, EP_TYPE_BULK,
-										 ENDPOINT_DIR_IN, MIDIInterfaceInfo->DataINEndpointSize,
+		if (!(Endpoint_ConfigureEndpoint(MIDIInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,
+										 ENDPOINT_DIR_IN, MIDIInterfaceInfo->Config.DataINEndpointSize,
 										 ENDPOINT_BANK_SINGLE)))
 		{
 			return false;
 		}
 	}
 
-	if (MIDIInterfaceInfo->DataOUTEndpointNumber)
+	if (MIDIInterfaceInfo->Config.DataOUTEndpointNumber)
 	{
-		if (!(Endpoint_ConfigureEndpoint(MIDIInterfaceInfo->DataOUTEndpointNumber, EP_TYPE_BULK,
-										 ENDPOINT_DIR_OUT, MIDIInterfaceInfo->DataOUTEndpointSize,
+		if (!(Endpoint_ConfigureEndpoint(MIDIInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_BULK,
+										 ENDPOINT_DIR_OUT, MIDIInterfaceInfo->Config.DataOUTEndpointSize,
 										 ENDPOINT_BANK_SINGLE)))
 		{
 			return false;
@@ -63,17 +63,17 @@ bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo)
 	return true;
 }
 
-void MIDI_Device_USBTask(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo)
+void MIDI_Device_USBTask(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo)
 {
 
 }
 
-void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event)
+void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event)
 {
 	if (!(USB_IsConnected))
 	  return;
 	
-	Endpoint_SelectEndpoint(MIDIInterfaceInfo->DataINEndpointNumber);
+	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpointNumber);
 
 	if (Endpoint_IsReadWriteAllowed());
 	{
@@ -82,12 +82,12 @@ void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MI
 	}
 }
 
-bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event)
+bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event)
 {
 	if (!(USB_IsConnected))
 	  return false;
 	
-	Endpoint_SelectEndpoint(MIDIInterfaceInfo->DataOUTEndpointNumber);
+	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataOUTEndpointNumber);
 
 	if (!(Endpoint_IsReadWriteAllowed()))
 	  return false;

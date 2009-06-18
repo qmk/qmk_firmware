@@ -65,12 +65,12 @@ static const uint32_t PROGMEM AdapterSupportedOIDList[]  =
 		OID_802_3_XMIT_MORE_COLLISIONS,
 	};
 
-void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
+void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
 	  
-	if (USB_ControlRequest.wIndex != RNDISInterfaceInfo->ControlInterfaceNumber)
+	if (USB_ControlRequest.wIndex != RNDISInterfaceInfo->Config.ControlInterfaceNumber)
 	  return;
 
 	switch (USB_ControlRequest.bRequest)
@@ -80,7 +80,7 @@ void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo
 			{
 				Endpoint_ClearSETUP();
 
-				Endpoint_Read_Control_Stream_LE(RNDISInterfaceInfo->RNDISMessageBuffer, USB_ControlRequest.wLength);
+				Endpoint_Read_Control_Stream_LE(RNDISInterfaceInfo->State.RNDISMessageBuffer, USB_ControlRequest.wLength);
 				Endpoint_ClearIN();
 
 				RNDIS_Device_ProcessRNDISControlMessage(RNDISInterfaceInfo);
@@ -92,15 +92,15 @@ void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo
 			{
 				Endpoint_ClearSETUP();
 
-				RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
+				RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 
 				if (!(MessageHeader->MessageLength))
 				{
-					RNDISInterfaceInfo->RNDISMessageBuffer[0] = 0;
+					RNDISInterfaceInfo->State.RNDISMessageBuffer[0] = 0;
 					MessageHeader->MessageLength = 1;
 				}
 
-				Endpoint_Write_Control_Stream_LE(RNDISInterfaceInfo->RNDISMessageBuffer, MessageHeader->MessageLength);				
+				Endpoint_Write_Control_Stream_LE(RNDISInterfaceInfo->State.RNDISMessageBuffer, MessageHeader->MessageLength);				
 				Endpoint_ClearOUT();
 
 				MessageHeader->MessageLength = 0;
@@ -110,24 +110,24 @@ void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo
 	}
 }
 
-bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
+bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo)
 {
-	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->DataINEndpointNumber, EP_TYPE_BULK,
-							         ENDPOINT_DIR_IN, RNDISInterfaceInfo->DataINEndpointSize,
+	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,
+							         ENDPOINT_DIR_IN, RNDISInterfaceInfo->Config.DataINEndpointSize,
 							         ENDPOINT_BANK_SINGLE)))
 	{
 		return false;
 	}
 
-	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->DataOUTEndpointNumber, EP_TYPE_BULK,
-	                                 ENDPOINT_DIR_OUT, RNDISInterfaceInfo->DataOUTEndpointSize,
+	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_BULK,
+	                                 ENDPOINT_DIR_OUT, RNDISInterfaceInfo->Config.DataOUTEndpointSize,
 	                                 ENDPOINT_BANK_SINGLE)))
 	{
 		return false;
 	}
 
-	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->NotificationEndpointNumber, EP_TYPE_INTERRUPT,
-	                                 ENDPOINT_DIR_IN, RNDISInterfaceInfo->NotificationEndpointSize,
+	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->Config.NotificationEndpointNumber, EP_TYPE_INTERRUPT,
+	                                 ENDPOINT_DIR_IN, RNDISInterfaceInfo->Config.NotificationEndpointSize,
 	                                 ENDPOINT_BANK_SINGLE)))
 	{
 		return false;
@@ -136,16 +136,16 @@ bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 	return true;
 }
 
-void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
+void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo)
 {
 	if (!(USB_IsConnected))
 	  return;
 
-	RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
+	RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 
-	Endpoint_SelectEndpoint(RNDISInterfaceInfo->NotificationEndpointNumber);
+	Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.NotificationEndpointNumber);
 
-	if (Endpoint_IsINReady() && RNDISInterfaceInfo->ResponseReady)
+	if (Endpoint_IsINReady() && RNDISInterfaceInfo->State.ResponseReady)
 	{
 		USB_Request_Header_t Notification = (USB_Request_Header_t)
 			{
@@ -160,16 +160,16 @@ void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 
 		Endpoint_ClearIN();
 
-		RNDISInterfaceInfo->ResponseReady = false;
+		RNDISInterfaceInfo->State.ResponseReady = false;
 	}
 	
-	if ((RNDISInterfaceInfo->CurrRNDISState == RNDIS_Data_Initialized) && !(MessageHeader->MessageLength))
+	if ((RNDISInterfaceInfo->State.CurrRNDISState == RNDIS_Data_Initialized) && !(MessageHeader->MessageLength))
 	{
 		RNDIS_PACKET_MSG_t RNDISPacketHeader;
 
-		Endpoint_SelectEndpoint(RNDISInterfaceInfo->DataOUTEndpointNumber);
+		Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataOUTEndpointNumber);
 
-		if (Endpoint_IsOUTReceived() && !(RNDISInterfaceInfo->FrameIN.FrameInBuffer))
+		if (Endpoint_IsOUTReceived() && !(RNDISInterfaceInfo->State.FrameIN.FrameInBuffer))
 		{
 			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_PACKET_MSG_t), NO_STREAM_CALLBACK);
 
@@ -179,49 +179,49 @@ void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
 				return;
 			}
 			
-			Endpoint_Read_Stream_LE(RNDISInterfaceInfo->FrameIN.FrameData, RNDISPacketHeader.DataLength, NO_STREAM_CALLBACK);
+			Endpoint_Read_Stream_LE(RNDISInterfaceInfo->State.FrameIN.FrameData, RNDISPacketHeader.DataLength, NO_STREAM_CALLBACK);
 
 			Endpoint_ClearOUT();
 			
-			RNDISInterfaceInfo->FrameIN.FrameLength = RNDISPacketHeader.DataLength;
+			RNDISInterfaceInfo->State.FrameIN.FrameLength = RNDISPacketHeader.DataLength;
 
-			RNDISInterfaceInfo->FrameIN.FrameInBuffer = true;
+			RNDISInterfaceInfo->State.FrameIN.FrameInBuffer = true;
 		}
 		
-		Endpoint_SelectEndpoint(RNDISInterfaceInfo->DataINEndpointNumber);
+		Endpoint_SelectEndpoint(RNDISInterfaceInfo->Config.DataINEndpointNumber);
 		
-		if (Endpoint_IsINReady() && RNDISInterfaceInfo->FrameOUT.FrameInBuffer)
+		if (Endpoint_IsINReady() && RNDISInterfaceInfo->State.FrameOUT.FrameInBuffer)
 		{
 			memset(&RNDISPacketHeader, 0, sizeof(RNDIS_PACKET_MSG_t));
 
 			RNDISPacketHeader.MessageType   = REMOTE_NDIS_PACKET_MSG;
-			RNDISPacketHeader.MessageLength = (sizeof(RNDIS_PACKET_MSG_t) + RNDISInterfaceInfo->FrameOUT.FrameLength);
+			RNDISPacketHeader.MessageLength = (sizeof(RNDIS_PACKET_MSG_t) + RNDISInterfaceInfo->State.FrameOUT.FrameLength);
 			RNDISPacketHeader.DataOffset    = (sizeof(RNDIS_PACKET_MSG_t) - sizeof(RNDIS_Message_Header_t));
-			RNDISPacketHeader.DataLength    = RNDISInterfaceInfo->FrameOUT.FrameLength;
+			RNDISPacketHeader.DataLength    = RNDISInterfaceInfo->State.FrameOUT.FrameLength;
 
 			Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_PACKET_MSG_t), NO_STREAM_CALLBACK);
-			Endpoint_Write_Stream_LE(RNDISInterfaceInfo->FrameOUT.FrameData, RNDISPacketHeader.DataLength, NO_STREAM_CALLBACK);
+			Endpoint_Write_Stream_LE(RNDISInterfaceInfo->State.FrameOUT.FrameData, RNDISPacketHeader.DataLength, NO_STREAM_CALLBACK);
 			Endpoint_ClearIN();
 			
-			RNDISInterfaceInfo->FrameOUT.FrameInBuffer = false;
+			RNDISInterfaceInfo->State.FrameOUT.FrameInBuffer = false;
 		}
 	}
 }							
 
-void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo)
+void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo)
 {
 	/* Note: Only a single buffer is used for both the received message and its response to save SRAM. Because of
 	         this, response bytes should be filled in order so that they do not clobber unread data in the buffer. */
 
-	RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
+	RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 
 	switch (MessageHeader->MessageType)
 	{
 		case REMOTE_NDIS_INITIALIZE_MSG:
-			RNDISInterfaceInfo->ResponseReady = true;
+			RNDISInterfaceInfo->State.ResponseReady = true;
 			
-			RNDIS_INITIALIZE_MSG_t*   INITIALIZE_Message  = (RNDIS_INITIALIZE_MSG_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
-			RNDIS_INITIALIZE_CMPLT_t* INITIALIZE_Response = (RNDIS_INITIALIZE_CMPLT_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
+			RNDIS_INITIALIZE_MSG_t*   INITIALIZE_Message  = (RNDIS_INITIALIZE_MSG_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
+			RNDIS_INITIALIZE_CMPLT_t* INITIALIZE_Response = (RNDIS_INITIALIZE_CMPLT_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 			
 			INITIALIZE_Response->MessageType           = REMOTE_NDIS_INITIALIZE_CMPLT;
 			INITIALIZE_Response->MessageLength         = sizeof(RNDIS_INITIALIZE_CMPLT_t);
@@ -238,26 +238,26 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfa
 			INITIALIZE_Response->AFListOffset          = 0;
 			INITIALIZE_Response->AFListSize            = 0;
 			
-			RNDISInterfaceInfo->CurrRNDISState = RNDIS_Initialized;
+			RNDISInterfaceInfo->State.CurrRNDISState = RNDIS_Initialized;
 		
 			break;
 		case REMOTE_NDIS_HALT_MSG:
-			RNDISInterfaceInfo->ResponseReady = false;
+			RNDISInterfaceInfo->State.ResponseReady = false;
 			MessageHeader->MessageLength = 0;
 
-			RNDISInterfaceInfo->CurrRNDISState = RNDIS_Uninitialized;
+			RNDISInterfaceInfo->State.CurrRNDISState = RNDIS_Uninitialized;
 
 			break;
 		case REMOTE_NDIS_QUERY_MSG:
-			RNDISInterfaceInfo->ResponseReady = true;
+			RNDISInterfaceInfo->State.ResponseReady = true;
 						
-			RNDIS_QUERY_MSG_t*   QUERY_Message  = (RNDIS_QUERY_MSG_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
-			RNDIS_QUERY_CMPLT_t* QUERY_Response = (RNDIS_QUERY_CMPLT_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
+			RNDIS_QUERY_MSG_t*   QUERY_Message  = (RNDIS_QUERY_MSG_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
+			RNDIS_QUERY_CMPLT_t* QUERY_Response = (RNDIS_QUERY_CMPLT_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 			uint32_t             Query_Oid      = QUERY_Message->Oid;
 						
-			void*     QueryData                 = &RNDISInterfaceInfo->RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
+			void*     QueryData                 = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
 			                                                                              QUERY_Message->InformationBufferOffset];
-			void*     ResponseData              = &RNDISInterfaceInfo->RNDISMessageBuffer[sizeof(RNDIS_QUERY_CMPLT_t)];		
+			void*     ResponseData              = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_QUERY_CMPLT_t)];		
 			uint16_t  ResponseSize;
 
 			QUERY_Response->MessageType         = REMOTE_NDIS_QUERY_CMPLT;
@@ -282,17 +282,17 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfa
 			
 			break;
 		case REMOTE_NDIS_SET_MSG:
-			RNDISInterfaceInfo->ResponseReady = true;
+			RNDISInterfaceInfo->State.ResponseReady = true;
 			
-			RNDIS_SET_MSG_t*   SET_Message  = (RNDIS_SET_MSG_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
-			RNDIS_SET_CMPLT_t* SET_Response = (RNDIS_SET_CMPLT_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
+			RNDIS_SET_MSG_t*   SET_Message  = (RNDIS_SET_MSG_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
+			RNDIS_SET_CMPLT_t* SET_Response = (RNDIS_SET_CMPLT_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 			uint32_t           SET_Oid      = SET_Message->Oid;
 
 			SET_Response->MessageType       = REMOTE_NDIS_SET_CMPLT;
 			SET_Response->MessageLength     = sizeof(RNDIS_SET_CMPLT_t);
 			SET_Response->RequestId         = SET_Message->RequestId;
 
-			void* SetData                   = &RNDISInterfaceInfo->RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
+			void* SetData                   = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
 			                                                                          SET_Message->InformationBufferOffset];
 						
 			if (RNDIS_Device_ProcessNDISSet(RNDISInterfaceInfo, SET_Oid, SetData, SET_Message->InformationBufferLength))
@@ -302,9 +302,9 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfa
 
 			break;
 		case REMOTE_NDIS_RESET_MSG:
-			RNDISInterfaceInfo->ResponseReady = true;
+			RNDISInterfaceInfo->State.ResponseReady = true;
 			
-			RNDIS_RESET_CMPLT_t* RESET_Response = (RNDIS_RESET_CMPLT_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
+			RNDIS_RESET_CMPLT_t* RESET_Response = (RNDIS_RESET_CMPLT_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 
 			RESET_Response->MessageType         = REMOTE_NDIS_RESET_CMPLT;
 			RESET_Response->MessageLength       = sizeof(RNDIS_RESET_CMPLT_t);
@@ -313,10 +313,10 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfa
 
 			break;
 		case REMOTE_NDIS_KEEPALIVE_MSG:
-			RNDISInterfaceInfo->ResponseReady = true;
+			RNDISInterfaceInfo->State.ResponseReady = true;
 			
-			RNDIS_KEEPALIVE_MSG_t*   KEEPALIVE_Message  = (RNDIS_KEEPALIVE_MSG_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
-			RNDIS_KEEPALIVE_CMPLT_t* KEEPALIVE_Response = (RNDIS_KEEPALIVE_CMPLT_t*)&RNDISInterfaceInfo->RNDISMessageBuffer;
+			RNDIS_KEEPALIVE_MSG_t*   KEEPALIVE_Message  = (RNDIS_KEEPALIVE_MSG_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
+			RNDIS_KEEPALIVE_CMPLT_t* KEEPALIVE_Response = (RNDIS_KEEPALIVE_CMPLT_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 
 			KEEPALIVE_Response->MessageType     = REMOTE_NDIS_KEEPALIVE_CMPLT;
 			KEEPALIVE_Response->MessageLength   = sizeof(RNDIS_KEEPALIVE_CMPLT_t);
@@ -327,7 +327,7 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_t* RNDISInterfa
 	}
 }
 
-static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo,
+static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo,
                                           uint32_t OId, void* QueryData, uint16_t QuerySize,
                                           void* ResponseData, uint16_t* ResponseSize)
 {
@@ -375,9 +375,9 @@ static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceI
 			
 			return true;
 		case OID_GEN_VENDOR_DESCRIPTION:
-			*ResponseSize = (strlen(RNDISInterfaceInfo->AdapterVendorDescription) + 1);
+			*ResponseSize = (strlen(RNDISInterfaceInfo->Config.AdapterVendorDescription) + 1);
 			
-			memcpy(ResponseData, RNDISInterfaceInfo->AdapterVendorDescription, *ResponseSize);
+			memcpy(ResponseData, RNDISInterfaceInfo->Config.AdapterVendorDescription, *ResponseSize);
 			
 			return true;
 		case OID_GEN_MEDIA_CONNECT_STATUS:
@@ -397,7 +397,7 @@ static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceI
 		case OID_802_3_CURRENT_ADDRESS:
 			*ResponseSize = sizeof(MAC_Address_t);
 			
-			memcpy(ResponseData, &RNDISInterfaceInfo->AdapterMACAddress, sizeof(MAC_Address_t));
+			memcpy(ResponseData, &RNDISInterfaceInfo->Config.AdapterMACAddress, sizeof(MAC_Address_t));
 
 			return true;
 		case OID_802_3_MAXIMUM_LIST_SIZE:
@@ -410,7 +410,7 @@ static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceI
 		case OID_GEN_CURRENT_PACKET_FILTER:
 			*ResponseSize = sizeof(uint32_t);
 			
-			*((uint32_t*)ResponseData) = RNDISInterfaceInfo->CurrPacketFilter;
+			*((uint32_t*)ResponseData) = RNDISInterfaceInfo->State.CurrPacketFilter;
 		
 			return true;			
 		case OID_GEN_XMIT_OK:
@@ -439,13 +439,14 @@ static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_t* RNDISInterfaceI
 	}
 }
 
-static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_t* RNDISInterfaceInfo, uint32_t OId, void* SetData, uint16_t SetSize)
+static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo, uint32_t OId, void* SetData,
+                                        uint16_t SetSize)
 {
 	switch (OId)
 	{
 		case OID_GEN_CURRENT_PACKET_FILTER:
-			RNDISInterfaceInfo->CurrPacketFilter = *((uint32_t*)SetData);
-			RNDISInterfaceInfo->CurrRNDISState = ((RNDISInterfaceInfo->CurrPacketFilter) ?
+			RNDISInterfaceInfo->State.CurrPacketFilter = *((uint32_t*)SetData);
+			RNDISInterfaceInfo->State.CurrRNDISState = ((RNDISInterfaceInfo->State.CurrPacketFilter) ?
 			                                      RNDIS_Data_Initialized : RNDIS_Data_Initialized);
 			
 			return true;

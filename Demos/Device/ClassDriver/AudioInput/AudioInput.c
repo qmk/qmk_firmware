@@ -40,12 +40,20 @@
  *  passed to all Audio Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_Audio_t Microphone_Audio_Interface =
+USB_ClassInfo_Audio_Device_t Microphone_Audio_Interface =
 	{
-		.StreamingInterfaceNumber = 1,
+		.Config =
+			{
+				.StreamingInterfaceNumber = 1,
 
-		.DataINEndpointNumber     = AUDIO_STREAM_EPNUM,
-		.DataINEndpointSize       = AUDIO_STREAM_EPSIZE,
+				.DataINEndpointNumber     = AUDIO_STREAM_EPNUM,
+				.DataINEndpointSize       = AUDIO_STREAM_EPSIZE,
+			},
+		
+		.State =
+			{
+				// Leave all state values to their defaults
+			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -59,7 +67,7 @@ int main(void)
 	
 	for (;;)
 	{
-		if (Microphone_Audio_Interface.InterfaceEnabled)
+		if (Microphone_Audio_Interface.State.InterfaceEnabled)
 		  ProcessNextSample();
 
 		Audio_Device_USBTask(&Microphone_Audio_Interface);

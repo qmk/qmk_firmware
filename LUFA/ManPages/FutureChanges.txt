@@ -22,6 +22,5 @@
   *  - Remake AVRStudio project files
   *  - Master LUFA include file
   *  - Debug mode for pipe/endpoint calls
-  *  - Device descriptor get routines
-  *  - Add ClearPipeStall host function
+  *  - Add hub support to match Atmel's stack (thanks to the Atmel engineer who said it wasn't possible :P)
   */

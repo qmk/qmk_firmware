@@ -46,18 +46,26 @@ RingBuff_t Tx_Buffer;
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_CDC_t VirtualSerial_CDC_Interface =
+USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 	{
-		.ControlInterfaceNumber     = 0,
+		.Config = 
+			{
+				.ControlInterfaceNumber     = 0,
 
-		.DataINEndpointNumber       = CDC_TX_EPNUM,
-		.DataINEndpointSize         = CDC_TXRX_EPSIZE,
+				.DataINEndpointNumber       = CDC_TX_EPNUM,
+				.DataINEndpointSize         = CDC_TXRX_EPSIZE,
 
-		.DataOUTEndpointNumber      = CDC_RX_EPNUM,
-		.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointNumber      = CDC_RX_EPNUM,
+				.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
 
-		.NotificationEndpointNumber = CDC_NOTIFICATION_EPNUM,
-		.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointNumber = CDC_NOTIFICATION_EPNUM,
+				.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
+			},
+		
+		.State =
+			{
+				// Leave all state values to their defaults
+			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -152,27 +160,38 @@ ISR(USART1_RX_vect, ISR_BLOCK)
  *
  *  \param CDCInterfaceInfo  Pointer to the CDC class interface configuration structure being referenced
  */
-void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_t* CDCInterfaceInfo)
+void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 {
 	uint8_t ConfigMask = 0;
 
-	if (CDCInterfaceInfo->LineEncoding.ParityType == CDC_PARITY_Odd)
-	  ConfigMask = ((1 << UPM11) | (1 << UPM10));
-	else if (CDCInterfaceInfo->LineEncoding.ParityType == CDC_PARITY_Even)
-	  ConfigMask = (1 << UPM11);
+	switch (CDCInterfaceInfo->State.LineEncoding.ParityType)
+	{
+		case CDC_PARITY_Odd:
+			ConfigMask = ((1 << UPM11) | (1 << UPM10));		
+			break;
+		case CDC_PARITY_Even:
+			ConfigMask = (1 << UPM11);		
+			break;
+	}
 
-	if (CDCInterfaceInfo->LineEncoding.CharFormat == CDC_LINEENCODING_TwoStopBits)
+	if (CDCInterfaceInfo->State.LineEncoding.CharFormat == CDC_LINEENCODING_TwoStopBits)
 	  ConfigMask |= (1 << USBS1);
 
-	if (CDCInterfaceInfo->LineEncoding.DataBits == 6)
-	  ConfigMask |= (1 << UCSZ10);
-	else if (CDCInterfaceInfo->LineEncoding.DataBits == 7)
-	  ConfigMask |= (1 << UCSZ11);
-	else if (CDCInterfaceInfo->LineEncoding.DataBits == 8)
-	  ConfigMask |= ((1 << UCSZ11) | (1 << UCSZ10));
+	switch (CDCInterfaceInfo->State.LineEncoding.DataBits)
+	{
+		case 6:
+			ConfigMask |= (1 << UCSZ10);
+			break;
+		case 7:
+			ConfigMask |= (1 << UCSZ11);
+			break;
+		case 8:
+			ConfigMask |= ((1 << UCSZ11) | (1 << UCSZ10));
+			break;
+	}
 	
 	UCSR1A = (1 << U2X1);	
 	UCSR1B = ((1 << RXCIE1) | (1 << TXEN1) | (1 << RXEN1));
 	UCSR1C = ConfigMask;	
-	UBRR1  = SERIAL_2X_UBBRVAL((uint16_t)CDCInterfaceInfo->LineEncoding.BaudRateBPS);
+	UBRR1  = SERIAL_2X_UBBRVAL((uint16_t)CDCInterfaceInfo->State.LineEncoding.BaudRateBPS);
 }

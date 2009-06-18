@@ -52,6 +52,57 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Type Defines: */
+			/** Configuration information structure for \ref USB_ClassInfo_Audio_Device_t Audio device interface structures. */
+			typedef struct
+			{
+				uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this
+				                                    *   structure controls.
+				                                    */
+
+				uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming Audio Streaming data, if available
+				                                *   (zero if unused).
+				                                */
+				uint16_t DataINEndpointSize; /**< Size in bytes of the incomming Audio Streaming data endpoint, if available
+				                              *   (zero if unused).
+				                              */
+
+				uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing Audio Streaming data, if available
+				                                 *   (zero if unused).
+				                                 */
+				uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing Audio Streaming data endpoint, if available
+				                               *   (zero if unused).
+				                               */			
+			} USB_ClassInfo_Audio_Device_Config_t;
+			
+			/** Current State information structure for \ref USB_ClassInfo_Audio_Device_t Audio device interface structures. */
+			typedef struct
+			{
+				bool     InterfaceEnabled; /**< Set and cleared by the class driver to indicate if the host has enabled the streaming endpoints
+											*   of the Audio Streaming interface.
+											*/
+			} USB_ClassInfo_Audio_Device_State_t;
+		
+			/** Class state structure. An instance of this structure should be made for each Audio interface
+			 *  within the user application, and passed to each of the Audio class driver functions as the
+			 *  AudioInterfaceInfo parameter. This stores each Audio interface's configuration and state information.
+			 */
+			typedef struct
+			{
+				const USB_ClassInfo_Audio_Device_Config_t Config; /**< Config data for the USB class interface within
+				                                                   *   the device. All elements in this section
+				                                                   *   <b>must</b> be set or the interface will fail
+				                                                   *   to enumerate and operate correctly.
+				                                                   */
+															 
+				USB_ClassInfo_Audio_Device_State_t State; /**< State data for the USB class interface within
+				                                           *   the device. All elements in this section
+				                                           *   <b>may</b> be set to initial values, but may
+				                                           *   also be ignored to default to sane values when
+				                                           *   the interface is enumerated.
+				                                           */				
+			} USB_ClassInfo_Audio_Device_t;
+		
 		/* Function Prototypes: */
 			/** Configures the endpoints of a given Audio interface, ready for use. This should be linked to the library
 			 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration containing the
@@ -61,21 +112,21 @@
 			 *
 			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 			 */
-			bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+			bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo);
 
 			/** Processes incomming control requests from the host, that are directed to the given Audio class interface. This should be
 			 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
 			 *
 			 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 */
-			void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+			void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo);
 
 			/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
 			 *  \param AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 */
-			void Audio_Device_USBTask(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+			void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo);
 			
 			/** Reads the next 8-bit audio sample from the current audio interface.
 			 *
@@ -137,7 +188,7 @@
 			 *
 			 *  \return Boolean true if the given Audio interface has a sample to be read, false otherwise
 			 */
-			bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+			bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo);
 
 			/** Determines if the given audio interface is ready to accept the next sample to be written to it.
 			 *
@@ -145,7 +196,7 @@
 			 *
 			 *  \return Boolean true if the given Audio interface is ready to accept the next sample, false otherwise
 			 */
-			bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_t* AudioInterfaceInfo);
+			bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

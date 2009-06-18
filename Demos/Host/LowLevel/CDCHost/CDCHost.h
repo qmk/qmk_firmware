@@ -81,30 +81,36 @@
 		 */
 		typedef struct
 		{
-			uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
+			const struct
+			{
+				uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
 
-			uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
-			uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
+				uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
+				uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
 
-			uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
-			uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
+				uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
+				uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
 
-			uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
-			uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
-
-			uint8_t  ControlLineState; /**< Current control line states, as set by the host */
-
+				uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
+				uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
+			} Config;
+			
 			struct
 			{
-				uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
-				uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
-									  *   CDCDevice_CDC_LineCodingFormats_t enum
-									  */
-				uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
-									  *   CDCDevice_LineCodingParity_t enum
-									  */
-				uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
-			} LineEncoding;
+				uint8_t  ControlLineState; /**< Current control line states, as set by the host */
+
+				struct
+				{
+					uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
+					uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
+										  *   CDCDevice_CDC_LineCodingFormats_t enum
+										  */
+					uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
+										  *   CDCDevice_LineCodingParity_t enum
+										  */
+					uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
+				} LineEncoding;
+			} State;
 		} USB_ClassInfo_CDC_Host_t;
 		
 	/* Function Prototypes: */

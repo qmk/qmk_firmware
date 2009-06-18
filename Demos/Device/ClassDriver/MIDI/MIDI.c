@@ -40,15 +40,23 @@
  *  passed to all MIDI Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_MIDI_t Keyboard_MIDI_Interface =
+USB_ClassInfo_MIDI_Device_t Keyboard_MIDI_Interface =
 	{
-		.StreamingInterfaceNumber = 1,
+		.Config =
+			{
+				.StreamingInterfaceNumber = 1,
 
-		.DataINEndpointNumber     = MIDI_STREAM_IN_EPNUM,
-		.DataINEndpointSize       = MIDI_STREAM_EPSIZE,
+				.DataINEndpointNumber     = MIDI_STREAM_IN_EPNUM,
+				.DataINEndpointSize       = MIDI_STREAM_EPSIZE,
 
-		.DataOUTEndpointNumber    = MIDI_STREAM_OUT_EPNUM,
-		.DataOUTEndpointSize      = MIDI_STREAM_EPSIZE,
+				.DataOUTEndpointNumber    = MIDI_STREAM_OUT_EPNUM,
+				.DataOUTEndpointSize      = MIDI_STREAM_EPSIZE,
+			},
+			
+		.State =
+			{
+				// Leave all state values to their defaults			
+			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
