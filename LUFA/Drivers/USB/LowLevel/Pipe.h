@@ -219,7 +219,7 @@
 				 *
 				 *  \return The current pipe token, as a PIPE_TOKEN_* mask
 				 */
-				static inline uint8_t Pipe_GetCurrentToken(void);
+				static inline uint8_t Pipe_GetPipeToken(void);
 				
 				/** Sets the token for the currently selected pipe to one of the tokens specified by the PIPE_TOKEN_*
 				 *  masks. This can be used on CONTROL type pipes, to allow for bidirectional transfer of data during

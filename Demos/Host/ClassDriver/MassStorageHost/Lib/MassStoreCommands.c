@@ -134,7 +134,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the OUT pipe */
-			MassStore_ClearPipeStall(MASS_STORE_DATA_OUT_PIPE);
+			USB_Host_ClearPipeStall(MASS_STORE_DATA_OUT_PIPE);
 
 			return PIPE_RWSTREAM_PipeStalled;
 		}
@@ -147,7 +147,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the IN pipe */
-			MassStore_ClearPipeStall(MASS_STORE_DATA_IN_PIPE);
+			USB_Host_ClearPipeStall(MASS_STORE_DATA_IN_PIPE);
 
 			return PIPE_RWSTREAM_PipeStalled;
 		}

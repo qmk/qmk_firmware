@@ -116,6 +116,8 @@
 			 *
 			 *  \note This global is only present if the user application can be a USB host.
 			 *
+			 *  \see \ref USB_Host_States_t for a list of possible host states
+			 *
 			 *  \ingroup Group_Host
 			 */
 			extern volatile uint8_t USB_HostState;

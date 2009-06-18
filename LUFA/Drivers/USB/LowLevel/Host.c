@@ -302,4 +302,39 @@ uint8_t USB_Host_SetDeviceConfiguration(uint8_t ConfigNumber)
 	return USB_Host_SendControlRequest(NULL);
 }
 
+uint8_t USB_Host_GetDeviceDescriptor(USB_Descriptor_Device_t* DeviceDescriptorPtr)
+{
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
+			bRequest:      REQ_GetDescriptor,
+			wValue:        (DTYPE_Device << 8),
+			wIndex:        0,
+			wLength:       sizeof(USB_Descriptor_Device_t),
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
+	return USB_Host_SendControlRequest(DeviceDescriptorPtr);
+}
+
+uint8_t USB_Host_ClearPipeStall(uint8_t EndpointNum)
+{
+	if (Pipe_GetPipeToken() == PIPE_TOKEN_IN)
+	  EndpointNum |= (1 << 7);
+
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT),
+			.bRequest      = REQ_ClearFeature,
+			.wValue        = FEATURE_ENDPOINT_HALT,
+			.wIndex        = EndpointNum,
+			.wLength       = 0,
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
+	return USB_Host_SendControlRequest(NULL);
+}
+
 #endif

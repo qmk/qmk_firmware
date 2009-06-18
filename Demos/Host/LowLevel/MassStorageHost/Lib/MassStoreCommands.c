@@ -134,7 +134,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the OUT pipe */
-			MassStore_ClearPipeStall(MASS_STORE_DATA_OUT_PIPE);
+			USB_Host_ClearPipeStall(MASS_STORE_DATA_OUT_PIPE);
 
 			return PIPE_RWSTREAM_PipeStalled;
 		}
@@ -147,7 +147,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the IN pipe */
-			MassStore_ClearPipeStall(MASS_STORE_DATA_IN_PIPE);
+			USB_Host_ClearPipeStall(MASS_STORE_DATA_IN_PIPE);
 
 			return PIPE_RWSTREAM_PipeStalled;
 		}
@@ -241,29 +241,6 @@ static uint8_t MassStore_GetReturnedStatus(void)
 	Pipe_Freeze();
 	
 	return PIPE_RWSTREAM_NoError;
-}
-
-/** Clears the stall condition in the attached device on the nominated endpoint number.
- *
- *  \param EndpointNum  Endpoint number in the attached device whose stall condition is to be cleared
- *
- *  \return A value from the USB_Host_SendControlErrorCodes_t enum
- */
-uint8_t MassStore_ClearPipeStall(const uint8_t EndpointNum)
-{
-	USB_ControlRequest = (USB_Request_Header_t)
-		{
-			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT),
-			.bRequest      = REQ_ClearFeature,
-			.wValue        = FEATURE_ENDPOINT_HALT,
-			.wIndex        = EndpointNum,
-			.wLength       = 0,
-		};
-	
-	/* Select the control pipe for the request transfer */
-	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-	return USB_Host_SendControlRequest(NULL);
 }
 
 /** Issues a Mass Storage class specific request to reset the attached device's Mass Storage interface,

@@ -45,7 +45,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number, const uint8_t Type, const uint8_t 
 
 	UPCFG1X = 0;
 	
-	UPCFG0X = ((Type << EPTYPE0) | Token | (EndpointNumber << PEPNUM0));
+	UPCFG0X = ((Type << EPTYPE0) | Token | ((EndpointNumber & PIPE_EPNUM_MASK) << PEPNUM0));
 	UPCFG1X = ((1 << ALLOC) | Banks | Pipe_BytesToEPSizeMask(Size));
 
 	return Pipe_IsConfigured();

@@ -144,22 +144,12 @@ void Bluetooth_Management_Task(void)
 			}
 
 			puts_P(PSTR("Bluetooth Dongle Detected.\r\n"));
-
-			/* Standard request to set the device configuration to configuration 1 */
-			USB_ControlRequest = (USB_Request_Header_t)
-				{
-					bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
-					bRequest:      REQ_SetConfiguration,
-					wValue:        1,
-					wIndex:        0,
-					wLength:       0,
-				};
 				
 			/* Select the control pipe for the request transfer */
 			Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
-			/* Send the request, display error and wait for device detatch if request fails */
-			if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
+			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
 				puts_P(PSTR("Control Error (Set Configuration).\r\n"));
 				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);

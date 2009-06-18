@@ -158,7 +158,6 @@
 			static uint8_t MassStore_GetReturnedStatus(void);
 		#endif
 		
-		uint8_t MassStore_ClearPipeStall(const uint8_t EndpointNum);
 		uint8_t MassStore_MassStorageReset(void);
 		uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex);
 		uint8_t MassStore_RequestSense(const uint8_t LUNIndex, const SCSI_Request_Sense_Response_t* const SensePtr)

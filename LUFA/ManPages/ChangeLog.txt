@@ -20,8 +20,13 @@
   *    internal control
   *  - Added new USB_Host_SetDeviceConfiguration() convenience function for easy configuration selection of devices while in USB
   *    host mode
+  *  - Added new USB_Host_ClearPipeStall() convenience function to clear a stall condition on an attached device's endpoint
+  *  - Added new USB_Host_GetDeviceDescriptor() convenience function to retrieve the attached device's Device descriptor
   *  - Added USB Missle Launcher project, submitted by Dave Fletcher
   *  - Pipe_GetErrorFlags() now returns additional error flags for overflow and underflow errors
+  *  - Make Pipe_ConfigurePipe() mask the given endpoint number against PIPE_EPNUM_MASK to ensure the endpoint IN direction bit is
+  *    cleared to prevent endpoint type corruption
+  *  - Fix documentation mentioning Pipe_GetCurrentToken() function when real name is Pipe_GetPipeToken()
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

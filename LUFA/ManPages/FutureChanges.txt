@@ -21,4 +21,7 @@
   *  - Port LUFA to the Atmel ARM7 series microcontrollers
   *  - Remake AVRStudio project files
   *  - Master LUFA include file
+  *  - Debug mode for pipe/endpoint calls
+  *  - Device descriptor get routines
+  *  - Add ClearPipeStall host function
   */

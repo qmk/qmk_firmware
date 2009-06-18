@@ -47,6 +47,8 @@
 
 		#include "../../../Common/Common.h"
 		#include "../HighLevel/USBInterrupt.h"
+		#include "../HighLevel/StdDescriptors.h"
+		#include "Pipe.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -185,6 +187,29 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
 			uint8_t USB_Host_SetDeviceConfiguration(uint8_t ConfigNumber);
+			
+			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
+			 *  device, requesting the device descriptor. This can be used to easily retrieve information
+			 *  about the device such as its VID, PID and power requirements.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \param DeviceDescriptorPtr  Pointer to the destination device descriptor structure where
+			 *                              the read data is to be stored
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_GetDeviceDescriptor(USB_Descriptor_Device_t* DeviceDescriptorPtr);
+			
+			/** Clears a stall condition on the given pipe, via a ClearFeature request to the attached device.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \param EndpointIndex  Index of the endpoint to clear
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */			
+			uint8_t USB_Host_ClearPipeStall(uint8_t EndpointIndex);
 
 		/* Enums: */
 			/** Enum for the various states of the USB Host state machine. Only some states are
