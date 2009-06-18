@@ -22,4 +22,4 @@ all:
 
 %:
 	make -C Magstripe $@
-	make -C MissleLauncher $@
+	make -C MissileLauncher $@
