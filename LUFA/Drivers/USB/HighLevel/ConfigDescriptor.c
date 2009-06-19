@@ -31,7 +31,7 @@
 #include "ConfigDescriptor.h"
 
 #if defined(USB_CAN_BE_HOST)
-uint8_t USB_GetDeviceConfigDescriptor(uint16_t* const ConfigSizePtr, void* BufferPtr)
+uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr, void* BufferPtr)
 {
 	uint8_t ErrorCode;
 
@@ -39,7 +39,7 @@ uint8_t USB_GetDeviceConfigDescriptor(uint16_t* const ConfigSizePtr, void* Buffe
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
 			.bRequest      = REQ_GetDescriptor,
-			.wValue        = (DTYPE_Configuration << 8),
+			.wValue        = ((DTYPE_Configuration << 8) | (ConfigNumber - 1)),
 			.wIndex        = 0,
 			.wLength       = sizeof(USB_Descriptor_Configuration_Header_t),
 		};

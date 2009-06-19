@@ -40,7 +40,7 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(USB_ClassInfo_CDC_Host_t* CDCInt
 	uint16_t ConfigDescriptorSize;
 	uint8_t  FoundEndpoints = 0;
 	
-	if (USB_GetDeviceConfigDescriptor(&ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
+	if (USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
 	  return CDC_ENUMERROR_ControlError;
 	
 	if (ConfigDescriptorSize > 512)
@@ -48,7 +48,7 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(USB_ClassInfo_CDC_Host_t* CDCInt
 	  
 	ConfigDescriptorData = alloca(ConfigDescriptorSize);
 
-	USB_GetDeviceConfigDescriptor(&ConfigDescriptorSize, ConfigDescriptorData);
+	USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData);
 	
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return CDC_ENUMERROR_InvalidConfigDataReturned;

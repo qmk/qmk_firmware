@@ -82,6 +82,7 @@
 
 	/* Function Prototypes: */
 		void Keyboard_HID_Task(void);
+		void SetupHardware(void);
 	
 		void EVENT_USB_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_DeviceAttached(void);

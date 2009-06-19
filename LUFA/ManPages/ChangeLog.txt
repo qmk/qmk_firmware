@@ -27,7 +27,7 @@
   *  - Make Pipe_ConfigurePipe() mask the given endpoint number against PIPE_EPNUM_MASK to ensure the endpoint IN direction bit is
   *    cleared to prevent endpoint type corruption
   *  - Fix documentation mentioning Pipe_GetCurrentToken() function when real name is Pipe_GetPipeToken()
-  *
+  *  - Extend USB_GetDeviceConfigDescriptor() routine to require the configuration number within the device to fetch
   *
   *  \section Sec_ChangeLog090605 Version 090605
   *

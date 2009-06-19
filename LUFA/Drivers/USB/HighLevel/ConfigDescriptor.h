@@ -183,6 +183,9 @@
 		/* Function Prototypes: */
 			/** Retrieves the configuration descriptor data or size from an attached device via a standard request.
 			 *
+			 *  \param ConfigNumber  Device configuration descriptor number to fetch from the device (usually set to 1 for
+			 *                       single configuration devices)
+			 *
 			 *  \param ConfigSizePtr  Pointer to a uint16_t for either storing or retrieving the configuration
 			 *         descriptor size
 			 *
@@ -192,8 +195,8 @@
 			 *                    of bytes indicated by ConfigSizePtr of the configuration descriptor will be loaded
 			 *                    into the buffer
 			 */
-			uint8_t USB_GetDeviceConfigDescriptor(uint16_t* const ConfigSizePtr, void* BufferPtr)
-			                                      ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr, void* BufferPtr)
+			                                      ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Skips to the next sub-descriptor inside the configuration descriptor of the specified type value.
 			 *  The bytes remaining value is automatically decremented.
