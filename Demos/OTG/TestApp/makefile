@@ -122,6 +122,10 @@ OBJDIR = .
 LUFA_PATH = ../../..
 
 
+# LUFA library compile-time options
+LUFA_OPTS  = USE_NONSTANDARD_DESCRIPTOR_NAMES
+
+
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
 	  TestEvents.c                                                \
@@ -184,8 +188,7 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
-CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD)
-CDEFS += -DUSE_NONSTANDARD_DESCRIPTOR_NAMES
+CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(patsubst %,-D%,$(LUFA_OPTS))
 
 
 # Place -D or -U options here for ASM sources
