@@ -123,7 +123,7 @@ LUFA_PATH = ../../..
 
 
 # LUFA library compile-time options
-LUFA_OPTS  = USE_NONSTANDARD_DESCRIPTOR_NAMES
+LUFA_OPTS  = -D USE_NONSTANDARD_DESCRIPTOR_NAMES
 
 
 # List C source files here. (C dependencies are automatically generated.)
@@ -188,7 +188,7 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
-CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(patsubst %,-D%,$(LUFA_OPTS))
+CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA_OPTS)
 
 
 # Place -D or -U options here for ASM sources

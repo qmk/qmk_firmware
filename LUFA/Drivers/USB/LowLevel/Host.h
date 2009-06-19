@@ -199,7 +199,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_GetDeviceDescriptor(USB_Descriptor_Device_t* DeviceDescriptorPtr);
+			uint8_t USB_Host_GetDeviceDescriptor(void* DeviceDescriptorPtr);
 			
 			/** Clears a stall condition on the given pipe, via a ClearFeature request to the attached device.
 			 *

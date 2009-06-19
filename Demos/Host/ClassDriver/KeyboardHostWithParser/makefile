@@ -123,10 +123,10 @@ LUFA_PATH = ../../../..
 
 
 # LUFA library compile-time options
-LUFA_OPTS  = USE_NONSTANDARD_DESCRIPTOR_NAMES
-LUFA_OPTS += USB_HOST_ONLY
-LUFA_OPTS += NO_STREAM_CALLBACKS
-LUFA_OPTS += USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
+LUFA_OPTS  = -D USE_NONSTANDARD_DESCRIPTOR_NAMES
+LUFA_OPTS += -D USB_HOST_ONLY
+LUFA_OPTS += -D NO_STREAM_CALLBACKS
+LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 
 
 # List C source files here. (C dependencies are automatically generated.)
@@ -192,7 +192,7 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
-CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(patsubst %,-D%,$(LUFA_OPTS))
+CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA_OPTS)
 
 
 # Place -D or -U options here for ASM sources

@@ -14,6 +14,7 @@
   *  - Make new host class drivers
   *  - Document new host class drivers
   *  - Convert Host mode demos to class drivers
+  *  - Re-enable Host mode Class driver builds after completion
   *  - Add standardized descriptor names to class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
   *  - Add multiple-report HID demo to the library
   *  - Add dual role Mouse Host/Keyboard Device demo to the library

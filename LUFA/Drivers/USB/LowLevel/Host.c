@@ -302,7 +302,7 @@ uint8_t USB_Host_SetDeviceConfiguration(uint8_t ConfigNumber)
 	return USB_Host_SendControlRequest(NULL);
 }
 
-uint8_t USB_Host_GetDeviceDescriptor(USB_Descriptor_Device_t* DeviceDescriptorPtr)
+uint8_t USB_Host_GetDeviceDescriptor(void* DeviceDescriptorPtr)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
