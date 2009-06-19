@@ -42,9 +42,17 @@
  */
 USB_ClassInfo_CDC_Host_t VirtualSerial_CDC_Interface =
 	{
-		.DataINPipeNumber       = 1,
-		.DataOUTPipeNumber      = 2,
-		.NotificationPipeNumber = 3,
+		.Config =
+			{
+				.DataINPipeNumber       = 1,
+				.DataOUTPipeNumber      = 2,
+				.NotificationPipeNumber = 3,
+			},
+			
+		.State =
+			{
+				// Leave all state values to their defaults			
+			}
 	};
 	
 /** Main program entry point. This routine configures the hardware required by the application, then

@@ -34,7 +34,7 @@
 #define  INCLUDE_FROM_CDC_CLASS_HOST_C
 #include "CDC.h"
 
-static uint8_t CDC_Host_ProcessConfigDescriptor(void)
+static uint8_t CDC_Host_ProcessConfigDescriptor(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 {
 	uint8_t* ConfigDescriptorData;
 	uint16_t ConfigDescriptorSize;
@@ -59,13 +59,13 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(void)
 		return CDC_ENUMERROR_NoCDCInterfaceFound;
 	}
 
-	while (FoundEndpoints != ((1 << CDC_NOTIFICATIONPIPE) | (1 << CDC_DATAPIPE_IN) | (1 << CDC_DATAPIPE_OUT)))
+	while (FoundEndpoints != (CDC_FOUND_DATAPIPE_IN | CDC_FOUND_DATAPIPE_OUT | CDC_FOUND_DATAPIPE_NOTIFICATION))
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DComp_CDC_Host_NextInterfaceCDCDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			/* Check to see if the control interface's notification pipe has been found, if so search for the data interface */
-			if (FoundEndpoints & (1 << CDC_NOTIFICATIONPIPE))
+			if (FoundEndpoints & CDC_FOUND_DATAPIPE_NOTIFICATION)
 			{
 				/* Get the next CDC data interface from the configuration descriptor (CDC class has two CDC interfaces) */
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, 
@@ -79,11 +79,11 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(void)
 			{
 				FoundEndpoints = 0;
 
-				Pipe_SelectPipe(CDC_NOTIFICATIONPIPE);
+				Pipe_SelectPipe(CDCInterfaceInfo->Config.DataINPipeNumber);
 				Pipe_DisablePipe();
-				Pipe_SelectPipe(CDC_DATAPIPE_IN);
+				Pipe_SelectPipe(CDCInterfaceInfo->Config.DataOUTPipeNumber);
 				Pipe_DisablePipe();
-				Pipe_SelectPipe(CDC_DATAPIPE_OUT);
+				Pipe_SelectPipe(CDCInterfaceInfo->Config.NotificationPipeNumber);
 				Pipe_DisablePipe();
 			
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
@@ -106,35 +106,38 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(void)
 		{
 			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 			{							   
-				Pipe_ConfigurePipe(CDC_NOTIFICATIONPIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
+				Pipe_ConfigurePipe(CDCInterfaceInfo->Config.NotificationPipeNumber, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+				CDCInterfaceInfo->State.NotificationPipeSize = EndpointData->EndpointSize;
 
 				Pipe_SetInfiniteINRequests();
 				Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
 				
-				FoundEndpoints |= (1 << CDC_NOTIFICATIONPIPE);
+				FoundEndpoints |= CDC_FOUND_DATAPIPE_NOTIFICATION;
 			}
 		}
 		else
 		{
 			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 			{
-				Pipe_ConfigurePipe(CDC_DATAPIPE_IN, EP_TYPE_BULK, PIPE_TOKEN_IN,
+				Pipe_ConfigurePipe(CDCInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+				CDCInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
 
 				Pipe_SetInfiniteINRequests();
 				Pipe_Unfreeze();
 				
-				FoundEndpoints |= (1 << CDC_DATAPIPE_IN);
+				FoundEndpoints |= CDC_FOUND_DATAPIPE_IN;
 			}
 			else
 			{
-				Pipe_ConfigurePipe(CDC_DATAPIPE_OUT, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+				Pipe_ConfigurePipe(CDCInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+				CDCInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
 				
 				Pipe_Unfreeze();
 				
-				FoundEndpoints |= (1 << CDC_DATAPIPE_OUT);
+				FoundEndpoints |= CDC_FOUND_DATAPIPE_OUT;
 			}
 		}
 	}
@@ -199,7 +202,7 @@ void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 	switch (USB_HostState)
 	{
 		case HOST_STATE_Addressed:
-			if ((ErrorCode = CDC_Host_ProcessConfigDescriptor()) != SuccessfulConfigRead)
+			if ((ErrorCode = CDC_Host_ProcessConfigDescriptor(CDCInterfaceInfo)) != CDC_ENUMERROR_NoError)
 			{
 				USB_HostState = HOST_STATE_Unattached;
 			}

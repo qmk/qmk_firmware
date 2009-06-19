@@ -50,18 +50,22 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Type Defines: */
+		/* Type Defines: */		
+			/** Configuration information structure for \ref USB_ClassInfo_CDC_Host_t CDC host interface structures. */
+			typedef struct
+			{
+				uint8_t  DataINPipeNumber; /**< Pipe number of the CDC interface's IN data pipe */
+				uint8_t  DataOUTPipeNumber; /**< Pipe number of the CDC interface's OUT data pipe */
+				uint8_t  NotificationPipeNumber; /**< Pipe number of the CDC interface's IN notification endpoint, if used */			
+			} USB_ClassInfo_CDC_Host_Config_t;
+		
+			/** Current State information structure for \ref USB_ClassInfo_CDC_Host_t CDC host interface structures. */
 			typedef struct
 			{
 				uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
 
-				uint8_t  DataINPipeNumber; /**< Pipe number of the CDC interface's IN data pipe */
 				uint16_t DataINPipeSize; /**< Size in bytes of the CDC interface's IN data pipe */
-
-				uint8_t  DataOUTPipeNumber; /**< Pipe number of the CDC interface's OUT data pipe */
 				uint16_t DataOUTPipeSize;  /**< Size in bytes of the CDC interface's OUT data pipe */
-
-				uint8_t  NotificationPipeNumber; /**< Pipe number of the CDC interface's IN notification endpoint, if used */
 				uint16_t NotificationPipeSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
 
 				uint8_t  ControlLineState; /**< Current control line states */
@@ -76,7 +80,27 @@
 										  *   CDCDevice_LineCodingParity_t enum
 										  */
 					uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
-				} LineEncoding;
+				} LineEncoding;			
+			} USB_ClassInfo_CDC_Host_State_t;
+
+			/** Class state structure. An instance of this structure should be made within the user application,
+			 *  and passed to each of the CDC class driver functions as the CDCInterfaceInfo parameter. This
+			 *  stores each CDC interface's configuration and state information.
+			 */
+			typedef struct
+			{
+				const USB_ClassInfo_CDC_Host_Config_t Config; /**< Config data for the USB class interface within
+				                                               *   the device. All elements in this section
+				                                               *   <b>must</b> be set or the interface will fail
+				                                               *   to enumerate and operate correctly.
+				                                               */
+
+				USB_ClassInfo_CDC_Host_State_t State; /**< State data for the USB class interface within
+				                                       *   the device. All elements in this section
+				                                       *   <b>may</b> be set to initial values, but may
+				                                       *   also be ignored to default to sane values when
+				                                       *   the interface is enumerated.
+				                                       */
 			} USB_ClassInfo_CDC_Host_t;
 			
 		/* Enums: */
@@ -96,16 +120,20 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define CDC_CONTROL_CLASS              0x02
-			#define CDC_CONTROL_SUBCLASS           0x02
-			#define CDC_CONTROL_PROTOCOL           0x01
-			#define CDC_DATA_CLASS                 0x0A
-			#define CDC_DATA_SUBCLASS              0x00
-			#define CDC_DATA_PROTOCOL              0x00
+			#define CDC_CONTROL_CLASS               0x02
+			#define CDC_CONTROL_SUBCLASS            0x02
+			#define CDC_CONTROL_PROTOCOL            0x01
+			#define CDC_DATA_CLASS                  0x0A
+			#define CDC_DATA_SUBCLASS               0x00
+			#define CDC_DATA_PROTOCOL               0x00
+			
+			#define CDC_FOUND_DATAPIPE_IN           (1 << 0)
+			#define CDC_FOUND_DATAPIPE_OUT          (1 << 1)
+			#define CDC_FOUND_DATAPIPE_NOTIFICATION (1 << 2)
 
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_CDC_CLASS_HOST_C)
-				static uint8_t CDC_Host_ProcessConfigDescriptor(void);
+				static uint8_t CDC_Host_ProcessConfigDescriptor(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 				static uint8_t DComp_CDC_Host_NextCDCControlInterface(void* CurrentDescriptor);
 				static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* CurrentDescriptor);
 				static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor);
