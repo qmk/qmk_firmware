@@ -214,7 +214,7 @@ void RNDIS_Task(void)
 	if ((CurrRNDISState == RNDIS_Data_Initialized) && !(MessageHeader->MessageLength))
 	{
 		/* Create a new packet header for reading/writing */
-		RNDIS_PACKET_MSG_t RNDISPacketHeader;
+		RNDIS_Packet_Message_t RNDISPacketHeader;
 
 		/* Select the data OUT endpoint */
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
@@ -223,7 +223,7 @@ void RNDIS_Task(void)
 		if (Endpoint_IsOUTReceived() && !(FrameIN.FrameInBuffer))
 		{
 			/* Read in the packet message header */
-			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_PACKET_MSG_t));
+			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t));
 
 			/* Stall the request if the data is too large */
 			if (RNDISPacketHeader.DataLength > ETHERNET_FRAME_SIZE_MAX)
@@ -252,16 +252,16 @@ void RNDIS_Task(void)
 		if (Endpoint_IsINReady() && FrameOUT.FrameInBuffer)
 		{
 			/* Clear the packet header with all 0s so that the relevant fields can be filled */
-			memset(&RNDISPacketHeader, 0, sizeof(RNDIS_PACKET_MSG_t));
+			memset(&RNDISPacketHeader, 0, sizeof(RNDIS_Packet_Message_t));
 
 			/* Construct the required packet header fields in the buffer */
 			RNDISPacketHeader.MessageType   = REMOTE_NDIS_PACKET_MSG;
-			RNDISPacketHeader.MessageLength = (sizeof(RNDIS_PACKET_MSG_t) + FrameOUT.FrameLength);
-			RNDISPacketHeader.DataOffset    = (sizeof(RNDIS_PACKET_MSG_t) - sizeof(RNDIS_Message_Header_t));
+			RNDISPacketHeader.MessageLength = (sizeof(RNDIS_Packet_Message_t) + FrameOUT.FrameLength);
+			RNDISPacketHeader.DataOffset    = (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t));
 			RNDISPacketHeader.DataLength    = FrameOUT.FrameLength;
 
 			/* Send the packet header to the host */
-			Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_PACKET_MSG_t));
+			Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t));
 
 			/* Send the Ethernet frame data to the host */
 			Endpoint_Write_Stream_LE(FrameOUT.FrameData, RNDISPacketHeader.DataLength);

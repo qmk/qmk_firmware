@@ -101,7 +101,7 @@
 			uint32_t PerPacketInfoLength;
 			uint32_t VcHandle;
 			uint32_t Reserved;
-		} RNDIS_PACKET_MSG_t;
+		} RNDIS_Packet_Message_t;
 	
 		/** Type define for a RNDIS Initialize command message */
 		typedef struct
@@ -113,7 +113,7 @@
 			uint32_t MajorVersion;
 			uint32_t MinorVersion;
 			uint32_t MaxTransferSize;
-		} RNDIS_INITIALIZE_MSG_t;
+		} RNDIS_Initialize_Message_t;
 		
 		/** Type define for a RNDIS Initialize complete response message */
 		typedef struct
@@ -132,7 +132,7 @@
 			uint32_t PacketAlignmentFactor;
 			uint32_t AFListOffset;
 			uint32_t AFListSize;
-		} RNDIS_INITIALIZE_CMPLT_t;
+		} RNDIS_Initialize_Complete_t;
 		
 		/** Type define for a RNDIS Keepalive command message */
 		typedef struct
@@ -140,7 +140,7 @@
 			uint32_t MessageType;
 			uint32_t MessageLength;
 			uint32_t RequestId;
-		} RNDIS_KEEPALIVE_MSG_t;
+		} RNDIS_KeepAlive_Message_t;
 
 		/** Type define for a RNDIS Keepalive complete message */
 		typedef struct
@@ -149,7 +149,7 @@
 			uint32_t MessageLength;
 			uint32_t RequestId;
 			uint32_t Status;
-		} RNDIS_KEEPALIVE_CMPLT_t;
+		} RNDIS_KeepAlive_Complete_t;
 
 		/** Type define for a RNDIS Reset complete message */
 		typedef struct
@@ -159,7 +159,7 @@
 			uint32_t Status;
 
 			uint32_t AddressingReset;
-		} RNDIS_RESET_CMPLT_t;
+		} RNDIS_Reset_Complete_t;
 		
 		/** Type define for a RNDIS Set command message */
 		typedef struct
@@ -172,7 +172,7 @@
 			uint32_t InformationBufferLength;
 			uint32_t InformationBufferOffset;
 			uint32_t DeviceVcHandle;
-		} RNDIS_SET_MSG_t;
+		} RNDIS_Set_Message_t;
 
 		/** Type define for a RNDIS Set complete response message */
 		typedef struct
@@ -181,7 +181,7 @@
 			uint32_t MessageLength;
 			uint32_t RequestId;
 			uint32_t Status;
-		} RNDIS_SET_CMPLT_t;
+		} RNDIS_Set_Complete_t;
 		
 		/** Type define for a RNDIS Query command message */
 		typedef struct
@@ -194,7 +194,7 @@
 			uint32_t InformationBufferLength;
 			uint32_t InformationBufferOffset;
 			uint32_t DeviceVcHandle;
-		} RNDIS_QUERY_MSG_t;
+		} RNDIS_Query_Message_t;
 		
 		/** Type define for a RNDIS Query complete response message */
 		typedef struct
@@ -206,7 +206,7 @@
 			
 			uint32_t InformationBufferLength;
 			uint32_t InformationBufferOffset;
-		} RNDIS_QUERY_CMPLT_t;
+		} RNDIS_Query_Complete_t;
 		
 	/* External Variables: */
 		extern uint8_t                 RNDISMessageBuffer[];

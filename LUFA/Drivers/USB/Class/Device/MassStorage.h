@@ -70,11 +70,11 @@
 			/** Current State information structure for \ref USB_ClassInfo_MS_Device_t Mass Storage device interface structures. */
 			typedef struct
 			{
-				CommandBlockWrapper_t  CommandBlock; /**< Mass Storage class command block structure, used internally
-													  *   by the class driver
+				CommandBlockWrapper_t  CommandBlock; /**< Mass Storage class command block structure, stores the received SCSI
+				                                      *   command from the host which is to be processed
 													  */
-				CommandStatusWrapper_t CommandStatus; /**< Mass Storage class command status structure, used internally
-													   *   by the class driver
+				CommandStatusWrapper_t CommandStatus; /**< Mass Storage class command status structure, set elements to indicate
+													   *   the issued command's success or failure to the host
 													   */
 
 				bool IsMassStoreReset; /**< Flag indicating that the host has requested that the Mass Storage interface be reset

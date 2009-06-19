@@ -71,7 +71,8 @@
 			{
 				bool     UsingReportProtocol; /**< Indicates if the HID interface is set to Boot or Report protocol mode */
 				uint16_t IdleCount; /**< Report idle period, in ms, set by the host */
-				uint16_t IdleMSRemaining; /**< Total number of ms remaining before the idle period elapses */			
+				uint16_t IdleMSRemaining; /**< Total number of ms remaining before the idle period elapsed - this should be
+				                           *   decremented by the user application if non-zero each millisecond */			
 			} USB_ClassInfo_HID_Device_State_t;
 
 			/** Class state structure. An instance of this structure should be made for each HID interface

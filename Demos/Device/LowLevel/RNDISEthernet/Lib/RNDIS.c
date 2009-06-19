@@ -82,7 +82,7 @@ static const uint32_t PROGMEM AdapterSupportedOIDList[]  =
  *  Supported OID list, plus the response header. The buffer is half-duplex, and is written to as it is read to save on SRAM - for this
  *  reason, care must be taken when constructing RNDIS responses that unread data is not overwritten when writing in responses.
  */
-uint8_t                 RNDISMessageBuffer[sizeof(AdapterSupportedOIDList) + sizeof(RNDIS_QUERY_CMPLT_t)];
+uint8_t                 RNDISMessageBuffer[sizeof(AdapterSupportedOIDList) + sizeof(RNDIS_Query_Complete_t)];
 
 /** Pointer to the RNDIS message header at the top of the RNDIS message buffer, for convenience. */
 RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISMessageBuffer;
@@ -112,11 +112,11 @@ void ProcessRNDISControlMessage(void)
 
 			ResponseReady = true;
 			
-			RNDIS_INITIALIZE_MSG_t*   INITIALIZE_Message  = (RNDIS_INITIALIZE_MSG_t*)&RNDISMessageBuffer;
-			RNDIS_INITIALIZE_CMPLT_t* INITIALIZE_Response = (RNDIS_INITIALIZE_CMPLT_t*)&RNDISMessageBuffer;
+			RNDIS_Initialize_Message_t*   INITIALIZE_Message  = (RNDIS_Initialize_Message_t*)&RNDISMessageBuffer;
+			RNDIS_Initialize_Complete_t* INITIALIZE_Response = (RNDIS_Initialize_Complete_t*)&RNDISMessageBuffer;
 			
 			INITIALIZE_Response->MessageType           = REMOTE_NDIS_INITIALIZE_CMPLT;
-			INITIALIZE_Response->MessageLength         = sizeof(RNDIS_INITIALIZE_CMPLT_t);
+			INITIALIZE_Response->MessageLength         = sizeof(RNDIS_Initialize_Complete_t);
 			INITIALIZE_Response->RequestId             = INITIALIZE_Message->RequestId;
 			INITIALIZE_Response->Status                = REMOTE_NDIS_STATUS_SUCCESS;
 			
@@ -125,7 +125,7 @@ void ProcessRNDISControlMessage(void)
 			INITIALIZE_Response->DeviceFlags           = REMOTE_NDIS_DF_CONNECTIONLESS;
 			INITIALIZE_Response->Medium                = REMOTE_NDIS_MEDIUM_802_3;
 			INITIALIZE_Response->MaxPacketsPerTransfer = 1;
-			INITIALIZE_Response->MaxTransferSize       = (sizeof(RNDIS_PACKET_MSG_t) + ETHERNET_FRAME_SIZE_MAX);
+			INITIALIZE_Response->MaxTransferSize       = (sizeof(RNDIS_Packet_Message_t) + ETHERNET_FRAME_SIZE_MAX);
 			INITIALIZE_Response->PacketAlignmentFactor = 0;
 			INITIALIZE_Response->AFListOffset          = 0;
 			INITIALIZE_Response->AFListSize            = 0;
@@ -147,17 +147,17 @@ void ProcessRNDISControlMessage(void)
 
 			ResponseReady = true;
 						
-			RNDIS_QUERY_MSG_t*   QUERY_Message  = (RNDIS_QUERY_MSG_t*)&RNDISMessageBuffer;
-			RNDIS_QUERY_CMPLT_t* QUERY_Response = (RNDIS_QUERY_CMPLT_t*)&RNDISMessageBuffer;
-			uint32_t             Query_Oid      = QUERY_Message->Oid;
+			RNDIS_Query_Message_t*  QUERY_Message  = (RNDIS_Query_Message_t*)&RNDISMessageBuffer;
+			RNDIS_Query_Complete_t* QUERY_Response = (RNDIS_Query_Complete_t*)&RNDISMessageBuffer;
+			uint32_t                Query_Oid      = QUERY_Message->Oid;
 						
 			void*     QueryData                 = &RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
 			                                                          QUERY_Message->InformationBufferOffset];
-			void*     ResponseData              = &RNDISMessageBuffer[sizeof(RNDIS_QUERY_CMPLT_t)];		
+			void*     ResponseData              = &RNDISMessageBuffer[sizeof(RNDIS_Query_Complete_t)];		
 			uint16_t  ResponseSize;
 
 			QUERY_Response->MessageType         = REMOTE_NDIS_QUERY_CMPLT;
-			QUERY_Response->MessageLength       = sizeof(RNDIS_QUERY_CMPLT_t);
+			QUERY_Response->MessageLength       = sizeof(RNDIS_Query_Complete_t);
 						
 			if (ProcessNDISQuery(Query_Oid, QueryData, QUERY_Message->InformationBufferLength,
 			                     ResponseData, &ResponseSize))
@@ -166,7 +166,7 @@ void ProcessRNDISControlMessage(void)
 				QUERY_Response->MessageLength          += ResponseSize;
 							
 				QUERY_Response->InformationBufferLength = ResponseSize;
-				QUERY_Response->InformationBufferOffset = (sizeof(RNDIS_QUERY_CMPLT_t) - sizeof(RNDIS_Message_Header_t));
+				QUERY_Response->InformationBufferOffset = (sizeof(RNDIS_Query_Complete_t) - sizeof(RNDIS_Message_Header_t));
 			}
 			else
 			{				
@@ -182,12 +182,12 @@ void ProcessRNDISControlMessage(void)
 		
 			ResponseReady = true;
 			
-			RNDIS_SET_MSG_t*   SET_Message  = (RNDIS_SET_MSG_t*)&RNDISMessageBuffer;
-			RNDIS_SET_CMPLT_t* SET_Response = (RNDIS_SET_CMPLT_t*)&RNDISMessageBuffer;
-			uint32_t           SET_Oid      = SET_Message->Oid;
+			RNDIS_Set_Message_t*  SET_Message  = (RNDIS_Set_Message_t*)&RNDISMessageBuffer;
+			RNDIS_Set_Complete_t* SET_Response = (RNDIS_Set_Complete_t*)&RNDISMessageBuffer;
+			uint32_t              SET_Oid      = SET_Message->Oid;
 
 			SET_Response->MessageType       = REMOTE_NDIS_SET_CMPLT;
-			SET_Response->MessageLength     = sizeof(RNDIS_SET_CMPLT_t);
+			SET_Response->MessageLength     = sizeof(RNDIS_Set_Complete_t);
 			SET_Response->RequestId         = SET_Message->RequestId;
 
 			void* SetData                   = &RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
@@ -204,10 +204,10 @@ void ProcessRNDISControlMessage(void)
 		
 			ResponseReady = true;
 			
-			RNDIS_RESET_CMPLT_t* RESET_Response = (RNDIS_RESET_CMPLT_t*)&RNDISMessageBuffer;
+			RNDIS_Reset_Complete_t* RESET_Response = (RNDIS_Reset_Complete_t*)&RNDISMessageBuffer;
 
 			RESET_Response->MessageType         = REMOTE_NDIS_RESET_CMPLT;
-			RESET_Response->MessageLength       = sizeof(RNDIS_RESET_CMPLT_t);
+			RESET_Response->MessageLength       = sizeof(RNDIS_Reset_Complete_t);
 			RESET_Response->Status              = REMOTE_NDIS_STATUS_SUCCESS;
 			RESET_Response->AddressingReset     = 0;
 
@@ -217,11 +217,11 @@ void ProcessRNDISControlMessage(void)
 		
 			ResponseReady = true;
 			
-			RNDIS_KEEPALIVE_MSG_t*   KEEPALIVE_Message  = (RNDIS_KEEPALIVE_MSG_t*)&RNDISMessageBuffer;
-			RNDIS_KEEPALIVE_CMPLT_t* KEEPALIVE_Response = (RNDIS_KEEPALIVE_CMPLT_t*)&RNDISMessageBuffer;
+			RNDIS_KeepAlive_Message_t*  KEEPALIVE_Message  = (RNDIS_KeepAlive_Message_t*)&RNDISMessageBuffer;
+			RNDIS_KeepAlive_Complete_t* KEEPALIVE_Response = (RNDIS_KeepAlive_Complete_t*)&RNDISMessageBuffer;
 
 			KEEPALIVE_Response->MessageType     = REMOTE_NDIS_KEEPALIVE_CMPLT;
-			KEEPALIVE_Response->MessageLength   = sizeof(RNDIS_KEEPALIVE_CMPLT_t);
+			KEEPALIVE_Response->MessageLength   = sizeof(RNDIS_KeepAlive_Complete_t);
 			KEEPALIVE_Response->RequestId       = KEEPALIVE_Message->RequestId;
 			KEEPALIVE_Response->Status          = REMOTE_NDIS_STATUS_SUCCESS;
 			

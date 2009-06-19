@@ -69,7 +69,7 @@
 			/** Current State information structure for \ref USB_ClassInfo_MIDI_Device_t MIDI device interface structures. */
 			typedef struct
 			{
-			
+				// No state information for this class yet
 			} USB_ClassInfo_MIDI_Device_State_t;
 	
 			/** Class state structure. An instance of this structure should be made for each MIDI interface

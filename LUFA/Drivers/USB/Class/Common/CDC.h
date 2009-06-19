@@ -123,7 +123,7 @@
 
 	/* Enums: */
 		/** Enum for the possible line encoding formats of a virtual serial port. */
-		enum CDCDevice_CDC_LineCodingFormats_t
+		enum CDC_LineCodingFormats_t
 		{
 			CDC_LINEENCODING_OneStopBit          = 0, /**< Each frame contains one stop bit */
 			CDC_LINEENCODING_OneAndAHalfStopBits = 1, /**< Each frame contains one and a half stop bits */
@@ -131,7 +131,7 @@
 		};
 		
 		/** Enum for the possible line encoding parity settings of a virtual serial port. */
-		enum CDCDevice_LineCodingParity_t
+		enum CDC_LineCodingParity_t
 		{
 			CDC_PARITY_None    = 0, /**< No parity bit mode on each frame */
 			CDC_PARITY_Odd     = 1, /**< Odd parity bit mode on each frame */
