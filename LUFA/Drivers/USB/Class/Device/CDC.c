@@ -74,7 +74,7 @@ void CDC_Device_ProcessControlPacket(USB_ClassInfo_CDC_Device_t* CDCInterfaceInf
 			{				
 				Endpoint_ClearSETUP();
 				
-				CDCInterfaceInfo->State.ControlLineState = USB_ControlRequest.wValue;
+				CDCInterfaceInfo->State.ControlLineStates.HostToDevice = USB_ControlRequest.wValue;
 				
 				EVENT_CDC_Device_ControLineStateChanged(CDCInterfaceInfo);
 
@@ -178,7 +178,7 @@ uint8_t CDC_Device_ReceiveByte(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 	return DataByte;
 }
 
-void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, uint16_t LineStateMask)
+void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 {
 	if (!(USB_IsConnected))
 	  return;
@@ -195,7 +195,7 @@ void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* CDCInterf
 		};
 
 	Endpoint_Write_Stream_LE(&Notification, sizeof(Notification), NO_STREAM_CALLBACK);
-	Endpoint_Write_Stream_LE(&LineStateMask, sizeof(LineStateMask), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_LE(&CDCInterfaceInfo->State.ControlLineStates.DeviceToHost, sizeof(uint8_t), NO_STREAM_CALLBACK);
 	Endpoint_ClearIN();
 }
 

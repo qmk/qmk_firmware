@@ -13,20 +13,37 @@
  *  If you have a project that you would like to add to this list, please contact me via the details on the main page of this
  *  documentation.
  *
+ *  \section Sec_BoardsUsingLUFA AVR-USB Development Boards Using LUFA
  *
- *  - Benito #7, an AVR Programmer: http://www.dorkbotpdx.org/blog/feurig/benito_7_the_next_big_thing
+ *  The following is a list of known AVR USB development boards, which recommend using LUFA for the USB stack. Some of these
+ *  are open design, and all are available for purchase as completed development boards suitable for project development.
+ *
+ *  - AVROpendous, an open design/source set of AVR USB development boards: http://avropendous.org/
+ *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
+ *  - USBFoo, an AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102
+ *  - USB10 AKA "The Ferret", a AT90USB162 development board: http://www.soc-machines.com
+ * 
+ *  \section Sec_LUFAProjects Projects Using LUFA (Hobbyist)
+ *
+ *  The following are hobbyist projects using LUFA. Most are open source, and show off interesting ways that the LUFA library
+ *  can be incorporated into many different applications.
+ *
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
- *  - USB10 AKA "The Ferret", a USB162 development board: http://www.soc-machines.com
+ *  - Benito #7, an AVR Programmer: http://www.dorkbotpdx.org/blog/feurig/benito_7_the_next_big_thing
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
- *  - Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
- *  - ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
- *  - Lightweight CC110x USB dongle for 868MHz Protocols: http://busware.de/tiki-index.php?page=CUL
- *  - AVROpendous, an open design/source AT90USB162 development board: http://avropendous.org/
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  - USB to Serial Bridge, via SPI and I2C: http://www.tty1.net/userial/
- *  - Teensy, another tiny AT90USB162 development board: http://www.pjrc.com/teensy/index.html
  *  - SEGA Megadrive/Genesis Development Cartridge: http://www.spritesmind.net/_GenDev/forum/viewtopic.php?t=464
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
  *  - Opendous-JTAG, an open source JTAG device: http://code.google.com/p/opendous-jtag/
  *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
+ * 
+ *  \section Sec_LUFACommercialProjects Projects Using LUFA (Commercial)
+ *
+ *  The following is a list of known commercial products using LUFA. Some of these are open source, although many are "black-box"
+ *  solutions with no source code given.
+ *
+ *  - ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
+ *  - Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
+ *  - Lightweight CC110x USB dongle for 868MHz Protocols: http://busware.de/tiki-index.php?page=CUL
  */

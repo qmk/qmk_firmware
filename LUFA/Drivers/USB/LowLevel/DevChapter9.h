@@ -35,12 +35,24 @@
 		#include <avr/io.h>
 		#include <avr/pgmspace.h>
 		#include <avr/eeprom.h>
+		#include <avr/boot.h>
+		#include <stdlib.h>
+		#include <ctype.h>
 		
 		#include "../HighLevel/StdDescriptors.h"
 		#include "../HighLevel/Events.h"
 		#include "../HighLevel/StdRequestType.h"
 		#include "../HighLevel/USBTask.h"
 		#include "LowLevel.h"
+
+	/* Preprocessor Checks: */
+		#if defined(USE_INTERNAL_SERIAL) && !(defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
+			#error USE_INTERNAL_SERIAL invalid, the selected AVR model does not contain unique serial bytes.
+		#endif
+		
+		#if defined(USE_INTERNAL_SERIAL) && (USE_INTERNAL_SERIAL <= 1)
+			#error USE_INTERNAL_SERIAL must be defined to the string descriptor index chosen for the serial number descriptor.
+		#endif
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

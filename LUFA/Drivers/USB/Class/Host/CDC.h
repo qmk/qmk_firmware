@@ -68,8 +68,16 @@
 				uint16_t DataOUTPipeSize;  /**< Size in bytes of the CDC interface's OUT data pipe */
 				uint16_t NotificationPipeSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
 
-				uint8_t  ControlLineState; /**< Current control line states */
-
+				struct
+				{
+					uint8_t HostToDevice; /**< Control line states from the host to device, as a set of CDC_CONTROL_LINE_OUT_*
+					                       *   masks.
+					                       */
+					uint8_t DeviceToHost; /**< Control line states from the device to host, as a set of CDC_CONTROL_LINE_IN_*
+					                       *   masks.
+					                       */
+				} ControlLineStates;
+				
 				struct
 				{
 					uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
@@ -80,7 +88,7 @@
 										  *   CDCDevice_LineCodingParity_t enum
 										  */
 					uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
-				} LineEncoding;			
+				} LineEncoding;
 			} USB_ClassInfo_CDC_Host_State_t;
 
 			/** Class state structure. An instance of this structure should be made within the user application,
@@ -138,6 +146,16 @@
 				static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* CurrentDescriptor);
 				static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor);
 			#endif
+
+			void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+			
+			uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+			
+			void CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Data, uint16_t Length);
+			void CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data);
+			uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+			uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 	
 	#endif
 				

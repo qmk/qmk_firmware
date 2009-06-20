@@ -244,7 +244,13 @@
 				                                          */
 				uint8_t                 SerialNumStrIndex; /**< String index for the product's globally unique hexadecimal
 				                                            *   serial number, in uppercase Unicode ASCII.
-				                                            *
+															*
+															*  \note On some AVR models, there is an embedded serial number
+															*        in the chip which can be used for the device serial number.
+				                                            *        To use this serial number, define USE_INTERNAL_SERIAL to a
+															*        unique string index number in the project makefile and set
+															*        this value to USE_INTERNAL_SERIAL.
+															*
 				                                            *  \see ManufacturerStrIndex structure entry.
 				                                            */
 

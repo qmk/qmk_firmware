@@ -265,7 +265,7 @@ void CDC_Task(void)
 			while (!(Endpoint_IsReadWriteAllowed()));
 			
 			/* Write the bytes from the buffer to the endpoint while space is available */
-			while (Tx_Buffer.Elements && (Endpoint_BytesInEndpoint() < CDC_TXRX_EPSIZE))
+			while (Tx_Buffer.Elements && Endpoint_IsReadWriteAllowed())
 			{
 				/* Write each byte retreived from the buffer to the endpoint */
 				Endpoint_Write_Byte(Buffer_GetElement(&Tx_Buffer));

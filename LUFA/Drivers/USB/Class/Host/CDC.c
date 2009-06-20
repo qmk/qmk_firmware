@@ -71,7 +71,6 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(USB_ClassInfo_CDC_Host_t* CDCInt
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, 
 				                              DComp_CDC_Host_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
-					/* Descriptor not found, error out */
 					return CDC_ENUMERROR_NoCDCInterfaceFound;
 				}
 			}
@@ -149,10 +148,12 @@ static uint8_t DComp_CDC_Host_NextCDCControlInterface(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		/* Check the CDC descriptor class, subclass and protocol, break out if correct control interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == CDC_CONTROL_CLASS)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == CDC_CONTROL_SUBCLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == CDC_CONTROL_PROTOCOL))
+		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
+		                                                                USB_Descriptor_Interface_t);
+	
+		if ((CurrentInterface->Class    == CDC_CONTROL_CLASS)    &&
+		    (CurrentInterface->SubClass == CDC_CONTROL_SUBCLASS) &&
+			(CurrentInterface->Protocol == CDC_CONTROL_PROTOCOL))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -165,10 +166,12 @@ static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		/* Check the CDC descriptor class, subclass and protocol, break out if correct data interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == CDC_DATA_CLASS)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == CDC_DATA_SUBCLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == CDC_DATA_PROTOCOL))
+		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
+		                                                                USB_Descriptor_Interface_t);
+	
+		if ((CurrentInterface->Class    == CDC_DATA_CLASS)    &&
+		    (CurrentInterface->SubClass == CDC_DATA_SUBCLASS) &&
+			(CurrentInterface->Protocol == CDC_DATA_PROTOCOL))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -181,8 +184,10 @@ static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescript
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
-		uint8_t EndpointType = (DESCRIPTOR_CAST(CurrentDescriptor,
-		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
+		USB_Descriptor_Endpoint_t* CurrentEndpoint = DESCRIPTOR_PCAST(CurrentDescriptor,
+		                                                              USB_Descriptor_Endpoint_t)
+	
+		uint8_t EndpointType = (CurrentEndpoint->Attributes & EP_TYPE_MASK);
 	
 		if ((EndpointType == EP_TYPE_BULK) || (EndpointType == EP_TYPE_INTERRUPT))
 		  return DESCRIPTOR_SEARCH_Found;
@@ -215,7 +220,6 @@ void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-				
 			USB_HostState = HOST_STATE_Ready;
 			break;
 	}

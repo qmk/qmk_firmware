@@ -71,7 +71,15 @@
 			/** Current State information structure for \ref USB_ClassInfo_CDC_Device_t CDC device interface structures. */
 			typedef struct
 			{
-				uint8_t  ControlLineState; /**< Current control line states, as set by the host */
+				struct
+				{
+					uint8_t HostToDevice; /**< Control line states from the host to device, as a set of CDC_CONTROL_LINE_OUT_*
+					                       *   masks.
+					                       */
+					uint8_t DeviceToHost; /**< Control line states from the device to host, as a set of CDC_CONTROL_LINE_IN_*
+					                       *   masks.
+					                       */
+				} ControlLineStates;
 
 				struct
 				{
@@ -143,8 +151,8 @@
 			/** CDC class driver event for a control line state change on a CDC interface. This event fires each time the host requests a
 			 *  control line state change (containing the virtual serial control line states, such as DTR) and may be hooked in the
 			 *  user program by declaring a handler function with the same name and parameters listed here. The new control line states
-			 *  are available in the ControlLineState value inside the CDC interface structure passed as a parameter, set as a mask of
-			 *  CDC_CONTROL_LINE_OUT_* masks.
+			 *  are available in the ControlLineStates.HostToDevice value inside the CDC interface structure passed as a parameter, set as
+			 *  a mask of CDC_CONTROL_LINE_OUT_* masks.
 			 *
 			 *  \param CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 */		
@@ -185,14 +193,14 @@
 			 */
 			uint8_t CDC_Device_ReceiveByte(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo);
 			
-			/** Sends a Serial Control Line State Change notification to the host. This should be called when the virtual serial control
-			 *  lines (DCD, DSR, etc.) have changed states, or to give BREAK notfications to the host. Line states persist until they are
-			 *  cleared via a second notification.
+			/** Sends a Serial Control Line State Change notification to the host. This should be called when the virtual serial
+			 *  control lines (DCD, DSR, etc.) have changed states, or to give BREAK notfications to the host. Line states persist
+			 *  until they are cleared via a second notification. This should be called each time the CDC class driver's 
+			 *  ControlLineStates.DeviceToHost value is updated to push the new states to the USB host.
 			 *
 			 *  \param CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
-			 *  \param LineStateMask  Mask of CDC_CONTROL_LINE_IN_* masks giving the current control line states
 			 */
-			void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, uint16_t LineStateMask);
+			void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

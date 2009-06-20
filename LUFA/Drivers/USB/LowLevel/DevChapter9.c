@@ -179,6 +179,36 @@ static void USB_Device_GetDescriptor(void)
 	void*    DescriptorPointer;
 	uint16_t DescriptorSize;
 	
+	#if defined(USE_INTERNAL_SERIAL)
+	if (USB_ControlRequest.wValue == ((DTYPE_String << 8) | USE_INTERNAL_SERIAL))
+	{
+		uint8_t SignatureDescriptor[2 + (sizeof(int16_t) * 20)];
+
+		SignatureDescriptor[0] = sizeof(SignatureDescriptor);
+		SignatureDescriptor[1] = DTYPE_String;
+		
+		uint16_t* SigUnicodeChars = (uint16_t*)&SignatureDescriptor[2];
+
+		for (uint8_t SerialByteNum = 0; SerialByteNum < 10; SerialByteNum++)
+		{
+			char ConvSigString[3];
+
+			itoa(boot_signature_byte_get(0x0E + SerialByteNum), ConvSigString, 16);
+			
+			SigUnicodeChars[0] = toupper(ConvSigString[0]);
+			SigUnicodeChars[1] = toupper(ConvSigString[1]);
+			
+			SigUnicodeChars += 2;
+		}
+		
+		Endpoint_ClearSETUP();
+		Endpoint_Write_Control_Stream_LE(SignatureDescriptor, sizeof(SignatureDescriptor));
+		Endpoint_ClearOUT();
+
+		return;
+	}
+	#endif
+	
 	if ((DescriptorSize = CALLBACK_USB_GetDescriptor(USB_ControlRequest.wValue, USB_ControlRequest.wIndex,
 	                                                 &DescriptorPointer)) == NO_DESCRIPTOR)
 	{
@@ -186,7 +216,7 @@ static void USB_Device_GetDescriptor(void)
 	}
 	
 	Endpoint_ClearSETUP();
-	
+
 	#if defined(USE_RAM_DESCRIPTORS)
 	Endpoint_Write_Control_Stream_LE(DescriptorPointer, DescriptorSize);
 	#else

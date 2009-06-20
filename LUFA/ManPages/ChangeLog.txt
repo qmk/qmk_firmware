@@ -8,7 +8,7 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
-  *  - Removed psuedo-scheduler, dynamic memory block allocator from the library (no longer needed and not used respectively)
+  *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)
   *  - Added new class drivers and matching demos to the library for rapid application development
   *  - Added incomplete device and host mode demos for later enhancement
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed
@@ -28,6 +28,7 @@
   *    cleared to prevent endpoint type corruption
   *  - Fix documentation mentioning Pipe_GetCurrentToken() function when real name is Pipe_GetPipeToken()
   *  - Extend USB_GetDeviceConfigDescriptor() routine to require the configuration number within the device to fetch
+  *  - Added new USE_INTERNAL_SERIAL compile time option
   *
   *  \section Sec_ChangeLog090605 Version 090605
   *
