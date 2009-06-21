@@ -47,8 +47,7 @@
 
 		#include "Descriptors.h"
 
-		#include <LUFA/Version.h>                    // Library Version Information
-		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
+		#include <LUFA/Drivers/USB/USB.h>
 		
 	/* Preprocessor Checks: */
 		#if !defined(__AVR_AT90USB162__)

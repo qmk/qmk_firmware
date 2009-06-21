@@ -424,9 +424,9 @@ void CDC_Task(void)
 		}
 		else if (Command == 's')
 		{
-			WriteNextResponseByte(SIGNATURE_2);		
-			WriteNextResponseByte(SIGNATURE_1);
-			WriteNextResponseByte(SIGNATURE_0);
+			WriteNextResponseByte(AVR_SIGNATURE_3);		
+			WriteNextResponseByte(AVR_SIGNATURE_2);
+			WriteNextResponseByte(AVR_SIGNATURE_1);
 		}
 		else if (Command == 'b')
 		{

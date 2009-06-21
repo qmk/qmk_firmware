@@ -40,6 +40,46 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
+		#if defined(__AVR_AT90USB1286__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x97
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_AT90USB1287__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x97
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_AT90USB646__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x96
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_AT90USB647__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x96
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_AT90USB162__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_AT90USB82__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x82
+		#elif defined(__AVR_ATmega32U6__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x95
+			#define AVR_SIGNATURE_3               0x88
+		#elif defined(__AVR_ATmega32U4__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x95
+			#define AVR_SIGNATURE_3               0x87
+		#elif defined(__AVR_ATmega16U4__)
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x88
+		#else
+			#error The selected AVR part is not currently supported by this bootloader.
+		#endif
+
 		/** Structure for a CDC class Functional descriptor, with a given data size. This is used instead of a
 		 *  type define so that the same macro can be used for functional descriptors of varying data lengths,
 		 *  while allowing the sizeof() operator to return correct results.

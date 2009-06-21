@@ -65,22 +65,49 @@
 
 		#if defined(__AVR_AT90USB1286__)
 			#define PRODUCT_ID_CODE               0x2FFB
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x97
+			#define AVR_SIGNATURE_3               0x82
 		#elif defined(__AVR_AT90USB1287__)
 			#define PRODUCT_ID_CODE               0x2FFB
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x97
+			#define AVR_SIGNATURE_3               0x82
 		#elif defined(__AVR_AT90USB646__)
 			#define PRODUCT_ID_CODE               0x2FF9
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x96
+			#define AVR_SIGNATURE_3               0x82
 		#elif defined(__AVR_AT90USB647__)
 			#define PRODUCT_ID_CODE               0x2FF9
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x96
+			#define AVR_SIGNATURE_3               0x82
 		#elif defined(__AVR_AT90USB162__)
 			#define PRODUCT_ID_CODE               0x2FFA
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x82
 		#elif defined(__AVR_AT90USB82__)
 			#define PRODUCT_ID_CODE               0x2FF7
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x82
 		#elif defined(__AVR_ATmega32U6__)
 			#define PRODUCT_ID_CODE               0x2FFB
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x95
+			#define AVR_SIGNATURE_3               0x88
 		#elif defined(__AVR_ATmega32U4__)
 			#define PRODUCT_ID_CODE               0x2FF4
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x95
+			#define AVR_SIGNATURE_3               0x87
 		#elif defined(__AVR_ATmega16U4__)
 			#define PRODUCT_ID_CODE               0x2FF3
+			#define AVR_SIGNATURE_1               0x1E
+			#define AVR_SIGNATURE_2               0x94
+			#define AVR_SIGNATURE_3               0x88
 		#else
 			#error The selected AVR part is not currently supported by this bootloader.
 		#endif
