@@ -80,13 +80,11 @@
  *  compatibility. If this token is defined, the structure element names are switched to the LUFA-specific but more descriptive
  *  names documented in the StdDescriptors.h source file.
  *
- *  <b>USE_INTERNAL_SERIAL</b> - ( \ref Group_Descriptors ) \n
+ *  <b>NO_INTERNAL_SERIAL</b> - ( \ref Group_Descriptors ) \n
  *  Some AVR models contain a unique 20-digit serial number which can be used as the device serial number, while in device mode. This
  *  allows the host to uniquely identify the device regardless of if it is moved between USB ports on the same computer, allowing
- *  allocated resources (such as drivers, COM Port number allocations) to be preserved. To make the library use this value for the
- *  device's serial number, define this token in the project makefile, set it to a unique string descriptor index (i.e. one not used
- *  elsewhere in the device for a string descriptor) and set the Device Descriptor's serial number descriptor index entry to the
- *  USE_INTERNAL_SERIAL value.
+ *  allocated resources (such as drivers, COM Port number allocations) to be preserved. This is not needed in many apps, and so the
+ *  code that performs this task can be disabled by defining this option and passing it to the compiler via the -D switch.
  *
  *  <b>FIXED_CONTROL_ENDPOINT_SIZE</b> - ( \ref Group_EndpointManagement ) \n
  *  By default, the library determines the size of the control endpoint (when in device mode) by reading the device descriptor.

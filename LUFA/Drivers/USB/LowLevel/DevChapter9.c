@@ -179,7 +179,7 @@ static void USB_Device_GetDescriptor(void)
 	void*    DescriptorPointer;
 	uint16_t DescriptorSize;
 	
-	#if defined(USE_INTERNAL_SERIAL)
+	#if !defined(NO_INTERNAL_SERIAL) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 	if (USB_ControlRequest.wValue == ((DTYPE_String << 8) | USE_INTERNAL_SERIAL))
 	{
 		uint8_t SignatureDescriptor[2 + (sizeof(int16_t) * 12)];

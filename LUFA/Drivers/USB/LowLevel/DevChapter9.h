@@ -45,21 +45,12 @@
 		#include "../HighLevel/USBTask.h"
 		#include "LowLevel.h"
 
-	/* Preprocessor Checks: */
-		#if defined(USE_INTERNAL_SERIAL) && !(defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
-			#error USE_INTERNAL_SERIAL invalid, the selected AVR model does not contain unique serial bytes.
-		#endif
-		
-		#if defined(USE_INTERNAL_SERIAL) && (USE_INTERNAL_SERIAL <= 1)
-			#error USE_INTERNAL_SERIAL must be defined to the string descriptor index chosen for the serial number descriptor.
-		#endif
-
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
 		#endif
 
-	/* Public Interface - May be used in end-application: */
+	/* Public Interface - May be used in end-application: */			
 		/* Global Variables: */
 			/** Indicates the currently set configuration number of the device. USB devices may have several
 			 *  different configurations which the host can select between; this indicates the currently selected

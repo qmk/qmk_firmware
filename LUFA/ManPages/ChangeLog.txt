@@ -28,7 +28,8 @@
   *    cleared to prevent endpoint type corruption
   *  - Fix documentation mentioning Pipe_GetCurrentToken() function when real name is Pipe_GetPipeToken()
   *  - Extend USB_GetDeviceConfigDescriptor() routine to require the configuration number within the device to fetch
-  *  - Added new USE_INTERNAL_SERIAL compile time option
+  *  - Added new USE_INTERNAL_SERIAL define for using the unique serial numbers in some AVR models as the USB device's serial number,
+  *    added NO_INTERNAL_SERIAL compile time option to turn off new serial number reading code
   *
   *  \section Sec_ChangeLog090605 Version 090605
   *
