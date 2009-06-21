@@ -22,6 +22,7 @@
  *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
  *  - USBFoo, an AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102
  *  - USB10 AKA "The Ferret", a AT90USB162 development board: http://www.soc-machines.com
+ *  - Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/blog/feurig/benito_7_the_next_big_thing
  * 
  *  \section Sec_LUFAProjects Projects Using LUFA (Hobbyist)
  *
@@ -29,7 +30,6 @@
  *  can be incorporated into many different applications.
  *
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
- *  - Benito #7, an AVR Programmer: http://www.dorkbotpdx.org/blog/feurig/benito_7_the_next_big_thing
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  - USB to Serial Bridge, via SPI and I2C: http://www.tty1.net/userial/

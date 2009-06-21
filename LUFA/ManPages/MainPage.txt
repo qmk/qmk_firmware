@@ -5,11 +5,15 @@
  */
 
 /**
- *  \mainpage General Information
+ *  \mainpage
  *
- *  Lightweight USB Framework for AVRs Library, written by Dean Camera. 
+ *  \n
+ *  \image html LUFA.gif "The Lightweight USB Framework for AVRs"
+ *  \n
  *
- *  Originally based on the AT90USBKEY from Atmel, it is an open-source USB library for the USB-enabled AVR
+ *  For author and donation information, see \ref Page_Donating.
+ *
+ *  Originally based on the AT90USBKEY from Atmel, LUFA is an open-source USB library for the USB-enabled AVR
  *  microcontrollers, released under the MIT license. It now supports a large number of USB AVR models and boards.
  *
  *  The library is currently in a stable release, suitable for download and incorporation into user projects for
@@ -19,7 +23,6 @@
  *  library API more streamlined and robust. You can download AVR-GCC for free in a convenient windows package, 
  *  from the the WinAVR website.
  *
- *  \section Sec_Demos Demos, Projects and Bootloaders
  *  The LUFA library ships with several different host and device demos, located in the /Demos/ subdirectory.
  *  If this directory is missing, please re-download the project from the project homepage.
  *
@@ -34,4 +37,7 @@
  *  <b>Subsections:</b>
  *  - \subpage Page_Licence Project License
  *  - \subpage Page_Donating Donating to Support this Project
+ *
+ *
+ *  <small><i>Logo design by Pavla Dlab</i></small>
  */
