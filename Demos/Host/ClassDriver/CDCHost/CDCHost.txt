@@ -40,7 +40,7 @@
  *  
  *  This demo prints out received CDC data through the serial port.
  *  
- *  Not that this demo is only compatible with devices which report the correct CDC
+ *  Note that this demo is only compatible with devices which report the correct CDC
  *  and ACM class, subclass and protocol values. Most USB-Serial cables have vendor
  *  specific features, thus use vendor-specific class/subclass/protocol codes to force
  *  the user to use specialized drivers. This demo is not compatible with such devices.

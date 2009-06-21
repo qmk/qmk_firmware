@@ -47,7 +47,7 @@
  *
  *  \note If desired, the macro DISABLE_TERMINAL_CODES can be defined in the project makefile and passed to the GCC
  *        compiler via the -D switch to disable the terminal codes without modifying the source, for use with non
- *        compatible terminals (any terminal code then equate to empty strings).
+ *        compatible terminals (any terminal codes then equate to empty strings).
  *
  *  Example Usage:
  *  \code

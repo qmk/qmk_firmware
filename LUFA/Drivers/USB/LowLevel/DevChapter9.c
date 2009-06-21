@@ -182,14 +182,14 @@ static void USB_Device_GetDescriptor(void)
 	#if defined(USE_INTERNAL_SERIAL)
 	if (USB_ControlRequest.wValue == ((DTYPE_String << 8) | USE_INTERNAL_SERIAL))
 	{
-		uint8_t SignatureDescriptor[2 + (sizeof(int16_t) * 20)];
+		uint8_t SignatureDescriptor[2 + (sizeof(int16_t) * 12)];
 
 		SignatureDescriptor[0] = sizeof(SignatureDescriptor);
 		SignatureDescriptor[1] = DTYPE_String;
 		
 		uint16_t* SigUnicodeChars = (uint16_t*)&SignatureDescriptor[2];
 
-		for (uint8_t SerialByteNum = 0; SerialByteNum < 10; SerialByteNum++)
+		for (uint8_t SerialByteNum = 0; SerialByteNum < 6; SerialByteNum++)
 		{
 			char ConvSigString[3];
 

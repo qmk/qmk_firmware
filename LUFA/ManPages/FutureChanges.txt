@@ -24,4 +24,5 @@
   *  - Master LUFA include file
   *  - Debug mode for pipe/endpoint calls
   *  - Add hub support to match Atmel's stack
+  *  - Update Host mode Class Driver demo .txt files
   */
