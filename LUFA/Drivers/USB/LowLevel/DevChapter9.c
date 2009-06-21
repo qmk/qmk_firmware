@@ -182,27 +182,49 @@ static void USB_Device_GetDescriptor(void)
 	#if !defined(NO_INTERNAL_SERIAL) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 	if (USB_ControlRequest.wValue == ((DTYPE_String << 8) | USE_INTERNAL_SERIAL))
 	{
-		uint8_t SignatureDescriptor[2 + (sizeof(int16_t) * 12)];
-
-		SignatureDescriptor[0] = sizeof(SignatureDescriptor);
-		SignatureDescriptor[1] = DTYPE_String;
-		
-		uint16_t* SigUnicodeChars = (uint16_t*)&SignatureDescriptor[2];
-
-		for (uint8_t SerialByteNum = 0; SerialByteNum < 6; SerialByteNum++)
+		struct
 		{
-			char ConvSigString[3];
+			USB_Descriptor_Header_t Header;
+			int16_t                 UnicodeString[12];
+		} SignatureDescriptor;
 
-			itoa(boot_signature_byte_get(0x0E + SerialByteNum), ConvSigString, 16);
+		#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
+			SignatureDescriptor.Header.Size            = sizeof(SignatureDescriptor);
+			SignatureDescriptor.Header.Type            = DTYPE_String;
+		#else
+			SignatureDescriptor.Header.bLength         = sizeof(SignatureDescriptor);
+			SignatureDescriptor.Header.bDescriptorType = DTYPE_String;
+		#endif
+		
+		uint8_t  SigReadAddress  = 0x0E;		
+		bool     OddRead         = false;
+
+		for (uint8_t SerialCharNum = 0; SerialCharNum < 12; SerialCharNum++)
+		{
+			uint8_t SerialByte = boot_signature_byte_get(SigReadAddress);
 			
-			SigUnicodeChars[0] = toupper(ConvSigString[0]);
-			SigUnicodeChars[1] = toupper(ConvSigString[1]);
+			if (OddRead)
+			{
+				SerialByte >>= 4;
+				SigReadAddress++;
+			}
+			else
+			{
+				SerialByte &= 0x0F;
+			}
 			
-			SigUnicodeChars += 2;
+			OddRead = !(OddRead);
+
+			if (SerialByte < 0x0A)
+			  SerialByte += '0';
+			else
+			  SerialByte += ('A' - 0x0A);
+
+			SignatureDescriptor.UnicodeString[SerialCharNum] = SerialByte;
 		}
 		
 		Endpoint_ClearSETUP();
-		Endpoint_Write_Control_Stream_LE(SignatureDescriptor, sizeof(SignatureDescriptor));
+		Endpoint_Write_Control_Stream_LE(&SignatureDescriptor, sizeof(SignatureDescriptor));
 		Endpoint_ClearOUT();
 
 		return;
