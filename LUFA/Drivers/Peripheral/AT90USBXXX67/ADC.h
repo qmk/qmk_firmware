@@ -163,8 +163,33 @@
 			 */
 			static inline void ADC_SetupChannel(const uint8_t Channel)
 			{
+				#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
+					 defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
+					 defined(__AVR_ATmega32U6__))				
 				DDRF  &= ~(1 << Channel);
 				DIDR0 |=  (1 << Channel);
+				#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+				if (Channel < 8)
+				{
+					DDRF  &= ~(1 << Channel);
+					DIDR0 |=  (1 << Channel);
+				}
+				else if (Channel == 8)
+				{
+					DDRD  &= ~(1 << 4);
+					DIDR2 |=  (1 << 0);
+				}
+				else if (Channel < 11)
+				{
+					DDRD  &= ~(1 << (Channel - 3));
+					DIDR2 |=  (1 << (Channel - 8));
+				}
+				else
+				{
+					DDRB  &= ~(1 << (Channel - 7));
+					DIDR2 |=  (1 << (Channel - 8));
+				}
+				#endif
 			}
 			
 			/** Starts the reading of the given channel, but does not wait until the conversion has completed.

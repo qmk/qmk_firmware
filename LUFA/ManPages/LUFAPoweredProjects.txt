@@ -19,24 +19,25 @@
  *  are open design, and all are available for purchase as completed development boards suitable for project development.
  *
  *  - AVROpendous, an open design/source set of AVR USB development boards: http://avropendous.org/
- *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
+ *  - Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/blog/feurig/benito_7_the_next_big_thing
  *  - USBFoo, an AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102
  *  - USB10 AKA "The Ferret", a AT90USB162 development board: http://www.soc-machines.com
- *  - Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/blog/feurig/benito_7_the_next_big_thing
+ *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
  * 
  *  \section Sec_LUFAProjects Projects Using LUFA (Hobbyist)
  *
  *  The following are hobbyist projects using LUFA. Most are open source, and show off interesting ways that the LUFA library
  *  can be incorporated into many different applications.
  *
- *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
- *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
- *  - USB to Serial Bridge, via SPI and I2C: http://www.tty1.net/userial/
- *  - SEGA Megadrive/Genesis Development Cartridge: http://www.spritesmind.net/_GenDev/forum/viewtopic.php?t=464
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
  *  - Opendous-JTAG, an open source JTAG device: http://code.google.com/p/opendous-jtag/
  *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
+ *  - Reprap with LUFA, a LUFA powered 3D printer: http://code.google.com/p/at90usb1287-code-for-arduino-and-eclipse/
+ *  - SEGA Megadrive/Genesis Development Cartridge: http://www.spritesmind.net/_GenDev/forum/viewtopic.php?t=464
+ *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
+ *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
+ *  - USB to Serial Bridge, via SPI and I2C: http://www.tty1.net/userial/
  * 
  *  \section Sec_LUFACommercialProjects Projects Using LUFA (Commercial)
  *

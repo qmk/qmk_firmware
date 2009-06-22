@@ -36,8 +36,6 @@
 		#include <avr/pgmspace.h>
 		#include <avr/eeprom.h>
 		#include <avr/boot.h>
-		#include <stdlib.h>
-		#include <ctype.h>
 		
 		#include "../HighLevel/StdDescriptors.h"
 		#include "../HighLevel/Events.h"

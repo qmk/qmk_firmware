@@ -44,7 +44,7 @@ int main(void)
 	SetupHardware();
 	
 	puts_P(PSTR(ESC_RESET ESC_BG_WHITE ESC_INVERSE_ON ESC_ERASE_DISPLAY
-	       "LUFA Demo running.\r\n" ESC_INVERSE_OFF));
+	            "LUFA Demo running.\r\n" ESC_INVERSE_OFF));
 
 	for (;;)
 	{
