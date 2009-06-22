@@ -13,8 +13,8 @@
  *
  *  For author and donation information, see \ref Page_Donating.
  *
- *  Originally based on the AT90USBKEY from Atmel, LUFA is an open-source USB library for the USB-enabled AVR
- *  microcontrollers, released under the MIT license. It now supports a large number of USB AVR models and boards.
+ *  LUFA is an open-source USB library for the USB-enabled AVR microcontrollers, released under the MIT license. It supports
+ *  a large number of USB AVR models and boards (see \ref Page_DeviceSupport).
  *
  *  The library is currently in a stable release, suitable for download and incorporation into user projects for
  *  both host and device modes. For information about the project progression, check out my blog.
@@ -23,20 +23,13 @@
  *  library API more streamlined and robust. You can download AVR-GCC for free in a convenient windows package, 
  *  from the the WinAVR website.
  *
- *  The LUFA library ships with several different host and device demos, located in the /Demos/ subdirectory.
- *  If this directory is missing, please re-download the project from the project homepage.
- *
- *  Also included with the library are three fully functional bootloaders, located in the /Bootloaders/ subdirectory.
- *  The DFU class bootloader is compatible with Atmel's FLIP software or the open source dfu-programmer project, the
- *  CDC class (AVR109 protocol) is compatible with such open source software as AVRDUDE and AVR-OSP, and the TeensyLoader
- *  HID class bootloader is compatible with the software from PJRC (http://www.pjrc.com/teensy/index.html).
- *
- *  User-submitted projects are located in the /Projects/ subdirectory. If you wish to have your LUFA project included,
- *  please email it to the Library author.
+ *  Accompanying LUFA in the download package is a set of example demo applications, plus several Bootloaders (DFU, CDC and HID
+ *  class) and open source LUFA powered projects.
  *
  *  <b>Subsections:</b>
  *  - \subpage Page_Licence Project License
  *  - \subpage Page_Donating Donating to Support this Project
+ *  - \subpage Page_Apps Project Demos, Bootloaders and Projects
  *
  *
  *  <small><i>Logo design by Pavla Dlab</i></small>

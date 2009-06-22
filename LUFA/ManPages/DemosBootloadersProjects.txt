@@ -1,0 +1,92 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page Page_Apps Library Demos, Projects and Bootloaders
+ *
+ *  The LUFA library ships with several different host and device demos, located in the /Demos/ subdirectory.
+ *  If this directory is missing, please re-download the project from the project homepage. Within this directory the demos
+ *  are seperated by USB mode (Device, Host, OTG) and further seperated by the use or non-use of the library USB Class drivers.
+ *
+ *  Also included with the library are three fully functional bootloaders, located in the /Bootloaders/ subdirectory.
+ *  The DFU class bootloader is compatible with Atmel's FLIP software or the open source dfu-programmer project, the
+ *  CDC class (AVR109 protocol) is compatible with such open source software as AVRDUDE and AVR-OSP, and the TeensyLoader
+ *  HID class bootloader is compatible with the software from PJRC (http://www.pjrc.com/teensy/index.html).
+ *
+ *  User-submitted projects are located in the /Projects/ subdirectory. If you wish to have your LUFA project included,
+ *  please email it to the Library author.
+ *
+ *  \section Sec_AppOverview Overview of Included Library Applications
+ *  The following shows the folder structure of the included library applications, including demos, bootloaders and user-submitted
+ *  open source projects.
+ *
+ *  <small>
+ *
+ *  - <b>Demos</b>
+ *    - <b>Device</b>
+ *      - <b>ClassDriver</b>
+ *        - <b>AudioInput</b> - Audio In (microphone) demo, using the library USB Audio Class driver framework.
+ *        - <b>AudioOutput</b> - Audio Out (speaker) demo, using the library USB Audio Class driver framework
+ *        - <b>CDC</b> - Virtual Serial Port demo, using the library USB CDC Class driver framework
+ *        - <b>DualCDC</b> - Dual Virtual Serial Port demo, using the library USB CDC Class driver framework
+ *        - <b>GenericHID</b> - Generic Human Interface Class demo, using the library USB HID Class driver framework
+ *        - <b>Joystick</b> - USB Joystick demo, using the library USB HID Class driver framework
+ *        - <b>Keyboard</b> - USB Keyboard demo, using the library USB HID Class driver framework
+ *        - <b>KeyboardMouse</b> - Dual Keyboard/Mouse demo, using the library USB HID Class driver framework
+ *        - <b>MassStorage</b> - Dual Drive Mass Storage demo, using the library USB Mass Storage Class driver framework
+ *        - <b>MIDI</b> - MIDI In demo, using the library USB MIDI-Audio Class driver framework
+ *        - <b>Mouse</b> - USB Mouse demo, using the library USB HID driver framework
+ *        - <b>RNDISEthernet</b> - RNDIS Ethernet Webserver demo, using the library USB RNDIS driver framework
+ *        - <b>USBtoSerial</b> - USB to USART Serial converter demo, using the library USB CDC driver framework
+ *      - <b>LowLevel</b>
+ *        - <b>AudioInput</b> - Audio In (microphone) demo, using the low level LUFA APIs to implement the USB Audio class
+ *        - <b>AudioOutput</b> - Audio Out (speaker) demo, using the low level LUFA APIs to implement the USB Audio class
+ *        - <b>CDC</b> - Virtual Serial Port demo, using the low level LUFA APIs to implement the USB CDC class
+ *        - <b>DualCDC</b> - Dual Virtual Serial Port demo, using the low level LUFA APIs to implement the USB CDC class
+ *        - <b>GenericHID</b> - Generic Human Interface Class demo, using the low level LUFA APIs to implement the USB HID class
+ *        - <b>Joystick</b> - USB Joystick demo, using the low level LUFA APIs to implement the USB HID class
+ *        - <b>Keyboard</b> - USB Keyboard demo, using the low level LUFA APIs to implement the USB HID class
+ *        - <b>KeyboardMouse</b> - Dual Keyboard/Mouse demo, using the low level LUFA APIs to implement the USB HID class
+ *        - <b>MassStorage</b> - Dual Drive Mass Storage demo, using the low level LUFA APIs to implement the USB Mass Storage class
+ *        - <b>MIDI</b> - MIDI In demo, using the low level LUFA APIs to implement the USB MIDI-Audio class
+ *        - <b>Mouse</b> - USB Mouse demo, using the low level LUFA APIs to implement the USB HID class
+ *        - <b>RNDISEthernet</b> - RNDIS Ethernet Webserver demo, using the low level LUFA APIs to implement the USB RNDIS class
+ *        - <b>USBtoSerial</b> - USB to USART Serial converter demo, using the low level LUFA APIs to implement the USB CDC class
+ *      - <b>Incomplete</b>
+ *        - <b>SideShow</b> - Incomplete Windows SideShow demo, using the low level LUFA APIs to implement the USB SideShow class
+ *    - <b>Host</b>
+ *      - <b>ClassDriver</b>
+ *        - <b>CDCHost</b> - Virtual Serial Port host demo, using the library USB CDC Class driver framework
+ *        - <b>GenericHIDHost</b> - Generic HID host demo, using the library USB HID Class driver framework
+ *        - <b>KeyboardHost</b> - USB Keyboard host demo, using the library USB HID Class driver framework
+ *        - <b>KeyboardHostWithParser</b> - USB Keyboard host demo with HID Descriptor parser, using the library USB HID Class
+ *                                          driver framework
+ *        - <b>MassStorageHost</b> - Mass Storage host demo, using the library USB Mass Storage Class driver framework
+ *        - <b>MouseHost</b> - Mouse host demo, using the library USB HID Class driver framework
+ *        - <b>MouseHostWithParser</b> - Mouse host demo with HID Descriptor parser, using the library USB HID Class driver framework
+ *        - <b>StillImageHost</b> - Still Image Camera host demo, using the library USB Still Image Class driver framework
+ *      - <b>LowLevel</b>
+ *        - <b>CDCHost</b> - Virtual Serial Port host demo, using the low level LUFA APIs to implement the USB CDC class
+ *        - <b>GenericHIDHost</b> - Generic HID host demo, using the low level LUFA APIs to implement the USB HID class
+ *        - <b>KeyboardHost</b> - USB Keyboard host demo, using the low level LUFA APIs to implement the USB HID class
+ *        - <b>KeyboardHostWithParser</b> - USB Keyboard host demo with HID Descriptor parser, using the low level LUFA APIs to
+ *                                          implement the USB HID class
+ *        - <b>MassStorageHost</b> - Mass Storage host demo, using the low level LUFA APIs to implement the USB Mass Storage class
+ *        - <b>MouseHost</b> - Mouse host demo, using the low level LUFA APIs to implement the USB HID class
+ *        - <b>MouseHostWithParser</b> - Mouse host demo with HID Descriptor parser, using the low level LUFA APIs to implement the
+ *                                       USB HID class
+ *        - <b>StillImageHost</b> - Still Image Camera host demo, using the low level LUFA APIs to implement the USB Still Image class
+ *      - <b>Incomplete</b>
+ *        - <b>BluetoothHost</b> - Incomplete Bluetooth host demo, using the low level LUFA APIs to implement the USB Bluetooth class
+ *  - <b>Bootloaders</b>
+ *    - <b>DFU</b> - DFU Class USB bootloader, compatible with Atmel's FLIP and the open source dfu-programmer software
+ *    - <b>CDC</b> - CDC Class USB bootloader, compatible with any AVR910 protocol programming software such as AVRDude
+ *    - <b>TeensyHID</b> - HID Class bootloader, compatible with the PJRC TeensyLoader software
+ *  - <b>Projects</b>
+ *    - <b>Magstripe</b> - Magnetic Stripe Card Reader project
+ *    - <b>MissileLaucher</b> - Toy Missile Launcher Host project
+ *
+ *  </small>
+ */

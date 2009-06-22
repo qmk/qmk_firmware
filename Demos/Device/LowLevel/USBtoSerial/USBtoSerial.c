@@ -237,7 +237,7 @@ void CDC_Task(void)
 		if (Endpoint_IsOUTReceived())
 		{
 			/* Read the bytes in from the endpoint into the buffer while space is available */
-			while (Endpoint_BytesInEndpoint() && (BUFF_STATICSIZE - Rx_Buffer.Elements))
+			while (Endpoint_BytesInEndpoint() && (Rx_Buffer.Elements != BUFF_STATICSIZE))
 			{
 				/* Store each character from the endpoint */
 				Buffer_StoreElement(&Rx_Buffer, Endpoint_Read_Byte());
