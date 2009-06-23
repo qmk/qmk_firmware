@@ -128,6 +128,43 @@
 			uint8_t      SenseKeySpecific[3];
 		} SCSI_Request_Sense_Response_t;
 
+		/** Type define for a SCSI Inquiry structure. Structures of this type are filled out by the
+		 *  device via the MassStore_Inquiry() function, retrieving the attached device's information.
+		 *  For details of the structure contents, refer to the SCSI specifications.
+		 */
+		typedef struct
+		{
+			unsigned char DeviceType          : 5;
+			unsigned char PeripheralQualifier : 3;
+			
+			unsigned char _RESERVED1          : 7;
+			unsigned char Removable           : 1;
+			
+			uint8_t      Version;
+			
+			unsigned char ResponseDataFormat  : 4;
+			unsigned char _RESERVED2          : 1;
+			unsigned char NormACA             : 1;
+			unsigned char TrmTsk              : 1;
+			unsigned char AERC                : 1;
+
+			uint8_t      AdditionalLength;
+			uint8_t      _RESERVED3[2];
+
+			unsigned char SoftReset           : 1;
+			unsigned char CmdQue              : 1;
+			unsigned char _RESERVED4          : 1;
+			unsigned char Linked              : 1;
+			unsigned char Sync                : 1;
+			unsigned char WideBus16Bit        : 1;
+			unsigned char WideBus32Bit        : 1;
+			unsigned char RelAddr             : 1;
+			
+			uint8_t      VendorID[8];
+			uint8_t      ProductID[16];
+			uint8_t      RevisionID[4];
+		} SCSI_Inquiry_Response_t;
+		
 		/** SCSI capacity structure, to hold the total capacity of the device in both the number
 		 *  of blocks in the current LUN, and the size of each block. This structure is filled by
 		 *  the device when the MassStore_ReadCapacity() function is called.
@@ -161,6 +198,8 @@
 		uint8_t MassStore_MassStorageReset(void);
 		uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex);
 		uint8_t MassStore_RequestSense(const uint8_t LUNIndex, const SCSI_Request_Sense_Response_t* const SensePtr)
+		                               ATTR_NON_NULL_PTR_ARG(2);
+		uint8_t MassStore_Inquiry(const uint8_t LUNIndex, const SCSI_Inquiry_Response_t* const InquiryPtr)
 		                               ATTR_NON_NULL_PTR_ARG(2);
 		uint8_t MassStore_ReadDeviceBlock(const uint8_t LUNIndex, const uint32_t BlockAddress,
 		                                  const uint8_t Blocks, const uint16_t BlockSize, void* BufferPtr) ATTR_NON_NULL_PTR_ARG(5);

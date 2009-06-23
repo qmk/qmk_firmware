@@ -301,6 +301,69 @@ uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex)
 	return ErrorCode;
 }
 
+/** Issues a SCSI Inquiry command to the attached device, to determine the device's information. This
+ *  gives information on the device's capabilities.
+ *
+ *  \param LUNIndex    Index of the LUN inside the device the command is being addressed to
+ *  \param InquiryPtr  Pointer to the inquiry data structure where the inquiry data from the device is to be stored
+ *
+ *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
+ */
+uint8_t MassStore_Inquiry(const uint8_t LUNIndex, const SCSI_Inquiry_Response_t* const InquiryPtr)
+{
+	uint8_t ReturnCode = PIPE_RWSTREAM_NoError;
+
+	/* Create a CBW with a SCSI command to issue INQUIRY command */
+	SCSICommandBlock = (CommandBlockWrapper_t)
+		{
+			.Header =
+				{
+					.Signature          = CBW_SIGNATURE,
+					.Tag                = MassStore_Tag,
+					.DataTransferLength = sizeof(SCSI_Inquiry_Response_t),
+					.Flags              = COMMAND_DIRECTION_DATA_IN,
+					.LUN                = LUNIndex,
+					.SCSICommandLength  = 6
+				},
+					
+			.SCSICommandData =
+				{
+					SCSI_CMD_INQUIRY,
+					0x00,                   // Reserved
+					0x00,                   // Reserved
+					0x00,                   // Reserved
+					sizeof(SCSI_Inquiry_Response_t), // Allocation Length
+					0x00                    // Unused (control)
+				}
+		};
+	
+	/* Send SCSI command to the attached device */
+	MassStore_SendCommand();
+
+	/* Wait until data received from the device */
+	if ((ReturnCode = MassStore_WaitForDataReceived()) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ReturnCode;
+	}
+
+	/* Read the returned sense data into the buffer */
+	if ((ReturnCode = MassStore_SendReceiveData((uint8_t*)InquiryPtr)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ReturnCode;
+	}	
+	
+	/* Read in the returned CSW from the device */
+	if ((ReturnCode = MassStore_GetReturnedStatus()) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ReturnCode;
+	}
+	
+	return PIPE_RWSTREAM_NoError;
+}
+
 /** Issues a SCSI Request Sense command to the attached device, to determine the current SCSI sense information. This
  *  gives error codes for the last issued SCSI command to the device.
  *

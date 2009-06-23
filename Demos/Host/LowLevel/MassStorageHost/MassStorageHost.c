@@ -191,7 +191,7 @@ void MassStorage_Task(void)
 			}
 			
 			/* Print number of LUNs detected in the attached device */
-			printf_P(PSTR("Total LUNs: %d.\r\n"), (MassStore_MaxLUNIndex + 1));
+			printf_P(PSTR("Total LUNs: %d - Using first LUN in device.\r\n"), (MassStore_MaxLUNIndex + 1));
 			
 			/* Reset the Mass Storage device interface, ready for use */
 			if ((ErrorCode = MassStore_MassStorageReset()) != HOST_SENDCONTROL_Successful)
@@ -216,9 +216,20 @@ void MassStorage_Task(void)
 				break;
 			}
 
-			puts_P(PSTR("Waiting until ready.."));
+			/* Get inquiry data from the device */
+			SCSI_Inquiry_Response_t InquiryData;
+			if (((ErrorCode = MassStore_Inquiry(0, &InquiryData)) != 0) || (SCSICommandStatus.Status != Command_Pass))
+			{
+				ShowDiskReadError(PSTR("Inquiry"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+				break;
+			}
 			
+			/* Print vendor and product names of attached device */
+			printf_P(PSTR("Vendor: %s, Product: %s\r\n"), InquiryData.VendorID, InquiryData.ProductID);
+						
 			/* Wait until disk ready */
+			puts_P(PSTR("Waiting until ready.."));
+
 			do
 			{
 				Serial_TxByte('.');
