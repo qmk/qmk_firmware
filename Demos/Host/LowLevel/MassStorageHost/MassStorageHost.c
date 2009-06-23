@@ -224,8 +224,17 @@ void MassStorage_Task(void)
 				break;
 			}
 			
+			/* VendorID and ProductID are fixed-length non-null terminated strings - need to terminate them before displaying */
+			char VendorID[9];
+			char ProductID[17];
+			
+			memcpy(&VendorID, &InquiryData.VendorID, 8);
+			memcpy(&ProductID, &InquiryData.ProductID, 16);
+			VendorID[8]   = 0x00;
+			ProductID[16] = 0x00;
+
 			/* Print vendor and product names of attached device */
-			printf_P(PSTR("Vendor: %s, Product: %s\r\n"), InquiryData.VendorID, InquiryData.ProductID);
+			printf_P(PSTR("Vendor \"%s\", Product \"%s\"\r\n"), VendorID, ProductID);
 						
 			/* Wait until disk ready */
 			puts_P(PSTR("Waiting until ready.."));
