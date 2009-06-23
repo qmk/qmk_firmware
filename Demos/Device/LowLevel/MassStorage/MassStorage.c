@@ -218,9 +218,6 @@ void MassStorage_Task(void)
 					Endpoint_ClearStall();
 					Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
 					Endpoint_ClearStall();
-
-					/* Clear the abort transfer flag */
-					IsMassStoreReset = false;
 				}
 
 				/* Indicate ready */
@@ -232,6 +229,9 @@ void MassStorage_Task(void)
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			}
 		}
+
+		/* Clear the abort transfer flag */
+		IsMassStoreReset = false;
 	}
 }
 

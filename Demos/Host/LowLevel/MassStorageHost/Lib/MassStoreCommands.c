@@ -90,6 +90,7 @@ static uint8_t MassStore_SendCommand(void)
 	/* Send the data in the OUT pipe to the attached device */
 	Pipe_ClearOUT();
 	
+	/* Wait until command has been sent */
 	while(!(Pipe_IsOUTReady()));
 
 	/* Freeze pipe after use */

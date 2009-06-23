@@ -31,9 +31,11 @@
   *  - Added new USE_INTERNAL_SERIAL define for using the unique serial numbers in some AVR models as the USB device's serial number,
   *    added NO_INTERNAL_SERIAL compile time option to turn off new serial number reading code
   *  - Fixed ADC driver for the ATMEGA32U4 and ATMEGA16U4 (thanks to Opendous Inc.)
+  *  - Fixed CDCHost demo unfreezing the pipes at the point of configuration, rather than use
   *  - Pipe stream functions now automatically set the correct pipe token, so that bidirectional pipes can be used
   *  - Pipe_ConfigurePipe() now automatically defaults IN pipes to accepting infinite IN requests, this can still be changed by calling
   *    the existing \ref Pipe_SetFiniteINRequests() function
+  *  - Fixed MassStorage demo not clearing the reset flag when a Mass Storage Reset is issued while not processing a command
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

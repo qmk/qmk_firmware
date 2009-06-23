@@ -131,11 +131,11 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 				Endpoint_ClearStall();
 				Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
 				Endpoint_ClearStall();
-
-				MSInterfaceInfo->State.IsMassStoreReset = false;
 			}
 		}
 	}
+	
+	MSInterfaceInfo->State.IsMassStoreReset = false;
 }
 
 static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
