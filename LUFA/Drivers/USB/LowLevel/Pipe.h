@@ -730,7 +730,9 @@
 			 *
 			 *  The banking mode may be either \ref PIPE_BANK_SINGLE or \ref PIPE_BANK_DOUBLE.
 			 *
-			 *  A newly configured pipe is frozen by default, and must be unfrozen before use via the \ref Pipe_Unfreeze() macro.
+			 *  A newly configured pipe is frozen by default, and must be unfrozen before use via the \ref Pipe_Unfreeze()
+			 *  before being used. Pipes should be kept frozen unless waiting for data from a device while in IN mode, or
+			 *  sending data to the device in OUT mode.
 			 *
 			 *  \note The default control pipe does not have to be manually configured, as it is automatically
 			 *  configured by the library internally.
@@ -762,6 +764,9 @@
 			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
 			 *  disabled and this function has the Callback parameter omitted.
 			 *
+			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
+			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
+			 *
 			 *  \ingroup Group_PipeRW
 			 *
 			 *  \param Buffer    Pointer to the source data buffer to read from.
@@ -785,6 +790,9 @@
 			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
 			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
 			 *  disabled and this function has the Callback parameter omitted.
+			 *
+			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
+			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
 			 *
 			 *  \ingroup Group_PipeRW
 			 *
@@ -810,6 +818,9 @@
 			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
 			 *  disabled and this function has the Callback parameter omitted.
 			 *
+			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
+			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
+			 *
 			 *  \ingroup Group_PipeRW
 			 *
 			 *  \param Length  Number of bytes to send via the currently selected pipe.
@@ -832,6 +843,9 @@
 			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
 			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
 			 *  disabled and this function has the Callback parameter omitted.
+			 *
+			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
+			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
 			 *
 			 *  \ingroup Group_PipeRW
 			 *
@@ -856,6 +870,9 @@
 			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
 			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
 			 *  disabled and this function has the Callback parameter omitted.
+			 *
+			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
+			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
 			 *
 			 *  \ingroup Group_PipeRW
 			 *

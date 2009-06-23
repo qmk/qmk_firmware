@@ -25,4 +25,5 @@
   *  - Debug mode for pipe/endpoint calls
   *  - Add hub support to match Atmel's stack
   *  - Update Host mode Class Driver demo .txt files
+  *  - Stream reads - return number of bytes not read?
   */

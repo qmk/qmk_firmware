@@ -176,10 +176,14 @@ void CDC_Host_Task(void)
 		case HOST_STATE_Ready:
 			/* Select and the data IN pipe */
 			Pipe_SelectPipe(CDC_DATAPIPE_IN);
+			Pipe_Unfreeze();
 
 			/* Check to see if a packet has been received */
 			if (Pipe_IsINReceived())
 			{
+				/* Re-freeze IN pipe after the packet has been received */
+				Pipe_Freeze();
+
 				/* Check if data is in the pipe */
 				if (Pipe_IsReadWriteAllowed())
 				{
@@ -198,6 +202,9 @@ void CDC_Host_Task(void)
 				/* Clear the pipe after it is read, ready for the next packet */
 				Pipe_ClearIN();
 			}
+
+			/* Re-freeze IN pipe after use */
+			Pipe_Freeze();
 
 			/* Select and unfreeze the notification pipe */
 			Pipe_SelectPipe(CDC_NOTIFICATIONPIPE);

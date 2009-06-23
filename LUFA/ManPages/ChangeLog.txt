@@ -31,6 +31,7 @@
   *  - Added new USE_INTERNAL_SERIAL define for using the unique serial numbers in some AVR models as the USB device's serial number,
   *    added NO_INTERNAL_SERIAL compile time option to turn off new serial number reading code
   *  - Fixed ADC driver for the ATMEGA32U4 and ATMEGA16U4 (thanks to Opendous Inc.)
+  *  - Pipe stream functions now automatically set the correct pipe token, so that bidirectional pipes can be used
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

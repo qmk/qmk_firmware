@@ -155,7 +155,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
 
 				Pipe_SetInfiniteINRequests();
-				Pipe_Unfreeze();
 				
 				/* Set the flag indicating that the data IN pipe has been found */
 				FoundEndpoints |= (1 << CDC_DATAPIPE_IN);
@@ -165,8 +164,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 				/* Configure the data OUT pipe */
 				Pipe_ConfigurePipe(CDC_DATAPIPE_OUT, EP_TYPE_BULK, PIPE_TOKEN_OUT,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-				
-				Pipe_Unfreeze();
 				
 				/* Set the flag indicating that the data OUT pipe has been found */
 				FoundEndpoints |= (1 << CDC_DATAPIPE_OUT);
