@@ -103,8 +103,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 			Pipe_ConfigurePipe(HID_DATA_IN_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
 							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
 
-			Pipe_SetInfiniteINRequests();
-			
 			FoundEndpoints |= (1 << HID_DATA_IN_PIPE);
 		}
 		else

@@ -32,6 +32,8 @@
   *    added NO_INTERNAL_SERIAL compile time option to turn off new serial number reading code
   *  - Fixed ADC driver for the ATMEGA32U4 and ATMEGA16U4 (thanks to Opendous Inc.)
   *  - Pipe stream functions now automatically set the correct pipe token, so that bidirectional pipes can be used
+  *  - Pipe_ConfigurePipe() now automatically defaults IN pipes to accepting infinite IN requests, this can still be changed by calling
+  *    the existing \ref Pipe_SetFiniteINRequests() function
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

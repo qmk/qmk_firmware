@@ -732,7 +732,9 @@
 			 *
 			 *  A newly configured pipe is frozen by default, and must be unfrozen before use via the \ref Pipe_Unfreeze()
 			 *  before being used. Pipes should be kept frozen unless waiting for data from a device while in IN mode, or
-			 *  sending data to the device in OUT mode.
+			 *  sending data to the device in OUT mode. IN type pipes are also automatically configured to accept infinite
+			 *  numbers of IN requests without automatic freezing - this can be overridden by a call to
+			 *  \ref Pipe_SetFiniteINRequests().
 			 *
 			 *  \note The default control pipe does not have to be manually configured, as it is automatically
 			 *  configured by the library internally.

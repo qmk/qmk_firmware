@@ -138,7 +138,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 				Pipe_ConfigurePipe(CDC_NOTIFICATIONPIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
 
-				Pipe_SetInfiniteINRequests();
 				Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
 				
 				/* Set the flag indicating that the notification pipe has been found */
@@ -153,8 +152,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 				/* Configure the data IN pipe */
 				Pipe_ConfigurePipe(CDC_DATAPIPE_IN, EP_TYPE_BULK, PIPE_TOKEN_IN,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-
-				Pipe_SetInfiniteINRequests();
 				
 				/* Set the flag indicating that the data IN pipe has been found */
 				FoundEndpoints |= (1 << CDC_DATAPIPE_IN);

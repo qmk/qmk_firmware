@@ -162,8 +162,6 @@ void USB_Host_ProcessNextHostState(void)
 				break;
 			}
 
-			Pipe_SetInfiniteINRequests();
-			
 			USB_ControlRequest = (USB_Request_Header_t)
 				{
 					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),

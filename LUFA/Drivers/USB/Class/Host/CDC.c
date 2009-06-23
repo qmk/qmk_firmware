@@ -109,7 +109,6 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(USB_ClassInfo_CDC_Host_t* CDCInt
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
 				CDCInterfaceInfo->State.NotificationPipeSize = EndpointData->EndpointSize;
 
-				Pipe_SetInfiniteINRequests();
 				Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
 				
 				FoundEndpoints |= CDC_FOUND_DATAPIPE_NOTIFICATION;
@@ -123,9 +122,6 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(USB_ClassInfo_CDC_Host_t* CDCInt
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
 				CDCInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
 
-				Pipe_SetInfiniteINRequests();
-				Pipe_Unfreeze();
-				
 				FoundEndpoints |= CDC_FOUND_DATAPIPE_IN;
 			}
 			else
@@ -133,8 +129,6 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(USB_ClassInfo_CDC_Host_t* CDCInt
 				Pipe_ConfigurePipe(CDCInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
 				CDCInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
-				
-				Pipe_Unfreeze();
 				
 				FoundEndpoints |= CDC_FOUND_DATAPIPE_OUT;
 			}

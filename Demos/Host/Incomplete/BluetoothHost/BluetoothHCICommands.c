@@ -96,7 +96,6 @@ void Bluetooth_ProcessHCICommands(void)
 	{
 		case Bluetooth_Init:
 			Pipe_SelectPipe(BLUETOOTH_EVENTS_PIPE);
-			Pipe_SetInfiniteINRequests();
 			
 			memset(&Bluetooth_Connection, 0x00, sizeof(Bluetooth_Connection));
 							   

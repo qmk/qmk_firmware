@@ -86,7 +86,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize,
 								   PIPE_BANK_SINGLE);
 
-				Pipe_SetInfiniteINRequests();
 				Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
 				
 				/* Set the flag indicating that the events notification pipe has been found */
@@ -101,8 +100,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 				Pipe_ConfigurePipe(BLUETOOTH_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize,
 								   PIPE_BANK_SINGLE);
-
-				Pipe_SetInfiniteINRequests();
 
 				/* Set the flag indicating that the data IN pipe has been found */
 				FoundEndpoints |= (1 << BLUETOOTH_DATA_IN_PIPE);

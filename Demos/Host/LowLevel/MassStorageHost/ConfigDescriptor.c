@@ -98,8 +98,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
 			                   PIPE_BANK_DOUBLE);
 
-			Pipe_SetInfiniteINRequests();
-
 			/* Set the flag indicating that the data IN pipe has been found */
 			FoundEndpoints |= (1 << MASS_STORE_DATA_IN_PIPE);
 		}

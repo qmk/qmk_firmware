@@ -102,8 +102,6 @@ uint8_t ProcessConfigurationDescriptor(void)
 	Pipe_ConfigurePipe(KEYBOARD_DATAPIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
 	                   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
 
-	Pipe_SetInfiniteINRequests();
-			
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;
 }
