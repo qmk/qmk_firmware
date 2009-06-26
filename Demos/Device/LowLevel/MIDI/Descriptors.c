@@ -104,11 +104,11 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 	
 	.AudioControlInterface_SPC = 
 		{
-			.Header                   = {.Size = sizeof(USB_AudioInterface_AC_t), .Type = DTYPE_AudioInterface},
+			.Header                   = {.Size = sizeof(USB_Audio_Interface_AC_t), .Type = DTYPE_AudioInterface},
 			.Subtype                  = DSUBTYPE_Header,
 			
 			.ACSpecification          = VERSION_BCD(01.00),
-			.TotalLength              = sizeof(USB_AudioInterface_AC_t),
+			.TotalLength              = sizeof(USB_Audio_Interface_AC_t),
 			
 			.InCollection             = 1,
 			.InterfaceNumbers         = {1},			
@@ -132,7 +132,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		
 	.AudioStreamInterface_SPC = 
 		{
-			.Header                   = {.Size = sizeof(USB_AudioInterface_MIDI_AS_t), .Type = DTYPE_AudioInterface},
+			.Header                   = {.Size = sizeof(USB_Audio_Interface_MIDI_AS_t), .Type = DTYPE_AudioInterface},
 			.Subtype                  = DSUBTYPE_General,
 
 			.AudioSpecification       = VERSION_BCD(01.00),
@@ -196,7 +196,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Endpoint = 
 				{
-					.Header              = {.Size = sizeof(USB_AudioStreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
+					.Header              = {.Size = sizeof(USB_Audio_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
 
 					.EndpointAddress     = (ENDPOINT_DESCRIPTOR_DIR_OUT | MIDI_STREAM_OUT_EPNUM),
 					.Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -221,7 +221,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Endpoint = 
 				{
-					.Header              = {.Size = sizeof(USB_AudioStreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
+					.Header              = {.Size = sizeof(USB_Audio_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
 
 					.EndpointAddress     = (ENDPOINT_DESCRIPTOR_DIR_IN | MIDI_STREAM_IN_EPNUM),
 					.Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),

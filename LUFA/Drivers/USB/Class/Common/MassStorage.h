@@ -75,7 +75,7 @@
 			uint8_t  LUN; /**< Logical Unit number this command is issued to */
 			uint8_t  SCSICommandLength; /**< Length of the issued SCSI command within the SCSI command data array */
 			uint8_t  SCSICommandData[16]; /**< Issued SCSI command in the Command Block */
-		} CommandBlockWrapper_t;
+		} MS_CommandBlockWrapper_t;
 		
 		/** Type define for a Command Status Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
 		typedef struct
@@ -84,7 +84,7 @@
 			uint32_t Tag; /**< Unique command ID value, to associate a command block wrapper with its command status wrapper */
 			uint32_t DataTransferResidue; /**< Number of bytes of data not processed in the SCSI command */
 			uint8_t  Status; /**< Status code of the issued command - a value from the MassStorage_CommandStatusCodes_t enum */
-		} CommandStatusWrapper_t;
+		} MS_CommandStatusWrapper_t;
 		
 	/* Enums: */
 		/** Enum for the possible command status wrapper return status codes. */

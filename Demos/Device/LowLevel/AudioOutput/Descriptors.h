@@ -168,7 +168,7 @@
 			
 			uint8_t                   InCollection; /**< Total number of audio class interfaces within this device */
 			uint8_t                   InterfaceNumbers[1]; /**< Interface numbers of each audio interface */
-		} USB_AudioInterface_AC_t;
+		} USB_Audio_Interface_AC_t;
 		
 		/** Type define for an Audio class specific Feature Unit descriptor. This indicates to the host what features
 		 *  are present in the device's audio stream for basic control, such as per-channel volume. See the USB Audio
@@ -186,7 +186,7 @@
 			uint8_t                   ChannelControls[3]; /**< Feature masks for the control channel, and each separate audio channel */
 			
 			uint8_t                   FeatureUnitStrIndex; /**< Index of a string descriptor describing this descriptor within the device */
-		} USB_AudioFeatureUnit_t;
+		} USB_Audio_FeatureUnit_t;
 
 		/** Type define for an Audio class specific input terminal descriptor. This indicates to the host that the device
 		 *  contains an input audio source, either from a physical terminal on the device, or a logical terminal (for example,
@@ -207,7 +207,7 @@
 			
 			uint8_t                   ChannelStrIndex; /**< Index of a string descriptor describing this channel within the device */
 			uint8_t                   TerminalStrIndex; /**< Index of a string descriptor describing this descriptor within the device */
-		} USB_AudioInputTerminal_t;
+		} USB_Audio_InputTerminal_t;
 
 		/** Type define for an Audio class specific output terminal descriptor. This indicates to the host that the device
 		 *  contains an output audio sink, either to a physical terminal on the device, or a logical terminal (for example,
@@ -226,7 +226,7 @@
 			uint8_t                   SourceID; /**< ID value of the unit this terminal's audio is sourced from */
 			
 			uint8_t                   TerminalStrIndex; /**< Index of a string descriptor describing this descriptor within the device */
-		} USB_AudioOutputTerminal_t;
+		} USB_Audio_OutputTerminal_t;
 		
 		/** Type define for an Audio class specific streaming interface descriptor. This indicates to the host
 		 *  how audio streams within the device are formatted. See the USB Audio specification for more details.
@@ -240,7 +240,7 @@
 			
 			uint8_t                   FrameDelay; /**< Delay in frames resulting from the complete sample processing from input to output */
 			uint16_t                  AudioFormat; /**< Format of the audio stream, see Audio Device Formats specification */
-		} USB_AudioInterface_AS_t;
+		} USB_Audio_Interface_AS_t;
 		
 		/** Type define for a 24bit audio sample frequency structure. GCC does not contain a built in 24bit datatype,
 		 *  this this structure is used to build up the value instead. Fill this structure with the SAMPLE_FREQ() macro.
@@ -249,7 +249,7 @@
 		{
 			uint16_t                  LowWord; /**< Low 16 bits of the 24-bit value */
 			uint8_t                   HighByte; /**< Upper 8 bits of the 24-bit value */
-		} AudioSampleFreq_t;
+		} Audio_SampleFreq_t;
 
 		/** Type define for an Audio class specific audio format descriptor. This is used to give the host full details
 		 *  about the number of channels, the sample resolution, acceptable sample frequencies and encoding method used
@@ -267,8 +267,8 @@
 			uint8_t                   BitResolution; /**< Bits of resolution of each channel's samples in the stream */
 
 			uint8_t                   SampleFrequencyType; /**< Total number of sample frequencies supported by the device */			
-			AudioSampleFreq_t         SampleFrequencies[1]; /**< Sample frequencies supported by the device */
-		} USB_AudioFormat_t;
+			Audio_SampleFreq_t        SampleFrequencies[1]; /**< Sample frequencies supported by the device */
+		} USB_Audio_Format_t;
 		
 		/** Type define for an Audio class specific endpoint descriptor. This contains a regular endpoint 
 		 *  descriptor with a few Audio-class specific extensions. See the USB Audio specification for more details.
@@ -279,7 +279,7 @@
 
 			uint8_t                   Refresh; /**< Always set to zero */
 			uint8_t                   SyncEndpointNumber; /**< Endpoint address to send synchronisation information to, if needed (zero otherwise) */
-		} USB_AudioStreamEndpoint_Std_t;
+		} USB_Audio_StreamEndpoint_Std_t;
 					
 		/** Type define for an Audio class specific extended endpoint descriptor. This contains extra information
 		 *  on the usage of endpoints used to stream audio in and out of the USB Audio device, and follows an Audio
@@ -294,7 +294,7 @@
 
 			uint8_t                   LockDelayUnits; /**< Units used for the LockDelay field, see Audio class specification */
 			uint16_t                  LockDelay; /**< Time required to internally lock endpoint's internal clock recovery circuitry */
-		} USB_AudioStreamEndpoint_Spc_t;	
+		} USB_Audio_StreamEndpoint_Spc_t;	
 
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -304,15 +304,15 @@
 		{
 			USB_Descriptor_Configuration_Header_t Config;
 			USB_Descriptor_Interface_t            AudioControlInterface;
-			USB_AudioInterface_AC_t               AudioControlInterface_SPC;
-			USB_AudioInputTerminal_t              InputTerminal;
-			USB_AudioOutputTerminal_t             OutputTerminal;
+			USB_Audio_Interface_AC_t              AudioControlInterface_SPC;
+			USB_Audio_InputTerminal_t             InputTerminal;
+			USB_Audio_OutputTerminal_t            OutputTerminal;
 			USB_Descriptor_Interface_t            AudioStreamInterface_Alt0;
 			USB_Descriptor_Interface_t            AudioStreamInterface_Alt1;
-			USB_AudioInterface_AS_t               AudioStreamInterface_SPC;
-			USB_AudioFormat_t                     AudioFormat;
-			USB_AudioStreamEndpoint_Std_t         AudioEndpoint;
-			USB_AudioStreamEndpoint_Spc_t         AudioEndpoint_SPC;
+			USB_Audio_Interface_AS_t              AudioStreamInterface_SPC;
+			USB_Audio_Format_t                    AudioFormat;
+			USB_Audio_StreamEndpoint_Std_t        AudioEndpoint;
+			USB_Audio_StreamEndpoint_Spc_t        AudioEndpoint_SPC;
 		} USB_Descriptor_Configuration_t;
 		
 	/* Function Prototypes: */

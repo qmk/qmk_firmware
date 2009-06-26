@@ -53,60 +53,49 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Type Defines: */
-			/** Configuration information structure for \ref USB_ClassInfo_RNDIS_Device_t RNDIS device interface structures. */
-			typedef struct
-			{
-				uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
-
-				uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
-				uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
-
-				uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
-				uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
-
-				uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
-				uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
-				
-				char*         AdapterVendorDescription; /**< String description of the adapter vendor */
-				MAC_Address_t AdapterMACAddress; /**< MAC address of the adapter */
-			} USB_ClassInfo_MS_Device_Config_t;
-			
-			/** Current State information structure for \ref USB_ClassInfo_RNDIS_Device_t RNDIS device interface structures. */
-			typedef struct
-			{
-				uint8_t  RNDISMessageBuffer[RNDIS_MESSAGE_BUFFER_SIZE]; /**< Buffer to hold RNDIS messages to and from the host,
-																		 *   managed by the class driver
-																		 */
-				bool     ResponseReady; /**< Internal flag indicating if a RNDIS message is waiting to be returned to the host */
-				uint8_t  CurrRNDISState; /**< Current RNDIS state of the adapter, a value from the RNDIS_States_t enum */
-				uint32_t CurrPacketFilter; /**< Current packet filter mode, used internally by the class driver */
-				Ethernet_Frame_Info_t FrameIN; /**< Structure holding the last received Ethernet frame from the host, for user
-												*   processing
-												*/
-				Ethernet_Frame_Info_t FrameOUT; /**< Structure holding the next Ethernet frame to send to the host, populated by the
-												 *   user application
-												 */
-			} USB_ClassInfo_MS_Device_State_t;
-					 
+		/* Type Defines: */					 
 			/** Class state structure. An instance of this structure should be made for each RNDIS interface
 			 *  within the user application, and passed to each of the RNDIS class driver functions as the
 			 *  RNDISInterfaceInfo parameter. This stores each RNDIS interface's configuration and state information.
 			 */
 			typedef struct
 			{
-				const USB_ClassInfo_MS_Device_Config_t Config; /**< Config data for the USB class interface within
-				                                                *   the device. All elements in this section
-				                                                *   <b>must</b> be set or the interface will fail
-				                                                *   to enumerate and operate correctly.
-				                                                */
-															 
-				USB_ClassInfo_MS_Device_State_t State; /**< State data for the USB class interface within
-				                                        *   the device. All elements in this section
-				                                        *   <b>may</b> be set to initial values, but may
-				                                        *   also be ignored to default to sane values when
-				                                        *   the interface is enumerated.
-				                                        */
+				const struct
+				{
+					uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
+
+					uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
+					uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
+
+					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
+					uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
+
+					uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
+					uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
+					
+					char*         AdapterVendorDescription; /**< String description of the adapter vendor */
+					MAC_Address_t AdapterMACAddress; /**< MAC address of the adapter */
+				} Config; /**< Config data for the USB class interface within the device. All elements in this section
+				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
+				           */
+				struct
+				{
+					uint8_t  RNDISMessageBuffer[RNDIS_MESSAGE_BUFFER_SIZE]; /**< Buffer to hold RNDIS messages to and from the host,
+																			 *   managed by the class driver
+																			 */
+					bool     ResponseReady; /**< Internal flag indicating if a RNDIS message is waiting to be returned to the host */
+					uint8_t  CurrRNDISState; /**< Current RNDIS state of the adapter, a value from the RNDIS_States_t enum */
+					uint32_t CurrPacketFilter; /**< Current packet filter mode, used internally by the class driver */
+					Ethernet_Frame_Info_t FrameIN; /**< Structure holding the last received Ethernet frame from the host, for user
+													*   processing
+													*/
+					Ethernet_Frame_Info_t FrameOUT; /**< Structure holding the next Ethernet frame to send to the host, populated by the
+													 *   user application
+													 */
+				} State; /**< State data for the USB class interface within the device. All elements in this section
+				          *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
+				          *   the interface is enumerated.
+				          */
 			} USB_ClassInfo_RNDIS_Device_t;
 	
 		/* Function Prototypes: */

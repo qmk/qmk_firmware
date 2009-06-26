@@ -53,65 +53,54 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
-			/** Configuration information structure for \ref USB_ClassInfo_CDC_Device_t CDC device interface structures. */
-			typedef struct
-			{
-				uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
-
-				uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
-				uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
-
-				uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
-				uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
-
-				uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
-				uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
-			} USB_ClassInfo_CDC_Device_Config_t;
-			
-			/** Current State information structure for \ref USB_ClassInfo_CDC_Device_t CDC device interface structures. */
-			typedef struct
-			{
-				struct
-				{
-					uint8_t HostToDevice; /**< Control line states from the host to device, as a set of CDC_CONTROL_LINE_OUT_*
-					                       *   masks.
-					                       */
-					uint8_t DeviceToHost; /**< Control line states from the device to host, as a set of CDC_CONTROL_LINE_IN_*
-					                       *   masks.
-					                       */
-				} ControlLineStates;
-
-				struct
-				{
-					uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
-					uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
-										  *   CDCDevice_CDC_LineCodingFormats_t enum
-										  */
-					uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
-										  *   CDCDevice_LineCodingParity_t enum
-										  */
-					uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
-				} LineEncoding;			
-			} USB_ClassInfo_CDC_Device_State_t;
-		
 			/** Class state structure. An instance of this structure should be made for each CDC interface
 			 *  within the user application, and passed to each of the CDC class driver functions as the
 			 *  CDCInterfaceInfo parameter. This stores each CDC interface's configuration and state information.
 			 */
 			typedef struct
 			{
-				const USB_ClassInfo_CDC_Device_Config_t Config; /**< Config data for the USB class interface within
-				                                                 *   the device. All elements in this section
-				                                                 *   <b>must</b> be set or the interface will fail
-				                                                 *   to enumerate and operate correctly.
-				                                                 */
-															 
-				USB_ClassInfo_CDC_Device_State_t State; /**< State data for the USB class interface within
-				                                         *   the device. All elements in this section
-				                                         *   <b>may</b> be set to initial values, but may
-				                                         *   also be ignored to default to sane values when
-				                                         *   the interface is enumerated.
-				                                         */
+				const struct
+				{
+					uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
+
+					uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
+					uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
+
+					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
+					uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
+
+					uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
+					uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
+				} Config; /**< Config data for the USB class interface within the device. All elements in this section
+				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
+				           */
+				struct
+				{
+					struct
+					{
+						uint8_t HostToDevice; /**< Control line states from the host to device, as a set of CDC_CONTROL_LINE_OUT_*
+											   *   masks.
+											   */
+						uint8_t DeviceToHost; /**< Control line states from the device to host, as a set of CDC_CONTROL_LINE_IN_*
+											   *   masks.
+											   */
+					} ControlLineStates;
+
+					struct
+					{
+						uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
+						uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
+											  *   CDCDevice_CDC_LineCodingFormats_t enum
+											  */
+						uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
+											  *   CDCDevice_LineCodingParity_t enum
+											  */
+						uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
+					} LineEncoding;			
+				} State; /**< State data for the USB class interface within the device. All elements in this section
+				          *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
+				          *   the interface is enumerated.
+				          */
 			} USB_ClassInfo_CDC_Device_t;
 		
 		/* Function Prototypes: */		

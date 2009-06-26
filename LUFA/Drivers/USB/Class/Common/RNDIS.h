@@ -93,13 +93,6 @@
 			uint8_t       Octets[6]; /**< Individual bytes of a MAC address */
 		} MAC_Address_t;
 
-		/** Type define for a RNDIS message header, sent before RNDIS messages */
-		typedef struct
-		{
-			uint32_t MessageType; /**< RNDIS message type, a REMOTE_NDIS_*_MSG constant */
-			uint32_t MessageLength; /**< Total length of the RNDIS message, in bytes */
-		} RNDIS_Message_Header_t;
-
 		/** Type define for an Ethernet frame buffer. */
 		typedef struct
 		{
@@ -107,6 +100,13 @@
 			uint16_t      FrameLength; /**< Length in bytes of the Ethernet frame stored in the buffer */
 			bool          FrameInBuffer; /**< Indicates if a frame is currently stored in the buffer */
 		} Ethernet_Frame_Info_t;
+
+		/** Type define for a RNDIS message header, sent before RNDIS messages */
+		typedef struct
+		{
+			uint32_t MessageType; /**< RNDIS message type, a REMOTE_NDIS_*_MSG constant */
+			uint32_t MessageLength; /**< Total length of the RNDIS message, in bytes */
+		} RNDIS_Message_Header_t;
 
 		/** Type define for a RNDIS packet message, used to encapsulate Ethernet packets sent to and from the adapter */
 		typedef struct

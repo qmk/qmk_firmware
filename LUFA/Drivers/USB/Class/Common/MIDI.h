@@ -87,7 +87,7 @@
 			
 			uint16_t                  AudioSpecification; /**< Binary coded decimal value, indicating the supported Audio Class specification version */
 			uint16_t                  TotalLength; /**< Total length of the Audio class specific descriptors, including this descriptor */
-		} USB_AudioInterface_MIDI_AS_t;
+		} USB_MIDI_AudioInterface_AS_t;
 		
 		/** Type define for an Audio class specific MIDI IN jack. This gives information to the host on a MIDI input, either
 		 *  a physical input jack, or a logical jack (receiving input data internally, or from the host via an endpoint).
@@ -143,7 +143,7 @@
 			uint8_t Data1; /**< First byte of data in the MIDI event */
 			uint8_t Data2; /**< Second byte of data in the MIDI event */
 			uint8_t Data3; /**< Third byte of data in the MIDI event */		
-		} USB_MIDI_EventPacket_t;
+		} MIDI_EventPacket_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

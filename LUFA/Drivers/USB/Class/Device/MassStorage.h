@@ -52,54 +52,42 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Type Defines: */
-			/** Configuration information structure for \ref USB_ClassInfo_MS_Device_t Mass Storage device interface structures. */
-			typedef struct
-			{
-				uint8_t  InterfaceNumber; /**< Interface number of the Mass Storage interface within the device */
-
-				uint8_t  DataINEndpointNumber; /**< Endpoint number of the Mass Storage interface's IN data endpoint */
-				uint16_t DataINEndpointSize; /**< Size in bytes of the Mass Storage interface's IN data endpoint */
-
-				uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the Mass Storage interface's OUT data endpoint */
-				uint16_t DataOUTEndpointSize;  /**< Size in bytes of the Mass Storage interface's OUT data endpoint */
-
-				uint8_t  TotalLUNs; /**< Total number of logical drives in the Mass Storage interface */
-			} USB_ClassInfo_MS_Device_Config_t;
-			
-			/** Current State information structure for \ref USB_ClassInfo_MS_Device_t Mass Storage device interface structures. */
-			typedef struct
-			{
-				CommandBlockWrapper_t  CommandBlock; /**< Mass Storage class command block structure, stores the received SCSI
-				                                      *   command from the host which is to be processed
-													  */
-				CommandStatusWrapper_t CommandStatus; /**< Mass Storage class command status structure, set elements to indicate
-													   *   the issued command's success or failure to the host
-													   */
-
-				bool IsMassStoreReset; /**< Flag indicating that the host has requested that the Mass Storage interface be reset
-										*   and that all current Mass Storage operations should immediately abort
-										*/
-			} USB_ClassInfo_MS_Device_State_t;
-										
+		/* Type Defines: */										
 			/** Class state structure. An instance of this structure should be made for each Mass Storage interface
 			 *  within the user application, and passed to each of the Mass Storage class driver functions as the
 			 *  MSInterfaceInfo parameter. This stores each Mass Storage interface's configuration and state information.
 			 */
 			typedef struct
 			{
-				const USB_ClassInfo_MS_Device_Config_t Config; /**< Config data for the USB class interface within
-				                                                *   the device. All elements in this section
-				                                                *   <b>must</b> be set or the interface will fail
-				                                                *   to enumerate and operate correctly.
-				                                                */
-															 
-				USB_ClassInfo_MS_Device_State_t State; /**< State data for the USB class interface within
-				                                        *   the device. All elements in this section
-				                                        *   <b>may</b> be set to initial values, but may
-				                                        *   also be ignored to default to sane values when
-				                                        *   the interface is enumerated.
-				                                        */
+				const struct
+				{
+					uint8_t  InterfaceNumber; /**< Interface number of the Mass Storage interface within the device */
+
+					uint8_t  DataINEndpointNumber; /**< Endpoint number of the Mass Storage interface's IN data endpoint */
+					uint16_t DataINEndpointSize; /**< Size in bytes of the Mass Storage interface's IN data endpoint */
+
+					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the Mass Storage interface's OUT data endpoint */
+					uint16_t DataOUTEndpointSize;  /**< Size in bytes of the Mass Storage interface's OUT data endpoint */
+
+					uint8_t  TotalLUNs; /**< Total number of logical drives in the Mass Storage interface */
+				} Config; /**< Config data for the USB class interface within the device. All elements in this section
+				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
+				           */
+				struct
+				{
+					MS_CommandBlockWrapper_t  CommandBlock; /**< Mass Storage class command block structure, stores the received SCSI
+															 *   command from the host which is to be processed
+															 */
+					MS_CommandStatusWrapper_t CommandStatus; /**< Mass Storage class command status structure, set elements to indicate
+															  *   the issued command's success or failure to the host
+															  */
+					bool IsMassStoreReset; /**< Flag indicating that the host has requested that the Mass Storage interface be reset
+											*   and that all current Mass Storage operations should immediately abort
+											*/
+				} State; /**< State data for the USB class interface within the device. All elements in this section
+				          *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
+				          *   the interface is enumerated.
+				          */
 			} USB_ClassInfo_MS_Device_t;
 
 		/* Function Prototypes: */

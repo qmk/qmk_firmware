@@ -53,46 +53,35 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
-			/** Configuration information structure for \ref USB_ClassInfo_HID_Device_t HID device interface structures. */
-			typedef struct
-			{
-				uint8_t  InterfaceNumber; /**< Interface number of the HID interface within the device */
-
-				uint8_t  ReportINEndpointNumber; /**< Endpoint number of the HID interface's IN report endpoint */
-				uint16_t ReportINEndpointSize; /**< Size in bytes of the HID interface's IN report endpoint */
-				
-				uint8_t  ReportINBufferSize; /**< Size of the largest possible report to send to the host, for
-				                              *   buffer allocation purposes
-				                              */
-			} USB_ClassInfo_HID_Device_Config_t;
-		
-			/** Current State information structure for \ref USB_ClassInfo_HID_Device_t HID device interface structures. */
-			typedef struct
-			{
-				bool     UsingReportProtocol; /**< Indicates if the HID interface is set to Boot or Report protocol mode */
-				uint16_t IdleCount; /**< Report idle period, in ms, set by the host */
-				uint16_t IdleMSRemaining; /**< Total number of ms remaining before the idle period elapsed - this should be
-				                           *   decremented by the user application if non-zero each millisecond */			
-			} USB_ClassInfo_HID_Device_State_t;
-
 			/** Class state structure. An instance of this structure should be made for each HID interface
 			 *  within the user application, and passed to each of the HID class driver functions as the
 			 *  HIDInterfaceInfo parameter. This stores each HID interface's configuration and state information.
 			 */
 			typedef struct
 			{
-				const USB_ClassInfo_HID_Device_Config_t Config; /**< Config data for the USB class interface within
-				                                                 *   the device. All elements in this section
-				                                                 *   <b>must</b> be set or the interface will fail
-				                                                 *   to enumerate and operate correctly.
-				                                                 */
-															 
-				USB_ClassInfo_HID_Device_State_t State; /**< State data for the USB class interface within
-				                                         *   the device. All elements in this section
-				                                         *   <b>may</b> be set to initial values, but may
-				                                         *   also be ignored to default to sane values when
-				                                         *   the interface is enumerated.
-				                                         */
+				const struct
+				{
+					uint8_t  InterfaceNumber; /**< Interface number of the HID interface within the device */
+
+					uint8_t  ReportINEndpointNumber; /**< Endpoint number of the HID interface's IN report endpoint */
+					uint16_t ReportINEndpointSize; /**< Size in bytes of the HID interface's IN report endpoint */
+					
+					uint8_t  ReportINBufferSize; /**< Size of the largest possible report to send to the host, for
+												  *   buffer allocation purposes
+												  */
+				} Config; /**< Config data for the USB class interface within the device. All elements in this section
+				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
+				           */										 
+				struct
+				{
+					bool     UsingReportProtocol; /**< Indicates if the HID interface is set to Boot or Report protocol mode */
+					uint16_t IdleCount; /**< Report idle period, in ms, set by the host */
+					uint16_t IdleMSRemaining; /**< Total number of ms remaining before the idle period elapsed - this should be
+											   *   decremented by the user application if non-zero each millisecond */			
+				} State; /**< State data for the USB class interface within the device. All elements in this section
+				          *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
+				          *   the interface is enumerated.
+				          */
 			} USB_ClassInfo_HID_Device_t;
 	
 		/* Function Prototypes: */

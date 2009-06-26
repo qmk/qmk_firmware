@@ -72,7 +72,7 @@ int main(void)
 	{
 		CheckJoystickMovement();
 		
-		USB_MIDI_EventPacket_t DummyMIDIEvent;
+		MIDI_EventPacket_t DummyMIDIEvent;
 		MIDI_Device_ReceiveEventPacket(&Keyboard_MIDI_Interface, &DummyMIDIEvent);
 	
 		MIDI_Device_USBTask(&Keyboard_MIDI_Interface);
@@ -144,7 +144,7 @@ void CheckJoystickMovement(void)
 	
 	if (MIDICommand)
 	{
-		USB_MIDI_EventPacket_t MIDIEvent = (USB_MIDI_EventPacket_t)
+		MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
 			{
 				.CableNumber = 0,
 				.Command     = (MIDICommand >> 4),

@@ -90,7 +90,7 @@
 			
 			uint8_t                   InCollection; /** Total number of audio class interfaces within this device */
 			uint8_t                   InterfaceNumbers[1]; /** Interface numbers of each audio interface */
-		} USB_AudioInterface_AC_t;
+		} USB_Audio_Interface_AC_t;
 		
 		/** Type define for an Audio class specific MIDI streaming interface descriptor. This indicates to the host
 		 *  how MIDI the specification compliance of the device and the total length of the Audio class specific descriptors.
@@ -103,7 +103,7 @@
 			
 			uint16_t                  AudioSpecification; /**< Binary coded decimal value, indicating the supported Audio Class specification version */
 			uint16_t                  TotalLength; /**< Total length of the Audio class specific descriptors, including this descriptor */
-		} USB_AudioInterface_MIDI_AS_t;
+		} USB_Audio_Interface_MIDI_AS_t;
 		
 		/** Type define for an Audio class specific endpoint descriptor. This contains a regular endpoint 
 		 *  descriptor with a few Audio-class specific extensions. See the USB Audio specification for more details.
@@ -114,7 +114,7 @@
 
 			uint8_t                   Refresh; /**< Always set to zero */
 			uint8_t                   SyncEndpointNumber; /**< Endpoint address to send synchronisation information to, if needed (zero otherwise) */
-		} USB_AudioStreamEndpoint_Std_t;
+		} USB_Audio_StreamEndpoint_Std_t;
 
 		/** Type define for an Audio class specific MIDI IN jack. This gives information to the host on a MIDI input, either
 		 *  a physical input jack, or a logical jack (receiving input data internally, or from the host via an endpoint).
@@ -169,16 +169,16 @@
 		{
 			USB_Descriptor_Configuration_Header_t Config;
 			USB_Descriptor_Interface_t            AudioControlInterface;
-			USB_AudioInterface_AC_t               AudioControlInterface_SPC;
+			USB_Audio_Interface_AC_t              AudioControlInterface_SPC;
 			USB_Descriptor_Interface_t            AudioStreamInterface;
-			USB_AudioInterface_MIDI_AS_t          AudioStreamInterface_SPC;
+			USB_Audio_Interface_MIDI_AS_t         AudioStreamInterface_SPC;
 			USB_MIDI_In_Jack_t                    MIDI_In_Jack_Emb;
 			USB_MIDI_In_Jack_t                    MIDI_In_Jack_Ext;
 			USB_MIDI_Out_Jack_t                   MIDI_Out_Jack_Emb;
 			USB_MIDI_Out_Jack_t                   MIDI_Out_Jack_Ext;
-			USB_AudioStreamEndpoint_Std_t         MIDI_In_Jack_Endpoint;
+			USB_Audio_StreamEndpoint_Std_t        MIDI_In_Jack_Endpoint;
 			USB_MIDI_Jack_Endpoint_t              MIDI_In_Jack_Endpoint_SPC;
-			USB_AudioStreamEndpoint_Std_t         MIDI_Out_Jack_Endpoint;
+			USB_Audio_StreamEndpoint_Std_t        MIDI_Out_Jack_Endpoint;
 			USB_MIDI_Jack_Endpoint_t              MIDI_Out_Jack_Endpoint_SPC;
 		} USB_Descriptor_Configuration_t;
 		

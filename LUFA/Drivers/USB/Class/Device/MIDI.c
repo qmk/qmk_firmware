@@ -68,7 +68,7 @@ void MIDI_Device_USBTask(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo)
 
 }
 
-void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event)
+void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, MIDI_EventPacket_t* Event)
 {
 	if (!(USB_IsConnected))
 	  return;
@@ -77,12 +77,12 @@ void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo,
 
 	if (Endpoint_IsReadWriteAllowed());
 	{
-		Endpoint_Write_Stream_LE(Event, sizeof(USB_MIDI_EventPacket_t), NO_STREAM_CALLBACK);
+		Endpoint_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK);
 		Endpoint_ClearIN();
 	}
 }
 
-bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event)
+bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, MIDI_EventPacket_t* Event)
 {
 	if (!(USB_IsConnected))
 	  return false;
@@ -92,7 +92,7 @@ bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceIn
 	if (!(Endpoint_IsReadWriteAllowed()))
 	  return false;
 
-	Endpoint_Read_Stream_LE(Event, sizeof(USB_MIDI_EventPacket_t), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK);
 	Endpoint_ClearOUT();
 	
 	return true;

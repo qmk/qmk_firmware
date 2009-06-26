@@ -52,10 +52,10 @@
 		{
 			USB_Descriptor_Configuration_Header_t Config;
 			USB_Descriptor_Interface_t            KeyboardInterface;
-			USB_Descriptor_HID_t                  KeyboardHID;
+			USB_HID_Descriptor_t                  KeyboardHID;
 	        USB_Descriptor_Endpoint_t             KeyboardInEndpoint;
 			USB_Descriptor_Interface_t            MouseInterface;
-			USB_Descriptor_HID_t                  MouseHID;
+			USB_HID_Descriptor_t                  MouseHID;
 	        USB_Descriptor_Endpoint_t             MouseInEndpoint;
 		} USB_Descriptor_Configuration_t;
 					

@@ -68,15 +68,15 @@
 		{
 			USB_Descriptor_Configuration_Header_t Config;
 			USB_Descriptor_Interface_t            AudioControlInterface;
-			USB_AudioInterface_AC_t               AudioControlInterface_SPC;
-			USB_AudioInputTerminal_t              InputTerminal;
-			USB_AudioOutputTerminal_t             OutputTerminal;
+			USB_Audio_Interface_AC_t              AudioControlInterface_SPC;
+			USB_Audio_InputTerminal_t             InputTerminal;
+			USB_Audio_OutputTerminal_t            OutputTerminal;
 			USB_Descriptor_Interface_t            AudioStreamInterface_Alt0;
 			USB_Descriptor_Interface_t            AudioStreamInterface_Alt1;
-			USB_AudioInterface_AS_t               AudioStreamInterface_SPC;
-			USB_AudioFormat_t                     AudioFormat;
-			USB_AudioStreamEndpoint_Std_t         AudioEndpoint;
-			USB_AudioStreamEndpoint_Spc_t         AudioEndpoint_SPC;
+			USB_Audio_Interface_AS_t              AudioStreamInterface_SPC;
+			USB_Audio_Format_t                    AudioFormat;
+			USB_Audio_StreamEndpoint_Std_t        AudioEndpoint;
+			USB_Audio_StreamEndpoint_Spc_t        AudioEndpoint_SPC;
 		} USB_Descriptor_Configuration_t;
 		
 	/* Function Prototypes: */

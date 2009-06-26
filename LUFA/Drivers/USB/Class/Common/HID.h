@@ -80,7 +80,7 @@
 
 			uint8_t                  HIDReportType;
 			uint16_t                 HIDReportLength;
-		} USB_Descriptor_HID_t;
+		} USB_HID_Descriptor_t;
 
 		/** Type define for the data type used to store HID report descriptor elements. */
 		typedef uint8_t USB_Descriptor_HIDReport_Datatype_t;

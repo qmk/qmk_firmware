@@ -55,22 +55,10 @@
 	/* Public Interface - May be used in end-application: */
 		/* Type Define: */
 			/** Configuration information structure for \ref USB_ClassInfo_MIDI_Device_t MIDI device interface structures. */
-			typedef struct
-			{
-				uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this structure controls */
-
-				uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming MIDI data, if available (zero if unused) */
-				uint16_t DataINEndpointSize; /**< Size in bytes of the incomming MIDI data endpoint, if available (zero if unused) */
-
-				uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing MIDI data, if available (zero if unused) */
-				uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing MIDI data endpoint, if available (zero if unused) */
-			} USB_ClassInfo_MIDI_Device_Config_t;
+			typedef  USB_ClassInfo_MIDI_Device_Config_t;
 	
 			/** Current State information structure for \ref USB_ClassInfo_MIDI_Device_t MIDI device interface structures. */
-			typedef struct
-			{
-				// No state information for this class yet
-			} USB_ClassInfo_MIDI_Device_State_t;
+			typedef  USB_ClassInfo_MIDI_Device_State_t;
 	
 			/** Class state structure. An instance of this structure should be made for each MIDI interface
 			 *  within the user application, and passed to each of the MIDI class driver functions as the
@@ -78,18 +66,25 @@
 			 */
 			typedef struct
 			{
-				const USB_ClassInfo_MIDI_Device_Config_t Config; /**< Config data for the USB class interface within
-				                                                  *   the device. All elements in this section
-				                                                  *   <b>must</b> be set or the interface will fail
-				                                                  *   to enumerate and operate correctly.
-				                                                  */
-															 
-				USB_ClassInfo_MIDI_Device_State_t State; /**< State data for the USB class interface within
-				                                          *   the device. All elements in this section
-				                                          *   <b>may</b> be set to initial values, but may
-				                                          *   also be ignored to default to sane values when
-				                                          *   the interface is enumerated.
-				                                          */
+				const struct
+				{
+					uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this structure controls */
+
+					uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming MIDI data, if available (zero if unused) */
+					uint16_t DataINEndpointSize; /**< Size in bytes of the incomming MIDI data endpoint, if available (zero if unused) */
+
+					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing MIDI data, if available (zero if unused) */
+					uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing MIDI data endpoint, if available (zero if unused) */
+				} Config; /**< Config data for the USB class interface within the device. All elements in this section
+				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
+				           */									 
+				struct
+				{
+					// No state information for this class yet
+				} State; /**< State data for the USB class interface within the device. All elements in this section
+				          *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
+				          *   the interface is enumerated.
+				          */
 			} USB_ClassInfo_MIDI_Device_t;	
 	
 		/* Function Prototypes: */
@@ -122,7 +117,7 @@
 			 *  \param MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
 			 *  \param Event  Pointer to a populated USB_MIDI_EventPacket_t structure containing the MIDI event to send
 			 */
-			void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event);
+			void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, MIDI_EventPacket_t* Event);
 
 			/** Receives a MIDI event packet from the host.
 			 *
@@ -131,7 +126,7 @@
 			 *
 			 *  \return Boolean true if a MIDI event packet was received, false otherwise
 			 */
-			bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, USB_MIDI_EventPacket_t* Event);
+			bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, MIDI_EventPacket_t* Event);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

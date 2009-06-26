@@ -144,7 +144,7 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* MSInterfaceI
 
 	CallbackMSInterfaceInfo = MSInterfaceInfo;
 	Endpoint_Read_Stream_LE(&MSInterfaceInfo->State.CommandBlock,
-	                        (sizeof(CommandBlockWrapper_t) - 16),
+	                        (sizeof(MS_CommandBlockWrapper_t) - 16),
 	                        StreamCallback_MS_Device_AbortOnMassStoreReset);
 
 	if ((MSInterfaceInfo->State.CommandBlock.Signature         != MS_CBW_SIGNATURE)                  ||
@@ -194,7 +194,7 @@ static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* MSInterface
 	}
 	
 	CallbackMSInterfaceInfo = MSInterfaceInfo;
-	Endpoint_Write_Stream_LE(&MSInterfaceInfo->State.CommandStatus, sizeof(CommandStatusWrapper_t),
+	Endpoint_Write_Stream_LE(&MSInterfaceInfo->State.CommandStatus, sizeof(MS_CommandStatusWrapper_t),
 	                         StreamCallback_MS_Device_AbortOnMassStoreReset);
 	
 	Endpoint_ClearIN();

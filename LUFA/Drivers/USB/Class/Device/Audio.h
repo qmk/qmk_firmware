@@ -52,55 +52,44 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Type Defines: */
-			/** Configuration information structure for \ref USB_ClassInfo_Audio_Device_t Audio device interface structures. */
-			typedef struct
-			{
-				uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this
-				                                    *   structure controls.
-				                                    */
-
-				uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming Audio Streaming data, if available
-				                                *   (zero if unused).
-				                                */
-				uint16_t DataINEndpointSize; /**< Size in bytes of the incomming Audio Streaming data endpoint, if available
-				                              *   (zero if unused).
-				                              */
-
-				uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing Audio Streaming data, if available
-				                                 *   (zero if unused).
-				                                 */
-				uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing Audio Streaming data endpoint, if available
-				                               *   (zero if unused).
-				                               */			
-			} USB_ClassInfo_Audio_Device_Config_t;
-			
-			/** Current State information structure for \ref USB_ClassInfo_Audio_Device_t Audio device interface structures. */
-			typedef struct
-			{
-				bool     InterfaceEnabled; /**< Set and cleared by the class driver to indicate if the host has enabled the streaming endpoints
-											*   of the Audio Streaming interface.
-											*/
-			} USB_ClassInfo_Audio_Device_State_t;
-		
+		/* Type Defines: */		
 			/** Class state structure. An instance of this structure should be made for each Audio interface
 			 *  within the user application, and passed to each of the Audio class driver functions as the
 			 *  AudioInterfaceInfo parameter. This stores each Audio interface's configuration and state information.
 			 */
 			typedef struct
 			{
-				const USB_ClassInfo_Audio_Device_Config_t Config; /**< Config data for the USB class interface within
-				                                                   *   the device. All elements in this section
-				                                                   *   <b>must</b> be set or the interface will fail
-				                                                   *   to enumerate and operate correctly.
-				                                                   */
-															 
-				USB_ClassInfo_Audio_Device_State_t State; /**< State data for the USB class interface within
-				                                           *   the device. All elements in this section
-				                                           *   <b>may</b> be set to initial values, but may
-				                                           *   also be ignored to default to sane values when
-				                                           *   the interface is enumerated.
-				                                           */				
+				const struct
+				{
+					uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this
+														*   structure controls.
+														*/
+
+					uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming Audio Streaming data, if available
+													*   (zero if unused).
+													*/
+					uint16_t DataINEndpointSize; /**< Size in bytes of the incomming Audio Streaming data endpoint, if available
+												  *   (zero if unused).
+												  */
+
+					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing Audio Streaming data, if available
+													 *   (zero if unused).
+													 */
+					uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing Audio Streaming data endpoint, if available
+												   *   (zero if unused).
+												   */			
+				} Config; /**< Config data for the USB class interface within the device. All elements in this section
+				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
+				           */
+				struct
+				{
+					bool     InterfaceEnabled; /**< Set and cleared by the class driver to indicate if the host has enabled the streaming endpoints
+												*   of the Audio Streaming interface.
+												*/
+				} State; /**< State data for the USB class interface within the device. All elements in this section
+				          *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
+				          *   the interface is enumerated.
+				          */				
 			} USB_ClassInfo_Audio_Device_t;
 		
 		/* Function Prototypes: */
