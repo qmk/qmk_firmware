@@ -186,6 +186,8 @@ void USB_ResetInterface(void)
 		
 	if (!(USB_Options & USB_OPT_REG_DISABLED))
 	  USB_REG_On();
+	else
+	  USB_REG_Off();
 	
 	USB_CLK_Unfreeze();
 

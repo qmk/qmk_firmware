@@ -80,6 +80,8 @@
 				
 				struct
 				{
+					bool Active; /**< Indicates if the interface is currently active, i.e. attached to the connected device */
+				
 					uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
 					uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
 										  *   CDCDevice_CDC_LineCodingFormats_t enum

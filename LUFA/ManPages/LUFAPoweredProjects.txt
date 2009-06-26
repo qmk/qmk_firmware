@@ -23,6 +23,7 @@
  *  - USBFoo, an AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102
  *  - USB10 AKA "The Ferret", a AT90USB162 development board: http://www.soc-machines.com
  *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
+ *  - Bumble-B, yet another AT90USB162 development board: http://fletchtronics.net/
  * 
  *  \section Sec_LUFAProjects Projects Using LUFA (Hobbyist)
  *

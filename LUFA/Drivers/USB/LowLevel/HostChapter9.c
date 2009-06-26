@@ -46,7 +46,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 	USB_Host_ResumeBus();
 	
 	if ((ReturnStatus = USB_Host_WaitMS(1)) != HOST_WAITERROR_Successful)
-	  return ReturnStatus;
+	  goto End_Of_Control_Send;
 
 	Pipe_SetToken(PIPE_TOKEN_SETUP);
 	Pipe_ClearErrorFlags();

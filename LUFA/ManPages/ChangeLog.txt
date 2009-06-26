@@ -34,8 +34,10 @@
   *  - Fixed CDCHost demo unfreezing the pipes at the point of configuration, rather than use
   *  - Pipe stream functions now automatically set the correct pipe token, so that bidirectional pipes can be used
   *  - Pipe_ConfigurePipe() now automatically defaults IN pipes to accepting infinite IN requests, this can still be changed by calling
-  *    the existing \ref Pipe_SetFiniteINRequests() function
+  *    the existing Pipe_SetFiniteINRequests() function
   *  - Fixed MassStorage demo not clearing the reset flag when a Mass Storage Reset is issued while not processing a command
+  *  - Fixed USB_Host_SendControlRequest() not re-suspending the USB bus when initial device ready-wait fails
+  *  - Fixed USB Pad regulator not being disabled on some AVR models when the USB_OPT_REG_DISABLED option is used
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

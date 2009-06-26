@@ -48,7 +48,7 @@
 
 
 # MCU name
-MCU = at90usb1287
+MCU = at90usb647
 
 
 # Target board (see library "Board Types" documentation, USER or blank for projects not requiring
@@ -90,6 +90,10 @@ F_CPU = 8000000
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_CLOCK = 8000000
+
+
+# Starting byte address of the bootloader
+BOOT_START = 0x1E000
 
 
 # Output format. (can be srec, ihex, binary)
@@ -175,10 +179,6 @@ EXTRAINCDIRS = $(LUFA_PATH)/
 #     c99   = ISO C99 standard (not yet fully implemented)
 #     gnu99 = c99 plus GCC extensions
 CSTANDARD = -std=gnu99
-
-
-# Starting byte address of the bootloader
-BOOT_START = 0x1E000
 
 
 # Place -D or -U options here for C sources

@@ -92,6 +92,10 @@ F_CPU = 16000000
 F_CLOCK = 16000000
 
 
+# Starting byte address of the bootloader
+BOOT_START = 0xC000
+
+
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
@@ -176,10 +180,6 @@ EXTRAINCDIRS = $(LUFA_PATH)/
 #     c99   = ISO C99 standard (not yet fully implemented)
 #     gnu99 = c99 plus GCC extensions
 CSTANDARD = -std=gnu99
-
-
-# Starting byte address of the bootloader
-BOOT_START = 0xC000
 
 
 # Place -D or -U options here for C sources

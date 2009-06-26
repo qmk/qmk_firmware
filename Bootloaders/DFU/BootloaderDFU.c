@@ -96,7 +96,7 @@ uint16_t EndAddr = 0x0000;
  *  runs the bootloader processing routine until instructed to soft-exit, or hard-reset via the watchdog to start
  *  the loaded application code.
  */
-int main (void)
+int main(void)
 {
 	/* Configure hardware required by the bootloader */
 	SetupHardware();

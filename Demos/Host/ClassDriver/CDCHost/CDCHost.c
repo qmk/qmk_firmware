@@ -69,6 +69,21 @@ int main(void)
 
 	for (;;)
 	{
+		switch (USB_HostState)
+		{
+			case HOST_STATE_Addressed:
+				if (!(CDC_Host_ConfigurePipes(&VirtualSerial_CDC_Interface)))
+				  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+				  
+				USB_HostState = HOST_STATE_Configured;
+				break;
+			case HOST_STATE_Configured:
+				USB_HostState = HOST_STATE_Ready;
+				break;
+			case HOST_STATE_Ready:
+				break;
+		}
+	
 		CDC_Host_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
 	}
