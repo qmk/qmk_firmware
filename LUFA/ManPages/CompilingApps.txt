@@ -1,0 +1,36 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \page Page_CompilingApps Compiling the Demos, Bootloaders and Projects
+ *
+ *  The following details how to compile the included LUFA demos, applications and bootloaders using AVR-GCC.
+ *
+ *  \section Sec_Prerequisites Prerequisites
+ *  Before you can compile any of the LUFA library code or demos, you will need a recent distribution of avr-libc (1.6.2+)
+ *  and the AVR-GCC (4.2+) compiler. For Windows users, the best way to obtain these is the WinAVR project
+ *  (http://winavr.sourceforge.net) as this provides a single-file setup for everything required to compile your
+ *  own AVR projects.
+ *
+ *  \section Sec_Compiling Compiling a LUFA Application
+ *  Compiling the LUFA demos, applications and/or bootloaders is very simple. LUFA comes with makefile scripts for
+ *  each individual demo, bootloader and project folder, as well as scripts in the /Demos/, /Bootloaders/, /Projects/
+ *  and the LUFA root directory. This means that compilation can be started from any of the above directories, with
+ *  a build started from an upper directory in the directory structure executing build of all child directories under it.
+ *  This means that while a build inside a particular demo directory will build only that particular demo, a build stated
+ *  from the /Demos/ directory will build all LUFA demo projects sequentially.
+ *
+ *  \subsection SSec_CommandLine Via the Command Line
+ *  To build a project from the source via the command line, the command <b>"make all"</b> should be executed from the command line in the directory
+ *  of interest. To remove compiled files (including the binary output, all intermediately files and all diagnostic output
+ *  files), execute <b>"make clean"</b>. Once a "make all" has been run and no errors were encountered, the resulting binary will
+ *  be located in the generated ".HEX" file. If your project makes use of pre-initialized EEPROM variables, the generated ".EEP"
+ *  file will contain the project's EEPROM data.
+ *
+ *  \subsection SSec_AVRStudio Via AVRStudio
+ *  Each demo, project and bootloader contains an AVRStudio project (.aps) which can be used to build each project. Once opened
+ *  in AVRStudio, the project can be built and cleaned using the GUI buttons or menus. Note that the AVRStudio project files make
+ *  use of the external project makefile, thus the procedure for configuring a demo remains the same regardless of the build environment.
+ */

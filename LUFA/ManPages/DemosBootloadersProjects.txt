@@ -4,7 +4,7 @@
  *  documentation pages. It is not a project source file.
  */
 
-/** \page Page_Apps Library Demos, Projects and Bootloaders
+/** \page Page_LibraryApps Included Library Applications
  *
  *  The LUFA library ships with several different host and device demos, located in the /Demos/ subdirectory.
  *  If this directory is missing, please re-download the project from the project homepage. Within this directory the demos
@@ -27,7 +27,7 @@
  *  - <b>Demos</b>
  *    - <b>Device</b>
  *      - <b>ClassDriver</b>
- *        - <b>AudioInput</b> - Audio In (microphone) demo, using the library USB Audio Class driver framework.
+ *        - <b>AudioInput</b> - Audio In (microphone) demo, using the library USB Audio Class driver framework
  *        - <b>AudioOutput</b> - Audio Out (speaker) demo, using the library USB Audio Class driver framework
  *        - <b>CDC</b> - Virtual Serial Port demo, using the library USB CDC Class driver framework
  *        - <b>DualCDC</b> - Dual Virtual Serial Port demo, using the library USB CDC Class driver framework

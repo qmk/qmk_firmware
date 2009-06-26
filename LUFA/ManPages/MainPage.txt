@@ -27,9 +27,9 @@
  *  class) and open source LUFA powered projects.
  *
  *  <b>Subsections:</b>
- *  - \subpage Page_Licence Project License
+ *  - \subpage Page_Licence Project licence
  *  - \subpage Page_Donating Donating to Support this Project
- *  - \subpage Page_Apps Project Demos, Bootloaders and Projects
+ *  - \subpage Page_LibraryApps Overview of included Demos, Bootloaders and Projects
  *
  *
  *  <small><i>Logo design by Pavla Dlab</i></small>
