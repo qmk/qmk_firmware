@@ -158,9 +158,9 @@ ISR(USART1_RX_vect, ISR_BLOCK)
 
 /** Event handler for the CDC Class driver Line Encoding Changed event.
  *
- *  \param CDCInterfaceInfo  Pointer to the CDC class interface configuration structure being referenced
+ *  \param[in] CDCInterfaceInfo  Pointer to the CDC class interface configuration structure being referenced
  */
-void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
+void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
 	uint8_t ConfigMask = 0;
 

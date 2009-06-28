@@ -209,9 +209,9 @@
 			/** Function to process a given HID report returned from an attached device, and store it into a given
 			 *  \ref HID_ReportInfo_t structure.
 			 *
-			 *  \param ReportData  Buffer containing the device's HID report table
-			 *  \param ReportSize  Size in bytes of the HID report table
-			 *  \param ParserData  Pointer to a \ref HID_ReportInfo_t instance for the parser output
+			 *  \param[in] ReportData  Buffer containing the device's HID report table
+			 *  \param[in] ReportSize  Size in bytes of the HID report table
+			 *  \param[out] ParserData  Pointer to a \ref HID_ReportInfo_t instance for the parser output
 			 *
 			 *  \return A value in the \ref HID_Parse_ErrorCodes_t enum
 			 */
@@ -221,8 +221,8 @@
 			/** Extracts the given report item's value out of the given HID report and places it into the Value
 			 *  member of the report item's \ref HID_ReportItem_t structure.
 			 *
-			 *  \param ReportData  Buffer containing an IN or FEATURE report from an attached device
-			 *  \param ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
+			 *  \param[in] ReportData  Buffer containing an IN or FEATURE report from an attached device
+			 *  \param[in,out] ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
 			 *
 			 *  \returns Boolean true if the item to retrieve was located in the given report, false otherwise
 			 */
@@ -236,8 +236,8 @@
 			 *
 			 *  If the device has multiple HID reports, the report ID is set to the report ID of the given item.
 			 *
-			 *  \param ReportData  Buffer holding the current OUT report data
-			 *  \param ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
+			 *  \param[out] ReportData  Buffer holding the current OUT report data
+			 *  \param[in] ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
 			 */
 			void USB_SetHIDReportItemInfo(uint8_t* ReportData, const HID_ReportItem_t* ReportItem)
 			                              ATTR_NON_NULL_PTR_ARG(1, 2);

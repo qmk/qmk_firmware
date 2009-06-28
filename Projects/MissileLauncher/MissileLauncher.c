@@ -154,8 +154,8 @@ void Read_Joystick_Status(void)
 
 /** Lower level send routine, copies report into a larger buffer and sends.
  *
- *  \param Report  Report data to send.
- *  \param ReportSize  Report length in bytes.
+ *  \param[in] Report  Report data to send.
+ *  \param[in] ReportSize  Report length in bytes.
  */
 void Send_Command_Report(uint8_t *Report, uint16_t ReportSize)
 {
@@ -163,9 +163,9 @@ void Send_Command_Report(uint8_t *Report, uint16_t ReportSize)
 	WriteNextReport(CmdBuffer, ReportSize);
 }
 
-/** Send one of the CMD_* command constants listed above.
+/** Sends one of the CMD_* command constants to the attached device.
  *
- *  \param Command  One of the command constants.
+ *  \param[in] Command  One of the command constants.
  */
 void Send_Command(uint8_t* Command)
 {
@@ -248,8 +248,8 @@ void DiscardNextReport(void)
 
 /** Writes a report to the attached device.
  *
- *  \param ReportOUTData  Buffer containing the report to send to the device
- *  \param ReportLength  Length of the report to send
+ *  \param[in] ReportOUTData  Buffer containing the report to send to the device
+ *  \param[in] ReportLength  Length of the report to send
  */
 void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength)
 {

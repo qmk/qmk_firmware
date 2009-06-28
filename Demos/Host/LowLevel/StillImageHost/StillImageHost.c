@@ -327,8 +327,8 @@ void StillImage_Task(void)
 /** Function to convert a given Unicode encoded string to ASCII. This function will only work correctly on Unicode
  *  strings which contain ASCII printable characters only.
  *
- *  \param UnicodeString  Pointer to a Unicode encoded input string
- *  \param Buffer         Pointer to a buffer where the converted ASCII string should be stored
+ *  \param[in] UnicodeString  Pointer to a Unicode encoded input string
+ *  \param[out] Buffer        Pointer to a buffer where the converted ASCII string should be stored
  */
 void UnicodeToASCII(uint8_t* UnicodeString, char* Buffer)
 {
@@ -351,8 +351,8 @@ void UnicodeToASCII(uint8_t* UnicodeString, char* Buffer)
 
 /** Displays a PIMA command error via the device's serial port.
  *
- *  \param ErrorCode          Error code of the function which failed to complete successfully
- *  \param ResponseCodeError  Indicates if the error is due to a command failed indication from the device, or a communication failure
+ *  \param[in] ErrorCode          Error code of the function which failed to complete successfully
+ *  \param[in] ResponseCodeError  Indicates if the error is due to a command failed indication from the device, or a communication failure
  */
 void ShowCommandError(uint8_t ErrorCode, bool ResponseCodeError)
 {

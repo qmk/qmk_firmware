@@ -224,7 +224,7 @@ void Keyboard_HID_Task(void)
 /** Processes a read HID report from an attached keyboard, extracting out elements via the HID parser results
  *  as required and prints pressed characters to the serial port. Each time a key is typed, a board LED is toggled.
  *
- *  \param KeyboardReport  Pointer to a HID report from an attached keyboard device
+ *  \param[in] KeyboardReport  Pointer to a HID report from an attached keyboard device
  */
 void ProcessKeyboardReport(uint8_t* KeyboardReport)
 {

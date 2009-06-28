@@ -266,7 +266,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 
 /** Fills the given HID report data structure with the next HID report to send to the host.
  *
- *  \param ReportData  Pointer to a HID report data structure to be filled
+ *  \param[out] ReportData  Pointer to a HID report data structure to be filled
  */
 void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
 {
@@ -291,7 +291,7 @@ void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
 
 /** Processes a received LED report, and updates the board LEDs states to match.
  *
- *  \param LEDReport  LED status report from the host
+ *  \param[in] LEDReport  LED status report from the host
  */
 void ProcessLEDReport(uint8_t LEDReport)
 {

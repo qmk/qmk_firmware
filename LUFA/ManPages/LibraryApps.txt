@@ -9,6 +9,9 @@
  *  The LUFA library ships with several different host and device demos, located in the /Demos/ subdirectory.
  *  If this directory is missing, please re-download the project from the project homepage. Within this directory the demos
  *  are seperated by USB mode (Device, Host, OTG) and further seperated by the use or non-use of the library USB Class drivers.
+ *  With one or two exceptions (e.g. proprietary classes such as RNDIS) all the included demos will work across all OSes without
+ *  the need for special drivers. One Windows, some demos require the supplied .INF file to be used as the device driver, which
+ *  directs the OS to use its inbuilt class drivers for the device.
  *
  *  Also included with the library are three fully functional bootloaders, located in the /Bootloaders/ subdirectory.
  *  The DFU class bootloader is compatible with Atmel's FLIP software or the open source dfu-programmer project, the

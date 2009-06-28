@@ -54,9 +54,9 @@
 		 *  is for convenience, as it allows for all three sense values (returned upon request to the host to give information about
 		 *  the last command failure) in a quick and easy manner.
 		 *
-		 *  \param key    New SCSI sense key to set the sense code to
-		 *  \param acode  New SCSI additional sense key to set the additional sense code to
-		 *  \param aqual  New SCSI additional sense key qualifier to set the additional sense qualifier code to
+		 *  \param[in] key    New SCSI sense key to set the sense code to
+		 *  \param[in] acode  New SCSI additional sense key to set the additional sense code to
+		 *  \param[in] aqual  New SCSI additional sense key qualifier to set the additional sense qualifier code to
 		 */
 		#define SCSI_SET_SENSE(key, acode, aqual)  MACROS{ SenseData.SenseKey = key;              \
 		                                                   SenseData.AdditionalSenseCode = acode; \

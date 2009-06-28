@@ -238,7 +238,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 
 /** Fills the given HID report data structure with the next HID report to send to the host.
  *
- *  \param ReportData  Pointer to a HID report data structure to be filled
+ *  \param[out] ReportData  Pointer to a HID report data structure to be filled
  */
 void CreateMouseReport(USB_MouseReport_Data_t* ReportData)
 {

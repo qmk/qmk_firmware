@@ -228,14 +228,14 @@
 			 *  Calling this function when the USB interface is already initialized will cause a complete USB
 			 *  interface reset and re-enumeration.
 			 *
-			 *  \param Mode     This is a mask indicating what mode the USB interface is to be initialized to.
-			 *                  Valid mode masks are \ref USB_MODE_DEVICE, \ref USB_MODE_HOST or \ref USB_MODE_UID.
+			 *  \param[in] Mode     This is a mask indicating what mode the USB interface is to be initialized to.
+			 *                      Valid mode masks are \ref USB_MODE_DEVICE, \ref USB_MODE_HOST or \ref USB_MODE_UID.
 			 *
-			 *  \param Options  Mask indicating the options which should be used when initializing the USB
-			 *                  interface to control the USB interface's behaviour. This should be comprised of
-			 *                  a USB_OPT_REG_* mask to control the regulator, a USB_OPT_*_PLL mask to control the
-			 *                  PLL, and a USB_DEVICE_OPT_* mask (when the device mode is enabled) to set the device
-			 *                  mode speed.
+			 *  \param[in] Options  Mask indicating the options which should be used when initializing the USB
+			 *                      interface to control the USB interface's behaviour. This should be comprised of
+			 *                      a USB_OPT_REG_* mask to control the regulator, a USB_OPT_*_PLL mask to control the
+			 *                      PLL, and a USB_DEVICE_OPT_* mask (when the device mode is enabled) to set the device
+			 *                      mode speed.
 			 *
 			 *  \note To reduce the FLASH requirements of the library if only device or host mode is required, 
 			 *        this can be statically set via defining the token USB_DEVICE_ONLY for device mode or 

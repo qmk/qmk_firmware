@@ -302,7 +302,7 @@ static bool SCSI_Command_Send_Diagnostic(void)
  *  and total number of blocks to process, then calls the appropriate low-level dataflash routine to handle the actual
  *  reading and writing of the data.
  *
- *  \param IsDataRead  Indicates if the command is a READ (10) command or WRITE (10) command (DATA_READ or DATA_WRITE)
+ *  \param[in] IsDataRead  Indicates if the command is a READ (10) command or WRITE (10) command (DATA_READ or DATA_WRITE)
  *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */

@@ -133,9 +133,9 @@
 			 *
 			 *  \note This function is available in USB Host mode only.
 			 *
-			 *  \param BytesRem  Pointer to an int storing the remaining bytes in the configuration descriptor
-			 *  \param CurrConfigLoc  Pointer to the current position in the configuration descriptor
-			 *  \param ComparatorRoutine  Name of the comparator search function to use on the configuration descriptor
+			 *  \param[in,out] BytesRem  Pointer to an int storing the remaining bytes in the configuration descriptor
+			 *  \param[in,out] CurrConfigLoc  Pointer to the current position in the configuration descriptor
+			 *  \param[in] ComparatorRoutine  Name of the comparator search function to use on the configuration descriptor
 			 *
 			 *  \return Value of one of the members of the \ref DSearch_Comp_Return_ErrorCodes_t enum
 			 *
@@ -183,17 +183,17 @@
 		/* Function Prototypes: */
 			/** Retrieves the configuration descriptor data or size from an attached device via a standard request.
 			 *
-			 *  \param ConfigNumber  Device configuration descriptor number to fetch from the device (usually set to 1 for
-			 *                       single configuration devices)
+			 *  \param[in] ConfigNumber  Device configuration descriptor number to fetch from the device (usually set to 1 for
+			 *                           single configuration devices)
 			 *
-			 *  \param ConfigSizePtr  Pointer to a uint16_t for either storing or retrieving the configuration
-			 *         descriptor size
+			 *  \param[in,out] ConfigSizePtr  Pointer to a uint16_t for either storing or retrieving the configuration
+			 *                                descriptor size
 			 *
-			 *  \param BufferPtr  Pointer to the buffer for storing the configuration descriptor data. If this is
-			 *                    NULL, the size of the configuration descriptor will be retrieved instead and
-			 *                    placed in the variable pointed to by ConfigSizePtr. If this is non-NULL, the number
-			 *                    of bytes indicated by ConfigSizePtr of the configuration descriptor will be loaded
-			 *                    into the buffer
+			 *  \param[out] BufferPtr  Pointer to the buffer for storing the configuration descriptor data. If this is
+			 *                         NULL, the size of the configuration descriptor will be retrieved instead and
+			 *                         placed in the variable pointed to by ConfigSizePtr. If this is non-NULL, the number
+			 *                         of bytes indicated by ConfigSizePtr of the configuration descriptor will be loaded
+			 *                         into the buffer
 			 */
 			uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr, void* BufferPtr)
 			                                      ATTR_NON_NULL_PTR_ARG(2);
@@ -201,9 +201,9 @@
 			/** Skips to the next sub-descriptor inside the configuration descriptor of the specified type value.
 			 *  The bytes remaining value is automatically decremented.
 			 *
-			 * \param BytesRem  Pointer to the number of bytes remaining of the configuration descriptor
-			 * \param CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
-			 * \param Type  Descriptor type value to search for
+			 * \param[in,out] BytesRem  Pointer to the number of bytes remaining of the configuration descriptor
+			 * \param[in,out] CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
+			 * \param[in] Type  Descriptor type value to search for
 			 */
 			void USB_GetNextDescriptorOfType(uint16_t* const BytesRem,
 			                                 uint8_t** const CurrConfigLoc,
@@ -215,10 +215,10 @@
 			 *  descriptor is reached first, the number of bytes remaining to process is set to zero and the
 			 *  function exits. The bytes remaining value is automatically decremented.
 			 *
-			 * \param BytesRem  Pointer to the number of bytes remaining of the configuration descriptor
-			 * \param CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
-			 * \param Type  Descriptor type value to search for
-			 * \param BeforeType  Descriptor type value which must not be reached before the given Type descriptor
+			 * \param[in,out] BytesRem  Pointer to the number of bytes remaining of the configuration descriptor
+			 * \param[in,out] CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
+			 * \param[in] Type  Descriptor type value to search for
+			 * \param[in] BeforeType  Descriptor type value which must not be reached before the given Type descriptor
 			 */
 			void USB_GetNextDescriptorOfTypeBefore(uint16_t* const BytesRem,
 			                                       uint8_t** const CurrConfigLoc,
@@ -230,10 +230,10 @@
 			 *  which must come after a descriptor of the second given type value. The bytes remaining value is
 			 *  automatically decremented.
 			 *
-			 * \param BytesRem  Pointer to the number of bytes remaining of the configuration descriptor
-			 * \param CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
-			 * \param Type  Descriptor type value to search for
-			 * \param AfterType  Descriptor type value which must be reached before the given Type descriptor
+			 * \param[in,out] BytesRem  Pointer to the number of bytes remaining of the configuration descriptor
+			 * \param[in,out] CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
+			 * \param[in] Type  Descriptor type value to search for
+			 * \param[in] AfterType  Descriptor type value which must be reached before the given Type descriptor
 			 */
 			void USB_GetNextDescriptorOfTypeAfter(uint16_t* const BytesRem,
 			                                      uint8_t** const CurrConfigLoc,
@@ -245,8 +245,8 @@
 			/** Skips over the current sub-descriptor inside the configuration descriptor, so that the pointer then
 			    points to the next sub-descriptor. The bytes remaining value is automatically decremented.
 			 *
-			 * \param BytesRem  Pointer to the number of bytes remaining of the configuration descriptor
-			 * \param CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
+			 * \param[in,out] BytesRem  Pointer to the number of bytes remaining of the configuration descriptor
+			 * \param[in,out] CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
 			 */
 			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem,
 			                                         uint8_t** const CurrConfigLoc) 

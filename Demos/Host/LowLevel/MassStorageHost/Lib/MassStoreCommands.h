@@ -42,7 +42,7 @@
 		#include "MassStorageHost.h"
 		#include "SCSI_Codes.h"
 
-		#include <LUFA/Drivers/USB/USB.h>                    // USB Functionality
+		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
 		/** Class specific request to reset the Mass Storage interface of the attached device */

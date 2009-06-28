@@ -73,20 +73,20 @@
 	/* Function Prototypes: */	
 		/** Initializes or resets a given bit buffer, ready to store new bits.
 		 *  
-		 *  \param Buffer  Bit buffer to initialize
+		 *  \param[in,out] Buffer  Bit buffer to initialize
 		 */
 		void BitBuffer_Init(BitBuffer_t* Buffer) ATTR_NON_NULL_PTR_ARG(1);
 		
 		/** Stores a bit into the next location inside a given bit buffer.
 		 *
-		 *  \param Buffer  Bit buffer to store a bit into
-		 *  \param Bit  Bit to store into the buffer
+		 *  \param[in,out] Buffer  Bit buffer to store a bit into
+		 *  \param[in] Bit  Bit to store into the buffer
 		 */
 		void BitBuffer_StoreNextBit(BitBuffer_t* Buffer, bool Bit) ATTR_NON_NULL_PTR_ARG(1);
 		
 		/** Retrieves a bit from the next location inside a given bit buffer.
 		 *
-		 *  \param Buffer  Bit buffer to store a bit into
+		 *  \param[in,out] Buffer  Bit buffer to store a bit into
 		 *
 		 *  \return Next bit from the buffer
 		 */

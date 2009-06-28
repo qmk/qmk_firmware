@@ -86,8 +86,8 @@
 
 				/** Selects the given dataflash chip.
 				 *
-				 *  \param  ChipMask  Mask of the Dataflash IC to select, in the form of DATAFLASH_CHIPn mask (where n is
-				 *          the chip number).
+				 *  \param[in]  ChipMask  Mask of the Dataflash IC to select, in the form of DATAFLASH_CHIPn mask (where n is
+				 *              the chip number).
 				 */
 				static inline void Dataflash_SelectChip(uint8_t ChipMask);
 
@@ -105,7 +105,7 @@
 		/* Inline Functions: */
 			/** Sends a byte to the currently selected dataflash IC, and returns a byte from the dataflash.
 			 *
-			 *  \param Byte of data to send to the dataflash
+			 *  \param[in] Byte of data to send to the dataflash
 			 *
 			 *  \return Last response byte from the dataflash
 			 */
@@ -117,7 +117,7 @@
 
 			/** Sends a byte to the currently selected dataflash IC, and ignores the next byte from the dataflash.
 			 *
-			 *  \param Byte of data to send to the dataflash
+			 *  \param[in] Byte of data to send to the dataflash
 			 */
 			static inline void Dataflash_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SendByte(const uint8_t Byte)
@@ -154,7 +154,7 @@
 			/** Initializes the dataflash driver (including the SPI driver) so that commands and data may be
 			 *  sent to an attached dataflash IC.
 			 *
-			 *  \param PrescalerMask  SPI prescaler mask, see SPI.h documentation
+			 *  \param[in] PrescalerMask  SPI prescaler mask, see SPI.h documentation
 			 */
 			static inline void Dataflash_Init(const uint8_t PrescalerMask)
 			{
@@ -191,16 +191,16 @@
 			 *  the total number of pages contained in the boards dataflash ICs, all dataflash ICs
 			 *  are deselected.
 			 *
-			 *  \param PageAddress  Address of the page to manipulate, ranging from
-			 *                      ((DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS) - 1).
+			 *  \param[in] PageAddress  Address of the page to manipulate, ranging from
+			 *                          ((DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS) - 1).
 			 */
 			static inline void Dataflash_SelectChipFromPage(const uint16_t PageAddress);
 
 			/** Sends a set of page and buffer address bytes to the currently selected dataflash IC, for use with
 			 *  dataflash commands which require a complete 24-byte address.
 			 *
-			 *  \param PageAddress  Page address within the selected dataflash IC
-			 *  \param BufferByte   Address within the dataflash's buffer
+			 *  \param[in] PageAddress  Page address within the selected dataflash IC
+			 *  \param[in] BufferByte   Address within the dataflash's buffer
 			 */
 			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress, const uint16_t BufferByte);
 

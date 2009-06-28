@@ -79,8 +79,8 @@
 			/** Initializes the serial stream (and regular USART driver) so that both the stream and regular
 			 *  USART driver functions can be used. Must be called before any stream or regular USART functions.
 			 *
-			 *  \param BaudRate     Baud rate to configure the USART to
-			 *  \param DoubleSpeed  Enables double speed mode when set, halving the sample time to double the baud rate
+			 *  \param[in] BaudRate     Baud rate to configure the USART to
+			 *  \param[in] DoubleSpeed  Enables double speed mode when set, halving the sample time to double the baud rate
 			 */
 			static inline void SerialStream_Init(const uint32_t BaudRate, const bool DoubleSpeed)
 			{

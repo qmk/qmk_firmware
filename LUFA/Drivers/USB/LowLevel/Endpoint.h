@@ -117,13 +117,13 @@
 			
 			/** Maximum size in bytes of a given endpoint.
 			 *
-			 *  \param n  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
+			 *  \param[in] n  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */				
 			#define ENDPOINT_MAX_SIZE(n)                  _ENDPOINT_GET_MAXSIZE(n)
 
 			/** Indicates if the given endpoint supports double banking.
 			 *
-			 *  \param n  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
+			 *  \param[in] n  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */				
 			#define ENDPOINT_DOUBLEBANK_SUPPORTED(n)      _ENDPOINT_GET_DOUBLEBANK(n)
 
@@ -169,14 +169,14 @@
 				 *  Any endpoint operations which do not require the endpoint number to be indicated will operate on
 				 *  the currently selected endpoint.
 				 *
-				 *  \param EndpointNumber Endpoint number to select
+				 *  \param[in] EndpointNumber Endpoint number to select
 				 */
 				static inline void Endpoint_SelectEndpoint(uint8_t EndpointNumber);
 				
 				/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB controller's
 				 *  In and Out pointers to the bank's contents.
 				 *
-				 *  \param EndpointNumber Endpoint number whose FIFO buffers are to be reset
+				 *  \param[in] EndpointNumber Endpoint number whose FIFO buffers are to be reset
 				 */
 				static inline void Endpoint_ResetFIFO(uint8_t EndpointNumber);
 				
@@ -227,7 +227,7 @@
 				/** Determines if the specified endpoint number has interrupted (valid only for INTERRUPT type
 				 *  endpoints).
 				 *
-				 *  \param EndpointNumber  Index of the endpoint whose interrupt flag should be tested
+				 *  \param[in] EndpointNumber  Index of the endpoint whose interrupt flag should be tested
 				 *
 				 *  \return Boolean true if the specified endpoint has interrupted, false otherwise
 				 */
@@ -454,7 +454,7 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Byte  Next byte to write into the the currently selected endpoint's FIFO buffer
+			 *  \param[in] Byte  Next byte to write into the the currently selected endpoint's FIFO buffer
 			 */
 			static inline void Endpoint_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Byte(const uint8_t Byte)
@@ -515,7 +515,7 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Word  Next word to write to the currently selected endpoint's FIFO buffer
+			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer
 			 */
 			static inline void Endpoint_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Word_LE(const uint16_t Word)
@@ -529,7 +529,7 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Word  Next word to write to the currently selected endpoint's FIFO buffer
+			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer
 			 */
 			static inline void Endpoint_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Word_BE(const uint16_t Word)
@@ -604,7 +604,7 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param DWord  Next double word to write to the currently selected endpoint's FIFO buffer
+			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer
 			 */
 			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord)
@@ -620,7 +620,7 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param DWord  Next double word to write to the currently selected endpoint's FIFO buffer
+			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer
 			 */
 			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord)
@@ -722,8 +722,8 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -748,9 +748,9 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Buffer    Pointer to the source data buffer to read from.
-			 *  \param Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
+			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -775,9 +775,9 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Buffer    Pointer to the source data buffer to read from.
-			 *  \param Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
+			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -802,9 +802,9 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Buffer    Pointer to the destination data buffer to write to.
-			 *  \param Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[out] Buffer    Pointer to the destination data buffer to write to.
+			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -829,9 +829,9 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Buffer    Pointer to the destination data buffer to write to.
-			 *  \param Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[out] Buffer    Pointer to the destination data buffer to write to.
+			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -855,8 +855,8 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Buffer  Pointer to the source data buffer to read from.
-			 *  \param Length  Number of bytes to read for the currently selected endpoint into the buffer.
+			 *  \param[in] Buffer  Pointer to the source data buffer to read from.
+			 *  \param[in] Length  Number of bytes to read for the currently selected endpoint into the buffer.
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
@@ -874,8 +874,8 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Buffer  Pointer to the source data buffer to read from.
-			 *  \param Length  Number of bytes to read for the currently selected endpoint into the buffer.
+			 *  \param[in] Buffer  Pointer to the source data buffer to read from.
+			 *  \param[in] Length  Number of bytes to read for the currently selected endpoint into the buffer.
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
@@ -893,8 +893,8 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Buffer  Pointer to the destination data buffer to write to.
-			 *  \param Length  Number of bytes to send via the currently selected endpoint.
+			 *  \param[out] Buffer  Pointer to the destination data buffer to write to.
+			 *  \param[in] Length  Number of bytes to send via the currently selected endpoint.
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
@@ -912,8 +912,8 @@
 			 *
 			 *  \ingroup Group_EndpointRW
 			 *
-			 *  \param Buffer  Pointer to the destination data buffer to write to.
-			 *  \param Length  Number of bytes to send via the currently selected endpoint.
+			 *  \param[out] Buffer  Pointer to the destination data buffer to write to.
+			 *  \param[in] Length  Number of bytes to send via the currently selected endpoint.
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */

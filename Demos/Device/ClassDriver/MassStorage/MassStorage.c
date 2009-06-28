@@ -125,7 +125,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 
 /** Mass Storage class driver callback function the reception of SCSI commands from the host, which must be processed.
  *
- *  \param MSInterfaceInfo  Pointer to the Mass Storage class interface configuration structure being referenced
+ *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface configuration structure being referenced
  */
 bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 {

@@ -84,7 +84,7 @@
 		 *  type define so that the same macro can be used for functional descriptors of varying data lengths,
 		 *  while allowing the sizeof() operator to return correct results.
 		 *
-		 *  \param DataSize  Size of the functional descriptor's data payload, in bytes
+		 *  \param[in] DataSize  Size of the functional descriptor's data payload, in bytes
 		 */
 		#define CDC_FUNCTIONAL_DESCRIPTOR(DataSize)        \
 		     struct                                        \

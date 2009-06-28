@@ -170,7 +170,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 
 /** Function to process the lest received report from the host.
  *
- *  \param DataArray  Pointer to a buffer where the last report data is stored
+ *  \param[in] DataArray  Pointer to a buffer where the last report data is stored
  */
 void ProcessGenericHIDReport(uint8_t* DataArray)
 {
@@ -186,7 +186,7 @@ void ProcessGenericHIDReport(uint8_t* DataArray)
 
 /** Function to create the next report to send back to the host at the next reporting interval.
  *
- *  \param DataArray  Pointer to a buffer where the next report data should be stored
+ *  \param[out] DataArray  Pointer to a buffer where the next report data should be stored
  */
 void CreateGenericHIDReport(uint8_t* DataArray)
 {

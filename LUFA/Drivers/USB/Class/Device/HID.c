@@ -33,7 +33,7 @@
 
 #include "HID.h"
 
-void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo)
+void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
@@ -130,7 +130,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* HIDInterfaceInf
 	}
 }
 
-bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo)
+bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 {
 	HIDInterfaceInfo->State.UsingReportProtocol = true;
 
@@ -143,7 +143,7 @@ bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo)
 	return true;
 }
 		
-void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo)
+void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 {
 	if (!(USB_IsConnected))
 	  return;

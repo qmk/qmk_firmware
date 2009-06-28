@@ -78,8 +78,8 @@ void Webserver_Init(void)
 
 /** Indicates if a given request equals the given HTTP command.
  *
- *  \param RequestHeader  HTTP request made by the host
- *  \param Command        HTTP command to compare the request to
+ *  \param[in] RequestHeader  HTTP request made by the host
+ *  \param[in] Command        HTTP command to compare the request to
  *
  *  \return Boolean true if the command matches the request, false otherwise
  */
@@ -92,8 +92,8 @@ static bool IsHTTPCommand(uint8_t* RequestHeader, char* Command)
 /** Application callback routine, executed each time the TCP processing task runs. This callback determines what request
  *  has been made (if any), and serves up appropriate responses.
  *
- *  \param ConnectionState  Pointer to a TCP Connection State structure giving connection information
- *  \param Buffer           Pointer to the application's send/receive packet buffer
+ *  \param[in] ConnectionState  Pointer to a TCP Connection State structure giving connection information
+ *  \param[in,out] Buffer       Pointer to the application's send/receive packet buffer
  */
 void Webserver_ApplicationCallback(TCP_ConnectionState_t* ConnectionState, TCP_ConnectionBuffer_t* Buffer)
 {

@@ -57,7 +57,7 @@
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a command container.
 		 *
-		 *  \param params  Number of parameters which are to be sent in the Param field of the container
+		 *  \param[in] params  Number of parameters which are to be sent in the Param field of the container
 		 */
 		#define PIMA_COMMAND_SIZE(params)      ((sizeof(PIMA_SendBlock) - sizeof(PIMA_SendBlock.Params)) + \
 		                                        (params * sizeof(PIMA_SendBlock.Params[0])))
@@ -65,7 +65,7 @@
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a data container.
 		 *
-		 *  \param datalen  Length in bytes of the data in the container
+		 *  \param[in] datalen  Length in bytes of the data in the container
 		 */
 		#define PIMA_DATA_SIZE(datalen)        ((sizeof(PIMA_SendBlock) - sizeof(PIMA_SendBlock.Params)) + datalen)
 

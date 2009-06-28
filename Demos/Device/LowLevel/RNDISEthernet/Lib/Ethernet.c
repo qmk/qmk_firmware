@@ -116,8 +116,8 @@ void Ethernet_ProcessPacket(void)
 /** Calculates the appropriate ethernet checksum, consisting of the addition of the one's
  *  compliment of each word, complimented.
  *
- *  \param Data   Pointer to the packet buffer data whose checksum must be calculated
- *  \param Bytes  Number of bytes in the data buffer to process
+ *  \param[in] Data   Pointer to the packet buffer data whose checksum must be calculated
+ *  \param[in] Bytes  Number of bytes in the data buffer to process
  *
  *  \return A 16-bit Ethernet checksum value
  */

@@ -40,9 +40,9 @@
 /** Processes a DHCP packet inside an Ethernet frame, and writes the appropriate response
  *  to the output Ethernet frame if the host is requesting or accepting an IP address.
  *
- *  \param IPHeaderInStart     Pointer to the start of the incoming packet's IP header
- *  \param DHCPHeaderInStart   Pointer to the start of the incoming packet's DHCP header
- *  \param DHCPHeaderOutStart  Pointer to the start of the outgoing packet's DHCP header
+ *  \param[in] IPHeaderInStart     Pointer to the start of the incoming packet's IP header
+ *  \param[in] DHCPHeaderInStart   Pointer to the start of the incoming packet's DHCP header
+ *  \param[out] DHCPHeaderOutStart  Pointer to the start of the outgoing packet's DHCP header
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise
  */

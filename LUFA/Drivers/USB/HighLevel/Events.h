@@ -127,7 +127,7 @@
 			 *
 			 *  \note This event only exists on USB AVR models which support dual role modes.
 			 *
-			 *  \param ErrorCode  Error code indicating the failure reason, a value in \ref USB_InitErrorCodes_t
+			 *  \param[in] ErrorCode  Error code indicating the failure reason, a value in \ref USB_InitErrorCodes_t
 			 */
 			void EVENT_USB_InitFailure(const uint8_t ErrorCode);
 
@@ -146,7 +146,7 @@
 			/** Event for USB host error. This event fires when a hardware fault has occurred whilst the USB
 			 *  interface is in host mode.
 			 *
-			 *  \param ErrorCode  Error code indicating the failure reason, a value in \ref USB_Host_ErrorCodes_t
+			 *  \param[in] ErrorCode  Error code indicating the failure reason, a value in \ref USB_Host_ErrorCodes_t
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *
@@ -185,12 +185,12 @@
 			/** Event for USB device enumeration failure. This event fires when a the USB interface is
 			 *  in host mode, and an attached USB device has failed to enumerate completely.
 			 *
-			 *  \param ErrorCode  Error code indicating the failure reason, a value in 
-			 *                    \ref USB_Host_EnumerationErrorCodes_t
+			 *  \param[in] ErrorCode  Error code indicating the failure reason, a value in 
+			 *                        \ref USB_Host_EnumerationErrorCodes_t
 			 *
-			 *  \param SubErrorCode  Sub error code indicating the reason for failure - for example, if the
-			 *                       ErrorCode parameter indicates a control error, this will give the error
-			 *                       code returned by the \ref USB_Host_SendControlRequest() function.
+			 *  \param[in] SubErrorCode  Sub error code indicating the reason for failure - for example, if the
+			 *                           ErrorCode parameter indicates a control error, this will give the error
+			 *                           code returned by the \ref USB_Host_SendControlRequest() function.
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *

@@ -201,7 +201,7 @@
 
 		/** Convenience macro, to fill a 24-bit AudioSampleFreq_t structure with the given sample rate as a 24-bit number.
 		 *
-		 *  \param freq  Required audio sampling frequency in HZ
+		 *  \param[in] freq  Required audio sampling frequency in HZ
 		 */
 		#define AUDIO_SAMPLE_FREQ(freq)  {LowWord: ((uint32_t)freq & 0x00FFFF), HighByte: (((uint32_t)freq >> 16) & 0x0000FF)}
 		

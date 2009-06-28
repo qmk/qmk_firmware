@@ -171,9 +171,9 @@ void TCP_Init(void)
 
 /** Sets the state and callback handler of the given port, specified in big endian to the given state.
  *
- *  \param Port     Port whose state and callback function to set, specified in big endian
- *  \param State    New state of the port, a value from the TCP_PortStates_t enum
- *  \param Handler  Application callback handler for the port
+ *  \param[in] Port     Port whose state and callback function to set, specified in big endian
+ *  \param[in] State    New state of the port, a value from the TCP_PortStates_t enum
+ *  \param[in] Handler  Application callback handler for the port
  *
  *  \return Boolean true if the port state was set, false otherwise (no more space in the port state table)
  */
@@ -220,7 +220,7 @@ bool TCP_SetPortState(uint16_t Port, uint8_t State, void (*Handler)(TCP_Connecti
 
 /** Retrieves the current state of a given TCP port, specified in big endian.
  *
- *  \param Port  TCP port whose state is to be retrieved, given in big-endian
+ *  \param[in] Port  TCP port whose state is to be retrieved, given in big-endian
  *
  *  \return A value from the TCP_PortStates_t enum
  */
@@ -242,10 +242,10 @@ uint8_t TCP_GetPortState(uint16_t Port)
 /** Sets the connection state of the given port, remote address and remote port to the given TCP connection state. If the
  *  connection exists in the connection state table it is updated, otherwise it is created if possible.
  *
- *  \param Port           TCP port of the connection on the device, specified in big endian
- *  \param RemoteAddress  Remote protocol IP address of the connected device
- *  \param RemotePort     TCP port of the remote device in the connection, specified in big endian
- *  \param State          TCP connection state, a value from the TCP_ConnectionStates_t enum
+ *  \param[in] Port           TCP port of the connection on the device, specified in big endian
+ *  \param[in] RemoteAddress  Remote protocol IP address of the connected device
+ *  \param[in] RemotePort     TCP port of the remote device in the connection, specified in big endian
+ *  \param[in] State          TCP connection state, a value from the TCP_ConnectionStates_t enum
  *
  *  \return Boolean true if the connection was updated or created, false otherwise (no more space in the connection state table)
  */
@@ -283,9 +283,9 @@ bool TCP_SetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16_t 
 
 /** Retrieves the current state of a given TCP connection to a host.
  *
- *  \param Port           TCP port on the device in the connection, specified in big endian
- *  \param RemoteAddress  Remote protocol IP address of the connected host
- *  \param RemotePort     Remote TCP port of the connected host, specified in big endian
+ *  \param[in] Port           TCP port on the device in the connection, specified in big endian
+ *  \param[in] RemoteAddress  Remote protocol IP address of the connected host
+ *  \param[in] RemotePort     Remote TCP port of the connected host, specified in big endian
  *
  *  \return A value from the TCP_ConnectionStates_t enum
  */
@@ -310,9 +310,9 @@ uint8_t TCP_GetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16
 
 /** Retrieves the connection info structure of a given connection to a host.
  *
- *  \param Port           TCP port on the device in the connection, specified in big endian
- *  \param RemoteAddress  Remote protocol IP address of the connected host
- *  \param RemotePort     Remote TCP port of the connected host, specified in big endian
+ *  \param[in] Port           TCP port on the device in the connection, specified in big endian
+ *  \param[in] RemoteAddress  Remote protocol IP address of the connected host
+ *  \param[in] RemotePort     Remote TCP port of the connected host, specified in big endian
  *
  *  \return ConnectionInfo structure of the connection if found, NULL otherwise
  */
@@ -337,9 +337,9 @@ TCP_ConnectionInfo_t* TCP_GetConnectionInfo(uint16_t Port, IP_Address_t RemoteAd
 /** Processes a TCP packet inside an Ethernet frame, and writes the appropriate response
  *  to the output Ethernet frame if one is created by a application handler.
  *
- *  \param IPHeaderInStart    Pointer to the start of the incoming packet's IP header
- *  \param TCPHeaderInStart   Pointer to the start of the incoming packet's TCP header
- *  \param TCPHeaderOutStart  Pointer to the start of the outgoing packet's TCP header
+ *  \param[in] IPHeaderInStart     Pointer to the start of the incoming packet's IP header
+ *  \param[in] TCPHeaderInStart    Pointer to the start of the incoming packet's TCP header
+ *  \param[out] TCPHeaderOutStart  Pointer to the start of the outgoing packet's TCP header
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE if no
  *           response was generated, NO_PROCESS if the packet processing was deferred until the
@@ -579,10 +579,10 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart, void* TCPHeaderInStart, void
 /** Calculates the appropriate TCP checksum, consisting of the addition of the one's compliment of each word,
  *  complimented.
  *
- *  \param TCPHeaderOutStart  Pointer to the start of the packet's outgoing TCP header
- *  \param SourceAddress      Source protocol IP address of the outgoing IP header
- *  \param DestinationAddress Destination protocol IP address of the outgoing IP header
- *  \param TCPOutSize         Size in bytes of the TCP data header and payload
+ *  \param[in] TCPHeaderOutStart   Pointer to the start of the packet's outgoing TCP header
+ *  \param[in] SourceAddress       Source protocol IP address of the outgoing IP header
+ *  \param[in] DestinationAddress  Destination protocol IP address of the outgoing IP header
+ *  \param[in] TCPOutSize          Size in bytes of the TCP data header and payload
  *
  *  \return A 16-bit TCP checksum value
  */

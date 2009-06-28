@@ -164,10 +164,10 @@ void ReadNextReport(void)
 
 /** Writes a report to the attached device.
  *
- *  \param ReportOUTData  Buffer containing the report to send to the device
- *  \param ReportIndex  Index of the report in the device (zero if the device does not use multiple reports)
- *  \param ReportType  Type of report to send, either HID_REPORTTYPE_OUTPUT or HID_REPORTTYPE_FEATURE
- *  \param ReportLength  Length of the report to send
+ *  \param[in] ReportOUTData  Buffer containing the report to send to the device
+ *  \param[in] ReportIndex  Index of the report in the device (zero if the device does not use multiple reports)
+ *  \param[in] ReportType  Type of report to send, either HID_REPORTTYPE_OUTPUT or HID_REPORTTYPE_FEATURE
+ *  \param[in] ReportLength  Length of the report to send
  */
 void WriteNextReport(uint8_t* ReportOUTData, uint8_t ReportIndex, uint8_t ReportType, uint16_t ReportLength)
 {

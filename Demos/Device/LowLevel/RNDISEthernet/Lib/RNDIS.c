@@ -232,11 +232,11 @@ void ProcessRNDISControlMessage(void)
 /** Processes RNDIS query commands, retrieving information from the adapter and reporting it back to the host. The requested
  *  parameter is given as an OID value.
  *
- *  \param OId           OId value of the parameter being queried
- *  \param QueryData     Pointer to any extra query data being sent by the host to the device inside the RNDIS message buffer
- *  \param QuerySize     Size in bytes of the extra query data being sent by the host
- *  \param ResponseData  Pointer to the start of the query response inside the RNDIS message buffer
- *  \param ResponseSize  Pointer to the size in bytes of the response data being sent to the host
+ *  \param[in] OId            OId value of the parameter being queried
+ *  \param[in] QueryData      Pointer to any extra query data being sent by the host to the device inside the RNDIS message buffer
+ *  \param[in] QuerySize      Size in bytes of the extra query data being sent by the host
+ *  \param[out] ResponseData  Pointer to the start of the query response inside the RNDIS message buffer
+ *  \param[out] ResponseSize  Pointer to the size in bytes of the response data being sent to the host
  *
  *  \return Boolean true if the query was handled, false otherwise
  */
@@ -364,9 +364,9 @@ static bool ProcessNDISQuery(uint32_t OId, void* QueryData, uint16_t QuerySize,
 /** Processes RNDIS set commands, setting adapter parameters to values given by the host. The requested parameter is given 
  *  as an OID value.
  *
- *  \param OId      OId value of the parameter being set
- *  \param SetData  Pointer to the parameter value in the RNDIS message buffer
- *  \param SetSize  Size in bytes of the parameter value being sent by the host
+ *  \param[in] OId      OId value of the parameter being set
+ *  \param[in] SetData  Pointer to the parameter value in the RNDIS message buffer
+ *  \param[in] SetSize  Size in bytes of the parameter value being sent by the host
  *
  *  \return Boolean true if the set was handled, false otherwise
  */

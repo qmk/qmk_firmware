@@ -89,7 +89,7 @@
 		
 		/** Application macro: Determines if the given application buffer contains a packet received from the host
 		 *
-		 *  \param Buffer  Application buffer to check
+		 *  \param[in] Buffer  Application buffer to check
 		 *
 		 *  \return Boolean true if the buffer contains a packet from the host, false otherwise
 		 */
@@ -97,7 +97,7 @@
 
 		/** Application macro: Indicates if the application buffer is currently locked by the application for device-to-host transfers.
 		 *
-		 *  \param Buffer  Application buffer to check
+		 *  \param[in] Buffer  Application buffer to check
 		 *
 		 *  \return Boolean true if the buffer has been captured by the application for device-to-host transmissions, false otherwise
 		 */
@@ -106,7 +106,7 @@
 
 		/** Application macro: Indicates if the application can lock the buffer for multiple continued device-to-host transmissions.
 		 *
-		 *  \param Buffer  Application buffer to check
+		 *  \param[in] Buffer  Application buffer to check
 		 *
 		 *  \return Boolean true if the buffer may be captured by the application for device-to-host transmissions, false otherwise
 		 */
@@ -117,32 +117,32 @@
 		 *
 		 *  \note The application must check that the buffer can be locked first using TCP_APP_CAN_CAPTURE_BUFFER().
 		 *
-		 *  \param Buffer  Application buffer to lock
+		 *  \param[in] Buffer  Application buffer to lock
 		 */
 		#define TCP_APP_CAPTURE_BUFFER(Buffer)       MACROS{ Buffer->Direction = TCP_PACKETDIR_OUT; Buffer->InUse = true; }MACROE
 
 		/** Application macro: Releases a captured application buffer, allowing for host-to-device packets to be received.
 		 *
-		 *  \param Buffer  Application buffer to release
+		 *  \param[in] Buffer  Application buffer to release
 		 */
 		#define TCP_APP_RELEASE_BUFFER(Buffer)       MACROS{ Buffer->InUse = false; }MACROE
 
 		/** Application macro: Sends the contents of the given application buffer to the host.
 		 *
-		 *  \param Buffer  Application buffer to send
-		 *  \param Len     Length of data contained in the buffer
+		 *  \param[in] Buffer  Application buffer to send
+		 *  \param[in] Len     Length of data contained in the buffer
 		 */
 		#define TCP_APP_SEND_BUFFER(Buffer, Len)     MACROS{ Buffer->Direction = TCP_PACKETDIR_OUT; Buffer->Length = Len; Buffer->Ready = true; }MACROE
 
 		/** Application macro: Clears the application buffer, ready for a packet to be written to it.
 		 *
-		 *  \param Buffer  Application buffer to clear
+		 *  \param[in] Buffer  Application buffer to clear
 		 */
 		#define TCP_APP_CLEAR_BUFFER(Buffer)         MACROS{ Buffer->Ready = false; Buffer->Length = 0; }MACROE
 		
 		/** Application macro: Closes an open connection to a host.
 		 *
-		 *  \param Connection  Open TCP connection to close
+		 *  \param[in] Connection  Open TCP connection to close
 		 */
 		#define TCP_APP_CLOSECONNECTION(Connection)  MACROS{ Connection->State = TCP_Connection_Closing;  }MACROE
 

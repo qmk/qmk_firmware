@@ -84,7 +84,7 @@ SCSI_Request_Sense_Response_t SenseData =
  *  to the appropriate SCSI command handling routine if the issued command is supported by the device, else it returns
  *  a command failure due to a ILLEGAL REQUEST.
  *
- *  \param MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  */
 bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 {
@@ -142,7 +142,7 @@ bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 /** Command processing for an issued SCSI INQUIRY command. This command returns information about the device's features
  *  and capabilities to the host.
  *
- *  \param MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */
@@ -184,7 +184,7 @@ static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 /** Command processing for an issued SCSI REQUEST SENSE command. This command returns information about the last issued command,
  *  including the error code and additional error information so that the host can determine why a command failed to complete.
  *
- *  \param MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */
@@ -208,7 +208,7 @@ static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* MSInterfaceInf
 /** Command processing for an issued SCSI READ CAPACITY (10) command. This command returns information about the device's capacity
  *  on the selected Logical Unit (drive), as a number of OS-sized blocks.
  *
- *  \param MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */
@@ -231,7 +231,7 @@ static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* MSInterface
  *  board, and indicates if they are present and functioning correctly. Only the Self-Test portion of the diagnostic command is
  *  supported.
  *
- *  \param MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */
@@ -296,8 +296,8 @@ static bool SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* MSInterfaceI
  *  and total number of blocks to process, then calls the appropriate low-level dataflash routine to handle the actual
  *  reading and writing of the data.
  *
- *  \param MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
- *  \param IsDataRead  Indicates if the command is a READ (10) command or WRITE (10) command (DATA_READ or DATA_WRITE)
+ *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *  \param[in] IsDataRead  Indicates if the command is a READ (10) command or WRITE (10) command (DATA_READ or DATA_WRITE)
  *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */

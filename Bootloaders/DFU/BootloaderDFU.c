@@ -454,7 +454,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 /** Routine to discard the specified number of bytes from the control endpoint stream. This is used to
  *  discard unused bytes in the stream from the host, including the memory program block suffix.
  *
- *  \param NumberOfBytes  Number of bytes to discard from the host from the control endpoint
+ *  \param[in] NumberOfBytes  Number of bytes to discard from the host from the control endpoint
  */
 static void DiscardFillerBytes(uint8_t NumberOfBytes)
 {

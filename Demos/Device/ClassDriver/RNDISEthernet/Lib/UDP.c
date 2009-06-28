@@ -40,9 +40,9 @@
 /** Processes a UDP packet inside an Ethernet frame, and writes the appropriate response
  *  to the output Ethernet frame if a subprotocol handler has created a response packet.
  *
- *  \param IPHeaderInStart    Pointer to the start of the incoming packet's IP header
- *  \param UDPHeaderInStart   Pointer to the start of the incoming packet's UDP header
- *  \param UDPHeaderOutStart  Pointer to the start of the outgoing packet's UDP header
+ *  \param[in] IPHeaderInStart     Pointer to the start of the incoming packet's IP header
+ *  \param[in] UDPHeaderInStart    Pointer to the start of the incoming packet's UDP header
+ *  \param[out] UDPHeaderOutStart  Pointer to the start of the outgoing packet's UDP header
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise
  */

@@ -182,7 +182,7 @@
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
-			 *  \param ConfigNumber  Configuration index to send to the device
+			 *  \param[in] ConfigNumber  Configuration index to send to the device
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
@@ -194,8 +194,8 @@
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
-			 *  \param DeviceDescriptorPtr  Pointer to the destination device descriptor structure where
-			 *                              the read data is to be stored
+			 *  \param[out] DeviceDescriptorPtr  Pointer to the destination device descriptor structure where
+			 *                                   the read data is to be stored
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
@@ -205,7 +205,7 @@
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
-			 *  \param EndpointIndex  Index of the endpoint to clear
+			 *  \param[in] EndpointIndex  Index of the endpoint to clear
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */			

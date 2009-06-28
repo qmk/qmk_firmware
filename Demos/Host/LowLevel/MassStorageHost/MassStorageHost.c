@@ -349,9 +349,9 @@ void MassStorage_Task(void)
  *  printing error codes to the serial port and waiting until the device is removed before
  *  continuing.
  *
- *  \param CommandString  ASCII string located in PROGMEM space indicating what operation failed
- *  \param FailedAtSCSILayer  Indicates if the command failed at the (logical) SCSI layer or at the physical USB layer
- *  \param ErrorCode      Error code of the function which failed to complete successfully
+ *  \param[in] CommandString      ASCII string located in PROGMEM space indicating what operation failed
+ *  \param[in] FailedAtSCSILayer  Indicates if the command failed at the (logical) SCSI layer or at the physical USB layer
+ *  \param[in] ErrorCode          Error code of the function which failed to complete successfully
  */
 void ShowDiskReadError(char* CommandString, bool FailedAtSCSILayer, uint8_t ErrorCode)
 {

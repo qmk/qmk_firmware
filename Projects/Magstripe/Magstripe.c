@@ -160,9 +160,9 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 
 /** HID Class driver callback function for the creation of a HID report for the host.
  *
- *  \param HIDInterfaceInfo  Pointer to the HID interface structure for the HID interface being referenced
- *  \param ReportID  Report ID requested by the host if non-zero, otherwise callback should set to the generated report ID
- *  \param ReportData  Pointer to the preallocated report buffer where the created report should be stored
+ *  \param[in] HIDInterfaceInfo  Pointer to the HID interface structure for the HID interface being referenced
+ *  \param[in,out] ReportID      Report ID requested by the host if non-zero, otherwise callback should set to the generated report ID
+ *  \param[out] ReportData       Pointer to the preallocated report buffer where the created report should be stored
  *
  *  \return Number of bytes in the created report
  */
@@ -209,10 +209,10 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* HIDInte
 
 /** HID Class driver callback function for the processing of a received HID report from the host.
  *
- *  \param HIDInterfaceInfo  Pointer to the HID interface structure for the HID interface being referenced
- *  \param ReportID  Report ID of the received report from the host
- *  \param ReportData  Pointer to the report buffer where the received report is stored
- *  \param ReportSize  Size in bytes of the report received from the host
+ *  \param[in] HIDInterfaceInfo  Pointer to the HID interface structure for the HID interface being referenced
+ *  \param[in] ReportID          Report ID of the received report from the host
+ *  \param[in] ReportData        Pointer to the report buffer where the received report is stored
+ *  \param[in] ReportSize        Size in bytes of the report received from the host
  */
 void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t ReportID,
                                           void* ReportData, uint16_t ReportSize)

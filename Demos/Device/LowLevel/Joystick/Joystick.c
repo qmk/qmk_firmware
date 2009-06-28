@@ -136,7 +136,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 
 /** Fills the given HID report data structure with the next HID report to send to the host.
  *
- *  \param ReportData  Pointer to a HID report data structure to be filled
+ *  \param[out] ReportData  Pointer to a HID report data structure to be filled
  *
  *  \return Boolean true if the new report differs from the last report, false otherwise
  */

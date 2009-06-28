@@ -47,7 +47,7 @@
 		 *  a single typedef struct. A macro is used instead so that functional descriptors can be created
 		 *  easily by specifying the size of the payload. This allows sizeof() to work correctly.
 		 *
-		 *  \param DataSize  Size in bytes of the CDC functional descriptor's data payload
+		 *  \param[in] DataSize  Size in bytes of the CDC functional descriptor's data payload
 		 */
 		#define CDC_FUNCTIONAL_DESCRIPTOR(DataSize)        \
 		     struct                                        \

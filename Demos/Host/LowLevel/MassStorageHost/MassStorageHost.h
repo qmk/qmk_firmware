@@ -49,12 +49,12 @@
 
 		#include "Lib/MassStoreCommands.h"
 
-		#include <LUFA/Version.h>                                // Library Version Information
-		#include <LUFA/Drivers/Misc/TerminalCodes.h>             // ANSI Terminal Escape Codes
-		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>        // Serial stream driver
-		#include <LUFA/Drivers/Board/LEDs.h>                     // LEDs driver
-		#include <LUFA/Drivers/Board/Buttons.h>                  // Board Buttons driver
+		#include <LUFA/Version.h>
+		#include <LUFA/Drivers/Misc/TerminalCodes.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Buttons.h>
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */

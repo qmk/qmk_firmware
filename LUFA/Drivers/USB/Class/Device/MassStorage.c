@@ -36,7 +36,7 @@
 
 static USB_ClassInfo_MS_Device_t* CallbackMSInterfaceInfo;
 
-void MS_Device_ProcessControlPacket(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
+void MS_Device_ProcessControlPacket(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
@@ -75,7 +75,7 @@ void MS_Device_ProcessControlPacket(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 	}
 }
 
-bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
+bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	if (!(Endpoint_ConfigureEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,
 							         ENDPOINT_DIR_IN, MSInterfaceInfo->Config.DataINEndpointSize,
@@ -94,7 +94,7 @@ bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 	return true;
 }
 
-void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
+void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	if (!(USB_IsConnected))
 	  return;
@@ -138,7 +138,7 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 	MSInterfaceInfo->State.IsMassStoreReset = false;
 }
 
-static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
+static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
 
@@ -171,7 +171,7 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* MSInterfaceI
 	return true;
 }
 
-static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
+static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
 

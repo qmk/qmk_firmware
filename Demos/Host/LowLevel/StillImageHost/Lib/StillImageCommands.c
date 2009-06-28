@@ -190,8 +190,8 @@ uint8_t SImage_RecieveBlockHeader(void)
 
 /** Function to send the given data to the device, after a command block has been issued.
  *
- *  \param Buffer  Source data buffer to send to the device
- *  \param Bytes   Number of bytes to send
+ *  \param[in] Buffer  Source data buffer to send to the device
+ *  \param[in] Bytes   Number of bytes to send
  */
 void SImage_SendData(void* Buffer, uint16_t Bytes)
 {
@@ -211,8 +211,8 @@ void SImage_SendData(void* Buffer, uint16_t Bytes)
 
 /** Function to receive the given data to the device, after a response block has been received.
  *
- *  \param Buffer  Destination data buffer to put read bytes from the device
- *  \param Bytes   Number of bytes to receive
+ *  \param[out] Buffer  Destination data buffer to put read bytes from the device
+ *  \param[in] Bytes    Number of bytes to receive
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
@@ -257,7 +257,7 @@ bool SImage_IsEventReceived(void)
 
 /** Clears the stall condition in the attached device on the nominated endpoint number.
  *
- *  \param EndpointNum  Endpoint number in the attached device whose stall condition is to be cleared
+ *  \param[in] EndpointNum  Endpoint number in the attached device whose stall condition is to be cleared
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */

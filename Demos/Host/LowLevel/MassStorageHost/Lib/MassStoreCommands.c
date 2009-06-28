@@ -170,7 +170,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 /** Sends or receives the transaction's data stage to or from the attached device, reading or
  *  writing to the nominated buffer.
  *
- *  \param  BufferPtr  Pointer to the data buffer to read from or write to
+ *  \param[in,out]  BufferPtr  Pointer to the data buffer to read from or write to
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
@@ -269,7 +269,7 @@ uint8_t MassStore_MassStorageReset(void)
 /** Issues a Mass Storage class specific request to determine the index of the highest numbered Logical
  *  Unit in the attached device.
  *
- *  \param MaxLUNIndex  Pointer to the location that the maximum LUN index value should be stored
+ *  \param[out] MaxLUNIndex  Pointer to the location that the maximum LUN index value should be stored
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
@@ -304,8 +304,8 @@ uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex)
 /** Issues a SCSI Inquiry command to the attached device, to determine the device's information. This
  *  gives information on the device's capabilities.
  *
- *  \param LUNIndex    Index of the LUN inside the device the command is being addressed to
- *  \param InquiryPtr  Pointer to the inquiry data structure where the inquiry data from the device is to be stored
+ *  \param[in] LUNIndex    Index of the LUN inside the device the command is being addressed to
+ *  \param[out] InquiryPtr  Pointer to the inquiry data structure where the inquiry data from the device is to be stored
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
@@ -367,8 +367,8 @@ uint8_t MassStore_Inquiry(const uint8_t LUNIndex, const SCSI_Inquiry_Response_t*
 /** Issues a SCSI Request Sense command to the attached device, to determine the current SCSI sense information. This
  *  gives error codes for the last issued SCSI command to the device.
  *
- *  \param LUNIndex  Index of the LUN inside the device the command is being addressed to
- *  \param SensePtr  Pointer to the sense data structure where the sense data from the device is to be stored
+ *  \param[in] LUNIndex   Index of the LUN inside the device the command is being addressed to
+ *  \param[out] SensePtr  Pointer to the sense data structure where the sense data from the device is to be stored
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
@@ -430,11 +430,11 @@ uint8_t MassStore_RequestSense(const uint8_t LUNIndex, const SCSI_Request_Sense_
 /** Issues a SCSI Device Block Read command to the attached device, to read in one or more data blocks from the
  *  storage medium into a buffer.
  *
- *  \param LUNIndex      Index of the LUN inside the device the command is being addressed to
- *  \param BlockAddress  Start block address to read from
- *  \param Blocks        Number of blocks to read from the device
- *  \param BlockSize     Size in bytes of each block to read
- *  \param BufferPtr     Pointer to the buffer where the read data is to be written to
+ *  \param[in] LUNIndex      Index of the LUN inside the device the command is being addressed to
+ *  \param[in] BlockAddress  Start block address to read from
+ *  \param[in] Blocks        Number of blocks to read from the device
+ *  \param[in] BlockSize     Size in bytes of each block to read
+ *  \param[out] BufferPtr    Pointer to the buffer where the read data is to be written to
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
@@ -501,11 +501,11 @@ uint8_t MassStore_ReadDeviceBlock(const uint8_t LUNIndex, const uint32_t BlockAd
 /** Issues a SCSI Device Block Write command to the attached device, to write one or more data blocks to the
  *  storage medium from a buffer.
  *
- *  \param LUNIndex      Index of the LUN inside the device the command is being addressed to
- *  \param BlockAddress  Start block address to write to
- *  \param Blocks        Number of blocks to write to in the device
- *  \param BlockSize     Size in bytes of each block to write
- *  \param BufferPtr     Pointer to the buffer where the write data is to be sourced from
+ *  \param[in] LUNIndex      Index of the LUN inside the device the command is being addressed to
+ *  \param[in] BlockAddress  Start block address to write to
+ *  \param[in] Blocks        Number of blocks to write to in the device
+ *  \param[in] BlockSize     Size in bytes of each block to write
+ *  \param[in] BufferPtr     Pointer to the buffer where the write data is to be sourced from
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
@@ -565,7 +565,7 @@ uint8_t MassStore_WriteDeviceBlock(const uint8_t LUNIndex, const uint32_t BlockA
 /** Issues a SCSI Device Test Unit Ready command to the attached device, to determine if the device is ready to accept
  *  other commands.
  *
- *  \param LUNIndex      Index of the LUN inside the device the command is being addressed to
+ *  \param[in] LUNIndex      Index of the LUN inside the device the command is being addressed to
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
@@ -613,8 +613,8 @@ uint8_t MassStore_TestUnitReady(const uint8_t LUNIndex)
 /** Issues a SCSI Device Read Capacity command to the attached device, to determine the capacity of the
  *  given Logical Unit within the device.
  *
- *  \param LUNIndex     Index of the LUN inside the device the command is being addressed to
- *  \param CapacityPtr  Device capacity structure where the capacity data is to be stored
+ *  \param[in] LUNIndex      Index of the LUN inside the device the command is being addressed to
+ *  \param[out] CapacityPtr  Device capacity structure where the capacity data is to be stored
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
@@ -685,8 +685,8 @@ uint8_t MassStore_ReadCapacity(const uint8_t LUNIndex, SCSI_Capacity_t* const Ca
  *  being removed. This is a legacy command for SCSI disks with removable storage (such as ZIP disks), but should still
  *  be issued before the first read or write command is sent.
  *
- *  \param LUNIndex        Index of the LUN inside the device the command is being addressed to
- *  \param PreventRemoval  Whether or not the LUN media should be locked to prevent removal or not
+ *  \param[in] LUNIndex        Index of the LUN inside the device the command is being addressed to
+ *  \param[in] PreventRemoval  Whether or not the LUN media should be locked to prevent removal or not
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */

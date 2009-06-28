@@ -102,7 +102,7 @@
 				 *  There are two different methods of sending a SRP - either pulses on the VBUS line, or by
 				 *  pulsing the Data + line via the internal pull-up resistor.
 				 *
-				 *  \param SRPTypeMask  Mask indicating the type of SRP to use, either \ref USB_OTG_SRP_VBUS or \ref USB_OTG_STP_DATA.
+				 *  \param[in] SRPTypeMask  Mask indicating the type of SRP to use, either \ref USB_OTG_SRP_VBUS or \ref USB_OTG_STP_DATA.
 				 */
 				static inline void USB_OTG_Dev_InitiateSRP(uint8_t SRPTypeMask);
 			#else

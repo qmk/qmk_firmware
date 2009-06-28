@@ -115,7 +115,7 @@
 				 *  The "mode" parameter should be a mask comprised of a conversion mode (free running or single) and
 				 *  prescaler masks.
 				 *
-				 *  \param Mode  Mask of ADC settings, including adjustment, prescale, mode and reference
+				 *  \param[in] Mode  Mask of ADC settings, including adjustment, prescale, mode and reference
 				 */
 				static inline void ADC_Init(uint8_t Mode);
 				
@@ -159,7 +159,7 @@
 			 *  associated port pin as an input and disables the digital portion of the I/O to reduce
 			 *  power consumption.
 			 *
-			 *  \param Channel  ADC channel number to set up for conversions
+			 *  \param[in] Channel  ADC channel number to set up for conversions
 			 */
 			static inline void ADC_SetupChannel(const uint8_t Channel)
 			{
@@ -196,7 +196,7 @@
 			 *  Once executed, the conversion status can be determined via the \ref ADC_IsReadingComplete() macro and
 			 *  the result read via the \ref ADC_GetResult() macro.
 			 *
-			 *  \param MUXMask  Mask comprising of an ADC channel number, reference mask and adjustment mask
+			 *  \param[in] MUXMask  Mask comprising of an ADC channel number, reference mask and adjustment mask
 			 */
 			static inline void ADC_StartReading(const uint8_t MUXMask)
 			{
@@ -208,7 +208,7 @@
 			/** Performs a complete single reading from channel, including a polling spinloop to wait for the
 			 *  conversion to complete, and the returning of the converted value.
 			 *
-			 *  \param MUXMask  Mask comprising of an ADC channel number, reference mask and adjustment mask
+			 *  \param[in] MUXMask  Mask comprising of an ADC channel number, reference mask and adjustment mask
 			 */
 			static inline uint16_t ADC_GetChannelReading(const uint8_t MUXMask) ATTR_WARN_UNUSED_RESULT;
 			static inline uint16_t ADC_GetChannelReading(const uint8_t MUXMask)

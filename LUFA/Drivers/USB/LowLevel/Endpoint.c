@@ -119,6 +119,46 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
 
+	#if defined(FAST_STREAM_TRANSFERS)
+	uint8_t BytesRemToAlignment = (Endpoint_BytesInEndpoint() & 0x07);
+
+	if (Length >= 8)
+	{
+		Length -= BytesRemToAlignment;
+
+		switch (BytesRemToAlignment)
+		{
+			default:
+				do
+				{
+					if (!(Endpoint_IsReadWriteAllowed()))
+					{
+						Endpoint_ClearOUT();
+
+						#if !defined(NO_STREAM_CALLBACKS)
+						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
+						  return ENDPOINT_RWSTREAM_CallbackAborted;
+						#endif
+
+						if ((ErrorCode = Endpoint_WaitUntilReady()))
+						  return ErrorCode;
+					}
+
+					Length -= 8;
+					
+					Endpoint_Discard_Byte();
+			case 7: Endpoint_Discard_Byte();
+			case 6: Endpoint_Discard_Byte();
+			case 5: Endpoint_Discard_Byte();
+			case 4: Endpoint_Discard_Byte();
+			case 3: Endpoint_Discard_Byte();
+			case 2: Endpoint_Discard_Byte();
+			case 1:	Endpoint_Discard_Byte();
+				} while (Length >= 8);	
+		}
+	}
+	#endif
+
 	while (Length)
 	{
 		if (!(Endpoint_IsReadWriteAllowed()))
@@ -155,6 +195,46 @@ uint8_t Endpoint_Write_Stream_LE(const void* Buffer, uint16_t Length
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
 
+	#if defined(FAST_STREAM_TRANSFERS)
+	uint8_t BytesRemToAlignment = (Endpoint_BytesInEndpoint() & 0x07);
+
+	if (Length >= 8)
+	{
+		Length -= BytesRemToAlignment;
+
+		switch (BytesRemToAlignment)
+		{
+			default:
+				do
+				{
+					if (!(Endpoint_IsReadWriteAllowed()))
+					{
+						Endpoint_ClearIN();
+
+						#if !defined(NO_STREAM_CALLBACKS)
+						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
+						  return ENDPOINT_RWSTREAM_CallbackAborted;
+						#endif
+
+						if ((ErrorCode = Endpoint_WaitUntilReady()))
+						  return ErrorCode;
+					}
+
+					Length -= 8;
+					
+					Endpoint_Write_Byte(*(DataStream++));
+			case 7: Endpoint_Write_Byte(*(DataStream++));
+			case 6: Endpoint_Write_Byte(*(DataStream++));
+			case 5: Endpoint_Write_Byte(*(DataStream++));
+			case 4: Endpoint_Write_Byte(*(DataStream++));
+			case 3: Endpoint_Write_Byte(*(DataStream++));
+			case 2: Endpoint_Write_Byte(*(DataStream++));
+			case 1:	Endpoint_Write_Byte(*(DataStream++));
+				} while (Length >= 8);	
+		}
+	}
+	#endif
+
 	while (Length)
 	{
 		if (!(Endpoint_IsReadWriteAllowed()))
@@ -175,7 +255,7 @@ uint8_t Endpoint_Write_Stream_LE(const void* Buffer, uint16_t Length
 			Length--;
 		}
 	}
-	
+
 	return ENDPOINT_RWSTREAM_NoError;
 }
 
@@ -190,6 +270,46 @@ uint8_t Endpoint_Write_Stream_BE(const void* Buffer, uint16_t Length
 	
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
+
+	#if defined(FAST_STREAM_TRANSFERS)
+	uint8_t BytesRemToAlignment = (Endpoint_BytesInEndpoint() & 0x07);
+
+	if (Length >= 8)
+	{
+		Length -= BytesRemToAlignment;
+
+		switch (BytesRemToAlignment)
+		{
+			default:
+				do
+				{
+					if (!(Endpoint_IsReadWriteAllowed()))
+					{
+						Endpoint_ClearIN();
+
+						#if !defined(NO_STREAM_CALLBACKS)
+						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
+						  return ENDPOINT_RWSTREAM_CallbackAborted;
+						#endif
+
+						if ((ErrorCode = Endpoint_WaitUntilReady()))
+						  return ErrorCode;
+					}
+
+					Length -= 8;
+					
+					Endpoint_Write_Byte(*(DataStream--));
+			case 7: Endpoint_Write_Byte(*(DataStream--));
+			case 6: Endpoint_Write_Byte(*(DataStream--));
+			case 5: Endpoint_Write_Byte(*(DataStream--));
+			case 4: Endpoint_Write_Byte(*(DataStream--));
+			case 3: Endpoint_Write_Byte(*(DataStream--));
+			case 2: Endpoint_Write_Byte(*(DataStream--));
+			case 1:	Endpoint_Write_Byte(*(DataStream--));
+				} while (Length >= 8);	
+		}
+	}
+	#endif
 
 	while (Length)
 	{
@@ -211,7 +331,7 @@ uint8_t Endpoint_Write_Stream_BE(const void* Buffer, uint16_t Length
 			Length--;
 		}
 	}
-	
+
 	return ENDPOINT_RWSTREAM_NoError;
 }
 
@@ -226,6 +346,46 @@ uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length
 	
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
+
+	#if defined(FAST_STREAM_TRANSFERS)
+	uint8_t BytesRemToAlignment = (Endpoint_BytesInEndpoint() & 0x07);
+
+	if (Length >= 8)
+	{
+		Length -= BytesRemToAlignment;
+
+		switch (BytesRemToAlignment)
+		{
+			default:
+				do
+				{
+					if (!(Endpoint_IsReadWriteAllowed()))
+					{
+						Endpoint_ClearOUT();
+
+						#if !defined(NO_STREAM_CALLBACKS)
+						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
+						  return ENDPOINT_RWSTREAM_CallbackAborted;
+						#endif
+
+						if ((ErrorCode = Endpoint_WaitUntilReady()))
+						  return ErrorCode;
+					}
+
+					Length -= 8;
+					
+					*(DataStream++) = Endpoint_Read_Byte();
+			case 7: *(DataStream++) = Endpoint_Read_Byte();
+			case 6: *(DataStream++) = Endpoint_Read_Byte();
+			case 5: *(DataStream++) = Endpoint_Read_Byte();
+			case 4: *(DataStream++) = Endpoint_Read_Byte();
+			case 3: *(DataStream++) = Endpoint_Read_Byte();
+			case 2: *(DataStream++) = Endpoint_Read_Byte();
+			case 1:	*(DataStream++) = Endpoint_Read_Byte();
+				} while (Length >= 8);	
+		}
+	}
+	#endif
 
 	while (Length)
 	{
@@ -247,7 +407,7 @@ uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length
 			Length--;
 		}
 	}
-	
+
 	return ENDPOINT_RWSTREAM_NoError;
 }
 
@@ -262,6 +422,46 @@ uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
 	
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
+
+	#if defined(FAST_STREAM_TRANSFERS)
+	uint8_t BytesRemToAlignment = (Endpoint_BytesInEndpoint() & 0x07);
+
+	if (Length >= 8)
+	{
+		Length -= BytesRemToAlignment;
+
+		switch (BytesRemToAlignment)
+		{
+			default:
+				do
+				{
+					if (!(Endpoint_IsReadWriteAllowed()))
+					{
+						Endpoint_ClearOUT();
+
+						#if !defined(NO_STREAM_CALLBACKS)
+						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
+						  return ENDPOINT_RWSTREAM_CallbackAborted;
+						#endif
+
+						if ((ErrorCode = Endpoint_WaitUntilReady()))
+						  return ErrorCode;
+					}
+
+					Length -= 8;
+					
+					*(DataStream--) = Endpoint_Read_Byte();
+			case 7: *(DataStream--) = Endpoint_Read_Byte();
+			case 6: *(DataStream--) = Endpoint_Read_Byte();
+			case 5: *(DataStream--) = Endpoint_Read_Byte();
+			case 4: *(DataStream--) = Endpoint_Read_Byte();
+			case 3: *(DataStream--) = Endpoint_Read_Byte();
+			case 2: *(DataStream--) = Endpoint_Read_Byte();
+			case 1:	*(DataStream--) = Endpoint_Read_Byte();
+				} while (Length >= 8);	
+		}
+	}
+	#endif
 
 	while (Length)
 	{
@@ -283,7 +483,7 @@ uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length
 			Length--;
 		}
 	}
-	
+
 	return ENDPOINT_RWSTREAM_NoError;
 }
 #endif

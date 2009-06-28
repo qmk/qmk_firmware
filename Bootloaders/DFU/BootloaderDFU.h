@@ -76,16 +76,16 @@
 		
 		/** Convenience macro, used to determine if the issued command is the given one-byte long command.
 		 *
-		 *  \param dataarr  Command byte array to check against
-		 *  \param cb1      First command byte to check
+		 *  \param[in] dataarr  Command byte array to check against
+		 *  \param[in] cb1      First command byte to check
 		 */
 		#define IS_ONEBYTE_COMMAND(dataarr, cb1)       (dataarr[0] == cb1)
 
 		/** Convenience macro, used to determine if the issued command is the given two-byte long command.
 		 *
-		 *  \param dataarr  Command byte array to check against
-		 *  \param cb1      First command byte to check
-		 *  \param cb2      Second command byte to check
+		 *  \param[in] dataarr  Command byte array to check against
+		 *  \param[in] cb1      First command byte to check
+		 *  \param[in] cb2      Second command byte to check
 		 */
 		#define IS_TWOBYTE_COMMAND(dataarr, cb1, cb2) ((dataarr[0] == cb1) && (dataarr[1] == cb2))
 	

@@ -63,7 +63,7 @@
 		/** Convenience macro. MIDI channels are numbered from 1-10 (natural numbers) however the logical channel
 		 *  addresses are zero-indexed. This converts a natural MIDI channel number into the logical channel address.
 		 *
-		 *  \param channel  MIDI channel number to address
+		 *  \param[in] channel  MIDI channel number to address
 		 */
 		#define MIDI_CHANNEL(channel)     (channel - 1)
 

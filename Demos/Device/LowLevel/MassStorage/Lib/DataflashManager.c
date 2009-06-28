@@ -43,8 +43,8 @@
  *  the pre-selected data OUT endpoint. This routine reads in OS sized blocks from the endpoint and writes
  *  them to the dataflash in Dataflash page sized blocks.
  *
- *  \param BlockAddress  Data block starting address for the write sequence
- *  \param TotalBlocks   Number of blocks of data to write
+ *  \param[in] BlockAddress  Data block starting address for the write sequence
+ *  \param[in] TotalBlocks   Number of blocks of data to write
  */
 void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlocks)
 {
@@ -168,8 +168,8 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlo
  *  the pre-selected data IN endpoint. This routine reads in Dataflash page sized blocks from the Dataflash
  *  and writes them in OS sized blocks to the endpoint.
  *
- *  \param BlockAddress  Data block starting address for the read sequence
- *  \param TotalBlocks   Number of blocks of data to read
+ *  \param[in] BlockAddress  Data block starting address for the read sequence
+ *  \param[in] TotalBlocks   Number of blocks of data to read
  */
 void DataflashManager_ReadBlocks(const uint32_t BlockAddress, uint16_t TotalBlocks)
 {
@@ -271,9 +271,9 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress, uint16_t TotalBloc
  *  dataflash in Dataflash page sized blocks. This can be linked to FAT libraries to write files to the
  *  dataflash.
  *
- *  \param BlockAddress  Data block starting address for the write sequence
- *  \param TotalBlocks   Number of blocks of data to write
- *  \param BufferPtr     Pointer to the data source RAM buffer
+ *  \param[in] BlockAddress  Data block starting address for the write sequence
+ *  \param[in] TotalBlocks   Number of blocks of data to write
+ *  \param[in] BufferPtr     Pointer to the data source RAM buffer
  */
 void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress, uint16_t TotalBlocks, uint8_t* BufferPtr)
 {
@@ -367,9 +367,9 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress, uint16_t Tota
  *  and writes them in OS sized blocks to the given buffer. This can be linked to FAT libraries to read
  *  the files stored on the dataflash.
  *
- *  \param BlockAddress  Data block starting address for the read sequence
- *  \param TotalBlocks   Number of blocks of data to read
- *  \param BufferPtr     Pointer to the data destination RAM buffer
+ *  \param[in] BlockAddress  Data block starting address for the read sequence
+ *  \param[in] TotalBlocks   Number of blocks of data to read
+ *  \param[out] BufferPtr    Pointer to the data destination RAM buffer
  */
 void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress, uint16_t TotalBlocks, uint8_t* BufferPtr)
 {

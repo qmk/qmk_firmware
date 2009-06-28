@@ -58,8 +58,8 @@
 	
 		/** Performs a comparison between two MAC addresses, indicating if they are identical.
 		 *  
-		 *  \param MAC1  First MAC address
-		 *  \param MAC2  Second MAC address
+		 *  \param[in] MAC1  First MAC address
+		 *  \param[in] MAC2  Second MAC address
 		 *
 		 *  \return True if the addresses match, false otherwise
 		 */

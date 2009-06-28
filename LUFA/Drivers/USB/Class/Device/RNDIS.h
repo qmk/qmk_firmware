@@ -103,36 +103,36 @@
 			 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
 			 *  containing the given HID interface is selected.
 			 *
-			 *  \param RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
+			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 *
 			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 			 */
-			bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo);
+			bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo);
 
 			/** Processes incomming control requests from the host, that are directed to the given RNDIS class interface. This should be
 			 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
 			 *
-			 *  \param RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
+			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 */		
-			void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo);
+			void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo);
 			
 			/** General management task for a given HID class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
-			 *  \param RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
+			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 */
-			void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo);
+			void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo);
 		
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_RNDIS_CLASS_DEVICE_C)
-			static void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo);
-			static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo, 
-			                                          uint32_t OId, void* QueryData, uint16_t QuerySize,
-										              void* ResponseData, uint16_t* ResponseSize);
-			static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo, uint32_t OId,
-			                                        void* SetData, uint16_t SetSize);	
+			static void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo);
+			static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, 
+			                                          const uint32_t OId, void* const QueryData, const uint16_t QuerySize,
+										              void* ResponseData, uint16_t* const ResponseSize);
+			static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, const uint32_t OId,
+			                                        void* SetData, const uint16_t SetSize);	
 		#endif
 		
 	#endif

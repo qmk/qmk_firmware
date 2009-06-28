@@ -206,7 +206,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 /** Reads or writes a block of EEPROM or FLASH memory to or from the appropriate CDC data endpoint, depending
  *  on the AVR910 protocol command issued.
  *
- *  \param Command  Single character AVR910 protocol command indicating what memory operation to perform
+ *  \param[in] Command  Single character AVR910 protocol command indicating what memory operation to perform
  */
 static void ReadWriteMemoryBlock(const uint8_t Command)
 {
@@ -343,7 +343,7 @@ static uint8_t FetchNextCommandByte(void)
 /** Writes the next response byte to the CDC data IN endpoint, and sends the endpoint back if needed to free up the
  *  bank when full ready for the next byte in the packet to the host.
  *
- *  \param Response  Next response byte to send to the host
+ *  \param[in] Response  Next response byte to send to the host
  */
 static void WriteNextResponseByte(const uint8_t Response)
 {

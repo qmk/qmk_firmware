@@ -33,12 +33,12 @@
 
 #include "MIDI.h"
 
-void MIDI_Device_ProcessControlPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo)
+void MIDI_Device_ProcessControlPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
 {
 
 }
 
-bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo)
+bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
 {
 	if (MIDIInterfaceInfo->Config.DataINEndpointNumber)
 	{
@@ -63,12 +63,12 @@ bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceIn
 	return true;
 }
 
-void MIDI_Device_USBTask(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo)
+void MIDI_Device_USBTask(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
 {
 
 }
 
-void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, MIDI_EventPacket_t* Event)
+void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
 {
 	if (!(USB_IsConnected))
 	  return;
@@ -82,7 +82,7 @@ void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo,
 	}
 }
 
-bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* MIDIInterfaceInfo, MIDI_EventPacket_t* Event)
+bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
 {
 	if (!(USB_IsConnected))
 	  return false;

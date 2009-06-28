@@ -51,7 +51,7 @@
 
 /** Decodes an Ethernet frame header and prints its contents to through the USART in a human readable format.
  *
- *  \param InDataStart  Pointer to the start of an Ethernet frame header
+ *  \param[in] InDataStart  Pointer to the start of an Ethernet frame header
  */
 void DecodeEthernetFrameHeader(void* InDataStart)
 {
@@ -93,7 +93,7 @@ void DecodeEthernetFrameHeader(void* InDataStart)
 
 /** Decodes an ARP header and prints its contents to through the USART in a human readable format.
  *
- *  \param InDataStart  Pointer to the start of an ARP packet header
+ *  \param[in] InDataStart  Pointer to the start of an ARP packet header
  */
 void DecodeARPHeader(void* InDataStart)
 {
@@ -143,7 +143,7 @@ void DecodeARPHeader(void* InDataStart)
 
 /** Decodes an IP header and prints its contents to through the USART in a human readable format.
  *
- *  \param InDataStart  Pointer to the start of an IP packet header
+ *  \param[in] InDataStart  Pointer to the start of an IP packet header
  */
 void DecodeIPHeader(void* InDataStart)
 {
@@ -181,7 +181,7 @@ void DecodeIPHeader(void* InDataStart)
 
 /** Decodes an ICMP header and prints its contents to through the USART in a human readable format.
  *
- *  \param InDataStart  Pointer to the start of an ICMP packet header
+ *  \param[in] InDataStart  Pointer to the start of an ICMP packet header
  */
 void DecodeICMPHeader(void* InDataStart)
 {
@@ -197,7 +197,7 @@ void DecodeICMPHeader(void* InDataStart)
 
 /** Decodes a TCP header and prints its contents to through the USART in a human readable format.
  *
- *  \param InDataStart  Pointer to the start of a TCP packet header
+ *  \param[in] InDataStart  Pointer to the start of a TCP packet header
  */
 void DecodeTCPHeader(void* InDataStart)
 {
@@ -225,7 +225,7 @@ void DecodeTCPHeader(void* InDataStart)
 
 /** Decodes an UDP header and prints its contents to through the USART in a human readable format.
  *
- *  \param InDataStart  Pointer to the start of a UDP packet header
+ *  \param[in] InDataStart  Pointer to the start of a UDP packet header
  */
 void DecodeUDPHeader(void* InDataStart)
 {
@@ -243,7 +243,7 @@ void DecodeUDPHeader(void* InDataStart)
 
 /** Decodes an DHCP header and prints its contents to through the USART in a human readable format.
  *
- *  \param InDataStart  Pointer to the start of a DHCP packet header
+ *  \param[in] InDataStart  Pointer to the start of a DHCP packet header
  */
 void DecodeDHCPHeader(void* InDataStart)
 {

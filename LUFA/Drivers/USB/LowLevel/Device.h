@@ -124,15 +124,15 @@
 			 *  index and language ID. This function MUST be overridden in the user application (added with full, identical  
 			 *  prototype and name so that the library can call it to retrieve descriptor data.
 			 *
-			 *  \param wValue             The type of the descriptor to retrieve in the upper byte, and the index in the 
-			 *                            lower byte (when more than one descriptor of the given type exists, such as the
-			 *                            case of string descriptors). The type may be one of the standard types defined
-			 *                            in the DescriptorTypes_t enum, or may be a class-specific descriptor type value.
-			 *  \param wIndex             The language ID of the string to return if the wValue type indicates DTYPE_String,
-			 *                            otherwise zero for standard descriptors, or as defined in a class-specific
-			 *                            standards.
-			 *  \param DescriptorAddress  Pointer to the descriptor in memory. This should be set by the routine to
-			 *                            the address of the descriptor.
+			 *  \param[in] wValue  The type of the descriptor to retrieve in the upper byte, and the index in the 
+			 *                     lower byte (when more than one descriptor of the given type exists, such as the
+			 *                     case of string descriptors). The type may be one of the standard types defined
+			 *                     in the DescriptorTypes_t enum, or may be a class-specific descriptor type value.
+			 *  \param[in] wIndex  The language ID of the string to return if the wValue type indicates DTYPE_String,
+			 *                     otherwise zero for standard descriptors, or as defined in a class-specific
+			 *                     standards.
+			 *  \param[out] DescriptorAddress  Pointer to the descriptor in memory. This should be set by the routine to
+			 *                                 the address of the descriptor.
 			 *
 			 *  \note By default, the library expects all descriptors to be located in flash memory via the PROGMEM attribute.
 			 *        If descriptors should be located in RAM or EEPROM instead (to speed up access in the case of RAM, or to

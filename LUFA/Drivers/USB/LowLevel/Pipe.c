@@ -120,6 +120,46 @@ uint8_t Pipe_Write_Stream_LE(const void* Data, uint16_t Length
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
 
+	#if defined(FAST_STREAM_TRANSFERS)
+	uint8_t BytesRemToAlignment = (Pipe_BytesInPipe() & 0x07);
+
+	if (Length >= 8)
+	{
+		Length -= BytesRemToAlignment;
+
+		switch (BytesRemToAlignment)
+		{
+			default:
+				do
+				{
+					if (!(Pipe_IsReadWriteAllowed()))
+					{
+						Pipe_ClearOUT();
+							
+						#if !defined(NO_STREAM_CALLBACKS)
+						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
+						  return PIPE_RWSTREAM_CallbackAborted;
+						#endif
+
+						if ((ErrorCode = Pipe_WaitUntilReady()))
+						  return ErrorCode;
+					}
+
+					Length -= 8;
+					
+					Pipe_Write_Byte(*(DataStream++));
+			case 7: Pipe_Write_Byte(*(DataStream++));
+			case 6: Pipe_Write_Byte(*(DataStream++));
+			case 5: Pipe_Write_Byte(*(DataStream++));
+			case 4: Pipe_Write_Byte(*(DataStream++));
+			case 3: Pipe_Write_Byte(*(DataStream++));
+			case 2: Pipe_Write_Byte(*(DataStream++));
+			case 1: Pipe_Write_Byte(*(DataStream++));
+				} while (Length >= 8);	
+		}
+	}
+	#endif
+	
 	while (Length)
 	{
 		if (!(Pipe_IsReadWriteAllowed()))
@@ -158,6 +198,46 @@ uint8_t Pipe_Write_Stream_BE(const void* Data, uint16_t Length
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
 
+	#if defined(FAST_STREAM_TRANSFERS)
+	uint8_t BytesRemToAlignment = (Pipe_BytesInPipe() & 0x07);
+
+	if (Length >= 8)
+	{
+		Length -= BytesRemToAlignment;
+
+		switch (BytesRemToAlignment)
+		{
+			default:
+				do
+				{
+					if (!(Pipe_IsReadWriteAllowed()))
+					{
+						Pipe_ClearOUT();
+							
+						#if !defined(NO_STREAM_CALLBACKS)
+						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
+						  return PIPE_RWSTREAM_CallbackAborted;
+						#endif
+
+						if ((ErrorCode = Pipe_WaitUntilReady()))
+						  return ErrorCode;
+					}
+
+					Length -= 8;
+					
+					Pipe_Write_Byte(*(DataStream--));
+			case 7: Pipe_Write_Byte(*(DataStream--));
+			case 6: Pipe_Write_Byte(*(DataStream--));
+			case 5: Pipe_Write_Byte(*(DataStream--));
+			case 4: Pipe_Write_Byte(*(DataStream--));
+			case 3: Pipe_Write_Byte(*(DataStream--));
+			case 2: Pipe_Write_Byte(*(DataStream--));
+			case 1: Pipe_Write_Byte(*(DataStream--));
+				} while (Length >= 8);	
+		}
+	}
+	#endif
+
 	while (Length)
 	{
 		if (!(Pipe_IsReadWriteAllowed()))
@@ -194,6 +274,46 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
+
+	#if defined(FAST_STREAM_TRANSFERS)
+	uint8_t BytesRemToAlignment = (Pipe_BytesInPipe() & 0x07);
+
+	if (Length >= 8)
+	{
+		Length -= BytesRemToAlignment;
+
+		switch (BytesRemToAlignment)
+		{
+			default:
+				do
+				{
+					if (!(Pipe_IsReadWriteAllowed()))
+					{
+						Pipe_ClearIN();
+							
+						#if !defined(NO_STREAM_CALLBACKS)
+						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
+						  return PIPE_RWSTREAM_CallbackAborted;
+						#endif
+
+						if ((ErrorCode = Pipe_WaitUntilReady()))
+						  return ErrorCode;
+					}
+
+					Length -= 8;
+					
+					Pipe_Discard_Byte();
+			case 7: Pipe_Discard_Byte();
+			case 6: Pipe_Discard_Byte();
+			case 5: Pipe_Discard_Byte();
+			case 4: Pipe_Discard_Byte();
+			case 3: Pipe_Discard_Byte();
+			case 2: Pipe_Discard_Byte();
+			case 1:	Pipe_Discard_Byte();
+				} while (Length >= 8);	
+		}
+	}
+	#endif
 
 	while (Length)
 	{
@@ -233,6 +353,46 @@ uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
 
+	#if defined(FAST_STREAM_TRANSFERS)
+	uint8_t BytesRemToAlignment = (Pipe_BytesInPipe() & 0x07);
+
+	if (Length >= 8)
+	{
+		Length -= BytesRemToAlignment;
+
+		switch (BytesRemToAlignment)
+		{
+			default:
+				do
+				{
+					if (!(Pipe_IsReadWriteAllowed()))
+					{
+						Pipe_ClearIN();
+							
+						#if !defined(NO_STREAM_CALLBACKS)
+						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
+						  return PIPE_RWSTREAM_CallbackAborted;
+						#endif
+
+						if ((ErrorCode = Pipe_WaitUntilReady()))
+						  return ErrorCode;
+					}
+
+					Length -= 8;
+					
+					*(DataStream++) = Pipe_Read_Byte();
+			case 7: *(DataStream++) = Pipe_Read_Byte();
+			case 6: *(DataStream++) = Pipe_Read_Byte();
+			case 5: *(DataStream++) = Pipe_Read_Byte();
+			case 4: *(DataStream++) = Pipe_Read_Byte();
+			case 3: *(DataStream++) = Pipe_Read_Byte();
+			case 2: *(DataStream++) = Pipe_Read_Byte();
+			case 1:	*(DataStream++) = Pipe_Read_Byte();
+				} while (Length >= 8);	
+		}
+	}
+	#endif
+
 	while (Length)
 	{
 		if (!(Pipe_IsReadWriteAllowed()))
@@ -270,6 +430,46 @@ uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length
 
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
+
+	#if defined(FAST_STREAM_TRANSFERS)
+	uint8_t BytesRemToAlignment = (Pipe_BytesInPipe() & 0x07);
+
+	if (Length >= 8)
+	{
+		Length -= BytesRemToAlignment;
+
+		switch (BytesRemToAlignment)
+		{
+			default:
+				do
+				{
+					if (!(Pipe_IsReadWriteAllowed()))
+					{
+						Pipe_ClearIN();
+							
+						#if !defined(NO_STREAM_CALLBACKS)
+						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
+						  return PIPE_RWSTREAM_CallbackAborted;
+						#endif
+
+						if ((ErrorCode = Pipe_WaitUntilReady()))
+						  return ErrorCode;
+					}
+
+					Length -= 8;
+					
+					*(DataStream--) = Pipe_Read_Byte();
+			case 7: *(DataStream--) = Pipe_Read_Byte();
+			case 6: *(DataStream--) = Pipe_Read_Byte();
+			case 5: *(DataStream--) = Pipe_Read_Byte();
+			case 4: *(DataStream--) = Pipe_Read_Byte();
+			case 3: *(DataStream--) = Pipe_Read_Byte();
+			case 2: *(DataStream--) = Pipe_Read_Byte();
+			case 1:	*(DataStream--) = Pipe_Read_Byte();
+				} while (Length >= 8);	
+		}
+	}
+	#endif
 
 	while (Length)
 	{

@@ -33,7 +33,7 @@
 
 #include "Audio.h"
 
-void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo)
+void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
@@ -83,7 +83,7 @@ bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* AudioInterfac
 	return true;
 }
 
-void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo)
+void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 {
 
 }
@@ -124,7 +124,7 @@ int32_t Audio_Device_ReadSample24(void)
 	return Sample;
 }
 
-void Audio_Device_WriteSample8(int8_t Sample)
+void Audio_Device_WriteSample8(const int8_t Sample)
 {
 	Endpoint_Write_Byte(Sample);
 
@@ -132,7 +132,7 @@ void Audio_Device_WriteSample8(int8_t Sample)
 	  Endpoint_ClearIN();
 }
 
-void Audio_Device_WriteSample16(int16_t Sample)
+void Audio_Device_WriteSample16(const int16_t Sample)
 {
 	Endpoint_Write_Word_LE(Sample);
 
@@ -140,7 +140,7 @@ void Audio_Device_WriteSample16(int16_t Sample)
 	  Endpoint_ClearIN();
 }
 
-void Audio_Device_WriteSample24(int32_t Sample)
+void Audio_Device_WriteSample24(const int32_t Sample)
 {
 	Endpoint_Write_Byte(Sample >> 16);
 	Endpoint_Write_Word_LE(Sample);
@@ -149,13 +149,13 @@ void Audio_Device_WriteSample24(int32_t Sample)
 	  Endpoint_ClearIN();
 }
 
-bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo)
+bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 {
 	Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataOUTEndpointNumber);
 	return Endpoint_IsOUTReceived();
 }
 
-bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo)
+bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 {
 	Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataINEndpointNumber);
 	return Endpoint_IsINReady();

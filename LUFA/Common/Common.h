@@ -121,7 +121,7 @@
 			 *
 			 *  \ingroup Group_BitManip
 			 *
-			 *  \param Byte   Byte of data whose bits are to be reversed
+			 *  \param[in] Byte   Byte of data whose bits are to be reversed
 			 */
 			static inline uint8_t BitReverse(uint8_t Byte) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
 			static inline uint8_t BitReverse(uint8_t Byte)
@@ -137,7 +137,7 @@
 			 *
 			 *  \ingroup Group_BitManip
 			 *
-			 *  \param Word   Word of data whose bytes are to be swapped
+			 *  \param[in] Word   Word of data whose bytes are to be swapped
 			 */
 			static inline uint16_t SwapEndian_16(uint16_t Word) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
 			static inline uint16_t SwapEndian_16(uint16_t Word)
@@ -149,7 +149,7 @@
 			 *
 			 *  \ingroup Group_BitManip
 			 *
-			 *  \param DWord   Double word of data whose bytes are to be swapped
+			 *  \param[in] DWord   Double word of data whose bytes are to be swapped
 			 */
 			static inline uint32_t SwapEndian_32(uint32_t DWord) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
 			static inline uint32_t SwapEndian_32(uint32_t DWord)
@@ -164,8 +164,8 @@
 			 *
 			 *  \ingroup Group_BitManip
 			 *
-			 *  \param Data   Pointer to a number containing an even number of bytes to be reversed
-			 *  \param Bytes  Length of the data in bytes
+			 *  \param[in,out] Data  Pointer to a number containing an even number of bytes to be reversed
+			 *  \param[in] Bytes  Length of the data in bytes
 			 */
 			static inline void SwapEndian_n(uint8_t* Data, uint8_t Bytes);
 			static inline void SwapEndian_n(uint8_t* Data, uint8_t Bytes)

@@ -224,7 +224,7 @@ void Mouse_HID_Task(void)
 /** Processes a read HID report from an attached mouse, extracting out elements via the HID parser results
  *  as required and displays movement and button presses on the board LEDs.
  *
- *  \param MouseReport  Pointer to a HID report from an attached mouse device
+ *  \param[in] MouseReport  Pointer to a HID report from an attached mouse device
  */
 void ProcessMouseReport(uint8_t* MouseReport)
 {

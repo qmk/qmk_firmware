@@ -59,8 +59,8 @@
 		
 		/** Performs a comparison between two IP addresses, indicating if they are identical.
 		 *  
-		 *  \param IP1  First IP address
-		 *  \param IP2  Second IP address
+		 *  \param[in] IP1  First IP address
+		 *  \param[in] IP2  Second IP address
 		 *
 		 *  \return True if the addresses match, false otherwise
 		 */

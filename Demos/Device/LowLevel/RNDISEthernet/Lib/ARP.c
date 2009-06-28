@@ -41,8 +41,8 @@
  *  to the output Ethernet frame if the host is requesting the IP or MAC address of the
  *  virtual server device on the network.
  *
- *  \param InDataStart   Pointer to the start of the incoming packet's ARP header
- *  \param OutDataStart  Pointer to the start of the outgoing packet's ARP header
+ *  \param[in] InDataStart    Pointer to the start of the incoming packet's ARP header
+ *  \param[out] OutDataStart  Pointer to the start of the outgoing packet's ARP header
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise
  */

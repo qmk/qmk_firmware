@@ -134,13 +134,13 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 
 /** HID class driver callback function for the creation of HID reports to the host.
  *
- *  \param HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
- *  \param ReportID  Report ID requested by the host if non-zero, otherwise callback should set to the generated report ID
- *  \param ReportData  Pointer to a buffer where the created report should be stored
+ *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
+ *  \param[in,out] ReportID  Report ID requested by the host if non-zero, otherwise callback should set to the generated report ID
+ *  \param[out] ReportData  Pointer to a buffer where the created report should be stored
  *
  *  \return Number of bytes written in the report (or zero if no report is to be sent
  */
-uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
+uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID, void* ReportData)
 {
 	USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
 	
@@ -168,13 +168,13 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* HIDInte
 
 /** HID class driver callback function for the processing of HID reports from the host.
  *
- *  \param HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
- *  \param ReportID  Report ID of the received report from the host
- *  \param ReportData  Pointer to a buffer where the created report has been stored
- *  \param ReportSize  Size in bytes of the received HID report
+ *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
+ *  \param[in] ReportID  Report ID of the received report from the host
+ *  \param[in] ReportData  Pointer to a buffer where the created report has been stored
+ *  \param[in] ReportSize  Size in bytes of the received HID report
  */
-void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t ReportID,
-                                          void* ReportData, uint16_t ReportSize)
+void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, const uint8_t ReportID,
+                                          const void* ReportData, const uint16_t ReportSize)
 {
 	uint8_t  LEDMask   = LEDS_NO_LEDS;
 	uint8_t* LEDReport = (uint8_t*)ReportData;
