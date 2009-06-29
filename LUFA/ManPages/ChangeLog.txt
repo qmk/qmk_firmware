@@ -38,6 +38,10 @@
   *  - Fixed MassStorage demo not clearing the reset flag when a Mass Storage Reset is issued while not processing a command
   *  - Fixed USB_Host_SendControlRequest() not re-suspending the USB bus when initial device ready-wait fails
   *  - Fixed USB Pad regulator not being disabled on some AVR models when the USB_OPT_REG_DISABLED option is used
+  *  - Dataflash_WaitWhileBusy() now always ensures that the dataflash is ready for the next command immediately after returning,
+  *    no need to call Dataflash_ToggleSelectedChipCS() afterwards
+  *  - Added new DATAFLASH_CHIP_MASK() macro to the Dataflash driver, which returns the Dataflash select mask for the given chip index
+  *  - Updated MassStorage device block write routines to use ping-pong Dataflash buffering to increase throughput by around 30%
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

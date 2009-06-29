@@ -75,6 +75,18 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Macros: */
+			#if !defined(__DOXYGEN__)
+				#define __GET_DATAFLASH_MASK2(x, y) x ## y
+				#define __GET_DATAFLASH_MASK(x)     __GET_DATAFLASH_MASK2(DATAFLASH_CHIP,x)
+			#endif
+	
+			/* Retrieves the Dataflash chip select mask for the given Dataflash chip index.
+			 *
+			 * \param index  Index of the dataflash chip mask to retrieve
+			 */
+			#define DATAFLASH_CHIP_MASK(index)      __GET_DATAFLASH_MASK(index)
+			
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Determines the currently selected dataflash chip.
@@ -149,7 +161,7 @@
 			#else
 				#error The selected board does not contain a dataflash IC.
 			#endif
-
+		
 		/* Inline Functions: */
 			/** Initializes the dataflash driver (including the SPI driver) so that commands and data may be
 			 *  sent to an attached dataflash IC.
@@ -183,6 +195,7 @@
 				Dataflash_ToggleSelectedChipCS();
 				Dataflash_SendByte(DF_CMD_GETSTATUS);
 				while (!(Dataflash_ReceiveByte() & DF_STATUS_READY));
+				Dataflash_ToggleSelectedChipCS();				
 			}
 
 			/** Selects a dataflash IC from the given page number, which should range from 0 to

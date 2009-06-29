@@ -12,23 +12,25 @@
   *  or post your suggestion as an enhancement request to the project bug tracker.
   *
   *  <b>Targeted for This Release:</b>
-  *  - Make new host class drivers
-  *  - Document new host class drivers
-  *  - Convert Host mode demos to class drivers
-  *  - Re-enable Host mode Class driver builds after completion
-  *  - Add standardized descriptor names to class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
-  *  - Update Host mode Class Driver demo .txt files
+  *  - Host Mode Class Drivers
+  *     -# Make new host class drivers
+  *     -# Document new host class drivers
+  *     -# Convert Host mode demos to class drivers
+  *     -# Re-enable Host mode Class driver builds after completion
+  *     -# Update Host mode Class Driver demo .txt files
+  *  - Add standardized descriptor names to device and host class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
   *  - Debug mode for pipe/endpoint calls
   *  - Test and document new FAST_STREAM_TRANSFERS compile time option
   *
   *  <b>Targeted for Future Releases:</b>
   *  - Remake AVRStudio project files
-  *  - Detailed overviews of how each demo works
-  *  - Master LUFA include file
+  *  - Add detailed overviews of how each demo works
+  *  - Master LUFA include file rather than per-module includes
   *  - Stream reads - return number of bytes not read?
   *  - Add multiple-report HID demo to the library
   *  - Add dual role Mouse Host/Keyboard Device demo to the library
   *  - Add hub support to match Atmel's stack
-  *  - Port LUFA to the AVR32 UC3B series microcontrollers
-  *  - Port LUFA to the Atmel ARM7 series microcontrollers
+  *  - Port LUFA to other architectures
+  *      -# AVR32 UC3B series microcontrollers
+  *      -# Atmel ARM7 series microcontrollers
   */

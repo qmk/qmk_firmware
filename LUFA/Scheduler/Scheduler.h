@@ -259,7 +259,7 @@
 				Scheduler_TotalTasks = TotalTasks;
 			}
 		
-			static inline void Scheduler_GoSchedule(const uint8_t TotalTasks) ATTR_NO_RETURN ATTR_ALWAYS_INLINE;
+			static inline void Scheduler_GoSchedule(const uint8_t TotalTasks) ATTR_NO_RETURN ATTR_ALWAYS_INLINE ATTR_DEPRECATED;
 			static inline void Scheduler_GoSchedule(const uint8_t TotalTasks)
 			{
 				Scheduler_InitScheduler(TotalTasks);

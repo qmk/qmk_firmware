@@ -51,11 +51,14 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlo
 	uint16_t CurrDFPage          = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) / DATAFLASH_PAGE_SIZE);
 	uint16_t CurrDFPageByte      = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) % DATAFLASH_PAGE_SIZE);
 	uint8_t  CurrDFPageByteDiv16 = (CurrDFPageByte >> 4);
+	bool     UsingSecondBuffer   = false;
 
 	/* Copy selected dataflash's current page contents to the dataflash buffer */
 	Dataflash_SelectChipFromPage(CurrDFPage);
+#if (DATAFLASH_PAGE_SIZE > VIRTUAL_MEMORY_BLOCK_SIZE)
 	Dataflash_SendByte(DF_CMD_MAINMEMTOBUFF1);
 	Dataflash_SendAddressBytes(CurrDFPage, 0);
+#endif
 	Dataflash_WaitWhileBusy();
 
 	/* Send the dataflash buffer write command */
@@ -87,34 +90,36 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlo
 			if (CurrDFPageByteDiv16 == (DATAFLASH_PAGE_SIZE >> 4))
 			{
 				/* Write the dataflash buffer contents back to the dataflash page */
-				Dataflash_ToggleSelectedChipCS();
-				Dataflash_SendByte(DF_CMD_BUFF1TOMAINMEMWITHERASE);
+				Dataflash_WaitWhileBusy();
+				Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2TOMAINMEMWITHERASE : DF_CMD_BUFF1TOMAINMEMWITHERASE);
 				Dataflash_SendAddressBytes(CurrDFPage, 0);
 
 				/* Reset the dataflash buffer counter, increment the page counter */
 				CurrDFPageByteDiv16 = 0;
 				CurrDFPage++;
 
+				/* Once all the dataflash ICs have had their first buffers filled, switch buffers to maintain throughput */
+				if (Dataflash_GetSelectedChip() == DATAFLASH_CHIP_MASK(DATAFLASH_TOTALCHIPS))
+				  UsingSecondBuffer = !(UsingSecondBuffer);
+
 				/* Select the next dataflash chip based on the new dataflash page index */
 				Dataflash_SelectChipFromPage(CurrDFPage);
-				Dataflash_WaitWhileBusy();
 
 #if (DATAFLASH_PAGE_SIZE > VIRTUAL_MEMORY_BLOCK_SIZE)
 				/* If less than one dataflash page remaining, copy over the existing page to preserve trailing data */
 				if ((TotalBlocks * (VIRTUAL_MEMORY_BLOCK_SIZE >> 4)) < (DATAFLASH_PAGE_SIZE >> 4))
 				{
 					/* Copy selected dataflash's current page contents to the dataflash buffer */
-					Dataflash_ToggleSelectedChipCS();
-					Dataflash_SendByte(DF_CMD_MAINMEMTOBUFF1);
+					Dataflash_WaitWhileBusy();
+					Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_MAINMEMTOBUFF2 : DF_CMD_MAINMEMTOBUFF1);
 					Dataflash_SendAddressBytes(CurrDFPage, 0);
 					Dataflash_WaitWhileBusy();
 				}
 #endif
 
 				/* Send the dataflash buffer write command */
-				Dataflash_ToggleSelectedChipCS();
-				Dataflash_SendByte(DF_CMD_BUFF1WRITE);
-				Dataflash_SendAddressBytes(0, 0);
+				Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2WRITE : DF_CMD_BUFF1WRITE);
+				Dataflash_SendAddressBytes(0, 0);				
 			}
 
 			/* Write one 16-byte chunk of data to the dataflash */
@@ -151,8 +156,8 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlo
 	}
 
 	/* Write the dataflash buffer contents back to the dataflash page */
-	Dataflash_ToggleSelectedChipCS();
-	Dataflash_SendByte(DF_CMD_BUFF1TOMAINMEMWITHERASE);
+	Dataflash_WaitWhileBusy();
+	Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2TOMAINMEMWITHERASE : DF_CMD_BUFF1TOMAINMEMWITHERASE);
 	Dataflash_SendAddressBytes(CurrDFPage, 0x00);
 	Dataflash_WaitWhileBusy();
 
@@ -280,11 +285,14 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress, uint16_t Tota
 	uint16_t CurrDFPage          = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) / DATAFLASH_PAGE_SIZE);
 	uint16_t CurrDFPageByte      = ((BlockAddress * VIRTUAL_MEMORY_BLOCK_SIZE) % DATAFLASH_PAGE_SIZE);
 	uint8_t  CurrDFPageByteDiv16 = (CurrDFPageByte >> 4);
+	bool     UsingSecondBuffer   = false;
 
 	/* Copy selected dataflash's current page contents to the dataflash buffer */
 	Dataflash_SelectChipFromPage(CurrDFPage);
+#if (DATAFLASH_PAGE_SIZE > VIRTUAL_MEMORY_BLOCK_SIZE)
 	Dataflash_SendByte(DF_CMD_MAINMEMTOBUFF1);
 	Dataflash_SendAddressBytes(CurrDFPage, 0);
+#endif
 	Dataflash_WaitWhileBusy();
 
 	/* Send the dataflash buffer write command */
@@ -303,25 +311,28 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress, uint16_t Tota
 			if (CurrDFPageByteDiv16 == (DATAFLASH_PAGE_SIZE >> 4))
 			{
 				/* Write the dataflash buffer contents back to the dataflash page */
-				Dataflash_ToggleSelectedChipCS();
-				Dataflash_SendByte(DF_CMD_BUFF1TOMAINMEMWITHERASE);
+				Dataflash_WaitWhileBusy();
+				Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2TOMAINMEMWITHERASE : DF_CMD_BUFF1TOMAINMEMWITHERASE);
 				Dataflash_SendAddressBytes(CurrDFPage, 0);
 
 				/* Reset the dataflash buffer counter, increment the page counter */
 				CurrDFPageByteDiv16 = 0;
 				CurrDFPage++;
 
+				/* Once all the dataflash ICs have had their first buffers filled, switch buffers to maintain throughput */
+				if (Dataflash_GetSelectedChip() == DATAFLASH_CHIP_MASK(DATAFLASH_TOTALCHIPS))
+				  UsingSecondBuffer = !(UsingSecondBuffer);
+
 				/* Select the next dataflash chip based on the new dataflash page index */
 				Dataflash_SelectChipFromPage(CurrDFPage);
-				Dataflash_WaitWhileBusy();
 
 #if (DATAFLASH_PAGE_SIZE > VIRTUAL_MEMORY_BLOCK_SIZE)
 				/* If less than one dataflash page remaining, copy over the existing page to preserve trailing data */
 				if ((TotalBlocks * (VIRTUAL_MEMORY_BLOCK_SIZE >> 4)) < (DATAFLASH_PAGE_SIZE >> 4))
 				{
 					/* Copy selected dataflash's current page contents to the dataflash buffer */
-					Dataflash_ToggleSelectedChipCS();
-					Dataflash_SendByte(DF_CMD_MAINMEMTOBUFF1);
+					Dataflash_WaitWhileBusy();
+					Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_MAINMEMTOBUFF2 : DF_CMD_MAINMEMTOBUFF1);
 					Dataflash_SendAddressBytes(CurrDFPage, 0);
 					Dataflash_WaitWhileBusy();
 				}
@@ -341,11 +352,7 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress, uint16_t Tota
 			CurrDFPageByteDiv16++;
 
 			/* Increment the block 16 byte block counter */
-			BytesInBlockDiv16++;
-
-			/* Check if the current command is being aborted by the host */
-			if (IsMassStoreReset)
-			  return;			
+			BytesInBlockDiv16++;		
 		}
 			
 		/* Decrement the blocks remaining counter and reset the sub block counter */
@@ -353,8 +360,8 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress, uint16_t Tota
 	}
 
 	/* Write the dataflash buffer contents back to the dataflash page */
-	Dataflash_ToggleSelectedChipCS();
-	Dataflash_SendByte(DF_CMD_BUFF1TOMAINMEMWITHERASE);
+	Dataflash_WaitWhileBusy();
+	Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2TOMAINMEMWITHERASE : DF_CMD_BUFF1TOMAINMEMWITHERASE);
 	Dataflash_SendAddressBytes(CurrDFPage, 0x00);
 	Dataflash_WaitWhileBusy();
 
@@ -421,10 +428,6 @@ void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress, uint16_t Total
 			
 			/* Increment the block 16 byte block counter */
 			BytesInBlockDiv16++;
-
-			/* Check if the current command is being aborted by the host */
-			if (IsMassStoreReset)
-			  return;
 		}
 		
 		/* Decrement the blocks remaining counter */
