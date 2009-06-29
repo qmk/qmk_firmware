@@ -166,14 +166,14 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  *
  *  \return Number of bytes in the created report
  */
-uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t* ReportID, void* ReportData)
+uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID, void* ReportData)
 {
 	static bool IsKeyReleaseReport;
 	static bool IsNewlineReport;
 
 	BitBuffer_t*               Buffer         = NULL;
 	USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
-		
+	
 	/* Key reports must be interleaved with 0 Key Code reports to release the keys, or repeated keys will be ignored */
 	IsKeyReleaseReport = !IsKeyReleaseReport;	
 
@@ -214,8 +214,8 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* HIDInte
  *  \param[in] ReportData        Pointer to the report buffer where the received report is stored
  *  \param[in] ReportSize        Size in bytes of the report received from the host
  */
-void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t ReportID,
-                                          void* ReportData, uint16_t ReportSize)
+void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, const uint8_t ReportID,
+                                          const void* ReportData, const uint16_t ReportSize)
 {
 	// Unused (but mandatory for the HID class driver) in this demo, since there are no Host->Device reports
 }

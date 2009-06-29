@@ -79,9 +79,9 @@
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);
 
-		uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t* ReportID,
+		uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
 		                                             void* ReportData);
-		void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo, uint8_t ReportID,
-                                                  void* ReportData, uint16_t ReportSize);
+		void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, const uint8_t ReportID,
+                                                  const void* ReportData, const uint16_t ReportSize);
 														  
 #endif
