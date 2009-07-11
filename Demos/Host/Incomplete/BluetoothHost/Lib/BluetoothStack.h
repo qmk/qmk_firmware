@@ -45,7 +45,7 @@
 		#define CHANNEL_LOOKUP_BY_SOURCE                 true
 		#define CHANNEL_LOOKUP_BY_DESTINATION            false
 		
-		#define BT_DEBUG(s, ...) printf_P(PSTR(s "\r\n"), __VA_ARGS__)
+		#define BT_DEBUG(s, ...)                         printf_P(PSTR(s "\r\n"), __VA_ARGS__)
 	
 	/* Enums: */
 		enum Bluetooth_Channel_State_t

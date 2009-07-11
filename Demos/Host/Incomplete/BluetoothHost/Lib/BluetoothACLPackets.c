@@ -69,7 +69,7 @@ void Bluetooth_ProcessACLPackets(void)
 				Bluetooth_ProcessSignalPacket_ConfigurationRequest(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
 				break;
 			case BLUETOOTH_SIGNAL_INFORMATION_REQUEST:
-				BT_DEBUG("(ACL) -- Information Request, Discarded");
+				BT_DEBUG("(ACL) -- Information Request, Discarded", NULL);
 
 				Pipe_Discard_Stream(ACLPacketHeader.DataLength);
 				Pipe_ClearIN();		
