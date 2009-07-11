@@ -101,7 +101,7 @@ F_CPU = 8000000
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_CLOCK = 8000000
+F_CLOCK = $(F_CPU)
 
 
 # Output format. (can be srec, ihex, binary)
@@ -133,9 +133,9 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 SRC = $(TARGET).c                                                 \
 	  DeviceDescriptor.c                                          \
 	  ConfigDescriptor.c                                          \
-	  BluetoothStack.c                                            \
-	  BluetoothHCICommands.c                                      \
-	  BluetoothACLPackets.c                                       \
+	  Lib/BluetoothStack.c                                        \
+	  Lib/BluetoothHCICommands.c                                  \
+	  Lib/BluetoothACLPackets.c                                   \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \

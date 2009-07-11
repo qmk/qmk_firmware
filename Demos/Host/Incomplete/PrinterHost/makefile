@@ -109,7 +109,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = USBtoSerial
+TARGET = PrinterHost
 
 
 # Object files directory
@@ -124,16 +124,16 @@ LUFA_PATH = ../../../..
 
 # LUFA library compile-time options
 LUFA_OPTS  = -D USE_NONSTANDARD_DESCRIPTOR_NAMES
-LUFA_OPTS += -D USB_DEVICE_ONLY
-LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
-LUFA_OPTS += -D USE_SINGLE_DEVICE_CONFIGURATION
-LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
+LUFA_OPTS += -D USB_HOST_ONLY
+LUFA_OPTS += -D NO_STREAM_CALLBACKS
+LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
-	  Descriptors.c                                               \
-	  Lib/RingBuff.c                                              \
+	  ConfigDescriptor.c                                          \
+	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
+	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -144,8 +144,6 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/CDC.c            \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/CDC.c              \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

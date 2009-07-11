@@ -28,8 +28,8 @@
   this software.
 */
 
-#ifndef _BLUETOOTH_HOST_H_
-#define _BLUETOOTH_HOST_H_
+#ifndef _MASS_STORE_HOST_H_
+#define _MASS_STORE_HOST_H_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -38,9 +38,6 @@
 		#include <avr/power.h>
 		#include <stdio.h>
 
-		#include "Lib/BluetoothStack.h"
-
-		#include "DeviceDescriptor.h"
 		#include "ConfigDescriptor.h"
 
 		#include <LUFA/Version.h>
@@ -48,7 +45,7 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		
+
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
@@ -62,21 +59,33 @@
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
-		#define BLUETOOTH_DATA_IN_PIPE          1
-		#define BLUETOOTH_DATA_OUT_PIPE         2
-		#define BLUETOOTH_EVENTS_PIPE           3
-
-	/* Task Definitions: */
-		void Bluetooth_Management_Task(void);
+		#define PROTOCOL_UNIDIRECTIONAL      0x01
+		#define PROTOCOL_BIDIRECTIONAL       0x02
+		#define PROTOCOL_IEEE1284            0x03
 		
-	/* Event Handlers: */
+		#define GET_DEVICE_ID                0
+
+	/* Type Defines: */
+		typedef struct
+		{
+			uint16_t Length;
+			uint8_t  String[128];
+		} Device_ID_String_t;
+
+	/* External Variables: */
+		extern uint8_t PrinterProtocol;
+	
+	/* Function Prototypes: */
 		void EVENT_USB_DeviceAttached(void);
 		void EVENT_USB_DeviceUnattached(void);
 		void EVENT_USB_DeviceEnumerationComplete(void);
 		void EVENT_USB_HostError(uint8_t ErrorCode);
 		void EVENT_USB_DeviceEnumerationFailed(uint8_t ErrorCode, uint8_t SubErrorCode);
 
-	/* Function Prototypes: */
 		void SetupHardware(void);
-		
+
+		void USB_Printer_Host(void);
+
+		bool GetDeviceID(void);
+
 #endif

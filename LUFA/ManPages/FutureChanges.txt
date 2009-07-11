@@ -18,7 +18,12 @@
   *     -# Convert Host mode demos to class drivers
   *     -# Re-enable Host mode Class driver builds after completion
   *     -# Update Host mode Class Driver demo .txt files
-  *  - Add standardized descriptor names to device and host class driver structures, controlled by USE_NONSTANDARD_DESCRIPTOR_NAMES
+  *  - Add standardized descriptor names to device and host class driver structures
+  *  - Remove USE_NONSTANDARD_DESCRIPTOR_NAMES, make all typedefs unions to allow either naming scheme to be used
+  *  - Add in INTERRUPT_CONTROL_PIPE to use HSOFI to trigger calls to the host state machine
+  *  - Remove FAST_STREAM_TRANSFERS as they have little effect
+  *  - Make Suspend host state suspend USB bus frames
+  *  - Add in Stream functions for PROGMEM, EEPROM -- move to templated system
   *  - Debug mode for pipe/endpoint calls
   *  - Test and document new FAST_STREAM_TRANSFERS compile time option
   *
@@ -27,6 +32,7 @@
   *  - Add detailed overviews of how each demo works
   *  - Master LUFA include file rather than per-module includes
   *  - Stream reads - return number of bytes not read?
+  *  - Convert CDC demos to use stdio streams?
   *  - Add multiple-report HID demo to the library
   *  - Add dual role Mouse Host/Keyboard Device demo to the library
   *  - Add hub support to match Atmel's stack

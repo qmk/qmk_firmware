@@ -101,7 +101,7 @@ F_CPU = 16000000
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_CLOCK = 16000000
+F_CLOCK = $(F_CPU)
 
 
 # Output format. (can be srec, ihex, binary)

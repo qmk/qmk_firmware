@@ -8,40 +8,47 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
-  *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)
+  *  <b>New:</b>
   *  - Added new class drivers and matching demos to the library for rapid application development
   *  - Added incomplete device and host mode demos for later enhancement
-  *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed
   *  - Error status LEDs shown when device endpoint configuration fails to complete in all demos and projects
-  *  - Low level API MIDI device demo no longer blocks if a note change event is sent while the endpoint is not ready
-  *  - Fixes to MassStorageHost for better device compatibility (increase command timeout, change MassStore_WaitForDataReceived()
-  *    to only unfreeze and check one data pipe at a time)
-  *  - Internal per-device preprocessing conditions changed to per-device series rather than per controller group for finer-grain
-  *    internal control
   *  - Added new USB_Host_SetDeviceConfiguration() convenience function for easy configuration selection of devices while in USB
   *    host mode
   *  - Added new USB_Host_ClearPipeStall() convenience function to clear a stall condition on an attached device's endpoint
   *  - Added new USB_Host_GetDeviceDescriptor() convenience function to retrieve the attached device's Device descriptor
   *  - Added USB Missle Launcher project, submitted by Dave Fletcher
-  *  - Pipe_GetErrorFlags() now returns additional error flags for overflow and underflow errors
-  *  - Make Pipe_ConfigurePipe() mask the given endpoint number against PIPE_EPNUM_MASK to ensure the endpoint IN direction bit is
-  *    cleared to prevent endpoint type corruption
-  *  - Fix documentation mentioning Pipe_GetCurrentToken() function when real name is Pipe_GetPipeToken()
-  *  - Extended USB_GetDeviceConfigDescriptor() routine to require the configuration number within the device to fetch
   *  - Added new USE_INTERNAL_SERIAL define for using the unique serial numbers in some AVR models as the USB device's serial number,
   *    added NO_INTERNAL_SERIAL compile time option to turn off new serial number reading code
-  *  - Fixed ADC driver for the ATMEGA32U4 and ATMEGA16U4 (thanks to Opendous Inc.)
-  *  - Fixed CDCHost demo unfreezing the pipes at the point of configuration, rather than use
+  *  - Added new DATAFLASH_CHIP_MASK() macro to the Dataflash driver, which returns the Dataflash select mask for the given chip index
+  *  - Updated MassStorage device block write routines to use ping-pong Dataflash buffering to increase throughput by around 30%
+  *  
+  *  <b>Changed:</b>
+  *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)
+  *  - Low level API MIDI device demo no longer blocks if a note change event is sent while the endpoint is not ready
+  *  - Internal per-device preprocessing conditions changed to per-device series rather than per controller group for finer-grain
+  *    internal control
+  *  - Pipe_GetErrorFlags() now returns additional error flags for overflow and underflow errors
+  *  - Extended USB_GetDeviceConfigDescriptor() routine to require the configuration number within the device to fetch
   *  - Pipe stream functions now automatically set the correct pipe token, so that bidirectional pipes can be used
   *  - Pipe_ConfigurePipe() now automatically defaults IN pipes to accepting infinite IN requests, this can still be changed by calling
   *    the existing Pipe_SetFiniteINRequests() function
+  *  - Dataflash_WaitWhileBusy() now always ensures that the dataflash is ready for the next command immediately after returning,
+  *    no need to call Dataflash_ToggleSelectedChipCS() afterwards
+  *  - Changed F_CLOCK entries in project makefiles to alias to F_CPU by default, as this is the most common case
+  *
+  *  <b>Fixed:</b>
+  *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix
+  *    bootloaders on some of the USB AVR devices where avr-libc erronously defines RAMPZ
+  *  - Fixes to MassStorageHost for better device compatibility (increase command timeout, change MassStore_WaitForDataReceived()
+  *    to only unfreeze and check one data pipe at a time) to prevent incorrect enumerations and freezes
+  *  - Make Pipe_ConfigurePipe() mask the given endpoint number against PIPE_EPNUM_MASK to ensure the endpoint IN direction bit is
+  *    cleared to prevent endpoint type corruption
+  *  - Fix documentation mentioning Pipe_GetCurrentToken() function when real name is Pipe_GetPipeToken()
+  *  - Fixed ADC driver for the ATMEGA32U4 and ATMEGA16U4 (thanks to Opendous Inc.)
+  *  - Fixed CDCHost demo unfreezing the pipes at the point of configuration, rather than use
   *  - Fixed MassStorage demo not clearing the reset flag when a Mass Storage Reset is issued while not processing a command
   *  - Fixed USB_Host_SendControlRequest() not re-suspending the USB bus when initial device ready-wait fails
   *  - Fixed USB Pad regulator not being disabled on some AVR models when the USB_OPT_REG_DISABLED option is used
-  *  - Dataflash_WaitWhileBusy() now always ensures that the dataflash is ready for the next command immediately after returning,
-  *    no need to call Dataflash_ToggleSelectedChipCS() afterwards
-  *  - Added new DATAFLASH_CHIP_MASK() macro to the Dataflash driver, which returns the Dataflash select mask for the given chip index
-  *  - Updated MassStorage device block write routines to use ping-pong Dataflash buffering to increase throughput by around 30%
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

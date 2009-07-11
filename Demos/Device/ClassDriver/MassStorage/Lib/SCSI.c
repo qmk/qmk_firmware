@@ -214,10 +214,10 @@ static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* MSInterfaceInf
  */
 static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 {
-	uint32_t TotalLUNs      = (LUN_MEDIA_BLOCKS - 1);
-	uint32_t MediaBlockSize = VIRTUAL_MEMORY_BLOCK_SIZE;
+	uint32_t LastBlockAddressInLUN = (LUN_MEDIA_BLOCKS - 1);
+	uint32_t MediaBlockSize        = VIRTUAL_MEMORY_BLOCK_SIZE;
 
-	Endpoint_Write_Stream_BE(&TotalLUNs, sizeof(TotalLUNs), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_BE(&LastBlockAddressInLUN, sizeof(LastBlockAddressInLUN), NO_STREAM_CALLBACK);
 	Endpoint_Write_Stream_BE(&MediaBlockSize, sizeof(MediaBlockSize), NO_STREAM_CALLBACK);
 	Endpoint_ClearIN();
 	
