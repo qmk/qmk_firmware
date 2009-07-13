@@ -6,6 +6,20 @@
  
 /** \mainpage Mouse Device Demo
  *
+ *  \section SSec_Compat Demo Compatibility:
+ *
+ *  The following table indicates what microcontrollers are compatible with this demo.
+ *
+ *  - AT90USB1287
+ *  - AT90USB1286
+ *  - AT90USB647
+ *  - AT90USB646
+ *  - ATMEGA32U6
+ *  - ATMEGA32U4
+ *  - ATMEGA16U4
+ *  - AT90USB162
+ *  - AT90USB82
+ *
  *  \section SSec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this demo.

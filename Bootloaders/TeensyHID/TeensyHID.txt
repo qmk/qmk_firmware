@@ -6,6 +6,13 @@
  
 /** \mainpage Teensy HID Class USB AVR Bootloader
  *
+ *  \section SSec_Compat Demo Compatibility:
+ *
+ *  The following table indicates what microcontrollers are compatible with this demo.
+ *
+ *  - AT90USB646
+ *  - AT90USB162
+ *
  *  \section SSec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this demo.

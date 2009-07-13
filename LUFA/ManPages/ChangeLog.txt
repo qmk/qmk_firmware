@@ -23,6 +23,7 @@
   *  - Updated MassStorage device block write routines to use ping-pong Dataflash buffering to increase throughput by around 30%
   *  - Added new HOST_STATE_WaitForDeviceRemoval host state machine state for non-blocking disabling of device communications until the
   *    device has been removed (for use when an error occurs or communications with the device have completed)
+  *  - Added new FAST_STREAM_TRANSFERS compile time option for faster stream transfers via multiple bytes copied per stream loop
   *  
   *  <b>Changed:</b>
   *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)

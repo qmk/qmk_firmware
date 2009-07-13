@@ -112,6 +112,13 @@
  *  by defining this token, reducing the compiled binary size. When removed, the stream functions no longer accept a callback function as
  *  a parameter.
  *
+ *  <b>FAST_STREAM_TRANSFERS</b> - ( \ref Group_EndpointPacketManagement , \ref Group_PipePacketManagement )\n
+ *  By default, streams are transferred internally via a loop, sending or receiving one byte per iteration before checking for a bank full
+ *  or empty condition. This allows for multiple stream functions to be chained together easily, as there are no alignment issues. However,
+ *  this can lead to heavy performance penalties in applications where large streams are used frequently. When this compile time option is
+ *  used, bytes are sent or recevied in groups of 8 bytes at a time increasing performance at the expense of a larger flash memory consumption
+ *  due to the extra code required to deal with byte alignment.
+ *
  *  <b>USB_HOST_TIMEOUT_MS</b> - ( \ref Group_Host ) \n
  *  When a control transfer is initiated in host mode to an attached device, a timeout is used to abort the transfer if the attached
  *  device fails to respond within the timeout period. This token may be defined to a non-zero 16-bit value to set the timeout period for

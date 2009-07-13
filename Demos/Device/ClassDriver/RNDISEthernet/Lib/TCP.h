@@ -52,7 +52,7 @@
 		#define MAX_TCP_CONNECTIONS             1
 
 		/** TCP window size, giving the maximum number of bytes which can be buffered at the one time */
-		#define TCP_WINDOW_SIZE                 1024
+		#define TCP_WINDOW_SIZE                 512
 		
 		/** Port number for HTTP transmissions */
 		#define TCP_PORT_HTTP                   SwapEndian_16(80)
