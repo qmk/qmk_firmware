@@ -203,12 +203,12 @@ void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 		case HOST_STATE_Addressed:
 			if ((ErrorCode = CDC_Host_ProcessConfigDescriptor(CDCInterfaceInfo)) != CDC_ENUMERROR_NoError)
 			{
-				USB_HostState = HOST_STATE_Unattached;
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			}
 
 			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
-				USB_HostState = HOST_STATE_Unattached;
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			}
 				
 			USB_HostState = HOST_STATE_Configured;

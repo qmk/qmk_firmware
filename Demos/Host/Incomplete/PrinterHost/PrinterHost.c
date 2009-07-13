@@ -133,7 +133,7 @@ void USB_Printer_Host(void)
 				LEDs_SetAllLEDs(LEDS_LED1);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 				
@@ -147,7 +147,7 @@ void USB_Printer_Host(void)
 				LEDs_SetAllLEDs(LEDS_LED1);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
@@ -173,7 +173,7 @@ void USB_Printer_Host(void)
 				LEDs_SetAllLEDs(LEDS_LED1);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
@@ -181,10 +181,8 @@ void USB_Printer_Host(void)
 		
 			/* Indicate device no longer busy */
 			LEDs_SetAllLEDs(LEDS_LED4);
-			
-			/* Wait until USB device disconnected */
-			while (USB_IsConnected);
-			
+
+			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			break;
 	}
 }

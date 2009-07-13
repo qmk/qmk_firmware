@@ -221,20 +221,103 @@
 			 */
 			enum USB_Host_States_t
 			{
-				HOST_STATE_WaitForDevice                = 0,  /**< Internally implemented by the library. */
-				HOST_STATE_Unattached                   = 1,  /**< Internally implemented by the library. */
-				HOST_STATE_Attached                     = 2,  /**< Internally implemented by the library. */
-				HOST_STATE_Attached_WaitForDeviceSettle = 3,  /**< Internally implemented by the library. */
-				HOST_STATE_Attached_WaitForConnect      = 4,  /**< Internally implemented by the library. */
-				HOST_STATE_Attached_DoReset             = 5,  /**< Internally implemented by the library. */
-				HOST_STATE_Powered                      = 6,  /**< Internally implemented by the library. */
-				HOST_STATE_Default                      = 7,  /**< Internally implemented by the library. */
-				HOST_STATE_Default_PostReset            = 8,  /**< Internally implemented by the library. */
-				HOST_STATE_Default_PostAddressSet       = 9,  /**< Internally implemented by the library. */
-				HOST_STATE_Addressed                    = 10, /**< May be implemented by the user project. */
-				HOST_STATE_Configured                   = 11, /**< May be implemented by the user project. */
-				HOST_STATE_Ready                        = 12, /**< May be implemented by the user project. */
-				HOST_STATE_Suspended                    = 13, /**< May be implemented by the user project. */
+				HOST_STATE_WaitForDeviceRemoval         = 0,  /**< Internally implemented by the library. This state can be
+				                                               *   used by the library to wait until the attached device is
+				                                               *   removed by the user - useful for when an error occurs or
+				                                               *   further communication with the device is not needed. This
+				                                               *   allows for other code to run while the state machine is
+				                                               *   effectively disabled.
+				                                               */
+				HOST_STATE_WaitForDevice                = 1,  /**< Internally implemented by the library. This state indicates
+				                                               *   that the stack is waiting for an interval to elapse before
+				                                               *   continuing with the next step of the device enumeration
+				                                               *   process.
+				                                               *
+				                                               *   \note Do not manually change to this state in the user code.
+				                                               */
+				HOST_STATE_Unattached                   = 2,  /**< Internally implemented by the library. This state indicates
+				                                               *   that the host state machine is waiting for a device to be
+				                                               *   attached so that it can start the enumeration process.
+				                                               *   
+				                                               *   \note Do not manually change to this state in the user code.
+				                                               */
+				HOST_STATE_Attached                     = 3,  /**< Internally implemented by the library. This state indicates
+				                                               *   that a device has been attached, and the library's internals
+				                                               *   are being configured to begin the enumeration process.
+				                                               *   
+				                                               *   \note Do not manually change to this state in the user code.
+				                                               */
+				HOST_STATE_Attached_WaitForDeviceSettle = 4,  /**< Internally implemented by the library. This state indicates
+				                                               *   that the stack is waiting for the initial settling period to
+				                                               *   elapse before beginning the enumeration process.
+				                                               *   
+				                                               *   \note Do not manually change to this state in the user code.
+				                                               */
+				HOST_STATE_Attached_WaitForConnect      = 5,  /**< Internally implemented by the library. This state indicates
+				                                               *   that the stack is waiting for a connection event from the USB
+				                                               *   controller to indicate a valid USB device has been attached to
+				                                               *   the bus and is ready to be enumerated.
+				                                               *   
+				                                               *   \note Do not manually change to this state in the user code.
+				                                               */
+				HOST_STATE_Attached_DoReset             = 6,  /**< Internally implemented by the library. This state indicates
+				                                               *   that a valid USB device has been attached, and that it is
+				                                               *   will now be reset to ensure it is ready for enumeration.
+				                                               *   
+				                                               *   \note Do not manually change to this state in the user code.
+				                                               */
+				HOST_STATE_Powered                      = 7,  /**< Internally implemented by the library. This state indicates
+				                                               *   that the attached device is currently powered and reset, and
+				                                               *   that the control pipe is now being configured by the stack.
+				                                               *   
+				                                               *   \note Do not manually change to this state in the user code.
+				                                               */
+				HOST_STATE_Default                      = 8,  /**< Internally implemented by the library. This state indicates
+				                                               *   that the stack is currently retrieving the control endpoint's
+				                                               *   size from the device, so that the control pipe can be altered
+				                                               *   to match.
+				                                               *   
+				                                               *   \note Do not manually change to this state in the user code.
+				                                               */
+				HOST_STATE_Default_PostReset            = 9,  /**< Internally implemented by the library. This state indicates that
+				                                               *   the control pipe is being reconfigured to match the retrieved
+				                                               *   control endpoint size from the device, and the device's USB bus
+				                                               *   address is being set.
+				                                               *   
+				                                               *   \note Do not manually change to this state in the user code.
+				                                               */
+				HOST_STATE_Default_PostAddressSet       = 10, /**< Internally implemented by the library. This state indicates that
+				                                               *   the device's address has now been set, and the stack is has now
+				                                               *   completed the device enumeration process. This state causes the
+				                                               *   stack to change the current USB device address to that set for
+				                                               *   the connected device, before progressing to the user-implemented
+				                                               *   HOST_STATE_Addressed state for further communications.
+				                                               *   
+				                                               *   \note Do not manually change to this state in the user code.
+				                                               */
+				HOST_STATE_Addressed                    = 11, /**< May be implemented by the user project. This state should
+				                                               *   set the device configuration before progressing to the
+				                                               *   HOST_STATE_Configured state. Other processing (such as the
+				                                               *   retrieval and processing of the device descriptor) should also
+				                                               *   be placed in this state.
+				                                               */
+				HOST_STATE_Configured                   = 12, /**< May be implemented by the user project. This state should
+				                                               *   implement any extra device configuration (such as the setting of
+				                                               *   class-specific parameters) before normal communication is begun
+				                                               *   in the HOST_STATE_Ready state.
+				                                               */
+				HOST_STATE_Ready                        = 13, /**< May be implemented by the user project. This state should
+				                                               *   contain the main communications with the attached device. From this
+				                                               *   this state the host state machine should be changed to either
+				                                               *   HOST_STATE_Suspended (after the bus is manually suspended using the
+				                                               *   USB_Host_SuspendBus() macro) or HOST_STATE_WaitForDeviceRemoval as
+				                                               *   needed.
+				                                               */
+				HOST_STATE_Suspended                    = 15, /**< May be implemented by the user project. This state should be maintained
+				                                               *   while the bus is suspended, and changed to either the HOST_STATE_Ready
+				                                               *   (after resuming the bus with the USB_Host_ResumeBus() macro) or the
+				                                               *   HOST_STATE_WaitForDeviceRemoval states as needed.
+				                                               */
 			};
 			
 			/** Enum for the error codes for the \ref EVENT_USB_HostError() event.

@@ -139,14 +139,11 @@ void Bluetooth_Management_Task(void)
 				LEDs_SetAllLEDs(LEDS_LED1);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
 			puts_P(PSTR("Bluetooth Dongle Detected.\r\n"));
-				
-			/* Select the control pipe for the request transfer */
-			Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
 			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
 			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
@@ -158,7 +155,7 @@ void Bluetooth_Management_Task(void)
 				LEDs_SetAllLEDs(LEDS_LED1);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 				
@@ -181,17 +178,13 @@ void Bluetooth_Management_Task(void)
 				LEDs_SetAllLEDs(LEDS_LED1);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
 			puts_P(PSTR("Bluetooth Dongle Enumerated.\r\n"));
 
 			USB_HostState = HOST_STATE_Ready;
-			break;
-		case HOST_STATE_Ready:
-			/* Do nothing, Bluetooth stack will take care of enumeration */
-			
 			break;
 	}
 }

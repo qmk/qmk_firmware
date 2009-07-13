@@ -154,7 +154,7 @@ void MassStorage_Task(void)
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
@@ -168,7 +168,7 @@ void MassStorage_Task(void)
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 				
@@ -187,6 +187,8 @@ void MassStorage_Task(void)
 			if ((ErrorCode = MassStore_GetMaxLUN(&MassStore_MaxLUNIndex)) != HOST_SENDCONTROL_Successful)
 			{	
 				ShowDiskReadError(PSTR("Get Max LUN"), false, ErrorCode);
+
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 			
@@ -197,6 +199,8 @@ void MassStorage_Task(void)
 			if ((ErrorCode = MassStore_MassStorageReset()) != HOST_SENDCONTROL_Successful)
 			{
 				ShowDiskReadError(PSTR("Mass Storage Reset"), false, ErrorCode);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 			
@@ -213,6 +217,8 @@ void MassStorage_Task(void)
 			if (((ErrorCode = MassStore_PreventAllowMediumRemoval(0, true)) != 0) || (SCSICommandStatus.Status != Command_Pass))
 			{
 				ShowDiskReadError(PSTR("Prevent/Allow Medium Removal"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
@@ -221,6 +227,8 @@ void MassStorage_Task(void)
 			if (((ErrorCode = MassStore_Inquiry(0, &InquiryData)) != 0) || (SCSICommandStatus.Status != Command_Pass))
 			{
 				ShowDiskReadError(PSTR("Inquiry"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
@@ -237,7 +245,9 @@ void MassStorage_Task(void)
 				if ((ErrorCode = MassStore_TestUnitReady(0)) != 0)
 				{
 					ShowDiskReadError(PSTR("Test Unit Ready"), false, ErrorCode);
-					break;				
+
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
 				}
 			}
 			while ((SCSICommandStatus.Status != Command_Pass) && USB_IsConnected);
@@ -255,6 +265,8 @@ void MassStorage_Task(void)
 			if (((ErrorCode = MassStore_ReadCapacity(0, &DiskCapacity)) != 0) || (SCSICommandStatus.Status != Command_Pass))
 			{
 				ShowDiskReadError(PSTR("Read Capacity"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 			
@@ -269,6 +281,8 @@ void MassStorage_Task(void)
 			    (SCSICommandStatus.Status != Command_Pass))
 			{
 				ShowDiskReadError(PSTR("Read Device Block"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 			
@@ -319,6 +333,8 @@ void MassStorage_Task(void)
 				    (SCSICommandStatus.Status != Command_Pass))
 				{
 					ShowDiskReadError(PSTR("Read Device Block"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+					
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
 
@@ -339,8 +355,7 @@ void MassStorage_Task(void)
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
 			
 			/* Wait until USB device disconnected */
-			while (USB_IsConnected);
-			
+			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			break;
 	}
 }
@@ -372,7 +387,4 @@ void ShowDiskReadError(char* CommandString, bool FailedAtSCSILayer, uint8_t Erro
 
 	/* Indicate device error via the status LEDs */
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-	/* Wait until USB device disconnected */
-	while (USB_IsConnected);
 }

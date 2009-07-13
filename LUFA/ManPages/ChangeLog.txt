@@ -21,6 +21,8 @@
   *    added NO_INTERNAL_SERIAL compile time option to turn off new serial number reading code
   *  - Added new DATAFLASH_CHIP_MASK() macro to the Dataflash driver, which returns the Dataflash select mask for the given chip index
   *  - Updated MassStorage device block write routines to use ping-pong Dataflash buffering to increase throughput by around 30%
+  *  - Added new HOST_STATE_WaitForDeviceRemoval host state machine state for non-blocking disabling of device communications until the
+  *    device has been removed (for use when an error occurs or communications with the device have completed)
   *  
   *  <b>Changed:</b>
   *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)

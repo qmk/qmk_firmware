@@ -149,7 +149,7 @@ void StillImage_Task(void)
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
@@ -162,7 +162,7 @@ void StillImage_Task(void)
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 				
@@ -195,6 +195,8 @@ void StillImage_Task(void)
 			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 			
@@ -246,6 +248,8 @@ void StillImage_Task(void)
 			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 			
@@ -253,6 +257,8 @@ void StillImage_Task(void)
 			if ((PIMA_ReceivedBlock.Type != CType_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
 			{
 				ShowCommandError(PIMA_ReceivedBlock.Code, true);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 			
@@ -274,6 +280,8 @@ void StillImage_Task(void)
 			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 			
@@ -281,6 +289,8 @@ void StillImage_Task(void)
 			if ((PIMA_ReceivedBlock.Type != CType_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
 			{
 				ShowCommandError(PIMA_ReceivedBlock.Code, true);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
@@ -302,6 +312,8 @@ void StillImage_Task(void)
 			if ((ErrorCode = SImage_RecieveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
@@ -309,6 +321,8 @@ void StillImage_Task(void)
 			if ((PIMA_ReceivedBlock.Type != CType_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
 			{
 				ShowCommandError(PIMA_ReceivedBlock.Code, true);
+				
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
@@ -363,7 +377,4 @@ void ShowCommandError(uint8_t ErrorCode, bool ResponseCodeError)
 			
 	/* Indicate error via status LEDs */
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
-	/* Wait until USB device disconnected */
-	while (USB_IsConnected);
 }

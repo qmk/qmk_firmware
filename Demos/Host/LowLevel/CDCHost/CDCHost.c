@@ -148,7 +148,7 @@ void CDC_Host_Task(void)
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 			
@@ -162,7 +162,7 @@ void CDC_Host_Task(void)
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
 				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 				

@@ -66,6 +66,7 @@ void USB_Host_ProcessNextHostState(void)
 			USB_HostState = HOST_STATE_Attached_WaitForDeviceSettle;
 			break;
 		case HOST_STATE_Attached_WaitForDeviceSettle:
+			#if HOST_DEVICE_SETTLE_DELAY_MS > 0
 			_delay_ms(1);
 
 			if (!(WaitMSRemaining--))
@@ -78,6 +79,9 @@ void USB_Host_ProcessNextHostState(void)
 				
 				USB_HostState = HOST_STATE_Attached_WaitForConnect;
 			}
+			#else
+			USB_HostState = HOST_STATE_Attached_WaitForConnect;			
+			#endif
 			
 			break;
 		case HOST_STATE_Attached_WaitForConnect:		

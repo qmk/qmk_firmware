@@ -19,9 +19,9 @@
   *     -# Re-enable Host mode Class driver builds after completion
   *     -# Update Host mode Class Driver demo .txt files
   *  - Add standardized descriptor names to device and host class driver structures
-  *  - Remove USE_NONSTANDARD_DESCRIPTOR_NAMES, make all typedefs unions to allow either naming scheme to be used
   *  - Add in INTERRUPT_CONTROL_PIPE to use HSOFI to trigger calls to the host state machine
   *  - Make Suspend host state suspend USB bus frames
+  *  - Split StillImageHost demo into lib directory
   *  - Add in Stream functions for PROGMEM, EEPROM -- move to templated system
   *  - Debug mode for pipe/endpoint calls
   *  - Test and document new FAST_STREAM_TRANSFERS compile time option
