@@ -49,6 +49,7 @@
   *  - Fixed MassStorage demo not clearing the reset flag when a Mass Storage Reset is issued while not processing a command
   *  - Fixed USB_Host_SendControlRequest() not re-suspending the USB bus when initial device ready-wait fails
   *  - Fixed USB Pad regulator not being disabled on some AVR models when the USB_OPT_REG_DISABLED option is used
+  *  - Fixed Host mode to Device mode UID change not causing a USB Disconnect event when a device was connected
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

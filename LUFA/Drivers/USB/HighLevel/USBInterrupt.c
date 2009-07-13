@@ -243,8 +243,8 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		{
 			if (USB_CurrentMode == USB_MODE_HOST)
 			  EVENT_USB_DeviceUnattached();
-			else
-			  EVENT_USB_Disconnect();
+
+			EVENT_USB_Disconnect();
 		}
 
 		EVENT_USB_UIDChange();

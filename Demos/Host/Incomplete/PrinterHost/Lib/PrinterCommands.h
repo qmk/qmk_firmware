@@ -28,65 +28,33 @@
   this software.
 */
 
-#include "USBMode.h"
+#ifndef _PRINTER_COMMANDS_H_
+#define _PRINTER_COMMANDS_H_
 
-#define  INCLUDE_FROM_USBTASK_C
-#include "USBTask.h"
+	/* Includes: */
+		#include <avr/io.h>
 
-volatile bool        USB_IsSuspended;
-volatile bool        USB_IsConnected;
-volatile bool        USB_IsInitialized;
-USB_Request_Header_t USB_ControlRequest;
+		#include <LUFA/Drivers/USB/USB.h>
 
-#if defined(USB_CAN_BE_HOST)
-volatile uint8_t     USB_HostState;
-#endif
-
-void USB_USBTask(void)
-{
-	#if defined(USB_HOST_ONLY)
-		USB_HostTask();
-	#elif defined(USB_DEVICE_ONLY)
-		USB_DeviceTask();
-	#else
-		if (USB_CurrentMode == USB_MODE_DEVICE)
-		  USB_DeviceTask();
-		else if (USB_CurrentMode == USB_MODE_HOST)
-		  USB_HostTask();
-	#endif
-}
-
-#if defined(USB_CAN_BE_DEVICE)
-static void USB_DeviceTask(void)
-{
-	if (USB_IsConnected)
-	{
-		uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
-	
-		Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
-
-		if (Endpoint_IsSETUPReceived())
-		{
-			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-			{
-				USB_Device_ProcessControlPacket();
-			}
-		}
+	/* Macros: */
+		#define PROTOCOL_UNIDIRECTIONAL      0x01
+		#define PROTOCOL_BIDIRECTIONAL       0x02
+		#define PROTOCOL_IEEE1284            0x03
 		
-		Endpoint_SelectEndpoint(PrevEndpoint);
-	}
-}
-#endif
+		#define GET_DEVICE_ID                0
+		#define GET_PORT_STATUS              1
+		#define SOFT_RESET                   2
 
-#if defined(USB_CAN_BE_HOST)
-static void USB_HostTask(void)
-{
-	uint8_t PrevPipe = Pipe_GetCurrentPipe();
+	/* Type Defines: */
+		typedef struct
+		{
+			uint16_t Length;
+			uint8_t  String[128];
+		} Device_ID_String_t;
+		
+	/* Function Prototypes: */
+		uint8_t Printer_GetDeviceID(Device_ID_String_t* DeviceIDString);
+		uint8_t Printer_GetPortStatus(uint8_t* PortStatus);
+		uint8_t Printer_SoftReset(void);
 	
-	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-	USB_Host_ProcessNextHostState();
-	
-	Pipe_SelectPipe(PrevPipe);
-}
 #endif

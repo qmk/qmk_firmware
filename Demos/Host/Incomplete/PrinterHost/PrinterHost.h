@@ -39,6 +39,7 @@
 		#include <stdio.h>
 
 		#include "ConfigDescriptor.h"
+		#include "Lib/PrinterCommands.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
@@ -58,20 +59,7 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-
-		#define PROTOCOL_UNIDIRECTIONAL      0x01
-		#define PROTOCOL_BIDIRECTIONAL       0x02
-		#define PROTOCOL_IEEE1284            0x03
-		
-		#define GET_DEVICE_ID                0
-
-	/* Type Defines: */
-		typedef struct
-		{
-			uint16_t Length;
-			uint8_t  String[128];
-		} Device_ID_String_t;
-
+	
 	/* External Variables: */
 		extern uint8_t PrinterProtocol;
 	
@@ -85,7 +73,5 @@
 		void SetupHardware(void);
 
 		void USB_Printer_Host(void);
-
-		bool GetDeviceID(void);
 
 #endif

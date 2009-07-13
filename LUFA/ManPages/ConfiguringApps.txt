@@ -24,7 +24,9 @@
  *    - <b>BOARD</b>, the target board hardware
  *    - <b>F_CLOCK</b>, the target raw master clock frequency, before any prescaling is performed
  *    - <b>F_CPU</b>, the target AVR CPU master clock frequency, after any prescaling
- *    - <b>CDEFS</b>, the C preprocessor defines which configure the source code
+ *    - <b>CDEFS</b>, the C preprocessor defines which configure options the source code
+ *    - <b>LUFA_PATH</b>, the path to the LUFA library source code
+ *    - <b>LUFA_OPTS</b>, the compile time LUFA options which configure the library features
  *
  *  These values should be changed to reflect the build hardware.
  *
@@ -63,12 +65,23 @@
  *  library components will occur.
  *
  *  \section Sec_CDEFS The CDEFS Parameter
+ *  Many applications have features which can be controlled by the defining of specially named preprocessor tokens at the point of compilation - for example,
+ *  an application might use a compile time token to turn on or off optional or mutually exclusive portions of code. Preprocessor tokens can be
+ *  defined here by listing each one with the -D command line switch, and each token can optionally be defined to a specific value. When defined in the
+ *  project makefile, these behave as if they were defined in every source file via a normal preprocessor define statement.
+ *
  *  Most applications will actually have multiple CDEF lines, which are concatenated together with the "+=" operator. This ensures that large
  *  numbers of configuration options remain readable by splitting up groups of options into separate lines.
  *
- *  Normally, these options do not need to be altered to allow an application to compile and run correctly on a different board or AVR to the
- *  current configuration - if the options are incorrect, then the demo is most likely incompatible with the chosen USB AVR model and cannot be
- *  made to function through the altering of the makefile settings alone (or at all). Settings such as the USB mode (device, host or both), the USB
- *  interface speed (Low or Full speed) and other LUFA configuration options can be set here - refer to the library documentation for details on the
- *  configuration parameters.
+ *  \section Sec_LUFA_PATH The LUFA_PATH Parameter
+ *  As each LUFA program requires the LUFA library source code to compile correctly, the application must know where the LUFA library is located. This
+ *  value specifies the path to the LUFA library base relative to the path of the project makefile.
+ *
+ *  \section Sec_LUFA_OPTS The LUFA_OPTS Parameter
+ *  This value is similar to the CDEFS parameter listed elsewhere -- indeed, it is simply a convenient place to group LUFA related tokens away from the
+ *  application's compile time tokens. Normally, these options do not need to be altered to allow an application to compile and run correctly on a
+ *  different board or AVR to the current configuration - if the options are incorrect, then the demo is most likely incompatible with the chosen USB AVR
+ *  model and cannot be made to function through the altering of the makefile settings alone (or at all). Settings such as the USB mode (device, host or both),
+ *  the USB interface speed (Low or Full speed) and other LUFA configuration options can be set here - see \ref Page_TokenSummary documentation for details
+ *  on the available LUFA compile time configuration options.
  */

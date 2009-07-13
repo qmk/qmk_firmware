@@ -36,7 +36,6 @@
 
 #include "PrinterHost.h"
 
-/* Globals */
 uint8_t PrinterProtocol;
 
 
@@ -115,34 +114,10 @@ void USB_Printer_Host(void)
 	switch (USB_HostState)
 	{
 		case HOST_STATE_Addressed:
-			/* Standard request to set the device configuration to configuration 1 */
-			USB_ControlRequest = (USB_Request_Header_t)
-				{
-					bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE),
-					bRequest:      REQ_SetConfiguration,
-					wValue:        1,
-					wIndex:        0,
-					wLength:       0,
-				};
-				
-			/* Send the request, display error and wait for device detatch if request fails */
-			if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
-			{
-				puts_P(PSTR("Control Error (Set Configuration).\r\n"));
-				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDS_LED1);
-
-				/* Wait until USB device disconnected */
-				while (USB_IsConnected);
-				break;
-			}
-				
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
 			puts_P(PSTR("Getting Config Data.\r\n"));
+			
+			/* Select the control pipe for the request transfer */
+			Pipe_SelectPipe(PIPE_CONTROLPIPE);			
 		
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
@@ -161,16 +136,38 @@ void USB_Printer_Host(void)
 				while (USB_IsConnected);
 				break;
 			}
-
-			puts_P(PSTR("Printer Enumerated.\r\n"));
 				
+			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
+			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
+			{
+				puts_P(PSTR("Control Error (Set Configuration).\r\n"));
+				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
+
+				/* Indicate error via status LEDs */
+				LEDs_SetAllLEDs(LEDS_LED1);
+
+				/* Wait until USB device disconnected */
+				while (USB_IsConnected);
+				break;
+			}
+
+			USB_HostState = HOST_STATE_Configured;
+			break;
+		case HOST_STATE_Configured:
+			puts_P(PSTR("Printer Enumerated.\r\n"));
+			
 			USB_HostState = HOST_STATE_Ready;
 			break;
 		case HOST_STATE_Ready:
 			/* Indicate device busy via the status LEDs */
 			LEDs_SetAllLEDs(LEDS_LED3 | LEDS_LED4);
 		
-			if (!(GetDeviceID()))
+			printf_P(PSTR("Printer Protocol: %d\r\n"), PrinterProtocol);
+		
+			puts_P(PSTR("Retrieving Device ID...\r\n"));
+		
+			Device_ID_String_t DeviceIDString;
+			if (Printer_GetDeviceID(&DeviceIDString) != HOST_SENDCONTROL_Successful)
 			{
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDS_LED1);
@@ -179,6 +176,8 @@ void USB_Printer_Host(void)
 				while (USB_IsConnected);
 				break;
 			}
+
+			printf_P(PSTR("Printer Device ID: %s\r\n"), DeviceIDString.String);
 		
 			/* Indicate device no longer busy */
 			LEDs_SetAllLEDs(LEDS_LED4);
@@ -188,32 +187,4 @@ void USB_Printer_Host(void)
 			
 			break;
 	}
-}
-
-bool GetDeviceID(void)
-{
-	Device_ID_String_t DeviceIDString;
-
-	/* Request to retrieve the device ID string */
-	USB_ControlRequest = (USB_Request_Header_t)
-		{
-			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			bRequest:      GET_DEVICE_ID,
-			wValue:        0,
-			wIndex:        0,
-			wLength:       sizeof(DeviceIDString),
-		};
-
-	printf("Error Code: %d", USB_Host_SendControlRequest(&DeviceIDString));
-
-	/* Send the request, display error and wait for device detatch if request fails */
-	if (USB_Host_SendControlRequest(&DeviceIDString) != HOST_SENDCONTROL_Successful)
-	  return false;
-
-	/* Reverse the order of the string length as it is sent in big-endian format */
-	DeviceIDString.Length = SwapEndian_16(DeviceIDString.Length);
-	
-	printf("%s", DeviceIDString.String);
-	
-	return true;
 }

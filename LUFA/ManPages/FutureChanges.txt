@@ -21,11 +21,11 @@
   *  - Add standardized descriptor names to device and host class driver structures
   *  - Remove USE_NONSTANDARD_DESCRIPTOR_NAMES, make all typedefs unions to allow either naming scheme to be used
   *  - Add in INTERRUPT_CONTROL_PIPE to use HSOFI to trigger calls to the host state machine
-  *  - Remove FAST_STREAM_TRANSFERS as they have little effect
   *  - Make Suspend host state suspend USB bus frames
   *  - Add in Stream functions for PROGMEM, EEPROM -- move to templated system
   *  - Debug mode for pipe/endpoint calls
   *  - Test and document new FAST_STREAM_TRANSFERS compile time option
+  *  - Demo hardware compatibility table/list
   *
   *  <b>Targeted for Future Releases:</b>
   *  - Remake AVRStudio project files

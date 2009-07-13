@@ -58,7 +58,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 
 	Pipe_ClearSETUP();
 	
-	if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_SetupSent)))
+	if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_SetupSent)))
 	  goto End_Of_Control_Send;
 
 	Pipe_Freeze();
@@ -76,7 +76,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 			{
 				Pipe_Unfreeze();
 
-				if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_InReceived)))
+				if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_InReceived)))
 				  goto End_Of_Control_Send;
 							
 				if (!(Pipe_BytesInPipe()))
@@ -96,12 +96,12 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 		Pipe_SetToken(PIPE_TOKEN_OUT);
 		Pipe_Unfreeze();
 		
-		if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_OutReady)))
+		if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_OutReady)))
 		  goto End_Of_Control_Send;
 
 		Pipe_ClearOUT();
 
-		if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_OutReady)))
+		if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_OutReady)))
 		  goto End_Of_Control_Send;
 	}
 	else
@@ -113,7 +113,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 
 			while (DataLen)
 			{
-				if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_OutReady)))
+				if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_OutReady)))
 				  goto End_Of_Control_Send;
 
 				while (DataLen && (Pipe_BytesInPipe() < USB_ControlPipeSize))
@@ -125,7 +125,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 				Pipe_ClearOUT();
 			}
 
-			if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_OutReady)))
+			if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_OutReady)))
 			  goto End_Of_Control_Send;
 
 			Pipe_Freeze();
@@ -134,7 +134,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 		Pipe_SetToken(PIPE_TOKEN_IN);
 		Pipe_Unfreeze();
 
-		if ((ReturnStatus = USB_Host_Wait_For_Setup_IOS(USB_HOST_WAITFOR_InReceived)))
+		if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_InReceived)))
 		  goto End_Of_Control_Send;
 
 		Pipe_ClearIN();
@@ -151,7 +151,7 @@ End_Of_Control_Send:
 	return ReturnStatus;
 }
 
-static uint8_t USB_Host_Wait_For_Setup_IOS(const uint8_t WaitType)
+static uint8_t USB_Host_WaitForIOS(const uint8_t WaitType)
 {
 	#if (USB_HOST_TIMEOUT_MS < 0xFF)
 	uint8_t  TimeoutCounter = USB_HOST_TIMEOUT_MS;	
