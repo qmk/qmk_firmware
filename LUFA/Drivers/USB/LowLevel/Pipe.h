@@ -43,6 +43,20 @@
  *  Functions, macros, variables, enums and types related to data reading and writing from and to pipes.
  */
  
+/** \ingroup Group_PipeRW  
+ *  @defgroup Group_PipePrimitiveRW Read/Write of Primitive Data Types
+ *
+ *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
+ *  from and to pipes.
+ */ 
+
+/** \ingroup Group_PipeRW  
+ *  @defgroup Group_PipeStreamRW Read/Write of Multi-Byte Streams
+ *
+ *  Functions, macros, variables, enums and types related to data reading and writing of data streams from
+ *  and to pipes.
+ */ 
+ 
 /** @defgroup Group_PipePacketManagement Pipe Packet Management
  *
  *  Functions, macros, variables, enums and types related to packet management of pipes.
@@ -61,6 +75,8 @@
 
 	/* Includes: */
 		#include <avr/io.h>
+		#include <avr/pgmspace.h>
+		#include <avr/eeprom.h>
 		#include <stdbool.h>
 
 		#include "../../../Common/Common.h"
@@ -502,7 +518,7 @@
 		/* Inline Functions: */
 			/** Reads one byte from the currently selected pipe's bank, for OUT direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 *
 			 *  \return Next byte in the currently selected pipe's FIFO buffer
 			 */
@@ -514,7 +530,7 @@
 
 			/** Writes one byte from the currently selected pipe's bank, for IN direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 *
 			 *  \param[in] Byte  Next byte to write into the the currently selected pipe's FIFO buffer
 			 */
@@ -526,7 +542,7 @@
 
 			/** Discards one byte from the currently selected pipe's bank, for OUT direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 */
 			static inline void Pipe_Discard_Byte(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Discard_Byte(void)
@@ -539,7 +555,7 @@
 			/** Reads two bytes from the currently selected pipe's bank in little endian format, for OUT
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 *
 			 *  \return Next word in the currently selected pipe's FIFO buffer
 			 */
@@ -557,7 +573,7 @@
 			/** Reads two bytes from the currently selected pipe's bank in big endian format, for OUT
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 *
 			 *  \return Next word in the currently selected pipe's FIFO buffer
 			 */
@@ -575,7 +591,7 @@
 			/** Writes two bytes to the currently selected pipe's bank in little endian format, for IN
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 *
 			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer
 			 */
@@ -589,7 +605,7 @@
 			/** Writes two bytes to the currently selected pipe's bank in big endian format, for IN
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 *
 			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer
 			 */
@@ -602,7 +618,7 @@
 
 			/** Discards two bytes from the currently selected pipe's bank, for OUT direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 */
 			static inline void Pipe_Discard_Word(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Discard_Word(void)
@@ -616,7 +632,7 @@
 			/** Reads four bytes from the currently selected pipe's bank in little endian format, for OUT
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 *
 			 *  \return Next double word in the currently selected pipe's FIFO buffer
 			 */
@@ -640,7 +656,7 @@
 			/** Reads four bytes from the currently selected pipe's bank in big endian format, for OUT
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 *
 			 *  \return Next double word in the currently selected pipe's FIFO buffer
 			 */
@@ -664,7 +680,7 @@
 			/** Writes four bytes to the currently selected pipe's bank in little endian format, for IN
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 *
 			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer
 			 */
@@ -678,7 +694,7 @@
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 *
 			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer
 			 */
@@ -691,7 +707,7 @@
 			
 			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.	
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipePrimitiveRW
 			 */
 			static inline void Pipe_Discard_DWord(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Discard_DWord(void)
@@ -716,6 +732,12 @@
 			extern uint8_t USB_ControlPipeSize;
 
 		/* Function Prototypes: */
+			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
+				#define _CALLBACK_PARAM     , StreamCallbackPtr_t Callback
+			#else
+				#define _CALLBACK_PARAM			
+			#endif
+
 			/** Configures the specified pipe number with the given pipe type, token, target endpoint number in the
 			 *  attached device, bank size and banking mode. Pipes should be allocated in ascending order by their
 			 *  address in the device (i.e. pipe 1 should be configured before pipe 2 and so on) to prevent fragmentation
@@ -756,60 +778,6 @@
 			 */
 			uint8_t Pipe_WaitUntilReady(void);		
 		
-			/** Writes the given number of bytes to the pipe from the given buffer in little endian,
-			 *  sending full packets to the device as needed. The last packet filled is not automatically sent;
-			 *  the user is responsible for manually sending the last written packet to the host via the
-			 *  \ref Pipe_ClearOUT() macro. Between each USB packet, the given stream callback function is
-			 *  executed repeatedly until the next packet is ready, allowing for early aborts of stream transfers.
-			 *
-			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
-			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
-			 *  disabled and this function has the Callback parameter omitted.
-			 *
-			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
-			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
-			 *
-			 *  \ingroup Group_PipeRW
-			 *
-			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
-			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
-			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
-			 */
-			uint8_t Pipe_Write_Stream_LE(const void* Buffer, uint16_t Length
-			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-			                             , StreamCallbackPtr_t Callback
-			#endif
-			                             ) ATTR_NON_NULL_PTR_ARG(1);				
-
-			/** Writes the given number of bytes to the pipe from the given buffer in big endian,
-			 *  sending full packets to the device as needed. The last packet filled is not automatically sent;
-			 *  the user is responsible for manually sending the last written packet to the host via the
-			 *  \ref Pipe_ClearOUT() macro. Between each USB packet, the given stream callback function is
-			 *  executed repeatedly until the next packet is ready, allowing for early aborts of stream transfers.
-			 *
-			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
-			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
-			 *  disabled and this function has the Callback parameter omitted.
-			 *
-			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
-			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
-			 *
-			 *  \ingroup Group_PipeRW
-			 *
-			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
-			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
-			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
-			 */
-			uint8_t Pipe_Write_Stream_BE(const void* Buffer, uint16_t Length
-			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-			                             , StreamCallbackPtr_t Callback
-			#endif
-			                             ) ATTR_NON_NULL_PTR_ARG(1);
-
 			/** Reads and discards the given number of bytes from the pipe, discarding fully read packets from the host
 			 *  as needed. The last packet is not automatically discarded once the remaining bytes has been read; the
 			 *  user is responsible for manually discarding the last packet from the device via the \ref Pipe_ClearIN() macro.
@@ -823,18 +791,112 @@
 			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
 			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipeStreamRW
 			 *
 			 *  \param[in] Length  Number of bytes to send via the currently selected pipe.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Discard_Stream(uint16_t Length
-			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-			                            , StreamCallbackPtr_t Callback
-			#endif
-			                            );
+			uint8_t Pipe_Discard_Stream(uint16_t Length _CALLBACK_PARAM);
+
+			/** Writes the given number of bytes to the pipe from the given buffer in little endian,
+			 *  sending full packets to the device as needed. The last packet filled is not automatically sent;
+			 *  the user is responsible for manually sending the last written packet to the host via the
+			 *  \ref Pipe_ClearOUT() macro. Between each USB packet, the given stream callback function is
+			 *  executed repeatedly until the next packet is ready, allowing for early aborts of stream transfers.
+			 *
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
+			 *
+			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
+			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
+			 *
+			 *  \ingroup Group_PipeStreamRW
+			 *
+			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
+			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t Pipe_Write_Stream_LE(const void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);				
+
+			/** EEPROM buffer source version of \ref Pipe_Write_Stream_LE.
+			 *
+			 *  \ingroup Group_PipeStreamRW
+			 *
+			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
+			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t Pipe_Write_EStream_LE(const void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			
+			/** FLASH buffer source version of \ref Pipe_Write_Stream_LE.
+			 *
+			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *
+			 *  \ingroup Group_PipeStreamRW
+			 *
+			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
+			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t Pipe_Write_PStream_LE(const void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+						
+			/** Writes the given number of bytes to the pipe from the given buffer in big endian,
+			 *  sending full packets to the device as needed. The last packet filled is not automatically sent;
+			 *  the user is responsible for manually sending the last written packet to the host via the
+			 *  \ref Pipe_ClearOUT() macro. Between each USB packet, the given stream callback function is
+			 *  executed repeatedly until the next packet is ready, allowing for early aborts of stream transfers.
+			 *
+			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
+			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  disabled and this function has the Callback parameter omitted.
+			 *
+			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
+			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
+			 *
+			 *  \ingroup Group_PipeStreamRW
+			 *
+			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
+			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t Pipe_Write_Stream_BE(const void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+
+			/** EEPROM buffer source version of \ref Pipe_Write_Stream_BE.
+			 *
+			 *  \ingroup Group_PipeStreamRW
+			 *
+			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
+			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t Pipe_Write_EStream_BE(const void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			
+			/** FLASH buffer source version of \ref Pipe_Write_Stream_BE.
+			 *
+			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *
+			 *  \ingroup Group_PipeStreamRW
+			 *
+			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
+			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t Pipe_Write_PStream_BE(const void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the pipe into the given buffer in little endian,
 			 *  sending full packets to the device as needed. The last packet filled is not automatically sent;
@@ -849,7 +911,7 @@
 			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
 			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipeStreamRW
 			 *
 			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
@@ -857,11 +919,19 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length
-			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-			                            , StreamCallbackPtr_t Callback
-			#endif
-			                            ) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+
+			/** EEPROM buffer source version of \ref Pipe_Read_Stream_LE.
+			 *
+			 *  \ingroup Group_PipeStreamRW
+			 *
+			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
+			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t Pipe_Read_EStream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the pipe into the given buffer in big endian,
 			 *  sending full packets to the device as needed. The last packet filled is not automatically sent;
@@ -876,7 +946,7 @@
 			 *  The pipe token is set automatically, thus this can be used on bi-directional pipes directly without
 			 *  having to explicitly change the data direction with a call to \ref Pipe_SetPipeToken().
 			 *
-			 *  \ingroup Group_PipeRW
+			 *  \ingroup Group_PipeStreamRW
 			 *
 			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
@@ -884,12 +954,20 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length
-			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-			                            , StreamCallbackPtr_t Callback
-			#endif
-			                            ) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 			
+			/** EEPROM buffer source version of \ref Pipe_Read_Stream_BE.
+			 *
+			 *  \ingroup Group_PipeStreamRW
+			 *
+			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
+			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t Pipe_Read_EStream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */

@@ -50,6 +50,54 @@ CDC_Line_Coding_t LineCoding = { .BaudRateBPS = 9600,
                                  .ParityType  = Parity_None,
                                  .DataBits    = 8            };
 
+#if 0
+/* NOTE: Here you can set up a standard stream using the created virtual serial port, so that the standard stream functions in
+ *       <stdio.h> can be used on the virtual serial port (e.g. fprintf(&USBSerial, "Test"); to print a string).
+ */
+	
+static int CDC_putchar (char c, FILE *stream)
+{
+	if (!(USB_IsConnected))
+	  return -1;
+	  
+	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
+	while (!(Endpoint_IsReadWriteAllowed()));
+	Endpoint_Write_Byte(c);
+	Endpoint_ClearIN();
+	
+	return 0;
+}
+
+static int CDC_getchar (FILE *stream)
+{
+	int c;
+	  
+	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
+	
+	for (;;)
+	{
+		if (!(USB_IsConnected))
+		  return -1;
+
+		while (!(Endpoint_IsReadWriteAllowed()));
+	
+		if (!(Endpoint_BytesInEndpoint()))
+		{
+			Endpoint_ClearOUT();
+		}
+		else
+		{
+			c = Endpoint_Read_Byte();
+			break;
+		}
+	}
+	
+	return c;
+}
+
+static FILE USBSerial = FDEV_SETUP_STREAM(CDC_putchar, CDC_getchar, _FDEV_SETUP_RW);
+#endif
+
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */
@@ -208,8 +256,8 @@ void CDC_Task(void)
 	
 #if 0
 	/* NOTE: Here you can use the notification endpoint to send back line state changes to the host, for the special RS-232
-	         handshake signal lines (and some error states), via the CONTROL_LINE_IN_* masks and the following code:
-	*/
+	 *       handshake signal lines (and some error states), via the CONTROL_LINE_IN_* masks and the following code:
+	 */
 	USB_Notification_Header_t Notification = (USB_Notification_Header_t)
 		{
 			.NotificationType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),

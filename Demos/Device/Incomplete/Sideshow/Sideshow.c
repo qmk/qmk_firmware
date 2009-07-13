@@ -131,7 +131,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				
 				Endpoint_ClearSETUP();
 				
-				Endpoint_Write_Control_Stream_LE(DescriptorPointer, DescriptorSize);
+				Endpoint_Write_Control_PStream_LE(DescriptorPointer, DescriptorSize);
 				Endpoint_ClearOUT();				
 			}
 

@@ -112,7 +112,7 @@ void ProcessRNDISControlMessage(void)
 
 			ResponseReady = true;
 			
-			RNDIS_Initialize_Message_t*   INITIALIZE_Message  = (RNDIS_Initialize_Message_t*)&RNDISMessageBuffer;
+			RNDIS_Initialize_Message_t*  INITIALIZE_Message  = (RNDIS_Initialize_Message_t*)&RNDISMessageBuffer;
 			RNDIS_Initialize_Complete_t* INITIALIZE_Response = (RNDIS_Initialize_Complete_t*)&RNDISMessageBuffer;
 			
 			INITIALIZE_Response->MessageType           = REMOTE_NDIS_INITIALIZE_CMPLT;

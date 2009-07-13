@@ -17,6 +17,8 @@
 # to remove all the commands from the output. This gives a much easier to read
 # report of the entire build process.
 
+all:
+
 %:
 	@echo Executing \"make $@\" on all LUFA library elements.
 	@echo

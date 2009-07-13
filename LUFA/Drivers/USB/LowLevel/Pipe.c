@@ -106,162 +106,6 @@ uint8_t Pipe_WaitUntilReady(void)
 	}
 }
 
-uint8_t Pipe_Write_Stream_LE(const void* Data, uint16_t Length
-#if !defined(NO_STREAM_CALLBACKS)
-                                 , StreamCallbackPtr_t Callback
-#endif
-								 )
-{
-	uint8_t* DataStream = (uint8_t*)Data;
-	uint8_t  ErrorCode;
-	
-	Pipe_SetToken(PIPE_TOKEN_OUT);
-
-	if ((ErrorCode = Pipe_WaitUntilReady()))
-	  return ErrorCode;
-
-	#if defined(FAST_STREAM_TRANSFERS)
-	uint8_t BytesRemToAlignment = (Pipe_BytesInPipe() & 0x07);
-
-	if (Length >= 8)
-	{
-		Length -= BytesRemToAlignment;
-
-		switch (BytesRemToAlignment)
-		{
-			default:
-				do
-				{
-					if (!(Pipe_IsReadWriteAllowed()))
-					{
-						Pipe_ClearOUT();
-							
-						#if !defined(NO_STREAM_CALLBACKS)
-						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-						  return PIPE_RWSTREAM_CallbackAborted;
-						#endif
-
-						if ((ErrorCode = Pipe_WaitUntilReady()))
-						  return ErrorCode;
-					}
-
-					Length -= 8;
-					
-					Pipe_Write_Byte(*(DataStream++));
-			case 7: Pipe_Write_Byte(*(DataStream++));
-			case 6: Pipe_Write_Byte(*(DataStream++));
-			case 5: Pipe_Write_Byte(*(DataStream++));
-			case 4: Pipe_Write_Byte(*(DataStream++));
-			case 3: Pipe_Write_Byte(*(DataStream++));
-			case 2: Pipe_Write_Byte(*(DataStream++));
-			case 1: Pipe_Write_Byte(*(DataStream++));
-				} while (Length >= 8);	
-		}
-	}
-	#endif
-	
-	while (Length)
-	{
-		if (!(Pipe_IsReadWriteAllowed()))
-		{
-			Pipe_ClearOUT();
-				
-			#if !defined(NO_STREAM_CALLBACKS)
-			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return PIPE_RWSTREAM_CallbackAborted;
-			#endif
-
-			if ((ErrorCode = Pipe_WaitUntilReady()))
-			  return ErrorCode;
-		}
-		else
-		{
-			Pipe_Write_Byte(*(DataStream++));
-			Length--;
-		}
-	}
-
-	return PIPE_RWSTREAM_NoError;
-}
-
-uint8_t Pipe_Write_Stream_BE(const void* Data, uint16_t Length
-#if !defined(NO_STREAM_CALLBACKS)
-                                 , StreamCallbackPtr_t Callback
-#endif
-								 )
-{
-	uint8_t* DataStream = (uint8_t*)(Data + Length - 1);
-	uint8_t  ErrorCode;
-	
-	Pipe_SetToken(PIPE_TOKEN_OUT);
-
-	if ((ErrorCode = Pipe_WaitUntilReady()))
-	  return ErrorCode;
-
-	#if defined(FAST_STREAM_TRANSFERS)
-	uint8_t BytesRemToAlignment = (Pipe_BytesInPipe() & 0x07);
-
-	if (Length >= 8)
-	{
-		Length -= BytesRemToAlignment;
-
-		switch (BytesRemToAlignment)
-		{
-			default:
-				do
-				{
-					if (!(Pipe_IsReadWriteAllowed()))
-					{
-						Pipe_ClearOUT();
-							
-						#if !defined(NO_STREAM_CALLBACKS)
-						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-						  return PIPE_RWSTREAM_CallbackAborted;
-						#endif
-
-						if ((ErrorCode = Pipe_WaitUntilReady()))
-						  return ErrorCode;
-					}
-
-					Length -= 8;
-					
-					Pipe_Write_Byte(*(DataStream--));
-			case 7: Pipe_Write_Byte(*(DataStream--));
-			case 6: Pipe_Write_Byte(*(DataStream--));
-			case 5: Pipe_Write_Byte(*(DataStream--));
-			case 4: Pipe_Write_Byte(*(DataStream--));
-			case 3: Pipe_Write_Byte(*(DataStream--));
-			case 2: Pipe_Write_Byte(*(DataStream--));
-			case 1: Pipe_Write_Byte(*(DataStream--));
-				} while (Length >= 8);	
-		}
-	}
-	#endif
-
-	while (Length)
-	{
-		if (!(Pipe_IsReadWriteAllowed()))
-		{
-			Pipe_ClearOUT();
-				
-			#if !defined(NO_STREAM_CALLBACKS)
-			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return PIPE_RWSTREAM_CallbackAborted;
-			#endif
-
-			if ((ErrorCode = Pipe_WaitUntilReady()))
-			  return ErrorCode;
-		}
-		else
-		{
-			Pipe_Write_Byte(*(DataStream--));
-			Length--;
-		}
-	}
-
-	return PIPE_RWSTREAM_NoError;
-}
-
 uint8_t Pipe_Discard_Stream(uint16_t Length
 #if !defined(NO_STREAM_CALLBACKS)
                                  , StreamCallbackPtr_t Callback
@@ -339,160 +183,64 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 	return PIPE_RWSTREAM_NoError;
 }
 
-uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length
-#if !defined(NO_STREAM_CALLBACKS)
-                                 , StreamCallbackPtr_t Callback
-#endif
-								 )
-{
-	uint8_t* DataStream = (uint8_t*)Buffer;
-	uint8_t  ErrorCode;
-	
-	Pipe_SetToken(PIPE_TOKEN_IN);
+#define  TEMPLATE_FUNC_NAME                        Pipe_Write_Stream_LE
+#define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            0
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*(BufferPtr++))
+#include "Template/Template_Pipe_RW.c"
 
-	if ((ErrorCode = Pipe_WaitUntilReady()))
-	  return ErrorCode;
+#define  TEMPLATE_FUNC_NAME                        Pipe_Write_PStream_LE
+#define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            0
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte(BufferPtr++))
+#include "Template/Template_Pipe_RW.c"
 
-	#if defined(FAST_STREAM_TRANSFERS)
-	uint8_t BytesRemToAlignment = (Pipe_BytesInPipe() & 0x07);
+#define  TEMPLATE_FUNC_NAME                        Pipe_Write_EStream_LE
+#define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            0
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte(BufferPtr++))
+#include "Template/Template_Pipe_RW.c"
 
-	if (Length >= 8)
-	{
-		Length -= BytesRemToAlignment;
+#define  TEMPLATE_FUNC_NAME                        Pipe_Write_Stream_BE
+#define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*(BufferPtr--))
+#include "Template/Template_Pipe_RW.c"
 
-		switch (BytesRemToAlignment)
-		{
-			default:
-				do
-				{
-					if (!(Pipe_IsReadWriteAllowed()))
-					{
-						Pipe_ClearIN();
-							
-						#if !defined(NO_STREAM_CALLBACKS)
-						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-						  return PIPE_RWSTREAM_CallbackAborted;
-						#endif
+#define  TEMPLATE_FUNC_NAME                        Pipe_Write_PStream_BE
+#define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte(BufferPtr--))
+#include "Template/Template_Pipe_RW.c"
 
-						if ((ErrorCode = Pipe_WaitUntilReady()))
-						  return ErrorCode;
-					}
+#define  TEMPLATE_FUNC_NAME                        Pipe_Write_EStream_BE
+#define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte(BufferPtr--))
+#include "Template/Template_Pipe_RW.c"
 
-					Length -= 8;
-					
-					*(DataStream++) = Pipe_Read_Byte();
-			case 7: *(DataStream++) = Pipe_Read_Byte();
-			case 6: *(DataStream++) = Pipe_Read_Byte();
-			case 5: *(DataStream++) = Pipe_Read_Byte();
-			case 4: *(DataStream++) = Pipe_Read_Byte();
-			case 3: *(DataStream++) = Pipe_Read_Byte();
-			case 2: *(DataStream++) = Pipe_Read_Byte();
-			case 1:	*(DataStream++) = Pipe_Read_Byte();
-				} while (Length >= 8);	
-		}
-	}
-	#endif
+#define  TEMPLATE_FUNC_NAME                        Pipe_Read_Stream_LE
+#define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            0
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr++) = Pipe_Read_Byte()
+#include "Template/Template_Pipe_RW.c"
 
-	while (Length)
-	{
-		if (!(Pipe_IsReadWriteAllowed()))
-		{
-			Pipe_ClearIN();
-				
-			#if !defined(NO_STREAM_CALLBACKS)
-			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return PIPE_RWSTREAM_CallbackAborted;
-			#endif
+#define  TEMPLATE_FUNC_NAME                        Pipe_Read_EStream_LE
+#define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            0
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr++, Pipe_Read_Byte())
+#include "Template/Template_Pipe_RW.c"
 
-			if ((ErrorCode = Pipe_WaitUntilReady()))
-			  return ErrorCode;
-		}
-		else
-		{
-			*(DataStream++) = Pipe_Read_Byte();
-			Length--;
-		}
-	}
+#define  TEMPLATE_FUNC_NAME                        Pipe_Read_Stream_BE
+#define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr--) = Pipe_Read_Byte()
+#include "Template/Template_Pipe_RW.c"
 
-	return PIPE_RWSTREAM_NoError;
-}
-
-uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length
-#if !defined(NO_STREAM_CALLBACKS)
-                                 , StreamCallbackPtr_t Callback
-#endif
-								 )
-{
-	uint8_t* DataStream = (uint8_t*)(Buffer + Length - 1);
-	uint8_t  ErrorCode;
-	
-	Pipe_SetToken(PIPE_TOKEN_IN);
-
-	if ((ErrorCode = Pipe_WaitUntilReady()))
-	  return ErrorCode;
-
-	#if defined(FAST_STREAM_TRANSFERS)
-	uint8_t BytesRemToAlignment = (Pipe_BytesInPipe() & 0x07);
-
-	if (Length >= 8)
-	{
-		Length -= BytesRemToAlignment;
-
-		switch (BytesRemToAlignment)
-		{
-			default:
-				do
-				{
-					if (!(Pipe_IsReadWriteAllowed()))
-					{
-						Pipe_ClearIN();
-							
-						#if !defined(NO_STREAM_CALLBACKS)
-						if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-						  return PIPE_RWSTREAM_CallbackAborted;
-						#endif
-
-						if ((ErrorCode = Pipe_WaitUntilReady()))
-						  return ErrorCode;
-					}
-
-					Length -= 8;
-					
-					*(DataStream--) = Pipe_Read_Byte();
-			case 7: *(DataStream--) = Pipe_Read_Byte();
-			case 6: *(DataStream--) = Pipe_Read_Byte();
-			case 5: *(DataStream--) = Pipe_Read_Byte();
-			case 4: *(DataStream--) = Pipe_Read_Byte();
-			case 3: *(DataStream--) = Pipe_Read_Byte();
-			case 2: *(DataStream--) = Pipe_Read_Byte();
-			case 1:	*(DataStream--) = Pipe_Read_Byte();
-				} while (Length >= 8);	
-		}
-	}
-	#endif
-
-	while (Length)
-	{
-		if (!(Pipe_IsReadWriteAllowed()))
-		{
-			Pipe_ClearIN();
-				
-			#if !defined(NO_STREAM_CALLBACKS)
-			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return PIPE_RWSTREAM_CallbackAborted;
-			#endif
-
-			if ((ErrorCode = Pipe_WaitUntilReady()))
-			  return ErrorCode;
-		}
-		else
-		{
-			*(DataStream--) = Pipe_Read_Byte();
-			Length--;
-		}
-	}
-	
-	return PIPE_RWSTREAM_NoError;
-}
+#define  TEMPLATE_FUNC_NAME                        Pipe_Read_EStream_BE
+#define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
+#define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr--, Pipe_Read_Byte())
+#include "Template/Template_Pipe_RW.c"
 
 #endif

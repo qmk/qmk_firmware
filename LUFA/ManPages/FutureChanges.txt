@@ -20,7 +20,6 @@
   *     -# Update Host mode Class Driver demo .txt files
   *  - Add standardized descriptor names to device and host class driver structures
   *  - Add in INTERRUPT_CONTROL_PIPE to use HSOFI to trigger calls to the host state machine
-  *  - Make Suspend host state suspend USB bus frames
   *  - Add in Stream functions for PROGMEM, EEPROM -- move to templated system
   *  - Debug mode for pipe/endpoint calls
   *
@@ -33,6 +32,7 @@
   *  - Add multiple-report HID demo to the library
   *  - Add dual role Mouse Host/Keyboard Device demo to the library
   *  - Add hub support to match Atmel's stack
+  *  - Change makefiles to allow for absolute LUFA location to be used
   *  - Port LUFA to other architectures
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

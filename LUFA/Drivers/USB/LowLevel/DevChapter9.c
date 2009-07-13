@@ -241,47 +241,12 @@ static void USB_Device_GetDescriptor(void)
 
 	#if defined(USE_RAM_DESCRIPTORS)
 	Endpoint_Write_Control_Stream_LE(DescriptorPointer, DescriptorSize);
+	#elif defined(USE_EEPROM_DESCRIPTORS)
+	Endpoint_Write_Control_EStream_LE(DescriptorPointer, DescriptorSize);
 	#else
-	bool SendZLP;
-	
-	if (USB_ControlRequest.wLength > DescriptorSize)
-	  USB_ControlRequest.wLength = DescriptorSize;
-	
-	while (USB_ControlRequest.wLength)
-	{
-		while (!(Endpoint_IsINReady()))
-		{
-			if (Endpoint_IsOUTReceived())
-			{
-				Endpoint_ClearOUT();
-				return;
-			}		
-		}
-		
-		while (USB_ControlRequest.wLength && (Endpoint_BytesInEndpoint() < USB_ControlEndpointSize))
-		{
-			#if defined (USE_EEPROM_DESCRIPTORS)
-			Endpoint_Write_Byte(eeprom_read_byte(DescriptorPointer++));		
-			#else
-			Endpoint_Write_Byte(pgm_read_byte(DescriptorPointer++));
-			#endif
-			
-			USB_ControlRequest.wLength--;
-		}
-		
-		SendZLP = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
-		Endpoint_ClearIN();
-	}
-	
-	if (SendZLP)
-	{
-		while (!(Endpoint_IsINReady()));
-		Endpoint_ClearIN();
-	}
-
-	while (!(Endpoint_IsOUTReceived()));
+	Endpoint_Write_Control_PStream_LE(DescriptorPointer, DescriptorSize);	
 	#endif
-	
+
 	Endpoint_ClearOUT();
 }
 
