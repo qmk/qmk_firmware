@@ -20,7 +20,6 @@
   *     -# Update Host mode Class Driver demo .txt files
   *  - Add standardized descriptor names to device and host class driver structures
   *  - Add in INTERRUPT_CONTROL_PIPE to use HSOFI to trigger calls to the host state machine
-  *  - Add in Stream functions for PROGMEM, EEPROM -- move to templated system
   *  - Debug mode for pipe/endpoint calls
   *
   *  <b>Targeted for Future Releases:</b>
