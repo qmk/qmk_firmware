@@ -31,6 +31,10 @@
 /** \ingroup Group_USBClassRNDIS
  *  @defgroup Group_USBClassRNDISDevice RNDIS Class Device Mode Driver
  *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/USB/Class/Device/RNDIS.c
+ *
  *  \section Module Description
  *  Device Mode USB Class driver framework interface, for the RNDIS USB Class driver.
  *

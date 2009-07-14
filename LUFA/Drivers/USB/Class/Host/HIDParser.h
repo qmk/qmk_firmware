@@ -38,6 +38,11 @@
 /** \ingroup Group_USB
  *  @defgroup Group_HIDParser HID Report Parser
  *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/USB/Class/Host/HIDParser.c
+ *
+ *  \section Module Description
  *  Functions, macros, variables, enums and types related to the parsing of HID class device report descriptors.
  *
  *  The processed HID report is presented back to the user application as a flat structure containing each report

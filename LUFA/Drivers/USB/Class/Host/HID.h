@@ -31,6 +31,10 @@
 /** \ingroup Group_USBClassHID
  *  @defgroup Group_USBClassHIDHost HID Class Host Mode Driver
  *
+ *  \section Sec_Dependencies Module Source Dependencies
+ *  The following files must be built with any user project that uses this module:
+ *    - LUFA/Drivers/USB/Class/Host/HID.c
+ *
  *  \section Module Description
  *  Host Mode USB Class driver framework interface, for the HID USB Class driver.
  *
