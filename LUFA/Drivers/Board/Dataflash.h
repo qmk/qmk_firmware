@@ -48,7 +48,8 @@
  *    - None
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the control of board Dataflash ICs.
+ *  Dataflash driver. This module provides an easy to use interface for the Dataflash ICs located on many boards,
+ *  for the storage of large amounts of data into the Dataflash's non-volatile memory.
  *
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file.

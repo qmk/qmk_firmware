@@ -56,7 +56,7 @@
  *  as a USB microphone. Incoming audio from the ADC channel 1 will
  *  be sampled and sent to the host computer.
  *  
- *  To use, connect a microphone to the ADC channel 2.
+ *  To use, connect a microphone to the ADC channel 1.
  *  
  *  Under Windows, if a driver request dialogue pops up, select the option
  *  to automatically install the appropriate drivers.

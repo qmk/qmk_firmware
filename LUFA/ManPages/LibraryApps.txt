@@ -6,9 +6,11 @@
 
 /** \page Page_LibraryApps Included Library Applications
  *
- *  The LUFA library ships with several different host and device demos, located in the /Demos/ subdirectory.
- *  If this directory is missing, please re-download the project from the project homepage. Within this directory the demos
- *  are seperated by USB mode (Device, Host, OTG) and further seperated by the use or non-use of the library USB Class drivers.
+ *  The LUFA library ships with several different host and device demos, located in the /Demos/ subdirectory. Within this
+ *  directory the demos are seperated by USB mode (Device, Host, OTG) and further seperated by the use or non-use of the
+ *  library USB Class drivers (which abstract out the actual implementation of the USB classes to simplify development even
+ *  further at the expense of a loss of flexibility).
+ *
  *  With one or two exceptions (e.g. proprietary classes such as RNDIS) all the included demos will work across all OSes without
  *  the need for special drivers. One Windows, some demos require the supplied .INF file to be used as the device driver, which
  *  directs the OS to use its inbuilt class drivers for the device.

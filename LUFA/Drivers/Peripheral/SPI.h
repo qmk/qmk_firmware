@@ -41,7 +41,8 @@
  *    - None
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the setup of a the SPI port.
+ *  Driver for the hardware SPI port avaliable on most AVR models. This module provides
+ *  an easy to use driver for the setup of and transfer of data over the AVR's SPI port.
  *
  *  @{
  */

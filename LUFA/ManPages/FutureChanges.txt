@@ -19,15 +19,12 @@
   *     -# Re-enable Host mode Class driver builds after completion
   *     -# Update Host mode Class Driver demo .txt files
   *  - Add standardized descriptor names to device and host class driver structures
-  *  - Add in INTERRUPT_CONTROL_PIPE to use HSOFI to trigger calls to the host state machine
-  *  - Debug mode for pipe/endpoint calls
   *
   *  <b>Targeted for Future Releases:</b>
   *  - Remake AVRStudio project files
   *  - Add detailed overviews of how each demo works
   *  - Master LUFA include file rather than per-module includes
   *  - Stream reads - return number of bytes not read?
-  *  - Convert CDC demos to use stdio streams?
   *  - Add multiple-report HID demo to the library
   *  - Add dual role Mouse Host/Keyboard Device demo to the library
   *  - Add hub support to match Atmel's stack

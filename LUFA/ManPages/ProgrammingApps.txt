@@ -8,7 +8,7 @@
  *
  *  Once you have built an application, you will need a way to program in the resulting ".HEX" file (and, if your
  *  application uses EEPROM variables with initial values, also a ".EEP" file) into your USB AVR. Normally, the
- *  reprogramming an AVR device must be performed using a special piece of programming hardware, through one of the
+ *  reprogramming of an AVR device must be performed using a special piece of programming hardware, through one of the
  *  supported AVR programming protocols - ISP, HVSP, HVPP, JTAG or dW. This can be done through a custom programmer,
  *  a third party programmer, or an official Atmel AVR tool - for more information, see the Atmel.com website.
  *

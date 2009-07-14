@@ -48,7 +48,8 @@
  *    - None
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the control of board LEDs.
+ *  Hardware LEDs driver. This provides an easy to use driver for the hardware LEDs present on many boards. It
+ *  provides an interface to configure, test and change the status of all the board LEDs.
  *
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file.

@@ -51,7 +51,9 @@
  *    - LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the management of USB communications.
+ *  Driver and framework for the USB controller hardware on the USB series of AVR microcontrollers. This module
+ *  consists of many submodules, and is designed to provide an easy way to configure and control USB host, device
+ *  or OTG mode USB applications.
  */
 
 /** \ingroup Group_USB

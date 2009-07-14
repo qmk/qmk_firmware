@@ -41,7 +41,8 @@
  *    - LUFA/Drivers/Peripheral/Serial.c
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the setup of the USART for serial communications.
+ *  Hardware serial USART driver. This module provides an easy to use driver for
+ *  the setup of and transfer of data over the AVR's USART port.
  *
  *  @{
  */

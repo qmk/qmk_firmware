@@ -48,7 +48,9 @@
  *    - None
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the control of physical board GPIO buttons.
+ *  Hardware buttons driver. This provides an easy to use driver for the hardware buttons present on many boards.
+ *  It provides a way to easily configure and check the status of all the buttons on the board so that appropriate
+ *  actions can be taken.
  *
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file.

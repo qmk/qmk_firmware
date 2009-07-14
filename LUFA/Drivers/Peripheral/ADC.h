@@ -44,7 +44,9 @@
  *    - None
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the setup of a the ADC subsystem.
+ *  Hardware ADC driver. This module provides an easy to use driver for the hardware
+ *  ADC present on many AVR models, for the conversion of analogue signals into the
+ *  digital domain.
  */
  
 #ifndef __ADC_H__
