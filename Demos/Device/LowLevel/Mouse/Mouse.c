@@ -197,8 +197,8 @@ void EVENT_USB_UnhandledControlPacket(void)
 			{
 				Endpoint_ClearSETUP();
 				
-				/* Get idle period in MSB */
-				IdleCount = (USB_ControlRequest.wValue >> 8);
+				/* Get idle period in MSB, must multiply by 4 to get the duration in milliseconds */
+				IdleCount = ((USB_ControlRequest.wValue & 0xFF00) >> 6);
 				
 				/* Acknowledge status stage */
 				while (!(Endpoint_IsINReady()));
@@ -211,8 +211,8 @@ void EVENT_USB_UnhandledControlPacket(void)
 			{		
 				Endpoint_ClearSETUP();
 				
-				/* Write the current idle duration to the host */
-				Endpoint_Write_Byte(IdleCount);
+				/* Write the current idle duration to the host, must be divided by 4 before sent to host */
+				Endpoint_Write_Byte(IdleCount >> 2);
 				
 				/* Send the flag to the host */
 				Endpoint_ClearIN();
@@ -289,8 +289,8 @@ void SendNextReport(void)
 	/* Check if the idle period is set and has elapsed */
 	if ((IdleCount != HID_IDLE_CHANGESONLY) && (!(IdleMSRemaining)))
 	{
-		/* Reset the idle time remaining counter, must multiply by 4 to get the duration in milliseconds */
-		IdleMSRemaining = (IdleCount << 2);
+		/* Reset the idle time remaining counter */
+		IdleMSRemaining = IdleCount;
 		
 		/* Idle period is set and has elapsed, must send a report to the host */
 		SendReport = true;

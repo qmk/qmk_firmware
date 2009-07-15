@@ -38,8 +38,11 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* const HIDInterf
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
 	  
-	if (USB_ControlRequest.wIndex != HIDInterfaceInfo->Config.InterfaceNumber)
-	  return;
+	if ((USB_ControlRequest.wIndex   != HIDInterfaceInfo->Config.InterfaceNumber) &&
+	    (USB_ControlRequest.bRequest != SetIdle))
+	{
+		return;
+	}
 
 	switch (USB_ControlRequest.bRequest)
 	{
@@ -105,12 +108,16 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* const HIDInterf
 		case REQ_SetIdle:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSETUP();
-				
-				HIDInterfaceInfo->State.IdleCount = ((USB_ControlRequest.wValue >> 8) << 2);
-				
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				if ((USB_ControlRequest.wIndex         == HIDInterfaceInfo->Config.InterfaceNumber) ||
+				    (USB_ControlRequest.wValue & 0xFF) == 0)
+				{
+					Endpoint_ClearSETUP();
+					
+					HIDInterfaceInfo->State.IdleCount = ((USB_ControlRequest.wValue & 0xFF00) >> 6);
+					
+					while (!(Endpoint_IsINReady()));
+					Endpoint_ClearIN();
+				}
 			}
 			
 			break;

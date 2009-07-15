@@ -99,6 +99,10 @@
 				static void USB_Device_GetDescriptor(void);
 				static void USB_Device_GetStatus(void);
 				static void USB_Device_ClearSetFeature(void);
+				
+				#if !defined(NO_INTERNAL_SERIAL) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
+					static void USB_Device_GetInternalSerialDescriptor(void);
+				#endif				
 			#endif
 	#endif
 

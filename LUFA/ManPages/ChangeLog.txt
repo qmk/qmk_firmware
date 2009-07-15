@@ -55,6 +55,7 @@
   *  - Fixed USB_Host_SendControlRequest() not re-suspending the USB bus when initial device ready-wait fails
   *  - Fixed USB Pad regulator not being disabled on some AVR models when the USB_OPT_REG_DISABLED option is used
   *  - Fixed Host mode to Device mode UID change not causing a USB Disconnect event when a device was connected
+  *  - Fixed Mouse/Keyboard demos not performing the correct arithmetic on the Idle period at the right times (thanks to Brian Dickman)
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

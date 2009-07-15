@@ -174,6 +174,56 @@ void USB_Device_GetConfiguration(void)
 	Endpoint_ClearOUT();
 }
 
+#if !defined(NO_INTERNAL_SERIAL) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
+static void USB_Device_GetInternalSerialDescriptor(void)
+{
+	struct
+	{
+		USB_Descriptor_Header_t Header;
+		int16_t                 UnicodeString[12];
+	} SignatureDescriptor;
+	
+	uint8_t SigReadAddress  = 0x0E;		
+	bool    OddNibbleRead   = false;
+
+	#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
+		SignatureDescriptor.Header.Size            = sizeof(SignatureDescriptor);
+		SignatureDescriptor.Header.Type            = DTYPE_String;
+	#else
+		SignatureDescriptor.Header.bLength         = sizeof(SignatureDescriptor);
+		SignatureDescriptor.Header.bDescriptorType = DTYPE_String;
+	#endif
+
+	for (uint8_t SerialCharNum = 0; SerialCharNum < 12; SerialCharNum++)
+	{
+		uint8_t SerialByte = boot_signature_byte_get(SigReadAddress);
+		
+		if (OddNibbleRead)
+		{
+			SerialByte >>= 4;
+			SigReadAddress++;
+		}
+		else
+		{
+			SerialByte &= 0x0F;
+		}
+		
+		OddNibbleRead = !(OddNibbleRead);
+
+		if (SerialByte < 0x0A)
+		  SerialByte += '0';
+		else
+		  SerialByte += ('A' - 0x0A);
+
+		SignatureDescriptor.UnicodeString[SerialCharNum] = SerialByte;
+	}
+	
+	Endpoint_ClearSETUP();
+	Endpoint_Write_Control_Stream_LE(&SignatureDescriptor, sizeof(SignatureDescriptor));
+	Endpoint_ClearOUT();
+}
+#endif
+
 static void USB_Device_GetDescriptor(void)
 {
 	void*    DescriptorPointer;
@@ -182,51 +232,7 @@ static void USB_Device_GetDescriptor(void)
 	#if !defined(NO_INTERNAL_SERIAL) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 	if (USB_ControlRequest.wValue == ((DTYPE_String << 8) | USE_INTERNAL_SERIAL))
 	{
-		struct
-		{
-			USB_Descriptor_Header_t Header;
-			int16_t                 UnicodeString[12];
-		} SignatureDescriptor;
-
-		#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
-			SignatureDescriptor.Header.Size            = sizeof(SignatureDescriptor);
-			SignatureDescriptor.Header.Type            = DTYPE_String;
-		#else
-			SignatureDescriptor.Header.bLength         = sizeof(SignatureDescriptor);
-			SignatureDescriptor.Header.bDescriptorType = DTYPE_String;
-		#endif
-		
-		uint8_t  SigReadAddress  = 0x0E;		
-		bool     OddRead         = false;
-
-		for (uint8_t SerialCharNum = 0; SerialCharNum < 12; SerialCharNum++)
-		{
-			uint8_t SerialByte = boot_signature_byte_get(SigReadAddress);
-			
-			if (OddRead)
-			{
-				SerialByte >>= 4;
-				SigReadAddress++;
-			}
-			else
-			{
-				SerialByte &= 0x0F;
-			}
-			
-			OddRead = !(OddRead);
-
-			if (SerialByte < 0x0A)
-			  SerialByte += '0';
-			else
-			  SerialByte += ('A' - 0x0A);
-
-			SignatureDescriptor.UnicodeString[SerialCharNum] = SerialByte;
-		}
-		
-		Endpoint_ClearSETUP();
-		Endpoint_Write_Control_Stream_LE(&SignatureDescriptor, sizeof(SignatureDescriptor));
-		Endpoint_ClearOUT();
-
+		USB_Device_GetInternalSerialDescriptor();
 		return;
 	}
 	#endif
