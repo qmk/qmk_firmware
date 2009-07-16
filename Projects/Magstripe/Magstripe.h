@@ -51,6 +51,9 @@
 		#include <LUFA/Drivers/USB/Class/HID.h>
 
 	/* Macros: */
+		/** HID keyboard keycode to indicate that no is currently pressed. */
+		#define KEY_NONE           0
+	
 		/** HID keyboard keycode to indicate that the "1" key is currently pressed. */
 		#define KEY_1              30
 

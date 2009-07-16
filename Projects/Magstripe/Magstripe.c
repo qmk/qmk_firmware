@@ -130,6 +130,7 @@ void ReadMagstripeData(void)
 			bool ClockPinLevel     = ((Magstripe_LCL & TrackInfo[Track].ClockMask) != 0);
 			bool ClockLevelChanged = (((Magstripe_LCL ^ Magstripe_Prev) & TrackInfo[Track].ClockMask) != 0);
 		
+			/* Sample on rising clock edges */
 			if (ClockPinLevel && ClockLevelChanged)
 			  BitBuffer_StoreNextBit(&TrackDataBuffers[Track], DataPinLevel);
 		}
@@ -171,15 +172,15 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const H
 	static bool IsKeyReleaseReport;
 	static bool IsNewlineReport;
 
-	BitBuffer_t*               Buffer         = NULL;
 	USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
+	BitBuffer_t*               Buffer         = NULL;
 	
-	/* Key reports must be interleaved with 0 Key Code reports to release the keys, or repeated keys will be ignored */
+	/* Key reports must be interleaved with key release reports, or repeated keys will be ignored */
 	IsKeyReleaseReport = !IsKeyReleaseReport;	
 
 	if (IsKeyReleaseReport)
 	{
-		KeyboardReport->KeyCode = 0;
+		KeyboardReport->KeyCode = KEY_NONE;
 	}
 	else if (IsNewlineReport)
 	{
@@ -188,6 +189,7 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const H
 	}
 	else
 	{
+		/* Read out tracks in ascending order - when each track buffer is empty, progress to next buffer */
 		if (TrackDataBuffers[0].Elements)
 		  Buffer = &TrackDataBuffers[0];
 		else if (TrackDataBuffers[1].Elements)
@@ -199,7 +201,7 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const H
 
 		KeyboardReport->KeyCode = BitBuffer_GetNextBit(Buffer) ? KEY_1 : KEY_0;
 		
-		/* If buffer now empty, next report must be a newline to seperate track data */
+		/* If current track buffer now empty, next report must be a newline to seperate track data */
 		if (!(Buffer->Elements))
 		  IsNewlineReport = true;
 	}

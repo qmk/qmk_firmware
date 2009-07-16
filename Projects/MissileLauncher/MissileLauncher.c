@@ -137,8 +137,9 @@ void SetupHardware(void)
 void Read_Joystick_Status(void)
 {
 	uint8_t JoyStatus_LCL = Joystick_GetStatus();
+	uint8_t Buttons_LCL   = Buttons_GetStatus();
 
-	if (BUTTONS_BUTTON1 && Buttons_GetStatus())
+	if (Buttons_LCL & BUTTONS_BUTTON1)
 	  Send_Command(CMD_FIRE);
 	else if (JoyStatus_LCL & JOY_UP)
 	  Send_Command(CMD_UP);
@@ -285,7 +286,7 @@ void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength)
 		/* Class specific request to send a HID report to the device */
 		USB_ControlRequest = (USB_Request_Header_t)
 			{
-				.bmRequestType = 0x21,
+				.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
 				.bRequest      = 0x09,
 				.wValue        = 0x02,
 				.wIndex        = 0x01,

@@ -51,8 +51,8 @@ USB_Descriptor_HIDReport_Datatype_t PROGMEM GenericReport[] =
 	0x09, 0x02,           /*   Usage (Vendor Defined)                        */
 	0x75, 0x08,           /*   Report Size (8)                               */
 	0x95, GENERIC_REPORT_SIZE, /*   Report Count (GENERIC_REPORT_SIZE)       */
-	0x15, 0x00,           /*   Logical Minimum (0)                           */
-	0x25, 0xff,           /*   Logical Maximum (255)                         */
+	0x15, 0x80,           /*   Logical Minimum (-128)                        */
+	0x25, 0x7F,           /*   Logical Maximum (127)                         */
 	0x81, 0x02,           /*   Input (Data, Variable, Absolute)              */
 	0x09, 0x03,           /*   Usage (Vendor Defined)                        */
 	0x75, 0x08,           /*   Report Size (8)                               */
