@@ -8,15 +8,18 @@
  *  \page Page_DeviceSupport Device and Hardware Support
  *
  *  Currently supported AVR models:
- *   - AT90USB1286 (USB Device Only)
- *   - AT90USB1287 (USB Host and Device)
- *   - AT90USB646 (USB Device Only)
- *   - AT90USB647 (USB Host and Device)
  *   - AT90USB82 (USB Device Only)
+ *   - ATMEGA8U2 (USB Device Only)
  *   - AT90USB162 (USB Device Only)
+ *   - ATMEGA16U2 (USB Device Only)
  *   - ATMEGA16U4 (USB Device Only)
+ *   - ATMEGA32U2 (USB Device Only)
  *   - ATMEGA32U4 (USB Device Only)
  *   - ATMEGA32U6 (USB Device Only)
+ *   - AT90USB646 (USB Device Only)
+ *   - AT90USB647 (USB Host and Device)
+ *   - AT90USB1286 (USB Device Only)
+ *   - AT90USB1287 (USB Host and Device)
  *
  *  Currently supported Atmel boards:
  *   - AT90USBKEY
