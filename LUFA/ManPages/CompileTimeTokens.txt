@@ -67,12 +67,14 @@
  *  This section describes compile tokens which affect USB driver stack as a whole in the LUFA library.
  *
  *  <b>USE_RAM_DESCRIPTORS</b> - ( \ref Group_Descriptors ) \n
- *  Define this token to indicate to the USB driver that device descriptors are stored in RAM, rather than the default of
- *  the AVR's flash. RAM descriptors may be desirable in applications where speed or minimizing flash usage is more important
- *  than RAM usage, or applications where the descriptors need to be modified at runtime.
+ *  Define this token to indicate to the USB driver that all device descriptors are stored in RAM, rather than being located in any one
+ *  of the AVR's memory spaces. RAM descriptors may be desirable in applications where the descriptors need to be modified at runtime.
+ *
+ *  <b>USE_FLASH_DESCRIPTORS</b> - ( \ref Group_Descriptors ) \n
+ *  Similar to USE_RAM_DESCRIPTORS, but all descriptors are stored in the AVR's FLASH memory rather than RAM.
  *
  *  <b>USE_EEPROM_DESCRIPTORS</b> - ( \ref Group_Descriptors ) \n
- *  Similar to USE_RAM_DESCRIPTORS, but descriptors are stored in the AVR's EEPROM memory rather than RAM.
+ *  Similar to USE_RAM_DESCRIPTORS, but all descriptors are stored in the AVR's EEPROM memory rather than RAM.
  *
  *  <b>USE_NONSTANDARD_DESCRIPTOR_NAMES</b> - ( \ref Group_Descriptors ) \n
  *  The USB 2.0 standard gives some rather obscure names for the elements in the standard descriptor types (device, configuration,
@@ -93,11 +95,11 @@
  *  defined to a non-zero value instead to give the size in bytes of the control endpoint, to reduce the size of the compiled
  *  binary.
  *
- *  <b>USE_SINGLE_DEVICE_CONFIGURATION</b> - ( \ref Group_Device ) \n
+ *  <b>TOTAL_NUM_CONFIGURATIONS</b> - ( \ref Group_Device ) \n
  *  By default, the library determines the number of configurations a USB device supports by reading the device descriptor. This reduces
  *  the amount of configuration required to set up the library, and allows the value to change dynamically (if descriptors are stored in
- *  EEPROM or RAM rather than flash memory) and reduces code maintenance. However, many USB device projects use only a single configuration.
- *  Defining this token enables single-configuration mode, reducing the compiled size of the binary at the expense of flexibility.
+ *  EEPROM or RAM rather than flash memory) and reduces code maintenance. However, this value may be fixed via this token in the project
+ *  makefile to reduce the compiled size of the binary at the expense of flexibility.
  *
  *  <b>CONTROL_ONLY_DEVICE</b> \n
  *  In some limited USB device applications, there are no device endpoints other than the control endpoint; i.e. all device communication

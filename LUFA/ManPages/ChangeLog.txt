@@ -26,6 +26,7 @@
   *  - Added new FAST_STREAM_TRANSFERS compile time option for faster stream transfers via multiple bytes copied per stream loop
   *  - Added stdio stream demo code to the low-level CDC demo, to show how to create standard streams out of the virtual serial ports
   *  - Added new EEPROM and FLASH buffer versions of the Endpoint and Pipe stream functions
+  *  - Added new USE_FLASH_DESCRIPTORS and TOTAL_NUM_CONFIGURATIONS compile time options
   *  
   *  <b>Changed:</b>
   *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)
@@ -40,6 +41,8 @@
   *  - Dataflash_WaitWhileBusy() now always ensures that the dataflash is ready for the next command immediately after returning,
   *    no need to call Dataflash_ToggleSelectedChipCS() afterwards
   *  - Changed F_CLOCK entries in project makefiles to alias to F_CPU by default, as this is the most common case
+  *  - The device-mode CALLBACK_USB_GetDescriptor() function now has an extra parameter so that the memory space in which the requested
+  *    descriptor is located can be specified. This means that descriptors can now be located in multiple memory spaces within a device.
   *
   *  <b>Fixed:</b>
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix

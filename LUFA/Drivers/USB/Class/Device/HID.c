@@ -39,7 +39,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* const HIDInterf
 	  return;
 	  
 	if ((USB_ControlRequest.wIndex   != HIDInterfaceInfo->Config.InterfaceNumber) &&
-	    (USB_ControlRequest.bRequest != SetIdle))
+	    (USB_ControlRequest.bRequest != REQ_SetIdle))
 	{
 		return;
 	}

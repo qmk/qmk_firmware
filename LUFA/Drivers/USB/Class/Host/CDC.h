@@ -107,7 +107,7 @@
 			} USB_ClassInfo_CDC_Host_t;
 			
 		/* Enums: */
-			typedef enum
+			enum
 			{
 				CDC_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
 				CDC_ENUMERROR_ControlError               = 1, /**< A control request to the device failed to complete successfully */

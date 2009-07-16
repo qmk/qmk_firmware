@@ -133,6 +133,9 @@
 			 *                     standards.
 			 *  \param[out] DescriptorAddress  Pointer to the descriptor in memory. This should be set by the routine to
 			 *                                 the address of the descriptor.
+			 *  \param[out] MemoryAddressSpace A value from the \ref USB_DescriptorMemorySpaces_t enum to indicate the memory
+			 *                                 space in which the descriptor is stored. This parameter does not exist when one
+			 *                                 of the USE_*_DESCRIPTORS compile time options is used.
 			 *
 			 *  \note By default, the library expects all descriptors to be located in flash memory via the PROGMEM attribute.
 			 *        If descriptors should be located in RAM or EEPROM instead (to speed up access in the case of RAM, or to
@@ -142,7 +145,11 @@
 			 *
 			 *  \return Size in bytes of the descriptor if it exists, zero or \ref NO_DESCRIPTOR otherwise
 			 */
-			uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
+			uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress
+			#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
+			                                    , uint8_t* MemoryAddressSpace
+			#endif			
+			                                    )
 									            ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
 
 	/* Private Interface - For use in library only: */

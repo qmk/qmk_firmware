@@ -48,15 +48,32 @@
 			extern "C" {
 		#endif
 
-	/* Public Interface - May be used in end-application: */			
+	/* Public Interface - May be used in end-application: */
+		/* Macros: */
+			#if defined(USE_SINGLE_DEVICE_CONFIGURATION)
+				#define TOTAL_NUM_CONFIGURATIONS           1
+			#endif
+	
+		/* Enums: */
+			#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
+				/** Enum for the possible descriptor memory spaces, for the MemoryAddressSpace of the
+				 *  \ref CALLBACK_USB_GetDescriptor() function. This can be used when none of the USE_*_DESCRIPTORS
+				 *  compile time options are used, to indicate in which memory space the descriptor is stored.
+				 *
+				 *  \ingroup Group_Device
+				 */
+				enum USB_DescriptorMemorySpaces_t
+				{
+					MEMSPACE_FLASH    = 0, /**< Indicates the requested descriptor is located in FLASH memory */
+					MEMSPACE_EEPROM   = 1, /**< Indicates the requested descriptor is located in EEPROM memory */
+					MEMSPACE_RAM      = 2, /**< Indicates the requested descriptor is located in RAM memory */
+				};
+			#endif
+	
 		/* Global Variables: */
 			/** Indicates the currently set configuration number of the device. USB devices may have several
 			 *  different configurations which the host can select between; this indicates the currently selected
 			 *  value, or 0 if no configuration has been selected.
-			 *
-			 *  If a device has only one single configuration, the token USE_SINGLE_DEVICE_CONFIGURATION may be
-			 *  defined in the project makefile and passed to the compiler using the -D switch. This optimize for
-			 *  a single configuration, saving a small amount of space in the resulting compiled binary.
 			 *
 			 *  \note This variable should be treated as read-only in the user application, and never manually
 			 *        changed in value.
@@ -87,6 +104,12 @@
 	#if !defined(__DOXYGEN__)
 		#if defined(USE_RAM_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS)
 			#error USE_RAM_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
+		#elif defined(USE_RAM_DESCRIPTORS) && defined(USE_FLASH_DESCRIPTORS)
+			#error USE_RAM_DESCRIPTORS and USE_FLASH_DESCRIPTORS are mutually exclusive.
+		#elif defined(USE_FLASH_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS)
+			#error USE_FLASH_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
+		#elif defined(USE_FLASH_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS) && defined(USE_RAM_DESCRIPTORS)
+			#error Only one of the USE_*_DESCRIPTORS modes should be selected.
 		#endif
 	
 		/* Function Prototypes: */

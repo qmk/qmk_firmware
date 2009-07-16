@@ -58,6 +58,7 @@
 		#define DTYPE_Report                   0x22
 	
 	/* Enums: */
+		/** Enum for the possible return codes of the ProcessConfigurationDescriptor() function. */
 		enum KeyboardHostWithParser_GetConfigDescriptorDataCodes_t
 		{
 			SuccessfulConfigRead            = 0, /**< Configuration Descriptor was processed successfully */
