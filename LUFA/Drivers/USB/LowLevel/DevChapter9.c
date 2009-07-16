@@ -144,8 +144,9 @@ static void USB_Device_SetConfiguration(void)
 
 	if (CALLBACK_USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DevDescriptorPtr
 	#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
-	                               , &MemoryAddressSpace) == NO_DESCRIPTOR)
+	                               , &MemoryAddressSpace
 	#endif
+	                               ) == NO_DESCRIPTOR)
 	{
 		return;
 	}
