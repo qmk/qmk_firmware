@@ -44,6 +44,8 @@
   *  - Changed F_CLOCK entries in project makefiles to alias to F_CPU by default, as this is the most common case
   *  - The device-mode CALLBACK_USB_GetDescriptor() function now has an extra parameter so that the memory space in which the requested
   *    descriptor is located can be specified. This means that descriptors can now be located in multiple memory spaces within a device.
+  *  - Host mode demos now use sane terminal escape codes, so that text is always readable and events/program output is visually distinguished
+  *    from oneanother using foreground colours
   *
   *  <b>Fixed:</b>
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix

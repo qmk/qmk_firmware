@@ -48,7 +48,7 @@ int main(void)
 {
 	SetupHardware();
 
-	puts_P(PSTR(ESC_RESET ESC_FG_CYAN "Mass Storage Host Demo running.\r\n" ESC_FG_WHITE));
+	puts_P(PSTR(ESC_FG_CYAN "Mass Storage Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 

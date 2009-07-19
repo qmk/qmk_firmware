@@ -43,7 +43,7 @@ int main(void)
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
-	puts_P(PSTR(ESC_RESET ESC_FG_CYAN "Printer Host Demo running.\r\n" ESC_FG_WHITE));
+	puts_P(PSTR(ESC_FG_CYAN "Printer Host Demo running.\r\n" ESC_FG_WHITE));
 	
 	for (;;)
 	{

@@ -62,7 +62,7 @@ int main(void)
 {
 	SetupHardware();
 
-	puts_P(PSTR(ESC_RESET "CDC Host Demo running.\r\n"));
+	puts_P(PSTR(ESC_FG_CYAN "CDC Host Demo running.\r\n"));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
