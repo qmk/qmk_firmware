@@ -30,13 +30,16 @@
 
 #include "ConfigDescriptor.h"
 
+uint8_t PrinterInterfaceNumber;
+uint8_t PrinterAltSetting;
+
+
 uint8_t ProcessConfigurationDescriptor(void)
 {
 	uint8_t* ConfigDescriptorData;
 	uint16_t ConfigDescriptorSize;
 	uint8_t  ErrorCode;
 	uint8_t  FoundEndpoints = 0;
-	uint8_t  FoundEndpointMask;
 	
 	/* Get Configuration Descriptor size from the device */
 	if (USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
@@ -58,31 +61,17 @@ uint8_t ProcessConfigurationDescriptor(void)
 	
 	/* Get the printer interface from the configuration descriptor */
 	if ((ErrorCode = USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                                           NextPrinterInterface)))
+	                                           NextBidirectionalPrinterInterface)))
 	{
 		/* Descriptor not found, error out */
 		return NoInterfaceFound;
 	}
-
-	/* Get the printer's communication protocol */
-	PrinterProtocol = DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).Protocol;
 	
-	/* Determine what endpoints to look for from the protocol */
-	switch (PrinterProtocol)
-	{
-		case PROTOCOL_UNIDIRECTIONAL:
-			FoundEndpointMask = (1 << PRINTER_DATA_OUT_PIPE);
-			break;
-		case PROTOCOL_BIDIRECTIONAL:
-		case PROTOCOL_IEEE1284:
-			FoundEndpointMask = ((1 << PRINTER_DATA_OUT_PIPE) | (1 << PRINTER_DATA_IN_PIPE));
-			break;
-		default:
-			return NoInterfaceFound;
-	}
+	PrinterInterfaceNumber = DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).InterfaceNumber;
+	PrinterAltSetting      = DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).AlternateSetting;
 
 	/* Get the IN and OUT data endpoints for the mass storage interface */
-	while (FoundEndpoints != FoundEndpointMask)
+	while (FoundEndpoints != ((1 << PRINTER_DATA_OUT_PIPE) | (1 << PRINTER_DATA_IN_PIPE)))
 	{
 		/* Fetch the next bulk endpoint from the current printer interface */
 		if ((ErrorCode = USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
@@ -123,15 +112,16 @@ uint8_t ProcessConfigurationDescriptor(void)
 	return SuccessfulConfigRead;
 }
 
-uint8_t NextPrinterInterface(void* CurrentDescriptor)
+uint8_t NextBidirectionalPrinterInterface(void* CurrentDescriptor)
 {
-	/* PURPOSE: Find next mass storage class interface descriptor */
+	/* PURPOSE: Find next Bidirectional protocol printer class interface descriptor */
 
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
 		/* Check the descriptor class and protocol, break out if correct class/protocol interface found */
 		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == PRINTER_CLASS)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == PRINTER_SUBCLASS))
+		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == PRINTER_SUBCLASS) &&
+			(DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == PROTOCOL_BIDIRECTIONAL))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}

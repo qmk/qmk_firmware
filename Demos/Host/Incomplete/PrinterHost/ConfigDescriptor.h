@@ -55,11 +55,15 @@
 			NoInterfaceFound                     = 4,
 			NoEndpointFound                      = 5,
 		};
+	
+	/* External Variables: */
+		uint8_t PrinterInterfaceNumber;
+		uint8_t PrinterAltSetting;
 
 	/* Function Prototypes: */
 		uint8_t ProcessConfigurationDescriptor(void);	
 
-		uint8_t NextPrinterInterface(void* CurrentDescriptor);
+		uint8_t NextBidirectionalPrinterInterface(void* CurrentDescriptor);
 		uint8_t NextInterfaceBulkDataEndpoint(void* CurrentDescriptor);
 
 #endif

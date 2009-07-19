@@ -36,8 +36,6 @@
 
 #include "PrinterHost.h"
 
-uint8_t PrinterProtocol;
-
 
 int main(void)
 {
@@ -150,12 +148,37 @@ void USB_Printer_Host(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
+			
+			/* Some printers use alternate settings to determine the communication protocol used - if so, send a SetInterface
+			 * request to switch to the interface alternate setting with the Bidirection protocol */
+			if (PrinterAltSetting)
+			{
+				USB_ControlRequest = (USB_Request_Header_t)
+					{
+						bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE),
+						bRequest:      REQ_SetInterface,
+						wValue:        PrinterAltSetting,
+						wIndex:        PrinterInterfaceNumber,
+						wLength:       0,
+					};
+					
+				if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
+				{
+					puts_P(PSTR("Control Error (Set Interface).\r\n"));
+					printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
 
+					/* Indicate error via status LEDs */
+					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+
+					/* Wait until USB device disconnected */
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;					
+				}
+			}
+			
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-			printf_P(PSTR("Printer Protocol: %d\r\n"), PrinterProtocol);
-		
 			puts_P(PSTR("Retrieving Device ID...\r\n"));
 		
 			Device_ID_String_t DeviceIDString;
