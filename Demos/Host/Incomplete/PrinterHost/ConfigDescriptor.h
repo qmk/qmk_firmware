@@ -35,35 +35,48 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		
 		#include "PrinterHost.h"
+		#include "Lib/PrinterCommands.h"
 		
 	/* Macros: */
+		/** Interface Class value for the Printer Device class */
 		#define PRINTER_CLASS                    0x07
+
+		/** Interface Subclass value for the Printer Device class */
 		#define PRINTER_SUBCLASS                 0x01
+
+		/** Interface Protocol value for a Bidirectional communication encapsulation */
+		#define PRINTER_PROTOCOL                 0x02
 		
-		#define PRINTER_DATA_OUT_PIPE            1
-		#define PRINTER_DATA_IN_PIPE             2
-		
+		/** Maximum size of a device configuration descriptor which can be processed by the host, in bytes */
 		#define MAX_CONFIG_DESCRIPTOR_SIZE       512
 
 	/* Enums: */
+		/** Enum for the possible return codes of the ProcessConfigurationDescriptor() function. */
 		enum PrinterHost_GetConfigDescriptorDataCodes_t
 		{
-			SuccessfulConfigRead                 = 0,
-			ControlError                         = 1,
-			DescriptorTooLarge                   = 2,
-			InvalidConfigDataReturned            = 3,
-			NoInterfaceFound                     = 4,
-			NoEndpointFound                      = 5,
+			SuccessfulConfigRead            = 0, /**< Configuration Descriptor was processed successfully */
+			ControlError                    = 1, /**< A control request to the device failed to complete successfully */
+			DescriptorTooLarge              = 2, /**< The device's Configuration Descriptor is too large to process */
+			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
+			NoInterfaceFound                = 4, /**< A compatible printer interface was not found in the device's Configuration Descriptor */
+			NoEndpointFound                 = 5, /**< The printer data endpoints were not found in the device's Configuration Descriptor */
 		};
 	
 	/* External Variables: */
+		/** Interface index of the Bidirectional Printer interface within the device, once the Configuration
+		 *  Descriptor has been processed.
+		 */
 		uint8_t PrinterInterfaceNumber;
+		
+		/** Interface Alternate Setting index of the Bidirectional Printer interface within the device, once
+		 *  the Configuration Descriptor has been processed.
+		 */
 		uint8_t PrinterAltSetting;
 
 	/* Function Prototypes: */
 		uint8_t ProcessConfigurationDescriptor(void);	
 
-		uint8_t NextBidirectionalPrinterInterface(void* CurrentDescriptor);
-		uint8_t NextInterfaceBulkDataEndpoint(void* CurrentDescriptor);
+		uint8_t DComp_NextBidirectionalPrinterInterface(void* CurrentDescriptor);
+		uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor);
 
 #endif

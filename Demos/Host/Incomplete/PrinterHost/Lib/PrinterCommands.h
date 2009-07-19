@@ -33,27 +33,29 @@
 
 	/* Includes: */
 		#include <avr/io.h>
+		#include <string.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		#define PROTOCOL_UNIDIRECTIONAL      0x01
-		#define PROTOCOL_BIDIRECTIONAL       0x02
-		#define PROTOCOL_IEEE1284            0x03
-		
+		/** Printer class-specific request to retrieve the printer's ID string */
 		#define GET_DEVICE_ID                0
+
+		/** Printer class-specific request to retrieve the printer's virtual port status flags */
 		#define GET_PORT_STATUS              1
+
+		/** Printer class-specific request to soft-reset the device */
 		#define SOFT_RESET                   2
 
-	/* Type Defines: */
-		typedef struct
-		{
-			uint16_t Length;
-			uint8_t  String[128];
-		} Device_ID_String_t;
+		/** Pipe number of the Printer data IN pipe */
+		#define PRINTER_DATA_IN_PIPE         1
+
+		/** Pipe number of the Printer data OUT pipe */
+		#define PRINTER_DATA_OUT_PIPE        2
 		
 	/* Function Prototypes: */
-		uint8_t Printer_GetDeviceID(Device_ID_String_t* DeviceIDString);
+		uint8_t Printer_SendData(char* PrinterCommands);
+		uint8_t Printer_GetDeviceID(char* DeviceIDString, uint8_t BufferSize);
 		uint8_t Printer_GetPortStatus(uint8_t* PortStatus);
 		uint8_t Printer_SoftReset(void);
 	

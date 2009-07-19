@@ -49,7 +49,7 @@
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix
   *    bootloaders on some of the USB AVR devices where avr-libc erronously defines RAMPZ
   *  - Fixes to MassStorageHost for better device compatibility (increase command timeout, change MassStore_WaitForDataReceived()
-  *    to only unfreeze and check one data pipe at a time) to prevent incorrect enumerations and freezes
+  *    to only unfreeze and check one data pipe at a time) to prevent incorrect device enumerations and freezes while trasferring data
   *  - Make Pipe_ConfigurePipe() mask the given endpoint number against PIPE_EPNUM_MASK to ensure the endpoint IN direction bit is
   *    cleared to prevent endpoint type corruption
   *  - Fix documentation mentioning Pipe_GetCurrentToken() function when real name is Pipe_GetPipeToken()

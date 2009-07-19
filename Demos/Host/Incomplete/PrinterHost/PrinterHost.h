@@ -37,6 +37,7 @@
 		#include <avr/pgmspace.h>
 		#include <avr/power.h>
 		#include <stdio.h>
+		#include <string.h>
 
 		#include "ConfigDescriptor.h"
 		#include "Lib/PrinterCommands.h"

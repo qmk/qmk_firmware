@@ -30,7 +30,33 @@
 
 #include "PrinterCommands.h"
 
-uint8_t Printer_GetDeviceID(Device_ID_String_t* DeviceIDString)
+uint8_t Printer_SendData(char* PrinterCommands)
+{
+	uint8_t ErrorCode;
+
+	Pipe_SelectPipe(PRINTER_DATA_OUT_PIPE);
+	Pipe_Unfreeze();
+	
+	if ((ErrorCode = Pipe_Write_Stream_LE(PrinterCommands, strlen(PrinterCommands))) != PIPE_RWSTREAM_NoError)
+	  return ErrorCode;
+
+	Pipe_ClearOUT();
+	while (!(Pipe_IsOUTReady()));
+	
+	Pipe_Freeze();
+
+	return PIPE_RWSTREAM_NoError;
+}
+
+/** Issues a Printer class Get Device ID command to the attached device, to retrieve the device ID string (which indicates
+ *  the accepted printer languages, the printer's model and other pertinent information).
+ *
+ *  \param[out] DeviceIDString Pointer to the destination where the returned string should be stored
+ *  \param[in] BufferSize  Size in bytes of the allocated buffer for the returned Device ID string
+ *
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ */
+uint8_t Printer_GetDeviceID(char* DeviceIDString, uint8_t BufferSize)
 {
 	uint8_t  ErrorCode = HOST_SENDCONTROL_Successful;
 	uint16_t DeviceIDStringLength;
@@ -41,28 +67,34 @@ uint8_t Printer_GetDeviceID(Device_ID_String_t* DeviceIDString)
 			bRequest:      GET_DEVICE_ID,
 			wValue:        0,
 			wIndex:        0,
-			wLength:       sizeof(DeviceIDString->Length),
+			wLength:       sizeof(DeviceIDStringLength),
 		};
 
+	if ((ErrorCode = USB_Host_SendControlRequest(&DeviceIDStringLength)) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+	
+	DeviceIDStringLength = SwapEndian_16(DeviceIDStringLength);
+
+	if (DeviceIDStringLength > BufferSize)
+	  DeviceIDStringLength = BufferSize;
+
+	USB_ControlRequest.wLength = (DeviceIDStringLength - 1);
+	
 	if ((ErrorCode = USB_Host_SendControlRequest(DeviceIDString)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
 	
-	DeviceIDStringLength = SwapEndian_16(DeviceIDString->Length);
-
-	/* Protect against overflow for the null terminator if the string length is equal to or larger than the buffer */
-	if (DeviceIDStringLength >= sizeof(DeviceIDString->String))
-	  DeviceIDStringLength = sizeof(DeviceIDString->String) - 1;
-
-	USB_ControlRequest.wLength = DeviceIDStringLength;
-	
-	if ((ErrorCode = USB_Host_SendControlRequest(DeviceIDString)) != HOST_SENDCONTROL_Successful)
-	  return ErrorCode;
-	
-	DeviceIDString->String[DeviceIDStringLength] = 0x00;
+	DeviceIDString[DeviceIDStringLength] = 0x00;
 	
 	return HOST_SENDCONTROL_Successful;
 }
 
+/** Issues a Printer class Get Port Status command to the attached device, to retrieve the current status flags of the
+ *  printer.
+ *
+ *  \param[out] PortStatus  Pointer to the destination where the printer's status flag values should be stored
+ *
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ */
 uint8_t Printer_GetPortStatus(uint8_t* PortStatus)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
@@ -77,6 +109,11 @@ uint8_t Printer_GetPortStatus(uint8_t* PortStatus)
 	return USB_Host_SendControlRequest(PortStatus);
 }
 
+/** Issues a Printer class Soft Reset command to the attached device, to reset the printer ready for new input without
+ *  physically cycling the printer's power.
+ *
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ */
 uint8_t Printer_SoftReset(void)
 {
 	USB_ControlRequest = (USB_Request_Header_t)

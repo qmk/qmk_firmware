@@ -150,7 +150,7 @@ void USB_Printer_Host(void)
 			}
 			
 			/* Some printers use alternate settings to determine the communication protocol used - if so, send a SetInterface
-			 * request to switch to the interface alternate setting with the Bidirection protocol */
+			 * request to switch to the interface alternate setting with the Bidirectional protocol */
 			if (PrinterAltSetting)
 			{
 				USB_ControlRequest = (USB_Request_Header_t)
@@ -181,8 +181,8 @@ void USB_Printer_Host(void)
 		case HOST_STATE_Configured:
 			puts_P(PSTR("Retrieving Device ID...\r\n"));
 		
-			Device_ID_String_t DeviceIDString;
-			if ((ErrorCode = Printer_GetDeviceID(&DeviceIDString)) != HOST_SENDCONTROL_Successful)
+			char DeviceIDString[128];
+			if ((ErrorCode = Printer_GetDeviceID(DeviceIDString, sizeof(DeviceIDString))) != HOST_SENDCONTROL_Successful)
 			{
 				puts_P(PSTR("Control Error (Get DeviceID).\r\n"));
 				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
@@ -195,7 +195,7 @@ void USB_Printer_Host(void)
 				break;
 			}
 
-			printf_P(PSTR("Printer Device ID: %s\r\n"), DeviceIDString.String);
+			printf_P(PSTR("Printer Device ID: %s\r\n"), DeviceIDString);
 
 			puts_P(PSTR("Printer Enumerated.\r\n"));
 					
@@ -205,30 +205,25 @@ void USB_Printer_Host(void)
 			/* Indicate device busy via the status LEDs */
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 		
-            //--------------------------------------------------------------
-			#define TEST_TEXT_PAGE "\033%-12345X\033E LUFA PCL Test Page \033E\033%-12345X"
-//			#define TEST_TEXT_PAGE "\033@\033i\001\033X\001\060\000\r\nLUFA ESCP/2 Test Page\r\n"
-			#define PAGE_SIZE      (sizeof(TEST_TEXT_PAGE) - 1)
+			char PCL_Test_Page[]   = "\033%-12345X\033E LUFA PCL Test Page \033E\033%-12345X";
+//			char ESCP2_Test_Page[] =  "\033@\033i\001\033X\001\060\000\r\nLUFA ESCP/2 Test Page\r\n";
 
-			Pipe_SelectPipe(PRINTER_DATA_OUT_PIPE);
-            Pipe_Unfreeze();
-			
-			puts_P(PSTR("Waiting for Printer to Become Ready...\r\n"));
-			
-			while (!(Pipe_IsReadWriteAllowed()));
+			printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), strlen(PCL_Test_Page));
 
-			printf_P(PSTR("Printer Write Allowed, Sending Page (%d bytes)...\r\n"), PAGE_SIZE);
-				
-			Pipe_Write_Stream_LE(TEST_TEXT_PAGE, PAGE_SIZE);
-            Pipe_ClearOUT();
+			if ((ErrorCode = Printer_SendData(PCL_Test_Page)) != PIPE_RWSTREAM_NoError)
+			{
+				puts_P(PSTR("Error Sending Test Page.\r\n"));
+				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
 
-			puts_P(PSTR("Page Sent, Waiting for Pipe...\r\n"));
+				/* Indicate error via status LEDs */
+				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
-			while (!(Pipe_IsReadWriteAllowed()));
-            Pipe_Freeze();				
+				/* Wait until USB device disconnected */
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+				break;
+			}
 
-			puts_P(PSTR("Pipe Frozen.\r\n"));
-            //--------------------------------------------------------------
+			puts_P(PSTR("Test Page Sent, Waiting for Pipe...\r\n"));
 		
 			/* Indicate device no longer busy */
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
