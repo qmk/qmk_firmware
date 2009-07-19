@@ -184,6 +184,8 @@ void USB_Printer_Host(void)
 		
             //--------------------------------------------------------------
 			#define TEST_TEXT_PAGE "\033%-12345X\033E LUFA PCL Test Page \033E\033%-12345X"
+//			#define TEST_TEXT_PAGE "\033@\033i\001\033X\001\060\000\r\nLUFA ESCP/2 Test Page\r\n"
+			#define PAGE_SIZE      (sizeof(TEST_TEXT_PAGE) - 1)
 
 			Pipe_SelectPipe(PRINTER_DATA_OUT_PIPE);
             Pipe_Unfreeze();
@@ -192,14 +194,12 @@ void USB_Printer_Host(void)
 			
 			while (!(Pipe_IsReadWriteAllowed()));
 
-			uint8_t strSize = sizeof(TEST_TEXT_PAGE)-1;
-
-			printf_P(PSTR("Printer Write Allowed, sending complete page (%d bytes)...\r\n"), strSize);
+			printf_P(PSTR("Printer Write Allowed, Sending Page (%d bytes)...\r\n"), PAGE_SIZE);
 				
-			Pipe_Write_Stream_LE(TEST_TEXT_PAGE, strSize);
+			Pipe_Write_Stream_LE(TEST_TEXT_PAGE, PAGE_SIZE);
             Pipe_ClearOUT();
 
-			puts_P(PSTR("Page sent to printer.\r\n"));
+			puts_P(PSTR("Page Sent, Waiting for Pipe...\r\n"));
 
 			while (!(Pipe_IsReadWriteAllowed()));
             Pipe_Freeze();				

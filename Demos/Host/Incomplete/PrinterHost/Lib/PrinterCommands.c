@@ -90,3 +90,4 @@ uint8_t Printer_SoftReset(void)
 
 	return USB_Host_SendControlRequest(NULL);
 }
+

@@ -173,7 +173,7 @@
 			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  numerical address in the attached device.
 			 */
-			#define PIPE_EPNUM_MASK                 0x07
+			#define PIPE_EPNUM_MASK                 0x0F
 
 			/** Endpoint bank size mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  bank size in the attached device.

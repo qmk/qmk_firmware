@@ -61,6 +61,7 @@
   *  - Fixed Host mode to Device mode UID change not causing a USB Disconnect event when a device was connected
   *  - Fixed Mouse/Keyboard demos not performing the correct arithmetic on the Idle period at the right times (thanks to Brian Dickman)
   *  - Fixed GenericHID failing HID class tests due to incorrect Logical Minimum and Logical Maximum values (thanks to Søren Greiner)
+  *  - Fixed incorrect PIPE_EPNUM_MASK mask causing pipe failures on devices with endpoint addresses of 8 and above (thanks to John Andrews)
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605
