@@ -40,7 +40,10 @@
 /** Bit buffers to hold the read bits for each of the three magnetic card tracks before they are transmitted
  *  to the host as keyboard presses.
  */
-BitBuffer_t TrackDataBuffers[3];
+BitBuffer_t TrackDataBuffers[TOTAL_TRACKS];
+
+/** Pointer to the current track buffer being sent to the host. */
+BitBuffer_t* CurrentTrackBuffer = &TrackDataBuffers[TOTAL_TRACKS];
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
@@ -71,7 +74,7 @@ int main(void)
 {
 	SetupHardware();
 	
-	for (uint8_t Buffer = 0; Buffer < 3; Buffer++)
+	for (uint8_t Buffer = 0; Buffer < TOTAL_TRACKS; Buffer++)
 	  BitBuffer_Init(&TrackDataBuffers[Buffer]);
 
 	for (;;)
@@ -124,13 +127,13 @@ void ReadMagstripeData(void)
 
 	while (Magstripe_LCL & MAG_CARDPRESENT)
 	{
-		for (uint8_t Track = 0; Track < 3; Track++)
+		for (uint8_t Track = 0; Track < TOTAL_TRACKS; Track++)
 		{
 			bool DataPinLevel      = ((Magstripe_LCL & TrackInfo[Track].DataMask) != 0);
 			bool ClockPinLevel     = ((Magstripe_LCL & TrackInfo[Track].ClockMask) != 0);
 			bool ClockLevelChanged = (((Magstripe_LCL ^ Magstripe_Prev) & TrackInfo[Track].ClockMask) != 0);
 		
-			/* Sample on rising clock edges */
+			/* Sample data on rising clock edges from the card reader */
 			if (ClockPinLevel && ClockLevelChanged)
 			  BitBuffer_StoreNextBit(&TrackDataBuffers[Track], DataPinLevel);
 		}
@@ -138,6 +141,8 @@ void ReadMagstripeData(void)
 		Magstripe_Prev = Magstripe_LCL;
 		Magstripe_LCL  = Magstripe_GetStatus();
 	}
+	
+	CurrentTrackBuffer = &TrackDataBuffers[0];
 }
 
 /** Event handler for the library USB Configuration Changed event. */
@@ -169,41 +174,28 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  */
 uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID, void* ReportData)
 {
-	static bool IsKeyReleaseReport;
-	static bool IsNewlineReport;
-
 	USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
-	BitBuffer_t*               Buffer         = NULL;
-	
-	/* Key reports must be interleaved with key release reports, or repeated keys will be ignored */
-	IsKeyReleaseReport = !IsKeyReleaseReport;	
 
-	if (IsKeyReleaseReport)
+	static bool IsKeyReleaseReport;
+
+	/* Key reports must be interleaved with key release reports, or repeated keys will be ignored */
+	IsKeyReleaseReport = !IsKeyReleaseReport;
+
+	if ((IsKeyReleaseReport) || (CurrentTrackBuffer == &TrackDataBuffers[TOTAL_TRACKS]))
 	{
+		/* No more data to send, or key release report between key presses */
 		KeyboardReport->KeyCode = KEY_NONE;
 	}
-	else if (IsNewlineReport)
+	else if (!(CurrentTrackBuffer->Elements))
 	{
-		IsNewlineReport = false;
+		/* End of current track, send an enter press and change to the next track's buffer */
 		KeyboardReport->KeyCode = KEY_ENTER;
+		CurrentTrackBuffer++;
 	}
 	else
 	{
-		/* Read out tracks in ascending order - when each track buffer is empty, progress to next buffer */
-		if (TrackDataBuffers[0].Elements)
-		  Buffer = &TrackDataBuffers[0];
-		else if (TrackDataBuffers[1].Elements)
-		  Buffer = &TrackDataBuffers[1];			
-		else if (TrackDataBuffers[2].Elements)
-		  Buffer = &TrackDataBuffers[2];
-		else
-		  return 0;
-
-		KeyboardReport->KeyCode = BitBuffer_GetNextBit(Buffer) ? KEY_1 : KEY_0;
-		
-		/* If current track buffer now empty, next report must be a newline to seperate track data */
-		if (!(Buffer->Elements))
-		  IsNewlineReport = true;
+		/* Still data in the current track; convert next bit to a 1 or 0 keypress */
+		KeyboardReport->KeyCode = BitBuffer_GetNextBit(CurrentTrackBuffer) ? KEY_1 : KEY_0;
 	}
 	
 	return sizeof(USB_KeyboardReport_Data_t);

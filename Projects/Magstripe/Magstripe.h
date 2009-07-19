@@ -51,6 +51,9 @@
 		#include <LUFA/Drivers/USB/Class/HID.h>
 
 	/* Macros: */
+		/** Total number of tracks which can be read from the card, between 1 and 3. */
+		#define TOTAL_TRACKS       3
+	
 		/** HID keyboard keycode to indicate that no is currently pressed. */
 		#define KEY_NONE           0
 	

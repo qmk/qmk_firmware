@@ -32,7 +32,8 @@
 
 uint8_t Printer_GetDeviceID(Device_ID_String_t* DeviceIDString)
 {
-	uint8_t ErrorCode = HOST_SENDCONTROL_Successful;
+	uint8_t  ErrorCode = HOST_SENDCONTROL_Successful;
+	uint16_t DeviceIDStringLength;
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -40,19 +41,24 @@ uint8_t Printer_GetDeviceID(Device_ID_String_t* DeviceIDString)
 			bRequest:      GET_DEVICE_ID,
 			wValue:        0,
 			wIndex:        0,
-			wLength:       sizeof(DeviceIDString),
+			wLength:       sizeof(DeviceIDString->Length),
 		};
 
-	if ((ErrorCode == USB_Host_SendControlRequest(DeviceIDString)) != HOST_SENDCONTROL_Successful)
+	if ((ErrorCode = USB_Host_SendControlRequest(DeviceIDString)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
-	  
-	DeviceIDString->Length = SwapEndian_16(DeviceIDString->Length);
 	
+	DeviceIDStringLength = SwapEndian_16(DeviceIDString->Length);
+
 	/* Protect against overflow for the null terminator if the string length is equal to or larger than the buffer */
-	if (DeviceIDString->Length >= sizeof(DeviceIDString->String))
-	  DeviceIDString->Length = sizeof(DeviceIDString->String) - 1;
+	if (DeviceIDStringLength >= sizeof(DeviceIDString->String))
+	  DeviceIDStringLength = sizeof(DeviceIDString->String) - 1;
+
+	USB_ControlRequest.wLength = DeviceIDStringLength;
 	
-	DeviceIDString->String[DeviceIDString->Length] = 0x00;
+	if ((ErrorCode = USB_Host_SendControlRequest(DeviceIDString)) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+	
+	DeviceIDString->String[DeviceIDStringLength] = 0x00;
 	
 	return HOST_SENDCONTROL_Successful;
 }

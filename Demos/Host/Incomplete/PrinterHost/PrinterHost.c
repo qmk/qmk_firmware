@@ -130,7 +130,7 @@ void USB_Printer_Host(void)
 				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
 				
 				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDS_LED1);
+				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
@@ -144,7 +144,7 @@ void USB_Printer_Host(void)
 				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
 
 				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDS_LED1);
+				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
@@ -154,23 +154,18 @@ void USB_Printer_Host(void)
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-			puts_P(PSTR("Printer Enumerated.\r\n"));
-			
-			USB_HostState = HOST_STATE_Ready;
-			break;
-		case HOST_STATE_Ready:
-			/* Indicate device busy via the status LEDs */
-			LEDs_SetAllLEDs(LEDS_LED3 | LEDS_LED4);
-		
 			printf_P(PSTR("Printer Protocol: %d\r\n"), PrinterProtocol);
 		
 			puts_P(PSTR("Retrieving Device ID...\r\n"));
 		
 			Device_ID_String_t DeviceIDString;
-			if (Printer_GetDeviceID(&DeviceIDString) != HOST_SENDCONTROL_Successful)
+			if ((ErrorCode = Printer_GetDeviceID(&DeviceIDString)) != HOST_SENDCONTROL_Successful)
 			{
+				puts_P(PSTR("Control Error (Get DeviceID).\r\n"));
+				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
+
 				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDS_LED1);
+				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
@@ -178,9 +173,42 @@ void USB_Printer_Host(void)
 			}
 
 			printf_P(PSTR("Printer Device ID: %s\r\n"), DeviceIDString.String);
+
+			puts_P(PSTR("Printer Enumerated.\r\n"));
+					
+			USB_HostState = HOST_STATE_Ready;
+			break;
+		case HOST_STATE_Ready:
+			/* Indicate device busy via the status LEDs */
+			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+		
+            //--------------------------------------------------------------
+			#define TEST_TEXT_PAGE "\033%-12345X\033E LUFA PCL Test Page \033E\033%-12345X"
+
+			Pipe_SelectPipe(PRINTER_DATA_OUT_PIPE);
+            Pipe_Unfreeze();
+			
+			puts_P(PSTR("Waiting for Printer to Become Ready...\r\n"));
+			
+			while (!(Pipe_IsReadWriteAllowed()));
+
+			uint8_t strSize = sizeof(TEST_TEXT_PAGE)-1;
+
+			printf_P(PSTR("Printer Write Allowed, sending complete page (%d bytes)...\r\n"), strSize);
+				
+			Pipe_Write_Stream_LE(TEST_TEXT_PAGE, strSize);
+            Pipe_ClearOUT();
+
+			puts_P(PSTR("Page sent to printer.\r\n"));
+
+			while (!(Pipe_IsReadWriteAllowed()));
+            Pipe_Freeze();				
+
+			puts_P(PSTR("Pipe Frozen.\r\n"));
+            //--------------------------------------------------------------
 		
 			/* Indicate device no longer busy */
-			LEDs_SetAllLEDs(LEDS_LED4);
+			LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			break;
