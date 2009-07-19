@@ -50,26 +50,26 @@ static void Abort_Program(void)
 
 	LEDs_SetAllLEDs(LEDS_LED1 | LEDS_LED3);
 
-	puts_P(PSTR(ESC_INVERSE_ON "\r\n**PROGRAM ABORT**"));
+	puts_P(PSTR(ESC_FG_RED ESC_INVERSE_ON "\r\n**PROGRAM ABORT**" ESC_FG_WHITE));
 	for (;;);
 }
 
 /** Event handler for the USB_VBUSChange event. When fired, the event is logged to the USART. */
 void EVENT_USB_VBUSChange(void)
 {
-	puts_P(PSTR(EVENT_PREFIX "VBUS Change\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "VBUS Change\r\n" ESC_FG_WHITE));
 }
 
 /** Event handler for the USB_VBUSConnect event. When fired, the event is logged to the USART. */
 void EVENT_USB_VBUSConnect(void)
 {
-	puts_P(PSTR(EVENT_PREFIX "VBUS +\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "VBUS +\r\n" ESC_FG_WHITE));
 }
 
 /** Event handler for the USB_VBUSDisconnect event. When fired, the event is logged to the USART. */
 void EVENT_USB_VBUSDisconnect(void)
 {
-	puts_P(PSTR(EVENT_PREFIX "VBUS -\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "VBUS -\r\n" ESC_FG_WHITE));
 }
 
 /**
@@ -78,7 +78,7 @@ void EVENT_USB_VBUSDisconnect(void)
  */
 void EVENT_USB_Connect(void)
 {
-	puts_P(PSTR(EVENT_PREFIX "USB  +\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "USB  +\r\n" ESC_FG_WHITE));
 }
 
 /**
@@ -87,25 +87,25 @@ void EVENT_USB_Connect(void)
  */
 void EVENT_USB_Disconnect(void)
 {
-	puts_P(PSTR(EVENT_PREFIX "USB  -\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "USB  -\r\n" ESC_FG_WHITE));
 }
 
 /** Event handler for the USB_Suspend event. When fired, the event is logged to the USART. */
 void EVENT_USB_Suspend(void)
 {
-	puts_P(PSTR(EVENT_PREFIX ESC_BG_YELLOW "USB Sleep\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "USB Sleep\r\n" ESC_FG_WHITE));
 }
 
 /** Event handler for the USB_WakeUp event. When fired, the event is logged to the USART. */
 void EVENT_USB_WakeUp(void)
 {
-	puts_P(PSTR(EVENT_PREFIX ESC_BG_GREEN "USB Wakeup\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "USB Wakeup\r\n" ESC_FG_WHITE));
 }
 
 /** Event handler for the USB_Reset event. When fired, the event is logged to the USART. */
 void EVENT_USB_Reset(void)
 {
-	puts_P(PSTR(EVENT_PREFIX "USB Reset\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "USB Reset\r\n" ESC_FG_WHITE));
 }
 
 /** Event handler for the USB_UIDChange event. When fired, the event is logged to the USART. */
@@ -113,7 +113,7 @@ void EVENT_USB_UIDChange(void)
 {
 	char* ModeStrPtr;
 
-	puts_P(PSTR(EVENT_PREFIX "UID Change\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "UID Change\r\n"));
 
 	if (USB_CurrentMode == USB_MODE_DEVICE)
 	  ModeStrPtr = PSTR("HOST");
@@ -122,7 +122,7 @@ void EVENT_USB_UIDChange(void)
 	else
 	  ModeStrPtr = PSTR("N/A");
 
-	printf_P(PSTR(" -- New Mode %S\r\n"), ModeStrPtr);
+	printf_P(PSTR(" -- New Mode %S\r\n" ESC_FG_WHITE), ModeStrPtr);
 }
 
 /**
@@ -133,7 +133,7 @@ void EVENT_USB_InitFailure(const uint8_t ErrorCode)
 {
 	char* ModeStrPtr;
 	
-	puts_P(PSTR(EVENT_PREFIX ESC_BG_RED "Power On Fail\r\n"));
+	puts_P(PSTR(ESC_FG_RED EVENT_PREFIX "Power On Fail\r\n"));
 
 	if (USB_CurrentMode == USB_MODE_DEVICE)
 	  ModeStrPtr = PSTR("DEVICE");
@@ -143,7 +143,7 @@ void EVENT_USB_InitFailure(const uint8_t ErrorCode)
 	  ModeStrPtr = PSTR("N/A");
 	
 	printf_P(PSTR(" -- Mode %S\r\n"), ModeStrPtr);
-	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
+	printf_P(PSTR(" -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 	Abort_Program();
 }
@@ -154,8 +154,8 @@ void EVENT_USB_InitFailure(const uint8_t ErrorCode)
  */
 void EVENT_USB_HostError(const uint8_t ErrorCode)
 {
-	puts_P(PSTR(EVENT_PREFIX ESC_BG_RED "Host Mode Error\r\n"));
-	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
+	puts_P(PSTR(ESC_FG_RED EVENT_PREFIX "Host Mode Error\r\n"));
+	printf_P(PSTR(" -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 	Abort_Program();
 }
@@ -163,41 +163,41 @@ void EVENT_USB_HostError(const uint8_t ErrorCode)
 /** Event handler for the USB_DeviceEnumerationFailed event. When fired, the event is logged to the USART. */
 void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
 {
-	puts_P(PSTR(ESC_BG_RED "Dev Enum Error\r\n"));
+	puts_P(PSTR(ESC_FG_RED EVENT_PREFIX "Dev Enum Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
 	printf_P(PSTR(" -- Sub Error Code %d\r\n"), SubErrorCode);
-	printf_P(PSTR(" -- In State %d\r\n"), USB_HostState);
+	printf_P(PSTR(" -- In State %d\r\n" ESC_FG_WHITE), USB_HostState);
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. When fired, the event is logged to the USART. */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	puts_P(PSTR(EVENT_PREFIX "Ctrl Request\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "Ctrl Request\r\n"));
 	printf_P(PSTR(" -- Req Data %d\r\n"), USB_ControlRequest.bRequest);
 	printf_P(PSTR(" -- Req Type %d\r\n"), USB_ControlRequest.bmRequestType);
-	printf_P(PSTR(" -- Req Length %d\r\n"), USB_ControlRequest.wLength);
+	printf_P(PSTR(" -- Req Length %d\r\n" ESC_FG_WHITE), USB_ControlRequest.wLength);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. When fired, the event is logged to the USART. */
 void EVENT_USB_ConfigurationChanged(void)
 {
-	puts_P(PSTR(EVENT_PREFIX "Configuration Number Changed\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "Configuration Number Changed\r\n" ESC_FG_WHITE));
 }
 
 /** Event handler for the USB_DeviceAttached event. When fired, the event is logged to the USART. */
 void EVENT_USB_DeviceAttached(void)
 {
-	puts_P(PSTR(EVENT_PREFIX ESC_BG_GREEN "Device +\r\n"));
+	puts_P(PSTR(ESC_FG_GREEN EVENT_PREFIX "Device +\r\n" ESC_FG_WHITE));
 }
 
 /** Event handler for the USB_DeviceUnattached event. When fired, the event is logged to the USART. */
 void EVENT_USB_DeviceUnattached(void)
 {
-	puts_P(PSTR(EVENT_PREFIX ESC_BG_YELLOW "Device -\r\n"));
+	puts_P(PSTR(ESC_FG_GREEN EVENT_PREFIX "Device -\r\n" ESC_FG_WHITE));
 }
 
 /** Event handler for the USB_DeviceEnumerationComplete event. When fired, the event is logged to the USART. */
 void EVENT_USB_DeviceEnumerationComplete(void)
 {
-	puts_P(PSTR(EVENT_PREFIX "Device Enumeration Complete\r\n"));
+	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "Device Enumeration Complete\r\n" ESC_FG_WHITE));
 }

@@ -43,8 +43,7 @@ int main(void)
 {
 	SetupHardware();
 
-	puts_P(PSTR(ESC_RESET ESC_BG_WHITE ESC_INVERSE_ON ESC_ERASE_DISPLAY
-	       "Keyboard HID Host Demo running.\r\n" ESC_INVERSE_OFF));
+	puts_P(PSTR(ESC_RESET ESC_FG_CYAN "Keyboard HID Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
@@ -76,7 +75,7 @@ void SetupHardware(void)
  */
 void EVENT_USB_DeviceAttached(void)
 {
-	puts_P(PSTR("Device Attached.\r\n"));
+	puts_P(PSTR(ESC_FG_GREEN "Device Attached.\r\n" ESC_FG_WHITE));
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
@@ -85,7 +84,7 @@ void EVENT_USB_DeviceAttached(void)
  */
 void EVENT_USB_DeviceUnattached(void)
 {
-	puts_P(PSTR("Device Unattached.\r\n"));
+	puts_P(PSTR(ESC_FG_GREEN "Device Unattached.\r\n" ESC_FG_WHITE));
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
@@ -102,8 +101,8 @@ void EVENT_USB_HostError(const uint8_t ErrorCode)
 {
 	USB_ShutDown();
 
-	puts_P(PSTR(ESC_BG_RED "Host Mode Error\r\n"));
-	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
+	puts_P(PSTR(ESC_FG_RED "Host Mode Error\r\n"));
+	printf_P(PSTR(" -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 	for(;;);
@@ -114,10 +113,10 @@ void EVENT_USB_HostError(const uint8_t ErrorCode)
  */
 void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
 {
-	puts_P(PSTR(ESC_BG_RED "Dev Enum Error\r\n"));
+	puts_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
 	printf_P(PSTR(" -- Sub Error Code %d\r\n"), SubErrorCode);
-	printf_P(PSTR(" -- In State %d\r\n"), USB_HostState);
+	printf_P(PSTR(" -- In State %d\r\n" ESC_FG_WHITE), USB_HostState);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
@@ -203,11 +202,11 @@ void Keyboard_HID_Task(void)
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
 				if (ErrorCode == ControlError)
-				  puts_P(PSTR("Control Error (Get Configuration).\r\n"));
+				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
 				else
-				  puts_P(PSTR("Invalid Device.\r\n"));
+				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
-				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
+				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 				
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -220,8 +219,8 @@ void Keyboard_HID_Task(void)
 			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
 			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
-				puts_P(PSTR("Control Error (Set Configuration).\r\n"));
-				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
+				puts_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"));
+				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -250,8 +249,8 @@ void Keyboard_HID_Task(void)
 			/* Send the request, display error and wait for device detach if request fails */
 			if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
 			{
-				puts_P(PSTR("Control Error (Set Protocol).\r\n"));
-				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
+				puts_P(PSTR(ESC_FG_RED "Control Error (Set Protocol).\r\n"));
+				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);

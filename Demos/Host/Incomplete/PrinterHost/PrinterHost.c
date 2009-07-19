@@ -43,8 +43,7 @@ int main(void)
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
-	puts_P(PSTR(ESC_RESET ESC_BG_WHITE ESC_INVERSE_ON ESC_ERASE_DISPLAY
-	       "Printer Host Demo running.\r\n" ESC_INVERSE_OFF));
+	puts_P(PSTR(ESC_RESET ESC_FG_CYAN "Printer Host Demo running.\r\n" ESC_FG_WHITE));
 	
 	for (;;)
 	{
@@ -70,13 +69,13 @@ void SetupHardware(void)
 
 void EVENT_USB_DeviceAttached(void)
 {
-	puts_P(PSTR("Device Attached.\r\n"));
+	puts_P(PSTR(ESC_FG_GREEN "Device Attached.\r\n" ESC_FG_WHITE));
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
 void EVENT_USB_DeviceUnattached(void)
 {
-	puts_P(PSTR("\r\nDevice Unattached.\r\n"));
+	puts_P(PSTR(ESC_FG_GREEN "\r\nDevice Unattached.\r\n" ESC_FG_WHITE));
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
@@ -84,8 +83,8 @@ void EVENT_USB_HostError(uint8_t ErrorCode)
 {
 	USB_ShutDown();
 
-	puts_P(PSTR(ESC_BG_RED "Host Mode Error\r\n"));
-	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
+	puts_P(PSTR(ESC_FG_RED "Host Mode Error\r\n"));
+	printf_P(PSTR(" -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 	for(;;);
@@ -93,9 +92,9 @@ void EVENT_USB_HostError(uint8_t ErrorCode)
 
 void EVENT_USB_DeviceEnumerationFailed(uint8_t ErrorCode, uint8_t SubErrorCode)
 {
-	puts_P(PSTR(ESC_BG_RED "Dev Enum Error\r\n"));
+	puts_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
-	printf_P(PSTR(" -- In State %d\r\n"), USB_HostState);
+	printf_P(PSTR(" -- In State %d\r\n" ESC_FG_WHITE), USB_HostState);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
@@ -121,9 +120,9 @@ void USB_Printer_Host(void)
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
 				if (ErrorCode == ControlError)
-				  puts_P(PSTR("Control Error (Get Configuration).\r\n"));
+				  puts_P(PSTR(ESC_FG_RED "Control Error (Get Configuration).\r\n"));
 				else
-				  puts_P(PSTR("Invalid Device.\r\n"));
+				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
 				
@@ -138,8 +137,8 @@ void USB_Printer_Host(void)
 			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
 			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
-				puts_P(PSTR("Control Error (Set Configuration).\r\n"));
-				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
+				puts_P(PSTR(ESC_FG_RED "Control Error (Set Configuration).\r\n"));
+				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -164,8 +163,8 @@ void USB_Printer_Host(void)
 					
 				if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
 				{
-					puts_P(PSTR("Control Error (Set Interface).\r\n"));
-					printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
+					puts_P(PSTR(ESC_FG_RED "Control Error (Set Interface).\r\n"));
+					printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 					/* Indicate error via status LEDs */
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -184,8 +183,8 @@ void USB_Printer_Host(void)
 			char DeviceIDString[128];
 			if ((ErrorCode = Printer_GetDeviceID(DeviceIDString, sizeof(DeviceIDString))) != HOST_SENDCONTROL_Successful)
 			{
-				puts_P(PSTR("Control Error (Get DeviceID).\r\n"));
-				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
+				puts_P(PSTR(ESC_FG_RED "Control Error (Get DeviceID).\r\n"));
+				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -212,8 +211,8 @@ void USB_Printer_Host(void)
 
 			if ((ErrorCode = Printer_SendData(PCL_Test_Page)) != PIPE_RWSTREAM_NoError)
 			{
-				puts_P(PSTR("Error Sending Test Page.\r\n"));
-				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
+				puts_P(PSTR(ESC_FG_RED "Error Sending Test Page.\r\n"));
+				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);

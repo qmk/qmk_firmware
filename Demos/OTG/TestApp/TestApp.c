@@ -43,8 +43,7 @@ int main(void)
 {
 	SetupHardware();
 	
-	puts_P(PSTR(ESC_RESET ESC_BG_WHITE ESC_INVERSE_ON ESC_ERASE_DISPLAY
-	            "LUFA Demo running.\r\n" ESC_INVERSE_OFF));
+	puts_P(PSTR(ESC_RESET ESC_FG_CYAN "LUFA Demo running.\r\n" ESC_FG_WHITE));
 
 	for (;;)
 	{
@@ -148,11 +147,11 @@ void CheckButton(void)
 			if (USB_IsInitialized == true)
 			{
 				USB_ShutDown();
-				puts_P(PSTR(ESC_BG_WHITE "USB Power Off.\r\n"));
+				puts_P(PSTR(ESC_FG_YELLOW "USB Power Off.\r\n" ESC_FG_WHITE));
 			}
 			else
 			{
-				puts_P(PSTR(ESC_BG_YELLOW "USB Power On.\r\n"));				
+				puts_P(PSTR(ESC_FG_YELLOW "USB Power On.\r\n" ESC_FG_WHITE));				
 				USB_Init(USB_MODE_UID, USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL);
 			}
 		}

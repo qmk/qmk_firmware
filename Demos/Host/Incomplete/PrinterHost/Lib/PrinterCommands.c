@@ -30,6 +30,13 @@
 
 #include "PrinterCommands.h"
 
+/** Sends the given data directly to the printer via the data endpoints, for the sending of print commands in printer
+ *  languages accepted by the attached printer (e.g. PCL).
+ *
+ *  \param[in] PrinterCommands  Pointer to the input buffer containing the printer data to send
+ *
+ *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
+ */
 uint8_t Printer_SendData(char* PrinterCommands)
 {
 	uint8_t ErrorCode;

@@ -62,8 +62,7 @@ int main(void)
 {
 	SetupHardware();
 
-	puts_P(PSTR(ESC_RESET ESC_BG_WHITE ESC_INVERSE_ON ESC_ERASE_DISPLAY
-	       "CDC Host Demo running.\r\n" ESC_INVERSE_OFF));
+	puts_P(PSTR(ESC_RESET "CDC Host Demo running.\r\n"));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
@@ -136,7 +135,7 @@ void EVENT_USB_HostError(const uint8_t ErrorCode)
 {
 	USB_ShutDown();
 
-	puts_P(PSTR(ESC_BG_RED "Host Mode Error\r\n"));
+	puts_P(PSTR(ESC_FG_RED "Host Mode Error\r\n" ESC_FG_WHITE));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -148,10 +147,10 @@ void EVENT_USB_HostError(const uint8_t ErrorCode)
  */
 void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
 {
-	puts_P(PSTR(ESC_BG_RED "Dev Enum Error\r\n"));
+	puts_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
 	printf_P(PSTR(" -- Sub Error Code %d\r\n"), SubErrorCode);
-	printf_P(PSTR(" -- In State %d\r\n"), USB_HostState);
+	printf_P(PSTR(" -- In State %d\r\n" ESC_FG_WHITE), USB_HostState);
 	
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
