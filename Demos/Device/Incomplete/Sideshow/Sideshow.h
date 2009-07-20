@@ -37,7 +37,7 @@
 		#include <avr/power.h>
 
 		#include "Descriptors.h"
-		#include "SideshowCommands.h"
+		#include "Lib/SideshowCommands.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/USB/USB.h>
