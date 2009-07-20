@@ -53,8 +53,15 @@
 		/** Pipe number of the Printer data OUT pipe */
 		#define PRINTER_DATA_OUT_PIPE        2
 		
+	/* Type Defines: */
+		typedef struct
+		{
+			char*    Data;
+			uint16_t Length;
+		} Printer_Data_t;
+		
 	/* Function Prototypes: */
-		uint8_t Printer_SendData(char* PrinterCommands, uint16_t DataLength);
+		uint8_t Printer_SendData(Printer_Data_t* PrinterCommands);
 		uint8_t Printer_GetDeviceID(char* DeviceIDString, uint8_t BufferSize);
 		uint8_t Printer_GetPortStatus(uint8_t* PortStatus);
 		uint8_t Printer_SoftReset(void);

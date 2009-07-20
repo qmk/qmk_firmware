@@ -204,12 +204,16 @@ void USB_Printer_Host(void)
 			/* Indicate device busy via the status LEDs */
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 		
-			char PCL_Test_Page[]   = "\033%-12345X\033E LUFA PCL Test Page \033E\033%-12345X";
-//			char ESCP2_Test_Page[] =  "\033@\033i\001\033X\001\060\000\r\nLUFA ESCP/2 Test Page\r\n";
+			Printer_Data_t TestPageData =
+				{
+					"\033%-12345X\033E LUFA PCL Test Page \033E\033%-12345X",
+//					"\033@\033i\001\033X\001\060\000\r\nLUFA ESCP/2 Test Page\r\n",
+					(sizeof(TestPageData.Data) - 1)
+				};
+		
+			printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), TestPageData.Length);
 
-			printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), (sizeof(PCL_Test_Page) - 1));
-
-			if ((ErrorCode = Printer_SendData(PCL_Test_Page, (sizeof(PCL_Test_Page) - 1))) != PIPE_RWSTREAM_NoError)
+			if ((ErrorCode = Printer_SendData(&TestPageData)) != PIPE_RWSTREAM_NoError)
 			{
 				puts_P(PSTR(ESC_FG_RED "Error Sending Test Page.\r\n"));
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
