@@ -54,6 +54,7 @@ int main(void)
 	}
 }
 
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void)
 {
 	/* Disable watchdog if enabled by bootloader/fuses */
@@ -69,18 +70,33 @@ void SetupHardware(void)
 	USB_Init();
 }
 
+/** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
+ *  starts the library USB task to begin the enumeration and USB management process.
+ */
 void EVENT_USB_DeviceAttached(void)
 {
 	puts_P(PSTR(ESC_FG_GREEN "Device Attached.\r\n" ESC_FG_WHITE));
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
+/** Event handler for the USB_DeviceUnattached event. This indicates that a device has been removed from the host, and
+ *  stops the library USB task management process.
+ */
 void EVENT_USB_DeviceUnattached(void)
 {
 	puts_P(PSTR(ESC_FG_GREEN "\r\nDevice Unattached.\r\n" ESC_FG_WHITE));
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
+/** Event handler for the USB_DeviceEnumerationComplete event. This indicates that a device has been successfully
+ *  enumerated by the host and is now ready to be used by the application.
+ */
+void EVENT_USB_DeviceEnumerationComplete(void)
+{
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+}
+
+/** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
 void EVENT_USB_HostError(uint8_t ErrorCode)
 {
 	USB_ShutDown();
@@ -92,20 +108,22 @@ void EVENT_USB_HostError(uint8_t ErrorCode)
 	for(;;);
 }
 
+/** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
+ *  enumerating an attached USB device.
+ */
 void EVENT_USB_DeviceEnumerationFailed(uint8_t ErrorCode, uint8_t SubErrorCode)
 {
 	puts_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
+	printf_P(PSTR(" -- Sub Error Code %d\r\n"), SubErrorCode);
 	printf_P(PSTR(" -- In State %d\r\n" ESC_FG_WHITE), USB_HostState);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
-void EVENT_USB_DeviceEnumerationComplete(void)
-{
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
-}
-
+/** Task to set the configuration of the attached device after it has been enumerated, and to send some test page
+ *  data to the attached printer.
+ */
 void USB_Printer_Host(void)
 {
 	uint8_t ErrorCode;

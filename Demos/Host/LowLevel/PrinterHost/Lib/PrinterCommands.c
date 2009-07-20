@@ -28,6 +28,12 @@
   this software.
 */
 
+/** \file
+ *
+ *  Printer Device commands, to send/recieve data to and from an attached USB
+ *  printer, and to send and receive Printer Class control requests.
+ */
+
 #include "PrinterCommands.h"
 
 /** Sends the given data directly to the printer via the data endpoints, for the sending of print commands in printer

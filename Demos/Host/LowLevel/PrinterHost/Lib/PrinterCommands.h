@@ -28,6 +28,11 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for PrinterCommands.c.
+ */
+ 
 #ifndef _PRINTER_COMMANDS_H_
 #define _PRINTER_COMMANDS_H_
 

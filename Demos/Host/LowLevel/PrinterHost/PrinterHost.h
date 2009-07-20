@@ -28,6 +28,11 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for PrinterHost.c.
+ */
+ 
 #ifndef _MASS_STORE_HOST_H_
 #define _MASS_STORE_HOST_H_
 
