@@ -184,60 +184,70 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 }
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_Stream_LE
+#define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*(BufferPtr++))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_PStream_LE
+#define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte(BufferPtr++))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_EStream_LE
+#define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte(BufferPtr++))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_Stream_BE
+#define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*(BufferPtr--))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_PStream_BE
+#define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte(BufferPtr--))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_EStream_BE
+#define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte(BufferPtr--))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_Stream_LE
+#define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr++) = Pipe_Read_Byte()
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_EStream_LE
+#define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr++, Pipe_Read_Byte())
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_Stream_BE
+#define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr--) = Pipe_Read_Byte()
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_EStream_BE
+#define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr--, Pipe_Read_Byte())

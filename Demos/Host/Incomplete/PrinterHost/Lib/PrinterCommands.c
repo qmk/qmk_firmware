@@ -63,7 +63,7 @@ uint8_t Printer_SendData(Printer_Data_t* PrinterCommands)
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
-uint8_t Printer_GetDeviceID(char* DeviceIDString, uint8_t BufferSize)
+uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize)
 {
 	uint8_t  ErrorCode = HOST_SENDCONTROL_Successful;
 	uint16_t DeviceIDStringLength;
@@ -85,12 +85,15 @@ uint8_t Printer_GetDeviceID(char* DeviceIDString, uint8_t BufferSize)
 	if (DeviceIDStringLength > BufferSize)
 	  DeviceIDStringLength = BufferSize;
 
-	USB_ControlRequest.wLength = (DeviceIDStringLength - 1);
+	USB_ControlRequest.wLength = DeviceIDStringLength;
 	
 	if ((ErrorCode = USB_Host_SendControlRequest(DeviceIDString)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
-	
-	DeviceIDString[DeviceIDStringLength] = 0x00;
+	  
+	/* Move string back two characters to remove the string length value from the start of the array */
+	memmove(&DeviceIDString[0], &DeviceIDString[2], DeviceIDStringLength - 2);
+
+	DeviceIDString[DeviceIDStringLength - 2] = 0x00;
 	
 	return HOST_SENDCONTROL_Successful;
 }

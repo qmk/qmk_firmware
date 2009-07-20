@@ -180,7 +180,7 @@ void USB_Printer_Host(void)
 		case HOST_STATE_Configured:
 			puts_P(PSTR("Retrieving Device ID...\r\n"));
 		
-			char DeviceIDString[128];
+			char DeviceIDString[256];
 			if ((ErrorCode = Printer_GetDeviceID(DeviceIDString, sizeof(DeviceIDString))) != HOST_SENDCONTROL_Successful)
 			{
 				puts_P(PSTR(ESC_FG_RED "Control Error (Get DeviceID).\r\n"));
@@ -206,8 +206,8 @@ void USB_Printer_Host(void)
 		
 			Printer_Data_t TestPageData =
 				{
-					"\033%-12345X\033E LUFA PCL Test Page \033E\033%-12345X",
-//					"\033@\033i\001\033X\001\060\000\r\nLUFA ESCP/2 Test Page\r\n",
+//					"\033%-12345X\033E LUFA PCL Test Page \033E\033%-12345X",
+					"\033@\033i\001\033X\001\060\000\r\nLUFA ESCP/2 Test Page\r\n",
 					(sizeof(TestPageData.Data) - 1)
 				};
 		

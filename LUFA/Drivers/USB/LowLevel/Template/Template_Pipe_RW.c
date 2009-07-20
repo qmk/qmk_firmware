@@ -3,7 +3,7 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer, uint16_t Length _CALLBACK_PARAM)
 	uint8_t* DataStream = (uint8_t*)(Buffer + TEMPLATE_BUFFER_OFFSET(Length));
 	uint8_t  ErrorCode;
 	
-	Pipe_SetToken(PIPE_TOKEN_IN);
+	Pipe_SetToken(TEMPLATE_TOKEN);
 
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
@@ -73,6 +73,7 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer, uint16_t Length _CALLBACK_PARAM)
 }
 
 #undef TEMPLATE_FUNC_NAME
+#undef TEMPLATE_TOKEN
 #undef TEMPLATE_TRANSFER_BYTE
 #undef TEMPLATE_CLEAR_PIPE
 #undef TEMPLATE_BUFFER_OFFSET

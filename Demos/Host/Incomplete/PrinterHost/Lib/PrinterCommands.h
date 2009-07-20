@@ -62,7 +62,7 @@
 		
 	/* Function Prototypes: */
 		uint8_t Printer_SendData(Printer_Data_t* PrinterCommands);
-		uint8_t Printer_GetDeviceID(char* DeviceIDString, uint8_t BufferSize);
+		uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize);
 		uint8_t Printer_GetPortStatus(uint8_t* PortStatus);
 		uint8_t Printer_SoftReset(void);
 	
