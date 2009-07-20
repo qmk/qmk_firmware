@@ -82,6 +82,8 @@ uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize)
 			wIndex:        0,
 			wLength:       sizeof(DeviceIDStringLength),
 		};
+		
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
 	if ((ErrorCode = USB_Host_SendControlRequest(&DeviceIDStringLength)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
@@ -122,6 +124,8 @@ uint8_t Printer_GetPortStatus(uint8_t* PortStatus)
 			wLength:       sizeof(uint8_t),
 		};
 
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 	return USB_Host_SendControlRequest(PortStatus);
 }
 
@@ -140,6 +144,8 @@ uint8_t Printer_SoftReset(void)
 			wIndex:        0,
 			wLength:       0,
 		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
 	return USB_Host_SendControlRequest(NULL);
 }
