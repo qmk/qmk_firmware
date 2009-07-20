@@ -63,7 +63,7 @@ SideShow_Application_t* SideShow_GetApplicationFromGUID(GUID_t* GUID)
 	{
 		if (InstalledApplications[App].InUse)
 		{
-			if (memcmp(&InstalledApplications[App].ApplicationID, GUID, sizeof(GUID_t)) == 0)
+			if (GUID_COMPARE(&InstalledApplications[App].ApplicationID, GUID))
 			  return &InstalledApplications[App];
 		}
 	}

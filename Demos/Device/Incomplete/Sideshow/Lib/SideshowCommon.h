@@ -38,6 +38,8 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
+		#define GUID_COMPARE(a, b)                (memcmp(a, b, sizeof(GUID_t)) == 0)
+	
 		#define ARRAY_ELEMENTS(x)                 (sizeof(x) / sizeof(x[0]))
 		
 		#define UNICODE_STRING_t(x)               struct                          \

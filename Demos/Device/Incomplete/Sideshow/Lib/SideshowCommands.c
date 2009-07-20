@@ -134,9 +134,9 @@ static void SideShow_Sync(SideShow_PacketHeader_t* PacketHeader)
 	Endpoint_Read_Stream_LE(&ProtocolGUID, sizeof(GUID_t));
 	Endpoint_ClearOUT();
 	
-	if (memcmp(&ProtocolGUID, (uint32_t[])STANDARD_PROTOCOL_GUID, sizeof(GUID_t)) != 0)
+	if (!(GUID_COMPARE(&ProtocolGUID, (uint32_t[])STANDARD_PROTOCOL_GUID)))
 	  PacketHeader->Type.NAK = true;
-
+	
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
 	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));		
 	Endpoint_Write_Stream_LE(&ProtocolGUID, sizeof(GUID_t));
@@ -179,7 +179,7 @@ static void SideShow_GetCapabilities(SideShow_PacketHeader_t* PacketHeader)
 
 	PacketHeader->Length = sizeof(SideShow_PacketHeader_t);
 
-	if (memcmp(&Property.PropertyGUID, (uint32_t[])SIDESHOW_PROPERTY_GUID, sizeof(GUID_t)) == 0)
+	if (GUID_COMPARE(&Property.PropertyGUID, (uint32_t[])SIDESHOW_PROPERTY_GUID))
 	{
 		switch (Property.PropertyID)
 		{
@@ -233,7 +233,7 @@ static void SideShow_GetCapabilities(SideShow_PacketHeader_t* PacketHeader)
 				break;
 		}
 	}
-	else if (memcmp(&Property.PropertyGUID, (uint32_t[])DEVICE_PROPERTY_GUID, sizeof(GUID_t)) == 0)
+	else if (GUID_COMPARE(&Property.PropertyGUID, (uint32_t[])DEVICE_PROPERTY_GUID))
 	{
 		switch (Property.PropertyID)
 		{
