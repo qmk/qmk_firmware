@@ -288,7 +288,7 @@ static void USB_Host_ResetDevice(void)
 	USB_INT_Enable(USB_INT_DDISCI);
 }
 
-uint8_t USB_Host_SetDeviceConfiguration(uint8_t ConfigNumber)
+uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -304,7 +304,7 @@ uint8_t USB_Host_SetDeviceConfiguration(uint8_t ConfigNumber)
 	return USB_Host_SendControlRequest(NULL);
 }
 
-uint8_t USB_Host_GetDeviceDescriptor(void* DeviceDescriptorPtr)
+uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{

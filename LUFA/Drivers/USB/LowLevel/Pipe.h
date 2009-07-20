@@ -175,11 +175,6 @@
 			 */
 			#define PIPE_EPNUM_MASK                 0x0F
 
-			/** Endpoint bank size mask, for masking against endpoint addresses to retrieve the endpoint's
-			 *  bank size in the attached device.
-			 */
-			#define PIPE_EPSIZE_MASK                0x7FF
-
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Indicates the number of bytes currently stored in the current pipes's selected bank.

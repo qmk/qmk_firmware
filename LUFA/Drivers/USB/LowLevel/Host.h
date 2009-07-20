@@ -186,7 +186,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_SetDeviceConfiguration(uint8_t ConfigNumber);
+			uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber);
 			
 			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
 			 *  device, requesting the device descriptor. This can be used to easily retrieve information
@@ -199,7 +199,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_GetDeviceDescriptor(void* DeviceDescriptorPtr);
+			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr);
 			
 			/** Clears a stall condition on the given pipe, via a ClearFeature request to the attached device.
 			 *
