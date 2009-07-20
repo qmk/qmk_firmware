@@ -59,10 +59,13 @@
 		#define PRINTER_DATA_OUT_PIPE        2
 		
 	/* Type Defines: */
+		/** Type define for a Printer Command Data structure, for the encapsulation of raw printer commands to
+		 *  send to an attached printer device.
+		 */
 		typedef struct
 		{
-			char*    Data;
-			uint16_t Length;
+			char*    Data; /**< Printer commands to send to the attached printer */
+			uint16_t Length; /**< Length in bytes of the commands to send to the attached printer */
 		} Printer_Data_t;
 		
 	/* Function Prototypes: */
