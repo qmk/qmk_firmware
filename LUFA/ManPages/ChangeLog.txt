@@ -28,6 +28,7 @@
   *  - Added new EEPROM and FLASH buffer versions of the Endpoint and Pipe stream functions
   *  - Added new USE_FLASH_DESCRIPTORS and TOTAL_NUM_CONFIGURATIONS compile time options
   *  - Added support for the new ATMEGA32U2, ATMEGA16U2 and ATMEGA8U2 AVR models
+  *  - Added new PrinterHost demo (thanks to John Andrews)
   *  
   *  <b>Changed:</b>
   *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)

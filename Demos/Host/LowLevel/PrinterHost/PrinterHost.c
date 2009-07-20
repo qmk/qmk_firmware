@@ -28,15 +28,17 @@
   this software.
 */
 
-/*
-	USB Printer host demo application.
-	
-	** NOT CURRENTLY FUNCTIONAL - DO NOT USE **
-*/
+/** \file
+ *
+ *  Main source file for the PrinterHost demo. This file contains the main tasks of
+ *  the demo and is responsible for the initial application hardware configuration.
+ */
 
 #include "PrinterHost.h"
 
-
+/** Main program entry point. This routine configures the hardware required by the application, then
+ *  starts the scheduler to run the application tasks.
+ */
 int main(void)
 {
 	SetupHardware();
