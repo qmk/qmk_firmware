@@ -51,7 +51,7 @@ int main(void)
 		CheckButton();
 		CheckTemperature();
 
-		/* Clear output-compare flag (logic 1 clears the flag) */
+		/* Clear millisecond timer's Output Compare flag (logic 1 clears the flag) */
 		TIFR0 |= (1 << OCF0A);
 		
 		USB_USBTask();
@@ -114,11 +114,12 @@ void CheckTemperature(void)
 {
 	static uint16_t MSElapsed = 0;
 
+	/* Timer 0's compare flag is set every millisecond */
 	if (TIFR0 & (1 << OCF0A))
 	  MSElapsed++;
 
 	/* Task runs every 10000 ticks, 10 seconds for this demo */
-	if (MSElapsed == 1000)
+	if (MSElapsed == 10000)
 	{
 		printf_P(PSTR("Current temperature: %d Degrees Celcius\r\n\r\n"),
 		         (int8_t)Temperature_GetTemperature());
@@ -135,6 +136,7 @@ void CheckButton(void)
 	static uint16_t DebounceMSElapsed = 0;
 	static bool     IsPressed;
 	
+	/* Timer 0's compare flag is set every millisecond */
 	if (TIFR0 & (1 << OCF0A))
 	  DebounceMSElapsed++;
 

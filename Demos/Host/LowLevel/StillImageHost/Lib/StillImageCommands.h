@@ -50,6 +50,12 @@
 
 		/** Pipe number of the Still Image events pipe */
 		#define SIMAGE_EVENTS_PIPE             0x03
+		
+		/** Length in bytes of a given Unicode string's character length
+		 *
+		 *  \param[in] chars  Total number of Unicode characters in the string
+		 */
+		#define UNICODE_STRING_LENGTH(chars)   (chars << 1)
 
 		/** Timeout period between the issuing of a command to a device, and the reception of the first packet */
 		#define COMMAND_DATA_TIMEOUT_MS        5000
@@ -101,8 +107,8 @@
 	/* Function Prototypes: */
 		void    SImage_SendBlockHeader(void);
 		uint8_t SImage_RecieveBlockHeader(void);
-		void    SImage_RecieveEventHeader(void);
-		void    SImage_SendData(void* Buffer, uint16_t Bytes);
+		uint8_t SImage_RecieveEventHeader(void);
+		uint8_t SImage_SendData(void* Buffer, uint16_t Bytes);
 		uint8_t SImage_ReadData(void* Buffer, uint16_t Bytes);
 		bool    SImage_IsEventReceived(void);
 		uint8_t SImage_ClearPipeStall(const uint8_t EndpointNum);

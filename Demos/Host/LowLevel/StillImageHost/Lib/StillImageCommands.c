@@ -80,20 +80,24 @@ void SImage_SendBlockHeader(void)
 }
 
 /** Function to receive a PIMA event container from the attached still image device. */
-void SImage_RecieveEventHeader(void)
+uint8_t SImage_RecieveEventHeader(void)
 {
+	uint8_t ErrorCode;
+
 	/* Unfreeze the events pipe */
 	Pipe_SelectPipe(SIMAGE_EVENTS_PIPE);
 	Pipe_Unfreeze();
 	
 	/* Read in the event data into the global structure */
-	Pipe_Read_Stream_LE(&PIMA_EventBlock, sizeof(PIMA_EventBlock));
+	ErrorCode = Pipe_Read_Stream_LE(&PIMA_EventBlock, sizeof(PIMA_EventBlock));
 	
 	/* Clear the pipe after read complete to prepare for next event */
 	Pipe_ClearIN();
 	
 	/* Freeze the event pipe again after use */
 	Pipe_Freeze();
+	
+	return ErrorCode;
 }
 
 /** Function to receive a PIMA response container from the attached still image device. */
@@ -193,20 +197,24 @@ uint8_t SImage_RecieveBlockHeader(void)
  *  \param[in] Buffer  Source data buffer to send to the device
  *  \param[in] Bytes   Number of bytes to send
  */
-void SImage_SendData(void* Buffer, uint16_t Bytes)
+uint8_t SImage_SendData(void* Buffer, uint16_t Bytes)
 {
+	uint8_t ErrorCode;
+
 	/* Unfreeze the data OUT pipe */
 	Pipe_SelectPipe(SIMAGE_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
 	
 	/* Write the data contents to the pipe */
-	Pipe_Write_Stream_LE(Buffer, Bytes);
+	ErrorCode = Pipe_Write_Stream_LE(Buffer, Bytes);
 
 	/* Send the last packet to the attached device */
 	Pipe_ClearOUT();
 
 	/* Freeze the pipe again after use */
 	Pipe_Freeze();
+	
+	return ErrorCode;
 }
 
 /** Function to receive the given data to the device, after a response block has been received.

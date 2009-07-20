@@ -216,28 +216,28 @@ void StillImage_Task(void)
 			uint8_t* DeviceInfoPos = DeviceInfo;
 			
 			/* Skip over the data before the unicode device information strings */
-			DeviceInfoPos += 8;                                      // Skip to VendorExtensionDesc String
-			DeviceInfoPos += ((*DeviceInfoPos << 1) + 1);            // Skip over VendorExtensionDesc String
-			DeviceInfoPos += 2;                                      // Skip over FunctionalMode
-			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1)); // Skip over OperationCode Array
-			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1)); // Skip over EventCode Array
-			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1)); // Skip over DevicePropCode Array
-			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1)); // Skip over ObjectFormatCode Array
-			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1)); // Skip over ObjectFormatCode Array
+			DeviceInfoPos +=  8;                                          // Skip to VendorExtensionDesc String
+			DeviceInfoPos += (1 + UNICODE_STRING_LENGTH(*DeviceInfoPos)); // Skip over VendorExtensionDesc String
+			DeviceInfoPos +=  2;                                          // Skip over FunctionalMode
+			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over OperationCode Array
+			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over EventCode Array
+			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over DevicePropCode Array
+			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over ObjectFormatCode Array
+			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over ObjectFormatCode Array
 			
 			/* Extract and convert the Manufacturer Unicode string to ASCII and print it through the USART */
 			char Manufacturer[*DeviceInfoPos];
 			UnicodeToASCII(DeviceInfoPos, Manufacturer);
 			printf_P(PSTR("   Manufacturer: %s\r\n"), Manufacturer);
 
-			DeviceInfoPos += ((*DeviceInfoPos << 1) + 1);            // Skip over Manufacturer String
+			DeviceInfoPos += 1 + UNICODE_STRING_LENGTH(*DeviceInfoPos);   // Skip over Manufacturer String
 
 			/* Extract and convert the Model Unicode string to ASCII and print it through the USART */
 			char Model[*DeviceInfoPos];
 			UnicodeToASCII(DeviceInfoPos, Model);
 			printf_P(PSTR("   Model: %s\r\n"), Model);
 
-			DeviceInfoPos += ((*DeviceInfoPos << 1) + 1);            // Skip over Model String
+			DeviceInfoPos += 1 + UNICODE_STRING_LENGTH(*DeviceInfoPos);   // Skip over Model String
 
 			/* Extract and convert the Device Version Unicode string to ASCII and print it through the USART */
 			char DeviceVersion[*DeviceInfoPos];
