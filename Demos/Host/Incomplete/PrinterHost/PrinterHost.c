@@ -207,9 +207,9 @@ void USB_Printer_Host(void)
 			char PCL_Test_Page[]   = "\033%-12345X\033E LUFA PCL Test Page \033E\033%-12345X";
 //			char ESCP2_Test_Page[] =  "\033@\033i\001\033X\001\060\000\r\nLUFA ESCP/2 Test Page\r\n";
 
-			printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), strlen(PCL_Test_Page));
+			printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), (sizeof(PCL_Test_Page) - 1));
 
-			if ((ErrorCode = Printer_SendData(PCL_Test_Page)) != PIPE_RWSTREAM_NoError)
+			if ((ErrorCode = Printer_SendData(PCL_Test_Page, (sizeof(PCL_Test_Page) - 1))) != PIPE_RWSTREAM_NoError)
 			{
 				puts_P(PSTR(ESC_FG_RED "Error Sending Test Page.\r\n"));
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);

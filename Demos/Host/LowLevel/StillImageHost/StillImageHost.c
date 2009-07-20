@@ -352,7 +352,7 @@ void UnicodeToASCII(uint8_t* UnicodeString, char* Buffer)
 	/* Loop through the entire unicode string */
 	while (CharactersRemaining--)
 	{
-		/* Load in the next unicode character (only the lower byte, only Unicode coded ASCII supported) */
+		/* Load in the next unicode character (only the lower byte, as only Unicode coded ASCII is supported) */
 		*(Buffer++) = *UnicodeString;
 		
 		/* Jump to the next unicode character */

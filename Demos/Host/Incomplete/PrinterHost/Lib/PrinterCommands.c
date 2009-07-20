@@ -37,14 +37,14 @@
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
-uint8_t Printer_SendData(char* PrinterCommands)
+uint8_t Printer_SendData(char* PrinterCommands, uint16_t DataLength)
 {
 	uint8_t ErrorCode;
 
 	Pipe_SelectPipe(PRINTER_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
 	
-	if ((ErrorCode = Pipe_Write_Stream_LE(PrinterCommands, strlen(PrinterCommands))) != PIPE_RWSTREAM_NoError)
+	if ((ErrorCode = Pipe_Write_Stream_LE(PrinterCommands, DataLength)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	Pipe_ClearOUT();
