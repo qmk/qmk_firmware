@@ -226,7 +226,7 @@ void USB_Printer_Host(void)
 				break;
 			}
 
-			puts_P(PSTR("Test Page Sent, Waiting for Pipe...\r\n"));
+			puts_P(PSTR("Test Page Sent.\r\n"));
 		
 			/* Indicate device no longer busy */
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);

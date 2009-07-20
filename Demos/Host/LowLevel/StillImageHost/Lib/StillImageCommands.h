@@ -111,6 +111,5 @@
 		uint8_t SImage_SendData(void* Buffer, uint16_t Bytes);
 		uint8_t SImage_ReadData(void* Buffer, uint16_t Bytes);
 		bool    SImage_IsEventReceived(void);
-		uint8_t SImage_ClearPipeStall(const uint8_t EndpointNum);
 
 #endif

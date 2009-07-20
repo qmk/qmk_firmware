@@ -133,7 +133,7 @@ uint8_t SImage_RecieveBlockHeader(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the OUT pipe */
-			SImage_ClearPipeStall(SIMAGE_DATA_OUT_PIPE);
+			USB_Host_ClearPipeStall(SIMAGE_DATA_OUT_PIPE);
 
 			/* Return error code and break out of the loop */
 			return PIPE_RWSTREAM_PipeStalled;
@@ -145,7 +145,7 @@ uint8_t SImage_RecieveBlockHeader(void)
 		if (Pipe_IsStalled())
 		{
 			/* Clear the stall condition on the IN pipe */
-			SImage_ClearPipeStall(SIMAGE_DATA_IN_PIPE);
+			USB_Host_ClearPipeStall(SIMAGE_DATA_IN_PIPE);
 
 			/* Return error code */
 			return PIPE_RWSTREAM_PipeStalled;
@@ -261,27 +261,4 @@ bool SImage_IsEventReceived(void)
 	Pipe_Freeze();
 	
 	return IsEventReceived;
-}
-
-/** Clears the stall condition in the attached device on the nominated endpoint number.
- *
- *  \param[in] EndpointNum  Endpoint number in the attached device whose stall condition is to be cleared
- *
- *  \return A value from the USB_Host_SendControlErrorCodes_t enum
- */
-uint8_t SImage_ClearPipeStall(const uint8_t EndpointNum)
-{
-	USB_ControlRequest = (USB_Request_Header_t)
-		{
-			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT),
-			.bRequest      = REQ_ClearFeature,
-			.wValue        = FEATURE_ENDPOINT_HALT,
-			.wIndex        = EndpointNum,
-			.wLength       = 0,
-		};
-	
-	/* Select the control pipe for the request transfer */
-	Pipe_SelectPipe(PIPE_CONTROLPIPE);
-
-	return USB_Host_SendControlRequest(NULL);
 }
