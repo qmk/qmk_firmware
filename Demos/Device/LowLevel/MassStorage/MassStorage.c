@@ -256,6 +256,8 @@ static bool ReadInCommandBlock(void)
 	/* Verify the command block - abort if invalid */
 	if ((CommandBlock.Signature         != CBW_SIGNATURE) ||
 	    (CommandBlock.LUN               >= TOTAL_LUNS)    ||
+		(CommandBlock.Flags              & 0x1F)          ||
+		(CommandBlock.SCSICommandLength == 0)             ||
 		(CommandBlock.SCSICommandLength >  MAX_SCSI_COMMAND_LENGTH))
 	{
 		/* Stall both data pipes until reset by host */

@@ -149,6 +149,8 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 
 	if ((MSInterfaceInfo->State.CommandBlock.Signature         != MS_CBW_SIGNATURE)                  ||
 	    (MSInterfaceInfo->State.CommandBlock.LUN               >= MSInterfaceInfo->Config.TotalLUNs) ||
+		(MSInterfaceInfo->State.CommandBlock.Flags              & 0x1F)                              ||
+		(MSInterfaceInfo->State.CommandBlock.SCSICommandLength == 0)                                 ||
 		(MSInterfaceInfo->State.CommandBlock.SCSICommandLength >  16))
 	{
 		Endpoint_StallTransaction();
