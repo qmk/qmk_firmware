@@ -180,6 +180,10 @@ void EVENT_USB_UnhandledControlPacket(void)
  */
 void USB_Audio_Task(void)
 {
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+
 	/* Check to see if the streaming interface is selected, if not the host is not receiving audio */
 	if (!(StreamingAudioInterfaceSelected))
 	  return;	

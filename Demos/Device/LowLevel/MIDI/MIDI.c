@@ -116,16 +116,17 @@ void MIDI_Task(void)
 {
 	static uint8_t PrevJoystickStatus;
 
-	/* Select the MIDI IN stream */
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+
 	Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPNUM);
 
-	/* Check if endpoint is ready to be written to */
 	if (Endpoint_IsINReady())
 	{
 		uint8_t MIDICommand = 0;
 		uint8_t MIDIPitch;
 	
-		/* Get current joystick mask, XOR with previous to detect joystick changes */
 		uint8_t JoystickStatus  = Joystick_GetStatus();
 		uint8_t JoystickChanges = (JoystickStatus ^ PrevJoystickStatus);
 		

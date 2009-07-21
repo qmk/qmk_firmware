@@ -202,47 +202,47 @@ void CreateGenericHIDReport(uint8_t* DataArray)
 
 void HID_Task(void)
 {
-	/* Check if the USB system is connected to a host */
-	if (USB_IsConnected)
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+
+	Endpoint_SelectEndpoint(GENERIC_OUT_EPNUM);
+	
+	/* Check to see if a packet has been sent from the host */
+	if (Endpoint_IsOUTReceived())
 	{
-		Endpoint_SelectEndpoint(GENERIC_OUT_EPNUM);
-		
-		/* Check to see if a packet has been sent from the host */
-		if (Endpoint_IsOUTReceived())
+		/* Check to see if the packet contains data */
+		if (Endpoint_IsReadWriteAllowed())
 		{
-			/* Check to see if the packet contains data */
-			if (Endpoint_IsReadWriteAllowed())
-			{
-				/* Create a temporary buffer to hold the read in report from the host */
-				uint8_t GenericData[GENERIC_REPORT_SIZE];
-				
-				/* Read Generic Report Data */
-				Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData));
-				
-				/* Process Generic Report Data */
-				ProcessGenericHIDReport(GenericData);
-			}
-
-			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearOUT();
-		}	
-
-		Endpoint_SelectEndpoint(GENERIC_IN_EPNUM);
-		
-		/* Check to see if the host is ready to accept another packet */
-		if (Endpoint_IsINReady())
-		{
-			/* Create a temporary buffer to hold the report to send to the host */
+			/* Create a temporary buffer to hold the read in report from the host */
 			uint8_t GenericData[GENERIC_REPORT_SIZE];
 			
-			/* Create Generic Report Data */
-			CreateGenericHIDReport(GenericData);
-
-			/* Write Generic Report Data */
-			Endpoint_Write_Stream_LE(&GenericData, sizeof(GenericData));
-
-			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearIN();
+			/* Read Generic Report Data */
+			Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData));
+			
+			/* Process Generic Report Data */
+			ProcessGenericHIDReport(GenericData);
 		}
+
+		/* Finalize the stream transfer to send the last packet */
+		Endpoint_ClearOUT();
+	}	
+
+	Endpoint_SelectEndpoint(GENERIC_IN_EPNUM);
+	
+	/* Check to see if the host is ready to accept another packet */
+	if (Endpoint_IsINReady())
+	{
+		/* Create a temporary buffer to hold the report to send to the host */
+		uint8_t GenericData[GENERIC_REPORT_SIZE];
+		
+		/* Create Generic Report Data */
+		CreateGenericHIDReport(GenericData);
+
+		/* Write Generic Report Data */
+		Endpoint_Write_Stream_LE(&GenericData, sizeof(GenericData));
+
+		/* Finalize the stream transfer to send the last packet */
+		Endpoint_ClearIN();
 	}
 }

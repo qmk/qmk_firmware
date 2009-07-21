@@ -229,6 +229,10 @@ void CDC1_Task(void)
 	uint8_t     JoyStatus_LCL   = Joystick_GetStatus();
 	static bool ActionSent      = false;
 
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+
 	char* JoystickStrings[] =
 		{
 			"Joystick Up\r\n",
@@ -288,6 +292,10 @@ void CDC1_Task(void)
  */
 void CDC2_Task(void)
 {
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+
 	/* Select the Serial Rx Endpoint */
 	Endpoint_SelectEndpoint(CDC2_RX_EPNUM);
 	

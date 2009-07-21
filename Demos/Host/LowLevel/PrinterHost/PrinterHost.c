@@ -226,7 +226,7 @@ void USB_Printer_Host(void)
 		
 			Printer_Data_t TestPageData =
 				{
-					"\033%-12345X\033E LUFA PCL Test Page \033E\033%-12345X",
+					"\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X",
 					(sizeof(TestPageData.Data) - 1)
 				};
 		

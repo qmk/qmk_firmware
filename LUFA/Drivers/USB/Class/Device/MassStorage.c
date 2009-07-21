@@ -96,7 +96,7 @@ bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 
 void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
-	if (!(USB_IsConnected))
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
 	  return;
 
 	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);

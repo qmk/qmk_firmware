@@ -181,28 +181,28 @@ bool GetNextReport(USB_JoystickReport_Data_t* ReportData)
 /** Function to manage HID report generation and transmission to the host. */
 void HID_Task(void)
 {
-	/* Check if the USB System is connected to a Host */
-	if (USB_IsConnected)
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+  
+	/* Select the Joystick Report Endpoint */
+	Endpoint_SelectEndpoint(JOYSTICK_EPNUM);
+
+	/* Check to see if the host is ready for another packet */
+	if (Endpoint_IsINReady())
 	{
-		/* Select the Joystick Report Endpoint */
-		Endpoint_SelectEndpoint(JOYSTICK_EPNUM);
-
-		/* Check to see if the host is ready for another packet */
-		if (Endpoint_IsINReady())
-		{
-			USB_JoystickReport_Data_t JoystickReportData;
-			
-			/* Create the next HID report to send to the host */
-			GetNextReport(&JoystickReportData);
+		USB_JoystickReport_Data_t JoystickReportData;
 		
-			/* Write Joystick Report Data */
-			Endpoint_Write_Stream_LE(&JoystickReportData, sizeof(JoystickReportData));
+		/* Create the next HID report to send to the host */
+		GetNextReport(&JoystickReportData);
+	
+		/* Write Joystick Report Data */
+		Endpoint_Write_Stream_LE(&JoystickReportData, sizeof(JoystickReportData));
 
-			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearIN();
-			
-			/* Clear the report data afterwards */
-			memset(&JoystickReportData, 0, sizeof(JoystickReportData));
-		}
+		/* Finalize the stream transfer to send the last packet */
+		Endpoint_ClearIN();
+		
+		/* Clear the report data afterwards */
+		memset(&JoystickReportData, 0, sizeof(JoystickReportData));
 	}
 }

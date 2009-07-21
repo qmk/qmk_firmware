@@ -141,17 +141,17 @@ void EVENT_USB_UnhandledControlPacket(void)
 	
 void SideShow_Task(void)
 {
-	/* Check if the USB System is connected to a Host */
-	if (USB_IsConnected)
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+
+	/* Select the SideShow data out endpoint */
+	Endpoint_SelectEndpoint(SIDESHOW_OUT_EPNUM);
+	
+	/* Check to see if a new SideShow message has been received */
+	if (Endpoint_IsReadWriteAllowed())
 	{
-		/* Select the SideShow data out endpoint */
-		Endpoint_SelectEndpoint(SIDESHOW_OUT_EPNUM);
-		
-		/* Check to see if a new SideShow message has been received */
-		if (Endpoint_IsReadWriteAllowed())
-		{
-			/* Process the received SideShow message */
-			Sideshow_ProcessCommandPacket();
-		}
+		/* Process the received SideShow message */
+		Sideshow_ProcessCommandPacket();
 	}
 }

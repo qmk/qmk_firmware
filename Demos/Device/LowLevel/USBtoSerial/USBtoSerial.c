@@ -204,89 +204,90 @@ void EVENT_USB_UnhandledControlPacket(void)
 /** Task to manage CDC data transmission and reception to and from the host, from and to the physical USART. */
 void CDC_Task(void)
 {
-	if (USB_IsConnected)
-	{
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+	  
 #if 0
-		/* NOTE: Here you can use the notification endpoint to send back line state changes to the host, for the special RS-232
-				 handshake signal lines (and some error states), via the CONTROL_LINE_IN_* masks and the following code:
-		*/
+	/* NOTE: Here you can use the notification endpoint to send back line state changes to the host, for the special RS-232
+			 handshake signal lines (and some error states), via the CONTROL_LINE_IN_* masks and the following code:
+	*/
 
-		USB_Notification_Header_t Notification = (USB_Notification_Header_t)
-			{
-				.NotificationType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-				.Notification     = NOTIF_SerialState,
-				.wValue           = 0,
-				.wIndex           = 0,
-				.wLength          = sizeof(uint16_t),
-			};
-			
-		uint16_t LineStateMask;
+	USB_Notification_Header_t Notification = (USB_Notification_Header_t)
+		{
+			.NotificationType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
+			.Notification     = NOTIF_SerialState,
+			.wValue           = 0,
+			.wIndex           = 0,
+			.wLength          = sizeof(uint16_t),
+		};
 		
-		// Set LineStateMask here to a mask of CONTROL_LINE_IN_* masks to set the input handshake line states to send to the host
-		
-		Endpoint_SelectEndpoint(CDC_NOTIFICATION_EPNUM);
-		Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
-		Endpoint_Write_Stream_LE(&LineStateMask, sizeof(LineStateMask));
-		Endpoint_ClearIN();
+	uint16_t LineStateMask;
+	
+	// Set LineStateMask here to a mask of CONTROL_LINE_IN_* masks to set the input handshake line states to send to the host
+	
+	Endpoint_SelectEndpoint(CDC_NOTIFICATION_EPNUM);
+	Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
+	Endpoint_Write_Stream_LE(&LineStateMask, sizeof(LineStateMask));
+	Endpoint_ClearIN();
 #endif
 
-		/* Select the Serial Rx Endpoint */
-		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
-		
-		/* Check to see if a packet has been received from the host */
-		if (Endpoint_IsOUTReceived())
+	/* Select the Serial Rx Endpoint */
+	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
+	
+	/* Check to see if a packet has been received from the host */
+	if (Endpoint_IsOUTReceived())
+	{
+		/* Read the bytes in from the endpoint into the buffer while space is available */
+		while (Endpoint_BytesInEndpoint() && (Rx_Buffer.Elements != BUFF_STATICSIZE))
 		{
-			/* Read the bytes in from the endpoint into the buffer while space is available */
-			while (Endpoint_BytesInEndpoint() && (Rx_Buffer.Elements != BUFF_STATICSIZE))
-			{
-				/* Store each character from the endpoint */
-				Buffer_StoreElement(&Rx_Buffer, Endpoint_Read_Byte());
-			}
-			
-			/* Check to see if all bytes in the current packet have been read */
-			if (!(Endpoint_BytesInEndpoint()))
-			{
-				/* Clear the endpoint buffer */
-				Endpoint_ClearOUT();
-			}
+			/* Store each character from the endpoint */
+			Buffer_StoreElement(&Rx_Buffer, Endpoint_Read_Byte());
 		}
 		
-		/* Check if Rx buffer contains data - if so, send it */
-		if (Rx_Buffer.Elements)
-		  Serial_TxByte(Buffer_GetElement(&Rx_Buffer));
+		/* Check to see if all bytes in the current packet have been read */
+		if (!(Endpoint_BytesInEndpoint()))
+		{
+			/* Clear the endpoint buffer */
+			Endpoint_ClearOUT();
+		}
+	}
+	
+	/* Check if Rx buffer contains data - if so, send it */
+	if (Rx_Buffer.Elements)
+	  Serial_TxByte(Buffer_GetElement(&Rx_Buffer));
 
-		/* Select the Serial Tx Endpoint */
-		Endpoint_SelectEndpoint(CDC_TX_EPNUM);
+	/* Select the Serial Tx Endpoint */
+	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
-		/* Check if the Tx buffer contains anything to be sent to the host */
-		if (Tx_Buffer.Elements)
+	/* Check if the Tx buffer contains anything to be sent to the host */
+	if (Tx_Buffer.Elements)
+	{
+		/* Wait until Serial Tx Endpoint Ready for Read/Write */
+		while (!(Endpoint_IsReadWriteAllowed()));
+		
+		/* Write the bytes from the buffer to the endpoint while space is available */
+		while (Tx_Buffer.Elements && Endpoint_IsReadWriteAllowed())
+		{
+			/* Write each byte retreived from the buffer to the endpoint */
+			Endpoint_Write_Byte(Buffer_GetElement(&Tx_Buffer));
+		}
+		
+		/* Remember if the packet to send completely fills the endpoint */
+		bool IsFull = (Endpoint_BytesInEndpoint() == CDC_TXRX_EPSIZE);
+		
+		/* Send the data */
+		Endpoint_ClearIN();
+
+		/* If no more data to send and the last packet filled the endpoint, send an empty packet to release
+		 * the buffer on the receiver (otherwise all data will be cached until a non-full packet is received) */
+		if (IsFull && !(Tx_Buffer.Elements))
 		{
 			/* Wait until Serial Tx Endpoint Ready for Read/Write */
 			while (!(Endpoint_IsReadWriteAllowed()));
-			
-			/* Write the bytes from the buffer to the endpoint while space is available */
-			while (Tx_Buffer.Elements && Endpoint_IsReadWriteAllowed())
-			{
-				/* Write each byte retreived from the buffer to the endpoint */
-				Endpoint_Write_Byte(Buffer_GetElement(&Tx_Buffer));
-			}
-			
-			/* Remember if the packet to send completely fills the endpoint */
-			bool IsFull = (Endpoint_BytesInEndpoint() == CDC_TXRX_EPSIZE);
-			
-			/* Send the data */
+
+			/* Send an empty packet to terminate the transfer */
 			Endpoint_ClearIN();
-
-			/* If no more data to send and the last packet filled the endpoint, send an empty packet to release
-			 * the buffer on the receiver (otherwise all data will be cached until a non-full packet is received) */
-			if (IsFull && !(Tx_Buffer.Elements))
-			{
-				/* Wait until Serial Tx Endpoint Ready for Read/Write */
-				while (!(Endpoint_IsReadWriteAllowed()));
-
-				/* Send an empty packet to terminate the transfer */
-				Endpoint_ClearIN();
-			}
 		}
 	}
 }

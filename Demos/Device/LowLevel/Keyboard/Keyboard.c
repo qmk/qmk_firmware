@@ -377,13 +377,13 @@ void ReceiveNextReport(void)
 /** Function to manage HID report generation and transmission to the host, when in report mode. */
 void HID_Task(void)
 {
-	/* Check if the USB system is connected to a host */
-	if (USB_IsConnected)
-	{
-		/* Send the next keypress report to the host */
-		SendNextReport();
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+	  
+	/* Send the next keypress report to the host */
+	SendNextReport();
 		
-		/* Process the LED report sent from the host */
-		ReceiveNextReport();
-	}
+	/* Process the LED report sent from the host */
+	ReceiveNextReport();
 }

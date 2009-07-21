@@ -284,6 +284,10 @@ void Ethernet_Task(void)
 	   outgoing frames should be loaded into the FrameOUT structure. Both structures can only hold a single
 	   Ethernet frame at a time, so the FrameInBuffer bool is used to indicate when the buffers contain data. */
 
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+
 	/* Check if a frame has been written to the IN frame buffer */
 	if (FrameIN.FrameInBuffer)
 	{

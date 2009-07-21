@@ -114,7 +114,7 @@ bool CDC_Device_ConfigureEndpoints(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 
 void CDC_Device_USBTask(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 {
-	if (!(USB_IsConnected))
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
 	  return;
 
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataINEndpointNumber);

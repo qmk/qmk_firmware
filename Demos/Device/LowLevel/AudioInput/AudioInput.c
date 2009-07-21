@@ -151,6 +151,10 @@ void EVENT_USB_UnhandledControlPacket(void)
 /** Task to manage the Audio interface, reading in ADC samples from the microphone, and them to the host. */
 void USB_Audio_Task(void)
 {
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+
 	/* Check to see if the streaming interface is selected, if not the host is not receiving audio */
 	if (!(StreamingAudioInterfaceSelected))
 	  return;

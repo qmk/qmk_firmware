@@ -254,6 +254,10 @@ void CDC_Task(void)
 			"Joystick Pressed\r\n",
 		};
 	
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+	  
 #if 0
 	/* NOTE: Here you can use the notification endpoint to send back line state changes to the host, for the special RS-232
 	 *       handshake signal lines (and some error states), via the CONTROL_LINE_IN_* masks and the following code:

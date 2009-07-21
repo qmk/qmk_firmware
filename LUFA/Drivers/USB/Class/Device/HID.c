@@ -152,7 +152,7 @@ bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfac
 		
 void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 {
-	if (!(USB_IsConnected))
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
 	  return;
 
 	Endpoint_SelectEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber);

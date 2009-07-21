@@ -212,6 +212,10 @@ void Keyboard_HID_Task(void)
 {
 	uint8_t JoyStatus_LCL = Joystick_GetStatus();
 
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
+
 	/* Check if board button is not pressed, if so mouse mode enabled */
 	if (!(Buttons_GetStatus() & BUTTONS_BUTTON1))
 	{
@@ -228,51 +232,47 @@ void Keyboard_HID_Task(void)
 		if (JoyStatus_LCL & JOY_PRESS)
 		  KeyboardReportData.KeyCode[0] = 0x08; // E
 	}
-	
-	/* Check if the USB system is connected to a host and report protocol mode is enabled */
-	if (USB_IsConnected)
+
+	/* Select the Keyboard Report Endpoint */
+	Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
+
+	/* Check if Keyboard Endpoint Ready for Read/Write */
+	if (Endpoint_IsReadWriteAllowed())
 	{
-		/* Select the Keyboard Report Endpoint */
-		Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
+		/* Write Keyboard Report Data */
+		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
 
-		/* Check if Keyboard Endpoint Ready for Read/Write */
-		if (Endpoint_IsReadWriteAllowed())
-		{
-			/* Write Keyboard Report Data */
-			Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
+		/* Finalize the stream transfer to send the last packet */
+		Endpoint_ClearIN();
 
-			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearIN();
+		/* Clear the report data afterwards */
+		memset(&KeyboardReportData, 0, sizeof(KeyboardReportData));
+	}
 
-			/* Clear the report data afterwards */
-			memset(&KeyboardReportData, 0, sizeof(KeyboardReportData));
-		}
+	/* Select the Keyboard LED Report Endpoint */
+	Endpoint_SelectEndpoint(KEYBOARD_OUT_EPNUM);
 
-		/* Select the Keyboard LED Report Endpoint */
-		Endpoint_SelectEndpoint(KEYBOARD_OUT_EPNUM);
+	/* Check if Keyboard LED Endpoint Ready for Read/Write */
+	if (Endpoint_IsReadWriteAllowed())
+	{		
+		/* Read in the LED report from the host */
+		uint8_t LEDStatus = Endpoint_Read_Byte();
+		uint8_t LEDMask   = LEDS_LED2;
+		
+		if (LEDStatus & 0x01) // NUM Lock
+		  LEDMask |= LEDS_LED1;
+		
+		if (LEDStatus & 0x02) // CAPS Lock
+		  LEDMask |= LEDS_LED3;
 
-		/* Check if Keyboard LED Endpoint Ready for Read/Write */
-		if (Endpoint_IsReadWriteAllowed())
-		{		
-			/* Read in the LED report from the host */
-			uint8_t LEDStatus = Endpoint_Read_Byte();
-			uint8_t LEDMask   = LEDS_LED2;
-			
-			if (LEDStatus & 0x01) // NUM Lock
-			  LEDMask |= LEDS_LED1;
-			
-			if (LEDStatus & 0x02) // CAPS Lock
-			  LEDMask |= LEDS_LED3;
+		if (LEDStatus & 0x04) // SCROLL Lock
+		  LEDMask |= LEDS_LED4;
 
-			if (LEDStatus & 0x04) // SCROLL Lock
-			  LEDMask |= LEDS_LED4;
+		/* Set the status LEDs to the current Keyboard LED status */
+		LEDs_SetAllLEDs(LEDMask);
 
-			/* Set the status LEDs to the current Keyboard LED status */
-			LEDs_SetAllLEDs(LEDMask);
-
-			/* Handshake the OUT Endpoint - clear endpoint and ready for next report */
-			Endpoint_ClearOUT();
-		}
+		/* Handshake the OUT Endpoint - clear endpoint and ready for next report */
+		Endpoint_ClearOUT();
 	}
 }
 
@@ -282,6 +282,10 @@ void Keyboard_HID_Task(void)
 void Mouse_HID_Task(void)
 {
 	uint8_t JoyStatus_LCL = Joystick_GetStatus();
+
+	/* Device must be connected and configured for the task to run */
+	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	  return;
 
 	/* Check if board button is pressed, if so mouse mode enabled */
 	if (Buttons_GetStatus() & BUTTONS_BUTTON1)
@@ -300,23 +304,19 @@ void Mouse_HID_Task(void)
 		  MouseReportData.Button  = (1 << 0);
 	}
 
-	/* Check if the USB system is connected to a host and report protocol mode is enabled */
-	if (USB_IsConnected)
+	/* Select the Mouse Report Endpoint */
+	Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
+
+	/* Check if Mouse Endpoint Ready for Read/Write */
+	if (Endpoint_IsReadWriteAllowed())
 	{
-		/* Select the Mouse Report Endpoint */
-		Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
+		/* Write Mouse Report Data */
+		Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData));
 
-		/* Check if Mouse Endpoint Ready for Read/Write */
-		if (Endpoint_IsReadWriteAllowed())
-		{
-			/* Write Mouse Report Data */
-			Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData));
+		/* Finalize the stream transfer to send the last packet */
+		Endpoint_ClearIN();
 
-			/* Finalize the stream transfer to send the last packet */
-			Endpoint_ClearIN();
-
-			/* Clear the report data afterwards */
-			memset(&MouseReportData, 0, sizeof(MouseReportData));
-		}
+		/* Clear the report data afterwards */
+		memset(&MouseReportData, 0, sizeof(MouseReportData));
 	}
 }

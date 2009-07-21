@@ -62,7 +62,7 @@ int main(void)
 {
 	SetupHardware();
 
-	puts_P(PSTR(ESC_FG_CYAN "CDC Host Demo running.\r\n"));
+	puts_P(PSTR(ESC_FG_CYAN "CDC Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
@@ -72,8 +72,11 @@ int main(void)
 		{
 			case HOST_STATE_Addressed:
 				if (!(CDC_Host_ConfigurePipes(&VirtualSerial_CDC_Interface)))
-				  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				  
+				{
+					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+				}
+				
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
@@ -135,8 +138,8 @@ void EVENT_USB_HostError(const uint8_t ErrorCode)
 {
 	USB_ShutDown();
 
-	puts_P(PSTR(ESC_FG_RED "Host Mode Error\r\n" ESC_FG_WHITE));
-	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
+	puts_P(PSTR(ESC_FG_RED "Host Mode Error\r\n"));
+	printf_P(PSTR(" -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 	for(;;);
