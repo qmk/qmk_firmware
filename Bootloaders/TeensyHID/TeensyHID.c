@@ -54,9 +54,6 @@ int main(void)
 	
 	while (RunBootloader)
 	  USB_USBTask();
-	
-	/* Reset all configured hardware to their default states for the user app */
-	ResetHardware();
 
 	/* Wait 100ms to give the host time to register the disconnection */
 	_delay_ms(100);
@@ -83,13 +80,6 @@ void SetupHardware(void)
 
 	/* Initialize USB subsystem */
 	USB_Init();
-}
-
-/** Resets all configured hardware required for the bootloader back to their original states. */
-void ResetHardware(void)
-{
-	/* Shut down the USB subsystem */
-	USB_ShutDown();
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This configures the device's endpoints ready

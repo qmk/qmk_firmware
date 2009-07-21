@@ -63,7 +63,6 @@
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void ResetHardware(void);
 
 		void EVENT_USB_ConfigurationChanged(void);
 		void EVENT_USB_UnhandledControlPacket(void);

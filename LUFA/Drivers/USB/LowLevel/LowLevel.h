@@ -334,9 +334,9 @@
 			#define USB_CLK_Freeze()           MACROS{ USBCON  |=  (1 << FRZCLK);               }MACROE
 			#define USB_CLK_Unfreeze()         MACROS{ USBCON  &= ~(1 << FRZCLK);               }MACROE
 
-			#define USB_Interface_Enable()     MACROS{ USBCON  |=  (1 << USBE);                 }MACROE
-			#define USB_Interface_Disable()    MACROS{ USBCON  &= ~(1 << USBE);                 }MACROE
-			#define USB_Interface_Reset()      MACROS{ uint8_t Temp = USBCON; USBCON = (Temp & ~(1 << USBE)); \
+			#define USB_Controller_Enable()    MACROS{ USBCON  |=  (1 << USBE);                 }MACROE
+			#define USB_Controller_Disable()   MACROS{ USBCON  &= ~(1 << USBE);                 }MACROE
+			#define USB_Controller_Reset()     MACROS{ uint8_t Temp = USBCON; USBCON = (Temp & ~(1 << USBE)); \
 			                                           USBCON = (Temp | (1 << USBE));           }MACROE
 	
 		/* Inline Functions: */
