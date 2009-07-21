@@ -5,7 +5,7 @@
                     |___|___|_||_n_|    Framework for AVRs
                   =========================================
                             Written by Dean Camera
-                       http://www.fourwalledcubicle.com
+                  http://www.fourwalledcubicle.com/LUFA.php
                   =========================================
 
 

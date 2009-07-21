@@ -75,8 +75,16 @@ int main(void)
 				{
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
 				}
 				
+				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
+				{
+					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
+
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
