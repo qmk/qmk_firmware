@@ -166,9 +166,6 @@ void Keyboard_HID_Task(void)
 				break;
 			}
 				
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
 			puts_P(PSTR("Processing HID Report.\r\n"));
 
 			/* Get and process the device's first HID report descriptor */
@@ -187,9 +184,9 @@ void Keyboard_HID_Task(void)
 
 			puts_P(PSTR("Keyboard Enumerated.\r\n"));
 
-			USB_HostState = HOST_STATE_Ready;
+			USB_HostState = HOST_STATE_Configured;
 			break;
-		case HOST_STATE_Ready:
+		case HOST_STATE_Configured:
 			/* Select and unfreeze keyboard data pipe */
 			Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
 			Pipe_Unfreeze();

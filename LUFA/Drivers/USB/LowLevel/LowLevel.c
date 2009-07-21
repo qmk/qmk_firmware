@@ -110,15 +110,21 @@ void USB_Init(
 
 void USB_ShutDown(void)
 {
-	if (USB_IsConnected)
+	#if defined(USB_CAN_BE_DEVICE)
+	if (USB_DeviceState != DEVICE_STATE_Unattached)
 	  EVENT_USB_Disconnect();
+	#endif
+	
+	#if defined(USB_CAN_BE_HOST)
+	if (USB_HostState != HOST_STATE_Unattached)
+	  EVENT_USB_Disconnect();
+	#endif
 
 	USB_Detach();
 
 	USB_INT_DisableAllInterrupts();
 	USB_INT_ClearAllInterrupts();
 
-	USB_IsConnected   = false;
 	USB_IsInitialized = false;
 
 	#if defined(USB_CAN_BE_HOST)
@@ -126,7 +132,10 @@ void USB_ShutDown(void)
 	#endif
 
 	#if defined(USB_CAN_BE_DEVICE)
-	USB_ConfigurationNumber = 0;
+	USB_DeviceState = DEVICE_STATE_Unattached;
+	USB_ConfigurationNumber  = 0;
+	USB_RemoteWakeupEnabled  = false;
+	USB_CurrentlySelfPowered = false;
 	#endif
 
 	#if defined(CAN_BE_BOTH)
@@ -149,16 +158,14 @@ void USB_ResetInterface(void)
 {
 	USB_INT_DisableAllInterrupts();
 	USB_INT_ClearAllInterrupts();
-
-	USB_IsConnected = false;
-
+	
 	#if defined(USB_CAN_BE_HOST)
-	USB_HostState = HOST_STATE_Unattached;
+	USB_HostState   = HOST_STATE_Unattached;
 	#endif
-
+	
 	#if defined(USB_CAN_BE_DEVICE)
+	USB_DeviceState = DEVICE_STATE_Unattached;
 	USB_ConfigurationNumber  = 0;
-	USB_IsSuspended          = false;
 	USB_RemoteWakeupEnabled  = false;
 	USB_CurrentlySelfPowered = false;
 	#endif

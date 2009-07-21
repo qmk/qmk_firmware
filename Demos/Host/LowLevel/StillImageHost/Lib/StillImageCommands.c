@@ -152,12 +152,9 @@ uint8_t SImage_RecieveBlockHeader(void)
 		}
 		  
 		/* Check to see if the device was disconnected, if so exit function */
-		if (!(USB_IsConnected))
-		{
-			/* Return error code */
-			return PIPE_RWSTREAM_DeviceDisconnected;
-		}
-	};
+		if (USB_HostState == HOST_STATE_Unattached)
+		  return PIPE_RWSTREAM_DeviceDisconnected;
+	}
 	
 	/* Freeze OUT pipe after use */
 	Pipe_SelectPipe(SIMAGE_DATA_OUT_PIPE);

@@ -142,7 +142,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 void SideShow_Task(void)
 {
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	/* Select the SideShow data out endpoint */

@@ -166,14 +166,11 @@ void StillImage_Task(void)
 				break;
 			}
 				
+			puts_P(PSTR("Still Image Device Enumerated.\r\n"));
+
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-			puts_P(PSTR("Still Image Device Enumerated.\r\n"));
-				
-			USB_HostState = HOST_STATE_Ready;
-			break;
-		case HOST_STATE_Ready:
 			/* Indicate device busy via the status LEDs */
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 			
@@ -331,9 +328,7 @@ void StillImage_Task(void)
 			/* Indicate device no longer busy */
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
 			
-			/* Wait until USB device disconnected */
-			while (USB_IsConnected);
-			
+			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			break;
 	}
 }

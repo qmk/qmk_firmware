@@ -19,17 +19,23 @@
  *    - The "Dynamic Memory Block Allocator" has been removed, as it was unused in (and unrelated to) the LUFA library and never
  *      used in user applications. The library is available from the author's website for those wishing to still use it in their
  *      applications.
+ *    - The USB_IsConnected global has been removed, as it is too vague for general use. Test \ref USB_DeviceState or \ref USB_HostState
+ *      explicitly to ensure the device is in the desired state instead.
  *
  *  <b>Host Mode</b>
  *    - The HIDParser.c module has moved from LUFA/Drivers/USB/Class/ to LUFA/Drivers/USB/Class/Host/.
- *    - The USB_GetDeviceConfigDescriptor() function now requires the desired configuration index within the device as its first
+ *    - The \ref USB_GetDeviceConfigDescriptor() function now requires the desired configuration index within the device as its first
  *      parameter, to add support for multi-configuration devices. Existing code should use a configuration index of 1 to indicate the
  *      first configuration descriptor within the device.
+ *    - The non-standard "Ready" host state has been removed. Existing \ref HOST_STATE_Configured code should be moved to the end of
+ *      the existing \ref HOST_STATE_Addressed state, and the existing HOST_STATE_Ready state code should be moved to the \ref HOST_STATE_Configured
+ *      state.
  *
  *  <b>Device Mode</b>
  *    - The \ref CALLBACK_USB_GetDescriptor() function now takes an extra parameter to specify the descriptor's memory space so that
  *      descriptors in mixed memory spaces can be used. The previous functionality can be returned by defining the USE_FLASH_DESCRIPTORS
  *      token in the project makefile to fix all descriptors into FLASH space and remove the extra function parameter.
+ *    - Removed USB_IsSuspended - test \ref USB_DeviceState against \ref DEVICE_STATE_Suspended instead.
  *
  *
  * \section Sec_Migration090605 Migrating from 090510 to 090605

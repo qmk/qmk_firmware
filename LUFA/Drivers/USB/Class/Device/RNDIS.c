@@ -138,7 +138,7 @@ bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_Device_t* const RNDISIn
 
 void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
 {
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;

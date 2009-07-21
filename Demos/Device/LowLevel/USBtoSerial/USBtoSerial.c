@@ -192,9 +192,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 						 CONTROL_LINE_OUT_* masks to determine the RTS and DTR line states using the following code:
 				*/
 
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 	
 			break;
@@ -205,7 +203,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 void CDC_Task(void)
 {
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 	  
 #if 0
@@ -264,7 +262,11 @@ void CDC_Task(void)
 	if (Tx_Buffer.Elements)
 	{
 		/* Wait until Serial Tx Endpoint Ready for Read/Write */
-		while (!(Endpoint_IsReadWriteAllowed()));
+		while (!(Endpoint_IsReadWriteAllowed()))
+		{
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return;
+		}
 		
 		/* Write the bytes from the buffer to the endpoint while space is available */
 		while (Tx_Buffer.Elements && Endpoint_IsReadWriteAllowed())
@@ -284,8 +286,12 @@ void CDC_Task(void)
 		if (IsFull && !(Tx_Buffer.Elements))
 		{
 			/* Wait until Serial Tx Endpoint Ready for Read/Write */
-			while (!(Endpoint_IsReadWriteAllowed()));
-
+			while (!(Endpoint_IsReadWriteAllowed()))
+			{
+				if (USB_DeviceState == DEVICE_STATE_Unattached)
+				  return;
+			}
+				
 			/* Send an empty packet to terminate the transfer */
 			Endpoint_ClearIN();
 		}
@@ -298,11 +304,8 @@ void CDC_Task(void)
 ISR(USART1_RX_vect, ISR_BLOCK)
 {
 	/* Only store received characters if the USB interface is connected */
-	if (USB_IsConnected)
-	{
-		/* Character received, store it into the buffer */
-		Buffer_StoreElement(&Tx_Buffer, UDR1);
-	}
+	if (USB_DeviceState != DEVICE_STATE_Configured)
+	  Buffer_StoreElement(&Tx_Buffer, UDR1);
 }
 
 /** Reconfigures the USART to match the current serial port settings issued by the host as closely as possible. */

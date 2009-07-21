@@ -172,7 +172,11 @@ void EVENT_USB_UnhandledControlPacket(void)
 				Endpoint_ClearSETUP();
 				
 				/* Wait until the LED report has been sent by the host */
-				while (!(Endpoint_IsOUTReceived()));
+				while (!(Endpoint_IsOUTReceived()))
+				{
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
 
 				/* Read in the LED report from the host */
 				uint8_t LEDStatus = Endpoint_Read_Byte();
@@ -183,9 +187,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Clear the endpoint data */
 				Endpoint_ClearOUT();
 
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -200,9 +202,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Send the flag to the host */
 				Endpoint_ClearIN();
 
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearOUT();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -214,9 +214,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Set or clear the flag depending on what the host indicates that the current Protocol should be */
 				UsingReportProtocol = (USB_ControlRequest.wValue != 0);
 
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -228,9 +226,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Get idle period in MSB, IdleCount must be multiplied by 4 to get number of milliseconds */
 				IdleCount = ((USB_ControlRequest.wValue & 0xFF00) >> 6);
 				
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -245,9 +241,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Send the flag to the host */
 				Endpoint_ClearIN();
 
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearOUT();
+				Endpoint_ClearStatusStage();
 			}
 
 			break;
@@ -378,7 +372,7 @@ void ReceiveNextReport(void)
 void HID_Task(void)
 {
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 	  
 	/* Send the next keypress report to the host */

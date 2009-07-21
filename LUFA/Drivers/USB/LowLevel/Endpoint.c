@@ -71,6 +71,30 @@ void Endpoint_ClearEndpoints(void)
 	}
 }
 
+void Endpoint_ClearStatusStage(void)
+{
+	if (USB_ControlRequest.bmRequestType & REQDIR_DEVICETOHOST)
+	{
+		while (!(Endpoint_IsOUTReceived()))
+		{				
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return;
+		}
+
+		Endpoint_ClearOUT();
+	}
+	else
+	{
+		while (!(Endpoint_IsINReady()))
+		{
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return;
+		}
+		
+		Endpoint_ClearIN();
+	}
+}
+
 #if !defined(CONTROL_ONLY_DEVICE)
 uint8_t Endpoint_WaitUntilReady(void)
 {
@@ -93,7 +117,7 @@ uint8_t Endpoint_WaitUntilReady(void)
 			  return ENDPOINT_READYWAIT_NoError;		
 		}
 		
-		if (!(USB_IsConnected))
+		if (USB_DeviceState == DEVICE_STATE_Unattached)
 		  return ENDPOINT_READYWAIT_DeviceDisconnected;
 		else if (Endpoint_IsStalled())
 		  return ENDPOINT_READYWAIT_EndpointStalled;

@@ -139,9 +139,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Check if the host is enabling the audio interface (setting AlternateSetting to 1) */
 				StreamingAudioInterfaceSelected = ((USB_ControlRequest.wValue) != 0);
 				
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 
 			break;
@@ -152,7 +150,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 void USB_Audio_Task(void)
 {
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	/* Check to see if the streaming interface is selected, if not the host is not receiving audio */

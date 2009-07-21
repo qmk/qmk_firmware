@@ -60,12 +60,12 @@ void USB_Host_ProcessNextHostState(void)
 			}
 		
 			break;
-		case HOST_STATE_Attached:
+		case HOST_STATE_Powered:
 			WaitMSRemaining = HOST_DEVICE_SETTLE_DELAY_MS;
 		
-			USB_HostState = HOST_STATE_Attached_WaitForDeviceSettle;
+			USB_HostState = HOST_STATE_Powered_WaitForDeviceSettle;
 			break;
-		case HOST_STATE_Attached_WaitForDeviceSettle:
+		case HOST_STATE_Powered_WaitForDeviceSettle:
 			#if HOST_DEVICE_SETTLE_DELAY_MS > 0
 			_delay_ms(1);
 
@@ -77,14 +77,14 @@ void USB_Host_ProcessNextHostState(void)
 				USB_Host_VBUS_Auto_Enable();
 				USB_Host_VBUS_Auto_On();
 				
-				USB_HostState = HOST_STATE_Attached_WaitForConnect;
+				USB_HostState = HOST_STATE_Powered_WaitForConnect;
 			}
 			#else
-			USB_HostState = HOST_STATE_Attached_WaitForConnect;			
+			USB_HostState = HOST_STATE_Powered_WaitForConnect;			
 			#endif
 			
 			break;
-		case HOST_STATE_Attached_WaitForConnect:		
+		case HOST_STATE_Powered_WaitForConnect:		
 			if (USB_INT_HasOccurred(USB_INT_DCONNI))
 			{	
 				USB_INT_Clear(USB_INT_DCONNI);
@@ -93,22 +93,21 @@ void USB_Host_ProcessNextHostState(void)
 				USB_INT_Clear(USB_INT_VBERRI);
 				USB_INT_Enable(USB_INT_VBERRI);
 
-				USB_IsConnected = true;
 				EVENT_USB_Connect();
 					
 				USB_Host_ResumeBus();
 				Pipe_ClearPipes();
 				
-				HOST_TASK_NONBLOCK_WAIT(100, HOST_STATE_Attached_DoReset);
+				HOST_TASK_NONBLOCK_WAIT(100, HOST_STATE_Powered_DoReset);
 			}
 
 			break;
-		case HOST_STATE_Attached_DoReset:
+		case HOST_STATE_Powered_DoReset:
 			USB_Host_ResetDevice();
 
-			HOST_TASK_NONBLOCK_WAIT(200, HOST_STATE_Powered);
+			HOST_TASK_NONBLOCK_WAIT(200, HOST_STATE_Powered_ConfigPipe);
 			break;
-		case HOST_STATE_Powered:
+		case HOST_STATE_Powered_ConfigPipe:
 			Pipe_ConfigurePipe(PIPE_CONTROLPIPE, EP_TYPE_CONTROL,
 							   PIPE_TOKEN_SETUP, ENDPOINT_CONTROLEP,
 							   PIPE_CONTROLPIPE_DEFAULT_SIZE, PIPE_BANK_SINGLE);		
@@ -199,9 +198,7 @@ void USB_Host_ProcessNextHostState(void)
 		USB_Host_VBUS_Auto_Off();
 
 		EVENT_USB_DeviceUnattached();
-		
-		if (USB_IsConnected)
-		  EVENT_USB_Disconnect();
+		EVENT_USB_Disconnect();
 
 		USB_ResetInterface();
 	}
@@ -222,7 +219,7 @@ uint8_t USB_Host_WaitMS(uint8_t MS)
 			MS--;
 		}
 					
-		if ((USB_IsConnected == false) || (USB_CurrentMode == USB_MODE_DEVICE))
+		if ((USB_HostState == HOST_STATE_Unattached) || (USB_CurrentMode == USB_MODE_DEVICE))
 		{
 			ErrorCode = HOST_WAITERROR_DeviceDisconnect;
 			

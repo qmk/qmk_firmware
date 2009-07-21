@@ -157,7 +157,7 @@
  *  On the smaller USB AVRs, the USB controller lacks VBUS events to determine the physical connection state of the USB bus to a host. In lieu of
  *  VBUS events, the library attempts to determine the connection state via the bus suspension and wake up events instead. This however may be
  *  slightly inaccurate due to the possibility of the host suspending the bus while the device is still connected. If accurate connection status is
- *  required, the VBUS line of the USB connector should be routed to an AVR pin to detect its level, so that the USB_IsConnected global
+ *  required, the VBUS line of the USB connector should be routed to an AVR pin to detect its level, so that the USB_DeviceState global
  *  can be accurately set and the USB_Connect and USB_Disconnect events manually raised by the RAISE_EVENT macro. When defined, this token disables
  *  the library's auto-detection of the connection state by the aforementioned suspension and wake up events.
  *

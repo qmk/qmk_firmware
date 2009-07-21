@@ -337,9 +337,6 @@ void HID_Host_Task(void)
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-			USB_HostState = HOST_STATE_Ready;
-			break;
-		case HOST_STATE_Ready:
 			DiscardNextReport();
 
 			break;

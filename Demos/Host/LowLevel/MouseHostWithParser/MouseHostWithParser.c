@@ -166,9 +166,6 @@ void Mouse_HID_Task(void)
 				break;
 			}
 			
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
 			puts_P(PSTR("Processing HID Report.\r\n"));
 
 			/* Get and process the device's first HID report descriptor */
@@ -186,10 +183,10 @@ void Mouse_HID_Task(void)
 			}
 
 			puts_P(PSTR("Mouse Enumerated.\r\n"));
-				
-			USB_HostState = HOST_STATE_Ready;
+
+			USB_HostState = HOST_STATE_Configured;
 			break;
-		case HOST_STATE_Ready:
+		case HOST_STATE_Configured:
 			/* Select and unfreeze mouse data pipe */
 			Pipe_SelectPipe(MOUSE_DATAPIPE);	
 			Pipe_Unfreeze();

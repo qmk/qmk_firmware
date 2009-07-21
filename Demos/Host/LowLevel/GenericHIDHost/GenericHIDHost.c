@@ -266,14 +266,11 @@ void HID_Host_Task(void)
 				break;
 			}
 			
+			puts_P(PSTR("HID Device Enumerated.\r\n"));
+
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-			puts_P(PSTR("HID Device Enumerated.\r\n"));
-					
-			USB_HostState = HOST_STATE_Ready;
-			break;
-		case HOST_STATE_Ready:
 			ReadNextReport();
 
 			break;

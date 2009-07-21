@@ -177,7 +177,11 @@ void EVENT_USB_UnhandledControlPacket(void)
 			/* If the request has a data stage, load it into the command struct */
 			if (SentCommand.DataSize)
 			{
-				while (!(Endpoint_IsOUTReceived()));
+				while (!(Endpoint_IsOUTReceived()))
+				{				
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
 
 				/* First byte of the data stage is the DNLOAD request's command */
 				SentCommand.Command = Endpoint_Read_Byte();
@@ -235,7 +239,12 @@ void EVENT_USB_UnhandledControlPacket(void)
 							if (!(Endpoint_BytesInEndpoint()))
 							{
 								Endpoint_ClearOUT();
-								while (!(Endpoint_IsOUTReceived()));
+
+								while (!(Endpoint_IsOUTReceived()))
+								{				
+									if (USB_DeviceState == DEVICE_STATE_Unattached)
+									  return;
+								}
 							}
 
 							/* Write the next word into the current flash page */
@@ -279,7 +288,12 @@ void EVENT_USB_UnhandledControlPacket(void)
 							if (!(Endpoint_BytesInEndpoint()))
 							{
 								Endpoint_ClearOUT();
-								while (!(Endpoint_IsOUTReceived()));
+
+								while (!(Endpoint_IsOUTReceived()))
+								{				
+									if (USB_DeviceState == DEVICE_STATE_Unattached)
+									  return;
+								}
 							}
 
 							/* Read the byte from the USB interface and write to to the EEPROM */
@@ -297,16 +311,18 @@ void EVENT_USB_UnhandledControlPacket(void)
 
 			Endpoint_ClearOUT();
 
-			/* Acknowledge status stage */
-			while (!(Endpoint_IsINReady()));
-			Endpoint_ClearIN();
-				
+			Endpoint_ClearStatusStage();
+
 			break;
 		case DFU_UPLOAD:
 			Endpoint_ClearSETUP();
 
-			while (!(Endpoint_IsINReady()));
-
+			while (!(Endpoint_IsINReady()))
+			{				
+				if (USB_DeviceState == DEVICE_STATE_Unattached)
+				  return;
+			}
+							
 			if (DFU_State != dfuUPLOAD_IDLE)
 			{
 				if ((DFU_State == dfuERROR) && IS_ONEBYTE_COMMAND(SentCommand.Data, 0x01))       // Blank Check
@@ -343,7 +359,12 @@ void EVENT_USB_UnhandledControlPacket(void)
 						if (Endpoint_BytesInEndpoint() == FIXED_CONTROL_ENDPOINT_SIZE)
 						{
 							Endpoint_ClearIN();
-							while (!(Endpoint_IsINReady()));
+
+							while (!(Endpoint_IsINReady()))
+							{				
+								if (USB_DeviceState == DEVICE_STATE_Unattached)
+								  return;
+							}
 						}
 
 						/* Read the flash word and send it via USB to the host */
@@ -368,7 +389,12 @@ void EVENT_USB_UnhandledControlPacket(void)
 						if (Endpoint_BytesInEndpoint() == FIXED_CONTROL_ENDPOINT_SIZE)
 						{
 							Endpoint_ClearIN();
-							while (!(Endpoint_IsINReady()));
+							
+							while (!(Endpoint_IsINReady()))
+							{				
+								if (USB_DeviceState == DEVICE_STATE_Unattached)
+								  return;
+							}
 						}
 
 						/* Read the EEPROM byte and send it via USB to the host */
@@ -385,10 +411,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 
 			Endpoint_ClearIN();
 
-			/* Acknowledge status stage */
-			while (!(Endpoint_IsOUTReceived()));
-			Endpoint_ClearOUT();
-
+			Endpoint_ClearStatusStage();
 			break;
 		case DFU_GETSTATUS:
 			Endpoint_ClearSETUP();
@@ -408,10 +431,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 
 			Endpoint_ClearIN();
 			
-			/* Acknowledge status stage */
-			while (!(Endpoint_IsOUTReceived()));
-			Endpoint_ClearOUT();
-	
+			Endpoint_ClearStatusStage();
 			break;		
 		case DFU_CLRSTATUS:
 			Endpoint_ClearSETUP();
@@ -419,10 +439,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 			/* Reset the status value variable to the default OK status */
 			DFU_Status = OK;
 
-			/* Acknowledge status stage */
-			while (!(Endpoint_IsINReady()));
-			Endpoint_ClearIN();
-			
+			Endpoint_ClearStatusStage();
 			break;
 		case DFU_GETSTATE:
 			Endpoint_ClearSETUP();
@@ -432,21 +449,15 @@ void EVENT_USB_UnhandledControlPacket(void)
 		
 			Endpoint_ClearIN();
 			
-			/* Acknowledge status stage */
-			while (!(Endpoint_IsOUTReceived()));
-			Endpoint_ClearOUT();
-
+			Endpoint_ClearStatusStage();
 			break;
 		case DFU_ABORT:
 			Endpoint_ClearSETUP();
 			
 			/* Reset the current state variable to the default idle state */
 			DFU_State = dfuIDLE;
-			
-			/* Acknowledge status stage */
-			while (!(Endpoint_IsINReady()));
-			Endpoint_ClearIN();
 
+			Endpoint_ClearStatusStage();
 			break;
 	}
 }
@@ -465,7 +476,11 @@ static void DiscardFillerBytes(uint8_t NumberOfBytes)
 			Endpoint_ClearOUT();
 
 			/* Wait until next data packet received */
-			while (!(Endpoint_IsOUTReceived()));
+			while (!(Endpoint_IsOUTReceived()))
+			{				
+				if (USB_DeviceState == DEVICE_STATE_Unattached)
+				  return;
+			}
 		}
 		else
 		{

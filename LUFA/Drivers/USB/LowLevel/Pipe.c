@@ -93,7 +93,7 @@ uint8_t Pipe_WaitUntilReady(void)
 
 		if (Pipe_IsStalled())
 		  return PIPE_READYWAIT_PipeStalled;
-		else if (!(USB_IsConnected))
+		else if (USB_HostState == HOST_STATE_Unattached)
 		  return PIPE_READYWAIT_DeviceDisconnected;
 			  
 		if (USB_INT_HasOccurred(USB_INT_HSOFI))

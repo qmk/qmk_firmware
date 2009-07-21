@@ -154,7 +154,7 @@ static uint8_t MassStore_WaitForDataReceived(void)
 		}
 		  
 		/* Check to see if the device was disconnected, if so exit function */
-		if (!(USB_IsConnected))
+		if (USB_HostState == HOST_STATE_Unattached)
 		  return PIPE_RWSTREAM_DeviceDisconnected;
 	};
 	
@@ -206,7 +206,11 @@ static uint8_t MassStore_SendReceiveData(void* BufferPtr)
 		/* Acknowledge the packet */
 		Pipe_ClearOUT();
 		
-		while (!(Pipe_IsOUTReady()));
+		while (!(Pipe_IsOUTReady()))
+		{
+			if (USB_HostState == HOST_STATE_Unattached)
+			  return PIPE_RWSTREAM_DeviceDisconnected;
+		}
 	}
 	
 	/* Freeze used pipe after use */

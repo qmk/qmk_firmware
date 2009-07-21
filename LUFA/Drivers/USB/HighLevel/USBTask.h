@@ -55,23 +55,6 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Global Variables: */
-			/** Indicates if the USB interface is currently connected to a host if in device mode, or to a
-			 *  device while running in host mode.
-			 *
-			 *  \note This variable should be treated as read-only in the user application, and never manually
-			 *        changed in value.
-			 *
-			 *  \note For the smaller USB AVRs (AT90USBXX2) with limited USB controllers, VBUS is not available to the USB controller.
-			 *        this means that the current connection state is derived from the bus suspension and wake up events by default,
-			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
-			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
-			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
-			 *        and disconnection events may be manually fired, and the \ref USB_IsConnected global changed manually.
-			 *
-			 *  \ingroup Group_USBManagement
-			 */
-			extern volatile bool USB_IsConnected;
-
 			/** Indicates if the USB interface is currently initialized but not necessarily connected to a host
 			 *  or device (i.e. if \ref USB_Init() has been run). If this is false, all other library globals are invalid.
 			 *
@@ -90,37 +73,41 @@
 			 */
 			 extern USB_Request_Header_t USB_ControlRequest;
 			
-			#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
-			/** Indicates if the USB interface is currently suspended by the host when in device mode. When suspended,
-			 *  the device should consume minimal power, and cannot communicate to the host. If Remote Wakeup is
-			 *  supported by the device and \ref USB_RemoteWakeupEnabled is true, suspension can be terminated by the device
-			 *  by issuing a Remote Wakeup request.
-			 *
-			 *  \note This global is only present if the user application can be a USB device.
-			 *
-			 *  \note This variable should be treated as read-only in the user application, and never manually
-			 *        changed in value.
-			 *
-			 *  \ingroup Group_Device
-			 */
-			extern volatile bool USB_IsSuspended;
-			#endif
-
 			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
 			/** Indicates the current host state machine state. When in host mode, this indicates the state
-			 *  via one of the values of the \ref USB_Host_States_t enum values in Host.h.
+			 *  via one of the values of the \ref USB_Host_States_t enum values.
 			 *
 			 *  This value may be altered by the user application to implement the \ref HOST_STATE_Addressed,
-			 *  \ref HOST_STATE_Configured, \ref HOST_STATE_Ready and \ref HOST_STATE_Suspended states which
-			 *  are not implemented by the library.
+			 *  \ref HOST_STATE_Configured and \ref HOST_STATE_Suspended states which are not implemented by
+			 *  the library.
 			 *
 			 *  \note This global is only present if the user application can be a USB host.
 			 *
-			 *  \see \ref USB_Host_States_t for a list of possible host states
+			 *  \see \ref USB_Host_States_t for a list of possible device states
 			 *
 			 *  \ingroup Group_Host
 			 */
 			extern volatile uint8_t USB_HostState;
+			#endif
+
+			#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
+			/** Indicates the current device state machine state. When in device mode, this indicates the state
+			 *  via one of the values of the \ref USB_Device_States_t enum values.
+			 *
+			 *  This value should not be altered by the user application as it is handled automatically by the
+			 *  library. The only exception to this rule is if the NO_LIMITED_CONTROLLER_CONNECT token is used
+			 *  (see \ref EVENT_USB_Connect() and \ref EVENT_USB_Disconnect() events).
+			 *
+			 *  \note This global is only present if the user application can be a USB device.
+			 *
+			 *  \note This variable should be treated as read-only in the user application, and never manually
+			 *        changed in value except in the circumstances outlined above.
+			 *
+			 *  \see \ref USB_Device_States_t for a list of possible device states
+			 *
+			 *  \ingroup Group_Device
+			 */
+			extern volatile uint8_t USB_DeviceState;
 			#endif
 
 		/* Function Prototypes: */

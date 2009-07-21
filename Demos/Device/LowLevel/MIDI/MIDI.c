@@ -117,7 +117,7 @@ void MIDI_Task(void)
 	static uint8_t PrevJoystickStatus;
 
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPNUM);

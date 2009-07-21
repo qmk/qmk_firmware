@@ -50,8 +50,7 @@ void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_Device_t* const Audio
 				
 				AudioInterfaceInfo->State.InterfaceEnabled = (USB_ControlRequest.wValue != 0);
 				  
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 
 			break;

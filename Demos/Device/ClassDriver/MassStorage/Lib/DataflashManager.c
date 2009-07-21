@@ -69,7 +69,11 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, co
 	Dataflash_SendAddressBytes(0, CurrDFPageByte);
 
 	/* Wait until endpoint is ready before continuing */
-	while (!(Endpoint_IsReadWriteAllowed()));
+	while (!(Endpoint_IsReadWriteAllowed()))
+	{
+		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		  return;
+	}
 
 	while (TotalBlocks)
 	{
@@ -85,7 +89,11 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, co
 				Endpoint_ClearOUT();
 				
 				/* Wait until the host has sent another packet */
-				while (!(Endpoint_IsReadWriteAllowed()));
+				while (!(Endpoint_IsReadWriteAllowed()))
+				{
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
 			}
 
 			/* Check if end of dataflash page reached */
@@ -197,7 +205,11 @@ void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, con
 	Dataflash_SendByte(0x00);
 	
 	/* Wait until endpoint is ready before continuing */
-	while (!(Endpoint_IsReadWriteAllowed()));
+	while (!(Endpoint_IsReadWriteAllowed()))
+	{
+		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		  return;
+	}
 	
 	while (TotalBlocks)
 	{
@@ -213,7 +225,11 @@ void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, con
 				Endpoint_ClearIN();
 				
 				/* Wait until the endpoint is ready for more data */
-				while (!(Endpoint_IsReadWriteAllowed()));
+				while (!(Endpoint_IsReadWriteAllowed()))
+				{
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
 			}
 			
 			/* Check if end of dataflash page reached */

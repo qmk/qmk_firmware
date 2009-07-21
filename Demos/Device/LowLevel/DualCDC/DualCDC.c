@@ -211,9 +211,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
 				
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 	
 			break;
@@ -228,19 +226,18 @@ void CDC1_Task(void)
 	char*       ReportString    = NULL;
 	uint8_t     JoyStatus_LCL   = Joystick_GetStatus();
 	static bool ActionSent      = false;
-
+	char*       JoystickStrings[] =
+					{
+						"Joystick Up\r\n",
+						"Joystick Down\r\n",
+						"Joystick Left\r\n",
+						"Joystick Right\r\n",
+						"Joystick Pressed\r\n",
+					};
+	
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
-
-	char* JoystickStrings[] =
-		{
-			"Joystick Up\r\n",
-			"Joystick Down\r\n",
-			"Joystick Left\r\n",
-			"Joystick Right\r\n",
-			"Joystick Pressed\r\n",
-		};
 
 	/* Determine if a joystick action has occurred */
 	if (JoyStatus_LCL & JOY_UP)
@@ -273,7 +270,11 @@ void CDC1_Task(void)
 		Endpoint_ClearIN();
 
 		/* Wait until the endpoint is ready for another packet */
-		while (!(Endpoint_IsINReady()));
+		while (!(Endpoint_IsINReady()))
+		{
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return;
+		}
 		
 		/* Send an empty packet to ensure that the host does not buffer data sent to it */
 		Endpoint_ClearIN();
@@ -293,7 +294,7 @@ void CDC1_Task(void)
 void CDC2_Task(void)
 {
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	/* Select the Serial Rx Endpoint */
@@ -324,7 +325,11 @@ void CDC2_Task(void)
 		Endpoint_ClearIN();
 
 		/* Wait until the endpoint is ready for the next packet */
-		while (!(Endpoint_IsINReady()));
+		while (!(Endpoint_IsINReady()))
+		{
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return;
+		}
 
 		/* Send an empty packet to prevent host buffering */
 		Endpoint_ClearIN();

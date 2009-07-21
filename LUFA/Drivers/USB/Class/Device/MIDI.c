@@ -70,7 +70,7 @@ void MIDI_Device_USBTask(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
 
 void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
 {
-	if (!(USB_IsConnected))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 	
 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpointNumber);
@@ -84,7 +84,7 @@ void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfac
 
 bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
 {
-	if (!(USB_IsConnected))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return false;
 	
 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataOUTEndpointNumber);

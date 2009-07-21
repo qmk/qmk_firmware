@@ -41,7 +41,7 @@ Bluetooth_Device_t     Bluetooth_DeviceConfiguration ATTR_WEAK =
 
 void Bluetooth_Stack_Task(void)
 {
-	if (!(USB_IsConnected) || (USB_HostState != HOST_STATE_Ready))
+	if (USB_HostState != HOST_STATE_Configured)
 	  Bluetooth_HCIProcessingState = Bluetooth_Init;
 		
 	Bluetooth_ProcessHCICommands();

@@ -29,6 +29,8 @@
   *  - Added new USE_FLASH_DESCRIPTORS and TOTAL_NUM_CONFIGURATIONS compile time options
   *  - Added support for the new ATMEGA32U2, ATMEGA16U2 and ATMEGA8U2 AVR models
   *  - Added new PrinterHost demo (thanks to John Andrews)
+  *  - Added new USB_DeviceState variable to keep track of the current Device mode USB state
+  *  - Added new Endpoint_ClearStatusStage() convenience function to assist with the status stages of control transfers
   *  
   *  <b>Changed:</b>
   *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)
@@ -47,6 +49,8 @@
   *    descriptor is located can be specified. This means that descriptors can now be located in multiple memory spaces within a device.
   *  - Host mode demos now use sane terminal escape codes, so that text is always readable and events/program output is visually distinguished
   *    from oneanother using foreground colours
+  *  - Removed vague USB_IsConnected global - test USB_DeviceState or USB_HostState explicitly to gain previous functionality
+  *  - Removed USB_IsSuspended global - test USB_DeviceState against DEVICE_STATE_Suspended instead
   *
   *  <b>Fixed:</b>
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix
@@ -91,6 +95,8 @@
   *    LUFA/Drivers/USB/Class/ directory to LUFA/Drivers/USB/HighLevel/ in preperation for the new USB class APIs
   *  - Moved out each demos' functionality library files (e.g. Ring Buffer library) to /Lib directories for a better directory structure
   *  - Removed Tx interrupt from the USBtoSerial demo; now sends characters via polling to ensure more time for the Rx interrupt
+  *  - Fixed possible enumeration errors from spinloops which may fail to exit if the USB connection is severed before the exit condition
+  *    becomes true
   *
   *
   *  \section Sec_ChangeLog090510 Version 090510

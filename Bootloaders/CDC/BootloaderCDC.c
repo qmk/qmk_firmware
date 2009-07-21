@@ -165,9 +165,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				
 				Endpoint_ClearIN();
 				
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearOUT();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -176,16 +174,18 @@ void EVENT_USB_UnhandledControlPacket(void)
 			{
 				Endpoint_ClearSETUP();
 
-				while (!(Endpoint_IsOUTReceived()));
-
+				while (!(Endpoint_IsOUTReceived()))
+				{				
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
+			
 				for (uint8_t i = 0; i < sizeof(LineCoding); i++)
 				  *(LineCodingData++) = Endpoint_Read_Byte();
 
 				Endpoint_ClearOUT();
 
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 	
 			break;
@@ -194,9 +194,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 			{
 				Endpoint_ClearSETUP();
 				
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 	
 			break;
@@ -333,7 +331,12 @@ static uint8_t FetchNextCommandByte(void)
 	while (!(Endpoint_IsReadWriteAllowed()))
 	{
 		Endpoint_ClearOUT();
-		while (!(Endpoint_IsOUTReceived()));
+
+		while (!(Endpoint_IsOUTReceived()))
+		{
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return 0;
+		}
 	}
 	
 	/* Fetch the next byte from the OUT endpoint */
@@ -354,7 +357,12 @@ static void WriteNextResponseByte(const uint8_t Response)
 	if (!(Endpoint_IsReadWriteAllowed()))
 	{
 		Endpoint_ClearIN();
-		while (!(Endpoint_IsINReady()));
+		
+		while (!(Endpoint_IsINReady()))
+		{				
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return;
+		}
 	}
 	
 	/* Write the next byte to the OUT endpoint */
@@ -563,12 +571,21 @@ void CDC_Task(void)
 		/* If a full endpoint's worth of data was sent, we need to send an empty packet afterwards to signal end of transfer */
 		if (IsEndpointFull)
 		{
-			while (!(Endpoint_IsINReady()));
+			while (!(Endpoint_IsINReady()))
+			{				
+				if (USB_DeviceState == DEVICE_STATE_Unattached)
+				  return;
+			}
+
 			Endpoint_ClearIN();
 		}
 
 		/* Wait until the data has been sent to the host */
-		while (!(Endpoint_IsINReady()));
+		while (!(Endpoint_IsINReady()))
+		{				
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return;
+		}
 		
 		/* Select the OUT endpoint */
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);

@@ -148,7 +148,11 @@ void EVENT_USB_UnhandledControlPacket(void)
 				Endpoint_ClearSETUP();
 				
 				/* Wait until the generic report has been sent by the host */
-				while (!(Endpoint_IsOUTReceived()));
+				while (!(Endpoint_IsOUTReceived()))
+				{
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
 
 				Endpoint_Read_Control_Stream_LE(&GenericData, sizeof(GenericData));
 
@@ -158,7 +162,11 @@ void EVENT_USB_UnhandledControlPacket(void)
 				Endpoint_ClearOUT();
 
 				/* Wait until the host is ready to receive the request confirmation */
-				while (!(Endpoint_IsINReady()));
+				while (!(Endpoint_IsINReady()))
+				{
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
 				
 				/* Handshake the request by sending an empty IN packet */
 				Endpoint_ClearIN();
@@ -203,7 +211,7 @@ void CreateGenericHIDReport(uint8_t* DataArray)
 void HID_Task(void)
 {
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	Endpoint_SelectEndpoint(GENERIC_OUT_EPNUM);

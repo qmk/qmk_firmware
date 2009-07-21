@@ -164,15 +164,12 @@ void CDC_Host_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-				
+
+			puts_P(PSTR("CDC Device Enumerated.\r\n"));
+
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-			puts_P(PSTR("CDC Device Enumerated.\r\n"));
-				
-			USB_HostState = HOST_STATE_Ready;
-			break;
-		case HOST_STATE_Ready:
 			/* Select and the data IN pipe */
 			Pipe_SelectPipe(CDC_DATAPIPE_IN);
 			Pipe_Unfreeze();

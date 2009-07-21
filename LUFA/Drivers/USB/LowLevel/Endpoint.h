@@ -431,14 +431,14 @@
 				ENDPOINT_RWSTREAM_EndpointStalled    = 1, /**< The endpoint was stalled during the stream
 				                                           *   transfer by the host or device.
 				                                           */
-				ENDPOINT_RWSTREAM_DeviceDisconnected = 1, /**< Device was disconnected from the host during
+				ENDPOINT_RWSTREAM_DeviceDisconnected = 2, /**< Device was disconnected from the host during
 				                                           *   the transfer.
 				                                           */
-				ENDPOINT_RWSTREAM_Timeout            = 2, /**< The host failed to accept or send the next packet
+				ENDPOINT_RWSTREAM_Timeout            = 3, /**< The host failed to accept or send the next packet
 				                                           *   within the software timeout period set by the
 				                                           *   \ref USB_STREAM_TIMEOUT_MS macro.
 				                                           */
-				ENDPOINT_RWSTREAM_CallbackAborted    = 3, /**< Indicates that the stream's callback function
+				ENDPOINT_RWSTREAM_CallbackAborted    = 4, /**< Indicates that the stream's callback function
 			                                               *   aborted the transfer early.
 				                                           */
 			};
@@ -451,6 +451,9 @@
 			{
 				ENDPOINT_RWCSTREAM_NoError            = 0, /**< Command completed successfully, no error. */
 				ENDPOINT_RWCSTREAM_HostAborted        = 1, /**< The aborted the transfer prematurely. */
+				ENDPOINT_RWCSTREAM_DeviceDisconnected = 2, /**< Device was disconnected from the host during
+				                                            *   the transfer.
+				                                            */
 			};
 
 		/* Inline Functions: */
@@ -726,6 +729,12 @@
 			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_WaitUntilReady(void);
+			
+			/** Completes the status stage of a control transfer on a CONTROL type endpoint automatically,
+			 *  with respect to the data direction. This is a convenience function which can be used to
+			 *  simplify user control request handling.
+			 */
+			void Endpoint_ClearStatusStage(void);
 
 			/** Reads and discards the given number of bytes from the endpoint from the given buffer,
 			 *  discarding fully read packets from the host as needed. The last packet is not automatically
@@ -922,6 +931,9 @@
 			 *  in both failure and success states; the user is responsible for manually clearing the setup OUT to
 			 *  finalize the transfer via the \ref Endpoint_ClearOUT() macro.
 			 *
+			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
+			 *        to clear the status stage when using this routine in a control transaction.
+			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
@@ -938,6 +950,9 @@
 
 			/** EEPROM buffer source version of Endpoint_Write_Control_Stream_LE.
 			 *
+			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
+			 *        to clear the status stage when using this routine in a control transaction.
+			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
@@ -953,6 +968,9 @@
 			uint8_t Endpoint_Write_Control_EStream_LE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** FLASH buffer source version of \ref Endpoint_Write_Control_Stream_LE.
+			 *
+			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
+			 *        to clear the status stage when using this routine in a control transaction.
 			 *
 			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *
@@ -975,6 +993,9 @@
 			 *  in both failure and success states; the user is responsible for manually clearing the setup OUT to
 			 *  finalize the transfer via the \ref Endpoint_ClearOUT() macro.
 			 *
+			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
+			 *        to clear the status stage when using this routine in a control transaction.
+			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
@@ -991,6 +1012,9 @@
 
 			/** EEPROM buffer source version of \ref Endpoint_Write_Control_Stream_BE.
 			 *
+			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
+			 *        to clear the status stage when using this routine in a control transaction.
+			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
@@ -1006,6 +1030,9 @@
 			uint8_t Endpoint_Write_Control_EStream_BE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** FLASH buffer source version of \ref Endpoint_Write_Control_Stream_BE.
+			 *
+			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
+			 *        to clear the status stage when using this routine in a control transaction.
 			 *
 			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *
@@ -1028,6 +1055,9 @@
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
 			 *  setup IN to finalize the transfer via the \ref Endpoint_ClearIN() macro.
 			 *
+			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
+			 *        to clear the status stage when using this routine in a control transaction.
+			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
@@ -1043,6 +1073,9 @@
 			uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Endpoint_Read_Control_Stream_LE.
+			 *
+			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
+			 *        to clear the status stage when using this routine in a control transaction.
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -1063,6 +1096,9 @@
 			 *  automatically sent after success or failure states; the user is responsible for manually sending the
 			 *  setup IN to finalize the transfer via the \ref Endpoint_ClearIN() macro.
 			 *
+			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
+			 *        to clear the status stage when using this routine in a control transaction.
+			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
 			 *  \warning Unlike the standard stream read/write commands, the control stream commands cannot be chained
@@ -1078,6 +1114,9 @@
 			uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);		
 			
 			/** EEPROM buffer source version of \ref Endpoint_Read_Control_Stream_BE.
+			 *
+			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
+			 *        to clear the status stage when using this routine in a control transaction.
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *

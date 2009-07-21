@@ -88,8 +88,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* const HIDInterf
 				Endpoint_Write_Byte(HIDInterfaceInfo->State.UsingReportProtocol);
 				Endpoint_ClearIN();
 
-				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearOUT();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -100,8 +99,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* const HIDInterf
 
 				HIDInterfaceInfo->State.UsingReportProtocol = (USB_ControlRequest.wValue != 0x0000);
 				
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -115,8 +113,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* const HIDInterf
 					
 					HIDInterfaceInfo->State.IdleCount = ((USB_ControlRequest.wValue & 0xFF00) >> 6);
 					
-					while (!(Endpoint_IsINReady()));
-					Endpoint_ClearIN();
+					Endpoint_ClearStatusStage();
 				}
 			}
 			
@@ -129,8 +126,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* const HIDInterf
 				Endpoint_Write_Byte(HIDInterfaceInfo->State.IdleCount >> 2);
 				Endpoint_ClearIN();
 
-				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearOUT();
+				Endpoint_ClearStatusStage();
 			}
 
 			break;
@@ -152,7 +148,7 @@ bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfac
 		
 void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 {
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	Endpoint_SelectEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber);

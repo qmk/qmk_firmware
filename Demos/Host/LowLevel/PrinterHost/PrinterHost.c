@@ -195,9 +195,6 @@ void USB_Printer_Host(void)
 				}
 			}
 			
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
 			puts_P(PSTR("Retrieving Device ID...\r\n"));
 		
 			char DeviceIDString[256];
@@ -217,10 +214,10 @@ void USB_Printer_Host(void)
 			printf_P(PSTR("Printer Device ID: %s\r\n"), DeviceIDString);
 
 			puts_P(PSTR("Printer Enumerated.\r\n"));
-					
-			USB_HostState = HOST_STATE_Ready;
+
+			USB_HostState = HOST_STATE_Configured;
 			break;
-		case HOST_STATE_Ready:
+		case HOST_STATE_Configured:
 			/* Indicate device busy via the status LEDs */
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 		

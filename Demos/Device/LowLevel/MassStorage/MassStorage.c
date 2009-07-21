@@ -142,9 +142,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Indicate that the current transfer should be aborted */
 				IsMassStoreReset = true;			
 
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 
 			break;
@@ -158,9 +156,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				
 				Endpoint_ClearIN();
 				
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearOUT();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -172,67 +168,67 @@ void EVENT_USB_UnhandledControlPacket(void)
  */
 void MassStorage_Task(void)
 {
-	/* Check if the USB System is connected to a Host */
-	if (USB_IsConnected)
+	/* Device must be connected and configured for the task to run */
+	if (USB_DeviceState != DEVICE_STATE_Configured)
+	  return;
+	  
+	/* Select the Data Out Endpoint */
+	Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
+	
+	/* Check to see if a command from the host has been issued */
+	if (Endpoint_IsReadWriteAllowed())
 	{
-		/* Select the Data Out Endpoint */
-		Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
-		
-		/* Check to see if a command from the host has been issued */
-		if (Endpoint_IsReadWriteAllowed())
+		/* Indicate busy */
+		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+
+		/* Process sent command block from the host */
+		if (ReadInCommandBlock())
 		{
-			/* Indicate busy */
-			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+			/* Check direction of command, select Data IN endpoint if data is from the device */
+			if (CommandBlock.Flags & COMMAND_DIRECTION_DATA_IN)
+			  Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
 
-			/* Process sent command block from the host */
-			if (ReadInCommandBlock())
+			/* Decode the received SCSI command */
+			SCSI_DecodeSCSICommand();
+
+			/* Load in the CBW tag into the CSW to link them together */
+			CommandStatus.Tag = CommandBlock.Tag;
+
+			/* Load in the data residue counter into the CSW */
+			CommandStatus.DataTransferResidue = CommandBlock.DataTransferLength;
+
+			/* Stall the selected data pipe if command failed (if data is still to be transferred) */
+			if ((CommandStatus.Status == Command_Fail) && (CommandStatus.DataTransferResidue))
+			  Endpoint_StallTransaction();
+
+			/* Return command status block to the host */
+			ReturnCommandStatus();
+			
+			/* Check if a Mass Storage Reset occurred */
+			if (IsMassStoreReset)
 			{
-				/* Check direction of command, select Data IN endpoint if data is from the device */
-				if (CommandBlock.Flags & COMMAND_DIRECTION_DATA_IN)
-				  Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
-
-				/* Decode the received SCSI command */
-				SCSI_DecodeSCSICommand();
-
-				/* Load in the CBW tag into the CSW to link them together */
-				CommandStatus.Tag = CommandBlock.Tag;
-
-				/* Load in the data residue counter into the CSW */
-				CommandStatus.DataTransferResidue = CommandBlock.DataTransferLength;
-
-				/* Stall the selected data pipe if command failed (if data is still to be transferred) */
-				if ((CommandStatus.Status == Command_Fail) && (CommandStatus.DataTransferResidue))
-				  Endpoint_StallTransaction();
-
-				/* Return command status block to the host */
-				ReturnCommandStatus();
+				/* Reset the data endpoint banks */
+				Endpoint_ResetFIFO(MASS_STORAGE_OUT_EPNUM);
+				Endpoint_ResetFIFO(MASS_STORAGE_IN_EPNUM);
 				
-				/* Check if a Mass Storage Reset occurred */
-				if (IsMassStoreReset)
-				{
-					/* Reset the data endpoint banks */
-					Endpoint_ResetFIFO(MASS_STORAGE_OUT_EPNUM);
-					Endpoint_ResetFIFO(MASS_STORAGE_IN_EPNUM);
-					
-					Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
-					Endpoint_ClearStall();
-					Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
-					Endpoint_ClearStall();
-				}
+				Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
+				Endpoint_ClearStall();
+				Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
+				Endpoint_ClearStall();
+			}
 
-				/* Indicate ready */
-				LEDs_SetAllLEDs(LEDMASK_USB_READY);
-			}
-			else
-			{
-				/* Indicate error reading in the command block from the host */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-			}
+			/* Indicate ready */
+			LEDs_SetAllLEDs(LEDMASK_USB_READY);
 		}
-
-		/* Clear the abort transfer flag */
-		IsMassStoreReset = false;
+		else
+		{
+			/* Indicate error reading in the command block from the host */
+			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+		}
 	}
+
+	/* Clear the abort transfer flag */
+	IsMassStoreReset = false;
 }
 
 /** Function to read in a command block from the host, via the bulk data OUT endpoint. This function reads in the next command block

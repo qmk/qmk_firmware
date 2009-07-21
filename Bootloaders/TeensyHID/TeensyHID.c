@@ -119,7 +119,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				
 				/* Wait until the command (report) has been sent by the host */
 				while (!(Endpoint_IsOUTReceived()));
-
+			
 				/* Read in the write destination address */
 				uint16_t PageAddress = Endpoint_Read_Word_LE();
 				
@@ -158,9 +158,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 
 				Endpoint_ClearOUT();
 
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;

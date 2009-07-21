@@ -53,8 +53,7 @@ void MS_Device_ProcessControlPacket(USB_ClassInfo_MS_Device_t* const MSInterface
 
 				MSInterfaceInfo->State.IsMassStoreReset = true;			
 
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 
 			break;
@@ -63,12 +62,10 @@ void MS_Device_ProcessControlPacket(USB_ClassInfo_MS_Device_t* const MSInterface
 			{
 				Endpoint_ClearSETUP();
 
-				Endpoint_Write_Byte(MSInterfaceInfo->Config.TotalLUNs - 1);
-				
+				Endpoint_Write_Byte(MSInterfaceInfo->Config.TotalLUNs - 1);				
 				Endpoint_ClearIN();
 				
-				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearOUT();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -96,7 +93,7 @@ bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 
 void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);

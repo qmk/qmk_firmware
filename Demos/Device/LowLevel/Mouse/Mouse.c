@@ -172,9 +172,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Send the flag to the host */
 				Endpoint_ClearIN();
 
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearOUT();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -186,9 +184,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Set or clear the flag depending on what the host indicates that the current Protocol should be */
 				UsingReportProtocol = (USB_ControlRequest.wValue != 0);
 				
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -200,9 +196,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Get idle period in MSB, must multiply by 4 to get the duration in milliseconds */
 				IdleCount = ((USB_ControlRequest.wValue & 0xFF00) >> 6);
 				
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -217,9 +211,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Send the flag to the host */
 				Endpoint_ClearIN();
 
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsOUTReceived()));
-				Endpoint_ClearOUT();
+				Endpoint_ClearStatusStage();
 			}
 
 			break;
@@ -314,7 +306,7 @@ void SendNextReport(void)
 void Mouse_Task(void)
 {
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 	  
 	/* Send the next mouse report to the host */

@@ -117,13 +117,22 @@ void USB_Device_ProcessControlPacket(void)
 
 static void USB_Device_SetAddress(void)
 {
+	uint8_t DeviceAddress = (USB_ControlRequest.wValue & 0x7F);
+
 	Endpoint_ClearSETUP();
 	
 	Endpoint_ClearIN();
 	
-	while (!(Endpoint_IsINReady()));
+	while (!(Endpoint_IsINReady()))
+	{
+		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		  return;
+	}
 
-	UDADDR = ((1 << ADDEN) | ((uint8_t)USB_ControlRequest.wValue & 0x7F));
+	UDADDR = ((1 << ADDEN) | DeviceAddress);
+
+	if (DeviceAddress)
+	  USB_DeviceState = DEVICE_STATE_Addressed;
 
 	return;
 }
@@ -185,8 +194,17 @@ static void USB_Device_SetConfiguration(void)
 
 	Endpoint_ClearIN();
 
-	if (!(AlreadyConfigured) && USB_ConfigurationNumber)
-	  EVENT_USB_DeviceEnumerationComplete();
+	if (USB_ConfigurationNumber)
+	{
+		USB_DeviceState = DEVICE_STATE_Configured;
+
+		if (!(AlreadyConfigured))
+		  EVENT_USB_DeviceEnumerationComplete();
+	}
+	else
+	{
+		USB_DeviceState = DEVICE_STATE_Addressed;
+	}
 
 	EVENT_USB_ConfigurationChanged();
 }
@@ -199,7 +217,12 @@ void USB_Device_GetConfiguration(void)
 	
 	Endpoint_ClearIN();
 
-	while (!(Endpoint_IsOUTReceived()));
+	while (!(Endpoint_IsOUTReceived()))
+	{
+		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		  return;	
+	}
+
 	Endpoint_ClearOUT();
 }
 
@@ -332,7 +355,12 @@ static void USB_Device_GetStatus(void)
 
 	Endpoint_ClearIN();
 	
-	while (!(Endpoint_IsOUTReceived()));
+	while (!(Endpoint_IsOUTReceived()))
+	{
+		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		  return;	
+	}
+	
 	Endpoint_ClearOUT();
 }
 

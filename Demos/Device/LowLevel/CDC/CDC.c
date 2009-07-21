@@ -56,12 +56,15 @@ CDC_Line_Coding_t LineCoding = { .BaudRateBPS = 9600,
  */
 	
 static int CDC_putchar (char c, FILE *stream)
-{
-	if (!(USB_IsConnected))
-	  return -1;
-	  
+{	  
 	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
-	while (!(Endpoint_IsReadWriteAllowed()));
+
+	while (!(Endpoint_IsReadWriteAllowed()))
+	{
+		if (USB_DeviceState != DEVICE_STATE_Configured)
+		  return -1;
+	}
+
 	Endpoint_Write_Byte(c);
 	Endpoint_ClearIN();
 	
@@ -76,10 +79,11 @@ static int CDC_getchar (FILE *stream)
 	
 	for (;;)
 	{
-		if (!(USB_IsConnected))
-		  return -1;
-
-		while (!(Endpoint_IsReadWriteAllowed()));
+		while (!(Endpoint_IsReadWriteAllowed()))
+		{
+			if (USB_DeviceState != DEVICE_STATE_Configured)
+			  return -1;
+		}
 	
 		if (!(Endpoint_BytesInEndpoint()))
 		{
@@ -229,9 +233,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 						 CONTROL_LINE_OUT_* masks to determine the RTS and DTR line states using the following code:
 				*/
 				
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 	
 			break;
@@ -244,18 +246,17 @@ void CDC_Task(void)
 	char*       ReportString    = NULL;
 	uint8_t     JoyStatus_LCL   = Joystick_GetStatus();
 	static bool ActionSent      = false;
-
-	char* JoystickStrings[] =
-		{
-			"Joystick Up\r\n",
-			"Joystick Down\r\n",
-			"Joystick Left\r\n",
-			"Joystick Right\r\n",
-			"Joystick Pressed\r\n",
-		};
+	char*       JoystickStrings[] =
+					{
+						"Joystick Up\r\n",
+						"Joystick Down\r\n",
+						"Joystick Left\r\n",
+						"Joystick Right\r\n",
+						"Joystick Pressed\r\n",
+					};
 	
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 	  
 #if 0
@@ -319,7 +320,11 @@ void CDC_Task(void)
 		if (IsFull)
 		{
 			/* Wait until the endpoint is ready for another packet */
-			while (!(Endpoint_IsINReady()));
+			while (!(Endpoint_IsINReady()))
+			{
+				if (USB_DeviceState == DEVICE_STATE_Unattached)
+				  return;
+			}
 			
 			/* Send an empty packet to ensure that the host does not buffer data sent to it */
 			Endpoint_ClearIN();

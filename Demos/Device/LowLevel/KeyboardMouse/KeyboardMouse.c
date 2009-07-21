@@ -174,7 +174,11 @@ void EVENT_USB_UnhandledControlPacket(void)
 				Endpoint_ClearSETUP();
 				
 				/* Wait until the LED report has been sent by the host */
-				while (!(Endpoint_IsOUTReceived()));
+				while (!(Endpoint_IsOUTReceived()))
+				{
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
 
 				/* Read in the LED report from the host */
 				uint8_t LEDStatus = Endpoint_Read_Byte();
@@ -195,9 +199,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				/* Clear the endpoint data */
 				Endpoint_ClearOUT();
 
-				/* Acknowledge status stage */
-				while (!(Endpoint_IsINReady()));
-				Endpoint_ClearIN();
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -213,7 +215,7 @@ void Keyboard_HID_Task(void)
 	uint8_t JoyStatus_LCL = Joystick_GetStatus();
 
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	/* Check if board button is not pressed, if so mouse mode enabled */
@@ -284,7 +286,7 @@ void Mouse_HID_Task(void)
 	uint8_t JoyStatus_LCL = Joystick_GetStatus();
 
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	/* Check if board button is pressed, if so mouse mode enabled */

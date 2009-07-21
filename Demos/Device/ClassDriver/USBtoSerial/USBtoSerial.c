@@ -152,7 +152,7 @@ void EVENT_USB_UnhandledControlPacket(void)
  */
 ISR(USART1_RX_vect, ISR_BLOCK)
 {
-	if (USB_IsConnected)
+	if (USB_DeviceState == DEVICE_STATE_Configured)
 	  Buffer_StoreElement(&Tx_Buffer, UDR1);
 }
 

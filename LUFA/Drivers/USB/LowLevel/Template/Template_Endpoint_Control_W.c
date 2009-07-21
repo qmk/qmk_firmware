@@ -8,7 +8,11 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer, uint16_t Length)
 	
 	while (Length && !(Endpoint_IsOUTReceived()))
 	{
-		while (!(Endpoint_IsINReady()));
+		while (!(Endpoint_IsINReady()))
+		{
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return ENDPOINT_RWCSTREAM_DeviceDisconnected;
+		}
 		
 		while (Length && (Endpoint_BytesInEndpoint() < USB_ControlEndpointSize))
 		{
@@ -25,11 +29,20 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer, uint16_t Length)
 	
 	if (LastPacketFull)
 	{
-		while (!(Endpoint_IsINReady()));
+		while (!(Endpoint_IsINReady()))
+		{
+			if (USB_DeviceState == DEVICE_STATE_Unattached)
+			  return ENDPOINT_RWCSTREAM_DeviceDisconnected;		
+		}
+		
 		Endpoint_ClearIN();
 	}
 	
-	while (!(Endpoint_IsOUTReceived()));
+	while (!(Endpoint_IsOUTReceived()))
+	{
+		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		  return ENDPOINT_RWCSTREAM_DeviceDisconnected;	
+	}
 
 	return ENDPOINT_RWCSTREAM_NoError;
 }

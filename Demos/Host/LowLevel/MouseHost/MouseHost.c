@@ -226,9 +226,6 @@ void Mouse_HID_Task(void)
 				break;
 			}
 			
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
 			/* HID class request to set the mouse protocol to the Boot Protocol */
 			USB_ControlRequest = (USB_Request_Header_t)
 				{
@@ -257,10 +254,10 @@ void Mouse_HID_Task(void)
 			}
 
 			puts_P(PSTR("Mouse Enumerated.\r\n"));
-			
-			USB_HostState = HOST_STATE_Ready;
+
+			USB_HostState = HOST_STATE_Configured;
 			break;
-		case HOST_STATE_Ready:
+		case HOST_STATE_Configured:
 			/* If a report has been received, read and process it */
 			ReadNextReport();
 

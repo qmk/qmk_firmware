@@ -114,7 +114,12 @@ void Bluetooth_ProcessHCICommands(void)
 
 			do
 			{
-				while (!(Bluetooth_GetNextHCIEventHeader()));
+				while (!(Bluetooth_GetNextHCIEventHeader()))
+				{
+					if (USB_HostState == HOST_STATE_Unattached)
+					  return;
+				}
+		
 				Bluetooth_DiscardRemainingHCIEventParameters();
 			} while (HCIEventHeader.EventCode != EVENT_COMMAND_COMPLETE);
 
@@ -133,7 +138,12 @@ void Bluetooth_ProcessHCICommands(void)
 
 			do
 			{
-				while (!(Bluetooth_GetNextHCIEventHeader()));
+				while (!(Bluetooth_GetNextHCIEventHeader()))
+				{
+					if (USB_HostState == HOST_STATE_Unattached)
+					  return;
+				}
+
 				Bluetooth_DiscardRemainingHCIEventParameters();
 			} while (HCIEventHeader.EventCode != EVENT_COMMAND_COMPLETE);
 
@@ -155,7 +165,12 @@ void Bluetooth_ProcessHCICommands(void)
 			                                                                    EventMask[3], EventMask[2], EventMask[1], EventMask[0]);
 			do
 			{
-				while (!(Bluetooth_GetNextHCIEventHeader()));
+				while (!(Bluetooth_GetNextHCIEventHeader()))
+				{
+					if (USB_HostState == HOST_STATE_Unattached)
+					  return;
+				}
+
 				Bluetooth_DiscardRemainingHCIEventParameters();
 			} while (HCIEventHeader.EventCode != EVENT_COMMAND_COMPLETE);
 		
@@ -176,7 +191,12 @@ void Bluetooth_ProcessHCICommands(void)
 			
 			do
 			{
-				while (!(Bluetooth_GetNextHCIEventHeader()));
+				while (!(Bluetooth_GetNextHCIEventHeader()))
+				{
+					if (USB_HostState == HOST_STATE_Unattached)
+					  return;
+				}
+
 				Bluetooth_DiscardRemainingHCIEventParameters();
 			} while (HCIEventHeader.EventCode != EVENT_COMMAND_COMPLETE);
 			
@@ -195,7 +215,12 @@ void Bluetooth_ProcessHCICommands(void)
 
 			do
 			{
-				while (!(Bluetooth_GetNextHCIEventHeader()));
+				while (!(Bluetooth_GetNextHCIEventHeader()))
+				{
+					if (USB_HostState == HOST_STATE_Unattached)
+					  return;
+				}
+
 				Bluetooth_DiscardRemainingHCIEventParameters();
 			} while (HCIEventHeader.EventCode != EVENT_COMMAND_COMPLETE);
 
@@ -215,7 +240,12 @@ void Bluetooth_ProcessHCICommands(void)
 
 			do
 			{
-				while (!(Bluetooth_GetNextHCIEventHeader()));
+				while (!(Bluetooth_GetNextHCIEventHeader()))
+				{
+					if (USB_HostState == HOST_STATE_Unattached)
+					  return;
+				}
+
 				Bluetooth_DiscardRemainingHCIEventParameters();
 			} while (HCIEventHeader.EventCode != EVENT_COMMAND_COMPLETE);
 
@@ -366,7 +396,12 @@ void Bluetooth_ProcessHCICommands(void)
 		
 			do
 			{
-				while (!(Bluetooth_GetNextHCIEventHeader()));
+				while (!(Bluetooth_GetNextHCIEventHeader()))
+				{				
+					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					  return;
+				}
+
 				Bluetooth_DiscardRemainingHCIEventParameters();
 			} while (HCIEventHeader.EventCode != EVENT_COMMAND_COMPLETE);
 

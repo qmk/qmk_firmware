@@ -33,13 +33,15 @@
 #define  INCLUDE_FROM_USBTASK_C
 #include "USBTask.h"
 
-volatile bool        USB_IsSuspended;
-volatile bool        USB_IsConnected;
 volatile bool        USB_IsInitialized;
 USB_Request_Header_t USB_ControlRequest;
 
 #if defined(USB_CAN_BE_HOST)
 volatile uint8_t     USB_HostState;
+#endif
+
+#if defined(USB_CAN_BE_DEVICE)
+volatile uint8_t     USB_DeviceState;
 #endif
 
 void USB_USBTask(void)
@@ -59,7 +61,7 @@ void USB_USBTask(void)
 #if defined(USB_CAN_BE_DEVICE)
 static void USB_DeviceTask(void)
 {
-	if (USB_IsConnected)
+	if (USB_DeviceState != DEVICE_STATE_Unattached)
 	{
 		uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
 	

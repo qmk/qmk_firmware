@@ -171,14 +171,11 @@ void MassStorage_Task(void)
 				break;
 			}
 				
+			puts_P(PSTR("Mass Storage Disk Enumerated.\r\n"));
+
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-			puts_P(PSTR("Mass Storage Disk Enumerated.\r\n"));
-				
-			USB_HostState = HOST_STATE_Ready;
-			break;
-		case HOST_STATE_Ready:
 			/* Indicate device busy via the status LEDs */
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 			
@@ -241,7 +238,11 @@ void MassStorage_Task(void)
 			{
 				Serial_TxByte('.');
 				
-				if ((ErrorCode = MassStore_TestUnitReady(0)) != 0)
+				/* Abort if device removed */
+				if (USB_HostState == HOST_STATE_Unattached)
+				  break;
+
+				if ((ErrorCode = MassStore_TestUnitReady(0)) != PIPE_RWSTREAM_NoError)
 				{
 					ShowDiskReadError(PSTR("Test Unit Ready"), false, ErrorCode);
 
@@ -249,11 +250,7 @@ void MassStorage_Task(void)
 					break;
 				}
 			}
-			while ((SCSICommandStatus.Status != Command_Pass) && USB_IsConnected);
-			
-			/* Abort if device removed */
-			if (!(USB_IsConnected))
-			  break;
+			while (SCSICommandStatus.Status != Command_Pass);
 
 			puts_P(PSTR("\r\nRetrieving Capacity... "));
 
@@ -320,7 +317,7 @@ void MassStorage_Task(void)
 			while (!(Buttons_GetStatus() & BUTTONS_BUTTON1))
 			{
 				/* Abort if device removed */
-				if (!(USB_IsConnected))
+				if (USB_HostState == HOST_STATE_Unattached)
 				  break;
 			}
 			
@@ -346,7 +343,7 @@ void MassStorage_Task(void)
 				}
 
 				/* Abort if device removed */
-				if (!(USB_IsConnected))
+				if (USB_HostState == HOST_STATE_Unattached)
 				  break;
 			}
 			

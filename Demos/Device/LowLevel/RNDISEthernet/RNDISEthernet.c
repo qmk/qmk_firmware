@@ -285,7 +285,7 @@ void Ethernet_Task(void)
 	   Ethernet frame at a time, so the FrameInBuffer bool is used to indicate when the buffers contain data. */
 
 	/* Device must be connected and configured for the task to run */
-	if (!(USB_IsConnected) || !(USB_ConfigurationNumber))
+	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	/* Check if a frame has been written to the IN frame buffer */

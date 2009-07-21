@@ -78,19 +78,17 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		{
 			EVENT_USB_VBUSConnect();
 			
-			if (USB_IsConnected)
+			if (USB_DeviceState != DEVICE_STATE_Unattached)
 			  EVENT_USB_Disconnect();
 				
 			USB_ResetInterface();
-				
-			USB_IsConnected = true;
 
+			USB_DeviceState = DEVICE_STATE_Powered;
 			EVENT_USB_Connect();
 		}
 		else
 		{
-			USB_IsConnected = false;
-
+			USB_DeviceState = DEVICE_STATE_Unattached;
 			EVENT_USB_Disconnect();
 		
 			USB_Detach();
@@ -117,16 +115,12 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		if (!(USB_Options & USB_OPT_MANUAL_PLL))
 		  USB_PLL_Off();
 
-		USB_IsSuspended = true;
-
-		EVENT_USB_Suspend();
-
 		#if defined(USB_SERIES_2_AVR) && !defined(NO_LIMITED_CONTROLLER_CONNECT)
-		if (USB_IsConnected)
-		{
-			USB_IsConnected = false;
-			EVENT_USB_Disconnect();
-		}
+		USB_DeviceState = DEVICE_STATE_Unattached;
+		EVENT_USB_Disconnect();
+		#else
+		USB_DeviceState = DEVICE_STATE_Suspended;
+		EVENT_USB_Suspend();
 		#endif
 	}
 
@@ -146,22 +140,19 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		USB_INT_Enable(USB_INT_SUSPEND);
 		
 		#if defined(USB_SERIES_2_AVR) && !defined(NO_LIMITED_CONTROLLER_CONNECT)
-		if (!(USB_IsConnected))
-		{
-			USB_IsConnected = true;
-			EVENT_USB_Connect();
-		}
+		USB_DeviceState = DEVICE_STATE_Powered;
+		EVENT_USB_Connect();
+		#else
+		USB_DeviceState = DEVICE_STATE_Configured;
+		EVENT_USB_WakeUp();		
 		#endif
-
-		USB_IsSuspended = false;
-
-		EVENT_USB_WakeUp();
 	}
    
 	if (USB_INT_HasOccurred(USB_INT_EORSTI) && USB_INT_IsEnabled(USB_INT_EORSTI))
 	{
 		USB_INT_Clear(USB_INT_EORSTI);
 
+		USB_DeviceState         = DEVICE_STATE_Default;
 		USB_ConfigurationNumber = 0;
 
 		USB_INT_Clear(USB_INT_SUSPEND);
@@ -217,7 +208,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 
 		USB_INT_Enable(USB_INT_DDISCI);
 		
-		USB_HostState = HOST_STATE_Attached;
+		USB_HostState = HOST_STATE_Powered;
 	}
 
 	if (USB_INT_HasOccurred(USB_INT_BCERRI) && USB_INT_IsEnabled(USB_INT_BCERRI))
@@ -227,7 +218,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		EVENT_USB_DeviceEnumerationFailed(HOST_ENUMERROR_NoDeviceDetected, 0);
 		EVENT_USB_DeviceUnattached();
 		
-		if (USB_IsConnected)
+		if (USB_HostState != HOST_STATE_Unattached)
 		  EVENT_USB_Disconnect();
 
 		USB_ResetInterface();
@@ -239,13 +230,16 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 	{		
 		USB_INT_Clear(USB_INT_IDTI);
 
-		if (USB_IsConnected)
-		{
-			if (USB_CurrentMode == USB_MODE_HOST)
-			  EVENT_USB_DeviceUnattached();
+		if (USB_DeviceState != DEVICE_STATE_Unattached)
+		  EVENT_USB_Disconnect();
 
+		if (USB_HostState != HOST_STATE_Unattached)
+		{
 			EVENT_USB_Disconnect();
+			EVENT_USB_DeviceUnattached();
 		}
+	
+		EVENT_USB_Disconnect();
 
 		EVENT_USB_UIDChange();
 		
