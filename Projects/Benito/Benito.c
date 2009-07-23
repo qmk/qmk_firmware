@@ -36,8 +36,13 @@
 
 #include "Benito.h"
 
+/** Counter for the number of milliseconds remaining for the target /RESET pulse being generated. */
 volatile uint8_t ResetPulseMSRemaining = 0;
+
+/** Counter for the number of milliseconds remaining for the TX activity LED pulse being generated. */
 volatile uint8_t TxPulseMSRemaining    = 0;
+
+/** Counter for the number of milliseconds remaining for the RX activity LED pulse being generated. */
 volatile uint8_t RxPulseMSRemaining    = 0;
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
