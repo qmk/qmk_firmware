@@ -105,10 +105,7 @@ int main(void)
 		{
 			/* Check if the reset pulse period has elapsed, if so tristate the target reset line */
 			if (ResetPulseMSRemaining && !(--ResetPulseMSRemaining))
-			{
-				AVR_RESET_LINE_PORT &= ~AVR_RESET_LINE_MASK;
-				AVR_RESET_LINE_DDR  &= ~AVR_RESET_LINE_MASK;
-			}
+			  AVR_RESET_LINE_DDR &= ~AVR_RESET_LINE_MASK;
 
 			/* Turn off TX LED(s) once the TX pulse period has elapsed */
 			if (TxPulseMSRemaining && !(--TxPulseMSRemaining))
@@ -212,7 +209,7 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 			break;
 	}
 	
-	UCSR1A = (1 << U2X1);	
+	UCSR1A = (1 << U2X1);
 	UCSR1B = ((1 << TXEN1) | (1 << RXEN1));
 	UCSR1C = ConfigMask;	
 	UBRR1  = SERIAL_2X_UBBRVAL((uint16_t)CDCInterfaceInfo->State.LineEncoding.BaudRateBPS);
@@ -227,9 +224,7 @@ void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const C
 	/* Check if the DTR line has been asserted - if so, start the target AVR's reset pulse */
 	if (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR)
 	{
-		AVR_RESET_LINE_DDR  |= AVR_RESET_LINE_MASK;
-		AVR_RESET_LINE_PORT &= ~AVR_RESET_LINE_MASK;
-
+		AVR_RESET_LINE_DDR |= AVR_RESET_LINE_MASK;
 		ResetPulseMSRemaining = AVR_RESET_PULSE_MS;
 	}
 }
