@@ -30,17 +30,15 @@
 
 /** \file
  *
- *  Main source file for the USBtoSerial demo. This file contains the main tasks of
+ *  Main source file for the Benito project. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
 
-#include "USBtoSerial.h"
+#include "Benito.h"
 
-/** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
-RingBuff_t Rx_Buffer;
-
-/** Circular buffer to hold data from the serial port before it is sent to the host. */
-RingBuff_t Tx_Buffer;
+volatile uint8_t ResetPulseMSRemaining = 0;
+volatile uint8_t TxPulseMSRemaining    = 0;
+volatile uint8_t RxPulseMSRemaining    = 0;
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -74,30 +72,50 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 int main(void)
 {
 	SetupHardware();
-	
-	Buffer_Initialize(&Rx_Buffer);
-	Buffer_Initialize(&Tx_Buffer);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
 	for (;;)
 	{
-		/* Read bytes from the USB OUT endpoint into the USART transmit buffer */
-		for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
+		/* Echo bytes from the host to the target via the hardware USART */
+		if (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface))
 		{
-			if (!(BUFF_STATICSIZE - Rx_Buffer.Elements))
-			  break;
-			  
-			Buffer_StoreElement(&Rx_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+			Serial_TxByte(CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+
+			LEDs_TurnOnLEDs(LEDMASK_TX);
+			TxPulseMSRemaining = TX_RX_LED_PULSE_MS;			
 		}
 		
-		/* Read bytes from the USART receive buffer into the USB IN endpoint */
-		if (Tx_Buffer.Elements)
-		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&Tx_Buffer));
+		/* Echo bytes from the target to the host via the virtual serial port */
+		if (Serial_IsCharReceived())
+		{
+			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Serial_RxByte());
+
+			LEDs_TurnOnLEDs(LEDMASK_RX);
+			RxPulseMSRemaining = TX_RX_LED_PULSE_MS;
+		}
 		
-		/* Load bytes from the USART transmit buffer into the USART */
-		if (Rx_Buffer.Elements)
-		  Serial_TxByte(Buffer_GetElement(&Rx_Buffer));
+		/* Check if the millisecond timer has elapsed */
+		if (TIFR0 & (1 << OCF0A))
+		{
+			/* Check if the reset pulse period has elapsed, if so tristate the target reset line */
+			if (ResetPulseMSRemaining && !(--ResetPulseMSRemaining))
+			{
+				AVR_RESET_LINE_PORT &= ~AVR_RESET_LINE_MASK;
+				AVR_RESET_LINE_DDR  &= ~AVR_RESET_LINE_MASK;
+			}
+
+			/* Turn off TX LED(s) once the TX pulse period has elapsed */
+			if (TxPulseMSRemaining && !(--TxPulseMSRemaining))
+			  LEDs_TurnOffLEDs(LEDMASK_TX);
+
+			/* Turn off RX LED(s) once the RX pulse period has elapsed */
+			if (RxPulseMSRemaining && !(--RxPulseMSRemaining))
+			  LEDs_TurnOffLEDs(LEDMASK_RX);
+
+			/* Clear the millisecond timer CTC flag (cleared by writing logic one to the register) */
+			TIFR0 |= (1 << OCF0A);		
+		}
 		
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
@@ -115,9 +133,17 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	Joystick_Init();
 	LEDs_Init();
 	USB_Init();
+
+	/* Millisecond Timer Interrupt */
+	OCR0A  = (F_CPU / 64 / 1000);
+	TCCR0A = (1 << WGM01);
+	TCCR0B = ((1 << CS01) | (1 << CS00));
+	
+	/* Tristate target /RESET Line */
+	AVR_RESET_LINE_PORT &= ~AVR_RESET_LINE_MASK;
+	AVR_RESET_LINE_DDR  &= ~AVR_RESET_LINE_MASK;
 }
 
 /** Event handler for the library USB Connection event. */
@@ -145,15 +171,6 @@ void EVENT_USB_ConfigurationChanged(void)
 void EVENT_USB_UnhandledControlPacket(void)
 {
 	CDC_Device_ProcessControlPacket(&VirtualSerial_CDC_Interface);
-}
-
-/** ISR to manage the reception of data from the serial port, placing received bytes into a circular buffer
- *  for later transmission to the host.
- */
-ISR(USART1_RX_vect, ISR_BLOCK)
-{
-	if (USB_DeviceState == DEVICE_STATE_Configured)
-	  Buffer_StoreElement(&Tx_Buffer, UDR1);
 }
 
 /** Event handler for the CDC Class driver Line Encoding Changed event.
@@ -191,7 +208,23 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 	}
 	
 	UCSR1A = (1 << U2X1);	
-	UCSR1B = ((1 << RXCIE1) | (1 << TXEN1) | (1 << RXEN1));
+	UCSR1B = ((1 << TXEN1) | (1 << RXEN1));
 	UCSR1C = ConfigMask;	
 	UBRR1  = SERIAL_2X_UBBRVAL((uint16_t)CDCInterfaceInfo->State.LineEncoding.BaudRateBPS);
+}
+
+/** Event handler for the CDC Class driver Host-to-Device Line Encoding Changed event.
+ *
+ *  \param[in] CDCInterfaceInfo  Pointer to the CDC class interface configuration structure being referenced
+ */
+void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
+{
+	/* Check if the DTR line has been asserted - if so, start the target AVR's reset pulse */
+	if (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR)
+	{
+		AVR_RESET_LINE_DDR  |= AVR_RESET_LINE_MASK;
+		AVR_RESET_LINE_PORT &= ~AVR_RESET_LINE_MASK;
+
+		ResetPulseMSRemaining = AVR_RESET_PULSE_MS;
+	}
 }

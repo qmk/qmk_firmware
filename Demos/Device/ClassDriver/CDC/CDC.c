@@ -75,8 +75,7 @@ int main(void)
 	{
 		CheckJoystickMovement();
 		
-		uint16_t BytesToDiscard = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface);
-		while (BytesToDiscard--)
+		while (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface))
 		  CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);

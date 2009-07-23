@@ -14,6 +14,9 @@
 # code.
 
 all:
+	make -C Benito clean
+	make -C Benito all
+
 	make -C Magstripe clean
 	make -C Magstripe all
 
@@ -21,5 +24,6 @@ all:
 	make -C MissileLauncher all
 
 %:
+	make -C Benito $@
 	make -C Magstripe $@
 	make -C MissileLauncher $@

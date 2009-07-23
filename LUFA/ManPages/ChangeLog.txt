@@ -31,6 +31,7 @@
   *  - Added new PrinterHost demo (thanks to John Andrews)
   *  - Added new USB_DeviceState variable to keep track of the current Device mode USB state
   *  - Added new Endpoint_ClearStatusStage() convenience function to assist with the status stages of control transfers
+  *  - Added new Benito Arduino Programmer project
   *  
   *  <b>Changed:</b>
   *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)
