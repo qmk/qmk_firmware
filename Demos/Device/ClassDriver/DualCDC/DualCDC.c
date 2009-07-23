@@ -144,7 +144,7 @@ void CheckJoystickMovement(void)
 	char*       ReportString  = NULL;
 	static bool ActionSent = false;
 
-	char* JoystickStrings[] =
+	char* const JoystickStrings[] =
 		{
 			"Joystick Up\r\n",
 			"Joystick Down\r\n",

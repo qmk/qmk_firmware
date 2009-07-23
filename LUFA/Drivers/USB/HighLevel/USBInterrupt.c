@@ -143,7 +143,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		USB_DeviceState = DEVICE_STATE_Powered;
 		EVENT_USB_Connect();
 		#else
-		USB_DeviceState = DEVICE_STATE_Configured;
+		USB_DeviceState = (USB_ConfigurationNumber) ? DEVICE_STATE_Configured : DEVICE_STATE_Addressed;
 		EVENT_USB_WakeUp();		
 		#endif
 	}

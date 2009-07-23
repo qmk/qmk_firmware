@@ -50,7 +50,7 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		
 	/* Preprocessor Checks: */
-		#if !defined(__AVR_AT90USB162__)
+		#if !defined(__AVR_AT90USB162__) && !defined(__AVR_AT90USB646__)
 			#error This bootloader is not compatible with the selected AVR model.
 		#endif
 
