@@ -173,7 +173,7 @@ void Send_Command(uint8_t* Command)
 	if ((CmdState == CMD_STOP && Command != CMD_STOP) ||
 		(CmdState != CMD_STOP && Command == CMD_STOP))
 	{
-		LEDs_ChangeLEDs(LEDS_LED4, ~LEDs_GetLEDs() & LEDS_LED4);
+		LEDs_ToggleLEDs(LEDS_LED4);
 
 		Send_Command_Report(CMD_INITA, 8);
 		Send_Command_Report(CMD_INITB, 8);

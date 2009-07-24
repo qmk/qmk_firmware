@@ -250,10 +250,7 @@ void ProcessKeyboardReport(uint8_t* KeyboardReport)
 			if (KeyCode)
 			{
 				/* Toggle status LED to indicate keypress */
-				if (LEDs_GetLEDs() & LEDS_LED2)
-				  LEDs_TurnOffLEDs(LEDS_LED2);
-				else
-				  LEDs_TurnOnLEDs(LEDS_LED2);
+				LEDs_ToggleLEDs(LEDS_LED2);
 
 				char PressedKey = 0;
 

@@ -107,7 +107,7 @@ int main(void)
 			/* Check if the LEDs should be ping-ponging (during enumeration) */
 			if (PingPongMSRemaining && !(--PingPongMSRemaining))
 			{
-				LEDs_ChangeLEDs(LEDMASK_BUSY, (~LEDs_GetLEDs() & LEDMASK_BUSY));
+				LEDs_ToggleLEDs(LEDMASK_BUSY);
 				PingPongMSRemaining = PING_PONG_LED_PULSE_MS;
 			}
 		
