@@ -20,10 +20,10 @@
  *
  *  - AVROpendous, an open design/source set of AVR USB development boards: http://avropendous.org/
  *  - Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/blog/feurig/benito_7_the_next_big_thing
- *  - USBFoo, an AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102
- *  - USB10 AKA "The Ferret", a AT90USB162 development board: http://www.soc-machines.com
- *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
  *  - Bumble-B, yet another AT90USB162 development board: http://fletchtronics.net/
+ *  - USB10 AKA "The Ferret", a AT90USB162 development board: http://www.soc-machines.com
+ *  - USBFoo, an AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102
+ *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
  * 
  *  \section Sec_LUFAProjects Projects Using LUFA (Hobbyist)
  *

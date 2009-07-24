@@ -45,6 +45,9 @@ volatile uint8_t TxPulseMSRemaining    = 0;
 /** Counter for the number of milliseconds remaining for the RX activity LED pulse being generated. */
 volatile uint8_t RxPulseMSRemaining    = 0;
 
+/** Counter for the number of milliseconds remaining for the enumeration LED ping-pong being generated. */
+volatile uint8_t PingPongMSRemaining   = 0;
+
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -78,8 +81,6 @@ int main(void)
 {
 	SetupHardware();
 
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-
 	for (;;)
 	{
 		/* Echo bytes from the host to the target via the hardware USART */
@@ -103,10 +104,20 @@ int main(void)
 		/* Check if the millisecond timer has elapsed */
 		if (TIFR0 & (1 << OCF0A))
 		{
+			/* Check if the LEDs should be ping-ponging (during enumeration) */
+			if (PingPongMSRemaining && !(--PingPongMSRemaining))
+			{
+				LEDs_ChangeLEDs(LEDMASK_BUSY, (~LEDs_GetLEDs() & LEDMASK_BUSY));
+				PingPongMSRemaining = PING_PONG_LED_PULSE_MS;
+			}
+		
 			/* Check if the reset pulse period has elapsed, if so tristate the target reset line */
 			if (ResetPulseMSRemaining && !(--ResetPulseMSRemaining))
-			  AVR_RESET_LINE_DDR &= ~AVR_RESET_LINE_MASK;
-
+			{
+				LEDs_TurnOffLEDs(LEDMASK_BUSY);
+				AVR_RESET_LINE_DDR &= ~AVR_RESET_LINE_MASK;
+			}
+			
 			/* Turn off TX LED(s) once the TX pulse period has elapsed */
 			if (TxPulseMSRemaining && !(--TxPulseMSRemaining))
 			  LEDs_TurnOffLEDs(LEDMASK_TX);
@@ -151,22 +162,25 @@ void SetupHardware(void)
 /** Event handler for the library USB Connection event. */
 void EVENT_USB_Connect(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+	PingPongMSRemaining = PING_PONG_LED_PULSE_MS;
+	LEDs_SetAllLEDs(LEDMASK_TX);
 }
 
 /** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Disconnect(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	PingPongMSRemaining = 0;
+	LEDs_TurnOffLEDs(LEDMASK_BUSY);
 }
 
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_ConfigurationChanged(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	PingPongMSRemaining = 0;
+	LEDs_TurnOffLEDs(LEDMASK_BUSY);
 
 	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
-	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	  LEDs_TurnOnLEDs(LEDMASK_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
@@ -224,6 +238,8 @@ void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const C
 	/* Check if the DTR line has been asserted - if so, start the target AVR's reset pulse */
 	if (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR)
 	{
+		LEDs_TurnOnLEDs(LEDMASK_BUSY);
+	
 		AVR_RESET_LINE_DDR |= AVR_RESET_LINE_MASK;
 		ResetPulseMSRemaining = AVR_RESET_PULSE_MS;
 	}

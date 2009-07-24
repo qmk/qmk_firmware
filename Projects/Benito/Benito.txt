@@ -90,5 +90,10 @@
  *    <td>Makefile CDEFS</td>
  *    <td>Pulse length in milliseconds for the activity Tx/Rx LEDs.</td>
  *   </tr>
+ *   <tr>
+ *    <td>PING_PONG_LED_PULSE_MS</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>Pulse length in milliseconds for the enumeration LED ping-poning between toggles.</td>
+ *   </tr>
  *  </table>
  */

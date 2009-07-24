@@ -51,24 +51,16 @@
 		#include <LUFA/Drivers/USB/Class/CDC.h>
 
 	/* Macros: */
-		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
-		#define LEDMASK_USB_NOTREADY      LEDS_NO_LEDS
-
-		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
-		#define LEDMASK_USB_ENUMERATING  (LEDS_LED1 | LEDS_LED2)
-
-		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
-		#define LEDMASK_USB_READY        LEDS_NO_LEDS
-
-		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
-		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED2)
-		
 		/** LED mask for the library LED driver, to indicate TX activity. */
 		#define LEDMASK_TX               LEDS_LED1
 
 		/** LED mask for the library LED driver, to indicate RX activity. */
 		#define LEDMASK_RX               LEDS_LED2
 		
+		#define LEDMASK_ERROR            (LEDS_LED1 | LEDS_LED2)
+		
+		#define LEDMASK_BUSY             (LEDS_LED1 | LEDS_LED2)
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
 
