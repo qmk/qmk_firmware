@@ -70,6 +70,22 @@ void Pipe_ClearPipes(void)
 	}
 }
 
+bool Pipe_IsEndpointBound(uint8_t EndpointAddress)
+{
+	uint8_t PrevPipeNumber = Pipe_GetPipeNumber();
+
+	for (uint8_t PNum = 0; PNum < PIPE_TOTAL_PIPES; PNum++)
+	{
+		Pipe_SelectPipe(PNum);
+		
+		if (Pipe_IsConfigured() && (Pipe_BoundEndpointAddress() == EndpointAddress))
+		  return true;
+	}
+	
+	Pipe_SelectPipe(PrevPipeNumber);
+	return false;
+}
+
 uint8_t Pipe_WaitUntilReady(void)
 {
 	#if (USB_STREAM_TIMEOUT_MS < 0xFF)

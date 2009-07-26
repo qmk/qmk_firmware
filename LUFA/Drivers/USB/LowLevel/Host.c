@@ -187,7 +187,6 @@ void USB_Host_ProcessNextHostState(void)
 
 			EVENT_USB_DeviceEnumerationComplete();
 			USB_HostState = HOST_STATE_Addressed;
-
 			break;
 	}
 

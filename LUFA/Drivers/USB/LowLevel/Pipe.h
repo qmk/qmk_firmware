@@ -257,6 +257,13 @@
 				 */
 				static inline bool Pipe_IsConfigured(void);
 				
+				/** Retrieves the endpoint number of the endpoint within the attached device that the currently selected
+				 *  pipe is bound to.
+				 *
+				 *  \return Endpoint number the currently selected pipe is bound to
+				 */
+				static inline uint8_t Pipe_BoundEndpointNumber(void);
+
 				/** Sets the period between interrupts for an INTERRUPT type pipe to a specified number of milliseconds.
 				 *
 				 *  \param[in] Milliseconds  Number of milliseconds between each pipe poll
@@ -427,6 +434,8 @@
 
 				#define Pipe_IsConfigured()            ((UPSTAX  & (1 << CFGOK)) ? true : false)
 
+				#define Pipe_BoundEndpointNumber()     ((UPCFG0X >> PEPNUM0) & PIPE_EPNUM_MASK)
+				
 				#define Pipe_SetInterruptPeriod(ms)    MACROS{ UPCFG2X = ms; }MACROE
 
 				#define Pipe_GetPipeInterrupts()       UPINT
@@ -764,14 +773,23 @@
 			bool Pipe_ConfigurePipe(const uint8_t  Number, const uint8_t Type, const uint8_t Token, const uint8_t EndpointNumber,
 			                        const uint16_t Size, const uint8_t Banks);
 
-			/** Spinloops until the currently selected non-control pipe is ready for the next packed of data
-			 *  to be read or written to it.
+			/** Spinloops until the currently selected non-control pipe is ready for the next packed of data to be read 
+			 *  or written to it, aborting in the case of an error condition (such as a timeout or device disconnect).
 			 *
 			 *  \ingroup Group_PipeRW
 			 *
 			 *  \return A value from the Pipe_WaitUntilReady_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_WaitUntilReady(void);		
+			uint8_t Pipe_WaitUntilReady(void);
+			
+			/** Determines if a pipe has been bound to the given device endpoint address. If a pipe which is bound to the given
+			 *  endpoint is found, it is automatically selected.
+			 *
+			 *  \param EndpointAddress Address of the endpoint within the attached device to check
+			 *
+			 *  \return Boolean true if a pipe bound to the given endpoint address is found, false otherwise
+			 */
+			bool Pipe_IsEndpointBound(uint8_t EndpointAddress);
 		
 			/** Reads and discards the given number of bytes from the pipe, discarding fully read packets from the host
 			 *  as needed. The last packet is not automatically discarded once the remaining bytes has been read; the

@@ -33,6 +33,7 @@
   *  - Added new Endpoint_ClearStatusStage() convenience function to assist with the status stages of control transfers
   *  - Added new Benito Arduino Programmer project
   *  - Added new LEDs_ToggleLEDs() function to the LEDs driver
+  *  - Added new Pipe_BoundEndpointNumber() and Pipe_IsEndpointBound() functions
   *  
   *  <b>Changed:</b>
   *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)
