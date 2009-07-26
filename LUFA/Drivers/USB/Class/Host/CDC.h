@@ -136,11 +136,13 @@
 
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_CDC_CLASS_HOST_C)
-				static uint8_t CDC_Host_ProcessConfigDescriptor(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 				static uint8_t DComp_CDC_Host_NextCDCControlInterface(void* CurrentDescriptor);
 				static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* CurrentDescriptor);
 				static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor);
 			#endif
+
+			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t MaxConfigBufferSize);
+			void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 
 			void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 			

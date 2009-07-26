@@ -72,13 +72,13 @@ void Pipe_ClearPipes(void)
 
 bool Pipe_IsEndpointBound(uint8_t EndpointAddress)
 {
-	uint8_t PrevPipeNumber = Pipe_GetPipeNumber();
+	uint8_t PrevPipeNumber = Pipe_GetCurrentPipe();
 
 	for (uint8_t PNum = 0; PNum < PIPE_TOTAL_PIPES; PNum++)
 	{
 		Pipe_SelectPipe(PNum);
 		
-		if (Pipe_IsConfigured() && (Pipe_BoundEndpointAddress() == EndpointAddress))
+		if (Pipe_IsConfigured() && (Pipe_BoundEndpointNumber() == EndpointAddress))
 		  return true;
 	}
 	

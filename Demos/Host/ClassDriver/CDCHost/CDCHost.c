@@ -54,6 +54,7 @@ USB_ClassInfo_CDC_Host_t VirtualSerial_CDC_Interface =
 				// Leave all state values to their defaults			
 			}
 	};
+
 	
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  starts the scheduler to run the application tasks.
@@ -71,7 +72,9 @@ int main(void)
 		switch (USB_HostState)
 		{
 			case HOST_STATE_Addressed:
-				if (!(CDC_Host_ConfigurePipes(&VirtualSerial_CDC_Interface)))
+				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+			
+				if (CDC_Host_ConfigurePipes(&VirtualSerial_CDC_Interface, 512) != CDC_ENUMERROR_NoError)
 				{
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
@@ -88,9 +91,6 @@ int main(void)
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
-				USB_HostState = HOST_STATE_Ready;
-				break;
-			case HOST_STATE_Ready:
 				break;
 		}
 	

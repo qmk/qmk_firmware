@@ -34,16 +34,16 @@
 #define  INCLUDE_FROM_CDC_CLASS_HOST_C
 #include "CDC.h"
 
-static uint8_t CDC_Host_ProcessConfigDescriptor(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
+uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t MaxConfigBufferSize)
 {
 	uint8_t* ConfigDescriptorData;
 	uint16_t ConfigDescriptorSize;
 	uint8_t  FoundEndpoints = 0;
-	
+
 	if (USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
 	  return CDC_ENUMERROR_ControlError;
 	
-	if (ConfigDescriptorSize > 512)
+	if (ConfigDescriptorSize > MaxConfigBufferSize)
 	  return CDC_ENUMERROR_DescriptorTooLarge;
 	  
 	ConfigDescriptorData = alloca(ConfigDescriptorSize);
@@ -64,10 +64,8 @@ static uint8_t CDC_Host_ProcessConfigDescriptor(USB_ClassInfo_CDC_Host_t* CDCInt
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DComp_CDC_Host_NextInterfaceCDCDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			/* Check to see if the control interface's notification pipe has been found, if so search for the data interface */
 			if (FoundEndpoints & CDC_FOUND_DATAPIPE_NOTIFICATION)
 			{
-				/* Get the next CDC data interface from the configuration descriptor (CDC class has two CDC interfaces) */
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, 
 				                              DComp_CDC_Host_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
@@ -179,12 +177,15 @@ static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescript
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
 		USB_Descriptor_Endpoint_t* CurrentEndpoint = DESCRIPTOR_PCAST(CurrentDescriptor,
-		                                                              USB_Descriptor_Endpoint_t)
+		                                                              USB_Descriptor_Endpoint_t);
 	
 		uint8_t EndpointType = (CurrentEndpoint->Attributes & EP_TYPE_MASK);
 	
-		if ((EndpointType == EP_TYPE_BULK) || (EndpointType == EP_TYPE_INTERRUPT))
-		  return DESCRIPTOR_SEARCH_Found;
+		if (((EndpointType == EP_TYPE_BULK) || (EndpointType == EP_TYPE_INTERRUPT)) &&
+		    !(Pipe_IsEndpointBound(CurrentEndpoint->EndpointAddress)))
+		{
+			return DESCRIPTOR_SEARCH_Found;
+		}
 	}
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -196,27 +197,7 @@ static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescript
 
 void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 {
-	uint8_t ErrorCode;
 
-	switch (USB_HostState)
-	{
-		case HOST_STATE_Addressed:
-			if ((ErrorCode = CDC_Host_ProcessConfigDescriptor(CDCInterfaceInfo)) != CDC_ENUMERROR_NoError)
-			{
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-			}
-
-			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
-			{
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-			}
-				
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
-			USB_HostState = HOST_STATE_Ready;
-			break;
-	}
 }
 
 #endif
