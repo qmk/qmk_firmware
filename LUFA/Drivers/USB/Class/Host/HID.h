@@ -66,8 +66,13 @@
 					uint8_t  DataINPipeNumber; /**< Pipe number of the HID interface's IN data pipe */
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the HID interface's OUT data pipe */
 					
-					bool     MatchInterfaceProtocol;
-					uint8_t  HIDInterfaceProtocol;
+					bool     MatchInterfaceProtocol; /**< Indicates whether the driver should match the device's
+					                                  *   HID interface protocol's value to the \ref HIDInterfaceProtocol
+					                                  *   suppled (otherwise just accept all HID class devices)
+					                                  */
+					uint8_t  HIDInterfaceProtocol; /**< HID interface protocol value to match against if the
+					                                *   \ref MatchInterfaceProtocol is set to true (ignored otherwise)
+					                                */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
