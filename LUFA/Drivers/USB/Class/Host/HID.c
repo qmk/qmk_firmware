@@ -31,6 +31,106 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
+#define INCLUDE_FROM_HID_CLASS_HOST_C
 #include "HID.h"
+
+uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t MaxConfigBufferSize)
+{
+	uint8_t* ConfigDescriptorData;
+	uint16_t ConfigDescriptorSize;
+	uint8_t  FoundEndpoints = 0;
+
+	if (USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
+	  return HID_ENUMERROR_ControlError;
+	
+	if (ConfigDescriptorSize > MaxConfigBufferSize)
+	  return HID_ENUMERROR_DescriptorTooLarge;
+	  
+	ConfigDescriptorData = alloca(ConfigDescriptorSize);
+
+	USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData);
+	
+	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
+	  return HID_ENUMERROR_InvalidConfigDataReturned;
+	
+	do
+	{
+		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+									  DComp_HID_Host_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+		{
+			return HID_ENUMERROR_NoHIDInterfaceFound;
+		}
+	} while (HIDInterfaceInfo->Config.MatchInterfaceProtocol &&
+	         DESCRIPTOR_PCAST(ConfigDescriptorData,
+	                          USB_Descriptor_Interface_t)->HIDInterfaceProtocol != HIDInterfaceInfo->Config.Protocol);
+
+	while (FoundEndpoints != ((1 << HID_FOUND_DATAPIPE_IN) | (1 << HID_FOUND_DATAPIPE_OUT)))
+	{
+		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		                              DComp_HID_Host_NextInterfaceHIDDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		{
+			if (FoundEndpoints == (1 << HID_FOUND_DATAPIPE_IN))
+			  break;
+				
+			return HID_ENUMERROR_EndpointsNotFound;
+		}
+		
+		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
+
+		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
+		{
+			Pipe_ConfigurePipe(HIDInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
+							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+			
+			FoundEndpoints |= (1 << HID_FOUND_DATAPIPE_IN);
+		}
+		else
+		{
+			Pipe_ConfigurePipe(HIDInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_INTERRUPT, PIPE_TOKEN_OUT,
+							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+			
+			FoundEndpoints |= (1 << HID_FOUND_DATAPIPE_OUT);		
+		}
+	}
+
+	return HID_ENUMERROR_NoError;
+}
+
+static uint8_t DComp_HID_Host_NextHIDInterface(void* CurrentDescriptor)
+{
+	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	{
+		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
+		                                                                USB_Descriptor_Interface_t);
+	
+		if (CurrentInterface->Class == HID_INTERFACE_CLASS)
+		  return DESCRIPTOR_SEARCH_Found;
+	}
+	
+	return DESCRIPTOR_SEARCH_NotFound;
+}
+
+static uint8_t DComp_HID_Host_NextInterfaceHIDDataEndpoint(void* CurrentDescriptor)
+{
+	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
+	{
+		USB_Descriptor_Endpoint_t* CurrentEndpoint = DESCRIPTOR_PCAST(CurrentDescriptor,
+		                                                              USB_Descriptor_Endpoint_t);	
+
+		if (!(Pipe_IsEndpointBound(CurrentEndpoint->EndpointAddress)))
+		  return DESCRIPTOR_SEARCH_Found;
+	}
+	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	{
+		return DESCRIPTOR_SEARCH_Fail;
+	}
+
+	return DESCRIPTOR_SEARCH_NotFound;
+}
+
+void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
+{
+
+}
 
 #endif

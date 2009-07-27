@@ -93,7 +93,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 			                              DComp_CDC_Host_NextInterfaceCDCDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
-				return CDC_ENUMERROR_NoEndpointFound;
+				return CDC_ENUMERROR_EndpointsNotFound;
 			}
 		}
 		

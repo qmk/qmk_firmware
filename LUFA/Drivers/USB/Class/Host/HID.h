@@ -54,8 +54,63 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Type Defines: */
+			/** Class state structure. An instance of this structure should be made within the user application,
+			 *  and passed to each of the HID class driver functions as the HIDInterfaceInfo parameter. This
+			 *  stores each HID interface's configuration and state information.
+			 */
+			typedef struct
+			{
+				const struct
+				{
+					uint8_t  DataINPipeNumber; /**< Pipe number of the HID interface's IN data pipe */
+					uint8_t  DataOUTPipeNumber; /**< Pipe number of the HID interface's OUT data pipe */
+					
+					bool     MatchInterfaceProtocol;
+					uint8_t  HIDInterfaceProtocol;
+				} Config; /**< Config data for the USB class interface within the device. All elements in this section
+				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
+				           */
+				struct
+				{
+					uint16_t DataINPipeSize; /**< Size in bytes of the HID interface's IN data pipe */
+					uint16_t DataOUTPipeSize;  /**< Size in bytes of the HID interface's OUT data pipe */
+				} State; /**< State data for the USB class interface within the device. All elements in this section
+						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
+						  *   the interface is enumerated.
+						  */
+			} USB_ClassInfo_HID_Host_t;
+
+		/* Enums: */
+			enum
+			{
+				HID_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
+				HID_ENUMERROR_ControlError               = 1, /**< A control request to the device failed to complete successfully */
+				HID_ENUMERROR_DescriptorTooLarge         = 2, /**< The device's Configuration Descriptor is too large to process */
+				HID_ENUMERROR_InvalidConfigDataReturned  = 3, /**< The device returned an invalid Configuration Descriptor */
+				HID_ENUMERROR_NoHIDInterfaceFound        = 4, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
+				HID_ENUMERROR_EndpointsNotFound          = 5, /**< Compatible HID endpoints were not found in the device's CDC interface */
+			} CDCHost_EnumerationFailure_ErrorCodes_t;
+	
 		/* Function Prototypes: */
+			void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo);
+			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t MaxConfigBufferSize);
 		
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* Macros: */
+			#define HID_INTERFACE_CLASS             0x03
+			
+			#define HID_FOUND_DATAPIPE_IN           (1 << 0)
+			#define HID_FOUND_DATAPIPE_OUT          (1 << 1)
+
+		/* Function Prototypes: */
+			#if defined(INCLUDE_FROM_HID_CLASS_HOST_C)
+				static uint8_t DComp_HID_Host_NextHIDInterface(void* CurrentDescriptor);
+				static uint8_t DComp_HID_Host_NextInterfaceHIDDataEndpoint(void* CurrentDescriptor);
+			#endif	
+	#endif	
+	
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}

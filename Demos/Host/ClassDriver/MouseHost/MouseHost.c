@@ -30,23 +30,25 @@
 
 /** \file
  *
- *  Main source file for the CDCHost demo. This file contains the main tasks of
+ *  Main source file for the MouseHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
  
-#include "CDCHost.h"
+#include "MouseHost.h"
 
-/** LUFA CDC Class driver interface configuration and state information. This structure is
- *  passed to all CDC Class driver functions, so that multiple instances of the same class
+/** LUFA HID Class driver interface configuration and state information. This structure is
+ *  passed to all HID Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_CDC_Host_t VirtualSerial_CDC_Interface =
+USB_ClassInfo_HID_Host_t Mouse_HID_Interface =
 	{
 		.Config =
 			{
 				.DataINPipeNumber       = 1,
 				.DataOUTPipeNumber      = 2,
-				.NotificationPipeNumber = 3,
+				
+				.MatchInterfaceProtocol = true,
+				.HIDInterfaceProtocol   = 0x02,
 			},
 			
 		.State =
@@ -63,7 +65,7 @@ int main(void)
 {
 	SetupHardware();
 
-	puts_P(PSTR(ESC_FG_CYAN "CDC Host Demo running.\r\n" ESC_FG_WHITE));
+	puts_P(PSTR(ESC_FG_CYAN "Mouse Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
@@ -74,10 +76,10 @@ int main(void)
 			case HOST_STATE_Addressed:
 				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 			
-				if (CDC_Host_ConfigurePipes(&VirtualSerial_CDC_Interface, 512) != CDC_ENUMERROR_NoError)
+				if (HID_Host_ConfigurePipes(&Mouse_HID_Interface, 512) != HID_ENUMERROR_NoError)
 				{
-					printf("Attached device is not a valid CDC device.\r\n");
-				
+					printf("Attached device is not a valid Mouse.\r\n");
+					
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -91,15 +93,15 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-
-				printf("CDC Device Enumerated.\r\n");
+				
+				printf("Mouse Enumerated.\r\n");
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
 				break;
 		}
 	
-		CDC_Host_USBTask(&VirtualSerial_CDC_Interface);
+		HID_Host_USBTask(&Mouse_HID_Interface);
 		USB_USBTask();
 	}
 }

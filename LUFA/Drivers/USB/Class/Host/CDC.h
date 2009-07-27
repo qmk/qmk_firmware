@@ -71,8 +71,6 @@
 				           */
 				struct
 				{
-					uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
-
 					uint16_t DataINPipeSize; /**< Size in bytes of the CDC interface's IN data pipe */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the CDC interface's OUT data pipe */
 					uint16_t NotificationPipeSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
@@ -114,11 +112,22 @@
 				CDC_ENUMERROR_DescriptorTooLarge         = 2, /**< The device's Configuration Descriptor is too large to process */
 				CDC_ENUMERROR_InvalidConfigDataReturned  = 3, /**< The device returned an invalid Configuration Descriptor */
 				CDC_ENUMERROR_NoCDCInterfaceFound        = 4, /**< A compatible CDC interface was not found in the device's Configuration Descriptor */
-				CDC_ENUMERROR_NoEndpointFound            = 5, /**< Compatible CDC endpoints were not found in the device's CDC interface */
+				CDC_ENUMERROR_EndpointsNotFound          = 5, /**< Compatible CDC endpoints were not found in the device's CDC interface */
 			} CDCHost_EnumerationFailure_ErrorCodes_t;
 	
 		/* Function Prototypes: */
 			void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t MaxConfigBufferSize);
+
+			void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+			
+			uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+			
+			void CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Data, uint16_t Length);
+			void CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data);
+			uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+			uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
@@ -139,21 +148,7 @@
 				static uint8_t DComp_CDC_Host_NextCDCControlInterface(void* CurrentDescriptor);
 				static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* CurrentDescriptor);
 				static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor);
-			#endif
-
-			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t MaxConfigBufferSize);
-			void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
-
-			void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
-			
-			uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
-			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
-			
-			void CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Data, uint16_t Length);
-			void CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data);
-			uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
-			uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
-	
+			#endif	
 	#endif
 				
 	/* Disable C linkage for C++ Compilers: */
