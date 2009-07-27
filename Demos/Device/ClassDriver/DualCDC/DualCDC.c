@@ -56,11 +56,6 @@ USB_ClassInfo_CDC_Device_t VirtualSerial1_CDC_Interface =
 				.NotificationEndpointNumber = CDC1_NOTIFICATION_EPNUM,
 				.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
 			},
-		
-		.State =
-			{
-				// Leave all state values to their defaults
-			}
 	};
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is

@@ -49,11 +49,6 @@ USB_ClassInfo_Audio_Device_t Speaker_Audio_Interface =
 				.DataINEndpointNumber     = AUDIO_STREAM_EPNUM,
 				.DataINEndpointSize       = AUDIO_STREAM_EPSIZE,
 			},
-		
-		.State =
-			{
-				// Leave all state values to their defaults
-			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial

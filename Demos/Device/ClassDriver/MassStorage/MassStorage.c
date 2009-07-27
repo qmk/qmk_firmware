@@ -54,11 +54,6 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 
 				.TotalLUNs              = TOTAL_LUNS,
 			},
-		
-		.State =
-			{
-				// Leave all state values to their defaults
-			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial

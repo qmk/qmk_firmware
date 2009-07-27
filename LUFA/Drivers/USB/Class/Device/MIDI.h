@@ -80,8 +80,7 @@
 				{
 					// No state information for this class yet
 				} State; /**< State data for the USB class interface within the device. All elements in this section
-				          *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
-				          *   the interface is enumerated.
+				          *   are reset to their defaults when the interface is enumerated.
 				          */
 			} USB_ClassInfo_MIDI_Device_t;	
 	

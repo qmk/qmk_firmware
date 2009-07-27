@@ -51,11 +51,6 @@ USB_ClassInfo_HID_Device_t Joystick_HID_Interface =
 				
 				.ReportINBufferSize      = sizeof(USB_JoystickReport_Data_t),
 			},
-	
-		.State =
-			{
-				// Leave all state values to their defaults
-			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial

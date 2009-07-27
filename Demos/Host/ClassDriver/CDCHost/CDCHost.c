@@ -48,11 +48,6 @@ USB_ClassInfo_CDC_Host_t VirtualSerial_CDC_Interface =
 				.DataOUTPipeNumber      = 2,
 				.NotificationPipeNumber = 3,
 			},
-			
-		.State =
-			{
-				// Leave all state values to their defaults			
-			}
 	};
 
 	

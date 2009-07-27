@@ -59,6 +59,8 @@ void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_Device_t* const Audio
 
 bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* AudioInterfaceInfo)
 {
+	memset(&AudioInterfaceInfo->State, 0x00, sizeof(AudioInterfaceInfo->State));
+
 	if (AudioInterfaceInfo->Config.DataINEndpointNumber)
 	{
 		if (!(Endpoint_ConfigureEndpoint(AudioInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_ISOCHRONOUS,
@@ -78,7 +80,7 @@ bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* AudioInterfac
 			return false;
 		}
 	}
-
+	
 	return true;
 }
 

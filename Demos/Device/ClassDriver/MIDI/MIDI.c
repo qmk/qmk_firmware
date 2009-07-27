@@ -52,11 +52,6 @@ USB_ClassInfo_MIDI_Device_t Keyboard_MIDI_Interface =
 				.DataOUTEndpointNumber    = MIDI_STREAM_OUT_EPNUM,
 				.DataOUTEndpointSize      = MIDI_STREAM_EPSIZE,
 			},
-			
-		.State =
-			{
-				// Leave all state values to their defaults			
-			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial

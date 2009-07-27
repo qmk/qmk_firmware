@@ -51,11 +51,6 @@ USB_ClassInfo_HID_Device_t Generic_HID_Interface =
 				
 				.ReportINBufferSize      = GENERIC_REPORT_SIZE,
 			},
-
-		.State =
-			{
-				// Leave all state values to their defaults
-			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial

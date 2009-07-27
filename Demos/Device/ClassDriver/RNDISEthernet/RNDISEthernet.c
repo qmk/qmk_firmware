@@ -58,11 +58,6 @@ USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface =
 				.AdapterVendorDescription   = "LUFA RNDIS Demo Adapter",
 				.AdapterMACAddress          = {ADAPTER_MAC_ADDRESS},
 			},
-			
-		.State =
-			{
-				// Leave all state values to their defaults			
-			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial

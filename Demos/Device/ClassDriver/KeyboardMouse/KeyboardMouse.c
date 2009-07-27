@@ -53,11 +53,6 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 				
 				.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
 			},
-
-		.State =
-			{
-				.IdleCount               = 500,
-			}
 	};
 	
 /** LUFA HID Class driver interface configuration and state information. This structure is

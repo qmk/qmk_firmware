@@ -50,11 +50,6 @@ USB_ClassInfo_HID_Host_t Mouse_HID_Interface =
 				.MatchInterfaceProtocol = true,
 				.HIDInterfaceProtocol   = 0x02,
 			},
-			
-		.State =
-			{
-				// Leave all state values to their defaults			
-			}
 	};
 
 	

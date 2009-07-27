@@ -74,6 +74,8 @@ void MS_Device_ProcessControlPacket(USB_ClassInfo_MS_Device_t* const MSInterface
 
 bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
+	memset(&MSInterfaceInfo->State, 0x00, sizeof(MSInterfaceInfo->State));
+
 	if (!(Endpoint_ConfigureEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,
 							         ENDPOINT_DIR_IN, MSInterfaceInfo->Config.DataINEndpointSize,
 							         ENDPOINT_BANK_SINGLE)))

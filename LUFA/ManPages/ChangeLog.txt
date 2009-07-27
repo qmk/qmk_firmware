@@ -62,7 +62,7 @@
   *    to only unfreeze and check one data pipe at a time) to prevent incorrect device enumerations and freezes while trasferring data
   *  - Make Pipe_ConfigurePipe() mask the given endpoint number against PIPE_EPNUM_MASK to ensure the endpoint IN direction bit is
   *    cleared to prevent endpoint type corruption
-  *  - Fix documentation mentioning Pipe_GetCurrentToken() function when real name is Pipe_GetPipeToken()
+  *  - Fixed documentation mentioning Pipe_GetCurrentToken() function when correct function name is Pipe_GetPipeToken()
   *  - Fixed ADC driver for the ATMEGA32U4 and ATMEGA16U4 (thanks to Opendous Inc.)
   *  - Fixed CDCHost demo unfreezing the pipes at the point of configuration, rather than use
   *  - Fixed MassStorage demo not clearing the reset flag when a Mass Storage Reset is issued while not processing a command

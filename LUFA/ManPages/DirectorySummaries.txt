@@ -33,7 +33,7 @@
  *  
  *  This folder contains drivers for several of the AVR internal peripherals such as the USART, compatible only with
  *  the AT90USBXXX6, AT90USBXXX7 and ATMEGAXXU4 USB AVR models, such as the AT90USB1287. Its contents should <b>not</b> be
- *  included by the user application - the dispatch header file located in the parent AT90USBXXX directory should be used
+ *  included by the user application - the dispatch header file located in the parent directory should be used
  *  instead.
  *
  *  \dir LUFA/Drivers/USB

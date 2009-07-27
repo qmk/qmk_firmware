@@ -60,11 +60,6 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 				
 				.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
 			},
-		
-		.State =
-			{
-				// Leave all state values to their defaults				
-			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial

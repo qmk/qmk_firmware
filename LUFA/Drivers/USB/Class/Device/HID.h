@@ -83,8 +83,7 @@
 					uint16_t IdleMSRemaining; /**< Total number of ms remaining before the idle period elapsed - this should be
 											   *   decremented by the user application if non-zero each millisecond */			
 				} State; /**< State data for the USB class interface within the device. All elements in this section
-				          *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
-				          *   the interface is enumerated.
+				          *   are reset to their defaults when the interface is enumerated.
 				          */
 			} USB_ClassInfo_HID_Device_t;
 	

@@ -40,6 +40,8 @@ void MIDI_Device_ProcessControlPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInt
 
 bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
 {
+	memset(&MIDIInterfaceInfo->State, 0x00, sizeof(MIDIInterfaceInfo->State));
+
 	if (MIDIInterfaceInfo->Config.DataINEndpointNumber)
 	{
 		if (!(Endpoint_ConfigureEndpoint(MIDIInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,

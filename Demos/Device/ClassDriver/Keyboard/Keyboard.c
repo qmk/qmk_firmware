@@ -52,11 +52,6 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 
 				.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
 			},
-		
-		.State =
-			{
-				.IdleCount               = 500,
-			}
     };
 
 /** Main program entry point. This routine contains the overall program flow, including initial
