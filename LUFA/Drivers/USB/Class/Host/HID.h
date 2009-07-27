@@ -85,16 +85,15 @@
 			enum
 			{
 				HID_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
-				HID_ENUMERROR_ControlError               = 1, /**< A control request to the device failed to complete successfully */
-				HID_ENUMERROR_DescriptorTooLarge         = 2, /**< The device's Configuration Descriptor is too large to process */
-				HID_ENUMERROR_InvalidConfigDataReturned  = 3, /**< The device returned an invalid Configuration Descriptor */
-				HID_ENUMERROR_NoHIDInterfaceFound        = 4, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
-				HID_ENUMERROR_EndpointsNotFound          = 5, /**< Compatible HID endpoints were not found in the device's CDC interface */
+				HID_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor */
+				HID_ENUMERROR_NoHIDInterfaceFound        = 2, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
+				HID_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible HID endpoints were not found in the device's CDC interface */
 			} CDCHost_EnumerationFailure_ErrorCodes_t;
 	
 		/* Function Prototypes: */
 			void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo);
-			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t MaxConfigBufferSize);
+			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t ConfigDescriptorLength,
+			                                uint8_t* DeviceConfigDescriptor);
 		
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

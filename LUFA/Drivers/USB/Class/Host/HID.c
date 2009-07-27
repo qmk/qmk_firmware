@@ -34,24 +34,13 @@
 #define INCLUDE_FROM_HID_CLASS_HOST_C
 #include "HID.h"
 
-uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t MaxConfigBufferSize)
+uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t ConfigDescriptorSize,
+                                uint8_t* ConfigDescriptorData)
 {
-	uint8_t* ConfigDescriptorData;
-	uint16_t ConfigDescriptorSize;
 	uint8_t  FoundEndpoints = 0;
 
-	if (USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
-	  return HID_ENUMERROR_ControlError;
-	
-	if (ConfigDescriptorSize > MaxConfigBufferSize)
-	  return HID_ENUMERROR_DescriptorTooLarge;
-	  
-	ConfigDescriptorData = alloca(ConfigDescriptorSize);
-
-	USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData);
-	
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
-	  return HID_ENUMERROR_InvalidConfigDataReturned;
+	  return HID_ENUMERROR_InvalidConfigDescriptor;
 	
 	do
 	{
@@ -62,7 +51,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint
 		}
 	} while (HIDInterfaceInfo->Config.MatchInterfaceProtocol &&
 	         DESCRIPTOR_PCAST(ConfigDescriptorData,
-	                          USB_Descriptor_Interface_t)->HIDInterfaceProtocol != HIDInterfaceInfo->Config.Protocol);
+	                          USB_Descriptor_Interface_t)->Protocol != HIDInterfaceInfo->Config.HIDInterfaceProtocol);
 
 	while (FoundEndpoints != ((1 << HID_FOUND_DATAPIPE_IN) | (1 << HID_FOUND_DATAPIPE_OUT)))
 	{

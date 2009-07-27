@@ -76,10 +76,31 @@ int main(void)
 			case HOST_STATE_Addressed:
 				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 			
-				if (HID_Host_ConfigurePipes(&Mouse_HID_Interface, 512) != HID_ENUMERROR_NoError)
+				uint16_t ConfigDescriptorSize;
+				uint8_t  ConfigDescriptorData[512];
+
+				if (USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
 				{
-					printf("Attached device is not a valid Mouse.\r\n");
-					
+					printf("Error Retrieving Device Descriptor.\r\n");
+					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
+				
+				if (ConfigDescriptorSize > 512)
+				{
+					printf("Device Descriptor Too Large To Process.\r\n");
+					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
+				  
+				USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData);
+
+				if (HID_Host_ConfigurePipes(&Mouse_HID_Interface,
+				                            ConfigDescriptorSize, ConfigDescriptorData) != HID_ENUMERROR_NoError)
+				{
+					printf("Attached Device Not a Valid Mouse.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -88,7 +109,6 @@ int main(void)
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
 					printf("Error Setting Device Configuration.\r\n");
-
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;

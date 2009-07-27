@@ -74,10 +74,31 @@ int main(void)
 			case HOST_STATE_Addressed:
 				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 			
-				if (CDC_Host_ConfigurePipes(&VirtualSerial_CDC_Interface, 512) != CDC_ENUMERROR_NoError)
+				uint16_t ConfigDescriptorSize;
+				uint8_t  ConfigDescriptorData[512];
+
+				if (USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
 				{
-					printf("Attached device is not a valid CDC device.\r\n");
+					printf("Error Retrieving Device Descriptor.\r\n");
+					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
 				
+				if (ConfigDescriptorSize > 512)
+				{
+					printf("Device Descriptor Too Large To Process.\r\n");
+					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
+				  
+				USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData);
+
+				if (CDC_Host_ConfigurePipes(&VirtualSerial_CDC_Interface,
+				                            ConfigDescriptorSize, ConfigDescriptorData) != CDC_ENUMERROR_NoError)
+				{
+					printf("Attached Device Not a Valid CDC Class Device.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -86,12 +107,11 @@ int main(void)
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
 					printf("Error Setting Device Configuration.\r\n");
-
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-
+				
 				printf("CDC Device Enumerated.\r\n");
 				USB_HostState = HOST_STATE_Configured;
 				break;

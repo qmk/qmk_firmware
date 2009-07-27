@@ -108,17 +108,16 @@
 			enum
 			{
 				CDC_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
-				CDC_ENUMERROR_ControlError               = 1, /**< A control request to the device failed to complete successfully */
-				CDC_ENUMERROR_DescriptorTooLarge         = 2, /**< The device's Configuration Descriptor is too large to process */
-				CDC_ENUMERROR_InvalidConfigDataReturned  = 3, /**< The device returned an invalid Configuration Descriptor */
-				CDC_ENUMERROR_NoCDCInterfaceFound        = 4, /**< A compatible CDC interface was not found in the device's Configuration Descriptor */
-				CDC_ENUMERROR_EndpointsNotFound          = 5, /**< Compatible CDC endpoints were not found in the device's CDC interface */
+				CDC_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor */
+				CDC_ENUMERROR_NoCDCInterfaceFound        = 2, /**< A compatible CDC interface was not found in the device's Configuration Descriptor */
+				CDC_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible CDC endpoints were not found in the device's CDC interface */
 			} CDCHost_EnumerationFailure_ErrorCodes_t;
 	
 		/* Function Prototypes: */
 			void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
-			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t MaxConfigBufferSize);
-
+			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t ConfigDescriptorLength,
+			                                uint8_t* DeviceConfigDescriptor);
+			
 			void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 			
 			uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);

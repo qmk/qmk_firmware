@@ -34,24 +34,13 @@
 #define  INCLUDE_FROM_CDC_CLASS_HOST_C
 #include "CDC.h"
 
-uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t MaxConfigBufferSize)
+uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t ConfigDescriptorSize,
+                                uint8_t* ConfigDescriptorData)
 {
-	uint8_t* ConfigDescriptorData;
-	uint16_t ConfigDescriptorSize;
 	uint8_t  FoundEndpoints = 0;
 
-	if (USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
-	  return CDC_ENUMERROR_ControlError;
-	
-	if (ConfigDescriptorSize > MaxConfigBufferSize)
-	  return CDC_ENUMERROR_DescriptorTooLarge;
-	  
-	ConfigDescriptorData = alloca(ConfigDescriptorSize);
-
-	USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData);
-	
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
-	  return CDC_ENUMERROR_InvalidConfigDataReturned;
+	  return CDC_ENUMERROR_InvalidConfigDescriptor;
 	
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 	                              DComp_CDC_Host_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
