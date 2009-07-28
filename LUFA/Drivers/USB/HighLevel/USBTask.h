@@ -82,10 +82,11 @@
 					 *  \ref HOST_STATE_Configured and \ref HOST_STATE_Suspended states which are not implemented by
 					 *  the library.
 					 *
-					 *  To reduce program size and speed up checks of this global, it can be placed into the AVR's GPIOR1
-					 *  hardware register instead of RAM by defining the HOST_STATE_AS_GPIOR1 token in the project
-					 *  makefile and passing it to the compiler via the -D switch. When defined, the GPIOR1 register should
-					 *  not be used in the user application except implicitly via the library APIs.
+					 *  To reduce program size and speed up checks of this global, it can be placed into one of the AVR's
+					 *  GPIOR hardware registers instead of RAM by defining the HOST_STATE_AS_GPIOR token to a value 
+					 *  between 0 and 2 in the project makefile and passing it to the compiler via the -D switch. When
+					 *  defined, the corresponding GPIOR register should not be used in the user application except
+					 *  implicitly via the library APIs.
 					 *
 					 *  \note This global is only present if the user application can be a USB host.
 					 *
@@ -95,12 +96,14 @@
 					 */
 					extern volatile uint8_t USB_HostState;
 				#else
-					#define USB_HostState GPIOR1
+					#define _GET_HOST_GPIOR_NAME2(y) GPIOR ## y
+					#define _GET_HOST_GPIOR_NAME(x)  _GET_HOST_GPIOR_NAME2(x)
+					#define USB_HostState _GET_HOST_GPIOR_NAME(HOST_STATE_AS_GPIOR)
 				#endif
 			#endif
 
 			#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
-				#if !defined(DEVICE_STATE_AS_GPIOR0) || defined(__DOXYGEN__)
+				#if !defined(DEVICE_STATE_AS_GPIOR) || defined(__DOXYGEN__)
 					/** Indicates the current device state machine state. When in device mode, this indicates the state
 					 *  via one of the values of the \ref USB_Device_States_t enum values.
 					 *
@@ -108,10 +111,11 @@
 					 *  library. The only exception to this rule is if the NO_LIMITED_CONTROLLER_CONNECT token is used
 					 *  (see \ref EVENT_USB_Connect() and \ref EVENT_USB_Disconnect() events).
 					 *
-					 *  To reduce program size and speed up checks of this global, it can be placed into the AVR's GPIOR0
-					 *  hardware register instead of RAM by defining the DEVICE_STATE_AS_GPIOR0 token in the project
-					 *  makefile and passing it to the compiler via the -D switch. When defined, the GPIOR0 register should
-					 *  not be used in the user application except implicitly via the library APIs.
+					 *  To reduce program size and speed up checks of this global, it can be placed into one of the AVR's
+					 *  GPIOR hardware registers instead of RAM by defining the DEVICE_STATE_AS_GPIOR token to a value 
+					 *  between 0 and 2 in the project makefile and passing it to the compiler via the -D switch. When
+					 *  defined, the corresponding GPIOR register should not be used in the user application except
+					 *  implicitly via the library APIs.
 					 *
 					 *  \note This global is only present if the user application can be a USB device.
 					 *
@@ -124,7 +128,9 @@
 					 */
 					extern volatile uint8_t USB_DeviceState;
 				#else
-					#define USB_DeviceState GPIOR0
+					#define _GET_DEVICE_GPIOR_NAME2(y) GPIOR ## y
+					#define _GET_DEVICE_GPIOR_NAME(x)  _GET_DEVICE_GPIOR_NAME2(x)
+					#define USB_DeviceState _GET_DEVICE_GPIOR_NAME(DEVICE_STATE_AS_GPIOR)
 				#endif
 			#endif
 

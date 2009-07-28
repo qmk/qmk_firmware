@@ -34,7 +34,7 @@
   *  - Added new Benito Arduino Programmer project
   *  - Added new LEDs_ToggleLEDs() function to the LEDs driver
   *  - Added new Pipe_BoundEndpointNumber() and Pipe_IsEndpointBound() functions
-  *  - Added new DEVICE_STATE_AS_GPIOR0 and DEVICE_STATE_AS_GPIOR1 compile time options
+  *  - Added new DEVICE_STATE_AS_GPIOR and HOST_STATE_AS_GPIOR compile time options
   *  
   *  <b>Changed:</b>
   *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)

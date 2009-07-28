@@ -36,11 +36,11 @@
 volatile bool        USB_IsInitialized;
 USB_Request_Header_t USB_ControlRequest;
 
-#if defined(USB_CAN_BE_HOST) && !defined(HOST_STATE_AS_GPIOR1)
+#if defined(USB_CAN_BE_HOST) && !defined(HOST_STATE_AS_GPIOR)
 volatile uint8_t     USB_HostState;
 #endif
 
-#if defined(USB_CAN_BE_DEVICE) && !defined(DEVICE_STATE_AS_GPIOR0)
+#if defined(USB_CAN_BE_DEVICE) && !defined(DEVICE_STATE_AS_GPIOR)
 volatile uint8_t     USB_DeviceState;
 #endif
 
