@@ -210,10 +210,10 @@ void USB_Audio_Task(void)
 		int8_t  LeftSample_8Bit   = (LeftSample_16Bit  >> 8);
 		int8_t  RightSample_8Bit  = (RightSample_16Bit >> 8);
 			
-#if defined(AUDIO_OUT_MONO)
 		/* Mix the two channels together to produce a mono, 8-bit sample */
 		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
 
+#if defined(AUDIO_OUT_MONO)
 		/* Load the sample into the PWM timer channel */
 		OCR3A = ((uint8_t)MixedSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_STEREO)
@@ -221,36 +221,25 @@ void USB_Audio_Task(void)
 		OCR3A = ((uint8_t)LeftSample_8Bit  ^ (1 << 7));
 		OCR3B = ((uint8_t)RightSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_PORTC)
-		/* Mix the two channels together to produce a mono, 8-bit sample */
-		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
-
+		/* Load the 8-bit mixed sample into PORTC */
 		PORTC = MixedSample_8Bit;
 #else
 		uint8_t LEDMask = LEDS_NO_LEDS;
 
-		/* Make left channel positive (absolute) */
-		if (LeftSample_8Bit < 0)
-		  LeftSample_8Bit = -LeftSample_8Bit;
+		/* Make mixed sample value positive (absolute) */
+		MixedSample_8Bit = abs(MixedSample_8Bit);
 
-		/* Make right channel positive (absolute) */
-		if (RightSample_8Bit < 0)
-		  RightSample_8Bit = -RightSample_8Bit;
-
-		/* Set first LED based on sample value */
-		if (LeftSample_8Bit < ((128 / 8) * 1))
-		  LEDMask |= LEDS_LED2;
-		else if (LeftSample_8Bit < ((128 / 8) * 3))
-		  LEDMask |= (LEDS_LED1 | LEDS_LED2);
-		else
+		if (MixedSample_8Bit > ((128 / 8) * 1))
 		  LEDMask |= LEDS_LED1;
-
-		/* Set second LED based on sample value */
-		if (RightSample_8Bit < ((128 / 8) * 1))
-		  LEDMask |= LEDS_LED4;
-		else if (RightSample_8Bit < ((128 / 8) * 3))
-		  LEDMask |= (LEDS_LED3 | LEDS_LED4);
-		else
+		  
+		if (MixedSample_8Bit > ((128 / 8) * 2))
+		  LEDMask |= LEDS_LED2;
+		  
+		if (MixedSample_8Bit > ((128 / 8) * 3))
 		  LEDMask |= LEDS_LED3;
+
+		if (MixedSample_8Bit > ((128 / 8) * 4))
+		  LEDMask |= LEDS_LED4;
 		  
 		LEDs_SetAllLEDs(LEDMask);
 #endif
