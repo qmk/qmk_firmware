@@ -95,6 +95,18 @@
  *  defined to a non-zero value instead to give the size in bytes of the control endpoint, to reduce the size of the compiled
  *  binary.
  *
+ *  <b>DEVICE_STATE_AS_GPIOR0</b> - ( \ref Group_Device ) \n
+ *  One of the most frequenty used global variables in the stack is the USB_DeviceState global, which indicates the current state of
+ *  the Device State Machine. To reduce the amount of code and time required to access and modify this global in an application, this token
+ *  make be defined to fix the state variable into one of the three general purpose IO registers inside the AVR reserved for application
+ *  use. When defined, the GPIOR0 register should not be used within the user application except implicitly via the library APIs.
+ *
+ *  <b>HOST_STATE_AS_GPIOR1</b> - ( \ref Group_Host ) \n
+ *  One of the most frequenty used global variables in the stack is the USB_HostState global, which indicates the current state of
+ *  the Host State Machine. To reduce the amount of code and time required to access and modify this global in an application, this token
+ *  make be defined to fix the state variable into one of the three general purpose IO registers inside the AVR reserved for application
+ *  use. When defined, the GPIOR1 register should not be used within the user application except implicitly via the library APIs.
+ *
  *  <b>TOTAL_NUM_CONFIGURATIONS</b> - ( \ref Group_Device ) \n
  *  By default, the library determines the number of configurations a USB device supports by reading the device descriptor. This reduces
  *  the amount of configuration required to set up the library, and allows the value to change dynamically (if descriptors are stored in

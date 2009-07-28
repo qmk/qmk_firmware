@@ -52,7 +52,7 @@
 		#if defined(__cplusplus)
 			extern "C" {
 		#endif
-
+		
 	/* Public Interface - May be used in end-application: */
 		/* Global Variables: */
 			/** Indicates if the USB interface is currently initialized but not necessarily connected to a host
@@ -74,40 +74,58 @@
 			 extern USB_Request_Header_t USB_ControlRequest;
 			
 			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
-			/** Indicates the current host state machine state. When in host mode, this indicates the state
-			 *  via one of the values of the \ref USB_Host_States_t enum values.
-			 *
-			 *  This value may be altered by the user application to implement the \ref HOST_STATE_Addressed,
-			 *  \ref HOST_STATE_Configured and \ref HOST_STATE_Suspended states which are not implemented by
-			 *  the library.
-			 *
-			 *  \note This global is only present if the user application can be a USB host.
-			 *
-			 *  \see \ref USB_Host_States_t for a list of possible device states
-			 *
-			 *  \ingroup Group_Host
-			 */
-			extern volatile uint8_t USB_HostState;
+				#if !defined(HOST_STATE_AS_GPIOR1) || defined(__DOXYGEN__)
+					/** Indicates the current host state machine state. When in host mode, this indicates the state
+					 *  via one of the values of the \ref USB_Host_States_t enum values.
+					 *
+					 *  This value may be altered by the user application to implement the \ref HOST_STATE_Addressed,
+					 *  \ref HOST_STATE_Configured and \ref HOST_STATE_Suspended states which are not implemented by
+					 *  the library.
+					 *
+					 *  To reduce program size and speed up checks of this global, it can be placed into the AVR's GPIOR1
+					 *  hardware register instead of RAM by defining the HOST_STATE_AS_GPIOR1 token in the project
+					 *  makefile and passing it to the compiler via the -D switch. When defined, the GPIOR1 register should
+					 *  not be used in the user application except implicitly via the library APIs.
+					 *
+					 *  \note This global is only present if the user application can be a USB host.
+					 *
+					 *  \see \ref USB_Host_States_t for a list of possible device states
+					 *
+					 *  \ingroup Group_Host
+					 */
+					extern volatile uint8_t USB_HostState;
+				#else
+					#define USB_HostState GPIOR1
+				#endif
 			#endif
 
 			#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
-			/** Indicates the current device state machine state. When in device mode, this indicates the state
-			 *  via one of the values of the \ref USB_Device_States_t enum values.
-			 *
-			 *  This value should not be altered by the user application as it is handled automatically by the
-			 *  library. The only exception to this rule is if the NO_LIMITED_CONTROLLER_CONNECT token is used
-			 *  (see \ref EVENT_USB_Connect() and \ref EVENT_USB_Disconnect() events).
-			 *
-			 *  \note This global is only present if the user application can be a USB device.
-			 *
-			 *  \note This variable should be treated as read-only in the user application, and never manually
-			 *        changed in value except in the circumstances outlined above.
-			 *
-			 *  \see \ref USB_Device_States_t for a list of possible device states
-			 *
-			 *  \ingroup Group_Device
-			 */
-			extern volatile uint8_t USB_DeviceState;
+				#if !defined(DEVICE_STATE_AS_GPIOR0) || defined(__DOXYGEN__)
+					/** Indicates the current device state machine state. When in device mode, this indicates the state
+					 *  via one of the values of the \ref USB_Device_States_t enum values.
+					 *
+					 *  This value should not be altered by the user application as it is handled automatically by the
+					 *  library. The only exception to this rule is if the NO_LIMITED_CONTROLLER_CONNECT token is used
+					 *  (see \ref EVENT_USB_Connect() and \ref EVENT_USB_Disconnect() events).
+					 *
+					 *  To reduce program size and speed up checks of this global, it can be placed into the AVR's GPIOR0
+					 *  hardware register instead of RAM by defining the DEVICE_STATE_AS_GPIOR0 token in the project
+					 *  makefile and passing it to the compiler via the -D switch. When defined, the GPIOR0 register should
+					 *  not be used in the user application except implicitly via the library APIs.
+					 *
+					 *  \note This global is only present if the user application can be a USB device.
+					 *
+					 *  \note This variable should be treated as read-only in the user application, and never manually
+					 *        changed in value except in the circumstances outlined above.
+					 *
+					 *  \see \ref USB_Device_States_t for a list of possible device states
+					 *
+					 *  \ingroup Group_Device
+					 */
+					extern volatile uint8_t USB_DeviceState;
+				#else
+					#define USB_DeviceState GPIOR0
+				#endif
 			#endif
 
 		/* Function Prototypes: */
