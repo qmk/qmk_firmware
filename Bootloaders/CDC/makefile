@@ -458,7 +458,7 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
 # Default target.
-all: begin gccversion sizebefore build checkhooks checklibmode checkboard sizeafter end
+all: begin gccversion sizebefore build showeventhooks showliboptions showtarget sizeafter end
 
 # Change the build target to build a HEX file or a library.
 build: elf hex eep lss sym
@@ -501,27 +501,29 @@ sizeafter:
 	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
 	2>/dev/null; echo; fi
 
-checkhooks: build
+showeventhooks: build
 	@echo
-	@echo ------- Unhooked LUFA Events -------
+	@echo -------- Unhooked LUFA Events --------
 	@$(shell) (grep -s '^EVENT_.*LUFA/.*\\.o' $(TARGET).map | \
 	           cut -d' ' -f1 | cut -d'_' -f2- | grep ".*") || \
 			   echo "(None)"
-	@echo ------------------------------------
+	@echo --------------------------------------
 
-checklibmode:
+showliboptions:
 	@echo
-	@echo ----------- Library Mode -----------
-	@$(shell) ($(CC) $(ALL_CFLAGS) -E -dM - < /dev/null \
-	          | grep 'USB_\(DEVICE\|HOST\)_ONLY' | cut -d' ' -f2 | grep ".*") \
-	          || echo "No specific mode (both device and host mode allowable)."
-	@echo ------------------------------------
+	@echo ---- Compile Time Library Options ----
+	@for i in $(LUFA_OPTS:-D%=%); do \
+		echo $$i; \
+	done
+	@echo --------------------------------------
 
-checkboard:
+showtarget:
 	@echo
-	@echo ---------- Selected Board ----------
-	@echo Selected board model is $(BOARD).
-	@echo ------------------------------------
+	@echo --------- Target Information ---------
+	@echo AVR Model: $(MCU)
+	@echo Board:     $(BOARD)
+	@echo Clock:     $(F_CPU)Hz CPU, $(F_CLOCK)Hz Master
+	@echo --------------------------------------
 	
 # Display compiler version information.
 gccversion : 
@@ -707,8 +709,7 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Listing of phony targets.
-.PHONY : all checkhooks checklibmode checkboard   \
-begin finish end sizebefore sizeafter gccversion  \
-build elf hex eep lss sym coff extcoff clean      \
-clean_list clean_binary program debug gdb-config  \
-doxygen
+.PHONY : all showeventhooks showliboptions showtarget  \
+begin finish end sizebefore sizeafter gccversion build \
+elf hex eep lss sym coff extcoff program clean debug   \
+clean_list clean_binary gdb-config doxygen

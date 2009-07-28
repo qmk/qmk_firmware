@@ -210,8 +210,10 @@ void USB_Audio_Task(void)
 		int8_t  LeftSample_8Bit   = (LeftSample_16Bit  >> 8);
 		int8_t  RightSample_8Bit  = (RightSample_16Bit >> 8);
 			
+#if !defined(AUDIO_OUT_STEREO)
 		/* Mix the two channels together to produce a mono, 8-bit sample */
 		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
+#endif
 
 #if defined(AUDIO_OUT_MONO)
 		/* Load the sample into the PWM timer channel */
