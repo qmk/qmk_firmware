@@ -232,10 +232,10 @@ static void USB_Device_GetInternalSerialDescriptor(void)
 	struct
 	{
 		USB_Descriptor_Header_t Header;
-		int16_t                 UnicodeString[12];
+		int16_t                 UnicodeString[20];
 	} SignatureDescriptor;
 	
-	uint8_t SigReadAddress  = 0x0E;		
+	uint8_t SigReadAddress  = 0x0E;
 	bool    OddNibbleRead   = false;
 
 	#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
@@ -246,7 +246,7 @@ static void USB_Device_GetInternalSerialDescriptor(void)
 		SignatureDescriptor.Header.bDescriptorType = DTYPE_String;
 	#endif
 
-	for (uint8_t SerialCharNum = 0; SerialCharNum < 12; SerialCharNum++)
+	for (uint8_t SerialCharNum = 0; SerialCharNum < 20; SerialCharNum++)
 	{
 		uint8_t SerialByte = boot_signature_byte_get(SigReadAddress);
 		
