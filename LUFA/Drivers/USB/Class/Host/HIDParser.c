@@ -113,6 +113,8 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 				break;
 			case (TYPE_GLOBAL | TAG_GLOBAL_REPORTID):
 				CurrStateTable->ReportID                    = ReportItemData;
+				BitOffsetIn = 0;
+				BitOffsetOut = 0;
 				break;
 			case (TYPE_LOCAL | TAG_LOCAL_USAGE):
 				if (UsageStackSize == HID_USAGE_STACK_DEPTH)

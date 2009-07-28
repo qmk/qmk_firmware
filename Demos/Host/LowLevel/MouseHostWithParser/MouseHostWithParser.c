@@ -260,12 +260,7 @@ void ProcessMouseReport(uint8_t* MouseReport)
 			if (!(FoundData))
 			  continue;
 			  
-			int16_t DeltaMovement;
-			
-			if (ReportItem->Attributes.BitSize > 8)
-			  DeltaMovement = (int16_t)ReportItem->Value;
-			else
-			  DeltaMovement = (int8_t)ReportItem->Value;
+			int16_t DeltaMovement = (int16_t)(ReportItem->Value << (16 - ReportItem->Attributes.BitSize));
 			
 			/* Determine if the report is for the X or Y delta movement */
 			if (ReportItem->Attributes.Usage.Usage == USAGE_X)
