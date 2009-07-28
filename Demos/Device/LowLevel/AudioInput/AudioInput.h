@@ -50,13 +50,13 @@
 
 	/* Macros: */
 		/** ADC channel number for the microphone input. */
-		#define MIC_IN_ADC_CHANNEL               2
+		#define MIC_IN_ADC_CHANNEL        2
 		
 		/** Maximum ADC sample value for the microphone input. */
-		#define SAMPLE_MAX_RANGE                 0xFFFF
+		#define SAMPLE_MAX_RANGE          0xFFFF
 
 		/** Maximum ADC range for the microphone input. */
-		#define ADC_MAX_RANGE                    0x3FF
+		#define ADC_MAX_RANGE             0x3FF
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1

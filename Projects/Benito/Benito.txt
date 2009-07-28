@@ -31,19 +31,20 @@
  *  </tr>
  *  <tr>
  *   <td><b>USB Class:</b></td>
- *   <td>Human Interface Device (HID)</td>
+ *   <td>Communications Device Class (CDC)</td>
  *  </tr>
  *  <tr> 
  *   <td><b>USB Subclass:</b></td>
- *   <td>Keyboard</td>
+ *   <td>Abstract Control Model (ACM)</td>
  *  </tr>
  *  <tr>
  *   <td><b>Relevant Standards:</b></td>
- *   <td>USBIF HID Standard, USBIF HID Usage Tables</td>
+ *   <td>USBIF CDC Class Standard</td>
+ *   <td>Arduino Bootloader Specification</td>
  *  </tr>
  *  <tr>
  *   <td><b>Usable Speeds:</b></td>
- *   <td>Low Speed Mode, Full Speed Mode</td>
+ *   <td>Full Speed Mode</td>
  *  </tr>
  * </table>
  *

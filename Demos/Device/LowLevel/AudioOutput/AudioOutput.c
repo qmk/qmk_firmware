@@ -96,9 +96,9 @@ void EVENT_USB_Connect(void)
 
 #if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
 	/* PWM speaker timer initialization */
-	TCCRxA  = ((1 << WGMx0) | (1 << COMxA1) | (1 << COMxA0)
-	                        | (1 << COMxB1) | (1 << COMxB0)); // Set on match, clear on TOP
-	TCCRxB  = ((1 << WGMx2) | (1 << CSx0));  // Fast 8-Bit PWM, Fcpu speed
+	TCCR3A  = ((1 << WGM30) | (1 << COM3A1) | (1 << COM3A0)
+	                        | (1 << COM3B1) | (1 << COM3B0)); // Set on match, clear on TOP
+	TCCR3B  = ((1 << WGM32) | (1 << CS30));  // Fast 8-Bit PWM, Fcpu speed
 #endif	
 }
 
@@ -110,7 +110,7 @@ void EVENT_USB_Disconnect(void)
 	/* Stop the timers */
 	TCCR0B = 0;
 #if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
-	TCCRxB = 0;
+	TCCR3B = 0;
 #endif		
 
 #if defined(AUDIO_OUT_MONO)
@@ -215,11 +215,11 @@ void USB_Audio_Task(void)
 		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
 
 		/* Load the sample into the PWM timer channel */
-		OCRxA = ((uint8_t)MixedSample_8Bit ^ (1 << 7));
+		OCR3A = ((uint8_t)MixedSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_STEREO)
 		/* Load the dual 8-bit samples into the PWM timer channels */
-		OCRxA = ((uint8_t)LeftSample_8Bit  ^ (1 << 7));
-		OCRxB = ((uint8_t)RightSample_8Bit ^ (1 << 7));
+		OCR3A = ((uint8_t)LeftSample_8Bit  ^ (1 << 7));
+		OCR3B = ((uint8_t)RightSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_PORTC)
 		/* Mix the two channels together to produce a mono, 8-bit sample */
 		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);

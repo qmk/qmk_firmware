@@ -79,7 +79,7 @@ int main(void)
 	for (;;)
 	{
 		/* Echo bytes from the host to the target via the hardware USART */
-		if (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface))
+		if (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface) > 0)
 		{
 			Serial_TxByte(CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 

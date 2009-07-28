@@ -108,19 +108,19 @@ void ProcessNextSample(void)
 
 #if defined(AUDIO_OUT_MONO)
 		/* Load the sample into the PWM timer channel */
-		OCRxA = ((uint8_t)MixedSample_8Bit ^ (1 << 7));
+		OCR3A = ((uint8_t)MixedSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_STEREO)
 		/* Load the dual 8-bit samples into the PWM timer channels */
-		OCRxA = ((uint8_t)LeftSample_8Bit  ^ (1 << 7));
-		OCRxB = ((uint8_t)RightSample_8Bit ^ (1 << 7));
+		OCR3A = ((uint8_t)LeftSample_8Bit  ^ (1 << 7));
+		OCR3B = ((uint8_t)RightSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_PORTC)
+		/* Load the 8-bit mixed sample into PORTC */
 		PORTC = MixedSample_8Bit;
 #else
 		uint8_t LEDMask = LEDS_NO_LEDS;
 
 		/* Make mixed sample value positive (absolute) */
-		if (MixedSample_8Bit < 0)
-		  MixedSample_8Bit = -MixedSample_8Bit;
+		MixedSample_8Bit = abs(MixedSample_8Bit);
 
 		if (MixedSample_8Bit > ((128 / 8) * 1))
 		  LEDMask |= LEDS_LED1;
@@ -162,9 +162,9 @@ void EVENT_USB_Connect(void)
 
 #if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
 	/* PWM speaker timer initialization */
-	TCCRxA  = ((1 << WGMx0) | (1 << COMxA1) | (1 << COMxA0)
-	        | (1 << COMxB1) | (1 << COMxB0)); // Set on match, clear on TOP
-	TCCRxB  = ((1 << WGMx2) | (1 << CSx0));  // Fast 8-Bit PWM, Fcpu speed
+	TCCR3A  = ((1 << WGM30) | (1 << COM3A1) | (1 << COM3A0)
+	        | (1 << COM3B1) | (1 << COM3B0)); // Set on match, clear on TOP
+	TCCR3B  = ((1 << WGM32) | (1 << CS30));  // Fast 8-Bit PWM, Fcpu speed
 #endif
 }
 
@@ -178,7 +178,7 @@ void EVENT_USB_Disconnect(void)
 
 #if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
 	/* Stop the PWM generation timer */
-	TCCRxB = 0;
+	TCCR3B = 0;
 #endif
 
 #if defined(AUDIO_OUT_MONO)
