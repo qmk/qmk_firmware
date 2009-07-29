@@ -35,6 +35,7 @@
   *  - Added new LEDs_ToggleLEDs() function to the LEDs driver
   *  - Added new Pipe_BoundEndpointNumber() and Pipe_IsEndpointBound() functions
   *  - Added new DEVICE_STATE_AS_GPIOR and HOST_STATE_AS_GPIOR compile time options
+  *  - Added 404 errors to the Webserver in the RNDIS demos to indicate invalid URLs
   *  
   *  <b>Changed:</b>
   *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)

@@ -39,10 +39,14 @@
 /** HTTP server response header, for transmission before the page contents. This indicates to the host that a page exists at the
  *  given location, and gives extra connection information.
  */
-char PROGMEM HTTPHeader[] = "HTTP/1.1 200 OK\r\n"
-                            "Server: LUFA RNDIS\r\n"
-                            "Content-type: text/html\r\n"
-                            "Connection: close\r\n\r\n";
+char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
+                               "Server: LUFA RNDIS\r\n"
+                               "Content-type: text/html\r\n"
+                               "Connection: close\r\n\r\n";
+							
+char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
+                               "Server: LUFA RNDIS\r\n"
+                               "Connection: close\r\n\r\n";
 
 /** HTTP page to serve to the host when a HTTP request is made. This page is too long for a single response, thus it is automatically
  *  broken up into smaller blocks and sent as a series of packets each time the webserver application callback is run.
@@ -105,29 +109,60 @@ void Webserver_ApplicationCallback(TCP_ConnectionState_t* ConnectionState, TCP_C
 	{
 		if (IsHTTPCommand(Buffer->Data, "GET"))
 		{
-			PageBlock = 0;
+			if (IsHTTPCommand(Buffer->Data, "GET / "))
+			{
+				PageBlock = 0;
 
-			/* Copy the HTTP response header into the packet buffer */
-			strcpy_P(BufferDataStr, HTTPHeader);
-			
-			/* Send the buffer contents to the host */
-			TCP_APP_SEND_BUFFER(Buffer, strlen(BufferDataStr));
+				/* Copy the HTTP 200 response header into the packet buffer */
+				strcpy_P(BufferDataStr, HTTP200Header);
+				
+				/* Send the buffer contents to the host */
+				TCP_APP_SEND_BUFFER(Buffer, strlen(BufferDataStr));
 
-			/* Lock the buffer to Device->Host transmissions only while we send the page contents */
-			TCP_APP_CAPTURE_BUFFER(Buffer);
+				/* Lock the buffer to Device->Host transmissions only while we send the page contents */
+				TCP_APP_CAPTURE_BUFFER(Buffer);
+			}
+			else
+			{
+				/* Copy the HTTP 404 response header into the packet buffer */
+				strcpy_P(BufferDataStr, HTTP404Header);
+				
+				/* Send the buffer contents to the host */
+				TCP_APP_SEND_BUFFER(Buffer, strlen(BufferDataStr));
+				
+				/* All data sent, close the connection */
+				TCP_APP_CLOSECONNECTION(ConnectionState);
+			}
 		}
 		else if (IsHTTPCommand(Buffer->Data, "HEAD"))
 		{
-			/* Copy the HTTP response header into the packet buffer */
-			strcpy_P(BufferDataStr, HTTPHeader);
+			if (IsHTTPCommand(Buffer->Data, "HEAD / "))
+			{
+				/* Copy the HTTP response header into the packet buffer */
+				strcpy_P(BufferDataStr, HTTP200Header);
 
-			/* Send the buffer contents to the host */
-			TCP_APP_SEND_BUFFER(Buffer, strlen(BufferDataStr));
+				/* Send the buffer contents to the host */
+				TCP_APP_SEND_BUFFER(Buffer, strlen(BufferDataStr));
+			}
+			else
+			{
+				/* Copy the HTTP response header into the packet buffer */
+				strcpy_P(BufferDataStr, HTTP404Header);
+
+				/* Send the buffer contents to the host */
+				TCP_APP_SEND_BUFFER(Buffer, strlen(BufferDataStr));			
+			}
+			
+			/* All data sent, close the connection */
+			TCP_APP_CLOSECONNECTION(ConnectionState);
 		}
 		else if (IsHTTPCommand(Buffer->Data, "TRACE"))
 		{
 			/* Echo the host's query back to the host */
 			TCP_APP_SEND_BUFFER(Buffer, Buffer->Length);
+			
+			/* All data sent, close the connection */
+			TCP_APP_CLOSECONNECTION(ConnectionState);
 		}
 		else
 		{
