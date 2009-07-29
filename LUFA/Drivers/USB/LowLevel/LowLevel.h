@@ -301,6 +301,10 @@
 				 *        changed in value.
 				 */
 				extern volatile uint8_t USB_CurrentMode;
+			#elif defined(USB_HOST_ONLY)
+				#define USB_CurrentMode USB_MODE_HOST
+			#elif defined(USB_DEVICE_ONLY)
+				#define USB_CurrentMode USB_MODE_DEVICE
 			#endif
 			
 			#if !defined(USE_STATIC_OPTIONS) || defined(__DOXYGEN__)
@@ -311,6 +315,8 @@
 				 *        changed in value.
 				 */
 				extern volatile uint8_t USB_Options;
+			#elif defined(USE_STATIC_OPTIONS)
+				#define USB_Options USE_STATIC_OPTIONS
 			#endif
 
 	/* Private Interface - For use in library only: */

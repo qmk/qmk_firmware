@@ -33,15 +33,8 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#if ((defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||   \
-			      defined(__AVR_AT90USB162__)  || defined(__AVR_AT90USB82__)  ||   \
-				  defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) ||   \
-				  defined(__AVR_ATmega32U6__)) && !defined(USB_DEVICE_ONLY))
-				#define USB_DEVICE_ONLY
-			#endif
-			
-			#if (defined(__AVR_AT90USB162__) || defined(__AVR_AT90USB82__) || \
+		/* Macros: */			
+			#if (defined(__AVR_AT90USB162__) || defined(__AVR_AT90USB82__)  || \
 			     defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega8U2__))
 				#define USB_SERIES_2_AVR
 			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
@@ -52,30 +45,26 @@
 				#define USB_SERIES_7_AVR
 			#endif			
 
+			#if !defined(USB_SERIES_7_AVR)		
+				#if defined(USB_HOST_ONLY)
+					#error USB_HOST_ONLY is not available for the currently selected USB AVR model.
+				#endif
+				
+				#define USB_DEVICE_ONLY
+			#endif
+
 			#if (!defined(USB_DEVICE_ONLY) && !defined(USB_HOST_ONLY))
 				#define USB_CAN_BE_BOTH
 				#define USB_CAN_BE_HOST
 				#define USB_CAN_BE_DEVICE
 			#elif defined(USB_HOST_ONLY)
 				#define USB_CAN_BE_HOST
-
-				#define USB_CurrentMode USB_MODE_HOST
 			#elif defined(USB_DEVICE_ONLY)
 				#define USB_CAN_BE_DEVICE
-
-				#define USB_CurrentMode USB_MODE_DEVICE
-			#endif
-			
-			#if (!defined(USB_SERIES_7_AVR) && defined(USB_HOST_ONLY))
-				#error USB_HOST_ONLY is not available for the currently selected USB AVR model.
 			#endif
 			
 			#if (defined(USB_HOST_ONLY) && defined(USB_DEVICE_ONLY))
 				#error USB_HOST_ONLY and USB_DEVICE_ONLY are mutually exclusive.
-			#endif
-
-			#if defined(USE_STATIC_OPTIONS)
-				#define USB_Options USE_STATIC_OPTIONS
 			#endif
 	#endif
 	
