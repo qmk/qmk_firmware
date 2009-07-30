@@ -99,13 +99,11 @@ int main(void)
 		CheckJoystickMovement();
 
 		/* Discard all received data on the first CDC interface */
-		uint16_t BytesToDiscard = CDC_Device_BytesReceived(&VirtualSerial1_CDC_Interface);
-		while (BytesToDiscard--)
+		while (CDC_Device_BytesReceived(&VirtualSerial1_CDC_Interface))
 		  CDC_Device_ReceiveByte(&VirtualSerial1_CDC_Interface);
 
 		/* Echo all received data on the second CDC interface */
-		uint16_t BytesToEcho = CDC_Device_BytesReceived(&VirtualSerial2_CDC_Interface);
-		while (BytesToEcho--)
+		while (CDC_Device_BytesReceived(&VirtualSerial2_CDC_Interface))
 		  CDC_Device_SendByte(&VirtualSerial2_CDC_Interface, CDC_Device_ReceiveByte(&VirtualSerial2_CDC_Interface));
 		  
 		CDC_Device_USBTask(&VirtualSerial1_CDC_Interface);

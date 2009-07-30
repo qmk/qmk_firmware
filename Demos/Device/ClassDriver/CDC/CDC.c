@@ -92,6 +92,7 @@ int main(void)
 	{
 		CheckJoystickMovement();
 		
+		/* Must throw away unused bytes from the host, or it will lock up while waiting for the device */
 		while (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface))
 		  CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
