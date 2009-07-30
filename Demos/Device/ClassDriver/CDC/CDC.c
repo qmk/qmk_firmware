@@ -57,6 +57,28 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 			},
 	};
 
+#if 0
+/* NOTE: Here you can set up a standard stream using the created virtual serial port, so that the standard stream functions in
+ *       <stdio.h> can be used on the virtual serial port (e.g. fprintf(&USBSerial, "Test"); to print a string).
+ */
+
+static int CDC_putchar(char c, FILE *stream)
+{
+	CDC_Device_SendByte(&VirtualSerial_CDC_Interface, c);
+	return 0;
+}
+
+static int CDC_getchar(FILE *stream)
+{
+	if (!(CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface)))
+	  return -1;
+
+	return CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
+}
+
+static FILE USBSerial = FDEV_SETUP_STREAM(CDC_putchar, CDC_getchar, _FDEV_SETUP_RW);
+#endif
+
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */

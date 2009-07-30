@@ -55,7 +55,7 @@ CDC_Line_Coding_t LineCoding = { .BaudRateBPS = 9600,
  *       <stdio.h> can be used on the virtual serial port (e.g. fprintf(&USBSerial, "Test"); to print a string).
  */
 	
-static int CDC_putchar (char c, FILE *stream)
+static int CDC_putchar(char c, FILE *stream)
 {	  
 	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
@@ -71,7 +71,7 @@ static int CDC_putchar (char c, FILE *stream)
 	return 0;
 }
 
-static int CDC_getchar (FILE *stream)
+static int CDC_getchar(FILE *stream)
 {
 	int c;
 	  

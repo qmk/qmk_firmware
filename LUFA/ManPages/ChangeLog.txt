@@ -76,6 +76,7 @@
   *  - Fixed incorrect PIPE_EPNUM_MASK mask causing pipe failures on devices with endpoint addresses of 8 and above (thanks to John Andrews)
   *  - Fixed report data alignment issues in the MouseHostWithParser demo when X and Y movement data size is not a multiple of 8 bits
   *  - Fixed HID Report Descriptor Parser not correctly resetting internal states when a REPORT ID element is encountered
+  *  - Fixed incorrect BUTTONS_BUTTON1 for the STK526 target
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605
