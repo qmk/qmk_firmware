@@ -41,6 +41,10 @@
 
 		#include <avr/pgmspace.h>
 
+		#if (USE_INTERNAL_SERIAL == NO_DESCRIPTOR)
+			#warning USE_INTERNAL_SERIAL is not available on this AVR - please manually construct a device serial descriptor.
+		#endif
+		
 	/* Macros: */
 		/** Macro to define a CDC class-specific functional descriptor. CDC functional descriptors have a
 		 *  uniform structure but variable sized data payloads, thus cannot be represented accurately by

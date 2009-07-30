@@ -59,7 +59,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 		
 	.ManufacturerStrIndex   = 0x01,
 	.ProductStrIndex        = 0x02,
-	.SerialNumStrIndex      = 0x03,
+	.SerialNumStrIndex      = USE_INTERNAL_SERIAL,
 		
 	.NumberOfConfigurations = 1
 };
@@ -156,20 +156,6 @@ USB_Descriptor_String_t PROGMEM ProductString =
 	.UnicodeString          = L"LUFA Mass Storage Demo"
 };
 
-/** Serial number descriptor string. This is a Unicode string containing a string of HEX characters at least 12
- *  digits in length to uniquely identify a device when concatenated with the device's Vendor and Product IDs. By
- *  using the unique serial number string to identify a device, the device drivers do not need to be reinstalled
- *  each time the device is inserted into a different USB port on the same system. <b>This should be unique between
- *  devices, or conflicts will occur if two devices sharing the same serial number are inserted into the same system
- *  at the same time.</b>
- */
-USB_Descriptor_String_t PROGMEM SerialNumberString =
-{
-	.Header                 = {.Size = USB_STRING_LEN(12), .Type = DTYPE_String},
-		
-	.UnicodeString          = L"000000000000"
-};
-
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
  *  documentation) by the application code so that the address and size of a requested descriptor can be given
  *  to the USB library. When the device receives a Get Descriptor request on the control endpoint, this function
@@ -208,10 +194,6 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 				case 0x02: 
 					Address = (void*)&ProductString;
 					Size    = pgm_read_byte(&ProductString.Header.Size);
-					break;
-				case 0x03: 
-					Address = (void*)&SerialNumberString;
-					Size    = pgm_read_byte(&SerialNumberString.Header.Size);
 					break;
 			}
 			
