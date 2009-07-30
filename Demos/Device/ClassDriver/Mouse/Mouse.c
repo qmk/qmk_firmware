@@ -48,8 +48,6 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 
 				.ReportINEndpointNumber  = MOUSE_EPNUM,
 				.ReportINEndpointSize    = MOUSE_EPSIZE,
-
-				.ReportINBufferSize      = sizeof(USB_MouseReport_Data_t),
 			},
 	};
 

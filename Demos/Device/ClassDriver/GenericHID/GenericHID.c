@@ -48,8 +48,6 @@ USB_ClassInfo_HID_Device_t Generic_HID_Interface =
 
 				.ReportINEndpointNumber  = GENERIC_IN_EPNUM,
 				.ReportINEndpointSize    = GENERIC_EPSIZE,
-				
-				.ReportINBufferSize      = GENERIC_REPORT_SIZE,
 			},
 	};
 

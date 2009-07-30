@@ -48,8 +48,6 @@ USB_ClassInfo_HID_Device_t Joystick_HID_Interface =
 
 				.ReportINEndpointNumber  = JOYSTICK_EPNUM,
 				.ReportINEndpointSize    = JOYSTICK_EPSIZE,
-				
-				.ReportINBufferSize      = sizeof(USB_JoystickReport_Data_t),
 			},
 	};
 

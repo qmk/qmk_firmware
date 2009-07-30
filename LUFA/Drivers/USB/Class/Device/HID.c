@@ -51,7 +51,7 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* const HIDInterf
 			{
 				Endpoint_ClearSETUP();	
 
-				uint8_t  ReportINData[HIDInterfaceInfo->Config.ReportINBufferSize];
+				uint8_t  ReportINData[HID_MAX_REPORT_SIZE];
 				uint16_t ReportINSize;
 				uint8_t  ReportID = (USB_ControlRequest.wValue & 0xFF);
 
@@ -150,27 +150,32 @@ bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfac
 		
 void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 {
+	static uint8_t PreviousReportINData[HID_MAX_REPORT_SIZE];
+
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
 	Endpoint_SelectEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber);
 	
-	if (Endpoint_IsReadWriteAllowed() &&
-	    !(HIDInterfaceInfo->State.IdleCount && HIDInterfaceInfo->State.IdleMSRemaining))
+	if (Endpoint_IsReadWriteAllowed())
 	{
-		if (HIDInterfaceInfo->State.IdleCount && !(HIDInterfaceInfo->State.IdleMSRemaining))
-		  HIDInterfaceInfo->State.IdleMSRemaining = HIDInterfaceInfo->State.IdleCount;
-
-		uint8_t  ReportINData[HIDInterfaceInfo->Config.ReportINBufferSize];
-		uint16_t ReportINSize;
+		uint8_t  ReportINData[HID_MAX_REPORT_SIZE];
 		uint8_t  ReportID = 0;
+		uint16_t ReportINSize;
 
 		memset(ReportINData, 0, sizeof(ReportINData));
 
-		ReportINSize = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportINData);
+		ReportINSize  = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportINData);
 
-		if (ReportINSize)
+		bool StatesChanged     = (memcmp(ReportINData, PreviousReportINData, ReportINSize) != 0);
+		bool IdlePeriodElapsed = (HIDInterfaceInfo->State.IdleCount && !(HIDInterfaceInfo->State.IdleMSRemaining));
+		
+		memcpy(PreviousReportINData, ReportINData, ReportINSize);
+
+		if (ReportINSize && (StatesChanged || IdlePeriodElapsed))
 		{
+			HIDInterfaceInfo->State.IdleMSRemaining = HIDInterfaceInfo->State.IdleCount;
+
 			if (ReportID)
 			  Endpoint_Write_Stream_LE(&ReportID, sizeof(ReportID), NO_STREAM_CALLBACK);
 

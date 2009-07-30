@@ -50,8 +50,6 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 
 				.ReportINEndpointNumber  = KEYBOARD_IN_EPNUM,
 				.ReportINEndpointSize    = HID_EPSIZE,
-				
-				.ReportINBufferSize      = sizeof(USB_KeyboardReport_Data_t),
 			},
 	};
 	
@@ -68,8 +66,6 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 
 				.ReportINEndpointNumber  = MOUSE_IN_EPNUM,
 				.ReportINEndpointSize    = HID_EPSIZE,
-
-				.ReportINBufferSize      = sizeof(USB_MouseReport_Data_t),
 			},
 			
 		.State =
