@@ -40,6 +40,7 @@
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/power.h>
+		#include <stdlib.h>
 
 		#include "Descriptors.h"
 		

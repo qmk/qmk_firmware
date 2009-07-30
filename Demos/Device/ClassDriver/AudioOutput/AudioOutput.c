@@ -46,8 +46,8 @@ USB_ClassInfo_Audio_Device_t Speaker_Audio_Interface =
 			{
 				.StreamingInterfaceNumber = 1,
 
-				.DataINEndpointNumber     = AUDIO_STREAM_EPNUM,
-				.DataINEndpointSize       = AUDIO_STREAM_EPSIZE,
+				.DataOUTEndpointNumber    = AUDIO_STREAM_EPNUM,
+				.DataOUTEndpointSize      = AUDIO_STREAM_EPSIZE,
 			},
 	};
 
@@ -62,8 +62,7 @@ int main(void)
 	
 	for (;;)
 	{
-		if (Speaker_Audio_Interface.State.InterfaceEnabled)
-		  ProcessNextSample();
+		ProcessNextSample();
 
 		Audio_Device_USBTask(&Speaker_Audio_Interface);
 		USB_USBTask();
@@ -90,14 +89,15 @@ void SetupHardware(void)
  */
 void ProcessNextSample(void)
 {
+	/* Check if the sample reload timer period has elapsed, and that the USB bus is ready for a new sample */
 	if ((TIFR0 & (1 << OCF0A)) && Audio_Device_IsSampleReceived(&Speaker_Audio_Interface))
 	{
 		/* Clear the sample reload timer */
 		TIFR0 |= (1 << OCF0A);
 
 		/* Retrieve the signed 16-bit left and right audio samples */
-		int16_t LeftSample_16Bit  = (int16_t)Audio_Device_ReadSample16();
-		int16_t RightSample_16Bit = (int16_t)Audio_Device_ReadSample16();
+		int16_t LeftSample_16Bit  = Audio_Device_ReadSample16(&Speaker_Audio_Interface);
+		int16_t RightSample_16Bit = Audio_Device_ReadSample16(&Speaker_Audio_Interface);
 
 		/* Massage signed 16-bit left and right audio samples into signed 8-bit */
 		int8_t  LeftSample_8Bit   = (LeftSample_16Bit  >> 8);
@@ -124,16 +124,16 @@ void ProcessNextSample(void)
 		/* Make mixed sample value positive (absolute) */
 		MixedSample_8Bit = abs(MixedSample_8Bit);
 
-		if (MixedSample_8Bit > ((128 / 8) * 1))
+		if (MixedSample_8Bit > 2)
 		  LEDMask |= LEDS_LED1;
 		  
-		if (MixedSample_8Bit > ((128 / 8) * 2))
+		if (MixedSample_8Bit > 4)
 		  LEDMask |= LEDS_LED2;
 		  
-		if (MixedSample_8Bit > ((128 / 8) * 3))
+		if (MixedSample_8Bit > 8)
 		  LEDMask |= LEDS_LED3;
 
-		if (MixedSample_8Bit > ((128 / 8) * 4))
+		if (MixedSample_8Bit > 16)
 		  LEDMask |= LEDS_LED4;
 
 		LEDs_SetAllLEDs(LEDMask);

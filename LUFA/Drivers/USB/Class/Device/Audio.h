@@ -125,54 +125,62 @@
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *
 			 *  \return  Signed 8-bit audio sample from the audio interface
 			 */
-			int8_t Audio_Device_ReadSample8(void);
+			int8_t Audio_Device_ReadSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
 
 			/** Reads the next 16-bit audio sample from the current audio interface.
 			 *
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *
 			 *  \return  Signed 16-bit audio sample from the audio interface
 			 */
-			int16_t Audio_Device_ReadSample16(void);
+			int16_t Audio_Device_ReadSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
 
 			/** Reads the next 24-bit audio sample from the current audio interface.
 			 *
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *  \return  Signed 24-bit audio sample from the audio interface
 			 */
-			int32_t Audio_Device_ReadSample24(void);
+			int32_t Audio_Device_ReadSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
 
 			/** Writes the next 8-bit audio sample to the current audio interface.
 			 *
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *  \param[in] Sample  Signed 8-bit audio sample
 			 */
-			void Audio_Device_WriteSample8(const int8_t Sample);
+			void Audio_Device_WriteSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int8_t Sample);
 
 			/** Writes the next 16-bit audio sample to the current audio interface.
 			 *
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *  \param[in] Sample  Signed 16-bit audio sample
 			 */
-			void Audio_Device_WriteSample16(const int16_t Sample);
+			void Audio_Device_WriteSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int16_t Sample);
 
 			/** Writes the next 24-bit audio sample to the current audio interface.
 			 *
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *  \param[in] Sample  Signed 24-bit audio sample
 			 */
-			void Audio_Device_WriteSample24(const int32_t Sample);
+			void Audio_Device_WriteSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int32_t Sample);
 
 			/** Determines if the given audio interface is ready for a sample to be read from it.
 			 *

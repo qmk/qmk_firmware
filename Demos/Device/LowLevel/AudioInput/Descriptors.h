@@ -137,12 +137,8 @@
 		 */
 		#define EP_ACCEPTS_SMALL_PACKETS     (0 << 7)
 
-		#if defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
-			/** Endpoint number of the Audio isochronous streaming data endpoint. */
-			#define AUDIO_STREAM_EPNUM       1
-		#else
-			#define AUDIO_STREAM_EPNUM       3		
-		#endif
+		/** Endpoint number of the Audio isochronous streaming data endpoint. */
+		#define AUDIO_STREAM_EPNUM       1
 		
 		/** Endpoint size in bytes of the Audio isochronous streaming data endpoint. The Windows audio stack requires
 		 *  at least 192 bytes for correct output, thus the smaller 128 byte maximum endpoint size on some of the smaller

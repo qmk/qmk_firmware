@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  Main source file for the Audio Output demo. This file contains the main tasks of the demo and
+ *  Main source file for the AudioOutput demo. This file contains the main tasks of the demo and
  *  is responsible for the initial application hardware configuration.
  */
  
@@ -231,16 +231,16 @@ void USB_Audio_Task(void)
 		/* Make mixed sample value positive (absolute) */
 		MixedSample_8Bit = abs(MixedSample_8Bit);
 
-		if (MixedSample_8Bit > ((128 / 8) * 1))
+		if (MixedSample_8Bit > 2)
 		  LEDMask |= LEDS_LED1;
 		  
-		if (MixedSample_8Bit > ((128 / 8) * 2))
+		if (MixedSample_8Bit > 4)
 		  LEDMask |= LEDS_LED2;
 		  
-		if (MixedSample_8Bit > ((128 / 8) * 3))
+		if (MixedSample_8Bit > 8)
 		  LEDMask |= LEDS_LED3;
 
-		if (MixedSample_8Bit > ((128 / 8) * 4))
+		if (MixedSample_8Bit > 16)
 		  LEDMask |= LEDS_LED4;
 		  
 		LEDs_SetAllLEDs(LEDMask);

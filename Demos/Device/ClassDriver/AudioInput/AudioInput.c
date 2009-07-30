@@ -62,8 +62,7 @@ int main(void)
 	
 	for (;;)
 	{
-		if (Microphone_Audio_Interface.State.InterfaceEnabled)
-		  ProcessNextSample();
+		ProcessNextSample();
 
 		Audio_Device_USBTask(&Microphone_Audio_Interface);
 		USB_USBTask();
@@ -95,6 +94,7 @@ void SetupHardware(void)
  */
 void ProcessNextSample(void)
 {
+	/* Check if the sample reload timer period has elapsed, and that the USB bus is ready for a new sample */
 	if ((TIFR0 & (1 << OCF0A)) && Audio_Device_IsReadyForNextSample(&Microphone_Audio_Interface))
 	{
 		TIFR0 |= (1 << OCF0A);
@@ -107,7 +107,7 @@ void ProcessNextSample(void)
 		AudioSample -= (SAMPLE_MAX_RANGE / 2));
 #endif
 
-		Audio_Device_WriteSample16(AudioSample);
+		Audio_Device_WriteSample16(&Microphone_Audio_Interface, AudioSample);
 	}
 }
 

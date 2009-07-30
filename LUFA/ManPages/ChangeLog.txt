@@ -10,52 +10,52 @@
   *
   *  <b>New:</b>
   *  - Added new class drivers and matching demos to the library for rapid application development
+  *  - Added new PrinterHost demo (thanks to John Andrews)
+  *  - Added USB Missle Launcher project, submitted by Dave Fletcher
+  *  - Added new Benito Arduino Programmer project
   *  - Added incomplete device and host mode demos for later enhancement
+  *  - Updated MassStorage device block write routines to use ping-pong Dataflash buffering to increase throughput by around 30%
   *  - Error status LEDs shown when device endpoint configuration fails to complete in all demos and projects
   *  - Added new USB_Host_SetDeviceConfiguration() convenience function for easy configuration selection of devices while in USB
   *    host mode
   *  - Added new USB_Host_ClearPipeStall() convenience function to clear a stall condition on an attached device's endpoint
   *  - Added new USB_Host_GetDeviceDescriptor() convenience function to retrieve the attached device's Device descriptor
-  *  - Added USB Missle Launcher project, submitted by Dave Fletcher
+  *  - Added new Endpoint_ClearStatusStage() convenience function to assist with the status stages of control transfers
   *  - Added new USE_INTERNAL_SERIAL define for using the unique serial numbers in some AVR models as the USB device's serial number,
   *    added NO_INTERNAL_SERIAL compile time option to turn off new serial number reading code
   *  - Added new DATAFLASH_CHIP_MASK() macro to the Dataflash driver, which returns the Dataflash select mask for the given chip index
-  *  - Updated MassStorage device block write routines to use ping-pong Dataflash buffering to increase throughput by around 30%
   *  - Added new HOST_STATE_WaitForDeviceRemoval host state machine state for non-blocking disabling of device communications until the
   *    device has been removed (for use when an error occurs or communications with the device have completed)
   *  - Added new FAST_STREAM_TRANSFERS compile time option for faster stream transfers via multiple bytes copied per stream loop
-  *  - Added stdio stream demo code to the low-level CDC demo, to show how to create standard streams out of the virtual serial ports
+  *  - Added stdio stream demo code to the CDC device demos, to show how to create standard streams out of the virtual serial ports
   *  - Added new EEPROM and FLASH buffer versions of the Endpoint and Pipe stream functions
   *  - Added new USE_FLASH_DESCRIPTORS and TOTAL_NUM_CONFIGURATIONS compile time options
   *  - Added support for the new ATMEGA32U2, ATMEGA16U2 and ATMEGA8U2 AVR models
-  *  - Added new PrinterHost demo (thanks to John Andrews)
   *  - Added new USB_DeviceState variable to keep track of the current Device mode USB state
-  *  - Added new Endpoint_ClearStatusStage() convenience function to assist with the status stages of control transfers
-  *  - Added new Benito Arduino Programmer project
   *  - Added new LEDs_ToggleLEDs() function to the LEDs driver
   *  - Added new Pipe_BoundEndpointNumber() and Pipe_IsEndpointBound() functions
   *  - Added new DEVICE_STATE_AS_GPIOR and HOST_STATE_AS_GPIOR compile time options
-  *  - Added 404 errors to the Webserver in the RNDIS demos to indicate invalid URLs
+  *  - Added 404 Not Found errors to the webserver in the RNDIS demos to indicate invalid URLs
   *  
   *  <b>Changed:</b>
   *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)
-  *  - Low level API MIDI device demo no longer blocks if a note change event is sent while the endpoint is not ready
-  *  - Internal per-device preprocessing conditions changed to per-device series rather than per controller group for finer-grain
-  *    internal control
-  *  - Pipe_GetErrorFlags() now returns additional error flags for overflow and underflow errors
+  *  - The device-mode CALLBACK_USB_GetDescriptor() function now has an extra parameter so that the memory space in which the requested
+  *    descriptor is located can be specified. This means that descriptors can now be located in multiple memory spaces within a device.
+  *  - Removed vague USB_IsConnected global - test USB_DeviceState or USB_HostState explicitly to gain previous functionality
+  *  - Removed USB_IsSuspended global - test USB_DeviceState against DEVICE_STATE_Suspended instead
   *  - Extended USB_GetDeviceConfigDescriptor() routine to require the configuration number within the device to fetch
+  *  - Dataflash_WaitWhileBusy() now always ensures that the dataflash is ready for the next command immediately after returning,
+  *    no need to call Dataflash_ToggleSelectedChipCS() afterwards
+  *  - Low level API MIDI device demo no longer blocks if a note change event is sent while the endpoint is not ready
+  *  - Pipe_GetErrorFlags() now returns additional error flags for overflow and underflow errors
   *  - Pipe stream functions now automatically set the correct pipe token, so that bidirectional pipes can be used
   *  - Pipe_ConfigurePipe() now automatically defaults IN pipes to accepting infinite IN requests, this can still be changed by calling
   *    the existing Pipe_SetFiniteINRequests() function
-  *  - Dataflash_WaitWhileBusy() now always ensures that the dataflash is ready for the next command immediately after returning,
-  *    no need to call Dataflash_ToggleSelectedChipCS() afterwards
   *  - Changed F_CLOCK entries in project makefiles to alias to F_CPU by default, as this is the most common case
-  *  - The device-mode CALLBACK_USB_GetDescriptor() function now has an extra parameter so that the memory space in which the requested
-  *    descriptor is located can be specified. This means that descriptors can now be located in multiple memory spaces within a device.
   *  - Host mode demos now use sane terminal escape codes, so that text is always readable and events/program output is visually distinguished
   *    from oneanother using foreground colours
-  *  - Removed vague USB_IsConnected global - test USB_DeviceState or USB_HostState explicitly to gain previous functionality
-  *  - Removed USB_IsSuspended global - test USB_DeviceState against DEVICE_STATE_Suspended instead
+  *  - Internal per-device preprocessing conditions changed to per-device series rather than per-controller group for finer-grain
+  *    internal control
   *
   *  <b>Fixed:</b>
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix
