@@ -137,7 +137,7 @@
 		/** Type define for a USB MIDI event packet, used to encapsulate sent and received MIDI messages from a USB MIDI interface. */
 		typedef struct
 		{
-			unsigned char Command     : 4; /**< MIDI command being sent or received in the event packet */
+			unsigned char Command     : 4; /**< Upper nibble of the MIDI command being sent or received in the event packet */
 			unsigned char CableNumber : 4; /**< Virtual cable number of the event being sent or received in the given MIDI interface */
 			
 			uint8_t Data1; /**< First byte of data in the MIDI event */

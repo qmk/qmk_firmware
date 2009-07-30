@@ -67,6 +67,7 @@ int main(void)
 	{
 		CheckJoystickMovement();
 		
+		/* Must acknowedge MIDI packets from the host even though they aren't used, or the host locks up */
 		MIDI_EventPacket_t DummyMIDIEvent;
 		MIDI_Device_ReceiveEventPacket(&Keyboard_MIDI_Interface, &DummyMIDIEvent);
 	

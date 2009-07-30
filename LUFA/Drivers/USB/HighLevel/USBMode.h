@@ -50,7 +50,9 @@
 					#error USB_HOST_ONLY is not available for the currently selected USB AVR model.
 				#endif
 				
-				#define USB_DEVICE_ONLY
+				#if !defined(USB_DEVICE_ONLY)
+					#define USB_DEVICE_ONLY
+				#endif
 			#endif
 
 			#if (!defined(USB_DEVICE_ONLY) && !defined(USB_HOST_ONLY))
