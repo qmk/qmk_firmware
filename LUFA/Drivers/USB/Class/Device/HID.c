@@ -150,8 +150,6 @@ bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfac
 		
 void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 {
-	static uint8_t PreviousReportINData[HID_MAX_REPORT_SIZE];
-
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
@@ -167,10 +165,10 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 
 		ReportINSize  = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportINData);
 
-		bool StatesChanged     = (memcmp(ReportINData, PreviousReportINData, ReportINSize) != 0);
+		bool StatesChanged     = (memcmp(ReportINData, HIDInterfaceInfo->State.PreviousReportINData, ReportINSize) != 0);
 		bool IdlePeriodElapsed = (HIDInterfaceInfo->State.IdleCount && !(HIDInterfaceInfo->State.IdleMSRemaining));
 		
-		memcpy(PreviousReportINData, ReportINData, ReportINSize);
+		memcpy(HIDInterfaceInfo->State.PreviousReportINData, ReportINData, ReportINSize);
 
 		if (ReportINSize && (StatesChanged || IdlePeriodElapsed))
 		{
