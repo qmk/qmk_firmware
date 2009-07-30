@@ -121,6 +121,13 @@
 			 */
 			void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo);
 			
+			/** Indicates that a millisecond of idle time has elapsed on the given HID interface, and the interface's idle count should be
+			 *  decremented. This should be called once per millisecond so that hardware key-repeats function correctly.
+			 *
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
+			 */
+			void HID_Device_MillisecondElapsed(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo);
+			
 			/** HID class driver callback for the user creation of a HID input report. This callback may fire in response to either
 			 *  HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback the
 			 *  user is responsible for the creation of the next HID input report to be sent to the host.

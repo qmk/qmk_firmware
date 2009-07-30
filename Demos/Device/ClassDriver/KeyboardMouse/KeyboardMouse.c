@@ -66,12 +66,7 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 
 				.ReportINEndpointNumber  = MOUSE_IN_EPNUM,
 				.ReportINEndpointSize    = HID_EPSIZE,
-			},
-			
-		.State =
-			{
-				// Leave all state values to their defaults
-			}			
+			},		
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -147,11 +142,8 @@ void EVENT_USB_UnhandledControlPacket(void)
 /** ISR to keep track of each millisecond interrupt, for determining the HID class idle period remaining when set. */
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-	if (Keyboard_HID_Interface.State.IdleMSRemaining)
-	  Keyboard_HID_Interface.State.IdleMSRemaining--;
-
-	if (Mouse_HID_Interface.State.IdleMSRemaining)
-	  Mouse_HID_Interface.State.IdleMSRemaining--;
+	HID_Device_MillisecondElapsed(&Keyboard_HID_Interface);
+	HID_Device_MillisecondElapsed(&Mouse_HID_Interface);
 }
 
 /** HID class driver callback function for the creation of HID reports to the host.

@@ -120,8 +120,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 /** ISR to keep track of each millisecond interrupt, for determining the HID class idle period remaining when set. */
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-	if (Joystick_HID_Interface.State.IdleMSRemaining)
-	  Joystick_HID_Interface.State.IdleMSRemaining--;
+	HID_Device_MillisecondElapsed(&Joystick_HID_Interface);
 }
 
 /** HID class driver callback function for the creation of HID reports to the host.

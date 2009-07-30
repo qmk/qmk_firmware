@@ -184,4 +184,10 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 	}
 }
 
+void HID_Device_MillisecondElapsed(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo)
+{
+	if (HIDInterfaceInfo->State.IdleMSRemaining)
+	  HIDInterfaceInfo->State.IdleMSRemaining--;
+}
+
 #endif

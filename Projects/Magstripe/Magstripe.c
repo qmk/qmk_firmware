@@ -153,8 +153,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 /** Timer 0 CTC ISR, firing once each millisecond to keep track of elapsed idle time in the HID interface. */
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-	if (Keyboard_HID_Interface.State.IdleMSRemaining)
-	  Keyboard_HID_Interface.State.IdleMSRemaining--;
+	HID_Device_MillisecondElapsed(&Keyboard_HID_Interface);
 }
 
 /** HID Class driver callback function for the creation of a HID report for the host.

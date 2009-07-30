@@ -78,11 +78,6 @@ USB_ClassInfo_CDC_Device_t VirtualSerial2_CDC_Interface =
 				.NotificationEndpointNumber = CDC2_NOTIFICATION_EPNUM,
 				.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
 			},
-			
-		.State =
-			{
-				// Leave all state values to their defaults
-			}
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
