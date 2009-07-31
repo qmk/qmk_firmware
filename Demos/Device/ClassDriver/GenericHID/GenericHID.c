@@ -39,6 +39,14 @@
 /** Buffer to hold the previously generated HID report, for comparison purposes inside the HID class driver. */
 uint8_t PrevHIDReportBuffer[GENERIC_REPORT_SIZE];
 
+/** Structure to contain reports from the host, so that they can be echoed back upon request */
+struct
+{
+	uint8_t ReportID;
+	uint16_t ReportSize;
+	uint8_t ReportData[GENERIC_REPORT_SIZE];
+} HIDReportEcho;
+
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -139,9 +147,12 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
                                          void* ReportData, uint16_t* ReportSize)
 {
-	// Create generic HID report here
+	if (HIDReportEcho.ReportID)
+	  *ReportID = HIDReportEcho.ReportID;
+
+	memcpy(ReportData, HIDReportEcho.ReportData, HIDReportEcho.ReportSize);
 	
-	*ReportSize = 0;
+	*ReportSize = HIDReportEcho.ReportSize;
 	return true;
 }
 
@@ -155,5 +166,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, const uint8_t ReportID,
                                           const void* ReportData, const uint16_t ReportSize)
 {
-	// Process received generic HID report here
+	HIDReportEcho.ReportID   = ReportID;
+	HIDReportEcho.ReportSize = ReportSize;
+	memcpy(HIDReportEcho.ReportData, ReportData, ReportSize);
 }

@@ -51,8 +51,8 @@
  *
  *  Generic HID device demonstration application. This gives a simple reference application
  *  for implementing a generic HID device, using the basic USB HID drivers in all modern
- *  OSes (i.e. no special drivers required). It accepts and sends up to 255 byte reports to
- *  and from a USB Host, and by default transmits the last sent report back to the host.
+ *  OSes (i.e. no special drivers required). By default it accepts and sends up to 8 byte reports
+ *  to and from a USB Host, and transmits the last sent report back to the host.
  *  
  *  On start-up the system will automatically enumerate and function as a vendor HID device.
  *  When controlled by a custom HID class application, reports can be sent and received by
