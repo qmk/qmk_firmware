@@ -121,7 +121,9 @@ void USB_ShutDown(void)
 	USB_ResetInterface();
 	USB_Detach();
 	USB_Controller_Disable();
-	USB_PLL_Off();
+	
+	if (!(USB_Options & USB_OPT_MANUAL_PLL))
+	  USB_PLL_Off();
 	
 	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 	USB_OTGPAD_Off();
@@ -188,7 +190,7 @@ void USB_ResetInterface(void)
 		if (USB_Options & USB_DEVICE_OPT_LOWSPEED)
 		  USB_Device_SetLowSpeed();
 		else
-		  USB_Device_SetHighSpeed();
+		  USB_Device_SetFullSpeed();
 		  
 		USB_INT_Enable(USB_INT_VBUS);
 	}

@@ -33,7 +33,6 @@
  *  Main source file for the TeensyHID bootloader. This file contains the complete bootloader logic.
  */
  
-#define  INCLUDE_FROM_TEENSYHID_C
 #include "TeensyHID.h"
 
 /* Global Variables: */

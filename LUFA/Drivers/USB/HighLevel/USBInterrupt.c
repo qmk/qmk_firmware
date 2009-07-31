@@ -93,7 +93,10 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		
 			USB_Detach();
 			USB_CLK_Freeze();
-			USB_PLL_Off();
+
+			if (!(USB_Options & USB_OPT_MANUAL_PLL))
+			  USB_PLL_Off();
+
 			USB_REG_Off();
 
 			EVENT_USB_VBUSDisconnect();

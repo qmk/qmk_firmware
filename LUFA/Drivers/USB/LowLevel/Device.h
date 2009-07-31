@@ -185,7 +185,7 @@
 	#if !defined(__DOXYGEN__)
 		/* Macros: */		
 			#define USB_Device_SetLowSpeed()        MACROS{ UDCON |=  (1 << LSM);   }MACROE
-			#define USB_Device_SetHighSpeed()       MACROS{ UDCON &= ~(1 << LSM);   }MACROE
+			#define USB_Device_SetFullSpeed()       MACROS{ UDCON &= ~(1 << LSM);   }MACROE
 	#endif
 
 #endif
