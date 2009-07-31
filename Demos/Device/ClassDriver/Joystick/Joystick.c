@@ -36,6 +36,9 @@
 
 #include "Joystick.h"
 
+/** Buffer to hold the previously generated HID report, for comparison purposes inside the HID class driver. */
+uint8_t PrevJoystickHIDReportBuffer[sizeof(USB_JoystickReport_Data_t)];
+
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -48,6 +51,9 @@ USB_ClassInfo_HID_Device_t Joystick_HID_Interface =
 
 				.ReportINEndpointNumber  = JOYSTICK_EPNUM,
 				.ReportINEndpointSize    = JOYSTICK_EPSIZE,
+
+				.PrevReportINBuffer      = PrevJoystickHIDReportBuffer,
+				.PrevReportINBufferSize  = sizeof(PrevJoystickHIDReportBuffer),
 			},
 	};
 
@@ -128,10 +134,12 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
  *  \param[in,out] ReportID  Report ID requested by the host if non-zero, otherwise callback should set to the generated report ID
  *  \param[out] ReportData  Pointer to a buffer where the created report should be stored
+ *  \param[out] ReportSize  Number of bytes written in the report (or zero if no report is to be sent
  *
- *  \return Number of bytes written in the report (or zero if no report is to be sent
+ *  \return Boolean true to force the sending of the report, false to let the library determine if it needs to be sent
  */
-uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID, void* ReportData)
+bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
+                                         void* ReportData, uint16_t* ReportSize)
 {
 	USB_JoystickReport_Data_t* JoystickReport = (USB_JoystickReport_Data_t*)ReportData;
 	
@@ -154,7 +162,8 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const H
 	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 	  JoystickReport->Button |= (1 << 0);
 	  
-	return sizeof(USB_JoystickReport_Data_t);
+	*ReportSize = sizeof(USB_JoystickReport_Data_t);
+	return false;
 }
 
 /** HID class driver callback function for the processing of HID reports from the host.

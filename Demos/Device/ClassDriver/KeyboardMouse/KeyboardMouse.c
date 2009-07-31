@@ -37,6 +37,12 @@
 
 #include "KeyboardMouse.h"
 
+/** Buffer to hold the previously generated Keyboard HID report, for comparison purposes inside the HID class driver. */
+uint8_t PrevKeyboardHIDReportBuffer[sizeof(USB_KeyboardReport_Data_t)];
+
+/** Buffer to hold the previously generated Mouse HID report, for comparison purposes inside the HID class driver. */
+uint8_t PrevMouseHIDReportBuffer[sizeof(USB_MouseReport_Data_t)];
+
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another. This is for the keyboard HID
@@ -50,6 +56,9 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 
 				.ReportINEndpointNumber  = KEYBOARD_IN_EPNUM,
 				.ReportINEndpointSize    = HID_EPSIZE,
+
+				.PrevReportINBuffer      = PrevKeyboardHIDReportBuffer,
+				.PrevReportINBufferSize  = sizeof(PrevKeyboardHIDReportBuffer),
 			},
 	};
 	
@@ -66,6 +75,9 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 
 				.ReportINEndpointNumber  = MOUSE_IN_EPNUM,
 				.ReportINEndpointSize    = HID_EPSIZE,
+
+				.PrevReportINBuffer      = PrevMouseHIDReportBuffer,
+				.PrevReportINBufferSize  = sizeof(PrevMouseHIDReportBuffer),
 			},		
 	};
 
@@ -151,10 +163,12 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
  *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
  *  \param[in,out] ReportID  Report ID requested by the host if non-zero, otherwise callback should set to the generated report ID
  *  \param[out] ReportData  Pointer to a buffer where the created report should be stored
+ *  \param[out] ReportSize  Number of bytes written in the report (or zero if no report is to be sent
  *
- *  \return Number of bytes written in the report (or zero if no report is to be sent
+ *  \return Boolean true to force the sending of the report, false to let the library determine if it needs to be sent
  */
-uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID, void* ReportData)
+bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
+                                         void* ReportData, uint16_t* ReportSize)
 {
 	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
 	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
@@ -179,8 +193,9 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const H
 
 		if (JoyStatus_LCL & JOY_PRESS)
 		  KeyboardReport->KeyCode[0] = 0x08; // E
-		  
-		return sizeof(USB_KeyboardReport_Data_t);
+		
+		*ReportSize = sizeof(USB_KeyboardReport_Data_t);
+		return false;
 	}
 	else
 	{
@@ -203,7 +218,8 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const H
 		if (JoyStatus_LCL & JOY_PRESS)
 		  MouseReport->Button  = (1 << 0);
 		
-		return sizeof(USB_MouseReport_Data_t);		
+		*ReportSize = sizeof(USB_MouseReport_Data_t);
+		return true;		
 	}
 }
 

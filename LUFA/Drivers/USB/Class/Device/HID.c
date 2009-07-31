@@ -51,15 +51,15 @@ void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* const HIDInterf
 			{
 				Endpoint_ClearSETUP();	
 
-				uint8_t  ReportINData[HID_MAX_REPORT_SIZE];
 				uint16_t ReportINSize;
 				uint8_t  ReportID = (USB_ControlRequest.wValue & 0xFF);
 
-				memset(ReportINData, 0, sizeof(ReportINData));
+				memset(HIDInterfaceInfo->Config.PrevReportINBuffer, 0, HIDInterfaceInfo->Config.PrevReportINBufferSize);
 				
-				ReportINSize = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportINData);
+				CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID,
+				                                    HIDInterfaceInfo->Config.PrevReportINBuffer, &ReportINSize);
 
-				Endpoint_Write_Control_Stream_LE(ReportINData, ReportINSize);
+				Endpoint_Write_Control_Stream_LE(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportINSize);
 				Endpoint_ClearOUT();
 			}
 		
@@ -157,20 +157,20 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 	
 	if (Endpoint_IsReadWriteAllowed())
 	{
-		uint8_t  ReportINData[HID_MAX_REPORT_SIZE];
+		uint8_t  ReportINData[HIDInterfaceInfo->Config.PrevReportINBufferSize];
 		uint8_t  ReportID = 0;
 		uint16_t ReportINSize;
 
 		memset(ReportINData, 0, sizeof(ReportINData));
 
-		ReportINSize  = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportINData);
+		bool ForceSend = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportINData, &ReportINSize);
 
-		bool StatesChanged     = (memcmp(ReportINData, HIDInterfaceInfo->State.PreviousReportINData, ReportINSize) != 0);
+		bool StatesChanged     = (memcmp(ReportINData, HIDInterfaceInfo->Config.PrevReportINBuffer, ReportINSize) != 0);
 		bool IdlePeriodElapsed = (HIDInterfaceInfo->State.IdleCount && !(HIDInterfaceInfo->State.IdleMSRemaining));
 		
-		memcpy(HIDInterfaceInfo->State.PreviousReportINData, ReportINData, ReportINSize);
+		memcpy(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportINData, ReportINSize);
 
-		if (ReportINSize && (StatesChanged || IdlePeriodElapsed))
+		if (ReportINSize && (ForceSend || StatesChanged || IdlePeriodElapsed))
 		{
 			HIDInterfaceInfo->State.IdleMSRemaining = HIDInterfaceInfo->State.IdleCount;
 

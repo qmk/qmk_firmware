@@ -45,6 +45,9 @@ BitBuffer_t TrackDataBuffers[TOTAL_TRACKS];
 /** Pointer to the current track buffer being sent to the host. */
 BitBuffer_t* CurrentTrackBuffer = &TrackDataBuffers[TOTAL_TRACKS];
 
+/** Buffer to hold the previously generated Keyboard HID report, for comparison purposes inside the HID class driver. */
+uint8_t PrevKeyboardHIDReportBuffer[sizeof(USB_KeyboardReport_Data_t)];
+
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -57,6 +60,9 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 
 				.ReportINEndpointNumber  = KEYBOARD_EPNUM,
 				.ReportINEndpointSize    = KEYBOARD_EPSIZE,
+
+				.PrevReportINBuffer      = PrevKeyboardHIDReportBuffer,
+				.PrevReportINBufferSize  = sizeof(PrevKeyboardHIDReportBuffer),
 			},
 	};
 
@@ -156,15 +162,17 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 	HID_Device_MillisecondElapsed(&Keyboard_HID_Interface);
 }
 
-/** HID Class driver callback function for the creation of a HID report for the host.
+/** HID class driver callback function for the creation of HID reports to the host.
  *
- *  \param[in] HIDInterfaceInfo  Pointer to the HID interface structure for the HID interface being referenced
- *  \param[in,out] ReportID      Report ID requested by the host if non-zero, otherwise callback should set to the generated report ID
- *  \param[out] ReportData       Pointer to the preallocated report buffer where the created report should be stored
+ *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
+ *  \param[in,out] ReportID  Report ID requested by the host if non-zero, otherwise callback should set to the generated report ID
+ *  \param[out] ReportData  Pointer to a buffer where the created report should be stored
+ *  \param[out] ReportSize  Number of bytes written in the report (or zero if no report is to be sent
  *
- *  \return Number of bytes in the created report
+ *  \return Boolean true to force the sending of the report, false to let the library determine if it needs to be sent
  */
-uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID, void* ReportData)
+bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
+                                         void* ReportData, uint16_t* ReportSize)
 {
 	USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
 
@@ -190,7 +198,8 @@ uint16_t CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const H
 		KeyboardReport->KeyCode = BitBuffer_GetNextBit(CurrentTrackBuffer) ? KEY_1 : KEY_0;
 	}
 	
-	return sizeof(USB_KeyboardReport_Data_t);
+	*ReportSize = sizeof(USB_KeyboardReport_Data_t);
+	return false;
 }
 
 /** HID Class driver callback function for the processing of a received HID report from the host.
