@@ -210,10 +210,11 @@ void USB_Audio_Task(void)
 		int8_t  LeftSample_8Bit   = (LeftSample_16Bit  >> 8);
 		int8_t  RightSample_8Bit  = (RightSample_16Bit >> 8);
 			
-#if !defined(AUDIO_OUT_STEREO)
 		/* Mix the two channels together to produce a mono, 8-bit sample */
 		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
-#endif
+
+		/* Get absolute value of mixed sample value */
+		uint8_t MixedSample_8Bit_Abs = abs(MixedSample_8Bit);
 
 #if defined(AUDIO_OUT_MONO)
 		/* Load the sample into the PWM timer channel */
@@ -225,25 +226,22 @@ void USB_Audio_Task(void)
 #elif defined(AUDIO_OUT_PORTC)
 		/* Load the 8-bit mixed sample into PORTC */
 		PORTC = MixedSample_8Bit;
-#else
+#endif
+
 		uint8_t LEDMask = LEDS_NO_LEDS;
 
-		/* Make mixed sample value positive (absolute) */
-		MixedSample_8Bit = abs(MixedSample_8Bit);
-
-		if (MixedSample_8Bit > 2)
+		if (MixedSample_8Bit_Abs > 2)
 		  LEDMask |= LEDS_LED1;
 		  
-		if (MixedSample_8Bit > 4)
+		if (MixedSample_8Bit_Abs > 4)
 		  LEDMask |= LEDS_LED2;
 		  
-		if (MixedSample_8Bit > 8)
+		if (MixedSample_8Bit_Abs > 8)
 		  LEDMask |= LEDS_LED3;
 
-		if (MixedSample_8Bit > 16)
+		if (MixedSample_8Bit_Abs > 16)
 		  LEDMask |= LEDS_LED4;
 		  
 		LEDs_SetAllLEDs(LEDMask);
-#endif
 	}
 }

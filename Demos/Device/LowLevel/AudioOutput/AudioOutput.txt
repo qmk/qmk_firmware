@@ -53,11 +53,11 @@
  *  required).
  *  
  *  On start-up the system will automatically enumerate and function
- *  as a USB speaker. Incoming audio will output in 8-bit PWM onto
- *  the timer output (timer 3 for the AT90USBXXX6/7 USB AVRs, timer 1 for
- *  the AT90USBXXX2 controller AVRs) compare channel A for AUDIO_OUT_MONO
- *  mode, on channels A and B for AUDIO_OUT_STEREO and on the board LEDs
- *  for AUDIO_OUT_LEDS mode. Decouple audio outputs with a capacitor and
+ *  as a USB speaker. Outgoing audio will output in 8-bit PWM onto
+ *  the timer 3 output compare channel A for AUDIO_OUT_MONO mode, on
+ *  timer 3 channels A and B for AUDIO_OUT_STEREO and on PORTC as a signed
+ *  mono sample for AUDIO_OUT_PORTC. Audio output will also be indicated on
+ *  the board LEDs in all modes. Decouple audio outputs with a capacitor and
  *  attach to a speaker to hear the audio.
  *  
  *  Under Windows, if a driver request dialogue pops up, select the option
@@ -82,11 +82,6 @@
  *    <td>AUDIO_OUT_MONO</td>
  *    <td>Makefile CDEFS</td>
  *    <td>When defined, this outputs the audio samples in mono to the timer output pin of the microcontroller.</td>
- *   </tr>
- *   <tr>
- *    <td>AUDIO_OUT_LEDS</td>
- *    <td>Makefile CDEFS</td>
- *    <td>When defined, this outputs the audio samples in stereo to the board LEDs.</td>
  *   </tr>
  *   <tr>
  *    <td>AUDIO_OUT_PORTC</td>
