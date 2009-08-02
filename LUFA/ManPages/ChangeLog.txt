@@ -56,6 +56,7 @@
   *    from oneanother using foreground colours
   *  - Internal per-device preprocessing conditions changed to per-device series rather than per-controller group for finer-grain
   *    internal control
+  *  - Interrupts are no longer disabled during the processing of Control Requests on the default endpoint while in device mode
   *
   *  <b>Fixed:</b>
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix

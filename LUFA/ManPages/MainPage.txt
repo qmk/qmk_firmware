@@ -8,7 +8,7 @@
  *  \mainpage
  *
  *  \n
- *  \image html LUFA.gif "The Lightweight USB Framework for AVRs"
+ *  \image html LUFA.gif
  *  \n
  *
  *  For author and donation information, see \ref Page_Donating.
@@ -36,5 +36,5 @@
  *  - \subpage Page_LibraryApps Overview of included Demos, Bootloaders and Projects
  *
  *
- *  <small><i>Logo design by Pavla Dlab</i></small>
+ *  <small><i>Logo design by EDIGMA.COM</i></small>
  */

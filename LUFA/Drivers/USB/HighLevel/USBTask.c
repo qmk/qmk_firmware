@@ -68,12 +68,7 @@ static void USB_DeviceTask(void)
 		Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
 
 		if (Endpoint_IsSETUPReceived())
-		{
-			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-			{
-				USB_Device_ProcessControlPacket();
-			}
-		}
+		  USB_Device_ProcessControlPacket();
 		
 		Endpoint_SelectEndpoint(PrevEndpoint);
 	}
