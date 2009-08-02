@@ -141,8 +141,8 @@ static void USB_Device_SetConfiguration(void)
 {
 	bool AlreadyConfigured = (USB_ConfigurationNumber != 0);
 
-#if defined(TOTAL_NUM_CONFIGURATIONS)
-	if ((uint8_t)USB_ControlRequest.wValue > TOTAL_NUM_CONFIGURATIONS)
+#if defined(FIXED_NUM_CONFIGURATIONS)
+	if ((uint8_t)USB_ControlRequest.wValue > FIXED_NUM_CONFIGURATIONS)
 	  return;
 #else
 	#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)

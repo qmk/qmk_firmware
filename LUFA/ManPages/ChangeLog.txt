@@ -29,7 +29,7 @@
   *  - Added new FAST_STREAM_TRANSFERS compile time option for faster stream transfers via multiple bytes copied per stream loop
   *  - Added stdio stream demo code to the CDC device demos, to show how to create standard streams out of the virtual serial ports
   *  - Added new EEPROM and FLASH buffer versions of the Endpoint and Pipe stream functions
-  *  - Added new USE_FLASH_DESCRIPTORS and TOTAL_NUM_CONFIGURATIONS compile time options
+  *  - Added new USE_FLASH_DESCRIPTORS and FIXED_NUM_CONFIGURATIONS compile time options
   *  - Added support for the new ATMEGA32U2, ATMEGA16U2 and ATMEGA8U2 AVR models
   *  - Added new USB_DeviceState variable to keep track of the current Device mode USB state
   *  - Added new LEDs_ToggleLEDs() function to the LEDs driver
@@ -57,6 +57,7 @@
   *  - Internal per-device preprocessing conditions changed to per-device series rather than per-controller group for finer-grain
   *    internal control
   *  - Interrupts are no longer disabled during the processing of Control Requests on the default endpoint while in device mode
+  *  - AudioOutput demos now always output to board LEDs, regardless of output mode (removed AUDIO_OUT_LEDS project option)
   *
   *  <b>Fixed:</b>
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix

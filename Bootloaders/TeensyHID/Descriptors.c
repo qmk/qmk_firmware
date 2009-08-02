@@ -81,7 +81,7 @@ USB_Descriptor_Device_t DeviceDescriptor =
 	.ProductStrIndex        = 0x01,
 	.SerialNumStrIndex      = NO_DESCRIPTOR,
 		
-	.NumberOfConfigurations = 1
+	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
 
 /** Configuration descriptor structure. This descriptor, located in FLASH memory, describes the usage

@@ -73,15 +73,14 @@ int main(void)
 				uint8_t  ConfigDescriptorData[512];
 
 				if ((USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful) ||
-				    (ConfigDescriptorSize > sizeof(ConfigDescriptorData)))
+				    (ConfigDescriptorSize > sizeof(ConfigDescriptorData)) ||
+					(USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData)))
 				{
 					printf("Error Retrieving Configuration Descriptor.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				  
-				USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData);
 
 				if (CDC_Host_ConfigurePipes(&VirtualSerial_CDC_Interface,
 				                            ConfigDescriptorSize, ConfigDescriptorData) != CDC_ENUMERROR_NoError)

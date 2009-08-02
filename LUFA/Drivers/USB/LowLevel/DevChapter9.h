@@ -51,7 +51,7 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			#if defined(USE_SINGLE_DEVICE_CONFIGURATION)
-				#define TOTAL_NUM_CONFIGURATIONS           1
+				#define FIXED_NUM_CONFIGURATIONS           1
 			#endif
 	
 		/* Enums: */

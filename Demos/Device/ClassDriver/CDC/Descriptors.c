@@ -61,7 +61,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	.ProductStrIndex        = 0x02,
 	.SerialNumStrIndex      = USE_INTERNAL_SERIAL,
 
-	.NumberOfConfigurations = 1
+	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
 
 /** Configuration descriptor structure. This descriptor, located in FLASH memory, describes the usage

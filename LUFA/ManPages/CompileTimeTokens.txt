@@ -109,7 +109,7 @@
  *  reserved for application use. When defined, the corresponding GPIOR register should not be used within the user application except
  *  implicitly via the library APIs.
  *
- *  <b>TOTAL_NUM_CONFIGURATIONS</b> - ( \ref Group_Device ) \n
+ *  <b>FIXED_NUM_CONFIGURATIONS</b> - ( \ref Group_Device ) \n
  *  By default, the library determines the number of configurations a USB device supports by reading the device descriptor. This reduces
  *  the amount of configuration required to set up the library, and allows the value to change dynamically (if descriptors are stored in
  *  EEPROM or RAM rather than flash memory) and reduces code maintenance. However, this value may be fixed via this token in the project
