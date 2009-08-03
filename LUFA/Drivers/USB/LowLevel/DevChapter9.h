@@ -124,6 +124,7 @@
 				static void USB_Device_ClearSetFeature(void);
 				
 				#if !defined(NO_INTERNAL_SERIAL) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
+					static char USB_Device_NibbleToASCII(uint8_t Nibble) ATTR_ALWAYS_INLINE;
 					static void USB_Device_GetInternalSerialDescriptor(void);
 				#endif				
 			#endif

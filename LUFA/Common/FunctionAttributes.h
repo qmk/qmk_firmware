@@ -87,7 +87,7 @@
 			/** Prevents the compiler from considering a specified function for inlining. When applied, the given
 			 *  function will not be inlined under any circumstances.
 			 */
-			#define ATTR_NOINLINE               __attribute__ ((noinline))
+			#define ATTR_NO_INLINE              __attribute__ ((noinline))
 
 			/** Forces the compiler to inline the specified function. When applied, the given function will be
 			 *  inlined under all circumstances.

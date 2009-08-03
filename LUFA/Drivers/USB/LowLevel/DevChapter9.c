@@ -227,6 +227,12 @@ void USB_Device_GetConfiguration(void)
 }
 
 #if !defined(NO_INTERNAL_SERIAL) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
+static char USB_Device_NibbleToASCII(uint8_t Nibble)
+{
+	Nibble = ((Nibble & 0x0F) + '0');
+	return (Nibble > '9') ? (Nibble + ('A' - '9' - 1)) : Nibble;
+}
+
 static void USB_Device_GetInternalSerialDescriptor(void)
 {
 	struct
@@ -234,9 +240,6 @@ static void USB_Device_GetInternalSerialDescriptor(void)
 		USB_Descriptor_Header_t Header;
 		int16_t                 UnicodeString[20];
 	} SignatureDescriptor;
-	
-	uint8_t SigReadAddress  = 0x0E;
-	bool    OddNibbleRead   = false;
 
 	#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
 		SignatureDescriptor.Header.Size            = sizeof(SignatureDescriptor);
@@ -246,28 +249,19 @@ static void USB_Device_GetInternalSerialDescriptor(void)
 		SignatureDescriptor.Header.bDescriptorType = DTYPE_String;
 	#endif
 
+	uint8_t  SigReadAddress     = 0x0E;
+
 	for (uint8_t SerialCharNum = 0; SerialCharNum < 20; SerialCharNum++)
 	{
 		uint8_t SerialByte = boot_signature_byte_get(SigReadAddress);
 		
-		if (OddNibbleRead)
+		if (SerialCharNum & 0x01)
 		{
 			SerialByte >>= 4;
 			SigReadAddress++;
 		}
-		else
-		{
-			SerialByte &= 0x0F;
-		}
 		
-		OddNibbleRead = !(OddNibbleRead);
-
-		if (SerialByte < 0x0A)
-		  SerialByte += '0';
-		else
-		  SerialByte += ('A' - 0x0A);
-
-		SignatureDescriptor.UnicodeString[SerialCharNum] = SerialByte;
+		SignatureDescriptor.UnicodeString[SerialCharNum] = USB_Device_NibbleToASCII(SerialByte);
 	}
 	
 	Endpoint_ClearSETUP();
