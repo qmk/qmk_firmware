@@ -45,16 +45,10 @@
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineCoding = { .BaudRateBPS = 9600,
-                                 .CharFormat  = OneStopBit,
-                                 .ParityType  = Parity_None,
-                                 .DataBits    = 8            };
-							
-/** Indicates if the host has set the device line encoding. Until the line encoding is set by the host, the device should
- *  not attempt to send any bytes.
- */	 
-bool LineEncodingSet = false;
-
+CDC_Line_Coding_t LineEncoding = { .BaudRateBPS = 0,
+                                   .CharFormat  = OneStopBit,
+                                   .ParityType  = Parity_None,
+                                   .DataBits    = 8            };
 
 #if 0
 /* NOTE: Here you can set up a standard stream using the created virtual serial port, so that the standard stream functions in
@@ -65,7 +59,7 @@ static int CDC_putchar(char c, FILE *stream)
 {	  
 	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
-	if (!(LineEncodingSet))
+	if (!(LineEncoding.BaudRateBPS))
 	  return -1;
 	
 	while (!(Endpoint_IsReadWriteAllowed()))
@@ -84,7 +78,7 @@ static int CDC_getchar(FILE *stream)
 {
 	int c;
 
-	if (!(LineEncodingSet))
+	if (!(LineEncoding.BaudRateBPS))
 	  return -1;
 
 	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
@@ -201,8 +195,6 @@ void EVENT_USB_ConfigurationChanged(void)
  */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	uint8_t* LineCodingData = (uint8_t*)&LineCoding;
-
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
@@ -213,7 +205,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(LineCodingData, sizeof(CDC_Line_Coding_t));
+				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
@@ -227,10 +219,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				Endpoint_ClearSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
-				Endpoint_Read_Control_Stream_LE(LineCodingData, sizeof(CDC_Line_Coding_t));
-				
-				/* Indicate that the line encoding has been set, and the device may now send data */
-				LineEncodingSet = true;
+				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
 
 				/* Finalize the stream transfer to clear the last packet from the host */
 				Endpoint_ClearIN();
@@ -314,7 +303,7 @@ void CDC_Task(void)
 	{
 		ActionSent = false;
 	}
-	else if ((ActionSent == false) && LineEncodingSet)
+	else if ((ActionSent == false) && LineEncoding.BaudRateBPS)
 	{
 		ActionSent = true;
 

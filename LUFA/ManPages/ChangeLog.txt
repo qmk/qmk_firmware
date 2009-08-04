@@ -68,6 +68,7 @@
   *    to only unfreeze and check one data pipe at a time) to prevent incorrect device enumerations and freezes while trasferring data
   *  - Make Pipe_ConfigurePipe() mask the given endpoint number against PIPE_EPNUM_MASK to ensure the endpoint IN direction bit is
   *    cleared to prevent endpoint type corruption
+  *  - Fixed issue opening CDC-ACM ports on hosts when the CDC device tries to send data before the host has set the line encoding
   *  - Fixed USB_OPT_MANUAL_PLL option being ignored during device disconnects on some models (thanks to Brian Dickman)
   *  - Fixed documentation mentioning Pipe_GetCurrentToken() function when correct function name is Pipe_GetPipeToken()
   *  - Fixed ADC driver for the ATMEGA32U4 and ATMEGA16U4 (thanks to Opendous Inc.)

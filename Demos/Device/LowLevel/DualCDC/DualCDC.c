@@ -45,10 +45,10 @@
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineCoding1 = { .BaudRateBPS = 9600,
-                                  .CharFormat  = OneStopBit,
-                                  .ParityType  = Parity_None,
-                                  .DataBits    = 8            };
+CDC_Line_Coding_t LineEncoding1 = { .BaudRateBPS = 0,
+                                    .CharFormat  = OneStopBit,
+                                    .ParityType  = Parity_None,
+                                    .DataBits    = 8            };
 
 /** Contains the current baud rate and other settings of the second virtual serial port. While this demo does not use
  *  the physical USART and thus does not use these settings, they must still be retained and returned to the host
@@ -58,10 +58,10 @@ CDC_Line_Coding_t LineCoding1 = { .BaudRateBPS = 9600,
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineCoding2 = { .BaudRateBPS = 9600,
-                                  .CharFormat  = OneStopBit,
-                                  .ParityType  = Parity_None,
-                                  .DataBits    = 8            };
+CDC_Line_Coding_t LineEncoding2 = { .BaudRateBPS = 0,
+                                    .CharFormat  = OneStopBit,
+                                    .ParityType  = Parity_None,
+                                    .DataBits    = 8            };
 
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  starts the scheduler to run the application tasks.
@@ -172,7 +172,7 @@ void EVENT_USB_ConfigurationChanged(void)
 void EVENT_USB_UnhandledControlPacket(void)
 {
 	/* Determine which interface's Line Coding data is being set from the wIndex parameter */
-	uint8_t* LineCodingData = (USB_ControlRequest.wIndex == 0) ? (uint8_t*)&LineCoding1 : (uint8_t*)&LineCoding2;
+	uint8_t* LineEncodingData = (USB_ControlRequest.wIndex == 0) ? (uint8_t*)&LineEncoding1 : (uint8_t*)&LineEncoding2;
 
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)
@@ -184,7 +184,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(LineCodingData, sizeof(CDC_Line_Coding_t));
+				Endpoint_Write_Control_Stream_LE(LineEncodingData, sizeof(CDC_Line_Coding_t));
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
@@ -198,7 +198,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				Endpoint_ClearSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
-				Endpoint_Read_Control_Stream_LE(LineCodingData, sizeof(CDC_Line_Coding_t));
+				Endpoint_Read_Control_Stream_LE(LineEncodingData, sizeof(CDC_Line_Coding_t));
 
 				/* Finalize the stream transfer to clear the last packet from the host */
 				Endpoint_ClearIN();
@@ -256,7 +256,7 @@ void CDC1_Task(void)
 	{
 		ActionSent = false;
 	}
-	else if (ActionSent == false)
+	else if ((ActionSent == false) && LineEncoding1.BaudRateBPS)
 	{
 		ActionSent = true;
 		

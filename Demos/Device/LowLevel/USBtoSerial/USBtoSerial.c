@@ -36,10 +36,10 @@
  *  These values are set by the host via a class-specific request, and the physical USART should be reconfigured to match the
  *  new settings each time they are changed by the host.
  */
-CDC_Line_Coding_t LineCoding = { .BaudRateBPS = 9600,
-                                 .CharFormat  = OneStopBit,
-                                 .ParityType  = Parity_None,
-                                 .DataBits    = 8            };
+CDC_Line_Coding_t LineEncoding = { .BaudRateBPS = 0,
+                                   .CharFormat  = OneStopBit,
+                                   .ParityType  = Parity_None,
+                                   .DataBits    = 8            };
 
 /** Ring (circular) buffer to hold the RX data - data from the host to the attached device on the serial port. */
 RingBuff_t Rx_Buffer;
@@ -145,8 +145,6 @@ void EVENT_USB_ConfigurationChanged(void)
  */
 void EVENT_USB_UnhandledControlPacket(void)
 {
-	uint8_t* LineCodingData = (uint8_t*)&LineCoding;
-
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
@@ -157,7 +155,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(LineCodingData, sizeof(LineCoding));
+				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(LineEncoding));
 				
 				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
@@ -171,7 +169,7 @@ void EVENT_USB_UnhandledControlPacket(void)
 				Endpoint_ClearSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
-				Endpoint_Read_Control_Stream_LE(LineCodingData, sizeof(LineCoding));
+				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(LineEncoding));
 
 				/* Finalize the stream transfer to clear the last packet from the host */
 				Endpoint_ClearIN();
@@ -259,7 +257,7 @@ void CDC_Task(void)
 	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
 	/* Check if the Tx buffer contains anything to be sent to the host */
-	if (Tx_Buffer.Elements)
+	if ((Tx_Buffer.Elements) && LineEncoding.BaudRateBPS)
 	{
 		/* Wait until Serial Tx Endpoint Ready for Read/Write */
 		while (!(Endpoint_IsReadWriteAllowed()))
@@ -304,7 +302,7 @@ void CDC_Task(void)
 ISR(USART1_RX_vect, ISR_BLOCK)
 {
 	/* Only store received characters if the USB interface is connected */
-	if (USB_DeviceState != DEVICE_STATE_Configured)
+	if ((USB_DeviceState != DEVICE_STATE_Configured) && LineEncoding.BaudRateBPS)
 	  Buffer_StoreElement(&Tx_Buffer, UDR1);
 }
 
@@ -314,21 +312,21 @@ void ReconfigureUSART(void)
 	uint8_t ConfigMask = 0;
 
 	/* Determine parity - non odd/even parity mode defaults to no parity */
-	if (LineCoding.ParityType == Parity_Odd)
+	if (LineEncoding.ParityType == Parity_Odd)
 	  ConfigMask = ((1 << UPM11) | (1 << UPM10));
-	else if (LineCoding.ParityType == Parity_Even)
+	else if (LineEncoding.ParityType == Parity_Even)
 	  ConfigMask = (1 << UPM11);
 
 	/* Determine stop bits - 1.5 stop bits is set as 1 stop bit due to hardware limitations */
-	if (LineCoding.CharFormat == TwoStopBits)
+	if (LineEncoding.CharFormat == TwoStopBits)
 	  ConfigMask |= (1 << USBS1);
 
 	/* Determine data size - 5, 6, 7, or 8 bits are supported */
-	if (LineCoding.DataBits == 6)
+	if (LineEncoding.DataBits == 6)
 	  ConfigMask |= (1 << UCSZ10);
-	else if (LineCoding.DataBits == 7)
+	else if (LineEncoding.DataBits == 7)
 	  ConfigMask |= (1 << UCSZ11);
-	else if (LineCoding.DataBits == 8)
+	else if (LineEncoding.DataBits == 8)
 	  ConfigMask |= ((1 << UCSZ11) | (1 << UCSZ10));
 	
 	/* Enable double speed, gives better error percentages at 8MHz */
@@ -341,5 +339,5 @@ void ReconfigureUSART(void)
 	UCSR1C = ConfigMask;
 	
 	/* Set the USART baud rate register to the desired baud rate value */
-	UBRR1  = SERIAL_2X_UBBRVAL((uint16_t)LineCoding.BaudRateBPS);
+	UBRR1  = SERIAL_2X_UBBRVAL((uint16_t)LineEncoding.BaudRateBPS);
 }
