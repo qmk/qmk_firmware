@@ -49,6 +49,12 @@ CDC_Line_Coding_t LineCoding = { .BaudRateBPS = 9600,
                                  .CharFormat  = OneStopBit,
                                  .ParityType  = Parity_None,
                                  .DataBits    = 8            };
+							
+/** Indicates if the host has set the device line encoding. Until the line encoding is set by the host, the device should
+ *  not attempt to send any bytes.
+ */	 
+bool LineEncodingSet = false;
+
 
 #if 0
 /* NOTE: Here you can set up a standard stream using the created virtual serial port, so that the standard stream functions in
@@ -59,6 +65,9 @@ static int CDC_putchar(char c, FILE *stream)
 {	  
 	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
+	if (!(LineEncodingSet))
+	  return -1;
+	
 	while (!(Endpoint_IsReadWriteAllowed()))
 	{
 		if (USB_DeviceState != DEVICE_STATE_Configured)
@@ -74,7 +83,10 @@ static int CDC_putchar(char c, FILE *stream)
 static int CDC_getchar(FILE *stream)
 {
 	int c;
-	  
+
+	if (!(LineEncodingSet))
+	  return -1;
+
 	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
 	
 	for (;;)
@@ -216,6 +228,9 @@ void EVENT_USB_UnhandledControlPacket(void)
 
 				/* Read the line coding data in from the host into the global struct */
 				Endpoint_Read_Control_Stream_LE(LineCodingData, sizeof(CDC_Line_Coding_t));
+				
+				/* Indicate that the line encoding has been set, and the device may now send data */
+				LineEncodingSet = true;
 
 				/* Finalize the stream transfer to clear the last packet from the host */
 				Endpoint_ClearIN();
@@ -299,7 +314,7 @@ void CDC_Task(void)
 	{
 		ActionSent = false;
 	}
-	else if (ActionSent == false)
+	else if ((ActionSent == false) && LineEncodingSet)
 	{
 		ActionSent = true;
 

@@ -58,6 +58,8 @@
   *    internal control
   *  - Interrupts are no longer disabled during the processing of Control Requests on the default endpoint while in device mode
   *  - AudioOutput demos now always output to board LEDs, regardless of output mode (removed AUDIO_OUT_LEDS project option)
+  *  - Removed SINGLE_DEVICE_CONFIGURATION compile time option in favour of the new FIXED_NUM_CONFIGURATIONS option so that the exact number
+  *    of device configurations can be defined statically
   *
   *  <b>Fixed:</b>
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix
