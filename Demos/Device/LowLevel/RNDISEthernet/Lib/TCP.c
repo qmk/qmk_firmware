@@ -381,19 +381,24 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart, void* TCPHeaderInStart, void
 				case TCP_Connection_Listen:
 					if (TCPHeaderIN->Flags == TCP_FLAG_SYN)
 					{
-						/* SYN connection when closed starts a connection with a peer */
+						/* SYN connection starts a connection with a peer */
+						if (TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+						                           TCPHeaderIN->SourcePort, TCP_Connection_SYNReceived))
+						{
+							TCPHeaderOUT->Flags = (TCP_FLAG_SYN | TCP_FLAG_ACK);						
 
-						TCPHeaderOUT->Flags = (TCP_FLAG_SYN | TCP_FLAG_ACK);				
-						PacketResponse      = true;
-									
-						TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress, TCPHeaderIN->SourcePort,
-											   TCP_Connection_SYNReceived);
+							ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress, TCPHeaderIN->SourcePort);
+
+							ConnectionInfo->SequenceNumberIn  = (SwapEndian_32(TCPHeaderIN->SequenceNumber) + 1);
+							ConnectionInfo->SequenceNumberOut = 0;
+							ConnectionInfo->Buffer.InUse      = false;
+						}
+						else
+						{
+							TCPHeaderOUT->Flags = TCP_FLAG_RST;
+						}
 											   
-						ConnectionInfo = TCP_GetConnectionInfo(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress, TCPHeaderIN->SourcePort);
-
-						ConnectionInfo->SequenceNumberIn  = (SwapEndian_32(TCPHeaderIN->SequenceNumber) + 1);
-						ConnectionInfo->SequenceNumberOut = 0;
-						ConnectionInfo->Buffer.InUse      = false;
+						PacketResponse      = true;
 					}
 					
 					break;

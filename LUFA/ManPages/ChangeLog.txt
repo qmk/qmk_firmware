@@ -85,6 +85,7 @@
   *  - Fixed report data alignment issues in the MouseHostWithParser demo when X and Y movement data size is not a multiple of 8 bits
   *  - Fixed HID Report Descriptor Parser not correctly resetting internal states when a REPORT ID element is encountered
   *  - Fixed incorrect BUTTONS_BUTTON1 for the STK526 target
+  *  - Fixed RNDIS demos freezing when more than one connection was attempted simultaneously, causing memory corruption
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605

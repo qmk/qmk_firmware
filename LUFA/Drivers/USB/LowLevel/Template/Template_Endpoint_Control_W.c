@@ -6,36 +6,28 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer, uint16_t Length)
 	if (Length > USB_ControlRequest.wLength)
 	  Length = USB_ControlRequest.wLength;
 	
-	while (Length && !(Endpoint_IsOUTReceived()))
+	while (Length || LastPacketFull)
 	{
-		while (!(Endpoint_IsINReady()))
-		{
-			if (USB_DeviceState == DEVICE_STATE_Unattached)
-			  return ENDPOINT_RWCSTREAM_DeviceDisconnected;
-		}
+		if (Endpoint_IsSETUPReceived())
+		  return ENDPOINT_RWCSTREAM_HostAborted;
+
+		if (Endpoint_IsOUTReceived())
+		  break;
 		
-		while (Length && (Endpoint_BytesInEndpoint() < USB_ControlEndpointSize))
+		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		  return ENDPOINT_RWCSTREAM_DeviceDisconnected;
+		  
+		if (Endpoint_IsINReady())
 		{
-			TEMPLATE_TRANSFER_BYTE(DataStream);
-			Length--;
+			while (Length && (Endpoint_BytesInEndpoint() < USB_ControlEndpointSize))
+			{
+				TEMPLATE_TRANSFER_BYTE(DataStream);
+				Length--;
+			}
+			
+			LastPacketFull = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
+			Endpoint_ClearIN();
 		}
-		
-		LastPacketFull = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
-		Endpoint_ClearIN();
-	}
-	
-	if (Endpoint_IsOUTReceived())
-	  return ENDPOINT_RWCSTREAM_HostAborted;
-	
-	if (LastPacketFull)
-	{
-		while (!(Endpoint_IsINReady()))
-		{
-			if (USB_DeviceState == DEVICE_STATE_Unattached)
-			  return ENDPOINT_RWCSTREAM_DeviceDisconnected;		
-		}
-		
-		Endpoint_ClearIN();
 	}
 	
 	while (!(Endpoint_IsOUTReceived()))

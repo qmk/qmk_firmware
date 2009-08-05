@@ -76,7 +76,7 @@ void Endpoint_ClearStatusStage(void)
 	if (USB_ControlRequest.bmRequestType & REQDIR_DEVICETOHOST)
 	{
 		while (!(Endpoint_IsOUTReceived()))
-		{				
+		{
 			if (USB_DeviceState == DEVICE_STATE_Unattached)
 			  return;
 		}

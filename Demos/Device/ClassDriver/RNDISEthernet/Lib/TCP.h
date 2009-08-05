@@ -49,7 +49,7 @@
 		#define MAX_OPEN_TCP_PORTS              1
 
 		/** Maximum number of TCP connections which can be sustained at the one time */
-		#define MAX_TCP_CONNECTIONS             1
+		#define MAX_TCP_CONNECTIONS             3
 
 		/** TCP window size, giving the maximum number of bytes which can be buffered at the one time */
 		#define TCP_WINDOW_SIZE                 512
