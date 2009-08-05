@@ -235,15 +235,7 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 
 		while (BlockSize--)
 		{
-			if (MemoryType == 'E')
-			{
-				/* Read the next EEPROM byte into the endpoint */
-				WriteNextResponseByte(eeprom_read_byte((uint8_t*)(uint16_t)(CurrAddress >> 1)));
-
-				/* Increment the address counter after use */
-				CurrAddress += 2;
-			}
-			else
+			if (MemoryType == 'F')
 			{
 				/* Read the next FLASH byte from the current FLASH page */
 				#if (FLASHEND > 0xFFFF)
@@ -258,6 +250,14 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 				
 				HighByte = !HighByte;
 			}
+			else
+			{
+				/* Read the next EEPROM byte into the endpoint */
+				WriteNextResponseByte(eeprom_read_byte((uint8_t*)(uint16_t)(CurrAddress >> 1)));
+
+				/* Increment the address counter after use */
+				CurrAddress += 2;
+			}			
 		}
 	}
 	else

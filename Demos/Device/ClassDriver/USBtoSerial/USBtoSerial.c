@@ -110,7 +110,7 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	Joystick_Init();
+	Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
 }

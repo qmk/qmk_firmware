@@ -81,9 +81,9 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
+	Serial_Init(9600, false);
 	LEDs_Init();
-	ReconfigureUSART();
-	USB_Init();	
+	USB_Init();
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and

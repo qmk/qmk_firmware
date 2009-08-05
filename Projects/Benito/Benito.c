@@ -141,6 +141,7 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
+	Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
 
@@ -165,17 +166,17 @@ void EVENT_USB_Device_Connect(void)
 void EVENT_USB_Device_Disconnect(void)
 {
 	PingPongMSRemaining = 0;
-	LEDs_TurnOffLEDs(LEDMASK_BUSY);
+	LEDs_SetAllLEDs(LEDS_NO_LEDS);
 }
 
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	PingPongMSRemaining = 0;
-	LEDs_TurnOffLEDs(LEDMASK_BUSY);
+	LEDs_SetAllLEDs(LEDS_NO_LEDS);
 
 	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
-	  LEDs_TurnOnLEDs(LEDMASK_ERROR);
+	  LEDs_SetAllLEDs(LEDMASK_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Request event. */
@@ -233,9 +234,9 @@ void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const C
 	/* Check if the DTR line has been asserted - if so, start the target AVR's reset pulse */
 	if (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR)
 	{
-		LEDs_TurnOnLEDs(LEDMASK_BUSY);
+		LEDs_SetAllLEDs(LEDMASK_BUSY);
 	
-		AVR_RESET_LINE_DDR |= AVR_RESET_LINE_MASK;
-		ResetPulseMSRemaining = AVR_RESET_PULSE_MS;
+		AVR_RESET_LINE_DDR    |= AVR_RESET_LINE_MASK;
+		ResetPulseMSRemaining  = AVR_RESET_PULSE_MS;
 	}
 }

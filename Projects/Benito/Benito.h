@@ -57,8 +57,10 @@
 		/** LED mask for the library LED driver, to indicate RX activity. */
 		#define LEDMASK_RX               LEDS_LED2
 		
+		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_ERROR            (LEDS_LED1 | LEDS_LED2)
 		
+		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_BUSY             (LEDS_LED1 | LEDS_LED2)
 
 	/* Function Prototypes: */

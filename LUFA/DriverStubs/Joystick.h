@@ -46,8 +46,6 @@
 	/* Includes: */
 		#include <avr/io.h>
 
-		#include "../../../Common/Common.h"
-
 		// TODO: Add any required includes here
 
 	/* Enable C linkage for C++ Compilers: */
