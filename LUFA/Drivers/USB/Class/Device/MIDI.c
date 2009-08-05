@@ -33,7 +33,7 @@
 
 #include "MIDI.h"
 
-void MIDI_Device_ProcessControlPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
+void MIDI_Device_ProcessControlRequest(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
 {
 
 }

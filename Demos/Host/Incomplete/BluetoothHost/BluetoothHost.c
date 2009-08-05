@@ -75,26 +75,26 @@ void SetupHardware(void)
 	USB_Init();
 }
 
-void EVENT_USB_DeviceAttached(void)
+void EVENT_USB_Host_DeviceAttached(void)
 {
 	puts_P(PSTR(ESC_FG_GREEN "Device Attached.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
-void EVENT_USB_DeviceUnattached(void)
+void EVENT_USB_Host_DeviceUnattached(void)
 {
 	puts_P(PSTR(ESC_FG_GREEN "\r\nDevice Unattached.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
-void EVENT_USB_DeviceEnumerationComplete(void)
+void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
-void EVENT_USB_HostError(uint8_t ErrorCode)
+void EVENT_USB_Host_HostError(uint8_t ErrorCode)
 {
 	USB_ShutDown();
 
@@ -105,7 +105,7 @@ void EVENT_USB_HostError(uint8_t ErrorCode)
 	for(;;);
 }
 
-void EVENT_USB_DeviceEnumerationFailed(uint8_t ErrorCode, uint8_t SubErrorCode)
+void EVENT_USB_Host_DeviceEnumerationFailed(uint8_t ErrorCode, uint8_t SubErrorCode)
 {
 	puts_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
@@ -158,9 +158,6 @@ void Bluetooth_Management_Task(void)
 				break;
 			}
 				
-			USB_HostState = HOST_STATE_Configured;
-			break;
-		case HOST_STATE_Configured:
 			puts_P(PSTR("Getting Config Data.\r\n"));
 		
 			/* Get and process the configuration descriptor data */
@@ -183,7 +180,7 @@ void Bluetooth_Management_Task(void)
 
 			puts_P(PSTR("Bluetooth Dongle Enumerated.\r\n"));
 
-			USB_HostState = HOST_STATE_Ready;
+			USB_HostState = HOST_STATE_Configured;
 			break;
 	}
 }

@@ -97,7 +97,7 @@
 		
 		/* Function Prototypes: */
 			/** Configures the endpoints of a given Audio interface, ready for use. This should be linked to the library
-			 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration containing the
+			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration containing the
 			 *  given Audio interface is selected.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
@@ -107,11 +107,11 @@
 			bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
 
 			/** Processes incomming control requests from the host, that are directed to the given Audio class interface. This should be
-			 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 */
-			void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
+			void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
 
 			/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().

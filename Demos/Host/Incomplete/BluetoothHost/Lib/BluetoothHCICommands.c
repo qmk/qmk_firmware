@@ -398,7 +398,7 @@ void Bluetooth_ProcessHCICommands(void)
 			{
 				while (!(Bluetooth_GetNextHCIEventHeader()))
 				{				
-					if (USB_DeviceState == DEVICE_STATE_Unattached)
+					if (USB_HostState == HOST_STATE_Unattached)
 					  return;
 				}
 

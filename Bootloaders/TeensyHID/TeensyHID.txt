@@ -47,7 +47,7 @@
  * This bootloader enumerates to the host as a HID Class device, allowing for Teensy compatible programming
  * software to load firmware onto the AVR, such as the official software at http://www.pjrc.com/teensy/.
  *  
- * Out of the box this bootloader builds for the USB162, and will fit into 2KB of bootloader space.
+ * Out of the box this bootloader builds for the AT90USB162, and will fit into 4KB of bootloader space.
  *
  * This spoofs (with permission) the official Teensy bootloader's VID and PID, so that the software remains
  * compatible with no changes.

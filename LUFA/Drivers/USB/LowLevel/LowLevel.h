@@ -191,7 +191,7 @@
 			#endif
 
 			/** Detaches the device from the USB bus. This has the effect of removing the device from any
-			 *  host if, ceasing USB communications. If no host is present, this prevents any host from
+			 *  attached host, ceasing USB communications. If no host is present, this prevents any host from
 			 *  enumerating the device once attached until \ref USB_Attach() is called.
 			 */
 			#define USB_Detach()                    MACROS{ UDCON  |=  (1 << DETACH);  }MACROE
@@ -342,7 +342,7 @@
 
 			#define USB_Controller_Enable()    MACROS{ USBCON  |=  (1 << USBE);                 }MACROE
 			#define USB_Controller_Disable()   MACROS{ USBCON  &= ~(1 << USBE);                 }MACROE
-			#define USB_Controller_Reset()     MACROS{ uint8_t Temp = USBCON; USBCON = (Temp & ~(1 << USBE)); \
+			#define USB_Controller_Reset()     MACROS{ const uint8_t Temp = USBCON; USBCON = (Temp & ~(1 << USBE)); \
 			                                           USBCON = (Temp | (1 << USBE));           }MACROE
 	
 		/* Inline Functions: */

@@ -33,7 +33,7 @@
 
 #include "Audio.h"
 
-void Audio_Device_ProcessControlPacket(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
+void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;

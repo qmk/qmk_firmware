@@ -65,7 +65,7 @@
 			extern volatile bool USB_IsInitialized;
 
 			/** Structure containing the last received Control request when in Device mode (for use in user-applications
-			 *  inside of the \ref EVENT_USB_UnhandledControlPacket() event, or for filling up with a control request to issue when
+			 *  inside of the \ref EVENT_USB_Device_UnhandledControlRequest() event, or for filling up with a control request to issue when
 			 *  in Host mode before calling \ref USB_Host_SendControlRequest().
 			 *
 			 *  \ingroup Group_USBManagement
@@ -108,7 +108,7 @@
 					 *
 					 *  This value should not be altered by the user application as it is handled automatically by the
 					 *  library. The only exception to this rule is if the NO_LIMITED_CONTROLLER_CONNECT token is used
-					 *  (see \ref EVENT_USB_Connect() and \ref EVENT_USB_Disconnect() events).
+					 *  (see \ref EVENT_USB_Device_Connect() and \ref EVENT_USB_Device_Disconnect() events).
 					 *
 					 *  To reduce program size and speed up checks of this global, it can be placed into one of the AVR's
 					 *  GPIOR hardware registers instead of RAM by defining the DEVICE_STATE_AS_GPIOR token to a value 
@@ -142,12 +142,12 @@
 			 *  The USB task must be serviced within 30ms while in device mode, or within 1ms while in host mode.
 			 *  The task may be serviced at all times, or (for minimum CPU consumption):
 			 *
-			 *    - In device mode, it may be disabled at start-up, enabled on the firing of the \ref EVENT_USB_Connect() event
-			 *    and disabled again on the firing of the \ref EVENT_USB_Disconnect() event.
+			 *    - In device mode, it may be disabled at start-up, enabled on the firing of the \ref EVENT_USB_Device_Connect() 
+			 *      event and disabled again on the firing of the \ref EVENT_USB_Device_Disconnect() event.
 			 *
-			 *    - In host mode, it may be disabled at start-up, enabled on the firing of the \ref EVENT_USB_DeviceAttached()
-			 *    event and disabled again on the firing of the \ref EVENT_USB_DeviceEnumerationComplete() or
-			 *    \ref EVENT_USB_DeviceEnumerationFailed() events.
+			 *    - In host mode, it may be disabled at start-up, enabled on the firing of the \ref EVENT_USB_Host_DeviceAttached()
+			 *      event and disabled again on the firing of the \ref EVENT_USB_Host_DeviceEnumerationComplete() or
+			 *      \ref EVENT_USB_Host_DeviceEnumerationFailed() events.
 			 *
 			 *  If in device mode (only), the control endpoint can instead be managed via interrupts entirely by the library
 			 *  by defining the INTERRUPT_CONTROL_ENDPOINT token and passing it to the compiler via the -D switch.

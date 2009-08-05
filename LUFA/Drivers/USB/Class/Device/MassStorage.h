@@ -95,7 +95,7 @@
 
 		/* Function Prototypes: */
 			/** Configures the endpoints of a given Mass Storage interface, ready for use. This should be linked to the library
-			 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
+			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration
 			 *  containing the given Mass Storage interface is selected.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
@@ -105,11 +105,11 @@
 			bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
 			
 			/** Processes incomming control requests from the host, that are directed to the given Mass Storage class interface. This should be
-			 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
 			 */		
-			void MS_Device_ProcessControlPacket(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
+			void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
 
 			/** General management task for a given Mass Storage class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().

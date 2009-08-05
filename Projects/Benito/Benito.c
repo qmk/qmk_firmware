@@ -155,21 +155,21 @@ void SetupHardware(void)
 }
 
 /** Event handler for the library USB Connection event. */
-void EVENT_USB_Connect(void)
+void EVENT_USB_Device_Connect(void)
 {
 	PingPongMSRemaining = PING_PONG_LED_PULSE_MS;
 	LEDs_SetAllLEDs(LEDMASK_TX);
 }
 
 /** Event handler for the library USB Disconnection event. */
-void EVENT_USB_Disconnect(void)
+void EVENT_USB_Device_Disconnect(void)
 {
 	PingPongMSRemaining = 0;
 	LEDs_TurnOffLEDs(LEDMASK_BUSY);
 }
 
 /** Event handler for the library USB Configuration Changed event. */
-void EVENT_USB_ConfigurationChanged(void)
+void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	PingPongMSRemaining = 0;
 	LEDs_TurnOffLEDs(LEDMASK_BUSY);
@@ -178,10 +178,10 @@ void EVENT_USB_ConfigurationChanged(void)
 	  LEDs_TurnOnLEDs(LEDMASK_ERROR);
 }
 
-/** Event handler for the library USB Unhandled Control Packet event. */
-void EVENT_USB_UnhandledControlPacket(void)
+/** Event handler for the library USB Unhandled Control Request event. */
+void EVENT_USB_Device_UnhandledControlRequest(void)
 {
-	CDC_Device_ProcessControlPacket(&VirtualSerial_CDC_Interface);
+	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }
 
 /** Event handler for the CDC Class driver Line Encoding Changed event.

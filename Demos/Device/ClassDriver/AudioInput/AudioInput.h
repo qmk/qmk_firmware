@@ -76,9 +76,9 @@
 		void SetupHardware(void);
 		void ProcessNextSample(void);
 
-		void EVENT_USB_Connect(void);
-		void EVENT_USB_Disconnect(void);
-		void EVENT_USB_ConfigurationChanged(void);
-		void EVENT_USB_UnhandledControlPacket(void);
+		void EVENT_USB_Device_Connect(void);
+		void EVENT_USB_Device_Disconnect(void);
+		void EVENT_USB_Device_ConfigurationChanged(void);
+		void EVENT_USB_Device_UnhandledControlRequest(void);
 
 #endif

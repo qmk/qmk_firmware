@@ -92,8 +92,6 @@ void USB_Host_ProcessNextHostState(void)
 
 				USB_INT_Clear(USB_INT_VBERRI);
 				USB_INT_Enable(USB_INT_VBERRI);
-
-				EVENT_USB_Connect();
 					
 				USB_Host_ResumeBus();
 				Pipe_ClearPipes();
@@ -185,19 +183,18 @@ void USB_Host_ProcessNextHostState(void)
 		case HOST_STATE_Default_PostAddressSet:
 			USB_Host_SetDeviceAddress(USB_HOST_DEVICEADDRESS);
 
-			EVENT_USB_DeviceEnumerationComplete();
+			EVENT_USB_Host_DeviceEnumerationComplete();
 			USB_HostState = HOST_STATE_Addressed;
 			break;
 	}
 
 	if ((ErrorCode != HOST_ENUMERROR_NoError) && (USB_HostState != HOST_STATE_Unattached))
 	{
-		EVENT_USB_DeviceEnumerationFailed(ErrorCode, SubErrorCode);
+		EVENT_USB_Host_DeviceEnumerationFailed(ErrorCode, SubErrorCode);
 
 		USB_Host_VBUS_Auto_Off();
 
-		EVENT_USB_DeviceUnattached();
-		EVENT_USB_Disconnect();
+		EVENT_USB_Host_DeviceUnattached();
 
 		USB_ResetInterface();
 	}

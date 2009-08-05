@@ -39,7 +39,7 @@ uint8_t USB_ConfigurationNumber;
 bool    USB_RemoteWakeupEnabled;
 bool    USB_CurrentlySelfPowered;
 
-void USB_Device_ProcessControlPacket(void)
+void USB_Device_ProcessControlRequest(void)
 {
 	bool     RequestHandled = false;
 	uint8_t* RequestHeader  = (uint8_t*)&USB_ControlRequest;
@@ -106,7 +106,7 @@ void USB_Device_ProcessControlPacket(void)
 	}
 
 	if (!(RequestHandled))
-	  EVENT_USB_UnhandledControlPacket();
+	  EVENT_USB_Device_UnhandledControlRequest();
 	  
 	if (Endpoint_IsSETUPReceived())
 	{
@@ -139,8 +139,6 @@ static void USB_Device_SetAddress(void)
 
 static void USB_Device_SetConfiguration(void)
 {
-	bool AlreadyConfigured = (USB_ConfigurationNumber != 0);
-
 #if defined(FIXED_NUM_CONFIGURATIONS)
 	if ((uint8_t)USB_ControlRequest.wValue > FIXED_NUM_CONFIGURATIONS)
 	  return;
@@ -195,18 +193,11 @@ static void USB_Device_SetConfiguration(void)
 	Endpoint_ClearIN();
 
 	if (USB_ConfigurationNumber)
-	{
-		USB_DeviceState = DEVICE_STATE_Configured;
-
-		if (!(AlreadyConfigured))
-		  EVENT_USB_DeviceEnumerationComplete();
-	}
+	  USB_DeviceState = DEVICE_STATE_Configured;
 	else
-	{
-		USB_DeviceState = DEVICE_STATE_Addressed;
-	}
+	  USB_DeviceState = DEVICE_STATE_Addressed;
 
-	EVENT_USB_ConfigurationChanged();
+	EVENT_USB_Device_ConfigurationChanged();
 }
 
 void USB_Device_GetConfiguration(void)

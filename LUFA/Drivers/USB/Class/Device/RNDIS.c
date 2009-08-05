@@ -65,7 +65,7 @@ static const uint32_t PROGMEM AdapterSupportedOIDList[]  =
 		OID_802_3_XMIT_MORE_COLLISIONS,
 	};
 
-void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
+void RNDIS_Device_ProcessControlRequest(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;

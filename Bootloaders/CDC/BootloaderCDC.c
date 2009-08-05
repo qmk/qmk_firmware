@@ -119,7 +119,7 @@ void ResetHardware(void)
 /** Event handler for the USB_Disconnect event. This indicates that the bootloader should exit and the user
  *  application started.
  */
-void EVENT_USB_Disconnect(void)
+void EVENT_USB_Device_Disconnect(void)
 {
 	/* Upon disconnection, run user application */
 	RunBootloader = false;
@@ -128,7 +128,7 @@ void EVENT_USB_Disconnect(void)
 /** Event handler for the USB_ConfigurationChanged event. This configures the device's endpoints ready
  *  to relay data to and from the attached USB host.
  */
-void EVENT_USB_ConfigurationChanged(void)
+void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	/* Setup CDC Notification, Rx and Tx Endpoints */
 	Endpoint_ConfigureEndpoint(CDC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
@@ -144,11 +144,11 @@ void EVENT_USB_ConfigurationChanged(void)
 	                           ENDPOINT_BANK_SINGLE);
 }
 
-/** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
+/** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
  *  control requests that are not handled internally by the USB library, so that they can be handled appropriately
  *  for the application.
  */
-void EVENT_USB_UnhandledControlPacket(void)
+void EVENT_USB_Device_UnhandledControlRequest(void)
 {
 	uint8_t* LineCodingData = (uint8_t*)&LineCoding;
 

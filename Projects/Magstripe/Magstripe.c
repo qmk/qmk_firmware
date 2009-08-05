@@ -145,15 +145,15 @@ void ReadMagstripeData(void)
 }
 
 /** Event handler for the library USB Configuration Changed event. */
-void EVENT_USB_ConfigurationChanged(void)
+void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	HID_Device_ConfigureEndpoints(&Keyboard_HID_Interface);
 }
 
 /** Event handler for the library USB Unhandled Control Packet event. */
-void EVENT_USB_UnhandledControlPacket(void)
+void EVENT_USB_Device_UnhandledControlRequest(void)
 {
-	HID_Device_ProcessControlPacket(&Keyboard_HID_Interface);
+	HID_Device_ProcessControlRequest(&Keyboard_HID_Interface);
 }
 
 /** Timer 0 CTC ISR, firing once each millisecond to keep track of elapsed idle time in the HID interface. */

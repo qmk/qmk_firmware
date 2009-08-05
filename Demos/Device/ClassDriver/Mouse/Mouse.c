@@ -96,20 +96,20 @@ void SetupHardware(void)
 	TIMSK0 = (1 << OCIE0A);
 }
 
-/** Event handler for the library USB Connection event. */
-void EVENT_USB_Connect(void)
+/** Event handler for the library USB WakeUp event. */
+void EVENT_USB_Device_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
-/** Event handler for the library USB Disconnection event. */
-void EVENT_USB_Disconnect(void)
+/** Event handler for the library USB Suspend event. */
+void EVENT_USB_Device_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the library USB Configuration Changed event. */
-void EVENT_USB_ConfigurationChanged(void)
+void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
@@ -117,10 +117,10 @@ void EVENT_USB_ConfigurationChanged(void)
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
-/** Event handler for the library USB Unhandled Control Packet event. */
-void EVENT_USB_UnhandledControlPacket(void)
+/** Event handler for the library USB Unhandled Control Request event. */
+void EVENT_USB_Device_Device_UnhandledControlRequest(void)
 {
-	HID_Device_ProcessControlPacket(&Mouse_HID_Interface);
+	HID_Device_ProcessControlRequest(&Mouse_HID_Interface);
 }
 
 /** ISR to keep track of each millisecond interrupt, for determining the HID class idle period remaining when set. */

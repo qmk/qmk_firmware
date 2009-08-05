@@ -108,16 +108,6 @@ void USB_Init(
 
 void USB_ShutDown(void)
 {
-	#if defined(USB_CAN_BE_DEVICE)
-	if (USB_DeviceState != DEVICE_STATE_Unattached)
-	  EVENT_USB_Disconnect();
-	#endif
-	
-	#if defined(USB_CAN_BE_HOST)
-	if (USB_HostState != HOST_STATE_Unattached)
-	  EVENT_USB_Disconnect();
-	#endif
-
 	USB_ResetInterface();
 	USB_Detach();
 	USB_Controller_Disable();
@@ -191,8 +181,6 @@ void USB_ResetInterface(void)
 		  USB_Device_SetLowSpeed();
 		else
 		  USB_Device_SetFullSpeed();
-		  
-		USB_INT_Enable(USB_INT_VBUS);
 	}
 	#endif
 	
@@ -204,11 +192,11 @@ void USB_ResetInterface(void)
 		if (CALLBACK_USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DeviceDescriptorPtr) != NO_DESCRIPTOR)
 		{		  
 			#if defined(USE_RAM_DESCRIPTORS)
-				USB_ControlEndpointSize = DeviceDescriptorPtr->Endpoint0Size;
+			USB_ControlEndpointSize = DeviceDescriptorPtr->Endpoint0Size;
 			#elif defined(USE_EEPROM_DESCRIPTORS)
-				USB_ControlEndpointSize = eeprom_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
+			USB_ControlEndpointSize = eeprom_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
 			#else
-				USB_ControlEndpointSize = pgm_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
+			USB_ControlEndpointSize = pgm_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
 			#endif
 		}
 	}
@@ -216,13 +204,19 @@ void USB_ResetInterface(void)
 
 	USB_Attach();
 	
-	#if defined(USB_DEVICE_ONLY)	
+	#if defined(USB_DEVICE_ONLY)
+	USB_INT_Clear(USB_INT_SUSPEND);
 	USB_INT_Enable(USB_INT_SUSPEND);
+	USB_INT_Clear(USB_INT_EORSTI);
 	USB_INT_Enable(USB_INT_EORSTI);
-	#if defined(CONTROL_ONLY_DEVICE)
-	UENUM = ENDPOINT_CONTROLEP;
-	#endif
-		
+
+		#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+		USB_INT_Enable(USB_INT_VBUS);
+		#endif
+
+		#if defined(CONTROL_ONLY_DEVICE)
+		UENUM = ENDPOINT_CONTROLEP;
+		#endif
 	#elif defined(USB_HOST_ONLY)
 	USB_Host_HostMode_On();
 	
@@ -237,8 +231,14 @@ void USB_ResetInterface(void)
 	#else
 	if (USB_CurrentMode == USB_MODE_DEVICE)
 	{
+		USB_INT_Clear(USB_INT_SUSPEND);
 		USB_INT_Enable(USB_INT_SUSPEND);
+		USB_INT_Clear(USB_INT_EORSTI);
 		USB_INT_Enable(USB_INT_EORSTI);
+
+		#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+		USB_INT_Enable(USB_INT_VBUS);
+		#endif
 
 		#if defined(CONTROL_ONLY_DEVICE)
 		UENUM = ENDPOINT_CONTROLEP;

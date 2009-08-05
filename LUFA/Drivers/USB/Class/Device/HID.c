@@ -33,7 +33,7 @@
 
 #include "HID.h"
 
-void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
+void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;

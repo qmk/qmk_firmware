@@ -103,7 +103,7 @@
 	
 		/* Function Prototypes: */
 			/** Configures the endpoints of a given RNDIS interface, ready for use. This should be linked to the library
-			 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
+			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration
 			 *  containing the given HID interface is selected.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
@@ -113,11 +113,11 @@
 			bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo);
 
 			/** Processes incomming control requests from the host, that are directed to the given RNDIS class interface. This should be
-			 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 */		
-			void RNDIS_Device_ProcessControlPacket(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo);
+			void RNDIS_Device_ProcessControlRequest(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo);
 			
 			/** General management task for a given HID class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().

@@ -101,10 +101,10 @@
 		void SetupHardware(void);
 		void HID_Task(void);
 	
-		void EVENT_USB_Connect(void);
-		void EVENT_USB_Disconnect(void);
-		void EVENT_USB_ConfigurationChanged(void);
-		void EVENT_USB_UnhandledControlPacket(void);
+		void EVENT_USB_Device_Connect(void);
+		void EVENT_USB_Device_Disconnect(void);
+		void EVENT_USB_Device_ConfigurationChanged(void);
+		void EVENT_USB_Device_UnhandledControlRequest(void);
 
 		void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData);
 		void ProcessLEDReport(uint8_t LEDReport);

@@ -70,11 +70,11 @@
 		void Bluetooth_Management_Task(void);
 		
 	/* Event Handlers: */
-		void EVENT_USB_DeviceAttached(void);
-		void EVENT_USB_DeviceUnattached(void);
-		void EVENT_USB_DeviceEnumerationComplete(void);
-		void EVENT_USB_HostError(uint8_t ErrorCode);
-		void EVENT_USB_DeviceEnumerationFailed(uint8_t ErrorCode, uint8_t SubErrorCode);
+		void EVENT_USB_Host_DeviceAttached(void);
+		void EVENT_USB_Host_DeviceUnattached(void);
+		void EVENT_USB_Host_DeviceEnumerationComplete(void);
+		void EVENT_USB_Host_HostError(uint8_t ErrorCode);
+		void EVENT_USB_Host_DeviceEnumerationFailed(uint8_t ErrorCode, uint8_t SubErrorCode);
 
 	/* Function Prototypes: */
 		void SetupHardware(void);

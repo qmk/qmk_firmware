@@ -86,7 +86,7 @@
 	
 		/* Function Prototypes: */
 			/** Configures the endpoints of a given MIDI interface, ready for use. This should be linked to the library
-			 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
+			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration
 			 *  containing the given MIDI interface is selected.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
@@ -96,11 +96,11 @@
 			bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo);
 			
 			/** Processes incomming control requests from the host, that are directed to the given MIDI class interface. This should be
-			 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
 			 */		
-			void MIDI_Device_ProcessControlPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo);
+			void MIDI_Device_ProcessControlRequest(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo);
 
 			/** General management task for a given MIDI class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().

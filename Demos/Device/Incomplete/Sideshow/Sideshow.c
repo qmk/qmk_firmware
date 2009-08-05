@@ -82,17 +82,17 @@ void SetupHardware(void)
 	SerialStream_Init(9600, false);
 }
 
-void EVENT_USB_Connect(void)
+void EVENT_USB_Device_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
-void EVENT_USB_Disconnect(void)
+void EVENT_USB_Device_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
-void EVENT_USB_ConfigurationChanged(void)
+void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
@@ -112,7 +112,7 @@ void EVENT_USB_ConfigurationChanged(void)
 	}
 }
 
-void EVENT_USB_UnhandledControlPacket(void)
+void EVENT_USB_Device_UnhandledControlRequest(void)
 {
 	/* Process UFI specific control requests */
 	switch (USB_ControlRequest.bRequest)

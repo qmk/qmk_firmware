@@ -72,11 +72,11 @@
 		void StillImage_Task(void);
 		void SetupHardware(void);
 	
-		void EVENT_USB_HostError(const uint8_t ErrorCode);
-		void EVENT_USB_DeviceAttached(void);
-		void EVENT_USB_DeviceUnattached(void);
-		void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
-		void EVENT_USB_DeviceEnumerationComplete(void);
+		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
+		void EVENT_USB_Host_DeviceAttached(void);
+		void EVENT_USB_Host_DeviceUnattached(void);
+		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
+		void EVENT_USB_Host_DeviceEnumerationComplete(void);
 
 		void UnicodeToASCII(uint8_t* restrict UnicodeString, char* restrict Buffer);
 		void ShowCommandError(uint8_t ErrorCode, bool ResponseCodeError);

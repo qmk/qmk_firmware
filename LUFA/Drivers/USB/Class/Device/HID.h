@@ -95,7 +95,7 @@
 	
 		/* Function Prototypes: */
 			/** Configures the endpoints of a given HID interface, ready for use. This should be linked to the library
-			 *  \ref EVENT_USB_ConfigurationChanged() event so that the endpoints are configured when the configuration
+			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration
 			 *  containing the given HID interface is selected.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
@@ -105,11 +105,11 @@
 			bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo);
 			
 			/** Processes incomming control requests from the host, that are directed to the given HID class interface. This should be
-			 *  linked to the library \ref EVENT_USB_UnhandledControlPacket() event.
+			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
 			 */		
-			void HID_Device_ProcessControlPacket(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo);
+			void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo);
 
 			/** General management task for a given HID class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().

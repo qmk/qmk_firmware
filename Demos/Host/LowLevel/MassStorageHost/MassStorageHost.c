@@ -79,7 +79,7 @@ void SetupHardware(void)
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
  *  starts the library USB task to begin the enumeration and USB management process.
  */
-void EVENT_USB_DeviceAttached(void)
+void EVENT_USB_Host_DeviceAttached(void)
 {
 	puts_P(PSTR(ESC_FG_GREEN "Device Attached.\r\n" ESC_FG_WHITE));
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
@@ -88,7 +88,7 @@ void EVENT_USB_DeviceAttached(void)
 /** Event handler for the USB_DeviceUnattached event. This indicates that a device has been removed from the host, and
  *  stops the library USB task management process.
  */
-void EVENT_USB_DeviceUnattached(void)
+void EVENT_USB_Host_DeviceUnattached(void)
 {
 	puts_P(PSTR(ESC_FG_GREEN "\r\nDevice Unattached.\r\n" ESC_FG_WHITE));
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
@@ -97,7 +97,7 @@ void EVENT_USB_DeviceUnattached(void)
 /** Event handler for the USB_DeviceEnumerationComplete event. This indicates that a device has been successfully
  *  enumerated by the host and is now ready to be used by the application.
  */
-void EVENT_USB_DeviceEnumerationComplete(void)
+void EVENT_USB_Host_DeviceEnumerationComplete(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
@@ -117,7 +117,7 @@ void EVENT_USB_HostError(const uint8_t ErrorCode)
 /** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
-void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
+void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
 {
 	puts_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"));
 	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);

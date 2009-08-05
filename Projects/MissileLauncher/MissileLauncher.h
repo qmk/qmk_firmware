@@ -87,11 +87,11 @@
 
 		void HID_Host_Task(void);
 
-		void EVENT_USB_HostError(const uint8_t ErrorCode);
-		void EVENT_USB_DeviceAttached(void);
-		void EVENT_USB_DeviceUnattached(void);
-		void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
-		void EVENT_USB_DeviceEnumerationComplete(void);
+		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
+		void EVENT_USB_Host_DeviceAttached(void);
+		void EVENT_USB_Host_DeviceUnattached(void);
+		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
+		void EVENT_USB_Host_DeviceEnumerationComplete(void);
 
 		void DiscardNextReport(void);
 		void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength);

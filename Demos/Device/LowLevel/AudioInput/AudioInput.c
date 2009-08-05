@@ -78,7 +78,7 @@ void SetupHardware(void)
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs, and
  *  configures the sample update and PWM timers.
  */
-void EVENT_USB_Connect(void)
+void EVENT_USB_Device_Connect(void)
 {
 	/* Indicate USB enumerating */
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
@@ -92,7 +92,7 @@ void EVENT_USB_Connect(void)
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
  *  the status LEDs, disables the sample update and PWM output timers and stops the USB and Audio management tasks.
  */
-void EVENT_USB_Disconnect(void)
+void EVENT_USB_Device_Disconnect(void)
 {
 	/* Stop the sample reload timer */
 	TCCR0B = 0;
@@ -107,7 +107,7 @@ void EVENT_USB_Disconnect(void)
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
  *  of the USB device after enumeration - the device endpoints are configured.
  */
-void EVENT_USB_ConfigurationChanged(void)
+void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	/* Indicate USB connected and ready */
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -121,11 +121,11 @@ void EVENT_USB_ConfigurationChanged(void)
 	}
 }
 
-/** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
+/** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
  *  control requests that are not handled internally by the USB library (including the Audio class-specific
  *  requests) so that they can be handled appropriately for the application.
  */
-void EVENT_USB_UnhandledControlPacket(void)
+void EVENT_USB_Device_UnhandledControlRequest(void)
 {
 	/* Process General and Audio specific control requests */
 	switch (USB_ControlRequest.bRequest)

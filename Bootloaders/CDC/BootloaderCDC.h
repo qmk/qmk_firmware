@@ -118,9 +118,9 @@
 		void SetupHardware(void);
 		void ResetHardware(void);
 
-		void EVENT_USB_Disconnect(void);
-		void EVENT_USB_ConfigurationChanged(void);
-		void EVENT_USB_UnhandledControlPacket(void);
+		void EVENT_USB_Device_Disconnect(void);
+		void EVENT_USB_Device_ConfigurationChanged(void);
+		void EVENT_USB_Device_UnhandledControlRequest(void);
 
 		#if defined(INCLUDE_FROM_BOOTLOADERCDC_C) || defined(__DOXYGEN__)
 			static void    ReadWriteMemoryBlock(const uint8_t Command);

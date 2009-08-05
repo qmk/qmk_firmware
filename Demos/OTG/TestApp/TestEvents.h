@@ -54,22 +54,19 @@
 			static void Abort_Program(void) ATTR_NO_RETURN;
 		#endif
 
-		void EVENT_USB_VBUSChange(void);
-		void EVENT_USB_VBUSConnect(void);
-		void EVENT_USB_VBUSDisconnect(void);
-		void EVENT_USB_Connect(void);
-		void EVENT_USB_Disconnect(void);
 		void EVENT_USB_InitFailure(const uint8_t ErrorCode);
 		void EVENT_USB_UIDChange(void);
-		void EVENT_USB_HostError(const uint8_t ErrorCode);
-		void EVENT_USB_DeviceAttached(void);
-		void EVENT_USB_DeviceUnattached(void);
-		void EVENT_USB_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
-		void EVENT_USB_DeviceEnumerationComplete(void);
-		void EVENT_USB_UnhandledControlPacket(void);
-		void EVENT_USB_ConfigurationChanged(void);
-		void EVENT_USB_Suspend(void);
-		void EVENT_USB_WakeUp(void);
-		void EVENT_USB_Reset(void);	
+		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
+		void EVENT_USB_Host_DeviceAttached(void);
+		void EVENT_USB_Host_DeviceUnattached(void);
+		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
+		void EVENT_USB_Host_DeviceEnumerationComplete(void);
+		void EVENT_USB_Device_Connect(void);
+		void EVENT_USB_Device_Disconnect(void);
+		void EVENT_USB_Device_ConfigurationChanged(void);
+		void EVENT_USB_Device_ConfigurationChanged(void);
+		void EVENT_USB_Device_Suspend(void);
+		void EVENT_USB_Device_WakeUp(void);
+		void EVENT_USB_Device_Reset(void);	
 		
 #endif

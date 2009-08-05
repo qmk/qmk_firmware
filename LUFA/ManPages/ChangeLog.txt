@@ -60,6 +60,8 @@
   *  - AudioOutput demos now always output to board LEDs, regardless of output mode (removed AUDIO_OUT_LEDS project option)
   *  - Removed SINGLE_DEVICE_CONFIGURATION compile time option in favour of the new FIXED_NUM_CONFIGURATIONS option so that the exact number
   *    of device configurations can be defined statically
+  *  - Removed VBUS events, as they are already exposed to the user application via the regular device connection and disconnection events
+  *  - Renamed and altered existing events to properly seperate out Host and Device mode events
   *
   *  <b>Fixed:</b>
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix

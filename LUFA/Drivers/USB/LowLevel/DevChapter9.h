@@ -113,7 +113,7 @@
 		#endif
 	
 		/* Function Prototypes: */
-			void USB_Device_ProcessControlPacket(void);
+			void USB_Device_ProcessControlRequest(void);
 			
 			#if defined(INCLUDE_FROM_DEVCHAPTER9_C)
 				static void USB_Device_SetAddress(void);

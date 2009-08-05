@@ -39,7 +39,7 @@ void CDC_Device_Event_Stub(void)
 
 }
 
-void CDC_Device_ProcessControlPacket(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
+void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;

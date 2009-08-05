@@ -36,7 +36,7 @@
 
 static USB_ClassInfo_MS_Device_t* CallbackMSInterfaceInfo;
 
-void MS_Device_ProcessControlPacket(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
+void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
