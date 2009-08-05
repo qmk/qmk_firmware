@@ -274,11 +274,7 @@ void CDC1_Task(void)
 		Endpoint_ClearIN();
 
 		/* Wait until the endpoint is ready for another packet */
-		while (!(Endpoint_IsINReady()))
-		{
-			if (USB_DeviceState == DEVICE_STATE_Unattached)
-			  return;
-		}
+		Endpoint_WaitUntilReady();
 		
 		/* Send an empty packet to ensure that the host does not buffer data sent to it */
 		Endpoint_ClearIN();
@@ -329,11 +325,7 @@ void CDC2_Task(void)
 		Endpoint_ClearIN();
 
 		/* Wait until the endpoint is ready for the next packet */
-		while (!(Endpoint_IsINReady()))
-		{
-			if (USB_DeviceState == DEVICE_STATE_Unattached)
-			  return;
-		}
+		Endpoint_WaitUntilReady();
 
 		/* Send an empty packet to prevent host buffering */
 		Endpoint_ClearIN();

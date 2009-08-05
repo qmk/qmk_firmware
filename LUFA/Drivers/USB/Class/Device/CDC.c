@@ -126,12 +126,7 @@ void CDC_Device_USBTask(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 	if (!(Endpoint_IsReadWriteAllowed()))
 	{
 		Endpoint_ClearIN();
-
-		while (!(Endpoint_IsReadWriteAllowed()))
-		{
-			if (USB_DeviceState == DEVICE_STATE_Unattached)
-			  return;
-		}
+		Endpoint_WaitUntilReady();
 	}	
 	
 	Endpoint_ClearIN();
@@ -156,12 +151,7 @@ void CDC_Device_SendByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, con
 	if (!(Endpoint_IsReadWriteAllowed()))
 	{
 		Endpoint_ClearIN();
-		
-		while (!(Endpoint_IsReadWriteAllowed()))
-		{
-			if (USB_DeviceState == DEVICE_STATE_Unattached)
-			  return;		
-		}
+		Endpoint_WaitUntilReady();
 	}
 
 	Endpoint_Write_Byte(Data);	

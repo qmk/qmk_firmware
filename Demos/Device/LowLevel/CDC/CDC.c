@@ -62,11 +62,8 @@ static int CDC_putchar(char c, FILE *stream)
 	if (!(LineEncoding.BaudRateBPS))
 	  return -1;
 	
-	while (!(Endpoint_IsReadWriteAllowed()))
-	{
-		if (USB_DeviceState != DEVICE_STATE_Configured)
-		  return -1;
-	}
+	if (Endpoint_WaitUntilReady())
+	  return -1;
 
 	Endpoint_Write_Byte(c);
 	Endpoint_ClearIN();
@@ -85,11 +82,8 @@ static int CDC_getchar(FILE *stream)
 	
 	for (;;)
 	{
-		while (!(Endpoint_IsReadWriteAllowed()))
-		{
-			if (USB_DeviceState != DEVICE_STATE_Configured)
-			  return -1;
-		}
+		if (Endpoint_WaitUntilReady())
+		  return -1;
 	
 		if (!(Endpoint_BytesInEndpoint()))
 		{
@@ -327,11 +321,7 @@ void CDC_Task(void)
 		if (IsFull)
 		{
 			/* Wait until the endpoint is ready for another packet */
-			while (!(Endpoint_IsINReady()))
-			{
-				if (USB_DeviceState == DEVICE_STATE_Unattached)
-				  return;
-			}
+			Endpoint_WaitUntilReady();
 			
 			/* Send an empty packet to ensure that the host does not buffer data sent to it */
 			Endpoint_ClearIN();

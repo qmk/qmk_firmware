@@ -70,7 +70,7 @@
 		#define LEDMASK_USB_BUSY         (LEDS_LED2)
 		
 		/** Total number of logical drives within the device - must be non-zero. */
-		#define TOTAL_LUNS                2
+		#define TOTAL_LUNS                1
 		
 		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */
 		#define LUN_MEDIA_BLOCKS         (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)

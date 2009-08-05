@@ -263,11 +263,7 @@ void CDC_Task(void)
 	if ((Tx_Buffer.Elements) && LineEncoding.BaudRateBPS)
 	{
 		/* Wait until Serial Tx Endpoint Ready for Read/Write */
-		while (!(Endpoint_IsReadWriteAllowed()))
-		{
-			if (USB_DeviceState == DEVICE_STATE_Unattached)
-			  return;
-		}
+		Endpoint_WaitUntilReady();
 		
 		/* Write the bytes from the buffer to the endpoint while space is available */
 		while (Tx_Buffer.Elements && Endpoint_IsReadWriteAllowed())
@@ -287,11 +283,7 @@ void CDC_Task(void)
 		if (IsFull && !(Tx_Buffer.Elements))
 		{
 			/* Wait until Serial Tx Endpoint Ready for Read/Write */
-			while (!(Endpoint_IsReadWriteAllowed()))
-			{
-				if (USB_DeviceState == DEVICE_STATE_Unattached)
-				  return;
-			}
+			Endpoint_WaitUntilReady();
 				
 			/* Send an empty packet to terminate the transfer */
 			Endpoint_ClearIN();
