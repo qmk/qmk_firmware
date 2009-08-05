@@ -209,7 +209,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		USB_INT_Clear(USB_INT_IDTI);
 
 		if (USB_DeviceState != DEVICE_STATE_Unattached)
-		  EVENT_USB_Disconnect();
+		  EVENT_USB_Device_Disconnect();
 
 		if (USB_HostState != HOST_STATE_Unattached)
 		  EVENT_USB_Host_DeviceUnattached();

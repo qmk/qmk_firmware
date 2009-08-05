@@ -118,7 +118,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 }
 
 /** Event handler for the library USB Unhandled Control Request event. */
-void EVENT_USB_Device_Device_UnhandledControlRequest(void)
+void EVENT_USB_Device_UnhandledControlRequest(void)
 {
 	HID_Device_ProcessControlRequest(&Mouse_HID_Interface);
 }
