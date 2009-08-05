@@ -31,6 +31,9 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
+#define INCLUDE_FROM_SI_CLASS_HOST_C
 #include "StillImage.h"
+
+#warning The Still Image Host mode Class driver is currently incomplete and is for preview purposes only.
 
 #endif

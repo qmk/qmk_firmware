@@ -31,6 +31,9 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#include "HID.h"
+#define INCLUDE_FROM_MS_CLASS_HOST_C
+#include "MassStorage.h"
+
+#warning The Mass Storage Host mode Class driver is currently incomplete and is for preview purposes only.
 
 #endif

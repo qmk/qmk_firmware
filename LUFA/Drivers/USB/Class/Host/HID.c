@@ -34,6 +34,8 @@
 #define INCLUDE_FROM_HID_CLASS_HOST_C
 #include "HID.h"
 
+#warning The HID Host mode Class driver is currently incomplete and is for preview purposes only.
+
 uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t ConfigDescriptorSize,
                                 uint8_t* ConfigDescriptorData)
 {

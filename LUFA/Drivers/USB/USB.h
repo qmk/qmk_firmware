@@ -66,7 +66,11 @@
  *  the standard library APIs.
  *
  *  Multiple device mode class drivers can be used within a project, including multiple instances of the
- *  same class driver.
+ *  same class driver. In this way, USB Hosts and Devices can be made quickly using the internal class drivers
+ *  so that more time and effort can be put into the end application instead of the USB protocol.
+ *
+ *  \warning The Host mode Class Drivers are currently incomplete and are included for preview purposes only. The Host
+ *           mode class drivers should not be used in any user project until they have been completed in a later revision.
  */
  
 #ifndef __USB_H__

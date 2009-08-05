@@ -34,6 +34,8 @@
 #define  INCLUDE_FROM_CDC_CLASS_HOST_C
 #include "CDC.h"
 
+#warning The CDC Host mode Class driver is currently incomplete and is for preview purposes only.
+
 uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t ConfigDescriptorSize,
                                 uint8_t* ConfigDescriptorData)
 {

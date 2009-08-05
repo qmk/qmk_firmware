@@ -31,6 +31,9 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
+#define INCLUDE_FROM_MIDI_CLASS_HOST_C
 #include "MIDI.h"
+
+#warning The MIDI Host mode Class driver is currently incomplete and is for preview purposes only.
 
 #endif
