@@ -1,8 +1,12 @@
 uint8_t TEMPLATE_FUNC_NAME (void* Buffer, uint16_t Length)
 {
-	uint8_t* DataStream = (uint8_t*)(Buffer + TEMPLATE_BUFFER_OFFSET(Length));
+	uint8_t* DataStream     = (uint8_t*)(Buffer + TEMPLATE_BUFFER_OFFSET(Length));
+	bool     LastPacketFull = false;
 	
-	while (Length)
+	if (Length > USB_ControlRequest.wLength)
+	  Length = USB_ControlRequest.wLength;
+
+	while (Length || LastPacketFull)
 	{
 		if (Endpoint_IsSETUPReceived())
 		  return ENDPOINT_RWCSTREAM_HostAborted;
@@ -12,6 +16,8 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer, uint16_t Length)
 		  
 		if (Endpoint_IsOUTReceived())
 		{
+			LastPacketFull = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
+		
 			while (Length && Endpoint_BytesInEndpoint())
 			{
 				TEMPLATE_TRANSFER_BYTE(DataStream);
@@ -19,6 +25,9 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer, uint16_t Length)
 			}
 			
 			Endpoint_ClearOUT();
+			
+			if (!(LastPacketFull))
+			  Length = 0;
 		}		  
 	}
 	

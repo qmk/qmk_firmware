@@ -88,8 +88,8 @@ void EVENT_USB_InitFailure(const uint8_t ErrorCode)
 	else
 	  ModeStrPtr = PSTR("N/A");
 	
-	printf_P(PSTR(" -- Mode %S\r\n"), ModeStrPtr);
-	printf_P(PSTR(" -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);
+	printf_P(PSTR(" -- Mode %S\r\n"
+	              " -- Error Code %d\r\n" ESC_FG_WHITE), ModeStrPtr, ErrorCode);
 
 	Abort_Program();
 }
@@ -127,10 +127,12 @@ void EVENT_USB_Device_Reset(void)
 /** Event handler for the USB_Device_UnhandledControlRequest event. When fired, the event is logged to the USART. */
 void EVENT_USB_Device_UnhandledControlRequest(void)
 {
-	puts_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "Ctrl Request\r\n"));
-	printf_P(PSTR(" -- Req Data %d\r\n"), USB_ControlRequest.bRequest);
-	printf_P(PSTR(" -- Req Type %d\r\n"), USB_ControlRequest.bmRequestType);
-	printf_P(PSTR(" -- Req Length %d\r\n" ESC_FG_WHITE), USB_ControlRequest.wLength);
+	printf_P(PSTR(ESC_FG_YELLOW EVENT_PREFIX "Ctrl Request\r\n"
+	                                         " -- Req Data %d\r\n"
+	                                         " -- Req Type %d\r\n"
+	                                         " -- Req Length %d\r\n" ESC_FG_WHITE), USB_ControlRequest.bRequest,
+	                                                                                USB_ControlRequest.bmRequestType,
+	                                                                                USB_ControlRequest.wLength);
 }
 
 /** Event handler for the USB_Device_ConfigurationChanged event. When fired, the event is logged to the USART. */
@@ -145,8 +147,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
  */
 void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 {
-	puts_P(PSTR(ESC_FG_RED EVENT_PREFIX "Host Mode Error\r\n"));
-	printf_P(PSTR(" -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);
+	printf_P(PSTR(ESC_FG_RED EVENT_PREFIX "Host Mode Error\r\n"
+	                                      " -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 	Abort_Program();
 }
@@ -154,10 +156,10 @@ void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 /** Event handler for the USB_Host_DeviceEnumerationFailed event. When fired, the event is logged to the USART. */
 void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
 {
-	puts_P(PSTR(ESC_FG_RED EVENT_PREFIX "Dev Enum Error\r\n"));
-	printf_P(PSTR(" -- Error Code %d\r\n"), ErrorCode);
-	printf_P(PSTR(" -- Sub Error Code %d\r\n"), SubErrorCode);
-	printf_P(PSTR(" -- In State %d\r\n" ESC_FG_WHITE), USB_HostState);
+	printf_P(PSTR(ESC_FG_RED EVENT_PREFIX "Dev Enum Error\r\n"
+	                                      " -- Error Code %d\r\n"
+	                                      " -- Sub Error Code %d\r\n"
+	                                      " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
 }
 
 /** Event handler for the USB_Host_DeviceEnumerationComplete event. When fired, the event is logged to the USART. */
