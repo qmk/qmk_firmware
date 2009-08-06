@@ -230,14 +230,6 @@ void CDC1_Task(void)
 	char*       ReportString    = NULL;
 	uint8_t     JoyStatus_LCL   = Joystick_GetStatus();
 	static bool ActionSent      = false;
-	char*       JoystickStrings[] =
-					{
-						"Joystick Up\r\n",
-						"Joystick Down\r\n",
-						"Joystick Left\r\n",
-						"Joystick Right\r\n",
-						"Joystick Pressed\r\n",
-					};
 	
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
@@ -245,22 +237,20 @@ void CDC1_Task(void)
 
 	/* Determine if a joystick action has occurred */
 	if (JoyStatus_LCL & JOY_UP)
-	  ReportString = JoystickStrings[0];
+	  ReportString = "Joystick Up\r\n";
 	else if (JoyStatus_LCL & JOY_DOWN)
-	  ReportString = JoystickStrings[1];
+	  ReportString = "Joystick Down\r\n";
 	else if (JoyStatus_LCL & JOY_LEFT)
-	  ReportString = JoystickStrings[2];
+	  ReportString = "Joystick Left\r\n";
 	else if (JoyStatus_LCL & JOY_RIGHT)
-	  ReportString = JoystickStrings[3];
+	  ReportString = "Joystick Right\r\n";
 	else if (JoyStatus_LCL & JOY_PRESS)
-	  ReportString = JoystickStrings[4];
+	  ReportString = "Joystick Pressed\r\n";
+	else
+	  ActionSent = false;
 
 	/* Flag management - Only allow one string to be sent per action */
-	if (ReportString == NULL)
-	{
-		ActionSent = false;
-	}
-	else if ((ActionSent == false) && LineEncoding1.BaudRateBPS)
+	if ((ReportString != NULL) && (ActionSent == false) && LineEncoding1.BaudRateBPS)
 	{
 		ActionSent = true;
 		
