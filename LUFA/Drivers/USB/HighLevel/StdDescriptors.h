@@ -85,13 +85,13 @@
 				 *  On unsupported devices, this will evaluate to NO_DESCRIPTOR and so will force the host to create a pseduo-serial
 				 *  number for the device.
 				 */
-				#define USE_INTERNAL_SERIAL         0xDC
+				#define USE_INTERNAL_SERIAL           0xDC
 			#else
-				#define USE_INTERNAL_SERIAL         NO_DESCRIPTOR
+				#define USE_INTERNAL_SERIAL           NO_DESCRIPTOR
 			#endif
 			
 			/** Macro to calculate the power value for the device descriptor, from a given number of milliamps. */
-			#define USB_CONFIG_POWER_MA(mA)            (mA >> 1)
+			#define USB_CONFIG_POWER_MA(mA)           (mA >> 1)
 
 			/** Macro to calculate the Unicode length of a string with a given number of Unicode characters.
 			 *  Should be used in string descriptor's headers for giving the string descriptor's byte length.

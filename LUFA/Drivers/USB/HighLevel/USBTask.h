@@ -35,17 +35,20 @@
 		#include <avr/io.h>
 		#include <avr/interrupt.h>
 		#include <stdbool.h>
-		#include <stddef.h>
 		
 		#include "../LowLevel/LowLevel.h"
-		#include "StdRequestType.h"
-		#include "USBMode.h"
 		#include "Events.h"
+		#include "StdRequestType.h"
 		#include "StdDescriptors.h"
+		#include "USBMode.h"
+
+		#if defined(USB_CAN_BE_DEVICE)
+			#include "../LowLevel/DevChapter9.h"
+		#endif
 
 		#if defined(USB_CAN_BE_HOST)
 			#include "../LowLevel/HostChapter9.h"
-		#endif		
+		#endif
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
