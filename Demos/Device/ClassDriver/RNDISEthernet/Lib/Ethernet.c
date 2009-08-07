@@ -59,7 +59,7 @@ const IP_Address_t  ClientIPAddress     = {CLIENT_IP_ADDRESS};
  */
 void Ethernet_ProcessPacket(Ethernet_Frame_Info_t* FrameIN, Ethernet_Frame_Info_t* FrameOUT)
 {
-	DecodeEthernetFrameHeader(FrameIN->FrameData);
+	DecodeEthernetFrameHeader(FrameIN);
 
 	/* Cast the incoming Ethernet frame to the Ethernet header type */
 	Ethernet_Frame_Header_t* FrameINHeader  = (Ethernet_Frame_Header_t*)&FrameIN->FrameData;
@@ -69,7 +69,8 @@ void Ethernet_ProcessPacket(Ethernet_Frame_Info_t* FrameIN, Ethernet_Frame_Info_
 	
 	/* Ensure frame is addressed to either all (broadcast) or the virtual webserver, and is a type II frame */
 	if ((MAC_COMPARE(&FrameINHeader->Destination, &ServerMACAddress) ||
-	     MAC_COMPARE(&FrameINHeader->Destination, &BroadcastMACAddress)))
+	     MAC_COMPARE(&FrameINHeader->Destination, &BroadcastMACAddress)) &&
+		 (SwapEndian_16(FrameIN->FrameLength) > ETHERNET_VER2_MINSIZE))
 	{
 		/* Process the packet depending on its protocol */
 		switch (SwapEndian_16(FrameINHeader->EtherType))

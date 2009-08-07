@@ -55,12 +55,13 @@ int16_t UDP_ProcessUDPPacket(void* IPHeaderInStart, void* UDPHeaderInStart, void
 	
 	DecodeUDPHeader(UDPHeaderInStart);
 	
-	/* Check to see if the UDP packet is a DHCP packet */
-	if (SwapEndian_16(UDPHeaderIN->DestinationPort) == UDP_PORT_DHCP_REQUEST)
+	switch (SwapEndian_16(UDPHeaderIN->DestinationPort))
 	{
-		RetSize = DHCP_ProcessDHCPPacket(IPHeaderInStart,
-		                                 &((uint8_t*)UDPHeaderInStart)[sizeof(UDP_Header_t)],
-	                                     &((uint8_t*)UDPHeaderOutStart)[sizeof(UDP_Header_t)]);
+		case UDP_PORT_DHCP_REQUEST:
+			RetSize = DHCP_ProcessDHCPPacket(IPHeaderInStart,
+			                                 &((uint8_t*)UDPHeaderInStart)[sizeof(UDP_Header_t)],
+		                                     &((uint8_t*)UDPHeaderOutStart)[sizeof(UDP_Header_t)]);
+			break;
 	}
 	
 	/* Check to see if the protocol processing routine has filled out a response */

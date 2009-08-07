@@ -39,13 +39,14 @@
 	/* Includes: */
 		#include <avr/io.h>
 		
+		#include <LUFA/Drivers/USB/Class/RNDIS.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"
 		
 	/* Function Prototypes: */
-		void DecodeEthernetFrameHeader(void* InDataStart);
+		void DecodeEthernetFrameHeader(Ethernet_Frame_Info_t* FrameINData);
 		void DecodeARPHeader(void* InDataStart);
 		void DecodeIPHeader(void* InDataStart);
 		void DecodeICMPHeader(void* InDataStart);

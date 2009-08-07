@@ -53,7 +53,7 @@
 		
 	/* Macros: */
 		/** Physical MAC address of the USB RNDIS network adapter */
-		#define ADAPTER_MAC_ADDRESS              {0x00, 0x02, 0x00, 0x02, 0x00, 0x02}		
+		#define ADAPTER_MAC_ADDRESS              {0x02, 0x00, 0x02, 0x00, 0x02, 0x00}
 
 		/** Physical MAC address of the virtual server on the network */
 		#define SERVER_MAC_ADDRESS               {0x00, 0x01, 0x00, 0x01, 0x00, 0x01}		
@@ -70,6 +70,9 @@
 		 */
 		#define MAC_COMPARE(MAC1, MAC2)          (memcmp(MAC1, MAC2, sizeof(MAC_Address_t)) == 0)
 		
+		/** Minimum size of an Ethernet packet in bytes, to conform to the Ethernet V2 packet standard */
+		#define ETHERNET_VER2_MINSIZE            0x0600
+
 		/** Return value for all sub protocol handling routines, indicating that no response packet has been generated */
 		#define NO_RESPONSE                      0		
 

@@ -58,19 +58,18 @@ TCP_ConnectionState_t  ConnectionStateTable[MAX_TCP_CONNECTIONS];
  */
 void TCP_Task(void)
 {
-	/* Task to hand off TCP packets to and from the listening applications. */
-
 	/* Run each application in sequence, to process incoming and generate outgoing packets */
 	for (uint8_t CSTableEntry = 0; CSTableEntry < MAX_TCP_CONNECTIONS; CSTableEntry++)
 	{
 		/* Find the corresponding port entry in the port table */
-		for (uint8_t PTableEntry = 0; PTableEntry < MAX_TCP_CONNECTIONS; PTableEntry++)
+		for (uint8_t PTableEntry = 0; PTableEntry < MAX_OPEN_TCP_PORTS; PTableEntry++)
 		{
 			/* Run the application handler for the port */
 			if ((PortStateTable[PTableEntry].Port  == ConnectionStateTable[CSTableEntry].Port) && 
 			    (PortStateTable[PTableEntry].State == TCP_Port_Open))
 			{
-				PortStateTable[PTableEntry].ApplicationHandler(&ConnectionStateTable[CSTableEntry], &ConnectionStateTable[CSTableEntry].Info.Buffer);
+				PortStateTable[PTableEntry].ApplicationHandler(&ConnectionStateTable[CSTableEntry],
+				                                               &ConnectionStateTable[CSTableEntry].Info.Buffer);
 			}
 		}
 	}
@@ -89,7 +88,7 @@ void TCP_Task(void)
 			Ethernet_Frame_Header_t* FrameOUTHeader = (Ethernet_Frame_Header_t*)&FrameOUT.FrameData;
 			IP_Header_t*             IPHeaderOUT    = (IP_Header_t*)&FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t)];
 			TCP_Header_t*            TCPHeaderOUT   = (TCP_Header_t*)&FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t) +
-			                                                                             sizeof(IP_Header_t)];						
+			                                                                             sizeof(IP_Header_t)];
 			void*                    TCPDataOUT     = &FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t) +
 			                                                              sizeof(IP_Header_t) +
 			                                                              sizeof(TCP_Header_t)];
@@ -367,11 +366,12 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart, void* TCPHeaderInStart, void
 		/* Detect RST from host to abort existing connection */
 		if (TCPHeaderIN->Flags & TCP_FLAG_RST)
 		{
-			TCPHeaderOUT->Flags = (TCP_FLAG_RST | TCP_FLAG_ACK);				
-			PacketResponse = true;
-			
-			TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
-			                       TCPHeaderIN->SourcePort, TCP_Connection_Closed);			
+			if (TCP_SetConnectionState(TCPHeaderIN->DestinationPort, IPHeaderIN->SourceAddress,
+			                           TCPHeaderIN->SourcePort, TCP_Connection_Closed))
+			{
+				TCPHeaderOUT->Flags = (TCP_FLAG_RST | TCP_FLAG_ACK);				
+				PacketResponse = true;			
+			}
 		}
 		else
 		{
@@ -584,10 +584,10 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart, void* TCPHeaderInStart, void
 /** Calculates the appropriate TCP checksum, consisting of the addition of the one's compliment of each word,
  *  complimented.
  *
- *  \param[in] TCPHeaderOutStart  Pointer to the start of the packet's outgoing TCP header
- *  \param[in] SourceAddress      Source protocol IP address of the outgoing IP header
- *  \param[in] DestinationAddress Destination protocol IP address of the outgoing IP header
- *  \param[in] TCPOutSize         Size in bytes of the TCP data header and payload
+ *  \param[in] TCPHeaderOutStart   Pointer to the start of the packet's outgoing TCP header
+ *  \param[in] SourceAddress       Source protocol IP address of the outgoing IP header
+ *  \param[in] DestinationAddress  Destination protocol IP address of the outgoing IP header
+ *  \param[in] TCPOutSize          Size in bytes of the TCP data header and payload
  *
  *  \return A 16-bit TCP checksum value
  */

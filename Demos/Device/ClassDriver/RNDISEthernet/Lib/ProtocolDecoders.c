@@ -53,15 +53,15 @@
  *
  *  \param[in] InDataStart  Pointer to the start of an Ethernet frame header
  */
-void DecodeEthernetFrameHeader(void* InDataStart)
+void DecodeEthernetFrameHeader(Ethernet_Frame_Info_t* FrameINData)
 {
 	#if !defined(NO_DECODE_ETHERNET)
-	Ethernet_Frame_Header_t* FrameHeader = (Ethernet_Frame_Header_t*)InDataStart;
+	Ethernet_Frame_Header_t* FrameHeader = (Ethernet_Frame_Header_t*)FrameINData->FrameData;
 	
 	printf_P(PSTR("\r\n"));
 	
 	printf_P(PSTR("  ETHERNET\r\n"));
-	printf_P(PSTR("  + Frame Size: %u\r\n"), FrameIN.FrameLength);
+	printf_P(PSTR("  + Frame Size: %u\r\n"), FrameINData->FrameLength);
 
 	if (!(MAC_COMPARE(&FrameHeader->Destination, &ServerMACAddress)) &&
 	    !(MAC_COMPARE(&FrameHeader->Destination, &BroadcastMACAddress)))
@@ -84,7 +84,7 @@ void DecodeEthernetFrameHeader(void* InDataStart)
 	                                                                     FrameHeader->Destination.Octets[4],
 	                                                                     FrameHeader->Destination.Octets[5]);
 
-	if (SwapEndian_16(FrameIN.FrameLength) > ETHERNET_VER2_MINSIZE)
+	if (SwapEndian_16(FrameINData->FrameLength) > ETHERNET_VER2_MINSIZE)
 	  printf_P(PSTR("  + Protocol: 0x%04x\r\n"), SwapEndian_16(FrameHeader->EtherType));
 	else
 	  printf_P(PSTR("  + Protocol: UNKNOWN E1\r\n"));

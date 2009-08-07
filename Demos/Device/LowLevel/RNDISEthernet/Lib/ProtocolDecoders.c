@@ -275,6 +275,5 @@ void DecodeDHCPHeader(void* InDataStart)
 		
 		DHCPOptions += ((DHCPOptions[0] == DHCP_OPTION_PAD) ? 1 : (DHCPOptions[1] + 2));
 	}
-
 	#endif
 }

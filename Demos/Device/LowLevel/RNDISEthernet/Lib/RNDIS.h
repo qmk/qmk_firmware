@@ -45,9 +45,6 @@
 		#include "Ethernet.h"
 
 	/* Macros: */
-		/** Physical MAC Address of the USB network adapter */
-		#define ADAPTER_MAC_ADDRESS                   {0x02, 0x00, 0x02, 0x00, 0x02, 0x00}
-	
 		/** Implemented RNDIS Version Major */
 		#define REMOTE_NDIS_VERSION_MAJOR             0x01
 
