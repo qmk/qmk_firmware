@@ -25,7 +25,6 @@
   *  - Remake AVRStudio project files
   *  - Add detailed overviews of how each demo works
   *  - Master LUFA include file rather than per-module includes
-  *  - Stream reads - return number of bytes not read?
   *  - Add multiple-report HID demo to the library
   *  - Add dual role Mouse Host/Keyboard Device demo to the library
   *  - Add hub support to match Atmel's stack
