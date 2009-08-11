@@ -147,7 +147,7 @@
 			 *  a mask of CDC_CONTROL_LINE_OUT_* masks.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
-			 */		
+			 */
 			void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo);
 
 			/** Sends a given string to the attached USB host, if connected. If a host is not connected when the function is called, the

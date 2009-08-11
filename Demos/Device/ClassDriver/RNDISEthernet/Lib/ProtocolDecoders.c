@@ -51,7 +51,7 @@
 
 /** Decodes an Ethernet frame header and prints its contents to through the USART in a human readable format.
  *
- *  \param[in] InDataStart  Pointer to the start of an Ethernet frame header
+ *  \param[in] FrameINData  Pointer to the start of an Ethernet frame information structure
  */
 void DecodeEthernetFrameHeader(Ethernet_Frame_Info_t* FrameINData)
 {

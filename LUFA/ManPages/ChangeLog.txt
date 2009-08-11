@@ -9,7 +9,8 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
   *  <b>New:</b>
-  *
+  *  - Added new host class drivers and matching demos to the library for rapid application development
+  *  
   *  <b>Changed:</b>
   *
   *  <b>Fixed:</b>
@@ -22,7 +23,7 @@
   *  \section Sec_ChangeLog090810 Version 090810
   *
   *  <b>New:</b>
-  *  - Added new class drivers and matching demos to the library for rapid application development
+  *  - Added new device class drivers and matching demos to the library for rapid application development
   *  - Added new PrinterHost demo (thanks to John Andrews)
   *  - Added USB Missle Launcher project, submitted by Dave Fletcher
   *  - Added new Benito Arduino Programmer project

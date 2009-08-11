@@ -189,6 +189,16 @@
 			 *  \return Next received byte from the device, or 0 if no data received
 			 */
 			uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+			
+			/** CDC class driver event for a control line state change on a CDC host interface. This event fires each time the device notifies
+			 *  the host of a control line state change (containing the virtual serial control line states, such as DCD) and may be hooked in the
+			 *  user program by declaring a handler function with the same name and parameters listed here. The new control line states
+			 *  are available in the ControlLineStates.DeviceToHost value inside the CDC host interface structure passed as a parameter, set as
+			 *  a mask of CDC_CONTROL_LINE_IN_* masks.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
+			 */
+			void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
