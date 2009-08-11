@@ -109,6 +109,7 @@
 			} USB_ClassInfo_CDC_Host_t;
 			
 		/* Enums: */
+			/** Enum for the possible error codes returned by the \ref CDC_Host_ConfigurePipes() function. */
 			enum
 			{
 				CDC_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
@@ -118,16 +119,75 @@
 			} CDCHost_EnumerationFailure_ErrorCodes_t;
 	
 		/* Function Prototypes: */
+			/** General management task for a given CDC host class interface, required for the correct operation of the interface. This should
+			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing an CDC Class host configuration and state.
+			 */
 			void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+			
+			/** Host interface configuration routine, to configure a given CDC host interface instance using the Configuration
+			 *  Descriptor read from an attached USB device. This function automatically updates the given CDC Host instance's
+			 *  state values and configures the pipes required to communicate with the interface if it is found within the device.
+			 *  This should be called once after the stack has enumerated the attached device, while the host state machine is in
+			 *  the Addressed state.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing an CDC Class host configuration and state.
+			 *  \param[in] ConfigDescriptorLength  Length of the attached device's Configuration Descriptor
+			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
+			 */
 			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t ConfigDescriptorLength,
 			                                uint8_t* DeviceConfigDescriptor);
 			
+			/** Sets the line encoding for the attached device's virtual serial port. This should be called when the LineEncoding
+			 *  values of the interface have been changed to push the new settings to the USB device.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
+			 */
 			uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+
+			/** Sends a Serial Control Line State Change notification to the device. This should be called when the virtual serial
+			 *  control lines (DTR, RTS, etc.) have changed states. Line states persist until they are cleared via a second
+			 *  notification. This should be called each time the CDC class driver's ControlLineStates.HostToDevice value is updated
+			 *  to push the new states to the USB device.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
+			 */
 			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 			
+			/** Sends a given string to the attached USB device, if connected. If a device is not connected when the function is called, the
+			 *  string is discarded.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
+			 *  \param[in] Data  Pointer to the string to send to the device
+			 *  \param[in] Length  Size in bytes of the string to send to the device
+			 */
 			void CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Data, uint16_t Length);
+			
+			/** Sends a given byte to the attached USB device, if connected. If a host is not connected when the function is called, the
+			 *  byte is discarded.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
+			 *  \param[in] Data  Byte of data to send to the device
+			 */
 			void CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data);
+
+			/** Determines the number of bytes received by the CDC interface from the device, waiting to be read.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
+			 *
+			 *  \return Total number of buffered bytes received from the device
+			 */
 			uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
+
+			/** Reads a byte of data from the device. If no data is waiting to be read of if a USB device is not connected, the function
+			 *  returns 0. The \ref CDC_Host_BytesReceived() function should be queried before data is recieved to ensure that no data
+			 *  underflow occurs.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
+			 *
+			 *  \return Next received byte from the device, or 0 if no data received
+			 */
 			uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 
 	/* Private Interface - For use in library only: */

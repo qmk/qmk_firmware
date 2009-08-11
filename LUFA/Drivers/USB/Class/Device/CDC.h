@@ -176,7 +176,7 @@
 			uint16_t CDC_Device_BytesReceived(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo);
 			
 			/** Reads a byte of data from the host. If no data is waiting to be read of if a USB host is not connected, the function
-			 *  returns 0. The USB_CDC_BytesReceived() function should be queried before data is recieved to ensure that no data
+			 *  returns 0. The \ref CDC_Device_BytesReceived() function should be queried before data is recieved to ensure that no data
 			 *  underflow occurs.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
