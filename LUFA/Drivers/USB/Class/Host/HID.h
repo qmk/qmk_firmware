@@ -66,23 +66,28 @@
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the HID interface's IN data pipe */
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the HID interface's OUT data pipe */
-					
-					bool     MatchInterfaceProtocol; /**< Indicates whether the driver should match the device's
-					                                  *   HID interface protocol's value to the \ref HIDInterfaceProtocol
-					                                  *   suppled (otherwise just accept all HID class devices)
-					                                  */
-					uint8_t  HIDInterfaceProtocol; /**< HID interface protocol value to match against if the
-					                                *   \ref MatchInterfaceProtocol is set to true (ignored otherwise)
+
+					uint8_t  HIDInterfaceProtocol; /**< HID interface protocol value to match against if a specific
+					                                *   boot subclass protocol is required (e.g. keyboard, mouse), or
+					                                *   leave as 0 to match against the first HID interface found
 					                                */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
 				struct
 				{
-					bool Active; /**< Indicates if the current interface instance is connected to an attached device */
+					bool Active; /**< Indicates if the current interface instance is connected to an attached device, valid
+					              *   after \ref HID_Host_ConfigurePipes() is called and the Host state machine is in the
+					              *   Configured state
+					              */
+					uint8_t InterfaceNumber; /**< Interface index of the HID interface within the attached device */
 
 					uint16_t DataINPipeSize; /**< Size in bytes of the HID interface's IN data pipe */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the HID interface's OUT data pipe */
+					
+					bool SupportsBootSubClass; /**< Indicates if the current interface instance supports the HID Boot
+					                            *   Protocol when enabled via \ref USB_HID_Host_SetProtocol()
+					                            */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.
@@ -103,7 +108,8 @@
 			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t ConfigDescriptorLength,
 			                                uint8_t* DeviceConfigDescriptor);
 
-			bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo);
+			bool    HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo);
+			uint8_t USB_HID_Host_SetProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, bool UseReportProtocol);
 		
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

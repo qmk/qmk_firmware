@@ -71,8 +71,10 @@
 				           */
 				struct
 				{
-					bool Active; /**< Indicates if the current interface instance is connected to an attached device */
-					
+					bool Active; /**< Indicates if the current interface instance is connected to an attached device, valid
+					              *   after \ref HID_Host_ConfigurePipes() is called and the Host state machine is in the
+					              *   Configured state
+					              */
 					uint8_t ControlInterfaceNumber; /**< Interface index of the CDC-ACM control interface within the attached device */
 				
 					uint16_t DataINPipeSize; /**< Size in bytes of the CDC interface's IN data pipe */
@@ -91,8 +93,6 @@
 					
 					struct
 					{
-						bool Active; /**< Indicates if the interface is currently active, i.e. attached to the connected device */
-					
 						uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
 						uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
 											  *   CDCDevice_CDC_LineCodingFormats_t enum

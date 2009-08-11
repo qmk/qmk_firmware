@@ -46,6 +46,8 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return HID_ENUMERROR_InvalidConfigDescriptor;
 	
+	USB_Descriptor_Interface_t* CurrentHIDInterface;
+	
 	do
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
@@ -53,9 +55,18 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint
 		{
 			return HID_ENUMERROR_NoHIDInterfaceFound;
 		}
-	} while (HIDInterfaceInfo->Config.MatchInterfaceProtocol &&
-	         DESCRIPTOR_PCAST(ConfigDescriptorData,
-	                          USB_Descriptor_Interface_t)->Protocol != HIDInterfaceInfo->Config.HIDInterfaceProtocol);
+		
+		CurrentHIDInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
+	} while (HIDInterfaceInfo->Config.HIDInterfaceProtocol &&
+	         (CurrentHIDInterface->Protocol != HIDInterfaceInfo->Config.HIDInterfaceProtocol));
+
+	HIDInterfaceInfo->State.InterfaceNumber	     =
+	#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
+	                     CurrentHIDInterface->InterfaceNumber;
+	#else
+	                     CurrentHIDInterface->bInterfaceNumber;
+	#endif
+	HIDInterfaceInfo->State.SupportsBootSubClass = (CurrentHIDInterface->SubClass != 0);
 
 	while (FoundEndpoints != ((1 << HID_FOUND_DATAPIPE_IN) | (1 << HID_FOUND_DATAPIPE_OUT)))
 	{
@@ -142,6 +153,22 @@ bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
 	Pipe_Freeze();
 
 	return ReportReceived;
+}
+
+uint8_t USB_HID_Host_SetProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, bool UseReportProtocol)
+{
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+			.bRequest      = REQ_SetProtocol,
+			.wValue        = UseReportProtocol,
+			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
+			.wLength       = 0,
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
+	return USB_Host_SendControlRequest(NULL);
 }
 
 #endif

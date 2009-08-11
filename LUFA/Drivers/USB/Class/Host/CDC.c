@@ -52,9 +52,9 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint
 	
 	CDCInterfaceInfo->State.ControlInterfaceNumber =
 #if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
-	                  DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).InterfaceNumber;
+	                     DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).InterfaceNumber;
 #else
-	                  DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).bInterfaceNumber;
+	                     DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).bInterfaceNumber;
 #endif
 
 	while (FoundEndpoints != (CDC_FOUND_DATAPIPE_IN | CDC_FOUND_DATAPIPE_OUT | CDC_FOUND_DATAPIPE_NOTIFICATION))

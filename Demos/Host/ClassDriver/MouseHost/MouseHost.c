@@ -47,7 +47,6 @@ USB_ClassInfo_HID_Host_t Mouse_HID_Interface =
 				.DataINPipeNumber       = 1,
 				.DataOUTPipeNumber      = 2,
 				
-				.MatchInterfaceProtocol = true,
 				.HIDInterfaceProtocol   = 0x02,
 			},
 	};
