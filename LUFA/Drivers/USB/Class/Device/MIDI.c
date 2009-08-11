@@ -79,7 +79,7 @@ void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfac
 
 	if (Endpoint_IsReadWriteAllowed());
 	{
-		Endpoint_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK);
+		Endpoint_Write_Stream_LE(Event, sizeof(Event), NO_STREAM_CALLBACK);
 		Endpoint_ClearIN();
 	}
 }
@@ -94,7 +94,7 @@ bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInter
 	if (!(Endpoint_IsReadWriteAllowed()))
 	  return false;
 
-	Endpoint_Read_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(Event, sizeof(Event), NO_STREAM_CALLBACK);
 	Endpoint_ClearOUT();
 	
 	return true;

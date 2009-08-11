@@ -34,12 +34,10 @@
 #define  INCLUDE_FROM_CDC_CLASS_HOST_C
 #include "CDC.h"
 
-#warning The CDC Host mode Class driver is currently incomplete and is for preview purposes only.
-
 uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t ConfigDescriptorSize,
                                 uint8_t* ConfigDescriptorData)
 {
-	uint8_t  FoundEndpoints = 0;
+	uint8_t FoundEndpoints = 0;
 
 	memset(&CDCInterfaceInfo->State, 0x00, sizeof(CDCInterfaceInfo->State));
 
@@ -198,7 +196,32 @@ static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescript
 
 void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 {
-	EVENT_CDC_Host_ControLineStateChanged(CDCInterfaceInfo);
+	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.Active))
+	  return;
+	
+	Pipe_SelectPipe(CDCInterfaceInfo->Config.NotificationPipeNumber);	
+	Pipe_Unfreeze();
+
+	if (Pipe_IsINReceived())
+	{
+		USB_Request_Header_t Notification;
+		Pipe_Read_Stream_LE(&Notification, sizeof(Notification), NO_STREAM_CALLBACK);
+		
+		if ((Notification.bRequest      == NOTIF_SerialState) &&
+		    (Notification.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE)))
+		{
+			Pipe_Read_Stream_LE(&CDCInterfaceInfo->State.ControlLineStates.DeviceToHost,
+			                    sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost),
+			                    NO_STREAM_CALLBACK);
+			
+		}
+
+		Pipe_ClearIN();
+
+		EVENT_CDC_Host_ControLineStateChanged(CDCInterfaceInfo);
+	}
+	
+	Pipe_Freeze();
 }
 
 uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
@@ -206,7 +229,7 @@ uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
 		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-		.bRequest      = REQ_SetControlLineState,
+		.bRequest      = REQ_SetLineEncoding,
 		.wValue        = 0,
 		.wIndex        = CDCInterfaceInfo->State.ControlInterfaceNumber,
 		.wLength       = sizeof(CDCInterfaceInfo->State.LineEncoding),

@@ -195,11 +195,13 @@ void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDC
 			.bRequest      = NOTIF_SerialState,
 			.wValue        = 0,
 			.wIndex        = 0,
-			.wLength       = sizeof(uint16_t),
+			.wLength       = sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost),
 		};
 
 	Endpoint_Write_Stream_LE(&Notification, sizeof(Notification), NO_STREAM_CALLBACK);
-	Endpoint_Write_Stream_LE(&CDCInterfaceInfo->State.ControlLineStates.DeviceToHost, sizeof(uint8_t), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_LE(&CDCInterfaceInfo->State.ControlLineStates.DeviceToHost,
+	                         sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost),
+	                         NO_STREAM_CALLBACK);
 	Endpoint_ClearIN();
 }
 
