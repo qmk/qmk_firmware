@@ -18,6 +18,8 @@
   *     -# Convert Host mode demos to class drivers
   *     -# Re-enable Host mode Class driver builds after completion
   *     -# Update Host mode Class Driver demo .txt files
+  *  - Add overviews of each of the officially supported boards to the manual
+  *  - Add hub support to match Atmel's stack
   *
   *  <b>Targeted for Future Releases:</b>
   *  - Add standardized descriptor names to device and host class driver structures
@@ -26,7 +28,6 @@
   *  - Master LUFA include file rather than per-module includes
   *  - Add multiple-report HID demo to the library
   *  - Add dual role Mouse Host/Keyboard Device demo to the library
-  *  - Add hub support to match Atmel's stack
   *  - Change makefiles to allow for absolute LUFA location to be used
   *  - Port LUFA to other architectures
   *      -# AVR32 UC3B series microcontrollers

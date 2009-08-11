@@ -201,13 +201,17 @@
 			typedef struct
 			{
 				uint8_t                      TotalReportItems; /**< Total number of report items stored in the
-				                                                *   ReportItems array. */
-
+				                                                *   ReportItems array.
+				                                                */
 				HID_ReportItem_t             ReportItems[HID_MAX_REPORTITEMS]; /**< Report items array, including
-			                                                                    *   all IN, OUT and FEATURE items. */
-
+			                                                                    *   all IN, OUT and FEATURE items.
+				                                                                */
 				HID_CollectionPath_t         CollectionPaths[HID_MAX_COLLECTIONS]; /**< All collection items, referenced
-				                                                                    *   by the report items. */
+				                                                                    *   by the report items.
+				                                                                    */
+				bool                         UsingMultipleReports; /**< Indicates if the device has at least one REPORT ID
+				                                                    *   element in its HID report descriptor.
+				                                                    */
 			} HID_ReportInfo_t;
 			
 		/* Function Prototypes: */
@@ -239,9 +243,9 @@
 			 *  buffer. The report buffer is assumed to have the appropriate bits cleared before calling
 			 *  this function (i.e., the buffer should be explicitly cleared before report values are added).
 			 *
-			 *  If the device has multiple HID reports, the report ID is set to the report ID of the given item.
+			 *  If the device has multiple HID reports, the first byte in the report is set to the report ID of the given item.
 			 *
-			 *  \param[out] ReportData  Buffer holding the current OUT report data
+			 *  \param[out] ReportData  Buffer holding the current OUT or FEATURE report data
 			 *  \param[in] ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
 			 */
 			void USB_SetHIDReportItemInfo(uint8_t* ReportData, const HID_ReportItem_t* ReportItem)

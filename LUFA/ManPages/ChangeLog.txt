@@ -10,14 +10,18 @@
   *
   *  <b>New:</b>
   *  - Added new host class drivers and matching demos to the library for rapid application development
+  *  - Added flag to the HID report parser to indicate if a device has multiple reports
   *  
   *  <b>Changed:</b>
+  *  - SetIdle requests to the HID device driver with a 0 idle period (send changes only) now only affect the requested
+  *    HID interface within the device, not all HID interfaces.
   *
   *  <b>Fixed:</b>
   *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the
   *    endpoint's bank
   *  - Fixed swapped paremeters in the HID state memory copy call while processing a HID PUSH item in the HID report parser
   *  - Fixed memory corruption HID report parser when too many COLLECTION or PUSH items were processed
+  *  - Fixed HID report parser not resetting the FEATURE item count when a REPORT ID item is encountered
   *
   *
   *  \section Sec_ChangeLog090810 Version 090810
