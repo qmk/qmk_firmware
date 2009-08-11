@@ -127,11 +127,21 @@ void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
 
 }
 
-void HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
+bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
 {
-	Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipeNumber);
+	bool ReportReceived;
 
-	return Pipe_IsReadWriteAllowed();
+	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.Active))
+	  return false;
+
+	Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_Unfreeze();
+	
+	ReportReceived = Pipe_IsReadWriteAllowed();
+	
+	Pipe_Freeze();
+
+	return ReportReceived;
 }
 
 #endif

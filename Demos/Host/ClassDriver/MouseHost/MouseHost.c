@@ -105,7 +105,7 @@ int main(void)
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
-				if (HID_Host_ReportReceived(&Mouse_HID_Interface))
+				if (HID_Host_IsReportReceived(&Mouse_HID_Interface))
 				{
 					
 				}

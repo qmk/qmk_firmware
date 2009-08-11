@@ -37,6 +37,7 @@
 
 	/* Includes: */
 		#include "../../USB.h"
+		#include "CDC.h"
 		
 		#include <string.h>
 	

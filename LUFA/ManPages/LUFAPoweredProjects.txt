@@ -32,6 +32,7 @@
  *
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
+ *  - "Fingerlicking Wingdinger" (WARNING: Bad Language if no Javascript), a MIDI controller - http://noisybox.net/electronics/wingdinger/
  *  - Opendous-JTAG, an open source JTAG device: http://code.google.com/p/opendous-jtag/
  *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  *  - Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm

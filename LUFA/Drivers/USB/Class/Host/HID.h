@@ -47,6 +47,7 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "../Common/HID.h"
+		#include "HIDParser.h"
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -95,14 +96,14 @@
 				HID_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor */
 				HID_ENUMERROR_NoHIDInterfaceFound        = 2, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
 				HID_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible HID endpoints were not found in the device's CDC interface */
-			} CDCHost_EnumerationFailure_ErrorCodes_t;
+			} HIDHost_EnumerationFailure_ErrorCodes_t;
 	
 		/* Function Prototypes: */
 			void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo);
 			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t ConfigDescriptorLength,
 			                                uint8_t* DeviceConfigDescriptor);
 
-			void HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo);
+			bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo);
 		
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

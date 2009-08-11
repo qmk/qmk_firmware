@@ -15,6 +15,8 @@
   *  <b>Fixed:</b>
   *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the
   *    endpoint's bank
+  *  - Fixed swapped paremeters in the HID state memory copy call while processing a HID PUSH item in the HID report parser
+  *  - Fixed memory corruption HID report parser when too many COLLECTION or PUSH items were processed
   *
   *
   *  \section Sec_ChangeLog090810 Version 090810

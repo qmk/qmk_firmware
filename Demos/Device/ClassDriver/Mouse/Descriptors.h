@@ -37,10 +37,10 @@
 #define _DESCRIPTORS_H_
 
 	/* Includes: */
-		#include <avr/pgmspace.h>
-
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/HID.h>
+
+		#include <avr/pgmspace.h>
 
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the

@@ -36,44 +36,53 @@
 uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID_ReportInfo_t* const ParserData)
 {
 	HID_StateTable_t  StateTable[HID_STATETABLE_STACK_DEPTH];
-	HID_StateTable_t* CurrStateTable               = &StateTable[0];
+	HID_StateTable_t* CurrStateTable          = &StateTable[0];
 	uint16_t          UsageStack[HID_USAGE_STACK_DEPTH];
-	uint8_t           UsageStackSize               = 0;
-	uint16_t          BitOffsetIn                  = 0;
-	uint16_t          BitOffsetOut                 = 0;
+	uint8_t           UsageStackSize          = 0;
+	uint16_t          BitOffsetIn             = 0;
+	uint16_t          BitOffsetOut            = 0;
 #if defined(HID_ENABLE_FEATURE_PROCESSING)
-	uint16_t          BitOffsetFeature             = 0;
+	uint16_t          BitOffsetFeature        = 0;
 #endif
-	HID_CollectionPath_t* CurrCollectionPath       = NULL;
+	HID_CollectionPath_t* CurrCollectionPath  = NULL;
 
-	memset((void*)ParserData, 0x00, sizeof(HID_ReportInfo_t));
-	memset((void*)StateTable, 0x00, sizeof(StateTable));
+	memset(ParserData, 0x00, sizeof(HID_ReportInfo_t));
+	memset(StateTable, 0x00, sizeof(StateTable));
 
 	while (ReportSize)
 	{
+		uint8_t  HIDReportItem  = *(ReportData++);
 		uint32_t ReportItemData = 0;
 		
-		switch (*ReportData & DATA_SIZE_MASK)
+		ReportSize--;
+		
+		switch (HIDReportItem & DATA_SIZE_MASK)
 		{
 			case DATA_SIZE_4:
-				ReportItemData = *((uint32_t*)(ReportData + 1));
+				ReportItemData  = *((uint32_t*)ReportData);
+				ReportSize     -= 4;
+				ReportData     += 4;
 				break;
 			case DATA_SIZE_2:
-				ReportItemData = *((uint16_t*)(ReportData + 1));
+				ReportItemData  = *((uint16_t*)ReportData);
+				ReportSize     -= 2;
+				ReportData     += 2;
 				break;
 			case DATA_SIZE_1:
-				ReportItemData = *((uint8_t*)(ReportData + 1));
+				ReportItemData  = *((uint8_t*)ReportData);
+				ReportSize     -= 1;
+				ReportData     += 1;
 				break;
 		}
 
-		switch (*ReportData & (TYPE_MASK | TAG_MASK))
+		switch (HIDReportItem & (TYPE_MASK | TAG_MASK))
 		{
 			case (TYPE_GLOBAL | TAG_GLOBAL_PUSH):
-				if (CurrStateTable == &StateTable[HID_STATETABLE_STACK_DEPTH])
+				if (CurrStateTable == &StateTable[HID_STATETABLE_STACK_DEPTH - 1])
 				  return HID_PARSE_HIDStackOverflow;
 	
-				memcpy((CurrStateTable - 1),
-				       CurrStateTable,
+				memcpy(CurrStateTable,
+				       (CurrStateTable + 1),
 				       sizeof(HID_ReportItem_t));
 
 				CurrStateTable++;
@@ -113,7 +122,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 				break;
 			case (TYPE_GLOBAL | TAG_GLOBAL_REPORTID):
 				CurrStateTable->ReportID                    = ReportItemData;
-				BitOffsetIn = 0;
+				BitOffsetIn  = 0;
 				BitOffsetOut = 0;
 				break;
 			case (TYPE_LOCAL | TAG_LOCAL_USAGE):
@@ -141,7 +150,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 
 					while (CurrCollectionPath->Parent != NULL);
 					{
-						if (CurrCollectionPath == &ParserData->CollectionPaths[HID_MAX_COLLECTIONS])
+						if (CurrCollectionPath == &ParserData->CollectionPaths[HID_MAX_COLLECTIONS - 1])
 						  return HID_PARSE_InsufficientCollectionPaths;
 					
 						CurrCollectionPath++;
@@ -209,7 +218,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 						CurrReportItem->Attributes.Usage.Usage = 0;
 					}
 											
-					switch (*ReportData & TAG_MASK)
+					switch (HIDReportItem & TAG_MASK)
 					{
 						case TAG_MAIN_INPUT:
 							CurrReportItem->ItemType  = REPORT_ITEM_TYPE_In;
@@ -236,11 +245,11 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 #endif
 					}
 					
-#if !defined(HID_INCLUDE_CONSTANT_DATA_ITEMS)
+#if defined(HID_INCLUDE_CONSTANT_DATA_ITEMS)
+					ParserData->TotalReportItems++;
+#else
 					if (!(ReportItemData & IOF_CONSTANT))
 					  ParserData->TotalReportItems++;
-#else
-					ParserData->TotalReportItems++;
 #endif
 				}
 				
@@ -249,31 +258,11 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 				break;
 		}
 	  
-		if ((*ReportData & TYPE_MASK) == TYPE_MAIN)
+		if ((HIDReportItem & TYPE_MASK) == TYPE_MAIN)
 		{
 			CurrStateTable->Attributes.Usage.MinMax.Minimum = 0;
 			CurrStateTable->Attributes.Usage.MinMax.Maximum = 0;
 			UsageStackSize = 0;
-		}
-		
-		switch (*ReportData & DATA_SIZE_MASK)
-		{
-			case DATA_SIZE_4:
-				ReportSize -= 5;
-				ReportData += 5;
-				break;
-			case DATA_SIZE_2:
-				ReportSize -= 3;
-				ReportData += 3;
-				break;
-			case DATA_SIZE_1:
-				ReportSize -= 2;
-				ReportData += 2;
-				break;
-			case DATA_SIZE_0:
-				ReportSize -= 1;
-				ReportData += 1;
-				break;
 		}
 	}
 	
