@@ -71,6 +71,10 @@
 				           */
 				struct
 				{
+					bool Active; /**< Indicates if the current interface instance is connected to an attached device */
+					
+					uint8_t ControlInterfaceNumber; /**< Interface index of the CDC-ACM control interface within the attached device */
+				
 					uint16_t DataINPipeSize; /**< Size in bytes of the CDC interface's IN data pipe */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the CDC interface's OUT data pipe */
 					uint16_t NotificationPipeSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
@@ -118,8 +122,6 @@
 			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t ConfigDescriptorLength,
 			                                uint8_t* DeviceConfigDescriptor);
 			
-			void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
-			
 			uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo);
 			
@@ -144,6 +146,9 @@
 
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_CDC_CLASS_HOST_C)
+				void CDC_Host_Event_Stub(void);
+				void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
+				                                           ATTR_WEAK ATTR_ALIAS(CDC_Host_Event_Stub);
 				static uint8_t DComp_CDC_Host_NextCDCControlInterface(void* CurrentDescriptor);
 				static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* CurrentDescriptor);
 				static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor);

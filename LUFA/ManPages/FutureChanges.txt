@@ -12,15 +12,14 @@
   *  or post your suggestion as an enhancement request to the project bug tracker.
   *
   *  <b>Targeted for This Release:</b>
-  *  - N/A
-  *
-  *  <b>Targeted for Future Releases:</b>
   *  - Host Mode Class Drivers
   *     -# Make new host class drivers
   *     -# Document new host class drivers
   *     -# Convert Host mode demos to class drivers
   *     -# Re-enable Host mode Class driver builds after completion
   *     -# Update Host mode Class Driver demo .txt files
+  *
+  *  <b>Targeted for Future Releases:</b>
   *  - Add standardized descriptor names to device and host class driver structures
   *  - Remake AVRStudio project files
   *  - Add detailed overviews of how each demo works

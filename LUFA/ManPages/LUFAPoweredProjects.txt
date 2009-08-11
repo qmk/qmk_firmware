@@ -19,8 +19,8 @@
  *  are open design, and all are available for purchase as completed development boards suitable for project development.
  *
  *  - AVROpendous, an open design/source set of AVR USB development boards: http://avropendous.org/
- *  - Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/blog/feurig/benito_7_the_next_big_thing
- *  - Bumble-B, yet another AT90USB162 development board: http://fletchtronics.net/
+ *  - Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/wiki/benito
+ *  - Bumble-B, yet another AT90USB162 development board: http://fletchtronics.net/bumble-b
  *  - USB10 AKA "The Ferret", a AT90USB162 development board: http://www.soc-machines.com
  *  - USBFoo, an AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102
  *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html

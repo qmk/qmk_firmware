@@ -103,6 +103,13 @@ int main(void)
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
+				if (CDC_Host_BytesReceived(&VirtualSerial_CDC_Interface))
+				{
+					/* Echo received bytes from the attached device through the USART */
+					while (CDC_Host_BytesReceived(&VirtualSerial_CDC_Interface))
+					  putchar(CDC_Host_ReceiveByte(&VirtualSerial_CDC_Interface));
+				}
+			
 				break;
 		}
 	

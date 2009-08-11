@@ -86,6 +86,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint
 		}
 	}
 
+	HIDInterfaceInfo->State.Active = true;
 	return HID_ENUMERROR_NoError;
 }
 
@@ -124,6 +125,13 @@ static uint8_t DComp_HID_Host_NextInterfaceHIDDataEndpoint(void* CurrentDescript
 void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
 {
 
+}
+
+void HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
+{
+	Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipeNumber);
+
+	return Pipe_IsReadWriteAllowed();
 }
 
 #endif

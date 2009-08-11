@@ -6,6 +6,17 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
+  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *
+  *  <b>New:</b>
+  *
+  *  <b>Changed:</b>
+  *
+  *  <b>Fixed:</b>
+  *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the
+  *    endpoint's bank
+  *
+  *
   *  \section Sec_ChangeLog090810 Version 090810
   *
   *  <b>New:</b>

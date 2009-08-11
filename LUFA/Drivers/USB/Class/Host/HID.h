@@ -78,6 +78,8 @@
 				           */
 				struct
 				{
+					bool Active; /**< Indicates if the current interface instance is connected to an attached device */
+
 					uint16_t DataINPipeSize; /**< Size in bytes of the HID interface's IN data pipe */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the HID interface's OUT data pipe */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
@@ -99,6 +101,8 @@
 			void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo);
 			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t ConfigDescriptorLength,
 			                                uint8_t* DeviceConfigDescriptor);
+
+			void HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo);
 		
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
