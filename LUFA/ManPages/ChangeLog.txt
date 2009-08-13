@@ -14,8 +14,9 @@
   *  
   *  <b>Changed:</b>
   *  - SetIdle requests to the HID device driver with a 0 idle period (send changes only) now only affect the requested
-  *    HID interface within the device, not all HID interfaces.
-  *  - Added new CDC_Device_Flush() command to the CDC Class device driver.
+  *    HID interface within the device, not all HID interfaces
+  *  - Added new CDC_Device_Flush() command to the device mode CDC Class driver
+  *  - Added explicit attribute masks to the device mode demos' descriptors
   *
   *  <b>Fixed:</b>
   *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the

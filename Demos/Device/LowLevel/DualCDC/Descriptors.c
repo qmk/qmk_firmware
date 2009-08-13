@@ -153,7 +153,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 										 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | CDC1_NOTIFICATION_EPNUM),
-			.Attributes             = EP_TYPE_INTERRUPT,
+			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = CDC_NOTIFICATION_EPSIZE,
 			.PollingIntervalMS      = 0xFF
 		},
@@ -179,7 +179,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 										 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | CDC1_RX_EPNUM),
-			.Attributes             = EP_TYPE_BULK,
+			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = CDC_TXRX_EPSIZE,
 			.PollingIntervalMS      = 0x00
 		},
@@ -189,7 +189,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 										 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | CDC1_TX_EPNUM),
-			.Attributes             = EP_TYPE_BULK,
+			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = CDC_TXRX_EPSIZE,
 			.PollingIntervalMS      = 0x00
 		},
@@ -261,7 +261,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 										 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | CDC2_NOTIFICATION_EPNUM),
-			.Attributes             = EP_TYPE_INTERRUPT,
+			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = CDC_NOTIFICATION_EPSIZE,
 			.PollingIntervalMS      = 0xFF
 		},
@@ -287,7 +287,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 										 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | CDC2_RX_EPNUM),
-			.Attributes             = EP_TYPE_BULK,
+			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = CDC_TXRX_EPSIZE,
 			.PollingIntervalMS      = 0x00
 		},
@@ -297,7 +297,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 										 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | CDC2_TX_EPNUM),
-			.Attributes             = EP_TYPE_BULK,
+			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = CDC_TXRX_EPSIZE,
 			.PollingIntervalMS      = 0x00
 		}

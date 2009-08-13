@@ -137,9 +137,6 @@ int main(void)
 
 				do
 				{
-					if (USB_HostState != HOST_STATE_Configured)
-					  break;
-
 					if (MS_Host_TestUnitReady(&FlashDisk_MS_Interface, 0, &DeviceReady))
 					{
 						printf("Error waiting for device to be ready.\r\n");
@@ -148,7 +145,7 @@ int main(void)
 						break;
 					}
 				}
-				while (DeviceReady == false);
+				while (!(DeviceReady));
 
 				puts_P(PSTR("Retrieving Capacity... "));
 

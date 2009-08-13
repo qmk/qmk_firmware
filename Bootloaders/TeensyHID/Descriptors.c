@@ -138,7 +138,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | HID_EPNUM),
-			.Attributes             = EP_TYPE_INTERRUPT,
+			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = HID_EPSIZE,
 			.PollingIntervalMS      = 0x40
 		},
