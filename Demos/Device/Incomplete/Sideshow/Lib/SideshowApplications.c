@@ -33,19 +33,6 @@
 SideShow_Application_t InstalledApplications[MAX_APPLICATIONS];
 
 
-uint8_t SideShow_GetTotalApplications(void)
-{
-	uint8_t TotalInstalledApps = 0;
-	
-	for (uint8_t App = 0; App < ARRAY_ELEMENTS(InstalledApplications); App++)
-	{
-		if (InstalledApplications[App].InUse)
-		  TotalInstalledApps++;
-	}
-	
-	return TotalInstalledApps;	
-}
-
 SideShow_Application_t* SideShow_GetFreeApplication(void)
 {
 	for (uint8_t App = 0; App < ARRAY_ELEMENTS(InstalledApplications); App++)

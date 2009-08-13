@@ -56,7 +56,6 @@
 		extern SideShow_Application_t InstalledApplications[MAX_APPLICATIONS];
 		
 	/* Function Prototypes: */
-		uint8_t                 SideShow_GetTotalApplications(void);
 		SideShow_Application_t* SideShow_GetFreeApplication(void);
 		SideShow_Application_t* SideShow_GetApplicationFromGUID(GUID_t* GUID);
 		

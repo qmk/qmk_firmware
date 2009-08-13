@@ -213,10 +213,6 @@ void USB_ResetInterface(void)
 		#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 		USB_INT_Enable(USB_INT_VBUS);
 		#endif
-
-		#if defined(CONTROL_ONLY_DEVICE)
-		UENUM = ENDPOINT_CONTROLEP;
-		#endif
 	#elif defined(USB_HOST_ONLY)
 	USB_Host_HostMode_On();
 	

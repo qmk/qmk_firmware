@@ -295,21 +295,26 @@ static void SideShow_GetString(SideShow_PacketHeader_t* PacketHeader, void* Unic
 
 static void SideShow_GetApplicationOrder(SideShow_PacketHeader_t* PacketHeader)
 {
-	uint8_t TotalInstalledApplications = SideShow_GetTotalApplications();
-	uint16_t GadgetGUIDBytes           = (TotalInstalledApplications * sizeof(GUID_t));
-
+	uint8_t  TotalApplications = 0;
+		   
 	Endpoint_ClearOUT();
 
+	for (uint8_t App = 0; App < MAX_APPLICATIONS; App++)
+	{
+		if (InstalledApplications[App].InUse)
+		  TotalApplications++;
+	}
+
 	PacketHeader->Length = sizeof(SideShow_PacketHeader_t) +
-	                       sizeof(uint32_t) + GadgetGUIDBytes;
+	                       sizeof(uint32_t) + (TotalApplications * sizeof(GUID_t));
 	
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
 	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
-	Endpoint_Write_DWord_LE(TotalInstalledApplications);
+	Endpoint_Write_DWord_LE(TotalApplications);
 	
 	for (uint8_t App = 0; App < MAX_APPLICATIONS; App++)
 	{
-		if (InstalledApplications[App].InUse == true)
+		if (InstalledApplications[App].InUse)
 		  Endpoint_Write_Stream_LE(&InstalledApplications[App].ApplicationID, sizeof(GUID_t));
 	}
 
@@ -386,9 +391,7 @@ static void SideShow_DeleteApplication(SideShow_PacketHeader_t* PacketHeader)
 	SideShow_Application_t* AppToDelete = SideShow_GetApplicationFromGUID(&ApplicationGUID);
 
 	if (AppToDelete != NULL)
-	{
-		AppToDelete->InUse = false;
-	}
+	  AppToDelete->InUse = false;
 	else
 	  PacketHeader->Type.NAK = true;
 

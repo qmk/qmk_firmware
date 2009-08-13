@@ -27,7 +27,7 @@
  * 
  *  \section Sec_LUFAProjects Projects Using LUFA (Hobbyist)
  *
- *  The following are hobbyist projects using LUFA. Most are open source, and show off interesting ways that the LUFA library
+ *  The following are known hobbyist projects using LUFA. Most are open source, and show off interesting ways that the LUFA library
  *  can be incorporated into many different applications.
  *
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
@@ -36,8 +36,9 @@
  *  - Opendous-JTAG, an open source JTAG device: http://code.google.com/p/opendous-jtag/
  *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  *  - Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
+ *  - NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
  *  - Reprap with LUFA, a LUFA powered 3D printer: http://code.google.com/p/at90usb1287-code-for-arduino-and-eclipse/
- *  - SEGA Megadrive/Genesis Development Cartridge: http://www.spritesmind.net/_GenDev/forum/viewtopic.php?t=464
+ *  - SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  - USB to Serial Bridge, via SPI and I2C: http://www.tty1.net/userial/

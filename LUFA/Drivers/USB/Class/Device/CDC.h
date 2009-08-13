@@ -185,6 +185,12 @@
 			 */
 			uint8_t CDC_Device_ReceiveByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo);
 			
+			/** Flushes any data waiting to be sent, ensuring that the send buffer is cleared.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+			 */
+			void CDC_Device_Flush(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo);
+			
 			/** Sends a Serial Control Line State Change notification to the host. This should be called when the virtual serial
 			 *  control lines (DCD, DSR, etc.) have changed states, or to give BREAK notfications to the host. Line states persist
 			 *  until they are cleared via a second notification. This should be called each time the CDC class driver's 

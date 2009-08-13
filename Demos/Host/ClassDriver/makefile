@@ -18,8 +18,12 @@ all:
 	make -C CDCHost all	
 
 	make -C MouseHost clean
-	make -C MouseHost all	
+	make -C MouseHost all
 
+	make -C MassStorageHost clean
+	make -C MassStorageHost all
+	
 %:
 	make -C CDCHost $@
 	make -C MouseHost $@
+	make -C MassStorageHost $@

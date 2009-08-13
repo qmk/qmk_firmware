@@ -100,7 +100,7 @@
 				HID_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
 				HID_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor */
 				HID_ENUMERROR_NoHIDInterfaceFound        = 2, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
-				HID_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible HID endpoints were not found in the device's CDC interface */
+				HID_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible HID endpoints were not found in the device's HID interface */
 			} HIDHost_EnumerationFailure_ErrorCodes_t;
 	
 		/* Function Prototypes: */
