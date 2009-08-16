@@ -147,8 +147,10 @@ void EVENT_USB_Device_UnhandledControlPacket(void)
  */
 ISR(USART1_RX_vect, ISR_BLOCK)
 {
+	uint8_t ReceivedByte = UDR1;
+
 	if (USB_DeviceState == DEVICE_STATE_Configured)
-	  Buffer_StoreElement(&Tx_Buffer, UDR1);
+	  Buffer_StoreElement(&Tx_Buffer, ReceivedByte);
 }
 
 /** Event handler for the CDC Class driver Line Encoding Changed event.
