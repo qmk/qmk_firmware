@@ -13,11 +13,6 @@
   *
   *  <b>Targeted for This Release:</b>
   *  - Host Mode Class Drivers
-  *     -# Make new host class drivers
-  *     -# Document new host class drivers
-  *     -# Convert Host mode demos to class drivers
-  *     -# Re-enable Host mode Class driver builds after completion
-  *     -# Update Host mode Class Driver demo .txt files
   *  - Add overviews of each of the officially supported boards to the manual
   *  - Add hub support to match Atmel's stack
   *

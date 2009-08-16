@@ -156,16 +156,20 @@
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 *  \param[in] Data  Pointer to the string to send to the host
 			 *  \param[in] Length  Size in bytes of the string to send to the host
+			 *
+			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum
 			 */
-			void CDC_Device_SendString(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, char* const Data, const uint16_t Length);
+			uint8_t CDC_Device_SendString(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, char* const Data, const uint16_t Length);
 			
 			/** Sends a given byte to the attached USB host, if connected. If a host is not connected when the function is called, the
 			 *  byte is discarded.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 *  \param[in] Data  Byte of data to send to the host
+			 *
+			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum
 			 */
-			void CDC_Device_SendByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, const uint8_t Data);
+			uint8_t CDC_Device_SendByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, const uint8_t Data);
 			
 			/** Determines the number of bytes received by the CDC interface from the host, waiting to be read.
 			 *
@@ -188,8 +192,10 @@
 			/** Flushes any data waiting to be sent, ensuring that the send buffer is cleared.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+			 *
+			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum
 			 */
-			void CDC_Device_Flush(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo);
+			uint8_t CDC_Device_Flush(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo);
 			
 			/** Sends a Serial Control Line State Change notification to the host. This should be called when the virtual serial
 			 *  control lines (DCD, DSR, etc.) have changed states, or to give BREAK notfications to the host. Line states persist

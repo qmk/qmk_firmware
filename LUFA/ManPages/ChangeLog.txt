@@ -19,6 +19,7 @@
   *    HID interface within the device, not all HID interfaces
   *  - Added new CDC_Device_Flush() command to the device mode CDC Class driver
   *  - Added explicit attribute masks to the device mode demos' descriptors
+  *  - Added return values to the CDC and MIDI class driver transmit functions
   *
   *  <b>Fixed:</b>
   *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the

@@ -70,18 +70,24 @@ void MIDI_Device_USBTask(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
 
 }
 
-void MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
+uint8_t MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
 {
 	if (USB_DeviceState != DEVICE_STATE_Configured)
-	  return;
+	  return ENDPOINT_RWSTREAM_NoError;
 	
 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpointNumber);
 
 	if (Endpoint_IsReadWriteAllowed());
 	{
-		Endpoint_Write_Stream_LE(Event, sizeof(Event), NO_STREAM_CALLBACK);
+		uint8_t ErrorCode;
+
+		if ((ErrorCode = Endpoint_Write_Stream_LE(Event, sizeof(Event), NO_STREAM_CALLBACK)) != ENDPOINT_RWSTREAM_NoError)
+		  return ErrorCode;
+
 		Endpoint_ClearIN();
 	}
+	
+	return ENDPOINT_RWSTREAM_NoError;
 }
 
 bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
