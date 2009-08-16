@@ -26,6 +26,9 @@
   *  - Fixed swapped paremeters in the HID state memory copy call while processing a HID PUSH item in the HID report parser
   *  - Fixed memory corruption HID report parser when too many COLLECTION or PUSH items were processed
   *  - Fixed HID report parser not resetting the FEATURE item count when a REPORT ID item is encountered
+  *  - Fixed USBtoSerial demos not reading in UDR1 when the USART receives data but the USB interface is not enumerated,
+  *    causing continuous USART receive interrupts
+  *  - Fixed misspelt event name in the Class driver USBtoSerial demo, preventing correct operation
   *
   *
   *  \section Sec_ChangeLog090810 Version 090810
