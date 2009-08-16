@@ -234,6 +234,18 @@
 			 *        \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_Device_Reset(void);
+
+			/** Event for USB Start Of Frame detection, when enabled. This event fires at the start of each USB
+			 *  frame, once per millisecond, and is synchronised to the USB bus. This can be used as an accurate
+			 *  millisecond timer source when the USB bus is enumerated in device mode to a USB host.
+			 *
+			 *  This event is not normally active - it must be manually enabled and disabled via the
+			 *  \ref USB_Device_EnableSOFEvents() and \ref USB_Device_DisableSOFEvents() commands after enumeration.
+			 *
+			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
+			 *        \ref Group_USBManagement documentation).
+			 */
+			void EVENT_USB_Device_StartOfFrame(void);
 		#endif
 		
 	/* Private Interface - For use in library only: */
@@ -264,6 +276,7 @@
 					void EVENT_USB_Device_Suspend(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 					void EVENT_USB_Device_WakeUp(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 					void EVENT_USB_Device_Reset(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
+					void EVENT_USB_Device_StartOfFrame(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 				#endif
 			#endif
 	#endif

@@ -111,12 +111,27 @@
 				 *  \return Boolean true if the USB communications have been suspended by the host, false otherwise.
 				 */
 				static inline bool USB_Device_IsUSBSuspended(void);
+				
+				/** Enables the device mode Start Of Frame events. When enabled, this causes the
+				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronised to the USB bus,
+				 *  at the start of each USB frame when enumerated in device mode.
+				 */
+				static inline bool USB_Device_EnableSOFEvents(void);
+				
+				/** Disables the device mode Start Of Frame events. When disabled, this stop the firing of the
+				 *  \ref EVENT_USB_Device_StartOfFrame() event when enumerated in device mode.
+				 */
+				static inline bool USB_Device_DisableSOFEvents(void);
 			#else
 				#define USB_Device_SendRemoteWakeup()   MACROS{ UDCON |= (1 << RMWKUP); }MACROE
 
 				#define USB_Device_IsRemoteWakeupSent()       ((UDCON &  (1 << RMWKUP)) ? false : true)
 
 				#define USB_Device_IsUSBSuspended()           ((UDINT &  (1 << SUSPI)) ? true : false)
+				
+				#define USB_Device_EnableSOFEvents()    MACROS{ USB_INT_Enable(USB_INT_SOFI); }MACROE
+
+				#define USB_Device_DisableSOFEvents()   MACROS{ USB_INT_Disable(USB_INT_SOFI); }MACROE
 			#endif
 			
 		/* Type Defines: */

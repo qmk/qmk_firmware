@@ -85,12 +85,6 @@ void SetupHardware(void)
 	Joystick_Init();
 	LEDs_Init();
 	USB_Init();
-	
-	/* Millisecond timer initialization, with output compare interrupt enabled for the idle timing */
-	OCR0A  = 0x7D;
-	TCCR0A = (1 << WGM01);
-	TCCR0B = ((1 << CS01) | (1 << CS00));
-	TIMSK0 = (1 << OCIE0A);
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
@@ -137,6 +131,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	{
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 	}
+	
+	USB_Device_EnableSOFEvents();
 }
 
 /** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
@@ -248,10 +244,8 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	}
 }
 
-/** ISR for the timer 0 compare vector. This ISR fires once each millisecond, and increments the
- *  scheduler elapsed idle period counter when the host has set an idle period.
- */
-ISR(TIMER0_COMPA_vect, ISR_BLOCK)
+/** Event handler for the USB device Start Of Frame event. */
+void EVENT_USB_Device_StartOfFrame(void)
 {
 	/* One millisecond has elapsed, decrement the idle time remaining counter if it has not already elapsed */
 	if (IdleMSRemaining)

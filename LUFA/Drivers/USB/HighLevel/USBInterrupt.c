@@ -153,6 +153,13 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 
 		EVENT_USB_Device_Reset();
 	}
+	
+	if (USB_INT_HasOccurred(USB_INT_SOFI) && USB_INT_IsEnabled(USB_INT_SOFI))
+	{
+		USB_INT_Clear(USB_INT_SOFI);
+		
+		EVENT_USB_Device_StartOfFrame();
+	}
 	#endif
 	
 	#if defined(USB_CAN_BE_HOST)

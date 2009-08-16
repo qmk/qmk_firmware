@@ -119,7 +119,9 @@
 			void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo);
 			
 			/** Indicates that a millisecond of idle time has elapsed on the given HID interface, and the interface's idle count should be
-			 *  decremented. This should be called once per millisecond so that hardware key-repeats function correctly.
+			 *  decremented. This should be called once per millisecond so that hardware key-repeats function correctly. It is recommended
+			 *  that this be called by the \ref EVENT_USB_Device_StartOfFrame() event, once SOF events have been enabled via
+			 *  \ref USB_Device_EnableSOFEvents();.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
 			 */

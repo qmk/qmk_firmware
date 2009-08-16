@@ -11,6 +11,8 @@
   *  <b>New:</b>
   *  - Added new host class drivers and matching demos to the library for rapid application development
   *  - Added flag to the HID report parser to indicate if a device has multiple reports
+  *  - Added new EVENT_USB_Device_StartOfFrame() event, controlled by the new USB_Device_EnableSOFEvents() and
+  *    USB_Device_DisableSOFEvents() macros to give bus-synchronised millisecond interrupts when in USB device mode
   *  
   *  <b>Changed:</b>
   *  - SetIdle requests to the HID device driver with a 0 idle period (send changes only) now only affect the requested

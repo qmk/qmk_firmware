@@ -89,12 +89,6 @@ void SetupHardware()
 	LEDs_Init();
 	Buttons_Init();
 	USB_Init();
-
-	/* Millisecond timer initialization, with output compare interrupt enabled for the idle timing */
-	OCR0A  = ((F_CPU / 64) / 1000);
-	TCCR0A = (1 << WGM01);
-	TCCR0B = ((1 << CS01) | (1 << CS00));
-	TIMSK0 = (1 << OCIE0A);
 }
 
 /** Event handler for the library USB Connection event. */
@@ -116,6 +110,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 	if (!(HID_Device_ConfigureEndpoints(&Keyboard_HID_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+
+	USB_Device_EnableSOFEvents();
 }
 
 /** Event handler for the library USB Unhandled Control Request event. */
@@ -124,8 +120,8 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	HID_Device_ProcessControlRequest(&Keyboard_HID_Interface);
 }
 
-/** ISR to keep track of each millisecond interrupt, for determining the HID class idle period remaining when set. */
-ISR(TIMER0_COMPA_vect, ISR_BLOCK)
+/** Event handler for the USB device Start Of Frame event. */
+void EVENT_USB_Device_StartOfFrame(void)
 {
 	HID_Device_MillisecondElapsed(&Keyboard_HID_Interface);
 }

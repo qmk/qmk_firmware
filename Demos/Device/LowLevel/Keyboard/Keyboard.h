@@ -40,7 +40,6 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
-		#include <avr/interrupt.h>
 		#include <avr/power.h>
 		#include <stdbool.h>
 		#include <string.h>
@@ -105,6 +104,7 @@
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_UnhandledControlRequest(void);
+		void EVENT_USB_Device_StartOfFrame(void);
 
 		void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData);
 		void ProcessLEDReport(uint8_t LEDReport);

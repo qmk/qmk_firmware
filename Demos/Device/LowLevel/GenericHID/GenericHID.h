@@ -40,7 +40,6 @@
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/power.h>
-		#include <avr/interrupt.h>
 		#include <stdbool.h>
 		#include <string.h>
 		
@@ -77,6 +76,7 @@
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_UnhandledControlRequest(void);
+		void EVENT_USB_Device_StartOfFrame(void);
 
 		void ProcessGenericHIDReport(uint8_t* DataArray);
 		void CreateGenericHIDReport(uint8_t* DataArray);
