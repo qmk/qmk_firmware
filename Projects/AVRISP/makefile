@@ -32,6 +32,18 @@
 # make program = Download the hex file to the device, using avrdude.
 #                Please customize the avrdude settings below first!
 #
+# make dfu = Download the hex file to the device, using dfu-programmer (must
+#            have dfu-programmer installed).
+#
+# make flip = Download the hex file to the device, using Atmel FLIP (must
+#             have Atmel FLIP installed).
+#
+# make dfu-ee = Download the eeprom file to the device, using dfu-programmer
+#               (must have dfu-programmer installed).
+#
+# make flip-ee = Download the eeprom file to the device, using Atmel FLIP
+#                (must have Atmel FLIP installed).
+#
 # make doxygen = Generate DoxyGen documentation for the project (must have
 #                DoxyGen installed)
 #
@@ -92,16 +104,12 @@ F_CPU = 8000000
 F_CLOCK = $(F_CPU)
 
 
-# Starting byte address of the bootloader
-BOOT_START = 0x1E000
-
-
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = BootloaderCDC
+TARGET = AVRISP
 
 
 # Object files directory
@@ -111,23 +119,24 @@ OBJDIR = .
 
 
 # Path to the LUFA library
-LUFA_PATH = ../..
+LUFA_PATH = ../../
 
 
 # LUFA library compile-time options
-LUFA_OPTS  = -D USB_DEVICE_ONLY
-LUFA_OPTS += -D USE_NONSTANDARD_DESCRIPTOR_NAMES
-LUFA_OPTS += -D DEVICE_STATE_AS_GPIOR=0
-LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
+LUFA_OPTS  = -D USE_NONSTANDARD_DESCRIPTOR_NAMES
+LUFA_OPTS += -D USB_DEVICE_ONLY
+LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=16
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
-LUFA_OPTS += -D USE_RAM_DESCRIPTORS
+LUFA_OPTS += -D NO_STREAM_CALLBACKS
+LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
 LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
-LUFA_OPTS += -D NO_INTERNAL_SERIAL
 
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
+      Lib/V2Protocol.c                                            \
+	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -184,8 +193,6 @@ CSTANDARD = -std=gnu99
 
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA_OPTS)
-CDEFS += -DBOOT_START_ADDR=$(BOOT_START)UL
-
 
 # Place -D or -U options here for ASM sources
 ADEFS = -DF_CPU=$(F_CPU)
@@ -213,7 +220,7 @@ CFLAGS += -funsigned-bitfields
 CFLAGS += -ffunction-sections
 CFLAGS += -fpack-struct
 CFLAGS += -fshort-enums
-CFLAGS += -fno-inline-small-functions
+CFLAGS += -finline-limit=20
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wundef
@@ -319,9 +326,8 @@ EXTMEMOPTS =
 #    -Map:      create map file
 #    --cref:    add cross reference to  map file
 LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
-LDFLAGS += -Wl,--relax
+LDFLAGS += -Wl,--relax 
 LDFLAGS += -Wl,--gc-sections
-LDFLAGS += -Wl,--section-start=.text=$(BOOT_START)
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
 LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
@@ -712,4 +718,5 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 .PHONY : all showeventhooks showliboptions showtarget  \
 begin finish end sizebefore sizeafter gccversion build \
 elf hex eep lss sym coff extcoff program clean debug   \
-clean_list clean_binary gdb-config doxygen
+clean_list clean_binary gdb-config doxygen dfu flip    \
+flip-ee dfu-ee

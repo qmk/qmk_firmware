@@ -148,7 +148,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		                           ENDPOINT_BANK_SINGLE);
 
 		#if defined(INTERRUPT_CONTROL_ENDPOINT)
-		USB_INT_Enable(USB_INT_ENDPOINT_SETUP);
+		USB_INT_Enable(USB_INT_RXSTPI);
 		#endif
 
 		EVENT_USB_Device_Reset();
@@ -236,7 +236,7 @@ ISR(USB_COM_vect, ISR_BLOCK)
 
 	USB_USBTask();
 
-	USB_INT_Clear(USB_INT_ENDPOINT_SETUP);
+	USB_INT_Clear(USB_INT_RXSTPI);
 	
 	Endpoint_SelectEndpoint(PrevSelectedEndpoint);
 }

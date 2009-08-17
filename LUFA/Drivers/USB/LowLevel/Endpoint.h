@@ -331,6 +331,12 @@
 				 *  \return The currently selected endpoint's direction, as a ENDPOINT_DIR_* mask.
 				 */
 				static inline uint8_t Endpoint_GetEndpointDirection(void);
+
+				/** Sets the direction of the currently selected endpoint.
+				 *
+				 *  \param DirectionMask  New endpoint direction, as a ENDPOINT_DIR_* mask.
+				 */
+				static inline void Endpoint_SetEndpointDirection(uint8_t DirectionMask);
 			#else
 				#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
 					#define Endpoint_BytesInEndpoint()        UEBCX
@@ -399,6 +405,8 @@
 				#define Endpoint_ResetDataToggle()            MACROS{ UECONX |= (1 << RSTDT); }MACROE
 				
 				#define Endpoint_GetEndpointDirection()       (UECFG0X & ENDPOINT_DIR_IN)
+				
+				#define Endpoint_SetEndpointDirection(dir)    MACROS{ UECFG0X = ((UECFG0X & ~ENDPOINT_DIR_IN) | dir); }MACROE
 			#endif
 
 		/* Enums: */

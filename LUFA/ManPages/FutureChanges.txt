@@ -12,9 +12,10 @@
   *  or post your suggestion as an enhancement request to the project bug tracker.
   *
   *  <b>Targeted for This Release:</b>
-  *  - Host Mode Class Drivers
+  *  - Finish Host Mode Class Drivers
   *  - Add overviews of each of the officially supported boards to the manual
   *  - Add hub support to match Atmel's stack
+  *  - Finish AVRISP Project
   *
   *  <b>Targeted for Future Releases:</b>
   *  - Add standardized descriptor names to device and host class driver structures

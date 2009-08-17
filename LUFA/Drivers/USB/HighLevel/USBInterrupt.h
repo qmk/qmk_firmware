@@ -72,7 +72,7 @@
 			#define USB_INT_HSOFI                            UHIEN,  (1 << HSOFE)  , UHINT , (1 << HSOFI)
 			#define USB_INT_RSTI                             UHIEN , (1 << RSTE)   , UHINT , (1 << RSTI)
 			#define USB_INT_SRPI                             OTGIEN, (1 << SRPE)   , OTGINT, (1 << SRPI)
-			#define USB_INT_ENDPOINT_SETUP                   UEIENX, (1 << RXSTPE) , UEINTX, (1 << RXSTPI)
+			#define USB_INT_RXSTPI                           UEIENX, (1 << RXSTPE) , UEINTX, (1 << RXSTPI)
 	
 		/* Function Prototypes: */
 			void USB_INT_ClearAllInterrupts(void);
