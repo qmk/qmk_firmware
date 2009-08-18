@@ -43,7 +43,7 @@ int main(void)
 {
 	SetupHardware();
 	
-	printf("AVRISP-MKII\r\n");
+	printf("AVRISP-MKII Clone\r\n");
 	
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
@@ -114,13 +114,8 @@ void Process_AVRISP_Commands(void)
 	/* Check to see if a V2 Protocol command has been received - if not, abort */
 	if (!(Endpoint_IsOUTReceived()))
 	  return;
-	  
-	printf("COMMAND\r\n");
 
 	/* Pass off processing of the V2 Protocol command to the V2 Protocol handler */
 	V2Protocol_ProcessCommand();
-
-	/* Reset Endpoint direction to OUT ready for next command */
-	Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);
 }
 
