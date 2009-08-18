@@ -332,6 +332,8 @@ static void USB_Device_GetStatus(void)
 
 			break;
 #endif
+		default:
+			return;
 	}
 
 	Endpoint_ClearSETUP();
