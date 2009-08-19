@@ -32,6 +32,7 @@
   *  - Fixed USBtoSerial demos not reading in UDR1 when the USART receives data but the USB interface is not enumerated,
   *    causing continuous USART receive interrupts
   *  - Fixed misspelt event name in the Class driver USBtoSerial demo, preventing correct operation
+  *  - Fixed invalid data being returned when a GetStatus request is issued in Device mode with an unhandled data recipient
   *
   *
   *  \section Sec_ChangeLog090810 Version 090810

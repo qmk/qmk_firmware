@@ -98,11 +98,6 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	}
 }
 
-void EVENT_USB_Device_UnhandledControlRequest(void)
-{
-	printf("CONTROL REQUEST\r\n");
-}
-
 void Process_AVRISP_Commands(void)
 {
 	/* Device must be connected and configured for the task to run */

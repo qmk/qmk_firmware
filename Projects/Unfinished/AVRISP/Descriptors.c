@@ -109,7 +109,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | AVRISP_DATA_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = AVRISP_DATA_EPSIZE,
-			.PollingIntervalMS      = 0x0A
+			.PollingIntervalMS      = 0x00
 		},
 
 	.DataOutEndpoint =
@@ -119,7 +119,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | AVRISP_DATA_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = AVRISP_DATA_EPSIZE,
-			.PollingIntervalMS      = 0x0A
+			.PollingIntervalMS      = 0x00
 		},
 };
 
@@ -140,9 +140,9 @@ USB_Descriptor_String_t PROGMEM LanguageString =
  */
 USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(5), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 		
-	.UnicodeString          = L"ATMEL"
+	.UnicodeString          = L"Dean Camera"
 };
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
@@ -151,16 +151,16 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  */
 USB_Descriptor_String_t PROGMEM ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(33), .Type = DTYPE_String},
 		
-	.UnicodeString          = L"AVRISP mkII"
+	.UnicodeString          = L"LUFA AVRISP MkII Clone Programmer"
 };
 
 USB_Descriptor_String_t PROGMEM SerialString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(12), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(13), .Type = DTYPE_String},
 		
-	.UnicodeString          = L"0000A0011794"
+	.UnicodeString          = L"0000A00128255"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
@@ -176,7 +176,7 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 
 	void*    Address = NULL;
 	uint16_t Size    = NO_DESCRIPTOR;
-
+	
 	switch (DescriptorType)
 	{
 		case DTYPE_Device: 

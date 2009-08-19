@@ -64,26 +64,33 @@ void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_Byte();
 		  
-	printf("COMMAND %d\r\n", V2Command);
-
 	switch (V2Command)
 	{
 		case CMD_SIGN_ON:
 			V2Protocol_ProcessCmdSignOn();
 			break;
 		case CMD_SET_PARAMETER:
-			V2Protocol_ProcessCmdSetParam();
-			break;
 		case CMD_GET_PARAMETER:
-			V2Protocol_ProcessCmdGetParam();
+			V2Protocol_ProcessCmdGetSetParam(V2Command);
 			break;
 		default:
+			while (Endpoint_BytesInEndpoint() == AVRISP_DATA_EPSIZE)
+			{
+				Endpoint_ClearOUT();
+				while (!(Endpoint_IsOUTReceived()));
+			}
+		
 			Endpoint_ClearOUT();
 			Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+
 			Endpoint_Write_Byte(STATUS_CMD_UNKNOWN);
 			Endpoint_ClearIN();
 			break;
 	}
+	
+	printf("COMMAND 0x%02x\r\n", V2Command);
+
+	Endpoint_WaitUntilReady();
 	
 	/* Reset Endpoint direction to OUT ready for next command */
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);	
@@ -104,7 +111,8 @@ static void V2Protocol_ProcessCmdSignOn(void)
 {
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	
+	Endpoint_WaitUntilReady();
+
 	Endpoint_Write_Byte(CMD_SIGN_ON);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
 	Endpoint_Write_Byte(PROGRAMMER_ID_LEN);
@@ -112,22 +120,26 @@ static void V2Protocol_ProcessCmdSignOn(void)
 	Endpoint_ClearIN();
 }
 
-static void V2Protocol_ProcessCmdSetParam(void)
+static void V2Protocol_ProcessCmdGetSetParam(uint8_t V2Command)
 {
 	uint8_t ParamID    = Endpoint_Read_Byte();
 	uint8_t ParamValue = Endpoint_Read_Byte();
 
-	ParameterItem_t* ParameterItem = V2Protocol_GetParameterItem(ParamID);
-	
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-
+	Endpoint_WaitUntilReady();
+	
+	ParameterItem_t* ParameterItem = V2Protocol_GetParameterItem(ParamID);
+	
 	if (ParameterItem != NULL)
 	{
-		eeprom_write_byte(&ParameterItem->ParameterValue, ParamValue);
+		Endpoint_Write_Byte(V2Command);
+		Endpoint_Write_Byte(STATUS_CMD_OK);
 
-		Endpoint_Write_Byte(CMD_SET_PARAMETER);
-		Endpoint_Write_Byte(STATUS_CMD_OK);	
+		if (V2Command == CMD_SET_PARAMETER)
+		  eeprom_write_byte(&ParameterItem->ParameterValue, ParamValue);
+		else
+		  Endpoint_Write_Byte(eeprom_read_byte(&ParameterItem->ParameterValue));			
 	}
 	else
 	{
@@ -135,27 +147,4 @@ static void V2Protocol_ProcessCmdSetParam(void)
 	}
 
 	Endpoint_ClearIN();
-}
-
-static void V2Protocol_ProcessCmdGetParam(void)
-{
-	uint8_t ParamID    = Endpoint_Read_Byte();
-
-	ParameterItem_t* ParameterItem = V2Protocol_GetParameterItem(ParamID);
-	
-	Endpoint_ClearOUT();
-	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-
-	if (ParameterItem != NULL)
-	{
-		Endpoint_Write_Byte(CMD_GET_PARAMETER);
-		Endpoint_Write_Byte(STATUS_CMD_OK);
-		Endpoint_Write_Byte(eeprom_read_byte(&ParameterItem->ParameterValue));	
-	}
-	else
-	{
-		Endpoint_Write_Byte(STATUS_CMD_FAILED);
-	}
-
-	Endpoint_ClearIN();	
 }

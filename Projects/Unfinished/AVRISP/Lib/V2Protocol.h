@@ -41,6 +41,7 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 		
+		#include "../Descriptors.h"
 		#include "V2ProtocolConstants.h"
 
 	/* Macros: */
@@ -60,8 +61,7 @@
 		#if defined(INCLUDE_FROM_V2PROTOCOL_C)
 			static ParameterItem_t* V2Protocol_GetParameterItem(uint8_t ParamID);
 			static void V2Protocol_ProcessCmdSignOn(void);
-			static void V2Protocol_ProcessCmdSetParam(void);
-			static void V2Protocol_ProcessCmdGetParam(void);
+			static void V2Protocol_ProcessCmdGetSetParam(uint8_t V2Command);
 		#endif
 
 #endif
