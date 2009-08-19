@@ -30,41 +30,42 @@
 
 /** \file
  *
- *  Header file for V2Protocol.c.
+ *  Header file for V2ProtocolParams.c.
  */
 
-#ifndef _V2_PROTOCOL_
-#define _V2_PROTOCOL_
+#ifndef _V2_PROTOCOL_PARAMS_
+#define _V2_PROTOCOL_PARAMS_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/eeprom.h>
 
 		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Peripheral/SPI.h>
-		
-		#include "../Descriptors.h"
+
+		#include "V2Protocol.h"
 		#include "V2ProtocolConstants.h"
-		#include "V2ProtocolParams.h"
 
 	/* Macros: */
-		#define PROGRAMMER_ID       "AVRISP_MK2"
-		#define PROGRAMMER_ID_LEN   (sizeof(PROGRAMMER_ID) - 1)
+		#define PARAM_PRIV_READ   (1 << 0)
+		#define PARAM_PRIV_WRITE  (1 << 1)
 
-		#define MAX_SPI_SETTINGS    7
+	/* Type Defines: */
+		typedef struct
+		{
+			const uint8_t ParamID;
+			uint8_t ParamValue;
+			uint8_t ParamPrivellages;
+		} ParameterItem_t;
 
 	/* Function Prototypes: */
-		void V2Protocol_ProcessCommand(void);
+		void    V2Params_LoadEEPROMParamValues(void);
+	
+		uint8_t V2Params_GetParameterPrivellages(uint8_t ParamID);
+		uint8_t V2Params_GetParameterValue(uint8_t ParamID);
+		void    V2Params_SetParameterValue(uint8_t ParamID, uint8_t Value);
 		
-		#if defined(INCLUDE_FROM_V2PROTOCOL_C)
-			static void    V2Protocol_ReconfigureSPI(void);
-			static void    V2Protocol_ChangeTargetResetLine(bool ResetTarget);
-
-			static void    V2Protocol_Command_Unknown(uint8_t V2Command);
-			static void    V2Protocol_Command_SignOn(void);
-			static void    V2Protocol_Command_GetSetParam(uint8_t V2Command);
-			static void    V2Protocol_Command_SPIMulti(void);
+		#if defined(INCLUDE_FROM_V2PROTOCOL_PARAMS_C)
+			static ParameterItem_t* V2Params_GetParamFromTable(uint8_t ParamID);
 		#endif
 
 #endif

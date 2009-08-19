@@ -43,7 +43,7 @@ int main(void)
 {
 	SetupHardware();
 
-	V2Protocol_Init();
+	V2Params_LoadEEPROMParamValues();
 
 	printf("AVRISP-MKII Clone\r\n");
 	
@@ -101,6 +101,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	}
 }
 
+/** Processes incomming V2 Protocol commands from the host, returning a response when required. */
 void Process_AVRISP_Commands(void)
 {
 	/* Device must be connected and configured for the task to run */
