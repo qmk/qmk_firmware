@@ -55,9 +55,6 @@
  *  This device spoofs Atmel's official AVRISP-MKII device PID so that it remains compatible with Atmel's AVRISP-MKII
  *  drivers. When promted, direct your OS to install Atmel's AVRISP-MKII drivers provided with AVRStudio.
  *
- *  This demo contains both FLASH and EEPROM data, as compiled .HEX and .EEP files respectively. <b>Both</b> files must
- *  be loaded into the device for it to perform correctly.
- *
  *  \section SSec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
@@ -72,11 +69,6 @@
  *    <td>RESET_LINE_PORT</td>
  *    <td>Makefile CDEFS</td>
  *    <td>PORT register for the programmer's target RESET line.</td>
- *   </tr>
- *   <tr>
- *    <td>RESET_LINE_PIN</td>
- *    <td>Makefile CDEFS</td>
- *    <td>PIN register for the programmer's target RESET line.</td>
  *   </tr>
  *   <tr>
  *    <td>RESET_LINE_DDR</td>

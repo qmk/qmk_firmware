@@ -42,8 +42,8 @@
 int main(void)
 {
 	SetupHardware();
-	
-	V2Protocol_ConfigureHardware();
+
+	V2Protocol_Init();
 
 	printf("AVRISP-MKII Clone\r\n");
 	

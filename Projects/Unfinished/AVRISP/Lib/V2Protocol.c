@@ -36,46 +36,107 @@
 #define  INCLUDE_FROM_V2PROTOCOL_C
 #include "V2Protocol.h"
 
-ParameterItem_t ParameterTable[] EEMEM = 
+/* Table of masks for SPI_Init() from a given PARAM_SCK_DURATION value */
+static const uint8_t SPIMaskFromSCKDuration[] =
 	{
-		{ .ParameterID    = PARAM_BUILD_NUMBER_LOW,
-		  .ParameterValue = 0x00                    },
-		{ .ParameterID    = PARAM_BUILD_NUMBER_HIGH,
-		  .ParameterValue = 0x00                    },
-		{ .ParameterID    = PARAM_HW_VER,
-		  .ParameterValue = 0x01                    },
-		{ .ParameterID    = PARAM_SW_MAJOR,
-		  .ParameterValue = 0x01                    },
-		{ .ParameterID    = PARAM_SW_MINOR,
-		  .ParameterValue = 0x00                    },
-		{ .ParameterID    = PARAM_VTARGET,
-		  .ParameterValue = 0x00                    },
-		{ .ParameterID    = PARAM_SCK_DURATION,
-		  .ParameterValue = 0x00                    },
-		{ .ParameterID    = PARAM_RESET_POLARITY,
-		  .ParameterValue = 0x00                    },
-		{ .ParameterID    = PARAM_STATUS_TGT_CONN,
-		  .ParameterValue = 0x00                    },
-		{ .ParameterID    = PARAM_DISCHARGEDELAY,
-		  .ParameterValue = 0x00                    },
+		#if (F_CPU == 8000000)
+		SPI_SPEED_FCPU_DIV_2,
+		#endif
+		SPI_SPEED_FCPU_DIV_2, SPI_SPEED_FCPU_DIV_4, SPI_SPEED_FCPU_DIV_8,
+		SPI_SPEED_FCPU_DIV_16, SPI_SPEED_FCPU_DIV_32, SPI_SPEED_FCPU_DIV_64
+		#if (F_CPU == 16000000)										
+		, SPI_SPEED_FCPU_DIV_128
+		#endif
 	};
 	
-void V2Protocol_ConfigureHardware(void)
+/* Non-Volatile Parameter Values for EEPROM storage */
+uint8_t EEMEM EEPROM_Rest_Polarity;
+
+/* Volatile Parameter Values for RAM storage */
+static ParameterItem_t ParameterTable[] = 
+	{
+		{ .ParameterID    = PARAM_BUILD_NUMBER_LOW,
+		  .ParameterValue = (LUFA_VERSION_INTEGER >> 8)    },
+		{ .ParameterID    = PARAM_BUILD_NUMBER_HIGH,
+		  .ParameterValue = (LUFA_VERSION_INTEGER & 0xFF)  },
+		{ .ParameterID    = PARAM_HW_VER,
+		  .ParameterValue = 0x01                           },
+		{ .ParameterID    = PARAM_SW_MAJOR,
+		  .ParameterValue = 0x01                           },
+		{ .ParameterID    = PARAM_SW_MINOR,
+		  .ParameterValue = 0x00                           },
+		{ .ParameterID    = PARAM_VTARGET,
+		  .ParameterValue = 0x00                           },
+		{ .ParameterID    = PARAM_SCK_DURATION,
+		  .ParameterValue = sizeof(SPIMaskFromSCKDuration) },
+		{ .ParameterID    = PARAM_RESET_POLARITY,
+		  .ParameterValue = 0x01                           },
+		{ .ParameterID    = PARAM_STATUS_TGT_CONN,
+		  .ParameterValue = 0x00                           },
+		{ .ParameterID    = PARAM_DISCHARGEDELAY,
+		  .ParameterValue = 0x00                           },
+	};
+
+
+static void V2Protocol_ReconfigureSPI(void)
 {
-#if F_CPU == 8000000
-	uint8_t SPIMaskFromSCKDuration[] = {SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128,
-	                                    SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128};
-#else
-	uint8_t SPIMaskFromSCKDuration[] = {SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128,
-	                                    SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128};
-#endif
+	uint8_t SCKDuration = V2Protocol_GetParameter(PARAM_SCK_DURATION);
 
-	uint8_t SCKDuration = eeprom_read_byte(&V2Protocol_GetParameterItem(PARAM_SCK_DURATION)->ParameterValue);
-
-	if (SCKDuration > sizeof(SPIMaskFromSCKDuration))
-	  SCKDuration = SPIMaskFromSCKDuration;
+	if (SCKDuration >= sizeof(SPIMaskFromSCKDuration))
+	  SCKDuration = (sizeof(SPIMaskFromSCKDuration) - 1);
 	  
 	SPI_Init(SPIMaskFromSCKDuration[SCKDuration], true);	
+}
+
+static void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
+{
+	if (ResetTarget)
+	{
+		RESET_LINE_DDR  |= RESET_LINE_MASK;
+		
+		if (!(V2Protocol_GetParameter(PARAM_RESET_POLARITY)))
+		  RESET_LINE_PORT |= RESET_LINE_MASK;
+	}
+	else
+	{
+		RESET_LINE_PORT &= ~RESET_LINE_MASK;	
+		RESET_LINE_DDR  &= ~RESET_LINE_MASK;
+	}
+}
+
+static uint8_t V2Protocol_GetParameter(uint8_t ParamID)
+{
+	/* Find the parameter in the parameter table and retrieve the value */
+	for (uint8_t TableIndex = 0; TableIndex < (sizeof(ParameterTable) / sizeof(ParameterTable[0])); TableIndex++)
+	{
+		if (ParamID == ParameterTable[TableIndex].ParameterID)
+		  return ParameterTable[TableIndex].ParameterValue;
+	}
+	
+	return 0;
+}
+
+static void V2Protocol_SetParameter(uint8_t ParamID, uint8_t Value)
+{
+	/* The target RESET line polarity is a non-volatile parameter, save to EEPROM when changed */
+	if (ParamID == PARAM_RESET_POLARITY)
+	  eeprom_write_byte(&EEPROM_Rest_Polarity, Value);
+
+	/* Find the parameter in the parameter table and store the new value */
+	for (uint8_t TableIndex = 0; TableIndex < (sizeof(ParameterTable) / sizeof(ParameterTable[0])); TableIndex++)
+	{
+		if (ParamID == ParameterTable[TableIndex].ParameterID)
+		{
+			ParameterTable[TableIndex].ParameterValue = Value;
+			return;
+		}
+	}
+}
+
+void V2Protocol_Init(void)
+{
+	/* Target RESET line polarity is a non-volatile value, retrieve current parameter value from EEPROM */
+	V2Protocol_SetParameter(PARAM_RESET_POLARITY, eeprom_read_byte(&EEPROM_Rest_Polarity));
 }
 
 void V2Protocol_ProcessCommand(void)
@@ -85,28 +146,17 @@ void V2Protocol_ProcessCommand(void)
 	switch (V2Command)
 	{
 		case CMD_SIGN_ON:
-			V2Protocol_ProcessCmdSignOn();
+			V2Protocol_Command_SignOn();
 			break;
 		case CMD_SET_PARAMETER:
 		case CMD_GET_PARAMETER:
-			V2Protocol_ProcessCmdGetSetParam(V2Command);
+			V2Protocol_Command_GetSetParam(V2Command);
 			break;
 		case CMD_SPI_MULTI:
-			V2Protocol_ProcessCmdSPIMulti();
+			V2Protocol_Command_SPIMulti();
 			break;		
 		default:
-			while (Endpoint_BytesInEndpoint() == AVRISP_DATA_EPSIZE)
-			{
-				Endpoint_ClearOUT();
-				while (!(Endpoint_IsOUTReceived()));
-			}
-		
-			Endpoint_ClearOUT();
-			Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-
-			Endpoint_Write_Byte(V2Command);
-			Endpoint_Write_Byte(STATUS_CMD_UNKNOWN);
-			Endpoint_ClearIN();
+			V2Protocol_Command_Unknown(V2Command);
 			break;
 	}
 	
@@ -116,24 +166,29 @@ void V2Protocol_ProcessCommand(void)
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);	
 }
 
-static ParameterItem_t* V2Protocol_GetParameterItem(uint8_t ParamID)
-{
-	for (uint8_t TableIndex = 0; TableIndex < (sizeof(ParameterTable) / sizeof(ParameterTable[0])); TableIndex++)
+static void V2Protocol_Command_Unknown(uint8_t V2Command)
+{	
+	while (Endpoint_BytesInEndpoint() == AVRISP_DATA_EPSIZE)
 	{
-		if (ParamID == eeprom_read_byte(&ParameterTable[TableIndex].ParameterID))
-		  return &ParameterTable[TableIndex];
+		Endpoint_ClearOUT();
+		while (!(Endpoint_IsOUTReceived()));
 	}
-	
-	return NULL;
+
+	Endpoint_ClearOUT();
+	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+
+	Endpoint_Write_Byte(V2Command);
+	Endpoint_Write_Byte(STATUS_CMD_UNKNOWN);
+	Endpoint_ClearIN();
 }
 
-static void V2Protocol_ProcessCmdSignOn(void)
+static void V2Protocol_Command_SignOn(void)
 {
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	Endpoint_WaitUntilReady();
 
-	V2Protocol_ConfigureHardware();
+	V2Protocol_ReconfigureSPI();
 
 	Endpoint_Write_Byte(CMD_SIGN_ON);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
@@ -142,7 +197,7 @@ static void V2Protocol_ProcessCmdSignOn(void)
 	Endpoint_ClearIN();
 }
 
-static void V2Protocol_ProcessCmdGetSetParam(uint8_t V2Command)
+static void V2Protocol_Command_GetSetParam(uint8_t V2Command)
 {
 	uint8_t ParamID    = Endpoint_Read_Byte();
 	uint8_t ParamValue = Endpoint_Read_Byte();
@@ -151,28 +206,18 @@ static void V2Protocol_ProcessCmdGetSetParam(uint8_t V2Command)
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	Endpoint_WaitUntilReady();
 	
-	ParameterItem_t* ParameterItem = V2Protocol_GetParameterItem(ParamID);
-	
 	Endpoint_Write_Byte(V2Command);
+	Endpoint_Write_Byte(STATUS_CMD_OK);
 
-	if (ParameterItem != NULL)
-	{
-		Endpoint_Write_Byte(STATUS_CMD_OK);
-
-		if (V2Command == CMD_SET_PARAMETER)
-		  eeprom_write_byte(&ParameterItem->ParameterValue, ParamValue);
-		else
-		  Endpoint_Write_Byte(eeprom_read_byte(&ParameterItem->ParameterValue));			
-	}
+	if (V2Command == CMD_SET_PARAMETER)
+	  V2Protocol_SetParameter(ParamID, ParamValue);
 	else
-	{
-		Endpoint_Write_Byte(STATUS_CMD_FAILED);
-	}
+	  Endpoint_Write_Byte(V2Protocol_GetParameter(ParamID));
 
 	Endpoint_ClearIN();
 }
 
-static void V2Protocol_ProcessCmdSPIMulti(void)
+static void V2Protocol_Command_SPIMulti(void)
 {
 	uint8_t TxBytes = Endpoint_Read_Byte();
 	uint8_t RxBytes = Endpoint_Read_Byte();
@@ -204,14 +249,9 @@ static void V2Protocol_ProcessCmdSPIMulti(void)
 	while (CurrRxPos < RxBytes)
 	{
 		if (CurrTxPos < TxBytes)
-		{
-			Endpoint_Write_Byte(SPI_TransferByte(TxData[CurrTxPos]));
-			CurrTxPos++;
-		}
+		  Endpoint_Write_Byte(SPI_TransferByte(TxData[CurrTxPos++]));
 		else
-		{
-			Endpoint_Write_Byte(SPI_ReceiveByte());
-		}
+		  Endpoint_Write_Byte(SPI_ReceiveByte());
 		
 		CurrRxPos++;
 	}	

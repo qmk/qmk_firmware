@@ -38,7 +38,9 @@
 
 	/* Includes: */
 		#include <avr/io.h>
+		#include <avr/eeprom.h>
 
+		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SPI.h>
 		
@@ -56,15 +58,21 @@
 			uint8_t ParameterValue;
 		} ParameterItem_t;
 
-	/* Function Prototypes: */	
-		void V2Protocol_ConfigureHardware(void);
+	/* Function Prototypes: */
+		void V2Protocol_Init(void);
 		void V2Protocol_ProcessCommand(void);
 		
 		#if defined(INCLUDE_FROM_V2PROTOCOL_C)
-			static ParameterItem_t* V2Protocol_GetParameterItem(uint8_t ParamID);
-			static void V2Protocol_ProcessCmdSignOn(void);
-			static void V2Protocol_ProcessCmdGetSetParam(uint8_t V2Command);
-			static void V2Protocol_ProcessCmdSPIMulti(void);
+			static void    V2Protocol_ReconfigureSPI(void);
+			static void    V2Protocol_ChangeTargetResetLine(bool ResetTarget);
+
+			static uint8_t V2Protocol_GetParameter(uint8_t ParamID);
+			static void    V2Protocol_SetParameter(uint8_t ParamID, uint8_t Value);
+
+			static void    V2Protocol_Command_Unknown(uint8_t V2Command);
+			static void    V2Protocol_Command_SignOn(void);
+			static void    V2Protocol_Command_GetSetParam(uint8_t V2Command);
+			static void    V2Protocol_Command_SPIMulti(void);
 		#endif
 
 #endif
