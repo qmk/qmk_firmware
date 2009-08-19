@@ -38,9 +38,7 @@
 
 	/* Includes: */
 		#include <avr/io.h>
-		#include <avr/eeprom.h>
 
-		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SPI.h>
 		

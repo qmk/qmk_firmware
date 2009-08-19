@@ -103,15 +103,17 @@ void V2Protocol_ProcessCommand(void)
 }
 
 static void V2Protocol_Command_Unknown(uint8_t V2Command)
-{	
+{
+	/* Discard all incomming data */
 	while (Endpoint_BytesInEndpoint() == AVRISP_DATA_EPSIZE)
 	{
 		Endpoint_ClearOUT();
-		while (!(Endpoint_IsOUTReceived()));
+		Endpoint_WaitUntilReady();
 	}
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+	Endpoint_WaitUntilReady();
 
 	Endpoint_Write_Byte(V2Command);
 	Endpoint_Write_Byte(STATUS_CMD_UNKNOWN);
@@ -166,8 +168,8 @@ static void V2Protocol_Command_GetSetParam(uint8_t V2Command)
 
 static void V2Protocol_Command_SPIMulti(void)
 {
-	uint8_t TxBytes = Endpoint_Read_Byte();
-	uint8_t RxBytes = Endpoint_Read_Byte();
+	uint8_t TxBytes     = Endpoint_Read_Byte();
+	uint8_t RxBytes     = Endpoint_Read_Byte();
 	uint8_t RxStartAddr = Endpoint_Read_Byte();
 	uint8_t TxData[255];
 	
@@ -183,6 +185,7 @@ static void V2Protocol_Command_SPIMulti(void)
 	uint8_t CurrTxPos = 0;
 	uint8_t CurrRxPos = 0;
 
+	/* Write out bytes to transmit until the start of the bytes to receive is met */
 	while (CurrTxPos < RxStartAddr)
 	{
 		if (CurrTxPos < TxBytes)
@@ -193,6 +196,7 @@ static void V2Protocol_Command_SPIMulti(void)
 		CurrTxPos++;
 	}
 
+	/* Transmit remaining bytes with padding as needed, read in response bytes */
 	while (CurrRxPos < RxBytes)
 	{
 		if (CurrTxPos < TxBytes)
