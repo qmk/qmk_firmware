@@ -193,6 +193,11 @@ CSTANDARD = -std=gnu99
 
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA_OPTS)
+CDEFS += -DRESET_LINE_PORT=PORTA
+CDEFS += -DRESET_LINE_PIN=PINA
+CDEFS += -DRESET_LINE_DDR=DDRA
+CDEFS += -DRESET_LINE_MASK="(1 << 0)"
+
 
 # Place -D or -U options here for ASM sources
 ADEFS = -DF_CPU=$(F_CPU)

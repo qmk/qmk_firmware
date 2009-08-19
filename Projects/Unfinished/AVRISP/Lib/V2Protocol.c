@@ -59,6 +59,24 @@ ParameterItem_t ParameterTable[] EEMEM =
 		{ .ParameterID    = PARAM_DISCHARGEDELAY,
 		  .ParameterValue = 0x00                    },
 	};
+	
+void V2Protocol_ConfigureHardware(void)
+{
+#if F_CPU == 8000000
+	uint8_t SPIMaskFromSCKDuration[] = {SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128,
+	                                    SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128};
+#else
+	uint8_t SPIMaskFromSCKDuration[] = {SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128,
+	                                    SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128, SPI_SPEED_FCPU_DIV_128};
+#endif
+
+	uint8_t SCKDuration = eeprom_read_byte(&V2Protocol_GetParameterItem(PARAM_SCK_DURATION)->ParameterValue);
+
+	if (SCKDuration > sizeof(SPIMaskFromSCKDuration))
+	  SCKDuration = SPIMaskFromSCKDuration;
+	  
+	SPI_Init(SPIMaskFromSCKDuration[SCKDuration], true);	
+}
 
 void V2Protocol_ProcessCommand(void)
 {
@@ -73,6 +91,9 @@ void V2Protocol_ProcessCommand(void)
 		case CMD_GET_PARAMETER:
 			V2Protocol_ProcessCmdGetSetParam(V2Command);
 			break;
+		case CMD_SPI_MULTI:
+			V2Protocol_ProcessCmdSPIMulti();
+			break;		
 		default:
 			while (Endpoint_BytesInEndpoint() == AVRISP_DATA_EPSIZE)
 			{
@@ -83,6 +104,7 @@ void V2Protocol_ProcessCommand(void)
 			Endpoint_ClearOUT();
 			Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
+			Endpoint_Write_Byte(V2Command);
 			Endpoint_Write_Byte(STATUS_CMD_UNKNOWN);
 			Endpoint_ClearIN();
 			break;
@@ -90,9 +112,7 @@ void V2Protocol_ProcessCommand(void)
 	
 	printf("COMMAND 0x%02x\r\n", V2Command);
 
-	Endpoint_WaitUntilReady();
-	
-	/* Reset Endpoint direction to OUT ready for next command */
+	Endpoint_WaitUntilReady();	
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);	
 }
 
@@ -113,6 +133,8 @@ static void V2Protocol_ProcessCmdSignOn(void)
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	Endpoint_WaitUntilReady();
 
+	V2Protocol_ConfigureHardware();
+
 	Endpoint_Write_Byte(CMD_SIGN_ON);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
 	Endpoint_Write_Byte(PROGRAMMER_ID_LEN);
@@ -131,9 +153,10 @@ static void V2Protocol_ProcessCmdGetSetParam(uint8_t V2Command)
 	
 	ParameterItem_t* ParameterItem = V2Protocol_GetParameterItem(ParamID);
 	
+	Endpoint_Write_Byte(V2Command);
+
 	if (ParameterItem != NULL)
 	{
-		Endpoint_Write_Byte(V2Command);
 		Endpoint_Write_Byte(STATUS_CMD_OK);
 
 		if (V2Command == CMD_SET_PARAMETER)
@@ -147,4 +170,52 @@ static void V2Protocol_ProcessCmdGetSetParam(uint8_t V2Command)
 	}
 
 	Endpoint_ClearIN();
+}
+
+static void V2Protocol_ProcessCmdSPIMulti(void)
+{
+	uint8_t TxBytes = Endpoint_Read_Byte();
+	uint8_t RxBytes = Endpoint_Read_Byte();
+	uint8_t RxStartAddr = Endpoint_Read_Byte();
+	uint8_t TxData[255];
+	
+	Endpoint_Read_Stream_LE(TxData, TxBytes);
+	
+	Endpoint_ClearOUT();
+	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+	Endpoint_WaitUntilReady();
+	
+	Endpoint_Write_Byte(CMD_SPI_MULTI);
+	Endpoint_Write_Byte(STATUS_CMD_OK);
+
+	uint8_t CurrTxPos = 0;
+	uint8_t CurrRxPos = 0;
+
+	while (CurrTxPos < RxStartAddr)
+	{
+		if (CurrTxPos < TxBytes)
+		  SPI_SendByte(TxData[CurrTxPos]);
+		else
+		  SPI_SendByte(0);
+		
+		CurrTxPos++;
+	}
+
+	while (CurrRxPos < RxBytes)
+	{
+		if (CurrTxPos < TxBytes)
+		{
+			Endpoint_Write_Byte(SPI_TransferByte(TxData[CurrTxPos]));
+			CurrTxPos++;
+		}
+		else
+		{
+			Endpoint_Write_Byte(SPI_ReceiveByte());
+		}
+		
+		CurrRxPos++;
+	}	
+	
+	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_ClearIN();	
 }

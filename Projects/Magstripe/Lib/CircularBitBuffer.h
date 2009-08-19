@@ -53,7 +53,7 @@
 		#endif
 		
 	/* Type Defines: */
-		/* Type define for a pointer to a bit in a bit buffer. */
+		/** Type define for a pointer to a bit in a bit buffer. */
 		typedef struct
 		{
 			uint8_t* CurrentByte; /**< Pointer to the current byte in the buffer */

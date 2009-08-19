@@ -47,6 +47,7 @@
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/SPI.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
 		#include "Lib/V2Protocol.h"

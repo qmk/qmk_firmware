@@ -40,6 +40,7 @@
 		#include <avr/io.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Peripheral/SPI.h>
 		
 		#include "../Descriptors.h"
 		#include "V2ProtocolConstants.h"
@@ -56,12 +57,14 @@
 		} ParameterItem_t;
 
 	/* Function Prototypes: */	
+		void V2Protocol_ConfigureHardware(void);
 		void V2Protocol_ProcessCommand(void);
 		
 		#if defined(INCLUDE_FROM_V2PROTOCOL_C)
 			static ParameterItem_t* V2Protocol_GetParameterItem(uint8_t ParamID);
 			static void V2Protocol_ProcessCmdSignOn(void);
 			static void V2Protocol_ProcessCmdGetSetParam(uint8_t V2Command);
+			static void V2Protocol_ProcessCmdSPIMulti(void);
 		#endif
 
 #endif

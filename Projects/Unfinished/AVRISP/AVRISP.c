@@ -43,6 +43,8 @@ int main(void)
 {
 	SetupHardware();
 	
+	V2Protocol_ConfigureHardware();
+
 	printf("AVRISP-MKII Clone\r\n");
 	
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
@@ -67,6 +69,7 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	SerialStream_Init(9600, false);
+	SPI_Init(0, true);
 	LEDs_Init();
 	USB_Init();
 }
