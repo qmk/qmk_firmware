@@ -36,6 +36,9 @@
 #define  INCLUDE_FROM_V2PROTOCOL_C
 #include "V2Protocol.h"
 
+uint32_t CurrentAddress;
+
+
 /* Table of masks for SPI_Init() from a given PARAM_SCK_DURATION value */
 static const uint8_t SPIMaskFromSCKDuration[MAX_SPI_SETTINGS] =
 	{
@@ -88,6 +91,9 @@ void V2Protocol_ProcessCommand(void)
 		case CMD_GET_PARAMETER:
 			V2Protocol_Command_GetSetParam(V2Command);
 			break;
+		case CMD_LOAD_ADDRESS:
+			V2Protocol_Command_LoadAddress();
+			break;
 		case CMD_SPI_MULTI:
 			V2Protocol_Command_SPIMulti();
 			break;		
@@ -127,6 +133,7 @@ static void V2Protocol_Command_SignOn(void)
 	Endpoint_WaitUntilReady();
 
 	V2Protocol_ReconfigureSPI();
+	CurrentAddress = 0;
 
 	Endpoint_Write_Byte(CMD_SIGN_ON);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
@@ -163,6 +170,19 @@ static void V2Protocol_Command_GetSetParam(uint8_t V2Command)
 		Endpoint_Write_Byte(STATUS_CMD_FAILED);
 	}
 
+	Endpoint_ClearIN();
+}
+
+static void V2Protocol_Command_LoadAddress(void)
+{
+	CurrentAddress = Endpoint_Read_DWord_LE();
+
+	Endpoint_ClearOUT();
+	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+	Endpoint_WaitUntilReady();
+
+	Endpoint_Write_Byte(CMD_LOAD_ADDRESS);
+	Endpoint_Write_Byte(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
 

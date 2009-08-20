@@ -789,7 +789,7 @@
 			 */
 			uint8_t Endpoint_Write_Stream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** EEPROM buffer source version of \ref Endpoint_Write_Stream_LE.
+			/** EEPROM buffer source version of \ref Endpoint_Write_Stream_LE().
 			 *
 			 *  \ingroup Group_EndpointStreamRW
 			 *
@@ -801,7 +801,7 @@
 			 */
 			uint8_t Endpoint_Write_EStream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** FLASH buffer source version of \ref Endpoint_Write_Stream_LE.
+			/** FLASH buffer source version of \ref Endpoint_Write_Stream_LE().
 			 *
 			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *
@@ -838,7 +838,7 @@
 			 */
 			uint8_t Endpoint_Write_Stream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** EEPROM buffer source version of \ref Endpoint_Write_Stream_BE.
+			/** EEPROM buffer source version of \ref Endpoint_Write_Stream_BE().
 			 *
 			 *  \ingroup Group_EndpointStreamRW
 			 *
@@ -850,7 +850,7 @@
 			 */
 			uint8_t Endpoint_Write_EStream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** FLASH buffer source version of \ref Endpoint_Write_Stream_BE.
+			/** FLASH buffer source version of \ref Endpoint_Write_Stream_BE().
 			 *
 			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *
@@ -887,7 +887,7 @@
 			 */
 			uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** EEPROM buffer source version of \ref Endpoint_Read_Stream_LE.
+			/** EEPROM buffer source version of \ref Endpoint_Read_Stream_LE().
 			 *
 			 *  \ingroup Group_EndpointStreamRW
 			 *
@@ -922,7 +922,7 @@
 			 */
 			uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** EEPROM buffer source version of \ref Endpoint_Read_Stream_BE.
+			/** EEPROM buffer source version of \ref Endpoint_Read_Stream_BE().
 			 *
 			 *  \ingroup Group_EndpointStreamRW
 			 *
@@ -975,7 +975,7 @@
 			 */
 			uint8_t Endpoint_Write_Control_EStream_LE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** FLASH buffer source version of \ref Endpoint_Write_Control_Stream_LE.
+			/** FLASH buffer source version of \ref Endpoint_Write_Control_Stream_LE().
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
@@ -1018,7 +1018,7 @@
 			 */
 			uint8_t Endpoint_Write_Control_Stream_BE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** EEPROM buffer source version of \ref Endpoint_Write_Control_Stream_BE.
+			/** EEPROM buffer source version of \ref Endpoint_Write_Control_Stream_BE().
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
@@ -1037,7 +1037,7 @@
 			 */
 			uint8_t Endpoint_Write_Control_EStream_BE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** FLASH buffer source version of \ref Endpoint_Write_Control_Stream_BE.
+			/** FLASH buffer source version of \ref Endpoint_Write_Control_Stream_BE().
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
@@ -1080,7 +1080,7 @@
 			 */
 			uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** EEPROM buffer source version of \ref Endpoint_Read_Control_Stream_LE.
+			/** EEPROM buffer source version of \ref Endpoint_Read_Control_Stream_LE().
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
@@ -1121,7 +1121,7 @@
 			 */
 			uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);		
 			
-			/** EEPROM buffer source version of \ref Endpoint_Read_Control_Stream_BE.
+			/** EEPROM buffer source version of \ref Endpoint_Read_Control_Stream_BE().
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.

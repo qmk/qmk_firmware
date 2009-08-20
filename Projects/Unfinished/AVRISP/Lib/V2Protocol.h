@@ -62,6 +62,7 @@
 			static void    V2Protocol_Command_Unknown(uint8_t V2Command);
 			static void    V2Protocol_Command_SignOn(void);
 			static void    V2Protocol_Command_GetSetParam(uint8_t V2Command);
+			static void    V2Protocol_Command_LoadAddress(void);
 			static void    V2Protocol_Command_SPIMulti(void);
 		#endif
 

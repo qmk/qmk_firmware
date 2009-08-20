@@ -97,7 +97,7 @@
 			
 			/** Event for USB device attachment. This event fires when a the USB interface is in host mode, and
 			 *  a USB device has been connected to the USB interface. This is interrupt driven, thus fires before
-			 *  the standard \ref EVENT_USB_Device_Connect event and so can be used to programmatically start the USB
+			 *  the standard \ref EVENT_USB_Device_Connect() event and so can be used to programmatically start the USB
 			 *  management task to reduce CPU consumption.
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.

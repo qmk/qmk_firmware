@@ -836,7 +836,7 @@
 			 */
 			uint8_t Pipe_Write_Stream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);				
 
-			/** EEPROM buffer source version of \ref Pipe_Write_Stream_LE.
+			/** EEPROM buffer source version of \ref Pipe_Write_Stream_LE().
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
@@ -848,7 +848,7 @@
 			 */
 			uint8_t Pipe_Write_EStream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 			
-			/** FLASH buffer source version of \ref Pipe_Write_Stream_LE.
+			/** FLASH buffer source version of \ref Pipe_Write_Stream_LE().
 			 *
 			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *
@@ -885,7 +885,7 @@
 			 */
 			uint8_t Pipe_Write_Stream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** EEPROM buffer source version of \ref Pipe_Write_Stream_BE.
+			/** EEPROM buffer source version of \ref Pipe_Write_Stream_BE().
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
@@ -897,7 +897,7 @@
 			 */
 			uint8_t Pipe_Write_EStream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 			
-			/** FLASH buffer source version of \ref Pipe_Write_Stream_BE.
+			/** FLASH buffer source version of \ref Pipe_Write_Stream_BE().
 			 *
 			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *
@@ -926,7 +926,7 @@
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
-			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
+			 *  \param[out] Buffer   Pointer to the source data buffer to write to.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
@@ -934,11 +934,11 @@
 			 */
 			uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** EEPROM buffer source version of \ref Pipe_Read_Stream_LE.
+			/** EEPROM buffer source version of \ref Pipe_Read_Stream_LE().
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
-			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
+			 *  \param[out] Buffer   Pointer to the source data buffer to write to.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
@@ -961,7 +961,7 @@
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
-			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
+			 *  \param[out] Buffer   Pointer to the source data buffer to write to.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
@@ -969,11 +969,11 @@
 			 */
 			uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 			
-			/** EEPROM buffer source version of \ref Pipe_Read_Stream_BE.
+			/** EEPROM buffer source version of \ref Pipe_Read_Stream_BE().
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
-			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
+			 *  \param[out] Buffer   Pointer to the source data buffer to write to.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
