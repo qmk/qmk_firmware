@@ -58,6 +58,14 @@ void V2Protocol_ProcessCommand(void)
 		case CMD_LEAVE_PROGMODE_ISP:
 			V2Protocol_Command_LeaveISPMode();
 			break;
+		case CMD_PROGRAM_FLASH_ISP:
+		case CMD_PROGRAM_EEPROM_ISP:
+			V2Protocol_Command_ProgramMemory(V2Command);			
+			break;
+		case CMD_READ_FLASH_ISP:
+		case CMD_READ_EEPROM_ISP:
+			V2Protocol_Command_ReadMemory(V2Command);
+			break;
 		case CMD_CHIP_ERASE_ISP:
 			V2Protocol_Command_ChipErase();
 			break;
@@ -185,12 +193,13 @@ static void V2Protocol_Command_EnterISPMode(void)
 
 	V2Protocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS);	  
 	SPI_Init(V2Protocol_GetSPIPrescalerMask() | SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING | SPI_MODE_MASTER);
-	V2Protocol_ChangeTargetResetLine(true);
-	V2Protocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
 		
 	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus == STATUS_CMD_FAILED))
 	{
 		uint8_t ResponseBytes[4];
+
+		V2Protocol_ChangeTargetResetLine(true);
+		V2Protocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
 
 		for (uint8_t RByte = 0; RByte < sizeof(ResponseBytes); RByte++)
 		{
@@ -200,7 +209,14 @@ static void V2Protocol_Command_EnterISPMode(void)
 		
 		/* Check if polling disabled, or if the polled value matches the expected value */
 		if (!Enter_ISP_Params.PollIndex || (ResponseBytes[Enter_ISP_Params.PollIndex - 1] == Enter_ISP_Params.PollValue))
-		  ResponseStatus = STATUS_CMD_OK;
+		{
+			ResponseStatus = STATUS_CMD_OK;
+		}
+		else
+		{
+			V2Protocol_ChangeTargetResetLine(false);
+			V2Protocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
+		}
 	}
 
 	Endpoint_Write_Byte(CMD_ENTER_PROGMODE_ISP);
@@ -229,6 +245,87 @@ static void V2Protocol_Command_LeaveISPMode(void)
 	Endpoint_Write_Byte(CMD_LEAVE_PROGMODE_ISP);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
 	Endpoint_ClearIN();
+}
+
+static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
+{
+	struct
+	{
+		uint16_t BytesToWrite;
+		uint8_t  ProgrammingMode;
+		uint8_t  DelayMS;
+		uint8_t  ProgrammingCommands[3];
+		uint8_t  PollValue1;
+		uint8_t  PollValue2;
+	} Write_Memory_Params;
+	
+	uint8_t ProgrammingStatus = STATUS_CMD_OK;
+	
+	Endpoint_Read_Stream_LE(&Write_Memory_Params, sizeof(Write_Memory_Params));
+	Write_Memory_Params.BytesToWrite = SwapEndian_16(Write_Memory_Params.BytesToWrite);
+	
+	for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
+	{
+		// TODO - Read in programming data, write to device
+	}
+	
+	Endpoint_ClearOUT();
+	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+
+	Endpoint_Write_Byte(V2Command);
+	Endpoint_Write_Byte(ProgrammingStatus);
+	
+	Endpoint_ClearIN();
+}
+
+static void V2Protocol_Command_ReadMemory(uint8_t V2Command)
+{
+	struct
+	{
+		uint16_t BytesToRead;
+		uint8_t  ReadMemoryCommand;
+	} Read_Memory_Params;
+	
+	Endpoint_Read_Stream_LE(&Read_Memory_Params, sizeof(Read_Memory_Params));
+	Read_Memory_Params.BytesToRead = SwapEndian_16(Read_Memory_Params.BytesToRead);
+	
+	Endpoint_ClearOUT();
+	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+	
+	Endpoint_Write_Byte(V2Command);
+	Endpoint_Write_Byte(STATUS_CMD_OK);
+
+	for (uint16_t CurrentByte = 0; CurrentByte < Read_Memory_Params.BytesToRead; CurrentByte++)
+	{
+		if ((V2Command == CMD_READ_FLASH_ISP) && (CurrentByte & 0x01))
+		  Read_Memory_Params.ReadMemoryCommand ^= READ_WRITE_ODD_BYTE_MASK;
+
+		SPI_SendByte(Read_Memory_Params.ReadMemoryCommand);
+		SPI_SendByte(CurrentAddress >> 8);
+		SPI_SendByte(CurrentAddress & 0xFF);
+		Endpoint_Write_Byte(SPI_ReceiveByte());
+		
+		/* Check if the endpoint bank is currently full */
+		if (!(Endpoint_IsReadWriteAllowed()))
+		{
+			Endpoint_ClearIN();
+			Endpoint_WaitUntilReady();
+		}
+		
+		CurrentAddress++;
+	}
+
+	Endpoint_Write_Byte(STATUS_CMD_OK);
+	
+	bool EndpointBankFull = Endpoint_IsReadWriteAllowed();
+	Endpoint_ClearIN();
+	
+	/* Ensure data transfer is terminated by a short packet if the last sent bank was completely full */
+	if (EndpointBankFull)
+	{
+		Endpoint_WaitUntilReady();
+		Endpoint_ClearIN();
+	}
 }
 
 static void V2Protocol_Command_ChipErase(void)

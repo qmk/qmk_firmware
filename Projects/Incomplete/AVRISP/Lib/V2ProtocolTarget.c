@@ -36,24 +36,22 @@
 #include "V2ProtocolTarget.h"
 
 /** Current memory address for FLASH/EEPROM memory read/write commands */
-uint32_t CurrentAddress;
+uint32_t CurrentAddress;	
 
-/** Table of masks for SPI_Init() from a given PARAM_SCK_DURATION value */
-static const uint8_t SPIMaskFromSCKDuration[] =
+uint8_t V2Protocol_GetSPIPrescalerMask(void)
+{
+	static const uint8_t SPIMaskFromSCKDuration[] =
 	{
 		#if (F_CPU == 8000000)
 		SPI_SPEED_FCPU_DIV_2,
 		#endif
 		SPI_SPEED_FCPU_DIV_2, SPI_SPEED_FCPU_DIV_4, SPI_SPEED_FCPU_DIV_8,
 		SPI_SPEED_FCPU_DIV_16, SPI_SPEED_FCPU_DIV_32, SPI_SPEED_FCPU_DIV_64
-		#if (F_CPU == 16000000)										
+		#if (F_CPU == 16000000)
 		, SPI_SPEED_FCPU_DIV_128
 		#endif
 	};
-	
 
-uint8_t V2Protocol_GetSPIPrescalerMask(void)
-{
 	uint8_t SCKDuration = V2Params_GetParameterValue(PARAM_SCK_DURATION);
 
 	if (SCKDuration >= sizeof(SPIMaskFromSCKDuration))

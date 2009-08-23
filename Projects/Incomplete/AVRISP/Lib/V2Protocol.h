@@ -46,6 +46,9 @@
 
 	/* Macros: */
 		#define PROGRAMMER_ID             "AVRISP_MK2"
+		
+		#define READ_WRITE_ODD_BYTE_MASK  (1 << 3)
+		#define TARGET_MODE_PAGE_MASK     (1 << 0)
 
 	/* Function Prototypes: */
 		void V2Protocol_ProcessCommand(void);
@@ -57,6 +60,8 @@
 			static void V2Protocol_Command_LoadAddress(void);
 			static void V2Protocol_Command_EnterISPMode(void);
 			static void V2Protocol_Command_LeaveISPMode(void);
+			static void V2Protocol_Command_ProgramMemory(uint8_t V2Command);
+			static void V2Protocol_Command_ReadMemory(uint8_t V2Command);
 			static void V2Protocol_Command_ChipErase(void);
 			static void V2Protocol_Command_ReadFuseLockSigOSCCAL(uint8_t V2Command);
 			static void V2Protocol_Command_WriteFuseLock(uint8_t V2Command);
