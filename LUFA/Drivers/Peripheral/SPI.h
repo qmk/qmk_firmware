@@ -61,7 +61,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define SPI_USE_DOUBLESPEED            (1 << 7)
+			#define SPI_USE_DOUBLESPEED            (1 << SPE)
 	#endif
 	
 	/* Public Interface - May be used in end-application: */
@@ -86,23 +86,40 @@
 
 			/** SPI prescaler mask for SPI_Init(). Divides the system clock by a factor of 128. */
 			#define SPI_SPEED_FCPU_DIV_128         ((1 << SPR1) | (1 << SPR0))
+			
+			/** SPI clock polarity mask for SPI_Init(). Indicates that the SCK should lead on the rising edge. */
+			#define SPI_SCK_LEAD_RISING            (0 << CPOL)
+
+			/** SPI clock polarity mask for SPI_Init(). Indicates that the SCK should lead on the falling edge. */
+			#define SPI_SCK_LEAD_FALLING           (1 << CPOL)
+
+			/** SPI data sample mode mask for SPI_Init(). Indicates that the data should sampled on the leading edge. */
+			#define SPI_SAMPLE_LEADING             (0 << CPHA)
+
+			/** SPI data sample mode mask for SPI_Init(). Indicates that the data should be sampled on the trailing edge. */
+			#define SPI_SAMPLE_TRAILING            (1 << CPHA)
+			
+			/** SPI mode mask for SPI_Init(). Indicates that the SPI interface should be initialized into slave mode. */
+			#define SPI_MODE_SLAVE                 (0 << MSTR)
+
+			/** SPI mode mask for SPI_Init(). Indicates that the SPI interface should be initialized into master mode. */
+			#define SPI_MODE_MASTER                (1 << MSTR)
 
 		/* Inline Functions: */
 			/** Initializes the SPI subsystem, ready for transfers. Must be called before calling any other
 			 *  SPI routines.
 			 *
-			 *  \param[in] PrescalerMask  Prescaler mask to set the SPI clock speed
-			 *  \param[in] Master         If true, sets the SPI system to use master mode, slave if false
+			 *  \param[in] SPIOptions  SPI Options, a mask consisting of one of each of the SPI_SPEED_*,
+			 *                         SPI_SCK_*, SPI_SAMPLE_* and SPI_MODE_* masks
 			 */
-			static inline void SPI_Init(const uint8_t PrescalerMask, const bool Master)
+			static inline void SPI_Init(const uint8_t SPIOptions)
 			{
 				DDRB  |= ((1 << 1) | (1 << 2));
 				PORTB |= ((1 << 0) | (1 << 3));
 				
-				SPCR   = ((1 << SPE) | (Master << MSTR) | (1 << CPOL) | (1 << CPHA) |
-				          (PrescalerMask & ~SPI_USE_DOUBLESPEED));
+				SPCR   = ((1 << SPE) | SPIOptions);
 				
-				if (PrescalerMask & SPI_USE_DOUBLESPEED)
+				if (SPIOptions & SPI_USE_DOUBLESPEED)
 				  SPSR |= (1 << SPI2X);
 				else
 				  SPSR &= ~(1 << SPI2X);

@@ -51,7 +51,7 @@ static ParameterItem_t ParameterTable[] =
 		  .ParamPrivellages = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_HW_VER,
-		  .ParamValue       = 0x01,
+		  .ParamValue       = 0x00,
 		  .ParamPrivellages = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SW_MAJOR,
@@ -59,7 +59,7 @@ static ParameterItem_t ParameterTable[] =
 		  .ParamPrivellages = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SW_MINOR,
-		  .ParamValue       = 0x00,
+		  .ParamValue       = 0x0C,
 		  .ParamPrivellages = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_VTARGET,
@@ -67,7 +67,7 @@ static ParameterItem_t ParameterTable[] =
 		  .ParamPrivellages = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SCK_DURATION,
-		  .ParamValue       = 0,
+		  .ParamValue       = 0xFF,
 		  .ParamPrivellages = PARAM_PRIV_READ | PARAM_PRIV_WRITE },
 
 		{ .ParamID          = PARAM_RESET_POLARITY,

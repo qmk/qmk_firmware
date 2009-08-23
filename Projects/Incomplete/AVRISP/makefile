@@ -60,7 +60,7 @@
 
 
 # MCU name
-MCU = at90usb1287
+MCU = at90usb647
 
 
 # Target board (see library "Board Types" documentation, USER or blank for projects not requiring
@@ -194,9 +194,9 @@ CSTANDARD = -std=gnu99
 
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA_OPTS)
-CDEFS += -DRESET_LINE_PORT=PORTA
-CDEFS += -DRESET_LINE_DDR=DDRA
-CDEFS += -DRESET_LINE_MASK="(1 << 0)"
+CDEFS += -DRESET_LINE_PORT=PORTB
+CDEFS += -DRESET_LINE_DDR=DDRB
+CDEFS += -DRESET_LINE_MASK="(1 << 4)"
 
 
 # Place -D or -U options here for ASM sources

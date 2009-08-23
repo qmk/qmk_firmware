@@ -164,17 +164,13 @@
 			#endif
 		
 		/* Inline Functions: */
-			/** Initializes the dataflash driver (including the SPI driver) so that commands and data may be
-			 *  sent to an attached dataflash IC.
-			 *
-			 *  \param[in] PrescalerMask  SPI prescaler mask, see SPI.h documentation
+			/** Initializes the dataflash driver so that commands and data may be sent to an attached dataflash IC.
+			 *  The AVR's SPI driver MUST be initialized before any of the dataflash commands are used.
 			 */
-			static inline void Dataflash_Init(const uint8_t PrescalerMask)
+			static inline void Dataflash_Init(void)
 			{
 				DATAFLASH_CHIPCS_DDR  |= DATAFLASH_CHIPCS_MASK;
 				DATAFLASH_CHIPCS_PORT |= DATAFLASH_CHIPCS_MASK;
-
-				SPI_Init(PrescalerMask, true);
 			}
 			
 			/** Toggles the select line of the currently selected dataflash IC, so that it is ready to receive

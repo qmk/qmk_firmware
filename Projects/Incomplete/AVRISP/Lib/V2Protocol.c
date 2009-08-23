@@ -150,10 +150,8 @@ void V2Protocol_ProcessCommand(void)
 			break;
 	}
 	
-	printf("COMMAND 0x%02x\r\n", V2Command);
-
-	Endpoint_WaitUntilReady();	
-	Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);	
+	Endpoint_WaitUntilReady();
+	Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);
 }
 
 static void V2Protocol_Command_Unknown(uint8_t V2Command)
@@ -167,7 +165,6 @@ static void V2Protocol_Command_Unknown(uint8_t V2Command)
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	Endpoint_WaitUntilReady();
 
 	Endpoint_Write_Byte(V2Command);
 	Endpoint_Write_Byte(STATUS_CMD_UNKNOWN);
@@ -178,7 +175,6 @@ static void V2Protocol_Command_SignOn(void)
 {
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	Endpoint_WaitUntilReady();
 
 	Endpoint_Write_Byte(CMD_SIGN_ON);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
@@ -189,31 +185,28 @@ static void V2Protocol_Command_SignOn(void)
 
 static void V2Protocol_Command_GetSetParam(uint8_t V2Command)
 {
-	struct
-	{
-		uint8_t ParamID;
-		uint8_t ParamValue;
-	} Get_Set_Param_Params;
+	uint8_t ParamID = Endpoint_Read_Byte();
+	uint8_t ParamValue;
 	
-	Endpoint_Read_Stream_LE(&Get_Set_Param_Params, sizeof(Get_Set_Param_Params));
+	if (V2Command == CMD_SET_PARAMETER)
+	  ParamValue = Endpoint_Read_Byte();
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	Endpoint_WaitUntilReady();
-	
-	uint8_t ParamPrivs = V2Params_GetParameterPrivellages(Get_Set_Param_Params.ParamID);
 	
 	Endpoint_Write_Byte(V2Command);
+	
+	uint8_t ParamPrivs = V2Params_GetParameterPrivellages(ParamID);
 	
 	if ((V2Command == CMD_SET_PARAMETER) && (ParamPrivs & PARAM_PRIV_WRITE))
 	{
 		Endpoint_Write_Byte(STATUS_CMD_OK);
-		V2Params_SetParameterValue(Get_Set_Param_Params.ParamID, Get_Set_Param_Params.ParamValue);
+		V2Params_SetParameterValue(ParamID, ParamValue);
 	}
 	else if ((V2Command == CMD_GET_PARAMETER) && (ParamPrivs & PARAM_PRIV_READ))
 	{
 		Endpoint_Write_Byte(STATUS_CMD_OK);
-		Endpoint_Write_Byte(V2Params_GetParameterValue(Get_Set_Param_Params.ParamID));
+		Endpoint_Write_Byte(V2Params_GetParameterValue(ParamID));
 	}
 	else
 	{	
@@ -229,7 +222,6 @@ static void V2Protocol_Command_LoadAddress(void)
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	Endpoint_WaitUntilReady();
 	
 	// TODO: Check for extended address
 
@@ -256,40 +248,28 @@ static void V2Protocol_Command_EnterISPMode(void)
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	Endpoint_WaitUntilReady();
 
-	uint8_t SCKDuration = V2Params_GetParameterValue(PARAM_SCK_DURATION);
 	uint8_t ResponseStatus = STATUS_CMD_FAILED;
-
-	Enter_ISP_Params.TimeoutMS -= Enter_ISP_Params.ExecutionDelayMS +
-	                              Enter_ISP_Params.PinStabDelayMS;
 	
 	CurrentAddress = 0;
 
-	if (SCKDuration >= sizeof(SPIMaskFromSCKDuration))
-	  SCKDuration = (sizeof(SPIMaskFromSCKDuration) - 1);
-
 	V2Protocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS);	  
-	SPI_Init(SPIMaskFromSCKDuration[SCKDuration], true);
+	SPI_Init(V2Protocol_GetSPIPrescalerMask() | SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING | SPI_MODE_MASTER);
 	V2Protocol_ChangeTargetResetLine(true);
 	V2Protocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
 		
 	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus == STATUS_CMD_FAILED))
 	{
 		uint8_t ResponseBytes[4];
-		
+
 		for (uint8_t RByte = 0; RByte < sizeof(ResponseBytes); RByte++)
 		{
-			ResponseBytes[RByte] = SPI_TransferByte(Enter_ISP_Params.EnterProgBytes[RByte]);
 			V2Protocol_DelayMS(Enter_ISP_Params.ByteDelay);
-			
-			if (Enter_ISP_Params.TimeoutMS >= Enter_ISP_Params.ByteDelay)
-			  Enter_ISP_Params.TimeoutMS -= Enter_ISP_Params.ByteDelay;
-			else
-			  ResponseStatus = STATUS_CMD_TOUT;
+			ResponseBytes[RByte] = SPI_TransferByte(Enter_ISP_Params.EnterProgBytes[RByte]);
 		}
 		
-		if (ResponseBytes[Enter_ISP_Params.PollIndex] == Enter_ISP_Params.PollValue)
+		/* Check if polling disabled, or if the polled value matches the expected value */
+		if (!Enter_ISP_Params.PollIndex || (ResponseBytes[Enter_ISP_Params.PollIndex - 1] == Enter_ISP_Params.PollValue))
 		  ResponseStatus = STATUS_CMD_OK;
 	}
 
@@ -310,7 +290,6 @@ static void V2Protocol_Command_LeaveISPMode(void)
 	
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	Endpoint_WaitUntilReady();
 
 	V2Protocol_DelayMS(Leave_ISP_Params.PreDelayMS);
 	V2Protocol_ChangeTargetResetLine(false);
@@ -335,7 +314,6 @@ static void V2Protocol_Command_ChipErase(void)
 	
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	Endpoint_WaitUntilReady();
 	
 	uint8_t ResponseStatus = STATUS_CMD_OK;
 	
@@ -364,7 +342,6 @@ static void V2Protocol_Command_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	Endpoint_WaitUntilReady();
 
 	uint8_t ResponseBytes[4];
 		
@@ -389,7 +366,6 @@ static void V2Protocol_Command_WriteFuseLock(uint8_t V2Command)
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	Endpoint_WaitUntilReady();
 
 	for (uint8_t SByte = 0; SByte < sizeof(Write_FuseLockSig_Params.WriteCommandBytes); SByte++)
 	  SPI_SendByte(Write_FuseLockSig_Params.WriteCommandBytes[SByte]);
@@ -416,7 +392,6 @@ static void V2Protocol_Command_SPIMulti(void)
 	
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	Endpoint_WaitUntilReady();
 	
 	Endpoint_Write_Byte(CMD_SPI_MULTI);
 	Endpoint_Write_Byte(STATUS_CMD_OK);

@@ -84,7 +84,8 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	LEDs_Init();
-	Dataflash_Init(SPI_SPEED_FCPU_DIV_2);
+	SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_SCK_LEAD_FALLING | SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
+	Dataflash_Init();
 	USB_Init();
 
 	/* Clear Dataflash sector protections, if enabled */
