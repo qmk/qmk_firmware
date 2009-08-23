@@ -88,6 +88,14 @@
 				
 				stdout = &USARTStream;
 			}
+			
+			/** Turns off the serial stream (and regular USART driver), disabling and returning used hardware to
+			 *  their default configuration.
+			 */
+			static inline void SerialStream_ShutDown(void)
+			{
+				Serial_ShutDown();
+			}			
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

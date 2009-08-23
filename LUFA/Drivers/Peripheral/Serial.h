@@ -118,6 +118,19 @@
 				UBRR1  = (DoubleSpeed ? SERIAL_2X_UBBRVAL(BaudRate) : SERIAL_UBBRVAL(BaudRate));
 			}
 
+			/** Turns off the USART driver, disabling and returning used hardware to their default configuration. */
+			static inline void Serial_ShutDown(void)
+			{
+				UCSR1A = 0;
+				UCSR1B = 0;
+				UCSR1C = 0;
+				
+				DDRD  &= ~(1 << 3);	
+				PORTD &= ~(1 << 2);
+				
+				UBRR1  = 0;
+			}
+			
 			/** Transmits a given byte through the USART.
 			 *
 			 *  \param[in] DataByte  Byte to transmit through the USART

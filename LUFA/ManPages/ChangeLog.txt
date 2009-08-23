@@ -15,6 +15,7 @@
   *    USB_Device_DisableSOFEvents() macros to give bus-synchronised millisecond interrupts when in USB device mode
   *  - Added new Endpoint_SetEndpointDirection() macro for bi-directional endpoints
   *  - Added new AVRISP project, a LUFA clone of the Atmel AVRISP-MKII programmer
+  *  - Added ShutDown functions for all hardware peripheral drivers, so that peripherals can be turned off after use
   *  
   *  <b>Changed:</b>
   *  - SetIdle requests to the HID device driver with a 0 idle period (send changes only) now only affect the requested

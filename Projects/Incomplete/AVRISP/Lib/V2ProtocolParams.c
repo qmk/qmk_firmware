@@ -67,7 +67,7 @@ static ParameterItem_t ParameterTable[] =
 		  .ParamPrivellages = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SCK_DURATION,
-		  .ParamValue       = MAX_SPI_SETTINGS,
+		  .ParamValue       = 0,
 		  .ParamPrivellages = PARAM_PRIV_READ | PARAM_PRIV_WRITE },
 
 		{ .ParamID          = PARAM_RESET_POLARITY,

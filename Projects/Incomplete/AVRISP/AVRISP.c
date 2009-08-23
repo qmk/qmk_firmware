@@ -69,7 +69,6 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	SerialStream_Init(9600, false);
-	SPI_Init(0, true);
 	LEDs_Init();
 	USB_Init();
 }

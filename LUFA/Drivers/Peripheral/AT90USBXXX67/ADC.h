@@ -118,11 +118,11 @@
 				 *  \param[in] Mode  Mask of ADC settings, including adjustment, prescale, mode and reference
 				 */
 				static inline void ADC_Init(uint8_t Mode);
-				
+
 				/** Turns off the ADC. If this is called, any further ADC operations will require a call to
 				 *  \ref ADC_Init() before the ADC can be used again.
 				 */
-				static inline void ADC_Off(void);
+				static inline void ADC_ShutDown(void);
 				
 				/** Indicates if the ADC is currently enabled.
 				 *
@@ -145,7 +145,7 @@
 			#else
 				#define  ADC_Init(mode)          MACROS{ ADCSRA = ((1 << ADEN) | mode);         }MACROE
 
-				#define  ADC_Off()               MACROS{ ADCSRA = 0;                            }MACROE
+				#define  ADC_ShutDown()          MACROS{ ADCSRA = 0;                            }MACROE
 				
 				#define  ADC_GetStatus()               ((ADCSRA & (1 << ADEN)) ? true : false)
 

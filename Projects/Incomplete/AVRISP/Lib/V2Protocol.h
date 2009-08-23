@@ -38,6 +38,7 @@
 
 	/* Includes: */
 		#include <avr/io.h>
+		#include <util/delay.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SPI.h>
@@ -47,23 +48,28 @@
 		#include "V2ProtocolParams.h"
 
 	/* Macros: */
-		#define PROGRAMMER_ID       "AVRISP_MK2"
-		#define PROGRAMMER_ID_LEN   (sizeof(PROGRAMMER_ID) - 1)
-
-		#define MAX_SPI_SETTINGS    7
+		#define PROGRAMMER_ID             "AVRISP_MK2"
+		#define TARGET_BUST_TIMEOUT_MS    100
 
 	/* Function Prototypes: */
 		void V2Protocol_ProcessCommand(void);
 		
 		#if defined(INCLUDE_FROM_V2PROTOCOL_C)
-			static void    V2Protocol_ReconfigureSPI(void);
+			static uint8_t V2Protocol_GetSPIPrescalerMask(void);
 			static void    V2Protocol_ChangeTargetResetLine(bool ResetTarget);
+			static void    V2Protocol_DelayMS(uint8_t MS);
+			static uint8_t V2Protocol_WaitWhileTargetBusy(void);
 
-			static void    V2Protocol_Command_Unknown(uint8_t V2Command);
-			static void    V2Protocol_Command_SignOn(void);
-			static void    V2Protocol_Command_GetSetParam(uint8_t V2Command);
-			static void    V2Protocol_Command_LoadAddress(void);
-			static void    V2Protocol_Command_SPIMulti(void);
+			static void V2Protocol_Command_Unknown(uint8_t V2Command);
+			static void V2Protocol_Command_SignOn(void);
+			static void V2Protocol_Command_GetSetParam(uint8_t V2Command);
+			static void V2Protocol_Command_LoadAddress(void);
+			static void V2Protocol_Command_EnterISPMode(void);
+			static void V2Protocol_Command_LeaveISPMode(void);
+			static void V2Protocol_Command_ChipErase(void);
+			static void V2Protocol_Command_ReadFuseLockSigOSCCAL(uint8_t V2Command);
+			static void V2Protocol_Command_WriteFuseLock(uint8_t V2Command);
+			static void V2Protocol_Command_SPIMulti(void);
 		#endif
 
 #endif

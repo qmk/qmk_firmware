@@ -108,6 +108,16 @@
 				  SPSR &= ~(1 << SPI2X);
 			}
 			
+			/** Turns off the SPI driver, disabling and returning used hardware to their default configuration. */
+			static inline void SPI_ShutDown(void)
+			{
+				DDRB  &= ~((1 << 1) | (1 << 2));
+				PORTB &= ~((1 << 0) | (1 << 3));
+				
+				SPCR   = 0;
+				SPSR   = 0;
+			}
+			
 			/** Sends and receives a byte through the SPI interface, blocking until the transfer is complete.
 			 *
 			 *  \param[in] Byte  Byte to send through the SPI interface
