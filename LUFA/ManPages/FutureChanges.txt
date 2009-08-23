@@ -24,6 +24,7 @@
   *  - Master LUFA include file rather than per-module includes
   *  - Add multiple-report HID demo to the library
   *  - Add dual role Mouse Host/Keyboard Device demo to the library
+  *  - Add Mouse/CDC dual class demo to the library
   *  - Change makefiles to allow for absolute LUFA location to be used
   *  - Port LUFA to other architectures
   *      -# AVR32 UC3B series microcontrollers

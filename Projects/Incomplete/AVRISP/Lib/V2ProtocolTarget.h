@@ -30,38 +30,34 @@
 
 /** \file
  *
- *  Header file for V2Protocol.c.
+ *  Header file for V2ProtocolTarget.c.
  */
 
-#ifndef _V2_PROTOCOL_
-#define _V2_PROTOCOL_
+#ifndef _V2_PROTOCOL_TARGET_
+#define _V2_PROTOCOL_TARGET_
 
 	/* Includes: */
+		#include <avr/io.h>
+		#include <util/delay.h>
+
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Peripheral/SPI.h>
 		
 		#include "../Descriptors.h"
 		#include "V2ProtocolConstants.h"
 		#include "V2ProtocolParams.h"
-		#include "V2ProtocolTarget.h"
 
 	/* Macros: */
-		#define PROGRAMMER_ID             "AVRISP_MK2"
+		#define TARGET_BUSY_TIMEOUT_MS    100
+	
+	/* External Variables: */
+		extern uint32_t CurrentAddress;
 
 	/* Function Prototypes: */
-		void V2Protocol_ProcessCommand(void);
-		
-		#if defined(INCLUDE_FROM_V2PROTOCOL_C)
-			static void V2Protocol_Command_Unknown(uint8_t V2Command);
-			static void V2Protocol_Command_SignOn(void);
-			static void V2Protocol_Command_GetSetParam(uint8_t V2Command);
-			static void V2Protocol_Command_LoadAddress(void);
-			static void V2Protocol_Command_EnterISPMode(void);
-			static void V2Protocol_Command_LeaveISPMode(void);
-			static void V2Protocol_Command_ChipErase(void);
-			static void V2Protocol_Command_ReadFuseLockSigOSCCAL(uint8_t V2Command);
-			static void V2Protocol_Command_WriteFuseLock(uint8_t V2Command);
-			static void V2Protocol_Command_SPIMulti(void);
-		#endif
+			uint8_t V2Protocol_GetSPIPrescalerMask(void);
+			void    V2Protocol_ChangeTargetResetLine(bool ResetTarget);
+			void    V2Protocol_DelayMS(uint8_t MS);
+			uint8_t V2Protocol_WaitWhileTargetBusy(void);
+			void    V2Protocol_LoadExtendedAddress(void);
 
 #endif
-

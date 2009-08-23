@@ -36,77 +36,6 @@
 #define  INCLUDE_FROM_V2PROTOCOL_C
 #include "V2Protocol.h"
 
-uint32_t CurrentAddress;
-
-
-/* Table of masks for SPI_Init() from a given PARAM_SCK_DURATION value */
-static const uint8_t SPIMaskFromSCKDuration[] =
-	{
-		#if (F_CPU == 8000000)
-		SPI_SPEED_FCPU_DIV_2,
-		#endif
-		SPI_SPEED_FCPU_DIV_2, SPI_SPEED_FCPU_DIV_4, SPI_SPEED_FCPU_DIV_8,
-		SPI_SPEED_FCPU_DIV_16, SPI_SPEED_FCPU_DIV_32, SPI_SPEED_FCPU_DIV_64
-		#if (F_CPU == 16000000)										
-		, SPI_SPEED_FCPU_DIV_128
-		#endif
-	};
-
-static uint8_t V2Protocol_GetSPIPrescalerMask(void)
-{
-	uint8_t SCKDuration = V2Params_GetParameterValue(PARAM_SCK_DURATION);
-
-	if (SCKDuration >= sizeof(SPIMaskFromSCKDuration))
-	  SCKDuration = (sizeof(SPIMaskFromSCKDuration) - 1);
-	  
-	return SPIMaskFromSCKDuration[SCKDuration];
-}
-
-static void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
-{
-	if (ResetTarget)
-	{
-		RESET_LINE_DDR  |= RESET_LINE_MASK;
-		
-		if (!(V2Params_GetParameterValue(PARAM_RESET_POLARITY)))
-		  RESET_LINE_PORT |= RESET_LINE_MASK;
-	}
-	else
-	{
-		RESET_LINE_PORT &= ~RESET_LINE_MASK;	
-		RESET_LINE_DDR  &= ~RESET_LINE_MASK;
-	}
-}
-
-static void V2Protocol_DelayMS(uint8_t MS)
-{
-	while (MS--)
-	  _delay_ms(1);
-}
-
-static uint8_t V2Protocol_WaitWhileTargetBusy(void)
-{
-	uint8_t TimeoutMS = TARGET_BUST_TIMEOUT_MS;
-	uint8_t ResponseByte;
-	
-	do
-	{
-		V2Protocol_DelayMS(1);
-	
-		SPI_SendByte(0xF0);
-		SPI_SendByte(0x00);
-
-		SPI_SendByte(0x00);
-		ResponseByte = SPI_ReceiveByte();
-	}
-	while ((ResponseByte & 0x01) && (TimeoutMS--));
-
-	if (!(TimeoutMS))
-	  return STATUS_CMD_TOUT;
-	else
-	  return STATUS_CMD_OK;
-}
-
 void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_Byte();
@@ -223,7 +152,8 @@ static void V2Protocol_Command_LoadAddress(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	// TODO: Check for extended address
+	if (CurrentAddress & (1UL << 31))
+	  V2Protocol_LoadExtendedAddress();
 
 	Endpoint_Write_Byte(CMD_LOAD_ADDRESS);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
