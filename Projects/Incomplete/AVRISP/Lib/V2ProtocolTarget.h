@@ -48,7 +48,7 @@
 		#include "V2ProtocolParams.h"
 
 	/* Macros: */
-		#define TARGET_BUSY_TIMEOUT_MS    200
+		#define TARGET_BUSY_TIMEOUT_MS    150
 	
 	/* External Variables: */
 		extern uint32_t CurrentAddress;
@@ -58,7 +58,7 @@
 			void    V2Protocol_ChangeTargetResetLine(bool ResetTarget);
 			void    V2Protocol_DelayMS(uint8_t MS);
 			uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAddress, uint8_t PollValue,
-                                                   uint8_t DelayMS, bool IsFlashMemory, uint8_t ReadMemCommand);
+                                                   uint8_t DelayMS, uint8_t ReadMemCommand);
 			uint8_t V2Protocol_WaitWhileTargetBusy(void);
 			void    V2Protocol_LoadExtendedAddress(void);
 

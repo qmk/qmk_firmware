@@ -83,7 +83,7 @@ void V2Protocol_DelayMS(uint8_t MS)
 }
 
 uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAddress, uint8_t PollValue,
-                                       uint8_t DelayMS, bool IsFlashMemory, uint8_t ReadMemCommand)
+                                       uint8_t DelayMS, uint8_t ReadMemCommand)
 {
 	uint8_t ProgrammingStatus = STATUS_CMD_OK;
 
@@ -96,12 +96,6 @@ uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAdd
 			break;
 		case PROG_MODE_WORD_VALUE_MASK:
 		case PROG_MODE_PAGED_VALUE_MASK:
-			if (IsFlashMemory && (PollAddress & 0x01))
-			{
-				ReadMemCommand |= READ_WRITE_ODD_BYTE_MASK;
-				PollAddress >>= 1;
-			}
-
 			TCNT0  = 0;
 
 			do
@@ -119,6 +113,7 @@ uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAdd
 		case PROG_MODE_WORD_READYBUSY_MASK:
 		case PROG_MODE_PAGED_READYBUSY_MASK:
 			ProgrammingStatus = V2Protocol_WaitWhileTargetBusy();
+			break;
 	}
 
 	return ProgrammingStatus;
@@ -126,8 +121,6 @@ uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAdd
 
 uint8_t V2Protocol_WaitWhileTargetBusy(void)
 {
-	uint8_t ResponseByte;
-	
 	TCNT0  = 0;
 	
 	do
@@ -136,9 +129,8 @@ uint8_t V2Protocol_WaitWhileTargetBusy(void)
 		SPI_SendByte(0x00);
 
 		SPI_SendByte(0x00);
-		ResponseByte = SPI_ReceiveByte();
 	}
-	while ((ResponseByte & 0x01) && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
+	while ((SPI_ReceiveByte() & 0x01) && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
 
 	if (TCNT0 >= TARGET_BUSY_TIMEOUT_MS)
 	  return STATUS_RDY_BSY_TOUT;

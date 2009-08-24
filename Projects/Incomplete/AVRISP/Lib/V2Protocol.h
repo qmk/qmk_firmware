@@ -47,7 +47,7 @@
 	/* Macros: */
 		#define PROGRAMMER_ID                   "AVRISP_MK2"
 		
-		#define READ_WRITE_ODD_BYTE_MASK        (1 << 3)
+		#define READ_WRITE_HIGH_BYTE_MASK       (1 << 3)
 
 		#define PROG_MODE_PAGED_WRITES_MASK     (1 << 0)
 		#define PROG_MODE_WORD_TIMEDELAY_MASK   (1 << 1)
