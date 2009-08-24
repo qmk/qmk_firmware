@@ -344,16 +344,7 @@ static void V2Protocol_Command_ReadMemory(uint8_t V2Command)
 	}
 
 	Endpoint_Write_Byte(STATUS_CMD_OK);
-	
-	bool EndpointBankFull = Endpoint_IsReadWriteAllowed();
 	Endpoint_ClearIN();
-	
-	/* Ensure data transfer is terminated by a short packet if the last sent bank was completely full */
-	if (EndpointBankFull)
-	{
-		Endpoint_WaitUntilReady();
-		Endpoint_ClearIN();
-	}
 }
 
 static void V2Protocol_Command_ChipErase(void)
