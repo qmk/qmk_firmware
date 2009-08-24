@@ -264,9 +264,36 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 	Endpoint_Read_Stream_LE(&Write_Memory_Params, sizeof(Write_Memory_Params));
 	Write_Memory_Params.BytesToWrite = SwapEndian_16(Write_Memory_Params.BytesToWrite);
 	
-	for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
+	if (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_WRITES_MASK)
 	{
-		// TODO - Read in programming data, write to device
+		for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
+		{
+			if ((V2Command == CMD_READ_FLASH_ISP) && (CurrentByte & 0x01))
+			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_ODD_BYTE_MASK;
+			  
+			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
+			SPI_SendByte(CurrentAddress >> 8);
+			SPI_SendByte(CurrentAddress & 0xFF);
+			SPI_SendByte(Endpoint_Read_Byte());
+			
+			// TODO - Correct Polling
+
+			if (((V2Command == CMD_PROGRAM_FLASH_ISP) && (CurrentByte & 0x01)) || (V2Command == CMD_PROGRAM_EEPROM_ISP))
+			  CurrentAddress++;
+		}
+		
+		/* If the current page must be committed, send the PROGRAM PAGE command to the target */
+		if (Write_Memory_Params.ProgrammingMode & PROG_MODE_COMMIT_PAGE_MASK)
+		{
+			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[1]);
+			SPI_SendByte(CurrentAddress >> 8);
+			SPI_SendByte(CurrentAddress & 0xFF);
+			SPI_SendByte(0x00);
+		}
+	}
+	else
+	{			
+		// TODO - Read in programming data, write to device		
 	}
 	
 	Endpoint_ClearOUT();
@@ -294,7 +321,7 @@ static void V2Protocol_Command_ReadMemory(uint8_t V2Command)
 	
 	Endpoint_Write_Byte(V2Command);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
-
+	
 	for (uint16_t CurrentByte = 0; CurrentByte < Read_Memory_Params.BytesToRead; CurrentByte++)
 	{
 		if ((V2Command == CMD_READ_FLASH_ISP) && (CurrentByte & 0x01))
@@ -312,7 +339,8 @@ static void V2Protocol_Command_ReadMemory(uint8_t V2Command)
 			Endpoint_WaitUntilReady();
 		}
 		
-		CurrentAddress++;
+		if (((V2Command == CMD_READ_FLASH_ISP) && (CurrentByte & 0x01)) || (V2Command == CMD_READ_EEPROM_ISP))
+		  CurrentAddress++;
 	}
 
 	Endpoint_Write_Byte(STATUS_CMD_OK);
@@ -377,7 +405,7 @@ static void V2Protocol_Command_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 		
 	Endpoint_Write_Byte(V2Command);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
-	Endpoint_Write_Byte(ResponseBytes[Read_FuseLockSigOSCCAL_Params.RetByte]);
+	Endpoint_Write_Byte(ResponseBytes[Read_FuseLockSigOSCCAL_Params.RetByte - 1]);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }

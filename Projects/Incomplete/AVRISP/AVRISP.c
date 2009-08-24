@@ -34,6 +34,10 @@
  *  the project and is responsible for the initial application hardware configuration.
  */
 
+// TODO: Add reversed target connector checks
+// TODO: Add in software SPI for lower programming speeds below 125KHz
+// TODO: Add in VTARGET detection
+
 #include "AVRISP.h"
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -44,8 +48,6 @@ int main(void)
 	SetupHardware();
 
 	V2Params_LoadEEPROMParamValues();
-
-	printf("AVRISP-MKII Clone\r\n");
 	
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
@@ -68,7 +70,6 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 
 	/* Hardware Initialization */
-	SerialStream_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
 }

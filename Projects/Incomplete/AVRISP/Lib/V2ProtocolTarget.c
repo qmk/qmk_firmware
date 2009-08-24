@@ -71,7 +71,7 @@ void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
 	}
 	else
 	{
-		RESET_LINE_PORT &= ~RESET_LINE_MASK;	
+		RESET_LINE_PORT &= ~RESET_LINE_MASK;
 		RESET_LINE_DDR  &= ~RESET_LINE_MASK;
 	}
 }
@@ -89,13 +89,13 @@ uint8_t V2Protocol_WaitWhileTargetBusy(void)
 	
 	do
 	{
-		V2Protocol_DelayMS(1);
-	
 		SPI_SendByte(0xF0);
 		SPI_SendByte(0x00);
 
 		SPI_SendByte(0x00);
 		ResponseByte = SPI_ReceiveByte();
+
+		V2Protocol_DelayMS(1);
 	}
 	while ((ResponseByte & 0x01) && (TimeoutMS--));
 

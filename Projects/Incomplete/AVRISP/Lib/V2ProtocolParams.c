@@ -37,7 +37,7 @@
 #include "V2ProtocolParams.h"
 
 /* Non-Volatile Parameter Values for EEPROM storage */
-uint8_t EEMEM EEPROM_Rest_Polarity;
+uint8_t EEMEM EEPROM_Rest_Polarity = 0x00;
 
 /* Volatile Parameter Values for RAM storage */
 static ParameterItem_t ParameterTable[] = 
@@ -67,11 +67,11 @@ static ParameterItem_t ParameterTable[] =
 		  .ParamPrivellages = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SCK_DURATION,
-		  .ParamValue       = 0xFF,
+		  .ParamValue       = 0x06,
 		  .ParamPrivellages = PARAM_PRIV_READ | PARAM_PRIV_WRITE },
 
 		{ .ParamID          = PARAM_RESET_POLARITY,
-		  .ParamValue       = 0x01,
+		  .ParamValue       = 0x00,
 		  .ParamPrivellages = PARAM_PRIV_WRITE                   },
 
 		{ .ParamID          = PARAM_STATUS_TGT_CONN,
@@ -133,5 +133,5 @@ void V2Params_SetParameterValue(uint8_t ParamID, uint8_t Value)
 
 	/* The target RESET line polarity is a non-volatile parameter, save to EEPROM when changed */
 	if (ParamID == PARAM_RESET_POLARITY)
-	  eeprom_write_byte(&EEPROM_Rest_Polarity, Value);
+	  eeprom_write_byte(&EEPROM_Rest_Polarity, Value);  
 }

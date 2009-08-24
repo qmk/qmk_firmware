@@ -45,10 +45,11 @@
 		#include "V2ProtocolTarget.h"
 
 	/* Macros: */
-		#define PROGRAMMER_ID             "AVRISP_MK2"
+		#define PROGRAMMER_ID                   "AVRISP_MK2"
 		
-		#define READ_WRITE_ODD_BYTE_MASK  (1 << 3)
-		#define TARGET_MODE_PAGE_MASK     (1 << 0)
+		#define READ_WRITE_ODD_BYTE_MASK        (1 << 3)
+		#define PROG_MODE_PAGED_WRITES_MASK     (1 << 0)
+		#define PROG_MODE_COMMIT_PAGE_MASK      (1 << 7)
 
 	/* Function Prototypes: */
 		void V2Protocol_ProcessCommand(void);
