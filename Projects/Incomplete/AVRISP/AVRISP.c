@@ -37,6 +37,7 @@
 // TODO: Add reversed target connector checks
 // TODO: Add in software SPI for lower programming speeds below 125KHz
 // TODO: Add in VTARGET detection
+// TODO: Add in software SPI for lower programming speeds
 
 #include "AVRISP.h"
 
@@ -72,6 +73,11 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
+
+	/* Millisecond timer initialization for timeout checking */
+	OCR0A  = ((F_CPU / 64) / 1000);
+	TCCR0A = (1 << WGM01);
+	TCCR0B = ((1 << CS01) | (1 << CS00));
 }
 
 /** Event handler for the library USB Connection event. */

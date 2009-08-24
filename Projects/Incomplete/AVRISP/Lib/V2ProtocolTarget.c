@@ -78,21 +78,57 @@ void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
 
 void V2Protocol_DelayMS(uint8_t MS)
 {
-	while (MS--)
-	  _delay_ms(1);
+	TCNT0  = 0;
+	while (TCNT0 < MS);
 }
 
-uint8_t V2Protocol_WaitForProgrammingComplete(uint16_t PollAddress, uint8_t ProgrammingMode)
+uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAddress, uint8_t PollValue,
+                                       uint8_t DelayMS, bool IsFlashMemory, uint8_t ReadMemCommand)
 {
-	// TODO
+	uint8_t ProgrammingStatus = STATUS_CMD_OK;
 
-	return STATUS_CMD_OK;
+	/* Determine method of Programming Complete check */
+	switch (ProgrammingMode & ~(PROG_MODE_PAGED_WRITES_MASK | PROG_MODE_COMMIT_PAGE_MASK))
+	{
+		case PROG_MODE_WORD_TIMEDELAY_MASK:
+		case PROG_MODE_PAGED_TIMEDELAY_MASK:
+			V2Protocol_DelayMS(DelayMS);
+			break;
+		case PROG_MODE_WORD_VALUE_MASK:
+		case PROG_MODE_PAGED_VALUE_MASK:
+			if (IsFlashMemory && (PollAddress & 0x01))
+			{
+				ReadMemCommand |= READ_WRITE_ODD_BYTE_MASK;
+				PollAddress >>= 1;
+			}
+
+			TCNT0  = 0;
+
+			do
+			{
+				SPI_SendByte(ReadMemCommand);
+				SPI_SendByte(PollAddress >> 8);
+				SPI_SendByte(PollAddress & 0xFF);				
+			}
+			while ((SPI_TransferByte(0x00) != PollValue) && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
+
+			if (TCNT0 >= TARGET_BUSY_TIMEOUT_MS)
+			 ProgrammingStatus = STATUS_RDY_BSY_TOUT;
+			
+			break;		
+		case PROG_MODE_WORD_READYBUSY_MASK:
+		case PROG_MODE_PAGED_READYBUSY_MASK:
+			ProgrammingStatus = V2Protocol_WaitWhileTargetBusy();
+	}
+
+	return ProgrammingStatus;
 }
 
 uint8_t V2Protocol_WaitWhileTargetBusy(void)
 {
-	uint8_t TimeoutMS = TARGET_BUSY_TIMEOUT_MS;
 	uint8_t ResponseByte;
+	
+	TCNT0  = 0;
 	
 	do
 	{
@@ -101,13 +137,11 @@ uint8_t V2Protocol_WaitWhileTargetBusy(void)
 
 		SPI_SendByte(0x00);
 		ResponseByte = SPI_ReceiveByte();
-
-		V2Protocol_DelayMS(1);
 	}
-	while ((ResponseByte & 0x01) && (TimeoutMS--));
+	while ((ResponseByte & 0x01) && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
 
-	if (!(TimeoutMS))
-	  return STATUS_CMD_TOUT;
+	if (TCNT0 >= TARGET_BUSY_TIMEOUT_MS)
+	  return STATUS_RDY_BSY_TOUT;
 	else
 	  return STATUS_CMD_OK;
 }

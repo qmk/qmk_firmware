@@ -56,7 +56,6 @@
 		#define PROG_MODE_PAGED_TIMEDELAY_MASK  (1 << 4)
 		#define PROG_MODE_PAGED_VALUE_MASK      (1 << 5)
 		#define PROG_MODE_PAGED_READYBUSY_MASK  (1 << 6)
-
 		#define PROG_MODE_COMMIT_PAGE_MASK      (1 << 7)
 
 	/* Function Prototypes: */
@@ -67,6 +66,7 @@
 			static void V2Protocol_Command_SignOn(void);
 			static void V2Protocol_Command_GetSetParam(uint8_t V2Command);
 			static void V2Protocol_Command_LoadAddress(void);
+			static void V2Protocol_Command_ResetProtection(void);
 			static void V2Protocol_Command_EnterISPMode(void);
 			static void V2Protocol_Command_LeaveISPMode(void);
 			static void V2Protocol_Command_ProgramMemory(uint8_t V2Command);

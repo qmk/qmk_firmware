@@ -63,7 +63,7 @@ static ParameterItem_t ParameterTable[] =
 		  .ParamPrivellages = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_VTARGET,
-		  .ParamValue       = 0x00,
+		  .ParamValue       = 0x32,
 		  .ParamPrivellages = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SCK_DURATION,

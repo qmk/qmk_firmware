@@ -52,6 +52,9 @@ void V2Protocol_ProcessCommand(void)
 		case CMD_LOAD_ADDRESS:
 			V2Protocol_Command_LoadAddress();
 			break;
+		case CMD_RESET_PROTECTION:
+			V2Protocol_Command_ResetProtection();
+			break;
 		case CMD_ENTER_PROGMODE_ISP:
 			V2Protocol_Command_EnterISPMode();
 			break;
@@ -168,6 +171,16 @@ static void V2Protocol_Command_LoadAddress(void)
 	Endpoint_ClearIN();
 }
 
+static void V2Protocol_Command_ResetProtection(void)
+{
+	Endpoint_ClearOUT();
+	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+	
+	Endpoint_Write_Byte(CMD_RESET_PROTECTION);
+	Endpoint_Write_Byte(STATUS_CMD_OK);
+	Endpoint_ClearIN();	
+}
+
 static void V2Protocol_Command_EnterISPMode(void)
 {
 	struct
@@ -208,7 +221,7 @@ static void V2Protocol_Command_EnterISPMode(void)
 		}
 		
 		/* Check if polling disabled, or if the polled value matches the expected value */
-		if (!Enter_ISP_Params.PollIndex || (ResponseBytes[Enter_ISP_Params.PollIndex - 1] == Enter_ISP_Params.PollValue))
+		if (!(Enter_ISP_Params.PollIndex) || (ResponseBytes[Enter_ISP_Params.PollIndex - 1] == Enter_ISP_Params.PollValue))
 		{
 			ResponseStatus = STATUS_CMD_OK;
 		}
@@ -264,6 +277,8 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 	
 	uint8_t  ProgrammingStatus = STATUS_CMD_OK;	
 	uint16_t PollAddress       = 0;
+	uint8_t  PollValue         = (V2Command == CMD_PROGRAM_FLASH_ISP) ? Write_Memory_Params.PollValue1 :
+	                                                                    Write_Memory_Params.PollValue2;
 	
 	if (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_WRITES_MASK)
 	{
@@ -281,11 +296,11 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 			SPI_SendByte(CurrentAddress & 0xFF);
 			SPI_SendByte(ByteToWrite);
 			
-			if (!(PollAddress))
+			if (!(PollAddress) && (ByteToWrite != PollValue))
 			{
-				if ((ByteToWrite != Write_Memory_Params.PollValue1) && (V2Command == CMD_PROGRAM_FLASH_ISP))
+				if (V2Command == CMD_PROGRAM_FLASH_ISP)
 				  PollAddress = (((CurrentAddress & 0xFFFF) << 1) | IsOddByte);
-				else if ((ByteToWrite != Write_Memory_Params.PollValue2) && (V2Command == CMD_PROGRAM_EEPROM_ISP))
+				else
 				  PollAddress = (CurrentAddress & 0xFFFF);				
 			}
 
@@ -309,7 +324,9 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 			}
 		}
 		
-		ProgrammingStatus = V2Protocol_WaitForProgrammingComplete(PollAddress, Write_Memory_Params.ProgrammingMode);
+		ProgrammingStatus = V2Protocol_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
+			                                               Write_Memory_Params.DelayMS, (V2Command == CMD_READ_FLASH_ISP),
+			                                               Write_Memory_Params.ProgrammingCommands[2]);
 	}
 	else
 	{
@@ -327,15 +344,20 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 			SPI_SendByte(CurrentAddress & 0xFF);
 			SPI_SendByte(ByteToWrite);
 			
-			if ((ByteToWrite != Write_Memory_Params.PollValue1) && (V2Command == CMD_PROGRAM_FLASH_ISP))
-			  PollAddress = (((CurrentAddress & 0xFFFF) << 1) | IsOddByte);
-			else if ((ByteToWrite != Write_Memory_Params.PollValue2) && (V2Command == CMD_PROGRAM_EEPROM_ISP))
-			  PollAddress = (CurrentAddress & 0xFFFF);
-
-			ProgrammingStatus = V2Protocol_WaitForProgrammingComplete(PollAddress, Write_Memory_Params.ProgrammingMode);
-
+			if (ByteToWrite != PollValue)
+			{
+				if (V2Command == CMD_PROGRAM_FLASH_ISP)
+				  PollAddress = (((CurrentAddress & 0xFFFF) << 1) | IsOddByte);
+				else
+				  PollAddress = (CurrentAddress & 0xFFFF);
+			}
+			
 			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
 			  CurrentAddress++;
+			
+			ProgrammingStatus = V2Protocol_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
+			                                                   Write_Memory_Params.DelayMS, (V2Command == CMD_READ_FLASH_ISP),
+			                                                   Write_Memory_Params.ProgrammingCommands[2]);
 			  
 			if (ProgrammingStatus != STATUS_CMD_OK)
 			  break;
@@ -390,7 +412,17 @@ static void V2Protocol_Command_ReadMemory(uint8_t V2Command)
 	}
 
 	Endpoint_Write_Byte(STATUS_CMD_OK);
+
+	bool IsEndpointFull = !(Endpoint_IsReadWriteAllowed());
 	Endpoint_ClearIN();
+	
+	/* Ensure last packet is a short packet to terminate the transfer */
+	if (IsEndpointFull)
+	{
+		Endpoint_WaitUntilReady();	
+		Endpoint_ClearIN();
+		Endpoint_WaitUntilReady();	
+	}
 }
 
 static void V2Protocol_Command_ChipErase(void)
@@ -412,7 +444,7 @@ static void V2Protocol_Command_ChipErase(void)
 	for (uint8_t SByte = 0; SByte < sizeof(Erase_Chip_Params.EraseCommandBytes); SByte++)
 	  SPI_SendByte(Erase_Chip_Params.EraseCommandBytes[SByte]);
 
-	if (Erase_Chip_Params.PollMethod == 0)
+	if (!(Erase_Chip_Params.PollMethod))
 	  V2Protocol_DelayMS(Erase_Chip_Params.EraseDelayMS);
 	else
 	  ResponseStatus = V2Protocol_WaitWhileTargetBusy();
