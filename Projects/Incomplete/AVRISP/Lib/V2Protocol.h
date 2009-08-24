@@ -48,7 +48,15 @@
 		#define PROGRAMMER_ID                   "AVRISP_MK2"
 		
 		#define READ_WRITE_ODD_BYTE_MASK        (1 << 3)
+
 		#define PROG_MODE_PAGED_WRITES_MASK     (1 << 0)
+		#define PROG_MODE_WORD_TIMEDELAY_MASK   (1 << 1)
+		#define PROG_MODE_WORD_VALUE_MASK       (1 << 2)
+		#define PROG_MODE_WORD_READYBUSY_MASK   (1 << 3)
+		#define PROG_MODE_PAGED_TIMEDELAY_MASK  (1 << 4)
+		#define PROG_MODE_PAGED_VALUE_MASK      (1 << 5)
+		#define PROG_MODE_PAGED_READYBUSY_MASK  (1 << 6)
+
 		#define PROG_MODE_COMMIT_PAGE_MASK      (1 << 7)
 
 	/* Function Prototypes: */

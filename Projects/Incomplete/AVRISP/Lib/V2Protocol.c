@@ -259,26 +259,37 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 		uint8_t  PollValue2;
 	} Write_Memory_Params;
 	
-	uint8_t ProgrammingStatus = STATUS_CMD_OK;
-	
 	Endpoint_Read_Stream_LE(&Write_Memory_Params, sizeof(Write_Memory_Params));
 	Write_Memory_Params.BytesToWrite = SwapEndian_16(Write_Memory_Params.BytesToWrite);
 	
+	uint8_t  ProgrammingStatus = STATUS_CMD_OK;	
+	uint16_t PollAddress       = 0;
+	
 	if (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_WRITES_MASK)
 	{
+		/* Paged mode memory programming */
 		for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
 		{
-			if ((V2Command == CMD_READ_FLASH_ISP) && (CurrentByte & 0x01))
+			bool    IsOddByte   = (CurrentByte & 0x01);
+			uint8_t ByteToWrite = Endpoint_Read_Byte();
+		
+			if ((V2Command == CMD_READ_FLASH_ISP) && IsOddByte)
 			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_ODD_BYTE_MASK;
 			  
 			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
 			SPI_SendByte(CurrentAddress >> 8);
 			SPI_SendByte(CurrentAddress & 0xFF);
-			SPI_SendByte(Endpoint_Read_Byte());
+			SPI_SendByte(ByteToWrite);
 			
-			// TODO - Correct Polling
+			if (!(PollAddress))
+			{
+				if ((ByteToWrite != Write_Memory_Params.PollValue1) && (V2Command == CMD_PROGRAM_FLASH_ISP))
+				  PollAddress = (((CurrentAddress & 0xFFFF) << 1) | IsOddByte);
+				else if ((ByteToWrite != Write_Memory_Params.PollValue2) && (V2Command == CMD_PROGRAM_EEPROM_ISP))
+				  PollAddress = (CurrentAddress & 0xFFFF);				
+			}
 
-			if (((V2Command == CMD_PROGRAM_FLASH_ISP) && (CurrentByte & 0x01)) || (V2Command == CMD_PROGRAM_EEPROM_ISP))
+			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
 			  CurrentAddress++;
 		}
 		
@@ -289,11 +300,46 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 			SPI_SendByte(CurrentAddress >> 8);
 			SPI_SendByte(CurrentAddress & 0xFF);
 			SPI_SendByte(0x00);
+			
+			/* Check if polling is possible, if not switch to timed delay mode */
+			if (!(PollAddress))
+			{
+				Write_Memory_Params.ProgrammingMode &= ~PROG_MODE_PAGED_VALUE_MASK;
+				Write_Memory_Params.ProgrammingMode &= ~PROG_MODE_PAGED_TIMEDELAY_MASK;				
+			}
 		}
+		
+		ProgrammingStatus = V2Protocol_WaitForProgrammingComplete(PollAddress, Write_Memory_Params.ProgrammingMode);
 	}
 	else
-	{			
-		// TODO - Read in programming data, write to device		
+	{
+		/* Word/byte mode memory programming */
+		for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
+		{
+			bool    IsOddByte   = (CurrentByte & 0x01);
+			uint8_t ByteToWrite = Endpoint_Read_Byte();
+		
+			if ((V2Command == CMD_READ_FLASH_ISP) && IsOddByte)
+			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_ODD_BYTE_MASK;
+			  
+			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
+			SPI_SendByte(CurrentAddress >> 8);
+			SPI_SendByte(CurrentAddress & 0xFF);
+			SPI_SendByte(ByteToWrite);
+			
+			if ((ByteToWrite != Write_Memory_Params.PollValue1) && (V2Command == CMD_PROGRAM_FLASH_ISP))
+			  PollAddress = (((CurrentAddress & 0xFFFF) << 1) | IsOddByte);
+			else if ((ByteToWrite != Write_Memory_Params.PollValue2) && (V2Command == CMD_PROGRAM_EEPROM_ISP))
+			  PollAddress = (CurrentAddress & 0xFFFF);
+
+			ProgrammingStatus = V2Protocol_WaitForProgrammingComplete(PollAddress, Write_Memory_Params.ProgrammingMode);
+
+			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
+			  CurrentAddress++;
+			  
+			if (ProgrammingStatus != STATUS_CMD_OK)
+			  break;
+		}
 	}
 	
 	Endpoint_ClearOUT();

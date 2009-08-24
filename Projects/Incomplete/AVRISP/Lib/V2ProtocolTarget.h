@@ -57,6 +57,7 @@
 			uint8_t V2Protocol_GetSPIPrescalerMask(void);
 			void    V2Protocol_ChangeTargetResetLine(bool ResetTarget);
 			void    V2Protocol_DelayMS(uint8_t MS);
+			uint8_t V2Protocol_WaitForProgrammingComplete(uint16_t PollAddress, uint8_t ProgrammingMode);
 			uint8_t V2Protocol_WaitWhileTargetBusy(void);
 			void    V2Protocol_LoadExtendedAddress(void);
 

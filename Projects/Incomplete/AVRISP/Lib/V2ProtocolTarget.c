@@ -82,6 +82,13 @@ void V2Protocol_DelayMS(uint8_t MS)
 	  _delay_ms(1);
 }
 
+uint8_t V2Protocol_WaitForProgrammingComplete(uint16_t PollAddress, uint8_t ProgrammingMode)
+{
+	// TODO
+
+	return STATUS_CMD_OK;
+}
+
 uint8_t V2Protocol_WaitWhileTargetBusy(void)
 {
 	uint8_t TimeoutMS = TARGET_BUSY_TIMEOUT_MS;
