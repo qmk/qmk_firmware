@@ -286,12 +286,21 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 	
 		/* Paged mode memory programming */
 		for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
-		{
+		{				
+			/* Check if the endpoint bank is currently empty */
+			if (!(Endpoint_IsReadWriteAllowed()))
+			{
+				Endpoint_ClearOUT();
+				Endpoint_WaitUntilReady();
+			}	
+
 			bool    IsOddByte   = (CurrentByte & 0x01);
 			uint8_t ByteToWrite = Endpoint_Read_Byte();
 		
 			if (IsOddByte && (V2Command == CMD_PROGRAM_FLASH_ISP))
-			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
+			  Write_Memory_Params.ProgrammingCommands[0] |= READ_WRITE_HIGH_BYTE_MASK;
+			else
+			  Write_Memory_Params.ProgrammingCommands[0] &= ~READ_WRITE_HIGH_BYTE_MASK;
 			  
 			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
 			SPI_SendByte(CurrentAddress >> 8);
@@ -304,14 +313,7 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 				  Write_Memory_Params.ProgrammingCommands[2] |= READ_WRITE_HIGH_BYTE_MASK;
 				  
 				PollAddress = (CurrentAddress & 0xFFFF);				
-			}
-				
-			/* Check if the endpoint bank is currently empty */
-			if (!(Endpoint_IsReadWriteAllowed()))
-			{
-				Endpoint_ClearOUT();
-				Endpoint_WaitUntilReady();
-			}			
+			}		
 
 			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
 			  CurrentAddress++;
@@ -341,11 +343,20 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 		/* Word/byte mode memory programming */
 		for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
 		{
+			/* Check if the endpoint bank is currently empty */
+			if (!(Endpoint_IsReadWriteAllowed()))
+			{
+				Endpoint_ClearOUT();
+				Endpoint_WaitUntilReady();
+			}	
+
 			bool    IsOddByte   = (CurrentByte & 0x01);
 			uint8_t ByteToWrite = Endpoint_Read_Byte();
 		
 			if (IsOddByte && (V2Command == CMD_READ_FLASH_ISP))
-			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
+			  Write_Memory_Params.ProgrammingCommands[0] |= READ_WRITE_HIGH_BYTE_MASK;
+			else
+			  Write_Memory_Params.ProgrammingCommands[0] &= ~READ_WRITE_HIGH_BYTE_MASK;			
 			  
 			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
 			SPI_SendByte(CurrentAddress >> 8);
@@ -359,13 +370,6 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 				  
 				PollAddress = (CurrentAddress & 0xFFFF);
 			}
-			
-			/* Check if the endpoint bank is currently empty */
-			if (!(Endpoint_IsReadWriteAllowed()))
-			{
-				Endpoint_ClearOUT();
-				Endpoint_WaitUntilReady();
-			}	
 
 			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
 			  CurrentAddress++;
@@ -406,8 +410,12 @@ static void V2Protocol_Command_ReadMemory(uint8_t V2Command)
 	
 	for (uint16_t CurrentByte = 0; CurrentByte < Read_Memory_Params.BytesToRead; CurrentByte++)
 	{
-		if ((V2Command == CMD_READ_FLASH_ISP) && (CurrentByte & 0x01))
-		  Read_Memory_Params.ReadMemoryCommand ^= READ_WRITE_HIGH_BYTE_MASK;
+		bool IsOddByte = (CurrentByte & 0x01);
+
+		if (IsOddByte && (V2Command == CMD_READ_FLASH_ISP))
+		  Read_Memory_Params.ReadMemoryCommand |= READ_WRITE_HIGH_BYTE_MASK;
+		else
+		  Read_Memory_Params.ReadMemoryCommand &= ~READ_WRITE_HIGH_BYTE_MASK;
 
 		SPI_SendByte(Read_Memory_Params.ReadMemoryCommand);
 		SPI_SendByte(CurrentAddress >> 8);
@@ -421,7 +429,7 @@ static void V2Protocol_Command_ReadMemory(uint8_t V2Command)
 			Endpoint_WaitUntilReady();
 		}
 		
-		if (((V2Command == CMD_READ_FLASH_ISP) && (CurrentByte & 0x01)) || (V2Command == CMD_READ_EEPROM_ISP))
+		if ((IsOddByte && (V2Command == CMD_READ_FLASH_ISP)) || (V2Command == CMD_READ_EEPROM_ISP))
 		  CurrentAddress++;
 	}
 

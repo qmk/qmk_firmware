@@ -14,7 +14,7 @@
   *  - Added new EVENT_USB_Device_StartOfFrame() event, controlled by the new USB_Device_EnableSOFEvents() and
   *    USB_Device_DisableSOFEvents() macros to give bus-synchronised millisecond interrupts when in USB device mode
   *  - Added new Endpoint_SetEndpointDirection() macro for bi-directional endpoints
-  *  - Added new AVRISP project, a LUFA clone of the Atmel AVRISP-MKII programmer
+  *  - Added new AVRISP project, a LUFA powered clone of the Atmel AVRISP-MKII programmer
   *  - Added ShutDown functions for all hardware peripheral drivers, so that peripherals can be turned off after use
   *  
   *  <b>Changed:</b>
@@ -35,6 +35,8 @@
   *    causing continuous USART receive interrupts
   *  - Fixed misspelt event name in the Class driver USBtoSerial demo, preventing correct operation
   *  - Fixed invalid data being returned when a GetStatus request is issued in Device mode with an unhandled data recipient
+  *  - Added hardware USART receive interrupt and software buffering to the Benito project to ensure received data is not
+  *    missed or corrupted
   *
   *
   *  \section Sec_ChangeLog090810 Version 090810
