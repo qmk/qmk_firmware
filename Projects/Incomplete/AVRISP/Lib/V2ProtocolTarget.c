@@ -36,20 +36,36 @@
 #include "V2ProtocolTarget.h"
 
 /** Current memory address for FLASH/EEPROM memory read/write commands */
-uint32_t CurrentAddress;	
+uint32_t CurrentAddress;
 
+/** Converts the given AVR Studio SCK duration parameter (set by a SET PARAM command from the host) to the nearest
+ *  possible SPI clock prescaler mask for passing to the SPI_Init() routine.
+ *
+ *  \return Nearest SPI prescaler mask for the given SCK frequency
+ */
 uint8_t V2Protocol_GetSPIPrescalerMask(void)
 {
 	static const uint8_t SPIMaskFromSCKDuration[TOTAL_PROGRAMMING_SPEEDS] =
 	{
-		#if (F_CPU == 8000000)
-		SPI_SPEED_FCPU_DIV_2,
-		#endif
-		SPI_SPEED_FCPU_DIV_2, SPI_SPEED_FCPU_DIV_4, SPI_SPEED_FCPU_DIV_8,
-		SPI_SPEED_FCPU_DIV_16, SPI_SPEED_FCPU_DIV_32, SPI_SPEED_FCPU_DIV_64
-		#if (F_CPU == 16000000)
-		, SPI_SPEED_FCPU_DIV_128
-		#endif
+	#if (F_CPU == 8000000)
+		SPI_SPEED_FCPU_DIV_2,    // AVRStudio =   8MHz SPI, Actual =   4MHz SPI
+		SPI_SPEED_FCPU_DIV_2,    // AVRStudio =   4MHz SPI, Actual =   4MHz SPI
+		SPI_SPEED_FCPU_DIV_4,    // AVRStudio =   2MHz SPI, Actual =   2MHz SPI
+		SPI_SPEED_FCPU_DIV_8,    // AVRStudio =   1MHz SPI, Actual =   1MHz SPI
+		SPI_SPEED_FCPU_DIV_16,   // AVRStudio = 500KHz SPI, Actual = 500KHz SPI
+		SPI_SPEED_FCPU_DIV_32,   // AVRStudio = 250KHz SPI, Actual = 250KHz SPI
+		SPI_SPEED_FCPU_DIV_64    // AVRStudio = 125KHz SPI, Actual = 125KHz SPI	
+	#if (F_CPU == 16000000)
+		SPI_SPEED_FCPU_DIV_2,    // AVRStudio =   8MHz SPI, Actual =   8MHz SPI
+		SPI_SPEED_FCPU_DIV_4,    // AVRStudio =   4MHz SPI, Actual =   4MHz SPI
+		SPI_SPEED_FCPU_DIV_8,    // AVRStudio =   2MHz SPI, Actual =   2MHz SPI
+		SPI_SPEED_FCPU_DIV_16,   // AVRStudio =   1MHz SPI, Actual =   1MHz SPI
+		SPI_SPEED_FCPU_DIV_32,   // AVRStudio = 500KHz SPI, Actual = 500KHz SPI
+		SPI_SPEED_FCPU_DIV_64,   // AVRStudio = 250KHz SPI, Actual = 250KHz SPI		
+		SPI_SPEED_FCPU_DIV_128   // AVRStudio = 125KHz SPI, Actual = 125KHz SPI
+	#else
+		#error No SPI prescaler masks for chosen F_CPU speed.
+	#endif
 	};
 
 	uint8_t SCKDuration = V2Params_GetParameterValue(PARAM_SCK_DURATION);
@@ -60,6 +76,11 @@ uint8_t V2Protocol_GetSPIPrescalerMask(void)
 	return SPIMaskFromSCKDuration[SCKDuration];
 }
 
+/** Asserts or deasserts the target's reset line, using the correct polarity as set by the host using a SET PARAM command.
+ *  When not asserted, the line is tristated so as not to intefere with normal device operation.
+ *
+ *  \param ResetTarget Boolean true when the target should be held in reset, false otherwise
+ */
 void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
 {
 	if (ResetTarget)
@@ -76,6 +97,18 @@ void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
 	}
 }
 
+/** Waits until the last issued target memory programming command has completed, via the check mode given and using
+ *  the given parameters.
+ *
+ *  \param ProgrammingMode  Programming mode used and completion check to use, a mask of PROG_MODE_* constants
+ *  \param PollAddress  Memory address to poll for completion if polling check mode used
+ *  \param PollValue  Poll value to check against if polling check mode used
+ *  \param DelayMS  Milliseconds to delay before returning if delay check mode used
+ *  \param ReadMemCommand  Device low-level READ MEMORY command to send if value check mode used
+ *
+ *  \return V2 Protocol status \ref STATUS_CMD_OK if the no timeout occurred, \ref STATUS_RDY_BSY_TOUT or
+ *          \ref STATUS_CMD_TOUT otherwise
+ */
 uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAddress, uint8_t PollValue,
                                        uint8_t DelayMS, uint8_t ReadMemCommand)
 {
@@ -101,7 +134,7 @@ uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAdd
 			while ((SPI_TransferByte(0x00) != PollValue) && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
 
 			if (TCNT0 >= TARGET_BUSY_TIMEOUT_MS)
-			 ProgrammingStatus = STATUS_RDY_BSY_TOUT;
+			 ProgrammingStatus = STATUS_CMD_TOUT;
 			
 			break;		
 		case PROG_MODE_WORD_READYBUSY_MASK:
@@ -113,6 +146,11 @@ uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAdd
 	return ProgrammingStatus;
 }
 
+/** Waits until the target has completed the last operation, by continuously polling the device's
+ *  BUSY flag until it is cleared, or until the \ref TARGET_BUSY_TIMEOUT_MS timeout period has expired.
+ *
+ *  \return V2 Protocol status \ref STATUS_CMD_OK if the no timeout occurred, \ref STATUS_RDY_BSY_TOUT otherwise
+ */
 uint8_t V2Protocol_WaitWhileTargetBusy(void)
 {
 	TCNT0 = 0;
@@ -132,6 +170,10 @@ uint8_t V2Protocol_WaitWhileTargetBusy(void)
 	  return STATUS_CMD_OK;
 }
 
+/** Sends a low-level LOAD EXTENDED ADDRESS command to the target, for addressing of memory beyond the
+ *  64KB boundary. This sends the command with the correct address as indicated by the current address
+ *  pointer variable set by the host when a SET ADDRESS command is issued.
+ */
 void V2Protocol_LoadExtendedAddress(void)
 {
 	SPI_SendByte(0x4D);

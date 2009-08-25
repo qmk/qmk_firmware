@@ -34,11 +34,9 @@
  *  the project and is responsible for the initial application hardware configuration.
  */
 
-// TODO: Fix PROGRAM FLASH and PROGRAM EEPROM command processing
 // TODO: Add in software SPI for lower programming speeds below 125KHz
 // TODO: Add in VTARGET detection
 // TODO: Add reversed target connector checks
-// TODO: Add Doxygen comments to functions
 
 #include "AVRISP.h"
 

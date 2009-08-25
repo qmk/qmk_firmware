@@ -49,6 +49,7 @@
 		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing */
 		#define PROGRAMMER_ID                   "AVRISP_MK2"
 		
+		/** Mask for the reading or writing of the high byte in a FLASH word when issuing a low-level programming command */
 		#define READ_WRITE_HIGH_BYTE_MASK       (1 << 3)
 
 		#define PROG_MODE_PAGED_WRITES_MASK     (1 << 0)

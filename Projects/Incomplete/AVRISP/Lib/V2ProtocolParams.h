@@ -46,10 +46,10 @@
 		#include "V2ProtocolConstants.h"
 
 	/* Macros: */
-		/* Parameter privellage mask to allow the host PC to read the parameter's value */
+		/** Parameter privellage mask to allow the host PC to read the parameter's value */
 		#define PARAM_PRIV_READ   (1 << 0)
 
-		/* Parameter privellage mask to allow the host PC to change the parameter's value */
+		/** Parameter privellage mask to allow the host PC to change the parameter's value */
 		#define PARAM_PRIV_WRITE  (1 << 1)
 
 	/* Type Defines: */

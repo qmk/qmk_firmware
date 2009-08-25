@@ -58,10 +58,14 @@
 		extern uint32_t CurrentAddress;
 
 	/* Inline Functions: */
-		static inline void V2Protocol_DelayMS(uint8_t MS)
+		/** Blocking delay for a given number of milliseconds, via a hardware timer.
+		 *
+		 *  \param DelayMS  Number of milliseconds to delay for
+		 */
+		static inline void V2Protocol_DelayMS(uint8_t DelayMS)
 		{
 			TCNT0 = 0;
-			while (TCNT0 < MS);
+			while (TCNT0 < DelayMS);
 		}
 
 	/* Function Prototypes: */

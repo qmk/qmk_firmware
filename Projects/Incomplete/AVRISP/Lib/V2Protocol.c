@@ -36,6 +36,10 @@
 #define  INCLUDE_FROM_V2PROTOCOL_C
 #include "V2Protocol.h"
 
+/** Master V2 Protocol packet handler, for receieved V2 Protocol packets from a connected host.
+ *  This routine decodes the issued command and passes off the handling of the command to the
+ *  appropriate function.
+ */
 void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_Byte();
@@ -94,6 +98,11 @@ void V2Protocol_ProcessCommand(void)
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);
 }
 
+/** Handler for unknown V2 protocol commands. This discards all sent data and returns a
+ *  STATUS_CMD_UNKNOWN status back to the host.
+ *
+ *  \param V2Command  Issued V2 Protocol command byte from the host
+ */
 static void V2Protocol_Command_Unknown(uint8_t V2Command)
 {
 	/* Discard all incomming data */
@@ -111,6 +120,7 @@ static void V2Protocol_Command_Unknown(uint8_t V2Command)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the CMD_SIGN_ON command, returning the programmer ID string to the host. */
 static void V2Protocol_Command_SignOn(void)
 {
 	Endpoint_ClearOUT();
@@ -123,6 +133,11 @@ static void V2Protocol_Command_SignOn(void)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the CMD_SET_PARAMETER and CMD_GET_PARAMETER commands from the host, setting or
+ *  getting a device parameter's value from the parameter table.
+ *
+ *  \param V2Command  Issued V2 Protocol command byte from the host
+ */
 static void V2Protocol_Command_GetSetParam(uint8_t V2Command)
 {
 	uint8_t ParamID = Endpoint_Read_Byte();
@@ -156,6 +171,10 @@ static void V2Protocol_Command_GetSetParam(uint8_t V2Command)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the CMD_LOAD_ADDRESS command, loading the given device address into a
+ *  global storage variable for later use, and issuing LOAD EXTENDED ADDRESS commands
+ *  to the attached device as required.
+ */
 static void V2Protocol_Command_LoadAddress(void)
 {
 	Endpoint_Read_Stream_BE(&CurrentAddress, sizeof(CurrentAddress));
@@ -171,6 +190,9 @@ static void V2Protocol_Command_LoadAddress(void)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the CMD_RESET_PROTECTION command, currently implemented as a dummy ACK function
+ *  as no ISP short-circuit protection is currently implemented.
+ */
 static void V2Protocol_Command_ResetProtection(void)
 {
 	Endpoint_ClearOUT();
@@ -181,6 +203,9 @@ static void V2Protocol_Command_ResetProtection(void)
 	Endpoint_ClearIN();	
 }
 
+/** Handler for the CMD_ENTER_PROGMODE_ISP command, which attempts to enter programming mode on
+ *  the attached device, returning success or failure back to the host.
+ */
 static void V2Protocol_Command_EnterISPMode(void)
 {
 	struct
@@ -237,6 +262,7 @@ static void V2Protocol_Command_EnterISPMode(void)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the CMD_LEAVE_ISP command, which releases the target from programming mode. */
 static void V2Protocol_Command_LeaveISPMode(void)
 {
 	struct
@@ -260,6 +286,11 @@ static void V2Protocol_Command_LeaveISPMode(void)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the CMD_PROGRAM_FLASH_ISP and CMD_PROGRAM_EEPROM_ISP commands, writing out bytes,
+ *  words or pages of data to the attached device.
+ *
+ *  \param V2Command  Issued V2 Protocol command byte from the host
+ */
 static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 {
 	struct
@@ -270,7 +301,7 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 		uint8_t  ProgrammingCommands[3];
 		uint8_t  PollValue1;
 		uint8_t  PollValue2;
-		uint8_t  ProgData[256];
+		uint8_t  ProgData[512];
 	} Write_Memory_Params;
 	
 	uint8_t* NextWriteByte = Write_Memory_Params.ProgData;
@@ -380,6 +411,11 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the CMD_READ_FLASH_ISP and CMD_READ_EEPROM_ISP commands, reading in bytes,
+ *  words or pages of data from the attached device.
+ *
+ *  \param V2Command  Issued V2 Protocol command byte from the host
+ */
 static void V2Protocol_Command_ReadMemory(uint8_t V2Command)
 {
 	struct
@@ -436,6 +472,7 @@ static void V2Protocol_Command_ReadMemory(uint8_t V2Command)
 	}
 }
 
+/** Handler for the CMD_CHI_ERASE_ISP command, clearing the target's FLASH memory. */
 static void V2Protocol_Command_ChipErase(void)
 {
 	struct
@@ -465,6 +502,11 @@ static void V2Protocol_Command_ChipErase(void)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the CMD_READ_FUSE_ISP, CMD_READ_LOCK_ISP, CMD_READ_SIGNATURE_ISP and CMD_READ_OSCCAL commands,
+ *  reading the requested configuration byte from the device.
+ *
+ *  \param V2Command  Issued V2 Protocol command byte from the host
+ */
 static void V2Protocol_Command_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 {
 	struct
@@ -490,6 +532,11 @@ static void V2Protocol_Command_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the CMD_WRITE_FUSE_ISP and CMD_WRITE_LOCK_ISP commands, writing the requested configuration
+ *  byte to the device.
+ *
+ *  \param V2Command  Issued V2 Protocol command byte from the host
+ */
 static void V2Protocol_Command_WriteFuseLock(uint8_t V2Command)
 {
 	struct
@@ -511,6 +558,7 @@ static void V2Protocol_Command_WriteFuseLock(uint8_t V2Command)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the CMD_SPI_MULTI command, writing and reading arbitrary SPI data to and from the attached device. */
 static void V2Protocol_Command_SPIMulti(void)
 {
 	struct
