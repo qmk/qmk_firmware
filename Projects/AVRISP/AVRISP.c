@@ -84,7 +84,7 @@ void SetupHardware(void)
 	ADC_StartReading(VTARGET_ADC_CHANNEL | ADC_RIGHT_ADJUSTED | ADC_REFERENCE_AVCC);
 	#endif
 	
-	/* Millisecond timer initialization for timeout checking */
+	/* Millisecond timer initialization for timeouts and delays */
 	OCR0A  = ((F_CPU / 64) / 1000);
 	TCCR0A = (1 << WGM01);
 	TCCR0B = ((1 << CS01) | (1 << CS00));

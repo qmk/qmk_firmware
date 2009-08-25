@@ -24,6 +24,7 @@
   *  - Added explicit attribute masks to the device mode demos' descriptors
   *  - Added return values to the CDC and MIDI class driver transmit functions
   *  - Added extra masks to the SPI driver, changed SPI_Init() so that the clock polarity and sample modes can be set
+  *  - Optimized Endpoint_Read_Word_* and Pipe_Read_Word_* macros to reduce compiled size
   *
   *  <b>Fixed:</b>
   *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the

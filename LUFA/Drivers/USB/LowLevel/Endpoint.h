@@ -511,12 +511,16 @@
 			static inline uint16_t Endpoint_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_Read_Word_LE(void)
 			{
-				uint16_t Data;
+				union
+				{
+					uint16_t Word;
+					uint8_t  Bytes[2];
+				} Data;
 				
-				Data  = UEDATX;
-				Data |= (((uint16_t)UEDATX) << 8);
+				Data.Bytes[0] = UEDATX;
+				Data.Bytes[1] = UEDATX;
 			
-				return Data;
+				return Data.Word;
 			}
 
 			/** Reads two bytes from the currently selected endpoint's bank in big endian format, for OUT
@@ -529,12 +533,16 @@
 			static inline uint16_t Endpoint_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_Read_Word_BE(void)
 			{
-				uint16_t Data;
+				union
+				{
+					uint16_t Word;
+					uint8_t  Bytes[2];
+				} Data;
 				
-				Data  = (((uint16_t)UEDATX) << 8);
-				Data |= UEDATX;
+				Data.Bytes[1] = UEDATX;
+				Data.Bytes[0] = UEDATX;
 			
-				return Data;
+				return Data.Word;
 			}
 
 			/** Writes two bytes to the currently selected endpoint's bank in little endian format, for IN

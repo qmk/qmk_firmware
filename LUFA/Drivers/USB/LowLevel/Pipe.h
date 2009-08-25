@@ -566,12 +566,16 @@
 			static inline uint16_t Pipe_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_Read_Word_LE(void)
 			{
-				uint16_t Data;
+				union
+				{
+					uint16_t Word;
+					uint8_t  Bytes[2];
+				} Data;
 				
-				Data  = UPDATX;
-				Data |= (((uint16_t)UPDATX) << 8);
+				Data.Bytes[0] = UPDATX;
+				Data.Bytes[1] = UPDATX;
 			
-				return Data;
+				return Data.Word;
 			}
 
 			/** Reads two bytes from the currently selected pipe's bank in big endian format, for OUT
@@ -584,12 +588,16 @@
 			static inline uint16_t Pipe_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_Read_Word_BE(void)
 			{
-				uint16_t Data;
+				union
+				{
+					uint16_t Word;
+					uint8_t  Bytes[2];
+				} Data;
 				
-				Data  = (((uint16_t)UPDATX) << 8);
-				Data |= UPDATX;
+				Data.Bytes[1] = UPDATX;
+				Data.Bytes[0] = UPDATX;
 			
-				return Data;
+				return Data.Word;
 			}
 			
 			/** Writes two bytes to the currently selected pipe's bank in little endian format, for IN
