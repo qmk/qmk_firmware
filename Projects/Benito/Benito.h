@@ -43,6 +43,7 @@
 		#include <avr/power.h>
 
 		#include "Descriptors.h"
+		#include "Lib/RingBuff.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>

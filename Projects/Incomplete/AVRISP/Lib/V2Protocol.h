@@ -38,6 +38,7 @@
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Peripheral/SPI.h>
 		
 		#include "../Descriptors.h"
 		#include "V2ProtocolConstants.h"
@@ -45,6 +46,7 @@
 		#include "V2ProtocolTarget.h"
 
 	/* Macros: */
+		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing */
 		#define PROGRAMMER_ID                   "AVRISP_MK2"
 		
 		#define READ_WRITE_HIGH_BYTE_MASK       (1 << 3)

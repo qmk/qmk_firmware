@@ -134,6 +134,7 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENAB
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
+	  Lib/RingBuff.c                                              \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -192,9 +193,9 @@ CSTANDARD = -std=gnu99
 
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA_OPTS)
-CDEFS += -DAVR_RESET_LINE_PORT="PORTB"
-CDEFS += -DAVR_RESET_LINE_DDR="DDRB"
-CDEFS += -DAVR_RESET_LINE_MASK="(1 << 0)"
+CDEFS += -DAVR_RESET_LINE_PORT="PORTD"
+CDEFS += -DAVR_RESET_LINE_DDR="DDRD"
+CDEFS += -DAVR_RESET_LINE_MASK="(1 << 4)"
 CDEFS += -DAVR_RESET_PULSE_MS=10
 CDEFS += -DTX_RX_LED_PULSE_MS=30
 CDEFS += -DPING_PONG_LED_PULSE_MS=100

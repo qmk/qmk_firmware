@@ -46,15 +46,19 @@
 		#include "V2ProtocolConstants.h"
 
 	/* Macros: */
+		/* Parameter privellage mask to allow the host PC to read the parameter's value */
 		#define PARAM_PRIV_READ   (1 << 0)
+
+		/* Parameter privellage mask to allow the host PC to change the parameter's value */
 		#define PARAM_PRIV_WRITE  (1 << 1)
 
 	/* Type Defines: */
+		/** Type define for a parameter table entry indicating a PC readable or writable device parameter. */
 		typedef struct
 		{
-			const uint8_t ParamID;
-			uint8_t ParamValue;
-			uint8_t ParamPrivellages;
+			const uint8_t ParamID; /**< Parameter ID number to uniquely identify the parameter within the device */
+			uint8_t ParamValue; /**< Current parameter's value within the device */
+			uint8_t ParamPrivellages;  /**< Parameter privellages to allow the host to read or write the parameter's value */
 		} ParameterItem_t;
 
 	/* Function Prototypes: */

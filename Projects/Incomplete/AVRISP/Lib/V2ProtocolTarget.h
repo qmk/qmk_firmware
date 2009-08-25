@@ -48,10 +48,21 @@
 		#include "V2ProtocolParams.h"
 
 	/* Macros: */
+		/** Total number of allowable ISP programming speeds supported by the device */
+		#define TOTAL_PROGRAMMING_SPEEDS  7
+
+		/** Timeout in milliseconds of target busy-wait loops waiting for a command to complete */
 		#define TARGET_BUSY_TIMEOUT_MS    150
-	
+		
 	/* External Variables: */
 		extern uint32_t CurrentAddress;
+
+	/* Inline Functions: */
+		static inline void V2Protocol_DelayMS(uint8_t MS)
+		{
+			TCNT0 = 0;
+			while (TCNT0 < MS);
+		}
 
 	/* Function Prototypes: */
 			uint8_t V2Protocol_GetSPIPrescalerMask(void);

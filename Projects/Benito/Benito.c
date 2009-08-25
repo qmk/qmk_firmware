@@ -36,17 +36,17 @@
 
 #include "Benito.h"
 
-/** Counter for the number of milliseconds remaining for the target /RESET pulse being generated. */
-volatile uint8_t ResetPulseMSRemaining = 0;
+/** Circular buffer to hold data from the serial port before it is sent to the host. */
+RingBuff_t Tx_Buffer;
 
-/** Counter for the number of milliseconds remaining for the TX activity LED pulse being generated. */
-volatile uint8_t TxPulseMSRemaining    = 0;
-
-/** Counter for the number of milliseconds remaining for the RX activity LED pulse being generated. */
-volatile uint8_t RxPulseMSRemaining    = 0;
-
-/** Counter for the number of milliseconds remaining for the enumeration LED ping-pong being generated. */
-volatile uint8_t PingPongMSRemaining   = 0;
+/** Pulse generation counters to keep track of the number of milliseconds remaining for each pulse type */
+volatile struct
+{
+	uint8_t ResetPulse; /**< Milliseconds remaining for target /RESET pulse */
+	uint8_t TxLEDPulse; /**< Milliseconds remaining for data Tx LED pulse */
+	uint8_t RxLEDPulse; /**< Milliseconds remaining for data Rx LED pulse */
+	uint8_t PingPongLEDPulse; /**< Milliseconds remaining for enumeration Tx/Rx ping-pong LED pulse */
+} PulseMSRemaining;
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -75,50 +75,52 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 int main(void)
 {
 	SetupHardware();
+	
+	Buffer_Initialize(&Tx_Buffer);
 
 	for (;;)
 	{
 		/* Echo bytes from the host to the target via the hardware USART */
-		if (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface) > 0)
+		while (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface) > 0)
 		{
 			Serial_TxByte(CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 
 			LEDs_TurnOnLEDs(LEDMASK_TX);
-			TxPulseMSRemaining = TX_RX_LED_PULSE_MS;			
+			PulseMSRemaining.TxLEDPulse = TX_RX_LED_PULSE_MS;			
 		}
 		
 		/* Echo bytes from the target to the host via the virtual serial port */
-		if (Serial_IsCharReceived())
+		while (Tx_Buffer.Elements > 0)
 		{
-			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Serial_RxByte());
+			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&Tx_Buffer));
 
 			LEDs_TurnOnLEDs(LEDMASK_RX);
-			RxPulseMSRemaining = TX_RX_LED_PULSE_MS;
+			PulseMSRemaining.RxLEDPulse = TX_RX_LED_PULSE_MS;
 		}
 		
 		/* Check if the millisecond timer has elapsed */
 		if (TIFR0 & (1 << OCF0A))
 		{
-			/* Check if the LEDs should be ping-ponging (during enumeration) */
-			if (PingPongMSRemaining && !(--PingPongMSRemaining))
-			{
-				LEDs_ToggleLEDs(LEDMASK_TX | LEDMASK_RX);
-				PingPongMSRemaining = PING_PONG_LED_PULSE_MS;
-			}
-		
 			/* Check if the reset pulse period has elapsed, if so tristate the target reset line */
-			if (ResetPulseMSRemaining && !(--ResetPulseMSRemaining))
+			if (PulseMSRemaining.ResetPulse && !(--PulseMSRemaining.ResetPulse))
 			{
 				LEDs_TurnOffLEDs(LEDMASK_BUSY);
 				AVR_RESET_LINE_DDR &= ~AVR_RESET_LINE_MASK;
 			}
 			
+			/* Check if the LEDs should be ping-ponging (during enumeration) */
+			if (PulseMSRemaining.PingPongLEDPulse && !(--PulseMSRemaining.PingPongLEDPulse))
+			{
+				LEDs_ToggleLEDs(LEDMASK_TX | LEDMASK_RX);
+				PulseMSRemaining.PingPongLEDPulse = PING_PONG_LED_PULSE_MS;
+			}
+		
 			/* Turn off TX LED(s) once the TX pulse period has elapsed */
-			if (TxPulseMSRemaining && !(--TxPulseMSRemaining))
+			if (PulseMSRemaining.TxLEDPulse && !(--PulseMSRemaining.TxLEDPulse))
 			  LEDs_TurnOffLEDs(LEDMASK_TX);
 
 			/* Turn off RX LED(s) once the RX pulse period has elapsed */
-			if (RxPulseMSRemaining && !(--RxPulseMSRemaining))
+			if (PulseMSRemaining.RxLEDPulse && !(--PulseMSRemaining.RxLEDPulse))
 			  LEDs_TurnOffLEDs(LEDMASK_RX);
 
 			/* Clear the millisecond timer CTC flag (cleared by writing logic one to the register) */
@@ -158,21 +160,21 @@ void SetupHardware(void)
 /** Event handler for the library USB Connection event. */
 void EVENT_USB_Device_Connect(void)
 {
-	PingPongMSRemaining = PING_PONG_LED_PULSE_MS;
+	PulseMSRemaining.PingPongLEDPulse = PING_PONG_LED_PULSE_MS;
 	LEDs_SetAllLEDs(LEDMASK_TX);
 }
 
 /** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Device_Disconnect(void)
 {
-	PingPongMSRemaining = 0;
+	PulseMSRemaining.PingPongLEDPulse = 0;
 	LEDs_SetAllLEDs(LEDS_NO_LEDS);
 }
 
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	PingPongMSRemaining = 0;
+	PulseMSRemaining.PingPongLEDPulse = 0;
 	LEDs_SetAllLEDs(LEDS_NO_LEDS);
 
 	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
@@ -220,9 +222,20 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 	}
 	
 	UCSR1A = (1 << U2X1);
-	UCSR1B = ((1 << TXEN1) | (1 << RXEN1));
+	UCSR1B = ((1 << RXCIE1) | (1 << TXEN1) | (1 << RXEN1));
 	UCSR1C = ConfigMask;	
 	UBRR1  = SERIAL_2X_UBBRVAL((uint16_t)CDCInterfaceInfo->State.LineEncoding.BaudRateBPS);
+}
+
+/** ISR to manage the reception of data from the serial port, placing received bytes into a circular buffer
+ *  for later transmission to the host.
+ */
+ISR(USART1_RX_vect, ISR_BLOCK)
+{
+	uint8_t ReceivedByte = UDR1;
+
+	if (USB_DeviceState == DEVICE_STATE_Configured)
+	  Buffer_StoreElement(&Tx_Buffer, ReceivedByte);
 }
 
 /** Event handler for the CDC Class driver Host-to-Device Line Encoding Changed event.
@@ -236,7 +249,7 @@ void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const C
 	{
 		LEDs_SetAllLEDs(LEDMASK_BUSY);
 	
-		AVR_RESET_LINE_DDR    |= AVR_RESET_LINE_MASK;
-		ResetPulseMSRemaining  = AVR_RESET_PULSE_MS;
+		AVR_RESET_LINE_DDR |= AVR_RESET_LINE_MASK;
+		PulseMSRemaining.ResetPulse = AVR_RESET_PULSE_MS;
 	}
 }

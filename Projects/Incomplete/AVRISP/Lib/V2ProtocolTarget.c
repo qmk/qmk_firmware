@@ -40,7 +40,7 @@ uint32_t CurrentAddress;
 
 uint8_t V2Protocol_GetSPIPrescalerMask(void)
 {
-	static const uint8_t SPIMaskFromSCKDuration[] =
+	static const uint8_t SPIMaskFromSCKDuration[TOTAL_PROGRAMMING_SPEEDS] =
 	{
 		#if (F_CPU == 8000000)
 		SPI_SPEED_FCPU_DIV_2,
@@ -76,12 +76,6 @@ void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
 	}
 }
 
-void V2Protocol_DelayMS(uint8_t MS)
-{
-	TCNT0  = 0;
-	while (TCNT0 < MS);
-}
-
 uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAddress, uint8_t PollValue,
                                        uint8_t DelayMS, uint8_t ReadMemCommand)
 {
@@ -96,7 +90,7 @@ uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAdd
 			break;
 		case PROG_MODE_WORD_VALUE_MASK:
 		case PROG_MODE_PAGED_VALUE_MASK:
-			TCNT0  = 0;
+			TCNT0 = 0;
 
 			do
 			{
@@ -121,7 +115,7 @@ uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAdd
 
 uint8_t V2Protocol_WaitWhileTargetBusy(void)
 {
-	TCNT0  = 0;
+	TCNT0 = 0;
 	
 	do
 	{
