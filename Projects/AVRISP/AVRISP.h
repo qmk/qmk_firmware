@@ -47,7 +47,11 @@
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
-
+		
+		#if defined(ADC)
+			#include <LUFA/Drivers/Peripheral/ADC.h>
+		#endif
+		
 		#include "Lib/V2Protocol.h"
 
 	/* Macros: */
@@ -61,7 +65,7 @@
 		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
-		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)		
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
 	/* Function Prototypes: */
 		void SetupHardware(void);

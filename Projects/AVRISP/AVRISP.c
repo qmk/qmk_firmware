@@ -35,7 +35,6 @@
  */
 
 // TODO: Add in software SPI for lower programming speeds below 125KHz
-// TODO: Add in VTARGET detection
 // TODO: Add reversed target connector checks
 
 #include "AVRISP.h"
@@ -54,6 +53,11 @@ int main(void)
 	for (;;)
 	{
 		Process_AVRISP_Commands();
+		
+		#if defined(ADC)
+		/* Update VTARGET parameter with the latest ADC conversion of VTARGET on supported AVR models */
+		V2Params_SetParameterValue(PARAM_VTARGET, ((5 * 10 * ADC_GetResult()) / 1024));
+		#endif
 
 		USB_USBTask();
 	}
@@ -73,6 +77,13 @@ void SetupHardware(void)
 	LEDs_Init();
 	USB_Init();
 
+	#if defined(ADC)
+	/* Initialize the ADC converter for VTARGET level detection on supported AVR models */
+	ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_128);
+	ADC_SetupChannel(VTARGET_ADC_CHANNEL);
+	ADC_StartReading(VTARGET_ADC_CHANNEL | ADC_RIGHT_ADJUSTED | ADC_REFERENCE_AVCC);
+	#endif
+	
 	/* Millisecond timer initialization for timeout checking */
 	OCR0A  = ((F_CPU / 64) / 1000);
 	TCCR0A = (1 << WGM01);

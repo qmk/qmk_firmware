@@ -60,7 +60,7 @@
 
 
 # MCU name
-MCU = at90usb647
+MCU = at90usb1287
 
 
 # Target board (see library "Board Types" documentation, USER or blank for projects not requiring
@@ -197,6 +197,7 @@ CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA
 CDEFS += -DRESET_LINE_PORT=PORTB
 CDEFS += -DRESET_LINE_DDR=DDRB
 CDEFS += -DRESET_LINE_MASK="(1 << 4)"
+CDEFS += -DVTARGET_ADC_CHANNEL=2
 
 
 # Place -D or -U options here for ASM sources

@@ -60,8 +60,11 @@
  *
  *  Note that this design currently has several limitations:
  *    - Minimum target clock speed of 500KHz due to hardware SPI used
- *    - No VTARGET detection and notification
  *    - No reversed/shorted target connector detection and notification
+ *
+ *  On AVR models with an ADC converter, ACC should be tied to 5V (e.g. VBUS) and the VTARGET_ADC_CHANNEL token should be
+ *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models
+ *  without an ADC converter, VTARGET will report at a fixed 5V level.
  *
  *  \section SSec_Options Project Options
  *
@@ -87,6 +90,11 @@
  *    <td>RESET_LINE_MASK</td>
  *    <td>Makefile CDEFS</td>
  *    <td>Mask for the programmer's target RESET line on the chosen port.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>VTARGET_ADC_CHANNEL</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>ADC channel number (on supported AVRs) to use for VTARGET level detection.</td> 
  *   </tr>
  *  </table>
  */
