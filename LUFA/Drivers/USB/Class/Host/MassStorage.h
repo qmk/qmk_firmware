@@ -199,6 +199,15 @@
 			 */
 			uint8_t MS_Host_ResetMSInterface(USB_ClassInfo_MS_Host_t* MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			/** Sends a GET MAX LUN control request to the attached device, retrieving the index of the highest LUN (Logical
+			 *  UNit, a logical drive) in the device. This value can then be used in the other functions of the Mass Storage
+			 *  Host mode Class driver to address a specific LUN within the device.
+			 *
+			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
+			 *  \param[out] MaxLUNIndex  Pointer to a location where the highest LUN index value should be stored
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum
+			 */
 			uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t* MaxLUNIndex) ATTR_NON_NULL_PTR_ARG(1, 2);
 
 			uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
@@ -210,6 +219,18 @@
 			uint8_t MS_Host_ReadDeviceCapacity(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex,
 			                                   SCSI_Capacity_t* DeviceCapacity) ATTR_NON_NULL_PTR_ARG(1, 3);
 		
+			uint8_t MS_Host_RequestSense(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex,
+			                             SCSI_Request_Sense_Response_t* SenseData) ATTR_NON_NULL_PTR_ARG(1, 3);
+		
+			uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex,
+			                                          bool PreventRemoval) ATTR_NON_NULL_PTR_ARG(1);
+			
+			uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, uint32_t BlockAddr,
+			                                 uint8_t Blocks, uint16_t BlockSize, void* BlockBuffer) ATTR_NON_NULL_PTR_ARG(1, 6);
+		
+			uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, uint32_t BlockAddr,
+			                                  uint8_t Blocks, uint16_t BlockSize, void* BlockBuffer) ATTR_NON_NULL_PTR_ARG(1, 6);
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
@@ -236,13 +257,13 @@
 				static uint8_t DComp_NextMassStorageInterface(void* CurrentDescriptor);
 				static uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor);
 				
-				static uint8_t MassStore_SendCommand(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
-				                                     MS_CommandBlockWrapper_t* SCSICommandBlock);
-				static uint8_t MassStore_WaitForDataReceived(USB_ClassInfo_MS_Host_t* MSInterfaceInfo);
-				static uint8_t MassStore_SendReceiveData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, 
-                                                         MS_CommandBlockWrapper_t* SCSICommandBlock, void* BufferPtr);
-				static uint8_t MassStore_GetReturnedStatus(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
-				                                           MS_CommandStatusWrapper_t* SCSICommandStatus);
+				static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
+				                                   MS_CommandBlockWrapper_t* SCSICommandBlock);
+				static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* MSInterfaceInfo);
+				static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, 
+                                                       MS_CommandBlockWrapper_t* SCSICommandBlock, void* BufferPtr);
+				static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
+				                                         MS_CommandStatusWrapper_t* SCSICommandStatus);
 			#endif
 	#endif
 	

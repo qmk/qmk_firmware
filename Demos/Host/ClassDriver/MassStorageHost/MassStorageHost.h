@@ -41,6 +41,7 @@
 		#include <avr/wdt.h>
 		#include <avr/pgmspace.h>
 		#include <avr/power.h>
+		#include <ctype.h>
 		#include <stdio.h>
 
 		#include <LUFA/Version.h>

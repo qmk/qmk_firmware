@@ -699,8 +699,10 @@
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord)
 			{
-				Pipe_Write_Word_LE(DWord);
-				Pipe_Write_Word_LE(DWord >> 16);
+				UPDATX = (DWord &  0xFF);
+				UPDATX = (DWord >> 8);
+				UPDATX = (DWord >> 16);
+				UPDATX = (DWord >> 24);
 			}
 			
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
@@ -713,8 +715,10 @@
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord)
 			{
-				Pipe_Write_Word_BE(DWord >> 16);
-				Pipe_Write_Word_BE(DWord);
+				UPDATX = (DWord >> 24);
+				UPDATX = (DWord >> 16);
+				UPDATX = (DWord >> 8);
+				UPDATX = (DWord &  0xFF);
 			}			
 			
 			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.	

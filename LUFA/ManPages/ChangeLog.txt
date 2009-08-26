@@ -25,6 +25,7 @@
   *  - Added return values to the CDC and MIDI class driver transmit functions
   *  - Added extra masks to the SPI driver, changed SPI_Init() so that the clock polarity and sample modes can be set
   *  - Optimized Endpoint_Read_Word_* and Pipe_Read_Word_* macros to reduce compiled size
+  *  - Added non-null function parameter pointer restrictions to USB Class drivers to improve user code reliability
   *
   *  <b>Fixed:</b>
   *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the

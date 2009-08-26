@@ -14,5 +14,5 @@
 # code.
 
 %:
-	make -C ClassDriver/ $@
+	#make -C ClassDriver/ $@  -- TODO: Re-enable once Host Mode class drivers complete
 	make -C LowLevel/ $@

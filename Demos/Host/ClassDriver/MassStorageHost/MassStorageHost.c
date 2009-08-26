@@ -121,6 +121,23 @@ int main(void)
 					break;
 				}
 				
+				SCSI_Request_Sense_Response_t SenseData;
+				if (MS_Host_RequestSense(&FlashDisk_MS_Interface, 0, &SenseData) != 0)
+				{
+					printf("Error retrieving device sense.\r\n");
+					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
+			
+				if (MS_Host_PreventAllowMediumRemoval(&FlashDisk_MS_Interface, 0, true))
+				{
+					printf("Error setting Prevent Device Removal bit.\r\n");
+					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
+
 				SCSI_Inquiry_Response_t InquiryData;
 				if (MS_Host_GetInquiryData(&FlashDisk_MS_Interface, &InquiryData))
 				{
@@ -147,7 +164,7 @@ int main(void)
 				}
 				while (!(DeviceReady));
 
-				puts_P(PSTR("Retrieving Capacity... "));
+				printf("Retrieving Capacity... ");
 
 				SCSI_Capacity_t DiskCapacity;
 				if (MS_Host_ReadDeviceCapacity(&FlashDisk_MS_Interface, 0, &DiskCapacity))
@@ -159,6 +176,41 @@ int main(void)
 				}
 				
 				printf("%lu blocks of %lu bytes.\r\n", DiskCapacity.Blocks, DiskCapacity.BlockSize);
+
+				uint8_t BlockBuffer[DiskCapacity.BlockSize];
+
+				if (MS_Host_ReadDeviceBlocks(&FlashDisk_MS_Interface, 0, 0x00000000, 1, DiskCapacity.BlockSize, BlockBuffer))
+				{
+					printf("Error reading device block.\r\n");
+					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
+			
+				printf("\r\nContents of first block:\r\n");
+
+				for (uint16_t Chunk = 0; Chunk < (DiskCapacity.BlockSize >> 4); Chunk++)
+				{
+					uint8_t* ChunkPtr = &BlockBuffer[Chunk << 4];
+					
+					/* Print out the 16 bytes of the chunk in HEX format */
+					for (uint8_t ByteOffset = 0; ByteOffset < (1 << 4); ByteOffset++)
+					{
+						char CurrByte = *(ChunkPtr + ByteOffset);
+						printf_P(PSTR("%.2X "), CurrByte);
+					}
+					
+					printf("    ");
+
+					/* Print out the 16 bytes of the chunk in ASCII format */
+					for (uint8_t ByteOffset = 0; ByteOffset < (1 << 4); ByteOffset++)
+					{
+						char CurrByte = *(ChunkPtr + ByteOffset);
+						putchar(isprint(CurrByte) ? CurrByte : '.');
+					}
+					
+					printf("\r\n");
+				}
 
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
