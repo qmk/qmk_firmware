@@ -47,7 +47,8 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "../Common/MassStorage.h"
-
+		#include "../Common/SCSICodes.h"
+		
 		#include <string.h>
 
 	/* Enable C linkage for C++ Compilers: */

@@ -310,11 +310,53 @@ uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t* Max
 	return ErrorCode;
 }
 
-uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, SCSI_Inquiry_Response_t* InquiryData)
+uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, SCSI_Inquiry_Response_t* InquiryData)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.Active))
 	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  
+	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
+	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
+		{
+			.Signature          = CBW_SIGNATURE,
+			.Tag                = MSInterfaceInfo->State.TransactionTag,
+			.DataTransferLength = sizeof(SCSI_Inquiry_Response_t),
+			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.LUN                = LUNIndex,
+			.SCSICommandLength  = 6,
+			.SCSICommandData    =
+				{
+					SCSI_CMD_INQUIRY,
+					0x00,                   // Reserved
+					0x00,                   // Reserved
+					0x00,                   // Reserved
+					sizeof(SCSI_Inquiry_Response_t), // Allocation Length
+					0x00                    // Unused (control)
+				}
+		};
+	
+	MassStore_SendCommand(MSInterfaceInfo, &SCSICommandBlock);
+
+	if ((ErrorCode = MassStore_WaitForDataReceived()) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+
+	if ((ErrorCode = MassStore_SendReceiveData(MSInterfaceInfo, (uint8_t*)InquiryPtr)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}	
+	
+	if ((ErrorCode = MassStore_GetReturnedStatus(MSInterfaceInfo)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+	
+	return ErrorCode;
 }
 
 uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, bool* DeviceReady);

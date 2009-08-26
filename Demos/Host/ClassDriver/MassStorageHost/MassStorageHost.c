@@ -139,7 +139,7 @@ int main(void)
 				}
 
 				SCSI_Inquiry_Response_t InquiryData;
-				if (MS_Host_GetInquiryData(&FlashDisk_MS_Interface, &InquiryData))
+				if (MS_Host_GetInquiryData(&FlashDisk_MS_Interface, 0, &InquiryData))
 				{
 					printf("Error retreiving device Inquiry data.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);

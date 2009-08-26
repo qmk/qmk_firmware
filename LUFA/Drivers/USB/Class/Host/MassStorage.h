@@ -47,6 +47,7 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "../Common/MassStorage.h"
+		#include "../Common/SCSICodes.h"
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -210,8 +211,8 @@
 			 */
 			uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t* MaxLUNIndex) ATTR_NON_NULL_PTR_ARG(1, 2);
 
-			uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
-			                               SCSI_Inquiry_Response_t* InquiryData) ATTR_NON_NULL_PTR_ARG(1, 2);
+			uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex,
+			                               SCSI_Inquiry_Response_t* InquiryData) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 			uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex,
 			                              bool* DeviceReady) ATTR_NON_NULL_PTR_ARG(1, 3);
