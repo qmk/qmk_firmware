@@ -150,11 +150,16 @@ int main(void)
 				printf("Vendor \"%.8s\", Product \"%.16s\"\r\n", InquiryData.VendorID, InquiryData.ProductID);
 				
 				printf("Waiting until ready...\r\n");
-				bool DeviceReady;
 
-				do
+				for (;;)
 				{
-					if (MS_Host_TestUnitReady(&FlashDisk_MS_Interface, 0, &DeviceReady))
+					uint8_t ErrorCode = MS_Host_TestUnitReady(&FlashDisk_MS_Interface, 0);
+					
+					if (!(ErrorCode))
+					  break;
+
+					/* Check if an error other than a logical command error (device busy) received */
+					if (ErrorCode != MS_ERROR_LOGICAL_CMD_FAILED)
 					{
 						printf("Error waiting for device to be ready.\r\n");
 						LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -162,7 +167,6 @@ int main(void)
 						break;
 					}
 				}
-				while (!(DeviceReady));
 
 				printf("Retrieving Capacity... ");
 

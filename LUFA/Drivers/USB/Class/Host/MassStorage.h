@@ -55,6 +55,9 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Macros: */
+			#define MS_ERROR_LOGICAL_CMD_FAILED              0xC0
+	
 		/* Type Defines: */
 			/** Class state structure. An instance of this structure should be made within the user application,
 			 *  and passed to each of the HID class driver functions as the HIDInterfaceInfo parameter. This
@@ -211,11 +214,19 @@
 			 */
 			uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t* MaxLUNIndex) ATTR_NON_NULL_PTR_ARG(1, 2);
 
+			/** Retrieves the Mass Storage device's inquiry data for the specified LUN, indicating the device characteristics and
+			 *  properties.
+			 *
+			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
+			 *  \param[in] LUNIndex  LUN index within the device the command is being issued to
+			 *  \param[out] InquiryData  Location where the read inquiry data should be stored
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED
+			 */
 			uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex,
 			                               SCSI_Inquiry_Response_t* InquiryData) ATTR_NON_NULL_PTR_ARG(1, 3);
 
-			uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex,
-			                              bool* DeviceReady) ATTR_NON_NULL_PTR_ARG(1, 3);
+			uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex) ATTR_NON_NULL_PTR_ARG(1);
 
 			uint8_t MS_Host_ReadDeviceCapacity(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex,
 			                                   SCSI_Capacity_t* DeviceCapacity) ATTR_NON_NULL_PTR_ARG(1, 3);
