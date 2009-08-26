@@ -102,21 +102,21 @@
 			 *
 			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 			 */
-			bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
+			bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Processes incomming control requests from the host, that are directed to the given Mass Storage class interface. This should be
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
 			 */		
-			void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
+			void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** General management task for a given Mass Storage class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage configuration and state.
 			 */
-			void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
+			void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Mass Storage class driver callback for the user processing of a received SCSI command. This callback will fire each time the
 			 *  host sends a SCSI command which requires processing by the user application. Inside this callback the user is responsible
@@ -127,14 +127,14 @@
 			 *
 			 *  \return Boolean true if the SCSI command was successfully processed, false otherwise
 			 */
-			bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
+			bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 		
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_MS_CLASS_DEVICE_C)
-				static void    MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
-				static bool    MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
+				static void    MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+				static bool    MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t StreamCallback_MS_Device_AbortOnMassStoreReset(void);
 			#endif
 		

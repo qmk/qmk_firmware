@@ -104,12 +104,12 @@
 			} HIDHost_EnumerationFailure_ErrorCodes_t;
 	
 		/* Function Prototypes: */
-			void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo);
+			void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t ConfigDescriptorLength,
-			                                uint8_t* DeviceConfigDescriptor);
+			                                uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 
-			bool    HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo);
-			uint8_t USB_HID_Host_SetProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, bool UseReportProtocol);
+			bool    HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t USB_HID_Host_SetProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, bool UseReportProtocol) ATTR_NON_NULL_PTR_ARG(1);
 		
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
@@ -121,8 +121,8 @@
 
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_HID_CLASS_HOST_C)
-				static uint8_t DComp_HID_Host_NextHIDInterface(void* CurrentDescriptor);
-				static uint8_t DComp_HID_Host_NextInterfaceHIDDataEndpoint(void* CurrentDescriptor);
+				static uint8_t DComp_HID_Host_NextHIDInterface(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DComp_HID_Host_NextInterfaceHIDDataEndpoint(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif	
 	#endif	
 	

@@ -132,8 +132,8 @@ int main(void)
 
 				printf("Vendor \"%.8s\", Product \"%.16s\"\r\n", InquiryData.VendorID, InquiryData.ProductID);
 				
+				printf("Waiting until ready...\r\n");
 				bool DeviceReady;
-				printf("Waiting until ready...\r\n"));
 
 				do
 				{
@@ -150,7 +150,7 @@ int main(void)
 				puts_P(PSTR("Retrieving Capacity... "));
 
 				SCSI_Capacity_t DiskCapacity;
-				if (MS_Host_ReadDeviceCapacity(0, &DiskCapacity))
+				if (MS_Host_ReadDeviceCapacity(&FlashDisk_MS_Interface, 0, &DiskCapacity))
 				{
 					printf("Error retrieving device capacity.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);

@@ -13,11 +13,16 @@
   *
   *  <b>Targeted for This Release:</b>
   *  - Finish Host Mode Class Drivers
+  *      ( ) Audio
+  *      (C) CDC
+  *      (S) HID
+  *      ( ) MIDI
+  *      (S) Mass Storage
+  *      ( ) Still Image
   *  - Add overviews of each of the officially supported boards to the manual
-  *  - Add hub support to match Atmel's stack
-  *  - Finish AVRISP Project
   *
   *  <b>Targeted for Future Releases:</b>
+  *  - Add hub support to match Atmel's stack
   *  - Add standardized descriptor names to device and host class driver structures
   *  - Remake AVRStudio project files
   *  - Add detailed overviews of how each demo works

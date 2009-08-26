@@ -131,4 +131,192 @@ void MS_Host_USBTask(USB_ClassInfo_MS_Host_t* MSInterfaceInfo)
 	
 }
 
+static uint8_t MassStore_SendCommand(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, MS_CommandBlockWrapper_t* SCSICommandBlock)
+{
+	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
+
+	if (++MSInterfaceInfo->State.TransactionTag == 0xFFFFFFFF)
+	  MSInterfaceInfo->State.TransactionTag = 1;
+
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_Unfreeze();
+
+	if ((ErrorCode = Pipe_Write_Stream_LE(SCSICommandBlock, sizeof(MS_CommandBlockWrapper_t))) != PIPE_RWSTREAM_NoError)
+	  return ErrorCode;
+
+	Pipe_ClearOUT();
+	while(!(Pipe_IsOUTReady()));
+
+	Pipe_Freeze();
+	
+	return PIPE_RWSTREAM_NoError;
+}
+
+static uint8_t MassStore_WaitForDataReceived(USB_ClassInfo_MS_Host_t* MSInterfaceInfo)
+{
+	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
+
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_Unfreeze();
+
+	while (!(Pipe_IsINReceived()))
+	{
+		if (USB_INT_HasOccurred(USB_INT_HSOFI))
+		{
+			USB_INT_Clear(USB_INT_HSOFI);
+			TimeoutMSRem--;
+
+			if (!(TimeoutMSRem))
+			  return PIPE_RWSTREAM_Timeout;
+		}
+	
+		Pipe_Freeze();
+		Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
+		Pipe_Unfreeze();
+
+		if (Pipe_IsStalled())
+		{
+			USB_Host_ClearPipeStall(MSInterfaceInfo->Config.DataOUTPipeNumber);
+
+			return PIPE_RWSTREAM_PipeStalled;
+		}
+		
+		Pipe_Freeze();
+		Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+		Pipe_Unfreeze();
+
+		if (Pipe_IsStalled())
+		{
+			USB_Host_ClearPipeStall(MSInterfaceInfo->Config.DataINPipeNumber);
+
+			return PIPE_RWSTREAM_PipeStalled;
+		}
+		  
+		if (USB_HostState == HOST_STATE_Unattached)
+		  return PIPE_RWSTREAM_DeviceDisconnected;
+	};
+	
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_Freeze();
+		
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_Freeze();
+
+	return PIPE_RWSTREAM_NoError;
+}
+
+static uint8_t MassStore_SendReceiveData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
+                                         MS_CommandBlockWrapper_t* SCSICommandBlock, void* BufferPtr)
+{
+	uint8_t  ErrorCode = PIPE_RWSTREAM_NoError;
+	uint16_t BytesRem  = SCSICommandBlock->DataTransferLength;
+
+	if (SCSICommandBlock->Flags & COMMAND_DIRECTION_DATA_IN)
+	{
+		Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+		Pipe_Unfreeze();
+		
+		if ((ErrorCode = Pipe_Read_Stream_LE(BufferPtr, BytesRem)) != PIPE_RWSTREAM_NoError)
+		  return ErrorCode;
+
+		Pipe_ClearIN();
+	}
+	else
+	{
+		Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
+		Pipe_Unfreeze();
+
+		if ((ErrorCode = Pipe_Write_Stream_LE(BufferPtr, BytesRem)) != PIPE_RWSTREAM_NoError)
+		  return ErrorCode;
+
+		Pipe_ClearOUT();
+		
+		while (!(Pipe_IsOUTReady()))
+		{
+			if (USB_HostState == HOST_STATE_Unattached)
+			  return PIPE_RWSTREAM_DeviceDisconnected;
+		}
+	}
+
+	Pipe_Freeze();
+
+	return PIPE_RWSTREAM_NoError;
+}
+
+static uint8_t MassStore_GetReturnedStatus(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
+                                           MS_CommandStatusWrapper_t* SCSICommandStatus)
+{
+	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
+
+	if ((ErrorCode = MassStore_WaitForDataReceived(MSInterfaceInfo)) != PIPE_RWSTREAM_NoError)
+	  return ErrorCode;
+
+	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_Unfreeze();
+	
+	if ((ErrorCode = Pipe_Read_Stream_LE(&SCSICommandStatus, sizeof(MS_CommandStatusWrapper_t))) != PIPE_RWSTREAM_NoError)
+	  return ErrorCode;
+	  
+	Pipe_ClearIN();
+	Pipe_Freeze();
+	
+	return PIPE_RWSTREAM_NoError;
+}
+
+uint8_t MS_Host_ResetMSInterface(USB_ClassInfo_MS_Host_t* MSInterfaceInfo)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.Active))
+	  return HOST_SENDCONTROL_DeviceDisconnect;
+
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+			.bRequest      = REQ_MassStorageReset,
+			.wValue        = 0,
+			.wIndex        = MSInterfaceInfo->State.InterfaceNumber,
+			.wLength       = 0,
+		};
+	
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
+	return USB_Host_SendControlRequest(NULL);
+}
+
+uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t* MaxLUNIndex)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.Active))
+	  return HOST_SENDCONTROL_DeviceDisconnect;
+
+	uint8_t ErrorCode;
+
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
+			.bRequest      = REQ_GetMaxLUN,
+			.wValue        = 0,
+			.wIndex        = MSInterfaceInfo->State.InterfaceNumber,
+			.wLength       = 1,
+		};
+		
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
+	if ((ErrorCode = USB_Host_SendControlRequest(MaxLUNIndex)) == HOST_SENDCONTROL_SetupStalled)
+	{
+		Pipe_ClearStall();
+
+		*MaxLUNIndex = 0;
+	}
+	
+	return ErrorCode;
+}
+
+uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, SCSI_Inquiry_Response_t* InquiryData)
+{
+
+}
+
+uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, bool* DeviceReady);
+uint8_t MS_Host_ReadDeviceCapacity(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex,
+                                   SCSI_Capacity_t* DeviceCapacity);
+
 #endif

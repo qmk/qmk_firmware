@@ -104,21 +104,21 @@
 			 *
 			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 			 */
-			bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
+			bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Processes incomming control requests from the host, that are directed to the given Audio class interface. This should be
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 */
-			void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
+			void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 */
-			void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
+			void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Reads the next 8-bit audio sample from the current audio interface.
 			 *
@@ -129,7 +129,7 @@
 			 *
 			 *  \return  Signed 8-bit audio sample from the audio interface
 			 */
-			int8_t Audio_Device_ReadSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
+			int8_t Audio_Device_ReadSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the next 16-bit audio sample from the current audio interface.
 			 *
@@ -140,7 +140,7 @@
 			 *
 			 *  \return  Signed 16-bit audio sample from the audio interface
 			 */
-			int16_t Audio_Device_ReadSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
+			int16_t Audio_Device_ReadSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the next 24-bit audio sample from the current audio interface.
 			 *
@@ -150,7 +150,7 @@
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *  \return  Signed 24-bit audio sample from the audio interface
 			 */
-			int32_t Audio_Device_ReadSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
+			int32_t Audio_Device_ReadSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Writes the next 8-bit audio sample to the current audio interface.
 			 *
@@ -160,7 +160,7 @@
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *  \param[in] Sample  Signed 8-bit audio sample
 			 */
-			void Audio_Device_WriteSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int8_t Sample);
+			void Audio_Device_WriteSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int8_t Sample) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Writes the next 16-bit audio sample to the current audio interface.
 			 *
@@ -170,7 +170,7 @@
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *  \param[in] Sample  Signed 16-bit audio sample
 			 */
-			void Audio_Device_WriteSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int16_t Sample);
+			void Audio_Device_WriteSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int16_t Sample) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Writes the next 24-bit audio sample to the current audio interface.
 			 *
@@ -180,7 +180,7 @@
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *  \param[in] Sample  Signed 24-bit audio sample
 			 */
-			void Audio_Device_WriteSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int32_t Sample);
+			void Audio_Device_WriteSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int32_t Sample) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Determines if the given audio interface is ready for a sample to be read from it.
 			 *
@@ -188,7 +188,7 @@
 			 *
 			 *  \return Boolean true if the given Audio interface has a sample to be read, false otherwise
 			 */
-			bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
+			bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Determines if the given audio interface is ready to accept the next sample to be written to it.
 			 *
@@ -196,7 +196,7 @@
 			 *
 			 *  \return Boolean true if the given Audio interface is ready to accept the next sample, false otherwise
 			 */
-			bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
+			bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
