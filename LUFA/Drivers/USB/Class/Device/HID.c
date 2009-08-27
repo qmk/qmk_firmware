@@ -48,8 +48,8 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			{
 				Endpoint_ClearSETUP();	
 
-				uint16_t ReportINSize;
-				uint8_t  ReportID = (USB_ControlRequest.wValue & 0xFF);
+				uint16_t ReportINSize = 0;
+				uint8_t  ReportID     = (USB_ControlRequest.wValue & 0xFF);
 
 				memset(HIDInterfaceInfo->Config.PrevReportINBuffer, 0, HIDInterfaceInfo->Config.PrevReportINBufferSize);
 				
@@ -151,8 +151,8 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 	if (Endpoint_IsReadWriteAllowed())
 	{
 		uint8_t  ReportINData[HIDInterfaceInfo->Config.PrevReportINBufferSize];
-		uint8_t  ReportID = 0;
-		uint16_t ReportINSize;
+		uint8_t  ReportID     = 0;
+		uint16_t ReportINSize = 0;
 
 		memset(ReportINData, 0, sizeof(ReportINData));
 

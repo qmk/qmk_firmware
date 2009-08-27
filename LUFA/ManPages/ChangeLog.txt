@@ -43,6 +43,8 @@
   *  - Added hardware USART receive interrupt and software buffering to the Benito project to ensure received data is not
   *    missed or corrupted
   *  - Fixed Device mode HID Class driver always sending IN packets, even when nothing to report
+  *  - Fixed Device mode HID Class driver not explicitly initializing the ReportSize parameter to zero before calling callback
+  *    routine, so that ignored callbacks don't cause incorrect data to be sent
   *
   *
   *  \section Sec_ChangeLog090810 Version 090810
