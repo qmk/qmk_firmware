@@ -34,8 +34,6 @@
 #define INCLUDE_FROM_MS_CLASS_HOST_C
 #include "MassStorage.h"
 
-#warning The Mass Storage Host mode Class driver is currently incomplete and is for preview purposes only.
-
 uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint16_t ConfigDescriptorLength,
 							   uint8_t* DeviceConfigDescriptor)
 {
@@ -478,14 +476,224 @@ uint8_t MS_Host_ReadDeviceCapacity(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uin
 }
 
 uint8_t MS_Host_RequestSense(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex,
-                             SCSI_Request_Sense_Response_t* SenseData);
+                             SCSI_Request_Sense_Response_t* SenseData)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.Active))
+	  return HOST_SENDCONTROL_DeviceDisconnect;
 
-uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, bool PreventRemoval);							 
+	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
-uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, uint32_t BlockAddr,
-                                 uint8_t Blocks, uint16_t BlockSize, void* BlockBuffer);
+	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
+		{
+			.Signature          = CBW_SIGNATURE,
+			.Tag                = MSInterfaceInfo->State.TransactionTag,
+			.DataTransferLength = sizeof(SCSI_Request_Sense_Response_t),
+			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.LUN                = LUNIndex,
+			.SCSICommandLength  = 6,
+			.SCSICommandData    =
+				{
+					SCSI_CMD_REQUEST_SENSE,
+					0x00,                                  // Reserved
+					0x00,                                  // Reserved
+					0x00,                                  // Reserved
+					sizeof(SCSI_Request_Sense_Response_t), // Allocation Length
+					0x00                                   // Unused (control)
+				}
+		};
+	
+	if ((ErrorCode = MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+	
+	if ((ErrorCode = MS_Host_WaitForDataReceived(MSInterfaceInfo)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
 
-uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, uint32_t BlockAddr,
-                                  uint8_t Blocks, uint16_t BlockSize, void* BlockBuffer);
+	if ((ErrorCode = MS_Host_SendReceiveData(MSInterfaceInfo, &SCSICommandBlock, SenseData)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+	
+	MS_CommandStatusWrapper_t SCSICommandStatus;
+	if ((ErrorCode = MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSICommandStatus)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+	
+	if (SCSICommandStatus.Status != SCSI_Command_Pass)
+	  ErrorCode = MS_ERROR_LOGICAL_CMD_FAILED;
+
+	return ErrorCode;
+}
+
+uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, bool PreventRemoval)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.Active))
+	  return HOST_SENDCONTROL_DeviceDisconnect;
+
+	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
+
+	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
+		{
+			.Signature          = CBW_SIGNATURE,
+			.Tag                = MSInterfaceInfo->State.TransactionTag,
+			.DataTransferLength = 0,
+			.Flags              = COMMAND_DIRECTION_DATA_OUT,
+			.LUN                = LUNIndex,
+			.SCSICommandLength  = 6,
+			.SCSICommandData    =
+				{
+					SCSI_CMD_PREVENT_ALLOW_MEDIUM_REMOVAL,
+					0x00,                   // Reserved
+					0x00,                   // Reserved
+					PreventRemoval,         // Prevent flag
+					0x00,                   // Reserved
+					0x00                    // Unused (control)
+				}
+		};
+	
+	if ((ErrorCode = MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+	
+	MS_CommandStatusWrapper_t SCSICommandStatus;
+	if ((ErrorCode = MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSICommandStatus)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+	
+	if (SCSICommandStatus.Status != SCSI_Command_Pass)
+	  ErrorCode = MS_ERROR_LOGICAL_CMD_FAILED;
+
+	return ErrorCode;
+}
+
+uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, uint32_t BlockAddress,
+                                 uint8_t Blocks, uint16_t BlockSize, void* BlockBuffer)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.Active))
+	  return HOST_SENDCONTROL_DeviceDisconnect;
+
+	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
+
+	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
+		{
+			.Signature          = CBW_SIGNATURE,
+			.Tag                = MSInterfaceInfo->State.TransactionTag,
+			.DataTransferLength = ((uint32_t)Blocks * BlockSize),
+			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.LUN                = LUNIndex,
+			.SCSICommandLength  = 10,
+			.SCSICommandData    =
+				{
+					SCSI_CMD_READ_10,
+					0x00,                   // Unused (control bits, all off)
+					(BlockAddress >> 24),   // MSB of Block Address
+					(BlockAddress >> 16),
+					(BlockAddress >> 8),
+					(BlockAddress & 0xFF),  // LSB of Block Address
+					0x00,                   // Unused (reserved)
+					0x00,                   // MSB of Total Blocks to Read
+					Blocks,                 // LSB of Total Blocks to Read
+					0x00                    // Unused (control)
+				}
+		};
+
+	if ((ErrorCode = MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+	
+	if ((ErrorCode = MS_Host_WaitForDataReceived(MSInterfaceInfo)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+
+	if ((ErrorCode = MS_Host_SendReceiveData(MSInterfaceInfo, &SCSICommandBlock, BlockBuffer)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+	
+	MS_CommandStatusWrapper_t SCSICommandStatus;
+	if ((ErrorCode = MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSICommandStatus)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+	
+	if (SCSICommandStatus.Status != SCSI_Command_Pass)
+	  ErrorCode = MS_ERROR_LOGICAL_CMD_FAILED;
+
+	return ErrorCode;
+}
+
+uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, uint32_t BlockAddress,
+                                  uint8_t Blocks, uint16_t BlockSize, void* BlockBuffer)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.Active))
+	  return HOST_SENDCONTROL_DeviceDisconnect;
+
+	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
+
+	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
+		{
+			.Signature          = CBW_SIGNATURE,
+			.Tag                = MSInterfaceInfo->State.TransactionTag,
+			.DataTransferLength = ((uint32_t)Blocks * BlockSize),
+			.Flags              = COMMAND_DIRECTION_DATA_OUT,
+			.LUN                = LUNIndex,
+			.SCSICommandLength  = 10,
+			.SCSICommandData    =
+				{
+					SCSI_CMD_WRITE_10,
+					0x00,                   // Unused (control bits, all off)
+					(BlockAddress >> 24),   // MSB of Block Address
+					(BlockAddress >> 16),
+					(BlockAddress >> 8),
+					(BlockAddress & 0xFF),  // LSB of Block Address
+					0x00,                   // Unused (reserved)
+					0x00,                   // MSB of Total Blocks to Write
+					Blocks,                 // LSB of Total Blocks to Write
+					0x00                    // Unused (control)
+				}
+		};
+
+	if ((ErrorCode = MS_Host_SendCommand(MSInterfaceInfo, &SCSICommandBlock)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+
+	if ((ErrorCode = MS_Host_SendReceiveData(MSInterfaceInfo, &SCSICommandBlock, BlockBuffer)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+	
+	MS_CommandStatusWrapper_t SCSICommandStatus;
+	if ((ErrorCode = MS_Host_GetReturnedStatus(MSInterfaceInfo, &SCSICommandStatus)) != PIPE_RWSTREAM_NoError)
+	{
+		Pipe_Freeze();
+		return ErrorCode;
+	}
+	
+	if (SCSICommandStatus.Status != SCSI_Command_Pass)
+	  ErrorCode = MS_ERROR_LOGICAL_CMD_FAILED;
+
+	return ErrorCode;
+}
 
 #endif
