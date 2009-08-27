@@ -29,6 +29,12 @@
 */
 
 /** \ingroup Group_USBClassSI
+ *  @defgroup Group_USBClassSICommon  Common Class Definitions
+ *
+ *  \section Module Description
+ *  Constants, Types and Enum definitions that are common to both Device and Host modes for the USB
+ *  Still Image Class.
+ *
  *  @{
  */
 
