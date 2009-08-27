@@ -37,9 +37,15 @@
  *    - LUFA/Drivers/USB/Class/Host/MIDI.c
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the management of USB MIDI Class interfaces
- *  within a USB device. Note that the MIDI class is actually a special case of the regular Audio class,
- *  thus this module depends on structure definitions from the \ref Group_USBClassAudioDevice class driver module.
+ *  MIDI Class Driver module. This module contains an internal implementation of the USB MIDI Class, for both Device
+ *  and Host USB modes. User applications can use this class driver instead of implementing the MIDI class manuall
+ *  via the low-level LUFA APIs.
+ *
+ *  This module is designed to simplify the user code by exposing only the required interface needed to interace with
+ *  Hosts or Devices using the USB MIDI Class.
+ *
+ *  \note The USB MIDI class is actually a special case of the regular Audio class, thus this module depends on
+ *        structure definitions from the \ref Group_USBClassAudioDevice class driver module.
  *
  *  @{
  */

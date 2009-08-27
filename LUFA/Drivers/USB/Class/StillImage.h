@@ -36,8 +36,12 @@
  *    - LUFA/Drivers/USB/Class/Host/StillImage.c
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the management of USB Still Image Class interfaces
- *  within a USB device.
+ *  Still Image Class Driver module. This module contains an internal implementation of the USB Still Image Class,
+ *  for USB Host mode only. User applications can use this class driver instead of implementing the Still Image class
+ *  manually via the low-level LUFA APIs.
+ *
+ *  This module is designed to simplify the user code by exposing only the required interface needed to interace with
+ *  Devices using the USB Still Image Class.
  *
  *  @{
  */

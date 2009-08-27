@@ -37,8 +37,12 @@
  *    - LUFA/Drivers/USB/Class/Host/CDC.c
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the management of USB CDC Class interfaces
- *  within a USB device, for the implementation of CDC-ACM virtual serial ports.
+ *  CDC Class Driver module. This module contains an internal implementation of the USB CDC-ACM class Virtual Serial
+ *  Ports, for both Device and Host USB modes. User applications can use this class driver instead of implementing the
+ *  CDC class manually via the low-level LUFA APIs.
+ *
+ *  This module is designed to simplify the user code by exposing only the required interface needed to interace with
+ *  Hosts or Devices using the USB CDC Class.
  *
  *  @{
  */

@@ -36,8 +36,12 @@
  *    - LUFA/Drivers/USB/Class/Device/RNDIS.c
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the management of USB RNDIS Ethernet
- *  interfaces within a USB device.
+ *  RNDIS Class Driver module. This module contains an internal implementation of the Microsoft USB RNDIS Networking
+ *  Class, for Device USB mode only. User applications can use this class driver instead of implementing the RNDIS
+ *  class manually via the low-level LUFA APIs.
+ *
+ *  This module is designed to simplify the user code by exposing only the required interface needed to interace with
+ *  Hosts using the USB RNDIS Class.
  *
  *  @{
  */

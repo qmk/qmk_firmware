@@ -38,8 +38,12 @@
  *    - LUFA/Drivers/USB/Class/Host/HIDParser.c
  *
  *  \section Module Description
- *  Functions, macros, variables, enums and types related to the management of USB HID Class interfaces
- *  within a USB device.
+ *  HID Class Driver module. This module contains an internal implementation of the USB HID Class, for both Device 
+ *  and Host USB modes. User applications can use this class driver instead of implementing the HID class manually 
+ *  via the low-level LUFA APIs.
+ *
+ *  This module is designed to simplify the user code by exposing only the required interface needed to interace with
+ *  Hosts or Devices using the USB HID Class.
  *
  *  @{
  */
