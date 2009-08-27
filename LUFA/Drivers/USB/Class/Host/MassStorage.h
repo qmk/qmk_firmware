@@ -326,7 +326,8 @@
 				static uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor);
 				
 				static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
-				                                   MS_CommandBlockWrapper_t* SCSICommandBlock);
+				                                   MS_CommandBlockWrapper_t* SCSICommandBlock,
+				                                   void* BufferPtr);
 				static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* MSInterfaceInfo);
 				static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, 
                                                        MS_CommandBlockWrapper_t* SCSICommandBlock, void* BufferPtr);
