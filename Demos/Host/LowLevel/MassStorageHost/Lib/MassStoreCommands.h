@@ -46,31 +46,34 @@
 
 	/* Macros: */
 		/** Class specific request to reset the Mass Storage interface of the attached device */
-		#define REQ_MassStorageReset             0xFF
+		#define REQ_MassStorageReset                0xFF
 
 		/** Class specific request to retrieve the maximum Logical Unit Number (LUN) index of the attached device */
-		#define REQ_GetMaxLUN                    0xFE
+		#define REQ_GetMaxLUN                       0xFE
 
 		/** Command Block Wrapper signature byte, for verification of valid CBW blocks */
-		#define CBW_SIGNATURE                    0x43425355UL
+		#define CBW_SIGNATURE                       0x43425355UL
 
 		/** Command Static Wrapper signature byte, for verification of valid CSW blocks */
-		#define CSW_SIGNATURE                    0x53425355UL
+		#define CSW_SIGNATURE                       0x53425355UL
 		
 		/** Data direction mask for the Flags field of a CBW, indicating Host-to-Device transfer direction */
-		#define COMMAND_DIRECTION_DATA_OUT       (0 << 7)
+		#define COMMAND_DIRECTION_DATA_OUT          (0 << 7)
 
 		/** Data direction mask for the Flags field of a CBW, indicating Device-to-Host transfer direction */
-		#define COMMAND_DIRECTION_DATA_IN        (1 << 7)
+		#define COMMAND_DIRECTION_DATA_IN           (1 << 7)
 		
 		/** Timeout period between the issuing of a CBW to a device, and the reception of the first packet */
-		#define COMMAND_DATA_TIMEOUT_MS          2000
+		#define COMMAND_DATA_TIMEOUT_MS             2000
 
 		/** Pipe number of the Mass Storage data IN pipe */
-		#define MASS_STORE_DATA_IN_PIPE          1
+		#define MASS_STORE_DATA_IN_PIPE             1
 
 		/** Pipe number of the Mass Storage data OUT pipe */
-		#define MASS_STORE_DATA_OUT_PIPE         2
+		#define MASS_STORE_DATA_OUT_PIPE            2
+		
+		/** Additional error code for Mass Storage functions when a device returns a logical command failure */
+		#define MASS_STORE_SCSI_COMMAND_FAILED      0xC0
 
 	/* Type defines: */
 		/** Type define for a Mass Storage class Command Block Wrapper, used to wrap SCSI
@@ -78,17 +81,13 @@
 		 */
 		typedef struct
 		{
-			struct
-			{
-				uint32_t Signature; /**< Command block signature, always equal to CBW_SIGNATURE */
-				uint32_t Tag; /**< Current CBW tag, to positively associate a CBW with a CSW */
-				uint32_t DataTransferLength; /**< Length of data to transfer, following the CBW */
-				uint8_t  Flags; /**< Block flags, equal to one of the COMMAND_DIRECTION_DATA_* macros */
-				uint8_t  LUN; /**< Logical Unit Number the CBW is addressed to in the device */
-				uint8_t  SCSICommandLength; /**< Length of the SCSI command in the CBW */
-			} Header;
-			
-			uint8_t SCSICommandData[16]; /**< SCSI command to issue to the device */
+			uint32_t Signature; /**< Command block signature, always equal to CBW_SIGNATURE */
+			uint32_t Tag; /**< Current CBW tag, to positively associate a CBW with a CSW (filled automatically) */
+			uint32_t DataTransferLength; /**< Length of data to transfer, following the CBW */
+			uint8_t  Flags; /**< Block flags, equal to one of the COMMAND_DIRECTION_DATA_* macros */
+			uint8_t  LUN; /**< Logical Unit Number the CBW is addressed to in the device */
+			uint8_t  SCSICommandLength; /**< Length of the SCSI command in the CBW */
+			uint8_t  SCSICommandData[16]; /**< SCSI command to issue to the device */
 		} CommandBlockWrapper_t;
 		
 		/** Type define for a Mass Storage class Command Status Wrapper, used to wrap SCSI
@@ -183,23 +182,20 @@
 			Command_Fail = 1, /**< Command failed to complete successfully */
 			Phase_Error  = 2 /**< Phase error while processing the issued command */
 		};
-		
-	/* External Variables: */
-		extern CommandStatusWrapper_t SCSICommandStatus;
-		
+	
 	/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_MASSSTORE_COMMANDS_C)
-			static uint8_t MassStore_SendCommand(void);
+			static uint8_t MassStore_SendCommand(CommandBlockWrapper_t* SCSICommandBlock, void* BufferPtr);
 			static uint8_t MassStore_WaitForDataReceived(void);
-			static uint8_t MassStore_SendReceiveData(void* BufferPtr) ATTR_NON_NULL_PTR_ARG(1);
-			static uint8_t MassStore_GetReturnedStatus(void);
+			static uint8_t MassStore_SendReceiveData(CommandBlockWrapper_t* SCSICommandBlock, void* BufferPtr) ATTR_NON_NULL_PTR_ARG(1);
+			static uint8_t MassStore_GetReturnedStatus(CommandStatusWrapper_t* SCSICommandStatus) ATTR_NON_NULL_PTR_ARG(1);
 		#endif
 		
 		uint8_t MassStore_MassStorageReset(void);
 		uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex);
-		uint8_t MassStore_RequestSense(const uint8_t LUNIndex, const SCSI_Request_Sense_Response_t* const SensePtr)
+		uint8_t MassStore_RequestSense(const uint8_t LUNIndex, SCSI_Request_Sense_Response_t* const SensePtr)
 		                               ATTR_NON_NULL_PTR_ARG(2);
-		uint8_t MassStore_Inquiry(const uint8_t LUNIndex, const SCSI_Inquiry_Response_t* const InquiryPtr)
+		uint8_t MassStore_Inquiry(const uint8_t LUNIndex, SCSI_Inquiry_Response_t* const InquiryPtr)
 		                               ATTR_NON_NULL_PTR_ARG(2);
 		uint8_t MassStore_ReadDeviceBlock(const uint8_t LUNIndex, const uint32_t BlockAddress,
 		                                  const uint8_t Blocks, const uint16_t BlockSize, void* BufferPtr) ATTR_NON_NULL_PTR_ARG(5);

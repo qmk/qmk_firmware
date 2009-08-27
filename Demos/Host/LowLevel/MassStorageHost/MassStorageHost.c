@@ -182,7 +182,7 @@ void MassStorage_Task(void)
 			/* Send the request, display error and wait for device detach if request fails */
 			if ((ErrorCode = MassStore_GetMaxLUN(&MassStore_MaxLUNIndex)) != HOST_SENDCONTROL_Successful)
 			{	
-				ShowDiskReadError(PSTR("Get Max LUN"), false, ErrorCode);
+				ShowDiskReadError(PSTR("Get Max LUN"), ErrorCode);
 
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
@@ -194,7 +194,7 @@ void MassStorage_Task(void)
 			/* Reset the Mass Storage device interface, ready for use */
 			if ((ErrorCode = MassStore_MassStorageReset()) != HOST_SENDCONTROL_Successful)
 			{
-				ShowDiskReadError(PSTR("Mass Storage Reset"), false, ErrorCode);
+				ShowDiskReadError(PSTR("Mass Storage Reset"), ErrorCode);
 				
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
@@ -203,16 +203,17 @@ void MassStorage_Task(void)
 			/* Get sense data from the device - many devices will not accept any other commands until the sense data
 			 * is read - both on start-up and after a failed command */
 			SCSI_Request_Sense_Response_t SenseData;
-			if (((ErrorCode = MassStore_RequestSense(0, &SenseData)) != 0) || (SCSICommandStatus.Status != Command_Pass))
+			if ((ErrorCode = MassStore_RequestSense(0, &SenseData)) != 0)
 			{
-				ShowDiskReadError(PSTR("Request Sense"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+				ShowDiskReadError(PSTR("Request Sense"), ErrorCode);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 			
 			/* Set the prevent removal flag for the device, allowing it to be accessed */
-			if (((ErrorCode = MassStore_PreventAllowMediumRemoval(0, true)) != 0) || (SCSICommandStatus.Status != Command_Pass))
+			if ((ErrorCode = MassStore_PreventAllowMediumRemoval(0, true)) != 0)
 			{
-				ShowDiskReadError(PSTR("Prevent/Allow Medium Removal"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+				ShowDiskReadError(PSTR("Prevent/Allow Medium Removal"), ErrorCode);
 				
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
@@ -220,9 +221,9 @@ void MassStorage_Task(void)
 
 			/* Get inquiry data from the device */
 			SCSI_Inquiry_Response_t InquiryData;
-			if (((ErrorCode = MassStore_Inquiry(0, &InquiryData)) != 0) || (SCSICommandStatus.Status != Command_Pass))
+			if ((ErrorCode = MassStore_Inquiry(0, &InquiryData)) != 0)
 			{
-				ShowDiskReadError(PSTR("Inquiry"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+				ShowDiskReadError(PSTR("Inquiry"), ErrorCode);
 				
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
@@ -234,23 +235,30 @@ void MassStorage_Task(void)
 			/* Wait until disk ready */
 			puts_P(PSTR("Waiting until ready.."));
 
-			do
+			for (;;)
 			{
 				Serial_TxByte('.');
-				
+
 				/* Abort if device removed */
 				if (USB_HostState == HOST_STATE_Unattached)
 				  break;
 
-				if ((ErrorCode = MassStore_TestUnitReady(0)) != PIPE_RWSTREAM_NoError)
+				/* Check to see if the attached device is ready for new commands */
+				ErrorCode = MassStore_TestUnitReady(0);
+				  
+				/* If attached device is ready, abort the loop */
+				if (!(ErrorCode))
+				  break;
+
+				/* If an error othe than a logical command failure (indicating device busy) returned, abort */
+				if (ErrorCode != MASS_STORE_SCSI_COMMAND_FAILED)
 				{
-					ShowDiskReadError(PSTR("Test Unit Ready"), false, ErrorCode);
+					ShowDiskReadError(PSTR("Test Unit Ready"), ErrorCode);
 
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
 			}
-			while (SCSICommandStatus.Status != Command_Pass);
 
 			puts_P(PSTR("\r\nRetrieving Capacity... "));
 
@@ -258,9 +266,9 @@ void MassStorage_Task(void)
 			SCSI_Capacity_t DiskCapacity;
 
 			/* Retrieve disk capacity */
-			if (((ErrorCode = MassStore_ReadCapacity(0, &DiskCapacity)) != 0) || (SCSICommandStatus.Status != Command_Pass))
+			if ((ErrorCode = MassStore_ReadCapacity(0, &DiskCapacity)) != 0)
 			{
-				ShowDiskReadError(PSTR("Read Capacity"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+				ShowDiskReadError(PSTR("Read Capacity"), ErrorCode);
 				
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
@@ -273,10 +281,9 @@ void MassStorage_Task(void)
 			uint8_t BlockBuffer[DiskCapacity.BlockSize];
 
 			/* Read in the first 512 byte block from the device */
-			if (((ErrorCode = MassStore_ReadDeviceBlock(0, 0x00000000, 1, DiskCapacity.BlockSize, BlockBuffer)) != 0) ||
-			    (SCSICommandStatus.Status != Command_Pass))
+			if ((ErrorCode = MassStore_ReadDeviceBlock(0, 0x00000000, 1, DiskCapacity.BlockSize, BlockBuffer)) != 0)
 			{
-				ShowDiskReadError(PSTR("Read Device Block"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+				ShowDiskReadError(PSTR("Read Device Block"), ErrorCode);
 				
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
@@ -320,15 +327,18 @@ void MassStorage_Task(void)
 				if (USB_HostState == HOST_STATE_Unattached)
 				  break;
 			}
+
+			/* Abort if device removed */
+			if (USB_HostState == HOST_STATE_Unattached)
+			  break;
 			
 			/* Print out the entire disk contents in ASCII format */
-			for (uint32_t CurrBlock = 0; CurrBlock < DiskCapacity.Blocks; CurrBlock++)
+			for (uint32_t CurrBlockAddress = 0; CurrBlockAddress < DiskCapacity.Blocks; CurrBlockAddress++)
 			{
 				/* Read in the next block of data from the device */
-				if (((ErrorCode = MassStore_ReadDeviceBlock(0, CurrBlock, 1, DiskCapacity.BlockSize, BlockBuffer)) != 0) ||
-				    (SCSICommandStatus.Status != Command_Pass))
+				if ((ErrorCode = MassStore_ReadDeviceBlock(0, CurrBlockAddress, 1, DiskCapacity.BlockSize, BlockBuffer)) != 0)
 				{
-					ShowDiskReadError(PSTR("Read Device Block"), (SCSICommandStatus.Status != Command_Pass), ErrorCode);
+					ShowDiskReadError(PSTR("Read Device Block"), ErrorCode);
 					
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -360,17 +370,15 @@ void MassStorage_Task(void)
  *  printing error codes to the serial port and waiting until the device is removed before
  *  continuing.
  *
- *  \param[in] CommandString      ASCII string located in PROGMEM space indicating what operation failed
- *  \param[in] FailedAtSCSILayer  Indicates if the command failed at the (logical) SCSI layer or at the physical USB layer
- *  \param[in] ErrorCode          Error code of the function which failed to complete successfully
+ *  \param[in] CommandString  ASCII string located in PROGMEM space indicating what operation failed
+ *  \param[in] ErrorCode      Error code of the function which failed to complete successfully
  */
-void ShowDiskReadError(char* CommandString, bool FailedAtSCSILayer, uint8_t ErrorCode)
+void ShowDiskReadError(char* CommandString, uint8_t ErrorCode)
 {
-	if (FailedAtSCSILayer)
+	if (ErrorCode == MASS_STORE_SCSI_COMMAND_FAILED)
 	{
 		/* Display the error code */
 		printf_P(PSTR(ESC_FG_RED "SCSI command error (%S).\r\n"), CommandString);
-		printf_P(PSTR("  -- Status Code: %d" ESC_FG_WHITE), ErrorCode);
 	}
 	else
 	{

@@ -92,8 +92,8 @@ void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
 	}
 	else
 	{
-		RESET_LINE_PORT &= ~RESET_LINE_MASK;
 		RESET_LINE_DDR  &= ~RESET_LINE_MASK;
+		RESET_LINE_PORT &= ~RESET_LINE_MASK;
 	}
 }
 

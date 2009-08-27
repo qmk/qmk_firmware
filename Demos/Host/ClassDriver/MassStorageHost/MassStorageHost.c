@@ -84,7 +84,7 @@ int main(void)
 				if (MS_Host_ConfigurePipes(&FlashDisk_MS_Interface,
 				                            ConfigDescriptorSize, ConfigDescriptorData) != MS_ENUMERROR_NoError)
 				{
-					printf("Attached Device Not a Valid Mouse.\r\n");
+					printf("Attached Device Not a Valid Mass Storage Device.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -112,6 +112,8 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
+				
+				printf("Total LUNs: %d - Using first LUN in device.\r\n", (MaxLUNIndex + 1));
 				
 				if (MS_Host_ResetMSInterface(&FlashDisk_MS_Interface))
 				{

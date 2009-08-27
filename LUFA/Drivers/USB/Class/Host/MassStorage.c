@@ -110,8 +110,10 @@ static uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
-		uint8_t EndpointType = (DESCRIPTOR_CAST(CurrentDescriptor,
-		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
+		USB_Descriptor_Endpoint_t* CurrentEndpoint = DESCRIPTOR_PCAST(CurrentDescriptor,
+		                                                              USB_Descriptor_Endpoint_t);
+
+		uint8_t EndpointType = (CurrentEndpoint->Attributes & EP_TYPE_MASK);
 
 		if ((EndpointType == EP_TYPE_BULK) &&
 		    (!(Pipe_IsEndpointBound(CurrentEndpoint->EndpointAddress))))
@@ -137,7 +139,7 @@ static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, MS_
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
-	SCSICommandBlock->Tag = MSInterfaceInfo->State.TransactionTag++;
+	SCSICommandBlock->Tag = ++MSInterfaceInfo->State.TransactionTag;
 
 	if (MSInterfaceInfo->State.TransactionTag == 0xFFFFFFFF)
 	  MSInterfaceInfo->State.TransactionTag = 1;

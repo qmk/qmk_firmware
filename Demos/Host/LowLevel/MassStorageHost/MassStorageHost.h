@@ -82,6 +82,6 @@
 		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
 		void EVENT_USB_Host_DeviceEnumerationComplete(void);
 
-		void ShowDiskReadError(char* CommandString, bool FailedAtSCSILayer, uint8_t ErrorCode);
+		void ShowDiskReadError(char* CommandString, uint8_t ErrorCode);
 
 #endif
