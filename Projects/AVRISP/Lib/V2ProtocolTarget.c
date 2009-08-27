@@ -161,8 +161,9 @@ uint8_t V2Protocol_WaitWhileTargetBusy(void)
 		SPI_SendByte(0x00);
 
 		SPI_SendByte(0x00);
+		bool DeviceBusy = (SPI_ReceiveByte() & 0x01);
 	}
-	while ((SPI_ReceiveByte() & 0x01) && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
+	while (DeviceBusy && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
 
 	if (TCNT0 >= TARGET_BUSY_TIMEOUT_MS)
 	  return STATUS_RDY_BSY_TOUT;

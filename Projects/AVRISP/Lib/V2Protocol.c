@@ -301,7 +301,7 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 		uint8_t  ProgrammingCommands[3];
 		uint8_t  PollValue1;
 		uint8_t  PollValue2;
-		uint8_t  ProgData[512];
+		uint8_t  ProgData[256];
 	} Write_Memory_Params;
 	
 	uint8_t* NextWriteByte = Write_Memory_Params.ProgData;
