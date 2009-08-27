@@ -242,7 +242,7 @@ static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
 }
 
 static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
-                                           MS_CommandStatusWrapper_t* SCSICommandStatus)
+                                         MS_CommandStatusWrapper_t* SCSICommandStatus)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
@@ -252,7 +252,7 @@ static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* MSInterfaceInf
 	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
 	Pipe_Unfreeze();
 	
-	if ((ErrorCode = Pipe_Read_Stream_LE(&SCSICommandStatus, sizeof(MS_CommandStatusWrapper_t))) != PIPE_RWSTREAM_NoError)
+	if ((ErrorCode = Pipe_Read_Stream_LE(SCSICommandStatus, sizeof(MS_CommandStatusWrapper_t))) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 	  
 	Pipe_ClearIN();

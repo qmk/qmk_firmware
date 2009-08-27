@@ -98,7 +98,7 @@ int main(void)
 					break;
 				}
 				
-				printf("Mouse Enumerated.\r\n");
+				printf("Mass Storage Device Enumerated.\r\n");
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
