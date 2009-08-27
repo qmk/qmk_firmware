@@ -12,6 +12,7 @@
   *  or post your suggestion as an enhancement request to the project bug tracker.
   *
   *  <b>Targeted for This Release:</b>
+  *  - Simplify Mass Storage Host LowLevel SCSI demo
   *  - Finish Host Mode Class Drivers
   *      ( ) Audio
   *      (C) CDC

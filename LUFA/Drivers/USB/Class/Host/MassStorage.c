@@ -113,8 +113,11 @@ static uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor)
 		uint8_t EndpointType = (DESCRIPTOR_CAST(CurrentDescriptor,
 		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
 
-		if (EndpointType == EP_TYPE_BULK)
-		  return DESCRIPTOR_SEARCH_Found;
+		if ((EndpointType == EP_TYPE_BULK) &&
+		    (!(Pipe_IsEndpointBound(CurrentEndpoint->EndpointAddress))))
+		{
+			return DESCRIPTOR_SEARCH_Found;
+		}
 	}
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
