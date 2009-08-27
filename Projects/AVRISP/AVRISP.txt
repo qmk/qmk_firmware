@@ -66,6 +66,42 @@
  *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models
  *  without an ADC converter, VTARGET will report at a fixed 5V level.
  *
+ *  Connections to the device are simple:
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Programmer Pin:</b></td>
+ *    <td><b>Target Device Pin:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>MOSI</td>
+ *    <td>PDI</td>
+ *   </tr>
+ *   <tr>
+ *    <td>MISO</td>
+ *    <td>PDO</td>
+ *   </tr>
+ *   <tr>
+ *    <td>SCLK</td>
+ *    <td>SCLK</td>
+ *   </tr>
+ *   <tr>
+ *    <td>GND</td>
+ *    <td>GND</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ADCx <b><sup>1</sup></b></td>
+ *    <td>VTARGET</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PORTx.y <b><sup>2</sup></b></td>
+ *    <td>/RESET</td>
+ *   </tr>
+ *  </table>
+ *
+ *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
+ *  <b><sup>2</sup></b> <i>See \ref SSec_Options section</i>
+ *
  *  \section SSec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
@@ -89,7 +125,7 @@
  *   <tr>
  *    <td>RESET_LINE_MASK</td>
  *    <td>Makefile CDEFS</td>
- *    <td>Mask for the programmer's target RESET line on the chosen port.</td>
+ *    <td>Mask for the programmer's target RESET line on the chosen port. <b>Must not be the AVR's /SS pin.</b></td>
  *   </tr>
  *   <tr>
  *    <td>VTARGET_ADC_CHANNEL</td>

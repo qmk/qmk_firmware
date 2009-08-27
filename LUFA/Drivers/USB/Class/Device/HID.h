@@ -60,6 +60,10 @@
 			/** Class state structure. An instance of this structure should be made for each HID interface
 			 *  within the user application, and passed to each of the HID class driver functions as the
 			 *  HIDInterfaceInfo parameter. This stores each HID interface's configuration and state information.
+			 *
+			 *  \note Due to technical limitations, the HID device class driver does not utilize a seperate OUT
+			 *        endpoint for host->device communications. Instead, the host->device data (if any) is sent to
+			 *        the device via the control endpoint.
 			 */
 			typedef struct
 			{
