@@ -168,12 +168,12 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 			HIDInterfaceInfo->State.IdleMSRemaining = HIDInterfaceInfo->State.IdleCount;
 
 			if (ReportID)
-			  Endpoint_Write_Stream_LE(&ReportID, sizeof(ReportID), NO_STREAM_CALLBACK);
+			  Endpoint_Write_Byte(ReportID);
 
 			Endpoint_Write_Stream_LE(ReportINData, ReportINSize, NO_STREAM_CALLBACK);
+			
+			Endpoint_ClearIN();
 		}
-		
-		Endpoint_ClearIN();
 	}
 }
 

@@ -39,6 +39,7 @@
   *  - Fixed invalid data being returned when a GetStatus request is issued in Device mode with an unhandled data recipient
   *  - Added hardware USART receive interrupt and software buffering to the Benito project to ensure received data is not
   *    missed or corrupted
+  *  - Fixed Device mode HID Class driver always sending IN packets, even when nothing to report
   *
   *
   *  \section Sec_ChangeLog090810 Version 090810
