@@ -164,13 +164,13 @@
 			} SCSI_Capacity_t;
 
 		/* Enums: */
-			enum
+			enum MSHost_EnumerationFailure_ErrorCodes_t
 			{
 				MS_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
 				MS_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor */
 				MS_ENUMERROR_NoMSInterfaceFound         = 2, /**< A compatible Mass Storage interface was not found in the device's Configuration Descriptor */
 				MS_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible Mass Storage endpoints were not found in the device's interfaces */
-			} MSHost_EnumerationFailure_ErrorCodes_t;
+			};
 	
 		/* Function Prototypes: */
 			/** General management task for a given Mass Storage host class interface, required for the correct operation of
@@ -190,6 +190,8 @@
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing an MS Class host configuration and state
 			 *  \param[in] ConfigDescriptorLength  Length of the attached device's Configuration Descriptor
 			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
+			 *
+			 *  \return A value from the \ref MSHost_EnumerationFailure_ErrorCodes_t enum
 			 */
 			uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint16_t ConfigDescriptorLength,
 			                               uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
@@ -276,6 +278,7 @@
 			 *  \param[in] LUNIndex  LUN index within the device the command is being issued to
 			 *  \param[in] BlockAddress  Starting block address within the device to read from
 			 *  \param[in] Blocks  Total number of blocks to read
+			 *  \param[in] BlockSize  Size in bytes of each block within the device
 			 *  \param[out] BlockBuffer  Pointer to where the read data from the device should be stored
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready
@@ -289,6 +292,7 @@
 			 *  \param[in] LUNIndex  LUN index within the device the command is being issued to
 			 *  \param[in] BlockAddress  Starting block address within the device to write to
 			 *  \param[in] Blocks  Total number of blocks to read
+			 *  \param[in] BlockSize  Size in bytes of each block within the device
 			 *  \param[in] BlockBuffer  Pointer to where the data to write should be sourced from
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready

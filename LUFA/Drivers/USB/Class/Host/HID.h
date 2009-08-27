@@ -95,13 +95,13 @@
 			} USB_ClassInfo_HID_Host_t;
 
 		/* Enums: */
-			enum
+			enum HIDHost_EnumerationFailure_ErrorCodes_t
 			{
 				HID_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
 				HID_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor */
 				HID_ENUMERROR_NoHIDInterfaceFound        = 2, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
 				HID_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible HID endpoints were not found in the device's HID interface */
-			} HIDHost_EnumerationFailure_ErrorCodes_t;
+			};
 	
 		/* Function Prototypes: */
 			void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);

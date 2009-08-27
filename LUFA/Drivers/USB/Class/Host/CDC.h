@@ -110,13 +110,13 @@
 			
 		/* Enums: */
 			/** Enum for the possible error codes returned by the \ref CDC_Host_ConfigurePipes() function. */
-			enum
+			enum CDCHost_EnumerationFailure_ErrorCodes_t
 			{
 				CDC_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
 				CDC_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor */
 				CDC_ENUMERROR_NoCDCInterfaceFound        = 2, /**< A compatible CDC interface was not found in the device's Configuration Descriptor */
 				CDC_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible CDC endpoints were not found in the device's CDC interface */
-			} CDCHost_EnumerationFailure_ErrorCodes_t;
+			};
 	
 		/* Function Prototypes: */
 			/** General management task for a given CDC host class interface, required for the correct operation of the interface. This should
@@ -135,6 +135,8 @@
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing an CDC Class host configuration and state
 			 *  \param[in] ConfigDescriptorLength  Length of the attached device's Configuration Descriptor
 			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
+			 *
+			 *  \return A value from the \ref HIDHost_EnumerationFailure_ErrorCodes_t enum
 			 */
 			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t ConfigDescriptorLength,
 			                                uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
