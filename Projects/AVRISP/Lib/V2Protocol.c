@@ -308,6 +308,18 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 
 	Endpoint_Read_Stream_LE(&Write_Memory_Params, sizeof(Write_Memory_Params) - sizeof(Write_Memory_Params.ProgData));
 	Write_Memory_Params.BytesToWrite = SwapEndian_16(Write_Memory_Params.BytesToWrite);
+	
+	if (Write_Memory_Params.BytesToWrite > sizeof(Write_Memory_Params.ProgData))
+	{
+		Endpoint_ClearOUT();
+		Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+
+		Endpoint_Write_Byte(V2Command);
+		Endpoint_Write_Byte(STATUS_CMD_FAILED);
+		Endpoint_ClearIN();
+		return;
+	}
+	
 	Endpoint_Read_Stream_LE(&Write_Memory_Params.ProgData, Write_Memory_Params.BytesToWrite);
 
 	Endpoint_ClearOUT();
@@ -407,7 +419,6 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 
 	Endpoint_Write_Byte(V2Command);
 	Endpoint_Write_Byte(ProgrammingStatus);
-	
 	Endpoint_ClearIN();
 }
 

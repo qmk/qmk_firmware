@@ -155,13 +155,15 @@ uint8_t V2Protocol_WaitWhileTargetBusy(void)
 {
 	TCNT0 = 0;
 	
+	bool DeviceBusy;
+	
 	do
 	{
 		SPI_SendByte(0xF0);
 		SPI_SendByte(0x00);
 
 		SPI_SendByte(0x00);
-		bool DeviceBusy = (SPI_ReceiveByte() & 0x01);
+		DeviceBusy = (SPI_ReceiveByte() & 0x01);
 	}
 	while (DeviceBusy && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
 
