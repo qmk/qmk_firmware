@@ -9,7 +9,7 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
   *  <b>New:</b>
-  *  - Added new host class drivers and matching demos to the library for rapid application development
+  *  - Added new host mode class drivers and matching demos to the library for rapid application development
   *  - Added flag to the HID report parser to indicate if a device has multiple reports
   *  - Added new EVENT_USB_Device_StartOfFrame() event, controlled by the new USB_Device_EnableSOFEvents() and
   *    USB_Device_DisableSOFEvents() macros to give bus-synchronised millisecond interrupts when in USB device mode

@@ -36,17 +36,17 @@
 
 #warning The Still Image Host mode Class driver is currently incomplete and is for preview purposes only.
 
-uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t ConfigDescriptorSize,
-                              uint8_t* ConfigDescriptorData)
+uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t ConfigDescriptorLength,
+                              uint8_t* DeviceConfigDescriptor)
 {
 	uint8_t  FoundEndpoints = 0;
 	
 	memset(&SIInterfaceInfo->State, 0x00, sizeof(SIInterfaceInfo->State));
 	
-	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
+	if (DESCRIPTOR_TYPE(DeviceConfigDescriptor) != DTYPE_Configuration)
 	  return SI_ENUMERROR_InvalidConfigDescriptor;
 	
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorLength, &DeviceConfigDescriptor,
 	                              DComp_SI_Host_NextSIInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		return SI_ENUMERROR_NoSIInterfaceFound;
@@ -54,13 +54,13 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_
 
 	while (FoundEndpoints != (SI_FOUND_EVENTS_IN | SI_FOUND_DATAPIPE_IN | SI_FOUND_DATAPIPE_OUT))
 	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		if (USB_GetNextDescriptorComp(&ConfigDescriptorLength, &DeviceConfigDescriptor,
 		                              DComp_SI_Host_NextSIInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			return SI_ENUMERROR_EndpointsNotFound;
 		}
 		
-		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
+		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(DeviceConfigDescriptor, USB_Descriptor_Endpoint_t);
 
 		if ((EndpointData->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT)
 		{

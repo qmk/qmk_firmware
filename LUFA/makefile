@@ -24,11 +24,9 @@ LUFA_SRC_FILES =     ./Drivers/USB/LowLevel/DevChapter9.c        \
                      ./Drivers/USB/Class/Device/MIDI.c           \
                      ./Drivers/USB/Class/Device/MassStorage.c    \
                      ./Drivers/USB/Class/Device/RNDIS.c          \
-                     ./Drivers/USB/Class/Host/Audio.c            \
                      ./Drivers/USB/Class/Host/CDC.c              \
                      ./Drivers/USB/Class/Host/HID.c              \
                      ./Drivers/USB/Class/Host/HIDParser.c        \
-                     ./Drivers/USB/Class/Host/MIDI.c             \
                      ./Drivers/USB/Class/Host/MassStorage.c      \
                      ./Drivers/USB/Class/Host/StillImage.c       \
                      ./Drivers/Board/Temperature.c               \

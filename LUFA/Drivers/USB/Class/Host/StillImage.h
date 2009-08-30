@@ -117,8 +117,8 @@
 			 *
 			 *  \return A value from the \ref SIHost_EnumerationFailure_ErrorCodes_t enum
 			 */
-			uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t ConfigDescriptorSize,
-                                           uint8_t* ConfigDescriptorData) ATTR_NON_NULL_PTR_ARG(1, 3);
+			uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t ConfigDescriptorLength,
+                                           uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 							  
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
