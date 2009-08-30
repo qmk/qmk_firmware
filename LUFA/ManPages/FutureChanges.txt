@@ -13,11 +13,7 @@
   *
   *  <b>Targeted for This Release:</b>
   *  - Finish Host Mode Class Drivers
-  *      ( ) Audio
-  *      (C) CDC
   *      (S) HID
-  *      ( ) MIDI
-  *      (C) Mass Storage
   *      ( ) Still Image
   *  - Add overviews of each of the officially supported boards to the manual
   *  - Re-add in flip, flip-ee, dfu and dfu-ee targets to project makefiles
