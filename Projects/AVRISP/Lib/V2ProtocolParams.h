@@ -42,6 +42,10 @@
 
 		#include <LUFA/Version.h>
 
+		#if defined(ADC)
+			#include <LUFA/Drivers/Peripheral/ADC.h>
+		#endif
+		
 		#include "V2Protocol.h"
 		#include "V2ProtocolConstants.h"
 
@@ -62,7 +66,8 @@
 		} ParameterItem_t;
 
 	/* Function Prototypes: */
-		void    V2Params_LoadEEPROMParamValues(void);
+		void    V2Params_LoadNonVolatileParamValues(void);
+		void    V2Params_UpdateParamValues(void);
 	
 		uint8_t V2Params_GetParameterPrivellages(uint8_t ParamID);
 		uint8_t V2Params_GetParameterValue(uint8_t ParamID);

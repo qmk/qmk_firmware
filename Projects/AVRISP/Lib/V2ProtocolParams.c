@@ -85,10 +85,23 @@ static ParameterItem_t ParameterTable[] =
 
 
 /** Loads saved non-volatile parameter values from the EEPROM into the parameter table, as needed. */
-void V2Params_LoadEEPROMParamValues(void)
+void V2Params_LoadNonVolatileParamValues(void)
 {
-	/* Target RESET line polarity is a non-volatile value, retrieve current parameter value from EEPROM */
+	/* Target RESET line polarity is a non-volatile value, retrieve current parameter value from EEPROM -
+	 *   NB: Cannot call V2Protocol_SetParameterValue() here, as that will cause another EEPROM write!
+	 */
 	V2Params_GetParamFromTable(PARAM_RESET_POLARITY)->ParamValue = eeprom_read_byte(&EEPROM_Rest_Polarity);
+}
+
+/** Updates any parameter values that are sourced from hardware rather than explicitly set by the host, such as
+ *  VTARGET levels from the ADC on supported AVR models.
+ */
+void V2Params_UpdateParamValues(void)
+{
+	#if defined(ADC)
+	/* Update VTARGET parameter with the latest ADC conversion of VTARGET on supported AVR models */
+	V2Params_GetParamFromTable(PARAM_VTARGET)->ParamValue = ((5 * 10 * ADC_GetResult()) / 1024);
+	#endif
 }
 
 /** Retrieves the host PC read/write privellages for a given parameter in the parameter table. This should

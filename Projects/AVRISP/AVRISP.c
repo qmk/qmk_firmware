@@ -46,7 +46,7 @@ int main(void)
 {
 	SetupHardware();
 
-	V2Params_LoadEEPROMParamValues();
+	V2Params_LoadNonVolatileParamValues();
 	
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
@@ -54,11 +54,8 @@ int main(void)
 	{
 		Process_AVRISP_Commands();
 		
-		#if defined(ADC)
-		/* Update VTARGET parameter with the latest ADC conversion of VTARGET on supported AVR models */
-		V2Params_SetParameterValue(PARAM_VTARGET, ((5 * 10 * ADC_GetResult()) / 1024));
-		#endif
-
+		V2Params_UpdateParamValues();
+		
 		USB_USBTask();
 	}
 }
