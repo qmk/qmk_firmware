@@ -145,7 +145,6 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/MIDI.c           \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/MIDI.c             \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
