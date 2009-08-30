@@ -82,7 +82,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	{
 		/* Fetch the next endpoint from the current Still Image interface */
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-		                              DComp_NextSImageInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DComp_NextStillImageInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			/* Descriptor not found, error out */
 			return NoEndpointFound;
@@ -170,7 +170,7 @@ uint8_t DComp_NextStillImageInterface(void* CurrentDescriptor)
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-uint8_t DComp_NextSImageInterfaceDataEndpoint(void* CurrentDescriptor)
+uint8_t DComp_NextStillImageInterfaceDataEndpoint(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

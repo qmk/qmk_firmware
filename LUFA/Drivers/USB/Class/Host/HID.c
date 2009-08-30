@@ -71,7 +71,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint
 	while (FoundEndpoints != (HID_FOUND_DATAPIPE_IN | HID_FOUND_DATAPIPE_OUT))
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-		                              DComp_HID_Host_NextInterfaceHIDDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DComp_HID_Host_NextHIDInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			if (FoundEndpoints == (1 << HID_FOUND_DATAPIPE_IN))
 			  break;
@@ -117,7 +117,7 @@ static uint8_t DComp_HID_Host_NextHIDInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_HID_Host_NextInterfaceHIDDataEndpoint(void* CurrentDescriptor)
+static uint8_t DComp_HID_Host_NextHIDInterfaceEndpoint(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

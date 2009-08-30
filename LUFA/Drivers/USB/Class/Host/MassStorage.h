@@ -322,8 +322,8 @@
 			
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_MS_CLASS_HOST_C)		
-				static uint8_t DComp_NextMassStorageInterface(void* CurrentDescriptor);
-				static uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor);
+				static uint8_t DComp_NextMSInterface(void* CurrentDescriptor);
+				static uint8_t DComp_NextMSInterfaceEndpoint(void* CurrentDescriptor);
 				
 				static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
 				                                   MS_CommandBlockWrapper_t* SCSICommandBlock,

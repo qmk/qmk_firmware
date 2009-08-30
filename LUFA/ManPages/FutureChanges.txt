@@ -12,7 +12,7 @@
   *  or post your suggestion as an enhancement request to the project bug tracker.
   *
   *  <b>Targeted for This Release:</b>
-  *  - Finish Host Mode Class Drivers
+  *  - Finish Host Mode Class Drivers, re-enable in makefile, add demo summaries
   *      (S) HID
   *      ( ) Still Image
   *  - Add overviews of each of the officially supported boards to the manual

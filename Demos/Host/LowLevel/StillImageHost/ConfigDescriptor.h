@@ -70,6 +70,6 @@
 		uint8_t ProcessConfigurationDescriptor(void);
 
 		uint8_t DComp_NextStillImageInterface(void* CurrentDescriptor);
-		uint8_t DComp_NextSImageInterfaceDataEndpoint(void* CurrentDescriptor);
+		uint8_t DComp_NextStillImageInterfaceDataEndpoint(void* CurrentDescriptor);
 
 #endif

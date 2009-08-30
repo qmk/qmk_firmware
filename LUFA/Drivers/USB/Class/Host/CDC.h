@@ -79,7 +79,7 @@
 				
 					uint16_t DataINPipeSize; /**< Size in bytes of the CDC interface's IN data pipe */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the CDC interface's OUT data pipe */
-					uint16_t NotificationPipeSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
+					uint16_t NotificationPipeSize;  /**< Size in bytes of the CDC interface's IN notification pipe, if used */
 
 					struct
 					{
@@ -136,7 +136,7 @@
 			 *  \param[in] ConfigDescriptorLength  Length of the attached device's Configuration Descriptor
 			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
 			 *
-			 *  \return A value from the \ref HIDHost_EnumerationFailure_ErrorCodes_t enum
+			 *  \return A value from the \ref CDCHost_EnumerationFailure_ErrorCodes_t enum
 			 */
 			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t ConfigDescriptorLength,
 			                                uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
@@ -214,7 +214,7 @@
 			
 			#define CDC_FOUND_DATAPIPE_IN           (1 << 0)
 			#define CDC_FOUND_DATAPIPE_OUT          (1 << 1)
-			#define CDC_FOUND_DATAPIPE_NOTIFICATION (1 << 2)
+			#define CDC_FOUND_NOTIFICATION_IN       (1 << 2)
 
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_CDC_CLASS_HOST_C)
@@ -223,7 +223,7 @@
 				                                           ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Host_Event_Stub);
 				static uint8_t DComp_CDC_Host_NextCDCControlInterface(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor);
+				static uint8_t DComp_CDC_Host_NextCDCInterfaceEndpoint(void* CurrentDescriptor);
 			#endif	
 	#endif
 				

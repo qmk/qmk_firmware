@@ -22,8 +22,12 @@ all:
 
 	make -C MassStorageHost clean
 	make -C MassStorageHost all
+
+	make -C StillImageHost clean
+	make -C StillImageHost all
 	
 %:
 	make -C CDCHost $@
 	make -C MouseHost $@
 	make -C MassStorageHost $@
+	make -C StillImageHost $@

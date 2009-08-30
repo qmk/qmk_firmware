@@ -57,12 +57,12 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint
 	                     DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).bInterfaceNumber;
 #endif
 
-	while (FoundEndpoints != (CDC_FOUND_DATAPIPE_IN | CDC_FOUND_DATAPIPE_OUT | CDC_FOUND_DATAPIPE_NOTIFICATION))
+	while (FoundEndpoints != (CDC_FOUND_NOTIFICATION_IN | CDC_FOUND_DATAPIPE_IN | CDC_FOUND_DATAPIPE_OUT))
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-		                              DComp_CDC_Host_NextInterfaceCDCDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DComp_CDC_Host_NextCDCInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			if (FoundEndpoints & CDC_FOUND_DATAPIPE_NOTIFICATION)
+			if (FoundEndpoints & CDC_FOUND_NOTIFICATION_IN)
 			{
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, 
 				                              DComp_CDC_Host_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
@@ -89,7 +89,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint
 			}
 
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-			                              DComp_CDC_Host_NextInterfaceCDCDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+			                              DComp_CDC_Host_NextCDCInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return CDC_ENUMERROR_EndpointsNotFound;
 			}
@@ -107,7 +107,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint
 
 				Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
 				
-				FoundEndpoints |= CDC_FOUND_DATAPIPE_NOTIFICATION;
+				FoundEndpoints |= CDC_FOUND_NOTIFICATION_IN;
 			}
 		}
 		else
@@ -171,7 +171,7 @@ static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_CDC_Host_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor)
+static uint8_t DComp_CDC_Host_NextCDCInterfaceEndpoint(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

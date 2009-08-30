@@ -14,5 +14,5 @@
 # code.
 
 %:
-	@echo TODO: Re-enable building of Host mode Class Driver demos once complete
+	make -C ClassDriver/ $@
 	make -C LowLevel/ $@

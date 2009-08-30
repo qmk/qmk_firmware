@@ -45,7 +45,7 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint16_
 	  return MS_ENUMERROR_InvalidConfigDescriptor;
 	
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorLength, &DeviceConfigDescriptor,
-	                              DComp_NextMassStorageInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DComp_NextMSInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		return MS_ENUMERROR_NoMSInterfaceFound;
 	}
@@ -60,7 +60,7 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint16_
 	while (FoundEndpoints != (MS_FOUND_DATAPIPE_IN | MS_FOUND_DATAPIPE_OUT))
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorLength, &DeviceConfigDescriptor,
-		                              DComp_NextInterfaceBulkDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DComp_NextMSInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			return MS_ENUMERROR_EndpointsNotFound;
 		}
@@ -91,7 +91,7 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint16_
 	return MS_ENUMERROR_NoError;
 }
 
-static uint8_t DComp_NextMassStorageInterface(void* CurrentDescriptor)
+static uint8_t DComp_NextMSInterface(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -106,7 +106,7 @@ static uint8_t DComp_NextMassStorageInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor)
+static uint8_t DComp_NextMSInterfaceEndpoint(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
