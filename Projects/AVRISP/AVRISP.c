@@ -35,7 +35,7 @@
  */
 
 // TODO: Add in software SPI for lower programming speeds below 125KHz
-// TODO: Add reversed target connector checks
+// TODO: Add reversed/shorted target connector checks
 
 #include "AVRISP.h"
 
