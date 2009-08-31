@@ -118,6 +118,11 @@ void CDC_Device_USBTask(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo)
 	if ((USB_DeviceState != DEVICE_STATE_Configured) || !(CDCInterfaceInfo->State.LineEncoding.BaudRateBPS))
 	  return;
 
+	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataOUTEndpointNumber);
+
+	if (Endpoint_IsOUTReceived() && !(Endpoint_BytesInEndpoint()))
+	  Endpoint_ClearOUT();
+	  
 	CDC_Device_Flush(CDCInterfaceInfo);
 }
 
