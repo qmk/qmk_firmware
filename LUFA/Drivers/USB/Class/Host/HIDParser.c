@@ -51,9 +51,10 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 
 	while (ReportSize)
 	{
-		uint8_t  HIDReportItem  = *(ReportData++);
+		uint8_t  HIDReportItem  = *ReportData;
 		uint32_t ReportItemData = 0;
 		
+		ReportData++;
 		ReportSize--;
 		
 		switch (HIDReportItem & DATA_SIZE_MASK)

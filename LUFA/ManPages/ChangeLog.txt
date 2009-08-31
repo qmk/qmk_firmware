@@ -16,14 +16,14 @@
   *  - Added new Endpoint_SetEndpointDirection() macro for bi-directional endpoints
   *  - Added new AVRISP project, a LUFA powered clone of the Atmel AVRISP-MKII programmer
   *  - Added ShutDown() functions for all hardware peripheral drivers, so that peripherals can be turned off after use
+  *  - Added new CDC_Device_Flush() command to the device mode CDC Class driver to flush Device->Host data
+  *  - Added extra masks to the SPI driver, changed SPI_Init() so that the clock polarity and sample modes can be set
   *  
   *  <b>Changed:</b>
   *  - SetIdle requests to the HID device driver with a 0 idle period (send changes only) now only affect the requested
   *    HID interface within the device, not all HID interfaces
-  *  - Added new CDC_Device_Flush() command to the device mode CDC Class driver
   *  - Added explicit attribute masks to the device mode demos' descriptors
   *  - Added return values to the CDC and MIDI class driver transmit functions
-  *  - Added extra masks to the SPI driver, changed SPI_Init() so that the clock polarity and sample modes can be set
   *  - Optimized Endpoint_Read_Word_* and Pipe_Read_Word_* macros to reduce compiled size
   *  - Added non-null function parameter pointer restrictions to USB Class drivers to improve user code reliability
   *  - Added new "Common" section to the class drivers, to hold all mode-independant definitions for clarity

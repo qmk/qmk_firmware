@@ -12,7 +12,7 @@
   *  or post your suggestion as an enhancement request to the project bug tracker.
   *
   *  <b>Targeted for This Release:</b>
-  *  - Finish HID and Still Image Host Mode Class Drivers, add demo summaries, add return codes to all relevant functions
+  *  - Finish HID and Still Image Host Mode Class Drivers, add demo summaries
   *  - Add overviews of each of the officially supported boards to the manual
   *  - Re-add in flip, flip-ee, dfu and dfu-ee targets to project makefiles
   *  - Add in new invalid event hook check targets to project makefiles

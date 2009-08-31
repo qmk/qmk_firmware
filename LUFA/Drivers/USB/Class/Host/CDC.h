@@ -163,16 +163,20 @@
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *  \param[in] Data  Pointer to the string to send to the device
 			 *  \param[in] Length  Size in bytes of the string to send to the device
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
-			void CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Data, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1, 2);
+			uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Data, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1, 2);
 			
 			/** Sends a given byte to the attached USB device, if connected. If a host is not connected when the function is called, the
 			 *  byte is discarded.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *  \param[in] Data  Byte of data to send to the device
+			 *
+			 *  \return A value from the \ref Pipe_WaitUntilReady_ErrorCodes_t enum
 			 */
-			void CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Determines the number of bytes received by the CDC interface from the device, waiting to be read.
 			 *

@@ -256,21 +256,27 @@ uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* CDCInterfa
 	return USB_Host_SendControlRequest(NULL);
 }
 
-void CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Data, uint16_t Length)
+uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Data, uint16_t Length)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.Active))
 	  return;
+
+	uint8_t ErrorCode;
 
 	Pipe_SelectPipe(CDCInterfaceInfo->Config.DataOUTPipeNumber);	
 	Pipe_Unfreeze();
-	Pipe_Write_Stream_LE(Data, Length, NO_STREAM_CALLBACK);	
+	ErrorCode = Pipe_Write_Stream_LE(Data, Length, NO_STREAM_CALLBACK);
 	Pipe_Freeze();
+	
+	return ErrorCode;
 }
 
-void CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data)
+uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.Active))
 	  return;
+	  
+	uint8_t ErrorCode = PIPE_READYWAIT_NoError;
 
 	Pipe_SelectPipe(CDCInterfaceInfo->Config.DataOUTPipeNumber);	
 	Pipe_Unfreeze();
@@ -278,11 +284,13 @@ void CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data)
 	if (!(Pipe_IsReadWriteAllowed()))
 	{
 		Pipe_ClearOUT();
-		Pipe_WaitUntilReady();
+		ErrorCode = Pipe_WaitUntilReady();
 	}
 
 	Pipe_Write_Byte(Data);	
 	Pipe_Freeze();
+	
+	return ErrorCode;
 }
 
 uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)

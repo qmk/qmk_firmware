@@ -79,11 +79,11 @@
 		#if !defined(HID_STATETABLE_STACK_DEPTH) || defined(__DOXYGEN__)
 			/** Constant indicating the maximum stack depth of the state table. A larger state table
 			 *  allows for more PUSH/POP report items to be nested, but consumes more memory. By default
-			 *  this is set to 3 levels (allowing for two PUSHes to be nested) but this can be overridden by
+			 *  this is set to 2 levels (allowing non-nested PUSH items) but this can be overridden by
 			 *  defining HID_STATETABLE_STACK_DEPTH to another value in the user project makefile, passing the
 			 *  define to the compiler using the -D compiler switch.
 			 */
-			#define HID_STATETABLE_STACK_DEPTH    3
+			#define HID_STATETABLE_STACK_DEPTH    2
 		#endif
 		
 		#if !defined(HID_USAGE_STACK_DEPTH) || defined(__DOXYGEN__)
@@ -134,7 +134,7 @@
 				HID_PARSE_HIDStackOverflow            = 1, /**< More than \ref HID_STATETABLE_STACK_DEPTH nested PUSHes in the report. */ 
 				HID_PARSE_HIDStackUnderflow           = 2, /**< A POP was found when the state table stack was empty. */
 				HID_PARSE_InsufficientReportItems     = 3, /**< More than \ref HID_MAX_REPORTITEMS report items in the report. */
-				HID_PARSE_UnexpectedEndCollection     = 4, /**< END COLLECTION found without matching COLLECTION item. */
+				HID_PARSE_UnexpectedEndCollection     = 4, /**< An END COLLECTION item found without matching COLLECTION item. */
 				HID_PARSE_InsufficientCollectionPaths = 5, /**< More than \ref HID_MAX_COLLECTIONS collections in the report. */
 				HID_PARSE_UsageStackOverflow          = 6, /**< More than \ref HID_USAGE_STACK_DEPTH usages listed in a row. */
 			};
