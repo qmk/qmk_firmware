@@ -31,9 +31,11 @@
 #include "ConfigDescriptor.h"
 
 #if defined(USB_CAN_BE_HOST)
-uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr, void* BufferPtr)
+uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr,
+                                      void* BufferPtr, uint16_t BufferSize)
 {
 	uint8_t ErrorCode;
+	uint8_t ConfigHeader[sizeof(USB_Descriptor_Configuration_Header_t)];
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -46,26 +48,27 @@ uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const Conf
 	
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
-	if (BufferPtr == NULL)
-	{
-		uint8_t ConfigHeader[sizeof(USB_Descriptor_Configuration_Header_t)];
+	if ((ErrorCode = USB_Host_SendControlRequest(ConfigHeader)) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
 
-		ErrorCode      = USB_Host_SendControlRequest(ConfigHeader);
+	#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
+	*ConfigSizePtr = DESCRIPTOR_CAST(ConfigHeader, USB_Descriptor_Configuration_Header_t).TotalConfigurationSize;
+	#else
+	*ConfigSizePtr = DESCRIPTOR_CAST(ConfigHeader, USB_Descriptor_Configuration_Header_t).wTotalLength;		
+	#endif
 
-		#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
-		*ConfigSizePtr = DESCRIPTOR_CAST(ConfigHeader, USB_Descriptor_Configuration_Header_t).TotalConfigurationSize;
-		#else
-		*ConfigSizePtr = DESCRIPTOR_CAST(ConfigHeader, USB_Descriptor_Configuration_Header_t).wTotalLength;		
-		#endif
-	}
-	else
-	{
-		USB_ControlRequest.wLength = *ConfigSizePtr;
-		
-		ErrorCode      = USB_Host_SendControlRequest(BufferPtr);				
-	}
+	if (*ConfigSizePtr > BufferSize)
+	  return HOST_GETCONFIG_BuffOverflow;
+	  
+	USB_ControlRequest.wLength = *ConfigSizePtr;
+	
+	if ((ErrorCode = USB_Host_SendControlRequest(BufferPtr)) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
 
-	return ErrorCode;
+	if (DESCRIPTOR_TYPE(BufferPtr) != DTYPE_Configuration)
+	  return HOST_GETCONFIG_InvalidData;
+	
+	return HOST_GETCONFIG_Successful;
 }
 #endif
 

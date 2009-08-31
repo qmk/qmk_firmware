@@ -163,6 +163,23 @@
 			uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine);
 			
 		/* Enums: */
+			enum USB_Host_GetConfigDescriptor_ErrorCodes_t
+			{
+				HOST_GETCONFIG_Successful       = 0, /**< No error occurred while retrieving the configuration descriptor */
+				HOST_GETCONFIG_DeviceDisconnect = 1, /**< The attached device was disconnected while retrieving the configuration
+				                                        * descriptor
+				                                        */
+				HOST_GETCONFIG_PipeError        = 2, /**< An error occurred in the pipe while sending the request */
+				HOST_GETCONFIG_SetupStalled     = 3, /**< The attached device stalled the request to retrieve the configuration
+				                                        * descriptor
+				                                        */
+				HOST_GETCONFIG_SoftwareTimeOut  = 4, /**< The request or data transfer timed out */
+				HOST_GETCONFIG_BuffOverflow     = 5, /**< The device's configuration descriptor is too large to fit into the allocated
+				                                        * buffer
+				                                        */
+				HOST_GETCONFIG_InvalidData      = 6, /**< The device returned invalid configuration descriptor data */
+			};
+		
 			/** Enum for return values of a descriptor comparator function. */
 			enum DSearch_Return_ErrorCodes_t
 			{
@@ -181,22 +198,19 @@
 			};
 	
 		/* Function Prototypes: */
-			/** Retrieves the configuration descriptor data or size from an attached device via a standard request.
+			/** Retrieves the configuration descriptor data from an attached device via a standard request into a buffer,
+			 *  including validity and size checking to prevent a buffer overflow.
 			 *
 			 *  \param[in] ConfigNumber  Device configuration descriptor number to fetch from the device (usually set to 1 for
 			 *                           single configuration devices)
+			 *  \param[in,out] ConfigSizePtr  Pointer to a uint16_t for storing the retrieved configuration descriptor size
+			 *  \param[out] BufferPtr  Pointer to the buffer for storing the configuration descriptor data.
+			 *  \param[out] BufferSize  Size of the allocated buffer where the configuration descriptor is to be stored
 			 *
-			 *  \param[in,out] ConfigSizePtr  Pointer to a uint16_t for either storing or retrieving the configuration
-			 *                                descriptor size
-			 *
-			 *  \param[out] BufferPtr  Pointer to the buffer for storing the configuration descriptor data. If this is
-			 *                         NULL, the size of the configuration descriptor will be retrieved instead and
-			 *                         placed in the variable pointed to by ConfigSizePtr. If this is non-NULL, the number
-			 *                         of bytes indicated by ConfigSizePtr of the configuration descriptor will be loaded
-			 *                         into the buffer
+			 *  \return A value from the \ref USB_Host_GetConfigDescriptor_ErrorCodes_t enum
 			 */
-			uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr, void* BufferPtr)
-			                                      ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr, void* BufferPtr,
+			                                      uint16_t BufferSize) ATTR_NON_NULL_PTR_ARG(2, 3);
 
 			/** Skips to the next sub-descriptor inside the configuration descriptor of the specified type value.
 			 *  The bytes remaining value is automatically decremented.

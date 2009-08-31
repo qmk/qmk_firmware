@@ -29,6 +29,8 @@
   *  - Added new "Common" section to the class drivers, to hold all mode-independant definitions for clarity
   *  - Moved SCSI command/sense constants into the Mass Storage Class driver, instead of the user-code
   *  - Altered the SCSI commands in the LowLevel Mass Storage Host to save on FLASH space by reducing function calls
+  *  - Changed the parameters and behaviour of the USB_GetDeviceConfigDescriptor() function so that it now performs size checks
+  *    and data validations internally, to simplify user code
   *
   *  <b>Fixed:</b>
   *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the

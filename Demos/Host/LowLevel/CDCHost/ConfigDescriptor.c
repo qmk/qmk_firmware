@@ -47,30 +47,26 @@
  */
 uint8_t ProcessConfigurationDescriptor(void)
 {
-	uint8_t* ConfigDescriptorData;
-	uint16_t ConfigDescriptorSize;
+	uint8_t  ConfigDescriptorData[512];
+	uint8_t* CurrConfigLocation = ConfigDescriptorData;
+	uint16_t CurrConfigBytesRem;
 	uint8_t  FoundEndpoints = 0;
-	
-	/* Get Configuration Descriptor size from the device */
-	if (USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful)
-	  return ControlError;
-	
-	/* Ensure that the Configuration Descriptor isn't too large */
-	if (ConfigDescriptorSize > MAX_CONFIG_DESCRIPTOR_SIZE)
-	  return DescriptorTooLarge;
-	  
-	/* Allocate enough memory for the entire config descriptor */
-	ConfigDescriptorData = alloca(ConfigDescriptorSize);
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
-	USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData);
-	
-	/* Validate returned data - ensure first entry is a configuration header descriptor */
-	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
-	  return InvalidConfigDataReturned;
+	switch (USB_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
+	{
+		case HOST_GETCONFIG_Successful:
+			break;
+		case HOST_GETCONFIG_InvalidData:
+			return InvalidConfigDataReturned;
+		case HOST_GETCONFIG_BuffOverflow:
+			return DescriptorTooLarge;
+		default:
+			return ControlError;
+	}
 	
 	/* Get the CDC control interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 	                              DComp_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
@@ -81,14 +77,14 @@ uint8_t ProcessConfigurationDescriptor(void)
 	while (FoundEndpoints != ((1 << CDC_NOTIFICATIONPIPE) | (1 << CDC_DATAPIPE_IN) | (1 << CDC_DATAPIPE_OUT)))
 	{
 		/* Fetch the next bulk or interrupt endpoint from the current CDC interface */
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextInterfaceCDCDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			/* Check to see if the control interface's notification pipe has been found, if so search for the data interface */
 			if (FoundEndpoints & (1 << CDC_NOTIFICATIONPIPE))
 			{
 				/* Get the next CDC data interface from the configuration descriptor (CDC class has two CDC interfaces) */
-				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, 
+				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation, 
 				                              DComp_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					/* Descriptor not found, error out */
@@ -109,7 +105,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 				Pipe_DisablePipe();
 			
 				/* Get the next CDC control interface from the configuration descriptor (CDC class has two CDC interfaces) */
-				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 				                              DComp_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					/* Descriptor not found, error out */
@@ -118,7 +114,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			}
 
 			/* Fetch the next bulk or interrupt endpoint from the current CDC interface */
-			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 			                              DComp_NextInterfaceCDCDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				/* Descriptor not found, error out */

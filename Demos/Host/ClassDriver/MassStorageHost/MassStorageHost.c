@@ -71,9 +71,8 @@ int main(void)
 				uint16_t ConfigDescriptorSize;
 				uint8_t  ConfigDescriptorData[512];
 
-				if ((USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, NULL) != HOST_SENDCONTROL_Successful) ||
-				    (ConfigDescriptorSize > sizeof(ConfigDescriptorData)) ||
-					(USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData)))
+				if (USB_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
+				                                  sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
 				{
 					printf("Error Retrieving Configuration Descriptor.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);

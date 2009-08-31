@@ -19,6 +19,12 @@
  *    - The SPI_Init() routine's parameters have changed, so that the clock polarity and data sampling modes can be set. See
  *      the SPI_Init() function documentation for more details
  *
+ *  <b>Host Mode</b>
+ *    - The \ref USB_GetDeviceConfigDescriptor() function's parameters and behaviour has changed; the user is required to
+ *      preallocate the largest allowable buffer, and pass the size of the buffer to the function. This allows for a single
+ *      call to the function to retrieve, size check and validate the Configuration Descriptor rather than having the user
+ *      application perform these intermediatary steps.
+ *
  * \section Sec_Migration090810 Migrating from 090605 to 090810
  *
  *  <b>All</b>

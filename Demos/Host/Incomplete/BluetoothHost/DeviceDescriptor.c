@@ -41,7 +41,8 @@ uint8_t ProcessDeviceDescriptor(void)
 	/* Validate returned data - ensure the returned data is a device descriptor */
 	if (DeviceDescriptor.Header.Type != DTYPE_Device)
 	  return InvalidDeviceDataReturned;
-	  
+	
+	/* Validate returned device Class, SubClass and Protocol values against the Bluetooth spec values */
 	if ((DeviceDescriptor.Class    != BLUETOOTH_DEVICE_CLASS)    ||
 	    (DeviceDescriptor.SubClass != BLUETOOTH_DEVICE_SUBCLASS) ||
 	    (DeviceDescriptor.Protocol != BLUETOOTH_DEVICE_PROTOCOL))
