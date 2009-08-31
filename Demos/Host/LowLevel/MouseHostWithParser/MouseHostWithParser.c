@@ -166,7 +166,7 @@ void Mouse_HID_Task(void)
 				break;
 			}
 			
-			puts_P(PSTR("Processing HID Report.\r\n"));
+			printf_P(PSTR("Processing HID Report (Size %d Bytes).\r\n"), HIDReportSize);
 
 			/* Get and process the device's first HID report descriptor */
 			if ((ErrorCode = GetHIDReportData()) != ParseSuccessful)
@@ -179,7 +179,7 @@ void Mouse_HID_Task(void)
 				
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;			
+				break;
 			}
 
 			puts_P(PSTR("Mouse Enumerated.\r\n"));

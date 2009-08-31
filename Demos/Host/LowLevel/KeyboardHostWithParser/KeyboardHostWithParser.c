@@ -166,8 +166,8 @@ void Keyboard_HID_Task(void)
 				break;
 			}
 				
-			puts_P(PSTR("Processing HID Report.\r\n"));
-
+			printf_P(PSTR("Processing HID Report (Size %d Bytes).\r\n"), HIDReportSize);
+						
 			/* Get and process the device's first HID report descriptor */
 			if ((ErrorCode = GetHIDReportData()) != ParseSuccessful)
 			{

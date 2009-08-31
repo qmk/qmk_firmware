@@ -84,7 +84,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return NoEndpointFound;
 		}
 		
-		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
+		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
 		/* Check if the endpoint is a bulk IN or bulk OUT endpoint, set appropriate globals */
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)

@@ -81,7 +81,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	}
 
 	/* Save the HID report size for later use */
-	HIDReportSize = DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_HID_t).HIDReportLength;
+	HIDReportSize = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_HID_t).HIDReportLength;
 
 	/* Get the keyboard interface's data endpoint descriptor */
 	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
@@ -92,7 +92,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	}
 	
 	/* Retrieve the endpoint address from the endpoint descriptor */
-	USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
+	USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
 	/* Configure the keyboard data pipe */
 	Pipe_ConfigurePipe(KEYBOARD_DATAPIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,

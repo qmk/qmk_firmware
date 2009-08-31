@@ -61,8 +61,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 		return NoInterfaceFound;
 	}
 	
-	PrinterInterfaceNumber = DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).InterfaceNumber;
-	PrinterAltSetting      = DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).AlternateSetting;
+	PrinterInterfaceNumber = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_Interface_t).InterfaceNumber;
+	PrinterAltSetting      = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_Interface_t).AlternateSetting;
 
 	/* Get the IN and OUT data endpoints for the printer interface */
 	while (FoundEndpoints != ((1 << PRINTER_DATA_OUT_PIPE) | (1 << PRINTER_DATA_IN_PIPE)))
@@ -74,7 +74,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return NoEndpointFound;
 		}
 		
-		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
+		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
 		/* Check if the endpoint is a bulk IN or bulk OUT endpoint, set appropriate globals */
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
