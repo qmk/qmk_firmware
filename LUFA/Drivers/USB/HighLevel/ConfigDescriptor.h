@@ -153,7 +153,7 @@
 			 *
 			 *  //...
 			 *  // After retrieving configuration descriptor:
-			 *  if (USB_Host_GetNextDescriptorComp(&BytesRemaining, &ConfigDescriptorData, EndpointSearcher) ==
+			 *  if (USB_Host_GetNextDescriptorComp(&BytesRemaining, &CurrentConfigLoc, EndpointSearcher) ==
 			 *      Descriptor_Search_Comp_Found)
 			 *  {
 			 *      // Do something with the endpoint descriptor

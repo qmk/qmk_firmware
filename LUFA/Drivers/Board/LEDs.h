@@ -71,7 +71,6 @@
 	/* Macros: */
 	#if !defined(__DOXYGEN__)
 		#define INCLUDE_FROM_LEDS_H
-		#define INCLUDE_FROM_BOARD_DRIVER
 	#endif
 	
 	/* Includes: */
