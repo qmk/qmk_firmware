@@ -138,6 +138,8 @@
 			#define SI_FOUND_DATAPIPE_IN           (1 << 1)
 			#define SI_FOUND_DATAPIPE_OUT          (1 << 2)
 
+			#define COMMAND_DATA_TIMEOUT_MS        5000
+		
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_SI_CLASS_HOST_C)
 				static uint8_t DComp_SI_Host_NextSIInterface(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);

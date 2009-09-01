@@ -222,6 +222,8 @@ uint8_t SImage_Host_RecieveBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
 		  Pipe_Read_Stream_LE(&PIMAHeader->Params, ParamBytes, NO_STREAM_CALLBACK);
 		
 		Pipe_ClearIN();
+		
+		PIMAHeader->Code &= 0x0000000F;
 	}
 	
 	Pipe_Freeze();
