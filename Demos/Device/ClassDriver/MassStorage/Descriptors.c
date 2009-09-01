@@ -37,6 +37,18 @@
 
 #include "Descriptors.h"
 
+/* On some devices, there is a factory set internal serial number which can be automatically sent to the host as
+ * the device's serial number when the Device Descriptor's .SerialNumStrIndex entry is set to USE_INTERNAL_SERIAL.
+ * This allows the host to track a device across insertions on different ports, allowing them to retain allocated
+ * resources like COM port numbers and drivers. On demos using this feature, give a warning on unsupported devices
+ * so that the user can supply their own serial number descriptor instead or remove the USE_INTERNAL_SERIAL value
+ * from the Device Descriptor (forcing the host to generate a serial number for each device from the VID, PID and
+ * port location).
+ */
+#if (USE_INTERNAL_SERIAL == NO_DESCRIPTOR)
+	#warning USE_INTERNAL_SERIAL is not available on this AVR - please manually construct a device serial descriptor.
+#endif
+
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
  *  device characteristics, including the supported USB version, control endpoint size and the
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration

@@ -41,10 +41,6 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/CDC.h>
-		
-		#if (USE_INTERNAL_SERIAL == NO_DESCRIPTOR)
-			#warning USE_INTERNAL_SERIAL is not available on this AVR - please manually construct a device serial descriptor.
-		#endif
 
 	/* Macros: */
 		/** Endpoint number of the CDC device-to-host notification IN endpoint. */

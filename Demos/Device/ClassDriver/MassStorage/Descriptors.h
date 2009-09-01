@@ -42,10 +42,6 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/MassStorage.h>
 
-		#if (USE_INTERNAL_SERIAL == NO_DESCRIPTOR)
-			#warning USE_INTERNAL_SERIAL is not available on this AVR - please manually construct a device serial descriptor.
-		#endif
-
 	/* Macros: */
 		/** Endpoint number of the Mass Storage device-to-host data IN endpoint. */
 		#define MASS_STORAGE_IN_EPNUM          3	

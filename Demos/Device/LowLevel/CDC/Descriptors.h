@@ -40,10 +40,6 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 		#include <avr/pgmspace.h>
-
-		#if (USE_INTERNAL_SERIAL == NO_DESCRIPTOR)
-			#warning USE_INTERNAL_SERIAL is not available on this AVR - please manually construct a device serial descriptor.
-		#endif
 		
 	/* Macros: */
 		/** Macro to define a CDC class-specific functional descriptor. CDC functional descriptors have a
