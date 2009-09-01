@@ -119,6 +119,13 @@
 			 */
 			uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t ConfigDescriptorLength,
                                            uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
+
+			void SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader);
+			uint8_t SImage_Host_RecieveBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader);
+			uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes);
+			uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes);
+			bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
+			uint8_t SImage_Host_RecieveEventHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader);
 							  
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

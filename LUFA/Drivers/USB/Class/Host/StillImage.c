@@ -106,9 +106,12 @@ uint8_t DComp_SI_Host_NextSIInterface(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == STILL_IMAGE_CLASS)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == STILL_IMAGE_SUBCLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == STILL_IMAGE_PROTOCOL))
+		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
+		                                                                USB_Descriptor_Interface_t);
+
+		if ((CurrentInterface->Class    == STILL_IMAGE_CLASS)    &&
+		    (CurrentInterface->SubClass == STILL_IMAGE_SUBCLASS) &&
+		    (CurrentInterface->Protocol == STILL_IMAGE_PROTOCOL))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -143,6 +146,146 @@ uint8_t DComp_SI_Host_NextSIInterfaceEndpoint(void* CurrentDescriptor)
 void SI_Host_USBTask(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
 {
 
+}
+
+void SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader)
+{
+	Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_Unfreeze();
+
+	Pipe_Write_Stream_LE(PIMAHeader, PIMA_COMMAND_SIZE(0), NO_STREAM_CALLBACK);
+	
+	if (PIMAHeader->Type == CType_CommandBlock)
+	{
+		uint8_t ParamBytes = (PIMAHeader->DataLength - PIMA_COMMAND_SIZE(0));
+
+		if (ParamBytes)
+		  Pipe_Write_Stream_LE(&PIMAHeader->Params, ParamBytes, NO_STREAM_CALLBACK);
+		
+		Pipe_ClearOUT();
+	}
+					
+	Pipe_Freeze();
+}
+
+uint8_t SImage_Host_RecieveBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader)
+{
+	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
+
+	Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_Unfreeze();
+	
+	while (!(Pipe_IsReadWriteAllowed()))
+	{
+		if (USB_INT_HasOccurred(USB_INT_HSOFI))
+		{
+			USB_INT_Clear(USB_INT_HSOFI);
+			TimeoutMSRem--;
+
+			if (!(TimeoutMSRem))
+			{
+				return PIPE_RWSTREAM_Timeout;
+			}
+		}
+		
+		Pipe_Freeze();
+		Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipeNumber);
+		Pipe_Unfreeze();
+
+		if (Pipe_IsStalled())
+		{
+			USB_Host_ClearPipeStall(SIInterfaceInfo->Config.DataOUTPipeNumber);
+			return PIPE_RWSTREAM_PipeStalled;
+		}
+
+		Pipe_Freeze();
+		Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipeNumber);
+		Pipe_Unfreeze();
+
+		if (Pipe_IsStalled())
+		{
+			USB_Host_ClearPipeStall(SIInterfaceInfo->Config.DataINPipeNumber);
+			return PIPE_RWSTREAM_PipeStalled;
+		}
+		  
+		if (USB_HostState == HOST_STATE_Unattached)
+		  return PIPE_RWSTREAM_DeviceDisconnected;
+	}
+	
+	Pipe_Read_Stream_LE(PIMAHeader, PIMA_COMMAND_SIZE(0), NO_STREAM_CALLBACK);
+	
+	if (PIMAHeader->Type == CType_ResponseBlock)
+	{
+		uint8_t ParamBytes = (PIMAHeader->DataLength - PIMA_COMMAND_SIZE(0));
+
+		if (ParamBytes)
+		  Pipe_Read_Stream_LE(&PIMAHeader->Params, ParamBytes, NO_STREAM_CALLBACK);
+		
+		Pipe_ClearIN();
+	}
+	
+	Pipe_Freeze();
+	
+	return PIPE_RWSTREAM_NoError;
+}
+
+uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes)
+{
+	uint8_t ErrorCode;
+
+	Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_Unfreeze();
+	
+	ErrorCode = Pipe_Write_Stream_LE(Buffer, Bytes, NO_STREAM_CALLBACK);
+
+	Pipe_ClearOUT();
+	Pipe_Freeze();
+	
+	return ErrorCode;
+}
+
+uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes)
+{
+	uint8_t ErrorCode;
+
+	Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_Unfreeze();
+
+	ErrorCode = Pipe_Read_Stream_LE(Buffer, Bytes, NO_STREAM_CALLBACK);
+
+	Pipe_Freeze();
+	
+	return ErrorCode;
+}
+
+bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
+{
+	bool IsEventReceived = false;
+
+	Pipe_SelectPipe(SIInterfaceInfo->Config.EventsPipeNumber);
+	Pipe_Unfreeze();
+	
+	if (Pipe_BytesInPipe())
+	  IsEventReceived = true;
+	
+	Pipe_Freeze();
+	
+	return IsEventReceived;
+}
+
+uint8_t SImage_Host_RecieveEventHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader)
+{
+	uint8_t ErrorCode;
+
+	Pipe_SelectPipe(SIInterfaceInfo->Config.EventsPipeNumber);
+	Pipe_Unfreeze();
+	
+	ErrorCode = Pipe_Read_Stream_LE(PIMAHeader, sizeof(SI_PIMA_Container_t), NO_STREAM_CALLBACK);
+	
+	Pipe_ClearIN();
+	Pipe_Freeze();
+	
+	return ErrorCode;
 }
 
 #endif

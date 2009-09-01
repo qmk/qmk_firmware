@@ -66,15 +66,15 @@
 		 *
 		 *  \param[in] params  Number of parameters which are to be sent in the Param field of the container
 		 */
-		#define PIMA_COMMAND_SIZE(params)      ((sizeof(PIMA_SendBlock) - sizeof(PIMA_SendBlock.Params)) + \
-		                                        (params * sizeof(PIMA_SendBlock.Params[0])))
+		#define PIMA_COMMAND_SIZE(params)      ((sizeof(SI_PIMA_Container_t) - sizeof(((SI_PIMA_Container_t*)NULL)->Params)) + \
+		                                        (params * sizeof(((SI_PIMA_Container_t*)NULL)->Params[0])))
 
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a data container.
 		 *
 		 *  \param[in] datalen  Length in bytes of the data in the container
 		 */
-		#define PIMA_DATA_SIZE(datalen)        ((sizeof(PIMA_SendBlock) - sizeof(PIMA_SendBlock.Params)) + datalen)
+		#define PIMA_DATA_SIZE(datalen)        ((sizeof(SI_PIMA_Container_t) - sizeof(((SI_PIMA_Container_t*)NULL)->Params)) + datalen)
 
 	/* Type defines: */
 		/** Type define for a PIMA container, use to send commands and receive responses to and from an
@@ -101,7 +101,15 @@
 		};	
 		
 	/* Enums: */
-	
+		enum SI_PIMA_ResponseCodes_t
+		{
+			PIMA_RESPONSE_OK                     = 1,
+			PIMA_RESPONSE_GeneralError           = 2,
+			PIMA_RESPONSE_SessionNotOpen         = 3,
+			PIMA_RESPONSE_InvalidTransaction     = 4,
+			PIMA_RESPONSE_OperationNotSupported  = 5,
+			PIMA_RESPONSE_ParameterNotSupported  = 6,
+		};
 	
 	/* Type Defines: */
 	

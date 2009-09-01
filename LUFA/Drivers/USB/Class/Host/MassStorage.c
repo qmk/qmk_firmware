@@ -95,9 +95,12 @@ static uint8_t DComp_NextMSInterface(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == MASS_STORE_CLASS)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == MASS_STORE_SUBCLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == MASS_STORE_PROTOCOL))
+		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
+		                                                                USB_Descriptor_Interface_t);
+
+		if ((CurrentInterface->Class    == MASS_STORE_CLASS)    &&
+		    (CurrentInterface->SubClass == MASS_STORE_SUBCLASS) &&
+		    (CurrentInterface->Protocol == MASS_STORE_PROTOCOL))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
