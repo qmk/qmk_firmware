@@ -46,8 +46,13 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 #endif
 	HID_CollectionPath_t* CurrCollectionPath  = NULL;
 
-	memset(ParserData, 0x00, sizeof(HID_ReportInfo_t));
-	memset(StateTable, 0x00, sizeof(StateTable));
+	ParserData->TotalReportItems     = 0;
+	ParserData->UsingMultipleReports = false;
+	
+	for (uint8_t CurrCollection = 0; CurrCollection < HID_MAX_COLLECTIONS; CurrCollection++)
+	  ParserData->CollectionPaths[CurrCollection].Parent = NULL;
+
+	memset(&StateTable[0], 0x00, sizeof(HID_StateTable_t));
 
 	while (ReportSize)
 	{
