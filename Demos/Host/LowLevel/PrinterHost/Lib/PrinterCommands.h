@@ -58,18 +58,8 @@
 		/** Pipe number of the Printer data OUT pipe */
 		#define PRINTER_DATA_OUT_PIPE        2
 		
-	/* Type Defines: */
-		/** Type define for a Printer Command Data structure, for the encapsulation of raw printer commands to
-		 *  send to an attached printer device.
-		 */
-		typedef struct
-		{
-			char*    Data; /**< Printer commands to send to the attached printer */
-			uint16_t Length; /**< Length in bytes of the commands to send to the attached printer */
-		} Printer_Data_t;
-		
 	/* Function Prototypes: */
-		uint8_t Printer_SendData(Printer_Data_t* PrinterCommands);
+		uint8_t Printer_SendData(void* PrinterCommands, uint16_t CommandSize);
 		uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize);
 		uint8_t Printer_GetPortStatus(uint8_t* PortStatus);
 		uint8_t Printer_SoftReset(void);

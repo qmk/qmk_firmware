@@ -49,6 +49,7 @@
   *  - Fixed Device mode HID Class driver not explicitly initializing the ReportSize parameter to zero before calling callback
   *    routine, so that ignored callbacks don't cause incorrect data to be sent
   *  - Fixed StillImageHost not correctly freezing and unfreezing data pipes while waiting for a response block header
+  *  - Fixed error in PrinterHost preventing the full page data from being sent to the attached device
   *
   *
   *  \section Sec_ChangeLog090810 Version 090810

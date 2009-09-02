@@ -197,10 +197,10 @@ void USB_Printer_Host(void)
 			
 			puts_P(PSTR("Retrieving Device ID...\r\n"));
 		
-			char DeviceIDString[256];
+			char DeviceIDString[300];
 			if ((ErrorCode = Printer_GetDeviceID(DeviceIDString, sizeof(DeviceIDString))) != HOST_SENDCONTROL_Successful)
 			{
-				printf_P(PSTR(ESC_FG_RED "Control Error (Get DeviceID).\r\n"
+				printf_P(PSTR(ESC_FG_RED "Control Error (Get Device ID).\r\n"
 				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 
 				/* Indicate error via status LEDs */
@@ -221,15 +221,12 @@ void USB_Printer_Host(void)
 			/* Indicate device busy via the status LEDs */
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 		
-			Printer_Data_t TestPageData =
-				{
-					"\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X",
-					(sizeof(TestPageData.Data) - 1)
-				};
+			char  TestPageData[]    = "\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X";
+			uint16_t TestPageLength = strlen(TestPageData);
 		
-			printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), TestPageData.Length);
+			printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), TestPageLength);
 
-			if ((ErrorCode = Printer_SendData(&TestPageData)) != PIPE_RWSTREAM_NoError)
+			if ((ErrorCode = Printer_SendData(&TestPageData, TestPageLength)) != PIPE_RWSTREAM_NoError)
 			{
 				printf_P(PSTR(ESC_FG_RED "Error Sending Test Page.\r\n"
 				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
