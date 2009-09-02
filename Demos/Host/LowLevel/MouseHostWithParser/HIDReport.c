@@ -69,3 +69,27 @@ uint8_t GetHIDReportData(void)
 	
 	return ParseSuccessful;
 }
+
+/** Callback for the HID Report Parser. This function is called each time the HID report parser is about to store
+ *  an IN, OUT or FEATURE item into the HIDReportInfo structure. To save on RAM, we are able to filter out items
+ *  we aren't interested in (preventing us from being able to extract them later on, but saving on the RAM they would
+ *  have occupied).
+ *
+ *  \param CurrentItemAttributes  Pointer to the attrbutes of the item the HID report parser is currently working with
+ *
+ *  \return Boolean true if the item should be stored into the HID report structure, false if it should be discarded
+ */
+bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_Attributes_t* CurrentItemAttributes)
+{
+	/* Check the attributes of the current item - see if we are interested in it or not */
+	if ((CurrentItemAttributes->Usage.Page == USAGE_PAGE_BUTTON) ||
+	    (CurrentItemAttributes->Usage.Page == USAGE_PAGE_GENERIC_DCTRL))
+	{
+		/* Only store BUTTON and GENERIC_DESKTOP_CONTROL items into the Processed HID Report structure to save RAM */
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

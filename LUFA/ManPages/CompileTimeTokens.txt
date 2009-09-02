@@ -23,17 +23,6 @@
  *  \section Sec_SummaryUSBClassTokens USB Class Driver Related Tokens
  *  This section describes compile tokens which affect USB class-specific drivers in the LUFA library.
  *
- *  <b>HID_ENABLE_FEATURE_PROCESSING</b> - ( \ref Group_HIDParser ) \n
- *  Define this token to enable the processing of FEATURE HID report items, if any, into the processed HID structure.
- *  By default FEATURE items (which are device features settable by the host but not directly visible by the user) are
- *  skipped when processing a device HID report.
- *
- *  <b>HID_INCLUDE_CONSTANT_DATA_ITEMS</b> - ( \ref Group_HIDParser ) \n
- *  By default, constant data items (usually used as spacers to align separate report items to a byte or word boundary)
- *  in the HID report are skipped during report processing. It is highly unusual for an application to make any use of
- *  constant data items (as they do not carry any useful data and only occupy limited RAM) however if required defining
- *  this switch will put constant data items into the processed HID report structure.
- *
  *  <b>HID_STATETABLE_STACK_DEPTH</b> - ( \ref Group_HIDParser ) \n
  *  HID reports may contain PUSH and POP elements, to store and retrieve the current HID state table onto a stack. This
  *  allows for reports to save the state table before modifying it slightly for a data item, and then restore the previous

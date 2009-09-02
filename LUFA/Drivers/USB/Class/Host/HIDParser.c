@@ -35,16 +35,14 @@
 
 uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID_ReportInfo_t* const ParserData)
 {
-	HID_StateTable_t  StateTable[HID_STATETABLE_STACK_DEPTH];
-	HID_StateTable_t* CurrStateTable          = &StateTable[0];
-	uint16_t          UsageStack[HID_USAGE_STACK_DEPTH];
-	uint8_t           UsageStackSize          = 0;
-	uint16_t          BitOffsetIn             = 0;
-	uint16_t          BitOffsetOut            = 0;
-#if defined(HID_ENABLE_FEATURE_PROCESSING)
-	uint16_t          BitOffsetFeature        = 0;
-#endif
+	HID_StateTable_t      StateTable[HID_STATETABLE_STACK_DEPTH];
+	HID_StateTable_t*     CurrStateTable          = &StateTable[0];
 	HID_CollectionPath_t* CurrCollectionPath  = NULL;
+	uint16_t              UsageStack[HID_USAGE_STACK_DEPTH];
+	uint8_t               UsageStackSize          = 0;
+	uint16_t              BitOffsetIn             = 0;
+	uint16_t              BitOffsetOut            = 0;
+	uint16_t              BitOffsetFeature        = 0;
 
 	ParserData->TotalReportItems     = 0;
 	ParserData->UsingMultipleReports = false;
@@ -131,10 +129,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 				ParserData->UsingMultipleReports = true;
 				BitOffsetIn      = 0;
 				BitOffsetOut     = 0;
-
-				#if defined(HID_ENABLE_FEATURE_PROCESSING)
 				BitOffsetFeature = 0;
-				#endif
 				break;
 			case (TYPE_LOCAL | TAG_LOCAL_USAGE):
 				if (UsageStackSize == HID_USAGE_STACK_DEPTH)
@@ -197,27 +192,22 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 				break;
 			case (TYPE_MAIN | TAG_MAIN_INPUT):
 			case (TYPE_MAIN | TAG_MAIN_OUTPUT):
-#if defined(HID_ENABLE_FEATURE_PROCESSING)
 			case (TYPE_MAIN | TAG_MAIN_FEATURE):
-#endif
 				for (uint8_t ReportItemNum = 0; ReportItemNum < CurrStateTable->ReportCount; ReportItemNum++)
 				{
-					HID_ReportItem_t* CurrReportItem = &ParserData->ReportItems[ParserData->TotalReportItems];
-				
-					if (ParserData->TotalReportItems == HID_MAX_REPORTITEMS)
-					  return HID_PARSE_InsufficientReportItems;
+					HID_ReportItem_t NewReportItem;
 				  
-					memcpy(&CurrReportItem->Attributes,
+					memcpy(&NewReportItem.Attributes,
 					       &CurrStateTable->Attributes,
 					       sizeof(HID_ReportItem_Attributes_t));
 
-					CurrReportItem->ItemFlags      = ReportItemData;
-					CurrReportItem->CollectionPath = CurrCollectionPath;
-					CurrReportItem->ReportID       = CurrStateTable->ReportID;
+					NewReportItem.ItemFlags      = ReportItemData;
+					NewReportItem.CollectionPath = CurrCollectionPath;
+					NewReportItem.ReportID       = CurrStateTable->ReportID;
 
 					if (UsageStackSize)
 					{
-						CurrReportItem->Attributes.Usage.Usage = UsageStack[0];
+						NewReportItem.Attributes.Usage.Usage = UsageStack[0];
 
 						for (uint8_t i = 0; i < UsageStackSize; i++)
 						  UsageStack[i] = UsageStack[i + 1];
@@ -226,42 +216,41 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 					}
 					else
 					{
-						CurrReportItem->Attributes.Usage.Usage = 0;
+						NewReportItem.Attributes.Usage.Usage = 0;
 					}
 											
 					switch (HIDReportItem & TAG_MASK)
 					{
 						case TAG_MAIN_INPUT:
-							CurrReportItem->ItemType  = REPORT_ITEM_TYPE_In;
-							CurrReportItem->BitOffset = BitOffsetIn;
+							NewReportItem.ItemType  = REPORT_ITEM_TYPE_In;
+							NewReportItem.BitOffset = BitOffsetIn;
 								
 							BitOffsetIn += CurrStateTable->Attributes.BitSize;
-							
 							break;
 						case TAG_MAIN_OUTPUT:
-							CurrReportItem->ItemType  = REPORT_ITEM_TYPE_Out;
-							CurrReportItem->BitOffset = BitOffsetOut;
+							NewReportItem.ItemType  = REPORT_ITEM_TYPE_Out;
+							NewReportItem.BitOffset = BitOffsetOut;
 								
 							BitOffsetOut += CurrStateTable->Attributes.BitSize;
-							
 							break;
-#if defined(HID_ENABLE_FEATURE_PROCESSING)
 						case TAG_MAIN_FEATURE:
-							CurrReportItem->ItemType  = REPORT_ITEM_TYPE_Feature;						
-							CurrReportItem->BitOffset = BitOffsetFeature;
+							NewReportItem.ItemType  = REPORT_ITEM_TYPE_Feature;						
+							NewReportItem.BitOffset = BitOffsetFeature;
 								
-							BitOffsetFeature += CurrStateTable->Attributes.BitSize;		
-
+							BitOffsetFeature += CurrStateTable->Attributes.BitSize;
 							break;
-#endif
 					}
+
+					if (!(ReportItemData & IOF_CONSTANT) && CALLBACK_HIDParser_FilterHIDReportItem(&CurrStateTable->Attributes))
+					{					
+						if (ParserData->TotalReportItems == HID_MAX_REPORTITEMS)
+						  return HID_PARSE_InsufficientReportItems;
 					
-#if defined(HID_INCLUDE_CONSTANT_DATA_ITEMS)
-					ParserData->TotalReportItems++;
-#else
-					if (!(ReportItemData & IOF_CONSTANT))
-					  ParserData->TotalReportItems++;
-#endif
+						memcpy(&ParserData->ReportItems[ParserData->TotalReportItems],
+						       &NewReportItem, sizeof(HID_ReportItem_t));
+					
+						ParserData->TotalReportItems++;
+					}
 				}
 				
 				UsageStackSize = 0;

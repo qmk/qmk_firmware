@@ -46,15 +46,10 @@
  *  Functions, macros, variables, enums and types related to the parsing of HID class device report descriptors.
  *
  *  The processed HID report is presented back to the user application as a flat structure containing each report
- *  item's IN, OUT and FEATURE (if desired) items along with each item's attributes.
+ *  item's IN, OUT and FEATURE items along with each item's attributes.
  *
  *  This library portion also allows for easy setting and retrieval of data from a HID report, including devices
  *  with multiple reports on the one HID interface.
- *
- *  By default, FEATURE reports and IN/OUT reports with constant data are ignored in the HID report when processed
- *  to save on memory. This can be overridden by defining the HID_ENABLE_FEATURE_PROCESSING or
- *  HID_INCLUDE_CONSTANT_DATA_ITEMS tokens in the user project makefile, passing them to the compiler via the -D
- *  switch.
  *
  *  @{
  */
@@ -108,13 +103,13 @@
 		#endif
 		
 		#if !defined(HID_MAX_REPORTITEMS) || defined(__DOXYGEN__)
-			/** Constant indicating the maximum number of report items (IN, OUT or FEATURE if enabled) that can be
-			 *  processed in the report item descriptor. A large value allows for more report items to be
-			 *  processed, but consumes more memory. By default this is set to 30 items, but this can be
-			 *  overridden by defining HID_MAX_REPORTITEMS to another value in the user project makefile, passing
-			 *  the define to the compiler using the -D compiler switch.
+			/** Constant indicating the maximum number of report items (IN, OUT or FEATURE) that can be processed 
+			 *  in the report item descriptor and stored in the user HID Report Info structure. A large value allows
+			 *  for more report items to be stored, but consumes more memory. By default this is set to 20 items, 
+			 *  but this can be overridden by defining HID_MAX_REPORTITEMS to another value in the user project
+			 *  makefile, passing the define to the compiler using the -D compiler switch.
 			 */
-			#define HID_MAX_REPORTITEMS           30
+			#define HID_MAX_REPORTITEMS           20
 		#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -250,6 +245,17 @@
 			 */
 			void USB_SetHIDReportItemInfo(uint8_t* ReportData, const HID_ReportItem_t* ReportItem)
 			                              ATTR_NON_NULL_PTR_ARG(1, 2);
+										  
+			/** Callback routine for the HID Report Parser. This callback <b>must</b> be implemented by the user code when
+			 *  the parser is used, to determine what report IN, OUT and FEATURE item's information is stored into the user
+			 *  HID_ReportInfo_t structure. This can be used to filter only those items the application will be using, so that
+			 *  no RAM is wasted storing the attributes for report items which will never be referenced by the application.
+			 *
+			 *  \param CurrentItemAttributes  Pointer to the current report item attributes for user checking
+			 *
+			 *  \return Boolean true if the item should be stored into the HID_ReportInfo_t structure, false if it should be ignored
+			 */
+			bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_Attributes_t* CurrentItemAttributes);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

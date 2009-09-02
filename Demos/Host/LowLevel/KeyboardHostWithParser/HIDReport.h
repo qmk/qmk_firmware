@@ -76,5 +76,7 @@
 
 	/* Function Prototypes: */
 		uint8_t GetHIDReportData(void);
+
+		bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_Attributes_t* CurrentItemAttributes);
 		
 #endif

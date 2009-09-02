@@ -18,6 +18,8 @@
   *  - Added ShutDown() functions for all hardware peripheral drivers, so that peripherals can be turned off after use
   *  - Added new CDC_Device_Flush() command to the device mode CDC Class driver to flush Device->Host data
   *  - Added extra masks to the SPI driver, changed SPI_Init() so that the clock polarity and sample modes can be set
+  *  - Added new callback to the HID report parser, so that the user application can filter only the items it is interested
+  *    in to be stored into the HIDReportInfo structure to save RAM
   *  
   *  <b>Changed:</b>
   *  - SetIdle requests to the HID device driver with a 0 idle period (send changes only) now only affect the requested
@@ -32,6 +34,8 @@
   *  - Changed the parameters and behaviour of the USB_GetDeviceConfigDescriptor() function so that it now performs size checks
   *    and data validations internally, to simplify user code
   *  - Changed HIDParser to only zero out important values in the Parsed HID Report Item Information structure to save cycles
+  *  - The HID report parser now always processed FEATURE items - HID_ENABLE_FEATURE_PROCESSING token now has no effect
+  *  - The HID report parser now always ignores constant-data items, HID_INCLUDE_CONSTANT_DATA_ITEMS token now has no effect
   *
   *  <b>Fixed:</b>
   *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the

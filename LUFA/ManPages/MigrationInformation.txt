@@ -24,6 +24,10 @@
  *      preallocate the largest allowable buffer, and pass the size of the buffer to the function. This allows for a single
  *      call to the function to retrieve, size check and validate the Configuration Descriptor rather than having the user
  *      application perform these intermediatary steps.
+ *    - The HID report parser now requires a mandatory callback in the user code, to filter only the items the application
+ *      is interested in into the processed HID report item structure to save RAM. See \ref CALLBACK_HIDParser_FilterHIDReportItem().
+ *    - The HID report parser now always parses FEATURE and always ignores constant-data items - the HID_ENABLE_FEATURE_PROCESSING
+ *      and HID_INCLUDE_CONSTANT_DATA_ITEMS compile time tokens now have no effect.
  *
  * \section Sec_Migration090810 Migrating from 090605 to 090810
  *
