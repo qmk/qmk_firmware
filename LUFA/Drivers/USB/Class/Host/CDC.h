@@ -71,10 +71,10 @@
 				           */
 				struct
 				{
-					bool Active; /**< Indicates if the current interface instance is connected to an attached device, valid
-					              *   after \ref HID_Host_ConfigurePipes() is called and the Host state machine is in the
-					              *   Configured state
-					              */
+					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
+					                *   after \ref HID_Host_ConfigurePipes() is called and the Host state machine is in the
+					                *   Configured state
+					                */
 					uint8_t ControlInterfaceNumber; /**< Interface index of the CDC-ACM control interface within the attached device */
 				
 					uint16_t DataINPipeSize; /**< Size in bytes of the CDC interface's IN data pipe */
@@ -187,7 +187,7 @@
 			uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads a byte of data from the device. If no data is waiting to be read of if a USB device is not connected, the function
-			 *  returns 0. The \ref CDC_Host_BytesReceived() function should be queried before data is recieved to ensure that no data
+			 *  returns 0. The \ref CDC_Host_BytesReceived() function should be queried before data is received to ensure that no data
 			 *  underflow occurs.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state

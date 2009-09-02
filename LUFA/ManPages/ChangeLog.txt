@@ -490,7 +490,7 @@
   *  - CDC demos now send empty packets after sending a full one to prevent buffering issues on the host
   *  - Updated demo descriptors to use VID/PID values donated by Atmel
   *  - Added DoxyGen documentation to the source files
-  *  - Fixed Serial_IsCharRecieved() definition, was previously reversed
+  *  - Fixed Serial_IsCharReceived() definition, was previously reversed
   *  - Removed separate USB_Descriptor_Language_t descriptor, USB_Descriptor_String_t is used instead
   *  - Removed unused Device Qualifier descriptor structure
   *  - Renamed the USB_CreateEndpoints event to the more appropriate USB_ConfigurationChanged

@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  Printer Device commands, to send/recieve data to and from an attached USB
+ *  Printer Device commands, to send/receive data to and from an attached USB
  *  printer, and to send and receive Printer Class control requests.
  */
 

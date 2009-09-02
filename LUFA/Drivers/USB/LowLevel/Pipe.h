@@ -32,7 +32,7 @@
  *  @defgroup Group_PipeManagement Pipe Management
  *
  *  This module contains functions, macros and enums related to pipe management when in USB Host mode. This
- *  module contains the pipe management macros, as well as pipe interrupt and data send/recieve functions
+ *  module contains the pipe management macros, as well as pipe interrupt and data send/receive functions
  *  for various data types.
  *
  *  @{

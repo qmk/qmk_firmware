@@ -243,7 +243,7 @@
  *      as it is neither a full nor a standards compliant implementation.
  *
  *  <b>Non-USB Library Components</b>
- *    - The Serial_IsCharRecieved() macro has been changed to the correct spelling of Serial_IsCharReceived() in Serial.h.
+ *    - The Serial_IsCharReceived() macro has been changed to the correct spelling of Serial_IsCharReceived() in Serial.h.
  *
  *  <b>Device Mode</b>
  *    - The MANUAL_PLL_CONTROL compile time token has been removed, and replaced with a USB_OPT_MANUAL_PLL mask

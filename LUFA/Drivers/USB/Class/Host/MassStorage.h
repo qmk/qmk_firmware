@@ -73,10 +73,10 @@
 				           */
 				struct
 				{
-					bool Active; /**< Indicates if the current interface instance is connected to an attached device, valid
-					              *   after \ref HID_Host_ConfigurePipes() is called and the Host state machine is in the
-					              *   Configured state
-					              */
+					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
+					                *   after \ref HID_Host_ConfigurePipes() is called and the Host state machine is in the
+					                *   Configured state
+					                */
 					uint8_t InterfaceNumber; /**< Interface index of the HID interface within the attached device */
 
 					uint16_t DataINPipeSize; /**< Size in bytes of the MS interface's IN data pipe */

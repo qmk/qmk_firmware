@@ -99,7 +99,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint
 		}
 	}
 
-	HIDInterfaceInfo->State.Active = true;
+	HIDInterfaceInfo->State.IsActive = true;
 	return HID_ENUMERROR_NoError;
 }
 
@@ -142,10 +142,10 @@ void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
 
 bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
 {
-	bool ReportReceived;
-
-	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.Active))
+	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return false;
+
+	bool ReportReceived;
 
 	Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipeNumber);
 	Pipe_Unfreeze();

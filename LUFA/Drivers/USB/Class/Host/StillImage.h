@@ -67,14 +67,17 @@
 				           */
 				struct
 				{
-					bool Active; /**< Indicates if the current interface instance is connected to an attached device, valid
-					              *   after \ref HID_Host_ConfigurePipes() is called and the Host state machine is in the
-					              *   Configured state
-					              */
+					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
+					                *   after \ref HID_Host_ConfigurePipes() is called and the Host state machine is in the
+					                *   Configured state
+					                */
 
 					uint16_t DataINPipeSize; /**< Size in bytes of the Still Image interface's IN data pipe */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the Still Image interface's OUT data pipe */
 					uint16_t EventsPipeSize;  /**< Size in bytes of the Still Image interface's IN events pipe */
+					
+					bool IsSessionOpen; /**< Indicates if a PIMA session is currently open with the attached device */
+					uint32_t TransactionID; /**< Transaction ID for the next transaction to send to the device */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.
@@ -120,13 +123,9 @@
 			uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t ConfigDescriptorLength,
                                            uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 
-			void SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader);
-			uint8_t SImage_Host_RecieveBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader);
-			uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes);
-			uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes);
-			bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
-			uint8_t SImage_Host_RecieveEventHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader);
-							  
+			uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
+			uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
+			
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
@@ -144,6 +143,16 @@
 			#if defined(INCLUDE_FROM_SI_CLASS_HOST_C)
 				static uint8_t DComp_SI_Host_NextSIInterface(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DComp_SI_Host_NextSIInterfaceEndpoint(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+
+				static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
+				                                           SI_PIMA_Container_t* PIMAHeader);
+				static uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
+				                                              SI_PIMA_Container_t* PIMAHeader);
+				static uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes);
+				static uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes);
+				static bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
+				static uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
+				                                              SI_PIMA_Container_t* PIMAHeader);
 			#endif
 	#endif
 	

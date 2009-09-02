@@ -80,7 +80,7 @@ void SImage_SendBlockHeader(void)
 }
 
 /** Function to receive a PIMA event container from the attached still image device. */
-uint8_t SImage_RecieveEventHeader(void)
+uint8_t SImage_ReceiveEventHeader(void)
 {
 	uint8_t ErrorCode;
 
@@ -101,7 +101,7 @@ uint8_t SImage_RecieveEventHeader(void)
 }
 
 /** Function to receive a PIMA response container from the attached still image device. */
-uint8_t SImage_RecieveBlockHeader(void)
+uint8_t SImage_ReceiveBlockHeader(void)
 {
 	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
 

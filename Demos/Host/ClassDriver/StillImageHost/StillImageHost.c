@@ -50,7 +50,6 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 			},
 	};
 
-	
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  starts the scheduler to run the application tasks.
  */
@@ -102,7 +101,28 @@ int main(void)
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
+				printf("Opening Session...\r\n");
+				
+				if (SImage_Host_OpenSession(&DigitalCamera_SI_Interface) != PIPE_RWSTREAM_NoError)
+				{
+					printf("Could not open PIMA session.\r\n");
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
+
+				printf("Closing Session...\r\n");
+
+				if (SImage_Host_CloseSession(&DigitalCamera_SI_Interface) != PIPE_RWSTREAM_NoError)
+				{
+					printf("Could not close PIMA session.\r\n");
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
+				
+				printf("Device Idle.\r\n");
 			
+				LEDs_SetAllLEDs(LEDMASK_USB_READY);
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 		}
 	

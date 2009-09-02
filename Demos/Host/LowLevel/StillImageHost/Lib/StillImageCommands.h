@@ -85,7 +85,7 @@
 			uint16_t Type; /**< Container type, a value from the PIMA_Container_Types_t enum */
 			uint16_t Code; /**< Command, event or response code of the container */
 			uint32_t TransactionID; /**< Unique container ID to link blocks together */
-			uint32_t Params[4]; /**< Block parameters to be issued along with the block code (command blocks only) */
+			uint32_t Params[3]; /**< Block parameters to be issued along with the block code (command blocks only) */
 		} PIMA_Container_t;
 	
 	/* Enums: */
@@ -106,8 +106,8 @@
 	
 	/* Function Prototypes: */
 		void    SImage_SendBlockHeader(void);
-		uint8_t SImage_RecieveBlockHeader(void);
-		uint8_t SImage_RecieveEventHeader(void);
+		uint8_t SImage_ReceiveBlockHeader(void);
+		uint8_t SImage_ReceiveEventHeader(void);
 		uint8_t SImage_SendData(void* Buffer, uint16_t Bytes);
 		uint8_t SImage_ReadData(void* Buffer, uint16_t Bytes);
 		bool    SImage_IsEventReceived(void);

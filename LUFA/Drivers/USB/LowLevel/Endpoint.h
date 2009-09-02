@@ -33,7 +33,7 @@
  *
  *  Functions, macros and enums related to endpoint management when in USB Device mode. This
  *  module contains the endpoint management macros, as well as endpoint interrupt and data
- *  send/recieve functions for various data types.
+ *  send/receive functions for various data types.
  *
  *  @{
  */
