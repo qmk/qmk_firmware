@@ -54,6 +54,9 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Macros: */
+			#define SI_ERROR_LOGICAL_CMD_FAILED              0xC0
+
 		/* Type Defines: */
 			typedef struct
 			{
@@ -125,6 +128,9 @@
 
 			uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
 			uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
+
+			uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t Operation, uint8_t UsedParams,
+			                                uint32_t Param1, uint32_t Param2, uint32_t Param3, void* DataBuff);
 			
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

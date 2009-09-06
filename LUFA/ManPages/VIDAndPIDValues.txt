@@ -228,7 +228,7 @@
  *     0x2060
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     <i>Benito Programmer Project</i>
  *    </td>
  *   </tr>
  *

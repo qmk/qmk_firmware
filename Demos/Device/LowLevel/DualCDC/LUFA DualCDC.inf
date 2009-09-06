@@ -1,56 +1,106 @@
-;       Windows LUFA Dual CDC Setup File
+;************************************************************
+; Windows USB CDC ACM Setup File
 ; Copyright (c) 2000 Microsoft Corporation
 
-[Version] 
-Signature="$Windows NT$" 
+
+[Version]
+Signature="$Windows NT$"
 Class=Ports
-ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318} 
-Provider=%COMPANY% 
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider=%MFGNAME%
 LayoutFile=layout.inf
-DriverVer=06/06/2006,1.0.0.0
+CatalogFile=%MFGFILENAME%.cat
+DriverVer=11/15/2007,5.1.2600.0
 
-[Manufacturer] 
-%MFGNAME% = ManufName
+[Manufacturer]
+%MFGNAME%=DeviceList, NTamd64
 
-[DestinationDirs] 
-DefaultDestDir=12 
+[DestinationDirs]
+DefaultDestDir=12
 
-[ManufName] 
-%Modem3% = Modem3, USB\VID_03EB&PID_204E&MI_00
-%Modem3% = Modem3, USB\VID_03EB&PID_204E&MI_02
 
 ;------------------------------------------------------------------------------
-;  Windows 2000/XP Sections
+;  Windows 2000/XP/Vista-32bit Sections
 ;------------------------------------------------------------------------------
 
-[Modem3.nt]
-CopyFiles=USBModemCopyFileSection
-AddReg=Modem3.nt.AddReg 
+[DriverInstall.nt]
+include=mdmcpq.inf
+CopyFiles=DriverCopyFiles.nt
+AddReg=DriverInstall.nt.AddReg
 
-[USBModemCopyFileSection]
+[DriverCopyFiles.nt]
 usbser.sys,,,0x20
 
-[Modem3.nt.AddReg] 
-HKR,,DevLoader,,*ntkern 
-HKR,,NTMPDriver,,usbser.sys 
-HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider" 
+[DriverInstall.nt.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,%DRIVERFILENAME%.sys
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
 
-[Modem3.nt.Services] 
-AddService=usbser, 0x00000002, DriverService
+[DriverInstall.nt.Services]
+AddService=usbser, 0x00000002, DriverService.nt
 
-[DriverService] 
+[DriverService.nt]
 DisplayName=%SERVICE%
 ServiceType=1
 StartType=3
 ErrorControl=1
-ServiceBinary=%12%\usbser.sys 
+ServiceBinary=%12%\%DRIVERFILENAME%.sys
+
+;------------------------------------------------------------------------------
+;  Vista-64bit Sections
+;------------------------------------------------------------------------------
+
+[DriverInstall.NTamd64]
+include=mdmcpq.inf
+CopyFiles=DriverCopyFiles.NTamd64
+AddReg=DriverInstall.NTamd64.AddReg
+
+[DriverCopyFiles.NTamd64]
+%DRIVERFILENAME%.sys,,,0x20
+
+[DriverInstall.NTamd64.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,%DRIVERFILENAME%.sys
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[DriverInstall.NTamd64.Services]
+AddService=usbser, 0x00000002, DriverService.NTamd64
+
+[DriverService.NTamd64]
+DisplayName=%SERVICE%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\%DRIVERFILENAME%.sys
+
+
+;------------------------------------------------------------------------------
+;  Vendor and Product ID Definitions
+;------------------------------------------------------------------------------
+; When developing your USB device, the VID and PID used in the PC side
+; application program and the firmware on the microcontroller must match.
+; Modify the below line to use your VID and PID.  Use the format as shown below.
+; Note: One INF file can be used for multiple devices with different VID and PIDs.
+; For each supported device, append ",USB\VID_xxxx&PID_yyyy" to the end of the line.
+;------------------------------------------------------------------------------
+[SourceDisksFiles]
+[SourceDisksNames]
+[DeviceList]
+%DESCRIPTION%=DriverInstall, USB\VID_03EB&PID_204E&MI_00, USB\VID_03EB&PID_204E&MI_02
+
+[DeviceList.NTamd64]
+%DESCRIPTION%=DriverInstall, USB\VID_03EB&PID_204E&MI_00, USB\VID_03EB&PID_204E&MI_02
+
 
 ;------------------------------------------------------------------------------
 ;  String Definitions
 ;------------------------------------------------------------------------------
-
-[Strings] 
-COMPANY="LUFA Library"
-MFGNAME="Dean Camera"
-Modem3="USB Virtual Serial Port" 
-SERVICE="USB Virtual Serial Port CDC Driver"
+;Modify these strings to customize your device
+;------------------------------------------------------------------------------
+[Strings]
+MFGFILENAME="CDC_vista"
+DRIVERFILENAME ="usbser"
+MFGNAME="CCS, Inc."
+INSTDISK="LUFA Dual CDC Driver Installer"
+DESCRIPTION="Communications Port"
+SERVICE="USB RS-232 Emulation Driver"

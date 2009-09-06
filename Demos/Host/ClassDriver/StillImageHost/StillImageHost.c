@@ -110,6 +110,10 @@ int main(void)
 					break;
 				}
 
+				printf("Turning off Device...\r\n");
+				SImage_Host_SendCommand(&DigitalCamera_SI_Interface, 0x1013, 0, 0, 0, 0, NULL);
+				printf("Device Off.\r\n");
+
 				printf("Closing Session...\r\n");
 
 				if (SImage_Host_CloseSession(&DigitalCamera_SI_Interface) != PIPE_RWSTREAM_NoError)
@@ -119,8 +123,6 @@ int main(void)
 					break;
 				}
 				
-				printf("Device Idle.\r\n");
-			
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
