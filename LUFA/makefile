@@ -33,10 +33,18 @@ LUFA_SRC_FILES =     ./Drivers/USB/LowLevel/DevChapter9.c        \
                      ./Drivers/Peripheral/Serial.c               \
                      ./Drivers/Peripheral/SerialStream.c         \
 
-all:
-	
+LUFA_Events.lst:
+	@echo
+	@echo Generating LUFA event name list...
+	@$(shell) cat `find ./ -name "*.h"` | egrep "EVENT_[^\(]*\(" | \
+	              sed -n -e 's/^.*EVENT_/EVENT_/p' | \
+	              cut -d'(' -f1 | sort | uniq > LUFA_Events.lst
+				  
+all: LUFA_Events.lst
+
 clean:
 	rm -f $(LUFA_SRC_FILES:%.c=%.o)
+	rm -f LUFA_Events.lst
 	
 clean_list:
 

@@ -13,9 +13,6 @@
   *
   *  <b>Targeted for This Release:</b>
   *  - Finish HID and Still Image Host Mode Class Drivers, add demo summaries
-  *  - Re-add in flip, flip-ee, dfu and dfu-ee targets to project makefiles
-  *  - Add in new invalid event hook check targets to project makefiles
-  *  - Fix allowable F_CPU values comment in project makefiles
   *
   *  <b>Targeted for Future Releases:</b>
   *  - Add hub support to match Atmel's stack

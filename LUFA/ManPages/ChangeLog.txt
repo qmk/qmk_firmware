@@ -37,6 +37,8 @@
   *  - The HID report parser now always processed FEATURE items - HID_ENABLE_FEATURE_PROCESSING token now has no effect
   *  - The HID report parser now always ignores constant-data items, HID_INCLUDE_CONSTANT_DATA_ITEMS token now has no effect
   *  - The Benito Programmer project now has its own unique VID/PID pair allocated from the Atmel donated LUFA VID/PID pool
+  *  - Add in new invalid event hook check targets to project makefiles to produce compilation errors when invalid event names
+  *    are used in a project
   *
   *  <b>Fixed:</b>
   *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the
@@ -56,6 +58,8 @@
   *  - Fixed StillImageHost not correctly freezing and unfreezing data pipes while waiting for a response block header
   *  - Fixed error in PrinterHost preventing the full page data from being sent to the attached device
   *  - CDC based demos and project now work under 64 bit versions of Windows (thanks to Ronny Hanson, Thomas Bleeker)
+  *  - Re-add in flip, flip-ee, dfu and dfu-ee targets to project makefiles (thanks to Opendous Inc.)
+  *  - Fix allowable F_CPU values comment in project makefiles
   *
   *
   *  \section Sec_ChangeLog090810 Version 090810
