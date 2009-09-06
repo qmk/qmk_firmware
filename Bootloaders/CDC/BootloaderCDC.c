@@ -116,15 +116,6 @@ void ResetHardware(void)
 	boot_rww_enable();
 }
 
-/** Event handler for the USB_Disconnect event. This indicates that the bootloader should exit and the user
- *  application started.
- */
-void EVENT_USB_Device_Disconnect(void)
-{
-	/* Upon disconnection, run user application */
-	RunBootloader = false;
-}
-
 /** Event handler for the USB_ConfigurationChanged event. This configures the device's endpoints ready
  *  to relay data to and from the attached USB host.
  */

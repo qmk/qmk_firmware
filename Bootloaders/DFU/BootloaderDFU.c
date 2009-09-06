@@ -141,15 +141,6 @@ void ResetHardware(void)
 	MCUCR = 0;
 }
 
-/** Event handler for the USB_Disconnect event. This indicates that the bootloader should exit and the user
- *  application started.
- */
-void EVENT_USB_Device_Disconnect(void)
-{
-	/* Upon disconnection, run user application */
-	RunBootloader = false;
-}
-
 /** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
  *  control requests that are not handled internally by the USB library (including the DFU commands, which are
  *  all issued via the control endpoint), so that they can be handled appropriately for the application.

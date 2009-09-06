@@ -60,6 +60,7 @@
   *  - CDC based demos and project now work under 64 bit versions of Windows (thanks to Ronny Hanson, Thomas Bleeker)
   *  - Re-add in flip, flip-ee, dfu and dfu-ee targets to project makefiles (thanks to Opendous Inc.)
   *  - Fix allowable F_CPU values comment in project makefiles
+  *  - Fixed DFU and CDC class bootloaders on the AT90USBXXX2 series USB AVRs
   *
   *
   *  \section Sec_ChangeLog090810 Version 090810
