@@ -56,6 +56,16 @@
  *
  *  This is primarily designed to fit the Benito board from www.dorkbotpdx.org, but will suit all USB AVRs.
  *
+ *  After running this project for the first time on a new computer, you will need to supply the .INF file located
+ *  in this project's directory as the device's driver when running under Windows. This will enable Windows to use
+ *  its inbuilt CDC drivers, negating the need for custom drivers for the device. Other Operating Systems should
+ *  automatically use their own inbuilt CDC-ACM drivers.
+ *
+ *  On 64 bit versions of Windows, the OS requires all drivers to be digitally signed before it will allow them to
+ *  be installed. As Windows' own CDC driver (which the supplied INF file references) is not signed, you will need
+ *  to reboot, press F8 before Windows begins to load and select "Disable Driver Signature Enforcement" to allow the
+ *  CDC driver to install.
+ *
  *  \section SSec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.

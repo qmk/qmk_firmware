@@ -75,6 +75,13 @@
  *  Operating Systems should automatically use their own inbuilt
  *  CDC-ACM drivers.
  *
+ *  On 64 bit versions of Windows, the OS requires all drivers to
+ *  be digitally signed before it will allow them to be installed. As
+ *  Windows' own CDC driver (which the supplied INF file references)
+ *  is not signed, you will need to reboot, press F8 before Windows
+ *  begins to load and select "Disable Driver Signature Enforcement"
+ *  to allow the CDC driver to install.
+ *
  *  \section SSec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
