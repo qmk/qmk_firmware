@@ -148,12 +148,15 @@
 			/** Event for USB device connection. This event fires when the AVR in device mode and the device is connected
 			 *  to a host, beginning the enumeration process, measured by a rising level on the AVR's VBUS pin.
 			 *
-			 *  \note For the smaller USB AVRs (AT90USBXX2) with limited USB controllers, VBUS is not available to the USB controller.
+			 *  \note For the smaller series 2 USB AVRs with limited USB controllers, VBUS is not available to the USB controller.
 			 *        this means that the current connection state is derived from the bus suspension and wake up events by default,
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
 			 *        and disconnection events may be manually fired, and the \ref USB_DeviceState global changed manually.
+			 *
+			 *  \note This event may fire multiple times during device enumeration on the series 2 USB AVRs with limited USB controllers
+			 *        if NO_LIMITED_CONTROLLER_CONNECT is not defined.
 			 *
 			 *  \see USBTask.h for more information on the USB management task and reducing CPU usage.
 			 */
@@ -162,12 +165,15 @@
 			/** Event for USB device disconnection. This event fires when the AVR in device mode and the device is disconnected
 			 *  from a host, measured by a falling level on the AVR's VBUS pin.
 			 *
-			 *  \note For the smaller USB AVRs (AT90USBXX2) with limited USB controllers, VBUS is not available to the USB controller.
+			 *  \note For the smaller series 2 USB AVRs with limited USB controllers, VBUS is not available to the USB controller.
 			 *        this means that the current connection state is derived from the bus suspension and wake up events by default,
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
 			 *        and disconnection events may be manually fired, and the \ref USB_DeviceState global changed manually.
+			 *
+			 *  \note This event may fire multiple times during device enumeration on the series 2 USB AVRs with limited USB controllers
+			 *        if NO_LIMITED_CONTROLLER_CONNECT is not defined.
 			 *
 			 *  \see USBTask.h for more information on the USB management task and reducing CPU usage.
 			 */

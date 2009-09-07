@@ -92,6 +92,7 @@ uint16_t StartAddr = 0x0000;
  */
 uint16_t EndAddr = 0x0000;
 
+
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously 
  *  runs the bootloader processing routine until instructed to soft-exit, or hard-reset via the watchdog to start
  *  the loaded application code.
