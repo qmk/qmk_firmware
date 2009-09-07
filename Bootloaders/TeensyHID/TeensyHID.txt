@@ -45,7 +45,7 @@
  *  \section SSec_Description Project Description: 
  *
  * This bootloader enumerates to the host as a HID Class device, allowing for Teensy compatible programming
- * software to load firmware onto the AVR, such as the official software at http://www.pjrc.com/teensy/.
+ * software to load firmware onto the AVR, such as the official software at <a>http://www.pjrc.com/teensy/</a>.
  *  
  * Out of the box this bootloader builds for the AT90USB162, and will fit into 4KB of bootloader space.
  *

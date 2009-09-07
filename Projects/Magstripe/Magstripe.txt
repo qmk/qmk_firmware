@@ -44,9 +44,9 @@
  *
  *  Firmware for a USB AVR powered USB TTL magnetic stripe reader (using a card
  *  reader such as the Omron V3B-4K) by Denver Gingerich. This project is designed
- *  to be used with the open source Stripe Snoop project at http://stripesnoop.sourceforge.net/.
+ *  to be used with the open source Stripe Snoop project at <a>http://stripesnoop.sourceforge.net/</a>.
  * 
- *  See http://ossguy.com/ss_usb/ for the USB reader hardware project website,
+ *  See <a>http://ossguy.com/ss_usb/</a> for the USB reader hardware project website,
  *  including construction and support details.
  * 
  *  To use, connect your magnetic card reader device to the USB AVR as follows (pin and port mapping may be adjusted

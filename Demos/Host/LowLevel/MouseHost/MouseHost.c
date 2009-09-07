@@ -138,6 +138,9 @@ void ReadNextReport(void)
 	/* Check to see if a packet has been received */
 	if (!(Pipe_IsINReceived()))
 	{
+		/* No packet received (no movement), turn off LEDs */
+		LEDs_SetAllLEDs(LEDS_NO_LEDS);
+	
 		/* Refreeze HID data IN pipe */
 		Pipe_Freeze();
 			

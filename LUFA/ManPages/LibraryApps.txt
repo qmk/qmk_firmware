@@ -18,7 +18,7 @@
  *  Also included with the library are three fully functional bootloaders, located in the /Bootloaders/ subdirectory.
  *  The DFU class bootloader is compatible with Atmel's FLIP software or the open source dfu-programmer project, the
  *  CDC class (AVR109 protocol) is compatible with such open source software as AVRDUDE and AVR-OSP, and the TeensyLoader
- *  HID class bootloader is compatible with the software from PJRC (http://www.pjrc.com/teensy/index.html).
+ *  HID class bootloader is compatible with the software from PJRC (<a>http://www.pjrc.com/teensy/index.html</a>).
  *
  *  User-submitted projects are located in the /Projects/ subdirectory. If you wish to have your LUFA project included,
  *  please email it to the Library author.

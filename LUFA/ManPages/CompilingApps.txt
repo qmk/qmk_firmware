@@ -11,7 +11,7 @@
  *  \section Sec_Prerequisites Prerequisites
  *  Before you can compile any of the LUFA library code or demos, you will need a recent distribution of avr-libc (1.6.2+)
  *  and the AVR-GCC (4.2+) compiler. For Windows users, the best way to obtain these is the WinAVR project
- *  (http://winavr.sourceforge.net) as this provides a single-file setup for everything required to compile your
+ *  (<a>http://winavr.sourceforge.net</a>) as this provides a single-file setup for everything required to compile your
  *  own AVR projects.
  *
  *  \section Sec_Compiling Compiling a LUFA Application

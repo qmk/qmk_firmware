@@ -52,10 +52,14 @@
  *  software to load firmware onto the AVR.
  *  
  *  This bootloader is compatible with Atmel's FLIP application. However, it requires the use of Atmel's
- *  DFU drivers. You will need to install Atmel's DFU drivers prior to using this bootloader.
+ *  DFU drivers. You will need to install Atmel's DFU drivers prior to using this bootloader. If you are
+ *  using a 64 bit Windows OS, you will need to either disable the driver signing requirement (see online
+ *  tutorials for details) or use a digitally signed version of the official Atmel driver provided by a
+ *  third party AVR user at
+ *  <a>http://www.avrfreaks.net/index.php?module=Freaks%20Academy&func=viewItem&item_id=2196&item_type=project</a>.
  *  
  *  As an open-source option, this bootloader is also compatible with the Linux Atmel USB DFU Programmer
- *  software, available for download at http://sourceforge.net/projects/dfu-programmer/.
+ *  software, available for download at <a>http://sourceforge.net/projects/dfu-programmer/</a>.
  *  
  *  If SECURE_MODE is defined as true, upon start-up the bootloader will be locked, with only the chip erase
  *  function available (similar to Atmel's DFU bootloader). If SECURE_MODE is defined as false, all functions 
