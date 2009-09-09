@@ -98,18 +98,10 @@
 			 *  This value's meaning depends on the descriptor's placement in the descriptor, but standard type
 			 *  values can be accessed in the \ref USB_DescriptorTypes_t enum.
 			 */
-			#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES) || defined(__DOXYGEN__)
-				#define DESCRIPTOR_TYPE(DescriptorPtr)    DESCRIPTOR_CAST(DescriptorPtr, USB_Descriptor_Header_t).Type
-			#else
-				#define DESCRIPTOR_TYPE(DescriptorPtr)    DESCRIPTOR_CAST(DescriptorPtr, USB_Descriptor_Header_t).bDescriptorType			
-			#endif
+			#define DESCRIPTOR_TYPE(DescriptorPtr)    DESCRIPTOR_CAST(DescriptorPtr, USB_Descriptor_Header_t).Type
 			
 			/** Returns the descriptor's size, expressed as the 8-bit value indicating the number of bytes. */
-			#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES) || defined(__DOXYGEN__)
-				#define DESCRIPTOR_SIZE(DescriptorPtr)    DESCRIPTOR_CAST(DescriptorPtr, USB_Descriptor_Header_t).Size
-			#else
-				#define DESCRIPTOR_SIZE(DescriptorPtr)    DESCRIPTOR_CAST(DescriptorPtr, USB_Descriptor_Header_t).bLength
-			#endif
+			#define DESCRIPTOR_SIZE(DescriptorPtr)    DESCRIPTOR_CAST(DescriptorPtr, USB_Descriptor_Header_t).Size
 
 		/* Type Defines: */
 			/** Type define for a Configuration Descriptor comparator function (function taking a pointer to an array
@@ -268,11 +260,7 @@
 			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem,
 			                                         uint8_t** const CurrConfigLoc)
 			{
-				#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
 				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
-				#else
-				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).bLength;				
-				#endif
 
 				*CurrConfigLoc += CurrDescriptorSize;
 				*BytesRem      -= CurrDescriptorSize;

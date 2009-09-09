@@ -232,14 +232,9 @@ static void USB_Device_GetInternalSerialDescriptor(void)
 		int16_t                 UnicodeString[20];
 	} SignatureDescriptor;
 
-	#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
-		SignatureDescriptor.Header.Size            = sizeof(SignatureDescriptor);
-		SignatureDescriptor.Header.Type            = DTYPE_String;
-	#else
-		SignatureDescriptor.Header.bLength         = sizeof(SignatureDescriptor);
-		SignatureDescriptor.Header.bDescriptorType = DTYPE_String;
-	#endif
-
+	SignatureDescriptor.Header.Size  = sizeof(SignatureDescriptor);
+	SignatureDescriptor.Header.Type  = DTYPE_String;
+	
 	uint8_t  SigReadAddress     = 0x0E;
 
 	for (uint8_t SerialCharNum = 0; SerialCharNum < 20; SerialCharNum++)

@@ -116,8 +116,7 @@ LUFA_PATH = ../../..
 
 
 # LUFA library compile-time options
-LUFA_OPTS  = -D USE_NONSTANDARD_DESCRIPTOR_NAMES
-LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
+LUFA_OPTS  = -D USE_FLASH_DESCRIPTORS
 
 
 # List C source files here. (C dependencies are automatically generated.)

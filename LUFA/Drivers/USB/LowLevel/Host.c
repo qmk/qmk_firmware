@@ -137,11 +137,7 @@ void USB_Host_ProcessNextHostState(void)
 				break;
 			}
 
-			#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
 			USB_ControlPipeSize = DataBuffer[offsetof(USB_Descriptor_Device_t, Endpoint0Size)];
-			#else
-			USB_ControlPipeSize = DataBuffer[offsetof(USB_Descriptor_Device_t, bMaxPacketSize0)];			
-			#endif
 	
 			USB_Host_ResetDevice();
 			

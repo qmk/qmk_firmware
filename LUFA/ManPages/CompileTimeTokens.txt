@@ -72,12 +72,6 @@
  *  <b>USE_EEPROM_DESCRIPTORS</b> - ( \ref Group_Descriptors ) \n
  *  Similar to USE_RAM_DESCRIPTORS, but all descriptors are stored in the AVR's EEPROM memory rather than RAM.
  *
- *  <b>USE_NONSTANDARD_DESCRIPTOR_NAMES</b> - ( \ref Group_Descriptors ) \n
- *  The USB 2.0 standard gives some rather obscure names for the elements in the standard descriptor types (device, configuration,
- *  string, endpoint, etc.). By default the LUFA library uses these names in its predefined descriptor structure types for
- *  compatibility. If this token is defined, the structure element names are switched to the LUFA-specific but more descriptive
- *  names documented in the StdDescriptors.h source file.
- *
  *  <b>NO_INTERNAL_SERIAL</b> - ( \ref Group_Descriptors ) \n
  *  Some AVR models contain a unique 20-digit serial number which can be used as the device serial number, while in device mode. This
  *  allows the host to uniquely identify the device regardless of if it is moved between USB ports on the same computer, allowing

@@ -50,12 +50,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint
 		return CDC_ENUMERROR_NoCDCInterfaceFound;
 	}
 	
-	CDCInterfaceInfo->State.ControlInterfaceNumber =
-#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
-	                     DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).InterfaceNumber;
-#else
-	                     DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).bInterfaceNumber;
-#endif
+	CDCInterfaceInfo->State.ControlInterfaceNumber = DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).InterfaceNumber;
 
 	while (FoundEndpoints != (CDC_FOUND_NOTIFICATION_IN | CDC_FOUND_DATAPIPE_IN | CDC_FOUND_DATAPIPE_OUT))
 	{
@@ -259,7 +254,7 @@ uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* CDCInterfa
 uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Data, uint16_t Length)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
-	  return;
+	  return PIPE_READYWAIT_NoError;
 
 	uint8_t ErrorCode;
 
@@ -274,7 +269,7 @@ uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Da
 uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
-	  return;
+	  return PIPE_READYWAIT_NoError;;
 	  
 	uint8_t ErrorCode;
 

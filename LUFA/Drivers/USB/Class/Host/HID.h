@@ -55,6 +55,10 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Macros: */
+			/** Error code for some HID Host functions, indicating a logical (and not hardware) error */
+			#define MS_ERROR_UNSUPPORTED              0xC0
+	
 		/* Type Defines: */
 			/** Class state structure. An instance of this structure should be made within the user application,
 			 *  and passed to each of the HID class driver functions as the HIDInterfaceInfo parameter. This
@@ -71,6 +75,8 @@
 					                                *   boot subclass protocol is required (e.g. keyboard, mouse), or
 					                                *   leave as 0 to match against the first HID interface found
 					                                */
+					HID_ReportInfo_t* HIDParserData; /**< HID parser data to store the parsed HID report data, when boot protocol
+					                                  *   is not used */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -88,6 +94,7 @@
 					bool SupportsBootSubClass; /**< Indicates if the current interface instance supports the HID Boot
 					                            *   Protocol when enabled via \ref USB_HID_Host_SetProtocol()
 					                            */
+					uint16_t HIDReportSize; /**< Size in bytes of the HID report descriptor in the device */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.
@@ -100,7 +107,8 @@
 				HID_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
 				HID_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor */
 				HID_ENUMERROR_NoHIDInterfaceFound        = 2, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
-				HID_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible HID endpoints were not found in the device's HID interface */
+				HID_ENUMERROR_NoHIDDescriptorFound       = 3, /**< The HID descriptor was not found in the device's HID interface */
+				HID_ENUMERROR_EndpointsNotFound          = 4, /**< Compatible HID endpoints were not found in the device's HID interface */
 			};
 	
 		/* Function Prototypes: */
@@ -109,6 +117,7 @@
 			                                uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 			bool    HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			
 			uint8_t USB_HID_Host_SetProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, bool UseReportProtocol) ATTR_NON_NULL_PTR_ARG(1);
 		
 	/* Private Interface - For use in library only: */
@@ -122,6 +131,7 @@
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_HID_CLASS_HOST_C)
 				static uint8_t DComp_HID_Host_NextHIDInterface(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DComp_NextHID(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DComp_HID_Host_NextHIDInterfaceEndpoint(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif	
 	#endif	

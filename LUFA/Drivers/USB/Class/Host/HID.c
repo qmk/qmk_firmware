@@ -60,13 +60,15 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint
 	} while (HIDInterfaceInfo->Config.HIDInterfaceProtocol &&
 	         (CurrentHIDInterface->Protocol != HIDInterfaceInfo->Config.HIDInterfaceProtocol));
 
-	HIDInterfaceInfo->State.InterfaceNumber	     =
-	#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
-	                     CurrentHIDInterface->InterfaceNumber;
-	#else
-	                     CurrentHIDInterface->bInterfaceNumber;
-	#endif
+	HIDInterfaceInfo->State.InterfaceNumber      = CurrentHIDInterface->InterfaceNumber;
 	HIDInterfaceInfo->State.SupportsBootSubClass = (CurrentHIDInterface->SubClass != 0);
+
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, DComp_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
+	{
+		return HID_ENUMERROR_NoHIDDescriptorFound;
+	}
+
+	HIDInterfaceInfo->State.HIDReportSize = DESCRIPTOR_CAST(ConfigDescriptorData, USB_HID_Descriptor_t).HIDReportLength;
 
 	while (FoundEndpoints != (HID_FOUND_DATAPIPE_IN | HID_FOUND_DATAPIPE_OUT))
 	{
@@ -115,6 +117,16 @@ static uint8_t DComp_HID_Host_NextHIDInterface(void* CurrentDescriptor)
 	}
 	
 	return DESCRIPTOR_SEARCH_NotFound;
+}
+
+static uint8_t DComp_NextHID(void* CurrentDescriptor)
+{
+	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_HID)
+	  return DESCRIPTOR_SEARCH_Found;
+	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	  return DESCRIPTOR_SEARCH_Fail;
+	else
+	  return DESCRIPTOR_SEARCH_NotFound;	  
 }
 
 static uint8_t DComp_HID_Host_NextHIDInterfaceEndpoint(void* CurrentDescriptor)
@@ -169,6 +181,9 @@ uint8_t USB_HID_Host_SetProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, boo
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
+	if (UseReportProtocol && !(HIDInterfaceInfo->State.SupportsBootSubClass))
+	  return MS_ERROR_UNSUPPORTED;
 	
 	return USB_Host_SendControlRequest(NULL);
 }

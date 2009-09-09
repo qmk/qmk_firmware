@@ -51,11 +51,7 @@ uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const Conf
 	if ((ErrorCode = USB_Host_SendControlRequest(ConfigHeader)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
 
-	#if defined(USE_NONSTANDARD_DESCRIPTOR_NAMES)
 	*ConfigSizePtr = DESCRIPTOR_CAST(ConfigHeader, USB_Descriptor_Configuration_Header_t).TotalConfigurationSize;
-	#else
-	*ConfigSizePtr = DESCRIPTOR_CAST(ConfigHeader, USB_Descriptor_Configuration_Header_t).wTotalLength;		
-	#endif
 
 	if (*ConfigSizePtr > BufferSize)
 	  return HOST_GETCONFIG_BuffOverflow;

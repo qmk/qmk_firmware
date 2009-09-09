@@ -14,10 +14,10 @@
  *
  *  <b>Non-USB Library Components</b>
  *    - The ADC_Off() function has been renamed to \ref ADC_ShutDown() to be consistent with the rest of the library.
- *    - The Dataflash_Init() routine no longer initializes the SPI bus - the SPI bus should be initialized manually via a
+ *    - The \ref SPI_Init() routine's parameters have changed, so that the clock polarity and data sampling modes can be set. See
+ *      the \ref SPI_Init() function documentation for more details
+ *    - The \ref Dataflash_Init() routine no longer initializes the SPI bus - the SPI bus should be initialized manually via a
  *      call to SPI_Init() before using the Dataflash driver
- *    - The SPI_Init() routine's parameters have changed, so that the clock polarity and data sampling modes can be set. See
- *      the SPI_Init() function documentation for more details
  *
  *  <b>Host Mode</b>
  *    - The \ref USB_GetDeviceConfigDescriptor() function's parameters and behaviour has changed; the user is required to
@@ -28,6 +28,14 @@
  *      is interested in into the processed HID report item structure to save RAM. See \ref CALLBACK_HIDParser_FilterHIDReportItem().
  *    - The HID report parser now always parses FEATURE and always ignores constant-data items - the HID_ENABLE_FEATURE_PROCESSING
  *      and HID_INCLUDE_CONSTANT_DATA_ITEMS compile time tokens now have no effect.
+ *    - The USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now seperate USB_Descriptor_*
+ *      and USB_StdDescriptor_* structures for both the LUFA and standardized element naming conventions so that both may be used in
+ *      the one project. For existing projects using the standardized names, change all code to use the USB_StdDescriptor_* variants.
+ *
+ *  <b>Device Mode</b>
+ *    - The USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now seperate USB_Descriptor_*
+ *      and USB_StdDescriptor_* structures for both the LUFA and standardized element naming conventions so that both may be used in
+ *      the one project. For existing projects using the standardized names, change all code to use the USB_StdDescriptor_* variants.
  *
  * \section Sec_Migration090810 Migrating from 090605 to 090810
  *

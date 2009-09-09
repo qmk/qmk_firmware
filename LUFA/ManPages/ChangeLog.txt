@@ -40,6 +40,8 @@
   *  - Add in new invalid event hook check targets to project makefiles to produce compilation errors when invalid event names
   *    are used in a project
   *  - The HID Report Parser now gives information on the total length of each report within a HID interface
+  *  - The USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now seperate USB_Descriptor_* and
+  *    USB_StdDescriptor_* structures for both the LUFA and standardized element naming conventions so both may be used
   *
   *  <b>Fixed:</b>
   *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the
