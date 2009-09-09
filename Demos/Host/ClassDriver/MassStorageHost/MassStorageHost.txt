@@ -4,21 +4,14 @@
  *  documentation pages. It is not a project source file.
  */
  
-/** \mainpage Communications Device Class Demo (Virtual Serial Port)
+/** \mainpage Mass Storage Host Demo
  *
  *  \section SSec_Compat Demo Compatibility:
  *
  *  The following table indicates what microcontrollers are compatible with this demo.
  *
  *  - AT90USB1287
- *  - AT90USB1286
  *  - AT90USB647
- *  - AT90USB646
- *  - ATMEGA32U6
- *  - ATMEGA32U4
- *  - ATMEGA16U4
- *  - AT90USB162
- *  - AT90USB82
  *
  *  \section SSec_Info USB Information:
  *
@@ -27,19 +20,22 @@
  *  <table>
  *   <tr>
  *    <td><b>USB Mode:</b></td>
- *    <td>Device</td>
+ *    <td>Host</td>
  *   </tr>
  *   <tr>
  *    <td><b>USB Class:</b></td>
- *    <td>Communications Device Class (CDC)</td>
+ *    <td>Mass Storage Device</td>
  *   </tr>
  *   <tr> 
  *    <td><b>USB Subclass:</b></td>
- *    <td>Abstract Control Model (ACM)</td>
+ *    <td>Bulk Only</td>
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>USBIF CDC Class Standard</td>
+ *    <td>USBIF Mass Storage Standard</td>
+ *    <td>USB Bulk-Only Transport Standard</td>
+ *    <td>SCSI Primary Commands Specification</td>
+ *    <td>SCSI Block Commands Specification</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
@@ -49,19 +45,14 @@
  *
  *  \section SSec_Description Project Description: 
  *
- *  Communications Device Class demonstration application.
- *  This gives a simple reference application for implementing
- *  a CDC device acting as a virtual serial port. Joystick
- *  actions are transmitted to the host as strings. The device
- *  does not respond to serial data sent from the host.
+ *  Mass Storage host demonstration application. This gives a simple reference
+ *  application for implementing a USB Mass Storage host, for USB storage devices
+ *  using the standard Mass Storage USB profile.
  *  
- *  After running this demo for the first time on a new computer,
- *  you will need to supply the .INF file located in this demo
- *  project's directory as the device's driver when running under
- *  Windows. This will enable Windows to use its inbuilt CDC drivers,
- *  negating the need for custom drivers for the device. Other
- *  Operating Systems should automatically use their own inbuilt
- *  CDC-ACM drivers.
+ *  The first 512 bytes (boot sector) of an attached disk's memory will be dumped
+ *  out of the serial port in HEX and ASCII form when it is attached to the AT90USB1287
+ *  AVR. The device will then wait for HWB to be pressed, whereupon the entire ASCII contents
+ *  of the disk will be dumped to the serial port.
  *
  *  \section SSec_Options Project Options
  *

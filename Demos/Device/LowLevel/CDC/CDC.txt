@@ -4,7 +4,7 @@
  *  documentation pages. It is not a project source file.
  */
  
-/** \mainpage Communications Device Class Device (Virtual Serial Port)
+/** \mainpage Communications Device Class Demo (Virtual Serial Port)
  *
  *  \section SSec_Compat Demo Compatibility:
  *
