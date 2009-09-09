@@ -39,6 +39,7 @@
   *  - The Benito Programmer project now has its own unique VID/PID pair allocated from the Atmel donated LUFA VID/PID pool
   *  - Add in new invalid event hook check targets to project makefiles to produce compilation errors when invalid event names
   *    are used in a project
+  *  - The HID Report Parser now gives information on the total length of each report within a HID interface
   *
   *  <b>Fixed:</b>
   *  - Fixed possible lockup in the CDC device class driver, when the host sends data that is a multiple of the

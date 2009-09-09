@@ -181,6 +181,20 @@ void Mouse_HID_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
+			
+			printf("Total Reports: %d\r\n", HIDReportInfo.TotalDeviceReports);
+
+			for (uint8_t i = 0; i < HIDReportInfo.TotalDeviceReports; i++)
+			{
+				HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[i];
+
+				/* Print out the byte sizes of each report within the device */
+				printf_P(PSTR("  + Report ID %d - In: %d bytes, Out: %d bytes, Feature: %d bytes\r\n"),
+				                           CurrReportIDInfo->ReportID,
+				                           ((CurrReportIDInfo->BitsIn >> 3)      + (CurrReportIDInfo->BitsIn & 0x07)),
+				                           ((CurrReportIDInfo->BitsOut >> 3)     + (CurrReportIDInfo->BitsOut & 0x07)),
+				                           ((CurrReportIDInfo->BitsFeature >> 3) + (CurrReportIDInfo->BitsFeature & 0x07)));
+			}
 
 			puts_P(PSTR("Mouse Enumerated.\r\n"));
 
@@ -190,7 +204,7 @@ void Mouse_HID_Task(void)
 			/* Select and unfreeze mouse data pipe */
 			Pipe_SelectPipe(MOUSE_DATAPIPE);	
 			Pipe_Unfreeze();
-
+			
 			/* Check to see if a packet has been received */
 			if (Pipe_IsINReceived())
 			{

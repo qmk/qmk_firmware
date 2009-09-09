@@ -51,6 +51,13 @@
  *  If a item has a multiple count (i.e. a REPORT COUNT of more than 1), each item in the report count is placed separately in the
  *  processed HID report table. If not defined, this defaults to the value indicated in the HID.h file documentation.
  *
+ *  <b>HID_MAX_REPORT_IDS</b> - ( \ref Group_HIDParser ) \n
+ *  HID reports may contain several report IDs, to logically distinguish grouped device data from one another - for example, a combination
+ *  keyboard and mouse might use report IDs to seperate the keyboard reports from the mouse reports. In order to determine the size of each
+ *  report, and thus know how many bytes must be read or written, the size of each report (IN, OUT and FEATURE) must be calculated and
+ *  stored. This token may be defined to a non-zero 8-bit value to set the maximum number of report IDs in a device which can be processed
+ *  and their sizes calculated/stored into the resultant processed report structure. If not defined, this defaults to the value indicated in
+ *  the HID.h file documentation.
  *
  *  \section Sec_SummaryUSBTokens USB Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack as a whole in the LUFA library.

@@ -107,9 +107,20 @@
 			 *  in the report item descriptor and stored in the user HID Report Info structure. A large value allows
 			 *  for more report items to be stored, but consumes more memory. By default this is set to 20 items, 
 			 *  but this can be overridden by defining HID_MAX_REPORTITEMS to another value in the user project
-			 *  makefile, passing the define to the compiler using the -D compiler switch.
+			 *  makefile, and passing the define to the compiler using the -D compiler switch.
 			 */
 			#define HID_MAX_REPORTITEMS           20
+		#endif
+		
+		#if !defined(HID_MAX_REPORT_IDS) || defined(__DOXYGEN__)
+			/** Constant indicating the maximum number of unique report IDs that can be processed in the report item
+			 *  descriptor for the report size information array in the user HID Report Info structure. A large value
+			 *  allows for more report ID report sizes to be stored, but consumes more memory. By default this is set
+			 *  to 5 items, but this can be overridden by defining HID_MAX_REPORT_IDS to another value in the user project
+			 *  makefile, and passing the define to the compiler using the -D compiler switch. Note that IN, OUT and FEATURE
+			 *  items sharing the same report ID consume only one size item in the array.
+			 */
+			#define HID_MAX_REPORT_IDS  5
 		#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -132,6 +143,7 @@
 				HID_PARSE_UnexpectedEndCollection     = 4, /**< An END COLLECTION item found without matching COLLECTION item. */
 				HID_PARSE_InsufficientCollectionPaths = 5, /**< More than \ref HID_MAX_COLLECTIONS collections in the report. */
 				HID_PARSE_UsageStackOverflow          = 6, /**< More than \ref HID_USAGE_STACK_DEPTH usages listed in a row. */
+				HID_PARSE_InsufficientReportIDItems   = 7, /**< More than \ref HID_MAX_REPORT_IDS report IDs in the device. */
 			};
 		
 		/* Type Defines: */		
@@ -191,6 +203,15 @@
 							
 				uint32_t                     Value;          /**< Current value of the report item. */
 			} HID_ReportItem_t;
+			
+			/** Type define for a report item size information structure */
+			typedef struct
+			{
+				uint8_t                      ReportID; /** Report ID of the report within the HID interface */
+				uint8_t                      BitsIn; /** Total number of IN data bits in the current report ID */
+				uint8_t                      BitsOut; /** Total number of OUT data bits in the current report ID */
+				uint8_t                      BitsFeature; /** Total number of FEATURE data bits in the current report ID */
+			} HID_ReportSizeInfo_t;
 
 			/** Type define for a complete processed HID report, including all report item data and collections. */
 			typedef struct
@@ -204,9 +225,11 @@
 				HID_CollectionPath_t         CollectionPaths[HID_MAX_COLLECTIONS]; /**< All collection items, referenced
 				                                                                    *   by the report items.
 				                                                                    */
-				bool                         UsingMultipleReports; /**< Indicates if the device has at least one REPORT ID
-				                                                    *   element in its HID report descriptor.
-				                                                    */
+				uint8_t                      TotalDeviceReports; /** Number of reports within the HID interface */
+				HID_ReportSizeInfo_t         ReportIDSizes[HID_MAX_REPORT_IDS]; /** Report sizes for each report in the interface */
+				bool                         UsingReportIDs; /**< Indicates if the device has at least one REPORT ID
+				                                              *   element in its HID report descriptor.
+				                                              */
 			} HID_ReportInfo_t;
 			
 		/* Function Prototypes: */

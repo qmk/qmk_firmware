@@ -182,6 +182,20 @@ void Keyboard_HID_Task(void)
 				break;	
 			}
 
+			printf("Total Reports: %d\r\n", HIDReportInfo.TotalDeviceReports);
+
+			for (uint8_t i = 0; i < HIDReportInfo.TotalDeviceReports; i++)
+			{
+				HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[i];
+				
+				/* Print out the byte sizes of each report within the device */
+				printf_P(PSTR("  + Report ID %d - In: %d bytes, Out: %d bytes, Feature: %d bytes\r\n"),
+				                           CurrReportIDInfo->ReportID,
+				                           ((CurrReportIDInfo->BitsIn >> 3)      + (CurrReportIDInfo->BitsIn & 0x07)),
+				                           ((CurrReportIDInfo->BitsOut >> 3)     + (CurrReportIDInfo->BitsOut & 0x07)),
+				                           ((CurrReportIDInfo->BitsFeature >> 3) + (CurrReportIDInfo->BitsFeature & 0x07)));
+			}
+
 			puts_P(PSTR("Keyboard Enumerated.\r\n"));
 
 			USB_HostState = HOST_STATE_Configured;
