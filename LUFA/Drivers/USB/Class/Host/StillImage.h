@@ -126,11 +126,89 @@
 			uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t ConfigDescriptorLength,
                                            uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 
+			/** Opens a new PIMA session with the attached device. This should be used before any session-orientated PIMA commands
+			 *  are issued to the device. Only one session can be open at the one time.
+			 *			 
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
+			 *          returned a logical command failure
+			 */
 			uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
+
+			/** Closes an already opened PIMA session with the attached device. This should be used after all session-orientated
+			 *  PIMA commands have been issued to the device.
+			 *			 
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
+			 *          returned a logical command failure
+			 */
 			uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
 
-			uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t Operation, uint8_t UsedParams,
-			                                uint32_t Param1, uint32_t Param2, uint32_t Param3, void* DataBuff);
+			/** Sends a given PIMA command to the attached device, filling out the PIMA command header automatically as required.
+			 *			 
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[in] Operation  PIMA operation code to issue to the device
+			 *  \param[in] TotalParams  Total number of 32-bit parameters to send to the device in the issued command block
+			 *  \param[in] Params  Pointer to an array of 32-bit values containing the parameters to send in the command block
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
+			 *          returned a logical command failure
+			 */
+			uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t Operation, uint8_t TotalParams,
+                                            uint32_t* Params);
+
+			/** Receives and checks a response block from the attached PIMA device, once a command has been issued and all data
+			 *  associated with the command has been transferred.
+			 *			 
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
+			 *          returned a logical command failure
+			 */
+			uint8_t SImage_Host_ReceiveResponse(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
+
+			/** Indicates if the device has issued a PIMA event block to the host via the asynchronous events pipe.
+			 *
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *
+			 *  \return Boolean true if an event is waiting to be read, false otherwise
+			 */
+			bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
+
+			/** Receives an asynchronous event block from the device via the asynchronous events pipe.
+			 *
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[out] SI_PIMA_Container_t  Pointer to a PIMA container structure where the event should be stored
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
+			 *          returned a logical command failure
+			 */
+			uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
+				                                   SI_PIMA_Container_t* PIMAHeader);
+			
+			/** Sends arbitrary data to the attached device, for use in the data phase of PIMA commands which require data
+			 *  transfer beyond the regular PIMA command block parameters.
+			 *
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[in] Buffer  Pointer to a buffer where the data to send has been stored
+			 *  \param[in] Bytes  Length in bytes of the data in the buffer to send to the attached device
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
+			 */
+			uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes);
+
+			/** Receives arbitrary data from the attached device, for use in the data phase of PIMA commands which require data
+			 *  transfer beyond the regular PIMA command block parameters.
+			 *
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[out] Buffer  Pointer to a buffer where the received data is to be stored
+			 *  \param[in] Bytes  Length in bytes of the data to read
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
+			 */
+			uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes);
 			
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
@@ -153,11 +231,6 @@
 				static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
 				                                           SI_PIMA_Container_t* PIMAHeader);
 				static uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
-				                                              SI_PIMA_Container_t* PIMAHeader);
-				static uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes);
-				static uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes);
-				static bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* SIInterfaceInfo);
-				static uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
 				                                              SI_PIMA_Container_t* PIMAHeader);
 			#endif
 	#endif

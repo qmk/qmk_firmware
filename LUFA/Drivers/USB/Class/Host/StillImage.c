@@ -34,8 +34,6 @@
 #define INCLUDE_FROM_SI_CLASS_HOST_C
 #include "StillImage.h"
 
-#warning The Still Image Host mode Class driver is currently incomplete and is for preview purposes only.
-
 uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t ConfigDescriptorLength,
                               uint8_t* DeviceConfigDescriptor)
 {
@@ -238,7 +236,7 @@ static uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfa
 	return PIPE_RWSTREAM_NoError;
 }
 
-static uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes)
+uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes)
 {
 	uint8_t ErrorCode;
 
@@ -253,7 +251,7 @@ static uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, vo
 	return ErrorCode;
 }
 
-static uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes)
+uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes)
 {
 	uint8_t ErrorCode;
 
@@ -267,7 +265,7 @@ static uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, vo
 	return ErrorCode;
 }
 
-static bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
+bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
 {
 	bool IsEventReceived = false;
 
@@ -282,7 +280,7 @@ static bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* SIInterfaceInfo
 	return IsEventReceived;
 }
 
-static uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader)
+uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader)
 {
 	uint8_t ErrorCode;
 
@@ -317,6 +315,9 @@ uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
 	  
 	if ((ErrorCode = SImage_Host_ReceiveBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
+	  
+	if ((PIMABlock.Type != CType_ResponseBlock) || (PIMABlock.Code != 0x2001))
+	  return SI_ERROR_LOGICAL_CMD_FAILED;
 	  
 	SIInterfaceInfo->State.TransactionID = 0;
 	SIInterfaceInfo->State.IsSessionOpen = true;
@@ -353,8 +354,8 @@ uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
 	return PIPE_RWSTREAM_NoError;
 }
 
-uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t Operation, uint8_t UsedParams,
-                                uint32_t Param1, uint32_t Param2, uint32_t Param3, void* DataBuff)
+uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t Operation,
+                                uint8_t TotalParams, uint32_t* Params)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnect;
@@ -363,21 +364,30 @@ uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16
 
 	SI_PIMA_Container_t PIMABlock = (SI_PIMA_Container_t)
 							{
-								.DataLength    = PIMA_COMMAND_SIZE(UsedParams),
+								.DataLength    = PIMA_COMMAND_SIZE(TotalParams),
 								.Type          = CType_CommandBlock,
 								.Code          = Operation,
-								.Params        = {Param1, Param2, Param3},
 							};
+							
+	memcpy(&PIMABlock.Params, Params, sizeof(uint32_t) * TotalParams);
 							
 	if ((ErrorCode = SImage_Host_SendBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
-	  
+
+	return PIPE_RWSTREAM_NoError;
+}
+
+uint8_t SImage_Host_ReceiveResponse(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
+{
+	uint8_t ErrorCode;
+	SI_PIMA_Container_t PIMABlock;
+
 	if ((ErrorCode = SImage_Host_ReceiveBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	if ((PIMABlock.Type != CType_ResponseBlock) || (PIMABlock.Code != 0x2001))
 	  return SI_ERROR_LOGICAL_CMD_FAILED;
-
+	  
 	return PIPE_RWSTREAM_NoError;
 }
 

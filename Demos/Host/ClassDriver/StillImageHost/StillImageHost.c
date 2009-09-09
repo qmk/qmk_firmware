@@ -111,7 +111,15 @@ int main(void)
 				}
 
 				printf("Turning off Device...\r\n");
-				SImage_Host_SendCommand(&DigitalCamera_SI_Interface, 0x1013, 0, 0, 0, 0, NULL);
+
+				SImage_Host_SendCommand(&DigitalCamera_SI_Interface, 0x1013, 0, NULL);
+				if (SImage_Host_ReceiveResponse(&DigitalCamera_SI_Interface))
+				{
+					printf("Could not turn off device.\r\n");
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;					
+				}
+
 				printf("Device Off.\r\n");
 
 				printf("Closing Session...\r\n");

@@ -37,7 +37,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 {
 	HID_StateTable_t      StateTable[HID_STATETABLE_STACK_DEPTH];
 	HID_StateTable_t*     CurrStateTable          = &StateTable[0];
-	HID_CollectionPath_t* CurrCollectionPath  = NULL;
+	HID_CollectionPath_t* CurrCollectionPath      = NULL;
 	uint16_t              UsageStack[HID_USAGE_STACK_DEPTH];
 	uint8_t               UsageStackSize          = 0;
 	uint16_t              BitOffsetIn             = 0;
