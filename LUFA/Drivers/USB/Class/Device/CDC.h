@@ -192,8 +192,10 @@
 			/** Flushes any data waiting to be sent, ensuring that the send buffer is cleared.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+			 *
+			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum
 			 */
-			void CDC_Device_Flush(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t CDC_Device_Flush(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Sends a Serial Control Line State Change notification to the host. This should be called when the virtual serial
 			 *  control lines (DCD, DSR, etc.) have changed states, or to give BREAK notfications to the host. Line states persist
