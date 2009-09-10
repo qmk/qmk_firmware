@@ -143,10 +143,10 @@ uint8_t CDC_Device_SendByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, 
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataINEndpointNumber);
 
 	if (!(Endpoint_IsReadWriteAllowed()))
-	{
-		uint8_t ErrorCode;
-	
+	{	
 		Endpoint_ClearIN();
+
+		uint8_t ErrorCode;
 
 		if ((ErrorCode = Endpoint_WaitUntilReady()) != ENDPOINT_READYWAIT_NoError)
 		  return ErrorCode;
@@ -161,20 +161,26 @@ uint8_t CDC_Device_Flush(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 	if ((USB_DeviceState != DEVICE_STATE_Configured) || !(CDCInterfaceInfo->State.LineEncoding.BaudRateBPS))
 	  return ENDPOINT_READYWAIT_NoError;
 
-	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataINEndpointNumber);
-	
-	if (Endpoint_BytesInEndpoint())
-	{
-		uint8_t ErrorCode;
+	uint8_t ErrorCode;
 
-		Endpoint_ClearIN();
-		
-		if ((ErrorCode = Endpoint_WaitUntilReady()) != ENDPOINT_READYWAIT_NoError)
-		  return ErrorCode;
-	}
+	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataINEndpointNumber);
+
+	if (!(Endpoint_BytesInEndpoint()))
+	  return ENDPOINT_READYWAIT_NoError;
+	
+	bool BankFull = !(Endpoint_IsReadWriteAllowed());
 	
 	Endpoint_ClearIN();
-	return Endpoint_WaitUntilReady();
+	
+	if (BankFull)
+	{
+		if ((ErrorCode = Endpoint_WaitUntilReady()) != ENDPOINT_READYWAIT_NoError)
+		  return ErrorCode;
+
+		Endpoint_ClearIN();
+	}
+	
+	return ENDPOINT_READYWAIT_NoError;
 }
 
 uint16_t CDC_Device_BytesReceived(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)

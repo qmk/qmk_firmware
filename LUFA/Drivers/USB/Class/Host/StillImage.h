@@ -181,7 +181,7 @@
 			/** Receives an asynchronous event block from the device via the asynchronous events pipe.
 			 *
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[out] SI_PIMA_Container_t  Pointer to a PIMA container structure where the event should be stored
+			 *  \param[out] PIMAHeader  Pointer to a PIMA container structure where the event should be stored
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
 			 *          returned a logical command failure
