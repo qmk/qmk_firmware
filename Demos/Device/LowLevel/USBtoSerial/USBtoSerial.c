@@ -299,7 +299,7 @@ ISR(USART1_RX_vect, ISR_BLOCK)
 	uint8_t ReceivedByte = UDR1;
 
 	/* Only store received characters if the USB interface is connected */
-	if ((USB_DeviceState != DEVICE_STATE_Configured) && LineEncoding.BaudRateBPS)
+	if ((USB_DeviceState == DEVICE_STATE_Configured) && LineEncoding.BaudRateBPS)
 	  Buffer_StoreElement(&Tx_Buffer, ReceivedByte);
 }
 
