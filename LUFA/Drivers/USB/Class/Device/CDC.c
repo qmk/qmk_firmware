@@ -227,7 +227,7 @@ void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDC
 			.wLength       = sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost),
 		};
 
-	Endpoint_Write_Stream_LE(&Notification, sizeof(Notification), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NO_STREAM_CALLBACK);
 	Endpoint_Write_Stream_LE(&CDCInterfaceInfo->State.ControlLineStates.DeviceToHost,
 	                         sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost),
 	                         NO_STREAM_CALLBACK);

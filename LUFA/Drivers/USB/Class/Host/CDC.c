@@ -200,7 +200,7 @@ void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 	if (Pipe_IsINReceived())
 	{
 		USB_Request_Header_t Notification;
-		Pipe_Read_Stream_LE(&Notification, sizeof(Notification), NO_STREAM_CALLBACK);
+		Pipe_Read_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NO_STREAM_CALLBACK);
 		
 		if ((Notification.bRequest      == NOTIF_SerialState) &&
 		    (Notification.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE)))
