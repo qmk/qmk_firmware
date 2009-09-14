@@ -36,7 +36,7 @@ LUFA_SRC_FILES =     ./Drivers/USB/LowLevel/DevChapter9.c        \
 LUFA_Events.lst:
 	@echo
 	@echo Generating LUFA event name list...
-	@$(shell) cat `find ./ -name "*.h"` | egrep "EVENT_[^\(]*\(" | \
+	@$(shell) cat `find ./ -name "*.h"` | grep -E "EVENT_[^\(]*\(" | \
 	              sed -n -e 's/^.*EVENT_/EVENT_/p' | \
 	              cut -d'(' -f1 | sort | uniq > LUFA_Events.lst
 				  
