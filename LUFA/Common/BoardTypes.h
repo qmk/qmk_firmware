@@ -78,6 +78,9 @@
 			 */
 			#define BOARD_USER          5
 
+			/** Selects the BUMBLEB specific board drivers, using the officially recommended peripheral layout. */
+			#define BOARD_BUMBLEB       6
+
 #endif
 
 /** @} */

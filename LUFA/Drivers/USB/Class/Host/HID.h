@@ -92,9 +92,10 @@
 					uint16_t DataINPipeSize; /**< Size in bytes of the HID interface's IN data pipe */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the HID interface's OUT data pipe */
 					
-					bool SupportsBootSubClass; /**< Indicates if the current interface instance supports the HID Boot
+					bool SupportsBootProtocol; /**< Indicates if the current interface instance supports the HID Boot
 					                            *   Protocol when enabled via \ref USB_HID_Host_SetBootProtocol()
 					                            */
+					bool UsingBootProtocol; /**< Indicates that the interface is currently initialised in Boot Protocol mode */
 					uint16_t HIDReportSize; /**< Size in bytes of the HID report descriptor in the device */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when

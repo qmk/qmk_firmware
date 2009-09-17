@@ -90,6 +90,8 @@
 		#include "ATAVRUSBRF01/LEDs.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
+	#elif (BOARD == BOARD_BUMBLEB)
+		#include "BUMBLEB/LEDs.h"
 	#endif
 	
 	#if !defined(LEDS_LED1)

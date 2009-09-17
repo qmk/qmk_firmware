@@ -81,6 +81,8 @@
 		#include "ATAVRUSBRF01/Buttons.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/Buttons.h"		
+	#elif (BOARD == BOARD_BUMBLEB)
+		#include "BUMBLEB/Buttons.h"
 	#else
 		#error The selected board does not contain any GPIO buttons.
 	#endif

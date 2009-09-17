@@ -12,7 +12,7 @@
  *  further at the expense of a loss of flexibility).
  *
  *  With one or two exceptions (e.g. proprietary classes such as RNDIS) all the included demos will work across all OSes without
- *  the need for special drivers. One Windows, some demos require the supplied .INF file to be used as the device driver, which
+ *  the need for special drivers. On Windows, some demos require the supplied .INF file to be used as the device driver, which
  *  directs the OS to use its inbuilt class drivers for the device.
  *
  *  Also included with the library are three fully functional bootloaders, located in the /Bootloaders/ subdirectory.

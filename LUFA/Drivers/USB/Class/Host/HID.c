@@ -185,10 +185,15 @@ uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 	
-	if (!(HIDInterfaceInfo->State.SupportsBootSubClass))
+	if (!(HIDInterfaceInfo->State.SupportsBootProtocol))
 	  return HID_ERROR_LOGICAL;
+
+	if ((ErrorCode = USB_Host_SendControlRequest(HIDReportData)) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+
+	HIDInterfaceInfo->State.UsingBootProtocol = true;
 	
-	return USB_Host_SendControlRequest(NULL);
+	return HOST_SENDCONTROL_Successful;
 }
 
 uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
@@ -226,6 +231,8 @@ uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInf
 	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
 
+	HIDInterfaceInfo->State.UsingBootProtocol = false;
+	
 	if (HIDInterfaceInfo->Config.HIDParserData == NULL)
 	  return HID_ERROR_LOGICAL;
 	  
@@ -234,7 +241,7 @@ uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInf
 	{
 		return HID_ERROR_LOGICAL | ErrorCode;
 	}
-	
+
 	return 0;
 }
 

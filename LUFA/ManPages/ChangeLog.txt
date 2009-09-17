@@ -20,6 +20,7 @@
   *  - Added extra masks to the SPI driver, changed SPI_Init() so that the clock polarity and sample modes can be set
   *  - Added new callback to the HID report parser, so that the user application can filter only the items it is interested
   *    in to be stored into the HIDReportInfo structure to save RAM
+  *  - Added support for the officially recommended layout of the external peripherals connected to the BUMBLEB board
   *  
   *  <b>Changed:</b>
   *  - SetIdle requests to the HID device driver with a 0 idle period (send changes only) now only affect the requested

@@ -30,24 +30,24 @@
 
 /** \file
  *
- *  Board specific Buttons driver header for the ATAVRUSBRF01.
+ *  Board specific joystick driver header for the USBKEY. The BUMBLEB third-party board does not include any on-board
+ *  peripherals, but does have an officially recommended external peripheral layout for buttons, LEDs and a Joystick.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
- *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
+ *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
  */
- 
-/** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_ATAVRUSBRF01 ATAVRUSBRF01
+
+/** \ingroup Group_Joystick
+ *  @defgroup Group_Joystick_BUMBLEB BUMBLEB
  *
  *  @{
  */
 
-#ifndef __BUTTONS_ATAVRUSBRF01_H__
-#define __BUTTONS_ATAVRUSBRF01_H__
+#ifndef __JOYSTICK_BUMBLEB_H__
+#define __JOYSTICK_BUMBLEB_H__
 
 	/* Includes: */
 		#include <avr/io.h>
-		#include <stdbool.h>
 
 		#include "../../../Common/Common.h"
 
@@ -57,27 +57,45 @@
 		#endif
 
 	/* Preprocessor Checks: */
-		#if !defined(INCLUDE_FROM_BUTTONS_H)
-			#error Do not include this file directly. Include LUFA/Drivers/Board/Buttons.h instead.
+		#if !defined(INCLUDE_FROM_JOYSTICK_H)
+			#error Do not include this file directly. Include LUFA/Drivers/Board/Joystick.h instead.
 		#endif
-		
+
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* Macros: */
+			#define JOY_MASK                 ((1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4))
+	#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Button mask for the first button on the board. */
-			#define BUTTONS_BUTTON1      (1 << 7)
-	
+			/** Mask for the joystick being pushed in the left direction. */
+			#define JOY_LEFT                  (1 << 2)
+
+			/** Mask for the joystick being pushed in the upward direction. */
+			#define JOY_UP                    (1 << 3)
+
+			/** Mask for the joystick being pushed in the right direction. */
+			#define JOY_RIGHT                 (1 << 0)
+
+			/** Mask for the joystick being pushed in the downward direction. */
+			#define JOY_DOWN                  (1 << 1)
+
+			/** Mask for the joystick being pushed inward. */
+			#define JOY_PRESS                 (1 << 4)
+			
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
-			static inline void Buttons_Init(void)
+			static inline void Joystick_Init(void)
 			{
-				DDRD  &= ~BUTTONS_BUTTON1;
-				PORTD |=  BUTTONS_BUTTON1;
-			}
-
-			static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
-			static inline uint8_t Buttons_GetStatus(void)
+				DDRD  &= ~JOY_MASK;
+				PORTD |= JOY_MASK;
+			};
+			
+			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t Joystick_GetStatus(void)
 			{
-				return ((PIND & BUTTONS_BUTTON1) ^ BUTTONS_BUTTON1);
+				return (uint8_t)(~PIND & JOY_MASK);
 			}
 		#endif
 
@@ -85,7 +103,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-			
+
 #endif
 
 /** @} */

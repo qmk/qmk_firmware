@@ -27,6 +27,9 @@
  *   - STK526
  *   - RZUSBSTICK
  *   - ATAVRUSBRF01
- *   - Custom User Boards
+ *
+ *  Currently supported third-party boards:
+ *   - BUMBLEB (using recommended peripheral layout)
+ *   - Any Other Custom User Boards (with Board Drivers, \see Page_WritingBoardDrivers)
  */
  

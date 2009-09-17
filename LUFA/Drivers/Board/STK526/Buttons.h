@@ -36,6 +36,12 @@
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  */
 
+/** \ingroup Group_Buttons
+ *  @defgroup Group_Buttons_STK526 STK526
+ *
+ *  @{
+ */
+
 #ifndef __BUTTONS_STK526_H__
 #define __BUTTONS_STK526_H__
 
@@ -87,3 +93,5 @@
 		#endif
 			
 #endif
+
+/** @} */
