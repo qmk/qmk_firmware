@@ -98,6 +98,14 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
+
+				if (USB_HID_Host_SetBootProtocol(&Mouse_HID_Interface) != 0)
+				{
+					printf("Could not Set Boot Protocol Mode.\r\n");
+					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+					break;
+				}
 				
 				printf("Mouse Enumerated.\r\n");
 				USB_HostState = HOST_STATE_Configured;

@@ -274,8 +274,10 @@ static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* MSInterfaceInf
 	
 	if ((ErrorCode = Pipe_Read_Stream_LE(SCSICommandStatus, sizeof(MS_CommandStatusWrapper_t),
 	                                     NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-	  
+	{
+		return ErrorCode;
+	}
+	
 	Pipe_ClearIN();
 	Pipe_Freeze();
 	
@@ -322,14 +324,10 @@ uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t* Max
 		
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
-	if ((ErrorCode = USB_Host_SendControlRequest(MaxLUNIndex)) == HOST_SENDCONTROL_SetupStalled)
-	{
-		Pipe_ClearStall();
-
-		*MaxLUNIndex = 0;
-	}
+	if ((ErrorCode = USB_Host_SendControlRequest(MaxLUNIndex)) != HOST_SENDCONTROL_Successful)
+	  *MaxLUNIndex = 0;
 	
-	return HOST_SENDCONTROL_SetupStalled;
+	return ErrorCode;
 }
 
 uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, uint8_t LUNIndex, SCSI_Inquiry_Response_t* InquiryData)

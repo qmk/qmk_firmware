@@ -169,23 +169,73 @@ bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
 	return ReportReceived;
 }
 
-uint8_t USB_HID_Host_SetProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, bool UseReportProtocol)
+uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
 {
+	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
+	  return false;
+
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
 			.bRequest      = REQ_SetProtocol,
-			.wValue        = UseReportProtocol,
+			.wValue        = 1,
 			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
 			.wLength       = 0,
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 	
-	if (UseReportProtocol && !(HIDInterfaceInfo->State.SupportsBootSubClass))
-	  return MS_ERROR_UNSUPPORTED;
+	if (!(HIDInterfaceInfo->State.SupportsBootSubClass))
+	  return HID_ERROR_LOGICAL;
 	
 	return USB_Host_SendControlRequest(NULL);
+}
+
+uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
+	  return false;
+
+	uint8_t ErrorCode;
+
+	uint8_t HIDReportData[HIDInterfaceInfo->State.HIDReportSize];
+	
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE),
+			.bRequest      = REQ_GetDescriptor,
+			.wValue        = (DTYPE_Report << 8),
+			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
+			.wLength       = HIDInterfaceInfo->State.HIDReportSize,
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
+	if ((ErrorCode = USB_Host_SendControlRequest(HIDReportData)) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+	  
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+			.bRequest      = REQ_SetProtocol,
+			.wValue        = 0,
+			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
+			.wLength       = 0,
+		};
+
+	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
+	  return ErrorCode;
+
+	if (HIDInterfaceInfo->Config.HIDParserData == NULL)
+	  return HID_ERROR_LOGICAL;
+	  
+	if ((ErrorCode = USB_ProcessHIDReport(HIDReportData, HIDInterfaceInfo->State.HIDReportSize,
+	                                      HIDInterfaceInfo->Config.HIDParserData)) != HID_PARSE_Successful)
+	{
+		return HID_ERROR_LOGICAL | ErrorCode;
+	}
+	
+	return 0;
 }
 
 #endif

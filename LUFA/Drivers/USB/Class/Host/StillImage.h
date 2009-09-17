@@ -56,7 +56,7 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Error code for some Still Image Host functions, indicating a logical (and not hardware) error */
-			#define SI_ERROR_LOGICAL_CMD_FAILED              0xC0
+			#define SI_ERROR_LOGICAL_CMD_FAILED              0x80
 
 		/* Type Defines: */
 			typedef struct

@@ -145,6 +145,8 @@
 			 *  values of the interface have been changed to push the new settings to the USB device.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum
 			 */
 			uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -154,6 +156,8 @@
 			 *  to push the new states to the USB device.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum
 			 */
 			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			

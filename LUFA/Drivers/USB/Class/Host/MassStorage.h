@@ -56,7 +56,7 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Error code for some Mass Storage Host functions, indicating a logical (and not hardware) error */
-			#define MS_ERROR_LOGICAL_CMD_FAILED              0xC0
+			#define MS_ERROR_LOGICAL_CMD_FAILED              0x80
 	
 		/* Type Defines: */
 			/** Class state structure. An instance of this structure should be made within the user application,
