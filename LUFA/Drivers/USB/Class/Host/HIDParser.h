@@ -208,9 +208,9 @@
 			typedef struct
 			{
 				uint8_t                      ReportID; /** Report ID of the report within the HID interface */
-				uint8_t                      BitsIn; /** Total number of IN data bits in the current report ID */
-				uint8_t                      BitsOut; /** Total number of OUT data bits in the current report ID */
-				uint8_t                      BitsFeature; /** Total number of FEATURE data bits in the current report ID */
+				uint8_t                      ReportSizeBits[3]; /** Total number of bits in each report type for the given Report ID,
+				                                                 *  indexed by the \ref HID_ReportItemTypes_t enum
+																 */
 			} HID_ReportSizeInfo_t;
 
 			/** Type define for a complete processed HID report, including all report item data and collections. */

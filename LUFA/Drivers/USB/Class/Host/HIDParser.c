@@ -246,21 +246,21 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 					{
 						case TAG_MAIN_INPUT:
 							NewReportItem.ItemType  = REPORT_ITEM_TYPE_In;
-							NewReportItem.BitOffset = CurrReportIDInfo->BitsIn;
+							NewReportItem.BitOffset = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_In];
 								
-							CurrReportIDInfo->BitsIn += CurrStateTable->Attributes.BitSize;
+							CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_In] += CurrStateTable->Attributes.BitSize;
 							break;
 						case TAG_MAIN_OUTPUT:
 							NewReportItem.ItemType  = REPORT_ITEM_TYPE_Out;
-							NewReportItem.BitOffset = CurrReportIDInfo->BitsOut;
+							NewReportItem.BitOffset = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Out];
 								
-							CurrReportIDInfo->BitsOut += CurrStateTable->Attributes.BitSize;
+							CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Out] += CurrStateTable->Attributes.BitSize;
 							break;
 						case TAG_MAIN_FEATURE:
 							NewReportItem.ItemType  = REPORT_ITEM_TYPE_Feature;						
-							NewReportItem.BitOffset = CurrReportIDInfo->BitsFeature;
+							NewReportItem.BitOffset = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Feature];
 								
-							CurrReportIDInfo->BitsFeature += CurrStateTable->Attributes.BitSize;
+							CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Feature] += CurrStateTable->Attributes.BitSize;
 							break;
 					}
 
@@ -347,17 +347,7 @@ uint16_t USB_GetHIDReportSize(HID_ReportInfo_t* const ParserData, uint8_t Report
 	for (uint8_t i = 0; i < HID_MAX_REPORT_IDS; i++)
 	{
 		if (ParserData->ReportIDSizes[i].ReportID == ReportID)
-		{
-			switch (ReportType)
-			{
-				case REPORT_ITEM_TYPE_In:
-					return ParserData->ReportIDSizes[i].BitsIn;
-				case REPORT_ITEM_TYPE_Out:
-					return ParserData->ReportIDSizes[i].BitsOut;
-				case REPORT_ITEM_TYPE_Feature:
-					return ParserData->ReportIDSizes[i].BitsFeature;
-			}
-		}
+		  return ParserData->ReportIDSizes[i].ReportSizeBits[ReportType];
 	}
 
 	return 0;

@@ -115,10 +115,16 @@ int main(void)
 				{
 					USB_MouseReport_Data_t MouseReport;
 					uint8_t ReportID = 0;
-					uint8_t LEDMask = LEDS_NO_LEDS;
+					uint8_t LEDMask  = LEDS_NO_LEDS;
 				
+					/* Receive next boot protocol mouse report from the device */
 					HID_Host_ReceiveReport(&Mouse_HID_Interface, false, &ReportID, &MouseReport);
 					
+					/* Print mouse report data through the serial port */
+					printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
+																  MouseReport.Y,
+																  MouseReport.Button);
+
 					/* Alter status LEDs according to mouse X movement */
 					if (MouseReport.X > 0)
 					  LEDMask |= LEDS_LED1;
@@ -134,12 +140,8 @@ int main(void)
 					/* Alter status LEDs according to mouse button position */
 					if (MouseReport.Button)
 					  LEDMask  = LEDS_ALL_LEDS;
-					
+
 					LEDs_SetAllLEDs(LEDMask);
-				}
-				else
-				{
-					LEDs_SetAllLEDs(LEDS_NO_LEDS);
 				}
 				
 				break;
