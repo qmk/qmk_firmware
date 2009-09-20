@@ -116,7 +116,7 @@
 		{
 			uint8_t Modifier; /**< Keyboard modifier byte, indicating pressed modifier keys (such as Shift, Control, etc.) */
 			uint8_t Reserved; /**< Reserved for OEM use, always set to 0 */
-			uint8_t KeyCode; /**< Key code of the currently pressed key */
+			uint8_t KeyCode[6]; /**< Key codes of the currently pressed keys */
 		} USB_KeyboardReport_Data_t;
 
 		/** Type define for the data type used to store HID report descriptor elements. */
