@@ -47,7 +47,7 @@ USB_ClassInfo_HID_Host_t Mouse_HID_Interface =
 				.DataINPipeNumber       = 1,
 				.DataOUTPipeNumber      = 2,
 				
-				.HIDInterfaceProtocol   = 0x02,
+				.HIDInterfaceProtocol   = HID_BOOT_MOUSE_PROTOCOL,
 			},
 	};
 
@@ -110,7 +110,38 @@ int main(void)
 				printf("Mouse Enumerated.\r\n");
 				USB_HostState = HOST_STATE_Configured;
 				break;
-			case HOST_STATE_Configured:			
+			case HOST_STATE_Configured:
+				if (HID_Host_IsReportReceived(&Mouse_HID_Interface))
+				{
+					USB_MouseReport_Data_t MouseReport;
+					uint8_t ReportID = 0;
+					uint8_t LEDMask = LEDS_NO_LEDS;
+				
+					HID_Host_ReceiveReport(&Mouse_HID_Interface, false, &ReportID, &MouseReport);
+					
+					/* Alter status LEDs according to mouse X movement */
+					if (MouseReport.X > 0)
+					  LEDMask |= LEDS_LED1;
+					else if (MouseReport.X < 0)
+					  LEDMask |= LEDS_LED2;
+						
+					/* Alter status LEDs according to mouse Y movement */
+					if (MouseReport.Y > 0)
+					  LEDMask |= LEDS_LED3;
+					else if (MouseReport.Y < 0)
+					  LEDMask |= LEDS_LED4;
+
+					/* Alter status LEDs according to mouse button position */
+					if (MouseReport.Button)
+					  LEDMask  = LEDS_ALL_LEDS;
+					
+					LEDs_SetAllLEDs(LEDMask);
+				}
+				else
+				{
+					LEDs_SetAllLEDs(LEDS_NO_LEDS);
+				}
+				
 				break;
 		}
 	

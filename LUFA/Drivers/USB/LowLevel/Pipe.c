@@ -93,7 +93,7 @@ uint8_t Pipe_WaitUntilReady(void)
 	#else
 	uint16_t TimeoutMSRem = USB_STREAM_TIMEOUT_MS;
 	#endif
-
+	
 	for (;;)
 	{
 		if (Pipe_GetPipeToken() == PIPE_TOKEN_IN)

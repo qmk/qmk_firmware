@@ -173,7 +173,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 				
 			.Class                  = 0x03,
 			.SubClass               = 0x01,
-			.Protocol               = 0x01,
+			.Protocol               = HID_BOOT_KEYBOARD_PROTOCOL,
 				
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
@@ -210,7 +210,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 				
 			.Class                  = 0x03,
 			.SubClass               = 0x01,
-			.Protocol               = 0x02,
+			.Protocol               = HID_BOOT_MOUSE_PROTOCOL,
 				
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},

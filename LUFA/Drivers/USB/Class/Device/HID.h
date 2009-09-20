@@ -131,7 +131,7 @@
 			 */
 			void HID_Device_MillisecondElapsed(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
-			/** HID class driver callback for the user creation of a HID input report. This callback may fire in response to either
+			/** HID class driver callback for the user creation of a HID IN report. This callback may fire in response to either
 			 *  HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback the
 			 *  user is responsible for the creation of the next HID input report to be sent to the host.
 			 *
@@ -148,7 +148,7 @@
 			bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
                                                      void* ReportData, uint16_t* ReportSize) ATTR_NON_NULL_PTR_ARG(1, 2, 3, 4);
 			
-			/** HID class driver callback for the user processing of a received HID input report. This callback may fire in response to
+			/** HID class driver callback for the user processing of a received HID OUT report. This callback may fire in response to
 			 *  either HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback
 			 *  the user is responsible for the processing of the received HID output report from the host.
 			 *

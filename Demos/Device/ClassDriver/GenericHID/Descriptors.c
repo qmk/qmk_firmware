@@ -123,7 +123,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 				
 			.Class                  = 0x03,
 			.SubClass               = 0x00,
-			.Protocol               = 0x00,
+			.Protocol               = HID_NON_BOOT_PROTOCOL,
 				
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},

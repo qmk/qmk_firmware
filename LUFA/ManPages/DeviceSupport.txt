@@ -29,7 +29,7 @@
  *   - ATAVRUSBRF01
  *
  *  Currently supported third-party boards:
- *   - BUMBLEB (using recommended peripheral layout)
+ *   - BUMBLEB (using officially recommended peripheral layout)
  *   - Any Other Custom User Boards (with Board Drivers, \see Page_WritingBoardDrivers)
  */
  

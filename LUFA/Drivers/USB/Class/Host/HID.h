@@ -73,8 +73,9 @@
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the HID interface's OUT data pipe */
 
 					uint8_t  HIDInterfaceProtocol; /**< HID interface protocol value to match against if a specific
-					                                *   boot subclass protocol is required (e.g. keyboard, mouse), or
-					                                *   leave as 0 to match against the first HID interface found
+					                                *   boot subclass protocol is required, either \ref HID_BOOT_MOUSE_PROTOCOL,
+													*   \ref HID_BOOT_KEYBOARD_PROTOCOL or \ref HID_NON_BOOT_PROTOCOL if any
+													*   HID device should be enumerated by the interface
 					                                */
 					HID_ReportInfo_t* HIDParserData; /**< HID parser data to store the parsed HID report data, when boot protocol
 					                                  *   is not used */
@@ -95,6 +96,9 @@
 					bool SupportsBootProtocol; /**< Indicates if the current interface instance supports the HID Boot
 					                            *   Protocol when enabled via \ref USB_HID_Host_SetBootProtocol()
 					                            */
+					bool DeviceUsesOUTPipe; /**< Indicates if the current interface instance uses a seperate OUT data pipe for
+					                         *   OUT reports, or if OUT reports are sent via the control pipe instead.
+					                         */
 					bool UsingBootProtocol; /**< Indicates that the interface is currently initialised in Boot Protocol mode */
 					uint16_t HIDReportSize; /**< Size in bytes of the HID report descriptor in the device */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
@@ -141,14 +145,43 @@
 			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t ConfigDescriptorLength,
 			                                uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 
-			/** Determines if a report has been received on the HID interface's IN report pipe, when the device is initialized
-			 *  into Report Protocol mode.
+
+			/** Receives a HID IN report from the attached HID device, either the next report from the device's IN data pipe,
+			 *  or a given report (by Report ID) if a specific report is desired.
+			 *
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
+			 *  \param[in] ControlRequest  Set to true if the report should be requested by a control request, false otherwise
+			 *  \param[in,out] ReportID  Report ID of the received report if ControlRequest is false, set by the to the Report ID
+			 *                           to fetch if ControlRequest is true
+			 *  \param[in] Buffer  Buffer to store the received report into
+			 *
+			 *  \return An error code from the \ref USB_Host_SendControlErrorCodes_t enum if the ControlRequest flag is set,
+			 *          a value from the \ref Pipe_Stream_RW_ErrorCodes_t enum otherwise
+			 */
+			uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, bool ControlRequest, uint8_t* ReportID,
+			                               void* Buffer) ATTR_NON_NULL_PTR_ARG(1, 3);
+
+			/** Sends an OUT report to the currently attached HID device, using the device's OUT pipe if available or the device's
+			 *  Control pipe if not.
+			 *
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
+			 *  \param[in] ReportID  Report ID of the report to send to the device, or 0 if the device does not use report IDs
+			 *  \param[in] Buffer  Buffer containing the report to send to the attached device
+			 *  \param[in] ReportSize  Report size in bytes to send to the attached device
+			 *
+			 *  \return An error code from the \ref USB_Host_SendControlErrorCodes_t enum if the DeviceUsesOUTPipe flag is set in
+			 *          the interface's state structure, a value from the \ref Pipe_Stream_RW_ErrorCodes_t enum otherwise
+			 */
+			uint8_t HID_Host_SendReport(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint8_t ReportID,
+			                            void* Buffer, uint16_t ReportSize) ATTR_NON_NULL_PTR_ARG(1, 3);
+
+			/** Determines if a HID IN report has been received from the attached device on the data IN pipe.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
 			 *
 			 *  \return Boolean true if a report has been received, false otherwise
 			 */
-			bool    HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Switches the attached HID device's reporting protocol over to the Boot Report protocol mode, on supported devices.
 			 *

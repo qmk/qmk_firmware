@@ -524,7 +524,7 @@ void CDC_Task(void)
 		else if (Command == 'D')
 		{
 			/* Read the byte from the endpoint and write it to the EEPROM */
-			eeprom_write_byte((uint8_t*)(uint16_t)(CurrAddress >> 1), FetchNextCommandByte());
+			eeprom_write_byte((uint8_t*)((uint16_t)(CurrAddress >> 1)), FetchNextCommandByte());
 			
 			/* Increment the address after use */			
 			CurrAddress += 2;
@@ -535,7 +535,7 @@ void CDC_Task(void)
 		else if (Command == 'd')
 		{
 			/* Read the EEPROM byte and write it to the endpoint */
-			WriteNextResponseByte(eeprom_read_byte((uint8_t*)(uint16_t)(CurrAddress >> 1)));
+			WriteNextResponseByte(eeprom_read_byte((uint8_t*)((uint16_t)(CurrAddress >> 1))));
 
 			/* Increment the address after use */
 			CurrAddress += 2;

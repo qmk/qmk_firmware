@@ -48,29 +48,44 @@
 
 	/* Macros: */
 		/** HID Class Specific Request to get the current HID report from the device. */
-		#define REQ_GetReport      0x01
+		#define REQ_GetReport                0x01
 
 		/** HID Class Specific Request to get the current device idle count. */
-		#define REQ_GetIdle        0x02
+		#define REQ_GetIdle                  0x02
 
 		/** HID Class Specific Request to set the current HID report to the device. */
-		#define REQ_SetReport      0x09
+		#define REQ_SetReport                0x09
 
 		/** HID Class Specific Request to set the device's idle count. */
-		#define REQ_SetIdle        0x0A
+		#define REQ_SetIdle                  0x0A
 
 		/** HID Class Specific Request to get the current HID report protocol mode. */
-		#define REQ_GetProtocol    0x03
+		#define REQ_GetProtocol              0x03
 
 		/** HID Class Specific Request to set the current HID report protocol mode. */
-		#define REQ_SetProtocol    0x0B
+		#define REQ_SetProtocol              0x0B
 
 		/** Descriptor header type value, to indicate a HID class HID descriptor. */
-		#define DTYPE_HID          0x21
+		#define DTYPE_HID                    0x21
 		
 		/** Descriptor header type value, to indicate a HID class HID report descriptor. */
-		#define DTYPE_Report       0x22
+		#define DTYPE_Report                 0x22
 		
+		/** Constant for the protocol value of a HID interface descriptor, indicating that the interface does not support
+		 *  any HID class boot protocol (see HID Class Specification).
+		 */
+		#define HID_NON_BOOT_PROTOCOL        0x00
+
+		/** Constant for the protocol value of a HID interface descriptor, indicating that the interface supports the
+		 *  HID class Mouse boot protocol (see HID Class Specification).
+		 */
+		#define HID_BOOT_MOUSE_PROTOCOL      0x02
+		
+		/** Constant for the protocol value of a HID interface descriptor, indicating that the interface supports the
+		 *  HID class Keyboard boot protocol (see HID Class Specification).
+		 */
+		#define HID_BOOT_KEYBOARD_PROTOCOL   0x01
+
 	/* Type Defines: */
 		/** Type define for the HID class specific HID descriptor, to describe the HID device's specifications. Refer to the HID
 		 *  specification for details on the structure elements.
@@ -87,6 +102,22 @@
 			uint8_t                  HIDReportType;
 			uint16_t                 HIDReportLength;
 		} USB_HID_Descriptor_t;
+
+		/** Type define for a standard Boot Protocol Mouse report */
+		typedef struct
+		{
+			uint8_t Button; /**< Button mask for currently pressed buttons in the mouse */
+			int8_t  X; /**< Current delta X movement of the mouse */
+			int8_t  Y; /**< Current delta Y movement on the mouse */
+		} USB_MouseReport_Data_t;
+		
+		/** Type define for a standard Boot Protocol Keyboard report */
+		typedef struct
+		{
+			uint8_t Modifier; /**< Keyboard modifier byte, indicating pressed modifier keys (such as Shift, Control, etc.) */
+			uint8_t Reserved; /**< Reserved for OEM use, always set to 0 */
+			uint8_t KeyCode; /**< Key code of the currently pressed key */
+		} USB_KeyboardReport_Data_t;
 
 		/** Type define for the data type used to store HID report descriptor elements. */
 		typedef uint8_t USB_Descriptor_HIDReport_Datatype_t;

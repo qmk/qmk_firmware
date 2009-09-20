@@ -292,6 +292,12 @@
 				/** Freezes the selected pipe, preventing it from communicating with an attached device. */
 				static inline void Pipe_Freeze(void);
 
+				/** Determines if the currently selected pipe is frozen, and not able to accept data.
+				 *
+				 *  \return Boolean true if the currently selected pipe is frozen, false otherwise
+				 */
+				static inline bool Pipe_IsFrozen(void);
+				
 				/** Clears the master pipe error flag. */
 				static inline void Pipe_ClearError(void);
 				
@@ -445,6 +451,8 @@
 				#define Pipe_Unfreeze()                MACROS{ UPCONX &= ~(1 << PFREEZE); }MACROE
 
 				#define Pipe_Freeze()                  MACROS{ UPCONX |= (1 << PFREEZE); }MACROE
+				
+				#define Pipe_IsFrozen()                ((UPCONX & (1 << PFREEZE)) ? true : false)
 
 				#define Pipe_ClearError()              MACROS{ UPINTX &= ~(1 << PERRI); }MACROE
 
