@@ -17,6 +17,9 @@ all:
 	make -C CDCHost clean
 	make -C CDCHost all	
 
+	make -C KeyboardHost clean
+	make -C KeyboardHost all
+
 	make -C MouseHost clean
 	make -C MouseHost all
 
@@ -28,6 +31,7 @@ all:
 	
 %:
 	make -C CDCHost $@
+	make -C KeyboardHost $@
 	make -C MouseHost $@
 	make -C MassStorageHost $@
 	make -C StillImageHost $@

@@ -30,24 +30,24 @@
 
 /** \file
  *
- *  Main source file for the MouseHost demo. This file contains the main tasks of
+ *  Main source file for the KeyboardHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
  
-#include "MouseHost.h"
+#include "KeyboardHost.h"
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_HID_Host_t Mouse_HID_Interface =
+USB_ClassInfo_HID_Host_t Keyboard_HID_Interface =
 	{
 		.Config =
 			{
 				.DataINPipeNumber       = 1,
 				.DataOUTPipeNumber      = 2,
 				
-				.HIDInterfaceProtocol   = HID_BOOT_MOUSE_PROTOCOL,
+				.HIDInterfaceProtocol   = HID_BOOT_KEYBOARD_PROTOCOL,
 			},
 	};
 
@@ -59,7 +59,7 @@ int main(void)
 {
 	SetupHardware();
 
-	puts_P(PSTR(ESC_FG_CYAN "Mouse Host Demo running.\r\n" ESC_FG_WHITE));
+	puts_P(PSTR(ESC_FG_CYAN "Keyboard Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
@@ -82,10 +82,10 @@ int main(void)
 					break;
 				}
 
-				if (HID_Host_ConfigurePipes(&Mouse_HID_Interface,
+				if (HID_Host_ConfigurePipes(&Keyboard_HID_Interface,
 				                            ConfigDescriptorSize, ConfigDescriptorData) != HID_ENUMERROR_NoError)
 				{
-					printf("Attached Device Not a Valid Mouse.\r\n");
+					printf("Attached Device Not a Valid Keyboard.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -99,7 +99,7 @@ int main(void)
 					break;
 				}
 
-				if (USB_HID_Host_SetBootProtocol(&Mouse_HID_Interface) != 0)
+				if (USB_HID_Host_SetBootProtocol(&Keyboard_HID_Interface) != 0)
 				{
 					printf("Could not Set Boot Protocol Mode.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -107,44 +107,44 @@ int main(void)
 					break;
 				}
 				
-				printf("Mouse Enumerated.\r\n");
+				printf("Keyboard Enumerated.\r\n");
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
-				if (HID_Host_IsReportReceived(&Mouse_HID_Interface))
+				if (HID_Host_IsReportReceived(&Keyboard_HID_Interface))
 				{
-					USB_MouseReport_Data_t MouseReport;
+					USB_KeyboardReport_Data_t KeyboardReport;
 					uint8_t ReportID = 0;
-					uint8_t LEDMask  = LEDS_NO_LEDS;
 				
-					/* Receive next boot protocol mouse report from the device */
-					HID_Host_ReceiveReport(&Mouse_HID_Interface, false, &ReportID, &MouseReport);
+					HID_Host_ReceiveReport(&Keyboard_HID_Interface, false, &ReportID, &KeyboardReport);
+
+					LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);
 					
-					/* Print mouse report data through the serial port */
-					printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
-																  MouseReport.Y,
-																  MouseReport.Button);
+					if (KeyboardReport.KeyCode)
+					{
+						char PressedKey = 0;
 
-					if (MouseReport.X > 0)
-					  LEDMask |= LEDS_LED1;
-					else if (MouseReport.X < 0)
-					  LEDMask |= LEDS_LED2;
-						
-					if (MouseReport.Y > 0)
-					  LEDMask |= LEDS_LED3;
-					else if (MouseReport.Y < 0)
-					  LEDMask |= LEDS_LED4;
-
-					if (MouseReport.Button)
-					  LEDMask  = LEDS_ALL_LEDS;
-
-					LEDs_SetAllLEDs(LEDMask);
+						LEDs_ToggleLEDs(LEDS_LED2);
+							  
+						/* Retrieve pressed key character if alphanumeric */
+						if ((KeyboardReport.KeyCode >= 0x04) && (KeyboardReport.KeyCode <= 0x1D))
+						  PressedKey = (KeyboardReport.KeyCode - 0x04) + 'A';
+						else if ((KeyboardReport.KeyCode >= 0x1E) && (KeyboardReport.KeyCode <= 0x27))
+						  PressedKey = (KeyboardReport.KeyCode - 0x1E) + '0';
+						else if (KeyboardReport.KeyCode == 0x2C)
+						  PressedKey = ' ';						
+						else if (KeyboardReport.KeyCode == 0x28)
+						  PressedKey = '\n';
+							 
+						if (PressedKey)
+						  putchar(PressedKey);
+					}
 				}
 				
 				break;
 		}
 	
-		HID_Host_USBTask(&Mouse_HID_Interface);
+		HID_Host_USBTask(&Keyboard_HID_Interface);
 		USB_USBTask();
 	}
 }
