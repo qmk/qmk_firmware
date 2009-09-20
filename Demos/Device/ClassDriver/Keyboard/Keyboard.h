@@ -53,17 +53,6 @@
 		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/HID.h>
-
-	/* Type Defines: */
-		/** Type define for the keyboard HID report structure, for creating and sending HID reports to the host PC.
-		 *  This mirrors the layout described to the host in the HID report descriptor, in Descriptors.c.
-		 */
-		typedef struct
-		{
-			uint8_t Modifier; /**< Modifier mask byte, containing a mask of modifier keys set (such as shift or CTRL) */
-			uint8_t Reserved; /**< Reserved, always set as 0x00 */
-			uint8_t KeyCode[6]; /**< Array of up to six simultaneous key codes of pressed keys */
-		} USB_KeyboardReport_Data_t;
 			
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
