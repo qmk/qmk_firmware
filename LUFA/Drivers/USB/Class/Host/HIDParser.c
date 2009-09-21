@@ -241,29 +241,36 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 					{
 						NewReportItem.Attributes.Usage.Usage = 0;
 					}
-											
+
+					uint8_t ReportSizeIndex = 0;
+
 					switch (HIDReportItem & TAG_MASK)
 					{
 						case TAG_MAIN_INPUT:
 							NewReportItem.ItemType  = REPORT_ITEM_TYPE_In;
 							NewReportItem.BitOffset = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_In];
 								
-							CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_In] += CurrStateTable->Attributes.BitSize;
+							ReportSizeIndex = REPORT_ITEM_TYPE_In;
 							break;
 						case TAG_MAIN_OUTPUT:
 							NewReportItem.ItemType  = REPORT_ITEM_TYPE_Out;
 							NewReportItem.BitOffset = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Out];
 								
-							CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Out] += CurrStateTable->Attributes.BitSize;
+							ReportSizeIndex = REPORT_ITEM_TYPE_Out;
 							break;
 						case TAG_MAIN_FEATURE:
 							NewReportItem.ItemType  = REPORT_ITEM_TYPE_Feature;						
 							NewReportItem.BitOffset = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Feature];
 								
-							CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Feature] += CurrStateTable->Attributes.BitSize;
+							ReportSizeIndex = REPORT_ITEM_TYPE_Feature;
 							break;
 					}
+					
+					CurrReportIDInfo->ReportSizeBits[ReportSizeIndex] += CurrStateTable->Attributes.BitSize;
 
+					if (ParserData->LargestReportSizeBits < CurrReportIDInfo->ReportSizeBits[ReportSizeIndex])
+					  ParserData->LargestReportSizeBits = CurrReportIDInfo->ReportSizeBits[ReportSizeIndex];
+					
 					if (!(ReportItemData & IOF_CONSTANT) && CALLBACK_HIDParser_FilterHIDReportItem(&CurrStateTable->Attributes))
 					{					
 						if (ParserData->TotalReportItems == HID_MAX_REPORTITEMS)

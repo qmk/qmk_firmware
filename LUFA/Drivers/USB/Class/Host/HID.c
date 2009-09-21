@@ -101,6 +101,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		}
 	}
 
+	HIDInterfaceInfo->State.LargestReportSize = 8;
 	HIDInterfaceInfo->State.IsActive = true;
 	return HID_ENUMERROR_NoError;
 }
@@ -288,6 +289,7 @@ uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfac
 	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
 
+	HIDInterfaceInfo->State.LargestReportSize = 8;
 	HIDInterfaceInfo->State.UsingBootProtocol = true;
 	
 	return HOST_SENDCONTROL_Successful;
@@ -338,6 +340,9 @@ uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterf
 	{
 		return HID_ERROR_LOGICAL | ErrorCode;
 	}
+
+	uint8_t LargestReportSizeBits = HIDInterfaceInfo->Config.HIDParserData->LargestReportSizeBits;
+	HIDInterfaceInfo->State.LargestReportSize = (LargestReportSizeBits >> 3) + ((LargestReportSizeBits & 0x07) != 0);
 
 	return 0;
 }

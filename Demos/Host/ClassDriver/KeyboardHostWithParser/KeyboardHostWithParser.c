@@ -120,7 +120,7 @@ int main(void)
 			case HOST_STATE_Configured:
 				if (HID_Host_IsReportReceived(&Keyboard_HID_Interface))
 				{
-					uint8_t KeyboardReport[50];
+					uint8_t KeyboardReport[Keyboard_HID_Interface.State.LargestReportSize];
 					HID_Host_ReceiveReport(&Keyboard_HID_Interface, &KeyboardReport);
 					
 					for (uint8_t ReportNumber = 0; ReportNumber < HIDReportInfo.TotalReportItems; ReportNumber++)

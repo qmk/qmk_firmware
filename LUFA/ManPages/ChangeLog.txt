@@ -68,7 +68,7 @@
   *  - Re-add in missing flip, flip-ee, dfu and dfu-ee targets to project makefiles (thanks to Opendous Inc.)
   *  - Fix allowable F_CPU values comment in project makefiles to more accurately reflect the allowable values on the USB AVRs
   *  - Fixed DFU and CDC class bootloaders on the series 2 USB AVRs, corrected invalid signatures, added support for the new
-  *    ATMEGAxxx2 series 2 variant AVRs to the DFU bootloader
+  *    ATMEGAxx2 series 2 variant AVRs to the DFU bootloader
   *  - Fixed Low Level USBtoSerial demo not storing received characters (thanks to Michael Cooper)
   *  - Fixed MIDI Device Class driver not sending/receiving MIDI packets of the correct size (thanks to Thomas Bleeker)
   *

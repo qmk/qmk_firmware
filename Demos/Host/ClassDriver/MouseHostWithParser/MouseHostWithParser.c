@@ -120,7 +120,7 @@ int main(void)
 			case HOST_STATE_Configured:
 				if (HID_Host_IsReportReceived(&Mouse_HID_Interface))
 				{
-					uint8_t MouseReport[50];
+					uint8_t MouseReport[Keyboard_HID_Interface.State.LargestReportSize];
 					HID_Host_ReceiveReport(&Mouse_HID_Interface, &MouseReport);
 
 					uint8_t LEDMask = LEDS_NO_LEDS;

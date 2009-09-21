@@ -101,6 +101,8 @@
 					                         */
 					bool UsingBootProtocol; /**< Indicates that the interface is currently initialised in Boot Protocol mode */
 					uint16_t HIDReportSize; /**< Size in bytes of the HID report descriptor in the device */
+					
+					uint8_t LargestReportSize; /**< Largest report the device will send, in bytes */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.

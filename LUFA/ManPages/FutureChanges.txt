@@ -11,8 +11,8 @@
   *  If you have an item to add to this list, please contact the library author via email, the LUFA mailing list,
   *  or post your suggestion as an enhancement request to the project bug tracker.
   *
-  *  <b>Targeted for This Release:</b>
-  *  - Finish HID Host Mode Class Driver, add demo summaries
+  *  <b>Targeted for This Release (SVN Development Only):</b>
+  *  - N/A
   *
   *  <b>Targeted for Future Releases:</b>
   *  - Add hub support to match Atmel's stack
@@ -20,10 +20,11 @@
   *  - Remake AVRStudio project files
   *  - Add detailed overviews of how each demo works
   *  - Master LUFA include file rather than per-module includes
-  *  - Add multiple-report HID device demo to the library
-  *  - Add dual role Mouse Host/Keyboard Device demo to the library
-  *  - Add Mouse/CDC dual class device demo to the library
   *  - Change makefiles to allow for absolute LUFA location to be used
+  *  - Make new demos
+  *      -# Multiple-report HID device
+  *      -# Dual Role Mouse Host/Keyboard Device
+  *      -# Mouse/CDC Dual ClassDevice
   *  - Port LUFA to other architectures
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

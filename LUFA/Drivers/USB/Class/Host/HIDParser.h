@@ -225,8 +225,9 @@
 				HID_CollectionPath_t         CollectionPaths[HID_MAX_COLLECTIONS]; /**< All collection items, referenced
 				                                                                    *   by the report items.
 				                                                                    */
-				uint8_t                      TotalDeviceReports; /** Number of reports within the HID interface */
-				HID_ReportSizeInfo_t         ReportIDSizes[HID_MAX_REPORT_IDS]; /** Report sizes for each report in the interface */
+				uint8_t                      TotalDeviceReports; /**< Number of reports within the HID interface */
+				HID_ReportSizeInfo_t         ReportIDSizes[HID_MAX_REPORT_IDS]; /**< Report sizes for each report in the interface */
+				uint16_t                     LargestReportSizeBits; /**< Largest report that the attached device will generate, in bits */
 				bool                         UsingReportIDs; /**< Indicates if the device has at least one REPORT ID
 				                                              *   element in its HID report descriptor.
 				                                              */
