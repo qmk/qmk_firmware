@@ -125,7 +125,7 @@
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
 			 */
-			void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Host interface configuration routine, to configure a given HID host interface instance using the Configuration
 			 *  Descriptor read from an attached USB device. This function automatically updates the given HID Host instance's
@@ -137,12 +137,12 @@
 			 *        to either the \ref USB_HID_Host_SetBootProtocol() or \ref USB_HID_Host_SetReportProtocol() function.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
-			 *  \param[in] ConfigDescriptorLength  Length of the attached device's Configuration Descriptor
+			 *  \param[in] ConfigDescriptorSize  Length of the attached device's Configuration Descriptor
 			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
 			 *
 			 *  \return A value from the \ref HIDHost_EnumerationFailure_ErrorCodes_t enum
 			 */
-			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t ConfigDescriptorLength,
+			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint16_t ConfigDescriptorSize,
 			                                uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 
@@ -158,7 +158,7 @@
 			 *  \return An error code from the \ref USB_Host_SendControlErrorCodes_t enum if the ControlRequest flag is set,
 			 *          a value from the \ref Pipe_Stream_RW_ErrorCodes_t enum otherwise
 			 */
-			uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, bool ControlRequest, uint8_t* ReportID,
+			uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const bool ControlRequest, uint8_t* ReportID,
 			                               void* Buffer) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 			/** Sends an OUT report to the currently attached HID device, using the device's OUT pipe if available or the device's
@@ -172,8 +172,8 @@
 			 *  \return An error code from the \ref USB_Host_SendControlErrorCodes_t enum if the DeviceUsesOUTPipe flag is set in
 			 *          the interface's state structure, a value from the \ref Pipe_Stream_RW_ErrorCodes_t enum otherwise
 			 */
-			uint8_t HID_Host_SendReport(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint8_t ReportID,
-			                            void* Buffer, uint16_t ReportSize) ATTR_NON_NULL_PTR_ARG(1, 3);
+			uint8_t HID_Host_SendReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID,
+			                            void* Buffer, const uint16_t ReportSize) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 			/** Determines if a HID IN report has been received from the attached device on the data IN pipe.
 			 *
@@ -181,7 +181,7 @@
 			 *
 			 *  \return Boolean true if a report has been received, false otherwise
 			 */
-			bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Switches the attached HID device's reporting protocol over to the Boot Report protocol mode, on supported devices.
 			 *
@@ -190,7 +190,7 @@
 			 *  \return \ref HID_ERROR_LOGICAL if the device does not support Boot Protocol mode, a value from the
 			 *          \ref USB_Host_SendControlErrorCodes_t enum otherwise
 			 */
-			uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Switches the attached HID device's reporting protocol over to the standard Report protocol mode. This also retrieves
 			 *  and parses the device's HID report descriptor, so that the size of each report can be determined in advance.
@@ -205,7 +205,7 @@
 			 *          not have a valid \ref HID_ReportInfo_t structure set in its configuration, a mask of \ref HID_ERROR_LOGICAL
 			 *          and a value from the \ref HID_Parse_ErrorCodes_t otherwise
 			 */
-			uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 		
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

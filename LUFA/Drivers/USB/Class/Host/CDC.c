@@ -34,7 +34,7 @@
 #define  INCLUDE_FROM_CDC_CLASS_HOST_C
 #include "CDC.h"
 
-uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t ConfigDescriptorSize,
+uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, uint16_t ConfigDescriptorSize,
                                 uint8_t* ConfigDescriptorData)
 {
 	uint8_t FoundEndpoints = 0;
@@ -189,7 +189,7 @@ static uint8_t DComp_CDC_Host_NextCDCInterfaceEndpoint(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
+void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
 	  return;
@@ -219,7 +219,7 @@ void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 	Pipe_Freeze();
 }
 
-uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
+uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
@@ -235,7 +235,7 @@ uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 	return USB_Host_SendControlRequest(&CDCInterfaceInfo->State.LineEncoding);
 }
 
-uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
+uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
@@ -251,7 +251,7 @@ uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* CDCInterfa
 	return USB_Host_SendControlRequest(NULL);
 }
 
-uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Data, uint16_t Length)
+uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, char* Data, const uint16_t Length)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
 	  return PIPE_READYWAIT_NoError;
@@ -266,7 +266,7 @@ uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Da
 	return ErrorCode;
 }
 
-uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data)
+uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, const uint8_t Data)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
 	  return PIPE_READYWAIT_NoError;;
@@ -290,7 +290,7 @@ uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Da
 	return PIPE_READYWAIT_NoError;
 }
 
-uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
+uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 {
 	uint16_t BytesInPipe = 0;
 
@@ -309,7 +309,7 @@ uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
 	return BytesInPipe;
 }
 
-uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo)
+uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 {
 	uint8_t ReceivedByte = 0;
 

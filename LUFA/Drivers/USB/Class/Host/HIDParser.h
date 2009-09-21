@@ -278,8 +278,8 @@
 			 *
 			 *  \return Size of the report in bytes, or 0 if the report does not exist
 			 */
-			uint16_t USB_GetHIDReportSize(HID_ReportInfo_t* const ParserData, uint8_t ReportID,
-			                              uint8_t ReportType) ATTR_NON_NULL_PTR_ARG(1);
+			uint16_t USB_GetHIDReportSize(HID_ReportInfo_t* const ParserData, const uint8_t ReportID,
+			                              const uint8_t ReportType) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Callback routine for the HID Report Parser. This callback <b>must</b> be implemented by the user code when
 			 *  the parser is used, to determine what report IN, OUT and FEATURE item's information is stored into the user

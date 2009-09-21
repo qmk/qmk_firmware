@@ -115,25 +115,27 @@ int main(void)
 				{
 					USB_KeyboardReport_Data_t KeyboardReport;
 					uint8_t ReportID = 0;
-				
+					
 					HID_Host_ReceiveReport(&Keyboard_HID_Interface, false, &ReportID, &KeyboardReport);
 
 					LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);
 					
-					if (KeyboardReport.KeyCode)
+					uint8_t PressedKeyCode = KeyboardReport.KeyCode[0];
+
+					if (PressedKeyCode)
 					{
 						char PressedKey = 0;
 
 						LEDs_ToggleLEDs(LEDS_LED2);
 							  
 						/* Retrieve pressed key character if alphanumeric */
-						if ((KeyboardReport.KeyCode >= 0x04) && (KeyboardReport.KeyCode <= 0x1D))
-						  PressedKey = (KeyboardReport.KeyCode - 0x04) + 'A';
-						else if ((KeyboardReport.KeyCode >= 0x1E) && (KeyboardReport.KeyCode <= 0x27))
-						  PressedKey = (KeyboardReport.KeyCode - 0x1E) + '0';
-						else if (KeyboardReport.KeyCode == 0x2C)
+						if ((PressedKeyCode >= 0x04) && (PressedKeyCode <= 0x1D))
+						  PressedKey = (PressedKeyCode - 0x04) + 'A';
+						else if ((PressedKeyCode >= 0x1E) && (PressedKeyCode <= 0x27))
+						  PressedKey = (PressedKeyCode - 0x1E) + '0';
+						else if (PressedKeyCode == 0x2C)
 						  PressedKey = ' ';						
-						else if (KeyboardReport.KeyCode == 0x28)
+						else if (PressedKeyCode == 0x28)
 						  PressedKey = '\n';
 							 
 						if (PressedKey)

@@ -342,7 +342,7 @@ void USB_SetHIDReportItemInfo(uint8_t* ReportData, const HID_ReportItem_t* Repor
 	}
 }
 
-uint16_t USB_GetHIDReportSize(HID_ReportInfo_t* const ParserData, uint8_t ReportID, uint8_t ReportType)
+uint16_t USB_GetHIDReportSize(HID_ReportInfo_t* const ParserData, const uint8_t ReportID, const uint8_t ReportType)
 {
 	for (uint8_t i = 0; i < HID_MAX_REPORT_IDS; i++)
 	{

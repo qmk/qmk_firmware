@@ -70,7 +70,7 @@ void Pipe_ClearPipes(void)
 	}
 }
 
-bool Pipe_IsEndpointBound(uint8_t EndpointAddress)
+bool Pipe_IsEndpointBound(const uint8_t EndpointAddress)
 {
 	uint8_t PrevPipeNumber = Pipe_GetCurrentPipe();
 

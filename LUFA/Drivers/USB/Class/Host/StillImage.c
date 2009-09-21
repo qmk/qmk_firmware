@@ -34,7 +34,7 @@
 #define INCLUDE_FROM_SI_CLASS_HOST_C
 #include "StillImage.h"
 
-uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t ConfigDescriptorLength,
+uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, uint16_t ConfigDescriptorSize,
                               uint8_t* DeviceConfigDescriptor)
 {
 	uint8_t  FoundEndpoints = 0;
@@ -44,7 +44,7 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_
 	if (DESCRIPTOR_TYPE(DeviceConfigDescriptor) != DTYPE_Configuration)
 	  return SI_ENUMERROR_InvalidConfigDescriptor;
 	
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorLength, &DeviceConfigDescriptor,
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
 	                              DComp_SI_Host_NextSIInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		return SI_ENUMERROR_NoSIInterfaceFound;
@@ -52,7 +52,7 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_
 
 	while (FoundEndpoints != (SI_FOUND_EVENTS_IN | SI_FOUND_DATAPIPE_IN | SI_FOUND_DATAPIPE_OUT))
 	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorLength, &DeviceConfigDescriptor,
+		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
 		                              DComp_SI_Host_NextSIInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			return SI_ENUMERROR_EndpointsNotFound;
@@ -142,12 +142,12 @@ uint8_t DComp_SI_Host_NextSIInterfaceEndpoint(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-void SI_Host_USBTask(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
+void SI_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 {
 
 }
 
-static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader)
+static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader)
 {
 	uint8_t ErrorCode;
 	
@@ -173,7 +173,7 @@ static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceI
 	return PIPE_RWSTREAM_NoError;
 }
 
-static uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader)
+static uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader)
 {
 	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
 
@@ -236,7 +236,7 @@ static uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfa
 	return PIPE_RWSTREAM_NoError;
 }
 
-uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes)
+uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, void* Buffer, const uint16_t Bytes)
 {
 	uint8_t ErrorCode;
 
@@ -251,7 +251,7 @@ uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buf
 	return ErrorCode;
 }
 
-uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, void* Buffer, uint16_t Bytes)
+uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, void* Buffer, const uint16_t Bytes)
 {
 	uint8_t ErrorCode;
 
@@ -280,7 +280,7 @@ bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
 	return IsEventReceived;
 }
 
-uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, SI_PIMA_Container_t* PIMAHeader)
+uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader)
 {
 	uint8_t ErrorCode;
 
@@ -295,7 +295,7 @@ uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
 	return ErrorCode;
 }
 
-uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
+uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnect;
@@ -325,7 +325,7 @@ uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
 	return PIPE_RWSTREAM_NoError;
 }
 
-uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
+uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnect;
@@ -354,8 +354,8 @@ uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
 	return PIPE_RWSTREAM_NoError;
 }
 
-uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16_t Operation,
-                                uint8_t TotalParams, uint32_t* Params)
+uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, const uint16_t Operation,
+                                const uint8_t TotalParams, uint32_t* Params)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnect;
@@ -377,7 +377,7 @@ uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* SIInterfaceInfo, uint16
 	return PIPE_RWSTREAM_NoError;
 }
 
-uint8_t SImage_Host_ReceiveResponse(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
+uint8_t SImage_Host_ReceiveResponse(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 {
 	uint8_t ErrorCode;
 	SI_PIMA_Container_t PIMABlock;

@@ -36,7 +36,7 @@
 
 #warning The HID Host mode Class driver is currently incomplete and is for preview purposes only.
 
-uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint16_t ConfigDescriptorSize,
+uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint16_t ConfigDescriptorSize,
                                 uint8_t* ConfigDescriptorData)
 {
 	uint8_t FoundEndpoints = 0;
@@ -149,12 +149,13 @@ static uint8_t DComp_HID_Host_NextHIDInterfaceEndpoint(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
+void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 {
 
 }
 
-uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, bool ControlRequest, uint8_t* ReportID, void* Buffer)
+uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const bool ControlRequest,
+                               uint8_t* ReportID, void* Buffer)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return false;
@@ -207,7 +208,8 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, bool 
 	}
 }
 
-uint8_t HID_Host_SendReport(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint8_t ReportID, void* Buffer, uint16_t ReportSize)
+uint8_t HID_Host_SendReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint8_t ReportID, void* Buffer,
+                            const uint16_t ReportSize)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return false;
@@ -247,7 +249,7 @@ uint8_t HID_Host_SendReport(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo, uint8_t 
 	}
 }
 
-bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
+bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return false;
@@ -264,7 +266,7 @@ bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
 	return ReportReceived;
 }
 
-uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
+uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 {
 	uint8_t ErrorCode;
 
@@ -290,7 +292,7 @@ uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
 	return HOST_SENDCONTROL_Successful;
 }
 
-uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* HIDInterfaceInfo)
+uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 {
 	uint8_t ErrorCode;
 

@@ -124,7 +124,7 @@
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing an CDC Class host configuration and state
 			 */
-			void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Host interface configuration routine, to configure a given CDC host interface instance using the Configuration
 			 *  Descriptor read from an attached USB device. This function automatically updates the given CDC Host instance's
@@ -133,12 +133,12 @@
 			 *  the Addressed state.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing an CDC Class host configuration and state
-			 *  \param[in] ConfigDescriptorLength  Length of the attached device's Configuration Descriptor
+			 *  \param[in] ConfigDescriptorSize  Length of the attached device's Configuration Descriptor
 			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
 			 *
 			 *  \return A value from the \ref CDCHost_EnumerationFailure_ErrorCodes_t enum
 			 */
-			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint16_t ConfigDescriptorLength,
+			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, uint16_t ConfigDescriptorSize,
 			                                uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 			
 			/** Sets the line encoding for the attached device's virtual serial port. This should be called when the LineEncoding
@@ -148,7 +148,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum
 			 */
-			uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Sends a Serial Control Line State Change notification to the device. This should be called when the virtual serial
 			 *  control lines (DTR, RTS, etc.) have changed states. Line states persist until they are cleared via a second
@@ -159,7 +159,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum
 			 */
-			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Sends a given string to the attached USB device, if connected. If a device is not connected when the function is called, the
 			 *  string is discarded.
@@ -170,7 +170,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
-			uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, char* Data, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1, 2);
+			uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, char* Data, const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1, 2);
 			
 			/** Sends a given byte to the attached USB device, if connected. If a host is not connected when the function is called, the
 			 *  byte is discarded.
@@ -180,7 +180,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_WaitUntilReady_ErrorCodes_t enum
 			 */
-			uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, uint8_t Data) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, const uint8_t Data) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Determines the number of bytes received by the CDC interface from the device, waiting to be read.
 			 *
@@ -188,7 +188,7 @@
 			 *
 			 *  \return Total number of buffered bytes received from the device
 			 */
-			uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads a byte of data from the device. If no data is waiting to be read of if a USB device is not connected, the function
 			 *  returns 0. The \ref CDC_Host_BytesReceived() function should be queried before data is received to ensure that no data
@@ -198,7 +198,7 @@
 			 *
 			 *  \return Next received byte from the device, or 0 if no data received
 			 */
-			uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** CDC class driver event for a control line state change on a CDC host interface. This event fires each time the device notifies
 			 *  the host of a control line state change (containing the virtual serial control line states, such as DCD) and may be hooked in the
@@ -208,7 +208,7 @@
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 */
-			void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

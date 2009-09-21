@@ -809,7 +809,7 @@
 			 *
 			 *  \return Boolean true if a pipe bound to the given endpoint address is found, false otherwise
 			 */
-			bool Pipe_IsEndpointBound(uint8_t EndpointAddress);
+			bool Pipe_IsEndpointBound(const uint8_t EndpointAddress);
 		
 			/** Reads and discards the given number of bytes from the pipe, discarding fully read packets from the host
 			 *  as needed. The last packet is not automatically discarded once the remaining bytes has been read; the
