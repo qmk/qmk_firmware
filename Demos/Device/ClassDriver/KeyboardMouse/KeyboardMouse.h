@@ -60,27 +60,6 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-		
-	/* Type Defines: */
-		/** Type define for the keyboard HID report structure, for creating and sending HID reports to the host PC.
-		 *  This mirrors the layout described to the host in the HID report descriptor, in Descriptors.c.
-		 */
-		typedef struct
-		{
-			uint8_t Modifier; /**< Modifier mask byte, containing a mask of modifier keys set (such as shift or CTRL) */
-			uint8_t Reserved; /**< Reserved, always set as 0x00 */
-			uint8_t KeyCode[6]; /**< Array of up to six simultaneous key codes of pressed keys */
-		} USB_KeyboardReport_Data_t;
-
-		/** Type define for the mouse HID report structure, for creating and sending HID reports to the host PC.
-		 *  This mirrors the layout described to the host in the HID report descriptor, in Descriptors.c.
-		 */
-		typedef struct
-		{
-			uint8_t Button; /**< Bit mask of the currently pressed mouse buttons */
-			int8_t  X; /**< Current mouse delta X movement, as a signed 8-bit integer */
-			int8_t  Y; /**< Current mouse delta Y movement, as a signed 8-bit integer */
-		} USB_MouseReport_Data_t;
 			
 	/* Function Prototypes: */
 		void SetupHardware(void);
