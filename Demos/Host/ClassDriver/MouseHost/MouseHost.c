@@ -113,18 +113,14 @@ int main(void)
 			case HOST_STATE_Configured:
 				if (HID_Host_IsReportReceived(&Mouse_HID_Interface))
 				{
-					USB_MouseReport_Data_t MouseReport;
-					uint8_t ReportID = 0;
 					uint8_t LEDMask  = LEDS_NO_LEDS;
 				
-					/* Receive next boot protocol mouse report from the device */
-					HID_Host_ReceiveReport(&Mouse_HID_Interface, false, &ReportID, &MouseReport);
+					USB_MouseReport_Data_t MouseReport;
+					HID_Host_ReceiveReport(&Mouse_HID_Interface, &MouseReport);
 					
-					/* Print mouse report data through the serial port */
 					printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
 																  MouseReport.Y,
 																  MouseReport.Button);
-
 					if (MouseReport.X > 0)
 					  LEDMask |= LEDS_LED1;
 					else if (MouseReport.X < 0)

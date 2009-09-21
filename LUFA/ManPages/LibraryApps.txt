@@ -65,7 +65,6 @@
  *    - <b>Host</b>
  *      - <b>ClassDriver</b>
  *        - <b>CDCHost</b> - Virtual Serial Port host demo, using the library USB CDC Class driver framework
- *        - <b>GenericHIDHost</b> - Generic HID host demo, using the library USB HID Class driver framework
  *        - <b>KeyboardHost</b> - USB Keyboard host demo, using the library USB HID Class driver framework
  *        - <b>KeyboardHostWithParser</b> - USB Keyboard host demo with HID Descriptor parser, using the library USB HID Class
  *                                          driver framework

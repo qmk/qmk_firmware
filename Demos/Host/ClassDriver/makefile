@@ -20,8 +20,14 @@ all:
 	make -C KeyboardHost clean
 	make -C KeyboardHost all
 
+	make -C KeyboardHostWithParser clean
+	make -C KeyboardHostWithParser all
+
 	make -C MouseHost clean
 	make -C MouseHost all
+
+	make -C MouseHostWithParser clean
+	make -C MouseHostWithParser all
 
 	make -C MassStorageHost clean
 	make -C MassStorageHost all
@@ -32,6 +38,8 @@ all:
 %:
 	make -C CDCHost $@
 	make -C KeyboardHost $@
+	make -C KeyboardHostWithParser $@
 	make -C MouseHost $@
+	make -C MouseHostWithParser $@
 	make -C MassStorageHost $@
 	make -C StillImageHost $@

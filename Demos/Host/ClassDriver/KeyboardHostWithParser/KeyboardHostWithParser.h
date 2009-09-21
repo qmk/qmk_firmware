@@ -8,7 +8,6 @@
 
 /*
   Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-  Copyright 2009  Matthias Hullin (lufa [at] matthias [dot] hullin [dot] net)
 
   Permission to use, copy, modify, and distribute this software
   and its documentation for any purpose and without fee is hereby
@@ -31,33 +30,26 @@
 
 /** \file
  *
- *  Header file for MassStorageKeyboard.c.
+ *  Header file for KeyboardHostWithParser.c.
  */
 
-#ifndef _MASS_STORAGE_KEYBOARD_H_
-#define _MASS_STORAGE_KEYBOARD_H_
+#ifndef _KEYBOARD_HOST_H_
+#define _KEYBOARD_HOST_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
+		#include <avr/pgmspace.h>
 		#include <avr/power.h>
-		#include <avr/interrupt.h>
-		#include <stdbool.h>
-		#include <string.h>
-
-		#include "Descriptors.h"
-
-		#include "Lib/SCSI.h"
-		#include "Lib/DataflashManager.h"
+		#include <stdio.h>
 
 		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/Misc/TerminalCodes.h>
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/MassStorage.h>
-		#include <LUFA/Drivers/USB/Class/Device/HID.h>
-			
+		#include <LUFA/Drivers/USB/Class/HID.h>
+		
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
@@ -70,30 +62,17 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+		
+		/** HID Report Descriptor Usage Page value for a desktop keyboard */
+		#define USAGE_PAGE_KEYBOARD      0x07
 
-		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
-		#define LEDMASK_USB_BUSY         (LEDS_LED2)
-		
-		/** Total number of logical drives within the device - must be non-zero. */
-		#define TOTAL_LUNS               1
-		
-		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */
-		#define LUN_MEDIA_BLOCKS         (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)
-		
 	/* Function Prototypes: */
 		void SetupHardware(void);
-
-		void EVENT_USB_Device_Connect(void);
-		void EVENT_USB_Device_Disconnect(void);
-		void EVENT_USB_Device_ConfigurationChanged(void);
-		void EVENT_USB_Device_UnhandledControlRequest(void);
-
-		bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
-
-		bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
-                                                 void* ReportData, uint16_t* ReportSize);
-		void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, const uint8_t ReportID, 
-		                                          const void* ReportData, const uint16_t ReportSize);
-
-
+	
+		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
+		void EVENT_USB_Host_DeviceAttached(void);
+		void EVENT_USB_Host_DeviceUnattached(void);
+		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
+		void EVENT_USB_Host_DeviceEnumerationComplete(void);
+		
 #endif

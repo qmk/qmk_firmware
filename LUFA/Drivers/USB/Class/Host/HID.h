@@ -146,20 +146,25 @@
 			                                uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 
-			/** Receives a HID IN report from the attached HID device, either the next report from the device's IN data pipe,
-			 *  or a given report (by Report ID) if a specific report is desired.
+			/** Receives a HID IN report from the attached HID device, when a report has been received on the HID IN Data pipe.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
-			 *  \param[in] ControlRequest  Set to true if the report should be requested by a control request, false otherwise
-			 *  \param[in,out] ReportID  Report ID of the received report if ControlRequest is false, set by the to the Report ID
-			 *                           to fetch if ControlRequest is true
 			 *  \param[in] Buffer  Buffer to store the received report into
 			 *
-			 *  \return An error code from the \ref USB_Host_SendControlErrorCodes_t enum if the ControlRequest flag is set,
-			 *          a value from the \ref Pipe_Stream_RW_ErrorCodes_t enum otherwise
+			 *  \return An error code from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
-			uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const bool ControlRequest, uint8_t* ReportID,
-			                               void* Buffer) ATTR_NON_NULL_PTR_ARG(1, 3);
+			uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, void* Buffer) ATTR_NON_NULL_PTR_ARG(1, 2);
+
+			/** Received a HID IN report from the attached device, by the report ID.
+			 *
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
+			 *  \param[in] ReportID  Report ID of the received report if ControlRequest is false, set by the to the Report ID to fetch
+			 *  \param[in] Buffer  Buffer to store the received report into
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum
+			 */
+			uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID,
+			                                   void* Buffer) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 			/** Sends an OUT report to the currently attached HID device, using the device's OUT pipe if available or the device's
 			 *  Control pipe if not.
@@ -172,8 +177,8 @@
 			 *  \return An error code from the \ref USB_Host_SendControlErrorCodes_t enum if the DeviceUsesOUTPipe flag is set in
 			 *          the interface's state structure, a value from the \ref Pipe_Stream_RW_ErrorCodes_t enum otherwise
 			 */
-			uint8_t HID_Host_SendReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID,
-			                            void* Buffer, const uint16_t ReportSize) ATTR_NON_NULL_PTR_ARG(1, 3);
+			uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID,
+			                                void* Buffer, const uint16_t ReportSize) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 			/** Determines if a HID IN report has been received from the attached device on the data IN pipe.
 			 *

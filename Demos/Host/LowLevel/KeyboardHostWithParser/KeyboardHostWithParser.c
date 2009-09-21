@@ -200,7 +200,7 @@ void Keyboard_HID_Task(void)
 				         ((ReportSizeFeatureBits >> 3) + ((ReportSizeFeatureBits & 0x07) != 0)));
 			}
 
-			puts_P(PSTR("Keyboard Enumerated.\r\n"));
+			puts_P(PSTR("HID Device Enumerated.\r\n"));
 
 			USB_HostState = HOST_STATE_Configured;
 			break;

@@ -1,0 +1,69 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage Keyboard Host With HID Descriptor Parser Demo
+ *
+ *  \section SSec_Compat Demo Compatibility:
+ *
+ *  The following table indicates what microcontrollers are compatible with this demo.
+ *
+ *  - AT90USB1287
+ *  - AT90USB647
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Host</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Human Interface Device (HID)</td>
+ *   </tr>
+ *   <tr> 
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>N/A</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF HID Specification, USBIF HID Usage Tables</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Usable Speeds:</b></td>
+ *    <td>Low Speed Mode, Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Keyboard host demonstration application. This gives a simple reference
+ *  application for implementing a USB Keyboard host, for USB keyboards using
+ *  the standard Keyboard HID profile. It uses a HID parser for the HID reports,
+ *  allowing for correct operation across all USB keyboards. This demo supports
+ *  keyboards with a single HID report.
+ *  
+ *  Pressed alpha-numeric, enter or space key is transmitted through the serial
+ *  USART at serial settings 9600, 8, N, 1. On connection to a USB keyboard, the
+ *  report items will be processed and printed as a formatted list through the
+ *  USART before the keyboard is fully enumerated.
+ *  
+ *  Currently only single interface keyboards are supported.	
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */

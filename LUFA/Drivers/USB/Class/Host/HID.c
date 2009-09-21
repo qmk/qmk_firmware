@@ -34,8 +34,6 @@
 #define INCLUDE_FROM_HID_CLASS_HOST_C
 #include "HID.h"
 
-#warning The HID Host mode Class driver is currently incomplete and is for preview purposes only.
-
 uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint16_t ConfigDescriptorSize,
                                 uint8_t* ConfigDescriptorData)
 {
@@ -154,62 +152,62 @@ void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 
 }
 
-uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const bool ControlRequest,
-                               uint8_t* ReportID, void* Buffer)
+uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID, void* Buffer)
+{
+	USB_ControlRequest = (USB_Request_Header_t)
+	{
+		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+		.bRequest      = REQ_SetReport,
+		.wValue        = ReportID,
+		.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
+		.wLength       = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, REPORT_ITEM_TYPE_In),
+	};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
+	return USB_Host_SendControlRequest(Buffer);
+}											   
+											   
+uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, void* Buffer)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return false;
 
-	if (ControlRequest)
-	{
-		USB_ControlRequest = (USB_Request_Header_t)
-		{
-			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SetReport,
-			.wValue        = *ReportID,
-			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
-			.wLength       = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, *ReportID, REPORT_ITEM_TYPE_In),
-		};
+	uint8_t ErrorCode;
 
-		Pipe_SelectPipe(PIPE_CONTROLPIPE);
-		
-		return USB_Host_SendControlRequest(Buffer);
+	Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_Unfreeze();
+	
+	uint16_t ReportSize;
+
+	if (HIDInterfaceInfo->State.UsingBootProtocol)
+	{
+		ReportSize = Pipe_BytesInPipe();
 	}
 	else
 	{
-		uint8_t ErrorCode;
+		uint8_t ReportID = 0;
 	
-		Pipe_SelectPipe(HIDInterfaceInfo->Config.DataINPipeNumber);
-		Pipe_Unfreeze();
-		
-		uint16_t ReportSize;
-
-		if (HIDInterfaceInfo->State.UsingBootProtocol)
+		if (HIDInterfaceInfo->Config.HIDParserData->UsingReportIDs)
 		{
-			ReportSize = Pipe_BytesInPipe();
+			ReportID = Pipe_Read_Byte();
+			*((uint8_t*)Buffer++) = ReportID;
 		}
-		else
-		{
-			if (HIDInterfaceInfo->Config.HIDParserData->UsingReportIDs)
-				*ReportID = Pipe_Read_Byte();
-			else
-				*ReportID = 0;
-			
-			ReportSize = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, *ReportID, REPORT_ITEM_TYPE_In);
-		}
-
-		if ((ErrorCode = Pipe_Read_Stream_LE(Buffer, ReportSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
-		  return ErrorCode;
-		 
-		Pipe_ClearIN();		
-		Pipe_Freeze();
 		
-		return PIPE_RWSTREAM_NoError;		
+		ReportSize = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, REPORT_ITEM_TYPE_In);
 	}
+
+	if ((ErrorCode = Pipe_Read_Stream_LE(Buffer, ReportSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	  return ErrorCode;
+	 
+	Pipe_ClearIN();		
+	Pipe_Freeze();
+	
+	return PIPE_RWSTREAM_NoError;
 }
 
-uint8_t HID_Host_SendReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint8_t ReportID, void* Buffer,
-                            const uint16_t ReportSize)
+uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint8_t ReportID, void* Buffer,
+                                const uint16_t ReportSize)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return false;
@@ -268,6 +266,9 @@ bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 
 uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 {
+	if (HIDInterfaceInfo->State.UsingBootProtocol)
+	  return HOST_SENDCONTROL_Successful;
+
 	uint8_t ErrorCode;
 
 	USB_ControlRequest = (USB_Request_Header_t)
@@ -312,23 +313,26 @@ uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterf
 	if ((ErrorCode = USB_Host_SendControlRequest(HIDReportData)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
 	  
-	USB_ControlRequest = (USB_Request_Header_t)
-		{
-			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SetProtocol,
-			.wValue        = 1,
-			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
-			.wLength       = 0,
-		};
+	if (HIDInterfaceInfo->State.UsingBootProtocol)
+	{
+		USB_ControlRequest = (USB_Request_Header_t)
+			{
+				.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+				.bRequest      = REQ_SetProtocol,
+				.wValue        = 1,
+				.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
+				.wLength       = 0,
+			};
 
-	if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
-	  return ErrorCode;
+		if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
+		  return ErrorCode;
 
-	HIDInterfaceInfo->State.UsingBootProtocol = false;
+		HIDInterfaceInfo->State.UsingBootProtocol = false;
+	}
 	
 	if (HIDInterfaceInfo->Config.HIDParserData == NULL)
 	  return HID_ERROR_LOGICAL;
-	  
+		
 	if ((ErrorCode = USB_ProcessHIDReport(HIDReportData, HIDInterfaceInfo->State.HIDReportSize,
 	                                      HIDInterfaceInfo->Config.HIDParserData)) != HID_PARSE_Successful)
 	{

@@ -30,24 +30,29 @@
 
 /** \file
  *
- *  Main source file for the KeyboardHost demo. This file contains the main tasks of
+ *  Main source file for the MouseHostWithParser demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
  
-#include "KeyboardHost.h"
+#include "MouseHostWithParser.h"
+
+/** Processed HID report descriptor items structure, containing information on each HID report element */
+HID_ReportInfo_t HIDReportInfo;
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
  */
-USB_ClassInfo_HID_Host_t Keyboard_HID_Interface =
+USB_ClassInfo_HID_Host_t Mouse_HID_Interface =
 	{
 		.Config =
 			{
 				.DataINPipeNumber       = 1,
 				.DataOUTPipeNumber      = 2,
 				
-				.HIDInterfaceProtocol   = HID_BOOT_KEYBOARD_PROTOCOL,
+				.HIDInterfaceProtocol   = HID_NON_BOOT_PROTOCOL,
+				
+				.HIDParserData          = &HIDReportInfo
 			},
 	};
 
@@ -59,7 +64,7 @@ int main(void)
 {
 	SetupHardware();
 
-	puts_P(PSTR(ESC_FG_CYAN "Keyboard Host Demo running.\r\n" ESC_FG_WHITE));
+	puts_P(PSTR(ESC_FG_CYAN "Mouse Host Demo running.\r\n" ESC_FG_WHITE));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
@@ -82,10 +87,10 @@ int main(void)
 					break;
 				}
 
-				if (HID_Host_ConfigurePipes(&Keyboard_HID_Interface,
+				if (HID_Host_ConfigurePipes(&Mouse_HID_Interface,
 				                            ConfigDescriptorSize, ConfigDescriptorData) != HID_ENUMERROR_NoError)
 				{
-					printf("Attached Device Not a Valid Keyboard.\r\n");
+					printf("Attached Device Not a Valid Mouse.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -99,52 +104,76 @@ int main(void)
 					break;
 				}
 
-				if (USB_HID_Host_SetBootProtocol(&Keyboard_HID_Interface) != 0)
+				if (USB_HID_Host_SetReportProtocol(&Mouse_HID_Interface) != 0)
 				{
-					printf("Could not Set Boot Protocol Mode.\r\n");
+					printf("Could not Set Report Protocol Mode.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
 				
-				printf("Keyboard Enumerated.\r\n");
+				LEDs_SetAllLEDs(LEDS_NO_LEDS);
+				
+				printf("HID Device Enumerated.\r\n");
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
-				if (HID_Host_IsReportReceived(&Keyboard_HID_Interface))
+				if (HID_Host_IsReportReceived(&Mouse_HID_Interface))
 				{
-					USB_KeyboardReport_Data_t KeyboardReport;					
-					HID_Host_ReceiveReport(&Keyboard_HID_Interface, &KeyboardReport);
+					uint8_t MouseReport[50];
+					HID_Host_ReceiveReport(&Mouse_HID_Interface, &MouseReport);
 
-					LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);
-					
-					uint8_t PressedKeyCode = KeyboardReport.KeyCode[0];
+					uint8_t LEDMask = LEDS_NO_LEDS;
 
-					if (PressedKeyCode)
+					for (uint8_t ReportNumber = 0; ReportNumber < HIDReportInfo.TotalReportItems; ReportNumber++)
 					{
-						char PressedKey = 0;
+						HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
+						
+						if ((ReportItem->Attributes.Usage.Page        == USAGE_PAGE_BUTTON) &&
+							(ReportItem->ItemType                     == REPORT_ITEM_TYPE_In))
+						{
+							/* Get the mouse button value if it is contained within the current report, if not,
+							 * skip to the next item in the parser list
+							 */
+							if (!(USB_GetHIDReportItemInfo(MouseReport, ReportItem)))
+							  continue;
 
-						LEDs_ToggleLEDs(LEDS_LED2);
-							  
-						/* Retrieve pressed key character if alphanumeric */
-						if ((PressedKeyCode >= 0x04) && (PressedKeyCode <= 0x1D))
-						  PressedKey = (PressedKeyCode - 0x04) + 'A';
-						else if ((PressedKeyCode >= 0x1E) && (PressedKeyCode <= 0x27))
-						  PressedKey = (PressedKeyCode - 0x1E) + '0';
-						else if (PressedKeyCode == 0x2C)
-						  PressedKey = ' ';						
-						else if (PressedKeyCode == 0x28)
-						  PressedKey = '\n';
-							 
-						if (PressedKey)
-						  putchar(PressedKey);
+							if (ReportItem->Value)
+							  LEDMask = LEDS_ALL_LEDS;
+						}
+						else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
+								 ((ReportItem->Attributes.Usage.Usage == USAGE_X)                  ||
+								  (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
+								 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
+						{
+							/* Get the mouse relative position value if it is contained within the current 
+							 * report, if not, skip to the next item in the parser list
+							 */
+							if (!(USB_GetHIDReportItemInfo(MouseReport, ReportItem)))
+							  continue;							  
+
+							int16_t DeltaMovement = (int16_t)(ReportItem->Value << (16 - ReportItem->Attributes.BitSize));
+							
+							if (ReportItem->Attributes.Usage.Usage == USAGE_X)
+							{
+								if (DeltaMovement)
+								  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED1 : LEDS_LED2);
+							}
+							else
+							{
+								if (DeltaMovement)
+								  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED3 : LEDS_LED4);
+							}
+						}
 					}
+					
+					LEDs_SetAllLEDs(LEDMask);
 				}
 				
 				break;
 		}
 	
-		HID_Host_USBTask(&Keyboard_HID_Interface);
+		HID_Host_USBTask(&Mouse_HID_Interface);
 		USB_USBTask();
 	}
 }
@@ -214,4 +243,28 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
 	
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+}
+
+/** Callback for the HID Report Parser. This function is called each time the HID report parser is about to store
+ *  an IN, OUT or FEATURE item into the HIDReportInfo structure. To save on RAM, we are able to filter out items
+ *  we aren't interested in (preventing us from being able to extract them later on, but saving on the RAM they would
+ *  have occupied).
+ *
+ *  \param CurrentItemAttributes  Pointer to the attrbutes of the item the HID report parser is currently working with
+ *
+ *  \return Boolean true if the item should be stored into the HID report structure, false if it should be discarded
+ */
+bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_Attributes_t* CurrentItemAttributes)
+{
+	/* Check the attributes of the current item - see if we are interested in it or not */
+	if ((CurrentItemAttributes->Usage.Page == USAGE_PAGE_BUTTON) ||
+	    (CurrentItemAttributes->Usage.Page == USAGE_PAGE_GENERIC_DCTRL))
+	{
+		/* Only store BUTTON and GENERIC_DESKTOP_CONTROL items into the Processed HID Report structure to save RAM */
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

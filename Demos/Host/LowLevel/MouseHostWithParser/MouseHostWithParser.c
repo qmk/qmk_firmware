@@ -200,7 +200,7 @@ void Mouse_HID_Task(void)
 				         ((ReportSizeFeatureBits >> 3) + ((ReportSizeFeatureBits & 0x07) != 0)));
 			}
 
-			puts_P(PSTR("Mouse Enumerated.\r\n"));
+			puts_P(PSTR("HID Device Enumerated.\r\n"));
 
 			USB_HostState = HOST_STATE_Configured;
 			break;
@@ -252,8 +252,8 @@ void ProcessMouseReport(uint8_t* MouseReport)
 		
 		bool FoundData;
 
-		if ((ReportItem->Attributes.Usage.Page       == USAGE_PAGE_BUTTON) &&
-			(ReportItem->ItemType                    == REPORT_ITEM_TYPE_In))
+		if ((ReportItem->Attributes.Usage.Page        == USAGE_PAGE_BUTTON) &&
+			(ReportItem->ItemType                     == REPORT_ITEM_TYPE_In))
 		{
 			/* Get the mouse button value */
 			FoundData = USB_GetHIDReportItemInfo(MouseReport, ReportItem);

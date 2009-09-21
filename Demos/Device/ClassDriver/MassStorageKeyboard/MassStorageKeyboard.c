@@ -8,7 +8,7 @@
 
 /*
   Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-  Copyright 2009  Matthias Hullin (matthias [at] hullin [dot] net)
+  Copyright 2009  Matthias Hullin (lufa [at] matthias [dot] hullin [dot] net)
 
   Permission to use, copy, modify, and distribute this software
   and its documentation for any purpose and without fee is hereby

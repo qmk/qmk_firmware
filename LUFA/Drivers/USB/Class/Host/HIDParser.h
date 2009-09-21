@@ -120,7 +120,7 @@
 			 *  makefile, and passing the define to the compiler using the -D compiler switch. Note that IN, OUT and FEATURE
 			 *  items sharing the same report ID consume only one size item in the array.
 			 */
-			#define HID_MAX_REPORT_IDS  5
+			#define HID_MAX_REPORT_IDS            10
 		#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -279,7 +279,7 @@
 			 *  \return Size of the report in bytes, or 0 if the report does not exist
 			 */
 			uint16_t USB_GetHIDReportSize(HID_ReportInfo_t* const ParserData, const uint8_t ReportID,
-			                              const uint8_t ReportType) ATTR_NON_NULL_PTR_ARG(1);
+			                              const uint8_t ReportType) ATTR_NON_NULL_PTR_ARG(1) ATTR_CONST;
 
 			/** Callback routine for the HID Report Parser. This callback <b>must</b> be implemented by the user code when
 			 *  the parser is used, to determine what report IN, OUT and FEATURE item's information is stored into the user
