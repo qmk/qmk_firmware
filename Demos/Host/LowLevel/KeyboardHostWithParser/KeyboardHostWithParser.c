@@ -188,12 +188,16 @@ void Keyboard_HID_Task(void)
 			{
 				HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[i];
 				
+				uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_In];
+				uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Out];
+				uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Feature];
+
 				/* Print out the byte sizes of each report within the device */
 				printf_P(PSTR("  + Report ID %d - In: %d bytes, Out: %d bytes, Feature: %d bytes\r\n"),
-				                           CurrReportIDInfo->ReportID,
-				                           ((CurrReportIDInfo->BitsIn >> 3)      + (CurrReportIDInfo->BitsIn & 0x07)),
-				                           ((CurrReportIDInfo->BitsOut >> 3)     + (CurrReportIDInfo->BitsOut & 0x07)),
-				                           ((CurrReportIDInfo->BitsFeature >> 3) + (CurrReportIDInfo->BitsFeature & 0x07)));
+				         CurrReportIDInfo->ReportID,
+				         ((ReportSizeInBits      >> 3) + ((ReportSizeInBits      & 0x07) != 0)),
+				         ((ReportSizeOutBits     >> 3) + ((ReportSizeOutBits     & 0x07) != 0)),
+				         ((ReportSizeFeatureBits >> 3) + ((ReportSizeFeatureBits & 0x07) != 0)));
 			}
 
 			puts_P(PSTR("Keyboard Enumerated.\r\n"));
