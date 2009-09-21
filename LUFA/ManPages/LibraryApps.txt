@@ -41,6 +41,7 @@
  *        - <b>Keyboard</b> - USB Keyboard demo, using the library USB HID Class driver framework
  *        - <b>KeyboardMouse</b> - Dual Keyboard/Mouse demo, using the library USB HID Class driver framework
  *        - <b>MassStorage</b> - Dual Drive Mass Storage demo, using the library USB Mass Storage Class driver framework
+ *        - <b>MassStorageKeyboard</b> - Mass Storage and Keyboard demo, using the library USB Mass Storage Class driver framework
  *        - <b>MIDI</b> - MIDI In demo, using the library USB MIDI-Audio Class driver framework
  *        - <b>Mouse</b> - USB Mouse demo, using the library USB HID driver framework
  *        - <b>RNDISEthernet</b> - RNDIS Ethernet Webserver demo, using the library USB RNDIS driver framework

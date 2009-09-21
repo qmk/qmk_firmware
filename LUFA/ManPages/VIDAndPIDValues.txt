@@ -240,7 +240,7 @@
  *     0x2061
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     <i>Combined Mass Storage and Keyboard Demo</i>
  *    </td>
  *   </tr>
  *

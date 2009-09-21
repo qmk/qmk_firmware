@@ -71,21 +71,28 @@ BOARD  = USBKEY
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the 
-#     processor frequency in Hz. You can then use this symbol in your source code to 
+#     processor frequency. You can then use this symbol in your source code to 
 #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
 #     automatically to create a 32-bit value in your source code.
-#
-#     This will be an integer division of F_CLOCK below, as it is sourced by
-#     F_CLOCK after it has run through any CPU prescalers. Note that this value
-#     does not *change* the processor frequency - it should merely be updated to
-#     reflect the processor speed set externally so that the code can use accurate
-#     software delays.
+#     Typical values are:
+#         F_CPU =  1000000
+#         F_CPU =  1843200
+#         F_CPU =  2000000
+#         F_CPU =  3686400
+#         F_CPU =  4000000
+#         F_CPU =  7372800
+#         F_CPU =  8000000
+#         F_CPU = 11059200
+#         F_CPU = 14745600
+#         F_CPU = 16000000
+#         F_CPU = 18432000
+#         F_CPU = 20000000
 F_CPU = 8000000
 
 
 # Input clock frequency.
 #     This will define a symbol, F_CLOCK, in all source code files equal to the 
-#     input clock frequency (before any prescaling is performed) in Hz. This value may
+#     input clock frequency (before any prescaling is performed). This value may
 #     differ from F_CPU if prescaling is used on the latter, and is required as the
 #     raw input clock is fed directly to the PLL sections of the AVR for high speed
 #     clock generation for the USB and other AVR subsections. Do NOT tack on a 'UL'
@@ -102,7 +109,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = MassStorage
+TARGET = MassStorageKeyboard
 
 
 # Object files directory
@@ -116,7 +123,8 @@ LUFA_PATH = ../../../..
 
 
 # LUFA library compile-time options
-LUFA_OPTS  = -D USB_DEVICE_ONLY
+LUFA_OPTS  = -D USE_NONSTANDARD_DESCRIPTOR_NAMES
+LUFA_OPTS += -D USB_DEVICE_ONLY
 LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
 LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
@@ -140,7 +148,9 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/MassStorage.c    \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/MassStorage.c      \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/HID.c            \
+
+
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -213,9 +223,9 @@ CFLAGS += -O$(OPT)
 CFLAGS += -funsigned-char
 CFLAGS += -funsigned-bitfields
 CFLAGS += -ffunction-sections
-CFLAGS += -fno-inline-small-functions
 CFLAGS += -fpack-struct
 CFLAGS += -fshort-enums
+CFLAGS += -finline-limit=20
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wundef
@@ -321,7 +331,7 @@ EXTMEMOPTS =
 #    -Map:      create map file
 #    --cref:    add cross reference to  map file
 LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
-LDFLAGS += -Wl,--relax 
+LDFLAGS += -Wl,--relax
 LDFLAGS += -Wl,--gc-sections
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
@@ -459,7 +469,7 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
 # Default target.
-all: begin gccversion sizebefore build checkinvalidevents showliboptions showtarget sizeafter end
+all: begin gccversion sizebefore build showeventhooks showliboptions showtarget sizeafter end
 
 # Change the build target to build a HEX file or a library.
 build: elf hex eep lss sym
@@ -502,17 +512,14 @@ sizeafter:
 	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
 	2>/dev/null; echo; fi
 
-$(LUFA_PATH)/LUFA/LUFA_Events.lst:
-	@make -C $(LUFA_PATH)/LUFA/ LUFA_Events.lst
-
-checkinvalidevents: $(LUFA_PATH)/LUFA/LUFA_Events.lst
+showeventhooks: build
 	@echo
-	@echo Checking for invalid events...
-	@$(shell) avr-nm $(TARGET).elf | sed -n -e 's/^.*EVENT_/EVENT_/p' | \
-	                 grep -F -v --file=$(LUFA_PATH)/LUFA/LUFA_Events.lst > InvalidEvents.tmp || true
-	@sed -n -e 's/^/  WARNING - INVALID EVENT NAME: /p' InvalidEvents.tmp
-	@if test -s InvalidEvents.tmp; then exit 1; fi
-	
+	@echo -------- Unhooked LUFA Events --------
+	@$(shell) (grep -s '^EVENT_.*LUFA/.*\\.o' $(TARGET).map | \
+	           cut -d' ' -f1 | cut -d'_' -f2- | grep ".*") || \
+			   echo "(None)"
+	@echo --------------------------------------
+
 showliboptions:
 	@echo
 	@echo ---- Compile Time Library Options ----
@@ -529,36 +536,15 @@ showtarget:
 	@echo Clock:     $(F_CPU)Hz CPU, $(F_CLOCK)Hz Master
 	@echo --------------------------------------
 	
-
 # Display compiler version information.
 gccversion : 
 	@$(CC) --version
 
 
+
 # Program the device.  
 program: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
-
-flip: $(TARGET).hex
-	batchisp -hardware usb -device $(MCU) -operation erase f
-	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(TARGET).hex program
-	batchisp -hardware usb -device $(MCU) -operation start reset 0
-
-dfu: $(TARGET).hex
-	dfu-programmer $(MCU) erase
-	dfu-programmer $(MCU) flash --debug 1 $(TARGET).hex
-	dfu-programmer $(MCU) reset
-
-flip-ee: $(TARGET).hex $(TARGET).eep
-	$(COPY) $(TARGET).eep $(TARGET)eep.hex
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(TARGET)eep.hex program
-	batchisp -hardware usb -device $(MCU) -operation start reset 0
-	$(REMOVE) $(TARGET)eep.hex
-
-dfu-ee: $(TARGET).hex $(TARGET).eep
-	dfu-programmer $(MCU) flash-eeprom --debug 1 --suppress-bootloader-mem $(TARGET).eep
-	dfu-programmer $(MCU) reset
 
 
 # Generate avr-gdb config/init file which does the following:
@@ -714,8 +700,8 @@ clean_list:
 	$(REMOVE) $(SRC:.c=.s)
 	$(REMOVE) $(SRC:.c=.d)
 	$(REMOVE) $(SRC:.c=.i)
-	$(REMOVE) InvalidEvents.tmp
 	$(REMOVEDIR) .dep
+
 
 doxygen:
 	@echo Generating Project Documentation...
@@ -734,8 +720,8 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Listing of phony targets.
-.PHONY : all checkinvalidevents showliboptions    \
-showtarget begin finish end sizebefore sizeafter  \
-gccversion build elf hex eep lss sym coff extcoff \
-program dfu flip flip-ee dfu-ee clean debug       \
-clean_list clean_binary gdb-config doxygen
+.PHONY : all showeventhooks showliboptions showtarget  \
+begin finish end sizebefore sizeafter gccversion build \
+elf hex eep lss sym coff extcoff program clean debug   \
+clean_list clean_binary gdb-config doxygen dfu flip    \
+flip-ee dfu-ee

@@ -35,7 +35,7 @@
  *   </tr>
  *   <tr> 
  *    <td><b>USB Subclass:</b></td>
- *    <td>N/A</td>
+ *    <td>Keyboard Subclass</td>
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>

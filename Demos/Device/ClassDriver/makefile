@@ -41,6 +41,9 @@ all:
 	make -C MassStorage clean
 	make -C MassStorage all
 
+	make -C MassStorageKeyboard clean
+	make -C MassStorageKeyboard all
+
 	make -C MIDI clean
 	make -C MIDI all
 
@@ -63,6 +66,7 @@ all:
 	make -C Keyboard $@
 	make -C KeyboardMouse $@
 	make -C MassStorage $@
+	make -C MassStorageKeyboard $@
 	make -C MIDI $@
 	make -C Mouse $@
 	make -C RNDISEthernet $@

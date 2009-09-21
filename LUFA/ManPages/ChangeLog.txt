@@ -23,6 +23,7 @@
   *  - Added support for the officially recommended external peripheral layout for the BUMBLEB board (thanks to Dave Fletcher)
   *  - Added new Pipe_IsFrozen() macro to determine if the currently selected pipe is frozen
   *  - Added new USB_GetHIDReportSize() function to the HID report parser to retrieve the size of a given report by its ID
+  *  - Added new combined Mass Storage and Keyboard demo (thanks to Matthias Hullin)
   *  
   *  <b>Changed:</b>
   *  - SetIdle requests to the HID device driver with a 0 idle period (send changes only) now only affect the requested
