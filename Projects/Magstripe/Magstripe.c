@@ -180,18 +180,18 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	if ((IsKeyReleaseReport) || (CurrentTrackBuffer == &TrackDataBuffers[TOTAL_TRACKS]))
 	{
 		/* No more data to send, or key release report between key presses */
-		KeyboardReport->KeyCode = KEY_NONE;
+		KeyboardReport->KeyCode[0] = KEY_NONE;
 	}
 	else if (!(CurrentTrackBuffer->Elements))
 	{
 		/* End of current track, send an enter press and change to the next track's buffer */
-		KeyboardReport->KeyCode = KEY_ENTER;
+		KeyboardReport->KeyCode[0] = KEY_ENTER;
 		CurrentTrackBuffer++;
 	}
 	else
 	{
 		/* Still data in the current track; convert next bit to a 1 or 0 keypress */
-		KeyboardReport->KeyCode = BitBuffer_GetNextBit(CurrentTrackBuffer) ? KEY_1 : KEY_0;
+		KeyboardReport->KeyCode[0] = BitBuffer_GetNextBit(CurrentTrackBuffer) ? KEY_1 : KEY_0;
 	}
 	
 	*ReportSize = sizeof(USB_KeyboardReport_Data_t);
