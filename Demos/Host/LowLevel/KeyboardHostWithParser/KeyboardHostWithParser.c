@@ -173,7 +173,7 @@ void Keyboard_HID_Task(void)
 			{
 				puts_P(PSTR(ESC_FG_RED "Report Parse Error.\r\n"));
 
-				if (!(HIDReportInfo->TotalReportItems))
+				if (!(HIDReportInfo.TotalReportItems))
 					puts_P(PSTR("Not a valid Keyboard." ESC_FG_WHITE));
 				else
 					printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
