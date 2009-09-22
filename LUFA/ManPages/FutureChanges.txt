@@ -21,6 +21,7 @@
   *  - Add detailed overviews of how each demo works
   *  - Master LUFA include file rather than per-module includes
   *  - Change makefiles to allow for absolute LUFA location to be used
+  *  - Abstract out the physical media from the Mass Storage device demos
   *  - Make new demos
   *      -# Multiple-report HID device
   *      -# Dual Role Mouse Host/Keyboard Device

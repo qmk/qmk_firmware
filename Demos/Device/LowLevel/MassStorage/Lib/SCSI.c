@@ -239,12 +239,12 @@ static bool SCSI_Command_Read_Capacity_10(void)
  *  board, and indicates if they are present and functioning correctly. Only the Self-Test portion of the diagnostic command is
  *  supported.
  *
+ *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *
  *  \return Boolean true if the command completed successfully, false otherwise.
  */
 static bool SCSI_Command_Send_Diagnostic(void)
 {
-	uint8_t ReturnByte;
-
 	/* Check to see if the SELF TEST bit is not set */
 	if (!(CommandBlock.SCSICommandData[1] & (1 << 2)))
 	{
@@ -256,14 +256,8 @@ static bool SCSI_Command_Send_Diagnostic(void)
 		return false;
 	}
 	
-	/* Test first Dataflash IC is present and responding to commands */
-	Dataflash_SelectChip(DATAFLASH_CHIP1);
-	Dataflash_SendByte(DF_CMD_READMANUFACTURERDEVICEINFO);
-	ReturnByte = Dataflash_ReceiveByte();
-	Dataflash_DeselectChip();
-
-	/* If returned data is invalid, fail the command */
-	if (ReturnByte != DF_MANUFACTURER_ATMEL)
+	/* Check to see if all attached Dataflash ICs are functional */
+	if (!(DataflashManager_CheckDataflashOperation()))
 	{
 		/* Update SENSE key with a hardware error condition and return command fail */
 		SCSI_SET_SENSE(SCSI_SENSE_KEY_HARDWARE_ERROR,
@@ -272,25 +266,6 @@ static bool SCSI_Command_Send_Diagnostic(void)
 	
 		return false;
 	}
-
-	#if (DATAFLASH_TOTALCHIPS == 2)
-	/* Test second Dataflash IC is present and responding to commands */
-	Dataflash_SelectChip(DATAFLASH_CHIP2);
-	Dataflash_SendByte(DF_CMD_READMANUFACTURERDEVICEINFO);
-	ReturnByte = Dataflash_ReceiveByte();
-	Dataflash_DeselectChip();
-
-	/* If returned data is invalid, fail the command */
-	if (ReturnByte != DF_MANUFACTURER_ATMEL)
-	{
-		/* Update SENSE key with a hardware error condition and return command fail */
-		SCSI_SET_SENSE(SCSI_SENSE_KEY_HARDWARE_ERROR,
-		               SCSI_ASENSE_NO_ADDITIONAL_INFORMATION,
-		               SCSI_ASENSEQ_NO_QUALIFIER);	
-	
-		return false;
-	}
-	#endif
 	
 	/* Succeed the command and update the bytes transferred counter */
 	CommandBlock.DataTransferLength = 0;

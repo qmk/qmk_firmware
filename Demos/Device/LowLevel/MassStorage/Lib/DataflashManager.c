@@ -488,3 +488,36 @@ void DataflashManager_ResetDataflashProtections(void)
 	/* Deselect current dataflash chip */
 	Dataflash_DeselectChip();
 }
+
+/** Performs a simple test on the attached Dataflash IC(s) to ensure that they are working.
+ *
+ *  \return Boolean true if all media chips are working, false otherwise
+ */
+bool DataflashManager_CheckDataflashOperation(void)
+{
+	uint8_t ReturnByte;
+
+	/* Test first Dataflash IC is present and responding to commands */
+	Dataflash_SelectChip(DATAFLASH_CHIP1);
+	Dataflash_SendByte(DF_CMD_READMANUFACTURERDEVICEINFO);
+	ReturnByte = Dataflash_ReceiveByte();
+	Dataflash_DeselectChip();
+
+	/* If returned data is invalid, fail the command */
+	if (ReturnByte != DF_MANUFACTURER_ATMEL)
+	  return false;
+
+	#if (DATAFLASH_TOTALCHIPS == 2)
+	/* Test second Dataflash IC is present and responding to commands */
+	Dataflash_SelectChip(DATAFLASH_CHIP2);
+	Dataflash_SendByte(DF_CMD_READMANUFACTURERDEVICEINFO);
+	ReturnByte = Dataflash_ReceiveByte();
+	Dataflash_DeselectChip();
+
+	/* If returned data is invalid, fail the command */
+	if (ReturnByte != DF_MANUFACTURER_ATMEL)
+	  return false;
+	#endif
+	
+	return true;
+}
