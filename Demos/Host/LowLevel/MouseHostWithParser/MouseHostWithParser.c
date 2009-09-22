@@ -171,8 +171,12 @@ void Mouse_HID_Task(void)
 			/* Get and process the device's first HID report descriptor */
 			if ((ErrorCode = GetHIDReportData()) != ParseSuccessful)
 			{
-				printf_P(PSTR(ESC_FG_RED "Report Parse Error.\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+				puts_P(PSTR(ESC_FG_RED "Report Parse Error.\r\n"));
+
+				if (!(HIDReportInfo->TotalReportItems))
+					puts_P(PSTR("Not a valid Mouse." ESC_FG_WHITE));
+				else
+					printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 			
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -200,7 +204,7 @@ void Mouse_HID_Task(void)
 				         ((ReportSizeFeatureBits >> 3) + ((ReportSizeFeatureBits & 0x07) != 0)));
 			}
 
-			puts_P(PSTR("HID Device Enumerated.\r\n"));
+			puts_P(PSTR("Mouse Enumerated.\r\n"));
 
 			USB_HostState = HOST_STATE_Configured;
 			break;

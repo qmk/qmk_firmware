@@ -106,7 +106,7 @@ int main(void)
 
 				if (USB_HID_Host_SetReportProtocol(&Mouse_HID_Interface) != 0)
 				{
-					printf("Could not Set Report Protocol Mode.\r\n");
+					printf("Error Setting Report Protocol Mode or Not a Valid Mouse.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -114,7 +114,7 @@ int main(void)
 				
 				LEDs_SetAllLEDs(LEDS_NO_LEDS);
 				
-				printf("HID Device Enumerated.\r\n");
+				printf("Mouse Enumerated.\r\n");
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:

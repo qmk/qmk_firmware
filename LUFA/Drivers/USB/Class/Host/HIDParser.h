@@ -144,6 +144,7 @@
 				HID_PARSE_InsufficientCollectionPaths = 5, /**< More than \ref HID_MAX_COLLECTIONS collections in the report. */
 				HID_PARSE_UsageStackOverflow          = 6, /**< More than \ref HID_USAGE_STACK_DEPTH usages listed in a row. */
 				HID_PARSE_InsufficientReportIDItems   = 7, /**< More than \ref HID_MAX_REPORT_IDS report IDs in the device. */
+				HID_PARSE_NoUnfilteredReportItems     = 8, /**< All report items from the device were filtered by the filtering callback routine. */
 			};
 		
 		/* Type Defines: */		

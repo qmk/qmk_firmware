@@ -56,11 +56,13 @@
 		#define VIRTUAL_MEMORY_BYTES                ((uint32_t)DATAFLASH_PAGES * DATAFLASH_PAGE_SIZE * DATAFLASH_TOTALCHIPS)
 
 		/** Block size of the device. This is kept at 512 to remain compatible with the OS despite the underlying
-		 *  storage media (Dataflash) using a different native block size.
+		 *  storage media (Dataflash) using a different native block size. Do not change this value.
 		 */
 		#define VIRTUAL_MEMORY_BLOCK_SIZE           512
 		
-		/** Total number of blocks of the virtual memory for reporting to the host as the device's total capacity. */
+		/** Total number of blocks of the virtual memory for reporting to the host as the device's total capacity. Do not
+		 *  change this value; change VIRTUAL_MEMORY_BYTES instead to alter the media size.
+		 */
 		#define VIRTUAL_MEMORY_BLOCKS               (VIRTUAL_MEMORY_BYTES / VIRTUAL_MEMORY_BLOCK_SIZE)
 		
 	/* Function Prototypes: */

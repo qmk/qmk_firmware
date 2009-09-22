@@ -296,6 +296,9 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 		}
 	}
 	
+	if (!(ParserData->TotalReportItems))
+	  return HID_PARSE_NoUnfilteredReportItems;
+	
 	return HID_PARSE_Successful;
 }
 
