@@ -104,7 +104,7 @@ int main(void)
 					break;
 				}
 
-				if (USB_HID_Host_SetReportProtocol(&Mouse_HID_Interface) != 0)
+				if (HID_Host_SetReportProtocol(&Mouse_HID_Interface) != 0)
 				{
 					printf("Error Setting Report Protocol Mode or Not a Valid Mouse.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);

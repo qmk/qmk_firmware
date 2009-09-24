@@ -99,7 +99,7 @@ int main(void)
 					break;
 				}
 
-				if (USB_HID_Host_SetBootProtocol(&Keyboard_HID_Interface) != 0)
+				if (HID_Host_SetBootProtocol(&Keyboard_HID_Interface) != 0)
 				{
 					printf("Could not Set Boot Protocol Mode.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);

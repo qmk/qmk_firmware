@@ -94,7 +94,7 @@
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the HID interface's OUT data pipe */
 					
 					bool SupportsBootProtocol; /**< Indicates if the current interface instance supports the HID Boot
-					                            *   Protocol when enabled via \ref USB_HID_Host_SetBootProtocol()
+					                            *   Protocol when enabled via \ref HID_Host_SetBootProtocol()
 					                            */
 					bool DeviceUsesOUTPipe; /**< Indicates if the current interface instance uses a seperate OUT data pipe for
 					                         *   OUT reports, or if OUT reports are sent via the control pipe instead.
@@ -136,7 +136,7 @@
 			 *  machine is in the Addressed state.
 			 *
 			 *  \note Once the device pipes are configured, the HID device's reporting protocol <b>must</b> be set via a call
-			 *        to either the \ref USB_HID_Host_SetBootProtocol() or \ref USB_HID_Host_SetReportProtocol() function.
+			 *        to either the \ref HID_Host_SetBootProtocol() or \ref HID_Host_SetReportProtocol() function.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
 			 *  \param[in] ConfigDescriptorSize  Length of the attached device's Configuration Descriptor
@@ -197,7 +197,7 @@
 			 *  \return \ref HID_ERROR_LOGICAL if the device does not support Boot Protocol mode, a value from the
 			 *          \ref USB_Host_SendControlErrorCodes_t enum otherwise
 			 */
-			uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Switches the attached HID device's reporting protocol over to the standard Report protocol mode. This also retrieves
 			 *  and parses the device's HID report descriptor, so that the size of each report can be determined in advance.
@@ -212,7 +212,7 @@
 			 *          not have a valid \ref HID_ReportInfo_t structure set in its configuration, a mask of \ref HID_ERROR_LOGICAL
 			 *          and a value from the \ref HID_Parse_ErrorCodes_t otherwise
 			 */
-			uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 		
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

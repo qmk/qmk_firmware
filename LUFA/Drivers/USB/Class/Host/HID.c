@@ -265,7 +265,7 @@ bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 	return ReportReceived;
 }
 
-uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
+uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 {
 	if (HIDInterfaceInfo->State.UsingBootProtocol)
 	  return HOST_SENDCONTROL_Successful;
@@ -295,7 +295,7 @@ uint8_t USB_HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfac
 	return HOST_SENDCONTROL_Successful;
 }
 
-uint8_t USB_HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
+uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 {
 	uint8_t ErrorCode;
 
