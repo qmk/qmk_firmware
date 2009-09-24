@@ -108,7 +108,7 @@ void V2Params_UpdateParamValues(void)
  *  be called before calls to \ref V2Params_GetParameterValue() or \ref V2Params_SetParameterValue() when
  *  getting or setting parameter values in response to requests from the host.
  *
- *  \param ParamID  Parameter ID whose privellages are to be retrieved from the table
+ *  \param[in] ParamID  Parameter ID whose privellages are to be retrieved from the table
  *
  *  \return Privellages for the requested parameter, as a mask of PARAM_PRIV_* masks
  */ 
@@ -124,7 +124,7 @@ uint8_t V2Params_GetParameterPrivellages(uint8_t ParamID)
 
 /** Retrieves the current value for a given parameter in the parameter table.
  *
- *  \param ParamID  Parameter ID whose value is to be retrieved from the table
+ *  \param[in] ParamID  Parameter ID whose value is to be retrieved from the table
  *
  *  \return Current value of the parameter in the table, or 0 if not found
  */ 
@@ -140,8 +140,8 @@ uint8_t V2Params_GetParameterValue(uint8_t ParamID)
 
 /** Sets the value for a given parameter in the parameter table.
  *
- *  \param ParamID  Parameter ID whose value is to be set in the table
- *  \param Value  New value to set the parameter to
+ *  \param[in] ParamID  Parameter ID whose value is to be set in the table
+ *  \param[in] Value  New value to set the parameter to
  *
  *  \return Pointer to the associated parameter information from the parameter table if found, NULL otherwise
  */
@@ -162,7 +162,7 @@ void V2Params_SetParameterValue(uint8_t ParamID, uint8_t Value)
 /** Retrieves a parameter entry (including ID, value and privellages) from the parameter table that matches the given
  *  parameter ID.
  *
- *  \param ParamID  Parameter ID to find in the table
+ *  \param[in] ParamID  Parameter ID to find in the table
  *
  *  \return Pointer to the associated parameter information from the parameter table if found, NULL otherwise
  */

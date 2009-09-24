@@ -81,9 +81,11 @@
 				#define __GET_DATAFLASH_MASK(x)     __GET_DATAFLASH_MASK2(DATAFLASH_CHIP,x)
 			#endif
 	
-			/* Retrieves the Dataflash chip select mask for the given Dataflash chip index.
+			/** Retrieves the Dataflash chip select mask for the given Dataflash chip index.
 			 *
-			 * \param index  Index of the dataflash chip mask to retrieve
+			 *  \param[in] index  Index of the dataflash chip mask to retrieve
+			 *
+			 *  \return Mask for the given Dataflash chip's /CS pin
 			 */
 			#define DATAFLASH_CHIP_MASK(index)      __GET_DATAFLASH_MASK(index)
 			

@@ -60,7 +60,7 @@
 	/* Inline Functions: */
 		/** Blocking delay for a given number of milliseconds, via a hardware timer.
 		 *
-		 *  \param DelayMS  Number of milliseconds to delay for
+		 *  \param[in] DelayMS  Number of milliseconds to delay for
 		 */
 		static inline void V2Protocol_DelayMS(uint8_t DelayMS)
 		{

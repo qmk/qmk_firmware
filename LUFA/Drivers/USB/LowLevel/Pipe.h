@@ -805,7 +805,7 @@
 			/** Determines if a pipe has been bound to the given device endpoint address. If a pipe which is bound to the given
 			 *  endpoint is found, it is automatically selected.
 			 *
-			 *  \param EndpointAddress Address of the endpoint within the attached device to check
+			 *  \param[in] EndpointAddress Address of the endpoint within the attached device to check
 			 *
 			 *  \return Boolean true if a pipe bound to the given endpoint address is found, false otherwise
 			 */

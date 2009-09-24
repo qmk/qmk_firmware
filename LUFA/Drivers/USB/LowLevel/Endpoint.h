@@ -334,7 +334,7 @@
 
 				/** Sets the direction of the currently selected endpoint.
 				 *
-				 *  \param DirectionMask  New endpoint direction, as a ENDPOINT_DIR_* mask.
+				 *  \param[in] DirectionMask  New endpoint direction, as a ENDPOINT_DIR_* mask.
 				 */
 				static inline void Endpoint_SetEndpointDirection(uint8_t DirectionMask);
 			#else

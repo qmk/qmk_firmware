@@ -288,7 +288,7 @@
 			 *  HID_ReportInfo_t structure. This can be used to filter only those items the application will be using, so that
 			 *  no RAM is wasted storing the attributes for report items which will never be referenced by the application.
 			 *
-			 *  \param CurrentItemAttributes  Pointer to the current report item attributes for user checking
+			 *  \param[in] CurrentItemAttributes  Pointer to the current report item attributes for user checking
 			 *
 			 *  \return Boolean true if the item should be stored into the HID_ReportInfo_t structure, false if it should be ignored
 			 */

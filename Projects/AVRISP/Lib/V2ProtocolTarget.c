@@ -79,7 +79,7 @@ uint8_t V2Protocol_GetSPIPrescalerMask(void)
 /** Asserts or deasserts the target's reset line, using the correct polarity as set by the host using a SET PARAM command.
  *  When not asserted, the line is tristated so as not to intefere with normal device operation.
  *
- *  \param ResetTarget Boolean true when the target should be held in reset, false otherwise
+ *  \param[in] ResetTarget Boolean true when the target should be held in reset, false otherwise
  */
 void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
 {
@@ -100,11 +100,11 @@ void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
 /** Waits until the last issued target memory programming command has completed, via the check mode given and using
  *  the given parameters.
  *
- *  \param ProgrammingMode  Programming mode used and completion check to use, a mask of PROG_MODE_* constants
- *  \param PollAddress  Memory address to poll for completion if polling check mode used
- *  \param PollValue  Poll value to check against if polling check mode used
- *  \param DelayMS  Milliseconds to delay before returning if delay check mode used
- *  \param ReadMemCommand  Device low-level READ MEMORY command to send if value check mode used
+ *  \param[in] ProgrammingMode  Programming mode used and completion check to use, a mask of PROG_MODE_* constants
+ *  \param[in] PollAddress  Memory address to poll for completion if polling check mode used
+ *  \param[in] PollValue  Poll value to check against if polling check mode used
+ *  \param[in] DelayMS  Milliseconds to delay before returning if delay check mode used
+ *  \param[in] ReadMemCommand  Device low-level READ MEMORY command to send if value check mode used
  *
  *  \return V2 Protocol status \ref STATUS_CMD_OK if the no timeout occurred, \ref STATUS_RDY_BSY_TOUT or
  *          \ref STATUS_CMD_TOUT otherwise

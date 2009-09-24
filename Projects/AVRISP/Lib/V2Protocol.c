@@ -101,7 +101,7 @@ void V2Protocol_ProcessCommand(void)
 /** Handler for unknown V2 protocol commands. This discards all sent data and returns a
  *  STATUS_CMD_UNKNOWN status back to the host.
  *
- *  \param V2Command  Issued V2 Protocol command byte from the host
+ *  \param[in] V2Command  Issued V2 Protocol command byte from the host
  */
 static void V2Protocol_Command_Unknown(uint8_t V2Command)
 {
@@ -136,7 +136,7 @@ static void V2Protocol_Command_SignOn(void)
 /** Handler for the CMD_SET_PARAMETER and CMD_GET_PARAMETER commands from the host, setting or
  *  getting a device parameter's value from the parameter table.
  *
- *  \param V2Command  Issued V2 Protocol command byte from the host
+ *  \param[in] V2Command  Issued V2 Protocol command byte from the host
  */
 static void V2Protocol_Command_GetSetParam(uint8_t V2Command)
 {
@@ -289,7 +289,7 @@ static void V2Protocol_Command_LeaveISPMode(void)
 /** Handler for the CMD_PROGRAM_FLASH_ISP and CMD_PROGRAM_EEPROM_ISP commands, writing out bytes,
  *  words or pages of data to the attached device.
  *
- *  \param V2Command  Issued V2 Protocol command byte from the host
+ *  \param[in] V2Command  Issued V2 Protocol command byte from the host
  */
 static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 {
@@ -425,7 +425,7 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 /** Handler for the CMD_READ_FLASH_ISP and CMD_READ_EEPROM_ISP commands, reading in bytes,
  *  words or pages of data from the attached device.
  *
- *  \param V2Command  Issued V2 Protocol command byte from the host
+ *  \param[in] V2Command  Issued V2 Protocol command byte from the host
  */
 static void V2Protocol_Command_ReadMemory(uint8_t V2Command)
 {
@@ -516,7 +516,7 @@ static void V2Protocol_Command_ChipErase(void)
 /** Handler for the CMD_READ_FUSE_ISP, CMD_READ_LOCK_ISP, CMD_READ_SIGNATURE_ISP and CMD_READ_OSCCAL commands,
  *  reading the requested configuration byte from the device.
  *
- *  \param V2Command  Issued V2 Protocol command byte from the host
+ *  \param[in] V2Command  Issued V2 Protocol command byte from the host
  */
 static void V2Protocol_Command_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 {
@@ -546,7 +546,7 @@ static void V2Protocol_Command_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 /** Handler for the CMD_WRITE_FUSE_ISP and CMD_WRITE_LOCK_ISP commands, writing the requested configuration
  *  byte to the device.
  *
- *  \param V2Command  Issued V2 Protocol command byte from the host
+ *  \param[in] V2Command  Issued V2 Protocol command byte from the host
  */
 static void V2Protocol_Command_WriteFuseLock(uint8_t V2Command)
 {
