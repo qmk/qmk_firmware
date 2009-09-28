@@ -12,6 +12,8 @@
  *
  * \section Sec_MigrationXXXXXX Migrating from 090810 to XXXXXX
  *
+ * \section Sec_Migration090924 Migrating from 090810 to 090924
+ *
  *  <b>Non-USB Library Components</b>
  *    - The ADC_Off() function has been renamed to \ref ADC_ShutDown() to be consistent with the rest of the library.
  *    - The \ref SPI_Init() routine's parameters have changed, so that the clock polarity and data sampling modes can be set. See

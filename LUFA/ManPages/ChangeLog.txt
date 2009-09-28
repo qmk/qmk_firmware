@@ -9,6 +9,16 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
   *  <b>New:</b>
+  *
+  *  <b>Changed:</b>
+  *
+  *  <b>Fixed:</b>
+  *  - Fixed PrinterHost demo returning invalid Device ID data when the attached device does not have a
+  *    device ID (thanks to Andrei Krainev)
+  *
+  *  \section Sec_ChangeLog090924 Version 090924
+  *
+  *  <b>New:</b>
   *  - Added new host mode class drivers and matching demos to the library for rapid application development
   *  - Added flag to the HID report parser to indicate if a device has multiple reports
   *  - Added new EVENT_USB_Device_StartOfFrame() event, controlled by the new USB_Device_EnableSOFEvents() and

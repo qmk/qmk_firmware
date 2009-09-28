@@ -77,7 +77,7 @@ uint8_t Printer_SendData(void* PrinterCommands, uint16_t CommandSize)
 uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize)
 {
 	uint8_t  ErrorCode = HOST_SENDCONTROL_Successful;
-	uint16_t DeviceIDStringLength;
+	uint16_t DeviceIDStringLength = 0;
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -92,6 +92,12 @@ uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize)
 
 	if ((ErrorCode = USB_Host_SendControlRequest(&DeviceIDStringLength)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
+	  
+	if (!(DeviceIDStringLength))
+	{
+		DeviceIDString[0] = 0x00;
+		return HOST_SENDCONTROL_Successful;
+	}
 	
 	DeviceIDStringLength = SwapEndian_16(DeviceIDStringLength);
 
