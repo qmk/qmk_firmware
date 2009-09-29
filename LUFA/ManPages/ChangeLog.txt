@@ -9,12 +9,14 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
   *  <b>New:</b>
+  *  - Removed useless "TestApp" demo, added new Dual Role Keyboard/Mouse demo
   *
   *  <b>Changed:</b>
   *
   *  <b>Fixed:</b>
   *  - Fixed PrinterHost demo returning invalid Device ID data when the attached device does not have a
   *    device ID (thanks to Andrei Krainev)
+  *  - Changed LUFA_VERSION_INTEGER define to use BCD values, to make comparisons eaiser
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *

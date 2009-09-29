@@ -86,6 +86,9 @@
  *        - <b>StillImageHost</b> - Still Image Camera host demo, using the low level LUFA APIs to implement the USB Still Image class
  *      - <b>Incomplete</b>
  *        - <b>BluetoothHost</b> - Incomplete Bluetooth host demo, using the low level LUFA APIs to implement the USB Bluetooth class
+ *    - <b>DualRole</b>
+ *      - <b>ClassDriver</b>
+ *        - <b>MouseHostDevice</b> - Dual role Mouse Host and Mouse Device demo, using the library USB CDC Class driver framework
  *  - <b>Bootloaders</b>
  *    - <b>DFU</b> - DFU Class USB bootloader, compatible with Atmel's FLIP and the open source dfu-programmer software
  *    - <b>CDC</b> - CDC Class USB bootloader, compatible with any AVR910 protocol programming software such as AVRDude
