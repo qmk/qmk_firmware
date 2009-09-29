@@ -30,30 +30,54 @@
 
 /** \file
  *
- *  Header file for Descriptors.c.
+ *  Main source file for the MouseHostDevice demo. This file contains the main tasks of
+ *  the demo and is responsible for the overall control flow of the demo.
  */
+ 
+#include "MouseHostDevice.h"
+	
+/** Main program entry point. This routine configures the hardware required by the application, then
+ *  starts the scheduler to run the application tasks.
+ */
+int main(void)
+{
+	SetupHardware();
 
-#ifndef _DESCRIPTORS_H_
-#define _DESCRIPTORS_H_
+	puts_P(PSTR(ESC_FG_CYAN "Mouse Host/Device Demo running.\r\n" ESC_FG_WHITE));
 
-	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
-		#include <avr/pgmspace.h>
-
-	/* Type Defines: */
-		/** Type define for the device configuration descriptor structure. This must be defined in the
-		 *  application code, as the configuration descriptor contains several sub-descriptors which
-		 *  vary between devices, and which describe the device's usage to the host.
-		 */
-		typedef struct
+	for (;;)
+	{
+		/* Determine which USB mode we are currently in */
+		if (USB_CurrentMode == USB_MODE_HOST)
 		{
-			USB_Descriptor_Configuration_Header_t Config; /**< Configuration descriptor header structure */
-			USB_Descriptor_Interface_t            Interface; /**< Interface descriptor, required for the device to enumerate */
-		} USB_Descriptor_Configuration_t;
+			MouseHostTask();
+			HID_Host_USBTask(&Mouse_HID_Host_Interface);
+		}
+		else
+		{
+			HID_Device_USBTask(&Mouse_HID_Device_Interface);
+		}
 
-	/* Function Prototypes: */
-		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
-											ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
+		USB_USBTask();
+	}
+}
 
-#endif
+/** Configures the board hardware and chip peripherals for the demo's functionality. */
+void SetupHardware(void)
+{
+	/* Disable watchdog if enabled by bootloader/fuses */
+	MCUSR &= ~(1 << WDRF);
+	wdt_disable();
+
+	/* Disable clock division */
+	clock_prescale_set(clock_div_1);
+
+	/* Hardware Initialization */
+	SerialStream_Init(9600, false);
+	LEDs_Init();
+	Joystick_Init();
+	Buttons_Init();
+	USB_Init(USB_MODE_UID);
+}

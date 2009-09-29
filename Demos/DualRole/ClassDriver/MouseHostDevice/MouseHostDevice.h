@@ -30,33 +30,46 @@
 
 /** \file
  *
- *  Header file for TestApp.c.
+ *  Header file for MouseHost.c.
  */
 
-#ifndef _TESTAPP_H_
-#define _TESTAPP_H_
+#ifndef _MOUSE_HOST_DEVICE_H_
+#define _MOUSE_HOST_DEVICE_H_
 
 	/* Includes: */
 		#include <avr/io.h>
-		#include <avr/interrupt.h>
 		#include <avr/wdt.h>
+		#include <avr/pgmspace.h>
 		#include <avr/power.h>
+		#include <stdio.h>
 
 		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
-		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
-		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
-		#include <LUFA/Drivers/Board/Temperature.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/HID.h>
+		
+		#include "Descriptors.h"
+		#include "DeviceFunctions.h"
+		#include "HostFunctions.h"
+		
+	/* Macros: */
+		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+
+		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+
+		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		
-		void CheckJoystick(void);
-		void CheckButton(void);
-		void CheckTemperature(void);
-
 #endif

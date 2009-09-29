@@ -1,0 +1,80 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage Mouse Host/Device Dual Role Demo
+ *
+ *  \section SSec_Compat Demo Compatibility:
+ *
+ *  The following table indicates what microcontrollers are compatible with this demo.
+ *
+ *  - AT90USB1287
+ *  - AT90USB647
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Host/Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Human Interface Device (HID)</td>
+ *   </tr>
+ *   <tr> 
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>N/A</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF HID Specification, USBIF HID Usage Tables</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Usable Speeds:</b></td>
+ *    <td>Low Speed Mode, Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Mouse host/device dual role demonstration application. This gives a simple
+ *  reference application for implementing a dual role USB Mouse, for USB mice
+ *  using the standard mouse boot protocol HID profile.
+ *  
+ *  <b>When in host mode:</b>
+ *  Mouse movement and button presses are displayed on the board LEDs,
+ *  as well as printed out the serial terminal as formatted dY, dY and
+ *  button status information.
+ *  
+ *  This uses a naive method where the mouse is set to Boot Protocol mode, so
+ *  that the report structure is fixed and known. A better implementation
+ *  uses the HID report parser for correct report data processing across
+ *  all compatible mice with advanced characteristics, as shown in the
+ *  MouseHostWithParser Host demo application.
+ *  
+ *  Currently only single interface mice are supported.	
+ *
+ *  <b>When in device mode:</b>
+ *  Upon enumeration the system will automatically enumerate and function
+ *  as a mouse when the USB connection to a host is present. To use
+ *  the mouse, move the joystick to move the pointer, and push the
+ *  joystick inwards to simulate a left-button click. The HWB serves as
+ *  the right mouse button.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */

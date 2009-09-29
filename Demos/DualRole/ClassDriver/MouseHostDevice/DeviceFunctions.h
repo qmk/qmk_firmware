@@ -30,43 +30,23 @@
 
 /** \file
  *
- *  Header file for TestEvents.c.
+ *  Header file for DeviceFunctions.c.
  */
 
-#ifndef _TESTEVENTS_H_
-#define _TESTEVENTS_H_
+#ifndef _MOUSE_DEVICE_FUNCTIONS_H_
+#define _MOUSE_DEVICE_FUNCTIONS_H_
 
 	/* Includes: */
-		#include <avr/io.h>
-
-		#include <LUFA/Common/Common.h>
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
-		#include <LUFA/Drivers/Misc/TerminalCodes.h>
-
-	/* Macros: */
-		/** Prefix sent through the USART when an even fires before the actual event message. */
-		#define EVENT_PREFIX ESC_INVERSE_ON "EVENT:" ESC_INVERSE_OFF " "
-
+		#include "MouseHostDevice.h"
+		
+	/* External Variables: */
+		extern USB_ClassInfo_HID_Device_t Mouse_HID_Device_Interface;
+		
 	/* Function Prototypes: */
-		#if defined(INCLUDE_FROM_TESTEVENTS_C) || defined(__DOXYGEN__)
-			static void Abort_Program(void) ATTR_NO_RETURN;
-		#endif
-
-		void EVENT_USB_InitFailure(const uint8_t ErrorCode);
-		void EVENT_USB_UIDChange(void);
-		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
-		void EVENT_USB_Host_DeviceAttached(void);
-		void EVENT_USB_Host_DeviceUnattached(void);
-		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
-		void EVENT_USB_Host_DeviceEnumerationComplete(void);
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
-		void EVENT_USB_Device_ConfigurationChanged(void);
-		void EVENT_USB_Device_Suspend(void);
-		void EVENT_USB_Device_WakeUp(void);
-		void EVENT_USB_Device_Reset(void);	
+		void EVENT_USB_Device_UnhandledControlRequest(void);
+		void EVENT_USB_Device_StartOfFrame(void);
 		
 #endif

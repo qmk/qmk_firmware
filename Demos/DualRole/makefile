@@ -6,14 +6,12 @@
 #      www.fourwalledcubicle.com
 #
 
-# Makefile to build all the LUFA Demos. Call with "make all" to
-# rebuild all demos.
+# Makefile to build all the LUFA Class Driver and Low Level Demos. Call with
+# "make all" to rebuild all demos of both types.
 
 # Projects are pre-cleaned before each one is built, to ensure any
 # custom LUFA library build options are reflected in the compiled
 # code.
 
 %:
-	make -C Device/ $@
-	make -C Host/ $@
-	make -C DualRole/ $@
+	make -C ClassDriver/ $@

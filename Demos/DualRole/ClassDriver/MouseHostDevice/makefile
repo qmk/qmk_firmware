@@ -102,7 +102,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = TestApp
+TARGET = MouseHostDevice
 
 
 # Object files directory
@@ -112,18 +112,21 @@ OBJDIR = .
 
 
 # Path to the LUFA library
-LUFA_PATH = ../../..
+LUFA_PATH = ../../../..
 
 
 # LUFA library compile-time options
-LUFA_OPTS  = -D USE_FLASH_DESCRIPTORS
+LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
+LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
+LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
+LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
-	  TestEvents.c                                                \
 	  Descriptors.c                                               \
-	  $(LUFA_PATH)/LUFA/Drivers/Board/Temperature.c               \
+	  DeviceFunctions.c                                           \
+	  HostFunctions.c                                             \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
@@ -136,7 +139,10 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
-
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/HID.c            \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/HID.c              \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/HIDParser.c        \
+	  
 
 # List C++ source files here. (C dependencies are automatically generated.)
 CPPSRC = 
@@ -208,11 +214,11 @@ CFLAGS += -O$(OPT)
 CFLAGS += -funsigned-char
 CFLAGS += -funsigned-bitfields
 CFLAGS += -ffunction-sections
+CFLAGS += -fno-inline-small-functions
 CFLAGS += -fpack-struct
 CFLAGS += -fshort-enums
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
-#CFLAGS += -mshort-calls
 CFLAGS += -Wundef
 #CFLAGS += -fno-unit-at-a-time
 #CFLAGS += -Wunreachable-code
