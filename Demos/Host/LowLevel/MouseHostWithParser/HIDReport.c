@@ -86,5 +86,5 @@ bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_Attributes_t* Current
 	 * structure to save RAM and ignore the rest
 	 */
 	return ((CurrentItemAttributes->Usage.Page == USAGE_PAGE_BUTTON) ||
-	        (CurrentItemAttributes->Usage.Page == USAGE_PAGE_GENERIC_DCTRL))
+	        (CurrentItemAttributes->Usage.Page == USAGE_PAGE_GENERIC_DCTRL));
 }
