@@ -261,5 +261,5 @@ bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_Attributes_t* Current
 	 * only store KEYBOARD usage page items into the Processed HID Report structure to
 	 * save RAM and ignore the rest
 	 */
-	return (CurrentItemAttributes->Usage.Page == USAGE_PAGE_KEYBOARD)
+	return (CurrentItemAttributes->Usage.Page == USAGE_PAGE_KEYBOARD);
 }
