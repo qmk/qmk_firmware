@@ -19,6 +19,8 @@
   *  - Fixed PrinterHost demo returning invalid Device ID data when the attached device does not have a
   *    device ID (thanks to Andrei Krainev)
   *  - Changed LUFA_VERSION_INTEGER define to use BCD values, to make comparisons eaiser
+  *  - Fixed issue in the HID Host class driver's HID_Host_SendReportByID() routine using the incorrect mode (control/pipe)
+  *    to send report to the attached device
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *

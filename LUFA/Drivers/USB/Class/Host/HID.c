@@ -213,7 +213,7 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return false;
 	  
-	if (HIDInterfaceInfo->State.DeviceUsesOUTPipe)
+	if (!(HIDInterfaceInfo->State.DeviceUsesOUTPipe))
 	{
 		USB_ControlRequest = (USB_Request_Header_t)
 		{
