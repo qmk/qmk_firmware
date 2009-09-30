@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  Main source file for the MIDI input demo. This file contains the main tasks of the demo and
+ *  Main source file for the MIDI bootloader. This file contains the main tasks of the demo and
  *  is responsible for the initial application hardware configuration.
  */
 
@@ -63,9 +63,7 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 	
 	/* Hardware Initialization */
-	Joystick_Init();
 	LEDs_Init();
-	Buttons_Init();
 	USB_Init();
 }
 
@@ -114,102 +112,21 @@ void EVENT_USB_Device_ConfigurationChanged(void)
  */
 void MIDI_Task(void)
 {
-	static uint8_t PrevJoystickStatus;
-
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
-	Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPNUM);
-
-	if (Endpoint_IsINReady())
-	{
-		uint8_t MIDICommand = 0;
-		uint8_t MIDIPitch;
-	
-		uint8_t JoystickStatus  = Joystick_GetStatus();
-		uint8_t JoystickChanges = (JoystickStatus ^ PrevJoystickStatus);
-		
-		/* Get board button status - if pressed use channel 10 (percussion), otherwise use channel 1 */
-		uint8_t Channel = ((Buttons_GetStatus() & BUTTONS_BUTTON1) ? MIDI_CHANNEL(10) : MIDI_CHANNEL(1));
-
-		if (JoystickChanges & JOY_LEFT)
-		{
-			MIDICommand = ((JoystickStatus & JOY_LEFT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-			MIDIPitch   = 0x3C;
-		}
-
-		if (JoystickChanges & JOY_UP)
-		{
-			MIDICommand = ((JoystickStatus & JOY_UP)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-			MIDIPitch   = 0x3D;
-		}
-
-		if (JoystickChanges & JOY_RIGHT)
-		{
-			MIDICommand = ((JoystickStatus & JOY_RIGHT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-			MIDIPitch   = 0x3E;
-		}
-		
-		if (JoystickChanges & JOY_DOWN)
-		{
-			MIDICommand = ((JoystickStatus & JOY_DOWN)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-			MIDIPitch   = 0x3F;
-		}
-
-		if (JoystickChanges & JOY_PRESS)
-		{
-			MIDICommand = ((JoystickStatus & JOY_PRESS)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
-			MIDIPitch   = 0x3B;
-		}
-
-		/* Check if a MIDI command is to be sent */
-		if (MIDICommand)
-		{
-			USB_MIDI_EventPacket_t MIDIEvent = (USB_MIDI_EventPacket_t)
-				{
-					.CableNumber = 0,
-					.Command     = (MIDICommand >> 4),
-					
-					.Data1       = MIDICommand | Channel,
-					.Data2       = MIDIPitch,
-					.Data3       = MIDI_STANDARD_VELOCITY,			
-				};
-				
-			/* Write the MIDI event packet to the endpoint */
-			Endpoint_Write_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
-		
-			/* Send the data in the endpoint to the host */
-			Endpoint_ClearIN();
-		}
-		
-		/* Save previous joystick value for next joystick change detection */
-		PrevJoystickStatus = JoystickStatus;
-	}
-
 	/* Select the MIDI OUT stream */
 	Endpoint_SelectEndpoint(MIDI_STREAM_OUT_EPNUM);
 
-	/* Check if a MIDI command has been received */
 	if (Endpoint_IsOUTReceived())
 	{
-		USB_MIDI_EventPacket_t MIDIEvent;
-			
-		/* Read the MIDI event packet from the endpoint */
-		Endpoint_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
+		USB_MIDI_EventPacket_t Packet;
+		
+		Endpoint_Read_Stream_LE(&Packet, sizeof(Packet));
 	
-		if (MIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4))
-		{
-			/* Change LEDs depending on the pitch of the sent note */
-			LEDs_SetAllLEDs(MIDIEvent.Data2 > 64 ? LEDS_LED1 : LEDS_LED2);
-		}
-		else
-		{
-			/* Turn off all LEDs in response to non-Note On messages */
-			LEDs_SetAllLEDs(LEDS_NO_LEDS);
-		}
+		LEDs_SetAllLEDs(Packet.Data2 > 64 ? LEDS_LED1 : LEDS_LED2);
 	
-		/* Clear the endpoint ready for new packet */
 		Endpoint_ClearOUT();
 	}
 }

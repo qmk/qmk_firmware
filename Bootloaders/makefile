@@ -19,11 +19,12 @@ all:
 
 	make -C 'CDC/' clean
 	make -C 'CDC/' all
-
+	
 	make -C 'TeensyHID/' clean
 	make -C 'TeensyHID/' all
 
 %:
 	make -C 'DFU/' $@
 	make -C 'CDC/' $@
+	make -C 'MIDI/' $@
 	make -C 'TeensyHID/' $@

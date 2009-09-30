@@ -24,8 +24,8 @@
   *  - Abstract out the physical media from the Mass Storage device demos
   *  - Make new demos
   *      -# Multiple-report HID device
-  *      -# Dual Role Mouse Host/Keyboard Device
-  *      -# Mouse/CDC Dual ClassDevice
+  *      -# Mouse/CDC Dual Class Device
+  *      -# MIDI Host class driver and demo
   *  - Port LUFA to other architectures
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers
