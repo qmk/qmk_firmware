@@ -153,6 +153,7 @@ void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 
 }
 
+#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID, void* Buffer)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
@@ -168,7 +169,8 @@ uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 	
 	return USB_Host_SendControlRequest(Buffer);
 }											   
-											   
+#endif
+										   
 uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, void* Buffer)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
@@ -181,11 +183,8 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 	
 	uint16_t ReportSize;
 
-	if (HIDInterfaceInfo->State.UsingBootProtocol)
-	{
-		ReportSize = Pipe_BytesInPipe();
-	}
-	else
+#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
+	if (!(HIDInterfaceInfo->State.UsingBootProtocol))
 	{
 		uint8_t ReportID = 0;
 	
@@ -197,6 +196,11 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 		
 		ReportSize = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, REPORT_ITEM_TYPE_In);
 	}
+	else
+#endif
+	{
+		ReportSize = Pipe_BytesInPipe();
+	}
 
 	if ((ErrorCode = Pipe_Read_Stream_LE(Buffer, ReportSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
@@ -207,28 +211,17 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 	return PIPE_RWSTREAM_NoError;
 }
 
-uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint8_t ReportID, void* Buffer,
-                                const uint16_t ReportSize)
+uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
+                                const uint8_t ReportID,
+#endif
+                                void* Buffer, const uint16_t ReportSize)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return false;
-	  
-	if (!(HIDInterfaceInfo->State.DeviceUsesOUTPipe))
-	{
-		USB_ControlRequest = (USB_Request_Header_t)
-		{
-			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SetReport,
-			.wValue        = ReportID,
-			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
-			.wLength       = ReportSize,
-		};
 
-		Pipe_SelectPipe(PIPE_CONTROLPIPE);
-		
-		return USB_Host_SendControlRequest(Buffer);
-	}
-	else
+#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
+	if (HIDInterfaceInfo->State.DeviceUsesOUTPipe)
 	{
 		uint8_t ErrorCode;
 	
@@ -245,6 +238,26 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		Pipe_Freeze();
 		
 		return PIPE_RWSTREAM_NoError;
+	}
+	else
+#endif
+	{
+		USB_ControlRequest = (USB_Request_Header_t)
+		{
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+			.bRequest      = REQ_SetReport,
+#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
+			.wValue        = ReportID,
+#else
+			.wValue        = 0,
+#endif
+			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
+			.wLength       = ReportSize,
+		};
+
+		Pipe_SelectPipe(PIPE_CONTROLPIPE);
+		
+		return USB_Host_SendControlRequest(Buffer);
 	}
 }
 
@@ -295,6 +308,7 @@ uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInf
 	return HOST_SENDCONTROL_Successful;
 }
 
+#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 {
 	uint8_t ErrorCode;
@@ -346,5 +360,6 @@ uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 
 	return 0;
 }
+#endif
 
 #endif

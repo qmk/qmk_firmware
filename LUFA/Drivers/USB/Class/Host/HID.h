@@ -77,8 +77,14 @@
 													*   \ref HID_BOOT_KEYBOARD_PROTOCOL or \ref HID_NON_BOOT_PROTOCOL if any
 													*   HID device should be enumerated by the interface
 					                                */
+					#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 					HID_ReportInfo_t* HIDParserData; /**< HID parser data to store the parsed HID report data, when boot protocol
-					                                  *   is not used */
+					                                  *   is not used
+													  *
+					                                  *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined,
+					                                  *        this method is unavailable.
+					                                  */
+					#endif
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -157,7 +163,10 @@
 			 */
 			uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, void* Buffer) ATTR_NON_NULL_PTR_ARG(1, 2);
 
+			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 			/** Received a HID IN report from the attached device, by the report ID.
+			 *
+			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
 			 *  \param[in] ReportID  Report ID of the received report if ControlRequest is false, set by the to the Report ID to fetch
@@ -167,9 +176,13 @@
 			 */
 			uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID,
 			                                   void* Buffer) ATTR_NON_NULL_PTR_ARG(1, 3);
-
+			#endif
+			
 			/** Sends an OUT report to the currently attached HID device, using the device's OUT pipe if available or the device's
 			 *  Control pipe if not.
+			 *
+			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, the ReportID parameter is removed
+			 *        from the parameter list of this function.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
 			 *  \param[in] ReportID  Report ID of the report to send to the device, or 0 if the device does not use report IDs
@@ -179,8 +192,16 @@
 			 *  \return An error code from the \ref USB_Host_SendControlErrorCodes_t enum if the DeviceUsesOUTPipe flag is set in
 			 *          the interface's state structure, a value from the \ref Pipe_Stream_RW_ErrorCodes_t enum otherwise
 			 */
-			uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID,
-			                                void* Buffer, const uint16_t ReportSize) ATTR_NON_NULL_PTR_ARG(1, 3);
+			uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
+			                                const uint8_t ReportID,
+			#endif
+			                                void* Buffer, const uint16_t ReportSize)
+			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
+			                                ATTR_NON_NULL_PTR_ARG(1, 3);
+			#else
+			                                ATTR_NON_NULL_PTR_ARG(1, 2);
+			#endif
 
 			/** Determines if a HID IN report has been received from the attached device on the data IN pipe.
 			 *
@@ -192,6 +213,9 @@
 			
 			/** Switches the attached HID device's reporting protocol over to the Boot Report protocol mode, on supported devices.
 			 *
+			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method must still be called
+			 *        to explicitly place the attached device into boot protocol mode before use.
+			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
 			 *
 			 *  \return \ref HID_ERROR_LOGICAL if the device does not support Boot Protocol mode, a value from the
@@ -199,11 +223,14 @@
 			 */
 			uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 			/** Switches the attached HID device's reporting protocol over to the standard Report protocol mode. This also retrieves
 			 *  and parses the device's HID report descriptor, so that the size of each report can be determined in advance.
 			 *
 			 *  \note Whether this function is used or not, the \ref CALLBACK_HIDParser_FilterHIDReportItem() callback from the HID
 			 *        Report Parser this function references <b>must</b> be implemented in the user code.
+			 *
+			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
 			 *
@@ -213,7 +240,8 @@
 			 *          and a value from the \ref HID_Parse_ErrorCodes_t otherwise
 			 */
 			uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-		
+			#endif
+			
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */

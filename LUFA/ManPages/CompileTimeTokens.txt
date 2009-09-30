@@ -20,9 +20,17 @@
  *  this token is defined, all ANSI control codes in the application code from the TerminalCodes.h header are removed from
  *  the source code at compile time.
  *
+ *
  *  \section Sec_SummaryUSBClassTokens USB Class Driver Related Tokens
  *  This section describes compile tokens which affect USB class-specific drivers in the LUFA library.
  *
+ *  <b>HID_HOST_BOOT_PROTOCOL_ONLY</b> - ( \ref Group_USBClassHIDHost ) \n
+ *  By default, the USB HID Host class driver is designed to work with HID devices using either the Boot or Report HID
+ *  communication protocols. On devices where the Report protocol is not used (i.e. in applications where only basic
+ *  Mouse or Keyboard operation is desired, using boot compatible devices), the code responsible for the Report protocol
+ *  mode can be removed to save space in the compiled application by defining this token. When defined, it is still neccesary
+ *  to explicitly put the attached device into Boot protocol mode via a call to \ref HID_Host_SetBootProtocol().
+ * 
  *  <b>HID_STATETABLE_STACK_DEPTH</b>=<i>x</i> - ( \ref Group_HIDParser ) \n
  *  HID reports may contain PUSH and POP elements, to store and retrieve the current HID state table onto a stack. This
  *  allows for reports to save the state table before modifying it slightly for a data item, and then restore the previous
@@ -58,6 +66,7 @@
  *  stored. This token may be defined to a non-zero 8-bit value to set the maximum number of report IDs in a device which can be processed
  *  and their sizes calculated/stored into the resultant processed report structure. If not defined, this defaults to the value indicated in
  *  the HID.h file documentation.
+ *
  *
  *  \section Sec_SummaryUSBTokens USB Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack as a whole in the LUFA library.
