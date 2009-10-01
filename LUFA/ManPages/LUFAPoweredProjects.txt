@@ -42,7 +42,7 @@
  *  - SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
- *  - USB to Serial Bridge, via SPI and I2C: http://www.tty1.net/userial/
+ *  - Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/
  * 
  *  \section Sec_LUFACommercialProjects Projects Using LUFA (Commercial)
  *
