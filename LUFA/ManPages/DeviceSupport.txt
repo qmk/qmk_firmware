@@ -27,6 +27,7 @@
  *   - STK526
  *   - RZUSBSTICK
  *   - ATAVRUSBRF01
+ *   - XPLAIN (AT90USB1287 only)
  *
  *  Currently supported third-party boards:
  *   - BUMBLEB (using officially recommended peripheral layout)
