@@ -136,14 +136,14 @@
 		} SCSI_Request_Sense_Response_t;
 		
 	/* Function Prototypes: */
-		void SCSI_DecodeSCSICommand(void);
+		bool SCSI_DecodeSCSICommand(void);
 		
 		#if defined(INCLUDE_FROM_SCSI_C)
-			static bool SCSI_Command_Inquiry(void);
-			static bool SCSI_Command_Request_Sense(void);
-			static bool SCSI_Command_Read_Capacity_10(void);
-			static bool SCSI_Command_Send_Diagnostic(void);
-			static bool SCSI_Command_ReadWrite_10(const bool IsDataRead);
+			static void SCSI_Command_Inquiry(void);
+			static void SCSI_Command_Request_Sense(void);
+			static void SCSI_Command_Read_Capacity_10(void);
+			static void SCSI_Command_Send_Diagnostic(void);
+			static void SCSI_Command_ReadWrite_10(const bool IsDataRead);
 		#endif
 		
 #endif

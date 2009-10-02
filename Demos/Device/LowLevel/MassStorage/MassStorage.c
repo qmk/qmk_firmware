@@ -189,15 +189,15 @@ void MassStorage_Task(void)
 			if (CommandBlock.Flags & COMMAND_DIRECTION_DATA_IN)
 			  Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
 
-			/* Decode the received SCSI command */
-			SCSI_DecodeSCSICommand();
+			/* Decode the received SCSI command, set returned status code */
+			CommandStatus.Status = SCSI_DecodeSCSICommand() ? Command_Pass : Command_Fail;		
 
 			/* Load in the CBW tag into the CSW to link them together */
 			CommandStatus.Tag = CommandBlock.Tag;
 
 			/* Load in the data residue counter into the CSW */
 			CommandStatus.DataTransferResidue = CommandBlock.DataTransferLength;
-
+			
 			/* Stall the selected data pipe if command failed (if data is still to be transferred) */
 			if ((CommandStatus.Status == Command_Fail) && (CommandStatus.DataTransferResidue))
 			  Endpoint_StallTransaction();

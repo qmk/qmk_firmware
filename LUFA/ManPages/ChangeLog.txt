@@ -16,6 +16,7 @@
   *  <b>Changed:</b>
   *  - Removed mostly useless "TestApp" demo, as it was mainly useful only for checking for sytax errors in the library
   *  - MIDI device demos now receive MIDI events from the host and display note ON messages via the board LEDs
+  *  - Cleanups to the Device mode Mass Storage demo applications' SCSI routines
   *
   *  <b>Fixed:</b>
   *  - Fixed PrinterHost demo returning invalid Device ID data when the attached device does not have a

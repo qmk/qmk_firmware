@@ -137,11 +137,11 @@
 		bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
 		
 		#if defined(INCLUDE_FROM_SCSI_C)
-			static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
-			static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
-			static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
-			static bool SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
-			static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const bool IsDataRead);
+			static void SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
+			static void SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
+			static void SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
+			static void SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
+			static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const bool IsDataRead);
 		#endif
 		
 #endif
