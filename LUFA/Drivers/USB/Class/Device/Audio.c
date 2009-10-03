@@ -89,67 +89,6 @@ void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo
 
 }
 
-int8_t Audio_Device_ReadSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
-{
-	int8_t Sample;
-
-	Sample = Endpoint_Read_Byte();
-
-	if (!(Endpoint_BytesInEndpoint()))
-	  Endpoint_ClearOUT();
-	
-	return Sample;
-}
-
-int16_t Audio_Device_ReadSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
-{
-	int16_t Sample;
-
-	Sample = (int16_t)Endpoint_Read_Word_LE();
-		  
-	if (!(Endpoint_BytesInEndpoint()))
-	  Endpoint_ClearOUT();
-
-	return Sample;
-}
-
-int32_t Audio_Device_ReadSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
-{
-	int32_t Sample;
-
-	Sample = (((uint32_t)Endpoint_Read_Byte() << 16) | Endpoint_Read_Word_LE());
-		  
-	if (!(Endpoint_BytesInEndpoint()))
-	  Endpoint_ClearOUT();
-
-	return Sample;
-}
-
-void Audio_Device_WriteSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int8_t Sample)
-{
-	Endpoint_Write_Byte(Sample);
-
-	if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
-	  Endpoint_ClearIN();
-}
-
-void Audio_Device_WriteSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int16_t Sample)
-{
-	Endpoint_Write_Word_LE(Sample);
-
-	if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
-	  Endpoint_ClearIN();
-}
-
-void Audio_Device_WriteSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo, const int32_t Sample)
-{
-	Endpoint_Write_Byte(Sample >> 16);
-	Endpoint_Write_Word_LE(Sample);
-
-	if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
-	  Endpoint_ClearIN();
-}
-
 bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 {
 	if ((USB_DeviceState != DEVICE_STATE_Configured) || !(AudioInterfaceInfo->State.InterfaceEnabled))

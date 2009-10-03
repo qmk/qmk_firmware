@@ -216,7 +216,8 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 			case (TYPE_MAIN | TAG_MAIN_INPUT):
 			case (TYPE_MAIN | TAG_MAIN_OUTPUT):
 			case (TYPE_MAIN | TAG_MAIN_FEATURE):
-				for (uint8_t ReportItemNum = 0; ReportItemNum < CurrStateTable->ReportCount; ReportItemNum++)
+				uint8_t Count = CurrStateTable->ReportCount;
+				for (uint8_t ReportItemNum = 0; ReportItemNum < Count; ReportItemNum++)
 				{
 					HID_ReportItem_t NewReportItem;
 				  

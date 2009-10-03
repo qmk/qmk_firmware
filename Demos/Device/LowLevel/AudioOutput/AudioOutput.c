@@ -230,17 +230,15 @@ void USB_Audio_Task(void)
 
 		uint8_t LEDMask = LEDS_NO_LEDS;
 
-		if (MixedSample_8Bit_Abs > 2)
-		  LEDMask |= LEDS_LED1;
-		  
-		if (MixedSample_8Bit_Abs > 4)
-		  LEDMask |= LEDS_LED2;
-		  
-		if (MixedSample_8Bit_Abs > 8)
-		  LEDMask |= LEDS_LED3;
-
+		/* Turn on LEDs as the sample amplitude increases */
 		if (MixedSample_8Bit_Abs > 16)
-		  LEDMask |= LEDS_LED4;
+		  LEDMask = (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4);
+		else if (MixedSample_8Bit_Abs > 8)
+		  LEDMask = (LEDS_LED1 | LEDS_LED2 | LEDS_LED3);
+		else if (MixedSample_8Bit_Abs > 4)
+		  LEDMask = (LEDS_LED1 | LEDS_LED2);
+		else if (MixedSample_8Bit_Abs > 2)
+		  LEDMask = (LEDS_LED1);
 		  
 		LEDs_SetAllLEDs(LEDMask);
 	}

@@ -89,7 +89,7 @@
 	#elif (BOARD == BOARD_ATAVRUSBRF01)
 		#include "ATAVRUSBRF01/LEDs.h"
 	#elif (BOARD == BOARD_XPLAIN)
-		#include "XPLAIN/LEDs.h
+		#include "XPLAIN/LEDs.h"
 	#elif (BOARD == BOARD_BUMBLEB)
 		#include "BUMBLEB/LEDs.h"
 	#elif (BOARD == BOARD_USER)
