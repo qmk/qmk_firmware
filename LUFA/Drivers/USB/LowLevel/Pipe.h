@@ -757,9 +757,9 @@
 
 		/* Function Prototypes: */
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-				#define _CALLBACK_PARAM     , StreamCallbackPtr_t Callback
+				#define __CALLBACK_PARAM     , StreamCallbackPtr_t Callback
 			#else
-				#define _CALLBACK_PARAM			
+				#define __CALLBACK_PARAM			
 			#endif
 
 			/** Configures the specified pipe number with the given pipe type, token, target endpoint number in the
@@ -831,7 +831,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Discard_Stream(uint16_t Length _CALLBACK_PARAM);
+			uint8_t Pipe_Discard_Stream(uint16_t Length __CALLBACK_PARAM);
 
 			/** Writes the given number of bytes to the pipe from the given buffer in little endian,
 			 *  sending full packets to the device as needed. The last packet filled is not automatically sent;
@@ -854,7 +854,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_Stream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);				
+			uint8_t Pipe_Write_Stream_LE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);				
 
 			/** EEPROM buffer source version of \ref Pipe_Write_Stream_LE().
 			 *
@@ -866,7 +866,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_EStream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Pipe_Write_EStream_LE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** FLASH buffer source version of \ref Pipe_Write_Stream_LE().
 			 *
@@ -880,7 +880,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_PStream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Pipe_Write_PStream_LE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 						
 			/** Writes the given number of bytes to the pipe from the given buffer in big endian,
 			 *  sending full packets to the device as needed. The last packet filled is not automatically sent;
@@ -903,7 +903,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_Stream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Pipe_Write_Stream_BE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Pipe_Write_Stream_BE().
 			 *
@@ -915,7 +915,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_EStream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Pipe_Write_EStream_BE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** FLASH buffer source version of \ref Pipe_Write_Stream_BE().
 			 *
@@ -929,7 +929,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_PStream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Pipe_Write_PStream_BE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the pipe into the given buffer in little endian,
 			 *  sending full packets to the device as needed. The last packet filled is not automatically sent;
@@ -952,7 +952,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Pipe_Read_Stream_LE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Pipe_Read_Stream_LE().
 			 *
@@ -964,7 +964,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Read_EStream_LE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Pipe_Read_EStream_LE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the pipe into the given buffer in big endian,
 			 *  sending full packets to the device as needed. The last packet filled is not automatically sent;
@@ -987,7 +987,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Pipe_Read_Stream_BE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** EEPROM buffer source version of \ref Pipe_Read_Stream_BE().
 			 *
@@ -999,7 +999,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Read_EStream_BE(void* Buffer, uint16_t Length _CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Pipe_Read_EStream_BE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

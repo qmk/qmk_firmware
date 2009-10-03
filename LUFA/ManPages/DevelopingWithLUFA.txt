@@ -16,6 +16,6 @@
  *  - \subpage Page_VIDPID Allocated USB VID and PID Values
  *  - \subpage Page_BuildLibrary Building as a Linkable Library
  *  - \subpage Page_WritingBoardDrivers How to Write Custom Board Drivers
- *  - \subpage Page_SchedulerOverview Overview of the Simple LUFA Scheduler (Deprecated)
+ *  - \subpage Page_SchedulerOverview Overview of the Simple LUFA Scheduler (DEPRECATED)
  */
  

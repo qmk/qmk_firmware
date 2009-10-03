@@ -228,7 +228,7 @@
  *     0x2060
  *    </td>
  *    <td>
- *     <i>Benito Programmer Project</i>
+ *     Benito Programmer Project
  *    </td>
  *   </tr>
  *
@@ -240,7 +240,7 @@
  *     0x2061
  *    </td>
  *    <td>
- *     <i>Combined Mass Storage and Keyboard Demo</i>
+ *     Combined Mass Storage and Keyboard Demo
  *    </td>
  *   </tr>
  *

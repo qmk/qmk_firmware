@@ -59,7 +59,7 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			#if __GNUC__ >= 3
+			#if (__GNUC__ >= 3) || defined(__DOXYGEN__)
 				/** Indicates to the compiler that the function can not ever return, so that any stack restoring or
 				 *  return code may be omitted by the compiler in the resulting binary.
 				 */
