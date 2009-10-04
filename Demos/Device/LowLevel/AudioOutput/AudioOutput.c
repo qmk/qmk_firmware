@@ -195,9 +195,12 @@ void USB_Audio_Task(void)
 		/* Clear the sample reload timer */
 		TIFR0 |= (1 << OCF0A);
 
-		/* Retrieve the signed 16-bit left and right audio samples */
-		int16_t LeftSample_16Bit  = (int16_t)Endpoint_Read_Word_LE();
-		int16_t RightSample_16Bit = (int16_t)Endpoint_Read_Word_LE();
+		/* Retrieve the signed 16-bit left and right audio samples, convert to 8-bit */
+		int8_t  LeftSample_8Bit   = ((int16_t)Endpoint_Read_Word_LE() >> 8);
+		int8_t  RightSample_8Bit  = ((int16_t)Endpoint_Read_Word_LE() >> 8);
+
+		/* Mix the two channels together to produce a mono, 8-bit sample */
+		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
 
 		/* Check to see if the bank is now empty */
 		if (!(Endpoint_IsReadWriteAllowed()))
@@ -206,23 +209,13 @@ void USB_Audio_Task(void)
 			Endpoint_ClearOUT();
 		}
 
-		/* Massage signed 16-bit left and right audio samples into signed 8-bit */
-		int8_t  LeftSample_8Bit   = (LeftSample_16Bit  >> 8);
-		int8_t  RightSample_8Bit  = (RightSample_16Bit >> 8);
-			
-		/* Mix the two channels together to produce a mono, 8-bit sample */
-		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
-
-		/* Get absolute value of mixed sample value */
-		uint8_t MixedSample_8Bit_Abs = abs(MixedSample_8Bit);
-
 #if defined(AUDIO_OUT_MONO)
 		/* Load the sample into the PWM timer channel */
-		OCR3A = ((uint8_t)MixedSample_8Bit ^ (1 << 7));
+		OCR3A = (MixedSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_STEREO)
 		/* Load the dual 8-bit samples into the PWM timer channels */
-		OCR3A = ((uint8_t)LeftSample_8Bit  ^ (1 << 7));
-		OCR3B = ((uint8_t)RightSample_8Bit ^ (1 << 7));
+		OCR3A = (LeftSample_8Bit  ^ (1 << 7));
+		OCR3B = (RightSample_8Bit ^ (1 << 7));
 #elif defined(AUDIO_OUT_PORTC)
 		/* Load the 8-bit mixed sample into PORTC */
 		PORTC = MixedSample_8Bit;
@@ -231,15 +224,15 @@ void USB_Audio_Task(void)
 		uint8_t LEDMask = LEDS_NO_LEDS;
 
 		/* Turn on LEDs as the sample amplitude increases */
-		if (MixedSample_8Bit_Abs > 16)
+		if (MixedSample_8Bit > 16)
 		  LEDMask = (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4);
-		else if (MixedSample_8Bit_Abs > 8)
+		else if (MixedSample_8Bit > 8)
 		  LEDMask = (LEDS_LED1 | LEDS_LED2 | LEDS_LED3);
-		else if (MixedSample_8Bit_Abs > 4)
+		else if (MixedSample_8Bit > 4)
 		  LEDMask = (LEDS_LED1 | LEDS_LED2);
-		else if (MixedSample_8Bit_Abs > 2)
+		else if (MixedSample_8Bit > 2)
 		  LEDMask = (LEDS_LED1);
-		  
+
 		LEDs_SetAllLEDs(LEDMask);
 	}
 }
