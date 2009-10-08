@@ -73,12 +73,12 @@ uint8_t ProcessConfigurationDescriptor(void)
 		return NoCDCInterfaceFound;
 	}
 
-	/* Get the IN and OUT data endpoints for the CDC interface */
+	/* Get the IN and OUT data and IN notification endpoints for the CDC interface */
 	while (FoundEndpoints != ((1 << CDC_NOTIFICATIONPIPE) | (1 << CDC_DATAPIPE_IN) | (1 << CDC_DATAPIPE_OUT)))
 	{
 		/* Fetch the next bulk or interrupt endpoint from the current CDC interface */
 		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-		                              DComp_NextInterfaceCDCDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DComp_NextCDCDataInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			/* Check to see if the control interface's notification pipe has been found, if so search for the data interface */
 			if (FoundEndpoints & (1 << CDC_NOTIFICATIONPIPE))
@@ -115,7 +115,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 			/* Fetch the next bulk or interrupt endpoint from the current CDC interface */
 			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-			                              DComp_NextInterfaceCDCDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+			                              DComp_NextCDCDataInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				/* Descriptor not found, error out */
 				return NoEndpointFound;
@@ -226,7 +226,7 @@ uint8_t DComp_NextCDCDataInterface(void* CurrentDescriptor)
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-uint8_t DComp_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor)
+uint8_t DComp_NextCDCDataInterfaceEndpoint(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

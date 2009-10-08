@@ -18,7 +18,7 @@
  *  The following is a list of known AVR USB development boards, which recommend using LUFA for the USB stack. Some of these
  *  are open design, and all are available for purchase as completed development boards suitable for project development.
  *
- *  - AVROpendous, an open design/source set of AVR USB development boards: http://avropendous.org/
+ *  - Micropendous, an open design/source set of AVR USB development boards: http://micropendous.org/
  *  - Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/wiki/benito
  *  - Bumble-B, yet another AT90USB162 development board: http://fletchtronics.net/bumble-b
  *  - USB10 AKA "The Ferret", a AT90USB162 development board: http://www.soc-machines.com
@@ -34,10 +34,12 @@
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
  *  - "Fingerlicking Wingdinger" (WARNING: Bad Language if no Javascript), a MIDI controller - http://noisybox.net/electronics/wingdinger/
  *  - Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
+ *  - Generic HID Device Creator : http://generichid.sourceforge.net/
+ *  - NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
+ *  - MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
  *  - Opendous-JTAG, an open source JTAG device: http://code.google.com/p/opendous-jtag/
  *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  *  - Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
- *  - NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
  *  - Reprap with LUFA, a LUFA powered 3D printer: http://code.google.com/p/at90usb1287-code-for-arduino-and-eclipse/
  *  - SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  - SEGA Megadrive/Super Nintendo Cartridge Reader: http://www.snega2usb.com
@@ -51,7 +53,7 @@
  *  solutions with no source code given.
  *
  *  - ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
+ *  - BAP, A tiny LUFA based AVR Programmer: http://www.busware.de/tiki-index.php?page=BAP
  *  - Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
  *  - Lightweight CC110x USB dongle for 868MHz Protocols: http://busware.de/tiki-index.php?page=CUL
- *  - BAP, A tiny LUFA based AVR Programmer: http://www.busware.de/tiki-index.php?page=BAP
  */

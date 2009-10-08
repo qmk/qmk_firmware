@@ -68,7 +68,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	while (FoundEndpoints != ((1 << PRINTER_DATA_OUT_PIPE) | (1 << PRINTER_DATA_IN_PIPE)))
 	{
 		/* Fetch the next bulk endpoint from the current printer interface */
-		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation, DComp_NextInterfaceBulkDataEndpoint))
+		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation, DComp_NextPrinterInterfaceBulkDataEndpoint))
 		{
 			/* Descriptor not found, error out */
 			return NoEndpointFound;
@@ -123,7 +123,7 @@ uint8_t DComp_NextBidirectionalPrinterInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor)
+uint8_t DComp_NextPrinterInterfaceBulkDataEndpoint(void* CurrentDescriptor)
 {
 	/* PURPOSE: Find next interface bulk endpoint descriptor before next interface descriptor */
 

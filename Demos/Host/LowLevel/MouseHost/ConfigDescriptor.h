@@ -67,6 +67,6 @@
 		uint8_t ProcessConfigurationDescriptor(void);
 
 		uint8_t DComp_NextMouseInterface(void* CurrentDescriptor);
-		uint8_t DComp_NextInterfaceMouseDataEndpoint(void* CurrentDescriptor);
+		uint8_t DComp_NextMouseInterfaceDataEndpoint(void* CurrentDescriptor);
 
 #endif

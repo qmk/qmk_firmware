@@ -26,6 +26,9 @@ all:
 	make -C MassStorageHost clean
 	make -C MassStorageHost all	
 
+	make -C MIDIHost clean
+	make -C MIDIHost all	
+
 	make -C MouseHost clean
 	make -C MouseHost all	
 
@@ -44,6 +47,7 @@ all:
 	make -C KeyboardHost $@
 	make -C KeyboardHostWithParser $@
 	make -C MassStorageHost $@
+	make -C MIDIHost $@
 	make -C MouseHost $@
 	make -C MouseHostWithParser $@
 	make -C PrinterHost $@

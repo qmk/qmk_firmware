@@ -64,6 +64,6 @@
 		uint8_t ProcessConfigurationDescriptor(void);
 
 		uint8_t DComp_NextHIDInterface(void* CurrentDescriptor);
-		uint8_t DComp_NextInterfaceHIDDataEndpoint(void* CurrentDescriptor);
+		uint8_t DComp_NextHIDInterfaceDataEndpoint(void* CurrentDescriptor);
 
 #endif

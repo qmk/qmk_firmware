@@ -54,7 +54,7 @@
 		/** Interface Class value for the CDC data class */
 		#define CDC_DATA_CLASS                 0x0A
 
-		/** Interface Class value for the CDC data subclass (unused) */
+		/** Interface Class value for the CDC data subclass */
 		#define CDC_DATA_SUBCLASS              0x00
 
 		/** Interface Class value for the CDC data protocol */
@@ -80,6 +80,6 @@
 		
 		uint8_t DComp_NextCDCControlInterface(void* CurrentDescriptor);
 		uint8_t DComp_NextCDCDataInterface(void* CurrentDescriptor);
-		uint8_t DComp_NextInterfaceCDCDataEndpoint(void* CurrentDescriptor);
+		uint8_t DComp_NextCDCDataInterfaceEndpoint(void* CurrentDescriptor);
 		
 #endif

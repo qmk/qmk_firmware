@@ -85,7 +85,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 	/* Get the keyboard interface's data endpoint descriptor */
 	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextInterfaceKeyboardDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DComp_NextKeyboardInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoEndpointFound;
@@ -134,7 +134,7 @@ uint8_t DComp_NextKeyboardInterface(void* CurrentDescriptor)
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-uint8_t DComp_NextInterfaceKeyboardDataEndpoint(void* CurrentDescriptor)
+uint8_t DComp_NextKeyboardInterfaceDataEndpoint(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

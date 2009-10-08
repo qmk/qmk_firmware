@@ -34,22 +34,23 @@
  *  needed to communication with an attached USB device. Descriptors are special  computer-readable structures
  *  which the host requests upon device enumeration, to determine the device's capabilities and functions.
  */
-
+ 
 #include "ConfigDescriptor.h"
 
 /** Reads and processes an attached device's descriptors, to determine compatibility and pipe configurations. This
  *  routine will read in the entire configuration descriptor, and configure the hosts pipes to correctly communicate
  *  with compatible devices.
  *
- *  This routine searches for a HID interface descriptor containing at least one Interrupt type IN endpoint.
+ *  This routine searches for a MIDI interface descriptor pair containing bulk data IN and OUT endpoints.
  *
- *  \return An error code from the KeyboardHost_GetConfigDescriptorDataCodes_t enum.
+ *  \return An error code from the MIDIHost_GetConfigDescriptorDataCodes_t enum.
  */
 uint8_t ProcessConfigurationDescriptor(void)
 {
 	uint8_t  ConfigDescriptorData[512];
 	uint8_t* CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
+	uint8_t  FoundEndpoints = 0;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -64,28 +65,47 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlError;
 	}
 	
-	/* Get the keyboard interface from the configuration descriptor */
+	/* Get the MIDI Audio Streaming interface from the configuration descriptor */
 	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextKeyboardInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DComp_NextMIDIStreamingInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
-		return NoHIDInterfaceFound;
-	}
-
-	/* Get the keyboard interface's data endpoint descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextKeyboardInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		/* Descriptor not found, error out */
-		return NoEndpointFound;
+		return NoCDCInterfaceFound;
 	}
 	
-	/* Retrieve the endpoint address from the endpoint descriptor */
-	USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
+	/* Get the IN and OUT data endpoints for the MIDI interface */
+	while (FoundEndpoints != ((1 << MIDI_DATAPIPE_IN) | (1 << MIDI_DATAPIPE_OUT)))
+	{
+		/* Fetch the next bulk endpoint from the current MIDI streaming interface */
+		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+		                              DComp_NextMIDIStreamingDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		{
+			/* Descriptor not found, error out */
+			return NoEndpointFound;
+		}
+		
+		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
-	/* Configure the keyboard data pipe */
-	Pipe_ConfigurePipe(KEYBOARD_DATAPIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-	                   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+		/* Check if the endpoint is a bulk IN or bulk OUT endpoint */
+		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
+		{
+			/* Configure the data IN pipe */
+			Pipe_ConfigurePipe(MIDI_DATAPIPE_IN, EP_TYPE_BULK, PIPE_TOKEN_IN,
+							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+			
+			/* Set the flag indicating that the data IN pipe has been found */
+			FoundEndpoints |= (1 << MIDI_DATAPIPE_IN);
+		}
+		else
+		{
+			/* Configure the data OUT pipe */
+			Pipe_ConfigurePipe(MIDI_DATAPIPE_OUT, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+			
+			/* Set the flag indicating that the data OUT pipe has been found */
+			FoundEndpoints |= (1 << MIDI_DATAPIPE_OUT);
+		}
+	}
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;
@@ -95,17 +115,18 @@ uint8_t ProcessConfigurationDescriptor(void)
  *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
  *  descriptor processing if an incompatible descriptor configuration is found.
  *
- *  This comparator searches for the next Interface descriptor of the correct Keyboard HID Class and Protocol values.
+ *  This comparator searches for the next Interface descriptor of the correct MIDI Streaming Class, Subclass and Protocol values.
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-uint8_t DComp_NextKeyboardInterface(void* CurrentDescriptor)
+uint8_t DComp_NextMIDIStreamingInterface(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		/* Check the HID descriptor class and protocol, break out if correct class/protocol interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == KEYBOARD_CLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == KEYBOARD_PROTOCOL))
+		/* Check the MIDI descriptor class, subclass and protocol, break out if correct data interface found */
+		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == MIDI_STREAMING_CLASS)    &&
+		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == MIDI_STREAMING_SUBCLASS) &&
+		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == MIDI_STREAMING_PROTOCOL))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -118,16 +139,20 @@ uint8_t DComp_NextKeyboardInterface(void* CurrentDescriptor)
  *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
  *  descriptor processing if an incompatible descriptor configuration is found.
  *
- *  This comparator searches for the next IN Endpoint descriptor inside the current interface descriptor,
- *  aborting the search if another interface descriptor is found before the required endpoint.
+ *  This comparator searches for the next bulk IN or OUT endpoint within the current interface, aborting the search if
+ *  another interface descriptor is found before the required endpoint.
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-uint8_t DComp_NextKeyboardInterfaceDataEndpoint(void* CurrentDescriptor)
+uint8_t DComp_NextMIDIStreamingDataEndpoint(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
-		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Endpoint_t).EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
+		uint8_t EndpointType = (DESCRIPTOR_CAST(CurrentDescriptor,
+		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
+	
+		/* Check the endpoint type, break out if correct BULK type endpoint found */
+		if (EndpointType == EP_TYPE_BULK)
 		  return DESCRIPTOR_SEARCH_Found;
 	}
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)

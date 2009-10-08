@@ -12,13 +12,14 @@
   *  - Added new Dual Role Keyboard/Mouse demo
   *  - Added new HID_HOST_BOOT_PROTOCOL_ONLY compile time token to reduce the size of the HID Host Class driver when
   *    Report protocol is not needed
+  *  - Added new MIDI Host demo
   *
   *  <b>Changed:</b>
   *  - Removed mostly useless "TestApp" demo, as it was mainly useful only for checking for sytax errors in the library
   *  - MIDI device demos now receive MIDI events from the host and display note ON messages via the board LEDs
   *  - Cleanups to the Device mode Mass Storage demo applications' SCSI routines
   *  - Changed Audio Class driver sample read/write functions to be inline, to reduce the number of cycles needed to transfer
-  *    samples to and from the device (allowing more time for processing and output)
+  *    samples to and from the device (allowing more time for sample processing and output)
   *
   *  <b>Fixed:</b>
   *  - Fixed PrinterHost demo returning invalid Device ID data when the attached device does not have a
@@ -26,7 +27,7 @@
   *  - Changed LUFA_VERSION_INTEGER define to use BCD values, to make comparisons eaiser
   *  - Fixed issue in the HID Host class driver's HID_Host_SendReportByID() routine using the incorrect mode (control/pipe)
   *    to send report to the attached device
-  *  - Fixed ClassDriver AudioOutput demo not selecting an audio output mode
+  *  - Fixed ClassDriver AudioOutput device demo not selecting an audio output mode
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *

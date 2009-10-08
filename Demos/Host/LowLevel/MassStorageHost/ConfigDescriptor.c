@@ -67,7 +67,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	
 	/* Get the mass storage interface from the configuration descriptor */
 	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextMassStorageInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DComp_NextMSInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
 		return NoInterfaceFound;
@@ -78,7 +78,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	{
 		/* Fetch the next bulk endpoint from the current mass storage interface */
 		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-		                              DComp_NextInterfaceBulkDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DComp_NextMSInterfaceBulkDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			/* Descriptor not found, error out */
 			return NoEndpointFound;
@@ -121,7 +121,7 @@ uint8_t ProcessConfigurationDescriptor(void)
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-uint8_t DComp_NextMassStorageInterface(void* CurrentDescriptor)
+uint8_t DComp_NextMSInterface(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -146,7 +146,7 @@ uint8_t DComp_NextMassStorageInterface(void* CurrentDescriptor)
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
-uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor)
+uint8_t DComp_NextMSInterfaceBulkDataEndpoint(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

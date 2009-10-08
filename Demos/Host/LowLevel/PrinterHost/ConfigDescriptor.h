@@ -77,6 +77,6 @@
 		uint8_t ProcessConfigurationDescriptor(void);	
 
 		uint8_t DComp_NextBidirectionalPrinterInterface(void* CurrentDescriptor);
-		uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor);
+		uint8_t DComp_NextPrinterInterfaceBulkDataEndpoint(void* CurrentDescriptor);
 
 #endif

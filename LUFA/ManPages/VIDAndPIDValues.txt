@@ -6,6 +6,7 @@
 
 /** \page Page_VIDPID VID and PID values
  *
+ *  \section Sec_VIDPID_Allocations
  *  The LUFA library uses VID/PID combinations generously donated by Atmel. The following VID/PID combinations
  *  are used within the LUFA demos, and thus may be re-used by derivations of each demo. Free PID values may be
  *  used by future LUFA demo projects.
@@ -37,7 +38,7 @@
  *     0x2040
  *    </td>
  *    <td>
- *     Test Application
+ *     Test VID/PID (See below)
  *    </td>
  *
  *   <tr>
@@ -413,4 +414,10 @@
  *   </tr>
  *
  *  </table>
+ *
+ *  \section Sec_Test_VIDPID The Test VID/PID Combination:
+ *  For use in testing of LUFA powered devices during development only, by non-commercial entities.
+ *  All devices must accept collisions on this VID/PID range (from other in-development LUFA devices)
+ *  to be resolved by using a unique release number in the Device Descriptor. No devices using this
+ *  VID/PID combination may be released to the general public.
  */

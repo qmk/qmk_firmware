@@ -67,6 +67,6 @@
 		uint8_t ProcessConfigurationDescriptor(void);
 		
 		uint8_t DComp_NextKeyboardInterface(void* CurrentDescriptor);
-		uint8_t DComp_NextInterfaceKeyboardDataEndpoint(void* CurrentDescriptor);
+		uint8_t DComp_NextKeyboardInterfaceDataEndpoint(void* CurrentDescriptor);
 
 #endif

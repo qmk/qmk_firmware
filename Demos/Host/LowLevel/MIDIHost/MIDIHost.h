@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for CDCHost.c.
+ *  Header file for MIDIHost.c.
  */
 
-#ifndef _CDC_HOST_H_
-#define _CDC_HOST_H_
+#ifndef _MIDI_HOST_H_
+#define _MIDI_HOST_H_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -48,18 +48,33 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Buttons.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
 		
 		#include "ConfigDescriptor.h"
 		
 	/* Macros: */
-		/** Pipe number for the CDC data IN pipe */
-		#define CDC_DATAPIPE_IN           1
+		/** MIDI command for a note on (activation) event */
+		#define MIDI_COMMAND_NOTE_ON      0x90
 
-		/** Pipe number for the CDC data OUT pipe */
-		#define CDC_DATAPIPE_OUT          2
+		/** MIDI command for a note off (deactivation) event */
+		#define MIDI_COMMAND_NOTE_OFF     0x80
+		
+		/** Standard key press velocity value used for all note events, as no pressure sensor is mounted */
+		#define MIDI_STANDARD_VELOCITY    64
+		
+		/** Convenience macro. MIDI channels are numbered from 1-10 (natural numbers) however the logical channel
+		 *  addresses are zero-indexed. This converts a natural MIDI channel number into the logical channel address.
+		 *
+		 *  \param[in] channel  MIDI channel number to address
+		 */
+		#define MIDI_CHANNEL(channel)     (channel - 1)
 
-		/** Pipe number for the CDC notification pipe */
-		#define CDC_NOTIFICATIONPIPE      3
+		/** Pipe number for the MIDI data IN pipe */
+		#define MIDI_DATAPIPE_IN          1
+
+		/** Pipe number for the MIDI data OUT pipe */
+		#define MIDI_DATAPIPE_OUT         2
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
@@ -72,10 +87,22 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-				
+
+	/* Type Defines: */
+		/** Type define for a USB MIDI event packet, used to encapsulate sent and received MIDI messages from a USB MIDI interface. */
+		typedef struct
+		{
+			unsigned char Command     : 4; /**< MIDI command being sent or received in the event packet */
+			unsigned char CableNumber : 4; /**< Virtual cable number of the event being sent or received in the given MIDI interface */
+			
+			uint8_t Data1; /**< First byte of data in the MIDI event */
+			uint8_t Data2; /**< Second byte of data in the MIDI event */
+			uint8_t Data3; /**< Third byte of data in the MIDI event */		
+		} USB_MIDI_EventPacket_t;
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void CDC_Host_Task(void);
+		void MIDI_Host_Task(void);
 	
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);

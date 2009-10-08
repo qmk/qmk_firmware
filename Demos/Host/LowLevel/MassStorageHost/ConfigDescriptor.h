@@ -69,7 +69,7 @@
 	/* Function Prototypes: */
 		uint8_t ProcessConfigurationDescriptor(void);	
 
-		uint8_t DComp_NextMassStorageInterface(void* CurrentDescriptor);
-		uint8_t DComp_NextInterfaceBulkDataEndpoint(void* CurrentDescriptor);
+		uint8_t DComp_NextMSInterface(void* CurrentDescriptor);
+		uint8_t DComp_NextMSInterfaceBulkDataEndpoint(void* CurrentDescriptor);
 		
 #endif
