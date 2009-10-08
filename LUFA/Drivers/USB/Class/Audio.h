@@ -36,9 +36,9 @@
  *    - LUFA/Drivers/USB/Class/Device/Audio.c
  *
  *  \section Module Description
- *  Audio Class Driver module. This module contains an internal implementation of the USB Audio Class, for both
- *  Device and Host USB modes. User applications can use this class driver instead of implementing the Audio class
- *  manually via the low-level LUFA APIs.
+ *  Audio Class Driver module. This module contains an internal implementation of the USB Audio Class, for Device
+ *  USB mode only. User applications can use this class driver instead of implementing the Audio class manually via 
+ *  the low-level LUFA APIs.
  *
  *  This module is designed to simplify the user code by exposing only the required interface needed to interace with
  *  Hosts or Devices using the USB Audio Class.

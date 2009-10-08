@@ -102,7 +102,7 @@
 			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration
 			 *  containing the given HID interface is selected.
 			 *
-			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state
 			 *
 			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 			 */
@@ -111,14 +111,14 @@
 			/** Processes incomming control requests from the host, that are directed to the given HID class interface. This should be
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
-			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state
 			 */		
 			void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** General management task for a given HID class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
-			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state
 			 */
 			void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -127,7 +127,7 @@
 			 *  that this be called by the \ref EVENT_USB_Device_StartOfFrame() event, once SOF events have been enabled via
 			 *  \ref USB_Device_EnableSOFEvents();.
 			 *
-			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state
 			 */
 			void HID_Device_MillisecondElapsed(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -135,7 +135,7 @@
 			 *  HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback the
 			 *  user is responsible for the creation of the next HID input report to be sent to the host.
 			 *
-			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state
 			 *  \param[in,out] ReportID  If preset to a non-zero value, this is the report ID being requested by the host. If zero, this should
 			 *                 be set to the report ID of the generated HID input report (if any). If multiple reports are not sent via the
 			 *                 given HID interface, this parameter should be ignored.
@@ -152,7 +152,7 @@
 			 *  either HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback
 			 *  the user is responsible for the processing of the received HID output report from the host.
 			 *
-			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state
 			 *  \param[in] ReportID  Report ID of the received output report. If multiple reports are not received via the given HID
 			 *                   interface, this parameter should be ignored.
 			 *  \param[in] ReportData  Pointer to a buffer where the received HID report is stored.

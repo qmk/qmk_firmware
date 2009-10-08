@@ -30,36 +30,29 @@
 
 /** \file
  *
- *  Header file for KeyboardHost.c.
+ *  Header file for MIDIHost.c.
  */
 
-#ifndef _KEYBOARD_HOST_H_
-#define _KEYBOARD_HOST_H_
+#ifndef _MIDI_HOST_H_
+#define _MIDI_HOST_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/pgmspace.h>
 		#include <avr/power.h>
-		#include <avr/interrupt.h>
 		#include <stdio.h>
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/HID.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		
-		#include "ConfigDescriptor.h"
+		#include <LUFA/Drivers/Board/Buttons.h>
+		#include <LUFA/Drivers/Board/Joystick.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/MIDI.h>
 		
 	/* Macros: */
-		/** Pipe number for the keyboard data IN pipe */
-		#define KEYBOARD_DATAPIPE           1
-
-		/** HID Class Specific request to set the report protocol mode */
-		#define REQ_SetProtocol             0x0B
-
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
@@ -71,17 +64,15 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-
+		
 	/* Function Prototypes: */
-		void Keyboard_HID_Task(void);
 		void SetupHardware(void);
+		void CheckJoystickMovement(void);
 	
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);
 		void EVENT_USB_Host_DeviceUnattached(void);
 		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
 		void EVENT_USB_Host_DeviceEnumerationComplete(void);
-
-		void ReadNextReport(void);
 		
 #endif

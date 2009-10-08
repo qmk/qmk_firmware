@@ -23,6 +23,9 @@ all:
 	make -C KeyboardHostWithParser clean
 	make -C KeyboardHostWithParser all
 
+	make -C MIDIHost clean
+	make -C MIDIHost all
+
 	make -C MouseHost clean
 	make -C MouseHost all
 

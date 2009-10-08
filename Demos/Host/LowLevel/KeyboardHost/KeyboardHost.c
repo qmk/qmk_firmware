@@ -161,13 +161,13 @@ void ReadNextReport(void)
 			char PressedKey = 0;
 
 			/* Retrieve pressed key character if alphanumeric */
-			if ((KeyboardReport.KeyCode >= 0x04) && (KeyboardReport.KeyCode <= 0x1D))
-			  PressedKey = (KeyboardReport.KeyCode - 0x04) + 'A';
-			else if ((KeyboardReport.KeyCode >= 0x1E) && (KeyboardReport.KeyCode <= 0x27))
-			  PressedKey = (KeyboardReport.KeyCode - 0x1E) + '0';
-			else if (KeyboardReport.KeyCode == 0x2C)
+			if ((KeyboardReport.KeyCode[0] >= 0x04) && (KeyboardReport.KeyCode[0] <= 0x1D))
+			  PressedKey = (KeyboardReport.KeyCode[0] - 0x04) + 'A';
+			else if ((KeyboardReport.KeyCode[0] >= 0x1E) && (KeyboardReport.KeyCode[0] <= 0x27))
+			  PressedKey = (KeyboardReport.KeyCode[0] - 0x1E) + '0';
+			else if (KeyboardReport.KeyCode[0] == 0x2C)
 			  PressedKey = ' ';						
-			else if (KeyboardReport.KeyCode == 0x28)
+			else if (KeyboardReport.KeyCode[0] == 0x28)
 			  PressedKey = '\n';
 				 
 			/* Print the pressed key character out through the serial port if valid */

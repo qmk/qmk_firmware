@@ -100,7 +100,7 @@
 			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration containing the
 			 *  given Audio interface is selected.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *
 			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
 			 */
@@ -109,21 +109,21 @@
 			/** Processes incomming control requests from the host, that are directed to the given Audio class interface. This should be
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 */
 			void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 */
 			void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Determines if the given audio interface is ready for a sample to be read from it, and selects the streaming
 			 *  OUT endpoint ready for reading.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *
 			 *  \return Boolean true if the given Audio interface has a sample to be read, false otherwise
 			 */
@@ -132,7 +132,7 @@
 			/** Determines if the given audio interface is ready to accept the next sample to be written to it, and selects
 			 *  the streaming IN endpoint ready for writing.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *
 			 *  \return Boolean true if the given Audio interface is ready to accept the next sample, false otherwise
 			 */
@@ -144,7 +144,7 @@
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *
 			 *  \return  Signed 8-bit audio sample from the audio interface
 			 */
@@ -166,7 +166,7 @@
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *
 			 *  \return  Signed 16-bit audio sample from the audio interface
 			 */
@@ -188,7 +188,7 @@
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *  \return  Signed 24-bit audio sample from the audio interface
 			 */
 			static inline int32_t Audio_Device_ReadSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_ALWAYS_INLINE;
@@ -209,7 +209,7 @@
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *  \param[in] Sample  Signed 8-bit audio sample
 			 */
 			static inline void Audio_Device_WriteSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
@@ -228,7 +228,7 @@
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *  \param[in] Sample  Signed 16-bit audio sample
 			 */
 			static inline void Audio_Device_WriteSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
@@ -247,7 +247,7 @@
 			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *  \param[in] Sample  Signed 24-bit audio sample
 			 */
 			static inline void Audio_Device_WriteSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,

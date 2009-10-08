@@ -177,18 +177,18 @@ void MIDI_Host_Task(void)
 			
 			if (Pipe_IsINReceived())
 			{
-				USB_MIDI_EventPacket_t MIDIPacket;
+				USB_MIDI_EventPacket_t MIDIEvent;
 				
-				Pipe_Read_Stream_LE(&MIDIPacket, sizeof(MIDIPacket));
+				Pipe_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
 				
-				bool NoteOnEvent  = ((MIDIPacket.Command & 0x0F) == (MIDI_COMMAND_NOTE_ON >> 4));
-				bool NoteOffEvent = ((MIDIPacket.Command & 0x0F) == (MIDI_COMMAND_NOTE_OFF >> 4));
+				bool NoteOnEvent  = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_ON  >> 4));
+				bool NoteOffEvent = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_OFF >> 4));
 				
 				if (NoteOnEvent || NoteOffEvent)
 				{
 					printf_P(PSTR("MIDI Note %s - Channel %d, Pitch %d, Velocity %d"), NoteOnEvent ? "On" : "Off",
-				                                                                       ((MIDIPacket.Data1 & 0x0F) + 1),
-				                                                                       MIDIPacket.Data2, MIDIPacket.Data3);
+				                                                                       ((MIDIEvent.Data1 & 0x0F) + 1),
+				                                                                       MIDIEvent.Data2, MIDIEvent.Data3);
 				}
 
 				Pipe_ClearIN();
