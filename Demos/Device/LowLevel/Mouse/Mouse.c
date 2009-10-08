@@ -36,7 +36,6 @@
  
 #include "Mouse.h"
 
-/* Global Variables */
 /** Indicates what report mode the host has requested, true for normal HID reporting mode, false for special boot
  *  protocol reporting mode.
  */
@@ -55,7 +54,7 @@ uint16_t IdleMSRemaining = 0;
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {

@@ -35,7 +35,6 @@
  
 #include "TeensyHID.h"
 
-/* Global Variables: */
 /** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
  *  via a soft reset. When cleared, the bootloader will abort, the USB interface will shut down and the application
  *  started via a forced watchdog reset.

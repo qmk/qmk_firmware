@@ -36,7 +36,6 @@
  
 #include "DualCDC.h"
 
-/* Globals: */
 /** Contains the current baud rate and other settings of the first virtual serial port. While this demo does not use
  *  the physical USART and thus does not use these settings, they must still be retained and returned to the host
  *  upon request or the host will assume the device is non-functional.
@@ -63,8 +62,9 @@ CDC_Line_Coding_t LineEncoding2 = { .BaudRateBPS = 0,
                                     .ParityType  = Parity_None,
                                     .DataBits    = 8            };
 
+
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {

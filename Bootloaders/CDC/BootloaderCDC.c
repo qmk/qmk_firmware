@@ -36,7 +36,6 @@
 #define  INCLUDE_FROM_BOOTLOADERCDC_C
 #include "BootloaderCDC.h"
 
-/* Globals: */
 /** Line coding options for the virtual serial port. Although the virtual serial port data is never
  *  sent through a physical serial port, the line encoding data must still be read and preserved from
  *  the host, or the host will detect a problem and fail to open the port. This structure contains the

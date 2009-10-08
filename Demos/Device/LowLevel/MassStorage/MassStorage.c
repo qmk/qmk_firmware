@@ -37,7 +37,6 @@
 #define  INCLUDE_FROM_MASSSTORAGE_C
 #include "MassStorage.h"
 
-/* Global Variables */
 /** Structure to hold the latest Command Block Wrapper issued by the host, containing a SCSI command to execute. */
 CommandBlockWrapper_t  CommandBlock;
 
@@ -47,8 +46,9 @@ CommandStatusWrapper_t CommandStatus = { .Signature = CSW_SIGNATURE };
 /** Flag to asynchronously abort any in-progress data transfers upon the reception of a mass storage reset command. */
 volatile bool          IsMassStoreReset = false;
 
+
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {

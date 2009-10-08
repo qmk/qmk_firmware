@@ -51,7 +51,7 @@ USB_ClassInfo_MS_Host_t FlashDisk_MS_Interface =
 
 	
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {

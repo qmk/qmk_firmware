@@ -50,7 +50,6 @@
 #define  INCLUDE_FROM_MASSSTORE_COMMANDS_C
 #include "MassStoreCommands.h"
 
-/* Globals: */
 /** Current Tag value used in issued CBWs to the device. This is automatically incremented
  *  each time a command is sent, and is not externally accessible.
  */

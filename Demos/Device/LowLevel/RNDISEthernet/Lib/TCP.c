@@ -38,7 +38,6 @@
 #define  INCLUDE_FROM_TCP_C
 #include "TCP.h"
 
-/* Global Variables: */
 /** Port state table array. This contains the current status of TCP ports in the device. To save on space, only open ports are
  *  stored - closed ports may be overwritten at any time, and the system will assume any ports not present in the array are closed. This
  *  allows for MAX_OPEN_TCP_PORTS to be less than the number of ports used by the application if desired.

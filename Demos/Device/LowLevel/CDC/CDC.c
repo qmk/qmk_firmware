@@ -36,7 +36,6 @@
 
 #include "CDC.h"
 
-/* Globals: */
 /** Contains the current baud rate and other settings of the virtual serial port. While this demo does not use
  *  the physical USART and thus does not use these settings, they must still be retained and returned to the host
  *  upon request or the host will assume the device is non-functional.
@@ -49,6 +48,7 @@ CDC_Line_Coding_t LineEncoding = { .BaudRateBPS = 0,
                                    .CharFormat  = OneStopBit,
                                    .ParityType  = Parity_None,
                                    .DataBits    = 8            };
+
 
 #if 0
 /* NOTE: Here you can set up a standard stream using the created virtual serial port, so that the standard stream functions in

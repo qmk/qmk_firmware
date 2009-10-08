@@ -37,7 +37,6 @@
  
 #include "Ethernet.h"
 
-/* Global Variables: */
 /** Constant for convenience when checking against or setting a MAC address to the virtual server MAC address. */
 const MAC_Address_t ServerMACAddress    = {SERVER_MAC_ADDRESS};
 

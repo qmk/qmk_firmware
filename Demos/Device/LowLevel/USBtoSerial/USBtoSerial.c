@@ -30,7 +30,6 @@
 
 #include "USBtoSerial.h"
 
-/* Globals: */
 /** Contains the current baud rate and other settings of the virtual serial port.
  *
  *  These values are set by the host via a class-specific request, and the physical USART should be reconfigured to match the
@@ -50,8 +49,9 @@ RingBuff_t Tx_Buffer;
 /** Flag to indicate if the USART is currently transmitting data from the Rx_Buffer circular buffer. */
 volatile bool Transmitting = false;
 
+
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the application tasks.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {

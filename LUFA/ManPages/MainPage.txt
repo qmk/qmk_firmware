@@ -27,14 +27,13 @@
  *  library API more streamlined and robust. You can download AVR-GCC for free in a convenient windows package, 
  *  from the the WinAVR website.
  *
- *  Accompanying LUFA in the download package is a set of example demo applications, plus several Bootloaders (DFU, CDC and HID
- *  class) and open source LUFA powered projects.
+ *  Accompanying LUFA in the download package is a set of example demo applications, plus several Bootloaders of different classes
+ *  and open source LUFA powered projects.
  *
  *  <b>Subsections:</b>
  *  - \subpage Page_Licence Project licence
  *  - \subpage Page_Donating Donating to Support this Project
  *  - \subpage Page_LibraryApps Overview of included Demos, Bootloaders and Projects
- *
  *
  *  <small><i>Logo design by EDIGMA.COM</i></small>
  */

@@ -41,7 +41,7 @@ static uint8_t LastReceived[GENERIC_REPORT_SIZE];
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
- *  starts the scheduler to run the USB management task.
+ *  enters a loop to run the application tasks in sequence.
  */
 int main(void)
 {

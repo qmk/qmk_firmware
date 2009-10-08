@@ -37,7 +37,6 @@
  
 #include "Ethernet.h"
 
-/* Global Variables: */
 /** Ethernet Frame buffer structure, to hold the incoming Ethernet frame from the host. */
 Ethernet_Frame_Info_t FrameIN;
 

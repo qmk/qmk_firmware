@@ -37,7 +37,6 @@
 #define  INCLUDE_FROM_RNDIS_C
 #include "RNDIS.h"
 
-/* Global Variables: */
 /** Physical MAC address of the network adapter, which becomes the MAC address of the host for packets sent to the adapter. */
 static MAC_Address_t  PROGMEM AdapterMACAddress          = {ADAPTER_MAC_ADDRESS};
 

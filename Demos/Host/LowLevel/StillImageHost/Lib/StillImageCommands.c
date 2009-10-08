@@ -37,7 +37,6 @@
 
 #include "StillImageCommands.h"
 
-/* Globals: */
 /** PIMA block container for the block to send to the device */
 PIMA_Container_t PIMA_SendBlock;
 
