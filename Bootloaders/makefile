@@ -26,5 +26,4 @@ all:
 %:
 	make -C 'DFU/' $@
 	make -C 'CDC/' $@
-	make -C 'MIDI/' $@
 	make -C 'TeensyHID/' $@
