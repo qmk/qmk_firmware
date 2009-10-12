@@ -8,7 +8,7 @@
  *
  *  \section SSec_Compat Demo Compatibility:
  *
- *  The following table indicates what microcontrollers are compatible with this demo.
+ *  The following list indicates what microcontrollers are compatible with this demo.
  *
  *  - AT90USB646
  *  - AT90USB162

@@ -21,6 +21,7 @@
   *  - Cleanups to the Device mode Mass Storage demo applications' SCSI routines
   *  - Changed Audio Class driver sample read/write functions to be inline, to reduce the number of cycles needed to transfer
   *    samples to and from the device (allowing more time for sample processing and output)
+  *  - Audio class Device mode demos now work at both 16MHz and 8MHz, rather than just at 8MHz
   *
   *  <b>Fixed:</b>
   *  - Fixed PrinterHost demo returning invalid Device ID data when the attached device does not have a

@@ -23,6 +23,7 @@
   *  - Change makefiles to allow for absolute LUFA location to be used
   *  - Abstract out the physical media from the Mass Storage device demos
   *  - Add RNDIS Host Class driver
+  *  - Make CDC Host Class driver work for devices with bidirectional endpoints
   *  - Make new demos
   *      -# Multiple-report HID device
   *      -# Mouse/CDC Dual Class Device
