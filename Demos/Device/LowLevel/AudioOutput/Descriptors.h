@@ -138,7 +138,7 @@
 		#define EP_ACCEPTS_SMALL_PACKETS     (0 << 7)
 
 		/** Endpoint number of the Audio isochronous streaming data endpoint. */
-		#define AUDIO_STREAM_EPNUM       1
+		#define AUDIO_STREAM_EPNUM           1
 		
 		/** Endpoint size in bytes of the Audio isochronous streaming data endpoint. The Windows audio stack requires
 		 *  at least 192 bytes for correct output, thus the smaller 128 byte maximum endpoint size on some of the smaller

@@ -199,7 +199,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			
 			.SubFrameSize             = 0x02,
 			.BitResolution            = 16,
-			.SampleFrequencyType      = (AUDIO_TOTAL_SAMPLE_RATES * sizeof(USB_Audio_SampleFreq_t)),
+			.SampleFrequencyType      = AUDIO_TOTAL_SAMPLE_RATES,
 		
 			.SampleFrequencies        = {AUDIO_SAMPLE_FREQ(AUDIO_SAMPLE_FREQUENCY)}
 		},

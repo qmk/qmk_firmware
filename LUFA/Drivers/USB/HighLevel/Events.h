@@ -40,7 +40,8 @@
  *  listed here. If an event with no user-associated handler is fired within the library, it by default maps to an
  *  internal empty stub function.
  *
- *  Each event must only have one associated event handler, but can be raised by multiple sources.
+ *  Each event must only have one associated event handler, but can be raised by multiple sources by calling the event
+ *  name just like any regular C function (with any required event parameters).
  *
  *  @{
  */
@@ -142,11 +143,18 @@
 			/** Event for USB device enumeration completion. This event fires when a the USB interface is
 			 *  in host mode and an attached USB device has been completely enumerated and is ready to be
 			 *  controlled by the user application.
+			 *
+			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
+			 *  1 second) when a transaction is waiting to be processed by the device will prevent break communications
+			 *  and cause the host to reset the USB bus.
 			 */
 			void EVENT_USB_Host_DeviceEnumerationComplete(void);
 
 			/** Event for USB device connection. This event fires when the AVR in device mode and the device is connected
 			 *  to a host, beginning the enumeration process, measured by a rising level on the AVR's VBUS pin.
+			 *
+			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
+			 *  two seconds) will prevent the device from enumerating correctly.
 			 *
 			 *  \note For the smaller series 2 USB AVRs with limited USB controllers, VBUS is not available to the USB controller.
 			 *        this means that the current connection state is derived from the bus suspension and wake up events by default,
@@ -182,8 +190,10 @@
 			/** Event for unhandled control requests. This event fires when a the USB host issues a control
 			 *  request to the control endpoint (address 0) that the library does not handle. This may either
 			 *  be a standard request that the library has no handler code for, or a class specific request
-			 *  issued to the device which must be handled appropriately. Due to the strict timing requirements
-			 *  on control transfers, interrupts are disabled during control request processing.
+			 *  issued to the device which must be handled appropriately.
+			 *
+			 *  This event is time-critical; eack packet within the request transaction must be acknowedged or
+			 *  sent within 50ms or the host will abort the transfer.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
@@ -198,6 +208,9 @@
 			/** Event for USB configuration number changed. This event fires when a the USB host changes the
 			 *  selected configuration number while in device mode. This event should be hooked in device
 			 *  applications to create the endpoints and configure the device for the selected configuration.
+			 *
+			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
+			 *  one second) will prevent the device from enumerating correctly.
 			 *
 			 *  This event fires after the value of \ref USB_ConfigurationNumber has been changed.
 			 *
@@ -236,6 +249,9 @@
 			 *  a the USB host requests that the device reset its interface. This event fires after the control
 			 *  endpoint has been automatically configured by the library.
 			 *
+			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
+			 *  two seconds) will prevent the device from enumerating correctly.
+			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 */
@@ -245,8 +261,11 @@
 			 *  frame, once per millisecond, and is synchronised to the USB bus. This can be used as an accurate
 			 *  millisecond timer source when the USB bus is enumerated in device mode to a USB host.
 			 *
-			 *  This event is not normally active - it must be manually enabled and disabled via the
-			 *  \ref USB_Device_EnableSOFEvents() and \ref USB_Device_DisableSOFEvents() commands after enumeration.
+			 *  This event is time-critical; it is run once per millisecond and thus long handlers will significantly
+			 *  degrade device performance. This event should only be enabled when needed to reduce device wakeups.
+			 *
+			 *  \note This event is not normally active - it must be manually enabled and disabled via the
+			 *        \ref USB_Device_EnableSOFEvents() and \ref USB_Device_DisableSOFEvents() commands after enumeration.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
