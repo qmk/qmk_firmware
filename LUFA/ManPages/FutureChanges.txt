@@ -16,13 +16,14 @@
   *  - Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *
   *  <b>Targeted for Future Releases:</b>
-  *  - Add standardized descriptor names to device and host class driver structures
+  *  - Add standardized descriptor names to class driver structures
   *  - Remake AVRStudio project files
   *  - Add detailed overviews of how each demo works
   *  - Master LUFA include file rather than per-module includes
   *  - Change makefiles to allow for absolute LUFA location to be used
   *  - Abstract out the physical media from the Mass Storage device demos
   *  - Add RNDIS Host Class driver
+  *  - Fix audio demos on Linux
   *  - Make new demos
   *      -# Multiple-report HID device
   *      -# Mouse/CDC Dual Class Device

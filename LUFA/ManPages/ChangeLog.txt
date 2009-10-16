@@ -30,6 +30,7 @@
   *  - Fixed issue in the HID Host class driver's HID_Host_SendReportByID() routine using the incorrect mode (control/pipe)
   *    to send report to the attached device
   *  - Fixed ClassDriver AudioOutput device demo not selecting an audio output mode
+  *  - Fixed incorrect SampleFrequencyType value in the AudioInput and AudioOutput ClassDriver demos' descriptors
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *
