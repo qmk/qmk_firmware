@@ -149,7 +149,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 	.ManagementEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-										 
+			
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | CDC_NOTIFICATION_EPNUM),
 			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = CDC_NOTIFICATION_EPSIZE,
@@ -175,7 +175,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 	.DataOutEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-										 
+			
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | CDC_RX_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = CDC_TXRX_EPSIZE,
@@ -185,7 +185,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 	.DataInEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-										 
+			
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | CDC_TX_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = CDC_TXRX_EPSIZE,
@@ -221,9 +221,9 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  */
 USB_Descriptor_String_t PROGMEM ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(19), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(23), .Type = DTYPE_String},
 		
-	.UnicodeString          = L"LUFA USB-RS232 Demo"
+	.UnicodeString          = L"LUFA USB-RS232 Adapter"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"

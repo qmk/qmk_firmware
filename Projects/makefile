@@ -26,8 +26,12 @@ all:
 	make -C MissileLauncher clean
 	make -C MissileLauncher all
 
+	make -C USBtoSerial clean
+	make -C USBtoSerial all
+
 %:
 	make -C AVRISP $@
 	make -C Benito $@
 	make -C Magstripe $@
 	make -C MissileLauncher $@
+	make -C USBtoSerial $@

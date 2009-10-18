@@ -1,4 +1,4 @@
-uint8_t TEMPLATE_FUNC_NAME (void* Buffer, uint16_t Length)
+uint8_t TEMPLATE_FUNC_NAME (const void* Buffer, uint16_t Length)
 {
 	uint8_t* DataStream     = (uint8_t*)(Buffer + TEMPLATE_BUFFER_OFFSET(Length));
 	bool     LastPacketFull = false;

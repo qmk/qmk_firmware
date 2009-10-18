@@ -10,8 +10,8 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
- * \section Sec_MigrationXXXXXX Migrating from 090810 to XXXXXX
- *  <b>No Migration information for this release.</b>
+ * \section Sec_MigrationXXXXXX Migrating from 090924 to XXXXXX
+ *  <b>No Migration information for this release - all library elements are backwards-compatible with 090924.</b>
  *
  * \section Sec_Migration090924 Migrating from 090810 to 090924
  *

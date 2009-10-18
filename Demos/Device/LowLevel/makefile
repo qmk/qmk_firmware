@@ -50,9 +50,6 @@ all:
 	make -C RNDISEthernet clean
 	make -C RNDISEthernet all
 
-	make -C USBtoSerial clean
-	make -C USBtoSerial all
-
 %:
 	make -C AudioInput $@
 	make -C AudioOutput $@
@@ -66,4 +63,3 @@ all:
 	make -C MIDI $@
 	make -C Mouse $@
 	make -C RNDISEthernet $@
-	make -C USBtoSerial $@

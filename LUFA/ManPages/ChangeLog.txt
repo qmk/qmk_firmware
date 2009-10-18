@@ -22,6 +22,8 @@
   *  - Changed Audio Class driver sample read/write functions to be inline, to reduce the number of cycles needed to transfer
   *    samples to and from the device (allowing more time for sample processing and output)
   *  - Audio class Device mode demos now work at both 16MHz and 8MHz, rather than just at 8MHz
+  *  - The previous USBtoSerial demo has been moved into the projects directory, as it was just a modified CDC demo
+  *  - The Endpoint/Pipe functions now use the const qualifier on the input buffer
   *
   *  <b>Fixed:</b>
   *  - Fixed PrinterHost demo returning invalid Device ID data when the attached device does not have a
@@ -31,6 +33,7 @@
   *    to send report to the attached device
   *  - Fixed ClassDriver AudioOutput device demo not selecting an audio output mode
   *  - Fixed incorrect SampleFrequencyType value in the AudioInput and AudioOutput ClassDriver demos' descriptors
+  *  - Fixed incorrect event name rule in demo/project/bootloader makefiles
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *

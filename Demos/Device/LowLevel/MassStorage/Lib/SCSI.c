@@ -216,8 +216,6 @@ static void SCSI_Command_Read_Capacity_10(void)
 /** Command processing for an issued SCSI SEND DIAGNOSTIC command. This command performs a quick check of the Dataflash ICs on the
  *  board, and indicates if they are present and functioning correctly. Only the Self-Test portion of the diagnostic command is
  *  supported.
- *
- *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  */
 static void SCSI_Command_Send_Diagnostic(void)
 {

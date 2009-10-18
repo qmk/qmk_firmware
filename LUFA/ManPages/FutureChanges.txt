@@ -23,8 +23,9 @@
   *  - Change makefiles to allow for absolute LUFA location to be used
   *  - Abstract out the physical media from the Mass Storage device demos
   *  - Add RNDIS Host Class driver
-  *  - Fix audio demos on Linux
+  *  - Add unit testing to APIs
   *  - Make new demos
+  *      -# Keyboard/Mouse Dual Class Host
   *      -# Multiple-report HID device
   *      -# Mouse/CDC Dual Class Device
   *  - Port LUFA to other architectures

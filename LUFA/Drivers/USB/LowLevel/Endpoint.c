@@ -208,60 +208,70 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 }
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Stream_LE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(*(BufferPtr++))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_PStream_LE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(pgm_read_byte(BufferPtr++))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_EStream_LE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(eeprom_read_byte(BufferPtr++))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_Stream_BE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(*(BufferPtr--))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_EStream_BE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(eeprom_read_byte(BufferPtr--))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Write_PStream_BE
+#define  TEMPLATE_BUFFER_TYPE                      const void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Endpoint_Write_Byte(pgm_read_byte(BufferPtr--))
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Stream_LE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr++) = Endpoint_Read_Byte()
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_EStream_LE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr++, Endpoint_Read_Byte())
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Stream_BE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *(BufferPtr--) = Endpoint_Read_Byte()
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_EStream_BE
+#define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            Length - 1
 #define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte(BufferPtr--, Endpoint_Read_Byte())

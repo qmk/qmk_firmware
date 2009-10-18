@@ -45,7 +45,6 @@
  *        - <b>MIDI</b> - MIDI In demo, using the library USB MIDI-Audio Class driver framework
  *        - <b>Mouse</b> - USB Mouse demo, using the library USB HID driver framework
  *        - <b>RNDISEthernet</b> - RNDIS Ethernet Webserver demo, using the library USB RNDIS driver framework
- *        - <b>USBtoSerial</b> - USB to USART Serial converter demo, using the library USB CDC driver framework
  *      - <b>LowLevel</b>
  *        - <b>AudioInput</b> - Audio In (microphone) demo, using the low level LUFA APIs to implement the USB Audio class
  *        - <b>AudioOutput</b> - Audio Out (speaker) demo, using the low level LUFA APIs to implement the USB Audio class
@@ -59,7 +58,6 @@
  *        - <b>MIDI</b> - MIDI In demo, using the low level LUFA APIs to implement the USB MIDI-Audio class
  *        - <b>Mouse</b> - USB Mouse demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>RNDISEthernet</b> - RNDIS Ethernet Webserver demo, using the low level LUFA APIs to implement the USB RNDIS class
- *        - <b>USBtoSerial</b> - USB to USART Serial converter demo, using the low level LUFA APIs to implement the USB CDC class
  *      - <b>Incomplete</b>
  *        - <b>SideShow</b> - Incomplete Windows SideShow demo, using the low level LUFA APIs to implement the USB SideShow class
  *    - <b>Host</b>
@@ -98,6 +96,7 @@
  *    - <b>Benito</b> - Benito Board Arduino Programmer project
  *    - <b>Magstripe</b> - Magnetic Stripe Card Reader project
  *    - <b>MissileLaucher</b> - Toy Missile Launcher Host project
+ *    - <b>USBtoSerial</b> - USB to USART Serial Converter project
  *
  *  </small>
  */
