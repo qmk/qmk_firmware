@@ -37,10 +37,10 @@
 #include "USBtoSerial.h"
 
 /** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
-RingBuff_t Rx_Buffer;
+RingBuff_t USBtoUSART_Buffer;
 
 /** Circular buffer to hold data from the serial port before it is sent to the host. */
-RingBuff_t Tx_Buffer;
+RingBuff_t USARTtoUSB_Buffer;
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -70,8 +70,8 @@ int main(void)
 {
 	SetupHardware();
 	
-	Buffer_Initialize(&Rx_Buffer);
-	Buffer_Initialize(&Tx_Buffer);
+	Buffer_Initialize(&USBtoUSART_Buffer);
+	Buffer_Initialize(&USARTtoUSB_Buffer);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
@@ -80,19 +80,19 @@ int main(void)
 		/* Read bytes from the USB OUT endpoint into the USART transmit buffer */
 		for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
 		{
-			if (!(BUFF_STATICSIZE - Rx_Buffer.Elements))
+			if (!(BUFF_STATICSIZE - USBtoUSART_Buffer.Elements))
 			  break;
 			  
-			Buffer_StoreElement(&Rx_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+			Buffer_StoreElement(&USBtoUSART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 		}
 		
 		/* Read bytes from the USART receive buffer into the USB IN endpoint */
-		if (Tx_Buffer.Elements)
-		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&Tx_Buffer));
+		if (USARTtoUSB_Buffer.Elements)
+		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&USARTtoUSB_Buffer));
 		
 		/* Load bytes from the USART transmit buffer into the USART */
-		if (Rx_Buffer.Elements)
-		  Serial_TxByte(Buffer_GetElement(&Rx_Buffer));
+		if (USBtoUSART_Buffer.Elements)
+		  Serial_TxByte(Buffer_GetElement(&USBtoUSART_Buffer));
 		
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
@@ -150,7 +150,7 @@ ISR(USART1_RX_vect, ISR_BLOCK)
 	uint8_t ReceivedByte = UDR1;
 
 	if (USB_DeviceState == DEVICE_STATE_Configured)
-	  Buffer_StoreElement(&Tx_Buffer, ReceivedByte);
+	  Buffer_StoreElement(&USARTtoUSB_Buffer, ReceivedByte);
 }
 
 /** Event handler for the CDC Class driver Line Encoding Changed event.
