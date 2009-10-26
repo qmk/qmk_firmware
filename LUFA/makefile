@@ -38,7 +38,7 @@ LUFA_Events.lst:
 	@echo Generating LUFA event name list...
 	@$(shell) cat `find ./ -name "*.h"` | grep -E "EVENT_[^\(]*\(" | \
 	              sed -n -e 's/^.*EVENT_/EVENT_/p' | \
-	              cut -d'(' -f1 | sort | uniq > LUFA_Events.lst
+	              cut -d'(' -f1 | sort | uniq | tee LUFA_Events.lst
 				  
 all: LUFA_Events.lst
 

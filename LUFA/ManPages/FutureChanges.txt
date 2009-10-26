@@ -21,7 +21,6 @@
   *  - Add detailed overviews of how each demo works
   *  - Master LUFA include file rather than per-module includes
   *  - Change makefiles to allow for absolute LUFA location to be used
-  *  - Abstract out the physical media from the Mass Storage device demos
   *  - Add RNDIS Host Class driver
   *  - Add unit testing to APIs
   *  - Make new demos

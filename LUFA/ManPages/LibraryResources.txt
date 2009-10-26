@@ -11,6 +11,7 @@
  *  Development Blog: http://www.fourwalledcubicle.com/blog \n
  *  Discussion Group: http://groups.google.com/group/myusb-support-list \n
  *  SVN Access, Bug Reports and Feature Requests: http://code.google.com/p/lufa-lib/ \n
+ *  Git Access: http://github.com/abcminiuser/lufa-lib
  *  Author's Website: http://www.fourwalledcubicle.com \n
  *
  *  WinAVR Website: http://winavr.sourceforge.net \n

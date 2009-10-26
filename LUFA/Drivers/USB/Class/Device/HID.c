@@ -56,6 +56,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 				CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID,
 				                                    HIDInterfaceInfo->Config.PrevReportINBuffer, &ReportINSize);
 
+				Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
 				Endpoint_Write_Control_Stream_LE(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportINSize);
 				Endpoint_ClearOUT();
 			}
@@ -166,6 +167,8 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 		if (ReportINSize && (ForceSend || StatesChanged || IdlePeriodElapsed))
 		{
 			HIDInterfaceInfo->State.IdleMSRemaining = HIDInterfaceInfo->State.IdleCount;
+
+			Endpoint_SelectEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber);
 
 			if (ReportID)
 			  Endpoint_Write_Byte(ReportID);
