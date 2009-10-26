@@ -40,6 +40,24 @@
 /** Buffer to hold the previously generated Keyboard HID report, for comparison purposes inside the HID class driver. */
 uint8_t PrevKeyboardHIDReportBuffer[sizeof(USB_KeyboardReport_Data_t)];
 
+/** LUFA HID Class driver interface configuration and state information. This structure is
+ *  passed to all HID Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
+USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
+ 	{
+		.Config =
+			{
+				.InterfaceNumber         = 1,
+
+				.ReportINEndpointNumber  = KEYBOARD_EPNUM,
+				.ReportINEndpointSize    = KEYBOARD_EPSIZE,
+
+				.PrevReportINBuffer      = PrevKeyboardHIDReportBuffer,
+				.PrevReportINBufferSize  = sizeof(PrevKeyboardHIDReportBuffer),
+			},
+    };
+	
 /** LUFA Mass Storage Class driver interface configuration and state information. This structure is
  *  passed to all Mass Storage Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -59,24 +77,6 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 				.TotalLUNs              = TOTAL_LUNS,
 			},
 	};
-
-/** LUFA HID Class driver interface configuration and state information. This structure is
- *  passed to all HID Class driver functions, so that multiple instances of the same class
- *  within a device can be differentiated from one another.
- */
-USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
- 	{
-		.Config =
-			{
-				.InterfaceNumber         = 1,
-
-				.ReportINEndpointNumber  = KEYBOARD_EPNUM,
-				.ReportINEndpointSize    = KEYBOARD_EPSIZE,
-
-				.PrevReportINBuffer      = PrevKeyboardHIDReportBuffer,
-				.PrevReportINBufferSize  = sizeof(PrevKeyboardHIDReportBuffer),
-			},
-    };
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
