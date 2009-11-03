@@ -35,13 +35,14 @@
  *        - <b>AudioInput</b> - Audio In (microphone) demo, using the library USB Audio Class driver framework
  *        - <b>AudioOutput</b> - Audio Out (speaker) demo, using the library USB Audio Class driver framework
  *        - <b>CDC</b> - Virtual Serial Port demo, using the library USB CDC Class driver framework
+ *        - <b>CDCMouse</b> - Virtual Serial Port and Mouse demo, using the library USB CDC and HID Class driver frameworks
  *        - <b>DualCDC</b> - Dual Virtual Serial Port demo, using the library USB CDC Class driver framework
  *        - <b>GenericHID</b> - Generic Human Interface Class demo, using the library USB HID Class driver framework
  *        - <b>Joystick</b> - USB Joystick demo, using the library USB HID Class driver framework
  *        - <b>Keyboard</b> - USB Keyboard demo, using the library USB HID Class driver framework
  *        - <b>KeyboardMouse</b> - Dual Keyboard/Mouse demo, using the library USB HID Class driver framework
  *        - <b>MassStorage</b> - Dual Drive Mass Storage demo, using the library USB Mass Storage Class driver framework
- *        - <b>MassStorageKeyboard</b> - Mass Storage and Keyboard demo, using the library USB Mass Storage Class driver framework
+ *        - <b>MassStorageKeyboard</b> - Mass Storage and Keyboard demo, using the library USB Mass Storage/HID Class driver frameworks
  *        - <b>MIDI</b> - MIDI In demo, using the library USB MIDI-Audio Class driver framework
  *        - <b>Mouse</b> - USB Mouse demo, using the library USB HID driver framework
  *        - <b>RNDISEthernet</b> - RNDIS Ethernet Webserver demo, using the library USB RNDIS driver framework

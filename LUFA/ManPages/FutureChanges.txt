@@ -27,7 +27,6 @@
   *  - Make new demos
   *      -# Keyboard/Mouse Dual Class Host
   *      -# Multiple-Report HID device
-  *      -# Mouse/CDC Dual Class Device
   *      -# Joystick Host
   *  - Port LUFA to other architectures
   *      -# AVR32 UC3B series microcontrollers

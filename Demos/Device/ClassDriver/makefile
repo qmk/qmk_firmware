@@ -22,6 +22,9 @@ all:
 
 	make -C CDC clean
 	make -C CDC all
+	
+	make -C CDCMouse clean
+	make -C CDCMouse all	
 
 	make -C DualCDC clean
 	make -C DualCDC all

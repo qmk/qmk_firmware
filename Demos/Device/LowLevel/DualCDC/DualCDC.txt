@@ -4,7 +4,7 @@
  *  documentation pages. It is not a project source file.
  */
  
-/** \mainpage Dual Communications Device Class Device (Dual Virtual Serial Port)
+/** \mainpage Dual Communications Device Class (Dual Virtual Serial Port) Device
  *
  *  \section SSec_Compat Demo Compatibility:
  *

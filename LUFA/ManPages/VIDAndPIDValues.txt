@@ -253,7 +253,7 @@
  *     0x2062
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     Combined CDC and Mouse Demo
  *    </td>
  *   </tr>
  *
