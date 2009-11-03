@@ -31,6 +31,8 @@
  *  and open source LUFA powered projects.
  *
  *  <b>Subsections:</b>
+ *  - \subpage Page_WhyUseLUFA Why Use LUFA?
+ *  - \subpage Page_LUFAvsAtmelStack How does LUFA compare to the Atmel USB AVR stack?
  *  - \subpage Page_Licence Project licence
  *  - \subpage Page_Donating Donating to Support this Project
  *  - \subpage Page_LibraryApps Overview of included Demos, Bootloaders and Projects

@@ -325,17 +325,17 @@
 			
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_MS_CLASS_HOST_C)		
-				static uint8_t DComp_NextMSInterface(void* CurrentDescriptor);
-				static uint8_t DComp_NextMSInterfaceEndpoint(void* CurrentDescriptor);
+				static uint8_t DComp_NextMSInterface(void* const CurrentDescriptor);
+				static uint8_t DComp_NextMSInterfaceEndpoint(void* const CurrentDescriptor);
 				
-				static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
-				                                   MS_CommandBlockWrapper_t* SCSICommandBlock,
+				static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
+				                                   MS_CommandBlockWrapper_t* const SCSICommandBlock,
 				                                   void* BufferPtr);
-				static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* MSInterfaceInfo);
-				static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* MSInterfaceInfo, 
-                                                       MS_CommandBlockWrapper_t* SCSICommandBlock, void* BufferPtr);
-				static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* MSInterfaceInfo,
-				                                         MS_CommandStatusWrapper_t* SCSICommandStatus);
+				static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo);
+				static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, 
+                                                       MS_CommandBlockWrapper_t* const SCSICommandBlock, void* BufferPtr);
+				static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
+				                                         MS_CommandStatusWrapper_t* const SCSICommandStatus);
 			#endif
 	#endif
 	

@@ -11,7 +11,7 @@
   *  If you have an item to add to this list, please contact the library author via email, the LUFA mailing list,
   *  or post your suggestion as an enhancement request to the project bug tracker.
   *
-  *  <b>Targeted for This Release (SVN Development Only):</b>
+  *  <b>Targeted for the Next Release (SVN Development Only):</b>
   *  - Add hub support to match Atmel's stack
   *  - Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *
@@ -27,6 +27,7 @@
   *      -# Keyboard/Mouse Dual Class Host
   *      -# Multiple-report HID device
   *      -# Mouse/CDC Dual Class Device
+  *      -# Joystick Host
   *  - Port LUFA to other architectures
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

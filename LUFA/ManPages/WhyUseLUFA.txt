@@ -1,0 +1,39 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \page Page_WhyUseLUFA Why Use LUFA?
+ *
+ *  The LUFA Library has many advantages over implementing the code required to drive the USB AVRs directly.
+ *  It is much more preferable to incorporate LUFA into your existing projects - or even make a new project
+ *  using LUFA - than it is to start from scratch and use the USB AVR registers directly. Some of these reasons
+ *  are:
+ *
+ *  - <b>Portability:</b>
+ *    The LUFA stack is designed to run (at some capacity) on the entire Atmel range of USB AVRs, regardless of the
+ *    exact USB controller revision used. If you decide to implement your own USB stack, you will either need to
+ *    code around the differences between each USB AVR controller's implementation between different chip models, or
+ *    require your code to run on only one specific USB AVR model series.
+ *
+ *  - <b>Speed of Development:</b>
+ *    LUFA ships with a wide range of pre-made demos, bootloaders and projects for you to try, learn and extend. Each
+ *    of these demos are tested (where possible) across as many USB AVRs and Operating Systems as possible, to ensure
+ *    that they work under as many conditions as possible. In addition, there are inbuilt class drivers for several of
+ *    the USB classes which you can make use of in your projects with minimal effort.
+ *
+ *  - <b>Maintainability:</b>
+ *    As LUFA takes care of much of the USB implementation, you can be left to focusing on your actual project's
+ *    functionality, rather than being held back developing and debugging the USB stack code. Since LUFA uses clear APIs
+ *    for USB development, your code will be more readable than if it had the low level USB stack code integrated into
+ *    it directly. Updating the LUFA library is a simple folder-replacement and gives new features and bug fixes in
+ *    seconds each time a new release is made.
+ *
+ *  - <b>Support:</b>
+ *    Since many people are now using LUFA in their own projects, you can take advantage of other's knowedge when you run
+ *    into difficulties or need some advice. In addition, you can also email the library author to recieve personalised
+ *    support when you need it (subject to author's schedule).
+ */
+ 

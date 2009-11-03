@@ -86,7 +86,7 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, u
 	return MS_ENUMERROR_NoError;
 }
 
-static uint8_t DComp_NextMSInterface(void* CurrentDescriptor)
+static uint8_t DComp_NextMSInterface(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -104,7 +104,7 @@ static uint8_t DComp_NextMSInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_NextMSInterfaceEndpoint(void* CurrentDescriptor)
+static uint8_t DComp_NextMSInterfaceEndpoint(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

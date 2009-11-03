@@ -312,7 +312,7 @@ uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr)
 uint8_t USB_Host_ClearPipeStall(uint8_t EndpointNum)
 {
 	if (Pipe_GetPipeToken() == PIPE_TOKEN_IN)
-	  EndpointNum |= (1 << 7);
+	  EndpointNum |= ENDPOINT_DESCRIPTOR_DIR_IN;
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{

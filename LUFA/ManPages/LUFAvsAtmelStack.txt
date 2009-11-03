@@ -1,0 +1,46 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \page Page_LUFAvsAtmelStack LUFA vs the Atmel Stack
+ *
+ *  Atmel offers an official USB AVR stack, which may be incorporated into user projects and products. As LUFA and the Atmel
+ *  stack aims to give roughly the same functionality to a design, it is often asked what advantages LUFA carries over the
+ *  official Atmel USB stack. Below are just some of the advantages to choosing LUFA over the official stack.
+ *
+ *  - <b>Licensing:</b>
+ *    LUFA is released under a very permissive MIT license (see \ref Page_Licence), while the Atmel stack carries several
+ *    restrictions as to how and where it can be used. LUFA's licensing should be suitable for both Commercial and Non-Commercial
+ *    entities alike.
+ *
+ *  - <b>Demos and Projects:</b>
+ *    Unlike the Atmel stack, LUFA comes with many different Device and Host mode Demos and Projects ready to run out of the box.
+ *    Atmel favours separate downloads for each of their (small set) of USB AVR demos, which requires more time and offers less
+ *    to the end-user. LUFA also contains several open source Bootloaders, which can be modified as the user wishes to suit his or
+ *    her application, instead of being forced to use Atmel's single prebuilt (closed-source) DFU bootloader.
+ *
+ *  - <b>Central Library Code:</b>
+ *    LUFA is designed to allow the central library core code to be shared amongst several projects, so long as the compiled object
+ *    files are cleaned between different projects. This is in direct contrast to the Atmel library, which is strongly coupled to the
+ *    project it is integrated with. Using LUFA allows for only one copy of the library core to be needed for all applications, and
+ *    makes updating the library used in all projects a trivial copy-and-paste process.
+ *
+ *  - <b>Clean API:</b>
+ *    One of the main design goals of LUFA is to make the API easy to use. While LUFA is a fluid project which has undergone many
+ *    API improvements, the API is arguably much nicer to use and easier to understand than the equivelent Atmel stack code. LUFA's
+ *    API is also more complete than the Atmel stack, and contains many features to speed up application development.
+ *
+ *  - <b>Full Hardware Support:</b>
+ *    LUFA supports the full range of Atmel's USB AVR microcontrollers (see \ref Page_DeviceSupport), with porting between chips being
+ *    as simple as a single compile switch in many cases. Atmel's stack requires different libraries to be used based on the USB AVR
+ *    microcontroller series, complicating the process of moving between USB AVR models. In addition, LUFA contains drivers for all the
+ *    hardware contained on Atmel's USB AVR based boards, so you can get started quickly and easily.
+ *
+ *  - <b>Better Library Support:</b>
+ *    As many people are now using LUFA, there is a community being built around it. You can get answers to your LUFA related questions
+ *    quickly by either emailing the library author (subject to author's schedule) or by posting to the official LUFA support mailing list.
+ */
+ 

@@ -228,13 +228,13 @@
 		
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_SI_CLASS_HOST_C)
-				static uint8_t DComp_SI_Host_NextSIInterface(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DComp_SI_Host_NextSIInterfaceEndpoint(void* CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DComp_SI_Host_NextSIInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DComp_SI_Host_NextSIInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 
-				static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
-				                                           SI_PIMA_Container_t* PIMAHeader);
-				static uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* SIInterfaceInfo,
-				                                              SI_PIMA_Container_t* PIMAHeader);
+				static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
+				                                           SI_PIMA_Container_t* const PIMAHeader);
+				static uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
+				                                              SI_PIMA_Container_t* const PIMAHeader);
 			#endif
 	#endif
 	

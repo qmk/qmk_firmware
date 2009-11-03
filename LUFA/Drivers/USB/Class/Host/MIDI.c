@@ -82,7 +82,7 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 	return MIDI_ENUMERROR_NoError;
 }
 
-static uint8_t DComp_MIDI_Host_NextMIDIStreamingInterface(void* CurrentDescriptor)
+static uint8_t DComp_MIDI_Host_NextMIDIStreamingInterface(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -100,7 +100,7 @@ static uint8_t DComp_MIDI_Host_NextMIDIStreamingInterface(void* CurrentDescripto
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_MIDI_Host_NextMIDIStreamingDataEndpoint(void* CurrentDescriptor)
+static uint8_t DComp_MIDI_Host_NextMIDIStreamingDataEndpoint(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

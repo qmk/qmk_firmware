@@ -74,7 +74,7 @@
 					uint8_t  ReportINEndpointNumber; /**< Endpoint number of the HID interface's IN report endpoint */
 					uint16_t ReportINEndpointSize; /**< Size in bytes of the HID interface's IN report endpoint */					
 					
-					void*    PrevReportINBuffer; /** Pointer to a buffer where the previously created HID input report can be
+					void*    PrevReportINBuffer; /**< Pointer to a buffer where the previously created HID input report can be
 					                              *  stored by the driver, for comparison purposes to detect report changes that
 					                              *  must be sent immediately to the host. This should point to a buffer big enough
 					                              *  to hold the largest HID input report sent from the HID interface. If this is set
@@ -86,7 +86,7 @@
 												  *        this buffer should be set to NULL and the decision to send reports made
 												  *        by the user application instead.
 					                              */
-					uint8_t  PrevReportINBufferSize; /** Size in bytes of the given input report buffer. This is used to create a
+					uint8_t  PrevReportINBufferSize; /**< Size in bytes of the given input report buffer. This is used to create a
 					                                  *  second buffer of the same size within the driver so that subsequent reports
 					                                  *  can be compared.
 					                                  */
@@ -96,9 +96,9 @@
 				struct
 				{
 					bool     UsingReportProtocol; /**< Indicates if the HID interface is set to Boot or Report protocol mode */
-					uint16_t IdleCount; /**< Report idle period, in mS, set by the host */
-					uint16_t IdleMSRemaining; /**< Total number of mS remaining before the idle period elapsed - this should be
-											   *   decremented by the user application if non-zero each millisecond */	
+					uint16_t IdleCount; /**< Report idle period, in milliseconds, set by the host */
+					uint16_t IdleMSRemaining; /**< Total number of milliseconds remaining before the idle period elapsed - this 
+											   *   should be decremented by the user application if non-zero each millisecond */	
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
 				          */
