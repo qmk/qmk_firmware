@@ -37,13 +37,13 @@
  */
 
 /** \ingroup Group_ADC
- *  @defgroup Group_ADC_AT90USBXXX67 AT90USBXXX6 and AT90USBXXX7 Models
+ *  @defgroup Group_ADC_AVRU4U6U7 Series U4, U6 and U7 Model ADC Driver
  *
  *  @{
  */
  
-#ifndef __ADC_AT90USBXXX67_H__
-#define __ADC_AT90USBXXX67_H__
+#ifndef __ADC_AVRU4U6U7_H__
+#define __ADC_AVRU4U6U7_H__
 
 	/* Includes: */
 		#include "../../../Common/Common.h"

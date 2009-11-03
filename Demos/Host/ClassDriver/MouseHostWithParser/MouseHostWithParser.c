@@ -250,16 +250,36 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8
  *  we aren't interested in (preventing us from being able to extract them later on, but saving on the RAM they would
  *  have occupied).
  *
- *  \param[in] CurrentItemAttributes  Pointer to the attrbutes of the item the HID report parser is currently working with
+ *  \param[in] CurrentItem  Pointer to the item the HID report parser is currently working with
  *
  *  \return Boolean true if the item should be stored into the HID report structure, false if it should be discarded
  */
-bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_Attributes_t* CurrentItemAttributes)
+bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem)
 {
+	bool IsMouse = false;
+
+	/* Iterate through the item's collection path, until either the root collection node or a collection with the
+	 * Mouse Usage is found - this prevents Joysticks, which use identical descriptors except for the Joystick usage
+	 * parent node, from being erronously treated as a mouse
+	 */
+	for (HID_CollectionPath_t* CurrPath = CurrentItem->CollectionPath; CurrPath != NULL; CurrPath = CurrPath->Parent)
+	{
+		if ((CurrPath->Usage.Page  == USAGE_PAGE_GENERIC_DCTRL) &&
+		    (CurrPath->Usage.Usage == USAGE_MOUSE))
+		{
+			IsMouse = true;
+			break;
+		}
+	}
+
+	/* If a collection with the mouse usage was not found, indicate that we are not interested in this item */
+	if (!IsMouse)
+	  return false;
+
 	/* Check the attributes of the current item - see if we are interested in it or not;
 	 * only store BUTTON and GENERIC_DESKTOP_CONTROL items into the Processed HID Report
 	 * structure to save RAM and ignore the rest
 	 */
-	return ((CurrentItemAttributes->Usage.Page == USAGE_PAGE_BUTTON) ||
-	        (CurrentItemAttributes->Usage.Page == USAGE_PAGE_GENERIC_DCTRL));
+	return ((CurrentItem->Attributes.Usage.Page == USAGE_PAGE_BUTTON) ||
+	        (CurrentItem->Attributes.Usage.Page == USAGE_PAGE_GENERIC_DCTRL));
 }

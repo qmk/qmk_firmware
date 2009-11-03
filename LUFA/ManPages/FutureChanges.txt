@@ -23,9 +23,10 @@
   *  - Change makefiles to allow for absolute LUFA location to be used
   *  - Add RNDIS Host Class driver
   *  - Add unit testing to APIs
+  *  - Add board overviews
   *  - Make new demos
   *      -# Keyboard/Mouse Dual Class Host
-  *      -# Multiple-report HID device
+  *      -# Multiple-Report HID device
   *      -# Mouse/CDC Dual Class Device
   *      -# Joystick Host
   *  - Port LUFA to other architectures

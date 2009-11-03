@@ -24,6 +24,10 @@
   *  - Audio class Device mode demos now work at both 16MHz and 8MHz, rather than just at 8MHz
   *  - The previous USBtoSerial demo has been moved into the projects directory, as it was just a modified CDC demo
   *  - The Endpoint/Pipe functions now use the const qualifier on the input buffer
+  *  - Changed the CALLBACK_HIDParser_FilterHIDReportItem() callback to pass a HID_ReportItem_t rather than just the current
+  *    item's attributes, to expose more information on the item (including it's type, collection path, etc.)
+  *  - Changed MouseHostWithParser demos to check that the report items have a Mouse usage collection as a parent at some point,
+  *    to prevent Joysticks from enumerating with the demo
   *
   *  <b>Fixed:</b>
   *  - Fixed PrinterHost demo returning invalid Device ID data when the attached device does not have a

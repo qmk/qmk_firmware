@@ -27,9 +27,8 @@
  *  This folder contains drivers for several of the AVR internal peripherals such as the USART, compatible with
  *  all USB AVR models.
  *
- *  \dir LUFA/Drivers/Peripheral/AT90USBXXX67
- *  \brief AT90USBXXX6, AT90USBXXX7 and ATMEGAXXU4 AVR model peripheral driver files. Its original name is due to legacy
- *  reasons.
+ *  \dir LUFA/Drivers/Peripheral/AVRU4U6U7
+ *  \brief AT90USBXXX6, AT90USBXXX7 and ATMEGAXXU4 AVR model peripheral driver files.
  *  
  *  This folder contains drivers for several of the AVR internal peripherals such as the USART, compatible only with
  *  the AT90USBXXX6, AT90USBXXX7 and ATMEGAXXU4 USB AVR models, such as the AT90USB1287. Its contents should <b>not</b> be

@@ -43,6 +43,9 @@
 		#include "MouseHostWithParser.h"
 
 	/* Macros: */
+		/** HID Report Descriptor Usage for a Mouse */
+		#define USAGE_MOUSE                 0x02
+
 		/** HID Report Descriptor Usage Page value for a toggle button */
 		#define USAGE_PAGE_BUTTON           0x09
 
@@ -86,6 +89,6 @@
 	/* Function Prototypes: */
 		uint8_t GetHIDReportData(void);
 		
-		bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_Attributes_t* CurrentItemAttributes);
+		bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem);
 		
 #endif

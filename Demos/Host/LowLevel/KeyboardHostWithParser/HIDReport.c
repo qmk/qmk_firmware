@@ -75,15 +75,15 @@ uint8_t GetHIDReportData(void)
  *  we aren't interested in (preventing us from being able to extract them later on, but saving on the RAM they would
  *  have occupied).
  *
- *  \param[in] CurrentItemAttributes  Pointer to the attrbutes of the item the HID report parser is currently working with
+ *  \param[in] CurrentItem  Pointer to the item the HID report parser is currently working with
  *
  *  \return Boolean true if the item should be stored into the HID report structure, false if it should be discarded
  */
-bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_Attributes_t* CurrentItemAttributes)
+bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem)
 {
 	/* Check the attributes of the current item - see if we are interested in it or not;
 	 * only store KEYBOARD usage page items into the Processed HID Report structure to
 	 * save RAM and ignore the rest
 	 */
-	return (CurrentItemAttributes->Usage.Page == USAGE_PAGE_KEYBOARD);
+	return (CurrentItem->Attributes.Usage.Page == USAGE_PAGE_KEYBOARD);
 }

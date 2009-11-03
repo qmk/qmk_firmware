@@ -69,6 +69,9 @@
 		/** HID Report Descriptor Usage Page value for a Generic Desktop Control */
 		#define USAGE_PAGE_GENERIC_DCTRL    0x01
 
+		/** HID Report Descriptor Usage for a Mouse */
+		#define USAGE_MOUSE                 0x02
+
 		/** HID Report Descriptor Usage value for a X axis movement */
 		#define USAGE_X                     0x30
 
@@ -83,5 +86,7 @@
 		void EVENT_USB_Host_DeviceUnattached(void);
 		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
 		void EVENT_USB_Host_DeviceEnumerationComplete(void);
+		
+		bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem);
 		
 #endif
