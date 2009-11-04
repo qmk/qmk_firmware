@@ -42,6 +42,7 @@
   *  - Fixed incorrect event name rule in demo/project/bootloader makefiles
   *  - Fixed HID device class driver not reselecting the correct endpoint once the user callback routines have been called
   *  - Corrected HID descriptor in the Joystick Device demos - buttons should be placed outside the pointer collection
+  *  - Fixed HID report parser collection paths invalid due to misplaced semicolon in the free path item search loop
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *

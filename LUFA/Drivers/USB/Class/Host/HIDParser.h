@@ -99,7 +99,7 @@
 			 *  overridden by defining HID_MAX_COLLECTIONS to another value in the user project makefile, passing
 			 *  the define to the compiler using the -D compiler switch.
 			 */
-			#define HID_MAX_COLLECTIONS           5
+			#define HID_MAX_COLLECTIONS           10
 		#endif
 		
 		#if !defined(HID_MAX_REPORTITEMS) || defined(__DOXYGEN__)
