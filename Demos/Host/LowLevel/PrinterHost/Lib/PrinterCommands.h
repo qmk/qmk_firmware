@@ -44,13 +44,13 @@
 
 	/* Macros: */
 		/** Printer class-specific request to retrieve the printer's ID string */
-		#define GET_DEVICE_ID                0
+		#define REQ_GetDeviceID              0
 
 		/** Printer class-specific request to retrieve the printer's virtual port status flags */
-		#define GET_PORT_STATUS              1
+		#define REQ_GetPortStatus            1
 
 		/** Printer class-specific request to soft-reset the device */
-		#define SOFT_RESET                   2
+		#define REQ_SoftReset                2
 
 		/** Pipe number of the Printer data IN pipe */
 		#define PRINTER_DATA_IN_PIPE         1

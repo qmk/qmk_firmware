@@ -16,6 +16,8 @@
   *  - Added stdio.h stream examples for the virtual CDC UART in the CDC host demos
   *  - Added new CDC/Mouse ClassDriver device demo
   *  - Added new Joystick Host ClassDriver and LowLevel demos
+  *  - Added new Printer Host mode Class driver
+  *  - Added new Printer Host mode ClassDriver demo
   *
   *  <b>Changed:</b>
   *  - Removed mostly useless "TestApp" demo, as it was mainly useful only for checking for sytax errors in the library

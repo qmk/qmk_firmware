@@ -72,7 +72,7 @@
 				struct
 				{
 					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
-					                *   after \ref HID_Host_ConfigurePipes() is called and the Host state machine is in the
+					                *   after \ref CDC_Host_ConfigurePipes() is called and the Host state machine is in the
 					                *   Configured state
 					                */
 					uint8_t ControlInterfaceNumber; /**< Interface index of the CDC-ACM control interface within the attached device */

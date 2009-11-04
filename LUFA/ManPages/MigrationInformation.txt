@@ -13,6 +13,7 @@
  * \section Sec_MigrationXXXXXX Migrating from 090924 to XXXXXX
  *  
  *  <b>Host Mode</b>
+ *    - The HID_PARSE_UsageStackOverflow HID parser error constant is now named \ref HID_PARSE_UsageListOverflow
  *    - The \ref CALLBACK_HIDParser_FilterHIDReportItem() HID Parser callback now passes a complete HID_ReportItem_t to the
  *      user application, instead of just its attributes.
  *

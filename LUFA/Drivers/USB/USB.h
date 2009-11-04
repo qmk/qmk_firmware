@@ -68,6 +68,56 @@
  *  Multiple device mode class drivers can be used within a project, including multiple instances of the
  *  same class driver. In this way, USB Hosts and Devices can be made quickly using the internal class drivers
  *  so that more time and effort can be put into the end application instead of the USB protocol.
+ *
+ *  The available class drivers and their modes are listed below.
+ *
+ *  <table>
+ *  <tr>
+ *   <th width="100px">USB Class</th> 
+ *   <th width="80px">Device</th> 
+ *   <th width="80px">Host</th> 
+ *  </tr>
+ *  <tr>
+ *   <td>Audio</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *  </tr>
+ *  <tr>
+ *   <td>CDC</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>HID</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>MIDI</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>Mass Storage</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>Printer</td>
+ *   <td bgcolor="#EE0000">No</td>
+*    <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>RNDIS</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  <tr>
+ *   <td>Still Image</td>
+ *   <td bgcolor="#EE0000">No</td>
+ *   <td bgcolor="#00EE00">Yes</td>
+ *  </tr>
+ *  </table>
  */
  
 #ifndef __USB_H__

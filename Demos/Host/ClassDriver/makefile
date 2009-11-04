@@ -38,6 +38,9 @@ all:
 	make -C MassStorageHost clean
 	make -C MassStorageHost all
 
+	make -C PrinterHost clean
+	make -C PrinterHost all
+
 	make -C StillImageHost clean
 	make -C StillImageHost all
 	
@@ -49,4 +52,5 @@ all:
 	make -C MouseHost $@
 	make -C MouseHostWithParser $@
 	make -C MassStorageHost $@
+	make -C PrinterHost $@
 	make -C StillImageHost $@

@@ -82,7 +82,7 @@ uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize)
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			bRequest:      GET_DEVICE_ID,
+			bRequest:      REQ_GetDeviceID,
 			wValue:        0,
 			wIndex:        0,
 			wLength:       sizeof(DeviceIDStringLength),
@@ -129,7 +129,7 @@ uint8_t Printer_GetPortStatus(uint8_t* PortStatus)
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			bRequest:      GET_PORT_STATUS,
+			bRequest:      REQ_GetPortStatus,
 			wValue:        0,
 			wIndex:        0,
 			wLength:       sizeof(uint8_t),
@@ -150,7 +150,7 @@ uint8_t Printer_SoftReset(void)
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			bRequest:      SOFT_RESET,
+			bRequest:      REQ_SoftReset,
 			wValue:        0,
 			wIndex:        0,
 			wLength:       0,

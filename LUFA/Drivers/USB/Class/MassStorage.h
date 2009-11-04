@@ -37,7 +37,7 @@
  *    - LUFA/Drivers/USB/Class/Host/MassStorage.c
  *
  *  \section Module Description
- *  Mass Storage Class Driver module. This module contains an internal implementation of the USB Audio Class, for both
+ *  Mass Storage Class Driver module. This module contains an internal implementation of the USB Mass Storage Class, for both
  *  Device and Host USB modes. User applications can use this class driver instead of implementing the Mass Storage class
  *  manually via the low-level LUFA APIs.
  *

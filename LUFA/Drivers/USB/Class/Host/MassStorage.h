@@ -60,8 +60,8 @@
 	
 		/* Type Defines: */
 			/** Class state structure. An instance of this structure should be made within the user application,
-			 *  and passed to each of the HID class driver functions as the HIDInterfaceInfo parameter. This
-			 *  stores each HID interface's configuration and state information.
+			 *  and passed to each of the Mass Storage class driver functions as the MSInterfaceInfo parameter. This
+			 *  stores each Mass Storage interface's configuration and state information.
 			 */
 			typedef struct
 			{
@@ -75,10 +75,10 @@
 				struct
 				{
 					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
-					                *   after \ref HID_Host_ConfigurePipes() is called and the Host state machine is in the
+					                *   after \ref MS_Host_ConfigurePipes() is called and the Host state machine is in the
 					                *   Configured state
 					                */
-					uint8_t InterfaceNumber; /**< Interface index of the HID interface within the attached device */
+					uint8_t InterfaceNumber; /**< Interface index of the Mass Storage interface within the attached device */
 
 					uint16_t DataINPipeSize; /**< Size in bytes of the MS interface's IN data pipe */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the MS interface's OUT data pipe */

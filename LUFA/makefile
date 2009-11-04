@@ -28,6 +28,7 @@ LUFA_SRC_FILES =     ./Drivers/USB/LowLevel/DevChapter9.c        \
                      ./Drivers/USB/Class/Host/HID.c              \
                      ./Drivers/USB/Class/Host/HIDParser.c        \
                      ./Drivers/USB/Class/Host/MassStorage.c      \
+                     ./Drivers/USB/Class/Host/Printer.c          \
                      ./Drivers/USB/Class/Host/StillImage.c       \
                      ./Drivers/Board/Temperature.c               \
                      ./Drivers/Peripheral/Serial.c               \

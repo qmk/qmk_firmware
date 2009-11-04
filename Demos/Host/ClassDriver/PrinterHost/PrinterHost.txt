@@ -1,0 +1,63 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage Printer Host Demo
+ *
+ *  \section SSec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  - Series 7 USB AVRs
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Host</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Printer Device</td>
+ *   </tr>
+ *   <tr> 
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Bidirectional Protocol</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Printer Class Specification, PCL Language Specification</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Usable Speeds:</b></td>
+ *    <td>Low Speed Mode, Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Printer host demonstration application. This gives a simple reference
+ *  application for implementing a USB Printer host, for USB printers using
+ *  the bidirectional data encapsulation protocol and PCL language.
+ *  
+ *  Upon connection of a compatible printer, the printer's device ID is sent
+ *  to the AVR's serial port, and a simple test page is printed using the PCL
+ *  printer language.
+ *  
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */
