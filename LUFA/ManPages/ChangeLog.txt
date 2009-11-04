@@ -14,6 +14,7 @@
   *    Report protocol is not needed
   *  - Added new MIDI LowLevel and ClassDriver Host demo, add new MIDI Host Class driver
   *  - Added stdio.h stream examples for the virtual CDC UART in the CDC host demos
+  *  - Added new CDC/Mouse ClassDriver device demo
   *
   *  <b>Changed:</b>
   *  - Removed mostly useless "TestApp" demo, as it was mainly useful only for checking for sytax errors in the library
@@ -39,6 +40,7 @@
   *  - Fixed incorrect SampleFrequencyType value in the AudioInput and AudioOutput ClassDriver demos' descriptors
   *  - Fixed incorrect event name rule in demo/project/bootloader makefiles
   *  - Fixed HID device class driver not reselecting the correct endpoint once the user callback routines have been called
+  *  - Corrected HID descriptor in the Joystick Device demos - buttons should be placed outside the pointer collection
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *
