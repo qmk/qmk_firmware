@@ -122,7 +122,7 @@ uint8_t ProcessConfigurationDescriptor(void)
  *  This comparator searches for the next Bidirectional Printer Interface descriptor of the current Printer interface,
  *  aborting the search if the end of the descriptors is found.
  *
- *  \return A value from the \ref DSEARCH_Return_ErrorCodes_t enum
+ *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
 uint8_t DComp_NextBidirectionalPrinterInterface(void* CurrentDescriptor)
 {
@@ -147,7 +147,7 @@ uint8_t DComp_NextBidirectionalPrinterInterface(void* CurrentDescriptor)
  *  This comparator searches for the next Bulk Endpoint descriptor of the current Printer interface, aborting the
  *  search if another interface descriptor is found before the next endpoint.
  *
- *  \return A value from the \ref DSEARCH_Return_ErrorCodes_t enum
+ *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
 uint8_t DComp_NextPrinterInterfaceBulkDataEndpoint(void* CurrentDescriptor)
 {

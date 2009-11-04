@@ -97,7 +97,7 @@ uint8_t ProcessConfigurationDescriptor(void)
  *
  *  This comparator searches for the next Interface descriptor of the correct Keyboard HID Class and Protocol values.
  *
- *  \return A value from the \ref DSEARCH_Return_ErrorCodes_t enum
+ *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
 uint8_t DComp_NextKeyboardInterface(void* CurrentDescriptor)
 {
@@ -121,7 +121,7 @@ uint8_t DComp_NextKeyboardInterface(void* CurrentDescriptor)
  *  This comparator searches for the next IN Endpoint descriptor inside the current interface descriptor,
  *  aborting the search if another interface descriptor is found before the required endpoint.
  *
- *  \return A value from the \ref DSEARCH_Return_ErrorCodes_t enum
+ *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
 uint8_t DComp_NextKeyboardInterfaceDataEndpoint(void* CurrentDescriptor)
 {

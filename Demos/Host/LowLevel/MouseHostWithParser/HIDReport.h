@@ -58,6 +58,9 @@
 		/** HID Report Descriptor Usage value for a Y axis movement */
 		#define USAGE_Y                     0x31
 
+		/** HID Report Descriptor Usage value for a Scroll Wheel movement */
+		#define USAGE_SCROLL_WHEEL          0x38
+		
 	/* Enums: */
 		/** Enum for the possible return codes of the GetHIDReportData() function. */
 		enum MouseHostWithParser_GetHIDReportDataCodes_t

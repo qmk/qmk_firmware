@@ -271,6 +271,21 @@ void ProcessMouseReport(uint8_t* MouseReport)
 			  LEDMask = LEDS_ALL_LEDS;
 		}
 		else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
+				 (ReportItem->Attributes.Usage.Usage  == USAGE_SCROLL_WHEEL)       &&
+				 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
+		{
+			/* Get the mouse wheel value if it is contained within the current 
+			 * report, if not, skip to the next item in the parser list
+			 */
+			if (!(USB_GetHIDReportItemInfo(MouseReport, ReportItem)))
+			  continue;							  
+
+			int16_t WheelDelta = (int16_t)(ReportItem->Value << (16 - ReportItem->Attributes.BitSize));
+			
+			if (WheelDelta)
+			  LEDMask = (LEDS_LED1 | LEDS_LED2 | ((WheelDelta > 0) ? LEDS_LED3 : LEDS_LED4));
+		}
+		else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
 				 ((ReportItem->Attributes.Usage.Usage == USAGE_X)                  ||
 				  (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
 				 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))

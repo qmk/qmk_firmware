@@ -47,10 +47,10 @@
  *  reports, allowing for correct operation across all USB mice. This
  *  demo supports mice with a single HID report.
  *  
- *  Mouse movement and button presses are displayed on the board LEDs.
- *  On connection to a USB mouse, the report items will be processed and
- *  printed as a formatted list through the USART before the mouse is
- *  fully enumerated.
+ *  Mouse and scroll wheel movement and button presses are displayed
+ *  on the board LEDs. On connection to a USB mouse, the report items
+ *  will be processed and printed as a formatted list through the USART
+ *  before the mouse is fully enumerated.
  *  
  *  Currently only single interface mice are supported.
  *
