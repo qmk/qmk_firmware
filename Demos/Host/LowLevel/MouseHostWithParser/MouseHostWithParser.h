@@ -28,6 +28,11 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for MouseHostWithParser.c.
+ */
+
 #ifndef _MOUSE_HOST_H_
 #define _MOUSE_HOST_H_
 

@@ -30,10 +30,20 @@
 
 #include "ConfigDescriptor.h"
 
+/** Interface number for the bidirectional Printer interface found within the device. */
 uint8_t PrinterInterfaceNumber;
+
+/** Interface Alternate Setting number for the bidirectional Printer interface found within the device. */
 uint8_t PrinterAltSetting;
 
-
+/** Reads and processes an attached device's descriptors, to determine compatibility and pipe configurations. This
+ *  routine will read in the entire configuration descriptor, and configure the hosts pipes to correctly communicate
+ *  with compatible devices.
+ *
+ *  This routine searches for a bidirectional Printer interface descriptor containing bulk IN and OUT data endpoints.
+ *
+ *  \return An error code from the \ref PrinterHost_GetConfigDescriptorDataCodes_t enum.
+ */
 uint8_t ProcessConfigurationDescriptor(void)
 {
 	uint8_t  ConfigDescriptorData[512];
@@ -105,10 +115,17 @@ uint8_t ProcessConfigurationDescriptor(void)
 	return SuccessfulConfigRead;
 }
 
+/** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
+ *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
+ *  descriptor processing if an incompatible descriptor configuration is found.
+ *
+ *  This comparator searches for the next Bidirectional Printer Interface descriptor of the current Printer interface,
+ *  aborting the search if the end of the descriptors is found.
+ *
+ *  \return A value from the \ref DSEARCH_Return_ErrorCodes_t enum
+ */
 uint8_t DComp_NextBidirectionalPrinterInterface(void* CurrentDescriptor)
 {
-	/* PURPOSE: Find next bidirectional protocol printer class interface descriptor */
-
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
 		/* Check the descriptor class and protocol, break out if correct class/protocol interface found */
@@ -123,10 +140,17 @@ uint8_t DComp_NextBidirectionalPrinterInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
+/** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
+ *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
+ *  descriptor processing if an incompatible descriptor configuration is found.
+ *
+ *  This comparator searches for the next Bulk Endpoint descriptor of the current Printer interface, aborting the
+ *  search if another interface descriptor is found before the next endpoint.
+ *
+ *  \return A value from the \ref DSEARCH_Return_ErrorCodes_t enum
+ */
 uint8_t DComp_NextPrinterInterfaceBulkDataEndpoint(void* CurrentDescriptor)
 {
-	/* PURPOSE: Find next interface bulk endpoint descriptor before next interface descriptor */
-
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
 		uint8_t EndpointType = (DESCRIPTOR_CAST(CurrentDescriptor,

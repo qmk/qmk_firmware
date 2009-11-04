@@ -60,6 +60,7 @@ all:
 	make -C AudioInput $@
 	make -C AudioOutput $@
 	make -C CDC $@
+	make -C CDCMouse $@
 	make -C DualCDC $@
 	make -C GenericHID $@
 	make -C Joystick $@

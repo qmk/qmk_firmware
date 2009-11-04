@@ -43,7 +43,7 @@
  *
  *  This routine searches for a MIDI interface descriptor pair containing bulk data IN and OUT endpoints.
  *
- *  \return An error code from the MIDIHost_GetConfigDescriptorDataCodes_t enum.
+ *  \return An error code from the \ref MIDIHost_GetConfigDescriptorDataCodes_t enum.
  */
 uint8_t ProcessConfigurationDescriptor(void)
 {
@@ -117,7 +117,7 @@ uint8_t ProcessConfigurationDescriptor(void)
  *
  *  This comparator searches for the next Interface descriptor of the correct MIDI Streaming Class, Subclass and Protocol values.
  *
- *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
+ *  \return A value from the \ref DSEARCH_Return_ErrorCodes_t enum
  */
 uint8_t DComp_NextMIDIStreamingInterface(void* CurrentDescriptor)
 {
@@ -142,7 +142,7 @@ uint8_t DComp_NextMIDIStreamingInterface(void* CurrentDescriptor)
  *  This comparator searches for the next bulk IN or OUT endpoint within the current interface, aborting the search if
  *  another interface descriptor is found before the required endpoint.
  *
- *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
+ *  \return A value from the \ref DSEARCH_Return_ErrorCodes_t enum
  */
 uint8_t DComp_NextMIDIStreamingDataEndpoint(void* CurrentDescriptor)
 {

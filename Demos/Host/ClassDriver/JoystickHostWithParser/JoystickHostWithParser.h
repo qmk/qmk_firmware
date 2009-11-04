@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for MouseHost.c.
+ *  Header file for JoystickHostWithParser.c.
  */
 
-#ifndef _MOUSE_HOST_H_
-#define _MOUSE_HOST_H_
+#ifndef _JOYSTICK_HOST_H_
+#define _JOYSTICK_HOST_H_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -52,7 +52,7 @@
 		
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
-		#define LEDMASK_USB_NOTREADY        LEDS_LED1
+		#define LEDMASK_USB_NOTREADY         LEDS_LED1
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
 		#define LEDMASK_USB_ENUMERATING     (LEDS_LED2 | LEDS_LED3)
@@ -69,8 +69,8 @@
 		/** HID Report Descriptor Usage Page value for a Generic Desktop Control */
 		#define USAGE_PAGE_GENERIC_DCTRL    0x01
 
-		/** HID Report Descriptor Usage for a Mouse */
-		#define USAGE_MOUSE                 0x02
+		/** HID Report Descriptor Usage for a Joystick */
+		#define USAGE_JOYSTICK              0x04
 
 		/** HID Report Descriptor Usage value for a X axis movement */
 		#define USAGE_X                     0x30

@@ -64,6 +64,7 @@
  *    - <b>Host</b>
  *      - <b>ClassDriver</b>
  *        - <b>CDCHost</b> - Virtual Serial Port host demo, using the library USB CDC Class driver framework
+ *        - <b>JoystickHostWithParser</b> - Joystick host demo with HID Descriptor parser, using the library USB HID Class driver framework
  *        - <b>KeyboardHost</b> - USB Keyboard host demo, using the library USB HID Class driver framework
  *        - <b>KeyboardHostWithParser</b> - USB Keyboard host demo with HID Descriptor parser, using the library USB HID Class
  *                                          driver framework
@@ -73,6 +74,8 @@
  *        - <b>StillImageHost</b> - Still Image Camera host demo, using the library USB Still Image Class driver framework
  *      - <b>LowLevel</b>
  *        - <b>CDCHost</b> - Virtual Serial Port host demo, using the low level LUFA APIs to implement the USB CDC class
+ *        - <b>JoystickHostWithParser</b> - Joystick host demo with HID Descriptor parser, using the low level LUFA APIs to implement 
+ *                                          the USB HID class
  *        - <b>GenericHIDHost</b> - Generic HID host demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>KeyboardHost</b> - USB Keyboard host demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>KeyboardHostWithParser</b> - USB Keyboard host demo with HID Descriptor parser, using the low level LUFA APIs to

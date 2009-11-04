@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for MouseHost.c.
+ *  Header file for JoystickHostWithParser.c.
  */
 
-#ifndef _MOUSE_HOST_H_
-#define _MOUSE_HOST_H_
+#ifndef _JOYSTICK_HOST_H_
+#define _JOYSTICK_HOST_H_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -48,37 +48,28 @@
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/HID.h>
 		
+		#include "ConfigDescriptor.h"
+		#include "HIDReport.h"
+
 	/* Macros: */
+		/** Pipe number for the joystick report data pipe */
+		#define JOYSTICK_DATAPIPE              1
+
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
-		#define LEDMASK_USB_NOTREADY        LEDS_LED1
+		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
-		#define LEDMASK_USB_ENUMERATING     (LEDS_LED2 | LEDS_LED3)
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
-		#define LEDMASK_USB_READY           (LEDS_LED2 | LEDS_LED4)
+		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
-		#define LEDMASK_USB_ERROR           (LEDS_LED1 | LEDS_LED3)
+		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
-		/** HID Report Descriptor Usage Page value for a toggle button */
-		#define USAGE_PAGE_BUTTON           0x09
-
-		/** HID Report Descriptor Usage Page value for a Generic Desktop Control */
-		#define USAGE_PAGE_GENERIC_DCTRL    0x01
-
-		/** HID Report Descriptor Usage for a Mouse */
-		#define USAGE_MOUSE                 0x02
-
-		/** HID Report Descriptor Usage value for a X axis movement */
-		#define USAGE_X                     0x30
-
-		/** HID Report Descriptor Usage value for a Y axis movement */
-		#define USAGE_Y                     0x31
-		
 	/* Function Prototypes: */
+		void Joystick_HID_Task(void);
 		void SetupHardware(void);
 	
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
@@ -86,7 +77,7 @@
 		void EVENT_USB_Host_DeviceUnattached(void);
 		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
 		void EVENT_USB_Host_DeviceEnumerationComplete(void);
-		
-		bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem);
-		
+
+		void ProcessJoystickReport(uint8_t* JoystickReport);
+
 #endif

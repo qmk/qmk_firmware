@@ -39,37 +39,42 @@
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
 		
-		#include "StillImageHost.h"
+		#include "HIDReport.h"
 		
 	/* Macros: */
-		/** Interface Class value for the Still Image Device class */
-		#define SIMAGE_CLASS                   0x06
+		/** Interface Class value for the Human Interface Device class */
+		#define JOYSTICK_CLASS              0x03
 
-		/** Interface Class value for the Still Image Device subclass */
-		#define SIMAGE_SUBCLASS                0x01
-
-		/** Interface Class value for the Still Image Device protocol */
-		#define SIMAGE_PROTOCOL                0x01
+		/** Interface Protocol value for a Boot Protocol Mouse compliant device */
+		#define JOYSTICK_PROTOCOL           0x02
 
 		/** Maximum size of a device configuration descriptor which can be processed by the host, in bytes */
-		#define MAX_CONFIG_DESCRIPTOR_SIZE     512
+		#define MAX_CONFIG_DESCRIPTOR_SIZE  512
+
+		/** Descriptor header type constant for a HID descriptor */
+		#define DTYPE_HID                   0x21
+
+		/** Descriptor header type constant for a HID report descriptor */
+		#define DTYPE_Report                0x22
 	
 	/* Enums: */
 		/** Enum for the possible return codes of the ProcessConfigurationDescriptor() function. */
-		enum StillImageHost_GetConfigDescriptorDataCodes_t
+		enum JoystickHostWithParser_GetConfigDescriptorDataCodes_t
 		{
 			SuccessfulConfigRead            = 0, /**< Configuration Descriptor was processed successfully */
 			ControlError                    = 1, /**< A control request to the device failed to complete successfully */
 			DescriptorTooLarge              = 2, /**< The device's Configuration Descriptor is too large to process */
 			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
-			NoInterfaceFound                = 4, /**< A compatible SI interface was not found in the device's Configuration Descriptor */
-			NoEndpointFound                 = 5, /**< The correct SI endpoint descriptors were not found in the device's SI interface */
+			NoHIDInterfaceFound             = 4, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
+			NoHIDDescriptorFound            = 5, /**< A compatible HID descriptor was not found in the device's HID interface */
+			NoEndpointFound                 = 5, /**< A compatible HID IN endpoint was not found in the device's HID interface */
 		};
-	
+
 	/* Function Prototypes: */
 		uint8_t ProcessConfigurationDescriptor(void);
 
-		uint8_t DComp_NextStillImageInterface(void* CurrentDescriptor);
-		uint8_t DComp_NextStillImageInterfaceDataEndpoint(void* CurrentDescriptor);
+		uint8_t DComp_NextJoystickInterface(void* CurrentDescriptor);
+		uint8_t DComp_NextJoystickInterfaceDataEndpoint(void* CurrentDescriptor);
+		uint8_t DComp_NextHID(void* CurrentDescriptor);
 
 #endif

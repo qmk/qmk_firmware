@@ -17,6 +17,9 @@ all:
 	make -C CDCHost clean
 	make -C CDCHost all	
 
+	make -C JoystickHostWithParser clean
+	make -C JoystickHostWithParser all	
+
 	make -C KeyboardHost clean
 	make -C KeyboardHost all
 
@@ -40,6 +43,7 @@ all:
 	
 %:
 	make -C CDCHost $@
+	make -C JoystickHostWithParser $@
 	make -C KeyboardHost $@
 	make -C KeyboardHostWithParser $@
 	make -C MouseHost $@

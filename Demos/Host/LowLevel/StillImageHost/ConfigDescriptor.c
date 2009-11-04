@@ -43,7 +43,7 @@
  *
  *  This routine searches for a SI interface descriptor containing bulk IN and OUT data endpoints.
  *
- *  \return An error code from the StillImageHost_GetConfigDescriptorDataCodes_t enum.
+ *  \return An error code from the \ref StillImageHost_GetConfigDescriptorDataCodes_t enum.
  */
 uint8_t ProcessConfigurationDescriptor(void)
 {
@@ -139,7 +139,7 @@ uint8_t ProcessConfigurationDescriptor(void)
  *
  *  This comparator searches for the next Interface descriptor of the correct Still Image Class, Subclass and Protocol values.
  *
- *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
+ *  \return A value from the \ref DSEARCH_Return_ErrorCodes_t enum
  */
 uint8_t DComp_NextStillImageInterface(void* CurrentDescriptor)
 {
@@ -164,7 +164,7 @@ uint8_t DComp_NextStillImageInterface(void* CurrentDescriptor)
  *  This comparator searches for the next Interrupt or Bulk Endpoint descriptor of the current SI interface, aborting the
  *  search if another interface descriptor is found before the next endpoint.
  *
- *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
+ *  \return A value from the \ref DSEARCH_Return_ErrorCodes_t enum
  */
 uint8_t DComp_NextStillImageInterfaceDataEndpoint(void* CurrentDescriptor)
 {
