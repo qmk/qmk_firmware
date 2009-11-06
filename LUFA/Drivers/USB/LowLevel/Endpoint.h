@@ -351,12 +351,12 @@
 				#endif
 				
 				#if !defined(CONTROL_ONLY_DEVICE)
-					#define Endpoint_SelectEndpoint(epnum)    MACROS{ UENUM = epnum; }MACROE
+					#define Endpoint_SelectEndpoint(epnum)    MACROS{ UENUM = (epnum); }MACROE
 				#else
 					#define Endpoint_SelectEndpoint(epnum)    (void)epnum
 				#endif
 
-				#define Endpoint_ResetFIFO(epnum)             MACROS{ UERST = (1 << epnum); UERST = 0; }MACROE
+				#define Endpoint_ResetFIFO(epnum)             MACROS{ UERST = (1 << (epnum)); UERST = 0; }MACROE
 
 				#define Endpoint_EnableEndpoint()             MACROS{ UECONX |= (1 << EPEN); }MACROE
 
@@ -372,7 +372,7 @@
 
 				#define Endpoint_GetEndpointInterrupts()      UEINT
 
-				#define Endpoint_HasEndpointInterrupted(n)    ((UEINT & (1 << n)) ? true : false)
+				#define Endpoint_HasEndpointInterrupted(n)    ((UEINT & (1 << (n))) ? true : false)
 				
 				#define Endpoint_IsINReady()                  ((UEINTX & (1 << TXINI))  ? true : false)
 				
@@ -406,7 +406,7 @@
 				
 				#define Endpoint_GetEndpointDirection()       (UECFG0X & ENDPOINT_DIR_IN)
 				
-				#define Endpoint_SetEndpointDirection(dir)    MACROS{ UECFG0X = ((UECFG0X & ~ENDPOINT_DIR_IN) | dir); }MACROE
+				#define Endpoint_SetEndpointDirection(dir)    MACROS{ UECFG0X = ((UECFG0X & ~ENDPOINT_DIR_IN) | (dir)); }MACROE
 			#endif
 
 		/* Enums: */
@@ -1179,11 +1179,11 @@
 			#endif
 
 			#define Endpoint_ConfigureEndpoint(Number, Type, Direction, Size, Banks)            \
-			                                    Endpoint_ConfigureEndpoint_Prv(Number,          \
-			                                              ((Type << EPTYPE0) | Direction),      \
-			                                              ((1 << ALLOC) | Banks |               \
+			                                    Endpoint_ConfigureEndpoint_Prv((Number),        \
+			                                              (((Type) << EPTYPE0) | (Direction)),  \
+			                                              ((1 << ALLOC) | (Banks) |             \
 			                                                (__builtin_constant_p(Size) ?       \
-			                                                 Endpoint_BytesToEPSizeMask(Size) :  \
+			                                                 Endpoint_BytesToEPSizeMask(Size) : \
 			                                                 Endpoint_BytesToEPSizeMaskDynamic(Size))))
 													
 		/* Function Prototypes: */

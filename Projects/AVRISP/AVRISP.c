@@ -34,9 +34,6 @@
  *  the project and is responsible for the initial application hardware configuration.
  */
 
-// TODO: Add in software SPI for lower programming speeds below 125KHz
-// TODO: Add reversed/shorted target connector checks
-
 #include "AVRISP.h"
 
 /** Main program entry point. This routine contains the overall program flow, including initial

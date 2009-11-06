@@ -118,7 +118,7 @@
 				
 				#define USB_OTG_Host_IsHNPReceived()              ((OTGCON &   (1 << HNPREQ)) ? true : false)
 				
-				#define USB_OTG_Device_InitiateSRP(type)    MACROS{ OTGCON = ((OTGCON & ~(1 << SRPSEL)) | (type | (1 << SRPREQ))); }MACROE
+				#define USB_OTG_Device_InitiateSRP(type)    MACROS{ OTGCON = ((OTGCON & ~(1 << SRPSEL)) | ((type) | (1 << SRPREQ))); }MACROE
 			#endif
 	
 #endif

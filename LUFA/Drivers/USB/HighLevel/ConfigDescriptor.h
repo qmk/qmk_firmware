@@ -78,7 +78,7 @@
 			 *  // Can now access elements of the configuration header struct using the -> indirection operator
 			 *  \endcode
 			 */
-			#define DESCRIPTOR_PCAST(DescriptorPtr, Type) ((Type*)DescriptorPtr)
+			#define DESCRIPTOR_PCAST(DescriptorPtr, Type) ((Type*)(DescriptorPtr))
 
 			/** Casts a pointer to a descriptor inside the configuration descriptor into the given descriptor
 			 *  type (as an actual struct instance rather than a pointer to a struct).

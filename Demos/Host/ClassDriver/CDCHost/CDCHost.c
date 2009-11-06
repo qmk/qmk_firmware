@@ -44,9 +44,14 @@ USB_ClassInfo_CDC_Host_t VirtualSerial_CDC_Interface =
 	{
 		.Config =
 			{
-				.DataINPipeNumber       = 1,
-				.DataOUTPipeNumber      = 2,
-				.NotificationPipeNumber = 3,
+				.DataINPipeNumber           = 1,
+				.DataINPipeDoubleBank       = false,
+
+				.DataOUTPipeNumber          = 2,
+				.DataOUTPipeDoubleBank      = false,
+
+				.NotificationPipeNumber     = 3,
+				.NotificationPipeDoubleBank = false,
 			},
 	};
 

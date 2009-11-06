@@ -97,7 +97,8 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 			{							   
 				Pipe_ConfigurePipe(CDCInterfaceInfo->Config.NotificationPipeNumber, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+								   EndpointData->EndpointAddress, EndpointData->EndpointSize,
+								   CDCInterfaceInfo->Config.NotificationPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 				CDCInterfaceInfo->State.NotificationPipeSize = EndpointData->EndpointSize;
 
 				Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
@@ -110,7 +111,8 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 			{
 				Pipe_ConfigurePipe(CDCInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+								   EndpointData->EndpointAddress, EndpointData->EndpointSize, 
+								   CDCInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 				CDCInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
 
 				FoundEndpoints |= CDC_FOUND_DATAPIPE_IN;
@@ -118,7 +120,8 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 			else
 			{
 				Pipe_ConfigurePipe(CDCInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+								   EndpointData->EndpointAddress, EndpointData->EndpointSize, 
+								   CDCInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 				CDCInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
 				
 				FoundEndpoints |= CDC_FOUND_DATAPIPE_OUT;

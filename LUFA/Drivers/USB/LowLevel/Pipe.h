@@ -420,9 +420,9 @@
 
 				#define Pipe_GetCurrentPipe()          (UPNUM & PIPE_PIPENUM_MASK)
 
-				#define Pipe_SelectPipe(pipenum)       MACROS{ UPNUM = pipenum; }MACROE
+				#define Pipe_SelectPipe(pipenum)       MACROS{ UPNUM = (pipenum); }MACROE
 				
-				#define Pipe_ResetPipe(pipenum)        MACROS{ UPRST = (1 << pipenum); UPRST = 0; }MACROE
+				#define Pipe_ResetPipe(pipenum)        MACROS{ UPRST = (1 << (pipenum)); UPRST = 0; }MACROE
 
 				#define Pipe_EnablePipe()              MACROS{ UPCONX |= (1 << PEN); }MACROE
 
@@ -432,21 +432,21 @@
 
 				#define Pipe_GetPipeToken()            (UPCFG0X & PIPE_TOKEN_MASK)
 
-				#define Pipe_SetToken(token)           MACROS{ UPCFG0X = ((UPCFG0X & ~PIPE_TOKEN_MASK) | token); }MACROE
+				#define Pipe_SetToken(token)           MACROS{ UPCFG0X = ((UPCFG0X & ~PIPE_TOKEN_MASK) | (token)); }MACROE
 				
 				#define Pipe_SetInfiniteINRequests()   MACROS{ UPCONX |= (1 << INMODE); }MACROE
 
-				#define Pipe_SetFiniteINRequests(n)    MACROS{ UPCONX &= ~(1 << INMODE); UPINRQX = n; }MACROE
+				#define Pipe_SetFiniteINRequests(n)    MACROS{ UPCONX &= ~(1 << INMODE); UPINRQX = (n); }MACROE
 
 				#define Pipe_IsConfigured()            ((UPSTAX  & (1 << CFGOK)) ? true : false)
 
 				#define Pipe_BoundEndpointNumber()     ((UPCFG0X >> PEPNUM0) & PIPE_EPNUM_MASK)
 				
-				#define Pipe_SetInterruptPeriod(ms)    MACROS{ UPCFG2X = ms; }MACROE
+				#define Pipe_SetInterruptPeriod(ms)    MACROS{ UPCFG2X = (ms); }MACROE
 
 				#define Pipe_GetPipeInterrupts()       UPINT
 
-				#define Pipe_HasPipeInterrupted(n)     ((UPINT & (1 << n)) ? true : false)
+				#define Pipe_HasPipeInterrupted(n)     ((UPINT & (1 << (n))) ? true : false)
 
 				#define Pipe_Unfreeze()                MACROS{ UPCONX &= ~(1 << PFREEZE); }MACROE
 
