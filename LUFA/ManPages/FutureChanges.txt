@@ -24,6 +24,7 @@
   *  - Add RNDIS Host Class driver
   *  - Add unit testing to APIs
   *  - Add board overviews
+  *  - Add resume interrupt support
   *  - Make new demos
   *      -# Keyboard/Mouse Dual Class Host
   *      -# Multiple-Report HID device

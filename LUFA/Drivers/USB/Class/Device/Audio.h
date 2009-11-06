@@ -66,21 +66,21 @@
 				const struct
 				{
 					uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this
-														*   structure controls.
+														*   structure controls
 														*/
 
 					uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming Audio Streaming data, if available
-													*   (zero if unused).
+													*   (zero if unused)
 													*/
 					uint16_t DataINEndpointSize; /**< Size in bytes of the incomming Audio Streaming data endpoint, if available
-												  *   (zero if unused).
+												  *   (zero if unused)
 												  */
 
 					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing Audio Streaming data, if available
-													 *   (zero if unused).
+													 *   (zero if unused)
 													 */
 					uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing Audio Streaming data endpoint, if available
-												   *   (zero if unused).
+												   *   (zero if unused)
 												   */			
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.

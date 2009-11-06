@@ -46,7 +46,7 @@ bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* const MIDIInter
 	{
 		if (!(Endpoint_ConfigureEndpoint(MIDIInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,
 										 ENDPOINT_DIR_IN, MIDIInterfaceInfo->Config.DataINEndpointSize,
-										 ENDPOINT_BANK_SINGLE)))
+										 MIDIInterfaceInfo->Config.DataINEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
 		{
 			return false;
 		}
@@ -56,7 +56,7 @@ bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* const MIDIInter
 	{
 		if (!(Endpoint_ConfigureEndpoint(MIDIInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_BULK,
 										 ENDPOINT_DIR_OUT, MIDIInterfaceInfo->Config.DataOUTEndpointSize,
-										 ENDPOINT_BANK_SINGLE)))
+										 MIDIInterfaceInfo->Config.DataOUTEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
 		{
 			return false;
 		}

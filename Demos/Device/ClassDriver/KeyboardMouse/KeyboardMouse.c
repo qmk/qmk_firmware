@@ -52,13 +52,14 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber         = 0,
+				.InterfaceNumber              = 0,
 
-				.ReportINEndpointNumber  = KEYBOARD_IN_EPNUM,
-				.ReportINEndpointSize    = HID_EPSIZE,
+				.ReportINEndpointNumber       = KEYBOARD_IN_EPNUM,
+				.ReportINEndpointSize         = HID_EPSIZE,
+				.ReportINEndpointDoubleBank   = false,
 
-				.PrevReportINBuffer      = PrevKeyboardHIDReportBuffer,
-				.PrevReportINBufferSize  = sizeof(PrevKeyboardHIDReportBuffer),
+				.PrevReportINBuffer           = PrevKeyboardHIDReportBuffer,
+				.PrevReportINBufferSize       = sizeof(PrevKeyboardHIDReportBuffer),
 			},
 	};
 	

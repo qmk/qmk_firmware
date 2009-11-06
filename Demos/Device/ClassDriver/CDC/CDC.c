@@ -44,16 +44,19 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 	{
 		.Config =
 			{
-				.ControlInterfaceNumber     = 0,
+				.ControlInterfaceNumber         = 0,
 
-				.DataINEndpointNumber       = CDC_TX_EPNUM,
-				.DataINEndpointSize         = CDC_TXRX_EPSIZE,
+				.DataINEndpointNumber           = CDC_TX_EPNUM,
+				.DataINEndpointSize             = CDC_TXRX_EPSIZE,
+				.DataINEndpointDoubleBank       = false,
 
-				.DataOUTEndpointNumber      = CDC_RX_EPNUM,
-				.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointNumber          = CDC_RX_EPNUM,
+				.DataOUTEndpointSize            = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointDoubleBank      = false,
 
-				.NotificationEndpointNumber = CDC_NOTIFICATION_EPNUM,
-				.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointNumber     = CDC_NOTIFICATION_EPNUM,
+				.NotificationEndpointSize       = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointDoubleBank = false,
 			},
 	};
 

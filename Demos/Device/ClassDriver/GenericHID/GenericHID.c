@@ -55,13 +55,14 @@ USB_ClassInfo_HID_Device_t Generic_HID_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber         = 0,
+				.InterfaceNumber              = 0,
 
-				.ReportINEndpointNumber  = GENERIC_IN_EPNUM,
-				.ReportINEndpointSize    = GENERIC_EPSIZE,
+				.ReportINEndpointNumber       = GENERIC_IN_EPNUM,
+				.ReportINEndpointSize         = GENERIC_EPSIZE,
+				.ReportINEndpointDoubleBank   = false,
 				
-				.PrevReportINBuffer      = PrevHIDReportBuffer,
-				.PrevReportINBufferSize  = sizeof(PrevHIDReportBuffer),
+				.PrevReportINBuffer           = PrevHIDReportBuffer,
+				.PrevReportINBufferSize       = sizeof(PrevHIDReportBuffer),
 			},
 	};
 

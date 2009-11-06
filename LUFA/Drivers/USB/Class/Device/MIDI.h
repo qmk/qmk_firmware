@@ -70,9 +70,11 @@
 
 					uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming MIDI data, if available (zero if unused) */
 					uint16_t DataINEndpointSize; /**< Size in bytes of the incomming MIDI data endpoint, if available (zero if unused) */
+					bool     DataINEndpointDoubleBank; /** Indicates if the MIDI interface's IN data endpoint should use double banking */
 
 					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing MIDI data, if available (zero if unused) */
 					uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing MIDI data endpoint, if available (zero if unused) */
+					bool     DataOUTEndpointDoubleBank; /** Indicates if the MIDI interface's IN data endpoint should use double banking */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */									 

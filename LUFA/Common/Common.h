@@ -57,13 +57,9 @@
 
 	/* Includes: */
 		#include <avr/io.h>
-		#include <stdio.h>
-		#include <avr/version.h>
-		
+	
 		#include "FunctionAttributes.h"
 		#include "BoardTypes.h"
-		
-		#include <alloca.h>
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */		

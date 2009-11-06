@@ -45,16 +45,19 @@ USB_ClassInfo_CDC_Device_t VirtualSerial1_CDC_Interface =
 	{
 		.Config =
 			{
-				.ControlInterfaceNumber     = 0,
+				.ControlInterfaceNumber           = 0,
 
-				.DataINEndpointNumber       = CDC1_TX_EPNUM,
-				.DataINEndpointSize         = CDC_TXRX_EPSIZE,
+				.DataINEndpointNumber             = CDC1_TX_EPNUM,
+				.DataINEndpointSize               = CDC_TXRX_EPSIZE,
+				.DataINEndpointDoubleBank         = false,
 
-				.DataOUTEndpointNumber      = CDC1_RX_EPNUM,
-				.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointNumber            = CDC1_RX_EPNUM,
+				.DataOUTEndpointSize              = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointDoubleBank        = false,
 
-				.NotificationEndpointNumber = CDC1_NOTIFICATION_EPNUM,
-				.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointNumber       = CDC1_NOTIFICATION_EPNUM,
+				.NotificationEndpointSize         = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointDoubleBank   = false,
 			},
 	};
 
@@ -67,16 +70,19 @@ USB_ClassInfo_CDC_Device_t VirtualSerial2_CDC_Interface =
 	{
 		.Config =
 			{
-				.ControlInterfaceNumber     = 2,
+				.ControlInterfaceNumber           = 2,
 
-				.DataINEndpointNumber       = CDC2_TX_EPNUM,
-				.DataINEndpointSize         = CDC_TXRX_EPSIZE,
+				.DataINEndpointNumber             = CDC2_TX_EPNUM,
+				.DataINEndpointSize               = CDC_TXRX_EPSIZE,
+				.DataINEndpointDoubleBank         = false,
 
-				.DataOUTEndpointNumber      = CDC2_RX_EPNUM,
-				.DataOUTEndpointSize        = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointNumber            = CDC2_RX_EPNUM,
+				.DataOUTEndpointSize              = CDC_TXRX_EPSIZE,
+				.DataOUTEndpointDoubleBank        = false,
 
-				.NotificationEndpointNumber = CDC2_NOTIFICATION_EPNUM,
-				.NotificationEndpointSize   = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointNumber       = CDC2_NOTIFICATION_EPNUM,
+				.NotificationEndpointSize         = CDC_NOTIFICATION_EPSIZE,
+				.NotificationEndpointDoubleBank   = false,
 			},
 	};
 

@@ -134,7 +134,8 @@ bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfac
 	HIDInterfaceInfo->State.IdleCount = 500;
 
 	if (!(Endpoint_ConfigureEndpoint(HIDInterfaceInfo->Config.ReportINEndpointNumber, EP_TYPE_INTERRUPT,
-									 ENDPOINT_DIR_IN, HIDInterfaceInfo->Config.ReportINEndpointSize, ENDPOINT_BANK_SINGLE)))
+									 ENDPOINT_DIR_IN, HIDInterfaceInfo->Config.ReportINEndpointSize,
+									 HIDInterfaceInfo->Config.ReportINEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
 	{
 		return false;
 	}

@@ -70,12 +70,15 @@
 
 					uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
 					uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
+					bool     DataINEndpointDoubleBank; /** Indicates if the RNDIS interface's IN data endpoint should use double banking */
 
 					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
 					uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
+					bool     DataOUTEndpointDoubleBank; /** Indicates if the RNDIS interface's OUT data endpoint should use double banking */
 
 					uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
 					uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
+					bool     NotificationEndpointDoubleBank; /** Indicates if the RNDIS interface's notification endpoint should use double banking */
 					
 					char*         AdapterVendorDescription; /**< String description of the adapter vendor */
 					MAC_Address_t AdapterMACAddress; /**< MAC address of the adapter */

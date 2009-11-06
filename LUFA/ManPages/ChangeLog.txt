@@ -18,6 +18,7 @@
   *  - Added new Joystick Host ClassDriver and LowLevel demos
   *  - Added new Printer Host mode Class driver
   *  - Added new Printer Host mode ClassDriver demo
+  *  - Added optional support for double banked endpoints in the Device mode Class drivers
   *
   *  <b>Changed:</b>
   *  - Removed mostly useless "TestApp" demo, as it was mainly useful only for checking for sytax errors in the library

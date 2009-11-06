@@ -36,6 +36,28 @@
  */
 
 #include "MassStorageKeyboard.h"
+	
+/** LUFA Mass Storage Class driver interface configuration and state information. This structure is
+ *  passed to all Mass Storage Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
+USB_ClassInfo_MS_Device_t Disk_MS_Interface =
+	{
+		.Config =
+			{
+				.InterfaceNumber           = 0,
+
+				.DataINEndpointNumber      = MASS_STORAGE_IN_EPNUM,
+				.DataINEndpointSize        = MASS_STORAGE_IO_EPSIZE,
+				.DataINEndpointDoubleBank  = false,
+
+				.DataOUTEndpointNumber     = MASS_STORAGE_OUT_EPNUM,
+				.DataOUTEndpointSize       = MASS_STORAGE_IO_EPSIZE,
+				.DataOUTEndpointDoubleBank = false,
+
+				.TotalLUNs                 = TOTAL_LUNS,
+			},
+	};
 
 /** Buffer to hold the previously generated Keyboard HID report, for comparison purposes inside the HID class driver. */
 uint8_t PrevKeyboardHIDReportBuffer[sizeof(USB_KeyboardReport_Data_t)];
@@ -48,35 +70,16 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
  	{
 		.Config =
 			{
-				.InterfaceNumber         = 1,
+				.InterfaceNumber              = 1,
 
-				.ReportINEndpointNumber  = KEYBOARD_EPNUM,
-				.ReportINEndpointSize    = KEYBOARD_EPSIZE,
+				.ReportINEndpointNumber       = KEYBOARD_EPNUM,
+				.ReportINEndpointSize         = KEYBOARD_EPSIZE,
+				.ReportINEndpointDoubleBank   = false,
 
-				.PrevReportINBuffer      = PrevKeyboardHIDReportBuffer,
-				.PrevReportINBufferSize  = sizeof(PrevKeyboardHIDReportBuffer),
+				.PrevReportINBuffer           = PrevKeyboardHIDReportBuffer,
+				.PrevReportINBufferSize       = sizeof(PrevKeyboardHIDReportBuffer),
 			},
     };
-	
-/** LUFA Mass Storage Class driver interface configuration and state information. This structure is
- *  passed to all Mass Storage Class driver functions, so that multiple instances of the same class
- *  within a device can be differentiated from one another.
- */
-USB_ClassInfo_MS_Device_t Disk_MS_Interface =
-	{
-		.Config =
-			{
-				.InterfaceNumber        = 0,
-
-				.DataINEndpointNumber   = MASS_STORAGE_IN_EPNUM,
-				.DataINEndpointSize     = MASS_STORAGE_IO_EPSIZE,
-
-				.DataOUTEndpointNumber  = MASS_STORAGE_OUT_EPNUM,
-				.DataOUTEndpointSize    = MASS_STORAGE_IO_EPSIZE,
-
-				.TotalLUNs              = TOTAL_LUNS,
-			},
-	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
