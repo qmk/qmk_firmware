@@ -64,8 +64,13 @@
 				const struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the CDC interface's IN data pipe */
+					bool     DataINPipeDoubleBank; /** Indicates if the CDC interface's IN data pipe should use double banking */
+
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the CDC interface's OUT data pipe */
+					bool     DataOUTPipeDoubleBank; /** Indicates if the CDC interface's OUT data pipe should use double banking */
+
 					uint8_t  NotificationPipeNumber; /**< Pipe number of the CDC interface's IN notification endpoint, if used */			
+					bool     NotificationPipeDoubleBank; /** Indicates if the CDC interface's notification pipe should use double banking */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -139,7 +144,7 @@
 			 *  \return A value from the \ref CDCHost_EnumerationFailure_ErrorCodes_t enum
 			 */
 			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, uint16_t ConfigDescriptorSize,
-			                                uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
+			                                void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 			
 			/** Sets the line encoding for the attached device's virtual serial port. This should be called when the LineEncoding
 			 *  values of the interface have been changed to push the new settings to the USB device.

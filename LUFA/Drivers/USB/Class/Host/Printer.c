@@ -35,7 +35,7 @@
 #include "Printer.h"
 
 uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, uint16_t ConfigDescriptorSize,
-							     uint8_t* DeviceConfigDescriptor)
+							     void* DeviceConfigDescriptor)
 {
 	uint8_t FoundEndpoints = 0;
 	
@@ -69,7 +69,7 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 		{
 			Pipe_ConfigurePipe(PRNTInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
 			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PIPE_BANK_DOUBLE);
+			                   PRNTInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			PRNTInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
 
 			FoundEndpoints |= PRNT_FOUND_DATAPIPE_IN;
@@ -78,7 +78,7 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 		{
 			Pipe_ConfigurePipe(PRNTInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
 			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PIPE_BANK_DOUBLE);
+			                   PRNTInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			PRNTInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
 
 			FoundEndpoints |= PRNT_FOUND_DATAPIPE_OUT;

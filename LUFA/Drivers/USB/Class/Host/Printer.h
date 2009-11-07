@@ -66,7 +66,10 @@
 				const struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the Printer interface's IN data pipe */
+					bool     DataINPipeDoubleBank; /** Indicates if the Printer interface's IN data pipe should use double banking */
+
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Printer interface's OUT data pipe */
+					bool     DataOUTPipeDoubleBank; /** Indicates if the Printer interface's OUT data pipe should use double banking */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -119,7 +122,7 @@
 			 *  \return A value from the \ref PRNTHost_EnumerationFailure_ErrorCodes_t enum
 			 */
 			uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, uint16_t ConfigDescriptorSize,
-			                                 uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
+			                                 void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 			
 			/** Configures the printer to enable Bidirectional mode, if it is not already in this mode. This should be called
 			 *  once the connected device's configuration has been set, to ensure the printer is ready to accept commands.

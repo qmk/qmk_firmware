@@ -45,7 +45,10 @@ USB_ClassInfo_MS_Host_t FlashDisk_MS_Interface =
 		.Config =
 			{
 				.DataINPipeNumber       = 1,
+				.DataINPipeDoubleBank   = false,
+				
 				.DataOUTPipeNumber      = 2,
+				.DataOUTPipeDoubleBank  = false,
 			},
 	};
 

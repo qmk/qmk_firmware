@@ -35,7 +35,7 @@
 #include "HID.h"
 
 uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint16_t ConfigDescriptorSize,
-                                uint8_t* ConfigDescriptorData)
+                                void* ConfigDescriptorData)
 {
 	uint8_t FoundEndpoints = 0;
 
@@ -84,7 +84,8 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 		{
 			Pipe_ConfigurePipe(HIDInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+							   EndpointData->EndpointAddress, EndpointData->EndpointSize,
+							   HIDInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			HIDInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
 			
 			FoundEndpoints |= HID_FOUND_DATAPIPE_IN;
@@ -92,7 +93,8 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		else
 		{
 			Pipe_ConfigurePipe(HIDInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_INTERRUPT, PIPE_TOKEN_OUT,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+							   EndpointData->EndpointAddress, EndpointData->EndpointSize,
+							   HIDInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			HIDInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
 			
 			HIDInterfaceInfo->State.DeviceUsesOUTPipe = true;

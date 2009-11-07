@@ -67,8 +67,11 @@
 			{
 				const struct
 				{
-					uint8_t  DataINPipeNumber; /**< Pipe number of the MS interface's IN data pipe */
-					uint8_t  DataOUTPipeNumber; /**< Pipe number of the MS interface's OUT data pipe */
+					uint8_t  DataINPipeNumber; /**< Pipe number of the Mass Storage interface's IN data pipe */
+					bool     DataINPipeDoubleBank; /** Indicates if the Mass Storage interface's IN data pipe should use double banking */
+
+					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Mass Storage interface's OUT data pipe */
+					bool     DataOUTPipeDoubleBank; /** Indicates if the Mass Storage interface's OUT data pipe should use double banking */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -80,8 +83,8 @@
 					                */
 					uint8_t InterfaceNumber; /**< Interface index of the Mass Storage interface within the attached device */
 
-					uint16_t DataINPipeSize; /**< Size in bytes of the MS interface's IN data pipe */
-					uint16_t DataOUTPipeSize;  /**< Size in bytes of the MS interface's OUT data pipe */
+					uint16_t DataINPipeSize; /**< Size in bytes of the Mass Storage interface's IN data pipe */
+					uint16_t DataOUTPipeSize;  /**< Size in bytes of the Mass Storage interface's OUT data pipe */
 					
 					uint32_t TransactionTag; /**< Current transaction tag for data synchronising of packets */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
@@ -194,7 +197,7 @@
 			 *  \return A value from the \ref MSHost_EnumerationFailure_ErrorCodes_t enum
 			 */
 			uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, uint16_t ConfigDescriptorSize,
-			                               uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
+			                               void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 			/** Sends a MASS STORAGE RESET control request to the attached device, resetting the Mass Storage Interface
 			 *  and readying it for the next Mass Storage command.

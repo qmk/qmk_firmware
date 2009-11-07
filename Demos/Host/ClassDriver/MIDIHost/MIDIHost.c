@@ -45,7 +45,10 @@ USB_ClassInfo_MIDI_Host_t Keyboard_MIDI_Interface =
 		.Config =
 			{
 				.DataINPipeNumber       = 1,
+				.DataINPipeDoubleBank   = false,
+				
 				.DataOUTPipeNumber      = 2,
+				.DataOUTPipeDoubleBank  = false,
 			},
 	};
 

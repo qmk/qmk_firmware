@@ -48,7 +48,7 @@ void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const Audi
 			{
 				Endpoint_ClearSETUP();
 				
-				AudioInterfaceInfo->State.InterfaceEnabled = (USB_ControlRequest.wValue != 0);
+				AudioInterfaceInfo->State.InterfaceEnabled = ((USB_ControlRequest.wValue & 0xFF) != 0);
 				  
 				Endpoint_ClearStatusStage();
 			}

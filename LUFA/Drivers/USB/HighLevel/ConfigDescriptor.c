@@ -69,7 +69,7 @@ uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const Conf
 #endif
 
 void USB_GetNextDescriptorOfType(uint16_t* const BytesRem,
-                                 uint8_t** const CurrConfigLoc,
+                                 void** const CurrConfigLoc,
                                  const uint8_t Type)
 {
 	while (*BytesRem)
@@ -82,7 +82,7 @@ void USB_GetNextDescriptorOfType(uint16_t* const BytesRem,
 }
 
 void USB_GetNextDescriptorOfTypeBefore(uint16_t* const BytesRem,
-                                       uint8_t** const CurrConfigLoc,
+                                       void** const CurrConfigLoc,
                                        const uint8_t Type,
                                        const uint8_t BeforeType)
 {
@@ -103,7 +103,7 @@ void USB_GetNextDescriptorOfTypeBefore(uint16_t* const BytesRem,
 }
 
 void USB_GetNextDescriptorOfTypeAfter(uint16_t* const BytesRem,
-                                      uint8_t** const CurrConfigLoc,
+                                      void** const CurrConfigLoc,
                                       const uint8_t Type,
                                       const uint8_t AfterType)
 {
@@ -113,7 +113,7 @@ void USB_GetNextDescriptorOfTypeAfter(uint16_t* const BytesRem,
 	  USB_GetNextDescriptorOfType(BytesRem, CurrConfigLoc, Type);
 }
 			
-uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine)
+uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, void** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine)
 {
 	uint8_t ErrorCode;
 		

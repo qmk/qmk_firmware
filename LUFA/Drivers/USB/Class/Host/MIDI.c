@@ -35,7 +35,7 @@
 #include "MIDI.h"
 
 uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo, uint16_t ConfigDescriptorSize,
-                                 uint8_t* ConfigDescriptorData)
+                                 void* ConfigDescriptorData)
 {
 	uint8_t FoundEndpoints = 0;
 
@@ -63,7 +63,8 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 		{
 			Pipe_ConfigurePipe(MIDIInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+							   EndpointData->EndpointAddress, EndpointData->EndpointSize,
+							   MIDIInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			MIDIInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
 			
 			FoundEndpoints |= MIDI_FOUND_DATAPIPE_IN;
@@ -71,7 +72,8 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 		else
 		{
 			Pipe_ConfigurePipe(MIDIInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+							   EndpointData->EndpointAddress, EndpointData->EndpointSize,
+							   MIDIInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			MIDIInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
 
 			FoundEndpoints |= MIDI_FOUND_DATAPIPE_OUT;

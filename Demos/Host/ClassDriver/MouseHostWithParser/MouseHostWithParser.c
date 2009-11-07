@@ -48,7 +48,10 @@ USB_ClassInfo_HID_Host_t Mouse_HID_Interface =
 		.Config =
 			{
 				.DataINPipeNumber       = 1,
+				.DataINPipeDoubleBank   = false,
+
 				.DataOUTPipeNumber      = 2,
+				.DataOUTPipeDoubleBank  = false,
 				
 				.HIDInterfaceProtocol   = HID_NON_BOOT_PROTOCOL,
 				

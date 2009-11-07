@@ -152,7 +152,7 @@
 			 *  }
 			 *  \endcode
 			 */
-			uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, uint8_t** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine);
+			uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, void** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine);
 			
 		/* Enums: */
 			/** Enum for the possible return codes of the \ref USB_GetDeviceConfigDescriptor() function. */
@@ -213,7 +213,7 @@
 			 * \param[in] Type  Descriptor type value to search for
 			 */
 			void USB_GetNextDescriptorOfType(uint16_t* const BytesRem,
-			                                 uint8_t** const CurrConfigLoc,
+			                                 void** const CurrConfigLoc,
 			                                 const uint8_t Type)
 			                                 ATTR_NON_NULL_PTR_ARG(1, 2);
 
@@ -228,7 +228,7 @@
 			 * \param[in] BeforeType  Descriptor type value which must not be reached before the given Type descriptor
 			 */
 			void USB_GetNextDescriptorOfTypeBefore(uint16_t* const BytesRem,
-			                                       uint8_t** const CurrConfigLoc,
+			                                       void** const CurrConfigLoc,
 			                                       const uint8_t Type,
 			                                       const uint8_t BeforeType)
 			                                       ATTR_NON_NULL_PTR_ARG(1, 2);
@@ -243,7 +243,7 @@
 			 * \param[in] AfterType  Descriptor type value which must be reached before the given Type descriptor
 			 */
 			void USB_GetNextDescriptorOfTypeAfter(uint16_t* const BytesRem,
-			                                      uint8_t** const CurrConfigLoc,
+			                                      void** const CurrConfigLoc,
 			                                      const uint8_t Type,
 			                                      const uint8_t AfterType)
 			                                      ATTR_NON_NULL_PTR_ARG(1, 2);
@@ -256,10 +256,10 @@
 			 * \param[in,out] CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
 			 */
 			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem,
-			                                         uint8_t** const CurrConfigLoc) 
+			                                         void** const CurrConfigLoc) 
 			                                         ATTR_NON_NULL_PTR_ARG(1, 2);									  
 			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem,
-			                                         uint8_t** const CurrConfigLoc)
+			                                         void** const CurrConfigLoc)
 			{
 				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
 

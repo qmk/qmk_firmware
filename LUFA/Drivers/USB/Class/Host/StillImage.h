@@ -64,8 +64,13 @@
 				const struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the Still Image interface's IN data pipe */
+					bool     DataINPipeDoubleBank; /** Indicates if the Still Image interface's IN data pipe should use double banking */
+
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Still Image interface's OUT data pipe */
+					bool     DataOUTPipeDoubleBank; /** Indicates if the Still Image interface's OUT data pipe should use double banking */
+
 					uint8_t  EventsPipeNumber; /**< Pipe number of the Still Image interface's IN events endpoint, if used */			
+					bool     EventsPipeDoubleBank; /** Indicates if the Still Image interface's events data pipe should use double banking */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -125,7 +130,7 @@
 			 *  \return A value from the \ref SIHost_EnumerationFailure_ErrorCodes_t enum
 			 */
 			uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, uint16_t ConfigDescriptorSize,
-                                           uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
+                                           void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 			/** Opens a new PIMA session with the attached device. This should be used before any session-orientated PIMA commands
 			 *  are issued to the device. Only one session can be open at the one time.

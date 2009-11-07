@@ -64,7 +64,10 @@
 				const struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the MIDI interface's streaming IN data pipe */
+					bool     DataINPipeDoubleBank; /** Indicates if the MIDI interface's IN data pipe should use double banking */
+					
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the MIDI interface's streaming OUT data pipe */
+					bool     DataOUTPipeDoubleBank; /** Indicates if the MIDI interface's OUT data pipe should use double banking */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -114,7 +117,7 @@
 			 *  \return A value from the \ref MIDIHost_EnumerationFailure_ErrorCodes_t enum
 			 */
 			uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo, uint16_t ConfigDescriptorSize,
-			                                 uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
+			                                 void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 			/** Sends a MIDI event packet to the device. If no device is connected, the event packet is discarded.
 			 *

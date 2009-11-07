@@ -228,7 +228,7 @@ static void USB_Device_GetInternalSerialDescriptor(void)
 	SignatureDescriptor.Header.Size  = sizeof(SignatureDescriptor);
 	SignatureDescriptor.Header.Type  = DTYPE_String;
 	
-	uint8_t  SigReadAddress     = 0x0E;
+	uint8_t  SigReadAddress = 0x0E;
 
 	for (uint8_t SerialCharNum = 0; SerialCharNum < 20; SerialCharNum++)
 	{
@@ -314,7 +314,7 @@ static void USB_Device_GetStatus(void)
 			break;
 #if !defined(CONTROL_ONLY_DEVICE)
 		case (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_ENDPOINT):
-			Endpoint_SelectEndpoint((uint8_t)USB_ControlRequest.wIndex);
+			Endpoint_SelectEndpoint(USB_ControlRequest.wIndex & 0xFF);
 
 			CurrentStatus = Endpoint_IsStalled();
 

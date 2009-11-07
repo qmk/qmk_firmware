@@ -45,8 +45,13 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 		.Config =
 			{
 				.DataINPipeNumber       = 1,
+				.DataINPipeDoubleBank   = false,
+				
 				.DataOUTPipeNumber      = 2,
+				.DataOUTPipeDoubleBank  = false,
+				
 				.EventsPipeNumber       = 3,
+				.EventsPipeDoubleBank   = false,
 			},
 	};
 

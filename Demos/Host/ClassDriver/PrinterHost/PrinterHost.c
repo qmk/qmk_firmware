@@ -45,7 +45,10 @@ USB_ClassInfo_PRNT_Host_t Printer_PRNT_Interface =
 		.Config =
 			{
 				.DataINPipeNumber       = 1,
+				.DataINPipeDoubleBank   = false,
+				
 				.DataOUTPipeNumber      = 2,
+				.DataOUTPipeDoubleBank  = false,
 			},
 	};
 

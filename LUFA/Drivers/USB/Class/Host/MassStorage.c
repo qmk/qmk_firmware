@@ -35,7 +35,7 @@
 #include "MassStorage.h"
 
 uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, uint16_t ConfigDescriptorSize,
-							   uint8_t* DeviceConfigDescriptor)
+							   void* DeviceConfigDescriptor)
 {
 	uint8_t FoundEndpoints = 0;
 	
@@ -66,7 +66,7 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, u
 		{
 			Pipe_ConfigurePipe(MSInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
 			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PIPE_BANK_DOUBLE);
+			                   MSInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			MSInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
 
 			FoundEndpoints |= MS_FOUND_DATAPIPE_IN;
@@ -75,7 +75,7 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, u
 		{
 			Pipe_ConfigurePipe(MSInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
 			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PIPE_BANK_DOUBLE);
+			                   MSInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			MSInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
 
 			FoundEndpoints |= MS_FOUND_DATAPIPE_OUT;

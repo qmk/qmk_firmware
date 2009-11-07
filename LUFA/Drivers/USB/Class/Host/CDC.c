@@ -35,7 +35,7 @@
 #include "CDC.h"
 
 uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, uint16_t ConfigDescriptorSize,
-                                uint8_t* ConfigDescriptorData)
+                                void* ConfigDescriptorData)
 {
 	uint8_t FoundEndpoints = 0;
 

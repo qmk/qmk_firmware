@@ -70,7 +70,10 @@
 				const struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the HID interface's IN data pipe */
+					bool     DataINPipeDoubleBank; /** Indicates if the HID interface's IN data pipe should use double banking */
+
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the HID interface's OUT data pipe */
+					bool     DataOUTPipeDoubleBank; /** Indicates if the HID interface's OUT data pipe should use double banking */
 
 					uint8_t  HIDInterfaceProtocol; /**< HID interface protocol value to match against if a specific
 					                                *   boot subclass protocol is required, either \ref HID_BOOT_MOUSE_PROTOCOL,
@@ -151,7 +154,7 @@
 			 *  \return A value from the \ref HIDHost_EnumerationFailure_ErrorCodes_t enum
 			 */
 			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint16_t ConfigDescriptorSize,
-			                                uint8_t* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
+			                                void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
 
 
 			/** Receives a HID IN report from the attached HID device, when a report has been received on the HID IN Data pipe.

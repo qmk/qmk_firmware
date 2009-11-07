@@ -35,7 +35,7 @@
 #include "StillImage.h"
 
 uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, uint16_t ConfigDescriptorSize,
-                              uint8_t* DeviceConfigDescriptor)
+                               void* DeviceConfigDescriptor)
 {
 	uint8_t  FoundEndpoints = 0;
 	
@@ -66,7 +66,7 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, u
 			{
 				Pipe_ConfigurePipe(SIInterfaceInfo->Config.EventsPipeNumber, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-								   PIPE_BANK_DOUBLE);			
+								   SIInterfaceInfo->Config.EventsPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);			
 				SIInterfaceInfo->State.EventsPipeSize = EndpointData->EndpointSize;
 
 				Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
@@ -80,7 +80,7 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, u
 			{
 				Pipe_ConfigurePipe(SIInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-								   PIPE_BANK_DOUBLE);
+								   SIInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 				SIInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
 
 				FoundEndpoints |= SI_FOUND_DATAPIPE_IN;
@@ -89,7 +89,7 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, u
 			{
 				Pipe_ConfigurePipe(SIInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-								   PIPE_BANK_DOUBLE);
+								   SIInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 				SIInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
 
 				FoundEndpoints |= SI_FOUND_DATAPIPE_OUT;
