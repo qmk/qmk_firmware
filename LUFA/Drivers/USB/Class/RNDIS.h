@@ -52,6 +52,10 @@
 	/* Includes: */
 		#include "../HighLevel/USBMode.h"
 
+		#if defined(NO_STREAM_CALLBACKS)
+			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
+		#endif
+
 		#if defined(USB_CAN_BE_DEVICE)
 			#include "Device/RNDIS.h"
 		#endif
