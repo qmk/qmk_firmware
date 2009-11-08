@@ -21,14 +21,19 @@
   *  - Add detailed overviews of how each demo works
   *  - Master LUFA include file rather than per-module includes
   *  - Change makefiles to allow for absolute LUFA location to be used
-  *  - Add RNDIS Host Class driver
   *  - Add unit testing to APIs
   *  - Add board overviews
   *  - Add resume interrupt support
+  *  - Specification compliance testing for all device demos
+  *  - Add RNDIS Host Class driver
   *  - Make new demos
   *      -# Keyboard/Mouse Dual Class Host
   *      -# Multiple-Report HID device
-  *  - Port LUFA to other architectures
+  *  - Port LUFA codebase
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers
+  *      -# Other (commercial) C compilers
+  *  - Extend AVRISP project
+  *      -# Add alternate USB-to-Serial mode
+  *      -# Add alternate USB-to-TWI mode
   */

@@ -47,7 +47,6 @@
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/HID.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		
@@ -72,6 +71,15 @@
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
+	/* Type Defines: */
+		/** Type define for a standard Boot Protocol Mouse report */
+		typedef struct
+		{
+			uint8_t Button; /**< Button mask for currently pressed buttons in the mouse */
+			int8_t  X; /**< Current delta X movement of the mouse */
+			int8_t  Y; /**< Current delta Y movement on the mouse */
+		} USB_MouseReport_Data_t;
+		
 	/* Function Prototypes: */
 		void Mouse_HID_Task(void);
 		void SetupHardware(void);

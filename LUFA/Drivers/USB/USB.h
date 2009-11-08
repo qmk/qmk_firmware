@@ -104,13 +104,13 @@
  *  </tr>
  *  <tr>
  *   <td>Printer</td>
- *   <td bgcolor="#EE0000">No</td>
+ *   <td bgcolor="#00EE00">Yes</td>
 *    <td bgcolor="#00EE00">Yes</td>
  *  </tr>
  *  <tr>
  *   <td>RNDIS</td>
- *   <td bgcolor="#EE0000">No</td>
  *   <td bgcolor="#00EE00">Yes</td>
+ *   <td bgcolor="#EE0000">No</td>
  *  </tr>
  *  <tr>
  *   <td>Still Image</td>

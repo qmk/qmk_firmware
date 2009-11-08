@@ -47,7 +47,6 @@
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/HID.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		
@@ -72,6 +71,15 @@
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
+	/* Type Defines: */
+		/** Type define for a standard Boot Protocol Keyboard report */
+		typedef struct
+		{
+			uint8_t Modifier; /**< Keyboard modifier byte, indicating pressed modifier keys (such as Shift, Control, etc.) */
+			uint8_t Reserved; /**< Reserved for OEM use, always set to 0 */
+			uint8_t KeyCode[6]; /**< Key codes of the currently pressed keys */
+		} USB_KeyboardReport_Data_t;
+		
 	/* Function Prototypes: */
 		void Keyboard_HID_Task(void);
 		void SetupHardware(void);
