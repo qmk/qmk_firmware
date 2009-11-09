@@ -41,7 +41,7 @@
  *  Device and Host USB modes. User applications can use this class driver instead of implementing the Mass Storage class
  *  manually via the low-level LUFA APIs.
  *
- *  This module is designed to simplify the user code by exposing only the required interface needed to interace with
+ *  This module is designed to simplify the user code by exposing only the required interface needed to interface with
  *  Hosts or Devices using the USB Mass Storage Class.
  *
  *  @{

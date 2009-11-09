@@ -25,30 +25,30 @@
 	NOTE: The user of this include file MUST define the following macros
 	prior to including the file:
 
-	MAG_T1_CLOCK_PIN   Pin connected to Track 1 clock wire (ie. PORTC1)
-	MAG_T1_DATA_PIN    Pin connected to Track 1 data wire (ie. PORTC2)
-	MAG_T2_CLOCK_PIN   Pin connected to Track 2 clock wire (ie. PORTC3)
-	MAG_T2_DATA_PIN    Pin connected to Track 2 data wire (ie. PORTC0)
-	MAG_T3_CLOCK_PIN   Pin connected to Track 3 clock wire (ie. PORTC5)
-	MAG_T3_DATA_PIN    Pin connected to Track 3 data wire (ie. PORTC6)
-	MAG_CLS_PIN        Pin connected to card loaded wire (ie. PORTC4)
-	MAG_PIN            PIN macro for the reader's port (ie. PINC)
-	MAG_DDR            DDR macro for the reader's port (ie. DDRC)
-	MAG_PORT           PORT macro for the reader's port (ie. PORTC)
+	MAG_T1_CLOCK_PIN   Pin connected to Track 1 clock wire (i.e.. PORTC1)
+	MAG_T1_DATA_PIN    Pin connected to Track 1 data wire (i.e.. PORTC2)
+	MAG_T2_CLOCK_PIN   Pin connected to Track 2 clock wire (i.e.. PORTC3)
+	MAG_T2_DATA_PIN    Pin connected to Track 2 data wire (i.e.. PORTC0)
+	MAG_T3_CLOCK_PIN   Pin connected to Track 3 clock wire (i.e.. PORTC5)
+	MAG_T3_DATA_PIN    Pin connected to Track 3 data wire (i.e.. PORTC6)
+	MAG_CLS_PIN        Pin connected to card loaded wire (i.e.. PORTC4)
+	MAG_PIN            PIN macro for the reader's port (i.e.. PINC)
+	MAG_DDR            DDR macro for the reader's port (i.e.. DDRC)
+	MAG_PORT           PORT macro for the reader's port (i.e.. PORTC)
 
 	The example macros listed above assume that the Track 2 data wire is
 	connected to pin 0 on port C, the Track 2 clock wire is connected to
 	pin 3 on port C (similarly for Tracks 1 and 3), and the card loaded
 	wire is connected to pin 4 on port C.
 
-	If the magstripe reader you are using only reads one or two tracks,
+	If the mag-stripe reader you are using only reads one or two tracks,
 	then set the clock and data pins for the tracks it doesn't read to a
 	pin that is unused.  For example, on the AT90USBKey, any of the pins on
 	port C that do not have wires attached will be unused since they are
 	not connected to any onboard devices (such as the joystick or
 	temperature sensor).
 
-	Connecting wires to pins on different ports (ie. a data wire to pin 0
+	Connecting wires to pins on different ports (i.e.. a data wire to pin 0
 	on port C and a clock wire to pin 0 on port D) is currently
 	unsupported.  All pins specified above must be on the same port.
 */
@@ -93,7 +93,7 @@
 			static inline uint8_t Magstripe_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Magstripe_GetStatus(void)
 			{
-				/* Magstripe IOs are active low and must be inverted when read */
+				/* Mag-stripe IOs are active low and must be inverted when read */
 				return ((uint8_t)~MAG_PIN & MAG_MASK);
 			}
 

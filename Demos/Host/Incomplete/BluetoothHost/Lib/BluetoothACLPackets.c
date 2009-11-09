@@ -76,7 +76,7 @@ void Bluetooth_ProcessACLPackets(void)
 				Pipe_Freeze();
 				break;
 			default:
-				BT_DEBUG("(ACL) >> Unknown Signalling Command 0x%02X", SignalCommandHeader.Code);
+				BT_DEBUG("(ACL) >> Unknown Signaling Command 0x%02X", SignalCommandHeader.Code);
 					
 				Pipe_Discard_Stream(ACLPacketHeader.DataLength);
 				Pipe_ClearIN();		

@@ -104,7 +104,7 @@
 		};
 		
 		/** Enum for the possible parity modes on a CDC-ACM virtual serial port */
-		enum BootloaderCDC_CDC_LineCodeingParity_t
+		enum BootloaderCDC_CDC_LineCodingParity_t
 		{
 			Parity_None         = 0, /**< No data parity checking */
 			Parity_Odd          = 1, /**< Odd data parity checking */

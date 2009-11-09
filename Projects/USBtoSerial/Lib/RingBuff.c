@@ -83,7 +83,7 @@ RingBuff_Data_t Buffer_GetElement(RingBuff_t* Buffer)
 		if (!(Buffer->Elements))
 		  return 0;
 #elif !defined(BUFF_NOEMPTYCHECK)
-	#error No empty buffer check behaviour specified.
+	#error No empty buffer check behavior specified.
 #endif
 
 		BuffData = *(Buffer->OutPtr);
@@ -109,7 +109,7 @@ RingBuff_Data_t Buffer_PeekElement(const RingBuff_t* Buffer)
 		if (!(Buffer->Elements))
 		  return 0;
 #elif !defined(BUFF_NOEMPTYCHECK)
-	#error No empty buffer check behaviour specified.
+	#error No empty buffer check behavior specified.
 #endif
 
 		BuffData = *(Buffer->OutPtr);

@@ -185,7 +185,7 @@
 				Dataflash_SelectChip(SelectedChipMask);
 			}
 
-			/** Spinloops while the currently selected dataflash is busy executing a command, such as a main
+			/** Spin-loops while the currently selected dataflash is busy executing a command, such as a main
 			 *  memory page program or main memory to buffer transfer.
 			 */
 			static inline void Dataflash_WaitWhileBusy(void)

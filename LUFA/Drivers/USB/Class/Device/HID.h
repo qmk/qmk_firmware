@@ -61,7 +61,7 @@
 			 *  within the user application, and passed to each of the HID class driver functions as the
 			 *  HIDInterfaceInfo parameter. This stores each HID interface's configuration and state information.
 			 *
-			 *  \note Due to technical limitations, the HID device class driver does not utilize a seperate OUT
+			 *  \note Due to technical limitations, the HID device class driver does not utilize a separate OUT
 			 *        endpoint for host->device communications. Instead, the host->device data (if any) is sent to
 			 *        the device via the control endpoint.
 			 */
@@ -112,11 +112,11 @@
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state
 			 *
-			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
+			 *  \return Boolean true if the endpoints were successfully configured, false otherwise
 			 */
 			bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
-			/** Processes incomming control requests from the host, that are directed to the given HID class interface. This should be
+			/** Processes incoming control requests from the host, that are directed to the given HID class interface. This should be
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state

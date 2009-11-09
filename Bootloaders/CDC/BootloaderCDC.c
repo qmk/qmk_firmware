@@ -343,7 +343,7 @@ static void WriteNextResponseByte(const uint8_t Response)
 	/* Select the IN endpoint so that the next data byte can be written */
 	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 	
-	/* If IN endpoint full, clear it and wait util ready for the next packet to the host */
+	/* If IN endpoint full, clear it and wait until ready for the next packet to the host */
 	if (!(Endpoint_IsReadWriteAllowed()))
 	{
 		Endpoint_ClearIN();

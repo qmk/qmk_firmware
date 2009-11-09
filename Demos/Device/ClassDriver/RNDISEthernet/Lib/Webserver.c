@@ -31,7 +31,7 @@
 /** \file
  *
  *  Simple webserver application for demonstrating the RNDIS demo and TCP/IP stack. This
- *  application will serve up a static HTTP webpage when requested by the host.
+ *  application will serve up a static HTTP web page when requested by the host.
  */
 
 #include "Webserver.h"

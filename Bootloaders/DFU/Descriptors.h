@@ -137,7 +137,7 @@
 			uint8_t                               Attributes; /**< DFU device attributes, a mask comprising of the
 			                                                    *  ATTR_* macros listed in this source file
 			                                                    */
-			uint16_t                              DetatchTimeout; /**< Timeout in milliseconds between a USB_DETACH
+			uint16_t                              DetachTimeout; /**< Timeout in milliseconds between a USB_DETACH
 			                                                        *  command being issued and the device detaching
 			                                                        *  from the USB bus
 			                                                        */																	

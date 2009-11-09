@@ -40,7 +40,7 @@
 /** Processes an ICMP packet inside an Ethernet frame, and writes the appropriate response
  *  to the output Ethernet frame if the host is issuing a ICMP ECHO request.
  *
- *  \param[in] FrameIN        Pointer to the incomming Ethernet frame information structure
+ *  \param[in] FrameIN        Pointer to the incoming Ethernet frame information structure
  *  \param[in] InDataStart    Pointer to the start of the incoming packet's ICMP header
  *  \param[out] OutDataStart  Pointer to the start of the outgoing packet's ICMP header
  *

@@ -113,7 +113,7 @@
 				static inline bool USB_Device_IsUSBSuspended(void);
 				
 				/** Enables the device mode Start Of Frame events. When enabled, this causes the
-				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronised to the USB bus,
+				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
 				 *  at the start of each USB frame when enumerated in device mode.
 				 */
 				static inline bool USB_Device_EnableSOFEvents(void);

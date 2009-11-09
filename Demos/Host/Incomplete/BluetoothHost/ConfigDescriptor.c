@@ -50,7 +50,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlErrorDuringConfigRead;
 	}
 	
-	/* The bluetooth USB transport addendium mandates that the data (not streaming voice) endpoints
+	/* The bluetooth USB transport addendum mandates that the data (not streaming voice) endpoints
 	   be in the first interface descriptor (interface 0) */
 	USB_GetNextDescriptorOfType(&CurrConfigBytesRem, &CurrConfigLocation, DTYPE_Interface);
 	

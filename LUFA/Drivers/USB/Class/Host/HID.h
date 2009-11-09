@@ -105,10 +105,10 @@
 					bool SupportsBootProtocol; /**< Indicates if the current interface instance supports the HID Boot
 					                            *   Protocol when enabled via \ref HID_Host_SetBootProtocol()
 					                            */
-					bool DeviceUsesOUTPipe; /**< Indicates if the current interface instance uses a seperate OUT data pipe for
+					bool DeviceUsesOUTPipe; /**< Indicates if the current interface instance uses a separate OUT data pipe for
 					                         *   OUT reports, or if OUT reports are sent via the control pipe instead.
 					                         */
-					bool UsingBootProtocol; /**< Indicates that the interface is currently initialised in Boot Protocol mode */
+					bool UsingBootProtocol; /**< Indicates that the interface is currently initialized in Boot Protocol mode */
 					uint16_t HIDReportSize; /**< Size in bytes of the HID report descriptor in the device */
 					
 					uint8_t LargestReportSize; /**< Largest report the device will send, in bytes */
@@ -159,7 +159,7 @@
 
 			/** Receives a HID IN report from the attached HID device, when a report has been received on the HID IN Data pipe.
 			 *  
-			 *  \note The destination buffer should be large enough to accomodate the largest report that the attached device
+			 *  \note The destination buffer should be large enough to accommodate the largest report that the attached device
 			 *        can generate.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state

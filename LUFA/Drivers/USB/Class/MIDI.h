@@ -38,10 +38,10 @@
  *
  *  \section Module Description
  *  MIDI Class Driver module. This module contains an internal implementation of the USB MIDI Class, for both Device
- *  and Host USB modes. User applications can use this class driver instead of implementing the MIDI class manuall
+ *  and Host USB modes. User applications can use this class driver instead of implementing the MIDI class manually
  *  via the low-level LUFA APIs.
  *
- *  This module is designed to simplify the user code by exposing only the required interface needed to interace with
+ *  This module is designed to simplify the user code by exposing only the required interface needed to interface with
  *  Hosts or Devices using the USB MIDI Class.
  *
  *  \note The USB MIDI class is actually a special case of the regular Audio class, thus this module depends on

@@ -108,7 +108,7 @@
 		 */
 		typedef struct
 		{
-			uint8_t       ReponseCode;
+			uint8_t       ResponseCode;
 
 			uint8_t       SegmentNumber;
 			

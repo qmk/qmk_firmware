@@ -44,43 +44,43 @@ static ParameterItem_t ParameterTable[] =
 	{
 		{ .ParamID          = PARAM_BUILD_NUMBER_LOW,
 		  .ParamValue       = (LUFA_VERSION_INTEGER >> 8),
-		  .ParamPrivellages = PARAM_PRIV_READ                    },
+		  .ParamPrivileges = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_BUILD_NUMBER_HIGH,
 		  .ParamValue       = (LUFA_VERSION_INTEGER & 0xFF),
-		  .ParamPrivellages = PARAM_PRIV_READ                    },
+		  .ParamPrivileges = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_HW_VER,
 		  .ParamValue       = 0x00,
-		  .ParamPrivellages = PARAM_PRIV_READ                    },
+		  .ParamPrivileges = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SW_MAJOR,
 		  .ParamValue       = 0x01,
-		  .ParamPrivellages = PARAM_PRIV_READ                    },
+		  .ParamPrivileges = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SW_MINOR,
 		  .ParamValue       = 0x0C,
-		  .ParamPrivellages = PARAM_PRIV_READ                    },
+		  .ParamPrivileges = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_VTARGET,
 		  .ParamValue       = 0x32,
-		  .ParamPrivellages = PARAM_PRIV_READ                    },
+		  .ParamPrivileges = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SCK_DURATION,
 		  .ParamValue       = (TOTAL_PROGRAMMING_SPEEDS - 1),
-		  .ParamPrivellages = PARAM_PRIV_READ | PARAM_PRIV_WRITE },
+		  .ParamPrivileges = PARAM_PRIV_READ | PARAM_PRIV_WRITE },
 
 		{ .ParamID          = PARAM_RESET_POLARITY,
 		  .ParamValue       = 0x00,
-		  .ParamPrivellages = PARAM_PRIV_WRITE                   },
+		  .ParamPrivileges = PARAM_PRIV_WRITE                   },
 
 		{ .ParamID          = PARAM_STATUS_TGT_CONN,
 		  .ParamValue       = 0x00,
-		  .ParamPrivellages = PARAM_PRIV_READ                    },
+		  .ParamPrivileges = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_DISCHARGEDELAY,
 		  .ParamValue       = 0x00,
-		  .ParamPrivellages = PARAM_PRIV_WRITE                   },
+		  .ParamPrivileges = PARAM_PRIV_WRITE                   },
 	};
 
 
@@ -104,22 +104,22 @@ void V2Params_UpdateParamValues(void)
 	#endif
 }
 
-/** Retrieves the host PC read/write privellages for a given parameter in the parameter table. This should
+/** Retrieves the host PC read/write privileges for a given parameter in the parameter table. This should
  *  be called before calls to \ref V2Params_GetParameterValue() or \ref V2Params_SetParameterValue() when
  *  getting or setting parameter values in response to requests from the host.
  *
- *  \param[in] ParamID  Parameter ID whose privellages are to be retrieved from the table
+ *  \param[in] ParamID  Parameter ID whose privileges are to be retrieved from the table
  *
- *  \return Privellages for the requested parameter, as a mask of PARAM_PRIV_* masks
+ *  \return Privileges for the requested parameter, as a mask of PARAM_PRIV_* masks
  */ 
-uint8_t V2Params_GetParameterPrivellages(uint8_t ParamID)
+uint8_t V2Params_GetParameterPrivileges(uint8_t ParamID)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
 	
 	if (ParamInfo == NULL)
 	  return 0;
 
-	return ParamInfo->ParamPrivellages;
+	return ParamInfo->ParamPrivileges;
 }
 
 /** Retrieves the current value for a given parameter in the parameter table.
@@ -132,7 +132,7 @@ uint8_t V2Params_GetParameterValue(uint8_t ParamID)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
 	
-	if ((ParamInfo == NULL) || !(ParamInfo->ParamPrivellages & PARAM_PRIV_READ))
+	if ((ParamInfo == NULL) || !(ParamInfo->ParamPrivileges & PARAM_PRIV_READ))
 	  return 0;
 	
 	return ParamInfo->ParamValue;
@@ -149,7 +149,7 @@ void V2Params_SetParameterValue(uint8_t ParamID, uint8_t Value)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
 
-	if ((ParamInfo == NULL) || !(ParamInfo->ParamPrivellages & PARAM_PRIV_WRITE))
+	if ((ParamInfo == NULL) || !(ParamInfo->ParamPrivileges & PARAM_PRIV_WRITE))
 	  return;
 
 	ParamInfo->ParamValue = Value;
@@ -159,7 +159,7 @@ void V2Params_SetParameterValue(uint8_t ParamID, uint8_t Value)
 	  eeprom_write_byte(&EEPROM_Rest_Polarity, Value);  
 }
 
-/** Retrieves a parameter entry (including ID, value and privellages) from the parameter table that matches the given
+/** Retrieves a parameter entry (including ID, value and privileges) from the parameter table that matches the given
  *  parameter ID.
  *
  *  \param[in] ParamID  Parameter ID to find in the table

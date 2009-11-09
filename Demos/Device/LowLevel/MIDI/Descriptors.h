@@ -113,7 +113,7 @@
 			USB_Descriptor_Endpoint_t Endpoint; /**< Standard endpoint descriptor describing the audio endpoint */
 
 			uint8_t                   Refresh; /**< Always set to zero */
-			uint8_t                   SyncEndpointNumber; /**< Endpoint address to send synchronisation information to, if needed (zero otherwise) */
+			uint8_t                   SyncEndpointNumber; /**< Endpoint address to send synchronization information to, if needed (zero otherwise) */
 		} USB_Audio_StreamEndpoint_Std_t;
 
 		/** Type define for an Audio class specific MIDI IN jack. This gives information to the host on a MIDI input, either

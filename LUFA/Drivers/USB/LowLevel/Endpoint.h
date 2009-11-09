@@ -735,7 +735,7 @@
 			bool Endpoint_ConfigureEndpoint(const uint8_t  Number, const uint8_t Type, const uint8_t Direction,
 			                                const uint16_t Size, const uint8_t Banks);
 
-			/** Spinloops until the currently selected non-control endpoint is ready for the next packet of data
+			/** Spin-loops until the currently selected non-control endpoint is ready for the next packet of data
 			 *  to be read or written to it.
 			 *
 			 *  \note This routine should not be called on CONTROL type endpoints.

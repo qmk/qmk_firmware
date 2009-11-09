@@ -37,9 +37,9 @@
 #include "IP.h"
 
 /** Processes an IP packet inside an Ethernet frame, and writes the appropriate response
- *  to the output Ethernet frame if one is created by a subprotocol handler.
+ *  to the output Ethernet frame if one is created by a sub-protocol handler.
  *
- *  \param[in] FrameIN        Pointer to the incomming Ethernet frame information structure
+ *  \param[in] FrameIN        Pointer to the incoming Ethernet frame information structure
  *  \param[in] InDataStart    Pointer to the start of the incoming packet's IP header
  *  \param[out] OutDataStart  Pointer to the start of the outgoing packet's IP header
  *

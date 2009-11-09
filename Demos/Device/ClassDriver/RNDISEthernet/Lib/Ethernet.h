@@ -88,7 +88,7 @@
 			
 			union
 			{
-				uint16_t  EtherType; /**< Ethernet packet subprotocol type, for Ethernet V2 packets */
+				uint16_t  EtherType; /**< Ethernet packet sub-protocol type, for Ethernet V2 packets */
 				uint16_t  Length; /**< Ethernet frame length, for Ethernet V1 packets */
 			};
 		} Ethernet_Frame_Header_t;

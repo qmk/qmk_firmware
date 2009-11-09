@@ -50,10 +50,10 @@
 		#include "V2ProtocolConstants.h"
 
 	/* Macros: */
-		/** Parameter privellage mask to allow the host PC to read the parameter's value */
+		/** Parameter privilege mask to allow the host PC to read the parameter's value */
 		#define PARAM_PRIV_READ   (1 << 0)
 
-		/** Parameter privellage mask to allow the host PC to change the parameter's value */
+		/** Parameter privilege mask to allow the host PC to change the parameter's value */
 		#define PARAM_PRIV_WRITE  (1 << 1)
 
 	/* Type Defines: */
@@ -62,14 +62,14 @@
 		{
 			const uint8_t ParamID; /**< Parameter ID number to uniquely identify the parameter within the device */
 			uint8_t ParamValue; /**< Current parameter's value within the device */
-			uint8_t ParamPrivellages;  /**< Parameter privellages to allow the host to read or write the parameter's value */
+			uint8_t ParamPrivileges;  /**< Parameter privileges to allow the host to read or write the parameter's value */
 		} ParameterItem_t;
 
 	/* Function Prototypes: */
 		void    V2Params_LoadNonVolatileParamValues(void);
 		void    V2Params_UpdateParamValues(void);
 	
-		uint8_t V2Params_GetParameterPrivellages(uint8_t ParamID);
+		uint8_t V2Params_GetParameterPrivileges(uint8_t ParamID);
 		uint8_t V2Params_GetParameterValue(uint8_t ParamID);
 		void    V2Params_SetParameterValue(uint8_t ParamID, uint8_t Value);
 		

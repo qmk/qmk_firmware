@@ -38,7 +38,7 @@
 #include "UDP.h"
 
 /** Processes a UDP packet inside an Ethernet frame, and writes the appropriate response
- *  to the output Ethernet frame if a subprotocol handler has created a response packet.
+ *  to the output Ethernet frame if a sub-protocol handler has created a response packet.
  *
  *  \param[in] IPHeaderInStart     Pointer to the start of the incoming packet's IP header
  *  \param[in] UDPHeaderInStart    Pointer to the start of the incoming packet's UDP header

@@ -40,7 +40,7 @@
  *  Class, for Device USB mode only. User applications can use this class driver instead of implementing the RNDIS
  *  class manually via the low-level LUFA APIs.
  *
- *  This module is designed to simplify the user code by exposing only the required interface needed to interace with
+ *  This module is designed to simplify the user code by exposing only the required interface needed to interface with
  *  Hosts using the USB RNDIS Class.
  *
  *  @{

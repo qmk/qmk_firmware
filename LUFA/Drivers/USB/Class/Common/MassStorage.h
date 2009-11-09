@@ -109,7 +109,7 @@
 		/** SCSI Command Code for a MODE SENSE (10) command. */
 		#define SCSI_CMD_MODE_SENSE_10                         0x5A
 
-		/** SCSI Sense Code to indicate no error has ocurred. */
+		/** SCSI Sense Code to indicate no error has occurred. */
 		#define SCSI_SENSE_KEY_GOOD                            0x00
 
 		/** SCSI Sense Code to indicate that the device has recovered from an error. */
@@ -121,7 +121,7 @@
 		/** SCSI Sense Code to indicate an error whilst accessing the medium. */
 		#define SCSI_SENSE_KEY_MEDIUM_ERROR                    0x03
 
-		/** SCSI Sense Code to indicate a hardware has ocurred. */
+		/** SCSI Sense Code to indicate a hardware has occurred. */
 		#define SCSI_SENSE_KEY_HARDWARE_ERROR                  0x04
 
 		/** SCSI Sense Code to indicate that an illegal request has been issued. */
@@ -138,7 +138,7 @@
 		/** SCSI Sense Code to indicate an error while trying to write to a write-once medium. */
 		#define SCSI_SENSE_KEY_BLANK_CHECK                     0x08
 
-		/** SCSI Sense Code to indicate a vendor specific error has ocurred. */
+		/** SCSI Sense Code to indicate a vendor specific error has occurred. */
 		#define SCSI_SENSE_KEY_VENDOR_SPECIFIC                 0x09
 
 		/** SCSI Sense Code to indicate that an EXTENDED COPY command has aborted due to an error. */
@@ -162,7 +162,7 @@
 		/** SCSI Additional Sense Code to indicate an invalid field was encountered while processing the issued command. */
 		#define SCSI_ASENSE_INVALID_FIELD_IN_CDB               0x24
 
-		/** SCSI Additional Sense Code to indicate that an attemp to write to a protected area was made. */
+		/** SCSI Additional Sense Code to indicate that an attempt to write to a protected area was made. */
 		#define SCSI_ASENSE_WRITE_PROTECTED                    0x27
 
 		/** SCSI Additional Sense Code to indicate an error whilst formatting the device medium. */

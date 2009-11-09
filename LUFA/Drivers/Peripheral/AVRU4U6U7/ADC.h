@@ -205,7 +205,7 @@
 				ADCSRA |= (1 << ADSC);
 			}
 
-			/** Performs a complete single reading from channel, including a polling spinloop to wait for the
+			/** Performs a complete single reading from channel, including a polling spin-loop to wait for the
 			 *  conversion to complete, and the returning of the converted value.
 			 *
 			 *  \param[in] MUXMask  Mask comprising of an ADC channel number, reference mask and adjustment mask

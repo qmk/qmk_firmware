@@ -249,7 +249,7 @@ void MassStorage_Task(void)
 				if (!(ErrorCode))
 				  break;
 
-				/* If an error othe than a logical command failure (indicating device busy) returned, abort */
+				/* If an error other than a logical command failure (indicating device busy) returned, abort */
 				if (ErrorCode != MASS_STORE_SCSI_COMMAND_FAILED)
 				{
 					ShowDiskReadError(PSTR("Test Unit Ready"), ErrorCode);
@@ -276,7 +276,7 @@ void MassStorage_Task(void)
 			/* Display the disk capacity in blocks * block size bytes */
 			printf_P(PSTR("%lu blocks of %lu bytes.\r\n"), DiskCapacity.Blocks, DiskCapacity.BlockSize);
 
-			/* Create a new buffer capabable of holding a single block from the device */
+			/* Create a new buffer capable of holding a single block from the device */
 			uint8_t BlockBuffer[DiskCapacity.BlockSize];
 
 			/* Read in the first 512 byte block from the device */

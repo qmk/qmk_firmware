@@ -36,7 +36,7 @@
 #define  INCLUDE_FROM_V2PROTOCOL_C
 #include "V2Protocol.h"
 
-/** Master V2 Protocol packet handler, for receieved V2 Protocol packets from a connected host.
+/** Master V2 Protocol packet handler, for received V2 Protocol packets from a connected host.
  *  This routine decodes the issued command and passes off the handling of the command to the
  *  appropriate function.
  */
@@ -105,7 +105,7 @@ void V2Protocol_ProcessCommand(void)
  */
 static void V2Protocol_Command_Unknown(uint8_t V2Command)
 {
-	/* Discard all incomming data */
+	/* Discard all incoming data */
 	while (Endpoint_BytesInEndpoint() == AVRISP_DATA_EPSIZE)
 	{
 		Endpoint_ClearOUT();
@@ -151,7 +151,7 @@ static void V2Protocol_Command_GetSetParam(uint8_t V2Command)
 	
 	Endpoint_Write_Byte(V2Command);
 	
-	uint8_t ParamPrivs = V2Params_GetParameterPrivellages(ParamID);
+	uint8_t ParamPrivs = V2Params_GetParameterPrivileges(ParamID);
 	
 	if ((V2Command == CMD_SET_PARAMETER) && (ParamPrivs & PARAM_PRIV_WRITE))
 	{

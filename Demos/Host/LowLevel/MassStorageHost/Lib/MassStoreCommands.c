@@ -237,7 +237,7 @@ static uint8_t MassStore_GetReturnedStatus(CommandStatusWrapper_t* SCSICommandSt
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
-	/* If an error in the command ocurred, abort */
+	/* If an error in the command occurred, abort */
 	if ((ErrorCode = MassStore_WaitForDataReceived()) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 

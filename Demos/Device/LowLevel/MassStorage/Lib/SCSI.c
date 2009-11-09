@@ -84,7 +84,7 @@ SCSI_Request_Sense_Response_t SenseData =
  *  to the appropriate SCSI command handling routine if the issued command is supported by the device, else it returns
  *  a command failure due to a ILLEGAL REQUEST.
  *
- *  \return Boolean true if the command completed sucessfully, false otherwise
+ *  \return Boolean true if the command completed successfully, false otherwise
  */
 bool SCSI_DecodeSCSICommand(void)
 {

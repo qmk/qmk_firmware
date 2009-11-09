@@ -167,7 +167,7 @@
 
 			/** Retrieves the attached printer device's ID string, formatted according to IEEE 1284. This string is sent as a
 			 *  Unicode string from the device and is automatically converted to an ASCII encoded C string by this function, thus
-			 *  the maximum reportable string length is two less than the size given (to accomodate the Unicode string length
+			 *  the maximum reportable string length is two less than the size given (to accommodate the Unicode string length
 			 *  bytes which are removed).
 			 *
 			 *  This string, when supported, contains the model, manufacturer and acceptable printer languages for the attached device.

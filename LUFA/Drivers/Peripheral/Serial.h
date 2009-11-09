@@ -100,7 +100,7 @@
 			void Serial_TxString(const char *StringPtr) ATTR_NON_NULL_PTR_ARG(1);
 
 		/* Inline Functions: */
-			/** Initializes the USART, ready for serial data transmission and reception. This initialises the interface to
+			/** Initializes the USART, ready for serial data transmission and reception. This initializes the interface to
 			 *  standard 8-bit, no parity, 1 stop bit settings suitable for most applications.
 			 *
 			 *  \param[in] BaudRate     Serial baud rate, in bits per second

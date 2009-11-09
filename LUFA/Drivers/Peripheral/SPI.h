@@ -41,7 +41,7 @@
  *    - None
  *
  *  \section Module Description
- *  Driver for the hardware SPI port avaliable on most AVR models. This module provides
+ *  Driver for the hardware SPI port available on most AVR models. This module provides
  *  an easy to use driver for the setup of and transfer of data over the AVR's SPI port.
  *
  *  @{

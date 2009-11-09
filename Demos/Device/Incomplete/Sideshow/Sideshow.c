@@ -37,7 +37,7 @@
 	appear as a new SideShow device which can have gadgets loaded onto
 	it.
 	
-	Note that while the incomming content is buffered in packet struct
+	Note that while the incoming content is buffered in packet struct
 	form, the data is not actually displayed. It is left to the user to
 	write sufficient code to read out the packed data for display to a
 	screen.

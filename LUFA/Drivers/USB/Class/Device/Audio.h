@@ -69,10 +69,10 @@
 														*   structure controls
 														*/
 
-					uint8_t  DataINEndpointNumber; /**< Endpoint number of the incomming Audio Streaming data, if available
+					uint8_t  DataINEndpointNumber; /**< Endpoint number of the incoming Audio Streaming data, if available
 													*   (zero if unused)
 													*/
-					uint16_t DataINEndpointSize; /**< Size in bytes of the incomming Audio Streaming data endpoint, if available
+					uint16_t DataINEndpointSize; /**< Size in bytes of the incoming Audio Streaming data endpoint, if available
 												  *   (zero if unused)
 												  */
 
@@ -102,11 +102,11 @@
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *
-			 *  \return Boolean true if the endpoints were sucessfully configured, false otherwise
+			 *  \return Boolean true if the endpoints were successfully configured, false otherwise
 			 */
 			bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** Processes incomming control requests from the host, that are directed to the given Audio class interface. This should be
+			/** Processes incoming control requests from the host, that are directed to the given Audio class interface. This should be
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
@@ -141,7 +141,7 @@
 		/* Inline Functions: */
 			/** Reads the next 8-bit audio sample from the current audio interface.
 			 *
-			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
+			 *  \note This should be preceded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
@@ -163,7 +163,7 @@
 
 			/** Reads the next 16-bit audio sample from the current audio interface.
 			 *
-			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
+			 *  \note This should be preceded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
@@ -185,7 +185,7 @@
 
 			/** Reads the next 24-bit audio sample from the current audio interface.
 			 *
-			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
+			 *  \note This should be preceded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
@@ -206,7 +206,7 @@
 
 			/** Writes the next 8-bit audio sample to the current audio interface.
 			 *
-			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
+			 *  \note This should be preceded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
@@ -225,7 +225,7 @@
 
 			/** Writes the next 16-bit audio sample to the current audio interface.
 			 *
-			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
+			 *  \note This should be preceded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
@@ -244,7 +244,7 @@
 
 			/** Writes the next 24-bit audio sample to the current audio interface.
 			 *
-			 *  \note This should be preceeded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
+			 *  \note This should be preceded immediately by a call to the USB_Audio_IsReadyForNextSample() function to ensure that
 			 *        the correct endpoint is selected and ready for data.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state

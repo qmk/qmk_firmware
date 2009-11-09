@@ -192,7 +192,7 @@
 			 *  be a standard request that the library has no handler code for, or a class specific request
 			 *  issued to the device which must be handled appropriately.
 			 *
-			 *  This event is time-critical; eack packet within the request transaction must be acknowedged or
+			 *  This event is time-critical; each packet within the request transaction must be acknowledged or
 			 *  sent within 50ms or the host will abort the transfer.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
@@ -258,7 +258,7 @@
 			void EVENT_USB_Device_Reset(void);
 
 			/** Event for USB Start Of Frame detection, when enabled. This event fires at the start of each USB
-			 *  frame, once per millisecond, and is synchronised to the USB bus. This can be used as an accurate
+			 *  frame, once per millisecond, and is synchronized to the USB bus. This can be used as an accurate
 			 *  millisecond timer source when the USB bus is enumerated in device mode to a USB host.
 			 *
 			 *  This event is time-critical; it is run once per millisecond and thus long handlers will significantly

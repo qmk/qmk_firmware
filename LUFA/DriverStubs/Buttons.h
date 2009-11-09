@@ -61,7 +61,7 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Button mask for the first button on the board. */
-			#define BUTTONS_BUTTON1          // TODO: Add mask for first board buton here
+			#define BUTTONS_BUTTON1          // TODO: Add mask for first board button here
 	
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
