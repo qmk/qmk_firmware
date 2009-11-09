@@ -132,7 +132,7 @@ uint8_t V2Params_GetParameterValue(uint8_t ParamID)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
 	
-	if (ParamInfo == NULL)
+	if ((ParamInfo == NULL) || !(ParamInfo->ParamPrivellages & PARAM_PRIV_READ))
 	  return 0;
 	
 	return ParamInfo->ParamValue;
@@ -149,7 +149,7 @@ void V2Params_SetParameterValue(uint8_t ParamID, uint8_t Value)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
 
-	if (ParamInfo == NULL)
+	if ((ParamInfo == NULL) || !(ParamInfo->ParamPrivellages & PARAM_PRIV_WRITE))
 	  return;
 
 	ParamInfo->ParamValue = Value;

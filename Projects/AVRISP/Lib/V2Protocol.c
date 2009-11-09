@@ -301,11 +301,9 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 		uint8_t  ProgrammingCommands[3];
 		uint8_t  PollValue1;
 		uint8_t  PollValue2;
-		uint8_t  ProgData[256];
-	} Write_Memory_Params;
+		uint8_t  ProgData[256]; // Note, the Jungo driver has a very short ACK timeout period, need to buffer the
+	} Write_Memory_Params;      // whole page and ACK the packet as fast as possible to prevent it from aborting
 	
-	uint8_t* NextWriteByte = Write_Memory_Params.ProgData;
-
 	Endpoint_Read_Stream_LE(&Write_Memory_Params, sizeof(Write_Memory_Params) - sizeof(Write_Memory_Params.ProgData));
 	Write_Memory_Params.BytesToWrite = SwapEndian_16(Write_Memory_Params.BytesToWrite);
 	
@@ -329,6 +327,8 @@ static void V2Protocol_Command_ProgramMemory(uint8_t V2Command)
 	uint16_t PollAddress       = 0;
 	uint8_t  PollValue         = (V2Command == CMD_PROGRAM_FLASH_ISP) ? Write_Memory_Params.PollValue1 :
 	                                                                    Write_Memory_Params.PollValue2;
+	uint8_t* NextWriteByte = Write_Memory_Params.ProgData;
+
 	if (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_WRITES_MASK)
 	{
 		uint16_t StartAddress = (CurrentAddress & 0xFFFF);

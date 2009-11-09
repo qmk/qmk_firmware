@@ -120,11 +120,11 @@ void Process_AVRISP_Commands(void)
 
 	Endpoint_SelectEndpoint(AVRISP_DATA_EPNUM);
 	
-	/* Check to see if a V2 Protocol command has been received - if not, abort */
-	if (!(Endpoint_IsOUTReceived()))
-	  return;
-
-	/* Pass off processing of the V2 Protocol command to the V2 Protocol handler */
-	V2Protocol_ProcessCommand();
+	/* Check to see if a V2 Protocol command has been received */
+	if (Endpoint_IsOUTReceived())
+	{
+		/* Pass off processing of the V2 Protocol command to the V2 Protocol handler */
+		V2Protocol_ProcessCommand();
+	}
 }
 

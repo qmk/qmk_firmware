@@ -85,7 +85,7 @@ void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
 {
 	if (ResetTarget)
 	{
-		RESET_LINE_DDR  |= RESET_LINE_MASK;
+		RESET_LINE_DDR |= RESET_LINE_MASK;
 		
 		if (!(V2Params_GetParameterValue(PARAM_RESET_POLARITY)))
 		  RESET_LINE_PORT |= RESET_LINE_MASK;
@@ -155,17 +155,14 @@ uint8_t V2Protocol_WaitWhileTargetBusy(void)
 {
 	TCNT0 = 0;
 	
-	bool DeviceBusy;
-	
 	do
 	{
 		SPI_SendByte(0xF0);
 		SPI_SendByte(0x00);
 
 		SPI_SendByte(0x00);
-		DeviceBusy = (SPI_ReceiveByte() & 0x01);
 	}
-	while (DeviceBusy && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
+	while ((SPI_ReceiveByte() & 0x01) && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
 
 	if (TCNT0 >= TARGET_BUSY_TIMEOUT_MS)
 	  return STATUS_RDY_BSY_TOUT;
