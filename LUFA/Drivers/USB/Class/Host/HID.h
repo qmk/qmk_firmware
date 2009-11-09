@@ -158,6 +158,9 @@
 
 
 			/** Receives a HID IN report from the attached HID device, when a report has been received on the HID IN Data pipe.
+			 *  
+			 *  \note The destination buffer should be large enough to accomodate the largest report that the attached device
+			 *        can generate.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
 			 *  \param[in] Buffer  Buffer to store the received report into
@@ -167,7 +170,7 @@
 			uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, void* Buffer) ATTR_NON_NULL_PTR_ARG(1, 2);
 
 			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
-			/** Received a HID IN report from the attached device, by the report ID.
+			/** Receives a HID IN report from the attached device, by the report ID.
 			 *
 			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
 			 *

@@ -87,6 +87,14 @@
 		#define HID_BOOT_KEYBOARD_PROTOCOL   0x01
 
 	/* Type Defines: */
+		/** Enum for the different types of HID reports. */
+		enum HID_ReportItemTypes_t
+		{
+			REPORT_ITEM_TYPE_In                   = 1, /**< Indicates that the item is an IN report type. */
+			REPORT_ITEM_TYPE_Out                  = 2, /**< Indicates that the item is an OUT report type. */
+			REPORT_ITEM_TYPE_Feature              = 3, /**< Indicates that the item is a FEATURE report type. */
+		};
+
 		/** Type define for the HID class specific HID descriptor, to describe the HID device's specifications. Refer to the HID
 		 *  specification for details on the structure elements.
 		 */

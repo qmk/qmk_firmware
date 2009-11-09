@@ -24,7 +24,7 @@
   *  - Add unit testing to APIs
   *  - Add board overviews
   *  - Add resume interrupt support
-  *  - Specification compliance testing for all device demos
+  *  - Correct mishandling of error cases in Mass Storage demo
   *  - Add RNDIS Host Class driver
   *  - Make new demos
   *      -# Keyboard/Mouse Dual Class Host

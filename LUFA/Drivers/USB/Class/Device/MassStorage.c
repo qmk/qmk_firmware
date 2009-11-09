@@ -120,21 +120,21 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 			}
 			
 			MS_Device_ReturnCommandStatus(MSInterfaceInfo);
-			
-			if (MSInterfaceInfo->State.IsMassStoreReset)
-			{
-				Endpoint_ResetFIFO(MSInterfaceInfo->Config.DataOUTEndpointNumber);
-				Endpoint_ResetFIFO(MSInterfaceInfo->Config.DataINEndpointNumber);
-				
-				Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
-				Endpoint_ClearStall();
-				Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
-				Endpoint_ClearStall();
-			}
 		}
 	}
 	
-	MSInterfaceInfo->State.IsMassStoreReset = false;
+	if (MSInterfaceInfo->State.IsMassStoreReset)
+	{
+		Endpoint_ResetFIFO(MSInterfaceInfo->Config.DataOUTEndpointNumber);
+		Endpoint_ResetFIFO(MSInterfaceInfo->Config.DataINEndpointNumber);
+		
+		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
+		Endpoint_ClearStall();
+		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
+		Endpoint_ClearStall();
+
+		MSInterfaceInfo->State.IsMassStoreReset = false;
+	}
 }
 
 static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
@@ -165,11 +165,8 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 	                        StreamCallback_MS_Device_AbortOnMassStoreReset);
 							
 	Endpoint_ClearOUT();
-	  
-	if (MSInterfaceInfo->State.IsMassStoreReset)
-	  return false;
-
-	return true;
+	
+	return !(MSInterfaceInfo->State.IsMassStoreReset);
 }
 
 static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)

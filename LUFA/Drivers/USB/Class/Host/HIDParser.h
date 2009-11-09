@@ -62,6 +62,7 @@
 		#include <stdbool.h>
 
 		#include "HIDReportData.h"
+		#include "../Common/HID.h"
 
 		#include "../../../../Common/Common.h"
 
@@ -124,15 +125,7 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Enums: */
-			/** Enum for indicating what type of report item an entry in a \ref HID_ReportInfo_t ReportItem array is */
-			enum HID_ReportItemTypes_t
-			{
-				REPORT_ITEM_TYPE_In                   = 0, /**< Indicates that the item is an IN report type. */
-				REPORT_ITEM_TYPE_Out                  = 1, /**< Indicates that the item is an OUT report type. */
-				REPORT_ITEM_TYPE_Feature              = 2, /**< Indicates that the item is a FEATURE report type. */
-			};
-			
+		/* Enums: */			
 			/** Enum for the possible error codes in the return value of the \ref USB_ProcessHIDReport() function */
 			enum HID_Parse_ErrorCodes_t
 			{

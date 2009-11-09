@@ -46,6 +46,7 @@
   *  - Fixed HID device class driver not reselecting the correct endpoint once the user callback routines have been called
   *  - Corrected HID descriptor in the Joystick Device demos - buttons should be placed outside the pointer collection
   *  - Fixed HID report parser collection paths invalid due to misplaced semicolon in the free path item search loop
+  *  - Fixed HID host Class driver report send/receive report broken when issued through the control pipe
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *
