@@ -242,14 +242,13 @@ void CDC_Device_CreateStream(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, FILE*
 
 static int CDC_Device_putchar(char c, FILE* Stream)
 {
-	CDC_Device_SendByte((USB_ClassInfo_CDC_Device_t*)fdev_get_udata(Stream), c);
-	return 0;
+	return CDC_Device_SendByte((USB_ClassInfo_CDC_Device_t*)fdev_get_udata(Stream), c) ? _FDEV_ERR : 0;
 }
 
 static int CDC_Device_getchar(FILE* Stream)
 {
 	if (!(CDC_Device_BytesReceived((USB_ClassInfo_CDC_Device_t*)fdev_get_udata(Stream))))
-	  return -1;
+	  return _FDEV_EOF;
 
 	return CDC_Device_ReceiveByte((USB_ClassInfo_CDC_Device_t*)fdev_get_udata(Stream));
 }

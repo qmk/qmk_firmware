@@ -14,6 +14,7 @@
  *  and supporter. Please consider donating a small amount to support this and my future Open Source projects - All
  *  donations are <i>greatly</i> appreciated.
  *
- *  <b>Donate to this project at <a>http://www.fourwalledcubicle.com</a></b> via PayPal - Thanks in Advance!
+ *  <img src='http://www.pledgie.com/campaigns/6927.png?skin_name=chrome' border='0'></img>
+ *  <a href='http://www.pledgie.com/campaigns/6927'>Donate to this project via PayPal</a> - Thanks in Advance!
  */
  

@@ -1205,7 +1205,7 @@
 				}
 				
 				return (MaskVal << EPSIZE0);
-			};
+			}
 
 	#endif
 
