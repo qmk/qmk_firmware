@@ -47,6 +47,9 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "../Common/CDC.h"
+
+		#include <stdio.h>
+		#include <string.h>
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -205,6 +208,17 @@
 			 */
 			uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
+			/** Creates a standard characer stream for the given CDC Device instance so that it can be used with all the regular
+			 *  functions in the avr-libc <stdio.h> library that accept a FILE stream as a destination (e.g. fprintf).
+			 *
+			 *  \note The created stream can be given as stdout if desired to direct the standard output from all <stdio.h> functions
+			 *        to the given CDC interface.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed
+			 */
+			void CDC_Host_CreateStream(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, FILE* Stream);
+
 			/** CDC class driver event for a control line state change on a CDC host interface. This event fires each time the device notifies
 			 *  the host of a control line state change (containing the virtual serial control line states, such as DCD) and may be hooked in the
 			 *  user program by declaring a handler function with the same name and parameters listed here. The new control line states
@@ -231,6 +245,9 @@
 
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_CDC_CLASS_HOST_C)
+				static int CDC_Host_putchar(char c, FILE* Stream);
+				static int CDC_Host_getchar(FILE* Stream);
+
 				void CDC_Host_Event_Stub(void);
 				void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 				                                           ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Host_Event_Stub);

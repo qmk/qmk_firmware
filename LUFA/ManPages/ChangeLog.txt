@@ -13,12 +13,12 @@
   *  - Added new HID_HOST_BOOT_PROTOCOL_ONLY compile time token to reduce the size of the HID Host Class driver when
   *    Report protocol is not needed
   *  - Added new MIDI LowLevel and ClassDriver Host demo, add new MIDI Host Class driver
-  *  - Added stdio.h stream examples for the virtual CDC UART in the CDC host demos
   *  - Added new CDC/Mouse ClassDriver device demo
   *  - Added new Joystick Host ClassDriver and LowLevel demos
   *  - Added new Printer Host mode Class driver
   *  - Added new Printer Host mode ClassDriver demo
   *  - Added optional support for double banked endpoints in the Device mode Class drivers
+  *  - Added new stream creation function to the CDC Class drivers, to easily make standard streams from CDC Class driver instances
   *
   *  <b>Changed:</b>
   *  - Removed mostly useless "TestApp" demo, as it was mainly useful only for checking for sytax errors in the library

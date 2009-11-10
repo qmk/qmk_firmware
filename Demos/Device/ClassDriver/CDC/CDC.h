@@ -41,6 +41,7 @@
 		#include <avr/wdt.h>
 		#include <avr/power.h>
 		#include <string.h>
+		#include <stdio.h>
 
 		#include "Descriptors.h"
 

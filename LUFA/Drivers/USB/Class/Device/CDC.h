@@ -48,6 +48,7 @@
 		#include "../../USB.h"
 		#include "../Common/CDC.h"
 
+		#include <stdio.h>
 		#include <string.h>
 
 	/* Enable C linkage for C++ Compilers: */
@@ -209,10 +210,24 @@
 			 */
 			void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			/** Creates a standard characer stream for the given CDC Device instance so that it can be used with all the regular
+			 *  functions in the avr-libc <stdio.h> library that accept a FILE stream as a destination (e.g. fprintf).
+			 *
+			 *  \note The created stream can be given as stdout if desired to direct the standard output from all <stdio.h> functions
+			 *        to the given CDC interface.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed
+			 */
+			void CDC_Device_CreateStream(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, FILE* Stream);
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 			#if defined(INCLUDE_FROM_CDC_CLASS_DEVICE_C)
+				static int CDC_Device_putchar(char c, FILE* Stream);
+				static int CDC_Device_getchar(FILE* Stream);
+				
 				void CDC_Device_Event_Stub(void);
 				void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 														  ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Device_Event_Stub);

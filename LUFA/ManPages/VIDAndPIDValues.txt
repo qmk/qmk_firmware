@@ -11,8 +11,8 @@
  *  are used within the LUFA demos, and thus may be re-used by derivations of each demo. Free PID values may be
  *  used by future LUFA demo projects.
  *
- *  These VID/PID values should not be used in commercial designs under any circumstances. Private projects may
- *  use the following values freely, but must accept any collisions due to other LUFA derived private projects
+ *  <b>These VID/PID values should not be used in commercial designs under any circumstances.>/b> Private projects
+ *  may use the following values freely, but must accept any collisions due to other LUFA derived private projects
  *  sharing identical values. It is suggested that private projects using interfaces compatible with existing
  *  demos share the save VID/PID value.
  *
