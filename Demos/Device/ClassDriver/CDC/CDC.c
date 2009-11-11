@@ -130,10 +130,10 @@ void CheckJoystickMovement(void)
 	{
 		ActionSent = true;
 
-		// Write the string to the virtual COM port via the created character stream
+		/* Write the string to the virtual COM port via the created character stream */
 		fputs(ReportString, &USBSerialStream);
 
-		// Alternatively, without the stream:
+		/* Alternatively, without the stream: */
 		// CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString, strlen(ReportString));
 	}
 }

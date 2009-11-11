@@ -41,7 +41,6 @@
  */
 bool RunBootloader = true;
 
-
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously 
  *  runs the bootloader processing routine until instructed to soft-exit.
  */
@@ -105,7 +104,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
-				/* Wait until the command (report) has been sent by the host */
+				/* Wait until the command has been sent by the host */
 				while (!(Endpoint_IsOUTReceived()));
 			
 				/* Read in the write destination address */
@@ -123,7 +122,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					boot_spm_busy_wait();
 					
 					/* Write each of the FLASH page's bytes in sequence */
-					for (uint8_t PageByte = 0; PageByte < 128; PageByte += 2)
+					for (uint8_t PageByte = 0; PageByte < SPM_PAGESIZE; PageByte += 2)
 					{
 						/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
 						if (!(Endpoint_BytesInEndpoint()))

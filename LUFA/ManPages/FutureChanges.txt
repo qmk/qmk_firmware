@@ -12,10 +12,10 @@
   *  or post your suggestion as an enhancement request to the project bug tracker.
   *
   *  <b>Targeted for the Next Release (SVN Development Only):</b>
-  *  - Add hub support to match Atmel's stack
-  *  - Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *
   *  <b>Targeted for Future Releases:</b>
+  *  - Add hub support to match Atmel's stack
+  *  - Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *  - Add standardized descriptor names to class driver structures
   *  - Remake AVRStudio project files
   *  - Add detailed overviews of how each demo works

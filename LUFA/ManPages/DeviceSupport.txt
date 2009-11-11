@@ -29,7 +29,7 @@
  *   - ATAVRUSBRF01
  *   - XPLAIN (AT90USB1287 only)
  *
- *  Currently supported third-party boards:
+ *  Currently supported third-party board (via hardware drivers):
  *   - BUMBLEB (using officially recommended peripheral layout)
  *   - Any Other Custom User Boards (with Board Drivers, \see Page_WritingBoardDrivers)
  */

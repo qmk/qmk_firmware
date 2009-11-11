@@ -17,13 +17,13 @@
   *  - Added new Joystick Host ClassDriver and LowLevel demos
   *  - Added new Printer Host mode Class driver
   *  - Added new Printer Host mode ClassDriver demo
-  *  - Added optional support for double banked endpoints in the Device mode Class drivers
-  *  - Added new stream creation function to the CDC Class drivers, to easily make standard streams from CDC Class driver instances
+  *  - Added optional support for double banked endpoints and pipes in the Device and Host mode Class drivers
+  *  - Added new stream creation function to the CDC Class drivers, to easily make standard I/O streams from CDC Class driver instances
   *
   *  <b>Changed:</b>
   *  - Removed mostly useless "TestApp" demo, as it was mainly useful only for checking for sytax errors in the library
   *  - MIDI device demos now receive MIDI events from the host and display note ON messages via the board LEDs
-  *  - Cleanups to the Device mode Mass Storage demo applications' SCSI routines
+  *  - Cleanups to the Device mode Mass Storage demo application SCSI routines
   *  - Changed Audio Class driver sample read/write functions to be inline, to reduce the number of cycles needed to transfer
   *    samples to and from the device (allowing more time for sample processing and output)
   *  - Audio class Device mode demos now work at both 16MHz and 8MHz, rather than just at 8MHz

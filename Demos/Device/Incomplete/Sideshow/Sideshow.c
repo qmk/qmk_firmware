@@ -32,8 +32,8 @@
 	SideShow Class demonstration application. This give a reference
 	for implementing Microsoft SideShow compatible devices in an
 	embedded environment. SideShow allows for gadget data displayed
-	on a Vista machine to also be displayed on an externally connected
-	interactive display. Upon enumeration on a Vista system, this will
+	on a Windows Vista or later machine to also be displayed on an
+	externally connected interactive display. Upon enumeration, this will
 	appear as a new SideShow device which can have gadgets loaded onto
 	it.
 	
