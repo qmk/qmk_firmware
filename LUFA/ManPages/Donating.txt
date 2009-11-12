@@ -14,7 +14,11 @@
  *  and supporter. Please consider donating a small amount to support this and my future Open Source projects - All
  *  donations are <i>greatly</i> appreciated.
  *
- *  <img src='http://www.pledgie.com/campaigns/6927.png?skin_name=chrome' border='0'></img>
+ *  Note that commercial entities can remove the attribution portion of the LUFA licence by a one-time fee - see
+ *  \ref Page_Licence for more details (<b>Note: Please do NOT pay this in advance through the donation link below -
+ *  contact author for payment details.</b>).
+ *
+ *  \image html "http://www.pledgie.com/campaigns/6927.png?skin_name=chrome"
  *  <a href='http://www.pledgie.com/campaigns/6927'>Donate to this project via PayPal</a> - Thanks in Advance!
  */
  

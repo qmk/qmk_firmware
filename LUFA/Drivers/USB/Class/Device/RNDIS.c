@@ -259,13 +259,13 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const
 			RNDIS_Query_Complete_t* QUERY_Response = (RNDIS_Query_Complete_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 			uint32_t                Query_Oid      = QUERY_Message->Oid;
 						
-			void*     QueryData                 = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
-			                                                                              QUERY_Message->InformationBufferOffset];
-			void*     ResponseData              = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Query_Complete_t)];		
+			void*     QueryData = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
+			                                                                    QUERY_Message->InformationBufferOffset];
+			void*     ResponseData = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Query_Complete_t)];		
 			uint16_t  ResponseSize;
 
-			QUERY_Response->MessageType         = REMOTE_NDIS_QUERY_CMPLT;
-			QUERY_Response->MessageLength       = sizeof(RNDIS_Query_Complete_t);
+			QUERY_Response->MessageType   = REMOTE_NDIS_QUERY_CMPLT;
+			QUERY_Response->MessageLength = sizeof(RNDIS_Query_Complete_t);
 						
 			if (RNDIS_Device_ProcessNDISQuery(RNDISInterfaceInfo, Query_Oid, QueryData, QUERY_Message->InformationBufferLength,
 			                                  ResponseData, &ResponseSize))
@@ -292,28 +292,26 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const
 			RNDIS_Set_Complete_t* SET_Response = (RNDIS_Set_Complete_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 			uint32_t              SET_Oid      = SET_Message->Oid;
 
-			SET_Response->MessageType       = REMOTE_NDIS_SET_CMPLT;
-			SET_Response->MessageLength     = sizeof(RNDIS_Set_Complete_t);
-			SET_Response->RequestId         = SET_Message->RequestId;
+			SET_Response->MessageType   = REMOTE_NDIS_SET_CMPLT;
+			SET_Response->MessageLength = sizeof(RNDIS_Set_Complete_t);
+			SET_Response->RequestId     = SET_Message->RequestId;
 
-			void* SetData                   = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
-			                                                                          SET_Message->InformationBufferOffset];
+			void* SetData = &RNDISInterfaceInfo->State.RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
+			                                                              SET_Message->InformationBufferOffset];
 						
-			if (RNDIS_Device_ProcessNDISSet(RNDISInterfaceInfo, SET_Oid, SetData, SET_Message->InformationBufferLength))
-			  SET_Response->Status        = REMOTE_NDIS_STATUS_SUCCESS;
-			else
-			  SET_Response->Status        = REMOTE_NDIS_STATUS_NOT_SUPPORTED;
-
+			SET_Response->Status = RNDIS_Device_ProcessNDISSet(RNDISInterfaceInfo, SET_Oid, SetData,
+			                                                   SET_Message->InformationBufferLength) ?
+			                                                   REMOTE_NDIS_STATUS_SUCCESS : REMOTE_NDIS_STATUS_NOT_SUPPORTED;
 			break;
 		case REMOTE_NDIS_RESET_MSG:
 			RNDISInterfaceInfo->State.ResponseReady = true;
 			
 			RNDIS_Reset_Complete_t* RESET_Response = (RNDIS_Reset_Complete_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 
-			RESET_Response->MessageType         = REMOTE_NDIS_RESET_CMPLT;
-			RESET_Response->MessageLength       = sizeof(RNDIS_Reset_Complete_t);
-			RESET_Response->Status              = REMOTE_NDIS_STATUS_SUCCESS;
-			RESET_Response->AddressingReset     = 0;
+			RESET_Response->MessageType     = REMOTE_NDIS_RESET_CMPLT;
+			RESET_Response->MessageLength   = sizeof(RNDIS_Reset_Complete_t);
+			RESET_Response->Status          = REMOTE_NDIS_STATUS_SUCCESS;
+			RESET_Response->AddressingReset = 0;
 
 			break;
 		case REMOTE_NDIS_KEEPALIVE_MSG:
@@ -324,10 +322,10 @@ void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const
 			RNDIS_KeepAlive_Complete_t* KEEPALIVE_Response =
 			                (RNDIS_KeepAlive_Complete_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;
 
-			KEEPALIVE_Response->MessageType     = REMOTE_NDIS_KEEPALIVE_CMPLT;
-			KEEPALIVE_Response->MessageLength   = sizeof(RNDIS_KeepAlive_Complete_t);
-			KEEPALIVE_Response->RequestId       = KEEPALIVE_Message->RequestId;
-			KEEPALIVE_Response->Status          = REMOTE_NDIS_STATUS_SUCCESS;
+			KEEPALIVE_Response->MessageType   = REMOTE_NDIS_KEEPALIVE_CMPLT;
+			KEEPALIVE_Response->MessageLength = sizeof(RNDIS_KeepAlive_Complete_t);
+			KEEPALIVE_Response->RequestId     = KEEPALIVE_Message->RequestId;
+			KEEPALIVE_Response->Status        = REMOTE_NDIS_STATUS_SUCCESS;
 			
 			break;
 	}

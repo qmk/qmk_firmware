@@ -152,7 +152,7 @@
 			 */
 			uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** Sends a given PIMA command to the attached device, filling out the PIMA command header automatically as required.
+			/** Sends a given PIMA command to the attached device, filling out the PIMA command header's Transaction ID automatically.
 			 *			 
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
 			 *  \param[in] Operation  PIMA operation code to issue to the device

@@ -13,7 +13,8 @@
  *  for a one-time US$1500 payment. This provides a non-exclusive modified MIT licensed which
  *  allows for the free use of the LUFA library, bootloaders and (where the sole copyright
  *  is attributed to Dean Camera) demos without public disclosure within an organisation. Please
- *  contact the author for more information.
+ *  contact the author for more information (<b>Note: Please do NOT pay this in advance through the
+ *  donation link shown on \ref Page_Donating - contact author for payment details.</b>).
  *
  *  \verbatim
  *  Permission to use, copy, modify, and distribute this software
