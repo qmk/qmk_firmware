@@ -219,6 +219,14 @@
 			 */
 			void CDC_Host_CreateStream(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, FILE* Stream);
 
+			/** Identical to CDC_Host_CreateStream(), except that reads are blocking until the calling stream function terminates
+			 *  the transfer. While blocking, the USB and CDC service tasks are called repeatedly to maintain USB communications.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed
+			 */
+			void CDC_Host_CreateBlockingStream(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, FILE* Stream);
+
 			/** CDC class driver event for a control line state change on a CDC host interface. This event fires each time the device notifies
 			 *  the host of a control line state change (containing the virtual serial control line states, such as DCD) and may be hooked in the
 			 *  user program by declaring a handler function with the same name and parameters listed here. The new control line states
@@ -247,6 +255,7 @@
 			#if defined(INCLUDE_FROM_CDC_CLASS_HOST_C)
 				static int CDC_Host_putchar(char c, FILE* Stream);
 				static int CDC_Host_getchar(FILE* Stream);
+				static int CDC_Host_getchar_Blocking(FILE* Stream);
 
 				void CDC_Host_Event_Stub(void);
 				void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
