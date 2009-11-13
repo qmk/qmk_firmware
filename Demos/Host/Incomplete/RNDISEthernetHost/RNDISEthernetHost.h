@@ -66,8 +66,25 @@
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 				
+		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
+		#define LEDMASK_USB_BUSY         (LEDS_LED2)
+
+	/* Type Defines: */
+		/** Type define for a RNDIS notification message, for transmission to the RNDIS host via the notification
+		 *  Endpoint.
+		 */
+		typedef struct
+		{
+			uint8_t  bmRequestType; /**< Notification type, a mask of values from SrdRequestType.h */
+			uint8_t  bNotification; /**< Notification index, indicating what the RNDIS notification relates to */
+			uint16_t wValue; /**< Two byte notification value parameter */
+			uint16_t wIndex; /**< Two byte notification index parameter */
+			uint16_t wLength; /**< Size of data payload following the notification header */
+		} USB_Notification_t;
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
+		void PrintIncommingPackets(void);
 		void RNDIS_Host_Task(void);
 	
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);

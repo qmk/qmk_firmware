@@ -39,6 +39,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <stdio.h>
+		#include <string.h>
 		
 		#include <LUFA/Drivers/USB/USB.h>
 		
@@ -199,7 +200,10 @@
 		uint8_t RNDIS_SendEncapsulatedCommand(void* Buffer, uint16_t Length);
 		uint8_t RNDIS_GetEncapsulatedResponse(void* Buffer, uint16_t Length);
 
+		uint8_t RNDIS_KeepAlive(void);
 		uint8_t RNDIS_InitializeDevice(uint16_t MaxPacketSize, RNDIS_Initialize_Complete_t* InitMessageResponse);
 		uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length);
+		uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length);
+		uint8_t RNDIS_GetPacketSize(uint16_t* PacketSize);
 
 #endif

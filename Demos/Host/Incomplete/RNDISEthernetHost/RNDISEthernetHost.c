@@ -121,6 +121,54 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
+void PrintIncommingPackets(void)
+{
+	uint8_t ErrorCode;
+
+	Pipe_SelectPipe(RNDIS_DATAPIPE_IN);
+	Pipe_Unfreeze();
+	
+	if (!(Pipe_IsReadWriteAllowed()))
+	{
+		Pipe_Freeze();
+		return;
+	}
+
+	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+	
+	puts_P(PSTR("DATA IN\r\n"));
+
+	uint16_t PacketSize;
+	if ((ErrorCode = RNDIS_GetPacketSize(&PacketSize)) != HOST_SENDCONTROL_Successful)
+	{
+		printf_P(PSTR(ESC_FG_RED "Packet Reception Error.\r\n"
+								 " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+	}
+	else if (PacketSize > 2048)
+	{
+		printf_P(PSTR(ESC_FG_RED "Packet of Size %d Too Large.\r\n" ESC_FG_WHITE), PacketSize);
+		Pipe_Discard_Stream(PacketSize);
+	}
+	else
+	{
+		uint8_t PacketBuffer[PacketSize];
+		
+		Pipe_Read_Stream_LE(&PacketBuffer, PacketSize);
+		
+		printf("***PACKET (Size %d)***\r\n", PacketSize);
+		for (uint16_t i = 0; i < PacketSize; i++)
+		{
+			printf("%02x ", PacketBuffer[i]);
+		}
+		printf("\r\n\r\n");
+	}
+	
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+
+	Pipe_ClearIN();
+	Pipe_Freeze();
+}
+
 /** Task to set the configuration of the attached device after it has been enumerated, and to read in
  *  data received from the attached RNDIS device and print it to the serial port.
  */
@@ -181,7 +229,8 @@ void RNDIS_Host_Task(void)
 			
 			printf_P(PSTR("Device Max Transfer Size: %lu bytes.\r\n"), InitMessageResponse.MaxTransferSize);
 			
-			uint32_t PacketFilter = 0xFFFFFFFF;
+			/* We set the default filter to only receive packets we would be interested in */
+			uint32_t PacketFilter = (RNDIS_PACKET_TYPE_DIRECTED | RNDIS_PACKET_TYPE_BROADCAST | RNDIS_PACKET_TYPE_ALL_MULTICAST);
 			if ((ErrorCode = RNDIS_SetRNDISProperty(OID_GEN_CURRENT_PACKET_FILTER,
 			                                        &PacketFilter, sizeof(PacketFilter))) != HOST_SENDCONTROL_Successful)
 			{
@@ -195,13 +244,32 @@ void RNDIS_Host_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
+
+			uint32_t VendorID;
+			if ((ErrorCode = RNDIS_QueryRNDISProperty(OID_GEN_VENDOR_ID,
+			                                          &VendorID, sizeof(VendorID))) != HOST_SENDCONTROL_Successful)
+			{
+				printf_P(PSTR(ESC_FG_RED "Error Getting Vendor ID.\r\n"
+				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+				/* Indicate error via status LEDs */
+				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+
+				/* Wait until USB device disconnected */
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+				break;
+			}
+			
+			printf_P(PSTR("Device Vendor ID: 0x%08X\r\n"), VendorID);
 			
 			puts_P(PSTR("RNDIS Device Enumerated.\r\n"));
 
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-						
+			PrintIncommingPackets();
+		
 			break;
 	}
 }
+
