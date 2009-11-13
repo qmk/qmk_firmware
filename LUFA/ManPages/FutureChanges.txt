@@ -33,7 +33,4 @@
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers
   *      -# Other (commercial) C compilers
-  *  - Extend AVRISP project
-  *      -# Add alternate USB-to-Serial mode
-  *      -# Add alternate USB-to-TWI mode
   */

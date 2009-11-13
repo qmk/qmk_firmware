@@ -16,6 +16,7 @@
  *    - The HID_PARSE_UsageStackOverflow HID parser error constant is now named \ref HID_PARSE_UsageListOverflow
  *    - The \ref CALLBACK_HIDParser_FilterHIDReportItem() HID Parser callback now passes a complete HID_ReportItem_t to the
  *      user application, instead of just its attributes.
+ *    - The USB_GetDeviceConfigDescriptor() function was incorrectly named and is now called \ref USB_Host_GetDeviceConfigDescriptor().
  *
  <b>No Migration information for this release - all library elements are backwards-compatible with 090924.</b>
  *
@@ -29,7 +30,7 @@
  *      call to SPI_Init() before using the Dataflash driver
  *
  *  <b>Host Mode</b>
- *    - The \ref USB_GetDeviceConfigDescriptor() function's parameters and behaviour has changed; the user is required to
+ *    - The USB_GetDeviceConfigDescriptor() function's parameters and behaviour has changed; the user is required to
  *      preallocate the largest allowable buffer, and pass the size of the buffer to the function. This allows for a single
  *      call to the function to retrieve, size check and validate the Configuration Descriptor rather than having the user
  *      application perform these intermediatary steps.
@@ -67,7 +68,7 @@
  *
  *  <b>Host Mode</b>
  *    - The HIDParser.c module has moved from LUFA/Drivers/USB/Class/ to LUFA/Drivers/USB/Class/Host/.
- *    - The \ref USB_GetDeviceConfigDescriptor() function now requires the desired configuration index within the device as its first
+ *    - The USB_GetDeviceConfigDescriptor() function now requires the desired configuration index within the device as its first
  *      parameter, to add support for multi-configuration devices. Existing code should use a configuration index of 1 to indicate the
  *      first configuration descriptor within the device.
  *    - The non-standard "Ready" host state has been removed. Existing \ref HOST_STATE_Configured code should be moved to the end of

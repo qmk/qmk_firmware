@@ -52,7 +52,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint16_t CurrConfigBytesRem;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
-	switch (USB_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
+	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
 	{
 		case HOST_GETCONFIG_Successful:
 			break;

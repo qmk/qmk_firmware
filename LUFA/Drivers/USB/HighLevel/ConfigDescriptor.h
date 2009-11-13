@@ -155,7 +155,7 @@
 			uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, void** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine);
 			
 		/* Enums: */
-			/** Enum for the possible return codes of the \ref USB_GetDeviceConfigDescriptor() function. */
+			/** Enum for the possible return codes of the \ref USB_Host_GetDeviceConfigDescriptor() function. */
 			enum USB_Host_GetConfigDescriptor_ErrorCodes_t
 			{
 				HOST_GETCONFIG_Successful       = 0, /**< No error occurred while retrieving the configuration descriptor */
@@ -202,8 +202,8 @@
 			 *
 			 *  \return A value from the \ref USB_Host_GetConfigDescriptor_ErrorCodes_t enum
 			 */
-			uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr, void* BufferPtr,
-			                                      uint16_t BufferSize) ATTR_NON_NULL_PTR_ARG(2, 3);
+			uint8_t USB_Host_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr, void* BufferPtr,
+			                                           uint16_t BufferSize) ATTR_NON_NULL_PTR_ARG(2, 3);
 
 			/** Skips to the next sub-descriptor inside the configuration descriptor of the specified type value.
 			 *  The bytes remaining value is automatically decremented.

@@ -31,8 +31,8 @@
 #include "ConfigDescriptor.h"
 
 #if defined(USB_CAN_BE_HOST)
-uint8_t USB_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr,
-                                      void* BufferPtr, uint16_t BufferSize)
+uint8_t USB_Host_GetDeviceConfigDescriptor(uint8_t ConfigNumber, uint16_t* const ConfigSizePtr,
+                                           void* BufferPtr, uint16_t BufferSize)
 {
 	uint8_t ErrorCode;
 	uint8_t ConfigHeader[sizeof(USB_Descriptor_Configuration_Header_t)];
