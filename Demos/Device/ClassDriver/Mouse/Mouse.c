@@ -148,10 +148,10 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	else if (JoyStatus_LCL & JOY_DOWN)
 	  MouseReport->Y =  1;
 
-	if (JoyStatus_LCL & JOY_RIGHT)
-	  MouseReport->X =  1;
-	else if (JoyStatus_LCL & JOY_LEFT)
+	if (JoyStatus_LCL & JOY_LEFT)
 	  MouseReport->X = -1;
+	else if (JoyStatus_LCL & JOY_RIGHT)
+	  MouseReport->X =  1;
 
 	if (JoyStatus_LCL & JOY_PRESS)
 	  MouseReport->Button  = (1 << 0);

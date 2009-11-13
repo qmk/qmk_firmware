@@ -170,6 +170,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
 	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
 
+	/* Determine which interface must have its report generated */
 	if (HIDInterfaceInfo == &Keyboard_HID_Interface)
 	{
 		USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
@@ -207,10 +208,10 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 		else if (JoyStatus_LCL & JOY_DOWN)
 		  MouseReport->Y =  1;
 
-		if (JoyStatus_LCL & JOY_RIGHT)
-		  MouseReport->X =  1;
-		else if (JoyStatus_LCL & JOY_LEFT)
+		if (JoyStatus_LCL & JOY_LEFT)
 		  MouseReport->X = -1;
+		else if (JoyStatus_LCL & JOY_RIGHT)
+		  MouseReport->X =  1;
 
 		if (JoyStatus_LCL & JOY_PRESS)
 		  MouseReport->Button  = (1 << 0);

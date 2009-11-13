@@ -138,31 +138,33 @@ void PrintIncommingPackets(void)
 	
 	puts_P(PSTR("DATA IN\r\n"));
 
-	uint16_t PacketSize;
-	if ((ErrorCode = RNDIS_GetPacketSize(&PacketSize)) != HOST_SENDCONTROL_Successful)
+	uint16_t PacketLength;
+	if ((ErrorCode = RNDIS_GetPacketLength(&PacketLength)) != HOST_SENDCONTROL_Successful)
 	{
 		printf_P(PSTR(ESC_FG_RED "Packet Reception Error.\r\n"
-								 " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+								 " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);		
+		return;
 	}
-	else if (PacketSize > 2048)
+
+	printf_P(PSTR("***PACKET (Size %d)***\r\n"), PacketLength);
+
+	if (PacketLength > 1024)
 	{
-		printf_P(PSTR(ESC_FG_RED "Packet of Size %d Too Large.\r\n" ESC_FG_WHITE), PacketSize);
-		Pipe_Discard_Stream(PacketSize);
+		puts_P(PSTR(ESC_FG_RED "Packet too large.\r\n" ESC_FG_WHITE));
+		Pipe_Discard_Stream(PacketLength);
 	}
 	else
 	{
-		uint8_t PacketBuffer[PacketSize];
+		uint8_t PacketBuffer[PacketLength];
 		
-		Pipe_Read_Stream_LE(&PacketBuffer, PacketSize);
+		Pipe_Read_Stream_LE(&PacketBuffer, PacketLength);
 		
-		printf("***PACKET (Size %d)***\r\n", PacketSize);
-		for (uint16_t i = 0; i < PacketSize; i++)
-		{
-			printf("%02x ", PacketBuffer[i]);
-		}
-		printf("\r\n\r\n");
+		for (uint16_t i = 0; i < PacketLength; i++)
+		  printf("%02x ", PacketBuffer[i]);
 	}
 	
+	printf("\r\n\r\n");
+
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
 	Pipe_ClearIN();
@@ -213,8 +215,8 @@ void RNDIS_Host_Task(void)
 				break;
 			}
 			
-			RNDIS_Initialize_Complete_t InitMessageResponse;
-			if ((ErrorCode = RNDIS_InitializeDevice(1024, &InitMessageResponse)) != HOST_SENDCONTROL_Successful)
+			uint16_t DeviceMaxPacketSize;
+			if ((ErrorCode = RNDIS_InitializeDevice(1024, &DeviceMaxPacketSize)) != HOST_SENDCONTROL_Successful)
 			{
 				printf_P(PSTR(ESC_FG_RED "Error Initializing Device.\r\n"
 				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
@@ -227,7 +229,7 @@ void RNDIS_Host_Task(void)
 				break;			
 			}
 			
-			printf_P(PSTR("Device Max Transfer Size: %lu bytes.\r\n"), InitMessageResponse.MaxTransferSize);
+			printf_P(PSTR("Device Max Transfer Size: %lu bytes.\r\n"), DeviceMaxPacketSize);
 			
 			/* We set the default filter to only receive packets we would be interested in */
 			uint32_t PacketFilter = (RNDIS_PACKET_TYPE_DIRECTED | RNDIS_PACKET_TYPE_BROADCAST | RNDIS_PACKET_TYPE_ALL_MULTICAST);

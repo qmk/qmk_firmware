@@ -29,7 +29,7 @@
 */
  
 /** \ingroup Group_USB
- *  @defgroup Group_OTGManagement USB On The Go (OTG) Management
+ *  @defgroup Group_OTG USB On The Go (OTG) Management
  *
  *  This module contains macros for embedded USB hosts with dual role On The Go capabilities, for managing role
  *  exchange. OTG is a way for two USB dual role devices to talk to one another directly without fixed device/host

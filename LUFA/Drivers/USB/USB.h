@@ -54,6 +54,15 @@
  *  Driver and framework for the USB controller hardware on the USB series of AVR microcontrollers. This module
  *  consists of many submodules, and is designed to provide an easy way to configure and control USB host, device
  *  or OTG mode USB applications.
+ *
+ *  The USB stack requires the sole control over the USB controller in the microcontroller only; i.e. it does not
+ *  require any additional AVR timers, etc. to operate. This ensures that the USB stack requires as few resources
+ *  as possible.
+ *
+ *  The USB stack can be used in Device Mode for connections to USB Hosts (see \ref Group_Device), in Host mode for
+ *  hosting of other USB devices (see \ref Group_Host), or as a dual role device which can either act as a USB host
+ *  or device depending on what peripheral is connected (see \ref Group_OTG). Both modes also require a common set
+ *  of USB management functions found \ref Group_USBManagement.
  */
 
 /** \ingroup Group_USB

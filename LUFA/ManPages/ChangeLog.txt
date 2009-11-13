@@ -33,6 +33,7 @@
   *    item's attributes, to expose more information on the item (including it's type, collection path, etc.)
   *  - Changed MouseHostWithParser demos to check that the report items have a Mouse usage collection as a parent at some point,
   *    to prevent Joysticks from enumerating with the demo
+  *  - Corrected the name of the misnamed USB_GetDeviceConfigDescriptor() function to USB_Host_GetDeviceConfigDescriptor().
   *
   *  <b>Fixed:</b>
   *  - Fixed PrinterHost demo returning invalid Device ID data when the attached device does not have a

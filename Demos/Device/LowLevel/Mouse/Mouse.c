@@ -238,10 +238,10 @@ void CreateMouseReport(USB_MouseReport_Data_t* ReportData)
 	else if (JoyStatus_LCL & JOY_DOWN)
 	  ReportData->Y =  1;
 
-	if (JoyStatus_LCL & JOY_RIGHT)
-	  ReportData->X =  1;
-	else if (JoyStatus_LCL & JOY_LEFT)
+	if (JoyStatus_LCL & JOY_LEFT)
 	  ReportData->X = -1;
+	else if (JoyStatus_LCL & JOY_RIGHT)
+	  ReportData->X = 1;
 
 	if (JoyStatus_LCL & JOY_PRESS)
 	  ReportData->Button  = (1 << 0);

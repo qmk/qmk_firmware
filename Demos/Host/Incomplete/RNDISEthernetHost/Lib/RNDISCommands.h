@@ -188,22 +188,25 @@
 		#define REMOTE_NDIS_VERSION_MINOR             0x00
 
 		/** Pipe number for the RNDIS data IN pipe */
-		#define RNDIS_DATAPIPE_IN         1
+		#define RNDIS_DATAPIPE_IN                     1
 
 		/** Pipe number for the RNDIS data OUT pipe */
-		#define RNDIS_DATAPIPE_OUT        2
+		#define RNDIS_DATAPIPE_OUT                    2
 
 		/** Pipe number for the RNDIS notification pipe */
-		#define RNDIS_NOTIFICATIONPIPE    3
+		#define RNDIS_NOTIFICATIONPIPE                3
 		
+		/** Additional error code for RNDIS functions when a device returns a logical command failure */
+		#define RNDIS_COMMAND_FAILED                  0xC0
+
 	/* Function Prototypes: */
 		uint8_t RNDIS_SendEncapsulatedCommand(void* Buffer, uint16_t Length);
 		uint8_t RNDIS_GetEncapsulatedResponse(void* Buffer, uint16_t Length);
 
 		uint8_t RNDIS_KeepAlive(void);
-		uint8_t RNDIS_InitializeDevice(uint16_t MaxPacketSize, RNDIS_Initialize_Complete_t* InitMessageResponse);
+		uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPacketSize);
 		uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length);
-		uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length);
-		uint8_t RNDIS_GetPacketSize(uint16_t* PacketSize);
+		uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength);
+		uint8_t RNDIS_GetPacketLength(uint16_t* PacketLength);
 
 #endif
