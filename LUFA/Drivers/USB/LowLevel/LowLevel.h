@@ -71,7 +71,7 @@
 
 	/* Preprocessor Checks and Defines: */
 		#if !defined(F_CLOCK)
-			#error F_CLOCK is not defined. You must device F_CLOCK to the frequency of the unprescaled input clock in your project makefile.
+			#error F_CLOCK is not defined. You must define F_CLOCK to the frequency of the unprescaled input clock in your project makefile.
 		#endif
 	
 		#if (F_CLOCK == 8000000)
