@@ -141,7 +141,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_ClearSETUP();
 
 				/* Indicate that the current transfer should be aborted */
-				IsMassStoreReset = true;			
+				IsMassStoreReset = true;
 
 				Endpoint_ClearStatusStage();
 			}
@@ -204,19 +204,6 @@ void MassStorage_Task(void)
 
 			/* Return command status block to the host */
 			ReturnCommandStatus();
-			
-			/* Check if a Mass Storage Reset occurred */
-			if (IsMassStoreReset)
-			{
-				/* Reset the data endpoint banks */
-				Endpoint_ResetFIFO(MASS_STORAGE_OUT_EPNUM);
-				Endpoint_ResetFIFO(MASS_STORAGE_IN_EPNUM);
-				
-				Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
-				Endpoint_ClearStall();
-				Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
-				Endpoint_ClearStall();
-			}
 
 			/* Indicate ready */
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -228,8 +215,23 @@ void MassStorage_Task(void)
 		}
 	}
 
-	/* Clear the abort transfer flag */
-	IsMassStoreReset = false;
+	/* Check if a Mass Storage Reset occurred */
+	if (IsMassStoreReset)
+	{
+		/* Reset the data endpoint banks */
+		Endpoint_ResetFIFO(MASS_STORAGE_OUT_EPNUM);
+		Endpoint_ResetFIFO(MASS_STORAGE_IN_EPNUM);
+		
+		Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
+		Endpoint_ClearStall();
+		Endpoint_ResetDataToggle();
+		Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
+		Endpoint_ClearStall();
+		Endpoint_ResetDataToggle();
+
+		/* Clear the abort transfer flag */
+		IsMassStoreReset = false;
+	}
 }
 
 /** Function to read in a command block from the host, via the bulk data OUT endpoint. This function reads in the next command block

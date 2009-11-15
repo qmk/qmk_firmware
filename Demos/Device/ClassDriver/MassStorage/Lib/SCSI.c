@@ -239,8 +239,6 @@ static void SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* MSInterfaceI
 	
 	/* Succeed the command and update the bytes transferred counter */
 	MSInterfaceInfo->State.CommandBlock.DataTransferLength = 0;
-	
-	return;
 }
 
 /** Command processing for an issued SCSI READ (10) or WRITE (10) command. This command reads in the block start address
@@ -255,15 +253,11 @@ static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo
 	uint32_t BlockAddress;
 	uint16_t TotalBlocks;
 	
-	/* Load in the 32-bit block address (SCSI uses big-endian, so have to do it byte-by-byte) */
-	((uint8_t*)&BlockAddress)[3] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[2];
-	((uint8_t*)&BlockAddress)[2] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[3];
-	((uint8_t*)&BlockAddress)[1] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[4];
-	((uint8_t*)&BlockAddress)[0] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[5];
+	/* Load in the 32-bit block address (SCSI uses big-endian, so have to reverse the byte order) */
+	BlockAddress = SwapEndian_32(*(uint32_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[2]);
 
-	/* Load in the 16-bit total blocks (SCSI uses big-endian, so have to do it byte-by-byte) */
-	((uint8_t*)&TotalBlocks)[1]  = MSInterfaceInfo->State.CommandBlock.SCSICommandData[7];
-	((uint8_t*)&TotalBlocks)[0]  = MSInterfaceInfo->State.CommandBlock.SCSICommandData[8];
+	/* Load in the 16-bit total blocks (SCSI uses big-endian, so have to reverse the byte order) */
+	TotalBlocks  = SwapEndian_16(*(uint32_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[7]);
 	
 	/* Check if the block address is outside the maximum allowable value for the LUN */
 	if (BlockAddress >= LUN_MEDIA_BLOCKS)
@@ -289,6 +283,4 @@ static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo
 
 	/* Update the bytes transferred counter and succeed the command */
 	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= ((uint32_t)TotalBlocks * VIRTUAL_MEMORY_BLOCK_SIZE);
-	
-	return;
 }

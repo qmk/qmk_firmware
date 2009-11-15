@@ -87,9 +87,9 @@
 					MS_CommandStatusWrapper_t CommandStatus; /**< Mass Storage class command status structure, set elements to indicate
 															  *   the issued command's success or failure to the host
 															  */
-					bool IsMassStoreReset; /**< Flag indicating that the host has requested that the Mass Storage interface be reset
-											*   and that all current Mass Storage operations should immediately abort
-											*/
+					volatile bool IsMassStoreReset; /**< Flag indicating that the host has requested that the Mass Storage interface be reset
+											         *   and that all current Mass Storage operations should immediately abort
+											         */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
 				          */

@@ -165,12 +165,12 @@ void ReadNextReport(void)
  *
  *  \param[in] ReportOUTData  Buffer containing the report to send to the device
  *  \param[in] ReportIndex  Index of the report in the device (zero if the device does not use multiple reports)
- *  \param[in] ReportType  Type of report to send, either HID_REPORTTYPE_OUTPUT or HID_REPORTTYPE_FEATURE
+ *  \param[in] ReportType  Type of report to send, either REPORT_ITEM_TYPE_Out or REPORT_ITEM_TYPE_Feature
  *  \param[in] ReportLength  Length of the report to send
  */
 void WriteNextReport(uint8_t* ReportOUTData, uint8_t ReportIndex, uint8_t ReportType, uint16_t ReportLength)
 {
-	/* Select and unfreeze HID data OUT pipe */
+	/* Select the HID data OUT pipe */
 	Pipe_SelectPipe(HID_DATA_OUT_PIPE);
 	
 	/* Not all HID devices have an OUT endpoint (some require OUT reports to be sent over the

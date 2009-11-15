@@ -34,7 +34,7 @@
 #define  INCLUDE_FROM_MS_CLASS_DEVICE_C
 #include "MassStorage.h"
 
-static USB_ClassInfo_MS_Device_t* CallbackMSInterfaceInfo;
+static volatile bool* CallbackIsResetSource;
 
 void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
@@ -130,8 +130,10 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 		
 		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
 		Endpoint_ClearStall();
+		Endpoint_ResetDataToggle();
 		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
 		Endpoint_ClearStall();
+		Endpoint_ResetDataToggle();
 
 		MSInterfaceInfo->State.IsMassStoreReset = false;
 	}
@@ -141,11 +143,14 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 {
 	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
 
-	CallbackMSInterfaceInfo = MSInterfaceInfo;
-	Endpoint_Read_Stream_LE(&MSInterfaceInfo->State.CommandBlock,
-	                        (sizeof(MS_CommandBlockWrapper_t) - 16),
-	                        StreamCallback_MS_Device_AbortOnMassStoreReset);
-
+	CallbackIsResetSource = &MSInterfaceInfo->State.IsMassStoreReset;
+	if (Endpoint_Read_Stream_LE(&MSInterfaceInfo->State.CommandBlock,
+	                            (sizeof(MS_CommandBlockWrapper_t) - 16),
+	                            StreamCallback_MS_Device_AbortOnMassStoreReset))
+	{
+		return false;
+	}
+	
 	if ((MSInterfaceInfo->State.CommandBlock.Signature         != MS_CBW_SIGNATURE)                  ||
 	    (MSInterfaceInfo->State.CommandBlock.LUN               >= MSInterfaceInfo->Config.TotalLUNs) ||
 		(MSInterfaceInfo->State.CommandBlock.Flags              & 0x1F)                              ||
@@ -159,14 +164,17 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 		return false;
 	}
 
-	CallbackMSInterfaceInfo = MSInterfaceInfo;
-	Endpoint_Read_Stream_LE(&MSInterfaceInfo->State.CommandBlock.SCSICommandData,
-	                        MSInterfaceInfo->State.CommandBlock.SCSICommandLength,
-	                        StreamCallback_MS_Device_AbortOnMassStoreReset);
-							
+	CallbackIsResetSource = &MSInterfaceInfo->State.IsMassStoreReset;
+	if (Endpoint_Read_Stream_LE(&MSInterfaceInfo->State.CommandBlock.SCSICommandData,
+	                            MSInterfaceInfo->State.CommandBlock.SCSICommandLength,
+	                            StreamCallback_MS_Device_AbortOnMassStoreReset))
+	{
+		return false;
+	}
+
 	Endpoint_ClearOUT();
 	
-	return !(MSInterfaceInfo->State.IsMassStoreReset);
+	return true;
 }
 
 static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
@@ -175,7 +183,9 @@ static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInt
 
 	while (Endpoint_IsStalled())
 	{
+		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
 		USB_USBTask();
+		#endif
 
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return;
@@ -185,27 +195,31 @@ static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInt
 
 	while (Endpoint_IsStalled())
 	{
+		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
 		USB_USBTask();
-
+		#endif
+		
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return;
 	}
 	
-	CallbackMSInterfaceInfo = MSInterfaceInfo;
-	Endpoint_Write_Stream_LE(&MSInterfaceInfo->State.CommandStatus, sizeof(MS_CommandStatusWrapper_t),
-	                         StreamCallback_MS_Device_AbortOnMassStoreReset);
-	
-	Endpoint_ClearIN();
+	CallbackIsResetSource = &MSInterfaceInfo->State.IsMassStoreReset;
+	if (Endpoint_Write_Stream_LE(&MSInterfaceInfo->State.CommandStatus, sizeof(MS_CommandStatusWrapper_t),
+	                             StreamCallback_MS_Device_AbortOnMassStoreReset))
+	{
+		return;
+	}
 
-	if (MSInterfaceInfo->State.IsMassStoreReset)
-	  return;
+	Endpoint_ClearIN();
 }
 
 static uint8_t StreamCallback_MS_Device_AbortOnMassStoreReset(void)
 {
-	MS_Device_USBTask(CallbackMSInterfaceInfo);
+	#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+	USB_USBTask();
+	#endif
 
-	if (CallbackMSInterfaceInfo->State.IsMassStoreReset)
+	if (*CallbackIsResetSource)
 	  return STREAMCALLBACK_Abort;
 	else
 	  return STREAMCALLBACK_Continue;
