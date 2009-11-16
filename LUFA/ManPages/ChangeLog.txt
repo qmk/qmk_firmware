@@ -48,6 +48,7 @@
   *  - Corrected HID descriptor in the Joystick Device demos - buttons should be placed outside the pointer collection
   *  - Fixed HID report parser collection paths invalid due to misplaced semicolon in the free path item search loop
   *  - Fixed HID host Class driver report send/receive report broken when issued through the control pipe
+  *  - Fixed HOST_STATE_AS_GPIOR compile time option being ignored when in host mode (thanks to David Lyons)
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *

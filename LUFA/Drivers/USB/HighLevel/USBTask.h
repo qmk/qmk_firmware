@@ -76,7 +76,7 @@
 			 extern USB_Request_Header_t USB_ControlRequest;
 			
 			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
-				#if !defined(HOST_STATE_AS_GPIOR1) || defined(__DOXYGEN__)
+				#if !defined(HOST_STATE_AS_GPIOR) || defined(__DOXYGEN__)
 					/** Indicates the current host state machine state. When in host mode, this indicates the state
 					 *  via one of the values of the \ref USB_Host_States_t enum values.
 					 *
@@ -100,7 +100,7 @@
 				#else
 					#define _GET_HOST_GPIOR_NAME2(y) GPIOR ## y
 					#define _GET_HOST_GPIOR_NAME(x)  _GET_HOST_GPIOR_NAME2(x)
-					#define USB_HostState _GET_HOST_GPIOR_NAME(HOST_STATE_AS_GPIOR)
+					#define USB_HostState            _GET_HOST_GPIOR_NAME(HOST_STATE_AS_GPIOR)
 				#endif
 			#endif
 
@@ -132,7 +132,7 @@
 				#else
 					#define _GET_DEVICE_GPIOR_NAME2(y) GPIOR ## y
 					#define _GET_DEVICE_GPIOR_NAME(x)  _GET_DEVICE_GPIOR_NAME2(x)
-					#define USB_DeviceState _GET_DEVICE_GPIOR_NAME(DEVICE_STATE_AS_GPIOR)
+					#define USB_DeviceState            _GET_DEVICE_GPIOR_NAME(DEVICE_STATE_AS_GPIOR)
 				#endif
 			#endif
 
@@ -175,7 +175,7 @@
 			#endif
 			
 		/* Macros: */
-			#define HOST_TASK_NONBLOCK_WAIT(duration, nextstate) {USB_HostState = HOST_STATE_WaitForDevice; WaitMSRemaining = duration; PostWaitState = nextstate; }
+			#define HOST_TASK_NONBLOCK_WAIT(duration, nextstate) MACROS{USB_HostState = HOST_STATE_WaitForDevice; WaitMSRemaining = duration; PostWaitState = nextstate; }MACROE
 	#endif
 	
 	/* Disable C linkage for C++ Compilers: */

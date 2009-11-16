@@ -195,6 +195,11 @@
 			 *  This event is time-critical; each packet within the request transaction must be acknowledged or
 			 *  sent within 50ms or the host will abort the transfer.
 			 *
+			 *  The library interally handles all standard control requests with the exceptions of SYNC FRAME,
+			 *  SET DESCRIPTOR and SET INTERFACE. These and all other non-standard control requests will be left
+			 *  for the user to process via this event if desired. If not handled in the user application, requests
+			 *  are automatically STALLed.
+			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 *
