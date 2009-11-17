@@ -72,7 +72,7 @@ uint8_t RNDIS_GetEncapsulatedResponse(void* Buffer, uint16_t Length)
 	return USB_Host_SendControlRequest(Buffer);
 }
 
-uint8_t RNDIS_KeepAlive(void)
+uint8_t RNDIS_SendKeepAlive(void)
 {
 	uint8_t ErrorCode;
 

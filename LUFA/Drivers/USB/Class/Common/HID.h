@@ -77,14 +77,14 @@
 		#define HID_NON_BOOT_PROTOCOL        0x00
 
 		/** Constant for the protocol value of a HID interface descriptor, indicating that the interface supports the
-		 *  HID class Mouse boot protocol (see HID Class Specification).
-		 */
-		#define HID_BOOT_MOUSE_PROTOCOL      0x02
-		
-		/** Constant for the protocol value of a HID interface descriptor, indicating that the interface supports the
 		 *  HID class Keyboard boot protocol (see HID Class Specification).
 		 */
 		#define HID_BOOT_KEYBOARD_PROTOCOL   0x01
+
+		/** Constant for the protocol value of a HID interface descriptor, indicating that the interface supports the
+		 *  HID class Mouse boot protocol (see HID Class Specification).
+		 */
+		#define HID_BOOT_MOUSE_PROTOCOL      0x02
 
 	/* Type Defines: */
 		/** Enum for the different types of HID reports. */

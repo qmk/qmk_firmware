@@ -203,7 +203,7 @@
 		uint8_t RNDIS_SendEncapsulatedCommand(void* Buffer, uint16_t Length);
 		uint8_t RNDIS_GetEncapsulatedResponse(void* Buffer, uint16_t Length);
 
-		uint8_t RNDIS_KeepAlive(void);
+		uint8_t RNDIS_SendKeepAlive(void);
 		uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPacketSize);
 		uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length);
 		uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength);

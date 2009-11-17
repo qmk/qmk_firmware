@@ -39,7 +39,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 		
-		#include "MassStorage.h"
+		#include "StandaloneProgrammer.h"
 		#include "Descriptors.h"
 
 		#include <LUFA/Common/Common.h>                 // Function Attribute, Atomic, Debug and ISR Macros

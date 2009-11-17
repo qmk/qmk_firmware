@@ -29,6 +29,7 @@
   *  - Make new demos
   *      -# Keyboard/Mouse Dual Class Host
   *      -# Multiple-Report HID device
+  *      -# Device/Host bridge
   *  - Port LUFA codebase
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

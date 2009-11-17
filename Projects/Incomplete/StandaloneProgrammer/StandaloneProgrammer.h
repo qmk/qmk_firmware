@@ -30,26 +30,31 @@
 
 /** \file
  *
- *  Header file for MassStorage.c.
+ *  Header file for StandaloneProgrammer.c.
  */
 
-#ifndef _MASS_STORAGE_H_
-#define _MASS_STORAGE_H_
+#ifndef _STANDALONE_PROG_H_
+#define _STANDALONE_PROG_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/power.h>
+		#include <stdio.h>
 
 		#include "Descriptors.h"
 
 		#include "Lib/SCSI.h"
 		#include "Lib/DataflashManager.h"
+		#include "Lib/ProgrammerConfig.h"
+		#include "Lib/PetiteFATFs/pff.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/MassStorage.h>
+		#include <LUFA/Drivers/USB/Class/CDC.h>
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -67,14 +72,17 @@
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY         (LEDS_LED2)
 		
-		/** Total number of logical drives within the device - must be non-zero. */
-		#define TOTAL_LUNS                1
-		
-		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */
-		#define LUN_MEDIA_BLOCKS         (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)
-		
+	/* External Variables: */
+		extern FILE USBSerialStream;
+		extern FILE DataflashStream;
+	
 	/* Function Prototypes: */
+		#if defined(INCLUDE_FROM_STANDALONEPROG_C)
+			static int Dataflash_getchar(FILE* Stream);
+		#endif
+		
 		void SetupHardware(void);
+		void Programmer_Task(void);
 
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);

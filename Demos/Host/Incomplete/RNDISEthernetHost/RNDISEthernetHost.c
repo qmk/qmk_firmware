@@ -247,6 +247,24 @@ void RNDIS_Host_Task(void)
 				break;
 			}
 
+			uint32_t RetrievedPacketFilter;
+			if ((ErrorCode = RNDIS_QueryRNDISProperty(OID_GEN_CURRENT_PACKET_FILTER,
+			                                          &RetrievedPacketFilter, sizeof(RetrievedPacketFilter))) != HOST_SENDCONTROL_Successful)
+			{
+				printf_P(PSTR(ESC_FG_RED "Error Getting Packet Filter.\r\n"
+				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
+
+				/* Indicate error via status LEDs */
+				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+
+				/* Wait until USB device disconnected */
+				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
+				break;
+			}
+			
+			if (RetrievedPacketFilter != PacketFilter)
+				printf("ERROR: Retrieved Packet Filter %08lx != Set Packet Filter %08lx!\r\n", RetrievedPacketFilter, PacketFilter);
+
 			uint32_t VendorID;
 			if ((ErrorCode = RNDIS_QueryRNDISProperty(OID_GEN_VENDOR_ID,
 			                                          &VendorID, sizeof(VendorID))) != HOST_SENDCONTROL_Successful)
