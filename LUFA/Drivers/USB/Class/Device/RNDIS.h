@@ -133,12 +133,15 @@
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_RNDIS_CLASS_DEVICE_C)
-			static void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			static void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
+			                                                    ATTR_NON_NULL_PTR_ARG(1);
 			static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, 
 			                                          const uint32_t OId, void* const QueryData, const uint16_t QuerySize,
-										              void* ResponseData, uint16_t* const ResponseSize) ATTR_NON_NULL_PTR_ARG(1, 5, 6);
+										              void* ResponseData, uint16_t* const ResponseSize) ATTR_NON_NULL_PTR_ARG(1)
+			                                          ATTR_NON_NULL_PTR_ARG(5) ATTR_NON_NULL_PTR_ARG(6);
 			static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, const uint32_t OId,
-			                                        void* SetData, const uint16_t SetSize) ATTR_NON_NULL_PTR_ARG(1, 3);
+			                                        void* SetData, const uint16_t SetSize) ATTR_NON_NULL_PTR_ARG(1)
+			                                        ATTR_NON_NULL_PTR_ARG(3);
 		#endif
 		
 	#endif

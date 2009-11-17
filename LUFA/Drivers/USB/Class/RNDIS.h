@@ -29,7 +29,7 @@
 */
 
 /** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBClassRNDIS RNDIS Device Class Driver - LUFA/Drivers/Class/RNDIS.h
+ *  @defgroup Group_USBClassRNDIS RNDIS Class Driver - LUFA/Drivers/Class/RNDIS.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

@@ -29,7 +29,7 @@
 */
 
 /** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBClassHID HID Device Class Driver - LUFA/Drivers/Class/HID.h
+ *  @defgroup Group_USBClassHID HID Class Driver - LUFA/Drivers/Class/HID.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

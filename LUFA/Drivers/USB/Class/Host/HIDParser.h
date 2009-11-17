@@ -238,7 +238,7 @@
 			 *  \return A value in the \ref HID_Parse_ErrorCodes_t enum
 			 */
 			uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID_ReportInfo_t* const ParserData)
-			                             ATTR_NON_NULL_PTR_ARG(1, 3);
+			                             ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Extracts the given report item's value out of the given HID report and places it into the Value
 			 *  member of the report item's \ref HID_ReportItem_t structure.
@@ -249,7 +249,7 @@
 			 *  \returns Boolean true if the item to retrieve was located in the given report, false otherwise
 			 */
 			bool USB_GetHIDReportItemInfo(const uint8_t* ReportData, HID_ReportItem_t* const ReportItem)
-			                              ATTR_NON_NULL_PTR_ARG(1, 2);
+			                              ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Retrieves the given report item's value out of the Value member of the report item's
 			 *  \ref HID_ReportItem_t structure and places it into the correct position in the HID report
@@ -262,7 +262,7 @@
 			 *  \param[in] ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
 			 */
 			void USB_SetHIDReportItemInfo(uint8_t* ReportData, const HID_ReportItem_t* ReportItem)
-			                              ATTR_NON_NULL_PTR_ARG(1, 2);
+			                              ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 										  
 			/** Retrieves the size of a given HID report in bytes from it's Report ID.
 			 *
@@ -274,7 +274,7 @@
 			 *  \return Size of the report in bytes, or 0 if the report does not exist
 			 */
 			uint16_t USB_GetHIDReportSize(HID_ReportInfo_t* const ParserData, const uint8_t ReportID,
-			                              const uint8_t ReportType) ATTR_NON_NULL_PTR_ARG(1) ATTR_CONST;
+			                              const uint8_t ReportType) ATTR_CONST ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Callback routine for the HID Report Parser. This callback <b>must</b> be implemented by the user code when
 			 *  the parser is used, to determine what report IN, OUT and FEATURE item's information is stored into the user

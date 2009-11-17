@@ -130,7 +130,7 @@
 			 *  \return A value from the \ref SIHost_EnumerationFailure_ErrorCodes_t enum
 			 */
 			uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, uint16_t ConfigDescriptorSize,
-                                           void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
+                                           void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Opens a new PIMA session with the attached device. This should be used before any session-orientated PIMA commands
 			 *  are issued to the device. Only one session can be open at the one time.
@@ -192,7 +192,8 @@
 			 *          returned a logical command failure
 			 */
 			uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-				                                   SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1, 2);
+				                                   SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
+			                                       ATTR_NON_NULL_PTR_ARG(2);
 			
 			/** Sends arbitrary data to the attached device, for use in the data phase of PIMA commands which require data
 			 *  transfer beyond the regular PIMA command block parameters.
@@ -204,7 +205,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
 			uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, void* Buffer,
-			                             const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1, 2);
+			                             const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Receives arbitrary data from the attached device, for use in the data phase of PIMA commands which require data
 			 *  transfer beyond the regular PIMA command block parameters.
@@ -216,7 +217,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
 			uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, void* Buffer,
-			                             const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1, 2);
+			                             const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 			
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

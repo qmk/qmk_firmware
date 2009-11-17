@@ -29,7 +29,7 @@
 */
 
 /** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBClassPrinter Printer Device Class Driver - LUFA/Drivers/Class/Printer.h
+ *  @defgroup Group_USBClassPrinter Printer Class Driver - LUFA/Drivers/Class/Printer.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

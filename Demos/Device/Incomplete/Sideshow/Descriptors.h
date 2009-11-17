@@ -90,6 +90,6 @@
 
 		bool USB_GetOSFeatureDescriptor(const uint16_t wValue, const uint8_t wIndex,
 		                                void** const DescriptorAddress, uint16_t* const DescriptorSize)
-		                                ATTR_WARN_UNUSED_RESULT ATTR_WEAK ATTR_NON_NULL_PTR_ARG(3, 4);
+		                                ATTR_WARN_UNUSED_RESULT ATTR_WEAK ATTR_NON_NULL_PTR_ARG(3) ATTR_NON_NULL_PTR_ARG(4);
 
 #endif

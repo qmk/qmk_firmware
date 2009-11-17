@@ -122,7 +122,7 @@
 			 *  \return A value from the \ref PRNTHost_EnumerationFailure_ErrorCodes_t enum
 			 */
 			uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, uint16_t ConfigDescriptorSize,
-			                                 void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1, 3);
+			                                 void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 			
 			/** Configures the printer to enable Bidirectional mode, if it is not already in this mode. This should be called
 			 *  once the connected device's configuration has been set, to ensure the printer is ready to accept commands.
@@ -142,7 +142,7 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum
 			 */
 			uint8_t PRNT_Host_GetPortStatus(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, uint8_t* const PortStatus)
-			                                ATTR_NON_NULL_PTR_ARG(1, 2);
+			                                ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Soft-resets the attached printer, readying it for new commands.
 			 *
@@ -163,7 +163,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
 			uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, void* PrinterCommands, 
-			                           uint16_t CommandSize) ATTR_NON_NULL_PTR_ARG(1, 2);
+			                           uint16_t CommandSize) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Retrieves the attached printer device's ID string, formatted according to IEEE 1284. This string is sent as a
 			 *  Unicode string from the device and is automatically converted to an ASCII encoded C string by this function, thus

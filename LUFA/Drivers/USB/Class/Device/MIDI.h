@@ -119,7 +119,7 @@
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum			 
 			 */
 			uint8_t MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo,
-			                                    MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1, 2);
+			                                    MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Receives a MIDI event packet from the host.
 			 *
@@ -129,7 +129,7 @@
 			 *  \return Boolean true if a MIDI event packet was received, false otherwise
 			 */
 			bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo,
-			                                    MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1, 2);
+			                                    MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
