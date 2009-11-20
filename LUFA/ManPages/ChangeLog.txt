@@ -51,6 +51,7 @@
   *  - Fixed HID host Class driver report send/receive report broken when issued through the control pipe
   *  - Fixed HOST_STATE_AS_GPIOR compile time option being ignored when in host mode (thanks to David Lyons)
   *  - Fixed LowLevel Keyboard demo not saving the issues report only after it has been sent to the host
+  *  - Fixed Endpoint_Write_Control_Stream_* functions not sending a terminating IN when given data Length is zero
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *

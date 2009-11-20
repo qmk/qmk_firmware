@@ -5,7 +5,9 @@ uint8_t TEMPLATE_FUNC_NAME (const void* Buffer, uint16_t Length)
 	
 	if (Length > USB_ControlRequest.wLength)
 	  Length = USB_ControlRequest.wLength;
-	
+	else if (!(Length))
+	  Endpoint_ClearIN();
+
 	while (Length || LastPacketFull)
 	{
 		if (Endpoint_IsSETUPReceived())

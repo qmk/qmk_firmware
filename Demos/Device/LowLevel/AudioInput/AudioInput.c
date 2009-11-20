@@ -169,10 +169,10 @@ void USB_Audio_Task(void)
 		/* Audio sample is ADC value scaled to fit the entire range */
 		int16_t AudioSample = ((SAMPLE_MAX_RANGE / ADC_MAX_RANGE) * ADC_GetResult());
 		
-#if defined(MICROPHONE_BIASED_TO_HALF_RAIL)
+		#if defined(MICROPHONE_BIASED_TO_HALF_RAIL)
 		/* Microphone is biased to half rail voltage, subtract the bias from the sample value */
 		AudioSample -= (SAMPLE_MAX_RANGE / 2));
-#endif
+		#endif
 
 		/* Write the sample to the buffer */
 		Endpoint_Write_Word_LE(AudioSample);
