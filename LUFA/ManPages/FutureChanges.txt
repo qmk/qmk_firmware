@@ -21,9 +21,7 @@
   *  - Add detailed overviews of how each demo works
   *  - Master LUFA include file rather than per-module includes
   *  - Change makefiles to allow for absolute LUFA location to be used
-  *  - Add unit testing to APIs
   *  - Add board overviews
-  *  - Add resume interrupt support
   *  - Correct mishandling of error cases in Mass Storage demo
   *  - Add RNDIS Host Class driver
   *  - Make new demos
@@ -34,4 +32,5 @@
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers
   *      -# Other (commercial) C compilers
+  *  - Write LUFA tutorials
   */

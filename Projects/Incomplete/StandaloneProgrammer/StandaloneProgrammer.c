@@ -96,7 +96,7 @@ FATFS DataflashData;
 
 
 /** Stream character fetching routine for the FAT driver so that characters from the currently open file can be
- *  readin sequence when applied to a stdio stream.
+ *  read in sequence when applied to a stdio stream.
  */
 static int Dataflash_getchar(FILE* Stream)
 {

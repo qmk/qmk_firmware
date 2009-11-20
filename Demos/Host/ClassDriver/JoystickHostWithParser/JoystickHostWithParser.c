@@ -263,7 +263,7 @@ bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem)
 
 	/* Iterate through the item's collection path, until either the root collection node or a collection with the
 	 * Joystick Usage is found - this prevents Mice, which use identical descriptors except for the Joystick usage
-	 * parent node, from being erroneously treated as a joystick
+	 * parent node, from being erroneously treated as a joystick by the demo
 	 */
 	for (HID_CollectionPath_t* CurrPath = CurrentItem->CollectionPath; CurrPath != NULL; CurrPath = CurrPath->Parent)
 	{

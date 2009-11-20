@@ -84,6 +84,7 @@ void SetupHardware(void)
 	Joystick_Init();
 	LEDs_Init();
 	USB_Init();
+	Buttons_Init();
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
@@ -257,23 +258,38 @@ void EVENT_USB_Device_StartOfFrame(void)
  */
 void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
 {
-	uint8_t JoyStatus_LCL = Joystick_GetStatus();
+	static uint8_t PrevUsedKeyCodes;
+	uint8_t UsedKeyCodes      = 0;
+	uint8_t JoyStatus_LCL     = Joystick_GetStatus();
+	uint8_t ButtonStatus_LCL  = Buttons_GetStatus();
 
 	/* Clear the report contents */
 	memset(ReportData, 0, sizeof(USB_KeyboardReport_Data_t));
-
+	
 	if (JoyStatus_LCL & JOY_UP)
-	  ReportData->KeyCode[0] = 0x04; // A
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x04; // A
 	else if (JoyStatus_LCL & JOY_DOWN)
-	  ReportData->KeyCode[0] = 0x05; // B
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x05; // B
 
 	if (JoyStatus_LCL & JOY_LEFT)
-	  ReportData->KeyCode[0] = 0x06; // C
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x06; // C
 	else if (JoyStatus_LCL & JOY_RIGHT)
-	  ReportData->KeyCode[0] = 0x07; // D
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x07; // D
 
 	if (JoyStatus_LCL & JOY_PRESS)
-	  ReportData->KeyCode[0] = 0x08; // E
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x08; // E
+	  
+	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
+	  ReportData->KeyCode[UsedKeyCodes++] = 0x09; // F
+	
+	/* The host will ignore the device if we add a new keycode to the report while another keycode is currently
+	 * being sent (i.e. the user has pressed another key while a key is already being pressed) - we need to intersperse
+	 * the two reports with a zeroed report to force the host to accept the additional keys */
+	if (UsedKeyCodes != PrevUsedKeyCodes)
+	{
+		memset(ReportData, 0, sizeof(USB_KeyboardReport_Data_t));
+		PrevUsedKeyCodes = UsedKeyCodes;
+	}
 }
 
 /** Processes a received LED report, and updates the board LEDs states to match.
@@ -310,9 +326,6 @@ void SendNextReport(void)
 	/* Check to see if the report data has changed - if so a report MUST be sent */
 	SendReport = (memcmp(&PrevKeyboardReportData, &KeyboardReportData, sizeof(USB_KeyboardReport_Data_t)) != 0);
 	
-	/* Save the current report data for later comparison to check for changes */
-	PrevKeyboardReportData = KeyboardReportData;
-	
 	/* Check if the idle period is set and has elapsed */
 	if ((IdleCount != HID_IDLE_CHANGESONLY) && (!(IdleMSRemaining)))
 	{
@@ -329,6 +342,9 @@ void SendNextReport(void)
 	/* Check if Keyboard Endpoint Ready for Read/Write and if we should send a new report */
 	if (Endpoint_IsReadWriteAllowed() && SendReport)
 	{
+		/* Save the current report data for later comparison to check for changes */
+		PrevKeyboardReportData = KeyboardReportData;
+	
 		/* Write Keyboard Report Data */
 		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
 		

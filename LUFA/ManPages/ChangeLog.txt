@@ -34,6 +34,7 @@
   *  - Changed MouseHostWithParser demos to check that the report items have a Mouse usage collection as a parent at some point,
   *    to prevent Joysticks from enumerating with the demo
   *  - Corrected the name of the misnamed USB_GetDeviceConfigDescriptor() function to USB_Host_GetDeviceConfigDescriptor().
+  *  - Keyboard LowLevel/ClassDriver demos now support multiple simultaneous keypresses (up to 6) per report
   *
   *  <b>Fixed:</b>
   *  - Fixed PrinterHost demo returning invalid Device ID data when the attached device does not have a
@@ -49,6 +50,7 @@
   *  - Fixed HID report parser collection paths invalid due to misplaced semicolon in the free path item search loop
   *  - Fixed HID host Class driver report send/receive report broken when issued through the control pipe
   *  - Fixed HOST_STATE_AS_GPIOR compile time option being ignored when in host mode (thanks to David Lyons)
+  *  - Fixed LowLevel Keyboard demo not saving the issues report only after it has been sent to the host
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *

@@ -263,7 +263,7 @@ void RNDIS_Host_Task(void)
 			}
 			
 			if (RetrievedPacketFilter != PacketFilter)
-				printf("ERROR: Retrieved Packet Filter %08lx != Set Packet Filter %08lx!\r\n", RetrievedPacketFilter, PacketFilter);
+				printf("ERROR: Retrieved Packet Filter 0x%08lx != Set Packet Filter 0x%08lx!\r\n", RetrievedPacketFilter, PacketFilter);
 
 			uint32_t VendorID;
 			if ((ErrorCode = RNDIS_QueryRNDISProperty(OID_GEN_VENDOR_ID,

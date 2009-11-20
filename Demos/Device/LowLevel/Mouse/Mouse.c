@@ -268,9 +268,6 @@ void SendNextReport(void)
 	if ((MouseReportData.Y != 0) || (MouseReportData.X != 0))
 	  SendReport = true;
 	
-	/* Save the current report data for later comparison to check for changes */
-	PrevMouseReportData = MouseReportData;
-	
 	/* Check if the idle period is set and has elapsed */
 	if ((IdleCount != HID_IDLE_CHANGESONLY) && (!(IdleMSRemaining)))
 	{
@@ -286,7 +283,10 @@ void SendNextReport(void)
 
 	/* Check if Mouse Endpoint Ready for Read/Write and if we should send a new report */
 	if (Endpoint_IsReadWriteAllowed() && SendReport)
-	{
+	{	
+		/* Save the current report data for later comparison to check for changes */
+		PrevMouseReportData = MouseReportData;
+
 		/* Write Mouse Report Data */
 		Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData));
 		
