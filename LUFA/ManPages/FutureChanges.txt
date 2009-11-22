@@ -14,23 +14,25 @@
   *  <b>Targeted for the Next Release (SVN Development Only):</b>
   *
   *  <b>Targeted for Future Releases:</b>
-  *  - Add hub support to match Atmel's stack
-  *  - Add ability to get number of bytes not written with pipe/endpoint write routines after an error
-  *  - Add standardized descriptor names to class driver structures
-  *  - Remake AVRStudio project files
-  *  - Add detailed overviews of how each demo works
-  *  - Master LUFA include file rather than per-module includes
-  *  - Change makefiles to allow for absolute LUFA location to be used
-  *  - Add board overviews
-  *  - Correct mishandling of error cases in Mass Storage demo
-  *  - Add RNDIS Host Class driver
-  *  - Make new demos
+  *  - Code Features
+  *      -# Add hub support when in Host mode for multiple devices
+  *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
+  *      -# Add standardized descriptor names to class driver structures
+  *      -# Add RNDIS Host Class driver
+  *      -# Correct mishandling of error cases in Mass Storage demos
+  *  - Documentation/Support
+  *      -# Remake AVRStudio project files
+  *      -# Add detailed overviews of how each demo works
+  *      -# Master LUFA include file rather than per-module includes
+  *      -# Change makefiles to allow for absolute LUFA location to be used
+  *      -# Add board overviews
+  *      -# Write LUFA tutorials
+  *  - Demos/Projects
   *      -# Keyboard/Mouse Dual Class Host
   *      -# Multiple-Report HID device
   *      -# Device/Host bridge
-  *  - Port LUFA codebase
+  *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers
   *      -# Other (commercial) C compilers
-  *  - Write LUFA tutorials
   */

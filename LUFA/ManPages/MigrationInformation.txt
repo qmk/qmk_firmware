@@ -10,15 +10,13 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
- * \section Sec_MigrationXXXXXX Migrating from 090924 to XXXXXX
+ * \section Sec_Migration091122 Migrating from 090924 to 091122
  *  
  *  <b>Host Mode</b>
  *    - The HID_PARSE_UsageStackOverflow HID parser error constant is now named \ref HID_PARSE_UsageListOverflow
  *    - The \ref CALLBACK_HIDParser_FilterHIDReportItem() HID Parser callback now passes a complete HID_ReportItem_t to the
  *      user application, instead of just its attributes.
  *    - The USB_GetDeviceConfigDescriptor() function was incorrectly named and is now called \ref USB_Host_GetDeviceConfigDescriptor().
- *
- <b>No Migration information for this release - all library elements are backwards-compatible with 090924.</b>
  *
  * \section Sec_Migration090924 Migrating from 090810 to 090924
  *

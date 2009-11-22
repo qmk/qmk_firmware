@@ -6,7 +6,7 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
-  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  \section Sec_ChangeLog091122 Version 091122
   *
   *  <b>New:</b>
   *  - Added new Dual Role Keyboard/Mouse demo
