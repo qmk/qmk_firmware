@@ -72,67 +72,6 @@
 		
 		/** Value for the DeviceType entry in the SCSI_Inquiry_Response_t enum, indicating a CD-ROM device. */
 		#define DEVICE_TYPE_CDROM   0x05
-
-	/* Type Defines: */
-		/** Type define for a SCSI response structure to a SCSI INQUIRY command. For details of the
-		 *  structure contents, refer to the SCSI specifications.
-		 */
-		typedef struct
-		{
-			unsigned char DeviceType          : 5;
-			unsigned char PeripheralQualifier : 3;
-			
-			unsigned char _RESERVED1          : 7;
-			unsigned char Removable           : 1;
-			
-			uint8_t      Version;
-			
-			unsigned char ResponseDataFormat  : 4;
-			unsigned char _RESERVED2          : 1;
-			unsigned char NormACA             : 1;
-			unsigned char TrmTsk              : 1;
-			unsigned char AERC                : 1;
-
-			uint8_t      AdditionalLength;
-			uint8_t      _RESERVED3[2];
-
-			unsigned char SoftReset           : 1;
-			unsigned char CmdQue              : 1;
-			unsigned char _RESERVED4          : 1;
-			unsigned char Linked              : 1;
-			unsigned char Sync                : 1;
-			unsigned char WideBus16Bit        : 1;
-			unsigned char WideBus32Bit        : 1;
-			unsigned char RelAddr             : 1;
-			
-			uint8_t      VendorID[8];
-			uint8_t      ProductID[16];
-			uint8_t      RevisionID[4];
-		} SCSI_Inquiry_Response_t;
-		
-		/** Type define for a SCSI sense structure to a SCSI REQUEST SENSE command. For details of the
-		 *  structure contents, refer to the SCSI specifications.
-		 */
-		typedef struct
-		{
-			uint8_t       ResponseCode;
-			
-			uint8_t       SegmentNumber;
-			
-			unsigned char SenseKey            : 4;
-			unsigned char _RESERVED1          : 1;
-			unsigned char ILI                 : 1;
-			unsigned char EOM                 : 1;
-			unsigned char FileMark            : 1;
-			
-			uint8_t      Information[4];
-			uint8_t      AdditionalLength;
-			uint8_t      CmdSpecificInformation[4];
-			uint8_t      AdditionalSenseCode;
-			uint8_t      AdditionalSenseQualifier;
-			uint8_t      FieldReplaceableUnitCode;
-			uint8_t      SenseKeySpecific[3];
-		} SCSI_Request_Sense_Response_t;
 		
 	/* Function Prototypes: */
 		bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);

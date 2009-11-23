@@ -74,6 +74,15 @@
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 		
+		/** HID Report Type to indicate an IN report. */
+		#define REPORT_TYPE_IN           1
+
+		/** HID Report Type to indicate an OUT report. */
+		#define REPORT_TYPE_OUT          2
+
+		/** HID Report Type to indicate a FEATURE report. */
+		#define REPORT_TYPE_FEATURE      3
+		
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void HID_Host_Task(void);

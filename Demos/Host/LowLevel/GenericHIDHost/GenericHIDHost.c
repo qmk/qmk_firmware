@@ -165,7 +165,7 @@ void ReadNextReport(void)
  *
  *  \param[in] ReportOUTData  Buffer containing the report to send to the device
  *  \param[in] ReportIndex  Index of the report in the device (zero if the device does not use multiple reports)
- *  \param[in] ReportType  Type of report to send, either REPORT_ITEM_TYPE_Out or REPORT_ITEM_TYPE_Feature
+ *  \param[in] ReportType  Type of report to send, either REPORT_TYPE_OUT or REPORT_TYPE_FEATURE
  *  \param[in] ReportLength  Length of the report to send
  */
 void WriteNextReport(uint8_t* ReportOUTData, uint8_t ReportIndex, uint8_t ReportType, uint16_t ReportLength)
@@ -175,7 +175,7 @@ void WriteNextReport(uint8_t* ReportOUTData, uint8_t ReportIndex, uint8_t Report
 	
 	/* Not all HID devices have an OUT endpoint (some require OUT reports to be sent over the
 	 * control endpoint instead) - check to see if the OUT endpoint has been initialized */
-	if (Pipe_IsConfigured())
+	if (Pipe_IsConfigured() && (ReportType == REPORT_TYPE_OUT))
 	{
 		Pipe_Unfreeze();
 
