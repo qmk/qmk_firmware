@@ -39,6 +39,7 @@
 #define  INCLUDE_FROM_DATAFLASHMANAGER_C
 #include "DataflashManager.h"
 
+#if defined(USB_CAN_BE_DEVICE)
 /** Writes blocks (OS blocks, not Dataflash pages) to the storage medium, the board dataflash IC(s), from
  *  the pre-selected data OUT endpoint. This routine reads in OS sized blocks from the endpoint and writes
  *  them to the dataflash in Dataflash page sized blocks.
@@ -523,3 +524,4 @@ bool DataflashManager_CheckDataflashOperation(void)
 	
 	return true;
 }
+#endif

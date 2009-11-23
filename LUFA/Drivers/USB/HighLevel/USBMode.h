@@ -28,11 +28,58 @@
   this software.
 */
 
+/** \ingroup Group_USB
+ *  @defgroup Group_USBMode USB Configuration Tokens
+ *
+ *  After the inclusion of the master USB driver header, one or more of the following
+ *  tokens may be defined, to allow the user code to conditionally enable or disable
+ *  code based on the USB controller family and allowable USB modes. These tokens may
+ *  be tested against to eliminate code relating to a USB mode which is not enabled for
+ *  the given compilation.
+ *
+ *  @{
+ */
+
 #ifndef __USBMODE_H__
 #define __USBMODE_H__
 
-	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)
+	/* Public Interface - May be used in end-application: */
+	#if defined(__DOXYGEN__)
+		/** Indicates that the target AVR microcontroller belongs to the Series 2 USB controller
+		 *  (i.e. AT90USBXXX2 or ATMEGAXXU2) when defined.
+		 */
+		#define USB_SERIES_2_AVR
+
+		/** Indicates that the target AVR microcontroller belongs to the Series 4 USB controller
+		 *  (i.e. ATMEGAXXU4) when defined.
+		 */
+		#define USB_SERIES_4_AVR
+
+		/** Indicates that the target AVR microcontroller belongs to the Series 6 USB controller
+		 *  (i.e. AT90USBXXX6) when defined.
+		 */
+		#define USB_SERIES_6_AVR
+
+		/** Indicates that the target AVR microcontroller belongs to the Series 7 USB controller
+		 *  (i.e. AT90USBXXX7) when defined.
+		 */
+		#define USB_SERIES_7_AVR
+
+		/** Indicates that the target AVR microcontroller and compilation settings allow for the
+		 *  target to be configured in USB Device mode when defined.
+		 */
+		#define USB_CAN_BE_DEVICE
+
+		/** Indicates that the target AVR microcontroller and compilation settings allow for the
+		 *  target to be configured in USB Host mode when defined.
+		 */
+		#define USB_CAN_BE_HOST
+
+		/** Indicates that the target AVR microcontroller and compilation settings allow for the
+		 *  target to be configured in either USB Device or Host mode when defined.
+		 */
+		#define USB_CAN_BE_BOTH
+	#else
 		/* Macros: */			
 			#if (defined(__AVR_AT90USB162__) || defined(__AVR_AT90USB82__)  || \
 			     defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega8U2__))
@@ -71,3 +118,5 @@
 	#endif
 	
 #endif
+
+/** @} */

@@ -5,7 +5,9 @@
 #include "diskio.h"
 
 #include <string.h>
+#include <LUFA/Drivers/USB/Class/MassStorage.h>
 #include "../DataflashManager.h"
+#include "../../DiskHost.h"
 
 /*-----------------------------------------------------------------------*/
 /* Initialize Disk Drive                                                 */
@@ -33,14 +35,29 @@ DRESULT disk_readp (
 	WORD count			/* Byte count (bit15:destination) */
 )
 {
-	DRESULT res;
-
+	DRESULT ErrorCode = RES_OK;
 	uint8_t BlockTemp[512];
-	DataflashManager_ReadBlocks_RAM(sector, 1, BlockTemp);
+
+	if (USB_CurrentMode == USB_MODE_HOST)
+	{
+		#if defined(USB_CAN_BE_HOST)
+		if (USB_HostState != HOST_STATE_Configured)
+		  ErrorCode = RES_NOTRDY;
+		else if (MS_Host_ReadDeviceBlocks(&DiskHost_MS_Interface, 0, sector, 1, 512, BlockTemp))
+		  ErrorCode = RES_ERROR;
+
+		printf("BLOCK READ #%lu Ret %d\r\n", sector, MS_Host_ReadDeviceBlocks(&DiskHost_MS_Interface, 0, sector, 1, 512, BlockTemp));
+		#endif
+	}
+	else
+	{
+		#if defined(USB_CAN_BE_DEVICE)
+		DataflashManager_ReadBlocks_RAM(sector, 1, BlockTemp);
+		#endif
+	}
+
 	memcpy(dest, &BlockTemp[sofs], count);
 
-	res = RES_OK;
-
-	return res;
+	return ErrorCode;
 }
 

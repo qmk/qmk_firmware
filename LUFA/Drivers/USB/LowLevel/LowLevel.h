@@ -112,14 +112,10 @@
 			 */
 			#define USB_MODE_DEVICE                    1
 			
-			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
-				/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the
-				 *  USB interface is or should be initialized in the USB host mode.
-				 *
-				 *  \note This token is not available on AVR models which do not support host mode.
-				 */
-				#define USB_MODE_HOST                  2
-			#endif
+			/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the
+			 *  USB interface is or should be initialized in the USB host mode.
+			 */
+			#define USB_MODE_HOST                      2
 			
 			#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
 				/** Mode mask for the the \ref USB_Init() function. This indicates that the USB interface should be

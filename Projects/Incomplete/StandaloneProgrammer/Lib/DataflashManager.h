@@ -42,10 +42,9 @@
 		#include "StandaloneProgrammer.h"
 		#include "Descriptors.h"
 
-		#include <LUFA/Common/Common.h>                 // Function Attribute, Atomic, Debug and ISR Macros
-		#include <LUFA/Drivers/USB/USB.h>               // USB Functionality
-		#include <LUFA/Drivers/USB/Class/MassStorage.h> // Mass Storage Class Driver
-		#include <LUFA/Drivers/Board/Dataflash.h>       // Dataflash chip driver
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/MassStorage.h>
+		#include <LUFA/Drivers/Board/Dataflash.h>
 
 	/* Preprocessor Checks: */
 		#if (DATAFLASH_PAGE_SIZE % 16)
@@ -67,15 +66,17 @@
 		#define VIRTUAL_MEMORY_BLOCKS               (VIRTUAL_MEMORY_BYTES / VIRTUAL_MEMORY_BLOCK_SIZE)
 		
 	/* Function Prototypes: */
-		void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const uint32_t BlockAddress,
-		                                  uint16_t TotalBlocks);
-		void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const uint32_t BlockAddress,
-		                                 uint16_t TotalBlocks);
-		void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress, uint16_t TotalBlocks,
-		                                      uint8_t* BufferPtr) ATTR_NON_NULL_PTR_ARG(3);
-		void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress, uint16_t TotalBlocks,
-		                                     uint8_t* BufferPtr) ATTR_NON_NULL_PTR_ARG(3);
-		void DataflashManager_ResetDataflashProtections(void);
-		bool DataflashManager_CheckDataflashOperation(void);
-		
+		#if defined(USB_CAN_BE_DEVICE)
+			void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const uint32_t BlockAddress,
+											  uint16_t TotalBlocks);
+			void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const uint32_t BlockAddress,
+											 uint16_t TotalBlocks);
+			void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress, uint16_t TotalBlocks,
+												  uint8_t* BufferPtr) ATTR_NON_NULL_PTR_ARG(3);
+			void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress, uint16_t TotalBlocks,
+												 uint8_t* BufferPtr) ATTR_NON_NULL_PTR_ARG(3);
+			void DataflashManager_ResetDataflashProtections(void);
+			bool DataflashManager_CheckDataflashOperation(void);
+		#endif
+
 #endif

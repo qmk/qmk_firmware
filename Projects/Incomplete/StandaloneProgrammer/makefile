@@ -116,7 +116,6 @@ LUFA_PATH = ../../../
 
 
 # LUFA library compile-time options
-LUFA_OPTS  = -D USB_DEVICE_ONLY
 LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
 LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
@@ -127,11 +126,15 @@ LUFA_OPTS += -D INTERRUPT_CONTROL_ENDPOINT
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
+	  DiskHost.c                                                  \
+	  DiskDevice.c                                                \
 	  Lib/SCSI.c                                                  \
 	  Lib/DataflashManager.c                                      \
 	  Lib/ProgrammerConfig.c                                      \
 	  Lib/PetiteFATFs/diskio.c                                    \
 	  Lib/PetiteFATFs/pff.c                                       \
+	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
+	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -144,8 +147,6 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/MassStorage.c    \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/MassStorage.c      \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/CDC.c            \
-	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/CDC.c              \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

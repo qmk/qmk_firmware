@@ -42,7 +42,8 @@
 		#include <avr/power.h>
 		#include <stdio.h>
 
-		#include "Descriptors.h"
+		#include "DiskDevice.h"
+		#include "DiskHost.h"
 
 		#include "Lib/SCSI.h"
 		#include "Lib/DataflashManager.h"
@@ -50,11 +51,8 @@
 		#include "Lib/PetiteFATFs/pff.h"
 
 		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/MassStorage.h>
-		#include <LUFA/Drivers/USB/Class/CDC.h>
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -73,22 +71,15 @@
 		#define LEDMASK_USB_BUSY         (LEDS_LED2)
 		
 	/* External Variables: */
-		extern FILE USBSerialStream;
-		extern FILE DataflashStream;
+		extern FILE DiskStream;
+		extern FATFS DiskFATState;
 	
 	/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_STANDALONEPROG_C)
-			static int Dataflash_getchar(FILE* Stream);
+			static int Disk_getchar(FILE* Stream);
 		#endif
 		
 		void SetupHardware(void);
 		void Programmer_Task(void);
-
-		void EVENT_USB_Device_Connect(void);
-		void EVENT_USB_Device_Disconnect(void);
-		void EVENT_USB_Device_ConfigurationChanged(void);
-		void EVENT_USB_Device_UnhandledControlRequest(void);
-
-		bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
-
+		
 #endif

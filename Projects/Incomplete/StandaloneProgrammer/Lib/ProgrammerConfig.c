@@ -44,7 +44,7 @@ bool ProgrammerConfig_ProcessConfiguration(void)
 
 	if (!(pf_open("CONF.txt") == FR_OK))
 	{
-		fputs(" >> ERROR: CONF.txt File Not Found.\r\n", &USBSerialStream);
+		puts(" >> ERROR: CONF.txt File Not Found.\r\n");
 		return false;
 	}
 	
@@ -53,7 +53,7 @@ bool ProgrammerConfig_ProcessConfiguration(void)
 			
 	do
 	{
-		CurrentLine = fgets(LineBuff, sizeof(LineBuff), &DataflashStream);
+		CurrentLine = fgets(LineBuff, sizeof(LineBuff), &DiskStream);
 		
 		if (CurrentLine)
 		{
@@ -66,12 +66,12 @@ bool ProgrammerConfig_ProcessConfiguration(void)
 		}
 	} while (CurrentLine);
 	
-	fprintf(&USBSerialStream, " >> *** Configuration: ***\r\n");
-	fprintf(&USBSerialStream, " >> Device Signature: 0x%02x 0x%02x 0x%02x 0x%02x\r\n", ProgrammerConfig.SigBytes[0],
-			                                                                           ProgrammerConfig.SigBytes[1],
-			                                                                           ProgrammerConfig.SigBytes[2],
-			                                                                           ProgrammerConfig.SigBytes[3]);
-	fprintf(&USBSerialStream, " >> Programming Speed: %lu Hz\r\n", ProgrammerConfig.ProgrammingSpeed);
+	printf(" >> *** Configuration: ***\r\n");
+	printf(" >> Device Signature: 0x%02x 0x%02x 0x%02x 0x%02x\r\n", ProgrammerConfig.SigBytes[0],
+			                                                        ProgrammerConfig.SigBytes[1],
+			                                                        ProgrammerConfig.SigBytes[2],
+			                                                        ProgrammerConfig.SigBytes[3]);
+	printf(" >> Programming Speed: %lu Hz\r\n", ProgrammerConfig.ProgrammingSpeed);
 	
 	return true;
 }

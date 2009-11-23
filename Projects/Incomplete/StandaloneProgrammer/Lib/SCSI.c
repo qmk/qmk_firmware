@@ -38,6 +38,7 @@
 #define  INCLUDE_FROM_SCSI_C
 #include "SCSI.h"
 
+#if defined(USB_CAN_BE_DEVICE)
 /** Structure to hold the SCSI response data to a SCSI INQUIRY command. This gives information about the device's
  *  features and capabilities.
  */
@@ -279,3 +280,4 @@ static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo
 	/* Update the bytes transferred counter and succeed the command */
 	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= ((uint32_t)TotalBlocks * VIRTUAL_MEMORY_BLOCK_SIZE);
 }
+#endif
