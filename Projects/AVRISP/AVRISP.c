@@ -123,8 +123,12 @@ void Process_AVRISP_Commands(void)
 	/* Check to see if a V2 Protocol command has been received */
 	if (Endpoint_IsOUTReceived())
 	{
+		LEDs_SetAllLEDs(LEDMASK_BUSY);
+
 		/* Pass off processing of the V2 Protocol command to the V2 Protocol handler */
 		V2Protocol_ProcessCommand();
+
+		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
 }
 

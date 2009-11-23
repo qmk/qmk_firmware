@@ -10,6 +10,10 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
+ * \section Sec_MigrationXXXXXX Migrating from 091122 to XXXXXX
+ *  
+ *  <b>There is no migration information for this version.</b>
+ *
  * \section Sec_Migration091122 Migrating from 090924 to 091122
  *  
  *  <b>Host Mode</b>
