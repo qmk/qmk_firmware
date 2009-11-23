@@ -258,10 +258,10 @@ void EVENT_USB_Device_StartOfFrame(void)
  */
 void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
 {
-	static uint8_t PrevUsedKeyCodes;
-	uint8_t UsedKeyCodes      = 0;
 	uint8_t JoyStatus_LCL     = Joystick_GetStatus();
 	uint8_t ButtonStatus_LCL  = Buttons_GetStatus();
+
+	uint8_t UsedKeyCodes      = 0;
 
 	/* Clear the report contents */
 	memset(ReportData, 0, sizeof(USB_KeyboardReport_Data_t));
@@ -281,15 +281,6 @@ void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
 	  
 	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 	  ReportData->KeyCode[UsedKeyCodes++] = 0x09; // F
-	
-	/* The host will ignore the device if we add a new keycode to the report while another keycode is currently
-	 * being sent (i.e. the user has pressed another key while a key is already being pressed) - we need to intersperse
-	 * the two reports with a zeroed report to force the host to accept the additional keys */
-	if (UsedKeyCodes != PrevUsedKeyCodes)
-	{
-		memset(ReportData, 0, sizeof(USB_KeyboardReport_Data_t));
-		PrevUsedKeyCodes = UsedKeyCodes;
-	}
 }
 
 /** Processes a received LED report, and updates the board LEDs states to match.

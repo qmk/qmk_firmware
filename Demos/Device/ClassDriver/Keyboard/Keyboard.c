@@ -144,7 +144,6 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
 	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
 
-	static uint8_t PrevUsedKeyCodes;
 	uint8_t UsedKeyCodes = 0;
 	
 	if (JoyStatus_LCL & JOY_UP)
@@ -162,15 +161,6 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	  
 	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 	  KeyboardReport->KeyCode[UsedKeyCodes++] = 0x09; // F
-	
-	/* The host will ignore the device if we add a new keycode to the report while another keycode is currently
-	 * being sent (i.e. the user has pressed another key while a key is already being pressed) - we need to intersperse
-	 * the two reports with a zeroed report to force the host to accept the additional keys */
-	if (UsedKeyCodes != PrevUsedKeyCodes)
-	{
-		memset(KeyboardReport, sizeof(USB_KeyboardReport_Data_t), 0x00);
-		PrevUsedKeyCodes = UsedKeyCodes;
-	}
 
 	*ReportSize = sizeof(USB_KeyboardReport_Data_t);
 	return false;

@@ -8,7 +8,12 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
-  *  <b>There is no changelog information for this version.</b>
+  *  <b>New:</b>
+  *  - Added activity LED indicators to the AVRISP project to indicate when the device is busy processing a command
+  *
+  *  <b>Changed:</b>
+  *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of keycodes
+  *    as this relied on non-standard OS driver behaviour to repeat key groups
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *
