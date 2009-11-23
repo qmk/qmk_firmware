@@ -50,10 +50,11 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 
 				uint16_t ReportINSize = 0;
 				uint8_t  ReportID     = (USB_ControlRequest.wValue & 0xFF);
+				uint8_t  ReportType   = (USB_ControlRequest.wValue >> 8) - 1;
 
 				memset(HIDInterfaceInfo->Config.PrevReportINBuffer, 0, HIDInterfaceInfo->Config.PrevReportINBufferSize);
 				
-				CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID,
+				CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportType,
 				                                    HIDInterfaceInfo->Config.PrevReportINBuffer, &ReportINSize);
 
 				Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
@@ -158,7 +159,8 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 
 		memset(ReportINData, 0, sizeof(ReportINData));
 
-		bool ForceSend         = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportINData, &ReportINSize);
+		bool ForceSend         = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, REPORT_ITEM_TYPE_In,
+		                                                             ReportINData, &ReportINSize);
 		bool StatesChanged     = false;
 		bool IdlePeriodElapsed = (HIDInterfaceInfo->State.IdleCount && !(HIDInterfaceInfo->State.IdleMSRemaining));
 		

@@ -50,7 +50,7 @@ USB_ClassInfo_HID_Host_t Mouse_HID_Host_Interface =
 				.HIDInterfaceProtocol   = HID_BOOT_MOUSE_PROTOCOL,
 			},
 	};
-	
+
 
 /** Event handler for the USB_DeviceAttached event. This indicates that a device has been attached to the host, and
  *  starts the library USB task to begin the enumeration and USB management process.

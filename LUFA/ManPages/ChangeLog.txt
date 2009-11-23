@@ -18,6 +18,8 @@
   *  - The SCSI_Request_Sense_Response_t and SCSI_Inquiry_Response_t type defines are now part of the Mass Storage Class
   *    driver common defines, rather than being defined in the Host mode Class driver section only
   *  - The USB_MODE_HOST token is now defined even when host mode is not available
+  *  - The CALLBACK_HID_Device_CreateHIDReport() HID Device Class driver callback now has a new ReportType parameter to
+  *    indicate the report type to generate
   *
   *  <b>Fixed:</b>
   *  - Added missing CDC_Host_CreateBlockingStream() function code to the CDC Host Class driver

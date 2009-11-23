@@ -147,15 +147,16 @@
 			 *  \param[in,out] ReportID  If preset to a non-zero value, this is the report ID being requested by the host. If zero, this should
 			 *                 be set to the report ID of the generated HID input report (if any). If multiple reports are not sent via the
 			 *                 given HID interface, this parameter should be ignored.
-			 *  \param[out] ReportData  Pointer to a buffer where the generated HID report should be stored.
+			 *  \param[in] ReportType  Type of HID report to generate, either \ref REPORT_ITEM_TYPE_In or \ref REPORT_ITEM_TYPE_Feature
+			 *  \param[out] ReportData  Pointer to a buffer where the generated HID report should be stored
 			 *  \param[out] ReportSize  Number of bytes in the generated input report, or zero if no report is to be sent
 			 *
 			 *  \return Boolean true to force the sending of the report even if it is identical to the previous report and still within
 			 *          the idle period (useful for devices which report relative movement), false otherwise
 			 */
 			bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
-                                                     void* ReportData, uint16_t* ReportSize) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2)
-			                                         ATTR_NON_NULL_PTR_ARG(3) ATTR_NON_NULL_PTR_ARG(4);
+                                                     const uint8_t ReportType, void* ReportData, uint16_t* ReportSize) ATTR_NON_NULL_PTR_ARG(1)
+			                                         ATTR_NON_NULL_PTR_ARG(2) ATTR_NON_NULL_PTR_ARG(4) ATTR_NON_NULL_PTR_ARG(5);
 			
 			/** HID class driver callback for the user processing of a received HID OUT report. This callback may fire in response to
 			 *  either HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback
