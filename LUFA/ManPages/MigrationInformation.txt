@@ -11,7 +11,11 @@
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
  * \section Sec_MigrationXXXXXX Migrating from 091122 to XXXXXX
- *  
+ *
+ *  <b>Host Mode</b>
+ *    - The Still Image Host Class driver SI_Host_USBTask() and SI_Host_ConfigurePipes() functions were misnamed, and are
+ *      now named SImage_Host_USBTask() and SImage_Host_ConfigurePipes() respectively.
+ *
  *  <b>Device Mode</b>
  *    - The CALLBACK_HID_Device_CreateHIDReport() HID Device Class driver callback now has a new ReportType parameter to
  *      indicate the report type to generate. Existing applications may simply add and ignore this additional parameter.

@@ -29,7 +29,7 @@
 */
 
 /** \ingroup Group_USB
- *  @defgroup Group_USBMode USB Configuration Tokens
+ *  @defgroup Group_USBMode USB Mode Tokens
  *
  *  After the inclusion of the master USB driver header, one or more of the following
  *  tokens may be defined, to allow the user code to conditionally enable or disable

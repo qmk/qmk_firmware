@@ -85,8 +85,8 @@ int main(void)
 					break;
 				}
 
-				if (SI_Host_ConfigurePipes(&DigitalCamera_SI_Interface,
-				                           ConfigDescriptorSize, ConfigDescriptorData) != SI_ENUMERROR_NoError)
+				if (SImage_Host_ConfigurePipes(&DigitalCamera_SI_Interface,
+				                               ConfigDescriptorSize, ConfigDescriptorData) != SI_ENUMERROR_NoError)
 				{
 					printf("Attached Device Not a Valid CDC Class Device.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -141,7 +141,7 @@ int main(void)
 				break;
 		}
 	
-		SI_Host_USBTask(&DigitalCamera_SI_Interface);
+		SImage_Host_USBTask(&DigitalCamera_SI_Interface);
 		USB_USBTask();
 	}
 }

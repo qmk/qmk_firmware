@@ -15,11 +15,7 @@
 
 DSTATUS disk_initialize (void)
 {
-	DSTATUS stat;
-
-	stat = RES_OK;
-
-	return stat;
+	return RES_OK;
 }
 
 

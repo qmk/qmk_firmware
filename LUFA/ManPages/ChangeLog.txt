@@ -24,6 +24,7 @@
   *  <b>Fixed:</b>
   *  - Added missing CDC_Host_CreateBlockingStream() function code to the CDC Host Class driver
   *  - Fixed incorrect values for REPORT_ITEM_TYPE_* enum values causing corrupt data in the HID Host Parser
+  *  - Fixed misnamed SI_Host_USBTask() and SI_Host_ConfigurePipes() functions
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *

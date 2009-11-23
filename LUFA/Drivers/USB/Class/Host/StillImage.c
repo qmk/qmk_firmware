@@ -34,8 +34,8 @@
 #define INCLUDE_FROM_SI_CLASS_HOST_C
 #include "StillImage.h"
 
-uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, uint16_t ConfigDescriptorSize,
-                               void* DeviceConfigDescriptor)
+uint8_t SImage_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, uint16_t ConfigDescriptorSize,
+                                   void* DeviceConfigDescriptor)
 {
 	uint8_t  FoundEndpoints = 0;
 	
@@ -142,7 +142,7 @@ uint8_t DComp_SI_Host_NextSIInterfaceEndpoint(void* const CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-void SI_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
+void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 {
 
 }
