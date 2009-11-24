@@ -109,7 +109,7 @@
 			 *
 			 *  \see \ref USB_GetNextDescriptorComp function for more details
 			 */
-			typedef uint8_t (* const ConfigComparatorPtr_t)(void* const);
+			typedef uint8_t (* const ConfigComparatorPtr_t)(void*);
 
 		/* Function Prototypes: */
 			/** Searches for the next descriptor in the given configuration descriptor using a premade comparator
@@ -263,8 +263,8 @@
 			{
 				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
 
-				*((uint8_t**)CurrConfigLoc) += CurrDescriptorSize;
-				*BytesRem                   -= CurrDescriptorSize;
+				*CurrConfigLoc += CurrDescriptorSize;
+				*BytesRem      -= CurrDescriptorSize;
 			}
 			
 	/* Disable C linkage for C++ Compilers: */

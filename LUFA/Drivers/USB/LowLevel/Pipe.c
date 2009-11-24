@@ -78,7 +78,7 @@ bool Pipe_IsEndpointBound(const uint8_t EndpointAddress)
 	{
 		Pipe_SelectPipe(PNum);
 		
-		if (Pipe_IsConfigured() && (Pipe_BoundEndpointNumber() == EndpointAddress))
+		if (Pipe_IsConfigured() && (Pipe_BoundEndpointNumber() == (EndpointAddress & PIPE_EPNUM_MASK)))
 		  return true;
 	}
 	

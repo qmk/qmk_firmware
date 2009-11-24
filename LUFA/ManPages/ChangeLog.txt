@@ -25,6 +25,8 @@
   *  - Added missing CDC_Host_CreateBlockingStream() function code to the CDC Host Class driver
   *  - Fixed incorrect values for REPORT_ITEM_TYPE_* enum values causing corrupt data in the HID Host Parser
   *  - Fixed misnamed SI_Host_USBTask() and SI_Host_ConfigurePipes() functions
+  *  - Fixed broken USB_GetNextDescriptor() function causing the descriptor to jump ahead double the expected amount
+  *  - Fixed Pipe_IsEndpointBound() not masking the given Endpoint Address against PIPE_EPNUM_MASK
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *
