@@ -59,16 +59,14 @@ void DiskHost_USBTask(void)
 		if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
 											   sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
 		{
-			printf("ERROR - GetConfig\r\n");
 			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			return;
 		}
 
 		if (MS_Host_ConfigurePipes(&DiskHost_MS_Interface,
-									ConfigDescriptorSize, ConfigDescriptorData) != MS_ENUMERROR_NoError)
+		                           ConfigDescriptorSize, ConfigDescriptorData) != MS_ENUMERROR_NoError)
 		{
-			printf("ERROR - Pipes\r\n");
 			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			return;
@@ -76,16 +74,16 @@ void DiskHost_USBTask(void)
 		
 		if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 		{
-			printf("ERROR - SetConfig\r\n");
 			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			return;
 		}
-
+		
+		USB_HostState = HOST_STATE_Configured;
+		
 		uint8_t MaxLUNIndex;
 		if (MS_Host_GetMaxLUN(&DiskHost_MS_Interface, &MaxLUNIndex))
 		{
-			printf("ERROR - MaxLUN\r\n");
 			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			return;
@@ -93,7 +91,6 @@ void DiskHost_USBTask(void)
 		
 		if (MS_Host_ResetMSInterface(&DiskHost_MS_Interface))
 		{
-			printf("ERROR - ResetMS\r\n");
 			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			return;
@@ -102,7 +99,6 @@ void DiskHost_USBTask(void)
 		SCSI_Request_Sense_Response_t SenseData;
 		if (MS_Host_RequestSense(&DiskHost_MS_Interface, 0, &SenseData) != 0)
 		{
-			printf("ERROR - Sense\r\n");
 			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			return;
@@ -111,7 +107,6 @@ void DiskHost_USBTask(void)
 		pf_mount(&DiskFATState);
 		
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);
-		USB_HostState = HOST_STATE_Configured;
 	}
 
 	MS_Host_USBTask(&DiskHost_MS_Interface);		

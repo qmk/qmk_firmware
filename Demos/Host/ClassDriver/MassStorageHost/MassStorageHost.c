@@ -84,7 +84,7 @@ int main(void)
 				}
 
 				if (MS_Host_ConfigurePipes(&FlashDisk_MS_Interface,
-				                            ConfigDescriptorSize, ConfigDescriptorData) != MS_ENUMERROR_NoError)
+				                           ConfigDescriptorSize, ConfigDescriptorData) != MS_ENUMERROR_NoError)
 				{
 					printf("Attached Device Not a Valid Mass Storage Device.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);

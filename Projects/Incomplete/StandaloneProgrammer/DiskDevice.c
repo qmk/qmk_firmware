@@ -77,8 +77,6 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 	if (!(MS_Device_ConfigureEndpoints(&DiskDevice_MS_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	
-	pf_mount(&DiskFATState);
 }
 
 /** Event handler for the library USB Unhandled Control Request event. */

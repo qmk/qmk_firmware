@@ -57,6 +57,16 @@ static int Disk_getchar(FILE* Stream)
 	return (ByteWasRead ? ReadByte : _FDEV_EOF);
 }
 
+#if defined(USB_CAN_BE_BOTH)
+/** Event to handle mode changes in the library, to clear the FAT library's drive state structure when transitioning
+ *  between modes. This ensures that the library always works with current disk data.
+ */
+void EVENT_USB_UIDChange(void)
+{
+	pf_mount(&DiskFATState);
+}
+#endif
+
 /** Task to determine if the user is wishes to start the programming sequence, and if so executes the 
  *  required functions to program the attached target (if any) with the files loaded to the dataflash.
  */

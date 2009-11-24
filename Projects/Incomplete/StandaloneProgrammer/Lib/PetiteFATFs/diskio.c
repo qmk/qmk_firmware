@@ -42,7 +42,7 @@ DRESULT disk_readp (
 		else if (MS_Host_ReadDeviceBlocks(&DiskHost_MS_Interface, 0, sector, 1, 512, BlockTemp))
 		  ErrorCode = RES_ERROR;
 
-		printf("BLOCK READ #%lu Ret %d\r\n", sector, MS_Host_ReadDeviceBlocks(&DiskHost_MS_Interface, 0, sector, 1, 512, BlockTemp));
+		MS_Host_ReadDeviceBlocks(&DiskHost_MS_Interface, 0, sector, 1, 512, BlockTemp);
 		#endif
 	}
 	else

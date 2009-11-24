@@ -79,6 +79,8 @@
 			static int Disk_getchar(FILE* Stream);
 		#endif
 		
+		void EVENT_USB_UIDChange(void);
+		
 		void SetupHardware(void);
 		void Programmer_Task(void);
 		
