@@ -27,6 +27,7 @@
   *  - Fixed misnamed SI_Host_USBTask() and SI_Host_ConfigurePipes() functions
   *  - Fixed broken USB_GetNextDescriptor() function causing the descriptor to jump ahead double the expected amount
   *  - Fixed Pipe_IsEndpointBound() not masking the given Endpoint Address against PIPE_EPNUM_MASK
+  *  - Fixed host state machine not enabling Auto VBUS mode when HOST_DEVICE_SETTLE_DELAY_MS is set to zero
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *
