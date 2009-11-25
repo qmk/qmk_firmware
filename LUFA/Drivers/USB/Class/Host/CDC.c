@@ -112,7 +112,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 			{
 				if (Pipe_IsEndpointBound(EndpointData->EndpointAddress))
 				{
-					BidirectionalDataEndpoints = true;
+					CDCInterfaceInfo->State.BidirectionalDataEndpoints = true;
 					Pipe_DisablePipe();
 				}
 
@@ -127,7 +127,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 			{
 				if (Pipe_IsEndpointBound(EndpointData->EndpointAddress))
 				{
-					BidirectionalDataEndpoints = true;
+					CDCInterfaceInfo->State.BidirectionalDataEndpoints = true;
 				}
 				else
 				{

@@ -81,7 +81,7 @@ void SImage_SendBlockHeader(void)
 /** Function to receive a PIMA event container from the attached still image device.
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
- /
+ */
 uint8_t SImage_ReceiveEventHeader(void)
 {
 	uint8_t ErrorCode;
