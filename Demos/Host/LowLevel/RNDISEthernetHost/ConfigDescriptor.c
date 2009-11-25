@@ -41,9 +41,9 @@
  *  routine will read in the entire configuration descriptor, and configure the hosts pipes to correctly communicate
  *  with compatible devices.
  *
- *  This routine searches for a CDC interface descriptor containing bulk data IN and OUT endpoints, and an interrupt event endpoint.
+ *  This routine searches for a RNDIS interface descriptor containing bulk data IN and OUT endpoints, and an interrupt event endpoint.
  *
- *  \return An error code from the \ref CDCHost_GetConfigDescriptorDataCodes_t enum.
+ *  \return An error code from the \ref RNDISHost_GetConfigDescriptorDataCodes_t enum.
  */
 uint8_t ProcessConfigurationDescriptor(void)
 {

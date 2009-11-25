@@ -77,7 +77,7 @@
 				struct
 				{
 					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
-					                *   after \ref SI_Host_ConfigurePipes() is called and the Host state machine is in the
+					                *   after \ref SImage_Host_ConfigurePipes() is called and the Host state machine is in the
 					                *   Configured state
 					                */
 
@@ -94,7 +94,7 @@
 			} USB_ClassInfo_SI_Host_t;
 	
 		/* Enums: */
-			/** Enum for the possible error codes returned by the \ref SI_Host_ConfigurePipes() function. */
+			/** Enum for the possible error codes returned by the \ref SImage_Host_ConfigurePipes() function. */
 			enum SIHost_EnumerationFailure_ErrorCodes_t
 			{
 				SI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */

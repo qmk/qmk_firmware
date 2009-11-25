@@ -43,7 +43,7 @@ uint32_t RequestID = 0;
 /** Function to send the given encapsulated RNDIS command to the device.
  *
  *  \param[in] Buffer  Source command data buffer to send to the device
- *  \param[in] Bytes   Number of bytes to send
+ *  \param[in] Length   Number of bytes to send
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
@@ -67,7 +67,7 @@ uint8_t RNDIS_SendEncapsulatedCommand(void* Buffer, uint16_t Length)
 /** Function to receive the given encapsulated RNDIS response from the device.
  *
  *  \param[out] Buffer  Destination command data buffer to write read data from the device to
- *  \param[in] Bytes   Number of bytes to read
+ *  \param[in] Length   Number of bytes to read
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
