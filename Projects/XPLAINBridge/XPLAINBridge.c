@@ -117,13 +117,17 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	SoftUART_Init();
+	LEDs_Init();
 	USB_Init();
 }
 
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
+	LEDs_SetAllLEDs(LEDS_LED1);
+
+	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
+		LEDs_SetAllLEDs(LEDS_NO_LEDS);
 }
 
 /** Event handler for the library USB Unhandled Control Request event. */

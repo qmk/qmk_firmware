@@ -216,8 +216,9 @@ void CDC_Host_Task(void)
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-			/* Select and the data IN pipe */
+			/* Select the data IN pipe */
 			Pipe_SelectPipe(CDC_DATAPIPE_IN);
+			Pipe_SetPipeToken(PIPE_TOKEN_IN);
 			Pipe_Unfreeze();
 
 			/* Check to see if a packet has been received */

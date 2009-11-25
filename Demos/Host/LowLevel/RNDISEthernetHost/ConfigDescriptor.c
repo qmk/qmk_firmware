@@ -145,6 +145,10 @@ uint8_t ProcessConfigurationDescriptor(void)
 			/* Check if the endpoint is a bulk IN or bulk OUT endpoint */
 			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 			{
+				/* Kill the configured OUT pipe if the data endpoints are bidirectional */
+				if (Pipe_IsEndpointBound(EndpointData->EndpointAddress))
+				  Pipe_DisablePipe();
+
 				/* Configure the data IN pipe */
 				Pipe_ConfigurePipe(RNDIS_DATAPIPE_IN, EP_TYPE_BULK, PIPE_TOKEN_IN,
 								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
@@ -154,9 +158,13 @@ uint8_t ProcessConfigurationDescriptor(void)
 			}
 			else
 			{
-				/* Configure the data OUT pipe */
-				Pipe_ConfigurePipe(RNDIS_DATAPIPE_OUT, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+				/* Only configure the OUT data pipe if the data endpoints haev not shown to be bidirectional */
+				if (!(Pipe_IsEndpointBound(EndpointData->EndpointAddress)))
+				{
+					/* Configure the data OUT pipe */
+					Pipe_ConfigurePipe(RNDIS_DATAPIPE_OUT, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+									   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+				}
 				
 				/* Set the flag indicating that the data OUT pipe has been found */
 				FoundEndpoints |= (1 << RNDIS_DATAPIPE_OUT);

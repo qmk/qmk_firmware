@@ -125,18 +125,7 @@ void PrintIncommingPackets(void)
 {
 	uint8_t ErrorCode;
 
-	Pipe_SelectPipe(RNDIS_DATAPIPE_IN);
-	Pipe_Unfreeze();
-	
-	if (!(Pipe_IsReadWriteAllowed()))
-	{
-		Pipe_Freeze();
-		return;
-	}
-
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-	
-	puts_P(PSTR("DATA IN\r\n"));
 
 	uint16_t PacketLength;
 	if ((ErrorCode = RNDIS_GetPacketLength(&PacketLength)) != HOST_SENDCONTROL_Successful)
@@ -145,6 +134,11 @@ void PrintIncommingPackets(void)
 								 " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);		
 		return;
 	}
+	
+	if (!(PacketLength))
+	  return;
+	
+	Pipe_Unfreeze();
 
 	printf_P(PSTR("***PACKET (Size %d)***\r\n"), PacketLength);
 
@@ -163,12 +157,12 @@ void PrintIncommingPackets(void)
 		  printf("%02x ", PacketBuffer[i]);
 	}
 	
+	Pipe_ClearIN();
+	Pipe_Freeze();
+
 	printf("\r\n\r\n");
 
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
-
-	Pipe_ClearIN();
-	Pipe_Freeze();
 }
 
 /** Task to set the configuration of the attached device after it has been enumerated, and to read in
@@ -246,25 +240,7 @@ void RNDIS_Host_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-
-			uint32_t RetrievedPacketFilter;
-			if ((ErrorCode = RNDIS_QueryRNDISProperty(OID_GEN_CURRENT_PACKET_FILTER,
-			                                          &RetrievedPacketFilter, sizeof(RetrievedPacketFilter))) != HOST_SENDCONTROL_Successful)
-			{
-				printf_P(PSTR(ESC_FG_RED "Error Getting Packet Filter.\r\n"
-				                         " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-
-				/* Indicate error via status LEDs */
-				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-
-				/* Wait until USB device disconnected */
-				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;
-			}
 			
-			if (RetrievedPacketFilter != PacketFilter)
-				printf("ERROR: Retrieved Packet Filter 0x%08lx != Set Packet Filter 0x%08lx!\r\n", RetrievedPacketFilter, PacketFilter);
-
 			uint32_t VendorID;
 			if ((ErrorCode = RNDIS_QueryRNDISProperty(OID_GEN_VENDOR_ID,
 			                                          &VendorID, sizeof(VendorID))) != HOST_SENDCONTROL_Successful)

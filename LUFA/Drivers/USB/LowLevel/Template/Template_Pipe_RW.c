@@ -3,7 +3,7 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer, uint16_t Length __CALLB
 	uint8_t* DataStream = ((uint8_t*)Buffer + TEMPLATE_BUFFER_OFFSET(Length));
 	uint8_t  ErrorCode;
 	
-	Pipe_SetToken(TEMPLATE_TOKEN);
+	Pipe_SetPipeToken(TEMPLATE_TOKEN);
 
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;

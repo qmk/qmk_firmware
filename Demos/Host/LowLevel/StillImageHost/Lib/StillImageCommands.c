@@ -78,7 +78,10 @@ void SImage_SendBlockHeader(void)
 	Pipe_Freeze();
 }
 
-/** Function to receive a PIMA event container from the attached still image device. */
+/** Function to receive a PIMA event container from the attached still image device.
+ *
+ *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
+ /
 uint8_t SImage_ReceiveEventHeader(void)
 {
 	uint8_t ErrorCode;
@@ -99,7 +102,10 @@ uint8_t SImage_ReceiveEventHeader(void)
 	return ErrorCode;
 }
 
-/** Function to receive a PIMA response container from the attached still image device. */
+/** Function to receive a PIMA response container from the attached still image device.
+ *
+ *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
+ */
 uint8_t SImage_ReceiveBlockHeader(void)
 {
 	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
@@ -189,6 +195,8 @@ uint8_t SImage_ReceiveBlockHeader(void)
  *
  *  \param[in] Buffer  Source data buffer to send to the device
  *  \param[in] Bytes   Number of bytes to send
+ *
+ *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
 uint8_t SImage_SendData(void* Buffer, uint16_t Bytes)
 {

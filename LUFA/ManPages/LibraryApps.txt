@@ -86,6 +86,7 @@
  *                                       USB HID class
  *        - <b>PrinterHost</b> - Printer host demo, using the low level LUFA APIs to implement the USB Printer class
  *        - <b>StillImageHost</b> - Still Image Camera host demo, using the low level LUFA APIs to implement the USB Still Image class
+ *        - <b>RNDISHost</b> - RNDIS Ethernet host demo, using the low level LUFA APIs to implement the RNDIS class
  *      - <b>Incomplete</b>
  *        - <b>BluetoothHost</b> - Incomplete Bluetooth host demo, using the low level LUFA APIs to implement the USB Bluetooth class
  *    - <b>DualRole</b>

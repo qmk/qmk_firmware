@@ -15,34 +15,37 @@
 
 all:
 	make -C CDCHost clean
-	make -C CDCHost all	
+	make -C CDCHost all
 
 	make -C GenericHIDHost clean
-	make -C GenericHIDHost all	
+	make -C GenericHIDHost all
 
 	make -C JoystickHostWithParser clean
-	make -C JoystickHostWithParser all	
+	make -C JoystickHostWithParser all
 
 	make -C KeyboardHost clean
-	make -C KeyboardHost all	
+	make -C KeyboardHost all
 
 	make -C MassStorageHost clean
-	make -C MassStorageHost all	
+	make -C MassStorageHost all
 
 	make -C MIDIHost clean
-	make -C MIDIHost all	
+	make -C MIDIHost all
 
 	make -C MouseHost clean
-	make -C MouseHost all	
+	make -C MouseHost all
 
 	make -C MouseHostWithParser clean
-	make -C MouseHostWithParser all	
+	make -C MouseHostWithParser all
 
 	make -C PrinterHost clean
-	make -C PrinterHost all	
+	make -C PrinterHost all
 
 	make -C StillImageHost clean
-	make -C StillImageHost all	
+	make -C StillImageHost all
+
+	make -C RNDISHost clean
+	make -C RNDISHost all
 
 %:
 	make -C CDCHost $@
@@ -56,3 +59,4 @@ all:
 	make -C MouseHostWithParser $@
 	make -C PrinterHost $@
 	make -C StillImageHost $@
+	make -C RNDISHost $@

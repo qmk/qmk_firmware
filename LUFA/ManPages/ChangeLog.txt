@@ -12,6 +12,7 @@
   *  - Added activity LED indicators to the AVRISP project to indicate when the device is busy processing a command
   *  - The USB target family and allowable USB mode tokens are now public and documented (USB_CAN_BE_*, USB_SERIES_*_AVR)
   *  - Added new XPLAIN serial Bridge project (thanks to John Steggall)
+  *  - Added new RNDISHost Host LowLevel demo
   *
   *  <b>Changed:</b>
   *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of keycodes
@@ -29,6 +30,8 @@
   *  - Fixed broken USB_GetNextDescriptor() function causing the descriptor to jump ahead double the expected amount
   *  - Fixed Pipe_IsEndpointBound() not masking the given Endpoint Address against PIPE_EPNUM_MASK
   *  - Fixed host state machine not enabling Auto VBUS mode when HOST_DEVICE_SETTLE_DELAY_MS is set to zero
+  *  - Fixed misnamed Pipe_SetPipeToken() macro for setting a pipe's direction
+  *  - Fixed CDCHost failing on devices with bidirectional endpoints
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *

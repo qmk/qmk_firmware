@@ -30,14 +30,23 @@
 
 /** \file
  *
- *  RNDOS Device commands, to issue RNDIS commands to the device for
+ *  RNDIS Device commands, to issue RNDIS commands to the device for
  *  the control and data transfer between the host and RNDIS device.
  */
 
 #include "RNDISCommands.h"
 
+/** Current RNDIS Request ID, for associating sent commands with received data */
 uint32_t RequestID = 0;
 
+
+/** Function to send the given encapsulated RNDIS command to the device.
+ *
+ *  \param[in] Buffer  Source command data buffer to send to the device
+ *  \param[in] Bytes   Number of bytes to send
+ *
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ */
 uint8_t RNDIS_SendEncapsulatedCommand(void* Buffer, uint16_t Length)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
@@ -55,6 +64,13 @@ uint8_t RNDIS_SendEncapsulatedCommand(void* Buffer, uint16_t Length)
 	return USB_Host_SendControlRequest(Buffer);
 }
 
+/** Function to receive the given encapsulated RNDIS response from the device.
+ *
+ *  \param[out] Buffer  Destination command data buffer to write read data from the device to
+ *  \param[in] Bytes   Number of bytes to read
+ *
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ */
 uint8_t RNDIS_GetEncapsulatedResponse(void* Buffer, uint16_t Length)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
@@ -72,6 +88,11 @@ uint8_t RNDIS_GetEncapsulatedResponse(void* Buffer, uint16_t Length)
 	return USB_Host_SendControlRequest(Buffer);
 }
 
+/** Sends a RNDIS KEEPALIVE command to the device, to ensure that it does not enter standby mode after periods
+ *  of long inactivity.
+ *
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ */
 uint8_t RNDIS_SendKeepAlive(void)
 {
 	uint8_t ErrorCode;
@@ -98,6 +119,13 @@ uint8_t RNDIS_SendKeepAlive(void)
 	return HOST_SENDCONTROL_Successful;
 }
 
+/** Initializes the attached RNDIS device's RNDIS interface.
+ *
+ *  \param[in] HostMaxPacketSize  Size of the packet buffer on the host
+ *  \param[out] DeviceMaxPacketSize   Pointer to where the packet buffer size of the device is to be stored
+ *
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ */
 uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPacketSize)
 {
 	uint8_t ErrorCode;
@@ -133,6 +161,14 @@ uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPa
 	return HOST_SENDCONTROL_Successful;
 }
 
+/** Sets a given RNDIS property of an attached RNDIS device.
+ *
+ *  \param[in] Oid  OID number of the parameter to set
+ *  \param[in] Buffer  Pointer to where the property data is to be sourced from
+ *  \param[in] Length  Length in bytes of the property data to sent to the device
+ *
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ */
 uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length)
 {
 	uint8_t ErrorCode;
@@ -174,6 +210,14 @@ uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length)
 	return HOST_SENDCONTROL_Successful;
 }
 
+/** Gets a given RNDIS property of an attached RNDIS device.
+ *
+ *  \param[in] Oid  OID number of the parameter to get
+ *  \param[in] Buffer  Pointer to where the property data is to be written to
+ *  \param[in] MaxLength  Length in bytes of the destination buffer size
+ *
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ */
 uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength)
 {
 	uint8_t ErrorCode;
@@ -215,9 +259,27 @@ uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength)
 	return HOST_SENDCONTROL_Successful;
 }
 
+/** Retrieves the size of a received packet, discarding the remainder of the RNDIS packet header to leave only the
+ *  packet contents for processing by the host.
+ *
+ *  \param[out] PacketLength  Size of the packet currently in the pipe
+ *
+ *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
+ */
 uint8_t RNDIS_GetPacketLength(uint16_t* PacketLength)
 {
 	uint8_t ErrorCode;
+
+	Pipe_SelectPipe(RNDIS_DATAPIPE_IN);
+	Pipe_SetPipeToken(PIPE_TOKEN_IN);
+	Pipe_Unfreeze();
+	
+	if (!(Pipe_IsReadWriteAllowed()))
+	{
+		*PacketLength = 0;
+		Pipe_Freeze();
+		return PIPE_RWSTREAM_NoError;
+	}
 
 	RNDIS_Packet_Message_t DeviceMessage;
 	
@@ -229,6 +291,8 @@ uint8_t RNDIS_GetPacketLength(uint16_t* PacketLength)
 	*PacketLength = (uint16_t)DeviceMessage.DataLength;
 	
 	Pipe_Discard_Stream(DeviceMessage.DataOffset - (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)));
+	
+	Pipe_Freeze();
 	
 	return PIPE_RWSTREAM_NoError;
 }

@@ -432,7 +432,7 @@
 
 				#define Pipe_GetPipeToken()            (UPCFG0X & PIPE_TOKEN_MASK)
 
-				#define Pipe_SetToken(token)           MACROS{ UPCFG0X = ((UPCFG0X & ~PIPE_TOKEN_MASK) | (token)); }MACROE
+				#define Pipe_SetPipeToken(token)       MACROS{ UPCFG0X = ((UPCFG0X & ~PIPE_TOKEN_MASK) | (token)); }MACROE
 				
 				#define Pipe_SetInfiniteINRequests()   MACROS{ UPCONX |= (1 << INMODE); }MACROE
 

@@ -48,7 +48,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 	if ((ReturnStatus = USB_Host_WaitMS(1)) != HOST_WAITERROR_Successful)
 	  goto End_Of_Control_Send;
 
-	Pipe_SetToken(PIPE_TOKEN_SETUP);
+	Pipe_SetPipeToken(PIPE_TOKEN_SETUP);
 	Pipe_ClearErrorFlags();
 
 	Pipe_Unfreeze();
@@ -68,7 +68,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 
 	if ((USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_DIRECTION) == REQDIR_DEVICETOHOST)
 	{
-		Pipe_SetToken(PIPE_TOKEN_IN);
+		Pipe_SetPipeToken(PIPE_TOKEN_IN);
 		
 		if (DataStream != NULL)
 		{
@@ -93,7 +93,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 			}
 		}
 
-		Pipe_SetToken(PIPE_TOKEN_OUT);
+		Pipe_SetPipeToken(PIPE_TOKEN_OUT);
 		Pipe_Unfreeze();
 		
 		if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_OutReady)) != HOST_SENDCONTROL_Successful)
@@ -108,7 +108,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 	{
 		if (DataStream != NULL)
 		{
-			Pipe_SetToken(PIPE_TOKEN_OUT);
+			Pipe_SetPipeToken(PIPE_TOKEN_OUT);
 			Pipe_Unfreeze();	
 
 			while (DataLen)
@@ -131,7 +131,7 @@ uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 			Pipe_Freeze();
 		}
 		
-		Pipe_SetToken(PIPE_TOKEN_IN);
+		Pipe_SetPipeToken(PIPE_TOKEN_IN);
 		Pipe_Unfreeze();
 
 		if ((ReturnStatus = USB_Host_WaitForIOS(USB_HOST_WAITFOR_InReceived)) != HOST_SENDCONTROL_Successful)

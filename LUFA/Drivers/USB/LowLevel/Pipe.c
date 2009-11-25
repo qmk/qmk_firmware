@@ -130,7 +130,7 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 {
 	uint8_t  ErrorCode;
 	
-	Pipe_SetToken(PIPE_TOKEN_IN);
+	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
