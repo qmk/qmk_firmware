@@ -28,6 +28,9 @@ all:
 
 	make -C USBtoSerial clean
 	make -C USBtoSerial all
+	
+	make -C XPLAINBridge clean
+	make -C XPLAINBridge all
 
 %:
 	make -C AVRISP $@
@@ -35,3 +38,4 @@ all:
 	make -C Magstripe $@
 	make -C MissileLauncher $@
 	make -C USBtoSerial $@
+	make -C XPLAINBridge $@

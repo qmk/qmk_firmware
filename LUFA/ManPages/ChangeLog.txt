@@ -11,6 +11,7 @@
   *  <b>New:</b>
   *  - Added activity LED indicators to the AVRISP project to indicate when the device is busy processing a command
   *  - The USB target family and allowable USB mode tokens are now public and documented (USB_CAN_BE_*, USB_SERIES_*_AVR)
+  *  - Added new XPLAIN serial Bridge project (thanks to John Steggall)
   *
   *  <b>Changed:</b>
   *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of keycodes

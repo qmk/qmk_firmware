@@ -88,7 +88,6 @@ void Programmer_Task(void)
 		#endif
 
 		puts("Reading Configuration File...\r\n");
-		
 		if (!(ProgrammerConfig_ProcessConfiguration()))
 		  goto EndOfProgCycle;
 

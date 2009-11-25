@@ -4,16 +4,13 @@
  *  documentation pages. It is not a project source file.
  */
  
-/** \mainpage USB to Serial Converter Project (via CDC-ACM class)
+/** \mainpage XPLAIN UART Bridge Project
  *
  *  \section SSec_Compat Demo Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
- *  - Series 7 USB AVRs
- *  - Series 6 USB AVRs
- *  - Series 4 USB AVRs
- *  - Series 2 USB AVRs
+ *  - AT90USB1287
  *
  *  \section SSec_Info USB Information:
  *
@@ -44,24 +41,15 @@
  *
  *  \section SSec_Description Project Description: 
  *
- *  USB to Serial bridge project. This project allows a USB AVR to serve
- *  as a USB to USART bridge between a USB host and a device lacking a
- *  USB port. When programmed into a USB AVR, the AVR will enumerate as a
- *  virtual COM port.
+ *  This is a virtual serial port to soft-UART converter, for use on the Atmel XPLAIN boards. This project replaces the firmware
+ *  preloaded onto the XPLAIN's onboard AT90USB1287 microcontroller to act as a a UART-to-USB bridge between the device and the
+ *  host. When inserted, the device will enumerate as a regular COM port on the host, which can then be opened and data exchanged
+ *  between the XMEGA and Host as if the XMEGA was connected directly to the host's serial port.
  *
- *  The AVR's hardware USART's settings will change to mirror as closely as
- *  possible the serial settings set on the host. However, due to hardware
- *  limitations, some options may not be supported (baud rates with unacceptable
- *  error rates at the AVR's clock speed, data lengths other than 6, 7 or 8 bits,
- *  1.5 stop bits, parity other than none, even or odd).
- *  
- *  After running this demo for the first time on a new computer,
- *  you will need to supply the .INF file located in this demo
- *  project's directory as the device's driver when running under
- *  Windows. This will enable Windows to use its inbuilt CDC drivers,
- *  negating the need for custom drivers for the device. Other
- *  Operating Systems should automatically use their own inbuilt
- *  CDC-ACM drivers.
+ *  After running this demo for the first time on a new computer, you will need to supply the .INF file located in this demo
+ *  project's directory as the device's driver when running under Windows. This will enable Windows to use its inbuilt CDC drivers,
+ *  negating the need for custom drivers for the device. Other Operating Systems should automatically use their own inbuilt CDC-ACM
+ *  drivers.
  *
  *  \section SSec_Options Project Options
  *

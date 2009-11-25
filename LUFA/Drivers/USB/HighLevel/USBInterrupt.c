@@ -229,7 +229,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 	#endif
 }
 
-#if defined(INTERRUPT_CONTROL_ENDPOINT)
+#if defined(INTERRUPT_CONTROL_ENDPOINT) && defined(USB_CAN_BE_DEVICE)
 ISR(USB_COM_vect, ISR_BLOCK)
 {
 	uint8_t PrevSelectedEndpoint = Endpoint_GetCurrentEndpoint();

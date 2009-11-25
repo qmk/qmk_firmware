@@ -46,7 +46,7 @@
 /* To enable pf_lseek function, set _USE_LSEEK to 1. */
 
 
-#define _FS_FAT32	0
+#define _FS_FAT32	1
 /* To enable FAT32 support, set _FS_FAT32 to 1. */
 
 
