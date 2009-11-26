@@ -2,6 +2,8 @@
 
 	uart_soft
 
+	v0.2
+
 	copyright John Steggall 2009
 
 */
@@ -30,10 +32,8 @@
 */
 
 #include <avr/io.h>
+#include "SoftUARTConf.h"
 
-/* BITLENGTH is the time for a bit cycle worked out at F_CPU / BAUD. Gives a rough but usable figure. Wouldn't like to try
- * anything faster than 9600! */
-#define BITLENGTH 833
 
 #define SFT_TX_EN 7
 
@@ -52,43 +52,59 @@ rxShifter:
 	.byte	0
 rxBitcount:
 	.byte	0
+	
+	.global	status
 status:
 	.byte	0
 
 	.section	.text
+
+
+	.global	RX_PIN_INT
 
 /*********************************************
  * External interrupt
  * 
  * RX pin has gone low.
  */
-	.global	INT0_vect
-
-INT0_vect:
+RX_PIN_INT:
 	push		r16
 	lds		r16,SREG
 	push		r16
 
-	lds		r16,PIND
+#if (RXPORT>=32)
+	lds		r16,RXPORT
 	sbrc		r16,0		// anti glitch
+
+#else
+	sbic		RXPORT,0
+#endif
+
 	rjmp		ignore
 	nop
 	nop
 	nop
 	nop
-	lds		r16,PIND
-	sbrc		r16,0		// just make sure
+
+#if (RXPORT>=32)
+	lds		r16,RXPORT
+	sbrc		r16,0		// anti glitch
+
+#else
+	sbic		RXPORT,0
+#endif
+
 	rjmp		ignore
 
 	push		r17
 
 	// grab timer value
-	lds		r16,TCNT3L		
-	lds		r17,TCNT3H
+	lds		r16,TC_COUNTL		
+	lds		r17,TC_COUNTH
 	
 	// set trigger for RX timer (will need to add a little more though)
-	sts		OCR3CH,r17
-	sts		OCR3CL,r16
+	sts		TC_RX_COMPH,r17
+	sts		TC_RX_COMPL,r16
 	
 	pop		r17
 
@@ -98,13 +114,15 @@ INT0_vect:
 
 
 	// turn off interrupt, will get annoying.
-	cbi		0x1D,0
+	cbi		EXTI_MASK_REG,EXTI_MASK_BIT
 
 	// turn on interrupt on compare match
-	sbi		0x18,OCF3C
-	lds		r16,TIMSK3
-	ori		r16,(1<<OCIE3C)
-	sts		TIMSK3,r16
+
+	sbi		TC_INTFLAG_REG,TC_RX_IF_BIT		//------------------------
+
+	lds		r16,TC_INT_MASK_REG
+	ori		r16,(1<<TC_RX_COMPEN)
+	sts		TC_INT_MASK_REG,r16
 
 ignore:
 	pop		r16
@@ -136,17 +154,23 @@ TIMER3_COMPB_vect:
 
 	lds		r16,txShifter
 
-	lds		r17, PORTD
-
+#if (TXPORT>=32)
+	lds		r17, TXPORT
 	sbrs		r16,0
-	andi		r17,0xFD
+	andi		r17,~(1<<TXPIN)
 	sbrc		r16,0
-	ori		r17,0x02
+	ori		r17,(1<<TXPIN)
+	sts		TXPORT,r17
 
-	sts		PORTD,r17
+#else
+	sbrs		r16,0
+	cbi		TXPORT,TXPIN
+	sbrc		r16,0
+	sbi		TXPORT,TXPIN
 
-	lsr		r16
-	ori		r16,0x80
+#endif
+	sec
+	ror		r16
 
 txout:
 	sts		txShifter,r16
@@ -164,9 +188,9 @@ lastBitTX:
 	ori		r17,SF_UART_TX		// set TXC/DRE flag
 	sts		status,r17
 
-	lds		r16,TIMSK3
-	andi		r16,~(1<<OCIE3B)
-	sts		TIMSK3,r16
+	lds		r16,TC_INT_MASK_REG
+	andi		r16,~(1<<TC_TX_COMPEN)
+	sts		TC_INT_MASK_REG,r16
 
 	rjmp		lastBitOut		// over and out
 
@@ -199,11 +223,27 @@ TIMER3_COMPC_vect:
 	ldi		r18,3			// set counter to 3
 	ldi		r17,0
 
-//	cbi		0x0B,1			// marker
+#ifdef DEBUG
+
+#if RXPORT>64
+	lds		r16,RXPORT
+	andi		r16,~(1<<TXPIN)
+	sts		TXPORT,r16
+#else
+	cbi		TXPORT,TXPIN			// marker
+#endif
+#endif
 
 loopGetBit:
-	lds		r16,PIND			
-	sbrc		r16,0
+
+#if (RXPORT>=32)
+	lds		r16,RXPORT
+	sbrs		r16,RXPIN
+#else			
+	sbic		RXPORT,RXPIN
+
+#endif
+
 	inc		r17
 	dec		r18
 	nop
@@ -212,7 +252,19 @@ loopGetBit:
 	nop
 	brne		loopGetBit
 
-//	sbi		0x0B,1			// marker
+#ifdef DEBUG
+
+#if RXPORT>64
+	lds		r16,RXPORT
+	ori		r16,1<<TXPIN
+	sts		r16
+
+#else
+	sbi		TXPORT,TXPIN			// marker
+
+#endif
+#endif
+
 
 	lds		r16,rxShifter
 	lsr		r16
@@ -226,8 +278,16 @@ skipBitSet:
 
 lastBitRX:
 	lds		r17,status		// store status
-	lds		r16,PIND			// get status of stop bit
-	sbrc		r16,0
+
+#if (RXPORT>=32)
+	lds		r16,RXPORT
+	sbrc		r16,RXPIN
+
+#else
+	sbic		RXPORT,RXPIN	
+
+#endif
+
 	ori		r17,0x02			// set flag if stop bit was high
 	sts		status,r17
 
@@ -237,19 +297,19 @@ lastBitRX:
 
 	// switch interrupt back on to get another go
 
-	sbi		0x1C,0			// clear interrupt flag
-	sbi		0x1D,0			// enable external interrupt 0 (RX)
+	sbi		EXTI_FLAG_REG,EXTI_MASK_BIT	// clear interrupt flag
+	sbi		EXTI_MASK_REG,EXTI_MASK_BIT	// enable external interrupt 0 (RX)
 
 	// switch off rx bit timer
-	lds		r16,TIMSK3
-	andi		r16,~(1<<OCIE3C)
-	sts		TIMSK3,r16
+	lds		r16,TC_INT_MASK_REG
+	andi		r16,~(1<<TC_RX_COMPEN)
+	sts		TC_INT_MASK_REG,r16
 
 	rjmp		lastBitOut		// loud and clear
 
 rx1stbit:
-	lds		r16,TCNT3L
-	lds		r17,TCNT3H
+	lds		r16,TC_COUNTL
+	lds		r17,TC_COUNTH
 
 	subi		r16,lo8(BITLENGTH / 2)
 	sbci		r17,hi8(BITLENGTH / 2)
@@ -259,8 +319,8 @@ rx1stbit:
 	sbci		r17,hi8(0xFFFF - BITLENGTH)
 
 skipOverflow:
-	sts		OCR3CH,r17
-	sts		OCR3CL,r17
+	sts		TC_RX_COMPH,r17
+	sts		TC_RX_COMPL,r17
 	rjmp		lastBitOut
 
 			
@@ -273,12 +333,20 @@ skipOverflow:
 
 SoftUART_Init:
 
-	lds		r18,PORTD
+#if (TXPORT>=32)
+	lds		r18,TXPORT
 	ori		r18,0x02
-	sts		PORTD,r18
-	lds		r18,DDRD
+	sts		TXPORT,r18
+
+	lds		r18,TXDIR_REG
 	ori		r18,0x02
-	sts		DDRD,r18
+	sts		TXDIR_REG,r18
+
+#else
+	sbi		TXPORT,TXPIN
+	sbi		TXDIR_REG,TXPIN
+
+#endif
 
 	ldi		r18,(1<<SFT_TX_EN)|SF_UART_TX
 	sts		status,r18
@@ -290,17 +358,17 @@ SoftUART_Init:
 
 	// Start timer 3
 	ldi		r18,0b00001001			// ctc count mode, clock div 1
-	sts		TCCR3B,r18
+	sts		TC_CTRLB,r18
 
-	// Interrupt on low level INT0
-	sbi		0x1C,0
-	sbi		0x1D,0
+	// Interrupt on pin change INT0
+	sbi		EXTI_FLAG_REG,EXTI_MASK_BIT
+	sbi		EXTI_MASK_REG,EXTI_MASK_BIT
 
 	ret
 
 
 /*********************************************
- * char SoftUART_TxByte(char)
+ * char SoftUART_RxByte(char)
  *
  * starts a byte send and returns the byte to be sent
  */
@@ -309,7 +377,7 @@ SoftUART_Init:
 SoftUART_TxByte:
 	lds		r18,status
 	sbrs		r18,SFT_TX_EN
-	rjmp		uart_putchar_end
+	rjmp		SoftUART_TxByte_end
 
 	andi		r18,0xFE						// clear tx empty flag
 	sts		status,r18
@@ -320,28 +388,35 @@ SoftUART_TxByte:
 	sts		txBitcount,r18
 
 	// grab timer value
-
-	lds		r18,TCNT3L
-	lds		r19,TCNT3H
+	cli									// Atomic section start
+	lds		r18,TC_COUNTL
+	lds		r19,TC_COUNTH
 
 	// drop down tx line for start bit
-	lds		r20, PORTD
-	andi		r20,0xFD
-	sts		PORTD,r20
-	
+
+#if (TXPORT>=32)
+	lds		r20, TXPORT
+	andi		r20,~(1<<TXPIN)
+	sts		TXPORT,r20
+
+#else
+	cbi		TXPORT,TXPIN
+#endif
+
 	// set trigger for tx timer
-	cli
-	sts		OCR3BH,r19
-	sts		OCR3BL,r18
-	sei
+	sts		TC_TX_COMPH,r19
+	sts		TC_TX_COMPL,r18
+	sei									// Atomic section end
 
 	// clear interrupt flag and enable tx interrupt
-	sbi		0x18,OCF3B
-	lds		r18,TIMSK3
-	ori		r18,(1<<OCIE3B)
-	sts		TIMSK3,r18
 
-uart_putchar_end:
+	sbi		TC_INTFLAG_REG,TC_TX_IF_BIT
+
+	lds		r18,TC_INT_MASK_REG
+	ori		r18,(1<<TC_TX_COMPEN)
+	sts		TC_INT_MASK_REG,r18
+
+SoftUART_TxByte_end:
 	ret
 
 

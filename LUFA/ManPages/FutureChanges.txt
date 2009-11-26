@@ -31,6 +31,7 @@
   *      -# Keyboard/Mouse Dual Class Host
   *      -# Multiple-Report HID device
   *      -# Device/Host bridge
+  *      -# PDI Programming Support in the AVRISP Project
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

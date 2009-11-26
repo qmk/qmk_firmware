@@ -2,6 +2,8 @@
 
 	soft_uart
 
+	v0.2
+
 	Copyright John Steggall 2009
 
 */
@@ -30,16 +32,30 @@
 */
 
 /* 
-  Specifically designed for the xplain board, other uses could be made by furkling through the code
-  and replacing the port and pin assignments. Also relies on and external interupt to detect the low
+  Specifically designed for the xplain board, other uses could be made by adjusting uart_soft_conf.h
+  replacing the port, pin and timer assignments. Also relies on and external interupt to detect the low
   level of the start bit, in this case INT0.
   Always configured to 9600baud. Can be changed by setting the BITLENGTH define to F_CPU/(desired baud)
   code may need optimising when getting any faster to sample the bit in the correct place. No 
   compensation has been made for the response time of the int routine.
+
+  Note: Configured to use 16bit timers.
+
+ */
+
+/* Changes 
+ *
+ * v0.2
+ * - Added configuration file to ease pain of setup for different hardware configuration
+ * - Changed bit access for ports that can be accessed directly
+ * - Fixed atomic section in uart_init to encompass counter read
  */
 
 #ifndef UART_SOFT_H
 #define UART_SOFT_H
+
+	/* status */
+	extern uint8_t status;
 
 	/*  initialises software uart and enables transmit */
 	extern void SoftUART_Init(void);
