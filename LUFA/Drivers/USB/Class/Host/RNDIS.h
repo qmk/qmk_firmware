@@ -156,8 +156,6 @@
 			 *  configured via the call to \ref RNDIS_Host_ConfigurePipes().
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
-			 *  \param[in] HostMaxPacketSize  Size of the packet buffer on the host
-			 *  \param[out] DeviceMaxPacketSize   Pointer to where the packet buffer size of the device is to be stored
 			 *
 			 *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
 			 *          logical command failure
