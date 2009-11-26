@@ -47,7 +47,6 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "../Common/RNDIS.h"
-		#include "RNDISConstants.h"
 		
 		#include <string.h>
 	
