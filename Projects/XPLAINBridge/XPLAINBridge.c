@@ -119,6 +119,8 @@ void SetupHardware(void)
 	SoftUART_Init();
 	LEDs_Init();
 	USB_Init();
+	
+	PORTD |= (1 << 5); // PD5 is connected to the XMEGA /RESET, enable pullup
 }
 
 /** Event handler for the library USB Configuration Changed event. */

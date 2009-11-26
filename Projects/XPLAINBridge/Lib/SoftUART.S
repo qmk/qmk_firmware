@@ -118,7 +118,7 @@ RX_PIN_INT:
 
 	// turn on interrupt on compare match
 
-	sbi		TC_INTFLAG_REG,TC_RX_IF_BIT		//------------------------
+	sbi		TC_INTFLAG_REG,TC_RX_IF_BIT	
 
 	lds		r16,TC_INT_MASK_REG
 	ori		r16,(1<<TC_RX_COMPEN)
