@@ -146,13 +146,31 @@ int main(void)
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
-				// TODO
+				PrintIncommingPackets();
 			
 				break;
 		}
 	
 		RNDIS_Host_USBTask(&Ethernet_RNDIS_Interface);
 		USB_USBTask();
+	}
+}
+
+/** Prints incomming packets from the attached RNDIS device to the serial port. */
+void PrintIncommingPackets(void)
+{
+	uint16_t PacketLength;
+	
+	RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, &PacketBuffer, &PacketLength);
+	
+	if (PacketLength)
+	{
+		printf("***PACKET (Size %d)***\r\n", PacketLength);
+	
+		for (uint16_t i = 0; i < PacketLength; i++)
+		  printf("%02x ", PacketBuffer[i]);
+
+		printf("\r\n\r\n");		
 	}
 }
 
