@@ -443,4 +443,47 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	return PIPE_RWSTREAM_NoError;
 }
 
+uint8_t RNDIS_Host_SendPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, void* Buffer, uint16_t PacketLength)
+{
+	uint8_t ErrorCode;
+
+	if ((USB_HostState != HOST_STATE_Configured) || !(RNDISInterfaceInfo->State.IsActive))
+	  return PIPE_READYWAIT_DeviceDisconnected;
+
+	if (RNDISInterfaceInfo->State.BidirectionalDataEndpoints)
+	{
+		Pipe_SelectPipe(RNDISInterfaceInfo->Config.DataINPipeNumber);
+		Pipe_SetPipeToken(PIPE_TOKEN_OUT);
+	}
+	else
+	{
+		Pipe_SelectPipe(RNDISInterfaceInfo->Config.DataOUTPipeNumber);	
+	}
+
+	Pipe_Unfreeze();
+
+	RNDIS_Packet_Message_t DeviceMessage;
+	
+	DeviceMessage.MessageType = REMOTE_NDIS_PACKET_MSG;
+	DeviceMessage.MessageLength = (sizeof(RNDIS_Packet_Message_t) + PacketLength);
+	DeviceMessage.DataOffset = (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t));
+	DeviceMessage.DataLength = PacketLength;
+	
+	if ((ErrorCode = Pipe_Write_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t),
+	                                      NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	{
+		return ErrorCode;
+	}
+	
+	Pipe_Write_Stream_LE(Buffer, PacketLength, NO_STREAM_CALLBACK);
+	Pipe_ClearOUT();
+
+	Pipe_Freeze();
+	
+	if (RNDISInterfaceInfo->State.BidirectionalDataEndpoints)
+	  Pipe_SetPipeToken(PIPE_TOKEN_IN);
+	
+	return PIPE_RWSTREAM_NoError;
+}
+
 #endif

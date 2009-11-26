@@ -280,7 +280,7 @@ uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, ch
 	if (CDCInterfaceInfo->State.BidirectionalDataEndpoints)
 	{
 		Pipe_SelectPipe(CDCInterfaceInfo->Config.DataINPipeNumber);
-		Pipe_SetPipeToken(PIPE_TOKEN_IN);
+		Pipe_SetPipeToken(PIPE_TOKEN_OUT);
 	}
 	else
 	{
@@ -307,7 +307,7 @@ uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, cons
 	if (CDCInterfaceInfo->State.BidirectionalDataEndpoints)
 	{
 		Pipe_SelectPipe(CDCInterfaceInfo->Config.DataINPipeNumber);
-		Pipe_SetPipeToken(PIPE_TOKEN_IN);
+		Pipe_SetPipeToken(PIPE_TOKEN_OUT);
 	}
 	else
 	{
