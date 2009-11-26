@@ -130,7 +130,7 @@ void MIDI_Host_USBTask(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
 uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 	
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipeNumber);
 
@@ -150,7 +150,7 @@ uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 	
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataINPipeNumber);
 

@@ -176,7 +176,7 @@ uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, void* Buffer)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
-	  return false;
+	  return PIPE_READYWAIT_DeviceDisconnected;
 
 	uint8_t ErrorCode;
 
@@ -219,9 +219,6 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 #endif
                                 void* Buffer, const uint16_t ReportSize)
 {
-	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
-	  return false;
-
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 	if (HIDInterfaceInfo->State.DeviceUsesOUTPipe)
 	{
@@ -282,9 +279,6 @@ bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 
 uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 {
-	if (HIDInterfaceInfo->State.UsingBootProtocol)
-	  return HOST_SENDCONTROL_Successful;
-
 	uint8_t ErrorCode;
 
 	USB_ControlRequest = (USB_Request_Header_t)

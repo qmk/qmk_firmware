@@ -91,7 +91,7 @@
 					
 					bool BidirectionalDataEndpoints; /**< Indicates if the attached CDC interface uses bidirectional data endpoints,
 					                                  *   and this has only the IN pipe configured (with \ref Pipe_SetPipeToken()
-					                                  *   used to switch the pipe's direction
+					                                  *   used to switch the pipe's direction)
 					                                  */
 
 					struct

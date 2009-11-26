@@ -34,11 +34,12 @@
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Device/RNDIS.c
+ *    - LUFA/Drivers/USB/Class/Host/RNDIS.c
  *
  *  \section Module Description
  *  RNDIS Class Driver module. This module contains an internal implementation of the Microsoft USB RNDIS Networking
- *  Class, for Device USB mode only. User applications can use this class driver instead of implementing the RNDIS
- *  class manually via the low-level LUFA APIs.
+ *  Class, for both Device and Host USB modes. User applications can use this class driver instead of implementing the
+ *  RNDIS class manually via the low-level LUFA APIs.
  *
  *  This module is designed to simplify the user code by exposing only the required interface needed to interface with
  *  Hosts using the USB RNDIS Class.
@@ -58,6 +59,10 @@
 
 		#if defined(USB_CAN_BE_DEVICE)
 			#include "Device/RNDIS.h"
+		#endif
+		
+		#if defined(USB_CAN_BE_HOST)
+			#include "Host/RNDIS.h"
 		#endif
 		
 #endif

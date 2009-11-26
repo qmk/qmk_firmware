@@ -151,6 +151,9 @@ static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInte
 {
 	uint8_t ErrorCode;
 	
+	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
+	  return PIPE_RWSTREAM_DeviceDisconnected;
+
 	PIMAHeader->TransactionID = SIInterfaceInfo->State.TransactionID++;
 
 	Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipeNumber);
@@ -176,6 +179,9 @@ static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInte
 static uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader)
 {
 	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
+
+	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
+	  return PIPE_RWSTREAM_DeviceDisconnected;
 
 	Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipeNumber);
 	Pipe_Unfreeze();
@@ -240,6 +246,9 @@ uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, voi
 {
 	uint8_t ErrorCode;
 
+	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
+	  return PIPE_RWSTREAM_DeviceDisconnected;
+
 	Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipeNumber);
 	Pipe_Unfreeze();
 	
@@ -255,6 +264,9 @@ uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, voi
 {
 	uint8_t ErrorCode;
 
+	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
+	  return PIPE_RWSTREAM_DeviceDisconnected;
+
 	Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipeNumber);
 	Pipe_Unfreeze();
 
@@ -268,6 +280,9 @@ uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, voi
 bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* SIInterfaceInfo)
 {
 	bool IsEventReceived = false;
+
+	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
+	  return false;
 
 	Pipe_SelectPipe(SIInterfaceInfo->Config.EventsPipeNumber);
 	Pipe_Unfreeze();
@@ -284,6 +299,9 @@ uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* const SIInterfac
 {
 	uint8_t ErrorCode;
 
+	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
+	  return PIPE_RWSTREAM_DeviceDisconnected;
+
 	Pipe_SelectPipe(SIInterfaceInfo->Config.EventsPipeNumber);
 	Pipe_Unfreeze();
 	
@@ -298,7 +316,7 @@ uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* const SIInterfac
 uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 
 	uint8_t ErrorCode;
 
@@ -328,7 +346,7 @@ uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 
 	uint8_t ErrorCode;
 
@@ -358,7 +376,7 @@ uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, 
                                 const uint8_t TotalParams, uint32_t* Params)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
-	  return HOST_SENDCONTROL_DeviceDisconnect;
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 
 	uint8_t ErrorCode;
 
@@ -381,6 +399,9 @@ uint8_t SImage_Host_ReceiveResponse(USB_ClassInfo_SI_Host_t* const SIInterfaceIn
 {
 	uint8_t ErrorCode;
 	SI_PIMA_Container_t PIMABlock;
+
+	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
+	  return HOST_SENDCONTROL_DeviceDisconnected;
 
 	if ((ErrorCode = SImage_Host_ReceiveBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;

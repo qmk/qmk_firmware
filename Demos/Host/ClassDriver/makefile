@@ -41,6 +41,9 @@ all:
 	make -C PrinterHost clean
 	make -C PrinterHost all
 
+	make -C RNDISEthernetHost clean
+	make -C RNDISEthernetHost all
+
 	make -C StillImageHost clean
 	make -C StillImageHost all
 	
@@ -53,4 +56,5 @@ all:
 	make -C MouseHostWithParser $@
 	make -C MassStorageHost $@
 	make -C PrinterHost $@
+	make -C RNDISEthernetHost $@
 	make -C StillImageHost $@

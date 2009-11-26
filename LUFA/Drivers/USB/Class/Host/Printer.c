@@ -187,6 +187,9 @@ uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, v
 {
 	uint8_t ErrorCode;
 
+	if ((USB_HostState != HOST_STATE_Configured) || !(PRNTInterfaceInfo->State.IsActive))
+	  return PIPE_RWSTREAM_DeviceDisconnected;
+
 	Pipe_SelectPipe(PRNTInterfaceInfo->Config.DataOUTPipeNumber);
 	Pipe_Unfreeze();
 	

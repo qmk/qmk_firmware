@@ -53,15 +53,15 @@
 			 */
 			enum USB_Host_SendControlErrorCodes_t
 			{
-				HOST_SENDCONTROL_Successful       = 0, /**< No error occurred in the request transfer. */
-				HOST_SENDCONTROL_DeviceDisconnect = 1, /**< The attached device was disconnected during the
+				HOST_SENDCONTROL_Successful         = 0, /**< No error occurred in the request transfer. */
+				HOST_SENDCONTROL_DeviceDisconnected = 1, /**< The attached device was disconnected during the
 				                                        *   request transfer.
 				                                        */
-				HOST_SENDCONTROL_PipeError        = 2, /**< An error occurred in the pipe while sending the request. */
-				HOST_SENDCONTROL_SetupStalled     = 3, /**< The attached device stalled the request, usually
+				HOST_SENDCONTROL_PipeError          = 2, /**< An error occurred in the pipe while sending the request. */
+				HOST_SENDCONTROL_SetupStalled       = 3, /**< The attached device stalled the request, usually
 				                                        *   indicating that the request is unsupported on the device.
 				                                        */
-				HOST_SENDCONTROL_SoftwareTimeOut  = 4, /**< The request or data transfer timed out. */
+				HOST_SENDCONTROL_SoftwareTimeOut    = 4, /**< The request or data transfer timed out. */
 			};
 			
 		/* Function Prototypes: */

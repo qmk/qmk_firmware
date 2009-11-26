@@ -226,7 +226,7 @@ void RNDIS_Host_Task(void)
 			printf_P(PSTR("Device Max Transfer Size: %lu bytes.\r\n"), DeviceMaxPacketSize);
 			
 			/* We set the default filter to only receive packets we would be interested in */
-			uint32_t PacketFilter = (RNDIS_PACKET_TYPE_DIRECTED | RNDIS_PACKET_TYPE_BROADCAST | RNDIS_PACKET_TYPE_ALL_MULTICAST);
+			uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST | REMOTE_NDIS_PACKET_ALL_MULTICAST);
 			if ((ErrorCode = RNDIS_SetRNDISProperty(OID_GEN_CURRENT_PACKET_FILTER,
 			                                        &PacketFilter, sizeof(PacketFilter))) != HOST_SENDCONTROL_Successful)
 			{
@@ -256,7 +256,7 @@ void RNDIS_Host_Task(void)
 				break;
 			}
 			
-			printf_P(PSTR("Device Vendor ID: 0x%08X\r\n"), VendorID);
+			printf_P(PSTR("Device Vendor ID: 0x%08lX\r\n"), VendorID);
 			
 			puts_P(PSTR("RNDIS Device Enumerated.\r\n"));
 

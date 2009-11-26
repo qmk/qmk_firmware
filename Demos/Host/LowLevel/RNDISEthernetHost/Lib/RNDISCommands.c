@@ -91,7 +91,8 @@ uint8_t RNDIS_GetEncapsulatedResponse(void* Buffer, uint16_t Length)
 /** Sends a RNDIS KEEPALIVE command to the device, to ensure that it does not enter standby mode after periods
  *  of long inactivity.
  *
- *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
+ *          logical command failure
  */
 uint8_t RNDIS_SendKeepAlive(void)
 {
@@ -124,7 +125,8 @@ uint8_t RNDIS_SendKeepAlive(void)
  *  \param[in] HostMaxPacketSize  Size of the packet buffer on the host
  *  \param[out] DeviceMaxPacketSize   Pointer to where the packet buffer size of the device is to be stored
  *
- *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
+ *          logical command failure
  */
 uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPacketSize)
 {
@@ -167,7 +169,8 @@ uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPa
  *  \param[in] Buffer  Pointer to where the property data is to be sourced from
  *  \param[in] Length  Length in bytes of the property data to sent to the device
  *
- *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
+ *          logical command failure
  */
 uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length)
 {
@@ -216,7 +219,8 @@ uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length)
  *  \param[in] Buffer  Pointer to where the property data is to be written to
  *  \param[in] MaxLength  Length in bytes of the destination buffer size
  *
- *  \return A value from the USB_Host_SendControlErrorCodes_t enum
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
+ *          logical command failure
  */
 uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength)
 {

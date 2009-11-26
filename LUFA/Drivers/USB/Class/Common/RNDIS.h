@@ -44,6 +44,7 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "CDC.h"
+		#include "RNDISConstants.h"
 		
 		#include <string.h>
 	
@@ -68,7 +69,7 @@
 		/** Maximum size in bytes of a RNDIS control message which can be sent or received */
 		#define RNDIS_MESSAGE_BUFFER_SIZE             128
 
-		/** Maximum size in bytes of an Ethernet frame which can be sent or received */
+		/** Maximum size in bytes of an Ethernet frame according to the Ethernet standard */
 		#define ETHERNET_FRAME_SIZE_MAX               1500
 		
 		/** Notification request value for a RNDIS Response Available notification */

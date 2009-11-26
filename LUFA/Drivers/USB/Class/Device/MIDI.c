@@ -73,7 +73,7 @@ void MIDI_Device_USBTask(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
 uint8_t MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
 {
 	if (USB_DeviceState != DEVICE_STATE_Configured)
-	  return ENDPOINT_RWSTREAM_NoError;
+	  return ENDPOINT_RWSTREAM_DeviceDisconnected;
 	
 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpointNumber);
 

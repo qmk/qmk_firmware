@@ -14,7 +14,9 @@
  *
  *  <b>Host Mode</b>
  *    - The Still Image Host Class driver SI_Host_USBTask() and SI_Host_ConfigurePipes() functions were misnamed, and are
- *      now named SImage_Host_USBTask() and SImage_Host_ConfigurePipes() respectively.
+ *      now named \ref SImage_Host_USBTask() and \ref SImage_Host_ConfigurePipes() respectively.
+ *    - The HOST_SENDCONTROL_DeviceDisconnect enum value has been renamed to \ref HOST_SENDCONTROL_DeviceDisconnected to be in
+ *      line with the rest of the library error codes.
  *
  *  <b>Device Mode</b>
  *    - The CALLBACK_HID_Device_CreateHIDReport() HID Device Class driver callback now has a new ReportType parameter to

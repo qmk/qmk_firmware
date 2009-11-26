@@ -71,6 +71,7 @@
  *        - <b>MassStorageHost</b> - Mass Storage host demo, using the library USB Mass Storage Class driver framework
  *        - <b>MouseHost</b> - Mouse host demo, using the library USB HID Class driver framework
  *        - <b>MouseHostWithParser</b> - Mouse host demo with HID Descriptor parser, using the library USB HID Class driver framework
+ *        - <b>RNDISHost</b> - RNDIS Ethernet host demo, using the library USB RNDIS Class driver framework
  *        - <b>StillImageHost</b> - Still Image Camera host demo, using the library USB Still Image Class driver framework
  *      - <b>LowLevel</b>
  *        - <b>CDCHost</b> - Virtual Serial Port host demo, using the low level LUFA APIs to implement the USB CDC class
@@ -85,8 +86,8 @@
  *        - <b>MouseHostWithParser</b> - Mouse host demo with HID Descriptor parser, using the low level LUFA APIs to implement the
  *                                       USB HID class
  *        - <b>PrinterHost</b> - Printer host demo, using the low level LUFA APIs to implement the USB Printer class
- *        - <b>StillImageHost</b> - Still Image Camera host demo, using the low level LUFA APIs to implement the USB Still Image class
  *        - <b>RNDISHost</b> - RNDIS Ethernet host demo, using the low level LUFA APIs to implement the RNDIS class
+ *        - <b>StillImageHost</b> - Still Image Camera host demo, using the low level LUFA APIs to implement the USB Still Image class
  *      - <b>Incomplete</b>
  *        - <b>BluetoothHost</b> - Incomplete Bluetooth host demo, using the low level LUFA APIs to implement the USB Bluetooth class
  *    - <b>DualRole</b>

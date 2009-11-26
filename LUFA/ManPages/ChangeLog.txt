@@ -11,8 +11,10 @@
   *  <b>New:</b>
   *  - Added activity LED indicators to the AVRISP project to indicate when the device is busy processing a command
   *  - The USB target family and allowable USB mode tokens are now public and documented (USB_CAN_BE_*, USB_SERIES_*_AVR)
-  *  - Added new XPLAIN serial Bridge project (thanks to John Steggall)
+  *  - Added new XPLAIN USB to Serial Bridge project (thanks to John Steggall)
   *  - Added new RNDISHost Host LowLevel demo
+  *  - Added new RNDIS Ethernet Host Class Driver
+  *  - Added new RNDISEthernet Host ClassDriver demo
   *
   *  <b>Changed:</b>
   *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of keycodes
@@ -22,6 +24,10 @@
   *  - The USB_MODE_HOST token is now defined even when host mode is not available
   *  - The CALLBACK_HID_Device_CreateHIDReport() HID Device Class driver callback now has a new ReportType parameter to
   *    indicate the report type to generate
+  *  - All Class Drivers now return false or the "DeviceDisconnected" error code of their respective error enums when a function
+  *    is called when no host/device is connected where possible
+  *  - The HOST_SENDCONTROL_DeviceDisconnect enum value has been renamed to HOST_SENDCONTROL_DeviceDisconnected to be in line
+  *    with the rest of the library errorcodes.
   *
   *  <b>Fixed:</b>
   *  - Added missing CDC_Host_CreateBlockingStream() function code to the CDC Host Class driver
