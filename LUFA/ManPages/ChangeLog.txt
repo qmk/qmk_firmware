@@ -27,7 +27,9 @@
   *  - All Class Drivers now return false or the "DeviceDisconnected" error code of their respective error enums when a function
   *    is called when no host/device is connected where possible
   *  - The HOST_SENDCONTROL_DeviceDisconnect enum value has been renamed to HOST_SENDCONTROL_DeviceDisconnected to be in line
-  *    with the rest of the library errorcodes.
+  *    with the rest of the library errorcodes
+  *  - Make MIDI device demos also turn off the on board LEDs if MIDI Note On messages are sent with a velocity of zero,
+  *    which some devices use instead of Note Off messages (thanks to Robin Green)
   *
   *  <b>Fixed:</b>
   *  - Added missing CDC_Host_CreateBlockingStream() function code to the CDC Host Class driver
