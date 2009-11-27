@@ -159,18 +159,21 @@ int main(void)
 /** Prints incomming packets from the attached RNDIS device to the serial port. */
 void PrintIncommingPackets(void)
 {
-	uint16_t PacketLength;
-	
-	RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, &PacketBuffer, &PacketLength);
-	
-	if (PacketLength)
+	if (RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface))
 	{
+		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+
+		uint16_t PacketLength;
+		RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, &PacketBuffer, &PacketLength);
+	
 		printf("***PACKET (Size %d)***\r\n", PacketLength);
 	
 		for (uint16_t i = 0; i < PacketLength; i++)
 		  printf("%02x ", PacketBuffer[i]);
 
-		printf("\r\n\r\n");		
+		printf("\r\n\r\n");
+		
+		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
 }
 

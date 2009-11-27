@@ -11,14 +11,11 @@
   *  If you have an item to add to this list, please contact the library author via email, the LUFA mailing list,
   *  or post your suggestion as an enhancement request to the project bug tracker.
   *
-  *  <b>Targeted for the Next Release (SVN Development Only):</b>
-  *
   *  <b>Targeted for Future Releases:</b>
   *  - Code Features
   *      -# Add hub support when in Host mode for multiple devices
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Add standardized descriptor names to class driver structures
-  *      -# Finish RNDIS Host Class driver
   *      -# Correct mishandling of error cases in Mass Storage demos
   *  - Documentation/Support
   *      -# Remake AVRStudio project files

@@ -83,8 +83,8 @@
  *  <table>
  *  <tr>
  *   <th width="100px">USB Class</th> 
- *   <th width="80px">Device</th> 
- *   <th width="80px">Host</th> 
+ *   <th width="90px">Device Mode</th> 
+ *   <th width="90px">Host Mode</th> 
  *  </tr>
  *  <tr>
  *   <td>Audio</td>
@@ -113,13 +113,13 @@
  *  </tr>
  *  <tr>
  *   <td>Printer</td>
- *   <td bgcolor="#00EE00">No</td>
+ *   <td bgcolor="#EE0000">No</td>
 *    <td bgcolor="#00EE00">Yes</td>
  *  </tr>
  *  <tr>
  *   <td>RNDIS</td>
  *   <td bgcolor="#00EE00">Yes</td>
- *   <td bgcolor="#EE0000">Yes</td>
+ *   <td bgcolor="#00EE00">Yes</td>
  *  </tr>
  *  <tr>
  *   <td>Still Image</td>
