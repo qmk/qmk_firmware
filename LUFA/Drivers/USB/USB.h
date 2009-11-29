@@ -132,19 +132,16 @@
 #ifndef __USB_H__
 #define __USB_H__
 
+	/* Includes: */
+		#include "HighLevel/USBMode.h"
+
 	/* Preprocessor Checks: */		
-		#if (!(defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) ||  \
-		       defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) ||  \
-			   defined(__AVR_AT90USB162__)  || defined(__AVR_AT90USB82__)  ||  \
-			   defined(__AVR_ATmega32U2__)  || defined(__AVR_ATmega16U2__) ||  \
-			   defined(__AVR_ATmega8U2__)   ||                                 \
-			   defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) ||  \
-			   defined(__AVR_ATmega32U6__)))
+		#if (!defined(USB_SERIES_2_AVR) && !defined(USB_SERIES_4_AVR) && \
+		     !defined(USB_SERIES_6_AVR) && !defined(USB_SERIES_7_AVR))
 			#error The currently selected AVR model is not supported under the USB component of the LUFA library.
 		#endif
 		
 	/* Includes: */
-		#include "HighLevel/USBMode.h"
 		#include "HighLevel/USBTask.h"
 		#include "HighLevel/USBInterrupt.h"
 		#include "HighLevel/Events.h"

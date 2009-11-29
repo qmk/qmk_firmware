@@ -40,6 +40,7 @@
   *  - Fixed host state machine not enabling Auto VBUS mode when HOST_DEVICE_SETTLE_DELAY_MS is set to zero
   *  - Fixed misnamed Pipe_SetPipeToken() macro for setting a pipe's direction
   *  - Fixed CDCHost failing on devices with bidirectional endpoints
+  *  - Fixed USB driver failing to define the PLL prescaler mask for the ATMEGA8U2 and ATMEGA16U2
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *
