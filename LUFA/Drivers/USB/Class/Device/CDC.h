@@ -212,7 +212,8 @@
 			void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Creates a standard characer stream for the given CDC Device instance so that it can be used with all the regular
-			 *  functions in the avr-libc <stdio.h> library that accept a FILE stream as a destination (e.g. fprintf).
+			 *  functions in the avr-libc <stdio.h> library that accept a FILE stream as a destination (e.g. fprintf). The created
+			 *  stream is bidirectional and can be used for both input and output functions.
 			 *
 			 *  Reading data from this stream is non-blocking, i.e. in most instances, complete strings cannot be read in by a single
 			 *  fetch, as the endpoint will not be ready at some point in the transmission, aborting the transfer. However, this may

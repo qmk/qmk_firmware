@@ -55,7 +55,7 @@
 		 *  can protect the AVR's firmware from being dumped from a secured AVR. When false, memory operations are
 		 *  allowed at any time.
 		 */
-		#define SECURE_MODE           false
+		#define SECURE_MODE              false
 
 		/** Major bootloader version number. */
 		#define BOOTLOADER_VERSION_MINOR 2

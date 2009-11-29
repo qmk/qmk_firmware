@@ -690,11 +690,7 @@ static void ProcessReadCommand(void)
 	uint8_t DataIndexToRead = SentCommand.Data[1];
 
 	if (IS_ONEBYTE_COMMAND(SentCommand.Data, 0x00))                         // Read bootloader info
-	{
-		ResponseByte = BootloaderInfo[DataIndexToRead];
-	}
+	  ResponseByte = BootloaderInfo[DataIndexToRead];
 	else if (IS_ONEBYTE_COMMAND(SentCommand.Data, 0x01))                    // Read signature byte
-	{
-		ResponseByte = SignatureInfo[DataIndexToRead - 0x30];
-	}
+	  ResponseByte = SignatureInfo[DataIndexToRead - 0x30];
 }
