@@ -56,6 +56,7 @@
  *  Note that this design currently has several limitations:
  *    - Minimum target clock speed of 500KHz due to hardware SPI used
  *    - No reversed/shorted target connector detection and notification
+ *    - PDI programming is not supported for XMEGA targets
  *
  *  On AVR models with an ADC converter, ACC should be tied to 5V (e.g. VBUS) and the VTARGET_ADC_CHANNEL token should be
  *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models

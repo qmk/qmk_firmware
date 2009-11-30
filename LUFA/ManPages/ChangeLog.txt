@@ -12,9 +12,10 @@
   *  - Added activity LED indicators to the AVRISP project to indicate when the device is busy processing a command
   *  - The USB target family and allowable USB mode tokens are now public and documented (USB_CAN_BE_*, USB_SERIES_*_AVR)
   *  - Added new XPLAIN USB to Serial Bridge project (thanks to John Steggall)
-  *  - Added new RNDISHost Host LowLevel demo
+  *  - Added new RNDIS Ethernet Host LowLevel demo
   *  - Added new RNDIS Ethernet Host Class Driver
-  *  - Added new RNDISEthernet Host ClassDriver demo
+  *  - Added new RNDIS Ethernet Host ClassDriver demo
+  *  - Added CDC_Host_Flush() function to the CDC Host Class driver to flush sent data to the attached device
   *
   *  <b>Changed:</b>
   *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of keycodes

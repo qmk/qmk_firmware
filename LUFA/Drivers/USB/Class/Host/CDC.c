@@ -374,6 +374,48 @@ uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 	return ReceivedByte;
 }
 
+uint8_t CDC_Host_Flush(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
+	  return PIPE_READYWAIT_DeviceDisconnected;
+	  
+	uint8_t ErrorCode;
+
+	if (CDCInterfaceInfo->State.BidirectionalDataEndpoints)
+	{
+		Pipe_SelectPipe(CDCInterfaceInfo->Config.DataINPipeNumber);
+		Pipe_SetPipeToken(PIPE_TOKEN_OUT);
+	}
+	else
+	{
+		Pipe_SelectPipe(CDCInterfaceInfo->Config.DataOUTPipeNumber);	
+	}
+	
+	Pipe_Unfreeze();
+	
+	if (!(Pipe_BytesInPipe()))
+	  return PIPE_READYWAIT_NoError;
+
+	bool BankFull = !(Pipe_IsReadWriteAllowed());
+
+	Pipe_ClearOUT();
+
+	if (BankFull)
+	{
+		if ((ErrorCode = Pipe_WaitUntilReady()) != PIPE_READYWAIT_NoError)
+		  return ErrorCode;
+
+		Pipe_ClearOUT();
+	}
+
+	Pipe_Freeze();
+
+	if (CDCInterfaceInfo->State.BidirectionalDataEndpoints)
+	  Pipe_SetPipeToken(PIPE_TOKEN_IN);
+	
+	return PIPE_READYWAIT_NoError;
+}
+
 void CDC_Host_CreateStream(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, FILE* Stream)
 {
 	*Stream = (FILE)FDEV_SETUP_STREAM(CDC_Host_putchar, CDC_Host_getchar, _FDEV_SETUP_RW);

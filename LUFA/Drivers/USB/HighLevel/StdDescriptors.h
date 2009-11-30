@@ -43,6 +43,7 @@
 	/* Includes: */
 		#include <avr/pgmspace.h>
 		#include <stdbool.h>
+		#include <stddef.h>
 
 		#include "../../../Common/Common.h"
 		#include "USBMode.h"
