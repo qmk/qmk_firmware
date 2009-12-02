@@ -127,6 +127,7 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENAB
 SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
 	  Lib/RingBuff.c                                              \
+	  Lib/SoftUART.c                                              \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -152,7 +153,7 @@ CPPSRC =
 #     Even though the DOS/Win* filesystem matches both .s and .S the same,
 #     it will preserve the spelling of the filenames, and gcc itself does
 #     care about how the name is spelled on its command-line.
-ASRC = Lib/SoftUART.S
+ASRC = 
 
 
 # Optimization level, can be [0, 1, 2, 3, s]. 
