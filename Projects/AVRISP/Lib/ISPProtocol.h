@@ -30,33 +30,38 @@
 
 /** \file
  *
- *  Header file for ISPTarget.c.
+ *  Header file for ISPProtocol.c.
  */
 
-#ifndef _ISP_TARGET_
-#define _ISP_TARGET_
+#ifndef _ISP_PROTOCOL_
+#define _ISP_PROTOCOL_
 
 	/* Includes: */
 		#include <avr/io.h>
-		#include <util/delay.h>
-
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Peripheral/SPI.h>
 		
-		#include "../Descriptors.h"
-		#include "V2ProtocolConstants.h"
-		#include "V2ProtocolParams.h"
+		#include "V2Protocol.h"
 
 	/* Macros: */
-		/** Total number of allowable ISP programming speeds supported by the device */
-		#define TOTAL_ISP_PROGRAMMING_SPEEDS  7
+		/** Mask for the reading or writing of the high byte in a FLASH word when issuing a low-level programming command */
+		#define READ_WRITE_HIGH_BYTE_MASK       (1 << 3)
+
+		#define PROG_MODE_PAGED_WRITES_MASK     (1 << 0)
+		#define PROG_MODE_WORD_TIMEDELAY_MASK   (1 << 1)
+		#define PROG_MODE_WORD_VALUE_MASK       (1 << 2)
+		#define PROG_MODE_WORD_READYBUSY_MASK   (1 << 3)
+		#define PROG_MODE_PAGED_TIMEDELAY_MASK  (1 << 4)
+		#define PROG_MODE_PAGED_VALUE_MASK      (1 << 5)
+		#define PROG_MODE_PAGED_READYBUSY_MASK  (1 << 6)
+		#define PROG_MODE_COMMIT_PAGE_MASK      (1 << 7)
 
 	/* Function Prototypes: */
-			uint8_t ISPTarget_GetSPIPrescalerMask(void);
-			void    ISPTarget_ChangeTargetResetLine(bool ResetTarget);
-			uint8_t ISPTarget_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAddress, uint8_t PollValue,
-                                                   uint8_t DelayMS, uint8_t ReadMemCommand);
-			uint8_t ISPTarget_WaitWhileTargetBusy(void);
-			void    ISPTarget_LoadExtendedAddress(void);
+		void ISPProtocol_EnterISPMode(void);
+		void ISPProtocol_LeaveISPMode(void);
+		void ISPProtocol_ProgramMemory(uint8_t V2Command);
+		void ISPProtocol_ReadMemory(uint8_t V2Command);
+		void ISPProtocol_ChipErase(void);
+		void ISPProtocol_ReadFuseLockSigOSCCAL(uint8_t V2Command);
+		void ISPProtocol_WriteFuseLock(uint8_t V2Command);
+		void ISPProtocol_SPIMulti(void);
 
 #endif

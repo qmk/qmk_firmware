@@ -130,6 +130,7 @@ SRC = $(TARGET).c                                                 \
       Lib/V2Protocol.c                                            \
       Lib/V2ProtocolParams.c                                      \
       Lib/V2ProtocolTarget.c                                      \
+      Lib/ISPProtocol.c                                           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \

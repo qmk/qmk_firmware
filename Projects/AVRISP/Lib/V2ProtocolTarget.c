@@ -30,20 +30,17 @@
 
 /** \file
  *
- *  Target-related functions for the V2 Protocol decoder.
+ *  Target-related functions for the ISP Protocol decoder.
  */
 
 #include "V2ProtocolTarget.h"
-
-/** Current memory address for FLASH/EEPROM memory read/write commands */
-uint32_t CurrentAddress;
 
 /** Converts the given AVR Studio SCK duration parameter (set by a SET PARAM command from the host) to the nearest
  *  possible SPI clock prescaler mask for passing to the SPI_Init() routine.
  *
  *  \return Nearest SPI prescaler mask for the given SCK frequency
  */
-uint8_t V2Protocol_GetSPIPrescalerMask(void)
+uint8_t ISPTarget_GetSPIPrescalerMask(void)
 {
 	static const uint8_t SPIMaskFromSCKDuration[] =
 	{
@@ -81,7 +78,7 @@ uint8_t V2Protocol_GetSPIPrescalerMask(void)
  *
  *  \param[in] ResetTarget Boolean true when the target should be held in reset, false otherwise
  */
-void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
+void ISPTarget_ChangeTargetResetLine(bool ResetTarget)
 {
 	if (ResetTarget)
 	{
@@ -109,8 +106,8 @@ void V2Protocol_ChangeTargetResetLine(bool ResetTarget)
  *  \return V2 Protocol status \ref STATUS_CMD_OK if the no timeout occurred, \ref STATUS_RDY_BSY_TOUT or
  *          \ref STATUS_CMD_TOUT otherwise
  */
-uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAddress, uint8_t PollValue,
-                                       uint8_t DelayMS, uint8_t ReadMemCommand)
+uint8_t ISPTarget_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAddress, uint8_t PollValue,
+                                      uint8_t DelayMS, uint8_t ReadMemCommand)
 {
 	uint8_t ProgrammingStatus = STATUS_CMD_OK;
 
@@ -139,7 +136,7 @@ uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAdd
 			break;		
 		case PROG_MODE_WORD_READYBUSY_MASK:
 		case PROG_MODE_PAGED_READYBUSY_MASK:
-			ProgrammingStatus = V2Protocol_WaitWhileTargetBusy();
+			ProgrammingStatus = ISPTarget_WaitWhileTargetBusy();
 			break;
 	}
 
@@ -151,7 +148,7 @@ uint8_t V2Protocol_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAdd
  *
  *  \return V2 Protocol status \ref STATUS_CMD_OK if the no timeout occurred, \ref STATUS_RDY_BSY_TOUT otherwise
  */
-uint8_t V2Protocol_WaitWhileTargetBusy(void)
+uint8_t ISPTarget_WaitWhileTargetBusy(void)
 {
 	TCNT0 = 0;
 	
@@ -174,7 +171,7 @@ uint8_t V2Protocol_WaitWhileTargetBusy(void)
  *  64KB boundary. This sends the command with the correct address as indicated by the current address
  *  pointer variable set by the host when a SET ADDRESS command is issued.
  */
-void V2Protocol_LoadExtendedAddress(void)
+void ISPTarget_LoadExtendedAddress(void)
 {
 	SPI_SendByte(0x4D);
 	SPI_SendByte(0x00);

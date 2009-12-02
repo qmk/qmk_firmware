@@ -48,6 +48,7 @@
 		
 		#include "V2Protocol.h"
 		#include "V2ProtocolConstants.h"
+		#include "V2ProtocolTarget.h"
 
 	/* Macros: */
 		/** Parameter privilege mask to allow the host PC to read the parameter's value */

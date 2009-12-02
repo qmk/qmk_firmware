@@ -43,23 +43,29 @@
 		#include "../Descriptors.h"
 		#include "V2ProtocolConstants.h"
 		#include "V2ProtocolParams.h"
-		#include "V2ProtocolTarget.h"
+		#include "ISPProtocol.h"
 
 	/* Macros: */
 		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing */
 		#define PROGRAMMER_ID                   "AVRISP_MK2"
-		
-		/** Mask for the reading or writing of the high byte in a FLASH word when issuing a low-level programming command */
-		#define READ_WRITE_HIGH_BYTE_MASK       (1 << 3)
 
-		#define PROG_MODE_PAGED_WRITES_MASK     (1 << 0)
-		#define PROG_MODE_WORD_TIMEDELAY_MASK   (1 << 1)
-		#define PROG_MODE_WORD_VALUE_MASK       (1 << 2)
-		#define PROG_MODE_WORD_READYBUSY_MASK   (1 << 3)
-		#define PROG_MODE_PAGED_TIMEDELAY_MASK  (1 << 4)
-		#define PROG_MODE_PAGED_VALUE_MASK      (1 << 5)
-		#define PROG_MODE_PAGED_READYBUSY_MASK  (1 << 6)
-		#define PROG_MODE_COMMIT_PAGE_MASK      (1 << 7)
+		/** Timeout in milliseconds of target busy-wait loops waiting for a command to complete */
+		#define TARGET_BUSY_TIMEOUT_MS    240
+
+	/* Inline Functions: */
+		/** Blocking delay for a given number of milliseconds, via a hardware timer.
+		 *
+		 *  \param[in] DelayMS  Number of milliseconds to delay for
+		 */
+		static inline void V2Protocol_DelayMS(uint8_t DelayMS)
+		{
+			TCNT0 = 0;
+			while (TCNT0 < DelayMS);
+		}
+
+	/* External Variables: */
+		extern uint32_t CurrentAddress;
+		extern bool MustSetAddress;
 
 	/* Function Prototypes: */
 		void V2Protocol_ProcessCommand(void);
@@ -70,14 +76,6 @@
 			static void V2Protocol_GetSetParam(uint8_t V2Command);
 			static void V2Protocol_ResetProtection(void);
 			static void V2Protocol_LoadAddress(void);
-			static void V2Protocol_ISP_EnterISPMode(void);
-			static void V2Protocol_ISP_LeaveISPMode(void);
-			static void V2Protocol_ISP_ProgramMemory(uint8_t V2Command);
-			static void V2Protocol_ISP_ReadMemory(uint8_t V2Command);
-			static void V2Protocol_ISP_ChipErase(void);
-			static void V2Protocol_ISP_ReadFuseLockSigOSCCAL(uint8_t V2Command);
-			static void V2Protocol_ISP_WriteFuseLock(uint8_t V2Command);
-			static void V2Protocol_ISP_SPIMulti(void);
 		#endif
 
 #endif

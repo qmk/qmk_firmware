@@ -67,7 +67,7 @@ static ParameterItem_t ParameterTable[] =
 		  .ParamPrivileges = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SCK_DURATION,
-		  .ParamValue       = (TOTAL_PROGRAMMING_SPEEDS - 1),
+		  .ParamValue       = (TOTAL_ISP_PROGRAMMING_SPEEDS - 1),
 		  .ParamPrivileges = PARAM_PRIV_READ | PARAM_PRIV_WRITE },
 
 		{ .ParamID          = PARAM_RESET_POLARITY,
