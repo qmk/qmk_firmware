@@ -33,7 +33,7 @@
  *  Target-related functions for the ISP Protocol decoder.
  */
 
-#include "V2ProtocolTarget.h"
+#include "ISPTarget.h"
 
 /** Converts the given AVR Studio SCK duration parameter (set by a SET PARAM command from the host) to the nearest
  *  possible SPI clock prescaler mask for passing to the SPI_Init() routine.
