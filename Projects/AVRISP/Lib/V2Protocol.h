@@ -44,6 +44,7 @@
 		#include "V2ProtocolConstants.h"
 		#include "V2ProtocolParams.h"
 		#include "ISPProtocol.h"
+		#include "PDIProtocol.h"
 
 	/* Macros: */
 		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing */

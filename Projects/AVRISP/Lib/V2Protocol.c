@@ -85,7 +85,11 @@ void V2Protocol_ProcessCommand(void)
 			break;
 #if defined(ENABLE_XPROG_PROTOCOL)
 		case CMD_XPROG_SETMODE:
-			V2Protocol_XPROG_SetMode();
+			PDIProtocol_XPROG_SetMode();
+			break;
+		case CMD_XPROG:
+			PDIProtocol_XPROG_Command();
+			break;
 #endif
 		case CMD_READ_FUSE_ISP:
 		case CMD_READ_LOCK_ISP:

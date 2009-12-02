@@ -56,13 +56,12 @@
  *  Note that this design currently has several limitations:
  *    - Minimum target clock speed of 500KHz due to hardware SPI used
  *    - No reversed/shorted target connector detection and notification
- *    - PDI programming is not supported for XMEGA targets
  *
  *  On AVR models with an ADC converter, ACC should be tied to 5V (e.g. VBUS) and the VTARGET_ADC_CHANNEL token should be
  *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models
  *  without an ADC converter, VTARGET will report at a fixed 5V level.
  *
- *  Connections to the device are simple:
+ *  Connections to the device are simple for SPI programming:
  *
  *  <table>
  *   <tr>
@@ -105,6 +104,12 @@
  *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
  *  <b><sup>2</sup></b> <i>See \ref SSec_Options section</i>
  *
+ *
+ *  Connections to the device are simple for SPI programming:
+ *
+ *  <table>
+ *   <td><b>PDI Programming is not yet fully implemented.</b></td>
+ *  </table>
  *  \section SSec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
@@ -136,6 +141,11 @@
  *    <td>VTARGET_ADC_CHANNEL</td>
  *    <td>Makefile CDEFS</td>
  *    <td>ADC channel number (on supported AVRs) to use for VTARGET level detection.</td> 
+ *   </tr>
+ *   <tr>
+ *    <td>ENABLE_XPROG_PROTOCOL</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>Define to enable XMEGA PDI programming protocol support.</td>  
  *   </tr>
  *  </table>
  */

@@ -136,7 +136,10 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 		uint8_t  ProgData[256]; // Note, the Jungo driver has a very short ACK timeout period, need to buffer the
 	} Write_Memory_Params;      // whole page and ACK the packet as fast as possible to prevent it from aborting
 	
-	Endpoint_Read_Stream_LE(&Write_Memory_Params, sizeof(Write_Memory_Params) - sizeof(Write_Memory_Params.ProgData));
+	Endpoint_Read_Stream_LE(&Write_Memory_Params, (sizeof(Write_Memory_Params) -
+	                                               sizeof(Write_Memory_Params.ProgData)));
+
+
 	Write_Memory_Params.BytesToWrite = SwapEndian_16(Write_Memory_Params.BytesToWrite);
 	
 	if (Write_Memory_Params.BytesToWrite > sizeof(Write_Memory_Params.ProgData))

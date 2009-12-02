@@ -131,6 +131,8 @@ SRC = $(TARGET).c                                                 \
       Lib/V2ProtocolParams.c                                      \
       Lib/ISPProtocol.c                                           \
       Lib/ISPTarget.c                                             \
+	  Lib/PDIProtocol.c                                           \
+	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -191,6 +193,7 @@ CDEFS += -DRESET_LINE_PORT=PORTB
 CDEFS += -DRESET_LINE_DDR=DDRB
 CDEFS += -DRESET_LINE_MASK="(1 << 4)"
 CDEFS += -DVTARGET_ADC_CHANNEL=2
+CDEFS += -DENABLE_XPROG_PROTOCOL
 
 
 # Place -D or -U options here for ASM sources

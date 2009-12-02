@@ -58,49 +58,8 @@
 		#define CMD_READ_SIGNATURE_ISP      0x1B
 		#define CMD_READ_OSCCAL_ISP         0x1C
 		#define CMD_SPI_MULTI               0x1D
-
 		#define CMD_XPROG                   0x50
 		#define CMD_XPROG_SETMODE           0x51
-
-		#define XPRG_CMD_ENTER_PROGMODE 0x01
-		#define XPRG_CMD_LEAVE_PROGMODE 0x02
-		#define XPRG_CMD_ERASE 0x03
-		#define XPRG_CMD_WRITE_MEM 0x04
-		#define XPRG_CMD_READ_MEM 0x05
-		#define XPRG_CMD_CRC 0x06
-		#define XPRG_CMD_SET_PARAM 0x07
-
-		#define XPRG_MEM_TYPE_APPL 1
-		#define XPRG_MEM_TYPE_BOOT 2
-		#define XPRG_MEM_TYPE_EEPROM 3
-		#define XPRG_MEM_TYPE_FUSE 4
-		#define XPRG_MEM_TYPE_LOCKBITS 5
-		#define XPRG_MEM_TYPE_USERSIG 6
-		#define XPRG_MEM_TYPE_FACTORY_CALIBRATION 7
-
-		#define XPRG_ERASE_CHIP 1
-		#define XPRG_ERASE_APP 2
-		#define XPRG_ERASE_BOOT 3
-		#define XPRG_ERASE_EEPROM 4
-		#define XPRG_ERASE_APP_PAGE 5
-		#define XPRG_ERASE_BOOT_PAGE 6
-		#define XPRG_ERASE_EEPROM_PAGE 7
-		#define XPRG_ERASE_USERSIG 8
-
-		#define XPRG_MEM_WRITE_ERASE 0
-		#define XPRG_MEM_WRITE_WRITE 1
-
-		#define XPRG_CRC_APP 1
-		#define XPRG_CRC_BOOT 2
-		#define XPRG_CRC_FLASH 3
-
-		#define XPRG_ERR_OK 0
-		#define XPRG_ERR_FAILED 1
-		#define XPRG_ERR_COLLISION 2
-		#define XPRG_ERR_TIMEOUT 3
-
-		#define XPRG_PARAM_NVMBASE 0x01
-		#define XPRG_PARAM_EEPPAGESIZE 0x02
 
 		#define STATUS_CMD_OK               0x00
 		#define STATUS_CMD_TOUT             0x80
