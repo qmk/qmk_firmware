@@ -108,8 +108,43 @@
  *  Connections to the device are simple for SPI programming:
  *
  *  <table>
- *   <td><b>PDI Programming is not yet fully implemented.</b></td>
+ *   <tr>
+ *    <td><b>Programmer Pin:</b></td>
+ *    <td><b>Target Device Pin:</b></td>
+ *    <td><b>ISP 6 Pin Layout:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>MISO</td>
+ *    <td>DATA</td>
+ *    <td>1</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ADCx <b><sup>1</sup></b></td>
+ *    <td>VTARGET</td>
+ *    <td>2</td>
+ *   </tr>
+ *   <tr>
+ *    <td>N/A</td>
+ *    <td>N/A</td>
+ *    <td>3</td>
+ *   </tr>
+ *   <tr>
+ *    <td>N/A</td>
+ *    <td>N/A</td>
+ *    <td>4</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PORTx.y <b><sup>2</sup></b></td>
+ *    <td>CLOCK</td>
+ *    <td>5</td>
+ *   </tr>
+ *   <tr>
+ *    <td>GND</td>
+ *    <td>GND</td>
+ *    <td>6</td>
+ *   </tr>
  *  </table>
+ *
  *  \section SSec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
@@ -135,7 +170,7 @@
  *    <td>Makefile CDEFS</td>
  *    <td>Mask for the programmer's target RESET line on the chosen port. <b>Must not be the AVR's /SS pin</b>, as the
  *        target pins are tri-stated when not in use, and low signals on the /SS pin will force SPI slave mode when the
- *        pin is configured as an input.</td>
+ *        pin is configured as an input. When in PDI programming mode, this is the target clock pin.</td>
  *   </tr>
  *   <tr>
  *    <td>VTARGET_ADC_CHANNEL</td>

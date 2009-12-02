@@ -11,7 +11,7 @@
   *  <b>New:</b>
   *  - Added activity LED indicators to the AVRISP project to indicate when the device is busy processing a command
   *  - The USB target family and allowable USB mode tokens are now public and documented (USB_CAN_BE_*, USB_SERIES_*_AVR)
-  *  - Added new XPLAIN USB to Serial Bridge project (thanks to John Steggall)
+  *  - Added new XPLAIN USB to Serial Bridge project (thanks to John Steggall for initial proof-of-concept)
   *  - Added new RNDIS Ethernet Host LowLevel demo
   *  - Added new RNDIS Ethernet Host Class Driver
   *  - Added new RNDIS Ethernet Host ClassDriver demo

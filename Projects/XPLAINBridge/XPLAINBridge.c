@@ -8,7 +8,6 @@
 
 /*
   Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-  Copyright 2009  John Steggall (steggall.j@gmail.com)
 
   Permission to use, copy, modify, and distribute this software
   and its documentation for any purpose and without fee is hereby
