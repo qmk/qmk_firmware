@@ -65,19 +65,19 @@
 		void V2Protocol_ProcessCommand(void);
 		
 		#if defined(INCLUDE_FROM_V2PROTOCOL_C)
-			static void V2Protocol_Command_Unknown(uint8_t V2Command);
-			static void V2Protocol_Command_SignOn(void);
-			static void V2Protocol_Command_GetSetParam(uint8_t V2Command);
-			static void V2Protocol_Command_LoadAddress(void);
-			static void V2Protocol_Command_ResetProtection(void);
-			static void V2Protocol_Command_EnterISPMode(void);
-			static void V2Protocol_Command_LeaveISPMode(void);
-			static void V2Protocol_Command_ProgramMemory(uint8_t V2Command);
-			static void V2Protocol_Command_ReadMemory(uint8_t V2Command);
-			static void V2Protocol_Command_ChipErase(void);
-			static void V2Protocol_Command_ReadFuseLockSigOSCCAL(uint8_t V2Command);
-			static void V2Protocol_Command_WriteFuseLock(uint8_t V2Command);
-			static void V2Protocol_Command_SPIMulti(void);
+			static void V2Protocol_UnknownCommand(uint8_t V2Command);
+			static void V2Protocol_SignOn(void);
+			static void V2Protocol_GetSetParam(uint8_t V2Command);
+			static void V2Protocol_ResetProtection(void);
+			static void V2Protocol_LoadAddress(void);
+			static void V2Protocol_ISP_EnterISPMode(void);
+			static void V2Protocol_ISP_LeaveISPMode(void);
+			static void V2Protocol_ISP_ProgramMemory(uint8_t V2Command);
+			static void V2Protocol_ISP_ReadMemory(uint8_t V2Command);
+			static void V2Protocol_ISP_ChipErase(void);
+			static void V2Protocol_ISP_ReadFuseLockSigOSCCAL(uint8_t V2Command);
+			static void V2Protocol_ISP_WriteFuseLock(uint8_t V2Command);
+			static void V2Protocol_ISP_SPIMulti(void);
 		#endif
 
 #endif
