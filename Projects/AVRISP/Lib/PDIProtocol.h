@@ -41,6 +41,7 @@
 		#include <stdio.h>
 	
 		#include "V2Protocol.h"
+		#include "PDITarget.h"
 
 	/* Macros: */
 		#define XPRG_CMD_ENTER_PROGMODE             0x01
@@ -87,7 +88,7 @@
 		void PDIProtocol_XPROG_SetMode(void);
 		void PDIProtocol_XPROG_Command(void);
 		
-		#if defined(INCLUDE_FROM_XPROG_C)
+		#if defined(INCLUDE_FROM_PDIPROTOCOL_C)
 			static void PDIProtocol_EnterXPROGMode(void);
 			static void PDIProtocol_LeaveXPROGMode(void);
 			static void PDIProtocol_SetParam(void);

@@ -35,7 +35,7 @@
  *  PDI Protocol handler, to process V2 Protocol wrapped PDI commands used in Atmel programmer devices.
  */
 
-#define  INCLUDE_FROM_XPROG_C
+#define  INCLUDE_FROM_PDIPROTOCOL_C
 #include "PDIProtocol.h"
 
 uint32_t XPROG_Param_NVMBase;
@@ -89,6 +89,59 @@ void PDIProtocol_XPROG_Command(void)
 			PDIProtocol_SetParam();
 			break;
 	}
+}
+
+static void PDIProtocol_EnterXPROGMode(void)
+{
+	uint8_t ReturnStatus = XPRG_ERR_OK;
+
+	Endpoint_ClearOUT();
+	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+	
+	PDIDATA_LINE_DDR  |= PDIDATA_LINE_MASK;
+	PDICLOCK_LINE_DDR |= PDICLOCK_LINE_MASK;
+	
+	PDIDATA_LINE_PORT |= PDIDATA_LINE_MASK;
+
+	_delay_us(1);
+	
+	for (uint8_t i = 0; i < 16; i++)
+	{
+		PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
+		PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
+	}
+		
+	static const uint8_t NVMKey[8] = {0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF};
+	
+	PDITarget_SendByte(PDI_CMD_KEY);	
+	for (uint8_t i = 0; i < 8; i++)
+	  PDITarget_SendByte(NVMKey[i]);
+
+	PDITarget_SendByte(PDI_CMD_LDCS | PD_STATUS_REG);	
+	if (!(PDITarget_ReceiveByte() & PDI_STATUS_NVM))
+	  ReturnStatus = XPRG_ERR_FAILED;
+	
+	Endpoint_Write_Byte(CMD_XPROG);
+	Endpoint_Write_Byte(XPRG_CMD_ENTER_PROGMODE);
+	Endpoint_Write_Byte(ReturnStatus);
+	Endpoint_ClearIN();
+}
+
+static void PDIProtocol_LeaveXPROGMode(void)
+{
+	Endpoint_ClearOUT();
+	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+	
+	PDIDATA_LINE_DDR   &= ~PDIDATA_LINE_MASK;
+	PDICLOCK_LINE_DDR  &= ~PDICLOCK_LINE_MASK;
+
+	PDIDATA_LINE_PORT  &= ~PDIDATA_LINE_MASK;
+	PDICLOCK_LINE_PORT &= ~PDICLOCK_LINE_MASK;
+	
+	Endpoint_Write_Byte(CMD_XPROG);
+	Endpoint_Write_Byte(XPRG_CMD_LEAVE_PROGMODE);
+	Endpoint_Write_Byte(XPRG_ERR_OK);
+	Endpoint_ClearIN();
 }
 
 static void PDIProtocol_EraseChip(void)
@@ -207,34 +260,6 @@ static void PDIProtocol_ReadCRC(void)
 	}
 	
 	Endpoint_ClearIN();	
-}
-
-static void PDIProtocol_EnterXPROGMode(void)
-{
-	uint8_t ReturnStatus = XPRG_ERR_OK;
-
-	Endpoint_ClearOUT();
-	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	
-	// TODO: Enter device programming mode here via PDI protocol
-	
-	Endpoint_Write_Byte(CMD_XPROG);
-	Endpoint_Write_Byte(XPRG_CMD_ENTER_PROGMODE);
-	Endpoint_Write_Byte(ReturnStatus);
-	Endpoint_ClearIN();
-}
-
-static void PDIProtocol_LeaveXPROGMode(void)
-{
-	Endpoint_ClearOUT();
-	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	
-	// TODO: Exit device programming mode here via PDI protocol
-
-	Endpoint_Write_Byte(CMD_XPROG);
-	Endpoint_Write_Byte(XPRG_CMD_LEAVE_PROGMODE);
-	Endpoint_Write_Byte(XPRG_ERR_OK);
-	Endpoint_ClearIN();
 }
 
 static void PDIProtocol_SetParam(void)

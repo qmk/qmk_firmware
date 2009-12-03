@@ -61,7 +61,7 @@ void ISPProtocol_EnterISPMode(void)
 	
 	CurrentAddress = 0;
 
-	V2Protocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS);	  
+	V2Protocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS); 
 	SPI_Init(ISPTarget_GetSPIPrescalerMask() | SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING | SPI_MODE_MASTER);
 		
 	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus == STATUS_CMD_FAILED))

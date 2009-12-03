@@ -70,7 +70,6 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
-	SerialStream_Init(9600, true);
 
 	#if defined(ADC)
 	/* Initialize the ADC converter for VTARGET level detection on supported AVR models */

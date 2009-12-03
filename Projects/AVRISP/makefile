@@ -132,7 +132,7 @@ SRC = $(TARGET).c                                                 \
       Lib/ISPProtocol.c                                           \
       Lib/ISPTarget.c                                             \
 	  Lib/PDIProtocol.c                                           \
-	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \
+	  Lib/PDITarget.c                                             \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \

@@ -68,7 +68,7 @@ void SoftUART_Init(void)
 {
 	OCR2B  = TCNT2 + 1;						// force first compare
 	TCCR2A = (1 << COM2B1) | (1 << COM2B0);	// T1 mode 0
-	TCCR2B = (1 << FOC2B) | (1 << CS21); 	// CLK/8, T1 mode 0
+	TCCR2B = (1 << FOC2B)  | (1 << CS21); 	// CLK/8, T1 mode 0
 	TIMSK2 = (1 << OCIE2B);					// enable tx and wait for start
 	EICRA  = (1 << ISC01);					// -ve edge
 	EIMSK  = (1 << INT0);					// enable INT0 interrupt
@@ -76,7 +76,7 @@ void SoftUART_Init(void)
 	stx_count = 0;							// nothing to send
 	srx_done = 0;							// nothing received
 	STXPORT |= 1 << STX;					// TX output
-	STXDDR |= 1 << STX;						// TX output
+	STXDDR  |= 1 << STX;					// TX output
 	SRXPORT |= (1 << SRX);					// pullup on INT0
 }
 
