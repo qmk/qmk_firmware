@@ -54,10 +54,10 @@
  *  drivers. When promted, direct your OS to install Atmel's AVRISP-MKII drivers provided with AVRStudio.
  *
  *  Note that this design currently has several limitations:
- *    - Minimum target clock speed of 500KHz due to hardware SPI used
+ *    - Minimum ISP target clock speed of 500KHz due to hardware SPI used
  *    - No reversed/shorted target connector detection and notification
  *
- *  On AVR models with an ADC converter, ACC should be tied to 5V (e.g. VBUS) and the VTARGET_ADC_CHANNEL token should be
+ *  On AVR models with an ADC converter, AVCC should be tied to 5V (e.g. VBUS) and the VTARGET_ADC_CHANNEL token should be
  *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models
  *  without an ADC converter, VTARGET will report at a fixed 5V level.
  *
@@ -115,7 +115,7 @@
  *   <tr>
  *    <td><b>Programmer Pin:</b></td>
  *    <td><b>Target Device Pin:</b></td>
- *    <td><b>ISP 6 Pin Layout:</b></td>
+ *    <td><b>PDI 6 Pin Layout:</b></td>
  *   </tr>
  *   <tr>
  *    <td>MISO</td>
@@ -183,12 +183,12 @@
  *    <td>ADC channel number (on supported AVRs) to use for VTARGET level detection.</td> 
  *   </tr>
  *   <tr>
- *    <td>ENABLE_SPI_PROTOCOL</td>
+ *    <td>ENABLE_ISP_PROTOCOL</td>
  *    <td>Makefile CDEFS</td>
  *    <td>Define to enable SPI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *   <tr>
- *    <td>ENABLE_XPROG_PROTOCOL</td>
+ *    <td>ENABLE_PDI_PROTOCOL</td>
  *    <td>Makefile CDEFS</td>
  *    <td>Define to enable XMEGA PDI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>

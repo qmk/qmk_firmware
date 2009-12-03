@@ -45,8 +45,11 @@
 
 	/* Preprocessor Checks: */
 		#if BOARD == BOARD_XPLAIN
-			#undef  ENABLE_SPI_PROTOCOL
-			#define ENABLE_PDI_PROTOCOL
+			#undef  ENABLE_ISP_PROTOCOL
+			
+			#if !defined(ENABLE_PDI_PROTOCOL)
+				#define ENABLE_PDI_PROTOCOL
+			#endif
 		#endif
 
 	/* Macros: */

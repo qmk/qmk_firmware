@@ -28,7 +28,7 @@
   this software.
 */
 
-#if defined(ENABLE_XPROG_PROTOCOL)
+#if defined(ENABLE_PDI_PROTOCOL)
 
 /** \file
  *

@@ -66,7 +66,7 @@ void V2Protocol_ProcessCommand(void)
 		case CMD_RESET_PROTECTION:
 			V2Protocol_ResetProtection();
 			break;
-#if defined(ENABLE_SPI_PROTOCOL)
+#if defined(ENABLE_ISP_PROTOCOL)
 		case CMD_ENTER_PROGMODE_ISP:
 			ISPProtocol_EnterISPMode();
 			break;
@@ -98,7 +98,7 @@ void V2Protocol_ProcessCommand(void)
 			ISPProtocol_SPIMulti();
 			break;
 #endif
-#if defined(ENABLE_XPROG_PROTOCOL)
+#if defined(ENABLE_PDI_PROTOCOL)
 		case CMD_XPROG_SETMODE:
 			PDIProtocol_XPROG_SetMode();
 			break;

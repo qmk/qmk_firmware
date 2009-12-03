@@ -17,8 +17,8 @@
   *  - Added new RNDIS Ethernet Host ClassDriver demo
   *  - Added CDC_Host_Flush() function to the CDC Host Class driver to flush sent data to the attached device
   *  - Added PDI programming support for XMEGA devices to the AVRISP programmer project
-  *  - Added support for the XPLAIN dataflash, with new XPLAIN_REV1 board target for the different dataflash used on the
-  *    first revision boards compared to the ones mounted on later revisions
+  *  - Added support for the XPLAIN board Dataflash, with new XPLAIN_REV1 board target for the different dataflash used
+  *    on the first revision boards compared to the one mounted on later revisions
   *
   *  <b>Changed:</b>
   *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of keycodes

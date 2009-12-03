@@ -28,7 +28,7 @@
   this software.
 */
 
-#if defined(ENABLE_SPI_PROTOCOL)
+#if defined(ENABLE_ISP_PROTOCOL)
 
 /** \file
  *
