@@ -30,6 +30,8 @@
 
 #if defined(ENABLE_XPROG_PROTOCOL)
 
+#warning PDI Programming Protocol support is incomplete and not currently suitable for use.
+
 /** \file
  *
  *  PDI Protocol handler, to process V2 Protocol wrapped PDI commands used in Atmel programmer devices.
@@ -61,6 +63,9 @@ void PDIProtocol_XPROG_SetMode(void)
 	Endpoint_ClearIN();	
 }
 
+/** Handler for the CMD_XPROG command, which wraps up XPROG commands in a V2 wrapper which need to be
+ *  removed and processed so that the underlying XPROG command can be handled.
+ */
 void PDIProtocol_XPROG_Command(void)
 {
 	uint8_t XPROGCommand = Endpoint_Read_Byte();
@@ -74,7 +79,7 @@ void PDIProtocol_XPROG_Command(void)
 			PDIProtocol_LeaveXPROGMode();
 			break;
 		case XPRG_CMD_ERASE:
-			PDIProtocol_EraseChip();
+			PDIProtocol_Erase();
 			break;
 		case XPRG_CMD_WRITE_MEM:
 			PDIProtocol_WriteMemory();
@@ -91,6 +96,7 @@ void PDIProtocol_XPROG_Command(void)
 	}
 }
 
+/** Handler for the XPROG ENTER_PROGMODE command to establish a PDI connection with the attached device. */
 static void PDIProtocol_EnterXPROGMode(void)
 {
 	uint8_t ReturnStatus = XPRG_ERR_OK;
@@ -101,22 +107,20 @@ static void PDIProtocol_EnterXPROGMode(void)
 	PDIDATA_LINE_DDR  |= PDIDATA_LINE_MASK;
 	PDICLOCK_LINE_DDR |= PDICLOCK_LINE_MASK;
 	
+	/* Must hold DATA line high for at least 90nS to enable PDI interface */
 	PDIDATA_LINE_PORT |= PDIDATA_LINE_MASK;
-
 	_delay_us(1);
 	
+	/* Toggle CLOCK line 16 times within 100uS of the original 90nS timeout to keep PDI interface enabled */
 	for (uint8_t i = 0; i < 16; i++)
-	{
-		PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-		PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-	}
-		
-	static const uint8_t NVMKey[8] = {0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF};
+	  TOGGLE_PDI_CLOCK;
 	
+	/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
 	PDITarget_SendByte(PDI_CMD_KEY);	
 	for (uint8_t i = 0; i < 8; i++)
-	  PDITarget_SendByte(NVMKey[i]);
+	  PDITarget_SendByte(PDI_NVMENABLE_KEY[i]);
 
+	/* Read out the STATUS register to check that NVM access was successfully enabled */
 	PDITarget_SendByte(PDI_CMD_LDCS | PD_STATUS_REG);	
 	if (!(PDITarget_ReceiveByte() & PDI_STATUS_NVM))
 	  ReturnStatus = XPRG_ERR_FAILED;
@@ -127,14 +131,19 @@ static void PDIProtocol_EnterXPROGMode(void)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the XPROG LEAVE_PROGMODE command to terminate the PDI programming connection with
+ *  the attached device.
+ */
 static void PDIProtocol_LeaveXPROGMode(void)
 {
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
+	/* Set DATA and CLOCK lines to inputs */
 	PDIDATA_LINE_DDR   &= ~PDIDATA_LINE_MASK;
 	PDICLOCK_LINE_DDR  &= ~PDICLOCK_LINE_MASK;
-
+	
+	/* Tristate DATA and CLOCK lines */
 	PDIDATA_LINE_PORT  &= ~PDIDATA_LINE_MASK;
 	PDICLOCK_LINE_PORT &= ~PDICLOCK_LINE_MASK;
 	
@@ -144,7 +153,8 @@ static void PDIProtocol_LeaveXPROGMode(void)
 	Endpoint_ClearIN();
 }
 
-static void PDIProtocol_EraseChip(void)
+/** Handler for the XPRG ERASE command to erase a specific memory address space in the attached device. */
+static void PDIProtocol_Erase(void)
 {
 	uint8_t ReturnStatus = XPRG_ERR_OK;
 
@@ -167,6 +177,7 @@ static void PDIProtocol_EraseChip(void)
 	Endpoint_ClearIN();	
 }
 
+/** Handler for the XPROG WRITE_MEMORY command to write to a specific memory space within the attached device. */
 static void PDIProtocol_WriteMemory(void)
 {
 	uint8_t ReturnStatus = XPRG_ERR_OK;
@@ -196,6 +207,9 @@ static void PDIProtocol_WriteMemory(void)
 	Endpoint_ClearIN();
 }
 
+/** Handler for the XPROG READ_MEMORY command to read data from a specific address space within the
+ *  attached device.
+ */
 static void PDIProtocol_ReadMemory(void)
 {
 	uint8_t ReturnStatus = XPRG_ERR_OK;
@@ -219,23 +233,13 @@ static void PDIProtocol_ReadMemory(void)
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_READ_MEM);
 	Endpoint_Write_Byte(ReturnStatus);
-
-	// START TEMP
-	uint8_t ProgData[256];
-	for (uint16_t i = 0; i < ReadMemory_XPROG_Params.Length; i++)
-	  ProgData[i] = i;
-	Endpoint_Write_Stream_LE(ProgData, ReadMemory_XPROG_Params.Length);
-
-	if (!Endpoint_IsReadWriteAllowed())
-	{
-		Endpoint_ClearIN();	
-		while(!(Endpoint_IsReadWriteAllowed()));
-	}
-	// END TEMP
 	
 	Endpoint_ClearIN();
 }
 
+/** Handler for the XPROG CRC command to read a specific memory space's CRC value for comparison between the
+ *  attached device's memory and a data set on the host.
+ */
 static void PDIProtocol_ReadCRC(void)
 {
 	uint8_t ReturnStatus = XPRG_ERR_OK;
@@ -262,6 +266,9 @@ static void PDIProtocol_ReadCRC(void)
 	Endpoint_ClearIN();	
 }
 
+/** Handler for the XPROG SET_PARAM command to set a PDI parameter for use when communicating with the
+ *  attached device.
+ */
 static void PDIProtocol_SetParam(void)
 {
 	uint8_t ReturnStatus = XPRG_ERR_OK;

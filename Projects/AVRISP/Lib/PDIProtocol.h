@@ -92,7 +92,7 @@
 			static void PDIProtocol_EnterXPROGMode(void);
 			static void PDIProtocol_LeaveXPROGMode(void);
 			static void PDIProtocol_SetParam(void);
-			static void PDIProtocol_EraseChip(void);
+			static void PDIProtocol_Erase(void);
 			static void PDIProtocol_WriteMemory(void);
 			static void PDIProtocol_ReadMemory(void);
 			static void PDIProtocol_ReadCRC(void);

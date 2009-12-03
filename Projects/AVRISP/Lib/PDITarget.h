@@ -39,6 +39,8 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <stdbool.h>
+		
+		#include <LUFA/Common/Common.h>
 	
 	/* Defines: */
 		#define PDIDATA_LINE_PORT     PORTB
@@ -64,8 +66,12 @@
 		#define PD_CTRL_REG           2
 
 		#define PDI_STATUS_NVM        (1 << 1)
-		#define PDI_RESET_KEY         0x59
 
+		#define PDI_RESET_KEY         0x59
+		#define PDI_NVMENABLE_KEY     (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
+
+		#define TOGGLE_PDI_CLOCK      MACROS{ PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK; \
+		                                      PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK; }MACROE
 		
 	/* Function Prototypes: */
 		void    PDITarget_SendByte(uint8_t Byte);

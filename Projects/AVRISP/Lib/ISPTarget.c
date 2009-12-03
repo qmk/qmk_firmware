@@ -28,6 +28,8 @@
   this software.
 */
 
+#if defined(ENABLE_SPI_PROTOCOL)
+
 /** \file
  *
  *  Target-related functions for the ISP Protocol decoder.
@@ -178,3 +180,5 @@ void ISPTarget_LoadExtendedAddress(void)
 	SPI_SendByte((CurrentAddress & 0x00FF0000) >> 16);
 	SPI_SendByte(0x00);	
 }
+
+#endif

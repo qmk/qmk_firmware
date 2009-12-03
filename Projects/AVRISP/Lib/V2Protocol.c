@@ -66,6 +66,7 @@ void V2Protocol_ProcessCommand(void)
 		case CMD_RESET_PROTECTION:
 			V2Protocol_ResetProtection();
 			break;
+#if defined(ENABLE_SPI_PROTOCOL)
 		case CMD_ENTER_PROGMODE_ISP:
 			ISPProtocol_EnterISPMode();
 			break;
@@ -83,14 +84,6 @@ void V2Protocol_ProcessCommand(void)
 		case CMD_CHIP_ERASE_ISP:
 			ISPProtocol_ChipErase();
 			break;
-#if defined(ENABLE_XPROG_PROTOCOL)
-		case CMD_XPROG_SETMODE:
-			PDIProtocol_XPROG_SetMode();
-			break;
-		case CMD_XPROG:
-			PDIProtocol_XPROG_Command();
-			break;
-#endif
 		case CMD_READ_FUSE_ISP:
 		case CMD_READ_LOCK_ISP:
 		case CMD_READ_SIGNATURE_ISP:
@@ -104,6 +97,15 @@ void V2Protocol_ProcessCommand(void)
 		case CMD_SPI_MULTI:
 			ISPProtocol_SPIMulti();
 			break;
+#endif
+#if defined(ENABLE_XPROG_PROTOCOL)
+		case CMD_XPROG_SETMODE:
+			PDIProtocol_XPROG_SetMode();
+			break;
+		case CMD_XPROG:
+			PDIProtocol_XPROG_Command();
+			break;
+#endif
 		default:
 			V2Protocol_UnknownCommand(V2Command);
 			break;

@@ -28,6 +28,8 @@
   this software.
 */
 
+#if defined(ENABLE_SPI_PROTOCOL)
+
 /** \file
  *
  *  ISP Protocol handler, to process V2 Protocol wrapped ISP commands used in Atmel programmer devices.
@@ -468,3 +470,5 @@ void ISPProtocol_SPIMulti(void)
 	Endpoint_Write_Byte(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
+
+#endif

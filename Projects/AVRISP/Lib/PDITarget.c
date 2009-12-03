@@ -38,12 +38,16 @@
 #define  INCLUDE_FROM_PDITARGET_C
 #include "PDITarget.h"
 
+/** Writes a given byte to the attached XMEGA device, using a RS232 frame via software through the
+ *  PDI interface.
+ *
+ *  \param Byte  Byte to send to the attached device
+ */
 void PDITarget_SendByte(uint8_t Byte)
 {
-	PDIDATA_LINE_PORT  &= ~PDIDATA_LINE_MASK;
+	PDIDATA_LINE_PORT &= ~PDIDATA_LINE_MASK;
 
-	PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-	PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;	
+	TOGGLE_PDI_CLOCK;
 
 	for (uint8_t i = 0; i < 8; i++)
 	{
@@ -54,33 +58,28 @@ void PDITarget_SendByte(uint8_t Byte)
 		  
 		Byte >>= 1;
 
-		PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-		PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;	
+		TOGGLE_PDI_CLOCK;
 	}
 
-	PDIDATA_LINE_PORT  |= PDIDATA_LINE_MASK;
+	PDIDATA_LINE_PORT |= PDIDATA_LINE_MASK;
 
-	PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-	PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-	PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-	PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
+	TOGGLE_PDI_CLOCK;
+	TOGGLE_PDI_CLOCK;
 }
 
+/** Reads a given byte from the attached XMEGA device, encoded in a RS232 frame through the PDI interface.
+ *
+ *  \return Received byte from the attached device
+ */
 uint8_t PDITarget_ReceiveByte(void)
 {
 	uint8_t ReceivedByte = 0;
 
-	PDIDATA_LINE_DDR   &= ~PDIDATA_LINE_MASK;
+	PDIDATA_LINE_DDR &= ~PDIDATA_LINE_MASK;
 
-	bool FoundStartBit;
-
-	do
-	{
-		PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-		PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-		FoundStartBit = !(PDIDATA_LINE_PIN & PDIDATA_LINE_MASK);
-	} while (!FoundStartBit);
-	
+	while (PDIDATA_LINE_PIN & PDIDATA_LINE_MASK);
+	  TOGGLE_PDI_CLOCK;
+	  
 	for (uint8_t i = 0; i < 8; i++)
 	{
 		if (PDIDATA_LINE_PIN & PDIDATA_LINE_MASK)
@@ -88,16 +87,13 @@ uint8_t PDITarget_ReceiveByte(void)
 
 		ReceivedByte <<= 1;
 
-		PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-		PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;	
+		TOGGLE_PDI_CLOCK;	
 	}
 
-	PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-	PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-	PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
-	PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK;
+	TOGGLE_PDI_CLOCK;
+	TOGGLE_PDI_CLOCK;
 	
-	PDIDATA_LINE_DDR   |= PDIDATA_LINE_MASK;
+	PDIDATA_LINE_DDR |= PDIDATA_LINE_MASK;
 	
 	return ReceivedByte;
 }

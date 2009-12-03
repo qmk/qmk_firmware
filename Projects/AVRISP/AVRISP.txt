@@ -178,6 +178,11 @@
  *    <td>ADC channel number (on supported AVRs) to use for VTARGET level detection.</td> 
  *   </tr>
  *   <tr>
+ *    <td>ENABLE_SPI_PROTOCOL</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>Define to enable SPI programming protocol support.</td>  
+ *   </tr>
+ *   <tr>
  *    <td>ENABLE_XPROG_PROTOCOL</td>
  *    <td>Makefile CDEFS</td>
  *    <td>Define to enable XMEGA PDI programming protocol support.</td>  
