@@ -46,6 +46,12 @@
 		#include "ISPProtocol.h"
 		#include "PDIProtocol.h"
 
+	/* Preprocessor Checks: */
+		#if BOARD == BOARD_XPLAIN
+			#undef  ENABLE_SPI_PROTOCOL
+			#define ENABLE_PDI_PROTOCOL
+		#endif
+
 	/* Macros: */
 		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing */
 		#define PROGRAMMER_ID                   "AVRISP_MK2"

@@ -47,6 +47,12 @@
 		#include "V2ProtocolConstants.h"
 		#include "V2ProtocolParams.h"
 
+	/* Preprocessor Checks: */
+		#if BOARD == BOARD_XPLAIN
+			#undef  ENABLE_SPI_PROTOCOL
+			#define ENABLE_PDI_PROTOCOL
+		#endif
+
 	/* Macros: */
 		/** Total number of allowable ISP programming speeds supported by the device */
 		#define TOTAL_ISP_PROGRAMMING_SPEEDS  7

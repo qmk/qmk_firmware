@@ -61,7 +61,11 @@
  *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models
  *  without an ADC converter, VTARGET will report at a fixed 5V level.
  *
- *  Connections to the device are simple for SPI programming:
+ *  When compiled for the XPLAIN board target, this will automatically configure itself for the correct connections to the
+ *  XPLAIN's XMEGA AVR, and will enable only PDI programming support.
+ *
+ *
+ *  Connections to the device for SPI programming (when enabled):
  *
  *  <table>
  *   <tr>
@@ -105,7 +109,7 @@
  *  <b><sup>2</sup></b> <i>See \ref SSec_Options section</i>
  *
  *
- *  Connections to the device are simple for SPI programming:
+ *  Connections to the device for PDI programming (when enabled):
  *
  *  <table>
  *   <tr>
@@ -158,19 +162,20 @@
  *   <tr>
  *    <td>RESET_LINE_PORT</td>
  *    <td>Makefile CDEFS</td>
- *    <td>PORT register for the programmer's target RESET line.</td>
+ *    <td>PORT register for the programmer's target RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
  *    <td>RESET_LINE_DDR</td>
  *    <td>Makefile CDEFS</td>
- *    <td>DDR register for the programmer's target RESET line.</td>
+ *    <td>DDR register for the programmer's target RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
  *    <td>RESET_LINE_MASK</td>
  *    <td>Makefile CDEFS</td>
  *    <td>Mask for the programmer's target RESET line on the chosen port. <b>Must not be the AVR's /SS pin</b>, as the
  *        target pins are tri-stated when not in use, and low signals on the /SS pin will force SPI slave mode when the
- *        pin is configured as an input. When in PDI programming mode, this is the target clock pin.</td>
+ *        pin is configured as an input. When in PDI programming mode, this is the target clock pin.
+ *        <i>Ignored when compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
  *    <td>VTARGET_ADC_CHANNEL</td>
@@ -180,12 +185,12 @@
  *   <tr>
  *    <td>ENABLE_SPI_PROTOCOL</td>
  *    <td>Makefile CDEFS</td>
- *    <td>Define to enable SPI programming protocol support.</td>  
+ *    <td>Define to enable SPI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *   <tr>
  *    <td>ENABLE_XPROG_PROTOCOL</td>
  *    <td>Makefile CDEFS</td>
- *    <td>Define to enable XMEGA PDI programming protocol support.</td>  
+ *    <td>Define to enable XMEGA PDI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *  </table>
  */

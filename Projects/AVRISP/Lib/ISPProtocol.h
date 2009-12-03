@@ -40,6 +40,12 @@
 		#include <avr/io.h>
 		
 		#include "V2Protocol.h"
+		
+	/* Preprocessor Checks: */
+		#if BOARD == BOARD_XPLAIN
+			#undef  ENABLE_SPI_PROTOCOL
+			#define ENABLE_PDI_PROTOCOL
+		#endif
 
 	/* Macros: */
 		/** Mask for the reading or writing of the high byte in a FLASH word when issuing a low-level programming command */

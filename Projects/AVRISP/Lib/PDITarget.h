@@ -42,16 +42,33 @@
 		
 		#include <LUFA/Common/Common.h>
 	
-	/* Defines: */
-		#define PDIDATA_LINE_PORT     PORTB
-		#define PDIDATA_LINE_DDR      DDRB
-		#define PDIDATA_LINE_PIN      PINB
-		#define PDIDATA_LINE_MASK     (1 << 2)
-		
-		#define PDICLOCK_LINE_PORT    RESET_LINE_PORT
-		#define PDICLOCK_LINE_DDR     RESET_LINE_DDR
-		#define PDICLOCK_LINE_MASK    RESET_LINE_MASK
+	/* Preprocessor Checks: */
+		#if BOARD == BOARD_XPLAIN
+			#undef  ENABLE_SPI_PROTOCOL
+			#define ENABLE_PDI_PROTOCOL
+		#endif
 
+	/* Defines: */
+		#if BOARD == BOARD_XPLAIN
+			#define PDIDATA_LINE_PORT     PORTD
+			#define PDIDATA_LINE_DDR      DDRD
+			#define PDIDATA_LINE_PIN      PIND
+			#define PDIDATA_LINE_MASK     (1 << 2)
+			
+			#define PDICLOCK_LINE_PORT    PORTD
+			#define PDICLOCK_LINE_DDR     DDRD
+			#define PDICLOCK_LINE_MASK    (1 << 5)
+		#else
+			#define PDIDATA_LINE_PORT     PORTB
+			#define PDIDATA_LINE_DDR      DDRB
+			#define PDIDATA_LINE_PIN      PINB
+			#define PDIDATA_LINE_MASK     (1 << 2)
+			
+			#define PDICLOCK_LINE_PORT    RESET_LINE_PORT
+			#define PDICLOCK_LINE_DDR     RESET_LINE_DDR
+			#define PDICLOCK_LINE_MASK    RESET_LINE_MASK
+		#endif
+		
 		#define PDI_CMD_LDS           0x00
 		#define PDI_CMD_LD            0x20
 		#define PDI_CMD_STS           0x40
