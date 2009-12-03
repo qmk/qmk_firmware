@@ -80,9 +80,12 @@
 
 			/** Selects the BUMBLEB specific board drivers, using the officially recommended peripheral layout. */
 			#define BOARD_BUMBLEB       6
-
-			/** Selects the XPLAIN specific board drivers, including LED driver. */
+			
+			/** Selects the XPLAIN (Revision 2 or newer) specific board drivers, including LED and Dataflash driver. */
 			#define BOARD_XPLAIN        7
+
+			/** Selects the XPLAIN (Revision 1) specific board drivers, including LED and Dataflash driver. */
+			#define BOARD_XPLAIN_REV1   8
 			
 #endif
 

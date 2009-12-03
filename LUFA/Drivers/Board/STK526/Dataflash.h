@@ -92,7 +92,7 @@
 			{
 				Dataflash_DeselectChip();
 				
-				if (PageAddress >= (DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS))
+				if (PageAddress >= DATAFLASH_PAGES)
 				  return;
 
 				Dataflash_SelectChip(DATAFLASH_CHIP1);

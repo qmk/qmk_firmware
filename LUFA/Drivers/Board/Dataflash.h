@@ -158,6 +158,10 @@
 				#include "STK525/Dataflash.h"
 			#elif (BOARD == BOARD_STK526)
 				#include "STK526/Dataflash.h"
+			#elif (BOARD == BOARD_XPLAIN)
+				#include "XPLAIN/Dataflash.h"
+			#elif (BOARD == BOARD_XPLAIN_REV1)
+				#include "XPLAIN/Dataflash.h"
 			#elif (BOARD == BOARD_USER)
 				#include "Board/Dataflash.h"
 			#else

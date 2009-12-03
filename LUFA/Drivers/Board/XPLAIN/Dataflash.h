@@ -30,20 +30,20 @@
 
 /** \file
  *
- *  Board specific Dataflash driver header for the USBKEY.
+ *  Board specific Dataflash driver header for the XPLAIN.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
  */
 
 /** \ingroup Group_Dataflash
- *  @defgroup Group_Dataflash_USBKEY USBKEY
+ *  @defgroup Group_Dataflash_XPLAIN XPLAIN
  *
  *  @{
  */
 
-#ifndef __DATAFLASH_USBKEY_H__
-#define __DATAFLASH_USBKEY_H__
+#ifndef __DATAFLASH_XPLAIN_H__
+#define __DATAFLASH_XPLAIN_H__
 
 	/* Includes: */
 		#include "AT45DB642D.h"
@@ -56,30 +56,33 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define DATAFLASH_CHIPCS_MASK                ((1 << 1) | (1 << 0))
-			#define DATAFLASH_CHIPCS_DDR                 DDRE
-			#define DATAFLASH_CHIPCS_PORT                PORTE
+			#define DATAFLASH_CHIPCS_MASK                (1 << 5)
+			#define DATAFLASH_CHIPCS_DDR                 DDRB
+			#define DATAFLASH_CHIPCS_PORT                PORTB
 	#endif
 	
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Constant indicating the total number of dataflash ICs mounted on the selected board. */
-			#define DATAFLASH_TOTALCHIPS                 2
+			#define DATAFLASH_TOTALCHIPS                 1
 
 			/** Mask for no dataflash chip selected. */
 			#define DATAFLASH_NO_CHIP                    DATAFLASH_CHIPCS_MASK
 
 			/** Mask for the first dataflash chip selected. */
-			#define DATAFLASH_CHIP1                      (1 << 1)
+			#define DATAFLASH_CHIP1                      (1 << 5)
 
-			/** Mask for the second dataflash chip selected. */
-			#define DATAFLASH_CHIP2                      (1 << 0)
-			
-			/** Internal main memory page size for the board's dataflash ICs. */
-			#define DATAFLASH_PAGE_SIZE                  1024
+			#if BOAD == XPLAIN_REV1
+				#define DATAFLASH_PAGE_SIZE              256
 
-			/** Total number of pages inside each of the board's dataflash ICs. */
-			#define DATAFLASH_PAGES                      8192
+				#define DATAFLASH_PAGES                  2048							
+			#else
+				/** Internal main memory page size for the board's dataflash ICs. */
+				#define DATAFLASH_PAGE_SIZE              1024
+
+				/** Total number of pages inside each of the board's dataflash ICs. */
+				#define DATAFLASH_PAGES                  8192			
+			#endif
 			
 		/* Inline Functions: */
 			/** Selects a dataflash IC from the given page number, which should range from 0 to
@@ -95,13 +98,10 @@
 			{
 				Dataflash_DeselectChip();
 				
-				if (PageAddress >= (DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS))
+				if (PageAddress >= DATAFLASH_PAGES)
 				  return;
 
-				if (PageAddress & 0x01)
-				  Dataflash_SelectChip(DATAFLASH_CHIP2);
-				else
-				  Dataflash_SelectChip(DATAFLASH_CHIP1);
+				Dataflash_SelectChip(DATAFLASH_CHIP1);
 			}
 
 			/** Sends a set of page and buffer address bytes to the currently selected dataflash IC, for use with

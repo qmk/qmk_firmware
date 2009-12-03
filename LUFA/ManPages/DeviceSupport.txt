@@ -27,7 +27,8 @@
  *   - STK526
  *   - RZUSBSTICK
  *   - ATAVRUSBRF01
- *   - XPLAIN (AT90USB1287 only)
+ *   - XPLAIN Revision 1 (Board AT90USB1287 only, original 45DB041D Dataflash IC)
+ *   - XPLAIN Revision 2 onwards (Board AT90USB1287 only, newer 45DB642D Dataflash IC)
  *
  *  Currently supported third-party boards (via hardware drivers):
  *   - BUMBLEB (using officially recommended peripheral layout)
