@@ -28,7 +28,7 @@
   this software.
 */
 
-#if defined(ENABLE_PDI_PROTOCOL)
+#if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
 
 /** \file
  *

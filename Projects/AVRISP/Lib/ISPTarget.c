@@ -28,7 +28,7 @@
   this software.
 */
 
-#if defined(ENABLE_ISP_PROTOCOL)
+#if defined(ENABLE_ISP_PROTOCOL) || defined(__DOXYGEN__)
 
 /** \file
  *
