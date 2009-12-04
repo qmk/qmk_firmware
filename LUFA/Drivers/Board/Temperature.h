@@ -65,7 +65,9 @@
 	
 		#if !defined(BOARD)
 			#error BOARD must be set in makefile to a value specified in BoardTypes.h.	
-		#elif (BOARD != BOARD_USBKEY) && (BOARD != BOARD_STK525) && (BOARD != BOARD_STK526) && (BOARD != BOARD_USER)
+		#elif ((BOARD != BOARD_USBKEY) && (BOARD != BOARD_STK525) && \
+		       (BOARD != BOARD_STK526) && (BOARD != BOARD_USER) &&   \
+			   (BOARD != BOARD_EVK527))
 			#error The selected board does not contain a temperature sensor.
 		#endif
 

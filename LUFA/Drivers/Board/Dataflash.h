@@ -162,6 +162,8 @@
 				#include "XPLAIN/Dataflash.h"
 			#elif (BOARD == BOARD_XPLAIN_REV1)
 				#include "XPLAIN/Dataflash.h"
+			#elif (BOARD == BOARD_EVK527)
+				#include "EVK527/Dataflash.h"
 			#elif (BOARD == BOARD_USER)
 				#include "Board/Dataflash.h"
 			#else

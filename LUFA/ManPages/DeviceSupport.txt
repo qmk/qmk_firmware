@@ -23,10 +23,11 @@
  *
  *  Currently supported Atmel boards:
  *   - AT90USBKEY
+ *   - ATAVRUSBRF01
+ *   - EVK527
+ *   - RZUSBSTICK
  *   - STK525
  *   - STK526
- *   - RZUSBSTICK
- *   - ATAVRUSBRF01
  *   - XPLAIN Revision 1 (Board AT90USB1287 only, original 45DB041D Dataflash IC)
  *   - XPLAIN Revision 2 onwards (Board AT90USB1287 only, newer 45DB642D Dataflash IC)
  *

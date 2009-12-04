@@ -78,8 +78,10 @@
 		#include "STK526/Joystick.h"
 	#elif (BOARD == BOARD_BUMBLEB)
 		#include "BUMBLEB/Joystick.h"
+	#elif (BOARD == BOARD_EVK527)
+		#include "EVK527/Joystick.h"
 	#elif (BOARD == BOARD_USER)
-		#include "Board/Joystick.h"		
+		#include "Board/Joystick.h"
 	#else
 		#error The selected board does not contain a joystick.
 	#endif
