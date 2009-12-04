@@ -194,7 +194,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 
 					for (uint8_t i = 0; i < UsageListSize; i++)
 					  UsageList[i] = UsageList[i + 1];
-					  
+					
 					UsageListSize--;
 				}
 				else if (UsageMinMax.Minimum <= UsageMinMax.Maximum)
@@ -235,9 +235,9 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 					}
 					else if (UsageMinMax.Minimum <= UsageMinMax.Maximum)
 					{
-						CurrCollectionPath->Usage.Usage = UsageMinMax.Minimum++;
+						NewReportItem.Attributes.Usage.Usage = UsageMinMax.Minimum++;
 					}
-				
+					
 					uint8_t ItemTag = (HIDReportItem & TAG_MASK);
 
 					if (ItemTag == TAG_MAIN_INPUT)
