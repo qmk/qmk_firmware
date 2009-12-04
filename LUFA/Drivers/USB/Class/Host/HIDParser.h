@@ -278,7 +278,7 @@
 			 *  \param[out] ReportData  Buffer holding the current OUT or FEATURE report data
 			 *  \param[in] ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
 			 */
-			void USB_SetHIDReportItemInfo(uint8_t* ReportData, const HID_ReportItem_t* ReportItem)
+			void USB_SetHIDReportItemInfo(uint8_t* ReportData, HID_ReportItem_t* const ReportItem)
 			                              ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 										  
 			/** Retrieves the size of a given HID report in bytes from it's Report ID.

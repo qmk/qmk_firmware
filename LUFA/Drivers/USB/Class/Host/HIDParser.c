@@ -312,7 +312,7 @@ bool USB_GetHIDReportItemInfo(const uint8_t* ReportData, HID_ReportItem_t* const
 	return true;
 }
 
-void USB_SetHIDReportItemInfo(uint8_t* ReportData, const HID_ReportItem_t* ReportItem)
+void USB_SetHIDReportItemInfo(uint8_t* ReportData, HID_ReportItem_t* const ReportItem)
 {
 	uint16_t DataBitsRem  = ReportItem->Attributes.BitSize;
 	uint16_t CurrentBit   = ReportItem->BitOffset;
