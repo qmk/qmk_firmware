@@ -41,7 +41,7 @@
 /** Writes a given byte to the attached XMEGA device, using a RS232 frame via software through the
  *  PDI interface.
  *
- *  \param Byte  Byte to send to the attached device
+ *  \param[in] Byte  Byte to send to the attached device
  */
 void PDITarget_SendByte(uint8_t Byte)
 {

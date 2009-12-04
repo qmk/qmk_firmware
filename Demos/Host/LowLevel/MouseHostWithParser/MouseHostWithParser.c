@@ -280,7 +280,7 @@ void ProcessMouseReport(uint8_t* MouseReport)
 			if (!(USB_GetHIDReportItemInfo(MouseReport, ReportItem)))
 			  continue;							  
 
-			int16_t WheelDelta = (int16_t)(ReportItem->Value << (16 - ReportItem->Attributes.BitSize));
+			int16_t WheelDelta = HID_ALIGN_DATA(ReportItem, int16_t);
 			
 			if (WheelDelta)
 			  LEDMask = (LEDS_LED1 | LEDS_LED2 | ((WheelDelta > 0) ? LEDS_LED3 : LEDS_LED4));

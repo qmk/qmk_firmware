@@ -19,6 +19,8 @@
   *  - Added PDI programming support for XMEGA devices to the AVRISP programmer project
   *  - Added support for the XPLAIN board Dataflash, with new XPLAIN_REV1 board target for the different dataflash used
   *    on the first revision boards compared to the one mounted on later revisions
+  *  - Added new HID_ALIGN_DATA() macro to return the pre-retrieved value of a HID report item, left-aligned to a given datatype
+  *  - Added new PreviousValue to the HID Report Parser report item structure, for easy monitoring of previous report item values
   *
   *  <b>Changed:</b>
   *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of keycodes
@@ -45,6 +47,7 @@
   *  - Fixed misnamed Pipe_SetPipeToken() macro for setting a pipe's direction
   *  - Fixed CDCHost failing on devices with bidirectional endpoints
   *  - Fixed USB driver failing to define the PLL prescaler mask for the ATMEGA8U2 and ATMEGA16U2
+  *  - Fixed HID Parser not distributing the Usage Min and Usage Max values across an array of report items
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *

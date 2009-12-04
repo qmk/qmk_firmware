@@ -71,7 +71,7 @@
 			extern "C" {
 		#endif
 
-	/* Preprocessor checks and defines: */
+	/* Macros: */
 		#if !defined(HID_STATETABLE_STACK_DEPTH) || defined(__DOXYGEN__)
 			/** Constant indicating the maximum stack depth of the state table. A larger state table
 			 *  allows for more PUSH/POP report items to be nested, but consumes more memory. By default
@@ -124,6 +124,17 @@
 			#define HID_MAX_REPORT_IDS            10
 		#endif
 
+		/** Returns the value a given HID report item (once its value has been fetched via \ref USB_GetHIDReportItemInfo())
+		 *  left-aligned to the given data type. This allows for signed data to be interpreted correctly, by shifting the data
+		 *  leftwards until the data's sign bit is in the correct position.
+		 *
+		 *  \param[in] reportitem  HID Report Item whose retrieved value is to be aligned
+		 *  \param[in] type  Data type to align the HID report item's value to
+		 *
+		 *  \return Left-aligned data of the given report item's pre-retrived value for the given datatype
+		 */
+		#define HID_ALIGN_DATA(reportitem, type) ((type)(reportitem->Value << (sizeof(type) - reportitem->Attributes.BitSize)))
+
 	/* Public Interface - May be used in end-application: */
 		/* Enums: */			
 			/** Enum for the possible error codes in the return value of the \ref USB_ProcessHIDReport() function */
@@ -160,7 +171,6 @@
 			{
 				uint16_t                     Page;   /**< Usage page of the report item. */
 				uint16_t                     Usage;  /**< Usage of the report item. */
-				HID_MinMax_t                 MinMax; /**< Usage minimum and maximum of the report item. */
 			} HID_Usage_t;
 
 			/** Type define for a COLLECTION object. Contains the collection attributes and a reference to the
@@ -196,6 +206,7 @@
 				HID_ReportItem_Attributes_t  Attributes;     /**< Report item attributes. */
 							
 				uint32_t                     Value;          /**< Current value of the report item. */
+				uint32_t                     PreviousValue;  /**< Previous value of the report item. */ 
 			} HID_ReportItem_t;
 			
 			/** Type define for a report item size information structure */
@@ -243,6 +254,9 @@
 			/** Extracts the given report item's value out of the given HID report and places it into the Value
 			 *  member of the report item's \ref HID_ReportItem_t structure.
 			 *
+			 *  When called, this copies the report item's Value element to it's PreviousValue element for easy
+			 *  checking to see if an item's value has changed before processing a report.
+			 *
 			 *  \param[in] ReportData  Buffer containing an IN or FEATURE report from an attached device
 			 *  \param[in,out] ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
 			 *
@@ -255,6 +269,9 @@
 			 *  \ref HID_ReportItem_t structure and places it into the correct position in the HID report
 			 *  buffer. The report buffer is assumed to have the appropriate bits cleared before calling
 			 *  this function (i.e., the buffer should be explicitly cleared before report values are added).
+			 *
+			 *  When called, this copies the report item's Value element to it's PreviousValue element for easy
+			 *  checking to see if an item's value has changed before sending a report.
 			 *
 			 *  If the device has multiple HID reports, the first byte in the report is set to the report ID of the given item.
 			 *

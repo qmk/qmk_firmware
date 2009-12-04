@@ -282,7 +282,7 @@ void ProcessJoystickReport(uint8_t* JoystickReport)
 			if (!(FoundData))
 			  continue;
 			  
-			int16_t DeltaMovement = (int16_t)(ReportItem->Value << (16 - ReportItem->Attributes.BitSize));
+			int16_t DeltaMovement = HID_ALIGN_DATA(ReportItem, int16_t);
 			
 			/* Determine if the report is for the X or Y delta movement */
 			if (ReportItem->Attributes.Usage.Usage == USAGE_X)

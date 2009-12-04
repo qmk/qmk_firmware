@@ -43,7 +43,7 @@
 		#include <LUFA/Common/Common.h>
 	
 	/* Preprocessor Checks: */
-		#if BOARD == BOARD_XPLAIN
+		#if (BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1)
 			#undef  ENABLE_ISP_PROTOCOL
 			
 			#if !defined(ENABLE_PDI_PROTOCOL)

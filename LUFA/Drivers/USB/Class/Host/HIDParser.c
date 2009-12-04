@@ -40,7 +40,8 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 	HID_CollectionPath_t* CurrCollectionPath      = NULL;
 	HID_ReportSizeInfo_t* CurrReportIDInfo        = &ParserData->ReportIDSizes[0];			
 	uint16_t              UsageList[HID_USAGE_STACK_DEPTH];
-	uint8_t               UsageListSize          = 0;
+	uint8_t               UsageListSize           = 0;
+	HID_MinMax_t          UsageMinMax             = {0, 0};
 
 	memset(ParserData,       0x00, sizeof(HID_ReportInfo_t));
 	memset(CurrStateTable,   0x00, sizeof(HID_StateTable_t));
@@ -157,10 +158,10 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 				UsageList[UsageListSize++] = ReportItemData;
 				break;
 			case (TYPE_LOCAL | TAG_LOCAL_USAGEMIN):
-				CurrStateTable->Attributes.Usage.MinMax.Minimum = ReportItemData;
+				UsageMinMax.Minimum = ReportItemData;
 				break;
 			case (TYPE_LOCAL | TAG_LOCAL_USAGEMAX):
-				CurrStateTable->Attributes.Usage.MinMax.Maximum = ReportItemData;
+				UsageMinMax.Maximum = ReportItemData;
 				break;
 			case (TYPE_MAIN | TAG_MAIN_COLLECTION):
 				if (CurrCollectionPath == NULL)
@@ -196,6 +197,10 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 					  
 					UsageListSize--;
 				}
+				else if (UsageMinMax.Minimum <= UsageMinMax.Maximum)
+				{
+					CurrCollectionPath->Usage.Usage = UsageMinMax.Minimum++;
+				}
 				
 				break;
 			case (TYPE_MAIN | TAG_MAIN_ENDCOLLECTION):
@@ -228,7 +233,11 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 						  
 						UsageListSize--;
 					}
-
+					else if (UsageMinMax.Minimum <= UsageMinMax.Maximum)
+					{
+						CurrCollectionPath->Usage.Usage = UsageMinMax.Minimum++;
+					}
+				
 					uint8_t ItemTag = (HIDReportItem & TAG_MASK);
 
 					if (ItemTag == TAG_MAIN_INPUT)
@@ -262,9 +271,9 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData, uint16_t ReportSize, HID
 	  
 		if ((HIDReportItem & TYPE_MASK) == TYPE_MAIN)
 		{
-			CurrStateTable->Attributes.Usage.MinMax.Minimum = 0;
-			CurrStateTable->Attributes.Usage.MinMax.Maximum = 0;
-			UsageListSize = 0;
+			UsageMinMax.Minimum = 0;
+			UsageMinMax.Maximum = 0;
+			UsageListSize   = 0;
 		}
 	}
 	
@@ -280,6 +289,7 @@ bool USB_GetHIDReportItemInfo(const uint8_t* ReportData, HID_ReportItem_t* const
 	uint16_t CurrentBit   = ReportItem->BitOffset;
 	uint32_t BitMask      = (1 << 0);
 
+	ReportItem->PreviousValue = ReportItem->Value;
 	ReportItem->Value = 0;
 	
 	if (ReportItem->ReportID)
@@ -313,6 +323,8 @@ void USB_SetHIDReportItemInfo(uint8_t* ReportData, const HID_ReportItem_t* Repor
 		ReportData[0] = ReportItem->ReportID;
 		ReportData++;
 	}
+
+	ReportItem->PreviousValue = ReportItem->Value;
 
 	while (DataBitsRem--)
 	{
