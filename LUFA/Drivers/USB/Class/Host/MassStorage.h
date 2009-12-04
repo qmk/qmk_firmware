@@ -149,6 +149,10 @@
 			 *  UNit, a logical drive) in the device. This value can then be used in the other functions of the Mass Storage
 			 *  Host mode Class driver to address a specific LUN within the device.
 			 *
+			 *  \note Some devices do not support this request, and will STALL it when issued. To get around this,
+			 *        on unsupported devices the max LUN index will be reported as zero and no error will be returned
+			 *        if the device STALLs the request.
+			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
 			 *  \param[out] MaxLUNIndex  Pointer to a location where the highest LUN index value should be stored
 			 *

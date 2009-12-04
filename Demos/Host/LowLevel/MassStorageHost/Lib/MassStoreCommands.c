@@ -287,13 +287,17 @@ uint8_t MassStore_MassStorageReset(void)
 /** Issues a Mass Storage class specific request to determine the index of the highest numbered Logical
  *  Unit in the attached device.
  *
+ *  \note Some devices do not support this request, and will STALL it when issued. To get around this,
+ *        on unsupported devices the max LUN index will be reported as zero and no error will be returned
+ *        if the device STALLs the request.
+ *
  *  \param[out] MaxLUNIndex  Pointer to the location that the maximum LUN index value should be stored
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum, or MASS_STORE_SCSI_COMMAND_FAILED if the SCSI command fails
  */
 uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex)
 {
-	uint8_t ErrorCode;
+	uint8_t ErrorCode = HOST_SENDCONTROL_Successful;
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -313,7 +317,10 @@ uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex)
 		Pipe_ClearStall();
 	
 		/* Some faulty Mass Storage devices don't implement the GET_MAX_LUN request, so assume a single LUN */
-		*MaxLUNIndex = 0;	
+		*MaxLUNIndex = 0;
+		
+		/* Clear the error, and pretend the request executed correctly if the device STALLed it */
+		ErrorCode = HOST_SENDCONTROL_Successful;
 	}
 	
 	return ErrorCode;

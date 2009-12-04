@@ -305,7 +305,7 @@ uint8_t MS_Host_ResetMSInterface(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
 
 uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, uint8_t* const MaxLUNIndex)
 {
-	uint8_t ErrorCode;
+	uint8_t ErrorCode = HOST_SENDCONTROL_Successful;
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -319,7 +319,10 @@ uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, uint8_
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
 	if ((ErrorCode = USB_Host_SendControlRequest(MaxLUNIndex)) != HOST_SENDCONTROL_Successful)
-	  *MaxLUNIndex = 0;
+	{
+		*MaxLUNIndex = 0;
+		ErrorCode = HOST_SENDCONTROL_Successful;
+	}
 	
 	return ErrorCode;
 }

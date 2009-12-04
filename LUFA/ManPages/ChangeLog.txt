@@ -49,6 +49,8 @@
   *  - Fixed CDCHost failing on devices with bidirectional endpoints
   *  - Fixed USB driver failing to define the PLL prescaler mask for the ATMEGA8U2 and ATMEGA16U2
   *  - Fixed HID Parser not distributing the Usage Min and Usage Max values across an array of report items
+  *  - Fixed Mass Storage Host Class driver and Low Level demo not clearing the error condition if an attached device returns a
+  *    STALL to a GET MAX LUN request (thanks to Martin Luxen)
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *
