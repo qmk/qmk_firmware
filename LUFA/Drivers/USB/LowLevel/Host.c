@@ -66,14 +66,12 @@ void USB_Host_ProcessNextHostState(void)
 			USB_HostState = HOST_STATE_Powered_WaitForDeviceSettle;
 			break;
 		case HOST_STATE_Powered_WaitForDeviceSettle:
-			#if HOST_DEVICE_SETTLE_DELAY_MS > 0
 			if (!(WaitMSRemaining--))
 			{
 				_delay_ms(1);
 				break;
 			}
 			else
-			#endif
 			{
 				USB_Host_VBUS_Manual_Off();
 
