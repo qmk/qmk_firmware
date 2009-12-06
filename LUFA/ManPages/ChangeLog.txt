@@ -22,6 +22,7 @@
   *  - Added new HID_ALIGN_DATA() macro to return the pre-retrieved value of a HID report item, left-aligned to a given datatype
   *  - Added new PreviousValue to the HID Report Parser report item structure, for easy monitoring of previous report item values
   *  - Added new EVK527 board target
+  *  - Added new USB_Host_GetDeviceStringDescriptor() convenience function
   *
   *  <b>Changed:</b>
   *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of keycodes

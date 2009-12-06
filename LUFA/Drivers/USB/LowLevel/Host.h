@@ -201,6 +201,22 @@
 			 */
 			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr);
 			
+			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
+			 *  device, requesting the string descriptor of the specified index. This can be used to easily
+			 *  retrieve string descriptors from the device by index, after the index is obtained from the
+			 *  Device or Configuration descriptors.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \param[in] Index  Index of the string index to retrieve
+			 *  \param[out] Buffer  Pointer to the destination buffer where the retrieved string decriptor is
+			 *                      to be stored
+			 *  \param[in] BufferLength  Maximum size of the string descriptor which can be stored into the buffer
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_GetDeviceStringDescriptor(uint8_t Index, void* const Buffer, uint8_t BufferLength);
+			
 			/** Clears a stall condition on the given pipe, via a ClearFeature request to the attached device.
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.

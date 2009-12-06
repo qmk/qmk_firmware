@@ -308,6 +308,22 @@ uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr)
 	return USB_Host_SendControlRequest(DeviceDescriptorPtr);
 }
 
+uint8_t USB_Host_GetDeviceStringDescriptor(uint8_t Index, void* const Buffer, uint8_t BufferLength)
+{
+	USB_ControlRequest = (USB_Request_Header_t)
+		{
+			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
+			bRequest:      REQ_GetDescriptor,
+			wValue:        (DTYPE_String << 8) | Index,
+			wIndex:        0,
+			wLength:       BufferLength,
+		};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
+	return USB_Host_SendControlRequest(Buffer);
+}
+
 uint8_t USB_Host_ClearPipeStall(uint8_t EndpointNum)
 {
 	if (Pipe_GetPipeToken() == PIPE_TOKEN_IN)
