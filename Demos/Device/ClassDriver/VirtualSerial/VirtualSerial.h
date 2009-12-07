@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for CDC.c.
+ *  Header file for VirtualSerial.c.
  */
 
-#ifndef _CDC_H_
-#define _CDC_H_
+#ifndef _VIRTUALSERIAL_H_
+#define _VIRTUALSERIAL_H_
 
 	/* Includes: */
 		#include <avr/io.h>

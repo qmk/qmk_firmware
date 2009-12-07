@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for CDCMouse.c.
+ *  Header file for VirtualSerialMouse.c.
  */
 
-#ifndef _CDC_MOUSE_H_
-#define _CDC_MOUSE_H_
+#ifndef _VIRTUALSERIAL_MOUSE_H_
+#define _VIRTUALSERIAL_MOUSE_H_
 
 	/* Includes: */
 		#include <avr/io.h>

@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for DualCDC.c.
+ *  Header file for DualVirtualSerial.c.
  */
 
-#ifndef _DUAL_CDC_H_
-#define _DUAL_CDC_H_
+#ifndef _DUAL_VIRTUALSERIAL_H_
+#define _DUAL_VIRTUALSERIAL_H_
 
 	/* Includes: */
 		#include <avr/io.h>

@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for CDCHost.c.
+ *  Header file for VirtualSerialHost.c.
  */
 
-#ifndef _CDC_HOST_H_
-#define _CDC_HOST_H_
+#ifndef _VIRTUALSERIAL_HOST_H_
+#define _VIRTUALSERIAL_HOST_H_
 
 	/* Includes: */
 		#include <avr/io.h>

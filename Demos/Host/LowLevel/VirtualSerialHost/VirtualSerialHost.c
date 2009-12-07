@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Main source file for the CDCHost demo. This file contains the main tasks of
+ *  Main source file for the VirtualSerialHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
  
-#include "CDCHost.h"
+#include "VirtualSerialHost.h"
 
 #if 0
 /* NOTE: Here you can set up a standard stream using the created virtual serial port, so that the standard stream functions in

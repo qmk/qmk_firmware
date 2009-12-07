@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Main source file for the CDC demo. This file contains the main tasks of the demo and
+ *  Main source file for the VirtualSerial demo. This file contains the main tasks of the demo and
  *  is responsible for the initial application hardware configuration.
  */
 
-#include "CDC.h"
+#include "VirtualSerial.h"
 
 /** Contains the current baud rate and other settings of the virtual serial port. While this demo does not use
  *  the physical USART and thus does not use these settings, they must still be retained and returned to the host
