@@ -34,9 +34,7 @@
  *      - <b>ClassDriver</b>
  *        - <b>AudioInput</b> - Audio In (microphone) demo, using the library USB Audio Class driver framework
  *        - <b>AudioOutput</b> - Audio Out (speaker) demo, using the library USB Audio Class driver framework
- *        - <b>CDC</b> - Virtual Serial Port demo, using the library USB CDC Class driver framework
- *        - <b>CDCMouse</b> - Virtual Serial Port and Mouse demo, using the library USB CDC and HID Class driver frameworks
- *        - <b>DualCDC</b> - Dual Virtual Serial Port demo, using the library USB CDC Class driver framework
+ *        - <b>DualVirtualSerial</b> - Dual Virtual Serial Port demo, using the library USB CDC Class driver framework
  *        - <b>GenericHID</b> - Generic Human Interface Class demo, using the library USB HID Class driver framework
  *        - <b>Joystick</b> - USB Joystick demo, using the library USB HID Class driver framework
  *        - <b>Keyboard</b> - USB Keyboard demo, using the library USB HID Class driver framework
@@ -46,11 +44,12 @@
  *        - <b>MIDI</b> - MIDI In demo, using the library USB MIDI-Audio Class driver framework
  *        - <b>Mouse</b> - USB Mouse demo, using the library USB HID driver framework
  *        - <b>RNDISEthernet</b> - RNDIS Ethernet Webserver demo, using the library USB RNDIS driver framework
+ *        - <b>VirtualSerial</b> - Virtual Serial Port demo, using the library USB CDC Class driver framework
+ *        - <b>VirtualSerialMouse</b> - Virtual Serial Port and Mouse demo, using the library USB CDC and HID Class driver frameworks
  *      - <b>LowLevel</b>
  *        - <b>AudioInput</b> - Audio In (microphone) demo, using the low level LUFA APIs to implement the USB Audio class
  *        - <b>AudioOutput</b> - Audio Out (speaker) demo, using the low level LUFA APIs to implement the USB Audio class
- *        - <b>CDC</b> - Virtual Serial Port demo, using the low level LUFA APIs to implement the USB CDC class
- *        - <b>DualCDC</b> - Dual Virtual Serial Port demo, using the low level LUFA APIs to implement the USB CDC class
+ *        - <b>DualVirtualSerial</b> - Dual Virtual Serial Port demo, using the low level LUFA APIs to implement the USB CDC class
  *        - <b>GenericHID</b> - Generic Human Interface Class demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>Joystick</b> - USB Joystick demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>Keyboard</b> - USB Keyboard demo, using the low level LUFA APIs to implement the USB HID class
@@ -59,11 +58,11 @@
  *        - <b>MIDI</b> - MIDI In demo, using the low level LUFA APIs to implement the USB MIDI-Audio class
  *        - <b>Mouse</b> - USB Mouse demo, using the low level LUFA APIs to implement the USB HID class
  *        - <b>RNDISEthernet</b> - RNDIS Ethernet Webserver demo, using the low level LUFA APIs to implement the USB RNDIS class
+ *        - <b>VirtualSerial</b> - Virtual Serial Port demo, using the low level LUFA APIs to implement the USB CDC class
  *      - <b>Incomplete</b>
  *        - <b>SideShow</b> - Incomplete Windows SideShow demo, using the low level LUFA APIs to implement the USB SideShow class
  *    - <b>Host</b>
  *      - <b>ClassDriver</b>
- *        - <b>CDCHost</b> - Virtual Serial Port host demo, using the library USB CDC Class driver framework
  *        - <b>JoystickHostWithParser</b> - Joystick host demo with HID Descriptor parser, using the library USB HID Class driver framework
  *        - <b>KeyboardHost</b> - USB Keyboard host demo, using the library USB HID Class driver framework
  *        - <b>KeyboardHostWithParser</b> - USB Keyboard host demo with HID Descriptor parser, using the library USB HID Class
@@ -73,8 +72,8 @@
  *        - <b>MouseHostWithParser</b> - Mouse host demo with HID Descriptor parser, using the library USB HID Class driver framework
  *        - <b>RNDISHost</b> - RNDIS Ethernet host demo, using the library USB RNDIS Class driver framework
  *        - <b>StillImageHost</b> - Still Image Camera host demo, using the library USB Still Image Class driver framework
+ *        - <b>VirtualSerialHost</b> - Virtual Serial Port host demo, using the library USB CDC Class driver framework
  *      - <b>LowLevel</b>
- *        - <b>CDCHost</b> - Virtual Serial Port host demo, using the low level LUFA APIs to implement the USB CDC class
  *        - <b>JoystickHostWithParser</b> - Joystick host demo with HID Descriptor parser, using the low level LUFA APIs to implement 
  *                                          the USB HID class
  *        - <b>GenericHIDHost</b> - Generic HID host demo, using the low level LUFA APIs to implement the USB HID class
@@ -88,6 +87,7 @@
  *        - <b>PrinterHost</b> - Printer host demo, using the low level LUFA APIs to implement the USB Printer class
  *        - <b>RNDISHost</b> - RNDIS Ethernet host demo, using the low level LUFA APIs to implement the RNDIS class
  *        - <b>StillImageHost</b> - Still Image Camera host demo, using the low level LUFA APIs to implement the USB Still Image class
+ *        - <b>VirtualSerialHost</b> - Virtual Serial Port host demo, using the low level LUFA APIs to implement the USB CDC class
  *      - <b>Incomplete</b>
  *        - <b>BluetoothHost</b> - Incomplete Bluetooth host demo, using the low level LUFA APIs to implement the USB Bluetooth class
  *    - <b>DualRole</b>
