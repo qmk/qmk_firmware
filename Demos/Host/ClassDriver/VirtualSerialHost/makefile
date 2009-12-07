@@ -102,7 +102,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = CDCHost
+TARGET = VirtualSerialHost
 
 
 # Object files directory

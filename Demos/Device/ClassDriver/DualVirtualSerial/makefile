@@ -102,7 +102,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = DualCDC
+TARGET = DualVirtualSerial
 
 
 # Object files directory

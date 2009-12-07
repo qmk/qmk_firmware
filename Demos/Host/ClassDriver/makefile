@@ -14,9 +14,6 @@
 # code.
 
 all:
-	make -C CDCHost clean
-	make -C CDCHost all	
-
 	make -C JoystickHostWithParser clean
 	make -C JoystickHostWithParser all	
 
@@ -46,9 +43,11 @@ all:
 
 	make -C StillImageHost clean
 	make -C StillImageHost all
+
+	make -C VirtualSerialHost clean
+	make -C VirtualSerialHost all	
 	
 %:
-	make -C CDCHost $@
 	make -C JoystickHostWithParser $@
 	make -C KeyboardHost $@
 	make -C KeyboardHostWithParser $@
@@ -58,3 +57,4 @@ all:
 	make -C PrinterHost $@
 	make -C RNDISEthernetHost $@
 	make -C StillImageHost $@
+	make -C VirtualSerialHost $@

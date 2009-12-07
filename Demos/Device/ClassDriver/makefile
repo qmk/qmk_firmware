@@ -20,14 +20,8 @@ all:
 	make -C AudioOutput clean
 	make -C AudioOutput all
 
-	make -C CDC clean
-	make -C CDC all
-	
-	make -C CDCMouse clean
-	make -C CDCMouse all	
-
-	make -C DualCDC clean
-	make -C DualCDC all
+	make -C DualVirtualSerial clean
+	make -C DualVirtualSerial all
 
 	make -C GenericHID clean
 	make -C GenericHID all
@@ -56,12 +50,16 @@ all:
 	make -C RNDISEthernet clean
 	make -C RNDISEthernet all
 
+	make -C VirtualSerial clean
+	make -C VirtualSerial all
+	
+	make -C VirtualSerialMouse clean
+	make -C VirtualSerialMouse all	
+	
 %:
 	make -C AudioInput $@
 	make -C AudioOutput $@
-	make -C CDC $@
-	make -C CDCMouse $@
-	make -C DualCDC $@
+	make -C DualVirtualSerial $@
 	make -C GenericHID $@
 	make -C Joystick $@
 	make -C Keyboard $@
@@ -71,3 +69,5 @@ all:
 	make -C MIDI $@
 	make -C Mouse $@
 	make -C RNDISEthernet $@
+	make -C VirtualSerial $@
+	make -C VirtualSerialMouse $@

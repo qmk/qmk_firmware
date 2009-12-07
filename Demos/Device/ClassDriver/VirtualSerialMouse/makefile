@@ -102,7 +102,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = CDCMouse
+TARGET = VirtualSerialMouse
 
 
 # Object files directory
