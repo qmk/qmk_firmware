@@ -109,7 +109,10 @@ static void PDIProtocol_EnterXPROGMode(void)
 	
 	/* Must hold DATA line high for at least 90nS to enable PDI interface */
 	PDIDATA_LINE_PORT |= PDIDATA_LINE_MASK;
-	_delay_us(1);
+	asm volatile ("NOP"::);
+	#if (F_CPU > 8000000)
+	asm volatile ("NOP"::);
+	#endif
 	
 	/* Toggle CLOCK line 16 times within 100uS of the original 90nS timeout to keep PDI interface enabled */
 	for (uint8_t i = 0; i < 16; i++)

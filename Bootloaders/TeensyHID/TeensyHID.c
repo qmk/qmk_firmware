@@ -51,9 +51,9 @@ int main(void)
 	
 	while (RunBootloader)
 	  USB_USBTask();
-
-	/* Wait 100ms to give the host time to register the disconnection */
-	_delay_ms(100);
+	
+	/* Turn off the USB interface, disconnect from the host */
+	USB_ShutDown();
 
 	/* Enable the watchdog and force a timeout to reset the AVR */
 	wdt_enable(WDTO_250MS);
