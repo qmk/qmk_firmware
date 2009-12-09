@@ -338,7 +338,7 @@
 				 */
 				static inline void Endpoint_SetEndpointDirection(uint8_t DirectionMask);
 			#else
-				#if defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
+				#if defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 					#define Endpoint_BytesInEndpoint()        UEBCX
 				#elif defined(USB_SERIES_4_AVR)
 					#define Endpoint_BytesInEndpoint()        (((uint16_t)UEBCHX << 8) | UEBCLX)				

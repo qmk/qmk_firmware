@@ -65,7 +65,7 @@
 			#define PDIDATA_LINE_PORT     PORTB
 			#define PDIDATA_LINE_DDR      DDRB
 			#define PDIDATA_LINE_PIN      PINB
-			#define PDIDATA_LINE_MASK     (1 << 2)
+			#define PDIDATA_LINE_MASK     (1 << 3)
 			
 			#define PDICLOCK_LINE_PORT    RESET_LINE_PORT
 			#define PDICLOCK_LINE_DDR     RESET_LINE_DDR
@@ -91,7 +91,9 @@
 		#define PDI_NVMENABLE_KEY     (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
 
 		#define TOGGLE_PDI_CLOCK      MACROS{ PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK; \
-		                                      PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK; }MACROE
+		                                      asm volatile ("NOP" ::);                  \
+		                                      PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK; \
+		                                      asm volatile ("NOP" ::);                  }MACROE
 		
 	/* Function Prototypes: */
 		void    PDITarget_SendByte(uint8_t Byte);

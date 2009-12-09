@@ -56,6 +56,7 @@
   *  - Fixed TeensyHID bootloader not properly shutting down the USB interface to trigger a disconnection on the host before resetting
   *  - Fixed MassStorageHost Class driver demo not having USB_STREAM_TIMEOUT_MS compile time option set properly to prevent slow 
   *    devices from timing out the data pipes
+  *  - Fixed the definition of the Endpoint_BytesInEndpoint() macro for the U4 parts
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *

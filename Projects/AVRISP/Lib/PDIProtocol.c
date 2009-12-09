@@ -110,9 +110,7 @@ static void PDIProtocol_EnterXPROGMode(void)
 	/* Must hold DATA line high for at least 90nS to enable PDI interface */
 	PDIDATA_LINE_PORT |= PDIDATA_LINE_MASK;
 	asm volatile ("NOP"::);
-	#if (F_CPU > 8000000)
 	asm volatile ("NOP"::);
-	#endif
 	
 	/* Toggle CLOCK line 16 times within 100uS of the original 90nS timeout to keep PDI interface enabled */
 	for (uint8_t i = 0; i < 16; i++)
@@ -120,7 +118,7 @@ static void PDIProtocol_EnterXPROGMode(void)
 	
 	/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
 	PDITarget_SendByte(PDI_CMD_KEY);	
-	for (uint8_t i = 0; i < 8; i++)
+	for (uint8_t i = 0; i < sizeof(PDI_NVMENABLE_KEY); i++)
 	  PDITarget_SendByte(PDI_NVMENABLE_KEY[i]);
 
 	/* Read out the STATUS register to check that NVM access was successfully enabled */

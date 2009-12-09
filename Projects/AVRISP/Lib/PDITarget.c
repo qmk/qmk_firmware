@@ -52,9 +52,9 @@ void PDITarget_SendByte(uint8_t Byte)
 	for (uint8_t i = 0; i < 8; i++)
 	{
 		if (Byte & 0x01)
-		  PDIDATA_LINE_PORT |= PDIDATA_LINE_MASK;
-		else
 		  PDIDATA_LINE_PORT &= ~PDIDATA_LINE_MASK;
+		else
+		  PDIDATA_LINE_PORT |=  PDIDATA_LINE_MASK;
 		  
 		Byte >>= 1;
 
