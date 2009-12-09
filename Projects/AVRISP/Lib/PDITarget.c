@@ -45,24 +45,42 @@
  */
 void PDITarget_SendByte(uint8_t Byte)
 {
+	uint8_t LogicOneBits = 0;
+
+	// One Start Bit
 	PDIDATA_LINE_PORT &= ~PDIDATA_LINE_MASK;
 
 	TOGGLE_PDI_CLOCK;
-
+	
+	// Eight Data Bits
 	for (uint8_t i = 0; i < 8; i++)
 	{
 		if (Byte & 0x01)
-		  PDIDATA_LINE_PORT &= ~PDIDATA_LINE_MASK;
+		{
+			PDIDATA_LINE_PORT &= ~PDIDATA_LINE_MASK;
+			LogicOneBits++;
+		}
 		else
-		  PDIDATA_LINE_PORT |=  PDIDATA_LINE_MASK;
-		  
+		{
+			PDIDATA_LINE_PORT |=  PDIDATA_LINE_MASK;
+		}
+		
 		Byte >>= 1;
 
 		TOGGLE_PDI_CLOCK;
 	}
 
-	PDIDATA_LINE_PORT |= PDIDATA_LINE_MASK;
+	// Even Parity Bit
+	if (LogicOneBits & 0x01)
+	  PDIDATA_LINE_PORT &= ~PDIDATA_LINE_MASK;
+	else
+	  PDIDATA_LINE_PORT |=  PDIDATA_LINE_MASK;
 
+	TOGGLE_PDI_CLOCK;
+
+	// Two Stop Bits
+	PDIDATA_LINE_PORT |= PDIDATA_LINE_MASK;
+	
 	TOGGLE_PDI_CLOCK;
 	TOGGLE_PDI_CLOCK;
 }
@@ -77,9 +95,11 @@ uint8_t PDITarget_ReceiveByte(void)
 
 	PDIDATA_LINE_DDR &= ~PDIDATA_LINE_MASK;
 
+	// One Start Bit
 	while (PDIDATA_LINE_PIN & PDIDATA_LINE_MASK);
 	  TOGGLE_PDI_CLOCK;
-	  
+		
+	// Eight Data Bits
 	for (uint8_t i = 0; i < 8; i++)
 	{
 		if (PDIDATA_LINE_PIN & PDIDATA_LINE_MASK)
@@ -90,6 +110,10 @@ uint8_t PDITarget_ReceiveByte(void)
 		TOGGLE_PDI_CLOCK;	
 	}
 
+	// Even Parity Bit (discarded)
+	TOGGLE_PDI_CLOCK;
+
+	// Two Stop Bits
 	TOGGLE_PDI_CLOCK;
 	TOGGLE_PDI_CLOCK;
 	

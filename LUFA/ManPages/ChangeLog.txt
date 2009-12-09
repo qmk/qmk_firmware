@@ -39,6 +39,8 @@
   *    with the rest of the library errorcodes
   *  - Make MIDI device demos also turn off the on board LEDs if MIDI Note On messages are sent with a velocity of zero,
   *    which some devices use instead of Note Off messages (thanks to Robin Green)
+  *  - The CDC demos are now named "VirtualSerial" instead to indicate the demos' function rather than its implemented USB class,
+  *    to reduce confusion and to be in line with the rest of the LUFA demos
   *
   *  <b>Fixed:</b>
   *  - Added missing CDC_Host_CreateBlockingStream() function code to the CDC Host Class driver
@@ -56,7 +58,7 @@
   *  - Fixed TeensyHID bootloader not properly shutting down the USB interface to trigger a disconnection on the host before resetting
   *  - Fixed MassStorageHost Class driver demo not having USB_STREAM_TIMEOUT_MS compile time option set properly to prevent slow 
   *    devices from timing out the data pipes
-  *  - Fixed the definition of the Endpoint_BytesInEndpoint() macro for the U4 parts
+  *  - Fixed the definition of the Endpoint_BytesInEndpoint() macro for the U4 series AVR parts
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *
