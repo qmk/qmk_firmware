@@ -267,7 +267,7 @@
 			#define COMMAND_DIRECTION_DATA_OUT     (0 << 7)
 			#define COMMAND_DIRECTION_DATA_IN      (1 << 7)
 			
-			#define COMMAND_DATA_TIMEOUT_MS        2000
+			#define COMMAND_DATA_TIMEOUT_MS        10000
 
 			#define MS_FOUND_DATAPIPE_IN           (1 << 0)
 			#define MS_FOUND_DATAPIPE_OUT          (1 << 1)

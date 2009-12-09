@@ -54,10 +54,10 @@
 		
 	/* Macros: */
 		/** Pipe number for the mouse data IN pipe */
-		#define MOUSE_DATAPIPE              1
+		#define MOUSE_DATAPIPE            1
 		
 		/** HID Class Specific request to set the report protocol mode */
-		#define REQ_SetProtocol             0x0B
+		#define REQ_SetProtocol           0x0B
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1

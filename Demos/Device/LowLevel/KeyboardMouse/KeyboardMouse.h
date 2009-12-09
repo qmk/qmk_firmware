@@ -49,16 +49,16 @@
 		
 	/* Macros: */
 		/** HID Class specific request to get the next HID report from the device. */
-		#define REQ_GetReport      0x01
+		#define REQ_GetReport             0x01
 
 		/** HID Class specific request to send the next HID report to the device. */
-		#define REQ_SetReport      0x09
+		#define REQ_SetReport             0x09
 
 		/** HID Class specific request to get the current HID protocol in use, either report or boot. */
-		#define REQ_GetProtocol    0x03
+		#define REQ_GetProtocol           0x03
 
 		/** HID Class specific request to set the current HID protocol in use, either report or boot. */
-		#define REQ_SetProtocol    0x0B
+		#define REQ_SetProtocol           0x0B
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1

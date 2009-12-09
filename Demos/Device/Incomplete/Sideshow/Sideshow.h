@@ -45,21 +45,25 @@
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 
 	/* Macros: */
+		/** Device control request for used in the Microsoft OS Descriptor for retrieving the OS Feature
+		 *  descriptors of the device
+		 */
 		#define REQ_GetOSFeatureDescriptor        0x01
 		
+		/** Descriptor index for a Microsoft Proprietary Extended Device Compatibility descriptor */
 		#define EXTENDED_COMPAT_ID_DESCRIPTOR     0x0004
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
-		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+		#define LEDMASK_USB_NOTREADY              LEDS_LED1
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
-		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+		#define LEDMASK_USB_ENUMERATING          (LEDS_LED2 | LEDS_LED3)
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
-		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+		#define LEDMASK_USB_READY                (LEDS_LED2 | LEDS_LED4)
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
-		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+		#define LEDMASK_USB_ERROR                (LEDS_LED1 | LEDS_LED3)
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);

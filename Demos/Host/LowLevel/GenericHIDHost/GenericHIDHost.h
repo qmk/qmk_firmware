@@ -54,13 +54,13 @@
 		
 	/* Macros: */
 		/** Pipe number for the HID data IN pipe */
-		#define HID_DATA_IN_PIPE                 1
+		#define HID_DATA_IN_PIPE          1
 		
 		/** Pipe number for the HID data OUT pipe */
-		#define HID_DATA_OUT_PIPE                2
+		#define HID_DATA_OUT_PIPE         2
 
 		/** HID Class specific request to send a HID report to the device. */
-		#define REQ_SetReport                    0x09
+		#define REQ_SetReport             0x09
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1

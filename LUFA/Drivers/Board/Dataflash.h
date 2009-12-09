@@ -111,7 +111,7 @@
 				#define Dataflash_GetSelectedChip()          (DATAFLASH_CHIPCS_PORT & DATAFLASH_CHIPCS_MASK)
 
 				#define Dataflash_SelectChip(mask)   MACROS{ DATAFLASH_CHIPCS_PORT = ((DATAFLASH_CHIPCS_PORT \
-															 & ~DATAFLASH_CHIPCS_MASK) | mask);              }MACROE
+															 & ~DATAFLASH_CHIPCS_MASK) | (mask));            }MACROE
 				
 				#define Dataflash_DeselectChip()             Dataflash_SelectChip(DATAFLASH_NO_CHIP)
 			#endif

@@ -40,9 +40,9 @@
 		#include <avr/io.h>
 		#include <avr/pgmspace.h>
 
-		#include <LUFA/Common/Common.h>              // Function Attribute, Atomic, Debug and ISR Macros
-		#include <LUFA/Drivers/USB/USB.h>            // USB Functionality
-		#include <LUFA/Drivers/Board/LEDs.h>         // LEDs driver
+		#include <LUFA/Common/Common.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Board/LEDs.h>
 
 		#include "MassStorage.h"
 		#include "Descriptors.h"
@@ -58,21 +58,21 @@
 		 *  \param[in] acode  New SCSI additional sense key to set the additional sense code to
 		 *  \param[in] aqual  New SCSI additional sense key qualifier to set the additional sense qualifier code to
 		 */
-		#define SCSI_SET_SENSE(key, acode, aqual)  MACROS{ SenseData.SenseKey = key;              \
-		                                                   SenseData.AdditionalSenseCode = acode; \
-		                                                   SenseData.AdditionalSenseQualifier = aqual; }MACROE
+		#define SCSI_SET_SENSE(key, acode, aqual)  MACROS{ SenseData.SenseKey = (key);              \
+		                                                   SenseData.AdditionalSenseCode = (acode); \
+		                                                   SenseData.AdditionalSenseQualifier = (aqual); }MACROE
 
 		/** Macro for the SCSI_Command_ReadWrite_10() function, to indicate that data is to be read from the storage medium. */
-		#define DATA_READ         true
+		#define DATA_READ           true
 
 		/** Macro for the SCSI_Command_ReadWrite_10() function, to indicate that data is to be written to the storage medium. */
-		#define DATA_WRITE        false
+		#define DATA_WRITE          false
 
 		/** Value for the DeviceType entry in the SCSI_Inquiry_Response_t enum, indicating a Block Media device. */
-		#define DEVICE_TYPE_BLOCK 0x00
+		#define DEVICE_TYPE_BLOCK   0x00
 		
 		/** Value for the DeviceType entry in the SCSI_Inquiry_Response_t enum, indicating a CD-ROM device. */
-		#define DEVICE_TYPE_CDROM 0x05
+		#define DEVICE_TYPE_CDROM   0x05
 
 	/* Type Defines: */
 		/** Type define for a SCSI response structure to a SCSI INQUIRY command. For details of the

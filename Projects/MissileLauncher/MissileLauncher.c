@@ -287,7 +287,7 @@ void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength)
 		USB_ControlRequest = (USB_Request_Header_t)
 			{
 				.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-				.bRequest      = 0x09,
+				.bRequest      = REQ_SetReport,
 				.wValue        = 0x02,
 				.wIndex        = 0x01,
 				.wLength       = ReportLength,

@@ -52,7 +52,7 @@
 
 	/* Macros: */
 		/** HID Class specific request to get the next HID report from the device. */
-		#define REQ_GetReport   0x01
+		#define REQ_GetReport             0x01
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1

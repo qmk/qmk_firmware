@@ -94,7 +94,7 @@
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
-		#define LEDMASK_USB_BUSY         (LEDS_LED2)
+		#define LEDMASK_USB_BUSY          LEDS_LED2
 		
 	/* Type defines: */
 		/** Type define for a Command Block Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */

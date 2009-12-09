@@ -32,7 +32,7 @@
 #define _CONFIGDESCRIPTOR_H_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
+		#include <LUFA/Drivers/USB/USB.h>
 		
 		#include "BluetoothHost.h"
 		

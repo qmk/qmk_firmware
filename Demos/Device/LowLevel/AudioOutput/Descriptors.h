@@ -125,7 +125,7 @@
 		 *
 		 *  \param[in] freq  Required audio sampling frequency in HZ
 		 */
-		#define SAMPLE_FREQ(freq)  {LowWord: ((uint32_t)freq & 0x00FFFF), HighByte: (((uint32_t)freq >> 16) & 0x0000FF)}
+		#define SAMPLE_FREQ(freq)  {LowWord: ((uint32_t)(freq) & 0x00FFFF), HighByte: (((uint32_t)(freq) >> 16) & 0x0000FF)}
 		
 		/** Mask for the attributes parameter of an Audio class specific Endpoint descriptor, indicating that the endpoint
 		 *  accepts only filled endpoint packets of audio samples.

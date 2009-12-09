@@ -37,7 +37,7 @@
 #define _STILL_IMAGE_COMMANDS_H_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
+		#include <LUFA/Drivers/USB/USB.h>
 		
 		#include "PIMACodes.h"
 
@@ -55,10 +55,10 @@
 		 *
 		 *  \param[in] chars  Total number of Unicode characters in the string
 		 */
-		#define UNICODE_STRING_LENGTH(chars)   (chars << 1)
+		#define UNICODE_STRING_LENGTH(chars)   ((chars) << 1)
 
 		/** Timeout period between the issuing of a command to a device, and the reception of the first packet */
-		#define COMMAND_DATA_TIMEOUT_MS        5000
+		#define COMMAND_DATA_TIMEOUT_MS        10000
 		
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a command container.
@@ -66,7 +66,7 @@
 		 *  \param[in] params  Number of parameters which are to be sent in the Param field of the container
 		 */
 		#define PIMA_COMMAND_SIZE(params)      ((sizeof(PIMA_SendBlock) - sizeof(PIMA_SendBlock.Params)) + \
-		                                        (params * sizeof(PIMA_SendBlock.Params[0])))
+		                                        ((params) * sizeof(PIMA_SendBlock.Params[0])))
 
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a data container.

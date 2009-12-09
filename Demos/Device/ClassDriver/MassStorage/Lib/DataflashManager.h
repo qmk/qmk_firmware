@@ -42,10 +42,10 @@
 		#include "MassStorage.h"
 		#include "Descriptors.h"
 
-		#include <LUFA/Common/Common.h>                 // Function Attribute, Atomic, Debug and ISR Macros
-		#include <LUFA/Drivers/USB/USB.h>               // USB Functionality
-		#include <LUFA/Drivers/USB/Class/MassStorage.h> // Mass Storage Class Driver
-		#include <LUFA/Drivers/Board/Dataflash.h>       // Dataflash chip driver
+		#include <LUFA/Common/Common.h>
+		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/USB/Class/MassStorage.h>
+		#include <LUFA/Drivers/Board/Dataflash.h>
 
 	/* Preprocessor Checks: */
 		#if (DATAFLASH_PAGE_SIZE % 16)

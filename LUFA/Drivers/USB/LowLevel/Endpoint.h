@@ -353,7 +353,7 @@
 				#if !defined(CONTROL_ONLY_DEVICE)
 					#define Endpoint_SelectEndpoint(epnum)    MACROS{ UENUM = (epnum); }MACROE
 				#else
-					#define Endpoint_SelectEndpoint(epnum)    (void)epnum
+					#define Endpoint_SelectEndpoint(epnum)    (void)(epnum)
 				#endif
 
 				#define Endpoint_ResetFIFO(epnum)             MACROS{ UERST = (1 << (epnum)); UERST = 0; }MACROE

@@ -64,7 +64,7 @@
 		#define COMMAND_DIRECTION_DATA_IN           (1 << 7)
 		
 		/** Timeout period between the issuing of a CBW to a device, and the reception of the first packet */
-		#define COMMAND_DATA_TIMEOUT_MS             2000
+		#define COMMAND_DATA_TIMEOUT_MS             10000
 
 		/** Pipe number of the Mass Storage data IN pipe */
 		#define MASS_STORE_DATA_IN_PIPE             1

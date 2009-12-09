@@ -26,7 +26,11 @@
   *      -# Write LUFA tutorials
   *  - Demos/Projects
   *      -# Multiple-Report HID device
-  *      -# Device/Host bridge
+  *      -# Device/Host USB bridge
+  *      -# Finish BluetoothHost demo
+  *      -# Finish MIDI class Bootloader
+  *      -# Finish SideShow demo
+  *      -# Finish StandaloneProgrammer project
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

@@ -37,13 +37,13 @@
 #define _CONFIGDESCRIPTOR_H_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>                        // USB Functionality
+		#include <LUFA/Drivers/USB/USB.h>
 		
 		#include "GenericHIDHost.h"
 		
 	/* Macros: */
 		/** Interface Class value for the Human Interface Device class */
-		#define HID_CLASS                 0x03
+		#define HID_CLASS                   0x03
 
 		/** Maximum size of a device configuration descriptor which can be processed by the host, in bytes */
 		#define MAX_CONFIG_DESCRIPTOR_SIZE  512

@@ -51,13 +51,13 @@
 
 	/* Macros: */
 		/** CDC Class specific request to get the current virtual serial port configuration settings. */
-		#define REQ_GetLineEncoding          0x21
+		#define REQ_GetLineEncoding       0x21
 
 		/** CDC Class specific request to set the current virtual serial port configuration settings. */
-		#define REQ_SetLineEncoding          0x20
+		#define REQ_SetLineEncoding       0x20
 
 		/** CDC Class specific request to set the current virtual serial port handshake line states. */
-		#define REQ_SetControlLineState      0x22
+		#define REQ_SetControlLineState   0x22
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1

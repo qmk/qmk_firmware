@@ -192,11 +192,9 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 					Size    = pgm_read_byte(&SerialNumberString.Header.Size);
 					break;
 				case 0xEE:
-					/* Great, another Microsoft-proprietary extention. String address 0xEE is used
-					   by Windows for "OS Descriptors", which in this case allows us to indicate that
-					   our device is Sideshow compatible. Most people would be happy using the normal
-					   0xFF 0x?? 0x?? Class/Subclass/Protocol values like the USBIF intended. */
-					   
+					/* A Microsoft-proprietary extention. String address 0xEE is used by Windows for
+					   "OS Descriptors", which in this case allows us to indicate that our device is
+					   Sideshow compatible regardless of VID/PID values. */
 					Address = (void*)&OSDescriptorString;
 					Size    = pgm_read_byte(&OSDescriptorString.Header.Size);
 					break;

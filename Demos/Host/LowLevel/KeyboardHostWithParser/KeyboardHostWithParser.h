@@ -49,7 +49,7 @@
 
 	/* Macros: */
 		/** Pipe number for the keyboard report data pipe */
-		#define KEYBOARD_DATAPIPE              1
+		#define KEYBOARD_DATAPIPE         1
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1

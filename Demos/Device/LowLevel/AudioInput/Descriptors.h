@@ -125,7 +125,7 @@
 		 *
 		 *  \param[in] freq  Required audio sampling frequency in HZ
 		 */
-		#define SAMPLE_FREQ(freq)  {LowWord: ((uint32_t)freq & 0x00FFFF), HighByte: (((uint32_t)freq >> 16) & 0x0000FF)}
+		#define SAMPLE_FREQ(freq)  {LowWord: ((uint32_t)(freq) & 0x00FFFF), HighByte: (((uint32_t)(freq) >> 16) & 0x0000FF)}
 		
 		/** Mask for the attributes parameter of an Audio class specific Endpoint descriptor, indicating that the endpoint
 		 *  accepts only filled endpoint packets of audio samples.
@@ -138,7 +138,7 @@
 		#define EP_ACCEPTS_SMALL_PACKETS     (0 << 7)
 
 		/** Endpoint number of the Audio isochronous streaming data endpoint. */
-		#define AUDIO_STREAM_EPNUM       1
+		#define AUDIO_STREAM_EPNUM           1
 		
 		/** Endpoint size in bytes of the Audio isochronous streaming data endpoint. The Windows audio stack requires
 		 *  at least 192 bytes for correct output, thus the smaller 128 byte maximum endpoint size on some of the smaller
