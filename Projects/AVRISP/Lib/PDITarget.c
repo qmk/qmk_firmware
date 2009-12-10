@@ -98,14 +98,16 @@ uint8_t PDITarget_ReceiveByte(void)
 	// One Start Bit
 	while (PDIDATA_LINE_PIN & PDIDATA_LINE_MASK);
 	  TOGGLE_PDI_CLOCK;
-		
+
+	TOGGLE_PDI_CLOCK;
+	
 	// Eight Data Bits
 	for (uint8_t i = 0; i < 8; i++)
 	{
-		if (PDIDATA_LINE_PIN & PDIDATA_LINE_MASK)
-			ReceivedByte |= 0x01;
+		if (!(PDIDATA_LINE_PIN & PDIDATA_LINE_MASK))
+			ReceivedByte |= 0x80;
 
-		ReceivedByte <<= 1;
+		ReceivedByte >>= 1;
 
 		TOGGLE_PDI_CLOCK;	
 	}
