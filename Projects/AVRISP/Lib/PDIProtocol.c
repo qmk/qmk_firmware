@@ -111,18 +111,20 @@ static void PDIProtocol_EnterXPROGMode(void)
 
 	/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
 	PDITarget_SendByte(PDI_CMD_KEY);	
-	for (uint8_t i = 0; i < sizeof(PDI_NVMENABLE_KEY); i++)
-	  PDITarget_SendByte(PDI_NVMENABLE_KEY[i]);
+	for (uint8_t i = sizeof(PDI_NVMENABLE_KEY); i > 0; i--)
+	  PDITarget_SendByte(PDI_NVMENABLE_KEY[i - 1]);
 
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
-	uint8_t NVMAttemptsRemaining = 200;
-	while (NVMAttemptsRemaining--)
+	uint8_t NVMAttemptsRemaining = 150;
+	while (NVMAttemptsRemaining)
 	{
 		_delay_ms(1);
-		PDITarget_SendByte(PDI_CMD_LDCS | PD_STATUS_REG);
 
+		PDITarget_SendByte(PDI_CMD_LDCS | PD_STATUS_REG);
 		if (PDITarget_ReceiveByte() & PDI_STATUS_NVM)
 		  break;
+
+		NVMAttemptsRemaining--;
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);

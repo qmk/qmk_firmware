@@ -38,8 +38,9 @@
 #define  INCLUDE_FROM_PDITARGET_C
 #include "PDITarget.h"
 
-#if !defined(PDI_VIA_HARDWARE_USART)
 volatile bool     IsSending;
+
+#if !defined(PDI_VIA_HARDWARE_USART)
 volatile uint16_t DataBits;
 volatile uint8_t  BitCount;
 
@@ -192,31 +193,60 @@ void PDITarget_DisableTargetPDI(void)
 
 void PDITarget_SendByte(uint8_t Byte)
 {
-	UCSR1B &= ~(1 << RXEN1);
-	UCSR1B |=  (1 << TXEN1);
+	/* Switch to Tx mode if currently in Rx mode */
+	if (!(IsSending))
+	{
+		PORTD  |=  (1 << 3);
+		DDRD   |=  (1 << 3);
 
+		UCSR1B &= ~(1 << RXEN1);
+		UCSR1B |=  (1 << TXEN1);
+		
+		IsSending = true;
+	}
+	
+	/* Wait until there is space in the hardware Tx buffer before writing */
+	while (!(UCSR1A & (1 << UDRE1)));
 	UDR1 = Byte;
-
-	while (!(UCSR1A & (1 << TXC1)));
-	UCSR1A |=  (1 << TXC1);
 }
 
 uint8_t PDITarget_ReceiveByte(void)
 {
-	UCSR1B &= ~(1 << TXEN1);
-	UCSR1B |=  (1 << RXEN1);
+	/* Switch to Rx mode if currently in Tx mode */
+	if (IsSending)
+	{
+		while (!(UCSR1A & (1 << TXC1)));
+		UCSR1A |=  (1 << TXC1);
 
+		UCSR1B &= ~(1 << TXEN1);
+		UCSR1B |=  (1 << RXEN1);
+
+		DDRD   &= ~(1 << 3);
+		PORTD  &= ~(1 << 3);
+		
+		IsSending = false;
+	}
+
+	/* Wait until a byte has been received before reading */
 	while (!(UCSR1A & (1 << RXC1)));
-	UCSR1A |=  (1 << RXC1);
-	
 	return UDR1;
 }
 
 void PDITarget_SendBreak(void)
 {
-	UCSR1B &= ~(1 << RXEN1);
-	UCSR1B |=  (1 << TXEN1);
+	/* Switch to Tx mode if currently in Rx mode */
+	if (!(IsSending))
+	{
+		PORTD  |=  (1 << 3);
+		DDRD   |=  (1 << 3);
 
+		UCSR1B &= ~(1 << RXEN1);
+		UCSR1B |=  (1 << TXEN1);
+		
+		IsSending = true;
+	}
+
+	/* Need to do nothing for a full frame to send a BREAK */
 	for (uint8_t i = 0; i <= BITS_IN_FRAME; i++)
 	{
 		/* Wait for rising edge of clock */
