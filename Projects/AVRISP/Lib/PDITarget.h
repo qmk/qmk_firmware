@@ -38,6 +38,7 @@
 
 	/* Includes: */
 		#include <avr/io.h>
+		#include <avr/interrupt.h>
 		#include <stdbool.h>
 		
 		#include <LUFA/Common/Common.h>
@@ -53,24 +54,19 @@
 
 	/* Defines: */
 		#if BOARD == BOARD_XPLAIN
-			#define PDIDATA_LINE_PORT     PORTD
-			#define PDIDATA_LINE_DDR      DDRD
-			#define PDIDATA_LINE_PIN      PIND
-			#define PDIDATA_LINE_MASK     (1 << 2)
-			
-			#define PDICLOCK_LINE_PORT    PORTD
-			#define PDICLOCK_LINE_DDR     DDRD
-			#define PDICLOCK_LINE_MASK    (1 << 5)
+			#define PDI_VIA_HARDWARE_USART
 		#else
-			#define PDIDATA_LINE_PORT     PORTB
-			#define PDIDATA_LINE_DDR      DDRB
-			#define PDIDATA_LINE_PIN      PINB
-			#define PDIDATA_LINE_MASK     (1 << 3)
+			#define BITBANG_PDIDATA_PORT     PORTB
+			#define BITBANG_PDIDATA_DDR      DDRB
+			#define BITBANG_PDIDATA_PIN      PINB
+			#define BITBANG_PDIDATA_MASK     (1 << 3)
 			
-			#define PDICLOCK_LINE_PORT    RESET_LINE_PORT
-			#define PDICLOCK_LINE_DDR     RESET_LINE_DDR
-			#define PDICLOCK_LINE_MASK    RESET_LINE_MASK
+			#define BITBANG_PDICLOCK_PORT    RESET_LINE_PORT
+			#define BITBANG_PDICLOCK_DDR     RESET_LINE_DDR
+			#define BITBANG_PDICLOCK_MASK    RESET_LINE_MASK
 		#endif
+		
+		#define BITS_IN_FRAME         12
 		
 		#define PDI_CMD_LDS           0x00
 		#define PDI_CMD_LD            0x20
@@ -89,14 +85,12 @@
 
 		#define PDI_RESET_KEY         0x59
 		#define PDI_NVMENABLE_KEY     (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
-
-		#define TOGGLE_PDI_CLOCK      MACROS{ PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK; \
-		                                      asm volatile ("NOP" ::);                  \
-		                                      PDICLOCK_LINE_PORT ^= PDICLOCK_LINE_MASK; \
-		                                      asm volatile ("NOP" ::);                  }MACROE
 		
 	/* Function Prototypes: */
+		void    PDITarget_EnableTargetPDI(void);
+		void    PDITarget_DisableTargetPDI(void);
 		void    PDITarget_SendByte(uint8_t Byte);
 		uint8_t PDITarget_ReceiveByte(void);
+		void    PDITarget_SendBreak(void);
 
 #endif

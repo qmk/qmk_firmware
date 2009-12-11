@@ -109,7 +109,7 @@
  *  <b><sup>2</sup></b> <i>See \ref SSec_Options section</i>
  *
  *
- *  Connections to the device for PDI programming (when enabled):
+ *  Connections to the device for PDI programming<b><sup>1</sup></b> (when enabled):
  *
  *  <table>
  *   <tr>
@@ -148,6 +148,9 @@
  *    <td>6</td>
  *   </tr>
  *  </table>
+ *
+ *  <b><sup>1</sup></b> When PDI_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
+ *                      via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.
  *
  *  \section SSec_Options Project Options
  *
@@ -191,6 +194,12 @@
  *    <td>ENABLE_PDI_PROTOCOL</td>
  *    <td>Makefile CDEFS</td>
  *    <td>Define to enable XMEGA PDI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
+ *   </tr>
+ *   <tr>
+ *    <td>PDI_VIA_HARDWARE_USART</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>Define to force the PDI protocol (when enabled) to use the hardware USART instead of bit-banging to match the official
+ *        AVRISP pinout. <i>Automatically set when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *  </table>
  */

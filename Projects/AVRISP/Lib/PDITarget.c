@@ -38,90 +38,191 @@
 #define  INCLUDE_FROM_PDITARGET_C
 #include "PDITarget.h"
 
-/** Writes a given byte to the attached XMEGA device, using a RS232 frame via software through the
- *  PDI interface.
- *
- *  \param[in] Byte  Byte to send to the attached device
- */
+#if !defined(PDI_VIA_HARDWARE_USART)
+volatile bool     IsSending;
+volatile uint16_t DataBits;
+volatile uint8_t  BitCount;
+
+ISR(TIMER0_COMPA_vect, ISR_BLOCK)
+{
+	BITBANG_PDICLOCK_PORT ^= BITBANG_PDICLOCK_MASK;
+
+	/* If not sending or receiving, just exit */
+	if (!(BitCount))
+	  return;
+	
+	/* Check to see if the current clock state is on the rising or falling edge */
+	bool IsRisingEdge = (BITBANG_PDICLOCK_PORT & BITBANG_PDICLOCK_MASK);
+
+	if (IsSending && !IsRisingEdge)
+	{
+		if (DataBits & 0x01)
+		  BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
+		else
+		  BITBANG_PDIDATA_PORT |=  BITBANG_PDIDATA_MASK;		  
+
+		DataBits >>= 1;
+		BitCount--;
+	}
+	else if (!IsSending && IsRisingEdge)
+	{
+		/* Wait for the start bit when receiving */
+		if ((BitCount == BITS_IN_FRAME) && (BITBANG_PDIDATA_PORT & BITBANG_PDIDATA_MASK))
+		  return;
+	
+		if (BITBANG_PDIDATA_PORT & BITBANG_PDIDATA_MASK)
+		  DataBits |= (1 << (BITS_IN_FRAME - 1));
+
+		DataBits >>= 1;
+		BitCount--;
+	}
+}
+
+void PDITarget_EnableTargetPDI(void)
+{
+	/* Set DATA and CLOCK lines to outputs */
+	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
+	BITBANG_PDICLOCK_DDR |= BITBANG_PDICLOCK_MASK;
+	
+	/* Set DATA line high for 90ns to disable /RESET functionality */
+	BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
+	asm volatile ("NOP"::);
+	asm volatile ("NOP"::);
+
+	/* Fire timer compare ISR every 160 cycles */
+	OCR0A   = 20;
+	TCCR0A  = (1 << WGM01);
+	TCCR0B  = (1 << CS01);
+	TIMSK0  = (1 << OCIE0A);
+}
+
+void PDITarget_DisableTargetPDI(void)
+{
+	/* Set DATA and CLOCK lines to inputs */
+	BITBANG_PDIDATA_DDR   &= ~BITBANG_PDIDATA_MASK;
+	BITBANG_PDICLOCK_DDR  &= ~BITBANG_PDICLOCK_MASK;
+	
+	/* Tristate DATA and CLOCK lines */
+	BITBANG_PDIDATA_PORT  &= ~BITBANG_PDIDATA_MASK;
+	BITBANG_PDICLOCK_PORT &= ~BITBANG_PDICLOCK_MASK;
+
+	TCCR0B  = 0;
+}
+
 void PDITarget_SendByte(uint8_t Byte)
 {
-	uint8_t LogicOneBits = 0;
-
-	// One Start Bit
-	PDIDATA_LINE_PORT &= ~PDIDATA_LINE_MASK;
-
-	TOGGLE_PDI_CLOCK;
+	bool IsOddBitsSet = false;
 	
-	// Eight Data Bits
+	/* Compute Even parity bit */
 	for (uint8_t i = 0; i < 8; i++)
 	{
-		if (Byte & 0x01)
-		{
-			PDIDATA_LINE_PORT &= ~PDIDATA_LINE_MASK;
-			LogicOneBits++;
-		}
-		else
-		{
-			PDIDATA_LINE_PORT |=  PDIDATA_LINE_MASK;
-		}
-		
-		Byte >>= 1;
-
-		TOGGLE_PDI_CLOCK;
+		if (Byte & (1 << i))
+		  IsOddBitsSet = !(IsOddBitsSet);
 	}
 
-	// Even Parity Bit
-	if (LogicOneBits & 0x01)
-	  PDIDATA_LINE_PORT &= ~PDIDATA_LINE_MASK;
-	else
-	  PDIDATA_LINE_PORT |=  PDIDATA_LINE_MASK;
+	/* Data shifted out LSB first, START DATA PARITY STOP STOP */
+	DataBits  = ((uint16_t)IsOddBitsSet << 10) | ((uint16_t)Byte << 1) | (1 << 0);
 
-	TOGGLE_PDI_CLOCK;
+	BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
+	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
 
-	// Two Stop Bits
-	PDIDATA_LINE_PORT |= PDIDATA_LINE_MASK;
-	
-	TOGGLE_PDI_CLOCK;
-	TOGGLE_PDI_CLOCK;
+	IsSending = true;
+	BitCount  = BITS_IN_FRAME;
+	while (BitCount);
+
+	BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
+	BITBANG_PDIDATA_DDR  &= ~BITBANG_PDIDATA_MASK;
 }
 
-/** Reads a given byte from the attached XMEGA device, encoded in a RS232 frame through the PDI interface.
- *
- *  \return Received byte from the attached device
- */
 uint8_t PDITarget_ReceiveByte(void)
 {
-	uint8_t ReceivedByte = 0;
+	IsSending = false;
+	BitCount  = BITS_IN_FRAME;
+	while (BitCount);
 
-	PDIDATA_LINE_DDR &= ~PDIDATA_LINE_MASK;
-
-	// One Start Bit
-	while (PDIDATA_LINE_PIN & PDIDATA_LINE_MASK);
-	  TOGGLE_PDI_CLOCK;
-
-	TOGGLE_PDI_CLOCK;
-	
-	// Eight Data Bits
-	for (uint8_t i = 0; i < 8; i++)
-	{
-		if (!(PDIDATA_LINE_PIN & PDIDATA_LINE_MASK))
-			ReceivedByte |= 0x80;
-
-		ReceivedByte >>= 1;
-
-		TOGGLE_PDI_CLOCK;	
-	}
-
-	// Even Parity Bit (discarded)
-	TOGGLE_PDI_CLOCK;
-
-	// Two Stop Bits
-	TOGGLE_PDI_CLOCK;
-	TOGGLE_PDI_CLOCK;
-	
-	PDIDATA_LINE_DDR |= PDIDATA_LINE_MASK;
-	
-	return ReceivedByte;
+	return (DataBits >> 1);
 }
+
+void PDITarget_SendBreak(void)
+{
+	DataBits  = 0;
+
+	BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
+	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
+
+	IsSending = true;
+	BitCount  = BITS_IN_FRAME;
+	while (BitCount);
+
+	BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
+	BITBANG_PDIDATA_DDR  &= ~BITBANG_PDIDATA_MASK;
+}
+#else
+void PDITarget_EnableTargetPDI(void)
+{
+	/* Set Tx and XCK as outputs, Rx as input */
+	DDRD |=  (1 << 5) | (1 << 3);
+	DDRD &= ~(1 << 2);
+	
+	/* Set DATA line high for 90ns to disable /RESET functionality */
+	PORTD |= (1 << 3);
+	asm volatile ("NOP"::);
+	asm volatile ("NOP"::);
+	
+	/* Set up the synchronous USART for XMEGA communications - 
+	   8 data bits, even parity, 2 stop bits */
+	UBRR1  = 10;
+	UCSR1B = (1 << TXEN1);
+	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
+
+	PDITarget_SendBreak();
+	PDITarget_SendBreak();
+}
+
+void PDITarget_DisableTargetPDI(void)
+{
+	/* Turn of receiver and transmitter of the USART, clear settings */
+	UCSR1B = 0;
+	UCSR1C = 0;
+
+	/* Set all USART lines as input, tristate */
+	DDRD  &= ~(1 << 5) | (1 << 3);
+	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
+}
+
+void PDITarget_SendByte(uint8_t Byte)
+{
+	UCSR1B &= ~(1 << RXEN1);
+	UCSR1B |=  (1 << TXEN1);
+
+	UDR1 = Byte;
+
+	while (!(UCSR1A & (1 << TXC1)));
+	UCSR1A |=  (1 << TXC1);
+}
+
+uint8_t PDITarget_ReceiveByte(void)
+{
+	UCSR1B &= ~(1 << TXEN1);
+	UCSR1B |=  (1 << RXEN1);
+
+	while (!(UCSR1A & (1 << RXC1)));
+	UCSR1A |=  (1 << RXC1);
+	
+	return UDR1;
+}
+
+void PDITarget_SendBreak(void)
+{
+	UCSR1B &= ~(1 << RXEN1);
+	UCSR1B |= (1 << TXEN1);
+
+	for (uint8_t i = 0; i < BITS_IN_FRAME; i++)
+	{
+		while (PIND & (1 << 5));
+		while (!(PIND & (1 << 5)));
+	}
+}
+#endif
 
 #endif

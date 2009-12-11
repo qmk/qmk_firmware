@@ -104,18 +104,13 @@ static void PDIProtocol_EnterXPROGMode(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	PDIDATA_LINE_DDR  |= PDIDATA_LINE_MASK;
-	PDICLOCK_LINE_DDR |= PDICLOCK_LINE_MASK;
+	/* Enable PDI programming mode with the attached target */
+	PDITarget_EnableTargetPDI();
 	
-	/* Must hold DATA line high for at least 90nS to enable PDI interface */
-	PDIDATA_LINE_PORT |= PDIDATA_LINE_MASK;
-	asm volatile ("NOP"::);
-	asm volatile ("NOP"::);
-	
-	/* Toggle CLOCK line 16 times within 100uS of the original 90nS timeout to keep PDI interface enabled */
-	for (uint8_t i = 0; i < 16; i++)
-	  TOGGLE_PDI_CLOCK;
-	
+	/* Store the RESET ket into the RESET PDI register to complete the handshake */
+	PDITarget_SendByte(PDI_CMD_STCS | PD_RESET_REG);	
+	PDITarget_SendByte(PDI_RESET_KEY);
+
 	/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
 	PDITarget_SendByte(PDI_CMD_KEY);	
 	for (uint8_t i = 0; i < sizeof(PDI_NVMENABLE_KEY); i++)
@@ -140,14 +135,8 @@ static void PDIProtocol_LeaveXPROGMode(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	/* Set DATA and CLOCK lines to inputs */
-	PDIDATA_LINE_DDR   &= ~PDIDATA_LINE_MASK;
-	PDICLOCK_LINE_DDR  &= ~PDICLOCK_LINE_MASK;
-	
-	/* Tristate DATA and CLOCK lines */
-	PDIDATA_LINE_PORT  &= ~PDIDATA_LINE_MASK;
-	PDICLOCK_LINE_PORT &= ~PDICLOCK_LINE_MASK;
-	
+	PDITarget_DisableTargetPDI();
+
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_LEAVE_PROGMODE);
 	Endpoint_Write_Byte(XPRG_ERR_OK);
