@@ -115,11 +115,9 @@ static void PDIProtocol_EnterXPROGMode(void)
 	  PDITarget_SendByte(PDI_NVMENABLE_KEY[i - 1]);
 
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
-	uint8_t NVMAttemptsRemaining = 150;
+	uint8_t NVMAttemptsRemaining = 255;
 	while (NVMAttemptsRemaining)
 	{
-		_delay_ms(1);
-
 		PDITarget_SendByte(PDI_CMD_LDCS | PD_STATUS_REG);
 		if (PDITarget_ReceiveByte() & PDI_STATUS_NVM)
 		  break;
