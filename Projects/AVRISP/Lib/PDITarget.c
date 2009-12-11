@@ -172,9 +172,9 @@ void PDITarget_EnableTargetPDI(void)
 	/* Set up the synchronous USART for XMEGA communications - 
 	   8 data bits, even parity, 2 stop bits */
 	UBRR1  = 10;
-	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
 
+	/* Send two BREAKs of 12 bits each to enable PDI interface (need at least 16 idle bits) */
 	PDITarget_SendBreak();
 	PDITarget_SendBreak();
 }
@@ -186,7 +186,7 @@ void PDITarget_DisableTargetPDI(void)
 	UCSR1C = 0;
 
 	/* Set all USART lines as input, tristate */
-	DDRD  &= ~(1 << 5) | (1 << 3);
+	DDRD  &= ~((1 << 5) | (1 << 3));
 	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
 }
 
@@ -215,11 +215,14 @@ uint8_t PDITarget_ReceiveByte(void)
 void PDITarget_SendBreak(void)
 {
 	UCSR1B &= ~(1 << RXEN1);
-	UCSR1B |= (1 << TXEN1);
+	UCSR1B |=  (1 << TXEN1);
 
-	for (uint8_t i = 0; i < BITS_IN_FRAME; i++)
+	for (uint8_t i = 0; i <= BITS_IN_FRAME; i++)
 	{
+		/* Wait for rising edge of clock */
 		while (PIND & (1 << 5));
+		
+		/* Wait for falling edge of clock */
 		while (!(PIND & (1 << 5)));
 	}
 }

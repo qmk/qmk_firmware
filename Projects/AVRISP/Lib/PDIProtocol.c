@@ -99,15 +99,13 @@ void PDIProtocol_XPROG_Command(void)
 /** Handler for the XPROG ENTER_PROGMODE command to establish a PDI connection with the attached device. */
 static void PDIProtocol_EnterXPROGMode(void)
 {
-	uint8_t ReturnStatus = XPRG_ERR_OK;
-
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
 	/* Enable PDI programming mode with the attached target */
 	PDITarget_EnableTargetPDI();
 	
-	/* Store the RESET ket into the RESET PDI register to complete the handshake */
+	/* Store the RESET key into the RESET PDI register to keep the XMEGA in reset */
 	PDITarget_SendByte(PDI_CMD_STCS | PD_RESET_REG);	
 	PDITarget_SendByte(PDI_RESET_KEY);
 
@@ -116,14 +114,20 @@ static void PDIProtocol_EnterXPROGMode(void)
 	for (uint8_t i = 0; i < sizeof(PDI_NVMENABLE_KEY); i++)
 	  PDITarget_SendByte(PDI_NVMENABLE_KEY[i]);
 
-	/* Read out the STATUS register to check that NVM access was successfully enabled */
-	PDITarget_SendByte(PDI_CMD_LDCS | PD_STATUS_REG);	
-	if (!(PDITarget_ReceiveByte() & PDI_STATUS_NVM))
-	  ReturnStatus = XPRG_ERR_FAILED;
+	/* Poll the STATUS register to check to see if NVM access has been enabled */
+	uint8_t NVMAttemptsRemaining = 200;
+	while (NVMAttemptsRemaining--)
+	{
+		_delay_ms(1);
+		PDITarget_SendByte(PDI_CMD_LDCS | PD_STATUS_REG);
+
+		if (PDITarget_ReceiveByte() & PDI_STATUS_NVM)
+		  break;
+	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_ENTER_PROGMODE);
-	Endpoint_Write_Byte(ReturnStatus);
+	Endpoint_Write_Byte(NVMAttemptsRemaining ? XPRG_ERR_OK : XPRG_ERR_FAILED);
 	Endpoint_ClearIN();
 }
 
@@ -135,6 +139,10 @@ static void PDIProtocol_LeaveXPROGMode(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
+	/* Clear the RESET key into the RESET PDI register to allow the XMEGA to run */
+	PDITarget_SendByte(PDI_CMD_STCS | PD_RESET_REG);	
+	PDITarget_SendByte(0x00);
+
 	PDITarget_DisableTargetPDI();
 
 	Endpoint_Write_Byte(CMD_XPROG);
