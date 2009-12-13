@@ -63,34 +63,57 @@
 			
 			#define BITBANG_PDICLOCK_PORT    RESET_LINE_PORT
 			#define BITBANG_PDICLOCK_DDR     RESET_LINE_DDR
+			#define BITBANG_PDICLOCK_PIN     RESET_LINE_PIN
 			#define BITBANG_PDICLOCK_MASK    RESET_LINE_MASK
 		#endif
 		
-		#define BITS_IN_FRAME         12
+		#define BITS_IN_FRAME            12
 		
-		#define PDI_CMD_LDS           0x00
-		#define PDI_CMD_LD            0x20
-		#define PDI_CMD_STS           0x40
-		#define PDI_CMD_ST            0x60
-		#define PDI_CMD_LDCS          0x80
-		#define PDI_CMD_REPEAT        0xA0
-		#define PDI_CMD_STCS          0xC0
-		#define PDI_CMD_KEY           0xE0
+		#define PDI_CMD_LDS              0x00
+		#define PDI_CMD_LD               0x20
+		#define PDI_CMD_STS              0x40
+		#define PDI_CMD_ST               0x60
+		#define PDI_CMD_LDCS             0x80
+		#define PDI_CMD_REPEAT           0xA0
+		#define PDI_CMD_STCS             0xC0
+		#define PDI_CMD_KEY              0xE0
 		
-		#define PD_STATUS_REG         0
-		#define PD_RESET_REG          1
-		#define PD_CTRL_REG           2
+		#define PDI_STATUS_REG           0
+		#define PDI_RESET_REG            1
+		#define PDI_CTRL_REG             2
+		
+		#define PDI_STATUS_NVM           (1 << 1)
+		#define PDI_RESET_KEY            0x59
 
-		#define PDI_STATUS_NVM        (1 << 1)
+		#define PDI_NVMENABLE_KEY        (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
 
-		#define PDI_RESET_KEY         0x59
-		#define PDI_NVMENABLE_KEY     (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
+		#define PDI_DATSIZE_1BYTE        0
+		#define PDI_DATSIZE_2BYTES       1
+		#define PDI_DATSIZE_3BYTES       2
+		#define PDI_DATSIZE_4BYTES       3
 		
+		#define PDI_POINTER_INDIRECT     0
+		#define PDI_POINTER_INDIRECT_PI  1
+		#define PDI_POINTER_DIRECT       2
+
+		#define FLASH_BASE               0x00800000
+		#define EPPROM_BASE              0x008C0000
+		#define FUSE_BASE                0x008F0020
+		#define DATAMEM_BASE             0x01000000
+		#define PROD_SIGNATURE_BASE      0x008E0200
+		#define USER_SIGNATURE_BASE      0x008E0400
+		
+		#define DATAMEM_NVM_BASE         0x01C0
+				
 	/* Function Prototypes: */
 		void    PDITarget_EnableTargetPDI(void);
 		void    PDITarget_DisableTargetPDI(void);
 		void    PDITarget_SendByte(uint8_t Byte);
 		uint8_t PDITarget_ReceiveByte(void);
 		void    PDITarget_SendBreak(void);
+		
+		void PDITarget_SendAddress(uint32_t Address);
+		bool PDITarget_WaitWhileNVMBusBusy(void);
+		void PDITarget_WaitWhileNVMControllerBusy(void);
 
 #endif

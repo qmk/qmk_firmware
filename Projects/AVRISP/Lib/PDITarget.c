@@ -41,131 +41,54 @@
 volatile bool     IsSending;
 
 #if !defined(PDI_VIA_HARDWARE_USART)
-volatile uint16_t DataBits;
-volatile uint8_t  BitCount;
+volatile uint16_t SoftUSART_Data;
+volatile uint8_t  SoftUSART_BitCount;
 
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-	BITBANG_PDICLOCK_PORT ^= BITBANG_PDICLOCK_MASK;
+	/* Toggle CLOCK pin in a single cycle (see AVR datasheet) */
+	BITBANG_PDICLOCK_PIN |= BITBANG_PDICLOCK_MASK;
 
 	/* If not sending or receiving, just exit */
-	if (!(BitCount))
+	if (!(SoftUSART_BitCount))
 	  return;
-	
+
 	/* Check to see if the current clock state is on the rising or falling edge */
 	bool IsRisingEdge = (BITBANG_PDICLOCK_PORT & BITBANG_PDICLOCK_MASK);
 
 	if (IsSending && !IsRisingEdge)
 	{
-		if (DataBits & 0x01)
-		  BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
+		if (SoftUSART_Data & 0x01)
+		  BITBANG_PDIDATA_PORT |=  BITBANG_PDIDATA_MASK;
 		else
-		  BITBANG_PDIDATA_PORT |=  BITBANG_PDIDATA_MASK;		  
+		  BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;		  
 
-		DataBits >>= 1;
-		BitCount--;
+		SoftUSART_Data >>= 1;
+		SoftUSART_BitCount--;
 	}
 	else if (!IsSending && IsRisingEdge)
 	{
 		/* Wait for the start bit when receiving */
-		if ((BitCount == BITS_IN_FRAME) && (BITBANG_PDIDATA_PORT & BITBANG_PDIDATA_MASK))
+		if ((SoftUSART_BitCount == BITS_IN_FRAME) && (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK))
 		  return;
 	
-		if (BITBANG_PDIDATA_PORT & BITBANG_PDIDATA_MASK)
-		  DataBits |= (1 << (BITS_IN_FRAME - 1));
+		if (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK)
+		  SoftUSART_Data |= (1 << BITS_IN_FRAME);
 
-		DataBits >>= 1;
-		BitCount--;
+		SoftUSART_Data >>= 1;
+		SoftUSART_BitCount--;
 	}
 }
+#endif
 
 void PDITarget_EnableTargetPDI(void)
 {
-	/* Set DATA and CLOCK lines to outputs */
-	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
-	BITBANG_PDICLOCK_DDR |= BITBANG_PDICLOCK_MASK;
-	
-	/* Set DATA line high for 90ns to disable /RESET functionality */
-	BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
-	asm volatile ("NOP"::);
-	asm volatile ("NOP"::);
-
-	/* Fire timer compare ISR every 160 cycles */
-	OCR0A   = 20;
-	TCCR0A  = (1 << WGM01);
-	TCCR0B  = (1 << CS01);
-	TIMSK0  = (1 << OCIE0A);
-}
-
-void PDITarget_DisableTargetPDI(void)
-{
-	/* Set DATA and CLOCK lines to inputs */
-	BITBANG_PDIDATA_DDR   &= ~BITBANG_PDIDATA_MASK;
-	BITBANG_PDICLOCK_DDR  &= ~BITBANG_PDICLOCK_MASK;
-	
-	/* Tristate DATA and CLOCK lines */
-	BITBANG_PDIDATA_PORT  &= ~BITBANG_PDIDATA_MASK;
-	BITBANG_PDICLOCK_PORT &= ~BITBANG_PDICLOCK_MASK;
-
-	TCCR0B  = 0;
-}
-
-void PDITarget_SendByte(uint8_t Byte)
-{
-	bool IsOddBitsSet = false;
-	
-	/* Compute Even parity bit */
-	for (uint8_t i = 0; i < 8; i++)
-	{
-		if (Byte & (1 << i))
-		  IsOddBitsSet = !(IsOddBitsSet);
-	}
-
-	/* Data shifted out LSB first, START DATA PARITY STOP STOP */
-	DataBits  = ((uint16_t)IsOddBitsSet << 10) | ((uint16_t)Byte << 1) | (1 << 0);
-
-	BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
-	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
-
-	IsSending = true;
-	BitCount  = BITS_IN_FRAME;
-	while (BitCount);
-
-	BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
-	BITBANG_PDIDATA_DDR  &= ~BITBANG_PDIDATA_MASK;
-}
-
-uint8_t PDITarget_ReceiveByte(void)
-{
-	IsSending = false;
-	BitCount  = BITS_IN_FRAME;
-	while (BitCount);
-
-	return (DataBits >> 1);
-}
-
-void PDITarget_SendBreak(void)
-{
-	DataBits  = 0;
-
-	BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
-	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
-
-	IsSending = true;
-	BitCount  = BITS_IN_FRAME;
-	while (BitCount);
-
-	BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
-	BITBANG_PDIDATA_DDR  &= ~BITBANG_PDIDATA_MASK;
-}
-#else
-void PDITarget_EnableTargetPDI(void)
-{
+#if defined(PDI_VIA_HARDWARE_USART)
 	/* Set Tx and XCK as outputs, Rx as input */
 	DDRD |=  (1 << 5) | (1 << 3);
 	DDRD &= ~(1 << 2);
 	
-	/* Set DATA line high for 90ns to disable /RESET functionality */
+	/* Set DATA line high for at least 90ns to disable /RESET functionality */
 	PORTD |= (1 << 3);
 	asm volatile ("NOP"::);
 	asm volatile ("NOP"::);
@@ -179,10 +102,30 @@ void PDITarget_EnableTargetPDI(void)
 	/* Send two BREAKs of 12 bits each to enable PDI interface (need at least 16 idle bits) */
 	PDITarget_SendBreak();
 	PDITarget_SendBreak();
+#else
+	/* Set DATA and CLOCK lines to outputs */
+	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
+	BITBANG_PDICLOCK_DDR |= BITBANG_PDICLOCK_MASK;
+	
+	/* Set DATA line high for at least 90ns to disable /RESET functionality */
+	BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
+	asm volatile ("NOP"::);
+	asm volatile ("NOP"::);
+
+	/* Fire timer compare ISR every 50 cycles to manage the software USART */
+	OCR0A   = 50;
+	TCCR0A  = (1 << WGM01);
+	TCCR0B  = (1 << CS00);
+	TIMSK0  = (1 << OCIE0A);
+	
+	PDITarget_SendBreak();
+	PDITarget_SendBreak();
+#endif
 }
 
 void PDITarget_DisableTargetPDI(void)
 {
+#if defined(PDI_VIA_HARDWARE_USART)
 	/* Turn off receiver and transmitter of the USART, clear settings */
 	UCSR1A |= (1 << TXC1) | (1 << RXC1);
 	UCSR1B  = 0;
@@ -191,10 +134,22 @@ void PDITarget_DisableTargetPDI(void)
 	/* Set all USART lines as input, tristate */
 	DDRD  &= ~((1 << 5) | (1 << 3));
 	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
+#else
+	/* Set DATA and CLOCK lines to inputs */
+	BITBANG_PDIDATA_DDR   &= ~BITBANG_PDIDATA_MASK;
+	BITBANG_PDICLOCK_DDR  &= ~BITBANG_PDICLOCK_MASK;
+	
+	/* Tristate DATA and CLOCK lines */
+	BITBANG_PDIDATA_PORT  &= ~BITBANG_PDIDATA_MASK;
+	BITBANG_PDICLOCK_PORT &= ~BITBANG_PDICLOCK_MASK;
+
+	TCCR0B  = 0;
+#endif
 }
 
 void PDITarget_SendByte(uint8_t Byte)
 {
+#if defined(PDI_VIA_HARDWARE_USART)
 	/* Switch to Tx mode if currently in Rx mode */
 	if (!(IsSending))
 	{
@@ -210,10 +165,37 @@ void PDITarget_SendByte(uint8_t Byte)
 	/* Wait until there is space in the hardware Tx buffer before writing */
 	while (!(UCSR1A & (1 << UDRE1)));
 	UDR1 = Byte;
+#else
+	/* Switch to Tx mode if currently in Rx mode */
+	if (!(IsSending))
+	{
+		BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
+		BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
+
+		IsSending = true;
+	}
+
+	bool    EvenParityBit = false;
+	uint8_t ParityData    = Byte;
+
+	/* Compute Even parity bit */
+	for (uint8_t i = 0; i < 8; i++)
+	{
+		EvenParityBit ^= ParityData & 0x01;
+		ParityData    >>= 1;
+	}
+
+	while (SoftUSART_BitCount);
+
+	/* Data shifted out LSB first, START DATA PARITY STOP STOP */
+	SoftUSART_Data     = ((uint16_t)EvenParityBit << 9) | ((uint16_t)Byte << 1) | (1 << 10) | (1 << 11);
+	SoftUSART_BitCount = BITS_IN_FRAME;
+#endif
 }
 
 uint8_t PDITarget_ReceiveByte(void)
 {
+#if defined(PDI_VIA_HARDWARE_USART)
 	/* Switch to Rx mode if currently in Tx mode */
 	if (IsSending)
 	{
@@ -232,10 +214,30 @@ uint8_t PDITarget_ReceiveByte(void)
 	/* Wait until a byte has been received before reading */
 	while (!(UCSR1A & (1 << RXC1)));
 	return UDR1;
+#else
+	/* Switch to Rx mode if currently in Tx mode */
+	if (IsSending)
+	{
+		while (SoftUSART_BitCount);
+
+		BITBANG_PDIDATA_DDR  &= ~BITBANG_PDIDATA_MASK;
+		BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
+
+		IsSending = false;
+	}
+
+	/* Wait until a byte has been received before reading */
+	SoftUSART_BitCount = BITS_IN_FRAME;
+	while (SoftUSART_BitCount);
+	
+	/* Throw away the start, parity and stop bits to leave only the data */
+	return (uint8_t)(SoftUSART_Data >> 1);
+#endif
 }
 
 void PDITarget_SendBreak(void)
 {
+#if defined(PDI_VIA_HARDWARE_USART)
 	/* Switch to Tx mode if currently in Rx mode */
 	if (!(IsSending))
 	{
@@ -251,13 +253,62 @@ void PDITarget_SendBreak(void)
 	/* Need to do nothing for a full frame to send a BREAK */
 	for (uint8_t i = 0; i <= BITS_IN_FRAME; i++)
 	{
-		/* Wait for rising edge of clock */
+		/* Wait for a full cycle of the clock */
 		while (PIND & (1 << 5));
-		
-		/* Wait for falling edge of clock */
 		while (!(PIND & (1 << 5)));
 	}
-}
+#else
+	/* Switch to Tx mode if currently in Rx mode */
+	if (!(IsSending))
+	{
+		BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
+		BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
+
+		IsSending = true;
+	}
+	
+	while (SoftUSART_BitCount);
+
+	/* Need to do nothing for a full frame to send a BREAK */
+	SoftUSART_Data     = 0x0FFF;
+	SoftUSART_BitCount = BITS_IN_FRAME;
 #endif
+}
+
+void PDITarget_SendAddress(uint32_t Address)
+{
+	PDITarget_SendByte(Address >> 24);
+	PDITarget_SendByte(Address >> 26);
+	PDITarget_SendByte(Address >> 8);
+	PDITarget_SendByte(Address &  0xFF);
+}
+
+bool PDITarget_WaitWhileNVMBusBusy(void)
+{
+	uint8_t AttemptsRemaining = 255;
+
+	/* Poll the STATUS register to check to see if NVM access has been enabled */
+	while (AttemptsRemaining--)
+	{
+		PDITarget_SendByte(PDI_CMD_LDCS | PDI_STATUS_REG);
+		if (PDITarget_ReceiveByte() & PDI_STATUS_NVM)
+		  return true;
+	}
+	
+	return false;
+}
+
+void PDITarget_WaitWhileNVMControllerBusy(void)
+{
+	/* Poll the NVM STATUS register to check to see if NVM controller is busy */
+	for (;;)
+	{
+		PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_1BYTE << 2));
+		PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_BASE | 0x0F);
+		
+		if (!(PDITarget_ReceiveByte() & (1 << 7)))
+		  return;
+	}
+}
 
 #endif

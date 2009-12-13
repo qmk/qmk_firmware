@@ -168,6 +168,11 @@
  *    <td>PORT register for the programmer's target RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
+ *    <td>RESET_LINE_PIN</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>PIN register for the programmer's target RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
+ *   </tr>
+ *   <tr>
  *    <td>RESET_LINE_DDR</td>
  *    <td>Makefile CDEFS</td>
  *    <td>DDR register for the programmer's target RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
