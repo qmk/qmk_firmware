@@ -152,6 +152,8 @@
 			static inline int8_t Audio_Device_ReadSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 			{
 				int8_t Sample;
+				
+				(void)AudioInterfaceInfo;
 
 				Sample = Endpoint_Read_Byte();
 
@@ -175,6 +177,8 @@
 			{
 				int16_t Sample;
 
+				(void)AudioInterfaceInfo;
+
 				Sample = (int16_t)Endpoint_Read_Word_LE();
 					  
 				if (!(Endpoint_BytesInEndpoint()))
@@ -195,6 +199,8 @@
 			static inline int32_t Audio_Device_ReadSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 			{
 				int32_t Sample;
+
+				(void)AudioInterfaceInfo;
 
 				Sample = (((uint32_t)Endpoint_Read_Byte() << 16) | Endpoint_Read_Word_LE());
 					  

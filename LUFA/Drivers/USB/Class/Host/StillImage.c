@@ -144,7 +144,7 @@ uint8_t DComp_SI_Host_NextSIInterfaceEndpoint(void* const CurrentDescriptor)
 
 void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 {
-
+	(void)SIInterfaceInfo;
 }
 
 static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader)

@@ -335,6 +335,9 @@ static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RN
                                           const uint32_t OId, void* const QueryData, const uint16_t QuerySize,
                                           void* ResponseData, uint16_t* const ResponseSize)
 {
+	(void)QueryData;
+	(void)QuerySize;
+
 	switch (OId)
 	{
 		case OID_GEN_SUPPORTED_LIST:
@@ -443,9 +446,11 @@ static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RN
 	}
 }
 
-static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, const uint32_t OId, void* SetData,
-                                        const uint16_t SetSize)
+static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, const uint32_t OId,
+                                        void* SetData, const uint16_t SetSize)
 {
+	(void)SetSize;
+
 	switch (OId)
 	{
 		case OID_GEN_CURRENT_PACKET_FILTER:

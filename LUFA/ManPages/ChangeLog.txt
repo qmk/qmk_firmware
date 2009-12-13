@@ -59,6 +59,8 @@
   *  - Fixed MassStorageHost Class driver demo not having USB_STREAM_TIMEOUT_MS compile time option set properly to prevent slow 
   *    devices from timing out the data pipes
   *  - Fixed the definition of the Endpoint_BytesInEndpoint() macro for the U4 series AVR parts
+  *  - Fixed MIDI host Class driver MIDI_Host_SendEventPacket() routine not properly checking for Pipe ready before writing
+  *  - Fixed use of deprecated struct initializers, removed library unused parameter warnings when compiled with -Wextra enabled
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *

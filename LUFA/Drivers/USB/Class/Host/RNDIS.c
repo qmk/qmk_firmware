@@ -207,7 +207,7 @@ static uint8_t DComp_RNDIS_Host_NextRNDISInterfaceEndpoint(void* const CurrentDe
 
 void RNDIS_Host_USBTask(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo)
 {
-
+	(void)RNDISInterfaceInfo;
 }
 
 static uint8_t RNDIS_SendEncapsulatedCommand(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,

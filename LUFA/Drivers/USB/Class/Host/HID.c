@@ -152,7 +152,7 @@ static uint8_t DComp_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescri
 
 void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 {
-
+	(void)HIDInterfaceInfo;
 }
 
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)

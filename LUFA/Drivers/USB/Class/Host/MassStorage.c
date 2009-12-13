@@ -129,7 +129,7 @@ static uint8_t DComp_NextMSInterfaceEndpoint(void* const CurrentDescriptor)
 
 void MS_Host_USBTask(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
 {
-	
+	(void)MSInterfaceInfo;
 }
 
 static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, MS_CommandBlockWrapper_t* const SCSICommandBlock,

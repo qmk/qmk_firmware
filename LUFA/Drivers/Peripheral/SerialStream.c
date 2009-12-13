@@ -35,12 +35,15 @@ FILE USARTStream = FDEV_SETUP_STREAM(SerialStream_TxByte, SerialStream_RxByte, _
 
 static int SerialStream_TxByte(char DataByte, FILE *Stream)
 {
+	(void)Stream;
+	
 	Serial_TxByte(DataByte);
-
 	return 0;
 }
 
 static int SerialStream_RxByte(FILE *Stream)
 {
+	(void)Stream;
+
 	return Serial_RxByte();
 }

@@ -67,7 +67,7 @@ bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* const MIDIInter
 
 void MIDI_Device_USBTask(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
 {
-
+	(void)MIDIInterfaceInfo;
 }
 
 uint8_t MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
