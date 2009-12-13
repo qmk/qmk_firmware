@@ -296,11 +296,11 @@ uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
-			bRequest:      REQ_GetDescriptor,
-			wValue:        (DTYPE_Device << 8),
-			wIndex:        0,
-			wLength:       sizeof(USB_Descriptor_Device_t),
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
+			.bRequest      = REQ_GetDescriptor,
+			.wValue        = (DTYPE_Device << 8),
+			.wIndex        = 0,
+			.wLength       = sizeof(USB_Descriptor_Device_t),
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
@@ -312,11 +312,11 @@ uint8_t USB_Host_GetDeviceStringDescriptor(uint8_t Index, void* const Buffer, ui
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
-			bRequest:      REQ_GetDescriptor,
-			wValue:        (DTYPE_String << 8) | Index,
-			wIndex:        0,
-			wLength:       BufferLength,
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE),
+			.bRequest      = REQ_GetDescriptor,
+			.wValue        = (DTYPE_String << 8) | Index,
+			.wIndex        = 0,
+			.wLength       = BufferLength,
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);

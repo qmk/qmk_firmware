@@ -42,11 +42,11 @@ static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint8_t ParamLength)
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_DEVICE),
-			bRequest:      0,
-			wValue:        0,
-			wIndex:        0,
-			wLength:       sizeof(CommandBuffer)
+			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_DEVICE),
+			.bRequest      = 0,
+			.wValue        = 0,
+			.wIndex        = 0,
+			.wLength       = sizeof(CommandBuffer)
 		};
 		
 	memset(CommandBuffer, 0x00, sizeof(CommandBuffer));

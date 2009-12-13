@@ -1032,7 +1032,7 @@
 				  return (4 << EPSIZE0);
 				else
 				  return (5 << EPSIZE0);
-			};
+			}
 
 	#endif
 

@@ -304,7 +304,7 @@ void PDITarget_WaitWhileNVMControllerBusy(void)
 	for (;;)
 	{
 		PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_1BYTE << 2));
-		PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_BASE | 0x0F);
+		PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_STATUS);
 		
 		if (!(PDITarget_ReceiveByte() & (1 << 7)))
 		  return;

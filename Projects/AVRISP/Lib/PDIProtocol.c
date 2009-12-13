@@ -218,7 +218,14 @@ static void PDIProtocol_ReadMemory(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	// TODO: Send read command here via PDI protocol
+	if (ReadMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_USERSIG)
+	{
+		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_1BYTE << 2));
+		PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_CMD);
+		PDITarget_SendByte(NVM_CMD_READUSERSIG);
+
+		
+	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_READ_MEM);
@@ -233,15 +240,46 @@ static void PDIProtocol_ReadMemory(void)
 static void PDIProtocol_ReadCRC(void)
 {
 	uint8_t ReturnStatus = XPRG_ERR_OK;
-
-	uint8_t CRCType = Endpoint_Read_Byte();
 	
+	struct
+	{
+		uint8_t CRCType;
+	} ReadCRC_XPROG_Params;
+	
+	Endpoint_Read_Stream_LE(&ReadCRC_XPROG_Params, sizeof(ReadCRC_XPROG_Params));
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
 	uint32_t MemoryCRC = 0;
+	uint8_t  CRCReadCommand;
+
+	if (ReadCRC_XPROG_Params.CRCType == XPRG_CRC_APP)
+	  CRCReadCommand = NVM_CMD_APPCRC;
+	else if (ReadCRC_XPROG_Params.CRCType == XPRG_CRC_BOOT)
+	  CRCReadCommand = NVM_CMD_BOOTCRC;
+	else
+	  CRCReadCommand = NVM_CMD_FLASHCRC;
 	
-	// TODO: Read device CRC for desired memory via PDI protocol
+	/* Set the NVM command to the correct CRC read command */
+	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_1BYTE << 2));
+	PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_CMD);
+	PDITarget_SendByte(CRCReadCommand);
+
+	/* Set CMDEX bit in NVM CTRLA register to start the CRC generation */
+	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_1BYTE << 2));
+	PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_CTRLA);
+	PDITarget_SendByte(1 << 0);
+
+	/* Wait until the NVM bus and controller is no longer busy */
+	PDITarget_WaitWhileNVMBusBusy();
+	PDITarget_WaitWhileNVMControllerBusy();
+	
+	/* Read the three byte generated CRC value */
+	PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_3BYTES << 2));
+	PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_DAT0);
+	MemoryCRC  = PDITarget_ReceiveByte();
+	MemoryCRC |= ((uint16_t)PDITarget_ReceiveByte() << 8);
+	MemoryCRC |= ((uint32_t)PDITarget_ReceiveByte() << 16);
 	
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_CRC);

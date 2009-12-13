@@ -90,7 +90,7 @@
 				DDRB  &= ~JOY_BMASK;
 
 				PORTB |= JOY_BMASK;
-			};
+			}
 			
 			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Joystick_GetStatus(void)

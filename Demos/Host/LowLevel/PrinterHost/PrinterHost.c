@@ -174,11 +174,11 @@ void USB_Printer_Host(void)
 			{
 				USB_ControlRequest = (USB_Request_Header_t)
 					{
-						bmRequestType: (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE),
-						bRequest:      REQ_SetInterface,
-						wValue:        PrinterAltSetting,
-						wIndex:        PrinterInterfaceNumber,
-						wLength:       0,
+						.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE),
+						.bRequest      = REQ_SetInterface,
+						.wValue        = PrinterAltSetting,
+						.wIndex        = PrinterInterfaceNumber,
+						.wLength       = 0,
 					};
 					
 				if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)

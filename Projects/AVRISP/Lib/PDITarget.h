@@ -104,6 +104,23 @@
 		#define USER_SIGNATURE_BASE      0x008E0400
 		
 		#define DATAMEM_NVM_BASE         0x01C0
+		#define DATAMEM_NVM_ADDR0        (DATAMEM_NVM_BASE | 0x00)
+		#define DATAMEM_NVM_ADDR1        (DATAMEM_NVM_BASE | 0x01)
+		#define DATAMEM_NVM_ADDR2        (DATAMEM_NVM_BASE | 0x02)
+		#define DATAMEM_NVM_DAT0         (DATAMEM_NVM_BASE | 0x04)
+		#define DATAMEM_NVM_DAT1         (DATAMEM_NVM_BASE | 0x05)
+		#define DATAMEM_NVM_DAT2         (DATAMEM_NVM_BASE | 0x06)
+		#define DATAMEM_NVM_CMD          (DATAMEM_NVM_BASE | 0x0A)
+		#define DATAMEM_NVM_CTRLA        (DATAMEM_NVM_BASE | 0x0B)
+		#define DATAMEM_NVM_CTRLB        (DATAMEM_NVM_BASE | 0x0C)
+		#define DATAMEM_NVM_INTCTRL      (DATAMEM_NVM_BASE | 0x0D)
+		#define DATAMEM_NVM_STATUS       (DATAMEM_NVM_BASE | 0x0F)
+		#define DATAMEM_NVM_LOCKBITS     (DATAMEM_NVM_BASE | 0x10)
+		
+		#define NVM_CMD_APPCRC           0x38
+		#define NVM_CMD_BOOTCRC          0x39
+		#define NVM_CMD_FLASHCRC         0x78
+		#define NVM_CMD_READUSERSIG      0x03
 				
 	/* Function Prototypes: */
 		void    PDITarget_EnableTargetPDI(void);
@@ -112,8 +129,8 @@
 		uint8_t PDITarget_ReceiveByte(void);
 		void    PDITarget_SendBreak(void);
 		
-		void PDITarget_SendAddress(uint32_t Address);
-		bool PDITarget_WaitWhileNVMBusBusy(void);
-		void PDITarget_WaitWhileNVMControllerBusy(void);
+		void    PDITarget_SendAddress(uint32_t Address);
+		bool    PDITarget_WaitWhileNVMBusBusy(void);
+		void    PDITarget_WaitWhileNVMControllerBusy(void);
 
 #endif

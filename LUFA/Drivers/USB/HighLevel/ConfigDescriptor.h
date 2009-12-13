@@ -263,7 +263,7 @@
 			{
 				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
 
-				*CurrConfigLoc += CurrDescriptorSize;
+				*((uint8_t**)CurrConfigLoc) += CurrDescriptorSize;
 				*BytesRem      -= CurrDescriptorSize;
 			}
 			

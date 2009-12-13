@@ -93,7 +93,7 @@
 
 				PORTB |= JOY_BMASK;
 				PORTE |= JOY_EMASK;				
-			};
+			}
 			
 			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Joystick_GetStatus(void)
