@@ -38,12 +38,18 @@
 
 #if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
 
+/** Flag to indicate if the USART is currently in Tx or Rx mode. */
 volatile bool     IsSending;
 
 #if !defined(PDI_VIA_HARDWARE_USART)
+/** Software USART raw frame bits for transmission/reception. */
 volatile uint16_t SoftUSART_Data;
+
+/** Bits remaining to be sent or received via the software USART. */
 volatile uint8_t  SoftUSART_BitCount;
 
+
+/** ISR to manage the software USART when bit-banged USART mode is selected. */
 ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
 	/* Toggle CLOCK pin in a single cycle (see AVR datasheet) */
@@ -81,6 +87,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 }
 #endif
 
+/** Enables the target's PDI interface, holding the target in reset until PDI mode is exited. */
 void PDITarget_EnableTargetPDI(void)
 {
 #if defined(PDI_VIA_HARDWARE_USART)
@@ -122,6 +129,7 @@ void PDITarget_EnableTargetPDI(void)
 #endif
 }
 
+/** Disables the target's PDI interface, exits programming mode and starts the target's application. */
 void PDITarget_DisableTargetPDI(void)
 {
 #if defined(PDI_VIA_HARDWARE_USART)
@@ -146,6 +154,10 @@ void PDITarget_DisableTargetPDI(void)
 #endif
 }
 
+/** Sends a byte via the USART.
+ *
+ *  \param[in] Byte  Byte to send through the USART
+ */
 void PDITarget_SendByte(uint8_t Byte)
 {
 #if defined(PDI_VIA_HARDWARE_USART)
@@ -192,6 +204,10 @@ void PDITarget_SendByte(uint8_t Byte)
 #endif
 }
 
+/** Receives a byte via the software USART, blocking until data is received.
+ *
+ *  \return Received byte from the USART
+ */
 uint8_t PDITarget_ReceiveByte(void)
 {
 #if defined(PDI_VIA_HARDWARE_USART)
@@ -234,6 +250,7 @@ uint8_t PDITarget_ReceiveByte(void)
 #endif
 }
 
+/** Sends a BREAK via the USART to the attached target, consisting of a full frame of idle bits. */
 void PDITarget_SendBreak(void)
 {
 #if defined(PDI_VIA_HARDWARE_USART)
@@ -274,6 +291,11 @@ void PDITarget_SendBreak(void)
 #endif
 }
 
+/** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read or CRC
+ *  calculation.
+ *
+ *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
+ */
 bool PDITarget_WaitWhileNVMBusBusy(void)
 {
 	TCNT0 = 0;

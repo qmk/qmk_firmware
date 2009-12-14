@@ -37,9 +37,12 @@
 #include "PDIProtocol.h"
 
 #if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
-#warning PDI Programming Protocol support is incomplete and not currently suitable for use.
+#warning PDI Programming Protocol support is incomplete and not currently suitable for general use.
 
+/** Base absolute address for the target's NVM controller */
 uint32_t XPROG_Param_NVMBase;
+
+/** Size in bytes of the target's EEPROM page */
 uint32_t XPROG_Param_EEPageSize;
 
 /** Handler for the CMD_XPROG_SETMODE command, which sets the programmer-to-target protocol used for PDI

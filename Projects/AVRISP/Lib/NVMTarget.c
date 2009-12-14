@@ -38,6 +38,10 @@
 
 #if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
 
+/** Sends the given NVM register address to the target.
+ *
+ *  \param[in] Register  NVM register whose absolute address is to be sent
+ */
 void NVMTarget_SendNVMRegAddress(uint8_t Register)
 {
 	/* Determine the absolute register address from the NVM base memory address and the NVM register address */
@@ -50,6 +54,10 @@ void NVMTarget_SendNVMRegAddress(uint8_t Register)
 	PDITarget_SendByte(Address >> 24);
 }
 
+/** Sends the given 32-bit absolute address to the target.
+ *
+ *  \param[in] AbsoluteAddress  Absolute address to send to the target
+ */
 void NVMTarget_SendAddress(uint32_t AbsoluteAddress)
 {
 	/* Send the given 32-bit address to the target, LSB first */
@@ -59,6 +67,11 @@ void NVMTarget_SendAddress(uint32_t AbsoluteAddress)
 	PDITarget_SendByte(AbsoluteAddress >> 24);
 }
 
+/** Waits while the target's NVM controller is busy performing an operation, exiting if the
+ *  timeout period expires.
+ *
+ *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
+ */
 bool NVMTarget_WaitWhileNVMControllerBusy(void)
 {
 	TCNT0 = 0;
@@ -78,7 +91,13 @@ bool NVMTarget_WaitWhileNVMControllerBusy(void)
 	return false;
 }
 
-uint32_t NVMTarget_GetMemoryCRC(uint8_t MemoryCommand)
+/** Retrieves the CRC value of the given memory space.
+ *
+ *  \param[in] CRCCommand  NVM CRC command to issue to the target
+ *
+ *  \return 24-bit CRC value for the given address space
+ */
+uint32_t NVMTarget_GetMemoryCRC(uint8_t CRCCommand)
 {
 	uint32_t MemoryCRC;
 
@@ -87,7 +106,7 @@ uint32_t NVMTarget_GetMemoryCRC(uint8_t MemoryCommand)
 	/* Set the NVM command to the correct CRC read command */
 	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
-	PDITarget_SendByte(MemoryCommand);
+	PDITarget_SendByte(CRCCommand);
 
 	/* Set CMDEX bit in NVM CTRLA register to start the CRC generation */
 	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
@@ -116,6 +135,12 @@ uint32_t NVMTarget_GetMemoryCRC(uint8_t MemoryCommand)
 	return MemoryCRC;
 }
 
+/** Reads memory from the target's memory spaces.
+ *
+ *  \param[in]  ReadAddress  Start address to read from within the target's address space
+ *  \param[out] ReadBuffer   Buffer to store read data into
+ *  \param[in]  ReadSize     Number of bytes to read
+ */
 void NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize)
 {
 	NVMTarget_WaitWhileNVMControllerBusy();
@@ -149,6 +174,11 @@ void NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t Re
 	}
 }
 
+/** Erases a specific memory space of the target.
+ *
+ *  \param[in] EraseCommand  NVM erase command to send to the device
+ *  \param[in] Address  Address inside the memory space to erase
+ */
 void NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address)
 {
 	NVMTarget_WaitWhileNVMControllerBusy();

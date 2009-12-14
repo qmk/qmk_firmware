@@ -13,7 +13,7 @@
  *  - Series 7 USB AVRs
  *  - Series 6 USB AVRs
  *  - Series 4 USB AVRs
- *  - Series 2 USB AVRs
+ *  - Series 2 USB AVRs (8KB versions with reduced features only)
  *
  *  \section SSec_Info USB Information:
  *
@@ -51,7 +51,7 @@
  *  level conversion can be made to allow for the programming of 3.3V AVR designs.
  *
  *  This device spoofs Atmel's official AVRISP-MKII device PID so that it remains compatible with Atmel's AVRISP-MKII
- *  drivers. When promted, direct your OS to install Atmel's AVRISP-MKII drivers provided with AVRStudio.
+ *  drivers. When prompted, direct your OS to install Atmel's AVRISP-MKII drivers provided with AVRStudio.
  *
  *  Note that this design currently has several limitations:
  *    - Minimum ISP target clock speed of 500KHz due to hardware SPI used
@@ -62,7 +62,10 @@
  *  without an ADC converter, VTARGET will report at a fixed 5V level.
  *
  *  When compiled for the XPLAIN board target, this will automatically configure itself for the correct connections to the
- *  XPLAIN's XMEGA AVR, and will enable only PDI programming support.
+ *  XPLAIN's XMEGA AVR, and will enable PDI only programming support (since ISP mode is not needed).
+ *
+ *  While this application can be compiled for USB AVRs with as little as 8KB of FLASH, for full functionality 16KB or more
+ *  of FLASH is required. On 8KB devices, either ISP or PDI programming support can be disabled to reduce program size.
  *
  *
  *  Connections to the device for SPI programming (when enabled):
@@ -203,8 +206,10 @@
  *   <tr>
  *    <td>PDI_VIA_HARDWARE_USART</td>
  *    <td>Makefile CDEFS</td>
- *    <td>Define to force the PDI protocol (when enabled) to use the hardware USART instead of bit-banging to match the official
- *        AVRISP pinout. <i>Automatically set when compiled for the XPLAIN board.</i></td>  
+ *    <td>Define to force the PDI protocol (when enabled) to use the much faster hardware USART instead of bit-banging to
+ *        match the official AVRISP pinout. This breaks pinout compatibility with the official AVRISP MKII (and requires 
+ *        seperate ISP and PDI programming headers) but increases programming speed dramatically.
+ *        <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *  </table>
  */
