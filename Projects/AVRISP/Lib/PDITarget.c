@@ -44,7 +44,7 @@ volatile bool     IsSending;
 volatile uint16_t SoftUSART_Data;
 volatile uint8_t  SoftUSART_BitCount;
 
-ISR(TIMER0_COMPA_vect, ISR_BLOCK)
+ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
 	/* Toggle CLOCK pin in a single cycle (see AVR datasheet) */
 	BITBANG_PDICLOCK_PIN |= BITBANG_PDICLOCK_MASK;
@@ -112,11 +112,10 @@ void PDITarget_EnableTargetPDI(void)
 	asm volatile ("NOP"::);
 	asm volatile ("NOP"::);
 
-	/* Fire timer compare ISR every 50 cycles to manage the software USART */
-	OCR0A   = 50;
-	TCCR0A  = (1 << WGM01);
-	TCCR0B  = (1 << CS00);
-	TIMSK0  = (1 << OCIE0A);
+	/* Fire timer compare ISR every 100 cycles to manage the software USART */
+	OCR1A   = 100;
+	TCCR1B  = (1 << WGM12) | (1 << CS10);
+	TIMSK1  = (1 << OCIE1A);
 	
 	PDITarget_SendBreak();
 	PDITarget_SendBreak();
@@ -273,6 +272,22 @@ void PDITarget_SendBreak(void)
 	SoftUSART_Data     = 0x0FFF;
 	SoftUSART_BitCount = BITS_IN_FRAME;
 #endif
+}
+
+bool PDITarget_WaitWhileNVMBusBusy(void)
+{
+	TCNT0 = 0;
+
+	/* Poll the STATUS register to check to see if NVM access has been enabled */
+	while (TCNT0 < PDI_NVM_TIMEOUT_MS)
+	{
+		/* Send the LDCS command to read the PDI STATUS register to see the NVM bus is active */
+		PDITarget_SendByte(PDI_CMD_LDCS | PDI_STATUS_REG);
+		if (PDITarget_ReceiveByte() & PDI_STATUS_NVM)
+		  return true;
+	}
+	
+	return false;
 }
 
 #endif

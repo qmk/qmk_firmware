@@ -56,12 +56,7 @@
 		#endif
 
 	/* Defines: */
-		#define FLASH_BASE                     0x00800000
-		#define EPPROM_BASE                    0x008C0000
-		#define FUSE_BASE                      0x008F0020
-		#define DATAMEM_BASE                   0x01000000
-		#define PROD_SIGNATURE_BASE            0x008E0200
-		#define USER_SIGNATURE_BASE            0x008E0400
+		#define NVM_BUSY_TIMEOUT_MS            200
 		
 		#define NVM_REG_ADDR0                  0x00
 		#define NVM_REG_ADDR1                  0x01
@@ -113,8 +108,7 @@
 	/* Function Prototypes: */
 		void     NVMTarget_SendNVMRegAddress(uint8_t Register);
 		void     NVMTarget_SendAddress(uint32_t AbsoluteAddress);
-		bool     NVMTarget_WaitWhileNVMBusBusy(void);
-		void     NVMTarget_WaitWhileNVMControllerBusy(void);
+		bool     NVMTarget_WaitWhileNVMControllerBusy(void);
 		uint32_t NVMTarget_GetMemoryCRC(uint8_t MemoryCommand);
 		void     NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize);
 		void     NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address);

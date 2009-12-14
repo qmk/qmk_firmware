@@ -114,7 +114,7 @@ static void PDIProtocol_EnterXPROGMode(void)
 	  PDITarget_SendByte(PDI_NVMENABLE_KEY[i - 1]);
 
 	/* Wait until the NVM bus becomes active */
-	bool NVMBusEnabled = NVMTarget_WaitWhileNVMBusBusy();
+	bool NVMBusEnabled = PDITarget_WaitWhileNVMBusBusy();
 	
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_ENTER_PROGMODE);

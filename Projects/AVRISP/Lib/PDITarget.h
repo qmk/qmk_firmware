@@ -69,6 +69,8 @@
 		
 		#define BITS_IN_FRAME            12
 		
+		#define PDI_NVM_TIMEOUT_MS       200
+		
 		#define PDI_CMD_LDS              0x00
 		#define PDI_CMD_LD               0x20
 		#define PDI_CMD_STS              0x40
@@ -102,5 +104,6 @@
 		void    PDITarget_SendByte(uint8_t Byte);
 		uint8_t PDITarget_ReceiveByte(void);
 		void    PDITarget_SendBreak(void);
+		bool    PDITarget_WaitWhileNVMBusBusy(void);
 
 #endif
