@@ -117,5 +117,6 @@
 		void     NVMTarget_WaitWhileNVMControllerBusy(void);
 		uint32_t NVMTarget_GetMemoryCRC(uint8_t MemoryCommand);
 		void     NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize);
+		void     NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address);
 
 #endif

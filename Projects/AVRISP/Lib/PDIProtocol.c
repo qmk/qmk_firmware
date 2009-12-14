@@ -154,11 +154,31 @@ static void PDIProtocol_Erase(void)
 	} Erase_XPROG_Params;
 
 	Endpoint_Read_Stream_LE(&Erase_XPROG_Params, sizeof(Erase_XPROG_Params));
+	Erase_XPROG_Params.Address = SwapEndian_32(Erase_XPROG_Params.Address);
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	// TODO: Send erase command here via PDI protocol
+	uint8_t EraseCommand;
+	
+	if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_CHIP)
+	  EraseCommand = NVM_CMD_CHIPERASE;
+	else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_APP)
+	  EraseCommand = NVM_CMD_ERASEAPPSEC;
+	else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_BOOT)
+	  EraseCommand = NVM_CMD_ERASEBOOTSEC;
+	else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_EEPROM)
+	  EraseCommand = NVM_CMD_ERASEEEPROM;
+	else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_APP_PAGE)
+	  EraseCommand = NVM_CMD_ERASEAPPSECPAGE;
+	else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_BOOT_PAGE)
+	  EraseCommand = NVM_CMD_ERASEBOOTSECPAGE;
+	else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_EEPROM_PAGE)
+	  EraseCommand = NVM_CMD_ERASEEEPROMPAGE;
+	else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_USERSIG)
+	  EraseCommand = NVM_CMD_ERASEUSERSIG;
+	
+	NVMTarget_EraseMemory(EraseCommand, Erase_XPROG_Params.Address);
 	
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_ERASE);

@@ -137,4 +137,31 @@ void NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t Re
 	}
 }
 
+void NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address)
+{
+	NVMTarget_WaitWhileNVMControllerBusy();
+
+	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+	NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
+	PDITarget_SendByte(EraseCommand);
+	
+	if (EraseCommand == NVM_CMD_CHIPERASE)
+	{
+		/* Set CMDEX bit in NVM CTRLA register to start the chip erase */
+		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+		NVMTarget_SendNVMRegAddress(NVM_REG_CTRLA);
+		PDITarget_SendByte(1 << 0);		
+	}
+	else
+	{
+		/* Other erase modes just need us to address a byte within the target memory space */
+		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+		NVMTarget_SendAddress(Address);	
+		PDITarget_SendByte(0x00);
+	}
+	
+	NVMTarget_WaitWhileNVMBusBusy();
+	NVMTarget_WaitWhileNVMControllerBusy();
+}
+
 #endif
