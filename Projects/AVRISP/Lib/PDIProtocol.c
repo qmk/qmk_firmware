@@ -28,10 +28,6 @@
   this software.
 */
 
-#if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
-
-#warning PDI Programming Protocol support is incomplete and not currently suitable for use.
-
 /** \file
  *
  *  PDI Protocol handler, to process V2 Protocol wrapped PDI commands used in Atmel programmer devices.
@@ -39,6 +35,9 @@
 
 #define  INCLUDE_FROM_PDIPROTOCOL_C
 #include "PDIProtocol.h"
+
+#if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
+#warning PDI Programming Protocol support is incomplete and not currently suitable for use.
 
 uint32_t XPROG_Param_NVMBase;
 uint32_t XPROG_Param_EEPageSize;
@@ -59,7 +58,7 @@ void PDIProtocol_XPROG_SetMode(void)
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
 	Endpoint_Write_Byte(CMD_XPROG_SETMODE);
-	Endpoint_Write_Byte(SetMode_XPROG_Params.Protocol ? STATUS_CMD_FAILED : STATUS_CMD_OK);
+	Endpoint_Write_Byte((SetMode_XPROG_Params.Protocol == XPRG_PROTOCOL_PDI) ? STATUS_CMD_OK : STATUS_CMD_FAILED);
 	Endpoint_ClearIN();	
 }
 
@@ -115,7 +114,7 @@ static void PDIProtocol_EnterXPROGMode(void)
 	  PDITarget_SendByte(PDI_NVMENABLE_KEY[i - 1]);
 
 	/* Wait until the NVM bus becomes active */
-	bool NVMBusEnabled = PDITarget_WaitWhileNVMBusBusy();
+	bool NVMBusEnabled = NVMTarget_WaitWhileNVMBusBusy();
 	
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_ENTER_PROGMODE);
@@ -131,7 +130,7 @@ static void PDIProtocol_LeaveXPROGMode(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	/* Clear the RESET key into the RESET PDI register to allow the XMEGA to run */
+	/* Clear the RESET key in the RESET PDI register to allow the XMEGA to run */
 	PDITarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
 	PDITarget_SendByte(0x00);
 
@@ -221,10 +220,10 @@ static void PDIProtocol_ReadMemory(void)
 	if (ReadMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_USERSIG)
 	{
 		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_1BYTE << 2));
-		PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_CMD);
+		NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
 		PDITarget_SendByte(NVM_CMD_READUSERSIG);
 
-		
+		// TODO
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
@@ -250,36 +249,14 @@ static void PDIProtocol_ReadCRC(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	uint32_t MemoryCRC = 0;
-	uint8_t  CRCReadCommand;
+	uint32_t MemoryCRC;
 
 	if (ReadCRC_XPROG_Params.CRCType == XPRG_CRC_APP)
-	  CRCReadCommand = NVM_CMD_APPCRC;
+	  MemoryCRC = NVMTarget_GetMemoryCRC(NVM_CMD_APPCRC);
 	else if (ReadCRC_XPROG_Params.CRCType == XPRG_CRC_BOOT)
-	  CRCReadCommand = NVM_CMD_BOOTCRC;
+	  MemoryCRC = NVMTarget_GetMemoryCRC(NVM_CMD_BOOTCRC);
 	else
-	  CRCReadCommand = NVM_CMD_FLASHCRC;
-	
-	/* Set the NVM command to the correct CRC read command */
-	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_1BYTE << 2));
-	PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_CMD);
-	PDITarget_SendByte(CRCReadCommand);
-
-	/* Set CMDEX bit in NVM CTRLA register to start the CRC generation */
-	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_1BYTE << 2));
-	PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_CTRLA);
-	PDITarget_SendByte(1 << 0);
-
-	/* Wait until the NVM bus and controller is no longer busy */
-	PDITarget_WaitWhileNVMBusBusy();
-	PDITarget_WaitWhileNVMControllerBusy();
-	
-	/* Read the three byte generated CRC value */
-	PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_3BYTES << 2));
-	PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_DAT0);
-	MemoryCRC  = PDITarget_ReceiveByte();
-	MemoryCRC |= ((uint16_t)PDITarget_ReceiveByte() << 8);
-	MemoryCRC |= ((uint32_t)PDITarget_ReceiveByte() << 16);
+	  MemoryCRC = NVMTarget_GetMemoryCRC(NVM_CMD_FLASHCRC);
 	
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_CRC);
@@ -304,9 +281,9 @@ static void PDIProtocol_SetParam(void)
 	uint8_t XPROGParam = Endpoint_Read_Byte();
 	
 	if (XPROGParam == XPRG_PARAM_NVMBASE)
-	  XPROG_Param_NVMBase = Endpoint_Read_DWord_LE();
+	  XPROG_Param_NVMBase = Endpoint_Read_DWord_BE();
 	else if (XPROGParam == XPRG_PARAM_EEPPAGESIZE)
-	  XPROG_Param_EEPageSize = Endpoint_Read_Word_LE();
+	  XPROG_Param_EEPageSize = Endpoint_Read_Word_BE();
 	else
 	  ReturnStatus = XPRG_ERR_FAILED;
 	

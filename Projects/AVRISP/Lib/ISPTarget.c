@@ -28,14 +28,14 @@
   this software.
 */
 
-#if defined(ENABLE_ISP_PROTOCOL) || defined(__DOXYGEN__)
-
 /** \file
  *
  *  Target-related functions for the ISP Protocol decoder.
  */
 
 #include "ISPTarget.h"
+
+#if defined(ENABLE_ISP_PROTOCOL) || defined(__DOXYGEN__)
 
 /** Converts the given AVR Studio SCK duration parameter (set by a SET PARAM command from the host) to the nearest
  *  possible SPI clock prescaler mask for passing to the SPI_Init() routine.

@@ -28,14 +28,14 @@
   this software.
 */
 
-#if defined(ENABLE_ISP_PROTOCOL) || defined(__DOXYGEN__)
-
 /** \file
  *
  *  ISP Protocol handler, to process V2 Protocol wrapped ISP commands used in Atmel programmer devices.
  */
 
 #include "ISPProtocol.h"
+
+#if defined(ENABLE_ISP_PROTOCOL) || defined(__DOXYGEN__)
 
 /** Handler for the CMD_ENTER_PROGMODE_ISP command, which attempts to enter programming mode on
  *  the attached device, returning success or failure back to the host.

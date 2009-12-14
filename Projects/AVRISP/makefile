@@ -133,6 +133,7 @@ SRC = $(TARGET).c                                                 \
       Lib/ISPTarget.c                                             \
 	  Lib/PDIProtocol.c                                           \
 	  Lib/PDITarget.c                                             \
+	  Lib/NVMTarget.c                                             \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \

@@ -28,8 +28,6 @@
   this software.
 */
 
-#if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
-
 /** \file
  *
  *  Target-related functions for the PDI Protocol decoder.
@@ -37,6 +35,8 @@
 
 #define  INCLUDE_FROM_PDITARGET_C
 #include "PDITarget.h"
+
+#if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
 
 volatile bool     IsSending;
 
@@ -273,42 +273,6 @@ void PDITarget_SendBreak(void)
 	SoftUSART_Data     = 0x0FFF;
 	SoftUSART_BitCount = BITS_IN_FRAME;
 #endif
-}
-
-void PDITarget_SendAddress(uint32_t Address)
-{
-	PDITarget_SendByte(Address >> 24);
-	PDITarget_SendByte(Address >> 26);
-	PDITarget_SendByte(Address >> 8);
-	PDITarget_SendByte(Address &  0xFF);
-}
-
-bool PDITarget_WaitWhileNVMBusBusy(void)
-{
-	uint8_t AttemptsRemaining = 255;
-
-	/* Poll the STATUS register to check to see if NVM access has been enabled */
-	while (AttemptsRemaining--)
-	{
-		PDITarget_SendByte(PDI_CMD_LDCS | PDI_STATUS_REG);
-		if (PDITarget_ReceiveByte() & PDI_STATUS_NVM)
-		  return true;
-	}
-	
-	return false;
-}
-
-void PDITarget_WaitWhileNVMControllerBusy(void)
-{
-	/* Poll the NVM STATUS register to check to see if NVM controller is busy */
-	for (;;)
-	{
-		PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_1BYTE << 2));
-		PDITarget_SendAddress(DATAMEM_BASE | DATAMEM_NVM_STATUS);
-		
-		if (!(PDITarget_ReceiveByte() & (1 << 7)))
-		  return;
-	}
 }
 
 #endif

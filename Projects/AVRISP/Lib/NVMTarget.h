@@ -30,23 +30,22 @@
 
 /** \file
  *
- *  Header file for ISPTarget.c.
+ *  Header file for NVMTarget.c.
  */
 
-#ifndef _ISP_TARGET_
-#define _ISP_TARGET_
+#ifndef _NVM_TARGET_
+#define _NVM_TARGET_
 
 	/* Includes: */
 		#include <avr/io.h>
-		#include <util/delay.h>
-
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Peripheral/SPI.h>
+		#include <avr/interrupt.h>
+		#include <stdbool.h>
 		
-		#include "../Descriptors.h"
-		#include "V2ProtocolConstants.h"
-		#include "V2ProtocolParams.h"
-
+		#include <LUFA/Common/Common.h>
+		
+		#include "PDIProtocol.h"
+		#include "PDITarget.h"
+	
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL
@@ -56,16 +55,36 @@
 			#endif
 		#endif
 
-	/* Macros: */
-		/** Total number of allowable ISP programming speeds supported by the device */
-		#define TOTAL_ISP_PROGRAMMING_SPEEDS  7
-
+	/* Defines: */
+		#define FLASH_BASE           0x00800000
+		#define EPPROM_BASE          0x008C0000
+		#define FUSE_BASE            0x008F0020
+		#define DATAMEM_BASE         0x01000000
+		#define PROD_SIGNATURE_BASE  0x008E0200
+		#define USER_SIGNATURE_BASE  0x008E0400
+		
+		#define NVM_REG_ADDR0        0x00
+		#define NVM_REG_ADDR1        0x01
+		#define NVM_REG_ADDR2        0x02
+		#define NVM_REG_DAT0         0x04
+		#define NVM_REG_DAT1         0x05
+		#define NVM_REG_DAT2         0x06
+		#define NVM_REG_CMD          0x0A
+		#define NVM_REG_CTRLA        0x0B
+		#define NVM_REG_CTRLB        0x0C
+		#define NVM_REG_INTCTRL      0x0D
+		#define NVM_REG_STATUS       0x0F
+		#define NVM_REG_LOCKBITS     0x10
+		
+		#define NVM_CMD_APPCRC       0x38
+		#define NVM_CMD_BOOTCRC      0x39
+		#define NVM_CMD_FLASHCRC     0x78
+		#define NVM_CMD_READUSERSIG  0x03
+				
 	/* Function Prototypes: */
-			uint8_t ISPTarget_GetSPIPrescalerMask(void);
-			void    ISPTarget_ChangeTargetResetLine(bool ResetTarget);
-			uint8_t ISPTarget_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAddress, uint8_t PollValue,
-                                                   uint8_t DelayMS, uint8_t ReadMemCommand);
-			uint8_t ISPTarget_WaitWhileTargetBusy(void);
-			void    ISPTarget_LoadExtendedAddress(void);
+		void NVMTarget_SendNVMRegAddress(uint8_t Register);
+		bool     NVMTarget_WaitWhileNVMBusBusy(void);
+		void     NVMTarget_WaitWhileNVMControllerBusy(void);
+		uint32_t NVMTarget_GetMemoryCRC(uint8_t MemoryCommand);
 
 #endif
