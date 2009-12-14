@@ -42,10 +42,18 @@ void NVMTarget_SendNVMRegAddress(uint8_t Register)
 {
 	uint32_t Address = XPROG_Param_NVMBase | Register;
 
-	PDITarget_SendByte(Address >> 24);
-	PDITarget_SendByte(Address >> 26);
-	PDITarget_SendByte(Address >> 8);
 	PDITarget_SendByte(Address &  0xFF);
+	PDITarget_SendByte(Address >> 8);
+	PDITarget_SendByte(Address >> 16);
+	PDITarget_SendByte(Address >> 24);
+}
+
+void NVMTarget_SendAddress(uint32_t AbsoluteAddress)
+{
+	PDITarget_SendByte(AbsoluteAddress &  0xFF);
+	PDITarget_SendByte(AbsoluteAddress >> 8);
+	PDITarget_SendByte(AbsoluteAddress >> 16);
+	PDITarget_SendByte(AbsoluteAddress >> 24);
 }
 
 bool NVMTarget_WaitWhileNVMBusBusy(void)
@@ -68,7 +76,7 @@ void NVMTarget_WaitWhileNVMControllerBusy(void)
 	/* Poll the NVM STATUS register while the NVM controller is busy */
 	for (;;)
 	{
-		PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_1BYTE << 2));
+		PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
 		NVMTarget_SendNVMRegAddress(NVM_REG_STATUS);
 		
 		if (!(PDITarget_ReceiveByte() & (1 << 7)))
@@ -80,13 +88,15 @@ uint32_t NVMTarget_GetMemoryCRC(uint8_t MemoryCommand)
 {
 	uint32_t MemoryCRC;
 
+	NVMTarget_WaitWhileNVMControllerBusy();
+
 	/* Set the NVM command to the correct CRC read command */
-	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_1BYTE << 2));
+	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
 	PDITarget_SendByte(MemoryCommand);
 
 	/* Set CMDEX bit in NVM CTRLA register to start the CRC generation */
-	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_1BYTE << 2));
+	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	NVMTarget_SendNVMRegAddress(NVM_REG_CTRLA);
 	PDITarget_SendByte(1 << 0);
 
@@ -94,14 +104,37 @@ uint32_t NVMTarget_GetMemoryCRC(uint8_t MemoryCommand)
 	NVMTarget_WaitWhileNVMBusBusy();
 	NVMTarget_WaitWhileNVMControllerBusy();
 	
-	/* Read the three byte generated CRC value */
-	PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_3BYTES << 2));
+	/* Read the three bytes generated CRC value */
+	PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
 	NVMTarget_SendNVMRegAddress(NVM_REG_DAT0);
 	MemoryCRC  = PDITarget_ReceiveByte();
+
+	PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
+	NVMTarget_SendNVMRegAddress(NVM_REG_DAT1);
 	MemoryCRC |= ((uint16_t)PDITarget_ReceiveByte() << 8);
+
+	PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
+	NVMTarget_SendNVMRegAddress(NVM_REG_DAT2);
 	MemoryCRC |= ((uint32_t)PDITarget_ReceiveByte() << 16);
 	
 	return MemoryCRC;
+}
+
+void NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize)
+{
+	NVMTarget_WaitWhileNVMControllerBusy();
+
+	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+	NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
+	PDITarget_SendByte(NVM_CMD_READNVM);
+
+	/* TODO: Optimize via REPEAT and buffer orientated commands */
+	for (uint16_t i = 0; i < ReadSize; i++)
+	{
+		PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
+		NVMTarget_SendAddress(ReadAddress++);
+		*(ReadBuffer++) = PDITarget_ReceiveByte();
+	}
 }
 
 #endif

@@ -216,19 +216,16 @@ static void PDIProtocol_ReadMemory(void)
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	
-	if (ReadMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_USERSIG)
-	{
-		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_1BYTE << 2));
-		NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
-		PDITarget_SendByte(NVM_CMD_READUSERSIG);
 
-		// TODO
-	}
-	
+	uint8_t ReadBuffer[ReadMemory_XPROG_Params.Length];
+	NVMTarget_ReadMemory(ReadMemory_XPROG_Params.Address, ReadBuffer, ReadMemory_XPROG_Params.Length);
+
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_READ_MEM);
 	Endpoint_Write_Byte(ReturnStatus);
+	
+	if (ReturnStatus == XPRG_ERR_OK)
+	  Endpoint_Write_Stream_LE(ReadBuffer, ReadMemory_XPROG_Params.Length);
 	
 	Endpoint_ClearIN();
 }
@@ -250,13 +247,16 @@ static void PDIProtocol_ReadCRC(void)
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
 	uint32_t MemoryCRC;
+	uint8_t  CRCCommand;
 
 	if (ReadCRC_XPROG_Params.CRCType == XPRG_CRC_APP)
-	  MemoryCRC = NVMTarget_GetMemoryCRC(NVM_CMD_APPCRC);
+	  CRCCommand = NVM_CMD_APPCRC;
 	else if (ReadCRC_XPROG_Params.CRCType == XPRG_CRC_BOOT)
-	  MemoryCRC = NVMTarget_GetMemoryCRC(NVM_CMD_BOOTCRC);
+	  CRCCommand = NVM_CMD_BOOTCRC;
 	else
-	  MemoryCRC = NVMTarget_GetMemoryCRC(NVM_CMD_FLASHCRC);
+	  CRCCommand = NVM_CMD_FLASHCRC;
+	
+	MemoryCRC = NVMTarget_GetMemoryCRC(CRCCommand);
 	
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_CRC);
