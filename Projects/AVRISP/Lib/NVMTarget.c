@@ -96,7 +96,7 @@ bool NVMTarget_WaitWhileNVMControllerBusy(void)
  *  \param[in]  CRCCommand  NVM CRC command to issue to the target
  *  \param[out] CRCDest     CRC Destination when read from the target
  *
- *  \return Boolean true if the command sequence complete sucessfully
+ *  \return Boolean true if the command sequence complete successfully
  */
 bool NVMTarget_GetMemoryCRC(uint8_t CRCCommand, uint32_t* CRCDest)
 {
@@ -148,7 +148,7 @@ bool NVMTarget_GetMemoryCRC(uint8_t CRCCommand, uint32_t* CRCDest)
  *  \param[out] ReadBuffer   Buffer to store read data into
  *  \param[in]  ReadSize     Number of bytes to read
  *
- *  \return Boolean true if the command sequence complete sucessfully
+ *  \return Boolean true if the command sequence complete successfully
  */
 bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize)
 {
@@ -156,7 +156,7 @@ bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t Re
 	if (!(NVMTarget_WaitWhileNVMControllerBusy()))
 	  return false;
 	
-	/* Send the READNVM command to the NVM controller for reading of an aribtrary location */
+	/* Send the READNVM command to the NVM controller for reading of an arbitrary location */
 	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
 	PDITarget_SendByte(NVM_CMD_READNVM);
@@ -166,9 +166,8 @@ bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t Re
 	NVMTarget_SendAddress(ReadAddress);
 
 	/* Send the REPEAT command with the specified number of bytes to read */
-	PDITarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_2BYTES);
-	PDITarget_SendByte(ReadSize &  0xFF);
-	PDITarget_SendByte(ReadSize >> 8);
+	PDITarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
+	PDITarget_SendByte(ReadSize - 1);
 		
 	/* Send a LD command with indirect access and postincrement to read out the bytes */
 	PDITarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
@@ -185,26 +184,23 @@ bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t Re
  *  \param[in]  WriteBuffer   Buffer to source data from
  *  \param[in]  WriteSize     Number of bytes to write
  *
- *  \return Boolean true if the command sequence complete sucessfully
+ *  \return Boolean true if the command sequence complete successfully
  */
-bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint8_t* WriteBuffer, uint16_t WriteSize)
+bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint8_t* WriteBuffer)
 {
-	for (uint16_t i = 0; i < WriteSize; i++)
-	{
-		/* Wait until the NVM controller is no longer busy */
-		if (!(NVMTarget_WaitWhileNVMControllerBusy()))
-		  return false;
+	/* Wait until the NVM controller is no longer busy */
+	if (!(NVMTarget_WaitWhileNVMControllerBusy()))
+	  return false;
 
-		/* Send the memory write command to the target */
-		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
-		NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
-		PDITarget_SendByte(WriteCommand);
+	/* Send the memory write command to the target */
+	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+	NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
+	PDITarget_SendByte(WriteCommand);
 	
-		/* Send each new memory byte to the memory to the target */
-		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
-		NVMTarget_SendAddress(WriteAddress++);
-		PDITarget_SendByte(*(WriteBuffer++));
-	}
+	/* Send new memory byte to the memory to the target */
+	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+	NVMTarget_SendAddress(WriteAddress++);
+	PDITarget_SendByte(*(WriteBuffer++));
 	
 	return true;
 }
@@ -219,7 +215,7 @@ bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint
  *  \param[in]  WriteBuffer       Buffer to source data from
  *  \param[in]  WriteSize         Number of bytes to write
  *
- *  \return Boolean true if the command sequence complete sucessfully
+ *  \return Boolean true if the command sequence complete successfully
  */
 bool NVMTarget_WritePageMemory(uint8_t WriteBuffCommand, uint8_t EraseBuffCommand, uint8_t WritePageCommand,
                                uint8_t PageMode, uint32_t WriteAddress, uint8_t* WriteBuffer, uint16_t WriteSize)
@@ -257,22 +253,13 @@ bool NVMTarget_WritePageMemory(uint8_t WriteBuffCommand, uint8_t EraseBuffComman
 		NVMTarget_SendAddress(WriteAddress);
 
 		/* Send the REPEAT command with the specified number of bytes to write */
-		PDITarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_2BYTES);
-		PDITarget_SendByte(WriteSize &  0xFF);
-		PDITarget_SendByte(WriteSize >> 8);
+		PDITarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
+		PDITarget_SendByte(WriteSize - 1);
 			
 		/* Send a ST command with indirect access and postincrement to write the bytes */
 		PDITarget_SendByte(PDI_CMD_ST | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
 		for (uint16_t i = 0; i < WriteSize; i++)
 		  PDITarget_SendByte(*(WriteBuffer++));
-
-		// TEMP
-		PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
-		NVMTarget_SendNVMRegAddress(NVM_REG_STATUS);
-		GPIOR0 = PDITarget_ReceiveByte();
-		if (!(GPIOR0 & (1 << 0)))
-		  JTAG_DEBUG_POINT();
-		// END TEMP
 	}
 	
 	if (PageMode & XPRG_PAGEMODE_WRITE)
@@ -300,7 +287,7 @@ bool NVMTarget_WritePageMemory(uint8_t WriteBuffCommand, uint8_t EraseBuffComman
  *  \param[in] EraseCommand  NVM erase command to send to the device
  *  \param[in] Address  Address inside the memory space to erase
  *
- *  \return Boolean true if the command sequence complete sucessfully
+ *  \return Boolean true if the command sequence complete successfully
  */
 bool NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address)
 {
@@ -313,7 +300,7 @@ bool NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address)
 	NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
 	PDITarget_SendByte(EraseCommand);
 	
-	/* Chip erase is handled seperately, since it's procedure is different to other erase types */
+	/* Chip erase is handled separately, since it's procedure is different to other erase types */
 	if (EraseCommand == NVM_CMD_CHIPERASE)
 	{
 		/* Set CMDEX bit in NVM CTRLA register to start the chip erase */

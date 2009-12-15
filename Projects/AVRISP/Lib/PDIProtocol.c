@@ -37,8 +37,6 @@
 #include "PDIProtocol.h"
 
 #if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
-#warning PDI Programming Protocol support is incomplete and not currently suitable for general use.
-
 /** Base absolute address for the target's NVM controller */
 uint32_t XPROG_Param_NVMBase;
 
@@ -164,6 +162,7 @@ static void PDIProtocol_Erase(void)
 	
 	uint8_t EraseCommand = NVM_CMD_NOOP;
 	
+	/* Determine which NVM command to send to the device depending on the memory to erase */
 	if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_CHIP)
 	  EraseCommand = NVM_CMD_CHIPERASE;
 	else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_APP)
@@ -181,6 +180,7 @@ static void PDIProtocol_Erase(void)
 	else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_USERSIG)
 	  EraseCommand = NVM_CMD_ERASEUSERSIG;
 	
+	/* Erase the target memory, indicate timeout if ocurred */
 	if (!(NVMTarget_EraseMemory(EraseCommand, Erase_XPROG_Params.Address)))
 	  ReturnStatus = XPRG_ERR_TIMEOUT;
 	
@@ -213,65 +213,51 @@ static void PDIProtocol_WriteMemory(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-
-	uint8_t WriteCommand     = NVM_CMD_NOOP;
-	uint8_t WriteBuffCommand = NVM_CMD_NOOP;
-	uint8_t EraseBuffCommand = NVM_CMD_NOOP;
-	bool    PagedMemory      = false;
+	/* Assume FLASH page programming by default, as it is the common case */
+	uint8_t WriteCommand     = NVM_CMD_WRITEFLASHPAGE;
+	uint8_t WriteBuffCommand = NVM_CMD_LOADFLASHPAGEBUFF;
+	uint8_t EraseBuffCommand = NVM_CMD_ERASEFLASHPAGEBUFF;
+	bool    PagedMemory      = true;
 	
 	if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_APPL)
 	{
-		WriteCommand     = NVM_CMD_ERASEWRITEFLASH;
-		WriteBuffCommand = NVM_CMD_LOADFLASHPAGEBUFF;
-		EraseBuffCommand = NVM_CMD_ERASEFLASHPAGEBUFF;
-		PagedMemory      = true;
+		WriteCommand     = NVM_CMD_WRITEAPPSECPAGE;
 	}
 	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_BOOT)
 	{
-		WriteCommand     = NVM_CMD_ERASEWRITEFLASH;
-		WriteBuffCommand = NVM_CMD_LOADFLASHPAGEBUFF;
-		EraseBuffCommand = NVM_CMD_ERASEFLASHPAGEBUFF;
-		PagedMemory      = true;
+		WriteCommand     = NVM_CMD_WRITEBOOTSECPAGE;
 	}
 	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_EEPROM)
 	{
-		WriteCommand     = NVM_CMD_ERASEWRITEEEPROMPAGE;
+		WriteCommand     = NVM_CMD_WRITEEEPROMPAGE;
 		WriteBuffCommand = NVM_CMD_LOADEEPROMPAGEBUFF;
 		EraseBuffCommand = NVM_CMD_ERASEEEPROMPAGEBUFF;
-		PagedMemory      = true;
 	}
 	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_USERSIG)
 	{
+		/* User signature is paged, but needs us to manually indicate the mode bits since the host doesn't set them */
+		WriteMemory_XPROG_Params.PageMode = (XPRG_PAGEMODE_ERASE | XPRG_PAGEMODE_WRITE);
 		WriteCommand     = NVM_CMD_WRITEUSERSIG;
-		WriteBuffCommand = NVM_CMD_LOADFLASHPAGEBUFF;
-		EraseBuffCommand = NVM_CMD_ERASEFLASHPAGEBUFF;
-		PagedMemory      = true;
 	}
 	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_FUSE)
 	{
-		WriteCommand = NVM_CMD_WRITEFUSE;
+		WriteCommand     = NVM_CMD_WRITEFUSE;
+		PagedMemory      = false;
 	}
 	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_LOCKBITS)
 	{
-		WriteCommand = NVM_CMD_WRITELOCK;
+		WriteCommand     = NVM_CMD_WRITELOCK;
+		PagedMemory      = false;
 	}
 	
-	if (PagedMemory)
+	/* Send the appropriate memory write commands to the device, indicate timeout if occurred */
+	if ((PagedMemory && !NVMTarget_WritePageMemory(WriteBuffCommand, EraseBuffCommand, WriteCommand, 
+		                                           WriteMemory_XPROG_Params.PageMode, WriteMemory_XPROG_Params.Address,
+		                                           WriteMemory_XPROG_Params.ProgData, WriteMemory_XPROG_Params.Length)) ||
+	   (!PagedMemory && !NVMTarget_WriteByteMemory(WriteCommand, WriteMemory_XPROG_Params.Address,
+	                                               WriteMemory_XPROG_Params.ProgData)))
 	{
-		if (!(NVMTarget_WritePageMemory(WriteBuffCommand, EraseBuffCommand, WriteCommand, 
-		                                WriteMemory_XPROG_Params.PageMode, WriteMemory_XPROG_Params.Address,
-		                                WriteMemory_XPROG_Params.ProgData, WriteMemory_XPROG_Params.Length)))
-		{
-			ReturnStatus = XPRG_ERR_TIMEOUT;
-		}
-	}
-	else
-	{
-		if (!(NVMTarget_WriteByteMemory(WriteCommand, WriteMemory_XPROG_Params.Address, WriteMemory_XPROG_Params.ProgData,
-										WriteMemory_XPROG_Params.Length)))
-		{
-			ReturnStatus = XPRG_ERR_TIMEOUT;
-		}
+		ReturnStatus = XPRG_ERR_TIMEOUT;
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
@@ -301,8 +287,9 @@ static void PDIProtocol_ReadMemory(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	uint8_t ReadBuffer[ReadMemory_XPROG_Params.Length];
+	uint8_t ReadBuffer[256];
 	
+	/* Read the target's memory, indicate timeout if occurred */
 	if (!(NVMTarget_ReadMemory(ReadMemory_XPROG_Params.Address, ReadBuffer, ReadMemory_XPROG_Params.Length)))
 	  ReturnStatus = XPRG_ERR_TIMEOUT;
 
@@ -335,6 +322,7 @@ static void PDIProtocol_ReadCRC(void)
 	uint8_t  CRCCommand = NVM_CMD_NOOP;
 	uint32_t MemoryCRC;
 
+	/* Determine which NVM command to send to the device depending on the memory to CRC */
 	if (ReadCRC_XPROG_Params.CRCType == XPRG_CRC_APP)
 	  CRCCommand = NVM_CMD_APPCRC;
 	else if (ReadCRC_XPROG_Params.CRCType == XPRG_CRC_BOOT)
@@ -342,6 +330,7 @@ static void PDIProtocol_ReadCRC(void)
 	else
 	  CRCCommand = NVM_CMD_FLASHCRC;
 	
+	/* Perform and retrieve the memory CRC, indicate timeout if occurred */
 	if (!(NVMTarget_GetMemoryCRC(CRCCommand, &MemoryCRC)))
 	  ReturnStatus = XPRG_ERR_TIMEOUT;
 	
@@ -367,6 +356,7 @@ static void PDIProtocol_SetParam(void)
 
 	uint8_t XPROGParam = Endpoint_Read_Byte();
 	
+	/* Determine which parameter is being set, store the new parameter value */
 	if (XPROGParam == XPRG_PARAM_NVMBASE)
 	  XPROG_Param_NVMBase = Endpoint_Read_DWord_BE();
 	else if (XPROGParam == XPRG_PARAM_EEPPAGESIZE)

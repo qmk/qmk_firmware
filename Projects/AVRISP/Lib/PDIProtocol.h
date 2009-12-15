@@ -98,8 +98,8 @@
 		#define XPRG_PROTOCOL_PDI                   0x00
 		#define XPRG_PROTOCOL_JTAG                  0x01
 		
-		#define XPRG_PAGEMODE_WRITE                 (1 << 0)
-		#define XPRG_PAGEMODE_ERASE                 (1 << 1)
+		#define XPRG_PAGEMODE_WRITE                 (1 << 1)
+		#define XPRG_PAGEMODE_ERASE                 (1 << 0)
 	
 	/* External Variables: */
 		extern uint32_t XPROG_Param_NVMBase;
