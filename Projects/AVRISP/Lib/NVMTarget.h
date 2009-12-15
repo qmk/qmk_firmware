@@ -111,6 +111,8 @@
 		bool NVMTarget_WaitWhileNVMControllerBusy(void);
 		bool NVMTarget_GetMemoryCRC(uint8_t CRCCommand, uint32_t* CRCDest);
 		bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize);
+		bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint8_t* WriteBuffer,
+		                               uint16_t WriteSize);
 		bool NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address);
 
 #endif

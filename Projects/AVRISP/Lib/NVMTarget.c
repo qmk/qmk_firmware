@@ -114,6 +114,10 @@ bool NVMTarget_GetMemoryCRC(uint8_t CRCCommand, uint32_t* CRCDest)
 	NVMTarget_SendNVMRegAddress(NVM_REG_CTRLA);
 	PDITarget_SendByte(1 << 0);
 
+	/* Wait until the NVM bus is ready again */
+	if (!(PDITarget_WaitWhileNVMBusBusy()))
+	  return false;
+
 	/* Wait until the NVM controller is no longer busy */
 	if (!(NVMTarget_WaitWhileNVMControllerBusy()))
 	  return false;
@@ -175,6 +179,37 @@ bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t Re
 		PDITarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
 		for (uint16_t i = 0; i < ReadSize; i++)
 		  *(ReadBuffer++) = PDITarget_ReceiveByte();
+	}
+	
+	return true;
+}
+
+/** Writes byte addressed memory to the target's memory spaces.
+ *
+ *  \param[in]  WriteCommand      Command to send to the device to write each memory page
+ *  \param[in]  WriteAddress      Start address to write to within the target's address space
+ *  \param[in]  WriteBuffer       Buffer to source data from
+ *  \param[in]  WriteSize         Number of bytes to write
+ *
+ *  \return Boolean true if the command sequence complete sucessfully
+ */
+bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint8_t* WriteBuffer, uint16_t WriteSize)
+{
+	for (uint8_t i = 0; i < WriteSize; i++)
+	{
+		/* Wait until the NVM controller is no longer busy */
+		if (!(NVMTarget_WaitWhileNVMControllerBusy()))
+		  return false;
+
+		/* Send the memory write command to the target */
+		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+		NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
+		PDITarget_SendByte(WriteCommand);
+	
+		/* Send each new memory byte to the memory to the target */
+		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+		NVMTarget_SendAddress(WriteAddress++);
+		PDITarget_SendByte(*(WriteBuffer++));
 	}
 	
 	return true;

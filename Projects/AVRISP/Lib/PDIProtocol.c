@@ -162,7 +162,7 @@ static void PDIProtocol_Erase(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	uint8_t EraseCommand;
+	uint8_t EraseCommand = NVM_CMD_NOOP;
 	
 	if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_CHIP)
 	  EraseCommand = NVM_CMD_CHIPERASE;
@@ -198,9 +198,10 @@ static void PDIProtocol_WriteMemory(void)
 	struct
 	{
 		uint8_t  MemoryType;
+		uint8_t  PageMode;
 		uint32_t Address;
 		uint16_t Length;
-		uint8_t  ProgData[256];
+		uint8_t  ProgData[512];
 	} WriteMemory_XPROG_Params;
 	
 	Endpoint_Read_Stream_LE(&WriteMemory_XPROG_Params, (sizeof(WriteMemory_XPROG_Params) -
@@ -211,11 +212,52 @@ static void PDIProtocol_WriteMemory(void)
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
+
+
+	uint8_t WriteCommand     = NVM_CMD_NOOP;
+	uint8_t WritePageCommand = NVM_CMD_NOOP;
+	bool    PagedMemory      = false;
 	
-	// TODO: Send program command here via PDI protocol
+	if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_APPL)
+	{
+		PagedMemory = true;
+	}
+	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_BOOT)
+	{
+		PagedMemory = true;
+	}
+	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_EEPROM)
+	{
+		PagedMemory = true;
+	}
+	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_USERSIG)
+	{
+		PagedMemory = true;
+	}
+	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_FUSE)
+	{
+		WriteCommand = NVM_CMD_WRITEFUSE;
+	}
+	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_LOCKBITS)
+	{
+		WriteCommand = NVM_CMD_WRITELOCK;
+	}
+	
+	if (PagedMemory)
+	{
+
+	}
+	else
+	{
+		if (!(NVMTarget_WriteByteMemory(WriteCommand, WriteMemory_XPROG_Params.Address, WriteMemory_XPROG_Params.ProgData,
+										WriteMemory_XPROG_Params.Length)))
+		{
+			ReturnStatus = XPRG_ERR_TIMEOUT;
+		}
+	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
-	Endpoint_Write_Byte(XPRG_CMD_READ_MEM);
+	Endpoint_Write_Byte(XPRG_CMD_WRITE_MEM);
 	Endpoint_Write_Byte(ReturnStatus);	
 	Endpoint_ClearIN();
 }
@@ -272,8 +314,8 @@ static void PDIProtocol_ReadCRC(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
+	uint8_t  CRCCommand = NVM_CMD_NOOP;
 	uint32_t MemoryCRC;
-	uint8_t  CRCCommand;
 
 	if (ReadCRC_XPROG_Params.CRCType == XPRG_CRC_APP)
 	  CRCCommand = NVM_CMD_APPCRC;
