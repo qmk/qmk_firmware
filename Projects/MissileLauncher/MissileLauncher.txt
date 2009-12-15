@@ -4,17 +4,17 @@
  *  documentation pages. It is not a project source file.
  */
  
-/** \mainpage Missile Launcher
+/** \mainpage David Fletcher's Missile Launcher
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section SSec_Compat Project Compatibility:
  *
- *  The following list indicates what microcontrollers are compatible with this demo.
+ *  The following list indicates what microcontrollers are compatible with this project.
  *
  *  - Series 7 USB AVRs
  *
  *  \section SSec_Info USB Information:
  *
- *  The following table gives a rundown of the USB utilization of this demo.
+ *  The following table gives a rundown of the USB utilization of this project.
  *
  *  <table>
  *   <tr>
@@ -47,7 +47,7 @@
  *
  *  \section SSec_Options Project Options
  *
- *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
  *
  *  <table>
  *   <tr>

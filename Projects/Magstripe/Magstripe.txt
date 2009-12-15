@@ -6,16 +6,16 @@
  
 /** \mainpage Denver Gingerich's USBSnoop Magnetic Card Reader Project
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section SSec_Compat Project Compatibility:
  *
- *  The following list indicates what microcontrollers are compatible with this demo.
+ *  The following list indicates what microcontrollers are compatible with this project.
  *
  *  - AT90USB1287
  *  - AT90USB1286
  *
  *  \section SSec_Info USB Information:
  *
- *  The following table gives a rundown of the USB utilization of this demo.
+ *  The following table gives a rundown of the USB utilization of this project.
  *
  * <table>
  *  <tr>
@@ -87,17 +87,17 @@
  *   </tr>
  *  </table>
  *
- *  This project is based on the LUFA Keyboard demonstration application,
+ *  This project is based on the LUFA Keyboard projectnstration application,
  *  written by Denver Gingerich.
  *
  *  This application uses a keyboard HID driver to communicate the data collected
  *  a TTL magnetic stripe reader to the connected computer. The raw bitstream
  *  obtained from the magnetic stripe reader is "typed" through the keyboard
- *  driver as 0's and 1's. After every card swipe, the demo will send a return key.
+ *  driver as 0's and 1's. After every card swipe, the project will send a return key.
  *
  *  \section SSec_Options Project Options
  *
- *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
  *
  *  <table>
  *   <tr>

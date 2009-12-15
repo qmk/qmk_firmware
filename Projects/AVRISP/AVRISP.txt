@@ -6,9 +6,9 @@
  
 /** \mainpage AVRISP MKII Programmer Project
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section SSec_Compat Project Compatibility:
  *
- *  The following list indicates what microcontrollers are compatible with this demo.
+ *  The following list indicates what microcontrollers are compatible with this project.
  *
  *  - Series 7 USB AVRs
  *  - Series 6 USB AVRs
@@ -17,7 +17,7 @@
  *
  *  \section SSec_Info USB Information:
  *
- *  The following table gives a rundown of the USB utilization of this demo.
+ *  The following table gives a rundown of the USB utilization of this project.
  *
  * <table>
  *  <tr>
@@ -67,7 +67,7 @@
  *  While this application can be compiled for USB AVRs with as little as 8KB of FLASH, for full functionality 16KB or more
  *  of FLASH is required. On 8KB devices, either ISP or PDI programming support can be disabled to reduce program size.
  *
- *
+ *  \section Sec_ISP ISP Connections
  *  Connections to the device for SPI programming (when enabled):
  *
  *  <table>
@@ -111,7 +111,7 @@
  *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
  *  <b><sup>2</sup></b> <i>See \ref SSec_Options section</i>
  *
- *
+ *  \section Sec_PDI PDI Connections
  *  Connections to the device for PDI programming<b><sup>1</sup></b> (when enabled):
  *
  *  <table>
@@ -152,12 +152,12 @@
  *   </tr>
  *  </table>
  *
- *  <b><sup>1</sup></b> When PDI_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
- *                      via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.
+ *  <b><sup>1</sup></b> <i>When PDI_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
+ *                         via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i>
  *
  *  \section SSec_Options Project Options
  *
- *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
  *
  *  <table>
  *   <tr>

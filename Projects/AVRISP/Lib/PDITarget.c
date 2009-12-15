@@ -45,9 +45,8 @@ volatile bool     IsSending;
 /** Software USART raw frame bits for transmission/reception. */
 volatile uint16_t SoftUSART_Data;
 
-/** Bits remaining to be sent or received via the software USART. */
-volatile uint8_t  SoftUSART_BitCount;
-
+/** Bits remaining to be sent or received via the software USART - set as a GPIOR for speed. */
+#define SoftUSART_BitCount   GPIOR2
 
 /** ISR to manage the software USART when bit-banged USART mode is selected. */
 ISR(TIMER1_COMPA_vect, ISR_BLOCK)
@@ -59,27 +58,33 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	if (!(SoftUSART_BitCount))
 	  return;
 
-	/* Check to see if the current clock state is on the rising or falling edge */
-	bool IsRisingEdge = (BITBANG_PDICLOCK_PORT & BITBANG_PDICLOCK_MASK);
-
-	if (IsSending && !IsRisingEdge)
+	/* Check to see if we are at a rising or falling edge of the clock */
+	if (BITBANG_PDICLOCK_PORT & BITBANG_PDICLOCK_MASK)
 	{
-		if (SoftUSART_Data & 0x01)
-		  BITBANG_PDIDATA_PORT |=  BITBANG_PDIDATA_MASK;
-		else
-		  BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;		  
-
-		SoftUSART_Data >>= 1;
-		SoftUSART_BitCount--;
-	}
-	else if (!IsSending && IsRisingEdge)
-	{
+		/* If at rising clock edge and we are in send mode, abort */
+		if (IsSending)
+		  return;
+		  
 		/* Wait for the start bit when receiving */
 		if ((SoftUSART_BitCount == BITS_IN_FRAME) && (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK))
 		  return;
 	
 		if (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK)
 		  SoftUSART_Data |= (1 << BITS_IN_FRAME);
+
+		SoftUSART_Data >>= 1;
+		SoftUSART_BitCount--;
+	}
+	else
+	{
+		/* If at falling clock edge and we are in receive mode, abort */
+		if (!IsSending)
+		  return;
+
+		if (SoftUSART_Data & 0x01)
+		  BITBANG_PDIDATA_PORT |=  BITBANG_PDIDATA_MASK;
+		else
+		  BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;		  
 
 		SoftUSART_Data >>= 1;
 		SoftUSART_BitCount--;
@@ -120,7 +125,7 @@ void PDITarget_EnableTargetPDI(void)
 	asm volatile ("NOP"::);
 
 	/* Fire timer compare ISR every 100 cycles to manage the software USART */
-	OCR1A   = 100;
+	OCR1A   = 80;
 	TCCR1B  = (1 << WGM12) | (1 << CS10);
 	TIMSK1  = (1 << OCIE1A);
 	

@@ -6,15 +6,15 @@
  
 /** \mainpage XPLAIN UART Bridge Project
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section SSec_Compat Project Compatibility:
  *
- *  The following list indicates what microcontrollers are compatible with this demo.
+ *  The following list indicates what microcontrollers are compatible with this project.
  *
  *  - AT90USB1287
  *
  *  \section SSec_Info USB Information:
  *
- *  The following table gives a rundown of the USB utilization of this demo.
+ *  The following table gives a rundown of the USB utilization of this project.
  *
  *  <table>
  *   <tr>
@@ -46,14 +46,14 @@
  *  host. When inserted, the device will enumerate as a regular COM port on the host, which can then be opened and data exchanged
  *  between the XMEGA and Host as if the XMEGA was connected directly to the host's serial port.
  *
- *  After running this demo for the first time on a new computer, you will need to supply the .INF file located in this demo
+ *  After running this project for the first time on a new computer, you will need to supply the .INF file located in this project
  *  project's directory as the device's driver when running under Windows. This will enable Windows to use its inbuilt CDC drivers,
  *  negating the need for custom drivers for the device. Other Operating Systems should automatically use their own inbuilt CDC-ACM
  *  drivers.
  *
  *  \section SSec_Options Project Options
  *
- *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
  *
  *  <table>
  *   <tr>

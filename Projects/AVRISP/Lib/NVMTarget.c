@@ -182,7 +182,6 @@ bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t Re
  *  \param[in]  WriteCommand  Command to send to the device to write each memory byte
  *  \param[in]  WriteAddress  Start address to write to within the target's address space
  *  \param[in]  WriteBuffer   Buffer to source data from
- *  \param[in]  WriteSize     Number of bytes to write
  *
  *  \return Boolean true if the command sequence complete successfully
  */
