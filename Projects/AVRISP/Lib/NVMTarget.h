@@ -106,11 +106,11 @@
 		#define NVM_CMD_READEEPROM             0x06
 
 	/* Function Prototypes: */
-		void     NVMTarget_SendNVMRegAddress(uint8_t Register);
-		void     NVMTarget_SendAddress(uint32_t AbsoluteAddress);
-		bool     NVMTarget_WaitWhileNVMControllerBusy(void);
-		uint32_t NVMTarget_GetMemoryCRC(uint8_t CRCCommand);
-		void     NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize);
-		void     NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address);
+		void NVMTarget_SendNVMRegAddress(uint8_t Register);
+		void NVMTarget_SendAddress(uint32_t AbsoluteAddress);
+		bool NVMTarget_WaitWhileNVMControllerBusy(void);
+		bool NVMTarget_GetMemoryCRC(uint8_t CRCCommand, uint32_t* CRCDest);
+		bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize);
+		bool NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address);
 
 #endif

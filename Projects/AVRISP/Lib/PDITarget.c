@@ -102,7 +102,7 @@ void PDITarget_EnableTargetPDI(void)
 	
 	/* Set up the synchronous USART for XMEGA communications - 
 	   8 data bits, even parity, 2 stop bits */
-	UBRR1  = 10;
+	UBRR1  = (F_CPU / 1000000UL);
 	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
 
@@ -167,15 +167,16 @@ void PDITarget_SendByte(uint8_t Byte)
 		PORTD  |=  (1 << 3);
 		DDRD   |=  (1 << 3);
 
-		UCSR1B &= ~(1 << RXEN1);
 		UCSR1B |=  (1 << TXEN1);
+		UCSR1B &= ~(1 << RXEN1);
 		
 		IsSending = true;
 	}
 	
 	/* Wait until there is space in the hardware Tx buffer before writing */
 	while (!(UCSR1A & (1 << UDRE1)));
-	UDR1 = Byte;
+	UCSR1A |= (1 << TXC1);
+	UDR1    = Byte;
 #else
 	/* Switch to Tx mode if currently in Rx mode */
 	if (!(IsSending))

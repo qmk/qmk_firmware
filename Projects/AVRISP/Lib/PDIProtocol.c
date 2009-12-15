@@ -181,7 +181,8 @@ static void PDIProtocol_Erase(void)
 	else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_USERSIG)
 	  EraseCommand = NVM_CMD_ERASEUSERSIG;
 	
-	NVMTarget_EraseMemory(EraseCommand, Erase_XPROG_Params.Address);
+	if (!(NVMTarget_EraseMemory(EraseCommand, Erase_XPROG_Params.Address)))
+	  ReturnStatus = XPRG_ERR_TIMEOUT;
 	
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_ERASE);
@@ -241,7 +242,9 @@ static void PDIProtocol_ReadMemory(void)
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	uint8_t ReadBuffer[ReadMemory_XPROG_Params.Length];
-	NVMTarget_ReadMemory(ReadMemory_XPROG_Params.Address, ReadBuffer, ReadMemory_XPROG_Params.Length);
+	
+	if (!(NVMTarget_ReadMemory(ReadMemory_XPROG_Params.Address, ReadBuffer, ReadMemory_XPROG_Params.Length)))
+	  ReturnStatus = XPRG_ERR_TIMEOUT;
 
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_READ_MEM);
@@ -279,7 +282,8 @@ static void PDIProtocol_ReadCRC(void)
 	else
 	  CRCCommand = NVM_CMD_FLASHCRC;
 	
-	MemoryCRC = NVMTarget_GetMemoryCRC(CRCCommand);
+	if (!(NVMTarget_GetMemoryCRC(CRCCommand, &MemoryCRC)))
+	  ReturnStatus = XPRG_ERR_TIMEOUT;
 	
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_CRC);

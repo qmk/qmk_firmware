@@ -93,16 +93,17 @@ bool NVMTarget_WaitWhileNVMControllerBusy(void)
 
 /** Retrieves the CRC value of the given memory space.
  *
- *  \param[in] CRCCommand  NVM CRC command to issue to the target
+ *  \param[in]  CRCCommand  NVM CRC command to issue to the target
+ *  \param[out] CRCDest     CRC Destination when read from the target
  *
- *  \return 24-bit CRC value for the given address space
+ *  \return Boolean true if the command sequence complete sucessfully
  */
-uint32_t NVMTarget_GetMemoryCRC(uint8_t CRCCommand)
+bool NVMTarget_GetMemoryCRC(uint8_t CRCCommand, uint32_t* CRCDest)
 {
-	uint32_t MemoryCRC;
-
-	NVMTarget_WaitWhileNVMControllerBusy();
-
+	/* Wait until the NVM controller is no longer busy */
+	if (!(NVMTarget_WaitWhileNVMControllerBusy()))
+	  return false;
+	  
 	/* Set the NVM command to the correct CRC read command */
 	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
@@ -113,26 +114,28 @@ uint32_t NVMTarget_GetMemoryCRC(uint8_t CRCCommand)
 	NVMTarget_SendNVMRegAddress(NVM_REG_CTRLA);
 	PDITarget_SendByte(1 << 0);
 
-	/* Wait until the NVM bus and controller is no longer busy */
-	PDITarget_WaitWhileNVMBusBusy();
-	NVMTarget_WaitWhileNVMControllerBusy();
+	/* Wait until the NVM controller is no longer busy */
+	if (!(NVMTarget_WaitWhileNVMControllerBusy()))
+	  return false;
+	
+	*CRCDest = 0;
 	
 	/* Read the first generated CRC byte value */
 	PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
 	NVMTarget_SendNVMRegAddress(NVM_REG_DAT0);
-	MemoryCRC  = PDITarget_ReceiveByte();
+	*CRCDest  = PDITarget_ReceiveByte();
 
 	/* Read the second generated CRC byte value */
 	PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
 	NVMTarget_SendNVMRegAddress(NVM_REG_DAT1);
-	MemoryCRC |= ((uint16_t)PDITarget_ReceiveByte() << 8);
+	*CRCDest |= ((uint16_t)PDITarget_ReceiveByte() << 8);
 
 	/* Read the third generated CRC byte value */
 	PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
 	NVMTarget_SendNVMRegAddress(NVM_REG_DAT2);
-	MemoryCRC |= ((uint32_t)PDITarget_ReceiveByte() << 16);
+	*CRCDest |= ((uint32_t)PDITarget_ReceiveByte() << 16);
 	
-	return MemoryCRC;
+	return true;
 }
 
 /** Reads memory from the target's memory spaces.
@@ -140,10 +143,14 @@ uint32_t NVMTarget_GetMemoryCRC(uint8_t CRCCommand)
  *  \param[in]  ReadAddress  Start address to read from within the target's address space
  *  \param[out] ReadBuffer   Buffer to store read data into
  *  \param[in]  ReadSize     Number of bytes to read
+ *
+ *  \return Boolean true if the command sequence complete sucessfully
  */
-void NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize)
+bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize)
 {
-	NVMTarget_WaitWhileNVMControllerBusy();
+	/* Wait until the NVM controller is no longer busy */
+	if (!(NVMTarget_WaitWhileNVMControllerBusy()))
+	  return false;
 	
 	/* Send the READNVM command to the NVM controller for reading of an aribtrary location */
 	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
@@ -154,14 +161,11 @@ void NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t Re
 	 * counters so that we can use the REPEAT command later to save on overhead for multiple bytes */
 	PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
 	NVMTarget_SendAddress(ReadAddress);
-	*(ReadBuffer++) = PDITarget_ReceiveByte();
+	*ReadBuffer = PDITarget_ReceiveByte();
 
 	/* Check to see if we are reading more than a single byte */
 	if (ReadSize > 1)
 	{
-		/* Decrement the ReadSize counter as we have already read once byte of memory */
-		ReadSize--;
-	
 		/* Send the REPEAT command with the specified number of bytes remaining to read */
 		PDITarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_2BYTES);
 		PDITarget_SendByte(ReadSize &  0xFF);
@@ -169,20 +173,27 @@ void NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t Re
 		
 		/* Send a LD command with indirect access and postincrement to read out the remaining bytes */
 		PDITarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
-		for (uint16_t i = 1; i < ReadSize; i++)
+		for (uint16_t i = 0; i < ReadSize; i++)
 		  *(ReadBuffer++) = PDITarget_ReceiveByte();
 	}
+	
+	return true;
 }
 
 /** Erases a specific memory space of the target.
  *
  *  \param[in] EraseCommand  NVM erase command to send to the device
  *  \param[in] Address  Address inside the memory space to erase
+ *
+ *  \return Boolean true if the command sequence complete sucessfully
  */
-void NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address)
+bool NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address)
 {
-	NVMTarget_WaitWhileNVMControllerBusy();
-
+	/* Wait until the NVM controller is no longer busy */
+	if (!(NVMTarget_WaitWhileNVMControllerBusy()))
+	  return false;
+	  
+	/* Send the memory erase command to the target */
 	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
 	PDITarget_SendByte(EraseCommand);
@@ -203,9 +214,11 @@ void NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address)
 		PDITarget_SendByte(0x00);
 	}
 	
-	/* Wait until both the NVM bus and NVM controller are ready again */
-	PDITarget_WaitWhileNVMBusBusy();
-	NVMTarget_WaitWhileNVMControllerBusy();
+	/* Wait until the NVM bus is ready again */
+	if (!(PDITarget_WaitWhileNVMBusBusy()))
+	  return false;
+	  
+	return true;
 }
 
 #endif
