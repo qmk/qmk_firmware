@@ -201,7 +201,7 @@ static void PDIProtocol_WriteMemory(void)
 		uint8_t  PageMode;
 		uint32_t Address;
 		uint16_t Length;
-		uint8_t  ProgData[512];
+		uint8_t  ProgData[256];
 	} WriteMemory_XPROG_Params;
 	
 	Endpoint_Read_Stream_LE(&WriteMemory_XPROG_Params, (sizeof(WriteMemory_XPROG_Params) -
@@ -215,24 +215,37 @@ static void PDIProtocol_WriteMemory(void)
 
 
 	uint8_t WriteCommand     = NVM_CMD_NOOP;
-	uint8_t WritePageCommand = NVM_CMD_NOOP;
+	uint8_t WriteBuffCommand = NVM_CMD_NOOP;
+	uint8_t EraseBuffCommand = NVM_CMD_NOOP;
 	bool    PagedMemory      = false;
 	
 	if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_APPL)
 	{
-		PagedMemory = true;
+		WriteCommand     = NVM_CMD_ERASEWRITEFLASH;
+		WriteBuffCommand = NVM_CMD_LOADFLASHPAGEBUFF;
+		EraseBuffCommand = NVM_CMD_ERASEFLASHPAGEBUFF;
+		PagedMemory      = true;
 	}
 	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_BOOT)
 	{
-		PagedMemory = true;
+		WriteCommand     = NVM_CMD_ERASEWRITEFLASH;
+		WriteBuffCommand = NVM_CMD_LOADFLASHPAGEBUFF;
+		EraseBuffCommand = NVM_CMD_ERASEFLASHPAGEBUFF;
+		PagedMemory      = true;
 	}
 	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_EEPROM)
 	{
-		PagedMemory = true;
+		WriteCommand     = NVM_CMD_ERASEWRITEEEPROMPAGE;
+		WriteBuffCommand = NVM_CMD_LOADEEPROMPAGEBUFF;
+		EraseBuffCommand = NVM_CMD_ERASEEEPROMPAGEBUFF;
+		PagedMemory      = true;
 	}
 	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_USERSIG)
 	{
-		PagedMemory = true;
+		WriteCommand     = NVM_CMD_WRITEUSERSIG;
+		WriteBuffCommand = NVM_CMD_LOADFLASHPAGEBUFF;
+		EraseBuffCommand = NVM_CMD_ERASEFLASHPAGEBUFF;
+		PagedMemory      = true;
 	}
 	else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_FUSE)
 	{
@@ -245,7 +258,12 @@ static void PDIProtocol_WriteMemory(void)
 	
 	if (PagedMemory)
 	{
-
+		if (!(NVMTarget_WritePageMemory(WriteBuffCommand, EraseBuffCommand, WriteCommand, 
+		                                WriteMemory_XPROG_Params.PageMode, WriteMemory_XPROG_Params.Address,
+		                                WriteMemory_XPROG_Params.ProgData, WriteMemory_XPROG_Params.Length)))
+		{
+			ReturnStatus = XPRG_ERR_TIMEOUT;
+		}
 	}
 	else
 	{

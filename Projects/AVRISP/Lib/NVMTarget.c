@@ -161,41 +161,35 @@ bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t Re
 	NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
 	PDITarget_SendByte(NVM_CMD_READNVM);
 
-	/* Send the address of the first location to read from - this also primes the internal address
-	 * counters so that we can use the REPEAT command later to save on overhead for multiple bytes */
-	PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
+	/* Load the PDI pointer register with the start address we want to read from */
+	PDITarget_SendByte(PDI_CMD_ST | (PDI_POINTER_DIRECT << 2) | PDI_DATSIZE_4BYTES);
 	NVMTarget_SendAddress(ReadAddress);
-	*ReadBuffer = PDITarget_ReceiveByte();
 
-	/* Check to see if we are reading more than a single byte */
-	if (ReadSize > 1)
-	{
-		/* Send the REPEAT command with the specified number of bytes remaining to read */
-		PDITarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_2BYTES);
-		PDITarget_SendByte(ReadSize &  0xFF);
-		PDITarget_SendByte(ReadSize >> 8);
+	/* Send the REPEAT command with the specified number of bytes to read */
+	PDITarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_2BYTES);
+	PDITarget_SendByte(ReadSize &  0xFF);
+	PDITarget_SendByte(ReadSize >> 8);
 		
-		/* Send a LD command with indirect access and postincrement to read out the remaining bytes */
-		PDITarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
-		for (uint16_t i = 0; i < ReadSize; i++)
-		  *(ReadBuffer++) = PDITarget_ReceiveByte();
-	}
+	/* Send a LD command with indirect access and postincrement to read out the bytes */
+	PDITarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
+	for (uint16_t i = 0; i < ReadSize; i++)
+	  *(ReadBuffer++) = PDITarget_ReceiveByte();
 	
 	return true;
 }
 
 /** Writes byte addressed memory to the target's memory spaces.
  *
- *  \param[in]  WriteCommand      Command to send to the device to write each memory page
- *  \param[in]  WriteAddress      Start address to write to within the target's address space
- *  \param[in]  WriteBuffer       Buffer to source data from
- *  \param[in]  WriteSize         Number of bytes to write
+ *  \param[in]  WriteCommand  Command to send to the device to write each memory byte
+ *  \param[in]  WriteAddress  Start address to write to within the target's address space
+ *  \param[in]  WriteBuffer   Buffer to source data from
+ *  \param[in]  WriteSize     Number of bytes to write
  *
  *  \return Boolean true if the command sequence complete sucessfully
  */
 bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint8_t* WriteBuffer, uint16_t WriteSize)
 {
-	for (uint8_t i = 0; i < WriteSize; i++)
+	for (uint16_t i = 0; i < WriteSize; i++)
 	{
 		/* Wait until the NVM controller is no longer busy */
 		if (!(NVMTarget_WaitWhileNVMControllerBusy()))
@@ -212,6 +206,92 @@ bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint
 		PDITarget_SendByte(*(WriteBuffer++));
 	}
 	
+	return true;
+}
+
+/** Writes page addressed memory to the target's memory spaces.
+ *
+ *  \param[in]  WriteBuffCommand  Command to send to the device to write a byte to the memory page buffer
+ *  \param[in]  EraseBuffCommand  Command to send to the device to erase the memory page buffer
+ *  \param[in]  WritePageCommand  Command to send to the device to write the page buffer to the destination memory
+ *  \param[in]  PageMode          Bitfield indicating what operations need to be executed on the specified page
+ *  \param[in]  WriteAddress      Start address to write the page data to within the target's address space
+ *  \param[in]  WriteBuffer       Buffer to source data from
+ *  \param[in]  WriteSize         Number of bytes to write
+ *
+ *  \return Boolean true if the command sequence complete sucessfully
+ */
+bool NVMTarget_WritePageMemory(uint8_t WriteBuffCommand, uint8_t EraseBuffCommand, uint8_t WritePageCommand,
+                               uint8_t PageMode, uint32_t WriteAddress, uint8_t* WriteBuffer, uint16_t WriteSize)
+{
+	if (PageMode & XPRG_PAGEMODE_ERASE)
+	{
+		/* Wait until the NVM controller is no longer busy */
+		if (!(NVMTarget_WaitWhileNVMControllerBusy()))
+		  return false;
+
+		/* Send the memory buffer erase command to the target */
+		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+		NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
+		PDITarget_SendByte(EraseBuffCommand);
+
+		/* Set CMDEX bit in NVM CTRLA register to start the buffer erase */
+		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+		NVMTarget_SendNVMRegAddress(NVM_REG_CTRLA);
+		PDITarget_SendByte(1 << 0);
+	}
+
+	if (WriteSize)
+	{
+		/* Wait until the NVM controller is no longer busy */
+		if (!(NVMTarget_WaitWhileNVMControllerBusy()))
+		  return false;
+
+		/* Send the memory buffer write command to the target */
+		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+		NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
+		PDITarget_SendByte(WriteBuffCommand);
+
+		/* Load the PDI pointer register with the start address we want to write to */
+		PDITarget_SendByte(PDI_CMD_ST | (PDI_POINTER_DIRECT << 2) | PDI_DATSIZE_4BYTES);
+		NVMTarget_SendAddress(WriteAddress);
+
+		/* Send the REPEAT command with the specified number of bytes to write */
+		PDITarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_2BYTES);
+		PDITarget_SendByte(WriteSize &  0xFF);
+		PDITarget_SendByte(WriteSize >> 8);
+			
+		/* Send a ST command with indirect access and postincrement to write the bytes */
+		PDITarget_SendByte(PDI_CMD_ST | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
+		for (uint16_t i = 0; i < WriteSize; i++)
+		  PDITarget_SendByte(*(WriteBuffer++));
+
+		// TEMP
+		PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
+		NVMTarget_SendNVMRegAddress(NVM_REG_STATUS);
+		GPIOR0 = PDITarget_ReceiveByte();
+		if (!(GPIOR0 & (1 << 0)))
+		  JTAG_DEBUG_POINT();
+		// END TEMP
+	}
+	
+	if (PageMode & XPRG_PAGEMODE_WRITE)
+	{
+		/* Wait until the NVM controller is no longer busy */
+		if (!(NVMTarget_WaitWhileNVMControllerBusy()))
+		  return false;
+
+		/* Send the memory write command to the target */
+		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+		NVMTarget_SendNVMRegAddress(NVM_REG_CMD);
+		PDITarget_SendByte(WritePageCommand);
+		
+		/* Send the address of the first page location to write the memory page */
+		PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
+		NVMTarget_SendAddress(WriteAddress);
+		PDITarget_SendByte(0x00);
+	}
+
 	return true;
 }
 

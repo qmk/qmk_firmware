@@ -74,8 +74,8 @@
 		#define NVM_CMD_NOOP                   0x00
 		#define NVM_CMD_CHIPERASE              0x40
 		#define NVM_CMD_READNVM                0x43
-		#define NVM_CMD_LOADFLASHBUFF          0x23
-		#define NVM_CMD_ERASEFLASHBUFF         0x26
+		#define NVM_CMD_LOADFLASHPAGEBUFF      0x23
+		#define NVM_CMD_ERASEFLASHPAGEBUFF     0x26
 		#define NVM_CMD_ERASEFLASHPAGE         0x2B
 		#define NVM_CMD_FLASHPAGEWRITE         0x2E
 		#define NVM_CMD_ERASEWRITEFLASH        0x2F
@@ -113,6 +113,8 @@
 		bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize);
 		bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint8_t* WriteBuffer,
 		                               uint16_t WriteSize);
+		bool NVMTarget_WritePageMemory(uint8_t WriteBuffCommand, uint8_t EraseBuffCommand, uint8_t WritePageCommand,
+		                               uint8_t PageMode, uint32_t WriteAddress, uint8_t* WriteBuffer, uint16_t WriteSize);
 		bool NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address);
 
 #endif
