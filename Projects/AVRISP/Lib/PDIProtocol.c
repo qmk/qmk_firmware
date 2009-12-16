@@ -38,7 +38,7 @@
 
 #if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
 /** Base absolute address for the target's NVM controller */
-uint32_t XPROG_Param_NVMBase;
+uint32_t XPROG_Param_NVMBase = 0x010001C0;
 
 /** Size in bytes of the target's EEPROM page */
 uint32_t XPROG_Param_EEPageSize;

@@ -61,7 +61,7 @@
   *  - Fixed the definition of the Endpoint_BytesInEndpoint() macro for the U4 series AVR parts
   *  - Fixed MIDI host Class driver MIDI_Host_SendEventPacket() routine not properly checking for Pipe ready before writing
   *  - Fixed use of deprecated struct initializers, removed library unused parameter warnings when compiled with -Wextra enabled
-  *  - Fixed Still Image Host Class driver truncating the PIMA response code (thanks to Daniel)
+  *  - Fixed Still Image Host Class driver truncating the PIMA response code (thanks to Daniel Seibert)
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *

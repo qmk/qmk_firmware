@@ -39,14 +39,15 @@
 #if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
 
 /** Flag to indicate if the USART is currently in Tx or Rx mode. */
-volatile bool     IsSending;
+volatile bool               IsSending;
 
 #if !defined(PDI_VIA_HARDWARE_USART)
 /** Software USART raw frame bits for transmission/reception. */
-volatile uint16_t SoftUSART_Data;
+volatile uint16_t           SoftUSART_Data;
 
 /** Bits remaining to be sent or received via the software USART - set as a GPIOR for speed. */
-#define SoftUSART_BitCount   GPIOR2
+#define SoftUSART_BitCount  GPIOR2
+
 
 /** ISR to manage the software USART when bit-banged USART mode is selected. */
 ISR(TIMER1_COMPA_vect, ISR_BLOCK)
