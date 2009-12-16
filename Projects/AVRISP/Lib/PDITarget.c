@@ -70,8 +70,10 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 		if ((SoftUSART_BitCount == BITS_IN_FRAME) && (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK))
 		  return;
 	
+		/* Shift in the bit one less than the frame size in position, so that the start bit will eventually
+		 * be discarded leaving the data to be byte-aligned for quick access */
 		if (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK)
-		  SoftUSART_Data |= (1 << BITS_IN_FRAME);
+		  SoftUSART_Data |= (1 << (BITS_IN_FRAME - 1));
 
 		SoftUSART_Data >>= 1;
 		SoftUSART_BitCount--;
@@ -82,6 +84,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 		if (!IsSending)
 		  return;
 
+		/* Set the data line to the next bit value */
 		if (SoftUSART_Data & 0x01)
 		  BITBANG_PDIDATA_PORT |=  BITBANG_PDIDATA_MASK;
 		else
@@ -196,17 +199,20 @@ void PDITarget_SendByte(uint8_t Byte)
 	bool    EvenParityBit = false;
 	uint8_t ParityData    = Byte;
 
-	/* Compute Even parity bit */
-	for (uint8_t i = 0; i < 8; i++)
+	/* Compute Even parity - while a bit is still set, chop off lowest bit and toggle parity bit */
+	while (ParityData)
 	{
-		EvenParityBit ^= ParityData & 0x01;
-		ParityData    >>= 1;
+		EvenParityBit ^= true;
+		ParityData    &= (ParityData - 1);
 	}
+
+	/* Calculate the new USART frame data here while while we wait for a previous byte (if any) to finish sending */
+	uint16_t NewUSARTData = ((1 << 11) | (1 << 10) | ((uint16_t)EvenParityBit << 9) | ((uint16_t)Byte << 1) | (0 << 0));
 
 	while (SoftUSART_BitCount);
 
 	/* Data shifted out LSB first, START DATA PARITY STOP STOP */
-	SoftUSART_Data     = ((uint16_t)EvenParityBit << 9) | ((uint16_t)Byte << 1) | (1 << 10) | (1 << 11);
+	SoftUSART_Data     = NewUSARTData;
 	SoftUSART_BitCount = BITS_IN_FRAME;
 #endif
 }
@@ -253,7 +259,7 @@ uint8_t PDITarget_ReceiveByte(void)
 	while (SoftUSART_BitCount);
 	
 	/* Throw away the start, parity and stop bits to leave only the data */
-	return (uint8_t)(SoftUSART_Data >> 1);
+	return (uint8_t)SoftUSART_Data;
 #endif
 }
 

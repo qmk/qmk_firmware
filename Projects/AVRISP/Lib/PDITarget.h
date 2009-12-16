@@ -54,7 +54,17 @@
 
 	/* Defines: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
-			#define PDI_VIA_HARDWARE_USART
+//			#define PDI_VIA_HARDWARE_USART
+
+			#define BITBANG_PDIDATA_PORT     PORTD
+			#define BITBANG_PDIDATA_DDR      DDRD
+			#define BITBANG_PDIDATA_PIN      PIND
+			#define BITBANG_PDIDATA_MASK     (1 << 3)
+			
+			#define BITBANG_PDICLOCK_PORT    PORTD
+			#define BITBANG_PDICLOCK_DDR     DDRD
+			#define BITBANG_PDICLOCK_PIN     PIND
+			#define BITBANG_PDICLOCK_MASK    (1 << 5)
 		#else
 			#define BITBANG_PDIDATA_PORT     PORTB
 			#define BITBANG_PDIDATA_DDR      DDRB
