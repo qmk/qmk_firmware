@@ -196,19 +196,18 @@ void PDITarget_SendByte(uint8_t Byte)
 		IsSending = true;
 	}
 
-	bool    EvenParityBit = false;
-	uint8_t ParityData    = Byte;
+	/* Calculate the new USART frame data here while while we wait for a previous byte (if any) to finish sending */
+	uint16_t NewUSARTData = ((1 << 11) | (1 << 10) | (0 << 9) | ((uint16_t)Byte << 1) | (0 << 0));
 
 	/* Compute Even parity - while a bit is still set, chop off lowest bit and toggle parity bit */
+	uint8_t ParityData    = Byte;
 	while (ParityData)
 	{
-		EvenParityBit ^= true;
-		ParityData    &= (ParityData - 1);
+		NewUSARTData ^= (1 << 9);
+		ParityData   &= (ParityData - 1);
 	}
 
-	/* Calculate the new USART frame data here while while we wait for a previous byte (if any) to finish sending */
-	uint16_t NewUSARTData = ((1 << 11) | (1 << 10) | ((uint16_t)EvenParityBit << 9) | ((uint16_t)Byte << 1) | (0 << 0));
-
+	/* Wait until transmitter is idle before writing new data */
 	while (SoftUSART_BitCount);
 
 	/* Data shifted out LSB first, START DATA PARITY STOP STOP */
@@ -258,7 +257,7 @@ uint8_t PDITarget_ReceiveByte(void)
 	SoftUSART_BitCount = BITS_IN_FRAME;
 	while (SoftUSART_BitCount);
 	
-	/* Throw away the start, parity and stop bits to leave only the data */
+	/* Throw away the parity and stop bits to leave only the data (start bit is already discarded) */
 	return (uint8_t)SoftUSART_Data;
 #endif
 }
@@ -280,7 +279,7 @@ void PDITarget_SendBreak(void)
 	}
 
 	/* Need to do nothing for a full frame to send a BREAK */
-	for (uint8_t i = 0; i <= BITS_IN_FRAME; i++)
+	for (uint8_t i = 0; i < BITS_IN_FRAME; i++)
 	{
 		/* Wait for a full cycle of the clock */
 		while (PIND & (1 << 5));

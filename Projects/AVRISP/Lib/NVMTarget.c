@@ -48,23 +48,7 @@ void NVMTarget_SendNVMRegAddress(uint8_t Register)
 	uint32_t Address = XPROG_Param_NVMBase | Register;
 
 	/* Send the calculated 32-bit address to the target, LSB first */
-	PDITarget_SendByte(Address &  0xFF);
-	PDITarget_SendByte(Address >> 8);
-	PDITarget_SendByte(Address >> 16);
-	PDITarget_SendByte(Address >> 24);
-}
-
-/** Sends the given 32-bit absolute address to the target.
- *
- *  \param[in] AbsoluteAddress  Absolute address to send to the target
- */
-void NVMTarget_SendAddress(uint32_t AbsoluteAddress)
-{
-	/* Send the given 32-bit address to the target, LSB first */
-	PDITarget_SendByte(AbsoluteAddress &  0xFF);
-	PDITarget_SendByte(AbsoluteAddress >> 8);
-	PDITarget_SendByte(AbsoluteAddress >> 16);
-	PDITarget_SendByte(AbsoluteAddress >> 24);
+	NVMTarget_SendAddress(Address);
 }
 
 /** Waits while the target's NVM controller is busy performing an operation, exiting if the
