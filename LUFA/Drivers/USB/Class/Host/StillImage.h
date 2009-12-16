@@ -152,6 +152,26 @@
 			 */
 			uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			/** Sends a raw PIMA block header to the device, filling out the transaction ID automatically. This can be used to send
+			 *  arbitrary PIMA blocks to the device with or without parameters.
+			 *
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[in] PIMAHeader  Pointer to a PIMA container structure that is to be sent
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
+			 */
+			uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader);
+			
+			/** Receives a raw PIMA block header to the device. This can be used to receive arbitrary PIMA blocks from the device with
+			 *  or without parameters.
+			 *
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[out] PIMAHeader  Pointer to a PIMA container structure where the received block is to be stored
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
+			 */
+			uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader);
+
 			/** Sends a given PIMA command to the attached device, filling out the PIMA command header's Transaction ID automatically.
 			 *			 
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
@@ -236,11 +256,6 @@
 			#if defined(INCLUDE_FROM_SI_CLASS_HOST_C)
 				static uint8_t DComp_SI_Host_NextSIInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DComp_SI_Host_NextSIInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-
-				static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-				                                           SI_PIMA_Container_t* const PIMAHeader);
-				static uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-				                                              SI_PIMA_Container_t* const PIMAHeader);
 			#endif
 	#endif
 	

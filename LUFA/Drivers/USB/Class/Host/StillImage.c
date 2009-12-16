@@ -147,7 +147,7 @@ void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 	(void)SIInterfaceInfo;
 }
 
-static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader)
+uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader)
 {
 	uint8_t ErrorCode;
 	
@@ -176,7 +176,7 @@ static uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInte
 	return PIPE_RWSTREAM_NoError;
 }
 
-static uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader)
+uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader)
 {
 	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
 

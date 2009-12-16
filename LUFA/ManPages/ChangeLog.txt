@@ -41,6 +41,7 @@
   *    which some devices use instead of Note Off messages (thanks to Robin Green)
   *  - The CDC demos are now named "VirtualSerial" instead to indicate the demos' function rather than its implemented USB class,
   *    to reduce confusion and to be in line with the rest of the LUFA demos
+  *  - The SImage_Host_SendBlockHeader() and SImage_Host_ReceiveBlockHeader() Still Image Host Class driver functions are now public
   *
   *  <b>Fixed:</b>
   *  - Added missing CDC_Host_CreateBlockingStream() function code to the CDC Host Class driver
