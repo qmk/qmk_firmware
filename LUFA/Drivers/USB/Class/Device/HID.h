@@ -89,7 +89,8 @@
 					                              */
 					uint8_t  PrevReportINBufferSize; /**< Size in bytes of the given input report buffer. This is used to create a
 					                                  *  second buffer of the same size within the driver so that subsequent reports
-					                                  *  can be compared.
+					                                  *  can be compared. If the user app is to determine when reports are to be sent
+					                                  *  exclusively (i.e. \ref PrevReportINBuffer is NULL) this value is ignored.
 					                                  */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.

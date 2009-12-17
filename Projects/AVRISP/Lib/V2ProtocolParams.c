@@ -88,8 +88,7 @@ static ParameterItem_t ParameterTable[] =
 void V2Params_LoadNonVolatileParamValues(void)
 {
 	/* Target RESET line polarity is a non-volatile value, retrieve current parameter value from EEPROM -
-	 *   NB: Cannot call V2Protocol_SetParameterValue() here, as that will cause another EEPROM write!
-	 */
+	 *   NB: Cannot call V2Protocol_SetParameterValue() here, as that will cause another EEPROM write! */
 	V2Params_GetParamFromTable(PARAM_RESET_POLARITY)->ParamValue = eeprom_read_byte(&EEPROM_Rest_Polarity);
 }
 
@@ -141,7 +140,7 @@ uint8_t V2Params_GetParameterValue(uint8_t ParamID)
 /** Sets the value for a given parameter in the parameter table.
  *
  *  \param[in] ParamID  Parameter ID whose value is to be set in the table
- *  \param[in] Value  New value to set the parameter to
+ *  \param[in] Value    New value to set the parameter to
  *
  *  \return Pointer to the associated parameter information from the parameter table if found, NULL otherwise
  */

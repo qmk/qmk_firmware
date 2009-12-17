@@ -205,7 +205,9 @@
 
 				HID_ReportItem_Attributes_t  Attributes;     /**< Report item attributes. */
 							
-				uint32_t                     Value;          /**< Current value of the report item. */
+				uint32_t                     Value;          /**< Current value of the report item - use \ref HID_ALIGN_DATA() when processing
+				                                              *   a retrieved value so that it is aligned to a specific type.
+				                                              */
 				uint32_t                     PreviousValue;  /**< Previous value of the report item. */ 
 			} HID_ReportItem_t;
 			

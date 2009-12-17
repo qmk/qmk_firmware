@@ -1,0 +1,65 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage Communications Device Class (Virtual Serial Port) Demo
+ *
+ *  \section SSec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  - AT90USB646
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Communications Device Class (CDC)</td>
+ *   </tr>
+ *   <tr> 
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Abstract Control Model (ACM)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF CDC Class Standard</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Usable Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Hotmail Email Notifier Project. This project is designed for the Busware BUI board, however it can run easily on any
+ *  USB AVR. It consists of a host application (written in C#) and a device firmware which work together to provide a
+ *  visual mail notification system via the board's RGB LED. While the sample host application uses the Windows Live
+ *  Messenger API for its email notifications, the hardware simply adjusts the LED color based on bytes sent to it - thus
+ *  with a little coding, this project can be adapted for any sort of visual notification.
+ *
+ *  To compile the host application, you will need Microsoft Visual Studio 2008 (the free Express edition should be
+ *  sufficient) as well as a recent version of Windows Live Messenger installed. When run, you will need to set the COM port
+ *  number used by the hardware on the host PC, whereupon the host will send new email notifications to the device.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */

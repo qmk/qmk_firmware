@@ -60,13 +60,13 @@
 
 
 # MCU name
-MCU = at90usb1287
+MCU = at90usb646
 
 
 # Target board (see library "Board Types" documentation, USER or blank for projects not requiring
 # LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
 # "Board" inside the application directory.
-BOARD = XPLAIN
+BOARD  = USER
 
 
 # Processor frequency.
@@ -102,7 +102,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = AVRISP
+TARGET = HotmailNotifier
 
 
 # Object files directory
@@ -112,14 +112,13 @@ OBJDIR = .
 
 
 # Path to the LUFA library
-LUFA_PATH = ../../
+LUFA_PATH = ../..
 
 
 # LUFA library compile-time options
 LUFA_OPTS  = -D USB_DEVICE_ONLY
-LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=16
+LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
-LUFA_OPTS += -D NO_STREAM_CALLBACKS
 LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
 LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 
@@ -127,13 +126,6 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENAB
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
-      Lib/V2Protocol.c                                            \
-      Lib/V2ProtocolParams.c                                      \
-      Lib/ISPProtocol.c                                           \
-      Lib/ISPTarget.c                                             \
-	  Lib/PDIProtocol.c                                           \
-	  Lib/PDITarget.c                                             \
-	  Lib/NVMTarget.c                                             \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -144,6 +136,8 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/CDC.c            \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/CDC.c              \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -190,13 +184,6 @@ CSTANDARD = -std=gnu99
 
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA_OPTS)
-CDEFS += -DRESET_LINE_PORT=PORTB
-CDEFS += -DRESET_LINE_PIN=PINB
-CDEFS += -DRESET_LINE_DDR=DDRB
-CDEFS += -DRESET_LINE_MASK="(1 << 4)"
-CDEFS += -DVTARGET_ADC_CHANNEL=2
-CDEFS += -DENABLE_ISP_PROTOCOL
-CDEFS += -DENABLE_PDI_PROTOCOL
 
 
 # Place -D or -U options here for ASM sources
@@ -522,7 +509,7 @@ checkinvalidevents: $(LUFA_PATH)/LUFA/LUFA_Events.lst
 	                 grep -F -v --file=$(LUFA_PATH)/LUFA/LUFA_Events.lst > InvalidEvents.tmp || true
 	@sed -n -e 's/^/  WARNING - INVALID EVENT NAME: /p' InvalidEvents.tmp
 	@if test -s InvalidEvents.tmp; then exit 1; fi
-	
+
 showliboptions:
 	@echo
 	@echo ---- Compile Time Library Options ----

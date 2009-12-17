@@ -105,20 +105,6 @@
 		#define NVM_CMD_ERASEWRITEEEPROMPAGE   0x35
 		#define NVM_CMD_READEEPROM             0x06
 
-	/* Inline Functions: */
-		/** Sends the given 32-bit absolute address to the target.
-		 *
-		 *  \param[in] AbsoluteAddress  Absolute address to send to the target
-		 */
-		static inline void NVMTarget_SendAddress(uint32_t AbsoluteAddress)
-		{
-			/* Send the given 32-bit address to the target, LSB first */
-			PDITarget_SendByte(AbsoluteAddress &  0xFF);
-			PDITarget_SendByte(AbsoluteAddress >> 8);
-			PDITarget_SendByte(AbsoluteAddress >> 16);
-			PDITarget_SendByte(AbsoluteAddress >> 24);
-		}
-
 	/* Function Prototypes: */
 		void NVMTarget_SendNVMRegAddress(uint8_t Register);
 		void NVMTarget_SendAddress(uint32_t AbsoluteAddress);
