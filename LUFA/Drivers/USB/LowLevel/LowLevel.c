@@ -125,7 +125,7 @@ void USB_ShutDown(void)
 
 	USB_IsInitialized = false;
 
-	#if defined(CAN_BE_BOTH)
+	#if defined(USB_CAN_BE_BOTH)
 	USB_CurrentMode = USB_MODE_NONE;
 	#endif
 }

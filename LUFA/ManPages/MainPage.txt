@@ -11,7 +11,7 @@
  *  \image html LUFA.gif
  *  \n
  *
- *  For author and donation information, see \ref Page_Donating.
+ *  <b>For author and donation information, see \ref Page_Donating.</b>
  *
  *  LUFA is an open-source USB library for the USB-enabled AVR microcontrollers, released under the MIT license. It supports
  *  a large number of USB AVR models and boards (see \ref Page_DeviceSupport). It is designed to provide an easy to use, feature
