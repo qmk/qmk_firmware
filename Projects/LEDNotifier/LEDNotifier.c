@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Main source file for the HotmailNotfier project. This file contains the main tasks of
+ *  Main source file for the LEDNotfier project. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
  
-#include "HotmailNotifier.h"
+#include "LEDNotifier.h"
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class

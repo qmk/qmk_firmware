@@ -221,9 +221,9 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  */
 USB_Descriptor_String_t PROGMEM ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(13), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(12), .Type = DTYPE_String},
 
-	.UnicodeString          = L"Mail Notifier"
+	.UnicodeString          = L"LED Notifier"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"

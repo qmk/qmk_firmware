@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for HotmailNotifier.c.
+ *  Header file for LEDNotifier.c.
  */
 
-#ifndef _HOTMAILNOTIFIER_H_
-#define _HOTMAILNOTIFIER_H_
+#ifndef _LEDNOTIFIER_H_
+#define _LEDNOTIFIER_H_
 
 	/* Includes: */
 		#include <avr/io.h>
