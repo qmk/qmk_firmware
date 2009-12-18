@@ -60,6 +60,39 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 			},
 	};
 
+/** Counter for the software PWM */
+static volatile uint8_t SoftPWM_Count;
+
+/** Duty cycle for the first software PWM channel */
+static volatile uint8_t SoftPWM_Channel1_Duty;
+
+/** Duty cycle for the second software PWM channel */
+static volatile uint8_t SoftPWM_Channel2_Duty;
+
+/** Duty cycle for the third software PWM channel */
+static volatile uint8_t SoftPWM_Channel3_Duty;
+
+
+/** Interrupt handler for managing the software PWM channels for the LEDs */
+ISR(TIMER0_COMPA_vect, ISR_BLOCK)
+{
+	uint8_t LEDMask = LEDS_ALL_LEDS;
+
+	if (++SoftPWM_Count == 0x1F)
+	  SoftPWM_Count = 0;
+
+	if (SoftPWM_Count >= SoftPWM_Channel1_Duty)
+	  LEDMask &= ~LEDS_LED1;
+
+	if (SoftPWM_Count >= SoftPWM_Channel2_Duty)
+	  LEDMask &= ~LEDS_LED2;
+
+	if (SoftPWM_Count >= SoftPWM_Channel3_Duty)
+	  LEDMask &= ~LEDS_LED3;
+	  
+	LEDs_SetAllLEDs(LEDMask);
+}
+
 /** Standard file stream for the CDC interface when set up, so that the virtual CDC COM port can be
  *  used like any regular character stream in the C APIs
  */
@@ -77,11 +110,21 @@ int main(void)
 
 	for (;;)
 	{
-		/* Read next character - if a '1' turn on red led, if a '0' turn on green LED */
-		if (fgetc(&USBSerialStream) == '1')
-		  LEDs_SetAllLEDs(LEDS_LED3);
-		else
-		  LEDs_SetAllLEDs(LEDS_LED2);
+		/* Read in next LED colour command from the host */
+		uint8_t ColorUpdate = fgetc(&USBSerialStream);
+		
+		/* Top 3 bits select the LED, bottom three control the brightness */
+		uint8_t Channel = (ColorUpdate & 0b11100000);
+		uint8_t Duty    = (ColorUpdate & 0b00011111);
+		
+		if (Channel & (1 << 5))
+		  SoftPWM_Channel1_Duty = Duty;
+		
+		if (Channel & (1 << 6))
+		  SoftPWM_Channel2_Duty = Duty;
+
+		if (Channel & (1 << 7))
+		  SoftPWM_Channel3_Duty = Duty;
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
@@ -101,15 +144,18 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
+	
+	/* Timer Initialization */
+	OCR0A  = 100;
+	TCCR0A = (1 << WGM01);
+	TCCR0B = (1 << CS00);
+	TIMSK0 = (1 << OCIE0A);
 }
 
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	LEDs_SetAllLEDs(LEDS_ALL_LEDS);
-
-	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
-	  	LEDs_SetAllLEDs(LEDS_LED1 | LEDS_LED3);
+	CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
 }
 
 /** Event handler for the library USB Unhandled Control Request event. */

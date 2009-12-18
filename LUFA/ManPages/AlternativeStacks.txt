@@ -1,0 +1,37 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \page Page_AlternativeStacks Alternative USB AVR Stacks
+ *
+ *  LUFA is not the only stack available for the USB AVRs, although it is perhaps the best (\see Page_WhyUseLUFA).
+ *  In the interests of completeness and user choice, other known USB AVR stacks are listed here.
+ *
+ *  - Atmel USB AVR Stack (<i>Atmel Inc.</i>) \n
+ *    <b>Cost:</b> Free \n
+ *    <b>License:</b> Atmel Limited License (see Atmel download for details) \n
+ *    <b>Website:</b> http://atmel.com/dyn/products/app_notes.asp?family_id=607#USB \n
+ *    <b>Description:</b> This is the official Atmel USB AVR stack, for their 8-bit USB AVR lineup. Each series of
+ *                        USB AVR is seperated into a seperate download stack, which is both AVR-GCC and IAR compatible.
+ *
+ *  - Dr. Stefan Salewski's AT90USB1287 Stack (<i>Dr. Stefan Salewski</i>) \n
+ *    <b>Cost:</b> Free \n
+ *    <b>License:</b> GPL \n
+ *    <b>Website:</b> http://www.ssalewski.de/AT90USB_firmware.html.en \n
+ *    <b>Description:</b> This is a GPL'd library specifically designed for the AT90USB1287, by Dr. Stefan Salewski, a
+ *                        German Physicist. It compiles for AVR-GCC and can potentially be modified to work on other USB
+ *                        AVR models.
+ *
+ *  - PJRC Teensy Stack (<i>Paul Stoffregen</i>) \n
+ *    <b>Cost:</b> Free \n
+ *    <b>License:</b> BSD \n
+ *    <b>Website:</b> http://www.pjrc.com/teensy/usb_debug_only.html \n
+ *    <b>Description:</b> Not so much a complete stack as a collection of USB enabled demos, this library is specifically
+ *                        designed for the PJRC Teensy line of USB AVRs, and thus may need to be modified for other USB AVR
+ *                        chips. These code samples shows the inner workings of the USB controller, without all the abstraction
+ *                        present in most other USB AVR stacks. 
+ */
+ 

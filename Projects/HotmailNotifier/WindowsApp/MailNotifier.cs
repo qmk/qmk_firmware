@@ -12,18 +12,20 @@ namespace TestWinForms
     public partial class MailNotifier : Form
     {
         private MessengerAPI.Messenger Messenger;
-		private RegistryKey AppRegKey;
+        private RegistryKey AppRegKey;
+
+        private const int LIGHT_MAX = 0x1F;
 
         public MailNotifier()
         {
             InitializeComponent();
 
             Messenger = new MessengerAPI.Messenger();
-			AppRegKey = Registry.CurrentUser.CreateSubKey("Software\\MailNotifier");
+            AppRegKey = Registry.CurrentUser.CreateSubKey("Software\\MailNotifier");
 
             for (int i = 1; i < 99; i++)
                 cmbComPort.Items.Add("COM" + i.ToString());
-           
+
             cmbComPort.SelectedIndex = System.Convert.ToInt32(AppRegKey.GetValue("Port", "1")) - 1;
             serSerialPort.PortName = cmbComPort.Text;
 
@@ -34,7 +36,9 @@ namespace TestWinForms
         private void MailNotifier_Load(object sender, EventArgs e)
         {
             Messenger.OnUnreadEmailChange += new MessengerAPI.DMessengerEvents_OnUnreadEmailChangeEventHandler(NewEmail);
-            NotifyLight(Messenger.get_UnreadEmailCount(MessengerAPI.MUAFOLDER.MUAFOLDER_INBOX) > 0);
+
+            bool UnreadMail = (Messenger.get_UnreadEmailCount(MessengerAPI.MUAFOLDER.MUAFOLDER_INBOX) > 0);
+            NotifyLight((!UnreadMail ? LIGHT_MAX : 0), (UnreadMail ? LIGHT_MAX : 0), 0);
 
             Hide();
         }
@@ -48,18 +52,23 @@ namespace TestWinForms
         private void NewEmail(MessengerAPI.MUAFOLDER folder, int amount, ref bool enableDefault)
         {
             if (folder == MessengerAPI.MUAFOLDER.MUAFOLDER_INBOX)
-                NotifyLight(amount > 0);
+            {
+                bool UnreadMail = (Messenger.get_UnreadEmailCount(MessengerAPI.MUAFOLDER.MUAFOLDER_INBOX) > 0);
+                NotifyLight((!UnreadMail ? LIGHT_MAX : 0), (UnreadMail ? LIGHT_MAX : 0), 0);
+            }
         }
 
-        private void NotifyLight(bool ShowGreen)
+        private void NotifyLight(int Red, int Green, int Blue)
         {
-            char[] buffer = new char[1];
-            buffer[0] = ShowGreen ? '0' : '1';
+            byte[] buffer = new byte[3];
+            buffer[0] = (byte)(0x80 | (Red & LIGHT_MAX));
+            buffer[1] = (byte)(0x40 | (Green & LIGHT_MAX));
+            buffer[2] = (byte)(0x20 | (Blue & LIGHT_MAX));
 
             try
             {
                 serSerialPort.Open();
-                serSerialPort.Write(buffer, 0, 1);
+                serSerialPort.Write(buffer, 0, buffer.Length);
                 serSerialPort.Close();
             }
             catch (Exception e)
@@ -78,15 +87,20 @@ namespace TestWinForms
             AppRegKey.SetValue("Port", cmbComPort.SelectedIndex + 1);
             serSerialPort.PortName = cmbComPort.Text;
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 1; i < 10; i++)
             {
-                NotifyLight(true);
-                System.Threading.Thread.Sleep(20);
-                NotifyLight(false);
-                System.Threading.Thread.Sleep(20);
+                NotifyLight((LIGHT_MAX / i), (LIGHT_MAX / (i * 10)), 0);
+                System.Threading.Thread.Sleep(10);
             }
 
-            NotifyLight(Messenger.get_UnreadEmailCount(MessengerAPI.MUAFOLDER.MUAFOLDER_INBOX) > 0);
+            for (int i = 10; i > 0; i--)
+            {
+                NotifyLight((LIGHT_MAX / i), (LIGHT_MAX / (i * 10)), 0);
+                System.Threading.Thread.Sleep(10);
+            }
+
+            bool UnreadMail = (Messenger.get_UnreadEmailCount(MessengerAPI.MUAFOLDER.MUAFOLDER_INBOX) > 0);
+            NotifyLight((!UnreadMail ? LIGHT_MAX : 0), (UnreadMail ? LIGHT_MAX : 0), 0);
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)

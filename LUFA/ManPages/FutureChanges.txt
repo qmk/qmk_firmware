@@ -17,6 +17,7 @@
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Add standardized descriptor names to class driver structures
   *      -# Correct mishandling of error cases in Mass Storage demos
+  *      -# Add TPI programming support to the AVRISP project
   *  - Documentation/Support
   *      -# Remake AVRStudio project files
   *      -# Add detailed overviews of how each demo works
