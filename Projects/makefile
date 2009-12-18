@@ -20,6 +20,9 @@ all:
 	make -C Benito clean
 	make -C Benito all
 
+	make -C LEDNotifier clean
+	make -C LEDNotifier all
+
 	make -C Magstripe clean
 	make -C Magstripe all
 
@@ -35,6 +38,7 @@ all:
 %:
 	make -C AVRISP $@
 	make -C Benito $@
+	make -C LEDNotifier $@	
 	make -C Magstripe $@
 	make -C MissileLauncher $@
 	make -C USBtoSerial $@

@@ -102,7 +102,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = HotmailNotifier
+TARGET = LEDNotifier
 
 
 # Object files directory
