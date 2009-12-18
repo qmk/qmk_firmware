@@ -100,7 +100,7 @@
  *  - <b>Projects</b>
  *    - <b>AVRISP</b> - AVRISP-MKII Programmer Clone project
  *    - <b>Benito</b> - Benito Board Arduino Programmer project
- *    - <b>HotmailNotifier</b> - Hotmail Email LED Notification project
+ *    - <b>LEDNotifier</b> - USB LED Notification project
  *    - <b>Magstripe</b> - Magnetic Stripe Card Reader project
  *    - <b>MissileLaucher</b> - Toy Missile Launcher Host project
  *    - <b>USBtoSerial</b> - USB to USART Serial Converter project

@@ -24,7 +24,7 @@
   *  - Added new PreviousValue to the HID Report Parser report item structure, for easy monitoring of previous report item values
   *  - Added new EVK527 board target
   *  - Added new USB_Host_GetDeviceStringDescriptor() convenience function
-  *  - Added new HotmailNotification project to the library, to give a visual LED notification when new email arrives
+  *  - Added new LEDNotification project to the library, to give a visual LED notification on new events from the host
   *
   *  <b>Changed:</b>
   *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of keycodes
