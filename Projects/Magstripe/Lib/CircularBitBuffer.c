@@ -37,7 +37,7 @@
 #include "CircularBitBuffer.h"
 
 /** Function to initialize or reset a bit buffer, ready for data to be stored into it. */
-void BitBuffer_Init(BitBuffer_t* Buffer)
+void BitBuffer_Init(BitBuffer_t* const Buffer)
 {
 	/* Reset the number of stored bits in the buffer */
 	Buffer->Elements        = 0;
@@ -50,7 +50,7 @@ void BitBuffer_Init(BitBuffer_t* Buffer)
 }
 
 /** Function to store the given bit into the given bit buffer. */
-void BitBuffer_StoreNextBit(BitBuffer_t* Buffer, bool Bit)
+void BitBuffer_StoreNextBit(BitBuffer_t* const Buffer, const bool Bit)
 {
 	/* If the bit to store is true, set the next bit in the buffer */
 	if (Bit)
@@ -79,7 +79,7 @@ void BitBuffer_StoreNextBit(BitBuffer_t* Buffer, bool Bit)
 }
 
 /** Function to retrieve the next bit stored in the given bit buffer. */
-bool BitBuffer_GetNextBit(BitBuffer_t* Buffer)
+bool BitBuffer_GetNextBit(BitBuffer_t* const Buffer)
 {	
 	/* Retrieve the value of the next bit stored in the buffer */
 	bool Bit = ((*Buffer->Out.CurrentByte & Buffer->Out.ByteMask) != 0);

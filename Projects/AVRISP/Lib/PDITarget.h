@@ -101,7 +101,7 @@
 	/* Function Prototypes: */
 		void    PDITarget_EnableTargetPDI(void);
 		void    PDITarget_DisableTargetPDI(void);
-		void    PDITarget_SendByte(uint8_t Byte);
+		void    PDITarget_SendByte(const uint8_t Byte);
 		uint8_t PDITarget_ReceiveByte(void);
 		void    PDITarget_SendBreak(void);
 		bool    PDITarget_WaitWhileNVMBusBusy(void);

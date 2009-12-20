@@ -66,11 +66,11 @@
 	/* Function Prototypes: */
 		void ISPProtocol_EnterISPMode(void);
 		void ISPProtocol_LeaveISPMode(void);
-		void ISPProtocol_ProgramMemory(uint8_t V2Command);
-		void ISPProtocol_ReadMemory(uint8_t V2Command);
+		void ISPProtocol_ProgramMemory(const uint8_t V2Command);
+		void ISPProtocol_ReadMemory(const uint8_t V2Command);
 		void ISPProtocol_ChipErase(void);
-		void ISPProtocol_ReadFuseLockSigOSCCAL(uint8_t V2Command);
-		void ISPProtocol_WriteFuseLock(uint8_t V2Command);
+		void ISPProtocol_ReadFuseLockSigOSCCAL(const uint8_t V2Command);
+		void ISPProtocol_WriteFuseLock(const uint8_t V2Command);
 		void ISPProtocol_SPIMulti(void);
 
 #endif

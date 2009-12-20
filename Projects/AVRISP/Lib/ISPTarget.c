@@ -80,7 +80,7 @@ uint8_t ISPTarget_GetSPIPrescalerMask(void)
  *
  *  \param[in] ResetTarget Boolean true when the target should be held in reset, false otherwise
  */
-void ISPTarget_ChangeTargetResetLine(bool ResetTarget)
+void ISPTarget_ChangeTargetResetLine(const bool ResetTarget)
 {
 	if (ResetTarget)
 	{
@@ -108,8 +108,8 @@ void ISPTarget_ChangeTargetResetLine(bool ResetTarget)
  *  \return V2 Protocol status \ref STATUS_CMD_OK if the no timeout occurred, \ref STATUS_RDY_BSY_TOUT or
  *          \ref STATUS_CMD_TOUT otherwise
  */
-uint8_t ISPTarget_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAddress, uint8_t PollValue,
-                                      uint8_t DelayMS, uint8_t ReadMemCommand)
+uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint16_t PollAddress, const uint8_t PollValue,
+                                      const uint8_t DelayMS, const uint8_t ReadMemCommand)
 {
 	uint8_t ProgrammingStatus = STATUS_CMD_OK;
 

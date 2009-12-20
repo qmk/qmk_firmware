@@ -42,7 +42,7 @@
  *
  *  \param[in] Register  NVM register whose absolute address is to be sent
  */
-void NVMTarget_SendNVMRegAddress(uint8_t Register)
+void NVMTarget_SendNVMRegAddress(const uint8_t Register)
 {
 	/* Determine the absolute register address from the NVM base memory address and the NVM register address */
 	uint32_t Address = XPROG_Param_NVMBase | Register;
@@ -55,7 +55,7 @@ void NVMTarget_SendNVMRegAddress(uint8_t Register)
  *
  *  \param[in] AbsoluteAddress  Absolute address to send to the target
  */
-void NVMTarget_SendAddress(uint32_t AbsoluteAddress)
+void NVMTarget_SendAddress(const uint32_t AbsoluteAddress)
 {
 	/* Send the given 32-bit address to the target, LSB first */
 	PDITarget_SendByte(AbsoluteAddress &  0xFF);
@@ -95,7 +95,7 @@ bool NVMTarget_WaitWhileNVMControllerBusy(void)
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool NVMTarget_GetMemoryCRC(uint8_t CRCCommand, uint32_t* CRCDest)
+bool NVMTarget_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(NVMTarget_WaitWhileNVMControllerBusy()))
@@ -147,7 +147,7 @@ bool NVMTarget_GetMemoryCRC(uint8_t CRCCommand, uint32_t* CRCDest)
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize)
+bool NVMTarget_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(NVMTarget_WaitWhileNVMControllerBusy()))
@@ -182,7 +182,7 @@ bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t Re
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint8_t* WriteBuffer)
+bool NVMTarget_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(NVMTarget_WaitWhileNVMControllerBusy()))
@@ -195,7 +195,7 @@ bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint
 	
 	/* Send new memory byte to the memory to the target */
 	PDITarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
-	NVMTarget_SendAddress(WriteAddress++);
+	NVMTarget_SendAddress(WriteAddress);
 	PDITarget_SendByte(*(WriteBuffer++));
 	
 	return true;
@@ -213,8 +213,9 @@ bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool NVMTarget_WritePageMemory(uint8_t WriteBuffCommand, uint8_t EraseBuffCommand, uint8_t WritePageCommand,
-                               uint8_t PageMode, uint32_t WriteAddress, uint8_t* WriteBuffer, uint16_t WriteSize)
+bool NVMTarget_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t EraseBuffCommand,
+                               const uint8_t WritePageCommand, const uint8_t PageMode, const uint32_t WriteAddress,
+                               const uint8_t* WriteBuffer, const uint16_t WriteSize)
 {
 	if (PageMode & XPRG_PAGEMODE_ERASE)
 	{
@@ -285,7 +286,7 @@ bool NVMTarget_WritePageMemory(uint8_t WriteBuffCommand, uint8_t EraseBuffComman
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address)
+bool NVMTarget_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(NVMTarget_WaitWhileNVMControllerBusy()))

@@ -120,7 +120,7 @@ void V2Protocol_ProcessCommand(void)
  *
  *  \param[in] V2Command  Issued V2 Protocol command byte from the host
  */
-static void V2Protocol_UnknownCommand(uint8_t V2Command)
+static void V2Protocol_UnknownCommand(const uint8_t V2Command)
 {
 	/* Discard all incoming data */
 	while (Endpoint_BytesInEndpoint() == AVRISP_DATA_EPSIZE)
@@ -169,7 +169,7 @@ static void V2Protocol_ResetProtection(void)
  *
  *  \param[in] V2Command  Issued V2 Protocol command byte from the host
  */
-static void V2Protocol_GetSetParam(uint8_t V2Command)
+static void V2Protocol_GetSetParam(const uint8_t V2Command)
 {
 	uint8_t ParamID = Endpoint_Read_Byte();
 	uint8_t ParamValue;

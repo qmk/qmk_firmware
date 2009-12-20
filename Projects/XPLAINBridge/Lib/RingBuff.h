@@ -106,11 +106,11 @@
 	} RingBuff_t;
 		
 	/* Function Prototypes: */
-	void            Buffer_Initialize(RingBuff_t* Buff);
-	void            Buffer_StoreElement(RingBuff_t* Buffer, RingBuff_Data_t Data);
-	RingBuff_Data_t Buffer_GetElement(RingBuff_t* Buffer);
+	void            Buffer_Initialize(RingBuff_t* const Buff);
+	void            Buffer_StoreElement(RingBuff_t* const Buffer, RingBuff_Data_t Data);
+	RingBuff_Data_t Buffer_GetElement(RingBuff_t* const Buffer);
 	#if defined(BUFF_USEPEEK)
-		RingBuff_Data_t Buffer_PeekElement(const RingBuff_t* Buffer);
+		RingBuff_Data_t Buffer_PeekElement(const RingBuff_t* const Buffer);
 	#endif
 	
 #endif

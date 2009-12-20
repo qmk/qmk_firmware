@@ -75,14 +75,14 @@
 		 *  
 		 *  \param[in,out] Buffer  Bit buffer to initialize
 		 */
-		void BitBuffer_Init(BitBuffer_t* Buffer) ATTR_NON_NULL_PTR_ARG(1);
+		void BitBuffer_Init(BitBuffer_t* const Buffer) ATTR_NON_NULL_PTR_ARG(1);
 		
 		/** Stores a bit into the next location inside a given bit buffer.
 		 *
 		 *  \param[in,out] Buffer  Bit buffer to store a bit into
 		 *  \param[in] Bit  Bit to store into the buffer
 		 */
-		void BitBuffer_StoreNextBit(BitBuffer_t* Buffer, bool Bit) ATTR_NON_NULL_PTR_ARG(1);
+		void BitBuffer_StoreNextBit(BitBuffer_t* const Buffer, const bool Bit) ATTR_NON_NULL_PTR_ARG(1);
 		
 		/** Retrieves a bit from the next location inside a given bit buffer.
 		 *
@@ -90,6 +90,6 @@
 		 *
 		 *  \return Next bit from the buffer
 		 */
-		bool BitBuffer_GetNextBit(BitBuffer_t* Buffer) ATTR_NON_NULL_PTR_ARG(1);
+		bool BitBuffer_GetNextBit(BitBuffer_t* const Buffer) ATTR_NON_NULL_PTR_ARG(1);
 		
 #endif

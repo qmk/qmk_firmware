@@ -111,7 +111,7 @@ void V2Params_UpdateParamValues(void)
  *
  *  \return Privileges for the requested parameter, as a mask of PARAM_PRIV_* masks
  */ 
-uint8_t V2Params_GetParameterPrivileges(uint8_t ParamID)
+uint8_t V2Params_GetParameterPrivileges(const uint8_t ParamID)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
 	
@@ -127,7 +127,7 @@ uint8_t V2Params_GetParameterPrivileges(uint8_t ParamID)
  *
  *  \return Current value of the parameter in the table, or 0 if not found
  */ 
-uint8_t V2Params_GetParameterValue(uint8_t ParamID)
+uint8_t V2Params_GetParameterValue(const uint8_t ParamID)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
 	
@@ -144,7 +144,7 @@ uint8_t V2Params_GetParameterValue(uint8_t ParamID)
  *
  *  \return Pointer to the associated parameter information from the parameter table if found, NULL otherwise
  */
-void V2Params_SetParameterValue(uint8_t ParamID, uint8_t Value)
+void V2Params_SetParameterValue(const uint8_t ParamID, const uint8_t Value)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
 
@@ -165,7 +165,7 @@ void V2Params_SetParameterValue(uint8_t ParamID, uint8_t Value)
  *
  *  \return Pointer to the associated parameter information from the parameter table if found, NULL otherwise
  */
-static ParameterItem_t* V2Params_GetParamFromTable(uint8_t ParamID)
+static ParameterItem_t* V2Params_GetParamFromTable(const uint8_t ParamID)
 {
 	/* Find the parameter in the parameter table if present */
 	for (uint8_t TableIndex = 0; TableIndex < (sizeof(ParameterTable) / sizeof(ParameterTable[0])); TableIndex++)

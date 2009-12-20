@@ -30,7 +30,7 @@
 
 #include "RingBuff.h"
 
-void Buffer_Initialize(RingBuff_t* Buffer)
+void Buffer_Initialize(RingBuff_t* const Buffer)
 {
 	BUFF_ATOMIC_BLOCK
 	{
@@ -40,7 +40,7 @@ void Buffer_Initialize(RingBuff_t* Buffer)
 	}
 }
 
-void Buffer_StoreElement(RingBuff_t* Buffer, RingBuff_Data_t Data)
+void Buffer_StoreElement(RingBuff_t* const Buffer, RingBuff_Data_t Data)
 {
 	BUFF_ATOMIC_BLOCK
 	{
@@ -73,7 +73,7 @@ void Buffer_StoreElement(RingBuff_t* Buffer, RingBuff_Data_t Data)
 	}
 }
 
-RingBuff_Data_t Buffer_GetElement(RingBuff_t* Buffer)
+RingBuff_Data_t Buffer_GetElement(RingBuff_t* const Buffer)
 {
 	RingBuff_Data_t BuffData;
 	
@@ -99,7 +99,7 @@ RingBuff_Data_t Buffer_GetElement(RingBuff_t* Buffer)
 }
 
 #if defined(BUFF_USEPEEK)
-RingBuff_Data_t Buffer_PeekElement(const RingBuff_t* Buffer)
+RingBuff_Data_t Buffer_PeekElement(const RingBuff_t* const Buffer)
 {
 	RingBuff_Data_t BuffData;
 

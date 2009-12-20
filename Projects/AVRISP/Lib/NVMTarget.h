@@ -106,14 +106,15 @@
 		#define NVM_CMD_READEEPROM             0x06
 
 	/* Function Prototypes: */
-		void NVMTarget_SendNVMRegAddress(uint8_t Register);
-		void NVMTarget_SendAddress(uint32_t AbsoluteAddress);
+		void NVMTarget_SendNVMRegAddress(const uint8_t Register);
+		void NVMTarget_SendAddress(const uint32_t AbsoluteAddress);
 		bool NVMTarget_WaitWhileNVMControllerBusy(void);
-		bool NVMTarget_GetMemoryCRC(uint8_t CRCCommand, uint32_t* CRCDest);
-		bool NVMTarget_ReadMemory(uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize);
-		bool NVMTarget_WriteByteMemory(uint8_t WriteCommand, uint32_t WriteAddress, uint8_t* WriteBuffer);
-		bool NVMTarget_WritePageMemory(uint8_t WriteBuffCommand, uint8_t EraseBuffCommand, uint8_t WritePageCommand,
-		                               uint8_t PageMode, uint32_t WriteAddress, uint8_t* WriteBuffer, uint16_t WriteSize);
-		bool NVMTarget_EraseMemory(uint8_t EraseCommand, uint32_t Address);
+		bool NVMTarget_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest);
+		bool NVMTarget_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize);
+		bool NVMTarget_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer);
+		bool NVMTarget_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t EraseBuffCommand,
+		                               const uint8_t WritePageCommand, const uint8_t PageMode, const uint32_t WriteAddress,
+		                               const uint8_t* WriteBuffer, const uint16_t WriteSize);
+		bool NVMTarget_EraseMemory(const uint8_t EraseCommand, const uint32_t Address);
 
 #endif

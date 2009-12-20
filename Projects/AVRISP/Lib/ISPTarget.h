@@ -62,9 +62,10 @@
 
 	/* Function Prototypes: */
 			uint8_t ISPTarget_GetSPIPrescalerMask(void);
-			void    ISPTarget_ChangeTargetResetLine(bool ResetTarget);
-			uint8_t ISPTarget_WaitForProgComplete(uint8_t ProgrammingMode, uint16_t PollAddress, uint8_t PollValue,
-                                                   uint8_t DelayMS, uint8_t ReadMemCommand);
+			void    ISPTarget_ChangeTargetResetLine(const bool ResetTarget);
+			uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint16_t PollAddress,
+			                                      const uint8_t PollValue, const uint8_t DelayMS,
+			                                      const uint8_t ReadMemCommand);
 			uint8_t ISPTarget_WaitWhileTargetBusy(void);
 			void    ISPTarget_LoadExtendedAddress(void);
 

@@ -167,7 +167,7 @@ void PDITarget_DisableTargetPDI(void)
  *
  *  \param[in] Byte  Byte to send through the USART
  */
-void PDITarget_SendByte(uint8_t Byte)
+void PDITarget_SendByte(const uint8_t Byte)
 {
 #if defined(PDI_VIA_HARDWARE_USART)
 	/* Switch to Tx mode if currently in Rx mode */
