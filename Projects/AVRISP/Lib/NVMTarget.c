@@ -72,9 +72,12 @@ void NVMTarget_SendAddress(const uint32_t AbsoluteAddress)
 bool NVMTarget_WaitWhileNVMControllerBusy(void)
 {
 	TCNT0 = 0;
-
+	TIFR0 = (1 << OCF1A);
+			
+	uint8_t TimeoutMS = PDI_NVM_TIMEOUT_MS;
+	
 	/* Poll the NVM STATUS register while the NVM controller is busy */
-	while (TCNT0 < NVM_BUSY_TIMEOUT_MS)
+	while (TimeoutMS)
 	{
 		/* Send a LDS command to read the NVM STATUS register to check the BUSY flag */
 		PDITarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
@@ -83,6 +86,12 @@ bool NVMTarget_WaitWhileNVMControllerBusy(void)
 		/* Check to see if the BUSY flag is still set */
 		if (!(PDITarget_ReceiveByte() & (1 << 7)))
 		  return true;
+
+		if (TIFR0 & (1 << OCF1A))
+		{
+			TIFR0 = (1 << OCF1A);
+			TimeoutMS--;
+		}
 	}
 	
 	return false;

@@ -70,7 +70,16 @@
 		static inline void V2Protocol_DelayMS(uint8_t DelayMS)
 		{
 			TCNT0 = 0;
-			while (TCNT0 < DelayMS);
+			TIFR0 = (1 << OCF1A);
+
+			while (DelayMS)
+			{
+				if (TIFR0 & (1 << OCF1A))
+				{
+					TIFR0 = (1 << OCF1A);
+					DelayMS--;
+				}
+			}
 		}
 
 	/* External Variables: */

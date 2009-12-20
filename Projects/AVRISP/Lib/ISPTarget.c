@@ -123,16 +123,25 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 		case PROG_MODE_WORD_VALUE_MASK:
 		case PROG_MODE_PAGED_VALUE_MASK:
 			TCNT0 = 0;
+			TIFR0 = (1 << OCF1A);
+			
+			uint8_t TimeoutMS = TARGET_BUSY_TIMEOUT_MS;
 
 			do
 			{
 				SPI_SendByte(ReadMemCommand);
 				SPI_SendByte(PollAddress >> 8);
-				SPI_SendByte(PollAddress & 0xFF);				
-			}
-			while ((SPI_TransferByte(0x00) != PollValue) && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
+				SPI_SendByte(PollAddress & 0xFF);
 
-			if (TCNT0 >= TARGET_BUSY_TIMEOUT_MS)
+				if (TIFR0 & (1 << OCF1A))
+				{
+					TIFR0 = (1 << OCF1A);
+					TimeoutMS--;
+				}
+			}
+			while ((SPI_TransferByte(0x00) != PollValue) && TimeoutMS);
+
+			if (!(TimeoutMS))
 			 ProgrammingStatus = STATUS_CMD_TOUT;
 			
 			break;		
@@ -153,6 +162,9 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 uint8_t ISPTarget_WaitWhileTargetBusy(void)
 {
 	TCNT0 = 0;
+	TIFR0 = (1 << OCF1A);
+			
+	uint8_t TimeoutMS = TARGET_BUSY_TIMEOUT_MS;
 	
 	do
 	{
@@ -160,10 +172,16 @@ uint8_t ISPTarget_WaitWhileTargetBusy(void)
 		SPI_SendByte(0x00);
 
 		SPI_SendByte(0x00);
-	}
-	while ((SPI_ReceiveByte() & 0x01) && (TCNT0 < TARGET_BUSY_TIMEOUT_MS));
 
-	if (TCNT0 >= TARGET_BUSY_TIMEOUT_MS)
+		if (TIFR0 & (1 << OCF1A))
+		{
+			TIFR0 = (1 << OCF1A);
+			TimeoutMS--;
+		}
+	}
+	while ((SPI_ReceiveByte() & 0x01) && TimeoutMS);
+
+	if (!(TimeoutMS))
 	  return STATUS_RDY_BSY_TOUT;
 	else
 	  return STATUS_CMD_OK;

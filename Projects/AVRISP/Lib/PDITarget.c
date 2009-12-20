@@ -311,14 +311,23 @@ void PDITarget_SendBreak(void)
 bool PDITarget_WaitWhileNVMBusBusy(void)
 {
 	TCNT0 = 0;
-
+	TIFR0 = (1 << OCF1A);
+			
+	uint8_t TimeoutMS = PDI_NVM_TIMEOUT_MS;
+	
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
-	while (TCNT0 < PDI_NVM_TIMEOUT_MS)
+	while (TimeoutMS)
 	{
 		/* Send the LDCS command to read the PDI STATUS register to see the NVM bus is active */
 		PDITarget_SendByte(PDI_CMD_LDCS | PDI_STATUS_REG);
 		if (PDITarget_ReceiveByte() & PDI_STATUS_NVM)
 		  return true;
+
+		if (TIFR0 & (1 << OCF1A))
+		{
+			TIFR0 = (1 << OCF1A);
+			TimeoutMS--;
+		}
 	}
 	
 	return false;
