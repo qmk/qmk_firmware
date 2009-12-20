@@ -92,20 +92,20 @@
             // 
             this.lblBlue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBlue.Location = new System.Drawing.Point(3, 115);
-            this.lblBlue.Name = "lblBlue";
+            this.lblBlue.Name = "lblGreen";
             this.lblBlue.Size = new System.Drawing.Size(50, 27);
             this.lblBlue.TabIndex = 5;
-            this.lblBlue.Text = "Blue";
+            this.lblBlue.Text = "Green";
             this.lblBlue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblGreen
             // 
             this.lblGreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGreen.Location = new System.Drawing.Point(3, 163);
-            this.lblGreen.Name = "lblGreen";
+            this.lblGreen.Name = "lblBlue";
             this.lblGreen.Size = new System.Drawing.Size(50, 25);
             this.lblGreen.TabIndex = 6;
-            this.lblGreen.Text = "Green";
+            this.lblGreen.Text = "Blue";
             this.lblGreen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LEDMixer
