@@ -25,6 +25,7 @@
   *  - Added new EVK527 board target
   *  - Added new USB_Host_GetDeviceStringDescriptor() convenience function
   *  - Added new LEDNotification project to the library, to give a visual LED notification on new events from the host
+  *  - Added new NO_DEVICE_REMOTE_WAKEUP and NO_DEVICE_SELF_POWER compile time options
   *
   *  <b>Changed:</b>
   *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of keycodes

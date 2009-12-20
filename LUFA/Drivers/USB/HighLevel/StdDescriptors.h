@@ -119,6 +119,7 @@
 			 */
 			#define USB_CONFIG_ATTR_BUSPOWERED        0x80
 
+			
 			/** Can be masked with other configuration descriptor attributes for a \ref USB_Descriptor_Configuration_Header_t
 			 *  descriptor's ConfigAttributes value to indicate that the specified configuration can draw its power
 			 *  from the device's own power source.

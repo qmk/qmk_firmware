@@ -142,8 +142,14 @@ void USB_ResetInterface(void)
 	#if defined(USB_CAN_BE_DEVICE)
 	USB_DeviceState = DEVICE_STATE_Unattached;
 	USB_ConfigurationNumber  = 0;
-	USB_RemoteWakeupEnabled  = false;
-	USB_CurrentlySelfPowered = false;
+
+	#if !defined(NO_DEVICE_REMOTE_WAKEUP)
+		USB_RemoteWakeupEnabled  = false;
+	#endif
+	
+	#if !defined(NO_DEVICE_SELF_POWER)
+		USB_CurrentlySelfPowered = false;
+	#endif
 	#endif
 	
 	if (!(USB_Options & USB_OPT_MANUAL_PLL))

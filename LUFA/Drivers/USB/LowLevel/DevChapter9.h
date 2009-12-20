@@ -82,23 +82,32 @@
 			 */
 			extern uint8_t USB_ConfigurationNumber;
 			
-			/** Indicates if the host is currently allowing the device to issue remote wakeup events. If this
-			 *  flag is cleared, the device should not issue remote wakeup events to the host.
-			 *
-			 *  \note This variable should be treated as read-only in the user application, and never manually
-			 *        changed in value.
-			 *
-			 *  \ingroup Group_Device
-			 */
-			extern bool USB_RemoteWakeupEnabled;
+			#if !defined(NO_DEVICE_REMOTE_WAKEUP)
+				/** Indicates if the host is currently allowing the device to issue remote wakeup events. If this
+				 *  flag is cleared, the device should not issue remote wakeup events to the host.
+				 *
+				 *  \note This variable should be treated as read-only in the user application, and never manually
+				 *        changed in value.
+				 *
+				 *  \note To reduce FLASH usage of the compiled applications where Remote Wakeup is not supported,
+				 *        this global and the underlying management code can be disabled by defining the 
+				 *        NO_DEVICE_REMOTE_WAKEUP token in the project makefile and passing it to the compiler via
+				 *        the -D switch.
+				 *
+				 *  \ingroup Group_Device
+				 */
+				extern bool USB_RemoteWakeupEnabled;
+			#endif
 			
-			/** Indicates if the device is currently being powered by its own power supply, rather than being
-			 *  powered by the host's USB supply. This flag should remain cleared if the device does not
-			 *  support self powered mode, as indicated in the device descriptors.
-			 *
-			 *  \ingroup Group_Device
-			 */
-			extern bool USB_CurrentlySelfPowered;
+			#if !defined(NO_DEVICE_SELF_POWER)
+				/** Indicates if the device is currently being powered by its own power supply, rather than being
+				 *  powered by the host's USB supply. This flag should remain cleared if the device does not
+				 *  support self powered mode, as indicated in the device descriptors.
+				 *
+				 *  \ingroup Group_Device
+				 */
+				extern bool USB_CurrentlySelfPowered;
+			#endif
 	
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

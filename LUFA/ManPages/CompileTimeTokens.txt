@@ -68,8 +68,56 @@
  *  the HID.h file documentation.
  *
  *
- *  \section Sec_SummaryUSBTokens USB Driver Related Tokens
+ *  \section Sec_SummaryUSBTokens General USB Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack as a whole in the LUFA library.
+ *
+ *  <b>NO_STREAM_CALLBACKS</b> - ( \ref Group_EndpointPacketManagement , \ref Group_PipePacketManagement )\n
+ *  Both the endpoint and the pipe driver code contains stream functions, allowing for arrays of data to be sent to or from the
+ *  host easily via a single function call (rather than complex routines worrying about sending full packets, waiting for the endpoint/
+ *  pipe to become ready, etc.). By default, these stream functions require a callback function which is executed after each byte processed,
+ *  allowing for early-aborts of stream transfers by the application. If callbacks are not required in an application, they can be removed
+ *  by defining this token, reducing the compiled binary size. When removed, the stream functions no longer accept a callback function as
+ *  a parameter.
+ *
+ *  <b>FAST_STREAM_TRANSFERS</b> - ( \ref Group_EndpointPacketManagement , \ref Group_PipePacketManagement )\n
+ *  By default, streams are transferred internally via a loop, sending or receiving one byte per iteration before checking for a bank full
+ *  or empty condition. This allows for multiple stream functions to be chained together easily, as there are no alignment issues. However,
+ *  this can lead to heavy performance penalties in applications where large streams are used frequently. When this compile time option is
+ *  used, bytes are sent or recevied in groups of 8 bytes at a time increasing performance at the expense of a larger flash memory consumption
+ *  due to the extra code required to deal with byte alignment.
+ *
+ *  <b>USE_STATIC_OPTIONS</b>=<i>x</i> - ( \ref Group_USBManagement ) \n
+ *  By default, the USB_Init() function accepts dynamic options at runtime to alter the library behaviour, including whether the USB pad
+ *  voltage regulator is enabled, and the device speed when in device mode. By defining this token to a mask comprised of the USB options
+ *  mask defines usually passed as the Options parameter to USB_Init(), the resulting compiled binary can be decreased in size by removing
+ *  the dynamic options code, and replacing it with the statically set options. When defined, the USB_Init() function no longer accepts an
+ *  Options parameter.
+ *
+ *  <b>USB_DEVICE_ONLY</b> - ( \ref Group_USBManagement ) \n
+ *  For the USB AVR models supporting both device and host USB modes, the USB_Init() function contains a Mode parameter which specifies the
+ *  mode the library should be initialized to. If only device mode is required, the code for USB host mode can be removed from the binary to
+ *  save space. When defined, the USB_Init() function no longer accepts a Mode parameter. This define is irrelevant on smaller USB AVRs which
+ *  do not support host mode.
+ *
+ *  <b>USB_HOST_ONLY</b> - ( \ref Group_USBManagement ) \n
+ *  Same as USB_DEVICE_ONLY, except the library is fixed to USB host mode rather than USB device mode. Not available on some USB AVR models.
+ *
+ *  <b>USB_STREAM_TIMEOUT_MS</b>=<i>x</i> - ( \ref Group_USBManagement ) \n
+ *  When endpoint and/or pipe stream functions are used, by default there is a timeout between each transfer which the connected device or host
+ *  must satisfy, or the stream function aborts the remaining data transfer. This token may be defined to a non-zero 16-bit value to set the timeout
+ *  period for stream transfers, specified in milliseconds. If not defined, the default value specified in LowLevel.h is used instead.
+ *
+ *  <b>NO_LIMITED_CONTROLLER_CONNECT</b> - ( \ref Group_Events ) \n
+ *  On the smaller USB AVRs, the USB controller lacks VBUS events to determine the physical connection state of the USB bus to a host. In lieu of
+ *  VBUS events, the library attempts to determine the connection state via the bus suspension and wake up events instead. This however may be
+ *  slightly inaccurate due to the possibility of the host suspending the bus while the device is still connected. If accurate connection status is
+ *  required, the VBUS line of the USB connector should be routed to an AVR pin to detect its level, so that the USB_DeviceState global
+ *  can be accurately set and the \ref EVENT_USB_Device_Connect() and \ref EVENT_USB_Device_Disconnect() events manually raised by the RAISE_EVENT macro.
+ *  When defined, this token disables the library's auto-detection of the connection state by the aforementioned suspension and wake up events.
+ *
+ *
+ *  \section Sec_SummaryUSBDeviceTokens USB Device Mode Driver Related Tokens
+ *  This section describes compile tokens which affect USB driver stack of the LUFA library when used in Device mode.
  *
  *  <b>USE_RAM_DESCRIPTORS</b> - ( \ref Group_Descriptors ) \n
  *  Define this token to indicate to the USB driver that all device descriptors are stored in RAM, rather than being located in any one
@@ -101,13 +149,6 @@
  *  reserved for application use. When defined, the corresponding GPIOR register should not be used within the user application except
  *  implicitly via the library APIs.
  *
- *  <b>HOST_STATE_AS_GPIOR</b> - ( \ref Group_Host ) \n
- *  One of the most frequenty used global variables in the stack is the USB_HostState global, which indicates the current state of
- *  the Host State Machine. To reduce the amount of code and time required to access and modify this global in an application, this token
- *  may be defined to a value between 0 and 2 to fix the state variable into one of the three general purpose IO registers inside the AVR
- *  reserved for application use. When defined, the corresponding GPIOR register should not be used within the user application except
- *  implicitly via the library APIs.
- *
  *  <b>FIXED_NUM_CONFIGURATIONS</b>=<i>x</i> - ( \ref Group_Device ) \n
  *  By default, the library determines the number of configurations a USB device supports by reading the device descriptor. This reduces
  *  the amount of configuration required to set up the library, and allows the value to change dynamically (if descriptors are stored in
@@ -119,20 +160,31 @@
  *  is through control endpoint requests. Defining this token will remove several features related to the selection and control of device
  *  endpoints internally, saving space. Generally, this is usually only useful in (some) bootloaders and is best avoided.
  *
- *  <b>NO_STREAM_CALLBACKS</b> - ( \ref Group_EndpointPacketManagement , \ref Group_PipePacketManagement )\n
- *  Both the endpoint and the pipe driver code contains stream functions, allowing for arrays of data to be sent to or from the
- *  host easily via a single function call (rather than complex routines worrying about sending full packets, waiting for the endpoint/
- *  pipe to become ready, etc.). By default, these stream functions require a callback function which is executed after each byte processed,
- *  allowing for early-aborts of stream transfers by the application. If callbacks are not required in an application, they can be removed
- *  by defining this token, reducing the compiled binary size. When removed, the stream functions no longer accept a callback function as
- *  a parameter.
+ *  <b>INTERRUPT_CONTROL_ENDPOINT</b> - ( \ref Group_USBManagement ) \n
+ *  Some applications prefer to not call the USB_USBTask() management task reguarly while in device mode, as it can complicate code significantly.
+ *  Instead, when device mode is used this token can be passed to the library via the -D switch to allow the library to manage the USB control
+ *  endpoint entirely via USB controller interrupts asynchronously to the user application.
  *
- *  <b>FAST_STREAM_TRANSFERS</b> - ( \ref Group_EndpointPacketManagement , \ref Group_PipePacketManagement )\n
- *  By default, streams are transferred internally via a loop, sending or receiving one byte per iteration before checking for a bank full
- *  or empty condition. This allows for multiple stream functions to be chained together easily, as there are no alignment issues. However,
- *  this can lead to heavy performance penalties in applications where large streams are used frequently. When this compile time option is
- *  used, bytes are sent or recevied in groups of 8 bytes at a time increasing performance at the expense of a larger flash memory consumption
- *  due to the extra code required to deal with byte alignment.
+ *  <b>NO_DEVICE_REMOTE_WAKEUP</b> - (\ref Group_Device ) \n
+ *  Many devices do not require the use of the Remote Wakeup features of USB, used to wake up the USB host when suspended. On these devices,
+ *  the code required to manage device Remote Wakeup can be disabled by defining this token and passing it to the library via the -D switch.
+ *
+ *  <b>NO_DEVICE_SELF_POWER</b> - (\ref Group_Device ) \n
+ *  USB devices may be bus powered, self powered, or a combination of both. When a device can be both bus powered and self powered, the host may
+ *  query the device to determine the current power source, via \ref USB_CurrentlySelfPowered. For solely bus powered devices, this global and the
+ *  code required to manage it may be disabled by passing this token to the library via the -D switch.
+ *
+ *
+ *  \section Sec_SummaryUSBHostTokens USB Host Mode Driver Related Tokens
+ *
+ *  This section describes compile tokens which affect USB driver stack of the LUFA library when used in Host mode.
+ *
+ *  <b>HOST_STATE_AS_GPIOR</b> - ( \ref Group_Host ) \n
+ *  One of the most frequenty used global variables in the stack is the USB_HostState global, which indicates the current state of
+ *  the Host State Machine. To reduce the amount of code and time required to access and modify this global in an application, this token
+ *  may be defined to a value between 0 and 2 to fix the state variable into one of the three general purpose IO registers inside the AVR
+ *  reserved for application use. When defined, the corresponding GPIOR register should not be used within the user application except
+ *  implicitly via the library APIs.
  *
  *  <b>USB_HOST_TIMEOUT_MS</b>=<i>x</i> - ( \ref Group_Host ) \n
  *  When a control transfer is initiated in host mode to an attached device, a timeout is used to abort the transfer if the attached
@@ -144,38 +196,4 @@
  *  they will fail to enumerate correctly. By placing a delay before the enumeration process, it can be ensured that the bus has settled
  *  back to a known idle state before communications occur with the device. This token may be defined to a 16-bit value to set the device
  *  settle period, specified in milliseconds. If not defined, the default value specified in Host.h is used instead.
- *
- *  <b>USE_STATIC_OPTIONS</b>=<i>x</i> - ( \ref Group_USBManagement ) \n
- *  By default, the USB_Init() function accepts dynamic options at runtime to alter the library behaviour, including whether the USB pad
- *  voltage regulator is enabled, and the device speed when in device mode. By defining this token to a mask comprised of the USB options
- *  mask defines usually passed as the Options parameter to USB_Init(), the resulting compiled binary can be decreased in size by removing
- *  the dynamic options code, and replacing it with the statically set options. When defined, the USB_Init() function no longer accepts an
- *  Options parameter.
- *
- *  <b>USB_DEVICE_ONLY</b> - ( \ref Group_USBManagement ) \n
- *  For the USB AVR models supporting both device and host USB modes, the USB_Init() function contains a Mode parameter which specifies the
- *  mode the library should be initialized to. If only device mode is required, the code for USB host mode can be removed from the binary to
- *  save space. When defined, the USB_Init() function no longer accepts a Mode parameter. This define is irrelevant on smaller USB AVRs which
- *  do not support host mode.
- *
- *  <b>USB_HOST_ONLY</b> - ( \ref Group_USBManagement ) \n
- *  Same as USB_DEVICE_ONLY, except the library is fixed to USB host mode rather than USB device mode. Not available on some USB AVR models.
- *
- *  <b>USB_STREAM_TIMEOUT_MS</b>=<i>x</i> - ( \ref Group_USBManagement ) \n
- *  When endpoint and/or pipe stream functions are used, by default there is a timeout between each transfer which the connected device or host
- *  must satisfy, or the stream function aborts the remaining data transfer. This token may be defined to a non-zero 16-bit value to set the timeout
- *  period for stream transfers, specified in milliseconds. If not defined, the default value specified in LowLevel.h is used instead.
- *
- *  <b>NO_LIMITED_CONTROLLER_CONNECT</b> - ( \ref Group_Events ) \n
- *  On the smaller USB AVRs, the USB controller lacks VBUS events to determine the physical connection state of the USB bus to a host. In lieu of
- *  VBUS events, the library attempts to determine the connection state via the bus suspension and wake up events instead. This however may be
- *  slightly inaccurate due to the possibility of the host suspending the bus while the device is still connected. If accurate connection status is
- *  required, the VBUS line of the USB connector should be routed to an AVR pin to detect its level, so that the USB_DeviceState global
- *  can be accurately set and the \ref EVENT_USB_Device_Connect() and \ref EVENT_USB_Device_Disconnect() events manually raised by the RAISE_EVENT macro.
- *  When defined, this token disables the library's auto-detection of the connection state by the aforementioned suspension and wake up events.
- *
- *  <b>INTERRUPT_CONTROL_ENDPOINT</b> - ( \ref Group_USBManagement ) \n
- *  Some applications prefer to not call the USB_USBTask() management task reguarly while in device mode, as it can complicate code significantly.
- *  Instead, when device mode is used this token can be passed to the library via the -D switch to allow the library to manage the USB control
- *  endpoint entirely via USB controller interrupts asynchronously to the user application.
  */

@@ -21,13 +21,16 @@ uint8_t TEMPLATE_FUNC_NAME (const void* Buffer, uint16_t Length)
 		  
 		if (Endpoint_IsINReady())
 		{
-			while (Length && (Endpoint_BytesInEndpoint() < USB_ControlEndpointSize))
+			uint16_t BytesInEndpoint = Endpoint_BytesInEndpoint();
+		
+			while (Length && (BytesInEndpoint < USB_ControlEndpointSize))
 			{
 				TEMPLATE_TRANSFER_BYTE(DataStream);
 				Length--;
+				BytesInEndpoint++;
 			}
 			
-			LastPacketFull = (Endpoint_BytesInEndpoint() == USB_ControlEndpointSize);
+			LastPacketFull = (BytesInEndpoint == USB_ControlEndpointSize);
 			Endpoint_ClearIN();
 		}
 	}

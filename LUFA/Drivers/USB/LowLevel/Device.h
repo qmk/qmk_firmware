@@ -83,7 +83,8 @@
 				 *  \note This macro should only be used if the device has indicated to the host that it
 				 *        supports the Remote Wakeup feature in the device descriptors, and should only be
 				 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
-				 *        the \ref USB_RemoteWakeupEnabled flag is set).
+				 *        the \ref USB_RemoteWakeupEnabled flag is set). When the NO_DEVICE_REMOTE_WAKEUP compile
+				 *        time option is used, this macro is unavailable.
 				 *
 				 *  \see \ref Group_Descriptors for more information on the RMWAKEUP feature and device descriptors.
 				 */
@@ -96,7 +97,8 @@
 				 *  a sent RMWAKEUP request was accepted or rejected by the host.
 				 *
 				 *  \note This macro should only be used if the device has indicated to the host that it
-				 *        supports the Remote Wakeup feature in the device descriptors.
+				 *        supports the Remote Wakeup feature in the device descriptors. When the NO_DEVICE_REMOTE_WAKEUP
+				 *        compile time option is used, this macro is unavailable.
 				 *
 				 *  \see \ref Group_Descriptors for more information on the RMWAKEUP feature and device descriptors.
 				 *
@@ -123,10 +125,12 @@
 				 */
 				static inline bool USB_Device_DisableSOFEvents(void);
 			#else
-				#define USB_Device_SendRemoteWakeup()   MACROS{ UDCON |= (1 << RMWKUP); }MACROE
+				#if !defined(NO_DEVICE_REMOTE_WAKEUP)
+					#define USB_Device_SendRemoteWakeup()   MACROS{ UDCON |= (1 << RMWKUP); }MACROE
 
-				#define USB_Device_IsRemoteWakeupSent()       ((UDCON &  (1 << RMWKUP)) ? false : true)
-
+					#define USB_Device_IsRemoteWakeupSent()       ((UDCON &  (1 << RMWKUP)) ? false : true)
+				#endif
+				
 				#define USB_Device_IsUSBSuspended()           ((UDINT &  (1 << SUSPI)) ? true : false)
 				
 				#define USB_Device_EnableSOFEvents()    MACROS{ USB_INT_Enable(USB_INT_SOFI); }MACROE
