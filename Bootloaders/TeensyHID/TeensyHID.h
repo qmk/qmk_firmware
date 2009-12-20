@@ -49,11 +49,6 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 		
-	/* Preprocessor Checks: */
-		#if !defined(__AVR_AT90USB162__) && !defined(__AVR_AT90USB646__)
-			#error This bootloader is not compatible with the selected AVR model.
-		#endif
-
 	/* Macros: */
 		/** HID Class specific request to send the next HID report to the device. */
 		#define REQ_SetReport             0x09

@@ -66,6 +66,7 @@
   *  - Fixed Still Image Host Class driver truncating the PIMA response code (thanks to Daniel Seibert)
   *  - Fixed USB_CurrentMode not being reset to USB_MODE_NONE when the USB interface is shut down and both Host and Device modes can be
   *    used (thanks to Daniel Levy)
+  *  - Fixed TeensyHID bootloader not enumerating to the host correctly
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *

@@ -52,12 +52,12 @@ int main(void)
 	while (RunBootloader)
 	  USB_USBTask();
 	
-	/* Turn off the USB interface, disconnect from the host */
-	USB_ShutDown();
+	/* Disconnect from the host - USB interface will be reset later along with the AVR */
+	USB_Detach();
 
 	/* Enable the watchdog and force a timeout to reset the AVR */
 	wdt_enable(WDTO_250MS);
-					
+
 	for (;;);
 }
 
@@ -100,53 +100,50 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	switch (USB_ControlRequest.bRequest)
 	{
 		case REQ_SetReport:
-			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
-			{
-				Endpoint_ClearSETUP();
-				
-				/* Wait until the command has been sent by the host */
-				while (!(Endpoint_IsOUTReceived()));
+			Endpoint_ClearSETUP();
 			
-				/* Read in the write destination address */
-				uint16_t PageAddress = Endpoint_Read_Word_LE();
+			/* Wait until the command has been sent by the host */
+			while (!(Endpoint_IsOUTReceived()));
+		
+			/* Read in the write destination address */
+			uint16_t PageAddress = Endpoint_Read_Word_LE();
+			
+			/* Check if the command is a program page command, or a start application command */
+			if (PageAddress == TEENSY_STARTAPPLICATION)
+			{
+				RunBootloader = false;
+			}
+			else
+			{
+				/* Erase the given FLASH page, ready to be programmed */
+				boot_page_erase(PageAddress);
+				boot_spm_busy_wait();
 				
-				/* Check if the command is a program page command, or a start application command */
-				if (PageAddress == TEENSY_STARTAPPLICATION)
+				/* Write each of the FLASH page's bytes in sequence */
+				for (uint8_t PageByte = 0; PageByte < SPM_PAGESIZE; PageByte += 2)
 				{
-					RunBootloader = false;
-				}
-				else
-				{
-					/* Erase the given FLASH page, ready to be programmed */
-					boot_page_erase(PageAddress);
-					boot_spm_busy_wait();
-					
-					/* Write each of the FLASH page's bytes in sequence */
-					for (uint8_t PageByte = 0; PageByte < SPM_PAGESIZE; PageByte += 2)
+					/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
+					if (!(Endpoint_BytesInEndpoint()))
 					{
-						/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
-						if (!(Endpoint_BytesInEndpoint()))
-						{
-							Endpoint_ClearOUT();
-							while (!(Endpoint_IsOUTReceived()));
-						}
-
-						/* Write the next data word to the FLASH page */
-						boot_page_fill(PageAddress + PageByte, Endpoint_Read_Word_LE());
+						Endpoint_ClearOUT();
+						while (!(Endpoint_IsOUTReceived()));
 					}
 
-					/* Write the filled FLASH page to memory */
-					boot_page_write(PageAddress);
-					boot_spm_busy_wait();
-
-					/* Re-enable RWW section */
-					boot_rww_enable();
+					/* Write the next data word to the FLASH page */
+					boot_page_fill(PageAddress + PageByte, Endpoint_Read_Word_LE());
 				}
 
-				Endpoint_ClearOUT();
+				/* Write the filled FLASH page to memory */
+				boot_page_write(PageAddress);
+				boot_spm_busy_wait();
 
-				Endpoint_ClearStatusStage();
+				/* Re-enable RWW section */
+				boot_rww_enable();
 			}
+
+			Endpoint_ClearOUT();
+
+			Endpoint_ClearStatusStage();
 			
 			break;
 	}

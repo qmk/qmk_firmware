@@ -60,7 +60,7 @@
 
 
 # MCU name
-MCU = at90usb162
+MCU = atmega32u4
 
 
 # Target board (see library "Board Types" documentation, USER or blank for projects not requiring
@@ -98,7 +98,7 @@ F_CLOCK = $(F_CPU)
 
 
 # Starting byte address of the bootloader
-BOOT_START = 0xC000
+BOOT_START = 0x7000
 
 
 # Output format. (can be srec, ihex, binary)
@@ -121,7 +121,6 @@ LUFA_PATH = ../..
 
 # LUFA library compile-time options
 LUFA_OPTS  = -D USB_DEVICE_ONLY
-LUFA_OPTS += -D CONTROL_ONLY_DEVICE
 LUFA_OPTS += -D DEVICE_STATE_AS_GPIOR=0
 LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
