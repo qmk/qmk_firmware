@@ -78,7 +78,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
 	uint8_t LEDMask = LEDS_ALL_LEDS;
 
-	if (++SoftPWM_Count == 0x1F)
+	if (++SoftPWM_Count == 0b00011111)
 	  SoftPWM_Count = 0;
 
 	if (SoftPWM_Count >= SoftPWM_Channel1_Duty)

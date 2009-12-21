@@ -75,7 +75,7 @@ USB_Descriptor_Device_t DeviceDescriptor =
 		
 	.VendorID               = 0x16C0,
 	.ProductID              = 0x0478,
-	.ReleaseNumber          = 0x0010,
+	.ReleaseNumber          = 0x0120,
 		
 	.ManufacturerStrIndex   = NO_DESCRIPTOR,
 	.ProductStrIndex        = 0x01,
