@@ -43,6 +43,7 @@
 		
 		#include <LUFA/Common/Common.h>
 		
+		#include "TPIProtocol.h"
 		#include "TPITarget.h"
 	
 	/* Preprocessor Checks: */
@@ -56,18 +57,6 @@
 		#endif
 
 	/* Defines: */
-		#define TINY_NVM_BUSY_TIMEOUT_MS       200
-
-	/* Function Prototypes: */
-		void TINYNVM_SendNVMRegAddress(const uint8_t Register);
-		void TINYNVM_SendAddress(const uint32_t AbsoluteAddress);
-		bool TINYNVM_WaitWhileNVMControllerBusy(void);
-		bool TINYNVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest);
-		bool TINYNVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize);
-		bool TINYNVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer);
-		bool TINYNVM_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t EraseBuffCommand,
-		                               const uint8_t WritePageCommand, const uint8_t PageMode, const uint32_t WriteAddress,
-		                               const uint8_t* WriteBuffer, const uint16_t WriteSize);
-		bool TINYNVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address);
+		#define TINY_NVM_BUSY_TIMEOUT_MS       100
 
 #endif

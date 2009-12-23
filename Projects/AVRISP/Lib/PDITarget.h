@@ -68,9 +68,11 @@
 			#define BITBANG_PDICLOCK_MASK    RESET_LINE_MASK
 		#endif
 		
+		/** Total number of bits in a single USART frame */
 		#define BITS_IN_PDI_FRAME        12
 		
-		#define PDI_NVM_TIMEOUT_MS       200
+		/** Timeout in milliseconds of a PDI busy-wait command */
+		#define PDI_NVM_TIMEOUT_MS       100
 		
 		#define PDI_CMD_LDS              0x00
 		#define PDI_CMD_LD               0x20

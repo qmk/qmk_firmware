@@ -59,14 +59,11 @@
 
 	/* Macros: */
 		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing */
-		#define PROGRAMMER_ID             "AVRISP_MK2"
-
-		/** Timeout in milliseconds of target busy-wait loops waiting for a command to complete */
-		#define TARGET_BUSY_TIMEOUT_MS    240
+		#define PROGRAMMER_ID     "AVRISP_MK2"
 
 	/* External Variables: */
 		extern uint32_t CurrentAddress;
-		extern bool MustSetAddress;
+		extern bool     MustSetAddress;
 
 	/* Function Prototypes: */
 		void V2Protocol_ProcessCommand(void);

@@ -64,9 +64,11 @@
 		#define BITBANG_TPICLOCK_PIN     PINB
 		#define BITBANG_TPICLOCK_MASK    (1 << 1)
 		
+		/** Total number of bits in a single USART frame */
 		#define BITS_IN_TPI_FRAME        12
 		
-		#define TPI_NVM_TIMEOUT_MS       200
+		/** Timeout in milliseconds of a PDI busy-wait command */
+		#define TPI_NVM_TIMEOUT_MS       100
 
 		#define TPI_CMD_SLD              0x20
 		#define TPI_CMD_SST              0x60

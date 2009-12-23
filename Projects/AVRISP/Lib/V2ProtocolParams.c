@@ -44,43 +44,43 @@ static ParameterItem_t ParameterTable[] =
 	{
 		{ .ParamID          = PARAM_BUILD_NUMBER_LOW,
 		  .ParamValue       = (LUFA_VERSION_INTEGER >> 8),
-		  .ParamPrivileges = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_BUILD_NUMBER_HIGH,
 		  .ParamValue       = (LUFA_VERSION_INTEGER & 0xFF),
-		  .ParamPrivileges = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_HW_VER,
 		  .ParamValue       = 0x00,
-		  .ParamPrivileges = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SW_MAJOR,
 		  .ParamValue       = 0x01,
-		  .ParamPrivileges = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SW_MINOR,
-		  .ParamValue       = 0x0C,
-		  .ParamPrivileges = PARAM_PRIV_READ                    },
+		  .ParamValue       = 0x0D,
+		  .ParamPrivileges  = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_VTARGET,
 		  .ParamValue       = 0x32,
-		  .ParamPrivileges = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_SCK_DURATION,
 		  .ParamValue       = (TOTAL_ISP_PROGRAMMING_SPEEDS - 1),
-		  .ParamPrivileges = PARAM_PRIV_READ | PARAM_PRIV_WRITE },
+		  .ParamPrivileges  = PARAM_PRIV_READ | PARAM_PRIV_WRITE },
 
 		{ .ParamID          = PARAM_RESET_POLARITY,
 		  .ParamValue       = 0x00,
-		  .ParamPrivileges = PARAM_PRIV_WRITE                   },
+		  .ParamPrivileges  = PARAM_PRIV_WRITE                   },
 
 		{ .ParamID          = PARAM_STATUS_TGT_CONN,
 		  .ParamValue       = 0x00,
-		  .ParamPrivileges = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ                    },
 
 		{ .ParamID          = PARAM_DISCHARGEDELAY,
 		  .ParamValue       = 0x00,
-		  .ParamPrivileges = PARAM_PRIV_WRITE                   },
+		  .ParamPrivileges  = PARAM_PRIV_WRITE                   },
 	};
 
 
@@ -173,6 +173,6 @@ static ParameterItem_t* V2Params_GetParamFromTable(const uint8_t ParamID)
 		if (ParamID == ParameterTable[TableIndex].ParamID)
 		  return &ParameterTable[TableIndex];
 	}
-	
+
 	return NULL;
 }

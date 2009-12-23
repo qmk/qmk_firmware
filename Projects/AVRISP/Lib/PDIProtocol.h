@@ -54,7 +54,7 @@
 				#define ENABLE_PDI_PROTOCOL
 			#endif
 		#endif
-
+	
 	/* Macros: */
 		#define XPRG_CMD_ENTER_PROGMODE             0x01
 		#define XPRG_CMD_LEAVE_PROGMODE             0x02
