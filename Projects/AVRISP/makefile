@@ -135,6 +135,7 @@ SRC = $(TARGET).c                                                 \
 	  Lib/PDITarget.c                                             \
 	  Lib/XMEGANVM.c                                              \
 	  Lib/TPITarget.c                                             \
+	  Lib/TINYNVM.c                                               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \

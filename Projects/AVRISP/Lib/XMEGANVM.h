@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for NVMTarget.c.
+ *  Header file for XMEGANVM.c.
  */
 
-#ifndef _NVM_TARGET_
-#define _NVM_TARGET_
+#ifndef _XMEGA_NVM__
+#define _XMEGA_NVM_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -57,65 +57,65 @@
 		#endif
 
 	/* Defines: */
-		#define NVM_BUSY_TIMEOUT_MS            200
+		#define XMEGA_NVM_BUSY_TIMEOUT_MS            200
 		
-		#define NVM_REG_ADDR0                  0x00
-		#define NVM_REG_ADDR1                  0x01
-		#define NVM_REG_ADDR2                  0x02
-		#define NVM_REG_DAT0                   0x04
-		#define NVM_REG_DAT1                   0x05
-		#define NVM_REG_DAT2                   0x06
-		#define NVM_REG_CMD                    0x0A
-		#define NVM_REG_CTRLA                  0x0B
-		#define NVM_REG_CTRLB                  0x0C
-		#define NVM_REG_INTCTRL                0x0D
-		#define NVM_REG_STATUS                 0x0F
-		#define NVM_REG_LOCKBITS               0x10
+		#define XMEGA_NVM_REG_ADDR0                  0x00
+		#define XMEGA_NVM_REG_ADDR1                  0x01
+		#define XMEGA_NVM_REG_ADDR2                  0x02
+		#define XMEGA_NVM_REG_DAT0                   0x04
+		#define XMEGA_NVM_REG_DAT1                   0x05
+		#define XMEGA_NVM_REG_DAT2                   0x06
+		#define XMEGA_NVM_REG_CMD                    0x0A
+		#define XMEGA_NVM_REG_CTRLA                  0x0B
+		#define XMEGA_NVM_REG_CTRLB                  0x0C
+		#define XMEGA_NVM_REG_INTCTRL                0x0D
+		#define XMEGA_NVM_REG_STATUS                 0x0F
+		#define XMEGA_NVM_REG_LOCKBITS               0x10
 		
-		#define NVM_CMD_NOOP                   0x00
-		#define NVM_CMD_CHIPERASE              0x40
-		#define NVM_CMD_READNVM                0x43
-		#define NVM_CMD_LOADFLASHPAGEBUFF      0x23
-		#define NVM_CMD_ERASEFLASHPAGEBUFF     0x26
-		#define NVM_CMD_ERASEFLASHPAGE         0x2B
-		#define NVM_CMD_WRITEFLASHPAGE         0x2E
-		#define NVM_CMD_ERASEWRITEFLASH        0x2F
-		#define NVM_CMD_FLASHCRC               0x78
-		#define NVM_CMD_ERASEAPPSEC            0x20
-		#define NVM_CMD_ERASEAPPSECPAGE        0x22
-		#define NVM_CMD_WRITEAPPSECPAGE        0x24
-		#define NVM_CMD_ERASEWRITEAPPSECPAGE   0x25
-		#define NVM_CMD_APPCRC                 0x38
-		#define NVM_CMD_ERASEBOOTSEC           0x68
-		#define NVM_CMD_ERASEBOOTSECPAGE       0x2A
-		#define NVM_CMD_WRITEBOOTSECPAGE       0x2C
-		#define NVM_CMD_ERASEWRITEBOOTSECPAGE  0x2D
-		#define NVM_CMD_BOOTCRC                0x39
-		#define NVM_CMD_READUSERSIG            0x03
-		#define NVM_CMD_ERASEUSERSIG           0x18
-		#define NVM_CMD_WRITEUSERSIG           0x1A
-		#define NVM_CMD_READCALIBRATION        0x02
-		#define NVM_CMD_READFUSE               0x07
-		#define NVM_CMD_WRITEFUSE              0x4C
-		#define NVM_CMD_WRITELOCK              0x08
-		#define NVM_CMD_LOADEEPROMPAGEBUFF     0x33
-		#define NVM_CMD_ERASEEEPROMPAGEBUFF    0x36
-		#define NVM_CMD_ERASEEEPROM            0x30
-		#define NVM_CMD_ERASEEEPROMPAGE        0x32
-		#define NVM_CMD_WRITEEEPROMPAGE        0x34
-		#define NVM_CMD_ERASEWRITEEEPROMPAGE   0x35
-		#define NVM_CMD_READEEPROM             0x06
+		#define XMEGA_NVM_CMD_NOOP                   0x00
+		#define XMEGA_NVM_CMD_CHIPERASE              0x40
+		#define XMEGA_NVM_CMD_READNVM                0x43
+		#define XMEGA_NVM_CMD_LOADFLASHPAGEBUFF      0x23
+		#define XMEGA_NVM_CMD_ERASEFLASHPAGEBUFF     0x26
+		#define XMEGA_NVM_CMD_ERASEFLASHPAGE         0x2B
+		#define XMEGA_NVM_CMD_WRITEFLASHPAGE         0x2E
+		#define XMEGA_NVM_CMD_ERASEWRITEFLASH        0x2F
+		#define XMEGA_NVM_CMD_FLASHCRC               0x78
+		#define XMEGA_NVM_CMD_ERASEAPPSEC            0x20
+		#define XMEGA_NVM_CMD_ERASEAPPSECPAGE        0x22
+		#define XMEGA_NVM_CMD_WRITEAPPSECPAGE        0x24
+		#define XMEGA_NVM_CMD_ERASEWRITEAPPSECPAGE   0x25
+		#define XMEGA_NVM_CMD_APPCRC                 0x38
+		#define XMEGA_NVM_CMD_ERASEBOOTSEC           0x68
+		#define XMEGA_NVM_CMD_ERASEBOOTSECPAGE       0x2A
+		#define XMEGA_NVM_CMD_WRITEBOOTSECPAGE       0x2C
+		#define XMEGA_NVM_CMD_ERASEWRITEBOOTSECPAGE  0x2D
+		#define XMEGA_NVM_CMD_BOOTCRC                0x39
+		#define XMEGA_NVM_CMD_READUSERSIG            0x03
+		#define XMEGA_NVM_CMD_ERASEUSERSIG           0x18
+		#define XMEGA_NVM_CMD_WRITEUSERSIG           0x1A
+		#define XMEGA_NVM_CMD_READCALIBRATION        0x02
+		#define XMEGA_NVM_CMD_READFUSE               0x07
+		#define XMEGA_NVM_CMD_WRITEFUSE              0x4C
+		#define XMEGA_NVM_CMD_WRITELOCK              0x08
+		#define XMEGA_NVM_CMD_LOADEEPROMPAGEBUFF     0x33
+		#define XMEGA_NVM_CMD_ERASEEEPROMPAGEBUFF    0x36
+		#define XMEGA_NVM_CMD_ERASEEEPROM            0x30
+		#define XMEGA_NVM_CMD_ERASEEEPROMPAGE        0x32
+		#define XMEGA_NVM_CMD_WRITEEEPROMPAGE        0x34
+		#define XMEGA_NVM_CMD_ERASEWRITEEEPROMPAGE   0x35
+		#define XMEGA_NVM_CMD_READEEPROM             0x06
 
 	/* Function Prototypes: */
-		void NVMTarget_SendNVMRegAddress(const uint8_t Register);
-		void NVMTarget_SendAddress(const uint32_t AbsoluteAddress);
-		bool NVMTarget_WaitWhileNVMControllerBusy(void);
-		bool NVMTarget_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest);
-		bool NVMTarget_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize);
-		bool NVMTarget_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer);
-		bool NVMTarget_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t EraseBuffCommand,
-		                               const uint8_t WritePageCommand, const uint8_t PageMode, const uint32_t WriteAddress,
-		                               const uint8_t* WriteBuffer, const uint16_t WriteSize);
-		bool NVMTarget_EraseMemory(const uint8_t EraseCommand, const uint32_t Address);
+		void XMEGANVM_SendNVMRegAddress(const uint8_t Register);
+		void XMEGANVM_SendAddress(const uint32_t AbsoluteAddress);
+		bool XMEGANVM_WaitWhileNVMControllerBusy(void);
+		bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest);
+		bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize);
+		bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer);
+		bool XMEGANVM_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t EraseBuffCommand,
+		                              const uint8_t WritePageCommand, const uint8_t PageMode, const uint32_t WriteAddress,
+		                              const uint8_t* WriteBuffer, const uint16_t WriteSize);
+		bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address);
 
 #endif
