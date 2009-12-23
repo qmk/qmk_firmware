@@ -48,7 +48,7 @@
 		
 		#include "V2Protocol.h"
 		#include "V2ProtocolConstants.h"
-		#include "ISPTarget.h"
+		#include "ISP/ISPTarget.h"
 
 	/* Macros: */
 		/** Parameter privilege mask to allow the host PC to read the parameter's value */

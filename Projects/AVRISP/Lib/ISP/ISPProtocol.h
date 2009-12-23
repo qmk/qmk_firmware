@@ -39,7 +39,9 @@
 	/* Includes: */
 		#include <avr/io.h>
 		
-		#include "V2Protocol.h"
+		#include <LUFA/Drivers/USB/USB.h>
+
+		#include "../V2Protocol.h"
 		
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))

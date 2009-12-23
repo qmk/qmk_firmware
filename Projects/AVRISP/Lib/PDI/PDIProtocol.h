@@ -40,8 +40,10 @@
 		#include <avr/io.h>
 		#include <util/delay.h>
 		#include <stdio.h>
+		
+		#include <LUFA/Drivers/USB/USB.h>
 	
-		#include "V2Protocol.h"
+		#include "../V2Protocol.h"
 		#include "PDITarget.h"
 		#include "XMEGANVM.h"
 

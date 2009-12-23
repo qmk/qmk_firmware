@@ -41,7 +41,8 @@
 		#include <util/delay.h>
 		#include <stdio.h>
 	
-		#include "V2Protocol.h"
+		#include <LUFA/Drivers/USB/USB.h>
+
 		#include "TPITarget.h"
 		#include "TINYNVM.h"
 

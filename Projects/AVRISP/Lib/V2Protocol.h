@@ -43,9 +43,9 @@
 		#include "../Descriptors.h"
 		#include "V2ProtocolConstants.h"
 		#include "V2ProtocolParams.h"
-		#include "ISPProtocol.h"
-		#include "PDIProtocol.h"
-		#include "TPIProtocol.h"
+		#include "ISP/ISPProtocol.h"
+		#include "PDI/PDIProtocol.h"
+		#include "TPI/TPIProtocol.h"
 
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
