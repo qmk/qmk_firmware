@@ -30,23 +30,19 @@
 
 /** \file
  *
- *  Header file for ISPTarget.c.
+ *  Header file for TPITarget.c.
  */
 
-#ifndef _ISP_TARGET_
-#define _ISP_TARGET_
+#ifndef _TPI_TARGET_
+#define _TPI_TARGET_
 
 	/* Includes: */
 		#include <avr/io.h>
-		#include <util/delay.h>
-
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Peripheral/SPI.h>
+		#include <avr/interrupt.h>
+		#include <stdbool.h>
 		
-		#include "../Descriptors.h"
-		#include "V2ProtocolConstants.h"
-		#include "V2ProtocolParams.h"
-
+		#include <LUFA/Common/Common.h>
+	
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL
@@ -57,17 +53,29 @@
 			#endif
 		#endif
 
-	/* Macros: */
-		/** Total number of allowable ISP programming speeds supported by the device */
-		#define TOTAL_ISP_PROGRAMMING_SPEEDS  7
+	/* Defines: */
+		#define BITBANG_TPIDATA_PORT     PORTB
+		#define BITBANG_TPIDATA_DDR      DDRB
+		#define BITBANG_TPIDATA_PIN      PINB
+		#define BITBANG_TPIDATA_MASK     (1 << 3)
+			
+		#define BITBANG_TPICLOCK_PORT    PORTB
+		#define BITBANG_TPICLOCK_DDR     DDRB
+		#define BITBANG_TPICLOCK_PIN     PINB
+		#define BITBANG_TPICLOCK_MASK    (1 << 1)
+		
+		#define BITS_IN_TPI_FRAME        12
+		
+		#define TPI_NVM_TIMEOUT_MS       200
 
+		#define TPI_NVMENABLE_KEY        (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
+				
 	/* Function Prototypes: */
-			uint8_t ISPTarget_GetSPIPrescalerMask(void);
-			void    ISPTarget_ChangeTargetResetLine(const bool ResetTarget);
-			uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint16_t PollAddress,
-			                                      const uint8_t PollValue, const uint8_t DelayMS,
-			                                      const uint8_t ReadMemCommand);
-			uint8_t ISPTarget_WaitWhileTargetBusy(void);
-			void    ISPTarget_LoadExtendedAddress(void);
+		void    TPITarget_EnableTargetTPI(void);
+		void    TPITarget_DisableTargetTPI(void);
+		void    TPITarget_SendByte(const uint8_t Byte);
+		uint8_t TPITarget_ReceiveByte(void);
+		void    TPITarget_SendBreak(void);
+		bool    TPITarget_WaitWhileNVMBusBusy(void);
 
 #endif

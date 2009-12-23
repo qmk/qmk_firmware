@@ -62,10 +62,10 @@
  *  without an ADC converter, VTARGET will report at a fixed 5V level.
  *
  *  When compiled for the XPLAIN board target, this will automatically configure itself for the correct connections to the
- *  XPLAIN's XMEGA AVR, and will enable PDI only programming support (since ISP mode is not needed).
+ *  XPLAIN's XMEGA AVR, and will enable PDI only programming support (since ISP and TPI modes are not needed).
  *
  *  While this application can be compiled for USB AVRs with as little as 8KB of FLASH, for full functionality 16KB or more
- *  of FLASH is required. On 8KB devices, either ISP or PDI programming support can be disabled to reduce program size.
+ *  of FLASH is required. On 8KB devices, ISP, PDI or TPI programming support can be disabled to reduce program size.
  *
  *  \section Sec_ISP ISP Connections
  *  Connections to the device for SPI programming (when enabled):
@@ -155,6 +155,50 @@
  *  <b><sup>1</sup></b> <i>When PDI_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
  *                         via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i>
  *
+ *  \section Sec_TPI TPI Connections
+ *  Connections to the device for TPI programming<b><sup>1</sup></b> (when enabled):
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Programmer Pin:</b></td>
+ *    <td><b>Target Device Pin:</b></td>
+ *    <td><b>PDI 6 Pin Layout:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>MISO</td>
+ *    <td>DATA</td>
+ *    <td>1</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ADCx <b><sup>1</sup></b></td>
+ *    <td>VTARGET</td>
+ *    <td>2</td>
+ *   </tr>
+ *   <tr>
+ *    <td>SCLK</td>
+ *    <td>CLOCK</td>
+ *    <td>3</td>
+ *   </tr>
+ *   <tr>
+ *    <td>N/A</td>
+ *    <td>N/A</td>
+ *    <td>4</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PORTx.y <b><sup>2</sup></b></td>
+ *    <td>/RESET</td>
+ *    <td>5</td>
+ *   </tr>
+ *   <tr>
+ *    <td>GND</td>
+ *    <td>GND</td>
+ *    <td>6</td>
+ *   </tr>
+ *  </table>
+ *
+ *  <b><sup>1</sup></b> <i>When TPI_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
+ *                         via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i>
+ *
  *  \section SSec_Options Project Options
  *
  *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
@@ -204,11 +248,24 @@
  *    <td>Define to enable XMEGA PDI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *   <tr>
+ *    <td>ENABLE_TPI_PROTOCOL</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>Define to enable 6-PIN ATTINY TPI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
+ *   </tr>
+ *   <tr>
  *    <td>PDI_VIA_HARDWARE_USART</td>
  *    <td>Makefile CDEFS</td>
  *    <td>Define to force the PDI protocol (when enabled) to use the much faster hardware USART instead of bit-banging to
  *        match the official AVRISP pinout. This breaks pinout compatibility with the official AVRISP MKII (and requires 
  *        seperate ISP and PDI programming headers) but increases programming speed dramatically.
+ *        <i>Ignored when compiled for the XPLAIN board.</i></td>  
+ *   </tr>
+ *   <tr>
+ *    <td>TPI_VIA_HARDWARE_USART</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>Define to force the TPI protocol (when enabled) to use the much faster hardware USART instead of bit-banging to
+ *        match the official AVRISP pinout. This breaks pinout compatibility with the official AVRISP MKII (and requires 
+ *        seperate ISP and TPI programming headers) but increases programming speed dramatically.
  *        <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *  </table>

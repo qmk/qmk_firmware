@@ -133,7 +133,8 @@ SRC = $(TARGET).c                                                 \
       Lib/ISPTarget.c                                             \
 	  Lib/PDIProtocol.c                                           \
 	  Lib/PDITarget.c                                             \
-	  Lib/NVMTarget.c                                             \
+	  Lib/XMEGANVM.c                                              \
+	  Lib/TPITarget.c                                             \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -197,6 +198,7 @@ CDEFS += -DRESET_LINE_MASK="(1 << 4)"
 CDEFS += -DVTARGET_ADC_CHANNEL=2
 CDEFS += -DENABLE_ISP_PROTOCOL
 CDEFS += -DENABLE_PDI_PROTOCOL
+CDEFS += -DENABLE_TPI_PROTOCOL
 
 
 # Place -D or -U options here for ASM sources

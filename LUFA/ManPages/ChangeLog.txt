@@ -9,6 +9,15 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
   *  <b>New:</b>
+  *  - Added TPI programming support for 6-pin ATTINY to the AVRISP programmer project
+  *
+  *  <b>Changed:</b>
+  *
+  *  <b>Fixed:</b>
+  *
+  *  \section Sec_ChangeLog091223 Version 091223
+  *
+  *  <b>New:</b>
   *  - Added activity LED indicators to the AVRISP project to indicate when the device is busy processing a command
   *  - The USB target family and allowable USB mode tokens are now public and documented (USB_CAN_BE_*, USB_SERIES_*_AVR)
   *  - Added new XPLAIN USB to Serial Bridge project (thanks to John Steggall for initial proof-of-concept, David Prentice

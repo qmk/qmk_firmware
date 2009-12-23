@@ -34,7 +34,7 @@
  *  - Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
- *  - "Fingerlicking Wingdinger" (WARNING: Bad Language if no Javascript), a MIDI controller - http://noisybox.net/electronics/wingdinger/
+ *  - "Fingerlicking Wingdinger" (WARNING: Bad Language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
  *  - Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
  *  - Generic HID Device Creator : http://generichid.sourceforge.net/
  *  - Mobo 4.3, some sort of Audio related device: http://sites.google.com/site/lofturj/mobo4_3

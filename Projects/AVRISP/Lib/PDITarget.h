@@ -46,6 +46,7 @@
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL
+			#undef ENABLE_TPI_PROTOCOL
 			
 			#if !defined(ENABLE_PDI_PROTOCOL)
 				#define ENABLE_PDI_PROTOCOL
@@ -67,7 +68,7 @@
 			#define BITBANG_PDICLOCK_MASK    RESET_LINE_MASK
 		#endif
 		
-		#define BITS_IN_FRAME            12
+		#define BITS_IN_PDI_FRAME        12
 		
 		#define PDI_NVM_TIMEOUT_MS       200
 		
