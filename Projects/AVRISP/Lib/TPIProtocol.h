@@ -30,17 +30,21 @@
 
 /** \file
  *
- *  Header file for ISPProtocol.c.
+ *  Header file for TPIProtocol.c.
  */
 
-#ifndef _ISP_PROTOCOL_
-#define _ISP_PROTOCOL_
+#ifndef _TPI_PROTOCOL_
+#define _TPI_PROTOCOL_
 
 	/* Includes: */
 		#include <avr/io.h>
-		
+		#include <util/delay.h>
+		#include <stdio.h>
+	
 		#include "V2Protocol.h"
-		
+		#include "TPITarget.h"
+		#include "TINYNVM.h"
+
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL
@@ -50,48 +54,5 @@
 				#define ENABLE_PDI_PROTOCOL
 			#endif
 		#endif
-
-	/* Macros: */
-		/** Mask for the reading or writing of the high byte in a FLASH word when issuing a low-level programming command */
-		#define READ_WRITE_HIGH_BYTE_MASK       (1 << 3)
-
-		#define PROG_MODE_PAGED_WRITES_MASK     (1 << 0)
-		#define PROG_MODE_WORD_TIMEDELAY_MASK   (1 << 1)
-		#define PROG_MODE_WORD_VALUE_MASK       (1 << 2)
-		#define PROG_MODE_WORD_READYBUSY_MASK   (1 << 3)
-		#define PROG_MODE_PAGED_TIMEDELAY_MASK  (1 << 4)
-		#define PROG_MODE_PAGED_VALUE_MASK      (1 << 5)
-		#define PROG_MODE_PAGED_READYBUSY_MASK  (1 << 6)
-		#define PROG_MODE_COMMIT_PAGE_MASK      (1 << 7)
-
-	/* Inline Functions: */
-		/** Blocking delay for a given number of milliseconds, via a hardware timer.
-		 *
-		 *  \param[in] DelayMS  Number of milliseconds to delay for
-		 */
-		static inline void ISPProtocol_DelayMS(uint8_t DelayMS)
-		{
-			TCNT0 = 0;
-			TIFR0 = (1 << OCF1A);
-
-			while (DelayMS)
-			{
-				if (TIFR0 & (1 << OCF1A))
-				{
-					TIFR0 = (1 << OCF1A);
-					DelayMS--;
-				}
-			}
-		}
-
-	/* Function Prototypes: */
-		void ISPProtocol_EnterISPMode(void);
-		void ISPProtocol_LeaveISPMode(void);
-		void ISPProtocol_ProgramMemory(const uint8_t V2Command);
-		void ISPProtocol_ReadMemory(const uint8_t V2Command);
-		void ISPProtocol_ChipErase(void);
-		void ISPProtocol_ReadFuseLockSigOSCCAL(const uint8_t V2Command);
-		void ISPProtocol_WriteFuseLock(const uint8_t V2Command);
-		void ISPProtocol_SPIMulti(void);
-
+		
 #endif

@@ -312,8 +312,26 @@ void TPITarget_SendBreak(void)
  */
 bool TPITarget_WaitWhileNVMBusBusy(void)
 {
-	// TODO
+	TCNT0 = 0;
+	TIFR0 = (1 << OCF1A);
+			
+	uint8_t TimeoutMS = TPI_NVM_TIMEOUT_MS;
+	
+	/* Poll the STATUS register to check to see if NVM access has been enabled */
+	while (TimeoutMS)
+	{
+		/* Send the LDCS command to read the TPI STATUS register to see the NVM bus is active */
+		TPITarget_SendByte(TPI_CMD_SLDCS | TPI_STATUS_REG);
+		if (TPITarget_ReceiveByte() & TPI_STATUS_NVM)
+		  return true;
 
+		if (TIFR0 & (1 << OCF1A))
+		{
+			TIFR0 = (1 << OCF1A);
+			TimeoutMS--;
+		}
+	}
+	
 	return false;
 }
 

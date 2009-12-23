@@ -68,7 +68,25 @@
 		
 		#define TPI_NVM_TIMEOUT_MS       200
 
+		#define TPI_CMD_SLD              0x20
+		#define TPI_CMD_SST              0x60
+		#define TPI_CMD_SSTPR            0x68
+		#define TPI_CMD_SIN              0x10
+		#define TPI_CMD_SOUT             0x90
+		#define TPI_CMD_SLDCS            0x80
+		#define TPI_CMD_SSTCS            0xC0
+		#define TPI_CMD_SKEY             0xE0
+
+		#define TPI_STATUS_REG           0x00
+		#define TPI_CTRL_REG             0x02
+		#define TPI_ID_REG               0x0F
+		
+		#define TPI_STATUS_NVM           (1 << 1)
+
 		#define TPI_NVMENABLE_KEY        (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
+
+		#define TPI_POINTER_INDIRECT     0
+		#define TPI_POINTER_INDIRECT_PI  (1 << 2)
 				
 	/* Function Prototypes: */
 		void    TPITarget_EnableTargetTPI(void);

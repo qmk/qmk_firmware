@@ -106,6 +106,9 @@ void V2Protocol_ProcessCommand(void)
 			PDIProtocol_XPROG_Command();
 			break;
 #endif
+#if defined(ENABLE_TPI_PROTOCOL)
+		// TODO
+#endif
 		default:
 			V2Protocol_UnknownCommand(V2Command);
 			break;

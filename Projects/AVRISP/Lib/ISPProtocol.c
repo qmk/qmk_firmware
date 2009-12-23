@@ -63,7 +63,7 @@ void ISPProtocol_EnterISPMode(void)
 	
 	CurrentAddress = 0;
 
-	V2Protocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS); 
+	ISPProtocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS); 
 	SPI_Init(ISPTarget_GetSPIPrescalerMask() | SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING | SPI_MODE_MASTER);
 		
 	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus == STATUS_CMD_FAILED))
@@ -71,11 +71,11 @@ void ISPProtocol_EnterISPMode(void)
 		uint8_t ResponseBytes[4];
 
 		ISPTarget_ChangeTargetResetLine(true);
-		V2Protocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
+		ISPProtocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
 
 		for (uint8_t RByte = 0; RByte < sizeof(ResponseBytes); RByte++)
 		{
-			V2Protocol_DelayMS(Enter_ISP_Params.ByteDelay);
+			ISPProtocol_DelayMS(Enter_ISP_Params.ByteDelay);
 			ResponseBytes[RByte] = SPI_TransferByte(Enter_ISP_Params.EnterProgBytes[RByte]);
 		}
 		
@@ -87,7 +87,7 @@ void ISPProtocol_EnterISPMode(void)
 		else
 		{
 			ISPTarget_ChangeTargetResetLine(false);
-			V2Protocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
+			ISPProtocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
 		}
 	}
 
@@ -110,10 +110,10 @@ void ISPProtocol_LeaveISPMode(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	V2Protocol_DelayMS(Leave_ISP_Params.PreDelayMS);
+	ISPProtocol_DelayMS(Leave_ISP_Params.PreDelayMS);
 	ISPTarget_ChangeTargetResetLine(false);
 	SPI_ShutDown();
-	V2Protocol_DelayMS(Leave_ISP_Params.PostDelayMS);
+	ISPProtocol_DelayMS(Leave_ISP_Params.PostDelayMS);
 
 	Endpoint_Write_Byte(CMD_LEAVE_PROGMODE_ISP);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
@@ -357,7 +357,7 @@ void ISPProtocol_ChipErase(void)
 	  SPI_SendByte(Erase_Chip_Params.EraseCommandBytes[SByte]);
 
 	if (!(Erase_Chip_Params.PollMethod))
-	  V2Protocol_DelayMS(Erase_Chip_Params.EraseDelayMS);
+	  ISPProtocol_DelayMS(Erase_Chip_Params.EraseDelayMS);
 	else
 	  ResponseStatus = ISPTarget_WaitWhileTargetBusy();
 	  

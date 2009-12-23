@@ -118,7 +118,7 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 	{
 		case PROG_MODE_WORD_TIMEDELAY_MASK:
 		case PROG_MODE_PAGED_TIMEDELAY_MASK:
-			V2Protocol_DelayMS(DelayMS);
+			ISPProtocol_DelayMS(DelayMS);
 			break;
 		case PROG_MODE_WORD_VALUE_MASK:
 		case PROG_MODE_PAGED_VALUE_MASK:

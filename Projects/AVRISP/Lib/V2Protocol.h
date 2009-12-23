@@ -45,6 +45,7 @@
 		#include "V2ProtocolParams.h"
 		#include "ISPProtocol.h"
 		#include "PDIProtocol.h"
+		#include "TPIProtocol.h"
 
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
@@ -62,26 +63,6 @@
 
 		/** Timeout in milliseconds of target busy-wait loops waiting for a command to complete */
 		#define TARGET_BUSY_TIMEOUT_MS    240
-
-	/* Inline Functions: */
-		/** Blocking delay for a given number of milliseconds, via a hardware timer.
-		 *
-		 *  \param[in] DelayMS  Number of milliseconds to delay for
-		 */
-		static inline void V2Protocol_DelayMS(uint8_t DelayMS)
-		{
-			TCNT0 = 0;
-			TIFR0 = (1 << OCF1A);
-
-			while (DelayMS)
-			{
-				if (TIFR0 & (1 << OCF1A))
-				{
-					TIFR0 = (1 << OCF1A);
-					DelayMS--;
-				}
-			}
-		}
 
 	/* External Variables: */
 		extern uint32_t CurrentAddress;
