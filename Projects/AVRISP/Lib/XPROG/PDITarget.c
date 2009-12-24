@@ -36,12 +36,12 @@
 #define  INCLUDE_FROM_PDITARGET_C
 #include "PDITarget.h"
 
-#if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
+#if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 
 /** Flag to indicate if the USART is currently in Tx or Rx mode. */
 volatile bool               IsSending;
 
-#if !defined(PDI_VIA_HARDWARE_USART)
+#if !defined(XPROG_VIA_HARDWARE_USART)
 /** Software USART raw frame bits for transmission/reception. */
 volatile uint16_t           SoftUSART_Data;
 
@@ -99,7 +99,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 /** Enables the target's PDI interface, holding the target in reset until PDI mode is exited. */
 void PDITarget_EnableTargetPDI(void)
 {
-#if defined(PDI_VIA_HARDWARE_USART)
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Set Tx and XCK as outputs, Rx as input */
 	DDRD |=  (1 << 5) | (1 << 3);
 	DDRD &= ~(1 << 2);
@@ -142,7 +142,7 @@ void PDITarget_EnableTargetPDI(void)
 /** Disables the target's PDI interface, exits programming mode and starts the target's application. */
 void PDITarget_DisableTargetPDI(void)
 {
-#if defined(PDI_VIA_HARDWARE_USART)
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Turn off receiver and transmitter of the USART, clear settings */
 	UCSR1A |= (1 << TXC1) | (1 << RXC1);
 	UCSR1B  = 0;
@@ -168,7 +168,7 @@ void PDITarget_DisableTargetPDI(void)
  */
 void PDITarget_SendByte(const uint8_t Byte)
 {
-#if defined(PDI_VIA_HARDWARE_USART)
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Tx mode if currently in Rx mode */
 	if (!(IsSending))
 	{
@@ -221,7 +221,7 @@ void PDITarget_SendByte(const uint8_t Byte)
  */
 uint8_t PDITarget_ReceiveByte(void)
 {
-#if defined(PDI_VIA_HARDWARE_USART)
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Rx mode if currently in Tx mode */
 	if (IsSending)
 	{
@@ -264,7 +264,7 @@ uint8_t PDITarget_ReceiveByte(void)
 /** Sends a BREAK via the USART to the attached target, consisting of a full frame of idle bits. */
 void PDITarget_SendBreak(void)
 {
-#if defined(PDI_VIA_HARDWARE_USART)
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Tx mode if currently in Rx mode */
 	if (!(IsSending))
 	{

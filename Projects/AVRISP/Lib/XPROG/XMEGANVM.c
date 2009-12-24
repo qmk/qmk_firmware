@@ -36,7 +36,7 @@
 #define  INCLUDE_FROM_XMEGA_NVM_C
 #include "XMEGANVM.h"
 
-#if defined(ENABLE_PDI_PROTOCOL) || defined(__DOXYGEN__)
+#if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 
 /** Sends the given NVM register address to the target.
  *

@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for PDIProtocol.c.
+ *  Header file for XPROGProtocol.c.
  */
 
-#ifndef _PDI_PROTOCOL_
-#define _PDI_PROTOCOL_
+#ifndef _XPROG_PROTOCOL_
+#define _XPROG_PROTOCOL_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -46,14 +46,15 @@
 		#include "../V2Protocol.h"
 		#include "PDITarget.h"
 		#include "XMEGANVM.h"
+		#include "TPITarget.h"
+		#include "TINYNVM.h"
 
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL
-			#undef ENABLE_TPI_PROTOCOL
 			
-			#if !defined(ENABLE_PDI_PROTOCOL)
-				#define ENABLE_PDI_PROTOCOL
+			#if !defined(ENABLE_XPROG_PROTOCOL)
+				#define ENABLE_XPROG_PROTOCOL
 			#endif
 		#endif
 	
@@ -109,17 +110,17 @@
 		extern uint32_t XPROG_Param_NVMBase;
 		
 	/* Function Prototypes: */
-		void PDIProtocol_XPROG_SetMode(void);
-		void PDIProtocol_XPROG_Command(void);
+		void XPROGProtocol_SetMode(void);
+		void XPROGProtocol_Command(void);
 		
-		#if defined(INCLUDE_FROM_PDIPROTOCOL_C)
-			static void PDIProtocol_EnterXPROGMode(void);
-			static void PDIProtocol_LeaveXPROGMode(void);
-			static void PDIProtocol_SetParam(void);
-			static void PDIProtocol_Erase(void);
-			static void PDIProtocol_WriteMemory(void);
-			static void PDIProtocol_ReadMemory(void);
-			static void PDIProtocol_ReadCRC(void);
+		#if defined(INCLUDE_FROM_XPROGPROTOCOL_C)
+			static void XPROGProtocol_EnterXPROGMode(void);
+			static void XPROGProtocol_LeaveXPROGMode(void);
+			static void XPROGProtocol_SetParam(void);
+			static void XPROGProtocol_Erase(void);
+			static void XPROGProtocol_WriteMemory(void);
+			static void XPROGProtocol_ReadMemory(void);
+			static void XPROGProtocol_ReadCRC(void);
 		#endif
 		
 #endif

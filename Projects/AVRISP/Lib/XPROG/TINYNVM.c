@@ -36,7 +36,7 @@
 #define  INCLUDE_FROM_TINYNVM_C
 #include "TINYNVM.h"
 
-#if defined(ENABLE_TPI_PROTOCOL) || defined(__DOXYGEN__)
+#if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 
 // TODO
 

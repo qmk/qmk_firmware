@@ -46,16 +46,15 @@
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL
-			#undef ENABLE_TPI_PROTOCOL
 			
-			#if !defined(ENABLE_PDI_PROTOCOL)
-				#define ENABLE_PDI_PROTOCOL
+			#if !defined(ENABLE_XPROG_PROTOCOL)
+				#define ENABLE_XPROG_PROTOCOL
 			#endif
 		#endif
 
 	/* Defines: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
-			#define PDI_VIA_HARDWARE_USART
+			#define XPROG_VIA_HARDWARE_USART
 		#else
 			#define BITBANG_PDIDATA_PORT     PORTB
 			#define BITBANG_PDIDATA_DDR      DDRB

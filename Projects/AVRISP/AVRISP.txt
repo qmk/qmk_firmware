@@ -243,29 +243,16 @@
  *    <td>Define to enable SPI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *   <tr>
- *    <td>ENABLE_PDI_PROTOCOL</td>
+ *    <td>ENABLE_XPROG_PROTOCOL</td>
  *    <td>Makefile CDEFS</td>
- *    <td>Define to enable XMEGA PDI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
+ *    <td>Define to enable PDI and TPI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *   <tr>
- *    <td>ENABLE_TPI_PROTOCOL</td>
+ *    <td>XPROG_VIA_HARDWARE_USART</td>
  *    <td>Makefile CDEFS</td>
- *    <td>Define to enable 6-PIN ATTINY TPI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
- *   </tr>
- *   <tr>
- *    <td>PDI_VIA_HARDWARE_USART</td>
- *    <td>Makefile CDEFS</td>
- *    <td>Define to force the PDI protocol (when enabled) to use the much faster hardware USART instead of bit-banging to
+ *    <td>Define to force the PDI and TPI protocols (when enabled) to use the much faster hardware USART instead of bit-banging to
  *        match the official AVRISP pinout. This breaks pinout compatibility with the official AVRISP MKII (and requires 
- *        seperate ISP and PDI programming headers) but increases programming speed dramatically.
- *        <i>Ignored when compiled for the XPLAIN board.</i></td>  
- *   </tr>
- *   <tr>
- *    <td>TPI_VIA_HARDWARE_USART</td>
- *    <td>Makefile CDEFS</td>
- *    <td>Define to force the TPI protocol (when enabled) to use the much faster hardware USART instead of bit-banging to
- *        match the official AVRISP pinout. This breaks pinout compatibility with the official AVRISP MKII (and requires 
- *        seperate ISP and TPI programming headers) but increases programming speed dramatically.
+ *        seperate ISP and PDI/TPI programming headers) but increases programming speed dramatically.
  *        <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *  </table>

@@ -36,12 +36,12 @@
 #define  INCLUDE_FROM_TPITARGET_C
 #include "TPITarget.h"
 
-#if defined(ENABLE_TPI_PROTOCOL) || defined(__DOXYGEN__)
+#if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 
 /** Flag to indicate if the USART is currently in Tx or Rx mode. */
 volatile bool               IsSending;
 
-#if !defined(TPI_VIA_HARDWARE_USART)
+#if !defined(XPROG_VIA_HARDWARE_USART)
 /** Software USART raw frame bits for transmission/reception. */
 volatile uint16_t           SoftUSART_Data;
 
@@ -105,7 +105,7 @@ void TPITarget_EnableTargetTPI(void)
 	asm volatile ("NOP"::);
 	asm volatile ("NOP"::);
 
-#if defined(TPI_VIA_HARDWARE_USART)
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Set Tx and XCK as outputs, Rx as input */
 	DDRD |=  (1 << 5) | (1 << 3);
 	DDRD &= ~(1 << 2);
@@ -141,7 +141,7 @@ void TPITarget_EnableTargetTPI(void)
 /** Disables the target's TPI interface, exits programming mode and starts the target's application. */
 void TPITarget_DisableTargetTPI(void)
 {
-#if defined(TPI_VIA_HARDWARE_USART)
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Turn off receiver and transmitter of the USART, clear settings */
 	UCSR1A |= (1 << TXC1) | (1 << RXC1);
 	UCSR1B  = 0;
@@ -171,7 +171,7 @@ void TPITarget_DisableTargetTPI(void)
  */
 void TPITarget_SendByte(const uint8_t Byte)
 {
-#if defined(TPI_VIA_HARDWARE_USART)
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Tx mode if currently in Rx mode */
 	if (!(IsSending))
 	{
@@ -224,7 +224,7 @@ void TPITarget_SendByte(const uint8_t Byte)
  */
 uint8_t TPITarget_ReceiveByte(void)
 {
-#if defined(TPI_VIA_HARDWARE_USART)
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Rx mode if currently in Tx mode */
 	if (IsSending)
 	{
@@ -267,7 +267,7 @@ uint8_t TPITarget_ReceiveByte(void)
 /** Sends a BREAK via the USART to the attached target, consisting of a full frame of idle bits. */
 void TPITarget_SendBreak(void)
 {
-#if defined(TPI_VIA_HARDWARE_USART)
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Tx mode if currently in Rx mode */
 	if (!(IsSending))
 	{

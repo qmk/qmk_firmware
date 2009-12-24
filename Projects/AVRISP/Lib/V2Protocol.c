@@ -100,16 +100,13 @@ void V2Protocol_ProcessCommand(void)
 			ISPProtocol_SPIMulti();
 			break;
 #endif
-#if defined(ENABLE_PDI_PROTOCOL)
+#if defined(ENABLE_XPROG_PROTOCOL)
 		case CMD_XPROG_SETMODE:
-			PDIProtocol_XPROG_SetMode();
+			XPROGProtocol_SetMode();
 			break;
 		case CMD_XPROG:
-			PDIProtocol_XPROG_Command();
+			XPROGProtocol_Command();
 			break;
-#endif
-#if defined(ENABLE_TPI_PROTOCOL)
-		// TODO
 #endif
 		default:
 			V2Protocol_UnknownCommand(V2Command);
