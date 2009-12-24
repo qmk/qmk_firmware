@@ -113,23 +113,26 @@ static void XPROGProtocol_EnterXPROGMode(void)
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
 	{
 		/* Enable PDI programming mode with the attached target */
-		PDITarget_EnableTargetPDI();
+		XPROGTarget_EnableTargetPDI();
 		
 		/* Store the RESET key into the RESET PDI register to keep the XMEGA in reset */
-		PDITarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
-		PDITarget_SendByte(PDI_RESET_KEY);
+		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
+		XPROGTarget_SendByte(PDI_RESET_KEY);
 
 		/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
-		PDITarget_SendByte(PDI_CMD_KEY);	
+		XPROGTarget_SendByte(PDI_CMD_KEY);	
 		for (uint8_t i = sizeof(PDI_NVMENABLE_KEY); i > 0; i--)
-		  PDITarget_SendByte(PDI_NVMENABLE_KEY[i - 1]);
+		  XPROGTarget_SendByte(PDI_NVMENABLE_KEY[i - 1]);
 
 		/* Wait until the NVM bus becomes active */
-		NVMBusEnabled = PDITarget_WaitWhileNVMBusBusy();
+		NVMBusEnabled = XMEGANVM_WaitWhileNVMBusBusy();
 	}
 	else
 	{
-		// TODO
+		/* Enable TPI programming mode with the attached target */
+		XPROGTarget_EnableTargetTPI();
+		
+		// TODO - enable NVM bus via KEY		
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
@@ -149,14 +152,16 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
 	{
 		/* Clear the RESET key in the RESET PDI register to allow the XMEGA to run */
-		PDITarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
-		PDITarget_SendByte(0x00);
+		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
+		XPROGTarget_SendByte(0x00);
 
-		PDITarget_DisableTargetPDI();
+		XPROGTarget_DisableTargetPDI();
 	}
 	else
 	{
-		// TODO
+		// TODO - Disable TPI via register
+	
+		XPROGTarget_DisableTargetTPI();
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
@@ -381,7 +386,8 @@ static void XPROGProtocol_ReadCRC(void)
 	}
 	else
 	{
-		// TODO
+		/* TPI does not support memory CRC */
+		ReturnStatus = XPRG_ERR_FAILED;
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);

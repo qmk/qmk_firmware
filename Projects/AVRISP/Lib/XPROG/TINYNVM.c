@@ -38,6 +38,86 @@
 
 #if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 
-// TODO
+/** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read or CRC
+ *  calculation.
+ *
+ *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
+ */
+bool XMEGANVM_WaitWhileNVMBusBusy(void)
+{
+	// TODO
+	
+	return false;
+}
+
+/** Waits while the target's NVM controller is busy performing an operation, exiting if the
+ *  timeout period expires.
+ *
+ *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
+ */
+bool XMEGANVM_WaitWhileNVMControllerBusy(void)
+{
+	// TODO
+	
+	return false;
+}
+
+/** Retrieves the CRC value of the given memory space.
+ *
+ *  \param[in]  CRCCommand  NVM CRC command to issue to the target
+ *  \param[out] CRCDest     CRC Destination when read from the target
+ *
+ *  \return Boolean true if the command sequence complete successfully
+ */
+bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
+{
+	// TODO
+
+	return true;
+}
+
+/** Reads memory from the target's memory spaces.
+ *
+ *  \param[in]  ReadAddress  Start address to read from within the target's address space
+ *  \param[out] ReadBuffer   Buffer to store read data into
+ *  \param[in]  ReadSize     Number of bytes to read
+ *
+ *  \return Boolean true if the command sequence complete successfully
+ */
+bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize)
+{
+	// TODO
+	
+	return true;
+}
+
+/** Writes byte addressed memory to the target's memory spaces.
+ *
+ *  \param[in]  WriteCommand  Command to send to the device to write each memory byte
+ *  \param[in]  WriteAddress  Start address to write to within the target's address space
+ *  \param[in]  WriteBuffer   Buffer to source data from
+ *
+ *  \return Boolean true if the command sequence complete successfully
+ */
+bool XMEGANVM_WriteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer)
+{
+	// TODO
+	
+	return true;
+}
+
+/** Erases a specific memory space of the target.
+ *
+ *  \param[in] EraseCommand  NVM erase command to send to the device
+ *  \param[in] Address  Address inside the memory space to erase
+ *
+ *  \return Boolean true if the command sequence complete successfully
+ */
+bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
+{
+	// TODO
+	
+	return true;
+}
 
 #endif

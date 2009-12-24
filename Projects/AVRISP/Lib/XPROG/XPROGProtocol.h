@@ -44,9 +44,8 @@
 		#include <LUFA/Drivers/USB/USB.h>
 	
 		#include "../V2Protocol.h"
-		#include "PDITarget.h"
+		#include "XPROGTarget.h"
 		#include "XMEGANVM.h"
-		#include "TPITarget.h"
 		#include "TINYNVM.h"
 
 	/* Preprocessor Checks: */

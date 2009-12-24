@@ -65,13 +65,20 @@
 			#define BITBANG_PDICLOCK_DDR     RESET_LINE_DDR
 			#define BITBANG_PDICLOCK_PIN     RESET_LINE_PIN
 			#define BITBANG_PDICLOCK_MASK    RESET_LINE_MASK
+
+			#define BITBANG_TPIDATA_PORT     PORTB
+			#define BITBANG_TPIDATA_DDR      DDRB
+			#define BITBANG_TPIDATA_PIN      PINB
+			#define BITBANG_TPIDATA_MASK     (1 << 3)
+				
+			#define BITBANG_TPICLOCK_PORT    PORTB
+			#define BITBANG_TPICLOCK_DDR     DDRB
+			#define BITBANG_TPICLOCK_PIN     PINB
+			#define BITBANG_TPICLOCK_MASK    (1 << 1)
 		#endif
 		
 		/** Total number of bits in a single USART frame */
-		#define BITS_IN_PDI_FRAME        12
-		
-		/** Timeout in milliseconds of a PDI busy-wait command */
-		#define PDI_NVM_TIMEOUT_MS       100
+		#define BITS_IN_USART_FRAME      12
 		
 		#define PDI_CMD_LDS              0x00
 		#define PDI_CMD_LD               0x20
@@ -99,13 +106,35 @@
 		#define PDI_POINTER_INDIRECT     0
 		#define PDI_POINTER_INDIRECT_PI  1
 		#define PDI_POINTER_DIRECT       2
-				
+
+		#define TPI_CMD_SLD              0x20
+		#define TPI_CMD_SST              0x60
+		#define TPI_CMD_SSTPR            0x68
+		#define TPI_CMD_SIN              0x10
+		#define TPI_CMD_SOUT             0x90
+		#define TPI_CMD_SLDCS            0x80
+		#define TPI_CMD_SSTCS            0xC0
+		#define TPI_CMD_SKEY             0xE0
+
+		#define TPI_STATUS_REG           0x00
+		#define TPI_CTRL_REG             0x02
+		#define TPI_ID_REG               0x0F
+		
+		#define TPI_STATUS_NVM           (1 << 1)
+
+		#define TPI_NVMENABLE_KEY        (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
+
+		#define TPI_POINTER_INDIRECT     0
+		#define TPI_POINTER_INDIRECT_PI  (1 << 2)
+		
 	/* Function Prototypes: */
-		void    PDITarget_EnableTargetPDI(void);
-		void    PDITarget_DisableTargetPDI(void);
-		void    PDITarget_SendByte(const uint8_t Byte);
-		uint8_t PDITarget_ReceiveByte(void);
-		void    PDITarget_SendBreak(void);
-		bool    PDITarget_WaitWhileNVMBusBusy(void);
+		void    XPROGTarget_EnableTargetTPI(void);
+		void    XPROGTarget_EnableTargetPDI(void);
+		void    XPROGTarget_DisableTargetTPI(void);
+		void    XPROGTarget_DisableTargetPDI(void);
+		void    XPROGTarget_SendByte(const uint8_t Byte);
+		uint8_t XPROGTarget_ReceiveByte(void);
+		void    XPROGTarget_SendBreak(void);
+		bool    XPROGTarget_WaitWhileNVMBusBusy(void);
 
 #endif

@@ -132,9 +132,8 @@ SRC = $(TARGET).c                                                 \
       Lib/ISP/ISPProtocol.c                                       \
       Lib/ISP/ISPTarget.c                                         \
 	  Lib/XPROG/XPROGProtocol.c                                   \
-	  Lib/XPROG/PDITarget.c                                       \
+	  Lib/XPROG/XPROGTarget.c                                     \
 	  Lib/XPROG/XMEGANVM.c                                        \
-	  Lib/XPROG/TPITarget.c                                       \
 	  Lib/XPROG/TINYNVM.c                                         \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \

@@ -44,7 +44,7 @@
 		#include <LUFA/Common/Common.h>
 		
 		#include "XPROGProtocol.h"
-		#include "PDITarget.h"
+		#include "XPROGTarget.h"
 	
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
@@ -56,7 +56,7 @@
 		#endif
 
 	/* Defines: */
-		#define XMEGA_NVM_BUSY_TIMEOUT_MS            200
+		#define XMEGA_NVM_BUSY_TIMEOUT_MS            100
 		
 		#define XMEGA_NVM_REG_ADDR0                  0x00
 		#define XMEGA_NVM_REG_ADDR1                  0x01
@@ -116,5 +116,6 @@
 		                              const uint8_t WritePageCommand, const uint8_t PageMode, const uint32_t WriteAddress,
 		                              const uint8_t* WriteBuffer, const uint16_t WriteSize);
 		bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address);
+		bool XMEGANVM_WaitWhileNVMBusBusy(void);
 
 #endif

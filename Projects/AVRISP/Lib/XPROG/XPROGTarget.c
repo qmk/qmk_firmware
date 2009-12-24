@@ -33,8 +33,8 @@
  *  Target-related functions for the PDI Protocol decoder.
  */
 
-#define  INCLUDE_FROM_PDITARGET_C
-#include "PDITarget.h"
+#define  INCLUDE_FROM_XPROGTARGET_C
+#include "XPROGTarget.h"
 
 #if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 
@@ -49,7 +49,53 @@ volatile uint16_t           SoftUSART_Data;
 #define SoftUSART_BitCount  GPIOR2
 
 
-/** ISR to manage the software USART when bit-banged USART mode is selected. */
+/** ISR to manage the TPI software USART when bit-banged TPI USART mode is selected. */
+ISR(TIMER1_CAPT_vect, ISR_BLOCK)
+{
+	/* Toggle CLOCK pin in a single cycle (see AVR datasheet) */
+	BITBANG_TPICLOCK_PIN |= BITBANG_TPICLOCK_MASK;
+
+	/* If not sending or receiving, just exit */
+	if (!(SoftUSART_BitCount))
+	  return;
+
+	/* Check to see if we are at a rising or falling edge of the clock */
+	if (BITBANG_TPICLOCK_PORT & BITBANG_TPICLOCK_MASK)
+	{
+		/* If at rising clock edge and we are in send mode, abort */
+		if (IsSending)
+		  return;
+		  
+		/* Wait for the start bit when receiving */
+		if ((SoftUSART_BitCount == BITS_IN_USART_FRAME) && (BITBANG_TPIDATA_PIN & BITBANG_TPIDATA_MASK))
+		  return;
+	
+		/* Shift in the bit one less than the frame size in position, so that the start bit will eventually
+		 * be discarded leaving the data to be byte-aligned for quick access */
+		if (BITBANG_TPIDATA_PIN & BITBANG_TPIDATA_MASK)
+		  SoftUSART_Data |= (1 << (BITS_IN_USART_FRAME - 1));
+
+		SoftUSART_Data >>= 1;
+		SoftUSART_BitCount--;
+	}
+	else
+	{
+		/* If at falling clock edge and we are in receive mode, abort */
+		if (!IsSending)
+		  return;
+
+		/* Set the data line to the next bit value */
+		if (SoftUSART_Data & 0x01)
+		  BITBANG_TPIDATA_PORT |=  BITBANG_TPIDATA_MASK;
+		else
+		  BITBANG_TPIDATA_PORT &= ~BITBANG_TPIDATA_MASK;		  
+
+		SoftUSART_Data >>= 1;
+		SoftUSART_BitCount--;
+	}
+}
+
+/** ISR to manage the PDI software USART when bit-banged PDI USART mode is selected. */
 ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
 	/* Toggle CLOCK pin in a single cycle (see AVR datasheet) */
@@ -67,13 +113,13 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 		  return;
 		  
 		/* Wait for the start bit when receiving */
-		if ((SoftUSART_BitCount == BITS_IN_PDI_FRAME) && (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK))
+		if ((SoftUSART_BitCount == BITS_IN_USART_FRAME) && (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK))
 		  return;
 	
 		/* Shift in the bit one less than the frame size in position, so that the start bit will eventually
 		 * be discarded leaving the data to be byte-aligned for quick access */
 		if (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK)
-		  SoftUSART_Data |= (1 << (BITS_IN_PDI_FRAME - 1));
+		  SoftUSART_Data |= (1 << (BITS_IN_USART_FRAME - 1));
 
 		SoftUSART_Data >>= 1;
 		SoftUSART_BitCount--;
@@ -96,8 +142,50 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 }
 #endif
 
+/** Enables the target's TPI interface, holding the target in reset until TPI mode is exited. */
+void XPROGTarget_EnableTargetTPI(void)
+{
+	/* Set /RESET line low for at least 90ns to enable TPI functionality */
+	RESET_LINE_DDR  |= RESET_LINE_MASK;
+	RESET_LINE_PORT &= ~RESET_LINE_MASK;
+	asm volatile ("NOP"::);
+	asm volatile ("NOP"::);
+
+#if defined(XPROG_VIA_HARDWARE_USART)
+	/* Set Tx and XCK as outputs, Rx as input */
+	DDRD |=  (1 << 5) | (1 << 3);
+	DDRD &= ~(1 << 2);
+		
+	/* Set up the synchronous USART for XMEGA communications - 
+	   8 data bits, even parity, 2 stop bits */
+	UBRR1  = (F_CPU / 1000000UL);
+	UCSR1B = (1 << TXEN1);
+	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
+
+	/* Send two BREAKs of 12 bits each to enable TPI interface (need at least 16 idle bits) */
+	XPROGTarget_SendBreak();
+	XPROGTarget_SendBreak();
+#else
+	/* Set DATA and CLOCK lines to outputs */
+	BITBANG_TPIDATA_DDR  |= BITBANG_TPIDATA_MASK;
+	BITBANG_TPICLOCK_DDR |= BITBANG_TPICLOCK_MASK;
+	
+	/* Set DATA line high for idle state */
+	BITBANG_TPIDATA_PORT |= BITBANG_TPIDATA_MASK;
+
+	/* Fire timer capture ISR every 100 cycles to manage the software USART */
+	OCR1A   = 80;
+	TCCR1B  = (1 << WGM13) | (1 << WGM12) | (1 << CS10);
+	TIMSK1  = (1 << ICIE1);
+	
+	/* Send two BREAKs of 12 bits each to enable TPI interface (need at least 16 idle bits) */
+	XPROGTarget_SendBreak();
+	XPROGTarget_SendBreak();
+#endif
+}
+
 /** Enables the target's PDI interface, holding the target in reset until PDI mode is exited. */
-void PDITarget_EnableTargetPDI(void)
+void XPROGTarget_EnableTargetPDI(void)
 {
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Set Tx and XCK as outputs, Rx as input */
@@ -116,8 +204,8 @@ void PDITarget_EnableTargetPDI(void)
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
 
 	/* Send two BREAKs of 12 bits each to enable PDI interface (need at least 16 idle bits) */
-	PDITarget_SendBreak();
-	PDITarget_SendBreak();
+	XPROGTarget_SendBreak();
+	XPROGTarget_SendBreak();
 #else
 	/* Set DATA and CLOCK lines to outputs */
 	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
@@ -134,13 +222,40 @@ void PDITarget_EnableTargetPDI(void)
 	TIMSK1  = (1 << OCIE1A);
 	
 	/* Send two BREAKs of 12 bits each to enable TPI interface (need at least 16 idle bits) */
-	PDITarget_SendBreak();
-	PDITarget_SendBreak();
+	XPROGTarget_SendBreak();
+	XPROGTarget_SendBreak();
 #endif
 }
 
+/** Disables the target's TPI interface, exits programming mode and starts the target's application. */
+void XPROGTarget_DisableTargetTPI(void)
+{
+#if defined(XPROG_VIA_HARDWARE_USART)
+	/* Turn off receiver and transmitter of the USART, clear settings */
+	UCSR1A |= (1 << TXC1) | (1 << RXC1);
+	UCSR1B  = 0;
+	UCSR1C  = 0;
+
+	/* Set all USART lines as input, tristate */
+	DDRD  &= ~((1 << 5) | (1 << 3));
+	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
+#else
+	/* Set DATA and CLOCK lines to inputs */
+	BITBANG_TPIDATA_DDR   &= ~BITBANG_TPIDATA_MASK;
+	BITBANG_TPICLOCK_DDR  &= ~BITBANG_TPICLOCK_MASK;
+	
+	/* Tristate DATA and CLOCK lines */
+	BITBANG_TPIDATA_PORT  &= ~BITBANG_TPIDATA_MASK;
+	BITBANG_TPICLOCK_PORT &= ~BITBANG_TPICLOCK_MASK;
+#endif
+
+	/* Tristate target /RESET line */
+	RESET_LINE_DDR  &= ~RESET_LINE_MASK;
+	RESET_LINE_PORT &= ~RESET_LINE_MASK;
+}
+
 /** Disables the target's PDI interface, exits programming mode and starts the target's application. */
-void PDITarget_DisableTargetPDI(void)
+void XPROGTarget_DisableTargetPDI(void)
 {
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Turn off receiver and transmitter of the USART, clear settings */
@@ -166,7 +281,7 @@ void PDITarget_DisableTargetPDI(void)
  *
  *  \param[in] Byte  Byte to send through the USART
  */
-void PDITarget_SendByte(const uint8_t Byte)
+void XPROGTarget_SendByte(const uint8_t Byte)
 {
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Tx mode if currently in Rx mode */
@@ -211,7 +326,7 @@ void PDITarget_SendByte(const uint8_t Byte)
 
 	/* Data shifted out LSB first, START DATA PARITY STOP STOP */
 	SoftUSART_Data     = NewUSARTData;
-	SoftUSART_BitCount = BITS_IN_PDI_FRAME;
+	SoftUSART_BitCount = BITS_IN_USART_FRAME;
 #endif
 }
 
@@ -219,7 +334,7 @@ void PDITarget_SendByte(const uint8_t Byte)
  *
  *  \return Received byte from the USART
  */
-uint8_t PDITarget_ReceiveByte(void)
+uint8_t XPROGTarget_ReceiveByte(void)
 {
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Rx mode if currently in Tx mode */
@@ -253,7 +368,7 @@ uint8_t PDITarget_ReceiveByte(void)
 	}
 
 	/* Wait until a byte has been received before reading */
-	SoftUSART_BitCount = BITS_IN_PDI_FRAME;
+	SoftUSART_BitCount = BITS_IN_USART_FRAME;
 	while (SoftUSART_BitCount);
 	
 	/* Throw away the parity and stop bits to leave only the data (start bit is already discarded) */
@@ -262,7 +377,7 @@ uint8_t PDITarget_ReceiveByte(void)
 }
 
 /** Sends a BREAK via the USART to the attached target, consisting of a full frame of idle bits. */
-void PDITarget_SendBreak(void)
+void XPROGTarget_SendBreak(void)
 {
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Tx mode if currently in Rx mode */
@@ -278,7 +393,7 @@ void PDITarget_SendBreak(void)
 	}
 
 	/* Need to do nothing for a full frame to send a BREAK */
-	for (uint8_t i = 0; i < BITS_IN_PDI_FRAME; i++)
+	for (uint8_t i = 0; i < BITS_IN_USART_FRAME; i++)
 	{
 		/* Wait for a full cycle of the clock */
 		while (PIND & (1 << 5));
@@ -298,38 +413,8 @@ void PDITarget_SendBreak(void)
 
 	/* Need to do nothing for a full frame to send a BREAK */
 	SoftUSART_Data     = 0x0FFF;
-	SoftUSART_BitCount = BITS_IN_PDI_FRAME;
+	SoftUSART_BitCount = BITS_IN_USART_FRAME;
 #endif
-}
-
-/** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read or CRC
- *  calculation.
- *
- *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
- */
-bool PDITarget_WaitWhileNVMBusBusy(void)
-{
-	TCNT0 = 0;
-	TIFR0 = (1 << OCF1A);
-			
-	uint8_t TimeoutMS = PDI_NVM_TIMEOUT_MS;
-	
-	/* Poll the STATUS register to check to see if NVM access has been enabled */
-	while (TimeoutMS)
-	{
-		/* Send the LDCS command to read the PDI STATUS register to see the NVM bus is active */
-		PDITarget_SendByte(PDI_CMD_LDCS | PDI_STATUS_REG);
-		if (PDITarget_ReceiveByte() & PDI_STATUS_NVM)
-		  return true;
-
-		if (TIFR0 & (1 << OCF1A))
-		{
-			TIFR0 = (1 << OCF1A);
-			TimeoutMS--;
-		}
-	}
-	
-	return false;
 }
 
 #endif
