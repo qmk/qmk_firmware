@@ -44,7 +44,7 @@ uint32_t XPROG_Param_NVMBase = 0x010001C0;
 uint32_t XPROG_Param_EEPageSize;
 
 /** Currently selected XPROG programming protocol */
-uint8_t  XPROG_SelectedProtocol;
+uint8_t  XPROG_SelectedProtocol = XPRG_PROTOCOL_PDI;
 
 
 /** Handler for the CMD_XPROG_SETMODE command, which sets the programmer-to-target protocol used for PDI/TPI

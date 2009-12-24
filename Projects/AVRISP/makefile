@@ -136,7 +136,6 @@ SRC = $(TARGET).c                                                 \
 	  Lib/XPROG/XMEGANVM.c                                        \
 	  Lib/XPROG/TPITarget.c                                       \
 	  Lib/XPROG/TINYNVM.c                                         \
-	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \

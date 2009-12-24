@@ -152,7 +152,7 @@
  *   </tr>
  *  </table>
  *
- *  <b><sup>1</sup></b> <i>When PDI_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
+ *  <b><sup>1</sup></b> <i>When XPROG_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
  *                         via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i>
  *
  *  \section Sec_TPI TPI Connections
@@ -196,7 +196,7 @@
  *   </tr>
  *  </table>
  *
- *  <b><sup>1</sup></b> <i>When TPI_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
+ *  <b><sup>1</sup></b> <i>When XPROG_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
  *                         via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i>
  *
  *  \section SSec_Options Project Options
