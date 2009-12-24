@@ -39,6 +39,7 @@
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SPI.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 		
 		#include "../Descriptors.h"
 		#include "V2ProtocolConstants.h"

@@ -162,7 +162,7 @@
  *   <tr>
  *    <td><b>Programmer Pin:</b></td>
  *    <td><b>Target Device Pin:</b></td>
- *    <td><b>PDI 6 Pin Layout:</b></td>
+ *    <td><b>TPI 6 Pin Layout:</b></td>
  *   </tr>
  *   <tr>
  *    <td>MISO</td>

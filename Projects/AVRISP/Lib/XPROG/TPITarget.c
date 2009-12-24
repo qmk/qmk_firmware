@@ -320,7 +320,7 @@ bool TPITarget_WaitWhileNVMBusBusy(void)
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
 	while (TimeoutMS)
 	{
-		/* Send the LDCS command to read the TPI STATUS register to see the NVM bus is active */
+		/* Send the SLDCS command to read the TPI STATUS register to see the NVM bus is active */
 		TPITarget_SendByte(TPI_CMD_SLDCS | TPI_STATUS_REG);
 		if (TPITarget_ReceiveByte() & TPI_STATUS_NVM)
 		  return true;

@@ -50,7 +50,9 @@ bool MustSetAddress;
 void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_Byte();
-		  
+	
+	Serial_TxByte(V2Command);
+	
 	switch (V2Command)
 	{
 		case CMD_SIGN_ON:

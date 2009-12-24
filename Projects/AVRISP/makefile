@@ -131,12 +131,13 @@ SRC = $(TARGET).c                                                 \
       Lib/V2ProtocolParams.c                                      \
       Lib/ISP/ISPProtocol.c                                       \
       Lib/ISP/ISPTarget.c                                         \
-	  Lib/PDI/PDIProtocol.c                                       \
-	  Lib/PDI/PDITarget.c                                         \
-	  Lib/PDI/XMEGANVM.c                                          \
-	  Lib/TPI/TPIProtocol.c                                       \
-	  Lib/TPI/TPITarget.c                                         \
-	  Lib/TPI/TINYNVM.c                                           \
+	  Lib/XPROG/PDIProtocol.c                                     \
+	  Lib/XPROG/PDITarget.c                                       \
+	  Lib/XPROG/XMEGANVM.c                                        \
+	  Lib/XPROG/TPIProtocol.c                                     \
+	  Lib/XPROG/TPITarget.c                                       \
+	  Lib/XPROG/TINYNVM.c                                         \
+	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/Serial.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \

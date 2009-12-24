@@ -58,6 +58,8 @@ void PDIProtocol_XPROG_SetMode(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
+	Serial_TxByte(SetMode_XPROG_Params.Protocol);
+	
 	Endpoint_Write_Byte(CMD_XPROG_SETMODE);
 	Endpoint_Write_Byte((SetMode_XPROG_Params.Protocol == XPRG_PROTOCOL_PDI) ? STATUS_CMD_OK : STATUS_CMD_FAILED);
 	Endpoint_ClearIN();	
