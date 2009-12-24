@@ -43,7 +43,7 @@
 		
 		#include <LUFA/Common/Common.h>
 		
-		#include "TPIProtocol.h"
+		#include "XPROGProtocol.h"
 		#include "TPITarget.h"
 	
 	/* Preprocessor Checks: */

@@ -43,7 +43,7 @@
 		
 		#include <LUFA/Common/Common.h>
 		
-		#include "PDIProtocol.h"
+		#include "XPROGProtocol.h"
 		#include "PDITarget.h"
 	
 	/* Preprocessor Checks: */

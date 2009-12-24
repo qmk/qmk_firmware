@@ -45,8 +45,7 @@
 		#include "V2ProtocolConstants.h"
 		#include "V2ProtocolParams.h"
 		#include "ISP/ISPProtocol.h"
-		#include "PDI/PDIProtocol.h"
-		#include "TPI/TPIProtocol.h"
+		#include "XPROG/XPROGProtocol.h"
 
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
