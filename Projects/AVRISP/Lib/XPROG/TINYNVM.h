@@ -59,10 +59,9 @@
 		#define TINY_NVM_BUSY_TIMEOUT_MS       100
 
 	/* Function Prototypes: */
-		bool TINYNVM_WaitWhileNVMControllerBusy(void);
+		bool TINYNVM_WaitWhileNVMBusBusy(void);
 		bool TINYNVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize);
 		bool TINYNVM_WriteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer);
 		bool TINYNVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address);
-		bool TINYNVM_WaitWhileNVMBusBusy(void);
 
 #endif

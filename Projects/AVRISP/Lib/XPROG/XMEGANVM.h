@@ -108,6 +108,7 @@
 	/* Function Prototypes: */
 		void XMEGANVM_SendNVMRegAddress(const uint8_t Register);
 		void XMEGANVM_SendAddress(const uint32_t AbsoluteAddress);
+		bool XMEGANVM_WaitWhileNVMBusBusy(void);
 		bool XMEGANVM_WaitWhileNVMControllerBusy(void);
 		bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest);
 		bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize);
@@ -116,6 +117,5 @@
 		                              const uint8_t WritePageCommand, const uint8_t PageMode, const uint32_t WriteAddress,
 		                              const uint8_t* WriteBuffer, const uint16_t WriteSize);
 		bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address);
-		bool XMEGANVM_WaitWhileNVMBusBusy(void);
 
 #endif

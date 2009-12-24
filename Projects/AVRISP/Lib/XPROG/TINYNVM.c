@@ -38,42 +38,33 @@
 
 #if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 
-/** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read or CRC
- *  calculation.
+/** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read.
  *
  *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
  */
-bool XMEGANVM_WaitWhileNVMBusBusy(void)
+bool TINYNVM_WaitWhileNVMBusBusy(void)
 {
-	// TODO
+	TCNT0 = 0;
+	TIFR0 = (1 << OCF1A);
+			
+	uint8_t TimeoutMS = TINY_NVM_BUSY_TIMEOUT_MS;
+	
+	/* Poll the STATUS register to check to see if NVM access has been enabled */
+	while (TimeoutMS)
+	{
+		/* Send the SLDCS command to read the TPI STATUS register to see the NVM bus is active */
+		XPROGTarget_SendByte(TPI_CMD_SLDCS | TPI_STATUS_REG);
+		if (XPROGTarget_ReceiveByte() & TPI_STATUS_NVM)
+		  return true;
+
+		if (TIFR0 & (1 << OCF1A))
+		{
+			TIFR0 = (1 << OCF1A);
+			TimeoutMS--;
+		}
+	}
 	
 	return false;
-}
-
-/** Waits while the target's NVM controller is busy performing an operation, exiting if the
- *  timeout period expires.
- *
- *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
- */
-bool XMEGANVM_WaitWhileNVMControllerBusy(void)
-{
-	// TODO
-	
-	return false;
-}
-
-/** Retrieves the CRC value of the given memory space.
- *
- *  \param[in]  CRCCommand  NVM CRC command to issue to the target
- *  \param[out] CRCDest     CRC Destination when read from the target
- *
- *  \return Boolean true if the command sequence complete successfully
- */
-bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
-{
-	// TODO
-
-	return true;
 }
 
 /** Reads memory from the target's memory spaces.
@@ -84,7 +75,7 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize)
+bool TINYNVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize)
 {
 	// TODO
 	
@@ -99,7 +90,7 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const 
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool XMEGANVM_WriteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer)
+bool TINYNVM_WriteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer)
 {
 	// TODO
 	
@@ -113,7 +104,7 @@ bool XMEGANVM_WriteMemory(const uint8_t WriteCommand, const uint32_t WriteAddres
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
+bool TINYNVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
 {
 	// TODO
 	

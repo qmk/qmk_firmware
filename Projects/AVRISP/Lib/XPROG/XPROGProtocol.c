@@ -132,7 +132,13 @@ static void XPROGProtocol_EnterXPROGMode(void)
 		/* Enable TPI programming mode with the attached target */
 		XPROGTarget_EnableTargetTPI();
 		
-		// TODO - enable NVM bus via KEY		
+		/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
+		XPROGTarget_SendByte(TPI_CMD_SKEY);	
+		for (uint8_t i = sizeof(TPI_NVMENABLE_KEY); i > 0; i--)
+		  XPROGTarget_SendByte(TPI_NVMENABLE_KEY[i - 1]);
+
+		/* Wait until the NVM bus becomes active */
+		NVMBusEnabled = TINYNVM_WaitWhileNVMBusBusy();
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
@@ -159,7 +165,9 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 	}
 	else
 	{
-		// TODO - Disable TPI via register
+		/* Clear the NVMEN bit in the TPI CONTROL register to disable TPI mode */
+		XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_CTRL_REG);	
+		XPROGTarget_SendByte(0x00);
 	
 		XPROGTarget_DisableTargetTPI();
 	}
