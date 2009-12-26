@@ -174,7 +174,7 @@ void XPROGTarget_EnableTargetTPI(void)
 	BITBANG_TPIDATA_PORT |= BITBANG_TPIDATA_MASK;
 
 	/* Fire timer capture ISR every 100 cycles to manage the software USART */
-	OCR1A   = 80;
+	OCR1A   = 100;
 	TCCR1B  = (1 << WGM13) | (1 << WGM12) | (1 << CS10);
 	TIMSK1  = (1 << ICIE1);
 	
@@ -217,7 +217,7 @@ void XPROGTarget_EnableTargetPDI(void)
 	asm volatile ("NOP"::);
 
 	/* Fire timer compare ISR every 100 cycles to manage the software USART */
-	OCR1A   = 80;
+	OCR1A   = 100;
 	TCCR1B  = (1 << WGM12) | (1 << CS10);
 	TIMSK1  = (1 << OCIE1A);
 	
@@ -353,7 +353,7 @@ uint8_t XPROGTarget_ReceiveByte(void)
 	}
 
 	/* Wait until a byte has been received before reading */
-	while (!(UCSR1A & (1 << RXC1)));
+	while (!(UCSR1A & (1 << RXC1)) && TimeoutMSRemaining);
 	return UDR1;
 #else
 	/* Switch to Rx mode if currently in Tx mode */
@@ -369,8 +369,8 @@ uint8_t XPROGTarget_ReceiveByte(void)
 
 	/* Wait until a byte has been received before reading */
 	SoftUSART_BitCount = BITS_IN_USART_FRAME;
-	while (SoftUSART_BitCount);
-	
+	while (SoftUSART_BitCount && TimeoutMSRemaining);
+
 	/* Throw away the parity and stop bits to leave only the data (start bit is already discarded) */
 	return (uint8_t)SoftUSART_Data;
 #endif

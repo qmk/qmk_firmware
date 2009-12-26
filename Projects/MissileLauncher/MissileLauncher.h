@@ -82,8 +82,8 @@
 		void SetupHardware(void);
 
 		void Read_Joystick_Status(void);
-        void Send_Command_Report(uint8_t* Report, uint16_t ReportSize);
-        void Send_Command(uint8_t* Command);
+        void Send_Command_Report(uint8_t* const Report, const uint16_t ReportSize);
+        void Send_Command(uint8_t* const Command);
 
 		void HID_Host_Task(void);
 
@@ -94,6 +94,6 @@
 		void EVENT_USB_Host_DeviceEnumerationComplete(void);
 
 		void DiscardNextReport(void);
-		void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength);
+		void WriteNextReport(uint8_t* const ReportOUTData, const uint16_t ReportLength);
 		
 #endif

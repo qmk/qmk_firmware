@@ -62,8 +62,8 @@
 		typedef struct
 		{
 			const uint8_t ParamID; /**< Parameter ID number to uniquely identify the parameter within the device */
+			const uint8_t ParamPrivileges;  /**< Parameter privileges to allow the host to read or write the parameter's value */
 			uint8_t ParamValue; /**< Current parameter's value within the device */
-			uint8_t ParamPrivileges;  /**< Parameter privileges to allow the host to read or write the parameter's value */
 		} ParameterItem_t;
 
 	/* Function Prototypes: */

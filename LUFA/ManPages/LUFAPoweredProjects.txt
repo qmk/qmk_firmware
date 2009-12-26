@@ -37,7 +37,7 @@
  *  - "Fingerlicking Wingdinger" (WARNING: Bad Language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
  *  - Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
  *  - Generic HID Device Creator : http://generichid.sourceforge.net/
- *  - Mobo 4.3, some sort of Audio related device: http://sites.google.com/site/lofturj/mobo4_3
+ *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
  *  - NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
  *  - MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
  *  - Opendous-JTAG, an open source JTAG device: http://code.google.com/p/opendous-jtag/

@@ -1,12 +1,4 @@
 /*
-             LUFA Library
-     Copyright (C) Dean Camera, 2009.
-              
-  dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
-*/
-
-/*
          USB Missile Launcher Demo
 	 Copyright (C) Dave Fletcher, 2009.
 	  fletch at fletchtronics dot net
@@ -158,7 +150,7 @@ void Read_Joystick_Status(void)
  *  \param[in] Report  Report data to send.
  *  \param[in] ReportSize  Report length in bytes.
  */
-void Send_Command_Report(uint8_t *Report, uint16_t ReportSize)
+void Send_Command_Report(uint8_t* const Report, const uint16_t ReportSize)
 {
 	memcpy(CmdBuffer, Report, 8);
 	WriteNextReport(CmdBuffer, ReportSize);
@@ -168,7 +160,7 @@ void Send_Command_Report(uint8_t *Report, uint16_t ReportSize)
  *
  *  \param[in] Command  One of the command constants.
  */
-void Send_Command(uint8_t* Command)
+void Send_Command(uint8_t* const Command)
 {
 	if ((CmdState == CMD_STOP && Command != CMD_STOP) ||
 		(CmdState != CMD_STOP && Command == CMD_STOP))
@@ -252,7 +244,7 @@ void DiscardNextReport(void)
  *  \param[in] ReportOUTData  Buffer containing the report to send to the device
  *  \param[in] ReportLength  Length of the report to send
  */
-void WriteNextReport(uint8_t* ReportOUTData, uint16_t ReportLength)
+void WriteNextReport(uint8_t* const ReportOUTData, const uint16_t ReportLength)
 {
 	/* Select and unfreeze HID data OUT pipe */
 	Pipe_SelectPipe(HID_DATA_OUT_PIPE);

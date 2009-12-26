@@ -49,16 +49,21 @@
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL
-			#undef ENABLE_TPI_PROTOCOL
 			
-			#if !defined(ENABLE_PDI_PROTOCOL)
-				#define ENABLE_PDI_PROTOCOL
+			#if !defined(ENABLE_XPROG_PROTOCOL)
+				#define ENABLE_XPROG_PROTOCOL
 			#endif
 		#endif
 
 	/* Macros: */
 		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing */
 		#define PROGRAMMER_ID     "AVRISP_MK2"
+		
+		/** Timeout period for each issued command from the host before it is aborted */
+		#define COMMAND_TIMEOUT_MS 200
+		
+		/** Command timeout counter register, GPIOR for speed */
+		#define TimeoutMSRemaining GPIOR1
 
 	/* External Variables: */
 		extern uint32_t CurrentAddress;

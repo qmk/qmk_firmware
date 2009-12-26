@@ -43,44 +43,44 @@ uint8_t EEMEM EEPROM_Rest_Polarity = 0x00;
 static ParameterItem_t ParameterTable[] = 
 	{
 		{ .ParamID          = PARAM_BUILD_NUMBER_LOW,
-		  .ParamValue       = (LUFA_VERSION_INTEGER >> 8),
-		  .ParamPrivileges  = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ,
+		  .ParamValue       = (LUFA_VERSION_INTEGER >> 8)        },
 
 		{ .ParamID          = PARAM_BUILD_NUMBER_HIGH,
-		  .ParamValue       = (LUFA_VERSION_INTEGER & 0xFF),
-		  .ParamPrivileges  = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ,
+		  .ParamValue       = (LUFA_VERSION_INTEGER & 0xFF),     },
 
 		{ .ParamID          = PARAM_HW_VER,
-		  .ParamValue       = 0x00,
-		  .ParamPrivileges  = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ,
+		  .ParamValue       = 0x00                               },
 
 		{ .ParamID          = PARAM_SW_MAJOR,
-		  .ParamValue       = 0x01,
-		  .ParamPrivileges  = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ,
+		  .ParamValue       = 0x01                               },
 
 		{ .ParamID          = PARAM_SW_MINOR,
-		  .ParamValue       = 0x0D,
-		  .ParamPrivileges  = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ,
+		  .ParamValue       = 0x0D                               },
 
 		{ .ParamID          = PARAM_VTARGET,
-		  .ParamValue       = 0x32,
-		  .ParamPrivileges  = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ,
+		  .ParamValue       = 0x32                               },
 
 		{ .ParamID          = PARAM_SCK_DURATION,
-		  .ParamValue       = (TOTAL_ISP_PROGRAMMING_SPEEDS - 1),
-		  .ParamPrivileges  = PARAM_PRIV_READ | PARAM_PRIV_WRITE },
+		  .ParamPrivileges  = PARAM_PRIV_READ | PARAM_PRIV_WRITE,
+		  .ParamValue       = (TOTAL_ISP_PROGRAMMING_SPEEDS - 1) },
 
 		{ .ParamID          = PARAM_RESET_POLARITY,
-		  .ParamValue       = 0x00,
-		  .ParamPrivileges  = PARAM_PRIV_WRITE                   },
+		  .ParamPrivileges  = PARAM_PRIV_WRITE,
+		  .ParamValue       = 0x00                               },
 
 		{ .ParamID          = PARAM_STATUS_TGT_CONN,
-		  .ParamValue       = 0x00,
-		  .ParamPrivileges  = PARAM_PRIV_READ                    },
+		  .ParamPrivileges  = PARAM_PRIV_READ,
+		  .ParamValue       = 0x00                               },
 
 		{ .ParamID          = PARAM_DISCHARGEDELAY,
-		  .ParamValue       = 0x00,
-		  .ParamPrivileges  = PARAM_PRIV_WRITE                   },
+		  .ParamPrivileges  = PARAM_PRIV_WRITE,
+		  .ParamValue       = 0x00                               },
 	};
 
 

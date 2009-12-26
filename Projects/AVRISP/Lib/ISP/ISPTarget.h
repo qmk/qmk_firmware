@@ -57,10 +57,7 @@
 	/* Macros: */
 		/** Total number of allowable ISP programming speeds supported by the device */
 		#define TOTAL_ISP_PROGRAMMING_SPEEDS  7
-
-		/** Timeout in milliseconds of target busy-wait loops waiting for a command to complete */
-		#define TARGET_BUSY_TIMEOUT_MS        100
-
+		
 	/* Function Prototypes: */
 		uint8_t ISPTarget_GetSPIPrescalerMask(void);
 		void    ISPTarget_ChangeTargetResetLine(const bool ResetTarget);

@@ -37,6 +37,7 @@
 #include "TINYNVM.h"
 
 #if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
+#warning TPI Protocol support is currently incomplete and is not suitable for general use.
 
 /** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read.
  *
@@ -44,24 +45,13 @@
  */
 bool TINYNVM_WaitWhileNVMBusBusy(void)
 {
-	TCNT0 = 0;
-	TIFR0 = (1 << OCF1A);
-			
-	uint8_t TimeoutMS = TINY_NVM_BUSY_TIMEOUT_MS;
-	
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
-	while (TimeoutMS)
+	while (TimeoutMSRemaining)
 	{
 		/* Send the SLDCS command to read the TPI STATUS register to see the NVM bus is active */
 		XPROGTarget_SendByte(TPI_CMD_SLDCS | TPI_STATUS_REG);
 		if (XPROGTarget_ReceiveByte() & TPI_STATUS_NVM)
 		  return true;
-
-		if (TIFR0 & (1 << OCF1A))
-		{
-			TIFR0 = (1 << OCF1A);
-			TimeoutMS--;
-		}
 	}
 	
 	return false;

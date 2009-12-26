@@ -72,17 +72,20 @@
 		 */
 		static inline void ISPProtocol_DelayMS(uint8_t DelayMS)
 		{
-			TCNT0 = 0;
-			TIFR0 = (1 << OCF1A);
+			OCR2A  = ((F_CPU / 64) / 1000);
+			TCCR2A = (1 << WGM01);
+			TCCR2B = ((1 << CS01) | (1 << CS00));			
 
 			while (DelayMS)
 			{
-				if (TIFR0 & (1 << OCF1A))
+				if (TIFR2 & (1 << OCF2A))
 				{
-					TIFR0 = (1 << OCF1A);
+					TIFR2 = (1 << OCF2A);
 					DelayMS--;
 				}
 			}
+			
+			TCCR2B = 0;			
 		}
 
 	/* Function Prototypes: */

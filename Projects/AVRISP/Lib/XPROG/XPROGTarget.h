@@ -42,6 +42,8 @@
 		#include <stdbool.h>
 		
 		#include <LUFA/Common/Common.h>
+		
+		#include "../V2Protocol.h"
 	
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))

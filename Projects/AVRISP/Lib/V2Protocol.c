@@ -43,6 +43,13 @@ uint32_t CurrentAddress;
 bool MustSetAddress;
 
 
+/** ISR for the management of the command execution timeout counter */
+ISR(TIMER0_COMPA_vect, ISR_BLOCK)
+{
+	if (TimeoutMSRemaining)
+	  TimeoutMSRemaining--;
+}
+
 /** Master V2 Protocol packet handler, for received V2 Protocol packets from a connected host.
  *  This routine decodes the issued command and passes off the handling of the command to the
  *  appropriate function.
@@ -51,6 +58,9 @@ void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_Byte();
 	
+	TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
+	TIMSK0 |= (1 << OCIE0A);
+
 	switch (V2Command)
 	{
 		case CMD_SIGN_ON:
@@ -110,7 +120,9 @@ void V2Protocol_ProcessCommand(void)
 			V2Protocol_UnknownCommand(V2Command);
 			break;
 	}
-	
+		
+	TIMSK0 &= ~(1 << OCIE0A);
+
 	Endpoint_WaitUntilReady();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);
 }
