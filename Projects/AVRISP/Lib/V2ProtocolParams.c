@@ -131,7 +131,7 @@ uint8_t V2Params_GetParameterValue(const uint8_t ParamID)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
 	
-	if ((ParamInfo == NULL) || !(ParamInfo->ParamPrivileges & PARAM_PRIV_READ))
+	if (ParamInfo == NULL)
 	  return 0;
 	
 	return ParamInfo->ParamValue;
@@ -148,7 +148,7 @@ void V2Params_SetParameterValue(const uint8_t ParamID, const uint8_t Value)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
 
-	if ((ParamInfo == NULL) || !(ParamInfo->ParamPrivileges & PARAM_PRIV_WRITE))
+	if (ParamInfo == NULL)
 	  return;
 
 	ParamInfo->ParamValue = Value;
@@ -167,11 +167,15 @@ void V2Params_SetParameterValue(const uint8_t ParamID, const uint8_t Value)
  */
 static ParameterItem_t* V2Params_GetParamFromTable(const uint8_t ParamID)
 {
+	ParameterItem_t* CurrTableItem = ParameterTable;
+
 	/* Find the parameter in the parameter table if present */
 	for (uint8_t TableIndex = 0; TableIndex < (sizeof(ParameterTable) / sizeof(ParameterTable[0])); TableIndex++)
 	{
-		if (ParamID == ParameterTable[TableIndex].ParamID)
-		  return &ParameterTable[TableIndex];
+		if (ParamID == CurrTableItem->ParamID)
+		  return CurrTableItem;
+		
+		CurrTableItem++;
 	}
 
 	return NULL;

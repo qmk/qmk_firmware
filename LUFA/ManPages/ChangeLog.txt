@@ -17,6 +17,7 @@
   *  - Slowed down bit-banged PDI programming in the AVRISP project slightly to prevent transmission errors
   *
   *  <b>Fixed:</b>
+  *  - Fixed AVRISP project not able to enter programming mode when ISP protocol is used
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *

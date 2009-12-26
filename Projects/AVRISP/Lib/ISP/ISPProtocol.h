@@ -38,6 +38,7 @@
 
 	/* Includes: */
 		#include <avr/io.h>
+		#include <util/delay.h>
 		
 		#include <LUFA/Drivers/USB/USB.h>
 
@@ -66,26 +67,14 @@
 		#define PROG_MODE_COMMIT_PAGE_MASK      (1 << 7)
 
 	/* Inline Functions: */
-		/** Blocking delay for a given number of milliseconds, via a hardware timer.
+		/** Blocking delay for a given number of milliseconds.
 		 *
 		 *  \param[in] DelayMS  Number of milliseconds to delay for
 		 */
 		static inline void ISPProtocol_DelayMS(uint8_t DelayMS)
 		{
-			OCR2A  = ((F_CPU / 64) / 1000);
-			TCCR2A = (1 << WGM01);
-			TCCR2B = ((1 << CS01) | (1 << CS00));			
-
-			while (DelayMS)
-			{
-				if (TIFR2 & (1 << OCF2A))
-				{
-					TIFR2 = (1 << OCF2A);
-					DelayMS--;
-				}
-			}
-			
-			TCCR2B = 0;			
+			while (DelayMS--)
+			  _delay_ms(1);
 		}
 
 	/* Function Prototypes: */

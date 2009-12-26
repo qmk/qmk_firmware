@@ -122,6 +122,9 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 			break;
 		case PROG_MODE_WORD_VALUE_MASK:
 		case PROG_MODE_PAGED_VALUE_MASK:
+			TCNT0 = 0;
+			TIFR0 = (1 << OCF1A);
+			
 			do
 			{
 				SPI_SendByte(ReadMemCommand);
