@@ -145,6 +145,8 @@ ISR(TIMER1_COMPB_vect, ISR_BLOCK)
 /** Enables the target's PDI interface, holding the target in reset until PDI mode is exited. */
 void XPROGTarget_EnableTargetPDI(void)
 {
+	IsSending = false;
+
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Set Tx and XCK as outputs, Rx as input */
 	DDRD |=  (1 << 5) | (1 << 3);
@@ -160,10 +162,6 @@ void XPROGTarget_EnableTargetPDI(void)
 	UBRR1  = (F_CPU / 1000000UL);
 	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
-
-	/* Send two BREAKs of 12 bits each to enable PDI interface (need at least 16 idle bits) */
-	XPROGTarget_SendBreak();
-	XPROGTarget_SendBreak();
 #else
 	/* Set DATA and CLOCK lines to outputs */
 	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
@@ -174,20 +172,22 @@ void XPROGTarget_EnableTargetPDI(void)
 	asm volatile ("NOP"::);
 	asm volatile ("NOP"::);
 
-	/* Fire timer compare channel A ISR every 90 cycles to manage the software USART */
-	OCR1A   = 90;
+	/* Fire timer compare channel A ISR to manage the software USART */
+	OCR1A   = BITS_BETWEEN_USART_CLOCKS;
 	TCCR1B  = (1 << WGM12) | (1 << CS10);
 	TIMSK1  = (1 << OCIE1A);
-	
-	/* Send two BREAKs of 12 bits each to enable TPI interface (need at least 16 idle bits) */
-	XPROGTarget_SendBreak();
-	XPROGTarget_SendBreak();
 #endif
+
+	/* Send two BREAKs of 12 bits each to enable PDI interface (need at least 16 idle bits) */
+	XPROGTarget_SendBreak();
+	XPROGTarget_SendBreak();
 }
 
 /** Enables the target's TPI interface, holding the target in reset until TPI mode is exited. */
 void XPROGTarget_EnableTargetTPI(void)
 {
+	IsSending = false;
+
 	/* Set /RESET line low for at least 90ns to enable TPI functionality */
 	RESET_LINE_DDR  |= RESET_LINE_MASK;
 	RESET_LINE_PORT &= ~RESET_LINE_MASK;
@@ -204,10 +204,6 @@ void XPROGTarget_EnableTargetTPI(void)
 	UBRR1  = (F_CPU / 1000000UL);
 	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
-
-	/* Send two BREAKs of 12 bits each to enable TPI interface (need at least 16 idle bits) */
-	XPROGTarget_SendBreak();
-	XPROGTarget_SendBreak();
 #else
 	/* Set DATA and CLOCK lines to outputs */
 	BITBANG_TPIDATA_DDR  |= BITBANG_TPIDATA_MASK;
@@ -216,15 +212,15 @@ void XPROGTarget_EnableTargetTPI(void)
 	/* Set DATA line high for idle state */
 	BITBANG_TPIDATA_PORT |= BITBANG_TPIDATA_MASK;
 
-	/* Fire timer capture channel B ISR every 90 cycles to manage the software USART */
-	OCR1B   = 9;
+	/* Fire timer capture channel B ISR to manage the software USART */
+	OCR1B   = BITS_BETWEEN_USART_CLOCKS;
 	TCCR1B  = (1 << WGM12) | (1 << CS10);
 	TIMSK1  = (1 << OCIE1B);
-	
+#endif
+
 	/* Send two BREAKs of 12 bits each to enable TPI interface (need at least 16 idle bits) */
 	XPROGTarget_SendBreak();
 	XPROGTarget_SendBreak();
-#endif
 }
 
 /** Disables the target's PDI interface, exits programming mode and starts the target's application. */

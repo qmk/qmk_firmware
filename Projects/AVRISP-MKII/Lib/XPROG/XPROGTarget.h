@@ -56,29 +56,7 @@
 
 	/* Defines: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
-//			#define XPROG_VIA_HARDWARE_USART
-
-			#define BITBANG_PDIDATA_PORT     PORTD
-			#define BITBANG_PDIDATA_DDR      DDRD
-			#define BITBANG_PDIDATA_PIN      PIND
-			#define BITBANG_PDIDATA_MASK     (1 << 3)
-			
-			#define BITBANG_PDICLOCK_PORT    PORTD
-			#define BITBANG_PDICLOCK_DDR     DDRD
-			#define BITBANG_PDICLOCK_PIN     PIND
-			#define BITBANG_PDICLOCK_MASK    (1 << 5)
-
-			#define BITBANG_TPIDATA_PORT     PORTB
-			#define BITBANG_TPIDATA_DDR      DDRB
-			#define BITBANG_TPIDATA_PIN      PINB
-			#define BITBANG_TPIDATA_MASK     (1 << 3)
-				
-			#define BITBANG_TPICLOCK_PORT    PORTB
-			#define BITBANG_TPICLOCK_DDR     DDRB
-			#define BITBANG_TPICLOCK_PIN     PINB
-			#define BITBANG_TPICLOCK_MASK    (1 << 1)
-
-
+			#define XPROG_VIA_HARDWARE_USART
 		#else
 			#define BITBANG_PDIDATA_PORT     PORTB
 			#define BITBANG_PDIDATA_DDR      DDRB
@@ -101,55 +79,58 @@
 			#define BITBANG_TPICLOCK_MASK    (1 << 1)
 		#endif
 		
+		/** Number of cycles between each clock when software USART mode is used */
+		#define BITS_BETWEEN_USART_CLOCKS  100
+		
 		/** Total number of bits in a single USART frame */
-		#define BITS_IN_USART_FRAME      12
+		#define BITS_IN_USART_FRAME        12
 		
-		#define PDI_CMD_LDS              0x00
-		#define PDI_CMD_LD               0x20
-		#define PDI_CMD_STS              0x40
-		#define PDI_CMD_ST               0x60
-		#define PDI_CMD_LDCS             0x80
-		#define PDI_CMD_REPEAT           0xA0
-		#define PDI_CMD_STCS             0xC0
-		#define PDI_CMD_KEY              0xE0
+		#define PDI_CMD_LDS                0x00
+		#define PDI_CMD_LD                 0x20
+		#define PDI_CMD_STS                0x40
+		#define PDI_CMD_ST                 0x60
+		#define PDI_CMD_LDCS               0x80
+		#define PDI_CMD_REPEAT             0xA0
+		#define PDI_CMD_STCS               0xC0
+		#define PDI_CMD_KEY                0xE0
 		
-		#define PDI_STATUS_REG           0
-		#define PDI_RESET_REG            1
-		#define PDI_CTRL_REG             2
+		#define PDI_STATUS_REG             0
+		#define PDI_RESET_REG              1
+		#define PDI_CTRL_REG               2
 		
-		#define PDI_STATUS_NVM           (1 << 1)
-		#define PDI_RESET_KEY            0x59
+		#define PDI_STATUS_NVM             (1 << 1)
+		#define PDI_RESET_KEY              0x59
 
-		#define PDI_NVMENABLE_KEY        (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
+		#define PDI_NVMENABLE_KEY          (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
 
-		#define PDI_DATSIZE_1BYTE        0
-		#define PDI_DATSIZE_2BYTES       1
-		#define PDI_DATSIZE_3BYTES       2
-		#define PDI_DATSIZE_4BYTES       3
+		#define PDI_DATSIZE_1BYTE          0
+		#define PDI_DATSIZE_2BYTES         1
+		#define PDI_DATSIZE_3BYTES         2
+		#define PDI_DATSIZE_4BYTES         3
 		
-		#define PDI_POINTER_INDIRECT     0
-		#define PDI_POINTER_INDIRECT_PI  1
-		#define PDI_POINTER_DIRECT       2
+		#define PDI_POINTER_INDIRECT       0
+		#define PDI_POINTER_INDIRECT_PI    1
+		#define PDI_POINTER_DIRECT         2
 
-		#define TPI_CMD_SLD              0x20
-		#define TPI_CMD_SST              0x60
-		#define TPI_CMD_SSTPR            0x68
-		#define TPI_CMD_SIN              0x10
-		#define TPI_CMD_SOUT             0x90
-		#define TPI_CMD_SLDCS            0x80
-		#define TPI_CMD_SSTCS            0xC0
-		#define TPI_CMD_SKEY             0xE0
+		#define TPI_CMD_SLD                0x20
+		#define TPI_CMD_SST                0x60
+		#define TPI_CMD_SSTPR              0x68
+		#define TPI_CMD_SIN                0x10
+		#define TPI_CMD_SOUT               0x90
+		#define TPI_CMD_SLDCS              0x80
+		#define TPI_CMD_SSTCS              0xC0
+		#define TPI_CMD_SKEY               0xE0
 
-		#define TPI_STATUS_REG           0x00
-		#define TPI_CTRL_REG             0x02
-		#define TPI_ID_REG               0x0F
+		#define TPI_STATUS_REG             0x00
+		#define TPI_CTRL_REG               0x02
+		#define TPI_ID_REG                 0x0F
 		
-		#define TPI_STATUS_NVM           (1 << 1)
+		#define TPI_STATUS_NVM             (1 << 1)
 
-		#define TPI_NVMENABLE_KEY        (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
+		#define TPI_NVMENABLE_KEY          (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
 
-		#define TPI_POINTER_INDIRECT     0
-		#define TPI_POINTER_INDIRECT_PI  (1 << 2)
+		#define TPI_POINTER_INDIRECT       0
+		#define TPI_POINTER_INDIRECT_PI    (1 << 2)
 		
 	/* Function Prototypes: */
 		void    XPROGTarget_EnableTargetPDI(void);
