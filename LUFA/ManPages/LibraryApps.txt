@@ -98,7 +98,7 @@
  *    - <b>CDC</b> - CDC Class USB bootloader, compatible with any AVR910 protocol programming software such as AVRDude
  *    - <b>TeensyHID</b> - HID Class bootloader, compatible with the PJRC TeensyLoader software
  *  - <b>Projects</b>
- *    - <b>AVRISP</b> - AVRISP-MKII Programmer Clone project
+ *    - <b>AVRISP-MKII</b> - AVRISP-MKII Programmer Clone project
  *    - <b>Benito</b> - Benito Board Arduino Programmer project
  *    - <b>LEDNotifier</b> - USB LED Notification project
  *    - <b>Magstripe</b> - Magnetic Stripe Card Reader project

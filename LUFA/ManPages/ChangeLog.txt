@@ -15,6 +15,7 @@
   *
   *  <b>Changed:</b>
   *  - Slowed down bit-banged PDI programming in the AVRISP project slightly to prevent transmission errors
+  *  - Renamed the AVRISP project folder to AVRISP-MKII to reduce confusion
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project not able to enter programming mode when ISP protocol is used

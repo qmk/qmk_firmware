@@ -14,8 +14,8 @@
 # code.
 
 all:
-	make -C AVRISP clean
-	make -C AVRISP all
+	make -C AVRISP-MKII clean
+	make -C AVRISP-MKII all
 
 	make -C Benito clean
 	make -C Benito all
@@ -36,7 +36,7 @@ all:
 	make -C XPLAINBridge all
 
 %:
-	make -C AVRISP $@
+	make -C AVRISP-MKII $@
 	make -C Benito $@
 	make -C LEDNotifier $@	
 	make -C Magstripe $@
