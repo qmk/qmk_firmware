@@ -119,14 +119,13 @@ bool TINYNVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_
 
 /** Writes byte addressed memory to the target's memory spaces.
  *
- *  \param[in]  WriteCommand  Command to send to the device to write each memory byte
  *  \param[in]  WriteAddress  Start address to write to within the target's address space
  *  \param[in]  WriteBuffer   Buffer to source data from
- *
+ *  \param[in]  WriteLength   Total number of bytes to write to the device
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool TINYNVM_WriteMemory(const uint32_t WriteAddress, const uint8_t Byte)
+bool TINYNVM_WriteMemory(const uint32_t WriteAddress, const uint8_t* WriteBuffer, uint16_t WriteLength)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(TINYNVM_WaitWhileNVMControllerBusy()))
@@ -139,9 +138,12 @@ bool TINYNVM_WriteMemory(const uint32_t WriteAddress, const uint8_t Byte)
 	/* Send the address of the location to write to */
 	TINYNVM_SendPointerAddress(WriteAddress);
 	
-	/* Write the byte of data to the target */
-	XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT);
-	XPROGTarget_SendByte(Byte);
+	while (WriteLength--)
+	{
+		/* Write the byte of data to the target */
+		XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT_PI);
+		XPROGTarget_SendByte(*(WriteBuffer++));
+	}
 	
 	return true;
 }

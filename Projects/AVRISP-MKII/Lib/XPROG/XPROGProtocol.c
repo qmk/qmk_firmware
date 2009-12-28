@@ -134,6 +134,7 @@ static void XPROGProtocol_EnterXPROGMode(void)
 	}
 	else
 	{
+	#if 0
 		/* Enable TPI programming mode with the attached target */
 		XPROGTarget_EnableTargetTPI();
 		
@@ -144,6 +145,8 @@ static void XPROGProtocol_EnterXPROGMode(void)
 
 		/* Wait until the NVM bus becomes active */
 		NVMBusEnabled = TINYNVM_WaitWhileNVMBusBusy();
+	#endif
+		NVMBusEnabled = true;
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
@@ -313,9 +316,14 @@ static void XPROGProtocol_WriteMemory(void)
 	}
 	else
 	{
+		Serial_TxByte((uint8_t)WriteMemory_XPROG_Params.Length);
+	
 		/* Send write command to the TPI device, indicate timeout if occurred */
-		if (!(TINYNVM_WriteMemory(WriteMemory_XPROG_Params.Address, WriteMemory_XPROG_Params.ProgData[0])))
-		  ReturnStatus = XPRG_ERR_TIMEOUT;
+		if (!(TINYNVM_WriteMemory(WriteMemory_XPROG_Params.Address, WriteMemory_XPROG_Params.ProgData,
+		      WriteMemory_XPROG_Params.Length)))
+		{
+			ReturnStatus = XPRG_ERR_TIMEOUT;
+		}
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
@@ -355,6 +363,8 @@ static void XPROGProtocol_ReadMemory(void)
 	}
 	else
 	{
+		Serial_TxByte((uint8_t)ReadMemory_XPROG_Params.Length);
+
 		/* Read the TPI target's memory, indicate timeout if occurred */
 		if (!(TINYNVM_ReadMemory(ReadMemory_XPROG_Params.Address, ReadBuffer, ReadMemory_XPROG_Params.Length)))
 		  ReturnStatus = XPRG_ERR_TIMEOUT;
