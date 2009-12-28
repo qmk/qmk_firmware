@@ -50,6 +50,7 @@
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  - Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/
+ *  - XUM1541, a Commodore 64 floppy drive to USB adapter: http://www.root.org/~nate/c64/xum1541/
  * 
  *  \section Sec_LUFACommercialProjects Projects Using LUFA (Commercial)
  *
