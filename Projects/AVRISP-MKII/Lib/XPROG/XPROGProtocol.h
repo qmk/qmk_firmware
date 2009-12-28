@@ -97,6 +97,8 @@
 
 		#define XPRG_PARAM_NVMBASE                  0x01
 		#define XPRG_PARAM_EEPPAGESIZE              0x02
+		#define XPRG_PARAM_UNDOC_1                  0x03
+		#define XPRG_PARAM_UNDOC_2                  0x04
 		
 		#define XPRG_PROTOCOL_PDI                   0x00
 		#define XPRG_PROTOCOL_JTAG                  0x01

@@ -74,7 +74,7 @@ void XPROGProtocol_SetMode(void)
 void XPROGProtocol_Command(void)
 {
 	uint8_t XPROGCommand = Endpoint_Read_Byte();
-
+	
 	switch (XPROGCommand)
 	{
 		case XPRG_CMD_ENTER_PROGMODE:
@@ -420,13 +420,22 @@ static void XPROGProtocol_SetParam(void)
 	uint8_t XPROGParam = Endpoint_Read_Byte();
 	
 	/* Determine which parameter is being set, store the new parameter value */
-	if (XPROGParam == XPRG_PARAM_NVMBASE)
-	  XPROG_Param_NVMBase = Endpoint_Read_DWord_BE();
-	else if (XPROGParam == XPRG_PARAM_EEPPAGESIZE)
-	  XPROG_Param_EEPageSize = Endpoint_Read_Word_BE();
-	else
-	  ReturnStatus = XPRG_ERR_FAILED;
-	
+	switch (XPROGParam)
+	{
+		case XPRG_PARAM_NVMBASE:
+			XPROG_Param_NVMBase = Endpoint_Read_DWord_BE();
+			break;
+		case XPRG_PARAM_EEPPAGESIZE:
+			XPROG_Param_EEPageSize = Endpoint_Read_Word_BE();
+			break;
+		case XPRG_PARAM_UNDOC_1:
+		case XPRG_PARAM_UNDOC_2:
+			break; // Undocumented TPI parameter, just accept and discard
+		default:
+			ReturnStatus = XPRG_ERR_FAILED;
+			break;
+	}
+
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 		  
