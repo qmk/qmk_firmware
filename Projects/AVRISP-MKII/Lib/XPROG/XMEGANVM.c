@@ -196,12 +196,12 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16
 /** Writes byte addressed memory to the target's memory spaces.
  *
  *  \param[in]  WriteCommand  Command to send to the device to write each memory byte
- *  \param[in]  WriteAddress  Start address to write to within the target's address space
- *  \param[in]  WriteBuffer   Buffer to source data from
+ *  \param[in]  WriteAddress  Address to write to within the target's address space
+ *  \param[in]  Byte          Byte to write to the target
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer)
+bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t Byte)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(XMEGANVM_WaitWhileNVMControllerBusy()))
@@ -215,7 +215,7 @@ bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAd
 	/* Send new memory byte to the memory to the target */
 	XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	XMEGANVM_SendAddress(WriteAddress);
-	XPROGTarget_SendByte(*(WriteBuffer++));
+	XPROGTarget_SendByte(Byte);
 	
 	return true;
 }

@@ -56,18 +56,16 @@
 		#endif
 
 	/* Defines: */
-		#define TINY_NVM_REG_NVMCSR            0x32
-		#define TINY_NVM_REG_NVMCMD            0x33
-
 		#define TINY_NVM_CMD_NOOP              0x00
 		#define TINY_NVM_CMD_CHIPERASE         0x10
 		#define TINY_NVM_CMD_SECTIONERASE      0x14
 		#define TINY_NVM_CMD_WORDWRITE         0x1D
 
 	/* Function Prototypes: */
+		void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress);
 		bool TINYNVM_WaitWhileNVMBusBusy(void);
-		bool TINYNVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize);
-		bool TINYNVM_WriteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer);
-		bool TINYNVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address);
+		bool TINYNVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadLength);
+		bool TINYNVM_WriteMemory(const uint32_t WriteAddress, const uint8_t Byte);
+		bool TINYNVM_EraseMemory(void);
 
 #endif

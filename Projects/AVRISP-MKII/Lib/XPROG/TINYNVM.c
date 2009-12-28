@@ -39,6 +39,16 @@
 #if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 #warning TPI Protocol support is currently incomplete and is not suitable for general use.
 
+/** Sends the given pointer address to the target's TPI pointer register */
+void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress)
+{
+	/* Send the given 16-bit address to the target, LSB first */
+	XPROGTarget_SendByte(TPI_CMD_SSTPR | 0);
+	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[0]);
+	XPROGTarget_SendByte(TPI_CMD_SSTPR | 1);
+	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[1]);
+}
+
 /** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read.
  *
  *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
@@ -57,17 +67,52 @@ bool TINYNVM_WaitWhileNVMBusBusy(void)
 	return false;
 }
 
+/** Waits while the target's NVM controller is busy performing an operation, exiting if the
+ *  timeout period expires.
+ *
+ *  \return Boolean true if the NVM controller became ready within the timeout period, false otherwise
+ */
+bool TINYNVM_WaitWhileNVMControllerBusy(void)
+{
+	/* Poll the STATUS register to check to see if NVM access has been enabled */
+	while (TimeoutMSRemaining)
+	{
+		/* Send the SIN command to read the TPI STATUS register to see the NVM bus is active */
+		XPROGTarget_SendByte(TPI_CMD_SIN | XPROG_Param_NVMCSRRegAddr);
+		if (XPROGTarget_ReceiveByte() & (1 << 7))
+		  return true;
+	}
+	
+	return false;
+}
+
 /** Reads memory from the target's memory spaces.
  *
  *  \param[in]  ReadAddress  Start address to read from within the target's address space
  *  \param[out] ReadBuffer   Buffer to store read data into
- *  \param[in]  ReadSize     Number of bytes to read
+ *  \param[in]  ReadSize     Length of the data to read from the device
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool TINYNVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const uint16_t ReadSize)
+bool TINYNVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize)
 {
-	// TODO
+	/* Wait until the NVM controller is no longer busy */
+	if (!(TINYNVM_WaitWhileNVMControllerBusy()))
+	  return false;
+
+	/* Set the NVM control register to the NO OP command for memory reading */
+	XPROGTarget_SendByte(TPI_CMD_SOUT | XPROG_Param_NVMCMDRegAddr);
+	XPROGTarget_SendByte(TINY_NVM_CMD_NOOP);
+	
+	/* Send the address of the location to read from */
+	TINYNVM_SendPointerAddress(ReadAddress);
+	
+	while (ReadSize--)
+	{
+		/* Read the byte of data from the target */
+		XPROGTarget_SendByte(TPI_CMD_SLD | TPI_POINTER_INDIRECT_PI);
+		*(ReadBuffer++) = XPROGTarget_ReceiveByte();
+	}
 	
 	return true;
 }
@@ -78,25 +123,46 @@ bool TINYNVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, const u
  *  \param[in]  WriteAddress  Start address to write to within the target's address space
  *  \param[in]  WriteBuffer   Buffer to source data from
  *
+ *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool TINYNVM_WriteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer)
+bool TINYNVM_WriteMemory(const uint32_t WriteAddress, const uint8_t Byte)
 {
-	// TODO
+	/* Wait until the NVM controller is no longer busy */
+	if (!(TINYNVM_WaitWhileNVMControllerBusy()))
+	  return false;
+
+	/* Set the NVM control register to the WORD WRITE command for memory reading */
+	XPROGTarget_SendByte(TPI_CMD_SOUT | XPROG_Param_NVMCMDRegAddr);
+	XPROGTarget_SendByte(TINY_NVM_CMD_WORDWRITE);
+	
+	/* Send the address of the location to write to */
+	TINYNVM_SendPointerAddress(WriteAddress);
+	
+	/* Write the byte of data to the target */
+	XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT);
+	XPROGTarget_SendByte(Byte);
 	
 	return true;
 }
 
-/** Erases a specific memory space of the target.
- *
- *  \param[in] EraseCommand  NVM erase command to send to the device
- *  \param[in] Address  Address inside the memory space to erase
+/** Erases the target's memory space.
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool TINYNVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
+bool TINYNVM_EraseMemory(void)
 {
-	// TODO
+	/* Wait until the NVM controller is no longer busy */
+	if (!(TINYNVM_WaitWhileNVMControllerBusy()))
+	  return false;
+
+	/* Set the NVM control register to the CHIP ERASE command to erase the target */
+	XPROGTarget_SendByte(TPI_CMD_SOUT | XPROG_Param_NVMCMDRegAddr);
+	XPROGTarget_SendByte(TINY_NVM_CMD_CHIPERASE);	
+
+	/* Wait until the NVM bus is ready again */
+	if (!(TINYNVM_WaitWhileNVMBusBusy()))
+	  return false;
 	
 	return true;
 }

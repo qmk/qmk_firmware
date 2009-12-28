@@ -37,11 +37,17 @@
 #include "XPROGProtocol.h"
 
 #if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
-/** Base absolute address for the target's NVM controller */
+/** Base absolute address for the target's NVM controller for PDI programming */
 uint32_t XPROG_Param_NVMBase    = 0x010001C0;
 
 /** Size in bytes of the target's EEPROM page */
-uint32_t XPROG_Param_EEPageSize;
+uint16_t XPROG_Param_EEPageSize;
+
+/** Address of the TPI device's NVMCMD register for TPI programming */
+uint8_t  XPROG_Param_NVMCMDRegAddr;
+
+/** Address of the TPI device's NVMCSR register for TPI programming */
+uint8_t  XPROG_Param_NVMCSRRegAddr;
 
 /** Currently selected XPROG programming protocol */
 uint8_t  XPROG_SelectedProtocol = XPRG_PROTOCOL_PDI;
@@ -222,7 +228,9 @@ static void XPROGProtocol_Erase(void)
 	}
 	else
 	{
-		// TODO
+		/* Erase the target memory, indicate timeout if ocurred */
+		if (!(TINYNVM_EraseMemory()))
+		  ReturnStatus = XPRG_ERR_TIMEOUT;
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
@@ -294,18 +302,20 @@ static void XPROGProtocol_WriteMemory(void)
 		}
 		
 		/* Send the appropriate memory write commands to the device, indicate timeout if occurred */
-		if ((PagedMemory && !XMEGANVM_WritePageMemory(WriteBuffCommand, EraseBuffCommand, WriteCommand, 
+		if ((PagedMemory && !(XMEGANVM_WritePageMemory(WriteBuffCommand, EraseBuffCommand, WriteCommand, 
 													   WriteMemory_XPROG_Params.PageMode, WriteMemory_XPROG_Params.Address,
-													   WriteMemory_XPROG_Params.ProgData, WriteMemory_XPROG_Params.Length)) ||
-		   (!PagedMemory && !XMEGANVM_WriteByteMemory(WriteCommand, WriteMemory_XPROG_Params.Address,
-													   WriteMemory_XPROG_Params.ProgData)))
+													   WriteMemory_XPROG_Params.ProgData, WriteMemory_XPROG_Params.Length))) ||
+		   (!PagedMemory && !(XMEGANVM_WriteByteMemory(WriteCommand, WriteMemory_XPROG_Params.Address,
+													   WriteMemory_XPROG_Params.ProgData[0]))))
 		{
 			ReturnStatus = XPRG_ERR_TIMEOUT;
 		}
 	}
 	else
 	{
-		// TODO
+		/* Send write command to the TPI device, indicate timeout if occurred */
+		if (!(TINYNVM_WriteMemory(WriteMemory_XPROG_Params.Address, WriteMemory_XPROG_Params.ProgData[0])))
+		  ReturnStatus = XPRG_ERR_TIMEOUT;
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);
@@ -339,13 +349,15 @@ static void XPROGProtocol_ReadMemory(void)
 	
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
 	{
-		/* Read the target's memory, indicate timeout if occurred */
+		/* Read the PDI target's memory, indicate timeout if occurred */
 		if (!(XMEGANVM_ReadMemory(ReadMemory_XPROG_Params.Address, ReadBuffer, ReadMemory_XPROG_Params.Length)))
 		  ReturnStatus = XPRG_ERR_TIMEOUT;
 	}
 	else
 	{
-		// TODO
+		/* Read the TPI target's memory, indicate timeout if occurred */
+		if (!(TINYNVM_ReadMemory(ReadMemory_XPROG_Params.Address, ReadBuffer, ReadMemory_XPROG_Params.Length)))
+		  ReturnStatus = XPRG_ERR_TIMEOUT;
 	}
 
 	Endpoint_Write_Byte(CMD_XPROG);
@@ -428,9 +440,12 @@ static void XPROGProtocol_SetParam(void)
 		case XPRG_PARAM_EEPPAGESIZE:
 			XPROG_Param_EEPageSize = Endpoint_Read_Word_BE();
 			break;
-		case XPRG_PARAM_UNDOC_1:
-		case XPRG_PARAM_UNDOC_2:
-			break; // Undocumented TPI parameter, just accept and discard
+		case XPRG_PARAM_NVMCMD:
+			XPROG_Param_NVMCMDRegAddr = Endpoint_Read_Byte();
+			break;
+		case XPRG_PARAM_NVMCSR:
+			XPROG_Param_NVMCSRRegAddr = Endpoint_Read_Byte();
+			break;
 		default:
 			ReturnStatus = XPRG_ERR_FAILED;
 			break;

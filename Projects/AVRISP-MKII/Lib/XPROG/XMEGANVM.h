@@ -110,7 +110,7 @@
 		bool XMEGANVM_WaitWhileNVMControllerBusy(void);
 		bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest);
 		bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize);
-		bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t* WriteBuffer);
+		bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAddress, const uint8_t Byte);
 		bool XMEGANVM_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t EraseBuffCommand,
 		                              const uint8_t WritePageCommand, const uint8_t PageMode, const uint32_t WriteAddress,
 		                              const uint8_t* WriteBuffer, uint16_t WriteSize);
