@@ -189,8 +189,8 @@ void XPROGTarget_EnableTargetTPI(void)
 	IsSending = false;
 
 	/* Set /RESET line low for at least 90ns to enable TPI functionality */
-	RESET_LINE_DDR  |= RESET_LINE_MASK;
-	RESET_LINE_PORT &= ~RESET_LINE_MASK;
+	AUX_LINE_DDR  |=  AUX_LINE_MASK;
+	AUX_LINE_PORT &= ~AUX_LINE_MASK;
 	asm volatile ("NOP"::);
 	asm volatile ("NOP"::);
 
@@ -269,8 +269,8 @@ void XPROGTarget_DisableTargetTPI(void)
 #endif
 
 	/* Tristate target /RESET line */
-	RESET_LINE_DDR  &= ~RESET_LINE_MASK;
-	RESET_LINE_PORT &= ~RESET_LINE_MASK;
+	AUX_LINE_DDR  &= ~AUX_LINE_MASK;
+	AUX_LINE_PORT &= ~AUX_LINE_MASK;
 }
 
 /** Sends a byte via the USART.

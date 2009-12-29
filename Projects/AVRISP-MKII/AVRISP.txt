@@ -109,7 +109,7 @@
  *  </table>
  *
  *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
- *  <b><sup>2</sup></b> <i>See \ref SSec_Options section</i>
+ *  <b><sup>2</sup></b> <i>See AUX line related tokens in the \ref SSec_Options section</i>
  *
  *  \section Sec_PDI PDI Connections
  *  Connections to the device for PDI programming<b><sup>1</sup></b> (when enabled):
@@ -153,7 +153,8 @@
  *  </table>
  *
  *  <b><sup>1</sup></b> <i>When XPROG_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
- *                         via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i>
+ *                         via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i> \n
+ *  <b><sup>2</sup></b> <i>See AUX line related tokens in the \ref SSec_Options section</i>
  *
  *  \section Sec_TPI TPI Connections
  *  Connections to the device for TPI programming<b><sup>1</sup></b> (when enabled):
@@ -197,7 +198,8 @@
  *  </table>
  *
  *  <b><sup>1</sup></b> <i>When XPROG_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
- *                         via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i>
+ *                         via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i> \n
+ *  <b><sup>2</sup></b> <i>See AUX line related tokens in the \ref SSec_Options section</i>
  *
  *  \section SSec_Options Project Options
  *
@@ -210,27 +212,29 @@
  *    <td><b>Description:</b></td>
  *   </tr>
  *   <tr>
- *    <td>RESET_LINE_PORT</td>
+ *    <td>AUX_LINE_PORT</td>
  *    <td>Makefile CDEFS</td>
- *    <td>PORT register for the programmer's target RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
+ *    <td>PORT register for the programmer's AUX target line. The use of this line varies between the programming protocols,
+ *        but is generally used for the target's /RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
- *    <td>RESET_LINE_PIN</td>
+ *    <td>AUX_LINE_PIN</td>
  *    <td>Makefile CDEFS</td>
- *    <td>PIN register for the programmer's target RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
+ *    <td>PIN register for the programmer's AUX target line. The use of this line varies between the programming protocols,
+ *        but is generally used for the target's /RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
- *    <td>RESET_LINE_DDR</td>
+ *    <td>AUX_LINE_DDR</td>
  *    <td>Makefile CDEFS</td>
- *    <td>DDR register for the programmer's target RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
+ *    <td>DDR register for the programmer's AUX target line. The use of this line varies between the programming protocols,
+ *        but is generally used for the target's /RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
- *    <td>RESET_LINE_MASK</td>
+ *    <td>AUX_LINE_MASK</td>
  *    <td>Makefile CDEFS</td>
- *    <td>Mask for the programmer's target RESET line on the chosen port. <b>Must not be the AVR's /SS pin</b>, as the
- *        target pins are tri-stated when not in use, and low signals on the /SS pin will force SPI slave mode when the
- *        pin is configured as an input. When in PDI programming mode, this is the target clock pin.
- *        <i>Ignored when compiled for the XPLAIN board.</i></td>
+ *    <td>Mask for the programmer's AUX target line. The use of this line varies between the programming protocols,
+ *        but is generally used for the target's /RESET line. <b>Must not be the AVR's /SS pin</b>. <i>Ignored when
+ *        compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
  *    <td>VTARGET_ADC_CHANNEL</td>
@@ -252,7 +256,7 @@
  *    <td>Makefile CDEFS</td>
  *    <td>Define to force the PDI and TPI protocols (when enabled) to use the much faster hardware USART instead of bit-banging
  *        to match the official AVRISP pinout. This breaks pinout compatibility with the official AVRISP MKII (and requires 
- *        seperate ISP and PDI/TPI programming headers) but increases programming speed dramatically.
+ *        seperate ISP, PDI, and TPI programming headers) but increases programming speed dramatically.
  *        <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *  </table>

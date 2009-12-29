@@ -84,15 +84,15 @@ void ISPTarget_ChangeTargetResetLine(const bool ResetTarget)
 {
 	if (ResetTarget)
 	{
-		RESET_LINE_DDR |= RESET_LINE_MASK;
+		AUX_LINE_DDR |= AUX_LINE_MASK;
 		
 		if (!(V2Params_GetParameterValue(PARAM_RESET_POLARITY)))
-		  RESET_LINE_PORT |= RESET_LINE_MASK;
+		  AUX_LINE_PORT |= AUX_LINE_MASK;
 	}
 	else
 	{
-		RESET_LINE_DDR  &= ~RESET_LINE_MASK;
-		RESET_LINE_PORT &= ~RESET_LINE_MASK;
+		AUX_LINE_DDR  &= ~AUX_LINE_MASK;
+		AUX_LINE_PORT &= ~AUX_LINE_MASK;
 	}
 }
 
@@ -144,7 +144,7 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 }
 
 /** Waits until the target has completed the last operation, by continuously polling the device's
- *  BUSY flag until it is cleared, or until the \ref TARGET_BUSY_TIMEOUT_MS timeout period has expired.
+ *  BUSY flag until it is cleared, or until the command timeout period has expired.
  *
  *  \return V2 Protocol status \ref STATUS_CMD_OK if the no timeout occurred, \ref STATUS_RDY_BSY_TOUT otherwise
  */
