@@ -11,7 +11,9 @@
  *  run correctly on the AT90USB1287 AVR microcontroller, mounted on the Atmel USBKEY board and running at an 8MHz
  *  master clock. This is due to two reasons; one, it is the hardware the author possesses, and two, it is the most
  *  popular Atmel USB demonstration board to date. To learn how to reconfigure, recompile and program the included
- *  LUFA applications using different settings, see the following subsections.
+ *  LUFA applications using different settings, see the subsections below.
+ *
+ *  For an overview of the included library applications, bootloaders and demos, see \ref Page_LibraryApps.
  *
  *  <b>Subsections:</b>
  *  - \subpage Page_ConfiguringApps How to Configure the Included Demos, Projects and Bootloaders
