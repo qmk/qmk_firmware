@@ -279,33 +279,16 @@ void XPROGTarget_DisableTargetTPI(void)
  */
 void XPROGTarget_SendByte(const uint8_t Byte)
 {
-#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Tx mode if currently in Rx mode */
 	if (!(IsSending))
-	{
-		PORTD  |=  (1 << 3);
-		DDRD   |=  (1 << 3);
-
-		UCSR1B |=  (1 << TXEN1);
-		UCSR1B &= ~(1 << RXEN1);
-		
-		IsSending = true;
-	}
-	
+	  XPROGTarget_SetTxMode();
+	  
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Wait until there is space in the hardware Tx buffer before writing */
 	while (!(UCSR1A & (1 << UDRE1)));
 	UCSR1A |= (1 << TXC1);
 	UDR1    = Byte;
 #else
-	/* Switch to Tx mode if currently in Rx mode */
-	if (!(IsSending))
-	{
-		BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
-		BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
-
-		IsSending = true;
-	}
-
 	/* Calculate the new USART frame data here while while we wait for a previous byte (if any) to finish sending */
 	uint16_t NewUSARTData = ((1 << 11) | (1 << 10) | (0 << 9) | ((uint16_t)Byte << 1) | (0 << 0));
 
@@ -332,37 +315,15 @@ void XPROGTarget_SendByte(const uint8_t Byte)
  */
 uint8_t XPROGTarget_ReceiveByte(void)
 {
-#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Rx mode if currently in Tx mode */
 	if (IsSending)
-	{
-		while (!(UCSR1A & (1 << TXC1)));
-		UCSR1A |=  (1 << TXC1);
+	  XPROGTarget_SetRxMode();
 
-		UCSR1B &= ~(1 << TXEN1);
-		UCSR1B |=  (1 << RXEN1);
-
-		DDRD   &= ~(1 << 3);
-		PORTD  &= ~(1 << 3);
-		
-		IsSending = false;
-	}
-
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Wait until a byte has been received before reading */
 	while (!(UCSR1A & (1 << RXC1)) && TimeoutMSRemaining);
 	return UDR1;
 #else
-	/* Switch to Rx mode if currently in Tx mode */
-	if (IsSending)
-	{
-		while (SoftUSART_BitCount);
-
-		BITBANG_PDIDATA_DDR  &= ~BITBANG_PDIDATA_MASK;
-		BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
-
-		IsSending = false;
-	}
-
 	/* Wait until a byte has been received before reading */
 	SoftUSART_BitCount = BITS_IN_USART_FRAME;
 	while (SoftUSART_BitCount && TimeoutMSRemaining);
@@ -375,19 +336,11 @@ uint8_t XPROGTarget_ReceiveByte(void)
 /** Sends a BREAK via the USART to the attached target, consisting of a full frame of idle bits. */
 void XPROGTarget_SendBreak(void)
 {
-#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Switch to Tx mode if currently in Rx mode */
 	if (!(IsSending))
-	{
-		PORTD  |=  (1 << 3);
-		DDRD   |=  (1 << 3);
+	  XPROGTarget_SetTxMode();
 
-		UCSR1B &= ~(1 << RXEN1);
-		UCSR1B |=  (1 << TXEN1);
-		
-		IsSending = true;
-	}
-
+#if defined(XPROG_VIA_HARDWARE_USART)
 	/* Need to do nothing for a full frame to send a BREAK */
 	for (uint8_t i = 0; i < BITS_IN_USART_FRAME; i++)
 	{
@@ -396,21 +349,81 @@ void XPROGTarget_SendBreak(void)
 		while (!(PIND & (1 << 5)));
 	}
 #else
-	/* Switch to Tx mode if currently in Rx mode */
-	if (!(IsSending))
-	{
-		BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
-		BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
-
-		IsSending = true;
-	}
-	
 	while (SoftUSART_BitCount);
 
 	/* Need to do nothing for a full frame to send a BREAK */
 	SoftUSART_Data     = 0x0FFF;
 	SoftUSART_BitCount = BITS_IN_USART_FRAME;
 #endif
+}
+
+static void XPROGTarget_SetTxMode(void)
+{
+#if defined(XPROG_VIA_HARDWARE_USART)
+	/* Wait for a full cycle of the clock */
+	while (PIND & (1 << 5));
+	while (!(PIND & (1 << 5)));
+
+	PORTD  |=  (1 << 3);
+	DDRD   |=  (1 << 3);
+
+	UCSR1B &= ~(1 << RXEN1);
+	UCSR1B |=  (1 << TXEN1);
+		
+	IsSending = true;
+#else
+	while (SoftUSART_BitCount);
+
+	/* Wait for a full cycle of the clock */
+	SoftUSART_Data     = 0x0001;
+	SoftUSART_BitCount = 1;
+	while (SoftUSART_BitCount);
+
+	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
+	{
+		BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
+		BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
+	}
+	else
+	{
+		BITBANG_TPIDATA_PORT |= BITBANG_TPIDATA_MASK;
+		BITBANG_TPIDATA_DDR  |= BITBANG_TPIDATA_MASK;	
+	}
+#endif
+
+	IsSending = true;
+}
+
+static void XPROGTarget_SetRxMode(void)
+{
+#if defined(XPROG_VIA_HARDWARE_USART)
+	while (!(UCSR1A & (1 << TXC1)));
+	UCSR1A |=  (1 << TXC1);
+
+	UCSR1B &= ~(1 << TXEN1);
+	UCSR1B |=  (1 << RXEN1);
+
+	DDRD   &= ~(1 << 3);
+	PORTD  &= ~(1 << 3);
+#else
+	while (SoftUSART_BitCount);
+
+	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
+	{
+		BITBANG_PDIDATA_DDR  &= ~BITBANG_PDIDATA_MASK;
+		BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
+	}
+	else
+	{
+		BITBANG_TPIDATA_DDR  &= ~BITBANG_TPIDATA_MASK;
+		BITBANG_TPIDATA_PORT &= ~BITBANG_TPIDATA_MASK;	
+	}
+	
+	/* Wait until DATA line has been pulled up to idle by the target */
+	while (!(BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK));
+#endif
+
+	IsSending = false;
 }
 
 #endif

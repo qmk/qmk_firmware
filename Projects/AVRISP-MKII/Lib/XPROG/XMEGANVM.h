@@ -33,7 +33,7 @@
  *  Header file for XMEGANVM.c.
  */
 
-#ifndef _XMEGA_NVM__
+#ifndef _XMEGA_NVM_
 #define _XMEGA_NVM_
 
 	/* Includes: */

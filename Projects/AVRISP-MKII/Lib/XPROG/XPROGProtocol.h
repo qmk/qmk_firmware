@@ -113,6 +113,7 @@
 		extern uint16_t XPROG_Param_EEPageSize;
 		extern uint8_t  XPROG_Param_NVMCSRRegAddr;
 		extern uint8_t  XPROG_Param_NVMCMDRegAddr;
+		extern uint8_t  XPROG_SelectedProtocol;
 		
 	/* Function Prototypes: */
 		void XPROGProtocol_SetMode(void);

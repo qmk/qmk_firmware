@@ -44,6 +44,7 @@
 		#include <LUFA/Common/Common.h>
 		
 		#include "../V2Protocol.h"
+		#include "XPROGProtocol.h"
 	
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
@@ -141,5 +142,10 @@
 		uint8_t XPROGTarget_ReceiveByte(void);
 		void    XPROGTarget_SendBreak(void);
 		bool    XPROGTarget_WaitWhileNVMBusBusy(void);
+		
+		#if defined(INCLUDE_FROM_XPROGTARGET_C)
+			static void XPROGTarget_SetTxMode(void);
+			static void XPROGTarget_SetRxMode(void);
+		#endif
 
 #endif
