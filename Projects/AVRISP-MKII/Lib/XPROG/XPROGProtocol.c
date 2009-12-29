@@ -124,6 +124,10 @@ static void XPROGProtocol_EnterXPROGMode(void)
 		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
 		XPROGTarget_SendByte(PDI_RESET_KEY);
 
+		/* Lower direction change guard time to 8 USART bits */
+		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_CTRL_REG);	
+		XPROGTarget_SendByte(0x04);
+
 		/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
 		XPROGTarget_SendByte(PDI_CMD_KEY);	
 		for (uint8_t i = sizeof(PDI_NVMENABLE_KEY); i > 0; i--)
@@ -134,9 +138,12 @@ static void XPROGProtocol_EnterXPROGMode(void)
 	}
 	else
 	{
-	#if 0
 		/* Enable TPI programming mode with the attached target */
 		XPROGTarget_EnableTargetTPI();
+		
+		/* Lower direction change guard time to 8 USART bits */
+		XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_CTRL_REG);
+		XPROGTarget_SendByte(0x04);		
 		
 		/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
 		XPROGTarget_SendByte(TPI_CMD_SKEY);	
@@ -145,8 +152,6 @@ static void XPROGProtocol_EnterXPROGMode(void)
 
 		/* Wait until the NVM bus becomes active */
 		NVMBusEnabled = TINYNVM_WaitWhileNVMBusBusy();
-	#endif
-		NVMBusEnabled = true;
 	}
 	
 	Endpoint_Write_Byte(CMD_XPROG);

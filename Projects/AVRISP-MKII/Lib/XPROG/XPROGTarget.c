@@ -420,7 +420,7 @@ static void XPROGTarget_SetRxMode(void)
 	}
 	
 	/* Wait until DATA line has been pulled up to idle by the target */
-	while (!(BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK));
+	while (!(BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK) && TimeoutMSRemaining);
 #endif
 
 	IsSending = false;

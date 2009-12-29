@@ -81,7 +81,7 @@
 		#endif
 		
 		/** Number of cycles between each clock when software USART mode is used */
-		#define BITS_BETWEEN_USART_CLOCKS  100
+		#define BITS_BETWEEN_USART_CLOCKS  200
 		
 		/** Total number of bits in a single USART frame */
 		#define BITS_IN_USART_FRAME        12
