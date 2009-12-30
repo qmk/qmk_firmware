@@ -12,6 +12,8 @@
   *  - Added TPI programming support for 6-pin ATTINY to the AVRISP programmer project
   *  - Added command timeout counter to the AVRISP project so that the device no longer freezes when incorrectly connected
   *    to a target
+  *  - Added new TemperatureDataLogger application, a USB data logger which writes to the device's dataflash and appears to
+  *    the host as a standard Mass Storage device when inserted
   *
   *  <b>Changed:</b>
   *  - Slowed down bit-banged PDI programming in the AVRISP project slightly to prevent transmission errors
@@ -22,6 +24,7 @@
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project not able to enter programming mode when ISP protocol is used
   *  - Fixed AVRISP PDI race condition where the guard time between direction changes could be interpreted as a start bit
+  *  - Fixed ADC_IsReadingComplete() returning an inverted result
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *

@@ -149,7 +149,7 @@
 				
 				#define  ADC_GetStatus()               ((ADCSRA & (1 << ADEN)) ? true : false)
 
-				#define  ADC_IsReadingComplete()         (!(ADCSRA & (1 << ADSC)))
+				#define  ADC_IsReadingComplete()         (ADCSRA & (1 << ADSC))
 				
 				#define  ADC_GetResult()                 ADC			
 			#endif

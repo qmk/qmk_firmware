@@ -103,6 +103,7 @@
  *    - <b>LEDNotifier</b> - USB LED Notification project
  *    - <b>Magstripe</b> - Magnetic Stripe Card Reader project
  *    - <b>MissileLaucher</b> - Toy Missile Launcher Host project
+ *    - <b>TemperatureDataLogger</b> - Temperature Datalogging project
  *    - <b>USBtoSerial</b> - USB to USART Serial Converter project
  *
  *  </small>

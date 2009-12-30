@@ -1,0 +1,83 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage Temperature Datalogger Project
+ *
+ *  \section SSec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  - Series 7 USB AVRs
+ *  - Series 6 USB AVRs
+ *  - Series 4 USB AVRs (with >16KB of FLASH)
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Mass Storage Device</td>
+ *   </tr>
+ *   <tr> 
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Bulk-Only Transport</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Mass Storage Standard</td>
+ *    <td>USB Bulk-Only Transport Standard</td>
+ *    <td>SCSI Primary Commands Specification</td>
+ *    <td>SCSI Block Commands Specification</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Usable Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Temperature Data Logger project. This project is a very basic USB data logger for the current temperature as reported by
+ *  the board's temperature sensor, writing the temperature to a file stored on the board's Dataflash in a FAT filesystem
+ *  each time a specified interval elapses. When inserted into a PC, the datalogger will appear as a standard USB Mass Storage
+ *  device with a single text file, which contains the logged data.
+ *
+ *  Currently there is no timestamp associated with the logged data; this project can be extended by the addition of a Real
+ *  Time Clock chip to retain the current time/date which could be stored along with each sample.
+ *
+ *  Due to the host's need for exclusive access to the filesystem, the device will not log samples while connected to a host.
+ *  For the logger to store data, the Dataflash must first be formatted by the host so that it contains a valid FAT filesystem.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Define Name:</b></td>
+ *    <td><b>Location:</b></td>
+ *    <td><b>Description:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>LOG_FILENAME</td>
+ *    <td>TempDataLogger.h</td>
+ *    <td>Filename of the log file to write to on the device's FAT filesystem.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>LOG_INTERVAL_10MS</td>
+ *    <td>TempDataLogger.h</td>
+ *    <td>Time between each data sample, in tens of milliseconds. Each time this period elapses, a
+ *        temperature sample is taken and the result stored to the Dataflash's FAT filesystem.
+ *    </td>
+ *   </tr>
+ *  </table>
+ */

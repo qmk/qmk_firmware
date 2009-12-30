@@ -1,0 +1,734 @@
+   1               		.file	"SCSI.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.SCSI_Command_Inquiry,"ax",@progbits
+  18               	SCSI_Command_Inquiry:
+  19               	.LFB53:
+  20               	.LSM0:
+  21               	.LVL0:
+  22 0000 8F92      		push r8
+  23 0002 9F92      		push r9
+  24 0004 AF92      		push r10
+  25 0006 BF92      		push r11
+  26 0008 CF92      		push r12
+  27 000a DF92      		push r13
+  28 000c EF92      		push r14
+  29 000e FF92      		push r15
+  30 0010 0F93      		push r16
+  31 0012 1F93      		push r17
+  32 0014 DF93      		push r29
+  33 0016 CF93      		push r28
+  34 0018 CDB7      		in r28,__SP_L__
+  35 001a DEB7      		in r29,__SP_H__
+  36               	/* prologue: function */
+  37               	/* frame size = 0 */
+  38 001c 6C01      		movw r12,r24
+  39               	.LSM1:
+  40 001e ADB6      		in r10,__SP_L__
+  41 0020 BEB6      		in r11,__SP_H__
+  42               	.LSM2:
+  43 0022 9DB6      		in r9,__SP_L__
+  44 0024 8EB6      		in r8,__SP_H__
+  45               	.LSM3:
+  46 0026 FC01      		movw r30,r24
+  47 0028 248D      		ldd r18,Z+28
+  48 002a 658D      		ldd r22,Z+29
+  49               	.LSM4:
+  50 002c 828D      		ldd r24,Z+26
+  51               	.LVL1:
+  52 002e 90E0      		ldi r25,lo8(0)
+  53 0030 8370      		andi r24,lo8(3)
+  54 0032 9070      		andi r25,hi8(3)
+  55 0034 892B      		or r24,r25
+  56 0036 01F4      		brne .L2
+  57 0038 838D      		ldd r24,Z+27
+  58 003a 8823      		tst r24
+  59 003c 01F0      		breq .L3
+  60               	.L2:
+  61               	.LSM5:
+  62 003e 8091 0000 		lds r24,SenseData+2
+  63 0042 807F      		andi r24,lo8(-16)
+  64 0044 8560      		ori r24,lo8(5)
+  65 0046 8093 0000 		sts SenseData+2,r24
+  66 004a 84E2      		ldi r24,lo8(36)
+  67 004c 8093 0000 		sts SenseData+12,r24
+  68 0050 1092 0000 		sts SenseData+13,__zero_reg__
+  69 0054 00C0      		rjmp .L7
+  70               	.L3:
+  71               	.LSM6:
+  72 0056 922F      		mov r25,r18
+  73 0058 80E0      		ldi r24,lo8(0)
+  74 005a 062F      		mov r16,r22
+  75               	.LVL2:
+  76 005c 10E0      		ldi r17,lo8(0)
+  77               	.LVL3:
+  78 005e 082B      		or r16,r24
+  79 0060 192B      		or r17,r25
+  80               	.LVL4:
+  81               	.LSM7:
+  82 0062 7801      		movw r14,r16
+  83               	.LVL5:
+  84 0064 0532      		cpi r16,37
+  85 0066 1105      		cpc r17,__zero_reg__
+  86 0068 00F0      		brlo .L5
+  87 006a 84E2      		ldi r24,lo8(36)
+  88 006c E82E      		mov r14,r24
+  89 006e F12C      		mov r15,__zero_reg__
+  90               	.L5:
+  91               	.LSM8:
+  92 0070 80E0      		ldi r24,lo8(InquiryData)
+  93 0072 90E0      		ldi r25,hi8(InquiryData)
+  94 0074 B701      		movw r22,r14
+  95 0076 40E0      		ldi r20,lo8(0)
+  96 0078 50E0      		ldi r21,hi8(0)
+  97 007a 0E94 0000 		call Endpoint_Write_Stream_LE
+  98               	.LSM9:
+  99 007e B801      		movw r22,r16
+ 100 0080 6E19      		sub r22,r14
+ 101 0082 7F09      		sbc r23,r15
+ 102 0084 8DB7      		in r24,__SP_L__
+ 103 0086 9EB7      		in r25,__SP_H__
+ 104 0088 861B      		sub r24,r22
+ 105 008a 970B      		sbc r25,r23
+ 106 008c 0FB6      		in __tmp_reg__,__SREG__
+ 107 008e F894      		cli
+ 108 0090 9EBF      		out __SP_H__,r25
+ 109 0092 0FBE      		out __SREG__,__tmp_reg__
+ 110 0094 8DBF      		out __SP_L__,r24
+ 111               	.LSM10:
+ 112 0096 0196      		adiw r24,1
+ 113 0098 40E0      		ldi r20,lo8(0)
+ 114 009a 50E0      		ldi r21,hi8(0)
+ 115 009c 0E94 0000 		call Endpoint_Write_Stream_LE
+ 116               	.LBB6:
+ 117               	.LSM11:
+ 118 00a0 8091 E800 		lds r24,232
+ 119               	.LVL6:
+ 120 00a4 982F      		mov r25,r24
+ 121 00a6 9E7F      		andi r25,lo8(-2)
+ 122 00a8 9093 E800 		sts 232,r25
+ 123 00ac 8F77      		andi r24,lo8(127)
+ 124 00ae 8093 E800 		sts 232,r24
+ 125               	.LBE6:
+ 126               	.LSM12:
+ 127 00b2 9701      		movw r18,r14
+ 128 00b4 40E0      		ldi r20,lo8(0)
+ 129 00b6 50E0      		ldi r21,hi8(0)
+ 130               	.LVL7:
+ 131 00b8 F601      		movw r30,r12
+ 132 00ba 8289      		ldd r24,Z+18
+ 133 00bc 9389      		ldd r25,Z+19
+ 134 00be A489      		ldd r26,Z+20
+ 135 00c0 B589      		ldd r27,Z+21
+ 136               	.LVL8:
+ 137 00c2 821B      		sub r24,r18
+ 138 00c4 930B      		sbc r25,r19
+ 139 00c6 A40B      		sbc r26,r20
+ 140 00c8 B50B      		sbc r27,r21
+ 141 00ca 828B      		std Z+18,r24
+ 142 00cc 938B      		std Z+19,r25
+ 143 00ce A48B      		std Z+20,r26
+ 144 00d0 B58B      		std Z+21,r27
+ 145               	.LVL9:
+ 146               	.L7:
+ 147 00d2 292D      		mov r18,r9
+ 148               	.LVL10:
+ 149 00d4 382D      		mov r19,r8
+ 150 00d6 C901      		movw r24,r18
+ 151 00d8 0FB6      		in __tmp_reg__,__SREG__
+ 152 00da F894      		cli
+ 153 00dc 9EBF      		out __SP_H__,r25
+ 154 00de 0FBE      		out __SREG__,__tmp_reg__
+ 155 00e0 8DBF      		out __SP_L__,r24
+ 156               	.LSM13:
+ 157 00e2 0FB6      		in __tmp_reg__,__SREG__
+ 158 00e4 F894      		cli
+ 159 00e6 BEBE      		out __SP_H__,r11
+ 160 00e8 0FBE      		out __SREG__,__tmp_reg__
+ 161 00ea ADBE      		out __SP_L__,r10
+ 162               	/* epilogue start */
+ 163 00ec CF91      		pop r28
+ 164 00ee DF91      		pop r29
+ 165 00f0 1F91      		pop r17
+ 166               	.LVL11:
+ 167 00f2 0F91      		pop r16
+ 168               	.LVL12:
+ 169 00f4 FF90      		pop r15
+ 170 00f6 EF90      		pop r14
+ 171               	.LVL13:
+ 172 00f8 DF90      		pop r13
+ 173 00fa CF90      		pop r12
+ 174               	.LVL14:
+ 175 00fc BF90      		pop r11
+ 176 00fe AF90      		pop r10
+ 177 0100 9F90      		pop r9
+ 178 0102 8F90      		pop r8
+ 179 0104 0895      		ret
+ 180               	.LFE53:
+ 182               		.section	.text.SCSI_Command_Request_Sense,"ax",@progbits
+ 184               	SCSI_Command_Request_Sense:
+ 185               	.LFB54:
+ 186               	.LSM14:
+ 187               	.LVL15:
+ 188 0000 8F92      		push r8
+ 189 0002 9F92      		push r9
+ 190 0004 BF92      		push r11
+ 191 0006 CF92      		push r12
+ 192 0008 DF92      		push r13
+ 193 000a EF92      		push r14
+ 194 000c FF92      		push r15
+ 195 000e 0F93      		push r16
+ 196 0010 1F93      		push r17
+ 197 0012 DF93      		push r29
+ 198 0014 CF93      		push r28
+ 199 0016 CDB7      		in r28,__SP_L__
+ 200 0018 DEB7      		in r29,__SP_H__
+ 201               	/* prologue: function */
+ 202               	/* frame size = 0 */
+ 203 001a 6C01      		movw r12,r24
+ 204               	.LSM15:
+ 205 001c 8DB6      		in r8,__SP_L__
+ 206 001e 9EB6      		in r9,__SP_H__
+ 207               	.LSM16:
+ 208 0020 FC01      		movw r30,r24
+ 209 0022 058D      		ldd r16,Z+29
+ 210               	.LVL16:
+ 211               	.LSM17:
+ 212 0024 B02E      		mov r11,r16
+ 213               	.LVL17:
+ 214 0026 0331      		cpi r16,lo8(19)
+ 215 0028 00F0      		brlo .L9
+ 216 002a 92E1      		ldi r25,lo8(18)
+ 217 002c B92E      		mov r11,r25
+ 218               	.L9:
+ 219               	.LSM18:
+ 220 002e 10E0      		ldi r17,lo8(0)
+ 221 0030 0B19      		sub r16,r11
+ 222 0032 1109      		sbc r17,__zero_reg__
+ 223               	.LVL18:
+ 224 0034 8DB7      		in r24,__SP_L__
+ 225 0036 9EB7      		in r25,__SP_H__
+ 226               	.LVL19:
+ 227 0038 801B      		sub r24,r16
+ 228 003a 910B      		sbc r25,r17
+ 229 003c 0FB6      		in __tmp_reg__,__SREG__
+ 230 003e F894      		cli
+ 231 0040 9EBF      		out __SP_H__,r25
+ 232 0042 0FBE      		out __SREG__,__tmp_reg__
+ 233 0044 8DBF      		out __SP_L__,r24
+ 234 0046 EDB6      		in r14,__SP_L__
+ 235 0048 FEB6      		in r15,__SP_H__
+ 236 004a 0894      		sec
+ 237 004c E11C      		adc r14,__zero_reg__
+ 238 004e F11C      		adc r15,__zero_reg__
+ 239               	.LSM19:
+ 240 0050 80E0      		ldi r24,lo8(SenseData)
+ 241 0052 90E0      		ldi r25,hi8(SenseData)
+ 242 0054 6B2D      		mov r22,r11
+ 243 0056 70E0      		ldi r23,lo8(0)
+ 244 0058 40E0      		ldi r20,lo8(0)
+ 245 005a 50E0      		ldi r21,hi8(0)
+ 246 005c 0E94 0000 		call Endpoint_Write_Stream_LE
+ 247               	.LSM20:
+ 248 0060 C701      		movw r24,r14
+ 249 0062 B801      		movw r22,r16
+ 250 0064 40E0      		ldi r20,lo8(0)
+ 251 0066 50E0      		ldi r21,hi8(0)
+ 252 0068 0E94 0000 		call Endpoint_Write_Stream_LE
+ 253               	.LBB7:
+ 254               	.LSM21:
+ 255 006c 8091 E800 		lds r24,232
+ 256               	.LVL20:
+ 257 0070 982F      		mov r25,r24
+ 258 0072 9E7F      		andi r25,lo8(-2)
+ 259 0074 9093 E800 		sts 232,r25
+ 260 0078 8F77      		andi r24,lo8(127)
+ 261 007a 8093 E800 		sts 232,r24
+ 262               	.LBE7:
+ 263               	.LSM22:
+ 264 007e F601      		movw r30,r12
+ 265 0080 8289      		ldd r24,Z+18
+ 266 0082 9389      		ldd r25,Z+19
+ 267 0084 A489      		ldd r26,Z+20
+ 268 0086 B589      		ldd r27,Z+21
+ 269               	.LVL21:
+ 270 0088 8B19      		sub r24,r11
+ 271 008a 9109      		sbc r25,__zero_reg__
+ 272 008c A109      		sbc r26,__zero_reg__
+ 273 008e B109      		sbc r27,__zero_reg__
+ 274 0090 828B      		std Z+18,r24
+ 275 0092 938B      		std Z+19,r25
+ 276 0094 A48B      		std Z+20,r26
+ 277 0096 B58B      		std Z+21,r27
+ 278               	.LSM23:
+ 279 0098 0FB6      		in __tmp_reg__,__SREG__
+ 280 009a F894      		cli
+ 281 009c 9EBE      		out __SP_H__,r9
+ 282 009e 0FBE      		out __SREG__,__tmp_reg__
+ 283 00a0 8DBE      		out __SP_L__,r8
+ 284               	/* epilogue start */
+ 285 00a2 CF91      		pop r28
+ 286 00a4 DF91      		pop r29
+ 287 00a6 1F91      		pop r17
+ 288 00a8 0F91      		pop r16
+ 289 00aa FF90      		pop r15
+ 290 00ac EF90      		pop r14
+ 291 00ae DF90      		pop r13
+ 292 00b0 CF90      		pop r12
+ 293               	.LVL22:
+ 294 00b2 BF90      		pop r11
+ 295               	.LVL23:
+ 296 00b4 9F90      		pop r9
+ 297 00b6 8F90      		pop r8
+ 298 00b8 0895      		ret
+ 299               	.LFE54:
+ 301               		.section	.text.SCSI_Command_ReadWrite_10,"ax",@progbits
+ 303               	SCSI_Command_ReadWrite_10:
+ 304               	.LFB57:
+ 305               	.LSM24:
+ 306               	.LVL24:
+ 307 0000 CF92      		push r12
+ 308 0002 DF92      		push r13
+ 309 0004 EF92      		push r14
+ 310 0006 FF92      		push r15
+ 311 0008 0F93      		push r16
+ 312 000a 1F93      		push r17
+ 313 000c CF93      		push r28
+ 314 000e DF93      		push r29
+ 315               	/* prologue: function */
+ 316               	/* frame size = 0 */
+ 317 0010 6C01      		movw r12,r24
+ 318               	.LSM25:
+ 319 0012 FC01      		movw r30,r24
+ 320 0014 838D      		ldd r24,Z+27
+ 321 0016 948D      		ldd r25,Z+28
+ 322 0018 A58D      		ldd r26,Z+29
+ 323 001a B68D      		ldd r27,Z+30
+ 324               	.LVL25:
+ 325               	.LBB8:
+ 326               	.LBB9:
+ 327               	.LSM26:
+ 328 001c 182F      		mov r17,r24
+ 329 001e 0027      		clr r16
+ 330 0020 FF24      		clr r15
+ 331 0022 EE24      		clr r14
+ 332               	.LVL26:
+ 333 0024 2B2F      		mov r18,r27
+ 334 0026 3327      		clr r19
+ 335 0028 4427      		clr r20
+ 336 002a 5527      		clr r21
+ 337 002c E22A      		or r14,r18
+ 338 002e F32A      		or r15,r19
+ 339 0030 042B      		or r16,r20
+ 340 0032 152B      		or r17,r21
+ 341 0034 9C01      		movw r18,r24
+ 342 0036 AD01      		movw r20,r26
+ 343 0038 2070      		andi r18,lo8(16711680)
+ 344 003a 3070      		andi r19,hi8(16711680)
+ 345 003c 5070      		andi r21,hhi8(16711680)
+ 346 003e 232F      		mov r18,r19
+ 347 0040 342F      		mov r19,r20
+ 348 0042 452F      		mov r20,r21
+ 349 0044 5527      		clr r21
+ 350 0046 E22A      		or r14,r18
+ 351 0048 F32A      		or r15,r19
+ 352 004a 042B      		or r16,r20
+ 353 004c 152B      		or r17,r21
+ 354 004e 8070      		andi r24,lo8(65280)
+ 355 0050 A070      		andi r26,hlo8(65280)
+ 356 0052 B070      		andi r27,hhi8(65280)
+ 357 0054 BA2F      		mov r27,r26
+ 358 0056 A92F      		mov r26,r25
+ 359 0058 982F      		mov r25,r24
+ 360 005a 8827      		clr r24
+ 361 005c E82A      		or r14,r24
+ 362 005e F92A      		or r15,r25
+ 363 0060 0A2B      		or r16,r26
+ 364 0062 1B2B      		or r17,r27
+ 365               	.LBE9:
+ 366               	.LBE8:
+ 367               	.LSM27:
+ 368 0064 80A1      		ldd r24,Z+32
+ 369 0066 91A1      		ldd r25,Z+33
+ 370               	.LSM28:
+ 371 0068 F0E0      		ldi r31,lo8(32768)
+ 372 006a EF16      		cp r14,r31
+ 373 006c F0E8      		ldi r31,hi8(32768)
+ 374 006e FF06      		cpc r15,r31
+ 375 0070 F0E0      		ldi r31,hlo8(32768)
+ 376 0072 0F07      		cpc r16,r31
+ 377 0074 F0E0      		ldi r31,hhi8(32768)
+ 378 0076 1F07      		cpc r17,r31
+ 379 0078 00F0      		brlo .L12
+ 380               	.LSM29:
+ 381 007a 8091 0000 		lds r24,SenseData+2
+ 382 007e 807F      		andi r24,lo8(-16)
+ 383 0080 8560      		ori r24,lo8(5)
+ 384 0082 8093 0000 		sts SenseData+2,r24
+ 385 0086 81E2      		ldi r24,lo8(33)
+ 386 0088 8093 0000 		sts SenseData+12,r24
+ 387 008c 1092 0000 		sts SenseData+13,__zero_reg__
+ 388 0090 00C0      		rjmp .L16
+ 389               	.L12:
+ 390               	.LBB10:
+ 391               	.LBB11:
+ 392               	.LSM30:
+ 393 0092 D82F      		mov r29,r24
+ 394               	.LVL27:
+ 395 0094 C92F      		mov r28,r25
+ 396               	.LVL28:
+ 397               	.LBE11:
+ 398               	.LBE10:
+ 399               	.LSM31:
+ 400 0096 6623      		tst r22
+ 401 0098 01F0      		breq .L14
+ 402               	.LSM32:
+ 403 009a C601      		movw r24,r12
+ 404 009c B801      		movw r22,r16
+ 405 009e A701      		movw r20,r14
+ 406 00a0 9E01      		movw r18,r28
+ 407 00a2 0E94 0000 		call DataflashManager_ReadBlocks
+ 408               	.LVL29:
+ 409 00a6 00C0      		rjmp .L15
+ 410               	.LVL30:
+ 411               	.L14:
+ 412               	.LSM33:
+ 413 00a8 C601      		movw r24,r12
+ 414 00aa B801      		movw r22,r16
+ 415 00ac A701      		movw r20,r14
+ 416 00ae 9E01      		movw r18,r28
+ 417 00b0 0E94 0000 		call DataflashManager_WriteBlocks
+ 418               	.LVL31:
+ 419               	.L15:
+ 420               	.LSM34:
+ 421 00b4 9E01      		movw r18,r28
+ 422 00b6 40E0      		ldi r20,lo8(0)
+ 423 00b8 50E0      		ldi r21,hi8(0)
+ 424               	.LVL32:
+ 425 00ba 69E0      		ldi r22,9
+ 426 00bc 220F      	1:	lsl r18
+ 427 00be 331F      		rol r19
+ 428 00c0 441F      		rol r20
+ 429 00c2 551F      		rol r21
+ 430 00c4 6A95      		dec r22
+ 431 00c6 01F4      		brne 1b
+ 432               	.LVL33:
+ 433 00c8 F601      		movw r30,r12
+ 434 00ca 8289      		ldd r24,Z+18
+ 435 00cc 9389      		ldd r25,Z+19
+ 436 00ce A489      		ldd r26,Z+20
+ 437 00d0 B589      		ldd r27,Z+21
+ 438 00d2 821B      		sub r24,r18
+ 439 00d4 930B      		sbc r25,r19
+ 440 00d6 A40B      		sbc r26,r20
+ 441 00d8 B50B      		sbc r27,r21
+ 442 00da 828B      		std Z+18,r24
+ 443 00dc 938B      		std Z+19,r25
+ 444 00de A48B      		std Z+20,r26
+ 445 00e0 B58B      		std Z+21,r27
+ 446               	.LVL34:
+ 447               	.L16:
+ 448               	/* epilogue start */
+ 449               	.LSM35:
+ 450 00e2 DF91      		pop r29
+ 451               	.LVL35:
+ 452 00e4 CF91      		pop r28
+ 453 00e6 1F91      		pop r17
+ 454 00e8 0F91      		pop r16
+ 455 00ea FF90      		pop r15
+ 456 00ec EF90      		pop r14
+ 457               	.LVL36:
+ 458 00ee DF90      		pop r13
+ 459 00f0 CF90      		pop r12
+ 460               	.LVL37:
+ 461 00f2 0895      		ret
+ 462               	.LFE57:
+ 464               		.section	.text.SCSI_DecodeSCSICommand,"ax",@progbits
+ 465               	.global	SCSI_DecodeSCSICommand
+ 467               	SCSI_DecodeSCSICommand:
+ 468               	.LFB52:
+ 469               	.LSM36:
+ 470               	.LVL38:
+ 471 0000 0F93      		push r16
+ 472 0002 1F93      		push r17
+ 473 0004 DF93      		push r29
+ 474 0006 CF93      		push r28
+ 475 0008 CDB7      		in r28,__SP_L__
+ 476 000a DEB7      		in r29,__SP_H__
+ 477 000c 2897      		sbiw r28,8
+ 478 000e 0FB6      		in __tmp_reg__,__SREG__
+ 479 0010 F894      		cli
+ 480 0012 DEBF      		out __SP_H__,r29
+ 481 0014 0FBE      		out __SREG__,__tmp_reg__
+ 482 0016 CDBF      		out __SP_L__,r28
+ 483               	/* prologue: function */
+ 484               	/* frame size = 8 */
+ 485 0018 8C01      		movw r16,r24
+ 486               	.LSM37:
+ 487 001a 9091 0000 		lds r25,SenseData+2
+ 488 001e 907F      		andi r25,lo8(-16)
+ 489 0020 9093 0000 		sts SenseData+2,r25
+ 490 0024 1092 0000 		sts SenseData+12,__zero_reg__
+ 491 0028 1092 0000 		sts SenseData+13,__zero_reg__
+ 492               	.LSM38:
+ 493 002c F801      		movw r30,r16
+ 494 002e 818D      		ldd r24,Z+25
+ 495               	.LVL39:
+ 496 0030 8E31      		cpi r24,lo8(30)
+ 497 0032 01F4      		brne .+2
+ 498 0034 00C0      		rjmp .L19
+ 499 0036 8F31      		cpi r24,lo8(31)
+ 500 0038 00F4      		brsh .L26
+ 501 003a 8330      		cpi r24,lo8(3)
+ 502 003c 01F0      		breq .L20
+ 503 003e 8430      		cpi r24,lo8(4)
+ 504 0040 00F4      		brsh .L27
+ 505 0042 8823      		tst r24
+ 506 0044 01F4      		brne .+2
+ 507 0046 00C0      		rjmp .L19
+ 508 0048 00C0      		rjmp .L18
+ 509               	.L27:
+ 510 004a 8231      		cpi r24,lo8(18)
+ 511 004c 01F0      		breq .L21
+ 512 004e 8D31      		cpi r24,lo8(29)
+ 513 0050 01F0      		breq .+2
+ 514 0052 00C0      		rjmp .L18
+ 515 0054 00C0      		rjmp .L37
+ 516               	.L26:
+ 517 0056 8832      		cpi r24,lo8(40)
+ 518 0058 01F4      		brne .+2
+ 519 005a 00C0      		rjmp .L24
+ 520 005c 8932      		cpi r24,lo8(41)
+ 521 005e 00F4      		brsh .L28
+ 522 0060 8532      		cpi r24,lo8(37)
+ 523 0062 01F0      		breq .+2
+ 524 0064 00C0      		rjmp .L18
+ 525 0066 00C0      		rjmp .L38
+ 526               	.L28:
+ 527 0068 8A32      		cpi r24,lo8(42)
+ 528 006a 01F4      		brne .+2
+ 529 006c 00C0      		rjmp .L25
+ 530 006e 8F32      		cpi r24,lo8(47)
+ 531 0070 01F0      		breq .+2
+ 532 0072 00C0      		rjmp .L18
+ 533 0074 00C0      		rjmp .L19
+ 534               	.L21:
+ 535               	.LSM39:
+ 536 0076 C801      		movw r24,r16
+ 537 0078 0E94 0000 		call SCSI_Command_Inquiry
+ 538 007c 00C0      		rjmp .L29
+ 539               	.L20:
+ 540               	.LSM40:
+ 541 007e C801      		movw r24,r16
+ 542 0080 0E94 0000 		call SCSI_Command_Request_Sense
+ 543 0084 00C0      		rjmp .L29
+ 544               	.L38:
+ 545               	.LBB17:
+ 546               	.LBB18:
+ 547               	.LSM41:
+ 548 0086 8FEF      		ldi r24,lo8(32767)
+ 549 0088 9FE7      		ldi r25,hi8(32767)
+ 550 008a A0E0      		ldi r26,hlo8(32767)
+ 551 008c B0E0      		ldi r27,hhi8(32767)
+ 552 008e 8983      		std Y+1,r24
+ 553 0090 9A83      		std Y+2,r25
+ 554 0092 AB83      		std Y+3,r26
+ 555 0094 BC83      		std Y+4,r27
+ 556               	.LVL40:
+ 557               	.LSM42:
+ 558 0096 80E0      		ldi r24,lo8(512)
+ 559 0098 92E0      		ldi r25,hi8(512)
+ 560 009a A0E0      		ldi r26,hlo8(512)
+ 561 009c B0E0      		ldi r27,hhi8(512)
+ 562 009e 8D83      		std Y+5,r24
+ 563 00a0 9E83      		std Y+6,r25
+ 564 00a2 AF83      		std Y+7,r26
+ 565 00a4 B887      		std Y+8,r27
+ 566               	.LVL41:
+ 567               	.LSM43:
+ 568 00a6 CE01      		movw r24,r28
+ 569 00a8 0196      		adiw r24,1
+ 570 00aa 64E0      		ldi r22,lo8(4)
+ 571 00ac 70E0      		ldi r23,hi8(4)
+ 572 00ae 40E0      		ldi r20,lo8(0)
+ 573 00b0 50E0      		ldi r21,hi8(0)
+ 574 00b2 0E94 0000 		call Endpoint_Write_Stream_BE
+ 575               	.LSM44:
+ 576 00b6 CE01      		movw r24,r28
+ 577 00b8 0596      		adiw r24,5
+ 578 00ba 64E0      		ldi r22,lo8(4)
+ 579 00bc 70E0      		ldi r23,hi8(4)
+ 580 00be 40E0      		ldi r20,lo8(0)
+ 581 00c0 50E0      		ldi r21,hi8(0)
+ 582 00c2 0E94 0000 		call Endpoint_Write_Stream_BE
+ 583               	.LBB19:
+ 584               	.LSM45:
+ 585 00c6 8091 E800 		lds r24,232
+ 586               	.LVL42:
+ 587 00ca 982F      		mov r25,r24
+ 588 00cc 9E7F      		andi r25,lo8(-2)
+ 589 00ce 9093 E800 		sts 232,r25
+ 590 00d2 8F77      		andi r24,lo8(127)
+ 591 00d4 8093 E800 		sts 232,r24
+ 592               	.LBE19:
+ 593               	.LSM46:
+ 594 00d8 F801      		movw r30,r16
+ 595 00da 8289      		ldd r24,Z+18
+ 596 00dc 9389      		ldd r25,Z+19
+ 597 00de A489      		ldd r26,Z+20
+ 598 00e0 B589      		ldd r27,Z+21
+ 599               	.LVL43:
+ 600 00e2 0897      		sbiw r24,8
+ 601 00e4 A109      		sbc r26,__zero_reg__
+ 602 00e6 B109      		sbc r27,__zero_reg__
+ 603 00e8 828B      		std Z+18,r24
+ 604 00ea 938B      		std Z+19,r25
+ 605 00ec A48B      		std Z+20,r26
+ 606 00ee B58B      		std Z+21,r27
+ 607 00f0 00C0      		rjmp .L29
+ 608               	.LVL44:
+ 609               	.L37:
+ 610               	.LBE18:
+ 611               	.LBE17:
+ 612               	.LBB20:
+ 613               	.LBB21:
+ 614               	.LSM47:
+ 615 00f2 F801      		movw r30,r16
+ 616 00f4 828D      		ldd r24,Z+26
+ 617 00f6 82FD      		sbrc r24,2
+ 618 00f8 00C0      		rjmp .L30
+ 619               	.LSM48:
+ 620 00fa 9560      		ori r25,lo8(5)
+ 621 00fc 9093 0000 		sts SenseData+2,r25
+ 622 0100 84E2      		ldi r24,lo8(36)
+ 623 0102 00C0      		rjmp .L36
+ 624               	.L30:
+ 625               	.LBE21:
+ 626               	.LSM49:
+ 627 0104 0E94 0000 		call DataflashManager_CheckDataflashOperation
+ 628               	.LBB22:
+ 629 0108 8823      		tst r24
+ 630 010a 01F4      		brne .L19
+ 631               	.LSM50:
+ 632 010c 8091 0000 		lds r24,SenseData+2
+ 633 0110 807F      		andi r24,lo8(-16)
+ 634 0112 8460      		ori r24,lo8(4)
+ 635 0114 8093 0000 		sts SenseData+2,r24
+ 636 0118 1092 0000 		sts SenseData+12,__zero_reg__
+ 637 011c 00C0      		rjmp .L34
+ 638               	.L25:
+ 639               	.LBE22:
+ 640               	.LBE20:
+ 641               	.LSM51:
+ 642 011e C801      		movw r24,r16
+ 643 0120 60E0      		ldi r22,lo8(0)
+ 644 0122 00C0      		rjmp .L35
+ 645               	.L24:
+ 646               	.LSM52:
+ 647 0124 C801      		movw r24,r16
+ 648 0126 61E0      		ldi r22,lo8(1)
+ 649               	.L35:
+ 650 0128 0E94 0000 		call SCSI_Command_ReadWrite_10
+ 651 012c 00C0      		rjmp .L29
+ 652               	.L19:
+ 653               	.LSM53:
+ 654 012e F801      		movw r30,r16
+ 655 0130 128A      		std Z+18,__zero_reg__
+ 656 0132 138A      		std Z+19,__zero_reg__
+ 657 0134 148A      		std Z+20,__zero_reg__
+ 658 0136 158A      		std Z+21,__zero_reg__
+ 659 0138 00C0      		rjmp .L29
+ 660               	.L18:
+ 661               	.LSM54:
+ 662 013a 8091 0000 		lds r24,SenseData+2
+ 663 013e 807F      		andi r24,lo8(-16)
+ 664 0140 8560      		ori r24,lo8(5)
+ 665 0142 8093 0000 		sts SenseData+2,r24
+ 666 0146 80E2      		ldi r24,lo8(32)
+ 667               	.L36:
+ 668 0148 8093 0000 		sts SenseData+12,r24
+ 669               	.L34:
+ 670 014c 1092 0000 		sts SenseData+13,__zero_reg__
+ 671               	.LVL45:
+ 672               	.L29:
+ 673 0150 90E0      		ldi r25,lo8(0)
+ 674 0152 8091 0000 		lds r24,SenseData+2
+ 675 0156 8F70      		andi r24,lo8(15)
+ 676 0158 01F4      		brne .L32
+ 677 015a 91E0      		ldi r25,lo8(1)
+ 678               	.L32:
+ 679               	.LSM55:
+ 680 015c 892F      		mov r24,r25
+ 681               	/* epilogue start */
+ 682 015e 2896      		adiw r28,8
+ 683 0160 0FB6      		in __tmp_reg__,__SREG__
+ 684 0162 F894      		cli
+ 685 0164 DEBF      		out __SP_H__,r29
+ 686 0166 0FBE      		out __SREG__,__tmp_reg__
+ 687 0168 CDBF      		out __SP_L__,r28
+ 688 016a CF91      		pop r28
+ 689 016c DF91      		pop r29
+ 690 016e 1F91      		pop r17
+ 691 0170 0F91      		pop r16
+ 692               	.LVL46:
+ 693 0172 0895      		ret
+ 694               	.LFE52:
+ 696               	.global	InquiryData
+ 697               		.data
+ 700               	InquiryData:
+ 701 0000 00        		.byte	0
+ 702 0001 80        		.byte	128
+ 703 0002 00        		.byte	0
+ 704 0003 02        		.byte	2
+ 705 0004 1F        		.byte	31
+ 706 0005 0000      		.skip 2,0
+ 707 0007 00        		.byte	0
+ 708 0008 4C55 4641 		.string	"LUFA"
+ 708      00
+ 709 000d 0000 00   		.skip 3,0
+ 710 0010 4461 7461 		.string	"Dataflash Disk"
+ 710      666C 6173 
+ 710      6820 4469 
+ 710      736B 00
+ 711 001f 00        		.skip 1,0
+ 712 0020 30        		.byte	48
+ 713 0021 2E        		.byte	46
+ 714 0022 30        		.byte	48
+ 715 0023 30        		.byte	48
+ 716               	.global	SenseData
+ 719               	SenseData:
+ 720 0024 70        		.byte	112
+ 721 0025 0000 0000 		.skip 6,0
+ 721      0000 
+ 722 002b 0A        		.byte	10
+ 723 002c 0000 0000 		.skip 10,0
+ 723      0000 0000 
+ 723      0000 
+ 772               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 SCSI.c
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:2      *ABS*:0000003f __SREG__
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:5      *ABS*:00000034 __CCP__
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:18     .text.SCSI_Command_Inquiry:00000000 SCSI_Command_Inquiry
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:719    .data:00000024 SenseData
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:700    .data:00000000 InquiryData
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:184    .text.SCSI_Command_Request_Sense:00000000 SCSI_Command_Request_Sense
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:303    .text.SCSI_Command_ReadWrite_10:00000000 SCSI_Command_ReadWrite_10
+C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:467    .text.SCSI_DecodeSCSICommand:00000000 SCSI_DecodeSCSICommand
+
+UNDEFINED SYMBOLS
+Endpoint_Write_Stream_LE
+DataflashManager_ReadBlocks
+DataflashManager_WriteBlocks
+Endpoint_Write_Stream_BE
+DataflashManager_CheckDataflashOperation
+__do_copy_data
