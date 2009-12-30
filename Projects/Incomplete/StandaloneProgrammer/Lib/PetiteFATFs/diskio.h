@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-/  PFF - Low level disk interface modlue include file    (C)ChaN, 2009
+/  PFF - Low level disk interface modlue include file    (C)ChaN, 2010
 /-----------------------------------------------------------------------*/
 
 #ifndef _DISKIO

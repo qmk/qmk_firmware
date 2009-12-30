@@ -21,11 +21,11 @@
  *  custom USB devices can be made with LUFA, the included demos all use the inbuilt OS drivers for each USB class for simplicity.
  *
  *  The library is currently in a stable release, suitable for download and incorporation into user projects for
- *  both host and device modes. For information about the project progression, see \ref Page_Resources.
+ *  both host and device modes. For information about the project progression, see the blog link at \ref Page_Resources.
  *
  *  LUFA is written specifically for the free AVR-GCC compiler, and uses several GCC-only extensions to make the
  *  library API more streamlined and robust. You can download AVR-GCC for free in a convenient windows package, 
- *  from the the WinAVR website.
+ *  from the the WinAVR website (see \ref Page_Resources).
  *
  *  Accompanying LUFA in the download package is a set of example demo applications, plus several Bootloaders of different classes
  *  and open source LUFA powered projects.

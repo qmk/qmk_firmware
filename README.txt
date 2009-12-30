@@ -7,6 +7,9 @@
                             Written by Dean Camera
                   http://www.fourwalledcubicle.com/LUFA.php
                   =========================================
+				  
+                 LUFA IS DONATION SUPPORTED. TO SUPPORT LUFA, 
+                    PLEASE DONATE AT FOURWALLEDCUBICLE.COM.
 
 
 This package contains the complete LUFA library, demos, user-submitted projects

@@ -1,11 +1,11 @@
 /*---------------------------------------------------------------------------/
-/  Petit FatFs - FAT file system module include file  R0.01a   (C)ChaN, 2009
+/  Petit FatFs - FAT file system module include file  R0.01a   (C)ChaN, 2010
 /----------------------------------------------------------------------------/
 / Petit FatFs module is an open source software to implement FAT file system to
 / small embedded systems. This is a free software and is opened for education,
 / research and commercial developments under license policy of following trems.
 /
-/  Copyright (C) 2009, ChaN, all right reserved.
+/  Copyright (C) 2010, ChaN, all right reserved.
 /
 / * The Petit FatFs module is a free software and there is NO WARRANTY.
 / * No restriction on use. You can use, modify and redistribute it for

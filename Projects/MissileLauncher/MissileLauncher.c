@@ -1,6 +1,6 @@
 /*
          USB Missile Launcher Demo
-	 Copyright (C) Dave Fletcher, 2009.
+	 Copyright (C) Dave Fletcher, 2010.
 	  fletch at fletchtronics dot net
 	  
 	 Based on research by Scott Weston at
@@ -8,8 +8,8 @@
  */
 
 /*
-  Copyright 2009  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-  Copyright 2009  Dave Fletcher (fletch [at] fletchtronics [dot] net)
+  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
+  Copyright 2010  Dave Fletcher (fletch [at] fletchtronics [dot] net)
 
   Permission to use, copy, modify, distribute, and sell this 
   software and its documentation for any purpose is hereby granted

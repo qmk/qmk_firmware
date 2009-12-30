@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------*/
-/* Low level disk I/O module skeleton for Petit FatFs (C)ChaN, 2009      */
+/* Low level disk I/O module skeleton for Petit FatFs (C)ChaN, 2010      */
 /*-----------------------------------------------------------------------*/
 
 #include "diskio.h"

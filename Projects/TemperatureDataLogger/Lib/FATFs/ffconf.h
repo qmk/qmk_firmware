@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------/
-/  FatFs - FAT file system module configuration file  R0.07e  (C)ChaN, 2009
+/  FatFs - FAT file system module configuration file  R0.07e  (C)ChaN, 2010
 /----------------------------------------------------------------------------/
 /
 / CAUTION! Do not forget to make clean the project after any changes to
