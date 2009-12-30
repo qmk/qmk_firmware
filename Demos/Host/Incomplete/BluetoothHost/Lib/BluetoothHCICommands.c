@@ -72,7 +72,6 @@ static bool Bluetooth_GetNextHCIEventHeader(void)
 	}
 	  
 	Pipe_Read_Stream_LE(&HCIEventHeader, sizeof(HCIEventHeader));
-	  
 	Pipe_Freeze();
 
 	return true;
@@ -81,11 +80,14 @@ static bool Bluetooth_GetNextHCIEventHeader(void)
 static void Bluetooth_DiscardRemainingHCIEventParameters(void)
 {
 	Pipe_SelectPipe(BLUETOOTH_EVENTS_PIPE);
-	
 	Pipe_Unfreeze();
+
 	Pipe_Discard_Stream(HCIEventHeader.ParameterLength);
 	Pipe_ClearIN();
+
 	Pipe_Freeze();
+	
+	HCIEventHeader.ParameterLength = 0;
 }
 
 void Bluetooth_ProcessHCICommands(void)
@@ -329,6 +331,10 @@ void Bluetooth_ProcessHCICommands(void)
 							 
 					Bluetooth_HCIProcessingState = Bluetooth_Conn_SendPINCode;
 				}
+				else if (HCIEventHeader.EventCode == EVENT_COMMAND_COMPLETE)
+				{
+					BT_DEBUG("(HCI) >> Command Complete", NULL);
+				}
 				
 				BT_DEBUG("(HCI) -- Unread Event Param Length: %d", HCIEventHeader.ParameterLength);
 
@@ -393,17 +399,6 @@ void Bluetooth_ProcessHCICommands(void)
 			       sizeof(Bluetooth_DeviceConfiguration.PINCode));
 			
 			Bluetooth_SendHCICommand(&PINCodeRequestParams, sizeof(PINCodeRequestParams));
-		
-			do
-			{
-				while (!(Bluetooth_GetNextHCIEventHeader()))
-				{				
-					if (USB_HostState == HOST_STATE_Unattached)
-					  return;
-				}
-
-				Bluetooth_DiscardRemainingHCIEventParameters();
-			} while (HCIEventHeader.EventCode != EVENT_COMMAND_COMPLETE);
 
 			Bluetooth_HCIProcessingState     = Bluetooth_PrepareToProcessEvents;
 			break;

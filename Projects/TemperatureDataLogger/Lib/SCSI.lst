@@ -712,18 +712,18 @@
  772               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 SCSI.c
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:2      *ABS*:0000003f __SREG__
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:3      *ABS*:0000003e __SP_H__
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:4      *ABS*:0000003d __SP_L__
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:5      *ABS*:00000034 __CCP__
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:18     .text.SCSI_Command_Inquiry:00000000 SCSI_Command_Inquiry
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:719    .data:00000024 SenseData
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:700    .data:00000000 InquiryData
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:184    .text.SCSI_Command_Request_Sense:00000000 SCSI_Command_Request_Sense
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:303    .text.SCSI_Command_ReadWrite_10:00000000 SCSI_Command_ReadWrite_10
-C:\Users\Dean\AppData\Local\Temp/ccIi4Dyn.s:467    .text.SCSI_DecodeSCSICommand:00000000 SCSI_DecodeSCSICommand
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:2      *ABS*:0000003f __SREG__
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:5      *ABS*:00000034 __CCP__
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:18     .text.SCSI_Command_Inquiry:00000000 SCSI_Command_Inquiry
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:719    .data:00000024 SenseData
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:700    .data:00000000 InquiryData
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:184    .text.SCSI_Command_Request_Sense:00000000 SCSI_Command_Request_Sense
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:303    .text.SCSI_Command_ReadWrite_10:00000000 SCSI_Command_ReadWrite_10
+C:\Users\Dean\AppData\Local\Temp/ccIJeq6j.s:467    .text.SCSI_DecodeSCSICommand:00000000 SCSI_DecodeSCSICommand
 
 UNDEFINED SYMBOLS
 Endpoint_Write_Stream_LE

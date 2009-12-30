@@ -131,18 +131,18 @@
  214               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 diskio.c
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:2      *ABS*:0000003f __SREG__
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:3      *ABS*:0000003e __SP_H__
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:4      *ABS*:0000003d __SP_L__
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:5      *ABS*:00000034 __CCP__
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:19     .text.disk_initialize:00000000 disk_initialize
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:35     .text.disk_status:00000000 disk_status
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:51     .text.disk_ioctl:00000000 disk_ioctl
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:74     .text.get_fattime:00000000 get_fattime
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:91     .text.disk_write:00000000 disk_write
-C:\Users\Dean\AppData\Local\Temp/ccUCer1P.s:122    .text.disk_read:00000000 disk_read
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:2      *ABS*:0000003f __SREG__
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:5      *ABS*:00000034 __CCP__
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:19     .text.disk_initialize:00000000 disk_initialize
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:35     .text.disk_status:00000000 disk_status
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:51     .text.disk_ioctl:00000000 disk_ioctl
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:74     .text.get_fattime:00000000 get_fattime
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:91     .text.disk_write:00000000 disk_write
+C:\Users\Dean\AppData\Local\Temp/cc0EySTJ.s:122    .text.disk_read:00000000 disk_read
 
 UNDEFINED SYMBOLS
 DataflashManager_WriteBlocks_RAM

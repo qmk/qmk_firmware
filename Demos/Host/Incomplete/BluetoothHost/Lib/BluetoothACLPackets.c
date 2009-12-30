@@ -37,7 +37,7 @@ void Bluetooth_ProcessACLPackets(void)
 	Bluetooth_DataPacket_Header_t DataHeader;
 
 	Pipe_SelectPipe(BLUETOOTH_DATA_IN_PIPE);
-	Pipe_SetToken(PIPE_TOKEN_IN);
+	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	Pipe_Unfreeze();
 	
 	if (!(Pipe_IsReadWriteAllowed()))
@@ -116,7 +116,7 @@ static inline void Bluetooth_ProcessSignalPacket_ConnectionRequest(Bluetooth_ACL
 	Pipe_ClearIN();
 	Pipe_Freeze();
 	Pipe_SelectPipe(BLUETOOTH_DATA_OUT_PIPE);
-	Pipe_SetToken(PIPE_TOKEN_OUT);
+	Pipe_SetPipeToken(PIPE_TOKEN_OUT);
 	Pipe_Unfreeze();
 	
 	Bluetooth_SignalCommand_ConnectionResponse_t ConnectionResponse;
@@ -167,7 +167,7 @@ static inline void Bluetooth_ProcessSignalPacket_ConfigurationRequest(Bluetooth_
 	Pipe_ClearIN();
 	Pipe_Freeze();
 	Pipe_SelectPipe(BLUETOOTH_DATA_OUT_PIPE);
-	Pipe_SetToken(PIPE_TOKEN_OUT);
+	Pipe_SetPipeToken(PIPE_TOKEN_OUT);
 	Pipe_Unfreeze();
 	
 	Bluetooth_SignalCommand_ConfigurationResponse_t ConfigurationResponse;

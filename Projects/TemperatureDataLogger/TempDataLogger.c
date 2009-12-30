@@ -64,7 +64,7 @@ FATFS DiskFATState;
 /** FAT Fs structure to hold a FAT file handle for the log data write destination. */
 FIL TempLogFile;
 
-/** Counter to count the number of 10 millisecond tick that has elapsed since the last sample */
+/** Counter to count the number of 10 millisecond ticks that has elapsed since the last sample */
 uint16_t CurrentLogTick;
 
 
@@ -73,6 +73,10 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	if (CurrentLogTick++ != LOG_INTERVAL_10MS)
 	  return;
 	  
+	uint8_t LEDMask = LEDs_GetLEDs();
+
+	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+
 	CurrentLogTick = 0;
 
 	if (USB_DeviceState == DEVICE_STATE_Unattached)
@@ -80,6 +84,8 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 		f_printf(&TempLogFile, "%d Degrees\r\n", Temperature_GetTemperature());
 		f_sync(&TempLogFile);
 	}
+	
+	LEDs_SetAllLEDs(LEDMask);
 }
 
 
@@ -96,11 +102,12 @@ int main(void)
 	f_mount(0, &DiskFATState);
 	f_open(&TempLogFile, LOG_FILENAME, FA_OPEN_ALWAYS | FA_WRITE);
 	f_lseek(&TempLogFile, TempLogFile.fsize);
-
-	/* Write out the log seperator line */
 	f_printf(&TempLogFile, "===========================\r\n");
-	Temperature_GetTemperature(); // Discard first temperature reading to ensure accuracy
-
+	
+	/* Discard the first sample from the temperature sensor, as it is generally incorrect */
+	uint8_t Dummy = Temperature_GetTemperature();
+	(void)Dummy;
+	
 	for (;;)
 	{
 		MS_Device_USBTask(&Disk_MS_Interface);
@@ -128,8 +135,7 @@ void SetupHardware(void)
 	
 	/* 10ms interval timer configuration */
 	OCR1A   = (((F_CPU / 1024) / 100) - 1);
-	TCCR1A  = (1 << WGM01);  // CTC mode
-	TCCR1B  = (1 << CS12) | (1 << CS10);   // Fcpu/1024 speed
+	TCCR1B  = (1 << WGM12) | (1 << CS12) | (1 << CS10);   // CTC mode, Fcpu/1024 speed
 	TIMSK1  = (1 << OCIE1A);
 
 	/* Clear Dataflash sector protections, if enabled */
@@ -154,6 +160,7 @@ void EVENT_USB_Device_Disconnect(void)
 	f_mount(0, &DiskFATState);
 	f_open(&TempLogFile, LOG_FILENAME, FA_OPEN_ALWAYS | FA_WRITE);
 	f_lseek(&TempLogFile, TempLogFile.fsize);
+	f_printf(&TempLogFile, "===========================\r\n");
 }
 
 /** Event handler for the library USB Configuration Changed event. */
