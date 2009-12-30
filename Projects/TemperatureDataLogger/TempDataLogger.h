@@ -45,7 +45,7 @@
 
 		#include "Lib/SCSI.h"
 		#include "Lib/DataflashManager.h"
-		#include "Lib/FatFs/ff.h"
+		#include "Lib/FATFs/ff.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
