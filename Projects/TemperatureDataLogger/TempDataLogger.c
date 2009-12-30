@@ -128,10 +128,10 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_SCK_LEAD_FALLING | SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
-	Dataflash_Init();
-	USB_Init();
 	ADC_Init(ADC_REFERENCE_AVCC | ADC_FREE_RUNNING | ADC_PRESCALE_128);
 	Temperature_Init();
+	Dataflash_Init();
+	USB_Init();
 	
 	/* 10ms interval timer configuration */
 	OCR1A   = (((F_CPU / 1024) / 100) - 1);
