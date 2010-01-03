@@ -20,6 +20,8 @@
   *  - Renamed the AVRISP project folder to AVRISP-MKII to reduce confusion
   *  - Renamed the RESET_LINE_* makefile tokens in the AVRISP MKII Project to AUX_LINE_*, as they are not always used for target
   *    reset
+  *  - Changed over the MassStorageKeyboard Class driver device demo to use Start of Frame events rather than a timer to keep track
+  *    of elapsed milliseconds
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project not able to enter programming mode when ISP protocol is used

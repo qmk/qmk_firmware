@@ -198,7 +198,7 @@
 			typedef struct
 			{
 				uint16_t                     BitOffset;      /**< Bit offset in the IN, OUT or FEATURE report of the item. */
-				uint8_t                      ItemType;       /**< Report item type, a value in HID_Types_t. */
+				uint8_t                      ItemType;       /**< Report item type, a value in HID_ReportItemTypes_t. */
 				uint16_t                     ItemFlags;      /**< Item data flags, such as constant/variable, etc. */
 				uint8_t                      ReportID;       /**< Report ID this item belongs to, or 0x00 if device has only one report */
 				HID_CollectionPath_t*        CollectionPath; /**< Collection path of the item. */

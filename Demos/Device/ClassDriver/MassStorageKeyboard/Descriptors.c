@@ -29,6 +29,10 @@
   this software.
 */
 
+#if (USE_INTERNAL_SERIAL == NO_DESCRIPTOR)
+	#warning USE_INTERNAL_SERIAL is not available on this AVR - please manually construct a device serial descriptor.
+#endif
+
 /** \file
  *
  *  USB Device Descriptors, for library use when in USB device mode. Descriptors are special 
@@ -129,7 +133,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
 		
-	.Interface = 
+	.MassStorageInterface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -145,7 +149,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.DataInEndpoint = 
+	.MassStorageDataInEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -155,7 +159,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.PollingIntervalMS      = 0x00
 		},
 
-	.DataOutEndpoint = 
+	.MassStorageDataOutEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -180,8 +184,6 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 				
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
-
-
 
 	.KeyboardHID = 
 		{  

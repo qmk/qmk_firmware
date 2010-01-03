@@ -27,6 +27,7 @@
   *  - Demos/Projects
   *      -# Multiple-Report HID device
   *      -# Device/Host USB bridge
+  *      -# Alternative (USB-IF endorsed) USB-Ethernet Classes
   *      -# Finish BluetoothHost demo
   *      -# Finish MIDI class Bootloader
   *      -# Finish SideShow demo

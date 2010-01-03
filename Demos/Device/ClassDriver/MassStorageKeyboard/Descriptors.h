@@ -44,10 +44,6 @@
 		#include <LUFA/Drivers/USB/Class/MassStorage.h>
 		#include <LUFA/Drivers/USB/Class/HID.h>
 
-		#if (USE_INTERNAL_SERIAL == NO_DESCRIPTOR)
-			#warning USE_INTERNAL_SERIAL is not available on this AVR - please manually construct a device serial descriptor.
-		#endif
-
 	/* Macros: */
 		/** Endpoint number of the Keyboard HID reporting IN endpoint. */
 		#define KEYBOARD_EPNUM               1
@@ -72,22 +68,13 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            Interface;
-			USB_Descriptor_Endpoint_t             DataInEndpoint;
-			USB_Descriptor_Endpoint_t             DataOutEndpoint;
+			USB_Descriptor_Interface_t            MassStorageInterface;
+			USB_Descriptor_Endpoint_t             MassStorageDataInEndpoint;
+			USB_Descriptor_Endpoint_t             MassStorageDataOutEndpoint;
 			USB_Descriptor_Interface_t            KeyboardInterface;
 			USB_HID_Descriptor_t                  KeyboardHID;
 	        USB_Descriptor_Endpoint_t             KeyboardEndpoint;
 		} USB_Descriptor_Configuration_t;
-
-/*		typedef struct
-		{
-			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            Interface;
-			USB_HID_Descriptor_t                  KeyboardHID;
-	        USB_Descriptor_Endpoint_t             KeyboardEndpoint;
-		} USB_Descriptor_Configuration_keyboard_t;
-// */
 		
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
