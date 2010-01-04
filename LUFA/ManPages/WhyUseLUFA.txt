@@ -40,7 +40,7 @@
  *    into difficulties or need some advice. In addition, you can also email the library author to recieve personalised
  *    support when you need it (subject to author's schedule).
  *
- *   <small>* Atmel Stack Mouse Device Demo 4292 bytes, LUFA Mouse Low Level Device Demo 3336 bytes, under identical build
+ *   <small>* Atmel Stack Mouse Device Demo 4292 bytes, LUFA Mouse Low Level Device Demo 3392 bytes, under identical build
  *   environments</small>
  */
  

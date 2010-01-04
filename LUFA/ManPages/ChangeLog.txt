@@ -27,6 +27,7 @@
   *  - Fixed AVRISP project not able to enter programming mode when ISP protocol is used
   *  - Fixed AVRISP PDI race condition where the guard time between direction changes could be interpreted as a start bit
   *  - Fixed ADC_IsReadingComplete() returning an inverted result
+  *  - Fixed blocking CDC streams not aborting when the host is disconnected
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *

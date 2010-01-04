@@ -263,6 +263,9 @@ static int CDC_Device_getchar_Blocking(FILE* Stream)
 {
 	while (!(CDC_Device_BytesReceived((USB_ClassInfo_CDC_Device_t*)fdev_get_udata(Stream))))
 	{
+		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		  return _FDEV_EOF;
+	
 		CDC_Device_USBTask((USB_ClassInfo_CDC_Device_t*)fdev_get_udata(Stream));
 		USB_USBTask();
 	}

@@ -34,15 +34,18 @@
  *  - Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
+ *  - ClockTamer, a configurable clock generator: http://code.google.com/p/clock-tamer/
  *  - "Fingerlicking Wingdinger" (WARNING: Bad Language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
  *  - Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
- *  - Generic HID Device Creator : http://generichid.sourceforge.net/
+ *  - Generic HID Device Creator: http://generichid.sourceforge.net/
  *  - NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
+ *  - Linux Secure Storage Dongle: http://github.com/TomMD/teensy
  *  - MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
  *  - Opendous-JTAG, an open source JTAG device: http://code.google.com/p/opendous-jtag/
  *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  *  - Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
  *  - Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/
+ *  - Purdue Interactive Kiosk: https://engineering.purdue.edu/477grp4/
  *  - Reprap with LUFA, a LUFA powered 3D printer: http://code.google.com/p/at90usb1287-code-for-arduino-and-eclipse/
  *  - SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
