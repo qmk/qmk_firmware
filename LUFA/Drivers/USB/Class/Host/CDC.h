@@ -177,6 +177,9 @@
 			/** Sends a given string to the attached USB device, if connected. If a device is not connected when the function is called, the
 			 *  string is discarded.
 			 *
+			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *        call will fail.
+			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *  \param[in] Data  Pointer to the string to send to the device
 			 *  \param[in] Length  Size in bytes of the string to send to the device
@@ -189,6 +192,9 @@
 			/** Sends a given byte to the attached USB device, if connected. If a host is not connected when the function is called, the
 			 *  byte is discarded.
 			 *
+			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *        call will fail.
+			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *  \param[in] Data  Byte of data to send to the device
 			 *
@@ -197,6 +203,9 @@
 			uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, const uint8_t Data) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Determines the number of bytes received by the CDC interface from the device, waiting to be read.
+			 *
+			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *        call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *
@@ -208,6 +217,9 @@
 			 *  returns 0. The \ref CDC_Host_BytesReceived() function should be queried before data is received to ensure that no data
 			 *  underflow occurs.
 			 *
+			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *        call will fail.
+			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *
 			 *  \return Next received byte from the device, or 0 if no data received
@@ -215,6 +227,9 @@
 			uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Flushes any data waiting to be sent, ensuring that the send buffer is cleared.
+			 *
+			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *        call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *

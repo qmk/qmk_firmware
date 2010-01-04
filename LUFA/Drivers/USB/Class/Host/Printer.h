@@ -156,6 +156,9 @@
 			 *  printer is able to understand - for example, PCL data. Not all printers accept all printer languages; see
 			 *  \ref PRNT_Host_GetDeviceID() for details on determining acceptable languages for an attached printer.
 			 *
+			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *        call will fail.
+			 *
 			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state
 			 *  \param[in] PrinterCommands  Pointer to a buffer containing the raw command stream to send to the printer
 			 *  \param[in] CommandSize  Size in bytes of the command stream to be sent

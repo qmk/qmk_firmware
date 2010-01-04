@@ -121,6 +121,9 @@
 
 			/** Sends a MIDI event packet to the device. If no device is connected, the event packet is discarded.
 			 *
+			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *        call will fail.
+			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state
 			 *  \param[in] Event  Pointer to a populated USB_MIDI_EventPacket_t structure containing the MIDI event to send
 			 *
@@ -130,6 +133,9 @@
 			                                  MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Receives a MIDI event packet from the device.
+			 *
+			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *        call will fail.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state
 			 *  \param[out] Event  Pointer to a USB_MIDI_EventPacket_t structure where the received MIDI event is to be placed

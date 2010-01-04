@@ -190,6 +190,9 @@
 
 			/** Determines if a packet is currently waiting for the host to read in and process.
 			 *
+			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *        call will fail.
+			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
 			 *
 			 *  \return Boolean true if a packet is waiting to be read in by the host, false otherwise
@@ -199,6 +202,9 @@
 			
 			/** Retrieves the next pending packet from the device, discarding the remainder of the RNDIS packet header to leave
 			 *  only the packet contents for processing by the host in the nominated buffer.
+			 *
+			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *        call will fail.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
 			 *  \param[out] Buffer  Pointer to a buffer where the packer data is to be written to
@@ -210,6 +216,9 @@
 			                              ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Sends the given packet to the attached RNDIS device, after adding a RNDIS packet message header.
+			 *
+			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *        call will fail.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
 			 *  \param[in] Buffer  Pointer to a buffer where the packer data is to be read from

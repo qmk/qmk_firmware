@@ -123,6 +123,9 @@
 			/** Determines if the given audio interface is ready for a sample to be read from it, and selects the streaming
 			 *  OUT endpoint ready for reading.
 			 *
+			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *        the call will fail.
+			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *
 			 *  \return Boolean true if the given Audio interface has a sample to be read, false otherwise
@@ -131,6 +134,9 @@
 
 			/** Determines if the given audio interface is ready to accept the next sample to be written to it, and selects
 			 *  the streaming IN endpoint ready for writing.
+			 *
+			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *        the call will fail.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 *

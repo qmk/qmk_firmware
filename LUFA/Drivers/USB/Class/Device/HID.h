@@ -138,7 +138,12 @@
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state
 			 */
-			void HID_Device_MillisecondElapsed(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			static inline void HID_Device_MillisecondElapsed(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo);
+			static inline void HID_Device_MillisecondElapsed(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo)
+			{
+				if (HIDInterfaceInfo->State.IdleMSRemaining)
+				  HIDInterfaceInfo->State.IdleMSRemaining--;
+			}
 			
 			/** HID class driver callback for the user creation of a HID IN report. This callback may fire in response to either
 			 *  HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback the

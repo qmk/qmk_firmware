@@ -79,8 +79,6 @@ void DiskHost_USBTask(void)
 			return;
 		}
 		
-		USB_HostState = HOST_STATE_Configured;
-		
 		uint8_t MaxLUNIndex;
 		if (MS_Host_GetMaxLUN(&DiskHost_MS_Interface, &MaxLUNIndex))
 		{
@@ -96,6 +94,10 @@ void DiskHost_USBTask(void)
 			return;
 		}
 		
+		USB_HostState = HOST_STATE_Configured;
+		
+		/* Note: For the RequestSense call to work, the host state machine must be in the 
+		 *       Configured state, or the call will be aborted */
 		SCSI_Request_Sense_Response_t SenseData;
 		if (MS_Host_RequestSense(&DiskHost_MS_Interface, 0, &SenseData) != 0)
 		{

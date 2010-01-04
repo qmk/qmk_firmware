@@ -18,6 +18,7 @@
  *  The following is a list of known AVR USB development boards, which recommend using LUFA for the USB stack. Some of these
  *  are open design, and all are available for purchase as completed development boards suitable for project development.
  *
+ *  - AT90USB162 Breadboard PCB (Russian): http://microsin.ru/content/view/685/44/
  *  - Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/wiki/benito
  *  - Bumble-B, yet another AT90USB162 development board: http://fletchtronics.net/bumble-b
  *  - Micropendous, an open design/source set of AVR USB development boards: http://micropendous.org/
@@ -64,4 +65,8 @@
  *  - Lightweight CC110x USB dongle for 868MHz Protocols: http://busware.de/tiki-index.php?page=CUL
  *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
  *  - SEGA Megadrive/Super Nintendo Cartridge Reader: http://www.snega2usb.com
+ *
+ *  \section Sec_LUFAPublications Publications Mentioning LUFA
+ *  - Elektor Magazine, "My First AVR-USB" by Antoine Authier (feature), January 2010 Issue
+ *  - Elektor Magazine, "USB is Cool/Sucks" by Jerry Jacobs and Chris Vossen (minor mention), January 2010 Issue
  */

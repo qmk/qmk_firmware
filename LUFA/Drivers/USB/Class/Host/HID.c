@@ -220,6 +220,9 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
                                 void* Buffer, const uint16_t ReportSize)
 {
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
+	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
+	  return false;
+
 	if (HIDInterfaceInfo->State.DeviceUsesOUTPipe)
 	{
 		uint8_t ErrorCode;
