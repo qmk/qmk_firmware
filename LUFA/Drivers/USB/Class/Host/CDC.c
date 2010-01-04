@@ -445,6 +445,9 @@ static int CDC_Host_getchar_Blocking(FILE* Stream)
 {
 	while (!(CDC_Host_BytesReceived((USB_ClassInfo_CDC_Host_t*)fdev_get_udata(Stream))))
 	{
+		if (USB_HostState == HOST_STATE_Unattached)
+		  return _FDEV_EOF;
+
 		CDC_Host_USBTask((USB_ClassInfo_CDC_Host_t*)fdev_get_udata(Stream));
 		USB_USBTask();
 	}
