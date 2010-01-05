@@ -120,13 +120,6 @@
 			#define RNDIS_COMMAND_FAILED                  0xC0	
 
 		/* Function Prototypes: */
-			/** General management task for a given RNDIS host class interface, required for the correct operation of the interface. This should
-			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
-			 *
-			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
-			 */
-			void RNDIS_Host_USBTask(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
 			/** Host interface configuration routine, to configure a given RNDIS host interface instance using the Configuration
 			 *  Descriptor read from an attached USB device. This function automatically updates the given RNDIS Host instance's
 			 *  state values and configures the pipes required to communicate with the interface if it is found within the device.
@@ -228,6 +221,18 @@
 			 */
 			uint8_t RNDIS_Host_SendPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, void* Buffer, uint16_t PacketLength)
 			                              ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+
+		/* Inline Functions: */
+			/** General management task for a given RNDIS host class interface, required for the correct operation of the interface. This should
+			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
+			 *
+			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
+			 */
+			static inline void RNDIS_Host_USBTask(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo);
+			static inline void RNDIS_Host_USBTask(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo)
+			{
+				(void)RNDISInterfaceInfo;
+			}
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

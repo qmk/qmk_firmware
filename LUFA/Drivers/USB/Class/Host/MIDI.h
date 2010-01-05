@@ -97,13 +97,6 @@
 			};
 	
 		/* Function Prototypes: */
-			/** General management task for a given MIDI host class interface, required for the correct operation of the interface. This should
-			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
-			 *
-			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing an MIDI Class host configuration and state
-			 */
-			void MIDI_Host_USBTask(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
 			/** Host interface configuration routine, to configure a given MIDI host interface instance using the Configuration
 			 *  Descriptor read from an attached USB device. This function automatically updates the given MIDI Host instance's
 			 *  state values and configures the pipes required to communicate with the interface if it is found within the device.
@@ -144,7 +137,19 @@
 			 */
 			bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo,
 			                                  MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
-												
+
+		/* Inline Functions: */
+			/** General management task for a given MIDI host class interface, required for the correct operation of the interface. This should
+			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
+			 *
+			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing an MIDI Class host configuration and state
+			 */
+			static inline void MIDI_Host_USBTask(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo);
+			static inline void MIDI_Host_USBTask(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
+			{
+				(void)MIDIInterfaceInfo;
+			}
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */

@@ -113,14 +113,6 @@
 			};
 	
 		/* Function Prototypes: */
-			/** General management task for a given Mass Storage host class interface, required for the correct operation of
-			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
-			 *  \ref USB_USBTask().
-			 *
-			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing an MS Class host configuration and state
-			 */
-			void MS_Host_USBTask(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
 			/** Host interface configuration routine, to configure a given Mass Storage host interface instance using the
 			 *  Configuration Descriptor read from an attached USB device. This function automatically updates the given Mass
 			 *  Storage Host instance's state values and configures the pipes required to communicate with the interface if it
@@ -268,6 +260,19 @@
 			uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, const uint8_t LUNIndex,
 			                                  const uint32_t BlockAddress, const uint8_t Blocks, const uint16_t BlockSize,
 			                                  void* BlockBuffer) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(6);
+
+		/* Inline Functions: */
+			/** General management task for a given Mass Storage host class interface, required for the correct operation of
+			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
+			 *  \ref USB_USBTask().
+			 *
+			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing an MS Class host configuration and state
+			 */
+			static inline void MS_Host_USBTask(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo);
+			static inline void MS_Host_USBTask(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
+			{
+				(void)MSInterfaceInfo;
+			}
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

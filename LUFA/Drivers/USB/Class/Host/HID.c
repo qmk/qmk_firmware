@@ -150,11 +150,6 @@ static uint8_t DComp_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescri
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
-{
-	(void)HIDInterfaceInfo;
-}
-
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID, void* Buffer)
 {

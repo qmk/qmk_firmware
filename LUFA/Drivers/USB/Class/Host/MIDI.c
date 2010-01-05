@@ -122,11 +122,6 @@ static uint8_t DComp_MIDI_Host_NextMIDIStreamingDataEndpoint(void* const Current
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-void MIDI_Host_USBTask(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
-{
-	(void)MIDIInterfaceInfo;
-}
-
 uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))

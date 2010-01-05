@@ -122,11 +122,6 @@ static uint8_t DComp_NextPRNTInterfaceEndpoint(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
-{
-	(void)PRNTInterfaceInfo;
-}
-
 uint8_t PRNT_Host_SetBidirectionalMode(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
 {
 	if (PRNTInterfaceInfo->State.AlternateSetting)

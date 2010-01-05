@@ -112,13 +112,6 @@
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
 			 */
 			void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-
-			/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
-			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
-			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
-			 */
-			void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Determines if the given audio interface is ready for a sample to be read from it, and selects the streaming
 			 *  OUT endpoint ready for reading.
@@ -145,6 +138,17 @@
 			bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
 
 		/* Inline Functions: */
+			/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
+			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
+			 *
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
+			 */
+			static inline void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo);
+			static inline void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
+			{
+				(void)AudioInterfaceInfo;
+			}
+
 			/** Reads the next 8-bit audio sample from the current audio interface.
 			 *
 			 *  \note This should be preceded immediately by a call to the USB_Audio_IsSampleReceived() function to ensure that

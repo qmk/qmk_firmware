@@ -130,14 +130,6 @@
 			};
 	
 		/* Function Prototypes: */
-			/** General management task for a given Human Interface Class host class interface, required for the correct operation of
-			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
-			 *  \ref USB_USBTask().
-			 *
-			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
-			 */
-			void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-
 			/** Host interface configuration routine, to configure a given HID host interface instance using the Configuration
 			 *  Descriptor read from an attached USB device. This function automatically updates the given HID Host instance's
 			 *  state values and configures the pipes required to communicate with the interface if it is found within the
@@ -261,6 +253,19 @@
 			uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			#endif
 			
+		/* Inline Functions: */
+			/** General management task for a given Human Interface Class host class interface, required for the correct operation of
+			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
+			 *  \ref USB_USBTask().
+			 *
+			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
+			 */
+			static inline void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo);
+			static inline void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
+			{
+				(void)HIDInterfaceInfo;
+			}		
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */

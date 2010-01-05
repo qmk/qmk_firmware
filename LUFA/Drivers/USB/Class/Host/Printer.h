@@ -100,15 +100,6 @@
 			};
 	
 		/* Function Prototypes: */
-			/** General management task for a given Printer host class interface, required for the correct operation of
-			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
-			 *  \ref USB_USBTask().
-			 *
-			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state
-			 */
-			void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
-
 			/** Host interface configuration routine, to configure a given Printer host interface instance using the
 			 *  Configuration Descriptor read from an attached USB device. This function automatically updates the given Printer
 			 *  instance's state values and configures the pipes required to communicate with the interface if it is found within
@@ -183,6 +174,19 @@
 			 */
 			uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, char* DeviceIDString,
 			                              uint16_t BufferSize) ATTR_NON_NULL_PTR_ARG(1);
+
+		/* Inline Functions: */
+			/** General management task for a given Printer host class interface, required for the correct operation of
+			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
+			 *  \ref USB_USBTask().
+			 *
+			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state
+			 */
+			static inline void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo);
+			static inline void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
+			{
+				(void)PRNTInterfaceInfo;
+			}
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

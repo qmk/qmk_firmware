@@ -108,15 +108,6 @@
 			};
 
 		/* Function Prototypes: */
-			/** General management task for a given Still Image host class interface, required for the correct operation of the
-			 *  interface. This should be called frequently in the main program loop, before the master USB management task
-			 *  \ref USB_USBTask().
-			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 */
-			void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-
-
 			/** Host interface configuration routine, to configure a given Still Image host interface instance using the
 			 *  Configuration Descriptor read from an attached USB device. This function automatically updates the given Still
 			 *  Image Host instance's state values and configures the pipes required to communicate with the interface if it is
@@ -268,7 +259,20 @@
 			 */
 			uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, void* Buffer,
 			                             const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
-			
+		
+		/* Inline Functions: */
+			/** General management task for a given Still Image host class interface, required for the correct operation of the
+			 *  interface. This should be called frequently in the main program loop, before the master USB management task
+			 *  \ref USB_USBTask().
+			 *
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 */
+			static inline void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo);
+			static inline void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
+			{
+				(void)SIInterfaceInfo;
+			}		
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */

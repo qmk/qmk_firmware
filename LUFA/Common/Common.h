@@ -172,7 +172,7 @@
 				{
 					Temp = *Data;
 					*Data = *(Data + Bytes - 1);
-					*(Data + Bytes) = Temp;
+					*(Data + Bytes - 1) = Temp;
 
 					Data++;
 					Bytes -= 2;
