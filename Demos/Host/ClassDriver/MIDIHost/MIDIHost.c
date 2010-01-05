@@ -203,6 +203,7 @@ void CheckJoystickMovement(void)
 			};
 			
 		MIDI_Host_SendEventPacket(&Keyboard_MIDI_Interface, &MIDIEvent);
+		MIDI_Host_Flush(&Keyboard_MIDI_Interface);
 	}
 
 	PrevJoystickStatus = JoystickStatus;

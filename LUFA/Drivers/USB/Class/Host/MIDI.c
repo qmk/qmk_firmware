@@ -122,6 +122,26 @@ static uint8_t DComp_MIDI_Host_NextMIDIStreamingDataEndpoint(void* const Current
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
+uint8_t MIDI_Host_Flush(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
+{
+	if (USB_HostState != HOST_STATE_Configured)
+	  return PIPE_RWSTREAM_DeviceDisconnected;
+	
+	uint8_t ErrorCode;
+
+	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipeNumber);
+
+	if (Pipe_BytesInPipe())
+	{
+		Pipe_ClearOUT();
+
+		if ((ErrorCode = Pipe_WaitUntilReady()) != PIPE_READYWAIT_NoError)
+		  return ErrorCode;
+	}
+
+	return PIPE_READYWAIT_NoError;
+}
+
 uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo, MIDI_EventPacket_t* const Event)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
@@ -136,7 +156,8 @@ uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 		if ((ErrorCode = Pipe_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 		  return ErrorCode;
 
-		Pipe_ClearOUT();
+		if (!(Pipe_IsReadWriteAllowed()))
+		  Pipe_ClearOUT();
 	}
 	
 	return PIPE_RWSTREAM_NoError;
@@ -153,7 +174,9 @@ bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 	  return false;
 
 	Pipe_Read_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK);
-	Pipe_ClearIN();
+
+	if (!(Pipe_IsReadWriteAllowed()))
+	  Pipe_ClearIN();
 	
 	return true;
 }

@@ -155,7 +155,9 @@
 			void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Sends a given string to the attached USB host, if connected. If a host is not connected when the function is called, the
-			 *  string is discarded.
+			 *  string is discarded. Bytes will be queued for transmission to the host until either the endpoint bank becomes full, or the
+			 *  \ref CDC_Device_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
+			 *  packed into a single endpoint packet, increasing data throughput.
 			 *
 			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *        the call will fail.
@@ -170,7 +172,9 @@
 			                              ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 			
 			/** Sends a given byte to the attached USB host, if connected. If a host is not connected when the function is called, the
-			 *  byte is discarded.
+			 *  byte is discarded. Bytes will be queued for transmission to the host until either the endpoint bank becomes full, or the
+			 *  \ref CDC_Device_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
+			 *  packed into a single endpoint packet, increasing data throughput.
 			 *
 			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *        the call will fail.

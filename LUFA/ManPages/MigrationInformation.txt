@@ -12,7 +12,17 @@
  *
  * \section Sec_MigrationXXXXXX Migrating from 091223 to XXXXXX
  *
- *  <i>There is no migration information for this release.</i>
+ *  <b>Host Mode</b>
+ *    - The MIDI Host Class driver send and receive routines now operate on packed events, where multiple MIDI events may be
+ *      packed into a single USB packet. This means that the sending of MIDI events will now be delayed until the MIDI send
+ *      pipe bank is full. To override this new behaviour and revert to the previous behaviour, the user application may manually
+ *      flush the queued event(s) to the device by calling \ref MIDI_Host_Flush().
+ *
+ *  <b>Device Mode</b>
+ *    - The MIDI Device Class driver send and receive routines now operate on packed events, where multiple MIDI events may be
+ *      packed into a single USB packet. This means that the sending of MIDI events will now be delayed until the MIDI send
+ *      endpoint bank is full. To override this new behaviour and revert to the previous behaviour, the user application may manually
+ *      flush the queued event(s) to the host by calling \ref MIDI_Device_Flush().
  *
  * \section Sec_Migration091223 Migrating from 091122 to 091223
  *

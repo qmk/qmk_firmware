@@ -104,7 +104,9 @@
 			 */		
 			void MIDI_Device_ProcessControlRequest(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** Sends a MIDI event packet to the host. If no host is connected, the event packet is discarded.
+			/** Sends a MIDI event packet to the host. If no host is connected, the event packet is discarded. Events are queued into the
+			 *  endpoint bank until either the endpoint bank is full, or \ref MIDI_Device_Flush() is called. This allows for multiple
+			 *  MIDI events to be packed into a single endpoint packet, increasing data throughput.
 			 *
 			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *        the call will fail.
@@ -117,7 +119,18 @@
 			uint8_t MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo,
 			                                    MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
-			/** Receives a MIDI event packet from the host.
+
+			/** Flushes the MIDI send buffer, sending any queued MIDI events to the host. This should be called to override the
+			 *  \ref MIDI_Device_SendEventPacket() function's packing behaviour, to flush queued events.
+			 *
+			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state
+			 *
+			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum
+			 */
+			uint8_t MIDI_Device_Flush(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo);
+
+			/** Receives a MIDI event packet from the host. Events are unpacked from the endpoint, thus if the endpoint bank contains
+			 *  multiple MIDI events from the host in the one packet, multiple calls to this function will return each individual event.
 			 *
 			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *        the call will fail.

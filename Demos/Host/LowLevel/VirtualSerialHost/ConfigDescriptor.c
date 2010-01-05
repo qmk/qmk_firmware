@@ -158,7 +158,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			}
 			else
 			{
-				/* Only configure the OUT data pipe if the data endpoints haev not shown to be bidirectional */
+				/* Only configure the OUT data pipe if the data endpoints have not shown to be bidirectional */
 				if (!(Pipe_IsEndpointBound(EndpointData->EndpointAddress)))
 				{
 					/* Configure the data OUT pipe */

@@ -175,7 +175,9 @@
 			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Sends a given string to the attached USB device, if connected. If a device is not connected when the function is called, the
-			 *  string is discarded.
+			 *  string is discarded. Bytes will be queued for transmission to the device until either the pipe bank becomes full, or the
+			 *  \ref CDC_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
+			 *  packed into a single pipe packet, increasing data throughput.
 			 *
 			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *        call will fail.
@@ -189,8 +191,10 @@
 			uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, char* Data, const uint16_t Length)
 			                            ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 			
-			/** Sends a given byte to the attached USB device, if connected. If a host is not connected when the function is called, the
-			 *  byte is discarded.
+			/** Sends a given byte to the attached USB device, if connected. If a device is not connected when the function is called, the
+			 *  byte is discarded. Bytes will be queued for transmission to the device until either the pipe bank becomes full, or the
+			 *  \ref CDC_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
+			 *  packed into a single pipe packet, increasing data throughput.
 			 *
 			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *        call will fail.

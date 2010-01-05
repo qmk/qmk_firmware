@@ -226,6 +226,9 @@ void XPROGTarget_EnableTargetTPI(void)
 /** Disables the target's PDI interface, exits programming mode and starts the target's application. */
 void XPROGTarget_DisableTargetPDI(void)
 {
+	/* Switch to Rx mode to ensure that all pending transmissions are complete */
+	XPROGTarget_SetRxMode();
+
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Turn off receiver and transmitter of the USART, clear settings */
 	UCSR1A |= (1 << TXC1) | (1 << RXC1);
@@ -249,6 +252,9 @@ void XPROGTarget_DisableTargetPDI(void)
 /** Disables the target's TPI interface, exits programming mode and starts the target's application. */
 void XPROGTarget_DisableTargetTPI(void)
 {
+	/* Switch to Rx mode to ensure that all pending transmissions are complete */
+	XPROGTarget_SetRxMode();
+
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Turn off receiver and transmitter of the USART, clear settings */
 	UCSR1A |= (1 << TXC1) | (1 << RXC1);
