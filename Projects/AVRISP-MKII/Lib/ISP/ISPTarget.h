@@ -58,6 +58,8 @@
 		/** Total number of allowable ISP programming speeds supported by the device */
 		#define TOTAL_ISP_PROGRAMMING_SPEEDS  7
 		
+		#define LOAD_EXTENDED_ADDRESS_CMD     0x4D
+		
 	/* Function Prototypes: */
 		uint8_t ISPTarget_GetSPIPrescalerMask(void);
 		void    ISPTarget_ChangeTargetResetLine(const bool ResetTarget);

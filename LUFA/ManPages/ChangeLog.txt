@@ -19,7 +19,7 @@
   *  - Added new MIDI send buffer flush routines to the MIDI Device and Host mode Class drivers, to flush packed events
   *
   *  <b>Changed:</b>
-  *  - Slowed down bit-banged PDI programming in the AVRISP project slightly to prevent transmission errors
+  *  - Slowed down PDI programming in the AVRISP project to prevent transmission errors
   *  - Renamed the AVRISP project folder to AVRISP-MKII to reduce confusion
   *  - Renamed the RESET_LINE_* makefile tokens in the AVRISP MKII Project to AUX_LINE_*, as they are not always used for target
   *    reset

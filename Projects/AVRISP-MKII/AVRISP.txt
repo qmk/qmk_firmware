@@ -53,7 +53,7 @@
  *  This device spoofs Atmel's official AVRISP-MKII device PID so that it remains compatible with Atmel's AVRISP-MKII
  *  drivers. When prompted, direct your OS to install Atmel's AVRISP-MKII drivers provided with AVRStudio.
  *
- *  Note that this design currently has several limitations:
+ *  Note that this design currently has the following limitations:
  *    - Minimum ISP target clock speed of 500KHz due to hardware SPI module prescaler limitations
  *    - No reversed/shorted target connector detection and notification
  *
@@ -62,7 +62,9 @@
  *  without an ADC converter, VTARGET will report a fixed 5V level at all times.
  *
  *  When compiled for the XPLAIN board target, this will automatically configure itself for the correct connections to the
- *  XPLAIN's XMEGA AVR, and will enable PDI/TPI only programming support (since ISP mode is not needed).
+ *  XPLAIN's XMEGA AVR, and will enable PDI/TPI only programming support (since ISP mode is not needed). Note that the
+ *  first revision XPLAIN board lacks a bootloader on the AT90USB1287, and thus for this firmware to be loaded, an external
+ *  programmer will be required.
  *
  *  While this application can be compiled for USB AVRs with as little as 8KB of FLASH, for full functionality 16KB or more
  *  of FLASH is required. On 8KB devices, ISP or PDI/TPI programming support can be disabled to reduce program size.

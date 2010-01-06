@@ -10,6 +10,7 @@
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
+ *  - AT90USB162 (Teensy 1.0)
  *  - ATMEGA32U4 (Teensy 2.0)
  *
  *  \section SSec_Info USB Information:
