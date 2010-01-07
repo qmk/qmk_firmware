@@ -70,7 +70,7 @@
 			#define DATAFLASH_NO_CHIP                    DATAFLASH_CHIPCS_MASK
 
 			/** Mask for the first dataflash chip selected. */
-			#define DATAFLASH_CHIP1                      (1 << 5)
+			#define DATAFLASH_CHIP1                      0
 
 			#if (BOARD == BOARD_XPLAIN_REV1)
 				#define DATAFLASH_PAGE_SIZE              256
