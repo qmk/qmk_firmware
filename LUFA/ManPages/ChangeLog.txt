@@ -32,6 +32,8 @@
   *  - Fixed AVRISP PDI race condition where the guard time between direction changes could be interpreted as a start bit
   *  - Fixed ADC_IsReadingComplete() returning an inverted result
   *  - Fixed blocking CDC streams not aborting when the host is disconnected
+  *  - Fixed XPLAIN board Dataflash driver broken due to incorrect preprocessor commands
+  *  - Fixed inverted XPLAIN LED driver output (LED turned on when it was supposed to be turned off, and vice-versa)
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *

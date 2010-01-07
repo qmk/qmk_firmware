@@ -72,7 +72,7 @@
 			/** Mask for the first dataflash chip selected. */
 			#define DATAFLASH_CHIP1                      (1 << 5)
 
-			#if BOAD == XPLAIN_REV1
+			#if (BOARD == BOARD_XPLAIN_REV1)
 				#define DATAFLASH_PAGE_SIZE              256
 
 				#define DATAFLASH_PAGES                  2048							
@@ -111,9 +111,7 @@
 			 *  \param[in] BufferByte   Address within the dataflash's buffer
 			 */
 			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress, const uint16_t BufferByte)
-			{	
-				PageAddress >>= 1;
-				
+			{
 				Dataflash_SendByte(PageAddress >> 5);
 				Dataflash_SendByte((PageAddress << 3) | (BufferByte >> 8));
 				Dataflash_SendByte(BufferByte);
