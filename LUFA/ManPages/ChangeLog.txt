@@ -34,7 +34,7 @@
   *  - Fixed blocking CDC streams not aborting when the host is disconnected
   *  - Fixed XPLAIN board Dataflash driver broken due to incorrect preprocessor commands
   *  - Fixed inverted XPLAIN LED driver output (LED turned on when it was supposed to be turned off, and vice-versa)
-  *  - Fixed Class Driver struct interface numbers in the KeyboardMouse and VirtualSerialMouse demos
+  *  - Fixed Class Driver struct interface numbers in the KeyboardMouse and VirtualSerialMouse demos (thanks to Renaud Cerrato)
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *
