@@ -38,6 +38,23 @@
  *  \section Module Description
  *  Device Mode USB Class driver framework interface, for the CDC USB Class driver.
  *
+ *  \note There are several major drawbacks to the CDC-ACM standard USB class, however
+ *        it is very standardized and thus usually available as a built-in driver on
+ *        most platforms, and so is a better choice than a proprietary serial class.
+ *        
+ *        One major issue with CDC-ACM is that it requires two Interface descriptors,
+ *        which will upset most hosts when part of a multi-function "Composite" USB
+ *        device, as each interface will be loaded into a separate driver instance. To
+ *        conbat this, you should use the "Interface Association Descriptor" addendum to
+ *        the USB standard which is available on most OSes when creating Composite devices.
+ *
+ *        Another major oversight is that there is no mechanism for the host to notify the
+ *        device that there is a data sink on the host side ready to accept data. This
+ *        means that the device may try to send data while the host isn't listening, causing
+ *        lengthy blocking timeouts in the transmission routines. To combat this, it is
+ *        recommended that the virtual serial line DTR (Data Terminal Ready) be used where
+ *        possible to determine if a host application is ready for data.
+ *
  *  @{
  */
  

@@ -246,7 +246,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber        = 3,
+			.InterfaceNumber        = 2,
 			.AlternateSetting       = 0,
 			
 			.TotalEndpoints         = 1,

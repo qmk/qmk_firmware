@@ -72,13 +72,13 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 	{
 		.Config =
 			{
-				.InterfaceNumber         = 0,
+				.InterfaceNumber              = 1,
 
-				.ReportINEndpointNumber  = MOUSE_IN_EPNUM,
-				.ReportINEndpointSize    = HID_EPSIZE,
+				.ReportINEndpointNumber       = MOUSE_IN_EPNUM,
+				.ReportINEndpointSize         = HID_EPSIZE,
 
-				.PrevReportINBuffer      = PrevMouseHIDReportBuffer,
-				.PrevReportINBufferSize  = sizeof(PrevMouseHIDReportBuffer),
+				.PrevReportINBuffer           = PrevMouseHIDReportBuffer,
+				.PrevReportINBufferSize       = sizeof(PrevMouseHIDReportBuffer),
 			},		
 	};
 
