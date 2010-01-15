@@ -52,6 +52,7 @@
 		
 		#include <uip.h>
 		#include <uip_arp.h>
+		#include <timer.h>
 		
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */

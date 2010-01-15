@@ -57,13 +57,13 @@ USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface =
 			},
 	};
 
-volatile uint8_t uIPManagementTimeout;
+struct timer ConnectionTimer, ARPTimer;
+uint16_t MillisecondTickCount;
 
 /** ISR for the management of the connection management timeout counter */
 ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-	if (uIPManagementTimeout)
-	  uIPManagementTimeout--;
+	MillisecondTickCount++;
 }
 
 void TCPCallback(void)
@@ -186,9 +186,8 @@ void ProcessIncommingPacket(void)
 		  printf("0x%02X ", uip_buf[i]);
 		printf("\r\n\r\n");
 
-		#define BUF ((struct uip_eth_hdr *)&uip_buf[0])
-
-		if (BUF->type == HTONS(UIP_ETHTYPE_IP))
+		struct uip_eth_hdr* EthernetHeader = (struct uip_eth_hdr*)&uip_buf[0];
+		if (EthernetHeader->type == HTONS(UIP_ETHTYPE_IP))
 		{
 			/* Filter packet by MAC destination */
 			uip_arp_ipin();
@@ -200,7 +199,7 @@ void ProcessIncommingPacket(void)
 			if (uip_len > 0)
 			  uip_arp_out();
 		}
-		else if (BUF->type == HTONS(UIP_ETHTYPE_ARP))
+		else if (EthernetHeader->type == HTONS(UIP_ETHTYPE_ARP))
 		{
 			/* Process ARP packet */
 			uip_arp_arpin();
@@ -221,8 +220,10 @@ void ProcessIncommingPacket(void)
 
 void ManageConnections(void)
 {
-	if (!(uIPManagementTimeout))
+	if (timer_expired(&ConnectionTimer))
 	{
+		timer_reset(&ConnectionTimer);
+
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 		
 		for (uint8_t i = 0; i < UIP_CONNS; i++)
@@ -235,11 +236,13 @@ void ManageConnections(void)
 			  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, &uip_buf, uip_len);
 		}
 		
-		uip_arp_timer();
-		
-		uIPManagementTimeout = 250;
-
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	}
+
+	if (timer_expired(&ARPTimer))
+	{
+		timer_reset(&ARPTimer);
+		uip_arp_timer();
 	}
 }
 
@@ -258,22 +261,21 @@ void SetupHardware(void)
 	LEDs_Init();
 	USB_Init();
 
-	/* Millisecond timer initialization for managing the command timeout counter */
-	OCR0A  = ((F_CPU / 64) / 1000);
-	TCCR0A = (1 << WGM01);
-	TCCR0B = ((1 << CS01) | (1 << CS00));
-	
+	/* uIP Timing Initialization */
+	clock_init();
+	timer_set(&ConnectionTimer, CLOCK_SECOND / 2);
+	timer_set(&ARPTimer, CLOCK_SECOND * 10);	
+
 	/* uIP Stack Initialization */
 	uip_init();
-
 	uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
-	uip_ipaddr(&IPAddress, 192, 168, 1, 10);
-	uip_ipaddr(&Netmask, 0xFF, 0xFF, 0xFF, 0x00);
+	uip_ipaddr(&IPAddress,        192, 168, 1, 10);
+	uip_ipaddr(&Netmask,          255, 255, 255, 0);
 	uip_ipaddr(&GatewayIPAddress, 192, 168, 1, 1);
 	uip_sethostaddr(&IPAddress);
 	uip_setnetmask(&Netmask);
 	uip_setdraddr(&GatewayIPAddress);
-	
+		
 	/* HTTP Webserver Initialization */
 	uip_listen(HTONS(80));
 }

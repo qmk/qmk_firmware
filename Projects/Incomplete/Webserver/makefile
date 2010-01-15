@@ -142,6 +142,7 @@ SRC = $(TARGET).c                                                 \
 	  Lib/uip/psock.c                                             \
 	  Lib/uip/timer.c                                             \
 	  Lib/uip/uip-neighbor.c                                      \
+	  Lib/uip/conf/clock-arch.c                                   \
 	  
 	  
 # List C++ source files here. (C dependencies are automatically generated.)

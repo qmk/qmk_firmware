@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 typedef uint16_t clock_time_t;
-#define CLOCK_CONF_SECOND (F_CPU / 1024 / 255)  //Freqency divided prescaler and counter register size
+#define CLOCK_CONF_SECOND 100
 void clock_init(void);
 clock_time_t clock_time(void);
 
