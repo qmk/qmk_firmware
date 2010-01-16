@@ -77,7 +77,7 @@
 		#if (F_CLOCK == 8000000)
 			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
 			     defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
-				 defined(__AVR_ATmega32U2))
+				 defined(__AVR_ATmega32U2__))
 				#define USB_PLL_PSC                0
 			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
 				#define USB_PLL_PSC                0
@@ -89,7 +89,7 @@
 		#elif (F_CLOCK == 16000000)
 			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
 			     defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
-				 defined(__AVR_ATmega32U2))
+				 defined(__AVR_ATmega32U2__))
 				#define USB_PLL_PSC                (1 << PLLP0)
 			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
 				#define USB_PLL_PSC                (1 << PINDIV)
