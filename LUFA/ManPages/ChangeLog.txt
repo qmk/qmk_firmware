@@ -37,6 +37,7 @@
   *  - Fixed Class Driver struct interface numbers in the KeyboardMouse and VirtualSerialMouse demos (thanks to Renaud Cerrato)
   *  - Fixed invalid USB controller PLL prescaler values for the ATMEGAxxU2 controllers
   *  - Fixed lack of support for the ATMEGA32U2 in the DFU and CDC class bootloaders
+  *  - Fixed Benito project not resetting the target AVR automatically when programming has completed
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *

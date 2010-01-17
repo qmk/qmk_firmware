@@ -48,6 +48,9 @@ volatile struct
 	uint8_t PingPongLEDPulse; /**< Milliseconds remaining for enumeration Tx/Rx ping-pong LED pulse */
 } PulseMSRemaining;
 
+/** Previous state of the virtual DTR control line from the host */
+bool PreviousDTRState = false;
+
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -247,12 +250,16 @@ ISR(USART1_RX_vect, ISR_BLOCK)
  */
 void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
-	/* Check if the DTR line has been asserted - if so, start the target AVR's reset pulse */
-	if (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR)
+	bool CurrentDTRState = CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR);
+
+	/* Check if the DTR line has been de-asserted - if so, start the target AVR's reset pulse */
+	if (PreviousDTRState && !(CurrentDTRState))
 	{
 		LEDs_SetAllLEDs(LEDMASK_BUSY);
 	
 		AVR_RESET_LINE_DDR |= AVR_RESET_LINE_MASK;
 		PulseMSRemaining.ResetPulse = AVR_RESET_PULSE_MS;
 	}
+	
+	PreviousDTRState = CurrentDTRState;
 }
