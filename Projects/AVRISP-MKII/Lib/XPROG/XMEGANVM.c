@@ -136,24 +136,18 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
 	if (!(XMEGANVM_WaitWhileNVMControllerBusy()))
 	  return false;
 	
-	uint32_t MemoryCRC = 0;
-	
-	/* Read the first generated CRC byte value */
-	XPROGTarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
+	/* Load the PDI pointer register with the DAT0 register start address */
+	XPROGTarget_SendByte(PDI_CMD_ST | (PDI_POINTER_DIRECT << 2) | PDI_DATSIZE_4BYTES);
 	XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_DAT0);
-	MemoryCRC  = XPROGTarget_ReceiveByte();
 
-	/* Read the second generated CRC byte value */
-	XPROGTarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
-	XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_DAT1);
-	MemoryCRC |= ((uint16_t)XPROGTarget_ReceiveByte() << 8);
-
-	/* Read the third generated CRC byte value */
-	XPROGTarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
-	XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_DAT2);
-	MemoryCRC |= ((uint32_t)XPROGTarget_ReceiveByte() << 16);
+	/* Send the REPEAT command to grab the CRC bytes */
+	XPROGTarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
+	XPROGTarget_SendByte(XMEGA_CRC_LENGTH - 1);
 	
-	*CRCDest = MemoryCRC;
+	/* Read in the CRC bytes from the target */
+	XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
+	for (uint8_t i = 0; i < XMEGA_CRC_LENGTH; i++)
+	  ((uint8_t*)CRCDest)[i] = XPROGTarget_ReceiveByte();
 	
 	return true;
 }

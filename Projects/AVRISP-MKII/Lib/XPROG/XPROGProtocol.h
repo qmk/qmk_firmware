@@ -98,12 +98,12 @@
 
 		#define XPRG_PARAM_NVMBASE                  0x01
 		#define XPRG_PARAM_EEPPAGESIZE              0x02
-		#define XPRG_PARAM_NVMCMD                   0x03
-		#define XPRG_PARAM_NVMCSR                   0x04
+		#define XPRG_PARAM_NVMCMD_REG               0x03 /* Undocumented, Reverse-engineered */
+		#define XPRG_PARAM_NVMCSR_REG               0x04 /* Undocumented, Reverse-engineered */
 		
 		#define XPRG_PROTOCOL_PDI                   0x00
 		#define XPRG_PROTOCOL_JTAG                  0x01
-		#define XPRG_PROTOCOL_TPI                   0x02
+		#define XPRG_PROTOCOL_TPI                   0x02 /* Undocumented, Reverse-engineered */
 		
 		#define XPRG_PAGEMODE_WRITE                 (1 << 1)
 		#define XPRG_PAGEMODE_ERASE                 (1 << 0)

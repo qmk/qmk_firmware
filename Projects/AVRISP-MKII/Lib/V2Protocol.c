@@ -58,6 +58,7 @@ void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_Byte();
 	
+	/* Set total command processing timeout value, enable timeout management interrupt */
 	TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 	TIMSK0 |= (1 << OCIE0A);
 
@@ -121,6 +122,7 @@ void V2Protocol_ProcessCommand(void)
 			break;
 	}
 		
+	/* Disable timeout management interrupt once processing has completed */
 	TIMSK0 &= ~(1 << OCIE0A);
 
 	Endpoint_WaitUntilReady();
@@ -162,8 +164,8 @@ static void V2Protocol_SignOn(void)
 	Endpoint_ClearIN();
 }
 
-/** Handler for the CMD_RESET_PROTECTION command, currently implemented as a dummy ACK function
- *  as no ISP short-circuit protection is currently implemented.
+/** Handler for the CMD_RESET_PROTECTION command, implemented as a dummy ACK function as
+ *  no target short-circuit protection is currently implemented.
  */
 static void V2Protocol_ResetProtection(void)
 {

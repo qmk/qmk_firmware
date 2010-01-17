@@ -38,7 +38,7 @@
 
 #if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 /** Base absolute address for the target's NVM controller for PDI programming */
-uint32_t XPROG_Param_NVMBase    = 0x010001C0;
+uint32_t XPROG_Param_NVMBase = 0x010001C0;
 
 /** Size in bytes of the target's EEPROM page */
 uint16_t XPROG_Param_EEPageSize;
@@ -455,10 +455,10 @@ static void XPROGProtocol_SetParam(void)
 		case XPRG_PARAM_EEPPAGESIZE:
 			XPROG_Param_EEPageSize = Endpoint_Read_Word_BE();
 			break;
-		case XPRG_PARAM_NVMCMD:
+		case XPRG_PARAM_NVMCMD_REG:
 			XPROG_Param_NVMCMDRegAddr = Endpoint_Read_Byte();
 			break;
-		case XPRG_PARAM_NVMCSR:
+		case XPRG_PARAM_NVMCSR_REG:
 			XPROG_Param_NVMCSRRegAddr = Endpoint_Read_Byte();
 			break;
 		default:

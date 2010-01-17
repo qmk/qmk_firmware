@@ -151,9 +151,9 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  */
 USB_Descriptor_String_t PROGMEM ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(33), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(22), .Type = DTYPE_String},
 		
-	.UnicodeString          = L"LUFA AVRISP MkII Clone Programmer"
+	.UnicodeString          = L"LUFA AVRISP MkII Clone"
 };
 
 USB_Descriptor_String_t PROGMEM SerialString =

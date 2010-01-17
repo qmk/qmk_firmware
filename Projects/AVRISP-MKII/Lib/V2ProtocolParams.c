@@ -170,7 +170,7 @@ static ParameterItem_t* V2Params_GetParamFromTable(const uint8_t ParamID)
 	ParameterItem_t* CurrTableItem = ParameterTable;
 
 	/* Find the parameter in the parameter table if present */
-	for (uint8_t TableIndex = 0; TableIndex < (sizeof(ParameterTable) / sizeof(ParameterTable[0])); TableIndex++)
+	for (uint8_t TableIndex = 0; TableIndex < TABLE_PARAM_COUNT; TableIndex++)
 	{
 		if (ParamID == CurrTableItem->ParamID)
 		  return CurrTableItem;

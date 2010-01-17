@@ -40,8 +40,8 @@
  *  listed here. If an event with no user-associated handler is fired within the library, it by default maps to an
  *  internal empty stub function.
  *
- *  Each event must only have one associated event handler, but can be raised by multiple sources by calling the event
- *  name just like any regular C function (with any required event parameters).
+ *  Each event must only have one associated event handler, but can be raised by multiple sources by calling the
+ *  event handler function (with any required event parameters).
  *
  *  @{
  */
@@ -233,18 +233,24 @@
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 *
+			 *  \note This event does not exist on the series 2 USB AVRs when the NO_LIMITED_CONTROLLER_CONNECT
+			 *        compile time token is not set - see \ref EVENT_USB_Device_Disconnect.
+			 *
 			 *  \see \ref EVENT_USB_Device_WakeUp() event for accompanying Wake Up event.
 			 */
 			void EVENT_USB_Device_Suspend(void);
 
 			/** Event for USB wake up. This event fires when a the USB interface is suspended while in device
 			 *  mode, and the host wakes up the device by supplying Start Of Frame pulses. This is generally
-			 *  hooked to pull the user application out of a lowe power state and back into normal operating
+			 *  hooked to pull the user application out of a low power state and back into normal operating
 			 *  mode. If the USB interface is enumerated with the \ref USB_OPT_AUTO_PLL option set, the library
 			 *  will automatically restart the USB PLL before the event is fired.
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
+			 *
+			 *  \note This event does not exist on the series 2 USB AVRs when the NO_LIMITED_CONTROLLER_CONNECT
+			 *        compile time token is not set - see \ref EVENT_USB_Device_Connect.
 			 *
 			 *  \see \ref EVENT_USB_Device_Suspend() event for accompanying Suspend event.
 			 */

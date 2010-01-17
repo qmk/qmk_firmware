@@ -56,6 +56,8 @@
 		#endif
 
 	/* Defines: */
+		#define XMEGA_CRC_LENGTH                     3
+	
 		#define XMEGA_NVM_REG_ADDR0                  0x00
 		#define XMEGA_NVM_REG_ADDR1                  0x01
 		#define XMEGA_NVM_REG_ADDR2                  0x02

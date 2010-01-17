@@ -52,10 +52,13 @@
 
 	/* Macros: */
 		/** Parameter privilege mask to allow the host PC to read the parameter's value */
-		#define PARAM_PRIV_READ   (1 << 0)
+		#define PARAM_PRIV_READ     (1 << 0)
 
 		/** Parameter privilege mask to allow the host PC to change the parameter's value */
-		#define PARAM_PRIV_WRITE  (1 << 1)
+		#define PARAM_PRIV_WRITE    (1 << 1)
+		
+		/** Total number of parameters in the parameter table */
+		#define TABLE_PARAM_COUNT   (sizeof(ParameterTable) / sizeof(ParameterTable[0]))
 
 	/* Type Defines: */
 		/** Type define for a parameter table entry indicating a PC readable or writable device parameter. */

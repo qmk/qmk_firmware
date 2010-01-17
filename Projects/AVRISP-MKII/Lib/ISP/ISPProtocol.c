@@ -65,7 +65,9 @@ void ISPProtocol_EnterISPMode(void)
 
 	ISPProtocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS); 
 	SPI_Init(ISPTarget_GetSPIPrescalerMask() | SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING | SPI_MODE_MASTER);
-		
+
+	/* Continuously attempt to synchronize with the target until either the number of attempts specified
+	 * by the host has exceeded, or the the device sends back the expected response values */
 	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus == STATUS_CMD_FAILED))
 	{
 		uint8_t ResponseBytes[4];
@@ -110,6 +112,7 @@ void ISPProtocol_LeaveISPMode(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
+	/* Perform pre-exit delay, release the target /RESET, disable the SPI bus and perform the post-exit delay */
 	ISPProtocol_DelayMS(Leave_ISP_Params.PreDelayMS);
 	ISPTarget_ChangeTargetResetLine(false);
 	SPI_ShutDown();
@@ -166,6 +169,9 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 	                                                                    Write_Memory_Params.PollValue2;
 	uint8_t* NextWriteByte = Write_Memory_Params.ProgData;
 
+	/* Check to see if the host has issued a SET ADDRESS command and we haven't sent a
+	 * LOAD EXTENDED ADDRESS command (if needed, used when operating beyond the 128KB
+	 * FLASH barrier) */
 	if (MustSetAddress)
 	{
 		if (CurrentAddress & (1UL << 31))
@@ -174,6 +180,7 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 		MustSetAddress = false;
 	}
 
+	/* Check the programming mode desired by the host, either Paged or Word memory writes */
 	if (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_WRITES_MASK)
 	{
 		uint16_t StartAddress = (CurrentAddress & 0xFFFF);
@@ -184,16 +191,16 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			bool    IsOddByte   = (CurrentByte & 0x01);
 			uint8_t ByteToWrite = *(NextWriteByte++);
 		
-			if (IsOddByte && (V2Command == CMD_PROGRAM_FLASH_ISP))
-			  Write_Memory_Params.ProgrammingCommands[0] |=  READ_WRITE_HIGH_BYTE_MASK;
-			else
-			  Write_Memory_Params.ProgrammingCommands[0] &= ~READ_WRITE_HIGH_BYTE_MASK;
-			  
 			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
 			SPI_SendByte(CurrentAddress >> 8);
 			SPI_SendByte(CurrentAddress & 0xFF);
 			SPI_SendByte(ByteToWrite);
 			
+			/* AVR FLASH addressing requires us to modify the write command based on if we are writing a high
+			 * or low byte at the current word address */
+			Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
+
+			/* Check to see the write completion method, to see if we have a valid polling address */
 			if (!(PollAddress) && (ByteToWrite != PollValue))
 			{
 				if (IsOddByte && (V2Command == CMD_PROGRAM_FLASH_ISP))
@@ -289,6 +296,9 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 	Endpoint_Write_Byte(V2Command);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
 	
+	/* Check to see if the host has issued a SET ADDRESS command and we haven't sent a
+	 * LOAD EXTENDED ADDRESS command (if needed, used when operating beyond the 128KB
+	 * FLASH barrier) */
 	if (MustSetAddress)
 	{
 		if (CurrentAddress & (1UL << 31))
@@ -297,28 +307,30 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 		MustSetAddress = false;
 	}
 
+	/* Read each byte from the device and write them to the packet for the host */
 	for (uint16_t CurrentByte = 0; CurrentByte < Read_Memory_Params.BytesToRead; CurrentByte++)
 	{
-		bool IsOddByte = (CurrentByte & 0x01);
-
-		if (IsOddByte && (V2Command == CMD_READ_FLASH_ISP))
-		  Read_Memory_Params.ReadMemoryCommand |=  READ_WRITE_HIGH_BYTE_MASK;
-		else
-		  Read_Memory_Params.ReadMemoryCommand &= ~READ_WRITE_HIGH_BYTE_MASK;
-
+		/* Read the next byte from the desired memory space in the device */
 		SPI_SendByte(Read_Memory_Params.ReadMemoryCommand);
 		SPI_SendByte(CurrentAddress >> 8);
 		SPI_SendByte(CurrentAddress & 0xFF);
 		Endpoint_Write_Byte(SPI_ReceiveByte());
 		
-		/* Check if the endpoint bank is currently full */
+		/* Check if the endpoint bank is currently full, if so send the packet */
 		if (!(Endpoint_IsReadWriteAllowed()))
 		{
 			Endpoint_ClearIN();
 			Endpoint_WaitUntilReady();
 		}
 		
-		if ((IsOddByte && (V2Command == CMD_READ_FLASH_ISP)) || (V2Command == CMD_READ_EEPROM_ISP))
+		/* AVR FLASH addressing requires us to modify the read command based on if we are reading a high
+		 * or low byte at the current word address */
+		if (V2Command == CMD_READ_FLASH_ISP)
+		  Read_Memory_Params.ReadMemoryCommand ^= READ_WRITE_HIGH_BYTE_MASK;
+
+		/* Only increment the current address if we have read both bytes in the current word when in FLASH
+		 * read mode, or for each byte when in EEPROM read mode */		 
+		if (((CurrentByte & 0x01) && (V2Command == CMD_READ_FLASH_ISP)) || (V2Command == CMD_READ_EEPROM_ISP))
 		  CurrentAddress++;
 	}
 
@@ -353,9 +365,11 @@ void ISPProtocol_ChipErase(void)
 	
 	uint8_t ResponseStatus = STATUS_CMD_OK;
 	
+	/* Send the chip erase commands as given by the host to the device */
 	for (uint8_t SByte = 0; SByte < sizeof(Erase_Chip_Params.EraseCommandBytes); SByte++)
 	  SPI_SendByte(Erase_Chip_Params.EraseCommandBytes[SByte]);
 
+	/* Use appropriate command completion check as given by the host (delay or busy polling) */
 	if (!(Erase_Chip_Params.PollMethod))
 	  ISPProtocol_DelayMS(Erase_Chip_Params.EraseDelayMS);
 	else
@@ -385,7 +399,8 @@ void ISPProtocol_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	uint8_t ResponseBytes[4];
-		
+
+	/* Send the Fuse or Lock byte read commands as given by the host to the device, store response */
 	for (uint8_t RByte = 0; RByte < sizeof(ResponseBytes); RByte++)
 	  ResponseBytes[RByte] = SPI_TransferByte(Read_FuseLockSigOSCCAL_Params.ReadCommandBytes[RByte]);
 		
@@ -413,6 +428,7 @@ void ISPProtocol_WriteFuseLock(uint8_t V2Command)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
+	/* Send the Fuse or Lock byte program commands as given by the host to the device */
 	for (uint8_t SByte = 0; SByte < sizeof(Write_FuseLockSig_Params.WriteCommandBytes); SByte++)
 	  SPI_SendByte(Write_FuseLockSig_Params.WriteCommandBytes[SByte]);
 		
@@ -463,12 +479,29 @@ void ISPProtocol_SPIMulti(void)
 		  Endpoint_Write_Byte(SPI_TransferByte(SPI_Multi_Params.TxData[CurrTxPos++]));
 		else
 		  Endpoint_Write_Byte(SPI_ReceiveByte());
+		  
+		/* Check to see if we have filled the endpoint bank and need to send the packet */
+		if (!(Endpoint_IsReadWriteAllowed()))
+		{
+			Endpoint_ClearIN();
+			Endpoint_WaitUntilReady();
+		}
 		
 		CurrRxPos++;
 	}	
 	
 	Endpoint_Write_Byte(STATUS_CMD_OK);
+
+	bool IsEndpointFull = !(Endpoint_IsReadWriteAllowed());
 	Endpoint_ClearIN();
+	
+	/* Ensure last packet is a short packet to terminate the transfer */
+	if (IsEndpointFull)
+	{
+		Endpoint_WaitUntilReady();	
+		Endpoint_ClearIN();
+		Endpoint_WaitUntilReady();	
+	}
 }
 
 #endif
