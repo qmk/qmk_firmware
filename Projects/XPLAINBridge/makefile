@@ -114,6 +114,8 @@ OBJDIR = .
 # Path to the LUFA library
 LUFA_PATH = ../../
 
+# Path to the LUFA AVRISP-MKII project
+AVRISP_PATH = ../AVRISP-MKII/
 
 # LUFA library compile-time options
 LUFA_OPTS  = -D USB_DEVICE_ONLY
@@ -125,9 +127,18 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENAB
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
-	  Descriptors.c                                               \
+	  AVRISPDescriptors.c                                         \
+	  USARTDescriptors.c                                          \
 	  Lib/RingBuff.c                                              \
 	  Lib/SoftUART.c                                              \
+	  $(AVRISP_PATH)/Lib/V2Protocol.c                             \
+      $(AVRISP_PATH)/Lib/V2ProtocolParams.c                       \
+      $(AVRISP_PATH)/Lib/ISP/ISPProtocol.c                        \
+      $(AVRISP_PATH)/Lib/ISP/ISPTarget.c                          \
+	  $(AVRISP_PATH)/Lib/XPROG/XPROGProtocol.c                    \
+	  $(AVRISP_PATH)/Lib/XPROG/XPROGTarget.c                      \
+	  $(AVRISP_PATH)/Lib/XPROG/XMEGANVM.c                         \
+	  $(AVRISP_PATH)/Lib/XPROG/TINYNVM.c                          \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -173,7 +184,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(LUFA_PATH)/
+EXTRAINCDIRS = $(LUFA_PATH)/ $(AVRISP_PATH)/ 
 
 
 # Compiler flag to set the C Standard level.
@@ -186,12 +197,11 @@ CSTANDARD = -std=gnu99
 
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA_OPTS)
-CDEFS += -DAVR_RESET_LINE_PORT="PORTD"
-CDEFS += -DAVR_RESET_LINE_DDR="DDRD"
-CDEFS += -DAVR_RESET_LINE_MASK="(1 << 4)"
-CDEFS += -DAVR_RESET_PULSE_MS=10
-CDEFS += -DTX_RX_LED_PULSE_MS=30
-CDEFS += -DPING_PONG_LED_PULSE_MS=100
+CDEFS += -DAUX_LINE_PORT=PORTB
+CDEFS += -DAUX_LINE_PIN=PINB
+CDEFS += -DAUX_LINE_DDR=DDRB
+CDEFS += -DAUX_LINE_MASK="(1 << 4)"
+CDEFS += -DVTARGET_ADC_CHANNEL=2
 
 # Place -D or -U options here for ASM sources
 ADEFS = -DF_CPU=$(F_CPU)

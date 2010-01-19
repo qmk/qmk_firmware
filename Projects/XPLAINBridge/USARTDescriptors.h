@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for Descriptors.c.
+ *  Header file for USARTDescriptors.c.
  */
  
-#ifndef _DESCRIPTORS_H_
-#define _DESCRIPTORS_H_
+#ifndef _USART_DESCRIPTORS_H_
+#define _USART_DESCRIPTORS_H_
 
 	/* Includes: */
 		#include <avr/pgmspace.h>
@@ -56,8 +56,8 @@
 		#define CDC_NOTIFICATION_EPSIZE        8
 
 		/** Size in bytes of the CDC data IN and OUT endpoints. */
-		#define CDC_TXRX_EPSIZE                16	
-
+		#define CDC_TXRX_EPSIZE                16
+		
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -75,10 +75,9 @@
 			USB_Descriptor_Interface_t               DCI_Interface;
 			USB_Descriptor_Endpoint_t                DataOutEndpoint;
 			USB_Descriptor_Endpoint_t                DataInEndpoint;
-		} USB_Descriptor_Configuration_t;
+		} USART_USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */
-		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
-											ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
+		uint16_t USART_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress);
 
 #endif

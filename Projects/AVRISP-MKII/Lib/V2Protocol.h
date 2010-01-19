@@ -70,6 +70,7 @@
 		extern bool     MustSetAddress;
 
 	/* Function Prototypes: */
+		void V2Protocol_Init(void);
 		void V2Protocol_ProcessCommand(void);
 		
 		#if defined(INCLUDE_FROM_V2PROTOCOL_C)

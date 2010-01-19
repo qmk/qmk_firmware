@@ -54,7 +54,7 @@ void ISPProtocol_EnterISPMode(void)
 		uint8_t EnterProgBytes[4];
 	} Enter_ISP_Params;
 	
-	Endpoint_Read_Stream_LE(&Enter_ISP_Params, sizeof(Enter_ISP_Params));
+	Endpoint_Read_Stream_LE(&Enter_ISP_Params, sizeof(Enter_ISP_Params), NO_STREAM_CALLBACK);
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
@@ -107,7 +107,7 @@ void ISPProtocol_LeaveISPMode(void)
 		uint8_t PostDelayMS;
 	} Leave_ISP_Params;
 
-	Endpoint_Read_Stream_LE(&Leave_ISP_Params, sizeof(Leave_ISP_Params));
+	Endpoint_Read_Stream_LE(&Leave_ISP_Params, sizeof(Leave_ISP_Params), NO_STREAM_CALLBACK);
 	
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
@@ -142,7 +142,7 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 	} Write_Memory_Params;      // whole page and ACK the packet as fast as possible to prevent it from aborting
 	
 	Endpoint_Read_Stream_LE(&Write_Memory_Params, (sizeof(Write_Memory_Params) -
-	                                               sizeof(Write_Memory_Params.ProgData)));
+	                                               sizeof(Write_Memory_Params.ProgData)), NO_STREAM_CALLBACK);
 
 
 	Write_Memory_Params.BytesToWrite = SwapEndian_16(Write_Memory_Params.BytesToWrite);
@@ -158,7 +158,7 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 		return;
 	}
 	
-	Endpoint_Read_Stream_LE(&Write_Memory_Params.ProgData, Write_Memory_Params.BytesToWrite);
+	Endpoint_Read_Stream_LE(&Write_Memory_Params.ProgData, Write_Memory_Params.BytesToWrite, NO_STREAM_CALLBACK);
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
@@ -287,7 +287,7 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 		uint8_t  ReadMemoryCommand;
 	} Read_Memory_Params;
 	
-	Endpoint_Read_Stream_LE(&Read_Memory_Params, sizeof(Read_Memory_Params));
+	Endpoint_Read_Stream_LE(&Read_Memory_Params, sizeof(Read_Memory_Params), NO_STREAM_CALLBACK);
 	Read_Memory_Params.BytesToRead = SwapEndian_16(Read_Memory_Params.BytesToRead);
 	
 	Endpoint_ClearOUT();
@@ -358,7 +358,7 @@ void ISPProtocol_ChipErase(void)
 		uint8_t EraseCommandBytes[4];
 	} Erase_Chip_Params;
 	
-	Endpoint_Read_Stream_LE(&Erase_Chip_Params, sizeof(Erase_Chip_Params));
+	Endpoint_Read_Stream_LE(&Erase_Chip_Params, sizeof(Erase_Chip_Params), NO_STREAM_CALLBACK);
 	
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
@@ -393,7 +393,7 @@ void ISPProtocol_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 		uint8_t ReadCommandBytes[4];
 	} Read_FuseLockSigOSCCAL_Params;
 	
-	Endpoint_Read_Stream_LE(&Read_FuseLockSigOSCCAL_Params, sizeof(Read_FuseLockSigOSCCAL_Params));
+	Endpoint_Read_Stream_LE(&Read_FuseLockSigOSCCAL_Params, sizeof(Read_FuseLockSigOSCCAL_Params), NO_STREAM_CALLBACK);
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
@@ -423,7 +423,7 @@ void ISPProtocol_WriteFuseLock(uint8_t V2Command)
 		uint8_t WriteCommandBytes[4];
 	} Write_FuseLockSig_Params;
 	
-	Endpoint_Read_Stream_LE(&Write_FuseLockSig_Params, sizeof(Write_FuseLockSig_Params));
+	Endpoint_Read_Stream_LE(&Write_FuseLockSig_Params, sizeof(Write_FuseLockSig_Params), NO_STREAM_CALLBACK);
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
@@ -449,8 +449,8 @@ void ISPProtocol_SPIMulti(void)
 		uint8_t TxData[255];
 	} SPI_Multi_Params;
 	
-	Endpoint_Read_Stream_LE(&SPI_Multi_Params, sizeof(SPI_Multi_Params) - sizeof(SPI_Multi_Params.TxData));
-	Endpoint_Read_Stream_LE(&SPI_Multi_Params.TxData, SPI_Multi_Params.TxBytes);
+	Endpoint_Read_Stream_LE(&SPI_Multi_Params, (sizeof(SPI_Multi_Params) - sizeof(SPI_Multi_Params.TxData)), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&SPI_Multi_Params.TxData, SPI_Multi_Params.TxBytes, NO_STREAM_CALLBACK);
 	
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);

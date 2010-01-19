@@ -50,6 +50,24 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 	  TimeoutMSRemaining--;
 }
 
+/** Initializes the hardware and software associated with the V2 protocol command handling. */
+void V2Protocol_Init(void)
+{
+	#if defined(ADC)
+	/* Initialize the ADC converter for VTARGET level detection on supported AVR models */
+	ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_128);
+	ADC_SetupChannel(VTARGET_ADC_CHANNEL);
+	ADC_StartReading(VTARGET_ADC_CHANNEL | ADC_RIGHT_ADJUSTED | ADC_REFERENCE_AVCC);
+	#endif
+	
+	/* Millisecond timer initialization for managing the command timeout counter */
+	OCR0A  = ((F_CPU / 64) / 1000);
+	TCCR0A = (1 << WGM01);
+	TCCR0B = ((1 << CS01) | (1 << CS00));
+	
+	V2Params_LoadNonVolatileParamValues();
+}
+
 /** Master V2 Protocol packet handler, for received V2 Protocol packets from a connected host.
  *  This routine decodes the issued command and passes off the handling of the command to the
  *  appropriate function.
@@ -160,7 +178,7 @@ static void V2Protocol_SignOn(void)
 	Endpoint_Write_Byte(CMD_SIGN_ON);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
 	Endpoint_Write_Byte(sizeof(PROGRAMMER_ID) - 1);
-	Endpoint_Write_Stream_LE(PROGRAMMER_ID, (sizeof(PROGRAMMER_ID) - 1));
+	Endpoint_Write_Stream_LE(PROGRAMMER_ID, (sizeof(PROGRAMMER_ID) - 1), NO_STREAM_CALLBACK);
 	Endpoint_ClearIN();
 }
 
@@ -222,7 +240,7 @@ static void V2Protocol_GetSetParam(const uint8_t V2Command)
  */
 static void V2Protocol_LoadAddress(void)
 {
-	Endpoint_Read_Stream_BE(&CurrentAddress, sizeof(CurrentAddress));
+	Endpoint_Read_Stream_BE(&CurrentAddress, sizeof(CurrentAddress), NO_STREAM_CALLBACK);
 
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);

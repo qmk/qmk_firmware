@@ -42,8 +42,6 @@
 int main(void)
 {
 	SetupHardware();
-
-	V2Params_LoadNonVolatileParamValues();
 	
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
@@ -70,18 +68,7 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
-
-	#if defined(ADC)
-	/* Initialize the ADC converter for VTARGET level detection on supported AVR models */
-	ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_128);
-	ADC_SetupChannel(VTARGET_ADC_CHANNEL);
-	ADC_StartReading(VTARGET_ADC_CHANNEL | ADC_RIGHT_ADJUSTED | ADC_REFERENCE_AVCC);
-	#endif
-	
-	/* Millisecond timer initialization for managing the command timeout counter */
-	OCR0A  = ((F_CPU / 64) / 1000);
-	TCCR0A = (1 << WGM01);
-	TCCR0B = ((1 << CS01) | (1 << CS00));
+	V2Protocol_Init();
 }
 
 /** Event handler for the library USB Connection event. */

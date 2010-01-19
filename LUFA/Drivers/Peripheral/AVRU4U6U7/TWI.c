@@ -5,7 +5,7 @@
       www.fourwalledcubicle.com
 */
 
-#include "TWI.h"
+#include "../TWI.h"
 
 bool TWI_StartTransmission(uint8_t SlaveAddress)
 {
