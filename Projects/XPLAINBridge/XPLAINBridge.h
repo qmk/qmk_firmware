@@ -69,7 +69,10 @@
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_BUSY             LEDS_LED1
 
+		/** Firmware mode define for the USART Bridge mode. */
 		#define MODE_USART_BRIDGE        false
+
+		/** Firmware mode define for the AVRISP Programmer mode. */
 		#define MODE_PDI_PROGRAMMER      true		
 
 	/* External Variables: */

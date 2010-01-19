@@ -156,6 +156,9 @@ USB_Descriptor_String_t PROGMEM ProductString =
 	.UnicodeString          = L"LUFA AVRISP MkII Clone"
 };
 
+/** Serial number string. This is a Unicode string containing the device's unique serial number, expressed as a
+ *  series of uppercase hexadecimal digits.
+ */
 USB_Descriptor_String_t PROGMEM SerialString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(13), .Type = DTYPE_String},
