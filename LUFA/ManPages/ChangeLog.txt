@@ -17,6 +17,7 @@
   *  - Added MIDI event packing support to the MIDI Device and Host mode Class drivers, allowing for multiple MIDI events to
   *    sent or received in packed form in a single USB packet
   *  - Added new MIDI send buffer flush routines to the MIDI Device and Host mode Class drivers, to flush packed events
+  *  - Added master mode hardware TWI driver
   *
   *  <b>Changed:</b>
   *  - Slowed down PDI programming in the AVRISP project to prevent transmission errors

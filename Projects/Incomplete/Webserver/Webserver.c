@@ -152,8 +152,8 @@ int main(void)
 				}
 
 				printf("MAC Address: 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X\r\n",
-				        MACAddress.addr[0], MACAddress.addr[1], MACAddress.addr[2],
-				        MACAddress.addr[3], MACAddress.addr[4], MACAddress.addr[5]);
+				       MACAddress.addr[0], MACAddress.addr[1], MACAddress.addr[2],
+				       MACAddress.addr[3], MACAddress.addr[4], MACAddress.addr[5]);
 
 				uip_setethaddr(MACAddress);
 				
@@ -179,7 +179,7 @@ void ProcessIncommingPacket(void)
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
 		/* Read the incomming packet straight into the UIP packet buffer */
-		RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, &uip_buf, &uip_len);
+		RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, uip_buf, &uip_len);
 		
 		printf("RECEIVED PACKET (%d):\r\n", uip_len);
 		for (uint16_t i = 0; i < uip_len; i++)
@@ -207,7 +207,7 @@ void ProcessIncommingPacket(void)
 
 		/* If a response was generated, send it */
 		if (uip_len > 0)
-		  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, &uip_buf, uip_len);
+		  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
 
 		printf("SENT PACKET (%d):\r\n", uip_len);
 		for (uint16_t i = 0; i < uip_len; i++)
@@ -220,6 +220,7 @@ void ProcessIncommingPacket(void)
 
 void ManageConnections(void)
 {
+	/* Manage open connections */
 	if (timer_expired(&ConnectionTimer))
 	{
 		timer_reset(&ConnectionTimer);
@@ -233,12 +234,13 @@ void ManageConnections(void)
 
 			/* If a response was generated, send it */
 			if (uip_len > 0)
-			  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, &uip_buf, uip_len);
+			  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
 		}
 		
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
 
+	/* Manage ARP cache refreshing */
 	if (timer_expired(&ARPTimer))
 	{
 		timer_reset(&ARPTimer);
