@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for RNDISEthernetHost.c.
+ *  Header file for Webserver.c.
  */
 
-#ifndef _RNDIS_HOST_H_
-#define _RNDIS_HOST_H_
+#ifndef _WEBSERVER_H_
+#define _WEBSERVER_H_
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -53,6 +53,8 @@
 		#include <uip.h>
 		#include <uip_arp.h>
 		#include <timer.h>
+		
+		#include "Lib/WebserverApp.h"
 		
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -74,7 +76,6 @@
 		void SetupHardware(void);
 		void ProcessIncommingPacket(void);
 		void ManageConnections(void);
-		void TCPCallback(void);
 	
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);

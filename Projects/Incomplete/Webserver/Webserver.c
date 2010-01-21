@@ -31,7 +31,7 @@
 /** \file
  *
  *  Main source file for the Webserver project. This file contains the main tasks of
- *  the demo and is responsible for the initial application hardware configuration.
+ *  the project and is responsible for the initial application hardware configuration.
  */
  
 #include "Webserver.h"
@@ -57,20 +57,13 @@ USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface =
 			},
 	};
 
-struct timer ConnectionTimer, ARPTimer;
-uint16_t MillisecondTickCount;
+/** Connection timer, to retain the time elapsed since the last time the uIP connections were managed. */
+struct timer ConnectionTimer;
 
-/** ISR for the management of the connection management timeout counter */
-ISR(TIMER0_COMPA_vect, ISR_BLOCK)
-{
-	MillisecondTickCount++;
-}
+/** ARP timer, to retain the time elapsed since the ARP cache was last updated. */
+struct timer ARPTimer;
 
-void TCPCallback(void)
-{
-	printf("Callback!\r\n");
-}
-	
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -129,7 +122,7 @@ int main(void)
 				
 				printf("Device Max Transfer Size: %lu bytes.\r\n", Ethernet_RNDIS_Interface.State.DeviceMaxPacketSize);
 				
-				uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST | REMOTE_NDIS_PACKET_ALL_MULTICAST);
+				uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST);
 				if (RNDIS_Host_SetRNDISProperty(&Ethernet_RNDIS_Interface, OID_GEN_CURRENT_PACKET_FILTER,
 				                                &PacketFilter, sizeof(PacketFilter)) != HOST_SENDCONTROL_Successful)
 				{
@@ -157,6 +150,8 @@ int main(void)
 
 				uip_setethaddr(MACAddress);
 				
+				LEDs_SetAllLEDs(LEDMASK_USB_READY);
+
 				printf("RNDIS Device Enumerated.\r\n");
 				USB_HostState = HOST_STATE_Configured;
 				break;
@@ -179,40 +174,39 @@ void ProcessIncommingPacket(void)
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
 		/* Read the incomming packet straight into the UIP packet buffer */
-		RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, uip_buf, &uip_len);
-		
-		printf("RECEIVED PACKET (%d):\r\n", uip_len);
-		for (uint16_t i = 0; i < uip_len; i++)
-		  printf("0x%02X ", uip_buf[i]);
-		printf("\r\n\r\n");
+		printf("L=%d R=%d\r\n", uip_len, RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], &uip_len));
 
-		struct uip_eth_hdr* EthernetHeader = (struct uip_eth_hdr*)&uip_buf[0];
-		if (EthernetHeader->type == HTONS(UIP_ETHTYPE_IP))
-		{
-			/* Filter packet by MAC destination */
-			uip_arp_ipin();
-
-			/* Process incomming packet */
-			uip_input();
-
-			/* Add destination MAC to outgoing packet */
-			if (uip_len > 0)
-			  uip_arp_out();
-		}
-		else if (EthernetHeader->type == HTONS(UIP_ETHTYPE_ARP))
-		{
-			/* Process ARP packet */
-			uip_arp_arpin();
-		}
-
-		/* If a response was generated, send it */
 		if (uip_len > 0)
-		  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+		{
+			bool PacketHandled = true;
 
-		printf("SENT PACKET (%d):\r\n", uip_len);
-		for (uint16_t i = 0; i < uip_len; i++)
-		  printf("0x%02X ", uip_buf[i]);
-		printf("\r\n\r\n");
+			struct uip_eth_hdr* EthernetHeader = (struct uip_eth_hdr*)&uip_buf[0];
+			if (EthernetHeader->type == HTONS(UIP_ETHTYPE_IP))
+			{
+				/* Filter packet by MAC destination */
+				uip_arp_ipin();
+
+				/* Process incomming packet */
+				uip_input();
+
+				/* Add destination MAC to outgoing packet */
+				if (uip_len > 0)
+				  uip_arp_out();
+			}
+			else if (EthernetHeader->type == HTONS(UIP_ETHTYPE_ARP))
+			{
+				/* Process ARP packet */
+				uip_arp_arpin();
+			}
+			else
+			{
+				PacketHandled = false;
+			}
+
+			/* If a response was generated, send it */
+			if ((uip_len > 0) && PacketHandled)
+			  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], uip_len);
+		}
 
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
@@ -234,7 +228,7 @@ void ManageConnections(void)
 
 			/* If a response was generated, send it */
 			if (uip_len > 0)
-			  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+			  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], uip_len);
 		}
 		
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);

@@ -6,15 +6,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-typedef int uip_tcp_appstate_t;
-typedef int uip_udp_appstate_t;
-
-#define UIP_APPCALL     TCPCallback
-#define UIP_UDP_APPCALL TCPCallback
-
-void UIP_APPCALL(void);
-void UIP_UDP_APPCALL(void);
-
 #define UIP_CONF_LLH_LEN 14
 
 /**
@@ -68,7 +59,7 @@ typedef unsigned short uip_stats_t;
  *
  * \hideinitializer
  */
-#define UIP_CONF_BUFFER_SIZE     1100
+#define UIP_CONF_BUFFER_SIZE     1500
 /**
  * CPU byte order.
  *

@@ -43,7 +43,10 @@ char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
                                "Server: LUFA RNDIS\r\n"
                                "Content-type: text/html\r\n"
                                "Connection: close\r\n\r\n";
-							
+
+/** HTTP server response header, for transmission before a resource not found error. This indicates to the host that the given
+ *  given URL is invalid, and gives extra error information.
+ */
 char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
                                "Server: LUFA RNDIS\r\n"
                                "Connection: close\r\n\r\n";

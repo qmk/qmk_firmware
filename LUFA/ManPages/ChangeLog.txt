@@ -20,7 +20,7 @@
   *  - Added master mode hardware TWI driver
   *
   *  <b>Changed:</b>
-  *  - Slowed down PDI programming in the AVRISP project to prevent transmission errors
+  *  - Slowed down software USART carried PDI programming in the AVRISP project to prevent transmission errors
   *  - Renamed the AVRISP project folder to AVRISP-MKII to reduce confusion
   *  - Renamed the RESET_LINE_* makefile tokens in the AVRISP MKII Project to AUX_LINE_*, as they are not always used for target
   *    reset
