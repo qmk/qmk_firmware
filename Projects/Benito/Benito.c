@@ -145,9 +145,6 @@ void SetupHardware(void)
 	MCUSR &= ~(1 << WDRF);
 	wdt_disable();
 
-	/* Disable clock division */
-	clock_prescale_set(clock_div_1);
-
 	/* Hardware Initialization */
 	Serial_Init(9600, false);
 	LEDs_Init();
@@ -252,7 +249,7 @@ void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const C
 {
 	bool CurrentDTRState = (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR);
 
-	/* Check if the DTR line has been de-asserted - if so, start the target AVR's reset pulse */
+	/* Check if the DTR line has been asserted - if so, start the target AVR's reset pulse */
 	if (!(PreviousDTRState) && CurrentDTRState)
 	{
 		LEDs_SetAllLEDs(LEDMASK_BUSY);
