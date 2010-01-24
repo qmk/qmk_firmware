@@ -96,6 +96,7 @@ FATFS DiskFATState;
 FIL TempLogFile;
 
 
+/** ISR to handle the 500ms ticks for sampling and data logging */
 ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
 	uint8_t LEDMask = LEDs_GetLEDs();
@@ -157,6 +158,7 @@ int main(void)
 	}
 }
 
+/** Opens the log file on the Dataflash's FAT formatted partition according to the current date */
 void OpenLogFile(void)
 {
 	char LogFileName[12];
@@ -172,6 +174,7 @@ void OpenLogFile(void)
 	f_lseek(&TempLogFile, TempLogFile.fsize);
 }
 
+/** Closes the open data log file on the Dataflash's FAT formatted partition */
 void CloseLogFile(void)
 {
 	/* Sync any data waiting to be written, unmount the storage device */
@@ -301,6 +304,7 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 	DS1307_SetDate(ReportParams->Day,  ReportParams->Month,  ReportParams->Year);
 	DS1307_SetTime(ReportParams->Hour, ReportParams->Minute, ReportParams->Second);
 	
+	/* If the logging interval has changed from its current value, write it to EEPROM */
 	if (LoggingInterval500MS_SRAM != ReportParams->LogInterval500MS)
 	{
 		LoggingInterval500MS_SRAM = ReportParams->LogInterval500MS;

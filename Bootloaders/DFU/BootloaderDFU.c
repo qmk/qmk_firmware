@@ -205,8 +205,8 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					/* Throw away the filler bytes before the start of the firmware */
 					DiscardFillerBytes(DFU_FILLER_BYTES_SIZE);
 
-					/* Throw away the page alignment filler bytes before the start of the firmware */
-					DiscardFillerBytes(StartAddr % SPM_PAGESIZE);
+					/* Throw away the packet alignment filler bytes before the start of the firmware */
+					DiscardFillerBytes(StartAddr % FIXED_CONTROL_ENDPOINT_SIZE);
 					
 					/* Calculate the number of bytes remaining to be written */
 					uint16_t BytesRemaining = ((EndAddr - StartAddr) + 1);
