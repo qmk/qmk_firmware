@@ -40,12 +40,14 @@
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/power.h>
-
+		#include <stdio.h>
+		
 		#include "Descriptors.h"
 
 		#include "Lib/SCSI.h"
 		#include "Lib/DataflashManager.h"
 		#include "Lib/FATFs/ff.h"
+		#include "Lib/DS1307.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
@@ -53,6 +55,7 @@
 		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/MassStorage.h>
+		#include <LUFA/Drivers/USB/Class/HID.h>
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -76,8 +79,24 @@
 		/** Data log interval between samples, in tens of milliseconds */
 		#define LOG_INTERVAL_10MS        1000
 		
+	/* Type Defines: */
+		typedef struct
+		{
+			uint8_t Day;
+			uint8_t Month;
+			uint8_t Year;
+
+			uint8_t Hour;
+			uint8_t Minute;
+			uint8_t Second;
+			
+			uint8_t LogInterval500MS;
+		} Device_Report_t;
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
+		void OpenLogFile(void);
+		void CloseLogFile(void);
 
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
@@ -85,5 +104,9 @@
 		void EVENT_USB_Device_UnhandledControlRequest(void);
 
 		bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
+		bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
+                                                 const uint8_t ReportType, void* ReportData, uint16_t* ReportSize);
+		void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, const uint8_t ReportID, 
+		                                          const void* ReportData, const uint16_t ReportSize);
 
 #endif

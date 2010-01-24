@@ -5,33 +5,6 @@
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
-
-/*
-  Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-
-  Permission to use, copy, modify, distribute, and sell this 
-  software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
-  all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
-  software without specific, written prior permission.
-
-  The author disclaim all warranties with regard to this
-  software, including all implied warranties of merchantability
-  and fitness.  In no event shall the author be liable for any
-  special, indirect or consequential damages or any damages
-  whatsoever resulting from loss of use, data or profits, whether
-  in an action of contract, negligence or other tortious action,
-  arising out of or in connection with the use or performance of
-  this software.
-*/
-
-/** \file
- *
- *  Header file for Descriptors.c.
- */
  
 #ifndef _DESCRIPTORS_H_
 #define _DESCRIPTORS_H_
@@ -41,6 +14,9 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/MassStorage.h>
+		#include <LUFA/Drivers/USB/Class/HID.h>
+		
+		#include "TempDataLogger.h"
 
 	/* Macros: */
 		/** Endpoint number of the Mass Storage device-to-host data IN endpoint. */
@@ -51,6 +27,15 @@
 
 		/** Size in bytes of the Mass Storage data endpoints. */
 		#define MASS_STORAGE_IO_EPSIZE         64
+
+		/** Endpoint number of the Generic HID reporting IN endpoint. */
+		#define GENERIC_IN_EPNUM               1
+
+		/** Size in bytes of the Generic HID reporting endpoint. */
+		#define GENERIC_EPSIZE                 16
+		
+		/** Size in bytes of the Generic HID reports (including report ID byte). */
+		#define GENERIC_REPORT_SIZE            sizeof(Device_Report_t)
 		
 	/* Type Defines: */		
 		/** Type define for the device configuration descriptor structure. This must be defined in the
@@ -60,9 +45,12 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            Interface;
-			USB_Descriptor_Endpoint_t             DataInEndpoint;
-			USB_Descriptor_Endpoint_t             DataOutEndpoint;
+			USB_Descriptor_Interface_t            MSInterface;
+			USB_Descriptor_Endpoint_t             MSDataInEndpoint;
+			USB_Descriptor_Endpoint_t             MSDataOutEndpoint;
+			USB_Descriptor_Interface_t            HIDInterface;
+			USB_HID_Descriptor_t                  HIDInfo;
+			USB_Descriptor_Endpoint_t             HIDDataInEndpoint;
 		} USB_Descriptor_Configuration_t;
 		
 	/* Function Prototypes: */

@@ -49,6 +49,32 @@
 	#warning USE_INTERNAL_SERIAL is not available on this AVR - please manually construct a device serial descriptor.
 #endif
 
+/** HID class report descriptor. This is a special descriptor constructed with values from the
+ *  USBIF HID class specification to describe the reports and capabilities of the HID device. This
+ *  descriptor is parsed by the host and its contents used to determine what data (and in what encoding)
+ *  the device will send, and what it may be sent back from the host. Refer to the HID specification for
+ *  more details on HID report descriptors.
+ */
+USB_Descriptor_HIDReport_Datatype_t PROGMEM GenericReport[] =
+{
+	0x06, 0x9c, 0xff,     /* Usage Page (Vendor Defined)                     */
+	0x09, 0x01,           /* Usage (Vendor Defined)                          */
+	0xa1, 0x01,           /* Collection (Vendor Defined)                     */
+	0x09, 0x02,           /*   Usage (Vendor Defined)                        */
+	0x75, 0x08,           /*   Report Size (8)                               */
+	0x95, GENERIC_REPORT_SIZE, /*   Report Count (GENERIC_REPORT_SIZE)       */
+	0x15, 0x80,           /*   Logical Minimum (-128)                        */
+	0x25, 0x7F,           /*   Logical Maximum (127)                         */
+	0x81, 0x02,           /*   Input (Data, Variable, Absolute)              */
+	0x09, 0x03,           /*   Usage (Vendor Defined)                        */
+	0x75, 0x08,           /*   Report Size (8)                               */
+	0x95, GENERIC_REPORT_SIZE, /*   Report Count (GENERIC_REPORT_SIZE)       */
+	0x15, 0x00,           /*   Logical Minimum (0)                           */
+	0x25, 0xff,           /*   Logical Maximum (255)                         */
+	0x91, 0x02,           /*   Output (Data, Variable, Absolute)             */
+	0xc0                  /* End Collection                                  */
+};
+
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
  *  device characteristics, including the supported USB version, control endpoint size and the
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
@@ -66,7 +92,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 		
 	.VendorID               = 0x03EB,
-	.ProductID              = 0x2045,
+	.ProductID              = 0x2063,
 	.ReleaseNumber          = 0x0000,
 		
 	.ManufacturerStrIndex   = 0x01,
@@ -88,7 +114,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
 			.TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
-			.TotalInterfaces        = 1,
+			.TotalInterfaces        = 2,
 				
 			.ConfigurationNumber    = 1,
 			.ConfigurationStrIndex  = NO_DESCRIPTOR,
@@ -98,7 +124,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
 		
-	.Interface = 
+	.MSInterface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -114,7 +140,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.DataInEndpoint = 
+	.MSDataInEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -124,7 +150,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.PollingIntervalMS      = 0x00
 		},
 
-	.DataOutEndpoint = 
+	.MSDataOutEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -132,7 +158,44 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = MASS_STORAGE_IO_EPSIZE,
 			.PollingIntervalMS      = 0x00
-		}
+		},
+		
+	.HIDInterface = 
+		{
+			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+
+			.InterfaceNumber        = 1,
+			.AlternateSetting       = 0,
+			
+			.TotalEndpoints         = 1,
+				
+			.Class                  = 0x03,
+			.SubClass               = 0x00,
+			.Protocol               = HID_NON_BOOT_PROTOCOL,
+				
+			.InterfaceStrIndex      = NO_DESCRIPTOR
+		},
+
+	.HIDInfo = 
+		{
+			.Header                 = {.Size = sizeof(USB_HID_Descriptor_t), .Type = DTYPE_HID},
+									 
+			.HIDSpec                = VERSION_BCD(01.11),
+			.CountryCode            = 0x00,
+			.TotalReportDescriptors = 1,
+			.HIDReportType          = DTYPE_Report,
+			.HIDReportLength        = sizeof(GenericReport)
+		},
+
+	.HIDDataInEndpoint = 
+		{
+			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+										 
+			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | GENERIC_IN_EPNUM),
+			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+			.EndpointSize           = GENERIC_EPSIZE,
+			.PollingIntervalMS      = 0x0A
+		},		
 };
 
 /** Language descriptor structure. This descriptor, located in FLASH memory, is returned when the host requests
@@ -163,9 +226,9 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  */
 USB_Descriptor_String_t PROGMEM ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(22), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(10), .Type = DTYPE_String},
 		
-	.UnicodeString          = L"LUFA Mass Storage Demo"
+	.UnicodeString          = L"Datalogger"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
@@ -209,6 +272,14 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 					break;
 			}
 			
+			break;
+		case DTYPE_HID: 
+			Address = (void*)&ConfigurationDescriptor.HIDInfo;
+			Size    = sizeof(USB_HID_Descriptor_t);
+			break;
+		case DTYPE_Report: 
+			Address = (void*)&GenericReport;
+			Size    = sizeof(GenericReport);
 			break;
 	}
 	

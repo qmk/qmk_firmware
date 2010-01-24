@@ -17,6 +17,8 @@
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Add standardized descriptor names to class driver structures
   *      -# Correct mishandling of error cases in Mass Storage demos
+  *      -# FIX BROKEN RNDIS HOST CLASS DRIVER (BLOCKING)
+  *      -# TEST AND CORRECT TPI PROGRAMMING SUPPORT IN THE AVRISP-MKII PROJECT (BLOCKING)
   *  - Documentation/Support
   *      -# Remake AVRStudio project files
   *      -# Add detailed overviews of how each demo works
@@ -32,6 +34,7 @@
   *      -# Finish MIDI class Bootloader
   *      -# Finish SideShow demo
   *      -# Finish StandaloneProgrammer project
+  *      -# Finish Webserver project
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

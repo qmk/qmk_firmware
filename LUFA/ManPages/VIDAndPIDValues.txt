@@ -265,7 +265,7 @@
  *     0x2063
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     Mass Storage/HID Interface Datalogger Project
  *    </td>
  *   </tr>
  *

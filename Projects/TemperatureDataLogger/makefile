@@ -130,6 +130,7 @@ SRC = $(TARGET).c                                                 \
 	  Lib/SCSI.c                                                  \
 	  Lib/FATFs/diskio.c                                          \
 	  Lib/FATFs/ff.c                                              \
+	  Lib/DS1307.c                                                \
 	  $(LUFA_PATH)/LUFA/Drivers/Board/Temperature.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
@@ -143,6 +144,8 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/MassStorage.c    \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/MassStorage.c      \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/HID.c            \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/HID.c              \
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

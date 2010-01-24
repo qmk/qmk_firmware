@@ -36,7 +36,7 @@
 /   3: f_lseek is removed in addition to level 2. */
 
 
-#define	_USE_STRFUNC	1	/* 0, 1 or 2 */
+#define	_USE_STRFUNC	0	/* 0, 1 or 2 */
 /* To enable string functions, set _USE_STRFUNC to 1 or 2. */
 
 

@@ -58,52 +58,93 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 			},
 	};
 
+/** Buffer to hold the previously generated HID report, for comparison purposes inside the HID class driver. */
+uint8_t PrevHIDReportBuffer[GENERIC_REPORT_SIZE];
+
+/** LUFA HID Class driver interface configuration and state information. This structure is
+ *  passed to all HID Class driver functions, so that multiple instances of the same class
+ *  within a device can be differentiated from one another.
+ */
+USB_ClassInfo_HID_Device_t Generic_HID_Interface =
+	{
+		.Config =
+			{
+				.InterfaceNumber              = 1,
+
+				.ReportINEndpointNumber       = GENERIC_IN_EPNUM,
+				.ReportINEndpointSize         = GENERIC_EPSIZE,
+				.ReportINEndpointDoubleBank   = false,
+				
+				.PrevReportINBuffer           = PrevHIDReportBuffer,
+				.PrevReportINBufferSize       = sizeof(PrevHIDReportBuffer),
+			},
+	};
+
+/** Non-volatile Logging Interval value in EEPROM, stored as a number of 500ms ticks */
+uint8_t EEMEM LoggingInterval500MS_EEPROM;
+
+/** SRAM Logging Interval value fetched from EEPROM, stored as a number of 500ms ticks */
+uint8_t LoggingInterval500MS_SRAM;
+
+/** Total number of 500ms logging ticks elapsed since the last log value was recorded */
+uint16_t CurrentLoggingTicks;
+
 /** FAT Fs structure to hold the internal state of the FAT driver for the dataflash contents. */
 FATFS DiskFATState;
 
 /** FAT Fs structure to hold a FAT file handle for the log data write destination. */
 FIL TempLogFile;
 
-/** Counter to count the number of 10 millisecond ticks that has elapsed since the last sample */
-uint16_t CurrentLogTick;
-
 
 ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
-	if (CurrentLogTick++ != LOG_INTERVAL_10MS)
-	  return;
-	  
 	uint8_t LEDMask = LEDs_GetLEDs();
 
+	/* Check to see if the logging interval has expired */
+	if (CurrentLoggingTicks++ < LoggingInterval500MS_SRAM)
+	  return;
+	    
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
-	CurrentLogTick = 0;
-
+	/* Reset log tick counter to prepare for next logging interval */
+	CurrentLoggingTicks = 0;
+	
 	if (USB_DeviceState == DEVICE_STATE_Unattached)
 	{
-		f_printf(&TempLogFile, "%d Degrees\r\n", Temperature_GetTemperature());
+		uint8_t Day,  Month,  Year;
+		uint8_t Hour, Minute, Second;
+
+		DS1307_GetDate(&Day,  &Month,  &Year);
+		DS1307_GetTime(&Hour, &Minute, &Second);
+
+		char     LineBuffer[100];
+		uint16_t BytesWritten;
+
+		BytesWritten = sprintf(LineBuffer, "%02d/%02d/20%04d, %02d:%02d:%02d, %d Degrees\r\n",
+							   Day, Month, Year, Hour, Minute, Second, Temperature_GetTemperature());
+
+		f_write(&TempLogFile, LineBuffer, BytesWritten, &BytesWritten);
 		f_sync(&TempLogFile);
 	}
 	
 	LEDs_SetAllLEDs(LEDMask);
 }
 
-
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */
 int main(void)
 {
-	SetupHardware();
+	/* Fetch logging interval from EEPROM */
+	LoggingInterval500MS_SRAM = eeprom_read_byte(&LoggingInterval500MS_EEPROM);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
+	SetupHardware();
+
 	/* Mount and open the log file on the dataflash FAT partition */
-	f_mount(0, &DiskFATState);
-	f_open(&TempLogFile, LOG_FILENAME, FA_OPEN_ALWAYS | FA_WRITE);
-	f_lseek(&TempLogFile, TempLogFile.fsize);
-	f_printf(&TempLogFile, "===========================\r\n");
-	
+	OpenLogFile();
+
 	/* Discard the first sample from the temperature sensor, as it is generally incorrect */
 	uint8_t Dummy = Temperature_GetTemperature();
 	(void)Dummy;
@@ -111,8 +152,31 @@ int main(void)
 	for (;;)
 	{
 		MS_Device_USBTask(&Disk_MS_Interface);
+		HID_Device_USBTask(&Generic_HID_Interface);
 		USB_USBTask();
 	}
+}
+
+void OpenLogFile(void)
+{
+	char LogFileName[12];
+
+	/* Get the current date for the filename as "DDMMYY.csv" */
+	uint8_t Day, Month, Year;
+	DS1307_GetDate(&Day, &Month, &Year);
+	sprintf(LogFileName, "%02d%02d%02d.csv", Day, Month, Year);
+
+	/* Mount the storage device, open the file */
+	f_mount(0, &DiskFATState);
+	f_open(&TempLogFile, LogFileName, FA_OPEN_ALWAYS | FA_WRITE);
+	f_lseek(&TempLogFile, TempLogFile.fsize);
+}
+
+void CloseLogFile(void)
+{
+	/* Sync any data waiting to be written, unmount the storage device */
+	f_sync(&TempLogFile);
+	f_close(&TempLogFile);
 }
 
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
@@ -133,9 +197,9 @@ void SetupHardware(void)
 	Dataflash_Init();
 	USB_Init();
 	
-	/* 10ms interval timer configuration */
-	OCR1A   = (((F_CPU / 1024) / 100) - 1);
-	TCCR1B  = (1 << WGM12) | (1 << CS12) | (1 << CS10);   // CTC mode, Fcpu/1024 speed
+	/* 500ms logging interval timer configuration */
+	OCR1A   = ((F_CPU / 1024) / 2);
+	TCCR1B  = (1 << WGM12) | (1 << CS12) | (1 << CS10);
 	TIMSK1  = (1 << OCIE1A);
 
 	/* Clear Dataflash sector protections, if enabled */
@@ -148,7 +212,7 @@ void EVENT_USB_Device_Connect(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 
 	/* Close the log file so that the host has exclusive filesystem access */
-	f_close(&TempLogFile);
+	CloseLogFile();
 }
 
 /** Event handler for the library USB Disconnection event. */
@@ -156,11 +220,8 @@ void EVENT_USB_Device_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	
-	/* When disconnected from the host, re-open log file so we can resume logging */
-	f_mount(0, &DiskFATState);
-	f_open(&TempLogFile, LOG_FILENAME, FA_OPEN_ALWAYS | FA_WRITE);
-	f_lseek(&TempLogFile, TempLogFile.fsize);
-	f_printf(&TempLogFile, "===========================\r\n");
+	/* Mount and open the log file on the dataflash FAT partition */
+	OpenLogFile();
 }
 
 /** Event handler for the library USB Configuration Changed event. */
@@ -170,12 +231,16 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 	if (!(MS_Device_ConfigureEndpoints(&Disk_MS_Interface)))
 	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	  
+	if (!(HID_Device_ConfigureEndpoints(&Generic_HID_Interface)))
+	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);	
 }
 
 /** Event handler for the library USB Unhandled Control Request event. */
 void EVENT_USB_Device_UnhandledControlRequest(void)
 {
 	MS_Device_ProcessControlRequest(&Disk_MS_Interface);
+	HID_Device_ProcessControlRequest(&Generic_HID_Interface);
 }
 
 /** Mass Storage class driver callback function the reception of SCSI commands from the host, which must be processed.
@@ -191,4 +256,54 @@ bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* MSInterfa
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	
 	return CommandSuccess;
+}
+
+/** HID class driver callback function for the creation of HID reports to the host.
+ *
+ *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
+ *  \param[in,out] ReportID  Report ID requested by the host if non-zero, otherwise callback should set to the generated report ID
+ *  \param[in] ReportType  Type of the report to create, either REPORT_ITEM_TYPE_In or REPORT_ITEM_TYPE_Feature
+ *  \param[out] ReportData  Pointer to a buffer where the created report should be stored
+ *  \param[out] ReportSize  Number of bytes written in the report (or zero if no report is to be sent
+ *
+ *  \return Boolean true to force the sending of the report, false to let the library determine if it needs to be sent
+ */
+bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
+                                         const uint8_t ReportType, void* ReportData, uint16_t* ReportSize)
+{
+	Device_Report_t* ReportParams = (Device_Report_t*)ReportData;
+
+	DS1307_GetDate(&ReportParams->Day,  &ReportParams->Month,  &ReportParams->Year);
+	DS1307_GetTime(&ReportParams->Hour, &ReportParams->Minute, &ReportParams->Second);
+	
+	ReportParams->LogInterval500MS = LoggingInterval500MS_SRAM;
+
+	*ReportSize = sizeof(Device_Report_t);
+	return true;
+}
+
+/** HID class driver callback function for the processing of HID reports from the host.
+ *
+ *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
+ *  \param[in] ReportID  Report ID of the received report from the host
+ *  \param[in] ReportData  Pointer to a buffer where the created report has been stored
+ *  \param[in] ReportSize  Size in bytes of the received HID report
+ */
+void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, const uint8_t ReportID,
+                                          const void* ReportData, const uint16_t ReportSize)
+{
+	Device_Report_t* ReportParams = (Device_Report_t*)ReportData;
+	
+	GPIOR0 = ReportParams->Day;
+	GPIOR1 = ReportParams->Month;
+	GPIOR2 = ReportParams->Year;
+	
+	DS1307_SetDate(ReportParams->Day,  ReportParams->Month,  ReportParams->Year);
+	DS1307_SetTime(ReportParams->Hour, ReportParams->Minute, ReportParams->Second);
+	
+	if (LoggingInterval500MS_SRAM != ReportParams->LogInterval500MS)
+	{
+		LoggingInterval500MS_SRAM = ReportParams->LogInterval500MS;
+		eeprom_write_byte(&LoggingInterval500MS_EEPROM, LoggingInterval500MS_SRAM);
+	}
 }

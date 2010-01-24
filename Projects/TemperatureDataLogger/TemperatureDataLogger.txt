@@ -24,12 +24,14 @@
  *    <td>Device</td>
  *   </tr>
  *   <tr>
- *    <td><b>USB Class:</b></td>
+ *    <td><b>USB Classes:</b></td>
  *    <td>Mass Storage Device</td>
+ *    <td>Human Interface Device</td>
  *   </tr>
  *   <tr> 
- *    <td><b>USB Subclass:</b></td>
+ *    <td><b>USB Subclasses:</b></td>
  *    <td>Bulk-Only Transport</td>
+ *    <td>Keyboard Subclass</td>
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
@@ -37,6 +39,7 @@
  *    <td>USB Bulk-Only Transport Standard</td>
  *    <td>SCSI Primary Commands Specification</td>
  *    <td>SCSI Block Commands Specification</td>
+ *    <td>USBIF HID Specification, USBIF HID Usage Tables</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
@@ -49,10 +52,12 @@
  *  Temperature Data Logger project. This project is a very basic USB data logger for the current temperature as reported by
  *  the board's temperature sensor, writing the temperature to a file stored on the board's Dataflash in a FAT filesystem
  *  each time a specified interval elapses. When inserted into a PC, the datalogger will appear as a standard USB Mass Storage
- *  device with a single text file, which contains the logged data.
+ *  device with a single text file, which contains the logged data. Files are named according to the current date when the
+ *  logging commences.
  *
- *  Currently there is no timestamp associated with the logged data; this project can be extended by the addition of a Real
- *  Time Clock chip to retain the current time/date which could be stored along with each sample.
+ *  A DS1307 or compatible RTC IC is designed to be attached to the AVR's TWI bus, for the management of timestamps on the
+ *  sampled data. This project will not function correctly if the RTC chip is omitted unless the DUMMY_RTC compile time token
+ *  is specified - see \ref SSec_Options.
  *
  *  Due to the host's need for exclusive access to the filesystem, the device will not log samples while connected to a host.
  *  For the logger to store data, the Dataflash must first be formatted by the host so that it contains a valid FAT filesystem.
@@ -68,16 +73,10 @@
  *    <td><b>Description:</b></td>
  *   </tr>
  *   <tr>
- *    <td>LOG_FILENAME</td>
- *    <td>TempDataLogger.h</td>
- *    <td>Filename of the log file to write to on the device's FAT filesystem.</td>
- *   </tr>
- *   <tr>
- *    <td>LOG_INTERVAL_10MS</td>
- *    <td>TempDataLogger.h</td>
- *    <td>Time between each data sample, in tens of milliseconds. Each time this period elapses, a
- *        temperature sample is taken and the result stored to the Dataflash's FAT filesystem.
- *    </td>
+ *    <td>DUMMY_RTC</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When a DS1307 RTC chip is not fitted, this token can be defined to make the demo assume a 1/1/1 01:01:01 date/time
+ *        stamp at all times, effectively transforming the project into a basic data logger with no specified sample times.</td>
  *   </tr>
  *  </table>
  */
