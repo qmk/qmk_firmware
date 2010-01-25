@@ -105,6 +105,7 @@
  *    - <b>MissileLaucher</b> - Toy Missile Launcher Host project
  *    - <b>TemperatureDataLogger</b> - Temperature Datalogging project
  *    - <b>USBtoSerial</b> - USB to USART Serial Converter project
+ *    - <b>Webserver</b> - RNDIS Host Webserver, powered by uIP TCP/IP stack project
  *    - <b>XPLAINBridge</b> - XPLAIN alternative PDI Programmer/USB to Serial Bridge firmware project
  *
  *  </small>

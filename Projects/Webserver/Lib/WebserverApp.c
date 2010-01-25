@@ -51,9 +51,7 @@ char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
                                "Server: LUFA RNDIS\r\n"
                                "Connection: close\r\n\r\n";
 
-/** HTTP page to serve to the host when a HTTP request is made. This page is too long for a single response, thus it is automatically
- *  broken up into smaller blocks and sent as a series of packets each time the webserver application callback is run.
- */
+/** Static HTTP page to serve to the host when a HTTP request is made from a host. */
 char PROGMEM HTTPPage[]   = 
 		"<html>"
 		"	<head>"

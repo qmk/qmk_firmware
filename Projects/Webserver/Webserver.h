@@ -55,6 +55,15 @@
 		#include "Lib/WebserverApp.h"
 		
 	/* Macros: */
+		/** IP address that the webserver should use once connected to a RNDIS device. */
+		#define DEVICE_IP_ADDRESS         192, 168, 1, 10
+		
+		/** Netmask that the webserver should once connected to a RNDIS device. */
+		#define DEVICE_NETMASK            255, 255, 255, 0
+		
+		/** IP address of the default gateway the webserver should use when routing outside the local subnet. */
+		#define DEVICE_GATEWAY            192, 168, 1, 1
+
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
@@ -69,7 +78,7 @@
 		
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY          LEDS_LED2
-
+		
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void ProcessIncommingPacket(void);

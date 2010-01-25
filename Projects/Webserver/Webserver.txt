@@ -1,0 +1,81 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+ 
+/** \mainpage uIP Powered Webserver Project
+ *
+ *  \section SSec_Compat Project Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this project.
+ *
+ *  - Series 7 USB AVRs
+ *
+ *  \section SSec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this project.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Host</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Communications Device Class (CDC)</td>
+ *   </tr>
+ *   <tr> 
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Remote NDIS (Microsoft Proprietary CDC Class Networking Standard)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>Microsoft RNDIS Specification</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Usable Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section SSec_Description Project Description: 
+ *
+ *  Simple HTTP webserver project. This project combines the LUFA library with the uIP TCP/IP full network stack, to create a
+ *  RNDIS host capable of serving out HTTP webpages to up to 10 hosts simultaneously. This project demonstrates how the two
+ *  libraries can be combined into a robust network enabled application, with the addition of a RNDIS network device.
+ *
+ *  To use this project, plug the USB AVR into a RNDIS class device, such as a USB (desktop) modem. If compatible, the project
+ *  will enumerate the device, set the appropriate parameters needed for connectivity and begin listening for new HTTP connections
+ *  on port 80. The device IP, netmask and default gateway IP must be set to values appropriate for the RNDIS device being used
+ *  for this project to work.
+ *
+ *  When properly configured, the webserver can be accessed from any HTTP webrowser by typing in the device's IP address.
+ *
+ *  \section SSec_Options Project Options
+ *
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Define Name:</b></td>
+ *    <td><b>Location:</b></td>
+ *    <td><b>Description:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>DEVICE_IP_ADDRESS</td>
+ *    <td>Webserver.h</td>
+ *    <td>IP address that the webserver should use when connected to a RNDIS device.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>DEVICE_NETMASK</td>
+ *    <td>Webserver.h</td>
+ *    <td>Netmask that the webserver should use when connected to a RNDIS device.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>DEVICE_GATEWAY</td>
+ *    <td>Webserver.h</td>
+ *    <td>Default routing gateway that the webserver should use when connected to a RNDIS device.</td>
+ *   </tr>
+ *  </table>
+ */

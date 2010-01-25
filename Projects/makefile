@@ -35,6 +35,9 @@ all:
 	make -C USBtoSerial clean
 	make -C USBtoSerial all
 	
+	make -C Webserver clean
+	make -C Webserver all
+
 	make -C XPLAINBridge clean
 	make -C XPLAINBridge all
 
@@ -46,4 +49,5 @@ all:
 	make -C MissileLauncher $@
 	make -C TemperatureDataLogger $@
 	make -C USBtoSerial $@
+	make -C Webserver $@
 	make -C XPLAINBridge $@

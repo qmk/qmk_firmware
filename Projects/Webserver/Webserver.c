@@ -245,9 +245,9 @@ void SetupHardware(void)
 	/* uIP Stack Initialization */
 	uip_init();
 	uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
-	uip_ipaddr(&IPAddress,        192, 168, 1, 10);
-	uip_ipaddr(&Netmask,          255, 255, 255, 0);
-	uip_ipaddr(&GatewayIPAddress, 192, 168, 1, 1);
+	uip_ipaddr(&IPAddress,        DEVICE_IP_ADDRESS);
+	uip_ipaddr(&Netmask,          DEVICE_NETMASK);
+	uip_ipaddr(&GatewayIPAddress, );
 	uip_sethostaddr(&IPAddress);
 	uip_setnetmask(&Netmask);
 	uip_setdraddr(&GatewayIPAddress);
