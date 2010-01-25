@@ -116,11 +116,19 @@
 			/** MUX mask define for the ADC1 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
 			#define  ADC_CHANNEL1                    0x01
 
-			/** MUX mask define for the ADC2 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
-			#define  ADC_CHANNEL2                    0x02
+			#if !(defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
+				/** MUX mask define for the ADC2 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
+				 *
+				 *  \note Note available on all AVR models.
+				 */
+				#define  ADC_CHANNEL2                    0x02
 
-			/** MUX mask define for the ADC3 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
-			#define  ADC_CHANNEL3                    0x03
+				/** MUX mask define for the ADC3 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
+				 *
+				 *  \note Note available on all AVR models.
+				 */
+				#define  ADC_CHANNEL3                    0x03
+			#endif
 
 			/** MUX mask define for the ADC4 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
 			#define  ADC_CHANNEL4                    0x04
