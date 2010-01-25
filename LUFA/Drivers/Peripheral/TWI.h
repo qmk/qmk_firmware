@@ -41,7 +41,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/Peripheral/AVRU4U6U7/TWI.c (for U4, U6 and U7 AVR models)
+ *    - LUFA/Drivers/Peripheral/TWI.c
  *
  *  \section Module Description
  *  Master Mode Hardware TWI driver. This module provides an easy to use driver for the hardware
