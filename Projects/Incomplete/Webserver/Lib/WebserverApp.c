@@ -51,7 +51,6 @@ char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
                                "Server: LUFA RNDIS\r\n"
                                "Connection: close\r\n\r\n";
 
-/****************************************************************************************/
 /** HTTP page to serve to the host when a HTTP request is made. This page is too long for a single response, thus it is automatically
  *  broken up into smaller blocks and sent as a series of packets each time the webserver application callback is run.
  */
@@ -75,7 +74,17 @@ char PROGMEM HTTPPage[]   =
 		"	</body>"
 		"</html>";
 
-void WebserverAppCallback(void)
+/** Initialization function for the simple HTTP webserver. */
+void WebserverApp_Init(void)
+{
+	/* Listen on port 80 for HTTP connections from hosts */
+	uip_listen(HTONS(80));
+}
+
+/** uIP stack application callback for the simple HTTP webserver. This function must be called each time the
+ *  TCP/IP stack needs a TCP packet to be processed.
+ */
+void WebserverApp_Callback(void)
 {
 	char*    AppDataPtr  = (char*)uip_appdata;
 	uint16_t AppDataSize = 0;
@@ -116,10 +125,12 @@ void WebserverAppCallback(void)
 	}
 	else if (BytesRemaining > MaxSegSize)
 	{
+		/* More bytes remaining to send than the maximum segment size, send next chunk */
 		AppDataSize = MaxSegSize;
 	}
 	else
 	{
+		/* Less bytes than the segment size remaining, send all remaining bytes in the one packet */
 		AppDataSize = BytesRemaining;
 	}
 

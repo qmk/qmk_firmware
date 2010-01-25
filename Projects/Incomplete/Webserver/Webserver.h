@@ -41,11 +41,9 @@
 		#include <avr/wdt.h>
 		#include <avr/pgmspace.h>
 		#include <avr/power.h>
-		#include <stdio.h>
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/RNDIS.h>

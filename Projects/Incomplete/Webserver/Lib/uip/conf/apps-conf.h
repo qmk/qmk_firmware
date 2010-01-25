@@ -14,7 +14,7 @@
 		char*   SendPos;
 	} uip_tcp_appstate_t;
 
-	#define UIP_APPCALL     WebserverAppCallback
+	#define UIP_APPCALL     WebserverApp_Callback
 	void UIP_APPCALL(void);
 
 #endif /*__APPS_CONF_H__*/

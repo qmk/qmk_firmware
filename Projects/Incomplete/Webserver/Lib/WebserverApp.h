@@ -45,6 +45,7 @@
 		#include <uip.h>
 
 	/* Function Prototypes: */
-		void WebserverAppCallback(void);
+		void WebserverApp_Init(void);
+		void WebserverApp_Callback(void);
 		
 #endif
