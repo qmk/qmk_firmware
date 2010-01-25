@@ -90,12 +90,8 @@
 				
 					uint16_t DataINPipeSize; /**< Size in bytes of the RNDIS interface's IN data pipe */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the RNDIS interface's OUT data pipe */
-					uint16_t NotificationPipeSize;  /**< Size in bytes of the RNDIS interface's IN notification pipe, if used */
-					
-					bool BidirectionalDataEndpoints; /**< Indicates if the attached RNDIS interface uses bidirectional data endpoints,
-					                                  *   and this has only the IN pipe configured (with \ref Pipe_SetPipeToken()
-					                                  *   used to switch the pipe's direction)
-					                                  */
+					uint16_t NotificationPipeSize;  /**< Size in bytes of the RNDIS interface's IN notification pipe, if used */					
+
 					uint32_t DeviceMaxPacketSize; /**< Maximum size of a packet which can be buffered by the attached RNDIS device */
 					
 					uint32_t RequestID; /**< Request ID counter to give a unique ID for each command/response pair */

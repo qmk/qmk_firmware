@@ -110,12 +110,6 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 		{
 			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 			{
-				if (Pipe_IsEndpointBound(EndpointData->EndpointAddress))
-				{
-					RNDISInterfaceInfo->State.BidirectionalDataEndpoints = true;
-					Pipe_DisablePipe();
-				}
-
 				Pipe_ConfigurePipe(RNDISInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
 				                   EndpointData->EndpointAddress, EndpointData->EndpointSize, 
 				                   RNDISInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
@@ -125,17 +119,10 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 			}
 			else
 			{
-				if (Pipe_IsEndpointBound(EndpointData->EndpointAddress))
-				{
-					RNDISInterfaceInfo->State.BidirectionalDataEndpoints = true;
-				}
-				else
-				{
-					Pipe_ConfigurePipe(RNDISInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-					                   EndpointData->EndpointAddress, EndpointData->EndpointSize, 
-					                   RNDISInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-				}
-				
+				Pipe_ConfigurePipe(RNDISInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+				                   EndpointData->EndpointAddress, EndpointData->EndpointSize, 
+				                   RNDISInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+
 				RNDISInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
 				
 				FoundEndpoints |= RNDIS_FOUND_DATAPIPE_OUT;
@@ -422,26 +409,10 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 
 	RNDIS_Packet_Message_t DeviceMessage;
 	
-	if (Pipe_BytesInPipe() < sizeof(RNDIS_Packet_Message_t))
-	{
-		printf("*SIZE YARG: %d*\r\n", Pipe_BytesInPipe());
-		*PacketLength = 0;
-		Pipe_ClearIN();
-		return RNDIS_COMMAND_FAILED;	
-	}
-	
 	if ((ErrorCode = Pipe_Read_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t),
 	                                     NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 	{
 		return ErrorCode;
-	}
-	
-	if (DeviceMessage.MessageType != REMOTE_NDIS_PACKET_MSG)
-	{
-		printf("****YARG****\r\n");
-		*PacketLength = 0;
-		Pipe_ClearIN();
-		return RNDIS_COMMAND_FAILED;
 	}
 
 	*PacketLength = (uint16_t)DeviceMessage.DataLength;
@@ -466,16 +437,6 @@ uint8_t RNDIS_Host_SendPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	if ((USB_HostState != HOST_STATE_Configured) || !(RNDISInterfaceInfo->State.IsActive))
 	  return PIPE_READYWAIT_DeviceDisconnected;
 
-	if (RNDISInterfaceInfo->State.BidirectionalDataEndpoints)
-	{
-		Pipe_SelectPipe(RNDISInterfaceInfo->Config.DataINPipeNumber);
-		Pipe_SetPipeToken(PIPE_TOKEN_OUT);
-	}
-	else
-	{
-		Pipe_SelectPipe(RNDISInterfaceInfo->Config.DataOUTPipeNumber);	
-	}
-
 	RNDIS_Packet_Message_t DeviceMessage;
 
 	memset(&DeviceMessage, 0, sizeof(RNDIS_Packet_Message_t));
@@ -484,14 +445,12 @@ uint8_t RNDIS_Host_SendPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	DeviceMessage.DataOffset    = (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t));
 	DeviceMessage.DataLength    = PacketLength;
 	
+	Pipe_SelectPipe(RNDISInterfaceInfo->Config.DataOUTPipeNumber);
 	Pipe_Unfreeze();
 
 	if ((ErrorCode = Pipe_Write_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t),
 	                                      NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 	{
-		if (RNDISInterfaceInfo->State.BidirectionalDataEndpoints)
-		  Pipe_SetPipeToken(PIPE_TOKEN_IN);
-
 		return ErrorCode;
 	}
 
@@ -499,9 +458,6 @@ uint8_t RNDIS_Host_SendPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	Pipe_ClearOUT();
 
 	Pipe_Freeze();
-	
-	if (RNDISInterfaceInfo->State.BidirectionalDataEndpoints)
-	  Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	
 	return PIPE_RWSTREAM_NoError;
 }

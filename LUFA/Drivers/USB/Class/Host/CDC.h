@@ -89,11 +89,6 @@
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the CDC interface's OUT data pipe */
 					uint16_t NotificationPipeSize;  /**< Size in bytes of the CDC interface's IN notification pipe, if used */
 					
-					bool BidirectionalDataEndpoints; /**< Indicates if the attached CDC interface uses bidirectional data endpoints,
-					                                  *   and this has only the IN pipe configured (with \ref Pipe_SetPipeToken()
-					                                  *   used to switch the pipe's direction)
-					                                  */
-
 					struct
 					{
 						uint8_t HostToDevice; /**< Control line states from the host to device, as a set of CDC_CONTROL_LINE_OUT_*

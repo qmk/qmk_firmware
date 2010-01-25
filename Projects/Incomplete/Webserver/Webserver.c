@@ -174,7 +174,7 @@ void ProcessIncommingPacket(void)
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
 		/* Read the incomming packet straight into the UIP packet buffer */
-		printf("L=%d R=%d\r\n", uip_len, RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], &uip_len));
+		RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], &uip_len);
 
 		if (uip_len > 0)
 		{
