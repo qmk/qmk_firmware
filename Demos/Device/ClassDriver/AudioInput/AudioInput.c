@@ -86,7 +86,7 @@ void SetupHardware(void)
 	ADC_SetupChannel(MIC_IN_ADC_CHANNEL);
 	
 	/* Start the ADC conversion in free running mode */
-	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | MIC_IN_ADC_CHANNEL);
+	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | MIC_IN_ADC_MUX_MASK);
 }
 
 /** Processes the next audio sample by reading the last ADC conversion and writing it to the audio

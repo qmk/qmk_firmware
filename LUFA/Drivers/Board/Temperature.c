@@ -45,7 +45,7 @@ static const uint16_t PROGMEM Temperature_Lookup[] = {
 
 int8_t Temperature_GetTemperature(void)
 {
-	uint16_t Temp_ADC = ADC_GetChannelReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | TEMP_ADC_CHANNEL);
+	uint16_t Temp_ADC = ADC_GetChannelReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | TEMP_ADC_CHANNEL_MASK);
 
 	if (Temp_ADC > pgm_read_word(&Temperature_Lookup[0]))
 	  return TEMP_MIN_TEMP;

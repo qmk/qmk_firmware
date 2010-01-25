@@ -108,7 +108,81 @@
 
 			/** Sets the ADC input clock to prescale by a factor of 128 the AVR's system clock. */
 			#define  ADC_PRESCALE_128                ((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0))
+			
+			//@{
+			/** MUX mask define for the ADC0 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
+			#define  ADC_CHANNEL0                    0x00
 
+			/** MUX mask define for the ADC1 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
+			#define  ADC_CHANNEL1                    0x01
+
+			/** MUX mask define for the ADC2 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
+			#define  ADC_CHANNEL2                    0x02
+
+			/** MUX mask define for the ADC3 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
+			#define  ADC_CHANNEL3                    0x03
+
+			/** MUX mask define for the ADC4 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
+			#define  ADC_CHANNEL4                    0x04
+
+			/** MUX mask define for the ADC5 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
+			#define  ADC_CHANNEL5                    0x05
+
+			/** MUX mask define for the ADC6 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
+			#define  ADC_CHANNEL6                    0x06
+
+			/** MUX mask define for the ADC7 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
+			#define  ADC_CHANNEL7                    0x07
+
+			/** MUX mask define for the internal 1.1V bandgap channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
+			#define  ADC_1100MV_BANDGAP              0x1E
+			
+			#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
+				/** MUX mask define for the ADC8 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
+				 *
+				 *  \note Note available on all AVR models.
+				 */
+				#define  ADC_CHANNEL8                0x20
+
+				/** MUX mask define for the ADC9 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
+				 *
+				 *  \note Note available on all AVR models.
+				 */
+				#define  ADC_CHANNEL9                0x21
+
+				/** MUX mask define for the ADC10 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
+				 *
+				 *  \note Note available on all AVR models.
+				 */
+				#define  ADC_CHANNEL10               0x22
+
+				/** MUX mask define for the ADC11 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
+				 *
+				 *  \note Note available on all AVR models.
+				 */
+				#define  ADC_CHANNEL11               0x23
+
+				/** MUX mask define for the ADC12 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
+				 *
+				 *  \note Note available on all AVR models.
+				 */
+				#define  ADC_CHANNEL12               0x24
+
+				/** MUX mask define for the ADC13 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
+				 *
+				 *  \note Note available on all AVR models.
+				 */
+				#define  ADC_CHANNEL13               0x25
+
+				/** MUX mask define for the internal temperature sensor channel of the ADC. See \ref ADC_StartReading and
+				 *  \ref ADC_GetChannelReading.
+				 *
+				 *  \note Note available on all AVR models.
+				 */
+				#define  ADC_INT_TEMP_SENS           0x27			
+			#endif
+			//@}
+		
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Initializes the ADC, ready for conversions. This must be called before any other ADC operations.
@@ -159,6 +233,11 @@
 			 *  associated port pin as an input and disables the digital portion of the I/O to reduce
 			 *  power consumption.
 			 *
+			 *  \note This must only be called for ADC channels with are connected to a physical port
+			 *        pin of the AVR, denoted by its special alternative function ADCx.
+			 *
+			 *  \note The channel number must be specified as an integer, and NOT a ADC_CHANNELx mask.
+			 *
 			 *  \param[in] Channel  ADC channel number to set up for conversions
 			 */
 			static inline void ADC_SetupChannel(const uint8_t Channel)
@@ -196,7 +275,7 @@
 			 *  Once executed, the conversion status can be determined via the \ref ADC_IsReadingComplete() macro and
 			 *  the result read via the \ref ADC_GetResult() macro.
 			 *
-			 *  \param[in] MUXMask  Mask comprising of an ADC channel number, reference mask and adjustment mask
+			 *  \param[in] MUXMask  Mask comprising of an ADC channel mask, reference mask and adjustment mask
 			 */
 			static inline void ADC_StartReading(const uint8_t MUXMask)
 			{
@@ -208,7 +287,7 @@
 			/** Performs a complete single reading from channel, including a polling spin-loop to wait for the
 			 *  conversion to complete, and the returning of the converted value.
 			 *
-			 *  \param[in] MUXMask  Mask comprising of an ADC channel number, reference mask and adjustment mask
+			 *  \param[in] MUXMask  Mask comprising of an ADC channel mask, reference mask and adjustment mask
 			 */
 			static inline uint16_t ADC_GetChannelReading(const uint8_t MUXMask) ATTR_WARN_UNUSED_RESULT;
 			static inline uint16_t ADC_GetChannelReading(const uint8_t MUXMask)

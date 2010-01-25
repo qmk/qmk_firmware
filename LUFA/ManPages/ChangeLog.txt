@@ -18,6 +18,8 @@
   *    sent or received in packed form in a single USB packet
   *  - Added new MIDI send buffer flush routines to the MIDI Device and Host mode Class drivers, to flush packed events
   *  - Added master mode hardware TWI driver
+  *  - Added ADC MUX masks for the standard ADC input channels on all AVR models with an ADC, altered demos to use these masks
+  *    as on some models, the channel number is not identical to its single-ended ADC MUX mask
   *
   *  <b>Changed:</b>
   *  - Slowed down software USART carried PDI programming in the AVRISP project to prevent transmission errors

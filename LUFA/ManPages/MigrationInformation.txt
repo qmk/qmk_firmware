@@ -12,6 +12,12 @@
  *
  * \section Sec_MigrationXXXXXX Migrating from 091223 to XXXXXX
  *
+ *  <b>Non-USB Library Components</b>
+ *    - Due to some ADC channels not being identical to their ADC MUX selection masks for single-ended conversions on some AVR models,
+ *      the ADC driver now has explicit masks for each of the standard ADC channels. These masks should be used when calling the ADC
+ *      functions to ensure proper operation across all AVR models. Note that the \ref ADC_SetupChannel() function is an exception, and
+ *      should always be called with a channel number rather than a channel mask.
+ *
  *  <b>Host Mode</b>
  *    - The MIDI Host Class driver send and receive routines now operate on packed events, where multiple MIDI events may be
  *      packed into a single USB packet. This means that the sending of MIDI events will now be delayed until the MIDI send

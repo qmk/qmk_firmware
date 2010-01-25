@@ -57,7 +57,7 @@ void V2Protocol_Init(void)
 	/* Initialize the ADC converter for VTARGET level detection on supported AVR models */
 	ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_128);
 	ADC_SetupChannel(VTARGET_ADC_CHANNEL);
-	ADC_StartReading(VTARGET_ADC_CHANNEL | ADC_RIGHT_ADJUSTED | ADC_REFERENCE_AVCC);
+	ADC_StartReading(VTARGET_ADC_CHANNEL_MASK | ADC_RIGHT_ADJUSTED | ADC_REFERENCE_AVCC);
 	#endif
 	
 	/* Millisecond timer initialization for managing the command timeout counter */

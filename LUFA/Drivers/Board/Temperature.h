@@ -79,13 +79,16 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** ADC channel number for the temperature sensor. */
-			#define TEMP_ADC_CHANNEL   0
+			#define TEMP_ADC_CHANNEL       0
 			
+			/** ADC channel MUX mask for the temperature sensor. */
+			#define TEMP_ADC_CHANNEL_MASK  ADC_CHANNEL0
+
 			/** Minimum returnable temperature from the \ref Temperature_GetTemperature() function. */
-			#define TEMP_MIN_TEMP      TEMP_TABLE_OFFSET
+			#define TEMP_MIN_TEMP          TEMP_TABLE_OFFSET
 
 			/** Maximum returnable temperature from the \ref Temperature_GetTemperature() function. */
-			#define TEMP_MAX_TEMP      ((TEMP_TABLE_SIZE - 1) + TEMP_TABLE_OFFSET)
+			#define TEMP_MAX_TEMP          ((TEMP_TABLE_SIZE - 1) + TEMP_TABLE_OFFSET)
 		
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
