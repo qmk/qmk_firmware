@@ -392,7 +392,7 @@ bool RNDIS_Host_IsPacketReceived(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfac
 	
 	Pipe_Unfreeze();
 
-	PacketWaiting = Pipe_IsINReceived();
+	PacketWaiting = (Pipe_IsINReceived() && Pipe_BytesInPipe());
 	
 	Pipe_Freeze();
 	
@@ -412,6 +412,9 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	
 	if (!(Pipe_IsReadWriteAllowed()))
 	{
+		if (Pipe_IsINReceived())
+		  Pipe_ClearIN();
+	
 		*PacketLength = 0;
 		Pipe_Freeze();
 		return PIPE_RWSTREAM_NoError;
@@ -419,10 +422,26 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 
 	RNDIS_Packet_Message_t DeviceMessage;
 	
+	if (Pipe_BytesInPipe() < sizeof(RNDIS_Packet_Message_t))
+	{
+		printf("*SIZE YARG: %d*\r\n", Pipe_BytesInPipe());
+		*PacketLength = 0;
+		Pipe_ClearIN();
+		return RNDIS_COMMAND_FAILED;	
+	}
+	
 	if ((ErrorCode = Pipe_Read_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t),
 	                                     NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 	{
 		return ErrorCode;
+	}
+	
+	if (DeviceMessage.MessageType != REMOTE_NDIS_PACKET_MSG)
+	{
+		printf("****YARG****\r\n");
+		*PacketLength = 0;
+		Pipe_ClearIN();
+		return RNDIS_COMMAND_FAILED;
 	}
 
 	*PacketLength = (uint16_t)DeviceMessage.DataLength;
@@ -431,7 +450,9 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	                    NO_STREAM_CALLBACK);
 						
 	Pipe_Read_Stream_LE(Buffer, *PacketLength, NO_STREAM_CALLBACK);
-	Pipe_ClearIN();
+	
+	if (!(Pipe_BytesInPipe()))
+	  Pipe_ClearIN();
 
 	Pipe_Freeze();
 	
@@ -455,21 +476,25 @@ uint8_t RNDIS_Host_SendPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 		Pipe_SelectPipe(RNDISInterfaceInfo->Config.DataOUTPipeNumber);	
 	}
 
+	RNDIS_Packet_Message_t DeviceMessage;
+
+	memset(&DeviceMessage, 0, sizeof(RNDIS_Packet_Message_t));
+	DeviceMessage.MessageType   = REMOTE_NDIS_PACKET_MSG;
+	DeviceMessage.MessageLength = (sizeof(RNDIS_Packet_Message_t) + PacketLength);
+	DeviceMessage.DataOffset    = (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t));
+	DeviceMessage.DataLength    = PacketLength;
+	
 	Pipe_Unfreeze();
 
-	RNDIS_Packet_Message_t DeviceMessage;
-	
-	DeviceMessage.MessageType = REMOTE_NDIS_PACKET_MSG;
-	DeviceMessage.MessageLength = (sizeof(RNDIS_Packet_Message_t) + PacketLength);
-	DeviceMessage.DataOffset = (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t));
-	DeviceMessage.DataLength = PacketLength;
-	
 	if ((ErrorCode = Pipe_Write_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t),
 	                                      NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 	{
+		if (RNDISInterfaceInfo->State.BidirectionalDataEndpoints)
+		  Pipe_SetPipeToken(PIPE_TOKEN_IN);
+
 		return ErrorCode;
 	}
-	
+
 	Pipe_Write_Stream_LE(Buffer, PacketLength, NO_STREAM_CALLBACK);
 	Pipe_ClearOUT();
 

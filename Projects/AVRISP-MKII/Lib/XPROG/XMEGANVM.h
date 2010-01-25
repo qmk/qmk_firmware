@@ -106,8 +106,6 @@
 		#define XMEGA_NVM_CMD_READEEPROM             0x06
 
 	/* Function Prototypes: */
-		void XMEGANVM_SendNVMRegAddress(const uint8_t Register);
-		void XMEGANVM_SendAddress(const uint32_t AbsoluteAddress);
 		bool XMEGANVM_WaitWhileNVMBusBusy(void);
 		bool XMEGANVM_WaitWhileNVMControllerBusy(void);
 		bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest);
@@ -117,5 +115,10 @@
 		                              const uint8_t WritePageCommand, const uint8_t PageMode, const uint32_t WriteAddress,
 		                              const uint8_t* WriteBuffer, uint16_t WriteSize);
 		bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address);
+
+		#if defined(INCLUDE_FROM_XMEGANVM_C)
+			static void XMEGANVM_SendNVMRegAddress(const uint8_t Register);
+			static void XMEGANVM_SendAddress(const uint32_t AbsoluteAddress);		
+		#endif
 
 #endif

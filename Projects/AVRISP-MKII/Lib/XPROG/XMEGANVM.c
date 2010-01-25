@@ -38,30 +38,30 @@
 
 #if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 
-/** Sends the given NVM register address to the target.
- *
- *  \param[in] Register  NVM register whose absolute address is to be sent
- */
-void XMEGANVM_SendNVMRegAddress(const uint8_t Register)
-{
-	/* Determine the absolute register address from the NVM base memory address and the NVM register address */
-	uint32_t Address = XPROG_Param_NVMBase | Register;
-
-	/* Send the calculated 32-bit address to the target, LSB first */
-	XMEGANVM_SendAddress(Address);
-}
-
 /** Sends the given 32-bit absolute address to the target.
  *
  *  \param[in] AbsoluteAddress  Absolute address to send to the target
  */
-void XMEGANVM_SendAddress(const uint32_t AbsoluteAddress)
+static void XMEGANVM_SendAddress(const uint32_t AbsoluteAddress)
 {
 	/* Send the given 32-bit address to the target, LSB first */
 	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[0]);
 	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[1]);
 	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[2]);
 	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[3]);
+}
+
+/** Sends the given NVM register address to the target.
+ *
+ *  \param[in] Register  NVM register whose absolute address is to be sent
+ */
+static void XMEGANVM_SendNVMRegAddress(const uint8_t Register)
+{
+	/* Determine the absolute register address from the NVM base memory address and the NVM register address */
+	uint32_t Address = XPROG_Param_NVMBase | Register;
+
+	/* Send the calculated 32-bit address to the target, LSB first */
+	XMEGANVM_SendAddress(Address);
 }
 
 /** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read or CRC

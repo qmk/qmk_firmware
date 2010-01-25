@@ -40,13 +40,35 @@
 #warning TPI Protocol support is currently incomplete and is not suitable for general use.
 
 /** Sends the given pointer address to the target's TPI pointer register */
-void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress)
+static void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress)
 {
 	/* Send the given 16-bit address to the target, LSB first */
 	XPROGTarget_SendByte(TPI_CMD_SSTPR | 0);
 	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[0]);
 	XPROGTarget_SendByte(TPI_CMD_SSTPR | 1);
 	XPROGTarget_SendByte(((uint8_t*)&AbsoluteAddress)[1]);
+}
+
+/** Sends a SIN command to the target with the specified I/O address, ready for the data byte to be written.
+ *
+ *  \param Address  6-bit I/O address to write to in the target's I/O memory space
+ */
+static void TINYNVM_SendReadNVMRegister(uint8_t Address)
+{
+	/* The TPI command for reading from the I/O space uses wierd addressing, where the I/O address's upper
+	 * two bits of the 6-bit address are shifted left once */
+	XPROGTarget_SendByte(TPI_CMD_SIN | ((Address & 0x30) << 1) | (Address & 0x0F));
+}
+
+/** Sends a SOUT command to the target with the specified I/O address, ready for the data byte to be read.
+ *
+ *  \param Address  6-bit I/O address to read from in the target's I/O memory space
+ */
+static void TINYNVM_SendWriteNVMRegister(uint8_t Address)
+{
+	/* The TPI command for writing to the I/O space uses wierd addressing, where the I/O address's upper
+	 * two bits of the 6-bit address are shifted left once */
+	XPROGTarget_SendByte(TPI_CMD_SOUT | ((Address & 0x30) << 1) | (Address & 0x0F));
 }
 
 /** Busy-waits while the NVM controller is busy performing a NVM operation, such as a FLASH page read.
@@ -78,7 +100,7 @@ bool TINYNVM_WaitWhileNVMControllerBusy(void)
 	while (TimeoutMSRemaining)
 	{
 		/* Send the SIN command to read the TPI STATUS register to see the NVM bus is active */
-		XPROGTarget_SendByte(TPI_CMD_SIN | XPROG_Param_NVMCSRRegAddr);
+		TINYNVM_SendReadNVMRegister(XPROG_Param_NVMCSRRegAddr);
 		if (XPROGTarget_ReceiveByte() & (1 << 7))
 		  return true;
 	}
@@ -101,7 +123,7 @@ bool TINYNVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16_
 	  return false;
 
 	/* Set the NVM control register to the NO OP command for memory reading */
-	XPROGTarget_SendByte(TPI_CMD_SOUT | XPROG_Param_NVMCMDRegAddr);
+	TINYNVM_SendWriteNVMRegister(XPROG_Param_NVMCMDRegAddr);
 	XPROGTarget_SendByte(TINY_NVM_CMD_NOOP);
 	
 	/* Send the address of the location to read from */
@@ -132,7 +154,7 @@ bool TINYNVM_WriteMemory(const uint32_t WriteAddress, const uint8_t* WriteBuffer
 	  return false;
 
 	/* Set the NVM control register to the WORD WRITE command for memory reading */
-	XPROGTarget_SendByte(TPI_CMD_SOUT | XPROG_Param_NVMCMDRegAddr);
+	TINYNVM_SendWriteNVMRegister(XPROG_Param_NVMCMDRegAddr);
 	XPROGTarget_SendByte(TINY_NVM_CMD_WORDWRITE);
 	
 	/* Send the address of the location to write to */
@@ -159,7 +181,7 @@ bool TINYNVM_EraseMemory(void)
 	  return false;
 
 	/* Set the NVM control register to the CHIP ERASE command to erase the target */
-	XPROGTarget_SendByte(TPI_CMD_SOUT | XPROG_Param_NVMCMDRegAddr);
+	TINYNVM_SendWriteNVMRegister(XPROG_Param_NVMCMDRegAddr);
 	XPROGTarget_SendByte(TINY_NVM_CMD_CHIPERASE);	
 
 	/* Wait until the NVM bus is ready again */
