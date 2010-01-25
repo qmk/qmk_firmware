@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for PDITarget.c.
+ *  Header file for XPROGTarget.c.
  */
 
-#ifndef _PDI_TARGET_
-#define _PDI_TARGET_
+#ifndef _XPROG_TARGET_
+#define _XPROG_TARGET_
 
 	/* Includes: */
 		#include <avr/io.h>

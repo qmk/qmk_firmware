@@ -62,6 +62,9 @@
  *  Due to the host's need for exclusive access to the filesystem, the device will not log samples while connected to a host.
  *  For the logger to store data, the Dataflash must first be formatted by the host so that it contains a valid FAT filesystem.
  *
+ *  This project uses the FatFS library from ELM Chan (http://elm-chan.org/fsw/ff/00index_e.html) and the .NET HID device library
+ *  LibHIDNet (http://sourceforge.net/projects/libhidnet/).
+ *
  *  \section SSec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.

@@ -199,7 +199,7 @@ void XPROGTarget_EnableTargetTPI(void)
 	DDRD |=  (1 << 5) | (1 << 3);
 	DDRD &= ~(1 << 2);
 		
-	/* Set up the synchronous USART for XMEGA communications - 
+	/* Set up the synchronous USART for TINY communications - 
 	   8 data bits, even parity, 2 stop bits */
 	UBRR1  = (F_CPU / 500000UL);
 	UCSR1B = (1 << TXEN1);
