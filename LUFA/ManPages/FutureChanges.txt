@@ -33,7 +33,6 @@
   *      -# Finish MIDI class Bootloader
   *      -# Finish SideShow demo
   *      -# Finish StandaloneProgrammer project
-  *      -# Finish Webserver project
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

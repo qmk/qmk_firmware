@@ -71,7 +71,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 		  return;
 	
 		/* Shift in the bit one less than the frame size in position, so that the start bit will eventually
-		 * be discarded leaving the data to be byte-aligned for quick access */
+		 * be discarded leaving the data to be byte-aligned for quick access (subtract 9 as we are ORing to the MSB) */
 		if (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK)
 		  ((uint8_t*)&SoftUSART_Data)[1] |= (1 << (BITS_IN_USART_FRAME - 9));
 
@@ -117,7 +117,7 @@ ISR(TIMER1_COMPB_vect, ISR_BLOCK)
 		  return;
 	
 		/* Shift in the bit one less than the frame size in position, so that the start bit will eventually
-		 * be discarded leaving the data to be byte-aligned for quick access */
+		 * be discarded leaving the data to be byte-aligned for quick access (subtract 9 as we are ORing to the MSB) */
 		if (BITBANG_TPIDATA_PIN & BITBANG_TPIDATA_MASK)
 		 ((uint8_t*)&SoftUSART_Data)[1] |= (1 << (BITS_IN_USART_FRAME - 9));
 
@@ -154,8 +154,7 @@ void XPROGTarget_EnableTargetPDI(void)
 	
 	/* Set DATA line high for at least 90ns to disable /RESET functionality */
 	PORTD |= (1 << 3);
-	asm volatile ("NOP"::);
-	asm volatile ("NOP"::);
+	_delay_ms(1);
 	
 	/* Set up the synchronous USART for XMEGA communications - 
 	   8 data bits, even parity, 2 stop bits */
@@ -169,8 +168,7 @@ void XPROGTarget_EnableTargetPDI(void)
 	
 	/* Set DATA line high for at least 90ns to disable /RESET functionality */
 	BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
-	asm volatile ("NOP"::);
-	asm volatile ("NOP"::);
+	_delay_ms(1);
 
 	/* Fire timer compare channel A ISR to manage the software USART */
 	OCR1A   = BITS_BETWEEN_USART_CLOCKS;
@@ -188,11 +186,10 @@ void XPROGTarget_EnableTargetTPI(void)
 {
 	IsSending = false;
 
-	/* Set /RESET line low for at least 90ns to enable TPI functionality */
+	/* Set /RESET line low for at least 400ns to enable TPI functionality */
 	AUX_LINE_DDR  |=  AUX_LINE_MASK;
 	AUX_LINE_PORT &= ~AUX_LINE_MASK;
-	asm volatile ("NOP"::);
-	asm volatile ("NOP"::);
+	_delay_ms(1);
 
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Set Tx and XCK as outputs, Rx as input */
@@ -307,7 +304,7 @@ void XPROGTarget_SendByte(const uint8_t Byte)
 	uint16_t NewUSARTData = ((1 << 11) | (1 << 10) | (0 << 9) | ((uint16_t)Byte << 1) | (0 << 0));
 
 	/* Compute Even parity - while a bit is still set, chop off lowest bit and toggle parity bit */
-	uint8_t ParityData    = Byte;
+	uint8_t ParityData = Byte;
 	while (ParityData)
 	{
 		NewUSARTData ^= (1 << 9);

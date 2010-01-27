@@ -270,14 +270,14 @@ static void XPROGProtocol_WriteMemory(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
-	/* Assume FLASH page programming by default, as it is the common case */
-	uint8_t WriteCommand     = XMEGA_NVM_CMD_WRITEFLASHPAGE;
-	uint8_t WriteBuffCommand = XMEGA_NVM_CMD_LOADFLASHPAGEBUFF;
-	uint8_t EraseBuffCommand = XMEGA_NVM_CMD_ERASEFLASHPAGEBUFF;
-	bool    PagedMemory      = true;
-
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
 	{
+		/* Assume FLASH page programming by default, as it is the common case */
+		uint8_t WriteCommand     = XMEGA_NVM_CMD_WRITEFLASHPAGE;
+		uint8_t WriteBuffCommand = XMEGA_NVM_CMD_LOADFLASHPAGEBUFF;
+		uint8_t EraseBuffCommand = XMEGA_NVM_CMD_ERASEFLASHPAGEBUFF;
+		bool    PagedMemory      = true;
+
 		if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_APPL)
 		{
 			WriteCommand     = XMEGA_NVM_CMD_WRITEAPPSECPAGE;
@@ -321,8 +321,6 @@ static void XPROGProtocol_WriteMemory(void)
 	}
 	else
 	{
-		Serial_TxByte((uint8_t)WriteMemory_XPROG_Params.Length);
-	
 		/* Send write command to the TPI device, indicate timeout if occurred */
 		if (!(TINYNVM_WriteMemory(WriteMemory_XPROG_Params.Address, WriteMemory_XPROG_Params.ProgData,
 		      WriteMemory_XPROG_Params.Length)))
@@ -368,8 +366,6 @@ static void XPROGProtocol_ReadMemory(void)
 	}
 	else
 	{
-		Serial_TxByte((uint8_t)ReadMemory_XPROG_Params.Length);
-
 		/* Read the TPI target's memory, indicate timeout if occurred */
 		if (!(TINYNVM_ReadMemory(ReadMemory_XPROG_Params.Address, ReadBuffer, ReadMemory_XPROG_Params.Length)))
 		  ReturnStatus = XPRG_ERR_TIMEOUT;
