@@ -79,7 +79,11 @@ typedef unsigned short uip_stats_t;
  *
  * \hideinitializer
  */
-#define UIP_CONF_UDP             0
+#if defined(ENABLE_DHCP)
+	#define UIP_CONF_UDP         1
+#else
+	#define UIP_CONF_UDP         0
+#endif
 
 /**
  * UDP checksums on or off

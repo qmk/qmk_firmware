@@ -76,7 +76,7 @@ char PROGMEM HTTPPage[]   =
 void WebserverApp_Init(void)
 {
 	/* Listen on port 80 for HTTP connections from hosts */
-	uip_listen(HTONS(80));
+	uip_listen(HTONS(HTTP_SERVER_PORT));
 }
 
 /** uIP stack application callback for the simple HTTP webserver. This function must be called each time the
@@ -84,8 +84,9 @@ void WebserverApp_Init(void)
  */
 void WebserverApp_Callback(void)
 {
-	char*    AppDataPtr  = (char*)uip_appdata;
-	uint16_t AppDataSize = 0;
+	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
+	char*                     AppData     = (char*)uip_appdata;
+	uint16_t                  AppDataSize = 0;
 
 	if (uip_closed() || uip_aborted() || uip_timedout())
 	{
@@ -95,12 +96,12 @@ void WebserverApp_Callback(void)
 	else if (uip_connected())
 	{
 		/* New connection - initialize connection state and data pointer to the appropriate HTTP header */
-		uip_conn->appstate.SendPos      = HTTP200Header;
-		uip_conn->appstate.CurrentState = WEBSERVER_STATE_SendHeaders;
+		AppState->SendPos      = HTTP200Header;
+		AppState->CurrentState = WEBSERVER_STATE_SendHeaders;
 	}
 
 	/* Calculate the maximum segment size and remaining data size */
-	uint16_t BytesRemaining = strlen_P(uip_conn->appstate.SendPos);
+	uint16_t BytesRemaining = strlen_P(AppState->SendPos);
 	uint16_t MaxSegSize     = uip_mss();
 
 	/* No more bytes remaining in the current data being sent - progress to next data chunk or
@@ -108,15 +109,15 @@ void WebserverApp_Callback(void)
 	if (!(BytesRemaining))
 	{
 		/* Check which data chunk we are currently sending (header or data) */
-		if (uip_conn->appstate.CurrentState == WEBSERVER_STATE_SendHeaders)
+		if (AppState->CurrentState == WEBSERVER_STATE_SendHeaders)
 		{
-			uip_conn->appstate.SendPos = HTTPPage;
-			uip_conn->appstate.CurrentState = WEBSERVER_STATE_SendData;			
+			AppState->SendPos = HTTPPage;
+			AppState->CurrentState = WEBSERVER_STATE_SendData;			
 		}
-		else if (uip_conn->appstate.CurrentState == WEBSERVER_STATE_SendData)
+		else if (AppState->CurrentState == WEBSERVER_STATE_SendData)
 		{
 			uip_close();
-			uip_conn->appstate.CurrentState = WEBSERVER_STATE_Closed;
+			AppState->CurrentState = WEBSERVER_STATE_Closed;
 		}
 		  
 		return;
@@ -133,9 +134,9 @@ void WebserverApp_Callback(void)
 	}
 
 	/* Copy over the next data segment to the application buffer, advance send position pointer */
-	strncpy_P(uip_appdata, uip_conn->appstate.SendPos, AppDataSize);
-	uip_conn->appstate.SendPos += AppDataSize;
+	strncpy_P(AppData, AppState->SendPos, AppDataSize);
+	AppState->SendPos += AppDataSize;
 
 	/* Send the data to the requesting host */
-	uip_send(AppDataPtr, AppDataSize);
+	uip_send(AppData, AppDataSize);
 }

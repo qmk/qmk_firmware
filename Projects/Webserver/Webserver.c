@@ -63,6 +63,8 @@ struct timer ConnectionTimer;
 /** ARP timer, to retain the time elapsed since the ARP cache was last updated. */
 struct timer ARPTimer;
 
+/** MAC address of the RNDIS device, when enumerated */
+struct uip_eth_addr MACAddress;
 
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
@@ -122,7 +124,6 @@ int main(void)
 					break;
 				}
 				
-				struct uip_eth_addr MACAddress;
 				if (RNDIS_Host_QueryRNDISProperty(&Ethernet_RNDIS_Interface, OID_802_3_CURRENT_ADDRESS,
 				                                  &MACAddress, sizeof(MACAddress)) != HOST_SENDCONTROL_Successful)
 				{
@@ -204,14 +205,36 @@ void ManageConnections(void)
 		
 		for (uint8_t i = 0; i < UIP_CONNS; i++)
 		{
-			/* Run periodic connection management for each connection */
+			/* Run periodic connection management for each TCP connection */
 			uip_periodic(i);
 
 			/* If a response was generated, send it */
 			if (uip_len > 0)
-			  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], uip_len);
+			{
+				/* Add destination MAC to outgoing packet */
+				uip_arp_out();
+
+				RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], uip_len);
+			}
 		}
 		
+		#if defined(ENABLE_DHCP)
+		for (uint8_t i = 0; i < UIP_UDP_CONNS; i++)
+		{
+			/* Run periodic connection management for each UDP connection */
+			uip_udp_periodic(i);
+
+			/* If a response was generated, send it */
+			if (uip_len > 0)
+			{
+				/* Add destination MAC to outgoing packet */
+				uip_arp_out();
+
+				RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], uip_len);
+			}
+		}
+		#endif
+
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
 
@@ -244,14 +267,20 @@ void SetupHardware(void)
 
 	/* uIP Stack Initialization */
 	uip_init();
+
+	/* DHCP/Server IP Settings Initialization */
+	#if defined(ENABLE_DHCP)
+	DHCPApp_Init();
+	#else
 	uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
-	uip_ipaddr(&IPAddress, DEVICE_IP_ADDRESS[0], DEVICE_IP_ADDRESS[1], DEVICE_IP_ADDRESS[2], DEVICE_IP_ADDRESS[3]);
-	uip_ipaddr(&Netmask, DEVICE_NETMASK[0], DEVICE_NETMASK[1], DEVICE_NETMASK[2], DEVICE_NETMASK[3]);
-	uip_ipaddr(&GatewayIPAddress, DEVICE_GATEWAY[0], DEVICE_GATEWAY[1], DEVICE_GATEWAY[2], DEVICE_GATEWAY[3]);
+	uip_ipaddr(&IPAddress,        DEVICE_IP_ADDRESS[0], DEVICE_IP_ADDRESS[1], DEVICE_IP_ADDRESS[2], DEVICE_IP_ADDRESS[3]);
+	uip_ipaddr(&Netmask,          DEVICE_NETMASK[0],    DEVICE_NETMASK[1],    DEVICE_NETMASK[2],    DEVICE_NETMASK[3]);
+	uip_ipaddr(&GatewayIPAddress, DEVICE_GATEWAY[0],    DEVICE_GATEWAY[1],    DEVICE_GATEWAY[2],    DEVICE_GATEWAY[3]);
 	uip_sethostaddr(&IPAddress);
 	uip_setnetmask(&Netmask);
 	uip_setdraddr(&GatewayIPAddress);
-		
+	#endif
+	
 	/* HTTP Webserver Initialization */
 	WebserverApp_Init();
 }

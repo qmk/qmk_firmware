@@ -63,19 +63,25 @@
  *    <td><b>Description:</b></td>
  *   </tr>
  *   <tr>
+ *    <td>ENABLE_DHCP</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, enables the DHCP client for dynamic IP allocation of the network settings from a DHCP server.</td>
+ *   </tr>
+ *   <tr>
  *    <td>DEVICE_IP_ADDRESS</td>
  *    <td>Webserver.h</td>
- *    <td>IP address that the webserver should use when connected to a RNDIS device.</td>
+ *    <td>IP address that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP is not defined).</td>
  *   </tr>
  *   <tr>
  *    <td>DEVICE_NETMASK</td>
  *    <td>Webserver.h</td>
- *    <td>Netmask that the webserver should use when connected to a RNDIS device.</td>
+ *    <td>Netmask that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP is not defined).</td>
  *   </tr>
  *   <tr>
  *    <td>DEVICE_GATEWAY</td>
  *    <td>Webserver.h</td>
- *    <td>Default routing gateway that the webserver should use when connected to a RNDIS device.</td>
+ *    <td>Default routing gateway that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP
+ *        is not defined).</td>
  *   </tr>
  *  </table>
  */

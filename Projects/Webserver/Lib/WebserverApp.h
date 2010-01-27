@@ -43,6 +43,17 @@
 		#include <LUFA/Version.h>
 		
 		#include <uip.h>
+		
+	/* Enums: */
+		enum Webserver_States_t
+		{
+			WEBSERVER_STATE_SendHeaders,
+			WEBSERVER_STATE_SendData,
+			WEBSERVER_STATE_Closed,
+		};
+	
+	/* Macros: */
+		#define HTTP_SERVER_PORT  80
 
 	/* Function Prototypes: */
 		void WebserverApp_Init(void);

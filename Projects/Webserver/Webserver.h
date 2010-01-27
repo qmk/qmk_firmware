@@ -43,7 +43,6 @@
 		#include <avr/power.h>
 
 		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/Misc/TerminalCodes.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/RNDIS.h>
@@ -53,15 +52,18 @@
 		#include <timer.h>
 		
 		#include "Lib/WebserverApp.h"
+		#include "Lib/DHCPApp.h"
 		
 	/* Macros: */
-		/** IP address that the webserver should use once connected to a RNDIS device. */
+		/** IP address that the webserver should use once connected to a RNDIS device (when DHCP is disabled). */
 		#define DEVICE_IP_ADDRESS         (uint8_t[]){192, 168, 1, 10}
 		
-		/** Netmask that the webserver should once connected to a RNDIS device. */
+		/** Netmask that the webserver should once connected to a RNDIS device (when DHCP is disabled). */
 		#define DEVICE_NETMASK            (uint8_t[]){255, 255, 255, 0}
 		
-		/** IP address of the default gateway the webserver should use when routing outside the local subnet. */
+		/** IP address of the default gateway the webserver should use when routing outside the local subnet
+		 *  (when DHCP is disabled).
+		 */
 		#define DEVICE_GATEWAY            (uint8_t[]){192, 168, 1, 1}
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -78,6 +80,9 @@
 		
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY          LEDS_LED2
+	
+	/* External Variables: */
+		extern struct uip_eth_addr MACAddress;
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);
