@@ -230,6 +230,10 @@ void XPROGTarget_DisableTargetPDI(void)
 	XPROGTarget_SetRxMode();
 
 #if defined(XPROG_VIA_HARDWARE_USART)
+	/* Set /RESET high for a one millisecond to ensure target device is restarted */
+	PORTD |= (1 << 5);
+	_delay_ms(1);
+
 	/* Turn off receiver and transmitter of the USART, clear settings */
 	UCSR1A |= (1 << TXC1) | (1 << RXC1);
 	UCSR1B  = 0;
@@ -239,6 +243,10 @@ void XPROGTarget_DisableTargetPDI(void)
 	DDRD  &= ~((1 << 5) | (1 << 3));
 	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
 #else
+	/* Set /RESET high for a one millisecond to ensure target device is restarted */
+	BITBANG_PDICLOCK_PORT |= BITBANG_PDICLOCK_MASK;
+	_delay_ms(1);
+
 	/* Set DATA and CLOCK lines to inputs */
 	BITBANG_PDIDATA_DDR   &= ~BITBANG_PDIDATA_MASK;
 	BITBANG_PDICLOCK_DDR  &= ~BITBANG_PDICLOCK_MASK;

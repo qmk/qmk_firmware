@@ -17,7 +17,6 @@
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Add standardized descriptor names to class driver structures
   *      -# Correct mishandling of error cases in Mass Storage demos
-  *      -# FIX BROKEN RNDIS HOST CLASS DRIVER (BLOCKING)
   *      -# TEST AND CORRECT TPI PROGRAMMING SUPPORT IN THE AVRISP-MKII PROJECT (BLOCKING)
   *  - Documentation/Support
   *      -# Remake AVRStudio project files
