@@ -88,7 +88,7 @@
 
 			/** Sends a byte to the currently addressed device on the TWI bus.
 			 *
-			 *  \param Byte  Byte to send to the currently addressed device
+			 *  \param[in] Byte  Byte to send to the currently addressed device
 			 *
 			 *  \return Boolean true if the recipient ACKed the byte, false otherwise
 			 */
@@ -103,8 +103,8 @@
 
 			/** Receives a byte from the currently addressed device on the TWI bus.
 			 *
-			 *  \param Byte  Location where the read byte is to be stored
-			 *  \param LastByte  Indicates if the byte should be ACKed if false, NAKed if true
+			 *  \param[in] Byte  Location where the read byte is to be stored
+			 *  \param[in] LastByte  Indicates if the byte should be ACKed if false, NAKed if true
 			 *
 			 *  \return Boolean true if the byte reception sucessfully completed, false otherwise
 			 */
@@ -125,7 +125,7 @@
 		/* Function Prototypes: */
 			/** Begins a master mode TWI bus communication with the given slave device address.
 			 *
-			 *  \param SlaveAddress  Address of the slave TWI device to communicate with
+			 *  \param[in] SlaveAddress  Address of the slave TWI device to communicate with
 			 *
 			 *  \return Boolean true if the device is ready for data, false otherwise
 			 */

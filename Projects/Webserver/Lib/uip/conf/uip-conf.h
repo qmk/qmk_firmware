@@ -113,6 +113,12 @@ typedef unsigned short uip_stats_t;
  */
 #define UIP_CONF_UDP_CONNS		1
 
+/**
+ *  Host identifier define (e.g. MAC address). If defined as 0,
+ *  this will use the internal MAC ethernet address define.
+ */
+#define UIP_NEIGHBOR_CONF_ADDRTYPE 0
+
 //Include app configuration
 #include "apps-conf.h"
 

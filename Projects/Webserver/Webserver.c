@@ -149,6 +149,7 @@ int main(void)
 	}
 }
 
+/** Processes incomming packets to the server from the connected RNDIS device, creating responses as needed. */
 void ProcessIncommingPacket(void)
 {
 	if (RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface))
@@ -194,6 +195,7 @@ void ProcessIncommingPacket(void)
 	}
 }
 
+/** Manages the currently open network connections, including TCP and (if enabled) UDP. */
 void ManageConnections(void)
 {
 	/* Manage open connections */

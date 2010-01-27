@@ -45,14 +45,16 @@
 		#include <uip.h>
 		
 	/* Enums: */
+		/** States for each HTTP connection to the webserver. */
 		enum Webserver_States_t
 		{
-			WEBSERVER_STATE_SendHeaders,
-			WEBSERVER_STATE_SendData,
-			WEBSERVER_STATE_Closed,
+			WEBSERVER_STATE_SendHeaders, /**< Currently sending HTTP headers to the client */
+			WEBSERVER_STATE_SendData,    /**< Currently sending HTTP page data to the client */
+			WEBSERVER_STATE_Closed,      /**< Connection closed after all data sent */
 		};
 	
 	/* Macros: */
+		/** TCP listen port for incomming HTTP traffic */
 		#define HTTP_SERVER_PORT  80
 
 	/* Function Prototypes: */

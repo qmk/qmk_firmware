@@ -36,7 +36,7 @@
  
 #include "DHCPApp.h"
 
-#if defined(ENABLE_DHCP)
+#if defined(ENABLE_DHCP) || defined(__DOXYGEN__)
 /** Timer for managing the timeout period for a DHCP server to respond */
 struct timer DHCPTimer;
 
@@ -90,10 +90,10 @@ void DHCPApp_Callback(void)
 
 			/* Reset the timeout timer, progress to next state */
 			timer_reset(&DHCPTimer);
-			AppState->CurrentState = DHCP_STATE_WaitForResponse;			
+			AppState->CurrentState = DHCP_STATE_WaitForOffer;			
 			
 			break;
-		case DHCP_STATE_WaitForResponse:
+		case DHCP_STATE_WaitForOffer:
 			if (!(uip_newdata()))
 			{
 				/* Check if the DHCP timeout period has expired while waiting for a response */
@@ -166,6 +166,15 @@ void DHCPApp_Callback(void)
 	}
 }
 
+/** Fills the DHCP packet response with the appropriate BOOTP header for DHCP. This fills out all the required
+ *  fields, leaving only the additional DHCP options to be added to the packet before it is sent to the DHCP server.
+ *
+ *  \param[out] DHCPHeader  Location in the packet buffer where the BOOTP header should be written to
+ *  \param[in]  DHCPMessageType  DHCP Message type, such as DHCP_DISCOVER
+ *  \param[in]  AppState    Application state of the current UDP connection
+ *
+ *  \return Size in bytes of the created DHCP packet
+ */
 uint16_t DHCPApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageType, uip_udp_appstate_t* AppState)
 {
 	/* Erase existing packet data so that we start will all 0x00 DHCP header data */
@@ -195,7 +204,17 @@ uint16_t DHCPApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageTy
 	return (sizeof(DHCP_Header_t) + 4);
 }
 
-uint8_t DHCPApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen, void* Source)
+/** Sets the given DHCP option in the DHCP packet's option list. This automatically moves the
+ *  end of options terminator past the new option in the options list.
+ *
+ *  \param[in,out] DHCPOptionList  Pointer to the start of the DHCP packet's options list
+ *  \param[in]     Option          DHCP option to add to the list
+ *  \param[in]     DataLen         Size in bytes of the option data to add
+ *  \param[in]     OptionData      Buffer where the option's data is to be sourced from
+ *
+ *  \return Number of bytes added to the DHCP packet
+ */
+uint8_t DHCPApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen, void* OptionData)
 {
 	/* Skip through the DHCP options list until the terminator option is found */
 	while (*DHCPOptionList != DHCP_OPTION_END)
@@ -204,13 +223,21 @@ uint8_t DHCPApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataL
 	/* Overwrite the existing terminator with the new option, add a new terminator at the end of the list */
 	DHCPOptionList[0] = Option;
 	DHCPOptionList[1] = DataLen;
-	memcpy(&DHCPOptionList[2], Source, DataLen);
+	memcpy(&DHCPOptionList[2], OptionData, DataLen);
 	DHCPOptionList[2 + DataLen] = DHCP_OPTION_END;
 	
 	/* Calculate the total number of bytes added to the outgoing packet */
 	return (2 + DataLen);
 }
 
+/** Retrieves the given option's data (if present) from the DHCP packet's options list.
+ *
+ *  \param[in,out] DHCPOptionList  Pointer to the start of the DHCP packet's options list
+ *  \param[in]     Option          DHCP option to retrieve to the list
+ *  \param[out]    Destination     Buffer where the option's data is to be written to if found
+ *
+ *  \return Boolean true if the option was found in the DHCP packet's options list, false otherwise
+ */
 bool DHCPApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination)
 {
 	/* Look through the incomming DHCP packet's options list for the requested option */
@@ -233,5 +260,4 @@ bool DHCPApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destinatio
 	/* Requested option not found in the incomming packet's DHCP options list */
 	return false;
 }
-
 #endif
