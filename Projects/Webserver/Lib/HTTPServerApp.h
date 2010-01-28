@@ -30,43 +30,37 @@
 
 /** \file
  *
- *  Main source file for the Webserver project. This file contains the main tasks of
- *  the project and is responsible for the initial application hardware configuration.
+ *  Header file for HTTPServerApp.c.
  */
- 
-#include "Webserver.h"
 
-/** Main program entry point. This routine configures the hardware required by the application, then
- *  enters a loop to run the application tasks in sequence.
- */
-int main(void)
-{
-	SetupHardware();
+#ifndef _HTTPSERVER_APP_H_
+#define _HTTPSERVER_APP_H_
 
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	/* Includes: */
+		#include <avr/pgmspace.h>
+		#include <string.h>
+		
+		#include <LUFA/Version.h>
+		
+		#include <uip.h>
+		#include <ff.h>
+		
+	/* Enums: */
+		/** States for each HTTP connection to the webserver. */
+		enum Webserver_States_t
+		{
+			WEBSERVER_STATE_OpenRequestedFile, /** Currently opening requested file */
+			WEBSERVER_STATE_SendHeaders, /**< Currently sending HTTP headers to the client */
+			WEBSERVER_STATE_SendData,    /**< Currently sending HTTP page data to the client */
+			WEBSERVER_STATE_Closed,      /**< Connection closed after all data sent */
+		};
+	
+	/* Macros: */
+		/** TCP listen port for incomming HTTP traffic */
+		#define HTTP_SERVER_PORT  80
 
-	for (;;)
-	{
-		USBDeviceMode_USBTask();
-		USBHostMode_USBTask();
-
-		USB_USBTask();
-	}
-}
-
-/** Configures the board hardware and chip peripherals for the demo's functionality. */
-void SetupHardware(void)
-{
-	/* Disable watchdog if enabled by bootloader/fuses */
-	MCUSR &= ~(1 << WDRF);
-	wdt_disable();
-
-	/* Disable clock division */
-	clock_prescale_set(clock_div_1);
-
-	/* Hardware Initialization */
-	SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_SCK_LEAD_FALLING | SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
-	Dataflash_Init();
-	LEDs_Init();
-	USB_Init(USB_MODE_UID);
-}
+	/* Function Prototypes: */
+		void WebserverApp_Init(void);
+		void WebserverApp_Callback(void);
+		
+#endif

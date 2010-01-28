@@ -30,44 +30,43 @@
 
 /** \file
  *
- *  Header file for Webserver.c.
+ *  Header file for Descriptors.c.
  */
-
-#ifndef _WEBSERVER_H_
-#define _WEBSERVER_H_
+ 
+#ifndef _DESCRIPTORS_H_
+#define _DESCRIPTORS_H_
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <avr/wdt.h>
 		#include <avr/pgmspace.h>
-		#include <avr/power.h>
 
-		#include <LUFA/Version.h>
-		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Board/Dataflash.h>
-		#include <LUFA/Drivers/Peripheral/SPI.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		
-		#include "USBDeviceMode.h"
-		#include "USBHostMode.h"
-		
+		#include <LUFA/Drivers/USB/Class/MassStorage.h>
+
 	/* Macros: */
-		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
-		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+		/** Endpoint number of the Mass Storage device-to-host data IN endpoint. */
+		#define MASS_STORAGE_IN_EPNUM          3	
 
-		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
-		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+		/** Endpoint number of the Mass Storage host-to-device data OUT endpoint. */
+		#define MASS_STORAGE_OUT_EPNUM         4	
 
-		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
-		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
-
-		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
-		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+		/** Size in bytes of the Mass Storage data endpoints. */
+		#define MASS_STORAGE_IO_EPSIZE         64
 		
-		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
-		#define LEDMASK_USB_BUSY          LEDS_LED2
-
+	/* Type Defines: */		
+		/** Type define for the device configuration descriptor structure. This must be defined in the
+		 *  application code, as the configuration descriptor contains several sub-descriptors which
+		 *  vary between devices, and which describe the device's usage to the host.
+		 */
+		typedef struct
+		{
+			USB_Descriptor_Configuration_Header_t Config;
+			USB_Descriptor_Interface_t            Interface;
+			USB_Descriptor_Endpoint_t             DataInEndpoint;
+			USB_Descriptor_Endpoint_t             DataOutEndpoint;
+		} USB_Descriptor_Configuration_t;
+		
 	/* Function Prototypes: */
-		void SetupHardware(void);
-		
+		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
+											ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
+
 #endif

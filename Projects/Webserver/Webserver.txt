@@ -41,16 +41,22 @@
  *
  *  \section SSec_Description Project Description: 
  *
- *  Simple HTTP webserver project. This project combines the LUFA library with the uIP TCP/IP full network stack, to create a
- *  RNDIS host capable of serving out HTTP webpages to up to 10 hosts simultaneously. This project demonstrates how the two
- *  libraries can be combined into a robust network enabled application, with the addition of a RNDIS network device.
+ *  Simple HTTP webserver project. This project combines the LUFA library with the uIP TCP/IP full network stack and FatFS
+ *  library to create a RNDIS host capable of serving out HTTP webpages to multiple hosts simultaneously. This project
+ *  demonstrates how the libraries can be combined into a robust network enabled application, with the addition of a RNDIS
+ *  network device.
  *
- *  To use this project, plug the USB AVR into a RNDIS class device, such as a USB (desktop) modem. If compatible, the project
- *  will enumerate the device, set the appropriate parameters needed for connectivity and begin listening for new HTTP connections
- *  on port 80. The device IP, netmask and default gateway IP must be set to values appropriate for the RNDIS device being used
- *  for this project to work.
+ *  To use this project, plug the USB AVR into a computer, so that it enumerates as a standard Mass Storage device. Load
+ *  HTML files onto the disk, so that they can be served out to clients -- the default file to serve should be called
+ *  <i>index.htm<i>. Filenames must be in 8.3 format for them to be retrieved correctly by the webserver.
+ 
+ *  When attached to a RNDIS class device, such as a USB (desktop) modem. If compatible, the system will enumerate the
+ *  device, set the appropriate parameters needed for connectivity and begin listening for new HTTP connections on port 80.
+ *  The device IP, netmask and default gateway IP must be set to values appropriate for the RNDIS device being used for this
+ *  project to work, if the DHCP client is disabled (see \ref SSec_Options).
  *
- *  When properly configured, the webserver can be accessed from any HTTP webrowser by typing in the device's IP address.
+ *  When properly configured, the webserver can be accessed from any HTTP webrowser by typing in the device's static or
+ *  dynamically allocated IP address.
  *
  *  \section SSec_Options Project Options
  *
@@ -69,17 +75,17 @@
  *   </tr>
  *   <tr>
  *    <td>DEVICE_IP_ADDRESS</td>
- *    <td>Webserver.h</td>
+ *    <td>Lib/uIPManagement.h</td>
  *    <td>IP address that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP is not defined).</td>
  *   </tr>
  *   <tr>
  *    <td>DEVICE_NETMASK</td>
- *    <td>Webserver.h</td>
+ *    <td>Lib/uIPManagement.h</td>
  *    <td>Netmask that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP is not defined).</td>
  *   </tr>
  *   <tr>
  *    <td>DEVICE_GATEWAY</td>
- *    <td>Webserver.h</td>
+ *    <td>Lib/uIPManagement.h</td>
  *    <td>Default routing gateway that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP
  *        is not defined).</td>
  *   </tr>

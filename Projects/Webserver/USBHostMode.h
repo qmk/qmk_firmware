@@ -30,35 +30,28 @@
 
 /** \file
  *
- *  Header file for WebserverApp.c.
+ *  Header file for USBHostMode.c.
  */
 
-#ifndef _WEBSERVER_APP_H_
-#define _WEBSERVER_APP_H_
+#ifndef _USBHOSTMODE_H_
+#define _USBHOSTMODE_H_
 
 	/* Includes: */
-		#include <stdio.h>
-		#include <avr/pgmspace.h>
+		#include <LUFA/Drivers/USB/Class/RNDIS.h>
 		
-		#include <LUFA/Version.h>
+		#include "Webserver.h"
+		#include "Lib/uIPManagement.h"
 		
-		#include <uip.h>
-		
-	/* Enums: */
-		/** States for each HTTP connection to the webserver. */
-		enum Webserver_States_t
-		{
-			WEBSERVER_STATE_SendHeaders, /**< Currently sending HTTP headers to the client */
-			WEBSERVER_STATE_SendData,    /**< Currently sending HTTP page data to the client */
-			WEBSERVER_STATE_Closed,      /**< Connection closed after all data sent */
-		};
-	
-	/* Macros: */
-		/** TCP listen port for incomming HTTP traffic */
-		#define HTTP_SERVER_PORT  80
+	/* External Variables: */
+		extern USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface;
 
 	/* Function Prototypes: */
-		void WebserverApp_Init(void);
-		void WebserverApp_Callback(void);
+		void USBHostMode_USBTask(void);
+	
+		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
+		void EVENT_USB_Host_DeviceAttached(void);
+		void EVENT_USB_Host_DeviceUnattached(void);
+		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
+		void EVENT_USB_Host_DeviceEnumerationComplete(void);
 		
 #endif

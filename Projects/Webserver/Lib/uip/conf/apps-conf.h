@@ -1,10 +1,13 @@
 #ifndef __APPS_CONF_H__
 #define __APPS_CONF_H__
 
+	#include <ff.h>
+
 	typedef struct
 	{
 		uint8_t CurrentState;
-		char*   SendPos;
+		FIL     FileToSend;
+		bool    FileOpen;
 	} uip_tcp_appstate_t;
 
 	typedef struct

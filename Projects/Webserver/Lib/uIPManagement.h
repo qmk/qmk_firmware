@@ -30,43 +30,44 @@
 
 /** \file
  *
- *  Main source file for the Webserver project. This file contains the main tasks of
- *  the project and is responsible for the initial application hardware configuration.
+ *  Header file for uIPManagement.c.
  */
- 
-#include "Webserver.h"
 
-/** Main program entry point. This routine configures the hardware required by the application, then
- *  enters a loop to run the application tasks in sequence.
- */
-int main(void)
-{
-	SetupHardware();
+#ifndef _UIPMANAGEMENT_H_
+#define _UIPMANAGEMENT_H_
 
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	/* Includes: */
+		#include <LUFA/Drivers/USB/Class/RNDIS.h>
 
-	for (;;)
-	{
-		USBDeviceMode_USBTask();
-		USBHostMode_USBTask();
+		#include <uip.h>
+		#include <uip_arp.h>
+		#include <timer.h>
+		
+		#include "Lib/DHCPApp.h"
+		#include "Lib/HTTPServerApp.h"
+		
+	/* Macros: */
+		/** IP address that the webserver should use once connected to a RNDIS device (when DHCP is disabled). */
+		#define DEVICE_IP_ADDRESS         (uint8_t[]){192, 168, 1, 10}
+		
+		/** Netmask that the webserver should once connected to a RNDIS device (when DHCP is disabled). */
+		#define DEVICE_NETMASK            (uint8_t[]){255, 255, 255, 0}
+		
+		/** IP address of the default gateway the webserver should use when routing outside the local subnet
+		 *  (when DHCP is disabled).
+		 */
+		#define DEVICE_GATEWAY            (uint8_t[]){192, 168, 1, 1}
 
-		USB_USBTask();
-	}
-}
-
-/** Configures the board hardware and chip peripherals for the demo's functionality. */
-void SetupHardware(void)
-{
-	/* Disable watchdog if enabled by bootloader/fuses */
-	MCUSR &= ~(1 << WDRF);
-	wdt_disable();
-
-	/* Disable clock division */
-	clock_prescale_set(clock_div_1);
-
-	/* Hardware Initialization */
-	SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_SCK_LEAD_FALLING | SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
-	Dataflash_Init();
-	LEDs_Init();
-	USB_Init(USB_MODE_UID);
-}
+	/* External Variables: */
+		extern struct uip_eth_addr MACAddress;
+		
+	/* Function Prototypes: */
+		void uIPManagement_Init(void);
+		void uIPManagement_ManageNetwork(void);
+		
+		#if defined(INCLUDE_FROM_UIPMANAGEMENT_C)
+			static void uIPManagement_ProcessIncommingPacket(void);
+			static void uIPManagement_ManageConnections(void);
+		#endif
+		
+#endif

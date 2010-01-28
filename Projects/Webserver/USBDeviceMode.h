@@ -30,43 +30,27 @@
 
 /** \file
  *
- *  Main source file for the Webserver project. This file contains the main tasks of
- *  the project and is responsible for the initial application hardware configuration.
+ *  Header file for USBDeviceMode.c.
  */
- 
-#include "Webserver.h"
 
-/** Main program entry point. This routine configures the hardware required by the application, then
- *  enters a loop to run the application tasks in sequence.
- */
-int main(void)
-{
-	SetupHardware();
+#ifndef _USBDEVICEMODE_H_
+#define _USBDEVICEMODE_H_
 
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	/* Includes: */
+		#include <LUFA/Drivers/USB/Class/MassStorage.h>
+		
+		#include "Webserver.h"
+		#include "Descriptors.h"
+		#include "Lib/SCSI.h"
 
-	for (;;)
-	{
-		USBDeviceMode_USBTask();
-		USBHostMode_USBTask();
+	/* Function Prototypes: */
+		void USBDeviceMode_USBTask(void);
 
-		USB_USBTask();
-	}
-}
+		void EVENT_USB_Device_Connect(void);
+		void EVENT_USB_Device_Disconnect(void);
+		void EVENT_USB_Device_ConfigurationChanged(void);
+		void EVENT_USB_Device_UnhandledControlRequest(void);
 
-/** Configures the board hardware and chip peripherals for the demo's functionality. */
-void SetupHardware(void)
-{
-	/* Disable watchdog if enabled by bootloader/fuses */
-	MCUSR &= ~(1 << WDRF);
-	wdt_disable();
-
-	/* Disable clock division */
-	clock_prescale_set(clock_div_1);
-
-	/* Hardware Initialization */
-	SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_SCK_LEAD_FALLING | SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
-	Dataflash_Init();
-	LEDs_Init();
-	USB_Init(USB_MODE_UID);
-}
+		bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
+		
+#endif

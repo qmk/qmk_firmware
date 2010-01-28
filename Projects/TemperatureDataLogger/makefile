@@ -128,9 +128,9 @@ SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
 	  Lib/DataflashManager.c                                      \
 	  Lib/SCSI.c                                                  \
+	  Lib/DS1307.c                                                \
 	  Lib/FATFs/diskio.c                                          \
 	  Lib/FATFs/ff.c                                              \
-	  Lib/DS1307.c                                                \
 	  $(LUFA_PATH)/LUFA/Drivers/Board/Temperature.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/TWI.c                  \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \

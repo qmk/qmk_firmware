@@ -116,14 +116,31 @@ LUFA_PATH = ../../
 
 
 # LUFA library compile-time options
-LUFA_OPTS += -D USB_HOST_ONLY
-LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
+LUFA_OPTS  = -D FIXED_CONTROL_ENDPOINT_SIZE=8
+LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
+LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
+LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
+	  Descriptors.c                                               \
+	  USBDeviceMode.c                                             \
+	  USBHostMode.c                                               \
+	  Lib/SCSI.c                                                  \
+	  Lib/uIPManagement.c                                         \
 	  Lib/DHCPApp.c                                               \
-	  Lib/WebserverApp.c                                          \
+	  Lib/HTTPServerApp.c                                         \
+	  Lib/DataflashManager.c                                      \
+	  Lib/uip/uip.c                                               \
+	  Lib/uip/uip_arp.c                                           \
+	  Lib/uip/uiplib.c                                            \
+	  Lib/uip/psock.c                                             \
+	  Lib/uip/timer.c                                             \
+	  Lib/uip/uip-neighbor.c                                      \
+	  Lib/uip/conf/clock-arch.c                                   \
+	  Lib/FatFS/diskio.c                                          \
+	  Lib/FatFS/ff.c                                              \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
@@ -134,17 +151,11 @@ SRC = $(TARGET).c                                                 \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBInterrupt.c      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/USBTask.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c  \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/MassStorage.c    \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/MassStorage.c      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Device/RNDIS.c          \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/Class/Host/RNDIS.c            \
-	  Lib/uip/uip.c                                               \
-	  Lib/uip/uip_arp.c                                           \
-	  Lib/uip/uiplib.c                                            \
-	  Lib/uip/psock.c                                             \
-	  Lib/uip/timer.c                                             \
-	  Lib/uip/uip-neighbor.c                                      \
-	  Lib/uip/conf/clock-arch.c                                   \
-	  
-	  
+
 # List C++ source files here. (C dependencies are automatically generated.)
 CPPSRC = 
 
@@ -176,7 +187,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = $(LUFA_PATH)/ Lib/uip/ Lib/uip/conf/
+EXTRAINCDIRS = $(LUFA_PATH)/ Lib/uip/ Lib/uip/conf/ Lib/FatFS/
 
 
 # Compiler flag to set the C Standard level.
