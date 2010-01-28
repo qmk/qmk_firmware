@@ -36,52 +36,6 @@
  
 #include "VirtualSerialHost.h"
 
-#if 0
-/* NOTE: Here you can set up a standard stream using the created virtual serial port, so that the standard stream functions in
- *       <stdio.h> can be used on the virtual serial port (e.g. fprintf(&USBSerial, "Test"); to print a string).
- */
-	
-static int CDC_putchar(char c, FILE *stream)
-{	  
-	Pipe_SelectPipe(CDC_DATAPIPE_OUT);
-	
-	if (Pipe_WaitUntilReady())
-	  return -1;
-
-	Pipe_Write_Byte(c);
-	Pipe_ClearIN();
-	
-	return 0;
-}
-
-static int CDC_getchar(FILE *stream)
-{
-	int c;
-
-	Pipe_SelectPipe(CDC_DATAPIPE_IN);
-	
-	for (;;)
-	{
-		if (Pipe_WaitUntilReady())
-		  return -1;
-	
-		if (!(Pipe_BytesInPipe()))
-		{
-			Pipe_ClearOUT();
-		}
-		else
-		{
-			c = Pipe_Read_Byte();
-			break;
-		}
-	}
-	
-	return c;
-}
-
-static FILE USBSerial = FDEV_SETUP_STREAM(CDC_putchar, CDC_getchar, _FDEV_SETUP_RW);
-#endif
-
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */

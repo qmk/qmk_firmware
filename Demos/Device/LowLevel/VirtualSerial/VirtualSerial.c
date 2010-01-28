@@ -49,59 +49,6 @@ CDC_Line_Coding_t LineEncoding = { .BaudRateBPS = 0,
                                    .ParityType  = Parity_None,
                                    .DataBits    = 8            };
 
-
-#if 0
-/* NOTE: Here you can set up a standard stream using the created virtual serial port, so that the standard stream functions in
- *       <stdio.h> can be used on the virtual serial port (e.g. fprintf(&USBSerial, "Test"); to print a string).
- */
-	
-static int CDC_putchar(char c, FILE *stream)
-{	  
-	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
-
-	if (!(LineEncoding.BaudRateBPS))
-	  return -1;
-	
-	if (Endpoint_WaitUntilReady())
-	  return -1;
-
-	Endpoint_Write_Byte(c);
-	Endpoint_ClearIN();
-	
-	return 0;
-}
-
-static int CDC_getchar(FILE *stream)
-{
-	int c;
-
-	if (!(LineEncoding.BaudRateBPS))
-	  return -1;
-
-	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
-	
-	for (;;)
-	{
-		if (Endpoint_WaitUntilReady())
-		  return -1;
-	
-		if (!(Endpoint_BytesInEndpoint()))
-		{
-			Endpoint_ClearOUT();
-		}
-		else
-		{
-			c = Endpoint_Read_Byte();
-			break;
-		}
-	}
-	
-	return c;
-}
-
-static FILE USBSerial = FDEV_SETUP_STREAM(CDC_putchar, CDC_getchar, _FDEV_SETUP_RW);
-#endif
-
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */

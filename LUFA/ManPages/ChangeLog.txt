@@ -32,6 +32,7 @@
   *  - Inlined currently unused (but standardized) maintenance functions in the Device and Host Class drivers to save space
   *  - The XPLAINBridge project now selects between a USB to Serial bridge and a PDI programmer on startup, reading the JTAG port's
   *    TDI pin to determine which mode to use
+  *  - Removed the stream example code from the Low Level VirtualSerial demos, as they were buggy and only served to add clutter
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project not able to enter programming mode when ISP protocol is used
