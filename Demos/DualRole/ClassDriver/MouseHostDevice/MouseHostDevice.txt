@@ -19,7 +19,7 @@
  *  <table>
  *   <tr>
  *    <td><b>USB Mode:</b></td>
- *    <td>Host/Device</td>
+ *    <td>Dual Mode Host/Device</td>
  *   </tr>
  *   <tr>
  *    <td><b>USB Class:</b></td>

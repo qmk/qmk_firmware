@@ -31,8 +31,8 @@
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>USBIF Still Image Class Specification</td>
- *    <td>PIMA 15740 Specification</td>
+ *    <td>USBIF Still Image Class Specification \n
+ *        PIMA 15740 Specification</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>

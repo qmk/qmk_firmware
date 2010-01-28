@@ -34,8 +34,8 @@
  *  </tr>
  *  <tr>
  *   <td><b>Relevant Standards:</b></td>
- *   <td>USBIF CDC Class Standard</td>
- *   <td>Arduino Bootloader Specification</td>
+ *   <td>USBIF CDC Class Standard \n
+ *       Arduino Bootloader Specification</td>
  *  </tr>
  *  <tr>
  *   <td><b>Usable Speeds:</b></td>

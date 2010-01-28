@@ -32,13 +32,13 @@
  *  </tr>
  *  <tr>
  *   <td><b>Relevant Standards:</b></td>
- *   <td>USBIF HID Class Standard</td>
- *   <td>Teensy Programming Protocol Details</td>
+ *   <td>USBIF HID Class Standard \n
+ *       Teensy Programming Protocol Specification</td>
  *  </tr>
  *  <tr>
  *   <td><b>Usable Speeds:</b></td>
- *   <td>Low Speed Mode</td>
- *   <td>Full Speed Mode</td>
+ *   <td>Low Speed Mode \n
+ *       Full Speed Mode</td>
  *  </tr>
  * </table>
  *

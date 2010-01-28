@@ -19,8 +19,8 @@
  *  <table>
  *   <tr>
  *    <td><b>USB Mode:</b></td>
- *    <td>Device</td>
- *    <td>Device</td>
+ *    <td>1) Device</td>
+ *    <td>2) Device</td>
  *   </tr>
  *   <tr>
  *    <td><b>USB Class:</b></td>
@@ -39,8 +39,8 @@
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
- *    <td>Full Speed Mode</td>
- *    <td>Full Speed Mode</td>
+ *    <td>1) Full Speed Mode</td>
+ *    <td>2) Full Speed Mode</td>
  *   </tr>
  *  </table>
  *

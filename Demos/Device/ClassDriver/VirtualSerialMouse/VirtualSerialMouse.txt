@@ -26,18 +26,19 @@
  *   </tr>
  *   <tr>
  *    <td><b>USB Class:</b></td>
- *    <td>Communications Device Class (CDC)</td>
- *    <td>Human Interface Device Class (HID)</td>
+ *    <td>Communications Device Class (CDC) \n
+ *        Human Interface Device Class (HID)</td>
  *   </tr>
  *   <tr> 
  *    <td><b>USB Subclass:</b></td>
- *    <td>Abstract Control Model (ACM)</td>
- *    <td>Mouse Subclass</td>
+ *    <td>Abstract Control Model (ACM) \n
+ *        Mouse Subclass</td>
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
  *    <td>USBIF CDC Class Standard</td>
- *    <td>USBIF HID Specification, USBIF HID Usage Tables</td>
+ *    <td>USBIF HID Specification \n
+ *        USBIF HID Usage Tables</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>

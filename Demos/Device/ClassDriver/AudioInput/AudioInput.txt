@@ -33,9 +33,9 @@
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>USBIF Audio Class Specification</td>
- *    <td>USBIF Audio Class Terminal Types Specification</td>
- *    <td>USBIF Audio Data Formats Specification</td>
+ *    <td>USBIF Audio Class Specification \n
+ *        USBIF Audio Class Terminal Types Specification \n
+ *        USBIF Audio Data Formats Specification</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>

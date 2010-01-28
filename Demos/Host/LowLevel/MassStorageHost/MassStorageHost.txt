@@ -31,10 +31,10 @@
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>USBIF Mass Storage Standard</td>
- *    <td>USB Bulk-Only Transport Standard</td>
- *    <td>SCSI Primary Commands Specification</td>
- *    <td>SCSI Block Commands Specification</td>
+ *    <td>USBIF Mass Storage Standard \n
+ *        USB Bulk-Only Transport Standard \n
+ *        SCSI Primary Commands Specification \n
+ *        SCSI Block Commands Specification</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>

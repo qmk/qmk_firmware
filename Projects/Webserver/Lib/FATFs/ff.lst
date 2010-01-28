@@ -3031,26 +3031,26 @@
  3172               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 ff.c
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:2      *ABS*:0000003f __SREG__
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:3      *ABS*:0000003e __SP_H__
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:4      *ABS*:0000003d __SP_L__
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:5      *ABS*:00000034 __CCP__
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:19     .text.clust2sect:00000000 clust2sect
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:101    .text.f_mount:00000000 f_mount
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:2      *ABS*:0000003f __SREG__
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:5      *ABS*:00000034 __CCP__
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:19     .text.clust2sect:00000000 clust2sect
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:101    .text.f_mount:00000000 f_mount
                              .bss:00000000 FatFs
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:144    .text.validate:00000000 validate
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:184    .text.f_close:00000000 f_close
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:218    .text.move_window:00000000 move_window
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:292    .text.get_fat:00000000 get_fat
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:545    .text.f_lseek:00000000 f_lseek
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:1021   .text.dir_seek:00000000 dir_seek
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:1270   .text.f_read:00000000 f_read
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:1694   .text.check_fs:00000000 check_fs
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:1779   .text.chk_mounted:00000000 chk_mounted
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:3058   .bss:00000002 Fsid
-C:\Users\Dean\AppData\Local\Temp/cchqutwM.s:2194   .text.f_open:00000000 f_open
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:144    .text.validate:00000000 validate
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:184    .text.f_close:00000000 f_close
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:218    .text.move_window:00000000 move_window
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:292    .text.get_fat:00000000 get_fat
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:545    .text.f_lseek:00000000 f_lseek
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:1021   .text.dir_seek:00000000 dir_seek
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:1270   .text.f_read:00000000 f_read
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:1694   .text.check_fs:00000000 check_fs
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:1779   .text.chk_mounted:00000000 chk_mounted
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:3058   .bss:00000002 Fsid
+C:\Users\Dean\AppData\Local\Temp/ccSiGQ4w.s:2194   .text.f_open:00000000 f_open
 
 UNDEFINED SYMBOLS
 __mulsi3

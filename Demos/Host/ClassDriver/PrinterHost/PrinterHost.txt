@@ -31,11 +31,13 @@
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>USBIF Printer Class Specification, PCL Language Specification</td>
+ *    <td>USBIF Printer Class Specification \n
+ *        PCL Language Specification</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
- *    <td>Low Speed Mode, Full Speed Mode</td>
+ *    <td>Low Speed Mode \n
+ *        Full Speed Mode</td>
  *   </tr>
  *  </table>
  *

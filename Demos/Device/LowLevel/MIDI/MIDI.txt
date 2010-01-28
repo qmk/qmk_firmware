@@ -34,9 +34,9 @@
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>USBIF Audio Class Specification</td>
- *    <td>USB-MIDI Audio Class Extension Specification</td>
- *    <td>General MIDI Specification</td>
+ *    <td>USBIF Audio Class Specification \n
+ *        USB-MIDI Audio Class Extension Specification \n
+ *        General MIDI Specification</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>

@@ -26,18 +26,20 @@
  *   </tr>
  *   <tr>
  *    <td><b>USB Class:</b></td>
- *    <td>Miscellaneous Device Class</td>
- *    <td>( Sub-Interface: Communications Device Class (CDC) )</td>
+ *    <td>Communications Device Class (CDC)</td>
  *   </tr>
  *   <tr> 
  *    <td><b>USB Subclass:</b></td>
- *    <td>Common Class</td> 
- *    <td>( Sub-Interface: Abstract Control Model (ACM) )</td>
+ *    <td>Abstract Control Model (ACM)</td>
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>USBIF Interface Association Descriptor ECN</td>
  *    <td>USBIF CDC Class Standard</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Interface Association Descriptor ECN \n
+ *        USBIF CDC Class Standard</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>

@@ -31,11 +31,13 @@
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>USBIF HID Specification, USBIF HID Usage Tables</td>
+ *    <td>USBIF HID Specification \n
+ *        USBIF HID Usage Tables</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
- *    <td>Low Speed Mode, Full Speed Mode</td>
+ *    <td>Low Speed Mode \n
+ *        Full Speed Mode</td>
  *   </tr>
  *  </table>
  *

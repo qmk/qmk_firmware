@@ -19,19 +19,25 @@
  *  <table>
  *   <tr>
  *    <td><b>USB Mode:</b></td>
- *    <td>Host</td>
+ *    <td>Dual Mode Host/Device</td>
  *   </tr>
  *   <tr>
  *    <td><b>USB Class:</b></td>
- *    <td>Communications Device Class (CDC)</td>
+ *    <td>Communications Device Class (CDC) \n
+ *        Mass Storage Device</td>
  *   </tr>
  *   <tr> 
  *    <td><b>USB Subclass:</b></td>
- *    <td>Remote NDIS (Microsoft Proprietary CDC Class Networking Standard)</td>
+ *    <td>Remote NDIS (Microsoft Proprietary CDC Class Networking Standard) \n
+ *        Bulk-Only Transport</td>
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>Microsoft RNDIS Specification</td>
+ *    <td>Microsoft RNDIS Specification \n
+ *        USBIF Mass Storage Standard \n
+ *        USB Bulk-Only Transport Standard \n
+ *        SCSI Primary Commands Specification \n
+ *        SCSI Block Commands Specification</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
@@ -48,12 +54,12 @@
  *
  *  To use this project, plug the USB AVR into a computer, so that it enumerates as a standard Mass Storage device. Load
  *  HTML files onto the disk, so that they can be served out to clients -- the default file to serve should be called
- *  <i>index.htm<i>. Filenames must be in 8.3 format for them to be retrieved correctly by the webserver.
- 
- *  When attached to a RNDIS class device, such as a USB (desktop) modem. If compatible, the system will enumerate the
- *  device, set the appropriate parameters needed for connectivity and begin listening for new HTTP connections on port 80.
- *  The device IP, netmask and default gateway IP must be set to values appropriate for the RNDIS device being used for this
- *  project to work, if the DHCP client is disabled (see \ref SSec_Options).
+ *  <i>index.htm</i>. Filenames must be in 8.3 format for them to be retrieved correctly by the webserver.
+ *
+ *  When attached to a RNDIS class device, such as a USB (desktop) modem, the system will enumerate the device, set the
+ *  appropriate parameters needed for connectivity and begin listening for new HTTP connections on port 80. The device IP,
+ *  netmask and default gateway IP must be set to values appropriate for the RNDIS device being used for this project to 
+ *  work, if the DHCP client is disabled (see \ref SSec_Options).
  *
  *  When properly configured, the webserver can be accessed from any HTTP webrowser by typing in the device's static or
  *  dynamically allocated IP address.

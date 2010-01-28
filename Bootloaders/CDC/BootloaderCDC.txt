@@ -64,9 +64,9 @@
  *
  *  <table>
  *   <tr>
- *    <td><b>Define Name:</b></td>
- *    <td><b>Location:</b></td>
- *    <td><b>Description:</b></td>
+ *    <td>
+ *     None
+ *    </td>
  *   </tr>
  *  </table>
  */
