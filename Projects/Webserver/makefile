@@ -139,8 +139,8 @@ SRC = $(TARGET).c                                                 \
 	  Lib/uip/timer.c                                             \
 	  Lib/uip/uip-neighbor.c                                      \
 	  Lib/uip/conf/clock-arch.c                                   \
-	  Lib/FatFS/diskio.c                                          \
-	  Lib/FatFS/ff.c                                              \
+	  Lib/FATFs/diskio.c                                          \
+	  Lib/FATFs/ff.c                                              \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
