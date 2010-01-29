@@ -55,7 +55,7 @@ static void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress)
  */
 static void TINYNVM_SendReadNVMRegister(uint8_t Address)
 {
-	/* The TPI command for reading from the I/O space uses wierd addressing, where the I/O address's upper
+	/* The TPI command for reading from the I/O space uses strange addressing, where the I/O address's upper
 	 * two bits of the 6-bit address are shifted left once */
 	XPROGTarget_SendByte(TPI_CMD_SIN | ((Address & 0x30) << 1) | (Address & 0x0F));
 }
@@ -99,9 +99,11 @@ bool TINYNVM_WaitWhileNVMControllerBusy(void)
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
 	while (TimeoutMSRemaining)
 	{
-		/* Send the SIN command to read the TPI STATUS register to see the NVM bus is active */
+		/* Send the SIN command to read the TPI STATUS register to see the NVM bus is busy */
 		TINYNVM_SendReadNVMRegister(XPROG_Param_NVMCSRRegAddr);
-		if (XPROGTarget_ReceiveByte() & (1 << 7))
+
+		/* Check to see if the BUSY flag is still set */
+		if (!(XPROGTarget_ReceiveByte() & (1 << 7)))
 		  return true;
 	}
 	
