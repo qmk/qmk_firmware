@@ -6,6 +6,7 @@
 	typedef struct
 	{
 		uint8_t CurrentState;
+		char    FileName[13];
 		FIL     FileToSend;
 		bool    FileOpen;
 	} uip_tcp_appstate_t;

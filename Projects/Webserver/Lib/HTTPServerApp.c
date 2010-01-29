@@ -41,19 +41,41 @@
  */
 char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
                                "Server: LUFA RNDIS\r\n"
-                               "Content-type: text/html\r\n"
-                               "Connection: close\r\n\r\n";
+                               "Connection: close\r\n"
+							   "MIME-version: 1.0\r\n"
+							   "Content-Type: ";
 
 /** HTTP server response header, for transmission before a resource not found error. This indicates to the host that the given
  *  given URL is invalid, and gives extra error information.
  */
 char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
                                "Server: LUFA RNDIS\r\n"
-                               "Connection: close\r\n\r\n"
-							   "The requested file was not found.";
+                               "Connection: close\r\n"
+							   "MIME-version: 1.0\r\n"
+							   "Content-Type: text/plain\r\n\r\n"
+							   "Error 404: File Not Found";
+
+/** Default MIME type sent if no other MIME type can be determined */
+char PROGMEM DefaultMIMEType[] = "text/plain";
+
+/** List of MIME types for each supported file extension - must be terminated with \ref END_OF_MIME_LIST entry. */
+MIME_Type_t PROGMEM MIMETypes[] =
+	{
+		{.Extension = "htm", .MIMEType = "text/html"},
+		{.Extension = "jpg", .MIMEType = "image/jpeg"},
+		{.Extension = "gif", .MIMEType = "image/gif"},
+		{.Extension = "bmp", .MIMEType = "image/bmp"},
+		{.Extension = "png", .MIMEType = "image/png"},
+		{.Extension = "exe", .MIMEType = "application/octet-stream"},
+		{.Extension = "gz",  .MIMEType = "application/x-gzip"},
+		{.Extension = "ico", .MIMEType = "image/x-icon"},
+		{.Extension = "zip", .MIMEType = "application/zip"},
+		{.Extension = "pdf", .MIMEType = "application/pdf"},
+	};
 
 /** FAT Fs structure to hold the internal state of the FAT driver for the dataflash contents. */
 FATFS DiskFATState;
+
 
 /** Initialization function for the simple HTTP webserver. */
 void WebserverApp_Init(void)
@@ -85,7 +107,8 @@ void WebserverApp_Callback(void)
 	}
 	else if (uip_closed())
 	{
-		/* Completed connection, just return */
+		AppState->CurrentState = WEBSERVER_STATE_Closed;
+
 		return;
 	}
 	else if (uip_connected())
@@ -107,50 +130,86 @@ void WebserverApp_Callback(void)
 					break;
 				}
 		
-				char FileName[13];
-
-				/* Copy over the requested filename from the GET request */
-				for (uint8_t i = 0; i < (sizeof(FileName) - 1); i++)
+				/* Copy over the requested filename from the GET request as all-lowercase */
+				for (uint8_t i = 0; i < (sizeof(AppState->FileName) - 1); i++)
 				{
-					FileName[i] = AppData[sizeof("GET ") + i];
+					AppState->FileName[i] = tolower(AppData[sizeof("GET ") + i]);
 					
-					if (FileName[i] == ' ')
+					if (AppState->FileName[i] == ' ')
 					{
-						FileName[i] = 0x00;
+						AppState->FileName[i] = 0x00;
 						break;
 					}
 				}
 				
 				/* Ensure requested filename is null-terminated */
-				FileName[(sizeof(FileName) - 1)] = 0x00;
+				AppState->FileName[(sizeof(AppState->FileName) - 1)] = 0x00;
 				
-				/* If no filename specified, assume the default of INDEX.HTM */
-				if (FileName[0] == 0x00)
-				  strcpy(FileName, "INDEX.HTM");
+				/* If no filename specified, assume the default of index.htm */
+				if (AppState->FileName[0] == 0x00)
+				  strcpy(AppState->FileName, "index.htm");
 				
 				/* Try to open the file from the Dataflash disk */
-				AppState->FileOpen = (f_open(&AppState->FileToSend, FileName, FA_OPEN_EXISTING | FA_READ) == FR_OK);
+				AppState->FileOpen = (f_open(&AppState->FileToSend, AppState->FileName, FA_OPEN_EXISTING | FA_READ) == FR_OK);
 
-				AppState->CurrentState = WEBSERVER_STATE_SendHeaders;
+				AppState->CurrentState = WEBSERVER_STATE_SendResponseHeader;
 			}
 
 			break;
-		case WEBSERVER_STATE_SendHeaders:
+		case WEBSERVER_STATE_SendResponseHeader:
 			/* Determine what HTTP header should be sent to the client */
 			if (AppState->FileOpen)
 			{
 				AppDataSize = strlen_P(HTTP200Header);
-				strncpy_P(AppData, HTTP200Header, AppDataSize);				
+				strncpy_P(AppData, HTTP200Header, AppDataSize);
 			}
 			else
 			{
 				AppDataSize = strlen_P(HTTP404Header);
-				strncpy_P(AppData, HTTP404Header, AppDataSize);				
+				strncpy_P(AppData, HTTP404Header, AppDataSize);
 			}
 			
 			uip_send(AppData, AppDataSize);
 			
-			AppState->CurrentState = WEBSERVER_STATE_SendData;
+			AppState->CurrentState = WEBSERVER_STATE_SendMIMETypeHeader;
+			break;
+		case WEBSERVER_STATE_SendMIMETypeHeader:
+			/* File must have been found and opened for MIME header to be sent */
+			if (AppState->FileOpen)
+			{
+				char* Extension = strpbrk(AppState->FileName, ".");
+				
+				/* Check to see if a file extension was found for the requested filename */
+				if (Extension != NULL)
+				{
+					/* Look through the MIME type list, copy over the required MIME type if found */
+					for (int i = 0; i < (sizeof(MIMETypes) / sizeof(MIMETypes[0])); i++)
+					{
+						if (strcmp_P(&Extension[1], MIMETypes[i].Extension) == 0)
+						{
+							AppDataSize = strlen_P(MIMETypes[i].MIMEType);
+							strncpy_P(AppData, MIMETypes[i].MIMEType, AppDataSize);						
+							break;
+						}
+					} 
+				}
+
+				/* Check if a MIME type was found and copied to the output buffer */
+				if (!(AppDataSize))
+				{
+					/* MIME type not found - copy over the default MIME type */
+					AppDataSize = strlen_P(DefaultMIMEType);
+					strncpy_P(AppData, DefaultMIMEType, AppDataSize);				
+				}
+				
+				/* Add the end-of line terminator and end-of-headers terminator after the MIME type */
+				strncpy(&AppData[AppDataSize], "\r\n\r\n", sizeof("\r\n\r\n"));
+				AppDataSize += (sizeof("\r\n\r\n") - 1);
+				
+				uip_send(AppData, AppDataSize);
+			}
+				
+			AppState->CurrentState = WEBSERVER_STATE_SendData;				
 			break;
 		case WEBSERVER_STATE_SendData:
 			/* If end of file/file not open, progress to the close state */

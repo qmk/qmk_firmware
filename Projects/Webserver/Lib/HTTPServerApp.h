@@ -39,21 +39,31 @@
 	/* Includes: */
 		#include <avr/pgmspace.h>
 		#include <string.h>
+		#include <ctype.h>
 		
 		#include <LUFA/Version.h>
 		
 		#include <uip.h>
 		#include <ff.h>
-		
+	
 	/* Enums: */
 		/** States for each HTTP connection to the webserver. */
 		enum Webserver_States_t
 		{
 			WEBSERVER_STATE_OpenRequestedFile, /** Currently opening requested file */
-			WEBSERVER_STATE_SendHeaders, /**< Currently sending HTTP headers to the client */
+			WEBSERVER_STATE_SendResponseHeader, /**< Currently sending HTTP response headers to the client */
+			WEBSERVER_STATE_SendMIMETypeHeader, /**< Currently sending HTTP MIME type header to the client */
 			WEBSERVER_STATE_SendData,    /**< Currently sending HTTP page data to the client */
 			WEBSERVER_STATE_Closed,      /**< Connection closed after all data sent */
 		};
+		
+	/* Type Defines: */
+		/** Type define for a MIME type handler. */
+		typedef struct
+		{
+			char Extension[4]; /**< 3 or less character file extension */
+			char MIMEType[30]; /**< Appropriate MIME type to send when the extension is encountered */
+		} MIME_Type_t;
 	
 	/* Macros: */
 		/** TCP listen port for incomming HTTP traffic */

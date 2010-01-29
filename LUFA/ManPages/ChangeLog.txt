@@ -17,10 +17,10 @@
   *  - Added MIDI event packing support to the MIDI Device and Host mode Class drivers, allowing for multiple MIDI events to
   *    sent or received in packed form in a single USB packet
   *  - Added new MIDI send buffer flush routines to the MIDI Device and Host mode Class drivers, to flush packed events
-  *  - Added master mode hardware TWI driver
+  *  - Added master mode hardware TWI driver for easy TWI peripheral control
   *  - Added ADC MUX masks for the standard ADC input channels on all AVR models with an ADC, altered demos to use these masks
   *    as on some models, the channel number is not identical to its single-ended ADC MUX mask
-  *  - New Webserver project, a RNDIS host USB webserver using the open source uIP TCP/IP network stack
+  *  - New Webserver project, a RNDIS host USB webserver using the open source uIP TCP/IP network stack and FatFS library
   *
   *  <b>Changed:</b>
   *  - Slowed down software USART carried PDI programming in the AVRISP project to prevent transmission errors
