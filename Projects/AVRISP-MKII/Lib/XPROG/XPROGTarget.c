@@ -96,7 +96,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 }
 
 /** ISR to manage the TPI software USART when bit-banged TPI USART mode is selected. */
-ISR(TIMER1_COMPB_vect, ISR_BLOCK)
+ISR(TIMER1_CAPT_vect, ISR_BLOCK)
 {
 	/* Toggle CLOCK pin in a single cycle (see AVR datasheet) */
 	BITBANG_TPICLOCK_PIN |= BITBANG_TPICLOCK_MASK;
@@ -209,10 +209,10 @@ void XPROGTarget_EnableTargetTPI(void)
 	/* Set DATA line high for idle state */
 	BITBANG_TPIDATA_PORT |= BITBANG_TPIDATA_MASK;
 
-	/* Fire timer capture channel B ISR to manage the software USART */
-	OCR1B   = BITS_BETWEEN_USART_CLOCKS;
-	TCCR1B  = (1 << WGM12) | (1 << CS10);
-	TIMSK1  = (1 << OCIE1B);
+	/* Fire timer capture channel ISR to manage the software USART */
+	ICR1    = BITS_BETWEEN_USART_CLOCKS;
+	TCCR1B  = (1 << WGM13) | (1 << WGM12) | (1 << CS10);
+	TIMSK1  = (1 << ICIE1);
 #endif
 
 	/* Send two BREAKs of 12 bits each to enable TPI interface (need at least 16 idle bits) */
