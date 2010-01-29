@@ -52,7 +52,7 @@ void uIPManagement_Init(void)
 {
 	/* uIP Timing Initialization */
 	clock_init();
-	timer_set(&ConnectionTimer, CLOCK_SECOND / 2);
+	timer_set(&ConnectionTimer, CLOCK_SECOND / 100);
 	timer_set(&ARPTimer, CLOCK_SECOND * 10);	
 
 	/* uIP Stack Initialization */

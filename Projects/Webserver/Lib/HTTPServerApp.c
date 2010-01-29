@@ -96,17 +96,16 @@ void WebserverApp_Callback(void)
 	char*                     AppData     = (char*)uip_appdata;
 	uint16_t                  AppDataSize = 0;
 
-	if (uip_aborted() || uip_timedout())
+	if (uip_aborted() || uip_timedout() || uip_closed())
 	{
-		/* Close the file before terminating, if it is open */
-		f_close(&AppState->FileToSend);
+		/* Check if the open file needs to be closed */
+		if (AppState->FileOpen)
+		{
+			f_close(&AppState->FileHandle);
+			AppState->FileOpen = false;
+		}
 
-		AppState->CurrentState = WEBSERVER_STATE_Closed;
-
-		return;
-	}
-	else if (uip_closed())
-	{
+		AppState->PrevState    = WEBSERVER_STATE_Closed;
 		AppState->CurrentState = WEBSERVER_STATE_Closed;
 
 		return;
@@ -114,14 +113,20 @@ void WebserverApp_Callback(void)
 	else if (uip_connected())
 	{
 		/* New connection - initialize connection state and data pointer to the appropriate HTTP header */
+		AppState->PrevState    = WEBSERVER_STATE_OpenRequestedFile;
 		AppState->CurrentState = WEBSERVER_STATE_OpenRequestedFile;
+	}
+	else if (uip_rexmit())
+	{
+		/* Re-try last state */
+		AppState->CurrentState = AppState->PrevState;
 	}
 	
 	switch (AppState->CurrentState)
 	{
 		case WEBSERVER_STATE_OpenRequestedFile:
 			/* Wait for the packet containing the request header */
-			if (uip_datalen())
+			if (uip_newdata())
 			{
 				/* Must be a GET request, abort otherwise */
 				if (strncmp(AppData, "GET ", (sizeof("GET ") - 1)) != 0)
@@ -150,8 +155,10 @@ void WebserverApp_Callback(void)
 				  strcpy(AppState->FileName, "index.htm");
 				
 				/* Try to open the file from the Dataflash disk */
-				AppState->FileOpen = (f_open(&AppState->FileToSend, AppState->FileName, FA_OPEN_EXISTING | FA_READ) == FR_OK);
+				AppState->FileOpen       = (f_open(&AppState->FileHandle, AppState->FileName, FA_OPEN_EXISTING | FA_READ) == FR_OK);
+				AppState->CurrentFilePos = 0;
 
+				AppState->PrevState    = WEBSERVER_STATE_OpenRequestedFile;
 				AppState->CurrentState = WEBSERVER_STATE_SendResponseHeader;
 			}
 
@@ -171,6 +178,7 @@ void WebserverApp_Callback(void)
 			
 			uip_send(AppData, AppDataSize);
 			
+			AppState->PrevState    = WEBSERVER_STATE_SendResponseHeader;
 			AppState->CurrentState = WEBSERVER_STATE_SendMIMETypeHeader;
 			break;
 		case WEBSERVER_STATE_SendMIMETypeHeader:
@@ -209,28 +217,42 @@ void WebserverApp_Callback(void)
 				uip_send(AppData, AppDataSize);
 			}
 				
+			AppState->PrevState    = WEBSERVER_STATE_SendMIMETypeHeader;
 			AppState->CurrentState = WEBSERVER_STATE_SendData;				
 			break;
 		case WEBSERVER_STATE_SendData:
 			/* If end of file/file not open, progress to the close state */
-			if (!(AppState->FileOpen))
+			if (!(AppState->FileOpen) && !(uip_rexmit()))
 			{
-				f_close(&AppState->FileToSend);
+				f_close(&AppState->FileHandle);
 				uip_close();
+
+				AppState->PrevState    = WEBSERVER_STATE_Closed;
 				AppState->CurrentState = WEBSERVER_STATE_Closed;
 				break;
 			}
 
 			uint16_t MaxSegSize = uip_mss();
 			
+			/* Return file pointer to the last ACKed position if retransmitting */
+			f_lseek(&AppState->FileHandle, AppState->CurrentFilePos);
+
 			/* Read the next chunk of data from the open file */
-			f_read(&AppState->FileToSend, AppData, MaxSegSize, &AppDataSize);
-			AppState->FileOpen = (MaxSegSize == AppDataSize);
+			f_read(&AppState->FileHandle, AppData, MaxSegSize, &AppDataSize);
+			AppState->FileOpen = (AppDataSize > 0);
 
 			/* If data was read, send it to the client */
 			if (AppDataSize)
-			  uip_send(AppData, AppDataSize);
-					
+			{
+				/* If we are not re-transmitting a lost segment, advance file position */
+				if (!(uip_rexmit()))
+				  AppState->CurrentFilePos += AppDataSize;
+
+				uip_send(AppData, AppDataSize);
+			}
+			
+			AppState->PrevState = WEBSERVER_STATE_SendData;
+
 			break;
 	}
 }

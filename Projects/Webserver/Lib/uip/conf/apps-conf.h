@@ -5,10 +5,13 @@
 
 	typedef struct
 	{
+		uint8_t PrevState;
 		uint8_t CurrentState;
+		
+		FIL     FileHandle;
 		char    FileName[13];
-		FIL     FileToSend;
 		bool    FileOpen;
+		uint32_t CurrentFilePos;
 	} uip_tcp_appstate_t;
 
 	typedef struct

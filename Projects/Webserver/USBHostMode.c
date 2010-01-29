@@ -45,10 +45,10 @@ USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface =
 		.Config =
 			{
 				.DataINPipeNumber           = 1,
-				.DataINPipeDoubleBank       = false,
+				.DataINPipeDoubleBank       = true,
 
 				.DataOUTPipeNumber          = 2,
-				.DataOUTPipeDoubleBank      = false,
+				.DataOUTPipeDoubleBank      = true,
 
 				.NotificationPipeNumber     = 3,
 				.NotificationPipeDoubleBank = false,
