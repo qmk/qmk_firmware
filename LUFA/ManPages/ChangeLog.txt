@@ -9,7 +9,7 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
   *  <b>New:</b>
-  *  - Added TPI programming support for 6-pin ATTINY to the AVRISP programmer project
+  *  - Added TPI programming support for 6-pin ATTINY devices to the AVRISP programmer project
   *  - Added command timeout counter to the AVRISP project so that the device no longer freezes when incorrectly connected
   *    to a target
   *  - Added new TemperatureDataLogger application, a USB data logger which writes to the device's dataflash and appears to

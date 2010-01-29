@@ -100,7 +100,7 @@ ServiceBinary=%12%\%DRIVERFILENAME%.sys
 [Strings]
 MFGFILENAME="CDC_vista"
 DRIVERFILENAME ="usbser"
-MFGNAME="CCS, Inc."
+MFGNAME="http://www.fourwalledcubicle.com"
 INSTDISK="LUFA Dual CDC Driver Installer"
 DESCRIPTION="Communications Port"
 SERVICE="USB RS-232 Emulation Driver"
