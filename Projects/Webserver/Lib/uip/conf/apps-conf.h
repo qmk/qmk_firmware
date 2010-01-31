@@ -9,7 +9,7 @@
 		uint8_t CurrentState;
 		
 		FIL     FileHandle;
-		char    FileName[13];
+		char    FileName[50];
 		bool    FileOpen;
 		uint32_t CurrentFilePos;
 	} uip_tcp_appstate_t;

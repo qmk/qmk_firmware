@@ -52,7 +52,7 @@ void uIPManagement_Init(void)
 {
 	/* uIP Timing Initialization */
 	clock_init();
-	timer_set(&ConnectionTimer, CLOCK_SECOND / 100);
+	timer_set(&ConnectionTimer, CLOCK_SECOND / 2);
 	timer_set(&ARPTimer, CLOCK_SECOND * 10);	
 
 	/* uIP Stack Initialization */
@@ -97,13 +97,13 @@ static void uIPManagement_ProcessIncommingPacket(void)
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
 		/* Read the incomming packet straight into the UIP packet buffer */
-		RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], &uip_len);
+		RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, uip_buf, &uip_len);
 
 		if (uip_len > 0)
 		{
 			bool PacketHandled = true;
 
-			struct uip_eth_hdr* EthernetHeader = (struct uip_eth_hdr*)&uip_buf[0];
+			struct uip_eth_hdr* EthernetHeader = (struct uip_eth_hdr*)uip_buf;
 			if (EthernetHeader->type == HTONS(UIP_ETHTYPE_IP))
 			{
 				/* Filter packet by MAC destination */
@@ -128,7 +128,7 @@ static void uIPManagement_ProcessIncommingPacket(void)
 
 			/* If a response was generated, send it */
 			if ((uip_len > 0) && PacketHandled)
-			  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], uip_len);
+			  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
 		}
 
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -138,7 +138,22 @@ static void uIPManagement_ProcessIncommingPacket(void)
 /** Manages the currently open network connections, including TCP and (if enabled) UDP. */
 static void uIPManagement_ManageConnections(void)
 {
-	/* Manage open connections */
+	/* Poll TCP connections for more data to send back to the host */
+	for (uint8_t i = 0; i < UIP_CONNS; i++)
+	{
+		uip_poll_conn(&uip_conns[i]);
+
+		/* If a response was generated, send it */
+		if (uip_len > 0)
+		{
+			/* Add destination MAC to outgoing packet */
+			uip_arp_out();
+
+			RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+		}
+	}
+
+	/* Manage open connections for timeouts */
 	if (timer_expired(&ConnectionTimer))
 	{
 		timer_reset(&ConnectionTimer);
@@ -156,7 +171,7 @@ static void uIPManagement_ManageConnections(void)
 				/* Add destination MAC to outgoing packet */
 				uip_arp_out();
 
-				RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], uip_len);
+				RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
 			}
 		}
 		
@@ -172,7 +187,7 @@ static void uIPManagement_ManageConnections(void)
 				/* Add destination MAC to outgoing packet */
 				uip_arp_out();
 
-				RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, &uip_buf[0], uip_len);
+				RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
 			}
 		}
 		#endif

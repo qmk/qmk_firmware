@@ -112,9 +112,10 @@ void WebserverApp_Callback(void)
 	}
 	else if (uip_connected())
 	{
-		/* New connection - initialize connection state and data pointer to the appropriate HTTP header */
+		/* New connection - initialize connection state values */
 		AppState->PrevState    = WEBSERVER_STATE_OpenRequestedFile;
 		AppState->CurrentState = WEBSERVER_STATE_OpenRequestedFile;
+		AppState->FileOpen     = false;
 	}
 	else if (uip_rexmit())
 	{
@@ -128,31 +129,25 @@ void WebserverApp_Callback(void)
 			/* Wait for the packet containing the request header */
 			if (uip_newdata())
 			{
+				char* RequestToken = strtok(AppData, " ");
+			
 				/* Must be a GET request, abort otherwise */
-				if (strncmp(AppData, "GET ", (sizeof("GET ") - 1)) != 0)
+				if (strcmp(RequestToken, "GET") != 0)
 				{
 					uip_abort();
 					break;
 				}
 		
-				/* Copy over the requested filename from the GET request as all-lowercase */
-				for (uint8_t i = 0; i < (sizeof(AppState->FileName) - 1); i++)
-				{
-					AppState->FileName[i] = tolower(AppData[sizeof("GET ") + i]);
-					
-					if (AppState->FileName[i] == ' ')
-					{
-						AppState->FileName[i] = 0x00;
-						break;
-					}
-				}
+				char* RequestedFileName = strtok(NULL, " ");
 				
-				/* Ensure requested filename is null-terminated */
-				AppState->FileName[(sizeof(AppState->FileName) - 1)] = 0x00;
-				
-				/* If no filename specified, assume the default of index.htm */
-				if (AppState->FileName[0] == 0x00)
+				/* If the requested filename has more that just the leading '/' path in it, copy it over */
+				if (strlen(RequestedFileName) > 1)
+				  strncpy(AppState->FileName, &RequestedFileName[1], (sizeof(AppState->FileName) - 1));
+				else
 				  strcpy(AppState->FileName, "index.htm");
+
+				/* Ensure filename is null-terminated */
+				AppState->FileName[(sizeof(AppState->FileName) - 1)] = 0x00;
 				
 				/* Try to open the file from the Dataflash disk */
 				AppState->FileOpen       = (f_open(&AppState->FileHandle, AppState->FileName, FA_OPEN_EXISTING | FA_READ) == FR_OK);
@@ -175,8 +170,6 @@ void WebserverApp_Callback(void)
 				AppDataSize = strlen_P(HTTP404Header);
 				strncpy_P(AppData, HTTP404Header, AppDataSize);
 			}
-			
-			uip_send(AppData, AppDataSize);
 			
 			AppState->PrevState    = WEBSERVER_STATE_SendResponseHeader;
 			AppState->CurrentState = WEBSERVER_STATE_SendMIMETypeHeader;
@@ -213,8 +206,6 @@ void WebserverApp_Callback(void)
 				/* Add the end-of line terminator and end-of-headers terminator after the MIME type */
 				strncpy(&AppData[AppDataSize], "\r\n\r\n", sizeof("\r\n\r\n"));
 				AppDataSize += (sizeof("\r\n\r\n") - 1);
-				
-				uip_send(AppData, AppDataSize);
 			}
 				
 			AppState->PrevState    = WEBSERVER_STATE_SendMIMETypeHeader;
@@ -234,25 +225,26 @@ void WebserverApp_Callback(void)
 
 			uint16_t MaxSegSize = uip_mss();
 			
-			/* Return file pointer to the last ACKed position if retransmitting */
+			/* Return file pointer to the last ACKed position */
 			f_lseek(&AppState->FileHandle, AppState->CurrentFilePos);
 
 			/* Read the next chunk of data from the open file */
 			f_read(&AppState->FileHandle, AppData, MaxSegSize, &AppDataSize);
-			AppState->FileOpen = (AppDataSize > 0);
 
-			/* If data was read, send it to the client */
-			if (AppDataSize)
+			/* If we are not re-transmitting a lost segment, advance file position */
+			if (uip_acked() && !(uip_rexmit()))
 			{
-				/* If we are not re-transmitting a lost segment, advance file position */
-				if (!(uip_rexmit()))
-				  AppState->CurrentFilePos += AppDataSize;
-
-				uip_send(AppData, AppDataSize);
+				AppState->FileOpen = (AppDataSize > 0);
+				AppState->CurrentFilePos += AppDataSize;
 			}
 			
+			/* Stay in the SendData state if retransmission is required until all data sent */
 			AppState->PrevState = WEBSERVER_STATE_SendData;
 
 			break;
 	}
+
+	/* If data has been loaded into the application buffer by the server, send it to the client */
+	if (AppDataSize)
+	  uip_send(AppData, AppDataSize);
 }
