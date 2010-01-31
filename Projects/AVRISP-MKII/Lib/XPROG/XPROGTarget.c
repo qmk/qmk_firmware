@@ -152,9 +152,11 @@ void XPROGTarget_EnableTargetPDI(void)
 	DDRD |=  (1 << 5) | (1 << 3);
 	DDRD &= ~(1 << 2);
 	
-	/* Set DATA line high for at least 90ns to disable /RESET functionality */
+	/* Set DATA line high for at least 90ns to disable /RESET functionality (note: too long will enable it again,
+	 * so a fixed number of NOPs are used here */
 	PORTD |= (1 << 3);
-	_delay_ms(1);
+	asm volatile ("NOP"::);
+	asm volatile ("NOP"::);
 	
 	/* Set up the synchronous USART for XMEGA communications - 
 	   8 data bits, even parity, 2 stop bits */
@@ -166,9 +168,11 @@ void XPROGTarget_EnableTargetPDI(void)
 	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
 	BITBANG_PDICLOCK_DDR |= BITBANG_PDICLOCK_MASK;
 	
-	/* Set DATA line high for at least 90ns to disable /RESET functionality */
+	/* Set DATA line high for at least 90ns to disable /RESET functionality (note: too long will enable it again,
+	 * so a fixed number of NOPs are used here */
 	BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
-	_delay_ms(1);
+	asm volatile ("NOP"::);
+	asm volatile ("NOP"::);
 
 	/* Fire timer compare channel A ISR to manage the software USART */
 	OCR1A   = BITS_BETWEEN_USART_CLOCKS;
