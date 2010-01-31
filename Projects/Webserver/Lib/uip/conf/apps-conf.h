@@ -5,13 +5,14 @@
 
 	typedef struct
 	{
-		uint8_t PrevState;
-		uint8_t CurrentState;
+		uint8_t  CurrentState;
+		uint8_t  NextState;
 		
-		FIL     FileHandle;
-		char    FileName[50];
-		bool    FileOpen;
-		uint32_t CurrentFilePos;
+		char     FileName[30];
+		FIL      FileHandle;
+		bool     FileOpen;
+		uint32_t ACKedFilePos;
+		uint16_t SentChunkSize;
 	} uip_tcp_appstate_t;
 
 	typedef struct

@@ -34,6 +34,7 @@
  *  this will serve out files to HTTP clients.
  */
  
+#define  INCLUDE_FROM_HTTPSERVERAPP_C
 #include "HTTPServerApp.h"
 
 /** HTTP server response header, for transmission before the page contents. This indicates to the host that a page exists at the
@@ -92,159 +93,199 @@ void WebserverApp_Init(void)
  */
 void WebserverApp_Callback(void)
 {
-	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
-	char*                     AppData     = (char*)uip_appdata;
-	uint16_t                  AppDataSize = 0;
+	uip_tcp_appstate_t* const AppState = &uip_conn->appstate;
 
 	if (uip_aborted() || uip_timedout() || uip_closed())
 	{
-		/* Check if the open file needs to be closed */
+		/* Connection is being terminated for some reason - close file handle if open */
 		if (AppState->FileOpen)
 		{
 			f_close(&AppState->FileHandle);
 			AppState->FileOpen = false;
 		}
-
-		AppState->PrevState    = WEBSERVER_STATE_Closed;
-		AppState->CurrentState = WEBSERVER_STATE_Closed;
-
-		return;
+		
+		/* Lock to the closed state so that no further processing will occur on the connection */
+		AppState->CurrentState  = WEBSERVER_STATE_Closed;
+		AppState->NextState     = WEBSERVER_STATE_Closed;
 	}
-	else if (uip_connected())
+
+	if (uip_connected())
 	{
 		/* New connection - initialize connection state values */
-		AppState->PrevState    = WEBSERVER_STATE_OpenRequestedFile;
-		AppState->CurrentState = WEBSERVER_STATE_OpenRequestedFile;
-		AppState->FileOpen     = false;
+		AppState->CurrentState  = WEBSERVER_STATE_OpenRequestedFile;
+		AppState->NextState     = WEBSERVER_STATE_OpenRequestedFile;
+		AppState->FileOpen      = false;
+		AppState->ACKedFilePos  = 0;
+		AppState->SentChunkSize = 0;
 	}
-	else if (uip_rexmit())
+
+	if (uip_acked())
 	{
-		/* Re-try last state */
-		AppState->CurrentState = AppState->PrevState;
+		/* Add the amount of ACKed file data to the total sent file bytes counter */
+		AppState->ACKedFilePos += AppState->SentChunkSize;
+
+		/* Progress to the next state once the current state's data has been ACKed */
+		AppState->CurrentState = AppState->NextState;
 	}
-	
-	switch (AppState->CurrentState)
+
+	if (uip_rexmit() || uip_newdata() || uip_acked() || uip_connected() || uip_poll())
 	{
-		case WEBSERVER_STATE_OpenRequestedFile:
-			/* Wait for the packet containing the request header */
-			if (uip_newdata())
-			{
-				char* RequestToken = strtok(AppData, " ");
-			
-				/* Must be a GET request, abort otherwise */
-				if (strcmp(RequestToken, "GET") != 0)
-				{
-					uip_abort();
-					break;
-				}
-		
-				char* RequestedFileName = strtok(NULL, " ");
-				
-				/* If the requested filename has more that just the leading '/' path in it, copy it over */
-				if (strlen(RequestedFileName) > 1)
-				  strncpy(AppState->FileName, &RequestedFileName[1], (sizeof(AppState->FileName) - 1));
-				else
-				  strcpy(AppState->FileName, "index.htm");
-
-				/* Ensure filename is null-terminated */
-				AppState->FileName[(sizeof(AppState->FileName) - 1)] = 0x00;
-				
-				/* Try to open the file from the Dataflash disk */
-				AppState->FileOpen       = (f_open(&AppState->FileHandle, AppState->FileName, FA_OPEN_EXISTING | FA_READ) == FR_OK);
-				AppState->CurrentFilePos = 0;
-
-				AppState->PrevState    = WEBSERVER_STATE_OpenRequestedFile;
-				AppState->CurrentState = WEBSERVER_STATE_SendResponseHeader;
-			}
-
-			break;
-		case WEBSERVER_STATE_SendResponseHeader:
-			/* Determine what HTTP header should be sent to the client */
-			if (AppState->FileOpen)
-			{
-				AppDataSize = strlen_P(HTTP200Header);
-				strncpy_P(AppData, HTTP200Header, AppDataSize);
-			}
-			else
-			{
-				AppDataSize = strlen_P(HTTP404Header);
-				strncpy_P(AppData, HTTP404Header, AppDataSize);
-			}
-			
-			AppState->PrevState    = WEBSERVER_STATE_SendResponseHeader;
-			AppState->CurrentState = WEBSERVER_STATE_SendMIMETypeHeader;
-			break;
-		case WEBSERVER_STATE_SendMIMETypeHeader:
-			/* File must have been found and opened for MIME header to be sent */
-			if (AppState->FileOpen)
-			{
-				char* Extension = strpbrk(AppState->FileName, ".");
-				
-				/* Check to see if a file extension was found for the requested filename */
-				if (Extension != NULL)
-				{
-					/* Look through the MIME type list, copy over the required MIME type if found */
-					for (int i = 0; i < (sizeof(MIMETypes) / sizeof(MIMETypes[0])); i++)
-					{
-						if (strcmp_P(&Extension[1], MIMETypes[i].Extension) == 0)
-						{
-							AppDataSize = strlen_P(MIMETypes[i].MIMEType);
-							strncpy_P(AppData, MIMETypes[i].MIMEType, AppDataSize);						
-							break;
-						}
-					} 
-				}
-
-				/* Check if a MIME type was found and copied to the output buffer */
-				if (!(AppDataSize))
-				{
-					/* MIME type not found - copy over the default MIME type */
-					AppDataSize = strlen_P(DefaultMIMEType);
-					strncpy_P(AppData, DefaultMIMEType, AppDataSize);				
-				}
-				
-				/* Add the end-of line terminator and end-of-headers terminator after the MIME type */
-				strncpy(&AppData[AppDataSize], "\r\n\r\n", sizeof("\r\n\r\n"));
-				AppDataSize += (sizeof("\r\n\r\n") - 1);
-			}
-				
-			AppState->PrevState    = WEBSERVER_STATE_SendMIMETypeHeader;
-			AppState->CurrentState = WEBSERVER_STATE_SendData;				
-			break;
-		case WEBSERVER_STATE_SendData:
-			/* If end of file/file not open, progress to the close state */
-			if (!(AppState->FileOpen) && !(uip_rexmit()))
-			{
-				f_close(&AppState->FileHandle);
+		switch (AppState->CurrentState)
+		{
+			case WEBSERVER_STATE_OpenRequestedFile:
+				Webserver_OpenRequestedFile();
+				break;
+			case WEBSERVER_STATE_SendResponseHeader:
+				Webserver_SendResponseHeader();
+				break;
+			case WEBSERVER_STATE_SendMIMETypeHeader:
+				Webserver_SendMIMETypeHeader();	
+				break;
+			case WEBSERVER_STATE_SendData:
+				Webserver_SendData();
+				break;
+			case WEBSERVER_STATE_Closing:
 				uip_close();
+				
+				AppState->NextState = WEBSERVER_STATE_Closed;
+				break;
+		}		  
+	}		
+}
 
-				AppState->PrevState    = WEBSERVER_STATE_Closed;
-				AppState->CurrentState = WEBSERVER_STATE_Closed;
+/** HTTP Server State handler for the Request Process state. This state manages the processing of incomming HTTP
+ *  GET requests to the server from the receiving HTTP client.
+ */
+static void Webserver_OpenRequestedFile(void)
+{
+	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
+	char*                     AppData     = (char*)uip_appdata;
+	
+	/* No HTTP header received from the client, abort processing */
+	if (!(uip_newdata()))
+	  return;
+	  
+	char* RequestToken = strtok(AppData, " ");
+			
+	/* Must be a GET request, abort otherwise */
+	if (strcmp(RequestToken, "GET") != 0)
+	{
+		uip_abort();
+		return;
+	}
+
+	char* RequestedFileName = strtok(NULL, " ");
+	
+	/* If the requested filename has more that just the leading '/' path in it, copy it over */
+	if (strlen(RequestedFileName) > 1)
+	  strncpy(AppState->FileName, &RequestedFileName[1], (sizeof(AppState->FileName) - 1));
+	else
+	  strcpy(AppState->FileName, "index.htm");
+
+	/* Ensure filename is null-terminated */
+	AppState->FileName[(sizeof(AppState->FileName) - 1)] = 0x00;
+	
+	/* Try to open the file from the Dataflash disk */
+	AppState->FileOpen     = (f_open(&AppState->FileHandle, AppState->FileName, FA_OPEN_EXISTING | FA_READ) == FR_OK);
+
+	/* Lock to the SendResponseHeader state until connection terminated */
+	AppState->CurrentState = WEBSERVER_STATE_SendResponseHeader;
+	AppState->NextState    = WEBSERVER_STATE_SendResponseHeader;
+}
+
+/** HTTP Server State handler for the HTTP Response Header Send state. This state manages the transmission of
+ *  the HTTP response header to the receiving HTTP client.
+ */
+static void Webserver_SendResponseHeader(void)
+{
+	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
+	char*                     AppData     = (char*)uip_appdata;
+
+	char*    HeaderToSend;
+	uint16_t HeaderLength;
+
+	/* Determine what HTTP header should be sent to the client */
+	if (AppState->FileOpen)
+	{
+		HeaderToSend = HTTP200Header;
+		AppState->NextState = WEBSERVER_STATE_SendMIMETypeHeader;
+	}
+	else
+	{
+		HeaderToSend = HTTP404Header;
+		AppState->NextState = WEBSERVER_STATE_Closing;
+	}
+
+	HeaderLength = strlen_P(HeaderToSend);
+	strncpy_P(AppData, HeaderToSend, HeaderLength);
+	uip_send(AppData, HeaderLength);
+}
+
+/** HTTP Server State handler for the MIME Header Send state. This state manages the transmission of the file
+ *  MIME type header for the requested file to the receiving HTTP client.
+ */
+static void Webserver_SendMIMETypeHeader(void)
+{
+	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
+	char*                     AppData     = (char*)uip_appdata;
+
+	char*    Extension        = strpbrk(AppState->FileName, ".");
+	uint16_t MIMEHeaderLength = 0;
+
+	/* Check to see if a file extension was found for the requested filename */
+	if (Extension != NULL)
+	{
+		/* Look through the MIME type list, copy over the required MIME type if found */
+		for (int i = 0; i < (sizeof(MIMETypes) / sizeof(MIMETypes[0])); i++)
+		{
+			if (strcmp_P(&Extension[1], MIMETypes[i].Extension) == 0)
+			{
+				MIMEHeaderLength = strlen_P(MIMETypes[i].MIMEType);
+				strncpy_P(AppData, MIMETypes[i].MIMEType, MIMEHeaderLength);						
 				break;
 			}
-
-			uint16_t MaxSegSize = uip_mss();
-			
-			/* Return file pointer to the last ACKed position */
-			f_lseek(&AppState->FileHandle, AppState->CurrentFilePos);
-
-			/* Read the next chunk of data from the open file */
-			f_read(&AppState->FileHandle, AppData, MaxSegSize, &AppDataSize);
-
-			/* If we are not re-transmitting a lost segment, advance file position */
-			if (uip_acked() && !(uip_rexmit()))
-			{
-				AppState->FileOpen = (AppDataSize > 0);
-				AppState->CurrentFilePos += AppDataSize;
-			}
-			
-			/* Stay in the SendData state if retransmission is required until all data sent */
-			AppState->PrevState = WEBSERVER_STATE_SendData;
-
-			break;
+		} 
 	}
 
-	/* If data has been loaded into the application buffer by the server, send it to the client */
-	if (AppDataSize)
-	  uip_send(AppData, AppDataSize);
+	/* Check if a MIME type was found and copied to the output buffer */
+	if (!(MIMEHeaderLength))
+	{
+		/* MIME type not found - copy over the default MIME type */
+		MIMEHeaderLength = strlen_P(DefaultMIMEType);
+		strncpy_P(AppData, DefaultMIMEType, MIMEHeaderLength);
+	}
+	
+	/* Add the end-of line terminator and end-of-headers terminator after the MIME type */
+	strncpy(&AppData[MIMEHeaderLength], "\r\n\r\n", sizeof("\r\n\r\n"));
+	MIMEHeaderLength += (sizeof("\r\n\r\n") - 1);
+	
+	/* Send the MIME header to the receiving client */
+	uip_send(AppData, MIMEHeaderLength);
+	
+	/* When the MIME header is ACKed, progress to the data send stage */
+	AppState->NextState = WEBSERVER_STATE_SendData;
+}
+
+/** HTTP Server State handler for the Data Send state. This state manages the transmission of file chunks
+ *  to the receiving HTTP client.
+ */
+static void Webserver_SendData(void)
+{
+	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
+	char*                     AppData     = (char*)uip_appdata;
+
+	/* Must determine the maximum segment size to determine maximum file chunk size */
+	uint16_t MaxSegmentSize = uip_mss();
+
+	/* Return file pointer to the last ACKed position */
+	f_lseek(&AppState->FileHandle, AppState->ACKedFilePos);
+	
+	/* Read the next chunk of data from the open file */
+	f_read(&AppState->FileHandle, AppData, MaxSegmentSize, &AppState->SentChunkSize);
+	
+	/* Send the next file chunk to the receiving client */
+	uip_send(AppData, AppState->SentChunkSize);
+			
+	/* Check if we are at the last chunk of the file, if so next ACK should close the connection */
+	AppState->NextState = (MaxSegmentSize != AppState->SentChunkSize) ? WEBSERVER_STATE_Closing : WEBSERVER_STATE_SendData;
 }

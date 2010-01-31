@@ -86,7 +86,7 @@ void DHCPApp_Callback(void)
 			                                 RequiredOptionList);			
 			
 			/* Send the DHCP DISCOVER packet */
-			uip_send(AppData, AppDataSize);
+			uip_udp_send(AppDataSize);
 
 			/* Reset the timeout timer, progress to next state */
 			timer_reset(&DHCPTimer);
@@ -132,7 +132,7 @@ void DHCPApp_Callback(void)
 			                                 &AppState->DHCPOffer_Data.ServerIP);
 
 			/* Send the DHCP REQUEST packet */
-			uip_send(AppData, AppDataSize);
+			uip_udp_send(AppDataSize);
 			
 			/* Reset the timeout timer, progress to next state */
 			timer_reset(&DHCPTimer);

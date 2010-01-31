@@ -50,8 +50,9 @@
 			WEBSERVER_STATE_OpenRequestedFile, /** Currently opening requested file */
 			WEBSERVER_STATE_SendResponseHeader, /**< Currently sending HTTP response headers to the client */
 			WEBSERVER_STATE_SendMIMETypeHeader, /**< Currently sending HTTP MIME type header to the client */
-			WEBSERVER_STATE_SendData,    /**< Currently sending HTTP page data to the client */
-			WEBSERVER_STATE_Closed,      /**< Connection closed after all data sent */
+			WEBSERVER_STATE_SendData, /**< Currently sending HTTP page data to the client */
+			WEBSERVER_STATE_Closing, /**< Ready to close the connection to the client */
+			WEBSERVER_STATE_Closed, /**< Connection closed after all data sent */
 		};
 		
 	/* Type Defines: */
@@ -69,5 +70,12 @@
 	/* Function Prototypes: */
 		void WebserverApp_Init(void);
 		void WebserverApp_Callback(void);
+		
+		#if defined(INCLUDE_FROM_HTTPSERVERAPP_C)
+			static void Webserver_OpenRequestedFile(void);
+			static void Webserver_SendResponseHeader(void);
+			static void Webserver_SendMIMETypeHeader(void);
+			static void Webserver_SendData(void);
+		#endif
 		
 #endif
