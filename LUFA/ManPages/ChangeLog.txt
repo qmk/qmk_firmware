@@ -114,6 +114,7 @@
   *    used (thanks to Daniel Levy)
   *  - Fixed TeensyHID bootloader not enumerating to the host correctly
   *  - Fixed AVRISP project timeouts not checking for the correct timeout period (thanks to Carl Ott)
+  *  - Fixed STK525 Dataflash driver using incorrect bit-shifting for Dataflash addresses (thanks to Tim Mitchell)
   *
   *  \section Sec_ChangeLog091122 Version 091122
   *

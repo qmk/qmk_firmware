@@ -106,8 +106,8 @@
 			 */
 			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress, const uint16_t BufferByte)
 			{	
-				Dataflash_SendByte(PageAddress >> 5);
-				Dataflash_SendByte((PageAddress << 3) | (BufferByte >> 8));
+				Dataflash_SendByte(PageAddress >> 6);
+				Dataflash_SendByte((PageAddress << 2) | (BufferByte >> 8));
 				Dataflash_SendByte(BufferByte);
 			}
 			
