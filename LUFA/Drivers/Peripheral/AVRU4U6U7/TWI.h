@@ -39,6 +39,11 @@
 /** \ingroup Group_TWI
  *  @defgroup Group_TWI_AVRU4U6U7 Series U4, U6 and U7 Model TWI Driver
  *
+ *  Master mode TWI driver for the AT90USB1287, AT90USB1286, AT90USB647, AT90USB646, ATMEGA16U4 and ATMEGA32U4 AVRs.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the TWI driver
+ *        dispatch header located in LUFA/Drivers/Peripheral/TWI.h.
+ *
  *  @{
  */
 

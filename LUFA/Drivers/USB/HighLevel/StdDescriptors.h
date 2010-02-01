@@ -124,14 +124,14 @@
 			 *  descriptor's ConfigAttributes value to indicate that the specified configuration can draw its power
 			 *  from the device's own power source.
 			 */
-			#define USB_CONFIG_ATTR_SELFPOWERED       0xC0
+			#define USB_CONFIG_ATTR_SELFPOWERED       0x40
 
 			/** Can be masked with other configuration descriptor attributes for a \ref USB_Descriptor_Configuration_Header_t
 			 *  descriptor's ConfigAttributes value to indicate that the specified configuration supports the
 			 *  remote wakeup feature of the USB standard, allowing a suspended USB device to wake up the host upon
 			 *  request.
 			 */
-			#define USB_CONFIG_ATTR_REMOTEWAKEUP      0xA0
+			#define USB_CONFIG_ATTR_REMOTEWAKEUP      0x20
 
 			/** Can be masked with other endpoint descriptor attributes for a \ref USB_Descriptor_Endpoint_t descriptor's
 			 *  Attributes value to indicate that the specified endpoint is not synchronized.
