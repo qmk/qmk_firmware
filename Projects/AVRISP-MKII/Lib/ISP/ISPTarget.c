@@ -128,7 +128,7 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 				SPI_SendByte(PollAddress >> 8);
 				SPI_SendByte(PollAddress & 0xFF);
 			}
-			while ((SPI_TransferByte(0x00) != PollValue) && TimeoutMSRemaining);
+			while ((SPI_TransferByte(0x00) == PollValue) && TimeoutMSRemaining);
 
 			if (!(TimeoutMSRemaining))
 			 ProgrammingStatus = STATUS_CMD_TOUT;

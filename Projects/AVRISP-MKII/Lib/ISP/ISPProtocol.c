@@ -198,14 +198,15 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			
 			/* AVR FLASH addressing requires us to modify the write command based on if we are writing a high
 			 * or low byte at the current word address */
-			Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
+			if (V2Command == CMD_PROGRAM_FLASH_ISP)
+			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
 
 			/* Check to see the write completion method, to see if we have a valid polling address */
 			if (!(PollAddress) && (ByteToWrite != PollValue))
 			{
 				if (IsOddByte && (V2Command == CMD_PROGRAM_FLASH_ISP))
 				  Write_Memory_Params.ProgrammingCommands[2] |= READ_WRITE_HIGH_BYTE_MASK;
-				  
+
 				PollAddress = (CurrentAddress & 0xFFFF);				
 			}		
 
@@ -239,17 +240,17 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 		{
 			bool    IsOddByte   = (CurrentByte & 0x01);
 			uint8_t ByteToWrite = *(NextWriteByte++);
-		
-			if (IsOddByte && (V2Command == CMD_READ_FLASH_ISP))
-			  Write_Memory_Params.ProgrammingCommands[0] |=  READ_WRITE_HIGH_BYTE_MASK;
-			else
-			  Write_Memory_Params.ProgrammingCommands[0] &= ~READ_WRITE_HIGH_BYTE_MASK;			
 			  
 			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
 			SPI_SendByte(CurrentAddress >> 8);
 			SPI_SendByte(CurrentAddress & 0xFF);
 			SPI_SendByte(ByteToWrite);
 			
+			/* AVR FLASH addressing requires us to modify the write command based on if we are writing a high
+			 * or low byte at the current word address */
+			if (V2Command == CMD_PROGRAM_FLASH_ISP)
+			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
+
 			if (ByteToWrite != PollValue)
 			{
 				if (IsOddByte && (V2Command == CMD_PROGRAM_FLASH_ISP))
