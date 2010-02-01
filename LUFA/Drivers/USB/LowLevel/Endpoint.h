@@ -126,6 +126,11 @@
 			 */
 			#define ENDPOINT_EPNUM_MASK                   0x07
 
+			/** Endpoint direction mask, for masking against endpoint addresses to retrieve the endpoint's
+			 *  direction for comparing with the ENDPOINT_DESCRIPTOR_DIR_* masks.
+			 */
+			#define ENDPOINT_EPDIR_MASK                   0x80
+
 			/** Endpoint bank size mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  bank size in the device.
 			 */

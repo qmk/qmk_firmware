@@ -43,8 +43,8 @@
 char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
                                "Server: LUFA RNDIS\r\n"
                                "Connection: close\r\n"
-							   "MIME-version: 1.0\r\n"
-							   "Content-Type: ";
+                               "MIME-version: 1.0\r\n"
+                               "Content-Type: ";
 
 /** HTTP server response header, for transmission before a resource not found error. This indicates to the host that the given
  *  given URL is invalid, and gives extra error information.
@@ -52,9 +52,9 @@ char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
 char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
                                "Server: LUFA RNDIS\r\n"
                                "Connection: close\r\n"
-							   "MIME-version: 1.0\r\n"
-							   "Content-Type: text/plain\r\n\r\n"
-							   "Error 404: File Not Found";
+                               "MIME-version: 1.0\r\n"
+                               "Content-Type: text/plain\r\n\r\n"
+                               "Error 404: File Not Found";
 
 /** Default MIME type sent if no other MIME type can be determined */
 char PROGMEM DefaultMIMEType[] = "text/plain";
@@ -97,12 +97,9 @@ void WebserverApp_Callback(void)
 
 	if (uip_aborted() || uip_timedout() || uip_closed())
 	{
-		/* Connection is being terminated for some reason - close file handle if open */
-		if (AppState->FileOpen)
-		{
-			f_close(&AppState->FileHandle);
-			AppState->FileOpen = false;
-		}
+		/* Connection is being terminated for some reason - close file handle */
+		f_close(&AppState->FileHandle);
+		AppState->FileOpen = false;
 		
 		/* Lock to the closed state so that no further processing will occur on the connection */
 		AppState->CurrentState  = WEBSERVER_STATE_Closed;
@@ -159,7 +156,7 @@ void WebserverApp_Callback(void)
 static void Webserver_OpenRequestedFile(void)
 {
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
-	char*                     AppData     = (char*)uip_appdata;
+	char*               const AppData     = (char*)uip_appdata;
 	
 	/* No HTTP header received from the client, abort processing */
 	if (!(uip_newdata()))
@@ -199,12 +196,12 @@ static void Webserver_OpenRequestedFile(void)
 static void Webserver_SendResponseHeader(void)
 {
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
-	char*                     AppData     = (char*)uip_appdata;
+	char*               const AppData     = (char*)uip_appdata;
 
 	char*    HeaderToSend;
 	uint16_t HeaderLength;
 
-	/* Determine what HTTP header should be sent to the client */
+	/* Determine which HTTP header should be sent to the client */
 	if (AppState->FileOpen)
 	{
 		HeaderToSend = HTTP200Header;
@@ -216,6 +213,7 @@ static void Webserver_SendResponseHeader(void)
 		AppState->NextState = WEBSERVER_STATE_Closing;
 	}
 
+	/* Copy over the HTTP response header and send it to the receiving client */
 	HeaderLength = strlen_P(HeaderToSend);
 	strncpy_P(AppData, HeaderToSend, HeaderLength);
 	uip_send(AppData, HeaderLength);
@@ -227,7 +225,7 @@ static void Webserver_SendResponseHeader(void)
 static void Webserver_SendMIMETypeHeader(void)
 {
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
-	char*                     AppData     = (char*)uip_appdata;
+	char*               const AppData     = (char*)uip_appdata;
 
 	char*    Extension        = strpbrk(AppState->FileName, ".");
 	uint16_t MIMEHeaderLength = 0;
@@ -272,7 +270,7 @@ static void Webserver_SendMIMETypeHeader(void)
 static void Webserver_SendData(void)
 {
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
-	char*                     AppData     = (char*)uip_appdata;
+	char*               const AppData     = (char*)uip_appdata;
 
 	/* Must determine the maximum segment size to determine maximum file chunk size */
 	uint16_t MaxSegmentSize = uip_mss();

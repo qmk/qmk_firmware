@@ -23,6 +23,9 @@
  *      packed into a single USB packet. This means that the sending of MIDI events will now be delayed until the MIDI send
  *      pipe bank is full. To override this new behaviour and revert to the previous behaviour, the user application may manually
  *      flush the queued event(s) to the device by calling \ref MIDI_Host_Flush().
+ *    - The Pipe_IsEndpointBound() function now takes the endpoint's direction into account, by checking if the MSB of the endpoint's address
+ *      is set to denote IN endpoints. If the previous functionality where the direction is to be discounted is required, mask the endpoint
+ *      address against the \ref PIPE_EPNUM_MASK token before calling Pipe_IsEndpointBound().
  *
  *  <b>Device Mode</b>
  *    - The MIDI Device Class driver send and receive routines now operate on packed events, where multiple MIDI events may be

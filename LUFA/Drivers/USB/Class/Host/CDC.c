@@ -182,7 +182,8 @@ static uint8_t DComp_CDC_Host_NextCDCInterfaceEndpoint(void* const CurrentDescri
 	
 		uint8_t EndpointType = (CurrentEndpoint->Attributes & EP_TYPE_MASK);
 	
-		if ((EndpointType == EP_TYPE_BULK) || (EndpointType == EP_TYPE_INTERRUPT))
+		if (((EndpointType == EP_TYPE_BULK) || (EndpointType == EP_TYPE_INTERRUPT)) &&
+		    !(Pipe_IsEndpointBound(CurrentEndpoint->EndpointAddress)))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}

@@ -48,6 +48,7 @@
   *  - Fixed DFU bootloader programming not discarding the correct number of filler bytes from the host when non-aligned programming
   *    ranges are specified (thanks to Thomas Bleeker)
   *  - Fixed CDC and RNDIS host demos and class drivers - bidirectional endpoints should use two seperate pipes, not one half-duplex pipe
+  *  - Fixed Pipe_IsEndpointBound() not taking the endpoint's direction into account
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *

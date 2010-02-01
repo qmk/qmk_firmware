@@ -175,6 +175,11 @@
 			 */
 			#define PIPE_EPNUM_MASK                 0x0F
 
+			/** Endpoint direction mask, for masking against endpoint addresses to retrieve the endpoint's
+			 *  direction for comparing with the ENDPOINT_DESCRIPTOR_DIR_* masks.
+			 */
+			#define PIPE_EPDIR_MASK                 0x80
+
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Indicates the number of bytes currently stored in the current pipes's selected bank.
@@ -805,9 +810,10 @@
 			/** Determines if a pipe has been bound to the given device endpoint address. If a pipe which is bound to the given
 			 *  endpoint is found, it is automatically selected.
 			 *
-			 *  \param[in] EndpointAddress Address of the endpoint within the attached device to check
+			 *  \param[in] EndpointAddress Address and direction mask of the endpoint within the attached device to check
 			 *
-			 *  \return Boolean true if a pipe bound to the given endpoint address is found, false otherwise
+			 *  \return Boolean true if a pipe bound to the given endpoint address of the specified direction is found, false
+			 *          otherwise
 			 */
 			bool Pipe_IsEndpointBound(const uint8_t EndpointAddress);
 		

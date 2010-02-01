@@ -134,8 +134,6 @@ SRC = $(TARGET).c                                                 \
 	  Lib/DataflashManager.c                                      \
 	  Lib/uip/uip.c                                               \
 	  Lib/uip/uip_arp.c                                           \
-	  Lib/uip/uiplib.c                                            \
-	  Lib/uip/psock.c                                             \
 	  Lib/uip/timer.c                                             \
 	  Lib/uip/uip-neighbor.c                                      \
 	  Lib/uip/conf/clock-arch.c                                   \
