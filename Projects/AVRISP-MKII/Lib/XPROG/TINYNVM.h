@@ -68,8 +68,8 @@
 		bool TINYNVM_EraseMemory(void);
 
 		#if defined(INCLUDE_FROM_TINYNVM_C)
-			static void TINYNVM_SendReadNVMRegister(uint8_t Address);
-			static void TINYNVM_SendWriteNVMRegister(uint8_t Address);
+			static void TINYNVM_SendReadNVMRegister(const uint8_t Address);
+			static void TINYNVM_SendWriteNVMRegister(const uint8_t Address);
 			static void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress);
 		#endif
 

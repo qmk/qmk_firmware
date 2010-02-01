@@ -53,7 +53,7 @@ static void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress)
  *
  *  \param[in] Address  6-bit I/O address to write to in the target's I/O memory space
  */
-static void TINYNVM_SendReadNVMRegister(uint8_t Address)
+static void TINYNVM_SendReadNVMRegister(const uint8_t Address)
 {
 	/* The TPI command for reading from the I/O space uses strange addressing, where the I/O address's upper
 	 * two bits of the 6-bit address are shifted left once */
@@ -64,7 +64,7 @@ static void TINYNVM_SendReadNVMRegister(uint8_t Address)
  *
  *  \param[in] Address  6-bit I/O address to read from in the target's I/O memory space
  */
-static void TINYNVM_SendWriteNVMRegister(uint8_t Address)
+static void TINYNVM_SendWriteNVMRegister(const uint8_t Address)
 {
 	/* The TPI command for writing to the I/O space uses wierd addressing, where the I/O address's upper
 	 * two bits of the 6-bit address are shifted left once */
