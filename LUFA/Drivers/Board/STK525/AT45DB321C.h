@@ -39,6 +39,11 @@
 /** \ingroup Group_Dataflash_STK525
  *  @defgroup Group_Dataflash_STK525_AT45DB321C AT45DB321C
  *
+ *  Board specific Dataflash commands header for the AT45DB321C as mounted on the STK525.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
+ *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
+ *
  *  @{
  */
  

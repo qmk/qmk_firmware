@@ -39,6 +39,11 @@
 /** \ingroup Group_Dataflash_EVK527
  *  @defgroup Group_Dataflash_EVK527_AT45DB321C AT45DB321C
  *
+ *  Board specific Dataflash commands header for the AT45DB321C as mounted on the EVK527.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
+ *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
+ *
  *  @{
  */
  

@@ -39,6 +39,11 @@
 /** \ingroup Group_Dataflash
  *  @defgroup Group_Dataflash_USBKEY USBKEY
  *
+ *  Board specific Dataflash driver header for the USBKEY board.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
+ *        dispatch header located in LUFA/Drivers/Board/Dataflash.h. 
+ *
  *  @{
  */
 

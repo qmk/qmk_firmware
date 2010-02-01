@@ -40,6 +40,12 @@
 /** \ingroup Group_Buttons
  *  @defgroup Group_Buttons_BUMBLEB BUMBLEB
  *
+ *  Board specific Buttons driver header for the BUMBLEB. The BUMBLEB third-party board does not include any on-board
+ *  peripherals, but does have an officially recommended external peripheral layout for buttons, LEDs and a Joystick.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
+ *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
+ *
  *  @{
  */
 

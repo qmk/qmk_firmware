@@ -39,6 +39,11 @@
 /** \ingroup Group_Buttons
  *  @defgroup Group_Buttons_ATAVRUSBRF01 ATAVRUSBRF01
  *
+ *  Board specific Buttons driver header for the ATAVRUSBRF01.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
+ *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
+ *
  *  @{
  */
 
