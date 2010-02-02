@@ -143,9 +143,9 @@ bool TINYNVM_ReadMemory(const uint16_t ReadAddress, uint8_t* ReadBuffer, uint16_
 
 /** Writes word addressed memory to the target's memory spaces.
  *
- *  \param[in]  WriteAddress  Start address to write to within the target's address space
- *  \param[in]  WriteBuffer   Buffer to source data from
- *  \param[in]  WriteLength   Total number of bytes to write to the device (must be an integer multiple of 2)
+ *  \param[in] WriteAddress  Start address to write to within the target's address space
+ *  \param[in] WriteBuffer   Buffer to source data from
+ *  \param[in] WriteLength   Total number of bytes to write to the device (must be an integer multiple of 2)
  *
  *  \return Boolean true if the command sequence complete successfully
  */
@@ -189,7 +189,8 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress, uint8_t* WriteBuffer, uint
 
 /** Erases the target's memory space.
  *
- *  \param[in] Address  Address inside the memory space to erase
+ *  \param[in] EraseCommand  NVM erase command to send to the device
+ *  \param[in] Address       Address inside the memory space to erase
  *
  *  \return Boolean true if the command sequence complete successfully
  */

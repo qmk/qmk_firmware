@@ -33,8 +33,8 @@
  *  Header file for DataflashManager.c.
  */
  
-#ifndef _DATAFLASH_MANAGER_H
-#define _DATAFLASH_MANAGER_H
+#ifndef _DATAFLASH_MANAGER_H_
+#define _DATAFLASH_MANAGER_H_
 
 	/* Includes: */
 		#include <avr/io.h>

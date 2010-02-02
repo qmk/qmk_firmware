@@ -33,8 +33,8 @@
  *  Header file for uIPManagement.c.
  */
 
-#ifndef _UIPMANAGEMENT_H_
-#define _UIPMANAGEMENT_H_
+#ifndef _UIP_MANAGEMENT_H_
+#define _UIP_MANAGEMENT_H_
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/Class/RNDIS.h>
