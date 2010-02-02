@@ -64,7 +64,7 @@
 	/* Function Prototypes: */		
 		bool TINYNVM_WaitWhileNVMBusBusy(void);
 		bool TINYNVM_ReadMemory(const uint16_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadLength);
-		bool TINYNVM_WriteMemory(const uint16_t WriteAddress, const uint8_t* WriteBuffer, uint16_t WriteLength);
+		bool TINYNVM_WriteMemory(const uint16_t WriteAddress, uint8_t* WriteBuffer, uint16_t WriteLength);
 		bool TINYNVM_EraseMemory(void);
 
 		#if defined(INCLUDE_FROM_TINYNVM_C)
