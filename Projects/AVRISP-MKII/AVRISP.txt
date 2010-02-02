@@ -156,7 +156,7 @@
  *
  *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
  *  <b><sup>2</sup></b> <i>When XPROG_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
- *                         via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i> \n
+ *                         via a pair of 220 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i> \n
  *  <b><sup>3</sup></b> <i>See AUX line related tokens in the \ref SSec_Options section</i>
  *
  *  \section Sec_TPI TPI Connections
@@ -202,7 +202,7 @@
  *
  *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
  *  <b><sup>2</sup></b> <i>When XPROG_VIA_HARDWARE_USART is set, the AVR's Tx and Rx become the DATA line when connected together
- *                         via a pair of 300 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i> \n
+ *                         via a pair of 220 ohm resistors, and the AVR's XCK pin becomes CLOCK.</i> \n
  *  <b><sup>3</sup></b> <i>See AUX line related tokens in the \ref SSec_Options section</i>
  *
  *  \section SSec_Options Project Options

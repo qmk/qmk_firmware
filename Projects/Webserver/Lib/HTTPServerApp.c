@@ -67,9 +67,9 @@ MIME_Type_t PROGMEM MIMETypes[] =
 		{.Extension = "gif", .MIMEType = "image/gif"},
 		{.Extension = "bmp", .MIMEType = "image/bmp"},
 		{.Extension = "png", .MIMEType = "image/png"},
+		{.Extension = "ico", .MIMEType = "image/x-icon"},
 		{.Extension = "exe", .MIMEType = "application/octet-stream"},
 		{.Extension = "gz",  .MIMEType = "application/x-gzip"},
-		{.Extension = "ico", .MIMEType = "image/x-icon"},
 		{.Extension = "zip", .MIMEType = "application/zip"},
 		{.Extension = "pdf", .MIMEType = "application/pdf"},
 	};
@@ -125,7 +125,7 @@ void WebserverApp_Callback(void)
 		AppState->CurrentState = AppState->NextState;
 	}
 
-	if (uip_rexmit() || uip_newdata() || uip_acked() || uip_connected() || uip_poll())
+	if (uip_rexmit() || uip_acked() || uip_newdata() || uip_connected() || uip_poll())
 	{
 		switch (AppState->CurrentState)
 		{

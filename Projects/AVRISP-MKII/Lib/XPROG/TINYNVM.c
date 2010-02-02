@@ -141,11 +141,11 @@ bool TINYNVM_ReadMemory(const uint16_t ReadAddress, uint8_t* ReadBuffer, uint16_
 	return true;
 }
 
-/** Writes byte addressed memory to the target's memory spaces.
+/** Writes word addressed memory to the target's memory spaces.
  *
  *  \param[in]  WriteAddress  Start address to write to within the target's address space
  *  \param[in]  WriteBuffer   Buffer to source data from
- *  \param[in]  WriteLength   Total number of bytes to write to the device
+ *  \param[in]  WriteLength   Total number of bytes to write to the device (must be an integer multiple of 2)
  *
  *  \return Boolean true if the command sequence complete successfully
  */
@@ -153,6 +153,10 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress, const uint8_t* WriteBuffer
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(TINYNVM_WaitWhileNVMControllerBusy()))
+	  return false;
+	  
+	/* Must have an integer number of words to write - if extra bytes, abort programming */
+	if (WriteLength & 0x01)
 	  return false;
 
 	/* Set the NVM control register to the WORD WRITE command for memory reading */
@@ -162,11 +166,22 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress, const uint8_t* WriteBuffer
 	/* Send the address of the location to write to */
 	TINYNVM_SendPointerAddress(WriteAddress);
 	
-	while (WriteLength--)
+	while (WriteLength)
 	{
-		/* Write the byte of data to the target */
+		/* Wait until the NVM controller is no longer busy */
+		if (!(TINYNVM_WaitWhileNVMControllerBusy()))
+		  return false;
+
+		/* Write the low byte of data to the target */
 		XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT_PI);
 		XPROGTarget_SendByte(*(WriteBuffer++));
+		
+		/* Write the high byte of data to the target */
+		XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT_PI);
+		XPROGTarget_SendByte(*(WriteBuffer++));
+
+		/* Need to decrement the write length twice, since we read out a whole word */
+		WriteLength -= 2;
 	}
 	
 	return true;
