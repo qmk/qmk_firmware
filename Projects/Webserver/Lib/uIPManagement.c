@@ -92,47 +92,50 @@ void uIPManagement_ManageNetwork(void)
 /** Processes incomming packets to the server from the connected RNDIS device, creating responses as needed. */
 static void uIPManagement_ProcessIncommingPacket(void)
 {
-	if (RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface))
+	/* If no packet received, exit processing routine */
+	if (!(RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface)))
+	  return;
+	  
+	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
+
+	/* Read the incomming packet straight into the UIP packet buffer */
+	RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, uip_buf, &uip_len);
+
+	/* If the packet contains an Ethernet frame, process it */
+	if (uip_len > 0)
 	{
-		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-
-		/* Read the incomming packet straight into the UIP packet buffer */
-		RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, uip_buf, &uip_len);
-
-		if (uip_len > 0)
+		switch (((struct uip_eth_hdr*)uip_buf)->type)
 		{
-			bool PacketHandled = true;
-
-			struct uip_eth_hdr* EthernetHeader = (struct uip_eth_hdr*)uip_buf;
-			if (EthernetHeader->type == HTONS(UIP_ETHTYPE_IP))
-			{
+			case HTONS(UIP_ETHTYPE_IP):
 				/* Filter packet by MAC destination */
 				uip_arp_ipin();
 
 				/* Process incomming packet */
 				uip_input();
 
-				/* Add destination MAC to outgoing packet */
+				/* If a response was generated, send it */
 				if (uip_len > 0)
-				  uip_arp_out();
-			}
-			else if (EthernetHeader->type == HTONS(UIP_ETHTYPE_ARP))
-			{
+				{
+					/* Add destination MAC to outgoing packet */
+					uip_arp_out();
+
+					RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+				}
+				
+				break;
+			case HTONS(UIP_ETHTYPE_ARP):
 				/* Process ARP packet */
 				uip_arp_arpin();
-			}
-			else
-			{
-				PacketHandled = false;
-			}
-
-			/* If a response was generated, send it */
-			if ((uip_len > 0) && PacketHandled)
-			  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+				
+				/* If a response was generated, send it */
+				if (uip_len > 0)
+				  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+				
+				break;
 		}
-
-		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
+
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Manages the currently open network connections, including TCP and (if enabled) UDP. */
