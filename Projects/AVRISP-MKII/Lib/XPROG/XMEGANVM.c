@@ -322,7 +322,7 @@ bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
 	{
 		/* Other erase modes just need us to address a byte within the target memory space */
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
-		XMEGANVM_SendAddress(Address);	
+		XMEGANVM_SendAddress(Address);
 		XPROGTarget_SendByte(0x00);
 	}
 	

@@ -237,7 +237,7 @@ static void XPROGProtocol_Erase(void)
 	else
 	{
 		/* Erase the target memory, indicate timeout if ocurred */
-		if (!(TINYNVM_EraseMemory()))
+		if (!(TINYNVM_EraseMemory(TINY_NVM_CMD_CHIPERASE, Erase_XPROG_Params.Address)))
 		  ReturnStatus = XPRG_ERR_TIMEOUT;
 	}
 	

@@ -189,17 +189,24 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress, uint8_t* WriteBuffer, uint
 
 /** Erases the target's memory space.
  *
+ *  \param[in] Address  Address inside the memory space to erase
+ *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool TINYNVM_EraseMemory(void)
+bool TINYNVM_EraseMemory(const uint8_t EraseCommand, const uint16_t Address)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(TINYNVM_WaitWhileNVMControllerBusy()))
 	  return false;
 
-	/* Set the NVM control register to the CHIP ERASE command to erase the target */
+	/* Set the NVM control register to the target memory erase command */
 	TINYNVM_SendWriteNVMRegister(XPROG_Param_NVMCMDRegAddr);
-	XPROGTarget_SendByte(TINY_NVM_CMD_CHIPERASE);	
+	XPROGTarget_SendByte(EraseCommand);
+
+	/* Write to a location within the target address space to start the erase process */
+	TINYNVM_SendPointerAddress(Address);
+	XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT);
+	XPROGTarget_SendByte(0x00);
 
 	/* Wait until the NVM bus is ready again */
 	if (!(TINYNVM_WaitWhileNVMBusBusy()))
