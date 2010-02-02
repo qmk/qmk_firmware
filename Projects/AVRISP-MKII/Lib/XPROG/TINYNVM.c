@@ -155,9 +155,9 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress, const uint8_t* WriteBuffer
 	if (!(TINYNVM_WaitWhileNVMControllerBusy()))
 	  return false;
 	  
-	/* Must have an integer number of words to write - if extra bytes, abort programming */
+	/* Must have an integer number of words to write - if extra byte, word-align via a dummy high byte */
 	if (WriteLength & 0x01)
-	  return false;
+	  WriteBuffer[WriteLength++] = 0xFF;
 
 	/* Set the NVM control register to the WORD WRITE command for memory reading */
 	TINYNVM_SendWriteNVMRegister(XPROG_Param_NVMCMDRegAddr);
