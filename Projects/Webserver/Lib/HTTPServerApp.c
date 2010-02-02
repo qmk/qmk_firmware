@@ -59,7 +59,7 @@ char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
 /** Default MIME type sent if no other MIME type can be determined */
 char PROGMEM DefaultMIMEType[] = "text/plain";
 
-/** List of MIME types for each supported file extension - must be terminated with \ref END_OF_MIME_LIST entry. */
+/** List of MIME types for each supported file extension. */
 MIME_Type_t PROGMEM MIMETypes[] =
 	{
 		{.Extension = "htm", .MIMEType = "text/html"},

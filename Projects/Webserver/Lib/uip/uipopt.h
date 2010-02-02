@@ -1,15 +1,20 @@
 /**
+ * \addtogroup uip
+ * @{
+ */
+
+/**
  * \defgroup uipopt Configuration options for uIP
  * @{
  *
  * uIP is configured using the per-project configuration file
- * uipopt.h. This file contains all compile-time options for uIP and
+ * "uipopt.h". This file contains all compile-time options for uIP and
  * should be tweaked to match each specific project. The uIP
  * distribution contains a documented example "uipopt.h" that can be
  * copied and modified for each project.
  *
- * \note Most of the configuration options in the uipopt.h should not
- * be changed, but rather the per-project uip-conf.h file.
+ * \note Contiki does not use the uipopt.h file to configure uIP, but
+ * uses a per-port uip-conf.h file that should be edited instead.
  */
 
 /**
@@ -53,7 +58,7 @@
  *
  * This file is part of the uIP TCP/IP stack.
  *
- * $Id: uipopt.h,v 1.4 2006/06/12 08:00:31 adam Exp $
+ * $Id: uipopt.h,v 1.11 2009/04/10 00:37:48 adamdunkels Exp $
  *
  */
 
@@ -67,23 +72,23 @@
 #define UIP_BIG_ENDIAN     1234
 #endif /* UIP_BIG_ENDIAN */
 
-#include "uip-conf.h"
-
 /*------------------------------------------------------------------------------*/
 
 /**
- * \name Static configuration options
+ * \defgroup uipoptstaticconf Static configuration options
  * @{
  *
  * These configuration options can be used for setting the IP address
  * settings statically, but only if UIP_FIXEDADDR is set to 1. The
  * configuration options for a specific node includes IP address,
  * netmask and default router as well as the Ethernet address. The
- * netmask, default router and Ethernet address are appliciable only
+ * netmask, default router and Ethernet address are applicable only
  * if uIP should be run over Ethernet.
  *
+ * This options are meaningful only for the IPv4 code.
+ *
  * All of these should be changed to suit your project.
-*/
+ */
 
 /**
  * Determines if uIP should use a fixed IP address or not.
@@ -97,7 +102,7 @@
 #define UIP_FIXEDADDR    0
 
 /**
- * Ping IP address asignment.
+ * Ping IP address assignment.
  *
  * uIP uses a "ping" packets for setting its own IP address if this
  * option is set. If so, uIP will start with an empty IP address and
@@ -129,7 +134,7 @@
 /** @} */
 /*------------------------------------------------------------------------------*/
 /**
- * \name IP configuration options
+ * \defgroup uipoptip IP configuration options
  * @{
  *
  */
@@ -141,10 +146,17 @@
 #define UIP_TTL         64
 
 /**
+ * The maximum time an IP fragment should wait in the reassembly
+ * buffer before it is dropped.
+ *
+ */
+#define UIP_REASS_MAXAGE 60 /*60s*/
+
+/**
  * Turn on support for IP packet reassembly.
  *
  * uIP supports reassembly of fragmented IP packets. This features
- * requires an additonal amount of RAM to hold the reassembly buffer
+ * requires an additional amount of RAM to hold the reassembly buffer
  * and the reassembly code size is approximately 700 bytes.  The
  * reassembly buffer is of the same size as the uip_buf buffer
  * (configured by UIP_BUFSIZE).
@@ -153,32 +165,84 @@
  *
  * \hideinitializer
  */
+#ifdef UIP_CONF_REASSEMBLY
+#define UIP_REASSEMBLY UIP_CONF_REASSEMBLY
+#else /* UIP_CONF_REASSEMBLY */
 #define UIP_REASSEMBLY 0
-
-/**
- * The maximum time an IP fragment should wait in the reassembly
- * buffer before it is dropped.
- *
- */
-#define UIP_REASS_MAXAGE 40
-
+#endif /* UIP_CONF_REASSEMBLY */
 /** @} */
 
 /*------------------------------------------------------------------------------*/
 /**
- * \name UDP configuration options
+ * \defgroup uipoptipv6 IPv6 configuration options
  * @{
+ *
+ */
+
+/** The maximum transmission unit at the IP Layer*/
+#define UIP_LINK_MTU 1280
+
+#ifndef UIP_CONF_IPV6
+/** Do we use IPv6 or not (default: no) */
+#define UIP_CONF_IPV6                 0
+#endif
+
+#ifndef UIP_CONF_IPV6_QUEUE_PKT
+/** Do we do per %neighbor queuing during address resolution (default: no) */
+#define UIP_CONF_IPV6_QUEUE_PKT       0
+#endif
+
+#ifndef UIP_CONF_IPV6_CHECKS 
+/** Do we do IPv6 consistency checks (highly recommended, default: yes) */
+#define UIP_CONF_IPV6_CHECKS          1
+#endif
+
+#ifndef UIP_CONF_IPV6_REASSEMBLY 
+/** Do we do IPv6 fragmentation (default: no) */
+#define UIP_CONF_IPV6_REASSEMBLY      0
+#endif
+
+#ifndef UIP_CONF_NETIF_MAX_ADDRESSES
+/** Default number of IPv6 addresses associated to the node's interface */
+#define UIP_CONF_NETIF_MAX_ADDRESSES  3
+#endif
+
+#ifndef UIP_CONF_ND6_MAX_PREFIXES 
+/** Default number of IPv6 prefixes associated to the node's interface */
+#define UIP_CONF_ND6_MAX_PREFIXES     3
+#endif
+
+#ifndef UIP_CONF_ND6_MAX_NEIGHBORS 
+/** Default number of neighbors that can be stored in the %neighbor cache */
+#define UIP_CONF_ND6_MAX_NEIGHBORS    4  
+#endif
+
+#ifndef UIP_CONF_ND6_MAX_DEFROUTERS
+/** Minimum number of default routers */
+#define UIP_CONF_ND6_MAX_DEFROUTERS   2
+#endif
+/** @} */
+
+/*------------------------------------------------------------------------------*/
+/**
+ * \defgroup uipoptudp UDP configuration options
+ * @{
+ *
+ * \note The UDP support in uIP is still not entirely complete; there
+ * is no support for sending or receiving broadcast or multicast
+ * packets, but it works well enough to support a number of vital
+ * applications such as DNS queries, though
  */
 
 /**
- * Toggles wether UDP support should be compiled in or not.
+ * Toggles whether UDP support should be compiled in or not.
  *
  * \hideinitializer
  */
 #ifdef UIP_CONF_UDP
 #define UIP_UDP UIP_CONF_UDP
 #else /* UIP_CONF_UDP */
-#define UIP_UDP           0
+#define UIP_UDP           1
 #endif /* UIP_CONF_UDP */
 
 /**
@@ -216,28 +280,43 @@
 /** @} */
 /*------------------------------------------------------------------------------*/
 /**
- * \name TCP configuration options
+ * \defgroup uipopttcp TCP configuration options
  * @{
  */
+
+/**
+ * Toggles whether UDP support should be compiled in or not.
+ *
+ * \hideinitializer
+ */
+#ifdef UIP_CONF_TCP
+#define UIP_TCP UIP_CONF_TCP
+#else /* UIP_CONF_UDP */
+#define UIP_TCP           1
+#endif /* UIP_CONF_UDP */
 
 /**
  * Determines if support for opening connections from uIP should be
  * compiled in.
  *
  * If the applications that are running on top of uIP for this project
- * do not need to open outgoing TCP connections, this configration
+ * do not need to open outgoing TCP connections, this configuration
  * option can be turned off to reduce the code size of uIP.
  *
  * \hideinitializer
  */
+#ifndef UIP_CONF_ACTIVE_OPEN
 #define UIP_ACTIVE_OPEN 1
+#else /* UIP_CONF_ACTIVE_OPEN */
+#define UIP_ACTIVE_OPEN UIP_CONF_ACTIVE_OPEN
+#endif /* UIP_CONF_ACTIVE_OPEN */
 
 /**
  * The maximum number of simultaneously open TCP connections.
  *
  * Since the TCP connections are statically allocated, turning this
  * configuration knob down results in less RAM used. Each TCP
- * connection requires approximatly 30 bytes of memory.
+ * connection requires approximately 30 bytes of memory.
  *
  * \hideinitializer
  */
@@ -302,12 +381,16 @@
  * This is should not be to set to more than
  * UIP_BUFSIZE - UIP_LLH_LEN - UIP_TCPIP_HLEN.
  */
+#ifdef UIP_CONF_TCP_MSS
+#define UIP_TCP_MSS UIP_CONF_TCP_MSS
+#else
 #define UIP_TCP_MSS     (UIP_BUFSIZE - UIP_LLH_LEN - UIP_TCPIP_HLEN)
+#endif
 
 /**
  * The size of the advertised receiver's window.
  *
- * Should be set low (i.e., to the size of the uip_buf buffer) is the
+ * Should be set low (i.e., to the size of the uip_buf buffer) if the
  * application is slow to process incoming data, or high (32768 bytes)
  * if the application processes data quickly.
  *
@@ -322,7 +405,7 @@
 /**
  * How long a connection should stay in the TIME_WAIT state.
  *
- * This configiration option has no real implication, and it should be
+ * This configuration option has no real implication, and it should be
  * left untouched.
  */
 #define UIP_TIME_WAIT_TIMEOUT 120
@@ -331,7 +414,7 @@
 /** @} */
 /*------------------------------------------------------------------------------*/
 /**
- * \name ARP configuration options
+ * \defgroup uipoptarp ARP configuration options
  * @{
  */
 
@@ -350,19 +433,70 @@
 #endif
 
 /**
- * The maxium age of ARP table entries measured in 10ths of seconds.
+ * The maximum age of ARP table entries measured in 10ths of seconds.
  *
  * An UIP_ARP_MAXAGE of 120 corresponds to 20 minutes (BSD
  * default).
  */
 #define UIP_ARP_MAXAGE 120
 
+
 /** @} */
 
 /*------------------------------------------------------------------------------*/
 
 /**
- * \name General configuration options
+ * \defgroup uipoptmac layer 2 options (for ipv6)
+ * @{
+ */
+
+#define UIP_DEFAULT_PREFIX_LEN 64
+
+/** @} */
+
+/*------------------------------------------------------------------------------*/
+
+/**
+ * \defgroup uipoptsics 6lowpan options (for ipv6)
+ * @{
+ */
+/**
+ * Timeout for packet reassembly at the 6lowpan layer
+ * (should be < 60s)
+ */
+#ifdef SICSLOWPAN_CONF_MAXAGE
+#define SICSLOWPAN_REASS_MAXAGE SICSLOWPAN_CONF_MAXAGE
+#else
+#define SICSLOWPAN_REASS_MAXAGE 20
+#endif
+
+/**
+ * Do we compress the IP header or not (default: no)
+ */
+#ifndef SICSLOWPAN_CONF_COMPRESSION
+#define SICSLOWPAN_CONF_COMPRESSION 0
+#endif
+
+/**
+ * If we use IPHC compression, how many address contexts do we support
+ */
+#ifndef SICSLOWPAN_CONF_MAX_ADDR_CONTEXTS 
+#define SICSLOWPAN_CONF_MAX_ADDR_CONTEXTS 1
+#endif
+
+/**
+ * Do we support 6lowpan fragmentation
+ */
+#ifndef SICSLOWPAN_CONF_FRAG  
+#define SICSLOWPAN_CONF_FRAG  0
+#endif
+
+/** @} */
+
+/*------------------------------------------------------------------------------*/
+
+/**
+ * \defgroup uipoptgeneral General configuration options
  * @{
  */
 
@@ -370,13 +504,13 @@
  * The size of the uIP packet buffer.
  *
  * The uIP packet buffer should not be smaller than 60 bytes, and does
- * not need to be larger than 1500 bytes. Lower size results in lower
+ * not need to be larger than 1514 bytes. Lower size results in lower
  * TCP throughput, larger size results in higher TCP throughput.
  *
  * \hideinitializer
  */
 #ifndef UIP_CONF_BUFFER_SIZE
-#define UIP_BUFSIZE     400
+#define UIP_BUFSIZE UIP_LINK_MTU + UIP_LLH_LEN
 #else /* UIP_CONF_BUFFER_SIZE */
 #define UIP_BUFSIZE UIP_CONF_BUFFER_SIZE
 #endif /* UIP_CONF_BUFFER_SIZE */
@@ -440,18 +574,23 @@ void uip_log(char *msg);
  * found. For Ethernet, this should be set to 14. For SLIP, this
  * should be set to 0.
  *
+ * \note we probably won't use this constant for other link layers than
+ * ethernet as they have variable header length (this is due to variable
+ * number and type of address fields and to optional security features)
+ * E.g.: 802.15.4 -> 2 + (1/2*4/8) + 0/5/6/10/14
+ *       802.11 -> 4 + (6*3/4) + 2
  * \hideinitializer
  */
 #ifdef UIP_CONF_LLH_LEN
 #define UIP_LLH_LEN UIP_CONF_LLH_LEN
-#else /* UIP_CONF_LLH_LEN */
+#else /* UIP_LLH_LEN */
 #define UIP_LLH_LEN     14
 #endif /* UIP_CONF_LLH_LEN */
 
 /** @} */
 /*------------------------------------------------------------------------------*/
 /**
- * \name CPU architecture configuration
+ * \defgroup uipoptcpu CPU architecture configuration
  * @{
  *
  * The CPU architecture configuration is where the endianess of the
@@ -464,8 +603,8 @@ void uip_log(char *msg);
 /**
  * The byte order of the CPU architecture on which uIP is to be run.
  *
- * This option can be either BIG_ENDIAN (Motorola byte order) or
- * LITTLE_ENDIAN (Intel byte order).
+ * This option can be either UIP_BIG_ENDIAN (Motorola byte order) or
+ * UIP_LITTLE_ENDIAN (Intel byte order).
  *
  * \hideinitializer
  */
@@ -478,8 +617,17 @@ void uip_log(char *msg);
 /** @} */
 /*------------------------------------------------------------------------------*/
 
+#include <ff.h>
+#include <stdbool.h>
+#include <stdint.h>
+
+typedef uint8_t u8_t;
+typedef uint16_t u16_t;
+typedef uint32_t u32_t;
+typedef uint32_t uip_stats_t;
+
 /**
- * \name Appication specific configurations
+ * \defgroup uipoptapp Application specific configurations
  * @{
  *
  * An uIP application is implemented using a single application
@@ -497,18 +645,20 @@ void uip_log(char *msg);
  * The following example illustrates how this can look.
  \code
 
-void httpd_appcall(void);
-#define UIP_APPCALL     httpd_appcall
+ void httpd_appcall(void);
+ #define UIP_APPCALL     httpd_appcall
 
-struct httpd_state {
-  u8_t state;
-  u16_t count;
-  char *dataptr;
-  char *script;
-};
-typedef struct httpd_state uip_tcp_appstate_t
+ struct httpd_state {
+ u8_t state;
+ u16_t count;
+ char *dataptr;
+ char *script;
+ };
+ typedef struct httpd_state uip_tcp_appstate_t
  \endcode
- */
+*/
+	#define UIP_UDP_APPCALL DHCPApp_Callback
+	void UIP_UDP_APPCALL(void);
 
 /**
  * \var #define UIP_APPCALL
@@ -517,6 +667,8 @@ typedef struct httpd_state uip_tcp_appstate_t
  * response to TCP/IP events.
  *
  */
+	#define UIP_APPCALL     WebserverApp_Callback
+	void UIP_APPCALL(void);
 
 /**
  * \var typedef uip_tcp_appstate_t
@@ -525,6 +677,17 @@ typedef struct httpd_state uip_tcp_appstate_t
  * uip_conn structure. This usually is typedef:ed to a struct holding
  * application state information.
  */
+	typedef struct
+	{
+		uint8_t  CurrentState;
+		uint8_t  NextState;
+		
+		char     FileName[30];
+		FIL      FileHandle;
+		bool     FileOpen;
+		uint32_t ACKedFilePos;
+		uint16_t SentChunkSize;
+	} uip_tcp_appstate_t;
 
 /**
  * \var typedef uip_udp_appstate_t
@@ -533,7 +696,21 @@ typedef struct httpd_state uip_tcp_appstate_t
  * uip_conn structure. This usually is typedef:ed to a struct holding
  * application state information.
  */
-/** @} */
+	typedef struct
+	{
+		uint8_t CurrentState;
+		struct  uip_udp_conn* Connection;
+		
+		struct
+		{
+			uint8_t AllocatedIP[4];
+			uint8_t Netmask[4];
+			uint8_t GatewayIP[4];
+			uint8_t ServerIP[4];
+		} DHCPOffer_Data;
+	} uip_udp_appstate_t;
 /** @} */
 
 #endif /* __UIPOPT_H__ */
+/** @} */
+/** @} */

@@ -127,6 +127,115 @@
  *   <td bgcolor="#00EE00">Yes</td>
  *  </tr>
  *  </table>
+ *
+ *
+ *  \section Sec_UsingClassDrivers Using the Class Drivers
+ *  To make the Class drivers easy to integrate into a user application, they all implement a standardized
+ *  design with similarly named/used function, enums, defines and types. The two different modes are implemented
+ *  slightly differently, and thus will be explained separately. For information on a specific class driver, read
+ *  the class driver's module documentation.
+ *
+ *  \subsection SSec_ClassDriverDevice Device Mode Class Drivers
+ *  Implementing a Device Mode Class Driver in a user application requires a number of steps to be followed. Firstly,
+ *  the module configuration and state structure must be added to the project source. These structures are named in a 
+ *  similar manner between classes, that of <i>USB_ClassInfo_<b>{Class Name}</b>_Device_t</i>, and are used to hold the
+ *  complete state and configuration for each class instance. Multiple class instances is where the power of the class 
+ *  drivers lie; multiple interfaces of the same class simply require more instances of the Class Driver's ClassInfo 
+ *  structure.
+ *
+ *  Inside the ClassInfo structure lies two sections, a <i>Config</i> section, and a <i>State</i> section. The Config
+ *  section contains the instance's configuration parameters, and <b>must have all fields set by the user application</b>
+ *  before the class driver is used. Each Device mode Class driver typically contains a set of configuration parameters
+ *  for the endpoint size/number of the associated logical USB interface, plus any class-specific configuration parameters.
+ *
+ *  The <i>State</i> section of the ClassInfo structures are designed to be controlled by the Class Drivers only for
+ *  maintaining the Class Driver instance's state, and should not normally be set by the user application.
+ *
+ *  The following is an example of a properly initialized instance of the Audio Class Driver structure:
+ *
+ *  \code
+ *  USB_ClassInfo_Audio_Device_t My_Audio_Interface =
+ *  {
+ *      .Config =
+ *          {
+ *              .StreamingInterfaceNumber = 1,
+ *              
+ *              .DataINEndpointNumber     = 1,
+ *              .DataINEndpointSize       = 256,
+ *          },
+ *  };
+ *  \endcode
+ *
+ *  \note The class driver's configuration parameters should match those used in the device's descriptors that are
+ *  sent to the host.
+ *
+ *  To initialize the Class driver instance, the driver's <i><b>{Class Name}</b>_Device_ConfigureEndpoints()</i> function
+ *  should be called in response to the \ref EVENT_USB_Device_ConfigurationChanged() event. This function will return a
+ *  boolean value if the driver sucessfully initialized the instance. Like all the class driver functions, this function
+ *  takes in the address of the specific instance you wish to initialize - in this manner, multiple seperate instances of
+ *  the same class type can be initialized like thus:
+ *
+ *  \code
+ *  void EVENT_USB_Device_ConfigurationChanged(void)
+ *  {
+ *  	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+ *  	
+ *  	if (!(Audio_Device_ConfigureEndpoints(&My_Audio_Interface)))
+ *  	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+ *  }
+ *  \endcode
+ * 
+ *  Once initialized, it is important to maintain the class driver's state by repeatedly calling the Class Driver's
+ *  <i><b>{Class Name}</b>_Device_USBTask()</i> function in the main program loop. The exact implementation of this
+ *  function varies between class drivers, and can be used for any internal class driver purpose to maintain each
+ *  instance. Again, this function uses the address of the instance to operate on, and thus needs to be called for each
+ *  seperate instance, just like the main USB maintenance routine \ref USB_USBTask():
+ *
+ *  \code
+ *  int main(void)
+ *  {
+ *      SetupHardware();
+ *  
+ *      LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+ *  
+ *      for (;;)
+ *      {
+ *          Create_And_Process_Samples();
+ *      
+ *          Audio_Device_USBTask(&My_Audio_Interface);
+ *          USB_USBTask();
+ *      }
+ *  }
+ *  \endcode
+ *
+ *  The final standardized Device Class Driver function is the Control Request handler function
+ *  <i><b>{Class Name}</b>_Device_ProcessControlRequest()</i>, which should be called when the
+ *  \ref EVENT_USB_Device_UnhandledControlRequest() event fires. This function should also be
+ *  called for each class driver instance, using the address of the instance to operate on as
+ *  the function's parameter. The request handler will abort if it is determined that the current
+ *  request is not targeted at the given class driver instance, thus these methods can safely be
+ *  called one-after-another in the event handler with no form of error checking:
+ *
+ *  \code
+ *  void EVENT_USB_Device_UnhandledControlRequest(void)
+ *  {
+ *      Audio_Device_ProcessControlRequest(&My_Audio_Interface);
+ *  }
+ *  \endcode
+ *
+ *  Each class driver may also define a set of callback functions (which are prefixed by "CALLBACK_"
+ *  in the function's name) which <b>must</b> also be added to the user application - refer to each
+ *  individual class driver's documentation for mandatory callbacks. In addition, each class driver may
+ *  also define a set of events (identifiable by their prefix of "EVENT_" in the function's name), which
+ *  the user application <b>may</b> choose to implement, or ignore if not needed.
+ *
+ *  The individual Device Mode Class Driver documentation contains more information on the non-standardized,
+ *  class-specific functions which the user application can then use on the driver instances, such as data
+ *  read and write routines. See each driver's individual documentation for more information on the
+ *  class-specific functions.
+ *
+ *  \subsection SSec_ClassDriverHost Host Mode Class Drivers
+ *
  */
  
 #ifndef __USB_H__

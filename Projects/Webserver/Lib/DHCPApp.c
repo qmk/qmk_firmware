@@ -75,7 +75,7 @@ void DHCPApp_Callback(void)
 		case DHCP_STATE_SendDiscover:
 			/* Clear all DHCP settings, reset client IP address */
 			memset(&AppState->DHCPOffer_Data, 0x00, sizeof(AppState->DHCPOffer_Data));
-			uip_sethostaddr(&AppState->DHCPOffer_Data.AllocatedIP);
+			uip_sethostaddr((uip_ipaddr_t*)&AppState->DHCPOffer_Data.AllocatedIP);
 
 			/* Fill out the DHCP response header */
 			AppDataSize += DHCPApp_FillDHCPHeader(AppData, DHCP_DISCOVER, AppState);
@@ -155,9 +155,9 @@ void DHCPApp_Callback(void)
 			    (RequestResponse_MessageType == DHCP_ACK))
 			{
 				/* Set the new network parameters from the DHCP server */
-				uip_sethostaddr(&AppState->DHCPOffer_Data.AllocatedIP);
-				uip_setnetmask(&AppState->DHCPOffer_Data.Netmask);
-				uip_setdraddr(&AppState->DHCPOffer_Data.GatewayIP);
+				uip_sethostaddr((uip_ipaddr_t*)&AppState->DHCPOffer_Data.AllocatedIP);
+				uip_setnetmask((uip_ipaddr_t*)&AppState->DHCPOffer_Data.Netmask);
+				uip_setdraddr((uip_ipaddr_t*)&AppState->DHCPOffer_Data.GatewayIP);
 			
 				AppState->CurrentState = DHCP_STATE_AddressLeased;
 			}

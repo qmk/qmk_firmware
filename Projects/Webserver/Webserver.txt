@@ -76,9 +76,10 @@
  *    <td><b>Description:</b></td>
  *   </tr>
  *   <tr>
- *    <td>ENABLE_DHCP</td>
+ *    <td>ENABLE_DHCP=<i>x</i></td>
  *    <td>Makefile CDEFS</td>
- *    <td>When defined, enables the DHCP client for dynamic IP allocation of the network settings from a DHCP server.</td>
+ *    <td>When set to 1, this enables the DHCP client for dynamic IP allocation of the network settings from a DHCP server.
+ *        To disable DHCP and use the fixed address settings set elsewhere, set this to zero (do not undefine it).</td>
  *   </tr>
  *   <tr>
  *    <td>DEVICE_IP_ADDRESS</td>

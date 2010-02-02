@@ -52,11 +52,12 @@ void uIPManagement_Init(void)
 {
 	/* uIP Timing Initialization */
 	clock_init();
-	timer_set(&ConnectionTimer, CLOCK_SECOND / 10);
+	timer_set(&ConnectionTimer, CLOCK_SECOND / 8);
 	timer_set(&ARPTimer, CLOCK_SECOND * 10);	
 
 	/* uIP Stack Initialization */
 	uip_init();
+	uip_arp_init();
 
 	/* DHCP/Server IP Settings Initialization */
 	#if defined(ENABLE_DHCP)

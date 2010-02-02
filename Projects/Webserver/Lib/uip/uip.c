@@ -1,16 +1,8 @@
 #define DEBUG_PRINTF(...) /*printf(__VA_ARGS__)*/
 
 /**
- * \defgroup uip The uIP TCP/IP stack
+ * \addtogroup uip
  * @{
- *
- * uIP is an implementation of the TCP/IP protocol stack intended for
- * small 8-bit and 16-bit microcontrollers.
- *
- * uIP provides the necessary protocols for Internet communication,
- * with a very small code footprint and RAM requirements - the uIP
- * code size is on the order of a few kilobytes and RAM usage is on
- * the order of a few hundred bytes.
  */
 
 /**
@@ -49,7 +41,7 @@
  *
  * This file is part of the uIP TCP/IP stack.
  *
- * $Id: uip.c,v 1.65 2006/06/11 21:46:39 adam Exp $
+ * $Id: uip.c,v 1.15 2008/10/15 08:08:32 adamdunkels Exp $
  *
  */
 
@@ -81,10 +73,16 @@
 
 #include "uip.h"
 #include "uipopt.h"
-#include "uip_arch.h"
+#include "uip_arp.h"
+
+#if !UIP_CONF_IPV6 /* If UIP_CONF_IPV6 is defined, we compile the
+		      uip6.c file instead of this one. Therefore
+		      this #ifndef removes the entire compilation
+		      output of the uip.c file */
+
 
 #if UIP_CONF_IPV6
-#include "uip-neighbor.h"
+#include "net/uip-neighbor.h"
 #endif /* UIP_CONF_IPV6 */
 
 #include <string.h>
@@ -98,31 +96,23 @@
    here. Otherwise, the address */
 #if UIP_FIXEDADDR > 0
 const uip_ipaddr_t uip_hostaddr =
-  {HTONS((UIP_IPADDR0 << 8) | UIP_IPADDR1),
-   HTONS((UIP_IPADDR2 << 8) | UIP_IPADDR3)};
+  { UIP_IPADDR0, UIP_IPADDR1, UIP_IPADDR2, UIP_IPADDR3 };
 const uip_ipaddr_t uip_draddr =
-  {HTONS((UIP_DRIPADDR0 << 8) | UIP_DRIPADDR1),
-   HTONS((UIP_DRIPADDR2 << 8) | UIP_DRIPADDR3)};
+  { UIP_DRIPADDR0, UIP_DRIPADDR1, UIP_DRIPADDR2, UIP_DRIPADDR3 };
 const uip_ipaddr_t uip_netmask =
-  {HTONS((UIP_NETMASK0 << 8) | UIP_NETMASK1),
-   HTONS((UIP_NETMASK2 << 8) | UIP_NETMASK3)};
+  { UIP_NETMASK0, UIP_NETMASK1, UIP_NETMASK2, UIP_NETMASK3 };
 #else
 uip_ipaddr_t uip_hostaddr, uip_draddr, uip_netmask;
 #endif /* UIP_FIXEDADDR */
 
-static const uip_ipaddr_t all_ones_addr =
+const uip_ipaddr_t uip_broadcast_addr =
 #if UIP_CONF_IPV6
-  {0xffff,0xffff,0xffff,0xffff,0xffff,0xffff,0xffff,0xffff};
+  { { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+      0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff } };
 #else /* UIP_CONF_IPV6 */
-  {0xffff,0xffff};
+  { { 0xff, 0xff, 0xff, 0xff } };
 #endif /* UIP_CONF_IPV6 */
-static const uip_ipaddr_t all_zeroes_addr =
-#if UIP_CONF_IPV6
-  {0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000};
-#else /* UIP_CONF_IPV6 */
-  {0x0000,0x0000};
-#endif /* UIP_CONF_IPV6 */
-
+const uip_ipaddr_t uip_all_zeroes_addr = { { 0x0, /* rest is 0 */ } };
 
 #if UIP_FIXEDETHADDR
 const struct uip_eth_addr uip_ethaddr = {{UIP_ETHADDR0,
@@ -210,6 +200,9 @@ static u16_t tmp16;
 
 #define ICMP_ECHO_REPLY 0
 #define ICMP_ECHO       8
+
+#define ICMP_DEST_UNREACHABLE        3
+#define ICMP_PORT_UNREACHABLE        3
 
 #define ICMP6_ECHO_REPLY             129
 #define ICMP6_ECHO                   128
@@ -342,7 +335,7 @@ upper_layer_chksum(u8_t proto)
   /* IP protocol and length fields. This addition cannot carry. */
   sum = upper_layer_len + proto;
   /* Sum IP source and destination addresses. */
-  sum = chksum(sum, (u8_t *)&BUF->srcipaddr[0], 2 * sizeof(uip_ipaddr_t));
+  sum = chksum(sum, (u8_t *)&BUF->srcipaddr, 2 * sizeof(uip_ipaddr_t));
 
   /* Sum TCP header and data. */
   sum = chksum(sum, &uip_buf[UIP_IPH_LEN + UIP_LLH_LEN],
@@ -470,7 +463,7 @@ uip_connect(uip_ipaddr_t *ripaddr, u16_t rport)
 /*---------------------------------------------------------------------------*/
 #if UIP_UDP
 struct uip_udp_conn *
-uip_udp_new(uip_ipaddr_t *ripaddr, u16_t rport)
+uip_udp_new(const uip_ipaddr_t *ripaddr, u16_t rport)
 {
   register struct uip_udp_conn *conn;
   
@@ -504,7 +497,7 @@ uip_udp_new(uip_ipaddr_t *ripaddr, u16_t rport)
   conn->lport = HTONS(lastport);
   conn->rport = rport;
   if(ripaddr == NULL) {
-    memset(conn->ripaddr, 0, sizeof(uip_ipaddr_t));
+    memset(&conn->ripaddr, 0, sizeof(uip_ipaddr_t));
   } else {
     uip_ipaddr_copy(&conn->ripaddr, ripaddr);
   }
@@ -889,7 +882,7 @@ uip_process(u8_t flag)
   }
 #endif /* UIP_CONF_IPV6 */
 
-  if(uip_ipaddr_cmp(uip_hostaddr, all_zeroes_addr)) {
+  if(uip_ipaddr_cmp(&uip_hostaddr, &uip_all_zeroes_addr)) {
     /* If we are configured to use ping IP address configuration and
        hasn't been assigned an IP address yet, we accept all ICMP
        packets. */
@@ -909,7 +902,7 @@ uip_process(u8_t flag)
 #if UIP_BROADCAST
     DEBUG_PRINTF("UDP IP checksum 0x%04x\n", uip_ipchksum());
     if(BUF->proto == UIP_PROTO_UDP &&
-       uip_ipaddr_cmp(BUF->destipaddr, all_ones_addr)
+       uip_ipaddr_cmp(&BUF->destipaddr, &uip_broadcast_addr)
        /*&&
 	 uip_ipchksum() == 0xffff*/) {
       goto udp_input;
@@ -918,7 +911,7 @@ uip_process(u8_t flag)
     
     /* Check if the packet is destined for our IP address. */
 #if !UIP_CONF_IPV6
-    if(!uip_ipaddr_cmp(BUF->destipaddr, uip_hostaddr)) {
+    if(!uip_ipaddr_cmp(&BUF->destipaddr, &uip_hostaddr)) {
       UIP_STAT(++uip_stat.ip.drop);
       goto drop;
     }
@@ -928,8 +921,8 @@ uip_process(u8_t flag)
        hosts multicast address, and the solicited-node multicast
        address) as well. However, we will cheat here and accept all
        multicast packets that are sent to the ff02::/16 addresses. */
-    if(!uip_ipaddr_cmp(BUF->destipaddr, uip_hostaddr) &&
-       BUF->destipaddr[0] != HTONS(0xff02)) {
+    if(!uip_ipaddr_cmp(&BUF->destipaddr, &uip_hostaddr) &&
+       BUF->destipaddr.u16[0] != HTONS(0xff02)) {
       UIP_STAT(++uip_stat.ip.drop);
       goto drop;
     }
@@ -987,9 +980,8 @@ uip_process(u8_t flag)
      the destination IP address of this ping packet and assign it to
      ourself. */
 #if UIP_PINGADDRCONF
-  if((uip_hostaddr[0] | uip_hostaddr[1]) == 0) {
-    uip_hostaddr[0] = BUF->destipaddr[0];
-    uip_hostaddr[1] = BUF->destipaddr[1];
+  if(uip_ipaddr_cmp(&uip_hostaddr, &uip_all_zeroes_addr)) {
+    uip_hostaddr = BUF->destipaddr;
   }
 #endif /* UIP_PINGADDRCONF */
 
@@ -1002,11 +994,12 @@ uip_process(u8_t flag)
   }
 
   /* Swap IP addresses. */
-  uip_ipaddr_copy(BUF->destipaddr, BUF->srcipaddr);
-  uip_ipaddr_copy(BUF->srcipaddr, uip_hostaddr);
+  uip_ipaddr_copy(&BUF->destipaddr, &BUF->srcipaddr);
+  uip_ipaddr_copy(&BUF->srcipaddr, &uip_hostaddr);
 
   UIP_STAT(++uip_stat.icmp.sent);
-  goto send;
+  BUF->ttl = UIP_TTL;
+  goto ip_send_nolen;
 
   /* End of IPv4 input header processing code. */
 #else /* !UIP_CONF_IPV6 */
@@ -1027,11 +1020,11 @@ uip_process(u8_t flag)
   /* If we get a neighbor solicitation for our address we should send
      a neighbor advertisement message back. */
   if(ICMPBUF->type == ICMP6_NEIGHBOR_SOLICITATION) {
-    if(uip_ipaddr_cmp(ICMPBUF->icmp6data, uip_hostaddr)) {
+    if(uip_ipaddr_cmp(&ICMPBUF->icmp6data, &uip_hostaddr)) {
 
       if(ICMPBUF->options[0] == ICMP6_OPTION_SOURCE_LINK_ADDRESS) {
 	/* Save the sender's address in our neighbor list. */
-	uip_neighbor_add(ICMPBUF->srcipaddr, &(ICMPBUF->options[2]));
+	uip_neighbor_add(&ICMPBUF->srcipaddr, &(ICMPBUF->options[2]));
       }
       
       /* We should now send a neighbor advertisement back to where the
@@ -1041,13 +1034,14 @@ uip_process(u8_t flag)
       
       ICMPBUF->reserved1 = ICMPBUF->reserved2 = ICMPBUF->reserved3 = 0;
       
-      uip_ipaddr_copy(ICMPBUF->destipaddr, ICMPBUF->srcipaddr);
-      uip_ipaddr_copy(ICMPBUF->srcipaddr, uip_hostaddr);
+      uip_ipaddr_copy(&ICMPBUF->destipaddr, &ICMPBUF->srcipaddr);
+      uip_ipaddr_copy(&ICMPBUF->srcipaddr, &uip_hostaddr);
       ICMPBUF->options[0] = ICMP6_OPTION_TARGET_LINK_ADDRESS;
       ICMPBUF->options[1] = 1;  /* Options length, 1 = 8 bytes. */
       memcpy(&(ICMPBUF->options[2]), &uip_ethaddr, sizeof(uip_ethaddr));
       ICMPBUF->icmpchksum = 0;
       ICMPBUF->icmpchksum = ~uip_icmp6chksum();
+      
       goto send;
       
     }
@@ -1059,8 +1053,8 @@ uip_process(u8_t flag)
 
     ICMPBUF->type = ICMP6_ECHO_REPLY;
     
-    uip_ipaddr_copy(BUF->destipaddr, BUF->srcipaddr);
-    uip_ipaddr_copy(BUF->srcipaddr, uip_hostaddr);
+    uip_ipaddr_copy(&BUF->destipaddr, &BUF->srcipaddr);
+    uip_ipaddr_copy(&BUF->srcipaddr, &uip_hostaddr);
     ICMPBUF->icmpchksum = 0;
     ICMPBUF->icmpchksum = ~uip_icmp6chksum();
     
@@ -1113,14 +1107,44 @@ uip_process(u8_t flag)
        UDPBUF->destport == uip_udp_conn->lport &&
        (uip_udp_conn->rport == 0 ||
         UDPBUF->srcport == uip_udp_conn->rport) &&
-       (uip_ipaddr_cmp(uip_udp_conn->ripaddr, all_zeroes_addr) ||
-	uip_ipaddr_cmp(uip_udp_conn->ripaddr, all_ones_addr) ||
-	uip_ipaddr_cmp(BUF->srcipaddr, uip_udp_conn->ripaddr))) {
+       (uip_ipaddr_cmp(&uip_udp_conn->ripaddr, &uip_all_zeroes_addr) ||
+	uip_ipaddr_cmp(&uip_udp_conn->ripaddr, &uip_broadcast_addr) ||
+	uip_ipaddr_cmp(&BUF->srcipaddr, &uip_udp_conn->ripaddr))) {
       goto udp_found;
     }
   }
   UIP_LOG("udp: no matching connection found");
+#if UIP_CONF_ICMP_DEST_UNREACH && !UIP_CONF_IPV6
+  /* Copy fields from packet header into payload of this ICMP packet. */
+  memcpy(&(ICMPBUF->payload[0]), ICMPBUF, UIP_IPH_LEN + 8);
+
+  /* Set the ICMP type and code. */
+  ICMPBUF->type = ICMP_DEST_UNREACHABLE;
+  ICMPBUF->icode = ICMP_PORT_UNREACHABLE;
+
+  /* Calculate the ICMP checksum. */
+  ICMPBUF->icmpchksum = 0;
+  ICMPBUF->icmpchksum = ~uip_chksum((u16_t *)&(ICMPBUF->type), 36);
+
+  /* Set the IP destination address to be the source address of the
+     original packet. */
+  uip_ipaddr_copy(&BUF->destipaddr, &BUF->srcipaddr);
+
+  /* Set our IP address as the source address. */
+  uip_ipaddr_copy(&BUF->srcipaddr, &uip_hostaddr);
+
+  /* The size of the ICMP destination unreachable packet is 36 + the
+     size of the IP header (20) = 56. */
+  uip_len = 36 + UIP_IPH_LEN;
+  ICMPBUF->len[0] = 0;
+  ICMPBUF->len[1] = (u8_t)uip_len;
+  ICMPBUF->ttl = UIP_TTL;
+  ICMPBUF->proto = UIP_PROTO_ICMP;
+
+  goto ip_send_nolen;
+#else /* UIP_CONF_ICMP_DEST_UNREACH */
   goto drop;
+#endif /* UIP_CONF_ICMP_DEST_UNREACH */
   
  udp_found:
   uip_conn = NULL;
@@ -1128,6 +1152,7 @@ uip_process(u8_t flag)
   uip_sappdata = uip_appdata = &uip_buf[UIP_LLH_LEN + UIP_IPUDPH_LEN];
   uip_slen = 0;
   UIP_UDP_APPCALL();
+
  udp_send:
   if(uip_slen == 0) {
     goto drop;
@@ -1153,8 +1178,8 @@ uip_process(u8_t flag)
   BUF->srcport  = uip_udp_conn->lport;
   BUF->destport = uip_udp_conn->rport;
 
-  uip_ipaddr_copy(BUF->srcipaddr, uip_hostaddr);
-  uip_ipaddr_copy(BUF->destipaddr, uip_udp_conn->ripaddr);
+  uip_ipaddr_copy(&BUF->srcipaddr, &uip_hostaddr);
+  uip_ipaddr_copy(&BUF->destipaddr, &uip_udp_conn->ripaddr);
    
   uip_appdata = &uip_buf[UIP_LLH_LEN + UIP_IPTCPH_LEN];
 
@@ -1183,7 +1208,6 @@ uip_process(u8_t flag)
     goto drop;
   }
   
-  
   /* Demultiplex this segment. */
   /* First check any active connections. */
   for(uip_connr = &uip_conns[0]; uip_connr <= &uip_conns[UIP_CONNS - 1];
@@ -1191,7 +1215,7 @@ uip_process(u8_t flag)
     if(uip_connr->tcpstateflags != UIP_CLOSED &&
        BUF->destport == uip_connr->lport &&
        BUF->srcport == uip_connr->rport &&
-       uip_ipaddr_cmp(BUF->srcipaddr, uip_connr->ripaddr)) {
+       uip_ipaddr_cmp(&BUF->srcipaddr, &uip_connr->ripaddr)) {
       goto found;
     }
   }
@@ -1207,14 +1231,15 @@ uip_process(u8_t flag)
   tmp16 = BUF->destport;
   /* Next, check listening connections. */
   for(c = 0; c < UIP_LISTENPORTS; ++c) {
-    if(tmp16 == uip_listenports[c])
+    if(tmp16 == uip_listenports[c]) {
       goto found_listen;
+    }
   }
   
   /* No matching connection found, so we send a RST packet. */
   UIP_STAT(++uip_stat.tcp.synrst);
- reset:
 
+ reset:
   /* We do not send resets in response to resets. */
   if(BUF->flags & TCP_RST) {
     goto drop;
@@ -1260,8 +1285,8 @@ uip_process(u8_t flag)
   BUF->destport = tmp16;
   
   /* Swap IP addresses. */
-  uip_ipaddr_copy(BUF->destipaddr, BUF->srcipaddr);
-  uip_ipaddr_copy(BUF->srcipaddr, uip_hostaddr);
+  uip_ipaddr_copy(&BUF->destipaddr, &BUF->srcipaddr);
+  uip_ipaddr_copy(&BUF->srcipaddr, &uip_hostaddr);
   
   /* And send out the RST packet! */
   goto tcp_send_noconn;
@@ -1307,7 +1332,7 @@ uip_process(u8_t flag)
   uip_connr->nrtx = 0;
   uip_connr->lport = BUF->destport;
   uip_connr->rport = BUF->srcport;
-  uip_ipaddr_copy(uip_connr->ripaddr, BUF->srcipaddr);
+  uip_ipaddr_copy(&uip_connr->ripaddr, &BUF->srcipaddr);
   uip_connr->tcpstateflags = UIP_SYN_RCVD;
 
   uip_connr->snd_nxt[0] = iss[0];
@@ -1393,7 +1418,7 @@ uip_process(u8_t flag)
     UIP_APPCALL();
     goto drop;
   }
-  /* Calculated the length of the data, if the application has sent
+  /* Calculate the length of the data, if the application has sent
      any data to us. */
   c = (BUF->tcpoffset >> 4) << 2;
   /* uip_len will contain the length of the actual TCP data. This is
@@ -1432,7 +1457,6 @@ uip_process(u8_t flag)
       uip_connr->snd_nxt[2] = uip_acc32[2];
       uip_connr->snd_nxt[3] = uip_acc32[3];
 	
-
       /* Do RTT estimation, unless we have done retransmissions. */
       if(uip_connr->nrtx == 0) {
 	signed char m;
@@ -1785,20 +1809,22 @@ uip_process(u8_t flag)
   }
   goto drop;
   
-
   /* We jump here when we are ready to send the packet, and just want
      to set the appropriate TCP sequence numbers in the TCP header. */
  tcp_send_ack:
   BUF->flags = TCP_ACK;
+
  tcp_send_nodata:
   uip_len = UIP_IPTCPH_LEN;
+
  tcp_send_noopts:
   BUF->tcpoffset = (UIP_TCPH_LEN / 4) << 4;
- tcp_send:
+
   /* We're done with the input processing. We are now ready to send a
      reply. Our job is to fill in all the fields of the TCP and IP
      headers before calculating the checksum and finally send the
      packet. */
+ tcp_send:
   BUF->ackno[0] = uip_connr->rcv_nxt[0];
   BUF->ackno[1] = uip_connr->rcv_nxt[1];
   BUF->ackno[2] = uip_connr->rcv_nxt[2];
@@ -1814,8 +1840,8 @@ uip_process(u8_t flag)
   BUF->srcport  = uip_connr->lport;
   BUF->destport = uip_connr->rport;
 
-  uip_ipaddr_copy(BUF->srcipaddr, uip_hostaddr);
-  uip_ipaddr_copy(BUF->destipaddr, uip_connr->ripaddr);
+  uip_ipaddr_copy(&BUF->srcipaddr, &uip_hostaddr);
+  uip_ipaddr_copy(&BUF->destipaddr, &uip_connr->ripaddr);
 
   if(uip_connr->tcpstateflags & UIP_STOPPED) {
     /* If the connection has issued uip_stop(), we advertise a zero
@@ -1843,9 +1869,8 @@ uip_process(u8_t flag)
   /* Calculate TCP checksum. */
   BUF->tcpchksum = 0;
   BUF->tcpchksum = ~(uip_tcpchksum());
-  
- ip_send_nolen:
 
+ ip_send_nolen:
 #if UIP_CONF_IPV6
   BUF->vtc = 0x60;
   BUF->tcflow = 0x00;
@@ -1861,10 +1886,11 @@ uip_process(u8_t flag)
   BUF->ipchksum = 0;
   BUF->ipchksum = ~(uip_ipchksum());
   DEBUG_PRINTF("uip ip_send_nolen: chkecum 0x%04x\n", uip_ipchksum());
-#endif /* UIP_CONF_IPV6 */
-   
+#endif /* UIP_CONF_IPV6 */   
   UIP_STAT(++uip_stat.tcp.sent);
+#if UIP_CONF_IPV6
  send:
+#endif /* UIP_CONF_IPV6 */
   DEBUG_PRINTF("Sending packet with length %d (%d)\n", uip_len,
 	       (BUF->len[0] << 8) | BUF->len[1]);
   
@@ -1872,6 +1898,7 @@ uip_process(u8_t flag)
   /* Return and let the caller do the actual transmission. */
   uip_flags = 0;
   return;
+
  drop:
   uip_len = 0;
   uip_flags = 0;
@@ -1883,15 +1910,27 @@ htons(u16_t val)
 {
   return HTONS(val);
 }
+
+u32_t
+htonl(u32_t val)
+{
+  return HTONL(val);
+}
 /*---------------------------------------------------------------------------*/
 void
 uip_send(const void *data, int len)
 {
-  if(len > 0) {
-    uip_slen = len;
+  int copylen;
+#define MIN(a,b) ((a) < (b)? (a): (b))
+  copylen = MIN(len, UIP_BUFSIZE - UIP_LLH_LEN - UIP_TCPIP_HLEN -
+		(int)((char *)uip_sappdata - (char *)&uip_buf[UIP_LLH_LEN + UIP_TCPIP_HLEN]));
+  if(copylen > 0) {
+    uip_slen = copylen;
     if(data != uip_sappdata) {
       memcpy(uip_sappdata, (data), uip_slen);
     }
   }
 }
+/*---------------------------------------------------------------------------*/
 /** @} */
+#endif /* UIP_CONF_IPV6 */

@@ -135,8 +135,7 @@ SRC = $(TARGET).c                                                 \
 	  Lib/uip/uip.c                                               \
 	  Lib/uip/uip_arp.c                                           \
 	  Lib/uip/timer.c                                             \
-	  Lib/uip/uip-neighbor.c                                      \
-	  Lib/uip/conf/clock-arch.c                                   \
+	  Lib/uip/clock.c                                             \
 	  Lib/FATFs/diskio.c                                          \
 	  Lib/FATFs/ff.c                                              \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
@@ -198,7 +197,13 @@ CSTANDARD = -std=gnu99
 
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA_OPTS)
-CDEFS += -DENABLE_DHCP
+CDEFS += -DENABLE_DHCP=1
+
+CDEFS += -DUIP_CONF_UDP_CONNS=1 -DUIP_CONF_TCP=1 -DUIP_CONF_MAX_CONNECTIONS=5
+CDEFS += -DUIP_CONF_MAX_LISTENPORTS=1 -DUIP_CONF_BUFFER_SIZE=1514 
+CDEFS += -DUIP_CONF_LL_802154=0 -DUIP_CONF_LL_80211=0 -DUIP_CONF_ROUTER=0 -DUIP_CONF_ICMP6=0 -DUIP_CONF_LL_802154=0
+CDEFS += -DUIP_ARCH_ADD32=0 -DUIP_ARCH_CHKSUM=0 -DUIP_CONF_ICMP_DEST_UNREACH=1 -DUIP_NEIGHBOR_CONF_ADDRTYPE=0
+CDEFS += -DUIP_CONF_UDP=ENABLE_DHCP
 
 
 # Place -D or -U options here for ASM sources
