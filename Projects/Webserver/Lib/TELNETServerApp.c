@@ -79,15 +79,15 @@ void TELNETServerApp_Callback(void)
 		{
 			case TELNET_STATE_SendHeader:
 				/* Copy over and send the TELNET welcome message upon first connection */
-				strncpy_P(AppData, WelcomeHeader, strlen_P(WelcomeHeader));
-				uip_send(AppData, strlen_P(WelcomeHeader));
+				strcpy_P(AppData, WelcomeHeader);
+				uip_send(AppData, strlen(AppData));
 				
 				AppState->TELNETServer.NextState = TELNET_STATE_SendMenu;
 				break;
 			case TELNET_STATE_SendMenu:
 				/* Copy over and send the TELNET menu to the client */
-				strncpy_P(AppData, TELNETMenu, strlen_P(TELNETMenu));
-				uip_send(AppData, strlen_P(TELNETMenu));
+				strcpy_P(AppData, TELNETMenu);
+				uip_send(AppData, strlen(AppData));
 				
 				AppState->TELNETServer.NextState = TELNET_STATE_GetCommand;
 				break;

@@ -199,7 +199,6 @@ static void HTTPServerApp_SendResponseHeader(void)
 	char*               const AppData     = (char*)uip_appdata;
 
 	char*    HeaderToSend;
-	uint16_t HeaderLength;
 
 	/* Determine which HTTP header should be sent to the client */
 	if (AppState->HTTPServer.FileOpen)
@@ -214,9 +213,8 @@ static void HTTPServerApp_SendResponseHeader(void)
 	}
 
 	/* Copy over the HTTP response header and send it to the receiving client */
-	HeaderLength = strlen_P(HeaderToSend);
-	strncpy_P(AppData, HeaderToSend, HeaderLength);
-	uip_send(AppData, HeaderLength);
+	strcpy_P(AppData, HeaderToSend);
+	uip_send(AppData, strlen(AppData));
 }
 
 /** HTTP Server State handler for the MIME Header Send state. This state manages the transmission of the file
