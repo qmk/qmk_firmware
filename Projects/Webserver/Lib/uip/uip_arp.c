@@ -149,7 +149,7 @@ uip_arp_init(void)
 void
 uip_arp_timer(void)
 {
-  struct arp_entry *tabptr;
+  struct arp_entry *tabptr = NULL;
   
   ++arptime;
   for(i = 0; i < UIP_ARPTAB_SIZE; ++i) {
@@ -165,7 +165,7 @@ uip_arp_timer(void)
 static void
 uip_arp_update(uip_ipaddr_t *ipaddr, struct uip_eth_addr *ethaddr)
 {
-  register struct arp_entry *tabptr;
+  register struct arp_entry *tabptr = NULL;
   /* Walk through the ARP mapping table and try to find an entry to
      update. If none is found, the IP -> MAC address mapping is
      inserted in the ARP table. */
@@ -282,7 +282,6 @@ uip_arp_ipin(void)
 void
 uip_arp_arpin(void)
 {
-  
   if(uip_len < sizeof(struct arp_hdr)) {
     uip_len = 0;
     return;
@@ -362,7 +361,7 @@ uip_arp_arpin(void)
 void
 uip_arp_out(void)
 {
-  struct arp_entry *tabptr;
+  struct arp_entry *tabptr = NULL;
   
   /* Find the destination IP address in the ARP table and construct
      the Ethernet header. If the destination IP addres isn't on the

@@ -68,14 +68,14 @@
 		#define HTTP_SERVER_PORT  80
 
 	/* Function Prototypes: */
-		void WebserverApp_Init(void);
-		void WebserverApp_Callback(void);
+		void HTTPServerApp_Init(void);
+		void HTTPServerApp_Callback(void);
 		
 		#if defined(INCLUDE_FROM_HTTPSERVERAPP_C)
-			static void Webserver_OpenRequestedFile(void);
-			static void Webserver_SendResponseHeader(void);
-			static void Webserver_SendMIMETypeHeader(void);
-			static void Webserver_SendData(void);
+			static void HTTPServerApp_OpenRequestedFile(void);
+			static void HTTPServerApp_SendResponseHeader(void);
+			static void HTTPServerApp_SendMIMETypeHeader(void);
+			static void HTTPServerApp_SendData(void);
 		#endif
 		
 #endif

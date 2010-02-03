@@ -75,7 +75,7 @@ void uIPManagement_Init(void)
 	uip_setethaddr(MACAddress);
 	
 	/* HTTP Webserver Initialization */
-	WebserverApp_Init();
+	HTTPServerApp_Init();
 }
 
 /** uIP Management function. This function manages the uIP stack when called while an RNDIS device has been

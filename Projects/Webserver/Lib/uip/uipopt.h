@@ -12,9 +12,6 @@
  * should be tweaked to match each specific project. The uIP
  * distribution contains a documented example "uipopt.h" that can be
  * copied and modified for each project.
- *
- * \note Contiki does not use the uipopt.h file to configure uIP, but
- * uses a per-port uip-conf.h file that should be edited instead.
  */
 
 /**
@@ -657,8 +654,8 @@ typedef uint32_t uip_stats_t;
  typedef struct httpd_state uip_tcp_appstate_t
  \endcode
 */
-	#define UIP_UDP_APPCALL DHCPApp_Callback
-	void UIP_UDP_APPCALL(void);
+#define UIP_UDP_APPCALL DHCPApp_Callback
+void UIP_UDP_APPCALL(void);
 
 /**
  * \var #define UIP_APPCALL
@@ -667,8 +664,8 @@ typedef uint32_t uip_stats_t;
  * response to TCP/IP events.
  *
  */
-	#define UIP_APPCALL     WebserverApp_Callback
-	void UIP_APPCALL(void);
+#define UIP_APPCALL     HTTPServerApp_Callback
+void UIP_APPCALL(void);
 
 /**
  * \var typedef uip_tcp_appstate_t
@@ -677,17 +674,17 @@ typedef uint32_t uip_stats_t;
  * uip_conn structure. This usually is typedef:ed to a struct holding
  * application state information.
  */
-	typedef struct
-	{
-		uint8_t  CurrentState;
-		uint8_t  NextState;
-		
-		char     FileName[30];
-		FIL      FileHandle;
-		bool     FileOpen;
-		uint32_t ACKedFilePos;
-		uint16_t SentChunkSize;
-	} uip_tcp_appstate_t;
+typedef struct
+{
+	uint8_t  CurrentState;
+	uint8_t  NextState;
+	
+	char     FileName[30];
+	FIL      FileHandle;
+	bool     FileOpen;
+	uint32_t ACKedFilePos;
+	uint16_t SentChunkSize;
+} uip_tcp_appstate_t;
 
 /**
  * \var typedef uip_udp_appstate_t
@@ -696,19 +693,19 @@ typedef uint32_t uip_stats_t;
  * uip_conn structure. This usually is typedef:ed to a struct holding
  * application state information.
  */
-	typedef struct
+typedef struct
+{
+	uint8_t CurrentState;
+	struct  uip_udp_conn* Connection;
+	
+	struct
 	{
-		uint8_t CurrentState;
-		struct  uip_udp_conn* Connection;
-		
-		struct
-		{
-			uint8_t AllocatedIP[4];
-			uint8_t Netmask[4];
-			uint8_t GatewayIP[4];
-			uint8_t ServerIP[4];
-		} DHCPOffer_Data;
-	} uip_udp_appstate_t;
+		uint8_t AllocatedIP[4];
+		uint8_t Netmask[4];
+		uint8_t GatewayIP[4];
+		uint8_t ServerIP[4];
+	} DHCPOffer_Data;
+} uip_udp_appstate_t;
 /** @} */
 
 #endif /* __UIPOPT_H__ */

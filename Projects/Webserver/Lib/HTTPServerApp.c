@@ -79,7 +79,7 @@ FATFS DiskFATState;
 
 
 /** Initialization function for the simple HTTP webserver. */
-void WebserverApp_Init(void)
+void HTTPServerApp_Init(void)
 {
 	/* Listen on port 80 for HTTP connections from hosts */
 	uip_listen(HTONS(HTTP_SERVER_PORT));
@@ -91,7 +91,7 @@ void WebserverApp_Init(void)
 /** uIP stack application callback for the simple HTTP webserver. This function must be called each time the
  *  TCP/IP stack needs a TCP packet to be processed.
  */
-void WebserverApp_Callback(void)
+void HTTPServerApp_Callback(void)
 {
 	uip_tcp_appstate_t* const AppState = &uip_conn->appstate;
 
@@ -130,16 +130,16 @@ void WebserverApp_Callback(void)
 		switch (AppState->CurrentState)
 		{
 			case WEBSERVER_STATE_OpenRequestedFile:
-				Webserver_OpenRequestedFile();
+				HTTPServerApp_OpenRequestedFile();
 				break;
 			case WEBSERVER_STATE_SendResponseHeader:
-				Webserver_SendResponseHeader();
+				HTTPServerApp_SendResponseHeader();
 				break;
 			case WEBSERVER_STATE_SendMIMETypeHeader:
-				Webserver_SendMIMETypeHeader();	
+				HTTPServerApp_SendMIMETypeHeader();	
 				break;
 			case WEBSERVER_STATE_SendData:
-				Webserver_SendData();
+				HTTPServerApp_SendData();
 				break;
 			case WEBSERVER_STATE_Closing:
 				uip_close();
@@ -153,7 +153,7 @@ void WebserverApp_Callback(void)
 /** HTTP Server State handler for the Request Process state. This state manages the processing of incomming HTTP
  *  GET requests to the server from the receiving HTTP client.
  */
-static void Webserver_OpenRequestedFile(void)
+static void HTTPServerApp_OpenRequestedFile(void)
 {
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
 	char*               const AppData     = (char*)uip_appdata;
@@ -193,7 +193,7 @@ static void Webserver_OpenRequestedFile(void)
 /** HTTP Server State handler for the HTTP Response Header Send state. This state manages the transmission of
  *  the HTTP response header to the receiving HTTP client.
  */
-static void Webserver_SendResponseHeader(void)
+static void HTTPServerApp_SendResponseHeader(void)
 {
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
 	char*               const AppData     = (char*)uip_appdata;
@@ -222,7 +222,7 @@ static void Webserver_SendResponseHeader(void)
 /** HTTP Server State handler for the MIME Header Send state. This state manages the transmission of the file
  *  MIME type header for the requested file to the receiving HTTP client.
  */
-static void Webserver_SendMIMETypeHeader(void)
+static void HTTPServerApp_SendMIMETypeHeader(void)
 {
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
 	char*               const AppData     = (char*)uip_appdata;
@@ -267,7 +267,7 @@ static void Webserver_SendMIMETypeHeader(void)
 /** HTTP Server State handler for the Data Send state. This state manages the transmission of file chunks
  *  to the receiving HTTP client.
  */
-static void Webserver_SendData(void)
+static void HTTPServerApp_SendData(void)
 {
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
 	char*               const AppData     = (char*)uip_appdata;
