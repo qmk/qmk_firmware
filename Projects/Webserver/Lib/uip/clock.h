@@ -2,6 +2,7 @@
 #define __CLOCK_ARCH_H__
 
 #include <stdint.h>
+#include <util/atomic.h>
 
 typedef uint16_t clock_time_t;
 #define CLOCK_SECOND 100

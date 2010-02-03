@@ -29,9 +29,10 @@ clock_time_t clock_time()
 {
 	clock_time_t time;
 
-	cli();
+	ATOMIC_BLOCK(ATOMIC_FORCEON)
+	{
 		time = clock_datetime;
-	sei();
+	}
 
 	return time;
 }

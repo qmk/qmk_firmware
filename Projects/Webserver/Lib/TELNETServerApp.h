@@ -30,47 +30,39 @@
 
 /** \file
  *
- *  Header file for uIPManagement.c.
+ *  Header file for TELNETServerApp.c.
  */
 
-#ifndef _UIP_MANAGEMENT_H_
-#define _UIP_MANAGEMENT_H_
+#ifndef _TELNETSERVER_APP_H_
+#define _TELNETSERVER_APP_H_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/Class/RNDIS.h>
-
+		#include <avr/pgmspace.h>
+		#include <string.h>
+		#include <stdio.h>
+		
 		#include <uip.h>
-		#include <uip_arp.h>
-		#include <timer.h>
-		
-		#include "Lib/DHCPClientApp.h"
-		#include "Lib/HTTPServerApp.h"
-		#include "Lib/TELNETServerApp.h"
-		
+	
 	/* Macros: */
-		/** IP address that the webserver should use once connected to a RNDIS device (when DHCP is disabled). */
-		#define DEVICE_IP_ADDRESS         (uint8_t[]){192, 168, 1, 10}
+		/** TCP listen port for incomming TELNET traffic */
+		#define TELNET_SERVER_PORT  23
 		
-		/** Netmask that the webserver should once connected to a RNDIS device (when DHCP is disabled). */
-		#define DEVICE_NETMASK            (uint8_t[]){255, 255, 255, 0}
-		
-		/** IP address of the default gateway the webserver should use when routing outside the local subnet
-		 *  (when DHCP is disabled).
-		 */
-		#define DEVICE_GATEWAY            (uint8_t[]){192, 168, 1, 1}
+	/* Enums: */
+		/** States for each TELNET connection to the server. */
+		enum TELNET_States_t
+		{
+			TELNET_STATE_SendHeader, /**< Currently sending welcome header to the client */
+			TELNET_STATE_SendMenu, /**< Currently sending the command list menu to the client */
+			TELNET_STATE_GetCommand, /**< Currently waiting for a command from the client */
+			TELNET_STATE_SendResponse, /**< Processing the issued command and sending a response */
+		};	
 
-	/* External Variables: */
-		extern struct uip_eth_addr MACAddress;
-		
 	/* Function Prototypes: */
-		void uIPManagement_Init(void);
-		void uIPManagement_ManageNetwork(void);
-		void uIPManagement_TCPCallback(void);
-		void uIPManagement_UDPCallback(void);
+		void TELNETServerApp_Init(void);
+		void TELNETServerApp_Callback(void);
 		
-		#if defined(INCLUDE_FROM_UIPMANAGEMENT_C)
-			static void uIPManagement_ProcessIncommingPacket(void);
-			static void uIPManagement_ManageConnections(void);
+		#if defined(INCLUDE_FROM_TELNETSERVERAPP_C)
+			static void TELNETServerApp_DisplayTCPConnections(void);
 		#endif
 		
 #endif

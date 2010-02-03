@@ -34,27 +34,27 @@
  *  DHCP server on the network.
  */
  
-#include "DHCPApp.h"
+#include "DHCPClientApp.h"
 
 #if defined(ENABLE_DHCP) || defined(__DOXYGEN__)
 /** Timer for managing the timeout period for a DHCP server to respond */
 struct timer DHCPTimer;
 
 /** Initialization function for the DHCP client. */
-void DHCPApp_Init(void)
+void DHCPClientApp_Init(void)
 {
 	uip_udp_appstate_t* const AppState = &uip_udp_conn->appstate;
 	
 	/* Create a new UDP connection to the DHCP server port for the DHCP solicitation */
 	uip_ipaddr_t DHCPServerIPAddress;
 	uip_ipaddr(&DHCPServerIPAddress, 255, 255, 255, 255);
-	AppState->Connection = uip_udp_new(&DHCPServerIPAddress, HTONS(DHCPC_SERVER_PORT));
+	AppState->DHCPClient.Connection = uip_udp_new(&DHCPServerIPAddress, HTONS(DHCPC_SERVER_PORT));
 	
 	/* If the connection was sucessfully created, bind it to the local DHCP client port */
-	if(AppState->Connection != NULL)
+	if(AppState->DHCPClient.Connection != NULL)
 	{
-		uip_udp_bind(AppState->Connection, HTONS(DHCPC_CLIENT_PORT));
-		AppState->CurrentState = DHCP_STATE_SendDiscover;
+		uip_udp_bind(AppState->DHCPClient.Connection, HTONS(DHCPC_CLIENT_PORT));
+		AppState->DHCPClient.CurrentState = DHCP_STATE_SendDiscover;
 	}
 
 	/* Set timeout period to half a second for a DHCP server to respond */
@@ -64,33 +64,33 @@ void DHCPApp_Init(void)
 /** uIP stack application callback for the DHCP client. This function must be called each time the TCP/IP stack 
  *  needs a UDP packet to be processed.
  */
-void DHCPApp_Callback(void)
+void DHCPClientApp_Callback(void)
 {
 	uip_udp_appstate_t* const AppState    = &uip_udp_conn->appstate;
 	DHCP_Header_t*      const AppData     = (DHCP_Header_t*)uip_appdata;
 	uint16_t                  AppDataSize = 0;
 	
-	switch (AppState->CurrentState)
+	switch (AppState->DHCPClient.CurrentState)
 	{
 		case DHCP_STATE_SendDiscover:
 			/* Clear all DHCP settings, reset client IP address */
-			memset(&AppState->DHCPOffer_Data, 0x00, sizeof(AppState->DHCPOffer_Data));
-			uip_sethostaddr((uip_ipaddr_t*)&AppState->DHCPOffer_Data.AllocatedIP);
+			memset(&AppState->DHCPClient.DHCPOffer_Data, 0x00, sizeof(AppState->DHCPClient.DHCPOffer_Data));
+			uip_sethostaddr((uip_ipaddr_t*)&AppState->DHCPClient.DHCPOffer_Data.AllocatedIP);
 
 			/* Fill out the DHCP response header */
-			AppDataSize += DHCPApp_FillDHCPHeader(AppData, DHCP_DISCOVER, AppState);
+			AppDataSize += DHCPClientApp_FillDHCPHeader(AppData, DHCP_DISCOVER, AppState);
 			
 			/* Add the required DHCP options list to the packet */
 			uint8_t RequiredOptionList[] = {DHCP_OPTION_SUBNET_MASK, DHCP_OPTION_ROUTER, DHCP_OPTION_DNS_SERVER};
-			AppDataSize += DHCPApp_SetOption(AppData->Options, DHCP_OPTION_REQ_LIST, sizeof(RequiredOptionList),
-			                                 RequiredOptionList);			
+			AppDataSize += DHCPClientApp_SetOption(AppData->Options, DHCP_OPTION_REQ_LIST, sizeof(RequiredOptionList),
+			                                       RequiredOptionList);			
 			
 			/* Send the DHCP DISCOVER packet */
 			uip_udp_send(AppDataSize);
 
 			/* Reset the timeout timer, progress to next state */
 			timer_reset(&DHCPTimer);
-			AppState->CurrentState = DHCP_STATE_WaitForOffer;			
+			AppState->DHCPClient.CurrentState = DHCP_STATE_WaitForOffer;			
 			
 			break;
 		case DHCP_STATE_WaitForOffer:
@@ -98,45 +98,45 @@ void DHCPApp_Callback(void)
 			{
 				/* Check if the DHCP timeout period has expired while waiting for a response */
 				if (timer_expired(&DHCPTimer))
-				  AppState->CurrentState = DHCP_STATE_SendDiscover;
+				  AppState->DHCPClient.CurrentState = DHCP_STATE_SendDiscover;
 				
 				break;
 			}
 			  
 			uint8_t OfferResponse_MessageType;
 			if ((AppData->TransactionID == DHCP_TRANSACTION_ID) &&
-			    DHCPApp_GetOption(AppData->Options, DHCP_OPTION_MSG_TYPE, &OfferResponse_MessageType) &&
+			    DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_MSG_TYPE, &OfferResponse_MessageType) &&
 			    (OfferResponse_MessageType == DHCP_OFFER))
 			{
 				/* Received a DHCP offer for an IP address, copy over values for later request */
-				memcpy(&AppState->DHCPOffer_Data.AllocatedIP, &AppData->YourIP, sizeof(uip_ipaddr_t));
-				DHCPApp_GetOption(AppData->Options, DHCP_OPTION_SUBNET_MASK, &AppState->DHCPOffer_Data.Netmask);
-				DHCPApp_GetOption(AppData->Options, DHCP_OPTION_ROUTER,      &AppState->DHCPOffer_Data.GatewayIP);
-				DHCPApp_GetOption(AppData->Options, DHCP_OPTION_SERVER_ID,   &AppState->DHCPOffer_Data.ServerIP);
+				memcpy(&AppState->DHCPClient.DHCPOffer_Data.AllocatedIP, &AppData->YourIP, sizeof(uip_ipaddr_t));
+				DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_SUBNET_MASK, &AppState->DHCPClient.DHCPOffer_Data.Netmask);
+				DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_ROUTER,      &AppState->DHCPClient.DHCPOffer_Data.GatewayIP);
+				DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_SERVER_ID,   &AppState->DHCPClient.DHCPOffer_Data.ServerIP);
 				
 				timer_reset(&DHCPTimer);
-				AppState->CurrentState = DHCP_STATE_SendRequest;
+				AppState->DHCPClient.CurrentState = DHCP_STATE_SendRequest;
 			}
 
 			break;
 		case DHCP_STATE_SendRequest:
 			/* Fill out the DHCP response header */
-			AppDataSize += DHCPApp_FillDHCPHeader(AppData, DHCP_REQUEST, AppState);
+			AppDataSize += DHCPClientApp_FillDHCPHeader(AppData, DHCP_REQUEST, AppState);
 
 			/* Add the DHCP REQUESTED IP ADDRESS option to the packet */
-			AppDataSize += DHCPApp_SetOption(AppData->Options, DHCP_OPTION_REQ_IPADDR, sizeof(uip_ipaddr_t),
-			                                 &AppState->DHCPOffer_Data.AllocatedIP);
+			AppDataSize += DHCPClientApp_SetOption(AppData->Options, DHCP_OPTION_REQ_IPADDR, sizeof(uip_ipaddr_t),
+			                                       &AppState->DHCPClient.DHCPOffer_Data.AllocatedIP);
 
 			/* Add the DHCP SERVER IP ADDRESS option to the packet */
-			AppDataSize += DHCPApp_SetOption(AppData->Options, DHCP_OPTION_SERVER_ID, sizeof(uip_ipaddr_t),
-			                                 &AppState->DHCPOffer_Data.ServerIP);
+			AppDataSize += DHCPClientApp_SetOption(AppData->Options, DHCP_OPTION_SERVER_ID, sizeof(uip_ipaddr_t),
+			                                       &AppState->DHCPClient.DHCPOffer_Data.ServerIP);
 
 			/* Send the DHCP REQUEST packet */
 			uip_udp_send(AppDataSize);
 			
 			/* Reset the timeout timer, progress to next state */
 			timer_reset(&DHCPTimer);
-			AppState->CurrentState = DHCP_STATE_WaitForACK;
+			AppState->DHCPClient.CurrentState = DHCP_STATE_WaitForACK;
 
 			break;
 		case DHCP_STATE_WaitForACK:
@@ -144,22 +144,22 @@ void DHCPApp_Callback(void)
 			{
 				/* Check if the DHCP timeout period has expired while waiting for a response */
 				if (timer_expired(&DHCPTimer))
-				  AppState->CurrentState = DHCP_STATE_SendDiscover;
+				  AppState->DHCPClient.CurrentState = DHCP_STATE_SendDiscover;
 				
 				break;
 			}
 			
 			uint8_t RequestResponse_MessageType;
 			if ((AppData->TransactionID == DHCP_TRANSACTION_ID) &&
-			    DHCPApp_GetOption(AppData->Options, DHCP_OPTION_MSG_TYPE, &RequestResponse_MessageType) &&
+			    DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_MSG_TYPE, &RequestResponse_MessageType) &&
 			    (RequestResponse_MessageType == DHCP_ACK))
 			{
 				/* Set the new network parameters from the DHCP server */
-				uip_sethostaddr((uip_ipaddr_t*)&AppState->DHCPOffer_Data.AllocatedIP);
-				uip_setnetmask((uip_ipaddr_t*)&AppState->DHCPOffer_Data.Netmask);
-				uip_setdraddr((uip_ipaddr_t*)&AppState->DHCPOffer_Data.GatewayIP);
+				uip_sethostaddr((uip_ipaddr_t*)&AppState->DHCPClient.DHCPOffer_Data.AllocatedIP);
+				uip_setnetmask((uip_ipaddr_t*)&AppState->DHCPClient.DHCPOffer_Data.Netmask);
+				uip_setdraddr((uip_ipaddr_t*)&AppState->DHCPClient.DHCPOffer_Data.GatewayIP);
 			
-				AppState->CurrentState = DHCP_STATE_AddressLeased;
+				AppState->DHCPClient.CurrentState = DHCP_STATE_AddressLeased;
 			}
 			
 			break;
@@ -175,7 +175,7 @@ void DHCPApp_Callback(void)
  *
  *  \return Size in bytes of the created DHCP packet
  */
-uint16_t DHCPApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageType, uip_udp_appstate_t* AppState)
+uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageType, uip_udp_appstate_t* AppState)
 {
 	/* Erase existing packet data so that we start will all 0x00 DHCP header data */
  	memset(DHCPHeader, 0, sizeof(DHCP_Header_t));
@@ -189,8 +189,8 @@ uint16_t DHCPApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageTy
 	DHCPHeader->ElapsedSeconds        = 0;
 	DHCPHeader->Flags                 = HTONS(BOOTP_BROADCAST);
 	memcpy(&DHCPHeader->ClientIP, &uip_hostaddr, sizeof(uip_ipaddr_t));
-	memcpy(&DHCPHeader->YourIP, &AppState->DHCPOffer_Data.AllocatedIP, sizeof(uip_ipaddr_t));
-	memcpy(&DHCPHeader->NextServerIP, &AppState->DHCPOffer_Data.ServerIP, sizeof(uip_ipaddr_t));
+	memcpy(&DHCPHeader->YourIP, &AppState->DHCPClient.DHCPOffer_Data.AllocatedIP, sizeof(uip_ipaddr_t));
+	memcpy(&DHCPHeader->NextServerIP, &AppState->DHCPClient.DHCPOffer_Data.ServerIP, sizeof(uip_ipaddr_t));
 	memcpy(&DHCPHeader->ClientHardwareAddress, &MACAddress, sizeof(struct uip_eth_addr));
 	DHCPHeader->Cookie                = DHCP_MAGIC_COOKIE;
 	
@@ -214,7 +214,7 @@ uint16_t DHCPApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageTy
  *
  *  \return Number of bytes added to the DHCP packet
  */
-uint8_t DHCPApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen, void* OptionData)
+uint8_t DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen, void* OptionData)
 {
 	/* Skip through the DHCP options list until the terminator option is found */
 	while (*DHCPOptionList != DHCP_OPTION_END)
@@ -238,7 +238,7 @@ uint8_t DHCPApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataL
  *
  *  \return Boolean true if the option was found in the DHCP packet's options list, false otherwise
  */
-bool DHCPApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination)
+bool DHCPClientApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination)
 {
 	/* Look through the incomming DHCP packet's options list for the requested option */
 	while (*DHCPOptionList != DHCP_OPTION_END)

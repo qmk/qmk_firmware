@@ -128,10 +128,11 @@ SRC = $(TARGET).c                                                 \
 	  USBDeviceMode.c                                             \
 	  USBHostMode.c                                               \
 	  Lib/SCSI.c                                                  \
-	  Lib/uIPManagement.c                                         \
-	  Lib/DHCPApp.c                                               \
-	  Lib/HTTPServerApp.c                                         \
 	  Lib/DataflashManager.c                                      \
+	  Lib/uIPManagement.c                                         \
+	  Lib/DHCPClientApp.c                                         \
+	  Lib/HTTPServerApp.c                                         \
+	  Lib/TELNETServerApp.c                                       \
 	  Lib/uip/uip.c                                               \
 	  Lib/uip/uip_arp.c                                           \
 	  Lib/uip/timer.c                                             \
@@ -200,10 +201,10 @@ CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA
 CDEFS += -DENABLE_DHCP=1
 
 CDEFS += -DUIP_CONF_UDP_CONNS=1 -DUIP_CONF_TCP=1 -DUIP_CONF_MAX_CONNECTIONS=5
-CDEFS += -DUIP_CONF_MAX_LISTENPORTS=1 -DUIP_CONF_BUFFER_SIZE=1514 
+CDEFS += -DUIP_CONF_MAX_LISTENPORTS=5 -DUIP_CONF_BUFFER_SIZE=1514 
 CDEFS += -DUIP_CONF_LL_802154=0 -DUIP_CONF_LL_80211=0 -DUIP_CONF_ROUTER=0 -DUIP_CONF_ICMP6=0 -DUIP_CONF_LL_802154=0
 CDEFS += -DUIP_ARCH_ADD32=0 -DUIP_ARCH_CHKSUM=0 -DUIP_CONF_ICMP_DEST_UNREACH=1 -DUIP_NEIGHBOR_CONF_ADDRTYPE=0
-CDEFS += -DUIP_CONF_UDP=ENABLE_DHCP
+CDEFS += -DUIP_URGDATA=0 -DUIP_CONF_UDP=ENABLE_DHCP
 
 
 # Place -D or -U options here for ASM sources

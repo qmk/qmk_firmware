@@ -47,7 +47,7 @@
 		/** States for each HTTP connection to the webserver. */
 		enum Webserver_States_t
 		{
-			WEBSERVER_STATE_OpenRequestedFile, /** Currently opening requested file */
+			WEBSERVER_STATE_OpenRequestedFile, /**< Currently opening requested file */
 			WEBSERVER_STATE_SendResponseHeader, /**< Currently sending HTTP response headers to the client */
 			WEBSERVER_STATE_SendMIMETypeHeader, /**< Currently sending HTTP MIME type header to the client */
 			WEBSERVER_STATE_SendData, /**< Currently sending HTTP page data to the client */

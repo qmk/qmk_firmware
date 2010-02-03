@@ -58,10 +58,11 @@ void uIPManagement_Init(void)
 	/* uIP Stack Initialization */
 	uip_init();
 	uip_arp_init();
+	uip_setethaddr(MACAddress);
 
 	/* DHCP/Server IP Settings Initialization */
 	#if defined(ENABLE_DHCP)
-	DHCPApp_Init();
+	DHCPClientApp_Init();
 	#else
 	uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;
 	uip_ipaddr(&IPAddress,        DEVICE_IP_ADDRESS[0], DEVICE_IP_ADDRESS[1], DEVICE_IP_ADDRESS[2], DEVICE_IP_ADDRESS[3]);
@@ -71,11 +72,12 @@ void uIPManagement_Init(void)
 	uip_setnetmask(&Netmask);
 	uip_setdraddr(&GatewayIPAddress);
 	#endif
-
-	uip_setethaddr(MACAddress);
 	
 	/* HTTP Webserver Initialization */
 	HTTPServerApp_Init();
+	
+	/* TELNET Server Initialization */
+	TELNETServerApp_Init();
 }
 
 /** uIP Management function. This function manages the uIP stack when called while an RNDIS device has been
@@ -87,6 +89,37 @@ void uIPManagement_ManageNetwork(void)
 	{
 		uIPManagement_ProcessIncommingPacket();
 		uIPManagement_ManageConnections();
+	}
+}
+
+/** uIP TCP/IP network stack callback function for the processing of a given TCP connection. This routine dispatches
+ *  to the appropriate TCP protocol application based on the connection's listen port number.
+ */
+void uIPManagement_TCPCallback(void)
+{
+	/* Call the correct TCP application based on the port number the connection is listening on */
+	switch (uip_conn->lport)
+	{
+		case HTONS(HTTP_SERVER_PORT):
+			HTTPServerApp_Callback();
+			break;
+		case HTONS(TELNET_SERVER_PORT):
+			TELNETServerApp_Callback();
+			break;
+	}
+}
+
+/** uIP TCP/IP network stack callback function for the processing of a given UDP connection. This routine dispatches
+ *  to the appropriate UDP protocol application based on the connection's listen port number.
+ */
+void uIPManagement_UDPCallback(void)
+{
+	/* Call the correct UDP application based on the port number the connection is listening on */
+	switch (uip_udp_conn->lport)
+	{
+		case HTONS(DHCPC_CLIENT_PORT):
+			DHCPClientApp_Callback();
+			break;
 	}
 }
 

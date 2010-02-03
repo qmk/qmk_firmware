@@ -98,36 +98,36 @@ void HTTPServerApp_Callback(void)
 	if (uip_aborted() || uip_timedout() || uip_closed())
 	{
 		/* Connection is being terminated for some reason - close file handle */
-		f_close(&AppState->FileHandle);
-		AppState->FileOpen = false;
+		f_close(&AppState->HTTPServer.FileHandle);
+		AppState->HTTPServer.FileOpen = false;
 		
 		/* Lock to the closed state so that no further processing will occur on the connection */
-		AppState->CurrentState  = WEBSERVER_STATE_Closed;
-		AppState->NextState     = WEBSERVER_STATE_Closed;
+		AppState->HTTPServer.CurrentState  = WEBSERVER_STATE_Closed;
+		AppState->HTTPServer.NextState     = WEBSERVER_STATE_Closed;
 	}
 
 	if (uip_connected())
 	{
 		/* New connection - initialize connection state values */
-		AppState->CurrentState  = WEBSERVER_STATE_OpenRequestedFile;
-		AppState->NextState     = WEBSERVER_STATE_OpenRequestedFile;
-		AppState->FileOpen      = false;
-		AppState->ACKedFilePos  = 0;
-		AppState->SentChunkSize = 0;
+		AppState->HTTPServer.CurrentState  = WEBSERVER_STATE_OpenRequestedFile;
+		AppState->HTTPServer.NextState     = WEBSERVER_STATE_OpenRequestedFile;
+		AppState->HTTPServer.FileOpen      = false;
+		AppState->HTTPServer.ACKedFilePos  = 0;
+		AppState->HTTPServer.SentChunkSize = 0;
 	}
 
 	if (uip_acked())
 	{
 		/* Add the amount of ACKed file data to the total sent file bytes counter */
-		AppState->ACKedFilePos += AppState->SentChunkSize;
+		AppState->HTTPServer.ACKedFilePos += AppState->HTTPServer.SentChunkSize;
 
 		/* Progress to the next state once the current state's data has been ACKed */
-		AppState->CurrentState = AppState->NextState;
+		AppState->HTTPServer.CurrentState = AppState->HTTPServer.NextState;
 	}
 
 	if (uip_rexmit() || uip_acked() || uip_newdata() || uip_connected() || uip_poll())
 	{
-		switch (AppState->CurrentState)
+		switch (AppState->HTTPServer.CurrentState)
 		{
 			case WEBSERVER_STATE_OpenRequestedFile:
 				HTTPServerApp_OpenRequestedFile();
@@ -144,7 +144,7 @@ void HTTPServerApp_Callback(void)
 			case WEBSERVER_STATE_Closing:
 				uip_close();
 				
-				AppState->NextState = WEBSERVER_STATE_Closed;
+				AppState->HTTPServer.NextState = WEBSERVER_STATE_Closed;
 				break;
 		}		  
 	}		
@@ -175,19 +175,19 @@ static void HTTPServerApp_OpenRequestedFile(void)
 	
 	/* If the requested filename has more that just the leading '/' path in it, copy it over */
 	if (strlen(RequestedFileName) > 1)
-	  strncpy(AppState->FileName, &RequestedFileName[1], (sizeof(AppState->FileName) - 1));
+	  strncpy(AppState->HTTPServer.FileName, &RequestedFileName[1], (sizeof(AppState->HTTPServer.FileName) - 1));
 	else
-	  strcpy(AppState->FileName, "index.htm");
+	  strcpy(AppState->HTTPServer.FileName, "index.htm");
 
 	/* Ensure filename is null-terminated */
-	AppState->FileName[(sizeof(AppState->FileName) - 1)] = 0x00;
+	AppState->HTTPServer.FileName[(sizeof(AppState->HTTPServer.FileName) - 1)] = 0x00;
 	
 	/* Try to open the file from the Dataflash disk */
-	AppState->FileOpen     = (f_open(&AppState->FileHandle, AppState->FileName, FA_OPEN_EXISTING | FA_READ) == FR_OK);
+	AppState->HTTPServer.FileOpen     = (f_open(&AppState->HTTPServer.FileHandle, AppState->HTTPServer.FileName, FA_OPEN_EXISTING | FA_READ) == FR_OK);
 
 	/* Lock to the SendResponseHeader state until connection terminated */
-	AppState->CurrentState = WEBSERVER_STATE_SendResponseHeader;
-	AppState->NextState    = WEBSERVER_STATE_SendResponseHeader;
+	AppState->HTTPServer.CurrentState = WEBSERVER_STATE_SendResponseHeader;
+	AppState->HTTPServer.NextState    = WEBSERVER_STATE_SendResponseHeader;
 }
 
 /** HTTP Server State handler for the HTTP Response Header Send state. This state manages the transmission of
@@ -202,15 +202,15 @@ static void HTTPServerApp_SendResponseHeader(void)
 	uint16_t HeaderLength;
 
 	/* Determine which HTTP header should be sent to the client */
-	if (AppState->FileOpen)
+	if (AppState->HTTPServer.FileOpen)
 	{
 		HeaderToSend = HTTP200Header;
-		AppState->NextState = WEBSERVER_STATE_SendMIMETypeHeader;
+		AppState->HTTPServer.NextState = WEBSERVER_STATE_SendMIMETypeHeader;
 	}
 	else
 	{
 		HeaderToSend = HTTP404Header;
-		AppState->NextState = WEBSERVER_STATE_Closing;
+		AppState->HTTPServer.NextState = WEBSERVER_STATE_Closing;
 	}
 
 	/* Copy over the HTTP response header and send it to the receiving client */
@@ -227,7 +227,7 @@ static void HTTPServerApp_SendMIMETypeHeader(void)
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
 	char*               const AppData     = (char*)uip_appdata;
 
-	char*    Extension        = strpbrk(AppState->FileName, ".");
+	char*    Extension        = strpbrk(AppState->HTTPServer.FileName, ".");
 	uint16_t MIMEHeaderLength = 0;
 
 	/* Check to see if a file extension was found for the requested filename */
@@ -261,7 +261,7 @@ static void HTTPServerApp_SendMIMETypeHeader(void)
 	uip_send(AppData, MIMEHeaderLength);
 	
 	/* When the MIME header is ACKed, progress to the data send stage */
-	AppState->NextState = WEBSERVER_STATE_SendData;
+	AppState->HTTPServer.NextState = WEBSERVER_STATE_SendData;
 }
 
 /** HTTP Server State handler for the Data Send state. This state manages the transmission of file chunks
@@ -276,14 +276,14 @@ static void HTTPServerApp_SendData(void)
 	uint16_t MaxSegmentSize = uip_mss();
 
 	/* Return file pointer to the last ACKed position */
-	f_lseek(&AppState->FileHandle, AppState->ACKedFilePos);
+	f_lseek(&AppState->HTTPServer.FileHandle, AppState->HTTPServer.ACKedFilePos);
 	
 	/* Read the next chunk of data from the open file */
-	f_read(&AppState->FileHandle, AppData, MaxSegmentSize, &AppState->SentChunkSize);
+	f_read(&AppState->HTTPServer.FileHandle, AppData, MaxSegmentSize, &AppState->HTTPServer.SentChunkSize);
 	
 	/* Send the next file chunk to the receiving client */
-	uip_send(AppData, AppState->SentChunkSize);
+	uip_send(AppData, AppState->HTTPServer.SentChunkSize);
 			
 	/* Check if we are at the last chunk of the file, if so next ACK should close the connection */
-	AppState->NextState = (MaxSegmentSize != AppState->SentChunkSize) ? WEBSERVER_STATE_Closing : WEBSERVER_STATE_SendData;
+	AppState->HTTPServer.NextState = (MaxSegmentSize != AppState->HTTPServer.SentChunkSize) ? WEBSERVER_STATE_Closing : WEBSERVER_STATE_SendData;
 }

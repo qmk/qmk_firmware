@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  Header file for DHCPApp.c.
+ *  Header file for DHCPClientApp.c.
  */
 
-#ifndef _DHCP_APP_H_
-#define _DHCP_APP_H_
+#ifndef _DHCPCLIENT_APP_H_
+#define _DHCPCLIENT_APP_H_
 
 	/* Includes: */
 		#include <stdio.h>
@@ -156,11 +156,11 @@
 		};
 
 	/* Function Prototypes: */
-		void DHCPApp_Init(void);
-		void DHCPApp_Callback(void);
+		void DHCPClientApp_Init(void);
+		void DHCPClientApp_Callback(void);
 		
-		uint16_t DHCPApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageType, uip_udp_appstate_t* AppState);
-		uint8_t  DHCPApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen, void* OptionData);
-		bool     DHCPApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination);
+		uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageType, uip_udp_appstate_t* AppState);
+		uint8_t  DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen, void* OptionData);
+		bool     DHCPClientApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination);
 		
 #endif

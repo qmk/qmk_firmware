@@ -346,14 +346,18 @@
  *
  * \hideinitializer
  */
+#if !defined(UIP_URGDATA)
 #define UIP_URGDATA      0
+#endif
 
 /**
  * The initial retransmission timeout counted in timer pulses.
  *
  * This should not be changed.
  */
+#if !defined(UIP_RTO)
 #define UIP_RTO         3
+#endif
 
 /**
  * The maximum number of times a segment should be retransmitted
@@ -361,7 +365,9 @@
  *
  * This should not be changed.
  */
+#if !defined(UIP_MAXRTX)
 #define UIP_MAXRTX      8
+#endif
 
 /**
  * The maximum number of times a SYN segment should be retransmitted
@@ -370,7 +376,9 @@
  *
  * This should not need to be changed.
  */
+#if !defined(UIP_MAXSYNRTX)
 #define UIP_MAXSYNRTX      5
+#endif
 
 /**
  * The TCP maximum segment size.
@@ -654,7 +662,7 @@ typedef uint32_t uip_stats_t;
  typedef struct httpd_state uip_tcp_appstate_t
  \endcode
 */
-#define UIP_UDP_APPCALL DHCPApp_Callback
+#define UIP_UDP_APPCALL uIPManagement_UDPCallback
 void UIP_UDP_APPCALL(void);
 
 /**
@@ -664,7 +672,7 @@ void UIP_UDP_APPCALL(void);
  * response to TCP/IP events.
  *
  */
-#define UIP_APPCALL     HTTPServerApp_Callback
+#define UIP_APPCALL     uIPManagement_TCPCallback
 void UIP_APPCALL(void);
 
 /**
@@ -674,16 +682,27 @@ void UIP_APPCALL(void);
  * uip_conn structure. This usually is typedef:ed to a struct holding
  * application state information.
  */
-typedef struct
+typedef union
 {
-	uint8_t  CurrentState;
-	uint8_t  NextState;
+	struct
+	{
+		uint8_t  CurrentState;
+		uint8_t  NextState;
+		
+		char     FileName[30];
+		FIL      FileHandle;
+		bool     FileOpen;
+		uint32_t ACKedFilePos;
+		uint16_t SentChunkSize;
+	} HTTPServer;
 	
-	char     FileName[30];
-	FIL      FileHandle;
-	bool     FileOpen;
-	uint32_t ACKedFilePos;
-	uint16_t SentChunkSize;
+	struct
+	{
+		uint8_t  CurrentState;
+		uint8_t  NextState;
+		
+		uint8_t  IssuedCommand;
+	} TELNETServer;
 } uip_tcp_appstate_t;
 
 /**
@@ -693,18 +712,21 @@ typedef struct
  * uip_conn structure. This usually is typedef:ed to a struct holding
  * application state information.
  */
-typedef struct
+typedef union
 {
-	uint8_t CurrentState;
-	struct  uip_udp_conn* Connection;
-	
 	struct
 	{
-		uint8_t AllocatedIP[4];
-		uint8_t Netmask[4];
-		uint8_t GatewayIP[4];
-		uint8_t ServerIP[4];
-	} DHCPOffer_Data;
+		uint8_t CurrentState;
+		struct  uip_udp_conn* Connection;
+		
+		struct
+		{
+			uint8_t AllocatedIP[4];
+			uint8_t Netmask[4];
+			uint8_t GatewayIP[4];
+			uint8_t ServerIP[4];
+		} DHCPOffer_Data;
+	} DHCPClient;
 } uip_udp_appstate_t;
 /** @} */
 
