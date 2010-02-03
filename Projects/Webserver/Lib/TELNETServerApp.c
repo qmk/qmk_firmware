@@ -106,7 +106,11 @@ void TELNETServerApp_Callback(void)
 				{
 					case 'c':
 						TELNETServerApp_DisplayTCPConnections();
-						break;					
+						break;
+					default:
+						strcpy(AppData, "Invalid Command.\r\n");
+						uip_send(AppData, strlen(AppData));
+						break;
 				}
 
 				AppState->TELNETServer.NextState = TELNET_STATE_SendMenu;

@@ -198,7 +198,7 @@ static void HTTPServerApp_SendResponseHeader(void)
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
 	char*               const AppData     = (char*)uip_appdata;
 
-	char*    HeaderToSend;
+	char* HeaderToSend;
 
 	/* Determine which HTTP header should be sent to the client */
 	if (AppState->HTTPServer.FileOpen)
