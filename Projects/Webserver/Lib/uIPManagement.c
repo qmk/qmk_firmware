@@ -175,6 +175,21 @@ static void uIPManagement_ProcessIncommingPacket(void)
 /** Manages the currently open network connections, including TCP and (if enabled) UDP. */
 static void uIPManagement_ManageConnections(void)
 {
+	/* Poll TCP connections for more data to send back to the host */
+	for (uint8_t i = 0; i < UIP_CONNS; i++)
+	{
+		uip_poll_conn(&uip_conns[i]);
+
+		/* If a response was generated, send it */
+		if (uip_len > 0)
+		{
+			/* Add destination MAC to outgoing packet */
+			uip_arp_out();
+
+			RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+		}
+	}
+
 	/* Manage open connections for timeouts */
 	if (timer_expired(&ConnectionTimer))
 	{

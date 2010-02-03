@@ -689,6 +689,7 @@ uip_process(u8_t flag)
   if(flag == UIP_POLL_REQUEST) {
     if((uip_connr->tcpstateflags & UIP_TS_MASK) == UIP_ESTABLISHED &&
        !uip_outstanding(uip_connr)) {
+	uip_len = uip_slen = 0;
 	uip_flags = UIP_POLL;
 	UIP_APPCALL();
 	goto appsend;
@@ -794,6 +795,7 @@ uip_process(u8_t flag)
       } else if((uip_connr->tcpstateflags & UIP_TS_MASK) == UIP_ESTABLISHED) {
 	/* If there was no need for a retransmission, we poll the
            application for new data. */
+	uip_len = uip_slen = 0;		   
 	uip_flags = UIP_POLL;
 	UIP_APPCALL();
 	goto appsend;
