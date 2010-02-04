@@ -76,8 +76,14 @@
 	/* Includes: */
 	#include "../../Common/Common.h"
 
-	#if !defined(BOARD)
-		#error BOARD must be set in makefile to a value specified in BoardTypes.h.
+	#if (BOARD == BOARD_NONE)
+		static inline void LEDs_Init(void) {};
+		static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask) {};
+		static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask) {};
+		static inline void LEDs_SetAllLEDs(const uint8_t LEDMask) {};
+		static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask) {};
+		static inline void LEDs_ToggleLEDs(const uint8_t LEDMask) {};
+		static inline uint8_t LEDs_GetLEDs(void) { return 0; }
 	#elif (BOARD == BOARD_USBKEY)
 		#include "USBKEY/LEDs.h"
 	#elif (BOARD == BOARD_STK525)

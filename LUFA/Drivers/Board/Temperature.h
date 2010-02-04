@@ -63,8 +63,8 @@
 		#include "../../Common/Common.h"
 		#include "../Peripheral/ADC.h"
 	
-		#if !defined(BOARD)
-			#error BOARD must be set in makefile to a value specified in BoardTypes.h.	
+		#if (BOARD == BOARD_NONE)
+			#error The Board Temperature Sensor driver cannot be used if the makefile BOARD option is not set.
 		#elif ((BOARD != BOARD_USBKEY) && (BOARD != BOARD_STK525) && \
 		       (BOARD != BOARD_STK526) && (BOARD != BOARD_USER) &&   \
 			   (BOARD != BOARD_EVK527))

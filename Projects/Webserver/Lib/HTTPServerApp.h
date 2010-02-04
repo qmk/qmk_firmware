@@ -64,7 +64,7 @@
 		} MIME_Type_t;
 	
 	/* Macros: */
-		/** TCP listen port for incomming HTTP traffic */
+		/** TCP listen port for incoming HTTP traffic */
 		#define HTTP_SERVER_PORT  80
 
 	/* Function Prototypes: */

@@ -50,7 +50,7 @@ void DHCPClientApp_Init(void)
 	uip_ipaddr(&DHCPServerIPAddress, 255, 255, 255, 255);
 	AppState->DHCPClient.Connection = uip_udp_new(&DHCPServerIPAddress, HTONS(DHCPC_SERVER_PORT));
 	
-	/* If the connection was sucessfully created, bind it to the local DHCP client port */
+	/* If the connection was successfully created, bind it to the local DHCP client port */
 	if(AppState->DHCPClient.Connection != NULL)
 	{
 		uip_udp_bind(AppState->DHCPClient.Connection, HTONS(DHCPC_CLIENT_PORT));
@@ -240,7 +240,7 @@ uint8_t DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t
  */
 bool DHCPClientApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination)
 {
-	/* Look through the incomming DHCP packet's options list for the requested option */
+	/* Look through the incoming DHCP packet's options list for the requested option */
 	while (*DHCPOptionList != DHCP_OPTION_END)
 	{
 		/* Check if the current DHCP option in the packet is the one requested */
@@ -249,7 +249,7 @@ bool DHCPClientApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Dest
 			/* Copy request option's data to the destination buffer */
 			memcpy(Destination, &DHCPOptionList[2], DHCPOptionList[1]);
 			
-			/* Indicate that the requested option data was sucessfully retrieved */
+			/* Indicate that the requested option data was successfully retrieved */
 			return true;
 		}
 		
@@ -257,7 +257,7 @@ bool DHCPClientApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Dest
 		DHCPOptionList += (DHCPOptionList[1] + 2);
 	}
 	
-	/* Requested option not found in the incomming packet's DHCP options list */
+	/* Requested option not found in the incoming packet's DHCP options list */
 	return false;
 }
 #endif

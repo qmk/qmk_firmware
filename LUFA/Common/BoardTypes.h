@@ -89,6 +89,18 @@
 
 			/** Selects the EVK527 specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
 			#define BOARD_EVK527        9
+			
+			/** Disables board drivers when operation will not be adversely affected (e.g. LEDs) - use of board drivers
+			 *  such as the Joystick driver, where the removal would adversely affect the code's operation is still disallowed. */
+			#define BOARD_NONE          10
+			
+			#if !defined(__DOXYGEN__)
+				#define BOARD_          BOARD_NONE
+				
+				#if !defined(BOARD)
+					#define BOARD       BOARD_NONE
+				#endif
+			#endif
 
 #endif
 

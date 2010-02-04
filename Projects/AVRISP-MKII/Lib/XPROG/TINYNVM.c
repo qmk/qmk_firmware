@@ -66,7 +66,7 @@ static void TINYNVM_SendReadNVMRegister(const uint8_t Address)
  */
 static void TINYNVM_SendWriteNVMRegister(const uint8_t Address)
 {
-	/* The TPI command for writing to the I/O space uses wierd addressing, where the I/O address's upper
+	/* The TPI command for writing to the I/O space uses weird addressing, where the I/O address's upper
 	 * two bits of the 6-bit address are shifted left once */
 	XPROGTarget_SendByte(TPI_CMD_SOUT | ((Address & 0x30) << 1) | (Address & 0x0F));
 }

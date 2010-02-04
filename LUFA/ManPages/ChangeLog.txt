@@ -21,6 +21,8 @@
   *  - Added ADC MUX masks for the standard ADC input channels on all AVR models with an ADC, altered demos to use these masks
   *    as on some models, the channel number is not identical to its single-ended ADC MUX mask
   *  - New Webserver project, a RNDIS host USB webserver using the open source uIP TCP/IP network stack and FatFS library
+  *  - New BOARD value option BOARD_NONE (equivelent to not specifying BOARD) which will remove all board hardware drivers which
+  *    do not adversely affect the code operation (currently only the LEDs driver)
   *
   *  <b>Changed:</b>
   *  - Slowed down software USART carried PDI programming in the AVRISP project to prevent transmission errors

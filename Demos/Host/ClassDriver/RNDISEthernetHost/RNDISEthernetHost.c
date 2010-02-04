@@ -36,7 +36,7 @@
  
 #include "RNDISEthernetHost.h"
 
-/** Buffer to hold incomming and outgoing Ethernet packets. */
+/** Buffer to hold incoming and outgoing Ethernet packets. */
 uint8_t PacketBuffer[1024];
 
 /** LUFA RNDIS Class driver interface configuration and state information. This structure is
@@ -146,7 +146,7 @@ int main(void)
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
-				PrintIncommingPackets();
+				PrintIncomingPackets();
 			
 				break;
 		}
@@ -156,8 +156,8 @@ int main(void)
 	}
 }
 
-/** Prints incomming packets from the attached RNDIS device to the serial port. */
-void PrintIncommingPackets(void)
+/** Prints incoming packets from the attached RNDIS device to the serial port. */
+void PrintIncomingPackets(void)
 {
 	if (RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface))
 	{

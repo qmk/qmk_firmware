@@ -69,7 +69,7 @@
 		void uIPManagement_UDPCallback(void);
 		
 		#if defined(INCLUDE_FROM_UIPMANAGEMENT_C)
-			static void uIPManagement_ProcessIncommingPacket(void);
+			static void uIPManagement_ProcessIncomingPacket(void);
 			static void uIPManagement_ManageConnections(void);
 		#endif
 		

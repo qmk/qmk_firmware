@@ -69,8 +69,8 @@
 	/* Includes: */
 	#include "../../Common/Common.h"
 	
-	#if !defined(BOARD)
-		#error BOARD must be set in makefile to a value specified in BoardTypes.h.
+	#if (BOARD == BOARD_NONE)
+		#error The Board Buttons driver cannot be used if the makefile BOARD option is not set.
 	#elif (BOARD == BOARD_USBKEY)
 		#include "USBKEY/Buttons.h"
 	#elif (BOARD == BOARD_STK525)

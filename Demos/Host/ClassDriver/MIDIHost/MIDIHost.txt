@@ -41,7 +41,7 @@
  *
  *  \section SSec_Description Project Description: 
  *
- *  MIDI host demonstration application. This demo will enumerate an attached USB-MIDI device, and print incomming MIDI note
+ *  MIDI host demonstration application. This demo will enumerate an attached USB-MIDI device, and print incoming MIDI note
  *  on and off messages on any channel to the serial port. Pressing the board joystick will send note on and off messages to
  *  the attached MIDI device, with the board HWB controlling the note channel.
  *

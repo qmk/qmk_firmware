@@ -121,7 +121,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
-void PrintIncommingPackets(void)
+void PrintIncomingPackets(void)
 {
 	uint8_t ErrorCode;
 
@@ -263,7 +263,7 @@ void RNDIS_Host_Task(void)
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-			PrintIncommingPackets();
+			PrintIncomingPackets();
 		
 			break;
 	}

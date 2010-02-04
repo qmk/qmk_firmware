@@ -84,7 +84,7 @@
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
-		void PrintIncommingPackets(void);
+		void PrintIncomingPackets(void);
 		void RNDIS_Host_Task(void);
 	
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);

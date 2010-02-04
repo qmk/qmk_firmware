@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  uIP Managament functions. This file contains the functions and globals needed to maintain the uIP
+ *  uIP Management functions. This file contains the functions and globals needed to maintain the uIP
  *  stack once an RNDIS device has been attached to the system.
  */
 
@@ -87,7 +87,7 @@ void uIPManagement_ManageNetwork(void)
 {
 	if ((USB_CurrentMode == USB_MODE_HOST) && (USB_HostState == HOST_STATE_Configured))
 	{
-		uIPManagement_ProcessIncommingPacket();
+		uIPManagement_ProcessIncomingPacket();
 		uIPManagement_ManageConnections();
 	}
 }
@@ -123,8 +123,8 @@ void uIPManagement_UDPCallback(void)
 	}
 }
 
-/** Processes incomming packets to the server from the connected RNDIS device, creating responses as needed. */
-static void uIPManagement_ProcessIncommingPacket(void)
+/** Processes Incoming packets to the server from the connected RNDIS device, creating responses as needed. */
+static void uIPManagement_ProcessIncomingPacket(void)
 {
 	/* If no packet received, exit processing routine */
 	if (!(RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface)))
@@ -132,7 +132,7 @@ static void uIPManagement_ProcessIncommingPacket(void)
 	  
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
-	/* Read the incomming packet straight into the UIP packet buffer */
+	/* Read the Incoming packet straight into the UIP packet buffer */
 	RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, uip_buf, &uip_len);
 
 	/* If the packet contains an Ethernet frame, process it */
@@ -144,7 +144,7 @@ static void uIPManagement_ProcessIncommingPacket(void)
 				/* Filter packet by MAC destination */
 				uip_arp_ipin();
 
-				/* Process incomming packet */
+				/* Process Incoming packet */
 				uip_input();
 
 				/* If a response was generated, send it */

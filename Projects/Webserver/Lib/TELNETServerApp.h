@@ -44,7 +44,7 @@
 		#include <uip.h>
 	
 	/* Macros: */
-		/** TCP listen port for incomming TELNET traffic */
+		/** TCP listen port for incoming TELNET traffic */
 		#define TELNET_SERVER_PORT  23
 		
 	/* Enums: */

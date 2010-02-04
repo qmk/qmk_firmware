@@ -150,7 +150,7 @@ void HTTPServerApp_Callback(void)
 	}		
 }
 
-/** HTTP Server State handler for the Request Process state. This state manages the processing of incomming HTTP
+/** HTTP Server State handler for the Request Process state. This state manages the processing of incoming HTTP
  *  GET requests to the server from the receiving HTTP client.
  */
 static void HTTPServerApp_OpenRequestedFile(void)
