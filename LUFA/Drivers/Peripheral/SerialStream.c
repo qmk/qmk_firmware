@@ -44,6 +44,9 @@ static int SerialStream_TxByte(char DataByte, FILE *Stream)
 static int SerialStream_RxByte(FILE *Stream)
 {
 	(void)Stream;
+	
+	if (!(Serial_IsCharReceived()))
+	  return EOF;
 
 	return Serial_RxByte();
 }
