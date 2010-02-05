@@ -89,6 +89,7 @@
 				Serial_Init(BaudRate, DoubleSpeed);
 				
 				stdout = &USARTStream;
+				stdin  = &USARTStream;
 			}
 			
 			/** Turns off the serial stream (and regular USART driver), disabling and returning used hardware to
