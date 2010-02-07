@@ -98,6 +98,18 @@
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right GUI key is currently pressed. */
 		#define KEYBOARD_MODIFER_RIGHTGUI   (1 << 7)
 
+		/** Constant for a keyboard output report LED byte, indicating that the host's NUM LOCK mode is currently set. */
+		#define KEYBOARD_LED_NUMLOCK        (1 << 0)
+		
+		/** Constant for a keyboard output report LED byte, indicating that the host's CAPS LOCK mode is currently set. */
+		#define KEYBOARD_LED_CAPSLOCK       (1 << 1)
+
+		/** Constant for a keyboard output report LED byte, indicating that the host's SCROLL LOCK mode is currently set. */
+		#define KEYBOARD_LED_SCROLLLOCK     (1 << 2)
+
+		/** Constant for a keyboard output report LED byte, indicating that the host's KATANA mode is currently set. */
+		#define KEYBOARD_LED_KATANA         (1 << 3)
+		
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY        LEDS_LED1
 

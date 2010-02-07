@@ -239,13 +239,13 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 		uint8_t  LEDMask   = LEDS_NO_LEDS;
 		uint8_t* LEDReport = (uint8_t*)ReportData;
 
-		if (*LEDReport & 0x01) // NUM Lock
+		if (*LEDReport & HID_KEYBOARD_LED_NUMLOCK)
 		  LEDMask |= LEDS_LED1;
 		
-		if (*LEDReport & 0x02) // CAPS Lock
+		if (*LEDReport & HID_KEYBOARD_LED_CAPSLOCK)
 		  LEDMask |= LEDS_LED3;
 
-		if (*LEDReport & 0x04) // SCROLL Lock
+		if (*LEDReport & HID_KEYBOARD_LED_SCROLLLOCK)
 		  LEDMask |= LEDS_LED4;
 		  
 		LEDs_SetAllLEDs(LEDMask);
