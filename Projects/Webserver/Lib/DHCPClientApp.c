@@ -36,7 +36,7 @@
  
 #include "DHCPClientApp.h"
 
-#if defined(ENABLE_DHCP) || defined(__DOXYGEN__)
+#if defined(ENABLE_DHCP_CLIENT) || defined(__DOXYGEN__)
 /** Timer for managing the timeout period for a DHCP server to respond */
 struct timer DHCPTimer;
 

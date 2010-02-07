@@ -33,6 +33,7 @@
  *  can be incorporated into many different applications.
  *
  *  - Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
+ *  - AVR USB Modem, a 3G Wireless Modem host: http://code.google.com/p/avrusbmodem/
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
  *  - ClockTamer, a configurable clock generator: http://code.google.com/p/clock-tamer/

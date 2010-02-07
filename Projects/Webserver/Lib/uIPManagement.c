@@ -212,7 +212,7 @@ static void uIPManagement_ManageConnections(void)
 			}
 		}
 		
-		#if defined(ENABLE_DHCP)
+		#if defined(ENABLE_DHCP_CLIENT)
 		for (uint8_t i = 0; i < UIP_UDP_CONNS; i++)
 		{
 			/* Run periodic connection management for each UDP connection */
