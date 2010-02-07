@@ -266,6 +266,9 @@ void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
 	/* Clear the report contents */
 	memset(ReportData, 0, sizeof(USB_KeyboardReport_Data_t));
 	
+	/* Make sent key uppercase by indicating that the left shift key is pressed */
+	ReportData->Modifier = KEYBOARD_MODIFER_LEFTSHIFT;
+	
 	if (JoyStatus_LCL & JOY_UP)
 	  ReportData->KeyCode[UsedKeyCodes++] = 0x04; // A
 	else if (JoyStatus_LCL & JOY_DOWN)

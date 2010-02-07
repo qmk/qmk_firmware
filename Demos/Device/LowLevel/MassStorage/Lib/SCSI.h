@@ -86,7 +86,7 @@
 			unsigned char _RESERVED1          : 7;
 			unsigned char Removable           : 1;
 			
-			uint8_t      Version;
+			uint8_t       Version;
 			
 			unsigned char ResponseDataFormat  : 4;
 			unsigned char _RESERVED2          : 1;
@@ -94,8 +94,8 @@
 			unsigned char TrmTsk              : 1;
 			unsigned char AERC                : 1;
 
-			uint8_t      AdditionalLength;
-			uint8_t      _RESERVED3[2];
+			uint8_t       AdditionalLength;
+			uint8_t       _RESERVED3[2];
 
 			unsigned char SoftReset           : 1;
 			unsigned char CmdQue              : 1;
@@ -106,9 +106,9 @@
 			unsigned char WideBus32Bit        : 1;
 			unsigned char RelAddr             : 1;
 			
-			uint8_t      VendorID[8];
-			uint8_t      ProductID[16];
-			uint8_t      RevisionID[4];
+			uint8_t       VendorID[8];
+			uint8_t       ProductID[16];
+			uint8_t       RevisionID[4];
 		} SCSI_Inquiry_Response_t;
 		
 		/** Type define for a SCSI sense structure to a SCSI REQUEST SENSE command. For details of the
@@ -126,13 +126,13 @@
 			unsigned char EOM                 : 1;
 			unsigned char FileMark            : 1;
 			
-			uint8_t      Information[4];
-			uint8_t      AdditionalLength;
-			uint8_t      CmdSpecificInformation[4];
-			uint8_t      AdditionalSenseCode;
-			uint8_t      AdditionalSenseQualifier;
-			uint8_t      FieldReplaceableUnitCode;
-			uint8_t      SenseKeySpecific[3];
+			uint8_t       Information[4];
+			uint8_t       AdditionalLength;
+			uint8_t       CmdSpecificInformation[4];
+			uint8_t       AdditionalSenseCode;
+			uint8_t       AdditionalSenseQualifier;
+			uint8_t       FieldReplaceableUnitCode;
+			uint8_t       SenseKeySpecific[3];
 		} SCSI_Request_Sense_Response_t;
 		
 	/* Function Prototypes: */

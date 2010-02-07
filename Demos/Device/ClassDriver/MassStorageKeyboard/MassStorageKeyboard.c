@@ -192,6 +192,8 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
 	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
 
+	KeyboardReport->Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
+
 	if (JoyStatus_LCL & JOY_UP)
 	  KeyboardReport->KeyCode[0] = 0x04; // A
 	else if (JoyStatus_LCL & JOY_DOWN)

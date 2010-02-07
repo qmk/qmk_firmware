@@ -221,6 +221,9 @@ void Keyboard_HID_Task(void)
 	/* Check if board button is not pressed, if so mouse mode enabled */
 	if (!(Buttons_GetStatus() & BUTTONS_BUTTON1))
 	{
+		/* Make sent key uppercase by indicating that the left shift key is pressed */
+		KeyboardReportData.Modifier = KEYBOARD_MODIFER_LEFTSHIFT;
+
 		if (JoyStatus_LCL & JOY_UP)
 		  KeyboardReportData.KeyCode[0] = 0x04; // A
 		else if (JoyStatus_LCL & JOY_DOWN)

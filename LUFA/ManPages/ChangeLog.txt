@@ -23,6 +23,7 @@
   *  - New Webserver project, a RNDIS host USB webserver using the open source uIP TCP/IP network stack and FatFS library
   *  - New BOARD value option BOARD_NONE (equivelent to not specifying BOARD) which will remove all board hardware drivers which
   *    do not adversely affect the code operation (currently only the LEDs driver)
+  *  - Added keyboard modifier masks (HID_KEYBOARD_MODIFER_*) to the HID class driver and Keyboard demos
   *
   *  <b>Changed:</b>
   *  - Slowed down software USART carried PDI programming in the AVRISP project to prevent transmission errors

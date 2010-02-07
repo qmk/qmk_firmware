@@ -147,6 +147,8 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 
 	uint8_t UsedKeyCodes = 0;
 	
+	KeyboardReport->Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
+	
 	if (JoyStatus_LCL & JOY_UP)
 	  KeyboardReport->KeyCode[UsedKeyCodes++] = 0x04; // A
 	else if (JoyStatus_LCL & JOY_DOWN)
