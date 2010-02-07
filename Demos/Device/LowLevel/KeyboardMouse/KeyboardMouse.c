@@ -180,21 +180,8 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					  return;
 				}
 
-				/* Read in the LED report from the host */
-				uint8_t LEDStatus = Endpoint_Read_Byte();
-				uint8_t LEDMask   = LEDS_LED2;
-				
-				if (LEDStatus & KEYBOARD_LED_NUMLOCK)
-				  LEDMask |= LEDS_LED1;
-				
-				if (LEDStatus & KEYBOARD_LED_CAPSLOCK)
-				  LEDMask |= LEDS_LED3;
-
-				if (LEDStatus & KEYBOARD_LED_SCROLLLOCK)
-				  LEDMask |= LEDS_LED4;
-
-				/* Set the status LEDs to the current HID LED status */
-				LEDs_SetAllLEDs(LEDMask);
+				/* Read in and process the LED report from the host */
+				Keyboard_ProcessLEDReport(Endpoint_Read_Byte());
 
 				/* Clear the endpoint data */
 				Endpoint_ClearOUT();
@@ -204,6 +191,28 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			
 			break;
 	}
+}
+
+/** Processes a given Keyboard LED report from the host, and sets the board LEDs to match. Since the Keyboard
+ *  LED report can be sent through either the control endpoint (via a HID SetReport request) or the HID OUT
+ *  endpoint, the processing code is placed here to avoid duplicating it and potentially having different
+ *  behaviour depending on the method used to sent it.
+ */
+void Keyboard_ProcessLEDReport(const uint8_t LEDStatus)
+{
+	uint8_t LEDMask = LEDS_LED2;
+	
+	if (LEDStatus & KEYBOARD_LED_NUMLOCK)
+	  LEDMask |= LEDS_LED1;
+	
+	if (LEDStatus & KEYBOARD_LED_CAPSLOCK)
+	  LEDMask |= LEDS_LED3;
+
+	if (LEDStatus & KEYBOARD_LED_SCROLLLOCK)
+	  LEDMask |= LEDS_LED4;
+
+	/* Set the status LEDs to the current Keyboard LED status */
+	LEDs_SetAllLEDs(LEDMask);
 }
 
 /** Keyboard task. This generates the next keyboard HID report for the host, and transmits it via the
@@ -260,21 +269,8 @@ void Keyboard_HID_Task(void)
 	/* Check if Keyboard LED Endpoint Ready for Read/Write */
 	if (Endpoint_IsReadWriteAllowed())
 	{		
-		/* Read in the LED report from the host */
-		uint8_t LEDStatus = Endpoint_Read_Byte();
-		uint8_t LEDMask   = LEDS_LED2;
-		
-		if (LEDStatus & KEYBOARD_LED_NUMLOCK)
-		  LEDMask |= LEDS_LED1;
-		
-		if (LEDStatus & KEYBOARD_LED_CAPSLOCK)
-		  LEDMask |= LEDS_LED3;
-
-		if (LEDStatus & KEYBOARD_LED_SCROLLLOCK)
-		  LEDMask |= LEDS_LED4;
-
-		/* Set the status LEDs to the current Keyboard LED status */
-		LEDs_SetAllLEDs(LEDMask);
+		/* Read in and process the LED report from the host */
+		Keyboard_ProcessLEDReport(Endpoint_Read_Byte());
 
 		/* Handshake the OUT Endpoint - clear endpoint and ready for next report */
 		Endpoint_ClearOUT();

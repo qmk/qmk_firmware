@@ -131,6 +131,7 @@
 			
 	/* Function Prototypes: */
 		void SetupHardware(void);
+		void Keyboard_ProcessLEDReport(const uint8_t LEDStatus);
 		void Keyboard_HID_Task(void);
 		void Mouse_HID_Task(void);
 		
