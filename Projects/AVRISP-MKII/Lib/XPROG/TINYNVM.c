@@ -37,7 +37,6 @@
 #include "TINYNVM.h"
 
 #if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
-#warning TPI Protocol support is currently incomplete and is not suitable for general use.
 
 /** Sends the given pointer address to the target's TPI pointer register */
 static void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress)

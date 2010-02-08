@@ -294,13 +294,13 @@ void ProcessLEDReport(uint8_t LEDReport)
 {
 	uint8_t LEDMask = LEDS_LED2;
 	
-	if (*LEDReport & KEYBOARD_LED_NUMLOCK)
+	if (LEDReport & KEYBOARD_LED_NUMLOCK)
 	  LEDMask |= LEDS_LED1;
 	
-	if (*LEDReport & KEYBOARD_LED_CAPSLOCK)
+	if (LEDReport & KEYBOARD_LED_CAPSLOCK)
 	  LEDMask |= LEDS_LED3;
 
-	if (*LEDReport & KEYBOARD_LED_SCROLLLOCK)
+	if (LEDReport & KEYBOARD_LED_SCROLLLOCK)
 	  LEDMask |= LEDS_LED4;
 
 	/* Set the status LEDs to the current Keyboard LED status */
