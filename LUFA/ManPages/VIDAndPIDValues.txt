@@ -193,7 +193,7 @@
  *     0x204D
  *    </td>
  *    <td>
- *     Keyboard and Mouse Combination Demo Application
+ *     Combined Keyboard and Mouse Demo Application
  *    </td>
  *   </tr>
  *

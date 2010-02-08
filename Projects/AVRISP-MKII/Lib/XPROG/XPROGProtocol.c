@@ -208,27 +208,38 @@ static void XPROGProtocol_Erase(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	uint8_t EraseCommand = XMEGA_NVM_CMD_NOOP;
-	
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
 	{
+		uint8_t EraseCommand = XMEGA_NVM_CMD_NOOP;
+	
 		/* Determine which NVM command to send to the device depending on the memory to erase */
-		if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_CHIP)
-		  EraseCommand = XMEGA_NVM_CMD_CHIPERASE;
-		else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_APP)
-		  EraseCommand = XMEGA_NVM_CMD_ERASEAPPSEC;
-		else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_BOOT)
-		  EraseCommand = XMEGA_NVM_CMD_ERASEBOOTSEC;
-		else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_EEPROM)
-		  EraseCommand = XMEGA_NVM_CMD_ERASEEEPROM;
-		else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_APP_PAGE)
-		  EraseCommand = XMEGA_NVM_CMD_ERASEAPPSECPAGE;
-		else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_BOOT_PAGE)
-		  EraseCommand = XMEGA_NVM_CMD_ERASEBOOTSECPAGE;
-		else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_EEPROM_PAGE)
-		  EraseCommand = XMEGA_NVM_CMD_ERASEEEPROMPAGE;
-		else if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_USERSIG)
-		  EraseCommand = XMEGA_NVM_CMD_ERASEUSERSIG;
+		switch (Erase_XPROG_Params.MemoryType)
+		{
+			case XPRG_ERASE_CHIP:
+				EraseCommand = XMEGA_NVM_CMD_CHIPERASE;
+				break;
+			case XPRG_ERASE_APP:
+				EraseCommand = XMEGA_NVM_CMD_ERASEAPPSEC;
+				break;
+			case XPRG_ERASE_BOOT:
+				EraseCommand = XMEGA_NVM_CMD_ERASEBOOTSEC;
+				break;
+			case XPRG_ERASE_EEPROM:
+				EraseCommand = XMEGA_NVM_CMD_ERASEEEPROM;
+				break;
+			case XPRG_ERASE_APP_PAGE:
+				EraseCommand = XMEGA_NVM_CMD_ERASEAPPSECPAGE;
+				break;
+			case XPRG_ERASE_BOOT_PAGE:
+				EraseCommand = XMEGA_NVM_CMD_ERASEBOOTSECPAGE;
+				break;
+			case XPRG_ERASE_EEPROM_PAGE:
+				EraseCommand = XMEGA_NVM_CMD_ERASEEEPROMPAGE;
+				break;
+			case XPRG_ERASE_USERSIG:
+				EraseCommand = XMEGA_NVM_CMD_ERASEUSERSIG;
+				break;
+		}
 		
 		/* Erase the target memory, indicate timeout if ocurred */
 		if (!(XMEGANVM_EraseMemory(EraseCommand, Erase_XPROG_Params.Address)))
@@ -277,36 +288,33 @@ static void XPROGProtocol_WriteMemory(void)
 		uint8_t WriteBuffCommand = XMEGA_NVM_CMD_LOADFLASHPAGEBUFF;
 		uint8_t EraseBuffCommand = XMEGA_NVM_CMD_ERASEFLASHPAGEBUFF;
 		bool    PagedMemory      = true;
-
-		if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_APPL)
+		
+		switch (WriteMemory_XPROG_Params.MemoryType)
 		{
-			WriteCommand     = XMEGA_NVM_CMD_WRITEAPPSECPAGE;
-		}
-		else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_BOOT)
-		{
-			WriteCommand     = XMEGA_NVM_CMD_WRITEBOOTSECPAGE;
-		}
-		else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_EEPROM)
-		{
-			WriteCommand     = XMEGA_NVM_CMD_WRITEEEPROMPAGE;
-			WriteBuffCommand = XMEGA_NVM_CMD_LOADEEPROMPAGEBUFF;
-			EraseBuffCommand = XMEGA_NVM_CMD_ERASEEEPROMPAGEBUFF;
-		}
-		else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_USERSIG)
-		{
-			/* User signature is paged, but needs us to manually indicate the mode bits since the host doesn't set them */
-			WriteMemory_XPROG_Params.PageMode = (XPRG_PAGEMODE_ERASE | XPRG_PAGEMODE_WRITE);
-			WriteCommand     = XMEGA_NVM_CMD_WRITEUSERSIG;
-		}
-		else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_FUSE)
-		{
-			WriteCommand     = XMEGA_NVM_CMD_WRITEFUSE;
-			PagedMemory      = false;
-		}
-		else if (WriteMemory_XPROG_Params.MemoryType == XPRG_MEM_TYPE_LOCKBITS)
-		{
-			WriteCommand     = XMEGA_NVM_CMD_WRITELOCK;
-			PagedMemory      = false;
+			case XPRG_MEM_TYPE_APPL:
+				WriteCommand     = XMEGA_NVM_CMD_WRITEAPPSECPAGE;
+				break;
+			case XPRG_MEM_TYPE_BOOT:
+				WriteCommand     = XMEGA_NVM_CMD_WRITEBOOTSECPAGE;
+				break;
+			case XPRG_MEM_TYPE_EEPROM:
+				WriteCommand     = XMEGA_NVM_CMD_WRITEEEPROMPAGE;
+				WriteBuffCommand = XMEGA_NVM_CMD_LOADEEPROMPAGEBUFF;
+				EraseBuffCommand = XMEGA_NVM_CMD_ERASEEEPROMPAGEBUFF;			
+				break;
+			case XPRG_MEM_TYPE_USERSIG:
+				/* User signature is paged, but needs us to manually indicate the mode bits since the host doesn't set them */
+				WriteMemory_XPROG_Params.PageMode = (XPRG_PAGEMODE_ERASE | XPRG_PAGEMODE_WRITE);
+				WriteCommand     = XMEGA_NVM_CMD_WRITEUSERSIG;
+				break;
+			case XPRG_MEM_TYPE_FUSE:
+				WriteCommand     = XMEGA_NVM_CMD_WRITEFUSE;
+				PagedMemory      = false;
+				break;
+			case XPRG_MEM_TYPE_LOCKBITS:
+				WriteCommand     = XMEGA_NVM_CMD_WRITELOCK;
+				PagedMemory      = false;
+				break;
 		}
 		
 		/* Send the appropriate memory write commands to the device, indicate timeout if occurred */
@@ -394,21 +402,29 @@ static void XPROGProtocol_ReadCRC(void)
 	} ReadCRC_XPROG_Params;
 	
 	Endpoint_Read_Stream_LE(&ReadCRC_XPROG_Params, sizeof(ReadCRC_XPROG_Params), NO_STREAM_CALLBACK);
+
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	uint8_t  CRCCommand = XMEGA_NVM_CMD_NOOP;
 	uint32_t MemoryCRC;
 
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
 	{
+		uint8_t CRCCommand;
+
 		/* Determine which NVM command to send to the device depending on the memory to CRC */
-		if (ReadCRC_XPROG_Params.CRCType == XPRG_CRC_APP)
-		  CRCCommand = XMEGA_NVM_CMD_APPCRC;
-		else if (ReadCRC_XPROG_Params.CRCType == XPRG_CRC_BOOT)
-		  CRCCommand = XMEGA_NVM_CMD_BOOTCRC;
-		else
-		  CRCCommand = XMEGA_NVM_CMD_FLASHCRC;
+		switch (ReadCRC_XPROG_Params.CRCType)
+		{
+			case XPRG_CRC_APP:
+				CRCCommand = XMEGA_NVM_CMD_APPCRC;
+				break;
+			case XPRG_CRC_BOOT:
+				CRCCommand = XMEGA_NVM_CMD_BOOTCRC;
+				break;
+			default:
+				CRCCommand = XMEGA_NVM_CMD_FLASHCRC;
+				break;
+		}
 		
 		/* Perform and retrieve the memory CRC, indicate timeout if occurred */
 		if (!(XMEGANVM_GetMemoryCRC(CRCCommand, &MemoryCRC)))

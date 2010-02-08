@@ -13,7 +13,6 @@
  *  - Series 7 USB AVRs
  *  - Series 6 USB AVRs
  *  - Series 4 USB AVRs
- *  - Series 2 USB AVRs
  *
  *  \section SSec_Info USB Information:
  *

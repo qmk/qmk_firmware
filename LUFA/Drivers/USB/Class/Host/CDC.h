@@ -92,12 +92,13 @@
 					struct
 					{
 						uint8_t HostToDevice; /**< Control line states from the host to device, as a set of CDC_CONTROL_LINE_OUT_*
-											   *   masks.
+											   *   masks - to notify the device of changes to these values, call the
+											   *   \ref CDC_Host_SendControlLineStateChange() function.
 											   */
 						uint8_t DeviceToHost; /**< Control line states from the device to host, as a set of CDC_CONTROL_LINE_IN_*
-											   *   masks.
+											   *   masks. This value is updated each time \ref CDC_Host_USBTask() is called.
 											   */
-					} ControlLineStates;
+					} ControlLineStates; /**< Current states of the virtual serial port's control lines between the device and host. */
 					
 					struct
 					{
@@ -109,7 +110,11 @@
 											  *   CDCDevice_LineCodingParity_t enum
 											  */
 						uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
-					} LineEncoding;
+					} LineEncoding; /** Line encoding used in the virtual serial port, for the device's information. This is generally
+					                 *  only used if the virtual serial port data is to be reconstructed on a physical UART. When set
+					                 *  by the host application, the \ref CDC_Host_SetLineEncoding() function must be called to push
+					                 *  the changes to the device.
+					                 */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.

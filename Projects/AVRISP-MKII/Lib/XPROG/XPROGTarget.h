@@ -131,7 +131,7 @@
 		#define TPI_NVMENABLE_KEY          (uint8_t[]){0x12, 0x89, 0xAB, 0x45, 0xCD, 0xD8, 0x88, 0xFF}
 
 		#define TPI_POINTER_INDIRECT       0
-		#define TPI_POINTER_INDIRECT_PI    (1 << 2)
+		#define TPI_POINTER_INDIRECT_PI    4
 		
 	/* Function Prototypes: */
 		void    XPROGTarget_EnableTargetPDI(void);
