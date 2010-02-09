@@ -40,6 +40,8 @@
 		#include <avr/pgmspace.h>
 		#include <string.h>
 		
+		#include <LUFA/Version.h>
+
 		#include <uip.h>
 		#include <ff.h>
 	

@@ -167,10 +167,6 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress, uint8_t* WriteBuffer, uint
 	
 	while (WriteLength)
 	{
-		/* Wait until the NVM controller is no longer busy */
-		if (!(TINYNVM_WaitWhileNVMControllerBusy()))
-		  return false;
-
 		/* Write the low byte of data to the target */
 		XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT_PI);
 		XPROGTarget_SendByte(*(WriteBuffer++));
@@ -178,6 +174,10 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress, uint8_t* WriteBuffer, uint
 		/* Write the high byte of data to the target */
 		XPROGTarget_SendByte(TPI_CMD_SST | TPI_POINTER_INDIRECT_PI);
 		XPROGTarget_SendByte(*(WriteBuffer++));
+
+		/* Wait until the NVM controller is no longer busy */
+		if (!(TINYNVM_WaitWhileNVMControllerBusy()))
+		  return false;
 
 		/* Need to decrement the write length twice, since we read out a whole word */
 		WriteLength -= 2;

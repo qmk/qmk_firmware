@@ -130,18 +130,16 @@ int main(void)
 					{
 						HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
 
-						/* Check if the current report item is a keyboard scancode */
+						/* Update the report item value if it is contained within the current report */
+						if (!(USB_GetHIDReportItemInfo(KeyboardReport, ReportItem)))
+						  continue;
+
+						/* Determine what report item is being tested, process updated value as needed */
 						if ((ReportItem->Attributes.Usage.Page      == USAGE_PAGE_KEYBOARD) &&
 							(ReportItem->Attributes.BitSize         == 8)                   &&
 							(ReportItem->Attributes.Logical.Maximum > 1)                    &&
 							(ReportItem->ItemType                   == REPORT_ITEM_TYPE_In))
 						{
-							/* Retrieve the keyboard scancode from the report data retrieved from the device if it is
-							 * contained within the current report, if not, skip to the next item in the parser list
-							 */
-							if (!(USB_GetHIDReportItemInfo(KeyboardReport, ReportItem)))
-							  continue;
-
 							/* Key code is an unsigned char in length, cast to the appropriate type */
 							uint8_t KeyCode = (uint8_t)ReportItem->Value;
 

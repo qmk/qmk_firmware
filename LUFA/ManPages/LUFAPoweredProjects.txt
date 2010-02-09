@@ -36,6 +36,7 @@
  *  - AVR USB Modem, a 3G Wireless Modem host: http://code.google.com/p/avrusbmodem/
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
+ *  - CD Driver Emulator Dongle for ISO Files: http://cdemu.blogspot.com/
  *  - ClockTamer, a configurable clock generator: http://code.google.com/p/clock-tamer/
  *  - "Fingerlicking Wingdinger" (WARNING: Bad Language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
  *  - Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master

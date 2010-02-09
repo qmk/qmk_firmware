@@ -57,6 +57,7 @@
   *  - Fixed incorrect values of USB_CONFIG_ATTR_SELFPOWERED and USB_CONFIG_ATTR_REMOTEWAKEUP tokens (thanks to Claus Christensen)
   *  - Fixed SerialStream driver blocking while waiting for characters to be received instead of returning EOF
   *  - Fixed SerialStream driver not setting stdin to the created serial stream
+  *  - Fixed USB_GetHIDReportSize() returning the number of bits in the specified report instead of bytes
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *

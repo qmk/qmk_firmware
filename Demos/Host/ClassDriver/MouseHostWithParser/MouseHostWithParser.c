@@ -132,15 +132,14 @@ int main(void)
 					{
 						HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
 						
+						/* Update the report item value if it is contained within the current report */
+						if (!(USB_GetHIDReportItemInfo(MouseReport, ReportItem)))
+						  continue;
+						
+						/* Determine what report item is being tested, process updated value as needed */
 						if ((ReportItem->Attributes.Usage.Page        == USAGE_PAGE_BUTTON) &&
 							(ReportItem->ItemType                     == REPORT_ITEM_TYPE_In))
 						{
-							/* Get the mouse button value if it is contained within the current report, if not,
-							 * skip to the next item in the parser list
-							 */
-							if (!(USB_GetHIDReportItemInfo(MouseReport, ReportItem)))
-							  continue;
-
 							if (ReportItem->Value)
 							  LEDMask = LEDS_ALL_LEDS;
 						}
@@ -148,12 +147,6 @@ int main(void)
 								 (ReportItem->Attributes.Usage.Usage  == USAGE_SCROLL_WHEEL)       &&
 								 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
 						{
-							/* Get the mouse wheel value if it is contained within the current 
-							 * report, if not, skip to the next item in the parser list
-							 */
-							if (!(USB_GetHIDReportItemInfo(MouseReport, ReportItem)))
-							  continue;							  
-
 							int16_t WheelDelta = (int16_t)(ReportItem->Value << (16 - ReportItem->Attributes.BitSize));
 							
 							if (WheelDelta)
@@ -164,12 +157,6 @@ int main(void)
 								  (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
 								 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
 						{
-							/* Get the mouse relative position value if it is contained within the current 
-							 * report, if not, skip to the next item in the parser list
-							 */
-							if (!(USB_GetHIDReportItemInfo(MouseReport, ReportItem)))
-							  continue;							  
-
 							int16_t DeltaMovement = (int16_t)(ReportItem->Value << (16 - ReportItem->Attributes.BitSize));
 							
 							if (ReportItem->Attributes.Usage.Usage == USAGE_X)

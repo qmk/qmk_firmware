@@ -41,7 +41,7 @@
  *  given location, and gives extra connection information.
  */
 char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
-                               "Server: LUFA RNDIS\r\n"
+                               "Server: LUFA " LUFA_VERSION_STRING "\r\n"
                                "Connection: close\r\n"
                                "MIME-version: 1.0\r\n"
                                "Content-Type: ";
@@ -50,7 +50,7 @@ char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
  *  given URL is invalid, and gives extra error information.
  */
 char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
-                               "Server: LUFA RNDIS\r\n"
+                               "Server: LUFA " LUFA_VERSION_STRING "\r\n"
                                "Connection: close\r\n"
                                "MIME-version: 1.0\r\n"
                                "Content-Type: text/plain\r\n\r\n"
