@@ -77,7 +77,10 @@ bool XMEGANVM_WaitWhileNVMBusBusy(void)
 		/* Send the LDCS command to read the PDI STATUS register to see the NVM bus is active */
 		XPROGTarget_SendByte(PDI_CMD_LDCS | PDI_STATUS_REG);
 		if (XPROGTarget_ReceiveByte() & PDI_STATUS_NVM)
-		  return true;
+		{
+			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
+			return true;
+		}
 	}
 	
 	return false;
@@ -99,7 +102,10 @@ bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 		
 		/* Check to see if the BUSY flag is still set */
 		if (!(XPROGTarget_ReceiveByte() & (1 << 7)))
-		  return true;
+		{
+			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
+			return true;
+		}
 	}
 	
 	return false;

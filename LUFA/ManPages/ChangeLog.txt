@@ -25,6 +25,7 @@
   *    do not adversely affect the code operation (currently only the LEDs driver)
   *  - Added keyboard modifier masks (HID_KEYBOARD_MODIFER_*) and LED report masks (KEYBOARD_LED_*) to the HID class driver and
   *    Keyboard demos
+  *  - Added .5MHz recovery clock to the AVRISP programmer project when in ISP programming mode to correct mis-set fuses
   *
   *  <b>Changed:</b>
   *  - Slowed down software USART carried PDI programming in the AVRISP project to prevent transmission errors
@@ -58,6 +59,7 @@
   *  - Fixed SerialStream driver blocking while waiting for characters to be received instead of returning EOF
   *  - Fixed SerialStream driver not setting stdin to the created serial stream
   *  - Fixed USB_GetHIDReportSize() returning the number of bits in the specified report instead of bytes
+  *  - Fixed AVRISP project not extending the command delay after each successful page/word/byte program
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *

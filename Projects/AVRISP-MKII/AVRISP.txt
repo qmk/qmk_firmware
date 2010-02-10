@@ -110,6 +110,10 @@
  *   </tr>
  *  </table>
  *
+ *  In addition, the AVR's XCK pin will generate a .5MHz clock when SPI programming is used, to act as an external
+ *  device clock if the fuses have been mis-set. To use the recovery clock, connect XCK to the target AVR's XTAL1
+ *  pin, and set the ISP programming speed to 125KHz or below.
+ *
  *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
  *  <b><sup>2</sup></b> <i>See AUX line related tokens in the \ref SSec_Options section</i>
  *

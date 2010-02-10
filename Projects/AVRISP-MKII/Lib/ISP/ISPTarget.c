@@ -139,6 +139,9 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 			ProgrammingStatus = ISPTarget_WaitWhileTargetBusy();
 			break;
 	}
+	
+	if (ProgrammingStatus == STATUS_CMD_OK)
+	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 
 	return ProgrammingStatus;
 }
@@ -159,10 +162,7 @@ uint8_t ISPTarget_WaitWhileTargetBusy(void)
 	}
 	while ((SPI_ReceiveByte() & 0x01) && TimeoutMSRemaining);
 
-	if (!(TimeoutMSRemaining))
-	  return STATUS_RDY_BSY_TOUT;
-	else
-	  return STATUS_CMD_OK;
+	return ((TimeoutMSRemaining) ? STATUS_CMD_OK : STATUS_RDY_BSY_TOUT);
 }
 
 /** Sends a low-level LOAD EXTENDED ADDRESS command to the target, for addressing of memory beyond the
