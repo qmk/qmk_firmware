@@ -208,10 +208,10 @@ static void XPROGProtocol_Erase(void)
 	Endpoint_ClearOUT();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
+	uint8_t EraseCommand;
+
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
-	{
-		uint8_t EraseCommand = XMEGA_NVM_CMD_NOOP;
-	
+	{	
 		/* Determine which NVM command to send to the device depending on the memory to erase */
 		switch (Erase_XPROG_Params.MemoryType)
 		{
@@ -239,6 +239,9 @@ static void XPROGProtocol_Erase(void)
 			case XPRG_ERASE_USERSIG:
 				EraseCommand = XMEGA_NVM_CMD_ERASEUSERSIG;
 				break;
+			default:
+				EraseCommand = XMEGA_NVM_CMD_NOOP;
+				break;
 		}
 		
 		/* Erase the target memory, indicate timeout if ocurred */
@@ -247,8 +250,13 @@ static void XPROGProtocol_Erase(void)
 	}
 	else
 	{
+		if (Erase_XPROG_Params.MemoryType == XPRG_ERASE_CHIP)
+		  EraseCommand = TINY_NVM_CMD_CHIPERASE;
+		else
+		  EraseCommand = TINY_NVM_CMD_SECTIONERASE;
+	
 		/* Erase the target memory, indicate timeout if ocurred */
-		if (!(TINYNVM_EraseMemory(TINY_NVM_CMD_CHIPERASE, Erase_XPROG_Params.Address)))
+		if (!(TINYNVM_EraseMemory(EraseCommand, Erase_XPROG_Params.Address)))
 		  ReturnStatus = XPRG_ERR_TIMEOUT;
 	}
 	
