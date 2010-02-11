@@ -57,6 +57,10 @@
 #ifndef __HIDPARSER_H__
 #define __HIDPARSER_H__
 
+	/* Macros: */
+		#define __INCLUDE_FROM_USB_DRIVER
+		#define __INCLUDE_FROM_HID_DRIVER
+
 	/* Includes: */
 		#include <string.h>
 		#include <stdbool.h>

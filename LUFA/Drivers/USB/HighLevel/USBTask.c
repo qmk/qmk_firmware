@@ -28,9 +28,8 @@
   this software.
 */
 
-#include "USBMode.h"
-
-#define  INCLUDE_FROM_USBTASK_C
+#define  __INCLUDE_FROM_USBTASK_C
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "USBTask.h"
 
 volatile bool        USB_IsInitialized;

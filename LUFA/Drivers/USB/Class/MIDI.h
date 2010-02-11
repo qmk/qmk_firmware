@@ -53,6 +53,10 @@
 #ifndef _MIDI_CLASS_H_
 #define _MIDI_CLASS_H_
 
+	/* Macros: */
+		#define __INCLUDE_FROM_MIDI_DRIVER
+		#define __INCLUDE_FROM_USB_DRIVER
+		
 	/* Includes: */
 		#include "../HighLevel/USBMode.h"
 

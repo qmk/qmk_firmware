@@ -51,6 +51,10 @@
 #ifndef _HID_CLASS_H_
 #define _HID_CLASS_H_
 
+	/* Macros: */
+		#define __INCLUDE_FROM_HID_DRIVER
+		#define __INCLUDE_FROM_USB_DRIVER
+		
 	/* Includes: */
 		#include "../HighLevel/USBMode.h"
 

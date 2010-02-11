@@ -28,10 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#define  INCLUDE_FROM_RNDIS_CLASS_HOST_C
+#define  __INCLUDE_FROM_RNDIS_CLASS_HOST_C
+#define  __INCLUDE_FROM_RNDIS_DRIVER
 #include "RNDIS.h"
 
 uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, uint16_t ConfigDescriptorSize,

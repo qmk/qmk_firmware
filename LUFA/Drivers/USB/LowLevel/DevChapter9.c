@@ -28,11 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../HighLevel/USBMode.h"
 
 #if defined(USB_CAN_BE_DEVICE)
 
-#define  INCLUDE_FROM_DEVCHAPTER9_C
+#define  __INCLUDE_FROM_DEVCHAPTER9_C
 #include "DevChapter9.h"
 
 uint8_t USB_ConfigurationNumber;

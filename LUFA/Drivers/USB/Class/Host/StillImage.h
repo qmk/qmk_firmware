@@ -53,6 +53,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_SI_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/StillImage.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Error code for some Still Image Host functions, indicating a logical (and not hardware) error */
@@ -287,7 +292,7 @@
 			#define COMMAND_DATA_TIMEOUT_MS        10000
 		
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_SI_CLASS_HOST_C)
+			#if defined(__INCLUDE_FROM_SI_CLASS_HOST_C)
 				static uint8_t DComp_SI_Host_NextSIInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DComp_SI_Host_NextSIInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif

@@ -55,6 +55,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_MS_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/MassStorage.h instead.
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */										
 			/** Class state structure. An instance of this structure should be made for each Mass Storage interface
@@ -134,7 +139,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_MS_CLASS_DEVICE_C)
+			#if defined(__INCLUDE_FROM_MS_CLASS_DEVICE_C)
 				static void    MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 				static bool    MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t StreamCallback_MS_Device_AbortOnMassStoreReset(void);

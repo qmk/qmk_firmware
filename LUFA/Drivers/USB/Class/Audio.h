@@ -49,6 +49,10 @@
 #ifndef _AUDIO_CLASS_H_
 #define _AUDIO_CLASS_H_
 
+	/* Macros: */
+		#define __INCLUDE_FROM_AUDIO_DRIVER
+		#define __INCLUDE_FROM_USB_DRIVER
+
 	/* Includes: */
 		#include "../HighLevel/USBMode.h"
 		

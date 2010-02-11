@@ -41,10 +41,13 @@
 #ifndef _RNDIS_CLASS_COMMON_H_
 #define _RNDIS_CLASS_COMMON_H_
 
+	/* Macros: */
+		#define __INCLUDE_FROM_CDC_DRIVER
+
 	/* Includes: */
 		#include "../../USB.h"
-		#include "CDC.h"
 		#include "RNDISConstants.h"
+		#include "CDC.h"
 		
 		#include <string.h>
 	
@@ -53,6 +56,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_RNDIS_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/RNDIS.h instead.
+		#endif
+		
 	/* Macros: */
 		/** Implemented RNDIS Version Major */
 		#define REMOTE_NDIS_VERSION_MAJOR             0x01

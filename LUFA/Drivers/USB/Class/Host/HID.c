@@ -28,10 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#define INCLUDE_FROM_HID_CLASS_HOST_C
+#define  __INCLUDE_FROM_HID_CLASS_HOST_C
+#define  __INCLUDE_FROM_HID_DRIVER
 #include "HID.h"
 
 uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint16_t ConfigDescriptorSize,

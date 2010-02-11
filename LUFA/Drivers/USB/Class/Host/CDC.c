@@ -28,10 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#define  INCLUDE_FROM_CDC_CLASS_HOST_C
+#define  __INCLUDE_FROM_CDC_CLASS_HOST_C
+#define  __INCLUDE_FROM_CDC_DRIVER
 #include "CDC.h"
 
 uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, uint16_t ConfigDescriptorSize,

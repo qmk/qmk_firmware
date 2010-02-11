@@ -44,6 +44,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */
 		/* Enums: */
 			/** Enum for the \ref USB_Host_SendControlRequest() return code, indicating the reason for the error
@@ -89,7 +94,7 @@
 			};
 	
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_HOSTCHAPTER9_C)
+			#if defined(__INCLUDE_FROM_HOSTCHAPTER9_C)
 				static uint8_t USB_Host_WaitForIOS(const uint8_t WaitType);
 			#endif
 	#endif

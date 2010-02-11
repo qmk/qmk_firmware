@@ -55,6 +55,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_HID_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/HID.h instead.
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Error code for some HID Host functions, indicating a logical (and not hardware) error */
@@ -275,7 +280,7 @@
 			#define HID_FOUND_DATAPIPE_OUT          (1 << 1)
 
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_HID_CLASS_HOST_C)
+			#if defined(__INCLUDE_FROM_HID_CLASS_HOST_C)
 				static uint8_t DComp_HID_Host_NextHIDInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DComp_NextHID(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DComp_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);

@@ -63,7 +63,7 @@
 		#endif
 
 	/* Preprocessor Checks: */
-		#if !defined(INCLUDE_FROM_TWI_H)
+		#if !defined(__INCLUDE_FROM_TWI_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Peripheral/TWI.h instead.
 		#endif
 

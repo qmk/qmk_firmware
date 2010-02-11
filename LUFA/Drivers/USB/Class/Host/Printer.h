@@ -53,9 +53,12 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_PRINTER_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/Printer.h instead.
+		#endif
+
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */
-	
 		/* Type Defines: */
 			/** Class state structure. An instance of this structure should be made within the user application,
 			 *  and passed to each of the Printer class driver functions as the PRNTInterfaceInfo parameter. This
@@ -203,7 +206,7 @@
 			#define PRNT_FOUND_DATAPIPE_OUT        (1 << 1)
 			
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_PRINTER_CLASS_HOST_C)		
+			#if defined(__INCLUDE_FROM_PRINTER_CLASS_HOST_C)		
 				static uint8_t DComp_NextPRNTInterface(void* const CurrentDescriptor);
 				static uint8_t DComp_NextPRNTInterfaceEndpoint(void* const CurrentDescriptor);
 			#endif

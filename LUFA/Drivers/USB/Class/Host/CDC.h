@@ -56,6 +56,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_CDC_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/CDC.h instead.
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** Class state structure. An instance of this structure should be made within the user application,
@@ -286,7 +291,7 @@
 			#define CDC_FOUND_NOTIFICATION_IN       (1 << 2)
 
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_CDC_CLASS_HOST_C)
+			#if defined(__INCLUDE_FROM_CDC_CLASS_HOST_C)
 				static int CDC_Host_putchar(char c, FILE* Stream);
 				static int CDC_Host_getchar(FILE* Stream);
 				static int CDC_Host_getchar_Blocking(FILE* Stream);

@@ -51,6 +51,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_CDC_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/CDC.h instead.
+		#endif
+		
 	/* Macros: */
 		/** CDC Class specific request to get the current virtual serial port configuration settings. */
 		#define REQ_GetLineEncoding              0x21

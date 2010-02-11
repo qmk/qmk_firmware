@@ -28,6 +28,7 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "LowLevel.h"
 
 #if (!defined(USB_HOST_ONLY) && !defined(USB_DEVICE_ONLY))

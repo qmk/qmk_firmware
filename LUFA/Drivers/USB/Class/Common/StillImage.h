@@ -51,6 +51,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_SI_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/StillImage.h instead.
+		#endif
+		
 	/* Macros: */
 		/** Length in bytes of a given Unicode string's character length
 		 *

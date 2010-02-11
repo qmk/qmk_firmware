@@ -28,11 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../HighLevel/USBMode.h"
 
 #if defined(USB_CAN_BE_HOST)
 
-#define  INCLUDE_FROM_PIPE_C
+#define  __INCLUDE_FROM_PIPE_C
 #include "Pipe.h"
 
 uint8_t USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;

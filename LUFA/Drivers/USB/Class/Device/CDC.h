@@ -73,6 +73,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_CDC_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/CDC.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** Class state structure. An instance of this structure should be made for each CDC interface
@@ -281,7 +286,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_CDC_CLASS_DEVICE_C)
+			#if defined(__INCLUDE_FROM_CDC_CLASS_DEVICE_C)
 				static int CDC_Device_putchar(char c, FILE* Stream);
 				static int CDC_Device_getchar(FILE* Stream);
 				static int CDC_Device_getchar_Blocking(FILE* Stream);

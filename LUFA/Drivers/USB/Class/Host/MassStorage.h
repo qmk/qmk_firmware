@@ -53,6 +53,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_MS_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/MassStorage.h instead.
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Error code for some Mass Storage Host functions, indicating a logical (and not hardware) error */
@@ -296,7 +301,7 @@
 			#define MS_FOUND_DATAPIPE_OUT          (1 << 1)
 			
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_MS_CLASS_HOST_C)		
+			#if defined(__INCLUDE_FROM_MS_CLASS_HOST_C)		
 				static uint8_t DComp_NextMSInterface(void* const CurrentDescriptor);
 				static uint8_t DComp_NextMSInterfaceEndpoint(void* const CurrentDescriptor);
 				

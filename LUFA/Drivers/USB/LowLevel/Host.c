@@ -28,11 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../HighLevel/USBMode.h"
 
 #if defined(USB_CAN_BE_HOST)
 
-#define  INCLUDE_FROM_HOST_C
+#define  __INCLUDE_FROM_HOST_C
 #include "Host.h"
 
 void USB_Host_ProcessNextHostState(void)

@@ -28,10 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_DEVICE)
 
-#define  INCLUDE_FROM_MS_CLASS_DEVICE_C
+#define  __INCLUDE_FROM_MS_CLASS_DEVICE_C
+#define  __INCLUDE_FROM_MS_DRIVER
 #include "MassStorage.h"
 
 static volatile bool* CallbackIsResetSource;

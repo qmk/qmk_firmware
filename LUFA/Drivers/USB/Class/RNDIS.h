@@ -50,6 +50,10 @@
 #ifndef _RNDIS_CLASS_H_
 #define _RNDIS_CLASS_H_
 
+	/* Macros: */
+		#define __INCLUDE_FROM_RNDIS_DRIVER
+		#define __INCLUDE_FROM_USB_DRIVER
+		
 	/* Includes: */
 		#include "../HighLevel/USBMode.h"
 

@@ -53,6 +53,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_MIDI_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/MIDI.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** Class state structure. An instance of this structure should be made within the user application,
@@ -172,7 +177,7 @@
 			#define MIDI_FOUND_DATAPIPE_OUT          (1 << 1)
 
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_MIDI_CLASS_HOST_C)
+			#if defined(__INCLUDE_FROM_MIDI_CLASS_HOST_C)
 				static uint8_t DComp_MIDI_Host_NextMIDIStreamingInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DComp_MIDI_Host_NextMIDIStreamingDataEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif	

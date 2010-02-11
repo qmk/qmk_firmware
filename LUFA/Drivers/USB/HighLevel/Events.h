@@ -60,9 +60,14 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */			
 		/* Pseudo-Functions for Doxygen: */
-		#if !defined(INCLUDE_FROM_EVENTS_C) || defined(__DOXYGEN__)
+		#if !defined(__INCLUDE_FROM_EVENTS_C) || defined(__DOXYGEN__)
 			/** Event for USB stack initialization failure. This event fires when the USB interface fails to
 			 *  initialize correctly due to a hardware or software fault.
 			 *
@@ -287,7 +292,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_EVENTS_C)
+			#if defined(__INCLUDE_FROM_EVENTS_C)
 				void USB_Event_Stub(void) ATTR_CONST;
 					
 				#if defined(USB_CAN_BE_BOTH)

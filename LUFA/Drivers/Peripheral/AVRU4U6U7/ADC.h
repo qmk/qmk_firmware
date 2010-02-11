@@ -62,7 +62,7 @@
 		#endif
 
 	/* Preprocessor Checks: */
-		#if !defined(INCLUDE_FROM_ADC_H)
+		#if !defined(__INCLUDE_FROM_ADC_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Peripheral/ADC.h instead.
 		#endif
 

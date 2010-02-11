@@ -350,6 +350,11 @@
 #ifndef __USB_H__
 #define __USB_H__
 
+	/* Macros: */
+		#if !defined(__DOXYGEN__)
+			#define __INCLUDE_FROM_USB_DRIVER
+		#endif
+
 	/* Includes: */
 		#include "HighLevel/USBMode.h"
 

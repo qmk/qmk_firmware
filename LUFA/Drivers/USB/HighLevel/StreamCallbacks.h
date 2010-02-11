@@ -41,6 +41,11 @@
 #ifndef __STREAMCALLBACK_H__
 #define __STREAMCALLBACK_H__
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Used with the Endpoint and Pipe stream functions as the callback function parameter, indicating that the stream

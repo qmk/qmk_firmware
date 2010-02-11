@@ -28,11 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../HighLevel/USBMode.h"
 
 #if defined(USB_CAN_BE_DEVICE)
 
-#define  INCLUDE_FROM_ENDPOINT_C
+#define  __INCLUDE_FROM_ENDPOINT_C
 #include "Endpoint.h"
 
 #if !defined(FIXED_CONTROL_ENDPOINT_SIZE)

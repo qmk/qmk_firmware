@@ -55,6 +55,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Indicates the fixed USB device address which any attached device is enumerated to when in
@@ -397,7 +402,7 @@
 			void    USB_Host_ProcessNextHostState(void);
 			uint8_t USB_Host_WaitMS(uint8_t MS);
 			
-			#if defined(INCLUDE_FROM_HOST_C)
+			#if defined(__INCLUDE_FROM_HOST_C)
 				static void USB_Host_ResetDevice(void);
 			#endif
 	#endif

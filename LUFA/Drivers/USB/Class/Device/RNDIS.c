@@ -28,10 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_DEVICE)
 
-#define  INCLUDE_FROM_RNDIS_CLASS_DEVICE_C
+#define  __INCLUDE_FROM_RNDIS_CLASS_DEVICE_C
+#define  __INCLUDE_FROM_RNDIS_DRIVER
 #include "RNDIS.h"
 
 static const uint32_t PROGMEM AdapterSupportedOIDList[]  =

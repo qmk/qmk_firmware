@@ -28,10 +28,12 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#define INCLUDE_FROM_PRINTER_CLASS_HOST_C
+#define  __INCLUDE_FROM_PRINTER_CLASS_HOST_C
+#define  __INCLUDE_FROM_PRINTER_DRIVER
 #include "Printer.h"
 
 uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, uint16_t ConfigDescriptorSize,

@@ -52,11 +52,6 @@
 #ifndef __TEMPERATURE_H__
 #define __TEMPERATURE_H__
 
-	/* Macros: */
-	#if !defined(__DOXYGEN__)
-		#define INCLUDE_FROM_BOARD_DRIVER
-	#endif
-	
 	/* Includes: */
 		#include <avr/pgmspace.h>
 

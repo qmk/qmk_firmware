@@ -62,6 +62,7 @@
 
 	/* Macros: */
 	#if !defined(__DOXYGEN__)
+		#define __INCLUDE_FROM_JOYSTICK_H
 		#define INCLUDE_FROM_JOYSTICK_H
 	#endif
 

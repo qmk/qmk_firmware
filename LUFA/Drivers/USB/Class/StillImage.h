@@ -49,6 +49,10 @@
 #ifndef _SI_CLASS_H_
 #define _SI_CLASS_H_
 
+	/* Macros: */
+		#define __INCLUDE_FROM_SI_DRIVER
+		#define __INCLUDE_FROM_USB_DRIVER
+		
 	/* Includes: */
 		#include "../HighLevel/USBMode.h"
 		

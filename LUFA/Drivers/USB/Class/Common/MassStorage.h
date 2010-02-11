@@ -51,6 +51,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_MS_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/MassStorage.h instead.
+		#endif
+		
 	/* Macros: */
 		/** Mass Storage Class specific request to reset the Mass Storage interface, ready for the next command. */
 		#define REQ_MassStorageReset       0xFF

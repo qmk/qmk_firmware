@@ -46,6 +46,11 @@
 
 		#include <string.h>
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_HID_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/HID.h instead.
+		#endif
+		
 	/* Macros: */
 		/** HID Class Specific Request to get the current HID report from the device. */
 		#define REQ_GetReport                   0x01

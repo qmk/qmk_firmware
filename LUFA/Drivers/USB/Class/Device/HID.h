@@ -55,6 +55,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_HID_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/HID.h instead.
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** Class state structure. An instance of this structure should be made for each HID interface

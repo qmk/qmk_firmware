@@ -48,6 +48,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			#if defined(USE_SINGLE_DEVICE_CONFIGURATION)
@@ -124,7 +129,7 @@
 		/* Function Prototypes: */
 			void USB_Device_ProcessControlRequest(void);
 			
-			#if defined(INCLUDE_FROM_DEVCHAPTER9_C)
+			#if defined(__INCLUDE_FROM_DEVCHAPTER9_C)
 				static void USB_Device_SetAddress(void);
 				static void USB_Device_SetConfiguration(void);
 				static void USB_Device_GetConfiguration(void);

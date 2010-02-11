@@ -28,6 +28,7 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_USB_DRIVER
 #include "ConfigDescriptor.h"
 
 #if defined(USB_CAN_BE_HOST)

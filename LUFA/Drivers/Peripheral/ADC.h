@@ -54,8 +54,7 @@
 
 	/* Macros: */
 	#if !defined(__DOXYGEN__)
-		#define INCLUDE_FROM_ADC_H
-		#define INCLUDE_FROM_CHIP_DRIVER
+		#define __INCLUDE_FROM_ADC_H
 	#endif
 
 	/* Includes: */

@@ -63,7 +63,7 @@
 		#endif
 
 	/* Preprocessor Checks: */
-		#if !defined(INCLUDE_FROM_JOYSTICK_H)
+		#if !defined(__INCLUDE_FROM_JOYSTICK_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Board/Joystick.h instead.
 		#endif
 

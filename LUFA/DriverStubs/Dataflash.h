@@ -46,7 +46,7 @@
 		// TODO: Add any required includes here
 
 	/* Preprocessor Checks: */
-		#if !defined(INCLUDE_FROM_DATAFLASH_H)
+		#if !defined(__INCLUDE_FROM_DATAFLASH_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Board/Dataflash.h instead.
 		#endif
 		

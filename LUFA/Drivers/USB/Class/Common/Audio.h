@@ -51,6 +51,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_AUDIO_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/Audio.h instead.
+		#endif
+
 	/* Macros: */
 		#if !defined(AUDIO_TOTAL_SAMPLE_RATES) || defined(__DOXYGEN__)
 			/** Total number of discrete audio sample rates supported by the device. This value can be overridden by defining this

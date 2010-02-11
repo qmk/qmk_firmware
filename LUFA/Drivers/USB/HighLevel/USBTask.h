@@ -54,6 +54,11 @@
 		#if defined(__cplusplus)
 			extern "C" {
 		#endif
+
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
 		
 	/* Public Interface - May be used in end-application: */
 		/* Global Variables: */
@@ -164,7 +169,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_USBTASK_C)
+			#if defined(__INCLUDE_FROM_USBTASK_C)
 				#if defined(USB_CAN_BE_HOST)
 					static void USB_HostTask(void);
 				#endif

@@ -47,13 +47,17 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "../Common/MIDI.h"
-		#include "Audio.h"
 
 		#include <string.h>
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
+		#endif
+
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_MIDI_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/MIDI.h instead.
 		#endif
 
 	/* Public Interface - May be used in end-application: */

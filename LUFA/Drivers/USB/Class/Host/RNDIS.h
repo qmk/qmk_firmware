@@ -57,6 +57,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_RNDIS_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/RNDIS.h instead.
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** Class state structure. An instance of this structure should be made within the user application,
@@ -245,7 +250,7 @@
 			#define RNDIS_FOUND_NOTIFICATION_IN       (1 << 2)
 
 		/* Function Prototypes: */
-			#if defined(INCLUDE_FROM_RNDIS_CLASS_HOST_C)
+			#if defined(__INCLUDE_FROM_RNDIS_CLASS_HOST_C)
 				static uint8_t RNDIS_SendEncapsulatedCommand(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, 
 				                                             void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t RNDIS_GetEncapsulatedResponse(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,

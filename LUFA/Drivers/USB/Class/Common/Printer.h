@@ -51,6 +51,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_PRINTER_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/Printer.h instead.
+		#endif
+		
 	/* Macros: */
 		/** Port status mask for a printer device, indicating that an error has *not* occurred. */
 		#define PRNT_PORTSTATUS_NOTERROR    (1 << 3)

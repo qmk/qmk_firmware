@@ -63,6 +63,7 @@
 
 	/* Macros: */
 	#if !defined(__DOXYGEN__)
+		#define __INCLUDE_FROM_BUTTONS_H
 		#define INCLUDE_FROM_BUTTONS_H
 	#endif
 

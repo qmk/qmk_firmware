@@ -41,6 +41,9 @@
 #ifndef _MIDI_CLASS_COMMON_H_
 #define _MIDI_CLASS_COMMON_H_
 
+	/* Macros: */
+		#define __INCLUDE_FROM_AUDIO_DRIVER
+
 	/* Includes: */
 		#include "../../USB.h"
 		#include "Audio.h"
@@ -52,6 +55,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_MIDI_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/Class/MIDI.h instead.
+		#endif
+		
 	/* Macros: */
 		/** Audio class descriptor subtype value for a Audio class specific MIDI input jack descriptor. */
 		#define DSUBTYPE_InputJack          0x02

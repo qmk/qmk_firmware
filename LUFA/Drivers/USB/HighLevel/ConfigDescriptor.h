@@ -59,6 +59,11 @@
 			extern "C" {
 		#endif
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+		
 	/* Public Interface - May be used in end-application: */	
 		/* Macros: */
 			/** Mask for determining the type of an endpoint from an endpoint descriptor. This should then be compared
