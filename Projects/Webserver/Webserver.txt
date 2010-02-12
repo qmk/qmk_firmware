@@ -55,7 +55,7 @@
  *  To use this project, plug the USB AVR into a computer, so that it enumerates as a standard Mass Storage device. Load
  *  HTML files onto the disk, so that they can be served out to clients -- the default file to serve should be called
  *  <i>index.htm</i>. Filenames must be in 8.3 format for them to be retrieved correctly by the webserver, and the total
- *  requested file path must be equal to or less than 50 characters (set in uipopt.h).
+ *  requested file path must be equal to or less than the maximum URI length (\see \ref SSec_Options).
  *
  *  When attached to a RNDIS class device, such as a USB (desktop) modem, the system will enumerate the device, set the
  *  appropriate parameters needed for connectivity and begin listening for new HTTP connections on port 80 and TELNET
@@ -97,6 +97,11 @@
  *    <td>Lib/uIPManagement.h</td>
  *    <td>Default routing gateway that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT
  *        is not defined).</td>
+ *   </tr>
+ *   <tr>
+ *    <td>MAX_URI_LENGTH</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>Maximum length of a URI for the Webserver. This is the maximum file path, including subdirectories and seperators.</td>
  *   </tr>
  *  </table>
  */

@@ -31,7 +31,7 @@
 /** \file
  *
  *  TELNET Webserver Application. When connected to the uIP stack,
- *  this will serve out connection information to the client.
+ *  this will serve out raw TELNET to the client on port 23.
  */
  
 #define  INCLUDE_FROM_TELNETSERVERAPP_C
@@ -44,9 +44,13 @@ const char PROGMEM WelcomeHeader[] = "******************************************
 
 /** Main TELNET menu, giving the user the list of available commands they may issue */
 const char PROGMEM TELNETMenu[] = "\r\n"
-                                  "   Available Commands:\r\n"
+                                  "  == Available Commands: ==\r\n"
                                   "     c) List Active TCP Connections\r\n"
-					              "\r\nCommand>";
+                                  "  =========================\r\n"
+                                  "\r\n>";
+								  
+/** Header to print before the current connections are printed to the client */
+const char PROGMEM CurrentConnectionsHeader = "\r\n* Current TCP Connections: *\r\n";
 
 /** Initialization function for the simple HTTP webserver. */
 void TELNETServerApp_Init(void)
@@ -65,11 +69,13 @@ void TELNETServerApp_Callback(void)
 
 	if (uip_connected())
 	{
+		/* New connection - initialize connection state values */
 		AppState->TELNETServer.CurrentState = TELNET_STATE_SendHeader;
 	}
 
 	if (uip_acked())
 	{
+		/* Progress to the next state once the current state's data has been ACKed */
 		AppState->TELNETServer.CurrentState = AppState->TELNETServer.NextState;	
 	}
 
@@ -124,7 +130,7 @@ static void TELNETServerApp_DisplayTCPConnections(void)
 {
 	char* const AppData    = (char*)uip_appdata;
 
-	strcpy(AppData, "\r\n* Current TCP Connections: *\r\n");
+	strcpy_P(AppData, CurrentConnectionsHeader);
 							
 	uint16_t ResponseLen     = strlen(AppData);
 	uint8_t  ActiveConnCount = 0;

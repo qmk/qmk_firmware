@@ -62,31 +62,3 @@ DRESULT disk_write (
 	return RES_OK;
 }
 #endif /* _READONLY */
-
-
-
-/*-----------------------------------------------------------------------*/
-/* Miscellaneous Functions                                               */
-
-DRESULT disk_ioctl (
-	BYTE drv,		/* Physical drive nmuber (0..) */
-	BYTE ctrl,		/* Control code */
-	void *buff		/* Buffer to send/receive control data */
-)
-{
-	if (ctrl == CTRL_SYNC)
-	  return RES_OK;
-	else
-	  return RES_PARERR;
-}
-
-
-DWORD get_fattime (void)
-{
-	return ((DWORD)1 << 25) |
-	       ((DWORD)1 << 21) |
-	       ((DWORD)1 << 16) |
-	       ((DWORD)1 << 11) |
-	       ((DWORD)1 << 5)  |
-	       ((DWORD)1 << 0);
-}

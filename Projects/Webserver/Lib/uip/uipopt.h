@@ -691,7 +691,7 @@ typedef union
 		uint8_t  CurrentState;
 		uint8_t  NextState;
 		
-		char     FileName[50];
+		char     FileName[MAX_URI_LENGTH];
 		FIL      FileHandle;
 		bool     FileOpen;
 		uint32_t ACKedFilePos;

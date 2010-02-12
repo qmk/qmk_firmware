@@ -31,7 +31,7 @@
 /** \file
  *
  *  Simple HTTP Webserver Application. When connected to the uIP stack,
- *  this will serve out files to HTTP clients.
+ *  this will serve out files to HTTP clients on port 80.
  */
  
 #define  INCLUDE_FROM_HTTPSERVERAPP_C
@@ -270,8 +270,12 @@ static void HTTPServerApp_SendData(void)
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
 	char*               const AppData     = (char*)uip_appdata;
 
-	/* Must determine the maximum segment size to determine maximum file chunk size */
-	uint16_t MaxSegmentSize = uip_mss();
+	/* Must determine the maximum segment size to determine maximum file chunk size - never send a completely
+	 * full packet, as this will cause some hosts to start delaying ACKs until a non-full packet is received.
+	 * since uIP only allows one packet to be in transit at a time, this would cause long delays between packets
+	 * until the host times out and sends the ACK for the last received packet.
+	 */
+	uint16_t MaxSegmentSize = (uip_mss() >> 1);
 
 	/* Return file pointer to the last ACKed position */
 	f_lseek(&AppState->HTTPServer.FileHandle, AppState->HTTPServer.ACKedFilePos);
