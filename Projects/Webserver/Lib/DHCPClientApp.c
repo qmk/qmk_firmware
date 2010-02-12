@@ -43,17 +43,19 @@ struct timer DHCPTimer;
 /** Initialization function for the DHCP client. */
 void DHCPClientApp_Init(void)
 {
-	uip_udp_appstate_t* const AppState = &uip_udp_conn->appstate;
-	
-	/* Create a new UDP connection to the DHCP server port for the DHCP solicitation */
+	/* Create an IP address to the broadcast network address */
 	uip_ipaddr_t DHCPServerIPAddress;
 	uip_ipaddr(&DHCPServerIPAddress, 255, 255, 255, 255);
-	AppState->DHCPClient.Connection = uip_udp_new(&DHCPServerIPAddress, HTONS(DHCPC_SERVER_PORT));
+
+	/* Create a new UDP connection to the DHCP server port for the DHCP solicitation */
+	struct uip_udp_conn* Connection = uip_udp_new(&DHCPServerIPAddress, HTONS(DHCPC_SERVER_PORT));
 	
 	/* If the connection was successfully created, bind it to the local DHCP client port */
-	if(AppState->DHCPClient.Connection != NULL)
+	if (Connection != NULL)
 	{
-		uip_udp_bind(AppState->DHCPClient.Connection, HTONS(DHCPC_CLIENT_PORT));
+		uip_udp_appstate_t* const AppState = &Connection->appstate;
+
+		uip_udp_bind(Connection, HTONS(DHCPC_CLIENT_PORT));
 		AppState->DHCPClient.CurrentState = DHCP_STATE_SendDiscover;
 	}
 
@@ -188,13 +190,13 @@ uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMes
 	DHCPHeader->TransactionID         = DHCP_TRANSACTION_ID;
 	DHCPHeader->ElapsedSeconds        = 0;
 	DHCPHeader->Flags                 = HTONS(BOOTP_BROADCAST);
-	memcpy(&DHCPHeader->ClientIP, &uip_hostaddr, sizeof(uip_ipaddr_t));
-	memcpy(&DHCPHeader->YourIP, &AppState->DHCPClient.DHCPOffer_Data.AllocatedIP, sizeof(uip_ipaddr_t));
-	memcpy(&DHCPHeader->NextServerIP, &AppState->DHCPClient.DHCPOffer_Data.ServerIP, sizeof(uip_ipaddr_t));
+	memcpy(&DHCPHeader->ClientIP,     &uip_hostaddr,        sizeof(uip_ipaddr_t));
+	memcpy(&DHCPHeader->YourIP,       &AppState->DHCPClient.DHCPOffer_Data.AllocatedIP, sizeof(uip_ipaddr_t));
+	memcpy(&DHCPHeader->NextServerIP, &AppState->DHCPClient.DHCPOffer_Data.ServerIP,    sizeof(uip_ipaddr_t));
 	memcpy(&DHCPHeader->ClientHardwareAddress, &MACAddress, sizeof(struct uip_eth_addr));
 	DHCPHeader->Cookie                = DHCP_MAGIC_COOKIE;
 	
-	/* Add a DHCP type and terminator options to the start of the DHCP options field */
+	/* Add a DHCP message type and terminator options to the start of the DHCP options field */
 	DHCPHeader->Options[0]            = DHCP_OPTION_MSG_TYPE;
 	DHCPHeader->Options[1]            = 1;
 	DHCPHeader->Options[2]            = DHCPMessageType;

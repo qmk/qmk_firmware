@@ -717,7 +717,6 @@ typedef union
 	struct
 	{
 		uint8_t CurrentState;
-		struct  uip_udp_conn* Connection;
 		
 		struct
 		{
