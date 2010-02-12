@@ -78,26 +78,25 @@
  *    <td><b>Description:</b></td>
  *   </tr>
  *   <tr>
- *    <td>ENABLE_DHCP_CLIENT=<i>x</i></td>
+ *    <td>ENABLE_DHCP_CLIENT</td>
  *    <td>Makefile CDEFS</td>
- *    <td>When set to 1, this enables the DHCP client for dynamic IP allocation of the network settings from a DHCP server.
- *        To disable DHCP and use the fixed address settings set elsewhere, set this to zero (do not undefine it).</td>
+ *    <td>When defined, this enables the DHCP client for dynamic IP allocation of the network settings from a DHCP server.</td>
  *   </tr>
  *   <tr>
  *    <td>DEVICE_IP_ADDRESS</td>
  *    <td>Lib/uIPManagement.h</td>
- *    <td>IP address that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT is zero).</td>
+ *    <td>IP address that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT is not defined).</td>
  *   </tr>
  *   <tr>
  *    <td>DEVICE_NETMASK</td>
  *    <td>Lib/uIPManagement.h</td>
- *    <td>Netmask that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT is zero).</td>
+ *    <td>Netmask that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT is not defined).</td>
  *   </tr>
  *   <tr>
  *    <td>DEVICE_GATEWAY</td>
  *    <td>Lib/uIPManagement.h</td>
  *    <td>Default routing gateway that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT
- *        is zero).</td>
+ *        is not defined).</td>
  *   </tr>
  *  </table>
  */

@@ -38,15 +38,15 @@
 #include "TELNETServerApp.h"
 
 /** Welcome message to send to a TELNET client when a connection is first made. */
-char PROGMEM WelcomeHeader[] = "********************************************\r\n"
-                               "*       LUFA uIP Webserver (TELNET)        *\r\n"
-                               "********************************************\r\n";
+const char PROGMEM WelcomeHeader[] = "********************************************\r\n"
+                                     "*       LUFA uIP Webserver (TELNET)        *\r\n"
+                                     "********************************************\r\n";
 
 /** Main TELNET menu, giving the user the list of available commands they may issue */
-char PROGMEM TELNETMenu[] = "\r\n"
-                            "   Available Commands:\r\n"
-                            "     c) List Active TCP Connections\r\n"
-					        "\r\nCommand>";
+const char PROGMEM TELNETMenu[] = "\r\n"
+                                  "   Available Commands:\r\n"
+                                  "     c) List Active TCP Connections\r\n"
+					              "\r\nCommand>";
 
 /** Initialization function for the simple HTTP webserver. */
 void TELNETServerApp_Init(void)

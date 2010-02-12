@@ -61,8 +61,8 @@
 		/** Type define for a MIME type handler. */
 		typedef struct
 		{
-			char Extension[4]; /**< 3 or less character file extension */
-			char MIMEType[30]; /**< Appropriate MIME type to send when the extension is encountered */
+			char* Extension; /**< File extension (no leading '.' character) */
+			char* MIMEType;  /**< Appropriate MIME type to send when the extension is encountered */
 		} MIME_Type_t;
 	
 	/* Macros: */

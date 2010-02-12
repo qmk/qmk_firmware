@@ -40,27 +40,27 @@
 /** HTTP server response header, for transmission before the page contents. This indicates to the host that a page exists at the
  *  given location, and gives extra connection information.
  */
-char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
-                               "Server: LUFA " LUFA_VERSION_STRING "\r\n"
-                               "Connection: close\r\n"
-                               "MIME-version: 1.0\r\n"
-                               "Content-Type: ";
+const char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
+                                     "Server: LUFA " LUFA_VERSION_STRING "\r\n"
+                                     "Connection: close\r\n"
+                                     "MIME-version: 1.0\r\n"
+                                     "Content-Type: ";
 
 /** HTTP server response header, for transmission before a resource not found error. This indicates to the host that the given
  *  given URL is invalid, and gives extra error information.
  */
-char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
-                               "Server: LUFA " LUFA_VERSION_STRING "\r\n"
-                               "Connection: close\r\n"
-                               "MIME-version: 1.0\r\n"
-                               "Content-Type: text/plain\r\n\r\n"
-                               "Error 404: File Not Found";
+const char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
+                                     "Server: LUFA " LUFA_VERSION_STRING "\r\n"
+                                     "Connection: close\r\n"
+                                     "MIME-version: 1.0\r\n"
+                                     "Content-Type: text/plain\r\n\r\n"
+                                     "Error 404: File Not Found";
 
-/** Default MIME type sent if no other MIME type can be determined */
-char PROGMEM DefaultMIMEType[] = "text/plain";
+/** Default MIME type sent if no other MIME type can be determined. */
+const char PROGMEM DefaultMIMEType[] = "text/plain";
 
 /** List of MIME types for each supported file extension. */
-MIME_Type_t PROGMEM MIMETypes[] =
+const MIME_Type_t MIMETypes[] =
 	{
 		{.Extension = "htm", .MIMEType = "text/html"},
 		{.Extension = "jpg", .MIMEType = "image/jpeg"},
@@ -198,7 +198,7 @@ static void HTTPServerApp_SendResponseHeader(void)
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
 	char*               const AppData     = (char*)uip_appdata;
 
-	char* HeaderToSend;
+	const char* HeaderToSend;
 
 	/* Determine which HTTP header should be sent to the client */
 	if (AppState->HTTPServer.FileOpen)
@@ -234,10 +234,10 @@ static void HTTPServerApp_SendMIMETypeHeader(void)
 		/* Look through the MIME type list, copy over the required MIME type if found */
 		for (int i = 0; i < (sizeof(MIMETypes) / sizeof(MIMETypes[0])); i++)
 		{
-			if (strcmp_P(&Extension[1], MIMETypes[i].Extension) == 0)
+			if (strcmp(&Extension[1], MIMETypes[i].Extension) == 0)
 			{
-				MIMEHeaderLength = strlen_P(MIMETypes[i].MIMEType);
-				strncpy_P(AppData, MIMETypes[i].MIMEType, MIMEHeaderLength);						
+				MIMEHeaderLength = strlen(MIMETypes[i].MIMEType);
+				strncpy(AppData, MIMETypes[i].MIMEType, MIMEHeaderLength);						
 				break;
 			}
 		} 

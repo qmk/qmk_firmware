@@ -626,6 +626,8 @@ void uip_log(char *msg);
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "timer.h"
+
 typedef uint8_t u8_t;
 typedef uint16_t u16_t;
 typedef uint32_t u32_t;
@@ -716,7 +718,8 @@ typedef union
 {
 	struct
 	{
-		uint8_t CurrentState;
+		uint8_t      CurrentState;
+		struct timer Timeout;
 		
 		struct
 		{

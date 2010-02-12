@@ -61,7 +61,7 @@ void uIPManagement_Init(void)
 	uip_setethaddr(MACAddress);
 
 	/* DHCP/Server IP Settings Initialization */
-	#if defined(ENABLE_DHCP)
+	#if defined(ENABLE_DHCP_CLIENT)
 	DHCPClientApp_Init();
 	#else
 	uip_ipaddr_t IPAddress, Netmask, GatewayIPAddress;

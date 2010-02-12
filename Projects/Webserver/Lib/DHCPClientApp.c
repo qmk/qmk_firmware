@@ -33,12 +33,10 @@
  *  DHCP Client Application. When connected to the uIP stack, this will retrieve IP configuration settings from the
  *  DHCP server on the network.
  */
- 
+
 #include "DHCPClientApp.h"
 
 #if defined(ENABLE_DHCP_CLIENT) || defined(__DOXYGEN__)
-/** Timer for managing the timeout period for a DHCP server to respond */
-struct timer DHCPTimer;
 
 /** Initialization function for the DHCP client. */
 void DHCPClientApp_Init(void)
@@ -54,13 +52,14 @@ void DHCPClientApp_Init(void)
 	if (Connection != NULL)
 	{
 		uip_udp_appstate_t* const AppState = &Connection->appstate;
-
 		uip_udp_bind(Connection, HTONS(DHCPC_CLIENT_PORT));
+		
+		/* Set the initial client state */
 		AppState->DHCPClient.CurrentState = DHCP_STATE_SendDiscover;
-	}
 
-	/* Set timeout period to half a second for a DHCP server to respond */
-	timer_set(&DHCPTimer, CLOCK_SECOND / 2);
+		/* Set timeout period to half a second for a DHCP server to respond */
+		timer_set(&AppState->DHCPClient.Timeout, CLOCK_SECOND / 2);
+	}
 }
  
 /** uIP stack application callback for the DHCP client. This function must be called each time the TCP/IP stack 
@@ -91,7 +90,7 @@ void DHCPClientApp_Callback(void)
 			uip_udp_send(AppDataSize);
 
 			/* Reset the timeout timer, progress to next state */
-			timer_reset(&DHCPTimer);
+			timer_reset(&AppState->DHCPClient.Timeout);
 			AppState->DHCPClient.CurrentState = DHCP_STATE_WaitForOffer;			
 			
 			break;
@@ -99,7 +98,7 @@ void DHCPClientApp_Callback(void)
 			if (!(uip_newdata()))
 			{
 				/* Check if the DHCP timeout period has expired while waiting for a response */
-				if (timer_expired(&DHCPTimer))
+				if (timer_expired(&AppState->DHCPClient.Timeout))
 				  AppState->DHCPClient.CurrentState = DHCP_STATE_SendDiscover;
 				
 				break;
@@ -116,7 +115,7 @@ void DHCPClientApp_Callback(void)
 				DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_ROUTER,      &AppState->DHCPClient.DHCPOffer_Data.GatewayIP);
 				DHCPClientApp_GetOption(AppData->Options, DHCP_OPTION_SERVER_ID,   &AppState->DHCPClient.DHCPOffer_Data.ServerIP);
 				
-				timer_reset(&DHCPTimer);
+				timer_reset(&AppState->DHCPClient.Timeout);
 				AppState->DHCPClient.CurrentState = DHCP_STATE_SendRequest;
 			}
 
@@ -137,7 +136,7 @@ void DHCPClientApp_Callback(void)
 			uip_udp_send(AppDataSize);
 			
 			/* Reset the timeout timer, progress to next state */
-			timer_reset(&DHCPTimer);
+			timer_reset(&AppState->DHCPClient.Timeout);
 			AppState->DHCPClient.CurrentState = DHCP_STATE_WaitForACK;
 
 			break;
@@ -145,7 +144,7 @@ void DHCPClientApp_Callback(void)
 			if (!(uip_newdata()))
 			{
 				/* Check if the DHCP timeout period has expired while waiting for a response */
-				if (timer_expired(&DHCPTimer))
+				if (timer_expired(&AppState->DHCPClient.Timeout))
 				  AppState->DHCPClient.CurrentState = DHCP_STATE_SendDiscover;
 				
 				break;

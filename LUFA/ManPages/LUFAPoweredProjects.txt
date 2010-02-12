@@ -64,13 +64,14 @@
  *  - BAP, A tiny LUFA based AVR Programmer: http://www.busware.de/tiki-index.php?page=BAP
  *  - Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
  *  - Lightweight CC110x USB dongle for 868MHz Protocols: http://busware.de/tiki-index.php?page=CUL
+ *  - Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
  *  - MIDIFighter, a USB-MIDI controller: http://www.midifighter.com/
  *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
- *  - SEGA Megadrive/Super Nintendo Cartridge Reader: http://www.snega2usb.com
+ *  - Retrode, a USB Games Console Cartridge Reader: http://www.snega2usb.com
  *  - XMEGA Development Board, using LUFA as an On-Board Programmer: http://xmega.mattair.net/
- *  - Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
  *
  *  \section Sec_LUFAPublications Publications Mentioning LUFA
  *  - Elektor Magazine, "My First AVR-USB" by Antoine Authier (feature), January 2010 Issue
  *  - Elektor Magazine, "USB is Cool/Sucks" by Jerry Jacobs and Chris Vossen (minor mention), January 2010 Issue
+ *  - Elektor Magazine, "20 x Open Source", March 2010 Issue
  */
