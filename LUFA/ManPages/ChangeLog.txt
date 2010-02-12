@@ -57,9 +57,10 @@
   *  - Fixed EEPROM and FLASH ISP programming in the AVRISP project
   *  - Fixed incorrect values of USB_CONFIG_ATTR_SELFPOWERED and USB_CONFIG_ATTR_REMOTEWAKEUP tokens (thanks to Claus Christensen)
   *  - Fixed SerialStream driver blocking while waiting for characters to be received instead of returning EOF
-  *  - Fixed SerialStream driver not setting stdin to the created serial stream
+  *  - Fixed SerialStream driver not setting stdin to the created serial stream (thanks to Mike Alexander)
   *  - Fixed USB_GetHIDReportSize() returning the number of bits in the specified report instead of bytes
   *  - Fixed AVRISP project not extending the command delay after each successful page/word/byte program
+  *  - Fixed accuracy of the SERIAL_UBBRVAL() and SERIAL_2X_UBBRVAL() macros for higher baudrates (thanks to Renaud Cerrato)
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *
@@ -122,7 +123,7 @@
   *  - Fixed Still Image Host Class driver truncating the PIMA response code (thanks to Daniel Seibert)
   *  - Fixed USB_CurrentMode not being reset to USB_MODE_NONE when the USB interface is shut down and both Host and Device modes can be
   *    used (thanks to Daniel Levy)
-  *  - Fixed TeensyHID bootloader not enumerating to the host correctly
+  *  - Fixed TeensyHID bootloader not enumerating to the host correctly (thanks to Clint Fisher)
   *  - Fixed AVRISP project timeouts not checking for the correct timeout period (thanks to Carl Ott)
   *  - Fixed STK525 Dataflash driver using incorrect bit-shifting for Dataflash addresses (thanks to Tim Mitchell)
   *

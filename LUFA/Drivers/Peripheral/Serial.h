@@ -68,12 +68,12 @@
 			/** Macro for calculating the baud value from a given baud rate when the U2X (double speed) bit is
 			 *  not set.
 			 */
-			#define SERIAL_UBBRVAL(baud)    (((F_CPU / 16) / (baud)) - 1)
+			#define SERIAL_UBBRVAL(baud)    ((((F_CPU / 16) + (baud / 2)) / (baud)) - 1)
 
 			/** Macro for calculating the baud value from a given baud rate when the U2X (double speed) bit is
 			 *  set.
 			 */
-			#define SERIAL_2X_UBBRVAL(baud) (((F_CPU / 8) / (baud)) - 1)
+			#define SERIAL_2X_UBBRVAL(baud) ((((F_CPU / 8) + (baud / 2)) / (baud)) - 1)
 
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
