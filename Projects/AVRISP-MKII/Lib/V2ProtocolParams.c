@@ -97,7 +97,7 @@ void V2Params_LoadNonVolatileParamValues(void)
  */
 void V2Params_UpdateParamValues(void)
 {
-	#if defined(ADC)
+	#if (defined(ADC) && !defined(NO_VTARGET_DETECT))
 	/* Update VTARGET parameter with the latest ADC conversion of VTARGET on supported AVR models */
 	V2Params_GetParamFromTable(PARAM_VTARGET)->ParamValue = ((5 * 10 * ADC_GetResult()) / 1024);
 	#endif

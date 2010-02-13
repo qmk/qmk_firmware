@@ -247,7 +247,7 @@
  *   <tr>
  *    <td>VTARGET_ADC_CHANNEL</td>
  *    <td>Makefile CDEFS</td>
- *    <td>ADC channel number (on supported AVRs) to use for VTARGET level detection.</td> 
+ *    <td>ADC channel number (on supported AVRs) to use for VTARGET level detection, if NO_VTARGET_DETECT is not defined.</td> 
  *   </tr>
  *   <tr>
  *    <td>ENABLE_ISP_PROTOCOL</td>
@@ -266,6 +266,12 @@
  *        to match the official AVRISP pinout. This breaks pinout compatibility with the official AVRISP MKII (and requires 
  *        seperate ISP, PDI, and TPI programming headers) but increases programming speed dramatically.
  *        <i>Ignored when compiled for the XPLAIN board.</i></td>  
+ *   </tr>
+ *   <tr>
+ *    <td>NO_VTARGET_DETECT</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>Define to disable VTARGET sampling and reporting on AVR models with an ADC converter. This will cause the programmer
+ *        to report a fixed 5V target voltage to the host regardless of the real target voltage.</td>  
  *   </tr>
  *  </table>
  */
