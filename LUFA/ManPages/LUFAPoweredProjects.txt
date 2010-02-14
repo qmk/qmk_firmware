@@ -73,5 +73,5 @@
  *  \section Sec_LUFAPublications Publications Mentioning LUFA
  *  - Elektor Magazine, "My First AVR-USB" by Antoine Authier (feature), January 2010 Issue
  *  - Elektor Magazine, "USB is Cool/Sucks" by Jerry Jacobs and Chris Vossen (minor mention), January 2010 Issue
- *  - Elektor Magazine, "20 x Open Source", March 2010 Issue
+ *  - Elektor Magazine, "20 x Open Source" by Jens Nickel, March 2010 Issue
  */

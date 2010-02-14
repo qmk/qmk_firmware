@@ -159,7 +159,7 @@ uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 	{
 		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
 		.bRequest      = REQ_SetReport,
-		.wValue        = (REPORT_ITEM_TYPE_In << 8) | ReportID,
+		.wValue        = ((REPORT_ITEM_TYPE_In + 1) << 8) | ReportID,
 		.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
 		.wLength       = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, REPORT_ITEM_TYPE_In),
 	};
@@ -246,7 +246,7 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
 			.bRequest      = REQ_SetReport,
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
-			.wValue        = (REPORT_ITEM_TYPE_Out << 8) | ReportID,
+			.wValue        = ((REPORT_ITEM_TYPE_Out + 1) << 8) | ReportID,
 #else
 			.wValue        = 0,
 #endif
