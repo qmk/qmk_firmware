@@ -100,8 +100,6 @@
 		#define DS1307_ADDRESS_WRITE  0b11010000
 
 	/* Function Prototypes: */
-		void DS1307_Init(void);
-		
 		void DS1307_SetDate(uint8_t Day, uint8_t Month, uint8_t Year);
 		void DS1307_SetTime(uint8_t Hour, uint8_t Minute, uint8_t Second);
 		

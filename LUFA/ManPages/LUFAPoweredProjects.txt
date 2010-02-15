@@ -32,6 +32,7 @@
  *  The following are known hobbyist projects using LUFA. Most are open source, and show off interesting ways that the LUFA library
  *  can be incorporated into many different applications.
  *
+ *  - Accelerometer Game Joystick: http://www.crictor.co.il/he/episodes/joystick/
  *  - Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
  *  - AVR USB Modem, a 3G Wireless Modem host: http://code.google.com/p/avrusbmodem/
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
@@ -61,10 +62,9 @@
  *  solutions with no source code given.
  *
  *  - ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
- *  - BAP, A tiny LUFA based AVR Programmer: http://www.busware.de/tiki-index.php?page=BAP
  *  - Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
- *  - Lightweight CC110x USB dongle for 868MHz Protocols: http://busware.de/tiki-index.php?page=CUL
  *  - Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
+ *  - Many of Busware's Products: http://www.busware.de/
  *  - MIDIFighter, a USB-MIDI controller: http://www.midifighter.com/
  *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
  *  - Retrode, a USB Games Console Cartridge Reader: http://www.snega2usb.com

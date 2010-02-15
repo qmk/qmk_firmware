@@ -13,6 +13,10 @@
  *  popular Atmel USB demonstration board to date. To learn how to reconfigure, recompile and program the included
  *  LUFA applications using different settings, see the subsections below.
  *
+ *  Most of the included demos in the /Demos/ folder come in both ClassDriver and LowLevel varieties. If you are new
+ *  to LUFA, it is highly recommended that you look at the ClassDriver versions first, which use the premade USB
+ *  Class Drivers (\ref Group_USBClassDrivers) to simplify the use of the standard USB classes in user applications.
+ *
  *  For an overview of the included library applications, bootloaders and demos, see \ref Page_LibraryApps.
  *
  *  <b>Subsections:</b>

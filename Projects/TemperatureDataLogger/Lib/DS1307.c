@@ -7,11 +7,6 @@
 
 #include "DS1307.h"
 
-void DS1307_Init(void)
-{
-	// Nothing to initialize
-}
-
 void DS1307_SetDate(uint8_t Day, uint8_t Month, uint8_t Year)
 {
 #if defined(DUMMY_RTC)
