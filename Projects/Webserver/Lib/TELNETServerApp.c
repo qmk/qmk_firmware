@@ -50,7 +50,7 @@ const char PROGMEM TELNETMenu[] = "\r\n"
                                   "\r\n>";
 								  
 /** Header to print before the current connections are printed to the client */
-const char PROGMEM CurrentConnectionsHeader = "\r\n* Current TCP Connections: *\r\n";
+const char PROGMEM CurrentConnectionsHeader[] = "\r\n* Current TCP Connections: *\r\n";
 
 /** Initialization function for the simple HTTP webserver. */
 void TELNETServerApp_Init(void)
