@@ -80,22 +80,25 @@ int main(void)
 	Buffer_Initialize(&USBtoUART_Buffer);
 	Buffer_Initialize(&UARTtoUSB_Buffer);
 
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+
 	for (;;)
 	{
-		if (USB_DeviceState == DEVICE_STATE_Configured)
-		{
-			if (CurrentFirmwareMode == MODE_USART_BRIDGE)
-			  USARTBridge_Task();
-			else
-			  AVRISP_Task();
-		}
-		
+		if (CurrentFirmwareMode == MODE_USART_BRIDGE)
+		  USARTBridge_Task();
+		else
+		  AVRISP_Task();
+
 		USB_USBTask();
 	}
 }
 
 void AVRISP_Task(void)
 {
+	/* Must be in the configured state for the AVRISP code to process data */
+	if (USB_DeviceState != DEVICE_STATE_Configured)
+	  return;
+
 	Endpoint_SelectEndpoint(AVRISP_DATA_EPNUM);
 	
 	/* Check to see if a V2 Protocol command has been received */
@@ -112,6 +115,10 @@ void AVRISP_Task(void)
 
 void USARTBridge_Task(void)
 {
+	/* Must be in the configured state for the USART Bridge code to process data */
+	if (USB_DeviceState != DEVICE_STATE_Configured)
+	  return;
+
 	/* Read bytes from the USB OUT endpoint into the UART transmit buffer */
 	for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
 	{
@@ -130,8 +137,8 @@ void USARTBridge_Task(void)
 	  SoftUART_TxByte(Buffer_GetElement(&USBtoUART_Buffer));
 	
 	/* Load bytes from the UART into the UART receive buffer */
-	if(SoftUART_IsReceived())
-		Buffer_StoreElement(&UARTtoUSB_Buffer, SoftUART_RxByte());
+	if (SoftUART_IsReceived())
+	  Buffer_StoreElement(&UARTtoUSB_Buffer, SoftUART_RxByte());
 
 	CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 }
@@ -169,6 +176,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	bool EndpointConfigSuccess;
 
+	/* Configure the device endpoints according to the selected mode */
 	if (CurrentFirmwareMode == MODE_USART_BRIDGE)
 	{
 		EndpointConfigSuccess = CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
@@ -193,6 +201,18 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	  CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }
 
+/** Event handler for the library USB Connection event. */
+void EVENT_USB_Device_Connect(void)
+{
+	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+}
+
+/** Event handler for the library USB Disconnection event. */
+void EVENT_USB_Device_Disconnect(void)
+{
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+}
+
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
  *  documentation) by the application code so that the address and size of a requested descriptor can be given
  *  to the USB library. When the device receives a Get Descriptor request on the control endpoint, this function
@@ -201,6 +221,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
  */
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
 {
+	/* Return the correct descriptors based on the selected mode */
 	if (CurrentFirmwareMode == MODE_USART_BRIDGE)
 	  return USART_GetDescriptor(wValue, wIndex, DescriptorAddress);
 	else

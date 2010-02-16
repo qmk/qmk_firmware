@@ -35,12 +35,12 @@
 volatile uint8_t srx_done, stx_count;
 volatile uint8_t srx_data, srx_mask, srx_tmp, stx_data;
 
-unsigned char SoftUART_IsReady(void)
+uint8_t SoftUART_IsReady(void)
 {
 	return !(stx_count);
 }
 
-unsigned char SoftUART_TxByte(unsigned char c)
+uint8_t SoftUART_TxByte(uint8_t c)
 {
 	while (stx_count);
 
@@ -50,12 +50,12 @@ unsigned char SoftUART_TxByte(unsigned char c)
 	return c;
 }
 
-unsigned char SoftUART_IsReceived(void)
+uint8_t SoftUART_IsReceived(void)
 {
 	return srx_done;
 }
 
-unsigned char SoftUART_RxByte(void)
+uint8_t SoftUART_RxByte(void)
 {
 	while (!(srx_done));
 

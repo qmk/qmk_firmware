@@ -37,6 +37,7 @@
 #define _USBHOSTMODE_H_
 
 	/* Includes: */
+		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/RNDIS.h>
 		
 		#include "Webserver.h"

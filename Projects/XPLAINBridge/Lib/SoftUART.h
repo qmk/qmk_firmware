@@ -51,10 +51,10 @@
 		#define STXDDR     DDRD
 
 	/* Function Prototypes: */
-		unsigned char SoftUART_IsReady(void);
-		unsigned char SoftUART_TxByte(unsigned char c);
-		unsigned char SoftUART_IsReceived(void);
-		unsigned char SoftUART_RxByte(void);
-		void SoftUART_Init(void);
+		uint8_t SoftUART_IsReady(void);
+		uint8_t SoftUART_TxByte(uint8_t c);
+		uint8_t SoftUART_IsReceived(void);
+		uint8_t SoftUART_RxByte(void);
+		void    SoftUART_Init(void);
 
 #endif

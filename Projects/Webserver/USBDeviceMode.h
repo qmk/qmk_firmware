@@ -37,6 +37,7 @@
 #define _USBDEVICEMODE_H_
 
 	/* Includes: */
+		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/MassStorage.h>
 		
 		#include "Webserver.h"
