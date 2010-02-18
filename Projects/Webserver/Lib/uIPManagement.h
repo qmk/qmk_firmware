@@ -41,6 +41,7 @@
 
 		#include <uip.h>
 		#include <uip_arp.h>
+		#include <uip-split.h>
 		#include <timer.h>
 		
 		#include "Lib/DHCPClientApp.h"

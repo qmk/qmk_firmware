@@ -54,10 +54,13 @@ const char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
                                      "Connection: close\r\n"
                                      "MIME-version: 1.0\r\n"
                                      "Content-Type: text/plain\r\n\r\n"
-                                     "Error 404: File Not Found";
+                                     "Error 404: File Not Found: /";
 
 /** Default MIME type sent if no other MIME type can be determined. */
 const char PROGMEM DefaultMIMEType[] = "text/plain";
+
+/** Default filename to fetch when a directory is requested */
+const char PROGMEM DefaultDirFileName[] = "index.htm";
 
 /** List of MIME types for each supported file extension. */
 const MIME_Type_t MIMETypes[] =
@@ -125,6 +128,12 @@ void HTTPServerApp_Callback(void)
 		AppState->HTTPServer.CurrentState = AppState->HTTPServer.NextState;
 	}
 
+	if (uip_rexmit())
+	{
+		/* Return file pointer to the last ACKed position */
+		f_lseek(&AppState->HTTPServer.FileHandle, AppState->HTTPServer.ACKedFilePos);	
+	}
+
 	if (uip_rexmit() || uip_acked() || uip_newdata() || uip_connected() || uip_poll())
 	{
 		switch (AppState->HTTPServer.CurrentState)
@@ -134,9 +143,6 @@ void HTTPServerApp_Callback(void)
 				break;
 			case WEBSERVER_STATE_SendResponseHeader:
 				HTTPServerApp_SendResponseHeader();
-				break;
-			case WEBSERVER_STATE_SendMIMETypeHeader:
-				HTTPServerApp_SendMIMETypeHeader();	
 				break;
 			case WEBSERVER_STATE_SendData:
 				HTTPServerApp_SendData();
@@ -163,6 +169,7 @@ static void HTTPServerApp_OpenRequestedFile(void)
 	  return;
 	  
 	char* RequestToken = strtok(AppData, " ");
+	char* RequestedFileName = strtok(NULL, " ");
 			
 	/* Must be a GET request, abort otherwise */
 	if (strcmp(RequestToken, "GET") != 0)
@@ -170,20 +177,26 @@ static void HTTPServerApp_OpenRequestedFile(void)
 		uip_abort();
 		return;
 	}
-
-	char* RequestedFileName = strtok(NULL, " ");
 	
-	/* If the requested filename has more that just the leading '/' path in it, copy it over */
-	if (strlen(RequestedFileName) > 1)
-	  strncpy(AppState->HTTPServer.FileName, &RequestedFileName[1], (sizeof(AppState->HTTPServer.FileName) - 1));
-	else
-	  strcpy(AppState->HTTPServer.FileName, "index.htm");
-
+	/* Copy over the requested filename */
+	strncpy(AppState->HTTPServer.FileName, &RequestedFileName[1], (sizeof(AppState->HTTPServer.FileName) - 1));
+	
 	/* Ensure filename is null-terminated */
 	AppState->HTTPServer.FileName[(sizeof(AppState->HTTPServer.FileName) - 1)] = 0x00;
+
+	/* If the URI is a directory, append the default filename */
+	if (AppState->HTTPServer.FileName[strlen(AppState->HTTPServer.FileName) - 1] == '/')
+	{
+		strncpy_P(&AppState->HTTPServer.FileName[strlen(AppState->HTTPServer.FileName)], DefaultDirFileName,
+		          (sizeof(AppState->HTTPServer.FileName) - (strlen(AppState->HTTPServer.FileName) + 1)));
+
+		/* Ensure altered filename is still null-terminated */
+		AppState->HTTPServer.FileName[(sizeof(AppState->HTTPServer.FileName) - 1)] = 0x00;
+	}
 	
 	/* Try to open the file from the Dataflash disk */
-	AppState->HTTPServer.FileOpen     = (f_open(&AppState->HTTPServer.FileHandle, AppState->HTTPServer.FileName, FA_OPEN_EXISTING | FA_READ) == FR_OK);
+	AppState->HTTPServer.FileOpen     = (f_open(&AppState->HTTPServer.FileHandle, AppState->HTTPServer.FileName,
+	                                            (FA_OPEN_EXISTING | FA_READ)) == FR_OK);
 
 	/* Lock to the SendResponseHeader state until connection terminated */
 	AppState->HTTPServer.CurrentState = WEBSERVER_STATE_SendResponseHeader;
@@ -198,37 +211,25 @@ static void HTTPServerApp_SendResponseHeader(void)
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
 	char*               const AppData     = (char*)uip_appdata;
 
-	const char* HeaderToSend;
+	char* Extension     = strpbrk(AppState->HTTPServer.FileName, ".");
+	bool  FoundMIMEType = false;
 
-	/* Determine which HTTP header should be sent to the client */
-	if (AppState->HTTPServer.FileOpen)
+	/* If the file isn't already open, it wasn't found - send back a 404 error response and abort */
+	if (!(AppState->HTTPServer.FileOpen))
 	{
-		HeaderToSend = HTTP200Header;
-		AppState->HTTPServer.NextState = WEBSERVER_STATE_SendMIMETypeHeader;
-	}
-	else
-	{
-		HeaderToSend = HTTP404Header;
+		/* Copy over the HTTP 404 response header and send it to the receiving client */
+		strcpy_P(AppData, HTTP404Header);
+		strcpy(&AppData[strlen(AppData)], AppState->HTTPServer.FileName);		
+		uip_send(AppData, strlen(AppData));
+		
 		AppState->HTTPServer.NextState = WEBSERVER_STATE_Closing;
+		return;
 	}
+	
+	/* Copy over the HTTP 200 response header and send it to the receiving client */
+	strcpy_P(AppData, HTTP200Header);
 
-	/* Copy over the HTTP response header and send it to the receiving client */
-	strcpy_P(AppData, HeaderToSend);
-	uip_send(AppData, strlen(AppData));
-}
-
-/** HTTP Server State handler for the MIME Header Send state. This state manages the transmission of the file
- *  MIME type header for the requested file to the receiving HTTP client.
- */
-static void HTTPServerApp_SendMIMETypeHeader(void)
-{
-	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
-	char*               const AppData     = (char*)uip_appdata;
-
-	char*    Extension        = strpbrk(AppState->HTTPServer.FileName, ".");
-	uint16_t MIMEHeaderLength = 0;
-
-	/* Check to see if a file extension was found for the requested filename */
+	/* Check to see if a MIME type for the requested file's extension was found */
 	if (Extension != NULL)
 	{
 		/* Look through the MIME type list, copy over the required MIME type if found */
@@ -236,27 +237,25 @@ static void HTTPServerApp_SendMIMETypeHeader(void)
 		{
 			if (strcmp(&Extension[1], MIMETypes[i].Extension) == 0)
 			{
-				MIMEHeaderLength = strlen(MIMETypes[i].MIMEType);
-				strncpy(AppData, MIMETypes[i].MIMEType, MIMEHeaderLength);						
+				strcpy(&AppData[strlen(AppData)], MIMETypes[i].MIMEType);						
+				FoundMIMEType = true;
 				break;
 			}
 		} 
 	}
 
 	/* Check if a MIME type was found and copied to the output buffer */
-	if (!(MIMEHeaderLength))
+	if (!(FoundMIMEType))
 	{
 		/* MIME type not found - copy over the default MIME type */
-		MIMEHeaderLength = strlen_P(DefaultMIMEType);
-		strncpy_P(AppData, DefaultMIMEType, MIMEHeaderLength);
+		strcpy_P(&AppData[strlen(AppData)], DefaultMIMEType);
 	}
 	
 	/* Add the end-of line terminator and end-of-headers terminator after the MIME type */
-	strncpy(&AppData[MIMEHeaderLength], "\r\n\r\n", sizeof("\r\n\r\n"));
-	MIMEHeaderLength += (sizeof("\r\n\r\n") - 1);
+	strcpy(&AppData[strlen(AppData)], "\r\n\r\n");
 	
 	/* Send the MIME header to the receiving client */
-	uip_send(AppData, MIMEHeaderLength);
+	uip_send(AppData, strlen(AppData));
 	
 	/* When the MIME header is ACKed, progress to the data send stage */
 	AppState->HTTPServer.NextState = WEBSERVER_STATE_SendData;
@@ -270,22 +269,16 @@ static void HTTPServerApp_SendData(void)
 	uip_tcp_appstate_t* const AppState    = &uip_conn->appstate;
 	char*               const AppData     = (char*)uip_appdata;
 
-	/* Must determine the maximum segment size to determine maximum file chunk size - never send a completely
-	 * full packet, as this will cause some hosts to start delaying ACKs until a non-full packet is received.
-	 * since uIP only allows one packet to be in transit at a time, this would cause long delays between packets
-	 * until the host times out and sends the ACK for the last received packet.
-	 */
-	uint16_t MaxSegmentSize = (uip_mss() >> 1);
+	/* Get the maximum segment size for the current packet */
+	uint16_t MaxChunkSize = uip_mss();
 
-	/* Return file pointer to the last ACKed position */
-	f_lseek(&AppState->HTTPServer.FileHandle, AppState->HTTPServer.ACKedFilePos);
-	
 	/* Read the next chunk of data from the open file */
-	f_read(&AppState->HTTPServer.FileHandle, AppData, MaxSegmentSize, &AppState->HTTPServer.SentChunkSize);
+	f_read(&AppState->HTTPServer.FileHandle, AppData, MaxChunkSize, &AppState->HTTPServer.SentChunkSize);
 	
 	/* Send the next file chunk to the receiving client */
 	uip_send(AppData, AppState->HTTPServer.SentChunkSize);
 			
 	/* Check if we are at the last chunk of the file, if so next ACK should close the connection */
-	AppState->HTTPServer.NextState = (MaxSegmentSize != AppState->HTTPServer.SentChunkSize) ? WEBSERVER_STATE_Closing : WEBSERVER_STATE_SendData;
+	if (MaxChunkSize != AppState->HTTPServer.SentChunkSize)
+	  AppState->HTTPServer.NextState = WEBSERVER_STATE_Closing;
 }

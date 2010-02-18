@@ -52,7 +52,7 @@ void uIPManagement_Init(void)
 {
 	/* uIP Timing Initialization */
 	clock_init();
-	timer_set(&ConnectionTimer, CLOCK_SECOND / 10);
+	timer_set(&ConnectionTimer, CLOCK_SECOND / 5);
 	timer_set(&ARPTimer, CLOCK_SECOND * 10);	
 
 	/* uIP Stack Initialization */
@@ -153,7 +153,7 @@ static void uIPManagement_ProcessIncomingPacket(void)
 					/* Add destination MAC to outgoing packet */
 					uip_arp_out();
 
-					RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+					uip_split_output();
 				}
 				
 				break;
@@ -163,7 +163,7 @@ static void uIPManagement_ProcessIncomingPacket(void)
 				
 				/* If a response was generated, send it */
 				if (uip_len > 0)
-				  RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+				  uip_split_output();
 				
 				break;
 		}
@@ -186,7 +186,8 @@ static void uIPManagement_ManageConnections(void)
 			/* Add destination MAC to outgoing packet */
 			uip_arp_out();
 
-			RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+			/* Split and send the outgoing packet */
+			uip_split_output();
 		}
 	}
 
@@ -208,7 +209,8 @@ static void uIPManagement_ManageConnections(void)
 				/* Add destination MAC to outgoing packet */
 				uip_arp_out();
 
-				RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+				/* Split and send the outgoing packet */
+				uip_split_output();
 			}
 		}
 		
@@ -224,7 +226,8 @@ static void uIPManagement_ManageConnections(void)
 				/* Add destination MAC to outgoing packet */
 				uip_arp_out();
 
-				RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
+				/* Split and send the outgoing packet */
+				uip_split_output();
 			}
 		}
 		#endif

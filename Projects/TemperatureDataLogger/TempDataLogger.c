@@ -110,6 +110,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	/* Reset log tick counter to prepare for next logging interval */
 	CurrentLoggingTicks = 0;
 	
+	/* Only log when not connected to a USB host */
 	if (USB_DeviceState == DEVICE_STATE_Unattached)
 	{
 		uint8_t Day,  Month,  Year;
@@ -139,15 +140,15 @@ int main(void)
 	/* Fetch logging interval from EEPROM */
 	LoggingInterval500MS_SRAM = eeprom_read_byte(&LoggingInterval500MS_EEPROM);
 
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-
 	SetupHardware();
+
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
 	/* Mount and open the log file on the dataflash FAT partition */
 	OpenLogFile();
 
 	/* Discard the first sample from the temperature sensor, as it is generally incorrect */
-	uint8_t Dummy = Temperature_GetTemperature();
+	volatile uint8_t Dummy = Temperature_GetTemperature();
 	(void)Dummy;
 	
 	for (;;)
