@@ -168,7 +168,7 @@ static void HTTPServerApp_OpenRequestedFile(void)
 	if (!(uip_newdata()))
 	  return;
 	  
-	char* RequestToken = strtok(AppData, " ");
+	char* RequestToken      = strtok(AppData, " ");
 	char* RequestedFileName = strtok(NULL, " ");
 			
 	/* Must be a GET request, abort otherwise */
@@ -182,16 +182,19 @@ static void HTTPServerApp_OpenRequestedFile(void)
 	strncpy(AppState->HTTPServer.FileName, &RequestedFileName[1], (sizeof(AppState->HTTPServer.FileName) - 1));
 	
 	/* Ensure filename is null-terminated */
-	AppState->HTTPServer.FileName[(sizeof(AppState->HTTPServer.FileName) - 1)] = 0x00;
+	AppState->HTTPServer.FileName[sizeof(AppState->HTTPServer.FileName) - 1] = 0x00;
+	
+	/* Determine the length of the URI so that it can be checked to see if it is a directory */
+	uint8_t FileNameLen = strlen(AppState->HTTPServer.FileName);
 
 	/* If the URI is a directory, append the default filename */
-	if (AppState->HTTPServer.FileName[strlen(AppState->HTTPServer.FileName) - 1] == '/')
+	if (AppState->HTTPServer.FileName[FileNameLen - 1] == '/')
 	{
-		strncpy_P(&AppState->HTTPServer.FileName[strlen(AppState->HTTPServer.FileName)], DefaultDirFileName,
-		          (sizeof(AppState->HTTPServer.FileName) - (strlen(AppState->HTTPServer.FileName) + 1)));
+		strncpy_P(&AppState->HTTPServer.FileName[FileNameLen], DefaultDirFileName,
+		          (sizeof(AppState->HTTPServer.FileName) - FileNameLen));
 
 		/* Ensure altered filename is still null-terminated */
-		AppState->HTTPServer.FileName[(sizeof(AppState->HTTPServer.FileName) - 1)] = 0x00;
+		AppState->HTTPServer.FileName[sizeof(AppState->HTTPServer.FileName) - 1] = 0x00;
 	}
 	
 	/* Try to open the file from the Dataflash disk */
@@ -233,7 +236,7 @@ static void HTTPServerApp_SendResponseHeader(void)
 	if (Extension != NULL)
 	{
 		/* Look through the MIME type list, copy over the required MIME type if found */
-		for (int i = 0; i < (sizeof(MIMETypes) / sizeof(MIMETypes[0])); i++)
+		for (uint8_t i = 0; i < (sizeof(MIMETypes) / sizeof(MIMETypes[0])); i++)
 		{
 			if (strcmp(&Extension[1], MIMETypes[i].Extension) == 0)
 			{
@@ -251,7 +254,7 @@ static void HTTPServerApp_SendResponseHeader(void)
 		strcpy_P(&AppData[strlen(AppData)], DefaultMIMEType);
 	}
 	
-	/* Add the end-of line terminator and end-of-headers terminator after the MIME type */
+	/* Add the end-of-line terminator and end-of-headers terminator after the MIME type */
 	strcpy(&AppData[strlen(AppData)], "\r\n\r\n");
 	
 	/* Send the MIME header to the receiving client */

@@ -80,7 +80,6 @@ uip_split_output(void)
 #endif /* UIP_CONF_IPV6 */
     
     /* Transmit the first packet. */
-    /*    uip_fw_output();*/
 #if UIP_CONF_IPV6
     tcpip_ipv6_output();
 #else
@@ -103,7 +102,6 @@ uip_split_output(void)
     BUF->len[1] = (uip_len - UIP_LLH_LEN) & 0xff;
 #endif /* UIP_CONF_IPV6 */
     
-    /*    uip_appdata += len1;*/
     memcpy(uip_appdata, (u8_t *)uip_appdata + len1, len2);
 
     uip_add32(BUF->seqno, len1);
@@ -123,12 +121,10 @@ uip_split_output(void)
 #endif /* UIP_CONF_IPV6 */
 
     /* Transmit the second packet. */
-    /*    uip_fw_output();*/
 #if UIP_CONF_IPV6
     tcpip_ipv6_output();
 #else
 	RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
-    //tcpip_output();
 #endif /* UIP_CONF_IPV6 */
     return;
   }
