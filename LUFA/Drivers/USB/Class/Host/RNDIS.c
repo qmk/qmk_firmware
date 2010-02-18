@@ -124,7 +124,6 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 				Pipe_ConfigurePipe(RNDISInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
 				                   EndpointData->EndpointAddress, EndpointData->EndpointSize, 
 				                   RNDISInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-
 				RNDISInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
 				
 				FoundEndpoints |= RNDIS_FOUND_DATAPIPE_OUT;
@@ -382,7 +381,7 @@ bool RNDIS_Host_IsPacketReceived(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfac
 	
 	Pipe_Unfreeze();
 
-	PacketWaiting = (Pipe_IsINReceived() && Pipe_BytesInPipe());
+	PacketWaiting = Pipe_IsINReceived();
 	
 	Pipe_Freeze();
 	
