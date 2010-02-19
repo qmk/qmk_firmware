@@ -41,12 +41,8 @@
 /** Initialization function for the DHCP client. */
 void DHCPClientApp_Init(void)
 {
-	/* Create an IP address to the broadcast network address */
-	uip_ipaddr_t DHCPServerIPAddress;
-	uip_ipaddr(&DHCPServerIPAddress, 255, 255, 255, 255);
-
 	/* Create a new UDP connection to the DHCP server port for the DHCP solicitation */
-	struct uip_udp_conn* Connection = uip_udp_new(&DHCPServerIPAddress, HTONS(DHCPC_SERVER_PORT));
+	struct uip_udp_conn* Connection = uip_udp_new(&uip_broadcast_addr, HTONS(DHCPC_SERVER_PORT));
 	
 	/* If the connection was successfully created, bind it to the local DHCP client port */
 	if (Connection != NULL)

@@ -100,13 +100,9 @@ void HTTPServerApp_Callback(void)
 
 	if (uip_aborted() || uip_timedout() || uip_closed())
 	{
-		/* Connection is being terminated for some reason - close file handle */
-		f_close(&AppState->HTTPServer.FileHandle);
-		AppState->HTTPServer.FileOpen = false;
-		
 		/* Lock to the closed state so that no further processing will occur on the connection */
-		AppState->HTTPServer.CurrentState  = WEBSERVER_STATE_Closed;
-		AppState->HTTPServer.NextState     = WEBSERVER_STATE_Closed;
+		AppState->HTTPServer.CurrentState  = WEBSERVER_STATE_Closing;
+		AppState->HTTPServer.NextState     = WEBSERVER_STATE_Closing;
 	}
 
 	if (uip_connected())
@@ -148,9 +144,15 @@ void HTTPServerApp_Callback(void)
 				HTTPServerApp_SendData();
 				break;
 			case WEBSERVER_STATE_Closing:
+				/* Connection is being terminated for some reason - close file handle */
+				f_close(&AppState->HTTPServer.FileHandle);
+				AppState->HTTPServer.FileOpen = false;
+		
+				/* If connection is not already closed, close it */
 				uip_close();
 				
-				AppState->HTTPServer.NextState = WEBSERVER_STATE_Closed;
+				AppState->HTTPServer.CurrentState = WEBSERVER_STATE_Closed;
+				AppState->HTTPServer.NextState    = WEBSERVER_STATE_Closed;
 				break;
 		}		  
 	}		

@@ -10,7 +10,9 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
- * \section Sec_MigrationXXXXXX Migrating from 091223 to XXXXXX
+ * \section Sec_MigrationXXXXXX Migrating from 100219 to XXXXXX
+ *
+ * \section Sec_Migration100219 Migrating from 091223 to 100219
  *
  *  <b>Non-USB Library Components</b>
  *    - Due to some ADC channels not being identical to their ADC MUX selection masks for single-ended conversions on some AVR models,

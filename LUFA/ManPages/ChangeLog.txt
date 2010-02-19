@@ -8,6 +8,8 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
+  *  \section Sec_ChangeLog100219 Version 100219
+  *
   *  <b>New:</b>
   *  - Added TPI programming support for 6-pin ATTINY devices to the AVRISP programmer project (thanks to Tom Light)
   *  - Added command timeout counter to the AVRISP project so that the device no longer freezes when incorrectly connected
