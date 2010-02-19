@@ -42,14 +42,6 @@ uint32_t CurrentAddress;
 /** Flag to indicate that the next read/write operation must update the device's current address */
 bool MustSetAddress;
 
-
-/** ISR for the management of the command execution timeout counter */
-ISR(TIMER0_COMPA_vect, ISR_BLOCK)
-{
-	if (TimeoutMSRemaining)
-	  TimeoutMSRemaining--;
-}
-
 /** Initializes the hardware and software associated with the V2 protocol command handling. */
 void V2Protocol_Init(void)
 {
@@ -76,10 +68,6 @@ void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_Byte();
 	
-	/* Set total command processing timeout value, enable timeout management interrupt */
-	TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
-	TIMSK0 |= (1 << OCIE0A);
-
 	switch (V2Command)
 	{
 		case CMD_SIGN_ON:
@@ -139,9 +127,6 @@ void V2Protocol_ProcessCommand(void)
 			V2Protocol_UnknownCommand(V2Command);
 			break;
 	}
-		
-	/* Disable timeout management interrupt once processing has completed */
-	TIMSK0 &= ~(1 << OCIE0A);
 
 	Endpoint_WaitUntilReady();
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);

@@ -49,50 +49,59 @@ volatile uint16_t           SoftUSART_Data;
 #define SoftUSART_BitCount  GPIOR2
 
 
-/** ISR to manage the PDI software USART when bit-banged PDI USART mode is selected. */
+/** ISR to manage the rising edge of the PDI/TPI software USART when bit-banged USART mode is selected. */
 ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
 	/* Toggle CLOCK pin in a single cycle (see AVR datasheet) */
 	BITBANG_PDICLOCK_PIN |= BITBANG_PDICLOCK_MASK;
+	TIFR1 |= (1 << OCF1B);
+	TIMSK1 = (1 << OCIE1B);
 
 	/* If not sending or receiving, just exit */
 	if (!(SoftUSART_BitCount))
 	  return;
 
-	/* Check to see if we are at a rising or falling edge of the clock */
-	if (BITBANG_PDICLOCK_PORT & BITBANG_PDICLOCK_MASK)
-	{
-		/* If at rising clock edge and we are in send mode, abort */
-		if (IsSending)
-		  return;
-		  
-		/* Wait for the start bit when receiving */
-		if ((SoftUSART_BitCount == BITS_IN_USART_FRAME) && (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK))
-		  return;
-	
-		/* Shift in the bit one less than the frame size in position, so that the start bit will eventually
-		 * be discarded leaving the data to be byte-aligned for quick access (subtract 9 as we are ORing to the MSB) */
-		if (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK)
-		  ((uint8_t*)&SoftUSART_Data)[1] |= (1 << (BITS_IN_USART_FRAME - 9));
+	/* If at rising clock edge and we are in send mode, abort */
+	if (IsSending)
+	  return;
+	  
+	/* Wait for the start bit when receiving */
+	if ((SoftUSART_BitCount == BITS_IN_USART_FRAME) && (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK))
+	  return;
 
-		SoftUSART_Data >>= 1;
-		SoftUSART_BitCount--;
-	}
+	/* Shift in the bit one less than the frame size in position, so that the start bit will eventually
+	 * be discarded leaving the data to be byte-aligned for quick access (subtract 9 as we are ORing to the MSB) */
+	if (BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK)
+	  ((uint8_t*)&SoftUSART_Data)[1] |= (1 << (BITS_IN_USART_FRAME - 9));
+
+	SoftUSART_Data >>= 1;
+	SoftUSART_BitCount--;
+}
+
+/** ISR to manage the falling edge of the PDI/TPI software USART when bit-banged USART mode is selected. */
+ISR(TIMER1_COMPB_vect, ISR_BLOCK)
+{
+	/* Toggle CLOCK pin in a single cycle (see AVR datasheet) */
+	BITBANG_PDICLOCK_PIN |= BITBANG_PDICLOCK_MASK;
+	TIFR1 |= (1 << OCF1A);
+	TIMSK1 = (1 << OCIE1A);
+
+	/* If not sending or receiving, just exit */
+	if (!(SoftUSART_BitCount))
+	  return;
+
+	/* If at falling clock edge and we are in receive mode, abort */
+	if (!IsSending)
+	  return;
+
+	/* Set the data line to the next bit value */
+	if (((uint8_t*)&SoftUSART_Data)[0] & 0x01)
+	  BITBANG_PDIDATA_PORT |=  BITBANG_PDIDATA_MASK;
 	else
-	{
-		/* If at falling clock edge and we are in receive mode, abort */
-		if (!IsSending)
-		  return;
+	  BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;		  
 
-		/* Set the data line to the next bit value */
-		if (((uint8_t*)&SoftUSART_Data)[0] & 0x01)
-		  BITBANG_PDIDATA_PORT |=  BITBANG_PDIDATA_MASK;
-		else
-		  BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;		  
-
-		SoftUSART_Data >>= 1;
-		SoftUSART_BitCount--;
-	}
+	SoftUSART_Data >>= 1;
+	SoftUSART_BitCount--;
 }
 
 /** ISR to manage the TPI software USART when bit-banged TPI USART mode is selected. */
@@ -172,7 +181,9 @@ void XPROGTarget_EnableTargetPDI(void)
 
 	/* Fire timer compare channel A ISR to manage the software USART */
 	OCR1A   = BITS_BETWEEN_USART_CLOCKS;
+	OCR1B   = BITS_BETWEEN_USART_CLOCKS;
 	TCCR1B  = (1 << WGM12) | (1 << CS10);
+	TCCR1C  = (1 << FOC1B);
 	TIMSK1  = (1 << OCIE1A);
 #endif
 
@@ -240,6 +251,10 @@ void XPROGTarget_DisableTargetPDI(void)
 	DDRD  &= ~((1 << 5) | (1 << 3));
 	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
 #else
+	/* Turn off software USART management timer */
+	TCCR1B = 0;
+	TCCR1C = 0;
+
 	/* Set /RESET high for a one millisecond to ensure target device is restarted */
 	BITBANG_PDICLOCK_PORT |= BITBANG_PDICLOCK_MASK;
 	_delay_ms(1);
@@ -250,7 +265,7 @@ void XPROGTarget_DisableTargetPDI(void)
 	
 	/* Tristate DATA and CLOCK lines */
 	BITBANG_PDIDATA_PORT  &= ~BITBANG_PDIDATA_MASK;
-	BITBANG_PDICLOCK_PORT &= ~BITBANG_PDICLOCK_MASK;
+	BITBANG_PDICLOCK_PORT &= ~BITBANG_PDICLOCK_MASK;	
 #endif
 }
 
@@ -270,6 +285,9 @@ void XPROGTarget_DisableTargetTPI(void)
 	DDRD  &= ~((1 << 5) | (1 << 3));
 	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
 #else
+	/* Turn off software USART management timer */
+	TCCR1B = 0;
+
 	/* Set DATA and CLOCK lines to inputs */
 	BITBANG_TPIDATA_DDR   &= ~BITBANG_TPIDATA_MASK;
 	BITBANG_TPICLOCK_DDR  &= ~BITBANG_TPICLOCK_MASK;
@@ -332,12 +350,31 @@ uint8_t XPROGTarget_ReceiveByte(void)
 
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Wait until a byte has been received before reading */
-	while (!(UCSR1A & (1 << RXC1)) && TimeoutMSRemaining);
+	uint8_t TimeoutMSRemaining = 100;
+	while (!(UCSR1A & (1 << RXC1)) && TimeoutMSRemaining)
+	{
+		/* Manage software timeout */
+		if (TIFR0 & (1 << OCF0A))
+		{
+			TIFR0 |= (1 << OCF0A);
+			TimeoutMSRemaining--;
+		}	
+	}
+	
 	return UDR1;
 #else
 	/* Wait until a byte has been received before reading */
 	SoftUSART_BitCount = BITS_IN_USART_FRAME;
-	while (SoftUSART_BitCount && TimeoutMSRemaining);
+	uint8_t TimeoutMSRemaining = 100;
+	while (SoftUSART_BitCount && TimeoutMSRemaining)
+	{
+		/* Manage software timeout */
+		if (TIFR0 & (1 << OCF0A))
+		{
+			TIFR0 |= (1 << OCF0A);
+			TimeoutMSRemaining--;
+		}
+	}
 
 	/* Throw away the parity and stop bits to leave only the data (start bit is already discarded) */
 	return (uint8_t)SoftUSART_Data;
@@ -431,7 +468,16 @@ static void XPROGTarget_SetRxMode(void)
 	}
 	
 	/* Wait until DATA line has been pulled up to idle by the target */
-	while (!(BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK) && TimeoutMSRemaining);
+	uint8_t TimeoutMSRemaining = 100;
+	while (!(BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK) && TimeoutMSRemaining)
+	{
+		/* Manage software timeout */
+		if (TIFR0 & (1 << OCF0A))
+		{
+			TIFR0 |= (1 << OCF0A);
+			TimeoutMSRemaining--;
+		}
+	}	
 #endif
 
 	IsSending = false;

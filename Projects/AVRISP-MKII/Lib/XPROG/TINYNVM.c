@@ -77,14 +77,19 @@ static void TINYNVM_SendWriteNVMRegister(const uint8_t Address)
 bool TINYNVM_WaitWhileNVMBusBusy(void)
 {
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
+	uint8_t TimeoutMSRemaining = 100;
 	while (TimeoutMSRemaining)
 	{
 		/* Send the SLDCS command to read the TPI STATUS register to see the NVM bus is active */
 		XPROGTarget_SendByte(TPI_CMD_SLDCS | TPI_STATUS_REG);
 		if (XPROGTarget_ReceiveByte() & TPI_STATUS_NVM)
+		  return true;
+
+		/* Manage software timeout */
+		if (TIFR0 & (1 << OCF0A))
 		{
-			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
-			return true;
+			TIFR0 |= (1 << OCF0A);
+			TimeoutMSRemaining--;
 		}
 	}
 
@@ -99,6 +104,7 @@ bool TINYNVM_WaitWhileNVMBusBusy(void)
 bool TINYNVM_WaitWhileNVMControllerBusy(void)
 {
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
+	uint8_t TimeoutMSRemaining = 100;
 	while (TimeoutMSRemaining)
 	{
 		/* Send the SIN command to read the TPI STATUS register to see the NVM bus is busy */
@@ -106,9 +112,13 @@ bool TINYNVM_WaitWhileNVMControllerBusy(void)
 
 		/* Check to see if the BUSY flag is still set */
 		if (!(XPROGTarget_ReceiveByte() & (1 << 7)))
+		  return true;
+
+		/* Manage software timeout */
+		if (TIFR0 & (1 << OCF0A))
 		{
-			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
-			return true;
+			TIFR0 |= (1 << OCF0A);
+			TimeoutMSRemaining--;
 		}
 	}
 

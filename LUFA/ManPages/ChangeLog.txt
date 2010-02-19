@@ -8,6 +8,16 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
+  *  <b>New:</b>
+  *  - (None)
+  *
+  *  <b>Changed:</b>
+  *  - AVRISP programmer project now has a more robust timeout system, allowing for a doubling of the software USART speed
+  *    for PDI and TPI programming
+  *
+  *  <b>Fixed:</b>
+  *  - (None)
+  *
   *  \section Sec_ChangeLog100219 Version 100219
   *
   *  <b>New:</b>
