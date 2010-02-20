@@ -111,7 +111,8 @@ void ISPTarget_ChangeTargetResetLine(const bool ResetTarget)
 uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint16_t PollAddress, const uint8_t PollValue,
                                       const uint8_t DelayMS, const uint8_t ReadMemCommand)
 {
-	uint8_t ProgrammingStatus = STATUS_CMD_OK;
+	uint8_t ProgrammingStatus  = STATUS_CMD_OK;
+	uint8_t TimeoutMSRemaining = 100;
 
 	/* Determine method of Programming Complete check */
 	switch (ProgrammingMode & ~(PROG_MODE_PAGED_WRITES_MASK | PROG_MODE_COMMIT_PAGE_MASK))
@@ -124,6 +125,13 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 		case PROG_MODE_PAGED_VALUE_MASK:
 			do
 			{
+				/* Manage software timeout */
+				if (TIFR0 & (1 << OCF0A))
+				{
+					TIFR0 |= (1 << OCF0A);
+					TimeoutMSRemaining--;
+				}
+
 				SPI_SendByte(ReadMemCommand);
 				SPI_SendByte(PollAddress >> 8);
 				SPI_SendByte(PollAddress & 0xFF);
@@ -139,9 +147,6 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 			ProgrammingStatus = ISPTarget_WaitWhileTargetBusy();
 			break;
 	}
-	
-	if (ProgrammingStatus == STATUS_CMD_OK)
-	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 
 	return ProgrammingStatus;
 }
@@ -153,11 +158,19 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
  */
 uint8_t ISPTarget_WaitWhileTargetBusy(void)
 {
+	uint8_t TimeoutMSRemaining = 100;
+
 	do
 	{
+		/* Manage software timeout */
+		if (TIFR0 & (1 << OCF0A))
+		{
+			TIFR0 |= (1 << OCF0A);
+			TimeoutMSRemaining--;
+		}	
+
 		SPI_SendByte(0xF0);
 		SPI_SendByte(0x00);
-
 		SPI_SendByte(0x00);
 	}
 	while ((SPI_ReceiveByte() & 0x01) && TimeoutMSRemaining);
