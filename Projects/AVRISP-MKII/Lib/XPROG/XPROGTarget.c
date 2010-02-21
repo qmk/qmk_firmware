@@ -59,6 +59,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	if (!(SoftUSART_BitCount))
 	  return;
 
+	/* Check to see if we are at a rising or falling edge of the clock */
 	if (BITBANG_PDICLOCK_PORT & BITBANG_PDICLOCK_MASK)
 	{
 		/* If at rising clock edge and we are in send mode, abort */
