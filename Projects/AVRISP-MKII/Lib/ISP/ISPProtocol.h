@@ -66,17 +66,6 @@
 		#define PROG_MODE_PAGED_READYBUSY_MASK  (1 << 6)
 		#define PROG_MODE_COMMIT_PAGE_MASK      (1 << 7)
 
-	/* Inline Functions: */
-		/** Blocking delay for a given number of milliseconds.
-		 *
-		 *  \param[in] DelayMS  Number of milliseconds to delay for
-		 */
-		static inline void ISPProtocol_DelayMS(uint8_t DelayMS)
-		{
-			while (DelayMS--)
-			  _delay_ms(1);
-		}
-
 	/* Function Prototypes: */
 		void ISPProtocol_EnterISPMode(void);
 		void ISPProtocol_LeaveISPMode(void);
@@ -86,5 +75,5 @@
 		void ISPProtocol_ReadFuseLockSigOSCCAL(const uint8_t V2Command);
 		void ISPProtocol_WriteFuseLock(const uint8_t V2Command);
 		void ISPProtocol_SPIMulti(void);
-
+		void ISPProtocol_DelayMS(uint8_t DelayMS);
 #endif

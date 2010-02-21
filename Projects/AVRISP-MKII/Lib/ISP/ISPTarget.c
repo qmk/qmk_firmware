@@ -112,7 +112,6 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
                                       const uint8_t DelayMS, const uint8_t ReadMemCommand)
 {
 	uint8_t ProgrammingStatus  = STATUS_CMD_OK;
-	uint8_t TimeoutMSRemaining = 100;
 
 	/* Determine method of Programming Complete check */
 	switch (ProgrammingMode & ~(PROG_MODE_PAGED_WRITES_MASK | PROG_MODE_COMMIT_PAGE_MASK))
@@ -148,6 +147,9 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 			break;
 	}
 
+	if (ProgrammingStatus == STATUS_CMD_OK)
+	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
+
 	return ProgrammingStatus;
 }
 
@@ -158,8 +160,6 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
  */
 uint8_t ISPTarget_WaitWhileTargetBusy(void)
 {
-	uint8_t TimeoutMSRemaining = 100;
-
 	do
 	{
 		/* Manage software timeout */
@@ -175,7 +175,15 @@ uint8_t ISPTarget_WaitWhileTargetBusy(void)
 	}
 	while ((SPI_ReceiveByte() & 0x01) && TimeoutMSRemaining);
 
-	return ((TimeoutMSRemaining) ? STATUS_CMD_OK : STATUS_RDY_BSY_TOUT);
+	if (TimeoutMSRemaining)
+	{
+		TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
+		return STATUS_CMD_OK;
+	}
+	else
+	{
+		return STATUS_RDY_BSY_TOUT;
+	}
 }
 
 /** Sends a low-level LOAD EXTENDED ADDRESS command to the target, for addressing of memory beyond the

@@ -75,7 +75,7 @@ void ISPProtocol_EnterISPMode(void)
 
 	/* Continuously attempt to synchronize with the target until either the number of attempts specified
 	 * by the host has exceeded, or the the device sends back the expected response values */
-	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus == STATUS_CMD_FAILED))
+	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus == STATUS_CMD_FAILED) && TimeoutMSRemaining)
 	{
 		uint8_t ResponseBytes[4];
 
@@ -515,6 +515,21 @@ void ISPProtocol_SPIMulti(void)
 		Endpoint_WaitUntilReady();	
 		Endpoint_ClearIN();
 		Endpoint_WaitUntilReady();	
+	}
+}
+
+/** Blocking delay for a given number of milliseconds.
+ *
+ *  \param[in] DelayMS  Number of milliseconds to delay for
+ */
+void ISPProtocol_DelayMS(uint8_t DelayMS)
+{
+	while (DelayMS-- && TimeoutMSRemaining)
+	{
+		if (TimeoutMSRemaining)
+		  TimeoutMSRemaining--;
+		  
+		_delay_ms(1);
 	}
 }
 

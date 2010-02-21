@@ -72,13 +72,15 @@ static void XMEGANVM_SendNVMRegAddress(const uint8_t Register)
 bool XMEGANVM_WaitWhileNVMBusBusy(void)
 {
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
-	uint8_t TimeoutMSRemaining = 100;
 	while (TimeoutMSRemaining)
 	{
 		/* Send the LDCS command to read the PDI STATUS register to see the NVM bus is active */
 		XPROGTarget_SendByte(PDI_CMD_LDCS | PDI_STATUS_REG);
 		if (XPROGTarget_ReceiveByte() & PDI_STATUS_NVM)
-		  return true;
+		{
+			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
+			return true;
+		}
 
 		/* Manage software timeout */
 		if (TIFR0 & (1 << OCF0A))
@@ -99,7 +101,6 @@ bool XMEGANVM_WaitWhileNVMBusBusy(void)
 bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 {
 	/* Poll the NVM STATUS register while the NVM controller is busy */
-	uint8_t TimeoutMSRemaining = 100;
 	while (TimeoutMSRemaining)
 	{
 		/* Send a LDS command to read the NVM STATUS register to check the BUSY flag */
@@ -108,7 +109,10 @@ bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 		
 		/* Check to see if the BUSY flag is still set */
 		if (!(XPROGTarget_ReceiveByte() & (1 << 7)))
-		  return true;
+		{
+			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
+			return true;
+		}
 
 		/* Manage software timeout */
 		if (TIFR0 & (1 << OCF0A))

@@ -350,7 +350,6 @@ uint8_t XPROGTarget_ReceiveByte(void)
 
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Wait until a byte has been received before reading */
-	uint8_t TimeoutMSRemaining = 100;
 	while (!(UCSR1A & (1 << RXC1)) && TimeoutMSRemaining)
 	{
 		/* Manage software timeout */
@@ -365,7 +364,6 @@ uint8_t XPROGTarget_ReceiveByte(void)
 #else
 	/* Wait until a byte has been received before reading */
 	SoftUSART_BitCount = BITS_IN_USART_FRAME;
-	uint8_t TimeoutMSRemaining = 100;
 	while (SoftUSART_BitCount && TimeoutMSRemaining)
 	{
 		/* Manage software timeout */
@@ -375,6 +373,9 @@ uint8_t XPROGTarget_ReceiveByte(void)
 			TimeoutMSRemaining--;
 		}
 	}
+
+	if (TimeoutMSRemaining)
+	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 
 	/* Throw away the parity and stop bits to leave only the data (start bit is already discarded) */
 	return (uint8_t)SoftUSART_Data;
@@ -468,7 +469,6 @@ static void XPROGTarget_SetRxMode(void)
 	}
 	
 	/* Wait until DATA line has been pulled up to idle by the target */
-	uint8_t TimeoutMSRemaining = 100;
 	while (!(BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK) && TimeoutMSRemaining)
 	{
 		/* Manage software timeout */
@@ -479,6 +479,9 @@ static void XPROGTarget_SetRxMode(void)
 		}
 	}	
 #endif
+
+    if (TimeoutMSRemaining)
+	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 
 	IsSending = false;
 }
