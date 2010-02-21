@@ -14,6 +14,7 @@
   *  <b>Changed:</b>
   *  - AVRISP programmer project now has a more robust timeout system, allowing for a doubling of the software USART speed
   *    for PDI and TPI programming
+  *  - Increased the speed of both software and hardware TPI/PDI programming modes of the AVRISP project
   *
   *  <b>Fixed:</b>
   *  - (None)

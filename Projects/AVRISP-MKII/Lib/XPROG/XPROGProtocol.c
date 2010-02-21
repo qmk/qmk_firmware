@@ -124,9 +124,9 @@ static void XPROGProtocol_EnterXPROGMode(void)
 		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
 		XPROGTarget_SendByte(PDI_RESET_KEY);
 
-		/* Lower direction change guard time to 8 USART bits */
+		/* Lower direction change guard time to 0 USART bits */
 		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_CTRL_REG);	
-		XPROGTarget_SendByte(0x04);
+		XPROGTarget_SendByte(0x07);
 
 		/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
 		XPROGTarget_SendByte(PDI_CMD_KEY);	
@@ -141,9 +141,9 @@ static void XPROGProtocol_EnterXPROGMode(void)
 		/* Enable TPI programming mode with the attached target */
 		XPROGTarget_EnableTargetTPI();
 		
-		/* Lower direction change guard time to 8 USART bits */
+		/* Lower direction change guard time to 0 USART bits */
 		XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_CTRL_REG);
-		XPROGTarget_SendByte(0x04);
+		XPROGTarget_SendByte(0x07);
 		
 		/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
 		XPROGTarget_SendByte(TPI_CMD_SKEY);	

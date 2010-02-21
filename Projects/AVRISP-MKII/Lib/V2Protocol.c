@@ -42,6 +42,8 @@ uint32_t CurrentAddress;
 /** Flag to indicate that the next read/write operation must update the device's current address */
 bool MustSetAddress;
 
+bool CommandTimedOut;
+
 /** Initializes the hardware and software associated with the V2 protocol command handling. */
 void V2Protocol_Init(void)
 {
@@ -67,6 +69,8 @@ void V2Protocol_Init(void)
 void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_Byte();
+	
+	CommandTimedOut = false;
 	
 	switch (V2Command)
 	{
