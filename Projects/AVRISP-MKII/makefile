@@ -66,7 +66,7 @@ MCU = at90usb1287
 # Target board (see library "Board Types" documentation, NONE for projects not requiring
 # LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
 # "Board" inside the application directory.
-BOARD = USBKEY
+BOARD = XPLAIN
 
 
 # Processor frequency.
