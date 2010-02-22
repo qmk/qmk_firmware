@@ -80,7 +80,7 @@
 				 */
 				static inline bool Serial_IsCharReceived(void);
 			#else
-				#define Serial_IsCharReceived() ((UCSR1A & (1 << RXC1)) ? true : false)
+				#define Serial_IsCharReceived() /* TODO */
 			#endif
 
 		/* Inline Functions: */
@@ -92,27 +92,13 @@
 			 */
 			static inline void Serial_Init(const uint32_t BaudRate, const bool DoubleSpeed)
 			{
-				UCSR1A = (DoubleSpeed ? (1 << U2X1) : 0);
-				UCSR1B = ((1 << TXEN1)  | (1 << RXEN1));
-				UCSR1C = ((1 << UCSZ11) | (1 << UCSZ10));
-				
-				DDRD  |= (1 << 3);	
-				PORTD |= (1 << 2);
-				
-				UBRR1  = (DoubleSpeed ? SERIAL_2X_UBBRVAL(BaudRate) : SERIAL_UBBRVAL(BaudRate));
+				// TODO
 			}
 
 			/** Turns off the USART driver, disabling and returning used hardware to their default configuration. */
 			static inline void Serial_ShutDown(void)
 			{
-				UCSR1A = 0;
-				UCSR1B = 0;
-				UCSR1C = 0;
-				
-				DDRD  &= ~(1 << 3);	
-				PORTD &= ~(1 << 2);
-				
-				UBRR1  = 0;
+				// TODO
 			}
 			
 			/** Transmits a given byte through the USART.
@@ -121,8 +107,7 @@
 			 */
 			static inline void Serial_TxByte(const char DataByte)
 			{
-				while (!(UCSR1A & (1 << UDRE1)));
-				UDR1 = DataByte;
+				// TODO
 			}
 
 			/** Receives a byte from the USART.
@@ -131,8 +116,7 @@
 			 */
 			static inline uint8_t Serial_RxByte(void)
 			{
-				while (!(UCSR1A & (1 << RXC1)));
-				return UDR1; 
+				// TODO
 			}
 
 	/* Disable C linkage for C++ Compilers: */
