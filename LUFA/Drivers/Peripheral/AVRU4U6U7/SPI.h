@@ -106,7 +106,7 @@
 			#define SPI_MODE_MASTER                (1 << MSTR)
 
 		/* Inline Functions: */
-			/** Initializes the SPI subsystem, ready for transfers. Must be called before calling any other
+			/** Initialises the SPI subsystem, ready for transfers. Must be called before calling any other
 			 *  SPI routines.
 			 *
 			 *  \param[in] SPIOptions  SPI Options, a mask consisting of one of each of the SPI_SPEED_*,

@@ -84,7 +84,7 @@
 		static inline void LEDs_SetAllLEDs(const uint8_t LEDMask) {};
 		static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask) {};
 		static inline void LEDs_ToggleLEDs(const uint8_t LEDMask) {};
-		static inline uint8_t LEDs_GetLEDs(void) { return 0; }
+		static inline uintN_t LEDs_GetLEDs(void) { return 0; }
 	#elif (BOARD == BOARD_USBKEY)
 		#include "USBKEY/LEDs.h"
 	#elif (BOARD == BOARD_STK525)
@@ -105,6 +105,8 @@
 		#include "EVK527/LEDs.h"		
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
+	#elif (BOARD == BOARD_EVK1101)
+		#include "EVK1101/LEDs.h"
 	#endif
 	
 	#if !defined(LEDS_LED1)
@@ -134,20 +136,20 @@
 		 *
 		 *  \param[in] LEDMask  Mask of the board LEDs to manipulate (see board-specific LEDs.h driver file)
 		 */
-		static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask);
+		static inline void LEDs_TurnOnLEDs(const uintN_t LEDMask);
 
 		/** Turns off the LEDs specified in the given LED mask.
 		 *
 		 *  \param[in] LEDMask  Mask of the board LEDs to manipulate (see board-specific LEDs.h driver file)
 		 */
-		static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask);
+		static inline void LEDs_TurnOffLEDs(const uintN_t LEDMask);
 
 		/** Turns off all LEDs not specified in the given LED mask, and turns on all the LEDs in the given LED
 		 *  mask.
 		 *
 		 *  \param[in] LEDMask  Mask of the board LEDs to manipulate (see board-specific LEDs.h driver file)
 		 */
-		static inline void LEDs_SetAllLEDs(const uint8_t LEDMask);
+		static inline void LEDs_SetAllLEDs(const uintN_t LEDMask);
 
 		/** Turns off all LEDs in the LED mask that are not set in the active mask, and turns on all the LEDs
 		 *  specified in both the LED and active masks.
@@ -155,20 +157,20 @@
 		 *  \param[in] LEDMask     Mask of the board LEDs to manipulate (see board-specific LEDs.h driver file)
 		 *  \param[in] ActiveMask  Mask of whether the LEDs in the LED mask should be turned on or off
 		 */
-		static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask);
+		static inline void LEDs_ChangeLEDs(const uintN_t LEDMask, const uintN_t ActiveMask);
 		
 		/** Toggles all LEDs in the LED mask, leaving all others in their current states.
 		 *
 		 *  \param[in] LEDMask Mask of the board LEDs to manipulate (see board-specific LEDs.h driver file)
 		 */
-		static inline void LEDs_ToggleLEDs(const uint8_t LEDMask);
+		static inline void LEDs_ToggleLEDs(const uintN_t LEDMask);
 
 		/** Returns the status of all the board LEDs; set LED masks in the return value indicate that the
 		 *  corresponding LED is on.
 		 *
 		 *  \return Mask of the board LEDs which are currently turned on
 		 */
-		static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
+		static inline uintN_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 	#endif
 
 #endif

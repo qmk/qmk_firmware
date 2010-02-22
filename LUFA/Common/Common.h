@@ -56,8 +56,17 @@
 #define __COMMON_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-	
+		#if defined(__AVR32__)
+			#include <avr32/io.h>
+			#include <stdint.h>
+
+			#include "Atomic.h"
+
+			#define PROGMEM
+		#else
+			#include <avr/io.h>
+		#endif
+
 		#include "FunctionAttributes.h"
 		#include "BoardTypes.h"
 
@@ -179,6 +188,14 @@
 				}
 			}
 
+		/* Type Defines: */
+			#if defined(__AVR32__)
+				typedef uint32_t uintN_t;
+				typedef int32_t intN_t;
+			#else
+				typedef uint8_t uintN_t;
+				typedef int8_t intN_t;
+			#endif
 #endif
 
 /** @} */

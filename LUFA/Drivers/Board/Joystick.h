@@ -83,6 +83,8 @@
 		#include "EVK527/Joystick.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/Joystick.h"
+	#elif (BOARD == BOARD_EVK1101)
+		#include "EVK1101/Joystick.h"
 	#else
 		#error The selected board does not contain a joystick.
 	#endif
@@ -100,7 +102,7 @@
 		 *  \return Mask indicating the joystick direction - see corresponding board specific Joystick.h file
 		 *          for direction masks
 		 */
-		static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+		static inline uintN_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 	#endif
 
 #endif

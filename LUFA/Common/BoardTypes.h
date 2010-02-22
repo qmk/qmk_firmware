@@ -94,6 +94,9 @@
 			 *  such as the Joystick driver, where the removal would adversely affect the code's operation is still disallowed. */
 			#define BOARD_NONE          10
 			
+			/** Selects the EVK1101 specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
+			#define BOARD_EVK1101       11
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 				

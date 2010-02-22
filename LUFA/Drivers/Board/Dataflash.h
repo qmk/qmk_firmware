@@ -167,6 +167,8 @@
 				#include "EVK527/Dataflash.h"
 			#elif (BOARD == BOARD_USER)
 				#include "Board/Dataflash.h"
+			#elif (BOARD = BOARD_EVK1101)
+				#include "EVK1101/Dataflash.h"
 			#else
 				#error The selected board does not contain a dataflash IC.
 			#endif

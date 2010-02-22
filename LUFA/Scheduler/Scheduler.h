@@ -86,12 +86,16 @@
 #define __SCHEDULER_H__
 
 	/* Includes: */
-		#include <avr/io.h>
+	#if defined(__AVR32__)
+		#include <avr32/io.h>
 		#include <stdbool.h>
-		
+	#else
+		#include <avr/io.h>
 		#include <util/atomic.h>
+		#include <stdbool.h>
+	#endif
 
-		#include "../Common/Common.h"
+	#include "../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
