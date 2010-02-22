@@ -62,7 +62,7 @@
 		#if defined(__AVR32__)
 			#include "AVR32/SPI.h"
 		#else
-			#include "AVRU4U6U7/SPI.h"		
+			#include "AVR8/SPI.h"		
 		#endif
 		
 #endif

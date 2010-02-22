@@ -63,7 +63,7 @@
 		#if defined(__AVR32__)
 			#include "AVR32/Serial.h"
 		#else
-			#include "AVRU4U6U7/Serial.h"		
+			#include "AVR8/Serial.h"		
 		#endif
 		
 		#include "../../Common/Common.h"
