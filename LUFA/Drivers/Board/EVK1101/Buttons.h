@@ -82,8 +82,7 @@
 				AVR32_GPIO.port[1].puers = (BUTTONS_BUTTON1 | BUTTONS_BUTTON2);
 			}
 
-			static inline uint32_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
-			static inline uint32_t Buttons_GetStatus(void)
+			static inline uintN_t Buttons_GetStatus(void)
 			{
 				return (~AVR32_GPIO.port[1].pvr & (BUTTONS_BUTTON1 | BUTTONS_BUTTON2));
 			}

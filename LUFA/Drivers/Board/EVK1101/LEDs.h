@@ -94,35 +94,34 @@
 				AVR32_GPIO.port[0].ovrs  = LEDS_ALL_LEDS;
 			}
 			
-			static inline void LEDs_TurnOnLEDs(const uint32_t LEDMask)
+			static inline void LEDs_TurnOnLEDs(const uintN_t LEDMask)
 			{
 				AVR32_GPIO.port[0].ovrc = LEDMask;
 			}
 
-			static inline void LEDs_TurnOffLEDs(const uint32_t LEDMask)
+			static inline void LEDs_TurnOffLEDs(const uintN_t LEDMask)
 			{
 				AVR32_GPIO.port[0].ovrs = LEDMask;
 			}
 
-			static inline void LEDs_SetAllLEDs(const uint32_t LEDMask)
+			static inline void LEDs_SetAllLEDs(const uintN_t LEDMask)
 			{
 				AVR32_GPIO.port[0].ovrs = LEDS_ALL_LEDS;
 				AVR32_GPIO.port[0].ovrc = LEDMask;
 			}
 			
-			static inline void LEDs_ChangeLEDs(const uint32_t LEDMask, const uint32_t ActiveMask)
+			static inline void LEDs_ChangeLEDs(const uintN_t LEDMask, const uintN_t ActiveMask)
 			{
 				AVR32_GPIO.port[0].ovrs = LEDMask;
 				AVR32_GPIO.port[0].ovrc = ActiveMask;
 			}
 			
-			static inline void LEDs_ToggleLEDs(const uint32_t LEDMask)
+			static inline void LEDs_ToggleLEDs(const uintN_t LEDMask)
 			{
 				AVR32_GPIO.port[0].ovrt = LEDMask;
 			}
 			
-			static inline uint32_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
-			static inline uint32_t LEDs_GetLEDs(void)
+			static inline uintN_t LEDs_GetLEDs(void)
 			{
 				return (AVR32_GPIO.port[0].ovr & LEDS_ALL_LEDS);
 			}

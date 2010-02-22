@@ -190,10 +190,16 @@
 
 		/* Type Defines: */
 			#if defined(__AVR32__)
+				/** Type define for an unsigned native word-sized chunk of data. */
 				typedef uint32_t uintN_t;
+
+				/** Type define for a signed native word-sized chunk of data. */
 				typedef int32_t intN_t;
 			#else
+				/** Type define for an unsigned native word-sized chunk of data. */
 				typedef uint8_t uintN_t;
+
+				/** Type define for a signed native word-sized chunk of data. */
 				typedef int8_t intN_t;
 			#endif
 #endif

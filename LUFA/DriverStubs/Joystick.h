@@ -82,8 +82,7 @@
 				// TODO: Initialize joystick port pins as inputs with pull-ups
 			}
 			
-			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
-			static inline uint8_t Joystick_GetStatus(void)
+			static inline uintN_t Joystick_GetStatus(void)
 			{
 				// TODO: Return current joystick position data which can be obtained by masking against the JOY_* macros
 			}
