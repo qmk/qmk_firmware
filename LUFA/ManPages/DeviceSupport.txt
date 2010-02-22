@@ -20,13 +20,13 @@
  *   - AT90USB647 (USB Host and Device)
  *   - AT90USB1286 (USB Device Only)
  *   - AT90USB1287 (USB Host and Device)
- *   - AT32UC3B0256 (EXPERIMENTAL)
+ *   - AT32UC3B0256 (EXPERIMENTAL - see \ref Sec_AVR32Port)
  *
  *  Currently supported Atmel boards:
  *   - AT90USBKEY
  *   - ATAVRUSBRF01
  *   - EVK527
- *   - EVK1101 (EXPERIMENTAL)
+ *   - EVK1101  (EXPERIMENTAL - see \ref Sec_AVR32Port)
  *   - RZUSBSTICK
  *   - STK525
  *   - STK526

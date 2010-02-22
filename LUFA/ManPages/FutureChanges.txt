@@ -33,7 +33,23 @@
   *      -# Finish SideShow demo
   *      -# Finish StandaloneProgrammer project
   *  - Ports
-  *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers
   *      -# Other (commercial) C compilers
+  *
+  *  \section Sec_AVR32Port AVR32 Port Status
+  *  The following drivers have been ported:
+  *    - Joystick Board Driver
+  *    - Buttons Board Driver
+  *    - LEDs Board Driver
+  *
+  *  The following drivers have been partially ported:
+  *    - SPI Peripheral Driver
+  *
+  *  The following drivers have not yet been ported:
+  *    - Dataflash Board Driver
+  *    - Temperature Board Driver
+  *    - Serial Peripheral Driver
+  *    - ADC Peripheral Driver
+  *    - TWI Peripheral Driver
+  *    - USB Driver
   */
