@@ -30,28 +30,33 @@
 
 /** \file
  *
- *  Hardware SPI subsystem driver for the supported USB AVRs models.
+ *  SPI driver for the 8-bit AVRs.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the SPI driver
+ *        dispatch header located in LUFA/Drivers/Peripheral/SPI.h.
  */
-
-/** \ingroup Group_PeripheralDrivers
- *  @defgroup Group_SPI SPI Driver - LUFA/Drivers/Peripheral/SPI.h
+ 
+/** \ingroup Group_SPI
+ *  @defgroup Group_SPI_AVR8 8-Bit AVR SPI Driver
  *
- *  \section Sec_Dependencies Module Source Dependencies
- *  The following files must be built with any user project that uses this module:
- *    - None
+ *  SPI driver for the 8-bit AVRs.
  *
- *  \section Module Description
- *  Driver for the hardware SPI port available on most AVR models. This module provides
- *  an easy to use driver for the setup of and transfer of data over the AVR's SPI port.
+ *  \note This file should not be included directly. It is automatically included as needed by the ADC driver
+ *        dispatch header located in LUFA/Drivers/Peripheral/SPI.h.
  *
  *  @{
  */
 
-#ifndef __SPI_H__
-#define __SPI_H__
+#ifndef __SPI_AVR8_H__
+#define __SPI_AVR8_H__
 
 	/* Includes: */
 		#include <stdbool.h>
+
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_SPI_H)
+			#error Do not include this file directly. Include LUFA/Drivers/Peripheral/SPI.h instead.
+		#endif
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

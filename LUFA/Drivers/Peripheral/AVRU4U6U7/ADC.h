@@ -30,16 +30,16 @@
 
 /** \file
  *
- *  ADC driver for the AT90USB1287, AT90USB1286, AT90USB647, AT90USB646, ATMEGA16U4 and ATMEGA32U4 AVRs.
+ *  ADC driver for the 8-Bit AVRs containing a hardware ADC module.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the ADC driver
  *        dispatch header located in LUFA/Drivers/Peripheral/ADC.h.
  */
 
 /** \ingroup Group_ADC
- *  @defgroup Group_ADC_AVRU4U6U7 Series U4, U6 and U7 Model ADC Driver
+ *  @defgroup Group_ADC_AVR8 8-Bit AVR ADC Driver
  *
- *  ADC driver for the AT90USB1287, AT90USB1286, AT90USB647, AT90USB646, ATMEGA16U4 and ATMEGA32U4 AVRs.
+ *  ADC driver for 8-Bit AVRs containing a hardware ADC module.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the ADC driver
  *        dispatch header located in LUFA/Drivers/Peripheral/ADC.h.
@@ -47,8 +47,8 @@
  *  @{
  */
  
-#ifndef __ADC_AVRU4U6U7_H__
-#define __ADC_AVRU4U6U7_H__
+#ifndef __ADC_AVR8_H__
+#define __ADC_AVR8_H__
 
 	/* Includes: */
 		#include "../../../Common/Common.h"

@@ -30,37 +30,34 @@
 
 /** \file
  *
- *  Driver for the USART subsystem on supported USB AVRs.
+ *  ADC driver for the 8-bit AVRs.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the USART driver
+ *        dispatch header located in LUFA/Drivers/Peripheral/Serial.h.
  */
  
-/** \ingroup Group_PeripheralDrivers
- *  @defgroup Group_Serial Serial USART Driver - LUFA/Drivers/Peripheral/Serial.h
+/** \ingroup Group_Serial
+ *  @defgroup Group_Serial_AVR8 8-Bit AVR Serial Driver
  *
- *  \section Sec_Dependencies Module Source Dependencies
- *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/Peripheral/Serial.c
+ *  Serial driver for the 8-bit AVRs.
  *
- *  \section Module Description
- *  Hardware serial USART driver. This module provides an easy to use driver for
- *  the setup of and transfer of data over the AVR's USART port.
+ *  \note This file should not be included directly. It is automatically included as needed by the ADC driver
+ *        dispatch header located in LUFA/Drivers/Peripheral/USART.h.
  *
  *  @{
  */
  
-#ifndef __SERIAL_H__
-#define __SERIAL_H__
+#ifndef __SERIAL_AVR8_H__
+#define __SERIAL_AVR8_H__
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/pgmspace.h>
 		#include <stdbool.h>
 		
-		#include "../../Common/Common.h"
-		#include "../Misc/TerminalCodes.h"
-
-	/* Enable C linkage for C++ Compilers: */
-		#if defined(__cplusplus)
-			extern "C" {
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_SERIAL_H)
+			#error Do not include this file directly. Include LUFA/Drivers/Peripheral/Serial.h instead.
 		#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -85,19 +82,6 @@
 			#else
 				#define Serial_IsCharReceived() ((UCSR1A & (1 << RXC1)) ? true : false)
 			#endif
-
-		/* Function Prototypes: */
-			/** Transmits a given string located in program space (FLASH) through the USART.
-			 *
-			 *  \param[in] FlashStringPtr  Pointer to a string located in program space
-			 */
-			void Serial_TxString_P(const char *FlashStringPtr) ATTR_NON_NULL_PTR_ARG(1);
-
-			/** Transmits a given string located in SRAM memory through the USART.
-			 *
-			 *  \param[in] StringPtr  Pointer to a string located in SRAM space
-			 */
-			void Serial_TxString(const char *StringPtr) ATTR_NON_NULL_PTR_ARG(1);
 
 		/* Inline Functions: */
 			/** Initializes the USART, ready for serial data transmission and reception. This initializes the interface to
@@ -145,7 +129,7 @@
 			 *
 			 *  \return Byte received from the USART
 			 */
-			static inline char Serial_RxByte(void)
+			static inline uint8_t Serial_RxByte(void)
 			{
 				while (!(UCSR1A & (1 << RXC1)));
 				return UDR1; 
