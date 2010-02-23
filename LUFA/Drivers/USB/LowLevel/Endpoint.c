@@ -40,12 +40,12 @@
 uint8_t USB_ControlEndpointSize = ENDPOINT_CONTROLEP_DEFAULT_SIZE;
 #endif
 
-uint8_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size)
+uintN_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size)
 {
 	return Endpoint_BytesToEPSizeMask(Size);
 }
 
-bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number, const uint8_t UECFG0XData, const uint8_t UECFG1XData)
+bool Endpoint_ConfigureEndpoint_Prv(const uintN_t Number, const uintN_t UECFG0XData, const uintN_t UECFG1XData)
 {
 	Endpoint_SelectEndpoint(Number);
 	Endpoint_EnableEndpoint();

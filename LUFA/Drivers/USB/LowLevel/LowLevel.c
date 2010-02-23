@@ -39,6 +39,10 @@ volatile uint8_t USB_CurrentMode = USB_MODE_NONE;
 volatile uint8_t USB_Options;
 #endif
 
+#if defined(__AVR32__) && !defined(CONTROL_ONLY_DEVICE)
+uint8_t USB_SelectedEPNumber;
+#endif
+
 void USB_Init(
                #if defined(USB_CAN_BE_BOTH)
                const uint8_t Mode
@@ -55,6 +59,10 @@ void USB_Init(
                #endif
                )
 {
+	#if defined(__AVR32__)
+	USB_SelectedEPNumber = 0;
+	#endif
+
 	#if defined(USB_CAN_BE_BOTH)
 	USB_CurrentMode = Mode;
 	#endif

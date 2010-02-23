@@ -354,6 +354,10 @@
 		#if !defined(__DOXYGEN__)
 			#define __INCLUDE_FROM_USB_DRIVER
 		#endif
+		
+		#if defined(__AVR32__)
+			#define __AVR32_EPREG_X(x) ((volatile uint32_t*)AVR32_USBB_ ## x)[USB_SelectedEPNumber]			
+		#endif
 
 	/* Includes: */
 		#include "HighLevel/USBMode.h"

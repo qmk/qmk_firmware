@@ -86,6 +86,7 @@
 		#endif
 
 		#include "../../../Common/Common.h"
+		#include "LowLevel.h"
 		#include "../HighLevel/USBTask.h"
 
 		#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
@@ -99,7 +100,7 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 		
 	/* Public Interface - May be used in end-application: */
@@ -554,7 +555,7 @@
 			static inline uint8_t Pipe_Read_Byte(void)
 			{
 				#if defined(__AVR32__)
-				return 0; // TODO
+				return __AVR32_EPREG_X(UEDAT0);
 				#elif defined(__AVR__)
 				return UPDATX;
 				#endif
@@ -570,7 +571,7 @@
 			static inline void Pipe_Write_Byte(const uint8_t Byte)
 			{
 				#if defined(__AVR32__)
-				// TODO
+				__AVR32_EPREG_X(UEDAT0) = Byte;
 				#elif defined(__AVR__)
 				UPDATX = Byte;
 				#endif
@@ -586,7 +587,7 @@
 				uint8_t Dummy;
 				
 				#if defined(__AVR32__)
-				// TODO
+				Dummy = __AVR32_EPREG_X(UEDAT0);
 				#elif defined(__AVR__)
 				Dummy = UPDATX;
 				#endif
@@ -609,7 +610,8 @@
 				} Data;
 				
 				#if defined(__AVR32__)
-				// TODO
+				Data.Bytes[0] = __AVR32_EPREG_X(UEDAT0);
+				Data.Bytes[1] = __AVR32_EPREG_X(UEDAT0);
 				#elif defined(__AVR__)
 				Data.Bytes[0] = UPDATX;
 				Data.Bytes[1] = UPDATX;
@@ -635,7 +637,8 @@
 				} Data;
 				
 				#if defined(__AVR32__)
-				// TODO
+				Data.Bytes[1] = __AVR32_EPREG_X(UEDAT0);
+				Data.Bytes[0] = __AVR32_EPREG_X(UEDAT0);
 				#elif defined(__AVR__)
 				Data.Bytes[1] = UPDATX;
 				Data.Bytes[0] = UPDATX;
@@ -655,7 +658,8 @@
 			static inline void Pipe_Write_Word_LE(const uint16_t Word)
 			{
 				#if defined(__AVR32__)
-				// TODO
+				__AVR32_EPREG_X(UEDAT0) = (Word & 0xFF);
+				__AVR32_EPREG_X(UEDAT0) = (Word >> 8);
 				#elif defined(__AVR__)
 				UPDATX = (Word & 0xFF);
 				UPDATX = (Word >> 8);
@@ -673,7 +677,8 @@
 			static inline void Pipe_Write_Word_BE(const uint16_t Word)
 			{
 				#if defined(__AVR32__)
-				// TODO
+				__AVR32_EPREG_X(UEDAT0) = (Word >> 8);
+				__AVR32_EPREG_X(UEDAT0) = (Word & 0xFF);
 				#elif defined(__AVR__)
 				UPDATX = (Word >> 8);
 				UPDATX = (Word & 0xFF);
@@ -690,7 +695,8 @@
 				uint8_t Dummy;
 				
 				#if defined(__AVR32__)
-				// TODO
+				Dummy = __AVR32_EPREG_X(UEDAT0);
+				Dummy = __AVR32_EPREG_X(UEDAT0);
 				#elif defined(__AVR__)
 				Dummy = UPDATX;
 				Dummy = UPDATX;
@@ -714,7 +720,10 @@
 				} Data;
 				
 				#if defined(__AVR32__)
-				// TODO
+				Data.Bytes[0] = __AVR32_EPREG_X(UEDAT0);
+				Data.Bytes[1] = __AVR32_EPREG_X(UEDAT0);
+				Data.Bytes[2] = __AVR32_EPREG_X(UEDAT0);
+				Data.Bytes[3] = __AVR32_EPREG_X(UEDAT0);
 				#elif defined(__AVR__)
 				Data.Bytes[0] = UPDATX;
 				Data.Bytes[1] = UPDATX;
@@ -742,12 +751,16 @@
 				} Data;
 				
 				#if defined(__AVR32__)
-				// TODO
+				Data.Bytes[3] = __AVR32_EPREG_X(UEDAT0);
+				Data.Bytes[2] = __AVR32_EPREG_X(UEDAT0);
+				Data.Bytes[1] = __AVR32_EPREG_X(UEDAT0);
+				Data.Bytes[0] = __AVR32_EPREG_X(UEDAT0);
 				#elif defined(__AVR__)
 				Data.Bytes[3] = UPDATX;
 				Data.Bytes[2] = UPDATX;
 				Data.Bytes[1] = UPDATX;
 				Data.Bytes[0] = UPDATX;
+				#endif
 			
 				return Data.DWord;
 			}
@@ -763,7 +776,10 @@
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord)
 			{
 				#if defined(__AVR32__)
-				// TODO
+				__AVR32_EPREG_X(UEDAT0) = (DWord &  0xFF);
+				__AVR32_EPREG_X(UEDAT0) = (DWord >> 8);
+				__AVR32_EPREG_X(UEDAT0) = (DWord >> 16);
+				__AVR32_EPREG_X(UEDAT0) = (DWord >> 24);
 				#elif defined(__AVR__)
 				UPDATX = (DWord &  0xFF);
 				UPDATX = (DWord >> 8);
@@ -783,7 +799,10 @@
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord)
 			{
 				#if defined(__AVR32__)
-				// TODO
+				__AVR32_EPREG_X(UEDAT0) = (DWord >> 24);
+				__AVR32_EPREG_X(UEDAT0) = (DWord >> 16);
+				__AVR32_EPREG_X(UEDAT0) = (DWord >> 8);
+				__AVR32_EPREG_X(UEDAT0) = (DWord &  0xFF);
 				#elif defined(__AVR__)
 				UPDATX = (DWord >> 24);
 				UPDATX = (DWord >> 16);
@@ -802,7 +821,10 @@
 				uint8_t Dummy;
 				
 				#if defined(__AVR32__)
-				// TODO
+				Dummy = __AVR32_EPREG_X(UEDAT0);
+				Dummy = __AVR32_EPREG_X(UEDAT0);
+				Dummy = __AVR32_EPREG_X(UEDAT0);
+				Dummy = __AVR32_EPREG_X(UEDAT0);
 				#elif defined(__AVR__)
 				Dummy = UPDATX;
 				Dummy = UPDATX;
@@ -932,6 +954,8 @@
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
+			 *  \note Not available on AVR32 UC3B targets.
+			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Pipe_Write_EStream_LE(const void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
@@ -980,6 +1004,8 @@
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *
+			 *  \note Not available on AVR32 UC3B targets.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -1030,6 +1056,8 @@
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
+			 *  \note Not available on AVR32 UC3B targets.
+			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Pipe_Read_EStream_LE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
@@ -1065,6 +1093,8 @@
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
+			 *  \note Not available on AVR32 UC3B targets.
+			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Pipe_Read_EStream_BE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
@@ -1085,9 +1115,13 @@
 			void Pipe_ClearPipes(void);
 
 		/* Inline Functions: */
-			static inline uint8_t Pipe_BytesToEPSizeMask(uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
-			static inline uint8_t Pipe_BytesToEPSizeMask(uint16_t Bytes)
+			static inline uintN_t Pipe_BytesToEPSizeMask(uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
+			static inline uintN_t Pipe_BytesToEPSizeMask(uint16_t Bytes)
 			{
+				#if defined(__AVR32__)
+				// TODO
+				return 0;
+				#elif defined(__AVR__)
 				if (Bytes <= 8)
 				  return (0 << EPSIZE0);
 				else if (Bytes <= 16)
@@ -1100,6 +1134,7 @@
 				  return (4 << EPSIZE0);
 				else
 				  return (5 << EPSIZE0);
+				#endif
 			}
 
 	#endif

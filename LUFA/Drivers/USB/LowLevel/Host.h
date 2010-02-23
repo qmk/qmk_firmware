@@ -63,7 +63,7 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 		
 	/* Public Interface - May be used in end-application: */
@@ -165,25 +165,29 @@
 				 */
 				static inline bool USB_Host_IsResumeFromWakeupRequestSent(void);
 			#else
-				#define USB_Host_ResetBus()                MACROS{ UHCON |=  (1 << RESET);          }MACROE
-
-				#define USB_Host_IsBusResetComplete()      ((UHCON &   (1 << RESET)) ? false : true)
-
-				#define USB_Host_ResumeBus()               MACROS{ UHCON |=  (1 << SOFEN);          }MACROE 
-
-				#define USB_Host_SuspendBus()              MACROS{ UHCON &= ~(1 << SOFEN);          }MACROE 
-				
-				#define USB_Host_IsBusSuspended()                ((UHCON &   (1 << SOFEN)) ? false : true)
-			
-				#define USB_Host_IsDeviceFullSpeed()             ((USBSTA &  (1 << SPEED)) ? true : false)
-
-				#define USB_Host_IsRemoteWakeupSent()            ((UHINT &   (1 << RXRSMI)) ? true : false)
-
-				#define USB_Host_ClearRemoteWakeupSent()   MACROS{ UHINT &= ~(1 << RXRSMI);         }MACROE
-
-				#define USB_Host_ResumeFromWakeupRequest() MACROS{ UHCON |=  (1 << RESUME);         }MACROE
-				
-				#define USB_Host_IsResumeFromWakeupRequestSent() ((UHCON &   (1 << RESUME)) ? false : true)
+				#if defined(__AVR32__)
+					#define USB_Host_ResetBus()                MACROS{ AVR32_USBB.UHCON.reset = true;   }MACROE
+					#define USB_Host_IsBusResetComplete()              AVR32_USBB.UHCON.reset
+					#define USB_Host_ResumeBus()               MACROS{ AVR32_USBB.UHCON.sofen = true;   }MACROE 
+					#define USB_Host_SuspendBus()              MACROS{ AVR32_USBB.UHCON.sofen = false;  }MACROE 
+					#define USB_Host_IsBusSuspended()                  AVR32_USBB.UHCON.sofen
+					#define USB_Host_IsDeviceFullSpeed()              (AVR32_USBB.USBSTA.speed == 0)   
+					#define USB_Host_IsRemoteWakeupSent()              AVR32_USBB.UHINT.rxrsmi
+					#define USB_Host_ClearRemoteWakeupSent()   MACROS{ AVR32_USBB.UHINTCLR.rxrsmic = true; }MACROE
+					#define USB_Host_ResumeFromWakeupRequest() MACROS{ AVR32_USBB.UHCON.resume = true;     }MACROE
+					#define USB_Host_IsResumeFromWakeupRequestSent()   AVR32_USBB.UHCON.resume			
+				#elif defined(__AVR__)
+					#define USB_Host_ResetBus()                MACROS{ UHCON |=  (1 << RESET);          }MACROE
+					#define USB_Host_IsBusResetComplete()            ((UHCON &   (1 << RESET))  ? false : true)
+					#define USB_Host_ResumeBus()               MACROS{ UHCON |=  (1 << SOFEN);          }MACROE 
+					#define USB_Host_SuspendBus()              MACROS{ UHCON &= ~(1 << SOFEN);          }MACROE 
+					#define USB_Host_IsBusSuspended()                ((UHCON &   (1 << SOFEN))  ? false : true)
+					#define USB_Host_IsDeviceFullSpeed()             ((USBSTA &  (1 << SPEED))  ? true : false)
+					#define USB_Host_IsRemoteWakeupSent()            ((UHINT &   (1 << RXRSMI)) ? true : false)
+					#define USB_Host_ClearRemoteWakeupSent()   MACROS{ UHINT &= ~(1 << RXRSMI);         }MACROE
+					#define USB_Host_ResumeFromWakeupRequest() MACROS{ UHCON |=  (1 << RESUME);         }MACROE
+					#define USB_Host_IsResumeFromWakeupRequestSent() ((UHCON &   (1 << RESUME)) ? false : true)
+				#endif
 			#endif
 
 		/* Function Prototypes: */
@@ -381,20 +385,36 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define USB_Host_HostMode_On()          MACROS{ USBCON |=  (1 << HOST);           }MACROE
-			#define USB_Host_HostMode_Off()         MACROS{ USBCON &= ~(1 << HOST);           }MACROE
+			#if defined(__AVR32__)
+				#define USB_Host_HostMode_On()          MACROS{ AVR32_USBB.USBCON.uimod = false;  }MACROE
+				#define USB_Host_HostMode_Off()         MACROS{ AVR32_USBB.USBCON.uimod = true;   }MACROE
 
-			#define USB_Host_VBUS_Auto_Enable()     MACROS{ OTGCON &= ~(1 << VBUSHWC); UHWCON |=  (1 << UVCONE);                   }MACROE
-			#define USB_Host_VBUS_Manual_Enable()   MACROS{ OTGCON |=  (1 << VBUSHWC); UHWCON &= ~(1 << UVCONE); DDRE |= (1 << 7); }MACROE
+				#define USB_Host_VBUS_Auto_Enable()     MACROS{ OTGCON &= ~(1 << VBUSHWC); UHWCON |=  (1 << UVCONE);                   }MACROE
+				#define USB_Host_VBUS_Manual_Enable()   MACROS{ OTGCON |=  (1 << VBUSHWC); UHWCON &= ~(1 << UVCONE); DDRE |= (1 << 7); }MACROE
 
-			#define USB_Host_VBUS_Auto_On()         MACROS{ OTGCON |= (1 << VBUSREQ);         }MACROE
-			#define USB_Host_VBUS_Manual_On()       MACROS{ PORTE  |= (1 << 7);               }MACROE
+				#define USB_Host_VBUS_Auto_On()         MACROS{ OTGCON |= (1 << VBUSREQ);         }MACROE
+				#define USB_Host_VBUS_Manual_On()       MACROS{ PORTE  |= (1 << 7);               }MACROE
 
-			#define USB_Host_VBUS_Auto_Off()        MACROS{ OTGCON |=  (1 << VBUSRQC);        }MACROE
-			#define USB_Host_VBUS_Manual_Off()      MACROS{ PORTE  &= ~(1 << 7);              }MACROE
+				#define USB_Host_VBUS_Auto_Off()        MACROS{ OTGCON |=  (1 << VBUSRQC);        }MACROE
+				#define USB_Host_VBUS_Manual_Off()      MACROS{ PORTE  &= ~(1 << 7);              }MACROE
 
-			#define USB_Host_SetDeviceAddress(addr) MACROS{ UHADDR  =  ((addr) & 0x7F);       }MACROE
+				#define USB_Host_SetDeviceAddress(addr) MACROS{ UHADDR  =  ((addr) & 0x7F);       }MACROE			
+			#elif defined(__AVR__)
+				#define USB_Host_HostMode_On()          MACROS{ USBCON |=  (1 << HOST);           }MACROE
+				#define USB_Host_HostMode_Off()         MACROS{ USBCON &= ~(1 << HOST);           }MACROE
 
+				#define USB_Host_VBUS_Auto_Enable()     MACROS{ OTGCON &= ~(1 << VBUSHWC); UHWCON |=  (1 << UVCONE);                   }MACROE
+				#define USB_Host_VBUS_Manual_Enable()   MACROS{ OTGCON |=  (1 << VBUSHWC); UHWCON &= ~(1 << UVCONE); DDRE |= (1 << 7); }MACROE
+
+				#define USB_Host_VBUS_Auto_On()         MACROS{ OTGCON |= (1 << VBUSREQ);         }MACROE
+				#define USB_Host_VBUS_Manual_On()       MACROS{ PORTE  |= (1 << 7);               }MACROE
+
+				#define USB_Host_VBUS_Auto_Off()        MACROS{ OTGCON |=  (1 << VBUSRQC);        }MACROE
+				#define USB_Host_VBUS_Manual_Off()      MACROS{ PORTE  &= ~(1 << 7);              }MACROE
+
+				#define USB_Host_SetDeviceAddress(addr) MACROS{ UHADDR  =  ((addr) & 0x7F);       }MACROE
+			#endif
+			
 		/* Enums: */
 			enum USB_Host_WaitMSErrorCodes_t
 			{

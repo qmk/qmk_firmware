@@ -39,6 +39,15 @@
 #ifndef __USBLOWLEVEL_H__
 #define __USBLOWLEVEL_H__
 
+	/* External Variables: */
+		#if defined(__AVR32__)
+			#if !defined(CONTROL_ONLY_DEVICE)
+				extern uint8_t USB_SelectedEPNumber;
+			#else
+				#define USB_SelectedEPNumber  0
+			#endif
+		#endif
+	
 	/* Includes: */
 		#if defined(__AVR32__)
 			#include <avr32/io.h>
@@ -77,7 +86,7 @@
 
 	/* Preprocessor Checks and Defines: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 
 		#if !defined(F_CLOCK)
@@ -354,16 +363,22 @@
 			#define USB_Controller_Disable()   MACROS{ USBCON  &= ~(1 << USBE);                 }MACROE
 			#define USB_Controller_Reset()     MACROS{ const uint8_t Temp = USBCON; USBCON = (Temp & ~(1 << USBE)); \
 			                                           USBCON = (Temp | (1 << USBE));           }MACROE
-	
 		/* Inline Functions: */
 			#if defined(USB_CAN_BE_BOTH)
 			static inline uint8_t USB_GetUSBModeFromUID(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t USB_GetUSBModeFromUID(void)
 			{
+				#if defined(__AVR32__)
+				if (AVR32_USBB.USBSTA.id)
+				  return USB_MODE_DEVICE;
+				else
+				  return USB_MODE_HOST;				
+				#elif defined(__AVR__)
 				if (USBSTA & (1 << ID))
 				  return USB_MODE_DEVICE;
 				else
 				  return USB_MODE_HOST;
+				#endif
 			}
 			#endif
 			

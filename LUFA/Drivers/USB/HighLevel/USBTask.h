@@ -63,7 +63,7 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 		
 	/* Public Interface - May be used in end-application: */
@@ -87,7 +87,7 @@
 			 extern USB_Request_Header_t USB_ControlRequest;
 			
 			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
-				#if !defined(HOST_STATE_AS_GPIOR) || defined(__DOXYGEN__)
+				#if (!defined(__AVR32__) && !defined(HOST_STATE_AS_GPIOR)) || defined(__DOXYGEN__)
 					/** Indicates the current host state machine state. When in host mode, this indicates the state
 					 *  via one of the values of the \ref USB_Host_States_t enum values.
 					 *
@@ -116,7 +116,7 @@
 			#endif
 
 			#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
-				#if !defined(DEVICE_STATE_AS_GPIOR) || defined(__DOXYGEN__)
+				#if (!defined(__AVR32__) && !defined(DEVICE_STATE_AS_GPIOR)) || defined(__DOXYGEN__)
 					/** Indicates the current device state machine state. When in device mode, this indicates the state
 					 *  via one of the values of the \ref USB_Device_States_t enum values.
 					 *
