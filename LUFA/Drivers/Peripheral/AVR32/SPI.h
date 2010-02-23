@@ -82,58 +82,69 @@
 			/** Initialises the SPI subsystem, ready for transfers. Must be called before calling any other
 			 *  SPI routines.
 			 *
+			 *  \note The individual AVR32 chip select control registers are left at their defaults; it is up to the user
+			 *        to configure these seperately once the SPI module has been initialized.
+			 *
+			 *  \note The physical GPIO pins for the AVR32's SPI are not altered; it is up to the user to
+			 *        configure these seperately to connect the SPI module to the desired GPIO pins via the
+			 *        GPIO MUX registers.
+			 *
 			 *  \param[in] SPIOptions  SPI Options, a mask consisting of one of each of the SPI_SPEED_*
 			 *                         and SPI_MODE_* masks
 			 */
-			static inline void SPI_Init(const uint8_t SPIOptions)
+			static inline void SPI_Init(const uintN_t SPIOptions)
 			{
-				AVR32_SPI.cr = AVR32_SPI_CR_SPIEN_MASK | AVR32_SPI_CR_SWRST_MASK;
+				AVR32_SPI.cr = (AVR32_SPI_CR_SPIEN_MASK | AVR32_SPI_CR_SWRST_MASK);
 				AVR32_SPI.mr = SPIOptions;
 			}
-			
+
 			/** Turns off the SPI driver, disabling and returning used hardware to their default configuration. */
 			static inline void SPI_ShutDown(void)
 			{
 				AVR32_SPI.cr = AVR32_SPI_CR_SPIDIS_MASK;
 			}
 			
-			/** Sends and receives a byte through the SPI interface, blocking until the transfer is complete.
+			/** Sends and receives a transfer through the SPI interface, blocking until the transfer is complete.
+			 *  The width of the data that is transferred is dependant on the settings of the currently selected
+			 *  peripheral.
 			 *
-			 *  \param[in] Byte  Byte to send through the SPI interface
+			 *  \param[in] Data  Data to send through the SPI interface
 			 *
-			 *  \return Response byte from the attached SPI device
+			 *  \return Response data from the attached SPI device
 			 */
-			static inline uint8_t SPI_TransferByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
-			static inline uint8_t SPI_TransferByte(const uint8_t Byte)
+			static inline uint16_t SPI_Transfer(const uint16_t Data) ATTR_ALWAYS_INLINE;
+			static inline uint16_t SPI_Transfer(const uint16_t Data)
 			{
-				AVR32_SPI.tdr = Byte;
-				// TODO: Wait for receive
+				AVR32_SPI.TDR.td = Data;
+				while (!(AVR32_SPI.SR.tdre));
 				return AVR32_SPI.rdr;
 			}
 
-			/** Sends a byte through the SPI interface, blocking until the transfer is complete. The response
-			 *  byte sent to from the attached SPI device is ignored.
+			/** Sends a transfer through the SPI interface, blocking until the transfer is complete. The response
+			 *  data sent to from the attached SPI device is ignored. The width of the data that is transferred is
+			 *  dependant on the settings of the currently selected peripheral.
 			 *
-			 *  \param[in] Byte Byte to send through the SPI interface
+			 *  \param[in] Data  Data to send through the SPI interface
 			 */
-			static inline void SPI_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
-			static inline void SPI_SendByte(const uint8_t Byte)
+			static inline void SPI_Send(const uint16_t Data) ATTR_ALWAYS_INLINE;
+			static inline void SPI_Send(const uint16_t Data)
 			{
-				AVR32_SPI.tdr = Byte;
-				// TODO: Wait for receive				
+				AVR32_SPI.TDR.td = Data;
+				while (!(AVR32_SPI.SR.tdre));
 			}
 
-			/** Sends a dummy byte through the SPI interface, blocking until the transfer is complete. The response
-			 *  byte from the attached SPI device is returned.
+			/** Sends a dummy transfer through the SPI interface, blocking until the transfer is complete. The response
+			 *  data from the attached SPI device is returned. The width of the data that is transferred is dependant on
+			 *  the settings of the currently selected peripheral.
 			 *
-			 *  \return The response byte from the attached SPI device
+			 *  \return The response data from the attached SPI device
 			 */
-			static inline uint8_t SPI_ReceiveByte(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
-			static inline uint8_t SPI_ReceiveByte(void)
+			static inline uint16_t SPI_Receive(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+			static inline uint16_t SPI_Receive(void)
 			{
-				AVR32_SPI.tdr = 0x00;
-				// TODO: Wait for receive				
-				return AVR32_SPI.rdr;
+				AVR32_SPI.TDR.td = 0x0000;
+				while (!(AVR32_SPI.SR.tdre));
+				return AVR32_SPI.RDR.rd;
 			}
 
 	/* Disable C linkage for C++ Compilers: */

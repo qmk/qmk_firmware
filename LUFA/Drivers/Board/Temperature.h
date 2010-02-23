@@ -54,8 +54,10 @@
 
 	/* Includes: */
 		#if defined(__AVR32__)
+			#include <avr32/io.h>
 			#include <stdint.h>
-		#else
+		#elif defined(__AVR__)
+			#include <avr/io.h>
 			#include <avr/pgmspace.h>
 		#endif
 

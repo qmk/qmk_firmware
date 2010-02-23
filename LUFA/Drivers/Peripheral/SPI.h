@@ -59,9 +59,11 @@
 	#endif
 
 	/* Includes: */
+		#include "../../Common/Common.h"		
+
 		#if defined(__AVR32__)
 			#include "AVR32/SPI.h"
-		#else
+		#elif defined(__AVR__)
 			#include "AVR8/SPI.h"		
 		#endif
 		

@@ -13,7 +13,9 @@
  * \section Sec_MigrationXXXXXX Migrating from 100219 to XXXXXX
  *
  * \section Sec_Migration100219 Migrating from 091223 to 100219
- *    - (None)
+ *  <b>Non-USB Library Components</b>
+ *    - The "Byte" suffix on the SPI peripheral driver's send and receive routines has been dropped, to make the interface consistant
+ *      between the AVR8 driver and the new AVR32 driver, which supports variable width transfers.
  *
  *  <b>Non-USB Library Components</b>
  *    - Due to some ADC channels not being identical to their ADC MUX selection masks for single-ended conversions on some AVR models,

@@ -118,7 +118,7 @@
 			 *  \param[in] SPIOptions  SPI Options, a mask consisting of one of each of the SPI_SPEED_*,
 			 *                         SPI_SCK_*, SPI_SAMPLE_* and SPI_MODE_* masks
 			 */
-			static inline void SPI_Init(const uint8_t SPIOptions)
+			static inline void SPI_Init(const uintN_t SPIOptions)
 			{
 				DDRB  |= ((1 << 1) | (1 << 2));
 				PORTB |= ((1 << 0) | (1 << 3));
@@ -143,14 +143,14 @@
 			
 			/** Sends and receives a byte through the SPI interface, blocking until the transfer is complete.
 			 *
-			 *  \param[in] Byte  Byte to send through the SPI interface
+			 *  \param[in] Data  Byte to send through the SPI interface
 			 *
 			 *  \return Response byte from the attached SPI device
 			 */
-			static inline uint8_t SPI_TransferByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
-			static inline uint8_t SPI_TransferByte(const uint8_t Byte)
+			static inline uint8_t SPI_Transfer(const uint8_t Data) ATTR_ALWAYS_INLINE;
+			static inline uint8_t SPI_Transfer(const uint8_t Data)
 			{
-				SPDR = Byte;
+				SPDR = Data;
 				while (!(SPSR & (1 << SPIF)));
 				return SPDR;
 			}
@@ -158,12 +158,12 @@
 			/** Sends a byte through the SPI interface, blocking until the transfer is complete. The response
 			 *  byte sent to from the attached SPI device is ignored.
 			 *
-			 *  \param[in] Byte Byte to send through the SPI interface
+			 *  \param[in] Data  Byte to send through the SPI interface
 			 */
-			static inline void SPI_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
-			static inline void SPI_SendByte(const uint8_t Byte)
+			static inline void SPI_Send(const uint8_t Data) ATTR_ALWAYS_INLINE;
+			static inline void SPI_Send(const uint8_t Data)
 			{
-				SPDR = Byte;
+				SPDR = Data;
 				while (!(SPSR & (1 << SPIF)));
 			}
 
@@ -172,13 +172,28 @@
 			 *
 			 *  \return The response byte from the attached SPI device
 			 */
-			static inline uint8_t SPI_ReceiveByte(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
-			static inline uint8_t SPI_ReceiveByte(void)
+			static inline uint8_t SPI_Receive(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t SPI_Receive(void)
 			{
 				SPDR = 0x00;
 				while (!(SPSR & (1 << SPIF)));
 				return SPDR;
 			}
+	
+			#if defined(__DOXYGEN__)
+				/** Alias for \ref SPI_Transfer(), for compatibility with legacy LUFA applications. */
+				static inline uint8_t SPI_TransferByte(const uint8_t Byte) ATTR_DEPRECATED;
+
+				/** Alias for \ref SPI_Send(), for compatibility with legacy LUFA applications. */
+				static inline void SPI_SendByte(const uint8_t Byte) ATTR_DEPRECATED;
+
+				/** Alias for \ref SPI_Receive(), for compatibility with legacy LUFA applications. */
+				static inline uint8_t SPI_ReceiveByte(void) ATTR_DEPRECATED;
+			#else
+				#define SPI_TransferByte(x)      SPI_Transfer(x)
+				#define SPI_SendByte(x)          SPI_Send(x)
+				#define SPI_ReceiveByte()        SPI_Receive()
+			#endif
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

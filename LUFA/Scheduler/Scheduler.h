@@ -61,7 +61,7 @@
  *      {
  *      	{ .Task = MyTask1, .TaskStatus = TASK_RUN, .GroupID = 1  },
  *      	{ .Task = MyTask2, .TaskStatus = TASK_RUN, .GroupID = 1  },
- *      }
+ *      };
  *
  *      int main(void)
  *      {
@@ -89,7 +89,7 @@
 	#if defined(__AVR32__)
 		#include <avr32/io.h>
 		#include <stdbool.h>
-	#else
+	#elif defined(__AVR__)
 		#include <avr/io.h>
 		#include <util/atomic.h>
 		#include <stdbool.h>

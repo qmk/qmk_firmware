@@ -63,7 +63,7 @@
 			#include "Atomic.h"
 
 			#define PROGMEM const
-		#else
+		#elif defined(__AVR__)
 			#include <avr/io.h>
 		#endif
 
@@ -195,7 +195,7 @@
 
 				/** Type define for a signed native word-sized chunk of data. */
 				typedef int32_t intN_t;
-			#else
+			#elif defined(__AVR__)
 				/** Type define for an unsigned native word-sized chunk of data. */
 				typedef uint8_t uintN_t;
 

@@ -60,15 +60,15 @@
 	#endif
 
 	/* Includes: */
+		#include "../../Common/Common.h"		
+		#include "../Misc/TerminalCodes.h"
+
 		#if defined(__AVR32__)
 			#include "AVR32/Serial.h"
-		#else
+		#elif defined(__AVR__)
 			#include "AVR8/Serial.h"		
 		#endif
 		
-		#include "../../Common/Common.h"
-		#include "../Misc/TerminalCodes.h"
-
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {

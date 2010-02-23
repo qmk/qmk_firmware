@@ -41,13 +41,14 @@
   *    - Joystick Board Driver
   *    - Buttons Board Driver
   *    - LEDs Board Driver
+  *    - Simple Scheduler
+  *    - Temperature Board Driver
   *
   *  The following drivers have been partially ported:
   *    - SPI Peripheral Driver
   *
   *  The following drivers have not yet been ported:
   *    - Dataflash Board Driver
-  *    - Temperature Board Driver
   *    - Serial Peripheral Driver
   *    - ADC Peripheral Driver
   *    - TWI Peripheral Driver

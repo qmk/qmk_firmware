@@ -51,8 +51,6 @@
 #define __TWI_AVR8_H__
 
 	/* Includes: */
-		#include "../../../Common/Common.h"
-		
 		#include <avr/io.h>
 		#include <stdbool.h>
 		#include <util/twi.h>
