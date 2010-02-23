@@ -46,11 +46,11 @@
   *
   *  The following drivers have been partially ported:
   *    - SPI Peripheral Driver
+  *    - USB Driver
   *
   *  The following drivers have not yet been ported:
   *    - Dataflash Board Driver
   *    - Serial Peripheral Driver
   *    - ADC Peripheral Driver
   *    - TWI Peripheral Driver
-  *    - USB Driver
   */

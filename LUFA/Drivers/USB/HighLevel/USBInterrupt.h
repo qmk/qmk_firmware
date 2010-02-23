@@ -32,8 +32,14 @@
 #define __USBINTERRUPT_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
+		#if defined(__AVR32__)
+			#include <avr32/io.h>
+			#include <stdbool.h>
+			#include <stdint.h>
+		#elif defined(__AVR__)
+			#include <avr/io.h>
+			#include <stdbool.h>
+		#endif
 		
 		#include "../../../Common/Common.h"
 		#include "../LowLevel/LowLevel.h"

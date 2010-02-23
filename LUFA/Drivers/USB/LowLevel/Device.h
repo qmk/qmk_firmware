@@ -41,9 +41,11 @@
 #define __USBDEVICE_H__
 
 	/* Includes: */
-		#include <avr/pgmspace.h>
-		#include <avr/eeprom.h>
-
+		#if defined(__AVR__)
+			#include <avr/pgmspace.h>
+			#include <avr/eeprom.h>
+		#endif
+		
 		#include "../../../Common/Common.h"	
 		#include "../HighLevel/StdDescriptors.h"
 		#include "Endpoint.h"
@@ -59,7 +61,8 @@
 			
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
+			#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || \
+			     defined(USB_SERIES_UC3B_AVR) || defined(__DOXYGEN__))
 				/** Mask for the Options parameter of the \ref USB_Init() function. This indicates that the
 				 *  USB interface should be initialized in low speed (1.5Mb/s) mode.
 				 *
@@ -68,13 +71,13 @@
 				 *  \note Restrictions apply on the number, size and type of endpoints which can be used
 				 *        when running in low speed mode -- refer to the USB 2.0 standard.
 				 */
-				#define USB_DEVICE_OPT_LOWSPEED            (1 << 0)
+				#define USB_DEVICE_OPT_LOWSPEED       (1 << 0)
 			#endif
 			
 			/** Mask for the Options parameter of the USB_Init() function. This indicates that the
 			 *  USB interface should be initialized in full speed (12Mb/s) mode.
 			 */
-			#define USB_DEVICE_OPT_FULLSPEED               (0 << 0)
+			#define USB_DEVICE_OPT_FULLSPEED          (0 << 0)
 			
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
@@ -129,16 +132,25 @@
 				 */
 				static inline bool USB_Device_DisableSOFEvents(void);
 			#else
-				#if !defined(NO_DEVICE_REMOTE_WAKEUP)
-					#define USB_Device_SendRemoteWakeup()   MACROS{ UDCON |= (1 << RMWKUP); }MACROE
+				#if defined(__AVR32__)
+					#if !defined(NO_DEVICE_REMOTE_WAKEUP)
+						#define USB_Device_SendRemoteWakeup()   MACROS{ AVR32_USBB.UDCON.rmwkup = true; }MACROE
 
-					#define USB_Device_IsRemoteWakeupSent()       ((UDCON &  (1 << RMWKUP)) ? false : true)
+						#define USB_Device_IsRemoteWakeupSent()         AVR32_USBB.UDCON.rmwkup
+					#endif
+					
+					#define USB_Device_IsUSBSuspended()                 AVR32_USBB.UDINT.susp					
+				#elif defined(__AVR__)
+					#if !defined(NO_DEVICE_REMOTE_WAKEUP)
+						#define USB_Device_SendRemoteWakeup()   MACROS{ UDCON |= (1 << RMWKUP); }MACROE
+
+						#define USB_Device_IsRemoteWakeupSent()       ((UDCON &  (1 << RMWKUP)) ? false : true)
+					#endif
+					
+					#define USB_Device_IsUSBSuspended()               ((UDINT & (1 << SUSPI)) ? true : false)
 				#endif
-				
-				#define USB_Device_IsUSBSuspended()           ((UDINT &  (1 << SUSPI)) ? true : false)
-				
-				#define USB_Device_EnableSOFEvents()    MACROS{ USB_INT_Enable(USB_INT_SOFI); }MACROE
 
+				#define USB_Device_EnableSOFEvents()    MACROS{ USB_INT_Enable(USB_INT_SOFI); }MACROE
 				#define USB_Device_DisableSOFEvents()   MACROS{ USB_INT_Disable(USB_INT_SOFI); }MACROE
 			#endif
 			
@@ -207,8 +219,17 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */		
-			#define USB_Device_SetLowSpeed()        MACROS{ UDCON |=  (1 << LSM);   }MACROE
-			#define USB_Device_SetFullSpeed()       MACROS{ UDCON &= ~(1 << LSM);   }MACROE
+			#if defined(__AVR32__)
+				#define USB_Device_SetLowSpeed()          MACROS{ AVR32_USBB.UDCON.ls = true;  }MACROE
+				#define USB_Device_SetFullSpeed()         MACROS{ AVR32_USBB.UDCON.ls = false; }MACROE
+				
+				#define USB_Device_SetDeviceAddress(addr) MACROS{ AVR32_USBB.UDADDR = (AVR32_USBB_UDCON_ADDEN_MASK | DeviceAddress); }MACROE			
+			#elif defined(__AVR__)
+				#define USB_Device_SetLowSpeed()          MACROS{ UDCON |=  (1 << LSM);   }MACROE
+				#define USB_Device_SetFullSpeed()         MACROS{ UDCON &= ~(1 << LSM);   }MACROE
+				
+				#define USB_Device_SetDeviceAddress(addr) MACROS{ UDADDR =  ((1 << ADDEN) | DeviceAddress); }MACROE
+			#endif
 	#endif
 
 #endif

@@ -74,10 +74,16 @@
 #define __PIPE_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <avr/pgmspace.h>
-		#include <avr/eeprom.h>
-		#include <stdbool.h>
+		#if defined(__AVR32__)
+			#include <avr32/io.h>
+			#include <stdint.h>
+			#include <stdbool.h>
+		#elif defined(__AVR__)
+			#include <avr/io.h>
+			#include <avr/pgmspace.h>
+			#include <avr/eeprom.h>
+			#include <stdbool.h>
+		#endif
 
 		#include "../../../Common/Common.h"
 		#include "../HighLevel/USBTask.h"
@@ -547,7 +553,11 @@
 			static inline uint8_t Pipe_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_Read_Byte(void)
 			{
+				#if defined(__AVR32__)
+				return 0; // TODO
+				#elif defined(__AVR__)
 				return UPDATX;
+				#endif
 			}
 
 			/** Writes one byte from the currently selected pipe's bank, for IN direction pipes.
@@ -559,7 +569,11 @@
 			static inline void Pipe_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Byte(const uint8_t Byte)
 			{
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				UPDATX = Byte;
+				#endif
 			}
 
 			/** Discards one byte from the currently selected pipe's bank, for OUT direction pipes.
@@ -571,7 +585,11 @@
 			{
 				uint8_t Dummy;
 				
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				Dummy = UPDATX;
+				#endif
 			}
 			
 			/** Reads two bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -590,8 +608,12 @@
 					uint8_t  Bytes[2];
 				} Data;
 				
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				Data.Bytes[0] = UPDATX;
 				Data.Bytes[1] = UPDATX;
+				#endif
 			
 				return Data.Word;
 			}
@@ -612,8 +634,12 @@
 					uint8_t  Bytes[2];
 				} Data;
 				
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				Data.Bytes[1] = UPDATX;
 				Data.Bytes[0] = UPDATX;
+				#endif
 			
 				return Data.Word;
 			}
@@ -628,8 +654,12 @@
 			static inline void Pipe_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_LE(const uint16_t Word)
 			{
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				UPDATX = (Word & 0xFF);
 				UPDATX = (Word >> 8);
+				#endif
 			}
 			
 			/** Writes two bytes to the currently selected pipe's bank in big endian format, for IN
@@ -642,8 +672,12 @@
 			static inline void Pipe_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_BE(const uint16_t Word)
 			{
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				UPDATX = (Word >> 8);
 				UPDATX = (Word & 0xFF);
+				#endif
 			}
 
 			/** Discards two bytes from the currently selected pipe's bank, for OUT direction pipes.
@@ -655,8 +689,12 @@
 			{
 				uint8_t Dummy;
 				
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				Dummy = UPDATX;
 				Dummy = UPDATX;
+				#endif
 			}
 
 			/** Reads four bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -675,10 +713,14 @@
 					uint8_t  Bytes[4];
 				} Data;
 				
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				Data.Bytes[0] = UPDATX;
 				Data.Bytes[1] = UPDATX;
 				Data.Bytes[2] = UPDATX;
 				Data.Bytes[3] = UPDATX;
+				#endif
 			
 				return Data.DWord;
 			}
@@ -699,6 +741,9 @@
 					uint8_t  Bytes[4];
 				} Data;
 				
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				Data.Bytes[3] = UPDATX;
 				Data.Bytes[2] = UPDATX;
 				Data.Bytes[1] = UPDATX;
@@ -717,10 +762,14 @@
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord)
 			{
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				UPDATX = (DWord &  0xFF);
 				UPDATX = (DWord >> 8);
 				UPDATX = (DWord >> 16);
 				UPDATX = (DWord >> 24);
+				#endif
 			}
 			
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
@@ -733,10 +782,14 @@
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord)
 			{
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				UPDATX = (DWord >> 24);
 				UPDATX = (DWord >> 16);
 				UPDATX = (DWord >> 8);
 				UPDATX = (DWord &  0xFF);
+				#endif
 			}			
 			
 			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.	
@@ -748,10 +801,14 @@
 			{
 				uint8_t Dummy;
 				
+				#if defined(__AVR32__)
+				// TODO
+				#elif defined(__AVR__)
 				Dummy = UPDATX;
 				Dummy = UPDATX;
 				Dummy = UPDATX;
 				Dummy = UPDATX;
+				#endif
 			}
 
 		/* External Variables: */

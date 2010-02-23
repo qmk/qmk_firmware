@@ -32,8 +32,14 @@
 #define __HOSTCHAPTER9_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
+		#if defined(__AVR32__)
+			#include <avr32/io.h>
+			#include <stdint.h>
+			#include <stdbool.h>
+		#elif defined(__AVR__)
+			#include <avr/io.h>
+			#include <stdbool.h>
+		#endif
 		
 		#include "LowLevel.h"
 		#include "../HighLevel/USBMode.h"

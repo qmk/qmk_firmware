@@ -41,9 +41,16 @@
 #define __USBDESCRIPTORS_H__
 
 	/* Includes: */
-		#include <avr/pgmspace.h>
-		#include <stdbool.h>
-		#include <stddef.h>
+		#if defined(__AVR32__)
+			#include <avr32/io.h>
+			#include <stdint.h>
+			#include <stdbool.h>
+			#include <stddef.h>
+		#elif defined(__AVR__)
+			#include <avr/pgmspace.h>
+			#include <stdbool.h>
+			#include <stddef.h>
+		#endif
 
 		#include "../../../Common/Common.h"
 		#include "USBMode.h"

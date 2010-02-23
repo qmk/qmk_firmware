@@ -47,7 +47,11 @@
 #define __CONFIGDESCRIPTOR_H__
 
 	/* Includes: */
-		#include <avr/io.h>
+		#if defined(__AVR32__)
+			#include <avr32/io.h>
+		#elif defined(__AVR__)
+			#include <avr/io.h>
+		#endif
 		
 		#include "../../../Common/Common.h"
 		#include "../HighLevel/USBMode.h"
