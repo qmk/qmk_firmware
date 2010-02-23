@@ -53,7 +53,7 @@ volatile uint16_t           SoftUSART_Data;
 ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
 	/* Toggle CLOCK pin in a single cycle (see AVR datasheet) */
-	BITBANG_PDICLOCK_PIN |= BITBANG_PDICLOCK_MASK;
+	BITBANG_PDICLOCK_PIN = BITBANG_PDICLOCK_MASK;
 
 	/* If not sending or receiving, just exit */
 	if (!(SoftUSART_BitCount))
@@ -103,7 +103,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 ISR(TIMER1_CAPT_vect, ISR_BLOCK)
 {
 	/* Toggle CLOCK pin in a single cycle (see AVR datasheet) */
-	BITBANG_TPICLOCK_PIN |= BITBANG_TPICLOCK_MASK;
+	BITBANG_TPICLOCK_PIN = BITBANG_TPICLOCK_MASK;
 
 	/* If not sending or receiving, just exit */
 	if (!(SoftUSART_BitCount))

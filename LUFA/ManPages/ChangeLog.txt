@@ -9,7 +9,7 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
   *  <b>New:</b>
-  *  - (None)
+  *  - Added support for the UC3B0256 AVR32 microcontroller
   *
   *  <b>Changed:</b>
   *  - AVRISP programmer project now has a more robust timeout system, allowing for a doubling of the software USART speed
@@ -17,7 +17,7 @@
   *  - Increased the speed of both software and hardware TPI/PDI programming modes of the AVRISP project
   *
   *  <b>Fixed:</b>
-  *  - (None)
+  *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *

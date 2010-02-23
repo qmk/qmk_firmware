@@ -51,6 +51,7 @@
 #define __SPI_AVR32_H__
 
 	/* Includes: */
+		#include <avr32/io.h>
 		#include <stdbool.h>
 
 	/* Preprocessor Checks: */

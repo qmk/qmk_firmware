@@ -51,6 +51,7 @@
 #define __SPI_AVR8_H__
 
 	/* Includes: */
+		#include <avr/io.h>
 		#include <stdbool.h>
 
 	/* Preprocessor Checks: */

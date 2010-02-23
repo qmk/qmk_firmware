@@ -62,7 +62,7 @@
 
 			#include "Atomic.h"
 
-			#define PROGMEM
+			#define PROGMEM const
 		#else
 			#include <avr/io.h>
 		#endif

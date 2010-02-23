@@ -37,7 +37,7 @@
  */
 
 /** \ingroup Group_TWI
- *  @defgroup Group_TWI_AVR8 Series U4, U6 and U7 Model TWI Driver
+ *  @defgroup Group_TWI_AVR8 8-Bit AVR TWI Driver
  *
  *  Master mode TWI driver for the 8-Bit AVRs containing a hardware TWI module.
  *
