@@ -12,8 +12,11 @@
  *
  * \section Sec_MigrationXXXXXX Migrating from 100219 to XXXXXX
  *
+ *  <b>Non-USB Library Components</b>
+ *    - The \ref TWI_StartTransmission() function now takes in a timeout period, expressed in milliseconds, within which the addressed
+ *      device must respond or the function will abort.
+ *
  * \section Sec_Migration100219 Migrating from 091223 to 100219
- *    - (None)
  *
  *  <b>Non-USB Library Components</b>
  *    - Due to some ADC channels not being identical to their ADC MUX selection masks for single-ended conversions on some AVR models,

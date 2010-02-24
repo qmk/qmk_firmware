@@ -7,39 +7,58 @@
 
 #include "TWI.h"
 
-bool TWI_StartTransmission(uint8_t SlaveAddress)
+bool TWI_StartTransmission(uint8_t SlaveAddress, uint8_t TimeoutMS)
 {
 	for (;;)
 	{
-		uint8_t IterationsRemaining = 50;
-		bool    BusCaptured = false;
+		bool     BusCaptured = false;
+		uint16_t TimeoutRemaining;
 
-		while (IterationsRemaining-- && !BusCaptured)
+		TWCR = ((1 << TWINT) | (1 << TWSTA) | (1 << TWEN));	
+
+		TimeoutRemaining = (TimeoutMS * 100);
+		while (TimeoutRemaining-- && !BusCaptured)
 		{
-			TWCR = ((1 << TWINT) | (1 << TWSTA) | (1 << TWEN));	
-			while (!(TWCR & (1 << TWINT)));
-				
-			switch (TWSR & TW_STATUS_MASK)
+			if (TWCR & (1 << TWINT))
 			{
-				case TW_START:
-				case TW_REP_START:
-					BusCaptured = true;
-					break;
-				case TW_MT_ARB_LOST:
-					continue;
-				default:
-					return false;
+				switch (TWSR & TW_STATUS_MASK)
+				{
+					case TW_START:
+					case TW_REP_START:
+						BusCaptured = true;
+						break;
+					case TW_MT_ARB_LOST:
+						TWCR = ((1 << TWINT) | (1 << TWSTA) | (1 << TWEN));	
+						continue;
+					default:
+						TWCR = (1 << TWEN);
+						return false;
+				}
 			}
+			
+			_delay_us(10);
 		}
 		
 		if (!(BusCaptured))
-		  return false;
-		  
+		{
+			TWCR = (1 << TWEN);
+			return false;
+		}
+		
 		TWDR = SlaveAddress;
 		TWCR = ((1 << TWINT) | (1 << TWEN));
-		while (!(TWCR & (1 << TWINT)));
 		
-		GPIOR0 = (TWSR & TW_STATUS_MASK);
+		TimeoutRemaining = (TimeoutMS * 100);
+		while (TimeoutRemaining--)
+		{
+			if (TWCR & (1 << TWINT))
+			  break;
+			  
+			_delay_us(10);
+		}
+		
+		if (!(TimeoutRemaining))
+		  return false;
 
 		switch (TWSR & TW_STATUS_MASK)
 		{
@@ -49,6 +68,6 @@ bool TWI_StartTransmission(uint8_t SlaveAddress)
 			default:
 				TWI_StopTransmission();
 				break;
-		}		  
+		}
 	}
 }

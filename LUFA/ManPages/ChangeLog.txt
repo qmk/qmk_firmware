@@ -15,9 +15,11 @@
   *  - AVRISP programmer project now has a more robust timeout system, allowing for a doubling of the software USART speed
   *    for PDI and TPI programming
   *  - Increased the speed of both software and hardware TPI/PDI programming modes of the AVRISP project
+  *  - Added a timeout value to the TWI_StartTransmission() function, within which the addressed device must respond
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin
+  *  - Fixed TWI_StartTransmission() corrupting the contents of the GPIOR0 register
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *

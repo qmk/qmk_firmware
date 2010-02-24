@@ -56,6 +56,7 @@
 		#include <avr/io.h>
 		#include <stdbool.h>
 		#include <util/twi.h>
+		#include <util/delay.h>
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -131,10 +132,11 @@
 			/** Begins a master mode TWI bus communication with the given slave device address.
 			 *
 			 *  \param[in] SlaveAddress  Address of the slave TWI device to communicate with
+			 *  \param[in] TimeoutMS     Timeout period within which the slave must respond, in milliseconds
 			 *
 			 *  \return Boolean true if the device is ready for data, false otherwise
 			 */
-			bool TWI_StartTransmission(uint8_t SlaveAddress);
+			bool TWI_StartTransmission(uint8_t SlaveAddress, uint8_t TimeoutMS);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
