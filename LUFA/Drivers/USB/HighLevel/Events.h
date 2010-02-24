@@ -62,7 +62,7 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 		
 	/* Public Interface - May be used in end-application: */			
