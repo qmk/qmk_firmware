@@ -223,7 +223,7 @@
 				#define USB_Device_SetLowSpeed()          MACROS{ AVR32_USBB.UDCON.ls = true;  }MACROE
 				#define USB_Device_SetFullSpeed()         MACROS{ AVR32_USBB.UDCON.ls = false; }MACROE
 				
-				#define USB_Device_SetDeviceAddress(addr) MACROS{ AVR32_USBB.UDADDR = (AVR32_USBB_UDCON_ADDEN_MASK | DeviceAddress); }MACROE			
+				#define USB_Device_SetDeviceAddress(addr) MACROS{ AVR32_USBB.UDCON.uadd = DeviceAddress; AVR32_USBB.UDCON.adden = true; }MACROE			
 			#elif defined(__AVR__)
 				#define USB_Device_SetLowSpeed()          MACROS{ UDCON |=  (1 << LSM);   }MACROE
 				#define USB_Device_SetFullSpeed()         MACROS{ UDCON &= ~(1 << LSM);   }MACROE

@@ -95,6 +95,10 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 		
+		#if defined(__AVR32__) && !defined(__AVR32_EPREG_X)
+			#define __AVR32_EPREG_X(x) ((volatile uint32_t*)AVR32_USBB_ ## x)[USB_SelectedEPNumber]			
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			#if defined(__AVR32__) || defined(__DOXYGEN__)
@@ -377,17 +381,17 @@
 					#if !defined(CONTROL_ONLY_DEVICE)
 						#define Endpoint_GetCurrentEndpoint()     USB_SelectedEPNumber
 						#define Endpoint_SelectEndpoint(epnum)    MACROS{ USB_SelectedEPNumber = (epnum); }MACROE					
-						#define Endpoint_IsReadWriteAllowed()     (__AVR32_EPREG_X(UESTA0) & AVR32_USBB_RWAL_MASK)
+						#define Endpoint_IsReadWriteAllowed()     (__AVR32_EPREG_X(UESTA0) & AVR32_USBB_RWALL_MASK)
 					#else
 						#define Endpoint_GetCurrentEndpoint()     ENDPOINT_CONTROLEP
 						#define Endpoint_SelectEndpoint(epnum)    (void)(epnum)
 					#endif
 
-					#define Endpoint_ResetFIFO(epnum)             MACROS{ AVR32_USBB.UERST |=  (AVR32_USBB_EPRST0_MASK << (epnum)); \
-					                                                      AVR32_USBB.UERST &= ~(AVR32_USBB_EPRST0_MASK << (epnum));     }MACROE
-					#define Endpoint_EnableEndpoint()             MACROS{ AVR32_USBB.UERST |=  (AVR32_USBB_UERST_EPEN0_MASK << (epen)); }MACROE
-					#define Endpoint_DisableEndpoint()            MACROS{ AVR32_USBB.UERST &= ~(AVR32_USBB_UERST_EPEN0_MASK << (epen)); }MACROE
-					#define Endpoint_IsEnabled()                        ((AVR32_USBB.UERST & (AVR32_USBB_UERST_EPEN0_MASK << (epen))) ? true : false)
+					#define Endpoint_ResetFIFO(epnum)             MACROS{ AVR32_USBB.uerst |=  (AVR32_USBB_EPRST0_MASK << (epnum)); \
+					                                                      AVR32_USBB.uerst &= ~(AVR32_USBB_EPRST0_MASK << (epnum));     }MACROE
+					#define Endpoint_EnableEndpoint()             MACROS{ AVR32_USBB.uerst |=  (AVR32_USBB_UERST_EPEN0_MASK << USB_SelectedEPNumber); }MACROE
+					#define Endpoint_DisableEndpoint()            MACROS{ AVR32_USBB.uerst &= ~(AVR32_USBB_UERST_EPEN0_MASK << USB_SelectedEPNumber); }MACROE
+					#define Endpoint_IsEnabled()                        ((AVR32_USBB.uerst & (AVR32_USBB_UERST_EPEN0_MASK << USB_SelectedEPNumber)) ? true : false)
 					
 					#define Endpoint_IsConfigured()                     ((__AVR32_EPREG_X(UESTA0) & AVR32_USBB_UESTA0_CFGOK_MASK) ? true : false)
 					#define Endpoint_GetEndpointInterrupts()             (AVR32_USBB.UDINT >> AVR32_USBB_EP0INT)

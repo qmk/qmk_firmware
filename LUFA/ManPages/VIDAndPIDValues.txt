@@ -277,7 +277,7 @@
  *     0x2064
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     Interfaceless Control-Only LUFA Devices
  *    </td>
  *   </tr>
  *

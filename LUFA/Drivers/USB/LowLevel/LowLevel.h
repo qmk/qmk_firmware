@@ -88,39 +88,43 @@
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
-
-		#if !defined(F_CLOCK)
-			#error F_CLOCK is not defined. You must define F_CLOCK to the frequency of the unprescaled input clock in your project makefile.
-		#endif
-	
-		#if (F_CLOCK == 8000000)
-			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
-			     defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
-				 defined(__AVR_ATmega32U2__))
-				#define USB_PLL_PSC                0
-			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-				#define USB_PLL_PSC                0
-			#elif (defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB1286__) || defined(__AVR_ATmega32U6__))
-				#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
-			#elif (defined(__AVR_AT90USB647__)  || defined(__AVR_AT90USB1287__))
-				#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
-			#endif
-		#elif (F_CLOCK == 16000000)
-			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
-			     defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
-				 defined(__AVR_ATmega32U2__))
-				#define USB_PLL_PSC                (1 << PLLP0)
-			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-				#define USB_PLL_PSC                (1 << PINDIV)
-			#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_ATmega32U6__))
-				#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP1))
-			#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__))
-				#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP0))
-			#endif
-		#endif
 		
-		#if !defined(USB_PLL_PSC)
-			#error No PLL prescale value available for chosen F_CPU value and AVR model.
+		#if defined(__AVR32__)
+			#define USB_PLL_PSC 0
+		#elif defined(__AVR__)
+			#if !defined(F_CLOCK)
+				#error F_CLOCK is not defined. You must define F_CLOCK to the frequency of the unprescaled input clock in your project makefile.
+			#endif
+		
+			#if (F_CLOCK == 8000000)
+				#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
+					 defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
+					 defined(__AVR_ATmega32U2__))
+					#define USB_PLL_PSC                0
+				#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+					#define USB_PLL_PSC                0
+				#elif (defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB1286__) || defined(__AVR_ATmega32U6__))
+					#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
+				#elif (defined(__AVR_AT90USB647__)  || defined(__AVR_AT90USB1287__))
+					#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
+				#endif
+			#elif (F_CLOCK == 16000000)
+				#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
+					 defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
+					 defined(__AVR_ATmega32U2__))
+					#define USB_PLL_PSC                (1 << PLLP0)
+				#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+					#define USB_PLL_PSC                (1 << PINDIV)
+				#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_ATmega32U6__))
+					#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP1))
+				#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__))
+					#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP0))
+				#endif
+			#endif
+			
+			#if !defined(USB_PLL_PSC)
+				#error No PLL prescale value available for chosen F_CLOCK value and AVR model.
+			#endif
 		#endif
 		
 	/* Public Interface - May be used in end-application: */
@@ -147,7 +151,7 @@
 				 *
 				 *  \note This token is not available on AVR models which do not support both host and device modes.
 				 */
-				#define USB_MODE_UID                       3
+				#define USB_MODE_UID                   3
 			#endif
 			
 			/** Regulator disable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
@@ -206,7 +210,7 @@
 				 *
 				 *  \note This token is not available on some AVR models which do not support hardware VBUS monitoring.
 				 */
-				#define USB_VBUS_GetStatus()             ((USBSTA & (1 << VBUS)) ? true : false)
+				#define USB_VBUS_GetStatus()        ((USBSTA & (1 << VBUS)) ? true : false)
 			#endif
 
 			/** Detaches the device from the USB bus. This has the effect of removing the device from any

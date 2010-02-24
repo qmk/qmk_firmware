@@ -103,6 +103,10 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 		
+		#if defined(__AVR32__) && !defined(__AVR32_EPREG_X)
+			#define __AVR32_EPREG_X(x) ((volatile uint32_t*)AVR32_USBB_ ## x)[USB_SelectedEPNumber]			
+		#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that an overflow error occurred in the pipe on the received data. */

@@ -62,17 +62,19 @@
 			#if defined(__AVR32__)
 				#define USB_INT_Enable(int)       MACROS{ USB_INT_GET_EN_REG(int)   |=   USB_INT_GET_EN_MASK(int);   }MACROE
 				#define USB_INT_Disable(int)      MACROS{ USB_INT_GET_EN_REG(int)   &= ~(USB_INT_GET_EN_MASK(int));  }MACROE
-				#define USB_INT_Clear(int)        MACROS{ USB_INT_GET_INT_REG(int) ## CLR |= USB_INT_GET_INT_MASK(int) ## C; }MACROE
+				#define USB_INT_Clear(int)        MACROS{ USB_INT_GET_INTC_REG(int) |=   USB_INT_GET_INTC_MASK(int); }MACROE
 				#define USB_INT_IsEnabled(int)          ((USB_INT_GET_EN_REG(int)   &    USB_INT_GET_EN_MASK(int)) ? true : false)
 				#define USB_INT_HasOccurred(int)        ((USB_INT_GET_INT_REG(int)  &    USB_INT_GET_INT_MASK(int)) ? true : false)
 
-				#define USB_INT_GET_EN_REG(a, b, c, d)    *((volatile uint32_t*)AVR32_USBB_ ## a)
+				#define USB_INT_GET_EN_REG(a, b, c, d)    *( (volatile uint32_t*)AVR32_USBB_ ## a )
 				#define USB_INT_GET_EN_MASK(a, b, c, d)   AVR32_USBB_ ## b
-				#define USB_INT_GET_INT_REG(a, b, c, d)   *((volatile uint32_t*)AVR32_USBB_ ## c)
+				#define USB_INT_GET_INT_REG(a, b, c, d)   *( (volatile uint32_t*)AVR32_USBB_ ## c )
 				#define USB_INT_GET_INT_MASK(a, b, c, d)  AVR32_USBB_ ## d
+				#define USB_INT_GET_INTC_REG(a, b, c, d)  *( (volatile uint32_t*)AVR32_USBB_ ## c ## CLR )
+				#define USB_INT_GET_INTC_MASK(a, b, c, d) AVR32_USBB_ ## d ## C
 
 				#define USB_INT_VBUS                      USBCON, USBCON_VBUSTE_MASK, USBSTA, USBSTA_VBUSTI_MASK
-				#define USB_INT_IDTI                      USBCON, USBCON_IDTE_MASK  , USBINT, USBCON_IDTI_MASK
+				#define USB_INT_IDTI                      USBCON, USBCON_IDTE_MASK  , USBSTA, USBCON_IDTI_MASK
 				#define USB_INT_WAKEUP                    UDIEN , UDIEN_WAKEUPE_MASK, UDINT , UDIEN_WAKEUPI_MASK
 				#define USB_INT_SUSPEND                   UDIEN , UDIEN_SUSPE_MASK  , UDINT , UDIEN_SUSPI_MASK
 				#define USB_INT_EORSTI                    UDIEN , UDIEN_EORSTE_MASK , UDINT , UDIEN_EORSTI_MASK
@@ -81,10 +83,10 @@
 				#define USB_INT_DDISCI                    UHIEN , UDIEN_DDISCE_MASK , UHINT , UHIEN_DDISCI_MASK
 				#define USB_INT_HSOFI                     UHIEN,  UHIEN_HSOFE_MASK  , UHINT , UHIEN_HSOFI_MASK
 				#define USB_INT_RSTI                      UHIEN , UHIEN_RSTE_MASK   , UHINT , UHIEN_RSTI_MASK
-				#define USB_INT_RXSTPI                    UEIENX, UEIENX_RXSTPE_MASK, UEINTX, UEIENX_RXSTPI_MASK			
-				#define USB_INT_BCERRI                    OTGIEN, OTGIEN_BCERRE_MASK, OTGINT, OTGIEN_BCERRI_MASK
-				#define USB_INT_VBERRI                    OTGIEN, OTGIEN_VBERRE_MASK, OTGINT, OTGIEN_VBERRI_MASK
-				#define USB_INT_SRPI                      OTGIEN, OTGIEN_SRPE_MASK  , OTGINT, OTGIEN_SRPI_MASK
+				#define USB_INT_RXSTPI                    UECONX, UECONX_RXSTPE_MASK, UESTAX, UESTAX_RXSTPI_MASK
+				#define USB_INT_BCERRI                    USBCON, USBCON_BCERRE_MASK, USBSTA, USBSTA_BCERRI_MASK
+				#define USB_INT_VBERRI                    USBCON, USBCON_VBERRE_MASK, USBSTA, USBSTA_VBERRI_MASK
+				#define USB_INT_SRPI                      USBCON, USBCON_SRPE_MASK  , USBSTA, USBSTA_SRPI_MASK
 			#elif defined(__AVR__)
 				#define USB_INT_Enable(int)       MACROS{ USB_INT_GET_EN_REG(int)   |=   USB_INT_GET_EN_MASK(int);   }MACROE
 				#define USB_INT_Disable(int)      MACROS{ USB_INT_GET_EN_REG(int)   &= ~(USB_INT_GET_EN_MASK(int));  }MACROE

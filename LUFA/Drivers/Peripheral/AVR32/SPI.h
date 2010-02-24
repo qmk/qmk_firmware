@@ -72,6 +72,12 @@
 			/** SPI prescaler mask for SPI_Init(). Divides the system clock by a factor of 32. */
 			#define SPI_SPEED_FCPU_DIV_32          AVR32_SPI_MR_FDIV_MASK
 			
+			/** SPI chip selection mode for direct peripheral-to-CS pin connections. */
+			#define SPI_CS_4BITDECODER             AVR32_SPI_MR_PSDEC_MASK
+			
+			/** SPI chip selection mode for peripheral CS pin connections through a 4-bit decoder. */
+			#define SPI_CS_DIRECT                  0
+			
 			/** SPI mode mask for SPI_Init(). Indicates that the SPI interface should be initialized into slave mode. */
 			#define SPI_MODE_SLAVE                 0
 
@@ -89,12 +95,15 @@
 			 *        configure these seperately to connect the SPI module to the desired GPIO pins via the
 			 *        GPIO MUX registers.
 			 *
-			 *  \param[in] SPIOptions  SPI Options, a mask consisting of one of each of the SPI_SPEED_*
-			 *                         and SPI_MODE_* masks
+			 *  \param[in] SPIOptions  SPI Options, a mask consisting of one of each of the SPI_SPEED_*,
+			 *                         SPI_CS_* and SPI_MODE_* masks
 			 */
 			static inline void SPI_Init(const uintN_t SPIOptions)
 			{
-				AVR32_SPI.cr = (AVR32_SPI_CR_SPIEN_MASK | AVR32_SPI_CR_SWRST_MASK);
+				AVR32_PM.pbamask = (1 << 5);
+
+				AVR32_SPI.CR.swrst = true;
+				AVR32_SPI.CR.spien = true;
 				AVR32_SPI.mr = SPIOptions;
 			}
 
@@ -102,6 +111,8 @@
 			static inline void SPI_ShutDown(void)
 			{
 				AVR32_SPI.cr = AVR32_SPI_CR_SPIDIS_MASK;
+
+				AVR32_PM.pbamask &= ~(1 << 5);
 			}
 			
 			/** Sends and receives a transfer through the SPI interface, blocking until the transfer is complete.
@@ -115,9 +126,12 @@
 			static inline uint16_t SPI_Transfer(const uint16_t Data) ATTR_ALWAYS_INLINE;
 			static inline uint16_t SPI_Transfer(const uint16_t Data)
 			{
-				AVR32_SPI.TDR.td = Data;
 				while (!(AVR32_SPI.SR.tdre));
-				return AVR32_SPI.rdr;
+				AVR32_SPI.TDR.td = Data;
+
+				while ((AVR32_SPI.sr & (AVR32_SPI_SR_RDRF_MASK | AVR32_SPI_SR_TXEMPTY_MASK)) !=
+				                       (AVR32_SPI_SR_RDRF_MASK | AVR32_SPI_SR_TXEMPTY_MASK));
+				return AVR32_SPI.RDR.rd;
 			}
 
 			/** Sends a transfer through the SPI interface, blocking until the transfer is complete. The response
@@ -129,8 +143,8 @@
 			static inline void SPI_Send(const uint16_t Data) ATTR_ALWAYS_INLINE;
 			static inline void SPI_Send(const uint16_t Data)
 			{
-				AVR32_SPI.TDR.td = Data;
 				while (!(AVR32_SPI.SR.tdre));
+				AVR32_SPI.TDR.td = Data;
 			}
 
 			/** Sends a dummy transfer through the SPI interface, blocking until the transfer is complete. The response
@@ -142,8 +156,11 @@
 			static inline uint16_t SPI_Receive(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint16_t SPI_Receive(void)
 			{
-				AVR32_SPI.TDR.td = 0x0000;
 				while (!(AVR32_SPI.SR.tdre));
+				AVR32_SPI.TDR.td = 0x0000;
+
+				while ((AVR32_SPI.sr & (AVR32_SPI_SR_RDRF_MASK | AVR32_SPI_SR_TXEMPTY_MASK)) !=
+				                       (AVR32_SPI_SR_RDRF_MASK | AVR32_SPI_SR_TXEMPTY_MASK));
 				return AVR32_SPI.RDR.rd;
 			}
 
