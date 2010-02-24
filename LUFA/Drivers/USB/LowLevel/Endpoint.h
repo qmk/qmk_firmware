@@ -66,19 +66,12 @@
 #define __ENDPOINT_H__
 
 	/* Includes: */
-		#if defined(__AVR32__)
-			#include <avr32/io.h>
-			#include <stdint.h>
-			#include <stdbool.h>
-		#elif defined(__AVR__)
-			#include <avr/io.h>
-			#include <avr/pgmspace.h>
-			#include <avr/eeprom.h>
-			#include <stdbool.h>
-		#endif
-		
+		#include <avr/io.h>
+		#include <avr/pgmspace.h>
+		#include <avr/eeprom.h>
+		#include <stdbool.h>
+
 		#include "../../../Common/Common.h"
-		#include "LowLevel.h"
 		#include "../HighLevel/USBTask.h"
 
 		#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
@@ -92,45 +85,34 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 		
-		#if defined(__AVR32__) && !defined(__AVR32_EPREG_X)
-			#define __AVR32_EPREG_X(x) ((volatile uint32_t*)AVR32_USBB_ ## x)[USB_SelectedEPNumber]			
-		#endif
-
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			#if defined(__AVR32__) || defined(__DOXYGEN__)
-				/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
-				 *  should be initialized in the OUT direction - i.e. data flows from host to device.
-				 */
-				#define ENDPOINT_DIR_OUT                  0
+			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
+			 *  should be initialized in the OUT direction - i.e. data flows from host to device.
+			 */
+			#define ENDPOINT_DIR_OUT                      (0 << EPDIR)
 
-				/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
-				 *  should be initialized in the IN direction - i.e. data flows from device to host.
-				 */
-				#define ENDPOINT_DIR_IN                   AVR32_USBB_EPDIR_IN
+			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
+			 *  should be initialized in the IN direction - i.e. data flows from device to host.
+			 */
+			#define ENDPOINT_DIR_IN                       (1 << EPDIR)
 
-				/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
-				 *  that the endpoint should have one single bank, which requires less USB FIFO memory but results
-				 *  in slower transfers as only one USB device (the AVR or the host) can access the endpoint's
-				 *  bank at the one time.
-				 */
-				#define ENDPOINT_BANK_SINGLE              AVR32_USBB_EPBK_SINGLE
-				
-				/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
-				 *  that the endpoint should have two banks, which requires more USB FIFO memory but results
-				 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
-				 *  accesses the second bank.
-				 */
-				#define ENDPOINT_BANK_DOUBLE              AVR32_USBB_EPBK_DOUBLE
-			#elif defined(__AVR__)
-				#define ENDPOINT_DIR_OUT                  (0 << EPDIR)
-				#define ENDPOINT_DIR_IN                   (1 << EPDIR)
-				#define ENDPOINT_BANK_SINGLE              (0 << EPBK0)
-				#define ENDPOINT_BANK_DOUBLE              (1 << EPBK0)			
-			#endif
+			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
+			 *  that the endpoint should have one single bank, which requires less USB FIFO memory but results
+			 *  in slower transfers as only one USB device (the AVR or the host) can access the endpoint's
+			 *  bank at the one time.
+			 */
+			#define ENDPOINT_BANK_SINGLE                  (0 << EPBK0)
+
+			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
+			 *  that the endpoint should have two banks, which requires more USB FIFO memory but results
+			 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
+			 *  accesses the second bank.
+			 */
+			#define ENDPOINT_BANK_DOUBLE                  (1 << EPBK0)
 			
 			/** Endpoint address for the default control endpoint, which always resides in address 0. This is
 			 *  defined for convenience to give more readable code when used with the endpoint macros.
@@ -172,18 +154,17 @@
 			#define ENDPOINT_DOUBLEBANK_SUPPORTED(n)      _ENDPOINT_GET_DOUBLEBANK(n)
 
 			#if !defined(CONTROL_ONLY_DEVICE)
-				#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || \
-				     defined(USB_SERIES_UC3B_AVR) || defined(__DOXYGEN__))
+				#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
 					/** Total number of endpoints (including the default control endpoint at address 0) which may
 					 *  be used in the device. Different USB AVR models support different amounts of endpoints,
 					 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
 					 */
-					#define ENDPOINT_TOTAL_ENDPOINTS      7
+					#define ENDPOINT_TOTAL_ENDPOINTS          7
 				#else
-					#define ENDPOINT_TOTAL_ENDPOINTS      5			
+					#define ENDPOINT_TOTAL_ENDPOINTS          5			
 				#endif
 			#else
-				#define ENDPOINT_TOTAL_ENDPOINTS          1
+				#define ENDPOINT_TOTAL_ENDPOINTS              1
 			#endif
 			
 		/* Pseudo-Function Macros: */
@@ -373,84 +354,71 @@
 					#define Endpoint_BytesInEndpoint()        (((uint16_t)UEBCHX << 8) | UEBCLX)				
 				#elif defined(USB_SERIES_2_AVR)
 					#define Endpoint_BytesInEndpoint()        UEBCLX
-				#elif defined(USB_SERIES_UC3B_AVR)
-					#define Endpoint_BytesInEndpoint()        ((__AVR32_EPREG_X(UESTA0) & AVR32_USBB_BYCT_MASK) >> AVR32_USBB_BYCT)
 				#endif
 				
-				#if defined(__AVR32__)
-					#if !defined(CONTROL_ONLY_DEVICE)
-						#define Endpoint_GetCurrentEndpoint()     USB_SelectedEPNumber
-						#define Endpoint_SelectEndpoint(epnum)    MACROS{ USB_SelectedEPNumber = (epnum); }MACROE					
-						#define Endpoint_IsReadWriteAllowed()     (__AVR32_EPREG_X(UESTA0) & AVR32_USBB_RWALL_MASK)
-					#else
-						#define Endpoint_GetCurrentEndpoint()     ENDPOINT_CONTROLEP
-						#define Endpoint_SelectEndpoint(epnum)    (void)(epnum)
-					#endif
-
-					#define Endpoint_ResetFIFO(epnum)             MACROS{ AVR32_USBB.uerst |=  (AVR32_USBB_EPRST0_MASK << (epnum)); \
-					                                                      AVR32_USBB.uerst &= ~(AVR32_USBB_EPRST0_MASK << (epnum));     }MACROE
-					#define Endpoint_EnableEndpoint()             MACROS{ AVR32_USBB.uerst |=  (AVR32_USBB_UERST_EPEN0_MASK << USB_SelectedEPNumber); }MACROE
-					#define Endpoint_DisableEndpoint()            MACROS{ AVR32_USBB.uerst &= ~(AVR32_USBB_UERST_EPEN0_MASK << USB_SelectedEPNumber); }MACROE
-					#define Endpoint_IsEnabled()                        ((AVR32_USBB.uerst & (AVR32_USBB_UERST_EPEN0_MASK << USB_SelectedEPNumber)) ? true : false)
-					
-					#define Endpoint_IsConfigured()                     ((__AVR32_EPREG_X(UESTA0) & AVR32_USBB_UESTA0_CFGOK_MASK) ? true : false)
-					#define Endpoint_GetEndpointInterrupts()             (AVR32_USBB.UDINT >> AVR32_USBB_EP0INT)
-					#define Endpoint_HasEndpointInterrupted(n)          ((AVR32_USBB.UDINT & (AVR32_USBB_EP0INT << (n))) ? true : false)
-					#define Endpoint_IsINReady()                        ((__AVR32_EPREG_X(UESTA0) & AVR32_USBB_TXINI)  ? true : false)
-					#define Endpoint_IsOUTReceived()                    ((__AVR32_EPREG_X(UESTA0) & AVR32_USBB_RXOUTI) ? true : false)
-					#define Endpoint_IsSETUPReceived()                  ((__AVR32_EPREG_X(UESTA0) & AVR32_USBB_RXSTPI) ? true : false)
-					#define Endpoint_ClearSETUP()                 MACROS{ __AVR32_EPREG_X(UESTA0CLR) = AVR32_USBB_RXSTPIC;  }MACROE
-					#define Endpoint_ClearIN()                    MACROS{ __AVR32_EPREG_X(UESTA0CLR) = AVR32_USBB_TXINIC; \
-																		  __AVR32_EPREG_X(UECON0CLR) = AVR32_USBB_FIFOCONC; }MACROE
-					#define Endpoint_ClearOUT()                   MACROS{ __AVR32_EPREG_X(UESTA0CLR) = AVR32_USBB_RXOUTI; \
-																		  __AVR32_EPREG_X(UECON0CLR) = AVR32_USBB_FIFOCONC; }MACROE
-					#define Endpoint_StallTransaction()           MACROS{ __AVR32_EPREG_X(UECON0SET) = AVR32_USBB_STALLRQS; }MACROE
-					#define Endpoint_ClearStall()                 MACROS{ __AVR32_EPREG_X(UECON0CLR) = AVR32_USBB_STALLRQC; }MACROE
-					#define Endpoint_IsStalled()                        ((__AVR32_EPREG_X(UECON0) & AVR32_USBB_STALLRQ) ? true : false)
-					#define Endpoint_ResetDataToggle()            MACROS{ __AVR32_EPREG_X(UECON0CLR) = AVR32_USBB_RSTDTS;   }MACROE
-					#define Endpoint_GetEndpointDirection()       ((__AVR32_EPREG_X(UECFG0) & ENDPOINT_DIR_IN) ? true : false)
-					#define Endpoint_SetEndpointDirection(dir)    MACROS{ __AVR32_EPREG_X(UECFG0) = \
-					                                                      ((__AVR32_EPREG_X(UECFG0) & ENDPOINT_DIR_IN) | (dir)); }MACROE
-				#elif defined(__AVR__)
-					#if !defined(CONTROL_ONLY_DEVICE)
-						#define Endpoint_GetCurrentEndpoint()     (UENUM & ENDPOINT_EPNUM_MASK)
-						#define Endpoint_SelectEndpoint(epnum)    MACROS{ UENUM = (epnum); }MACROE
-						#define Endpoint_IsReadWriteAllowed()     ((UEINTX & (1 << RWAL)) ? true : false)
-					#else
-						#define Endpoint_GetCurrentEndpoint()     ENDPOINT_CONTROLEP
-						#define Endpoint_SelectEndpoint(epnum)    (void)(epnum)
-					#endif
-
-					#define Endpoint_ResetFIFO(epnum)             MACROS{ UERST = (1 << (epnum)); UERST = 0; }MACROE
-					#define Endpoint_EnableEndpoint()             MACROS{ UECONX |= (1 << EPEN); }MACROE
-					#define Endpoint_DisableEndpoint()            MACROS{ UECONX &= ~(1 << EPEN); }MACROE
-					#define Endpoint_IsEnabled()                  ((UECONX & (1 << EPEN)) ? true : false)
-					
-					#define Endpoint_IsConfigured()               ((UESTA0X & (1 << CFGOK)) ? true : false)
-					#define Endpoint_GetEndpointInterrupts()      UEINT
-					#define Endpoint_HasEndpointInterrupted(n)    ((UEINT & (1 << (n))) ? true : false)
-					#define Endpoint_IsINReady()                  ((UEINTX & (1 << TXINI))  ? true : false)
-					#define Endpoint_IsOUTReceived()              ((UEINTX & (1 << RXOUTI)) ? true : false)
-					#define Endpoint_IsSETUPReceived()            ((UEINTX & (1 << RXSTPI)) ? true : false)
-					#define Endpoint_ClearSETUP()                 MACROS{ UEINTX &= ~(1 << RXSTPI); }MACROE
-
-					#if !defined(CONTROL_ONLY_DEVICE)
-						#define Endpoint_ClearIN()                MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << TXINI)); \
-																		  UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
-						#define Endpoint_ClearOUT()               MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << RXOUTI)); \
-																		  UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
-					#else
-						#define Endpoint_ClearIN()                MACROS{ UEINTX &= ~(1 << TXINI); }MACROE
-						#define Endpoint_ClearOUT()               MACROS{ UEINTX &= ~(1 << RXOUTI); }MACROE			
-					#endif
-
-					#define Endpoint_StallTransaction()           MACROS{ UECONX |= (1 << STALLRQ); }MACROE
-					#define Endpoint_ClearStall()                 MACROS{ UECONX |= (1 << STALLRQC); }MACROE
-					#define Endpoint_IsStalled()                  ((UECONX & (1 << STALLRQ)) ? true : false)
-					#define Endpoint_ResetDataToggle()            MACROS{ UECONX |= (1 << RSTDT); }MACROE
-					#define Endpoint_GetEndpointDirection()       (UECFG0X & ENDPOINT_DIR_IN)
-					#define Endpoint_SetEndpointDirection(dir)    MACROS{ UECFG0X = ((UECFG0X & ~ENDPOINT_DIR_IN) | (dir)); }MACROE				
+				#if !defined(CONTROL_ONLY_DEVICE)
+					#define Endpoint_GetCurrentEndpoint()     (UENUM & ENDPOINT_EPNUM_MASK)
+				#else
+					#define Endpoint_GetCurrentEndpoint()     ENDPOINT_CONTROLEP
 				#endif
+				
+				#if !defined(CONTROL_ONLY_DEVICE)
+					#define Endpoint_SelectEndpoint(epnum)    MACROS{ UENUM = (epnum); }MACROE
+				#else
+					#define Endpoint_SelectEndpoint(epnum)    (void)(epnum)
+				#endif
+
+				#define Endpoint_ResetFIFO(epnum)             MACROS{ UERST = (1 << (epnum)); UERST = 0; }MACROE
+
+				#define Endpoint_EnableEndpoint()             MACROS{ UECONX |= (1 << EPEN); }MACROE
+
+				#define Endpoint_DisableEndpoint()            MACROS{ UECONX &= ~(1 << EPEN); }MACROE
+
+				#define Endpoint_IsEnabled()                  ((UECONX & (1 << EPEN)) ? true : false)
+
+				#if !defined(CONTROL_ONLY_DEVICE)
+					#define Endpoint_IsReadWriteAllowed()     ((UEINTX & (1 << RWAL)) ? true : false)
+				#endif
+				
+				#define Endpoint_IsConfigured()               ((UESTA0X & (1 << CFGOK)) ? true : false)
+
+				#define Endpoint_GetEndpointInterrupts()      UEINT
+
+				#define Endpoint_HasEndpointInterrupted(n)    ((UEINT & (1 << (n))) ? true : false)
+				
+				#define Endpoint_IsINReady()                  ((UEINTX & (1 << TXINI))  ? true : false)
+				
+				#define Endpoint_IsOUTReceived()              ((UEINTX & (1 << RXOUTI)) ? true : false)
+
+				#define Endpoint_IsSETUPReceived()            ((UEINTX & (1 << RXSTPI)) ? true : false)
+
+				#define Endpoint_ClearSETUP()                 MACROS{ UEINTX &= ~(1 << RXSTPI); }MACROE
+
+				#if !defined(CONTROL_ONLY_DEVICE)
+					#define Endpoint_ClearIN()                MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << TXINI)); \
+					                                                  UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
+				#else
+					#define Endpoint_ClearIN()                MACROS{ UEINTX &= ~(1 << TXINI); }MACROE
+				#endif
+
+				#if !defined(CONTROL_ONLY_DEVICE)
+					#define Endpoint_ClearOUT()               MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << RXOUTI)); \
+					                                                  UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
+				#else
+					#define Endpoint_ClearOUT()               MACROS{ UEINTX &= ~(1 << RXOUTI); }MACROE			
+				#endif
+
+				#define Endpoint_StallTransaction()           MACROS{ UECONX |= (1 << STALLRQ); }MACROE
+
+				#define Endpoint_ClearStall()                 MACROS{ UECONX |= (1 << STALLRQC); }MACROE
+
+				#define Endpoint_IsStalled()                  ((UECONX & (1 << STALLRQ)) ? true : false)
+
+				#define Endpoint_ResetDataToggle()            MACROS{ UECONX |= (1 << RSTDT); }MACROE
+				
+				#define Endpoint_GetEndpointDirection()       (UECFG0X & ENDPOINT_DIR_IN)
+				
+				#define Endpoint_SetEndpointDirection(dir)    MACROS{ UECFG0X = ((UECFG0X & ~ENDPOINT_DIR_IN) | (dir)); }MACROE
 			#endif
 
 		/* Enums: */
@@ -518,11 +486,7 @@
 			static inline uint8_t Endpoint_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_Read_Byte(void)
 			{
-				#if defined(__AVR32__)
-				return __AVR32_EPREG_X(UEDAT0);
-				#elif defined(__AVR__)
 				return UEDATX;
-				#endif
 			}
 
 			/** Writes one byte from the currently selected endpoint's bank, for IN direction endpoints.
@@ -534,11 +498,7 @@
 			static inline void Endpoint_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Byte(const uint8_t Byte)
 			{
-				#if defined(__AVR32__)
-				__AVR32_EPREG_X(UEDAT0) = Byte;
-				#elif defined(__AVR__)
 				UEDATX = Byte;
-				#endif
 			}
 
 			/** Discards one byte from the currently selected endpoint's bank, for OUT direction endpoints.
@@ -550,11 +510,7 @@
 			{
 				uint8_t Dummy;
 				
-				#if defined(__AVR32__)
-				Dummy = __AVR32_EPREG_X(UEDAT0);
-				#elif defined(__AVR__)
 				Dummy = UEDATX;
-				#endif
 			}
 			
 			/** Reads two bytes from the currently selected endpoint's bank in little endian format, for OUT
@@ -573,13 +529,8 @@
 					uint8_t  Bytes[2];
 				} Data;
 				
-				#if defined(__AVR32__)
-				Data.Bytes[0] = __AVR32_EPREG_X(UEDAT0);
-				Data.Bytes[1] = __AVR32_EPREG_X(UEDAT0);
-				#elif defined(__AVR__)
 				Data.Bytes[0] = UEDATX;
 				Data.Bytes[1] = UEDATX;
-				#endif
 			
 				return Data.Word;
 			}
@@ -600,13 +551,8 @@
 					uint8_t  Bytes[2];
 				} Data;
 				
-				#if defined(__AVR32__)
-				Data.Bytes[1] = __AVR32_EPREG_X(UEDAT0);
-				Data.Bytes[0] = __AVR32_EPREG_X(UEDAT0);
-				#elif defined(__AVR__)
 				Data.Bytes[1] = UEDATX;
 				Data.Bytes[0] = UEDATX;
-				#endif
 			
 				return Data.Word;
 			}
@@ -621,13 +567,8 @@
 			static inline void Endpoint_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Word_LE(const uint16_t Word)
 			{
-				#if defined(__AVR32__)
-				__AVR32_EPREG_X(UEDAT0) = (Word & 0xFF);
-				__AVR32_EPREG_X(UEDAT0) = (Word >> 8);
-				#elif defined(__AVR__)
 				UEDATX = (Word & 0xFF);
 				UEDATX = (Word >> 8);
-				#endif
 			}
 			
 			/** Writes two bytes to the currently selected endpoint's bank in big endian format, for IN
@@ -640,13 +581,8 @@
 			static inline void Endpoint_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Word_BE(const uint16_t Word)
 			{
-				#if defined(__AVR32__)
-				__AVR32_EPREG_X(UEDAT0) = (Word >> 8);
-				__AVR32_EPREG_X(UEDAT0) = (Word & 0xFF);
-				#elif defined(__AVR__)
 				UEDATX = (Word >> 8);
 				UEDATX = (Word & 0xFF);
-				#endif
 			}
 
 			/** Discards two bytes from the currently selected endpoint's bank, for OUT direction endpoints.
@@ -658,13 +594,8 @@
 			{
 				uint8_t Dummy;
 				
-				#if defined(__AVR32__)
-				Dummy = __AVR32_EPREG_X(UEDAT0);
-				Dummy = __AVR32_EPREG_X(UEDAT0);
-				#elif defined(__AVR__)
 				Dummy = UEDATX;
 				Dummy = UEDATX;
-				#endif
 			}
 
 			/** Reads four bytes from the currently selected endpoint's bank in little endian format, for OUT
@@ -683,17 +614,10 @@
 					uint8_t  Bytes[4];
 				} Data;
 				
-				#if defined(__AVR32__)
-				Data.Bytes[0] = __AVR32_EPREG_X(UEDAT0);
-				Data.Bytes[1] = __AVR32_EPREG_X(UEDAT0);
-				Data.Bytes[2] = __AVR32_EPREG_X(UEDAT0);
-				Data.Bytes[3] = __AVR32_EPREG_X(UEDAT0);
-				#elif defined(__AVR__)
 				Data.Bytes[0] = UEDATX;
 				Data.Bytes[1] = UEDATX;
 				Data.Bytes[2] = UEDATX;
 				Data.Bytes[3] = UEDATX;
-				#endif
 			
 				return Data.DWord;
 			}
@@ -714,17 +638,10 @@
 					uint8_t  Bytes[4];
 				} Data;
 				
-				#if defined(__AVR32__)
-				Data.Bytes[3] = __AVR32_EPREG_X(UEDAT0);
-				Data.Bytes[2] = __AVR32_EPREG_X(UEDAT0);
-				Data.Bytes[1] = __AVR32_EPREG_X(UEDAT0);
-				Data.Bytes[0] = __AVR32_EPREG_X(UEDAT0);
-				#elif defined(__AVR__)
 				Data.Bytes[3] = UEDATX;
 				Data.Bytes[2] = UEDATX;
 				Data.Bytes[1] = UEDATX;
 				Data.Bytes[0] = UEDATX;
-				#endif
 			
 				return Data.DWord;
 			}
@@ -739,17 +656,10 @@
 			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord)
 			{
-				#if defined(__AVR32__)
-				__AVR32_EPREG_X(UEDAT0) = (DWord &  0xFF);
-				__AVR32_EPREG_X(UEDAT0) = (DWord >> 8);
-				__AVR32_EPREG_X(UEDAT0) = (DWord >> 16);
-				__AVR32_EPREG_X(UEDAT0) = (DWord >> 24);
-				#elif defined(__AVR__)
 				UEDATX = (DWord &  0xFF);
 				UEDATX = (DWord >> 8);
 				UEDATX = (DWord >> 16);
 				UEDATX = (DWord >> 24);
-				#endif
 			}
 			
 			/** Writes four bytes to the currently selected endpoint's bank in big endian format, for IN
@@ -762,17 +672,10 @@
 			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord)
 			{
-				#if defined(__AVR32__)
-				__AVR32_EPREG_X(UEDAT0) = (DWord >> 24);
-				__AVR32_EPREG_X(UEDAT0) = (DWord >> 16);
-				__AVR32_EPREG_X(UEDAT0) = (DWord >> 8);
-				__AVR32_EPREG_X(UEDAT0) = (DWord &  0xFF);
-				#elif defined(__AVR__)
 				UEDATX = (DWord >> 24);
 				UEDATX = (DWord >> 16);
 				UEDATX = (DWord >> 8);
 				UEDATX = (DWord &  0xFF);
-				#endif
 			}
 
 			/** Discards four bytes from the currently selected endpoint's bank, for OUT direction endpoints.	
@@ -784,17 +687,10 @@
 			{
 				uint8_t Dummy;
 				
-				#if defined(__AVR32__)
-				Dummy = __AVR32_EPREG_X(UEDAT0);
-				Dummy = __AVR32_EPREG_X(UEDAT0);
-				Dummy = __AVR32_EPREG_X(UEDAT0);
-				Dummy = __AVR32_EPREG_X(UEDAT0);
-				#elif defined(__AVR__)
 				Dummy = UEDATX;
 				Dummy = UEDATX;
 				Dummy = UEDATX;
 				Dummy = UEDATX;
-				#endif
 			}
 
 		/* External Variables: */
@@ -838,7 +734,7 @@
 			 *  endpoint numbers can handle different maximum packet sizes - refer to the chosen USB AVR's
 			 *  datasheet to determine the maximum bank size for each endpoint.
 			 *
-			 *  The banking mode must be a ENDPOINT_BANK_* mask.
+			 *  The banking mode may be either \ref ENDPOINT_BANK_SINGLE or \ref ENDPOINT_BANK_DOUBLE.
 			 *
 			 *  \note The default control endpoint does not have to be manually configured, as it is automatically
 			 *  configured by the library internally.
@@ -848,8 +744,8 @@
 			 *
 			 *  \return Boolean true if the configuration succeeded, false otherwise
 			 */
-			bool Endpoint_ConfigureEndpoint(const uintN_t  Number, const uintN_t Type, const uintN_t Direction,
-			                                const uint16_t Size, const uintN_t Banks);
+			bool Endpoint_ConfigureEndpoint(const uint8_t  Number, const uint8_t Type, const uint8_t Direction,
+			                                const uint16_t Size, const uint8_t Banks);
 
 			/** Spin-loops until the currently selected non-control endpoint is ready for the next packet of data
 			 *  to be read or written to it.
@@ -921,8 +817,6 @@
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
-			 *  \note Not available on AVR32 UC3B targets.
-			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Write_EStream_LE(const void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
@@ -971,8 +865,6 @@
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
-			 *
-			 *  \note Not available on AVR32 UC3B targets.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -1023,8 +915,6 @@
 			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
-			 *  \note Not available on AVR32 UC3B targets.
-			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Read_EStream_LE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
@@ -1059,8 +949,6 @@
 			 *  \param[out] Buffer   Pointer to the destination data buffer to write to, located in EEPROM memory space.
 			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
-			 *
-			 *  \note Not available on AVR32 UC3B targets.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -1102,8 +990,6 @@
 			 *
 			 *  \param[in] Buffer  Pointer to the source data buffer to read from.
 			 *  \param[in] Length  Number of bytes to read for the currently selected endpoint into the buffer.
-			 *
-			 *  \note Not available on AVR32 UC3B targets.
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
@@ -1167,8 +1053,6 @@
 			 *  \param[in] Buffer  Pointer to the source data buffer to read from.
 			 *  \param[in] Length  Number of bytes to read for the currently selected endpoint into the buffer.
 			 *
-			 *  \note Not available on AVR32 UC3B targets.
-			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Write_Control_EStream_BE(const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
@@ -1231,8 +1115,6 @@
 			 *  \param[out] Buffer  Pointer to the destination data buffer to write to.
 			 *  \param[in] Length  Number of bytes to send via the currently selected endpoint.
 			 *
-			 *  \note Not available on AVR32 UC3B targets.
-			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Read_Control_EStream_LE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
@@ -1274,8 +1156,6 @@
 			 *  \param[out] Buffer  Pointer to the destination data buffer to write to.
 			 *  \param[in] Length  Number of bytes to send via the currently selected endpoint.
 			 *
-			 *  \note Not available on AVR32 UC3B targets.
-			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t Endpoint_Read_Control_EStream_BE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);		
@@ -1283,29 +1163,8 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#if defined(__AVR32__)
-				#define Endpoint_AllocateMemory()              MACROS{ __AVR32_EPREG_X(UECFG10) |=  AVR32_USBB_UECFG0_ALLOC_MASK; }MACROE
-				#define Endpoint_DeallocateMemory()            MACROS{ __AVR32_EPREG_X(UECFG10) &= ~AVR32_USBB_UECFG0_ALLOC_MASK; }MACROE
-
-				#define Endpoint_ConfigureEndpoint(Number, Type, Direction, Size, Banks)            \
-													Endpoint_ConfigureEndpoint_Prv((Number),        \
-															  (((Type) << AVR32_USBB_UECFG0_EPTYPE) | (Direction)), \
-															  (AVR32_USBB_UECFG0_ALLOC_MASK | (Banks) |             \
-																(__builtin_constant_p(Size) ?       \
-																 Endpoint_BytesToEPSizeMask(Size) : \
-																 Endpoint_BytesToEPSizeMaskDynamic(Size))))
-			#elif defined(__AVR__)
-				#define Endpoint_AllocateMemory()              MACROS{ UECFG1X |=  (1 << ALLOC); }MACROE
-				#define Endpoint_DeallocateMemory()            MACROS{ UECFG1X &= ~(1 << ALLOC); }MACROE
-
-				#define Endpoint_ConfigureEndpoint(Number, Type, Direction, Size, Banks)            \
-													Endpoint_ConfigureEndpoint_Prv((Number),        \
-															  (((Type) << EPTYPE0) | (Direction)),  \
-															  ((1 << ALLOC) | (Banks) |             \
-																(__builtin_constant_p(Size) ?       \
-																 Endpoint_BytesToEPSizeMask(Size) : \
-																 Endpoint_BytesToEPSizeMaskDynamic(Size))))
-			#endif
+			#define Endpoint_AllocateMemory()              MACROS{ UECFG1X |=  (1 << ALLOC); }MACROE
+			#define Endpoint_DeallocateMemory()            MACROS{ UECFG1X &= ~(1 << ALLOC); }MACROE
 			
 			#define _ENDPOINT_GET_MAXSIZE(n)               _ENDPOINT_GET_MAXSIZE2(ENDPOINT_DETAILS_EP ## n)
 			#define _ENDPOINT_GET_MAXSIZE2(details)        _ENDPOINT_GET_MAXSIZE3(details)
@@ -1323,15 +1182,7 @@
 				#define ENDPOINT_DETAILS_EP4               64,  true
 				#define ENDPOINT_DETAILS_EP5               64,  true
 				#define ENDPOINT_DETAILS_EP6               64,  true
-			#elif defined(USB_SERIES_UC3B_AVR)
-				#define ENDPOINT_DETAILS_EP0               64,  false
-				#define ENDPOINT_DETAILS_EP1               64,  true
-				#define ENDPOINT_DETAILS_EP2               64,  true
-				#define ENDPOINT_DETAILS_EP3               64,  true
-				#define ENDPOINT_DETAILS_EP4               64,  true
-				#define ENDPOINT_DETAILS_EP5               256, true
-				#define ENDPOINT_DETAILS_EP6               256, true				
-			#elif defined(USB_SERIES_2_AVR)
+			#else
 				#define ENDPOINT_DETAILS_EP0               64,  true
 				#define ENDPOINT_DETAILS_EP1               64,  false
 				#define ENDPOINT_DETAILS_EP2               64,  false
@@ -1339,27 +1190,23 @@
 				#define ENDPOINT_DETAILS_EP4               64,  true			
 			#endif
 
+			#define Endpoint_ConfigureEndpoint(Number, Type, Direction, Size, Banks)            \
+			                                    Endpoint_ConfigureEndpoint_Prv((Number),        \
+			                                              (((Type) << EPTYPE0) | (Direction)),  \
+			                                              ((1 << ALLOC) | (Banks) |             \
+			                                                (__builtin_constant_p(Size) ?       \
+			                                                 Endpoint_BytesToEPSizeMask(Size) : \
+			                                                 Endpoint_BytesToEPSizeMaskDynamic(Size))))
+													
 		/* Function Prototypes: */
 			void    Endpoint_ClearEndpoints(void);
-			uintN_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size);
-			bool    Endpoint_ConfigureEndpoint_Prv(const uintN_t Number, const uintN_t UECFG0XData, const uintN_t UECFG1XData);
+			uint8_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size);
+			bool    Endpoint_ConfigureEndpoint_Prv(const uint8_t Number, const uint8_t UECFG0XData, const uint8_t UECFG1XData);
 			
 		/* Inline Functions: */
-			static inline uintN_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
-			static inline uintN_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
+			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
+			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
 			{
-				#if defined(__AVR32__)
-				uint8_t  MaskVal    = 0;
-				uint16_t CheckBytes = 8;
-				
-				while (CheckBytes < Bytes)
-				{
-					MaskVal++;
-					CheckBytes <<= 1;
-				}
-				
-				return (MaskVal << AVR32_USBB_EPSIZE);
-				#else
 				uint8_t  MaskVal    = 0;
 				uint16_t CheckBytes = 8;
 				
@@ -1370,7 +1217,6 @@
 				}
 				
 				return (MaskVal << EPSIZE0);
-				#endif
 			}
 
 	#endif

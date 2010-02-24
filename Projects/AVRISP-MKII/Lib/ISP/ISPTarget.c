@@ -131,11 +131,11 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 					TimeoutMSRemaining--;
 				}
 
-				SPI_Send(ReadMemCommand);
-				SPI_Send(PollAddress >> 8);
-				SPI_Send(PollAddress & 0xFF);
+				SPI_SendByte(ReadMemCommand);
+				SPI_SendByte(PollAddress >> 8);
+				SPI_SendByte(PollAddress & 0xFF);
 			}
-			while ((SPI_Transfer(0x00) == PollValue) && TimeoutMSRemaining);
+			while ((SPI_TransferByte(0x00) == PollValue) && TimeoutMSRemaining);
 
 			if (!(TimeoutMSRemaining))
 			 ProgrammingStatus = STATUS_CMD_TOUT;
@@ -169,11 +169,11 @@ uint8_t ISPTarget_WaitWhileTargetBusy(void)
 			TimeoutMSRemaining--;
 		}	
 
-		SPI_Send(0xF0);
-		SPI_Send(0x00);
-		SPI_Send(0x00);
+		SPI_SendByte(0xF0);
+		SPI_SendByte(0x00);
+		SPI_SendByte(0x00);
 	}
-	while ((SPI_Receive() & 0x01) && TimeoutMSRemaining);
+	while ((SPI_ReceiveByte() & 0x01) && TimeoutMSRemaining);
 
 	if (TimeoutMSRemaining)
 	{
@@ -192,10 +192,10 @@ uint8_t ISPTarget_WaitWhileTargetBusy(void)
  */
 void ISPTarget_LoadExtendedAddress(void)
 {
-	SPI_Send(LOAD_EXTENDED_ADDRESS_CMD);
-	SPI_Send(0x00);
-	SPI_Send((CurrentAddress & 0x00FF0000) >> 16);
-	SPI_Send(0x00);	
+	SPI_SendByte(LOAD_EXTENDED_ADDRESS_CMD);
+	SPI_SendByte(0x00);
+	SPI_SendByte((CurrentAddress & 0x00FF0000) >> 16);
+	SPI_SendByte(0x00);	
 }
 
 #endif

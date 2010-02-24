@@ -9,7 +9,7 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
   *  <b>New:</b>
-  *  - Added support for the UC3B0256 AVR32 microcontroller
+  *  - (None)
   *
   *  <b>Changed:</b>
   *  - AVRISP programmer project now has a more robust timeout system, allowing for a doubling of the software USART speed

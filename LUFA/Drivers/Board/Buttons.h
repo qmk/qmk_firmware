@@ -86,8 +86,6 @@
 		#include "EVK527/Buttons.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/Buttons.h"
-	#elif (BOARD == BOARD_EVK1101)
-		#include "EVK1101/Buttons.h"
 	#else
 		#error The selected board does not contain any GPIO buttons.
 	#endif
@@ -105,7 +103,7 @@
 		 *
 		 *  \return Mask indicating which board buttons are currently pressed
 		 */
-		static inline uintN_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+		static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 	#endif
 
 #endif

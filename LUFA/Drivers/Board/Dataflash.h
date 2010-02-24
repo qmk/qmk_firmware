@@ -127,7 +127,7 @@
 			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline uint8_t Dataflash_TransferByte(const uint8_t Byte)
 			{
-				return SPI_Transfer(Byte);
+				return SPI_TransferByte(Byte);
 			}
 
 			/** Sends a byte to the currently selected dataflash IC, and ignores the next byte from the dataflash.
@@ -137,7 +137,7 @@
 			static inline void Dataflash_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Dataflash_SendByte(const uint8_t Byte)
 			{
-				SPI_Send(Byte);
+				SPI_SendByte(Byte);
 			}
 			
 			/** Sends a dummy byte to the currently selected dataflash IC, and returns the next byte from the dataflash.
@@ -147,7 +147,7 @@
 			static inline uint8_t Dataflash_ReceiveByte(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Dataflash_ReceiveByte(void)
 			{
-				return SPI_Receive();
+				return SPI_ReceiveByte();
 			}
 
 		/* Includes: */
@@ -167,8 +167,6 @@
 				#include "EVK527/Dataflash.h"
 			#elif (BOARD == BOARD_USER)
 				#include "Board/Dataflash.h"
-			#elif (BOARD = BOARD_EVK1101)
-				#include "EVK1101/Dataflash.h"
 			#else
 				#error The selected board does not contain a dataflash IC.
 			#endif

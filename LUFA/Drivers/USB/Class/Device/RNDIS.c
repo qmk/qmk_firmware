@@ -345,11 +345,7 @@ static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RN
 		case OID_GEN_SUPPORTED_LIST:
 			*ResponseSize = sizeof(AdapterSupportedOIDList);
 			
-			#if defined(__AVR32__)
-			memcpy(ResponseData, AdapterSupportedOIDList, sizeof(AdapterSupportedOIDList));			
-			#elif defined(__AVR__)
-			memcpy_P(ResponseData, AdapterSupportedOIDList, sizeof(AdapterSupportedOIDList));			
-			#endif
+			memcpy_P(ResponseData, AdapterSupportedOIDList, sizeof(AdapterSupportedOIDList));
 			
 			return true;
 		case OID_GEN_PHYSICAL_MEDIUM:

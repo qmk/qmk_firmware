@@ -53,13 +53,7 @@
 #define __TEMPERATURE_H__
 
 	/* Includes: */
-		#if defined(__AVR32__)
-			#include <avr32/io.h>
-			#include <stdint.h>
-		#elif defined(__AVR__)
-			#include <avr/io.h>
-			#include <avr/pgmspace.h>
-		#endif
+		#include <avr/pgmspace.h>
 
 		#include "../../Common/Common.h"
 		#include "../Peripheral/ADC.h"

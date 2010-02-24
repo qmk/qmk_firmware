@@ -70,7 +70,8 @@
 				// TODO: Initialize the appropriate port pins as an inputs here, with pull-ups
 			}
 
-			static inline uintN_t Buttons_GetStatus(void)
+			static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t Buttons_GetStatus(void)
 			{
 				// TODO: Return current button status here, debounced if required
 			}

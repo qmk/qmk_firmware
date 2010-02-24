@@ -139,7 +139,7 @@ static void USB_Device_SetAddress(void)
 	if (DeviceAddress)
 	  USB_DeviceState = DEVICE_STATE_Addressed;
 
-	USB_Device_SetDeviceAddress(DeviceAddress);
+	UDADDR = ((1 << ADDEN) | DeviceAddress);
 
 	return;
 }

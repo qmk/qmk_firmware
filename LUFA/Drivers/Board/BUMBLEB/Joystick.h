@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  Board specific joystick driver header for the BUMBLEB. The BUMBLEB third-party board does not include any on-board
+ *  Board specific joystick driver header for the USBKEY. The BUMBLEB third-party board does not include any on-board
  *  peripherals, but does have an officially recommended external peripheral layout for buttons, LEDs and a Joystick.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
@@ -40,7 +40,7 @@
 /** \ingroup Group_Joystick
  *  @defgroup Group_Joystick_BUMBLEB BUMBLEB
  *
- *  Board specific joystick driver header for the BUMBLEB. The BUMBLEB third-party board does not include any on-board
+ *  Board specific joystick driver header for the USBKEY. The BUMBLEB third-party board does not include any on-board
  *  peripherals, but does have an officially recommended external peripheral layout for buttons, LEDs and a Joystick.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
@@ -98,7 +98,8 @@
 				PORTD |= JOY_MASK;
 			}
 			
-			static inline uintN_t Joystick_GetStatus(void)
+			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t Joystick_GetStatus(void)
 			{
 				return (uint8_t)(~PIND & JOY_MASK);
 			}

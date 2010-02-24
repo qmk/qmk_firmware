@@ -47,25 +47,14 @@ int8_t Temperature_GetTemperature(void)
 {
 	uint16_t Temp_ADC = ADC_GetChannelReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | TEMP_ADC_CHANNEL_MASK);
 
-	#if defined(__AVR32__)
-	if (Temp_ADC > Temperature_Lookup[0])
-	  return TEMP_MIN_TEMP;	
-
-	for (uint16_t Index = 0; Index < TEMP_TABLE_SIZE; Index++)
-	{
-		if (Temp_ADC > Temperature_Lookup[Index])
-		  return (Index + TEMP_TABLE_OFFSET);
-	}
-	#elif defined(__AVR__)
 	if (Temp_ADC > pgm_read_word(&Temperature_Lookup[0]))
-	  return TEMP_MIN_TEMP;	
+	  return TEMP_MIN_TEMP;
 
 	for (uint16_t Index = 0; Index < TEMP_TABLE_SIZE; Index++)
 	{
 		if (Temp_ADC > pgm_read_word(&Temperature_Lookup[Index]))
 		  return (Index + TEMP_TABLE_OFFSET);
 	}
-	#endif
 
 	return TEMP_MAX_TEMP;
 }

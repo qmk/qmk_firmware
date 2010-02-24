@@ -148,7 +148,6 @@
  *  may be defined to a value between 0 and 2 to fix the state variable into one of the three general purpose IO registers inside the AVR
  *  reserved for application use. When defined, the corresponding GPIOR register should not be used within the user application except
  *  implicitly via the library APIs.
- *  \note This compile time option is ignored for the AVR32 UC3B architecture.
  *
  *  <b>FIXED_NUM_CONFIGURATIONS</b>=<i>x</i> - ( \ref Group_Device ) \n
  *  By default, the library determines the number of configurations a USB device supports by reading the device descriptor. This reduces
@@ -187,7 +186,6 @@
  *  may be defined to a value between 0 and 2 to fix the state variable into one of the three general purpose IO registers inside the AVR
  *  reserved for application use. When defined, the corresponding GPIOR register should not be used within the user application except
  *  implicitly via the library APIs.
- *  \note This compile time option is ignored for the AVR32 UC3B architecture.
  *
  *  <b>USB_HOST_TIMEOUT_MS</b>=<i>x</i> - ( \ref Group_Host ) \n
  *  When a control transfer is initiated in host mode to an attached device, a timeout is used to abort the transfer if the attached

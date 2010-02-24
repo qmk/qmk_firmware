@@ -68,7 +68,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define JOY_FMASK                ((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7))
+			#define JOY_FMASK                 ((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7))
 			#define JOY_CMASK                 (1 << 6))
 	#endif
 	
@@ -100,7 +100,8 @@
 				PORTC |= JOY_CMASK;				
 			}
 			
-			static inline uintN_t Joystick_GetStatus(void)
+			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t Joystick_GetStatus(void)
 			{
 				return (((uint8_t)~PINF & JOY_FMASK) | (((uint8_t)~PINC & JOY_CMASK) >> 3));
 			}

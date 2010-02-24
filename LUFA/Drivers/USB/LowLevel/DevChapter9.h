@@ -32,15 +32,10 @@
 #define __DEVCHAPTER9_H__
 
 	/* Includes: */
-		#if defined(__AVR32__)
-			#include <avr32/io.h>
-			#include <stdint.h>
-		#elif defined(__AVR__)
-			#include <avr/io.h>
-			#include <avr/pgmspace.h>
-			#include <avr/eeprom.h>
-			#include <avr/boot.h>
-		#endif
+		#include <avr/io.h>
+		#include <avr/pgmspace.h>
+		#include <avr/eeprom.h>
+		#include <avr/boot.h>
 		
 		#include "../HighLevel/StdDescriptors.h"
 		#include "../HighLevel/Events.h"
@@ -55,7 +50,7 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 		
 	/* Public Interface - May be used in end-application: */
@@ -75,11 +70,7 @@
 				enum USB_DescriptorMemorySpaces_t
 				{
 					MEMSPACE_FLASH    = 0, /**< Indicates the requested descriptor is located in FLASH memory */
-					
-					#if defined(__AVR__) || defined(__DOXYGEN__)
 					MEMSPACE_EEPROM   = 1, /**< Indicates the requested descriptor is located in EEPROM memory */
-					#endif
-					
 					MEMSPACE_RAM      = 2, /**< Indicates the requested descriptor is located in RAM memory */
 				};
 			#endif
@@ -133,10 +124,6 @@
 			#error USE_FLASH_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
 		#elif defined(USE_FLASH_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS) && defined(USE_RAM_DESCRIPTORS)
 			#error Only one of the USE_*_DESCRIPTORS modes should be selected.
-		#endif
-		
-		#if defined(USE_EEPROM_DESCRIPTORS) && defined(USB_SERIES_UC3B_AVR)
-			#error USE_EEPROM_DESCRIPTORS is not available on the UC3B series AVRs.
 		#endif
 	
 		/* Function Prototypes: */

@@ -56,17 +56,8 @@
 #define __COMMON_H__
 
 	/* Includes: */
-		#if defined(__AVR32__)
-			#include <avr32/io.h>
-			#include <stdint.h>
-
-			#include "Atomic.h"
-
-			#define PROGMEM const
-		#elif defined(__AVR__)
-			#include <avr/io.h>
-		#endif
-
+		#include <avr/io.h>
+	
 		#include "FunctionAttributes.h"
 		#include "BoardTypes.h"
 
@@ -188,20 +179,6 @@
 				}
 			}
 
-		/* Type Defines: */
-			#if defined(__AVR32__)
-				/** Type define for an unsigned native word-sized chunk of data. */
-				typedef uint32_t uintN_t;
-
-				/** Type define for a signed native word-sized chunk of data. */
-				typedef int32_t intN_t;
-			#elif defined(__AVR__)
-				/** Type define for an unsigned native word-sized chunk of data. */
-				typedef uint8_t uintN_t;
-
-				/** Type define for a signed native word-sized chunk of data. */
-				typedef int8_t intN_t;
-			#endif
 #endif
 
 /** @} */

@@ -354,14 +354,13 @@
 		#if !defined(__DOXYGEN__)
 			#define __INCLUDE_FROM_USB_DRIVER
 		#endif
-		
+
 	/* Includes: */
 		#include "HighLevel/USBMode.h"
 
 	/* Preprocessor Checks: */		
 		#if (!defined(USB_SERIES_2_AVR) && !defined(USB_SERIES_4_AVR) && \
-		     !defined(USB_SERIES_6_AVR) && !defined(USB_SERIES_7_AVR) && \
-			 !defined(USB_SERIES_UC3B_AVR))
+		     !defined(USB_SERIES_6_AVR) && !defined(USB_SERIES_7_AVR))
 			#error The currently selected AVR model is not supported under the USB component of the LUFA library.
 		#endif
 		

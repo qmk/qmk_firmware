@@ -57,8 +57,6 @@
 		#include <avr/io.h>
 		#include <stdio.h>
 		
-		#include "../../Common/Common.h"		
-
 		#include "Serial.h"
 	
 	/* Enable C linkage for C++ Compilers: */
