@@ -66,8 +66,8 @@ bool TWI_StartTransmission(uint8_t SlaveAddress, uint8_t TimeoutMS)
 			case TW_MR_SLA_ACK:
 				return true;
 			default:
-				TWI_StopTransmission();
-				break;
+				TWCR = ((1 << TWINT) | (1 << TWSTO) | (1 << TWEN));
+				return false;
 		}
 	}
 }
