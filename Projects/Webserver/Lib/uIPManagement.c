@@ -172,7 +172,7 @@ static void uIPManagement_ProcessIncomingPacket(void)
 		}
 	}
 
-	LEDs_SetAllLEDs(LEDMASK_USB_READY | ((HaveIPConfiguration) ? LEDMASK_UIP_READY : LEDMASK_UIP_READY_NOCONFIG));
+	LEDs_SetAllLEDs(LEDMASK_USB_READY | ((HaveIPConfiguration) ? LEDMASK_UIP_READY_CONFIG : LEDMASK_UIP_READY_NOCONFIG));
 }
 
 /** Manages the currently open network connections, including TCP and (if enabled) UDP. */

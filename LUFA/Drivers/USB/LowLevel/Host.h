@@ -220,7 +220,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_GetDeviceStringDescriptor(uint8_t Index, void* const Buffer, uint8_t BufferLength);
+			uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index, void* const Buffer, const uint8_t BufferLength);
 			
 			/** Clears a stall condition on the given pipe, via a ClearFeature request to the attached device.
 			 *
@@ -236,7 +236,9 @@
 			/** Enum for the various states of the USB Host state machine. Only some states are
 			 *  implemented in the LUFA library - other states are left to the user to implement.
 			 *
-			 *  For information on each state, refer to the USB 2.0 specification. Some states have
+			 *  For information on each possible USB host state, refer to the USB 2.0 specification.
+			 *  Several of the USB host states are broken up further into multiple smaller sub-states,
+			 *  so that they can be internally implemented inside the library in an efficient manner.
 			 *
 			 *  \see \ref USB_HostState, which stores the current host state machine state.
 			 */

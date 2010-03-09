@@ -309,7 +309,7 @@ uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr)
 	return USB_Host_SendControlRequest(DeviceDescriptorPtr);
 }
 
-uint8_t USB_Host_GetDeviceStringDescriptor(uint8_t Index, void* const Buffer, uint8_t BufferLength)
+uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index, void* const Buffer, const uint8_t BufferLength)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
