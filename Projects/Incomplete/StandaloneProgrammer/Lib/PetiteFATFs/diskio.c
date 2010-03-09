@@ -41,8 +41,6 @@ DRESULT disk_readp (
 		  ErrorCode = RES_NOTRDY;
 		else if (MS_Host_ReadDeviceBlocks(&DiskHost_MS_Interface, 0, sector, 1, 512, BlockTemp))
 		  ErrorCode = RES_ERROR;
-
-		MS_Host_ReadDeviceBlocks(&DiskHost_MS_Interface, 0, sector, 1, 512, BlockTemp);
 		#endif
 	}
 	else

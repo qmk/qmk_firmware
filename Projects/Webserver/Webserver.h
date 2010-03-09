@@ -53,19 +53,25 @@
 		
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
-		#define LEDMASK_USB_NOTREADY      LEDS_LED1
+		#define LEDMASK_USB_NOTREADY          LEDS_LED1
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
-		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+		#define LEDMASK_USB_ENUMERATING      (LEDS_LED1 | LEDS_LED2)
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
-		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+		#define LEDMASK_USB_READY             LEDS_LED2
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
-		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+		#define LEDMASK_USB_ERROR            (LEDS_LED1 | LEDS_LED3)
 		
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
-		#define LEDMASK_USB_BUSY          LEDS_LED2
+		#define LEDMASK_USB_BUSY             (LEDS_LED1 | LEDS_LED3 | LEDS_LED4)
+
+		/** LED mask for the uIP stack idling with no IP configuration */
+		#define LEDMASK_UIP_READY_NOCONFIG    LEDS_LED3
+
+		/** LED mask for the uIP stack idling with a valid IP configuration */
+		#define LEDMASK_UIP_READY_CONFIG      LEDS_LED4
 
 	/* Function Prototypes: */
 		void SetupHardware(void);

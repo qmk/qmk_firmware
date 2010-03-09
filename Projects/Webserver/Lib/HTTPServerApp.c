@@ -77,7 +77,7 @@ const MIME_Type_t MIMETypes[] =
 		{.Extension = "pdf", .MIMEType = "application/pdf"},
 	};
 
-/** FAT Fs structure to hold the internal state of the FAT driver for the dataflash contents. */
+/** FATFs structure to hold the internal state of the FAT driver for the dataflash contents. */
 FATFS DiskFATState;
 
 
