@@ -28,15 +28,16 @@
   this software.
 */
 
+#if defined(ENABLE_DHCP_CLIENT) || defined(__DOXYGEN__)
+
 /** \file
  *
  *  DHCP Client Application. When connected to the uIP stack, this will retrieve IP configuration settings from the
  *  DHCP server on the network.
  */
 
+#define  INCLUDE_FROM_DHCPCLIENTAPP_C
 #include "DHCPClientApp.h"
-
-#if defined(ENABLE_DHCP_CLIENT) || defined(__DOXYGEN__)
 
 /** Initialization function for the DHCP client. */
 void DHCPClientApp_Init(void)
@@ -175,7 +176,7 @@ void DHCPClientApp_Callback(void)
  *
  *  \return Size in bytes of the created DHCP packet
  */
-uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageType, uip_udp_appstate_t* AppState)
+static uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageType, uip_udp_appstate_t* AppState)
 {
 	/* Erase existing packet data so that we start will all 0x00 DHCP header data */
  	memset(DHCPHeader, 0, sizeof(DHCP_Header_t));
@@ -214,7 +215,7 @@ uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMes
  *
  *  \return Number of bytes added to the DHCP packet
  */
-uint8_t DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen, void* OptionData)
+static uint8_t DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen, void* OptionData)
 {
 	/* Skip through the DHCP options list until the terminator option is found */
 	while (*DHCPOptionList != DHCP_OPTION_END)
@@ -238,7 +239,7 @@ uint8_t DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t
  *
  *  \return Boolean true if the option was found in the DHCP packet's options list, false otherwise
  */
-bool DHCPClientApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination)
+static bool DHCPClientApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination)
 {
 	/* Look through the incoming DHCP packet's options list for the requested option */
 	while (*DHCPOptionList != DHCP_OPTION_END)

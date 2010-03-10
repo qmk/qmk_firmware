@@ -17,6 +17,7 @@
   *  - Increased the speed of both software and hardware TPI/PDI programming modes of the AVRISP project
   *  - Added a timeout value to the TWI_StartTransmission() function, within which the addressed device must respond
   *  - Webserver project now uses the board LEDs to indicate the current IP configuration state
+  *  - Added ENABLE_TELNET_SERVER compile time option to the Webserver project to disable the TELNET server if desired
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin

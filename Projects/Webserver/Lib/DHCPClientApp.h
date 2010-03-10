@@ -159,8 +159,11 @@
 		void DHCPClientApp_Init(void);
 		void DHCPClientApp_Callback(void);
 		
-		uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageType, uip_udp_appstate_t* AppState);
-		uint8_t  DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen, void* OptionData);
-		bool     DHCPClientApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination);
-		
+		#if defined(INCLUDE_FROM_DHCPCLIENTAPP_C)
+			static uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageType,
+			                                             uip_udp_appstate_t* AppState);
+			static uint8_t  DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen,
+			                                        void* OptionData);
+			static bool     DHCPClientApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination);
+		#endif
 #endif

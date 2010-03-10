@@ -80,7 +80,9 @@ void uIPManagement_Init(void)
 	HTTPServerApp_Init();
 	
 	/* TELNET Server Initialization */
+	#if defined(ENABLE_TELNET_SERVER)
 	TELNETServerApp_Init();
+	#endif
 }
 
 /** uIP Management function. This function manages the uIP stack when called while an RNDIS device has been
@@ -106,9 +108,11 @@ void uIPManagement_TCPCallback(void)
 		case HTONS(HTTP_SERVER_PORT):
 			HTTPServerApp_Callback();
 			break;
+		#if defined(ENABLE_TELNET_SERVER)
 		case HTONS(TELNET_SERVER_PORT):
 			TELNETServerApp_Callback();
 			break;
+		#endif
 	}
 }
 

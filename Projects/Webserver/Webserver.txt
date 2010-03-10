@@ -78,6 +78,12 @@
  *    <td><b>Description:</b></td>
  *   </tr>
  *   <tr>
+ *    <td>ENABLE_TELNET_SERVER</td>
+ *    <td>Makefile CDEFS</td>
+ *    <td>When defined, this enables the TELNET server in addition to the HTTP webserver, which listens for incomming connections
+ *        and processes user commands.</td>
+ *   </tr>
+ *   <tr>
  *    <td>ENABLE_DHCP_CLIENT</td>
  *    <td>Makefile CDEFS</td>
  *    <td>When defined, this enables the DHCP client for dynamic IP allocation of the network settings from a DHCP server.</td>

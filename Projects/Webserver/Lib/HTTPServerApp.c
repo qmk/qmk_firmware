@@ -56,11 +56,11 @@ const char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
                                      "Content-Type: text/plain\r\n\r\n"
                                      "Error 404: File Not Found: /";
 
-/** Default MIME type sent if no other MIME type can be determined. */
-const char PROGMEM DefaultMIMEType[] = "text/plain";
-
 /** Default filename to fetch when a directory is requested */
 const char PROGMEM DefaultDirFileName[] = "index.htm";
+
+/** Default MIME type sent if no other MIME type can be determined. */
+const char PROGMEM DefaultMIMEType[] = "text/plain";
 
 /** List of MIME types for each supported file extension. */
 const MIME_Type_t MIMETypes[] =
@@ -174,7 +174,7 @@ static void HTTPServerApp_OpenRequestedFile(void)
 	char* RequestedFileName = strtok(NULL, " ");
 			
 	/* Must be a GET request, abort otherwise */
-	if (strcmp(RequestToken, "GET") != 0)
+	if (strcmp_P(RequestToken, PSTR("GET")) != 0)
 	{
 		uip_abort();
 		return;
@@ -257,7 +257,7 @@ static void HTTPServerApp_SendResponseHeader(void)
 	}
 	
 	/* Add the end-of-line terminator and end-of-headers terminator after the MIME type */
-	strcpy(&AppData[strlen(AppData)], "\r\n\r\n");
+	strcpy_P(&AppData[strlen(AppData)], PSTR("\r\n\r\n"));
 	
 	/* Send the MIME header to the receiving client */
 	uip_send(AppData, strlen(AppData));

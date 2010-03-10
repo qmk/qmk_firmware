@@ -28,6 +28,8 @@
   this software.
 */
 
+#if defined(ENABLE_TELNET_SERVER) || defined(__DOXYGEN__)
+
 /** \file
  *
  *  TELNET Webserver Application. When connected to the uIP stack,
@@ -114,7 +116,7 @@ void TELNETServerApp_Callback(void)
 						TELNETServerApp_DisplayTCPConnections();
 						break;
 					default:
-						strcpy(AppData, "Invalid Command.\r\n");
+						strcpy_P(AppData, PSTR("Invalid Command.\r\n"));
 						uip_send(AppData, strlen(AppData));
 						break;
 				}
@@ -144,14 +146,17 @@ static void TELNETServerApp_DisplayTCPConnections(void)
 		if (CurrConnection->tcpstateflags != UIP_CLOSED)
 		{
 			/* Add the current connection's details to the out buffer */
-			ResponseLen += sprintf(&AppData[ResponseLen], "%u) %02d.%02d.%02d.%02d (Local %u, Remote %u)\r\n",
-								   ++ActiveConnCount, CurrConnection->ripaddr.u8[0],
-													  CurrConnection->ripaddr.u8[1],
-													  CurrConnection->ripaddr.u8[2],
-													  CurrConnection->ripaddr.u8[3],
-								   HTONS(CurrConnection->lport), HTONS(CurrConnection->rport));
+			ResponseLen += sprintf_P(&AppData[ResponseLen], PSTR("%u) %02d.%02d.%02d.%02d (Local %u, Remote %u)\r\n"),
+			                         ++ActiveConnCount,
+			                         CurrConnection->ripaddr.u8[0],
+			                         CurrConnection->ripaddr.u8[1],
+			                         CurrConnection->ripaddr.u8[2],
+			                         CurrConnection->ripaddr.u8[3],
+			                         HTONS(CurrConnection->lport), HTONS(CurrConnection->rport));
 		}
 	}
 
 	uip_send(AppData, ResponseLen);
 }
+
+#endif
