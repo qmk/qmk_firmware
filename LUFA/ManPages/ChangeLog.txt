@@ -22,7 +22,10 @@
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin
   *  - Fixed TWI_StartTransmission() corrupting the contents of the GPIOR0 register
-  *  - Fix TWI driver not aborting when faced with no response after attempting to address a device on the bus
+  *  - Fixed TWI driver not aborting when faced with no response after attempting to address a device on the bus
+  *  - Fixed ADC routines not correctly returning the last result when multiple channels were read
+  *  - Fixed ADC routines failing to read the extended channels (Channels 8 to 13, Internal Temperature Sensor) on the
+  *    U4 series USB AVR parts
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *
