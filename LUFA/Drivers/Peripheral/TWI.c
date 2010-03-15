@@ -17,7 +17,7 @@ bool TWI_StartTransmission(uint8_t SlaveAddress, uint8_t TimeoutMS)
 		TWCR = ((1 << TWINT) | (1 << TWSTA) | (1 << TWEN));	
 
 		TimeoutRemaining = (TimeoutMS * 100);
-		while (TimeoutRemaining-- && !BusCaptured)
+		while (TimeoutRemaining-- && !(BusCaptured))
 		{
 			if (TWCR & (1 << TWINT))
 			{

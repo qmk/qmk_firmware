@@ -148,7 +148,7 @@
 			#define  ADC_CHANNEL7                    (0x07 << MUX0)
 
 			/** MUX mask define for the internal 1.1V bandgap channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
-			#define  ADC_1100MV_BANDGAP              0x1E
+			#define  ADC_1100MV_BANDGAP              (0x1E << MUX0)
 			
 			#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
 				/** MUX mask define for the ADC8 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
@@ -289,6 +289,10 @@
 			 *  Once executed, the conversion status can be determined via the \ref ADC_IsReadingComplete() macro and
 			 *  the result read via the \ref ADC_GetResult() macro.
 			 *
+			 *  If the ADC has been initialized in free running mode, calling this function once will begin the repeated
+			 *  conversions. If the ADC is in single conversion mode (or the channel to convert from is to be changed),
+			 *  this function must be called each time a conversion is to take place.
+			 *
 			 *  \param[in] MUXMask  Mask comprising of an ADC channel mask, reference mask and adjustment mask
 			 */
 			static inline void ADC_StartReading(const uint16_t MUXMask)
@@ -307,6 +311,10 @@
 
 			/** Performs a complete single reading from channel, including a polling spin-loop to wait for the
 			 *  conversion to complete, and the returning of the converted value.
+			 *
+			 *  \note For free running mode, the automated conversions should be initialized with a single call
+			 *        to \ref ADC_StartReading() to select the channel and begin the automated conversions, and
+			 *        the results read directly from the \ref ADC_GetResult() instead to reduce overhead.
 			 *
 			 *  \param[in] MUXMask  Mask comprising of an ADC channel mask, reference mask and adjustment mask
 			 */
