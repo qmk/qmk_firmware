@@ -90,11 +90,11 @@ int main(void)
 		}
 		
 		/* Read bytes from the USART receive buffer into the USB IN endpoint */
-		if (USARTtoUSB_Buffer.Elements)
+		while (USARTtoUSB_Buffer.Elements)
 		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&USARTtoUSB_Buffer));
 		
 		/* Load bytes from the USART transmit buffer into the USART */
-		if (USBtoUSART_Buffer.Elements)
+		while (USBtoUSART_Buffer.Elements)
 		  Serial_TxByte(Buffer_GetElement(&USBtoUSART_Buffer));
 		
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
