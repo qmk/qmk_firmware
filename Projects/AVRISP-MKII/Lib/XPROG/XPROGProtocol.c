@@ -119,7 +119,7 @@ static void XPROGProtocol_EnterXPROGMode(void)
 	{
 		/* Enable PDI programming mode with the attached target */
 		XPROGTarget_EnableTargetPDI();
-		
+
 		/* Store the RESET key into the RESET PDI register to keep the XMEGA in reset */
 		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
 		XPROGTarget_SendByte(PDI_RESET_KEY);
@@ -170,7 +170,13 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 	
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
 	{
+		XMEGANVM_WaitWhileNVMBusBusy();
+
 		/* Clear the RESET key in the RESET PDI register to allow the XMEGA to run */
+		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
+		XPROGTarget_SendByte(0x00);
+		
+		/* Clear /RESET key twice (for some reason this needs to be done twice to take effect) */
 		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
 		XPROGTarget_SendByte(0x00);
 
@@ -178,6 +184,8 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 	}
 	else
 	{
+		TINYNVM_WaitWhileNVMBusBusy();
+
 		/* Clear the NVMEN bit in the TPI CONTROL register to disable TPI mode */
 		XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_CTRL_REG);	
 		XPROGTarget_SendByte(0x00);

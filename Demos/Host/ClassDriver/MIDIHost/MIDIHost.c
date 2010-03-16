@@ -114,9 +114,9 @@ int main(void)
 					
 					if (NoteOnEvent || NoteOffEvent)
 					{
-						printf_P(PSTR("MIDI Note %s - Channel %d, Pitch %d, Velocity %d"), NoteOnEvent ? "On" : "Off",
-																						   ((MIDIEvent.Data1 & 0x0F) + 1),
-																						   MIDIEvent.Data2, MIDIEvent.Data3);
+						printf_P(PSTR("MIDI Note %s - Channel %d, Pitch %d, Velocity %d\r\n"), NoteOnEvent ? "On" : "Off",
+																						       ((MIDIEvent.Data1 & 0x0F) + 1),
+																						       MIDIEvent.Data2, MIDIEvent.Data3);
 					}
 				}
 		

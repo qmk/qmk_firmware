@@ -232,33 +232,24 @@ void XPROGTarget_DisableTargetPDI(void)
 	XPROGTarget_SetRxMode();
 
 #if defined(XPROG_VIA_HARDWARE_USART)
-	/* Set /RESET high for a one millisecond to ensure target device is restarted */
-	PORTD |= (1 << 5);
-	_delay_ms(1);
-
 	/* Turn off receiver and transmitter of the USART, clear settings */
-	UCSR1A |= (1 << TXC1) | (1 << RXC1);
+	UCSR1A  = ((1 << TXC1) | (1 << RXC1));
 	UCSR1B  = 0;
 	UCSR1C  = 0;
 
-	/* Set all USART lines as input, tristate */
+	/* Make Reset input with pullup to take target out of /RESET, tristate all other pins */
 	DDRD  &= ~((1 << 5) | (1 << 3));
-	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
+	PORTD &= ~((1 << 3) | (1 << 2));
+	PORTD |=   (1 << 5);
 #else
 	/* Turn off software USART management timer */
 	TCCR1B = 0;
 
-	/* Set /RESET high for a one millisecond to ensure target device is restarted */
-	BITBANG_PDICLOCK_PORT |= BITBANG_PDICLOCK_MASK;
-	_delay_ms(1);
-
-	/* Set DATA and CLOCK lines to inputs */
+	/* Make Reset input with pullup to take target out of /RESET, tristate all other pins */
 	BITBANG_PDIDATA_DDR   &= ~BITBANG_PDIDATA_MASK;
 	BITBANG_PDICLOCK_DDR  &= ~BITBANG_PDICLOCK_MASK;
-	
-	/* Tristate DATA and CLOCK lines */
-	BITBANG_PDIDATA_PORT  &= ~BITBANG_PDIDATA_MASK;
 	BITBANG_PDICLOCK_PORT &= ~BITBANG_PDICLOCK_MASK;	
+	BITBANG_PDIDATA_PORT  |=  BITBANG_PDIDATA_MASK;
 #endif
 }
 
