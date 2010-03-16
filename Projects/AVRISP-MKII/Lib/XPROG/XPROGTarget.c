@@ -237,19 +237,18 @@ void XPROGTarget_DisableTargetPDI(void)
 	UCSR1B  = 0;
 	UCSR1C  = 0;
 
-	/* Make Reset input with pullup to take target out of /RESET, tristate all other pins */
+	/* Tristate all pins */
 	DDRD  &= ~((1 << 5) | (1 << 3));
 	PORTD &= ~((1 << 3) | (1 << 2));
-	PORTD |=   (1 << 5);
 #else
 	/* Turn off software USART management timer */
 	TCCR1B = 0;
 
-	/* Make Reset input with pullup to take target out of /RESET, tristate all other pins */
+	/* Tristate all pins */
 	BITBANG_PDIDATA_DDR   &= ~BITBANG_PDIDATA_MASK;
 	BITBANG_PDICLOCK_DDR  &= ~BITBANG_PDICLOCK_MASK;
 	BITBANG_PDICLOCK_PORT &= ~BITBANG_PDICLOCK_MASK;	
-	BITBANG_PDIDATA_PORT  |=  BITBANG_PDIDATA_MASK;
+	BITBANG_PDIDATA_PORT  &= ~BITBANG_PDIDATA_MASK;
 #endif
 }
 

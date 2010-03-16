@@ -27,7 +27,7 @@
   *  - Fixed ADC routines failing to read the extended channels (Channels 8 to 13, Internal Temperature Sensor) on the
   *    U4 series USB AVR parts
   *  - Fixed PDI programming mode in the AVRISP programmer project not exiting programming mode correctly (clear target
-  *    Reset key twice, set /RESET pin to pullup)
+  *    Reset key twice, possible silicon bug?)
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *
