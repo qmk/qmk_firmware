@@ -175,10 +175,6 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 		/* Clear the RESET key in the RESET PDI register to allow the XMEGA to run */
 		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
 		XPROGTarget_SendByte(0x00);
-		
-		/* Clear /RESET key twice (for some reason this needs to be done twice to take effect) */
-		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
-		XPROGTarget_SendByte(0x00);
 
 		XPROGTarget_DisableTargetPDI();
 	}

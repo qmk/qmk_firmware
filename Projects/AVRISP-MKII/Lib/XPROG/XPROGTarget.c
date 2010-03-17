@@ -162,7 +162,7 @@ void XPROGTarget_EnableTargetPDI(void)
 	
 	/* Set up the synchronous USART for XMEGA communications - 
 	   8 data bits, even parity, 2 stop bits */
-	UBRR1  = (F_CPU / 500000UL);
+	UBRR1  = (F_CPU / XPROG_HARDWARE_SPEED);
 	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
 #else
@@ -203,7 +203,7 @@ void XPROGTarget_EnableTargetTPI(void)
 		
 	/* Set up the synchronous USART for TINY communications - 
 	   8 data bits, even parity, 2 stop bits */
-	UBRR1  = (F_CPU / 500000UL);
+	UBRR1  = (F_CPU / XPROG_HARDWARE_SPEED);
 	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
 #else
@@ -239,16 +239,18 @@ void XPROGTarget_DisableTargetPDI(void)
 
 	/* Tristate all pins */
 	DDRD  &= ~((1 << 5) | (1 << 3));
-	PORTD &= ~((1 << 3) | (1 << 2));
+	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
 #else
 	/* Turn off software USART management timer */
 	TCCR1B = 0;
 
-	/* Tristate all pins */
+	/* Set DATA and CLOCK lines to inputs */
 	BITBANG_PDIDATA_DDR   &= ~BITBANG_PDIDATA_MASK;
 	BITBANG_PDICLOCK_DDR  &= ~BITBANG_PDICLOCK_MASK;
-	BITBANG_PDICLOCK_PORT &= ~BITBANG_PDICLOCK_MASK;	
+	
+	/* Tristate DATA and CLOCK lines */
 	BITBANG_PDIDATA_PORT  &= ~BITBANG_PDIDATA_MASK;
+	BITBANG_PDICLOCK_PORT &= ~BITBANG_PDICLOCK_MASK;	
 #endif
 }
 
