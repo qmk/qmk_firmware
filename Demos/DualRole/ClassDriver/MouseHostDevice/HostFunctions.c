@@ -142,7 +142,7 @@ void MouseHostTask(void)
 				break;
 			}
 
-			if (HID_Host_SetBootProtocol(&Mouse_HID_Host_Interface) != 0)
+			if (HID_Host_SetBootProtocol(&Mouse_HID_Host_Interface) != HOST_SENDCONTROL_Successful)
 			{
 				printf("Could not Set Boot Protocol Mode.\r\n");
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);

@@ -80,10 +80,6 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	}
 	else
 	{
-		/* If not sending or receiving, just exit */
-		if (!(SoftUSART_BitCount))
-		  return;
-
 		/* If at falling clock edge and we are in receive mode, abort */
 		if (!IsSending)
 		  return;
