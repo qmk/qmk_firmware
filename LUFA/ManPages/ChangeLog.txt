@@ -26,6 +26,7 @@
   *  - Fixed ADC routines not correctly returning the last result when multiple channels were read
   *  - Fixed ADC routines failing to read the extended channels (Channels 8 to 13, Internal Temperature Sensor) on the
   *    U4 series USB AVR parts
+  *  - Fixed LowLevel MassStorage demo broken on the U2 AVRs due to double-banked endpoints
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *
