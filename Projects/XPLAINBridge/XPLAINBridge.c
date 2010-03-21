@@ -51,11 +51,11 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 
 				.DataINEndpointNumber           = CDC_TX_EPNUM,
 				.DataINEndpointSize             = CDC_TXRX_EPSIZE,
-				.DataINEndpointDoubleBank       = false,
+				.DataINEndpointDoubleBank       = true,
 
 				.DataOUTEndpointNumber          = CDC_RX_EPNUM,
 				.DataOUTEndpointSize            = CDC_TXRX_EPSIZE,
-				.DataOUTEndpointDoubleBank      = false,
+				.DataOUTEndpointDoubleBank      = true,
 
 				.NotificationEndpointNumber     = CDC_NOTIFICATION_EPNUM,
 				.NotificationEndpointSize       = CDC_NOTIFICATION_EPSIZE,
@@ -169,6 +169,10 @@ void SetupHardware(void)
 
 	/* Select the firmware mode based on the JTD pin's value */
 	CurrentFirmwareMode = (PINF & (1 << 7)) ? MODE_USART_BRIDGE : MODE_PDI_PROGRAMMER;
+
+	/* Re-enable JTAG debugging */
+	MCUCR &= ~(1 << JTD);
+	MCUCR &= ~(1 << JTD);
 }
 
 /** Event handler for the library USB Configuration Changed event. */
