@@ -148,7 +148,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.IADStrIndex            = NO_DESCRIPTOR
 		},
 		
-	.CCI_Interface = 
+	.CDC_CCI_Interface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -196,7 +196,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Data                   = {0x00, 0x01}
 		},
 
-	.ManagementEndpoint = 
+	.CDC_ManagementEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 			
@@ -206,7 +206,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.PollingIntervalMS      = 0xFF
 		},
 
-	.DCI_Interface = 
+	.CDC_DCI_Interface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -222,7 +222,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.DataOutEndpoint = 
+	.CDC_DataOutEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 			
@@ -232,7 +232,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.PollingIntervalMS      = 0x00
 		},
 		
-	.DataInEndpoint = 
+	.CDC_DataInEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 			
@@ -242,7 +242,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.PollingIntervalMS      = 0x00
 		},
 
-	.InterfaceHID = 
+	.HID_Interface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -258,7 +258,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.MouseHID = 
+	.HID_MouseHID = 
 		{
 			.Header                 = {.Size = sizeof(USB_HID_Descriptor_t), .Type = DTYPE_HID},
 
@@ -269,7 +269,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.HIDReportLength        = sizeof(MouseReport)
 		},
 
-	.MouseEndpoint = 
+	.HID_ReportINEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -356,7 +356,7 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 			
 			break;
 		case DTYPE_HID: 
-			Address = (void*)&ConfigurationDescriptor.MouseHID;
+			Address = (void*)&ConfigurationDescriptor.HID_MouseHID;
 			Size    = sizeof(USB_HID_Descriptor_t);
 			break;
 		case DTYPE_Report: 

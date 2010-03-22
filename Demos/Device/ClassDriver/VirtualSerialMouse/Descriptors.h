@@ -74,18 +74,18 @@
 		{
 			USB_Descriptor_Configuration_Header_t    Config;
 			USB_Descriptor_Interface_Association_t   CDC_IAD;
-			USB_Descriptor_Interface_t               CCI_Interface;
+			USB_Descriptor_Interface_t               CDC_CCI_Interface;
 			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC_Functional_IntHeader;
 			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC_Functional_CallManagement;
 			CDC_FUNCTIONAL_DESCRIPTOR(1)             CDC_Functional_AbstractControlManagement;
 			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC_Functional_Union;
-			USB_Descriptor_Endpoint_t                ManagementEndpoint;
-			USB_Descriptor_Interface_t               DCI_Interface;
-			USB_Descriptor_Endpoint_t                DataOutEndpoint;
-			USB_Descriptor_Endpoint_t                DataInEndpoint;
-			USB_Descriptor_Interface_t               InterfaceHID;
-			USB_HID_Descriptor_t                     MouseHID;
-	        USB_Descriptor_Endpoint_t                MouseEndpoint;
+			USB_Descriptor_Endpoint_t                CDC_ManagementEndpoint;
+			USB_Descriptor_Interface_t               CDC_DCI_Interface;
+			USB_Descriptor_Endpoint_t                CDC_DataOutEndpoint;
+			USB_Descriptor_Endpoint_t                CDC_DataInEndpoint;
+			USB_Descriptor_Interface_t               HID_Interface;
+			USB_HID_Descriptor_t                     HID_MouseHID;
+	        USB_Descriptor_Endpoint_t                HID_ReportINEndpoint;
 		} USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */

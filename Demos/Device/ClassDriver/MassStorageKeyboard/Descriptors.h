@@ -68,12 +68,12 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            MassStorageInterface;
-			USB_Descriptor_Endpoint_t             MassStorageDataInEndpoint;
-			USB_Descriptor_Endpoint_t             MassStorageDataOutEndpoint;
-			USB_Descriptor_Interface_t            KeyboardInterface;
-			USB_HID_Descriptor_t                  KeyboardHID;
-	        USB_Descriptor_Endpoint_t             KeyboardEndpoint;
+			USB_Descriptor_Interface_t            MS_Interface;
+			USB_Descriptor_Endpoint_t             MS_DataInEndpoint;
+			USB_Descriptor_Endpoint_t             MS_DataOutEndpoint;
+			USB_Descriptor_Interface_t            HID_KeyboardInterface;
+			USB_HID_Descriptor_t                  HID_KeyboardHID;
+	        USB_Descriptor_Endpoint_t             HID_ReportINEndpoint;
 		} USB_Descriptor_Configuration_t;
 		
 	/* Function Prototypes: */

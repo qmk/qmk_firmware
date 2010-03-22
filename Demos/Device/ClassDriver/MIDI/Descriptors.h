@@ -60,10 +60,10 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            AudioControlInterface;
-			USB_Audio_Interface_AC_t              AudioControlInterface_SPC;
-			USB_Descriptor_Interface_t            AudioStreamInterface;
-			USB_MIDI_AudioInterface_AS_t          AudioStreamInterface_SPC;
+			USB_Descriptor_Interface_t            Audio_ControlInterface;
+			USB_Audio_Interface_AC_t              Audio_ControlInterface_SPC;
+			USB_Descriptor_Interface_t            Audio_StreamInterface;
+			USB_MIDI_AudioInterface_AS_t          Audio_StreamInterface_SPC;
 			USB_MIDI_In_Jack_t                    MIDI_In_Jack_Emb;
 			USB_MIDI_In_Jack_t                    MIDI_In_Jack_Ext;
 			USB_MIDI_Out_Jack_t                   MIDI_Out_Jack_Emb;

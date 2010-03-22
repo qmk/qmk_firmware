@@ -66,9 +66,9 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            Interface;
-			USB_Descriptor_HID_t                  HIDDescriptor;
-	        USB_Descriptor_Endpoint_t             HIDEndpoint;
+			USB_Descriptor_Interface_t            HID_Interface;
+			USB_Descriptor_HID_t                  HID_VendorHID;
+	        USB_Descriptor_Endpoint_t             HID_ReportINEndpoint;
 		} USB_Descriptor_Configuration_t;
 					
 	/* Macros: */

@@ -86,7 +86,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.MaxPowerConsumption      = USB_CONFIG_POWER_MA(100)
 		},
 		
-	.DFUInterface = 
+	.DFU_Interface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -102,7 +102,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 		
-	.DFUFunctional = 
+	.DFU_Functional = 
 		{
 			.Header                 = {.Size = sizeof(USB_DFU_Functional_Descriptor_t), .Type = DTYPE_DFUFunctional},
 			

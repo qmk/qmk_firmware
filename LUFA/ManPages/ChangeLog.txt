@@ -19,6 +19,8 @@
   *  - Added ENABLE_TELNET_SERVER compile time option to the Webserver project to disable the TELNET server if desired
   *  - Increased throughput of the USBtoSerial demo on systems that send multiple bytes per packet (thanks to Opendous Inc.)
   *  - Double bank CDC endpoints in the XPLAIN Bridge project, re-enable JTAG once the mode selection pin has been sampled.
+  *  - Standardized the naming scheme given to configuration descriptor sub-elements in the Device mode demos, bootloaders
+  *    and projects
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin

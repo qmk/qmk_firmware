@@ -147,7 +147,7 @@ int main(void)
 								 (ReportItem->Attributes.Usage.Usage  == USAGE_SCROLL_WHEEL)       &&
 								 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
 						{
-							int16_t WheelDelta = HID_ALIGN_DATA(ReportItem->Value, int16_t);
+							int16_t WheelDelta = HID_ALIGN_DATA(ReportItem, int16_t);
 							
 							if (WheelDelta)
 							  LEDMask = (LEDS_LED1 | LEDS_LED2 | ((WheelDelta > 0) ? LEDS_LED3 : LEDS_LED4));
@@ -157,7 +157,7 @@ int main(void)
 								  (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
 								 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
 						{
-							int16_t DeltaMovement = HID_ALIGN_DATA(ReportItem->Value, int16_t);
+							int16_t DeltaMovement = HID_ALIGN_DATA(ReportItem, int16_t);
 							
 							if (ReportItem->Attributes.Usage.Usage == USAGE_X)
 							{

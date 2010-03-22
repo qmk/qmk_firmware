@@ -63,16 +63,16 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            AudioControlInterface;
-			USB_Audio_Interface_AC_t              AudioControlInterface_SPC;
-			USB_Audio_InputTerminal_t             InputTerminal;
-			USB_Audio_OutputTerminal_t            OutputTerminal;
-			USB_Descriptor_Interface_t            AudioStreamInterface_Alt0;
-			USB_Descriptor_Interface_t            AudioStreamInterface_Alt1;
-			USB_Audio_Interface_AS_t              AudioStreamInterface_SPC;
-			USB_Audio_Format_t                    AudioFormat;
-			USB_Audio_StreamEndpoint_Std_t        AudioEndpoint;
-			USB_Audio_StreamEndpoint_Spc_t        AudioEndpoint_SPC;
+			USB_Descriptor_Interface_t            Audio_ControlInterface;
+			USB_Audio_Interface_AC_t              Audio_ControlInterface_SPC;
+			USB_Audio_InputTerminal_t             Audio_InputTerminal;
+			USB_Audio_OutputTerminal_t            Audio_OutputTerminal;
+			USB_Descriptor_Interface_t            Audio_StreamInterface_Alt0;
+			USB_Descriptor_Interface_t            Audio_StreamInterface_Alt1;
+			USB_Audio_Interface_AS_t              Audio_StreamInterface_SPC;
+			USB_Audio_Format_t                    Audio_AudioFormat;
+			USB_Audio_StreamEndpoint_Std_t        Audio_StreamEndpoint;
+			USB_Audio_StreamEndpoint_Spc_t        Audio_StreamEndpoint_SPC;
 		} USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */

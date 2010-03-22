@@ -161,8 +161,8 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            DFUInterface;
-			USB_DFU_Functional_Descriptor_t       DFUFunctional;
+			USB_Descriptor_Interface_t            DFU_Interface;
+			USB_DFU_Functional_Descriptor_t       DFU_Functional;
 		} USB_Descriptor_Configuration_t;
 		
 	/* Function Prototypes: */

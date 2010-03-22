@@ -69,13 +69,13 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            KeyboardInterface;
-			USB_Descriptor_HID_t                  KeyboardHID;
-	        USB_Descriptor_Endpoint_t             KeyboardInEndpoint;
-	        USB_Descriptor_Endpoint_t             KeyboardOutEndpoint;
-			USB_Descriptor_Interface_t            MouseInterface;
-			USB_Descriptor_HID_t                  MouseHID;
-	        USB_Descriptor_Endpoint_t             MouseInEndpoint;
+			USB_Descriptor_Interface_t            HID1_KeyboardInterface;
+			USB_Descriptor_HID_t                  HID1_KeyboardHID;
+	        USB_Descriptor_Endpoint_t             HID1_ReportINEndpoint;
+	        USB_Descriptor_Endpoint_t             HID1_ReportOUTEndpoint;
+			USB_Descriptor_Interface_t            HID2_MouseInterface;
+			USB_Descriptor_HID_t                  HID2_MouseHID;
+	        USB_Descriptor_Endpoint_t             HID2_ReportINEndpoint;
 		} USB_Descriptor_Configuration_t;
 					
 	/* Macros: */

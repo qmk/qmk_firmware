@@ -129,7 +129,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
 		
-	.Interface = 
+	.HID_Interface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -145,7 +145,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.KeyboardHID = 
+	.HID_KeyboardHID = 
 		{  
 			.Header                 = {.Size = sizeof(USB_Descriptor_HID_t), .Type = DTYPE_HID},
 			
@@ -156,7 +156,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.HIDReportLength        = sizeof(KeyboardReport)
 		},
 		
-	.KeyboardEndpoint = 
+	.HID_ReportINEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -166,7 +166,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.PollingIntervalMS      = 0x0A
 		},
 
-	.KeyboardLEDsEndpoint = 
+	.HID_ReportOUTEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -253,7 +253,7 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 			
 			break;
 		case DTYPE_HID: 
-			Address = (void*)&ConfigurationDescriptor.KeyboardHID;
+			Address = (void*)&ConfigurationDescriptor.HID_KeyboardHID;
 			Size    = sizeof(USB_Descriptor_HID_t);
 			break;
 		case DTYPE_Report: 

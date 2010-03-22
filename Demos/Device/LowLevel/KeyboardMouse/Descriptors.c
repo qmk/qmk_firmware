@@ -162,7 +162,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
 		
-	.KeyboardInterface = 
+	.HID1_KeyboardInterface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -178,7 +178,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.KeyboardHID = 
+	.HID1_KeyboardHID = 
 		{  
 			.Header                 = {.Size = sizeof(USB_Descriptor_HID_t), .Type = DTYPE_HID},
 			
@@ -189,7 +189,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.HIDReportLength        = sizeof(KeyboardReport)
 		},
 		
-	.KeyboardInEndpoint = 
+	.HID1_ReportINEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -199,7 +199,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.PollingIntervalMS      = 0x0A
 		},
 
-	.KeyboardOutEndpoint = 
+	.HID1_ReportOUTEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -209,7 +209,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.PollingIntervalMS      = 0x0A
 		},
 
-	.MouseInterface = 
+	.HID2_MouseInterface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -225,7 +225,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.MouseHID = 
+	.HID2_MouseHID = 
 		{  
 			.Header                 = {.Size = sizeof(USB_Descriptor_HID_t), .Type = DTYPE_HID},
 			
@@ -236,7 +236,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.HIDReportLength        = sizeof(MouseReport)
 		},
 		
-	.MouseInEndpoint = 
+	.HID2_ReportINEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -325,12 +325,12 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 		case DTYPE_HID: 
 			if (!(wIndex))
 			{
-				Address = (void*)&ConfigurationDescriptor.KeyboardHID;
+				Address = (void*)&ConfigurationDescriptor.HID1_KeyboardHID;
 				Size    = sizeof(USB_Descriptor_HID_t);
 			}
 			else
 			{
-				Address = (void*)&ConfigurationDescriptor.MouseHID;
+				Address = (void*)&ConfigurationDescriptor.HID2_MouseHID;
 				Size    = sizeof(USB_Descriptor_HID_t);			
 			}
 			break;

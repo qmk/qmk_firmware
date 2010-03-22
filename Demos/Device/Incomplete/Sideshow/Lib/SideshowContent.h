@@ -35,6 +35,7 @@
 		#include <avr/io.h>
 		#include <stdbool.h>
 		#include <string.h>
+		#include <stdio.h>
 
 		#include "SideshowCommon.h"
 		#include "SideshowApplications.h"

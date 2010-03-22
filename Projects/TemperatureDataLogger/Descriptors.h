@@ -45,12 +45,12 @@
 		typedef struct
 		{
 			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            MSInterface;
-			USB_Descriptor_Endpoint_t             MSDataInEndpoint;
-			USB_Descriptor_Endpoint_t             MSDataOutEndpoint;
-			USB_Descriptor_Interface_t            HIDInterface;
-			USB_HID_Descriptor_t                  HIDInfo;
-			USB_Descriptor_Endpoint_t             HIDDataInEndpoint;
+			USB_Descriptor_Interface_t            MS_Interface;
+			USB_Descriptor_Endpoint_t             MS_DataInEndpoint;
+			USB_Descriptor_Endpoint_t             MS_DataOutEndpoint;
+			USB_Descriptor_Interface_t            HID_Interface;
+			USB_HID_Descriptor_t                  HID_GenericHID;
+			USB_Descriptor_Endpoint_t             HID_ReportINEndpoint;
 		} USB_Descriptor_Configuration_t;
 		
 	/* Function Prototypes: */

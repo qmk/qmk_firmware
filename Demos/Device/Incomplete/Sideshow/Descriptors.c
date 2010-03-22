@@ -54,7 +54,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	
 USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
-	Config:
+	.Config =
 		{
 			Header:                 {Size: sizeof(USB_Descriptor_Configuration_Header_t), Type: DTYPE_Configuration},
 
@@ -69,7 +69,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			MaxPowerConsumption:    USB_CONFIG_POWER_MA(100)
 		},
 		
-	Interface:
+	.SSHOW_Interface =
 		{
 			Header:                 {Size: sizeof(USB_Descriptor_Interface_t), Type: DTYPE_Interface},
 
@@ -85,7 +85,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			InterfaceStrIndex:      NO_DESCRIPTOR
 		},
 
-	DataInEndpoint:
+	.SSHOW_DataInEndpoint =
 		{
 			Header:                 {Size: sizeof(USB_Descriptor_Endpoint_t), Type: DTYPE_Endpoint},
 
@@ -95,7 +95,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			PollingIntervalMS:      0x00
 		},
 
-	DataOutEndpoint:
+	.SSHOW_DataOutEndpoint =
 		{
 			Header:                 {Size: sizeof(USB_Descriptor_Endpoint_t), Type: DTYPE_Endpoint},
 

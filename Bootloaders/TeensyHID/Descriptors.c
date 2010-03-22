@@ -106,7 +106,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
 		
-	.Interface = 
+	.HID_Interface = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
@@ -122,7 +122,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.HIDDescriptor = 
+	.HID_VendorHID = 
 		{  
 			.Header                 = {.Size = sizeof(USB_Descriptor_HID_t), .Type = DTYPE_HID},
 			
@@ -133,7 +133,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.HIDReportLength        = sizeof(HIDReport)
 		},
 		
-	.HIDEndpoint = 
+	.HID_ReportINEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -168,7 +168,7 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_HID:
-			Address = (void*)&ConfigurationDescriptor.HIDDescriptor;
+			Address = (void*)&ConfigurationDescriptor.HID_VendorHID;
 			Size    = sizeof(USB_Descriptor_HID_t);
 			break;
 		case DTYPE_Report:
