@@ -76,14 +76,9 @@ const uint8_t SineTable[] PROGMEM =
 	0x4f, 0x51, 0x54, 0x57, 0x5a, 0x5d, 0x60, 0x63, 0x67, 0x6a, 0x6d, 0x70, 0x73, 0x76, 0x79, 0x7c
 };
 
-struct
-{
-	uint8_t Pitch;
-	uint8_t Velocity;
-	
-	uint8_t CurrentPos;
-	uint8_t ElapsedTicks;
-} ChannelStates[10];
+uint8_t Pitch;
+uint8_t Velocity;	
+uint8_t CurrentPos;
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -99,16 +94,16 @@ int main(void)
 		MIDI_EventPacket_t ReceivedMIDIEvent;
 		if (MIDI_Device_ReceiveEventPacket(&Keyboard_MIDI_Interface, &ReceivedMIDIEvent))
 		{
-			if (ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4))
+			if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
 			{
-				ChannelStates[ReceivedMIDIEvent.Data1 & 0x0F].Pitch    = ReceivedMIDIEvent.Data2;
-				ChannelStates[ReceivedMIDIEvent.Data1 & 0x0F].Velocity = ReceivedMIDIEvent.Data3;
+				Pitch    = ReceivedMIDIEvent.Data2;
+				Velocity = ReceivedMIDIEvent.Data3;
 
 				LEDs_SetAllLEDs(LEDS_LED1);
 			}
-			else if (ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_OFF >> 4))
+			else if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_OFF >> 4)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
 			{
-				ChannelStates[ReceivedMIDIEvent.Data1 & 0x0F].Velocity = 0;
+				Velocity = 0;
 				
 				LEDs_SetAllLEDs(LEDS_NO_LEDS);
 			}
@@ -120,30 +115,11 @@ int main(void)
 			/* Clear the sample reload timer */
 			TIFR0 |= (1 << OCF0A);
 
-			uint8_t OutputSample = 0;
-			
-			/* Loop through the channels (excluding percussion channel 10) and generate next sample */
-			for (uint8_t Channel = 0; Channel < 9; Channel++)
-			{
-				/* Channel only contributes if it is not muted */
-				if (ChannelStates[Channel].Velocity)
-				{
-					/* Fetch the current sample from the sine lookup table */
-					uint8_t TableValue = pgm_read_byte(&SineTable[ChannelStates[Channel].CurrentPos]);
+			/* Fetch the current sample from the sine lookup table */
+			OCR3A = Velocity ? pgm_read_byte(&SineTable[CurrentPos]) : 0;
 				
-					/* Scale sample value by the velocity of the channel */
-					TableValue = ((uint16_t)TableValue << 6) / ChannelStates[Channel].Velocity;
-					
-					/* Add the sample to the output waveform */
-					OutputSample += TableValue;
-				}
-				
-				/* Calculate next sample table position for this channel */
-				ChannelStates[Channel].CurrentPos += ChannelStates[Channel].Pitch;
-			}
-			
-			/* Output the sample to the PWM timer */
-			OCR3A = OutputSample;
+			/* Calculate next sample table position for this channel */
+			CurrentPos += (Pitch >> 1);
 		}
 	
 		MIDI_Device_USBTask(&Keyboard_MIDI_Interface);
