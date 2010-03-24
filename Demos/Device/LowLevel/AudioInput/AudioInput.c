@@ -171,7 +171,7 @@ void USB_Audio_Task(void)
 		
 		#if defined(MICROPHONE_BIASED_TO_HALF_RAIL)
 		/* Microphone is biased to half rail voltage, subtract the bias from the sample value */
-		AudioSample -= (SAMPLE_MAX_RANGE / 2));
+		AudioSample -= (SAMPLE_MAX_RANGE / 2);
 		#endif
 
 		/* Write the sample to the buffer */

@@ -30,6 +30,7 @@
   *  - Fixed ADC routines failing to read the extended channels (Channels 8 to 13, Internal Temperature Sensor) on the
   *    U4 series USB AVR parts
   *  - Fixed LowLevel MassStorage demo broken on the U2 AVRs due to double-banked endpoints
+  *  - Fixed compilation error in the AudioInput demos when MICROPHONE_BIASED_TO_HALF_RAIL is defined (thanks to C. Scott Ananian)
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *

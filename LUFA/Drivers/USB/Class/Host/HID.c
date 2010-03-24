@@ -181,6 +181,7 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 	Pipe_Unfreeze();
 	
 	uint16_t ReportSize;
+	uint8_t* BufferPos = Buffer;
 
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 	if (!(HIDInterfaceInfo->State.UsingBootProtocol))
@@ -190,7 +191,7 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 		if (HIDInterfaceInfo->Config.HIDParserData->UsingReportIDs)
 		{
 			ReportID = Pipe_Read_Byte();
-			*((uint8_t*)Buffer++) = ReportID;
+			*(BufferPos++) = ReportID;
 		}
 		
 		ReportSize = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, REPORT_ITEM_TYPE_In);
@@ -201,7 +202,7 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 		ReportSize = Pipe_BytesInPipe();
 	}
 
-	if ((ErrorCode = Pipe_Read_Stream_LE(Buffer, ReportSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	if ((ErrorCode = Pipe_Read_Stream_LE(BufferPos, ReportSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 	 
 	Pipe_ClearIN();		

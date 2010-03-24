@@ -86,7 +86,7 @@
 				#define USE_INTERNAL_SERIAL           NO_DESCRIPTOR
 			#endif
 			
-			/** Macro to calculate the power value for the device descriptor, from a given number of milliamps. */
+			/** Macro to calculate the power value for the configuration descriptor, from a given number of milliamps. */
 			#define USB_CONFIG_POWER_MA(mA)           ((mA) >> 1)
 
 			/** Macro to calculate the Unicode length of a string with a given number of Unicode characters.
@@ -124,7 +124,6 @@
 			 */
 			#define USB_CONFIG_ATTR_BUSPOWERED        0x80
 
-			
 			/** Can be masked with other configuration descriptor attributes for a \ref USB_Descriptor_Configuration_Header_t
 			 *  descriptor's ConfigAttributes value to indicate that the specified configuration can draw its power
 			 *  from the device's own power source.
