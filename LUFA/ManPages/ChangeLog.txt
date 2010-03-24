@@ -10,6 +10,8 @@
   *
   *  <b>New:</b>
   *  - Added incomplete MIDIToneGenerator project
+  *  - Added board hardware driver support for the PJRC Teensy line of USB AVR boards
+  *  - Added new Relay Controller Board project (thanks to OBinou)
   *
   *  <b>Changed:</b>
   *  - AVRISP programmer project now has a more robust timeout system, allowing for an increse of the software USART speed

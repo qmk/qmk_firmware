@@ -95,14 +95,14 @@
 		#include "RZUSBSTICK/LEDs.h"
 	#elif (BOARD == BOARD_ATAVRUSBRF01)
 		#include "ATAVRUSBRF01/LEDs.h"
-	#elif (BOARD == BOARD_XPLAIN)
-		#include "XPLAIN/LEDs.h"
-	#elif (BOARD == BOARD_XPLAIN_REV1)
+	#elif ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 		#include "XPLAIN/LEDs.h"
 	#elif (BOARD == BOARD_BUMBLEB)
 		#include "BUMBLEB/LEDs.h"
 	#elif (BOARD == BOARD_EVK527)
-		#include "EVK527/LEDs.h"		
+		#include "EVK527/LEDs.h"
+	#elif (BOARD == BOARD_TEENSY)
+		#include "TEENSY/LEDs.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
 	#endif

@@ -21,18 +21,18 @@
  *   - AT90USB1286 (USB Device Only)
  *   - AT90USB1287 (USB Host and Device)
  *
- *  Currently supported Atmel boards:
+ *  Currently supported Atmel boards (see \ref Group_BoardTypes):
  *   - AT90USBKEY
  *   - ATAVRUSBRF01
  *   - EVK527
  *   - RZUSBSTICK
  *   - STK525
  *   - STK526
- *   - XPLAIN Revision 1 (Board AT90USB1287 only, original 45DB041D Dataflash IC)
- *   - XPLAIN Revision 2 onwards (Board AT90USB1287 only, newer 45DB642D Dataflash IC)
+ *   - XPLAIN (Both original first revision board, and newer boards with a different Dataflash model)
  *
- *  Currently supported third-party boards (via hardware drivers):
- *   - BUMBLEB (using officially recommended peripheral layout)
+ *  Currently supported third-party boards (see \ref Group_BoardTypes):
+ *   - Bumble-B (using officially recommended peripheral layout)
+ *   - Teensy (all revisions and versions)
  *   - Any Other Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
  */
  

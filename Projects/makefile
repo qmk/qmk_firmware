@@ -29,6 +29,9 @@ all:
 	make -C MissileLauncher clean
 	make -C MissileLauncher all
 
+	make -C RelayBoard clean
+	make -C RelayBoard all
+
 	make -C TemperatureDataLogger clean
 	make -C TemperatureDataLogger all
 
@@ -47,6 +50,7 @@ all:
 	make -C LEDNotifier $@	
 	make -C Magstripe $@
 	make -C MissileLauncher $@
+	make -C RelayBoard $@
 	make -C TemperatureDataLogger $@
 	make -C USBtoSerial $@
 	make -C Webserver $@
