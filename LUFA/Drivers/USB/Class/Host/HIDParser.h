@@ -137,7 +137,7 @@
 		 *
 		 *  \return Left-aligned data of the given report item's pre-retrived value for the given datatype
 		 */
-		#define HID_ALIGN_DATA(reportitem, type) ((type)(reportitem->Value << (sizeof(type) - reportitem->Attributes.BitSize)))
+		#define HID_ALIGN_DATA(reportitem, type) ((type)(reportitem->Value << ((8 * sizeof(type)) - reportitem->Attributes.BitSize)))
 
 	/* Public Interface - May be used in end-application: */
 		/* Enums: */			

@@ -31,6 +31,7 @@
   *    U4 series USB AVR parts
   *  - Fixed LowLevel MassStorage demo broken on the U2 AVRs due to double-banked endpoints
   *  - Fixed compilation error in the AudioInput demos when MICROPHONE_BIASED_TO_HALF_RAIL is defined (thanks to C. Scott Ananian)
+  *  - Fixed incorrect definition of HID_ALIGN_DATA() causing incorrect HID report item data alignment
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *
