@@ -7,6 +7,7 @@
 */
 
 /*
+  Copyright 2010  OBinou (obconseil [at] gmail [dot] com)
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this

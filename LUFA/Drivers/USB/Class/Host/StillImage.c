@@ -315,12 +315,15 @@ uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 
 	uint8_t ErrorCode;
 
+	SIInterfaceInfo->State.TransactionID = 0;
+	SIInterfaceInfo->State.IsSessionOpen = false;
+
 	SI_PIMA_Container_t PIMABlock = (SI_PIMA_Container_t)
 							{
-								.DataLength    = PIMA_COMMAND_SIZE(0),
+								.DataLength    = PIMA_COMMAND_SIZE(1),
 								.Type          = CType_CommandBlock,
 								.Code          = 0x1002,
-								.Params        = {},
+								.Params        = {1},
 							};
 							
 	if ((ErrorCode = SImage_Host_SendBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)
@@ -332,7 +335,6 @@ uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 	if ((PIMABlock.Type != CType_ResponseBlock) || (PIMABlock.Code != 0x2001))
 	  return SI_ERROR_LOGICAL_CMD_FAILED;
 	  
-	SIInterfaceInfo->State.TransactionID = 0;
 	SIInterfaceInfo->State.IsSessionOpen = true;
 
 	return PIPE_RWSTREAM_NoError;
@@ -347,10 +349,10 @@ uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 
 	SI_PIMA_Container_t PIMABlock = (SI_PIMA_Container_t)
 							{
-								.DataLength    = PIMA_COMMAND_SIZE(0),
+								.DataLength    = PIMA_COMMAND_SIZE(1),
 								.Type          = CType_CommandBlock,
 								.Code          = 0x1003,
-								.Params        = {},
+								.Params        = {1},
 							};
 							
 	if ((ErrorCode = SImage_Host_SendBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)

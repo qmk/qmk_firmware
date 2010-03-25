@@ -167,7 +167,6 @@ void StillImage_Task(void)
 			}
 				
 			puts_P(PSTR("Still Image Device Enumerated.\r\n"));
-
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:

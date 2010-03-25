@@ -143,6 +143,7 @@ int main(void)
 				printf("Device Vendor ID: 0x%08lX\r\n", VendorID);
 
 				printf("RNDIS Device Enumerated.\r\n");
+				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:

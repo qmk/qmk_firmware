@@ -7,6 +7,7 @@
 */
 
 /*
+  Copyright 2010  OBinou (obconseil [at] gmail [dot] com)
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
   Permission to use, copy, modify, distribute, and sell this
@@ -17,7 +18,6 @@
   documentation, and that the name of the author not be used in
   advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
-
 
   The author disclaim all warranties with regard to this
   software, including all implied warranties of merchantability

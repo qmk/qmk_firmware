@@ -23,6 +23,7 @@
   *  - Double bank CDC endpoints in the XPLAIN Bridge project, re-enable JTAG once the mode selection pin has been sampled.
   *  - Standardized the naming scheme given to configuration descriptor sub-elements in the Device mode demos, bootloaders
   *    and projects
+  *  - All Class Driver Host mode demos now correctly set the board LEDs to READY once the enumeration process has completed
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin
@@ -34,6 +35,8 @@
   *  - Fixed LowLevel MassStorage demo broken on the U2 AVRs due to double-banked endpoints
   *  - Fixed compilation error in the AudioInput demos when MICROPHONE_BIASED_TO_HALF_RAIL is defined (thanks to C. Scott Ananian)
   *  - Fixed incorrect definition of HID_ALIGN_DATA() causing incorrect HID report item data alignment
+  *  - Fixed Still Image Host class driver not resetting the transaction ID when a new session is opened, fixed driver not sending
+  *    a valid session ID to the device
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *

@@ -111,6 +111,7 @@ int main(void)
 				}
 				
 				printf("Mouse Enumerated.\r\n");
+				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:

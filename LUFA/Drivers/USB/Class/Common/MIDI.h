@@ -87,7 +87,7 @@
 		 *
 		 *  \param[in] channel  MIDI channel number to address
 		 */
-		#define MIDI_CHANNEL(channel)        (channel - 1)
+		#define MIDI_CHANNEL(channel)        ((channel) - 1)
 		
 	/* Type Defines: */
 		/** Type define for an Audio class specific MIDI streaming interface descriptor. This indicates to the host

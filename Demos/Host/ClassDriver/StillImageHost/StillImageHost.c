@@ -88,7 +88,7 @@ int main(void)
 				if (SImage_Host_ConfigurePipes(&DigitalCamera_SI_Interface,
 				                               ConfigDescriptorSize, ConfigDescriptorData) != SI_ENUMERROR_NoError)
 				{
-					printf("Attached Device Not a Valid CDC Class Device.\r\n");
+					printf("Attached Device Not a Valid Still Image Class Device.\r\n");
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -103,6 +103,7 @@ int main(void)
 				}
 				
 				printf("Still Image Device Enumerated.\r\n");
+				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
