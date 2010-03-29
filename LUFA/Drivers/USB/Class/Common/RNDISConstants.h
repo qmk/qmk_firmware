@@ -31,6 +31,8 @@
 /** \file
  *  \brief Common RNDIS class constant definitions.
  *
+ *  Common RNDIS class constant definitions.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/Audio.h.
  */

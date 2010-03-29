@@ -31,6 +31,8 @@
 /** \file
  *  \brief Common definitions and declarations for the library USB HID Class driver.
  *
+ *  Common definitions and declarations for the library USB HID Class driver.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/HID.h.
  */
@@ -143,7 +145,9 @@
 			REPORT_ITEM_TYPE_Feature              = 2, /**< Indicates that the item is a FEATURE report type. */
 		};
 
-		/** Type define for the HID class specific HID descriptor, to describe the HID device's specifications. Refer to the HID
+		/** \brief HID Class Specific HID Descriptor.
+		 *
+		 *  Type define for the HID class specific HID descriptor, to describe the HID device's specifications. Refer to the HID
 		 *  specification for details on the structure elements.
 		 */
 		typedef struct
@@ -159,7 +163,10 @@
 			uint16_t                 HIDReportLength;
 		} USB_HID_Descriptor_t;
 
-		/** Type define for a standard Boot Protocol Mouse report */
+		/** \brief Standard HID Boot Protocol Mouse Report.
+		 *
+		 *  Type define for a standard Boot Protocol Mouse report
+		 */
 		typedef struct
 		{
 			uint8_t Button; /**< Button mask for currently pressed buttons in the mouse */
@@ -167,7 +174,10 @@
 			int8_t  Y; /**< Current delta Y movement on the mouse */
 		} USB_MouseReport_Data_t;
 		
-		/** Type define for a standard Boot Protocol Keyboard report */
+		/** \brief Standard HID Boot Protocol Keyboard Report.
+		 *
+		 *  Type define for a standard Boot Protocol Keyboard report
+		 */
 		typedef struct
 		{
 			uint8_t Modifier; /**< Keyboard modifier byte, indicating pressed modifier keys (a combination of

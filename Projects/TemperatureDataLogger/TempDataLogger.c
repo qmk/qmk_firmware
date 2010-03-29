@@ -299,10 +299,6 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 {
 	Device_Report_t* ReportParams = (Device_Report_t*)ReportData;
 	
-	GPIOR0 = ReportParams->Day;
-	GPIOR1 = ReportParams->Month;
-	GPIOR2 = ReportParams->Year;
-	
 	DS1307_SetDate(ReportParams->Day,  ReportParams->Month,  ReportParams->Year);
 	DS1307_SetTime(ReportParams->Hour, ReportParams->Minute, ReportParams->Second);
 	

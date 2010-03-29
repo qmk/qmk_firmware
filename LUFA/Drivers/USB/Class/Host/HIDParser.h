@@ -31,8 +31,8 @@
 /** \file
  *  \brief USB Human Interface Device (HID) Class report descriptor parser.
  *
- *  This file allows for the easy parsing of the complex HID report descriptor, which describes the data that
- *  the device transmits to the host. It also provides an easy API for extracting and processing the data
+ *  This file allows for the easy parsing of complex HID report descriptors, which describes the data that
+ *  a HID device transmits to the host. It also provides an easy API for extracting and processing the data
  *  elements inside a HID report sent from an attached HID device.
  */
  
@@ -157,28 +157,39 @@
 			};
 		
 		/* Type Defines: */		
-			/** Type define for an attribute with both minimum and maximum values (e.g. Logical Min/Max). */
+			/** \brief HID Parser Report Item Min/Max Structure.
+			 *
+			 *  Type define for an attribute with both minimum and maximum values (e.g. Logical Min/Max).
+			 */
 			typedef struct
 			{
 				uint32_t                     Minimum; /**< Minimum value for the attribute. */
 				uint32_t                     Maximum; /**< Maximum value for the attribute. */
 			} HID_MinMax_t;
 
-			/** Type define for the Unit attributes of a report item. */
+			/** \brief HID Parser Report Item Unit Structure.
+			 *
+			 *  Type define for the Unit attributes of a report item.
+			 */
 			typedef struct
 			{
 				uint32_t                     Type;     /**< Unit type (refer to HID specifications for details). */
 				uint8_t                      Exponent; /**< Unit exponent (refer to HID specifications for details). */
 			} HID_Unit_t;
 			
-			/** Type define for the Usage attributes of a report item. */
+			/** \brief HID Parser Report Item Usage Structure.
+			 *
+			 *  Type define for the Usage attributes of a report item.
+			 */
 			typedef struct
 			{
 				uint16_t                     Page;   /**< Usage page of the report item. */
 				uint16_t                     Usage;  /**< Usage of the report item. */
 			} HID_Usage_t;
 
-			/** Type define for a COLLECTION object. Contains the collection attributes and a reference to the
+			/** \brief HID Parser Report Item Collection Path Structure.
+			 *
+			 *  Type define for a COLLECTION object. Contains the collection attributes and a reference to the
 			 *  parent collection if any.
 			 */
 			typedef struct CollectionPath
@@ -188,7 +199,10 @@
 				struct CollectionPath*       Parent; /**< Reference to parent collection, or NULL if root collection. */
 			} HID_CollectionPath_t;
 
-			/** Type define for all the data attributes of a report item, except flags. */
+			/** \brief HID Parser Report Item Attributes Structure.
+			 *
+			 *  Type define for all the data attributes of a report item, except flags.
+			 */
 			typedef struct
 			{
 				uint8_t                      BitSize;  /**< Size in bits of the report item's data. */
@@ -199,7 +213,10 @@
 				HID_MinMax_t                 Physical; /**< Physical minimum and maximum of the report item. */
 			} HID_ReportItem_Attributes_t;
 			
-			/** Type define for a report item (IN, OUT or FEATURE) attributes and other details. */
+			/** \brief HID Parser Report Item Details Structure.
+			 *
+			 *  Type define for a report item (IN, OUT or FEATURE) layout attributes and other details.
+			 */
 			typedef struct
 			{
 				uint16_t                     BitOffset;      /**< Bit offset in the IN, OUT or FEATURE report of the item. */
@@ -216,7 +233,10 @@
 				uint32_t                     PreviousValue;  /**< Previous value of the report item. */ 
 			} HID_ReportItem_t;
 			
-			/** Type define for a report item size information structure */
+			/** \brief HID Parser Report Size Structure.
+			 *
+			 *  Type define for a report item size information structure, to retain the size of a device's reports by ID.
+			 */
 			typedef struct
 			{
 				uint8_t                      ReportID; /** Report ID of the report within the HID interface */
@@ -225,7 +245,10 @@
 																 */
 			} HID_ReportSizeInfo_t;
 
-			/** Type define for a complete processed HID report, including all report item data and collections. */
+			/** \brief HID Parser State Structure.
+			 *
+			 *  Type define for a complete processed HID report, including all report item data and collections.
+			 */
 			typedef struct
 			{
 				uint8_t                      TotalReportItems; /**< Total number of report items stored in the

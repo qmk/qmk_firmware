@@ -31,6 +31,8 @@
 /** \file
  *  \brief Board specific Buttons driver header for the STK525.
  *
+ *  Board specific Buttons driver header for the STK525.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  */

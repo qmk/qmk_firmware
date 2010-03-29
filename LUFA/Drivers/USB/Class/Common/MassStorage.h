@@ -31,6 +31,8 @@
 /** \file
  *  \brief Common definitions and declarations for the library USB Mass Storage Class driver.
  *
+ *  Common definitions and declarations for the library USB Mass Storage Class driver.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/MassStorage.h.
  */
@@ -204,7 +206,9 @@
 		#define SCSI_ASENSEQ_OPERATION_IN_PROGRESS             0x07
 		
 	/* Type defines: */
-		/** Type define for a Command Block Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
+		/** \brief Mass Storage Class Command Block Wrapper.
+		 *
+		 *  Type define for a Command Block Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
 		typedef struct
 		{
 			uint32_t Signature; /**< Command block signature, must be CBW_SIGNATURE to indicate a valid Command Block */
@@ -216,7 +220,10 @@
 			uint8_t  SCSICommandData[16]; /**< Issued SCSI command in the Command Block */
 		} MS_CommandBlockWrapper_t;
 		
-		/** Type define for a Command Status Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
+		/** \brief Mass Storage Class Command Status Wrapper.
+		 *
+		 *  Type define for a Command Status Wrapper, used in the Mass Storage Bulk-Only Transport protocol.
+		 */
 		typedef struct
 		{
 			uint32_t Signature; /**< Status block signature, must be CSW_SIGNATURE to indicate a valid Command Status */
@@ -225,7 +232,9 @@
 			uint8_t  Status; /**< Status code of the issued command - a value from the MassStorage_CommandStatusCodes_t enum */
 		} MS_CommandStatusWrapper_t;
 		
-		/** Type define for a SCSI Sense structure. Structures of this type are filled out by the
+		/** \brief Mass Storage Class SCSI Sense Structure
+		 *  
+		 *  Type define for a SCSI Sense structure. Structures of this type are filled out by the
 		 *  device via the MassStore_RequestSense() function, indicating the current sense data of the
 		 *  device (giving explicit error codes for the last issued command). For details of the
 		 *  structure contents, refer to the SCSI specifications.
@@ -251,7 +260,9 @@
 			uint8_t      SenseKeySpecific[3];
 		} SCSI_Request_Sense_Response_t;
 
-		/** Type define for a SCSI Inquiry structure. Structures of this type are filled out by the
+		/** \brief Mass Storage Class SCSI Inquiry Structure.
+		 *
+		 *  Type define for a SCSI Inquiry structure. Structures of this type are filled out by the
 		 *  device via the MassStore_Inquiry() function, retrieving the attached device's information.
 		 *  For details of the structure contents, refer to the SCSI specifications.
 		 */

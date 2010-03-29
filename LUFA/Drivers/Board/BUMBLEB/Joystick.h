@@ -31,6 +31,8 @@
 /** \file
  *  \brief Board specific joystick driver header for the BUMLEB.
  *
+ *  Board specific joystick driver header for the BUMLEB.
+ *
  *  The BUMBLEB third-party board does not include any on-board peripherals, but does have an officially recommended
  *  external peripheral layout for buttons, LEDs and a Joystick.
  *

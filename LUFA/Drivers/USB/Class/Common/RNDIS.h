@@ -31,6 +31,8 @@
 /** \file
  *  \brief Common definitions and declarations for the library USB RNDIS Class driver.
  *
+ *  Common definitions and declarations for the library USB RNDIS Class driver.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/RNDIS.h.
  */
@@ -110,13 +112,19 @@
 		};
 		
 	/* Type Defines: */
-		/** Type define for a physical MAC address of a device on a network */
+		/** \brief MAC Address Structure.
+		 *
+		 *  Type define for a physical MAC address of a device on a network
+		 */
 		typedef struct
 		{
 			uint8_t       Octets[6]; /**< Individual bytes of a MAC address */
 		} MAC_Address_t;
 
-		/** Type define for an Ethernet frame buffer. */
+		/** \brief RNDIS Ethernet Frame Packet Information Structure.
+		 *
+		 *  Type define for an Ethernet frame buffer data and information structure.
+		 */
 		typedef struct
 		{
 			uint8_t       FrameData[ETHERNET_FRAME_SIZE_MAX]; /**< Ethernet frame contents */
@@ -124,14 +132,20 @@
 			bool          FrameInBuffer; /**< Indicates if a frame is currently stored in the buffer */
 		} Ethernet_Frame_Info_t;
 
-		/** Type define for a RNDIS message header, sent before RNDIS messages */
+		/** \brief RNDIS Common Message Header Structure.
+		 *
+		 *  Type define for a RNDIS message header, sent before RNDIS messages.
+		 */
 		typedef struct
 		{
 			uint32_t MessageType; /**< RNDIS message type, a REMOTE_NDIS_*_MSG constant */
 			uint32_t MessageLength; /**< Total length of the RNDIS message, in bytes */
 		} RNDIS_Message_Header_t;
 
-		/** Type define for a RNDIS packet message, used to encapsulate Ethernet packets sent to and from the adapter */
+		/** \brief RNDIS Message Structure.
+		 *
+		 *  Type define for a RNDIS packet message, used to encapsulate Ethernet packets sent to and from the adapter.
+		 */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -147,7 +161,10 @@
 			uint32_t Reserved;
 		} RNDIS_Packet_Message_t;
 
-		/** Type define for a RNDIS Initialize command message */
+		/** \brief RNDIS Initialization Message Structure.
+		 *
+		 *  Type define for a RNDIS Initialize command message.
+		 */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -159,7 +176,10 @@
 			uint32_t MaxTransferSize;
 		} RNDIS_Initialize_Message_t;
 		
-		/** Type define for a RNDIS Initialize complete response message */
+		/** \brief RNDIS Initialize Complete Message Structure.
+		 *
+		 *  Type define for a RNDIS Initialize Complete response message.
+		 */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -178,7 +198,10 @@
 			uint32_t AFListSize;
 		} RNDIS_Initialize_Complete_t;
 		
-		/** Type define for a RNDIS Keepalive command message */
+		/** \brief RNDIS Keep Alive Message Structure.
+		 *
+		 *  Type define for a RNDIS Keep Alive command message.
+		 */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -186,7 +209,10 @@
 			uint32_t RequestId;
 		} RNDIS_KeepAlive_Message_t;
 
-		/** Type define for a RNDIS Keepalive complete message */
+		/** \brief RNDIS Keep Alive Complete Message Structure.
+		 *
+		 *  Type define for a RNDIS Keep Alive Complete response message.
+		 */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -195,7 +221,10 @@
 			uint32_t Status;
 		} RNDIS_KeepAlive_Complete_t;
 
-		/** Type define for a RNDIS Reset complete message */
+		/** \brief RNDIS Reset Complete Message Structure.
+		 *
+		 *  Type define for a RNDIS Reset Complete response message.
+		 */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -205,7 +234,10 @@
 			uint32_t AddressingReset;
 		} RNDIS_Reset_Complete_t;
 		
-		/** Type define for a RNDIS Set command message */
+		/** \brief RNDIS OID Property Set Message Structure.
+		 *
+		 *  Type define for a RNDIS OID Property Set command message.
+		 */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -218,7 +250,10 @@
 			uint32_t DeviceVcHandle;
 		} RNDIS_Set_Message_t;
 
-		/** Type define for a RNDIS Set complete response message */
+		/** \brief RNDIS OID Property Set Complete Message Structure.
+		 *
+		 *  Type define for a RNDIS OID Property Set Complete response message.
+		 */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -227,7 +262,10 @@
 			uint32_t Status;
 		} RNDIS_Set_Complete_t;
 		
-		/** Type define for a RNDIS Query command message */
+		/** \brief RNDIS OID Property Query Message Structure.
+		 *
+		 *  Type define for a RNDIS OID Property Query command message.
+		 */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -240,7 +278,10 @@
 			uint32_t DeviceVcHandle;
 		} RNDIS_Query_Message_t;
 		
-		/** Type define for a RNDIS Query complete response message */
+		/** \brief RNDIS OID Property Query Complete Message Structure.
+		 *
+		 *  Type define for a RNDIS OID Property Query Complete response message.
+		 */
 		typedef struct
 		{
 			uint32_t MessageType;

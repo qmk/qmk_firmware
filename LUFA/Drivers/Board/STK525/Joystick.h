@@ -31,6 +31,8 @@
 /** \file
  *  \brief Board specific joystick driver header for the STK525.
  *
+ *  Board specific joystick driver header for the STK525.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
  */

@@ -31,7 +31,7 @@
 /** \file
  *  \brief Master include file for the board temperature sensor driver.
  *
- *  Temperature sensor board driver for the USB boards which contain a temperature sensor.
+ *  Master include file for the board temperature sensor driver, for the USB boards which contain a temperature sensor.
  */
 
 /** \ingroup Group_BoardDrivers

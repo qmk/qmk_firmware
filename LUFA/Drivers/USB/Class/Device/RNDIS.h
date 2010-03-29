@@ -31,6 +31,8 @@
 /** \file
  *  \brief Device mode driver for the library USB RNDIS Class driver.
  *
+ *  Device mode driver for the library USB RNDIS Class driver.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/RNDIS.h.
  */
@@ -69,7 +71,9 @@
 		
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */					 
-			/** Class state structure. An instance of this structure should be made for each RNDIS interface
+			/** \brief RNDIS Class Device Mode Configuration and State Structure.
+			 *
+			 *  Class state structure. An instance of this structure should be made for each RNDIS interface
 			 *  within the user application, and passed to each of the RNDIS class driver functions as the
 			 *  RNDISInterfaceInfo parameter. This stores each RNDIS interface's configuration and state information.
 			 */

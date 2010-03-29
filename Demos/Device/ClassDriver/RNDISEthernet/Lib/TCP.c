@@ -74,7 +74,7 @@ void TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo)
 	}
 	
 	/* Get pointer to the output frame info struct for convenience */
-	Ethernet_Frame_Info_t* FrameOUT = (Ethernet_Frame_Info_t*)&RNDISInterfaceInfo->State.FrameOUT;
+	Ethernet_Frame_Info_t* FrameOUT = &RNDISInterfaceInfo->State.FrameOUT;
 	
 	/* Bail out early if there is already a frame waiting to be sent in the Ethernet OUT buffer */
 	if (FrameOUT->FrameInBuffer)

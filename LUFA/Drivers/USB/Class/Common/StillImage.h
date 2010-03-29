@@ -31,6 +31,8 @@
 /** \file
  *  \brief Common definitions and declarations for the library USB Still Image Class driver.
  *
+ *  Common definitions and declarations for the library USB Still Image Class driver.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/StillImage.h.
  */
@@ -120,7 +122,9 @@
 		};
 	
 	/* Type Defines: */
-		/** Type define for a PIMA container, use to send commands and receive responses to and from an
+		/** \brief PIMA Still Image Device Command/Response Container.
+		 *
+		 *  Type define for a PIMA container, use to send commands and receive responses to and from an
 		 *  attached Still Image device.
 		 */
 		typedef struct

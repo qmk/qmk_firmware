@@ -31,6 +31,8 @@
 /** \file
  *  \brief Host mode driver for the library USB Mass Storage Class driver.
  *
+ *  Host mode driver for the library USB Mass Storage Class driver.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/MassStorage.h.
  */
@@ -71,7 +73,9 @@
 			#define MS_ERROR_LOGICAL_CMD_FAILED              0x80
 	
 		/* Type Defines: */
-			/** Class state structure. An instance of this structure should be made within the user application,
+			/** \brief Mass Storage Class Host Mode Configuration and State Structure.
+			 *
+			 *  Class state structure. An instance of this structure should be made within the user application,
 			 *  and passed to each of the Mass Storage class driver functions as the MSInterfaceInfo parameter. This
 			 *  stores each Mass Storage interface's configuration and state information.
 			 */
@@ -105,7 +109,9 @@
 						  */
 			} USB_ClassInfo_MS_Host_t;
 			
-			/** SCSI capacity structure, to hold the total capacity of the device in both the number
+			/** \brief SCSI Device LUN Capacity Structure.
+			 *
+			 *  SCSI capacity structure, to hold the total capacity of the device in both the number
 			 *  of blocks in the current LUN, and the size of each block. This structure is filled by
 			 *  the device when the MassStore_ReadCapacity() function is called.
 			 */

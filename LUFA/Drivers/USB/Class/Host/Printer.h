@@ -31,6 +31,8 @@
 /** \file
  *  \brief Host mode driver for the library USB Printer Class driver.
  *
+ *  Host mode driver for the library USB Printer Class driver.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/Printer.h.
  */
@@ -67,7 +69,9 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
-			/** Class state structure. An instance of this structure should be made within the user application,
+			/** \brief Printer Class Host Mode Configuration and State Structure.
+			 *
+			 *  Class state structure. An instance of this structure should be made within the user application,
 			 *  and passed to each of the Printer class driver functions as the PRNTInterfaceInfo parameter. This
 			 *  stores each Printer interface's configuration and state information.
 			 */

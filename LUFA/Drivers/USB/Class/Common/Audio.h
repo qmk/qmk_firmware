@@ -31,6 +31,8 @@
 /** \file
  *  \brief Common definitions and declarations for the library USB Audio Class driver.
  *
+ *  Common definitions and declarations for the library USB Audio Class driver.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/Audio.h.
  */
@@ -234,7 +236,9 @@
 		#define EP_ACCEPTS_SMALL_PACKETS     (0 << 7)
 		
 	/* Type Defines: */
-		/** Type define for an Audio class specific interface descriptor. This follows a regular interface descriptor to
+		/** \brief Audio Class Specific Interface Descriptor.
+		 *
+		 *  Type define for an Audio class specific interface descriptor. This follows a regular interface descriptor to
 		 *  supply extra information about the audio device's layout to the host. See the USB Audio specification for more
 		 *  details.
 		 */
@@ -250,7 +254,9 @@
 			uint8_t                   InterfaceNumbers[1]; /**< Interface numbers of each audio interface */
 		} USB_Audio_Interface_AC_t;
 		
-		/** Type define for an Audio class specific Feature Unit descriptor. This indicates to the host what features
+		/** \brief Audio Class Specific Feature Unit Descriptor.
+		 *
+		 *  Type define for an Audio class specific Feature Unit descriptor. This indicates to the host what features
 		 *  are present in the device's audio stream for basic control, such as per-channel volume. See the USB Audio
 		 *  specification for more details.
 		 */
@@ -268,7 +274,9 @@
 			uint8_t                   FeatureUnitStrIndex; /**< Index of a string descriptor describing this descriptor within the device */
 		} USB_Audio_FeatureUnit_t;
 
-		/** Type define for an Audio class specific input terminal descriptor. This indicates to the host that the device
+		/** \brief Audio Class Specific Input Terminal Descriptor.
+		 *
+		 *  Type define for an Audio class specific input terminal descriptor. This indicates to the host that the device
 		 *  contains an input audio source, either from a physical terminal on the device, or a logical terminal (for example,
 		 *  a USB endpoint). See the USB Audio specification for more details.
 		 */
@@ -289,7 +297,9 @@
 			uint8_t                   TerminalStrIndex; /**< Index of a string descriptor describing this descriptor within the device */
 		} USB_Audio_InputTerminal_t;
 
-		/** Type define for an Audio class specific output terminal descriptor. This indicates to the host that the device
+		/** \brief Audio Class Specific Output Terminal Descriptor.
+		 *
+		 *  Type define for an Audio class specific output terminal descriptor. This indicates to the host that the device
 		 *  contains an output audio sink, either to a physical terminal on the device, or a logical terminal (for example,
 		 *  a USB endpoint). See the USB Audio specification for more details.
 		 */
@@ -308,7 +318,9 @@
 			uint8_t                   TerminalStrIndex; /**< Index of a string descriptor describing this descriptor within the device */
 		} USB_Audio_OutputTerminal_t;
 		
-		/** Type define for an Audio class specific streaming interface descriptor. This indicates to the host
+		/** \brief Audio Class Specific Streaming Audio Interface Descriptor.
+		 *
+		 *  Type define for an Audio class specific streaming interface descriptor. This indicates to the host
 		 *  how audio streams within the device are formatted. See the USB Audio specification for more details.
 		 */
 		typedef struct
@@ -322,7 +334,9 @@
 			uint16_t                  AudioFormat; /**< Format of the audio stream, see Audio Device Formats specification */
 		} USB_Audio_Interface_AS_t;
 		
-		/** Type define for a 24bit audio sample frequency structure. GCC does not contain a built in 24bit datatype,
+		/** \brief 24-Bit Audio Frequency Structure.
+		 *
+		 *  Type define for a 24bit audio sample frequency structure. GCC does not contain a built in 24bit datatype,
 		 *  this this structure is used to build up the value instead. Fill this structure with the SAMPLE_FREQ() macro.
 		 */
 		typedef struct
@@ -331,7 +345,9 @@
 			uint8_t                   HighByte; /**< Upper 8 bits of the 24-bit value */
 		} USB_Audio_SampleFreq_t;
 
-		/** Type define for an Audio class specific audio format descriptor. This is used to give the host full details
+		/** \brief Audio Class Specific Format Descriptor.
+		 *
+		 *  Type define for an Audio class specific audio format descriptor. This is used to give the host full details
 		 *  about the number of channels, the sample resolution, acceptable sample frequencies and encoding method used
 		 *  in the device's audio streams. See the USB Audio specification for more details.
 		 */
@@ -350,7 +366,9 @@
 			USB_Audio_SampleFreq_t    SampleFrequencies[AUDIO_TOTAL_SAMPLE_RATES]; /**< Sample frequencies supported by the device */
 		} USB_Audio_Format_t;
 		
-		/** Type define for an Audio class specific endpoint descriptor. This contains a regular endpoint 
+		/** \brief Audio Class Specific Streaming Endpoint Descriptor.
+		 *
+		 *  Type define for an Audio class specific endpoint descriptor. This contains a regular endpoint 
 		 *  descriptor with a few Audio-class specific extensions. See the USB Audio specification for more details.
 		 */
 		typedef struct
@@ -361,7 +379,9 @@
 			uint8_t                   SyncEndpointNumber; /**< Endpoint address to send synchronization information to, if needed (zero otherwise) */
 		} USB_Audio_StreamEndpoint_Std_t;
 					
-		/** Type define for an Audio class specific extended endpoint descriptor. This contains extra information
+		/** \brief Audio Class Specific Extended Endpoint Descriptor.
+		 *
+		 *  Type define for an Audio class specific extended endpoint descriptor. This contains extra information
 		 *  on the usage of endpoints used to stream audio in and out of the USB Audio device, and follows an Audio
 		 *  class specific extended endpoint descriptor. See the USB Audio specification for more details.
 		 */

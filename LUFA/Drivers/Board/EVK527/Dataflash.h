@@ -31,6 +31,8 @@
 /** \file
  *  \brief Board specific Dataflash driver header for the EVK527.
  *
+ *  Board specific Dataflash driver header for the EVK527.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
  */

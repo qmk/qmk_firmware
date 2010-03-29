@@ -31,6 +31,8 @@
 /** \file
  *  \brief Device mode driver for the library USB Mass Storage Class driver.
  *
+ *  Device mode driver for the library USB Mass Storage Class driver.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/MassStorage.h.
  */
@@ -69,7 +71,9 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */										
-			/** Class state structure. An instance of this structure should be made for each Mass Storage interface
+			/** \brief Mass Storage Class Device Mode Configuration and State Structure.
+			 *
+			 *  Class state structure. An instance of this structure should be made for each Mass Storage interface
 			 *  within the user application, and passed to each of the Mass Storage class driver functions as the
 			 *  MSInterfaceInfo parameter. This stores each Mass Storage interface's configuration and state information.
 			 */

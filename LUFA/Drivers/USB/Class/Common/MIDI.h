@@ -31,6 +31,8 @@
 /** \file
  *  \brief Common definitions and declarations for the library USB MIDI Class driver.
  *
+ *  Common definitions and declarations for the library USB MIDI Class driver.
+ *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/MIDI.h.
  */
@@ -97,7 +99,9 @@
 		#define MIDI_CHANNEL(channel)        ((channel) - 1)
 		
 	/* Type Defines: */
-		/** Type define for an Audio class specific MIDI streaming interface descriptor. This indicates to the host
+		/** \brief MIDI Class Specific Streaming Interface Descriptor.
+		 *
+		 *  Type define for an Audio class specific MIDI streaming interface descriptor. This indicates to the host
 		 *  how MIDI the specification compliance of the device and the total length of the Audio class specific descriptors.
 		 *  See the USB Audio specification for more details.
 		 */
@@ -110,7 +114,9 @@
 			uint16_t                  TotalLength; /**< Total length of the Audio class specific descriptors, including this descriptor */
 		} USB_MIDI_AudioInterface_AS_t;
 		
-		/** Type define for an Audio class specific MIDI IN jack. This gives information to the host on a MIDI input, either
+		/** \brief MIDI Class Specific Input Jack Descriptor.
+		 *
+		 *  Type define for an Audio class specific MIDI IN jack. This gives information to the host on a MIDI input, either
 		 *  a physical input jack, or a logical jack (receiving input data internally, or from the host via an endpoint).
 		 */
 		typedef struct
@@ -124,7 +130,9 @@
 			uint8_t                   JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device */
 		} USB_MIDI_In_Jack_t;
 
-		/** Type define for an Audio class specific MIDI OUT jack. This gives information to the host on a MIDI output, either
+		/** \brief MIDI Class Specific Output Jack Descriptor.
+		 *
+		 *  Type define for an Audio class specific MIDI OUT jack. This gives information to the host on a MIDI output, either
 		 *  a physical output jack, or a logical jack (sending output data internally, or to the host via an endpoint).
 		 */
 		typedef struct
@@ -142,7 +150,9 @@
 			uint8_t                   JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device */
 		} USB_MIDI_Out_Jack_t;
 		
-		/** Type define for an Audio class specific extended MIDI jack endpoint descriptor. This contains extra information
+		/** \brief Audio Class Specific Jack Endpoint Descriptor.
+		 *
+		 *  Type define for an Audio class specific extended MIDI jack endpoint descriptor. This contains extra information
 		 *  on the usage of MIDI endpoints used to stream MIDI events in and out of the USB Audio device, and follows an Audio
 		 *  class specific extended MIDI endpoint descriptor. See the USB Audio specification for more details.
 		 */
@@ -155,7 +165,10 @@
 			uint8_t                   AssociatedJackID[1]; /**< IDs of each jack inside the endpoint */
 		} USB_MIDI_Jack_Endpoint_t;
 
-		/** Type define for a USB MIDI event packet, used to encapsulate sent and received MIDI messages from a USB MIDI interface. */
+		/** \brief MIDI Class Driver Event Packet.
+		 *
+		 *  Type define for a USB MIDI event packet, used to encapsulate sent and received MIDI messages from a USB MIDI interface.
+		 */
 		typedef struct
 		{
 			unsigned char Command     : 4; /**< Upper nibble of the MIDI command being sent or received in the event packet */

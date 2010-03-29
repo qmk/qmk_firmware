@@ -150,7 +150,9 @@
 			#define FEATURE_REMOTE_WAKEUP           0x01
 
 		/* Type Defines: */
-			/** Type define for a standard USB control request.
+			/** \brief Standard USB Control Request
+			 *
+			 *  Type define for a standard USB control request.
 			 *
 			 *  \see The USB 2.0 specification for more information on standard control requests.
 			 */

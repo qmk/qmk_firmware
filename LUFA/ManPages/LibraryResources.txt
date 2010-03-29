@@ -15,6 +15,7 @@
  *  \section Sec_ProjectHelp Assistance With LUFA
  *  Discussion Group: http://groups.google.com/group/myusb-support-list \n
  *  Author's Email: dean [at] fourwalledcubicle [dot] com
+ *  Author's Skype: abcminiuser
  *
  *  \section Sec_InDevelopment Latest In-Development Source Code
  *  Official Releases, SVN Access, Issue Tracker: http://code.google.com/p/lufa-lib/ \n

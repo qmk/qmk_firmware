@@ -29,10 +29,12 @@
 */
 
 /** \file
- *  \brief Host mode driver for the library USB Audio Class driver.
+ *  \brief Host mode driver for the library USB CDC Class driver.
+ *
+ *  Host mode driver for the library USB CDC Class driver.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
- *        dispatch header located in LUFA/Drivers/USB/Class/Audio.h.
+ *        dispatch header located in LUFA/Drivers/USB/Class/CDC.h.
  */
 
 /** \ingroup Group_USBClassCDC
@@ -70,7 +72,9 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
-			/** Class state structure. An instance of this structure should be made within the user application,
+			/** \brief CDC Class Host Mode Configuration and State Structure.
+			 *
+			 *  Class state structure. An instance of this structure should be made within the user application,
 			 *  and passed to each of the CDC class driver functions as the CDCInterfaceInfo parameter. This
 			 *  stores each CDC interface's configuration and state information.
 			 */

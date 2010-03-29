@@ -165,7 +165,10 @@
 			 */
 			typedef uint16_t SchedulerDelayCounter_t;
 			
-			/** Structure for holding a single task's information in the scheduler task list. */
+			/** \brief Scheduler Task List Entry Structure.
+			 *
+			 *  Structure for holding a single task's information in the scheduler task list.
+			 */
 			typedef struct
 			{
 				TaskPtr_t Task;       /**< Pointer to the task to execute. */

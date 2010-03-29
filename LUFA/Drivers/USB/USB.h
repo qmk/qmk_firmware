@@ -31,6 +31,8 @@
 /** \file
  *  \brief Master include file for the library USB functionality.
  *
+ *  Master include file for the library USB functionality.
+ *
  *  This file should be included in all user projects making use of the USB portions of the library, instead of
  *  including any headers in the USB/LowLevel/ or USB/HighLevel/ subdirectories.
  */
