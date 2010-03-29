@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief Master include file for the board dataflash IC driver.
  *
  *  This file is the master dispatch header file for the board-specific dataflash driver, for boards containing
  *  dataflash ICs for external non-volatile storage.

@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *  \brief Host mode driver for the library USB RNDIS Class driver.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the class driver
+ *        dispatch header located in LUFA/Drivers/USB/Class/RNDIS.h.
+ */
+
 /** \ingroup Group_USBClassRNDIS
  *  @defgroup Group_USBClassRNDISHost RNDIS Class Host Mode Driver
  *

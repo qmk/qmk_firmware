@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief Simple round-robbin pseudo-task scheduler.
  *
  *  Simple round-robbin cooperative scheduler for use in basic projects where non real-time tasks need
  *  to be executed. Each task is executed in sequence, and can be enabled or disabled individually or as a group.

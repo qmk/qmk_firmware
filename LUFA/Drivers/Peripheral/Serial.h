@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief Master include file for the USART peripheral driver.
  *
  *  Driver for the USART subsystem on supported USB AVRs.
  */

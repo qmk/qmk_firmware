@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *  \brief Device mode driver for the library USB CDC Class driver.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the class driver
+ *        dispatch header located in LUFA/Drivers/USB/Class/CDC.h.
+ */
+
 /** \ingroup Group_USBClassCDC
  *  @defgroup Group_USBClassCDCDevice CDC Class Device Mode Driver
  *

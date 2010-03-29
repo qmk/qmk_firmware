@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *  \brief Host mode driver for the library USB Printer Class driver.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the class driver
+ *        dispatch header located in LUFA/Drivers/USB/Class/Printer.h.
+ */
+
 /** \ingroup Group_USBClassPrinter
  *  @defgroup Group_USBClassPrinterHost Printer Class Host Mode Driver
  *

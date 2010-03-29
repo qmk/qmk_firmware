@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *  \brief Common definitions and declarations for the library USB Still Image Class driver.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the class driver
+ *        dispatch header located in LUFA/Drivers/USB/Class/StillImage.h.
+ */
+
 /** \ingroup Group_USBClassSI
  *  @defgroup Group_USBClassSICommon  Common Class Definitions
  *

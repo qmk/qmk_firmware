@@ -28,8 +28,15 @@
   this software.
 */
 
+/** \file
+ *  \brief Master include file for the library USB CDC-ACM Class driver.
+ *
+ *  This file should be included in all user projects making use of this optional class driver, instead of
+ *  including any headers in the USB/ClassDriver/Device, USB/ClassDriver/Host or USB/ClassDriver/Common subdirectories.
+ */
+
 /** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBClassCDC CDC Class Driver - LUFA/Drivers/Class/CDC.h
+ *  @defgroup Group_USBClassCDC CDC-ACM (Virtual Serial) Class Driver - LUFA/Drivers/Class/CDC.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

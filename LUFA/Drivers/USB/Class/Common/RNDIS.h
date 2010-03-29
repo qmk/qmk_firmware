@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *  \brief Common definitions and declarations for the library USB RNDIS Class driver.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the class driver
+ *        dispatch header located in LUFA/Drivers/USB/Class/RNDIS.h.
+ */
+
 /** \ingroup Group_USBClassRNDIS
  *  @defgroup Group_USBClassRNDISCommon  Common Class Definitions
  *

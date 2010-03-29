@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief Master include file for the TWI peripheral driver.
  *
  *  This file is the master dispatch header file for the device-specific ADC driver, for AVRs containing an ADC.
  *

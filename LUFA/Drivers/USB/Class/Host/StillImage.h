@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *  \brief Host mode driver for the library USB Still Image Class driver.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the class driver
+ *        dispatch header located in LUFA/Drivers/USB/Class/StillImage.h.
+ */
+
 /** \ingroup Group_USBClassSI
  *  @defgroup Group_USBClassStillImageHost Still Image Class Host Mode Driver
  *

@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief Master include file for the board digital button driver.
  *
  *  This file is the master dispatch header file for the board-specific Buttons driver, for boards containing
  *  physical pushbuttons connected to the AVR's GPIO pins.

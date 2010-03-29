@@ -29,8 +29,7 @@
 */
 
 /** \file
- *
- *  Board specific joystick driver header for the USBKEY.
+ *  \brief Board specific joystick driver header for the USBKEY.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.

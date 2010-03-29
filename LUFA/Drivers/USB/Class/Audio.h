@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *  \brief Master include file for the library USB Audio Class driver.
+ *
+ *  This file should be included in all user projects making use of this optional class driver, instead of
+ *  including any headers in the USB/ClassDriver/Device, USB/ClassDriver/Host or USB/ClassDriver/Common subdirectories.
+ */
+
 /** \ingroup Group_USBClassDrivers
  *  @defgroup Group_USBClassAudio Audio Class Driver - LUFA/Drivers/Class/Audio.h
  *

@@ -29,10 +29,11 @@
 */
 
 /** \file
+ *  \brief USB Human Interface Device (HID) Class report descriptor parser.
  *
- *  USB Human Interface Device (HID) Class report descriptor processing routines. This file allows for the easy
- *  parsing of the complex HID report descriptor, which describes the data that the device transmits to the host.
- *
+ *  This file allows for the easy parsing of the complex HID report descriptor, which describes the data that
+ *  the device transmits to the host. It also provides an easy API for extracting and processing the data
+ *  elements inside a HID report sent from an attached HID device.
  */
  
 /** \ingroup Group_USB

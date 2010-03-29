@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief AVR-GCC special function attribute macros.
  *
  *  This file contains macros for applying GCC specific attributes to functions to control various optimizer
  *  and code generation features of the compiler. Attributes may be placed in the function prototype in any

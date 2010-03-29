@@ -7,15 +7,15 @@
 /**
  *  \mainpage
  *
- *  \n
  *  \image html LUFA.png
+ *  <div align="center"><small><i>Logo design by <b>Ryo Yamauchi</b></i></small></div>
  *  \n
  *
  *  <b>LUFA is donationware. For author and donation information, see \ref Page_Donating.</b>
  *
- *  LUFA is an open-source USB library for the USB-enabled AVR microcontrollers, released under the MIT license. It supports
- *  a large number of USB AVR models and boards (see \ref Page_DeviceSupport). It is designed to provide an easy to use, feature
- *  rich framework for the development of USB peripherals and hosts.
+ *  LUFA is an open-source USB library for the USB-enabled AVR microcontrollers, released under the MIT license (see \ref Page_Licence).
+ *  It supports a large number of USB AVR models and boards (see \ref Page_DeviceSupport). It is designed to provide an easy to use,
+ *  feature rich framework for the development of USB peripherals and hosts.
  *
  *  LUFA focuses on the microcontroller side of USB development only; it includes no host USB driver development facilities. While
  *  custom USB devices can be made with LUFA, the included demos all use the inbuilt OS drivers for each USB class for simplicity.
@@ -34,12 +34,10 @@
  *  and open source LUFA powered projects.
  *
  *  <b>Subsections:</b>
- *  - \subpage Page_WhyUseLUFA Why Use LUFA?
+ *  - \subpage Page_WhyUseLUFA What are the advantages of using LUFA?
  *  - \subpage Page_LUFAvsAtmelStack How does LUFA compare to the Atmel USB AVR stack?
  *  - \subpage Page_AlternativeStacks Alternative USB AVR Stacks
- *  - \subpage Page_Licence Project licence
+ *  - \subpage Page_Licence Project source licence and commercial use information
  *  - \subpage Page_Donating Donating to support this project
  *  - \subpage Page_LibraryApps Overview of included Demos, Bootloaders and Projects
- *
- *  <small><i>Logo design by <b>Ryo Yamauchi</b></i></small>
  */

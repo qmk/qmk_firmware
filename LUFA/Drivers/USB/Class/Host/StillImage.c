@@ -151,7 +151,8 @@ uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceIn
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return PIPE_RWSTREAM_DeviceDisconnected;
 
-	PIMAHeader->TransactionID = SIInterfaceInfo->State.TransactionID++;
+	if (SIInterfaceInfo->State.IsSessionOpen)
+	  PIMAHeader->TransactionID = SIInterfaceInfo->State.TransactionID++;
 
 	Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipeNumber);
 	Pipe_Unfreeze();

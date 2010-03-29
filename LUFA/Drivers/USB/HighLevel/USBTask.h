@@ -27,7 +27,17 @@
   arising out of or in connection with the use or performance of
   this software.
 */
- 
+
+/** \file
+ *  \brief Main USB service task management.
+ *
+ *  This file contains the function definitions required for the main USB service task, which must be called
+ *  from the user application to ensure that the USB connection to or from a connected USB device is maintained.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the USB driver
+ *        dispatch header located in LUFA/Drivers/USB/USB.h.
+ */
+
 #ifndef __USBTASK_H__
 #define __USBTASK_H__
 

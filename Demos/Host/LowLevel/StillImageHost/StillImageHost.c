@@ -215,11 +215,11 @@ void StillImage_Task(void)
 			DeviceInfoPos +=  8;                                          // Skip to VendorExtensionDesc String
 			DeviceInfoPos += (1 + UNICODE_STRING_LENGTH(*DeviceInfoPos)); // Skip over VendorExtensionDesc String
 			DeviceInfoPos +=  2;                                          // Skip over FunctionalMode
-			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over OperationCode Array
-			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over EventCode Array
-			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over DevicePropCode Array
-			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over ObjectFormatCode Array
-			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over ObjectFormatCode Array
+			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over Supported Operations Array
+			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over Supported Events Array
+			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over Supported Device Properties Array
+			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over Capture Formats Array
+			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over Image Formats Array
 			
 			/* Extract and convert the Manufacturer Unicode string to ASCII and print it through the USART */
 			char Manufacturer[*DeviceInfoPos];

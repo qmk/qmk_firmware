@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief Supported board hardware defines.
  *
  *  This file contains constants which can be passed to the compiler (via setting the macro BOARD) in the
  *  user project makefile using the -D option to configure the library board-specific drivers.

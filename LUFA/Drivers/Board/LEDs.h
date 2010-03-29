@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief Master include file for the board LEDs driver.
  *
  *  This file is the master dispatch header file for the board-specific LED driver, for boards containing user
  *  controllable LEDs.

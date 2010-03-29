@@ -28,6 +28,16 @@
   this software.
 */
 
+/** \file
+ *  \brief USB low level USB controller definitions.
+ *
+ *  This file contains structures, function prototypes and macros related to the low level configutation of the
+ *  USB controller, to start, stop and reset the USB library core.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the USB driver
+ *        dispatch header located in LUFA/Drivers/USB/USB.h.
+ */
+ 
 /** \ingroup Group_USB
  *  @defgroup Group_USBManagement USB Interface Management
  *

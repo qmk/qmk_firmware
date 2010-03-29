@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief TWI peripheral driver for the U7, U6 and U4 USB AVRs.
  *
  *  Master mode TWI driver for the AT90USB1287, AT90USB1286, AT90USB647, AT90USB646, ATMEGA16U4 and ATMEGA32U4 AVRs.
  *

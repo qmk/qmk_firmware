@@ -29,11 +29,13 @@
 */
 
 /** \file
+ *  \brief Standard avr-libc character stream driver for the USART.
  *
  *  Serial stream driver for the USART subsystem on supported USB AVRs. This makes use of the functions in the
- *  regular USART driver, but allows the avr-libc standard stream functions (printf, puts, etc.) to work with the
+ *  regular USART driver (see \ref Group_Serial), but allows the avr-libc standard stream functions (printf,
+ *  puts, etc.) to work with the
  *  USART.
- **/
+ */
 
 /** \ingroup Group_PeripheralDrivers
  *  @defgroup Group_SerialStream Serial Stream Driver - LUFA/Drivers/Peripheral/SerialStream.h
@@ -44,7 +46,8 @@
  *
  *  \section Module Description
  *  Serial stream driver for the USART subsystem on supported USB AVRs. This makes use of the functions in the
- *  regular USART driver, but allows the avr-libc standard stream functions (printf, puts, etc.) to work with the
+ *  regular USART driver (see \ref Group_Serial), but allows the avr-libc standard stream functions (printf,
+ *  puts, etc.) to work with the
  *  USART.
  *
  *  @{

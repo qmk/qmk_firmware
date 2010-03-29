@@ -28,8 +28,15 @@
   this software.
 */
 
+/** \file
+ *  \brief Master include file for the library USB RNDIS Class driver.
+ *
+ *  This file should be included in all user projects making use of this optional class driver, instead of
+ *  including any headers in the USB/ClassDriver/Device, USB/ClassDriver/Host or USB/ClassDriver/Common subdirectories.
+ */
+
 /** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBClassRNDIS RNDIS Class Driver - LUFA/Drivers/Class/RNDIS.h
+ *  @defgroup Group_USBClassRNDIS RNDIS (Networking) Class Driver - LUFA/Drivers/Class/RNDIS.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

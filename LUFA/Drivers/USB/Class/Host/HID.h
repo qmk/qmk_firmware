@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *  \brief Host mode driver for the library USB HID Class driver.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the class driver
+ *        dispatch header located in LUFA/Drivers/USB/Class/HID.h.
+ */
+
 /** \ingroup Group_USBClassHID
  *  @defgroup Group_USBClassHIDHost HID Class Host Mode Driver
  *

@@ -10,7 +10,7 @@
 
 # Call with "make all" to rebuild everything, "make clean" to clean everything,
 # "make clean_list" to remove all intermediatary files but preserve any binaries,
-# "make doxygen" to document everything with DoxyGen (if installed) and
+# "make doxygen" to document everything with Doxygen (if installed) and
 # "make clean_doxygen" to remove generated Doxygen documentation from everything.
 
 all:

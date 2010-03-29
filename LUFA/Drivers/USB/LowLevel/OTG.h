@@ -28,6 +28,16 @@
   this software.
 */
  
+/** \file
+ *  \brief USB OTG mode definitions.
+ *
+ *  This file contains structures, function prototypes and macros related to USB OTG mode, where two USB devices
+ *  may be linked directly together and exchange host/device roles as needed.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the USB driver
+ *        dispatch header located in LUFA/Drivers/USB/USB.h.
+ */
+
 /** \ingroup Group_USB
  *  @defgroup Group_OTG USB On The Go (OTG) Management
  *

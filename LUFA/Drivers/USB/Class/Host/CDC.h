@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *  \brief Host mode driver for the library USB Audio Class driver.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the class driver
+ *        dispatch header located in LUFA/Drivers/USB/Class/Audio.h.
+ */
+
 /** \ingroup Group_USBClassCDC
  *  @defgroup Group_USBClassCDCHost CDC Class Host Mode Driver
  *

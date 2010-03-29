@@ -28,6 +28,16 @@
   this software.
 */
 
+/** \file
+ *  \brief USB host standard request management.
+ *
+ *  This file contains the function prototypes neccesary for the issuing of outgoing standard control requests
+ *  when the library is in USB host mode.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the USB driver
+ *        dispatch header located in LUFA/Drivers/USB/USB.h.
+ */
+
 #ifndef __HOSTCHAPTER9_H__
 #define __HOSTCHAPTER9_H__
 

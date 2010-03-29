@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief Common library convenience macros and functions.
  *
  *  This file contains macros which are common to all library elements, and which may be useful in user code. It
  *  also includes other common headers, such as Atomic.h, FunctionAttributes.h and BoardTypes.h.

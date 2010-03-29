@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief Master include file for the board digital joystick driver.
  *
  *  This file is the master dispatch header file for the board-specific Joystick driver, for boards containing a
  *  5-way joystick.

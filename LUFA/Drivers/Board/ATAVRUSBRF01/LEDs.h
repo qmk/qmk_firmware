@@ -29,8 +29,7 @@
 */
 
 /** \file
- *
- *  Board specific LED driver header for the ATAVRUSBRF01.
+ *  \brief Board specific LED driver header for the ATAVRUSBRF01.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.

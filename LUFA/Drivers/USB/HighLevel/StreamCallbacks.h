@@ -27,6 +27,16 @@
   arising out of or in connection with the use or performance of
   this software.
 */
+
+/** \file
+ *  \brief USB endpoint/pipe stream callback management.
+ *
+ *  This file contains definitions for the creation of optional callback routines which can be passed to the
+ *  endpoint and/or pipe stream APIs, to abort the transfer currently in progress when a condition is met.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the USB driver
+ *        dispatch header located in LUFA/Drivers/USB/USB.h.
+ */
  
 /** \ingroup Group_USB
  *  @defgroup Group_StreamCallbacks Endpoint and Pipe Stream Callbacks

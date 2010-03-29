@@ -29,6 +29,7 @@
 */
 
 /** \file
+ *  \brief Master include file for the SPI peripheral driver.
  *
  *  Hardware SPI subsystem driver for the supported USB AVRs models.
  */

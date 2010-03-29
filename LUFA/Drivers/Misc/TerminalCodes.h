@@ -29,10 +29,10 @@
 */
 
 /** \file
+ *  \brief ANSI terminal special escape code macros.
  *
  *  ANSI terminal compatible escape sequences. These escape sequences are designed to be concatenated with existing
  *  strings to modify their display on a compatible terminal application.
- *
  */
  
 /** \ingroup Group_MiscDrivers

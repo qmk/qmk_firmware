@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *  \brief Device mode driver for the library USB Mass Storage Class driver.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the class driver
+ *        dispatch header located in LUFA/Drivers/USB/Class/MassStorage.h.
+ */
+
 /** \ingroup Group_USBClassMS
  *  @defgroup Group_USBClassMSDevice Mass Storage Class Device Mode Driver
  *

@@ -28,6 +28,16 @@
   this software.
 */
  
+/** \file
+ *  \brief USB host pipe management definitions.
+ *
+ *  This file contains structures, function prototypes and macros related to the management of the device's
+ *  data pipes when the library is initialized in USB host mode.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the USB driver
+ *        dispatch header located in LUFA/Drivers/USB/USB.h.
+ */ 
+
 /** \ingroup Group_USB
  *  @defgroup Group_PipeManagement Pipe Management
  *

@@ -29,9 +29,9 @@
 */
 
 /** \file
+ *  \brief Constants for HID report item attributes.
  *
- *  Constants for HID report item attributes. Refer to the HID specification for details on each
- *  flag's meaning when applied to an IN, OUT or FEATURE item.
+ *  Refer to the HID specification for details on each flag's meaning when applied to an IN, OUT or FEATURE item.
  */
 
 /** \ingroup Group_HIDParser

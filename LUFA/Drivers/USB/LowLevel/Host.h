@@ -28,6 +28,15 @@
   this software.
 */
 
+/** \file
+ *  \brief USB host mode definitions.
+ *
+ *  This file contains structures, function prototypes and macros related to USB host mode.
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the USB driver
+ *        dispatch header located in LUFA/Drivers/USB/USB.h.
+ */
+
 /** \ingroup Group_USB
  *  @defgroup Group_Host Host Management
  *

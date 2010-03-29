@@ -9,13 +9,14 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this software
-  and its documentation for any purpose is hereby granted without fee,
-  provided that the above copyright notice appear in all copies and that
-  both that the copyright notice and this permission notice and warranty
-  disclaimer appear in supporting documentation, and that the name of the
-  author not be used in advertising or publicity pertaining to distribution
-  of the software without specific, written prior permission.
+  Permission to use, copy, modify, distribute, and sell this 
+  software and its documentation for any purpose is hereby granted
+  without fee, provided that the above copyright notice appear in 
+  all copies and that both that the copyright notice and this
+  permission notice and warranty disclaimer appear in supporting 
+  documentation, and that the name of the author not be used in 
+  advertising or publicity pertaining to distribution of the 
+  software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
   software, including all implied warranties of merchantability
@@ -28,6 +29,8 @@
 */
 
 /** \file
+ *
+ *  \brief LUFA library version constants.
  *
  *  Version constants for informational purposes and version-specific macro creation. This header file contains the
  *  current LUFA version number in several forms, for use in the user-application (for example, for printing out 
