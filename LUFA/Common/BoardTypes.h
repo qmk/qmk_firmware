@@ -101,7 +101,7 @@
 			/** Selects the USBTINY MKII specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_USBTINYMKII   12
 			
-			/** Selects the Benito specific board drivers, including the driver for the board LEDs. */
+			/** Selects the Benito specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_BENITO        13
 			
 			/** Selects the JM-DB-U2 specific board drivers, including the Button and LEDs drivers. */

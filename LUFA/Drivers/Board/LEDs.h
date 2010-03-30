@@ -109,7 +109,7 @@
 		#include "USBTINYMKII/LEDs.h"
 	#elif (BOARD == BOARD_BENITO)
 		#include "BENITO/LEDs.h"
-	#elif (BOARD == JMDBU2)
+	#elif (BOARD == BOARD_JMDBU2)
 		#include "JMDBU2/LEDs.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
