@@ -112,6 +112,55 @@
  *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located in
  *  the parent Board directory should be included instead.
  *
+ *  \dir LUFA/Drivers/Board/BUMBLEB
+ *  \brief BUMBLEB board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the Fletchtronics Bumble-B board (http://fletchtronics.net/bumble-b). The header
+ *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located in
+ *  the parent Board directory should be included instead.
+ *
+ *  \dir LUFA/Drivers/Board/XPLAIN
+ *  \brief XPLAIN board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the Atmel XPLAIN board (all hardware revisions). The header files in this folder 
+ *  should not be included directly in user applications; the similarly named dispatch header files located in the parent Board 
+ *  directory should be included instead.
+ *
+ *  \dir LUFA/Drivers/Board/EVK527
+ *  \brief XPLAIN board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the Atmel EVK527 development board. The header files in this folder should
+ *  not be included directly in user applications; the similarly named dispatch header files located in the parent Board directory
+ *  should be included instead.
+ *
+ *  \dir LUFA/Drivers/Board/TEENSY
+ *  \brief TEENSY board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on all revisions of the PJRC Teensy boards (http://www.pjrc.com/teensy/). The header
+ *  files in this folder should not be included directly in user applications; the similarly named dispatch header files located
+ *  in the parent Board directory should be included instead.
+ *
+ *  \dir LUFA/Drivers/Board/USBTINYMKII
+ *  \brief USBTINY-MKII board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on all revisions of the USBTINY-MKII boards (http://tom-itx.dyndns.org:81/~webpage/).
+ *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
+ *  located in the parent Board directory should be included instead.
+ *
+ *  \dir LUFA/Drivers/Board/BENITO
+ *  \brief BENITO board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the Benito boards (http://dorkbotpdx.org/wiki/benito). The header files in this
+ *  folder should not be included directly in user applications; the similarly named dispatch header files located in the parent
+ *  Board directory should be included instead.
+ *
+ *  \dir LUFA/Drivers/Board/JMDBU2
+ *  \briefJM-DB-U2 board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the JM-DB-U2 boards (http://u2.mattair.net/). The header files in this folder
+ *  should not be included directly in user applications; the similarly named dispatch header files located in the parent Board
+ *  directory should be included instead.
+ *
  *  \dir LUFA/DriverStubs
  *  \brief Driver stub header files for custom boards, to allow the LUFA board drivers to operate.
  *  
