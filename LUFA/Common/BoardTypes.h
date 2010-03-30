@@ -98,9 +98,12 @@
 			/** Selects the Teensy (all versions) specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_TEENSY        11
 			
-			/** Selects the USBTINY MKII specific board drivers, , including the driver for the board LEDs. */
+			/** Selects the USBTINY MKII specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_USBTINYMKII   12
 			
+			/** Selects the Benito specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_BENITO        13
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 				

@@ -28,9 +28,25 @@
   this software.
 */
 
-/*
-   Board LEDs driver for the Benito board, from www.dorkbotpdx.org.
-*/
+/** \file
+ *  \brief Board specific LED driver header for the Benito.
+ *
+ *  Board specific LED driver header for the Benito (http://dorkbotpdx.org/wiki/benito).
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
+ *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
+ */
+
+/** \ingroup Group_LEDs
+ *  @defgroup Group_LEDs_BENITO BENITO
+ *
+ *  Board specific LED driver header for the Benito (http://dorkbotpdx.org/wiki/benito).
+ *
+ *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
+ *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
+ *
+ *  @{
+ */
 
 #ifndef __LEDS_BENITO_H__
 #define __LEDS_BENITO_H__
@@ -108,3 +124,5 @@
 		#endif
 		
 #endif
+
+/** @} */

@@ -53,7 +53,8 @@
  *  provides an interface to configure, test and change the status of all the board LEDs.
  *
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
- *  directory. Otherwise, it will include the appropriate built in board driver header file.
+ *  directory. Otherwise, it will include the appropriate built in board driver header file. If the BOARD value
+ *  is set to BOARD_NONE, this driver is silently disabled.
  *
  *  \note To make code as compatible as possible, it is assumed that all boards carry a minimum of four LEDs. If
  *        a board contains less than four LEDs, the remaining LED masks are defined to 0 so as to have no effect.
@@ -106,6 +107,8 @@
 		#include "TEENSY/LEDs.h"
 	#elif (BOARD == BOARD_USBTINYMKII)
 		#include "USBTINYMKII/LEDs.h"
+	#elif (BOARD == BOARD_BENITO)
+		#include "BENITO/LEDs.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
 	#endif

@@ -13,6 +13,7 @@
   *  - Added board hardware driver support for the PJRC Teensy line of USB AVR boards
   *  - Added new Relay Controller Board project (thanks to OBinou)
   *  - Added board hardware driver support for Tom's USBTINY MKII programmer
+  *  - Added board hardware driver support for the Benito programmer
   *
   *  <b>Changed:</b>
   *  - AVRISP programmer project now has a more robust timeout system, allowing for an increase of the software USART speed
