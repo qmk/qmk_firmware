@@ -48,8 +48,8 @@
  *  @{
  */
 
-#ifndef __BUTTONS_BUMBLEB_H__
-#define __BUTTONS_BUMBLEB_H__
+#ifndef __BUTTONS_USBTINYMKII_H__
+#define __BUTTONS_USBTINYMKII_H__
 
 	/* Includes: */
 		#include <avr/io.h>

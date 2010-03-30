@@ -29,23 +29,18 @@
 */
 
 /** \file
- *  \brief Board specific Buttons driver header for the BUMBLEB.
+ *  \brief Board specific Buttons driver header for the Bentio.
  *
- *  Board specific Buttons driver header for the BUMBLEB (http://fletchtronics.net/bumble-b).
- *
- *  The BUMBLEB third-party board does not include any on-board peripherals, but does have an officially recommended
- *  external peripheral layout for buttons, LEDs and a Joystick.
+ *  Board specific Buttons driver header for the Benito (http://dorkbotpdx.org/wiki/benito).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  */
-
+ 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_BUMBLEB BUMBLEB
+ *  @defgroup Group_Buttons_BENITO BENITO
  *
- *  Board specific buttons driver header for the BUMBLEB (http://fletchtronics.net/bumble-b). The BUMBLEB third-party
- *  board does not include any on-board peripherals, but does have an officially recommended external peripheral layout
- *  for buttons, LEDs and a Joystick.
+ *  Board specific Buttons driver header for the Bentio (http://dorkbotpdx.org/wiki/benito).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -53,8 +48,8 @@
  *  @{
  */
 
-#ifndef __BUTTONS_BUMBLEB_H__
-#define __BUTTONS_BUMBLEB_H__
+#ifndef __BUTTONS_BENITO_H__
+#define __BUTTONS_BENITO_H__
 
 	/* Includes: */
 		#include <avr/io.h>

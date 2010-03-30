@@ -29,18 +29,18 @@
 */
 
 /** \file
- *  \brief Board specific Buttons driver header for the Bentio.
+ *  \brief Board specific Buttons driver header for the JM-DB-U2.
  *
- *  Board specific Buttons driver header for the Benito (http://dorkbotpdx.org/wiki/benito).
+ *  Board specific Buttons driver header for the JM-DB-U2 (http://u2.mattair.net/index.html).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  */
  
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_BENITO BENITO
+ *  @defgroup Group_Buttons_JMDBU2 JMDBU2
  *
- *  Board specific Buttons driver header for the Bentio (http://dorkbotpdx.org/wiki/benito).
+ *  Board specific Buttons driver header for the JM-DB-U2 (http://u2.mattair.net/index.html).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -48,8 +48,8 @@
  *  @{
  */
 
-#ifndef __BUTTONS_BENTIO_H__
-#define __BUTTONS_BENITO_H__
+#ifndef __BUTTONS_JMDBU2_H__
+#define __BUTTONS_JMDBU2_H__
 
 	/* Includes: */
 		#include <avr/io.h>
