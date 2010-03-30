@@ -85,6 +85,8 @@
 		#include "BUMBLEB/Buttons.h"
 	#elif (BOARD == BOARD_EVK527)
 		#include "EVK527/Buttons.h"
+	#elif (BOARD == BOARD_USBTINYMKII)
+		#include "USBTINYMKII/Buttons.h"		
 	#elif (BOARD == BOARD_BENITO)
 		#include "BENITO/Buttons.h"
 	#elif (BOARD == BOARD_JMDBU2)

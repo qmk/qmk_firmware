@@ -98,7 +98,7 @@
 			/** Selects the Teensy (all versions) specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_TEENSY        11
 			
-			/** Selects the USBTINY MKII specific board drivers, including the driver for the board LEDs. */
+			/** Selects the USBTINY MKII specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_USBTINYMKII   12
 			
 			/** Selects the Benito specific board drivers, including the Button and LEDs drivers. */
