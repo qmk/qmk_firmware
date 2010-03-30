@@ -33,6 +33,7 @@
  *  Currently supported third-party boards (see \ref Group_BoardTypes):
  *   - Bumble-B (using officially recommended peripheral layout)
  *   - Teensy (all revisions and versions)
+ *   - USBTINY MKII (all revisions and versions)
  *   - Any Other Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
  */
  

@@ -31,7 +31,7 @@
 /** \file
  *  \brief Board specific joystick driver header for the BUMLEB.
  *
- *  Board specific joystick driver header for the BUMLEB.
+ *  Board specific joystick driver header for the BUMBLEB (http://fletchtronics.net/bumble-b).
  *
  *  The BUMBLEB third-party board does not include any on-board peripherals, but does have an officially recommended
  *  external peripheral layout for buttons, LEDs and a Joystick.
@@ -43,8 +43,9 @@
 /** \ingroup Group_Joystick
  *  @defgroup Group_Joystick_BUMBLEB BUMBLEB
  *
- *  Board specific joystick driver header for the BUMBLEB. The BUMBLEB third-party board does not include any on-board
- *  peripherals, but does have an officially recommended external peripheral layout for buttons, LEDs and a Joystick.
+ *  Board specific joystick driver header for the BUMBLEB (http://fletchtronics.net/bumble-b). The BUMBLEB third-party
+ *  board does not include any on-board peripherals, but does have an officially recommended external peripheral layout
+ *  for buttons, LEDs and a Joystick.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.

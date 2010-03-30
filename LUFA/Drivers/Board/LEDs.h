@@ -104,6 +104,8 @@
 		#include "EVK527/LEDs.h"
 	#elif (BOARD == BOARD_TEENSY)
 		#include "TEENSY/LEDs.h"
+	#elif (BOARD == BOARD_USBTINYMKII)
+		#include "USBTINYMKII/LEDs.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
 	#endif

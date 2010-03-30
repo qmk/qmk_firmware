@@ -95,8 +95,11 @@
 			 *  such as the Joystick driver, where the removal would adversely affect the code's operation is still disallowed. */
 			#define BOARD_NONE          10
 			
-			/** Selects the Teensy (all versions) specific board drivers, including the driver for the board LEDs. */			
+			/** Selects the Teensy (all versions) specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_TEENSY        11
+			
+			/** Selects the USBTINY MKII specific board drivers, , including the driver for the board LEDs. */
+			#define BOARD_USBTINYMKII   12
 			
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE

@@ -29,23 +29,18 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the BUMBLEB.
+ *  \brief Board specific LED driver header for the USBTINY MKII.
  *
- *  Board specific LED driver header for the BUMBLEB (http://fletchtronics.net/bumble-b).
- *
- *  The BUMBLEB third-party board does not include any on-board peripherals, but does have an officially recommended
- *  external peripheral layout for buttons, LEDs and a Joystick.
+ *  Board specific LED driver header for the USBTINY MKII (http://tom-itx.dyndns.org:81/~webpage/).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_BUMBLEB BUMBLEB
+ *  @defgroup Group_LEDs_USBTINYMKII USBTINYMKII
  *
- *  Board specific LED driver header for the BUMBLEB (http://fletchtronics.net/bumble-b). The BUMBLEB third-party board
- *  does not include any on-board peripherals, but does have an officially recommended external peripheral layout for
- *  buttons, LEDs and a Joystick.
+ *  Board specific LED driver header for the USBTINY MKII (http://tom-itx.dyndns.org:81/~webpage/).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -53,13 +48,11 @@
  *  @{
  */
 
-#ifndef __LEDS_BUMBLEB_H__
-#define __LEDS_BUMBLEB_H__
+#ifndef __LEDS_USBTINYMKII_H__
+#define __LEDS_USBTINYMKII_H__
 
 	/* Includes: */
 		#include <avr/io.h>
-
-		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -67,26 +60,20 @@
 		#endif
 
 	/* Preprocessor Checks: */
-		#if !defined(__INCLUDE_FROM_LEDS_H)
+		#if !defined(INCLUDE_FROM_LEDS_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Board/LEDS.h instead.
 		#endif
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
-			#define LEDS_LED1        (1 << 4)
+			#define LEDS_LED1        (1 << 6)
 
 			/** LED mask for the second LED on the board. */
-			#define LEDS_LED2        (1 << 5)
-
-			/** LED mask for the third LED on the board. */
-			#define LEDS_LED3        (1 << 6)
-
-			/** LED mask for the fourth LED on the board. */
-			#define LEDS_LED4        (1 << 7)
+			#define LEDS_LED2        (1 << 7)
 
 			/** LED mask for all the LEDs on the board. */
-			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4)
+			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2)
 
 			/** LED mask for the none of the board LEDs */
 			#define LEDS_NO_LEDS     0
