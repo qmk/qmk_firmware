@@ -103,6 +103,9 @@
 			
 			/** Selects the Benito specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_BENITO        13
+			
+			/** Selects the JM-DB-U2 specific board drivers, including the Button and LEDs drivers. */
+			#define BOARD_JMDBU2        14
 
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE

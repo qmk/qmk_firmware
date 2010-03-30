@@ -85,6 +85,8 @@
 		#include "BUMBLEB/Buttons.h"
 	#elif (BOARD == BOARD_EVK527)
 		#include "EVK527/Buttons.h"
+	#elif (BOARD == JMDBU2)
+		#include "JMDBU2/Buttons.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/Buttons.h"
 	#else
