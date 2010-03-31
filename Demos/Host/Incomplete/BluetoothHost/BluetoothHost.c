@@ -179,6 +179,9 @@ void Bluetooth_Management_Task(void)
 			}
 
 			puts_P(PSTR("Bluetooth Dongle Enumerated.\r\n"));
+			
+			/* Initialize the Bluetooth stack */
+			Bluetooth_State_Init();
 
 			USB_HostState = HOST_STATE_Configured;
 			break;

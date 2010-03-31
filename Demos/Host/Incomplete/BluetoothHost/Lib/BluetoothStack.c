@@ -39,11 +39,13 @@ Bluetooth_Device_t     Bluetooth_DeviceConfiguration ATTR_WEAK =
 		Name:    "LUFA BT Device"
 	};
 
+void Bluetooth_State_Init(void)
+{
+	Bluetooth_HCIProcessingState = Bluetooth_Init;
+}
+
 void Bluetooth_Stack_Task(void)
 {
-	if (USB_HostState != HOST_STATE_Configured)
-	  Bluetooth_HCIProcessingState = Bluetooth_Init;
-		
 	Bluetooth_ProcessHCICommands();
 	Bluetooth_ProcessACLPackets();
 }

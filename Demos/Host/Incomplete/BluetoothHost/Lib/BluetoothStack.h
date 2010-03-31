@@ -72,7 +72,7 @@
 		{
 			bool                IsConnected;
 			uint16_t            ConnectionHandle;
-			uint8_t             DeviceAddress[6];
+			uint8_t             RemoteAddress[6];
 			Bluetooth_Channel_t Channels[BLUETOOTH_MAX_OPEN_CHANNELS];
 		} Bluetooth_Connection_t;
 		
@@ -87,6 +87,7 @@
 		Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchBySource);
 		Bluetooth_Channel_t* Bluetooth_InitChannelData(uint16_t RemoteChannelNumber, uint16_t PSM);
 		
+		void Bluetooth_State_Init(void);
 		void Bluetooth_Stack_Task(void);
 
 	/* External Variables: */

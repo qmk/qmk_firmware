@@ -103,23 +103,30 @@
 
 		typedef struct
 		{
-			uint8_t CommandStatus;
-			uint8_t CommandPackets;
+			uint8_t Status;
+			uint8_t Packets;
 
 			struct
 			{
 				int OCF : 10;
 				int OGF : 6;
 			} OpCode;
-		} Bluetooth_HCIEvent_CommandStatus_Header_t;
+		} Bluetooth_HCIEvent_CommandStatus_t;
 		
+		typedef struct
+		{
+			uint8_t  HCLPacketsAllowable;
+			uint16_t Opcode;
+			uint8_t  ReturnParams[];
+		} Bluetooth_HCIEvent_CommandComplete_t;
+
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
 			uint8_t  ClassOfDevice_Service;
 			uint16_t ClassOfDevice_MajorMinor;
 			uint8_t  LinkType;
-		} Bluetooth_HCIEvent_ConnectionRequest_Header_t;
+		} Bluetooth_HCIEvent_ConnectionRequest_t;
 
 		typedef struct
 		{
@@ -128,26 +135,31 @@
 			uint8_t  RemoteAddress[6];
 			uint8_t  LinkType;
 			uint8_t  EncryptionEnabled;
-		} Bluetooth_HCIEvent_ConnectionComplete_Header_t;
+		} Bluetooth_HCIEvent_ConnectionComplete_t;
+		
+		typedef struct
+		{
+			uint8_t  RemoteAddress[6];
+		} Bluetooth_HCIEvent_PinCodeRequest_t;
 		
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
 			uint8_t  SlaveRole;
-		} Bluetooth_HCICommand_AcceptConnectionRequest_Params_t;
+		} Bluetooth_HCICommand_AcceptConnectionRequest_t;
 		
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
 			uint8_t  Reason;
-		} Bluetooth_HCICommand_RejectConnectionRequest_Params_t;
+		} Bluetooth_HCICommand_RejectConnectionRequest_t;
 
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
 			uint8_t  PINCodeLength;
 			char     PINCode[16];
-		} Bluetooth_HCICommand_PinCodeResponse_Params_t;
+		} Bluetooth_HCICommand_PinCodeResponse_t;
 		
 	/* Enums: */
 		enum Bluetooth_ScanEnable_Modes_t
@@ -160,18 +172,16 @@
 
 		enum BluetoothStack_States_t
 		{
-			Bluetooth_Init                            = 0,
-			Bluetooth_Init_Reset                      = 1,
-			Bluetooth_Init_ReadBufferSize             = 2,
-			Bluetooth_Init_SetEventMask               = 3,
+			Bluetooth_ProcessEvents                   = 0,
+			Bluetooth_Init                            = 1,
+			Bluetooth_Init_Reset                      = 2,
+			Bluetooth_Init_ReadBufferSize             = 3,
 			Bluetooth_Init_SetLocalName               = 4,
 			Bluetooth_Init_SetDeviceClass             = 5,
 			Bluetooth_Init_WriteScanEnable            = 6,
-			Bluetooth_PrepareToProcessEvents          = 7,
-			Bluetooth_ProcessEvents                   = 8,
-			Bluetooth_Conn_AcceptConnection           = 9,
-			Bluetooth_Conn_RejectConnection           = 10,
-			Bluetooth_Conn_SendPINCode                = 11,
+			Bluetooth_Conn_AcceptConnection           = 7,
+			Bluetooth_Conn_RejectConnection           = 8,
+			Bluetooth_Conn_SendPINCode                = 9,
 		};
 		
 	/* External Variables: */
@@ -179,12 +189,10 @@
 
 	/* Function Prototypes: */
 		void Bluetooth_ProcessHCICommands(void);
+		void Bluetooth_ProcessHCIEvents(void);
 
 		#if defined(INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C)
 			static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint8_t ParamLength);
-			static bool    Bluetooth_GetNextHCIEventHeader(void);
-			static void    Bluetooth_DiscardRemainingHCIEventParameters(void);
-			static void    Bluetooth_ProcessHCICommands(void);
 		#endif
 		
 #endif
