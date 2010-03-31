@@ -90,12 +90,21 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
 	/* Setup AVRISP data Endpoints */
-	if (!(Endpoint_ConfigureEndpoint(AVRISP_DATA_EPNUM, EP_TYPE_BULK,
+	if (!(Endpoint_ConfigureEndpoint(AVRISP_DATA_OUT_EPNUM, EP_TYPE_BULK,
 		                             ENDPOINT_DIR_OUT, AVRISP_DATA_EPSIZE,
 	                                 ENDPOINT_BANK_SINGLE)))
 	{
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 	}
+
+	#if defined(WIN_LIBUSB_COMPAT)
+	if (!(Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPNUM, EP_TYPE_BULK,
+		                             ENDPOINT_DIR_IN, AVRISP_DATA_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
+	#endif
 }
 
 /** Processes incoming V2 Protocol commands from the host, returning a response when required. */
@@ -105,7 +114,7 @@ void Process_AVRISP_Commands(void)
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
-	Endpoint_SelectEndpoint(AVRISP_DATA_EPNUM);
+	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPNUM);
 	
 	/* Check to see if a V2 Protocol command has been received */
 	if (Endpoint_IsOUTReceived())

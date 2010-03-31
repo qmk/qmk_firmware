@@ -131,6 +131,7 @@ void V2Protocol_ProcessCommand(void)
 	}
 
 	Endpoint_WaitUntilReady();
+	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);
 }
 
@@ -149,6 +150,7 @@ static void V2Protocol_UnknownCommand(const uint8_t V2Command)
 	}
 
 	Endpoint_ClearOUT();
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	Endpoint_Write_Byte(V2Command);
@@ -160,6 +162,7 @@ static void V2Protocol_UnknownCommand(const uint8_t V2Command)
 static void V2Protocol_SignOn(void)
 {
 	Endpoint_ClearOUT();
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	Endpoint_Write_Byte(CMD_SIGN_ON);
@@ -175,6 +178,7 @@ static void V2Protocol_SignOn(void)
 static void V2Protocol_ResetProtection(void)
 {
 	Endpoint_ClearOUT();
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
 	Endpoint_Write_Byte(CMD_RESET_PROTECTION);
@@ -197,6 +201,7 @@ static void V2Protocol_GetSetParam(const uint8_t V2Command)
 	  ParamValue = Endpoint_Read_Byte();
 
 	Endpoint_ClearOUT();
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
 	Endpoint_Write_Byte(V2Command);
@@ -230,6 +235,7 @@ static void V2Protocol_LoadAddress(void)
 	Endpoint_Read_Stream_BE(&CurrentAddress, sizeof(CurrentAddress), NO_STREAM_CALLBACK);
 
 	Endpoint_ClearOUT();
+	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
 	MustSetAddress = true;

@@ -72,6 +72,12 @@
 
 		/** MUX mask for the VTARGET ADC channel number */
 		#define VTARGET_ADC_CHANNEL_MASK   _GETADCMUXMASK(ADC_CHANNEL, VTARGET_ADC_CHANNEL)
+		
+		#if !defined(WIN_AVRDUDE_COMPAT)
+			#define SELECT_DATA_OUT_ENDPOINT() Endpoint_SetEndpointDirection(ENDPOINT_DIR_OUT);
+		#else
+			#define SELECT_DATA_OUT_ENDPOINT() Endpoint_SelectEndpoint();
+		#endif
 
 	/* External Variables: */
 		extern uint32_t CurrentAddress;

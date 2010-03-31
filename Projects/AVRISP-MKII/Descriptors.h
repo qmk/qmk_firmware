@@ -42,11 +42,22 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		/** Endpoint number of the AVRISP bidirectional data endpoint. */
-		#define AVRISP_DATA_EPNUM              2
+		#if !defined(WIN_LIBUSB_COMPAT)
+			/** Endpoint number of the AVRISP data OUT endpoint. */
+			#define AVRISP_DATA_OUT_EPNUM      2
+
+			/** Endpoint number of the AVRISP data IN endpoint. */
+			#define AVRISP_DATA_IN_EPNUM       2
+		#else
+			/** Endpoint number of the AVRISP data OUT endpoint. */
+			#define AVRISP_DATA_OUT_EPNUM      2
+
+			/** Endpoint number of the AVRISP data IN endpoint. */
+			#define AVRISP_DATA_IN_EPNUM       3
+		#endif
 
 		/** Size in bytes of the AVRISP data endpoint. */
-		#define AVRISP_DATA_EPSIZE             64	
+		#define AVRISP_DATA_EPSIZE             64
 
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the

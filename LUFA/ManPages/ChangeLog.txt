@@ -24,6 +24,8 @@
   *  - Standardized the naming scheme given to configuration descriptor sub-elements in the Device mode demos, bootloaders
   *    and projects
   *  - All Class Driver Host mode demos now correctly set the board LEDs to READY once the enumeration process has completed
+  *  - Added WIN_LIBUSB_COMPAT compile time option to the AVRISP programmer project to make the code compatible with Windows
+  *    builds of avrdude at the expense of AVRStudio compatibility
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin
