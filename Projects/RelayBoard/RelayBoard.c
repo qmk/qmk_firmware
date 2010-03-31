@@ -63,8 +63,8 @@ void SetupHardware(void)
 	USB_Init();
 
 	/* Initialize Relays */
-	DDRC  |= ALL_RELAYS;
-	PORTC |= ALL_RELAYS;
+	DDRC  |=  ALL_RELAYS;
+	PORTC &= ~ALL_RELAYS;
 }
 
 
@@ -95,13 +95,13 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				switch (USB_ControlRequest.wValue)
 				{
 					case 0x303:
-						if (data[1]) PORTC |= RELAY1; else PORTC &= ~RELAY1; break;
+						if (data[1]) PORTC &= ~RELAY1; else PORTC |= RELAY1; break;
 					case 0x306:
-						if (data[1]) PORTC |= RELAY2; else PORTC &= ~RELAY2; break;
+						if (data[1]) PORTC &= ~RELAY2; else PORTC |= RELAY2; break;
 					case 0x309:
-						if (data[1]) PORTC |= RELAY3; else PORTC &= ~RELAY3; break;
+						if (data[1]) PORTC &= ~RELAY3; else PORTC |= RELAY3; break;
 					case 0x30c:
-						if (data[1]) PORTC |= RELAY4; else PORTC &= ~RELAY4; break;
+						if (data[1]) PORTC &= ~RELAY4; else PORTC |= RELAY4; break;
 					default:
 						break;
 				}
@@ -121,13 +121,13 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 						Endpoint_Write_Control_Stream_LE(serial, sizeof(serial));
 						break;
 					case 0x303:
-						if (PORTC & RELAY1) data[1]=3; else data[1]=2; break;
+						if (PORTC & RELAY1) data[1] = 2; else data[1] = 3; break;
 					case 0x306:
-						if (PORTC & RELAY2) data[1]=3; else data[1]=2; break;
+						if (PORTC & RELAY2) data[1] = 2; else data[1] = 3; break;
 					case 0x309:
-						if (PORTC & RELAY3) data[1]=3; else data[1]=2; break;
+						if (PORTC & RELAY3) data[1] = 2; else data[1] = 3; break;
 					case 0x30c:
-						if (PORTC & RELAY4) data[1]=3; else data[1]=2; break;
+						if (PORTC & RELAY4) data[1] = 2; else data[1] = 3; break;
 					default:
 						break;
 				}
