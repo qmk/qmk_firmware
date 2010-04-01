@@ -42,6 +42,8 @@
 		#include "BluetoothClassCodes.h"
 
 	/* Macros: */
+		#define BT_HCI_DEBUG(s, ...)                           printf_P(PSTR("(HCI) " s "\r\n"), __VA_ARGS__)
+	
 		#define OGF_LINK_CONTROL                               0x01
 		#define OGF_CTRLR_BASEBAND                             0x03
 		#define OGF_CTRLR_INFORMATIONAL                        0x04
@@ -164,24 +166,23 @@
 	/* Enums: */
 		enum Bluetooth_ScanEnable_Modes_t
 		{
-			NoScansEnabled            = 0,
-			InquiryScanOnly           = 1,
-			PageScanOnly              = 2,
-			InquiryAndPageScans       = 3,
+			BT_SCANMODE_NoScansEnabled       = 0,
+			BT_SCANMODE_InquiryScanOnly      = 1,
+			BT_SCANMODE_PageScanOnly         = 2,
+			BT_SCANMODE_InquiryAndPageScans  = 3,
 		};
 
 		enum BluetoothStack_States_t
 		{
-			Bluetooth_ProcessEvents                   = 0,
-			Bluetooth_Init                            = 1,
-			Bluetooth_Init_Reset                      = 2,
-			Bluetooth_Init_ReadBufferSize             = 3,
-			Bluetooth_Init_SetLocalName               = 4,
-			Bluetooth_Init_SetDeviceClass             = 5,
-			Bluetooth_Init_WriteScanEnable            = 6,
-			Bluetooth_Conn_AcceptConnection           = 7,
-			Bluetooth_Conn_RejectConnection           = 8,
-			Bluetooth_Conn_SendPINCode                = 9,
+			Bluetooth_ProcessEvents          = 0,
+			Bluetooth_Init                   = 1,
+			Bluetooth_Init_Reset             = 2,
+			Bluetooth_Init_SetLocalName      = 3,
+			Bluetooth_Init_SetDeviceClass    = 4,
+			Bluetooth_Init_WriteScanEnable   = 5,
+			Bluetooth_Conn_AcceptConnection  = 6,
+			Bluetooth_Conn_RejectConnection  = 7,
+			Bluetooth_Conn_SendPINCode       = 8,
 		};
 		
 	/* External Variables: */
@@ -192,7 +193,7 @@
 		void Bluetooth_ProcessHCIEvents(void);
 
 		#if defined(INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C)
-			static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint8_t ParamLength);
+			static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint16_t ParameterLength);
 		#endif
 		
 #endif

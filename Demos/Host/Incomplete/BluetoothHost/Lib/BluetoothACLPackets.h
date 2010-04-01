@@ -41,6 +41,8 @@
 		#include "BluetoothStack.h"
 		
 	/* Macros: */
+		#define BT_ACL_DEBUG(s, ...)                     printf_P(PSTR("(ACL) " s "\r\n"), __VA_ARGS__)
+
 		#define BLUETOOTH_CHANNEL_SIGNALING              0x0001
 		#define BLUETOOTH_CHANNEL_CONNECTIONLESS         0x0002
 		

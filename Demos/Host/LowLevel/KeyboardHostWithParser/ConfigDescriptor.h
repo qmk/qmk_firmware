@@ -47,9 +47,6 @@
 
 		/** Interface Protocol value for a Boot Protocol Keyboard compliant device */
 		#define KEYBOARD_PROTOCOL              0x01
-		
-		/** Maximum size of a device configuration descriptor which can be processed by the host, in bytes */
-		#define MAX_CONFIG_DESCRIPTOR_SIZE     512
 
 		/** Descriptor header type constant for a HID descriptor */
 		#define DTYPE_HID                      0x21

@@ -28,6 +28,11 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for DeviceDescriptor.c.
+ */
+
 #ifndef _DEVICEDESCRIPTOR_H_
 #define _DEVICEDESCRIPTOR_H_
 
@@ -37,17 +42,22 @@
 		#include "BluetoothHost.h"
 		
 	/* Macros: */
+		/** Device Class value for the Bluetooth Device class */
 		#define BLUETOOTH_DEVICE_CLASS           0xE0
+
+		/** Device Subclass value for the Bluetooth Device class */
 		#define BLUETOOTH_DEVICE_SUBCLASS        0x01
+
+		/** Device Protocol value for the Bluetooth Device class */
 		#define BLUETOOTH_DEVICE_PROTOCOL        0x01
 
 	/* Enums: */
 		enum BluetoothHost_GetDeviceDescriptorDataCodes_t
 		{
-			SuccessfulDeviceRead                 = 0,
-			ControlErrorDuringDeviceRead         = 1,
-			InvalidDeviceDataReturned            = 2,
-			IncorrectDevice                      = 3,
+			SuccessfulDeviceRead            = 0, /**< Device Descriptor was processed successfully */
+			ControlError                    = 1, /**< A control request to the device failed to complete successfully */
+			InvalidDeviceDataReturned       = 2, /**< The device returned an invalid Device Descriptor */
+			IncorrectBTDevice               = 3, /**< The attached device is not a Bluetooth class device */
 		};
 
 	/* Function Prototypes: */

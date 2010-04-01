@@ -50,9 +50,6 @@
 
 		/** Interface Class value for the Still Image Device protocol */
 		#define SIMAGE_PROTOCOL                0x01
-
-		/** Maximum size of a device configuration descriptor which can be processed by the host, in bytes */
-		#define MAX_CONFIG_DESCRIPTOR_SIZE     512
 	
 	/* Enums: */
 		/** Enum for the possible return codes of the ProcessConfigurationDescriptor() function. */

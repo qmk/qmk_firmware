@@ -47,10 +47,7 @@
 
 		/** Interface Protocol value for a Boot Protocol Mouse compliant device */
 		#define MOUSE_PROTOCOL              0x02
-
-		/** Maximum size of a device configuration descriptor which can be processed by the host, in bytes */
-		#define MAX_CONFIG_DESCRIPTOR_SIZE  512
-
+		
 		/** Descriptor header type constant for a HID descriptor */
 		#define DTYPE_HID                   0x21
 

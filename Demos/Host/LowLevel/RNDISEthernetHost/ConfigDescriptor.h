@@ -59,9 +59,6 @@
 
 		/** Interface Class value for the CDC data protocol */
 		#define CDC_DATA_PROTOCOL              0x00
-
-		/** Maximum size of a device configuration descriptor which can be processed by the host, in bytes */
-		#define MAX_CONFIG_DESCRIPTOR_SIZE     512
 	
 	/* Enums: */
 		/** Enum for the possible return codes of the ProcessConfigurationDescriptor() function. */

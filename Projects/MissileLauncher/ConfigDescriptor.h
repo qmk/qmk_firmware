@@ -45,9 +45,6 @@
 		/** Interface Class value for the Human Interface Device class */
 		#define HID_CLASS                 0x03
 
-		/** Maximum size of a device configuration descriptor which can be processed by the host, in bytes */
-		#define MAX_CONFIG_DESCRIPTOR_SIZE  512
-	
 	/* Enums: */
 		/** Enum for the possible return codes of the ProcessConfigurationDescriptor() function. */
 		enum GenericHIDHost_GetConfigDescriptorDataCodes_t

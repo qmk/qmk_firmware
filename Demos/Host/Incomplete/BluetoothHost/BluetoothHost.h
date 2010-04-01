@@ -28,6 +28,11 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for BluetoothHost.c.
+ */
+
 #ifndef _BLUETOOTH_HOST_H_
 #define _BLUETOOTH_HOST_H_
 
@@ -62,19 +67,15 @@
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
-		#define BLUETOOTH_DATA_IN_PIPE          1
-		#define BLUETOOTH_DATA_OUT_PIPE         2
-		#define BLUETOOTH_EVENTS_PIPE           3
-
 	/* Task Definitions: */
-		void Bluetooth_Management_Task(void);
+		void Bluetooth_Host_Task(void);
 		
 	/* Event Handlers: */
 		void EVENT_USB_Host_DeviceAttached(void);
 		void EVENT_USB_Host_DeviceUnattached(void);
 		void EVENT_USB_Host_DeviceEnumerationComplete(void);
-		void EVENT_USB_Host_HostError(uint8_t ErrorCode);
-		void EVENT_USB_Host_DeviceEnumerationFailed(uint8_t ErrorCode, uint8_t SubErrorCode);
+		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
+		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
