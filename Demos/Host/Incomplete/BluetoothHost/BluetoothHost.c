@@ -36,13 +36,6 @@
 
 #include "BluetoothHost.h"
 
-Bluetooth_Device_t Bluetooth_DeviceConfiguration =
-	{
-		Class:   (DEVICE_CLASS_SERVICE_CAPTURING | DEVICE_CLASS_MAJOR_COMPUTER | DEVICE_CLASS_MINOR_COMPUTER_PALM),
-		PINCode: "0000",
-		Name:    "LUFA Bluetooth Demo"
-	};
-
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -56,7 +49,7 @@ int main(void)
 
 	for (;;)
 	{
-		Bluetooth_Stack_Task();
+		Bluetooth_Stack_USBTask();
 		Bluetooth_Host_Task();
 		USB_USBTask();
 	}
@@ -196,7 +189,7 @@ void Bluetooth_Host_Task(void)
 			puts_P(PSTR("Bluetooth Dongle Enumerated.\r\n"));
 			
 			/* Initialize the Bluetooth stack */
-			Bluetooth_State_Init();
+			Bluetooth_Stack_Init();
 
 			USB_HostState = HOST_STATE_Configured;
 			break;

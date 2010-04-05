@@ -89,8 +89,8 @@
 		Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchBySource);
 		Bluetooth_Channel_t* Bluetooth_InitChannelData(uint16_t RemoteChannelNumber, uint16_t PSM);
 		
-		void Bluetooth_State_Init(void);
-		void Bluetooth_Stack_Task(void);
+		void Bluetooth_Stack_Init(void);
+		void Bluetooth_Stack_USBTask(void);
 
 	/* External Variables: */
 		extern Bluetooth_Device_t     Bluetooth_DeviceConfiguration;

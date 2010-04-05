@@ -42,7 +42,7 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		#if !defined(WIN_LIBUSB_COMPAT)
+		#if !defined(LIBUSB_FILTERDRV_COMPAT)
 			/** Endpoint number of the AVRISP data OUT endpoint. */
 			#define AVRISP_DATA_OUT_EPNUM      2
 

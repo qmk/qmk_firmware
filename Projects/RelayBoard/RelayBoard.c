@@ -77,8 +77,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_Device_UnhandledControlRequest(void)
 {
-    const uint8_t serial[5] = { 0, 0, 0, 0, 1 };
-	uint8_t data[2]         = { 0, 0 };
+    const uint8_t SerialNumber[5] = { 0, 0, 0, 0, 1 };
+	uint8_t ControlData[2]        = { 0, 0 };
 
     switch (USB_ControlRequest.bRequest)
 	{
@@ -89,20 +89,22 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 
 				Endpoint_ClearSETUP();
 
-				Endpoint_Read_Control_Stream_LE(data, sizeof(data));
+				Endpoint_Read_Control_Stream_LE(ControlData, sizeof(ControlData));
 				Endpoint_ClearIN();
 
 				switch (USB_ControlRequest.wValue)
 				{
 					case 0x303:
-						if (data[1]) PORTC &= ~RELAY1; else PORTC |= RELAY1; break;
+						if (ControlData[1]) PORTC &= ~RELAY1; else PORTC |= RELAY1;
+						break;
 					case 0x306:
-						if (data[1]) PORTC &= ~RELAY2; else PORTC |= RELAY2; break;
+						if (ControlData[1]) PORTC &= ~RELAY2; else PORTC |= RELAY2;
+						break;
 					case 0x309:
-						if (data[1]) PORTC &= ~RELAY3; else PORTC |= RELAY3; break;
+						if (ControlData[1]) PORTC &= ~RELAY3; else PORTC |= RELAY3;
+						break;
 					case 0x30c:
-						if (data[1]) PORTC &= ~RELAY4; else PORTC |= RELAY4; break;
-					default:
+						if (ControlData[1]) PORTC &= ~RELAY4; else PORTC |= RELAY4;
 						break;
 				}
 			}
@@ -118,22 +120,24 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				switch (USB_ControlRequest.wValue)
 				{
 					case 0x301:
-						Endpoint_Write_Control_Stream_LE(serial, sizeof(serial));
+						Endpoint_Write_Control_Stream_LE(SerialNumber, sizeof(SerialNumber));
 						break;
 					case 0x303:
-						if (PORTC & RELAY1) data[1] = 2; else data[1] = 3; break;
+						ControlData[1] = (PORTC & RELAY1) ? 2 : 3;
+						break;
 					case 0x306:
-						if (PORTC & RELAY2) data[1] = 2; else data[1] = 3; break;
+						ControlData[1] = (PORTC & RELAY2) ? 2 : 3;
+						break;
 					case 0x309:
-						if (PORTC & RELAY3) data[1] = 2; else data[1] = 3; break;
+						ControlData[1] = (PORTC & RELAY3) ? 2 : 3;
+						break;
 					case 0x30c:
-						if (PORTC & RELAY4) data[1] = 2; else data[1] = 3; break;
-					default:
+						ControlData[1] = (PORTC & RELAY4) ? 2 : 3;
 						break;
 				}
 				
-				if (data[1])
-				  Endpoint_Write_Control_Stream_LE(data, sizeof(data));
+				if (ControlData[1])
+				  Endpoint_Write_Control_Stream_LE(ControlData, sizeof(ControlData));
 
 				Endpoint_ClearOUT();
 			}

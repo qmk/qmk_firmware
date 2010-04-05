@@ -11,6 +11,7 @@
  *  Project Homepage: http://www.fourwalledcubicle.com/LUFA.php \n
  *  Author's Website: http://www.fourwalledcubicle.com \n
  *  Development Blog: http://www.fourwalledcubicle.com/blog \n
+ *  Commercial Licences: http://fourwalledcubicle.com/PurchaseLUFA.php \n
  *
  *  \section Sec_ProjectHelp Assistance With LUFA
  *  Discussion Group: http://groups.google.com/group/myusb-support-list \n

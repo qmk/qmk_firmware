@@ -83,6 +83,7 @@
 		#define EVENT_PIN_CODE_REQUEST                         0x16
 		
 		#define ERROR_LIMITED_RESOURCES                        0x0D
+		#define ERROR_UNACCEPTABLE_BDADDR                      0x0F
 		
 	/* Type Defines: */
 		typedef struct
@@ -191,6 +192,8 @@
 	/* Function Prototypes: */
 		void Bluetooth_ProcessHCICommands(void);
 		void Bluetooth_ProcessHCIEvents(void);
+		
+		bool CALLBACK_Bluetooth_ConnectionRequest(uint8_t* RemoteAddress);
 
 		#if defined(INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C)
 			static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint16_t ParameterLength);

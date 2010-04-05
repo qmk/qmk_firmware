@@ -179,6 +179,10 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
 		XPROGTarget_SendByte(0x00);
 
+		/* Do it twice to make sure it takes affect (silicon bug?) */
+		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);	
+		XPROGTarget_SendByte(0x00);
+
 		XPROGTarget_DisableTargetPDI();
 	}
 	else

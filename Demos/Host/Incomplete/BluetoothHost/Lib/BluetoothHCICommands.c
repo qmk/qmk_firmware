@@ -109,10 +109,13 @@ void Bluetooth_ProcessHCICommands(void)
 						memcpy(Bluetooth_TempDeviceAddress,
 						       &((Bluetooth_HCIEvent_ConnectionRequest_t*)&EventParams)->RemoteAddress,
 						       sizeof(Bluetooth_TempDeviceAddress));
-					
-						/* Only accept the connection if it is a ACL (data) connection */
-						Bluetooth_HCIProcessingState = (Bluetooth_Connection.IsConnected ||
-						                               (((Bluetooth_HCIEvent_ConnectionRequest_t*)&EventParams)->LinkType != 0x01)) ?
+							   
+						bool IsACLConnection = (((Bluetooth_HCIEvent_ConnectionRequest_t*)&EventParams)->LinkType == 0x01);
+
+						/* Only accept the connection if it is a ACL (data) connection, a device is not already connected
+						   and the user application has indicated that the connection should be allowed */
+						Bluetooth_HCIProcessingState = (Bluetooth_Connection.IsConnected || !(IsACLConnection) ||
+													    !(CALLBACK_Bluetooth_ConnectionRequest(Bluetooth_TempDeviceAddress))) ?
 													   Bluetooth_Conn_RejectConnection : Bluetooth_Conn_AcceptConnection;
 
 						BT_HCI_DEBUG(">> Connection Request from Device %02X:%02X:%02X:%02X:%02X:%02X",
@@ -261,10 +264,10 @@ void Bluetooth_ProcessHCICommands(void)
 			BT_HCI_DEBUG("Enter State: Bluetooth_Conn_RejectConnection", NULL);
 
 			/* Copy over the temporary BT device address saved from the Connection Request event, indicate failure
-			   to accept the connection due to limited device resources */
+			   to accept the connection due to limited device resources or incorrect device address */
 			Bluetooth_HCICommand_RejectConnectionRequest_t RejectConnectionParams;
 			memcpy(RejectConnectionParams.RemoteAddress, Bluetooth_TempDeviceAddress, sizeof(RejectConnectionParams.RemoteAddress));
-			RejectConnectionParams.Reason = ERROR_LIMITED_RESOURCES;
+			RejectConnectionParams.Reason = Bluetooth_Connection.IsConnected ? ERROR_LIMITED_RESOURCES : ERROR_UNACCEPTABLE_BDADDR;
 
 			/* Send the command to reject the remote connection request */
 			Bluetooth_SendHCICommand(&RejectConnectionParams, sizeof(Bluetooth_HCICommand_RejectConnectionRequest_t));

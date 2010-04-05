@@ -30,24 +30,34 @@
 
 #include "BluetoothStack.h"
 
+/** Bluetooth device connection information structure. Once connected to a remote device, this structure tracks the
+ *  connection state of the individual L2CAP channels.
+ */
 Bluetooth_Connection_t Bluetooth_Connection = {IsConnected: false};
 
-Bluetooth_Device_t     Bluetooth_DeviceConfiguration ATTR_WEAK =
+/** Bluetooth configuration structure. This structure configures the bluetooth stack's user alterable settings. */
+Bluetooth_Device_t Bluetooth_DeviceConfiguration =
 	{
-		Class:   DEVICE_CLASS_MAJOR_MISC,
+		Class:   (DEVICE_CLASS_SERVICE_CAPTURING | DEVICE_CLASS_MAJOR_COMPUTER | DEVICE_CLASS_MINOR_COMPUTER_PALM),
 		PINCode: "0000",
-		Name:    "LUFA BT Device"
+		Name:    "LUFA Bluetooth Demo"
 	};
 
-void Bluetooth_State_Init(void)
+void Bluetooth_Stack_Init(void)
 {
 	Bluetooth_HCIProcessingState = Bluetooth_Init;
 }
 
-void Bluetooth_Stack_Task(void)
+void Bluetooth_Stack_USBTask(void)
 {
 	Bluetooth_ProcessHCICommands();
 	Bluetooth_ProcessACLPackets();
+}
+
+bool CALLBACK_Bluetooth_ConnectionRequest(uint8_t* RemoteAddress)
+{
+	/* Always accept connections from remote devices */
+	return true;
 }
 
 Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchBySource)
