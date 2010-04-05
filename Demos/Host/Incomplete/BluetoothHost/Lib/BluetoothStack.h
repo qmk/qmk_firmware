@@ -39,15 +39,15 @@
 		#include "BluetoothACLPackets.h"
 		
 	/* Macros: */
-		#define BLUETOOTH_DATA_IN_PIPE   1
-		#define BLUETOOTH_DATA_OUT_PIPE  2
-		#define BLUETOOTH_EVENTS_PIPE    3
+		#define BLUETOOTH_DATA_IN_PIPE                   1
+		#define BLUETOOTH_DATA_OUT_PIPE                  2
+		#define BLUETOOTH_EVENTS_PIPE                    3
 
 		#define BLUETOOTH_MAX_OPEN_CHANNELS              2
 		#define BLUETOOTH_CHANNELNUMBER_BASEOFFSET       0x0040
 		
-		#define CHANNEL_LOOKUP_BY_SOURCE                 true
-		#define CHANNEL_LOOKUP_BY_DESTINATION            false
+		#define CHANNEL_PSM_SERVICEDISCOVERY             0x0001
+		#define CHANNEL_PSM_RFCOMM                       0x0003
 		
 	/* Enums: */
 		enum Bluetooth_Channel_State_t

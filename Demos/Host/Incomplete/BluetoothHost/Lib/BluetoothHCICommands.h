@@ -42,8 +42,6 @@
 		#include "BluetoothClassCodes.h"
 
 	/* Macros: */
-		#define BT_HCI_DEBUG(s, ...)                           printf_P(PSTR("(HCI) " s "\r\n"), __VA_ARGS__)
-	
 		#define OGF_LINK_CONTROL                               0x01
 		#define OGF_CTRLR_BASEBAND                             0x03
 		#define OGF_CTRLR_INFORMATIONAL                        0x04
@@ -193,8 +191,10 @@
 		void Bluetooth_ProcessHCICommands(void);
 		void Bluetooth_ProcessHCIEvents(void);
 		
-		bool CALLBACK_Bluetooth_ConnectionRequest(uint8_t* RemoteAddress);
-
+		bool Bluetooth_ConnectionRequest(uint8_t* RemoteAddress);
+		void Bluetooth_ConnectionComplete(void);
+		void Bluetooth_DisconnectionComplete(void);
+			
 		#if defined(INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C)
 			static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint16_t ParameterLength);
 		#endif

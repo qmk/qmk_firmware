@@ -54,21 +54,14 @@ void Bluetooth_Stack_USBTask(void)
 	Bluetooth_ProcessACLPackets();
 }
 
-bool CALLBACK_Bluetooth_ConnectionRequest(uint8_t* RemoteAddress)
-{
-	/* Always accept connections from remote devices */
-	return true;
-}
-
 Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchBySource)
 {
-	Bluetooth_Channel_t* CurrentChannelStructure;
-
 	for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
 	{
-		CurrentChannelStructure = &Bluetooth_Connection.Channels[i];
+		Bluetooth_Channel_t* CurrentChannelStructure = &Bluetooth_Connection.Channels[i];
 	
-		uint16_t CurrentChannelNumber = ((SearchBySource) ? CurrentChannelStructure->RemoteNumber : CurrentChannelStructure->LocalNumber);
+		uint16_t CurrentChannelNumber = (SearchBySource) ? CurrentChannelStructure->RemoteNumber :
+		                                                   CurrentChannelStructure->LocalNumber;
 	
 		if (CurrentChannelNumber == ChannelNumber)
 		  return CurrentChannelStructure;
@@ -79,11 +72,9 @@ Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool Searc
 
 Bluetooth_Channel_t* Bluetooth_InitChannelData(uint16_t RemoteChannelNumber, uint16_t PSM)
 {
-	Bluetooth_Channel_t* CurrentChannelStructure;
-
 	for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
 	{
-		CurrentChannelStructure = &Bluetooth_Connection.Channels[i];
+		Bluetooth_Channel_t* CurrentChannelStructure = &Bluetooth_Connection.Channels[i];
 	
 		if (CurrentChannelStructure->State == Channel_Closed)
 		{

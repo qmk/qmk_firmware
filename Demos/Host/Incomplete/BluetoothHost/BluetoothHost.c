@@ -195,3 +195,30 @@ void Bluetooth_Host_Task(void)
 			break;
 	}
 }
+
+bool Bluetooth_ConnectionRequest(uint8_t* RemoteAddress)
+{
+	printf_P(PSTR("Connection Request from Device %02X:%02X:%02X:%02X:%02X:%02X\r\n"),
+	         RemoteAddress[5], RemoteAddress[4],
+	         RemoteAddress[3], RemoteAddress[2],
+	         RemoteAddress[1], RemoteAddress[0]);
+
+	/* Always accept connections from remote devices */
+	return true;
+}
+
+void Bluetooth_ConnectionComplete(void)
+{
+	printf_P(PSTR("Connection Complete to Device %02X:%02X:%02X:%02X:%02X:%02X\r\n"), 
+	         Bluetooth_Connection.RemoteAddress[5], Bluetooth_Connection.RemoteAddress[4],
+	         Bluetooth_Connection.RemoteAddress[3], Bluetooth_Connection.RemoteAddress[2],
+	         Bluetooth_Connection.RemoteAddress[1], Bluetooth_Connection.RemoteAddress[0]);
+}
+
+void Bluetooth_DisconnectionComplete(void)
+{
+	printf_P(PSTR("Disconnection Complete to Device %02X:%02X:%02X:%02X:%02X:%02X\r\n"), 
+	         Bluetooth_Connection.RemoteAddress[5], Bluetooth_Connection.RemoteAddress[4],
+	         Bluetooth_Connection.RemoteAddress[3], Bluetooth_Connection.RemoteAddress[2],
+	         Bluetooth_Connection.RemoteAddress[1], Bluetooth_Connection.RemoteAddress[0]);
+}

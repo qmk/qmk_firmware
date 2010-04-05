@@ -42,6 +42,7 @@
 		
 	/* Macros: */
 		#define BT_ACL_DEBUG(s, ...)                     printf_P(PSTR("(ACL) " s "\r\n"), __VA_ARGS__)
+		#define ACL_DEBUG_LEVEL 1
 
 		#define BLUETOOTH_CHANNEL_SIGNALING              0x0001
 		#define BLUETOOTH_CHANNEL_CONNECTIONLESS         0x0002
@@ -50,7 +51,12 @@
 		#define BLUETOOTH_SIGNAL_CONNECTION_RESPONSE     0x03
 		#define BLUETOOTH_SIGNAL_CONFIGURATION_REQUEST   0x04
 		#define BLUETOOTH_SIGNAL_CONFIGURATION_RESPONSE  0x05
+		#define BLUETOOTH_SIGNAL_DISCONNECTION_REQUEST   0x06
+		#define BLUETOOTH_SIGNAL_DISCONNECTION_RESPONSE  0x07
+		#define BLUETOOTH_SIGNAL_ECHO_REQUEST            0x08
+		#define BLUETOOTH_SIGNAL_ECHO_RESPONSE           0x09
 		#define BLUETOOTH_SIGNAL_INFORMATION_REQUEST     0x0A
+		#define BLUETOOTH_SIGNAL_INFORMATION_RESPONSE    0x0B
 		
 		#define BLUETOOTH_CONNECTION_SUCCESSFUL          0x0000
 		#define BLUETOOTH_CONNECTION_REFUSED_RESOURCES   0x0004
@@ -92,7 +98,19 @@
 			uint16_t Result;
 			uint16_t Status;
 		} Bluetooth_SignalCommand_ConnectionResponse_t;
+
+		typedef struct
+		{
+			uint16_t DestinationChannel;
+			uint16_t SourceChannel;
+		} Bluetooth_SignalCommand_DisconnectionRequest_t;
 		
+		typedef struct
+		{
+			uint16_t DestinationChannel;
+			uint16_t SourceChannel;
+		} Bluetooth_SignalCommand_DisconnectionResponse_t;		
+
 		typedef struct
 		{
 			uint16_t DestinationChannel;
@@ -112,12 +130,18 @@
 		void Bluetooth_ProcessACLPackets(void);
 
 		#if defined(INCLUDE_FROM_BLUETOOTH_ACLPACKETS_C)
-			static inline void Bluetooth_ProcessSignalPacket_ConnectionRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
-                                                                   Bluetooth_DataPacket_Header_t* DataHeader,
-                                                                   Bluetooth_SignalCommand_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_ProcessSignalPacket_ConfigurationRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
-                                                                   Bluetooth_DataPacket_Header_t* DataHeader,
-                                                                   Bluetooth_SignalCommand_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_SignalPacket_ConnectionRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
+                                                                  Bluetooth_DataPacket_Header_t* DataHeader,
+                                                                  Bluetooth_SignalCommand_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_SignalPacket_EchoRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
+                                                                  Bluetooth_DataPacket_Header_t* DataHeader,
+                                                                  Bluetooth_SignalCommand_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_SignalPacket_ConfigurationRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
+                                                                  Bluetooth_DataPacket_Header_t* DataHeader,
+                                                                  Bluetooth_SignalCommand_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_SignalPacket_DisconnectionRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
+                                                                  Bluetooth_DataPacket_Header_t* DataHeader,
+                                                                  Bluetooth_SignalCommand_Header_t* SignalCommandHeader);
 		#endif
 		
 #endif
