@@ -41,29 +41,35 @@
 		#include "BluetoothStack.h"
 		
 	/* Macros: */
-		#define BT_ACL_DEBUG(s, ...)                     printf_P(PSTR("(ACL) " s "\r\n"), __VA_ARGS__)
-		#define ACL_DEBUG_LEVEL 1
+		#define BT_ACL_DEBUG(s, ...)              printf_P(PSTR("(ACL) " s "\r\n"), __VA_ARGS__)
+		#define ACL_DEBUG_LEVEL                   2
 
-		#define BLUETOOTH_CHANNEL_SIGNALING              0x0001
-		#define BLUETOOTH_CHANNEL_CONNECTIONLESS         0x0002
+		#define BT_CHANNEL_SIGNALING              0x0001
+		#define BT_CHANNEL_CONNECTIONLESS         0x0002
 		
-		#define BLUETOOTH_SIGNAL_CONNECTION_REQUEST      0x02
-		#define BLUETOOTH_SIGNAL_CONNECTION_RESPONSE     0x03
-		#define BLUETOOTH_SIGNAL_CONFIGURATION_REQUEST   0x04
-		#define BLUETOOTH_SIGNAL_CONFIGURATION_RESPONSE  0x05
-		#define BLUETOOTH_SIGNAL_DISCONNECTION_REQUEST   0x06
-		#define BLUETOOTH_SIGNAL_DISCONNECTION_RESPONSE  0x07
-		#define BLUETOOTH_SIGNAL_ECHO_REQUEST            0x08
-		#define BLUETOOTH_SIGNAL_ECHO_RESPONSE           0x09
-		#define BLUETOOTH_SIGNAL_INFORMATION_REQUEST     0x0A
-		#define BLUETOOTH_SIGNAL_INFORMATION_RESPONSE    0x0B
+		#define BT_SIGNAL_CONNECTION_REQUEST      0x02
+		#define BT_SIGNAL_CONNECTION_RESPONSE     0x03
+		#define BT_SIGNAL_CONFIGURATION_REQUEST   0x04
+		#define BT_SIGNAL_CONFIGURATION_RESPONSE  0x05
+		#define BT_SIGNAL_DISCONNECTION_REQUEST   0x06
+		#define BT_SIGNAL_DISCONNECTION_RESPONSE  0x07
+		#define BT_SIGNAL_ECHO_REQUEST            0x08
+		#define BT_SIGNAL_ECHO_RESPONSE           0x09
+		#define BT_SIGNAL_INFORMATION_REQUEST     0x0A
+		#define BT_SIGNAL_INFORMATION_RESPONSE    0x0B
 		
-		#define BLUETOOTH_CONNECTION_SUCCESSFUL          0x0000
-		#define BLUETOOTH_CONNECTION_REFUSED_RESOURCES   0x0004
+		#define BT_INFOREQ_MTU                    0x0001
+		#define BT_INFOREQ_EXTENDEDFEATURES       0x0002
 		
-		#define BLUETOOTH_CONFIGURATION_SUCCESSFUL       0x0000
-		#define BLUETOOTH_CONFIGURATION_REJECTED         0x0002
-		#define BLUETOOTH_CONFIGURATION_UNKNOWNOPTIONS   0x0003
+		#define BT_INFORMATION_SUCCESSFUL         0x0000
+		#define BT_INFORMATION_NOTSUPPORTED       0x0001
+		
+		#define BT_CONNECTION_SUCCESSFUL          0x0000
+		#define BT_CONNECTION_REFUSED_RESOURCES   0x0004
+		
+		#define BT_CONFIGURATION_SUCCESSFUL       0x0000
+		#define BT_CONFIGURATION_REJECTED         0x0002
+		#define BT_CONFIGURATION_UNKNOWNOPTIONS   0x0003
 		
 	/* Type Defines: */
 		typedef struct
@@ -115,7 +121,6 @@
 		{
 			uint16_t DestinationChannel;
 			uint16_t Flags;
-			uint8_t  Options[];
 		} Bluetooth_SignalCommand_ConfigurationRequest_t;
 
 		typedef struct
@@ -123,9 +128,19 @@
 			uint16_t SourceChannel;
 			uint16_t Flags;
 			uint16_t Result;
-			uint8_t  Config;
 		} Bluetooth_SignalCommand_ConfigurationResponse_t;
+
+		typedef struct
+		{
+			uint16_t InfoType;
+		} Bluetooth_SignalCommand_InformationRequest_t;
 		
+		typedef struct
+		{
+			uint16_t InfoType;
+			uint16_t Result;
+		} Bluetooth_SignalCommand_InformationResponse_t;
+
 	/* Function Prototypes: */
 		void Bluetooth_ProcessACLPackets(void);
 
@@ -140,6 +155,9 @@
                                                                   Bluetooth_DataPacket_Header_t* DataHeader,
                                                                   Bluetooth_SignalCommand_Header_t* SignalCommandHeader);
 			static inline void Bluetooth_SignalPacket_DisconnectionRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
+                                                                  Bluetooth_DataPacket_Header_t* DataHeader,
+                                                                  Bluetooth_SignalCommand_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_SignalPacket_InformationRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
                                                                   Bluetooth_DataPacket_Header_t* DataHeader,
                                                                   Bluetooth_SignalCommand_Header_t* SignalCommandHeader);
 		#endif
