@@ -91,19 +91,33 @@ void Bluetooth_ProcessACLPackets(void)
 	}
 	else
 	{
-		uint8_t DataPayload[DataHeader.PayloadLength];
-		Pipe_Read_Stream_LE(&DataPayload, sizeof(DataPayload));
-		DataHeader.PayloadLength = 0;
+		Bluetooth_PacketReceived(&DataHeader.PayloadLength, Bluetooth_GetChannelData(DataHeader.DestinationChannel, true));
 	
-		BT_ACL_DEBUG("-- Data Payload: ", NULL);
-		for (uint16_t B = 0; B < sizeof(DataPayload); B++)
-		  printf("0x%02X ", DataPayload[B]);
-		printf("\r\n");
-
-		Pipe_Discard_Stream(ACLPacketHeader.DataLength);
-		Pipe_ClearIN();		
+		Pipe_SelectPipe(BLUETOOTH_DATA_IN_PIPE);
+		Pipe_Discard_Stream(DataHeader.PayloadLength);
+		Pipe_ClearIN();
 		Pipe_Freeze();
 	}
+}
+
+void Bluetooth_SendPacket(uint8_t* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel)
+{
+	Bluetooth_ACL_Header_t        ACLPacketHeader;
+	Bluetooth_DataPacket_Header_t DataHeader;
+
+	ACLPacketHeader.ConnectionHandle      = Bluetooth_Connection.ConnectionHandle;
+	ACLPacketHeader.DataLength            = sizeof(DataHeader) + DataLen;
+	DataHeader.PayloadLength              = DataLen;
+	DataHeader.DestinationChannel         = Channel->RemoteNumber;
+
+	Pipe_SelectPipe(BLUETOOTH_DATA_OUT_PIPE);
+	Pipe_Unfreeze();
+	
+	Pipe_Write_Stream_LE(&ACLPacketHeader, sizeof(ACLPacketHeader));
+	Pipe_Write_Stream_LE(&DataHeader, sizeof(DataHeader));
+	Pipe_Write_Stream_LE(Data, DataLen);
+
+	Pipe_Freeze();
 }
 
 static inline void Bluetooth_SignalPacket_ConnectionRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,

@@ -35,8 +35,6 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		
 		#include "BluetoothHost.h"
-		#include "BluetoothHCICommands.h"
-		#include "BluetoothACLPackets.h"
 		
 	/* Macros: */
 		#define BLUETOOTH_DATA_IN_PIPE                   1
@@ -84,6 +82,10 @@
 			char     PINCode[16];
 			char     Name[];
 		} Bluetooth_Device_t;
+	
+	/* Includes: */
+		#include "BluetoothHCICommands.h"
+		#include "BluetoothACLPackets.h"		
 		
 	/* Function Prototypes: */
 		Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchBySource);
@@ -91,6 +93,11 @@
 		
 		void Bluetooth_Stack_Init(void);
 		void Bluetooth_Stack_USBTask(void);
+
+		bool Bluetooth_ConnectionRequest(uint8_t* RemoteAddress);
+		void Bluetooth_ConnectionComplete(void);
+		void Bluetooth_DisconnectionComplete(void);
+		void Bluetooth_PacketReceived(uint16_t* PacketLength, Bluetooth_Channel_t* Channel);
 
 	/* External Variables: */
 		extern Bluetooth_Device_t     Bluetooth_DeviceConfiguration;

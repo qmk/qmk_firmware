@@ -143,7 +143,8 @@
 
 	/* Function Prototypes: */
 		void Bluetooth_ProcessACLPackets(void);
-
+		void Bluetooth_SendPacket(uint8_t* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel);
+		
 		#if defined(INCLUDE_FROM_BLUETOOTH_ACLPACKETS_C)
 			static inline void Bluetooth_SignalPacket_ConnectionRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
                                                                   Bluetooth_DataPacket_Header_t* DataHeader,

@@ -196,6 +196,13 @@ void Bluetooth_Host_Task(void)
 	}
 }
 
+/** Bluetooth stack callback event for a Bluetooth connection request. When this callback fires, the
+ *  user application must indicate if the connection is to be allowed or rejected.
+ *
+ *  \param RemoteAddress  Bluetooth address of the remote device attempting the connection
+ *
+ *  \return Boolean true to accept the connection, false to reject it
+ */
 bool Bluetooth_ConnectionRequest(uint8_t* RemoteAddress)
 {
 	printf_P(PSTR("Connection Request from Device %02X:%02X:%02X:%02X:%02X:%02X\r\n"),
@@ -207,6 +214,9 @@ bool Bluetooth_ConnectionRequest(uint8_t* RemoteAddress)
 	return true;
 }
 
+/** Bluetooth stack callback event for a completed Bluetooth connection. When this callback is made,
+ *  the connection information can be accessed through the global \ref Bluetooth_Connection structure.
+ */
 void Bluetooth_ConnectionComplete(void)
 {
 	printf_P(PSTR("Connection Complete to Device %02X:%02X:%02X:%02X:%02X:%02X\r\n"), 
@@ -215,10 +225,33 @@ void Bluetooth_ConnectionComplete(void)
 	         Bluetooth_Connection.RemoteAddress[1], Bluetooth_Connection.RemoteAddress[0]);
 }
 
+/** Bluetooth stack callback event for a completed Bluetooth disconnection. When this callback is made,
+ *  the connection information in the global \ref Bluetooth_Connection structure is invalidated with the
+ *  exception of the RemoteAddress element, which can be used to determine the address of the device that
+ *  was disconnected.
+ */
 void Bluetooth_DisconnectionComplete(void)
 {
 	printf_P(PSTR("Disconnection Complete to Device %02X:%02X:%02X:%02X:%02X:%02X\r\n"), 
 	         Bluetooth_Connection.RemoteAddress[5], Bluetooth_Connection.RemoteAddress[4],
 	         Bluetooth_Connection.RemoteAddress[3], Bluetooth_Connection.RemoteAddress[2],
 	         Bluetooth_Connection.RemoteAddress[1], Bluetooth_Connection.RemoteAddress[0]);
+}
+
+/** Bluetooth stack callback event for a non-signal ACL packet reception. This callback fires once a connection
+ *  to a remote Bluetooth device has been made, and the remote device has sent a non-signalling ACL packet.
+ *
+ *  \param PacketLength  Length of the packet data, in bytes - this must be decremented as data is read
+ *  \param Channel       Bluetooth ACL data channel information structure for the packet's destination channel
+ */
+void Bluetooth_PacketReceived(uint16_t* PacketLength, Bluetooth_Channel_t* Channel)
+{
+	uint8_t DataPayload[*PacketLength];
+	Pipe_Read_Stream_LE(&DataPayload, *PacketLength);
+	*PacketLength = 0;
+
+	BT_ACL_DEBUG("-- Data Payload: ", NULL);
+	for (uint16_t B = 0; B < sizeof(DataPayload); B++)
+	  printf("0x%02X ", DataPayload[B]);
+	printf("\r\n");	
 }

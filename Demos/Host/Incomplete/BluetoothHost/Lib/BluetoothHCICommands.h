@@ -190,10 +190,6 @@
 	/* Function Prototypes: */
 		void Bluetooth_ProcessHCICommands(void);
 		void Bluetooth_ProcessHCIEvents(void);
-		
-		bool Bluetooth_ConnectionRequest(uint8_t* RemoteAddress);
-		void Bluetooth_ConnectionComplete(void);
-		void Bluetooth_DisconnectionComplete(void);
 			
 		#if defined(INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C)
 			static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint16_t ParameterLength);
