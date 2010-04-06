@@ -247,11 +247,12 @@ void Bluetooth_DisconnectionComplete(void)
 void Bluetooth_PacketReceived(uint16_t* PacketLength, Bluetooth_Channel_t* Channel)
 {
 	uint8_t DataPayload[*PacketLength];
+
 	Pipe_Read_Stream_LE(&DataPayload, *PacketLength);
 	*PacketLength = 0;
 
-	BT_ACL_DEBUG("-- Data Payload: ", NULL);
-	for (uint16_t B = 0; B < sizeof(DataPayload); B++)
-	  printf("0x%02X ", DataPayload[B]);
-	printf("\r\n");	
+	printf_P(PSTR("L2CAP Packet Recetion on channel %02X:\r\n"), Channel->LocalNumber);
+	for (uint16_t Byte = 0; Byte < *PacketLength; Byte++)
+	  printf_P(PSTR("0x%02X "), DataPayload[Byte]);
+	puts_P(PSTR("\r\n"));
 }

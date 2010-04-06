@@ -48,14 +48,25 @@
 		#define CHANNEL_PSM_RFCOMM                       0x0003
 		
 	/* Enums: */
-		enum Bluetooth_Channel_State_t
+		enum BT_ChannelStates_t
 		{
-			Channel_Closed          = 0,
-			Channel_WaitConnect     = 1,
-			Channel_WaitConnectRsp  = 2,
-			Channel_Config          = 3,
-			Channel_Open            = 4,
-			Channel_WaitDisconnect  = 5,
+			Channel_Closed                = 0,
+			Channel_WaitConnect           = 1,
+			Channel_WaitConnectRsp        = 2,
+			Channel_Config_WaitConfig     = 3,
+			Channel_Config_WaitSendConfig = 4,
+			Channel_Config_WaitReqResp    = 5,
+			Channel_Config_WaitResp       = 6,
+			Channel_Config_WaitReq        = 7,
+			Channel_Open                  = 8,
+			Channel_WaitDisconnect        = 9,
+		};
+
+		enum Endpoint_ControlStream_RW_ErrorCodes_t
+		{
+			BT_SENDPACKET_NoError            = 0,
+			BT_SENDPACKET_NotConnected       = 1,
+			BT_SENDPACKET_ChannelNotOpen     = 2,
 		};
 
 	/* Type Defines: */
@@ -65,7 +76,7 @@
 			uint16_t LocalNumber;
 			uint16_t RemoteNumber;
 			uint16_t PSM;
-			uint16_t MTU;
+			uint16_t RemoteMTU;
 		} Bluetooth_Channel_t;
 
 		typedef struct
@@ -74,6 +85,7 @@
 			uint16_t            ConnectionHandle;
 			uint8_t             RemoteAddress[6];
 			Bluetooth_Channel_t Channels[BLUETOOTH_MAX_OPEN_CHANNELS];
+			uint8_t             SignallingIdentifier;
 		} Bluetooth_Connection_t;
 		
 		typedef struct

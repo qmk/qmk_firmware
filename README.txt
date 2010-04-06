@@ -5,11 +5,16 @@
                     |___|___|_||_n_|    Framework for AVRs
                   =========================================
                             Written by Dean Camera
+                    dean [at] fourwalledcubicle [dot] com
+
                   http://www.fourwalledcubicle.com/LUFA.php
                   =========================================
-				  
-                 LUFA IS DONATION SUPPORTED. TO SUPPORT LUFA, 
-                    PLEASE DONATE AT FOURWALLEDCUBICLE.COM.
+
+                 LUFA IS DONATION SUPPORTED. To support LUFA, 
+               please donate at http://www.fourwalledcubicle.com.
+
+                  For Commercial Licensing information, see
+                 http://fourwalledcubicle.com/PurchaseLUFA.php
 
 
 This package contains the complete LUFA library, demos, user-submitted projects

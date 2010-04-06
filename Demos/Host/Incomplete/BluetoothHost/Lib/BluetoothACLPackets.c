@@ -31,10 +31,78 @@
 #define  INCLUDE_FROM_BLUETOOTH_ACLPACKETS_C
 #include "BluetoothACLPackets.h"
 
-void Bluetooth_ProcessACLPackets(void)
+void Bluetooth_ACLTask(void)
 {
-	Bluetooth_ACL_Header_t        ACLPacketHeader;
-	Bluetooth_DataPacket_Header_t DataHeader;
+	Bluetooth_ProcessACLPackets();
+	
+	for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
+	{
+		Bluetooth_Channel_t* ChannelData = &Bluetooth_Connection.Channels[i];
+	
+		bool MustSendConfigReq = true;
+	
+		switch (ChannelData->State)
+		{
+			case Channel_Config_WaitConfig:
+				ChannelData->State = Channel_Config_WaitReqResp;
+				break;
+			case Channel_Config_WaitSendConfig:
+				ChannelData->State = Channel_Config_WaitResp;
+				break;
+			default:
+				MustSendConfigReq  = false;
+				break;
+		}
+		
+		if (MustSendConfigReq)
+		{
+			BT_ACL_Header_t              ACLPacketHeader;
+			BT_DataPacket_Header_t       DataHeader;
+			BT_Signal_Header_t           SignalCommandHeader;
+			BT_Signal_ConfigurationReq_t ConfigurationRequest;
+
+			ACLPacketHeader.ConnectionHandle     = Bluetooth_Connection.ConnectionHandle;
+			ACLPacketHeader.DataLength           = sizeof(DataHeader) + sizeof(SignalCommandHeader) + sizeof(ConfigurationRequest);
+			DataHeader.PayloadLength             = sizeof(SignalCommandHeader) + sizeof(ConfigurationRequest);
+			DataHeader.DestinationChannel        = BT_CHANNEL_SIGNALING;
+			SignalCommandHeader.Code             = BT_SIGNAL_CONFIGURATION_REQUEST;
+			SignalCommandHeader.Identifier       = ++Bluetooth_Connection.SignallingIdentifier;
+			SignalCommandHeader.Length           = sizeof(ConfigurationRequest);
+			
+			ConfigurationRequest.DestinationChannel = ChannelData->RemoteNumber;
+			ConfigurationRequest.Flags              = 0;
+
+			Pipe_SelectPipe(BLUETOOTH_DATA_OUT_PIPE);
+			Pipe_Unfreeze();
+			
+			Pipe_Write_Stream_LE(&ACLPacketHeader, sizeof(ACLPacketHeader));
+			Pipe_Write_Stream_LE(&DataHeader, sizeof(DataHeader));
+			Pipe_Write_Stream_LE(&SignalCommandHeader, sizeof(SignalCommandHeader));
+			Pipe_Write_Stream_LE(&ConfigurationRequest, sizeof(ConfigurationRequest));
+
+			Pipe_Freeze();
+
+			#if (ACL_DEBUG_LEVEL > 1)
+			BT_ACL_DEBUG("Packet Sent", NULL);
+			BT_ACL_DEBUG("-- Connection Handle: 0x%04X", (ACLPacketHeader.ConnectionHandle & 0x0FFF));
+			BT_ACL_DEBUG("-- Data Length: 0x%04X", ACLPacketHeader.DataLength);
+			BT_ACL_DEBUG("-- Destination Channel: 0x%04X", DataHeader.DestinationChannel);
+			BT_ACL_DEBUG("-- Payload Length: 0x%04X", DataHeader.PayloadLength);			
+			#endif
+			#if (ACL_DEBUG_LEVEL > 0)
+			BT_ACL_DEBUG(">> L2CAP Configuration Request", NULL);
+			#endif
+			#if (ACL_DEBUG_LEVEL > 1)
+			BT_ACL_DEBUG("-- Destination Channel: 0x%04X", ConfigurationRequest.DestinationChannel);
+			#endif
+		}
+	}
+}
+
+static void Bluetooth_ProcessACLPackets(void)
+{
+	BT_ACL_Header_t        ACLPacketHeader;
+	BT_DataPacket_Header_t DataHeader;
 
 	Pipe_SelectPipe(BLUETOOTH_DATA_IN_PIPE);
 	Pipe_Unfreeze();
@@ -48,35 +116,35 @@ void Bluetooth_ProcessACLPackets(void)
 	Pipe_Read_Stream_LE(&ACLPacketHeader, sizeof(ACLPacketHeader));
 	Pipe_Read_Stream_LE(&DataHeader, sizeof(DataHeader));
 
-#if (ACL_DEBUG_LEVEL > 1)
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("Packet Received", NULL);
 	BT_ACL_DEBUG("-- Connection Handle: 0x%04X", (ACLPacketHeader.ConnectionHandle & 0x0FFF));
 	BT_ACL_DEBUG("-- Data Length: 0x%04X", ACLPacketHeader.DataLength);
 	BT_ACL_DEBUG("-- Destination Channel: 0x%04X", DataHeader.DestinationChannel);
 	BT_ACL_DEBUG("-- Payload Length: 0x%04X", DataHeader.PayloadLength);
-#endif
+	#endif
 
 	if (DataHeader.DestinationChannel == BT_CHANNEL_SIGNALING)
 	{
-		Bluetooth_SignalCommand_Header_t SignalCommandHeader;
+		BT_Signal_Header_t SignalCommandHeader;
 		Pipe_Read_Stream_LE(&SignalCommandHeader, sizeof(SignalCommandHeader));
 
 		switch (SignalCommandHeader.Code)
 		{
 			case BT_SIGNAL_CONNECTION_REQUEST:
-				Bluetooth_SignalPacket_ConnectionRequest(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
+				Bluetooth_Signal_ConnectionReq(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
 				break;
 			case BT_SIGNAL_CONFIGURATION_REQUEST:
-				Bluetooth_SignalPacket_ConfigurationRequest(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
+				Bluetooth_Signal_ConfigurationReq(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
 				break;
 			case BT_SIGNAL_DISCONNECTION_REQUEST:
-				Bluetooth_SignalPacket_DisconnectionRequest(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
+				Bluetooth_Signal_DisconnectionReq(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
 				break;			
 			case BT_SIGNAL_ECHO_REQUEST:
-				Bluetooth_SignalPacket_EchoRequest(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
+				Bluetooth_Signal_EchoReq(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
 				break;
 			case BT_SIGNAL_INFORMATION_REQUEST:
-				Bluetooth_SignalPacket_InformationRequest(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
+				Bluetooth_Signal_InformationReq(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
 				break;
 			default:
 				#if (ACL_DEBUG_LEVEL > 0)
@@ -100,15 +168,21 @@ void Bluetooth_ProcessACLPackets(void)
 	}
 }
 
-void Bluetooth_SendPacket(uint8_t* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel)
+uint8_t Bluetooth_SendPacket(uint8_t* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel)
 {
-	Bluetooth_ACL_Header_t        ACLPacketHeader;
-	Bluetooth_DataPacket_Header_t DataHeader;
+	BT_ACL_Header_t        ACLPacketHeader;
+	BT_DataPacket_Header_t DataHeader;
+
+	if (Bluetooth_Connection.IsConnected)
+	  return BT_SENDPACKET_NotConnected;
+
+	if (Channel->State != Channel_Open)
+	  return BT_SENDPACKET_ChannelNotOpen;
 
 	ACLPacketHeader.ConnectionHandle      = Bluetooth_Connection.ConnectionHandle;
 	ACLPacketHeader.DataLength            = sizeof(DataHeader) + DataLen;
-	DataHeader.PayloadLength              = DataLen;
 	DataHeader.DestinationChannel         = Channel->RemoteNumber;
+	DataHeader.PayloadLength              = DataLen;
 
 	Pipe_SelectPipe(BLUETOOTH_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
@@ -118,30 +192,32 @@ void Bluetooth_SendPacket(uint8_t* Data, uint16_t DataLen, Bluetooth_Channel_t* 
 	Pipe_Write_Stream_LE(Data, DataLen);
 
 	Pipe_Freeze();
+	
+	return BT_SENDPACKET_NoError;
 }
 
-static inline void Bluetooth_SignalPacket_ConnectionRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
-                                                            Bluetooth_DataPacket_Header_t* DataHeader,
-                                                            Bluetooth_SignalCommand_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_ConnectionReq(BT_ACL_Header_t* ACLPacketHeader,
+                                                  BT_DataPacket_Header_t* DataHeader,
+                                                  BT_Signal_Header_t* SignalCommandHeader)
 {
-	Bluetooth_SignalCommand_ConnectionRequest_t ConnectionRequest;
+	BT_Signal_ConnectionReq_t ConnectionRequest;
 	
 	Pipe_Read_Stream_LE(&ConnectionRequest, sizeof(ConnectionRequest));
 
-#if (ACL_DEBUG_LEVEL > 0)
+	#if (ACL_DEBUG_LEVEL > 0)
 	BT_ACL_DEBUG("<< L2CAP Connection Request", NULL);
-#endif
-#if (ACL_DEBUG_LEVEL > 1)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("-- PSM: 0x%04X", ConnectionRequest.PSM);
 	BT_ACL_DEBUG("-- Source Channel: 0x%04X", ConnectionRequest.SourceChannel);
-#endif
+	#endif
 	
 	Pipe_ClearIN();
 	Pipe_Freeze();
 	Pipe_SelectPipe(BLUETOOTH_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
 	
-	Bluetooth_SignalCommand_ConnectionResponse_t ConnectionResponse;
+	BT_Signal_ConnectionResp_t ConnectionResponse;
 
 	ACLPacketHeader->DataLength           = sizeof(*DataHeader) + sizeof(*SignalCommandHeader) + sizeof(ConnectionResponse);
 	DataHeader->PayloadLength             = sizeof(*SignalCommandHeader) + sizeof(ConnectionResponse);
@@ -164,44 +240,45 @@ static inline void Bluetooth_SignalPacket_ConnectionRequest(Bluetooth_ACL_Header
 	Pipe_ClearOUT();		
 	Pipe_Freeze();
 	
-#if (ACL_DEBUG_LEVEL > 1)
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("Packet Sent", NULL);
 	BT_ACL_DEBUG("-- Connection Handle: 0x%04X", (ACLPacketHeader->ConnectionHandle & 0x0FFF));
 	BT_ACL_DEBUG("-- Data Length: 0x%04X", ACLPacketHeader->DataLength);
 	BT_ACL_DEBUG("-- Destination Channel: 0x%04X", DataHeader->DestinationChannel);
 	BT_ACL_DEBUG("-- Payload Length: 0x%04X", DataHeader->PayloadLength);			
-#endif
-#if (ACL_DEBUG_LEVEL > 0)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 0)
 	BT_ACL_DEBUG(">> L2CAP Connection Response", NULL);
-#endif
-#if (ACL_DEBUG_LEVEL > 1)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("-- Source Channel: 0x%04X", ConnectionResponse.SourceChannel);
 	BT_ACL_DEBUG("-- Destination Channel: 0x%04X", ConnectionResponse.DestinationChannel);
-#endif
+	#endif
 }
 
-static inline void Bluetooth_SignalPacket_ConfigurationRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
-                                                               Bluetooth_DataPacket_Header_t* DataHeader,
-                                                               Bluetooth_SignalCommand_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_ConfigurationReq(BT_ACL_Header_t* ACLPacketHeader,
+                                                     BT_DataPacket_Header_t* DataHeader,
+                                                     BT_Signal_Header_t* SignalCommandHeader)
 {
-	Bluetooth_SignalCommand_ConfigurationRequest_t ConfigurationRequest;
+	BT_Signal_ConfigurationReq_t ConfigurationRequest;
 	Pipe_Read_Stream_LE(&ConfigurationRequest, sizeof(ConfigurationRequest));
 	
 	// TODO: Process/Discard configuration options here
+	Pipe_Discard_Stream(DataHeader->PayloadLength - sizeof(*SignalCommandHeader));
 
-#if (ACL_DEBUG_LEVEL > 0)
+	#if (ACL_DEBUG_LEVEL > 0)
 	BT_ACL_DEBUG("<< L2CAP Configuration Request", NULL);
-#endif
-#if (ACL_DEBUG_LEVEL > 1)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("-- Destination Channel: 0x%04X", ConfigurationRequest.DestinationChannel);
-#endif
+	#endif
 	
 	Pipe_ClearIN();
 	Pipe_Freeze();
 	Pipe_SelectPipe(BLUETOOTH_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
 	
-	Bluetooth_SignalCommand_ConfigurationResponse_t ConfigurationResponse;
+	BT_Signal_ConfigurationResp_t ConfigurationResponse;
 
 	ACLPacketHeader->DataLength           = sizeof(*DataHeader) + sizeof(*SignalCommandHeader) + sizeof(ConfigurationResponse);
 	DataHeader->PayloadLength             = sizeof(*SignalCommandHeader) + sizeof(ConfigurationResponse);
@@ -212,7 +289,20 @@ static inline void Bluetooth_SignalPacket_ConfigurationRequest(Bluetooth_ACL_Hea
 	Bluetooth_Channel_t* ChannelData      = Bluetooth_GetChannelData(ConfigurationRequest.DestinationChannel, false);
 
 	if (ChannelData != NULL)
-	  ChannelData->State = Channel_Open;
+	{
+		switch (ChannelData->State)
+		{
+			case Channel_Config_WaitConfig:
+				ChannelData->State = Channel_Config_WaitSendConfig;
+				break;
+			case Channel_Config_WaitReqResp:
+				ChannelData->State = Channel_Config_WaitResp;
+				break;
+			case Channel_Config_WaitReq:
+				ChannelData->State = Channel_Open;
+				break;
+		}
+	}
 	  
 	// TODO: Add channel config data to the tail of ConfigurationResponse
 
@@ -228,43 +318,43 @@ static inline void Bluetooth_SignalPacket_ConfigurationRequest(Bluetooth_ACL_Hea
 	Pipe_ClearOUT();
 	Pipe_Freeze();
 	
-#if (ACL_DEBUG_LEVEL > 1)
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("Packet Sent", NULL);
 	BT_ACL_DEBUG("-- Connection Handle: 0x%04X", (ACLPacketHeader->ConnectionHandle & 0x0FFF));
 	BT_ACL_DEBUG("-- Data Length: 0x%04X", ACLPacketHeader->DataLength);
 	BT_ACL_DEBUG("-- Destination Channel: 0x%04X", DataHeader->DestinationChannel);
 	BT_ACL_DEBUG("-- Payload Length: 0x%04X", DataHeader->PayloadLength);			
-#endif
-#if (ACL_DEBUG_LEVEL > 0)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 0)
 	BT_ACL_DEBUG(">> L2CAP Configuration Response", NULL);
-#endif
-#if (ACL_DEBUG_LEVEL > 1)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("-- Result: 0x%02X", ConfigurationResponse.Result);
-#endif
+	#endif
 }
 
-static inline void Bluetooth_SignalPacket_DisconnectionRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
-                                                               Bluetooth_DataPacket_Header_t* DataHeader,
-                                                               Bluetooth_SignalCommand_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_DisconnectionReq(BT_ACL_Header_t* ACLPacketHeader,
+                                                     BT_DataPacket_Header_t* DataHeader,
+                                                     BT_Signal_Header_t* SignalCommandHeader)
 {
-	Bluetooth_SignalCommand_DisconnectionRequest_t DisconnectionRequest;
+	BT_Signal_DisconnectionReq_t DisconnectionRequest;
 	
 	Pipe_Read_Stream_LE(&DisconnectionRequest, sizeof(DisconnectionRequest));
 
-#if (ACL_DEBUG_LEVEL > 0)
+	#if (ACL_DEBUG_LEVEL > 0)
 	BT_ACL_DEBUG("<< L2CAP Disconnection Request", NULL);
-#endif
-#if (ACL_DEBUG_LEVEL > 1)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("-- Destination Channel: 0x%04X", DisconnectionRequest.DestinationChannel);
 	BT_ACL_DEBUG("-- Source Channel: 0x%04X", DisconnectionRequest.SourceChannel);
-#endif
+	#endif
 	
 	Pipe_ClearIN();
 	Pipe_Freeze();
 	Pipe_SelectPipe(BLUETOOTH_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
 	
-	Bluetooth_SignalCommand_DisconnectionResponse_t DisconnectionResponse;
+	BT_Signal_DisconnectionResp_t DisconnectionResponse;
 
 	ACLPacketHeader->DataLength           = sizeof(*DataHeader) + sizeof(*SignalCommandHeader) + sizeof(DisconnectionResponse);
 	DataHeader->PayloadLength             = sizeof(*SignalCommandHeader) + sizeof(DisconnectionResponse);
@@ -288,29 +378,29 @@ static inline void Bluetooth_SignalPacket_DisconnectionRequest(Bluetooth_ACL_Hea
 	Pipe_ClearOUT();
 	Pipe_Freeze();
 	
-#if (ACL_DEBUG_LEVEL > 1)
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("Packet Sent", NULL);
 	BT_ACL_DEBUG("-- Connection Handle: 0x%04X", (ACLPacketHeader->ConnectionHandle & 0x0FFF));
 	BT_ACL_DEBUG("-- Data Length: 0x%04X", ACLPacketHeader->DataLength);
 	BT_ACL_DEBUG("-- Destination Channel: 0x%04X", DataHeader->DestinationChannel);
 	BT_ACL_DEBUG("-- Payload Length: 0x%04X", DataHeader->PayloadLength);			
-#endif
-#if (ACL_DEBUG_LEVEL > 0)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 0)
 	BT_ACL_DEBUG(">> L2CAP Disconnection Response", NULL);
-#endif
-#if (ACL_DEBUG_LEVEL > 1)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("-- Source Channel: 0x%04X", DisconnectionResponse.SourceChannel);
 	BT_ACL_DEBUG("-- Destination Channel: 0x%04X", DisconnectionResponse.DestinationChannel);
-#endif
+	#endif
 }
 
-static inline void Bluetooth_SignalPacket_EchoRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
-                                                      Bluetooth_DataPacket_Header_t* DataHeader,
-                                                      Bluetooth_SignalCommand_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_EchoReq(BT_ACL_Header_t* ACLPacketHeader,
+                                            BT_DataPacket_Header_t* DataHeader,
+                                            BT_Signal_Header_t* SignalCommandHeader)
 {
-#if (ACL_DEBUG_LEVEL > 0)
+	#if (ACL_DEBUG_LEVEL > 0)
 	BT_ACL_DEBUG("<< L2CAP Echo Request", NULL);
-#endif
+	#endif
 	
 	Pipe_ClearIN();
 	Pipe_Freeze();
@@ -330,39 +420,39 @@ static inline void Bluetooth_SignalPacket_EchoRequest(Bluetooth_ACL_Header_t* AC
 	Pipe_ClearOUT();		
 	Pipe_Freeze();
 	
-#if (ACL_DEBUG_LEVEL > 1)
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("Packet Sent", NULL);
 	BT_ACL_DEBUG("-- Connection Handle: 0x%04X", (ACLPacketHeader->ConnectionHandle & 0x0FFF));
 	BT_ACL_DEBUG("-- Data Length: 0x%04X", ACLPacketHeader->DataLength);
 	BT_ACL_DEBUG("-- Destination Channel: 0x%04X", DataHeader->DestinationChannel);
 	BT_ACL_DEBUG("-- Payload Length: 0x%04X", DataHeader->PayloadLength);			
-#endif
-#if (ACL_DEBUG_LEVEL > 0)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 0)
 	BT_ACL_DEBUG(">> L2CAP Echo Response", NULL);
-#endif
+	#endif
 }
 
-static inline void Bluetooth_SignalPacket_InformationRequest(Bluetooth_ACL_Header_t* ACLPacketHeader,
-                                                             Bluetooth_DataPacket_Header_t* DataHeader,
-                                                             Bluetooth_SignalCommand_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_InformationReq(BT_ACL_Header_t* ACLPacketHeader,
+                                                   BT_DataPacket_Header_t* DataHeader,
+                                                   BT_Signal_Header_t* SignalCommandHeader)
 {
-	Bluetooth_SignalCommand_InformationRequest_t InformationRequest;
+	BT_Signal_InformationReq_t InformationRequest;
 
 	Pipe_Read_Stream_LE(&InformationRequest, sizeof(InformationRequest));
 
-#if (ACL_DEBUG_LEVEL > 0)
+	#if (ACL_DEBUG_LEVEL > 0)
 	BT_ACL_DEBUG("<< Information Request", NULL);
-#endif
-#if (ACL_DEBUG_LEVEL > 1)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("-- Info Type: 0x%04X", InformationRequest.InfoType);
-#endif
+	#endif
 	
 	Pipe_ClearIN();
 	Pipe_Freeze();
 	Pipe_SelectPipe(BLUETOOTH_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
 	
-	Bluetooth_SignalCommand_InformationResponse_t InformationResponse;
+	BT_Signal_InformationResp_t InformationResponse;
 	uint8_t ResponseData[4];
 	uint8_t ResponseLen;
 
@@ -402,17 +492,17 @@ static inline void Bluetooth_SignalPacket_InformationRequest(Bluetooth_ACL_Heade
 	Pipe_ClearOUT();		
 	Pipe_Freeze();
 
-#if (ACL_DEBUG_LEVEL > 1)
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("Packet Sent", NULL);
 	BT_ACL_DEBUG("-- Connection Handle: 0x%04X", (ACLPacketHeader->ConnectionHandle & 0x0FFF));
 	BT_ACL_DEBUG("-- Data Length: 0x%04X", ACLPacketHeader->DataLength);
 	BT_ACL_DEBUG("-- Destination Channel: 0x%04X", DataHeader->DestinationChannel);
 	BT_ACL_DEBUG("-- Payload Length: 0x%04X", DataHeader->PayloadLength);			
-#endif
-#if (ACL_DEBUG_LEVEL > 0)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 0)
 	BT_ACL_DEBUG(">> L2CAP Information Response", NULL);	
-#endif
-#if (ACL_DEBUG_LEVEL > 1)
+	#endif
+	#if (ACL_DEBUG_LEVEL > 1)
 	BT_ACL_DEBUG("-- Result: 0x%02X", InformationResponse.Result);
-#endif
+	#endif
 }

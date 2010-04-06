@@ -94,13 +94,13 @@
 
 			uint8_t  ParameterLength;
 			uint8_t  Parameters[];
-		} Bluetooth_HCICommand_Header_t;
+		} BT_HCICommand_Header_t;
 
 		typedef struct
 		{
 			uint8_t  EventCode;
 			uint8_t  ParameterLength;
-		} Bluetooth_HCIEvent_Header_t;
+		} BT_HCIEvent_Header_t;
 
 		typedef struct
 		{
@@ -112,14 +112,14 @@
 				int OCF : 10;
 				int OGF : 6;
 			} OpCode;
-		} Bluetooth_HCIEvent_CommandStatus_t;
+		} BT_HCIEvent_CommandStatus_t;
 		
 		typedef struct
 		{
 			uint8_t  HCLPacketsAllowable;
 			uint16_t Opcode;
 			uint8_t  ReturnParams[];
-		} Bluetooth_HCIEvent_CommandComplete_t;
+		} BT_HCIEvent_CommandComplete_t;
 
 		typedef struct
 		{
@@ -127,7 +127,7 @@
 			uint8_t  ClassOfDevice_Service;
 			uint16_t ClassOfDevice_MajorMinor;
 			uint8_t  LinkType;
-		} Bluetooth_HCIEvent_ConnectionRequest_t;
+		} BT_HCIEvent_ConnectionRequest_t;
 
 		typedef struct
 		{
@@ -136,34 +136,34 @@
 			uint8_t  RemoteAddress[6];
 			uint8_t  LinkType;
 			uint8_t  EncryptionEnabled;
-		} Bluetooth_HCIEvent_ConnectionComplete_t;
+		} BT_HCIEvent_ConnectionComplete_t;
 		
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
-		} Bluetooth_HCIEvent_PinCodeRequest_t;
+		} BT_HCIEvent_PinCodeReq_t;
 		
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
 			uint8_t  SlaveRole;
-		} Bluetooth_HCICommand_AcceptConnectionRequest_t;
+		} BT_HCICommand_AcceptConnectionReq_t;
 		
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
 			uint8_t  Reason;
-		} Bluetooth_HCICommand_RejectConnectionRequest_t;
+		} BT_HCICommand_RejectConnectionReq_t;
 
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
 			uint8_t  PINCodeLength;
 			char     PINCode[16];
-		} Bluetooth_HCICommand_PinCodeResponse_t;
+		} BT_HCICommand_PinCodeResp_t;
 		
 	/* Enums: */
-		enum Bluetooth_ScanEnable_Modes_t
+		enum BT_ScanEnable_Modes_t
 		{
 			BT_SCANMODE_NoScansEnabled       = 0,
 			BT_SCANMODE_InquiryScanOnly      = 1,
@@ -171,7 +171,7 @@
 			BT_SCANMODE_InquiryAndPageScans  = 3,
 		};
 
-		enum BluetoothStack_States_t
+		enum BT_HCIStates_t
 		{
 			Bluetooth_ProcessEvents          = 0,
 			Bluetooth_Init                   = 1,
@@ -188,8 +188,7 @@
 		extern uint8_t Bluetooth_HCIProcessingState;
 
 	/* Function Prototypes: */
-		void Bluetooth_ProcessHCICommands(void);
-		void Bluetooth_ProcessHCIEvents(void);
+		void Bluetooth_HCITask(void);
 			
 		#if defined(INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C)
 			static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint16_t ParameterLength);
