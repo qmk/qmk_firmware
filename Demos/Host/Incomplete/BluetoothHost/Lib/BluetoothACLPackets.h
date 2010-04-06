@@ -41,8 +41,8 @@
 		#include "BluetoothStack.h"
 		
 	/* Macros: */
-		#define BT_ACL_DEBUG(s, ...)              printf_P(PSTR("(ACL) " s "\r\n"), __VA_ARGS__)
-		#define ACL_DEBUG_LEVEL                   1
+		#define BT_ACL_DEBUG(l, s, ...)           do { if (ACL_DEBUG_LEVEL >= l) printf_P(PSTR("(ACL) " s "\r\n"), __VA_ARGS__); } while (0)
+		#define ACL_DEBUG_LEVEL                   2
 
 		#define BT_CHANNEL_SIGNALING              0x0001
 		#define BT_CHANNEL_CONNECTIONLESS         0x0002
@@ -70,6 +70,8 @@
 		#define BT_CONFIGURATION_SUCCESSFUL       0x0000
 		#define BT_CONFIGURATION_REJECTED         0x0002
 		#define BT_CONFIGURATION_UNKNOWNOPTIONS   0x0003
+		
+		#define BT_CONFIG_OPTION_MTU              1
 		
 	/* Type Defines: */
 		typedef struct
@@ -140,10 +142,15 @@
 			uint16_t InfoType;
 			uint16_t Result;
 		} BT_Signal_InformationResp_t;
+		
+		typedef struct
+		{
+			uint8_t  Type;
+			uint16_t Length;
+		} BT_Config_Option_Header_t;
 
 	/* Function Prototypes: */
 		void    Bluetooth_ACLTask(void);
-		uint8_t Bluetooth_SendPacket(uint8_t* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel);
 		
 		#if defined(INCLUDE_FROM_BLUETOOTH_ACLPACKETS_C)
 			static void Bluetooth_ProcessACLPackets(void);

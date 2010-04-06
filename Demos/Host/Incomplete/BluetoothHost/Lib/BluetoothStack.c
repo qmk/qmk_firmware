@@ -80,6 +80,7 @@ Bluetooth_Channel_t* Bluetooth_InitChannelData(uint16_t RemoteChannelNumber, uin
 			ChannelData->RemoteNumber = RemoteChannelNumber;
 			ChannelData->LocalNumber  = (BLUETOOTH_CHANNELNUMBER_BASEOFFSET + i);
 			ChannelData->PSM          = PSM;
+			ChannelData->LocalMTU     = MAXIMUM_CHANNEL_MTU;
 			ChannelData->State        = Channel_Config_WaitConfig;
 			
 			return ChannelData;
