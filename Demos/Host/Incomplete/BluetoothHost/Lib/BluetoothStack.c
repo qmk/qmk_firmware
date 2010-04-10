@@ -54,13 +54,13 @@ void Bluetooth_Stack_USBTask(void)
 	Bluetooth_ACLTask();
 }
 
-Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchBySource)
+Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchByRemoteChannel)
 {
 	for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
 	{
 		Bluetooth_Channel_t* ChannelData = &Bluetooth_Connection.Channels[i];
 	
-		uint16_t CurrentChannelNumber = (SearchBySource) ? ChannelData->RemoteNumber : ChannelData->LocalNumber;
+		uint16_t CurrentChannelNumber = (SearchByRemoteChannel) ? ChannelData->RemoteNumber : ChannelData->LocalNumber;
 	
 		if (CurrentChannelNumber == ChannelNumber)
 		  return ChannelData;
@@ -71,21 +71,28 @@ Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool Searc
 
 Bluetooth_Channel_t* Bluetooth_InitChannelData(uint16_t RemoteChannelNumber, uint16_t PSM)
 {
-	for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
+	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(RemoteChannelNumber, false);
+
+	if (ChannelData == NULL)
 	{
-		Bluetooth_Channel_t* ChannelData = &Bluetooth_Connection.Channels[i];
-	
-		if (ChannelData->State == Channel_Closed)
+		for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
 		{
-			ChannelData->RemoteNumber = RemoteChannelNumber;
-			ChannelData->LocalNumber  = (BLUETOOTH_CHANNELNUMBER_BASEOFFSET + i);
-			ChannelData->PSM          = PSM;
-			ChannelData->LocalMTU     = MAXIMUM_CHANNEL_MTU;
-			ChannelData->State        = Channel_Config_WaitConfig;
-			
-			return ChannelData;
-		}		
+			if (Bluetooth_Connection.Channels[i].State == Channel_Closed)
+			{
+				ChannelData = &Bluetooth_Connection.Channels[i];				
+				ChannelData->LocalNumber = (BLUETOOTH_CHANNELNUMBER_BASEOFFSET + i);
+				break;
+			}
+		}
 	}
 
-	return NULL;
+	if (ChannelData != NULL)
+	{
+		ChannelData->RemoteNumber = RemoteChannelNumber;
+		ChannelData->PSM          = PSM;
+		ChannelData->LocalMTU     = MAXIMUM_CHANNEL_MTU;
+		ChannelData->State        = Channel_Config_WaitConfig;
+	}
+
+	return ChannelData;
 }

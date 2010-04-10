@@ -73,6 +73,8 @@
 		
 		#define BT_CONFIG_OPTION_MTU              1
 		
+		#define BT_ACL_FIRST_AUTOFLUSH            (1 << 13)
+		
 	/* Type Defines: */
 		typedef struct
 		{
@@ -145,8 +147,8 @@
 		
 		typedef struct
 		{
-			uint8_t  Type;
-			uint16_t Length;
+			uint8_t Type;
+			uint8_t Length;
 		} BT_Config_Option_Header_t;
 
 	/* Function Prototypes: */
@@ -164,6 +166,9 @@
 			static inline void Bluetooth_Signal_ConfigurationReq(BT_ACL_Header_t* ACLPacketHeader,
                                                                  BT_DataPacket_Header_t* DataHeader,
                                                                  BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_ConfigurationResp(BT_ACL_Header_t* ACLPacketHeader,
+                                                                  BT_DataPacket_Header_t* DataHeader,
+                                                                  BT_Signal_Header_t* SignalCommandHeader);
 			static inline void Bluetooth_Signal_DisconnectionReq(BT_ACL_Header_t* ACLPacketHeader,
                                                                  BT_DataPacket_Header_t* DataHeader,
                                                                  BT_Signal_Header_t* SignalCommandHeader);

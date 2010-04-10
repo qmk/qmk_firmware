@@ -8,7 +8,7 @@
  *  \mainpage
  *
  *  \image html LUFA.png
- *  <div align="center"><small><i>Logo design by <b>Ryo Yamauchi</b></i></small></div>
+ *  <div align="center"><small><i>Logo design by <b>Ryo</b> - http://ryophotography.wordpress.com</i></small></div>
  *  \n
  *
  *  <b>LUFA is donationware. For author and donation information, see \ref Page_Donating.</b>

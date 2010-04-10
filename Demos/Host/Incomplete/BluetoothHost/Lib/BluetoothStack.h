@@ -103,7 +103,7 @@
 		#include "BluetoothACLPackets.h"		
 		
 	/* Function Prototypes: */
-		Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchBySource);
+		Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchByRemoteChannel);
 		Bluetooth_Channel_t* Bluetooth_InitChannelData(uint16_t RemoteChannelNumber, uint16_t PSM);
 		
 		void Bluetooth_Stack_Init(void);
