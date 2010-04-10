@@ -102,18 +102,18 @@
 		#include "BluetoothHCICommands.h"
 		#include "BluetoothACLPackets.h"		
 		
-	/* Function Prototypes: */
-		Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchByRemoteChannel);
-		Bluetooth_Channel_t* Bluetooth_InitChannelData(uint16_t RemoteChannelNumber, uint16_t PSM);
-		
+	/* Function Prototypes: */		
 		void Bluetooth_Stack_Init(void);
 		void Bluetooth_Stack_USBTask(void);
 
-		bool    Bluetooth_ConnectionRequest(uint8_t* RemoteAddress);
-		void    Bluetooth_ConnectionComplete(void);
-		void    Bluetooth_DisconnectionComplete(void);
-		void    Bluetooth_PacketReceived(uint16_t* PacketLength, Bluetooth_Channel_t* Channel);
-		uint8_t Bluetooth_SendPacket(void* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel);
+		bool                 Bluetooth_ConnectionRequest(uint8_t* RemoteAddress);
+		void                 Bluetooth_ConnectionComplete(void);
+		void                 Bluetooth_DisconnectionComplete(void);
+		void                 Bluetooth_PacketReceived(uint16_t* PacketLength, Bluetooth_Channel_t* Channel);
+		Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchByRemoteChannel);
+		Bluetooth_Channel_t* Bluetooth_OpenChannel(uint16_t PSM);
+		void                 Bluetooth_CloseChannel(Bluetooth_Channel_t* Channel);
+		uint8_t              Bluetooth_SendPacket(void* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel);
 
 	/* External Variables: */
 		extern Bluetooth_Device_t     Bluetooth_DeviceConfiguration;

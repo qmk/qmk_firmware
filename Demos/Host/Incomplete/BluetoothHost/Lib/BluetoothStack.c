@@ -68,31 +68,3 @@ Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool Searc
 
 	return NULL;
 }
-
-Bluetooth_Channel_t* Bluetooth_InitChannelData(uint16_t RemoteChannelNumber, uint16_t PSM)
-{
-	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(RemoteChannelNumber, false);
-
-	if (ChannelData == NULL)
-	{
-		for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
-		{
-			if (Bluetooth_Connection.Channels[i].State == Channel_Closed)
-			{
-				ChannelData = &Bluetooth_Connection.Channels[i];				
-				ChannelData->LocalNumber = (BLUETOOTH_CHANNELNUMBER_BASEOFFSET + i);
-				break;
-			}
-		}
-	}
-
-	if (ChannelData != NULL)
-	{
-		ChannelData->RemoteNumber = RemoteChannelNumber;
-		ChannelData->PSM          = PSM;
-		ChannelData->LocalMTU     = MAXIMUM_CHANNEL_MTU;
-		ChannelData->State        = Channel_Config_WaitConfig;
-	}
-
-	return ChannelData;
-}

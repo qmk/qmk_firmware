@@ -42,7 +42,7 @@
 		
 	/* Macros: */
 		#define BT_ACL_DEBUG(l, s, ...)           do { if (ACL_DEBUG_LEVEL >= l) printf_P(PSTR("(ACL) " s "\r\n"), __VA_ARGS__); } while (0)
-		#define ACL_DEBUG_LEVEL                   2
+		#define ACL_DEBUG_LEVEL                   1
 
 		#define BT_CHANNEL_SIGNALING              0x0001
 		#define BT_CHANNEL_CONNECTIONLESS         0x0002
@@ -160,6 +160,9 @@
 			static inline void Bluetooth_Signal_ConnectionReq(BT_ACL_Header_t* ACLPacketHeader,
                                                               BT_DataPacket_Header_t* DataHeader,
                                                               BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_ConnectionResp(BT_ACL_Header_t* ACLPacketHeader,
+                                                               BT_DataPacket_Header_t* DataHeader,
+                                                               BT_Signal_Header_t* SignalCommandHeader);
 			static inline void Bluetooth_Signal_EchoReq(BT_ACL_Header_t* ACLPacketHeader,
                                                         BT_DataPacket_Header_t* DataHeader,
                                                         BT_Signal_Header_t* SignalCommandHeader);
@@ -172,6 +175,9 @@
 			static inline void Bluetooth_Signal_DisconnectionReq(BT_ACL_Header_t* ACLPacketHeader,
                                                                  BT_DataPacket_Header_t* DataHeader,
                                                                  BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_DisconnectionResp(BT_ACL_Header_t* ACLPacketHeader,
+                                                                  BT_DataPacket_Header_t* DataHeader,
+                                                                  BT_Signal_Header_t* SignalCommandHeader);
 			static inline void Bluetooth_Signal_InformationReq(BT_ACL_Header_t* ACLPacketHeader,
                                                                BT_DataPacket_Header_t* DataHeader,
                                                                BT_Signal_Header_t* SignalCommandHeader);
