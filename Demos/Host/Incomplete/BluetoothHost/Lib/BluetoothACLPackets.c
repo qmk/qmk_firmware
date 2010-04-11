@@ -208,7 +208,7 @@ Bluetooth_Channel_t* Bluetooth_OpenChannel(uint16_t PSM)
 		if (Bluetooth_Connection.Channels[i].State == Channel_Closed)
 		{
 			ChannelData = &Bluetooth_Connection.Channels[i];				
-			ChannelData->LocalNumber = (BLUETOOTH_CHANNELNUMBER_BASEOFFSET + i);
+			ChannelData->LocalNumber = (BT_CHANNELNUMBER_BASEOFFSET + i);
 			break;
 		}
 	}
@@ -292,7 +292,7 @@ static inline void Bluetooth_Signal_ConnectionReq(BT_ACL_Header_t*        ACLPac
 			if (Bluetooth_Connection.Channels[i].State == Channel_Closed)
 			{
 				ChannelData = &Bluetooth_Connection.Channels[i];				
-				ChannelData->LocalNumber = (BLUETOOTH_CHANNELNUMBER_BASEOFFSET + i);
+				ChannelData->LocalNumber = (BT_CHANNELNUMBER_BASEOFFSET + i);
 				break;
 			}
 		}

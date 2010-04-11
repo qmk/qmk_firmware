@@ -43,7 +43,7 @@
  *
  *  This routine searches for a BT interface descriptor containing bulk IN and OUT data endpoints.
  *
- *  \return An error code from the \ref Bluetooth_GetConfigDescriptorDataCodes_t enum.
+ *  \return An error code from the \ref BluetoothHost_GetConfigDescriptorDataCodes_t enum.
  */
 uint8_t ProcessConfigurationDescriptor(void)
 {

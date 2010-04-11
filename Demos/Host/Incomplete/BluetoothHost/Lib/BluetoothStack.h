@@ -42,10 +42,16 @@
 		#define BLUETOOTH_EVENTS_PIPE                    3
 
 		#define BLUETOOTH_MAX_OPEN_CHANNELS              2
-		#define BLUETOOTH_CHANNELNUMBER_BASEOFFSET       0x0040
 		
 		#define CHANNEL_PSM_SERVICEDISCOVERY             0x0001
+		#define CHANNEL_PSM_UDP                          0x0002
 		#define CHANNEL_PSM_RFCOMM                       0x0003
+		#define CHANNEL_PSM_TCP                          0x0004
+		#define CHANNEL_PSM_IP                           0x0009
+		#define CHANNEL_PSM_FTP                          0x000A
+		#define CHANNEL_PSM_HTTP                         0x000C
+		#define CHANNEL_PSM_UPNP                         0x0010
+		#define CHANNEL_PSM_HIDP                         0x0011
 		
 		#define MAXIMUM_CHANNEL_MTU                      255
 		

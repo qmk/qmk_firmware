@@ -31,14 +31,23 @@
 #define  INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C
 #include "BluetoothHCICommands.h"
 
-static BT_HCICommand_Header_t HCICommandHeader;
+/** Current processing state of the HCI portion of the Bluetooth stack. */
+uint8_t Bluetooth_HCIProcessingState;
 
-       uint8_t                       Bluetooth_HCIProcessingState;
-static uint8_t                       Bluetooth_HCINextState;
-static uint8_t                       Bluetooth_TempDeviceAddress[6];
+/** Next HCI state to enter once the last issued HCI command has completed. */
+static uint8_t Bluetooth_HCINextState;
 
+/** Temporary Bluetooth Device Address, for HCI responses which much include the detination address */
+static uint8_t Bluetooth_TempDeviceAddress[6];
+
+
+/** Bluetooth HCI processing task. This task should be called repeatedly the main Bluetooth
+ *  stack task to manage the HCI processing state.
+ */
 void Bluetooth_HCITask(void)
 {
+	BT_HCICommand_Header_t HCICommandHeader;
+
 	switch (Bluetooth_HCIProcessingState)
 	{
 		case Bluetooth_ProcessEvents:
@@ -58,18 +67,27 @@ void Bluetooth_HCITask(void)
 				/* Read in the event parameters into the temporary buffer */
 				Pipe_Read_Stream_LE(&EventParams, HCIEventHeader.ParameterLength);
 				Pipe_ClearIN();
+				
+				BT_HCI_DEBUG(1, "Event Received (0x%02X)", HCIEventHeader.EventCode);
 
 				switch (HCIEventHeader.EventCode)
 				{
 					case EVENT_COMMAND_COMPLETE:
+						BT_HCI_DEBUG(1, "<< Command Complete", NULL);
 						Bluetooth_HCIProcessingState = Bluetooth_HCINextState;
 						break;
 					case EVENT_COMMAND_STATUS:
+						BT_HCI_DEBUG(1, "<< Command Status", NULL);
+						BT_HCI_DEBUG(2, "-- Status Code: 0x%02X", (((BT_HCIEvent_CommandStatus_t*)&EventParams)->Status));
+
 						/* If the execution of a command failed, reset the stack */
 						if (((BT_HCIEvent_CommandStatus_t*)&EventParams)->Status)
 						  Bluetooth_HCIProcessingState = Bluetooth_Init;
 						break;
 					case EVENT_CONNECTION_REQUEST:
+						BT_HCI_DEBUG(1, "<< Connection Request", NULL);
+						BT_HCI_DEBUG(2, "-- Link Type: 0x%02X", (((BT_HCIEvent_ConnectionRequest_t*)&EventParams)->LinkType));
+
 						/* Need to store the remote device's BT address in a temporary buffer for later use */
 						memcpy(Bluetooth_TempDeviceAddress,
 						       &((BT_HCIEvent_ConnectionRequest_t*)&EventParams)->RemoteAddress,
@@ -82,8 +100,14 @@ void Bluetooth_HCITask(void)
 						Bluetooth_HCIProcessingState = (Bluetooth_Connection.IsConnected || !(IsACLConnection) ||
 													    !(Bluetooth_ConnectionRequest(Bluetooth_TempDeviceAddress))) ?
 													   Bluetooth_Conn_RejectConnection : Bluetooth_Conn_AcceptConnection;
+
+						BT_HCI_DEBUG(2, "-- Connection %S", (Bluetooth_HCIProcessingState == Bluetooth_Conn_RejectConnection) ?
+						                                     PSTR("REJECTED") : PSTR("ACCEPTED"));
+
 						break;
 					case EVENT_PIN_CODE_REQUEST:
+						BT_HCI_DEBUG(1, "<< Pin Code Request", NULL);
+
 						/* Need to store the remote device's BT address in a temporary buffer for later use */
 						memcpy(Bluetooth_TempDeviceAddress,
 						       &((BT_HCIEvent_PinCodeReq_t*)&EventParams)->RemoteAddress,
@@ -91,7 +115,20 @@ void Bluetooth_HCITask(void)
 
 						Bluetooth_HCIProcessingState = Bluetooth_Conn_SendPINCode;
 						break;
+					case EVENT_LINK_KEY_REQUEST:
+						BT_HCI_DEBUG(1, "<< Link Key Request", NULL);
+						
+						/* Need to store the remote device's BT address in a temporary buffer for later use */
+						memcpy(Bluetooth_TempDeviceAddress,
+						       &((BT_HCIEvent_LinkKeyReq_t*)&EventParams)->RemoteAddress,
+						       sizeof(Bluetooth_TempDeviceAddress));						
+						
+						Bluetooth_HCIProcessingState = Bluetooth_Conn_SendLinkKeyNAK;
+						break;
 					case EVENT_CONNECTION_COMPLETE:
+						BT_HCI_DEBUG(1, "<< Connection Complete", NULL);
+						BT_HCI_DEBUG(2, "-- Handle: 0x%04X", ((BT_HCIEvent_ConnectionComplete_t*)&EventParams)->ConnectionHandle);
+
 						/* Need to store the remote device's BT address in a temporary buffer for later use */
 						memcpy(Bluetooth_Connection.RemoteAddress,
 						       &((BT_HCIEvent_ConnectionComplete_t*)&EventParams)->RemoteAddress,
@@ -104,13 +141,15 @@ void Bluetooth_HCITask(void)
 						Bluetooth_ConnectionComplete();						
 						break;
 					case EVENT_DISCONNECTION_COMPLETE:
+						BT_HCI_DEBUG(1, "<< Disconnection Complete", NULL);
+
 						/* Device disconnected, indicate connection information no longer valid */
 						Bluetooth_Connection.IsConnected = false;
 						
 						Bluetooth_DisconnectionComplete();
 						
 						Bluetooth_HCIProcessingState = Bluetooth_Init;
-						break;					
+						break;
 				}
 			}
 			
@@ -118,12 +157,16 @@ void Bluetooth_HCITask(void)
 			
 			break;
 		case Bluetooth_Init:
+			BT_HCI_DEBUG(1, "# Init", NULL);
+
 			/* Reset the connection information structure to destroy any previous connection state */
 			memset(&Bluetooth_Connection, 0x00, sizeof(Bluetooth_Connection));
 
 			Bluetooth_HCIProcessingState = Bluetooth_Init_Reset; 
 			break;
 		case Bluetooth_Init_Reset:
+			BT_HCI_DEBUG(1, "# Reset", NULL);
+
 			HCICommandHeader = (BT_HCICommand_Header_t)
 			{
 				OpCode: {OGF: OGF_CTRLR_BASEBAND, OCF: OCF_CTRLR_BASEBAND_RESET},
@@ -131,12 +174,14 @@ void Bluetooth_HCITask(void)
 			};
 
 			/* Send the command to reset the bluetooth dongle controller */
-			Bluetooth_SendHCICommand(NULL, 0);
+			Bluetooth_SendHCICommand(&HCICommandHeader, NULL, 0);
 			
 			Bluetooth_HCINextState       = Bluetooth_Init_SetLocalName;
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Init_SetLocalName:
+			BT_HCI_DEBUG(1, "# Set Local Name", NULL);
+
 			HCICommandHeader = (BT_HCICommand_Header_t)
 				{
 					OpCode: {OGF: OGF_CTRLR_BASEBAND, OCF: OCF_CTRLR_BASEBAND_WRITE_LOCAL_NAME},
@@ -144,12 +189,14 @@ void Bluetooth_HCITask(void)
 				};
 
 			/* Send the command to set the bluetooth dongle's name for other devices to see */
-			Bluetooth_SendHCICommand(Bluetooth_DeviceConfiguration.Name, strlen(Bluetooth_DeviceConfiguration.Name));
+			Bluetooth_SendHCICommand(&HCICommandHeader, Bluetooth_DeviceConfiguration.Name, strlen(Bluetooth_DeviceConfiguration.Name));
 
 			Bluetooth_HCINextState       = Bluetooth_Init_SetDeviceClass;
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Init_SetDeviceClass:
+			BT_HCI_DEBUG(1, "# Set Device Class", NULL);
+
 			HCICommandHeader = (BT_HCICommand_Header_t)
 				{
 					OpCode: {OGF: OGF_CTRLR_BASEBAND, OCF: OCF_CTRLR_BASEBAND_WRITE_CLASS_OF_DEVICE},
@@ -157,12 +204,14 @@ void Bluetooth_HCITask(void)
 				};
 
 			/* Send the command to set the class of the device for other devices to see */
-			Bluetooth_SendHCICommand(&Bluetooth_DeviceConfiguration.Class, 3);
+			Bluetooth_SendHCICommand(&HCICommandHeader, &Bluetooth_DeviceConfiguration.Class, 3);
 
 			Bluetooth_HCINextState       = Bluetooth_Init_WriteScanEnable;
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Init_WriteScanEnable:
+			BT_HCI_DEBUG(1, "# Write Scan Enable", NULL);
+
 			HCICommandHeader = (BT_HCICommand_Header_t)
 			{
 				OpCode: {OGF: OGF_CTRLR_BASEBAND, OCF: OCF_CTRLR_BASEBAND_WRITE_SCAN_ENABLE},
@@ -172,12 +221,14 @@ void Bluetooth_HCITask(void)
 			uint8_t Interval = BT_SCANMODE_InquiryAndPageScans;
 			
 			/* Send the command to set the remote device scanning mode */
-			Bluetooth_SendHCICommand(&Interval, 1);
+			Bluetooth_SendHCICommand(&HCICommandHeader, &Interval, 1);
 			
 			Bluetooth_HCINextState       = Bluetooth_ProcessEvents;
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Conn_AcceptConnection:
+			BT_HCI_DEBUG(1, "# Accept Connection", NULL);
+
 			HCICommandHeader = (BT_HCICommand_Header_t)
 				{
 					OpCode: {OGF: OGF_LINK_CONTROL, OCF: OCF_LINK_CONTROL_ACCEPT_CONNECTION_REQUEST},
@@ -192,11 +243,13 @@ void Bluetooth_HCITask(void)
 			AcceptConnectionParams.SlaveRole = true;
 
 			/* Send the command to accept the remote connection request */
-			Bluetooth_SendHCICommand(&AcceptConnectionParams, sizeof(BT_HCICommand_AcceptConnectionReq_t));
+			Bluetooth_SendHCICommand(&HCICommandHeader, &AcceptConnectionParams, sizeof(BT_HCICommand_AcceptConnectionReq_t));
 			
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Conn_RejectConnection:
+			BT_HCI_DEBUG(1, "# Reject Connection", NULL);
+
 			HCICommandHeader = (BT_HCICommand_Header_t)
 				{
 					OpCode: {OGF: OGF_LINK_CONTROL, OCF: OCF_LINK_CONTROL_REJECT_CONNECTION_REQUEST},
@@ -210,11 +263,13 @@ void Bluetooth_HCITask(void)
 			RejectConnectionParams.Reason = Bluetooth_Connection.IsConnected ? ERROR_LIMITED_RESOURCES : ERROR_UNACCEPTABLE_BDADDR;
 
 			/* Send the command to reject the remote connection request */
-			Bluetooth_SendHCICommand(&RejectConnectionParams, sizeof(BT_HCICommand_RejectConnectionReq_t));
+			Bluetooth_SendHCICommand(&HCICommandHeader, &RejectConnectionParams, sizeof(BT_HCICommand_RejectConnectionReq_t));
 		
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Conn_SendPINCode:
+			BT_HCI_DEBUG(1, "# Send Pin Code", NULL);
+
 			HCICommandHeader = (BT_HCICommand_Header_t)
 				{
 					OpCode: {OGF: OGF_LINK_CONTROL, OCF: OCF_LINK_CONTROL_PIN_CODE_REQUEST_REPLY},
@@ -229,17 +284,43 @@ void Bluetooth_HCITask(void)
 			memcpy(PINCodeRequestParams.PINCode, Bluetooth_DeviceConfiguration.PINCode, sizeof(PINCodeRequestParams.PINCode));
 			
 			/* Send the command to transmit the device's local PIN number for authentication */
-			Bluetooth_SendHCICommand(&PINCodeRequestParams, sizeof(BT_HCICommand_PinCodeResp_t));
+			Bluetooth_SendHCICommand(&HCICommandHeader, &PINCodeRequestParams, sizeof(BT_HCICommand_PinCodeResp_t));
+
+			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
+			break;
+		case Bluetooth_Conn_SendLinkKeyNAK:
+			BT_HCI_DEBUG(1, "# Send Link Key NAK", NULL);
+
+			HCICommandHeader = (BT_HCICommand_Header_t)
+				{
+					OpCode: {OGF: OGF_LINK_CONTROL, OCF: OCF_LINK_CONTROL_LINK_KEY_REQUEST_NEG_REPLY},
+					ParameterLength: sizeof(BT_HCICommand_LinkKeyNAKResp_t),
+				};
+
+			/* Copy over the temporary BT device address saved from the Link Key Request event */
+			BT_HCICommand_LinkKeyNAKResp_t LinkKeyNAKParams;
+			memcpy(LinkKeyNAKParams.RemoteAddress, Bluetooth_TempDeviceAddress, sizeof(LinkKeyNAKParams.RemoteAddress));
+
+			/* Send the command to transmit the link key NAK to the receiver */
+			Bluetooth_SendHCICommand(&HCICommandHeader, &LinkKeyNAKParams, sizeof(BT_HCICommand_LinkKeyNAKResp_t));
 
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 	}
 }
 
-static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint16_t ParameterLength)
+/** Sends a Bluetooth HCI control command to the attached Bluetooth device.
+ *
+ *  \param HCICommandHeader  HCI command header to send to the attached device
+ *  \param Parameters        Pointer to the source of the control parameters (if any)
+ *  \param ParameterLength   Length of the parameters to send in bytes
+ *
+ *  \return A value from the USB_Host_SendControlErrorCodes_t enum.
+ */
+static uint8_t Bluetooth_SendHCICommand(BT_HCICommand_Header_t* HCICommandHeader, void* Parameters, uint16_t ParameterLength)
 {
 	/* Need to reserve the amount of bytes given in the header for the complete payload */
-	uint8_t CommandBuffer[sizeof(HCICommandHeader) + HCICommandHeader.ParameterLength];
+	uint8_t CommandBuffer[sizeof(BT_HCICommand_Header_t) + HCICommandHeader->ParameterLength];
 
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -251,14 +332,14 @@ static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint16_t ParameterLeng
 		};
 
 	/* Copy over the HCI command header to the allocated buffer */
-	memcpy(CommandBuffer, &HCICommandHeader, sizeof(HCICommandHeader));
+	memcpy(CommandBuffer, HCICommandHeader, sizeof(BT_HCICommand_Header_t));
 	
-	/* Zero out the parameter section of the response to ensure that any padding bytes do not expose private RAM contents */
-	memset(&CommandBuffer[sizeof(HCICommandHeader)], 0x00, HCICommandHeader.ParameterLength);
+	/* Zero out the parameter section of the response so that all padding bytes are known to be zero */
+	memset(&CommandBuffer[sizeof(BT_HCICommand_Header_t)], 0x00, HCICommandHeader->ParameterLength);
 
 	/* Copy over the command parameters (if any) to the command buffer - note, the number of actual source parameter bytes
 	   may differ to those in the header; any difference in length is filled with 0x00 padding bytes */
-	memcpy(&CommandBuffer[sizeof(HCICommandHeader)], Parameters, ParameterLength);
+	memcpy(&CommandBuffer[sizeof(BT_HCICommand_Header_t)], Parameters, ParameterLength);
 	
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 	return USB_Host_SendControlRequest(CommandBuffer);

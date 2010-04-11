@@ -42,6 +42,9 @@
 		#include "BluetoothClassCodes.h"
 
 	/* Macros: */
+		#define BT_HCI_DEBUG(l, s, ...)                        do { if (HCI_DEBUG_LEVEL >= l) printf_P(PSTR("(HCI) " s "\r\n"), __VA_ARGS__); } while (0)
+		#define HCI_DEBUG_LEVEL                                1
+
 		#define OGF_LINK_CONTROL                               0x01
 		#define OGF_CTRLR_BASEBAND                             0x03
 		#define OGF_CTRLR_INFORMATIONAL                        0x04
@@ -79,6 +82,7 @@
 		#define EVENT_DISCONNECTION_COMPLETE                   0x05
 		#define EVENT_REMOTE_NAME_REQUEST_COMPLETE             0x07
 		#define EVENT_PIN_CODE_REQUEST                         0x16
+		#define EVENT_LINK_KEY_REQUEST                         0x17
 		
 		#define ERROR_LIMITED_RESOURCES                        0x0D
 		#define ERROR_UNACCEPTABLE_BDADDR                      0x0F
@@ -142,6 +146,23 @@
 		{
 			uint8_t  RemoteAddress[6];
 		} BT_HCIEvent_PinCodeReq_t;
+
+		typedef struct
+		{
+			uint8_t  RemoteAddress[6];
+		} BT_HCIEvent_LinkKeyReq_t;
+				
+		typedef struct
+		{
+			uint8_t  RemoteAddress[6];
+		} BT_HCICommand_LinkKeyNAKResp_t;
+
+		typedef struct
+		{
+			uint8_t  RemoteAddress[6];
+			uint8_t  PINCodeLength;
+			char     PINCode[16];
+		} BT_HCICommand_PinCodeResp_t;
 		
 		typedef struct
 		{
@@ -153,15 +174,8 @@
 		{
 			uint8_t  RemoteAddress[6];
 			uint8_t  Reason;
-		} BT_HCICommand_RejectConnectionReq_t;
+		} BT_HCICommand_RejectConnectionReq_t;		
 
-		typedef struct
-		{
-			uint8_t  RemoteAddress[6];
-			uint8_t  PINCodeLength;
-			char     PINCode[16];
-		} BT_HCICommand_PinCodeResp_t;
-		
 	/* Enums: */
 		enum BT_ScanEnable_Modes_t
 		{
@@ -182,6 +196,7 @@
 			Bluetooth_Conn_AcceptConnection  = 6,
 			Bluetooth_Conn_RejectConnection  = 7,
 			Bluetooth_Conn_SendPINCode       = 8,
+			Bluetooth_Conn_SendLinkKeyNAK    = 9,
 		};
 		
 	/* External Variables: */
@@ -191,7 +206,8 @@
 		void Bluetooth_HCITask(void);
 			
 		#if defined(INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C)
-			static uint8_t Bluetooth_SendHCICommand(void* Parameters, uint16_t ParameterLength);
+			static uint8_t Bluetooth_SendHCICommand(BT_HCICommand_Header_t* HCICommandHeader, void* Parameters,
+			                                        uint16_t ParameterLength);
 		#endif
 		
 #endif
