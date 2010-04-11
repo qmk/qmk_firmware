@@ -251,8 +251,8 @@ void Bluetooth_PacketReceived(uint16_t* PacketLength, Bluetooth_Channel_t* Chann
 	Pipe_Read_Stream_LE(&DataPayload, *PacketLength);
 	*PacketLength = 0;
 
-	printf_P(PSTR("L2CAP Packet Recetion on channel %02X:\r\n"), Channel->LocalNumber);
-	for (uint16_t Byte = 0; Byte < *PacketLength; Byte++)
+	printf_P(PSTR("Packet Received (Channel 0x%04X, PSM: 0x%02x):\r\n"), Channel->LocalNumber, Channel->PSM);
+	for (uint16_t Byte = 0; Byte < sizeof(DataPayload); Byte++)
 	  printf_P(PSTR("0x%02X "), DataPayload[Byte]);
 	puts_P(PSTR("\r\n"));
 }

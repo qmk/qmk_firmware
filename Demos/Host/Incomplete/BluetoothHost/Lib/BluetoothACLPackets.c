@@ -360,34 +360,35 @@ static inline void Bluetooth_Signal_ConfigurationReq(BT_ACL_Header_t*        ACL
                                                      BT_Signal_Header_t*     SignalCommandHeader)
 {
 	BT_Signal_ConfigurationReq_t ConfigurationRequest;
-	uint8_t OptionsLen;
+	uint8_t OptionsLen = (SignalCommandHeader->Length - sizeof(ConfigurationRequest));
+	uint8_t Options[OptionsLen];
 
-	Pipe_Read_Stream_LE(&ConfigurationRequest, sizeof(ConfigurationRequest));
-	OptionsLen = (DataHeader->PayloadLength - sizeof(*SignalCommandHeader));
-	
-	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConfigurationRequest.DestinationChannel, false);
-
-	while (OptionsLen)
-	{
-		BT_Config_Option_Header_t OptionHeader;
-		
-		Pipe_Read_Stream_LE(&OptionHeader, sizeof(OptionHeader));
-	
-		if ((OptionHeader.Type == BT_CONFIG_OPTION_MTU) && (ChannelData != NULL))
-		  Pipe_Read_Stream_LE(&ChannelData->RemoteMTU, sizeof(ChannelData->RemoteMTU));
-		else
-		  Pipe_Discard_Stream(OptionHeader.Length);
-
-		OptionsLen -= (sizeof(OptionHeader) + OptionHeader.Length);
-	}
+	Pipe_Read_Stream_LE(&ConfigurationRequest, sizeof(ConfigurationRequest));	
+	Pipe_Read_Stream_LE(&Options, sizeof(Options));
 
 	Pipe_ClearIN();
 	Pipe_Freeze();
 
+	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConfigurationRequest.DestinationChannel, false);
+
 	BT_ACL_DEBUG(1, "<< L2CAP Configuration Request", NULL);
 	BT_ACL_DEBUG(2, "-- Destination Channel: 0x%04X", ConfigurationRequest.DestinationChannel);
-	BT_ACL_DEBUG(2, "-- Options Len: 0x%04X", (DataHeader->PayloadLength - sizeof(*SignalCommandHeader)));
 	BT_ACL_DEBUG(2, "-- Remote MTU: 0x%04X", ChannelData->RemoteMTU);
+	BT_ACL_DEBUG(2, "-- Options Len: 0x%04X", OptionsLen);
+
+	uint8_t OptionPos = 0;
+	while (OptionPos < OptionsLen)
+	{
+		BT_Config_Option_Header_t* OptionHeader = (BT_Config_Option_Header_t*)&Options[OptionPos];
+
+		BT_ACL_DEBUG(2, "-- Option Type: 0x%04X", OptionHeader->Type);
+		BT_ACL_DEBUG(2, "-- Option Length: 0x%04X", (sizeof(*OptionHeader) + OptionHeader->Length));
+		
+		if ((OptionHeader->Type == BT_CONFIG_OPTION_MTU) && (ChannelData != NULL))
+		  ChannelData->RemoteMTU = *((uint16_t*)&Options[OptionPos + sizeof(*OptionHeader)]);
+
+		OptionPos += (sizeof(*OptionHeader) + OptionHeader->Length);
+	}
 	
 	struct
 	{
