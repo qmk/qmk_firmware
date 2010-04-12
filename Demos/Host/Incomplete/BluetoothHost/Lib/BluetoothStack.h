@@ -56,28 +56,36 @@
 		#define MAXIMUM_CHANNEL_MTU                      255
 		
 	/* Enums: */
+		/** Enum for the possible states for a bluetooth ACL channel. */
 		enum BT_ChannelStates_t
 		{
-			Channel_Closed                = 0,
-			Channel_WaitConnect           = 1,
-			Channel_WaitConnectRsp        = 2,
-			Channel_Config_WaitConfig     = 3,
-			Channel_Config_WaitSendConfig = 4,
-			Channel_Config_WaitReqResp    = 5,
-			Channel_Config_WaitResp       = 6,
-			Channel_Config_WaitReq        = 7,
-			Channel_Open                  = 8,
-			Channel_WaitDisconnect        = 9,
+			Channel_Closed                = 0, /**< Channel is closed and inactive. No data may be sent or received. */
+			Channel_WaitConnect           = 1, /**< A connection request has been received, but a response has not been sent. */
+			Channel_WaitConnectRsp        = 2, /**< A connection request has been sent, but a response has not been received. */
+			Channel_Config_WaitConfig     = 3, /**< Channel has been connected, but not yet configured on either end. */
+			Channel_Config_WaitSendConfig = 4, /**< Channel configuration has been received and accepted, but not yet sent. */
+			Channel_Config_WaitReqResp    = 5, /**< Channel configuration has been sent but not responded to, and a configuration
+			                                        request from the remote end has not yet been received. */
+			Channel_Config_WaitResp       = 6, /**< Channel configuration has been sent but not accepted, but a configuration request
+			                                        from the remote end has been accepted. */
+			Channel_Config_WaitReq        = 7, /**< Channel configuration has been sent and accepted, but a configuration request
+			                                        from the remote end has not yet been accepted. */
+			Channel_Open                  = 8, /**< Channel is open and ready to send or receive data */
+			Channel_WaitDisconnect        = 9, /**< A disconnection request has been sent, but not yet acknowledged. */
 		};
 
-		enum Endpoint_ControlStream_RW_ErrorCodes_t
+		/** Enum for the possible error codes returned by the \ref Bluetooth_SendPacket() function. */
+		enum BT_SendPacket_ErrorCodes_t
 		{
-			BT_SENDPACKET_NoError            = 0,
-			BT_SENDPACKET_NotConnected       = 1,
-			BT_SENDPACKET_ChannelNotOpen     = 2,
+			BT_SENDPACKET_NoError            = 0, /**< The packet was sent sucessfully. */
+			BT_SENDPACKET_NotConnected       = 1, /**< The bluetooth stack is not currently connected to a remote device. */
+			BT_SENDPACKET_ChannelNotOpen     = 2, /**< The given channel is not currently in the Open state. */
 		};
 
 	/* Type Defines: */
+		/** Type define for a Bluetooth ACL channel information structure. This structure contains all the relevent
+		 *  information on an ACL channel for data transmission and reception by the stack.
+		 */
 		typedef struct
 		{
 			uint8_t  State;
@@ -88,6 +96,9 @@
 			uint16_t RemoteMTU;
 		} Bluetooth_Channel_t;
 
+		/** Type define for a Bluetooth device connection information structure. This structure contains all the
+		 *  information needed to maintain a connection to a remote Bluetooth device via the Bluetooth stack.
+		 */
 		typedef struct
 		{
 			bool                IsConnected;
@@ -97,6 +108,7 @@
 			uint8_t             SignallingIdentifier;
 		} Bluetooth_Connection_t;
 		
+		/** Local Bluetooth device information structure, for the defining of local device characteristics for the Bluetooth stack. */
 		typedef struct
 		{
 			uint32_t Class;

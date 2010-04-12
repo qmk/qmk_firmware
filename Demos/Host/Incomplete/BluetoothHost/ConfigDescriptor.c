@@ -133,15 +133,30 @@ uint8_t ProcessConfigurationDescriptor(void)
 	return SuccessfulConfigRead;
 }
 
+/** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
+ *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
+ *  descriptor processing if an incompatible descriptor configuration is found.
+ *
+ *  This comparator searches for the next Endpoint descriptor inside the current interface descriptor, aborting the 
+ *  search if another interface descriptor is found before the required endpoint.
+ *
+ *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
+ */
 uint8_t DComp_NextInterfaceBluetoothDataEndpoint(void* CurrentDescriptor)
 {
-	/* PURPOSE: Find next interface endpoint descriptor before next interface descriptor */
-
+	/* Determine the type of the current descriptor */
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-	  return DESCRIPTOR_SEARCH_Found;
+	{
+		/* Indicate that the descriptor being searched for has been found */
+		return DESCRIPTOR_SEARCH_Found;
+	}
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
-	  return DESCRIPTOR_SEARCH_Fail;
+	{
+		/* Indicate that the search has failed prematurely and should be aborted */
+		return DESCRIPTOR_SEARCH_Fail;
+	}
 
+	/* Current descriptor does not match what this comparator is looking for */
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 

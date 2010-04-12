@@ -230,7 +230,7 @@ Bluetooth_Channel_t* Bluetooth_OpenChannel(uint16_t PSM)
 	ChannelData->RemoteNumber = 0;
 	ChannelData->PSM          = PSM;
 	ChannelData->LocalMTU     = MAXIMUM_CHANNEL_MTU;
-	ChannelData->State        = Channel_Config_WaitConfig;
+	ChannelData->State        = Channel_WaitConnectRsp;
 	  
 	struct
 	{
@@ -356,7 +356,7 @@ static inline void Bluetooth_Signal_ConnectionResp(BT_ACL_Header_t* ACLPacketHea
 	BT_ACL_DEBUG(2, "-- Source Channel: 0x%04X", ConnectionResponse.SourceChannel);	
 	BT_ACL_DEBUG(2, "-- Destination Channel: 0x%04X", ConnectionResponse.DestinationChannel);	
 
-	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConnectionResponse.DestinationChannel, false);
+	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConnectionResponse.SourceChannel, false);
 
 	if (ChannelData != NULL)
 	{
