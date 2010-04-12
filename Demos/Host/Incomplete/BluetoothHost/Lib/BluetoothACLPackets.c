@@ -141,6 +141,17 @@ static void Bluetooth_ProcessACLPackets(void)
 			case BT_SIGNAL_INFORMATION_REQUEST:
 				Bluetooth_Signal_InformationReq(&ACLPacketHeader, &DataHeader, &SignalCommandHeader);
 				break;
+			case BT_SIGNAL_COMMAND_REJECT:
+				BT_ACL_DEBUG(1, "<< Command Reject", NULL);
+				
+				uint16_t RejectReason;
+				Pipe_Read_Stream_LE(&RejectReason, sizeof(RejectReason));
+				Pipe_Discard_Stream(ACLPacketHeader.DataLength - sizeof(RejectReason));
+				Pipe_ClearIN();
+				Pipe_Freeze();				
+			
+				BT_ACL_DEBUG(2, "-- Reason: %d", RejectReason);
+				break;
 			default:
 				BT_ACL_DEBUG(1, "<< Unknown Signaling Command 0x%02X", SignalCommandHeader.Code);
 	
@@ -315,9 +326,10 @@ static inline void Bluetooth_Signal_ConnectionReq(BT_ACL_Header_t*        ACLPac
 	ResponsePacket.SignalCommandHeader.Code              = BT_SIGNAL_CONNECTION_RESPONSE;
 	ResponsePacket.SignalCommandHeader.Identifier        = SignalCommandHeader->Identifier;
 	ResponsePacket.SignalCommandHeader.Length            = sizeof(ResponsePacket.ConnectionResponse);
-	ResponsePacket.ConnectionResponse.Result             = (ChannelData == NULL) ? BT_CONNECTION_REFUSED_RESOURCES : BT_CONNECTION_SUCCESSFUL;
-	ResponsePacket.ConnectionResponse.DestinationChannel = ChannelData->RemoteNumber;
-	ResponsePacket.ConnectionResponse.SourceChannel      = ChannelData->LocalNumber;
+	ResponsePacket.ConnectionResponse.DestinationChannel = ChannelData->LocalNumber;
+	ResponsePacket.ConnectionResponse.SourceChannel      = ChannelData->RemoteNumber;
+	ResponsePacket.ConnectionResponse.Result             = (ChannelData == NULL) ? BT_CONNECTION_REFUSED_RESOURCES :
+	                                                                               BT_CONNECTION_SUCCESSFUL;
 	ResponsePacket.ConnectionResponse.Status             = 0x00;
 	
 	Bluetooth_SendPacket(&ResponsePacket, sizeof(ResponsePacket), NULL);

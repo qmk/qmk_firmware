@@ -42,13 +42,14 @@
 		
 	/* Macros: */
 		#define BT_ACL_DEBUG(l, s, ...)           do { if (ACL_DEBUG_LEVEL >= l) printf_P(PSTR("(ACL) " s "\r\n"), __VA_ARGS__); } while (0)
-		#define ACL_DEBUG_LEVEL                   1
+		#define ACL_DEBUG_LEVEL                   2
 
 		#define BT_CHANNELNUMBER_BASEOFFSET       0x0040
 
 		#define BT_CHANNEL_SIGNALING              0x0001
 		#define BT_CHANNEL_CONNECTIONLESS         0x0002
 		
+		#define BT_SIGNAL_COMMAND_REJECT          0x01
 		#define BT_SIGNAL_CONNECTION_REQUEST      0x02
 		#define BT_SIGNAL_CONNECTION_RESPONSE     0x03
 		#define BT_SIGNAL_CONFIGURATION_REQUEST   0x04
