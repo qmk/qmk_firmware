@@ -252,16 +252,18 @@
 			 *                      mode speed.
 			 *
 			 *  \note To reduce the FLASH requirements of the library if only device or host mode is required, 
-			 *        this can be statically set via defining the token USB_DEVICE_ONLY for device mode or 
-			 *        USB_HOST_ONLY for host mode in the use project makefile, passing the token to the compiler 
+			 *        the mode can be statically set in the project makefile by defining the token USB_DEVICE_ONLY
+			 *        (for device mode) or USB_HOST_ONLY (for host mode), passing the token to the compiler 
 			 *        via the -D switch. If the mode is statically set, this parameter does not exist in the
 			 *        function prototype.
+			 *        \n\n
 			 *
 			 *  \note To reduce the FLASH requirements of the library if only fixed settings are are required,
 			 *        the options may be set statically in the same manner as the mode (see the Mode parameter of 
 			 *        this function). To statically set the USB options, pass in the USE_STATIC_OPTIONS token,
 			 *        defined to the appropriate options masks. When the options are statically set, this
 			 *        parameter does not exist in the function prototype.
+			 *        \n\n
 			 *        
 			 *  \note The mode parameter does not exist on devices where only one mode is possible, such as USB 
 			 *        AVR models which only implement the USB device mode in hardware.

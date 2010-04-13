@@ -26,6 +26,7 @@
   *  - All Class Driver Host mode demos now correctly set the board LEDs to READY once the enumeration process has completed
   *  - Added LIBUSB_FILTERDRV_COMPAT compile time option to the AVRISP programmer project to make the code compatible with Windows
   *    builds of avrdude at the expense of AVRStudio compatibility
+  *  - Removed two-step endpoint/pipe bank clear and switch sequence for smaller, faster endpoint/pipe code
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin

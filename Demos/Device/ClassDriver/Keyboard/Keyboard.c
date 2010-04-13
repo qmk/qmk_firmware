@@ -146,9 +146,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
 
 	uint8_t UsedKeyCodes = 0;
-	
-	KeyboardReport->Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
-	
+		
 	if (JoyStatus_LCL & JOY_UP)
 	  KeyboardReport->KeyCode[UsedKeyCodes++] = 0x04; // A
 	else if (JoyStatus_LCL & JOY_DOWN)
@@ -164,6 +162,9 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	  
 	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 	  KeyboardReport->KeyCode[UsedKeyCodes++] = 0x09; // F
+
+	if (UsedKeyCodes)
+	  KeyboardReport->Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
 
 	*ReportSize = sizeof(USB_KeyboardReport_Data_t);
 	return false;

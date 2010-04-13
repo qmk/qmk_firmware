@@ -405,15 +405,13 @@
 				#define Endpoint_ClearSETUP()                 MACROS{ UEINTX &= ~(1 << RXSTPI); }MACROE
 
 				#if !defined(CONTROL_ONLY_DEVICE)
-					#define Endpoint_ClearIN()                MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << TXINI)); \
-					                                                  UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
+					#define Endpoint_ClearIN()                MACROS{ UEINTX &= ~((1 << TXINI) | (1 << FIFOCON)); }MACROE
 				#else
 					#define Endpoint_ClearIN()                MACROS{ UEINTX &= ~(1 << TXINI); }MACROE
 				#endif
 
 				#if !defined(CONTROL_ONLY_DEVICE)
-					#define Endpoint_ClearOUT()               MACROS{ uint8_t Temp = UEINTX; UEINTX = (Temp & ~(1 << RXOUTI)); \
-					                                                  UEINTX = (Temp & ~(1 << FIFOCON)); }MACROE
+					#define Endpoint_ClearOUT()               MACROS{ UEINTX &= ~((1 << RXOUTI) | (1 << FIFOCON)); }MACROE
 				#else
 					#define Endpoint_ClearOUT()               MACROS{ UEINTX &= ~(1 << RXOUTI); }MACROE			
 				#endif
@@ -747,7 +745,8 @@
 			 *  The banking mode may be either \ref ENDPOINT_BANK_SINGLE or \ref ENDPOINT_BANK_DOUBLE.
 			 *
 			 *  \note The default control endpoint does not have to be manually configured, as it is automatically
-			 *  configured by the library internally.
+			 *        configured by the library internally.
+			 *        \n\n
 			 *
 			 *  \note This routine will select the specified endpoint, and the endpoint will remain selected
 			 *        once the routine completes regardless of if the endpoint configuration succeeds.
@@ -971,6 +970,7 @@
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
+			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -990,6 +990,7 @@
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
+			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -1009,8 +1010,10 @@
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
+			 *        \n\n
 			 *
 			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -1033,6 +1036,7 @@
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
+			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -1052,6 +1056,7 @@
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
+			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -1071,8 +1076,10 @@
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
+			 *        \n\n
 			 *
 			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -1095,6 +1102,7 @@
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
+			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -1114,6 +1122,7 @@
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
+			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -1136,6 +1145,7 @@
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
+			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *
@@ -1155,6 +1165,7 @@
 			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
+			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
 			 *

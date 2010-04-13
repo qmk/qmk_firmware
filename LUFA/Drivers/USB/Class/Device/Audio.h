@@ -219,6 +219,7 @@
 			 *        the correct endpoint is selected and ready for data.
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
+			 *
 			 *  \return  Signed 24-bit audio sample from the audio interface
 			 */
 			static inline int32_t Audio_Device_ReadSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_ALWAYS_INLINE;

@@ -102,6 +102,7 @@
 			 *  event has fired (if connected before the role change).
 			 *
 			 *  \note This event only exists on USB AVR models which support dual role modes.
+			 *        \n\n
 			 *
 			 *  \note This event does not exist if the USB_DEVICE_ONLY or USB_HOST_ONLY tokens have been supplied
 			 *        to the compiler (see \ref Group_USBManagement documentation).
@@ -114,6 +115,7 @@
 			 *  \param[in] ErrorCode  Error code indicating the failure reason, a value in \ref USB_Host_ErrorCodes_t
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
+			 *        \n\n
 			 *
 			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
@@ -126,6 +128,7 @@
 			 *  management task to reduce CPU consumption.
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
+			 *        \n\n
 			 *
 			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
@@ -139,6 +142,7 @@
 			 *  can be used to programmatically stop the USB management task to reduce CPU consumption.
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
+			 *        \n\n
 			 *
 			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
@@ -158,6 +162,7 @@
 			 *                           code returned by the \ref USB_Host_SendControlRequest() function.
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
+			 *        \n\n
 			 *
 			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
@@ -186,6 +191,7 @@
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
 			 *        and disconnection events may be manually fired, and the \ref USB_DeviceState global changed manually.
+			 *        \n\n
 			 *
 			 *  \note This event may fire multiple times during device enumeration on the series 2 USB AVRs with limited USB controllers
 			 *        if NO_LIMITED_CONTROLLER_CONNECT is not defined.
@@ -203,6 +209,7 @@
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
 			 *        and disconnection events may be manually fired, and the \ref USB_DeviceState global changed manually.
+			 *        \n\n
 			 *
 			 *  \note This event may fire multiple times during device enumeration on the series 2 USB AVRs with limited USB controllers
 			 *        if NO_LIMITED_CONTROLLER_CONNECT is not defined.
@@ -226,6 +233,7 @@
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
+			 *        \n\n
 			 *
 			 *  \note Requests should be handled in the same manner as described in the USB 2.0 Specification,
 			 *        or appropriate class specification. In all instances, the library has already read the
@@ -256,6 +264,7 @@
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
+			 *        \n\n
 			 *
 			 *  \note This event does not exist on the series 2 USB AVRs when the NO_LIMITED_CONTROLLER_CONNECT
 			 *        compile time token is not set - see \ref EVENT_USB_Device_Disconnect.
@@ -272,6 +281,7 @@
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
+			 *        \n\n
 			 *
 			 *  \note This event does not exist on the series 2 USB AVRs when the NO_LIMITED_CONTROLLER_CONNECT
 			 *        compile time token is not set - see \ref EVENT_USB_Device_Connect.
@@ -301,6 +311,7 @@
 			 *
 			 *  \note This event is not normally active - it must be manually enabled and disabled via the
 			 *        \ref USB_Device_EnableSOFEvents() and \ref USB_Device_DisableSOFEvents() commands after enumeration.
+			 *        \n\n
 			 *
 			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).

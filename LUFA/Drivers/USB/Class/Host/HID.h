@@ -169,6 +169,7 @@
 			 *  
 			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *        call will fail.
+			 *        \n\n
 			 *
 			 *  \note The destination buffer should be large enough to accommodate the largest report that the attached device
 			 *        can generate.
@@ -186,6 +187,7 @@
 			 *
 			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *        call will fail.
+			 *        \n\n
 			 *
 			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
 			 *
@@ -204,6 +206,7 @@
 			 *
 			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *        call will fail.
+			 *        \n\n
 			 *
 			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, the ReportID parameter is removed
 			 *        from the parameter list of this function.
@@ -256,6 +259,7 @@
 			 *
 			 *  \note Whether this function is used or not, the \ref CALLBACK_HIDParser_FilterHIDReportItem() callback from the HID
 			 *        Report Parser this function references <b>must</b> be implemented in the user code.
+			 *        \n\n
 			 *
 			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
 			 *

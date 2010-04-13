@@ -113,9 +113,18 @@ void USB_ShutDown(void)
 	USB_Detach();
 	USB_Controller_Disable();
 	
+	USB_INT_DisableAllInterrupts();
+	USB_INT_ClearAllInterrupts();
+
+	#if defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+	UHWCON &= ~(1 << UIMOD);
+	#endif
+	
 	if (!(USB_Options & USB_OPT_MANUAL_PLL))
 	  USB_PLL_Off();
 	
+	USB_REG_Off();
+
 	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 	USB_OTGPAD_Off();
 	#endif
@@ -145,11 +154,11 @@ void USB_ResetInterface(void)
 	USB_ConfigurationNumber  = 0;
 
 	#if !defined(NO_DEVICE_REMOTE_WAKEUP)
-		USB_RemoteWakeupEnabled  = false;
+	USB_RemoteWakeupEnabled  = false;
 	#endif
 	
 	#if !defined(NO_DEVICE_SELF_POWER)
-		USB_CurrentlySelfPowered = false;
+	USB_CurrentlySelfPowered = false;
 	#endif
 	#endif
 	
@@ -217,9 +226,9 @@ void USB_ResetInterface(void)
 	USB_INT_Clear(USB_INT_EORSTI);
 	USB_INT_Enable(USB_INT_EORSTI);
 
-		#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-		USB_INT_Enable(USB_INT_VBUS);
-		#endif
+	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+	USB_INT_Enable(USB_INT_VBUS);
+	#endif
 	#elif defined(USB_HOST_ONLY)
 	USB_Host_HostMode_On();
 	

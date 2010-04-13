@@ -135,6 +135,7 @@
 					 *  implicitly via the library APIs.
 					 *
 					 *  \note This global is only present if the user application can be a USB device.
+					 *        \n\n
 					 *
 					 *  \note This variable should be treated as read-only in the user application, and never manually
 					 *        changed in value except in the circumstances outlined above.

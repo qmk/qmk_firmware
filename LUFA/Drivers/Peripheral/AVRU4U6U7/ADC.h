@@ -125,13 +125,13 @@
 			#if !(defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
 				/** MUX mask define for the ADC2 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
-				 *  \note Note available on all AVR models.
+				 *  \note Not available on all AVR models.
 				 */
 				#define  ADC_CHANNEL2                (0x02 << MUX0)
 
 				/** MUX mask define for the ADC3 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
-				 *  \note Note available on all AVR models.
+				 *  \note Not available on all AVR models.
 				 */
 				#define  ADC_CHANNEL3                (0x03 << MUX0)
 			#endif
@@ -154,44 +154,44 @@
 			#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
 				/** MUX mask define for the ADC8 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
-				 *  \note Note available on all AVR models.
+				 *  \note Not available on all AVR models.
 				 */
 				#define  ADC_CHANNEL8                ((1 << 8) | (0x00 << MUX0))
 
 				/** MUX mask define for the ADC9 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
-				 *  \note Note available on all AVR models.
+				 *  \note Not available on all AVR models.
 				 */
 				#define  ADC_CHANNEL9                ((1 << 8) | (0x01 << MUX0))
 
 				/** MUX mask define for the ADC10 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
-				 *  \note Note available on all AVR models.
+				 *  \note Not available on all AVR models.
 				 */
 				#define  ADC_CHANNEL10               ((1 << 8) | (0x02 << MUX0))
 
 				/** MUX mask define for the ADC11 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
-				 *  \note Note available on all AVR models.
+				 *  \note Not available on all AVR models.
 				 */
 				#define  ADC_CHANNEL11               ((1 << 8) | (0x03 << MUX0))
 
 				/** MUX mask define for the ADC12 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
-				 *  \note Note available on all AVR models.
+				 *  \note Not available on all AVR models.
 				 */
 				#define  ADC_CHANNEL12               ((1 << 8) | (0x04 << MUX0))
 
 				/** MUX mask define for the ADC13 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
-				 *  \note Note available on all AVR models.
+				 *  \note Not available on all AVR models.
 				 */
 				#define  ADC_CHANNEL13               ((1 << 8) | (0x05 << MUX0))
 
 				/** MUX mask define for the internal temperature sensor channel of the ADC. See \ref ADC_StartReading and
 				 *  \ref ADC_GetChannelReading.
 				 *
-				 *  \note Note available on all AVR models.
+				 *  \note Not available on all AVR models.
 				 */
 				#define  ADC_INT_TEMP_SENS           ((1 << 8) | (0x07 << MUX0))
 			#endif
@@ -250,6 +250,7 @@
 			 *
 			 *  \note This must only be called for ADC channels with are connected to a physical port
 			 *        pin of the AVR, denoted by its special alternative function ADCx.
+			 *        \n\n
 			 *
 			 *  \note The channel number must be specified as an integer, and NOT a ADC_CHANNELx mask.
 			 *

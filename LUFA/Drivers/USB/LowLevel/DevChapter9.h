@@ -103,6 +103,7 @@
 				 *
 				 *  \note This variable should be treated as read-only in the user application, and never manually
 				 *        changed in value.
+				 *        \n\n
 				 *
 				 *  \note To reduce FLASH usage of the compiled applications where Remote Wakeup is not supported,
 				 *        this global and the underlying management code can be disabled by defining the 

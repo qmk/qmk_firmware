@@ -493,14 +493,11 @@
 
 				#define Pipe_IsSETUPSent()             ((UPINTX & (1 << TXSTPI)) ? true : false)
 
-				#define Pipe_ClearIN()                 MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << RXINI)); \
-				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
+				#define Pipe_ClearIN()                 MACROS{ UPINTX &= ~((1 << RXINI) | (1 << FIFOCON)); }MACROE
 
-				#define Pipe_ClearOUT()                MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << TXOUTI)); \
-				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
+				#define Pipe_ClearOUT()                MACROS{ UPINTX &= ~((1 << TXOUTI) | (1 << FIFOCON)); }MACROE
 				
-				#define Pipe_ClearSETUP()              MACROS{ uint8_t Temp = UPINTX; UPINTX = (Temp & ~(1 << TXSTPI)); \
-				                                               UPINTX = (Temp & ~(1 << FIFOCON)); }MACROE
+				#define Pipe_ClearSETUP()              MACROS{ UPINTX &= ~((1 << TXSTPI) | (1 << FIFOCON)); }MACROE
 
 				#define Pipe_IsNAKReceived()           ((UPINTX & (1 << NAKEDI)) ? true : false)
 
@@ -803,7 +800,8 @@
 			 *  \ref Pipe_SetFiniteINRequests().
 			 *
 			 *  \note The default control pipe does not have to be manually configured, as it is automatically
-			 *  configured by the library internally.
+			 *        configured by the library internally.
+			 *        \n\n
 			 *
 			 *  \note This routine will select the specified pipe, and the pipe will remain selected once the
 			 *        routine completes regardless of if the pipe configuration succeeds.
