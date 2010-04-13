@@ -43,6 +43,7 @@
 		#include <avr/power.h>
 		#include <stdio.h>
 
+		#include "Lib/ServiceDiscoveryProtocol.h"
 		#include "Lib/BluetoothStack.h"
 
 		#include "DeviceDescriptor.h"

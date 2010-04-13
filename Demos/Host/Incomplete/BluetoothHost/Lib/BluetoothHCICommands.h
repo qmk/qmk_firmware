@@ -35,15 +35,17 @@
 		#include <avr/io.h>
 		#include <string.h>
 		#include <stdbool.h>
+		#include <stdio.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 
 		#include "BluetoothStack.h"
 		#include "BluetoothClassCodes.h"
 
 	/* Macros: */
 		#define BT_HCI_DEBUG(l, s, ...)                        do { if (HCI_DEBUG_LEVEL >= l) printf_P(PSTR("(HCI) " s "\r\n"), __VA_ARGS__); } while (0)
-		#define HCI_DEBUG_LEVEL                                1
+		#define HCI_DEBUG_LEVEL                                0
 
 		#define OGF_LINK_CONTROL                               0x01
 		#define OGF_CTRLR_BASEBAND                             0x03

@@ -34,26 +34,24 @@
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
 		
-		#include "BluetoothHost.h"
-		
 	/* Macros: */
-		#define BLUETOOTH_DATA_IN_PIPE                   1
-		#define BLUETOOTH_DATA_OUT_PIPE                  2
-		#define BLUETOOTH_EVENTS_PIPE                    3
+		#define BLUETOOTH_DATA_IN_PIPE         1
+		#define BLUETOOTH_DATA_OUT_PIPE        2
+		#define BLUETOOTH_EVENTS_PIPE          3
 
-		#define BLUETOOTH_MAX_OPEN_CHANNELS              6
+		#define BLUETOOTH_MAX_OPEN_CHANNELS    6
 		
-		#define CHANNEL_PSM_SERVICEDISCOVERY             0x0001
-		#define CHANNEL_PSM_UDP                          0x0002
-		#define CHANNEL_PSM_RFCOMM                       0x0003
-		#define CHANNEL_PSM_TCP                          0x0004
-		#define CHANNEL_PSM_IP                           0x0009
-		#define CHANNEL_PSM_FTP                          0x000A
-		#define CHANNEL_PSM_HTTP                         0x000C
-		#define CHANNEL_PSM_UPNP                         0x0010
-		#define CHANNEL_PSM_HIDP                         0x0011
+		#define CHANNEL_PSM_SDP                0x0001
+		#define CHANNEL_PSM_UDP                0x0002
+		#define CHANNEL_PSM_RFCOMM             0x0003
+		#define CHANNEL_PSM_TCP                0x0004
+		#define CHANNEL_PSM_IP                 0x0009
+		#define CHANNEL_PSM_FTP                0x000A
+		#define CHANNEL_PSM_HTTP               0x000C
+		#define CHANNEL_PSM_UPNP               0x0010
+		#define CHANNEL_PSM_HIDP               0x0011
 		
-		#define MAXIMUM_CHANNEL_MTU                      255
+		#define MAXIMUM_CHANNEL_MTU            255
 		
 	/* Enums: */
 		/** Enum for the possible states for a bluetooth ACL channel. */
@@ -101,19 +99,21 @@
 		 */
 		typedef struct
 		{
-			bool                IsConnected;
-			uint16_t            ConnectionHandle;
-			uint8_t             RemoteAddress[6];
-			Bluetooth_Channel_t Channels[BLUETOOTH_MAX_OPEN_CHANNELS];
-			uint8_t             SignallingIdentifier;
+			bool                IsConnected; /**< Indicates if the stack is currently connected to a remote device - if this value is
+			                                  *   false, the remaining elements are invalid.
+											  */
+			uint16_t            ConnectionHandle; /**< Connection handle to the remote device, used internally in the stack. */
+			uint8_t             RemoteAddress[6]; /**< Bluetooth device address of the attached remote device. */
+			Bluetooth_Channel_t Channels[BLUETOOTH_MAX_OPEN_CHANNELS]; /**< Channel information structures for the connection. */
+			uint8_t             SignallingIdentifier; /**< Next Signalling Channel unique command sequence identifier. */
 		} Bluetooth_Connection_t;
 		
 		/** Local Bluetooth device information structure, for the defining of local device characteristics for the Bluetooth stack. */
 		typedef struct
 		{
-			uint32_t Class;
-			char     PINCode[16];
-			char     Name[];
+			uint32_t Class; /**< Class of the local device, a mask of DEVICE_CLASS_* masks. */
+			char     PINCode[16]; /**< Pin code required to send or receive in order to authenticate with a remote device. */
+			char     Name[]; /**< Name of the local bluetooth device, up to 248 characters. */
 		} Bluetooth_Device_t;
 	
 	/* Includes: */
@@ -127,7 +127,7 @@
 		bool                 Bluetooth_ConnectionRequest(uint8_t* RemoteAddress);
 		void                 Bluetooth_ConnectionComplete(void);
 		void                 Bluetooth_DisconnectionComplete(void);
-		void                 Bluetooth_PacketReceived(uint16_t* PacketLength, Bluetooth_Channel_t* Channel);
+		void                 Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel);
 		Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchByRemoteChannel);
 		Bluetooth_Channel_t* Bluetooth_OpenChannel(uint16_t PSM);
 		void                 Bluetooth_CloseChannel(Bluetooth_Channel_t* Channel);

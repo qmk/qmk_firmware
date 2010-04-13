@@ -113,7 +113,7 @@ int main(void)
 		/* Read in next LED colour command from the host */
 		uint8_t ColorUpdate = fgetc(&USBSerialStream);
 		
-		/* Top 3 bits select the LED, bottom three control the brightness */
+		/* Top 3 bits select the LED, bottom 5 control the brightness */
 		uint8_t Channel = (ColorUpdate & 0b11100000);
 		uint8_t Duty    = (ColorUpdate & 0b00011111);
 		

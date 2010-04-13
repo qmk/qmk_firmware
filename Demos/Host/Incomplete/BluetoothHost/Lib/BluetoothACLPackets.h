@@ -35,14 +35,16 @@
 		#include <avr/io.h>
 		#include <string.h>
 		#include <stdbool.h>
+		#include <stdio.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
+		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 		
 		#include "BluetoothStack.h"
 		
 	/* Macros: */
 		#define BT_ACL_DEBUG(l, s, ...)           do { if (ACL_DEBUG_LEVEL >= l) printf_P(PSTR("(ACL) " s "\r\n"), __VA_ARGS__); } while (0)
-		#define ACL_DEBUG_LEVEL                   2
+		#define ACL_DEBUG_LEVEL                   0
 
 		#define BT_CHANNELNUMBER_BASEOFFSET       0x0040
 
@@ -158,32 +160,16 @@
 		void    Bluetooth_ACLTask(void);
 		
 		#if defined(INCLUDE_FROM_BLUETOOTH_ACLPACKETS_C)
-			static void Bluetooth_ProcessACLPackets(void);
+			static void Bluetooth_ProcessIncommingACLPackets(void);
 
-			static inline void Bluetooth_Signal_ConnectionReq(BT_ACL_Header_t* ACLPacketHeader,
-                                                              BT_DataPacket_Header_t* DataHeader,
-                                                              BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_ConnectionResp(BT_ACL_Header_t* ACLPacketHeader,
-                                                               BT_DataPacket_Header_t* DataHeader,
-                                                               BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_EchoReq(BT_ACL_Header_t* ACLPacketHeader,
-                                                        BT_DataPacket_Header_t* DataHeader,
-                                                        BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_ConfigurationReq(BT_ACL_Header_t* ACLPacketHeader,
-                                                                 BT_DataPacket_Header_t* DataHeader,
-                                                                 BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_ConfigurationResp(BT_ACL_Header_t* ACLPacketHeader,
-                                                                  BT_DataPacket_Header_t* DataHeader,
-                                                                  BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_DisconnectionReq(BT_ACL_Header_t* ACLPacketHeader,
-                                                                 BT_DataPacket_Header_t* DataHeader,
-                                                                 BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_DisconnectionResp(BT_ACL_Header_t* ACLPacketHeader,
-                                                                  BT_DataPacket_Header_t* DataHeader,
-                                                                  BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_InformationReq(BT_ACL_Header_t* ACLPacketHeader,
-                                                               BT_DataPacket_Header_t* DataHeader,
-                                                               BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_ConnectionReq(BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_ConnectionResp(BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_ConfigurationReq(BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_ConfigurationResp(BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_DisconnectionReq(BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_DisconnectionResp(BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_EchoReq(BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_InformationReq(BT_Signal_Header_t* SignalCommandHeader);
 		#endif
 		
 #endif

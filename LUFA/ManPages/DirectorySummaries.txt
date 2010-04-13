@@ -155,7 +155,7 @@
  *  Board directory should be included instead.
  *
  *  \dir LUFA/Drivers/Board/JMDBU2
- *  \briefJM-DB-U2 board hardware driver files.
+ *  \brief JM-DB-U2 board hardware driver files.
  *  
  *  This folder contains drivers for hardware on the JM-DB-U2 boards (http://u2.mattair.net/). The header files in this folder
  *  should not be included directly in user applications; the similarly named dispatch header files located in the parent Board

@@ -241,18 +241,25 @@ void Bluetooth_DisconnectionComplete(void)
 /** Bluetooth stack callback event for a non-signal ACL packet reception. This callback fires once a connection
  *  to a remote Bluetooth device has been made, and the remote device has sent a non-signalling ACL packet.
  *
- *  \param PacketLength  Length of the packet data, in bytes - this must be decremented as data is read
- *  \param Channel       Bluetooth ACL data channel information structure for the packet's destination channel
+ *  \param Data    Pointer to a buffer where the received data is stored
+ *  \param DataLen Length of the packet data, in bytes
+ *  \param Channel Bluetooth ACL data channel information structure for the packet's destination channel
  */
-void Bluetooth_PacketReceived(uint16_t* PacketLength, Bluetooth_Channel_t* Channel)
+void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel)
 {
-	uint8_t DataPayload[*PacketLength];
-
-	Pipe_Read_Stream_LE(&DataPayload, *PacketLength);
-	*PacketLength = 0;
-
-	printf_P(PSTR("Packet Received (Channel 0x%04X, PSM: 0x%02x):\r\n"), Channel->LocalNumber, Channel->PSM);
-	for (uint16_t Byte = 0; Byte < sizeof(DataPayload); Byte++)
-	  printf_P(PSTR("0x%02X "), DataPayload[Byte]);
-	puts_P(PSTR("\r\n"));
+	switch (Channel->PSM)
+	{
+		case CHANNEL_PSM_SDP:
+			/* Service Discovery Protocol packet */
+			ServiceDiscovery_ProcessPacket(Data, DataLen, Channel);
+			break;
+		default:
+			/* Unknown Protocol packet */
+			printf_P(PSTR("Packet Received (Channel 0x%04X, PSM: 0x%02x):\r\n"), Channel->LocalNumber, Channel->PSM);
+			for (uint16_t Byte = 0; Byte < DataLen; Byte++)
+			  printf_P(PSTR("0x%02X "), ((uint8_t*)Data)[Byte]);
+			puts_P(PSTR("\r\n"));
+			
+			break;
+	}
 }
