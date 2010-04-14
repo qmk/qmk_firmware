@@ -41,6 +41,7 @@
   *  - Fixed Still Image Host class driver not resetting the transaction ID when a new session is opened, fixed driver not sending
   *    a valid session ID to the device
   *  - Removed invalid dfu and flip related targets from the bootloaders - bootloaders can only be replaced with an external programmer
+  *  - Fixed Set/Clear Feature requests directed to a non-configured endpoint not returning a stall to the host
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *

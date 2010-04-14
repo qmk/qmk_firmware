@@ -60,7 +60,7 @@
 
 
 # MCU name
-MCU = at90usb646
+MCU = at90usb1287
 
 
 # Target board (see library "Board Types" documentation, NONE for projects not requiring

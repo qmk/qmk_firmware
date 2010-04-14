@@ -323,7 +323,7 @@ static void USB_Device_GetStatus(void)
 #endif
 #if !defined(CONTROL_ONLY_DEVICE)
 		case (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_ENDPOINT):
-			Endpoint_SelectEndpoint(USB_ControlRequest.wIndex & 0xFF);
+			Endpoint_SelectEndpoint((uint8_t)USB_ControlRequest.wIndex & ENDPOINT_EPNUM_MASK);
 
 			CurrentStatus = Endpoint_IsStalled();
 
@@ -344,7 +344,7 @@ static void USB_Device_GetStatus(void)
 }
 
 static void USB_Device_ClearSetFeature(void)
-{	
+{
 	switch (USB_ControlRequest.bmRequestType & CONTROL_REQTYPE_RECIPIENT)
 	{
 #if !defined(NO_DEVICE_REMOTE_WAKEUP)			
@@ -367,18 +367,18 @@ static void USB_Device_ClearSetFeature(void)
 
 				Endpoint_SelectEndpoint(EndpointIndex);
 
-				if (Endpoint_IsEnabled())
-				{				
-					if (USB_ControlRequest.bRequest == REQ_SetFeature)
-					{
-						Endpoint_StallTransaction();
-					}
-					else
-					{
-						Endpoint_ClearStall();
-						Endpoint_ResetFIFO(EndpointIndex);
-						Endpoint_ResetDataToggle();
-					}					
+				if (!(Endpoint_IsEnabled()))
+				  return;
+
+				if (USB_ControlRequest.bRequest == REQ_SetFeature)
+				{
+					Endpoint_StallTransaction();
+				}
+				else
+				{
+					Endpoint_ClearStall();
+					Endpoint_ResetFIFO(EndpointIndex);
+					Endpoint_ResetDataToggle();
 				}
 			}
 			
