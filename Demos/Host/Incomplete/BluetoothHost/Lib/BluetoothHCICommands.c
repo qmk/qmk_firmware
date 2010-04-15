@@ -311,9 +311,9 @@ void Bluetooth_HCITask(void)
 
 /** Sends a Bluetooth HCI control command to the attached Bluetooth device.
  *
- *  \param HCICommandHeader  HCI command header to send to the attached device
- *  \param Parameters        Pointer to the source of the control parameters (if any)
- *  \param ParameterLength   Length of the parameters to send in bytes
+ *  \param[in] HCICommandHeader  HCI command header to send to the attached device
+ *  \param[in] Parameters        Pointer to the source of the control parameters (if any)
+ *  \param[in] ParameterLength   Length of the parameters to send in bytes
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum.
  */

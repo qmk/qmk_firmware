@@ -31,8 +31,8 @@
  *  #define MAGIC_BOOT_KEY            0xDC42ACCA
  *  #define BOOTLOADER_START_ADDRESS  ({FLASH_SIZE_BYTES} - {BOOTLOADER_SEC_SIZE_BYTES})
  *  
- *  int Bootloader_Jump_Check(void) ATTR_INIT_SECTION(3);
- *  int Bootloader_Jump_Check(void)
+ *  void Bootloader_Jump_Check(void) ATTR_INIT_SECTION(3);
+ *  void Bootloader_Jump_Check(void)
  *  {
  *      // If the bootloader key is correct, clear it and jump to the bootloader
  *      if (Boot_Key == MAGIC_BOOT_KEY)

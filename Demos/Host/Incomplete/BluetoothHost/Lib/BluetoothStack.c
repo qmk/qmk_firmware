@@ -67,9 +67,9 @@ void Bluetooth_Stack_USBTask(void)
 
 /** Retrieves the channel information structure with the given local or remote channel number from the channel list.
  *
- *  \param ChannelNumber          Channel number to search for in the channel list
- *  \param SearchByRemoteChannel  Indicated whether to search for a channel information structure by the given remote channel
- *                                or local channel number
+ *  \param[in] ChannelNumber          Channel number to search for in the channel list
+ *  \param[in] SearchByRemoteChannel  Indicated whether to search for a channel information structure by the given remote channel
+ *                                    or local channel number
  *
  *  \return Pointer to the matching channel information structure in the channel table if found, NULL otherwise
  */

@@ -15,7 +15,7 @@
  *  donations are <i>greatly</i> appreciated.
  *
  *  Note that commercial entities can remove the attribution portion of the LUFA licence by a one-time fee - see
- *  \ref Page_Licence for more details (<b>Note: Please do NOT pay this in advance through the donation link below -
+ *  \ref Page_LicenceInfo for more details (<b>Note: Please do NOT pay this in advance through the donation link below -
  *  contact author for payment details.</b>).
  *
  *  \image html "http://www.pledgie.com/campaigns/6927.png?skin_name=chrome"

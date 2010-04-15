@@ -193,10 +193,10 @@ static void Bluetooth_ProcessIncommingACLPackets(void)
 
 /** Sends a packet to the remote device on the specified channel.
  *
- * \param Data     Pointer to a buffer where the data is to be sourced from
- * \param DataLen  Length of the data to send
- * \param Channel  Channel information structure containing the destination channel's information, NULL to send
- *                 to the remote device's signalling channel
+ * \param[in] Data     Pointer to a buffer where the data is to be sourced from
+ * \param[in] DataLen  Length of the data to send
+ * \param[in] Channel  Channel information structure containing the destination channel's information, NULL to send
+ *                     to the remote device's signalling channel
  *
  * \return A value from the \ref BT_SendPacket_ErrorCodes_t enum
  */
@@ -247,7 +247,7 @@ uint8_t Bluetooth_SendPacket(void* Data, uint16_t DataLen, Bluetooth_Channel_t* 
  *        repeatedly called. The returned channel is unusable by the user application until its State
  *        element has progressed to the Open state.
  *
- *  \param PSM  PSM of the service that the channel is to be opened for
+ *  \param[in] PSM  PSM of the service that the channel is to be opened for
  *
  *  \return Pointer to the channel information structure of the opened channel, or NULL if no free channels
  */
@@ -311,7 +311,7 @@ Bluetooth_Channel_t* Bluetooth_OpenChannel(uint16_t PSM)
  *        returned channel is unusable by the user application upon return however the channel is not completely
  *        closed until its State element has progressed to the Closed state.
  *
- * \param Channel  Channel information structure of the channel to close
+ * \param[in,out] Channel  Channel information structure of the channel to close
  */
 void Bluetooth_CloseChannel(Bluetooth_Channel_t* Channel)
 {
@@ -346,7 +346,7 @@ void Bluetooth_CloseChannel(Bluetooth_Channel_t* Channel)
 
 /** Internal Bluetooth stack Signal Command processing routine for a Connection Request command.
  *
- *  \param  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
+ *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
 static inline void Bluetooth_Signal_ConnectionReq(BT_Signal_Header_t* SignalCommandHeader)
 {
@@ -419,7 +419,7 @@ static inline void Bluetooth_Signal_ConnectionReq(BT_Signal_Header_t* SignalComm
 
 /** Internal Bluetooth stack Signal Command processing routine for a Connection Response command.
  *
- *  \param  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
+ *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
 static inline void Bluetooth_Signal_ConnectionResp(BT_Signal_Header_t* SignalCommandHeader)
 {
@@ -450,7 +450,7 @@ static inline void Bluetooth_Signal_ConnectionResp(BT_Signal_Header_t* SignalCom
 
 /** Internal Bluetooth stack Signal Command processing routine for a Configuration Request command.
  *
- *  \param  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
+ *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
 static inline void Bluetooth_Signal_ConfigurationReq(BT_Signal_Header_t* SignalCommandHeader)
 {
@@ -537,7 +537,7 @@ static inline void Bluetooth_Signal_ConfigurationReq(BT_Signal_Header_t* SignalC
 
 /** Internal Bluetooth stack Signal Command processing routine for a Configuration Response command.
  *
- *  \param  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
+ *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
 static inline void Bluetooth_Signal_ConfigurationResp(BT_Signal_Header_t* SignalCommandHeader)
 {
@@ -581,7 +581,7 @@ static inline void Bluetooth_Signal_ConfigurationResp(BT_Signal_Header_t* Signal
 
 /** Internal Bluetooth stack Signal Command processing routine for a Disconnection Request command.
  *
- *  \param  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
+ *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
 static inline void Bluetooth_Signal_DisconnectionReq(BT_Signal_Header_t* SignalCommandHeader)
 {
@@ -627,7 +627,7 @@ static inline void Bluetooth_Signal_DisconnectionReq(BT_Signal_Header_t* SignalC
 
 /** Internal Bluetooth stack Signal Command processing routine for a Disconnection Response command.
  *
- *  \param  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
+ *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
 static inline void Bluetooth_Signal_DisconnectionResp(BT_Signal_Header_t* SignalCommandHeader)
 {
@@ -652,7 +652,7 @@ static inline void Bluetooth_Signal_DisconnectionResp(BT_Signal_Header_t* Signal
 
 /** Internal Bluetooth stack Signal Command processing routine for an Echo Request command.
  *
- *  \param  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
+ *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
 static inline void Bluetooth_Signal_EchoReq(BT_Signal_Header_t* SignalCommandHeader)
 {
@@ -678,7 +678,7 @@ static inline void Bluetooth_Signal_EchoReq(BT_Signal_Header_t* SignalCommandHea
 
 /** Internal Bluetooth stack Signal Command processing routine for an Information Request command.
  *
- *  \param  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
+ *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
 static inline void Bluetooth_Signal_InformationReq(BT_Signal_Header_t* SignalCommandHeader)
 {

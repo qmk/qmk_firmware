@@ -122,12 +122,16 @@
 			#endif
 
 			/** Places the function in one of the initialization sections, which execute before the main function
-			 *  of the application. The init function number can be specified as "x", as an integer. Refer to the
-			 *  avr-libc manual for more information on the initialization sections.
+			 *  of the application. Refer to the avr-libc manual for more information on the initialization sections.
+			 *
+			 *  \param[in] x  Initialization section number where the function should be placed
 			 */
 			#define ATTR_INIT_SECTION(x)        __attribute__ ((naked, section (".init" #x )))
 			
-			/** Marks a function as an alias for another function of name "x". */
+			/** Marks a function as an alias for another function.
+			 *
+			 *  \param[in] x  Name of the function which the given function name should alias
+			 */
 			#define ATTR_ALIAS(x)               __attribute__ ((alias( #x )))
 #endif
 

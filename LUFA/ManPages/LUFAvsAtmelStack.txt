@@ -12,7 +12,7 @@
  *  official Atmel USB stack. Below are just some of the advantages to choosing LUFA over the official stack.
  *
  *  - <b>Licensing:</b>
- *    LUFA is released under a very permissive MIT license (see \ref Page_Licence), while the Atmel stack carries several
+ *    LUFA is released under a very permissive MIT license (see \ref Page_LicenceInfo), while the Atmel stack carries several
  *    restrictions as to how and where it can be used. LUFA's licensing should be suitable for both Commercial and Non-Commercial
  *    entities alike.
  *
