@@ -12,6 +12,7 @@
   *  - Added incomplete MIDIToneGenerator project
   *  - Added new Relay Controller Board project (thanks to OBinou)
   *  - Added board hardware driver support for the Teensy, USBTINY MKII, Benito and JM-DB-U2 lines of third party USB AVR boards
+  *  - Added new ATTR_NO_INIT variable attribute
   *
   *  <b>Changed:</b>
   *  - AVRISP programmer project now has a more robust timeout system, allowing for an increase of the software USART speed

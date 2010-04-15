@@ -130,7 +130,7 @@ static uint8_t DComp_NextMSInterfaceEndpoint(void* const CurrentDescriptor)
 }
 
 static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, MS_CommandBlockWrapper_t* const SCSICommandBlock,
-                                   void* BufferPtr)
+                                   const void* const BufferPtr)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
@@ -152,7 +152,7 @@ static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInf
 	Pipe_Freeze();
 
 	if ((BufferPtr != NULL) &&
-	    ((ErrorCode = MS_Host_SendReceiveData(MSInterfaceInfo, SCSICommandBlock, BufferPtr)) != PIPE_RWSTREAM_NoError))
+	    ((ErrorCode = MS_Host_SendReceiveData(MSInterfaceInfo, SCSICommandBlock, (void*)BufferPtr)) != PIPE_RWSTREAM_NoError))
 	{
 		Pipe_Freeze();
 		return ErrorCode;
@@ -557,7 +557,7 @@ uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 }
 
 uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, const uint8_t LUNIndex, const uint32_t BlockAddress,
-                                  const uint8_t Blocks, const uint16_t BlockSize, void* BlockBuffer)
+                                  const uint8_t Blocks, const uint16_t BlockSize, const void* BlockBuffer)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;

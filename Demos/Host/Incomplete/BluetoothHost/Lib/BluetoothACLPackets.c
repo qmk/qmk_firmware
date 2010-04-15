@@ -694,7 +694,7 @@ static inline void Bluetooth_Signal_InformationReq(BT_Signal_Header_t* SignalCom
 
 	struct
 	{
-		BT_Signal_Header_t SignalCommandHeader;
+		BT_Signal_Header_t          SignalCommandHeader;
 		BT_Signal_InformationResp_t InformationResponse;
 		
 		uint8_t Data[4];

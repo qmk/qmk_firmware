@@ -32,7 +32,7 @@
  *  \brief Common library convenience macros and functions.
  *
  *  This file contains macros which are common to all library elements, and which may be useful in user code. It
- *  also includes other common headers, such as Atomic.h, FunctionAttributes.h and BoardTypes.h.
+ *  also includes other common headers, such as Atomic.h, Attributes.h and BoardTypes.h.
  */
  
 /** @defgroup Group_Common Common Utility Headers - LUFA/Drivers/Common/Common.h
@@ -59,7 +59,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 	
-		#include "FunctionAttributes.h"
+		#include "Attributes.h"
 		#include "BoardTypes.h"
 
 	/* Public Interface - May be used in end-application: */

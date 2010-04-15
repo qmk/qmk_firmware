@@ -29,11 +29,12 @@
 */
 
 /** \file
- *  \brief AVR-GCC special function attribute macros.
+ *  \brief AVR-GCC special function/variable attribute macros.
  *
- *  This file contains macros for applying GCC specific attributes to functions to control various optimizer
- *  and code generation features of the compiler. Attributes may be placed in the function prototype in any
- *  order, and multiple attributes can be specified for a single function via a space separated list.
+ *  This file contains macros for applying GCC specific attributes to functions and variables to control various
+ *  optimizer and code generation features of the compiler. Attributes may be placed in the function prototype 
+ *  or variable declaration in any order, and multiple attributes can be specified for a single item via a space
+ *  separated list.
  *
  *  On incompatible versions of GCC or on other compilers, these macros evaluate to nothing unless they are
  *  critical to the code's function and thus must throw a compiler error when used.
@@ -43,9 +44,10 @@
  */
  
 /** \ingroup Group_Common
- *  @defgroup Group_FuncAttr Function Attributes
+ *  @defgroup Group_GCCAttr Function/Variable Attributes
  *
- *  Macros for easy access GCC function attributes, which can be applied to function prototypes.
+ *  Macros for easy access GCC function and variable attributes, which can be applied to function prototypes or
+ *  variable attributes.
  *
  *  @{
  */
@@ -110,6 +112,13 @@
 				 *  identical name (in which case the weak reference is discarded at link time).
 				 */
 				#define ATTR_WEAK                   __attribute__ ((weak))
+				
+				/** Forces the compiler to not automatically zero the given global variable on startup, so that the
+				 *  current RAM contents is retained. Under most conditions this value will be random due to the
+				 *  behaviour of volatile memory once power is removed, but may be used in some specific circumstances,
+				 *  like the passing of values back after a system watchdog reset.
+				 */
+				#define ATTR_NO_INIT                __attribute__ ((section (".noinit")))
 			#endif
 
 			/** Places the function in one of the initialization sections, which execute before the main function

@@ -63,6 +63,19 @@
 		} SDP_PDUHeader_t;
 		
 	/* Function Prototypes: */
-		void ServiceDiscovery_ProcessPacket(void* Data, uint16_t Length, Bluetooth_Channel_t* Channel);
+		void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel);
+
+		#if defined(INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C)
+			static void ServiceDiscovery_ProcessServiceSearch(SDP_PDUHeader_t* SDPHeader);
+			static void ServiceDiscovery_ProcessServiceAttribute(SDP_PDUHeader_t* SDPHeader);
+			static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPHeader);
+			
+			static inline uint16_t ServiceDiscovery_Read16BitParameter(void* AttributeHeader)
+			{
+				return *((uint16_t*)AttributeHeader++);
+			}
+
+			static uint32_t ServiceDiscovery_GetDataElementSize(void* AttributeHeader);
+		#endif
 
 #endif

@@ -277,7 +277,7 @@
 			 */
 			uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, const uint8_t LUNIndex,
 			                                  const uint32_t BlockAddress, const uint8_t Blocks, const uint16_t BlockSize,
-			                                  void* BlockBuffer) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(6);
+			                                  const void* BlockBuffer) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(6);
 
 		/* Inline Functions: */
 			/** General management task for a given Mass Storage host class interface, required for the correct operation of
@@ -320,7 +320,7 @@
 				
 				static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 				                                   MS_CommandBlockWrapper_t* const SCSICommandBlock,
-				                                   void* BufferPtr);
+				                                   const void* const BufferPtr);
 				static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo);
 				static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, 
                                                        MS_CommandBlockWrapper_t* const SCSICommandBlock, void* BufferPtr);
