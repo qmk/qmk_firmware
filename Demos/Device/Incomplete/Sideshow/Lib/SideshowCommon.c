@@ -30,14 +30,14 @@
 
 #include "SideshowCommon.h"
 
-uint16_t SideShow_Read_Unicode_String(void* UnicodeString, uint16_t MaxBytes)
+uint16_t SideShow_Read_Unicode_String(void* const UnicodeString, const uint16_t MaxBytes)
 {
-	Unicode_String_t* UnicodeStruct = (Unicode_String_t*)UnicodeString;
-	uint32_t          UnicodeCharsToRead;
+	Unicode_String_t* const UnicodeStruct = (Unicode_String_t*)UnicodeString;
+	uint32_t                UnicodeCharsToRead;
 	
 	Endpoint_Read_Stream_LE(&UnicodeCharsToRead, sizeof(uint32_t));
 	
-	int               UnicodeData[UnicodeCharsToRead];
+	int UnicodeData[UnicodeCharsToRead];
 
 	UnicodeStruct->LengthInBytes = (UnicodeCharsToRead << 1);
 
@@ -51,9 +51,9 @@ uint16_t SideShow_Read_Unicode_String(void* UnicodeString, uint16_t MaxBytes)
 	return ((UnicodeCharsToRead << 1) + sizeof(uint32_t));
 }
 
-void SideShow_Write_Unicode_String(void* UnicodeString)
+void SideShow_Write_Unicode_String(void* const UnicodeString)
 {
-	Unicode_String_t* UnicodeStruct = (Unicode_String_t*)UnicodeString;
+	Unicode_String_t* const UnicodeStruct = (Unicode_String_t*)UnicodeString;
 
 	uint32_t StringSizeInCharacters = (UnicodeStruct->LengthInBytes >> 1);
 

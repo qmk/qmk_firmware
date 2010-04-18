@@ -176,7 +176,7 @@ void DHCPClientApp_Callback(void)
  *
  *  \return Size in bytes of the created DHCP packet
  */
-static uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageType, uip_udp_appstate_t* AppState)
+static uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* const DHCPHeader, const uint8_t DHCPMessageType, uip_udp_appstate_t* AppState)
 {
 	/* Erase existing packet data so that we start will all 0x00 DHCP header data */
  	memset(DHCPHeader, 0, sizeof(DHCP_Header_t));
@@ -239,7 +239,7 @@ static uint8_t DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, 
  *
  *  \return Boolean true if the option was found in the DHCP packet's options list, false otherwise
  */
-static bool DHCPClientApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination)
+static bool DHCPClientApp_GetOption(const uint8_t* DHCPOptionList, const uint8_t Option, void* const Destination)
 {
 	/* Look through the incoming DHCP packet's options list for the requested option */
 	while (*DHCPOptionList != DHCP_OPTION_END)

@@ -146,20 +146,20 @@
 		void Sideshow_ProcessCommandPacket(void);
 		
 		#if defined(INCLUDE_FROM_SIDESHOWCOMMANDS_H)
-			static void SideShow_Ping(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_Sync(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_GetCurrentUser(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_SetCurrentUser(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_GetCapabilities(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_GetString(SideShow_PacketHeader_t* PacketHeader, void* UnicodeStruct);
-			static void SideShow_GetApplicationOrder(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_GetSupportedEndpoints(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_AddApplication(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_DeleteApplication(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_DeleteAllApplications(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_AddContent(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_DeleteContent(SideShow_PacketHeader_t* PacketHeader);
-			static void SideShow_DeleteAllContent(SideShow_PacketHeader_t* PacketHeader);
+			static void SideShow_Ping(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_Sync(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_GetCurrentUser(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_SetCurrentUser(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_GetCapabilities(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_GetString(SideShow_PacketHeader_t* const PacketHeader, void* const UnicodeStruct);
+			static void SideShow_GetApplicationOrder(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_GetSupportedEndpoints(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_AddApplication(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_DeleteApplication(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_DeleteAllApplications(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_AddContent(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_DeleteContent(SideShow_PacketHeader_t* const PacketHeader);
+			static void SideShow_DeleteAllContent(SideShow_PacketHeader_t* const PacketHeader);
 		#endif
 
 #endif

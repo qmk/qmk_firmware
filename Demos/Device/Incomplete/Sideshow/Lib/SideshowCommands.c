@@ -118,7 +118,7 @@ void Sideshow_ProcessCommandPacket(void)
 	}
 }
 
-static void SideShow_Ping(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_Ping(SideShow_PacketHeader_t* const PacketHeader)
 {
 	Endpoint_ClearOUT();
 
@@ -127,7 +127,7 @@ static void SideShow_Ping(SideShow_PacketHeader_t* PacketHeader)
 	Endpoint_ClearIN();
 }
 
-static void SideShow_Sync(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_Sync(SideShow_PacketHeader_t* const PacketHeader)
 {
 	GUID_t ProtocolGUID;
 
@@ -143,7 +143,7 @@ static void SideShow_Sync(SideShow_PacketHeader_t* PacketHeader)
 	Endpoint_ClearIN();
 }
 
-static void SideShow_GetCurrentUser(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_GetCurrentUser(SideShow_PacketHeader_t* const PacketHeader)
 {
 	Endpoint_ClearOUT();
 
@@ -155,7 +155,7 @@ static void SideShow_GetCurrentUser(SideShow_PacketHeader_t* PacketHeader)
 	Endpoint_ClearIN();
 }
 
-static void SideShow_SetCurrentUser(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_SetCurrentUser(SideShow_PacketHeader_t* const PacketHeader)
 {
 	SideShow_Read_Unicode_String(&UserSID, sizeof(UserSID.UnicodeString));
 	Endpoint_ClearOUT();
@@ -167,7 +167,7 @@ static void SideShow_SetCurrentUser(SideShow_PacketHeader_t* PacketHeader)
 	Endpoint_ClearIN();
 }
 
-static void SideShow_GetCapabilities(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_GetCapabilities(SideShow_PacketHeader_t* const PacketHeader)
 {
 	SideShow_PropertyKey_t  Property;
 	SideShow_PropertyData_t PropertyData;
@@ -280,7 +280,7 @@ static void SideShow_GetCapabilities(SideShow_PacketHeader_t* PacketHeader)
 	return;
 }
 
-static void SideShow_GetString(SideShow_PacketHeader_t* PacketHeader, void* UnicodeStruct)
+static void SideShow_GetString(SideShow_PacketHeader_t* const PacketHeader, void* const UnicodeStruct)
 {
 	Endpoint_ClearOUT();
 
@@ -293,7 +293,7 @@ static void SideShow_GetString(SideShow_PacketHeader_t* PacketHeader, void* Unic
 	Endpoint_ClearIN();
 }
 
-static void SideShow_GetApplicationOrder(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_GetApplicationOrder(SideShow_PacketHeader_t* const PacketHeader)
 {
 	uint8_t  TotalApplications = 0;
 		   
@@ -321,7 +321,7 @@ static void SideShow_GetApplicationOrder(SideShow_PacketHeader_t* PacketHeader)
 	Endpoint_ClearIN();
 }
 
-static void SideShow_GetSupportedEndpoints(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_GetSupportedEndpoints(SideShow_PacketHeader_t* const PacketHeader)
 {
 	GUID_t SupportedEndpointGUID = (GUID_t){Chunks: SIMPLE_CONTENT_FORMAT_GUID};
 
@@ -336,7 +336,7 @@ static void SideShow_GetSupportedEndpoints(SideShow_PacketHeader_t* PacketHeader
 	Endpoint_ClearIN();
 }
 
-static void SideShow_AddApplication(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_AddApplication(SideShow_PacketHeader_t* const PacketHeader)
 {
 	SideShow_Application_t* CurrApp;
 	GUID_t                  ApplicationID;
@@ -381,7 +381,7 @@ static void SideShow_AddApplication(SideShow_PacketHeader_t* PacketHeader)
 	Endpoint_ClearIN();
 }
 
-static void SideShow_DeleteApplication(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_DeleteApplication(SideShow_PacketHeader_t* const PacketHeader)
 {
 	GUID_t ApplicationGUID;
 	
@@ -402,7 +402,7 @@ static void SideShow_DeleteApplication(SideShow_PacketHeader_t* PacketHeader)
 	Endpoint_ClearIN();
 }
 
-static void SideShow_DeleteAllApplications(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_DeleteAllApplications(SideShow_PacketHeader_t* const PacketHeader)
 {
 	Endpoint_ClearOUT();
 	
@@ -414,7 +414,7 @@ static void SideShow_DeleteAllApplications(SideShow_PacketHeader_t* PacketHeader
 	Endpoint_ClearIN();
 }
 
-static void SideShow_AddContent(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_AddContent(SideShow_PacketHeader_t* const PacketHeader)
 {
 	GUID_t ApplicationID;
 	GUID_t EndpointID;
@@ -444,7 +444,7 @@ static void SideShow_AddContent(SideShow_PacketHeader_t* PacketHeader)
 	Endpoint_ClearIN();
 }
 
-static void SideShow_DeleteContent(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_DeleteContent(SideShow_PacketHeader_t* const PacketHeader)
 {
 	GUID_t   ApplicationID;
 	GUID_t   EndpointID;
@@ -469,7 +469,7 @@ static void SideShow_DeleteContent(SideShow_PacketHeader_t* PacketHeader)
 	Endpoint_ClearIN();
 }
 
-static void SideShow_DeleteAllContent(SideShow_PacketHeader_t* PacketHeader)
+static void SideShow_DeleteAllContent(SideShow_PacketHeader_t* const PacketHeader)
 {
 	GUID_t ApplicationID;
 	GUID_t EndpointID;

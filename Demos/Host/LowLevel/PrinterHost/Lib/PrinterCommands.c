@@ -44,7 +44,7 @@
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
-uint8_t Printer_SendData(void* PrinterCommands, uint16_t CommandSize)
+uint8_t Printer_SendData(const void* const PrinterCommands, const uint16_t CommandSize)
 {
 	uint8_t ErrorCode;
 
@@ -74,7 +74,7 @@ uint8_t Printer_SendData(void* PrinterCommands, uint16_t CommandSize)
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
-uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize)
+uint8_t Printer_GetDeviceID(char* DeviceIDString, const uint16_t BufferSize)
 {
 	uint8_t  ErrorCode = HOST_SENDCONTROL_Successful;
 	uint16_t DeviceIDStringLength = 0;
@@ -124,7 +124,7 @@ uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize)
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
-uint8_t Printer_GetPortStatus(uint8_t* PortStatus)
+uint8_t Printer_GetPortStatus(uint8_t* const PortStatus)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{

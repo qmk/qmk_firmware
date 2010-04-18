@@ -124,15 +124,15 @@
 		void Bluetooth_Stack_Init(void);
 		void Bluetooth_Stack_USBTask(void);
 
-		bool                 Bluetooth_ConnectionRequest(uint8_t* RemoteAddress);
+		bool                 Bluetooth_ConnectionRequest(const uint8_t* RemoteAddress);
 		void                 Bluetooth_ConnectionComplete(void);
 		void                 Bluetooth_DisconnectionComplete(void);
-		bool                 Bluetooth_ChannelConnectionRequest(uint16_t PSM);
-		void                 Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel);
-		Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchByRemoteChannel);
-		Bluetooth_Channel_t* Bluetooth_OpenChannel(uint16_t PSM);
-		void                 Bluetooth_CloseChannel(Bluetooth_Channel_t* Channel);
-		uint8_t              Bluetooth_SendPacket(void* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel);
+		bool                 Bluetooth_ChannelConnectionRequest(const uint16_t PSM);
+		void                 Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const Channel);
+		Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t ChannelNumber, const bool SearchByRemoteChannel);
+		Bluetooth_Channel_t* Bluetooth_OpenChannel(const uint16_t PSM);
+		void                 Bluetooth_CloseChannel(Bluetooth_Channel_t* const Channel);
+		uint8_t              Bluetooth_SendPacket(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const Channel);
 
 	/* External Variables: */
 		extern Bluetooth_Device_t     Bluetooth_DeviceConfiguration;

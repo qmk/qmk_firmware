@@ -47,7 +47,7 @@ uint32_t RequestID = 0;
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
-uint8_t RNDIS_SendEncapsulatedCommand(void* Buffer, uint16_t Length)
+uint8_t RNDIS_SendEncapsulatedCommand(void* const Buffer, const uint16_t Length)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -71,7 +71,7 @@ uint8_t RNDIS_SendEncapsulatedCommand(void* Buffer, uint16_t Length)
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum
  */
-uint8_t RNDIS_GetEncapsulatedResponse(void* Buffer, uint16_t Length)
+uint8_t RNDIS_GetEncapsulatedResponse(void* const Buffer, const uint16_t Length)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -128,7 +128,7 @@ uint8_t RNDIS_SendKeepAlive(void)
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
  *          logical command failure
  */
-uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPacketSize)
+uint8_t RNDIS_InitializeDevice(const uint16_t HostMaxPacketSize, uint16_t* const DeviceMaxPacketSize)
 {
 	uint8_t ErrorCode;
 
@@ -172,7 +172,7 @@ uint8_t RNDIS_InitializeDevice(uint16_t HostMaxPacketSize, uint16_t* DeviceMaxPa
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
  *          logical command failure
  */
-uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length)
+uint8_t RNDIS_SetRNDISProperty(const uint32_t Oid, void* Buffer, const uint16_t Length)
 {
 	uint8_t ErrorCode;
 
@@ -222,7 +222,7 @@ uint8_t RNDIS_SetRNDISProperty(uint32_t Oid, void* Buffer, uint16_t Length)
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
  *          logical command failure
  */
-uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength)
+uint8_t RNDIS_QueryRNDISProperty(const uint32_t Oid, void* Buffer, const uint16_t MaxLength)
 {
 	uint8_t ErrorCode;
 
@@ -270,7 +270,7 @@ uint8_t RNDIS_QueryRNDISProperty(uint32_t Oid, void* Buffer, uint16_t MaxLength)
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
-uint8_t RNDIS_GetPacketLength(uint16_t* PacketLength)
+uint8_t RNDIS_GetPacketLength(uint16_t* const PacketLength)
 {
 	uint8_t ErrorCode;
 

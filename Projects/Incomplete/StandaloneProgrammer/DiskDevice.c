@@ -89,7 +89,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface configuration structure being referenced
  */
-bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
+bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	bool CommandSuccess;
 	

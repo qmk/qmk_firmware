@@ -31,7 +31,7 @@
 #define  INCLUDE_FROM_SIDESHOWCONTENT_C
 #include "SideshowContent.h"
 
-bool SideShow_AddSimpleContent(SideShow_PacketHeader_t* PacketHeader, SideShow_Application_t* Application)
+bool SideShow_AddSimpleContent(SideShow_PacketHeader_t* const PacketHeader, SideShow_Application_t* const Application)
 {
 	uint32_t ContentSize;
 	uint32_t ContentID;

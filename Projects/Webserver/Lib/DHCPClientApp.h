@@ -160,10 +160,10 @@
 		void DHCPClientApp_Callback(void);
 		
 		#if defined(INCLUDE_FROM_DHCPCLIENTAPP_C)
-			static uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* DHCPHeader, uint8_t DHCPMessageType,
+			static uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* const DHCPHeader, const uint8_t DHCPMessageType,
 			                                             uip_udp_appstate_t* AppState);
 			static uint8_t  DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen,
 			                                        void* OptionData);
-			static bool     DHCPClientApp_GetOption(uint8_t* DHCPOptionList, uint8_t Option, void* Destination);
+			static bool     DHCPClientApp_GetOption(const uint8_t* DHCPOptionList, const uint8_t Option, void* const Destination);
 		#endif
 #endif

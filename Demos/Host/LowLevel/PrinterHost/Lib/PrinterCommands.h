@@ -59,8 +59,8 @@
 		#define PRINTER_DATA_OUT_PIPE        2
 		
 	/* Function Prototypes: */
-		uint8_t Printer_SendData(void* PrinterCommands, uint16_t CommandSize);
-		uint8_t Printer_GetDeviceID(char* DeviceIDString, uint16_t BufferSize);
+		uint8_t Printer_SendData(const void* const PrinterCommands, const uint16_t CommandSize);
+		uint8_t Printer_GetDeviceID(char* DeviceIDString, const uint16_t BufferSize);
 		uint8_t Printer_GetPortStatus(uint8_t* PortStatus);
 		uint8_t Printer_SoftReset(void);
 	

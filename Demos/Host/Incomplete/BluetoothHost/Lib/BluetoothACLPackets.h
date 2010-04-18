@@ -163,14 +163,14 @@
 		#if defined(INCLUDE_FROM_BLUETOOTH_ACLPACKETS_C)
 			static void Bluetooth_ProcessIncommingACLPackets(void);
 
-			static inline void Bluetooth_Signal_ConnectionReq(BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_ConnectionResp(BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_ConfigurationReq(BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_ConfigurationResp(BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_DisconnectionReq(BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_DisconnectionResp(BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_EchoReq(BT_Signal_Header_t* SignalCommandHeader);
-			static inline void Bluetooth_Signal_InformationReq(BT_Signal_Header_t* SignalCommandHeader);
+			static inline void Bluetooth_Signal_ConnectionReq(const BT_Signal_Header_t* const SignalCommandHeader);
+			static inline void Bluetooth_Signal_ConnectionResp(const BT_Signal_Header_t* const SignalCommandHeader);
+			static inline void Bluetooth_Signal_ConfigurationReq(const BT_Signal_Header_t* const SignalCommandHeader);
+			static inline void Bluetooth_Signal_ConfigurationResp(const BT_Signal_Header_t* const SignalCommandHeader);
+			static inline void Bluetooth_Signal_DisconnectionReq(const BT_Signal_Header_t* const SignalCommandHeader);
+			static inline void Bluetooth_Signal_DisconnectionResp(const BT_Signal_Header_t* const SignalCommandHeader);
+			static inline void Bluetooth_Signal_EchoReq(const BT_Signal_Header_t* const SignalCommandHeader);
+			static inline void Bluetooth_Signal_InformationReq(const BT_Signal_Header_t* const SignalCommandHeader);
 		#endif
 		
 #endif

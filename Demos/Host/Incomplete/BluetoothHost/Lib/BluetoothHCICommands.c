@@ -317,7 +317,7 @@ void Bluetooth_HCITask(void)
  *
  *  \return A value from the USB_Host_SendControlErrorCodes_t enum.
  */
-static uint8_t Bluetooth_SendHCICommand(BT_HCICommand_Header_t* HCICommandHeader, void* Parameters, uint16_t ParameterLength)
+static uint8_t Bluetooth_SendHCICommand(const BT_HCICommand_Header_t* const HCICommandHeader, const void* Parameters, const uint16_t ParameterLength)
 {
 	/* Need to reserve the amount of bytes given in the header for the complete payload */
 	uint8_t CommandBuffer[sizeof(BT_HCICommand_Header_t) + HCICommandHeader->ParameterLength];

@@ -200,7 +200,7 @@ static void Bluetooth_ProcessIncommingACLPackets(void)
  *
  * \return A value from the \ref BT_SendPacket_ErrorCodes_t enum
  */
-uint8_t Bluetooth_SendPacket(void* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel)
+uint8_t Bluetooth_SendPacket(void* Data, const uint16_t DataLen, Bluetooth_Channel_t* const Channel)
 {
 	BT_ACL_Header_t        ACLPacketHeader;
 	BT_DataPacket_Header_t DataHeader;
@@ -251,7 +251,7 @@ uint8_t Bluetooth_SendPacket(void* Data, uint16_t DataLen, Bluetooth_Channel_t* 
  *
  *  \return Pointer to the channel information structure of the opened channel, or NULL if no free channels
  */
-Bluetooth_Channel_t* Bluetooth_OpenChannel(uint16_t PSM)
+Bluetooth_Channel_t* Bluetooth_OpenChannel(const uint16_t PSM)
 {
 	Bluetooth_Channel_t* ChannelData = NULL;
 
@@ -313,7 +313,7 @@ Bluetooth_Channel_t* Bluetooth_OpenChannel(uint16_t PSM)
  *
  * \param[in,out] Channel  Channel information structure of the channel to close
  */
-void Bluetooth_CloseChannel(Bluetooth_Channel_t* Channel)
+void Bluetooth_CloseChannel(Bluetooth_Channel_t* const Channel)
 {
 	/* Don't try to close a non-existing or already closed channel */
 	if ((Channel == NULL) || (Channel->State == Channel_Closed))
@@ -348,7 +348,7 @@ void Bluetooth_CloseChannel(Bluetooth_Channel_t* Channel)
  *
  *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
-static inline void Bluetooth_Signal_ConnectionReq(BT_Signal_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_ConnectionReq(const BT_Signal_Header_t* const SignalCommandHeader)
 {
 	BT_Signal_ConnectionReq_t ConnectionRequest;
 	
@@ -432,7 +432,7 @@ static inline void Bluetooth_Signal_ConnectionReq(BT_Signal_Header_t* SignalComm
  *
  *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
-static inline void Bluetooth_Signal_ConnectionResp(BT_Signal_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_ConnectionResp(const BT_Signal_Header_t* const SignalCommandHeader)
 {
 	BT_Signal_ConnectionResp_t ConnectionResponse;
 	
@@ -463,7 +463,7 @@ static inline void Bluetooth_Signal_ConnectionResp(BT_Signal_Header_t* SignalCom
  *
  *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
-static inline void Bluetooth_Signal_ConfigurationReq(BT_Signal_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_ConfigurationReq(const BT_Signal_Header_t* const SignalCommandHeader)
 {
 	BT_Signal_ConfigurationReq_t ConfigurationRequest;
 	
@@ -550,7 +550,7 @@ static inline void Bluetooth_Signal_ConfigurationReq(BT_Signal_Header_t* SignalC
  *
  *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
-static inline void Bluetooth_Signal_ConfigurationResp(BT_Signal_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_ConfigurationResp(const BT_Signal_Header_t* const SignalCommandHeader)
 {
 	BT_Signal_ConfigurationResp_t ConfigurationResponse;
 
@@ -594,7 +594,7 @@ static inline void Bluetooth_Signal_ConfigurationResp(BT_Signal_Header_t* Signal
  *
  *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
-static inline void Bluetooth_Signal_DisconnectionReq(BT_Signal_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_DisconnectionReq(const BT_Signal_Header_t* const SignalCommandHeader)
 {
 	BT_Signal_DisconnectionReq_t DisconnectionRequest;
 	
@@ -640,7 +640,7 @@ static inline void Bluetooth_Signal_DisconnectionReq(BT_Signal_Header_t* SignalC
  *
  *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
-static inline void Bluetooth_Signal_DisconnectionResp(BT_Signal_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_DisconnectionResp(const BT_Signal_Header_t* const SignalCommandHeader)
 {
 	BT_Signal_DisconnectionResp_t DisconnectionResponse;
 	
@@ -665,7 +665,7 @@ static inline void Bluetooth_Signal_DisconnectionResp(BT_Signal_Header_t* Signal
  *
  *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
-static inline void Bluetooth_Signal_EchoReq(BT_Signal_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_EchoReq(const BT_Signal_Header_t* const SignalCommandHeader)
 {
 	BT_ACL_DEBUG(1, "<< L2CAP Echo Request", NULL);
 	
@@ -691,7 +691,7 @@ static inline void Bluetooth_Signal_EchoReq(BT_Signal_Header_t* SignalCommandHea
  *
  *  \param[in]  SignalCommandHeader  Pointer to the start of the received packet's Signal Command header
  */
-static inline void Bluetooth_Signal_InformationReq(BT_Signal_Header_t* SignalCommandHeader)
+static inline void Bluetooth_Signal_InformationReq(const BT_Signal_Header_t* const SignalCommandHeader)
 {
 	BT_Signal_InformationReq_t InformationRequest;
 

@@ -203,7 +203,7 @@ void Bluetooth_Host_Task(void)
  *
  *  \return Boolean true to accept the connection, false to reject it
  */
-bool Bluetooth_ConnectionRequest(uint8_t* RemoteAddress)
+bool Bluetooth_ConnectionRequest(const uint8_t* RemoteAddress)
 {
 	printf_P(PSTR("Connection Request from Device %02X:%02X:%02X:%02X:%02X:%02X\r\n"),
 	         RemoteAddress[5], RemoteAddress[4],
@@ -246,7 +246,7 @@ void Bluetooth_DisconnectionComplete(void)
  *
  *  \return Boolean true to accept the channel connection request, false to reject it
  */
-bool Bluetooth_ChannelConnectionRequest(uint16_t PSM)
+bool Bluetooth_ChannelConnectionRequest(const uint16_t PSM)
 {
 	/* Always accept channel connection requests regardless of PSM */
 	return true;
@@ -259,7 +259,7 @@ bool Bluetooth_ChannelConnectionRequest(uint16_t PSM)
  *  \param[in] DataLen Length of the packet data, in bytes
  *  \param[in] Channel Bluetooth ACL data channel information structure for the packet's destination channel
  */
-void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel)
+void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const Channel)
 {
 	switch (Channel->PSM)
 	{

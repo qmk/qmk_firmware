@@ -40,14 +40,14 @@ uint8_t SoftUART_IsReady(void)
 	return !(stx_count);
 }
 
-uint8_t SoftUART_TxByte(uint8_t c)
+uint8_t SoftUART_TxByte(uint8_t Byte)
 {
 	while (stx_count);
 
-	stx_data  = ~c;
+	stx_data  = ~Byte;
 	stx_count = 10;
 
-	return c;
+	return Byte;
 }
 
 uint8_t SoftUART_IsReceived(void)

@@ -73,7 +73,7 @@ void Bluetooth_Stack_USBTask(void)
  *
  *  \return Pointer to the matching channel information structure in the channel table if found, NULL otherwise
  */
-Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchByRemoteChannel)
+Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t ChannelNumber, const bool SearchByRemoteChannel)
 {
 	for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
 	{

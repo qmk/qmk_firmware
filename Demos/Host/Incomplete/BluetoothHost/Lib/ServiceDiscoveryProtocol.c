@@ -80,7 +80,7 @@ static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPH
 		memcpy(&UUID[sizeof(UUID) - UUIDLength], CurrentParameter, UUIDLength);
 		
 		BT_SDP_DEBUG(2, "-- UUID: 0x%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-		                UUID[0], UUID[1], UUID[2], UUID[3], UUID[4], UUID[5], UUID[6], UUID[7],
+		                UUID[0], UUID[1], UUID[2],  UUID[3],  UUID[4],  UUID[5],  UUID[6],  UUID[7],
 						UUID[8], UUID[9], UUID[10], UUID[11], UUID[12], UUID[13], UUID[14], UUID[15]);
 	
 		ServicePatternLength -= UUIDLength;
