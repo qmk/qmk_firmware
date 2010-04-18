@@ -127,6 +127,7 @@
 		bool                 Bluetooth_ConnectionRequest(uint8_t* RemoteAddress);
 		void                 Bluetooth_ConnectionComplete(void);
 		void                 Bluetooth_DisconnectionComplete(void);
+		bool                 Bluetooth_ChannelConnectionRequest(uint16_t PSM);
 		void                 Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* Channel);
 		Bluetooth_Channel_t* Bluetooth_GetChannelData(uint16_t ChannelNumber, bool SearchByRemoteChannel);
 		Bluetooth_Channel_t* Bluetooth_OpenChannel(uint16_t PSM);

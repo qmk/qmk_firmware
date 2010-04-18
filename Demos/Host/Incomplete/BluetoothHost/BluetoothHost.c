@@ -238,6 +238,20 @@ void Bluetooth_DisconnectionComplete(void)
 	         Bluetooth_Connection.RemoteAddress[1], Bluetooth_Connection.RemoteAddress[0]);
 }
 
+/** Bluetooth stack callback event for a Bluetooth ACL Channel connection request. When is callback fires,
+ *  the user application must indicate if the channel connection should be rejected or not, based on the 
+ *  protocol (PSM) value of the requested channel.
+ *
+ *  \param PSM  Protocol PSM value for the requested channel
+ *
+ *  \return Boolean true to accept the channel connection request, false to reject it
+ */
+bool Bluetooth_ChannelConnectionRequest(uint16_t PSM)
+{
+	/* Always accept channel connection requests regardless of PSM */
+	return true;
+}
+
 /** Bluetooth stack callback event for a non-signal ACL packet reception. This callback fires once a connection
  *  to a remote Bluetooth device has been made, and the remote device has sent a non-signalling ACL packet.
  *

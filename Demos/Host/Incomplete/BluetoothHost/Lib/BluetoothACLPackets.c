@@ -381,14 +381,26 @@ static inline void Bluetooth_Signal_ConnectionReq(BT_Signal_Header_t* SignalComm
 			}
 		}
 	}
+	
+	uint8_t ChannelStatus = BT_CONNECTION_REFUSED_RESOURCES;
 
 	/* Reset the channel item contents only if a channel entry was found for it */
 	if (ChannelData != NULL)
 	{
-		ChannelData->RemoteNumber = ConnectionRequest.SourceChannel;
-		ChannelData->PSM          = ConnectionRequest.PSM;
-		ChannelData->LocalMTU     = MAXIMUM_CHANNEL_MTU;
-		ChannelData->State        = Channel_Config_WaitConfig;
+		/* Check if the user application will allow the connection based on its PSM */
+		if (Bluetooth_ChannelConnectionRequest(ConnectionRequest.PSM))
+		{
+			ChannelData->RemoteNumber = ConnectionRequest.SourceChannel;
+			ChannelData->PSM          = ConnectionRequest.PSM;
+			ChannelData->LocalMTU     = MAXIMUM_CHANNEL_MTU;
+			ChannelData->State        = Channel_Config_WaitConfig;
+			
+			ChannelStatus = BT_CONNECTION_SUCCESSFUL;
+		}
+		else
+		{
+			ChannelStatus = BT_CONNECTION_REFUSED_PSM;		
+		}
 	}
 	
 	struct
@@ -405,8 +417,7 @@ static inline void Bluetooth_Signal_ConnectionReq(BT_Signal_Header_t* SignalComm
 	/* Fill out the Connection Response in the response packet */
 	ResponsePacket.ConnectionResponse.DestinationChannel = ChannelData->LocalNumber;
 	ResponsePacket.ConnectionResponse.SourceChannel      = ChannelData->RemoteNumber;
-	ResponsePacket.ConnectionResponse.Result             = (ChannelData == NULL) ? BT_CONNECTION_REFUSED_RESOURCES :
-	                                                                               BT_CONNECTION_SUCCESSFUL;
+	ResponsePacket.ConnectionResponse.Result             = ChannelStatus;
 	ResponsePacket.ConnectionResponse.Status             = 0x00;
 	
 	Bluetooth_SendPacket(&ResponsePacket, sizeof(ResponsePacket), NULL);
