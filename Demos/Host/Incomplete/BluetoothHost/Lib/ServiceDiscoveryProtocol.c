@@ -40,6 +40,11 @@ void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel)
 	BT_SDP_DEBUG(2, "-- PDU ID: 0x%02X", SDPHeader->PDU);
 	BT_SDP_DEBUG(2, "-- Param Length: 0x%04X", SDPHeader->ParameterLength);
 	
+	printf("\r\n");
+	for (uint8_t i = 0; i < SDPHeader->ParameterLength; i++)
+	  printf("0x%02X ", *((uint8_t*)Data + sizeof(SDP_PDUHeader_t) + i));
+	printf("\r\n");
+
 	switch (SDPHeader->PDU)
 	{
 		case SDP_PDU_SERVICESEARCHREQUEST:
@@ -66,60 +71,92 @@ static void ServiceDiscovery_ProcessServiceAttribute(SDP_PDUHeader_t* SDPHeader)
 
 static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPHeader)
 {
-	uint8_t* CurrentParameter = ((uint8_t*)SDPHeader + sizeof(SDP_PDUHeader_t));
+	void* CurrentParameter = ((void*)SDPHeader + sizeof(SDP_PDUHeader_t));
 	
 	BT_SDP_DEBUG(1, "<< Service Search Attribute", NULL);
+	
+	uint8_t ElementHeaderSize;
 
-	uint8_t ServicePatternLength = ServiceDiscovery_GetDataElementSize(CurrentParameter);
+	uint16_t ServicePatternLength = ServiceDiscovery_GetDataElementSize(&CurrentParameter, &ElementHeaderSize);
+	BT_SDP_DEBUG(2, "-- Total UUID Length: 0x%04X", ServicePatternLength);
 	while (ServicePatternLength)
 	{
-		uint8_t UUIDLength = ServiceDiscovery_GetDataElementSize(CurrentParameter);
+		uint8_t UUIDLength = ServiceDiscovery_GetDataElementSize(&CurrentParameter, &ElementHeaderSize);
 		uint8_t UUID[16];
 		
 		memset(UUID, 0x00, sizeof(UUID));
-		memcpy(&UUID[sizeof(UUID) - UUIDLength], CurrentParameter, UUIDLength);
+		memcpy(UUID, CurrentParameter, UUIDLength);
+		CurrentParameter += UUIDLength;
 		
-		BT_SDP_DEBUG(2, "-- UUID: 0x%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-		                UUID[0], UUID[1], UUID[2],  UUID[3],  UUID[4],  UUID[5],  UUID[6],  UUID[7],
-						UUID[8], UUID[9], UUID[10], UUID[11], UUID[12], UUID[13], UUID[14], UUID[15]);
+		BT_SDP_DEBUG(2, "-- UUID (%d): 0x%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+						UUIDLength,
+		                UUID[15], UUID[14], UUID[13], UUID[12], UUID[11], UUID[10], UUID[9], UUID[8],
+						UUID[7],  UUID[6],  UUID[5],  UUID[4],  UUID[3],  UUID[2],  UUID[1], UUID[0]);
 	
-		ServicePatternLength -= UUIDLength;
+		ServicePatternLength -= (UUIDLength + ElementHeaderSize);
 	}
 	
-	uint16_t MaxAttributeSize = ServiceDiscovery_Read16BitParameter(CurrentParameter);
+	uint16_t MaxAttributeSize = ServiceDiscovery_Read16BitParameter(&CurrentParameter);
+	BT_SDP_DEBUG(2, "-- Max Return Attribute Bytes: 0x%04X", MaxAttributeSize);
 
-	uint8_t AttributeIDListLength = ServiceDiscovery_GetDataElementSize(CurrentParameter);
+	uint16_t AttributeIDListLength = ServiceDiscovery_GetDataElementSize(&CurrentParameter, &ElementHeaderSize);
+	BT_SDP_DEBUG(2, "-- Total Attribute Length: 0x%04X", AttributeIDListLength);
 	while (AttributeIDListLength)
 	{
-		uint8_t AttributeLength = ServiceDiscovery_GetDataElementSize(CurrentParameter);
+		uint8_t  AttributeLength = ServiceDiscovery_GetDataElementSize(&CurrentParameter, &ElementHeaderSize);
+		uint32_t Attribute = 0;
 		
-		BT_SDP_DEBUG(2, "-- Attribute Length: 0x%04X", AttributeLength);
+		memcpy(&Attribute, CurrentParameter, AttributeLength);
+		CurrentParameter += AttributeLength;
+		
+		BT_SDP_DEBUG(2, "-- Attribute(%d): 0x%08lX", AttributeLength, Attribute);
 	
-		AttributeIDListLength -= AttributeLength;
+		AttributeIDListLength -= (AttributeLength + ElementHeaderSize);
 	}
 }
 
-static uint32_t ServiceDiscovery_GetDataElementSize(void* DataElementHeader)
+static uint32_t ServiceDiscovery_GetDataElementSize(void** DataElementHeader, uint8_t* ElementHeaderSize)
 {
-	uint8_t SizeIndex = (*((uint8_t*)DataElementHeader++) & 0x07);
-
+	uint8_t SizeIndex = (*((uint8_t*)*DataElementHeader) & 0x07);
+	*DataElementHeader += sizeof(uint8_t);
+	
+	*ElementHeaderSize = 1;
+	
+	uint32_t ElementValue;
+	
 	switch (SizeIndex)
 	{
 		case 0:
-			return 1;
+			ElementValue = 1;
+			break;
 		case 1:
-			return 2;
+			ElementValue = 2;
+			break;
 		case 2:
-			return 4;
+			ElementValue = 4;
+			break;
 		case 3:
-			return 8;
+			ElementValue = 8;
+			break;
 		case 4:
-			return 16;
+			ElementValue = 16;
+			break;
 		case 5:
-			return *((uint8_t*)DataElementHeader++);
+			ElementValue = *((uint8_t*)*DataElementHeader);
+			*DataElementHeader += sizeof(uint8_t);
+			*ElementHeaderSize  = (1 + sizeof(uint8_t));
+			break;
 		case 6:
-			return *((uint16_t*)DataElementHeader++);
+			ElementValue = *((uint16_t*)*DataElementHeader);
+			*DataElementHeader += sizeof(uint16_t);
+			*ElementHeaderSize  = (1 + sizeof(uint16_t));
+			break;
 		default:
-			return *((uint32_t*)DataElementHeader++);
+			ElementValue = *((uint32_t*)*DataElementHeader);
+			*DataElementHeader += sizeof(uint32_t);
+			*ElementHeaderSize  = (1 + sizeof(uint32_t));
+			break;
 	}
+	
+	return ElementValue;
 }

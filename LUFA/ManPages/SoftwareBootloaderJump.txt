@@ -34,8 +34,8 @@
  *  void Bootloader_Jump_Check(void) ATTR_INIT_SECTION(3);
  *  void Bootloader_Jump_Check(void)
  *  {
- *      // If the bootloader key is correct, clear it and jump to the bootloader
- *      if (Boot_Key == MAGIC_BOOT_KEY)
+ *      // If the reset source was the bootloader and the key is correct, clear it and jump to the bootloader
+ *      if ((MCUSR & (1<<WDRF)) && (Boot_Key == MAGIC_BOOT_KEY))
  *      {
  *          Boot_Key = 0;
  *          ((void (*)(void))BOOTLOADER_START_ADDRESS)(); 

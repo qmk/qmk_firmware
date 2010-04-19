@@ -206,8 +206,7 @@ void Bluetooth_Host_Task(void)
 bool Bluetooth_ConnectionRequest(const uint8_t* RemoteAddress)
 {
 	printf_P(PSTR("Connection Request from Device %02X:%02X:%02X:%02X:%02X:%02X\r\n"),
-	         RemoteAddress[5], RemoteAddress[4],
-	         RemoteAddress[3], RemoteAddress[2],
+	         RemoteAddress[5], RemoteAddress[4], RemoteAddress[3], RemoteAddress[2],
 	         RemoteAddress[1], RemoteAddress[0]);
 
 	/* Always accept connections from remote devices */

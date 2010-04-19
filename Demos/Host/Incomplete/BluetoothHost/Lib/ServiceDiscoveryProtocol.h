@@ -70,12 +70,14 @@
 			static void ServiceDiscovery_ProcessServiceAttribute(SDP_PDUHeader_t* SDPHeader);
 			static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPHeader);
 			
-			static inline uint16_t ServiceDiscovery_Read16BitParameter(void* AttributeHeader)
+			static inline uint16_t ServiceDiscovery_Read16BitParameter(void** AttributeHeader)
 			{
-				return *((uint16_t*)AttributeHeader++);
+				uint16_t ParamValue = *((uint16_t*)*AttributeHeader);
+				*AttributeHeader += sizeof(uint16_t);
+				return ParamValue;
 			}
 
-			static uint32_t ServiceDiscovery_GetDataElementSize(void* AttributeHeader);
+			static uint32_t ServiceDiscovery_GetDataElementSize(void** AttributeHeader, uint8_t* ElementHeaderSize);
 		#endif
 
 #endif

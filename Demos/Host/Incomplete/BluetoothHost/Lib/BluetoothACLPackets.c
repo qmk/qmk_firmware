@@ -493,17 +493,17 @@ static inline void Bluetooth_Signal_ConfigurationReq(const BT_Signal_Header_t* c
 		while (OptionPos < OptionsLen)
 		{
 			BT_Config_Option_Header_t* OptionHeader = (BT_Config_Option_Header_t*)&Options[OptionPos];
-			void*                      OptionData   = &Options[OptionPos + sizeof(*OptionHeader)];
+			void*                      OptionData   = &Options[OptionPos + sizeof(BT_Config_Option_Header_t)];
 
 			BT_ACL_DEBUG(2, "-- Option Type: 0x%04X", OptionHeader->Type);
-			BT_ACL_DEBUG(2, "-- Option Length: 0x%04X", (sizeof(*OptionHeader) + OptionHeader->Length));
+			BT_ACL_DEBUG(2, "-- Option Length: 0x%04X", (sizeof(BT_Config_Option_Header_t) + OptionHeader->Length));
 			
 			/* Store the remote MTU option's value if present */
 			if (OptionHeader->Type == BT_CONFIG_OPTION_MTU)
 			  ChannelData->RemoteMTU = *((uint16_t*)OptionData);
 
 			/* Progress to the next option in the packet */
-			OptionPos += (sizeof(*OptionHeader) + OptionHeader->Length);
+			OptionPos += (sizeof(BT_Config_Option_Header_t) + OptionHeader->Length);
 		}
 	}
 	

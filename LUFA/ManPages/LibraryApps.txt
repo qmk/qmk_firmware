@@ -103,6 +103,7 @@
  *    - <b>LEDNotifier</b> - USB LED Notification project
  *    - <b>Magstripe</b> - Magnetic Stripe Card Reader project
  *    - <b>MissileLaucher</b> - Toy Missile Launcher Host project
+ *    - <b>RelayBoard</b> - Relay board controller, controllable via the "sismpctl" Linux application
  *    - <b>TemperatureDataLogger</b> - Temperature Datalogging project, using the FatFS library
  *    - <b>USBtoSerial</b> - USB to USART Serial Converter project
  *    - <b>Webserver</b> - RNDIS Host Webserver with DHCP client, powered by uIP TCP/IP stack project and FatFS library
