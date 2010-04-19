@@ -31,6 +31,41 @@
 #define  INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C
 #include "ServiceDiscoveryProtocol.h"
 
+SERVICE_ATTRIBUTE_TEXT(SDP_Attribute_Name,             "SDP");
+SERVICE_ATTRIBUTE_TEXT(SDP_Attribute_Description,      "BT Service Discovery");
+SERVICE_ATTRIBUTE_8BIT_LEN(SDP_Attribute_Availability, SDP_DATATYPE_UNSIGNED_INT, 1, {0xFF});
+const ServiceAttributeTable_t SDP_Attribute_Table[] PROGMEM =
+	{
+		{.AttributeID = SDP_ATTRIBUTE_NAME        , .AttributeData = &SDP_Attribute_Name},
+		{.AttributeID = SDP_ATTRIBUTE_DESCRIPTION , .AttributeData = &SDP_Attribute_Description},
+		{.AttributeID = SDP_ATTRIBUTE_AVAILABILITY, .AttributeData = &SDP_Attribute_Availability},
+		{.AttributeData = NULL}
+	};
+
+SERVICE_ATTRIBUTE_TEXT(RFCOMM_Attribute_Name,             "RFCOMM");
+SERVICE_ATTRIBUTE_TEXT(RFCOMM_Attribute_Description,      "Virtual Serial");
+SERVICE_ATTRIBUTE_8BIT_LEN(RFCOMM_Attribute_Availability, SDP_DATATYPE_UNSIGNED_INT, 1, {0xFF});
+const ServiceAttributeTable_t RFCOMM_Attribute_Table[] PROGMEM =
+	{
+		{.AttributeID = SDP_ATTRIBUTE_NAME        , .AttributeData = &RFCOMM_Attribute_Name},
+		{.AttributeID = SDP_ATTRIBUTE_DESCRIPTION , .AttributeData = &RFCOMM_Attribute_Description},
+		{.AttributeID = SDP_ATTRIBUTE_AVAILABILITY, .AttributeData = &RFCOMM_Attribute_Availability},
+		{.AttributeData = NULL}
+	};
+	
+const ServiceTable_t SDP_Services_Table[] =
+	{
+		{   // 128-bit UUID for the SDP service
+			.UUID  = {BASE_96BIT_UUID, 0x01, 0x00, 0x00, 0x00},
+			.AttributeTable = &SDP_Attribute_Table,
+		},
+		{   // 128-bit UUID for the RFCOMM service
+			.UUID  = {BASE_96BIT_UUID, 0x03, 0x00, 0x00, 0x00},
+			.AttributeTable = &RFCOMM_Attribute_Table,
+		},
+	};
+
+
 void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel)
 {
 	SDP_PDUHeader_t* SDPHeader = (SDP_PDUHeader_t*)Data;
@@ -39,11 +74,6 @@ void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel)
 	BT_SDP_DEBUG(1, "SDP Packet Received", NULL);
 	BT_SDP_DEBUG(2, "-- PDU ID: 0x%02X", SDPHeader->PDU);
 	BT_SDP_DEBUG(2, "-- Param Length: 0x%04X", SDPHeader->ParameterLength);
-	
-	printf("\r\n");
-	for (uint8_t i = 0; i < SDPHeader->ParameterLength; i++)
-	  printf("0x%02X ", *((uint8_t*)Data + sizeof(SDP_PDUHeader_t) + i));
-	printf("\r\n");
 
 	switch (SDPHeader->PDU)
 	{
@@ -82,13 +112,16 @@ static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPH
 	while (ServicePatternLength)
 	{
 		uint8_t UUIDLength = ServiceDiscovery_GetDataElementSize(&CurrentParameter, &ElementHeaderSize);
-		uint8_t UUID[16];
+		uint8_t UUID[16] = {BASE_96BIT_UUID, 0x00, 0x00, 0x00, 0x00};
+
+		if (UUIDLength <= 32)
+		  memcpy(&UUID[sizeof(UUID) - sizeof(uint32_t)], CurrentParameter, UUIDLength);
+		else
+		  memcpy(UUID, CurrentParameter, UUIDLength);
 		
-		memset(UUID, 0x00, sizeof(UUID));
-		memcpy(UUID, CurrentParameter, UUIDLength);
 		CurrentParameter += UUIDLength;
 		
-		BT_SDP_DEBUG(2, "-- UUID (%d): 0x%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+		BT_SDP_DEBUG(2, "-- UUID (%d): 0x%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
 						UUIDLength,
 		                UUID[15], UUID[14], UUID[13], UUID[12], UUID[11], UUID[10], UUID[9], UUID[8],
 						UUID[7],  UUID[6],  UUID[5],  UUID[4],  UUID[3],  UUID[2],  UUID[1], UUID[0]);

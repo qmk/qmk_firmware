@@ -54,6 +54,31 @@
 		#define SDP_PDU_SERVICESEARCHATTRIBUTEREQUEST   0x06
 		#define SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE  0x07
 		
+		#define SDP_ATTRIBUTE_NAME                      0x0000
+		#define SDP_ATTRIBUTE_DESCRIPTION               0x0001
+		#define SDP_ATTRIBUTE_PROVIDER                  0x0002
+		#define SDP_ATTRIBUTE_AVAILABILITY              0x0008
+		
+		#define SDP_DATATYPE_NIL                        (0x00 << 3)
+		#define SDP_DATATYPE_UNSIGNED_INT               (0x01 << 3)
+		#define SDP_DATATYPE_SIGNED_INT                 (0x02 << 3)
+		#define SDP_DATATYPE_UUID                       (0x03 << 3)
+		#define SDP_DATATYPE_TEXT                       (0x04 << 3)
+		#define SDP_DATATYPE_BOOLEAN                    (0x05 << 3)
+		#define SDP_DATATYPE_ELEMENT_SEQUENCE           (0x06 << 3)
+		#define SDP_DATATYPE_ELEMENT_ALTERNATIVE        (0x07 << 3)
+		#define SDP_DATATYPE_URL                        (0x08 << 3)
+		
+		#define BASE_96BIT_UUID                         0xFB, 0x34, 0x9B, 0x5F, 0x80, 0x00, 0x00, 0x80, 0x00, 0x10, 0x00, 0x00
+		
+		#define SERVICE_ATTRIBUTE_TEXT(name, string)    SERVICE_ATTRIBUTE_8BIT_LEN(name, SDP_DATATYPE_TEXT, sizeof(string), string)
+		#define SERVICE_ATTRIBUTE_8BIT_LEN(name, type, size, ...)  const ServiceAttributeData8Bit_t  name PROGMEM = \
+		                                                {.Header = (type | 5), .Size = size, .Data = __VA_ARGS__}
+		#define SERVICE_ATTRIBUTE_16BIT_LEN(name, type, size, ...) const ServiceAttributeData16Bit_t name PROGMEM = \
+		                                                {.Header = (type | 5), .Size = size, .Data = __VA_ARGS__}
+		#define SERVICE_ATTRIBUTE_32BIT_LEN(name, type, size, ...) const ServiceAttributeData32Bit_t name PROGMEM = \
+		                                                {.Header = (type | 5), .Size = size, .Data = __VA_ARGS__}
+		
 	/* Type Defines: */
 		typedef struct
 		{
@@ -61,6 +86,45 @@
 			uint16_t TransactionID;
 			uint16_t ParameterLength;
 		} SDP_PDUHeader_t;
+		
+		typedef struct
+		{
+			uint16_t    AttributeID;
+			const void* AttributeData;
+		} ServiceAttributeTable_t;
+
+		typedef struct
+		{
+			uint8_t UUID[16];
+			const void* AttributeTable;
+		} ServiceTable_t;
+
+		typedef struct
+		{
+			uint8_t  Header;
+			uint32_t Size;
+			uint8_t  Data[];
+		} ServiceAttributeData32Bit_t;
+
+		typedef struct
+		{
+			uint8_t  Header;
+			uint16_t Size;
+			uint8_t  Data[];
+		} ServiceAttributeData16Bit_t;
+
+		typedef struct
+		{
+			uint8_t Header;
+			uint8_t Size;
+			uint8_t Data[];
+		} ServiceAttributeData8Bit_t;
+
+		typedef struct
+		{
+			uint8_t Header;
+			uint8_t Data[];
+		} ServiceAttributeData_t;
 		
 	/* Function Prototypes: */
 		void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel);
