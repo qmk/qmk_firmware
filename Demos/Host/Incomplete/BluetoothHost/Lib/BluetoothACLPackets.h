@@ -43,7 +43,7 @@
 		#include "BluetoothStack.h"
 		
 	/* Macros: */
-		#define BT_ACL_DEBUG(l, s, ...)           do { if (ACL_DEBUG_LEVEL >= l) printf_P(PSTR("(ACL) " s "\r\n"), __VA_ARGS__); } while (0)
+		#define BT_ACL_DEBUG(l, s, ...)           do { if (ACL_DEBUG_LEVEL >= l) printf_P(PSTR("(ACL) " s "\r\n"), ##__VA_ARGS__); } while (0)
 		#define ACL_DEBUG_LEVEL                   0
 
 		#define BT_CHANNELNUMBER_BASEOFFSET       0x0040

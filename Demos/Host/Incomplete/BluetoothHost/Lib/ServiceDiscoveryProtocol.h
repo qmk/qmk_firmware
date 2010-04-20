@@ -43,7 +43,7 @@
 		#include "BluetoothStack.h"
 		
 	/* Macros: */
-		#define BT_SDP_DEBUG(l, s, ...)                 do { if (SDP_DEBUG_LEVEL >= l) printf_P(PSTR("(SDP) " s "\r\n"), __VA_ARGS__); } while (0)
+		#define BT_SDP_DEBUG(l, s, ...)                 do { if (SDP_DEBUG_LEVEL >= l) printf_P(PSTR("(SDP) " s "\r\n"), ##__VA_ARGS__); } while (0)
 		#define SDP_DEBUG_LEVEL                         2
 		
 		#define SDP_PDU_ERRORRESPONSE                   0x01

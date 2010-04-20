@@ -53,11 +53,15 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 				uint16_t ReportINSize = 0;
 				uint8_t  ReportID     = (USB_ControlRequest.wValue & 0xFF);
 				uint8_t  ReportType   = (USB_ControlRequest.wValue >> 8) - 1;
+				uint8_t  ReportINData[HIDInterfaceInfo->Config.PrevReportINBufferSize];
 
-				memset(HIDInterfaceInfo->Config.PrevReportINBuffer, 0, HIDInterfaceInfo->Config.PrevReportINBufferSize);
-				
+				memset(ReportINData, 0, sizeof(ReportINData));
+
 				CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportType,
 				                                    HIDInterfaceInfo->Config.PrevReportINBuffer, &ReportINSize);
+				
+				if (HIDInterfaceInfo->Config.PrevReportINBuffer != NULL)
+				  memcpy(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportINData, HIDInterfaceInfo->Config.PrevReportINBufferSize);
 
 				Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
 				Endpoint_Write_Control_Stream_LE(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportINSize);
@@ -169,7 +173,7 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 		if (HIDInterfaceInfo->Config.PrevReportINBuffer != NULL)
 		{
 			StatesChanged = (memcmp(ReportINData, HIDInterfaceInfo->Config.PrevReportINBuffer, ReportINSize) != 0);
-			memcpy(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportINData, ReportINSize);
+			memcpy(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportINData, HIDInterfaceInfo->Config.PrevReportINBufferSize);
 		}
 
 		if (ReportINSize && (ForceSend || StatesChanged || IdlePeriodElapsed))

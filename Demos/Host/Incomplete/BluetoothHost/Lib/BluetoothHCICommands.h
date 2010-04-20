@@ -44,7 +44,7 @@
 		#include "BluetoothClassCodes.h"
 
 	/* Macros: */
-		#define BT_HCI_DEBUG(l, s, ...)                        do { if (HCI_DEBUG_LEVEL >= l) printf_P(PSTR("(HCI) " s "\r\n"), __VA_ARGS__); } while (0)
+		#define BT_HCI_DEBUG(l, s, ...)                        do { if (HCI_DEBUG_LEVEL >= l) printf_P(PSTR("(HCI) " s "\r\n"), ##__VA_ARGS__); } while (0)
 		#define HCI_DEBUG_LEVEL                                0
 
 		#define OGF_LINK_CONTROL                               0x01

@@ -43,6 +43,8 @@
   *    a valid session ID to the device
   *  - Removed invalid dfu and flip related targets from the bootloaders - bootloaders can only be replaced with an external programmer
   *  - Fixed Set/Clear Feature requests directed to a non-configured endpoint not returning a stall to the host
+  *  - Fixed HID Device Class Driver not allocating a temporary buffer when the host requests a report via the control endpoint and the
+  *    user has set the PrevReportINBuffer driver configuration element to NULL (thanks to Lars Noschinski)
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *

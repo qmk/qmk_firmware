@@ -71,7 +71,7 @@ void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel)
 	SDP_PDUHeader_t* SDPHeader = (SDP_PDUHeader_t*)Data;
 	SDPHeader->ParameterLength = SwapEndian_16(SDPHeader->ParameterLength);
 
-	BT_SDP_DEBUG(1, "SDP Packet Received", NULL);
+	BT_SDP_DEBUG(1, "SDP Packet Received");
 	BT_SDP_DEBUG(2, "-- PDU ID: 0x%02X", SDPHeader->PDU);
 	BT_SDP_DEBUG(2, "-- Param Length: 0x%04X", SDPHeader->ParameterLength);
 
@@ -91,19 +91,19 @@ void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel)
 
 static void ServiceDiscovery_ProcessServiceSearch(SDP_PDUHeader_t* SDPHeader)
 {
-	BT_SDP_DEBUG(1, "<< Service Search", NULL);
+	BT_SDP_DEBUG(1, "<< Service Search");
 }
 
 static void ServiceDiscovery_ProcessServiceAttribute(SDP_PDUHeader_t* SDPHeader)
 {
-	BT_SDP_DEBUG(1, "<< Service Attribute", NULL);
+	BT_SDP_DEBUG(1, "<< Service Attribute");
 }
 
 static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPHeader)
 {
 	void* CurrentParameter = ((void*)SDPHeader + sizeof(SDP_PDUHeader_t));
 	
-	BT_SDP_DEBUG(1, "<< Service Search Attribute", NULL);
+	BT_SDP_DEBUG(1, "<< Service Search Attribute");
 	
 	uint8_t ElementHeaderSize;
 

@@ -73,11 +73,11 @@ void Bluetooth_HCITask(void)
 				switch (HCIEventHeader.EventCode)
 				{
 					case EVENT_COMMAND_COMPLETE:
-						BT_HCI_DEBUG(1, "<< Command Complete", NULL);
+						BT_HCI_DEBUG(1, "<< Command Complete");
 						Bluetooth_HCIProcessingState = Bluetooth_HCINextState;
 						break;
 					case EVENT_COMMAND_STATUS:
-						BT_HCI_DEBUG(1, "<< Command Status", NULL);
+						BT_HCI_DEBUG(1, "<< Command Status");
 						BT_HCI_DEBUG(2, "-- Status Code: 0x%02X", (((BT_HCIEvent_CommandStatus_t*)&EventParams)->Status));
 
 						/* If the execution of a command failed, reset the stack */
@@ -85,7 +85,7 @@ void Bluetooth_HCITask(void)
 						  Bluetooth_HCIProcessingState = Bluetooth_Init;
 						break;
 					case EVENT_CONNECTION_REQUEST:
-						BT_HCI_DEBUG(1, "<< Connection Request", NULL);
+						BT_HCI_DEBUG(1, "<< Connection Request");
 						BT_HCI_DEBUG(2, "-- Link Type: 0x%02X", (((BT_HCIEvent_ConnectionRequest_t*)&EventParams)->LinkType));
 
 						/* Need to store the remote device's BT address in a temporary buffer for later use */
@@ -106,7 +106,7 @@ void Bluetooth_HCITask(void)
 
 						break;
 					case EVENT_PIN_CODE_REQUEST:
-						BT_HCI_DEBUG(1, "<< Pin Code Request", NULL);
+						BT_HCI_DEBUG(1, "<< Pin Code Request");
 
 						/* Need to store the remote device's BT address in a temporary buffer for later use */
 						memcpy(Bluetooth_TempDeviceAddress,
@@ -116,7 +116,7 @@ void Bluetooth_HCITask(void)
 						Bluetooth_HCIProcessingState = Bluetooth_Conn_SendPINCode;
 						break;
 					case EVENT_LINK_KEY_REQUEST:
-						BT_HCI_DEBUG(1, "<< Link Key Request", NULL);
+						BT_HCI_DEBUG(1, "<< Link Key Request");
 						
 						/* Need to store the remote device's BT address in a temporary buffer for later use */
 						memcpy(Bluetooth_TempDeviceAddress,
@@ -126,7 +126,7 @@ void Bluetooth_HCITask(void)
 						Bluetooth_HCIProcessingState = Bluetooth_Conn_SendLinkKeyNAK;
 						break;
 					case EVENT_CONNECTION_COMPLETE:
-						BT_HCI_DEBUG(1, "<< Connection Complete", NULL);
+						BT_HCI_DEBUG(1, "<< Connection Complete");
 						BT_HCI_DEBUG(2, "-- Handle: 0x%04X", ((BT_HCIEvent_ConnectionComplete_t*)&EventParams)->ConnectionHandle);
 
 						/* Need to store the remote device's BT address in a temporary buffer for later use */
@@ -141,7 +141,7 @@ void Bluetooth_HCITask(void)
 						Bluetooth_ConnectionComplete();						
 						break;
 					case EVENT_DISCONNECTION_COMPLETE:
-						BT_HCI_DEBUG(1, "<< Disconnection Complete", NULL);
+						BT_HCI_DEBUG(1, "<< Disconnection Complete");
 
 						/* Device disconnected, indicate connection information no longer valid */
 						Bluetooth_Connection.IsConnected = false;
@@ -157,7 +157,7 @@ void Bluetooth_HCITask(void)
 			
 			break;
 		case Bluetooth_Init:
-			BT_HCI_DEBUG(1, "# Init", NULL);
+			BT_HCI_DEBUG(1, "# Init");
 
 			/* Reset the connection information structure to destroy any previous connection state */
 			memset(&Bluetooth_Connection, 0x00, sizeof(Bluetooth_Connection));
@@ -165,7 +165,7 @@ void Bluetooth_HCITask(void)
 			Bluetooth_HCIProcessingState = Bluetooth_Init_Reset; 
 			break;
 		case Bluetooth_Init_Reset:
-			BT_HCI_DEBUG(1, "# Reset", NULL);
+			BT_HCI_DEBUG(1, "# Reset");
 
 			HCICommandHeader = (BT_HCICommand_Header_t)
 			{
@@ -180,7 +180,7 @@ void Bluetooth_HCITask(void)
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Init_SetLocalName:
-			BT_HCI_DEBUG(1, "# Set Local Name", NULL);
+			BT_HCI_DEBUG(1, "# Set Local Name");
 
 			HCICommandHeader = (BT_HCICommand_Header_t)
 				{
@@ -195,7 +195,7 @@ void Bluetooth_HCITask(void)
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Init_SetDeviceClass:
-			BT_HCI_DEBUG(1, "# Set Device Class", NULL);
+			BT_HCI_DEBUG(1, "# Set Device Class");
 
 			HCICommandHeader = (BT_HCICommand_Header_t)
 				{
@@ -210,7 +210,7 @@ void Bluetooth_HCITask(void)
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Init_WriteScanEnable:
-			BT_HCI_DEBUG(1, "# Write Scan Enable", NULL);
+			BT_HCI_DEBUG(1, "# Write Scan Enable");
 
 			HCICommandHeader = (BT_HCICommand_Header_t)
 			{
@@ -227,7 +227,7 @@ void Bluetooth_HCITask(void)
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Conn_AcceptConnection:
-			BT_HCI_DEBUG(1, "# Accept Connection", NULL);
+			BT_HCI_DEBUG(1, "# Accept Connection");
 
 			HCICommandHeader = (BT_HCICommand_Header_t)
 				{
@@ -248,7 +248,7 @@ void Bluetooth_HCITask(void)
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Conn_RejectConnection:
-			BT_HCI_DEBUG(1, "# Reject Connection", NULL);
+			BT_HCI_DEBUG(1, "# Reject Connection");
 
 			HCICommandHeader = (BT_HCICommand_Header_t)
 				{
@@ -268,7 +268,7 @@ void Bluetooth_HCITask(void)
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Conn_SendPINCode:
-			BT_HCI_DEBUG(1, "# Send Pin Code", NULL);
+			BT_HCI_DEBUG(1, "# Send Pin Code");
 
 			HCICommandHeader = (BT_HCICommand_Header_t)
 				{
@@ -289,7 +289,7 @@ void Bluetooth_HCITask(void)
 			Bluetooth_HCIProcessingState = Bluetooth_ProcessEvents;
 			break;
 		case Bluetooth_Conn_SendLinkKeyNAK:
-			BT_HCI_DEBUG(1, "# Send Link Key NAK", NULL);
+			BT_HCI_DEBUG(1, "# Send Link Key NAK");
 
 			HCICommandHeader = (BT_HCICommand_Header_t)
 				{
