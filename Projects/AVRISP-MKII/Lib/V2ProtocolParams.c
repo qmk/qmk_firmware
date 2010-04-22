@@ -76,7 +76,7 @@ static ParameterItem_t ParameterTable[] =
 
 		{ .ParamID          = PARAM_STATUS_TGT_CONN,
 		  .ParamPrivileges  = PARAM_PRIV_READ,
-		  .ParamValue       = 0x00                               },
+		  .ParamValue       = STATUS_ISP_READY                   },
 
 		{ .ParamID          = PARAM_DISCHARGEDELAY,
 		  .ParamPrivileges  = PARAM_PRIV_WRITE,

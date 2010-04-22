@@ -36,6 +36,14 @@
 
 #include "BluetoothHost.h"
 
+/** Bluetooth configuration structure. This structure configures the bluetooth stack's user alterable settings. */
+Bluetooth_Device_t Bluetooth_DeviceConfiguration =
+	{
+		Class:   (DEVICE_CLASS_SERVICE_CAPTURING | DEVICE_CLASS_MAJOR_COMPUTER | DEVICE_CLASS_MINOR_COMPUTER_PALM),
+		PINCode: "0000",
+		Name:    "LUFA Bluetooth Demo"
+	};
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -196,6 +204,16 @@ void Bluetooth_Host_Task(void)
 	}
 }
 
+/** Bluetooth stack callback event for when the Bluetooth stack has fully initialized using the attached
+ *  Bluetooth dongle.
+ */
+void Bluetooth_StackInitialized(void)
+{
+	printf_P(PSTR("Stack initialized with local address %02X:%02X:%02X:%02X:%02X:%02X.\r\n"),
+	         Bluetooth_State.LocalBDADDR[5], Bluetooth_State.LocalBDADDR[4], Bluetooth_State.LocalBDADDR[3],
+	         Bluetooth_State.LocalBDADDR[2], Bluetooth_State.LocalBDADDR[1], Bluetooth_State.LocalBDADDR[0]);
+}
+
 /** Bluetooth stack callback event for a Bluetooth connection request. When this callback fires, the
  *  user application must indicate if the connection is to be allowed or rejected.
  *
@@ -205,7 +223,7 @@ void Bluetooth_Host_Task(void)
  */
 bool Bluetooth_ConnectionRequest(const uint8_t* RemoteAddress)
 {
-	printf_P(PSTR("Connection Request from Device %02X:%02X:%02X:%02X:%02X:%02X\r\n"),
+	printf_P(PSTR("Connection Request from Device %02X:%02X:%02X:%02X:%02X:%02X.\r\n"),
 	         RemoteAddress[5], RemoteAddress[4], RemoteAddress[3], RemoteAddress[2],
 	         RemoteAddress[1], RemoteAddress[0]);
 
@@ -218,7 +236,7 @@ bool Bluetooth_ConnectionRequest(const uint8_t* RemoteAddress)
  */
 void Bluetooth_ConnectionComplete(void)
 {
-	printf_P(PSTR("Connection Complete to Device %02X:%02X:%02X:%02X:%02X:%02X\r\n"), 
+	printf_P(PSTR("Connection Complete to Device %02X:%02X:%02X:%02X:%02X:%02X.\r\n"), 
 	         Bluetooth_Connection.RemoteAddress[5], Bluetooth_Connection.RemoteAddress[4],
 	         Bluetooth_Connection.RemoteAddress[3], Bluetooth_Connection.RemoteAddress[2],
 	         Bluetooth_Connection.RemoteAddress[1], Bluetooth_Connection.RemoteAddress[0]);
@@ -231,7 +249,7 @@ void Bluetooth_ConnectionComplete(void)
  */
 void Bluetooth_DisconnectionComplete(void)
 {
-	printf_P(PSTR("Disconnection Complete to Device %02X:%02X:%02X:%02X:%02X:%02X\r\n"), 
+	printf_P(PSTR("Disconnection Complete to Device %02X:%02X:%02X:%02X:%02X:%02X.\r\n"), 
 	         Bluetooth_Connection.RemoteAddress[5], Bluetooth_Connection.RemoteAddress[4],
 	         Bluetooth_Connection.RemoteAddress[3], Bluetooth_Connection.RemoteAddress[2],
 	         Bluetooth_Connection.RemoteAddress[1], Bluetooth_Connection.RemoteAddress[0]);

@@ -39,7 +39,7 @@ const ServiceAttributeTable_t SDP_Attribute_Table[] PROGMEM =
 		{.AttributeID = SDP_ATTRIBUTE_NAME        , .AttributeData = &SDP_Attribute_Name},
 		{.AttributeID = SDP_ATTRIBUTE_DESCRIPTION , .AttributeData = &SDP_Attribute_Description},
 		{.AttributeID = SDP_ATTRIBUTE_AVAILABILITY, .AttributeData = &SDP_Attribute_Availability},
-		{.AttributeData = NULL}
+		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
 	};
 
 SERVICE_ATTRIBUTE_TEXT(RFCOMM_Attribute_Name,             "RFCOMM");
@@ -50,7 +50,7 @@ const ServiceAttributeTable_t RFCOMM_Attribute_Table[] PROGMEM =
 		{.AttributeID = SDP_ATTRIBUTE_NAME        , .AttributeData = &RFCOMM_Attribute_Name},
 		{.AttributeID = SDP_ATTRIBUTE_DESCRIPTION , .AttributeData = &RFCOMM_Attribute_Description},
 		{.AttributeID = SDP_ATTRIBUTE_AVAILABILITY, .AttributeData = &RFCOMM_Attribute_Availability},
-		{.AttributeData = NULL}
+		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
 	};
 	
 const ServiceTable_t SDP_Services_Table[] =

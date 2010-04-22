@@ -51,6 +51,10 @@
 		#define CHANNEL_PSM_UPNP               0x0010
 		#define CHANNEL_PSM_HIDP               0x0011
 		
+		#define CHANNEL_SEARCH_LOCALNUMBER     0
+		#define CHANNEL_SEARCH_REMOTENUMBER    1
+		#define CHANNEL_SEARCH_PSM             2
+		
 		#define MAXIMUM_CHANNEL_MTU            255
 		
 	/* Enums: */
@@ -115,6 +119,20 @@
 			char     PINCode[16]; /**< Pin code required to send or receive in order to authenticate with a remote device. */
 			char     Name[]; /**< Name of the local bluetooth device, up to 248 characters. */
 		} Bluetooth_Device_t;
+		
+		/** Bluetooth stack state information structure, for the containment of the Bluetooth stack state. The values in
+		 *  this structure are set by the Bluetooth stack internally, and should all be treated as read only by the user
+		 *  application.
+		 */
+		typedef struct
+		{
+			uint8_t CurrentHCIState; /**< Current HCI state machine state. */
+			uint8_t NextHCIState; /**< Next HCI state machine state to progress to once the currently issued command completes. */
+			bool    IsInitialized; /**< Indicates if the Bluetooth stack is currently initialized and ready for connections
+			                        *   to or from a remote Bluetooth device.
+			                        */
+			uint8_t LocalBDADDR[6]; /**< Local bluetooth adapter's BDADDR, valid when the stack is fully initialized. */
+		} Bluetooth_Stack_State_t;
 	
 	/* Includes: */
 		#include "BluetoothHCICommands.h"
@@ -124,18 +142,20 @@
 		void Bluetooth_Stack_Init(void);
 		void Bluetooth_Stack_USBTask(void);
 
+		void                 Bluetooth_StackInitialized(void);
 		bool                 Bluetooth_ConnectionRequest(const uint8_t* RemoteAddress);
 		void                 Bluetooth_ConnectionComplete(void);
 		void                 Bluetooth_DisconnectionComplete(void);
 		bool                 Bluetooth_ChannelConnectionRequest(const uint16_t PSM);
 		void                 Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const Channel);
-		Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t ChannelNumber, const bool SearchByRemoteChannel);
+		Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t SearchValue, const uint8_t SearchKey);
 		Bluetooth_Channel_t* Bluetooth_OpenChannel(const uint16_t PSM);
 		void                 Bluetooth_CloseChannel(Bluetooth_Channel_t* const Channel);
 		uint8_t              Bluetooth_SendPacket(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const Channel);
 
 	/* External Variables: */
-		extern Bluetooth_Device_t     Bluetooth_DeviceConfiguration;
-		extern Bluetooth_Connection_t Bluetooth_Connection;
+		extern Bluetooth_Device_t      Bluetooth_DeviceConfiguration;
+		extern Bluetooth_Connection_t  Bluetooth_Connection;
+		extern Bluetooth_Stack_State_t Bluetooth_State;
 
 #endif

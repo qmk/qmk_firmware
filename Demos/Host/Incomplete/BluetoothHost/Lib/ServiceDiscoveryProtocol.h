@@ -78,7 +78,8 @@
 		                                                {.Header = (type | 5), .Size = size, .Data = __VA_ARGS__}
 		#define SERVICE_ATTRIBUTE_32BIT_LEN(name, type, size, ...) const ServiceAttributeData32Bit_t name PROGMEM = \
 		                                                {.Header = (type | 5), .Size = size, .Data = __VA_ARGS__}
-		
+		#define SERVICE_ATTRIBUTE_TABLE_TERMINATOR      {.AttributeData = NULL}
+
 	/* Type Defines: */
 		typedef struct
 		{

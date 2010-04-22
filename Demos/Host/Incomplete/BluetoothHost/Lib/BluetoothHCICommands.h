@@ -47,9 +47,9 @@
 		#define BT_HCI_DEBUG(l, s, ...)                        do { if (HCI_DEBUG_LEVEL >= l) printf_P(PSTR("(HCI) " s "\r\n"), ##__VA_ARGS__); } while (0)
 		#define HCI_DEBUG_LEVEL                                0
 
-		#define OGF_LINK_CONTROL                               0x01
-		#define OGF_CTRLR_BASEBAND                             0x03
-		#define OGF_CTRLR_INFORMATIONAL                        0x04
+		#define OGF_LINK_CONTROL                              (0x01 << 10)
+		#define OGF_CTRLR_BASEBAND                            (0x03 << 10)
+		#define OGF_CTRLR_INFORMATIONAL                       (0x04 << 10)
 
 		#define OCF_LINK_CONTROL_INQUIRY                       0x0001
 		#define OCF_LINK_CONTROL_INQUIRY_CANCEL                0x0002
@@ -75,7 +75,8 @@
 		#define OCF_CTRLR_BASEBAND_WRITE_CLASS_OF_DEVICE       0x0024
 		#define OCF_CTRLR_BASEBAND_WRITE_SIMPLE_PAIRING_MODE   0x0056
 		#define OCF_CTRLR_BASEBAND_WRITE_AUTHENTICATION_ENABLE 0x0020
-		#define OGF_CTRLR_INFORMATIONAL_READBUFFERSIZE         0x0005
+		#define OCF_CTRLR_INFORMATIONAL_READBUFFERSIZE         0x0005
+		#define OCF_CTRLR_INFORMATIONAL_READBDADDR             0x0009
 		
 		#define EVENT_COMMAND_STATUS                           0x0F
 		#define EVENT_COMMAND_COMPLETE                         0x0E
@@ -92,12 +93,7 @@
 	/* Type Defines: */
 		typedef struct
 		{
-			struct
-			{
-				int OCF : 10;
-				int OGF : 6;
-			} OpCode;
-
+			uint16_t OpCode;
 			uint8_t  ParameterLength;
 			uint8_t  Parameters[];
 		} BT_HCICommand_Header_t;
@@ -110,19 +106,14 @@
 
 		typedef struct
 		{
-			uint8_t Status;
-			uint8_t Packets;
-
-			struct
-			{
-				int OCF : 10;
-				int OGF : 6;
-			} OpCode;
+			uint8_t  Status;
+			uint8_t  Packets;
+			uint16_t OpCode;
 		} BT_HCIEvent_CommandStatus_t;
 		
 		typedef struct
 		{
-			uint8_t  HCLPacketsAllowable;
+			uint8_t  HCIPacketsAllowable;
 			uint16_t Opcode;
 			uint8_t  ReturnParams[];
 		} BT_HCIEvent_CommandComplete_t;
@@ -192,18 +183,18 @@
 			Bluetooth_ProcessEvents          = 0,
 			Bluetooth_Init                   = 1,
 			Bluetooth_Init_Reset             = 2,
-			Bluetooth_Init_SetLocalName      = 3,
-			Bluetooth_Init_SetDeviceClass    = 4,
-			Bluetooth_Init_WriteScanEnable   = 5,
-			Bluetooth_Conn_AcceptConnection  = 6,
-			Bluetooth_Conn_RejectConnection  = 7,
-			Bluetooth_Conn_SendPINCode       = 8,
-			Bluetooth_Conn_SendLinkKeyNAK    = 9,
+			Bluetooth_Init_ReadBufferSize    = 3,
+			Bluetooth_Init_GetBDADDR         = 4,
+			Bluetooth_Init_SetLocalName      = 5,
+			Bluetooth_Init_SetDeviceClass    = 6,
+			Bluetooth_Init_WriteScanEnable   = 7,
+			Bluetooth_Init_FinalizeInit      = 8,
+			Bluetooth_Conn_AcceptConnection  = 9,
+			Bluetooth_Conn_RejectConnection  = 10,
+			Bluetooth_Conn_SendPINCode       = 11,
+			Bluetooth_Conn_SendLinkKeyNAK    = 12,
 		};
 		
-	/* External Variables: */
-		extern uint8_t Bluetooth_HCIProcessingState;
-
 	/* Function Prototypes: */
 		void Bluetooth_HCITask(void);
 			

@@ -28,6 +28,12 @@
   this software.
 */
 
+/*
+	TODO: Make SendPacket respect receiver's MTU
+	TODO: Make ReceivePacket stitch together MTU fragments (?)
+	TODO: Add channel opened/closed callbacks
+ */
+
 #define  INCLUDE_FROM_BLUETOOTH_ACLPACKETS_C
 #include "BluetoothACLPackets.h"
 
@@ -187,7 +193,8 @@ static void Bluetooth_ProcessIncommingACLPackets(void)
 		Pipe_ClearIN();
 		Pipe_Freeze();
 
-		Bluetooth_PacketReceived(PacketData, DataHeader.PayloadLength, Bluetooth_GetChannelData(DataHeader.DestinationChannel, false));
+		Bluetooth_PacketReceived(PacketData, DataHeader.PayloadLength,
+		                         Bluetooth_GetChannelData(DataHeader.DestinationChannel, CHANNEL_SEARCH_LOCALNUMBER));
 	}
 }
 
@@ -362,7 +369,7 @@ static inline void Bluetooth_Signal_ConnectionReq(const BT_Signal_Header_t* cons
 	BT_ACL_DEBUG(2, "-- Source Channel: 0x%04X", ConnectionRequest.SourceChannel);
 	
 	/* Try to retrieve the existing channel's information structure if it exists */
-	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConnectionRequest.SourceChannel, true);
+	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConnectionRequest.SourceChannel, CHANNEL_SEARCH_REMOTENUMBER);
 
 	/* If an existing channel item with the correct remote channel number was not found, find a free channel entry */
 	if (ChannelData == NULL)
@@ -447,7 +454,7 @@ static inline void Bluetooth_Signal_ConnectionResp(const BT_Signal_Header_t* con
 	BT_ACL_DEBUG(2, "-- Destination Channel: 0x%04X", ConnectionResponse.DestinationChannel);	
 
 	/* Search for the referenced channel in the channel information list */
-	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConnectionResponse.SourceChannel, false);
+	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConnectionResponse.SourceChannel, CHANNEL_SEARCH_LOCALNUMBER);
 
 	/* Only progress if the referenced channel data was found */
 	if (ChannelData != NULL)
@@ -478,7 +485,7 @@ static inline void Bluetooth_Signal_ConfigurationReq(const BT_Signal_Header_t* c
 	Pipe_Freeze();
 
 	/* Search for the referenced channel in the channel information list */
-	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConfigurationRequest.DestinationChannel, false);
+	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConfigurationRequest.DestinationChannel, CHANNEL_SEARCH_LOCALNUMBER);
 
 	BT_ACL_DEBUG(1, "<< L2CAP Configuration Request");
 	BT_ACL_DEBUG(2, "-- Destination Channel: 0x%04X", ConfigurationRequest.DestinationChannel);
@@ -564,7 +571,7 @@ static inline void Bluetooth_Signal_ConfigurationResp(const BT_Signal_Header_t* 
 	BT_ACL_DEBUG(2, "-- Result: 0x%02X", ConfigurationResponse.Result);
 
 	/* Search for the referenced channel in the channel information list */
-	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConfigurationResponse.SourceChannel, true);
+	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConfigurationResponse.SourceChannel, CHANNEL_SEARCH_REMOTENUMBER);
 	
 	/* Only update the channel's state if it was found in the channel list */
 	if (ChannelData != NULL)
@@ -608,7 +615,7 @@ static inline void Bluetooth_Signal_DisconnectionReq(const BT_Signal_Header_t* c
 	Pipe_Freeze();
 	
 	/* Search for the referenced channel in the channel information list */
-	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(DisconnectionRequest.SourceChannel, true);
+	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(DisconnectionRequest.SourceChannel, CHANNEL_SEARCH_REMOTENUMBER);
 
 	struct
 	{
@@ -654,7 +661,7 @@ static inline void Bluetooth_Signal_DisconnectionResp(const BT_Signal_Header_t* 
 	Pipe_Freeze();
 	
 	/* Search for the referenced channel in the channel information list */
-	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(DisconnectionResponse.SourceChannel, true);
+	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(DisconnectionResponse.SourceChannel, CHANNEL_SEARCH_REMOTENUMBER);
 	
 	/* If the channel was found in the channel list, close it */	
 	if (ChannelData != NULL)
