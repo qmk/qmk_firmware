@@ -46,9 +46,9 @@
 		#include <stdbool.h>
 		
 		#include "../../../Common/Common.h"
-		#include "../LowLevel/LowLevel.h"
-		#include "USBMode.h"
-		#include "Events.h"
+		#include "../HighLevel/USBMode.h"
+		#include "../HighLevel/Events.h"
+		#include "LowLevel.h"
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
