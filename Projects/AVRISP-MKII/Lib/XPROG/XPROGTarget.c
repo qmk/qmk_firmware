@@ -156,8 +156,7 @@ void XPROGTarget_EnableTargetPDI(void)
 	PORTD |= (1 << 3);
 	_delay_us(1);
 	
-	/* Set up the synchronous USART for XMEGA communications - 
-	   8 data bits, even parity, 2 stop bits */
+	/* Set up the synchronous USART for XMEGA communications - 8 data bits, even parity, 2 stop bits */
 	UBRR1  = (F_CPU / XPROG_HARDWARE_SPEED);
 	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
@@ -171,10 +170,9 @@ void XPROGTarget_EnableTargetPDI(void)
 	_delay_us(1);
 
 	/* Fire timer compare channel A ISR to manage the software USART */
-	OCR1A   = BITS_BETWEEN_USART_CLOCKS;
-	OCR1B   = BITS_BETWEEN_USART_CLOCKS;
-	TCCR1B  = (1 << WGM12) | (1 << CS10);
-	TIMSK1  = (1 << OCIE1A);
+	OCR1A  = BITS_BETWEEN_USART_CLOCKS;
+	TCCR1B = (1 << WGM12) | (1 << CS10);
+	TIMSK1 = (1 << OCIE1A);
 #endif
 
 	/* Send two BREAKs of 12 bits each to enable PDI interface (need at least 16 idle bits) */
@@ -197,8 +195,7 @@ void XPROGTarget_EnableTargetTPI(void)
 	DDRD |=  (1 << 5) | (1 << 3);
 	DDRD &= ~(1 << 2);
 		
-	/* Set up the synchronous USART for TINY communications - 
-	   8 data bits, even parity, 2 stop bits */
+	/* Set up the synchronous USART for TINY communications - 8 data bits, even parity, 2 stop bits */
 	UBRR1  = (F_CPU / XPROG_HARDWARE_SPEED);
 	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
@@ -211,9 +208,9 @@ void XPROGTarget_EnableTargetTPI(void)
 	BITBANG_TPIDATA_PORT |= BITBANG_TPIDATA_MASK;
 
 	/* Fire timer capture channel ISR to manage the software USART */
-	ICR1    = BITS_BETWEEN_USART_CLOCKS;
-	TCCR1B  = (1 << WGM13) | (1 << WGM12) | (1 << CS10);
-	TIMSK1  = (1 << ICIE1);
+	ICR1   = BITS_BETWEEN_USART_CLOCKS;
+	TCCR1B = (1 << WGM13) | (1 << WGM12) | (1 << CS10);
+	TIMSK1 = (1 << ICIE1);
 #endif
 
 	/* Send two BREAKs of 12 bits each to enable TPI interface (need at least 16 idle bits) */
@@ -402,8 +399,15 @@ static void XPROGTarget_SetTxMode(void)
 		
 	IsSending = true;
 #else
-	while (SoftUSART_BitCount);
-
+	while (SoftUSART_BitCount && TimeoutMSRemaining)
+	{	
+		if (TIFR0 & (1 << OCF0A))
+		{
+			TIFR0 |= (1 << OCF0A);
+			TimeoutMSRemaining--;
+		}
+	}
+	
 	/* Wait for a full cycle of the clock */
 	SoftUSART_Data     = 0x0001;
 	SoftUSART_BitCount = 1;
@@ -436,7 +440,14 @@ static void XPROGTarget_SetRxMode(void)
 	DDRD   &= ~(1 << 3);
 	PORTD  &= ~(1 << 3);
 #else
-	while (SoftUSART_BitCount);
+	while (SoftUSART_BitCount && TimeoutMSRemaining)
+	{	
+		if (TIFR0 & (1 << OCF0A))
+		{
+			TIFR0 |= (1 << OCF0A);
+			TimeoutMSRemaining--;
+		}
+	}
 
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
 	{
