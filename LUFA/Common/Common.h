@@ -164,18 +164,18 @@
 			 *  \param[in,out] Data  Pointer to a number containing an even number of bytes to be reversed
 			 *  \param[in] Bytes  Length of the data in bytes
 			 */
-			static inline void SwapEndian_n(uint8_t* Data, uint8_t Bytes);
-			static inline void SwapEndian_n(uint8_t* Data, uint8_t Bytes)
+			static inline void SwapEndian_n(void* Data, uint8_t Bytes);
+			static inline void SwapEndian_n(void* Data, uint8_t Bytes)
 			{
-				uint8_t Temp;
-				
+				uint8_t* CurrDataPos = Data;
+			
 				while (Bytes)
 				{
-					Temp = *Data;
-					*Data = *(Data + Bytes - 1);
-					*(Data + Bytes - 1) = Temp;
+					uint8_t Temp = *CurrDataPos;
+					*CurrDataPos = *(CurrDataPos + Bytes - 1);
+					*(CurrDataPos + Bytes - 1) = Temp;
 
-					Data++;
+					CurrDataPos++;
 					Bytes -= 2;
 				}
 			}

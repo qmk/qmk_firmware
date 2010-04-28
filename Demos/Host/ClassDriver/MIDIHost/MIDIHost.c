@@ -78,7 +78,7 @@ int main(void)
 				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
 				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
 				{
-					printf("Error Retrieving Configuration Descriptor.\r\n");
+					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -87,7 +87,7 @@ int main(void)
 				if (MIDI_Host_ConfigurePipes(&Keyboard_MIDI_Interface,
 				                             ConfigDescriptorSize, ConfigDescriptorData) != MIDI_ENUMERROR_NoError)
 				{
-					printf("Attached Device Not a Valid MIDI Class Device.\r\n");
+					puts_P(PSTR("Attached Device Not a Valid MIDI Class Device.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -95,13 +95,13 @@ int main(void)
 				
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
-					printf("Error Setting Device Configuration.\r\n");
+					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
 				
-				printf("MIDI Device Enumerated.\r\n");
+				puts_P(PSTR("MIDI Device Enumerated.\r\n"));
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
 				break;

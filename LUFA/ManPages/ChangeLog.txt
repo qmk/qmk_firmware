@@ -29,6 +29,7 @@
   *    builds of avrdude at the expense of AVRStudio compatibility
   *  - Removed two-step endpoint/pipe bank clear and switch sequence for smaller, faster endpoint/pipe code
   *  - The USB_Init() function no longer calls sei() - the user is now responsible for enabling interrupts when they are ready
+  *    for them to be enabled (thanks to Andrei Krainev)
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin

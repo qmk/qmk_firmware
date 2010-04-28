@@ -77,7 +77,7 @@ int main(void)
 				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
 				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
 				{
-					printf("Error Retrieving Configuration Descriptor.\r\n");
+					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -86,7 +86,7 @@ int main(void)
 				if (PRNT_Host_ConfigurePipes(&Printer_PRNT_Interface,
 				                             ConfigDescriptorSize, ConfigDescriptorData) != PRNT_ENUMERROR_NoError)
 				{
-					printf("Attached Device Not a Valid Printer Class Device.\r\n");
+					puts_P(PSTR("Attached Device Not a Valid Printer Class Device.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -94,7 +94,7 @@ int main(void)
 				
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
-					printf("Error Setting Device Configuration.\r\n");
+					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -102,32 +102,32 @@ int main(void)
 				
 				if (PRNT_Host_SetBidirectionalMode(&Printer_PRNT_Interface) != HOST_SENDCONTROL_Successful)
 				{
-					printf("Error Setting Bidirectional Mode.\r\n");
+					puts_P(PSTR("Error Setting Bidirectional Mode.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
 				
-				printf("Printer Device Enumerated.\r\n");
+				puts_P(PSTR("Printer Device Enumerated.\r\n"));
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
 				LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 				
-				printf("Retrieving Device ID...\r\n");
+				puts_P(PSTR("Retrieving Device ID...\r\n"));
 				
 				char DeviceIDString[300];
 				if (PRNT_Host_GetDeviceID(&Printer_PRNT_Interface, DeviceIDString,
 				                          sizeof(DeviceIDString)) != HOST_SENDCONTROL_Successful)
 				{
-					printf("Error Getting Device ID.\r\n");
+					puts_P(PSTR("Error Getting Device ID.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
 				
-				printf("Device ID: %s.\r\n", DeviceIDString);
+				printf_P(PSTR("Device ID: %s.\r\n"), DeviceIDString);
 				
 				char  TestPageData[]    = "\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X";
 				uint16_t TestPageLength = strlen(TestPageData);
@@ -136,7 +136,7 @@ int main(void)
 
 				if (PRNT_Host_SendData(&Printer_PRNT_Interface, &TestPageData, TestPageLength) != PIPE_RWSTREAM_NoError)
 				{
-					printf("Error Sending Page Data.\r\n");
+					puts_P(PSTR("Error Sending Page Data.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;

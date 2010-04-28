@@ -80,7 +80,7 @@ int main(void)
 				if (USB_Host_GetDeviceConfigDescriptor(1, &ConfigDescriptorSize, ConfigDescriptorData,
 				                                       sizeof(ConfigDescriptorData)) != HOST_GETCONFIG_Successful)
 				{
-					printf("Error Retrieving Configuration Descriptor.\r\n");
+					puts_P(PSTR("Error Retrieving Configuration Descriptor.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -89,7 +89,7 @@ int main(void)
 				if (SImage_Host_ConfigurePipes(&DigitalCamera_SI_Interface,
 				                               ConfigDescriptorSize, ConfigDescriptorData) != SI_ENUMERROR_NoError)
 				{
-					printf("Attached Device Not a Valid Still Image Class Device.\r\n");
+					puts_P(PSTR("Attached Device Not a Valid Still Image Class Device.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
@@ -97,43 +97,43 @@ int main(void)
 				
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
-					printf("Error Setting Device Configuration.\r\n");
+					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
 				
-				printf("Still Image Device Enumerated.\r\n");
+				puts_P(PSTR("Still Image Device Enumerated.\r\n"));
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
-				printf("Opening Session...\r\n");
+				puts_P(PSTR("Opening Session...\r\n"));
 				
 				if (SImage_Host_OpenSession(&DigitalCamera_SI_Interface) != PIPE_RWSTREAM_NoError)
 				{
-					printf("Could not open PIMA session.\r\n");
+					puts_P(PSTR("Could not open PIMA session.\r\n"));
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
 
-				printf("Turning off Device...\r\n");
+				puts_P(PSTR("Turning off Device...\r\n"));
 
 				SImage_Host_SendCommand(&DigitalCamera_SI_Interface, 0x1013, 0, NULL);
 				if (SImage_Host_ReceiveResponse(&DigitalCamera_SI_Interface))
 				{
-					printf("Could not turn off device.\r\n");
+					puts_P(PSTR("Could not turn off device.\r\n"));
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;					
 				}
 
-				printf("Device Off.\r\n");
+				puts_P(PSTR("Device Off.\r\n"));
 
-				printf("Closing Session...\r\n");
+				puts_P(PSTR("Closing Session...\r\n"));
 
 				if (SImage_Host_CloseSession(&DigitalCamera_SI_Interface) != PIPE_RWSTREAM_NoError)
 				{
-					printf("Could not close PIMA session.\r\n");
+					puts_P(PSTR("Could not close PIMA session.\r\n"));
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}

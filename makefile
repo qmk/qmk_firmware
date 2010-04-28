@@ -18,9 +18,9 @@ all:
 %:
 	@echo Executing \"make $@\" on all LUFA library elements.
 	@echo
-	make -C LUFA/ $@ -s
-	make -C Demos/ $@ -s
-	make -C Projects/ $@ -s
-	make -C Bootloaders/ $@ -s
+	make -C LUFA $@ -s
+	make -C Demos $@ -s
+	make -C Projects $@ -s
+	make -C Bootloaders $@ -s
 	@echo
 	@echo LUFA \"make $@\" operation complete.
