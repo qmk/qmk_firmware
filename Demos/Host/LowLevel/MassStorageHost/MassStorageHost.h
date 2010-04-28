@@ -41,6 +41,7 @@
 		#include <avr/wdt.h>
 		#include <avr/pgmspace.h>
 		#include <avr/power.h>
+		#include <avr/interrupt.h>
 		#include <stdio.h>
 		#include <ctype.h>
 		#include <string.h>

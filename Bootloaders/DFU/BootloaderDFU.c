@@ -101,6 +101,9 @@ int main(void)
 {
 	/* Configure hardware required by the bootloader */
 	SetupHardware();
+	
+	/* Enable global interrupts so that the USB stack can function */
+	sei();
 
 	/* Run the USB management task while the bootloader is supposed to be running */
 	while (RunBootloader || WaitForExit)

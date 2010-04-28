@@ -43,6 +43,7 @@
 		#include <avr/pgmspace.h>
 		#include <avr/eeprom.h>
 		#include <avr/power.h>
+		#include <avr/interrupt.h>
 		#include <stdbool.h>
 	
 		#include "Descriptors.h"

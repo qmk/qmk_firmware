@@ -47,9 +47,8 @@ int main(void)
 	TCP_Init();
 	Webserver_Init();
 
-	printf_P(PSTR("\r\n\r\n****** RNDIS Demo running. ******\r\n"));
-
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 	
 	for (;;)
 	{

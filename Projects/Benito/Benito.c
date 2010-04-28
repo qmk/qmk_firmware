@@ -83,6 +83,8 @@ int main(void)
 	SetupHardware();
 	
 	Buffer_Initialize(&Tx_Buffer);
+	
+	sei();
 
 	for (;;)
 	{

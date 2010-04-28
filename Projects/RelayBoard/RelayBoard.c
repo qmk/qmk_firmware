@@ -44,6 +44,8 @@
 int main(void)
 {
 	SetupHardware();
+	
+	sei();
 
 	for (;;)
 	  USB_USBTask();

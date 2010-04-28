@@ -69,6 +69,9 @@ CDC_Line_Coding_t LineEncoding2 = { .BaudRateBPS = 0,
 int main(void)
 {
 	SetupHardware();
+	
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{

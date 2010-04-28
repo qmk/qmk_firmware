@@ -41,6 +41,7 @@
 		#include <avr/wdt.h>
 		#include <avr/power.h>
 		#include <avr/pgmspace.h>
+		#include <avr/interrupt.h>
 		#include <stdbool.h>
 
 		#include "Descriptors.h"

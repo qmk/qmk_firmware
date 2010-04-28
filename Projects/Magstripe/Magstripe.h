@@ -41,6 +41,7 @@
 		#include <avr/io.h>
 		#include <avr/wdt.h>
 		#include <avr/power.h>
+		#include <avr/interrupt.h>
 
 		#include "Descriptors.h"
 		#include "Lib/MagstripeHW.h"

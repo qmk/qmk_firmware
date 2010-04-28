@@ -137,15 +137,16 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
  */
 int main(void)
 {
+	SetupHardware();
+
 	/* Fetch logging interval from EEPROM */
 	LoggingInterval500MS_SRAM = eeprom_read_byte(&LoggingInterval500MS_EEPROM);
 
-	SetupHardware();
-
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-
 	/* Mount and open the log file on the dataflash FAT partition */
 	OpenLogFile();
+
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	/* Discard the first sample from the temperature sensor, as it is generally incorrect */
 	volatile uint8_t Dummy = Temperature_GetTemperature();

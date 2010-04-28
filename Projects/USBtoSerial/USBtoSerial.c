@@ -77,6 +77,7 @@ int main(void)
 	Buffer_Initialize(&USARTtoUSB_Buffer);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+	sei();
 
 	for (;;)
 	{

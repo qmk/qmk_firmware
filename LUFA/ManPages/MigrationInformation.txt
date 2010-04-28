@@ -16,6 +16,18 @@
  *    - The \ref TWI_StartTransmission() function now takes in a timeout period, expressed in milliseconds, within which the addressed
  *      device must respond or the function will abort.
  *
+ *  <b>Device Mode</b>
+ *    - The \ref USB_Init() function no longer calls sei() to enable global interrupts, as the user application may need
+ *      to perform other initialization before it is ready to handle global interrupts. The user application is now responsible
+ *      for enabling global interrupts before or shortly after calling \ref USB_Init() to ensure that the enumeration process
+ *      functions correctly.
+ *
+ *  <b>Host Mode</b>
+ *    - The \ref USB_Init() function no longer calls sei() to enable global interrupts, as the user application may need
+ *      to perform other initialization before it is ready to handle global interrupts. The user application is now responsible
+ *      for enabling global interrupts before or shortly after calling \ref USB_Init() to ensure that the enumeration process
+ *      functions correctly.
+ *
  * \section Sec_Migration100219 Migrating from 091223 to 100219
  *
  *  <b>Non-USB Library Components</b>

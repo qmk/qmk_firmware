@@ -103,8 +103,6 @@ void USB_Init(
 	#endif
 
 	USB_IsInitialized = true;
-
-	sei();
 }
 
 void USB_ShutDown(void)

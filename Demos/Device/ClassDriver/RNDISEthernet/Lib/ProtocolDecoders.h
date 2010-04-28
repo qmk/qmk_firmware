@@ -38,6 +38,8 @@
 
 	/* Includes: */
 		#include <avr/io.h>
+		#include <avr/pgmspace.h>
+		#include <stdio.h>
 		
 		#include <LUFA/Drivers/USB/Class/RNDIS.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>

@@ -236,8 +236,12 @@
 			 *  allow for device connection to a host when in device mode, or for device enumeration while in
 			 *  host mode.
 			 *
-			 *  As the USB library relies on USB interrupts for some of its functionality, this routine will
-			 *  enable global interrupts.
+			 *  As the USB library relies on interrupts for the device and host mode enumeration processes,
+			 *  the user must enable global interrupts before or shortly after this function is called. In
+			 *  device mode, interrupts must be enabled within 500ms of this function being called to ensure
+			 *  that the host does not time out whilst enumerating the device. In host mode, interrupts may be
+			 *  enabled at the application's leisure however enumeration will not begin of an attached device
+			 *  until after this has occurred.
 			 *
 			 *  Calling this function when the USB interface is already initialized will cause a complete USB
 			 *  interface reset and re-enumeration.

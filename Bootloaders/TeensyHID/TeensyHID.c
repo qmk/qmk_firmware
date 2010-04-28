@@ -49,6 +49,9 @@ int main(void)
 	/* Setup hardware required for the bootloader */
 	SetupHardware();
 	
+	/* Enable global interrupts so that the USB stack can function */
+	sei();
+
 	while (RunBootloader)
 	  USB_USBTask();
 	

@@ -42,8 +42,6 @@
 int main(void)
 {
 	SetupHardware();
-	
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 
 	for (;;)
 	{
@@ -63,24 +61,7 @@ void SetupHardware(void)
 	clock_prescale_set(clock_div_1);
 	
 	/* Hardware Initialization */
-	LEDs_Init();
 	USB_Init();
-}
-
-/** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs. */
-void EVENT_USB_Device_Connect(void)
-{
-	/* Indicate USB enumerating */
-	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-}
-
-/** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
- *  the status LEDs, disables the sample update and PWM output timers and stops the USB and MIDI management tasks.
- */
-void EVENT_USB_Device_Disconnect(void)
-{
-	/* Indicate USB not ready */
-	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
@@ -88,23 +69,14 @@ void EVENT_USB_Device_Disconnect(void)
  */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	/* Indicate USB connected and ready */
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
-
 	/* Setup MIDI stream endpoints */
-	if (!(Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_OUT, MIDI_STREAM_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}	
+	Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK,
+	                           ENDPOINT_DIR_OUT, MIDI_STREAM_EPSIZE,
+	                           ENDPOINT_BANK_SINGLE);
 	
-	if (!(Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_IN, MIDI_STREAM_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
+	Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPNUM, EP_TYPE_BULK,
+	                           ENDPOINT_DIR_IN, MIDI_STREAM_EPSIZE,
+	                           ENDPOINT_BANK_SINGLE);
 }
 
 /** Task to handle the generation of MIDI note change events in response to presses of the board joystick, and send them
@@ -122,9 +94,7 @@ void MIDI_Task(void)
 	if (Endpoint_IsOUTReceived())
 	{
 		USB_MIDI_EventPacket_t InPacket;
-		Endpoint_Read_Stream_LE(&InPacket, sizeof(InPacket));
-			
-		LEDs_SetAllLEDs(InPacket.Data2 > 64 ? LEDS_LED1 : LEDS_LED2);	
+		Endpoint_Read_Stream_LE(&InPacket, sizeof(InPacket));			
 		Endpoint_ClearOUT();
 
 		uint8_t Channel = InPacket.Data1;
