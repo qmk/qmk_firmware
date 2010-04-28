@@ -47,10 +47,10 @@
  *    - LUFA/Drivers/USB/LowLevel/HostChapter9.c
  *    - LUFA/Drivers/USB/LowLevel/LowLevel.c
  *    - LUFA/Drivers/USB/LowLevel/Pipe.c
- *    - LUFA/Drivers/USB/HighLevel/Events.c
- *    - LUFA/Drivers/USB/HighLevel/USBInterrupt.c
- *    - LUFA/Drivers/USB/HighLevel/USBTask.c
+ *    - LUFA/Drivers/USB/LowLevel/USBInterrupt.c
  *    - LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c
+ *    - LUFA/Drivers/USB/HighLevel/Events.c
+ *    - LUFA/Drivers/USB/HighLevel/USBTask.c
  *
  *  \section Module Description
  *  Driver and framework for the USB controller hardware on the USB series of AVR microcontrollers. This module
@@ -368,11 +368,12 @@
 		
 	/* Includes: */
 		#include "HighLevel/USBTask.h"
-		#include "HighLevel/USBInterrupt.h"
 		#include "HighLevel/Events.h"
 		#include "HighLevel/StdDescriptors.h"
+		#include "HighLevel/ConfigDescriptor.h"
 
 		#include "LowLevel/LowLevel.h"
+		#include "LowLevel/USBInterrupt.h"
 	
 		#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
 			#include "LowLevel/Host.h"
@@ -389,8 +390,6 @@
 		#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
 			#include "LowLevel/OTG.h"
 		#endif
-		
-		#include "HighLevel/ConfigDescriptor.h"
-		
+				
 #endif
 

@@ -60,7 +60,7 @@
 		#include "../HighLevel/USBMode.h"
 		#include "../HighLevel/Events.h"
 		#include "../HighLevel/USBTask.h"
-		#include "../HighLevel/USBInterrupt.h"
+		#include "USBInterrupt.h"
 		
 		#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
 			#include "Host.h"

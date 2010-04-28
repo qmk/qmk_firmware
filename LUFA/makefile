@@ -14,10 +14,10 @@ LUFA_SRC_FILES =     ./Drivers/USB/LowLevel/DevChapter9.c        \
                      ./Drivers/USB/LowLevel/HostChapter9.c       \
                      ./Drivers/USB/LowLevel/LowLevel.c           \
                      ./Drivers/USB/LowLevel/Pipe.c               \
-                     ./Drivers/USB/HighLevel/Events.c            \
-                     ./Drivers/USB/HighLevel/USBInterrupt.c      \
-                     ./Drivers/USB/HighLevel/USBTask.c           \
+                     ./Drivers/USB/LowLevel/USBInterrupt.c       \
                      ./Drivers/USB/HighLevel/ConfigDescriptor.c  \
+                     ./Drivers/USB/HighLevel/Events.c            \
+                     ./Drivers/USB/HighLevel/USBTask.c           \
                      ./Drivers/USB/Class/Device/Audio.c          \
                      ./Drivers/USB/Class/Device/CDC.c            \
                      ./Drivers/USB/Class/Device/HID.c            \

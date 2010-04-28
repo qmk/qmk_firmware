@@ -55,9 +55,9 @@
 		#include <util/delay.h>
 
 		#include "../../../Common/Common.h"
-		#include "../HighLevel/USBInterrupt.h"
 		#include "../HighLevel/StdDescriptors.h"
 		#include "Pipe.h"
+		#include "USBInterrupt.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
