@@ -197,7 +197,7 @@ int main(void)
 					break;
 				}
 			
-				puts_P(PSTR("\r\nContents of first block:"));
+				puts_P(PSTR("\r\nContents of first block:\r\n"));
 
 				for (uint16_t Chunk = 0; Chunk < (DiskCapacity.BlockSize >> 4); Chunk++)
 				{

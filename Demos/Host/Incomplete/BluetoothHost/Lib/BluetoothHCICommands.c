@@ -28,6 +28,10 @@
   this software.
 */
 
+/*
+	TODO: Add local to remote device connections
+ */
+
 #define  INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C
 #include "BluetoothHCICommands.h"
 

@@ -86,22 +86,4 @@ bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* AudioInterfac
 	return true;
 }
 
-bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
-{
-	if ((USB_DeviceState != DEVICE_STATE_Configured) || !(AudioInterfaceInfo->State.InterfaceEnabled))
-	  return false;
-	
-	Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataOUTEndpointNumber);	
-	return Endpoint_IsOUTReceived();
-}
-
-bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
-{
-	if ((USB_DeviceState != DEVICE_STATE_Configured) || !(AudioInterfaceInfo->State.InterfaceEnabled))
-	  return false;
-	
-	Endpoint_SelectEndpoint(AudioInterfaceInfo->Config.DataINEndpointNumber);
-	return Endpoint_IsINReady();
-}
-
 #endif
