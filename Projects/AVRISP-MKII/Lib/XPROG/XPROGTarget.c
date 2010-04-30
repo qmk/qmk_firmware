@@ -453,22 +453,33 @@ static void XPROGTarget_SetRxMode(void)
 	{
 		BITBANG_PDIDATA_DDR  &= ~BITBANG_PDIDATA_MASK;
 		BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
+
+		/* Wait until DATA line has been pulled up to idle by the target */
+		while (!(BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK) && TimeoutMSRemaining)
+		{
+			/* Manage software timeout */
+			if (TIFR0 & (1 << OCF0A))
+			{
+				TIFR0 |= (1 << OCF0A);
+				TimeoutMSRemaining--;
+			}
+		}
 	}
 	else
 	{
 		BITBANG_TPIDATA_DDR  &= ~BITBANG_TPIDATA_MASK;
-		BITBANG_TPIDATA_PORT &= ~BITBANG_TPIDATA_MASK;	
-	}
-	
-	/* Wait until DATA line has been pulled up to idle by the target */
-	while (!(BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK) && TimeoutMSRemaining)
-	{
-		/* Manage software timeout */
-		if (TIFR0 & (1 << OCF0A))
+		BITBANG_TPIDATA_PORT &= ~BITBANG_TPIDATA_MASK;
+
+		/* Wait until DATA line has been pulled up to idle by the target */
+		while (!(BITBANG_TPIDATA_PIN & BITBANG_TPIDATA_MASK) && TimeoutMSRemaining)
 		{
-			TIFR0 |= (1 << OCF0A);
-			TimeoutMSRemaining--;
-		}
+			/* Manage software timeout */
+			if (TIFR0 & (1 << OCF0A))
+			{
+				TIFR0 |= (1 << OCF0A);
+				TimeoutMSRemaining--;
+			}
+		}	
 	}	
 #endif
 
