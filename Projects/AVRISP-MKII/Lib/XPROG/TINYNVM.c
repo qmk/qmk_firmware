@@ -164,14 +164,14 @@ bool TINYNVM_ReadMemory(const uint16_t ReadAddress, uint8_t* ReadBuffer, uint16_
 	/* Send the address of the location to read from */
 	TINYNVM_SendPointerAddress(ReadAddress);
 	
-	while (ReadSize--)
+	while (ReadSize-- && TimeoutMSRemaining)
 	{
 		/* Read the byte of data from the target */
 		XPROGTarget_SendByte(TPI_CMD_SLD | TPI_POINTER_INDIRECT_PI);
 		*(ReadBuffer++) = XPROGTarget_ReceiveByte();
 	}
 	
-	return true;
+	return (TimeoutMSRemaining != 0);
 }
 
 /** Writes word addressed memory to the target's memory spaces.

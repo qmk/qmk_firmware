@@ -183,7 +183,7 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
 	for (uint8_t i = 0; i < XMEGA_CRC_LENGTH; i++)
 	  ((uint8_t*)CRCDest)[i] = XPROGTarget_ReceiveByte();
 	
-	return true;
+	return (TimeoutMSRemaining != 0);
 }
 
 /** Reads memory from the target's memory spaces.
@@ -215,10 +215,10 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16
 		
 	/* Send a LD command with indirect access and postincrement to read out the bytes */
 	XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
-	while (ReadSize--)
+	while (ReadSize-- && TimeoutMSRemaining)
 	  *(ReadBuffer++) = XPROGTarget_ReceiveByte();
 	
-	return true;
+	return (TimeoutMSRemaining != 0);
 }
 
 /** Writes byte addressed memory to the target's memory spaces.

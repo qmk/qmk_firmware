@@ -338,6 +338,9 @@ uint8_t XPROGTarget_ReceiveByte(void)
 		}	
 	}
 	
+	if (TimeoutMSRemaining)
+	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
+
 	return UDR1;
 #else
 	/* Wait until a byte has been received before reading */
