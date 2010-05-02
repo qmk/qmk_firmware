@@ -31,6 +31,8 @@
   *  - The USB_Init() function no longer calls sei() - the user is now responsible for enabling interrupts when they are ready
   *    for them to be enabled (thanks to Andrei Krainev)
   *  - The Audio_Device_IsSampleReceived() and Audio_Device_IsReadyForNextSample() functions are now inline, to reduce overhead
+  *  - Removed the cast to uint16_t on the set baud rate in the USBtoSerial project, so that the higher >1M baud rates can be
+  *    selected (thanks to Steffan)
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin

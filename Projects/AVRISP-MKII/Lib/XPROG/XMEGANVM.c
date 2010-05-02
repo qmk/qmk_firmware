@@ -89,13 +89,6 @@ bool XMEGANVM_WaitWhileNVMBusBusy(void)
 			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 			return true;
 		}
-
-		/* Manage software timeout */
-		if (TIFR0 & (1 << OCF0A))
-		{
-			TIFR0 |= (1 << OCF0A);
-			TimeoutMSRemaining--;
-		}
 	}
 	
 	return false;
@@ -126,13 +119,6 @@ bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 		{
 			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 			return true;
-		}
-
-		/* Manage software timeout */
-		if (TIFR0 & (1 << OCF0A))
-		{
-			TIFR0 |= (1 << OCF0A);
-			TimeoutMSRemaining--;
 		}
 	}
 	

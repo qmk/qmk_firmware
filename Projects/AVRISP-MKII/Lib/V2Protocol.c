@@ -42,6 +42,7 @@ uint32_t CurrentAddress;
 /** Flag to indicate that the next read/write operation must update the device's current address */
 bool MustSetAddress;
 
+
 /** Initializes the hardware and software associated with the V2 protocol command handling. */
 void V2Protocol_Init(void)
 {
@@ -55,7 +56,7 @@ void V2Protocol_Init(void)
 	/* Millisecond timer initialization for managing the command timeout counter */
 	OCR0A  = ((F_CPU / 64) / 1000);
 	TCCR0A = (1 << WGM01);
-	TCCR0B = ((1 << CS01) | (1 << CS00));
+	TIMSK0 = (1 << OCIE0A);
 	
 	V2Params_LoadNonVolatileParamValues();
 }
@@ -68,7 +69,9 @@ void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_Byte();
 	
+	/* Start the timeout management timer */
 	TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
+	TCCR0B = ((1 << CS01) | (1 << CS00));
 	
 	switch (V2Command)
 	{
@@ -129,6 +132,9 @@ void V2Protocol_ProcessCommand(void)
 			V2Protocol_UnknownCommand(V2Command);
 			break;
 	}
+	
+	/* Disable the timeout management timer */
+	TCCR0B = 0;
 
 	Endpoint_WaitUntilReady();
 	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPNUM);

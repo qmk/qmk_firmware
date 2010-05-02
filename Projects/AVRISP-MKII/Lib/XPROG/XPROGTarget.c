@@ -328,15 +328,7 @@ uint8_t XPROGTarget_ReceiveByte(void)
 
 #if defined(XPROG_VIA_HARDWARE_USART)
 	/* Wait until a byte has been received before reading */
-	while (!(UCSR1A & (1 << RXC1)) && TimeoutMSRemaining)
-	{
-		/* Manage software timeout */
-		if (TIFR0 & (1 << OCF0A))
-		{
-			TIFR0 |= (1 << OCF0A);
-			TimeoutMSRemaining--;
-		}	
-	}
+	while (!(UCSR1A & (1 << RXC1)) && TimeoutMSRemaining);
 	
 	if (TimeoutMSRemaining)
 	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
@@ -345,15 +337,7 @@ uint8_t XPROGTarget_ReceiveByte(void)
 #else
 	/* Wait until a byte has been received before reading */
 	SoftUSART_BitCount = BITS_IN_USART_FRAME;
-	while (SoftUSART_BitCount && TimeoutMSRemaining)
-	{
-		/* Manage software timeout */
-		if (TIFR0 & (1 << OCF0A))
-		{
-			TIFR0 |= (1 << OCF0A);
-			TimeoutMSRemaining--;
-		}
-	}
+	while (SoftUSART_BitCount && TimeoutMSRemaining);
 
 	if (TimeoutMSRemaining)
 	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
@@ -402,14 +386,7 @@ static void XPROGTarget_SetTxMode(void)
 		
 	IsSending = true;
 #else
-	while (SoftUSART_BitCount && TimeoutMSRemaining)
-	{	
-		if (TIFR0 & (1 << OCF0A))
-		{
-			TIFR0 |= (1 << OCF0A);
-			TimeoutMSRemaining--;
-		}
-	}
+	while (SoftUSART_BitCount && TimeoutMSRemaining);
 	
 	/* Wait for a full cycle of the clock */
 	SoftUSART_Data     = 0x0001;
@@ -443,14 +420,7 @@ static void XPROGTarget_SetRxMode(void)
 	DDRD   &= ~(1 << 3);
 	PORTD  &= ~(1 << 3);
 #else
-	while (SoftUSART_BitCount && TimeoutMSRemaining)
-	{	
-		if (TIFR0 & (1 << OCF0A))
-		{
-			TIFR0 |= (1 << OCF0A);
-			TimeoutMSRemaining--;
-		}
-	}
+	while (SoftUSART_BitCount && TimeoutMSRemaining);
 
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
 	{
@@ -458,15 +428,7 @@ static void XPROGTarget_SetRxMode(void)
 		BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
 
 		/* Wait until DATA line has been pulled up to idle by the target */
-		while (!(BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK) && TimeoutMSRemaining)
-		{
-			/* Manage software timeout */
-			if (TIFR0 & (1 << OCF0A))
-			{
-				TIFR0 |= (1 << OCF0A);
-				TimeoutMSRemaining--;
-			}
-		}
+		while (!(BITBANG_PDIDATA_PIN & BITBANG_PDIDATA_MASK) && TimeoutMSRemaining);
 	}
 	else
 	{
@@ -474,15 +436,7 @@ static void XPROGTarget_SetRxMode(void)
 		BITBANG_TPIDATA_PORT &= ~BITBANG_TPIDATA_MASK;
 
 		/* Wait until DATA line has been pulled up to idle by the target */
-		while (!(BITBANG_TPIDATA_PIN & BITBANG_TPIDATA_MASK) && TimeoutMSRemaining)
-		{
-			/* Manage software timeout */
-			if (TIFR0 & (1 << OCF0A))
-			{
-				TIFR0 |= (1 << OCF0A);
-				TimeoutMSRemaining--;
-			}
-		}	
+		while (!(BITBANG_TPIDATA_PIN & BITBANG_TPIDATA_MASK) && TimeoutMSRemaining);
 	}	
 #endif
 

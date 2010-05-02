@@ -124,13 +124,6 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 		case PROG_MODE_PAGED_VALUE_MASK:
 			do
 			{
-				/* Manage software timeout */
-				if (TIFR0 & (1 << OCF0A))
-				{
-					TIFR0 |= (1 << OCF0A);
-					TimeoutMSRemaining--;
-				}
-
 				SPI_SendByte(ReadMemCommand);
 				SPI_SendByte(PollAddress >> 8);
 				SPI_SendByte(PollAddress & 0xFF);
@@ -162,13 +155,6 @@ uint8_t ISPTarget_WaitWhileTargetBusy(void)
 {
 	do
 	{
-		/* Manage software timeout */
-		if (TIFR0 & (1 << OCF0A))
-		{
-			TIFR0 |= (1 << OCF0A);
-			TimeoutMSRemaining--;
-		}	
-
 		SPI_SendByte(0xF0);
 		SPI_SendByte(0x00);
 		SPI_SendByte(0x00);

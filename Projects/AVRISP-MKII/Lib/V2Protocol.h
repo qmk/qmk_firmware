@@ -37,14 +37,16 @@
 #define _V2_PROTOCOL_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Peripheral/SPI.h>
-		
-		#include "../Descriptors.h"
-		#include "V2ProtocolConstants.h"
-		#include "V2ProtocolParams.h"
-		#include "ISP/ISPProtocol.h"
-		#include "XPROG/XPROGProtocol.h"
+		#if !defined(__ASSEMBLER__)
+			#include <LUFA/Drivers/USB/USB.h>
+			#include <LUFA/Drivers/Peripheral/SPI.h>
+			
+			#include "../Descriptors.h"
+			#include "V2ProtocolConstants.h"
+			#include "V2ProtocolParams.h"
+			#include "ISP/ISPProtocol.h"
+			#include "XPROG/XPROGProtocol.h"
+		#endif
 
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
@@ -80,19 +82,23 @@
 		#endif
 
 	/* External Variables: */
-		extern uint32_t CurrentAddress;
-		extern bool     MustSetAddress;
+		#if !defined(__ASSEMBLER__)
+			extern uint32_t CurrentAddress;
+			extern bool     MustSetAddress;
+		#endif
 
 	/* Function Prototypes: */
-		void V2Protocol_Init(void);
-		void V2Protocol_ProcessCommand(void);
-		
-		#if defined(INCLUDE_FROM_V2PROTOCOL_C)
-			static void V2Protocol_UnknownCommand(const uint8_t V2Command);
-			static void V2Protocol_SignOn(void);
-			static void V2Protocol_GetSetParam(const uint8_t V2Command);
-			static void V2Protocol_ResetProtection(void);
-			static void V2Protocol_LoadAddress(void);
+		#if !defined(__ASSEMBLER__)
+			void V2Protocol_Init(void);
+			void V2Protocol_ProcessCommand(void);
+			
+			#if defined(INCLUDE_FROM_V2PROTOCOL_C)
+				static void V2Protocol_UnknownCommand(const uint8_t V2Command);
+				static void V2Protocol_SignOn(void);
+				static void V2Protocol_GetSetParam(const uint8_t V2Command);
+				static void V2Protocol_ResetProtection(void);
+				static void V2Protocol_LoadAddress(void);
+			#endif
 		#endif
 
 #endif
