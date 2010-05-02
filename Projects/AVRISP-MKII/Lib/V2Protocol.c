@@ -43,6 +43,7 @@ uint32_t CurrentAddress;
 bool MustSetAddress;
 
 
+/** ISR to manage timeouts whilst processing a V2Protocol command */
 ISR(TIMER0_COMPA_vect, ISR_NOBLOCK)
 {
 	if (TimeoutMSRemaining)
