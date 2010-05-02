@@ -43,6 +43,12 @@ uint32_t CurrentAddress;
 bool MustSetAddress;
 
 
+ISR(TIMER0_COMPA_vect, ISR_NOBLOCK)
+{
+	if (TimeoutMSRemaining)
+	  TimeoutMSRemaining--;
+}
+
 /** Initializes the hardware and software associated with the V2 protocol command handling. */
 void V2Protocol_Init(void)
 {

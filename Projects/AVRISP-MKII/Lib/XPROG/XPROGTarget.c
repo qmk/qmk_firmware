@@ -165,6 +165,10 @@ void XPROGTarget_EnableTargetPDI(void)
 	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
 	BITBANG_PDICLOCK_DDR |= BITBANG_PDICLOCK_MASK;
 	
+	/* Set DATA line low for at least 90ns to ensure that the device is ready for PDI mode to be entered */
+	BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
+	_delay_us(1);
+
 	/* Set DATA line high for at least 90ns to disable /RESET functionality */
 	BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;
 	_delay_us(1);
@@ -314,6 +318,9 @@ void XPROGTarget_SendByte(const uint8_t Byte)
 	SoftUSART_Data     = NewUSARTData;
 	SoftUSART_BitCount = BITS_IN_USART_FRAME;
 #endif
+
+    if (TimeoutMSRemaining)
+	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 }
 
 /** Receives a byte via the software USART, blocking until data is received.
@@ -369,6 +376,9 @@ void XPROGTarget_SendBreak(void)
 	SoftUSART_Data     = 0x0FFF;
 	SoftUSART_BitCount = BITS_IN_USART_FRAME;
 #endif
+
+    if (TimeoutMSRemaining)
+	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 }
 
 static void XPROGTarget_SetTxMode(void)
@@ -404,6 +414,9 @@ static void XPROGTarget_SetTxMode(void)
 		BITBANG_TPIDATA_DDR  |= BITBANG_TPIDATA_MASK;	
 	}
 #endif
+
+    if (TimeoutMSRemaining)
+	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 
 	IsSending = true;
 }
