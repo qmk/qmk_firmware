@@ -13,6 +13,8 @@
   *  - Added new Relay Controller Board project (thanks to OBinou)
   *  - Added board hardware driver support for the Teensy, USBTINY MKII, Benito and JM-DB-U2 lines of third party USB AVR boards
   *  - Added new ATTR_NO_INIT variable attribute for global variables that should not be automatically cleared on startup
+  *  - Added new ENDPOINT_*_BusSuspended error code to the Endpoint function, so that the stream functions early-abort if the bus
+  *    is suspended before or during a transfer
   *
   *  <b>Changed:</b>
   *  - AVRISP programmer project now has a more robust timeout system, allowing for an increase of the software USART speed
@@ -32,7 +34,7 @@
   *    for them to be enabled (thanks to Andrei Krainev)
   *  - The Audio_Device_IsSampleReceived() and Audio_Device_IsReadyForNextSample() functions are now inline, to reduce overhead
   *  - Removed the cast to uint16_t on the set baud rate in the USBtoSerial project, so that the higher >1M baud rates can be
-  *    selected (thanks to Steffan)
+  *    selected (thanks to Steffan Woltjer)
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin

@@ -10,7 +10,7 @@
                   http://www.fourwalledcubicle.com/LUFA.php
                   =========================================
 
-                 LUFA IS DONATION SUPPORTED. To support LUFA, 
+                 LUFA is donation supported. To support LUFA, 
                please donate at http://www.fourwalledcubicle.com.
 
                   For Commercial Licensing information, see

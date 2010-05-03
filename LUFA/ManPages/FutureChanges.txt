@@ -30,7 +30,6 @@
   *      -# Alternative (USB-IF endorsed) USB-CDC Ethernet Class
   *      -# USB Test and Measurement Class
   *      -# Finish BluetoothHost demo
-  *      -# Finish MIDI class Bootloader
   *      -# Finish SideShow demo
   *      -# Finish StandaloneProgrammer project
   *      -# Finish MIDIToneGenerator project

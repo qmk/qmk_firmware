@@ -120,6 +120,8 @@ uint8_t Endpoint_WaitUntilReady(void)
 		
 		if (USB_DeviceState == DEVICE_STATE_Unattached)
 		  return ENDPOINT_READYWAIT_DeviceDisconnected;
+		else if (USB_DeviceState == DEVICE_STATE_Suspended)
+		  return ENDPOINT_READYWAIT_BusSuspended;
 		else if (Endpoint_IsStalled())
 		  return ENDPOINT_READYWAIT_EndpointStalled;
 			  

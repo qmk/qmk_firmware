@@ -442,8 +442,12 @@
 				                                                 */
 				ENDPOINT_READYWAIT_DeviceDisconnected      = 2,	/**< Device was disconnected from the host while
 				                                                 *   waiting for the endpoint to become ready.
-				                                                 */	
-				ENDPOINT_READYWAIT_Timeout                 = 3, /**< The host failed to accept or send the next packet
+				                                                 */
+				ENDPOINT_READYWAIT_BusSuspended            = 3, /**< The USB bus has been suspended by the host and
+				                                                 *   no USB endpoint traffic can occur until the bus
+				                                                 *   has resumed.
+				                                                 */
+				ENDPOINT_READYWAIT_Timeout                 = 4, /**< The host failed to accept or send the next packet
 				                                                 *   within the software timeout period set by the
 				                                                 *   \ref USB_STREAM_TIMEOUT_MS macro.
 				                                                 */
@@ -462,11 +466,15 @@
 				ENDPOINT_RWSTREAM_DeviceDisconnected = 2, /**< Device was disconnected from the host during
 				                                           *   the transfer.
 				                                           */
-				ENDPOINT_RWSTREAM_Timeout            = 3, /**< The host failed to accept or send the next packet
+				ENDPOINT_RWSTREAM_BusSuspended       = 3, /**< The USB bus has been suspended by the host and
+				                                           *   no USB endpoint traffic can occur until the bus
+				                                           *   has resumed.
+				                                           */
+				ENDPOINT_RWSTREAM_Timeout            = 4, /**< The host failed to accept or send the next packet
 				                                           *   within the software timeout period set by the
 				                                           *   \ref USB_STREAM_TIMEOUT_MS macro.
 				                                           */
-				ENDPOINT_RWSTREAM_CallbackAborted    = 4, /**< Indicates that the stream's callback function
+				ENDPOINT_RWSTREAM_CallbackAborted    = 5, /**< Indicates that the stream's callback function
 			                                               *   aborted the transfer early.
 				                                           */
 			};
@@ -481,6 +489,10 @@
 				ENDPOINT_RWCSTREAM_HostAborted        = 1, /**< The aborted the transfer prematurely. */
 				ENDPOINT_RWCSTREAM_DeviceDisconnected = 2, /**< Device was disconnected from the host during
 				                                            *   the transfer.
+				                                            */
+				ENDPOINT_RWCSTREAM_BusSuspended       = 3, /**< The USB bus has been suspended by the host and
+				                                            *   no USB endpoint traffic can occur until the bus
+				                                            *   has resumed.
 				                                            */
 			};
 

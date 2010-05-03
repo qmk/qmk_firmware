@@ -165,9 +165,9 @@ void XPROGTarget_EnableTargetPDI(void)
 	BITBANG_PDIDATA_DDR  |= BITBANG_PDIDATA_MASK;
 	BITBANG_PDICLOCK_DDR |= BITBANG_PDICLOCK_MASK;
 	
-	/* Set DATA line low for at least 90ns to ensure that the device is ready for PDI mode to be entered */
+	/* Set DATA line low for at least 1ms to ensure that the device is ready for PDI mode to be entered */
 	BITBANG_PDIDATA_PORT &= ~BITBANG_PDIDATA_MASK;
-	_delay_us(1);
+	_delay_ms(1);
 
 	/* Set DATA line high for at least 90ns to disable /RESET functionality */
 	BITBANG_PDIDATA_PORT |= BITBANG_PDIDATA_MASK;

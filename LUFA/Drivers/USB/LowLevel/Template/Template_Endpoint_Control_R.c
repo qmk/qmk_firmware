@@ -12,6 +12,8 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer, uint16_t Length)
 
 		if (USB_DeviceState == DEVICE_STATE_Unattached)
 		  return ENDPOINT_RWCSTREAM_DeviceDisconnected;
+		else if (USB_DeviceState == DEVICE_STATE_Suspended)
+		  return ENDPOINT_RWCSTREAM_BusSuspended;
 		  
 		if (Endpoint_IsOUTReceived())
 		{
@@ -29,6 +31,8 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer, uint16_t Length)
 	{
 		if (USB_DeviceState == DEVICE_STATE_Unattached)
 		  return ENDPOINT_RWCSTREAM_DeviceDisconnected;
+		else if (USB_DeviceState == DEVICE_STATE_Suspended)
+		  return ENDPOINT_RWCSTREAM_BusSuspended;
 	}
 	
 	return ENDPOINT_RWCSTREAM_NoError;
