@@ -303,9 +303,9 @@
 				
 				#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
 				if (MUXMask & (1 << 8))
-				  ADCSB |=  (1 << MUX5);
+				  ADCSRB |=  (1 << MUX5);
 				else
-				  ADCSB &= ~(1 << MUX5);
+				  ADCSRB &= ~(1 << MUX5);
 				#endif
 			
 				ADCSRA |= (1 << ADSC);
