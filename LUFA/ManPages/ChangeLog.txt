@@ -17,8 +17,7 @@
   *    is suspended before or during a transfer
   *
   *  <b>Changed:</b>
-  *  - AVRISP programmer project now has a more robust timeout system, allowing for an increase of the software USART speed
-  *    for PDI and TPI programming
+  *  - AVRISP programmer project now has a more robust timeout system
   *  - Added a timeout value to the TWI_StartTransmission() function, within which the addressed device must respond
   *  - Webserver project now uses the board LEDs to indicate the current IP configuration state
   *  - Added ENABLE_TELNET_SERVER compile time option to the Webserver project to disable the TELNET server if desired
@@ -35,6 +34,8 @@
   *  - The Audio_Device_IsSampleReceived() and Audio_Device_IsReadyForNextSample() functions are now inline, to reduce overhead
   *  - Removed the cast to uint16_t on the set baud rate in the USBtoSerial project, so that the higher >1M baud rates can be
   *    selected (thanks to Steffan Woltjer)
+  *  - Removed software PDI and TPI emulation from the AVRISP-MKII clone project as it was very buggy and slow - PDI and TPI must
+  *    now be implemented via seperate programming headers
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin

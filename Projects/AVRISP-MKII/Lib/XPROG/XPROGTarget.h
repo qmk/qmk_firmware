@@ -54,38 +54,10 @@
 				#define ENABLE_XPROG_PROTOCOL
 			#endif
 		#endif
-
-	/* Defines: */
-		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
-			#define XPROG_VIA_HARDWARE_USART
-		#else
-			#define BITBANG_PDIDATA_PORT     PORTB
-			#define BITBANG_PDIDATA_DDR      DDRB
-			#define BITBANG_PDIDATA_PIN      PINB
-			#define BITBANG_PDIDATA_MASK     (1 << 3)
-			
-			#define BITBANG_PDICLOCK_PORT    AUX_LINE_PORT
-			#define BITBANG_PDICLOCK_DDR     AUX_LINE_DDR
-			#define BITBANG_PDICLOCK_PIN     AUX_LINE_PIN
-			#define BITBANG_PDICLOCK_MASK    AUX_LINE_MASK
-
-			#define BITBANG_TPIDATA_PORT     PORTB
-			#define BITBANG_TPIDATA_DDR      DDRB
-			#define BITBANG_TPIDATA_PIN      PINB
-			#define BITBANG_TPIDATA_MASK     (1 << 3)
-				
-			#define BITBANG_TPICLOCK_PORT    PORTB
-			#define BITBANG_TPICLOCK_DDR     DDRB
-			#define BITBANG_TPICLOCK_PIN     PINB
-			#define BITBANG_TPICLOCK_MASK    (1 << 1)
-		#endif
 		
 		/** Serial carrier TPI/PDI speed when hardware TPI/PDI mode is used */
 		#define XPROG_HARDWARE_SPEED       1000000
 
-		/** Number of cycles between each clock when software USART mode is used */
-		#define BITS_BETWEEN_USART_CLOCKS  100
-		
 		/** Total number of bits in a single USART frame */
 		#define BITS_IN_USART_FRAME        12
 		
