@@ -235,7 +235,10 @@ ISR(USB_COM_vect, ISR_BLOCK)
 {
 	uint8_t PrevSelectedEndpoint = Endpoint_GetCurrentEndpoint();
 
+	USB_INT_Disable(USB_INT_RXSTPI);
+	sei();
 	USB_USBTask();
+	USB_INT_Enable(USB_INT_RXSTPI);
 
 	USB_INT_Clear(USB_INT_RXSTPI);
 	
