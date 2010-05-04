@@ -56,14 +56,15 @@
  *  Note that this design currently has the following limitations:
  *    - Minimum ISP target clock speed of 500KHz due to hardware SPI module prescaler limitations
  *    - No reversed/shorted target connector detection and notification
+ *    - Very slow TPI and PDI programming when in software emulated USART mode
  *
  *  On AVR models with an ADC converter, AVCC should be tied to 5V (e.g. VBUS) and the VTARGET_ADC_CHANNEL token should be
  *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models
  *  without an ADC converter, VTARGET will report a fixed 5V level at all times.
  *
  *  When compiled for the XPLAIN board target, this will automatically configure itself for the correct connections to the
- *  XPLAIN's XMEGA AVR, and will enable PDI/TPI only programming support (since ISP mode is not needed). Note that the
- *  first revision XPLAIN board lacks a bootloader on the AT90USB1287, and thus for this firmware to be loaded, an external
+ *  XPLAIN's XMEGA AVR, and will enable hardware PDI/TPI only programming support (since ISP mode is not needed). Note that
+ *  the first revision XPLAIN board lacks a bootloader on the AT90USB1287, and thus for this firmware to be loaded, an external
  *  programmer will be required.
  *
  *  While this application can be compiled for USB AVRs with as little as 8KB of FLASH, for full functionality 16KB or more

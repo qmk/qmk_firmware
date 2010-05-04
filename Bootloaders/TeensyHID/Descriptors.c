@@ -157,26 +157,29 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 	void*    Address = NULL;
 	uint16_t Size    = NO_DESCRIPTOR;
 
-	switch (DescriptorType)
+	/* If/Else If chain compiles slightly smaller than a switch case */
+
+	if (DescriptorType == DTYPE_Device)
 	{
-		case DTYPE_Device:
-			Address = (void*)&DeviceDescriptor;
-			Size    = sizeof(USB_Descriptor_Device_t);
-			break;
-		case DTYPE_Configuration:
-			Address = (void*)&ConfigurationDescriptor;
-			Size    = sizeof(USB_Descriptor_Configuration_t);
-			break;
-		case DTYPE_HID:
-			Address = (void*)&ConfigurationDescriptor.HID_VendorHID;
-			Size    = sizeof(USB_Descriptor_HID_t);
-			break;
-		case DTYPE_Report:
-			Address = (void*)&HIDReport;
-			Size    = sizeof(HIDReport);
-			break;
+		Address = (void*)&DeviceDescriptor;
+		Size    = sizeof(USB_Descriptor_Device_t);	
 	}
-	
+	else if (DescriptorType == DTYPE_Device)
+	{
+		Address = (void*)&ConfigurationDescriptor;
+		Size    = sizeof(USB_Descriptor_Configuration_t);	
+	}
+	else if (DescriptorType == DTYPE_HID)
+	{
+		Address = (void*)&ConfigurationDescriptor.HID_VendorHID;
+		Size    = sizeof(USB_Descriptor_HID_t);
+	}
+	else
+	{
+		Address = (void*)&HIDReport;
+		Size    = sizeof(HIDReport);
+	}
+
 	*DescriptorAddress = Address;
 	return Size;
 }

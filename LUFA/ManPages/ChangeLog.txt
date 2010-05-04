@@ -52,6 +52,12 @@
   *  - Fixed Set/Clear Feature requests directed to a non-configured endpoint not returning a stall to the host
   *  - Fixed HID Device Class Driver not allocating a temporary buffer when the host requests a report via the control endpoint and the
   *    user has set the PrevReportINBuffer driver configuration element to NULL (thanks to Lars Noschinski)
+  *  - Fixed device state not being reset to DEVICE_STATE_Default if the host sets a 0x00 device address
+  *  - Fixed device not stalling configuration requests before the device's address has been set
+  *  - Fixed possibility of internal signature retrieval being corrupted if an interrupt occurs during a signature byte
+  *    read (thanks to Andrei Krainev)
+  *  - Fixed device state not being reset back to the default state if the host sets the address to 0
+  *  - Fixed Set Configuration requests not being stalled until the host has set the device's address
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *
