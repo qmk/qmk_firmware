@@ -58,6 +58,8 @@
   *    read (thanks to Andrei Krainev)
   *  - Fixed device state not being reset back to the default state if the host sets the address to 0
   *  - Fixed Set Configuration requests not being stalled until the host has set the device's address
+  *  - Fixed Host mode HID class driver not sending the correct report type when HID_Host_SendReportByID() was called and the 
+  *    HID_HOST_BOOT_PROTOCOL_ONLY compile time option is set
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *

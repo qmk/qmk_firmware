@@ -249,7 +249,7 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 			.wValue        = ((REPORT_ITEM_TYPE_Out + 1) << 8) | ReportID,
 #else
-			.wValue        = 0,
+			.wValue        = ((REPORT_ITEM_TYPE_Out + 1) << 8),
 #endif
 			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
 			.wLength       = ReportSize,
