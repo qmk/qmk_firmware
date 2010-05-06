@@ -48,7 +48,7 @@
 
 
 # MCU name
-MCU = at90usb1287
+MCU = atmega32u4
 
 
 # Target board (see library "Board Types" documentation, NONE for projects not requiring
@@ -86,7 +86,7 @@ F_CLOCK = $(F_CPU)
 
 
 # Starting byte address of the bootloader
-BOOT_START = 0x1e000
+BOOT_START = 0x7000
 
 
 # Output format. (can be srec, ihex, binary)

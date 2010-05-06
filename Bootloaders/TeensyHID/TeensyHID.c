@@ -120,7 +120,11 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				boot_spm_busy_wait();
 				
 				/* Write each of the FLASH page's bytes in sequence */
-				for (uint16_t PageByte = 0; PageByte < SPM_PAGESIZE; PageByte += 2)
+				#if (SPM_PAGESIZE == 128)
+				for (uint8_t PageByte = 0; PageByte < SPM_PAGESIZE; PageByte += 2)				
+				#else
+				for (uint16_t PageByte = 0; PageByte < SPM_PAGESIZE; PageByte += 2)				
+				#endif
 				{
 					/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
 					if (!(Endpoint_BytesInEndpoint()))

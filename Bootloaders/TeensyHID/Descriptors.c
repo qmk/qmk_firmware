@@ -51,7 +51,7 @@ USB_Descriptor_HIDReport_Datatype_t HIDReport[] =
 	0x0a, 0x19, 0x00,        /*   Usage (Vendor Defined)                        */
 	0x75, 0x08,              /*   Report Size (8)                               */
 #if (SPM_PAGESIZE == 128)    /*   Report Count (SPM_PAGESIZE + 2)               */
-	0x95, (SPM_PAGESIZE + 2)
+	0x95, (SPM_PAGESIZE + 2),
 #else
 	0x96, ((SPM_PAGESIZE + 2) & 0xFF), ((SPM_PAGESIZE + 2) >> 8),
 #endif
