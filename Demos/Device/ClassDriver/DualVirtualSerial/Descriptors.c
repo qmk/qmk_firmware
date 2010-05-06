@@ -136,14 +136,6 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Data                   = {0x01, 0x10}
 		},
 
-	.CDC1_Functional_CallManagement = 
-		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(2)), .Type = 0x24},
-			.SubType                = 0x01,
-			
-			.Data                   = {0x03, 0x01}
-		},
-
 	.CDC1_Functional_AbstractControlManagement = 
 		{
 			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(1)), .Type = 0x24},
@@ -242,14 +234,6 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.SubType                = 0x00,
 			
 			.Data                   = {0x01, 0x10}
-		},
-
-	.CDC2_Functional_CallManagement = 
-		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(2)), .Type = 0x24},
-			.SubType                = 0x01,
-			
-			.Data                   = {0x03, 0x03}
 		},
 
 	.CDC2_Functional_AbstractControlManagement = 

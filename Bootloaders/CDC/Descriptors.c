@@ -110,14 +110,6 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.Data                   = {0x10, 0x01}
 		},
 
-	.CDC_Functional_CallManagement = 
-		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(2)), .Type = 0x24},
-			.SubType                = 0x01,
-			
-			.Data                   = {0x03, 0x01}
-		},
-
 	.CDC_Functional_AbstractControlManagement = 
 		{
 			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(1)), .Type = 0x24},

@@ -66,6 +66,7 @@
   *  - Fixed INTERRUPT_CONTROL_ENDPOINT compile time option preventing other interrupts from occuring while the control endpoint
   *    request is being processed, causing possible lockups if a USB interrupt occurs during a transfer
   *  - Fixed TeensyHID bootloader not working on some USB AVR models with the official TeensyLoader GUI application
+  *  - Remove incorrect Abstract Call Management class specific descriptor from the CDC demos, bootloaders and projects
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *

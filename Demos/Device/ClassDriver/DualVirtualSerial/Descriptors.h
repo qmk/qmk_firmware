@@ -78,7 +78,6 @@
 			USB_Descriptor_Interface_Association_t   CDC1_IAD;
 			USB_Descriptor_Interface_t               CDC1_CCI_Interface;
 			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC1_Functional_IntHeader;
-			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC1_Functional_CallManagement;
 			CDC_FUNCTIONAL_DESCRIPTOR(1)             CDC1_Functional_AbstractControlManagement;
 			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC1_Functional_Union;
 			USB_Descriptor_Endpoint_t                CDC1_ManagementEndpoint;
@@ -88,7 +87,6 @@
 			USB_Descriptor_Interface_Association_t   CDC2_IAD;
 			USB_Descriptor_Interface_t               CDC2_CCI_Interface;
 			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC2_Functional_IntHeader;
-			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC2_Functional_CallManagement;
 			CDC_FUNCTIONAL_DESCRIPTOR(1)             CDC2_Functional_AbstractControlManagement;
 			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC2_Functional_Union;
 			USB_Descriptor_Endpoint_t                CDC2_ManagementEndpoint;

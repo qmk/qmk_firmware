@@ -68,7 +68,6 @@
 			USB_Descriptor_Configuration_Header_t    Config;
 			USB_Descriptor_Interface_t               CDC_CCI_Interface;
 			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC_Functional_IntHeader;
-			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC_Functional_CallManagement;
 			CDC_FUNCTIONAL_DESCRIPTOR(1)             CDC_Functional_AbstractControlManagement;
 			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC_Functional_Union;
 			USB_Descriptor_Endpoint_t                CDC_ManagementEndpoint;
