@@ -83,6 +83,29 @@
 		
 		/** Descriptor header type value, to indicate a HID class HID report descriptor. */
 		#define DTYPE_Report              0x22
+		
+		/** Vendor usage page for the Teensy 1.0 board */
+		#define TEENSY_USAGEPAGE_10       0x19
+
+		/** Vendor usage page for the Teensy++ 1.0 board */
+		#define TEENSY_USAGEPAGE_10PP     0x1A
+
+		/** Vendor usage page for the Teensy 2.0 board */
+		#define TEENSY_USAGEPAGE_20       0x1B
+		
+		/** Vendor usage page for the Teensy++ 1.0 board */
+		#define TEENSY_USAGEPAGE_20PP     0x1C
+		
+		#if defined(USB_SERIES_2_AVR)
+			#define TEENSY_USAGEPAGE      TEENSY_USAGEPAGE_10
+		#elif defined(USB_SERIES_4_AVR)
+			#define TEENSY_USAGEPAGE      TEENSY_USAGEPAGE_20
+			#define TEENSY_USAGE          TEENSY_USAGE_20
+		#elif defined(USB_SERIES_6_AVR)
+			#define TEENSY_USAGEPAGE      TEENSY_USAGEPAGE_10PP
+		#elif defined(USB_SERIES_7_AVR)
+			#define TEENSY_USAGEPAGE      TEENSY_USAGEPAGE_20PP
+		#endif
 
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)

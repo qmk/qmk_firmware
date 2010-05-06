@@ -45,16 +45,20 @@
  */
 USB_Descriptor_HIDReport_Datatype_t HIDReport[] =
 {
-	0x06, 0x9c, 0xff,     /* Usage Page (Vendor Defined)                     */
-	0x09, 0x1B,           /* Usage (Vendor Defined)                          */
-	0xa1, 0x01,           /* Collection (Vendor Defined)                     */
-	0x0a, 0x19, 0x00,     /*   Usage (Vendor Defined)                        */
-	0x75, 0x08,           /*   Report Size (8)                               */
-	0x95, 0x82,           /*   Report Count (130)                            */
-	0x15, 0x00,           /*   Logical Minimum (0)                           */
-	0x25, 0xff,           /*   Logical Maximum (255)                         */
-	0x91, 0x02,           /*   Output (Data, Variable, Absolute)             */
-	0xc0                  /* End Collection                                  */
+	0x06, 0x9c, 0xff,        /* Usage Page (Vendor Defined)                     */
+	0x09, TEENSY_USAGEPAGE,  /* Usage (Vendor Defined)                          */
+	0xa1, 0x01,              /* Collection (Vendor Defined)                     */
+	0x0a, 0x19, 0x00,        /*   Usage (Vendor Defined)                        */
+	0x75, 0x08,              /*   Report Size (8)                               */
+#if (SPM_PAGESIZE == 128)    /*   Report Count (SPM_PAGESIZE + 2)               */
+	0x95, (SPM_PAGESIZE + 2)
+#else
+	0x96, ((SPM_PAGESIZE + 2) & 0xFF), ((SPM_PAGESIZE + 2) >> 8),
+#endif
+	0x15, 0x00,              /*   Logical Minimum (0)                           */
+	0x25, 0xff,              /*   Logical Maximum (255)                         */
+	0x91, 0x02,              /*   Output (Data, Variable, Absolute)             */
+	0xc0                     /* End Collection                                  */
 };
 
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
