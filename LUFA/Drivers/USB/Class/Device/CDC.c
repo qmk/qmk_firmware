@@ -195,9 +195,14 @@ uint16_t CDC_Device_BytesReceived(USB_ClassInfo_CDC_Device_t* const CDCInterface
 	if (Endpoint_IsOUTReceived())
 	{
 		if (!(Endpoint_BytesInEndpoint()))
-		  Endpoint_ClearOUT();
-
-		return Endpoint_BytesInEndpoint();
+		{
+			Endpoint_ClearOUT();
+			return 0;
+		}
+		else
+		{
+			return Endpoint_BytesInEndpoint();
+		}
 	}
 	else
 	{

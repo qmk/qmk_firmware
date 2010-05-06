@@ -315,12 +315,16 @@ uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 	if (Pipe_IsINReceived())
 	{
 		if (!(Pipe_BytesInPipe()))
-		  Pipe_ClearIN();
-		
-		BytesInPipe = Pipe_BytesInPipe();
-		Pipe_Freeze();
-		
-		return BytesInPipe;
+		{
+			Pipe_ClearIN();
+			Pipe_Freeze();
+			return 0;
+		}
+		else
+		{
+			Pipe_Freeze();
+			return Pipe_BytesInPipe();
+		}
 	}
 	else
 	{
