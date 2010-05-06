@@ -84,6 +84,17 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* CDCInterfaceIn
 			}
 	
 			break;
+		case REQ_SendBreak:
+			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
+			{				
+				Endpoint_ClearSETUP();
+				
+				EVENT_CDC_Device_BreakSent(CDCInterfaceInfo, (uint8_t)USB_ControlRequest.wValue);
+
+				Endpoint_ClearStatusStage();
+			}
+
+			break;
 	}
 }
 

@@ -261,6 +261,22 @@ uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* const CDCI
 	return USB_Host_SendControlRequest(NULL);
 }
 
+uint8_t CDC_Host_SendBreak(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, const uint8_t Duration)
+{
+	USB_ControlRequest = (USB_Request_Header_t)
+	{
+		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
+		.bRequest      = REQ_SendBreak,
+		.wValue        = Duration,
+		.wIndex        = CDCInterfaceInfo->State.ControlInterfaceNumber,
+		.wLength       = 0,
+	};
+
+	Pipe_SelectPipe(PIPE_CONTROLPIPE);
+	
+	return USB_Host_SendControlRequest(NULL);
+}
+
 uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, char* Data, const uint16_t Length)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
@@ -303,8 +319,6 @@ uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, cons
 
 uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 {
-	uint16_t BytesInPipe = 0;
-
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
 	  return 0;
 	

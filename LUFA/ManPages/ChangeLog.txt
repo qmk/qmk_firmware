@@ -15,6 +15,7 @@
   *  - Added new ATTR_NO_INIT variable attribute for global variables that should not be automatically cleared on startup
   *  - Added new ENDPOINT_*_BusSuspended error code to the Endpoint function, so that the stream functions early-abort if the bus
   *    is suspended before or during a transfer
+  *  - Added new EVENT_CDC_Device_BreakSent() event and CDC_Host_SendBreak() function to the Device and Host CDC Class drivers
   *
   *  <b>Changed:</b>
   *  - AVRISP programmer project now has a more robust timeout system

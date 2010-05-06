@@ -190,6 +190,14 @@
 			 */
 			void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			/** CDC class driver event for a send break request sent to the device from the host. This is generally used to seperate
+			 *  data or to indicate a special condition to the receiving device.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in]     Duration          Duration of the break that has been sent by the host, in milliseconds
+			 */
+			void EVENT_CDC_Device_BreakSent(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, uint8_t Duration) ATTR_NON_NULL_PTR_ARG(1);
+
 			/** Sends a given string to the attached USB host, if connected. If a host is not connected when the function is called, the
 			 *  string is discarded. Bytes will be queued for transmission to the host until either the endpoint bank becomes full, or the
 			 *  \ref CDC_Device_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
@@ -307,6 +315,8 @@
 														  ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Device_Event_Stub);
 				void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 															 ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Device_Event_Stub);
+				void EVENT_CDC_Device_BreakSent(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, uint8_t Duration)
+				                                ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Device_Event_Stub);
 			#endif
 
 	#endif

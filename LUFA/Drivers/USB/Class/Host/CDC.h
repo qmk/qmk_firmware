@@ -190,6 +190,16 @@
 			 */
 			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
+			/** Sends a Send Break request to the device. This is generally used to seperate data data or to indicate a special condition
+			 *  to the receiving device.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
+			 *  \param[in]     Duration          Duration of the break, in milliseconds
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum
+			 */
+			uint8_t CDC_Host_SendBreak(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, const uint8_t Duration) ATTR_NON_NULL_PTR_ARG(1);
+			
 			/** Sends a given string to the attached USB device, if connected. If a device is not connected when the function is called, the
 			 *  string is discarded. Bytes will be queued for transmission to the device until either the pipe bank becomes full, or the
 			 *  \ref CDC_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 

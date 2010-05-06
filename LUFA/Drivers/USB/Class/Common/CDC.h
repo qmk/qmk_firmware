@@ -74,6 +74,15 @@
 
 		/** CDC Class specific request to set the current virtual serial port handshake line states. */
 		#define REQ_SetControlLineState          0x22
+
+		/** CDC Class specific request to send a break to the receiver via the carrier channel. */
+		#define REQ_SendBreak                    0x23
+
+		/** CDC Class specific request to send an encapsulated command to the device. */
+		#define REQ_SendEncapsulatedCommand      0x00
+
+		/** CDC Class specific request to retrieve an encapsulated command response from the device. */
+		#define REQ_GetEncapsulatedResponse      0x01
 		
 		/** Notification type constant for a change in the virtual serial port handshake line states, for
 		 *  use with a USB_Notification_Header_t notification structure when sent to the host via the CDC 
