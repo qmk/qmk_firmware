@@ -164,7 +164,7 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 		Address = (void*)&DeviceDescriptor;
 		Size    = sizeof(USB_Descriptor_Device_t);	
 	}
-	else if (DescriptorType == DTYPE_Device)
+	else if (DescriptorType == DTYPE_Configuration)
 	{
 		Address = (void*)&ConfigurationDescriptor;
 		Size    = sizeof(USB_Descriptor_Configuration_t);	
