@@ -36,6 +36,8 @@
   *    selected (thanks to Steffan Woltjer)
   *  - Removed software PDI and TPI emulation from the AVRISP-MKII clone project as it was very buggy and slow - PDI and TPI must
   *    now be implemented via seperate programming headers
+  *  - The CDC class bootloader now uses a watchdog reset rather than a soft-reset when exited to ensure that all hardware is
+  *    properly reset to their defaults
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin
@@ -63,6 +65,7 @@
   *    HID_HOST_BOOT_PROTOCOL_ONLY compile time option is set
   *  - Fixed INTERRUPT_CONTROL_ENDPOINT compile time option preventing other interrupts from occuring while the control endpoint
   *    request is being processed, causing possible lockups if a USB interrupt occurs during a transfer
+  *  - Fixed TeensyHID bootloader not working on some USB AVR models with the official TeensyLoader GUI application
   *
   *  \section Sec_ChangeLog100219 Version 100219
   *

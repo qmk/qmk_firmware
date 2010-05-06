@@ -93,7 +93,7 @@
 		/** Vendor usage page for the Teensy 2.0 board */
 		#define TEENSY_USAGEPAGE_20       0x1B
 		
-		/** Vendor usage page for the Teensy++ 1.0 board */
+		/** Vendor usage page for the Teensy++ 2.0 board */
 		#define TEENSY_USAGEPAGE_20PP     0x1C
 		
 		#if defined(USB_SERIES_2_AVR)

@@ -13,7 +13,7 @@
  *  - AT90USB162 (Teensy 1.0)
  *  - AT90USB646 (Teensy++ 1.0)
  *  - ATMEGA32U4 (Teensy 2.0)
- *  - AT90USB1287 (Teensy++ 2.0)
+ *  - AT90USB1286 (Teensy++ 2.0)
  *
  *  \section SSec_Info USB Information:
  *
@@ -51,7 +51,9 @@
  *  
  * Out of the box this bootloader builds for the ATMEGA32U4, and will fit into 2-4KB of bootloader space. For other
  * devices, the makefile will need to be updated to reflect the altered MCU model and bootloader start address. When
- * calculating the bootloader start address, use (TARGET_FLASH_SIZE_BYTES - 4096).
+ * calculating the bootloader start address, use (TARGET_FLASH_SIZE_BYTES - 4096) for targets where the bootloader
+ * compiles larger than 2KB, or (TARGET_FLASH_SIZE_BYTES - 2048) for smaller targets where the bootloader compiles
+ * under 2KB.
  *
  * This spoofs (with permission) the official Teensy bootloader's VID and PID, so that the software remains
  * compatible with no changes.

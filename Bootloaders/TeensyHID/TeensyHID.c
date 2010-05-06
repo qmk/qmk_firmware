@@ -105,18 +105,24 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			/* Wait until the command has been sent by the host */
 			while (!(Endpoint_IsOUTReceived()));
 		
-			/* Read in the write destination address */
-			uint16_t PageAddress = Endpoint_Read_Word_LE();
+			/* Read in the write destination index */
+			uint16_t PageIndex = Endpoint_Read_Word_LE();
 			
 			/* Check if the command is a program page command, or a start application command */
-			if (PageAddress == TEENSY_STARTAPPLICATION)
+			if (PageIndex == TEENSY_STARTAPPLICATION)
 			{
 				RunBootloader = false;
 			}
 			else
 			{
+				#if (SPM_PAGESIZE == 128)
+				uint16_t PageByteAddress = PageIndex;
+				#else
+				uint32_t PageByteAddress = ((uint32_t)PageIndex << 8);
+				#endif
+			
 				/* Erase the given FLASH page, ready to be programmed */
-				boot_page_erase(PageAddress);
+				boot_page_erase(PageByteAddress);
 				boot_spm_busy_wait();
 				
 				/* Write each of the FLASH page's bytes in sequence */
@@ -134,15 +140,12 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					}
 
 					/* Write the next data word to the FLASH page */
-					boot_page_fill(PageAddress + PageByte, Endpoint_Read_Word_LE());
+					boot_page_fill(PageByteAddress + PageByte, Endpoint_Read_Word_LE());
 				}
 
 				/* Write the filled FLASH page to memory */
-				boot_page_write(PageAddress);
+				boot_page_write(PageByteAddress);
 				boot_spm_busy_wait();
-
-				/* Re-enable RWW section */
-				boot_rww_enable();
 			}
 
 			Endpoint_ClearOUT();

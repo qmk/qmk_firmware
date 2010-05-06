@@ -54,8 +54,8 @@ CDC_Line_Coding_t LineCoding = { .BaudRateBPS = 9600,
 uint32_t CurrAddress;
 
 /** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
- *  via a soft reset. When cleared, the bootloader will abort, the USB interface will shut down and the application
- *  jumped to via an indirect jump to location 0x0000.
+ *  via a watchdog reset. When cleared the bootloader will exit, starting the watchdog and entering an infinite
+ *  loop until the AVR restarts and the application runs.
  */
 bool RunBootloader = true;
 
@@ -78,12 +78,13 @@ int main(void)
 		USB_USBTask();
 	}
 	
-	/* Reset all configured hardware to their default states for the user app */
-	ResetHardware();
+	/* Disconnect from the host - USB interface will be reset later along with the AVR */
+	USB_Detach();
 
-	/* Start the user application */
-	AppPtr_t AppStartPtr = (AppPtr_t)0x0000;
-	AppStartPtr();	
+	/* Enable the watchdog and force a timeout to reset the AVR */
+	wdt_enable(WDTO_250MS);
+
+	for (;;);
 }
 
 /** Configures all hardware required for the bootloader. */
@@ -102,20 +103,6 @@ void SetupHardware(void)
 	
 	/* Initialize USB Subsystem */
 	USB_Init();
-}
-
-/** Resets all configured hardware required for the bootloader back to their original states. */
-void ResetHardware(void)
-{
-	/* Shut down the USB subsystem */
-	USB_ShutDown();
-	
-	/* Relocate the interrupt vector table back to the application section */
-	MCUCR = (1 << IVCE);
-	MCUCR = 0;
-
-	/* Re-enable RWW section */
-	boot_rww_enable();
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This configures the device's endpoints ready
