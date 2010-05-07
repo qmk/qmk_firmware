@@ -14,6 +14,6 @@
 # code.
 
 %:
-	make -C Device $@
-	make -C Host $@
-	make -C DualRole $@
+	$(MAKE) -C Device $@
+	$(MAKE) -C Host $@
+	$(MAKE) -C DualRole $@

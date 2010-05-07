@@ -14,8 +14,8 @@
 # code.
 
 all:
-	make -C MouseHostDevice clean
-	make -C MouseHostDevice all
+	$(MAKE) -C MouseHostDevice clean
+	$(MAKE) -C MouseHostDevice all
 
 %:
-	make -C MouseHostDevice $@
+	$(MAKE) -C MouseHostDevice $@

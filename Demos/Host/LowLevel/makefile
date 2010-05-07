@@ -14,49 +14,49 @@
 # code.
 
 all:
-	make -C GenericHIDHost clean
-	make -C GenericHIDHost all
+	$(MAKE) -C GenericHIDHost clean
+	$(MAKE) -C GenericHIDHost all
 
-	make -C JoystickHostWithParser clean
-	make -C JoystickHostWithParser all
+	$(MAKE) -C JoystickHostWithParser clean
+	$(MAKE) -C JoystickHostWithParser all
 
-	make -C KeyboardHost clean
-	make -C KeyboardHost all
+	$(MAKE) -C KeyboardHost clean
+	$(MAKE) -C KeyboardHost all
 
-	make -C MassStorageHost clean
-	make -C MassStorageHost all
+	$(MAKE) -C MassStorageHost clean
+	$(MAKE) -C MassStorageHost all
 
-	make -C MIDIHost clean
-	make -C MIDIHost all
+	$(MAKE) -C MIDIHost clean
+	$(MAKE) -C MIDIHost all
 
-	make -C MouseHost clean
-	make -C MouseHost all
+	$(MAKE) -C MouseHost clean
+	$(MAKE) -C MouseHost all
 
-	make -C MouseHostWithParser clean
-	make -C MouseHostWithParser all
+	$(MAKE) -C MouseHostWithParser clean
+	$(MAKE) -C MouseHostWithParser all
 
-	make -C PrinterHost clean
-	make -C PrinterHost all
+	$(MAKE) -C PrinterHost clean
+	$(MAKE) -C PrinterHost all
 
-	make -C StillImageHost clean
-	make -C StillImageHost all
+	$(MAKE) -C StillImageHost clean
+	$(MAKE) -C StillImageHost all
 
-	make -C RNDISEthernetHost clean
-	make -C RNDISEthernetHost all
+	$(MAKE) -C RNDISEthernetHost clean
+	$(MAKE) -C RNDISEthernetHost all
 
-	make -C VirtualSerialHost clean
-	make -C VirtualSerialHost all
+	$(MAKE) -C VirtualSerialHost clean
+	$(MAKE) -C VirtualSerialHost all
 
 %:
-	make -C GenericHIDHost $@
-	make -C JoystickHostWithParser $@
-	make -C KeyboardHost $@
-	make -C KeyboardHostWithParser $@
-	make -C MassStorageHost $@
-	make -C MIDIHost $@
-	make -C MouseHost $@
-	make -C MouseHostWithParser $@
-	make -C PrinterHost $@
-	make -C StillImageHost $@
-	make -C RNDISEthernetHost $@
-	make -C VirtualSerialHost $@
+	$(MAKE) -C GenericHIDHost $@
+	$(MAKE) -C JoystickHostWithParser $@
+	$(MAKE) -C KeyboardHost $@
+	$(MAKE) -C KeyboardHostWithParser $@
+	$(MAKE) -C MassStorageHost $@
+	$(MAKE) -C MIDIHost $@
+	$(MAKE) -C MouseHost $@
+	$(MAKE) -C MouseHostWithParser $@
+	$(MAKE) -C PrinterHost $@
+	$(MAKE) -C StillImageHost $@
+	$(MAKE) -C RNDISEthernetHost $@
+	$(MAKE) -C VirtualSerialHost $@

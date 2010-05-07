@@ -14,16 +14,16 @@
 # code.
 
 all:
-	make -C DFU clean
-	make -C DFU all
+	$(MAKE) -C DFU clean
+	$(MAKE) -C DFU all
 
-	make -C CDC clean
-	make -C CDC all
+	$(MAKE) -C CDC clean
+	$(MAKE) -C CDC all
 	
-	make -C TeensyHID clean
-	make -C TeensyHID all
+	$(MAKE) -C TeensyHID clean
+	$(MAKE) -C TeensyHID all
 
 %:
-	make -C DFU $@
-	make -C CDC $@
-	make -C TeensyHID $@
+	$(MAKE) -C DFU $@
+	$(MAKE) -C CDC $@
+	$(MAKE) -C TeensyHID $@

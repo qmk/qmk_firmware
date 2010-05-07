@@ -14,4 +14,4 @@
 # code.
 
 %:
-	make -C ClassDriver/ $@
+	$(MAKE) -C ClassDriver/ $@

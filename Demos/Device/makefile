@@ -14,5 +14,5 @@
 # code.
 
 %:
-	make -C ClassDriver $@
-	make -C LowLevel $@
+	$(MAKE) -C ClassDriver $@
+	$(MAKE) -C LowLevel $@

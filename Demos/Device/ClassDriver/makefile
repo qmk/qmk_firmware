@@ -14,60 +14,60 @@
 # code.
 
 all:
-	make -C AudioInput clean
-	make -C AudioInput all
+	$(MAKE) -C AudioInput clean
+	$(MAKE) -C AudioInput all
 
-	make -C AudioOutput clean
-	make -C AudioOutput all
+	$(MAKE) -C AudioOutput clean
+	$(MAKE) -C AudioOutput all
 
-	make -C DualVirtualSerial clean
-	make -C DualVirtualSerial all
+	$(MAKE) -C DualVirtualSerial clean
+	$(MAKE) -C DualVirtualSerial all
 
-	make -C GenericHID clean
-	make -C GenericHID all
+	$(MAKE) -C GenericHID clean
+	$(MAKE) -C GenericHID all
 
-	make -C Joystick clean
-	make -C Joystick all
+	$(MAKE) -C Joystick clean
+	$(MAKE) -C Joystick all
 
-	make -C Keyboard clean
-	make -C Keyboard all
+	$(MAKE) -C Keyboard clean
+	$(MAKE) -C Keyboard all
 
-	make -C KeyboardMouse clean
-	make -C KeyboardMouse all
+	$(MAKE) -C KeyboardMouse clean
+	$(MAKE) -C KeyboardMouse all
 
-	make -C MassStorage clean
-	make -C MassStorage all
+	$(MAKE) -C MassStorage clean
+	$(MAKE) -C MassStorage all
 
-	make -C MassStorageKeyboard clean
-	make -C MassStorageKeyboard all
+	$(MAKE) -C MassStorageKeyboard clean
+	$(MAKE) -C MassStorageKeyboard all
 
-	make -C MIDI clean
-	make -C MIDI all
+	$(MAKE) -C MIDI clean
+	$(MAKE) -C MIDI all
 
-	make -C Mouse clean
-	make -C Mouse all
+	$(MAKE) -C Mouse clean
+	$(MAKE) -C Mouse all
 
-	make -C RNDISEthernet clean
-	make -C RNDISEthernet all
+	$(MAKE) -C RNDISEthernet clean
+	$(MAKE) -C RNDISEthernet all
 
-	make -C VirtualSerial clean
-	make -C VirtualSerial all
+	$(MAKE) -C VirtualSerial clean
+	$(MAKE) -C VirtualSerial all
 	
-	make -C VirtualSerialMouse clean
-	make -C VirtualSerialMouse all	
+	$(MAKE) -C VirtualSerialMouse clean
+	$(MAKE) -C VirtualSerialMouse all	
 	
 %:
-	make -C AudioInput $@
-	make -C AudioOutput $@
-	make -C DualVirtualSerial $@
-	make -C GenericHID $@
-	make -C Joystick $@
-	make -C Keyboard $@
-	make -C KeyboardMouse $@
-	make -C MassStorage $@
-	make -C MassStorageKeyboard $@
-	make -C MIDI $@
-	make -C Mouse $@
-	make -C RNDISEthernet $@
-	make -C VirtualSerial $@
-	make -C VirtualSerialMouse $@
+	$(MAKE) -C AudioInput $@
+	$(MAKE) -C AudioOutput $@
+	$(MAKE) -C DualVirtualSerial $@
+	$(MAKE) -C GenericHID $@
+	$(MAKE) -C Joystick $@
+	$(MAKE) -C Keyboard $@
+	$(MAKE) -C KeyboardMouse $@
+	$(MAKE) -C MassStorage $@
+	$(MAKE) -C MassStorageKeyboard $@
+	$(MAKE) -C MIDI $@
+	$(MAKE) -C Mouse $@
+	$(MAKE) -C RNDISEthernet $@
+	$(MAKE) -C VirtualSerial $@
+	$(MAKE) -C VirtualSerialMouse $@

@@ -14,44 +14,44 @@
 # code.
 
 all:
-	make -C AVRISP-MKII clean
-	make -C AVRISP-MKII all
+	$(MAKE) -C AVRISP-MKII clean
+	$(MAKE) -C AVRISP-MKII all
 
-	make -C Benito clean
-	make -C Benito all
+	$(MAKE) -C Benito clean
+	$(MAKE) -C Benito all
 
-	make -C LEDNotifier clean
-	make -C LEDNotifier all
+	$(MAKE) -C LEDNotifier clean
+	$(MAKE) -C LEDNotifier all
 
-	make -C Magstripe clean
-	make -C Magstripe all
+	$(MAKE) -C Magstripe clean
+	$(MAKE) -C Magstripe all
 
-	make -C MissileLauncher clean
-	make -C MissileLauncher all
+	$(MAKE) -C MissileLauncher clean
+	$(MAKE) -C MissileLauncher all
 
-	make -C RelayBoard clean
-	make -C RelayBoard all
+	$(MAKE) -C RelayBoard clean
+	$(MAKE) -C RelayBoard all
 
-	make -C TemperatureDataLogger clean
-	make -C TemperatureDataLogger all
+	$(MAKE) -C TemperatureDataLogger clean
+	$(MAKE) -C TemperatureDataLogger all
 
-	make -C USBtoSerial clean
-	make -C USBtoSerial all
+	$(MAKE) -C USBtoSerial clean
+	$(MAKE) -C USBtoSerial all
 	
-	make -C Webserver clean
-	make -C Webserver all
+	$(MAKE) -C Webserver clean
+	$(MAKE) -C Webserver all
 
-	make -C XPLAINBridge clean
-	make -C XPLAINBridge all
+	$(MAKE) -C XPLAINBridge clean
+	$(MAKE) -C XPLAINBridge all
 
 %:
-	make -C AVRISP-MKII $@
-	make -C Benito $@
-	make -C LEDNotifier $@	
-	make -C Magstripe $@
-	make -C MissileLauncher $@
-	make -C RelayBoard $@
-	make -C TemperatureDataLogger $@
-	make -C USBtoSerial $@
-	make -C Webserver $@
-	make -C XPLAINBridge $@
+	$(MAKE) -C AVRISP-MKII $@
+	$(MAKE) -C Benito $@
+	$(MAKE) -C LEDNotifier $@	
+	$(MAKE) -C Magstripe $@
+	$(MAKE) -C MissileLauncher $@
+	$(MAKE) -C RelayBoard $@
+	$(MAKE) -C TemperatureDataLogger $@
+	$(MAKE) -C USBtoSerial $@
+	$(MAKE) -C Webserver $@
+	$(MAKE) -C XPLAINBridge $@
