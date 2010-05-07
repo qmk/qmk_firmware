@@ -39,6 +39,8 @@
   *    now be implemented via seperate programming headers
   *  - The CDC class bootloader now uses a watchdog reset rather than a soft-reset when exited to ensure that all hardware is
   *    properly reset to their defaults
+  *  - Device mode class driver callbacks are now fired before the control request status stage is sent to prevent the host from
+  *    timing out if another request is immediately fired and the device has a lengthy callback routine
   *
   *  <b>Fixed:</b>
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin

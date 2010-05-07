@@ -79,9 +79,8 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 				uint8_t  ReportID = (USB_ControlRequest.wValue & 0xFF);
 
 				Endpoint_Read_Control_Stream_LE(ReportOUTData, ReportOUTSize);
-				Endpoint_ClearIN();
-				
 				CALLBACK_HID_Device_ProcessHIDReport(HIDInterfaceInfo, ReportID, ReportOUTData, ReportOUTSize);
+				Endpoint_ClearIN();				
 			}
 			
 			break;

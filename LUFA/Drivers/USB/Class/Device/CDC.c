@@ -65,9 +65,8 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* CDCInterfaceIn
 			{
 				Endpoint_ClearSETUP();
 				Endpoint_Read_Control_Stream_LE(&CDCInterfaceInfo->State.LineEncoding, sizeof(CDCInterfaceInfo->State.LineEncoding));
-				Endpoint_ClearIN();
-
 				EVENT_CDC_Device_LineEncodingChanged(CDCInterfaceInfo);
+				Endpoint_ClearIN();
 			}
 	
 			break;
@@ -77,7 +76,6 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* CDCInterfaceIn
 				Endpoint_ClearSETUP();
 				
 				CDCInterfaceInfo->State.ControlLineStates.HostToDevice = USB_ControlRequest.wValue;
-				
 				EVENT_CDC_Device_ControLineStateChanged(CDCInterfaceInfo);
 
 				Endpoint_ClearStatusStage();

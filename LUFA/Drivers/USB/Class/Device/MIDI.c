@@ -35,11 +35,6 @@
 #define  __INCLUDE_FROM_MIDI_DRIVER
 #include "MIDI.h"
 
-void MIDI_Device_ProcessControlRequest(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
-{
-
-}
-
 bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)
 {
 	memset(&MIDIInterfaceInfo->State, 0x00, sizeof(MIDIInterfaceInfo->State));
