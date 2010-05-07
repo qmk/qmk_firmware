@@ -115,10 +115,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 			else
 			{
-				#if (SPM_PAGESIZE == 128)
-				uint16_t PageByteAddress = PageIndex;
-				#else
+				#if (FLASHEND > 0xFFFF)
 				uint32_t PageByteAddress = ((uint32_t)PageIndex << 8);
+				#else
+				uint16_t PageByteAddress = PageIndex;
 				#endif
 			
 				/* Erase the given FLASH page, ready to be programmed */

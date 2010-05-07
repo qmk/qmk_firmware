@@ -96,15 +96,16 @@
 		/** Vendor usage page for the Teensy++ 2.0 board */
 		#define TEENSY_USAGEPAGE_20PP     0x1C
 		
-		#if defined(USB_SERIES_2_AVR)
+		#if (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__))
 			#define TEENSY_USAGEPAGE      TEENSY_USAGEPAGE_10
-		#elif defined(USB_SERIES_4_AVR)
+		#elif defined(__AVR_ATmega32U4__)
 			#define TEENSY_USAGEPAGE      TEENSY_USAGEPAGE_20
-			#define TEENSY_USAGE          TEENSY_USAGE_20
-		#elif defined(USB_SERIES_6_AVR)
+		#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__))
 			#define TEENSY_USAGEPAGE      TEENSY_USAGEPAGE_10PP
-		#elif defined(USB_SERIES_7_AVR)
+		#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__))
 			#define TEENSY_USAGEPAGE      TEENSY_USAGEPAGE_20PP
+		#else
+			#error The selected AVR model is not currently supported by the TeensyHID bootloader.
 		#endif
 
 	/* Function Prototypes: */

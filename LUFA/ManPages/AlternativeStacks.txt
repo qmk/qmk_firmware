@@ -43,8 +43,8 @@
  *  via a bit-banged (emulated) version of the USB protocol. They are limited in their capabilities due to the cycles required
  *  to be dedicated to managing the USB bus, but offer a cheap way to implement USB functionality into a design.
  *
- *  - <b>Name:</b> AVR309: Software USB (<i>Objective Development</i>) \n
- *    <b>Cost:</b> Free for some uses, see website for licensing \n
+ *  - <b>Name:</b> AVR309: Software USB (<i>Atmel</i>) \n
+ *    <b>Cost:</b> Free \n
  *    <b>License:</b> None Stated \n
  *    <b>Website:</b> http://www.atmel.com/dyn/Products/app_notes.asp?family_id=607 \n
  *    <b>Description:</b> Atmel's official software USB implementation, an Application Note containing work by Igor Cesko. This
