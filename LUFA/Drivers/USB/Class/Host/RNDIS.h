@@ -267,9 +267,9 @@
 				static uint8_t RNDIS_GetEncapsulatedResponse(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
 				                                             void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
-				static uint8_t DComp_RNDIS_Host_NextRNDISControlInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DComp_RNDIS_Host_NextRNDISDataInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DComp_RNDIS_Host_NextRNDISInterfaceEndpoint(void* const CurrentDescriptor);
+				static uint8_t DCOMP_RNDIS_Host_NextRNDISControlInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_RNDIS_Host_NextRNDISDataInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_RNDIS_Host_NextRNDISInterfaceEndpoint(void* const CurrentDescriptor);
 			#endif	
 	#endif
 				

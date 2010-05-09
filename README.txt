@@ -28,5 +28,5 @@ the generated documentation for the library core in your chosen web browser for
 further Getting Started information.
 
 The documentation for the library itself (but not the documentation for the
-individual demos, projects or bootloaders) is also available as a seperate
+individual demos, projects or bootloaders) is also available as a separate
 package from the project webpage for convenience if Doxygen cannot be installed.

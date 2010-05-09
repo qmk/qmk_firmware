@@ -206,11 +206,12 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
  *
  *  \param[in] HIDInterfaceInfo  Pointer to the HID interface structure for the HID interface being referenced
  *  \param[in] ReportID          Report ID of the received report from the host
+ *  \param[in] ReportType        The type of report that the host has sent, either REPORT_ITEM_TYPE_Out or REPORT_ITEM_TYPE_Feature
  *  \param[in] ReportData        Pointer to the report buffer where the received report is stored
  *  \param[in] ReportSize        Size in bytes of the report received from the host
  */
 void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, const uint8_t ReportID,
-                                          const void* ReportData, const uint16_t ReportSize)
+                                          const uint8_t ReportType, const void* ReportData, const uint16_t ReportSize)
 {
 	// Unused (but mandatory for the HID class driver) in this demo, since there are no Host->Device reports
 }

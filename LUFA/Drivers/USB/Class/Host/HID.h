@@ -201,8 +201,8 @@
 			                                   void* Buffer) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 			#endif
 			
-			/** Sends an OUT report to the currently attached HID device, using the device's OUT pipe if available or the device's
-			 *  Control pipe if not.
+			/** Sends an OUT or FEATURE report to the currently attached HID device, using the device's OUT pipe if available,
+			 *  or the device's Control pipe if not.
 			 *
 			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *        call will fail.
@@ -213,6 +213,7 @@
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
 			 *  \param[in] ReportID  Report ID of the report to send to the device, or 0 if the device does not use report IDs
+			 *  \param[in] ReportType  Type of report to issue to the device, either \ref REPORT_ITEM_TYPE_Out or \ref REPORT_ITEM_TYPE_Feature
 			 *  \param[in] Buffer  Buffer containing the report to send to the attached device
 			 *  \param[in] ReportSize  Report size in bytes to send to the attached device
 			 *
@@ -223,11 +224,11 @@
 			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 			                                const uint8_t ReportID,
 			#endif
-			                                void* Buffer, const uint16_t ReportSize) ATTR_NON_NULL_PTR_ARG(1)
+			                                const uint8_t ReportType, void* Buffer, const uint16_t ReportSize) ATTR_NON_NULL_PTR_ARG(1)
 			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
-			                                ATTR_NON_NULL_PTR_ARG(3);
+			                                ATTR_NON_NULL_PTR_ARG(4);
 			#else
-			                                ATTR_NON_NULL_PTR_ARG(2);
+			                                ATTR_NON_NULL_PTR_ARG(3);
 			#endif
 
 			/** Determines if a HID IN report has been received from the attached device on the data IN pipe.
@@ -296,9 +297,9 @@
 
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_HID_CLASS_HOST_C)
-				static uint8_t DComp_HID_Host_NextHIDInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DComp_NextHID(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DComp_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_HID_Host_NextHIDInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_HID_NextHID(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif	
 	#endif	
 	

@@ -23,6 +23,9 @@
  *      functions correctly.
  *    - The USBInterrupt.c USB driver source file has been relocated from LUFA/Drivers/USB/HighLevel/ to LUFA/Drivers/USB/LowLevel.
  *      Projects must update their makefile SRC values accordingly.
+ *    - The HID Device Class driver's function signature for the CALLBACK_HID_Device_ProcessHIDReport() function has been changed, to
+ *      allow for a new ReportType parameter. This new parameter must be added in all user applications using the Device mode HID Class
+ *      Driver, but may be ingnored unless Host-to-Device FEATURE HID reports are used.
  *
  *  <b>Host Mode</b>
  *    - The \ref USB_Init() function no longer calls sei() to enable global interrupts, as the user application may need
@@ -31,6 +34,8 @@
  *      functions correctly.
  *    - The USBInterrupt.c USB driver source file has been relocated from LUFA/Drivers/USB/HighLevel/ to LUFA/Drivers/USB/LowLevel.
  *      Projects must update their makefile SRC values accordingly.
+ *    - The HID Host Class driver's function signature for the HID_Host_SendReportByID() function has been changed, to allow for a new
+ *      ReportType parameter. Existing calls to this function should substitute REPORT_ITEM_TYPE_Out as this parameter's value.
  *
  * \section Sec_Migration100219 Migrating from 091223 to 100219
  *

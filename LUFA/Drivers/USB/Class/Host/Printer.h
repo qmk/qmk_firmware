@@ -218,8 +218,8 @@
 			
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_PRINTER_CLASS_HOST_C)		
-				static uint8_t DComp_NextPRNTInterface(void* const CurrentDescriptor);
-				static uint8_t DComp_NextPRNTInterfaceEndpoint(void* const CurrentDescriptor);
+				static uint8_t DCOMP_PRNT_NextPRNTInterface(void* const CurrentDescriptor);
+				static uint8_t DCOMP_PRNT_NextPRNTInterfaceEndpoint(void* const CurrentDescriptor);
 			#endif
 	#endif
 	

@@ -47,7 +47,7 @@ uint8_t SImage_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 	  return SI_ENUMERROR_InvalidConfigDescriptor;
 	
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
-	                              DComp_SI_Host_NextSIInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DCOMP_SI_Host_NextSIInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		return SI_ENUMERROR_NoSIInterfaceFound;
 	}
@@ -55,7 +55,7 @@ uint8_t SImage_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 	while (FoundEndpoints != (SI_FOUND_EVENTS_IN | SI_FOUND_DATAPIPE_IN | SI_FOUND_DATAPIPE_OUT))
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
-		                              DComp_SI_Host_NextSIInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DCOMP_SI_Host_NextSIInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			return SI_ENUMERROR_EndpointsNotFound;
 		}
@@ -103,7 +103,7 @@ uint8_t SImage_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 	return SI_ENUMERROR_NoError;
 }
 
-uint8_t DComp_SI_Host_NextSIInterface(void* const CurrentDescriptor)
+uint8_t DCOMP_SI_Host_NextSIInterface(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -121,7 +121,7 @@ uint8_t DComp_SI_Host_NextSIInterface(void* const CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-uint8_t DComp_SI_Host_NextSIInterfaceEndpoint(void* const CurrentDescriptor)
+uint8_t DCOMP_SI_Host_NextSIInterfaceEndpoint(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

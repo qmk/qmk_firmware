@@ -69,13 +69,6 @@ void SetupHardware(void)
 	PORTC &= ~ALL_RELAYS;
 }
 
-
-/** Event handler for the library USB Configuration Changed event. */
-void EVENT_USB_Device_ConfigurationChanged(void)
-{
-	USB_Device_EnableSOFEvents();
-}
-
 /** Event handler for the library USB Unhandled Control Packet event. */
 void EVENT_USB_Device_UnhandledControlRequest(void)
 {

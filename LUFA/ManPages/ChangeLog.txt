@@ -16,6 +16,10 @@
   *  - Added new ENDPOINT_*_BusSuspended error code to the Endpoint function, so that the stream functions early-abort if the bus
   *    is suspended before or during a transfer
   *  - Added new EVENT_CDC_Device_BreakSent() event and CDC_Host_SendBreak() function to the Device and Host CDC Class drivers
+  *  - Added ReportType parameter to the HID device class driver CALLBACK_HID_Device_ProcessHIDReport() function so that FEATURE
+  *    reports from the host to the device can be correctly processed
+  *  - Added ReportType parameter to the HID host class driver HID_Host_SendReportByID() function so that FEATURE reports can be
+  *    issued to the attached device
   *
   *  <b>Changed:</b>
   *  - AVRISP programmer project now has a more robust timeout system

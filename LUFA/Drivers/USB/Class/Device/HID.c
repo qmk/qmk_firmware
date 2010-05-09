@@ -50,21 +50,20 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			{
 				Endpoint_ClearSETUP();	
 
-				uint16_t ReportINSize = 0;
-				uint8_t  ReportID     = (USB_ControlRequest.wValue & 0xFF);
-				uint8_t  ReportType   = (USB_ControlRequest.wValue >> 8) - 1;
-				uint8_t  ReportINData[HIDInterfaceInfo->Config.PrevReportINBufferSize];
+				uint16_t ReportSize = 0;
+				uint8_t  ReportID   = (USB_ControlRequest.wValue & 0xFF);
+				uint8_t  ReportType = (USB_ControlRequest.wValue >> 8) - 1;
+				uint8_t  ReportData[HIDInterfaceInfo->Config.PrevReportINBufferSize];
 
-				memset(ReportINData, 0, sizeof(ReportINData));
+				memset(ReportData, 0, sizeof(ReportData));
 
-				CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportType,
-				                                    HIDInterfaceInfo->Config.PrevReportINBuffer, &ReportINSize);
+				CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, ReportType, ReportData, &ReportSize);
 				
 				if (HIDInterfaceInfo->Config.PrevReportINBuffer != NULL)
-				  memcpy(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportINData, HIDInterfaceInfo->Config.PrevReportINBufferSize);
+				  memcpy(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportData, HIDInterfaceInfo->Config.PrevReportINBufferSize);
 
 				Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
-				Endpoint_Write_Control_Stream_LE(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportINSize);
+				Endpoint_Write_Control_Stream_LE(HIDInterfaceInfo->Config.PrevReportINBuffer, ReportSize);
 				Endpoint_ClearOUT();
 			}
 		
@@ -74,12 +73,13 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			{
 				Endpoint_ClearSETUP();
 				
-				uint16_t ReportOUTSize = USB_ControlRequest.wLength;
-				uint8_t  ReportOUTData[ReportOUTSize];
-				uint8_t  ReportID = (USB_ControlRequest.wValue & 0xFF);
+				uint16_t ReportSize = USB_ControlRequest.wLength;
+				uint8_t  ReportID   = (USB_ControlRequest.wValue & 0xFF);
+				uint8_t  ReportType = (USB_ControlRequest.wValue >> 8) - 1;
+				uint8_t  ReportData[ReportSize];
 
-				Endpoint_Read_Control_Stream_LE(ReportOUTData, ReportOUTSize);
-				CALLBACK_HID_Device_ProcessHIDReport(HIDInterfaceInfo, ReportID, ReportOUTData, ReportOUTSize);
+				Endpoint_Read_Control_Stream_LE(ReportData, ReportSize);
+				CALLBACK_HID_Device_ProcessHIDReport(HIDInterfaceInfo, ReportID, ReportType, ReportData, ReportSize);
 				Endpoint_ClearIN();				
 			}
 			

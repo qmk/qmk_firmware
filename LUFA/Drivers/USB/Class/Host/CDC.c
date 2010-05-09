@@ -47,7 +47,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 	  return CDC_ENUMERROR_InvalidConfigDescriptor;
 	
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              DComp_CDC_Host_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DCOMP_CDC_Host_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		return CDC_ENUMERROR_NoCDCInterfaceFound;
 	}
@@ -57,12 +57,12 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 	while (FoundEndpoints != (CDC_FOUND_NOTIFICATION_IN | CDC_FOUND_DATAPIPE_IN | CDC_FOUND_DATAPIPE_OUT))
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-		                              DComp_CDC_Host_NextCDCInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DCOMP_CDC_Host_NextCDCInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			if (FoundEndpoints & CDC_FOUND_NOTIFICATION_IN)
 			{
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, 
-				                              DComp_CDC_Host_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DCOMP_CDC_Host_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					return CDC_ENUMERROR_NoCDCInterfaceFound;
 				}
@@ -79,14 +79,14 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 				Pipe_DisablePipe();
 			
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-				                              DComp_CDC_Host_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DCOMP_CDC_Host_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					return CDC_ENUMERROR_NoCDCInterfaceFound;
 				}
 			}
 
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-			                              DComp_CDC_Host_NextCDCInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+			                              DCOMP_CDC_Host_NextCDCInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return CDC_ENUMERROR_EndpointsNotFound;
 			}
@@ -139,7 +139,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 	return CDC_ENUMERROR_NoError;
 }
 
-static uint8_t DComp_CDC_Host_NextCDCControlInterface(void* const CurrentDescriptor)
+static uint8_t DCOMP_CDC_Host_NextCDCControlInterface(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -157,7 +157,7 @@ static uint8_t DComp_CDC_Host_NextCDCControlInterface(void* const CurrentDescrip
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* const CurrentDescriptor)
+static uint8_t DCOMP_CDC_Host_NextCDCDataInterface(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -175,7 +175,7 @@ static uint8_t DComp_CDC_Host_NextCDCDataInterface(void* const CurrentDescriptor
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_CDC_Host_NextCDCInterfaceEndpoint(void* const CurrentDescriptor)
+static uint8_t DCOMP_CDC_Host_NextCDCInterfaceEndpoint(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

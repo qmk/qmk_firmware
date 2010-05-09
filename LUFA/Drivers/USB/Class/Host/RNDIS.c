@@ -47,7 +47,7 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 	  return RNDIS_ENUMERROR_InvalidConfigDescriptor;
 	
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              DComp_RNDIS_Host_NextRNDISControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DCOMP_RNDIS_Host_NextRNDISControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		return RNDIS_ENUMERROR_NoRNDISInterfaceFound;
 	}
@@ -57,12 +57,12 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 	while (FoundEndpoints != (RNDIS_FOUND_NOTIFICATION_IN | RNDIS_FOUND_DATAPIPE_IN | RNDIS_FOUND_DATAPIPE_OUT))
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-		                              DComp_RNDIS_Host_NextRNDISInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DCOMP_RNDIS_Host_NextRNDISInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			if (FoundEndpoints & RNDIS_FOUND_NOTIFICATION_IN)
 			{
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, 
-				                              DComp_RNDIS_Host_NextRNDISDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DCOMP_RNDIS_Host_NextRNDISDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					return RNDIS_ENUMERROR_NoRNDISInterfaceFound;
 				}
@@ -79,14 +79,14 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 				Pipe_DisablePipe();
 			
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-				                              DComp_RNDIS_Host_NextRNDISControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DCOMP_RNDIS_Host_NextRNDISControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					return RNDIS_ENUMERROR_NoRNDISInterfaceFound;
 				}
 			}
 
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-			                              DComp_RNDIS_Host_NextRNDISInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+			                              DCOMP_RNDIS_Host_NextRNDISInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return RNDIS_ENUMERROR_EndpointsNotFound;
 			}
@@ -135,7 +135,7 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 	return RNDIS_ENUMERROR_NoError;
 }
 
-static uint8_t DComp_RNDIS_Host_NextRNDISControlInterface(void* const CurrentDescriptor)
+static uint8_t DCOMP_RNDIS_Host_NextRNDISControlInterface(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -153,7 +153,7 @@ static uint8_t DComp_RNDIS_Host_NextRNDISControlInterface(void* const CurrentDes
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_RNDIS_Host_NextRNDISDataInterface(void* const CurrentDescriptor)
+static uint8_t DCOMP_RNDIS_Host_NextRNDISDataInterface(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -171,7 +171,7 @@ static uint8_t DComp_RNDIS_Host_NextRNDISDataInterface(void* const CurrentDescri
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DComp_RNDIS_Host_NextRNDISInterfaceEndpoint(void* const CurrentDescriptor)
+static uint8_t DCOMP_RNDIS_Host_NextRNDISInterfaceEndpoint(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{
