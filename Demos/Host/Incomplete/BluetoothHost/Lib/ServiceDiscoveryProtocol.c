@@ -52,7 +52,7 @@ const ServiceAttributeTable_t RFCOMM_Attribute_Table[] PROGMEM =
 		{.AttributeID = SDP_ATTRIBUTE_AVAILABILITY, .AttributeData = &RFCOMM_Attribute_Availability},
 		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
 	};
-	
+
 const ServiceTable_t SDP_Services_Table[] =
 	{
 		{   // 128-bit UUID for the SDP service
@@ -64,6 +64,8 @@ const ServiceTable_t SDP_Services_Table[] =
 			.AttributeTable = &RFCOMM_Attribute_Table,
 		},
 	};
+
+const uint8_t BaseUUID[] = {BASE_96BIT_UUID, 0x00, 0x00, 0x00, 0x00};
 
 
 void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel)
@@ -78,56 +80,38 @@ void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel)
 	switch (SDPHeader->PDU)
 	{
 		case SDP_PDU_SERVICESEARCHREQUEST:
-			ServiceDiscovery_ProcessServiceSearch(SDPHeader);
+			ServiceDiscovery_ProcessServiceSearch(SDPHeader, Channel);
 			break;		
 		case SDP_PDU_SERVICEATTRIBUTEREQUEST:
-			ServiceDiscovery_ProcessServiceAttribute(SDPHeader);
+			ServiceDiscovery_ProcessServiceAttribute(SDPHeader, Channel);
 			break;
 		case SDP_PDU_SERVICESEARCHATTRIBUTEREQUEST:
-			ServiceDiscovery_ProcessServiceSearchAttribute(SDPHeader);
+			ServiceDiscovery_ProcessServiceSearchAttribute(SDPHeader, Channel);
 			break;
 	}
 }
 
-static void ServiceDiscovery_ProcessServiceSearch(SDP_PDUHeader_t* SDPHeader)
+static void ServiceDiscovery_ProcessServiceSearch(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel)
 {
 	BT_SDP_DEBUG(1, "<< Service Search");
 }
 
-static void ServiceDiscovery_ProcessServiceAttribute(SDP_PDUHeader_t* SDPHeader)
+static void ServiceDiscovery_ProcessServiceAttribute(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel)
 {
 	BT_SDP_DEBUG(1, "<< Service Attribute");
 }
 
-static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPHeader)
+static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel)
 {
-	void* CurrentParameter = ((void*)SDPHeader + sizeof(SDP_PDUHeader_t));
+	const void* CurrentParameter = ((void*)SDPHeader + sizeof(SDP_PDUHeader_t));
 	
 	BT_SDP_DEBUG(1, "<< Service Search Attribute");
 	
 	uint8_t ElementHeaderSize;
 
-	uint16_t ServicePatternLength = ServiceDiscovery_GetDataElementSize(&CurrentParameter, &ElementHeaderSize);
-	BT_SDP_DEBUG(2, "-- Total UUID Length: 0x%04X", ServicePatternLength);
-	while (ServicePatternLength)
-	{
-		uint8_t UUIDLength = ServiceDiscovery_GetDataElementSize(&CurrentParameter, &ElementHeaderSize);
-		uint8_t UUID[16] = {BASE_96BIT_UUID, 0x00, 0x00, 0x00, 0x00};
-
-		if (UUIDLength <= 32)
-		  memcpy(&UUID[sizeof(UUID) - sizeof(uint32_t)], CurrentParameter, UUIDLength);
-		else
-		  memcpy(UUID, CurrentParameter, UUIDLength);
-		
-		CurrentParameter += UUIDLength;
-		
-		BT_SDP_DEBUG(2, "-- UUID (%d): 0x%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
-						UUIDLength,
-		                UUID[15], UUID[14], UUID[13], UUID[12], UUID[11], UUID[10], UUID[9], UUID[8],
-						UUID[7],  UUID[6],  UUID[5],  UUID[4],  UUID[3],  UUID[2],  UUID[1], UUID[0]);
-	
-		ServicePatternLength -= (UUIDLength + ElementHeaderSize);
-	}
+	uint8_t UUIDList[12][16];
+	uint8_t TotalUUIDs = ServiceDiscovery_GetUUIDList(UUIDList, &CurrentParameter);
+	BT_SDP_DEBUG(2, "-- Total UUIDs: %d", TotalUUIDs);
 	
 	uint16_t MaxAttributeSize = ServiceDiscovery_Read16BitParameter(&CurrentParameter);
 	BT_SDP_DEBUG(2, "-- Max Return Attribute Bytes: 0x%04X", MaxAttributeSize);
@@ -137,18 +121,64 @@ static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPH
 	while (AttributeIDListLength)
 	{
 		uint8_t  AttributeLength = ServiceDiscovery_GetDataElementSize(&CurrentParameter, &ElementHeaderSize);
-		uint32_t Attribute = 0;
+		uint32_t Attribute       = 0;
 		
 		memcpy(&Attribute, CurrentParameter, AttributeLength);
-		CurrentParameter += AttributeLength;
 		
 		BT_SDP_DEBUG(2, "-- Attribute(%d): 0x%08lX", AttributeLength, Attribute);
 	
 		AttributeIDListLength -= (AttributeLength + ElementHeaderSize);
+		CurrentParameter      += AttributeLength;
 	}
+	
+	struct
+	{
+		SDP_PDUHeader_t SDPHeader;
+		uint8_t         ResponseData[100];
+	} ResponsePacket;
+	
+	ResponsePacket.SDPHeader.PDU           = SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE;
+	ResponsePacket.SDPHeader.TransactionID = SDPHeader->TransactionID;
+	
+	Bluetooth_SendPacket(&ResponsePacket, (sizeof(ResponsePacket.SDPHeader) + ResponsePacket.SDPHeader.ParameterLength),
+	                     Channel);
 }
 
-static uint32_t ServiceDiscovery_GetDataElementSize(void** DataElementHeader, uint8_t* ElementHeaderSize)
+static uint8_t ServiceDiscovery_GetUUIDList(uint8_t UUIDList[12][16], const void** CurrentParameter)
+{
+	uint8_t ElementHeaderSize;
+	uint8_t TotalUUIDs = 0;
+
+	uint16_t ServicePatternLength = ServiceDiscovery_GetDataElementSize(CurrentParameter, &ElementHeaderSize);
+	BT_SDP_DEBUG(2, "-- Total UUID Length: 0x%04X", ServicePatternLength);
+	while (ServicePatternLength)
+	{
+		uint8_t* CurrentUUID = UUIDList[TotalUUIDs++];
+	
+		uint8_t UUIDLength = ServiceDiscovery_GetDataElementSize(CurrentParameter, &ElementHeaderSize);
+		
+		memcpy(CurrentUUID, BaseUUID, sizeof(BaseUUID));
+			
+		if (UUIDLength <= 32)
+		  memcpy(&CurrentUUID[sizeof(BaseUUID) - sizeof(uint32_t)], *CurrentParameter, UUIDLength);
+		else
+		  memcpy(CurrentUUID, *CurrentParameter, UUIDLength);
+		
+		BT_SDP_DEBUG(2, "-- UUID (%d): 0x%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
+		                UUIDLength,
+		                CurrentUUID[15], CurrentUUID[14], CurrentUUID[13], CurrentUUID[12],
+		                CurrentUUID[11], CurrentUUID[10], CurrentUUID[9],  CurrentUUID[8],
+		                CurrentUUID[7],  CurrentUUID[6],  CurrentUUID[5],  CurrentUUID[4],
+		                CurrentUUID[3],  CurrentUUID[2],  CurrentUUID[1],  CurrentUUID[0]);
+
+		ServicePatternLength -= (UUIDLength + ElementHeaderSize);
+		*CurrentParameter    += UUIDLength;
+	}
+	
+	return TotalUUIDs;
+}
+
+static uint32_t ServiceDiscovery_GetDataElementSize(const void** DataElementHeader, uint8_t* ElementHeaderSize)
 {
 	uint8_t SizeIndex = (*((uint8_t*)*DataElementHeader) & 0x07);
 	*DataElementHeader += sizeof(uint8_t);
@@ -159,21 +189,6 @@ static uint32_t ServiceDiscovery_GetDataElementSize(void** DataElementHeader, ui
 	
 	switch (SizeIndex)
 	{
-		case 0:
-			ElementValue = 1;
-			break;
-		case 1:
-			ElementValue = 2;
-			break;
-		case 2:
-			ElementValue = 4;
-			break;
-		case 3:
-			ElementValue = 8;
-			break;
-		case 4:
-			ElementValue = 16;
-			break;
 		case 5:
 			ElementValue = *((uint8_t*)*DataElementHeader);
 			*DataElementHeader += sizeof(uint8_t);
@@ -184,10 +199,13 @@ static uint32_t ServiceDiscovery_GetDataElementSize(void** DataElementHeader, ui
 			*DataElementHeader += sizeof(uint16_t);
 			*ElementHeaderSize  = (1 + sizeof(uint16_t));
 			break;
-		default:
+		case 7:
 			ElementValue = *((uint32_t*)*DataElementHeader);
 			*DataElementHeader += sizeof(uint32_t);
 			*ElementHeaderSize  = (1 + sizeof(uint32_t));
+			break;
+		default:
+			ElementValue = (1UL << SizeIndex);
 			break;
 	}
 	

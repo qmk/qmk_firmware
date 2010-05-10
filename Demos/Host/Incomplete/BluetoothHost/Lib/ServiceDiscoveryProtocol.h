@@ -131,18 +131,19 @@
 		void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel);
 
 		#if defined(INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C)
-			static void ServiceDiscovery_ProcessServiceSearch(SDP_PDUHeader_t* SDPHeader);
-			static void ServiceDiscovery_ProcessServiceAttribute(SDP_PDUHeader_t* SDPHeader);
-			static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPHeader);
+			static void ServiceDiscovery_ProcessServiceSearch(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel);
+			static void ServiceDiscovery_ProcessServiceAttribute(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel);
+			static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel);
 			
-			static inline uint16_t ServiceDiscovery_Read16BitParameter(void** AttributeHeader)
+			static inline uint16_t ServiceDiscovery_Read16BitParameter(const void** AttributeHeader)
 			{
 				uint16_t ParamValue = *((uint16_t*)*AttributeHeader);
 				*AttributeHeader += sizeof(uint16_t);
 				return ParamValue;
 			}
 
-			static uint32_t ServiceDiscovery_GetDataElementSize(void** AttributeHeader, uint8_t* ElementHeaderSize);
+			static uint8_t  ServiceDiscovery_GetUUIDList(uint8_t UUIDList[12][16], const void** CurrentParameter);
+			static uint32_t ServiceDiscovery_GetDataElementSize(const void** AttributeHeader, uint8_t* ElementHeaderSize);
 		#endif
 
 #endif
