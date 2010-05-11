@@ -183,8 +183,6 @@ static uint32_t ServiceDiscovery_GetDataElementSize(const void** DataElementHead
 	uint8_t SizeIndex = (*((uint8_t*)*DataElementHeader) & 0x07);
 	*DataElementHeader += sizeof(uint8_t);
 	
-	*ElementHeaderSize = 1;
-	
 	uint32_t ElementValue;
 	
 	switch (SizeIndex)
@@ -205,7 +203,8 @@ static uint32_t ServiceDiscovery_GetDataElementSize(const void** DataElementHead
 			*ElementHeaderSize  = (1 + sizeof(uint32_t));
 			break;
 		default:
-			ElementValue = (1UL << SizeIndex);
+			ElementValue = (1 << SizeIndex);
+			*ElementHeaderSize = 1;
 			break;
 	}
 	
