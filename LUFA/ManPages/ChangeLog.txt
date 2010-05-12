@@ -8,6 +8,8 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *
+  *  \section Sec_ChangeLog100512 Version 100512
+  *
   *  <b>New:</b>
   *  - Added incomplete MIDIToneGenerator project
   *  - Added new Relay Controller Board project (thanks to OBinou)

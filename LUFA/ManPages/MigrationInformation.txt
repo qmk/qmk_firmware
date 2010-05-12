@@ -10,7 +10,9 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
- * \section Sec_MigrationXXXXXX Migrating from 100219 to XXXXXX
+ * \section Sec_MigrationXXXXXX Migrating from 100512 to XXXXXX
+ *
+ * \section Sec_Migration100512 Migrating from 100219 to 100512
  *
  *  <b>Non-USB Library Components</b>
  *    - The \ref TWI_StartTransmission() function now takes in a timeout period, expressed in milliseconds, within which the addressed
