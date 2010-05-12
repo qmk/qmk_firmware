@@ -19,11 +19,7 @@ all:
 
 	$(MAKE) -C CDC clean
 	$(MAKE) -C CDC all
-	
-	$(MAKE) -C TeensyHID clean
-	$(MAKE) -C TeensyHID all
 
 %:
 	$(MAKE) -C DFU $@
 	$(MAKE) -C CDC $@
-	$(MAKE) -C TeensyHID $@

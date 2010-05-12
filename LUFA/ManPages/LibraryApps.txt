@@ -15,10 +15,9 @@
  *  the need for special drivers. On Windows, some demos require the supplied .INF file to be used as the device driver, which
  *  directs the OS to use its inbuilt class drivers for the device.
  *
- *  Also included with the library are three fully functional bootloaders, located in the /Bootloaders/ subdirectory.
- *  The DFU class bootloader is compatible with Atmel's FLIP software or the open source dfu-programmer project, the
- *  CDC class (AVR109 protocol) is compatible with such open source software as AVRDUDE and AVR-OSP, and the TeensyLoader
- *  HID class bootloader is compatible with the software from PJRC (<a>http://www.pjrc.com/teensy/index.html</a>).
+ *  Also included with the library are two fully functional bootloaders, located in the /Bootloaders/ subdirectory.
+ *  The DFU class bootloader is compatible with Atmel's FLIP software or the open source dfu-programmer project, while
+ *  the CDC class (AVR109 protocol) is compatible with such open source software as AVRDUDE and AVR-OSP.
  *
  *  User-submitted projects are located in the /Projects/ subdirectory. If you wish to have your LUFA project included,
  *  please email it to the Library author.
@@ -96,7 +95,6 @@
  *  - <b>Bootloaders</b>
  *    - <b>DFU</b> - DFU Class USB bootloader, compatible with Atmel's FLIP and the open source dfu-programmer software
  *    - <b>CDC</b> - CDC Class USB bootloader, compatible with any AVR910 protocol programming software such as AVRDude
- *    - <b>TeensyHID</b> - HID Class bootloader, compatible with the PJRC TeensyLoader software
  *  - <b>Projects</b>
  *    - <b>AVRISP-MKII</b> - AVRISP-MKII Programmer Clone project
  *    - <b>Benito</b> - Benito Board Arduino Programmer project
