@@ -15,6 +15,8 @@
   *    LIBUSB_DRIVER_COMPAT, as it applies to all software on all platforms using the libUSB driver
   *
   *  <b>Fixed:</b>
+  *  - Fixed possible device lockup when INTERRUPT_CONTROL_ENDPOINT is enabled and the control endpoint is not properly
+  *    selected when the ISR completes
   *
   *  \section Sec_ChangeLog100512 Version 100512
   *
