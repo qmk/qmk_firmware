@@ -227,18 +227,9 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 				PollAddress = (CurrentAddress & 0xFFFF);				
 			}		
 
-			/* EEPROM just increments the address each byte, flash needs to increment on each word and
-			 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
-			 * address boundary has been crossed */
-			if (V2Command == CMD_PROGRAM_EEPROM_ISP)
-			{
-				CurrentAddress++;
-			}
-			else if (IsOddByte)
-			{
-				if (!(++CurrentAddress & 0xFFFF))
-				  ISPTarget_LoadExtendedAddress();			
-			}
+			/* EEPROM increments the address on each byte, flash needs to increment on each word */
+			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
+			  CurrentAddress++;
 		}
 		
 		/* If the current page must be committed, send the PROGRAM PAGE command to the target */
@@ -258,6 +249,10 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 
 			ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
 			                                                  Write_Memory_Params.DelayMS, Write_Memory_Params.ProgrammingCommands[2]);
+
+			/* Check to see if the FLASH address has crossed the extended address boundary */
+			if ((V2Command == CMD_PROGRAM_FLASH_ISP) && !(CurrentAddress & 0xFFFF))
+			  ISPTarget_LoadExtendedAddress();			
 		}
 	}
 	else
@@ -285,6 +280,13 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 				  
 				PollAddress = (CurrentAddress & 0xFFFF);
 			}
+			
+			ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
+			                                                  Write_Memory_Params.DelayMS, Write_Memory_Params.ProgrammingCommands[2]);
+			  
+			/* Abort the programming loop early if the byte/word programming failed */
+			if (ProgrammingStatus != STATUS_CMD_OK)
+			  break;
 
 			/* EEPROM just increments the address each byte, flash needs to increment on each word and
 			 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
@@ -298,12 +300,6 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 				if (!(++CurrentAddress & 0xFFFF))
 				  ISPTarget_LoadExtendedAddress();			
 			}
-			
-			ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
-			                                                  Write_Memory_Params.DelayMS, Write_Memory_Params.ProgrammingCommands[2]);
-			  
-			if (ProgrammingStatus != STATUS_CMD_OK)
-			  break;
 		}
 	}
 
