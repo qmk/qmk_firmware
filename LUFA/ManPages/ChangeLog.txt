@@ -6,8 +6,9 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
-  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  \section Sec_ChangeLog100513 Version 100513
   *  <b>New:</b>
+  *  - N/A
   *
   *  <b>Changed:</b>
   *  - The TeensyHID bootloader has been removed, per request from Paul at PJRC
