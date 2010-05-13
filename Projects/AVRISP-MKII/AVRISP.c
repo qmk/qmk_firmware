@@ -98,7 +98,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 	}
 
-	#if defined(LIBUSB_FILTERDRV_COMPAT)
+	#if defined(LIBUSB_DRIVER_COMPAT)
 	if (!(Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPNUM, EP_TYPE_BULK,
 		                             ENDPOINT_DIR_IN, AVRISP_DATA_EPSIZE,
 	                                 ENDPOINT_BANK_SINGLE)))

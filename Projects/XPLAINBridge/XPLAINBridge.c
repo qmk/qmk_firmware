@@ -192,7 +192,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 										                    ENDPOINT_DIR_OUT, AVRISP_DATA_EPSIZE,
 										                    ENDPOINT_BANK_SINGLE);
 
-		#if defined(LIBUSB_FILTERDRV_COMPAT)
+		#if defined(LIBUSB_DRIVER_COMPAT)
 		EndpointConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPNUM, EP_TYPE_BULK,
 		                                                    ENDPOINT_DIR_IN, AVRISP_DATA_EPSIZE,
 		                                                    ENDPOINT_BANK_SINGLE);

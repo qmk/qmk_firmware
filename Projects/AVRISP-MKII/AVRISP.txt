@@ -259,11 +259,10 @@
  *        to report a fixed 5V target voltage to the host regardless of the real target voltage.</td>  
  *   </tr>
  *   <tr>
- *    <td>LIBUSB_FILTERDRV_COMPAT</td>
+ *    <td>LIBUSB_DRIVER_COMPAT</td>
  *    <td>Makefile CDEFS</td>
  *    <td>Define to switch to a non-standard endpoint scheme, breaking compatibility with AVRStudio under Windows but making
- *        the code compatible with Windows builds of avrdude using the libUSB driver. Linux platforms are not affected by this
- *        option.
+ *        the code compatible with software such as avrdude (all platforms) that use the libUSB driver.
  *   </tr>
  *  </table>
  */

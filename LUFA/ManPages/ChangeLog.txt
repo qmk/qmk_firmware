@@ -11,6 +11,8 @@
   *
   *  <b>Changed:</b>
   *  - The TeensyHID bootloader has been removed, per request from Paul at PJRC
+  *  - The LIBUSB_FILTERDRV_COMPAT compile time option in the XPLAINBridge and AVRISP-MKII projects has been renamed
+  *    LIBUSB_DRIVER_COMPAT, as it applies to all software on all platforms using the libUSB driver
   *
   *  <b>Fixed:</b>
   *
