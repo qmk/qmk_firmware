@@ -145,9 +145,6 @@ static void USB_Device_SetAddress(void)
 
 static void USB_Device_SetConfiguration(void)
 {
-	if (USB_DeviceState != DEVICE_STATE_Addressed)
-	  return;
-	
 #if defined(FIXED_NUM_CONFIGURATIONS)
 	if ((uint8_t)USB_ControlRequest.wValue > FIXED_NUM_CONFIGURATIONS)
 	  return;

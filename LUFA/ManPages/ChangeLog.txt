@@ -20,6 +20,8 @@
   *  - Fixed AVRISP-MKII clone project not correctly issuing LOAD EXTENDED ADDRESS commands when the extended address
   *    boundary is crossed during programming or readback (thanks to Gerard Sexton)
   *  - Fixed warnings when building the AVRISP-MKII clone project with the ENABLE_XPROG_PROTOCOL compile time option disabled
+  *  - Remove incorrect check for the current device state in the Set Configuration request handler of DevChapter9, which broke
+  *    Set Configuration requests to the device under most circumstances.
   *
   *  \section Sec_ChangeLog100512 Version 100512
   *
