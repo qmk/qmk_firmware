@@ -68,7 +68,7 @@
 		bool TINYNVM_WriteMemory(const uint16_t WriteAddress, uint8_t* WriteBuffer, uint16_t WriteLength);
 		bool TINYNVM_EraseMemory(const uint8_t EraseCommand, const uint16_t Address);
 
-		#if defined(INCLUDE_FROM_TINYNVM_C)
+		#if (defined(INCLUDE_FROM_TINYNVM_C) && defined(ENABLE_XPROG_PROTOCOL))
 			static void TINYNVM_SendReadNVMRegister(const uint8_t Address);
 			static void TINYNVM_SendWriteNVMRegister(const uint8_t Address);
 			static void TINYNVM_SendPointerAddress(const uint16_t AbsoluteAddress);

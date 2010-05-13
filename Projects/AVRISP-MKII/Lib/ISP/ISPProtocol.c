@@ -227,8 +227,18 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 				PollAddress = (CurrentAddress & 0xFFFF);				
 			}		
 
-			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
-			  CurrentAddress++;
+			/* EEPROM just increments the address each byte, flash needs to increment on each word and
+			 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
+			 * address boundary has been crossed */
+			if (V2Command == CMD_PROGRAM_EEPROM_ISP)
+			{
+				CurrentAddress++;
+			}
+			else if (IsOddByte)
+			{
+				if (!(++CurrentAddress & 0xFFFF))
+				  ISPTarget_LoadExtendedAddress();			
+			}
 		}
 		
 		/* If the current page must be committed, send the PROGRAM PAGE command to the target */
@@ -276,8 +286,18 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 				PollAddress = (CurrentAddress & 0xFFFF);
 			}
 
-			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
-			  CurrentAddress++;
+			/* EEPROM just increments the address each byte, flash needs to increment on each word and
+			 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
+			 * address boundary has been crossed */
+			if (V2Command == CMD_PROGRAM_EEPROM_ISP)
+			{
+				CurrentAddress++;
+			}
+			else if (IsOddByte)
+			{
+				if (!(++CurrentAddress & 0xFFFF))
+				  ISPTarget_LoadExtendedAddress();			
+			}
 			
 			ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
 			                                                  Write_Memory_Params.DelayMS, Write_Memory_Params.ProgrammingCommands[2]);
@@ -346,11 +366,19 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 		 * or low byte at the current word address */
 		if (V2Command == CMD_READ_FLASH_ISP)
 		  Read_Memory_Params.ReadMemoryCommand ^= READ_WRITE_HIGH_BYTE_MASK;
-
-		/* Only increment the current address if we have read both bytes in the current word when in FLASH
-		 * read mode, or for each byte when in EEPROM read mode */		 
-		if (((CurrentByte & 0x01) && (V2Command == CMD_READ_FLASH_ISP)) || (V2Command == CMD_READ_EEPROM_ISP))
-		  CurrentAddress++;
+		 
+		/* EEPROM just increments the address each byte, flash needs to increment on each word and
+		 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
+		 * address boundary has been crossed */
+		if (V2Command == CMD_READ_EEPROM_ISP)
+		{
+			CurrentAddress++;
+		}
+		else if (CurrentByte & 0x01)
+		{
+			if (!(++CurrentAddress & 0xFFFF))
+			  ISPTarget_LoadExtendedAddress();			
+		}
 	}
 
 	Endpoint_Write_Byte(STATUS_CMD_OK);

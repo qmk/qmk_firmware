@@ -17,6 +17,9 @@
   *  <b>Fixed:</b>
   *  - Fixed possible device lockup when INTERRUPT_CONTROL_ENDPOINT is enabled and the control endpoint is not properly
   *    selected when the ISR completes
+  *  - Fixed AVRISP-MKII clone project not correctly issuing SET EXTENDED ADDRESS commands when the extended address
+  *    boundary is crossed during programming or readback (thanks to Gerard Sexton)
+  *  - Fixed warnings when building the AVRISP-MKII clone project with the ENABLE_XPROG_PROTOCOL compile time option disabled
   *
   *  \section Sec_ChangeLog100512 Version 100512
   *

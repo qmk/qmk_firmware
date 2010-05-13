@@ -119,7 +119,7 @@
 		void XPROGProtocol_SetMode(void);
 		void XPROGProtocol_Command(void);
 		
-		#if defined(INCLUDE_FROM_XPROGPROTOCOL_C)
+		#if (defined(INCLUDE_FROM_XPROGPROTOCOL_C) && defined(ENABLE_XPROG_PROTOCOL))
 			static void XPROGProtocol_EnterXPROGMode(void);
 			static void XPROGProtocol_LeaveXPROGMode(void);
 			static void XPROGProtocol_SetParam(void);

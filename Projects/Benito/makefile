@@ -60,7 +60,7 @@
 
 
 # MCU name
-MCU = atmega32u4
+MCU = atmega32u2
 
 
 # Target board (see library "Board Types" documentation, NONE for projects not requiring

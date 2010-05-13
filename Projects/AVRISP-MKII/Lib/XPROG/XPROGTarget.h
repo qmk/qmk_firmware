@@ -118,7 +118,7 @@
 		void    XPROGTarget_SendBreak(void);
 		bool    XPROGTarget_WaitWhileNVMBusBusy(void);
 		
-		#if defined(INCLUDE_FROM_XPROGTARGET_C)
+		#if (defined(INCLUDE_FROM_XPROGTARGET_C) && defined(ENABLE_XPROG_PROTOCOL))
 			static void XPROGTarget_SetTxMode(void);
 			static void XPROGTarget_SetRxMode(void);
 		#endif
