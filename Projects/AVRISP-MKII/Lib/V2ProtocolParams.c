@@ -44,11 +44,11 @@ static ParameterItem_t ParameterTable[] =
 	{
 		{ .ParamID          = PARAM_BUILD_NUMBER_LOW,
 		  .ParamPrivileges  = PARAM_PRIV_READ,
-		  .ParamValue       = (LUFA_VERSION_INTEGER >> 8)        },
+		  .ParamValue       = 0                                  },
 
 		{ .ParamID          = PARAM_BUILD_NUMBER_HIGH,
 		  .ParamPrivileges  = PARAM_PRIV_READ,
-		  .ParamValue       = (LUFA_VERSION_INTEGER & 0xFF),     },
+		  .ParamValue       = 0                                  },
 
 		{ .ParamID          = PARAM_HW_VER,
 		  .ParamPrivileges  = PARAM_PRIV_READ,
@@ -87,8 +87,7 @@ static ParameterItem_t ParameterTable[] =
 /** Loads saved non-volatile parameter values from the EEPROM into the parameter table, as needed. */
 void V2Params_LoadNonVolatileParamValues(void)
 {
-	/* Target RESET line polarity is a non-volatile value, retrieve current parameter value from EEPROM -
-	 *   NB: Cannot call V2Protocol_SetParameterValue() here, as that will cause another EEPROM write! */
+	/* Target RESET line polarity is a non-volatile value, retrieve current parameter value from EEPROM */
 	V2Params_GetParamFromTable(PARAM_RESET_POLARITY)->ParamValue = eeprom_read_byte(&EEPROM_Rest_Polarity);
 }
 
@@ -154,7 +153,7 @@ void V2Params_SetParameterValue(const uint8_t ParamID, const uint8_t Value)
 	ParamInfo->ParamValue = Value;
 
 	/* The target RESET line polarity is a non-volatile parameter, save to EEPROM when changed */
-	if (ParamID == PARAM_RESET_POLARITY)
+	if ((ParamID == PARAM_RESET_POLARITY) && (eeprom_read_byte(&EEPROM_Rest_Polarity) != Value))
 	  eeprom_write_byte(&EEPROM_Rest_Polarity, Value);  
 }
 

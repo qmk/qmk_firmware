@@ -186,22 +186,18 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 	                                                                    Write_Memory_Params.PollValue2;
 	uint8_t* NextWriteByte = Write_Memory_Params.ProgData;
 
-	/* Check to see if the host has issued a SET ADDRESS command and we haven't sent a
-	 * LOAD EXTENDED ADDRESS command (if needed, used when operating beyond the 128KB
-	 * FLASH barrier) */
-	if (MustSetAddress)
-	{
-		if (CurrentAddress & (1UL << 31))
-		  ISPTarget_LoadExtendedAddress();
-
-		MustSetAddress = false;
-	}
-
 	/* Check the programming mode desired by the host, either Paged or Word memory writes */
 	if (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_WRITES_MASK)
 	{
 		uint16_t StartAddress = (CurrentAddress & 0xFFFF);
 	
+		/* Check to see if we need to send a LOAD EXTENDED ADDRESS command to the target */
+		if (MustLoadExtendedAddress)
+		{
+			ISPTarget_LoadExtendedAddress();
+			MustLoadExtendedAddress = false;
+		}
+
 		/* Paged mode memory programming */
 		for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
 		{
@@ -252,7 +248,7 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 
 			/* Check to see if the FLASH address has crossed the extended address boundary */
 			if ((V2Command == CMD_PROGRAM_FLASH_ISP) && !(CurrentAddress & 0xFFFF))
-			  ISPTarget_LoadExtendedAddress();			
+			  MustLoadExtendedAddress = true;			
 		}
 	}
 	else
@@ -263,6 +259,13 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			bool    IsOddByte   = (CurrentByte & 0x01);
 			uint8_t ByteToWrite = *(NextWriteByte++);
 			  
+			/* Check to see if we need to send a LOAD EXTENDED ADDRESS command to the target */
+			if (MustLoadExtendedAddress)
+			{
+				ISPTarget_LoadExtendedAddress();
+				MustLoadExtendedAddress = false;
+			}
+
 			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
 			SPI_SendByte(CurrentAddress >> 8);
 			SPI_SendByte(CurrentAddress & 0xFF);
@@ -291,14 +294,12 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			/* EEPROM just increments the address each byte, flash needs to increment on each word and
 			 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
 			 * address boundary has been crossed */
-			if (V2Command == CMD_PROGRAM_EEPROM_ISP)
+			if ((CurrentByte & 0x01) || (V2Command == CMD_PROGRAM_EEPROM_ISP))
 			{
 				CurrentAddress++;
-			}
-			else if (IsOddByte)
-			{
-				if (!(++CurrentAddress & 0xFFFF))
-				  ISPTarget_LoadExtendedAddress();			
+			
+				if ((V2Command != CMD_PROGRAM_EEPROM_ISP) && !(CurrentAddress & 0xFFFF))
+				  MustLoadExtendedAddress = true;			
 			}
 		}
 	}
@@ -330,21 +331,17 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 	
 	Endpoint_Write_Byte(V2Command);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
-	
-	/* Check to see if the host has issued a SET ADDRESS command and we haven't sent a
-	 * LOAD EXTENDED ADDRESS command (if needed, used when operating beyond the 128KB
-	 * FLASH barrier) */
-	if (MustSetAddress)
-	{
-		if (CurrentAddress & (1UL << 31))
-		  ISPTarget_LoadExtendedAddress();
-
-		MustSetAddress = false;
-	}
 
 	/* Read each byte from the device and write them to the packet for the host */
 	for (uint16_t CurrentByte = 0; CurrentByte < Read_Memory_Params.BytesToRead; CurrentByte++)
 	{
+		/* Check to see if we need to send a LOAD EXTENDED ADDRESS command to the target */
+		if (MustLoadExtendedAddress)
+		{
+			ISPTarget_LoadExtendedAddress();
+			MustLoadExtendedAddress = false;
+		}
+
 		/* Read the next byte from the desired memory space in the device */
 		SPI_SendByte(Read_Memory_Params.ReadMemoryCommand);
 		SPI_SendByte(CurrentAddress >> 8);
@@ -366,14 +363,12 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 		/* EEPROM just increments the address each byte, flash needs to increment on each word and
 		 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
 		 * address boundary has been crossed */
-		if (V2Command == CMD_READ_EEPROM_ISP)
+		if ((CurrentByte & 0x01) || (V2Command == CMD_READ_EEPROM_ISP))
 		{
 			CurrentAddress++;
-		}
-		else if (CurrentByte & 0x01)
-		{
-			if (!(++CurrentAddress & 0xFFFF))
-			  ISPTarget_LoadExtendedAddress();			
+		
+			if ((V2Command != CMD_READ_EEPROM_ISP) && !(CurrentAddress & 0xFFFF))
+			  MustLoadExtendedAddress = true;			
 		}
 	}
 

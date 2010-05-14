@@ -10,11 +10,10 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
- * \section Sec_Migration100513 Migrating from 100512 to 100513
- *  This release was made shortly after the 100512 release, to fix a critical device-mode error. No specific migration
- *  information applies to this release - see \ref Sec_Migration100512 for migration information of the previous release.
+ * \section Sec_Migration100513 Migrating from 100219 to 100513
+ * N/A
  *
- * \section Sec_Migration100512 Migrating from 100219 to 100512
+ * \section Sec_Migration100513 Migrating from 100219 to 100513
  *
  *  <b>Non-USB Library Components</b>
  *    - The \ref TWI_StartTransmission() function now takes in a timeout period, expressed in milliseconds, within which the addressed

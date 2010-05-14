@@ -84,7 +84,7 @@
 	/* External Variables: */
 		#if !defined(__ASSEMBLER__)
 			extern uint32_t CurrentAddress;
-			extern bool     MustSetAddress;
+			extern bool     MustLoadExtendedAddress;
 		#endif
 
 	/* Function Prototypes: */

@@ -39,8 +39,8 @@
 /** Current memory address for FLASH/EEPROM memory read/write commands */
 uint32_t CurrentAddress;
 
-/** Flag to indicate that the next read/write operation must update the device's current address */
-bool MustSetAddress;
+/** Flag to indicate that the next read/write operation must update the device's current extended FLASH address */
+bool MustLoadExtendedAddress;
 
 
 /** ISR to manage timeouts whilst processing a V2Protocol command */
@@ -251,7 +251,8 @@ static void V2Protocol_LoadAddress(void)
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	MustSetAddress = true;
+	if (CurrentAddress & (1UL << 31))
+	  MustLoadExtendedAddress = true;
 
 	Endpoint_Write_Byte(CMD_LOAD_ADDRESS);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
