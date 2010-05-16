@@ -111,7 +111,7 @@
 			 *      }
 			 *  \endcode
 			 */
-			#define TASK(name)                        void name (void)
+			#define TASK(name)              void name (void)
 			
 			/** Defines a task list array, containing one or more task entries of the type TaskEntry_t. Each task list
 			 *  should be encased in curly braces and ended with a comma.
@@ -125,18 +125,18 @@
 			 *      }
 			 *  \endcode
 			 */
-			#define TASK_LIST                         TaskEntry_t Scheduler_TaskList[] = 
+			#define TASK_LIST               TaskEntry_t Scheduler_TaskList[] = 
 			
 			/** Constant, giving the maximum delay in scheduler ticks which can be stored in a variable of type
 			 *  SchedulerDelayCounter_t.
 			 */
-			#define TASK_MAX_DELAY                    (MAX_DELAYCTR_COUNT - 1)
+			#define TASK_MAX_DELAY          (MAX_DELAYCTR_COUNT - 1)
 
 			/** Task status mode constant, for passing to Scheduler_SetTaskMode() or Scheduler_SetGroupTaskMode(). */
-			#define TASK_RUN                          true
+			#define TASK_RUN                true
 
 			/** Task status mode constant, for passing to Scheduler_SetTaskMode() or Scheduler_SetGroupTaskMode(). */
-			#define TASK_STOP                         false
+			#define TASK_STOP               false
 			
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
@@ -151,9 +151,9 @@
 				 */
 				void Scheduler_Init(void);
 			#else
-				#define Scheduler_Start()                 Scheduler_GoSchedule(TOTAL_TASKS);
+				#define Scheduler_Start()    Scheduler_GoSchedule(TOTAL_TASKS);
 				
-				#define Scheduler_Init()                  Scheduler_InitScheduler(TOTAL_TASKS);
+				#define Scheduler_Init()     Scheduler_InitScheduler(TOTAL_TASKS);
 			#endif
 
 		/* Type Defines: */
@@ -181,20 +181,20 @@
 			 *  TaskEntry_t and can be manipulated as desired, although it is preferential that the proper Scheduler
 			 *  functions should be used instead of direct manipulation.
 			 */
-			extern          TaskEntry_t               Scheduler_TaskList[];
+			exter TaskEntry_t Scheduler_TaskList[];
 			
 			/** Contains the total number of tasks in the task list, irrespective of if the task's status is set to
 			 *  TASK_RUN or TASK_STOP.
 			 *
 			 *  \note This value should be treated as read-only, and never altered in user-code.
 			 */
-			extern volatile uint8_t                   Scheduler_TotalTasks;
+			extern volatile uint8_t Scheduler_TotalTasks;
 
 			/**  Contains the current scheduler tick count, for use with the delay functions. If the delay functions
 			 *   are used in the user code, this should be incremented each tick period so that the delays can be
 			 *   calculated.
 			 */
-			extern volatile SchedulerDelayCounter_t   Scheduler_TickCounter;
+			extern volatile SchedulerDelayCounter_t Scheduler_TickCounter;
 
 		/* Inline Functions: */
 			/** Resets the delay counter value to the current tick count. This should be called to reset the period

@@ -8,14 +8,16 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *  <b>New:</b>
-  *  N/A
+  *  - N/A
   *
   *  <b>Changed:</b>
-  *  N/A
+  *  - N/A
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project sending a LOAD EXTENDED ADDRESS command to 128KB AVRs after programming or reading from
-  *    the last page of FLASH
+  *    the last page of FLASH (thanks to Gerard Sexton)
+  *  - Fixed AVRISP project not sending a full erase-and-write EEPROM command to XMEGA targets when writing to the EEPROM
+  *    instead of the split write-only command (thanks to Tim Margush)
   *
   *  \section Sec_ChangeLog100513 Version 100513
   *  <b>New:</b>
@@ -65,8 +67,6 @@
   *  - Fixed AVRISP-MKII clone project not correctly issuing LOAD EXTENDED ADDRESS commands when the extended address
   *    boundary is crossed during programming or readback (thanks to Gerard Sexton)
   *  - Fixed warnings when building the AVRISP-MKII clone project with the ENABLE_XPROG_PROTOCOL compile time option disabled
-  *  - Remove incorrect check for the current device state in the Set Configuration request handler of DevChapter9, which broke
-  *    Set Configuration requests to the device under most circumstances.
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin
   *  - Fixed TWI_StartTransmission() corrupting the contents of the GPIOR0 register
   *  - Fixed TWI driver not aborting when faced with no response after attempting to address a device on the bus

@@ -319,7 +319,7 @@ static void XPROGProtocol_WriteMemory(void)
 				WriteCommand     = XMEGA_NVM_CMD_WRITEBOOTSECPAGE;
 				break;
 			case XPRG_MEM_TYPE_EEPROM:
-				WriteCommand     = XMEGA_NVM_CMD_WRITEEEPROMPAGE;
+				WriteCommand     = XMEGA_NVM_CMD_ERASEWRITEEEPROMPAGE;
 				WriteBuffCommand = XMEGA_NVM_CMD_LOADEEPROMPAGEBUFF;
 				EraseBuffCommand = XMEGA_NVM_CMD_ERASEEEPROMPAGEBUFF;			
 				break;
