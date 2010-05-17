@@ -59,6 +59,9 @@ void Bluetooth_Stack_Init(void)
  */
 void Bluetooth_Stack_USBTask(void)
 {
+	if (USB_HostState != HOST_STATE_Configured)
+	  return;
+
 	Bluetooth_HCITask();
 	Bluetooth_ACLTask();
 }

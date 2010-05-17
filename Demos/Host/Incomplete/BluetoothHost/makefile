@@ -60,7 +60,7 @@
 
 
 # MCU name
-MCU = at90usb647
+MCU = at90usb1287
 
 
 # Target board (see library "Board Types" documentation, NONE for projects not requiring
@@ -87,7 +87,7 @@ BOARD  = USBKEY
 #         F_CPU = 16000000
 #         F_CPU = 18432000
 #         F_CPU = 20000000
-F_CPU = 8000000
+F_CPU = 16000000
 
 
 # Input clock frequency.

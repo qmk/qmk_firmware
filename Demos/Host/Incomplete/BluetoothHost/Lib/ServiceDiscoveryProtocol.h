@@ -71,12 +71,12 @@
 		
 		#define BASE_96BIT_UUID                         0xFB, 0x34, 0x9B, 0x5F, 0x80, 0x00, 0x00, 0x80, 0x00, 0x10, 0x00, 0x00
 		
-		#define SERVICE_ATTRIBUTE_TEXT(name, string)    SERVICE_ATTRIBUTE_8BIT_LEN(name, SDP_DATATYPE_TEXT, sizeof(string), string)
-		#define SERVICE_ATTRIBUTE_8BIT_LEN(name, type, size, ...)  const ServiceAttributeData8Bit_t  name PROGMEM = \
+		#define SERVICE_ATTRIBUTE_TEXT(name, string)    SERVICE_ATTRIBUTE_LEN8(name, SDP_DATATYPE_TEXT, sizeof(string), string)
+		#define SERVICE_ATTRIBUTE_LEN8(name, type, size, ...)  const ServiceAttributeData8Bit_t  name PROGMEM = \
 		                                                {.Header = (type | 5), .Size = size, .Data = __VA_ARGS__}
-		#define SERVICE_ATTRIBUTE_16BIT_LEN(name, type, size, ...) const ServiceAttributeData16Bit_t name PROGMEM = \
+		#define SERVICE_ATTRIBUTE_LEN16(name, type, size, ...) const ServiceAttributeData16Bit_t name PROGMEM = \
 		                                                {.Header = (type | 5), .Size = size, .Data = __VA_ARGS__}
-		#define SERVICE_ATTRIBUTE_32BIT_LEN(name, type, size, ...) const ServiceAttributeData32Bit_t name PROGMEM = \
+		#define SERVICE_ATTRIBUTE_LEN32(name, type, size, ...) const ServiceAttributeData32Bit_t name PROGMEM = \
 		                                                {.Header = (type | 5), .Size = size, .Data = __VA_ARGS__}
 		#define SERVICE_ATTRIBUTE_TABLE_TERMINATOR      {.AttributeData = NULL}
 
@@ -90,8 +90,8 @@
 		
 		typedef struct
 		{
-			uint16_t    AttributeID;
-			const void* AttributeData;
+			uint16_t    ID;
+			const void* Data;
 		} ServiceAttributeTable_t;
 
 		typedef struct
@@ -142,7 +142,12 @@
 				return ParamValue;
 			}
 
-			static uint8_t  ServiceDiscovery_GetUUIDList(uint8_t UUIDList[12][16], const void** CurrentParameter);
+			static uint8_t ServiceDiscovery_ProcessAttributes(uint8_t UUIDList[12][16], const uint8_t TotalUUIDs, 
+			                                                  uint8_t* ResponseBuffer, uint8_t MaxResponseSize,
+			                                                  const void** CurrentParameter);
+			static uint8_t ServiceDiscovery_GetAttribute(uint8_t UUIDList[12][16], const uint8_t TotalUUIDs,
+			                                             const uint32_t Attribute, uint8_t** DataBuffer, uint8_t BufferLen);
+			static uint8_t ServiceDiscovery_GetUUIDList(uint8_t UUIDList[12][16], const void** CurrentParameter);
 			static uint32_t ServiceDiscovery_GetDataElementSize(const void** AttributeHeader, uint8_t* ElementHeaderSize);
 		#endif
 
