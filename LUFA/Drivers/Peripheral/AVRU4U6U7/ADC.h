@@ -287,6 +287,49 @@
 				#endif
 			}
 			
+			/** Deconfigures the given ADC channel, re-enabling digital I/O mode instead of analog. This
+			 *  function sets the associated port pin as an input and re-enabled the digital portion of
+			 *  the I/O.
+			 *
+			 *  \note This must only be called for ADC channels with are connected to a physical port
+			 *        pin of the AVR, denoted by its special alternative function ADCx.
+			 *        \n\n
+			 *
+			 *  \note The channel number must be specified as an integer, and NOT a ADC_CHANNELx mask.
+			 *
+			 *  \param[in] Channel  ADC channel number to set up for conversions
+			 */
+			static inline void ADC_DisableChannel(const uint8_t Channel)
+			{
+				#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
+					 defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
+					 defined(__AVR_ATmega32U6__))				
+				DDRF  &= ~(1 << Channel);
+				DIDR0 &= ~(1 << Channel);
+				#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+				if (Channel < 8)
+				{
+					DDRF  &= ~(1 << Channel);
+					DIDR0 &= ~(1 << Channel);
+				}
+				else if (Channel == 8)
+				{
+					DDRD  &= ~(1 << 4);
+					DIDR2 &= ~(1 << 0);
+				}
+				else if (Channel < 11)
+				{
+					DDRD  &= ~(1 << (Channel - 3));
+					DIDR2 &= ~(1 << (Channel - 8));
+				}
+				else
+				{
+					DDRB  &= ~(1 << (Channel - 7));
+					DIDR2 &= ~(1 << (Channel - 8));
+				}
+				#endif
+			}
+
 			/** Starts the reading of the given channel, but does not wait until the conversion has completed.
 			 *  Once executed, the conversion status can be determined via the \ref ADC_IsReadingComplete() macro and
 			 *  the result read via the \ref ADC_GetResult() macro.

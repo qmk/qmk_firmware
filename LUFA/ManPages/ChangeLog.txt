@@ -8,7 +8,7 @@
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *  <b>New:</b>
-  *  - N/A
+  *  - Added new ADC_DisableChannel() function (thanks to Mich Davis)
   *
   *  <b>Changed:</b>
   *  - N/A
