@@ -36,9 +36,9 @@ SERVICE_ATTRIBUTE_TEXT(SDP_Attribute_Description,  "BT Service Discovery");
 SERVICE_ATTRIBUTE_LEN8(SDP_Attribute_Availability, SDP_DATATYPE_UNSIGNED_INT, 1, {0xFF});
 const ServiceAttributeTable_t SDP_Attribute_Table[] PROGMEM =
 	{
-		{.ID = SDP_ATTRIBUTE_NAME        , .Data = &SDP_Attribute_Name},
-		{.ID = SDP_ATTRIBUTE_DESCRIPTION , .Data = &SDP_Attribute_Description},
-		{.ID = SDP_ATTRIBUTE_AVAILABILITY, .Data = &SDP_Attribute_Availability},
+		{.AttributeID = SDP_ATTRIBUTE_NAME        , .Data = &SDP_Attribute_Name},
+		{.AttributeID = SDP_ATTRIBUTE_DESCRIPTION , .Data = &SDP_Attribute_Description},
+		{.AttributeID = SDP_ATTRIBUTE_AVAILABILITY, .Data = &SDP_Attribute_Availability},
 		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
 	};
 
@@ -47,9 +47,9 @@ SERVICE_ATTRIBUTE_TEXT(RFCOMM_Attribute_Description,  "Virtual Serial");
 SERVICE_ATTRIBUTE_LEN8(RFCOMM_Attribute_Availability, SDP_DATATYPE_UNSIGNED_INT, 1, {0xFF});
 const ServiceAttributeTable_t RFCOMM_Attribute_Table[] PROGMEM =
 	{
-		{.ID = SDP_ATTRIBUTE_NAME        , .Data = &RFCOMM_Attribute_Name},
-		{.ID = SDP_ATTRIBUTE_DESCRIPTION , .Data = &RFCOMM_Attribute_Description},
-		{.ID = SDP_ATTRIBUTE_AVAILABILITY, .Data = &RFCOMM_Attribute_Availability},
+		{.AttributeID = SDP_ATTRIBUTE_NAME        , .Data = &RFCOMM_Attribute_Name},
+		{.AttributeID = SDP_ATTRIBUTE_DESCRIPTION , .Data = &RFCOMM_Attribute_Description},
+		{.AttributeID = SDP_ATTRIBUTE_AVAILABILITY, .Data = &RFCOMM_Attribute_Availability},
 		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
 	};
 
@@ -107,7 +107,7 @@ static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPH
 	
 	BT_SDP_DEBUG(1, "<< Service Search Attribute");
 
-	uint8_t UUIDList[12][16];
+	uint8_t UUIDList[12][UUID_SIZE_BYTES];
 	uint8_t TotalUUIDs = ServiceDiscovery_GetUUIDList(UUIDList, &CurrentParameter);
 	BT_SDP_DEBUG(2, "-- Total UUIDs: %d", TotalUUIDs);
 	
@@ -134,7 +134,7 @@ static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPH
 	                     Channel);
 }
 
-static uint8_t ServiceDiscovery_ProcessAttributes(uint8_t UUIDList[12][16], const uint8_t TotalUUIDs, uint8_t* ResponseBuffer,
+static uint8_t ServiceDiscovery_ProcessAttributes(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, uint8_t* ResponseBuffer,
                                                   uint8_t MaxResponseSize, const void** CurrentParameter)
 {
 	uint8_t ElementHeaderSize;
@@ -163,14 +163,14 @@ static uint8_t ServiceDiscovery_ProcessAttributes(uint8_t UUIDList[12][16], cons
 	return TotalResponseSize;
 }
 
-static uint8_t ServiceDiscovery_GetAttribute(uint8_t UUIDList[12][16], const uint8_t TotalUUIDs, const uint32_t Attribute,
+static uint8_t ServiceDiscovery_GetAttribute(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, const uint32_t Attribute,
                                              uint8_t** DataBuffer, uint8_t BufferLen)
 {
 	for (uint8_t CurrTableItem = 0; CurrTableItem < (sizeof(SDP_Services_Table) / sizeof(ServiceTable_t)); CurrTableItem++)
 	{
 		for (uint8_t CurrUUIDIndex = 0; CurrUUIDIndex < TotalUUIDs; CurrUUIDIndex++)
 		{
-			if (!(memcmp(SDP_Services_Table[CurrTableItem].UUID, UUIDList[CurrUUIDIndex], sizeof(BaseUUID))))
+			if (!(memcmp(SDP_Services_Table[CurrTableItem].UUID, UUIDList[CurrUUIDIndex], UUID_SIZE_BYTES)))
 			{
 				const ServiceAttributeTable_t* AttributeTable = SDP_Services_Table[CurrTableItem].AttributeTable;
 
@@ -185,7 +185,7 @@ static uint8_t ServiceDiscovery_GetAttribute(uint8_t UUIDList[12][16], const uin
 	return 0;
 }
 
-static uint8_t ServiceDiscovery_GetUUIDList(uint8_t UUIDList[12][16], const void** CurrentParameter)
+static uint8_t ServiceDiscovery_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void** CurrentParameter)
 {
 	uint8_t ElementHeaderSize;
 	uint8_t TotalUUIDs = 0;
@@ -195,7 +195,7 @@ static uint8_t ServiceDiscovery_GetUUIDList(uint8_t UUIDList[12][16], const void
 	while (ServicePatternLength)
 	{
 		uint8_t* CurrentUUID = UUIDList[TotalUUIDs++];
-		uint8_t  UUIDLength = ServiceDiscovery_GetDataElementSize(CurrentParameter, &ElementHeaderSize);
+		uint8_t  UUIDLength  = ServiceDiscovery_GetDataElementSize(CurrentParameter, &ElementHeaderSize);
 		
 		memcpy(CurrentUUID, BaseUUID, sizeof(BaseUUID));
 		memcpy(&CurrentUUID[(UUIDLength <= 32) ? (sizeof(BaseUUID) - 32) : 0], *CurrentParameter, UUIDLength);
