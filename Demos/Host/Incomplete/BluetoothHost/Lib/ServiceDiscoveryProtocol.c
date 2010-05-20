@@ -31,9 +31,13 @@
 #define  INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C
 #include "ServiceDiscoveryProtocol.h"
 
+/** Service Discovery Protocol attribute, indicationg the service's name. */
 SERVICE_ATTRIBUTE_TEXT(SDP_Attribute_Name,         "SDP");
+/** Service Discovery Protocol attribute, indicationg the service's description. */
 SERVICE_ATTRIBUTE_TEXT(SDP_Attribute_Description,  "BT Service Discovery");
-SERVICE_ATTRIBUTE_LEN8(SDP_Attribute_Availability, SDP_DATATYPE_UNSIGNED_INT, 1, {0xFF});
+/** Service Discovery Protocol attribute, indicationg the service's availability. */
+SERVICE_ATTRIBUTE_LEN8(SDP_Attribute_Availability, SDP_DATATYPE_UnsignedInt, 1, {0xFF});
+/** Service Discovery Protocol attribute table, listing all supported attributes of the service. */
 const ServiceAttributeTable_t SDP_Attribute_Table[] PROGMEM =
 	{
 		{.AttributeID = SDP_ATTRIBUTE_NAME        , .Data = &SDP_Attribute_Name},
@@ -42,9 +46,13 @@ const ServiceAttributeTable_t SDP_Attribute_Table[] PROGMEM =
 		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
 	};
 
+/** RFCOMM Service attribute, indicationg the service's name. */
 SERVICE_ATTRIBUTE_TEXT(RFCOMM_Attribute_Name,         "RFCOMM");
+/** RFCOMM Service attribute, indicationg the service's description. */
 SERVICE_ATTRIBUTE_TEXT(RFCOMM_Attribute_Description,  "Virtual Serial");
-SERVICE_ATTRIBUTE_LEN8(RFCOMM_Attribute_Availability, SDP_DATATYPE_UNSIGNED_INT, 1, {0xFF});
+/** RFCOMM Service attribute, indicationg the service's availability. */
+SERVICE_ATTRIBUTE_LEN8(RFCOMM_Attribute_Availability, SDP_DATATYPE_UnsignedInt, 1, {0xFF});
+/** RFCOMM Service attribute table, listing all supported attributes of the service. */
 const ServiceAttributeTable_t RFCOMM_Attribute_Table[] PROGMEM =
 	{
 		{.AttributeID = SDP_ATTRIBUTE_NAME        , .Data = &RFCOMM_Attribute_Name},
@@ -53,6 +61,9 @@ const ServiceAttributeTable_t RFCOMM_Attribute_Table[] PROGMEM =
 		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
 	};
 
+/** Master service table, listing all supported services (and their attribute tables) of the device, including
+ *  each service's UUID.
+ */
 const ServiceTable_t SDP_Services_Table[] =
 	{
 		{   // 128-bit UUID for the SDP service
@@ -65,6 +76,7 @@ const ServiceTable_t SDP_Services_Table[] =
 		},
 	};
 
+/* Base UUID value common to all standardized Bluetooth services */
 const uint8_t BaseUUID[] = {BASE_96BIT_UUID, 0x00, 0x00, 0x00, 0x00};
 
 
@@ -117,18 +129,19 @@ static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPH
 	struct
 	{
 		SDP_PDUHeader_t SDPHeader;
+		uint16_t        AttributeListByteCount;
 		uint8_t         ResponseData[100];
 	} ResponsePacket;
-	
-	ResponsePacket.SDPHeader.PDU           = SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE;
-	ResponsePacket.SDPHeader.TransactionID = SDPHeader->TransactionID;
 	
 	if (MaxAttributeSize > sizeof(ResponsePacket.ResponseData))
 	  MaxAttributeSize = sizeof(ResponsePacket.ResponseData);
 	  
-	ResponsePacket.SDPHeader.ParameterLength = ServiceDiscovery_ProcessAttributes(UUIDList, TotalUUIDs,
+	ResponsePacket.AttributeListByteCount    = ServiceDiscovery_ProcessAttributes(UUIDList, TotalUUIDs,
 	                                                                              ResponsePacket.ResponseData,
 	                                                                              MaxAttributeSize, &CurrentParameter);
+	ResponsePacket.SDPHeader.PDU             = SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE;
+	ResponsePacket.SDPHeader.TransactionID   = SDPHeader->TransactionID;
+	ResponsePacket.SDPHeader.ParameterLength = (ResponsePacket.AttributeListByteCount + sizeof(ResponsePacket.AttributeListByteCount));
 
 	Bluetooth_SendPacket(&ResponsePacket, (sizeof(ResponsePacket.SDPHeader) + ResponsePacket.SDPHeader.ParameterLength),
 	                     Channel);
@@ -137,8 +150,8 @@ static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPH
 static uint8_t ServiceDiscovery_ProcessAttributes(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, uint8_t* ResponseBuffer,
                                                   uint8_t MaxResponseSize, const void** CurrentParameter)
 {
-	uint8_t ElementHeaderSize;
-	uint8_t TotalResponseSize = 0;
+	uint16_t* AttributeResponseSize = ServiceDiscovery_AddDataElementHeader(&ResponseBuffer, SDP_DATATYPE_UnsignedInt);
+	uint8_t   ElementHeaderSize;
 
 	uint16_t AttributeIDListLength = ServiceDiscovery_GetDataElementSize(CurrentParameter, &ElementHeaderSize);
 	BT_SDP_DEBUG(2, "-- Total Attribute Length: 0x%04X", AttributeIDListLength);
@@ -147,20 +160,18 @@ static uint8_t ServiceDiscovery_ProcessAttributes(uint8_t UUIDList[][UUID_SIZE_B
 		uint8_t  AttributeLength = ServiceDiscovery_GetDataElementSize(CurrentParameter, &ElementHeaderSize);
 		uint32_t Attribute       = 0;
 		
-		memcpy(&Attribute, CurrentParameter, AttributeLength);
-		
+		memcpy(&((char*)&Attribute)[sizeof(uint32_t) - AttributeLength], *CurrentParameter, AttributeLength);
+
 		BT_SDP_DEBUG(2, "-- Attribute(%d): 0x%08lX", AttributeLength, Attribute);
 		
-		uint8_t TotalBytesAdded = ServiceDiscovery_GetAttribute(UUIDList, TotalUUIDs, Attribute, &ResponseBuffer,
-		                                                        MaxResponseSize);
-		TotalResponseSize += TotalBytesAdded;
-		MaxResponseSize   -= TotalBytesAdded;
+		*AttributeResponseSize += ServiceDiscovery_GetAttribute(UUIDList, TotalUUIDs, Attribute, &ResponseBuffer,
+		                                                        (MaxResponseSize - *AttributeResponseSize));
 	
 		AttributeIDListLength -= (AttributeLength + ElementHeaderSize);
-		CurrentParameter      += AttributeLength;
+		*CurrentParameter     += AttributeLength;
 	}
 	
-	return TotalResponseSize;
+	return *AttributeResponseSize;
 }
 
 static uint8_t ServiceDiscovery_GetAttribute(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, const uint32_t Attribute,
@@ -174,7 +185,7 @@ static uint8_t ServiceDiscovery_GetAttribute(uint8_t UUIDList[][UUID_SIZE_BYTES]
 			{
 				const ServiceAttributeTable_t* AttributeTable = SDP_Services_Table[CurrTableItem].AttributeTable;
 
-				// Process attribute table
+				// TODO: Process attribute table
 				BT_SDP_DEBUG(2, "FOUND UUID IN TABLE");
 
 				break;

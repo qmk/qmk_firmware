@@ -59,27 +59,62 @@
 		#define SDP_ATTRIBUTE_PROVIDER                  0x0002
 		#define SDP_ATTRIBUTE_AVAILABILITY              0x0008
 		
-		#define SDP_DATATYPE_NIL                        (0x00 << 3)
-		#define SDP_DATATYPE_UNSIGNED_INT               (0x01 << 3)
-		#define SDP_DATATYPE_SIGNED_INT                 (0x02 << 3)
-		#define SDP_DATATYPE_UUID                       (0x03 << 3)
-		#define SDP_DATATYPE_TEXT                       (0x04 << 3)
-		#define SDP_DATATYPE_BOOLEAN                    (0x05 << 3)
-		#define SDP_DATATYPE_ELEMENT_SEQUENCE           (0x06 << 3)
-		#define SDP_DATATYPE_ELEMENT_ALTERNATIVE        (0x07 << 3)
-		#define SDP_DATATYPE_URL                        (0x08 << 3)
-		
 		#define UUID_SIZE_BYTES                         16
 		#define BASE_96BIT_UUID                         0xFB, 0x34, 0x9B, 0x5F, 0x80, 0x00, 0x00, 0x80, 0x00, 0x10, 0x00, 0x00
 		
-		#define SERVICE_ATTRIBUTE_TEXT(name, string)    SERVICE_ATTRIBUTE_LEN8(name, SDP_DATATYPE_TEXT, sizeof(string), string)
+		/** Defines a service attribute as a string of characters.
+		 *
+		 *  \param name    Name of the attribute (used to identify the attribute variable only)
+		 *  \param string  String of characters to associate with the attribute
+		 */
+		#define SERVICE_ATTRIBUTE_TEXT(name, string)    SERVICE_ATTRIBUTE_LEN8(name, SDP_DATATYPE_String, sizeof(string), string)
+
+		/** Defines a service attribute with a contents that can fit into an 8-bit integer.
+		 *
+		 *  \param name    Name of the attribute (used to identify the attribute variable only)
+		 *  \param type    Type of attribute contents, a value from the \ref ServiceDiscovery_DataTypes_t enum
+		 *  \param size    Size of the data, in bytes
+		 *  \param ...     Data to associate with the attribute
+		 */
 		#define SERVICE_ATTRIBUTE_LEN8(name, type, size, ...)  const ServiceAttributeData8Bit_t  name PROGMEM = \
 		                                                {.Header = (type | 5), .Size = size, .Data = __VA_ARGS__}
+
+		/** Defines a service attribute with a contents that can fit into an 16-bit integer.
+		 *
+		 *  \param name    Name of the attribute (used to identify the attribute variable only)
+		 *  \param type    Type of attribute contents, a value from the \ref ServiceDiscovery_DataTypes_t enum
+		 *  \param size    Size of the data, in bytes
+		 *  \param ...     Data to associate with the attribute
+		 */
 		#define SERVICE_ATTRIBUTE_LEN16(name, type, size, ...) const ServiceAttributeData16Bit_t name PROGMEM = \
 		                                                {.Header = (type | 6), .Size = size, .Data = __VA_ARGS__}
+
+		/** Defines a service attribute with a contents that can fit into an 32-bit integer.
+		 *
+		 *  \param name    Name of the attribute (used to identify the attribute variable only)
+		 *  \param type    Type of attribute contents, a value from the \ref ServiceDiscovery_DataTypes_t enum
+		 *  \param size    Size of the data, in bytes
+		 *  \param ...     Data to associate with the attribute
+		 */
 		#define SERVICE_ATTRIBUTE_LEN32(name, type, size, ...) const ServiceAttributeData32Bit_t name PROGMEM = \
 		                                                {.Header = (type | 7), .Size = size, .Data = __VA_ARGS__}
+
+		/** Terminator for a service attribute table of type \ref ServiceAttributeTable_t. */
 		#define SERVICE_ATTRIBUTE_TABLE_TERMINATOR      {.Data = NULL}
+
+	/* Enums: */
+		enum ServiceDiscovery_DataTypes_t
+		{
+			SDP_DATATYPE_Nill        = (0 << 3),
+			SDP_DATATYPE_UnsignedInt = (1 << 3),
+			SDP_DATATYPE_SignedInt   = (2 << 3),
+			SDP_DATATYPE_UUID        = (3 << 3),
+			SDP_DATATYPE_String      = (4 << 3),
+			SDP_DATATYPE_Boolean     = (5 << 3),
+			SDP_DATATYPE_Sequence    = (6 << 3),
+			SDP_DATATYPE_Alternative = (7 << 3),
+			SDP_DATATYPE_URL         = (8 << 3),
+		};
 
 	/* Type Defines: */
 		typedef struct
@@ -127,6 +162,27 @@
 			uint8_t Header;
 			uint8_t Data[];
 		} ServiceAttributeData_t;
+
+	/* Inline Functions: */
+		static inline uint16_t* ServiceDiscovery_AddDataElementHeader(uint8_t** BufferPos, const uint8_t Type)
+		{
+			**BufferPos = (6 | Type);	
+			*BufferPos += 1;
+
+			uint16_t* SizePos = (uint16_t*)*BufferPos;				
+			*SizePos = 0;
+
+			**BufferPos += 2;
+			
+			return SizePos;
+		}
+
+		static inline uint16_t ServiceDiscovery_Read16BitParameter(const void** AttributeHeader)
+		{
+			uint16_t ParamValue = *((uint16_t*)*AttributeHeader);
+			*AttributeHeader += sizeof(uint16_t);
+			return ParamValue;
+		}
 		
 	/* Function Prototypes: */
 		void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel);
@@ -135,13 +191,6 @@
 			static void ServiceDiscovery_ProcessServiceSearch(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel);
 			static void ServiceDiscovery_ProcessServiceAttribute(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel);
 			static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel);
-			
-			static inline uint16_t ServiceDiscovery_Read16BitParameter(const void** AttributeHeader)
-			{
-				uint16_t ParamValue = *((uint16_t*)*AttributeHeader);
-				*AttributeHeader += sizeof(uint16_t);
-				return ParamValue;
-			}
 
 			static uint8_t ServiceDiscovery_ProcessAttributes(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, 
 			                                                  uint8_t* ResponseBuffer, uint8_t MaxResponseSize,
