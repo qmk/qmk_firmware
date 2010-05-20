@@ -115,7 +115,7 @@
  *  <b><sup>2</sup></b> <i>See AUX line related tokens in the \ref SSec_Options section</i>
  *
  *  \section Sec_PDI PDI Connections
- *  Connections to the device for PDI programming<b><sup>1</sup></b> (when enabled):
+ *  Connections to the device for PDI programming (when enabled):
  *
  *  <table>
  *   <tr>
@@ -159,7 +159,7 @@
  *  <b><sup>2</sup></b> <i>The AVR's Tx and Rx become the DATA line when connected together via a pair of 220 ohm resistors</i> \n
  *
  *  \section Sec_TPI TPI Connections
- *  Connections to the device for TPI programming<b><sup>1</sup></b> (when enabled):
+ *  Connections to the device for TPI programming (when enabled):
  *
  *  <table>
  *   <tr>
@@ -241,7 +241,8 @@
  *   <tr>
  *    <td>VTARGET_ADC_CHANNEL</td>
  *    <td>Makefile CDEFS</td>
- *    <td>ADC channel number (on supported AVRs) to use for VTARGET level detection, if NO_VTARGET_DETECT is not defined.</td> 
+ *    <td>ADC channel number (on supported AVRs) to use for VTARGET level detection, if NO_VTARGET_DETECT is not defined.
+ *        <i>Ignored when compiled for targets lacking an ADC.</i></td> 
  *   </tr>
  *   <tr>
  *    <td>ENABLE_ISP_PROTOCOL</td>
@@ -257,7 +258,8 @@
  *    <td>NO_VTARGET_DETECT</td>
  *    <td>Makefile CDEFS</td>
  *    <td>Define to disable VTARGET sampling and reporting on AVR models with an ADC converter. This will cause the programmer
- *        to report a fixed 5V target voltage to the host regardless of the real target voltage.</td>  
+ *        to report a fixed 5V target voltage to the host regardless of the real target voltage. <i>Ignored when compiled for
+ *        targets lacking an ADC.</i></td>  
  *   </tr>
  *   <tr>
  *    <td>LIBUSB_DRIVER_COMPAT</td>

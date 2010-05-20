@@ -59,7 +59,10 @@
 		#define SDP_ATTRIBUTE_PROVIDER                  0x0002
 		#define SDP_ATTRIBUTE_AVAILABILITY              0x0008
 		
+		/** Size of a full 128 bit UUID, in bytes */
 		#define UUID_SIZE_BYTES                         16
+		
+		/** First 96 bits common to all standadized Bluetooth services */
 		#define BASE_96BIT_UUID                         0xFB, 0x34, 0x9B, 0x5F, 0x80, 0x00, 0x00, 0x80, 0x00, 0x10, 0x00, 0x00
 		
 		/** Defines a service attribute as a string of characters.
@@ -97,7 +100,7 @@
 		 *  \param ...     Data to associate with the attribute
 		 */
 		#define SERVICE_ATTRIBUTE_LEN32(name, type, size, ...) const ServiceAttributeData32Bit_t name PROGMEM = \
-		                                                {.Header = (type | 7), .Size = size, .Data = __VA_ARGS__}
+		                                                       {.Header = (type | 7), .Size = size, .Data = __VA_ARGS__}
 
 		/** Terminator for a service attribute table of type \ref ServiceAttributeTable_t. */
 		#define SERVICE_ATTRIBUTE_TABLE_TERMINATOR      {.Data = NULL}

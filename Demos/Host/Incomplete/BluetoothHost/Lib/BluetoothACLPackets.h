@@ -55,6 +55,8 @@
 		/** Bluetooth specification defined channel number for connectionless data */
 		#define BT_CHANNEL_CONNECTIONLESS         0x0002
 		
+		#define BT_ACL_FIRST_AUTOFLUSH            (1 << 13)
+
 		#define BT_SIGNAL_COMMAND_REJECT          0x01
 		#define BT_SIGNAL_CONNECTION_REQUEST      0x02
 		#define BT_SIGNAL_CONNECTION_RESPONSE     0x03
@@ -82,9 +84,7 @@
 		#define BT_CONFIGURATION_UNKNOWNOPTIONS   0x0003
 		
 		#define BT_CONFIG_OPTION_MTU              1
-		
-		#define BT_ACL_FIRST_AUTOFLUSH            (1 << 13)
-		
+				
 	/* Type Defines: */
 		/** Bluetooth ACL header structure, common to all ACL data packets. */
 		typedef struct

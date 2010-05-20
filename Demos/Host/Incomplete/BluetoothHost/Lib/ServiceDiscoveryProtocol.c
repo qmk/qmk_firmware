@@ -76,10 +76,17 @@ const ServiceTable_t SDP_Services_Table[] =
 		},
 	};
 
-/* Base UUID value common to all standardized Bluetooth services */
+/** Base UUID value common to all standardized Bluetooth services */
 const uint8_t BaseUUID[] = {BASE_96BIT_UUID, 0x00, 0x00, 0x00, 0x00};
 
 
+/** Main Service Discovery Protocol packet processing routine. This function processes incomming SDP packets from
+ *  a connected Bluetooth device, and sends back appropriate responses to allow other devices to determine the
+ *  services the local device exposes.
+ *
+ *  \param[in]  Data     Incomming packet data containing the SDP request
+ *  \param[in]  Channel  Channel the request was issued to by the remote device
+ */
 void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel)
 {
 	SDP_PDUHeader_t* SDPHeader = (SDP_PDUHeader_t*)Data;
@@ -209,7 +216,7 @@ static uint8_t ServiceDiscovery_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES],
 		uint8_t  UUIDLength  = ServiceDiscovery_GetDataElementSize(CurrentParameter, &ElementHeaderSize);
 		
 		memcpy(CurrentUUID, BaseUUID, sizeof(BaseUUID));
-		memcpy(&CurrentUUID[(UUIDLength <= 32) ? (sizeof(BaseUUID) - 32) : 0], *CurrentParameter, UUIDLength);
+		memcpy(&CurrentUUID[(UUIDLength <= 4) ? (UUID_SIZE_BYTES - 4) : 0], *CurrentParameter, UUIDLength);
 		
 		BT_SDP_DEBUG(2, "-- UUID (%d): 0x%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
 		                UUIDLength,
