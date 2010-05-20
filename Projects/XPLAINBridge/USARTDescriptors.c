@@ -138,7 +138,7 @@ USART_USB_Descriptor_Configuration_t PROGMEM USART_ConfigurationDescriptor =
 			.Data                   = {0x00, 0x01}
 		},
 
-	.CDC_ManagementEndpoint = 
+	.CDC_NotificationEndpoint = 
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 			

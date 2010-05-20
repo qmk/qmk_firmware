@@ -84,7 +84,7 @@
 			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC_Functional_Header;
 			CDC_FUNCTIONAL_DESCRIPTOR(1)             CDC_Functional_AbstractControlManagement;
 			CDC_FUNCTIONAL_DESCRIPTOR(2)             CDC_Functional_Union;
-			USB_Descriptor_Endpoint_t                CDC_ManagementEndpoint;
+			USB_Descriptor_Endpoint_t                CDC_NotificationEndpoint;
 			USB_Descriptor_Interface_t               CDC_DCI_Interface;
 			USB_Descriptor_Endpoint_t                RNDIS_DataOutEndpoint;
 			USB_Descriptor_Endpoint_t                RNDIS_DataInEndpoint;
