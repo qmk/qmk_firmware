@@ -120,10 +120,9 @@
 			*BufferPos += 1;
 
 			uint16_t* SizePos = (uint16_t*)*BufferPos;				
-			*SizePos = 0;
-
-			**BufferPos += 2;
+			*BufferPos += 2;
 			
+			*SizePos = 0;
 			return SizePos;
 		}
 

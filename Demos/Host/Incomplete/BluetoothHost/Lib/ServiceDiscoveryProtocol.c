@@ -224,6 +224,9 @@ static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPH
 	ResponsePacket.SDPHeader.TransactionID   = SDPHeader->TransactionID;
 	ResponsePacket.SDPHeader.ParameterLength = (ResponsePacket.AttributeListByteCount + sizeof(ResponsePacket.AttributeListByteCount));
 
+	BT_SDP_DEBUG(1, ">> Service Search Attribute Response");
+	BT_SDP_DEBUG(2, "-- Total Parameter Length: 0x%04X", ResponsePacket.SDPHeader.ParameterLength);
+
 	Bluetooth_SendPacket(&ResponsePacket, (sizeof(ResponsePacket.SDPHeader) + ResponsePacket.SDPHeader.ParameterLength),
 	                     Channel);
 }

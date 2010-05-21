@@ -44,8 +44,13 @@
  *
  *  void Jump_To_Bootloader(void)
  *  {
- *      // If USB is used, detatch from the bus and wait 2 seconds for the host to register it
+ *      // If USB is used, detatch from the bus
  *      USB_ShutDown();
+ *
+ *      // Disable all interrupts
+ *      cli();
+ *
+ *      // Wait two seconds for the USB detatchment to register on the host
  *      for (uint8_t i = 0; i < 128; i++)
  *        _delay_ms(16);
  *
