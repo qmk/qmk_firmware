@@ -283,7 +283,7 @@ void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t*
 	{
 		case CHANNEL_PSM_SDP:
 			/* Service Discovery Protocol packet */
-			ServiceDiscovery_ProcessPacket(Data, Channel);
+			SDP_ProcessPacket(Data, Channel);
 			break;
 		default:
 			/* Unknown Protocol packet */

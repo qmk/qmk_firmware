@@ -53,25 +53,26 @@
 		#define SDP_PDU_SERVICEATTRIBUTERESPONSE        0x05
 		#define SDP_PDU_SERVICESEARCHATTRIBUTEREQUEST   0x06
 		#define SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE  0x07
-		
-		#define SDP_ATTRIBUTE_NAME                      0x0000
 
 		#define SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE    0x0000
 		#define SDP_ATTRIBUTE_ID_SERVICECLASSIDS        0x0001
 		#define SDP_ATTRIBUTE_ID_LANGIDOFFSET           0x0006
 		#define SDP_ATTRIBUTE_ID_AVAILABILITY           0x0008
-		#define SDP_ATTRIBUTE_IDO_DESCRIPTION           0x0001
-		#define SDP_ATTRIBUTE_IDO_PROVIDER              0x0002
+		#define SDP_ATTRIBUTE_ID_NAME                  (0x0000 + SDP_ATTRIBUTE_LANGOFFSET)
+		#define SDP_ATTRIBUTE_ID_DESCRIPTION           (0x0001 + SDP_ATTRIBUTE_LANGOFFSET)
 		
-		/** Size of a full 128 bit UUID, in bytes */
+		/** Attribute ID offset for localised language string attributes. */
+		#define SDP_ATTRIBUTE_LANGOFFSET                0x0100
+
+		/** Size of a full 128 bit UUID, in bytes. */
 		#define UUID_SIZE_BYTES                         16
 		
-		/** First 96 bits common to all standadized Bluetooth services */
+		/** First 96 bits common to all standadized Bluetooth services. */
 		#define BASE_96BIT_UUID                         0xFB, 0x34, 0x9B, 0x5F, 0x80, 0x00, 0x00, 0x80, 0x00, 0x10, 0x00, 0x00
 		
 		/** Terminator for a service attribute table of type \ref ServiceAttributeTable_t. */
 		#define SERVICE_ATTRIBUTE_TABLE_TERMINATOR      {.Data = NULL}
-
+		
 	/* Enums: */
 		enum ServiceDiscovery_DataTypes_t
 		{
@@ -114,39 +115,44 @@
 		} ClassUUID_t;
 
 	/* Inline Functions: */
-		static inline uint16_t* ServiceDiscovery_AddDataElementHeader(uint8_t** BufferPos, const uint8_t Type)
+		/** Adds a new Data Element container of the given type with a 16-bit size header to the buffer. The
+		 *  buffer pointer's position is advanced past the added header once the element has been added. The
+		 *  returned size header value is pre-zeroed out so that it can be incremented as data is placed into
+		 *  the Data Element container.
+		 *
+		 *  The total added size of the container header is three bytes, regardless of the size of its contents
+		 *  as long as the contents' size in bytes fits into a 16-bit integer.
+		 *
+		 *  \param[in, out] BufferPos  Pointer to a buffer where the container header is to be placed
+		 *  \param[in]      Type       Type of data the container is to store, a value from the \ref ServiceDiscovery_DataTypes_t enum
+		 *
+		 *  \return Pointer to the 16-bit size value of the contaner header, which has been pre-zeroed
+		 */
+		static inline uint16_t* SDP_AddDataElementHeader16(uint8_t** BufferPos, const uint8_t Type)
 		{
 			**BufferPos = (6 | Type);	
-			*BufferPos += 1;
 
-			uint16_t* SizePos = (uint16_t*)*BufferPos;				
-			*BufferPos += 2;
-			
+			uint16_t* SizePos = (uint16_t*)*(BufferPos + 1);
 			*SizePos = 0;
-			return SizePos;
-		}
 
-		static inline uint16_t ServiceDiscovery_Read16BitParameter(const void** AttributeHeader)
-		{
-			uint16_t ParamValue = *((uint16_t*)*AttributeHeader);
-			*AttributeHeader += sizeof(uint16_t);
-			return ParamValue;
+			*BufferPos += 3;			
+			return SizePos;
 		}
 		
 	/* Function Prototypes: */
-		void ServiceDiscovery_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel);
+		void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel);
 
 		#if defined(INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C)
-			static void ServiceDiscovery_ProcessServiceSearch(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel);
-			static void ServiceDiscovery_ProcessServiceAttribute(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel);
-			static void ServiceDiscovery_ProcessServiceSearchAttribute(SDP_PDUHeader_t* SDPHeader, Bluetooth_Channel_t* Channel);
+			static void SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
+			static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
+			static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
 
-			static void* ServiceDiscovery_GetAttributeValue(ServiceAttributeTable_t* AttributeTable, uint16_t AttributeID);
-			static ServiceAttributeTable_t* ServiceDiscovery_GetAttributeTable(uint8_t* UUID);
-			static uint8_t ServiceDiscovery_GetAttributeList(uint16_t AttributeList[][2], const void** CurrentParameter);
-			static uint8_t ServiceDiscovery_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void** CurrentParameter);
-			static uint32_t ServiceDiscovery_GetLocalAttributeSize(const void* AttributeData);
-			static uint32_t ServiceDiscovery_GetDataElementSize(const void** AttributeHeader, uint8_t* ElementHeaderSize);
+			static void* SDP_GetAttributeValue(const ServiceAttributeTable_t* AttributeTable, const uint16_t AttributeID);
+			static ServiceAttributeTable_t* SDP_GetAttributeTable(const uint8_t* const UUID);
+			static uint8_t SDP_GetAttributeList(uint16_t AttributeList[][2], const void** const CurrentParameter);
+			static uint8_t SDP_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void** const CurrentParameter);
+			static uint32_t SDP_GetLocalAttributeContainerSize(const void* const AttributeData);
+			static uint32_t SDP_GetDataElementSize(const void** const AttributeHeader, uint8_t* const ElementHeaderSize);
 		#endif
 
 #endif
