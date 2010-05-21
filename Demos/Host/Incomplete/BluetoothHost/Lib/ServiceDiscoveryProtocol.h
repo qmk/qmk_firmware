@@ -55,9 +55,13 @@
 		#define SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE  0x07
 		
 		#define SDP_ATTRIBUTE_NAME                      0x0000
-		#define SDP_ATTRIBUTE_DESCRIPTION               0x0001
-		#define SDP_ATTRIBUTE_PROVIDER                  0x0002
-		#define SDP_ATTRIBUTE_AVAILABILITY              0x0008
+
+		#define SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE    0x0000
+		#define SDP_ATTRIBUTE_ID_SERVICECLASSIDS        0x0001
+		#define SDP_ATTRIBUTE_ID_LANGIDOFFSET           0x0006
+		#define SDP_ATTRIBUTE_ID_AVAILABILITY           0x0008
+		#define SDP_ATTRIBUTE_IDO_DESCRIPTION           0x0001
+		#define SDP_ATTRIBUTE_IDO_PROVIDER              0x0002
 		
 		/** Size of a full 128 bit UUID, in bytes */
 		#define UUID_SIZE_BYTES                         16
@@ -65,43 +69,6 @@
 		/** First 96 bits common to all standadized Bluetooth services */
 		#define BASE_96BIT_UUID                         0xFB, 0x34, 0x9B, 0x5F, 0x80, 0x00, 0x00, 0x80, 0x00, 0x10, 0x00, 0x00
 		
-		/** Defines a service attribute as a string of characters.
-		 *
-		 *  \param name    Name of the attribute (used to identify the attribute variable only)
-		 *  \param string  String of characters to associate with the attribute
-		 */
-		#define SERVICE_ATTRIBUTE_TEXT(name, string)    SERVICE_ATTRIBUTE_LEN8(name, SDP_DATATYPE_String, sizeof(string), string)
-
-		/** Defines a service attribute with a contents that can fit into an 8-bit integer.
-		 *
-		 *  \param name    Name of the attribute (used to identify the attribute variable only)
-		 *  \param type    Type of attribute contents, a value from the \ref ServiceDiscovery_DataTypes_t enum
-		 *  \param size    Size of the data, in bytes
-		 *  \param ...     Data to associate with the attribute
-		 */
-		#define SERVICE_ATTRIBUTE_LEN8(name, type, size, ...)  const ServiceAttributeData8Bit_t  name PROGMEM = \
-		                                                {.Header = (type | 5), .Size = size, .Data = __VA_ARGS__}
-
-		/** Defines a service attribute with a contents that can fit into an 16-bit integer.
-		 *
-		 *  \param name    Name of the attribute (used to identify the attribute variable only)
-		 *  \param type    Type of attribute contents, a value from the \ref ServiceDiscovery_DataTypes_t enum
-		 *  \param size    Size of the data, in bytes
-		 *  \param ...     Data to associate with the attribute
-		 */
-		#define SERVICE_ATTRIBUTE_LEN16(name, type, size, ...) const ServiceAttributeData16Bit_t name PROGMEM = \
-		                                                {.Header = (type | 6), .Size = size, .Data = __VA_ARGS__}
-
-		/** Defines a service attribute with a contents that can fit into an 32-bit integer.
-		 *
-		 *  \param name    Name of the attribute (used to identify the attribute variable only)
-		 *  \param type    Type of attribute contents, a value from the \ref ServiceDiscovery_DataTypes_t enum
-		 *  \param size    Size of the data, in bytes
-		 *  \param ...     Data to associate with the attribute
-		 */
-		#define SERVICE_ATTRIBUTE_LEN32(name, type, size, ...) const ServiceAttributeData32Bit_t name PROGMEM = \
-		                                                       {.Header = (type | 7), .Size = size, .Data = __VA_ARGS__}
-
 		/** Terminator for a service attribute table of type \ref ServiceAttributeTable_t. */
 		#define SERVICE_ATTRIBUTE_TABLE_TERMINATOR      {.Data = NULL}
 
@@ -142,29 +109,9 @@
 		typedef struct
 		{
 			uint8_t  Header;
-			uint32_t Size;
-			uint8_t  Data[];
-		} ServiceAttributeData32Bit_t;
-
-		typedef struct
-		{
-			uint8_t  Header;
-			uint16_t Size;
-			uint8_t  Data[];
-		} ServiceAttributeData16Bit_t;
-
-		typedef struct
-		{
-			uint8_t Header;
-			uint8_t Size;
-			uint8_t Data[];
-		} ServiceAttributeData8Bit_t;
-
-		typedef struct
-		{
-			uint8_t Header;
-			uint8_t Data[];
-		} ServiceAttributeData_t;
+			uint8_t  Size;
+			uint16_t UUID[UUID_SIZE_BYTES];
+		} ClassUUID_t;
 
 	/* Inline Functions: */
 		static inline uint16_t* ServiceDiscovery_AddDataElementHeader(uint8_t** BufferPos, const uint8_t Type)
@@ -199,6 +146,7 @@
 			static ServiceAttributeTable_t* ServiceDiscovery_GetAttributeTable(uint8_t* UUID);
 			static uint8_t ServiceDiscovery_GetAttributeList(uint16_t AttributeList[][2], const void** CurrentParameter);
 			static uint8_t ServiceDiscovery_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void** CurrentParameter);
+			static uint32_t ServiceDiscovery_GetLocalAttributeSize(const void* AttributeData);
 			static uint32_t ServiceDiscovery_GetDataElementSize(const void** AttributeHeader, uint8_t* ElementHeaderSize);
 		#endif
 
