@@ -489,7 +489,6 @@ static inline void Bluetooth_Signal_ConfigurationReq(const BT_Signal_Header_t* c
 
 	BT_ACL_DEBUG(1, "<< L2CAP Configuration Request");
 	BT_ACL_DEBUG(2, "-- Destination Channel: 0x%04X", ConfigurationRequest.DestinationChannel);
-	BT_ACL_DEBUG(2, "-- Remote MTU: 0x%04X", ChannelData->RemoteMTU);
 	BT_ACL_DEBUG(2, "-- Options Len: 0x%04X", OptionsLen);
 
 	/* Only look at the channel configuration options if a valid channel entry for the local channel number was found */

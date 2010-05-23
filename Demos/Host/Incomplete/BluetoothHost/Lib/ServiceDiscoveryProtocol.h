@@ -138,10 +138,17 @@
 		/** Structure for a list of Data Elements containing UUIDs, for service attributes requiring UUID lists. */
 		typedef struct
 		{
-			uint8_t  Header; /**< Data Element header, should be (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit) */
-			uint16_t UUID[UUID_SIZE_BYTES]; /**< UUID to store in the list Data Element */
+			uint8_t Header; /**< Data Element header, should be (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit) */
+			uint8_t UUID[UUID_SIZE_BYTES]; /**< UUID to store in the list Data Element */
 		} ClassUUID_t;
 
+		/** Structure for a list of Data Elements containing Version Numbers, for service attributes requiring Version lists. */
+		typedef struct
+		{
+			uint8_t  Header; /**< Data Element header, should be (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit) */
+			uint16_t Version; /**< Version number to store in the list Data Element */
+		} Version_t;
+		
 	/* Inline Functions: */
 		/** Adds a new Data Element container of the given type with a 16-bit size header to the buffer. The
 		 *  buffer pointer's position is advanced past the added header once the element has been added. The
@@ -180,7 +187,7 @@
 			static ServiceAttributeTable_t* SDP_GetAttributeTable(const uint8_t* const UUID);
 			static uint8_t  SDP_GetAttributeList(uint16_t AttributeList[][2], const void** const CurrentParameter);
 			static uint8_t  SDP_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void** const CurrentParameter);
-			static uint32_t SDP_GetLocalAttributeContainerSize(const void* const AttributeData);
+			static uint32_t SDP_GetLocalAttributeContainerSize(const void* const AttributeData, uint8_t* const HeaderSize);
 			static uint32_t SDP_GetDataElementSize(const void** const AttributeHeader, uint8_t* const ElementHeaderSize);
 		#endif
 

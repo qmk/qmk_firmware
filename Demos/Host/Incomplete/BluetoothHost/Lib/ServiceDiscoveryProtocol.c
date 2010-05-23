@@ -31,41 +31,6 @@
 #define  INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C
 #include "ServiceDiscoveryProtocol.h"
 
-const struct
-{
-	uint8_t  Header;
-	uint32_t Data;
-} PROGMEM ServiceDiscoveryServer_Attribute_ServiceHandle = {(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_32Bit), 0x00000000};
-
-const struct
-{
-	uint8_t     Header;
-	uint16_t    Size;
-	ClassUUID_t UUIDList[];
-} PROGMEM ServiceDiscoveryServer_Attribute_ServiceClassIDs =
-	{
-		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit), (sizeof(ClassUUID_t) * 1),
-		{
-			{.Header = (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), .UUID = {BASE_96BIT_UUID, 0x01, 0x00, 0x00, 0x00}}
-		}
-	};
-
-const struct
-{
-	uint8_t  Header;
-	uint16_t Data;
-} PROGMEM ServiceDiscoveryServer_Attribute_Version = {(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), 0x0100};
-
-/** Service Discovery Protocol attribute table, listing all supported attributes of the service. */
-const ServiceAttributeTable_t ServiceDiscoveryServer_Attribute_Table[] PROGMEM =
-	{
-		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE, .Data = &ServiceDiscoveryServer_Attribute_ServiceHandle   },
-		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICECLASSIDS,     .Data = &ServiceDiscoveryServer_Attribute_ServiceClassIDs },
-		{.AttributeID = SDP_ATTRIBUTE_ID_VERSION,             .Data = &ServiceDiscoveryServer_Attribute_Version         },
-
-		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
-	};
-
 /** Service Discovery Protocol attribute, indicationg the service's name. */
 const struct
 {
@@ -103,15 +68,32 @@ const struct
 
 const struct
 {
+	uint8_t   Header;
+	uint8_t   Size;
+	Version_t VersionList[];
+} PROGMEM SDP_Attribute_Version =
+	{
+		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
+		.Size   = (sizeof(Version_t) * 1),
+		.VersionList =
+			{
+				{.Header = (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), .Version = 0x0100}
+			}
+	};
+
+const struct
+{
 	uint8_t     Header;
 	uint16_t    Size;
 	ClassUUID_t UUIDList[];
 } PROGMEM SDP_Attribute_ServiceClassIDs =
 	{
-		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit), (sizeof(ClassUUID_t) * 1),
-		{
-			{.Header = (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), .UUID = {BASE_96BIT_UUID, 0x00, 0x00, 0x00, 0x01}}
-		}
+		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit),
+		.Size   = (sizeof(ClassUUID_t) * 1),
+		.UUIDList =
+			{
+				{.Header = (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), .UUID = {BASE_96BIT_UUID, 0x01, 0x00, 0x00, 0x00}}
+			}
 	};
 
 /** Service Discovery Protocol attribute table, listing all supported attributes of the service. */
@@ -119,6 +101,7 @@ const ServiceAttributeTable_t SDP_Attribute_Table[] PROGMEM =
 	{
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE, .Data = &SDP_Attribute_ServiceHandle    },
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICECLASSIDS,     .Data = &SDP_Attribute_ServiceClassIDs  },
+		{.AttributeID = SDP_ATTRIBUTE_ID_VERSION,             .Data = &SDP_Attribute_Version          },
 		{.AttributeID = SDP_ATTRIBUTE_ID_LANGIDOFFSET,        .Data = &SDP_Attribute_LanguageOffset   },
 		{.AttributeID = SDP_ATTRIBUTE_ID_NAME,                .Data = &SDP_Attribute_Name             },
 		{.AttributeID = SDP_ATTRIBUTE_ID_DESCRIPTION,         .Data = &SDP_Attribute_Description      },
@@ -131,10 +114,6 @@ const ServiceAttributeTable_t SDP_Attribute_Table[] PROGMEM =
  */
 const ServiceTable_t SDP_Services_Table[] PROGMEM =
 	{
-		{   // 128-bit UUID for the Service Discovery Server Service
-			.UUID  = {BASE_96BIT_UUID, 0x01, 0x00, 0x00, 0x00},
-			.AttributeTable = ServiceDiscoveryServer_Attribute_Table,
-		},
 		{   // 128-bit UUID for the SDP service
 			.UUID  = {BASE_96BIT_UUID, 0x00, 0x00, 0x00, 0x01},
 			.AttributeTable = SDP_Attribute_Table,
@@ -312,7 +291,8 @@ static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHe
 static uint16_t SDP_AddAttributeToResponse(const uint16_t AttributeID, const void* AttributeValue, void** ResponseBuffer)
 {
 	/* Retrieve the size of the attribute value from its container header */
-	uint32_t AttributeValueLength = SDP_GetLocalAttributeContainerSize(AttributeValue);
+	uint8_t  AttributeHeaderLength;
+	uint32_t AttributeValueLength = SDP_GetLocalAttributeContainerSize(AttributeValue, &AttributeHeaderLength);
 
 	/* Add a Data Element header to the response for the Attribute ID */
 	*((uint8_t*)*ResponseBuffer) = (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit);
@@ -323,10 +303,10 @@ static uint16_t SDP_AddAttributeToResponse(const uint16_t AttributeID, const voi
 	*ResponseBuffer += sizeof(uint16_t);
 	
 	/* Copy over the Attribute value Data Element container to the response */
-	memcpy_P(*ResponseBuffer, AttributeValue, AttributeValueLength);
-	*ResponseBuffer += AttributeValueLength;
+	memcpy_P(*ResponseBuffer, AttributeValue, AttributeHeaderLength + AttributeValueLength);
+	*ResponseBuffer += AttributeHeaderLength + AttributeValueLength;
 	
-	return (sizeof(uint8_t) + sizeof(uint16_t) + AttributeValueLength);
+	return (sizeof(uint8_t) + sizeof(uint16_t) + AttributeHeaderLength + AttributeValueLength);
 }
 
 /** Retrieves a pointer to the value of the given Attribute ID from the given Attribute table.
@@ -364,9 +344,35 @@ static ServiceAttributeTable_t* SDP_GetAttributeTable(const uint8_t* const UUID)
 	/* Search through the global UUID list an item at a time */
 	for (uint8_t CurrTableItem = 0; CurrTableItem < (sizeof(SDP_Services_Table) / sizeof(ServiceTable_t)); CurrTableItem++)
 	{
+		/* Read in a pointer to the current UUID table entry's Attribute table */
+		ServiceAttributeTable_t* CurrAttributeTable = (ServiceAttributeTable_t*)pgm_read_word(&SDP_Services_Table[CurrTableItem].AttributeTable);
+	
 		/* If the current table item's UUID matches the search UUID, return a pointer the table item's Attribute table */
 		if (!(memcmp_P(UUID, SDP_Services_Table[CurrTableItem].UUID, UUID_SIZE_BYTES)))
-		  return (ServiceAttributeTable_t*)pgm_read_word(&SDP_Services_Table[CurrTableItem].AttributeTable);
+		  return CurrAttributeTable;
+		
+		/* Retrieve the list of the service's Class UUIDs from its Attribute table */
+		void* ClassUUIDs = SDP_GetAttributeValue(CurrAttributeTable, SDP_ATTRIBUTE_ID_SERVICECLASSIDS);
+		
+		/* Go to the next UUID in the table if the current item does not have a list of Class UUIDs */
+		if (ClassUUIDs == NULL)
+		  continue;
+		  
+		/* Retrieve the size of the Class UUID list and skip past the header to the first Class UUID in the list */ 
+		uint8_t  ClassUUIDListHeaderSize;
+		uint32_t ClassUUIDListSize = SDP_GetLocalAttributeContainerSize(ClassUUIDs, &ClassUUIDListHeaderSize);
+		ClassUUIDs += ClassUUIDListHeaderSize;
+		
+		/* Check each class UUID in turn for a match */
+		while (ClassUUIDListSize)
+		{
+			/* Current Service UUID's Class UUID list has a matching entry, return the Attribute table */
+			if (!(memcmp_P(UUID, (ClassUUIDs + 1), UUID_SIZE_BYTES)))
+			  return CurrAttributeTable;
+		
+			ClassUUIDs        += sizeof(uint8_t) + UUID_SIZE_BYTES;
+			ClassUUIDListSize -= sizeof(uint8_t) + UUID_SIZE_BYTES;
+		}	
 	}
 	
 	return NULL;
@@ -459,7 +465,7 @@ static uint8_t SDP_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void**
  *
  *  \return Size in bytes of the entire attribute container, including the header
  */
-static uint32_t SDP_GetLocalAttributeContainerSize(const void* const AttributeData)
+static uint32_t SDP_GetLocalAttributeContainerSize(const void* const AttributeData, uint8_t* const HeaderSize)
 {
 	/* Fetch the size of the Data Element structure from the header */
 	uint8_t SizeIndex = (pgm_read_byte(AttributeData) & 0x07);
@@ -468,13 +474,17 @@ static uint32_t SDP_GetLocalAttributeContainerSize(const void* const AttributeDa
 	switch (SizeIndex)
 	{
 		case SDP_DATASIZE_Variable8Bit:
-			return (1 + sizeof(uint8_t))  + pgm_read_byte(AttributeData + 1);
+			*HeaderSize = (1 + sizeof(uint8_t));
+			return pgm_read_byte(AttributeData + 1);
 		case SDP_DATASIZE_Variable16Bit:
-			return (1 + sizeof(uint16_t)) + pgm_read_word(AttributeData + 1);
+			*HeaderSize = (1 + sizeof(uint16_t));
+			return pgm_read_word(AttributeData + 1);
 		case SDP_DATASIZE_Variable32Bit:
-			return (1 + sizeof(uint32_t)) + pgm_read_dword(AttributeData + 1);
+			*HeaderSize = (1 + sizeof(uint32_t));
+			return pgm_read_dword(AttributeData + 1);
 		default:
-			return (1 + (1 << SizeIndex));
+			*HeaderSize = 1;
+			return (1 << SizeIndex);
 	}
 
 	return 0;
