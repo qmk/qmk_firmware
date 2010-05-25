@@ -59,12 +59,7 @@
 		#define SDP_ATTRIBUTE_ID_LANGIDOFFSET           0x0006
 		#define SDP_ATTRIBUTE_ID_AVAILABILITY           0x0008
 		#define SDP_ATTRIBUTE_ID_VERSION                0x0200
-		#define SDP_ATTRIBUTE_ID_NAME                  (0x0000 + SDP_ATTRIBUTE_LANGOFFSET)
-		#define SDP_ATTRIBUTE_ID_DESCRIPTION           (0x0001 + SDP_ATTRIBUTE_LANGOFFSET)
 		
-		/** Attribute ID offset for localised language string attributes. */
-		#define SDP_ATTRIBUTE_LANGOFFSET                0x0100
-
 		/** Size of a full 128 bit UUID, in bytes. */
 		#define UUID_SIZE_BYTES                         16
 		

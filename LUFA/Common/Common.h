@@ -167,7 +167,7 @@
 			static inline void SwapEndian_n(void* Data, uint8_t Bytes);
 			static inline void SwapEndian_n(void* Data, uint8_t Bytes)
 			{
-				uint8_t* CurrDataPos = Data;
+				uint8_t* CurrDataPos = (uint8_t*)Data;
 			
 				while (Bytes)
 				{

@@ -605,7 +605,7 @@ static uint16_t TCP_Checksum16(void* TCPHeaderOutStart, IP_Address_t SourceAddre
 	Checksum += SwapEndian_16(PROTOCOL_TCP);
 	Checksum += SwapEndian_16(TCPOutSize);
 
-	for (uint8_t CurrWord = 0; CurrWord < (TCPOutSize >> 1); CurrWord++)
+	for (uint16_t CurrWord = 0; CurrWord < (TCPOutSize >> 1); CurrWord++)
 	  Checksum += ((uint16_t*)TCPHeaderOutStart)[CurrWord];
 	
 	if (TCPOutSize & 0x01)

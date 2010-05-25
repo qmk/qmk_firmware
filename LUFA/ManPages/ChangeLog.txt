@@ -18,6 +18,8 @@
   *    the last page of FLASH (thanks to Gerard Sexton)
   *  - Fixed AVRISP project not sending a full erase-and-write EEPROM command to XMEGA targets when writing to the EEPROM
   *    instead of the split write-only command (thanks to Tim Margush)
+  *  - Fixed RNDISEthernet demos crashing when calculating checksums for Ethernet/TCP packets of more than ~500 bytes due to
+  *    an overflow in the checksum calculation loop (thanks to Kevin Malec)
   *
   *  \section Sec_ChangeLog100513 Version 100513
   *  <b>New:</b>
@@ -92,7 +94,6 @@
   *    HID_HOST_BOOT_PROTOCOL_ONLY compile time option is set
   *  - Fixed INTERRUPT_CONTROL_ENDPOINT compile time option preventing other interrupts from occuring while the control endpoint
   *    request is being processed, causing possible lockups if a USB interrupt occurs during a transfer
-  *  - Fixed TeensyHID bootloader not working on some USB AVR models with the official TeensyLoader GUI application
   *  - Remove incorrect Abstract Call Management class specific descriptor from the CDC demos, bootloaders and projects
   *
   *  \section Sec_ChangeLog100219 Version 100219

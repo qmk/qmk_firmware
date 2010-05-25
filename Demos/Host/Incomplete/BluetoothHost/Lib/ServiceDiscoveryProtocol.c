@@ -31,23 +31,7 @@
 #define  INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C
 #include "ServiceDiscoveryProtocol.h"
 
-/** Service Discovery Protocol attribute, indicationg the service's name. */
-const struct
-{
-	uint8_t Header;
-	uint8_t Length;
-	uint8_t Data[];
-} PROGMEM SDP_Attribute_Name = {(SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit), sizeof("SDP"), "SDP"};
-
-/** Service Discovery Protocol attribute, indicationg the service's description. */
-const struct
-{
-	uint8_t Header;
-	uint8_t Length;
-	uint8_t Data[];
-} PROGMEM SDP_Attribute_Description = {(SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit), sizeof("BT Service Discovery"), "BT Service Discovery"};
-
-/** Service Discovery Protocol attribute, indicationg the service's availability. */
+/** Service Discovery Protocol attribute, indicating the service's availability. */
 const struct
 {
 	uint8_t Header;
@@ -57,14 +41,8 @@ const struct
 const struct
 {
 	uint8_t  Header;
-	uint16_t Data;
-} PROGMEM SDP_Attribute_LanguageOffset = {(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), SDP_ATTRIBUTE_LANGOFFSET};
-
-const struct
-{
-	uint8_t  Header;
 	uint32_t Data;
-} PROGMEM SDP_Attribute_ServiceHandle = {(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_32Bit), 0x00000001};
+} PROGMEM SDP_Attribute_ServiceHandle = {(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_32Bit), 0x00010000};
 
 const struct
 {
@@ -102,9 +80,6 @@ const ServiceAttributeTable_t SDP_Attribute_Table[] PROGMEM =
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE, .Data = &SDP_Attribute_ServiceHandle    },
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICECLASSIDS,     .Data = &SDP_Attribute_ServiceClassIDs  },
 		{.AttributeID = SDP_ATTRIBUTE_ID_VERSION,             .Data = &SDP_Attribute_Version          },
-		{.AttributeID = SDP_ATTRIBUTE_ID_LANGIDOFFSET,        .Data = &SDP_Attribute_LanguageOffset   },
-		{.AttributeID = SDP_ATTRIBUTE_ID_NAME,                .Data = &SDP_Attribute_Name             },
-		{.AttributeID = SDP_ATTRIBUTE_ID_DESCRIPTION,         .Data = &SDP_Attribute_Description      },
 
 		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
 	};
@@ -118,12 +93,6 @@ const ServiceTable_t SDP_Services_Table[] PROGMEM =
 			.UUID  = {BASE_96BIT_UUID, 0x00, 0x00, 0x00, 0x01},
 			.AttributeTable = SDP_Attribute_Table,
 		},
-#if 0
-		{   // 128-bit UUID for the RFCOMM service
-			.UUID  = {BASE_96BIT_UUID, 0x03, 0x00, 0x00, 0x00},
-			.AttributeTable = RFCOMM_Attribute_Table,
-		},
-#endif
 	};
 
 /** Base UUID value common to all standardized Bluetooth services */
@@ -220,7 +189,7 @@ static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHe
 	if (MaxAttributeSize > sizeof(ResponsePacket.ResponseData))
 	  MaxAttributeSize = sizeof(ResponsePacket.ResponseData);
 
-	/* Add the outer Data Element Sequence header for the retrieved Attributes */
+	/* Add the outer Data Element Sequence header for all of the retrieved Attributes */
 	uint16_t* TotalResponseSize = SDP_AddDataElementHeader16(&CurrResponsePos, SDP_DATATYPE_Sequence);
 	
 	/* Search through the list of UUIDs one at a time looking for matching search Attributes */
@@ -263,9 +232,12 @@ static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHe
 			*TotalResponseSize += 3 + *CurrentUUIDResponseSize;
 		}
 	}
+	
+	/* Continuation state - always zero */
+	*((uint8_t*)CurrResponsePos) = 0;
 
-	/* Set the total response list size to the size of the outer container plus its header size */
-	ResponsePacket.AttributeListByteCount    = 3 + *TotalResponseSize;
+	/* Set the total response list size to the size of the outer container plus its header size and continuation state */
+	ResponsePacket.AttributeListByteCount    = 4 + *TotalResponseSize;
 
 	/* Fill in the response packet's header */
 	ResponsePacket.SDPHeader.PDU             = SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE;
@@ -367,11 +339,11 @@ static ServiceAttributeTable_t* SDP_GetAttributeTable(const uint8_t* const UUID)
 		while (ClassUUIDListSize)
 		{
 			/* Current Service UUID's Class UUID list has a matching entry, return the Attribute table */
-			if (!(memcmp_P(UUID, (ClassUUIDs + 1), UUID_SIZE_BYTES)))
+			if (!(memcmp_P(UUID, &((ClassUUID_t*)ClassUUIDs)->UUID, UUID_SIZE_BYTES)))
 			  return CurrAttributeTable;
 		
-			ClassUUIDs        += sizeof(uint8_t) + UUID_SIZE_BYTES;
-			ClassUUIDListSize -= sizeof(uint8_t) + UUID_SIZE_BYTES;
+			ClassUUIDListSize -= sizeof(ClassUUID_t);
+			ClassUUIDs        += sizeof(ClassUUID_t);
 		}	
 	}
 	

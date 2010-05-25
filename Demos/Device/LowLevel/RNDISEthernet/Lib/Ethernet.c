@@ -125,7 +125,7 @@ uint16_t Ethernet_Checksum16(void* Data, uint16_t Bytes)
 	uint16_t* Words    = (uint16_t*)Data;
 	uint32_t  Checksum = 0;
 
-	for (uint8_t CurrWord = 0; CurrWord < (Bytes >> 1); CurrWord++)
+	for (uint16_t CurrWord = 0; CurrWord < (Bytes >> 1); CurrWord++)
 	  Checksum += Words[CurrWord];
 	  
 	while (Checksum & 0xFFFF0000)
