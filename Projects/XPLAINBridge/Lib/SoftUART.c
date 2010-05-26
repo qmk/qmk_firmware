@@ -40,7 +40,7 @@
 #include "SoftUART.h"
 
 /** Total number of bits remaining to be sent in the current frame */
-static uint8_t TX_BitsRemaining
+static uint8_t TX_BitsRemaining;
 
 /** Temporary data variable to hold the byte being transmitted as it is shifted out */
 static uint8_t TX_Data;
@@ -76,7 +76,7 @@ void SoftUART_Init(void)
 ISR(INT0_vect)
 {
 	/* Set reception channel to fire 1.5 bits past the beginning of the start bit */
-	OCR1A = TCNT1 + ((BIT_TIME * 3) / 2) - 1;
+	OCR1A = TCNT1 + ((BIT_TIME * 3) / 2);
 	
 	/* Clear the received data temporary variable, reset the current received bit position mask */
 	RX_Data    = 0;

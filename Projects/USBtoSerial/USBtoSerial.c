@@ -73,8 +73,8 @@ int main(void)
 {
 	SetupHardware();
 	
-	Buffer_Initialize(&USBtoUSART_Buffer);
-	Buffer_Initialize(&USARTtoUSB_Buffer);
+	RingBuffer_InitBuffer(&USBtoUSART_Buffer);
+	RingBuffer_InitBuffer(&USARTtoUSB_Buffer);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
@@ -84,19 +84,19 @@ int main(void)
 		/* Read bytes from the USB OUT endpoint into the USART transmit buffer */
 		for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
 		{
-			if (!(BUFF_STATICSIZE - USBtoUSART_Buffer.Elements))
+			if (!(BUFFER_SIZE - USBtoUSART_Buffer.Count))
 			  break;
 			  
-			Buffer_StoreElement(&USBtoUSART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+			RingBuffer_Insert(&USBtoUSART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 		}
 		
 		/* Read bytes from the USART receive buffer into the USB IN endpoint */
-		while (USARTtoUSB_Buffer.Elements)
-		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&USARTtoUSB_Buffer));
+		while (USARTtoUSB_Buffer.Count)
+		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&USARTtoUSB_Buffer));
 		
 		/* Load bytes from the USART transmit buffer into the USART */
-		while (USBtoUSART_Buffer.Elements)
-		  Serial_TxByte(Buffer_GetElement(&USBtoUSART_Buffer));
+		while (USBtoUSART_Buffer.Count)
+		  Serial_TxByte(RingBuffer_Remove(&USBtoUSART_Buffer));
 		
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
@@ -154,7 +154,7 @@ ISR(USART1_RX_vect, ISR_BLOCK)
 	uint8_t ReceivedByte = UDR1;
 
 	if (USB_DeviceState == DEVICE_STATE_Configured)
-	  Buffer_StoreElement(&USARTtoUSB_Buffer, ReceivedByte);
+	  RingBuffer_Insert(&USARTtoUSB_Buffer, ReceivedByte);
 }
 
 /** Event handler for the CDC Class driver Line Encoding Changed event.

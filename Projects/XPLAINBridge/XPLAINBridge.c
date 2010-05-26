@@ -121,13 +121,13 @@ void USARTBridge_Task(void)
 	  return;
 
 	/* Read bytes from the USB OUT endpoint into the UART transmit buffer */
-	for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
+	if (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface))
 	  RingBuffer_Insert(&USBtoUART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 	
 	/* Read bytes from the UART receive buffer into the USB IN endpoint */
 	if (UARTtoUSB_Buffer.Count)
 	  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&UARTtoUSB_Buffer));
-	  
+
 	CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 }
 
@@ -147,6 +147,7 @@ void SetupHardware(void)
 	USB_Init();
 	V2Protocol_Init();
 	
+	#if 0
 	/* Disable JTAG debugging */
 	MCUCR |= (1 << JTD);
 	MCUCR |= (1 << JTD);
@@ -161,6 +162,9 @@ void SetupHardware(void)
 	/* Re-enable JTAG debugging */
 	MCUCR &= ~(1 << JTD);
 	MCUCR &= ~(1 << JTD);
+	#endif
+	
+	CurrentFirmwareMode = MODE_USART_BRIDGE;
 }
 
 /** Event handler for the library USB Configuration Changed event. */

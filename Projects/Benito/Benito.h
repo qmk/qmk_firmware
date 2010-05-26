@@ -42,7 +42,7 @@
 		#include <avr/interrupt.h>
 
 		#include "Descriptors.h"
-		#include "Lib/RingBuff.h"
+		#include "Lib/LightweightRingBuff.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>

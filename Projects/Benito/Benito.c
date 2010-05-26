@@ -82,7 +82,7 @@ int main(void)
 {
 	SetupHardware();
 	
-	Buffer_Initialize(&Tx_Buffer);
+	RingBuffer_InitBuffer(&Tx_Buffer);
 	
 	sei();
 
@@ -98,9 +98,9 @@ int main(void)
 		}
 		
 		/* Echo bytes from the target to the host via the virtual serial port */
-		while (Tx_Buffer.Elements > 0)
+		while (Tx_Buffer.Count)
 		{
-			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, Buffer_GetElement(&Tx_Buffer));
+			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&Tx_Buffer));
 
 			LEDs_TurnOnLEDs(LEDMASK_RX);
 			PulseMSRemaining.RxLEDPulse = TX_RX_LED_PULSE_MS;
@@ -240,7 +240,7 @@ ISR(USART1_RX_vect, ISR_BLOCK)
 	uint8_t ReceivedByte = UDR1;
 
 	if (USB_DeviceState == DEVICE_STATE_Configured)
-	  Buffer_StoreElement(&Tx_Buffer, ReceivedByte);
+	  RingBuffer_Insert(&Tx_Buffer, ReceivedByte);
 }
 
 /** Event handler for the CDC Class driver Host-to-Device Line Encoding Changed event.

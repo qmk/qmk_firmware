@@ -11,8 +11,8 @@
   *  - Added new ADC_DisableChannel() function (thanks to Mich Davis)
   *
   *  <b>Changed:</b>
-  *  - The RingBuff library code has been replaced in the XPLAINBridge project with an ultra lightweight buffer to help
-  *    improve the reliability of the bridge
+  *  - The RingBuff library code has been replaced in the XPLAINBridge, Benito and USBtoSerial projects with an ultra lightweight
+  *    ring buffer to help improve the reliability of the projects
   *  - The EEPROM stream read/write functions now use eeprom_update_byte() instead of eeprom_write_byte(), so that only
   *    changed bytes are written to EEPROM to preserve its lifespan
   *  - Changed over the AVRISP-MKII and TemperatureDataLogger projects to use eeprom_update_byte() when writing non-volatile
