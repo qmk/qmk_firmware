@@ -98,7 +98,7 @@ void V2Params_UpdateParamValues(void)
 {
 	#if (defined(ADC) && !defined(NO_VTARGET_DETECT))
 	/* Update VTARGET parameter with the latest ADC conversion of VTARGET on supported AVR models */
-	V2Params_GetParamFromTable(PARAM_VTARGET)->ParamValue = ((5 * 10 * ADC_GetResult()) / 1024);
+	V2Params_SetParameterValue(PARAM_VTARGET, ((5 * 10 * ADC_GetResult()) / 1024));
 	#endif
 }
 
@@ -122,6 +122,10 @@ uint8_t V2Params_GetParameterPrivileges(const uint8_t ParamID)
 
 /** Retrieves the current value for a given parameter in the parameter table.
  *
+ *  \note This function does not first check for read privileges - if the value is being sent to the host via a
+ *        GET PARAM command, \ref V2Params_GetParameterPrivileges() should be called first to ensure that the
+ *        parameter is host-readable.
+ *
  *  \param[in] ParamID  Parameter ID whose value is to be retrieved from the table
  *
  *  \return Current value of the parameter in the table, or 0 if not found
@@ -138,6 +142,10 @@ uint8_t V2Params_GetParameterValue(const uint8_t ParamID)
 
 /** Sets the value for a given parameter in the parameter table.
  *
+ *  \note This function does not first check for write privileges - if the value is being sourced from the host
+ *        via a SET PARAM command, \ref V2Params_GetParameterPrivileges() should be called first to ensure that the
+ *        parameter is host-writable.
+ *
  *  \param[in] ParamID  Parameter ID whose value is to be set in the table
  *  \param[in] Value    New value to set the parameter to
  *
@@ -153,8 +161,8 @@ void V2Params_SetParameterValue(const uint8_t ParamID, const uint8_t Value)
 	ParamInfo->ParamValue = Value;
 
 	/* The target RESET line polarity is a non-volatile parameter, save to EEPROM when changed */
-	if ((ParamID == PARAM_RESET_POLARITY) && (eeprom_read_byte(&EEPROM_Rest_Polarity) != Value))
-	  eeprom_write_byte(&EEPROM_Rest_Polarity, Value);  
+	if (ParamID == PARAM_RESET_POLARITY)
+	  eeprom_update_byte(&EEPROM_Rest_Polarity, Value);  
 }
 
 /** Retrieves a parameter entry (including ID, value and privileges) from the parameter table that matches the given

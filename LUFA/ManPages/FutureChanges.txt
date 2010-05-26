@@ -18,6 +18,7 @@
   *      -# Add standardized descriptor names to class driver structures
   *      -# Correct mishandling of error cases in Mass Storage demos
   *      -# Fix AVRISP-MKII clone project's XMEGA EEPROM section erase command
+  *      -# Fix occasional dropped characters in the XPLAINBridge project
   *  - Documentation/Support
   *      -# Remake AVRStudio project files
   *      -# Add detailed overviews of how each demo works

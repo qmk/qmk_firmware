@@ -308,6 +308,6 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 	if (LoggingInterval500MS_SRAM != ReportParams->LogInterval500MS)
 	{
 		LoggingInterval500MS_SRAM = ReportParams->LogInterval500MS;
-		eeprom_write_byte(&LoggingInterval500MS_EEPROM, LoggingInterval500MS_SRAM);
+		eeprom_update_byte(&LoggingInterval500MS_EEPROM, LoggingInterval500MS_SRAM);
 	}
 }

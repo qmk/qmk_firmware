@@ -266,7 +266,7 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 #define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte((uint8_t*)BufferPtr++, Endpoint_Read_Byte())
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_update_byte((uint8_t*)BufferPtr++, Endpoint_Read_Byte())
 #include "Template/Template_Endpoint_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Stream_BE
@@ -280,7 +280,7 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 #define  TEMPLATE_BUFFER_TYPE                      void*
 #define  TEMPLATE_CLEAR_ENDPOINT()                 Endpoint_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte((uint8_t*)BufferPtr--, Endpoint_Read_Byte())
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_update_byte((uint8_t*)BufferPtr--, Endpoint_Read_Byte())
 #include "Template/Template_Endpoint_RW.c"
 
 #endif
@@ -322,7 +322,7 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Control_EStream_LE
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte((uint8_t*)BufferPtr++, Endpoint_Read_Byte())
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_update_byte((uint8_t*)BufferPtr++, Endpoint_Read_Byte())
 #include "Template/Template_Endpoint_Control_R.c"
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Control_Stream_BE
@@ -332,7 +332,7 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 
 #define  TEMPLATE_FUNC_NAME                        Endpoint_Read_Control_EStream_BE
 #define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_write_byte((uint8_t*)BufferPtr--, Endpoint_Read_Byte())
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_update_byte((uint8_t*)BufferPtr--, Endpoint_Read_Byte())
 #include "Template/Template_Endpoint_Control_R.c"
 
 #endif

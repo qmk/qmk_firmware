@@ -13,6 +13,10 @@
   *  <b>Changed:</b>
   *  - The RingBuff library code has been replaced in the XPLAINBridge project with an ultra lightweight buffer to help
   *    improve the reliability of the bridge
+  *  - The EEPROM stream read/write functions now use eeprom_update_byte() instead of eeprom_write_byte(), so that only
+  *    changed bytes are written to EEPROM to preserve its lifespan
+  *  - Changed over the AVRISP-MKII and TemperatureDataLogger projects to use eeprom_update_byte() when writing non-volatile
+  *    parameters to EEPROM to preserve its lifespan
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project sending a LOAD EXTENDED ADDRESS command to 128KB AVRs after programming or reading from
