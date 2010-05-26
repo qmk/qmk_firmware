@@ -156,7 +156,7 @@ void SetupHardware(void)
 	_delay_ms(10);
 
 	/* Select the firmware mode based on the JTD pin's value */
-	CurrentFirmwareMode = MODE_USART_BRIDGE;//(PINF & (1 << 7)) ? MODE_USART_BRIDGE : MODE_PDI_PROGRAMMER;
+	CurrentFirmwareMode = (PINF & (1 << 7)) ? MODE_USART_BRIDGE : MODE_PDI_PROGRAMMER;
 
 	/* Re-enable JTAG debugging */
 	MCUCR &= ~(1 << JTD);

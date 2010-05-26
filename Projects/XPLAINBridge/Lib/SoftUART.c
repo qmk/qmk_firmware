@@ -44,10 +44,10 @@ static uint8_t RX_BitMask, RX_Data;
 
 void SoftUART_Init(void)
 {
-	OCR2B  = TCNT2 + 1;						// force first compare
-	TCCR2A = (1 << COM2B1) | (1 << COM2B0);	// T1 mode 0
-	TCCR2B = (1 << FOC2B)  | (1 << CS21); 	// CLK/8, T1 mode 0
-	TIMSK2 = (1 << OCIE2B);					// enable tx and wait for start
+	OCR1B  = TCNT1 + 1;						// force first compare
+	TCCR1B = (1 << CS10); 					// CLK/1, T1 mode 0
+	TCCR1C = (1 << FOC1B);
+	TIMSK1 = (1 << OCIE1B);					// enable tx and wait for start
 	EICRA  = (1 << ISC01);					// -ve edge
 	EIMSK  = (1 << INT0);					// enable INT0 interrupt
 
@@ -59,22 +59,22 @@ void SoftUART_Init(void)
 /* ISR to detect the start of a bit being sent to the software UART. */
 ISR(INT0_vect)
 {
-	OCR2A = TCNT2 + (uint16_t)((BIT_TIME / 8.0f) * 1.5f);	// scan 1.5 bits after start
+	OCR1A = TCNT1 + ((BIT_TIME * 3) / 2) - 1;	// scan 1.5 bits after start
 
 	RX_Data    = 0;							// clear bit storage
 	RX_BitMask = (1 << 0);					// bit mask
 
-	TIFR2 = (1 << OCF2A);					// clear pending interrupt
+	TIFR1 = (1 << OCF1A);					// clear pending interrupt
 
 	if (!(SRXPIN & (1 << SRX)))				// still low
 	{
-		TIMSK2 =  (1 << OCIE2A) | (1 << OCIE2B); // wait for first bit
+		TIMSK1 =  (1 << OCIE1A) | (1 << OCIE1B); // wait for first bit
 		EIMSK &= ~(1 << INT0);
 	}
 }
 
 /* ISR to manage the reception of bits to the software UART. */
-ISR(TIMER2_COMPA_vect)
+ISR(TIMER1_COMPA_vect)
 {
 	if (RX_BitMask)
 	{
@@ -83,37 +83,37 @@ ISR(TIMER2_COMPA_vect)
 
 		RX_BitMask <<= 1;
 
-		OCR2A += BIT_TIME / 8;				// next bit slice
+		OCR1A += BIT_TIME;				// next bit slice
 	}
 	else
 	{
 		RingBuffer_Insert(&UARTtoUSB_Buffer, RX_Data);
 
-		TIMSK2  = (1 << OCIE2B);			// enable tx and wait for start
+		TIMSK1  = (1 << OCIE1B);			// enable tx and wait for start
 		EIMSK  |= (1 << INT0);				// enable START irq
 		EIFR    = (1 << INTF0);				// clear any pending
 	}
 }
 
 /* ISR to manage the transmission of bits via the software UART. */
-ISR(TIMER2_COMPB_vect)
+ISR(TIMER1_COMPB_vect)
 {
-	OCR2B += BIT_TIME / 8;					// next bit slice
+	OCR1B += BIT_TIME;					// next bit slice
 
 	if (TX_BitsRemaining)
 	{
 		if (--TX_BitsRemaining != 9)		// no start bit
 		{
 			if (TX_Data & (1 << 0))			// test inverted data
-			  TCCR2A = (1 << COM2B1);
+			  STXPORT &= ~(1 << STX);
 			else
-			  TCCR2A = (1 << COM2B1) | (1 << COM2B0);
+			  STXPORT =   (1 << STX);
 
 			TX_Data >>= 1;					// shift zero in from left
 		}
 		else
 		{
-			TCCR2A = (1 << COM2B1);			// START bit
+			STXPORT &= ~(1 << STX);
 		}
 	}
 	else if (USBtoUART_Buffer.Count)
