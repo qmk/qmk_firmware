@@ -11,7 +11,8 @@
   *  - Added new ADC_DisableChannel() function (thanks to Mich Davis)
   *
   *  <b>Changed:</b>
-  *  - N/A
+  *  - The RingBuff library code has been replaced in the XPLAINBridge project with an ultra lightweight buffer to help
+  *    improve the reliability of the bridge
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project sending a LOAD EXTENDED ADDRESS command to 128KB AVRs after programming or reading from

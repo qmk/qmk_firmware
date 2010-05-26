@@ -32,34 +32,22 @@
 
 #include "SoftUART.h"
 
-volatile uint8_t srx_done, stx_count;
-volatile uint8_t srx_data, srx_mask, srx_tmp, stx_data;
+volatile bool    srx_done;
+volatile uint8_t stx_count;
+static   uint8_t srx_data, srx_mask, srx_tmp, stx_data;
 
-uint8_t SoftUART_IsReady(void)
-{
-	return !(stx_count);
-}
-
-uint8_t SoftUART_TxByte(uint8_t Byte)
+void SoftUART_TxByte(uint8_t Byte)
 {
 	while (stx_count);
 
 	stx_data  = ~Byte;
 	stx_count = 10;
-
-	return Byte;
-}
-
-uint8_t SoftUART_IsReceived(void)
-{
-	return srx_done;
 }
 
 uint8_t SoftUART_RxByte(void)
 {
 	while (!(srx_done));
-
-	srx_done = 0;
+	srx_done = false;
 
 	return srx_data;
 }
@@ -74,9 +62,9 @@ void SoftUART_Init(void)
 	EIMSK  = (1 << INT0);					// enable INT0 interrupt
 
 	stx_count = 0;							// nothing to send
-	srx_done = 0;							// nothing received
-	STXPORT |= 1 << STX;					// TX output
-	STXDDR  |= 1 << STX;					// TX output
+	srx_done  = false;						// nothing received
+	STXPORT |= (1 << STX);					// TX output
+	STXDDR  |= (1 << STX);					// TX output
 	SRXPORT |= (1 << SRX);					// pullup on INT0
 }
 
@@ -85,7 +73,7 @@ ISR(INT0_vect)
 {
 	OCR2A = TCNT2 + (BIT_TIME / 8 * 3 / 2);	// scan 1.5 bits after start
 
-	srx_tmp = 0;							// clear bit storage
+	srx_tmp  = 0;							// clear bit storage
 	srx_mask = 1;							// bit mask
 
 	TIFR2 = (1 << OCF2A);					// clear pending interrupt
@@ -111,7 +99,7 @@ ISR(TIMER2_COMPA_vect)
 	}
 	else
 	{
-		srx_done  = 1;						// mark rx data valid
+		srx_done  = true;					// mark rx data valid
 		srx_data  = srx_tmp;				// store rx data
 		TIMSK2    = (1 << OCIE2B);			// enable tx and wait for start
 		EIMSK    |= (1 << INT0);			// enable START irq

@@ -144,7 +144,7 @@
  *    <td>4</td>
  *   </tr>
  *   <tr>
- *    <td>XCLK</td>
+ *    <td>XCK</td>
  *    <td>CLOCK</td>
  *    <td>5</td>
  *   </tr>
@@ -178,7 +178,7 @@
  *    <td>2</td>
  *   </tr>
  *   <tr>
- *    <td>XCLK <b><sup>2</sup></b></td>
+ *    <td>XCK <b><sup>2</sup></b></td>
  *    <td>CLOCK</td>
  *    <td>3</td>
  *   </tr>

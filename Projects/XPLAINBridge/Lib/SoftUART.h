@@ -36,7 +36,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/interrupt.h>
-		#include "SoftUART.h"
+		#include <stdbool.h>
 
 	/* Macros: */
 		#define BAUD       9600
@@ -50,10 +50,23 @@
 		#define STXPORT    PORTD
 		#define STXDDR     DDRD
 
+	/* External Variables: */
+		extern volatile bool    srx_done;
+		extern volatile uint8_t stx_count;
+
+	/* Inline Functions: */
+		static inline bool SoftUART_IsReady(void)
+		{
+			return !(stx_count);
+		}
+
+		static inline bool SoftUART_IsReceived(void)
+		{
+			return srx_done;
+		}
+
 	/* Function Prototypes: */
-		uint8_t SoftUART_IsReady(void);
-		uint8_t SoftUART_TxByte(uint8_t c);
-		uint8_t SoftUART_IsReceived(void);
+		void    SoftUART_TxByte(uint8_t c);
 		uint8_t SoftUART_RxByte(void);
 		void    SoftUART_Init(void);
 

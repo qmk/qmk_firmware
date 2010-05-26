@@ -129,7 +129,6 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENAB
 SRC = $(TARGET).c                                                 \
 	  AVRISPDescriptors.c                                         \
 	  USARTDescriptors.c                                          \
-	  Lib/RingBuff.c                                              \
 	  Lib/SoftUART.c                                              \
 	  $(AVRISP_PATH)/Lib/V2Protocol.c                             \
       $(AVRISP_PATH)/Lib/V2ProtocolParams.c                       \
