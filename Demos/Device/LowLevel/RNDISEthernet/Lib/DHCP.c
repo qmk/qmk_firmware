@@ -69,7 +69,7 @@ int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart, void* DHCPHeaderInStart, v
 	DHCPHeaderOUT->ElapsedSeconds        = 0;
 	DHCPHeaderOUT->Flags                 = DHCPHeaderIN->Flags;
 	DHCPHeaderOUT->YourIP                = ClientIPAddress;
-	memcpy(&DHCPHeaderOUT->ClientHardwareAddress, &DHCPHeaderIN->ClientHardwareAddress, sizeof(MAC_Address_t));
+	memmove(&DHCPHeaderOUT->ClientHardwareAddress, &DHCPHeaderIN->ClientHardwareAddress, sizeof(MAC_Address_t));
 	DHCPHeaderOUT->Cookie                = SwapEndian_32(DHCP_MAGIC_COOKIE);
 	
 	/* Alter the incoming IP packet header so that the corrected IP source and destinations are used - this means that
