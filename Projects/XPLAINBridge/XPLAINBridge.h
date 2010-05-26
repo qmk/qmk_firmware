@@ -45,8 +45,9 @@
 		#include "AVRISPDescriptors.h"
 		#include "USARTDescriptors.h"
 
-		#include "Lib/SoftUART.h"		
-		#include <Lib/V2Protocol.h>
+		#include "Lib/LightweightRingBuff.h"
+		#include "Lib/SoftUART.h"
+		#include "Lib/V2Protocol.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
@@ -74,14 +75,6 @@
 
 		/** Firmware mode define for the AVRISP Programmer mode. */
 		#define MODE_PDI_PROGRAMMER      true
-		
-	/* Type Defines: */
-		typedef struct
-		{
-			uint8_t  Buffer[128];
-			uint8_t* In;
-			uint8_t* Out;
-		} RingBuff_t;
 
 	/* External Variables: */
 		extern bool CurrentFirmwareMode;

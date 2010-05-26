@@ -77,10 +77,8 @@ int main(void)
 {
 	SetupHardware();
 	
-	USBtoUART_Buffer.In  = USBtoUART_Buffer.Buffer;
-	USBtoUART_Buffer.Out = USBtoUART_Buffer.Buffer;
-	UARTtoUSB_Buffer.In  = UARTtoUSB_Buffer.Buffer;
-	UARTtoUSB_Buffer.Out = UARTtoUSB_Buffer.Buffer;
+	RingBuffer_InitBuffer(&USBtoUART_Buffer);
+	RingBuffer_InitBuffer(&UARTtoUSB_Buffer);
 	
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
@@ -124,36 +122,19 @@ void USARTBridge_Task(void)
 
 	/* Read bytes from the USB OUT endpoint into the UART transmit buffer */
 	for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
-	{
-		*USBtoUART_Buffer.In = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
-
-		if (++USBtoUART_Buffer.In == &USBtoUART_Buffer.Buffer[128])
-		  USBtoUART_Buffer.In = USBtoUART_Buffer.Buffer;
-	}
+	  RingBuffer_Insert(&USBtoUART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 	
 	/* Read bytes from the UART receive buffer into the USB IN endpoint */
-	if (UARTtoUSB_Buffer.In != UARTtoUSB_Buffer.Out)
-	{
-		CDC_Device_SendByte(&VirtualSerial_CDC_Interface, *UARTtoUSB_Buffer.Out);
-		if (++UARTtoUSB_Buffer.Out == &UARTtoUSB_Buffer.Buffer[128])
-		  UARTtoUSB_Buffer.Out = UARTtoUSB_Buffer.Buffer;
-	}
+	if (!(RingBuffer_Empty(&UARTtoUSB_Buffer)))
+	  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&UARTtoUSB_Buffer));
 	
 	/* Load bytes from the UART transmit buffer into the UART */
-	if ((USBtoUART_Buffer.In != USBtoUART_Buffer.Out) && SoftUART_IsReady())
-	{
-		SoftUART_TxByte(*USBtoUART_Buffer.Out);
-		if (++USBtoUART_Buffer.Out == &USBtoUART_Buffer.Buffer[128])
-		  USBtoUART_Buffer.Out = USBtoUART_Buffer.Buffer;
-	}
+	if (!(RingBuffer_Empty(&USBtoUART_Buffer)) && SoftUART_IsReady())
+	  SoftUART_TxByte(RingBuffer_Remove(&USBtoUART_Buffer));
 	
 	/* Load bytes from the UART into the UART receive buffer */
 	if (SoftUART_IsReceived())
-	{
-		*UARTtoUSB_Buffer.In = SoftUART_RxByte();
-		if (++UARTtoUSB_Buffer.In == &UARTtoUSB_Buffer.Buffer[128])
-		  UARTtoUSB_Buffer.In = UARTtoUSB_Buffer.Buffer;		
-	}
+	  RingBuffer_Insert(&UARTtoUSB_Buffer, SoftUART_RxByte());
 
 	CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 }
@@ -183,7 +164,7 @@ void SetupHardware(void)
 	_delay_ms(10);
 
 	/* Select the firmware mode based on the JTD pin's value */
-	CurrentFirmwareMode = MODE_USART_BRIDGE; // TEMP (PINF & (1 << 7)) ? MODE_USART_BRIDGE : MODE_PDI_PROGRAMMER;
+	CurrentFirmwareMode = (PINF & (1 << 7)) ? MODE_USART_BRIDGE : MODE_PDI_PROGRAMMER;
 
 	/* Re-enable JTAG debugging */
 	MCUCR &= ~(1 << JTD);
