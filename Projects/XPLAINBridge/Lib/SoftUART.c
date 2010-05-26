@@ -39,85 +39,121 @@
 
 #include "SoftUART.h"
 
-static uint8_t TX_BitsRemaining, TX_Data;
-static uint8_t RX_BitMask, RX_Data;
+/** Total number of bits remaining to be sent in the current frame */
+static uint8_t TX_BitsRemaining
 
+/** Temporary data variable to hold the byte being transmitted as it is shifted out */
+static uint8_t TX_Data;
+
+/** Current bit mask of the bit being shifted into the received data byte */
+static uint8_t RX_BitMask;
+
+/** Temporary data variable to hold the byte being received as it is shifted in */
+static uint8_t RX_Data;
+
+/** Initializes the software UART, ready for data transmission and reception into the global ring buffers. */
 void SoftUART_Init(void)
 {
-	OCR1B  = TCNT1 + 1;						// force first compare
-	TCCR1B = (1 << CS10); 					// CLK/1, T1 mode 0
-	TCCR1C = (1 << FOC1B);
-	TIMSK1 = (1 << OCIE1B);					// enable tx and wait for start
-	EICRA  = (1 << ISC01);					// -ve edge
-	EIMSK  = (1 << INT0);					// enable INT0 interrupt
+	/* Set TX pin to output high, enable RX pullup */
+	STXPORT |= (1 << STX);
+	STXDDR  |= (1 << STX);
+	SRXPORT |= (1 << SRX);
 
-	STXPORT |= (1 << STX);					// TX output
-	STXDDR  |= (1 << STX);					// TX output
-	SRXPORT |= (1 << SRX);					// pullup on INT0
+	/* Enable INT0 for the detection of incomming start bits that signal the start of a byte */
+	EICRA  = (1 << ISC01);
+	EIMSK  = (1 << INT0);
+
+	/* Ensure that when the timer is enabled the transmission ISR runs immediately */
+	OCR1B  = TCNT1 + 1;
+	
+	/* Start timer 1 with transmission channel force-enabled so that it will immediatly fire */
+	TCCR1C = (1 << FOC1B);
+	TIMSK1 = (1 << OCIE1B);
+	TCCR1B = (1 << CS10);
 }
 
-/* ISR to detect the start of a bit being sent to the software UART. */
+/** ISR to detect the start of a bit being sent to the software UART. */
 ISR(INT0_vect)
 {
-	OCR1A = TCNT1 + ((BIT_TIME * 3) / 2) - 1;	// scan 1.5 bits after start
+	/* Set reception channel to fire 1.5 bits past the beginning of the start bit */
+	OCR1A = TCNT1 + ((BIT_TIME * 3) / 2) - 1;
+	
+	/* Clear the received data temporary variable, reset the current received bit position mask */
+	RX_Data    = 0;
+	RX_BitMask = (1 << 0);
 
-	RX_Data    = 0;							// clear bit storage
-	RX_BitMask = (1 << 0);					// bit mask
+	/* Clear reception channel ISR flag in case it is pending */
+	TIFR1 = (1 << OCF1A);
 
-	TIFR1 = (1 << OCF1A);					// clear pending interrupt
-
-	if (!(SRXPIN & (1 << SRX)))				// still low
-	{
-		TIMSK1 =  (1 << OCIE1A) | (1 << OCIE1B); // wait for first bit
+	/* Check that the start bit is still low to prevent noise from triggering a reception */
+	if (!(SRXPIN & (1 << SRX)))
+	{	
+		/* Still low, enable both send and receive channels */
+		TIMSK1 =  (1 << OCIE1A) | (1 << OCIE1B);
+		
+		/* Clear the start bit detection ISR flag if it is pending */
 		EIMSK &= ~(1 << INT0);
 	}
 }
 
-/* ISR to manage the reception of bits to the software UART. */
+/** ISR to manage the reception of bits to the software UART. */
 ISR(TIMER1_COMPA_vect)
 {
+	/* Move the reception ISR compare position one bit ahead */
+	OCR1A += BIT_TIME;
+
+	/* Check if reception has finished */
 	if (RX_BitMask)
 	{
+		/* Store next bit into the received data variable */
 		if (SRXPIN & (1 << SRX))
 		  RX_Data |= RX_BitMask;
 
+		/* Shift the current received bit mask to the next bit position */
 		RX_BitMask <<= 1;
-
-		OCR1A += BIT_TIME;				// next bit slice
 	}
 	else
 	{
+		/* Reception complete, store the received byte */
 		RingBuffer_Insert(&UARTtoUSB_Buffer, RX_Data);
-
-		TIMSK1  = (1 << OCIE1B);			// enable tx and wait for start
-		EIMSK  |= (1 << INT0);				// enable START irq
-		EIFR    = (1 << INTF0);				// clear any pending
+	
+		/* Disable the reception ISR as all data has now been received, re-enable start bit detection ISR */
+		TIMSK1  = (1 << OCIE1B);
+		EIMSK  |= (1 << INT0);
+		EIFR    = (1 << INTF0);
 	}
 }
 
-/* ISR to manage the transmission of bits via the software UART. */
+/** ISR to manage the transmission of bits via the software UART. */
 ISR(TIMER1_COMPB_vect)
 {
-	OCR1B += BIT_TIME;					// next bit slice
+	/* Move the transmission ISR compare position one bit ahead */
+	OCR1B += BIT_TIME;
 
+	/* Check if transmission has finished */
 	if (TX_BitsRemaining)
 	{
-		if (--TX_BitsRemaining != 9)		// no start bit
+		/* Check if we are sending a data bit, or the start bit */
+		if (--TX_BitsRemaining != 9)
 		{
-			if (TX_Data & (1 << 0))			// test inverted data
+			/* Set the TX line to the value of the next bit in the byte to send */
+			if (TX_Data & (1 << 0))
 			  STXPORT &= ~(1 << STX);
 			else
-			  STXPORT =   (1 << STX);
+			  STXPORT |=  (1 << STX);
 
-			TX_Data >>= 1;					// shift zero in from left
+			/* Shift the transmission byte to move the next bit into position */
+			TX_Data >>= 1;
 		}
 		else
 		{
+			/* Start bit - keep TX line low */
 			STXPORT &= ~(1 << STX);
 		}
 	}
 	else if (USBtoUART_Buffer.Count)
 	{
+		/* Transmission complete, get the next byte to send (if available) */
 		TX_Data = ~RingBuffer_Remove(&USBtoUART_Buffer);
 		TX_BitsRemaining = 10;
 	}
