@@ -53,13 +53,15 @@
 			RingBuff_Data_t  Buffer[BUFFER_SIZE];
 			RingBuff_Data_t* In;
 			RingBuff_Data_t* Out;
+			uint8_t          Count;
 		} RingBuff_t;
 	
 	/* Inline Functions: */
 		static inline void RingBuffer_InitBuffer(RingBuff_t* const Buffer)
 		{
 			Buffer->In  = Buffer->Buffer;
-			Buffer->Out = Buffer->Buffer;		
+			Buffer->Out = Buffer->Buffer;
+			Buffer->Count = 0;
 		}
 		
 		static inline void RingBuffer_Insert(RingBuff_t* const Buffer, RingBuff_Data_t Data)
@@ -68,6 +70,8 @@
 		
 			if (++Buffer->In == &Buffer->Buffer[BUFFER_SIZE])
 			  Buffer->In = Buffer->Buffer;
+			  
+			Buffer->Count++;
 		}
 
 		static inline RingBuff_Data_t RingBuffer_Remove(RingBuff_t* const Buffer)
@@ -77,12 +81,9 @@
 			if (++Buffer->Out == &Buffer->Buffer[BUFFER_SIZE])
 			  Buffer->Out = Buffer->Buffer;
 			  
-			return Data;
-		}
+			Buffer->Count--;
 
-		static inline bool RingBuffer_Empty(RingBuff_t* const Buffer)
-		{
-			return (Buffer->In == Buffer->Out);
+			return Data;
 		}
 
 #endif

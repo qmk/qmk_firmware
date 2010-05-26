@@ -30,27 +30,16 @@
   this software.
 */
 
+/** \file
+ *
+ *  Software UART for both data transmission and reception. This
+ *  code continuously monitors the ring buffers set up by the main
+ *  project source file and reads/writes data as it becomes available.
+ */
+
 #include "SoftUART.h"
 
-volatile bool    srx_done;
-volatile uint8_t stx_count;
-static   uint8_t srx_data, srx_mask, srx_tmp, stx_data;
-
-void SoftUART_TxByte(uint8_t Byte)
-{
-	while (stx_count);
-
-	stx_data  = ~Byte;
-	stx_count = 10;
-}
-
-uint8_t SoftUART_RxByte(void)
-{
-	while (!(srx_done));
-	srx_done = false;
-
-	return srx_data;
-}
+static uint8_t TX_BitsRemaining, TX_Data, RX_BitMask, RX_Data;
 
 void SoftUART_Init(void)
 {
@@ -61,8 +50,7 @@ void SoftUART_Init(void)
 	EICRA  = (1 << ISC01);					// -ve edge
 	EIMSK  = (1 << INT0);					// enable INT0 interrupt
 
-	stx_count = 0;							// nothing to send
-	srx_done  = false;						// nothing received
+	TX_BitsRemaining = 0;					// nothing to send
 	STXPORT |= (1 << STX);					// TX output
 	STXDDR  |= (1 << STX);					// TX output
 	SRXPORT |= (1 << SRX);					// pullup on INT0
@@ -73,8 +61,8 @@ ISR(INT0_vect)
 {
 	OCR2A = TCNT2 + (BIT_TIME / 8 * 3 / 2);	// scan 1.5 bits after start
 
-	srx_tmp  = 0;							// clear bit storage
-	srx_mask = 1;							// bit mask
+	RX_Data    = 0;							// clear bit storage
+	RX_BitMask = (1 << 0);					// bit mask
 
 	TIFR2 = (1 << OCF2A);					// clear pending interrupt
 
@@ -88,19 +76,19 @@ ISR(INT0_vect)
 /* ISR to manage the reception of bits to the transmitter. */
 ISR(TIMER2_COMPA_vect)
 {
-	if (srx_mask)
+	if (RX_BitMask)
 	{
 		if (SRXPIN & (1 << SRX))
-		  srx_tmp |= srx_mask;
+		  RX_Data |= RX_BitMask;
 
-		srx_mask <<= 1;
+		RX_BitMask <<= 1;
 
 		OCR2A += BIT_TIME / 8;				// next bit slice
 	}
 	else
 	{
-		srx_done  = true;					// mark rx data valid
-		srx_data  = srx_tmp;				// store rx data
+		RingBuffer_Insert(&UARTtoUSB_Buffer, RX_Data);
+
 		TIMSK2    = (1 << OCIE2B);			// enable tx and wait for start
 		EIMSK    |= (1 << INT0);			// enable START irq
 		EIFR      = (1 << INTF0);			// clear any pending
@@ -112,20 +100,25 @@ ISR(TIMER2_COMPB_vect)
 {
 	OCR2B += BIT_TIME / 8;					// next bit slice
 
-	if (stx_count)
+	if (TX_BitsRemaining)
 	{
-		if (--stx_count != 9)				// no start bit
+		if (--TX_BitsRemaining != 9)		// no start bit
 		{
-			if (!(stx_data & 1))			// test inverted data
-			  TCCR2A = (1 << COM2B1) | (1 << COM2B0);
-			else
+			if (TX_Data & (1 << 0))			// test inverted data
 			  TCCR2A = (1 << COM2B1);
+			else
+			  TCCR2A = (1 << COM2B1) | (1 << COM2B0);
 
-			stx_data >>= 1;					// shift zero in from left
+			TX_Data >>= 1;					// shift zero in from left
 		}
 		else
 		{
 			TCCR2A = (1 << COM2B1);			// START bit
 		}
+	}
+	else if (USBtoUART_Buffer.Count)
+	{
+		TX_Data = ~RingBuffer_Remove(&USBtoUART_Buffer);
+		TX_BitsRemaining = 10;
 	}
 } 

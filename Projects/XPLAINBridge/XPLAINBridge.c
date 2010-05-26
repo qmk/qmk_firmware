@@ -125,17 +125,9 @@ void USARTBridge_Task(void)
 	  RingBuffer_Insert(&USBtoUART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 	
 	/* Read bytes from the UART receive buffer into the USB IN endpoint */
-	if (!(RingBuffer_Empty(&UARTtoUSB_Buffer)))
+	if (UARTtoUSB_Buffer.Count)
 	  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&UARTtoUSB_Buffer));
-	
-	/* Load bytes from the UART transmit buffer into the UART */
-	if (!(RingBuffer_Empty(&USBtoUART_Buffer)) && SoftUART_IsReady())
-	  SoftUART_TxByte(RingBuffer_Remove(&USBtoUART_Buffer));
-	
-	/* Load bytes from the UART into the UART receive buffer */
-	if (SoftUART_IsReceived())
-	  RingBuffer_Insert(&UARTtoUSB_Buffer, SoftUART_RxByte());
-
+	  
 	CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 }
 

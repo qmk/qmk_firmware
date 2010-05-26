@@ -77,7 +77,9 @@
 		#define MODE_PDI_PROGRAMMER      true
 
 	/* External Variables: */
-		extern bool CurrentFirmwareMode;
+		extern bool       CurrentFirmwareMode;
+		extern RingBuff_t UARTtoUSB_Buffer;
+		extern RingBuff_t USBtoUART_Buffer;
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);
