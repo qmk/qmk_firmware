@@ -49,7 +49,6 @@ int main(void)
 	for (;;)
 	{
 		Process_AVRISP_Commands();
-		
 		V2Params_UpdateParamValues();
 		
 		USB_USBTask();

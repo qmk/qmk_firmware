@@ -86,9 +86,14 @@ int main(void)
 	for (;;)
 	{
 		if (CurrentFirmwareMode == MODE_USART_BRIDGE)
-		  USARTBridge_Task();
+		{
+			USARTBridge_Task();
+		}
 		else
-		  AVRISP_Task();
+		{
+			AVRISP_Task();
+			V2Params_UpdateParamValues();
+		}
 
 		USB_USBTask();
 	}
@@ -147,7 +152,6 @@ void SetupHardware(void)
 	USB_Init();
 	V2Protocol_Init();
 	
-	#if 0
 	/* Disable JTAG debugging */
 	MCUCR |= (1 << JTD);
 	MCUCR |= (1 << JTD);
@@ -162,9 +166,6 @@ void SetupHardware(void)
 	/* Re-enable JTAG debugging */
 	MCUCR &= ~(1 << JTD);
 	MCUCR &= ~(1 << JTD);
-	#endif
-	
-	CurrentFirmwareMode = MODE_USART_BRIDGE;
 }
 
 /** Event handler for the library USB Configuration Changed event. */

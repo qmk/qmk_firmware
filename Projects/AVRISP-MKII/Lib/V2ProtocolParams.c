@@ -98,7 +98,7 @@ void V2Params_UpdateParamValues(void)
 {
 	#if (defined(ADC) && !defined(NO_VTARGET_DETECT))
 	/* Update VTARGET parameter with the latest ADC conversion of VTARGET on supported AVR models */
-	V2Params_SetParameterValue(PARAM_VTARGET, ((5 * 10 * ADC_GetResult()) / 1024));
+	V2Params_GetParamFromTable(PARAM_VTARGET)->ParamValue = (((uint16_t)(VTARGET_REF_VOLTS * 10 * VTARGET_SCALE_FACTOR) * ADC_GetResult()) / 1024);
 	#endif
 }
 
