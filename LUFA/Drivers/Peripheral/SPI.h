@@ -153,7 +153,7 @@
 			/** Sends a byte through the SPI interface, blocking until the transfer is complete. The response
 			 *  byte sent to from the attached SPI device is ignored.
 			 *
-			 *  \param[in] Byte Byte to send through the SPI interface
+			 *  \param[in] Byte  Byte to send through the SPI interface
 			 */
 			static inline void SPI_SendByte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void SPI_SendByte(const uint8_t Byte)

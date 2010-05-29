@@ -167,7 +167,7 @@
 		
 		/** Toggles all LEDs in the LED mask, leaving all others in their current states.
 		 *
-		 *  \param[in] LEDMask Mask of the board LEDs to manipulate (see board-specific LEDs.h driver file)
+		 *  \param[in] LEDMask  Mask of the board LEDs to manipulate (see board-specific LEDs.h driver file)
 		 */
 		static inline void LEDs_ToggleLEDs(const uint8_t LEDMask);
 

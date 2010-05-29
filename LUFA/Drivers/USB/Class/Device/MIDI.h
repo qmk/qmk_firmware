@@ -120,7 +120,7 @@
 			 *        the call will fail.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state
-			 *  \param[in] Event  Pointer to a populated USB_MIDI_EventPacket_t structure containing the MIDI event to send
+			 *  \param[in]     Event              Pointer to a populated USB_MIDI_EventPacket_t structure containing the MIDI event to send
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum			 
 			 */
@@ -144,7 +144,7 @@
 			 *        the call will fail.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state
-			 *  \param[out] Event  Pointer to a USB_MIDI_EventPacket_t structure where the received MIDI event is to be placed
+			 *  \param[out]    Event              Pointer to a USB_MIDI_EventPacket_t structure where the received MIDI event is to be placed
 			 *
 			 *  \return Boolean true if a MIDI event packet was received, false otherwise
 			 */

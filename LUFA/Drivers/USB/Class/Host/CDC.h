@@ -161,9 +161,9 @@
 			 *  This should be called once after the stack has enumerated the attached device, while the host state machine is in
 			 *  the Addressed state.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing an CDC Class host configuration and state
-			 *  \param[in] ConfigDescriptorSize  Length of the attached device's Configuration Descriptor
-			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
+			 *  \param[in,out] CDCInterfaceInfo        Pointer to a structure containing an CDC Class host configuration and state
+			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor
+			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
 			 *
 			 *  \return A value from the \ref CDCHost_EnumerationFailure_ErrorCodes_t enum
 			 */
@@ -209,8 +209,8 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
-			 *  \param[in] Data  Pointer to the string to send to the device
-			 *  \param[in] Length  Size in bytes of the string to send to the device
+			 *  \param[in]     Data              Pointer to the string to send to the device
+			 *  \param[in]     Length            Size in bytes of the string to send to the device
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
@@ -226,7 +226,7 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
-			 *  \param[in] Data  Byte of data to send to the device
+			 *  \param[in]     Data              Byte of data to send to the device
 			 *
 			 *  \return A value from the \ref Pipe_WaitUntilReady_ErrorCodes_t enum
 			 */
@@ -275,7 +275,7 @@
 			 *        to the given CDC interface.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
-			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed
+			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed
 			 */
 			void CDC_Host_CreateStream(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, FILE* Stream);
 
@@ -283,7 +283,7 @@
 			 *  the transfer. While blocking, the USB and CDC service tasks are called repeatedly to maintain USB communications.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
-			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed
+			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed
 			 */
 			void CDC_Host_CreateBlockingStream(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, FILE* Stream);
 

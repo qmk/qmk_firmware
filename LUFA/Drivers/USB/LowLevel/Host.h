@@ -222,9 +222,9 @@
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
-			 *  \param[in] Index  Index of the string index to retrieve
-			 *  \param[out] Buffer  Pointer to the destination buffer where the retrieved string decriptor is
-			 *                      to be stored
+			 *  \param[in]  Index        Index of the string index to retrieve
+			 *  \param[out] Buffer       Pointer to the destination buffer where the retrieved string decriptor is
+			 *                           to be stored
 			 *  \param[in] BufferLength  Maximum size of the string descriptor which can be stored into the buffer
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.

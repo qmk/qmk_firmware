@@ -1124,7 +1124,7 @@
 			 *  \ingroup Group_EndpointStreamRW
 			 *
 			 *  \param[out] Buffer  Pointer to the destination data buffer to write to.
-			 *  \param[in] Length  Number of bytes to send via the currently selected endpoint.
+			 *  \param[in]  Length  Number of bytes to send via the currently selected endpoint.
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
@@ -1144,7 +1144,7 @@
 			 *  \ingroup Group_EndpointStreamRW
 			 *
 			 *  \param[out] Buffer  Pointer to the destination data buffer to write to.
-			 *  \param[in] Length  Number of bytes to send via the currently selected endpoint.
+			 *  \param[in]  Length  Number of bytes to send via the currently selected endpoint.
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
@@ -1167,7 +1167,7 @@
 			 *  \ingroup Group_EndpointStreamRW
 			 *
 			 *  \param[out] Buffer  Pointer to the destination data buffer to write to.
-			 *  \param[in] Length  Number of bytes to send via the currently selected endpoint.
+			 *  \param[in]  Length  Number of bytes to send via the currently selected endpoint.
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
@@ -1187,7 +1187,7 @@
 			 *  \ingroup Group_EndpointStreamRW
 			 *
 			 *  \param[out] Buffer  Pointer to the destination data buffer to write to.
-			 *  \param[in] Length  Number of bytes to send via the currently selected endpoint.
+			 *  \param[in]  Length  Number of bytes to send via the currently selected endpoint.
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */

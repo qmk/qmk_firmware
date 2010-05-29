@@ -206,9 +206,9 @@
 			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *        the call will fail.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
-			 *  \param[in] Data  Pointer to the string to send to the host
-			 *  \param[in] Length  Size in bytes of the string to send to the host
+			 *  \param[in,out]   CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in]       Data              Pointer to the string to send to the host
+			 *  \param[in]       Length            Size in bytes of the string to send to the host
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum
 			 */
@@ -224,7 +224,7 @@
 			 *        the call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
-			 *  \param[in] Data  Byte of data to send to the host
+			 *  \param[in]     Data              Byte of data to send to the host
 			 *
 			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum
 			 */
@@ -290,7 +290,7 @@
 			 *        to the given CDC interface.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
-			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed
+			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed
 			 */
 			void CDC_Device_CreateStream(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, FILE* Stream);
 
@@ -298,7 +298,7 @@
 			 *  the transfer. While blocking, the USB and CDC service tasks are called repeatedly to maintain USB communications.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
-			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed
+			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed
 			 */
 			void CDC_Device_CreateBlockingStream(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, FILE* Stream);
 

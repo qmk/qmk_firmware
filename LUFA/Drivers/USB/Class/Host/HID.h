@@ -155,9 +155,9 @@
 			 *  \note Once the device pipes are configured, the HID device's reporting protocol <b>must</b> be set via a call
 			 *        to either the \ref HID_Host_SetBootProtocol() or \ref HID_Host_SetReportProtocol() function.
 			 *
-			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
-			 *  \param[in] ConfigDescriptorSize  Length of the attached device's Configuration Descriptor
-			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
+			 *  \param[in,out] HIDInterfaceInfo        Pointer to a structure containing a HID Class host configuration and state
+			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor
+			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
 			 *
 			 *  \return A value from the \ref HIDHost_EnumerationFailure_ErrorCodes_t enum
 			 */
@@ -175,7 +175,7 @@
 			 *        can generate.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
-			 *  \param[in] Buffer  Buffer to store the received report into
+			 *  \param[in]     Buffer            Buffer to store the received report into
 			 *
 			 *  \return An error code from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
@@ -192,8 +192,8 @@
 			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
-			 *  \param[in] ReportID  Report ID of the received report if ControlRequest is false, set by the to the Report ID to fetch
-			 *  \param[in] Buffer  Buffer to store the received report into
+			 *  \param[in]     ReportID          Report ID of the received report if ControlRequest is false, set by the to the Report ID to fetch
+			 *  \param[in]     Buffer            Buffer to store the received report into
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum
 			 */
@@ -212,10 +212,10 @@
 			 *        from the parameter list of this function.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
-			 *  \param[in] ReportID  Report ID of the report to send to the device, or 0 if the device does not use report IDs
-			 *  \param[in] ReportType  Type of report to issue to the device, either \ref REPORT_ITEM_TYPE_Out or \ref REPORT_ITEM_TYPE_Feature
-			 *  \param[in] Buffer  Buffer containing the report to send to the attached device
-			 *  \param[in] ReportSize  Report size in bytes to send to the attached device
+			 *  \param[in]     ReportID          Report ID of the report to send to the device, or 0 if the device does not use report IDs
+			 *  \param[in]     ReportType        Type of report to issue to the device, either \ref REPORT_ITEM_TYPE_Out or \ref REPORT_ITEM_TYPE_Feature
+			 *  \param[in]     Buffer            Buffer containing the report to send to the attached device
+			 *  \param[in]     ReportSize        Report size in bytes to send to the attached device
 			 *
 			 *  \return An error code from the \ref USB_Host_SendControlErrorCodes_t enum if the DeviceUsesOUTPipe flag is set in
 			 *          the interface's state structure, a value from the \ref Pipe_Stream_RW_ErrorCodes_t enum otherwise

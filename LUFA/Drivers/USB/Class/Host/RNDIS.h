@@ -138,9 +138,9 @@
 			 *  This should be called once after the stack has enumerated the attached device, while the host state machine is in
 			 *  the Addressed state.
 			 *
-			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
-			 *  \param[in] ConfigDescriptorSize  Length of the attached device's Configuration Descriptor
-			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
+			 *  \param[in,out] RNDISInterfaceInfo      Pointer to a structure containing an RNDIS Class host configuration and state
+			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor
+			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
 			 *
 			 *  \return A value from the \ref RNDISHost_EnumerationFailure_ErrorCodes_t enum
 			 */
@@ -170,9 +170,9 @@
 			/** Sets a given RNDIS property of an attached RNDIS device.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
-			 *  \param[in] Oid  OID number of the parameter to set
-			 *  \param[in] Buffer  Pointer to where the property data is to be sourced from
-			 *  \param[in] Length  Length in bytes of the property data to sent to the device
+			 *  \param[in]     Oid                 OID number of the parameter to set
+			 *  \param[in]     Buffer              Pointer to where the property data is to be sourced from
+			 *  \param[in]     Length              Length in bytes of the property data to sent to the device
 			 *
 			 *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
 			 *          logical command failure
@@ -183,9 +183,9 @@
 			/** Gets a given RNDIS property of an attached RNDIS device.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
-			 *  \param[in] Oid  OID number of the parameter to get
-			 *  \param[in] Buffer  Pointer to where the property data is to be written to
-			 *  \param[in] MaxLength  Length in bytes of the destination buffer size
+			 *  \param[in]     Oid                 OID number of the parameter to get
+			 *  \param[in]     Buffer              Pointer to where the property data is to be written to
+			 *  \param[in]     MaxLength           Length in bytes of the destination buffer size
 			 *
 			 *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
 			 *          logical command failure
@@ -212,8 +212,8 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
-			 *  \param[out] Buffer  Pointer to a buffer where the packer data is to be written to
-			 *  \param[out] PacketLength  Pointer to where the length in bytes of the read packet is to be stored
+			 *  \param[out]    Buffer              Pointer to a buffer where the packer data is to be written to
+			 *  \param[out]    PacketLength        Pointer to where the length in bytes of the read packet is to be stored
 			 *
 			 *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
 			 */
@@ -226,8 +226,8 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
-			 *  \param[in] Buffer  Pointer to a buffer where the packer data is to be read from
-			 *  \param[in] PacketLength  Length in bytes of the packet to send
+			 *  \param[in]     Buffer              Pointer to a buffer where the packer data is to be read from
+			 *  \param[in]     PacketLength        Length in bytes of the packet to send
 			 *
 			 *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
 			 */

@@ -120,9 +120,9 @@
 			 *  the device. This should be called once after the stack has enumerated the attached device, while the host state
 			 *  machine is in the Addressed state.
 			 *
-			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state
-			 *  \param[in] ConfigDescriptorSize  Length of the attached device's Configuration Descriptor
-			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
+			 *  \param[in,out] PRNTInterfaceInfo       Pointer to a structure containing a Printer Class host configuration and state
+			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor
+			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
 			 *
 			 *  \return A value from the \ref PRNTHost_EnumerationFailure_ErrorCodes_t enum
 			 */
@@ -142,7 +142,7 @@
 			 *  PRNT_PORTSTATUS_* macros to determine the printer port's status.
 			 *
 			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state
-			 *  \param[out]  PortStatus  Location where the retrieved port status should be stored
+			 *  \param[out]    PortStatus         Location where the retrieved port status should be stored
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum
 			 */
@@ -165,8 +165,8 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state
-			 *  \param[in] PrinterCommands  Pointer to a buffer containing the raw command stream to send to the printer
-			 *  \param[in] CommandSize  Size in bytes of the command stream to be sent
+			 *  \param[in]     PrinterCommands    Pointer to a buffer containing the raw command stream to send to the printer
+			 *  \param[in]     CommandSize        Size in bytes of the command stream to be sent
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
@@ -181,8 +181,8 @@
 			 *  This string, when supported, contains the model, manufacturer and acceptable printer languages for the attached device.
 			 *
 			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state
-			 *  \param[out] DeviceIDString  Pointer to a buffer where the Device ID string should be stored, in ASCII format
-			 *  \param[in] BufferSize  Size in bytes of the buffer allocated for the Device ID string
+			 *  \param[out]    DeviceIDString     Pointer to a buffer where the Device ID string should be stored, in ASCII format
+			 *  \param[in]     BufferSize         Size in bytes of the buffer allocated for the Device ID string
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */

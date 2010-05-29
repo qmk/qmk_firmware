@@ -134,7 +134,7 @@
 		 *  leftwards until the data's sign bit is in the correct position.
 		 *
 		 *  \param[in] reportitem  HID Report Item whose retrieved value is to be aligned
-		 *  \param[in] type  Data type to align the HID report item's value to
+		 *  \param[in] type        Data type to align the HID report item's value to
 		 *
 		 *  \return Left-aligned data of the given report item's pre-retrived value for the given datatype
 		 */
@@ -272,8 +272,8 @@
 			/** Function to process a given HID report returned from an attached device, and store it into a given
 			 *  \ref HID_ReportInfo_t structure.
 			 *
-			 *  \param[in] ReportData  Buffer containing the device's HID report table
-			 *  \param[in] ReportSize  Size in bytes of the HID report table
+			 *  \param[in]  ReportData  Buffer containing the device's HID report table
+			 *  \param[in]  ReportSize  Size in bytes of the HID report table
 			 *  \param[out] ParserData  Pointer to a \ref HID_ReportInfo_t instance for the parser output
 			 *
 			 *  \return A value in the \ref HID_Parse_ErrorCodes_t enum
@@ -287,7 +287,7 @@
 			 *  When called, this copies the report item's Value element to it's PreviousValue element for easy
 			 *  checking to see if an item's value has changed before processing a report.
 			 *
-			 *  \param[in] ReportData  Buffer containing an IN or FEATURE report from an attached device
+			 *  \param[in]     ReportData  Buffer containing an IN or FEATURE report from an attached device
 			 *  \param[in,out] ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
 			 *
 			 *  \returns Boolean true if the item to retrieve was located in the given report, false otherwise
@@ -306,7 +306,7 @@
 			 *  If the device has multiple HID reports, the first byte in the report is set to the report ID of the given item.
 			 *
 			 *  \param[out] ReportData  Buffer holding the current OUT or FEATURE report data
-			 *  \param[in] ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
+			 *  \param[in]  ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array
 			 */
 			void USB_SetHIDReportItemInfo(uint8_t* ReportData, HID_ReportItem_t* const ReportItem)
 			                              ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
@@ -314,7 +314,7 @@
 			/** Retrieves the size of a given HID report in bytes from it's Report ID.
 			 *
 			 *  \param[in] ParserData  Pointer to a \ref HID_ReportInfo_t instance containing the parser output
-			 *  \param[in] ReportID  Report ID of the report whose size is to be retrieved
+			 *  \param[in] ReportID    Report ID of the report whose size is to be retrieved
 			 *  \param[in] ReportType  Type of the report whose size is to be determined, a valued from the
 			 *                         \ref HID_ReportItemTypes_t enum
 			 *

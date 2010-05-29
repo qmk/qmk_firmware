@@ -110,7 +110,7 @@
 
 			/** Receives a byte from the currently addressed device on the TWI bus.
 			 *
-			 *  \param[in] Byte  Location where the read byte is to be stored
+			 *  \param[in] Byte      Location where the read byte is to be stored
 			 *  \param[in] LastByte  Indicates if the byte should be ACKed if false, NAKed if true
 			 *
 			 *  \return Boolean true if the byte reception sucessfully completed, false otherwise

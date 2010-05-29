@@ -845,7 +845,7 @@
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
-			 *  \param[in] Length  Number of bytes to send via the currently selected pipe.
+			 *  \param[in] Length    Number of bytes to send via the currently selected pipe.
 			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
@@ -965,9 +965,9 @@
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
-			 *  \param[out] Buffer   Pointer to the source data buffer to write to.
-			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
+			 *  \param[in]  Length    Number of bytes to read for the currently selected pipe to read from.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -977,9 +977,9 @@
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
-			 *  \param[out] Buffer   Pointer to the source data buffer to write to.
-			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
+			 *  \param[in]  Length    Number of bytes to read for the currently selected pipe to read from.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -1000,9 +1000,9 @@
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
-			 *  \param[out] Buffer   Pointer to the source data buffer to write to.
-			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
+			 *  \param[in]  Length    Number of bytes to read for the currently selected pipe to read from.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -1012,9 +1012,9 @@
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
-			 *  \param[out] Buffer   Pointer to the source data buffer to write to.
-			 *  \param[in] Length    Number of bytes to read for the currently selected pipe to read from.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
+			 *  \param[in]  Length    Number of bytes to read for the currently selected pipe to read from.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */

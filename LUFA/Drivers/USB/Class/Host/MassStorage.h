@@ -137,9 +137,9 @@
 			 *  is found within the device. This should be called once after the stack has enumerated the attached device, while
 			 *  the host state machine is in the Addressed state.
 			 *
-			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing an MS Class host configuration and state
-			 *  \param[in] ConfigDescriptorSize  Length of the attached device's Configuration Descriptor
-			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
+			 *  \param[in,out] MSInterfaceInfo         Pointer to a structure containing an MS Class host configuration and state
+			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor
+			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
 			 *
 			 *  \return A value from the \ref MSHost_EnumerationFailure_ErrorCodes_t enum
 			 */
@@ -164,7 +164,7 @@
 			 *        if the device STALLs the request.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
-			 *  \param[out] MaxLUNIndex  Pointer to a location where the highest LUN index value should be stored
+			 *  \param[out]    MaxLUNIndex      Pointer to a location where the highest LUN index value should be stored
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum
 			 */
@@ -178,8 +178,8 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
-			 *  \param[in] LUNIndex  LUN index within the device the command is being issued to
-			 *  \param[out] InquiryData  Location where the read inquiry data should be stored
+			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
+			 *  \param[out]    InquiryData      Location where the read inquiry data should be stored
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED
 			 */
@@ -190,7 +190,7 @@
 			/** Sends a TEST UNIT READY command to the device, to determine if it is ready to accept other SCSI commands.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
-			 *  \param[in] LUNIndex  LUN index within the device the command is being issued to
+			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready
 			 */
@@ -203,8 +203,8 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
-			 *  \param[in] LUNIndex  LUN index within the device the command is being issued to
-			 *  \param[out] DeviceCapacity  Pointer to the location where the capacity information should be stored
+			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
+			 *  \param[out]    DeviceCapacity   Pointer to the location where the capacity information should be stored
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready
 			 */
@@ -219,8 +219,8 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
-			 *  \param[in] LUNIndex  LUN index within the device the command is being issued to
-			 *  \param[out] SenseData  Pointer to the location where the sense information should be stored
+			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
+			 *  \param[out]    SenseData        Pointer to the location where the sense information should be stored
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready
 			 */
@@ -235,8 +235,8 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
-			 *  \param[in] LUNIndex  LUN index within the device the command is being issued to
-			 *  \param[in] PreventRemoval  Boolean true if the device should be locked from removal, false otherwise
+			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
+			 *  \param[in]     PreventRemoval   Boolean true if the device should be locked from removal, false otherwise
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready
 			 */
@@ -249,11 +249,11 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
-			 *  \param[in] LUNIndex  LUN index within the device the command is being issued to
-			 *  \param[in] BlockAddress  Starting block address within the device to read from
-			 *  \param[in] Blocks  Total number of blocks to read
-			 *  \param[in] BlockSize  Size in bytes of each block within the device
-			 *  \param[out] BlockBuffer  Pointer to where the read data from the device should be stored
+			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
+			 *  \param[in]     BlockAddress     Starting block address within the device to read from
+			 *  \param[in]     Blocks           Total number of blocks to read
+			 *  \param[in]     BlockSize        Size in bytes of each block within the device
+			 *  \param[out]    BlockBuffer      Pointer to where the read data from the device should be stored
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready
 			 */
@@ -267,11 +267,11 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
-			 *  \param[in] LUNIndex  LUN index within the device the command is being issued to
-			 *  \param[in] BlockAddress  Starting block address within the device to write to
-			 *  \param[in] Blocks  Total number of blocks to read
-			 *  \param[in] BlockSize  Size in bytes of each block within the device
-			 *  \param[in] BlockBuffer  Pointer to where the data to write should be sourced from
+			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
+			 *  \param[in]     BlockAddress     Starting block address within the device to write to
+			 *  \param[in]     Blocks           Total number of blocks to read
+			 *  \param[in]     BlockSize        Size in bytes of each block within the device
+			 *  \param[in]     BlockBuffer      Pointer to where the data to write should be sourced from
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready
 			 */

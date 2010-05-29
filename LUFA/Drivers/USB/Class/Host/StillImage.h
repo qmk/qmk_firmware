@@ -134,9 +134,9 @@
 			 *  found within the device. This should be called once after the stack has enumerated the attached device, while
 			 *  the host state machine is in the Addressed state.
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[in] ConfigDescriptorSize  Length of the attached device's Configuration Descriptor
-			 *  \param[in] DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
+			 *  \param[in,out] SIInterfaceInfo         Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor
+			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
 			 *
 			 *  \return A value from the \ref SIHost_EnumerationFailure_ErrorCodes_t enum
 			 */
@@ -176,7 +176,7 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[in] PIMAHeader  Pointer to a PIMA container structure that is to be sent
+			 *  \param[in]     PIMAHeader       Pointer to a PIMA container structure that is to be sent
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
@@ -189,7 +189,7 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[out] PIMAHeader  Pointer to a PIMA container structure where the received block is to be stored
+			 *  \param[out]    PIMAHeader       Pointer to a PIMA container structure where the received block is to be stored
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
@@ -201,9 +201,9 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[in] Operation  PIMA operation code to issue to the device
-			 *  \param[in] TotalParams  Total number of 32-bit parameters to send to the device in the issued command block
-			 *  \param[in] Params  Pointer to an array of 32-bit values containing the parameters to send in the command block
+			 *  \param[in]     Operation        PIMA operation code to issue to the device
+			 *  \param[in]     TotalParams      Total number of 32-bit parameters to send to the device in the issued command block
+			 *  \param[in]     Params           Pointer to an array of 32-bit values containing the parameters to send in the command block
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
 			 *          returned a logical command failure
@@ -241,7 +241,7 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[out] PIMAHeader  Pointer to a PIMA container structure where the event should be stored
+			 *  \param[out]    PIMAHeader       Pointer to a PIMA container structure where the event should be stored
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
 			 *          returned a logical command failure
@@ -257,8 +257,8 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[in] Buffer  Pointer to a buffer where the data to send has been stored
-			 *  \param[in] Bytes  Length in bytes of the data in the buffer to send to the attached device
+			 *  \param[in]     Buffer           Pointer to a buffer where the data to send has been stored
+			 *  \param[in]     Bytes            Length in bytes of the data in the buffer to send to the attached device
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
@@ -272,8 +272,8 @@
 			 *        call will fail.
 			 *
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[out] Buffer  Pointer to a buffer where the received data is to be stored
-			 *  \param[in] Bytes  Length in bytes of the data to read
+			 *  \param[out]    Buffer           Pointer to a buffer where the received data is to be stored
+			 *  \param[in]     Bytes            Length in bytes of the data to read
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
