@@ -192,7 +192,7 @@ static void Bluetooth_ProcessIncommingACLPackets(void)
 		Pipe_Read_Stream_LE(PacketData, DataHeader.PayloadLength);
 		Pipe_ClearIN();
 		Pipe_Freeze();
-
+	
 		Bluetooth_PacketReceived(PacketData, DataHeader.PayloadLength,
 		                         Bluetooth_GetChannelData(DataHeader.DestinationChannel, CHANNEL_SEARCH_LOCALNUMBER));
 	}

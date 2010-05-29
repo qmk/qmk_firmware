@@ -169,7 +169,7 @@
 			{
 				uint8_t* CurrDataPos = (uint8_t*)Data;
 			
-				while (Bytes)
+				while (Bytes > 1)
 				{
 					uint8_t Temp = *CurrDataPos;
 					*CurrDataPos = *(CurrDataPos + Bytes - 1);
