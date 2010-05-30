@@ -208,7 +208,7 @@ void USB_Device_GetConfiguration(void)
 	Endpoint_ClearStatusStage();
 }
 
-#if !defined(NO_INTERNAL_SERIAL) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
+#if !defined(NO_INTERNAL_SERIAL) && (USE_INTERNAL_SERIAL != NO_DESCRIPTOR)
 static char USB_Device_NibbleToASCII(uint8_t Nibble)
 {
 	Nibble = ((Nibble & 0x0F) + '0');
@@ -261,7 +261,7 @@ static void USB_Device_GetDescriptor(void)
 	uint8_t  DescriptorAddressSpace;
 	#endif
 	
-	#if !defined(NO_INTERNAL_SERIAL) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
+	#if !defined(NO_INTERNAL_SERIAL) && (USE_INTERNAL_SERIAL != NO_DESCRIPTOR)
 	if (USB_ControlRequest.wValue == ((DTYPE_String << 8) | USE_INTERNAL_SERIAL))
 	{
 		USB_Device_GetInternalSerialDescriptor();

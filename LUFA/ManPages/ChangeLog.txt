@@ -30,6 +30,7 @@
   *    an overflow in the checksum calculation loop (thanks to Kevin Malec)
   *  - Fixed XPLAINBridge project not correctly reading the XMEGA's supply voltage when reporting back to the host
   *  - Fixed incorrect signature for the ATMEGA32U2 in the DFU bootloader (thanks to Axel Rohde)
+  *  - Fixed internal device serial not being accessible on the ATMEGAXXU2 AVRs (thanks to Axel Rohde)
   *
   *  \section Sec_ChangeLog100513 Version 100513
   *  <b>New:</b>

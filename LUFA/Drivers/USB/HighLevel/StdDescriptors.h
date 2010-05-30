@@ -80,7 +80,10 @@
 			 */
 			#define NO_DESCRIPTOR                     0
 
-			#if (!defined(NO_INTERNAL_SERIAL) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))) || defined(__DOXYGEN__)
+			#if (!defined(NO_INTERNAL_SERIAL) && \
+			     (defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1287__) || \
+			      defined(__AVR_ATmega32U6__) || defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB1286__) ||  \
+			      defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__)  || defined(__AVR_ATmega8U2__)))
 				/** String descriptor index for the device's unique serial number string descriptor within the device.
 				 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
 				 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some USB AVRs contain
