@@ -118,7 +118,7 @@
 			 *
 			 *  \see \ref USB_GetNextDescriptorComp function for more details
 			 */
-			typedef uint8_t (* const ConfigComparatorPtr_t)(void*);
+			typedef uint8_t (* ConfigComparatorPtr_t)(void*);
 
 		/* Function Prototypes: */
 			/** Searches for the next descriptor in the given configuration descriptor using a premade comparator
@@ -161,7 +161,7 @@
 			 *  }
 			 *  \endcode
 			 */
-			uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, void** CurrConfigLoc, ConfigComparatorPtr_t ComparatorRoutine);
+			uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, void** CurrConfigLoc, ConfigComparatorPtr_t const ComparatorRoutine);
 			
 		/* Enums: */
 			/** Enum for the possible return codes of the \ref USB_Host_GetDeviceConfigDescriptor() function. */
@@ -264,11 +264,9 @@
 			 * \param[in,out] BytesRem       Pointer to the number of bytes remaining of the configuration descriptor
 			 * \param[in,out] CurrConfigLoc  Pointer to the current descriptor inside the configuration descriptor
 			 */
-			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem,
-			                                         void** const CurrConfigLoc) 
+			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem, void** CurrConfigLoc) 
 			                                         ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);									  
-			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem,
-			                                         void** const CurrConfigLoc)
+			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem, void** CurrConfigLoc)
 			{
 				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
 

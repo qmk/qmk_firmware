@@ -85,7 +85,9 @@ F_CPU = 8000000
 F_CLOCK = $(F_CPU)
 
 
-# Starting byte address of the bootloader
+# Starting byte address of the bootloader, as a byte address. Note that the address given
+# in the AVRStudio fuse programming dialogue uses word addresses, which will have to be
+# doubled to obtain the starting byte address of the bootloader section.
 BOOT_START = 0x1E000
 
 
