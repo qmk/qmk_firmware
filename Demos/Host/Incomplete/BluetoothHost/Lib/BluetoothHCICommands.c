@@ -156,8 +156,6 @@ void Bluetooth_HCITask(void)
 						Bluetooth_Connection.IsConnected = false;
 						
 						Bluetooth_DisconnectionComplete();
-						
-						Bluetooth_State.CurrentHCIState = Bluetooth_Init;
 						break;
 				}
 			}

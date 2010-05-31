@@ -31,33 +31,11 @@
 #define  INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C
 #include "ServiceDiscoveryProtocol.h"
 
-/** Service Discovery Protocol attribute, indicating the service's availability. */
-const struct
-{
-	uint8_t Header;
-	uint8_t Data;
-} PROGMEM SDP_Attribute_Availability = {(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_8Bit), 0xFF};
-
 const struct
 {
 	uint8_t  Header;
 	uint32_t Data;
-} PROGMEM SDP_Attribute_ServiceHandle = {(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_32Bit), 0x00010000};
-
-const struct
-{
-	uint8_t   Header;
-	uint8_t   Size;
-	Version_t VersionList[];
-} PROGMEM SDP_Attribute_Version =
-	{
-		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
-		.Size   = (sizeof(Version_t) * 1),
-		.VersionList =
-			{
-				{.Header = (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), .Version = 0x0100}
-			}
-	};
+} PROGMEM SDP_Attribute_ServiceHandle = {(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_32Bit), SWAPENDIAN_32(0x00010000)};
 
 const struct
 {
@@ -67,31 +45,147 @@ const struct
 } PROGMEM SDP_Attribute_ServiceClassIDs =
 	{
 		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit),
-		.Size   = (sizeof(ClassUUID_t) * 1),
+		.Size   = SWAPENDIAN_16(sizeof(ClassUUID_t) * 1),
 		.UUIDList =
 			{
-				{.Header = (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), .UUID = {BASE_96BIT_UUID, 0x01, 0x00, 0x00, 0x00}}
+				{.Header = (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), .UUID = {BASE_96BIT_UUID, 0x00, 0x10, 0x00, 0x00}}
 			}
+	};
+
+const struct
+{
+	uint8_t     Header;
+	uint8_t     Size;
+	Item16Bit_t VersionList[];
+} PROGMEM SDP_Attribute_Version =
+	{
+		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
+		.Size   = (sizeof(Item16Bit_t) * 1),
+		.VersionList =
+			{
+				{.Header = (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), .Value = SWAPENDIAN_16(0x0100)}
+			}
+	};
+
+const struct
+{
+	uint8_t     Header;
+	uint8_t     Size;
+	Item16Bit_t OffsetList[];
+} PROGMEM SDP_Attribute_LangOffset =
+	{
+		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
+		.Size   = (sizeof(Item16Bit_t) * 1),
+		.OffsetList =
+			{
+				{.Header = (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), .Value = SWAPENDIAN_16(0x0100)}
+			}
+	};
+
+const struct
+{
+	uint8_t     Header;
+	uint8_t     Size;
+	char        Text[];
+} PROGMEM SDP_Attribute_ServiceName =
+	{
+		.Header = (SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit),
+		.Size   = sizeof("SDP") - 1,
+		.Text   = "SDP",
+	};
+
+const struct
+{
+	uint8_t     Header;
+	uint8_t     Size;
+	char        Text[];
+} PROGMEM SDP_Attribute_ServiceDescription =
+	{
+		.Header = (SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit),
+		.Size   = sizeof("Service Discovery Protocol Server") - 1,
+		.Text   = "Service Discovery Protocol Server",
 	};
 
 /** Service Discovery Protocol attribute table, listing all supported attributes of the service. */
 const ServiceAttributeTable_t SDP_Attribute_Table[] PROGMEM =
 	{
-		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE, .Data = &SDP_Attribute_ServiceHandle    },
-		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICECLASSIDS,     .Data = &SDP_Attribute_ServiceClassIDs  },
-		{.AttributeID = SDP_ATTRIBUTE_ID_VERSION,             .Data = &SDP_Attribute_Version          },
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE, .Data = &SDP_Attribute_ServiceHandle      },
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICECLASSIDS,     .Data = &SDP_Attribute_ServiceClassIDs    },
+		{.AttributeID = SDP_ATTRIBUTE_ID_VERSION,             .Data = &SDP_Attribute_Version            },
+		{.AttributeID = SDP_ATTRIBUTE_ID_LANGIDOFFSET,        .Data = &SDP_Attribute_LangOffset         },
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICENAME,         .Data = &SDP_Attribute_ServiceName        },
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION,  .Data = &SDP_Attribute_ServiceDescription },
 
 		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
 	};
 
+const struct
+{
+	uint8_t  Header;
+	uint32_t Data;
+} PROGMEM RFCOMM_Attribute_ServiceHandle = {(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_32Bit), SWAPENDIAN_32(0x00010001)};
+
+const struct
+{
+	uint8_t     Header;
+	uint16_t    Size;
+	ClassUUID_t UUIDList[];
+} PROGMEM RFCOMM_Attribute_ServiceClassIDs =
+	{
+		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit),
+		.Size   = SWAPENDIAN_16(sizeof(ClassUUID_t) * 1),
+		.UUIDList =
+			{
+				{.Header = (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), .UUID = {BASE_96BIT_UUID, 0x01, 0x11, 0x00, 0x00}}
+			}
+	};
+
+const struct
+{
+	uint8_t     Header;
+	uint8_t     Size;
+	char        Text[];
+} PROGMEM RFCOMM_Attribute_ServiceName =
+	{
+		.Header = (SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit),
+		.Size   = sizeof("Serial Port") - 1,
+		.Text   = "Serial Port",
+	};
+
+const struct
+{
+	uint8_t     Header;
+	uint8_t     Size;
+	char        Text[];
+} PROGMEM RFCOMM_Attribute_ServiceDescription =
+	{
+		.Header = (SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit),
+		.Size   = sizeof("Wireless Serial Port Service") - 1,
+		.Text   = "Wireless Serial Port Service",
+	};
+
+const ServiceAttributeTable_t RFCOMM_Attribute_Table[] PROGMEM =
+	{
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE, .Data = &RFCOMM_Attribute_ServiceHandle      },
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICECLASSIDS,     .Data = &RFCOMM_Attribute_ServiceClassIDs    },
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICENAME,         .Data = &RFCOMM_Attribute_ServiceName        },
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION,  .Data = &RFCOMM_Attribute_ServiceDescription },
+
+		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
+	};
+	
 /** Master service table, listing all supported services (and their attribute tables) of the device, including
  *  each service's UUID.
  */
 const ServiceTable_t SDP_Services_Table[] PROGMEM =
 	{
 		{   // 128-bit UUID for the SDP service
-			.UUID  = {BASE_96BIT_UUID, 0x00, 0x00, 0x00, 0x01},
+			.UUID  = {BASE_96BIT_UUID, 0x01, 0x00, 0x00, 0x00},
 			.AttributeTable = SDP_Attribute_Table,
+		},
+		{   // 128-bit UUID for the RFCOMM service
+			.UUID  = {BASE_96BIT_UUID, 0x03, 0x00, 0x00, 0x00},
+			.AttributeTable = RFCOMM_Attribute_Table,
 		},
 	};
 
@@ -195,19 +289,22 @@ static void SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Blu
 	ResponsePacket.TotalServiceRecordCount   = SwapEndian_16(AddedServiceHandles);
 	ResponsePacket.CurrentServiceRecordCount = ResponsePacket.TotalServiceRecordCount;
 
+	/* Calculate the total parameter length that is to be sent, including the fixed return parameters, the created service
+	   handle list and the SDP continuation state */
+	uint16_t ParamLength = (ResponsePacket.CurrentServiceRecordCount << 2) +
+	                        sizeof(ResponsePacket.CurrentServiceRecordCount) +
+	                        sizeof(ResponsePacket.TotalServiceRecordCount) +
+	                        sizeof(uint8_t);
+
 	/* Fill in the response packet's header */
 	ResponsePacket.SDPHeader.PDU             = SDP_PDU_SERVICESEARCHRESPONSE;
 	ResponsePacket.SDPHeader.TransactionID   = SDPHeader->TransactionID;
-	ResponsePacket.SDPHeader.ParameterLength = SwapEndian_16((ResponsePacket.CurrentServiceRecordCount << 2) +
-	                                                         sizeof(ResponsePacket.CurrentServiceRecordCount) +
-	                                                         sizeof(ResponsePacket.TotalServiceRecordCount) +
-	                                                         sizeof(uint8_t));
+	ResponsePacket.SDPHeader.ParameterLength = SwapEndian_16(ParamLength);
 
 	BT_SDP_DEBUG(1, ">> Service Search Response");
 
 	/* Send the completed response packet to the sender */
-	Bluetooth_SendPacket(&ResponsePacket, (sizeof(ResponsePacket.SDPHeader) + ResponsePacket.SDPHeader.ParameterLength),
-	                     Channel);
+	Bluetooth_SendPacket(&ResponsePacket, (sizeof(ResponsePacket.SDPHeader) + ParamLength), Channel);
 }
 
 /** Internal processing routine for SDP Service Attribute Requests.
@@ -313,21 +410,25 @@ static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHe
 	/* Set the total response list size to the size of the outer container plus its header size and continuation state */
 	ResponsePacket.AttributeListByteCount    = SwapEndian_16(3 + *TotalResponseSize);
 
+	/* Calculate the total parameter length that is to be sent, including the fixed return parameters, the created attribute
+	   value list and the SDP continuation state */
+	uint16_t ParamLength = (sizeof(ResponsePacket.AttributeListByteCount) + 
+	                        (3 + *TotalResponseSize) +
+	                        sizeof(uint8_t));
+
 	/* Fill in the response packet's header */
 	ResponsePacket.SDPHeader.PDU             = SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE;
 	ResponsePacket.SDPHeader.TransactionID   = SDPHeader->TransactionID;
-	ResponsePacket.SDPHeader.ParameterLength = SwapEndian_16(sizeof(ResponsePacket.AttributeListByteCount) + 
-	                                                         (3 + *TotalResponseSize) +
-	                                                         sizeof(uint8_t));
+	ResponsePacket.SDPHeader.ParameterLength = SwapEndian_16(ParamLength);
 
 	/* Flip the endianness of the container's size */
 	*TotalResponseSize = SwapEndian_16(*TotalResponseSize);
 
 	BT_SDP_DEBUG(1, ">> Service Search Attribute Response");
+	BT_SDP_DEBUG(2, "-- Param Len 0x%04X", ParamLength);
 
 	/* Send the completed response packet to the sender */
-	Bluetooth_SendPacket(&ResponsePacket, (sizeof(ResponsePacket.SDPHeader) + ResponsePacket.SDPHeader.ParameterLength),
-	                     Channel);
+	Bluetooth_SendPacket(&ResponsePacket, (sizeof(ResponsePacket.SDPHeader) + ParamLength), Channel);
 }
 
 /** Adds the given attribute ID and value to the reponse buffer, and advances the response buffer pointer past the added data.
@@ -343,7 +444,7 @@ static uint16_t SDP_AddAttributeToResponse(const uint16_t AttributeID, const voi
 	/* Retrieve the size of the attribute value from its container header */
 	uint8_t  AttributeHeaderLength;
 	uint32_t AttributeValueLength = SDP_GetLocalAttributeContainerSize(AttributeValue, &AttributeHeaderLength);
-
+	
 	/* Add a Data Element header to the response for the Attribute ID */
 	*((uint8_t*)*ResponseBuffer) = (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit);
 	*ResponseBuffer += sizeof(uint8_t);
@@ -354,7 +455,6 @@ static uint16_t SDP_AddAttributeToResponse(const uint16_t AttributeID, const voi
 	
 	/* Copy over the Attribute value Data Element container to the response */
 	memcpy_P(*ResponseBuffer, AttributeValue, AttributeHeaderLength + AttributeValueLength);
-	SwapEndian_n(*ResponseBuffer, AttributeHeaderLength);
 	*ResponseBuffer += AttributeHeaderLength + AttributeValueLength;
 	
 	return (sizeof(uint8_t) + sizeof(uint16_t) + AttributeHeaderLength + AttributeValueLength);
@@ -498,7 +598,15 @@ static uint8_t SDP_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void**
 
 		/* Copy over UUID from the container to the free slot - if a short UUID (<= 4 bytes) it replaces the lower
 		   4 bytes of the base UUID, otherwise it replaces the UUID completely */
-		memcpy(&CurrentUUID[(UUIDLength <= 4) ? (UUID_SIZE_BYTES - 4) : 0], *CurrentParameter, UUIDLength);
+		if (UUIDLength <= 4)
+		{
+			memcpy(&CurrentUUID[UUID_SIZE_BYTES - 4], *CurrentParameter, UUIDLength);
+			SwapEndian_n(&CurrentUUID[UUID_SIZE_BYTES - 4], UUIDLength);				
+		}
+		else
+		{
+			memcpy(&CurrentUUID[0], *CurrentParameter, UUIDLength);		
+		}
 		
 		BT_SDP_DEBUG(2, "-- UUID (%d): 0x%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
 		                UUIDLength,
@@ -533,10 +641,10 @@ static uint32_t SDP_GetLocalAttributeContainerSize(const void* const AttributeDa
 			return pgm_read_byte(AttributeData + 1);
 		case SDP_DATASIZE_Variable16Bit:
 			*HeaderSize = (1 + sizeof(uint16_t));
-			return pgm_read_word(AttributeData + 1);
+			return SwapEndian_16(pgm_read_word(AttributeData + 1));
 		case SDP_DATASIZE_Variable32Bit:
 			*HeaderSize = (1 + sizeof(uint32_t));
-			return pgm_read_dword(AttributeData + 1);
+			return SwapEndian_32(pgm_read_dword(AttributeData + 1));
 		default:
 			*HeaderSize = 1;
 			return (1 << SizeIndex);

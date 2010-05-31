@@ -59,6 +59,11 @@
 		#define SDP_ATTRIBUTE_ID_LANGIDOFFSET           0x0006
 		#define SDP_ATTRIBUTE_ID_AVAILABILITY           0x0008
 		#define SDP_ATTRIBUTE_ID_VERSION                0x0200
+		#define SDP_ATTRIBUTE_ID_SERVICENAME            0x0100
+		#define SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION     0x0101
+		
+		#define SWAPENDIAN_16(x)                        ((((x) & 0xFF00) >> 8) | (((x) & 0x00FF) << 8))
+		#define SWAPENDIAN_32(x)                        (SWAPENDIAN_16(((x) & 0xFFFF0000) >> 16) | SWAPENDIAN_16(((x) & 0x0000FFFF) << 16))
 		
 		/** Size of a full 128 bit UUID, in bytes. */
 		#define UUID_SIZE_BYTES                         16
@@ -137,12 +142,26 @@
 			uint8_t UUID[UUID_SIZE_BYTES]; /**< UUID to store in the list Data Element */
 		} ClassUUID_t;
 
-		/** Structure for a list of Data Elements containing Version Numbers, for service attributes requiring Version lists. */
+		/** Structure for a list of Data Elements containing 8-bit integers, for service attributes requiring such lists. */
+		typedef struct
+		{
+			uint8_t  Header; /**< Data Element header, should be (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_8Bit) */
+			uint8_t Value; /**< Value to store in the list Data Element */
+		} Item8Bit_t;
+
+		/** Structure for a list of Data Elements containing 16-bit integers, for service attributes requiring such lists. */
 		typedef struct
 		{
 			uint8_t  Header; /**< Data Element header, should be (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit) */
-			uint16_t Version; /**< Version number to store in the list Data Element */
-		} Version_t;
+			uint16_t Value; /**< Value to store in the list Data Element */
+		} Item16Bit_t;
+
+		/** Structure for a list of Data Elements containing 32-bit integers, for service attributes requiring such lists. */
+		typedef struct
+		{
+			uint8_t  Header; /**< Data Element header, should be (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_32Bit) */
+			uint32_t Value; /**< Value to store in the list Data Element */
+		} Item32Bit_t;
 		
 	/* Inline Functions: */
 		/** Adds a new Data Element container of the given type with a 16-bit size header to the buffer. The
@@ -160,12 +179,13 @@
 		 */
 		static inline uint16_t* SDP_AddDataElementHeader16(void** BufferPos, const uint8_t Type)
 		{
-			*((uint8_t*)*BufferPos) = (SDP_DATASIZE_Variable16Bit | Type);	
+			*((uint8_t*)*BufferPos) = (SDP_DATASIZE_Variable16Bit | Type);
+			*BufferPos += sizeof(uint8_t);
 
-			uint16_t* SizePos = (uint16_t*)*(BufferPos + 1);
+			uint16_t* SizePos = (uint16_t*)*BufferPos;
+			*BufferPos += sizeof(uint16_t);
+
 			*SizePos = 0;
-
-			*BufferPos += 3;			
 			return SizePos;
 		}
 		
