@@ -21,7 +21,7 @@
  *  - AT90USB162 Breadboard PCB (Russian): http://microsin.ru/content/view/685/44/
  *  - Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/wiki/benito
  *  - Bumble-B, yet another AT90USB162 development board: http://fletchtronics.net/bumble-b
- *  - JM-DB-U2, an ATMEGA32U2 development board: http://u2.mattair.net/index.html
+ *  - JM-DB-U2, an ATMEGA32U2 development board: http://www.mattairtech.com/index.php/development-boards/atmega32u2-development-board.html
  *  - Micropendous, an open design/source set of AVR USB development boards: http://micropendous.org/
  *  - Nanduino, a do-it-yourself AT90USB162 board: http://www.makestuff.eu/wordpress/?page_id=569
  *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html

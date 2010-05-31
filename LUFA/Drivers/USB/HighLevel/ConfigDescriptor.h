@@ -119,49 +119,6 @@
 			 *  \see \ref USB_GetNextDescriptorComp function for more details
 			 */
 			typedef uint8_t (* ConfigComparatorPtr_t)(void*);
-
-		/* Function Prototypes: */
-			/** Searches for the next descriptor in the given configuration descriptor using a premade comparator
-			 *  function. The routine updates the position and remaining configuration descriptor bytes values
-			 *  automatically. If a comparator routine fails a search, the descriptor pointer is retreated back
-			 *  so that the next descriptor search invocation will start from the descriptor which first caused the
-			 *  original search to fail. This behaviour allows for one comparator to be used immediately after another
-			 *  has failed, starting the second search from the descriptor which failed the first.
-			 *
-			 *  Comparator functions should be standard functions which accept a pointer to the header of the current
-			 *  descriptor inside the configuration descriptor which is being compared, and should return a value from
-			 *  the \ref DSearch_Return_ErrorCodes_t enum as a uint8_t value.
-			 *
-			 *  \note This function is available in USB Host mode only.
-			 *
-			 *  \param[in,out] BytesRem           Pointer to an int storing the remaining bytes in the configuration descriptor
-			 *  \param[in,out] CurrConfigLoc      Pointer to the current position in the configuration descriptor
-			 *  \param[in]     ComparatorRoutine  Name of the comparator search function to use on the configuration descriptor
-			 *
-			 *  \return Value of one of the members of the \ref DSearch_Comp_Return_ErrorCodes_t enum
-			 *
-			 *  Usage Example:
-			 *  \code
-			 *  uint8_t EndpointSearcher(void* CurrentDescriptor); // Comparator Prototype
-			 *
-			 *  uint8_t EndpointSearcher(void* CurrentDescriptor)
-			 *  {
-			 *     if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-			 *         return DESCRIPTOR_SEARCH_Found;
-			 *     else
-			 *         return DESCRIPTOR_SEARCH_NotFound;
-			 *  }
-			 *
-			 *  //...
-			 *  // After retrieving configuration descriptor:
-			 *  if (USB_Host_GetNextDescriptorComp(&BytesRemaining, &CurrentConfigLoc, EndpointSearcher) ==
-			 *      Descriptor_Search_Comp_Found)
-			 *  {
-			 *      // Do something with the endpoint descriptor
-			 *  }
-			 *  \endcode
-			 */
-			uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, void** CurrConfigLoc, ConfigComparatorPtr_t const ComparatorRoutine);
 			
 		/* Enums: */
 			/** Enum for the possible return codes of the \ref USB_Host_GetDeviceConfigDescriptor() function. */
@@ -257,7 +214,59 @@
 			                                      const uint8_t AfterType)
 			                                      ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
+			/** Searches for the next descriptor in the given configuration descriptor using a premade comparator
+			 *  function. The routine updates the position and remaining configuration descriptor bytes values
+			 *  automatically. If a comparator routine fails a search, the descriptor pointer is retreated back
+			 *  so that the next descriptor search invocation will start from the descriptor which first caused the
+			 *  original search to fail. This behaviour allows for one comparator to be used immediately after another
+			 *  has failed, starting the second search from the descriptor which failed the first.
+			 *
+			 *  Comparator functions should be standard functions which accept a pointer to the header of the current
+			 *  descriptor inside the configuration descriptor which is being compared, and should return a value from
+			 *  the \ref DSearch_Return_ErrorCodes_t enum as a uint8_t value.
+			 *
+			 *  \note This function is available in USB Host mode only.
+			 *
+			 *  \param[in,out] BytesRem           Pointer to an int storing the remaining bytes in the configuration descriptor
+			 *  \param[in,out] CurrConfigLoc      Pointer to the current position in the configuration descriptor
+			 *  \param[in]     ComparatorRoutine  Name of the comparator search function to use on the configuration descriptor
+			 *
+			 *  \return Value of one of the members of the \ref DSearch_Comp_Return_ErrorCodes_t enum
+			 *
+			 *  Usage Example:
+			 *  \code
+			 *  uint8_t EndpointSearcher(void* CurrentDescriptor); // Comparator Prototype
+			 *
+			 *  uint8_t EndpointSearcher(void* CurrentDescriptor)
+			 *  {
+			 *     if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
+			 *         return DESCRIPTOR_SEARCH_Found;
+			 *     else
+			 *         return DESCRIPTOR_SEARCH_NotFound;
+			 *  }
+			 *
+			 *  //...
+			 *  // After retrieving configuration descriptor:
+			 *  if (USB_Host_GetNextDescriptorComp(&BytesRemaining, &CurrentConfigLoc, EndpointSearcher) ==
+			 *      Descriptor_Search_Comp_Found)
+			 *  {
+			 *      // Do something with the endpoint descriptor
+			 *  }
+			 *  \endcode
+			 */
+			uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, void** const CurrConfigLoc, ConfigComparatorPtr_t const ComparatorRoutine);
+
 		/* Inline Functions: */
+			#if !defined(__DOXYGEN__)
+			static inline void USB_GetNextDescriptorST(uint16_t* const BytesRem, uint8_t** CurrConfigLoc)
+			{
+				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
+				
+				*CurrConfigLoc += CurrDescriptorSize;
+				*BytesRem      -= CurrDescriptorSize;
+			}			
+			#endif
+		
 			/** Skips over the current sub-descriptor inside the configuration descriptor, so that the pointer then
 			    points to the next sub-descriptor. The bytes remaining value is automatically decremented.
 			 *
@@ -268,12 +277,14 @@
 			                                         ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);									  
 			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem, void** CurrConfigLoc)
 			{
-				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
-
-				*CurrConfigLoc += CurrDescriptorSize;
-				*BytesRem      -= CurrDescriptorSize;
+				/* Horrible workaround for a bug in GCC - in some circumstances, the code generated for the strongly-typed
+				 * (uint8_t**) cast to avoid void pointer arithmetic (which is not allowed in C++) causes incorrect code to
+				 * be generated. Performing the cast and using a secondary inline routine show here seems to avoid the
+				 * problem.
+				 */
+				USB_GetNextDescriptorST(BytesRem, (uint8_t**)CurrConfigLoc);
 			}
-			
+		
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
