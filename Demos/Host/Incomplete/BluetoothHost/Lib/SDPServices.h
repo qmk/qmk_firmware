@@ -48,6 +48,7 @@
 		
 		#define SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE    0x0000
 		#define SDP_ATTRIBUTE_ID_SERVICECLASSIDS        0x0001
+		#define SDP_ATTRIBUTE_ID_PROTOCOLDESCRIPTORLIST 0x0004
 		#define SDP_ATTRIBUTE_ID_VERSION                0x0200
 		#define SDP_ATTRIBUTE_ID_SERVICENAME            0x0100
 		#define SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION     0x0101
@@ -87,13 +88,6 @@
 			const void* AttributeTable; /**< Pointer to the UUID's attribute table, located in PROGMEM memory space */
 		} ServiceTable_t;
 
-		/** Structure for a list of Data Elements containing UUIDs, for service attributes requiring UUID lists. */
-		typedef struct
-		{
-			uint8_t Header; /**< Data Element header, should be (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit) */
-			UUID_t  UUID; /**< UUID to store in the list Data Element */
-		} ItemUUID_t;
-
 		/** Structure for a list of Data Elements containing 8-bit integers, for service attributes requiring such lists. */
 		typedef struct
 		{
@@ -115,6 +109,24 @@
 			uint32_t Value; /**< Value to store in the list Data Element */
 		} Item32Bit_t;
 
+		/** Structure for a list of Data Elements containing UUIDs, for service attributes requiring UUID lists. */
+		typedef struct
+		{
+			uint8_t Header; /**< Data Element header, should be (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit) */
+			UUID_t  UUID; /**< UUID to store in the list Data Element */
+		} ItemUUID_t;
+		
+		/** Structure for a list of Data Elements Sequences containing UUID Data Elements, for service attributes requiring
+		 *  protocol lists.
+		 */
+		typedef struct
+		{
+			uint8_t     Header; /**< Data Element header, should be (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit) */
+			uint8_t     Size; /**< Size of the inner Data Element sequence */
+			
+			ItemUUID_t  UUID; /**< UUID to store in the protocol list Data Element sequence */
+		} ItemProtocol_t;
+		
 	/* External Variables: */
 		extern const ServiceAttributeTable_t SDP_Attribute_Table[];
 		extern const ServiceAttributeTable_t RFCOMM_Attribute_Table[];
