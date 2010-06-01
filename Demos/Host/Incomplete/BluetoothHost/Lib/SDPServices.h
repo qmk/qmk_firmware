@@ -43,8 +43,8 @@
 		/** Size of a full 128 bit UUID, in bytes. */
 		#define UUID_SIZE_BYTES                         16
 		
-		/** First 96 bits common to all standardized Bluetooth services. */
-		#define BASE_96BIT_UUID                         0xFB, 0x34, 0x9B, 0x5F, 0x80, 0x00, 0x00, 0x80, 0x00, 0x10, 0x00, 0x00
+		/** First 80 bits common to all standardized Bluetooth services. */
+		#define BASE_80BIT_UUID                         SWAPENDIAN_32(0xFB349B5F), SWAPENDIAN_16(0x8000), SWAPENDIAN_16(0x0080), SWAPENDIAN_16(0x0010)
 		
 		#define SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE    0x0000
 		#define SDP_ATTRIBUTE_ID_SERVICECLASSIDS        0x0001
@@ -61,6 +61,15 @@
 		#define SERVICE_ATTRIBUTE_TABLE_TERMINATOR      {.Data = NULL}
 		
 	/* Type Defines: */
+		typedef struct
+		{
+			uint32_t A;
+			uint16_t B;
+			uint16_t C;
+			uint16_t D;
+			uint8_t  E[6];
+		} UUID_t;
+	
 		/** Structure for the association of attribute ID values to an attribute value in FLASH. A table of these
 		 *  structures can then be built up for each supported UUID service within the device.
 		 */
@@ -75,7 +84,7 @@
 		 */
 		typedef struct
 		{
-			uint8_t     UUID[UUID_SIZE_BYTES]; /**< UUID of a service supported by the device */
+			UUID_t      UUID; /**< UUID of a service supported by the device */
 			const void* AttributeTable; /**< Pointer to the UUID's attribute table, located in PROGMEM memory space */
 		} ServiceTable_t;
 
@@ -83,13 +92,13 @@
 		typedef struct
 		{
 			uint8_t Header; /**< Data Element header, should be (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit) */
-			uint8_t UUID[UUID_SIZE_BYTES]; /**< UUID to store in the list Data Element */
-		} ClassUUID_t;
+			UUID_t  UUID; /**< UUID to store in the list Data Element */
+		} ItemUUID_t;
 
 		/** Structure for a list of Data Elements containing 8-bit integers, for service attributes requiring such lists. */
 		typedef struct
 		{
-			uint8_t  Header; /**< Data Element header, should be (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_8Bit) */
+			uint8_t Header; /**< Data Element header, should be (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_8Bit) */
 			uint8_t Value; /**< Value to store in the list Data Element */
 		} Item8Bit_t;
 

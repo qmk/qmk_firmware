@@ -129,6 +129,48 @@
 			return SizePos;
 		}
 		
+		static inline void SDP_WriteData8(void** BufferPos, uint8_t Data)
+		{
+			*((uint8_t*)*BufferPos) = Data;
+			*BufferPos += sizeof(uint8_t);
+		}
+		
+		static inline void SDP_WriteData16(void** BufferPos, uint16_t Data)
+		{
+			*((uint16_t*)*BufferPos) = SwapEndian_16(Data);
+			*BufferPos += sizeof(uint16_t);
+		}		
+
+		static inline void SDP_WriteData32(void** BufferPos, uint32_t Data)
+		{
+			*((uint32_t*)*BufferPos) = SwapEndian_32(Data);
+			*BufferPos += sizeof(uint32_t);
+		}
+
+		static inline uint8_t SDP_ReadData8(const void** BufferPos)
+		{
+			uint8_t Data = *((uint8_t*)*BufferPos);
+			*BufferPos += sizeof(uint8_t);
+			
+			return Data;
+		}
+
+		static inline uint16_t SDP_ReadData16(const void** BufferPos)
+		{
+			uint16_t Data = SwapEndian_16(*((uint16_t*)*BufferPos));
+			*BufferPos += sizeof(uint16_t);
+			
+			return Data;
+		}
+
+		static inline uint32_t SDP_ReadData32(const void** BufferPos)
+		{
+			uint32_t Data = SwapEndian_32(*((uint32_t*)*BufferPos));
+			*BufferPos += sizeof(uint32_t);
+			
+			return Data;
+		}
+		
 	/* Function Prototypes: */
 		void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel);
 
@@ -137,6 +179,7 @@
 			static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
 			static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
 
+			static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t* AttributeTable, uint16_t AttributeList[][2], uint8_t TotalAttributes, void** BufferPos);
 			static uint16_t SDP_AddAttributeToResponse(const uint16_t AttributeID, const void* AttributeValue, void** ResponseBuffer);
 			static void*    SDP_GetAttributeValue(const ServiceAttributeTable_t* AttributeTable, const uint16_t AttributeID);
 			static ServiceAttributeTable_t* SDP_GetAttributeTable(const uint8_t* const UUID);

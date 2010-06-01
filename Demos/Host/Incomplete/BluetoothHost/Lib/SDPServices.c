@@ -40,14 +40,14 @@ const struct
 {
 	uint8_t     Header;
 	uint16_t    Size;
-	ClassUUID_t UUIDList[];
+	ItemUUID_t UUIDList[];
 } PROGMEM SDP_Attribute_ServiceClassIDs =
 	{
 		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit),
-		.Size   = SWAPENDIAN_16(sizeof(ClassUUID_t) * 1),
+		.Size   = SWAPENDIAN_16(sizeof(ItemUUID_t) * 1),
 		.UUIDList =
 			{
-				{.Header = (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), .UUID = {BASE_96BIT_UUID, 0x00, 0x10, 0x00, 0x00}}
+				{.Header = (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), .UUID = {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x10, 0x00}},}
 			}
 	};
 
@@ -128,14 +128,14 @@ const struct
 {
 	uint8_t     Header;
 	uint16_t    Size;
-	ClassUUID_t UUIDList[];
+	ItemUUID_t UUIDList[];
 } PROGMEM RFCOMM_Attribute_ServiceClassIDs =
 	{
 		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit),
-		.Size   = SWAPENDIAN_16(sizeof(ClassUUID_t) * 1),
+		.Size   = SWAPENDIAN_16(sizeof(ItemUUID_t) * 1),
 		.UUIDList =
 			{
-				{.Header = (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), .UUID = {BASE_96BIT_UUID, 0x01, 0x11, 0x00, 0x00}}
+				{.Header = (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), .UUID = {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x11, 0x01}},}
 			}
 	};
 
