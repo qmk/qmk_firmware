@@ -38,8 +38,8 @@ const struct
 
 const struct
 {
-	uint8_t     Header;
-	uint16_t    Size;
+	uint8_t    Header;
+	uint16_t   Size;
 	ItemUUID_t UUIDList[];
 } PROGMEM SDP_Attribute_ServiceClassIDs =
 	{
@@ -50,6 +50,21 @@ const struct
 				{.Header = (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), .UUID = {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x10, 0x00}},}
 			}
 	};
+	
+const struct
+{
+	uint8_t     Header;
+	uint8_t     Size;
+	Item16Bit_t OffsetList[];
+} PROGMEM SDP_Attribute_LangOffset =
+	{
+		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
+		.Size   = (sizeof(Item16Bit_t) * 1),
+		.OffsetList =
+			{
+				{.Header = (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), .Value = SWAPENDIAN_16(0x0100)}
+			}
+	};	
 
 const struct
 {
@@ -68,24 +83,9 @@ const struct
 
 const struct
 {
-	uint8_t     Header;
-	uint8_t     Size;
-	Item16Bit_t OffsetList[];
-} PROGMEM SDP_Attribute_LangOffset =
-	{
-		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
-		.Size   = (sizeof(Item16Bit_t) * 1),
-		.OffsetList =
-			{
-				{.Header = (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), .Value = SWAPENDIAN_16(0x0100)}
-			}
-	};
-
-const struct
-{
-	uint8_t     Header;
-	uint8_t     Size;
-	char        Text[];
+	uint8_t Header;
+	uint8_t Size;
+	char    Text[];
 } PROGMEM SDP_Attribute_ServiceName =
 	{
 		.Header = (SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit),
@@ -95,9 +95,9 @@ const struct
 
 const struct
 {
-	uint8_t     Header;
-	uint8_t     Size;
-	char        Text[];
+	uint8_t Header;
+	uint8_t Size;
+	char    Text[];
 } PROGMEM SDP_Attribute_ServiceDescription =
 	{
 		.Header = (SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit),
@@ -110,8 +110,8 @@ const ServiceAttributeTable_t SDP_Attribute_Table[] PROGMEM =
 	{
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE, .Data = &SDP_Attribute_ServiceHandle      },
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICECLASSIDS,     .Data = &SDP_Attribute_ServiceClassIDs    },
-		{.AttributeID = SDP_ATTRIBUTE_ID_VERSION,             .Data = &SDP_Attribute_Version            },
 		{.AttributeID = SDP_ATTRIBUTE_ID_LANGIDOFFSET,        .Data = &SDP_Attribute_LangOffset         },
+		{.AttributeID = SDP_ATTRIBUTE_ID_VERSION,             .Data = &SDP_Attribute_Version            },
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICENAME,         .Data = &SDP_Attribute_ServiceName        },
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION,  .Data = &SDP_Attribute_ServiceDescription },
 
@@ -126,8 +126,8 @@ const struct
 
 const struct
 {
-	uint8_t     Header;
-	uint16_t    Size;
+	uint8_t    Header;
+	uint16_t   Size;
 	ItemUUID_t UUIDList[];
 } PROGMEM RFCOMM_Attribute_ServiceClassIDs =
 	{
@@ -143,7 +143,22 @@ const struct
 {
 	uint8_t     Header;
 	uint8_t     Size;
-	char        Text[];
+	Item16Bit_t OffsetList[];
+} PROGMEM RFCOMM_Attribute_LangOffset =
+	{
+		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
+		.Size   = (sizeof(Item16Bit_t) * 1),
+		.OffsetList =
+			{
+				{.Header = (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), .Value = SWAPENDIAN_16(0x0100)}
+			}
+	};
+
+const struct
+{
+	uint8_t Header;
+	uint8_t Size;
+	char    Text[];
 } PROGMEM RFCOMM_Attribute_ServiceName =
 	{
 		.Header = (SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit),
@@ -153,9 +168,9 @@ const struct
 
 const struct
 {
-	uint8_t     Header;
-	uint8_t     Size;
-	char        Text[];
+	uint8_t Header;
+	uint8_t Size;
+	char    Text[];
 } PROGMEM RFCOMM_Attribute_ServiceDescription =
 	{
 		.Header = (SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit),
@@ -167,6 +182,7 @@ const ServiceAttributeTable_t RFCOMM_Attribute_Table[] PROGMEM =
 	{
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE, .Data = &RFCOMM_Attribute_ServiceHandle      },
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICECLASSIDS,     .Data = &RFCOMM_Attribute_ServiceClassIDs    },
+		{.AttributeID = SDP_ATTRIBUTE_ID_LANGIDOFFSET,        .Data = &RFCOMM_Attribute_LangOffset         },
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICENAME,         .Data = &RFCOMM_Attribute_ServiceName        },
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION,  .Data = &RFCOMM_Attribute_ServiceDescription },
 

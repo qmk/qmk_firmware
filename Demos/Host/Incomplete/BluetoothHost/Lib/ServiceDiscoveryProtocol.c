@@ -116,11 +116,10 @@ static void SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Blu
 	/* Search through the list of UUIDs one at a time looking for matching search Attributes */
 	for (uint8_t CurrUUIDItem = 0; CurrUUIDItem < TotalUUIDs; CurrUUIDItem++)
 	{
+		ServiceAttributeTable_t* AttributeTable;
+
 		/* Retrieve the attribute table of the current search UUID from the global UUID table if it exists */
-		ServiceAttributeTable_t* AttributeTable = SDP_GetAttributeTable(UUIDList[CurrUUIDItem]);
-		
-		/* If the UUID does not exist in the global UUID table, continue on to the next search UUID */
-		if (AttributeTable == NULL)
+		if ((AttributeTable = SDP_GetAttributeTable(UUIDList[CurrUUIDItem])) == NULL)
 		  continue;
 		  
 		BT_SDP_DEBUG(2, " -- Found UUID %d in table", CurrUUIDItem);
@@ -216,9 +215,12 @@ static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, 
 		/* Get the size of the header for the Service Record Handle */
 		uint8_t AttrHeaderSize;
 		SDP_GetLocalAttributeContainerSize(ServiceRecord, &AttrHeaderSize);
-
+		
+		/* Retrieve the endian-swapped service handle of the current service being examined */
+		uint32_t CurrServiceHandle = SwapEndian_32(pgm_read_dword(ServiceRecord + AttrHeaderSize));
+		
 		/* Check if the current service in the service table has the requested service handle */
-		if (memcmp_P(ServiceRecord + AttrHeaderSize, &ServiceHandle, sizeof(uint32_t)) == 0)
+		if (ServiceHandle == CurrServiceHandle)
 		{
 			*TotalResponseSize += SDP_AddListedAttributesToResponse(CurrAttributeTable, AttributeList, TotalAttributes,
 		                                                            &CurrResponsePos);
@@ -300,15 +302,15 @@ static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHe
 	/* Search through the list of UUIDs one at a time looking for matching search Attributes */
 	for (uint8_t CurrUUIDItem = 0; CurrUUIDItem < TotalUUIDs; CurrUUIDItem++)
 	{
+		ServiceAttributeTable_t* AttributeTable;
+
 		/* Retrieve the attribute table of the current search UUID from the global UUID table if it exists */
-		ServiceAttributeTable_t* AttributeTable = SDP_GetAttributeTable(UUIDList[CurrUUIDItem]);
-		
-		/* If the UUID does not exist in the global UUID table, continue on to the next search UUID */
-		if (AttributeTable == NULL)
+		if ((AttributeTable = SDP_GetAttributeTable(UUIDList[CurrUUIDItem])) == NULL)
 		  continue;
 		  
 		BT_SDP_DEBUG(2, " -- Found UUID %d in table", CurrUUIDItem);
 
+		/* Add the listed attributes for the found UUID to the response */
 		*TotalResponseSize += SDP_AddListedAttributesToResponse(AttributeTable, AttributeList, TotalAttributes,
 		                                                        &CurrResponsePos);
 	}
@@ -361,21 +363,24 @@ static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t*
 	for (uint8_t CurrAttribute = 0; CurrAttribute < TotalAttributes; CurrAttribute++)
 	{
 		uint16_t* AttributeIDRange = AttributeList[CurrAttribute];
-	
-		/* Look in the current Attribute Range for a matching Attribute ID in the UUID's Attribute table */
-		for (uint32_t CurrAttributeID = AttributeIDRange[0]; CurrAttributeID <= AttributeIDRange[1]; CurrAttributeID++)
+		void*     AttributeValue;
+		
+		/* Look through the current service's attribute list, examining all the attributes */
+		while ((AttributeValue = (void*)pgm_read_word(&AttributeTable->Data)) != NULL)
 		{
-			/* Retrieve a PROGMEM pointer to the value of the current Attribute ID, if it exists in the UUID's Attribute table */
-			const void* AttributeValue = SDP_GetAttributeValue(AttributeTable, CurrAttributeID);
-			
-			/* If the Attribute does not exist in the current UUID's Attribute table, continue to the next Attribute ID */
-			if (AttributeValue == NULL)
-			  continue;
-			
-			BT_SDP_DEBUG(2, " -- Add Attribute 0x%04X", CurrAttributeID);
+			/* Get the current Attribute's ID from the current attribute table entry */
+			uint16_t CurrAttributeID = pgm_read_word(&AttributeTable->AttributeID);
 
-			/* Increment the current UUID's returned Attribute container size by the number of added bytes */
-			*AttributeListSize += SDP_AddAttributeToResponse(CurrAttributeID, AttributeValue, BufferPos);
+			/* Check if the current Attribute's ID is within the current Attribute range */
+			if ((CurrAttributeID >= AttributeIDRange[0]) && (CurrAttributeID <= AttributeIDRange[1]))
+			{
+				BT_SDP_DEBUG(2, " -- Add Attribute 0x%04X", CurrAttributeID);
+
+				/* Increment the current UUID's returned Attribute container size by the number of added bytes */
+				*AttributeListSize += SDP_AddAttributeToResponse(CurrAttributeID, AttributeValue, BufferPos);			
+			}
+			
+			AttributeTable++;
 		}
 
 		/* Increment the outer container size by the number of added bytes */
@@ -551,12 +556,8 @@ static uint8_t SDP_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void**
 		/* Copy over the base UUID value to the free UUID slot in the list */
 		memcpy_P(CurrentUUID, &BaseUUID, sizeof(BaseUUID));
 
-		/* Copy over UUID from the container to the free slot - if a short UUID (<= 4 bytes) it replaces the lower
-		   4 bytes of the base UUID, otherwise it replaces the UUID completely */
-		if (UUIDLength <= 4)
-		  memcpy(&CurrentUUID[UUID_SIZE_BYTES - UUIDLength], *CurrentParameter, UUIDLength);
-		else
-		  memcpy(&CurrentUUID[0], *CurrentParameter, UUIDLength);		
+		/* Copy over UUID from the container to the free slot */
+		memcpy(&CurrentUUID[UUID_SIZE_BYTES - UUIDLength], *CurrentParameter, UUIDLength);
 		
 		BT_SDP_DEBUG(2, "-- UUID (%d): %02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
 		                UUIDLength,

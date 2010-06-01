@@ -49,13 +49,13 @@
 		#define SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE    0x0000
 		#define SDP_ATTRIBUTE_ID_SERVICECLASSIDS        0x0001
 		#define SDP_ATTRIBUTE_ID_LANGIDOFFSET           0x0006
-		#define SDP_ATTRIBUTE_ID_AVAILABILITY           0x0008
 		#define SDP_ATTRIBUTE_ID_VERSION                0x0200
 		#define SDP_ATTRIBUTE_ID_SERVICENAME            0x0100
 		#define SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION     0x0101
 		
 		#define SWAPENDIAN_16(x)                        ((((x) & 0xFF00) >> 8) | (((x) & 0x00FF) << 8))
-		#define SWAPENDIAN_32(x)                        (SWAPENDIAN_16(((x) & 0xFFFF0000) >> 16) | SWAPENDIAN_16(((x) & 0x0000FFFF) << 16))
+		#define SWAPENDIAN_32(x)                        ((((x) & 0xFF000000) >> 24) | (((x) & 0x00FF0000) >> 8) | \
+		                                                 (((x) & 0x0000FF00) << 8) | (((x) & 0x000000FF) << 24))
 		
 		/** Terminator for a service attribute table of type \ref ServiceAttributeTable_t. */
 		#define SERVICE_ATTRIBUTE_TABLE_TERMINATOR      {.Data = NULL}
