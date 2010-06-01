@@ -5,6 +5,7 @@
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
+
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
@@ -26,6 +27,12 @@
   arising out of or in connection with the use or performance of
   this software.
 */
+
+/** \file
+ *
+ *  Bluetooth class codes, used to describe the type and overall function of a
+ *  Bluetooth device to other Bluetooth devices.
+ */
 
 #ifndef _BLUETOOTH_CLASS_CODES_H_
 #define _BLUETOOTH_CLASS_CODES_H_

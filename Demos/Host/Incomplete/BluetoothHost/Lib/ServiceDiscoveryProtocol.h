@@ -28,6 +28,11 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for ServiceDiscoveryProtocol.c.
+ */
+
 #ifndef _SERVICEDISCOVERYPROTOCOL_H_
 #define _SERVICEDISCOVERYPROTOCOL_H_
 
@@ -41,6 +46,7 @@
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 
 		#include "BluetoothStack.h"
+		#include "SDPServices.h"
 		
 	/* Macros: */
 		#define BT_SDP_DEBUG(l, s, ...)                 do { if (SDP_DEBUG_LEVEL >= l) printf_P(PSTR("(SDP) " s "\r\n"), ##__VA_ARGS__); } while (0)
@@ -54,26 +60,6 @@
 		#define SDP_PDU_SERVICESEARCHATTRIBUTEREQUEST   0x06
 		#define SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE  0x07
 
-		#define SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE    0x0000
-		#define SDP_ATTRIBUTE_ID_SERVICECLASSIDS        0x0001
-		#define SDP_ATTRIBUTE_ID_LANGIDOFFSET           0x0006
-		#define SDP_ATTRIBUTE_ID_AVAILABILITY           0x0008
-		#define SDP_ATTRIBUTE_ID_VERSION                0x0200
-		#define SDP_ATTRIBUTE_ID_SERVICENAME            0x0100
-		#define SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION     0x0101
-		
-		#define SWAPENDIAN_16(x)                        ((((x) & 0xFF00) >> 8) | (((x) & 0x00FF) << 8))
-		#define SWAPENDIAN_32(x)                        (SWAPENDIAN_16(((x) & 0xFFFF0000) >> 16) | SWAPENDIAN_16(((x) & 0x0000FFFF) << 16))
-		
-		/** Size of a full 128 bit UUID, in bytes. */
-		#define UUID_SIZE_BYTES                         16
-		
-		/** First 96 bits common to all standadized Bluetooth services. */
-		#define BASE_96BIT_UUID                         0xFB, 0x34, 0x9B, 0x5F, 0x80, 0x00, 0x00, 0x80, 0x00, 0x10, 0x00, 0x00
-		
-		/** Terminator for a service attribute table of type \ref ServiceAttributeTable_t. */
-		#define SERVICE_ATTRIBUTE_TABLE_TERMINATOR      {.Data = NULL}
-		
 	/* Enums: */
 		/** Data sizes for SDP Data Element headers, to indicate the size of the data contained in the element. When creating
 		 *  a Data Element, a value from this enum should be ORed with a value from the \ref ServiceDiscovery_DataTypes_t enum.
@@ -116,52 +102,6 @@
 			uint16_t TransactionID; /**< Unique transaction ID number to associate requests and responses */
 			uint16_t ParameterLength; /**< Length of the data following the SDP header */
 		} SDP_PDUHeader_t;
-		
-		/** Structure for the association of attribute ID values to an attribute value in FLASH. A table of these
-		 *  structures can then be built up for each supported UUID service within the device.
-		 */
-		typedef struct
-		{
-			uint16_t    AttributeID; /**< Attribute ID of the table element which the UUID service supports */
-			const void* Data; /**< Pointer to the attribute data, located in PROGMEM memory space */
-		} ServiceAttributeTable_t;
-
-		/** Structure for the association of service UUID values to attribute tables stored in FLASH. A table of these
-		 *  structures can then be built up for each supported UUID service within the device.
-		 */
-		typedef struct
-		{
-			uint8_t     UUID[UUID_SIZE_BYTES]; /**< UUID of a service supported by the device */
-			const void* AttributeTable; /**< Pointer to the UUID's attribute table, located in PROGMEM memory space */
-		} ServiceTable_t;
-
-		/** Structure for a list of Data Elements containing UUIDs, for service attributes requiring UUID lists. */
-		typedef struct
-		{
-			uint8_t Header; /**< Data Element header, should be (SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit) */
-			uint8_t UUID[UUID_SIZE_BYTES]; /**< UUID to store in the list Data Element */
-		} ClassUUID_t;
-
-		/** Structure for a list of Data Elements containing 8-bit integers, for service attributes requiring such lists. */
-		typedef struct
-		{
-			uint8_t  Header; /**< Data Element header, should be (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_8Bit) */
-			uint8_t Value; /**< Value to store in the list Data Element */
-		} Item8Bit_t;
-
-		/** Structure for a list of Data Elements containing 16-bit integers, for service attributes requiring such lists. */
-		typedef struct
-		{
-			uint8_t  Header; /**< Data Element header, should be (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit) */
-			uint16_t Value; /**< Value to store in the list Data Element */
-		} Item16Bit_t;
-
-		/** Structure for a list of Data Elements containing 32-bit integers, for service attributes requiring such lists. */
-		typedef struct
-		{
-			uint8_t  Header; /**< Data Element header, should be (SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_32Bit) */
-			uint32_t Value; /**< Value to store in the list Data Element */
-		} Item32Bit_t;
 		
 	/* Inline Functions: */
 		/** Adds a new Data Element container of the given type with a 16-bit size header to the buffer. The

@@ -28,6 +28,11 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for BluetoothStack.c.
+ */
+
 #ifndef _BLUETOOTH_STACK_
 #define _BLUETOOTH_STACK_
 

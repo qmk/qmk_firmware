@@ -28,6 +28,11 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for BluetoothHCICommands.c.
+ */
+
 #ifndef _BLUETOOTH_HCICOMMANDS_H_
 #define _BLUETOOTH_HCICOMMANDS_H_
 

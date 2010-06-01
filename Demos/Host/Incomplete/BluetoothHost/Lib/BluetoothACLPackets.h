@@ -28,6 +28,11 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for BluetoothACLPackets.c.
+ */
+
 #ifndef _BLUETOOTH_ACLPACKETS_
 #define _BLUETOOTH_ACLPACKETS_
 
