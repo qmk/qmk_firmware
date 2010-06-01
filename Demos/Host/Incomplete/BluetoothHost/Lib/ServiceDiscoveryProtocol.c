@@ -31,9 +31,6 @@
 #define  INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C
 #include "ServiceDiscoveryProtocol.h"
 
-/** Base UUID value common to all standardized Bluetooth services */
-const UUID_t BaseUUID PROGMEM = {SWAPENDIAN_32(0xFB349B5F), SWAPENDIAN_16(0x8000), SWAPENDIAN_16(0x0080), SWAPENDIAN_16(0x0010)};
-
 /** Master service table, listing all supported services (and their attribute tables) of the device, including
  *  each service's UUID.
  */
@@ -49,6 +46,8 @@ const ServiceTable_t SDP_Services_Table[] PROGMEM =
 		},
 	};
 
+/** Base UUID value common to all standardized Bluetooth services */
+const UUID_t BaseUUID PROGMEM = {BASE_80BIT_UUID, {0, 0, 0, 0, 0, 0}};
 
 /** Main Service Discovery Protocol packet processing routine. This function processes incomming SDP packets from
  *  a connected Bluetooth device, and sends back appropriate responses to allow other devices to determine the
@@ -57,7 +56,7 @@ const ServiceTable_t SDP_Services_Table[] PROGMEM =
  *  \param[in]  Data     Incomming packet data containing the SDP request
  *  \param[in]  Channel  Channel the request was issued to by the remote device
  */
-void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel)
+void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 {
 	SDP_PDUHeader_t* SDPHeader = (SDP_PDUHeader_t*)Data;
 	SDPHeader->ParameterLength = SwapEndian_16(SDPHeader->ParameterLength);
@@ -222,6 +221,7 @@ static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, 
 		/* Check if the current service in the service table has the requested service handle */
 		if (ServiceHandle == CurrServiceHandle)
 		{
+			/* Add the listed attributes for the found UUID to the response */
 			*TotalResponseSize += SDP_AddListedAttributesToResponse(CurrAttributeTable, AttributeList, TotalAttributes,
 		                                                            &CurrResponsePos);
 			
@@ -311,7 +311,7 @@ static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHe
 		BT_SDP_DEBUG(2, " -- Found UUID %d in table", CurrUUIDItem);
 
 		/* Add the listed attributes for the found UUID to the response */
-		*TotalResponseSize += SDP_AddListedAttributesToResponse(AttributeTable, AttributeList, TotalAttributes,
+		*TotalResponseSize += SDP_AddListedAttributesToResponse(AttributeTable, AttributeList, TotalAttributes, 
 		                                                        &CurrResponsePos);
 	}
 	
@@ -351,8 +351,8 @@ static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHe
  *
  *  \return Number of bytes added to the output buffer
  */
-static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t* AttributeTable,
-                                                  uint16_t AttributeList[][2], uint8_t TotalAttributes, void** BufferPos)
+static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t* AttributeTable, uint16_t AttributeList[][2],
+                                                  const uint8_t TotalAttributes, void** const BufferPos)
 {
 	uint16_t TotalResponseSize = 0;
 
@@ -576,7 +576,8 @@ static uint8_t SDP_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void**
 
 /** Retrieves the total size of the given locally stored (in PROGMEM) attribute Data Element container.
  *
- *  \param[in] AttributeData  Pointer to the start of the Attribute container, located in PROGMEM
+ *  \param[in]  AttributeData  Pointer to the start of the Attribute container, located in PROGMEM
+ *  \param[out] HeaderSize     Pointer to a location where the header size of the data element is to be stored
  *
  *  \return Size in bytes of the entire attribute container, including the header
  */

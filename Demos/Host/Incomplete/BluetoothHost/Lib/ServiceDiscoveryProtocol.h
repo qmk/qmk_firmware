@@ -104,6 +104,81 @@
 		} SDP_PDUHeader_t;
 		
 	/* Inline Functions: */
+		/** Writes 8 bits of raw data to the given buffer, incrementing the buffer position afterwards.
+		 *
+		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be written to
+		 *  \param[in]      Data       Data to write to the buffer
+		 */
+		static inline void SDP_WriteData8(void** BufferPos, uint8_t Data)
+		{
+			*((uint8_t*)*BufferPos) = Data;
+			*BufferPos += sizeof(uint8_t);
+		}
+		
+		/** Writes 16 bits of raw data to the given buffer, incrementing the buffer position afterwards.
+		 *
+		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be written to
+		 *  \param[in]      Data       Data to write to the buffer
+		 */
+		static inline void SDP_WriteData16(void** BufferPos, uint16_t Data)
+		{
+			*((uint16_t*)*BufferPos) = SwapEndian_16(Data);
+			*BufferPos += sizeof(uint16_t);
+		}		
+
+		/** Writes 32 bits of raw data to the given buffer, incrementing the buffer position afterwards.
+		 *
+		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be written to
+		 *  \param[in]      Data       Data to write to the buffer
+		 */
+		static inline void SDP_WriteData32(void** BufferPos, uint32_t Data)
+		{
+			*((uint32_t*)*BufferPos) = SwapEndian_32(Data);
+			*BufferPos += sizeof(uint32_t);
+		}
+
+		/** Reads 8 bits of raw data frpm the given buffer, incrementing the buffer position afterwards.
+		 *
+		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be read from
+		 *
+		 *  \return Data read from the buffer
+		 */
+		static inline uint8_t SDP_ReadData8(const void** BufferPos)
+		{
+			uint8_t Data = *((uint8_t*)*BufferPos);
+			*BufferPos += sizeof(uint8_t);
+			
+			return Data;
+		}
+
+		/** Reads 16 bits of raw data frpm the given buffer, incrementing the buffer position afterwards.
+		 *
+		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be read from
+		 *
+		 *  \return Data read from the buffer
+		 */
+		static inline uint16_t SDP_ReadData16(const void** BufferPos)
+		{
+			uint16_t Data = SwapEndian_16(*((uint16_t*)*BufferPos));
+			*BufferPos += sizeof(uint16_t);
+			
+			return Data;
+		}
+
+		/** Reads 32 bits of raw data frpm the given buffer, incrementing the buffer position afterwards.
+		 *
+		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be read from
+		 *
+		 *  \return Data read from the buffer
+		 */
+		static inline uint32_t SDP_ReadData32(const void** BufferPos)
+		{
+			uint32_t Data = SwapEndian_32(*((uint32_t*)*BufferPos));
+			*BufferPos += sizeof(uint32_t);
+			
+			return Data;
+		}
+
 		/** Adds a new Data Element container of the given type with a 16-bit size header to the buffer. The
 		 *  buffer pointer's position is advanced past the added header once the element has been added. The
 		 *  returned size header value is pre-zeroed out so that it can be incremented as data is placed into
@@ -119,67 +194,25 @@
 		 */
 		static inline uint16_t* SDP_AddDataElementHeader16(void** BufferPos, const uint8_t Type)
 		{
-			*((uint8_t*)*BufferPos) = (SDP_DATASIZE_Variable16Bit | Type);
-			*BufferPos += sizeof(uint8_t);
+			SDP_WriteData8(BufferPos, (SDP_DATASIZE_Variable16Bit | Type));
 
 			uint16_t* SizePos = (uint16_t*)*BufferPos;
-			*BufferPos += sizeof(uint16_t);
+			
+			SDP_WriteData16(BufferPos, 0);
 
-			*SizePos = 0;
 			return SizePos;
 		}
 		
-		static inline void SDP_WriteData8(void** BufferPos, uint8_t Data)
-		{
-			*((uint8_t*)*BufferPos) = Data;
-			*BufferPos += sizeof(uint8_t);
-		}
-		
-		static inline void SDP_WriteData16(void** BufferPos, uint16_t Data)
-		{
-			*((uint16_t*)*BufferPos) = SwapEndian_16(Data);
-			*BufferPos += sizeof(uint16_t);
-		}		
-
-		static inline void SDP_WriteData32(void** BufferPos, uint32_t Data)
-		{
-			*((uint32_t*)*BufferPos) = SwapEndian_32(Data);
-			*BufferPos += sizeof(uint32_t);
-		}
-
-		static inline uint8_t SDP_ReadData8(const void** BufferPos)
-		{
-			uint8_t Data = *((uint8_t*)*BufferPos);
-			*BufferPos += sizeof(uint8_t);
-			
-			return Data;
-		}
-
-		static inline uint16_t SDP_ReadData16(const void** BufferPos)
-		{
-			uint16_t Data = SwapEndian_16(*((uint16_t*)*BufferPos));
-			*BufferPos += sizeof(uint16_t);
-			
-			return Data;
-		}
-
-		static inline uint32_t SDP_ReadData32(const void** BufferPos)
-		{
-			uint32_t Data = SwapEndian_32(*((uint32_t*)*BufferPos));
-			*BufferPos += sizeof(uint32_t);
-			
-			return Data;
-		}
-		
 	/* Function Prototypes: */
-		void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* Channel);
+		void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel);
 
 		#if defined(INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C)
 			static void SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
 			static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
 			static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
 
-			static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t* AttributeTable, uint16_t AttributeList[][2], uint8_t TotalAttributes, void** BufferPos);
+			static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t* AttributeTable, uint16_t AttributeList[][2],
+			                                                  const uint8_t TotalAttributes, void** const BufferPos);
 			static uint16_t SDP_AddAttributeToResponse(const uint16_t AttributeID, const void* AttributeValue, void** ResponseBuffer);
 			static void*    SDP_GetAttributeValue(const ServiceAttributeTable_t* AttributeTable, const uint16_t AttributeID);
 			static ServiceAttributeTable_t* SDP_GetAttributeTable(const uint8_t* const UUID);
