@@ -314,7 +314,106 @@ static void SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Blu
  */
 static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel)
 {
+	const void* CurrentParameter = ((void*)SDPHeader + sizeof(SDP_PDUHeader_t));
+
 	BT_SDP_DEBUG(1, "<< Service Attribute");
+
+	/* Retrieve the service handle whose attributes are to be examined */
+	uint32_t ServiceHandle = SwapEndian_32(*((uint16_t*)CurrentParameter));
+	CurrentParameter += sizeof(uint32_t);
+	BT_SDP_DEBUG(2, "-- Service Handle: 0x%08lX", ServiceHandle);
+	
+	/* Retrieve the maximum Attribute reponse size from the request */
+	uint16_t MaxAttributeSize = SwapEndian_16(*((uint16_t*)CurrentParameter));
+	CurrentParameter += sizeof(uint16_t);
+	BT_SDP_DEBUG(2, "-- Max Return Attribute Bytes: 0x%04X", MaxAttributeSize);
+	
+	/* Retrieve the list of Attributes from the request */
+	uint16_t AttributeList[15][2];
+	uint8_t  TotalAttributes = SDP_GetAttributeList(AttributeList, &CurrentParameter);
+	BT_SDP_DEBUG(2, "-- Total Attributes: %d", TotalAttributes);
+
+	struct
+	{
+		SDP_PDUHeader_t SDPHeader;
+		uint16_t        AttributeListByteCount;
+		uint8_t         ResponseData[100];
+	} ResponsePacket;
+
+	/* Create a pointer to the buffer to indicate the current location for response data to be added */
+	void* CurrResponsePos = ResponsePacket.ResponseData;
+
+	/* Clamp the maximum attribute size to the size of the allocated buffer */
+	if (MaxAttributeSize > sizeof(ResponsePacket.ResponseData))
+	  MaxAttributeSize = sizeof(ResponsePacket.ResponseData);
+
+	/* Add the outer Data Element Sequence header for all of the retrieved Attributes */
+	uint16_t* TotalResponseSize = SDP_AddDataElementHeader16(&CurrResponsePos, SDP_DATATYPE_Sequence);
+
+	/* Search through the global UUID list an item at a time */
+	for (uint8_t CurrTableItem = 0; CurrTableItem < (sizeof(SDP_Services_Table) / sizeof(ServiceTable_t)); CurrTableItem++)
+	{
+		/* Read in a pointer to the current UUID table entry's Attribute table */
+		ServiceAttributeTable_t* CurrAttributeTable = (ServiceAttributeTable_t*)pgm_read_word(&SDP_Services_Table[CurrTableItem].AttributeTable);
+		
+		/* Retrieve a PROGMEM pointer to the value of the Service Record Handle */
+		const void* ServiceRecord = SDP_GetAttributeValue(CurrAttributeTable, SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE);
+		
+		/* Check if the current service in the service table has the requested service handle */
+		if (memcmp_P(ServiceRecord, &ServiceHandle, sizeof(uint32_t)) == 0)
+		{
+			/* Search through the list of Attributes one at a time looking for values in the current UUID's Attribute table */
+			for (uint8_t CurrAttribute = 0; CurrAttribute < TotalAttributes; CurrAttribute++)
+			{
+				uint16_t* AttributeIDRange = AttributeList[CurrAttribute];
+			
+				/* Look in the current Attribute Range for a matching Attribute ID in the service's Attribute table */
+				for (uint32_t CurrAttributeID = AttributeIDRange[0]; CurrAttributeID <= AttributeIDRange[1]; CurrAttributeID++)
+				{
+					/* Retrieve a PROGMEM pointer to the value of the current Attribute ID, if it exists in the service's Attribute table */
+					const void* AttributeValue = SDP_GetAttributeValue(CurrAttributeTable, CurrAttributeID);
+					
+					/* If the Attribute does not exist in the current service's Attribute table, continue to the next Attribute ID */
+					if (AttributeValue == NULL)
+					  continue;
+					
+					BT_SDP_DEBUG(2, " -- Add Attribute 0x%04X", CurrAttributeID);
+
+					/* Increment the service's returned Attribute container size by the number of added bytes */
+					*TotalResponseSize += SDP_AddAttributeToResponse(CurrAttributeID, AttributeValue, &CurrResponsePos);
+				}
+			}
+			
+			/* Requested service found, abort the search through the service table */
+			break;
+		}
+	}
+
+	/* Continuation state - always zero */
+	*((uint8_t*)CurrResponsePos) = 0;
+
+	/* Set the total response list size to the size of the outer container plus its header size and continuation state */
+	ResponsePacket.AttributeListByteCount    = SwapEndian_16(3 + *TotalResponseSize);
+
+	/* Calculate the total parameter length that is to be sent, including the fixed return parameters, the created attribute
+	   value list and the SDP continuation state */
+	uint16_t ParamLength = (sizeof(ResponsePacket.AttributeListByteCount) + 
+	                        (3 + *TotalResponseSize) +
+	                        sizeof(uint8_t));
+
+	/* Fill in the response packet's header */
+	ResponsePacket.SDPHeader.PDU             = SDP_PDU_SERVICEATTRIBUTERESPONSE;
+	ResponsePacket.SDPHeader.TransactionID   = SDPHeader->TransactionID;
+	ResponsePacket.SDPHeader.ParameterLength = SwapEndian_16(ParamLength);
+
+	/* Flip the endianness of the container's size */
+	*TotalResponseSize = SwapEndian_16(*TotalResponseSize);
+
+	BT_SDP_DEBUG(1, ">> Service Attribute Response");
+	BT_SDP_DEBUG(2, "-- Param Len 0x%04X", ParamLength);
+
+	/* Send the completed response packet to the sender */
+	Bluetooth_SendPacket(&ResponsePacket, (sizeof(ResponsePacket.SDPHeader) + ParamLength), Channel);
 }
 
 /** Internal processing routine for SDP Service Search Attribute Requests.
@@ -608,7 +707,7 @@ static uint8_t SDP_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void**
 			memcpy(&CurrentUUID[0], *CurrentParameter, UUIDLength);		
 		}
 		
-		BT_SDP_DEBUG(2, "-- UUID (%d): 0x%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
+		BT_SDP_DEBUG(2, "-- UUID (%d): %02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
 		                UUIDLength,
 		                CurrentUUID[15], CurrentUUID[14], CurrentUUID[13], CurrentUUID[12],
 		                CurrentUUID[11], CurrentUUID[10], CurrentUUID[9],  CurrentUUID[8],
