@@ -179,25 +179,23 @@
 			return Data;
 		}
 
-		/** Adds a new Data Element container of the given type with a 16-bit size header to the buffer. The
-		 *  buffer pointer's position is advanced past the added header once the element has been added. The
-		 *  returned size header value is pre-zeroed out so that it can be incremented as data is placed into
-		 *  the Data Element container.
+		/** Adds a new Data Element Sequence container with a 16-bit size header to the buffer. The buffer 
+		 *  pointer's position is advanced past the added header once the element has been added. The returned
+		 *  size header value is pre-zeroed out so that it can be incremented as data is placed into the Data 
+		 *  Element Sequence container.
 		 *
 		 *  The total added size of the container header is three bytes, regardless of the size of its contents
 		 *  as long as the contents' size in bytes fits into a 16-bit integer.
 		 *
 		 *  \param[in, out] BufferPos  Pointer to a buffer where the container header is to be placed
-		 *  \param[in]      Type       Type of data the container is to store, a value from the \ref ServiceDiscovery_DataTypes_t enum
 		 *
 		 *  \return Pointer to the 16-bit size value of the contaner header, which has been pre-zeroed
 		 */
-		static inline uint16_t* SDP_AddDataElementHeader16(void** BufferPos, const uint8_t Type)
+		static inline uint16_t* SDP_AddSequence16(void** BufferPos)
 		{
-			SDP_WriteData8(BufferPos, (SDP_DATASIZE_Variable16Bit | Type));
+			SDP_WriteData8(BufferPos, (SDP_DATASIZE_Variable16Bit | SDP_DATATYPE_Sequence));
 
-			uint16_t* SizePos = (uint16_t*)*BufferPos;
-			
+			uint16_t* SizePos = *BufferPos;			
 			SDP_WriteData16(BufferPos, 0);
 
 			return SizePos;

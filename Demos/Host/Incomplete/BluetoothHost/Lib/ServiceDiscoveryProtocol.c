@@ -291,7 +291,7 @@ static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHe
 	  MaxAttributeSize = sizeof(ResponsePacket.ResponseData);
 
 	/* Add the outer Data Element Sequence header for all of the retrieved Attributes */
-	uint16_t* TotalResponseSize = SDP_AddDataElementHeader16(&CurrResponsePos, SDP_DATATYPE_Sequence);
+	uint16_t* TotalResponseSize = SDP_AddSequence16(&CurrResponsePos);
 	
 	/* Search through the list of UUIDs one at a time looking for matching search Attributes */
 	for (uint8_t CurrUUIDItem = 0; CurrUUIDItem < TotalUUIDs; CurrUUIDItem++)
@@ -351,7 +351,7 @@ static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t*
 	uint16_t TotalResponseSize;
 
 	/* Add an inner Data Element Sequence header for the current services's found Attributes */
-	uint16_t* AttributeListSize = SDP_AddDataElementHeader16(BufferPos, SDP_DATATYPE_Sequence);
+	uint16_t* AttributeListSize = SDP_AddSequence16(BufferPos);
 
 	/* Search through the list of Attributes one at a time looking for values in the current UUID's Attribute table */
 	for (uint8_t CurrAttribute = 0; CurrAttribute < TotalAttributes; CurrAttribute++)
