@@ -34,11 +34,11 @@
 /** Service attribute table list, containing a pointer to each service attribute table the device contains */
 const ServiceAttributeTable_t* SDP_Services_Table[] PROGMEM =
 	{
-		RFCOMM_Attribute_Table,
+		SerialPort_Attribute_Table,
 	};
 
 /** Base UUID value common to all standardized Bluetooth services */
-const UUID_t BaseUUID PROGMEM = {BASE_80BIT_UUID, {0, 0, 0, 0, 0, 0}};
+const UUID_t BaseUUID PROGMEM = {0x00000000, BASE_80BIT_UUID};
 
 /** Main Service Discovery Protocol packet processing routine. This function processes incomming SDP packets from
  *  a connected Bluetooth device, and sends back appropriate responses to allow other devices to determine the
@@ -487,6 +487,16 @@ static void SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_
 		/* Look for matches in the UUID list against the current attribute UUID value */
 		for (uint8_t i = 0; i < TotalUUIDs; i++)
 		{
+			uint8_t CurrentUUID[16];
+			memcpy_P(CurrentUUID, (CurrAttribute + 1), 16);
+		
+			BT_SDP_DEBUG(2, "-- TEST UUID: %02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
+		                CurrentUUID[0], CurrentUUID[1], CurrentUUID[2], CurrentUUID[3],
+		                CurrentUUID[4], CurrentUUID[5],
+						CurrentUUID[6], CurrentUUID[7],
+		                CurrentUUID[8], CurrentUUID[9],
+						CurrentUUID[10], CurrentUUID[11], CurrentUUID[12],  CurrentUUID[13],  CurrentUUID[14],  CurrentUUID[15]);
+
 			if (!(UUIDMatch[i]) && !(memcmp_P(UUIDList[i], (CurrAttribute + 1), UUID_SIZE_BYTES)))
 			{
 				/* Indicate match found for the current attribute UUID and early-abort */
@@ -580,19 +590,28 @@ static uint8_t SDP_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void**
 		uint8_t* CurrentUUID = UUIDList[TotalUUIDs++];
 		uint8_t  UUIDLength  = SDP_GetDataElementSize(CurrentParameter, &ElementHeaderSize);
 		
-		/* Copy over the base UUID value to the free UUID slot in the list */
-		memcpy_P(CurrentUUID, &BaseUUID, sizeof(BaseUUID));
-
 		/* Copy over UUID from the container to the free slot */
-		memcpy(&CurrentUUID[UUID_SIZE_BYTES - UUIDLength], *CurrentParameter, UUIDLength);
+		if (UUIDLength <= 4)
+		{
+			/* Copy over the base UUID value to the free UUID slot in the list */
+			memcpy_P(CurrentUUID, &BaseUUID, sizeof(BaseUUID));
+
+			/* Copy over short UUID */
+			memcpy(CurrentUUID + (4 - UUIDLength), *CurrentParameter, UUIDLength);
+		}
+		else
+		{
+			/* Copy over full UUID */
+			memcpy(CurrentUUID, *CurrentParameter, UUIDLength);		
+		}
 		
 		BT_SDP_DEBUG(2, "-- UUID (%d): %02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
 		                UUIDLength,
 		                CurrentUUID[0], CurrentUUID[1], CurrentUUID[2], CurrentUUID[3],
 		                CurrentUUID[4], CurrentUUID[5],
-						CurrentUUID[6],  CurrentUUID[7],
-		                CurrentUUID[8],  CurrentUUID[9],
-						CurrentUUID[10],  CurrentUUID[11], CurrentUUID[12],  CurrentUUID[13],  CurrentUUID[14],  CurrentUUID[15]);
+						CurrentUUID[6], CurrentUUID[7],
+		                CurrentUUID[8], CurrentUUID[9],
+						CurrentUUID[10], CurrentUUID[11], CurrentUUID[12],  CurrentUUID[13],  CurrentUUID[14],  CurrentUUID[15]);
 
 		ServicePatternLength -= (UUIDLength + ElementHeaderSize);
 		*CurrentParameter    += UUIDLength;

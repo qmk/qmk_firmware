@@ -44,43 +44,58 @@
 		#define UUID_SIZE_BYTES                         16
 		
 		/** First 80 bits common to all standardized Bluetooth services. */
-		#define BASE_80BIT_UUID                         SWAPENDIAN_32(0xFB349B5F), SWAPENDIAN_16(0x8000), SWAPENDIAN_16(0x0080), SWAPENDIAN_16(0x0010)
+		#define BASE_80BIT_UUID                         0x0000, 0x0010, 0x0080, {0x00, 0x80, 0x5F, 0x9B, 0x34, 0xFB}
 		
-		#define SDP_UUID                                {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x00, 0x01}}
-		#define RFCOMM_UUID                             {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x00, 0x03}}
-		#define L2CAP_UUID                              {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x01, 0x00}}
-		#define SDP_CLASS_UUID                          {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x10, 0x00}}
-		#define SP_CLASS_UUID                           {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x11, 0x01}}
-		#define PUBLICBROWSEGROUP_CLASS_UUID            {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x10, 0x02}}
+		#define RFCOMM_UUID                             {SWAPENDIAN_32(0x00000003), BASE_80BIT_UUID}
+		#define L2CAP_UUID                              {SWAPENDIAN_32(0x00000100), BASE_80BIT_UUID}
+		#define SP_CLASS_UUID                           {SWAPENDIAN_32(0x00001101), BASE_80BIT_UUID}
+		#define PUBLICBROWSEGROUP_CLASS_UUID            {SWAPENDIAN_32(0x00001002), BASE_80BIT_UUID}
 		
 		#define SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE    0x0000
 		#define SDP_ATTRIBUTE_ID_SERVICECLASSIDS        0x0001
 		#define SDP_ATTRIBUTE_ID_PROTOCOLDESCRIPTORLIST 0x0004
 		#define SDP_ATTRIBUTE_ID_BROWSEGROUPLIST        0x0005
 		#define SDP_ATTRIBUTE_ID_LANGUAGEBASEATTROFFSET 0x0006
-		#define SDP_ATTRIBUTE_ID_VERSION                0x0200
 		#define SDP_ATTRIBUTE_ID_SERVICENAME            0x0100
 		#define SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION     0x0101
 		
+		/** Swaps the byte ordering of a 16-bit value at compile time. Do not use this macro for swapping byte orderings
+		 *  of dynamic values computed at runtime -- use SwapEndian_16() instead.
+		 *
+		 *  \param[in]  x  16-bit value whose byte ordering is to be swapped
+		 *
+		 *  \return Input value with the byte ordering reversed
+		 */
 		#define SWAPENDIAN_16(x)                        ((((x) & 0xFF00) >> 8) | (((x) & 0x00FF) << 8))
-		#define SWAPENDIAN_32(x)                        ((((x) & 0xFF000000) >> 24) | (((x) & 0x00FF0000) >> 8) | \
-		                                                 (((x) & 0x0000FF00) << 8) | (((x) & 0x000000FF) << 24))
+
+		/** Swaps the byte ordering of a 32-bit value at compile time. Do not use this macro for swapping byte orderings
+		 *  of dynamic values computed at runtime -- use SwapEndian_32() instead.
+		 *
+		 *  \param[in]  x  32-bit value whose byte ordering is to be swapped
+		 *
+		 *  \return Input value with the byte ordering reversed
+		 */
+		#define SWAPENDIAN_32(x)                        ((((x) & 0xFF000000UL) >> 24UL) | (((x) & 0x00FF0000UL) >> 8UL) | \
+		                                                 (((x) & 0x0000FF00UL) << 8UL) | (((x) & 0x000000FFUL) << 24UL))
 		
 		/** Terminator for a service attribute table of type \ref ServiceAttributeTable_t. */
 		#define SERVICE_ATTRIBUTE_TABLE_TERMINATOR      {.Data = NULL}
 		
 	/* Type Defines: */
+		/** Type define for a UUID value structure. This struct can be used to hold full 128-bit UUIDs. */
 		typedef struct
 		{
-			uint32_t A;
-			uint16_t B;
-			uint16_t C;
-			uint16_t D;
-			uint8_t  E[6];
+			uint32_t A; /**< Bits 0-31 of the UUID. */
+			uint16_t B; /**< Bits 32-47 of the UUID. */
+			uint16_t C; /**< Bits 48-63 of the UUID. */
+			uint16_t D; /**< Bits 64-79 of the UUID. */
+			uint8_t  E[6]; /**< Bits 80-128 of the UUID. */
 		} UUID_t;
 	
 		/** Structure for the association of attribute ID values to an attribute value in FLASH. A table of these
 		 *  structures can then be built up for each supported UUID service within the device.
+		 *
+		 *  \note This table must be terminated with a \ref SERVICE_ATTRIBUTE_TABLE_TERMINATOR element.
 		 */
 		typedef struct
 		{
@@ -130,14 +145,17 @@
 			} Protocol;
 		} ItemProtocol_t;
 		
+		/** Structure for a list of Data Elements containing language encodings, including the language ID, Encoding ID and
+		 *  Attribute base offset.
+		 */
 		typedef struct
 		{
-			Item16Bit_t LanguageID;
-			Item16Bit_t EncodingID;
-			Item16Bit_t OffsetID;
-		} ItemLangID_t;
+			Item16Bit_t LanguageID; /**< Language ID for the current language */
+			Item16Bit_t EncodingID; /**< Encoding used for the current language */
+			Item16Bit_t OffsetID; /**< Attribute offset added to all strings using this language within the service */
+		} ItemLangEncoding_t;
 		
 	/* External Variables: */
-		extern const ServiceAttributeTable_t RFCOMM_Attribute_Table[];
+		extern const ServiceAttributeTable_t SerialPort_Attribute_Table[];
 		
 #endif

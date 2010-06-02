@@ -34,7 +34,7 @@ const struct
 {
 	uint8_t  Header;
 	uint32_t Data;
-} PROGMEM RFCOMM_Attribute_ServiceHandle =
+} PROGMEM SerialPort_Attribute_ServiceHandle =
 	{
 		(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_32Bit),
 		SWAPENDIAN_32(0x00010001),
@@ -45,7 +45,7 @@ const struct
 	uint8_t    Header;
 	uint16_t   Size;
 	ItemUUID_t UUIDList[];
-} PROGMEM RFCOMM_Attribute_ServiceClassIDs =
+} PROGMEM SerialPort_Attribute_ServiceClassIDs =
 	{
 		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit),
 		SWAPENDIAN_16(sizeof(ItemUUID_t) * 1),
@@ -56,11 +56,11 @@ const struct
 
 const struct
 {
-	uint8_t        Header;
-	uint16_t       Size;
+	uint8_t  Header;
+	uint16_t Size;
 
 	ItemProtocol_t ProtocolList[];
-} PROGMEM RFCOMM_Attribute_ProtocolDescriptor =
+} PROGMEM SerialPort_Attribute_ProtocolDescriptor =
 	{
 		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit),
 		SWAPENDIAN_16(sizeof(ItemProtocol_t) * 2),
@@ -87,7 +87,7 @@ const struct
 	uint8_t    Header;
 	uint16_t   Size;
 	ItemUUID_t UUIDList[];
-} PROGMEM RFCOMM_Attribute_BrowseGroupList =
+} PROGMEM SerialPort_Attribute_BrowseGroupList =
 	{
 		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit),
 		SWAPENDIAN_16(sizeof(ItemUUID_t) * 1),
@@ -98,14 +98,14 @@ const struct
 	
 const struct
 {
-	uint8_t      Header;
-	uint8_t      Size;
-	ItemLangID_t OffsetList[];
-} PROGMEM RFCOMM_Attribute_LanguageBaseIDOffset =
+	uint8_t            Header;
+	uint8_t            Size;
+	ItemLangEncoding_t LanguageEncodings[];
+} PROGMEM SerialPort_Attribute_LanguageBaseIDOffset =
 	{
 		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
-		.Size   = (sizeof(ItemLangID_t) * 1),
-		.OffsetList =
+		.Size   = (sizeof(ItemLangEncoding_t) * 1),
+		.LanguageEncodings =
 			{
 				{
 					{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), SWAPENDIAN_16(0x454E)},
@@ -120,11 +120,11 @@ const struct
 	uint8_t Header;
 	uint8_t Size;
 	char    Text[];
-} PROGMEM RFCOMM_Attribute_ServiceName =
+} PROGMEM SerialPort_Attribute_ServiceName =
 	{
 		(SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit),
-		sizeof("Serial Port") - 1,
-		"Serial Port",
+		sizeof("Wireless Serial Port") - 1,
+		"Wireless Serial Port",
 	};
 
 const struct
@@ -132,22 +132,22 @@ const struct
 	uint8_t Header;
 	uint8_t Size;
 	char    Text[];
-} PROGMEM RFCOMM_Attribute_ServiceDescription =
+} PROGMEM SerialPort_Attribute_ServiceDescription =
 	{
 		(SDP_DATATYPE_String | SDP_DATASIZE_Variable8Bit),
 		sizeof("Wireless Serial Port Service") - 1,
 		"Wireless Serial Port Service",
 	};
 
-const ServiceAttributeTable_t PROGMEM RFCOMM_Attribute_Table[] =
+const ServiceAttributeTable_t PROGMEM SerialPort_Attribute_Table[] =
 	{
-		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE,    .Data = &RFCOMM_Attribute_ServiceHandle       },
-		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICECLASSIDS,        .Data = &RFCOMM_Attribute_ServiceClassIDs     },
-		{.AttributeID = SDP_ATTRIBUTE_ID_PROTOCOLDESCRIPTORLIST, .Data = &RFCOMM_Attribute_ProtocolDescriptor  },
-		{.AttributeID = SDP_ATTRIBUTE_ID_BROWSEGROUPLIST,        .Data = &RFCOMM_Attribute_BrowseGroupList     },
-		{.AttributeID = SDP_ATTRIBUTE_ID_LANGUAGEBASEATTROFFSET, .Data = &RFCOMM_Attribute_LanguageBaseIDOffset},
-		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICENAME,            .Data = &RFCOMM_Attribute_ServiceName         },
-		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION,     .Data = &RFCOMM_Attribute_ServiceDescription  },
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE,    .Data = &SerialPort_Attribute_ServiceHandle       },
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICECLASSIDS,        .Data = &SerialPort_Attribute_ServiceClassIDs     },
+		{.AttributeID = SDP_ATTRIBUTE_ID_PROTOCOLDESCRIPTORLIST, .Data = &SerialPort_Attribute_ProtocolDescriptor  },
+		{.AttributeID = SDP_ATTRIBUTE_ID_BROWSEGROUPLIST,        .Data = &SerialPort_Attribute_BrowseGroupList     },
+		{.AttributeID = SDP_ATTRIBUTE_ID_LANGUAGEBASEATTROFFSET, .Data = &SerialPort_Attribute_LanguageBaseIDOffset},
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICENAME,            .Data = &SerialPort_Attribute_ServiceName         },
+		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION,     .Data = &SerialPort_Attribute_ServiceDescription  },
 
 		SERVICE_ATTRIBUTE_TABLE_TERMINATOR
 	};
