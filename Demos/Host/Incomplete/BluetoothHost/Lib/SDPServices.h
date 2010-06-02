@@ -49,14 +49,15 @@
 		#define SDP_UUID                                {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x00, 0x01}}
 		#define RFCOMM_UUID                             {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x00, 0x03}}
 		#define L2CAP_UUID                              {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x01, 0x00}}
-		#define UPNP_UUID                               {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x00, 0x10}}
 		#define SDP_CLASS_UUID                          {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x10, 0x00}}
 		#define SP_CLASS_UUID                           {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x11, 0x01}}
-		#define UPNP_CLASS_UUID                         {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x12, 0x00}}
+		#define PUBLICBROWSEGROUP_CLASS_UUID            {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x10, 0x02}}
 		
 		#define SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE    0x0000
 		#define SDP_ATTRIBUTE_ID_SERVICECLASSIDS        0x0001
 		#define SDP_ATTRIBUTE_ID_PROTOCOLDESCRIPTORLIST 0x0004
+		#define SDP_ATTRIBUTE_ID_BROWSEGROUPLIST        0x0005
+		#define SDP_ATTRIBUTE_ID_LANGUAGEBASEATTROFFSET 0x0006
 		#define SDP_ATTRIBUTE_ID_VERSION                0x0200
 		#define SDP_ATTRIBUTE_ID_SERVICENAME            0x0100
 		#define SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION     0x0101
@@ -86,15 +87,6 @@
 			uint16_t    AttributeID; /**< Attribute ID of the table element which the UUID service supports */
 			const void* Data; /**< Pointer to the attribute data, located in PROGMEM memory space */
 		} ServiceAttributeTable_t;
-
-		/** Structure for the association of service UUID values to attribute tables stored in FLASH. A table of these
-		 *  structures can then be built up for each supported UUID service within the device.
-		 */
-		typedef struct
-		{
-			UUID_t      UUID; /**< UUID of a service supported by the device */
-			const void* AttributeTable; /**< Pointer to the UUID's attribute table, located in PROGMEM memory space */
-		} ServiceTable_t;
 
 		/** Structure for a list of Data Elements containing 8-bit integers, for service attributes requiring such lists. */
 		typedef struct
@@ -138,9 +130,14 @@
 			} Protocol;
 		} ItemProtocol_t;
 		
+		typedef struct
+		{
+			Item16Bit_t LanguageID;
+			Item16Bit_t EncodingID;
+			Item16Bit_t OffsetID;
+		} ItemLangID_t;
+		
 	/* External Variables: */
-		extern const ServiceAttributeTable_t SDP_Attribute_Table[];
 		extern const ServiceAttributeTable_t RFCOMM_Attribute_Table[];
-		extern const ServiceAttributeTable_t L2CAP_Attribute_Table[];
 		
 #endif

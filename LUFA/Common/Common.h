@@ -111,7 +111,7 @@
 																"Assertion \"%s\" failed.\r\n"),     \
 																__FILE__, __func__, __LINE__, #x); } \
 			                                }MACROE
-
+											
 		/* Inline Functions: */
 			/** Function to reverse the individual bits in a byte - i.e. bit 7 is moved to bit 0, bit 6 to bit 1,
 			 *  etc.

@@ -31,14 +31,10 @@
 #define  INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C
 #include "ServiceDiscoveryProtocol.h"
 
-/** Master service table, listing all supported services (and their attribute tables) of the device, including
- *  each service's UUID.
- */
-const ServiceTable_t SDP_Services_Table[] PROGMEM =
+/** Service attribute table list, containing a pointer to each service attribute table the device contains */
+const ServiceAttributeTable_t* SDP_Services_Table[] PROGMEM =
 	{
-		{ .UUID  = SDP_UUID   , .AttributeTable = SDP_Attribute_Table     },
-		{ .UUID  = RFCOMM_UUID, .AttributeTable = RFCOMM_Attribute_Table  },
-		{ .UUID  = L2CAP_UUID , .AttributeTable = L2CAP_Attribute_Table   },
+		RFCOMM_Attribute_Table,
 	};
 
 /** Base UUID value common to all standardized Bluetooth services */
@@ -101,25 +97,25 @@ static void SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Blu
 		uint16_t        CurrentServiceRecordCount;
 		uint8_t         ResponseData[100];
 	} ResponsePacket;
-
-	/* Create a pointer to the buffer to indicate the current location for response data to be added */
-	void* CurrResponsePos = ResponsePacket.ResponseData;
 	
 	uint8_t AddedServiceHandles = 0;
 
-	/* Search through the list of UUIDs one at a time looking for matching search Attributes */
-	for (uint8_t CurrUUIDItem = 0; CurrUUIDItem < TotalUUIDs; CurrUUIDItem++)
-	{
-		ServiceAttributeTable_t* AttributeTable;
+	/* Create a pointer to the buffer to indicate the current location for response data to be added */
+	void* CurrResponsePos = ResponsePacket.ResponseData;
 
-		/* Retrieve the attribute table of the current search UUID from the global UUID table if it exists */
-		if ((AttributeTable = SDP_GetAttributeTable(UUIDList[CurrUUIDItem])) == NULL)
+	/* Search through the global service list an item at a time */
+	for (uint8_t CurrTableItem = 0; CurrTableItem < (sizeof(SDP_Services_Table) / sizeof(void*)); CurrTableItem++)
+	{
+		/* Read in a pointer to the current UUID table entry's Attribute table */
+		ServiceAttributeTable_t* CurrAttributeTable = pgm_read_ptr(&SDP_Services_Table[CurrTableItem]);
+
+		if (!(SDP_SearchServiceTable(UUIDList, TotalUUIDs, CurrAttributeTable)))
 		  continue;
-		  
-		BT_SDP_DEBUG(2, " -- Found UUID %d in table", CurrUUIDItem);
+
+		BT_SDP_DEBUG(2, " -- Found search match in table");
 
 		/* Retrieve a PROGMEM pointer to the value of the service's record handle */
-		const void* AttributeValue = SDP_GetAttributeValue(AttributeTable, SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE);
+		const void* AttributeValue = SDP_GetAttributeValue(CurrAttributeTable, SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE);
 
 		/* Copy over the service record handle to the response list */
 		uint8_t AttrHeaderSize;
@@ -197,10 +193,10 @@ static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, 
 	uint16_t TotalResponseSize = 0;
 
 	/* Search through the global UUID list an item at a time */
-	for (uint8_t CurrTableItem = 0; CurrTableItem < (sizeof(SDP_Services_Table) / sizeof(ServiceTable_t)); CurrTableItem++)
+	for (uint8_t CurrTableItem = 0; CurrTableItem < (sizeof(SDP_Services_Table) / sizeof(void*)); CurrTableItem++)
 	{
 		/* Read in a pointer to the current UUID table entry's Attribute table */
-		ServiceAttributeTable_t* CurrAttributeTable = (ServiceAttributeTable_t*)pgm_read_word(&SDP_Services_Table[CurrTableItem].AttributeTable);
+		ServiceAttributeTable_t* CurrAttributeTable = pgm_read_ptr(&SDP_Services_Table[CurrTableItem]);
 		
 		/* Retrieve a PROGMEM pointer to the value of the Service Record Handle */
 		const void* ServiceRecord = SDP_GetAttributeValue(CurrAttributeTable, SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE);
@@ -288,19 +284,19 @@ static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHe
 	/* Add the outer Data Element Sequence header for all of the retrieved Attributes */
 	uint16_t* TotalResponseSize = SDP_AddSequence16(&CurrResponsePos);
 	
-	/* Search through the list of UUIDs one at a time looking for matching search Attributes */
-	for (uint8_t CurrUUIDItem = 0; CurrUUIDItem < TotalUUIDs; CurrUUIDItem++)
+	/* Search through the global service list an item at a time */
+	for (uint8_t CurrTableItem = 0; CurrTableItem < (sizeof(SDP_Services_Table) / sizeof(void*)); CurrTableItem++)
 	{
-		ServiceAttributeTable_t* AttributeTable;
+		/* Read in a pointer to the current UUID table entry's Attribute table */
+		ServiceAttributeTable_t* CurrAttributeTable = pgm_read_ptr(&SDP_Services_Table[CurrTableItem]);
 
-		/* Retrieve the attribute table of the current search UUID from the global UUID table if it exists */
-		if ((AttributeTable = SDP_GetAttributeTable(UUIDList[CurrUUIDItem])) == NULL)
+		if (!(SDP_SearchServiceTable(UUIDList, TotalUUIDs, CurrAttributeTable)))
 		  continue;
 		  
-		BT_SDP_DEBUG(2, " -- Found UUID %d in table", CurrUUIDItem);
+		BT_SDP_DEBUG(2, " -- Found search match in table");
 
 		/* Add the listed attributes for the found UUID to the response */
-		*TotalResponseSize += SDP_AddListedAttributesToResponse(AttributeTable, AttributeList, TotalAttributes, 
+		*TotalResponseSize += SDP_AddListedAttributesToResponse(CurrAttributeTable, AttributeList, TotalAttributes, 
 		                                                        &CurrResponsePos);
 	}
 	
@@ -355,7 +351,7 @@ static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t*
 		void*     AttributeValue;
 		
 		/* Look through the current service's attribute list, examining all the attributes */
-		while ((AttributeValue = (void*)pgm_read_word(&AttributeTable->Data)) != NULL)
+		while ((AttributeValue = pgm_read_ptr(&AttributeTable->Data)) != NULL)
 		{
 			/* Get the current Attribute's ID from the current attribute table entry */
 			uint16_t CurrAttributeID = pgm_read_word(&AttributeTable->AttributeID);
@@ -421,7 +417,7 @@ static void* SDP_GetAttributeValue(const ServiceAttributeTable_t* AttributeTable
 	void* CurrTableItemData;
 	
 	/* Search through the current Attribute table, abort when the terminator item has been reached */
-	while ((CurrTableItemData = (void*)pgm_read_word(&AttributeTable->Data)) != NULL)
+	while ((CurrTableItemData = pgm_read_ptr(&AttributeTable->Data)) != NULL)
 	{
 		/* Check if the current Attribute ID matches the search ID - if so return a pointer to it */
 		if (pgm_read_word(&AttributeTable->AttributeID) == AttributeID)
@@ -433,49 +429,91 @@ static void* SDP_GetAttributeValue(const ServiceAttributeTable_t* AttributeTable
 	return NULL;
 }
 
-/** Retrieves the Attribute table for the given UUID if it exists.
+/** Retrieves the Attribute table for the given UUID list if it exists.
  *
- *  \param[in] UUID  UUID to search for
+ *  \param[in] UUIDList            List of UUIDs which must be matched within the service attribute table
+ *  \param[in] TotalUUIDs          Total number of UUIDs stored in the UUID list
+ *  \param[in] CurrAttributeTable  Pointer to the service attribute table to search through
  *
- *  \return Pointer to the UUID's associated Attribute table if found in the global UUID table, NULL otherwise
+ *  \return True if all the UUIDs given in the UUID list appear in the given attribute table, false otherwise
  */
-static ServiceAttributeTable_t* SDP_GetAttributeTable(const uint8_t* const UUID)
+static bool SDP_SearchServiceTable(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs,
+			                       const ServiceAttributeTable_t* CurrAttributeTable)
 {
-	/* Search through the global UUID list an item at a time */
-	for (uint8_t CurrTableItem = 0; CurrTableItem < (sizeof(SDP_Services_Table) / sizeof(ServiceTable_t)); CurrTableItem++)
-	{
-		/* Read in a pointer to the current UUID table entry's Attribute table */
-		ServiceAttributeTable_t* CurrAttributeTable = (ServiceAttributeTable_t*)pgm_read_word(&SDP_Services_Table[CurrTableItem].AttributeTable);
+	bool UUIDMatch[TotalUUIDs];	
 	
-		/* If the current table item's UUID matches the search UUID, return a pointer the table item's Attribute table */
-		if (!(memcmp_P(UUID, &SDP_Services_Table[CurrTableItem].UUID, UUID_SIZE_BYTES)))
-		  return CurrAttributeTable;
-		
-		/* Retrieve the list of the service's Class UUIDs from its Attribute table */
-		void* ClassUUIDs = SDP_GetAttributeValue(CurrAttributeTable, SDP_ATTRIBUTE_ID_SERVICECLASSIDS);
-		
-		/* Go to the next UUID in the table if the current item does not have a list of Class UUIDs */
-		if (ClassUUIDs == NULL)
-		  continue;
-		  
-		/* Retrieve the size of the Class UUID list and skip past the header to the first Class UUID in the list */ 
-		uint8_t  ClassUUIDListHeaderSize;
-		uint16_t ClassUUIDListSize = SDP_GetLocalAttributeContainerSize(ClassUUIDs, &ClassUUIDListHeaderSize);
-		ClassUUIDs += ClassUUIDListHeaderSize;
-		
-		/* Check each class UUID in turn for a match */
-		while (ClassUUIDListSize)
-		{
-			/* Current Service UUID's Class UUID list has a matching entry, return the Attribute table */
-			if (!(memcmp_P(UUID, &((ItemUUID_t*)ClassUUIDs)->UUID, UUID_SIZE_BYTES)))
-			  return CurrAttributeTable;
-		
-			ClassUUIDListSize -= sizeof(ItemUUID_t);
-			ClassUUIDs        += sizeof(ItemUUID_t);
-		}	
+	/* Set all the match flags to false (not matched) before starting the search */
+	memset(UUIDMatch, false, sizeof(UUIDMatch));
+
+	const void* CurrAttribute;
+	
+	/* Search through the current attribute table, checking each attribute value for UUID matches */
+	while ((CurrAttribute = pgm_read_ptr(&CurrAttributeTable->Data)) != NULL)
+	{
+		SDP_CheckUUIDMatch(UUIDList, TotalUUIDs, UUIDMatch, CurrAttribute);
+		CurrAttributeTable++;
+	}
+
+	/* Determine how many UUID matches in the list we have found */
+	uint8_t UUIDMatches = 0;
+	for (uint8_t i = 0; i < TotalUUIDs; i++)
+	{
+		if (UUIDMatch[i])
+		  UUIDMatches++;
 	}
 	
-	return NULL;
+	/* If all UUIDs have been matched to the current service, return true */
+	return (UUIDMatches == TotalUUIDs);
+}
+
+/** Recursively upwraps the given locally stored attribute (in PROGMEM space), searching for UUIDs to match against
+ *  the given UUID list. As matches are found, they are indicated in the UUIDMatch flag list.
+ *
+ *  \param[in]      UUIDList       List of UUIDs which must be matched within the service attribute table
+ *  \param[in]      TotalUUIDs     Total number of UUIDs stored in the UUID list
+ *  \param[in, out] UUIDMatch      Array of flags indicating which UUIDs in the list have already been matched
+ *  \param[in]      CurrAttribute  Pointer to the current attribute to search through
+ *
+ *  \return True if all the UUIDs given in the UUID list appear in the given attribute table, false otherwise
+ */
+static void SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, bool UUIDMatch[],
+                               const void* CurrAttribute)
+{
+	uint8_t CurrAttributeType = (pgm_read_byte(CurrAttribute) & ~0x07);
+
+	/* Check the data type of the current attribute value - if UUID, compare, if Sequence, unwrap and recurse */
+	if (CurrAttributeType == SDP_DATATYPE_UUID)
+	{
+		/* Look for matches in the UUID list against the current attribute UUID value */
+		for (uint8_t i = 0; i < TotalUUIDs; i++)
+		{
+			if (!(UUIDMatch[i]) && !(memcmp_P(UUIDList[i], (CurrAttribute + 1), UUID_SIZE_BYTES)))
+			{
+				/* Indicate match found for the current attribute UUID and early-abort */
+				UUIDMatch[i] = true;
+				break;
+			}
+		}
+	}
+	else if (CurrAttributeType == SDP_DATATYPE_Sequence)
+	{
+		uint8_t  SequenceHeaderSize;
+		uint16_t SequenceSize = SDP_GetLocalAttributeContainerSize(CurrAttribute, &SequenceHeaderSize);
+		
+		CurrAttribute += SequenceHeaderSize;
+		
+		/* Recursively unwrap the sequence container, and re-search its contents for UUIDs */
+		while (SequenceSize)
+		{
+			uint8_t  InnerHeaderSize;
+			uint16_t InnerSize = SDP_GetLocalAttributeContainerSize(CurrAttribute, &InnerHeaderSize);
+			
+			SDP_CheckUUIDMatch(UUIDList, TotalUUIDs, UUIDMatch, CurrAttribute);
+						
+			SequenceSize  -= InnerHeaderSize + InnerSize;
+			CurrAttribute += InnerHeaderSize + InnerSize;
+		}
+	}	
 }
 
 /** Reads in the collection of Attribute ranges from the input buffer's Data Element Sequence container, into the given 
@@ -620,20 +658,20 @@ static uint32_t SDP_GetDataElementSize(const void** const DataElementHeader, uin
 	switch (SizeIndex)
 	{
 		case SDP_DATASIZE_Variable8Bit:
-			ElementValueSize    = SDP_ReadData8(DataElementHeader);
 			*ElementHeaderSize  = (1 + sizeof(uint8_t));
+			ElementValueSize    = SDP_ReadData8(DataElementHeader);
 			break;
 		case SDP_DATASIZE_Variable16Bit:
-			ElementValueSize    = SDP_ReadData16(DataElementHeader);
 			*ElementHeaderSize  = (1 + sizeof(uint16_t));
+			ElementValueSize    = SDP_ReadData16(DataElementHeader);
 			break;
 		case SDP_DATASIZE_Variable32Bit:
-			ElementValueSize    = SDP_ReadData32(DataElementHeader);
 			*ElementHeaderSize  = (1 + sizeof(uint32_t));
+			ElementValueSize    = SDP_ReadData32(DataElementHeader);
 			break;
 		default:
-			ElementValueSize    = (1 << SizeIndex);
 			*ElementHeaderSize  = 1;
+			ElementValueSize    = (1 << SizeIndex);
 			break;
 	}
 	

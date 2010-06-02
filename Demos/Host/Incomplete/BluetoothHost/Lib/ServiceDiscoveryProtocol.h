@@ -50,7 +50,7 @@
 		
 	/* Macros: */
 		#define BT_SDP_DEBUG(l, s, ...)                 do { if (SDP_DEBUG_LEVEL >= l) printf_P(PSTR("(SDP) " s "\r\n"), ##__VA_ARGS__); } while (0)
-		#define SDP_DEBUG_LEVEL                         2
+		#define SDP_DEBUG_LEVEL                         1
 		
 		#define SDP_PDU_ERRORRESPONSE                   0x01
 		#define SDP_PDU_SERVICESEARCHREQUEST            0x02
@@ -59,6 +59,8 @@
 		#define SDP_PDU_SERVICEATTRIBUTERESPONSE        0x05
 		#define SDP_PDU_SERVICESEARCHATTRIBUTEREQUEST   0x06
 		#define SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE  0x07
+		
+		#define pgm_read_ptr(x)                         (void*)pgm_read_word(x)
 
 	/* Enums: */
 		/** Data sizes for SDP Data Element headers, to indicate the size of the data contained in the element. When creating
@@ -213,9 +215,15 @@
 			                                                  const uint8_t TotalAttributes, void** const BufferPos);
 			static uint16_t SDP_AddAttributeToResponse(const uint16_t AttributeID, const void* AttributeValue, void** ResponseBuffer);
 			static void*    SDP_GetAttributeValue(const ServiceAttributeTable_t* AttributeTable, const uint16_t AttributeID);
-			static ServiceAttributeTable_t* SDP_GetAttributeTable(const uint8_t* const UUID);
+
+			static bool     SDP_SearchServiceTable(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs,
+			                                       const ServiceAttributeTable_t* CurrAttributeTable);
+			static void     SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, bool UUIDMatch[],
+			                                   const void* CurrAttribute);
+
 			static uint8_t  SDP_GetAttributeList(uint16_t AttributeList[][2], const void** const CurrentParameter);
 			static uint8_t  SDP_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void** const CurrentParameter);
+
 			static uint32_t SDP_GetLocalAttributeContainerSize(const void* const AttributeData, uint8_t* const HeaderSize);
 			static uint32_t SDP_GetDataElementSize(const void** const AttributeHeader, uint8_t* const ElementHeaderSize);
 		#endif
