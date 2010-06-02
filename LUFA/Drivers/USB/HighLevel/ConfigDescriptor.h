@@ -257,16 +257,6 @@
 			uint8_t USB_GetNextDescriptorComp(uint16_t* BytesRem, void** const CurrConfigLoc, ConfigComparatorPtr_t const ComparatorRoutine);
 
 		/* Inline Functions: */
-			#if !defined(__DOXYGEN__)
-			static inline void USB_GetNextDescriptorST(uint16_t* const BytesRem, uint8_t** CurrConfigLoc)
-			{
-				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
-				
-				*CurrConfigLoc += CurrDescriptorSize;
-				*BytesRem      -= CurrDescriptorSize;
-			}			
-			#endif
-		
 			/** Skips over the current sub-descriptor inside the configuration descriptor, so that the pointer then
 			    points to the next sub-descriptor. The bytes remaining value is automatically decremented.
 			 *
@@ -277,12 +267,10 @@
 			                                         ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);									  
 			static inline void USB_GetNextDescriptor(uint16_t* const BytesRem, void** CurrConfigLoc)
 			{
-				/* Horrible workaround for a bug in GCC - in some circumstances, the code generated for the strongly-typed
-				 * (uint8_t**) cast to avoid void pointer arithmetic (which is not allowed in C++) causes incorrect code to
-				 * be generated. Performing the cast and using a secondary inline routine show here seems to avoid the
-				 * problem.
-				 */
-				USB_GetNextDescriptorST(BytesRem, (uint8_t**)CurrConfigLoc);
+				uint16_t CurrDescriptorSize = DESCRIPTOR_CAST(*CurrConfigLoc, USB_Descriptor_Header_t).Size;
+				
+				*CurrConfigLoc += ((uint8_t*)*CurrConfigLoc) + CurrDescriptorSize;
+				*BytesRem      -= CurrDescriptorSize;
 			}
 		
 	/* Disable C linkage for C++ Compilers: */
