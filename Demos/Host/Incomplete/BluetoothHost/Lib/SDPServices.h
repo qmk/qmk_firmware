@@ -46,6 +46,14 @@
 		/** First 80 bits common to all standardized Bluetooth services. */
 		#define BASE_80BIT_UUID                         SWAPENDIAN_32(0xFB349B5F), SWAPENDIAN_16(0x8000), SWAPENDIAN_16(0x0080), SWAPENDIAN_16(0x0010)
 		
+		#define SDP_UUID                                {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x00, 0x01}}
+		#define RFCOMM_UUID                             {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x00, 0x03}}
+		#define L2CAP_UUID                              {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x01, 0x00}}
+		#define UPNP_UUID                               {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x00, 0x10}}
+		#define SDP_CLASS_UUID                          {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x10, 0x00}}
+		#define SP_CLASS_UUID                           {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x11, 0x01}}
+		#define UPNP_CLASS_UUID                         {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x12, 0x00}}
+		
 		#define SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE    0x0000
 		#define SDP_ATTRIBUTE_ID_SERVICECLASSIDS        0x0001
 		#define SDP_ATTRIBUTE_ID_PROTOCOLDESCRIPTORLIST 0x0004
@@ -124,11 +132,15 @@
 			uint8_t     Header; /**< Data Element header, should be (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit) */
 			uint8_t     Size; /**< Size of the inner Data Element sequence */
 			
-			ItemUUID_t  UUID; /**< UUID to store in the protocol list Data Element sequence */
+			struct
+			{
+				ItemUUID_t UUID; /**< UUID to store in the protocol list Data Element sequence */
+			} Protocol;
 		} ItemProtocol_t;
 		
 	/* External Variables: */
 		extern const ServiceAttributeTable_t SDP_Attribute_Table[];
 		extern const ServiceAttributeTable_t RFCOMM_Attribute_Table[];
+		extern const ServiceAttributeTable_t L2CAP_Attribute_Table[];
 		
 #endif

@@ -36,14 +36,9 @@
  */
 const ServiceTable_t SDP_Services_Table[] PROGMEM =
 	{
-		{   // 128-bit UUID for the SDP service
-			.UUID  = {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x00, 0x01}},
-			.AttributeTable = SDP_Attribute_Table,
-		},
-		{   // 128-bit UUID for the RFCOMM service
-			.UUID  = {BASE_80BIT_UUID, {0x00, 0x00, 0x00, 0x00, 0x00, 0x03}},
-			.AttributeTable = RFCOMM_Attribute_Table,
-		},
+		{ .UUID  = SDP_UUID   , .AttributeTable = SDP_Attribute_Table     },
+		{ .UUID  = RFCOMM_UUID, .AttributeTable = RFCOMM_Attribute_Table  },
+		{ .UUID  = L2CAP_UUID , .AttributeTable = L2CAP_Attribute_Table   },
 	};
 
 /** Base UUID value common to all standardized Bluetooth services */
