@@ -113,7 +113,7 @@ const struct
 					{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), SWAPENDIAN_16(0x0100)},
 				}
 			}
-	};	
+	};
 	
 const struct
 {

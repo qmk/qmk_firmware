@@ -45,6 +45,7 @@
 		#include <stdio.h>
 
 		#include "Lib/ServiceDiscoveryProtocol.h"
+		#include "Lib/RFCOMM.h"
 		#include "Lib/BluetoothStack.h"
 
 		#include "DeviceDescriptor.h"

@@ -260,7 +260,7 @@ void Bluetooth_DisconnectionComplete(void)
  *  the user application must indicate if the channel connection should be rejected or not, based on the 
  *  protocol (PSM) value of the requested channel.
  *
- *  \param PSM  Protocol PSM value for the requested channel
+ *  \param[in] PSM  Protocol PSM value for the requested channel
  *
  *  \return Boolean true to accept the channel connection request, false to reject it
  */
@@ -284,6 +284,10 @@ void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t*
 		case CHANNEL_PSM_SDP:
 			/* Service Discovery Protocol packet */
 			SDP_ProcessPacket(Data, Channel);
+			break;
+		case CHANNEL_PSM_RFCOMM:
+			/* RFCOMM (Serial Port) Protocol packet */
+			RFCOMM_ProcessPacket(Data, Channel);
 			break;
 		default:
 			/* Unknown Protocol packet */

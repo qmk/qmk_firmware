@@ -95,12 +95,12 @@
 		 */
 		typedef struct
 		{
-			uint8_t  State;
-			uint16_t LocalNumber;
-			uint16_t RemoteNumber;
-			uint16_t PSM;
-			uint16_t LocalMTU;
-			uint16_t RemoteMTU;
+			uint8_t  State; /**< Current channel state, a value from the \ref BT_ChannelStates_t enum. */
+			uint16_t LocalNumber; /**< Local channel number on the device. */
+			uint16_t RemoteNumber; /**< Remote channel number on the connected device. */
+			uint16_t PSM; /**< Protocol used on the channel. */
+			uint16_t LocalMTU; /**< MTU of data sent from the connected device to the local device. */
+			uint16_t RemoteMTU; /**< MTU of data sent from the local device to the connected device. */
 		} Bluetooth_Channel_t;
 
 		/** Type define for a Bluetooth device connection information structure. This structure contains all the

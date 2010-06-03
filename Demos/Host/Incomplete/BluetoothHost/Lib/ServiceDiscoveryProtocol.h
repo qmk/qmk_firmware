@@ -60,6 +60,12 @@
 		#define SDP_PDU_SERVICESEARCHATTRIBUTEREQUEST   0x06
 		#define SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE  0x07
 		
+		/** Convenience macro - read a pointer out of PROGMEM space.
+		 *
+		 *  \param[in] x  Address of the pointer to read
+		 *
+		 *  \return  Pointer retrieved from PROGMEM space
+		 */
 		#define pgm_read_ptr(x)                         (void*)pgm_read_word(x)
 
 	/* Enums: */

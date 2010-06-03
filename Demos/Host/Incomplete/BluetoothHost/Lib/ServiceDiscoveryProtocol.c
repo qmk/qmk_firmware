@@ -119,11 +119,10 @@ static void SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Blu
 
 		/* Copy over the service record handle to the response list */
 		uint8_t AttrHeaderSize;
-		SDP_GetLocalAttributeContainerSize(AttributeValue, &AttrHeaderSize);
-		memcpy_P(CurrResponsePos, AttributeValue + AttrHeaderSize, sizeof(uint32_t));
-		CurrResponsePos += AttrHeaderSize + sizeof(uint32_t);
+		uint8_t AttrSize = SDP_GetLocalAttributeContainerSize(AttributeValue, &AttrHeaderSize);
+		memcpy_P(CurrResponsePos, AttributeValue + AttrHeaderSize, AttrSize);
+		CurrResponsePos += AttrHeaderSize + AttrSize;
 		
-		/* Increment the total number of service records added to the list */
 		AddedServiceHandles++;
 	}
 
@@ -172,7 +171,7 @@ static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, 
 	BT_SDP_DEBUG(2, "-- Max Return Attribute Bytes: 0x%04X", MaxAttributeSize);
 	
 	/* Retrieve the list of Attributes from the request */
-	uint16_t AttributeList[15][2];
+	uint16_t AttributeList[8][2];
 	uint8_t  TotalAttributes = SDP_GetAttributeList(AttributeList, &CurrentParameter);
 	BT_SDP_DEBUG(2, "-- Total Attributes: %d", TotalAttributes);
 
@@ -263,7 +262,7 @@ static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHe
 	BT_SDP_DEBUG(2, "-- Max Return Attribute Bytes: 0x%04X", MaxAttributeSize);
 	
 	/* Retrieve the list of Attributes from the request */
-	uint16_t AttributeList[15][2];
+	uint16_t AttributeList[8][2];
 	uint8_t  TotalAttributes = SDP_GetAttributeList(AttributeList, &CurrentParameter);
 	BT_SDP_DEBUG(2, "-- Total Attributes: %d", TotalAttributes);
 	

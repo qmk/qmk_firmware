@@ -91,7 +91,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 	/* Setup AVRISP data Endpoints */
 	if (!(Endpoint_ConfigureEndpoint(AVRISP_DATA_OUT_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_OUT, AVRISP_DATA_EPSIZE,
+	                                 ENDPOINT_DIR_OUT, AVRISP_DATA_EPSIZE,
 	                                 ENDPOINT_BANK_SINGLE)))
 	{
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
@@ -99,7 +99,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 	#if defined(LIBUSB_DRIVER_COMPAT)
 	if (!(Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_IN, AVRISP_DATA_EPSIZE,
+	                                 ENDPOINT_DIR_IN, AVRISP_DATA_EPSIZE,
 	                                 ENDPOINT_BANK_SINGLE)))
 	{
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
