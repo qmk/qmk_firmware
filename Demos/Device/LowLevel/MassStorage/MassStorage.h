@@ -103,7 +103,7 @@
 		{
 			uint32_t Signature; /**< Command block signature, must be CBW_SIGNATURE to indicate a valid Command Block */
 			uint32_t Tag; /**< Unique command ID value, to associate a command block wrapper with its command status wrapper */
-			uint32_t DataTransferLength; /** Length of the optional data portion of the issued command, in bytes */
+			uint32_t DataTransferLength; /**< Length of the optional data portion of the issued command, in bytes */
 			uint8_t  Flags; /**< Command block flags, indicating command data direction */
 			uint8_t  LUN; /**< Logical Unit number this command is issued to */
 			uint8_t  SCSICommandLength; /**< Length of the issued SCSI command within the SCSI command data array */

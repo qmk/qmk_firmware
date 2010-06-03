@@ -54,10 +54,10 @@
 		#include "ConfigDescriptor.h"
 		
 	/* Macros: */
-		/** Pipe number for the HID data IN pipe */
+		/** Pipe number for the HID data IN pipe. */
 		#define HID_DATA_IN_PIPE          1
 		
-		/** Pipe number for the HID data OUT pipe */
+		/** Pipe number for the HID data OUT pipe. */
 		#define HID_DATA_OUT_PIPE         2
 
 		/** HID Class specific request to send a HID report to the device. */
@@ -75,7 +75,7 @@
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 		
-		/** Size of the Launcher report command buffer */
+		/** Size of the Launcher report command buffer. */
 		#define LAUNCHER_CMD_BUFFER_SIZE 64
 		
 	/* Function Prototypes: */

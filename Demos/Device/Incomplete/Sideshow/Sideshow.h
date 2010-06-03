@@ -47,11 +47,11 @@
 
 	/* Macros: */
 		/** Device control request for used in the Microsoft OS Descriptor for retrieving the OS Feature
-		 *  descriptors of the device
+		 *  descriptors of the device.
 		 */
 		#define REQ_GetOSFeatureDescriptor        0x01
 		
-		/** Descriptor index for a Microsoft Proprietary Extended Device Compatibility descriptor */
+		/** Descriptor index for a Microsoft Proprietary Extended Device Compatibility descriptor. */
 		#define EXTENDED_COMPAT_ID_DESCRIPTOR     0x0004
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */

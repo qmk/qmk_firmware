@@ -45,46 +45,46 @@
 		#include "ProtocolDecoders.h"
 		
 	/* Macros: */
-		/** Maximum number of TCP ports which can be open at the one time */
+		/** Maximum number of TCP ports which can be open at the one time. */
 		#define MAX_OPEN_TCP_PORTS              1
 
-		/** Maximum number of TCP connections which can be sustained at the one time */
+		/** Maximum number of TCP connections which can be sustained at the one time. */
 		#define MAX_TCP_CONNECTIONS             3
 
-		/** TCP window size, giving the maximum number of bytes which can be buffered at the one time */
+		/** TCP window size, giving the maximum number of bytes which can be buffered at the one time. */
 		#define TCP_WINDOW_SIZE                 512
 		
-		/** Port number for HTTP transmissions */
+		/** Port number for HTTP transmissions. */
 		#define TCP_PORT_HTTP                   SwapEndian_16(80)
 		
-		/** Data direction indicator for a TCP application buffer, indicating data from host-to-device */
+		/** Data direction indicator for a TCP application buffer, indicating data from host-to-device. */
 		#define TCP_PACKETDIR_IN                false
 
-		/** Data direction indicator for a TCP application buffer, indicating data from device-to-host */
+		/** Data direction indicator for a TCP application buffer, indicating data from device-to-host. */
 		#define TCP_PACKETDIR_OUT               true
 		
-		/** Congestion Window Reduced TCP flag mask */
+		/** Congestion Window Reduced TCP flag mask. */
 		#define TCP_FLAG_CWR                    (1 << 7)
 
-		/** Explicit Congestion Notification TCP flag mask */
+		/** Explicit Congestion Notification TCP flag mask. */
 		#define TCP_FLAG_ECE                    (1 << 6)
 
-		/** Urgent TCP flag mask */
+		/** Urgent TCP flag mask. */
 		#define TCP_FLAG_URG                    (1 << 5)
 
-		/** Data Acknowledge TCP flag mask */
+		/** Data Acknowledge TCP flag mask. */
 		#define TCP_FLAG_ACK                    (1 << 4)
 
-		/** Data Push TCP flag mask */
+		/** Data Push TCP flag mask. */
 		#define TCP_FLAG_PSH                    (1 << 3)
 
-		/** Reset TCP flag mask */
+		/** Reset TCP flag mask. */
 		#define TCP_FLAG_RST                    (1 << 2)
 
-		/** Synchronize TCP flag mask */
+		/** Synchronize TCP flag mask. */
 		#define TCP_FLAG_SYN                    (1 << 1)
 
-		/** Connection Finalize TCP flag mask */
+		/** Connection Finalize TCP flag mask. */
 		#define TCP_FLAG_FIN                    (1 << 0)
 		
 		/** Application macro: Determines if the given application buffer contains a packet received from the host
@@ -147,14 +147,14 @@
 		#define TCP_APP_CLOSECONNECTION(Connection)  MACROS{ Connection->State = TCP_Connection_Closing;  }MACROE
 
 	/* Enums: */
-		/** Enum for possible TCP port states */
+		/** Enum for possible TCP port states. */
 		enum TCP_PortStates_t
 		{
 			TCP_Port_Closed            = 0, /**< TCP port closed, no connections to a host may be made on this port. */
 			TCP_Port_Open              = 1, /**< TCP port open, connections to a host may be made on this port. */
 		};
 	
-		/** Enum for possible TCP connection states */
+		/** Enum for possible TCP connection states. */
 		enum TCP_ConnectionStates_t
 		{
 			TCP_Connection_Listen      = 0, /**< Listening for a connection from a host */
@@ -171,7 +171,7 @@
 		};
 	
 	/* Type Defines: */
-		/** Type define for a TCP connection buffer structure, including size, data and direction */
+		/** Type define for a TCP connection buffer structure, including size, data and direction. */
 		typedef struct
 		{
 			uint16_t               Length; /**< Length of data in the TCP application buffer */
@@ -180,10 +180,10 @@
 			bool                   Ready; /**< If data from host, indicates buffer ready to be read, otherwise indicates
 			                               *   buffer ready to be sent to the host
 			                               */
-			bool                   InUse; /** Indicates if the buffer is locked to to the current direction, and cannot be changed */
+			bool                   InUse; /**< Indicates if the buffer is locked to to the current direction, and cannot be changed */
 		} TCP_ConnectionBuffer_t;
 
-		/** Type define for a TCP connection information structure */
+		/** Type define for a TCP connection information structure. */
 		typedef struct
 		{
 			uint32_t               SequenceNumberIn; /**< Current TCP sequence number for host-to-device */	
@@ -191,7 +191,7 @@
 			TCP_ConnectionBuffer_t Buffer; /**< Connection application data buffer */
 		} TCP_ConnectionInfo_t;
 
-		/** Type define for a complete TCP connection state */
+		/** Type define for a complete TCP connection state. */
 		typedef struct
 		{
 			uint16_t               Port; /**< Connection port number on the device */
@@ -201,7 +201,7 @@
 			uint8_t                State; /**< Current connection state, a value from the TCP_ConnectionStates_t enum */
 		} TCP_ConnectionState_t;
 
-		/** Type define for a TCP port state */
+		/** Type define for a TCP port state. */
 		typedef struct
 		{
 			uint16_t               Port; /**< TCP port number on the device */
@@ -210,7 +210,7 @@
 			                                              TCP_ConnectionBuffer_t* Buffer); /**< Port application handler */
 		} TCP_PortState_t;
 
-		/** Type define for a TCP packet header */
+		/** Type define for a TCP packet header. */
 		typedef struct
 		{
 			uint16_t               SourcePort; /**< Source port of the TCP packet */
@@ -228,9 +228,6 @@
 			uint16_t               UrgentPointer; /**< Urgent data pointer */
 		} TCP_Header_t;
 		
-	/* External Variables: */
-		TCP_PortState_t PortStateTable[MAX_OPEN_TCP_PORTS];
-
 	/* Function Prototypes: */
 		void                  TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo);
 		void                  TCP_Init(void);

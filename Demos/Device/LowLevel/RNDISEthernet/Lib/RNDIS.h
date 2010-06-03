@@ -45,16 +45,16 @@
 		#include "Ethernet.h"
 
 	/* Macros: */
-		/** Implemented RNDIS Version Major */
+		/** Implemented RNDIS Version Major. */
 		#define REMOTE_NDIS_VERSION_MAJOR             0x01
 
-		/** Implemented RNDIS Version Minor */
+		/** Implemented RNDIS Version Minor. */
 		#define REMOTE_NDIS_VERSION_MINOR             0x00
 	
-		/** RNDIS request to issue a host-to-device NDIS command */
+		/** RNDIS request to issue a host-to-device NDIS command. */
 		#define REQ_SendEncapsulatedCommand           0x00
 
-		/** RNDIS request to issue a device-to-host NDIS response */
+		/** RNDIS request to issue a device-to-host NDIS response. */
 		#define REQ_GetEncapsulatedResponse           0x01
 		
 	/* Enums: */
@@ -66,7 +66,7 @@
 			RNDIS_Data_Initialized = 2, /**< Adapter currently initialized and ready for data transfers */
 		};
 
-		/** Enum for the NDIS hardware states */
+		/** Enum for the NDIS hardware states. */
 		enum NDIS_Hardware_Status_t
 		{
 			NdisHardwareStatusReady, /**< Hardware Ready to accept commands from the host */
@@ -77,14 +77,14 @@
 		};
 
 	/* Type Defines: */
-		/** Type define for a RNDIS message header, sent before RNDIS messages */
+		/** Type define for a RNDIS message header, sent before RNDIS messages. */
 		typedef struct
 		{
 			uint32_t MessageType; /**< RNDIS message type, a REMOTE_NDIS_*_MSG constant */
 			uint32_t MessageLength; /**< Total length of the RNDIS message, in bytes */
 		} RNDIS_Message_Header_t;
 
-		/** Type define for a RNDIS packet message, used to encapsulate Ethernet packets sent to and from the adapter */
+		/** Type define for a RNDIS packet message, used to encapsulate Ethernet packets sent to and from the adapter. */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -100,7 +100,7 @@
 			uint32_t Reserved;
 		} RNDIS_Packet_Message_t;
 	
-		/** Type define for a RNDIS Initialize command message */
+		/** Type define for a RNDIS Initialize command message. */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -112,7 +112,7 @@
 			uint32_t MaxTransferSize;
 		} RNDIS_Initialize_Message_t;
 		
-		/** Type define for a RNDIS Initialize complete response message */
+		/** Type define for a RNDIS Initialize complete response message. */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -131,7 +131,7 @@
 			uint32_t AFListSize;
 		} RNDIS_Initialize_Complete_t;
 		
-		/** Type define for a RNDIS Keepalive command message */
+		/** Type define for a RNDIS Keepalive command message. */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -139,7 +139,7 @@
 			uint32_t RequestId;
 		} RNDIS_KeepAlive_Message_t;
 
-		/** Type define for a RNDIS Keepalive complete message */
+		/** Type define for a RNDIS Keepalive complete message. */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -148,7 +148,7 @@
 			uint32_t Status;
 		} RNDIS_KeepAlive_Complete_t;
 
-		/** Type define for a RNDIS Reset complete message */
+		/** Type define for a RNDIS Reset complete message. */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -158,7 +158,7 @@
 			uint32_t AddressingReset;
 		} RNDIS_Reset_Complete_t;
 		
-		/** Type define for a RNDIS Set command message */
+		/** Type define for a RNDIS Set command message. */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -171,7 +171,7 @@
 			uint32_t DeviceVcHandle;
 		} RNDIS_Set_Message_t;
 
-		/** Type define for a RNDIS Set complete response message */
+		/** Type define for a RNDIS Set complete response message. */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -180,7 +180,7 @@
 			uint32_t Status;
 		} RNDIS_Set_Complete_t;
 		
-		/** Type define for a RNDIS Query command message */
+		/** Type define for a RNDIS Query command message. */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -193,7 +193,7 @@
 			uint32_t DeviceVcHandle;
 		} RNDIS_Query_Message_t;
 		
-		/** Type define for a RNDIS Query complete response message */
+		/** Type define for a RNDIS Query complete response message. */
 		typedef struct
 		{
 			uint32_t MessageType;

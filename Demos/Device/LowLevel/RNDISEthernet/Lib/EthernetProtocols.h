@@ -72,13 +72,13 @@
 		#define PROTOCOL_SCTP                    132
 
 	/* Type Defines: */
-		/** Type define for a physical MAC address of a device on a network */
+		/** Type define for a physical MAC address of a device on a network. */
 		typedef struct
 		{
 			uint8_t       Octets[6]; /**< Individual bytes of a MAC address */
 		} MAC_Address_t;
 		
-		/** Type define for a protocol IP address of a device on a network */
+		/** Type define for a protocol IP address of a device on a network. */
 		typedef struct
 		{
 			uint8_t       Octets[4]; /**< Individual bytes of an IP address */

@@ -83,13 +83,13 @@
 				const struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the CDC interface's IN data pipe */
-					bool     DataINPipeDoubleBank; /** Indicates if the CDC interface's IN data pipe should use double banking */
+					bool     DataINPipeDoubleBank; /**< Indicates if the CDC interface's IN data pipe should use double banking */
 
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the CDC interface's OUT data pipe */
-					bool     DataOUTPipeDoubleBank; /** Indicates if the CDC interface's OUT data pipe should use double banking */
+					bool     DataOUTPipeDoubleBank; /**< Indicates if the CDC interface's OUT data pipe should use double banking */
 
 					uint8_t  NotificationPipeNumber; /**< Pipe number of the CDC interface's IN notification endpoint, if used */			
-					bool     NotificationPipeDoubleBank; /** Indicates if the CDC interface's notification pipe should use double banking */
+					bool     NotificationPipeDoubleBank; /**< Indicates if the CDC interface's notification pipe should use double banking */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -126,10 +126,10 @@
 											  *   CDCDevice_LineCodingParity_t enum
 											  */
 						uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
-					} LineEncoding; /** Line encoding used in the virtual serial port, for the device's information. This is generally
-					                 *  only used if the virtual serial port data is to be reconstructed on a physical UART. When set
-					                 *  by the host application, the \ref CDC_Host_SetLineEncoding() function must be called to push
-					                 *  the changes to the device.
+					} LineEncoding; /**< Line encoding used in the virtual serial port, for the device's information. This is generally
+					                 *   only used if the virtual serial port data is to be reconstructed on a physical UART. When set
+					                 *   by the host application, the \ref CDC_Host_SetLineEncoding() function must be called to push
+					                 *   the changes to the device.
 					                 */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when

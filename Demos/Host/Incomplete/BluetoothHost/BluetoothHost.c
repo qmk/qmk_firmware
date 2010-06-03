@@ -36,7 +36,7 @@
 
 #include "BluetoothHost.h"
 
-/** Bluetooth configuration structure. This structure configures the bluetooth stack's user alterable settings. */
+/** Bluetooth configuration structure. This structure configures the Bluetooth stack's user alterable settings. */
 Bluetooth_Device_t Bluetooth_DeviceConfiguration =
 	{
 		Class:   (DEVICE_CLASS_SERVICE_CAPTURING | DEVICE_CLASS_MAJOR_COMPUTER | DEVICE_CLASS_MINOR_COMPUTER_PALM),
@@ -214,7 +214,7 @@ void Bluetooth_StackInitialized(void)
 	         Bluetooth_State.LocalBDADDR[5], Bluetooth_State.LocalBDADDR[4], Bluetooth_State.LocalBDADDR[3],
 	         Bluetooth_State.LocalBDADDR[2], Bluetooth_State.LocalBDADDR[1], Bluetooth_State.LocalBDADDR[0]);
 			 
-	/* Reinitialize the services placed on top of the bluetooth stack ready for new connections */
+	/* Reinitialize the services placed on top of the Bluetooth stack ready for new connections */
 	SDP_Initialize();
 	RFCOMM_Initialize();
 }

@@ -142,7 +142,7 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Enums: */			
-			/** Enum for the possible error codes in the return value of the \ref USB_ProcessHIDReport() function */
+			/** Enum for the possible error codes in the return value of the \ref USB_ProcessHIDReport() function. */
 			enum HID_Parse_ErrorCodes_t
 			{
 				HID_PARSE_Successful                  = 0, /**< Successful parse of the HID report descriptor, no error. */
@@ -239,9 +239,9 @@
 			 */
 			typedef struct
 			{
-				uint8_t                      ReportID; /** Report ID of the report within the HID interface */
-				uint16_t                     ReportSizeBits[3]; /** Total number of bits in each report type for the given Report ID,
-				                                                 *  indexed by the \ref HID_ReportItemTypes_t enum
+				uint8_t                      ReportID; /**< Report ID of the report within the HID interface */
+				uint16_t                     ReportSizeBits[3]; /**< Total number of bits in each report type for the given Report ID,
+				                                                 *   indexed by the \ref HID_ReportItemTypes_t enum
 																 */
 			} HID_ReportSizeInfo_t;
 

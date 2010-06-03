@@ -42,22 +42,22 @@
 		#include "PIMACodes.h"
 
 	/* Macros: */
-		/** Pipe number of the Still Image data IN pipe */
+		/** Pipe number of the Still Image data IN pipe. */
 		#define SIMAGE_DATA_IN_PIPE            0x01
 
-		/** Pipe number of the Still Image data OUT pipe */
+		/** Pipe number of the Still Image data OUT pipe. */
 		#define SIMAGE_DATA_OUT_PIPE           0x02
 
-		/** Pipe number of the Still Image events pipe */
+		/** Pipe number of the Still Image events pipe. */
 		#define SIMAGE_EVENTS_PIPE             0x03
 		
-		/** Length in bytes of a given Unicode string's character length
+		/** Length in bytes of a given Unicode string's character length.
 		 *
 		 *  \param[in] chars  Total number of Unicode characters in the string
 		 */
 		#define UNICODE_STRING_LENGTH(chars)   ((chars) << 1)
 
-		/** Timeout period between the issuing of a command to a device, and the reception of the first packet */
+		/** Timeout period between the issuing of a command to a device, and the reception of the first packet. */
 		#define COMMAND_DATA_TIMEOUT_MS        10000
 		
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for

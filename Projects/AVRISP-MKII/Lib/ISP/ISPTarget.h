@@ -56,9 +56,10 @@
 		#endif
 
 	/* Macros: */
-		/** Total number of allowable ISP programming speeds supported by the device */
+		/** Total number of allowable ISP programming speeds supported by the device. */
 		#define TOTAL_ISP_PROGRAMMING_SPEEDS  7
 		
+		/** Low level device command to issue an extended FLASH address, for devices with other 128KB of FLASH. */
 		#define LOAD_EXTENDED_ADDRESS_CMD     0x4D
 		
 	/* Function Prototypes: */

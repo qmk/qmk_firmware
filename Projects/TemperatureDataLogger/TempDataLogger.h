@@ -77,7 +77,7 @@
 		/** Filename for the log data when written to the dataflash FAT filesystem. */
 		#define LOG_FILENAME             "TEMPLOG.txt"
 		
-		/** Data log interval between samples, in tens of milliseconds */
+		/** Data log interval between samples, in tens of milliseconds. */
 		#define LOG_INTERVAL_10MS        1000
 		
 	/* Type Defines: */

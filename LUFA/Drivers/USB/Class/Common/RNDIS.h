@@ -71,25 +71,25 @@
 		#endif
 		
 	/* Macros: */
-		/** Implemented RNDIS Version Major */
+		/** Implemented RNDIS Version Major. */
 		#define REMOTE_NDIS_VERSION_MAJOR             0x01
 
-		/** Implemented RNDIS Version Minor */
+		/** Implemented RNDIS Version Minor. */
 		#define REMOTE_NDIS_VERSION_MINOR             0x00
 	
-		/** RNDIS request to issue a host-to-device NDIS command */
+		/** RNDIS request to issue a host-to-device NDIS command. */
 		#define REQ_SendEncapsulatedCommand           0x00
 
-		/** RNDIS request to issue a device-to-host NDIS response */
+		/** RNDIS request to issue a device-to-host NDIS response. */
 		#define REQ_GetEncapsulatedResponse           0x01
 		
-		/** Maximum size in bytes of a RNDIS control message which can be sent or received */
+		/** Maximum size in bytes of a RNDIS control message which can be sent or received. */
 		#define RNDIS_MESSAGE_BUFFER_SIZE             128
 
-		/** Maximum size in bytes of an Ethernet frame according to the Ethernet standard */
+		/** Maximum size in bytes of an Ethernet frame according to the Ethernet standard. */
 		#define ETHERNET_FRAME_SIZE_MAX               1500
 		
-		/** Notification request value for a RNDIS Response Available notification */
+		/** Notification request value for a RNDIS Response Available notification. */
 		#define NOTIF_ResponseAvailable               1
 		
 	/* Enums: */
@@ -101,7 +101,7 @@
 			RNDIS_Data_Initialized = 2, /**< Adapter currently initialized and ready for data transfers */
 		};
 
-		/** Enum for the NDIS hardware states */
+		/** Enum for the NDIS hardware states. */
 		enum NDIS_Hardware_Status_t
 		{
 			NDIS_HardwareStatus_Ready, /**< Hardware Ready to accept commands from the host */

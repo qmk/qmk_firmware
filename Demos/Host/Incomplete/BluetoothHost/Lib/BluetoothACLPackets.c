@@ -249,7 +249,7 @@ uint8_t Bluetooth_SendPacket(void* Data, const uint16_t DataLen, Bluetooth_Chann
 	return BT_SENDPACKET_NoError;
 }
 
-/** Opens a bluetooth channel to the currently connected remote device, so that data can be exchanged.
+/** Opens a Bluetooth channel to the currently connected remote device, so that data can be exchanged.
  *
  *  \note The channel is not immediately opened when this function returns - it must undergo a two way
  *        connection and configuration process first as the main Bluetooth stack processing task is
@@ -312,7 +312,7 @@ Bluetooth_Channel_t* Bluetooth_OpenChannel(const uint16_t PSM)
 	return ChannelData;
 }
 
-/** Closes a bluetooth channel that is open to the currently connected remote device, so that no further data
+/** Closes a Bluetooth channel that is open to the currently connected remote device, so that no further data
  *  can be exchanged.
  *
  *  \note The channel is not immediately closed when this function returns - it must undergo an asynchronous

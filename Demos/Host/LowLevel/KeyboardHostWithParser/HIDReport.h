@@ -43,7 +43,7 @@
 		#include "KeyboardHostWithParser.h"
 
 	/* Macros: */
-		/** HID Report Descriptor Usage Page value for a desktop keyboard */
+		/** HID Report Descriptor Usage Page value for a desktop keyboard. */
 		#define USAGE_PAGE_KEYBOARD             0x07
 
 	/* Enums: */

@@ -53,10 +53,10 @@
 		#include "ConfigDescriptor.h"
 		
 	/* Macros: */
-		/** Pipe number for the keyboard data IN pipe */
+		/** Pipe number for the keyboard data IN pipe. */
 		#define KEYBOARD_DATAPIPE           1
 
-		/** HID Class Specific request to set the report protocol mode */
+		/** HID Class Specific request to set the report protocol mode. */
 		#define REQ_SetProtocol             0x0B
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -72,7 +72,7 @@
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
 	/* Type Defines: */
-		/** Type define for a standard Boot Protocol Keyboard report */
+		/** Type define for a standard Boot Protocol Keyboard report. */
 		typedef struct
 		{
 			uint8_t Modifier; /**< Keyboard modifier byte, indicating pressed modifier keys (such as Shift, Control, etc.) */

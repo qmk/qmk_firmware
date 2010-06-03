@@ -49,7 +49,7 @@
 		#include "HIDReport.h"
 
 	/* Macros: */
-		/** Pipe number for the keyboard report data pipe */
+		/** Pipe number for the keyboard report data pipe. */
 		#define KEYBOARD_DATAPIPE         1
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */

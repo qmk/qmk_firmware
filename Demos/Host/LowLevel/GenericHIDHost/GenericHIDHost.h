@@ -53,10 +53,10 @@
 		#include "ConfigDescriptor.h"
 		
 	/* Macros: */
-		/** Pipe number for the HID data IN pipe */
+		/** Pipe number for the HID data IN pipe. */
 		#define HID_DATA_IN_PIPE          1
 		
-		/** Pipe number for the HID data OUT pipe */
+		/** Pipe number for the HID data OUT pipe. */
 		#define HID_DATA_OUT_PIPE         2
 
 		/** HID Class specific request to send a HID report to the device. */

@@ -42,16 +42,16 @@
 		#include "HIDReport.h"
 		
 	/* Macros: */
-		/** Interface Class value for the Human Interface Device class */
+		/** Interface Class value for the Human Interface Device class. */
 		#define KEYBOARD_CLASS                 0x03
 
-		/** Interface Protocol value for a Boot Protocol Keyboard compliant device */
+		/** Interface Protocol value for a Boot Protocol Keyboard compliant device. */
 		#define KEYBOARD_PROTOCOL              0x01
 
-		/** Descriptor header type constant for a HID descriptor */
+		/** Descriptor header type constant for a HID descriptor. */
 		#define DTYPE_HID                      0x21
 
-		/** Descriptor header type constant for a HID report descriptor */
+		/** Descriptor header type constant for a HID report descriptor. */
 		#define DTYPE_Report                   0x22
 	
 	/* Enums: */

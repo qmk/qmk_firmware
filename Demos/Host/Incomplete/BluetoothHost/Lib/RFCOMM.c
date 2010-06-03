@@ -68,21 +68,54 @@ void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 	switch (FrameHeader->FrameType & ~FRAME_POLL_FINAL)
 	{
 		case RFCOMM_Frame_SABM:
-			BT_RFCOMM_DEBUG(1, "<< SABM Received");
+			RFCOMM_ProcessSABM(FrameHeader, Channel);
 			break;
 		case RFCOMM_Frame_UA:
-			BT_RFCOMM_DEBUG(1, "<< UA Received");
+			RFCOMM_ProcessUA(FrameHeader, Channel);
 			break;
 		case RFCOMM_Frame_DM:
-			BT_RFCOMM_DEBUG(1, "<< DM Received");
+			RFCOMM_ProcessDM(FrameHeader, Channel);
 			break;
 		case RFCOMM_Frame_DISC:
-			BT_RFCOMM_DEBUG(1, "<< DISC Received");
+			RFCOMM_ProcessDISC(FrameHeader, Channel);
 			break;
 		case RFCOMM_Frame_UIH:
-			BT_RFCOMM_DEBUG(1, "<< UIH Received");
+			RFCOMM_ProcessUIH(FrameHeader, Channel);
 			break;
 	}
+}
+
+static void RFCOMM_ProcessSABM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+{
+	uint8_t* CurrBufferPos = ((uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t));
+	uint16_t DataLen       = RFCOMM_GetFrameDataLength(&CurrBufferPos);
+
+	BT_RFCOMM_DEBUG(1, "<< SABM Received");
+	BT_RFCOMM_DEBUG(2, "-- Data Length 0x%04X", DataLen);
+
+	for (uint16_t i = 0; i < DataLen; i++)
+	  printf("0x%02X ", CurrBufferPos[i]);
+	printf("\r\n");
+}
+
+static void RFCOMM_ProcessUA(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+{
+	BT_RFCOMM_DEBUG(1, "<< UA Received");
+}
+
+static void RFCOMM_ProcessDM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+{
+	BT_RFCOMM_DEBUG(1, "<< DM Received");
+}
+
+static void RFCOMM_ProcessDISC(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+{
+	BT_RFCOMM_DEBUG(1, "<< DISC Received");
+}
+
+static void RFCOMM_ProcessUIH(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+{
+	BT_RFCOMM_DEBUG(1, "<< UIH Received");
 }
 
 static uint16_t RFCOMM_GetFrameDataLength(void** BufferPos)

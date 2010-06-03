@@ -55,6 +55,7 @@
 		#define FRAME_POLL_FINAL                        (1 << 5)
 	
 	/* Enums: */
+		/** Enum for the types of RFCOMM frames which can be exchanged on a Bluetooth channel. */
 		enum RFCOMM_Frame_Types_t
 		{
 			RFCOMM_Frame_SABM  = 0x2F, /**< Set Asynchronous Balance Mode Field */
@@ -70,7 +71,7 @@
 			struct
 			{
 				unsigned char LogicalChannel   : 6;
-				unsigned char CommandResponse  : 1;
+				unsigned char PollResponse     : 1;
 				unsigned char LastAddressOctet : 1;
 			} Header;
 			
@@ -82,6 +83,12 @@
 		void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel);
 		
 		#if defined(INCLUDE_FROM_RFCOMM_C)
+			static void RFCOMM_ProcessSABM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessUA(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessDM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessDISC(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessUIH(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
+
 			static uint16_t RFCOMM_GetFrameDataLength(void** BufferPos);
 		#endif
 		

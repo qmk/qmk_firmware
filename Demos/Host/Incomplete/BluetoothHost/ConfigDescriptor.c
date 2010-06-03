@@ -65,7 +65,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlError;
 	}
 	
-	/* The bluetooth USB transport addendum mandates that the data (not streaming voice) endpoints
+	/* The Bluetooth USB transport addendum mandates that the data (not streaming voice) endpoints
 	   be in the first interface descriptor (interface 0) */
 	USB_GetNextDescriptorOfType(&CurrConfigBytesRem, &CurrConfigLocation, DTYPE_Interface);
 	
@@ -73,11 +73,11 @@ uint8_t ProcessConfigurationDescriptor(void)
 	if (!(CurrConfigBytesRem))
 	  return NoBTInterfaceFound;
 
-	/* Get the data IN, data OUT and event notification endpoints for the bluetooth interface */
+	/* Get the data IN, data OUT and event notification endpoints for the Bluetooth interface */
 	while (FoundEndpoints != ((1 << BLUETOOTH_DATA_IN_PIPE) | (1 << BLUETOOTH_DATA_OUT_PIPE) |
 	                          (1 << BLUETOOTH_EVENTS_PIPE)))
 	{
-		/* Fetch the next endpoint from the current bluetooth interface */
+		/* Fetch the next endpoint from the current Bluetooth interface */
 		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextInterfaceBluetoothDataEndpoint))
 		{

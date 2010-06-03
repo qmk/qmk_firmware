@@ -44,76 +44,76 @@
 		#include "../Webserver.h"
 		
 	/* Macros: */
-		/** UDP listen port for a BOOTP server */
+		/** UDP listen port for a BOOTP server. */
 		#define DHCPC_SERVER_PORT         67
 
-		/** UDP listen port for a BOOTP client */
+		/** UDP listen port for a BOOTP client. */
 		#define DHCPC_CLIENT_PORT         68
 
-		/** BOOTP message type for a BOOTP REQUEST message */
+		/** BOOTP message type for a BOOTP REQUEST message. */
 		#define DHCP_OP_BOOTREQUEST       0x01
 
-		/** BOOTP message type for a BOOTP REPLY message */
+		/** BOOTP message type for a BOOTP REPLY message. */
 		#define DHCP_OP_BOOTREPLY         0x02
 
-		/** BOOTP flag for a BOOTP broadcast message */
+		/** BOOTP flag for a BOOTP broadcast message. */
 		#define BOOTP_BROADCAST           0x8000
 		
-		/** Magic DHCP cookie for a BOOTP message to identify it as a DHCP message */
+		/** Magic DHCP cookie for a BOOTP message to identify it as a DHCP message. */
 		#define DHCP_MAGIC_COOKIE         0x63538263
 		
-		/** Unique transaction ID used to identify DHCP responses to the client */
+		/** Unique transaction ID used to identify DHCP responses to the client. */
 		#define DHCP_TRANSACTION_ID       0x13245466
 
-		/** DHCP message type for a DISCOVER message */
+		/** DHCP message type for a DISCOVER message. */
 		#define DHCP_DISCOVER             1
 
-		/** DHCP message type for an OFFER message */
+		/** DHCP message type for an OFFER message. */
 		#define DHCP_OFFER                2
 
-		/** DHCP message type for a REQUEST message */
+		/** DHCP message type for a REQUEST message. */
 		#define DHCP_REQUEST              3
 
-		/** DHCP message type for a DECLINE message */
+		/** DHCP message type for a DECLINE message. */
 		#define DHCP_DECLINE              4
 
-		/** DHCP message type for an ACK message */
+		/** DHCP message type for an ACK message. */
 		#define DHCP_ACK                  5
 
-		/** DHCP message type for a NAK message */
+		/** DHCP message type for a NAK message. */
 		#define DHCP_NAK                  6
 
-		/** DHCP message type for a RELEASE message */
+		/** DHCP message type for a RELEASE message. */
 		#define DHCP_RELEASE              7
 
-		/** DHCP medium type for standard Ethernet */
+		/** DHCP medium type for standard Ethernet. */
 		#define DHCP_HTYPE_ETHERNET       1
 
-		/** DHCP message option for the network subnet mask */
+		/** DHCP message option for the network subnet mask. */
 		#define DHCP_OPTION_SUBNET_MASK   1
 
-		/** DHCP message option for the network gateway IP */
+		/** DHCP message option for the network gateway IP. */
 		#define DHCP_OPTION_ROUTER        3
 
-		/** DHCP message option for the network DNS server */
+		/** DHCP message option for the network DNS server. */
 		#define DHCP_OPTION_DNS_SERVER    6
 
-		/** DHCP message option for the requested client IP address */
+		/** DHCP message option for the requested client IP address. */
 		#define DHCP_OPTION_REQ_IPADDR    50
 
-		/** DHCP message option for the IP address lease time */
+		/** DHCP message option for the IP address lease time. */
 		#define DHCP_OPTION_LEASE_TIME    51
 
-		/** DHCP message option for the DHCP message type */
+		/** DHCP message option for the DHCP message type. */
 		#define DHCP_OPTION_MSG_TYPE      53
 		
-		/** DHCP message option for the DHCP server IP */		
+		/** DHCP message option for the DHCP server IP. */		
 		#define DHCP_OPTION_SERVER_ID     54
 
-		/** DHCP message option for the list of required options from the server */
+		/** DHCP message option for the list of required options from the server. */
 		#define DHCP_OPTION_REQ_LIST      55
 
-		/** DHCP message option for the options list terminator */
+		/** DHCP message option for the options list terminator. */
 		#define DHCP_OPTION_END           255
 
 	/* Type Defines: */
@@ -141,7 +141,7 @@
 			
 			uint32_t Cookie; /**< Magic BOOTP protocol cookie to indicate a valid packet */
 			
-			uint8_t  Options[]; /** DHCP message options */
+			uint8_t  Options[]; /**< DHCP message options */
 		} DHCP_Header_t;
 
 	/* Enums: */

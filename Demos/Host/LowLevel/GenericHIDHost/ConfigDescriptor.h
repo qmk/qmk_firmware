@@ -42,7 +42,7 @@
 		#include "GenericHIDHost.h"
 		
 	/* Macros: */
-		/** Interface Class value for the Human Interface Device class */
+		/** Interface Class value for the Human Interface Device class. */
 		#define HID_CLASS                   0x03
 	
 	/* Enums: */

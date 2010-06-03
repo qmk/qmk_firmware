@@ -69,7 +69,7 @@
 		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Error code for some Still Image Host functions, indicating a logical (and not hardware) error */
+			/** Error code for some Still Image Host functions, indicating a logical (and not hardware) error. */
 			#define SI_ERROR_LOGICAL_CMD_FAILED              0x80
 
 		/* Type Defines: */
@@ -84,13 +84,13 @@
 				const struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the Still Image interface's IN data pipe */
-					bool     DataINPipeDoubleBank; /** Indicates if the Still Image interface's IN data pipe should use double banking */
+					bool     DataINPipeDoubleBank; /**< Indicates if the Still Image interface's IN data pipe should use double banking */
 
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Still Image interface's OUT data pipe */
-					bool     DataOUTPipeDoubleBank; /** Indicates if the Still Image interface's OUT data pipe should use double banking */
+					bool     DataOUTPipeDoubleBank; /**< Indicates if the Still Image interface's OUT data pipe should use double banking */
 
 					uint8_t  EventsPipeNumber; /**< Pipe number of the Still Image interface's IN events endpoint, if used */			
-					bool     EventsPipeDoubleBank; /** Indicates if the Still Image interface's events data pipe should use double banking */
+					bool     EventsPipeDoubleBank; /**< Indicates if the Still Image interface's events data pipe should use double banking */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */

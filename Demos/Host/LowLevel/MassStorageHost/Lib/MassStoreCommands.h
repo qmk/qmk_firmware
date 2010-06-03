@@ -45,34 +45,34 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		/** Class specific request to reset the Mass Storage interface of the attached device */
+		/** Class specific request to reset the Mass Storage interface of the attached device. */
 		#define REQ_MassStorageReset                0xFF
 
-		/** Class specific request to retrieve the maximum Logical Unit Number (LUN) index of the attached device */
+		/** Class specific request to retrieve the maximum Logical Unit Number (LUN) index of the attached device. */
 		#define REQ_GetMaxLUN                       0xFE
 
-		/** Command Block Wrapper signature byte, for verification of valid CBW blocks */
+		/** Command Block Wrapper signature byte, for verification of valid CBW blocks. */
 		#define CBW_SIGNATURE                       0x43425355UL
 
-		/** Command Static Wrapper signature byte, for verification of valid CSW blocks */
+		/** Command Static Wrapper signature byte, for verification of valid CSW blocks. */
 		#define CSW_SIGNATURE                       0x53425355UL
 		
-		/** Data direction mask for the Flags field of a CBW, indicating Host-to-Device transfer direction */
+		/** Data direction mask for the Flags field of a CBW, indicating Host-to-Device transfer direction. */
 		#define COMMAND_DIRECTION_DATA_OUT          (0 << 7)
 
-		/** Data direction mask for the Flags field of a CBW, indicating Device-to-Host transfer direction */
+		/** Data direction mask for the Flags field of a CBW, indicating Device-to-Host transfer direction. */
 		#define COMMAND_DIRECTION_DATA_IN           (1 << 7)
 		
-		/** Timeout period between the issuing of a CBW to a device, and the reception of the first packet */
+		/** Timeout period between the issuing of a CBW to a device, and the reception of the first packet. */
 		#define COMMAND_DATA_TIMEOUT_MS             10000
 
-		/** Pipe number of the Mass Storage data IN pipe */
+		/** Pipe number of the Mass Storage data IN pipe. */
 		#define MASS_STORE_DATA_IN_PIPE             1
 
-		/** Pipe number of the Mass Storage data OUT pipe */
+		/** Pipe number of the Mass Storage data OUT pipe. */
 		#define MASS_STORE_DATA_OUT_PIPE            2
 		
-		/** Additional error code for Mass Storage functions when a device returns a logical command failure */
+		/** Additional error code for Mass Storage functions when a device returns a logical command failure. */
 		#define MASS_STORE_SCSI_COMMAND_FAILED      0xC0
 
 	/* Type defines: */
@@ -175,7 +175,7 @@
 		} SCSI_Capacity_t;
 
 	/* Enums: */
-		/** CSW status return codes, indicating the overall status of the issued CBW */
+		/** CSW status return codes, indicating the overall status of the issued CBW. */
 		enum MassStorageHost_CommandStatusCodes_t
 		{
 			Command_Pass = 0, /**< Command completed successfully */

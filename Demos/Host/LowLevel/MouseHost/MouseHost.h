@@ -53,10 +53,10 @@
 		#include "ConfigDescriptor.h"
 		
 	/* Macros: */
-		/** Pipe number for the mouse data IN pipe */
+		/** Pipe number for the mouse data IN pipe. */
 		#define MOUSE_DATAPIPE            1
 		
-		/** HID Class Specific request to set the report protocol mode */
+		/** HID Class Specific request to set the report protocol mode. */
 		#define REQ_SetProtocol           0x0B
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -72,7 +72,7 @@
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 
 	/* Type Defines: */
-		/** Type define for a standard Boot Protocol Mouse report */
+		/** Type define for a standard Boot Protocol Mouse report. */
 		typedef struct
 		{
 			uint8_t Button; /**< Button mask for currently pressed buttons in the mouse */

@@ -45,10 +45,10 @@
 		#include "ProtocolDecoders.h"
 		
 	/* Macros: */
-		/** ARP header operation constant, indicating a request from a host for an address translation */
+		/** ARP header operation constant, indicating a request from a host for an address translation. */
 		#define ARP_OPERATION_REQUEST            1
 
-		/** ARP header operation constant, indicating a reply from a host giving an address translation */
+		/** ARP header operation constant, indicating a reply from a host giving an address translation. */
 		#define ARP_OPERATION_REPLY              2
 
 	/* Type Defines: */

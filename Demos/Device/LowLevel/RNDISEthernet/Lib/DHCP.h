@@ -45,52 +45,52 @@
 		#include "ProtocolDecoders.h"
 
 	/* Macros: */
-		/** DHCP operation constant, indicating a request from a host to a DHCP server */
+		/** DHCP operation constant, indicating a request from a host to a DHCP server. */
 		#define DHCP_OP_BOOTREQUEST       0x01
 
-		/** DHCP operation constant, indicating a reply from a DHCP server to a host */
+		/** DHCP operation constant, indicating a reply from a DHCP server to a host. */
 		#define DHCP_OP_BOOTREPLY         0x02
 		
-		/** Hardware type constant, indicating Ethernet as a carrier */
+		/** Hardware type constant, indicating Ethernet as a carrier. */
 		#define DHCP_HTYPE_ETHERNET       0x01
 		
-		/** Magic boot protocol "cookie", inserted into all BOOTP packets (BOOTP is the carrier of DHCP) */
+		/** Magic boot protocol "cookie", inserted into all BOOTP packets (BOOTP is the carrier of DHCP). */
 		#define DHCP_MAGIC_COOKIE         0x63825363
 		
-		/** DHCP option list entry header, indicating that a subnet mask will follow */
+		/** DHCP option list entry header, indicating that a subnet mask will follow. */
 		#define DHCP_OPTION_SUBNETMASK    1
 
-		/** DHCP option list entry header, indicating that the DHCP message type constant will follow */
+		/** DHCP option list entry header, indicating that the DHCP message type constant will follow. */
 		#define DHCP_OPTION_MESSAGETYPE   53
 
-		/** DHCP option list entry header, indicating that the IP address of the DHCP server will follow */
+		/** DHCP option list entry header, indicating that the IP address of the DHCP server will follow. */
 		#define DHCP_OPTION_DHCPSERVER    54
 
-		/** DHCP option list entry header, used to pad out option data */
+		/** DHCP option list entry header, used to pad out option data. */
 		#define DHCP_OPTION_PAD           0
 
-		/** DHCP option list entry header, indicating the end of option data */
+		/** DHCP option list entry header, indicating the end of option data. */
 		#define DHCP_OPTION_END           255
 			
-		/** Message type constant, used in the DHCP option data field, requesting that a DHCP server offer an IP address */
+		/** Message type constant, used in the DHCP option data field, requesting that a DHCP server offer an IP address. */
 		#define DHCP_MESSAGETYPE_DISCOVER 1
 
-		/** Message type constant, used in the DHCP option data field, indicating that a DHCP server is offering an IP address */
+		/** Message type constant, used in the DHCP option data field, indicating that a DHCP server is offering an IP address. */
 		#define DHCP_MESSAGETYPE_OFFER    2
 
-		/** Message type constant, used in the DHCP option data field, requesting that a DHCP server lease a given IP address */
+		/** Message type constant, used in the DHCP option data field, requesting that a DHCP server lease a given IP address. */
 		#define DHCP_MESSAGETYPE_REQUEST  3
 
-		/** Message type constant, used in the DHCP option data field, declining an offered DHCP server IP address lease */
+		/** Message type constant, used in the DHCP option data field, declining an offered DHCP server IP address lease. */
 		#define DHCP_MESSAGETYPE_DECLINE  4
 
-		/** Message type constant, used in the DHCP option data field, ACKing a host IP lease request */
+		/** Message type constant, used in the DHCP option data field, ACKing a host IP lease request. */
 		#define DHCP_MESSAGETYPE_ACK      5
 
-		/** Message type constant, used in the DHCP option data field, NACKing a host IP lease request */
+		/** Message type constant, used in the DHCP option data field, NACKing a host IP lease request. */
 		#define DHCP_MESSAGETYPE_NACK     6
 
-		/** Message type constant, used in the DHCP option data field, indicating that a host is releasing a leased IP address */
+		/** Message type constant, used in the DHCP option data field, indicating that a host is releasing a leased IP address. */
 		#define DHCP_MESSAGETYPE_RELEASE  7
 
 	/* Type Defines: */

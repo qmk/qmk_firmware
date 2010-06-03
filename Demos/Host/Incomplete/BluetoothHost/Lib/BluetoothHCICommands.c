@@ -182,7 +182,7 @@ void Bluetooth_HCITask(void)
 				ParameterLength: 0,
 			};
 
-			/* Send the command to reset the bluetooth dongle controller */
+			/* Send the command to reset the Bluetooth dongle controller */
 			Bluetooth_SendHCICommand(&HCICommandHeader, NULL, 0);
 			
 			Bluetooth_State.NextHCIState    = Bluetooth_Init_ReadBufferSize;
@@ -197,7 +197,7 @@ void Bluetooth_HCITask(void)
 				ParameterLength: 0,
 			};
 
-			/* Send the command to read the bluetooth buffer size (mandatory before device sends any data) */
+			/* Send the command to read the Bluetooth buffer size (mandatory before device sends any data) */
 			Bluetooth_SendHCICommand(&HCICommandHeader, NULL, 0);
 
 			Bluetooth_State.NextHCIState    = Bluetooth_Init_GetBDADDR;
@@ -212,7 +212,7 @@ void Bluetooth_HCITask(void)
 				ParameterLength: 0,
 			};
 
-			/* Send the command to retrieve the BDADDR of the inserted bluetooth dongle */
+			/* Send the command to retrieve the BDADDR of the inserted Bluetooth dongle */
 			Bluetooth_SendHCICommand(&HCICommandHeader, NULL, 0);
 
 			Bluetooth_State.NextHCIState    = Bluetooth_Init_SetLocalName;
@@ -227,7 +227,7 @@ void Bluetooth_HCITask(void)
 					ParameterLength: 248,
 				};
 
-			/* Send the command to set the bluetooth dongle's name for other devices to see */
+			/* Send the command to set the Bluetooth dongle's name for other devices to see */
 			Bluetooth_SendHCICommand(&HCICommandHeader, Bluetooth_DeviceConfiguration.Name, strlen(Bluetooth_DeviceConfiguration.Name));
 
 			Bluetooth_State.NextHCIState    = Bluetooth_Init_SetDeviceClass;

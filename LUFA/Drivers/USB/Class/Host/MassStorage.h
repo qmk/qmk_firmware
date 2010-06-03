@@ -69,7 +69,7 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Error code for some Mass Storage Host functions, indicating a logical (and not hardware) error */
+			/** Error code for some Mass Storage Host functions, indicating a logical (and not hardware) error. */
 			#define MS_ERROR_LOGICAL_CMD_FAILED              0x80
 	
 		/* Type Defines: */
@@ -84,10 +84,10 @@
 				const struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the Mass Storage interface's IN data pipe */
-					bool     DataINPipeDoubleBank; /** Indicates if the Mass Storage interface's IN data pipe should use double banking */
+					bool     DataINPipeDoubleBank; /**< Indicates if the Mass Storage interface's IN data pipe should use double banking */
 
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Mass Storage interface's OUT data pipe */
-					bool     DataOUTPipeDoubleBank; /** Indicates if the Mass Storage interface's OUT data pipe should use double banking */
+					bool     DataOUTPipeDoubleBank; /**< Indicates if the Mass Storage interface's OUT data pipe should use double banking */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */

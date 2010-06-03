@@ -42,13 +42,13 @@
 		#include "StillImageHost.h"
 		
 	/* Macros: */
-		/** Interface Class value for the Still Image Device class */
+		/** Interface Class value for the Still Image Device class. */
 		#define SIMAGE_CLASS                   0x06
 
-		/** Interface Class value for the Still Image Device subclass */
+		/** Interface Class value for the Still Image Device subclass. */
 		#define SIMAGE_SUBCLASS                0x01
 
-		/** Interface Class value for the Still Image Device protocol */
+		/** Interface Class value for the Still Image Device protocol. */
 		#define SIMAGE_PROTOCOL                0x01
 	
 	/* Enums: */

@@ -51,10 +51,10 @@
 		#include "ISP/ISPTarget.h"
 
 	/* Macros: */
-		/** Parameter privilege mask to allow the host PC to read the parameter's value */
+		/** Parameter privilege mask to allow the host PC to read the parameter's value. */
 		#define PARAM_PRIV_READ     (1 << 0)
 
-		/** Parameter privilege mask to allow the host PC to change the parameter's value */
+		/** Parameter privilege mask to allow the host PC to change the parameter's value. */
 		#define PARAM_PRIV_WRITE    (1 << 1)
 		
 		/** Total number of parameters in the parameter table */

@@ -42,22 +42,22 @@
 		#include "RNDISEthernetHost.h"
 		
 	/* Macros: */
-		/** Interface Class value for the CDC class */
+		/** Interface Class value for the CDC class. */
 		#define CDC_CONTROL_CLASS              0x02
 
-		/** Interface Class value for the CDC Communication Interface subclass */
+		/** Interface Class value for the CDC Communication Interface subclass. */
 		#define CDC_CONTROL_SUBCLASS           0x02
 
-		/** Interface Class value for the CDC RNDIS vendor specific protocol */
+		/** Interface Class value for the CDC RNDIS vendor specific protocol. */
 		#define CDC_CONTROL_PROTOCOL           0xFF
 		
-		/** Interface Class value for the CDC data class */
+		/** Interface Class value for the CDC data class. */
 		#define CDC_DATA_CLASS                 0x0A
 
-		/** Interface Class value for the CDC data subclass */
+		/** Interface Class value for the CDC data subclass. */
 		#define CDC_DATA_SUBCLASS              0x00
 
-		/** Interface Class value for the CDC data protocol */
+		/** Interface Class value for the CDC data protocol. */
 		#define CDC_DATA_PROTOCOL              0x00
 	
 	/* Enums: */

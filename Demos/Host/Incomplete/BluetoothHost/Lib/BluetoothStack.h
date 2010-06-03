@@ -63,7 +63,7 @@
 		#define MAXIMUM_CHANNEL_MTU            255
 		
 	/* Enums: */
-		/** Enum for the possible states for a bluetooth ACL channel. */
+		/** Enum for the possible states for a Bluetooth ACL channel. */
 		enum BT_ChannelStates_t
 		{
 			Channel_Closed                = 0, /**< Channel is closed and inactive. No data may be sent or received. */
@@ -85,7 +85,7 @@
 		enum BT_SendPacket_ErrorCodes_t
 		{
 			BT_SENDPACKET_NoError            = 0, /**< The packet was sent sucessfully. */
-			BT_SENDPACKET_NotConnected       = 1, /**< The bluetooth stack is not currently connected to a remote device. */
+			BT_SENDPACKET_NotConnected       = 1, /**< The Bluetooth stack is not currently connected to a remote device. */
 			BT_SENDPACKET_ChannelNotOpen     = 2, /**< The given channel is not currently in the Open state. */
 		};
 
@@ -122,7 +122,7 @@
 		{
 			uint32_t Class; /**< Class of the local device, a mask of DEVICE_CLASS_* masks. */
 			char     PINCode[16]; /**< Pin code required to send or receive in order to authenticate with a remote device. */
-			char     Name[]; /**< Name of the local bluetooth device, up to 248 characters. */
+			char     Name[]; /**< Name of the local Bluetooth device, up to 248 characters. */
 		} Bluetooth_Device_t;
 		
 		/** Bluetooth stack state information structure, for the containment of the Bluetooth stack state. The values in
@@ -136,7 +136,7 @@
 			bool    IsInitialized; /**< Indicates if the Bluetooth stack is currently initialized and ready for connections
 			                        *   to or from a remote Bluetooth device.
 			                        */
-			uint8_t LocalBDADDR[6]; /**< Local bluetooth adapter's BDADDR, valid when the stack is fully initialized. */
+			uint8_t LocalBDADDR[6]; /**< Local Bluetooth adapter's BDADDR, valid when the stack is fully initialized. */
 		} Bluetooth_Stack_State_t;
 	
 	/* Includes: */

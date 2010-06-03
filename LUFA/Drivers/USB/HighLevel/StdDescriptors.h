@@ -472,7 +472,7 @@
 				USB_Descriptor_Header_t Header; /**< Descriptor header, including type and size. */
 				
 				uint8_t     FirstInterfaceIndex; /**< Index of the first associated interface. */
-				uint8_t     TotalInterfaces; /** Total number of associated interfaces. */
+				uint8_t     TotalInterfaces; /**< Total number of associated interfaces. */
 
 				uint8_t     Class; /**< Interface class ID. */
 				uint8_t     SubClass; /**< Interface subclass ID. */
@@ -504,7 +504,7 @@
 				                              *   given by the specific class.
 				                              */
 				uint8_t     bFirstInterface; /**< Index of the first associated interface. */
-				uint8_t     bInterfaceCount; /** Total number of associated interfaces. */
+				uint8_t     bInterfaceCount; /**< Total number of associated interfaces. */
 				uint8_t     bFunctionClass; /**< Interface class ID. */
 				uint8_t     bFunctionSubClass; /**< Interface subclass ID. */
 				uint8_t     bFunctionProtocol; /**< Interface protocol ID. */

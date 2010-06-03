@@ -80,7 +80,7 @@
 			/** LED mask for all the LEDs on the board. */
 			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3)
 
-			/** LED mask for the none of the board LEDs */
+			/** LED mask for the none of the board LEDs. */
 			#define LEDS_NO_LEDS     0
 
 		/* Inline Functions: */

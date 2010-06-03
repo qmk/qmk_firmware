@@ -41,10 +41,10 @@
 		#include <stdbool.h>
 
 	/* Defines: */
-		/** Size of each ring buffer, in bytes */
+		/** Size of each ring buffer, in bytes. */
 		#define BUFFER_SIZE      128
 		
-		/** Type of data to store into the buffer */
+		/** Type of data to store into the buffer. */
 		#define RingBuff_Data_t  uint8_t
 
 	/* Type Defines: */

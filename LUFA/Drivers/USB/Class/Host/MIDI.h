@@ -80,10 +80,10 @@
 				const struct
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the MIDI interface's streaming IN data pipe */
-					bool     DataINPipeDoubleBank; /** Indicates if the MIDI interface's IN data pipe should use double banking */
+					bool     DataINPipeDoubleBank; /**< Indicates if the MIDI interface's IN data pipe should use double banking */
 					
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the MIDI interface's streaming OUT data pipe */
-					bool     DataOUTPipeDoubleBank; /** Indicates if the MIDI interface's OUT data pipe should use double banking */
+					bool     DataOUTPipeDoubleBank; /**< Indicates if the MIDI interface's OUT data pipe should use double banking */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */

@@ -54,7 +54,7 @@
 		#include <LUFA/Drivers/Board/LEDs.h>
 
 	/* Macros: */
-		/** Idle period indicating that reports should be sent only when the inputs have changed */
+		/** Idle period indicating that reports should be sent only when the inputs have changed. */
 		#define HID_IDLE_CHANGESONLY        0
 
 		/** HID Class specific request to get the next HID report from the device. */

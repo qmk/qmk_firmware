@@ -51,13 +51,13 @@
 		#define BT_ACL_DEBUG(l, s, ...)           do { if (ACL_DEBUG_LEVEL >= l) printf_P(PSTR("(ACL) " s "\r\n"), ##__VA_ARGS__); } while (0)
 		#define ACL_DEBUG_LEVEL                   0
 	
-		/** Lowest possible channel number for L2CAP data channels */
+		/** Lowest possible channel number for L2CAP data channels. */
 		#define BT_CHANNELNUMBER_BASEOFFSET       0x0040
 
-		/** Bluetooth specification defined channel number for signalling commands */
+		/** Bluetooth specification defined channel number for signalling commands. */
 		#define BT_CHANNEL_SIGNALING              0x0001
 
-		/** Bluetooth specification defined channel number for connectionless data */
+		/** Bluetooth specification defined channel number for connectionless data. */
 		#define BT_CHANNEL_CONNECTIONLESS         0x0002
 		
 		#define BT_ACL_FIRST_AUTOFLUSH            (1 << 13)
@@ -98,14 +98,14 @@
 			uint16_t DataLength; /**< Length of the packet payload, in bytes */
 		} BT_ACL_Header_t;
 
-		/** Bluetooth ACL data packet header structure, for ACL packets containing L2CAP data */
+		/** Bluetooth ACL data packet header structure, for ACL packets containing L2CAP data. */
 		typedef struct
 		{
 			uint16_t PayloadLength; /**< Size of the data payload, in bytes */
 			uint16_t DestinationChannel; /**< Destination channel in the device the data is directed to */
 		} BT_DataPacket_Header_t;
 		
-		/** Bluetooth signalling command header structure, for all ACL packets containing a signalling command */
+		/** Bluetooth signalling command header structure, for all ACL packets containing a signalling command. */
 		typedef struct
 		{
 			uint8_t  Code; /**< Signal code, a BT_SIGNAL_* mask value */

@@ -45,22 +45,22 @@
 		#include "ProtocolDecoders.h"
 	
 	/* Macros: */
-		/** ICMP message type constant, indicating an ICMP ECHO Reply message */
+		/** ICMP message type constant, indicating an ICMP ECHO Reply message. */
 		#define ICMP_TYPE_ECHOREPLY              0
 
-		/** ICMP message type constant, indicating a packet destination is unreachable */
+		/** ICMP message type constant, indicating a packet destination is unreachable. */
 		#define ICMP_TYPE_DESTINATIONUNREACHABLE 3
 		
-		/** ICMP message type constant, indicating an ICMP Source Quench message */
+		/** ICMP message type constant, indicating an ICMP Source Quench message. */
 		#define ICMP_TYPE_SOURCEQUENCH           4
 
-		/** ICMP message type constant, indicating an ICMP Redirect message */
+		/** ICMP message type constant, indicating an ICMP Redirect message. */
 		#define ICMP_TYPE_REDIRECTMESSAGE        5
 
-		/** ICMP message type constant, indicating an ICMP ECHO Request message */
+		/** ICMP message type constant, indicating an ICMP ECHO Request message. */
 		#define ICMP_TYPE_ECHOREQUEST            8
 
-		/** ICMP message type constant, indicating an ICMP Time Exceeded message */
+		/** ICMP message type constant, indicating an ICMP Time Exceeded message. */
 		#define ICMP_TYPE_TIMEEXCEEDED           11
 	
 	/* Type Defines: */

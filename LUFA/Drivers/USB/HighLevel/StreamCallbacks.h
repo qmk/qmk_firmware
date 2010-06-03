@@ -64,7 +64,7 @@
 			#define NO_STREAM_CALLBACK    NULL
 			
 		/* Enums: */
-			/** Enum for the possible error return codes of a stream callback function */
+			/** Enum for the possible error return codes of a stream callback function. */
 			enum StreamCallback_Return_ErrorCodes_t
 			{
 				STREAMCALLBACK_Continue            = 0, /**< Continue sending or receiving the stream. */

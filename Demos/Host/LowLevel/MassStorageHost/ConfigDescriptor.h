@@ -42,13 +42,13 @@
 		#include "MassStorageHost.h"
 		
 	/* Macros: */
-		/** Interface Class value for the Mass Storage Device class */
+		/** Interface Class value for the Mass Storage Device class. */
 		#define MASS_STORE_CLASS               0x08
 
-		/** Interface Class value for the Mass Storage Device subclass */
+		/** Interface Class value for the Mass Storage Device subclass. */
 		#define MASS_STORE_SUBCLASS            0x06
 
-		/** Interface Protocol value for the Bulk Only transport protocol */
+		/** Interface Protocol value for the Bulk Only transport protocol. */
 		#define MASS_STORE_PROTOCOL            0x50
 
 	/* Enums: */

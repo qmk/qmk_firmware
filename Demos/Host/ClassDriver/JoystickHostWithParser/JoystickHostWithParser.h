@@ -64,19 +64,19 @@
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR           (LEDS_LED1 | LEDS_LED3)
 
-		/** HID Report Descriptor Usage Page value for a toggle button */
+		/** HID Report Descriptor Usage Page value for a toggle button. */
 		#define USAGE_PAGE_BUTTON           0x09
 
-		/** HID Report Descriptor Usage Page value for a Generic Desktop Control */
+		/** HID Report Descriptor Usage Page value for a Generic Desktop Control. */
 		#define USAGE_PAGE_GENERIC_DCTRL    0x01
 
-		/** HID Report Descriptor Usage for a Joystick */
+		/** HID Report Descriptor Usage for a Joystick. */
 		#define USAGE_JOYSTICK              0x04
 
-		/** HID Report Descriptor Usage value for a X axis movement */
+		/** HID Report Descriptor Usage value for a X axis movement. */
 		#define USAGE_X                     0x30
 
-		/** HID Report Descriptor Usage value for a Y axis movement */
+		/** HID Report Descriptor Usage value for a Y axis movement. */
 		#define USAGE_Y                     0x31
 		
 	/* Function Prototypes: */

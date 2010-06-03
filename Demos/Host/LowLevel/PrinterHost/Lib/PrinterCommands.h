@@ -43,19 +43,19 @@
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
-		/** Printer class-specific request to retrieve the printer's ID string */
+		/** Printer class-specific request to retrieve the printer's ID string. */
 		#define REQ_GetDeviceID              0
 
-		/** Printer class-specific request to retrieve the printer's virtual port status flags */
+		/** Printer class-specific request to retrieve the printer's virtual port status flags. */
 		#define REQ_GetPortStatus            1
 
-		/** Printer class-specific request to soft-reset the device */
+		/** Printer class-specific request to soft-reset the device. */
 		#define REQ_SoftReset                2
 
-		/** Pipe number of the Printer data IN pipe */
+		/** Pipe number of the Printer data IN pipe. */
 		#define PRINTER_DATA_IN_PIPE         1
 
-		/** Pipe number of the Printer data OUT pipe */
+		/** Pipe number of the Printer data OUT pipe. */
 		#define PRINTER_DATA_OUT_PIPE        2
 		
 	/* Function Prototypes: */

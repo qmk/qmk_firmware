@@ -63,16 +63,16 @@
 			#define _GETADCMUXMASK(x, y)        _GETADCMUXMASK2(x, y)
 		#endif
 
-		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing */
+		/** Programmer ID string, returned to the host during the CMD_SIGN_ON command processing. */
 		#define PROGRAMMER_ID              "AVRISP_MK2"
 		
-		/** Timeout period for each issued command from the host before it is aborted */
+		/** Timeout period for each issued command from the host before it is aborted. */
 		#define COMMAND_TIMEOUT_MS         200
 		
-		/** Command timeout counter register, GPIOR for speed */
+		/** Command timeout counter register, GPIOR for speed. */
 		#define TimeoutMSRemaining         GPIOR0
 
-		/** MUX mask for the VTARGET ADC channel number */
+		/** MUX mask for the VTARGET ADC channel number. */
 		#define VTARGET_ADC_CHANNEL_MASK   _GETADCMUXMASK(ADC_CHANNEL, VTARGET_ADC_CHANNEL)
 		
 		#if !defined(WIN_AVRDUDE_COMPAT)
