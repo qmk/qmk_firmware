@@ -213,6 +213,10 @@ void Bluetooth_StackInitialized(void)
 	printf_P(PSTR("Stack initialized with local address %02X:%02X:%02X:%02X:%02X:%02X.\r\n"),
 	         Bluetooth_State.LocalBDADDR[5], Bluetooth_State.LocalBDADDR[4], Bluetooth_State.LocalBDADDR[3],
 	         Bluetooth_State.LocalBDADDR[2], Bluetooth_State.LocalBDADDR[1], Bluetooth_State.LocalBDADDR[0]);
+			 
+	/* Reinitialize the services placed on top of the bluetooth stack ready for new connections */
+	SDP_Initialize();
+	RFCOMM_Initialize();
 }
 
 /** Bluetooth stack callback event for a Bluetooth connection request. When this callback fires, the

@@ -38,6 +38,7 @@
 
 	/* Includes: */
 		#include <avr/io.h>
+		#include <avr/pgmspace.h>
 		#include <string.h>
 		#include <stdbool.h>
 		#include <stdio.h>
@@ -50,8 +51,38 @@
 	/* Macros: */
 		#define BT_RFCOMM_DEBUG(l, s, ...)              do { if (RFCOMM_DEBUG_LEVEL >= l) printf_P(PSTR("(RFCOMM) " s "\r\n"), ##__VA_ARGS__); } while (0)
 		#define RFCOMM_DEBUG_LEVEL                      2
+		
+		#define FRAME_POLL_FINAL                        (1 << 5)
+	
+	/* Enums: */
+		enum RFCOMM_Frame_Types_t
+		{
+			RFCOMM_Frame_SABM  = 0x2F, /**< Set Asynchronous Balance Mode Field */
+			RFCOMM_Frame_UA    = 0x63, /**< Unnumbered Acknowledgement Field */
+			RFCOMM_Frame_DM    = 0x0F, /**< Disconnected Mode Field */
+			RFCOMM_Frame_DISC  = 0x43, /**< Disconnect Field */
+			RFCOMM_Frame_UIH   = 0xEF, /**< Unnumbered Information with Header check Field */
+		};
+	
+	/* Type Defines: */
+		typedef struct
+		{
+			struct
+			{
+				unsigned char LogicalChannel   : 6;
+				unsigned char CommandResponse  : 1;
+				unsigned char LastAddressOctet : 1;
+			} Header;
+			
+			uint8_t FrameType;
+		} RFCOMM_Header_t;
 
 	/* Function Prototypes: */
+		void RFCOMM_Initialize(void);
 		void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel);
+		
+		#if defined(INCLUDE_FROM_RFCOMM_C)
+			static uint16_t RFCOMM_GetFrameDataLength(void** BufferPos);
+		#endif
 		
 #endif
