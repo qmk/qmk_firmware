@@ -52,7 +52,7 @@
 		#define MIDI_STREAMING_PROTOCOL        0x00
 	
 	/* Enums: */
-		/** Enum for the possible return codes of the ProcessConfigurationDescriptor() function. */
+		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum MIDIHost_GetConfigDescriptorDataCodes_t
 		{
 			SuccessfulConfigRead            = 0, /**< Configuration Descriptor was processed successfully */

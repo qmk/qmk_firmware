@@ -81,7 +81,7 @@
 				#define USB_DEVICE_OPT_LOWSPEED            (1 << 0)
 			#endif
 			
-			/** Mask for the Options parameter of the USB_Init() function. This indicates that the
+			/** Mask for the Options parameter of the \ref USB_Init() function. This indicates that the
 			 *  USB interface should be initialized in full speed (12Mb/s) mode.
 			 */
 			#define USB_DEVICE_OPT_FULLSPEED               (0 << 0)

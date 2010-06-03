@@ -47,7 +47,7 @@
 		#define USAGE_PAGE_KEYBOARD             0x07
 
 	/* Enums: */
-		/** Enum for the possible return codes of the GetHIDReportData() function. */
+		/** Enum for the possible return codes of the \ref GetHIDReportData() function. */
 		enum KeyboardHostWithParser_GetHIDReportDataCodes_t
 		{
 			ParseSuccessful         = 0, /**< HID report descriptor parsed successfully */

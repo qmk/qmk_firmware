@@ -102,7 +102,7 @@
 		} CommandStatusWrapper_t;
 		
 		/** Type define for a SCSI Sense structure. Structures of this type are filled out by the
-		 *  device via the MassStore_RequestSense() function, indicating the current sense data of the
+		 *  device via the \ref MassStore_RequestSense() function, indicating the current sense data of the
 		 *  device (giving explicit error codes for the last issued command). For details of the
 		 *  structure contents, refer to the SCSI specifications.
 		 */
@@ -128,7 +128,7 @@
 		} SCSI_Request_Sense_Response_t;
 
 		/** Type define for a SCSI Inquiry structure. Structures of this type are filled out by the
-		 *  device via the MassStore_Inquiry() function, retrieving the attached device's information.
+		 *  device via the \ref MassStore_Inquiry() function, retrieving the attached device's information.
 		 *  For details of the structure contents, refer to the SCSI specifications.
 		 */
 		typedef struct
@@ -166,7 +166,7 @@
 		
 		/** SCSI capacity structure, to hold the total capacity of the device in both the number
 		 *  of blocks in the current LUN, and the size of each block. This structure is filled by
-		 *  the device when the MassStore_ReadCapacity() function is called.
+		 *  the device when the \ref MassStore_ReadCapacity() function is called.
 		 */
 		typedef struct
 		{

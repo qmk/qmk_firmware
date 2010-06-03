@@ -59,7 +59,7 @@
 		#define USAGE_Y                     0x31
 
 	/* Enums: */
-		/** Enum for the possible return codes of the GetHIDReportData() function. */
+		/** Enum for the possible return codes of the \ref GetHIDReportData() function. */
 		enum JoystickHostWithParser_GetHIDReportDataCodes_t
 		{
 			ParseSuccessful         = 0, /**< HID report descriptor parsed successfully */

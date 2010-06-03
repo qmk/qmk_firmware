@@ -48,7 +48,7 @@
 		#define PRINTER_PROTOCOL                 0x02
 
 	/* Enums: */
-		/** Enum for the possible return codes of the ProcessConfigurationDescriptor() function. */
+		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum PrinterHost_GetConfigDescriptorDataCodes_t
 		{
 			SuccessfulConfigRead            = 0, /**< Configuration Descriptor was processed successfully */

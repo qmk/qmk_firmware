@@ -52,6 +52,7 @@
 		#define BLUETOOTH_DEVICE_PROTOCOL        0x01
 
 	/* Enums: */
+		/** Enum for the possible return codes of the \ref ProcessDeviceDescriptor() function. */
 		enum BluetoothHost_GetDeviceDescriptorDataCodes_t
 		{
 			SuccessfulDeviceRead            = 0, /**< Device Descriptor was processed successfully */

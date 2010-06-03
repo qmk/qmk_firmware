@@ -37,7 +37,7 @@
  *        dispatch header located in LUFA/Drivers/USB/Class/Printer.h.
  */
 
-/** \ingroup Group_USBClassMS
+/** \ingroup Group_USBClassPrinter
  *  @defgroup Group_USBClassPrinterCommon  Common Class Definitions
  *
  *  \section Module Description

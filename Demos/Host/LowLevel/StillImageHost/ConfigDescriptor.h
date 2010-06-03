@@ -52,7 +52,7 @@
 		#define SIMAGE_PROTOCOL                0x01
 	
 	/* Enums: */
-		/** Enum for the possible return codes of the ProcessConfigurationDescriptor() function. */
+		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum StillImageHost_GetConfigDescriptorDataCodes_t
 		{
 			SuccessfulConfigRead            = 0, /**< Configuration Descriptor was processed successfully */

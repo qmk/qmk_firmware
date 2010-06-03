@@ -52,7 +52,7 @@
 		#define MASS_STORE_PROTOCOL            0x50
 
 	/* Enums: */
-		/** Enum for the possible return codes of the ProcessConfigurationDescriptor() function. */
+		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum MassStorageHost_GetConfigDescriptorDataCodes_t
 		{
 			SuccessfulConfigRead            = 0, /**< Configuration Descriptor was processed successfully */

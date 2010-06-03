@@ -62,7 +62,7 @@
 		#define USAGE_SCROLL_WHEEL          0x38
 		
 	/* Enums: */
-		/** Enum for the possible return codes of the GetHIDReportData() function. */
+		/** Enum for the possible return codes of the \ref GetHIDReportData() function. */
 		enum MouseHostWithParser_GetHIDReportDataCodes_t
 		{
 			ParseSuccessful         = 0, /**< HID report descriptor parsed successfully */

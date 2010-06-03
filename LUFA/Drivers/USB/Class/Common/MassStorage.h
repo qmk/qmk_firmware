@@ -235,7 +235,7 @@
 		/** \brief Mass Storage Class SCSI Sense Structure
 		 *  
 		 *  Type define for a SCSI Sense structure. Structures of this type are filled out by the
-		 *  device via the MassStore_RequestSense() function, indicating the current sense data of the
+		 *  device via the \ref MS_Host_RequestSense() function, indicating the current sense data of the
 		 *  device (giving explicit error codes for the last issued command). For details of the
 		 *  structure contents, refer to the SCSI specifications.
 		 */
@@ -263,7 +263,7 @@
 		/** \brief Mass Storage Class SCSI Inquiry Structure.
 		 *
 		 *  Type define for a SCSI Inquiry structure. Structures of this type are filled out by the
-		 *  device via the MassStore_Inquiry() function, retrieving the attached device's information.
+		 *  device via the \ref MS_Host_Inquiry() function, retrieving the attached device's information.
 		 *  For details of the structure contents, refer to the SCSI specifications.
 		 */
 		typedef struct

@@ -61,10 +61,10 @@
 		                                                   SenseData.AdditionalSenseCode = acode; \
 		                                                   SenseData.AdditionalSenseQualifier = aqual; }MACROE
 
-		/** Macro for the SCSI_Command_ReadWrite_10() function, to indicate that data is to be read from the storage medium. */
+		/** Macro for the \ref SCSI_Command_ReadWrite_10() function, to indicate that data is to be read from the storage medium. */
 		#define DATA_READ           true
 
-		/** Macro for the SCSI_Command_ReadWrite_10() function, to indicate that data is to be written to the storage medium. */
+		/** Macro for the \ref SCSI_Command_ReadWrite_10() function, to indicate that data is to be written to the storage medium. */
 		#define DATA_WRITE          false
 
 		/** Value for the DeviceType entry in the SCSI_Inquiry_Response_t enum, indicating a Block Media device. */

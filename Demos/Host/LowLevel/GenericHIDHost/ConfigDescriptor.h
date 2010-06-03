@@ -46,7 +46,7 @@
 		#define HID_CLASS                   0x03
 	
 	/* Enums: */
-		/** Enum for the possible return codes of the ProcessConfigurationDescriptor() function. */
+		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum GenericHIDHost_GetConfigDescriptorDataCodes_t
 		{
 			SuccessfulConfigRead            = 0, /**< Configuration Descriptor was processed successfully */
