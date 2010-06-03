@@ -291,7 +291,8 @@ void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t*
 			break;
 		default:
 			/* Unknown Protocol packet */
-			printf_P(PSTR("Unknown Packet Received (Channel 0x%04X, PSM: 0x%02X):\r\n"), Channel->LocalNumber, Channel->PSM);			
+			printf_P(PSTR("Unknown Packet Received (Channel 0x%04X, PSM: 0x%02X, Len: 0x%04X):\r\n"),
+			              Channel->LocalNumber, Channel->PSM, DataLen);			
 			break;
 	}
 }

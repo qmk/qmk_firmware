@@ -145,20 +145,20 @@
 			} Protocol;
 		} ItemProtocol_t;
 
-		/** Structure for a list of Data Elements Sequences containing UUID Data Elements and 16-bit PSM values, for service
+		/** Structure for a list of Data Elements Sequences containing UUID Data Elements and 8-bit channel values, for service
 		 *  attributes requiring extended protocol lists.
 		 */
 		typedef struct
 		{
-			uint8_t         Header; /**< Data Element header, should be (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit) */
-			uint8_t         Size; /**< Size of the inner Data Element sequence */
+			uint8_t        Header; /**< Data Element header, should be (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit) */
+			uint8_t        Size; /**< Size of the inner Data Element sequence */
 			
 			struct
 			{
-				ItemUUID_t  UUID; /**< UUID to store in the protocol list Data Element sequence */
-				Item16Bit_t PSM; /**< PSM that is to be used to access the service on created channels */
+				ItemUUID_t UUID; /**< UUID to store in the protocol list Data Element sequence */
+				Item8Bit_t Channel; /**< Channel that is to be used to access the service */
 			} Protocol;
-		} ItemProtocolPSM_t;
+		} ItemProtocolChannel_t;
 		
 		/** Structure for a list of Data Elements containing language encodings, including the language ID, Encoding ID and
 		 *  Attribute base offset.
@@ -172,5 +172,6 @@
 		
 	/* External Variables: */
 		extern const ServiceAttributeTable_t SerialPort_Attribute_Table[];
+		extern const ServiceAttributeTable_t PnP_Attribute_Table[];
 		
 #endif

@@ -56,15 +56,15 @@ const struct
 
 const struct
 {
-	uint8_t Header;
-	uint8_t Size;
+	uint8_t               Header;
+	uint8_t               Size;
 
-	ItemProtocol_t    L2CAP;
-	ItemProtocolPSM_t RFCOMM;
+	ItemProtocol_t        L2CAP;
+	ItemProtocolChannel_t RFCOMM;
 } PROGMEM SerialPort_Attribute_ProtocolDescriptor =
 	{
 		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
-		(sizeof(ItemProtocol_t) + sizeof(ItemProtocolPSM_t)),
+		(sizeof(ItemProtocol_t) + sizeof(ItemProtocolChannel_t)),
 		{
 			(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
 			sizeof(ItemUUID_t),
@@ -74,10 +74,10 @@ const struct
 		},
 		{
 			(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
-			(sizeof(ItemUUID_t) + sizeof(Item16Bit_t)),
+			(sizeof(ItemUUID_t) + sizeof(Item8Bit_t)),
 			{
 				{(SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), RFCOMM_UUID},
-				{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), SWAPENDIAN_16(CHANNEL_PSM_RFCOMM)},
+				{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_8Bit), 0x03},
 			},
 		},
 	};

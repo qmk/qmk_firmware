@@ -32,6 +32,7 @@
 	TODO: Make SendPacket respect receiver's MTU
 	TODO: Make ReceivePacket stitch together MTU fragments (?)
 	TODO: Add channel opened/closed callbacks
+	TODO: Figure out why delay is needed in connection for services
  */
 
 #define  INCLUDE_FROM_BLUETOOTH_ACLPACKETS_C
@@ -363,10 +364,12 @@ static inline void Bluetooth_Signal_ConnectionReq(const BT_Signal_Header_t* cons
 
 	Pipe_ClearIN();
 	Pipe_Freeze();
-
+	
 	BT_ACL_DEBUG(1, "<< L2CAP Connection Request");
 	BT_ACL_DEBUG(2, "-- PSM: 0x%04X", ConnectionRequest.PSM);
 	BT_ACL_DEBUG(2, "-- Source Channel: 0x%04X", ConnectionRequest.SourceChannel);
+
+	_delay_ms(15); // TODO - Determine why this is needed
 	
 	/* Try to retrieve the existing channel's information structure if it exists */
 	Bluetooth_Channel_t* ChannelData = Bluetooth_GetChannelData(ConnectionRequest.SourceChannel, CHANNEL_SEARCH_REMOTENUMBER);
