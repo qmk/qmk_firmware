@@ -486,16 +486,7 @@ static void SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_
 		/* Look for matches in the UUID list against the current attribute UUID value */
 		for (uint8_t i = 0; i < TotalUUIDs; i++)
 		{
-			uint8_t CurrentUUID[16];
-			memcpy_P(CurrentUUID, (CurrAttribute + 1), 16);
-		
-			BT_SDP_DEBUG(2, "-- TEST UUID: %02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
-		                CurrentUUID[0], CurrentUUID[1], CurrentUUID[2], CurrentUUID[3],
-		                CurrentUUID[4], CurrentUUID[5],
-						CurrentUUID[6], CurrentUUID[7],
-		                CurrentUUID[8], CurrentUUID[9],
-						CurrentUUID[10], CurrentUUID[11], CurrentUUID[12],  CurrentUUID[13],  CurrentUUID[14],  CurrentUUID[15]);
-
+			/* Check if the current unmatched UUID is identical to the search UUID */
 			if (!(UUIDMatch[i]) && !(memcmp_P(UUIDList[i], (CurrAttribute + 1), UUID_SIZE_BYTES)))
 			{
 				/* Indicate match found for the current attribute UUID and early-abort */

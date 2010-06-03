@@ -213,9 +213,9 @@
 		void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel);
 
 		#if defined(INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C)
-			static void SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
-			static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
-			static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
+			static void     SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
+			static void     SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
+			static void     SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
 
 			static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t* AttributeTable, uint16_t AttributeList[][2],
 			                                                  const uint8_t TotalAttributes, void** const BufferPos);

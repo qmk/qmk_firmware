@@ -43,57 +43,57 @@ const struct
 const struct
 {
 	uint8_t    Header;
-	uint16_t   Size;
+	uint8_t    Size;
 	ItemUUID_t UUIDList[];
 } PROGMEM SerialPort_Attribute_ServiceClassIDs =
 	{
-		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit),
-		SWAPENDIAN_16(sizeof(ItemUUID_t) * 1),
+		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
+		(sizeof(ItemUUID_t) * 1),
 		{
-			{(SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), SP_CLASS_UUID}
-		}
+			{(SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), SP_CLASS_UUID},
+		},
 	};
 
 const struct
 {
-	uint8_t  Header;
-	uint16_t Size;
+	uint8_t Header;
+	uint8_t Size;
 
-	ItemProtocol_t ProtocolList[];
+	ItemProtocol_t    L2CAP;
+	ItemProtocolPSM_t RFCOMM;
 } PROGMEM SerialPort_Attribute_ProtocolDescriptor =
 	{
-		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit),
-		SWAPENDIAN_16(sizeof(ItemProtocol_t) * 2),
+		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
+		(sizeof(ItemProtocol_t) + sizeof(ItemProtocolPSM_t)),
 		{
+			(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
+			sizeof(ItemUUID_t),
 			{
-				(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
-				sizeof(ItemUUID_t),
-				{
-					{(SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), L2CAP_UUID},
-				}
+				{(SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), L2CAP_UUID},
 			},
+		},
+		{
+			(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
+			(sizeof(ItemUUID_t) + sizeof(Item16Bit_t)),
 			{
-				(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
-				sizeof(ItemUUID_t),
-				{
-					{(SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), RFCOMM_UUID},
-				}
+				{(SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), RFCOMM_UUID},
+				{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), SWAPENDIAN_16(CHANNEL_PSM_RFCOMM)},
 			},
-		}
+		},
 	};
 
 const struct
 {
 	uint8_t    Header;
-	uint16_t   Size;
+	uint8_t    Size;
 	ItemUUID_t UUIDList[];
 } PROGMEM SerialPort_Attribute_BrowseGroupList =
 	{
-		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable16Bit),
-		SWAPENDIAN_16(sizeof(ItemUUID_t) * 1),
+		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
+		(sizeof(ItemUUID_t) * 1),
 		{
-			{(SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), PUBLICBROWSEGROUP_CLASS_UUID}
-		}
+			{(SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), PUBLICBROWSEGROUP_CLASS_UUID},
+		},
 	};
 	
 const struct
@@ -103,16 +103,15 @@ const struct
 	ItemLangEncoding_t LanguageEncodings[];
 } PROGMEM SerialPort_Attribute_LanguageBaseIDOffset =
 	{
-		.Header = (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
-		.Size   = (sizeof(ItemLangEncoding_t) * 1),
-		.LanguageEncodings =
+		(SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit),
+		(sizeof(ItemLangEncoding_t) * 1),
+		{
 			{
-				{
-					{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), SWAPENDIAN_16(0x454E)},
-					{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), SWAPENDIAN_16(0x006A)},
-					{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), SWAPENDIAN_16(0x0100)},
-				}
-			}
+				{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), SWAPENDIAN_16(0x454E)},
+				{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), SWAPENDIAN_16(0x006A)},
+				{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_16Bit), SWAPENDIAN_16(0x0100)},
+			},
+		},
 	};
 	
 const struct
