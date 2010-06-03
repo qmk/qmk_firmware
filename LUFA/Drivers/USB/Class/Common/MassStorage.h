@@ -263,7 +263,9 @@
 		/** \brief Mass Storage Class SCSI Inquiry Structure.
 		 *
 		 *  Type define for a SCSI Inquiry structure. Structures of this type are filled out by the
-		 *  device via the \ref MS_Host_Inquiry() function, retrieving the attached device's information.
+		 *  device via the \ref MS_Host_GetInquiryData() function, retrieving the attached device's
+		 *  information.
+		 *
 		 *  For details of the structure contents, refer to the SCSI specifications.
 		 */
 		typedef struct

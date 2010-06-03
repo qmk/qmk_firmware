@@ -113,7 +113,7 @@
 			 *
 			 *  SCSI capacity structure, to hold the total capacity of the device in both the number
 			 *  of blocks in the current LUN, and the size of each block. This structure is filled by
-			 *  the device when the \ref MS_Host_ReadCapacity() function is called.
+			 *  the device when the \ref MS_Host_ReadDeviceCapacity() function is called.
 			 */
 			typedef struct
 			{
