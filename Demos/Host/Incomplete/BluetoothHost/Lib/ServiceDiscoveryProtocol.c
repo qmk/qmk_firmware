@@ -28,6 +28,14 @@
   this software.
 */
 
+/** \file
+ *
+ *  SDP layer module. This module implements a simple Service Discovery
+ *  Protocol server, which can broadcast the device's supported services
+ *  to other Bluetooth devices upon request, so that they can determine
+ *  what services are available.
+ */
+
 #define  INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C
 #include "ServiceDiscoveryProtocol.h"
 
@@ -62,6 +70,7 @@ void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 	BT_SDP_DEBUG(2, "-- PDU ID: 0x%02X", SDPHeader->PDU);
 	BT_SDP_DEBUG(2, "-- Param Length: 0x%04X", SDPHeader->ParameterLength);
 
+	/* Dispatch to the correct processing routine for the given SDP packet type */
 	switch (SDPHeader->PDU)
 	{
 		case SDP_PDU_SERVICESEARCHREQUEST:

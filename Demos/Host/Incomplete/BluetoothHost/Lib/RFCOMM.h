@@ -52,7 +52,7 @@
 		#define BT_RFCOMM_DEBUG(l, s, ...)              do { if (RFCOMM_DEBUG_LEVEL >= l) printf_P(PSTR("(RFCOMM) " s "\r\n"), ##__VA_ARGS__); } while (0)
 		#define RFCOMM_DEBUG_LEVEL                      2
 		
-		#define FRAME_POLL_FINAL                        (1 << 5)
+		#define FRAME_POLL_FINAL                        (1 << 4)
 	
 	/* Enums: */
 		/** Enum for the types of RFCOMM frames which can be exchanged on a Bluetooth channel. */
@@ -73,9 +73,9 @@
 				unsigned char LogicalChannel   : 6;
 				unsigned char PollResponse     : 1;
 				unsigned char LastAddressOctet : 1;
-			} Header;
+			} Address;
 			
-			uint8_t FrameType;
+			uint8_t Control;
 		} RFCOMM_Header_t;
 
 	/* Function Prototypes: */
@@ -89,7 +89,8 @@
 			static void RFCOMM_ProcessDISC(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessUIH(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
 
-			static uint16_t RFCOMM_GetFrameDataLength(void** BufferPos);
+			static uint8_t  RFCOMM_GetFCSValue(const void* FrameStart, uint16_t Length);
+			static uint16_t RFCOMM_GetFrameDataLength(const uint8_t** BufferPos);
 		#endif
 		
 #endif

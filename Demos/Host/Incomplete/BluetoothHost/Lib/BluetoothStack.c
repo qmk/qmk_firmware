@@ -28,6 +28,12 @@
   this software.
 */
 
+/** \file
+ *
+ *  Main module for the Bluetooth stack. This module contains the overall Bluetooth
+ *  stack state variables and the main Bluetooth stack management functions.
+ */
+
 #include "BluetoothStack.h"
 
 /** Bluetooth device connection information structure. Once connected to a remote device, this structure tracks the

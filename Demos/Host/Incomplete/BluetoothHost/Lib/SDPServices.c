@@ -28,8 +28,19 @@
   this software.
 */
 
+/** \file
+ *
+ *  SDP Service Attribute definitions. This file contains the attributes
+ *  and attribute tables of all the services the device supports, which can
+ *  then be retrieved by a connected Bluetooth device via the SDP server.
+ */
+
 #include "SDPServices.h"
 
+/** Serial Port Profile attribute, listing the unique service handle of the Serial Port service
+ *  within the device. This handle can then be requested by the SDP client in future transactions
+ *  in lieu of a search UUID list.
+ */
 const struct
 {
 	uint8_t  Header;
@@ -40,6 +51,10 @@ const struct
 		SWAPENDIAN_32(0x00010001),
 	};
 
+/** Serial Port Profile attribute, listing the implemented Service Class UUIDs of the Serial Port service
+ *  within the device. This list indicates all the class UUIDs that apply to the Serial Port service, so that
+ *  a SDP client can search by a generalized class rather than a specific UUID to determine supported services.
+ */
 const struct
 {
 	uint8_t    Header;
@@ -54,6 +69,10 @@ const struct
 		},
 	};
 
+/** Serial Port Profile attribute, listing the Protocols (and their attributes) of the Serial Port service
+ *  within the device. This list indicates what protocols the service is layered on top of, as well as any
+ *  configuration information for each layer.
+ */
 const struct
 {
 	uint8_t               Header;
@@ -77,11 +96,15 @@ const struct
 			(sizeof(ItemUUID_t) + sizeof(Item8Bit_t)),
 			{
 				{(SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), RFCOMM_UUID},
-				{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_8Bit), 0x00},
+				{(SDP_DATATYPE_UnsignedInt | SDP_DATASIZE_8Bit), 0x03},
 			},
 		},
 	};
 
+/** Serial Port Profile attribute, listing the Browse Group List UUIDs which this service is a member of.
+ *  Browse Group UUIDs give a way to group together services within a device in a simple heirachy, so that
+ *  a SDP client can progressively narrow down an general browse to a specific service which it requires.
+ */
 const struct
 {
 	uint8_t    Header;
@@ -95,7 +118,10 @@ const struct
 			{(SDP_DATATYPE_UUID | SDP_DATASIZE_128Bit), PUBLICBROWSEGROUP_CLASS_UUID},
 		},
 	};
-	
+
+/** Serial Port Profile attribute, listing the languages (and their encodings) supported
+ *  by the Serial Port service in its text string attributes.
+ */
 const struct
 {
 	uint8_t            Header;
@@ -113,7 +139,8 @@ const struct
 			},
 		},
 	};
-	
+
+/** Serial Port Profile attribute, listing a human readable name of the service. */
 const struct
 {
 	uint8_t Header;
@@ -126,6 +153,7 @@ const struct
 		"Wireless Serial Port",
 	};
 
+/** Serial Port Profile attribute, listing a human readable description of the service. */
 const struct
 {
 	uint8_t Header;
@@ -138,6 +166,9 @@ const struct
 		"Wireless Serial Port Service",
 	};
 
+/** Service Attribute Table for the Serial Port service, linking each supported attribute ID to its data, so that
+ *  the SDP server can retrieve it for transmission back to a SDP client upon request.
+ */
 const ServiceAttributeTable_t PROGMEM SerialPort_Attribute_Table[] =
 	{
 		{.AttributeID = SDP_ATTRIBUTE_ID_SERVICERECORDHANDLE,    .Data = &SerialPort_Attribute_ServiceHandle       },

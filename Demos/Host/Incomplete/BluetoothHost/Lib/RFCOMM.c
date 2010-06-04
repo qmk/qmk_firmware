@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *
+ *  RFCOMM layer module. This module manages the RFCOMM layer of the
+ *  stack, providing virtual serial port channels on top of the lower
+ *  L2CAP layer.
+ */
+
 #define  INCLUDE_FROM_RFCOMM_C
 #include "RFCOMM.h"
 
@@ -62,10 +69,10 @@ void RFCOMM_Initialize(void)
 
 void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 {
-	RFCOMM_Header_t* FrameHeader = (RFCOMM_Header_t*)Data;
+	const RFCOMM_Header_t* FrameHeader = (const RFCOMM_Header_t*)Data;
 	
 	/* Decode the RFCOMM frame type from the header */
-	switch (FrameHeader->FrameType & ~FRAME_POLL_FINAL)
+	switch (FrameHeader->Control & ~FRAME_POLL_FINAL)
 	{
 		case RFCOMM_Frame_SABM:
 			RFCOMM_ProcessSABM(FrameHeader, Channel);
@@ -82,54 +89,94 @@ void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 		case RFCOMM_Frame_UIH:
 			RFCOMM_ProcessUIH(FrameHeader, Channel);
 			break;
+		default:
+			BT_RFCOMM_DEBUG(1, "<< Unknown Frame Type");
+			break;
 	}
 }
 
 static void RFCOMM_ProcessSABM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
 {
-	uint8_t* CurrBufferPos = ((uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t));
-	uint16_t DataLen       = RFCOMM_GetFrameDataLength(&CurrBufferPos);
-
 	BT_RFCOMM_DEBUG(1, "<< SABM Received");
-	BT_RFCOMM_DEBUG(2, "-- Data Length 0x%04X", DataLen);
+	BT_RFCOMM_DEBUG(2, "-- Address 0x%02X", FrameHeader->Address);
+	
+	// TODO: Reset channel send/receive state here
+	
+	struct
+	{
+		RFCOMM_Header_t FrameHeader;
+		uint8_t         FrameLength;
+		uint8_t         FCS;
+	} ResponsePacket;
+	
+	/* Copy over the same frame header as the sent packet to copy the logical RFCOMM channel address */
+	ResponsePacket.FrameHeader.Address              = FrameHeader->Address;
+	
+	/* Set the frame type to an Unnumbered Acknowledgement to acknowledge the SABM request */
+	ResponsePacket.FrameHeader.Control = RFCOMM_Frame_UA;
+	
+	/* Set the length to 0 (LSB indicates end of 8-bit length field) */
+	ResponsePacket.FrameLength = 0x01;
+	
+	/* Calculate the frame checksum from all fields except the FCS field itself */
+	ResponsePacket.FCS = RFCOMM_GetFCSValue(&ResponsePacket, sizeof(ResponsePacket) - sizeof(ResponsePacket.FCS));
+	
+	BT_RFCOMM_DEBUG(1, ">> UA Sent");
 
-	for (uint16_t i = 0; i < DataLen; i++)
-	  printf("0x%02X ", CurrBufferPos[i]);
-	printf("\r\n");
+	/* Send the completed response packet to the sender */
+	Bluetooth_SendPacket(&ResponsePacket, sizeof(ResponsePacket), Channel);
 }
 
 static void RFCOMM_ProcessUA(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
 {
+	const uint8_t* CurrBufferPos = ((const uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t));
+
 	BT_RFCOMM_DEBUG(1, "<< UA Received");
+	BT_RFCOMM_DEBUG(2, "-- Address 0x%02X", FrameHeader->Address);
 }
 
 static void RFCOMM_ProcessDM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
 {
+	const uint8_t* CurrBufferPos = ((const uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t));
+
 	BT_RFCOMM_DEBUG(1, "<< DM Received");
+	BT_RFCOMM_DEBUG(2, "-- Address 0x%02X", FrameHeader->Address);
 }
 
 static void RFCOMM_ProcessDISC(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
 {
+	const uint8_t* CurrBufferPos = ((const uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t));
+
 	BT_RFCOMM_DEBUG(1, "<< DISC Received");
+	BT_RFCOMM_DEBUG(2, "-- Address 0x%02X", FrameHeader->Address);
 }
 
 static void RFCOMM_ProcessUIH(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
 {
+	const uint8_t* CurrBufferPos = ((const uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t));
+
 	BT_RFCOMM_DEBUG(1, "<< UIH Received");
+	BT_RFCOMM_DEBUG(2, "-- Address 0x%02X", FrameHeader->Address);
 }
 
-static uint16_t RFCOMM_GetFrameDataLength(void** BufferPos)
+static uint8_t RFCOMM_GetFCSValue(const void* FrameStart, uint16_t Length)
 {
-	uint8_t FirstOctet = *((uint8_t*)*BufferPos);
-	(*BufferPos)++;
+	const uint8_t* CurrPos = FrameStart;
+	uint8_t        FCS     = 0xFF;
+	
+	while (Length--)
+	  FCS = pgm_read_byte(CRC8_Table[FCS ^ *(CurrPos++)]);
 
+	return ~FCS;
+}
+
+static uint16_t RFCOMM_GetFrameDataLength(const uint8_t** BufferPos)
+{
+	uint8_t FirstOctet  = *((*BufferPos)++);
 	uint8_t SecondOctet = 0;
 	
 	if (!(FirstOctet & 0x01))
-	{
-		SecondOctet = *((uint8_t*)*BufferPos);
-		(*BufferPos)++;
-	}
+	  SecondOctet = *((*BufferPos)++);
 	
 	return (((uint16_t)SecondOctet << 7) | (FirstOctet >> 1));
 }

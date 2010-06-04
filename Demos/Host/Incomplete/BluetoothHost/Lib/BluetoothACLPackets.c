@@ -28,6 +28,13 @@
   this software.
 */
 
+/** \file
+ *
+ *  Bluetooth L2CAP layer management code. This module managed the creation,
+ *  configuration and teardown of L2CAP channels, and manages packet reception
+ *  and sending to and from other Bluetooth devices.
+ */
+
 /*
 	TODO: Make SendPacket respect receiver's MTU
 	TODO: Make ReceivePacket stitch together MTU fragments (?)
