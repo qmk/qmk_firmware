@@ -68,13 +68,7 @@
 	/* Type Defines: */
 		typedef struct
 		{
-			struct
-			{
-				unsigned char LogicalChannel   : 6;
-				unsigned char PollResponse     : 1;
-				unsigned char LastAddressOctet : 1;
-			} Address;
-			
+			uint8_t Address;			
 			uint8_t Control;
 		} RFCOMM_Header_t;
 
@@ -89,6 +83,8 @@
 			static void RFCOMM_ProcessDISC(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessUIH(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
 
+			static void RFCOMM_SendFrame(const uint8_t Address, const uint8_t Type, const uint16_t DataLen,
+			                             const uint8_t* Data, Bluetooth_Channel_t* const Channel);
 			static uint8_t  RFCOMM_GetFCSValue(const void* FrameStart, uint16_t Length);
 			static uint16_t RFCOMM_GetFrameDataLength(const uint8_t** BufferPos);
 		#endif
