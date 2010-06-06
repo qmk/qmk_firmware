@@ -37,51 +37,81 @@
 #define _ULW_RING_BUFF_H_
 
 	/* Includes: */
+		#include <util/atomic.h>
+	
 		#include <stdint.h>
 		#include <stdbool.h>
 
 	/* Defines: */
-		/** Size of each ring buffer, in bytes */
+		/** Size of each ring buffer, in data elements - must be between 1 and 255. */
 		#define BUFFER_SIZE      128
 		
-		/** Type of data to store into the buffer */
+		/** Type of data to store into the buffer. */
 		#define RingBuff_Data_t  uint8_t
 
 	/* Type Defines: */
+		/** Type define for a new ring buffer object. Buffers should be initialized via a call to
+		 *  \ref RingBuffer_InitBuffer() before use.
+		 */
 		typedef struct
 		{
-			RingBuff_Data_t  Buffer[BUFFER_SIZE];
-			RingBuff_Data_t* In;
-			RingBuff_Data_t* Out;
-			uint8_t          Count;
+			RingBuff_Data_t  Buffer[BUFFER_SIZE]; /**< Internal ring buffer data, referenced by the buffer pointers. */
+			RingBuff_Data_t* In; /**< Current storage location in the circular buffer */
+			RingBuff_Data_t* Out; /**< Current retrieval location in the circular buffer */
+			uint8_t          Count; /**< Total number of bytes stored in the circular buffer */
 		} RingBuff_t;
 	
 	/* Inline Functions: */
+		/** Initializes a ring buffer ready for use. Buffers must be initialized via this function
+		 *  before any operations are called upon them. Already initialized buffers may be reset
+		 *  by re-initializing them using this function.
+		 *
+		 *  \ref Buffer  Pointer to a ring buffer structure to initialize
+		 */
 		static inline void RingBuffer_InitBuffer(RingBuff_t* const Buffer)
 		{
-			Buffer->In  = Buffer->Buffer;
-			Buffer->Out = Buffer->Buffer;
+			Buffer->In    = Buffer->Buffer;
+			Buffer->Out   = Buffer->Buffer;
 			Buffer->Count = 0;
 		}
 		
+		/** Inserts an element into the ring buffer.
+		 *
+		 *  \ref Buffer  Pointer to a ring buffer structure to insert into
+		 *  \ref Data    Data element to insert into the buffer
+		 */
 		static inline void RingBuffer_Insert(RingBuff_t* const Buffer, RingBuff_Data_t Data)
 		{
-			*Buffer->In = Data;
-		
-			if (++Buffer->In == &Buffer->Buffer[BUFFER_SIZE])
-			  Buffer->In = Buffer->Buffer;
-			  
-			Buffer->Count++;
+			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+			{
+				*Buffer->In = Data;
+			
+				if (++Buffer->In == &Buffer->Buffer[BUFFER_SIZE])
+				  Buffer->In = Buffer->Buffer;
+				  
+				Buffer->Count++;
+			}
 		}
 
+		/** Retrieves an element from the ring buffer.
+		 *
+		 *  \ref Buffer  Pointer to a ring buffer structure to retrieve from
+		 *
+		 *  \return Next data element stored in the buffer
+		 */
 		static inline RingBuff_Data_t RingBuffer_Remove(RingBuff_t* const Buffer)
 		{
-			RingBuff_Data_t Data = *Buffer->Out;
-		
-			if (++Buffer->Out == &Buffer->Buffer[BUFFER_SIZE])
-			  Buffer->Out = Buffer->Buffer;
-			  
-			Buffer->Count--;
+			RingBuff_Data_t Data;
+			
+			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+			{
+				Data = *Buffer->Out;
+			
+				if (++Buffer->Out == &Buffer->Buffer[BUFFER_SIZE])
+				  Buffer->Out = Buffer->Buffer;
+				  
+				Buffer->Count--;
+			}
 
 			return Data;
 		}
