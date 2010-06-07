@@ -36,6 +36,10 @@
  *  what services are available.
  */
 
+/*
+	TODO: Honor remote device's buffer size constraints via continuation state
+ */
+
 #define  INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C
 #include "ServiceDiscoveryProtocol.h"
 

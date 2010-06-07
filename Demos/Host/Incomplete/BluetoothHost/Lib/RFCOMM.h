@@ -68,8 +68,15 @@
 	/* Type Defines: */
 		typedef struct
 		{
-			uint8_t Address;			
-			uint8_t Control;
+			unsigned char EA   : 1;
+			unsigned char CR   : 1;
+			unsigned char DLCI : 6;
+		} RFCOMM_Address_t;
+	
+		typedef struct
+		{
+			RFCOMM_Address_t Address;
+			uint8_t          Control;
 		} RFCOMM_Header_t;
 
 	/* Function Prototypes: */
@@ -83,8 +90,8 @@
 			static void RFCOMM_ProcessDISC(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessUIH(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
 
-			static void RFCOMM_SendFrame(const uint8_t Address, const uint8_t Type, const uint16_t DataLen,
-			                             const uint8_t* Data, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, const uint8_t Control,
+			                             const uint16_t DataLen, const uint8_t* Data, Bluetooth_Channel_t* const Channel);
 			static uint8_t  RFCOMM_GetFCSValue(const void* FrameStart, uint16_t Length);
 			static uint16_t RFCOMM_GetFrameDataLength(const uint8_t** BufferPos);
 		#endif

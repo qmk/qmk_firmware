@@ -98,13 +98,12 @@ void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 static void RFCOMM_ProcessSABM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
 {
 	BT_RFCOMM_DEBUG(1, "<< SABM Received");
-	BT_RFCOMM_DEBUG(2, "-- Address 0x%02X", FrameHeader->Address);
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameHeader->Address.DLCI);
 	
 	// TODO: Reset channel send/receive state here
 	
 	BT_RFCOMM_DEBUG(1, ">> UA Sent");
-
-	RFCOMM_SendFrame(FrameHeader->Address, RFCOMM_Frame_UA, 0, NULL, Channel);
+	RFCOMM_SendFrame(FrameHeader->Address.DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
 }
 
 static void RFCOMM_ProcessUA(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
@@ -139,20 +138,25 @@ static void RFCOMM_ProcessUIH(const RFCOMM_Header_t* const FrameHeader, Bluetoot
 	BT_RFCOMM_DEBUG(2, "-- Address 0x%02X", FrameHeader->Address);
 }
 
-static void RFCOMM_SendFrame(const uint8_t Address, const uint8_t Type, const uint16_t DataLen, const uint8_t* Data,
+static void RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, const uint8_t Control, const uint16_t DataLen, const uint8_t* Data,
                              Bluetooth_Channel_t* const Channel)
 {
 	struct
 	{
 		RFCOMM_Header_t FrameHeader;
-		uint8_t         Size[1 + (DataLen >= 128)];
+		uint8_t         Size[(DataLen < 128) ? 1 : 2];
 		uint8_t         Data[DataLen];
 		uint8_t         FCS;
 	} ResponsePacket;
 	
 	/* Set the frame header values to the specified address and frame type */
-	ResponsePacket.FrameHeader.Address = Address;
-	ResponsePacket.FrameHeader.Control = Type;
+	ResponsePacket.FrameHeader.Control = Control;
+	ResponsePacket.FrameHeader.Address = (RFCOMM_Address_t)
+		{
+			.EA   = true,
+			.CR   = CommandResponse,
+			.DLCI = DLCI,
+		};
 	
 	/* Set the lower 7 bits of the packet length */
 	ResponsePacket.Size[0] = (DataLen << 1);
@@ -166,9 +170,12 @@ static void RFCOMM_SendFrame(const uint8_t Address, const uint8_t Type, const ui
 	/* Copy over the packet data from the source buffer to the response packet buffer */
 	memcpy(ResponsePacket.Data, Data, DataLen);
 	
-	/* Calculate the frame checksum from all fields except the FCS field itself */
-	ResponsePacket.FCS = RFCOMM_GetFCSValue(&ResponsePacket, sizeof(ResponsePacket) - sizeof(ResponsePacket.FCS));
-	
+	/* Calculate the frame checksum from the appropriate fields */
+	if ((Control & ~FRAME_POLL_FINAL) == RFCOMM_Frame_UIH)
+	  ResponsePacket.FCS = RFCOMM_GetFCSValue(&ResponsePacket, sizeof(ResponsePacket.FrameHeader));
+	else
+	  ResponsePacket.FCS = RFCOMM_GetFCSValue(&ResponsePacket, sizeof(ResponsePacket.FrameHeader) + sizeof(ResponsePacket.Size));
+
 	/* Send the completed response packet to the sender */
 	Bluetooth_SendPacket(&ResponsePacket, sizeof(ResponsePacket), Channel);
 }
@@ -179,9 +186,12 @@ static uint8_t RFCOMM_GetFCSValue(const void* FrameStart, uint16_t Length)
 	uint8_t        FCS     = 0xFF;
 	
 	while (Length--)
-	  FCS = pgm_read_byte(CRC8_Table[FCS ^ *(CurrPos++)]);
+	{
+		FCS = pgm_read_byte(&CRC8_Table[FCS ^ *CurrPos]);
+		CurrPos++;
+	}
 
-	return ~FCS;
+	return (0xFF - FCS);
 }
 
 static uint16_t RFCOMM_GetFrameDataLength(const uint8_t** BufferPos)
