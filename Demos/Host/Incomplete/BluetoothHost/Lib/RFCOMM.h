@@ -69,15 +69,15 @@
 		
 		enum RFCOMM_Control_Commands_t
 		{
-			RFCOMM_Control_Test                    = 0x20;
-			RFCOMM_Control_FlowControlEnable       = 0xA0;
-			RFCOMM_Control_FlowControlDisable      = 0x60;
-			RFCOMM_Control_ModemStatus             = 0xE0;
-			RFCOMM_Control_RemotePortNegotiation   = 0x90;
-			RFCOMM_Control_RemoteLineStatus        = 0x50;
-			RFCOMM_Control_DLCParameterNegotiation = 0x80;
-			RFCOMM_Control_NonSupportedCommand     = 0x10;
-		}
+			RFCOMM_Control_Test                    = (0x20 >> 2),
+			RFCOMM_Control_FlowControlEnable       = (0xA0 >> 2),
+			RFCOMM_Control_FlowControlDisable      = (0x60 >> 2),
+			RFCOMM_Control_ModemStatus             = (0xE0 >> 2),
+			RFCOMM_Control_RemotePortNegotiation   = (0x90 >> 2),
+			RFCOMM_Control_RemoteLineStatus        = (0x50 >> 2),
+			RFCOMM_Control_DLCParameterNegotiation = (0x80 >> 2),
+			RFCOMM_Control_NonSupportedCommand     = (0x10 >> 2),
+		};
 	
 	/* Type Defines: */
 		typedef struct
@@ -92,20 +92,30 @@
 			RFCOMM_Address_t Address;
 			uint8_t          Control;
 		} RFCOMM_Header_t;
+		
+		typedef struct
+		{
+			unsigned char EA      : 1;
+			unsigned char CR      : 1;
+			unsigned char Command : 6;
+		} RFCOMM_Command_t;		
 
 	/* Function Prototypes: */
 		void RFCOMM_Initialize(void);
 		void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel);
 		
 		#if defined(INCLUDE_FROM_RFCOMM_C)
-			static void RFCOMM_ProcessDM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
-			static void RFCOMM_ProcessDISC(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
-			static void RFCOMM_ProcessSABM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
-			static void RFCOMM_ProcessUA(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
-			static void RFCOMM_ProcessUIH(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessDM(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessDISC(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessUA(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessUIH(const RFCOMM_Address_t* const FrameAddress, const uint16_t FrameLength, 
+                                          const uint8_t* FrameData, Bluetooth_Channel_t* const Channel);
 
+			static void RFCOMM_ProcessControlCommand(const RFCOMM_Command_t* CommandHeader, Bluetooth_Channel_t* const Channel);
+			
 			static void RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, const uint8_t Control,
-			                             const uint16_t DataLen, const uint8_t* Data, Bluetooth_Channel_t* const Channel);
+			                             const uint16_t DataLen, const void* Data, Bluetooth_Channel_t* const Channel);
 			static uint8_t  RFCOMM_GetFCSValue(const void* FrameStart, uint8_t Length);
 			static uint16_t RFCOMM_GetFrameDataLength(const uint8_t* const BufferPos);
 		#endif

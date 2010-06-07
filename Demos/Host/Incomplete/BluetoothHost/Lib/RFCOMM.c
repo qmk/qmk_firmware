@@ -69,85 +69,134 @@ void RFCOMM_Initialize(void)
 
 void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 {
-	const RFCOMM_Header_t* FrameHeader = (const RFCOMM_Header_t*)Data;
+	const RFCOMM_Header_t* FrameHeader  = (const RFCOMM_Header_t*)Data;
+	const uint8_t*         FrameData    = (const uint8_t*)Data + sizeof(RFCOMM_Header_t);
+	uint16_t               FrameDataLen = RFCOMM_GetFrameDataLength(FrameData);
+
+	FrameData += (FrameDataLen < 128) ? 1 : 2;
 	
 	/* Decode the RFCOMM frame type from the header */
 	switch (FrameHeader->Control & ~FRAME_POLL_FINAL)
 	{
 		case RFCOMM_Frame_DM:
-			RFCOMM_ProcessDM(FrameHeader, Channel);
+			RFCOMM_ProcessDM(&FrameHeader->Address, Channel);
 			break;
 		case RFCOMM_Frame_DISC:
-			RFCOMM_ProcessDISC(FrameHeader, Channel);
+			RFCOMM_ProcessDISC(&FrameHeader->Address, Channel);
 			break;
 		case RFCOMM_Frame_SABM:
-			RFCOMM_ProcessSABM(FrameHeader, Channel);
+			RFCOMM_ProcessSABM(&FrameHeader->Address, Channel);
 			break;
 		case RFCOMM_Frame_UA:
-			RFCOMM_ProcessUA(FrameHeader, Channel);
+			RFCOMM_ProcessUA(&FrameHeader->Address, Channel);
 			break;
 		case RFCOMM_Frame_UIH:
-			RFCOMM_ProcessUIH(FrameHeader, Channel);
+			RFCOMM_ProcessUIH(&FrameHeader->Address, FrameDataLen, FrameData, Channel);
 			break;
 		default:
-			BT_RFCOMM_DEBUG(1, "<< Unknown Frame Type");
+			BT_RFCOMM_DEBUG(1, "<< Unknown Frame Received");
 			break;
 	}
 }
 
-static void RFCOMM_ProcessDM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+static void RFCOMM_ProcessDM(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel)
 {
 	BT_RFCOMM_DEBUG(1, "<< DM Received");
-	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameHeader->Address.DLCI);
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
 }
 
-static void RFCOMM_ProcessDISC(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+static void RFCOMM_ProcessDISC(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel)
 {
 	BT_RFCOMM_DEBUG(1, "<< DISC Received");
-	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameHeader->Address.DLCI);
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
 
 	// TODO: Close down connection
 
 	BT_RFCOMM_DEBUG(1, ">> UA Sent");
-	RFCOMM_SendFrame(FrameHeader->Address.DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
+	RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
 }
 
-static void RFCOMM_ProcessSABM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel)
 {
 	BT_RFCOMM_DEBUG(1, "<< SABM Received");
-	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameHeader->Address.DLCI);
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
 	
 	// TODO: Reset channel send/receive state
 	
 	BT_RFCOMM_DEBUG(1, ">> UA Sent");
-	RFCOMM_SendFrame(FrameHeader->Address.DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
+	RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
 }
 
-static void RFCOMM_ProcessUA(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+static void RFCOMM_ProcessUA(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel)
 {
 	BT_RFCOMM_DEBUG(1, "<< UA Received");
-	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameHeader->Address.DLCI);
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
 }
 
-static void RFCOMM_ProcessUIH(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+static void RFCOMM_ProcessUIH(const RFCOMM_Address_t* const FrameAddress, const uint16_t FrameLength, 
+                              const uint8_t* FrameData, Bluetooth_Channel_t* const Channel)
 {
 	BT_RFCOMM_DEBUG(1, "<< UIH Received");
-	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameHeader->Address.DLCI);
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
+	BT_RFCOMM_DEBUG(2, "-- Length 0x%02X", FrameLength);
 	
-	uint8_t* FrameData    = (uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t);
-	uint16_t FrameDataLen = RFCOMM_GetFrameDataLength(FrameData);
-	FrameData += (FrameDataLen < 128) ? 1 : 2;
-	
-	BT_RFCOMM_DEBUG(2, "-- Length 0x%02X", FrameDataLen);
-	
-	if (FrameHeader->Address.DLCI == RFCOMM_CONTROL_DLCI)
+	if (FrameAddress->DLCI == RFCOMM_CONTROL_DLCI)
 	{
-		// TODO: Process control command
+		RFCOMM_ProcessControlCommand((const RFCOMM_Command_t*)FrameData, Channel);
+		return;
+	}
+
+	// TODO: Handle regular channel data here
+}
+
+static void RFCOMM_ProcessControlCommand(const RFCOMM_Command_t* CommandHeader, Bluetooth_Channel_t* const Channel)
+{
+	switch (CommandHeader->Command)
+	{
+		case RFCOMM_Control_Test:
+			BT_RFCOMM_DEBUG(1, "<< TEST Command");
+			break;
+		case RFCOMM_Control_FlowControlEnable:
+			BT_RFCOMM_DEBUG(1, "<< FCE Command");
+			break;
+		case RFCOMM_Control_FlowControlDisable:
+			BT_RFCOMM_DEBUG(1, "<< FCD Command");
+			break;
+		case RFCOMM_Control_ModemStatus:
+			BT_RFCOMM_DEBUG(1, "<< MS Command");
+			break;
+		case RFCOMM_Control_RemotePortNegotiation:
+			BT_RFCOMM_DEBUG(1, "<< RPN Command");
+			break;
+		case RFCOMM_Control_RemoteLineStatus:
+			BT_RFCOMM_DEBUG(1, "<< RLS Command");
+			break;
+		case RFCOMM_Control_DLCParameterNegotiation:
+			BT_RFCOMM_DEBUG(1, "<< DPN Command");
+			
+			struct
+			{
+				RFCOMM_Command_t Header;
+				RFCOMM_Command_t Command;
+			} Response =
+				{
+					.Header = (RFCOMM_Command_t)
+					{
+						.Command = RFCOMM_Control_NonSupportedCommand,
+						.CR      = true,
+						.EA      = true,
+					},
+					
+					.Command = *CommandHeader,
+				};
+
+			RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH, sizeof(RFCOMM_Command_t), &Response, Channel);			
+			break;
 	}
 }
 
-static void RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, const uint8_t Control, const uint16_t DataLen, const uint8_t* Data,
-                             Bluetooth_Channel_t* const Channel)
+static void RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, const uint8_t Control, const uint16_t DataLen,
+                             const void* Data, Bluetooth_Channel_t* const Channel)
 {
 	struct
 	{
