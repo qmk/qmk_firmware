@@ -74,17 +74,17 @@ void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 	/* Decode the RFCOMM frame type from the header */
 	switch (FrameHeader->Control & ~FRAME_POLL_FINAL)
 	{
-		case RFCOMM_Frame_SABM:
-			RFCOMM_ProcessSABM(FrameHeader, Channel);
-			break;
-		case RFCOMM_Frame_UA:
-			RFCOMM_ProcessUA(FrameHeader, Channel);
-			break;
 		case RFCOMM_Frame_DM:
 			RFCOMM_ProcessDM(FrameHeader, Channel);
 			break;
 		case RFCOMM_Frame_DISC:
 			RFCOMM_ProcessDISC(FrameHeader, Channel);
+			break;
+		case RFCOMM_Frame_SABM:
+			RFCOMM_ProcessSABM(FrameHeader, Channel);
+			break;
+		case RFCOMM_Frame_UA:
+			RFCOMM_ProcessUA(FrameHeader, Channel);
 			break;
 		case RFCOMM_Frame_UIH:
 			RFCOMM_ProcessUIH(FrameHeader, Channel);
@@ -95,12 +95,29 @@ void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 	}
 }
 
+static void RFCOMM_ProcessDM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+{
+	BT_RFCOMM_DEBUG(1, "<< DM Received");
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameHeader->Address.DLCI);
+}
+
+static void RFCOMM_ProcessDISC(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
+{
+	BT_RFCOMM_DEBUG(1, "<< DISC Received");
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameHeader->Address.DLCI);
+
+	// TODO: Close down connection
+
+	BT_RFCOMM_DEBUG(1, ">> UA Sent");
+	RFCOMM_SendFrame(FrameHeader->Address.DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
+}
+
 static void RFCOMM_ProcessSABM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
 {
 	BT_RFCOMM_DEBUG(1, "<< SABM Received");
 	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameHeader->Address.DLCI);
 	
-	// TODO: Reset channel send/receive state here
+	// TODO: Reset channel send/receive state
 	
 	BT_RFCOMM_DEBUG(1, ">> UA Sent");
 	RFCOMM_SendFrame(FrameHeader->Address.DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
@@ -108,34 +125,25 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Header_t* const FrameHeader, Bluetoo
 
 static void RFCOMM_ProcessUA(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
 {
-	const uint8_t* CurrBufferPos = ((const uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t));
-
 	BT_RFCOMM_DEBUG(1, "<< UA Received");
-	BT_RFCOMM_DEBUG(2, "-- Address 0x%02X", FrameHeader->Address);
-}
-
-static void RFCOMM_ProcessDM(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
-{
-	const uint8_t* CurrBufferPos = ((const uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t));
-
-	BT_RFCOMM_DEBUG(1, "<< DM Received");
-	BT_RFCOMM_DEBUG(2, "-- Address 0x%02X", FrameHeader->Address);
-}
-
-static void RFCOMM_ProcessDISC(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
-{
-	const uint8_t* CurrBufferPos = ((const uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t));
-
-	BT_RFCOMM_DEBUG(1, "<< DISC Received");
-	BT_RFCOMM_DEBUG(2, "-- Address 0x%02X", FrameHeader->Address);
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameHeader->Address.DLCI);
 }
 
 static void RFCOMM_ProcessUIH(const RFCOMM_Header_t* const FrameHeader, Bluetooth_Channel_t* const Channel)
 {
-	const uint8_t* CurrBufferPos = ((const uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t));
-
 	BT_RFCOMM_DEBUG(1, "<< UIH Received");
-	BT_RFCOMM_DEBUG(2, "-- Address 0x%02X", FrameHeader->Address);
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameHeader->Address.DLCI);
+	
+	uint8_t* FrameData    = (uint8_t*)FrameHeader + sizeof(RFCOMM_Header_t);
+	uint16_t FrameDataLen = RFCOMM_GetFrameDataLength(FrameData);
+	FrameData += (FrameDataLen < 128) ? 1 : 2;
+	
+	BT_RFCOMM_DEBUG(2, "-- Length 0x%02X", FrameDataLen);
+	
+	if (FrameHeader->Address.DLCI == RFCOMM_CONTROL_DLCI)
+	{
+		// TODO: Process control command
+	}
 }
 
 static void RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, const uint8_t Control, const uint16_t DataLen, const uint8_t* Data,
@@ -170,38 +178,38 @@ static void RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, con
 	/* Copy over the packet data from the source buffer to the response packet buffer */
 	memcpy(ResponsePacket.Data, Data, DataLen);
 	
+	/* Determine the length of the frame which is to be used to calculate the CRC value */
+	uint8_t CRCLength = sizeof(ResponsePacket.FrameHeader);
+
+	if ((Control & ~FRAME_POLL_FINAL) != RFCOMM_Frame_UIH)
+	  CRCLength += sizeof(ResponsePacket.Size);
+	
 	/* Calculate the frame checksum from the appropriate fields */
-	if ((Control & ~FRAME_POLL_FINAL) == RFCOMM_Frame_UIH)
-	  ResponsePacket.FCS = RFCOMM_GetFCSValue(&ResponsePacket, sizeof(ResponsePacket.FrameHeader));
-	else
-	  ResponsePacket.FCS = RFCOMM_GetFCSValue(&ResponsePacket, sizeof(ResponsePacket.FrameHeader) + sizeof(ResponsePacket.Size));
+	ResponsePacket.FCS = RFCOMM_GetFCSValue(&ResponsePacket, CRCLength);
 
 	/* Send the completed response packet to the sender */
 	Bluetooth_SendPacket(&ResponsePacket, sizeof(ResponsePacket), Channel);
 }
 
-static uint8_t RFCOMM_GetFCSValue(const void* FrameStart, uint16_t Length)
+static uint8_t RFCOMM_GetFCSValue(const void* FrameStart, uint8_t Length)
 {
 	const uint8_t* CurrPos = FrameStart;
 	uint8_t        FCS     = 0xFF;
 	
-	while (Length--)
-	{
-		FCS = pgm_read_byte(&CRC8_Table[FCS ^ *CurrPos]);
-		CurrPos++;
-	}
+	for (uint8_t i = 0; i < Length; i++)
+	  FCS = pgm_read_byte(&CRC8_Table[FCS ^ *(CurrPos++)]);
 
-	return (0xFF - FCS);
+	return ~FCS;
 }
 
-static uint16_t RFCOMM_GetFrameDataLength(const uint8_t** BufferPos)
+static uint16_t RFCOMM_GetFrameDataLength(const uint8_t* const BufferPos)
 {
-	uint8_t FirstOctet  = *((*BufferPos)++);
+	uint8_t FirstOctet  = BufferPos[0];
 	uint8_t SecondOctet = 0;
 	
 	if (!(FirstOctet & 0x01))
-	  SecondOctet = *((*BufferPos)++);
+	  SecondOctet = BufferPos[1];
 	
-	return (((uint16_t)SecondOctet << 7) | (FirstOctet >> 1));
+	return (((uint16_t)SecondOctet << 7) | FirstOctet >> 1);
 }
 
