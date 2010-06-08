@@ -21,7 +21,8 @@
  *  \section Sec_InDevelopment Latest In-Development Source Code
  *  Official Releases, SVN Access, Issue Tracker: http://code.google.com/p/lufa-lib/ \n
  *  Git Access: http://github.com/abcminiuser/lufa-lib \n
- *  Development Source Archives: http://github.com/abcminiuser/lufa-lib/archives/master \n
+ *  Mercurial Access: http://bitbucket.org/abcminiuser/lufa-lib \n
+ *  Latest Repository Source Archive: http://github.com/abcminiuser/lufa-lib/archives/master \n
  *  Commit RSS Feed: http://github.com/feeds/abcminiuser/commits/lufa-lib/master \n
  *
  *  \section Sec_Toolchain AVR Toolchain
