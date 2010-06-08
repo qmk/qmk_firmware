@@ -33,6 +33,8 @@ LUFA_SRC_FILES =     ./Drivers/USB/LowLevel/DevChapter9.c        \
                      ./Drivers/Board/Temperature.c               \
                      ./Drivers/Peripheral/Serial.c               \
                      ./Drivers/Peripheral/SerialStream.c         \
+                     ./Drivers/Peripheral/TWI.c                  \
+					 ./Scheduler/Scheduler.c                     \
 
 LUFA_Events.lst:
 	@echo
