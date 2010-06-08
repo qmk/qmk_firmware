@@ -120,8 +120,8 @@
 				SI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
 				SI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor */
 				SI_ENUMERROR_NoSIInterfaceFound         = 2, /**< A compatible Still Image interface was not found in the device's
-				                                             *   Configuration Descriptor
-				                                             */
+				                                              *   Configuration Descriptor
+				                                              */
 				SI_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible Still Image data endpoints were not found in the
 				                                              *   device's Still Image interface
 				                                              */
@@ -180,7 +180,9 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
-			uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader);
+			uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
+			                                    SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
+			                                    ATTR_NON_NULL_PTR_ARG(2);
 			
 			/** Receives a raw PIMA block header to the device. This can be used to receive arbitrary PIMA blocks from the device with
 			 *  or without parameters.
@@ -193,7 +195,9 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
-			uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, SI_PIMA_Container_t* const PIMAHeader);
+			uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
+			                                       SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
+			                                       ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Sends a given PIMA command to the attached device, filling out the PIMA command header's Transaction ID automatically.
 			 *	
@@ -287,7 +291,7 @@
 			 *
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
 			 */
-			static inline void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo);
+			static inline void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			static inline void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 			{
 				(void)SIInterfaceInfo;

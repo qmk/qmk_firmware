@@ -202,8 +202,7 @@
 			 *
 			 *  \return Boolean true if a packet is waiting to be read in by the host, false otherwise
 			 */
-
-			bool RNDIS_Host_IsPacketReceived(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo);
+			bool RNDIS_Host_IsPacketReceived(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Retrieves the next pending packet from the device, discarding the remainder of the RNDIS packet header to leave
 			 *  only the packet contents for processing by the host in the nominated buffer.
@@ -240,7 +239,7 @@
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state
 			 */
-			static inline void RNDIS_Host_USBTask(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo);
+			static inline void RNDIS_Host_USBTask(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			static inline void RNDIS_Host_USBTask(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo)
 			{
 				(void)RNDISInterfaceInfo;
@@ -263,13 +262,15 @@
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_RNDIS_CLASS_HOST_C)
 				static uint8_t RNDIS_SendEncapsulatedCommand(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, 
-				                                             void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+				                                             void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1)
+				                                             ATTR_NON_NULL_PTR_ARG(2);
 				static uint8_t RNDIS_GetEncapsulatedResponse(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
-				                                             void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+				                                             void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1)
+				                                             ATTR_NON_NULL_PTR_ARG(2);
 
 				static uint8_t DCOMP_RNDIS_Host_NextRNDISControlInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_RNDIS_Host_NextRNDISDataInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DCOMP_RNDIS_Host_NextRNDISInterfaceEndpoint(void* const CurrentDescriptor);
+				static uint8_t DCOMP_RNDIS_Host_NextRNDISInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif	
 	#endif
 				

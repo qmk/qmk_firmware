@@ -187,7 +187,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
 			 */
 			uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, char* DeviceIDString,
-			                              uint16_t BufferSize) ATTR_NON_NULL_PTR_ARG(1);
+			                              uint16_t BufferSize) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 		/* Inline Functions: */
 			/** General management task for a given Printer host class interface, required for the correct operation of
@@ -196,7 +196,7 @@
 			 *
 			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state
 			 */
-			static inline void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo);
+			static inline void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			static inline void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
 			{
 				(void)PRNTInterfaceInfo;
@@ -218,8 +218,8 @@
 			
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_PRINTER_CLASS_HOST_C)		
-				static uint8_t DCOMP_PRNT_NextPRNTInterface(void* const CurrentDescriptor);
-				static uint8_t DCOMP_PRNT_NextPRNTInterfaceEndpoint(void* const CurrentDescriptor);
+				static uint8_t DCOMP_PRNT_NextPRNTInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_PRNT_NextPRNTInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif
 	#endif
 	

@@ -315,17 +315,19 @@
 			
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_MS_CLASS_HOST_C)		
-				static uint8_t DCOMP_MS_NextMSInterface(void* const CurrentDescriptor);
-				static uint8_t DCOMP_MS_NextMSInterfaceEndpoint(void* const CurrentDescriptor);
+				static uint8_t DCOMP_MS_NextMSInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_MS_NextMSInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				
 				static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 				                                   MS_CommandBlockWrapper_t* const SCSICommandBlock,
-				                                   const void* const BufferPtr);
-				static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo);
+				                                   const void* const BufferPtr) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+				static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, 
-                                                       MS_CommandBlockWrapper_t* const SCSICommandBlock, void* BufferPtr);
+                                                       MS_CommandBlockWrapper_t* const SCSICommandBlock, void* BufferPtr)
+				                                        ATTR_NON_NULL_PTR_ARG(1)  ATTR_NON_NULL_PTR_ARG(2);
 				static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
-				                                         MS_CommandStatusWrapper_t* const SCSICommandStatus);
+				                                         MS_CommandStatusWrapper_t* const SCSICommandStatus)
+				                                         ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 			#endif
 	#endif
 	

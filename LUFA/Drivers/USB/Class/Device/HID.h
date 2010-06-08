@@ -179,8 +179,8 @@
 			 *  \param[in]     ReportSize        Size in bytes of the received report from the host.
 			 */
 			void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, const uint8_t ReportID,
-			                                          const uint8_t ReportType, const void* ReportData, const uint16_t ReportSize) ATTR_NON_NULL_PTR_ARG(1)
-			                                          ATTR_NON_NULL_PTR_ARG(4);
+			                                          const uint8_t ReportType, const void* ReportData, const uint16_t ReportSize)
+			                                          ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(4);
 
 		/* Inline Functions: */
 			/** Indicates that a millisecond of idle time has elapsed on the given HID interface, and the interface's idle count should be
@@ -190,7 +190,7 @@
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state
 			 */
-			static inline void HID_Device_MillisecondElapsed(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo);
+			static inline void HID_Device_MillisecondElapsed(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo) ATTR_ALWAYS_INLINE ATTR_NON_NULL_PTR_ARG(1);
 			static inline void HID_Device_MillisecondElapsed(USB_ClassInfo_HID_Device_t* HIDInterfaceInfo)
 			{
 				if (HIDInterfaceInfo->State.IdleMSRemaining)

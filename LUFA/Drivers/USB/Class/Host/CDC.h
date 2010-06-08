@@ -313,16 +313,17 @@
 
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_CDC_CLASS_HOST_C)
-				static int CDC_Host_putchar(char c, FILE* Stream);
-				static int CDC_Host_getchar(FILE* Stream);
-				static int CDC_Host_getchar_Blocking(FILE* Stream);
+				static int CDC_Host_putchar(char c, FILE* Stream) ATTR_NON_NULL_PTR_ARG(2);
+				static int CDC_Host_getchar(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
+				static int CDC_Host_getchar_Blocking(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
 
 				void CDC_Host_Event_Stub(void);
 				void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 				                                           ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Host_Event_Stub);
+
 				static uint8_t DCOMP_CDC_Host_NextCDCControlInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_CDC_Host_NextCDCDataInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DCOMP_CDC_Host_NextCDCInterfaceEndpoint(void* const CurrentDescriptor);
+				static uint8_t DCOMP_CDC_Host_NextCDCInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif	
 	#endif
 				
