@@ -66,7 +66,7 @@
 		 *  before any operations are called upon them. Already initialized buffers may be reset
 		 *  by re-initializing them using this function.
 		 *
-		 *  \ref Buffer  Pointer to a ring buffer structure to initialize
+		 *  \param[out] Buffer  Pointer to a ring buffer structure to initialize
 		 */
 		static inline void RingBuffer_InitBuffer(RingBuff_t* const Buffer)
 		{
@@ -77,8 +77,8 @@
 		
 		/** Inserts an element into the ring buffer.
 		 *
-		 *  \ref Buffer  Pointer to a ring buffer structure to insert into
-		 *  \ref Data    Data element to insert into the buffer
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
+		 *  \param[in]     Data    Data element to insert into the buffer
 		 */
 		static inline void RingBuffer_Insert(RingBuff_t* const Buffer, RingBuff_Data_t Data)
 		{
@@ -95,7 +95,7 @@
 
 		/** Retrieves an element from the ring buffer.
 		 *
-		 *  \ref Buffer  Pointer to a ring buffer structure to retrieve from
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to retrieve from
 		 *
 		 *  \return Next data element stored in the buffer
 		 */
