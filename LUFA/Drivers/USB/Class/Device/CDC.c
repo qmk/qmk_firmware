@@ -154,7 +154,7 @@ uint8_t CDC_Device_SendByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, 
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataINEndpointNumber);
 
 	if (!(Endpoint_IsReadWriteAllowed()))
-	{	
+	{
 		Endpoint_ClearIN();
 
 		uint8_t ErrorCode;

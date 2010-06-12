@@ -151,7 +151,7 @@ void SetupHardware(void)
 	LEDs_Init();
 	USB_Init();
 	V2Protocol_Init();
-	
+
 	/* Disable JTAG debugging */
 	MCUCR |= (1 << JTD);
 	MCUCR |= (1 << JTD);
@@ -166,6 +166,8 @@ void SetupHardware(void)
 	/* Re-enable JTAG debugging */
 	MCUCR &= ~(1 << JTD);
 	MCUCR &= ~(1 << JTD);
+
+	CurrentFirmwareMode = MODE_USART_BRIDGE; // TEMP
 }
 
 /** Event handler for the library USB Configuration Changed event. */

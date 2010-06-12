@@ -63,41 +63,38 @@ void SoftUART_Init(void)
 	EICRA  = (1 << ISC01);
 	EIMSK  = (1 << INT0);
 
-	/* Ensure that when the timer is enabled the transmission ISR runs immediately */
-	OCR1B  = TCNT1 + 1;
-	
-	/* Start timer 1 with transmission channel force-enabled so that it will immediatly fire */
-	TCCR1C = (1 << FOC1B);
-	TIMSK1 = (1 << OCIE1B);
+	/* Start software UART transmission and reception timers */
+	TIMSK3 = (1 << OCIE3A);
+	TCCR3B = (1 << CS30);
 	TCCR1B = (1 << CS10);
 }
 
 /** ISR to detect the start of a bit being sent to the software UART. */
-ISR(INT0_vect)
+ISR(INT0_vect, ISR_BLOCK)
 {
 	/* Set reception channel to fire 1.5 bits past the beginning of the start bit */
-	OCR1A = TCNT1 + ((BIT_TIME * 3) / 2);
-	
+	OCR1A = TCNT1 + (BIT_TIME + (BIT_TIME / 2));
+
 	/* Clear the received data temporary variable, reset the current received bit position mask */
 	RX_Data    = 0;
 	RX_BitMask = (1 << 0);
 
-	/* Clear reception channel ISR flag in case it is pending */
-	TIFR1 = (1 << OCF1A);
-
 	/* Check that the start bit is still low to prevent noise from triggering a reception */
 	if (!(SRXPIN & (1 << SRX)))
-	{	
-		/* Still low, enable both send and receive channels */
-		TIMSK1 =  (1 << OCIE1A) | (1 << OCIE1B);
-		
-		/* Clear the start bit detection ISR flag if it is pending */
+	{
+		/* Clear reception channel ISR flag in case it is pending */
+		TIFR1 = (1 << OCF1A);
+
+		/* Still low, enable bit receive ISR */
+		TIMSK1 =  (1 << OCIE1A);		
+
+		/* Clear the start bit detection ISR flag */
 		EIMSK &= ~(1 << INT0);
 	}
 }
 
 /** ISR to manage the reception of bits to the software UART. */
-ISR(TIMER1_COMPA_vect)
+ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
 	/* Move the reception ISR compare position one bit ahead */
 	OCR1A += BIT_TIME;
@@ -118,17 +115,17 @@ ISR(TIMER1_COMPA_vect)
 		RingBuffer_Insert(&UARTtoUSB_Buffer, RX_Data);
 	
 		/* Disable the reception ISR as all data has now been received, re-enable start bit detection ISR */
-		TIMSK1  = (1 << OCIE1B);
-		EIMSK  |= (1 << INT0);
-		EIFR    = (1 << INTF0);
+		TIMSK1 = 0;
+		EIFR   = (1 << INTF0);
+		EIMSK  = (1 << INT0);
 	}
 }
 
 /** ISR to manage the transmission of bits via the software UART. */
-ISR(TIMER1_COMPB_vect)
+ISR(TIMER3_COMPA_vect, ISR_NOBLOCK)
 {
 	/* Move the transmission ISR compare position one bit ahead */
-	OCR1B += BIT_TIME;
+	OCR3A += BIT_TIME;
 
 	/* Check if transmission has finished */
 	if (TX_BitsRemaining)
