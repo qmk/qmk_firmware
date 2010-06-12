@@ -79,13 +79,16 @@ bool Pipe_IsEndpointBound(const uint8_t EndpointAddress)
 	{
 		Pipe_SelectPipe(PNum);
 		
-		uint8_t PipeToken = Pipe_GetPipeToken();
+		if (!(Pipe_IsConfigured()))
+		  continue;
+		
+		uint8_t PipeToken        = Pipe_GetPipeToken();
 		bool    PipeTokenCorrect = true;
 
 		if (PipeToken != PIPE_TOKEN_SETUP)
 		  PipeTokenCorrect = (PipeToken == ((EndpointAddress & PIPE_EPDIR_MASK) ? PIPE_TOKEN_IN : PIPE_TOKEN_OUT));
 		
-		if (Pipe_IsConfigured() && PipeTokenCorrect && (Pipe_BoundEndpointNumber() == (EndpointAddress & PIPE_EPNUM_MASK)))
+		if (PipeTokenCorrect && (Pipe_BoundEndpointNumber() == (EndpointAddress & PIPE_EPNUM_MASK)))
 		  return true;
 	}
 	
@@ -131,9 +134,9 @@ uint8_t Pipe_WaitUntilReady(void)
 
 uint8_t Pipe_Discard_Stream(uint16_t Length
 #if !defined(NO_STREAM_CALLBACKS)
-                                 , StreamCallbackPtr_t Callback
+                            , StreamCallbackPtr_t Callback
 #endif
-								 )
+                            )
 {
 	uint8_t  ErrorCode;
 	

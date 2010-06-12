@@ -139,7 +139,7 @@ uint8_t Endpoint_Discard_Stream(uint16_t Length
 #if !defined(NO_STREAM_CALLBACKS)
                                 , StreamCallbackPtr_t Callback
 #endif
-								)
+                                )
 {
 	uint8_t  ErrorCode;
 	
