@@ -171,7 +171,7 @@ void PrintIncomingPackets(void)
 		printf_P(PSTR("***PACKET (Size %d)***\r\n"), PacketLength);
 	
 		for (uint16_t i = 0; i < PacketLength; i++)
-		  printf("%02x ", PacketBuffer[i]);
+		  printf("0x%02x ", PacketBuffer[i]);
 
 		printf_P(PSTR("\r\n\r\n"));
 		

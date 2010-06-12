@@ -73,6 +73,7 @@ void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 	const uint8_t*         FrameData    = (const uint8_t*)Data + sizeof(RFCOMM_Header_t);
 	uint16_t               FrameDataLen = RFCOMM_GetFrameDataLength(FrameData);
 
+	/* Adjust the frame data pointer to skip over the variable size field */
 	FrameData += (FrameDataLen < 128) ? 1 : 2;
 	
 	/* Decode the RFCOMM frame type from the header */
@@ -192,6 +193,8 @@ static void RFCOMM_ProcessControlCommand(const RFCOMM_Command_t* CommandHeader, 
 
 			RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH, sizeof(RFCOMM_Command_t), &Response, Channel);			
 			break;
+		default:
+			BT_RFCOMM_DEBUG(1, "<< Unknown Command");			
 	}
 }
 
@@ -242,11 +245,10 @@ static void RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, con
 
 static uint8_t RFCOMM_GetFCSValue(const void* FrameStart, uint8_t Length)
 {
-	const uint8_t* CurrPos = FrameStart;
-	uint8_t        FCS     = 0xFF;
+	uint8_t FCS = 0xFF;
 	
 	for (uint8_t i = 0; i < Length; i++)
-	  FCS = pgm_read_byte(&CRC8_Table[FCS ^ *(CurrPos++)]);
+	  FCS = pgm_read_byte(&CRC8_Table[FCS ^ ((uint8_t*)FrameStart)[i]]);
 
 	return ~FCS;
 }

@@ -93,7 +93,7 @@ void ProcessNextSample(void)
 	/* Check if the sample reload timer period has elapsed, and that the USB bus is ready for a new sample */
 	if ((TIFR0 & (1 << OCF0A)) && Audio_Device_IsSampleReceived(&Speaker_Audio_Interface))
 	{
-		/* Clear the sample reload timer */
+		/* Clear the sample reload timer compare flag, ready for the next interval */
 		TIFR0 |= (1 << OCF0A);
 
 		/* Retrieve the signed 16-bit left and right audio samples, convert to 8-bit */

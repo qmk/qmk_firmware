@@ -98,6 +98,7 @@ void ProcessNextSample(void)
 	/* Check if the sample reload timer period has elapsed, and that the USB bus is ready for a new sample */
 	if ((TIFR0 & (1 << OCF0A)) && Audio_Device_IsReadyForNextSample(&Microphone_Audio_Interface))
 	{
+		/* Clear the sample reload timer compare flag, ready for the next interval */
 		TIFR0 |= (1 << OCF0A);
 
 		/* Audio sample is ADC value scaled to fit the entire range */

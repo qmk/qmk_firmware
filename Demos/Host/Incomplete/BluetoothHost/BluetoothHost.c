@@ -245,6 +245,8 @@ void Bluetooth_ConnectionComplete(void)
 	         Bluetooth_Connection.RemoteAddress[5], Bluetooth_Connection.RemoteAddress[4],
 	         Bluetooth_Connection.RemoteAddress[3], Bluetooth_Connection.RemoteAddress[2],
 	         Bluetooth_Connection.RemoteAddress[1], Bluetooth_Connection.RemoteAddress[0]);
+
+	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 }
 
 /** Bluetooth stack callback event for a completed Bluetooth disconnection. When this callback is made,
@@ -258,6 +260,8 @@ void Bluetooth_DisconnectionComplete(void)
 	         Bluetooth_Connection.RemoteAddress[5], Bluetooth_Connection.RemoteAddress[4],
 	         Bluetooth_Connection.RemoteAddress[3], Bluetooth_Connection.RemoteAddress[2],
 	         Bluetooth_Connection.RemoteAddress[1], Bluetooth_Connection.RemoteAddress[0]);
+
+	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 }
 
 /** Bluetooth stack callback event for a Bluetooth ACL Channel connection request. When is callback fires,

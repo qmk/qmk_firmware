@@ -155,7 +155,7 @@ void PrintIncomingPackets(void)
 		Pipe_Read_Stream_LE(&PacketBuffer, PacketLength);
 		
 		for (uint16_t i = 0; i < PacketLength; i++)
-		  printf("%02x ", PacketBuffer[i]);
+		  printf("0x%02x ", PacketBuffer[i]);
 	}
 	
 	Pipe_ClearIN();
