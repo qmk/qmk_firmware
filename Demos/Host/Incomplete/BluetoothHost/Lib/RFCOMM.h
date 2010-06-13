@@ -55,6 +55,8 @@
 		#define FRAME_POLL_FINAL                        (1 << 4)
 		
 		#define RFCOMM_CONTROL_DLCI                     0
+		
+		#define RFCOMM_MAX_OPEN_CHANNELS                5
 	
 	/* Enums: */
 		/** Enum for the types of RFCOMM frames which can be exchanged on a Bluetooth channel. */
@@ -98,7 +100,13 @@
 			unsigned char EA      : 1;
 			unsigned char CR      : 1;
 			unsigned char Command : 6;
-		} RFCOMM_Command_t;		
+		} RFCOMM_Command_t;
+		
+		typedef struct
+		{
+			uint8_t DLCI;
+			bool    Configured;
+		} RFCOMM_Channel_t;
 
 	/* Function Prototypes: */
 		void RFCOMM_Initialize(void);
@@ -116,8 +124,11 @@
 			
 			static void RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, const uint8_t Control,
 			                             const uint16_t DataLen, const void* Data, Bluetooth_Channel_t* const Channel);
+			
 			static uint8_t  RFCOMM_GetFCSValue(const void* FrameStart, uint8_t Length);
 			static uint16_t RFCOMM_GetFrameDataLength(const uint8_t* const BufferPos);
+
+			RFCOMM_Channel_t RFCOMM_GetChannelData(const uint8_t DLCI);
 		#endif
 		
 #endif

@@ -61,10 +61,16 @@ const uint8_t CRC8_Table[256] PROGMEM =
 		0xB4, 0x25, 0x57, 0xC6, 0xB3, 0x22, 0x50, 0xC1, 0xBA, 0x2B, 0x59, 0xC8, 0xBD, 0x2C, 0x5E, 0xCF
 	};
 
+/** RFCOMM channel state structure, to retain information about each open channel in the RFCOMM multiplexer. */
+RFCOMM_Channel_t RFCOMM_Channels[RFCOMM_MAX_OPEN_CHANNELS];
+
+
 /** Initializes the RFCOMM service, ready for new connections from a SDP client. */
 void RFCOMM_Initialize(void)
 {
-	/* Not currently used */
+	/* Reset the RFCOMM channel structures, to invalidate any confiured RFCOMM channels */
+	for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
+	  RFCOMM_Channels[i].DLCI = 0x00;
 }
 
 void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
@@ -122,10 +128,27 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress, Bluet
 	BT_RFCOMM_DEBUG(1, "<< SABM Received");
 	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
 	
-	// TODO: Reset channel send/receive state
+	/* Find a free entry in the RFCOMM channel multiplexer state array */
+	for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
+	{
+		RFCOMM_Channel_t* CurrRFCOMMChannel = RFCOMM_Channels[i];
 	
-	BT_RFCOMM_DEBUG(1, ">> UA Sent");
-	RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
+		/* If the channel's DLCI is zero, the channel state entry is free */
+		if (!(CurrRFCOMMChannel->DLCI))
+		{
+			CurrRFCOMMChannel->DLCI       = FrameAddress->DLCI;
+			CurrRFCOMMChannel->Configured = false;
+		
+			BT_RFCOMM_DEBUG(1, ">> UA Sent");
+			RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
+			return;
+		}
+	}
+
+	BT_RFCOMM_DEBUG(1, ">> DM Sent");
+
+	/* No free channel in the multiplexer - decline the SABM by sending a DM frame */
+	RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_DM | FRAME_POLL_FINAL), 0, NULL, Channel);
 }
 
 static void RFCOMM_ProcessUA(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel)
@@ -152,6 +175,8 @@ static void RFCOMM_ProcessUIH(const RFCOMM_Address_t* const FrameAddress, const 
 
 static void RFCOMM_ProcessControlCommand(const RFCOMM_Command_t* CommandHeader, Bluetooth_Channel_t* const Channel)
 {
+	const uint8_t* CommandData = (const uint8_t*)Data + sizeof(RFCOMM_Command_t);
+
 	switch (CommandHeader->Command)
 	{
 		case RFCOMM_Control_Test:
@@ -174,7 +199,16 @@ static void RFCOMM_ProcessControlCommand(const RFCOMM_Command_t* CommandHeader, 
 			break;
 		case RFCOMM_Control_DLCParameterNegotiation:
 			BT_RFCOMM_DEBUG(1, "<< DPN Command");
+
+			// TODO - Set channel state
+//			RFCOMM_Channel_t* RFCOMMChannel = RFCOMM_GetChannelData(
+			RFCOMMChannel->Configured = true;
 			
+			// TODO - send ACK/NAK response			
+			break;
+		default:
+			BT_RFCOMM_DEBUG(1, "<< Unknown Command");			
+
 			struct
 			{
 				RFCOMM_Command_t Header;
@@ -193,8 +227,6 @@ static void RFCOMM_ProcessControlCommand(const RFCOMM_Command_t* CommandHeader, 
 
 			RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH, sizeof(RFCOMM_Command_t), &Response, Channel);			
 			break;
-		default:
-			BT_RFCOMM_DEBUG(1, "<< Unknown Command");			
 	}
 }
 
@@ -233,6 +265,7 @@ static void RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, con
 	/* Determine the length of the frame which is to be used to calculate the CRC value */
 	uint8_t CRCLength = sizeof(ResponsePacket.FrameHeader);
 
+	/* UIH frames do not have the CRC calculated on the Size field in the response, all other frames do */
 	if ((Control & ~FRAME_POLL_FINAL) != RFCOMM_Frame_UIH)
 	  CRCLength += sizeof(ResponsePacket.Size);
 	
@@ -264,3 +297,15 @@ static uint16_t RFCOMM_GetFrameDataLength(const uint8_t* const BufferPos)
 	return (((uint16_t)SecondOctet << 7) | FirstOctet >> 1);
 }
 
+RFCOMM_Channel_t RFCOMM_GetChannelData(const uint8_t DLCI)
+{
+	for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
+	{
+		RFCOMM_Channel_t* CurrRFCOMMChannel = RFCOMM_Channels[i];
+	
+		if (CurrRFCOMMChannel->DLCI == DLCI)
+		  return CurrRFCOMMChannel;
+	}
+	
+	return NULL;
+}
