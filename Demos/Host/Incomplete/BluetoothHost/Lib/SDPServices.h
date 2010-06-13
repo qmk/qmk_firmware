@@ -37,7 +37,7 @@
 #define _SDPSERVICES_H_
 	
 	/* Includes: */
-		#include "ServiceDiscoveryProtocol.h"
+		#include "SDP.h"
 
 	/* Macros: */
 		/** Size of a full 128 bit UUID, in bytes. */

@@ -41,7 +41,7 @@
  */
 
 #define  INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C
-#include "ServiceDiscoveryProtocol.h"
+#include "SDP.h"
 
 /** Service attribute table list, containing a pointer to each service attribute table the device contains */
 const ServiceAttributeTable_t* SDP_Services_Table[] PROGMEM =

@@ -131,7 +131,7 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress, Bluet
 	/* Find a free entry in the RFCOMM channel multiplexer state array */
 	for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
 	{
-		RFCOMM_Channel_t* CurrRFCOMMChannel = RFCOMM_Channels[i];
+		RFCOMM_Channel_t* CurrRFCOMMChannel = &RFCOMM_Channels[i];
 	
 		/* If the channel's DLCI is zero, the channel state entry is free */
 		if (!(CurrRFCOMMChannel->DLCI))
@@ -166,16 +166,17 @@ static void RFCOMM_ProcessUIH(const RFCOMM_Address_t* const FrameAddress, const 
 	
 	if (FrameAddress->DLCI == RFCOMM_CONTROL_DLCI)
 	{
-		RFCOMM_ProcessControlCommand((const RFCOMM_Command_t*)FrameData, Channel);
+		RFCOMM_ProcessControlCommand(FrameData, Channel);
 		return;
 	}
 
 	// TODO: Handle regular channel data here
 }
 
-static void RFCOMM_ProcessControlCommand(const RFCOMM_Command_t* CommandHeader, Bluetooth_Channel_t* const Channel)
+static void RFCOMM_ProcessControlCommand(const uint8_t* Command, Bluetooth_Channel_t* const Channel)
 {
-	const uint8_t* CommandData = (const uint8_t*)Data + sizeof(RFCOMM_Command_t);
+	const RFCOMM_Command_t* CommandHeader  = (const RFCOMM_Command_t*)Command;
+	const uint8_t*          CommandData    = (const uint8_t*)Command + sizeof(RFCOMM_Command_t);
 
 	switch (CommandHeader->Command)
 	{
@@ -202,7 +203,7 @@ static void RFCOMM_ProcessControlCommand(const RFCOMM_Command_t* CommandHeader, 
 
 			// TODO - Set channel state
 //			RFCOMM_Channel_t* RFCOMMChannel = RFCOMM_GetChannelData(
-			RFCOMMChannel->Configured = true;
+//			RFCOMMChannel->Configured = true;
 			
 			// TODO - send ACK/NAK response			
 			break;
@@ -297,11 +298,11 @@ static uint16_t RFCOMM_GetFrameDataLength(const uint8_t* const BufferPos)
 	return (((uint16_t)SecondOctet << 7) | FirstOctet >> 1);
 }
 
-RFCOMM_Channel_t RFCOMM_GetChannelData(const uint8_t DLCI)
+RFCOMM_Channel_t* RFCOMM_GetChannelData(const uint8_t DLCI)
 {
 	for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
 	{
-		RFCOMM_Channel_t* CurrRFCOMMChannel = RFCOMM_Channels[i];
+		RFCOMM_Channel_t* CurrRFCOMMChannel = &RFCOMM_Channels[i];
 	
 		if (CurrRFCOMMChannel->DLCI == DLCI)
 		  return CurrRFCOMMChannel;

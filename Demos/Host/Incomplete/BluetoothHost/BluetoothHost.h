@@ -44,9 +44,9 @@
 		#include <avr/interrupt.h>
 		#include <stdio.h>
 
-		#include "Lib/ServiceDiscoveryProtocol.h"
-		#include "Lib/RFCOMM.h"
 		#include "Lib/BluetoothStack.h"
+		#include "Lib/SDP.h"
+		#include "Lib/RFCOMM.h"
 
 		#include "DeviceDescriptor.h"
 		#include "ConfigDescriptor.h"

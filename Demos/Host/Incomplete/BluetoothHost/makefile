@@ -135,7 +135,7 @@ SRC = $(TARGET).c                                                 \
 	  Lib/BluetoothStack.c                                        \
 	  Lib/BluetoothHCICommands.c                                  \
 	  Lib/BluetoothACLPackets.c                                   \
-	  Lib/ServiceDiscoveryProtocol.c                              \
+	  Lib/SDP.c                                                   \
 	  Lib/SDPServices.c                                           \
 	  Lib/RFCOMM.c                                                \
 	  $(LUFA_PATH)/LUFA/Drivers/Peripheral/SerialStream.c         \

@@ -120,7 +120,7 @@
 			static void RFCOMM_ProcessUIH(const RFCOMM_Address_t* const FrameAddress, const uint16_t FrameLength, 
                                           const uint8_t* FrameData, Bluetooth_Channel_t* const Channel);
 
-			static void RFCOMM_ProcessControlCommand(const RFCOMM_Command_t* CommandHeader, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessControlCommand(const uint8_t* Command, Bluetooth_Channel_t* const Channel);
 			
 			static void RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, const uint8_t Control,
 			                             const uint16_t DataLen, const void* Data, Bluetooth_Channel_t* const Channel);
@@ -128,7 +128,7 @@
 			static uint8_t  RFCOMM_GetFCSValue(const void* FrameStart, uint8_t Length);
 			static uint16_t RFCOMM_GetFrameDataLength(const uint8_t* const BufferPos);
 
-			RFCOMM_Channel_t RFCOMM_GetChannelData(const uint8_t DLCI);
+			RFCOMM_Channel_t* RFCOMM_GetChannelData(const uint8_t DLCI);
 		#endif
 		
 #endif
