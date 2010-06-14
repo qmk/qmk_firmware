@@ -77,8 +77,8 @@
 		/** Filename for the log data when written to the dataflash FAT filesystem. */
 		#define LOG_FILENAME             "TEMPLOG.txt"
 		
-		/** Data log interval between samples, in tens of milliseconds. */
-		#define LOG_INTERVAL_10MS        1000
+		/** Default log interval when the EEPROM is blank, in 500ms ticks. */
+		#define DEFAULT_LOG_INTERVAL     20
 		
 	/* Type Defines: */
 		typedef struct

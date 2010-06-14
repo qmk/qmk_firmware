@@ -1,4 +1,4 @@
-FatFs Module Source Files R0.07e                        (C)ChaN, 2010
+FatFs Module Source Files R0.08                        (C)ChaN, 2010
 
 
 FILES
@@ -84,7 +84,7 @@ REVISION HISTORY
                        Added string functions: fputc(), fputs(), fprintf() and fgets().
                        Improved performance of f_lseek() on move to the same or following cluster.
 
-  Apr 01, 2010, R0.07  Merged Tiny-FatFs as a buffer configuration option.
+  Apr 01, 2009, R0.07  Merged Tiny-FatFs as a buffer configuration option.
                        Added long file name support.
                        Added multiple code page support.
                        Added re-entrancy for multitask operation.
@@ -93,18 +93,25 @@ REVISION HISTORY
                        Changed result code of critical errors.
                        Renamed string functions to avoid name collision.
 
-  Apr 14, 2010, R0.07a Separated out OS dependent code on reentrant cfg.
+  Apr 14, 2009, R0.07a Separated out OS dependent code on reentrant cfg.
                        Added multiple sector size support.
 
-  Jun 21, 2010, R0.07c Fixed f_unlink() may return FR_OK on error.
+  Jun 21, 2009, R0.07c Fixed f_unlink() may return FR_OK on error.
                        Fixed wrong cache control in f_lseek().
                        Added relative path feature.
                        Added f_chdir().
                        Added f_chdrive().
                        Added proper case conversion for extended characters.
 
-  Nov 03,'2010 R0.07e  Separated out configuration options from ff.h to ffconf.h.
+  Nov 03, 2009 R0.07e  Separated out configuration options from ff.h to ffconf.h.
                        Added a configuration option, _LFN_UNICODE.
                        Fixed f_unlink() fails to remove a sub-dir on _FS_RPATH.
                        Fixed name matching error on the 13 char boundary.
                        Changed f_readdir() to return the SFN with always upper case on non-LFN cfg.
+
+  May 15, 2010, R0.08  Added a memory configuration option. (_USE_LFN)
+                       Added file lock feature. (_FS_SHARE)
+                       Added fast seek feature. (_USE_FASTSEEK)
+                       Changed some types on the API, XCHAR->TCHAR.
+                       Changed fname member in the FILINFO structure on Unicode cfg.
+                       String functions support UTF-8 encoding files on Unicode cfg.

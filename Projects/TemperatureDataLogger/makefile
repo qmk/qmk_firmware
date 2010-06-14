@@ -194,6 +194,7 @@ CSTANDARD = -std=gnu99
 # Place -D or -U options here for C sources
 CDEFS  = -DF_CPU=$(F_CPU)UL -DF_CLOCK=$(F_CLOCK)UL -DBOARD=BOARD_$(BOARD) $(LUFA_OPTS)
 CDEFS += -DDUMMY_RTC
+CDEFS += -DLOG_WHILE_USB_CONNECTED
 
 
 # Place -D or -U options here for ASM sources

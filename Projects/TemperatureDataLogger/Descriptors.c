@@ -226,9 +226,9 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  */
 USB_Descriptor_String_t PROGMEM ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(10), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(22), .Type = DTYPE_String},
 		
-	.UnicodeString          = L"Datalogger"
+	.UnicodeString          = L"Temperature Datalogger"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"

@@ -81,7 +81,7 @@ USB_ClassInfo_HID_Device_t Generic_HID_Interface =
 	};
 
 /** Non-volatile Logging Interval value in EEPROM, stored as a number of 500ms ticks */
-uint8_t EEMEM LoggingInterval500MS_EEPROM;
+uint8_t EEMEM LoggingInterval500MS_EEPROM = DEFAULT_LOG_INTERVAL;
 
 /** SRAM Logging Interval value fetched from EEPROM, stored as a number of 500ms ticks */
 uint8_t LoggingInterval500MS_SRAM;
@@ -141,6 +141,10 @@ int main(void)
 
 	/* Fetch logging interval from EEPROM */
 	LoggingInterval500MS_SRAM = eeprom_read_byte(&LoggingInterval500MS_EEPROM);
+	
+	/* Check if the logging interval is invalid (0xFF) indicating that the EEPROM is blank */
+	if (LoggingInterval500MS_SRAM == 0xFF)
+	  LoggingInterval500MS_SRAM = DEFAULT_LOG_INTERVAL;
 
 	/* Mount and open the log file on the dataflash FAT partition */
 	OpenLogFile();
@@ -266,11 +270,12 @@ bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSI
 
 /** HID class driver callback function for the creation of HID reports to the host.
  *
- *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
- *  \param[in,out] ReportID  Report ID requested by the host if non-zero, otherwise callback should set to the generated report ID
- *  \param[in] ReportType  Type of the report to create, either REPORT_ITEM_TYPE_In or REPORT_ITEM_TYPE_Feature
- *  \param[out] ReportData  Pointer to a buffer where the created report should be stored
- *  \param[out] ReportSize  Number of bytes written in the report (or zero if no report is to be sent
+ *  \param[in]     HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
+ *  \param[in,out] ReportID    Report ID requested by the host if non-zero, otherwise callback should set to the 
+ *                             generated report ID
+ *  \param[in]     ReportType  Type of the report to create, either REPORT_ITEM_TYPE_In or REPORT_ITEM_TYPE_Feature
+ *  \param[out]    ReportData  Pointer to a buffer where the created report should be stored
+ *  \param[out]    ReportSize  Number of bytes written in the report (or zero if no report is to be sent
  *
  *  \return Boolean true to force the sending of the report, false to let the library determine if it needs to be sent
  */
@@ -291,7 +296,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 /** HID class driver callback function for the processing of HID reports from the host.
  *
  *  \param[in] HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
- *  \param[in] ReportID  Report ID of the received report from the host
+ *  \param[in] ReportID    Report ID of the received report from the host
  *  \param[in] ReportType  The type of report that the host has sent, either REPORT_ITEM_TYPE_Out or REPORT_ITEM_TYPE_Feature
  *  \param[in] ReportData  Pointer to a buffer where the created report has been stored
  *  \param[in] ReportSize  Size in bytes of the received HID report
