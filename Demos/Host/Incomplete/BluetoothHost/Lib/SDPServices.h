@@ -145,8 +145,8 @@
 			} Protocol;
 		} ItemProtocol_t;
 
-		/** Structure for a list of Data Elements Sequences containing UUID Data Elements and 8-bit channel values, for service
-		 *  attributes requiring extended protocol lists.
+		/** Structure for a list of Data Elements Sequences containing UUID Data Elements and an 8-bit param value, for service
+		 *  attributes requiring extended protocol lists containing an 8-bit value.
 		 */
 		typedef struct
 		{
@@ -156,10 +156,25 @@
 			struct
 			{
 				ItemUUID_t UUID; /**< UUID to store in the protocol list Data Element sequence */
-				Item8Bit_t Channel; /**< Channel that is to be used to access the service */
+				Item8Bit_t Param; /**< 8-Bit Parameter associated with the service */
 			} Protocol;
-		} ItemProtocolChannel_t;
+		} ItemProtocol_8BitParam_t;
 		
+		/** Structure for a list of Data Elements Sequences containing UUID Data Elements and an 16-bit param value, for service
+		 *  attributes requiring extended protocol lists containing an 16-bit value.
+		 */
+		typedef struct
+		{
+			uint8_t        Header; /**< Data Element header, should be (SDP_DATATYPE_Sequence | SDP_DATASIZE_Variable8Bit) */
+			uint8_t        Size; /**< Size of the inner Data Element sequence */
+			
+			struct
+			{
+				ItemUUID_t UUID; /**< UUID to store in the protocol list Data Element sequence */
+				Item16Bit_t Channel; /**< 8-Bit Parameter associated with the service */
+			} Protocol;
+		} ItemProtocol_16BitParam_t;
+
 		/** Structure for a list of Data Elements containing language encodings, including the language ID, Encoding ID and
 		 *  Attribute base offset.
 		 */
