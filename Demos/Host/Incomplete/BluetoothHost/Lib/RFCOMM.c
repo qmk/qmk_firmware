@@ -77,10 +77,7 @@ void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 {
 	const RFCOMM_Header_t* FrameHeader  = (const RFCOMM_Header_t*)Data;
 	const uint8_t*         FrameData    = (const uint8_t*)Data + sizeof(RFCOMM_Header_t);
-	uint16_t               FrameDataLen = RFCOMM_GetFrameDataLength(FrameData);
-
-	/* Adjust the frame data pointer to skip over the variable size field */
-	FrameData += (FrameDataLen < 128) ? 1 : 2;
+	uint16_t               FrameDataLen = RFCOMM_GetVariableFieldValue(&FrameData);
 	
 	/* Decode the RFCOMM frame type from the header */
 	switch (FrameHeader->Control & ~FRAME_POLL_FINAL)
@@ -108,25 +105,40 @@ void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 
 RFCOMM_Channel_t* RFCOMM_GetChannelData(const uint8_t DLCI)
 {
+	/* Search through the RFCOMM channel list, looking for the specified channel */
 	for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
 	{
 		RFCOMM_Channel_t* CurrRFCOMMChannel = &RFCOMM_Channels[i];
 	
-		if (CurrRFCOMMChannel->DLCI == DLCI)
+		/* If the current non-closed channel's DLCI matches the search DLCI, return it to the caller */
+		if ((CurrRFCOMMChannel->DLCI == DLCI) && (CurrRFCOMMChannel->State != RFCOMM_Channel_Closed))
 		  return CurrRFCOMMChannel;
 	}
-	
+
+	/* Channel not found in the channel state table, return failure */
 	return NULL;
 }
 
-uint16_t RFCOMM_GetFrameDataLength(const uint8_t* const BufferPos)
+uint16_t RFCOMM_GetVariableFieldValue(const uint8_t** BufferPos)
 {
-	uint8_t FirstOctet  = BufferPos[0];
+	uint8_t FirstOctet;
 	uint8_t SecondOctet = 0;
 	
-	if (!(FirstOctet & 0x01))
-	  SecondOctet = BufferPos[1];
+	FirstOctet = **BufferPos;
+	(*BufferPos)++;
 	
+	/* If the field size is more than a single byte, fetch the next byte in the variable length field */
+	if (!(FirstOctet & 0x01))
+	{
+		SecondOctet = **BufferPos;
+		(*BufferPos)++;
+
+		/* Discard any remaining bytes in the variable length field that won't fit in the return value */
+		while (!(**BufferPos & 0x01))
+		  (*BufferPos)++;
+	}
+
+	/* Bitshift the bytes that comprise the variable length field so that they form a single integer */
 	return (((uint16_t)SecondOctet << 7) | FirstOctet >> 1);
 }
 
@@ -220,11 +232,13 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress, Bluet
 		/* If the channel's DLCI is zero, the channel state entry is free */
 		if (!(CurrRFCOMMChannel->DLCI))
 		{
-			CurrRFCOMMChannel->DLCI        = FrameAddress->DLCI;
-			CurrRFCOMMChannel->State       = RFCOMM_Channel_Open;
-			CurrRFCOMMChannel->Priority    = 7 + (CurrRFCOMMChannel->DLCI >> 3) + ((CurrRFCOMMChannel->DLCI >> 3) * 7);
-			CurrRFCOMMChannel->UseUIFrames = false;
-			CurrRFCOMMChannel->RemoteMTU   = 0xFFFF;
+			CurrRFCOMMChannel->DLCI         = FrameAddress->DLCI;
+			CurrRFCOMMChannel->State        = RFCOMM_Channel_Open;
+			CurrRFCOMMChannel->Priority     = 7 + (CurrRFCOMMChannel->DLCI >> 3) + ((CurrRFCOMMChannel->DLCI >> 3) * 7);
+			CurrRFCOMMChannel->UseUIFrames  = false;
+			CurrRFCOMMChannel->MTU          = 0xFFFF;
+			CurrRFCOMMChannel->Signals      = 0;
+			CurrRFCOMMChannel->BreakSignals = 0;
 		
 			BT_RFCOMM_DEBUG(1, ">> UA Sent");
 			RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);

@@ -86,7 +86,10 @@
 			uint8_t  State;
 			uint8_t  Priority;
 			bool     UseUIFrames;
-			uint16_t RemoteMTU;
+			uint16_t MTU;
+			uint8_t  StatusFlags;
+			uint8_t  Signals;
+			uint8_t  BreakSignals;
 		} RFCOMM_Channel_t;
 		
 	/* External Variables: */
@@ -97,7 +100,7 @@
 		void              RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel);
 		
 		RFCOMM_Channel_t* RFCOMM_GetChannelData(const uint8_t DLCI);
-		uint16_t          RFCOMM_GetFrameDataLength(const uint8_t* const BufferPos);
+		uint16_t          RFCOMM_GetVariableFieldValue(const uint8_t** BufferPos);
 		void              RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, const uint8_t Control,
 			                               const uint16_t DataLen, const void* Data, Bluetooth_Channel_t* const Channel);
 

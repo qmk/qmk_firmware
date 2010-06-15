@@ -50,7 +50,11 @@
 		#include "RFCOMM.h"
 		
 	/* Macros: */
-		#define RFCOMM_
+		#define RFCOMM_STATUSFLAG_FC     (1 << 1)
+		#define RFCOMM_STATUSFLAG_RTC    (1 << 2)
+		#define RFCOMM_STATUSFLAG_RTR    (1 << 3)
+		#define RFCOMM_STATUSFLAG_IC     (1 << 6)
+		#define RFCOMM_STATUSFLAG_DV     (1 << 7)
 
 	/* Enums: */
 		enum RFCOMM_Control_Commands_t
@@ -97,6 +101,13 @@
 			uint8_t          MaxRetransmissions;
 			uint8_t          RecoveryWindowSize;			
 		} RFCOMM_DPN_Parameters_t;
+		
+		typedef struct
+		{
+			RFCOMM_Address_t Channel;
+			uint8_t          Signals;
+			uint8_t          BreakSignals;
+		} RFCOMM_MS_Parameters_t;
 
 	/* Function Prototypes: */
 		void RFCOMM_ProcessControlCommand(const uint8_t* Command, Bluetooth_Channel_t* const Channel);
@@ -108,8 +119,8 @@
 			                                     Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessFCDCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
 			                                     Bluetooth_Channel_t* const Channel);
-			static void RFCOMM_ProcessMSCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
-			                                    Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessMSCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t CommandDataLen,
+			                                    const uint8_t* CommandData, Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessRPNCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
 			                                     Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessRLSCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,

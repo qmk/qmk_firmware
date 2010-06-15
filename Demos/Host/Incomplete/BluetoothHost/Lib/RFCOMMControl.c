@@ -42,10 +42,7 @@ void RFCOMM_ProcessControlCommand(const uint8_t* Command, Bluetooth_Channel_t* c
 {
 	const RFCOMM_Command_t* CommandHeader  = (const RFCOMM_Command_t*)Command;
 	const uint8_t*          CommandData    = (const uint8_t*)Command + sizeof(RFCOMM_Command_t);
-	uint16_t                ControlDataLen = RFCOMM_GetFrameDataLength(CommandData);
-
-	/* Adjust the command data pointer to skip over the variable size field */
-	CommandData += (ControlDataLen < 128) ? 1 : 2;
+	uint8_t                 CommandDataLen = RFCOMM_GetVariableFieldValue(&CommandData);
 
 	switch (CommandHeader->Command)
 	{
@@ -59,7 +56,7 @@ void RFCOMM_ProcessControlCommand(const uint8_t* Command, Bluetooth_Channel_t* c
 			RFCOMM_ProcessFCDCommand(CommandHeader, CommandData, Channel);
 			break;
 		case RFCOMM_Control_ModemStatus:
-			RFCOMM_ProcessMSCommand(CommandHeader, CommandData, Channel);
+			RFCOMM_ProcessMSCommand(CommandHeader, CommandDataLen, CommandData, Channel);
 			break;
 		case RFCOMM_Control_RemotePortNegotiation:
 			RFCOMM_ProcessRPNCommand(CommandHeader, CommandData, Channel);
@@ -94,10 +91,48 @@ static void RFCOMM_ProcessFCDCommand(const RFCOMM_Command_t* const CommandHeader
 	BT_RFCOMM_DEBUG(1, "<< FCD Command");
 }
 
-static void RFCOMM_ProcessMSCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
-			                        Bluetooth_Channel_t* const Channel)
+static void RFCOMM_ProcessMSCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t CommandDataLen,
+                                    const uint8_t* CommandData, Bluetooth_Channel_t* const Channel)
 {
+	const RFCOMM_MS_Parameters_t* Params = (const RFCOMM_MS_Parameters_t*)CommandData;
+
 	BT_RFCOMM_DEBUG(1, "<< MS Command");
+	BT_RFCOMM_DEBUG(2, "-- DLCI: 0x%02X", Params->Channel.DLCI);
+	
+	/* Ignore status flags sent to the control channel */
+	if (Params->Channel.DLCI == RFCOMM_CONTROL_DLCI)
+	  return;
+	
+	/* Retrieve existing channel configuration data, if already opened */
+	RFCOMM_Channel_t* RFCOMMChannel = RFCOMM_GetChannelData(Params->Channel.DLCI);	
+	
+	/* If the channel does not exist, abort */
+	if (RFCOMMChannel == NULL)
+	  return;
+	  
+	/* Save the new channel signals to the channel state structure */
+	RFCOMMChannel->Signals = Params->Signals;
+	
+	/* If the command contains the optional break signals field, store the value */
+	if (CommandDataLen == sizeof(RFCOMM_MS_Parameters_t))
+	  RFCOMMChannel->BreakSignals = Params->BreakSignals;
+	  
+	struct
+	{
+		RFCOMM_Command_t       CommandHeader;
+		uint8_t                Length;
+		RFCOMM_MS_Parameters_t Params;
+	} MSResponse;
+
+	/* Fill out the MS response data */
+	MSResponse.CommandHeader = (RFCOMM_Command_t){.Command = RFCOMM_Control_ModemStatus, .EA = true};
+	MSResponse.Length        = (CommandDataLen << 1) | 0x01;
+	MSResponse.Params        = *Params;
+	
+	BT_RFCOMM_DEBUG(1, ">> MS Response");
+
+	/* Send the PDN response to acknowledge the command */
+	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH, sizeof(MSResponse), &MSResponse, Channel);
 }
 
 static void RFCOMM_ProcessRPNCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
@@ -118,7 +153,7 @@ static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader
 	const RFCOMM_DPN_Parameters_t* Params = (const RFCOMM_DPN_Parameters_t*)CommandData;
 
 	BT_RFCOMM_DEBUG(1, "<< DPN Command");
-	BT_RFCOMM_DEBUG(2, "-- Config DLCI: 0x%02X", Params->DLCI);
+	BT_RFCOMM_DEBUG(2, "-- DLCI: 0x%02X", Params->DLCI);
 	
 	/* Ignore parameter negotiations to the control channel */
 	if (Params->DLCI == RFCOMM_CONTROL_DLCI)
@@ -136,8 +171,10 @@ static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader
 			/* If the channel's DLCI is zero, the channel state entry is free */
 			if (!(RFCOMM_Channels[i].DLCI))
 			{
-				RFCOMMChannel       = &RFCOMM_Channels[i];
-				RFCOMMChannel->DLCI = Params->DLCI;
+				RFCOMMChannel               = &RFCOMM_Channels[i];
+				RFCOMMChannel->DLCI         = Params->DLCI;
+				RFCOMMChannel->Signals      = 0;
+				RFCOMMChannel->BreakSignals = 0;
 				break;
 			}
 		}
@@ -154,7 +191,7 @@ static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader
 	RFCOMMChannel->State       = RFCOMM_Channel_Open;
 	RFCOMMChannel->Priority    = Params->Priority;
 	RFCOMMChannel->UseUIFrames = (Params->FrameType != 0);
-	RFCOMMChannel->RemoteMTU   = Params->MaximumFrameSize;
+	RFCOMMChannel->MTU         = Params->MaximumFrameSize;
 	
 	struct
 	{
@@ -164,10 +201,10 @@ static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader
 	} DPNResponse;
 	
 	/* Fill out the DPN response data */
-	DPNResponse.CommandHeader.Command = CommandHeader->Command;
-	DPNResponse.CommandHeader.EA      = true;
-	DPNResponse.Length                = (sizeof(DPNResponse.Params) << 1) | 0x01;
-	DPNResponse.Params                = *Params;
+	DPNResponse.CommandHeader           = (RFCOMM_Command_t){.Command = RFCOMM_Control_DLCParameterNegotiation, .EA = true};
+	DPNResponse.Length                  = (sizeof(DPNResponse.Params) << 1) | 0x01;
+	DPNResponse.Params                  = *Params;
+	DPNResponse.Params.ConvergenceLayer = 0x00; // TODO: Enable credit based transaction support
 	
 	BT_RFCOMM_DEBUG(1, ">> DPN Response");
 
