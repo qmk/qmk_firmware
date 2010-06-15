@@ -69,24 +69,24 @@
 			RFCOMM_Frame_UIH   = 0xEF, /**< Unnumbered Information with Header check Field */
 		};
 		
+		enum RFCOMM_Channel_States_t
+		{
+			RFCOMM_Channel_Closed      = 0,
+			RFCOMM_Channel_Create      = 1,
+			RFCOMM_Channel_Creating    = 2,
+			RFCOMM_Channel_Configure   = 3,
+			RFCOMM_Channel_Configuring = 4,
+			RFCOMM_Channel_Open        = 5,
+		};
+		
 	/* Type Defines: */
 		typedef struct
 		{
-			unsigned char EA   : 1;
-			unsigned char CR   : 1;
-			unsigned char DLCI : 6;
-		} RFCOMM_Address_t;
-	
-		typedef struct
-		{
-			RFCOMM_Address_t Address;
-			uint8_t          Control;
-		} RFCOMM_Header_t;
-		
-		typedef struct
-		{
-			uint8_t DLCI;
-			bool    Configured;
+			uint8_t  DLCI;
+			uint8_t  State;
+			uint8_t  Priority;
+			bool     UseUIFrames;
+			uint16_t RemoteMTU;
 		} RFCOMM_Channel_t;
 		
 	/* External Variables: */

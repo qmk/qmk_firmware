@@ -66,19 +66,22 @@
 		/** Enum for the possible states for a Bluetooth ACL channel. */
 		enum BT_ChannelStates_t
 		{
-			Channel_Closed                = 0, /**< Channel is closed and inactive. No data may be sent or received. */
-			Channel_WaitConnect           = 1, /**< A connection request has been received, but a response has not been sent. */
-			Channel_WaitConnectRsp        = 2, /**< A connection request has been sent, but a response has not been received. */
-			Channel_Config_WaitConfig     = 3, /**< Channel has been connected, but not yet configured on either end. */
-			Channel_Config_WaitSendConfig = 4, /**< Channel configuration has been received and accepted, but not yet sent. */
-			Channel_Config_WaitReqResp    = 5, /**< Channel configuration has been sent but not responded to, and a configuration
-			                                        request from the remote end has not yet been received. */
-			Channel_Config_WaitResp       = 6, /**< Channel configuration has been sent but not accepted, but a configuration request
-			                                        from the remote end has been accepted. */
-			Channel_Config_WaitReq        = 7, /**< Channel configuration has been sent and accepted, but a configuration request
-			                                        from the remote end has not yet been accepted. */
-			Channel_Open                  = 8, /**< Channel is open and ready to send or receive data */
-			Channel_WaitDisconnect        = 9, /**< A disconnection request has been sent, but not yet acknowledged. */
+			BT_Channel_Closed                = 0, /**< Channel is closed and inactive. No data may be sent or received. */
+			BT_Channel_WaitConnect           = 1, /**< A connection request has been received, but a response has not been sent. */
+			BT_Channel_WaitConnectRsp        = 2, /**< A connection request has been sent, but a response has not been received. */
+			BT_Channel_Config_WaitConfig     = 3, /**< Channel has been connected, but not yet configured on either end. */
+			BT_Channel_Config_WaitSendConfig = 4, /**< Channel configuration has been received and accepted, but not yet sent. */
+			BT_Channel_Config_WaitReqResp    = 5, /**< Channel configuration has been sent but not responded to, and a configuration
+			                                       *   request from the remote end has not yet been received.
+			                                       */
+			BT_Channel_Config_WaitResp       = 6, /**< Channel configuration has been sent but not accepted, but a configuration request
+			                                       *   from the remote end has been accepted.
+			                                       */
+			BT_Channel_Config_WaitReq        = 7, /**< Channel configuration has been sent and accepted, but a configuration request
+			                                       *   from the remote end has not yet been accepted.
+			                                       */
+			BT_Channel_Open                  = 8, /**< Channel is open and ready to send or receive data */
+			BT_Channel_WaitDisconnect        = 9, /**< A disconnection request has been sent, but not yet acknowledged. */
 		};
 
 		/** Enum for the possible error codes returned by the \ref Bluetooth_SendPacket() function. */

@@ -70,7 +70,7 @@ void RFCOMM_Initialize(void)
 {
 	/* Reset the RFCOMM channel structures, to invalidate any confiured RFCOMM channels */
 	for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
-	  RFCOMM_Channels[i].DLCI = 0x00;
+	  RFCOMM_Channels[i].State = RFCOMM_Channel_Closed;
 }
 
 void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
@@ -220,8 +220,11 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress, Bluet
 		/* If the channel's DLCI is zero, the channel state entry is free */
 		if (!(CurrRFCOMMChannel->DLCI))
 		{
-			CurrRFCOMMChannel->DLCI       = FrameAddress->DLCI;
-			CurrRFCOMMChannel->Configured = false;
+			CurrRFCOMMChannel->DLCI        = FrameAddress->DLCI;
+			CurrRFCOMMChannel->State       = RFCOMM_Channel_Open;
+			CurrRFCOMMChannel->Priority    = 7 + (CurrRFCOMMChannel->DLCI >> 3) + ((CurrRFCOMMChannel->DLCI >> 3) * 7);
+			CurrRFCOMMChannel->UseUIFrames = false;
+			CurrRFCOMMChannel->RemoteMTU   = 0xFFFF;
 		
 			BT_RFCOMM_DEBUG(1, ">> UA Sent");
 			RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
@@ -244,15 +247,20 @@ static void RFCOMM_ProcessUA(const RFCOMM_Address_t* const FrameAddress, Bluetoo
 static void RFCOMM_ProcessUIH(const RFCOMM_Address_t* const FrameAddress, const uint16_t FrameLength, 
                               const uint8_t* FrameData, Bluetooth_Channel_t* const Channel)
 {
-	BT_RFCOMM_DEBUG(1, "<< UIH Received");
-	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
-	BT_RFCOMM_DEBUG(2, "-- Length 0x%02X", FrameLength);
-	
 	if (FrameAddress->DLCI == RFCOMM_CONTROL_DLCI)
 	{
 		RFCOMM_ProcessControlCommand(FrameData, Channel);
 		return;
 	}
 
-	// TODO: Handle regular channel data here
+	BT_RFCOMM_DEBUG(1, "<< UIH Received");
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
+	BT_RFCOMM_DEBUG(2, "-- Length 0x%02X", FrameLength);
+		
+	puts("RFCOMM Data: ");
+	
+	for (uint8_t i = 0; i < FrameLength; i++)
+	  printf("0x%02X (%c) ", FrameData[i], FrameData[i]);
+	
+	printf("\r\n");
 }
