@@ -205,8 +205,8 @@
 			 *  \ref CDC_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
 			 *  packed into a single pipe packet, increasing data throughput.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *  \param[in]     Data              Pointer to the string to send to the device
@@ -222,8 +222,8 @@
 			 *  \ref CDC_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
 			 *  packed into a single pipe packet, increasing data throughput.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *  \param[in]     Data              Byte of data to send to the device
@@ -234,8 +234,8 @@
 
 			/** Determines the number of bytes received by the CDC interface from the device, waiting to be read.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *
@@ -247,8 +247,8 @@
 			 *  returns 0. The \ref CDC_Host_BytesReceived() function should be queried before data is received to ensure that no data
 			 *  underflow occurs.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *
@@ -258,8 +258,8 @@
 			
 			/** Flushes any data waiting to be sent, ensuring that the send buffer is cleared.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state
 			 *

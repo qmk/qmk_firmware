@@ -174,8 +174,8 @@
 			/** Retrieves the Mass Storage device's inquiry data for the specified LUN, indicating the device characteristics and
 			 *  properties.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
@@ -199,8 +199,8 @@
 
 			/** Retrieves the total capacity of the attached USB Mass Storage device, in blocks, and block size.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
@@ -215,8 +215,8 @@
 			/** Retrieves the device sense data, indicating the current device state and error codes for the previously
 			 *  issued command.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
@@ -231,8 +231,8 @@
 			/** Issues a PREVENT MEDIUM REMOVAL command, to logically (or, depending on the type of device, physically) lock
 			 *  the device from removal so that blocks of data on the medium can be read or altered.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
@@ -245,8 +245,8 @@
 			
 			/** Reads blocks of data from the attached Mass Storage device's medium.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to
@@ -263,8 +263,8 @@
 		
 			/** Writes blocks of data to the attached Mass Storage device's medium.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to

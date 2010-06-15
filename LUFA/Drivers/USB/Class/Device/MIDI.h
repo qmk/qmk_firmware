@@ -116,8 +116,8 @@
 			 *  endpoint bank until either the endpoint bank is full, or \ref MIDI_Device_Flush() is called. This allows for multiple
 			 *  MIDI events to be packed into a single endpoint packet, increasing data throughput.
 			 *
-			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
-			 *        the call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state
 			 *  \param[in]     Event              Pointer to a populated USB_MIDI_EventPacket_t structure containing the MIDI event to send
@@ -140,8 +140,8 @@
 			/** Receives a MIDI event packet from the host. Events are unpacked from the endpoint, thus if the endpoint bank contains
 			 *  multiple MIDI events from the host in the one packet, multiple calls to this function will return each individual event.
 			 *
-			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
-			 *        the call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state
 			 *  \param[out]    Event              Pointer to a USB_MIDI_EventPacket_t structure where the received MIDI event is to be placed

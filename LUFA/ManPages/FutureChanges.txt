@@ -16,14 +16,11 @@
   *      -# Add hub support when in Host mode for multiple devices
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Add standardized descriptor names to class driver structures
-  *      -# Correct mishandling of error cases in Mass Storage demos
-  *      -# Fix AVRISP-MKII clone project's XMEGA EEPROM section erase command
-  *      -# Fix occasional dropped characters in the XPLAINBridge project
+  *      -# Master LUFA include file rather than per-module includes
+  *      -# Change makefiles to allow for absolute LUFA location to be used
   *  - Documentation/Support
   *      -# Remake AVRStudio project files
   *      -# Add detailed overviews of how each demo works
-  *      -# Master LUFA include file rather than per-module includes
-  *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Add board overviews
   *      -# Write LUFA tutorials
   *  - Demos/Projects
@@ -35,6 +32,8 @@
   *      -# Finish SideShow demo
   *      -# Finish StandaloneProgrammer project
   *      -# Finish MIDIToneGenerator project
+  *      -# Correct mishandling of error cases in Mass Storage demos
+  *      -# Fix AVRISP-MKII clone project's XMEGA EEPROM section erase command
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

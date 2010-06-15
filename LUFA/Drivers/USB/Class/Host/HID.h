@@ -167,9 +167,8 @@
 
 			/** Receives a HID IN report from the attached HID device, when a report has been received on the HID IN Data pipe.
 			 *  
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
-			 *        \n\n
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \note The destination buffer should be large enough to accommodate the largest report that the attached device
 			 *        can generate.
@@ -185,9 +184,8 @@
 			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 			/** Receives a HID IN report from the attached device, by the report ID.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
-			 *        \n\n
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
 			 *
@@ -204,9 +202,8 @@
 			/** Sends an OUT or FEATURE report to the currently attached HID device, using the device's OUT pipe if available,
 			 *  or the device's Control pipe if not.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
-			 *        \n\n
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, the ReportID parameter is removed
 			 *        from the parameter list of this function.
@@ -233,8 +230,8 @@
 
 			/** Determines if a HID IN report has been received from the attached device on the data IN pipe.
 			 *
-			 *  \note This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
-			 *        call will fail.
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state
 			 *

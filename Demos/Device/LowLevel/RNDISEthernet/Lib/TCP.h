@@ -115,7 +115,7 @@
 		/** Application macro: Captures the application buffer, locking it for device-to-host transmissions only. This should be
 		 *  performed when the application needs to transmit several packets worth of data in succession with no interruptions from the host.
 		 *
-		 *  \note The application must check that the buffer can be locked first using TCP_APP_CAN_CAPTURE_BUFFER().
+		 *  \pre The application must check that the buffer can be locked first using TCP_APP_CAN_CAPTURE_BUFFER().
 		 *
 		 *  \param[in] Buffer  Application buffer to lock
 		 */

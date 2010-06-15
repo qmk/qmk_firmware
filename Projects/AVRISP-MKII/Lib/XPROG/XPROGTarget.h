@@ -56,7 +56,7 @@
 		#endif
 		
 		/** Serial carrier TPI/PDI speed when hardware TPI/PDI mode is used. */
-		#define XPROG_HARDWARE_SPEED       1000000
+		#define XPROG_HARDWARE_SPEED       500000
 
 		/** Total number of bits in a single USART frame. */
 		#define BITS_IN_USART_FRAME        12

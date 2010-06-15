@@ -231,7 +231,7 @@
 				/** Enables the currently selected pipe so that data can be sent and received through it to and from
 				 *  an attached device.
 				 *
-				 *  \note Pipes must first be configured properly via \ref Pipe_ConfigurePipe().
+				 *  \pre The currently selected pipe must first be configured properly via \ref Pipe_ConfigurePipe().
 				 */
 				static inline void Pipe_EnablePipe(void);
 
@@ -799,8 +799,8 @@
 			 *  numbers of IN requests without automatic freezing - this can be overridden by a call to
 			 *  \ref Pipe_SetFiniteINRequests().
 			 *
-			 *  \note The default control pipe does not have to be manually configured, as it is automatically
-			 *        configured by the library internally.
+			 *  \note The default control pipe should not be manually configured by the user application, as it 
+			 *        is automatically configured by the library internally.
 			 *        \n\n
 			 *
 			 *  \note This routine will select the specified pipe, and the pipe will remain selected once the
@@ -889,7 +889,7 @@
 			
 			/** FLASH buffer source version of \ref Pipe_Write_Stream_LE().
 			 *
-			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *
@@ -938,7 +938,7 @@
 			
 			/** FLASH buffer source version of \ref Pipe_Write_Stream_BE().
 			 *
-			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *
 			 *  \ingroup Group_PipeStreamRW
 			 *

@@ -203,8 +203,8 @@
 			 *  \ref CDC_Device_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
 			 *  packed into a single endpoint packet, increasing data throughput.
 			 *
-			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
-			 *        the call will fail.
+			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *       the call will fail.
 			 *
 			 *  \param[in,out]   CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
 			 *  \param[in]       Data              Pointer to the string to send to the host
@@ -220,8 +220,8 @@
 			 *  \ref CDC_Device_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
 			 *  packed into a single endpoint packet, increasing data throughput.
 			 *
-			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
-			 *        the call will fail.
+			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *       the call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
 			 *  \param[in]     Data              Byte of data to send to the host
@@ -232,8 +232,8 @@
 			
 			/** Determines the number of bytes received by the CDC interface from the host, waiting to be read.
 			 *
-			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
-			 *        the call will fail.
+			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *       the call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
 			 *
@@ -245,8 +245,8 @@
 			 *  returns 0. The \ref CDC_Device_BytesReceived() function should be queried before data is received to ensure that no data
 			 *  underflow occurs.
 			 *
-			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
-			 *        the call will fail.
+			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *       the call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
 			 *
@@ -256,8 +256,8 @@
 			
 			/** Flushes any data waiting to be sent, ensuring that the send buffer is cleared.
 			 *
-			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
-			 *        the call will fail.
+			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *       the call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
 			 *
@@ -270,8 +270,8 @@
 			 *  until they are cleared via a second notification. This should be called each time the CDC class driver's 
 			 *  ControlLineStates.DeviceToHost value is updated to push the new states to the USB host.
 			 *
-			 *  \note This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
-			 *        the call will fail.
+			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *       the call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
 			 */

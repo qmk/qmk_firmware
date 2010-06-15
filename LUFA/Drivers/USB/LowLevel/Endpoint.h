@@ -756,8 +756,8 @@
 			 *
 			 *  The banking mode may be either \ref ENDPOINT_BANK_SINGLE or \ref ENDPOINT_BANK_DOUBLE.
 			 *
-			 *  \note The default control endpoint does not have to be manually configured, as it is automatically
-			 *        configured by the library internally.
+			 *  \note The default control endpoint should not be manually configured by the user application, as 
+			 *        it is automatically configured by the library internally.
 			 *        \n\n
 			 *
 			 *  \note This routine will select the specified endpoint, and the endpoint will remain selected
@@ -844,7 +844,7 @@
 
 			/** FLASH buffer source version of \ref Endpoint_Write_Stream_LE().
 			 *
-			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *
 			 *  \ingroup Group_EndpointStreamRW
 			 *
@@ -893,7 +893,7 @@
 
 			/** FLASH buffer source version of \ref Endpoint_Write_Stream_BE().
 			 *
-			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *
 			 *  \ingroup Group_EndpointStreamRW
 			 *
@@ -1020,11 +1020,10 @@
 
 			/** FLASH buffer source version of \ref Endpoint_Write_Control_Stream_LE().
 			 *
+			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
-			 *        \n\n
-			 *
-			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
@@ -1086,11 +1085,10 @@
 
 			/** FLASH buffer source version of \ref Endpoint_Write_Control_Stream_BE().
 			 *
+			 *  \pre The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
+			 *
 			 *  \note This function automatically clears the control transfer's status stage. Do not manually attempt
 			 *        to clear the status stage when using this routine in a control transaction.
-			 *        \n\n
-			 *
-			 *  \note The FLASH data must be located in the first 64KB of FLASH for this function to work correctly.
 			 *        \n\n
 			 *
 			 *  \note This routine should only be used on CONTROL type endpoints.
