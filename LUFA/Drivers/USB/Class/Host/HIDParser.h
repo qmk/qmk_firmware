@@ -101,7 +101,7 @@
 		#if !defined(HID_MAX_COLLECTIONS) || defined(__DOXYGEN__)
 			/** Constant indicating the maximum number of COLLECTION items (nested or unnested) that can be
 			 *  processed in the report item descriptor. A large value allows for more COLLECTION items to be
-			 *  processed, but consumes more memory. By default this is set to 5 collections, but this can be
+			 *  processed, but consumes more memory. By default this is set to 10 collections, but this can be
 			 *  overridden by defining HID_MAX_COLLECTIONS to another value in the user project makefile, passing
 			 *  the define to the compiler using the -D compiler switch.
 			 */
@@ -122,7 +122,7 @@
 			/** Constant indicating the maximum number of unique report IDs that can be processed in the report item
 			 *  descriptor for the report size information array in the user HID Report Info structure. A large value
 			 *  allows for more report ID report sizes to be stored, but consumes more memory. By default this is set
-			 *  to 5 items, but this can be overridden by defining HID_MAX_REPORT_IDS to another value in the user project
+			 *  to 10 items, but this can be overridden by defining HID_MAX_REPORT_IDS to another value in the user project
 			 *  makefile, and passing the define to the compiler using the -D compiler switch. Note that IN, OUT and FEATURE
 			 *  items sharing the same report ID consume only one size item in the array.
 			 */
