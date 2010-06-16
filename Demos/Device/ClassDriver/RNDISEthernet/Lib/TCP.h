@@ -101,9 +101,7 @@
 		 *
 		 *  \return Boolean true if the buffer has been captured by the application for device-to-host transmissions, false otherwise
 		 */
-		#define TCP_APP_HAVE_CAPTURED_BUFFER(Buffer) (!(Buffer->Ready) && Buffer->InUse && \
-		                   
-                           (Buffer->Direction == TCP_PACKETDIR_OUT))
+		#define TCP_APP_HAVE_CAPTURED_BUFFER(Buffer) (!(Buffer->Ready) && Buffer->InUse && (Buffer->Direction == TCP_PACKETDIR_OUT))
 
 		/** Application macro: Indicates if the application can lock the buffer for multiple continued device-to-host transmissions.
 		 *
