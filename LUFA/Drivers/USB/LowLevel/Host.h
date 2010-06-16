@@ -223,7 +223,7 @@
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
 			 *  \param[in]  Index        Index of the string index to retrieve
-			 *  \param[out] Buffer       Pointer to the destination buffer where the retrieved string decriptor is
+			 *  \param[out] Buffer       Pointer to the destination buffer where the retrieved string descriptor is
 			 *                           to be stored
 			 *  \param[in] BufferLength  Maximum size of the string descriptor which can be stored into the buffer
 			 *

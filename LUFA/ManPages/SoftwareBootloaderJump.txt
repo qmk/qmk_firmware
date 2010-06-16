@@ -29,7 +29,7 @@
  *  uint32_t Boot_Key ATTR_NO_INIT;
  *
  *  #define MAGIC_BOOT_KEY            0xDC42ACCA
- *  #define BOOTLOADER_START_ADDRESS  ({FLASH_SIZE_BYTES} - {BOOTLOADER_SEC_SIZE_BYTES})
+ *  #define BOOTLOADER_START_ADDRESS  (FLASH_SIZE_BYTES - BOOTLOADER_SEC_SIZE_BYTES)
  *  
  *  void Bootloader_Jump_Check(void) ATTR_INIT_SECTION(3);
  *  void Bootloader_Jump_Check(void)
@@ -50,7 +50,7 @@
  *      // Disable all interrupts
  *      cli();
  *
- *      // Wait two seconds for the USB detatchment to register on the host
+ *      // Wait two seconds for the USB detachment to register on the host
  *      for (uint8_t i = 0; i < 128; i++)
  *        _delay_ms(16);
  *
@@ -61,8 +61,8 @@
  *  }
  *  \endcode
  *
- *  Note that the bootloader magic key can be any arbitrary value. The {FLASH_SIZE_BYTES} and
- *  {BOOTLOADER_SEC_SIZE_BYTES} tokens should be replaced with the total flash size of the AVR
+ *  Note that the bootloader magic key can be any arbitrary value. The <em>FLASH_SIZE_BYTES</em> and
+ *  <em>BOOTLOADER_SEC_SIZE_BYTES</em> tokens should be replaced with the total flash size of the AVR
  *  in bytes, and the allocated size of the bootloader section for the target AVR.
  * 
  */

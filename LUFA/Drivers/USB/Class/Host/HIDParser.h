@@ -136,7 +136,7 @@
 		 *  \param[in] reportitem  HID Report Item whose retrieved value is to be aligned
 		 *  \param[in] type        Data type to align the HID report item's value to
 		 *
-		 *  \return Left-aligned data of the given report item's pre-retrived value for the given datatype
+		 *  \return Left-aligned data of the given report item's pre-retrieved value for the given datatype
 		 */
 		#define HID_ALIGN_DATA(reportitem, type) ((type)(reportitem->Value << ((8 * sizeof(type)) - reportitem->Attributes.BitSize)))
 

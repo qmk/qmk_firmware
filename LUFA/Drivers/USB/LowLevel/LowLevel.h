@@ -31,7 +31,7 @@
 /** \file
  *  \brief USB low level USB controller definitions.
  *
- *  This file contains structures, function prototypes and macros related to the low level configutation of the
+ *  This file contains structures, function prototypes and macros related to the low level configuration of the
  *  USB controller, to start, stop and reset the USB library core.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
@@ -250,7 +250,7 @@
 			 *                      Valid mode masks are \ref USB_MODE_DEVICE, \ref USB_MODE_HOST or \ref USB_MODE_UID.
 			 *
 			 *  \param[in] Options  Mask indicating the options which should be used when initializing the USB
-			 *                      interface to control the USB interface's behaviour. This should be comprised of
+			 *                      interface to control the USB interface's behavior. This should be comprised of
 			 *                      a USB_OPT_REG_* mask to control the regulator, a USB_OPT_*_PLL mask to control the
 			 *                      PLL, and a USB_DEVICE_OPT_* mask (when the device mode is enabled) to set the device
 			 *                      mode speed.

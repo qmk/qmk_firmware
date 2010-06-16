@@ -156,7 +156,7 @@ void SetupHardware(void)
 	MCUCR |= (1 << JTD);
 	MCUCR |= (1 << JTD);
 
-	/* Enable pullup on the JTAG TDI pin so we can use it to select the mode */
+	/* Enable pull-up on the JTAG TDI pin so we can use it to select the mode */
 	PORTF |= (1 << 7);
 	_delay_ms(10);
 

@@ -19,7 +19,7 @@
  *    <b>License:</b> Atmel Limited License (see Atmel download for details) \n
  *    <b>Website:</b> http://atmel.com/dyn/products/app_notes.asp?family_id=607#USB \n
  *    <b>Description:</b> This is the official Atmel USB AVR stack, for their 8-bit USB AVR lineup. Each series of
- *                        USB AVR is seperated into a seperate download stack, which is both AVR-GCC and IAR compatible.
+ *                        USB AVR is separated into a separate download stack, which is both AVR-GCC and IAR compatible.
  *
  *  - <b>Name:</b> Dr. Stefan Salewski's AT90USB1287 Stack (<i>Dr. Stefan Salewski</i>) \n
  *    <b>Cost:</b> Free \n

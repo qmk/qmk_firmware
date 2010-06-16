@@ -36,8 +36,8 @@
  *    requires less FLASH space than Atmel's stack, meaning more space for the user application*.
  *
  *  - <b>Support:</b>
- *    Since many people are now using LUFA in their own projects, you can take advantage of other's knowedge when you run
- *    into difficulties or need some advice. In addition, you can also email the library author to recieve personalised
+ *    Since many people are now using LUFA in their own projects, you can take advantage of other's knowledge when you run
+ *    into difficulties or need some advice. In addition, you can also email the library author to receive personalized
  *    support when you need it (subject to author's schedule).
  *
  *   <small>* Atmel Stack Mouse Device Demo 4292 bytes, LUFA Mouse Low Level Device Demo 3296 bytes, under identical build

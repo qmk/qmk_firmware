@@ -188,7 +188,7 @@
 			 *  \note For the smaller series 2 USB AVRs with limited USB controllers, VBUS is not available to the USB controller.
 			 *        this means that the current connection state is derived from the bus suspension and wake up events by default,
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
-			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
+			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behavior turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
 			 *        and disconnection events may be manually fired, and the \ref USB_DeviceState global changed manually.
 			 *        \n\n
@@ -206,7 +206,7 @@
 			 *  \note For the smaller series 2 USB AVRs with limited USB controllers, VBUS is not available to the USB controller.
 			 *        this means that the current connection state is derived from the bus suspension and wake up events by default,
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
-			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
+			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behavior turned off by
 			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
 			 *        and disconnection events may be manually fired, and the \ref USB_DeviceState global changed manually.
 			 *        \n\n
@@ -226,7 +226,7 @@
 			 *  This event is time-critical; each packet within the request transaction must be acknowledged or
 			 *  sent within 50ms or the host will abort the transfer.
 			 *
-			 *  The library interally handles all standard control requests with the exceptions of SYNC FRAME,
+			 *  The library internally handles all standard control requests with the exceptions of SYNC FRAME,
 			 *  SET DESCRIPTOR and SET INTERFACE. These and all other non-standard control requests will be left
 			 *  for the user to process via this event if desired. If not handled in the user application, requests
 			 *  are automatically STALLed.
@@ -307,7 +307,7 @@
 			 *  millisecond timer source when the USB bus is enumerated in device mode to a USB host.
 			 *
 			 *  This event is time-critical; it is run once per millisecond and thus long handlers will significantly
-			 *  degrade device performance. This event should only be enabled when needed to reduce device wakeups.
+			 *  degrade device performance. This event should only be enabled when needed to reduce device wake-ups.
 			 *
 			 *  \note This event is not normally active - it must be manually enabled and disabled via the
 			 *        \ref USB_Device_EnableSOFEvents() and \ref USB_Device_DisableSOFEvents() commands after enumeration.

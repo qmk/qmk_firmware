@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Board specific Buttons driver header for the Bentio.
+ *  \brief Board specific Buttons driver header for the Benito.
  *
  *  Board specific Buttons driver header for the Benito (http://dorkbotpdx.org/wiki/benito).
  *
@@ -40,7 +40,7 @@
 /** \ingroup Group_Buttons
  *  @defgroup Group_Buttons_BENITO BENITO
  *
- *  Board specific Buttons driver header for the Bentio (http://dorkbotpdx.org/wiki/benito).
+ *  Board specific Buttons driver header for the Benito (http://dorkbotpdx.org/wiki/benito).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.

@@ -28,7 +28,7 @@
  *      Projects must update their makefile SRC values accordingly.
  *    - The HID Device Class driver's function signature for the CALLBACK_HID_Device_ProcessHIDReport() function has been changed, to
  *      allow for a new ReportType parameter. This new parameter must be added in all user applications using the Device mode HID Class
- *      Driver, but may be ingnored unless Host-to-Device FEATURE HID reports are used.
+ *      Driver, but may be ignored unless Host-to-Device FEATURE HID reports are used.
  *
  *  <b>Host Mode</b>
  *    - The \ref USB_Init() function no longer calls sei() to enable global interrupts, as the user application may need
@@ -51,7 +51,7 @@
  *  <b>Host Mode</b>
  *    - The MIDI Host Class driver send and receive routines now operate on packed events, where multiple MIDI events may be
  *      packed into a single USB packet. This means that the sending of MIDI events will now be delayed until the MIDI send
- *      pipe bank is full. To override this new behaviour and revert to the previous behaviour, the user application may manually
+ *      pipe bank is full. To override this new behavior and revert to the previous behavior, the user application may manually
  *      flush the queued event(s) to the device by calling \ref MIDI_Host_Flush().
  *    - The Pipe_IsEndpointBound() function now takes the endpoint's direction into account, by checking if the MSB of the endpoint's address
  *      is set to denote IN endpoints. If the previous functionality where the direction is to be discounted is required, mask the endpoint
@@ -60,7 +60,7 @@
  *  <b>Device Mode</b>
  *    - The MIDI Device Class driver send and receive routines now operate on packed events, where multiple MIDI events may be
  *      packed into a single USB packet. This means that the sending of MIDI events will now be delayed until the MIDI send
- *      endpoint bank is full. To override this new behaviour and revert to the previous behaviour, the user application may manually
+ *      endpoint bank is full. To override this new behavior and revert to the previous behavior, the user application may manually
  *      flush the queued event(s) to the host by calling \ref MIDI_Device_Flush().
  *
  * \section Sec_Migration091223 Migrating from 091122 to 091223
@@ -70,9 +70,9 @@
  *      now named \ref SImage_Host_USBTask() and \ref SImage_Host_ConfigurePipes() respectively.
  *    - The HOST_SENDCONTROL_DeviceDisconnect enum value has been renamed to \ref HOST_SENDCONTROL_DeviceDisconnected to be in
  *      line with the rest of the library error codes.
- *    - The HID Parser item usages no longer contain seperate minimum and maximum values, as this was a violation of the HID
+ *    - The HID Parser item usages no longer contain separate minimum and maximum values, as this was a violation of the HID
  *      specification. Instead, the values are distributed evenly across each item as its usage value, to ensure that all items
- *      can be distinguished from oneanother.
+ *      can be distinguished from one-another.
  *
  *  <b>Device Mode</b>
  *    - The CALLBACK_HID_Device_CreateHIDReport() HID Device Class driver callback now has a new ReportType parameter to
@@ -96,27 +96,27 @@
  *      call to SPI_Init() before using the Dataflash driver
  *
  *  <b>Host Mode</b>
- *    - The USB_GetDeviceConfigDescriptor() function's parameters and behaviour has changed; the user is required to
+ *    - The USB_GetDeviceConfigDescriptor() function's parameters and behavior has changed; the user is required to
  *      preallocate the largest allowable buffer, and pass the size of the buffer to the function. This allows for a single
  *      call to the function to retrieve, size check and validate the Configuration Descriptor rather than having the user
- *      application perform these intermediatary steps.
+ *      application perform these intermediary steps.
  *    - The HID report parser now requires a mandatory callback in the user code, to filter only the items the application
  *      is interested in into the processed HID report item structure to save RAM. See \ref CALLBACK_HIDParser_FilterHIDReportItem().
  *    - The HID report parser now always parses FEATURE and always ignores constant-data items - the HID_ENABLE_FEATURE_PROCESSING
  *      and HID_INCLUDE_CONSTANT_DATA_ITEMS compile time tokens now have no effect.
- *    - The USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now seperate USB_Descriptor_*
+ *    - The USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now separate USB_Descriptor_*
  *      and USB_StdDescriptor_* structures for both the LUFA and standardized element naming conventions so that both may be used in
  *      the one project. For existing projects using the standardized names, change all code to use the USB_StdDescriptor_* variants.
  *
  *  <b>Device Mode</b>
- *    - The USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now seperate USB_Descriptor_*
+ *    - The USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now separate USB_Descriptor_*
  *      and USB_StdDescriptor_* structures for both the LUFA and standardized element naming conventions so that both may be used in
  *      the one project. For existing projects using the standardized names, change all code to use the USB_StdDescriptor_* variants.
  *
  * \section Sec_Migration090810 Migrating from 090605 to 090810
  *
  *  <b>All</b>
- *    - The "Simple Scheduler" has been <i>deprecated</i>, as it was little more than an abtracted loop and caused much confusion.
+ *    - The "Simple Scheduler" has been <i>deprecated</i>, as it was little more than an abstracted loop and caused much confusion.
  *      User applications using the scheduler should switch to regular loops instead. The scheduler code will be removed in a future
  *      release.
  *    - The "Dynamic Memory Block Allocator" has been removed, as it was unused in (and unrelated to) the LUFA library and never
@@ -142,7 +142,7 @@
  *      state.
  *    - The USB_IsConnected global has been removed, as it is too vague for general use. Test \ref USB_HostState explicitly to ensure the host is
  *      in the desired state instead.
- *    - The USB event names have been changed and their firing conditions changed to properly seperate out Host mode events from Device mode
+ *    - The USB event names have been changed and their firing conditions changed to properly separate out Host mode events from Device mode
  *      events. See the \ref Group_Events page for details on the new event names and firing conditions.
  *
  *  <b>Device Mode</b>
@@ -153,7 +153,7 @@
  *    - The USB_IsConnected global has been removed, as it is too vague for general use. Test \ref USB_DeviceState explicitly to ensure the device
  *      is in the desired state instead.
  *    - The VBUS events have been removed, as they are already exposed to the user via the USB_Connect and USB_Disconnect events.
- *    - The USB event names have been changed and their firing conditions changed to properly seperate out Host mode events from Device mode
+ *    - The USB event names have been changed and their firing conditions changed to properly separate out Host mode events from Device mode
  *      events. See the \ref Group_Events page for details on the new event names and firing conditions. *
  *
  * \section Sec_Migration090605 Migrating from 090510 to 090605
@@ -300,7 +300,7 @@
  *    - The previous SPI_SendByte() functionality is now located in SPI_TransferByte(). SPI_SendByte() now discards the return byte
  *      for speed, to compliment the new SPI_ReceiveByte() function. If two-way SPI transfers are required, calls to SPI_SendByte()
  *      should be changed to SPI_TransferByte().
- *    - The serial driver now sets the Tx line as an output explicitly, and enables the pullup of the Rx line.
+ *    - The serial driver now sets the Tx line as an output explicitly, and enables the pull-up of the Rx line.
  *    - The Serial_Init() and SerialStream_Init() functions now take a second DoubleSpeed parameter, which indicates if the USART
  *      should be initialized in double speed mode - useful in some circumstances for attaining baud rates not usually possible at
  *      the given AVR clock speed.
@@ -405,7 +405,7 @@
  *
  *  <b>Library Demos</b>
  *    - The RNDIS demo application has been updated so that it is functional on Linux under earlier implementations
- *      of the RNDIS specification, which had non-standard behaviour. Projects built upon the demo should upgrade
+ *      of the RNDIS specification, which had non-standard behavior. Projects built upon the demo should upgrade
  *      to the latest code.
  *    - The DFU class bootloader has had several bugs corrected in this release. It is recommended that where
  *      possible any existing devices upgrade to the latest bootloader code.
@@ -462,7 +462,7 @@
  *      appropriate. It fires in an identical manner to the previously named event, thus the only change to be made
  *      is the event name itself in the user project.
  *    - The USB_Descriptor_Language_t structure no longer exists in StdDescriptors.h, as this was a
- *      pseudo-descriptor modelled on the string descriptor. It is replaced by the true USB_Descriptor_String_t type
+ *      pseudo-descriptor modeled on the string descriptor. It is replaced by the true USB_Descriptor_String_t type
  *      descriptor as indicated in the USB specification, thus all device code must be updated accordingly.
  *    - The names of several Endpoint macros have been changed to be more consistent with the rest of the library,
  *      with no implementation changes. This means that existing code can be altered to use the new macro names

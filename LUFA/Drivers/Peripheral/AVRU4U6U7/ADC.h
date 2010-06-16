@@ -287,7 +287,7 @@
 				#endif
 			}
 			
-			/** Deconfigures the given ADC channel, re-enabling digital I/O mode instead of analog. This
+			/** De-configures the given ADC channel, re-enabling digital I/O mode instead of analog. This
 			 *  function sets the associated port pin as an input and re-enabled the digital portion of
 			 *  the I/O.
 			 *

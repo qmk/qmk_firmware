@@ -142,7 +142,7 @@
 			                                  MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Flushes the MIDI send buffer, sending any queued MIDI events to the device. This should be called to override the
-			 *  \ref MIDI_Host_SendEventPacket() function's packing behaviour, to flush queued events. Events are queued into the
+			 *  \ref MIDI_Host_SendEventPacket() function's packing behavior, to flush queued events. Events are queued into the
 			 *  pipe bank until either the pipe bank is full, or \ref MIDI_Host_Flush() is called. This allows for multiple MIDI
 			 *  events to be packed into a single pipe packet, increasing data throughput.
 			 *

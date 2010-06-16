@@ -54,7 +54,7 @@
  *        One major issue with CDC-ACM is that it requires two Interface descriptors,
  *        which will upset most hosts when part of a multi-function "Composite" USB
  *        device, as each interface will be loaded into a separate driver instance. To
- *        conbat this, you should use the "Interface Association Descriptor" addendum to
+ *        combat this, you should use the "Interface Association Descriptor" addendum to
  *        the USB standard which is available on most OSes when creating Composite devices.
  *
  *        Another major oversight is that there is no mechanism for the host to notify the
@@ -190,7 +190,7 @@
 			 */
 			void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** CDC class driver event for a send break request sent to the device from the host. This is generally used to seperate
+			/** CDC class driver event for a send break request sent to the device from the host. This is generally used to separate
 			 *  data or to indicate a special condition to the receiving device.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
@@ -277,7 +277,7 @@
 			 */
 			void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** Creates a standard characer stream for the given CDC Device instance so that it can be used with all the regular
+			/** Creates a standard character stream for the given CDC Device instance so that it can be used with all the regular
 			 *  functions in the avr-libc <stdio.h> library that accept a FILE stream as a destination (e.g. fprintf). The created
 			 *  stream is bidirectional and can be used for both input and output functions.
 			 *

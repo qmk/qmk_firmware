@@ -30,7 +30,7 @@
  *
  *  - <b>Clean API:</b>
  *    One of the main design goals of LUFA is to make the API easy to use. While LUFA is a fluid project which has undergone many
- *    API improvements, the API is arguably much nicer to use and easier to understand than the equivelent Atmel stack code. LUFA's
+ *    API improvements, the API is arguably much nicer to use and easier to understand than the equivalent Atmel stack code. LUFA's
  *    API is also more complete than the Atmel stack, and contains many features to speed up application development.
  *
  *  - <b>Full Hardware Support:</b>

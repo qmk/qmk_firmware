@@ -66,7 +66,7 @@
   *  - Removed the cast to uint16_t on the set baud rate in the USBtoSerial project, so that the higher >1M baud rates can be
   *    selected (thanks to Steffan Woltjer)
   *  - Removed software PDI and TPI emulation from the AVRISP-MKII clone project as it was very buggy and slow - PDI and TPI must
-  *    now be implemented via seperate programming headers
+  *    now be implemented via separate programming headers
   *  - The CDC class bootloader now uses a watchdog reset rather than a soft-reset when exited to ensure that all hardware is
   *    properly reset to their defaults
   *  - Device mode class driver callbacks are now fired before the control request status stage is sent to prevent the host from
@@ -79,7 +79,7 @@
   *  - Fixed possible device lockup when INTERRUPT_CONTROL_ENDPOINT is enabled and the control endpoint is not properly
   *    selected when the ISR completes
   *  - Fixed AVRISP-MKII clone project not correctly issuing LOAD EXTENDED ADDRESS commands when the extended address
-  *    boundary is crossed during programming or readback (thanks to Gerard Sexton)
+  *    boundary is crossed during programming or read back (thanks to Gerard Sexton)
   *  - Fixed warnings when building the AVRISP-MKII clone project with the ENABLE_XPROG_PROTOCOL compile time option disabled
   *  - Fixed software PDI/TPI programming mode in the AVRISP project not correctly toggling just the clock pin
   *  - Fixed TWI_StartTransmission() corrupting the contents of the GPIOR0 register
@@ -104,7 +104,7 @@
   *  - Fixed Set Configuration requests not being stalled until the host has set the device's address
   *  - Fixed Host mode HID class driver not sending the correct report type when HID_Host_SendReportByID() was called and the 
   *    HID_HOST_BOOT_PROTOCOL_ONLY compile time option is set
-  *  - Fixed INTERRUPT_CONTROL_ENDPOINT compile time option preventing other interrupts from occuring while the control endpoint
+  *  - Fixed INTERRUPT_CONTROL_ENDPOINT compile time option preventing other interrupts from occurring while the control endpoint
   *    request is being processed, causing possible lockups if a USB interrupt occurs during a transfer
   *  - Remove incorrect Abstract Call Management class specific descriptor from the CDC demos, bootloaders and projects
   *
@@ -123,7 +123,7 @@
   *  - Added ADC MUX masks for the standard ADC input channels on all AVR models with an ADC, altered demos to use these masks
   *    as on some models, the channel number is not identical to its single-ended ADC MUX mask
   *  - New Webserver project, a RNDIS host USB webserver using the open source uIP TCP/IP network stack and FatFS library
-  *  - New BOARD value option BOARD_NONE (equivelent to not specifying BOARD) which will remove all board hardware drivers which
+  *  - New BOARD value option BOARD_NONE (equivalent to not specifying BOARD) which will remove all board hardware drivers which
   *    do not adversely affect the code operation (currently only the LEDs driver)
   *  - Added keyboard modifier masks (HID_KEYBOARD_MODIFER_*) and LED report masks (KEYBOARD_LED_*) to the HID class driver and
   *    Keyboard demos
@@ -154,7 +154,7 @@
   *  - Fixed Benito project not resetting the target AVR automatically when programming has completed
   *  - Fixed DFU bootloader programming not discarding the correct number of filler bytes from the host when non-aligned programming
   *    ranges are specified (thanks to Thomas Bleeker)
-  *  - Fixed CDC and RNDIS host demos and class drivers - bidirectional endpoints should use two seperate pipes, not one half-duplex pipe
+  *  - Fixed CDC and RNDIS host demos and class drivers - bidirectional endpoints should use two separate pipes, not one half-duplex pipe
   *  - Fixed Pipe_IsEndpointBound() not taking the endpoint's direction into account
   *  - Fixed EEPROM and FLASH ISP programming in the AVRISP project
   *  - Fixed incorrect values of USB_CONFIG_ATTR_SELFPOWERED and USB_CONFIG_ATTR_REMOTEWAKEUP tokens (thanks to Claus Christensen)
@@ -162,7 +162,7 @@
   *  - Fixed SerialStream driver not setting stdin to the created serial stream (thanks to Mike Alexander)
   *  - Fixed USB_GetHIDReportSize() returning the number of bits in the specified report instead of bytes
   *  - Fixed AVRISP project not extending the command delay after each successful page/word/byte program
-  *  - Fixed accuracy of the SERIAL_UBBRVAL() and SERIAL_2X_UBBRVAL() macros for higher baudrates (thanks to Renaud Cerrato)
+  *  - Fixed accuracy of the SERIAL_UBBRVAL() and SERIAL_2X_UBBRVAL() macros for higher baud rates (thanks to Renaud Cerrato)
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *
@@ -186,8 +186,8 @@
   *  - Added new NO_DEVICE_REMOTE_WAKEUP and NO_DEVICE_SELF_POWER compile time options
   *
   *  <b>Changed:</b>
-  *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of keycodes
-  *    as this relied on non-standard OS driver behaviour to repeat key groups
+  *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of key codes
+  *    as this relied on non-standard OS driver behavior to repeat key groups
   *  - The SCSI_Request_Sense_Response_t and SCSI_Inquiry_Response_t type defines are now part of the Mass Storage Class
   *    driver common defines, rather than being defined in the Host mode Class driver section only
   *  - The USB_MODE_HOST token is now defined even when host mode is not available
@@ -196,7 +196,7 @@
   *  - All Class Drivers now return false or the "DeviceDisconnected" error code of their respective error enums when a function
   *    is called when no host/device is connected where possible
   *  - The HOST_SENDCONTROL_DeviceDisconnect enum value has been renamed to HOST_SENDCONTROL_DeviceDisconnected to be in line
-  *    with the rest of the library errorcodes
+  *    with the rest of the library error codes
   *  - Make MIDI device demos also turn off the on board LEDs if MIDI Note On messages are sent with a velocity of zero,
   *    which some devices use instead of Note Off messages (thanks to Robin Green)
   *  - The CDC demos are now named "VirtualSerial" instead to indicate the demos' function rather than its implemented USB class,
@@ -244,7 +244,7 @@
   *  - Added new stream creation function to the CDC Class drivers, to easily make standard I/O streams from CDC Class driver instances
   *
   *  <b>Changed:</b>
-  *  - Removed mostly useless "TestApp" demo, as it was mainly useful only for checking for sytax errors in the library
+  *  - Removed mostly useless "TestApp" demo, as it was mainly useful only for checking for syntax errors in the library
   *  - MIDI device demos now receive MIDI events from the host and display note ON messages via the board LEDs
   *  - Cleanups to the Device mode Mass Storage demo application SCSI routines
   *  - Changed Audio Class driver sample read/write functions to be inline, to reduce the number of cycles needed to transfer
@@ -257,12 +257,12 @@
   *  - Changed MouseHostWithParser demos to check that the report items have a Mouse usage collection as a parent at some point,
   *    to prevent Joysticks from enumerating with the demo
   *  - Corrected the name of the misnamed USB_GetDeviceConfigDescriptor() function to USB_Host_GetDeviceConfigDescriptor().
-  *  - Keyboard LowLevel/ClassDriver demos now support multiple simultaneous keypresses (up to 6) per report
+  *  - Keyboard LowLevel/ClassDriver demos now support multiple simultaneous key presses (up to 6) per report
   *
   *  <b>Fixed:</b>
   *  - Fixed PrinterHost demo returning invalid Device ID data when the attached device does not have a
   *    device ID (thanks to Andrei Krainev)
-  *  - Changed LUFA_VERSION_INTEGER define to use BCD values, to make comparisons eaiser
+  *  - Changed LUFA_VERSION_INTEGER define to use BCD values, to make comparisons easier
   *  - Fixed issue in the HID Host class driver's HID_Host_SendReportByID() routine using the incorrect mode (control/pipe)
   *    to send report to the attached device
   *  - Fixed ClassDriver AudioOutput device demo not selecting an audio output mode
@@ -282,7 +282,7 @@
   *  - Added new host mode class drivers and matching demos to the library for rapid application development
   *  - Added flag to the HID report parser to indicate if a device has multiple reports
   *  - Added new EVENT_USB_Device_StartOfFrame() event, controlled by the new USB_Device_EnableSOFEvents() and
-  *    USB_Device_DisableSOFEvents() macros to give bus-synchronised millisecond interrupts when in USB device mode
+  *    USB_Device_DisableSOFEvents() macros to give bus-synchronized millisecond interrupts when in USB device mode
   *  - Added new Endpoint_SetEndpointDirection() macro for bidirectional endpoints
   *  - Added new AVRISP project, a LUFA powered clone of the Atmel AVRISP-MKII programmer
   *  - Added ShutDown() functions for all hardware peripheral drivers, so that peripherals can be turned off after use
@@ -302,10 +302,10 @@
   *  - Added return values to the CDC and MIDI class driver transmit functions
   *  - Optimized Endpoint_Read_Word_* and Pipe_Read_Word_* macros to reduce compiled size
   *  - Added non-null function parameter pointer restrictions to USB Class drivers to improve user code reliability
-  *  - Added new "Common" section to the class drivers, to hold all mode-independant definitions for clarity
+  *  - Added new "Common" section to the class drivers, to hold all mode-independent definitions for clarity
   *  - Moved SCSI command/sense constants into the Mass Storage Class driver, instead of the user-code
   *  - Altered the SCSI commands in the LowLevel Mass Storage Host to save on FLASH space by reducing function calls
-  *  - Changed the parameters and behaviour of the USB_GetDeviceConfigDescriptor() function so that it now performs size checks
+  *  - Changed the parameters and behavior of the USB_GetDeviceConfigDescriptor() function so that it now performs size checks
   *    and data validations internally, to simplify user code
   *  - Changed HIDParser to only zero out important values in the Parsed HID Report Item Information structure to save cycles
   *  - The HID report parser now always processed FEATURE items - HID_ENABLE_FEATURE_PROCESSING token now has no effect
@@ -314,7 +314,7 @@
   *  - Add in new invalid event hook check targets to project makefiles to produce compilation errors when invalid event names
   *    are used in a project
   *  - The HID Report Parser now gives information on the total length of each report within a HID interface
-  *  - The USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now seperate USB_Descriptor_* and
+  *  - The USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now separate USB_Descriptor_* and
   *    USB_StdDescriptor_* structures for both the LUFA and standardized element naming conventions so both may be used
   *
   *  <b>Fixed:</b>
@@ -325,7 +325,7 @@
   *  - Fixed HID report parser not resetting the FEATURE item count when a REPORT ID item is encountered
   *  - Fixed USBtoSerial demos not reading in UDR1 when the USART receives data but the USB interface is not enumerated,
   *    causing continuous USART receive interrupts
-  *  - Fixed misspelt event name in the Class driver USBtoSerial demo, preventing correct operation
+  *  - Fixed misspelled event name in the Class driver USBtoSerial demo, preventing correct operation
   *  - Fixed invalid data being returned when a GetStatus request is issued in Device mode with an unhandled data recipient
   *  - Added hardware USART receive interrupt and software buffering to the Benito project to ensure received data is not
   *    missed or corrupted
@@ -348,7 +348,7 @@
   *  <b>New:</b>
   *  - Added new device class drivers and matching demos to the library for rapid application development
   *  - Added new PrinterHost demo (thanks to John Andrews)
-  *  - Added USB Missle Launcher project, submitted by Dave Fletcher
+  *  - Added USB Missile Launcher project, submitted by Dave Fletcher
   *  - Added new Benito Arduino Programmer project
   *  - Added incomplete device and host mode demos for later enhancement
   *  - Updated MassStorage device block write routines to use ping-pong Dataflash buffering to increase throughput by around 30%
@@ -375,7 +375,7 @@
   *  - Added 404 Not Found errors to the webserver in the RNDIS demos to indicate invalid URLs
   *  
   *  <b>Changed:</b>
-  *  - Deprecated psuedo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)
+  *  - Deprecated pseudo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)
   *  - The device-mode CALLBACK_USB_GetDescriptor() function now has an extra parameter so that the memory space in which the requested
   *    descriptor is located can be specified. This means that descriptors can now be located in multiple memory spaces within a device.
   *  - Removed vague USB_IsConnected global - test USB_DeviceState or USB_HostState explicitly to gain previous functionality
@@ -390,7 +390,7 @@
   *    the existing Pipe_SetFiniteINRequests() function
   *  - Changed F_CLOCK entries in project makefiles to alias to F_CPU by default, as this is the most common case
   *  - Host mode demos now use sane terminal escape codes, so that text is always readable and events/program output is visually distinguished
-  *    from oneanother using foreground colours
+  *    from one another using foreground colours
   *  - Internal per-device preprocessing conditions changed to per-device series rather than per-controller group for finer-grain
   *    internal control
   *  - Interrupts are no longer disabled during the processing of Control Requests on the default endpoint while in device mode
@@ -398,13 +398,13 @@
   *  - Removed SINGLE_DEVICE_CONFIGURATION compile time option in favour of the new FIXED_NUM_CONFIGURATIONS option so that the exact number
   *    of device configurations can be defined statically
   *  - Removed VBUS events, as they are already exposed to the user application via the regular device connection and disconnection events
-  *  - Renamed and altered existing events to properly seperate out Host and Device mode events
+  *  - Renamed and altered existing events to properly separate out Host and Device mode events
   *
   *  <b>Fixed:</b>
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix
-  *    bootloaders on some of the USB AVR devices where avr-libc erronously defines RAMPZ
+  *    bootloaders on some of the USB AVR devices where avr-libc erroneously defines RAMPZ
   *  - Fixes to MassStorageHost for better device compatibility (increase command timeout, change MassStore_WaitForDataReceived()
-  *    to only unfreeze and check one data pipe at a time) to prevent incorrect device enumerations and freezes while trasferring data
+  *    to only unfreeze and check one data pipe at a time) to prevent incorrect device enumerations and freezes while transferring data
   *  - Make Pipe_ConfigurePipe() mask the given endpoint number against PIPE_EPNUM_MASK to ensure the endpoint IN direction bit is
   *    cleared to prevent endpoint type corruption
   *  - Fixed issue opening CDC-ACM ports on hosts when the CDC device tries to send data before the host has set the line encoding
@@ -423,7 +423,7 @@
   *  - Fixed HID Report Descriptor Parser not correctly resetting internal states when a REPORT ID element is encountered
   *  - Fixed incorrect BUTTONS_BUTTON1 for the STK526 target
   *  - Fixed RNDIS demos freezing when more than one connection was attempted simultaneously, causing memory corruption
-  *  - Fixed USBtoSerial demo receiving noise from the USART due to pullup not being enabled
+  *  - Fixed USBtoSerial demo receiving noise from the USART due to pull-up not being enabled
   *
   *
   *  \section Sec_ChangeLog090605 Version 090605
@@ -439,7 +439,7 @@
   *    interface is skipped
   *  - Clarified the size of library tokens which accept integer values in the Compile Time Tokens page, values now use the smallest datatype
   *    inside the library that is able to hold their defined value to save space
-  *  - Removed DESCRIPTOR_ADDRESS() macro as it was largely supurflous and only served to obfuscate code
+  *  - Removed DESCRIPTOR_ADDRESS() macro as it was largely superfluous and only served to obfuscate code
   *  - Rewritten event system to remove all macros, to make user code clearer
   *  - Fixed incorrect ENDPOINT_EPNUM_MASK mask preventing endpoints above EP3 from being selected (thanks to Jonathan Oakley)
   *  - Removed STREAM_CALLBACK() macro - callbacks now use regular function definitions to clarify user code
@@ -447,10 +447,10 @@
   *  - USB_IsConnected is now cleared before the USB_Disconnect() event is fired in response to VBUS being removed
   *  - Fixed incorrect PID value being used in the USBtoSerial project (thanks to Phill)
   *  - Deleted StdDescriptors.c, renamed USB_GetDescriptor() to CALLBACK_USB_GetDescriptor, moved ConfigDescriptor.c/.h from the
-  *    LUFA/Drivers/USB/Class/ directory to LUFA/Drivers/USB/HighLevel/ in preperation for the new USB class APIs
+  *    LUFA/Drivers/USB/Class/ directory to LUFA/Drivers/USB/HighLevel/ in preparation for the new USB class APIs
   *  - Moved out each demos' functionality library files (e.g. Ring Buffer library) to /Lib directories for a better directory structure
   *  - Removed Tx interrupt from the USBtoSerial demo; now sends characters via polling to ensure more time for the Rx interrupt
-  *  - Fixed possible enumeration errors from spinloops which may fail to exit if the USB connection is severed before the exit condition
+  *  - Fixed possible enumeration errors from spin-loops which may fail to exit if the USB connection is severed before the exit condition
   *    becomes true
   *
   *
@@ -500,7 +500,7 @@
   *    device descriptor
   *  - Renamed functions in the HID parser to have a "USB_" prefix and the acronym "HID" in the name
   *  - Fixed incorrect HID interface class and subclass values in the Mouse and KeyboardMouse demos (thanks to Brian Dickman)
-  *  - Capitalised the "Descriptor_Search" and "Descriptor_Search_Comp" prefixes of the values in the DSearch_Return_ErrorCodes_t and
+  *  - Capitalized the "Descriptor_Search" and "Descriptor_Search_Comp" prefixes of the values in the DSearch_Return_ErrorCodes_t and
   *    DSearch_Comp_Return_ErrorCodes_t enums
   *  - Removed "ERROR" from the enum names in the endpoint and pipe stream error code enums
   *  - Renamed the USB_PowerOnErrorCodes_t enum to USB_InitErrorCodes_t, renamed the POWERON_ERROR_NoUSBModeSpecified enum value to
@@ -607,7 +607,7 @@
   *  - Added new "dfu" and "flip" programming targets to project makefiles
   *  - HID_PARSE_Sucessful enum member typo corrected to HID_PARSE_Successful
   *  - Changed COLLECTION item structures in the HID descriptor parser to include the collection's Usage Page value
-  *  - Serial driver now sets Tx line as output, enables pullup on Rx line
+  *  - Serial driver now sets Tx line as output, enables pull-up on Rx line
   *  - Fixed smaller USB AVRs raising multiple connection and disconnection events when NO_LIMITED_CONTROLLER_CONNECT is disabled
   *  - Added HOST_DEVICE_SETTLE_DELAY_MS to give the host delay after a device is connected before it is enumerated
   *  - Fixed KeyboardHostWithParser demo linking against the wrong global variables
@@ -724,7 +724,7 @@
   *  - Fixed DFU bootloader EEPROM programming mode wiping first flash page
   *  - Fixed Clear/Set Feature device standard request processing code (fixing MassStorage demo in the process)
   *  - Added support for the ATMEGA16U4 AVR microcontroller
-  *  - Library licence changed from LGPLv3 to MIT license
+  *  - Library license changed from LGPLv3 to MIT license
   *
   *
   *  \section Sec_ChangeLog151 Version 1.5.1 - Released 31st July, 2008
@@ -786,7 +786,7 @@
   *  - Corrected OTG.h is now included when the AVR supports both Host and Device modes, for creating OTG products
   *  - USB_DeviceEnumerationComplete event is now also fired when in device mode and the host has finished its enumeration
   *  - Interrupt driven demos now properly restore previously selected endpoint when ISR is complete
-  *  - USB_HOST_TIMEOUT_MS is now overridable in the user project makefile to a custom fixed timeout value
+  *  - The value of USB_HOST_TIMEOUT_MS can now be overridden in the user project makefile to a custom fixed timeout value
   *  - Renamed USB_Host_SOFGeneration_* macros to more friendly USB_Host_SuspendBus(), USB_Host_ResumeBus()
   *    and USB_Host_IsBusSuspended()
   *  - Renamed *_*_Is* macros to *_Is* to make all flag checking macros consistent, Pipe_SetInterruptFreq() is now
@@ -916,7 +916,7 @@
   *  \section Sec_ChangeLog120 Version 1.2.0 - Released February 4th, 2008
   *
   *  - Added USB_DeviceEnumerationComplete event for host mode
-  *  - Added new Scheduler_Init routine to preprepare the scheduler, so that tasks can be started and
+  *  - Added new Scheduler_Init routine to prepare the scheduler, so that tasks can be started and
   *    stopped before the scheduler has been started (via Scheduler_Start)
   *  - Connection events in both Device and Host mode are now interrupt-driven, allowing the USB management
   *    task to be stopped when the USB is not connected to a host or device
@@ -935,7 +935,7 @@
   *
   *  - Fixed DCONNI interrupt being enabled accidentally after a USB reset
   *  - Fixed DDISCI interrupt not being disabled when a device is not connected
-  *  - Added workaround for powerless pullup devices causing false disconnect interrupts
+  *  - Added workaround for powerless pull-up devices causing false disconnect interrupts
   *  - Added USB_DeviceEnumerationFailed event for Host mode
   *  - AVR_HOST_GetDeviceConfigDescriptor routine no longer modifies ConfigSizePtr if a valid buffer
   *    pointer is passed
@@ -947,8 +947,8 @@
   *    started/stopped, as well as USB_InitTaskPointer(), which was breaking dual device/host USB projects
   *  - Changed scheduler to use the task name rather than IDs for setting the task mode, eliminating the
   *    need to have a task ID list
-  *  - ID transistion interrupt now raises the appropriate device/host disconnect event if device attached
-  *  - Fixed double VBUS change (and VBUS -) event when detatching in device mode
+  *  - ID transition interrupt now raises the appropriate device/host disconnect event if device attached
+  *  - Fixed double VBUS change (and VBUS -) event when detaching in device mode
   *  - Added ability to disable ANSI terminal codes by the defining of DISABLE_TERMINAL_CODES in makefile
   *  - Removed return from ConfigurePipe and ConfigureEndpoint functions - use Pipe_IsConfigured() and 
   *    Endpoint_IsConfigured() after calling the config functions to determine success

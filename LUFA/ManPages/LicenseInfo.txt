@@ -5,14 +5,14 @@
  */
 
 /**
- *  \page Page_LicenceInfo Source Code Licence
+ *  \page Page_LicenseInfo Source Code License
  *
- *  The LUFA library is currently released under the MIT licence, included below.
+ *  The LUFA library is currently released under the MIT license, included below.
  *
  *  Commercial entities can opt out of the public disclosure clause in this license
  *  for a one-time US$1500 payment. This provides a non-exclusive modified MIT licensed which
  *  allows for the free use of the LUFA library, bootloaders and (where the sole copyright
- *  is attributed to Dean Camera) demos without public disclosure within an organisation, in
+ *  is attributed to Dean Camera) demos without public disclosure within an organization, in
  *  addition to three free hours of consultation with the library author, and priority support.
  *  Please contact the author for more information via the address shown on on \ref Page_Resources.
  *

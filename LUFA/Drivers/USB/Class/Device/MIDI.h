@@ -129,7 +129,7 @@
 
 
 			/** Flushes the MIDI send buffer, sending any queued MIDI events to the host. This should be called to override the
-			 *  \ref MIDI_Device_SendEventPacket() function's packing behaviour, to flush queued events.
+			 *  \ref MIDI_Device_SendEventPacket() function's packing behavior, to flush queued events.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state
 			 *

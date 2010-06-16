@@ -113,7 +113,7 @@
 			 *  \param[in] Byte      Location where the read byte is to be stored
 			 *  \param[in] LastByte  Indicates if the byte should be ACKed if false, NAKed if true
 			 *
-			 *  \return Boolean true if the byte reception sucessfully completed, false otherwise
+			 *  \return Boolean true if the byte reception successfully completed, false otherwise
 			 */
 			static inline bool TWI_ReceiveByte(uint8_t* Byte, bool LastByte)
 			{

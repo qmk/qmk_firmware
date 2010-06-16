@@ -31,7 +31,7 @@
 /** \file
  *  \brief USB device standard request management.
  *
- *  This file contains the function prototypes neccesary for the processing of incomming standard control requests
+ *  This file contains the function prototypes necessary for the processing of incoming standard control requests
  *  when the library is in USB device mode.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver

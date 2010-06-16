@@ -54,12 +54,12 @@ static uint8_t RX_Data;
 /** Initializes the software UART, ready for data transmission and reception into the global ring buffers. */
 void SoftUART_Init(void)
 {
-	/* Set TX pin to output high, enable RX pullup */
+	/* Set TX pin to output high, enable RX pull-up */
 	STXPORT |= (1 << STX);
 	STXDDR  |= (1 << STX);
 	SRXPORT |= (1 << SRX);
 
-	/* Enable INT0 for the detection of incomming start bits that signal the start of a byte */
+	/* Enable INT0 for the detection of incoming start bits that signal the start of a byte */
 	EICRA  = (1 << ISC01);
 	EIMSK  = (1 << INT0);
 

@@ -256,7 +256,7 @@ static void XPROGProtocol_Erase(void)
 				break;
 		}
 		
-		/* Erase the target memory, indicate timeout if ocurred */
+		/* Erase the target memory, indicate timeout if occurred */
 		if (!(XMEGANVM_EraseMemory(EraseCommand, Erase_XPROG_Params.Address)))
 		  ReturnStatus = XPRG_ERR_TIMEOUT;
 	}
@@ -267,7 +267,7 @@ static void XPROGProtocol_Erase(void)
 		else
 		  EraseCommand = TINY_NVM_CMD_SECTIONERASE;
 	
-		/* Erase the target memory, indicate timeout if ocurred */
+		/* Erase the target memory, indicate timeout if occurred */
 		if (!(TINYNVM_EraseMemory(EraseCommand, Erase_XPROG_Params.Address)))
 		  ReturnStatus = XPRG_ERR_TIMEOUT;
 	}

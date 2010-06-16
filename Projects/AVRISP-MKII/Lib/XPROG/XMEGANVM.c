@@ -199,7 +199,7 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16
 	XPROGTarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
 	XPROGTarget_SendByte(ReadSize - 1);
 		
-	/* Send a LD command with indirect access and postincrement to read out the bytes */
+	/* Send a LD command with indirect access and post-increment to read out the bytes */
 	XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
 	while (ReadSize-- && TimeoutMSRemaining)
 	  *(ReadBuffer++) = XPROGTarget_ReceiveByte();
@@ -286,7 +286,7 @@ bool XMEGANVM_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t Eras
 		XPROGTarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
 		XPROGTarget_SendByte(WriteSize - 1);
 			
-		/* Send a ST command with indirect access and postincrement to write the bytes */
+		/* Send a ST command with indirect access and post-increment to write the bytes */
 		XPROGTarget_SendByte(PDI_CMD_ST | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
 		while (WriteSize--)
 		  XPROGTarget_SendByte(*(WriteBuffer++));
