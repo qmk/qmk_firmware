@@ -33,7 +33,6 @@
   *      -# Finish StandaloneProgrammer project
   *      -# Finish MIDIToneGenerator project
   *      -# Correct mishandling of error cases in Mass Storage demos
-  *      -# Fix AVRISP-MKII clone project's XMEGA EEPROM section erase command
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

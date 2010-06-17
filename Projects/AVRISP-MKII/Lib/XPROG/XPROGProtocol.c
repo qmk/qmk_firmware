@@ -38,19 +38,19 @@
 
 #if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 /** Base absolute address for the target's NVM controller for PDI programming */
-uint32_t XPROG_Param_NVMBase = 0x010001C0;
+uint32_t XPROG_Param_NVMBase       = 0x010001C0;
 
 /** Size in bytes of the target's EEPROM page */
-uint16_t XPROG_Param_EEPageSize;
+uint16_t XPROG_Param_EEPageSize    = 32;
 
 /** Address of the TPI device's NVMCMD register for TPI programming */
-uint8_t  XPROG_Param_NVMCMDRegAddr;
+uint8_t  XPROG_Param_NVMCMDRegAddr = 0x33;
 
 /** Address of the TPI device's NVMCSR register for TPI programming */
-uint8_t  XPROG_Param_NVMCSRRegAddr;
+uint8_t  XPROG_Param_NVMCSRRegAddr = 0x32;
 
 /** Currently selected XPROG programming protocol */
-uint8_t  XPROG_SelectedProtocol = XPRG_PROTOCOL_PDI;
+uint8_t  XPROG_SelectedProtocol    = XPRG_PROTOCOL_PDI;
 
 /** Handler for the CMD_XPROG_SETMODE command, which sets the programmer-to-target protocol used for PDI/TPI
  *  programming.

@@ -33,6 +33,7 @@
   *  - Fixed incorrect signature for the ATMEGA32U2 in the DFU bootloader (thanks to Axel Rohde)
   *  - Fixed internal device serial not being accessible on the ATMEGAXXU2 AVRs (thanks to Axel Rohde)
   *  - Fixed void pointer arithmetic in ConfigDescriptor.h breaking C++ compatibility (thanks to Michael Hennebry)
+  *  - Fixed broken PDI EEPROM Section Erase functionality in the AVRISP-MKII project
   *
   *  \section Sec_ChangeLog100513 Version 100513
   *  <b>New:</b>
