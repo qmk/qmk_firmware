@@ -80,9 +80,9 @@
 				 */
 				enum USB_DescriptorMemorySpaces_t
 				{
-					MEMSPACE_FLASH    = 0, /**< Indicates the requested descriptor is located in FLASH memory */
-					MEMSPACE_EEPROM   = 1, /**< Indicates the requested descriptor is located in EEPROM memory */
-					MEMSPACE_RAM      = 2, /**< Indicates the requested descriptor is located in RAM memory */
+					MEMSPACE_FLASH    = 0, /**< Indicates the requested descriptor is located in FLASH memory. */
+					MEMSPACE_EEPROM   = 1, /**< Indicates the requested descriptor is located in EEPROM memory. */
+					MEMSPACE_RAM      = 2, /**< Indicates the requested descriptor is located in RAM memory. */
 				};
 			#endif
 	

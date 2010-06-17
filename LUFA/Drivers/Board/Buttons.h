@@ -108,7 +108,7 @@
 		
 		/** Returns a mask indicating which board buttons are currently pressed.
 		 *
-		 *  \return Mask indicating which board buttons are currently pressed
+		 *  \return Mask indicating which board buttons are currently pressed.
 		 */
 		static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 	#endif

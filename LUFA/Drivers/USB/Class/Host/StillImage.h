@@ -83,14 +83,14 @@
 			{
 				const struct
 				{
-					uint8_t  DataINPipeNumber; /**< Pipe number of the Still Image interface's IN data pipe */
-					bool     DataINPipeDoubleBank; /**< Indicates if the Still Image interface's IN data pipe should use double banking */
+					uint8_t  DataINPipeNumber; /**< Pipe number of the Still Image interface's IN data pipe. */
+					bool     DataINPipeDoubleBank; /**< Indicates if the Still Image interface's IN data pipe should use double banking. */
 
-					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Still Image interface's OUT data pipe */
-					bool     DataOUTPipeDoubleBank; /**< Indicates if the Still Image interface's OUT data pipe should use double banking */
+					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Still Image interface's OUT data pipe. */
+					bool     DataOUTPipeDoubleBank; /**< Indicates if the Still Image interface's OUT data pipe should use double banking. */
 
-					uint8_t  EventsPipeNumber; /**< Pipe number of the Still Image interface's IN events endpoint, if used */			
-					bool     EventsPipeDoubleBank; /**< Indicates if the Still Image interface's events data pipe should use double banking */
+					uint8_t  EventsPipeNumber; /**< Pipe number of the Still Image interface's IN events endpoint, if used. */			
+					bool     EventsPipeDoubleBank; /**< Indicates if the Still Image interface's events data pipe should use double banking. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -98,15 +98,15 @@
 				{
 					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
 					                *   after \ref SImage_Host_ConfigurePipes() is called and the Host state machine is in the
-					                *   Configured state
+					                *   Configured state.
 					                */
 
-					uint16_t DataINPipeSize; /**< Size in bytes of the Still Image interface's IN data pipe */
-					uint16_t DataOUTPipeSize;  /**< Size in bytes of the Still Image interface's OUT data pipe */
-					uint16_t EventsPipeSize;  /**< Size in bytes of the Still Image interface's IN events pipe */
+					uint16_t DataINPipeSize; /**< Size in bytes of the Still Image interface's IN data pipe. */
+					uint16_t DataOUTPipeSize;  /**< Size in bytes of the Still Image interface's OUT data pipe. */
+					uint16_t EventsPipeSize;  /**< Size in bytes of the Still Image interface's IN events pipe. */
 					
-					bool IsSessionOpen; /**< Indicates if a PIMA session is currently open with the attached device */
-					uint32_t TransactionID; /**< Transaction ID for the next transaction to send to the device */
+					bool IsSessionOpen; /**< Indicates if a PIMA session is currently open with the attached device. */
+					uint32_t TransactionID; /**< Transaction ID for the next transaction to send to the device. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.
@@ -117,13 +117,13 @@
 			/** Enum for the possible error codes returned by the \ref SImage_Host_ConfigurePipes() function. */
 			enum SIHost_EnumerationFailure_ErrorCodes_t
 			{
-				SI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
-				SI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor */
+				SI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
+				SI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
 				SI_ENUMERROR_NoSIInterfaceFound         = 2, /**< A compatible Still Image interface was not found in the device's
-				                                              *   Configuration Descriptor
+				                                              *   Configuration Descriptor.
 				                                              */
 				SI_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible Still Image data endpoints were not found in the
-				                                              *   device's Still Image interface
+				                                              *   device's Still Image interface.
 				                                              */
 			};
 
@@ -134,11 +134,11 @@
 			 *  found within the device. This should be called once after the stack has enumerated the attached device, while
 			 *  the host state machine is in the Addressed state.
 			 *
-			 *  \param[in,out] SIInterfaceInfo         Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor
-			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
+			 *  \param[in,out] SIInterfaceInfo         Pointer to a structure containing a Still Image Class host configuration and state.
+			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
+			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor.
 			 *
-			 *  \return A value from the \ref SIHost_EnumerationFailure_ErrorCodes_t enum
+			 *  \return A value from the \ref SIHost_EnumerationFailure_ErrorCodes_t enum.
 			 */
 			uint8_t SImage_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, uint16_t ConfigDescriptorSize,
                                                void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
@@ -149,10 +149,10 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
-			 *          returned a logical command failure
+			 *          returned a logical command failure.
 			 */
 			uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -162,10 +162,10 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
-			 *          returned a logical command failure
+			 *          returned a logical command failure.
 			 */
 			uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -175,10 +175,10 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[in]     PIMAHeader       Pointer to a PIMA container structure that is to be sent
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
+			 *  \param[in]     PIMAHeader       Pointer to a PIMA container structure that is to be sent.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 			                                    SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
@@ -190,10 +190,10 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[out]    PIMAHeader       Pointer to a PIMA container structure where the received block is to be stored
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
+			 *  \param[out]    PIMAHeader       Pointer to a PIMA container structure where the received block is to be stored.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 			                                       SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
@@ -204,13 +204,13 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[in]     Operation        PIMA operation code to issue to the device
-			 *  \param[in]     TotalParams      Total number of 32-bit parameters to send to the device in the issued command block
-			 *  \param[in]     Params           Pointer to an array of 32-bit values containing the parameters to send in the command block
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
+			 *  \param[in]     Operation        PIMA operation code to issue to the device.
+			 *  \param[in]     TotalParams      Total number of 32-bit parameters to send to the device in the issued command block.
+			 *  \param[in]     Params           Pointer to an array of 32-bit values containing the parameters to send in the command block.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
-			 *          returned a logical command failure
+			 *          returned a logical command failure.
 			 */
 			uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, const uint16_t Operation,
 			                                const uint8_t TotalParams, uint32_t* Params) ATTR_NON_NULL_PTR_ARG(1);
@@ -221,10 +221,10 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
-			 *          returned a logical command failure
+			 *          returned a logical command failure.
 			 */
 			uint8_t SImage_Host_ReceiveResponse(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -233,9 +233,9 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
 			 *
-			 *  \return Boolean true if an event is waiting to be read, false otherwise
+			 *  \return Boolean true if an event is waiting to be read, false otherwise.
 			 */
 			bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -244,11 +244,11 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[out]    PIMAHeader       Pointer to a PIMA container structure where the event should be stored
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
+			 *  \param[out]    PIMAHeader       Pointer to a PIMA container structure where the event should be stored.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
-			 *          returned a logical command failure
+			 *          returned a logical command failure.
 			 */
 			uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 				                                   SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
@@ -260,11 +260,11 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[in]     Buffer           Pointer to a buffer where the data to send has been stored
-			 *  \param[in]     Bytes            Length in bytes of the data in the buffer to send to the attached device
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
+			 *  \param[in]     Buffer           Pointer to a buffer where the data to send has been stored.
+			 *  \param[in]     Bytes            Length in bytes of the data in the buffer to send to the attached device.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, void* Buffer,
 			                             const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
@@ -275,11 +275,11 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
-			 *  \param[out]    Buffer           Pointer to a buffer where the received data is to be stored
-			 *  \param[in]     Bytes            Length in bytes of the data to read
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
+			 *  \param[out]    Buffer           Pointer to a buffer where the received data is to be stored.
+			 *  \param[in]     Bytes            Length in bytes of the data to read.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, void* Buffer,
 			                             const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
@@ -289,7 +289,7 @@
 			 *  interface. This should be called frequently in the main program loop, before the master USB management task
 			 *  \ref USB_USBTask().
 			 *
-			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state
+			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
 			 */
 			static inline void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			static inline void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)

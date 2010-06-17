@@ -61,22 +61,22 @@
 		#endif
 		
 	/* Macros: */
-		/** HID Class Specific Request to get the current HID report from the device. */
+		/** HID class-specific Request to get the current HID report from the device. */
 		#define REQ_GetReport                   0x01
 
-		/** HID Class Specific Request to get the current device idle count. */
+		/** HID class-specific Request to get the current device idle count. */
 		#define REQ_GetIdle                     0x02
 
-		/** HID Class Specific Request to set the current HID report to the device. */
+		/** HID class-specific Request to set the current HID report to the device. */
 		#define REQ_SetReport                   0x09
 
-		/** HID Class Specific Request to set the device's idle count. */
+		/** HID class-specific Request to set the device's idle count. */
 		#define REQ_SetIdle                     0x0A
 
-		/** HID Class Specific Request to get the current HID report protocol mode. */
+		/** HID class-specific Request to get the current HID report protocol mode. */
 		#define REQ_GetProtocol                 0x03
 
-		/** HID Class Specific Request to set the current HID report protocol mode. */
+		/** HID class-specific Request to set the current HID report protocol mode. */
 		#define REQ_SetProtocol                 0x0B
 
 		/** Descriptor header type value, to indicate a HID class HID descriptor. */
@@ -145,22 +145,22 @@
 			REPORT_ITEM_TYPE_Feature              = 2, /**< Indicates that the item is a FEATURE report type. */
 		};
 
-		/** \brief HID Class Specific HID Descriptor.
+		/** \brief HID class-specific HID Descriptor.
 		 *
-		 *  Type define for the HID class specific HID descriptor, to describe the HID device's specifications. Refer to the HID
+		 *  Type define for the HID class-specific HID descriptor, to describe the HID device's specifications. Refer to the HID
 		 *  specification for details on the structure elements.
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t  Header;
+			USB_Descriptor_Header_t  Header; /**< Regular descriptor header containing the descriptor's type and length. */
 				
-			uint16_t                 HIDSpec;
-			uint8_t                  CountryCode;
+			uint16_t                 HIDSpec; /**< BCD encoded version that the HID descriptor and device complies to. */
+			uint8_t                  CountryCode; /**< Country code of the localized device, or zero if universal. */
 		
-			uint8_t                  TotalReportDescriptors;
+			uint8_t                  TotalReportDescriptors; /**< Total number of HID report descriptors for the interface. */
 
-			uint8_t                  HIDReportType;
-			uint16_t                 HIDReportLength;
+			uint8_t                  HIDReportType; /**< Type of HID report, set to \ref DTYPE_Report. */
+			uint16_t                 HIDReportLength; /**< Length of the associated HID report descriptor, in bytes. */
 		} USB_HID_Descriptor_t;
 
 		/** \brief Standard HID Boot Protocol Mouse Report.
@@ -169,9 +169,9 @@
 		 */
 		typedef struct
 		{
-			uint8_t Button; /**< Button mask for currently pressed buttons in the mouse */
-			int8_t  X; /**< Current delta X movement of the mouse */
-			int8_t  Y; /**< Current delta Y movement on the mouse */
+			uint8_t Button; /**< Button mask for currently pressed buttons in the mouse. */
+			int8_t  X; /**< Current delta X movement of the mouse. */
+			int8_t  Y; /**< Current delta Y movement on the mouse. */
 		} USB_MouseReport_Data_t;
 		
 		/** \brief Standard HID Boot Protocol Keyboard Report.
@@ -181,10 +181,10 @@
 		typedef struct
 		{
 			uint8_t Modifier; /**< Keyboard modifier byte, indicating pressed modifier keys (a combination of
-			                   *   HID_KEYBOARD_MODIFER_* masks)
+			                   *   HID_KEYBOARD_MODIFER_* masks).
 			                   */
-			uint8_t Reserved; /**< Reserved for OEM use, always set to 0 */
-			uint8_t KeyCode[6]; /**< Key codes of the currently pressed keys */
+			uint8_t Reserved; /**< Reserved for OEM use, always set to 0. */
+			uint8_t KeyCode[6]; /**< Key codes of the currently pressed keys. */
 		} USB_KeyboardReport_Data_t;
 
 		/** Type define for the data type used to store HID report descriptor elements. */

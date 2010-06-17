@@ -99,7 +99,7 @@
 		 *  currently facing in (multiple bits can be set).
 		 *
 		 *  \return Mask indicating the joystick direction - see corresponding board specific Joystick.h file
-		 *          for direction masks
+		 *          for direction masks.
 		 */
 		static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 	#endif

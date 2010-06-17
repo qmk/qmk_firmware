@@ -99,17 +99,17 @@
 			*/
 			#define JTAG_DEBUG_ASSERT(x)    MACROS{ if (!(x)) { JTAG_DEBUG_BREAK(); } }MACROE
 
-			/** Macro for testing condition "x" and writing debug data to the serial stream if false. As a
-			 *  prerequisite for this macro, the serial stream should be configured via the Peripheral/SerialStream driver.
+			/** Macro for testing condition "x" and writing debug data to the stdout stream if false. The stdout stream
+			 *  must be pre-initialized before this macro is run and linked to an output device, such as the AVR's USART
+			 *  peripheral.
 			 *
-			 *  The serial output takes the form "{FILENAME}: Function {FUNCTION NAME}, Line {LINE NUMBER}: Assertion
-			 *  {x} failed."
+			 *  The output takes the form "{FILENAME}: Function {FUNCTION NAME}, Line {LINE NUMBER}: Assertion {x} failed."
 			 *
 			 *  \ingroup Group_Debugging
 			 */
-			#define SERIAL_STREAM_ASSERT(x) MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
-																"Assertion \"%s\" failed.\r\n"),     \
-																__FILE__, __func__, __LINE__, #x); } \
+			#define STDOUT_ASSERT(x) MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
+			                                             "Assertion \"%s\" failed.\r\n"),     \
+			                                             __FILE__, __func__, __LINE__, #x); } \
 			                                }MACROE
 
 		/* Inline Functions: */
@@ -118,7 +118,7 @@
 			 *
 			 *  \ingroup Group_BitManip
 			 *
-			 *  \param[in] Byte  Byte of data whose bits are to be reversed
+			 *  \param[in] Byte  Byte of data whose bits are to be reversed.
 			 */
 			static inline uint8_t BitReverse(uint8_t Byte) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
 			static inline uint8_t BitReverse(uint8_t Byte)
@@ -134,7 +134,7 @@
 			 *
 			 *  \ingroup Group_BitManip
 			 *
-			 *  \param[in] Word  Word of data whose bytes are to be swapped
+			 *  \param[in] Word  Word of data whose bytes are to be swapped.
 			 */
 			static inline uint16_t SwapEndian_16(uint16_t Word) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
 			static inline uint16_t SwapEndian_16(uint16_t Word)
@@ -146,7 +146,7 @@
 			 *
 			 *  \ingroup Group_BitManip
 			 *
-			 *  \param[in] DWord  Double word of data whose bytes are to be swapped
+			 *  \param[in] DWord  Double word of data whose bytes are to be swapped.
 			 */
 			static inline uint32_t SwapEndian_32(uint32_t DWord) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
 			static inline uint32_t SwapEndian_32(uint32_t DWord)
@@ -161,8 +161,8 @@
 			 *
 			 *  \ingroup Group_BitManip
 			 *
-			 *  \param[in,out] Data   Pointer to a number containing an even number of bytes to be reversed
-			 *  \param[in]     Bytes  Length of the data in bytes
+			 *  \param[in,out] Data   Pointer to a number containing an even number of bytes to be reversed.
+			 *  \param[in]     Bytes  Length of the data in bytes.
 			 */
 			static inline void SwapEndian_n(void* Data, uint8_t Bytes);
 			static inline void SwapEndian_n(void* Data, uint8_t Bytes)

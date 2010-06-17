@@ -81,38 +81,38 @@
 			{
 				const struct
 				{
-					uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
+					uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device. */
 
-					uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
-					uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
-					bool     DataINEndpointDoubleBank; /**< Indicates if the RNDIS interface's IN data endpoint should use double banking */
+					uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint. */
+					uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint. */
+					bool     DataINEndpointDoubleBank; /**< Indicates if the RNDIS interface's IN data endpoint should use double banking. */
 
-					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
-					uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
-					bool     DataOUTEndpointDoubleBank; /**< Indicates if the RNDIS interface's OUT data endpoint should use double banking */
+					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint. */
+					uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint. */
+					bool     DataOUTEndpointDoubleBank; /**< Indicates if the RNDIS interface's OUT data endpoint should use double banking. */
 
-					uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
-					uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
-					bool     NotificationEndpointDoubleBank; /**< Indicates if the RNDIS interface's notification endpoint should use double banking */
+					uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used. */
+					uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used. */
+					bool     NotificationEndpointDoubleBank; /**< Indicates if the RNDIS interface's notification endpoint should use double banking. */
 					
-					char*         AdapterVendorDescription; /**< String description of the adapter vendor */
-					MAC_Address_t AdapterMACAddress; /**< MAC address of the adapter */
-				} Config; /**< Config data for the USB class interface within the device. All elements in this section
+					char*         AdapterVendorDescription; /**< String description of the adapter vendor. */
+					MAC_Address_t AdapterMACAddress; /**< MAC address of the adapter. */
+				} Config; /**< Config data for the USB class interface within the device. All elements in this section.
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
 				struct
 				{
 					uint8_t  RNDISMessageBuffer[RNDIS_MESSAGE_BUFFER_SIZE]; /**< Buffer to hold RNDIS messages to and from the host,
-																			 *   managed by the class driver
+																			 *   managed by the class driver.
 																			 */
-					bool     ResponseReady; /**< Internal flag indicating if a RNDIS message is waiting to be returned to the host */
-					uint8_t  CurrRNDISState; /**< Current RNDIS state of the adapter, a value from the RNDIS_States_t enum */
-					uint32_t CurrPacketFilter; /**< Current packet filter mode, used internally by the class driver */
+					bool     ResponseReady; /**< Internal flag indicating if a RNDIS message is waiting to be returned to the host. */
+					uint8_t  CurrRNDISState; /**< Current RNDIS state of the adapter, a value from the RNDIS_States_t enum. */
+					uint32_t CurrPacketFilter; /**< Current packet filter mode, used internally by the class driver. */
 					Ethernet_Frame_Info_t FrameIN; /**< Structure holding the last received Ethernet frame from the host, for user
-													*   processing
+													*   processing.
 													*/
 					Ethernet_Frame_Info_t FrameOUT; /**< Structure holding the next Ethernet frame to send to the host, populated by the
-													 *   user application
+													 *   user application.
 													 */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
@@ -124,23 +124,23 @@
 			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration
 			 *  containing the given HID interface is selected.
 			 *
-			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state
+			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 *
-			 *  \return Boolean true if the endpoints were successfully configured, false otherwise
+			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.
 			 */
 			bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Processes incoming control requests from the host, that are directed to the given RNDIS class interface. This should be
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
-			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state
+			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 */		
 			void RNDIS_Device_ProcessControlRequest(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** General management task for a given HID class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
-			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state
+			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 */
 			void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 		

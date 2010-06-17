@@ -128,14 +128,14 @@
 			#define TASK_LIST               TaskEntry_t Scheduler_TaskList[] = 
 			
 			/** Constant, giving the maximum delay in scheduler ticks which can be stored in a variable of type
-			 *  SchedulerDelayCounter_t.
+			 *  \ref SchedulerDelayCounter_t.
 			 */
 			#define TASK_MAX_DELAY          (MAX_DELAYCTR_COUNT - 1)
 
-			/** Task status mode constant, for passing to Scheduler_SetTaskMode() or Scheduler_SetGroupTaskMode(). */
+			/** Task status mode constant, for passing to \ref Scheduler_SetTaskMode() or \ref Scheduler_SetGroupTaskMode(). */
 			#define TASK_RUN                true
 
-			/** Task status mode constant, for passing to Scheduler_SetTaskMode() or Scheduler_SetGroupTaskMode(). */
+			/** Task status mode constant, for passing to \ref Scheduler_SetTaskMode() or \ref Scheduler_SetGroupTaskMode(). */
 			#define TASK_STOP               false
 			
 		/* Pseudo-Function Macros: */
@@ -152,7 +152,6 @@
 				void Scheduler_Init(void);
 			#else
 				#define Scheduler_Start()    Scheduler_GoSchedule(TOTAL_TASKS);
-				
 				#define Scheduler_Init()     Scheduler_InitScheduler(TOTAL_TASKS);
 			#endif
 
@@ -184,7 +183,7 @@
 			exter TaskEntry_t Scheduler_TaskList[];
 			
 			/** Contains the total number of tasks in the task list, irrespective of if the task's status is set to
-			 *  TASK_RUN or TASK_STOP.
+			 *  \ref TASK_RUN or \ref TASK_STOP.
 			 *
 			 *  \note This value should be treated as read-only, and never altered in user-code.
 			 */
@@ -213,12 +212,12 @@
 			}
 		
 		/* Function Prototypes: */
-			/** Determines if the given tick delay has elapsed, based on the given .
+			/** Determines if the given tick delay has elapsed, based on the given delay period and tick counter value.
 			 *
-			 *  \param[in] Delay         The delay to test for, measured in ticks
-			 *  \param[in] DelayCounter  The counter which is storing the starting tick value for the delay
+			 *  \param[in] Delay         The delay to test for, measured in ticks.
+			 *  \param[in] DelayCounter  The counter which is storing the starting tick value for the delay.
 			 *
-			 *  \return Boolean true if the delay has elapsed, false otherwise
+			 *  \return Boolean true if the delay has elapsed, false otherwise.
 			 *
 			 *  Usage Example:
 			 *  \code
@@ -237,16 +236,16 @@
 			
 			/** Sets the task mode for a given task.
 			 *
-			 *  \param[in] Task        Name of the task whose status is to be changed
-			 *  \param[in] TaskStatus  New task status for the task (TASK_RUN or TASK_STOP)
+			 *  \param[in] Task        Name of the task whose status is to be changed.
+			 *  \param[in] TaskStatus  New task status for the task (\ref TASK_RUN or \ref TASK_STOP).
 			 */
 			void Scheduler_SetTaskMode(const TaskPtr_t Task, const bool TaskStatus);
 			
 			/** Sets the task mode for a given task group ID, allowing for an entire group of tasks to have their
 			 *  statuses changed at once.
 			 *
-			 *  \param[in] GroupID     Value of the task group ID whose status is to be changed
-			 *  \param[in] TaskStatus  New task status for tasks in the specified group (TASK_RUN or TASK_STOP)
+			 *  \param[in] GroupID     Value of the task group ID whose status is to be changed.
+			 *  \param[in] TaskStatus  New task status for tasks in the specified group (\ref TASK_RUN or \ref TASK_STOP).
 			 */
 			void Scheduler_SetGroupTaskMode(const uint8_t GroupID, const bool TaskStatus);
 

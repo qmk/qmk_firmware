@@ -203,7 +203,7 @@
 				 *  The "mode" parameter should be a mask comprised of a conversion mode (free running or single) and
 				 *  prescaler masks.
 				 *
-				 *  \param[in] Mode  Mask of ADC settings, including adjustment, prescale, mode and reference
+				 *  \param[in] Mode  Mask of ADC settings, including adjustment, prescale, mode and reference.
 				 */
 				static inline void ADC_Init(uint8_t Mode);
 
@@ -221,14 +221,14 @@
 				/** Indicates if the current ADC conversion is completed, or still in progress.
 				 *
 				 *  \return Boolean false if the reading is still taking place, or true if the conversion is
-				 *          complete and ready to be read out with \ref ADC_GetResult()
+				 *          complete and ready to be read out with \ref ADC_GetResult().
 				 */
 				static inline bool ADC_IsReadingComplete(void);
 				
 				/** Retrieves the conversion value of the last completed ADC conversion and clears the reading
 				 *  completion flag.
 				 *
-				 *  \return The result of the last ADC conversion
+				 *  \return The result of the last ADC conversion as an unsigned value.
 				 */
 				static inline uint16_t ADC_GetResult(void);
 			#else
@@ -254,7 +254,7 @@
 			 *
 			 *  \note The channel number must be specified as an integer, and NOT a ADC_CHANNELx mask.
 			 *
-			 *  \param[in] Channel  ADC channel number to set up for conversions
+			 *  \param[in] Channel  ADC channel number to set up for conversions.
 			 */
 			static inline void ADC_SetupChannel(const uint8_t Channel)
 			{
@@ -297,7 +297,7 @@
 			 *
 			 *  \note The channel number must be specified as an integer, and NOT a ADC_CHANNELx mask.
 			 *
-			 *  \param[in] Channel  ADC channel number to set up for conversions
+			 *  \param[in] Channel  ADC channel number to set up for conversions.
 			 */
 			static inline void ADC_DisableChannel(const uint8_t Channel)
 			{
@@ -338,7 +338,7 @@
 			 *  conversions. If the ADC is in single conversion mode (or the channel to convert from is to be changed),
 			 *  this function must be called each time a conversion is to take place.
 			 *
-			 *  \param[in] MUXMask  Mask comprising of an ADC channel mask, reference mask and adjustment mask
+			 *  \param[in] MUXMask  Mask comprising of an ADC channel mask, reference mask and adjustment mask.
 			 */
 			static inline void ADC_StartReading(const uint16_t MUXMask)
 			{
@@ -361,7 +361,7 @@
 			 *        to \ref ADC_StartReading() to select the channel and begin the automated conversions, and
 			 *        the results read directly from the \ref ADC_GetResult() instead to reduce overhead.
 			 *
-			 *  \param[in] MUXMask  Mask comprising of an ADC channel mask, reference mask and adjustment mask
+			 *  \param[in] MUXMask  Mask comprising of an ADC channel mask, reference mask and adjustment mask.
 			 */
 			static inline uint16_t ADC_GetChannelReading(const uint16_t MUXMask) ATTR_WARN_UNUSED_RESULT;
 			static inline uint16_t ADC_GetChannelReading(const uint16_t MUXMask)

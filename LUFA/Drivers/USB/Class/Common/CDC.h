@@ -66,22 +66,22 @@
 		#endif
 		
 	/* Macros: */
-		/** CDC Class specific request to get the current virtual serial port configuration settings. */
+		/** CDC class-specific request to get the current virtual serial port configuration settings. */
 		#define REQ_GetLineEncoding              0x21
 
-		/** CDC Class specific request to set the current virtual serial port configuration settings. */
+		/** CDC class-specific request to set the current virtual serial port configuration settings. */
 		#define REQ_SetLineEncoding              0x20
 
-		/** CDC Class specific request to set the current virtual serial port handshake line states. */
+		/** CDC class-specific request to set the current virtual serial port handshake line states. */
 		#define REQ_SetControlLineState          0x22
 
-		/** CDC Class specific request to send a break to the receiver via the carrier channel. */
+		/** CDC class-specific request to send a break to the receiver via the carrier channel. */
 		#define REQ_SendBreak                    0x23
 
-		/** CDC Class specific request to send an encapsulated command to the device. */
+		/** CDC class-specific request to send an encapsulated command to the device. */
 		#define REQ_SendEncapsulatedCommand      0x00
 
-		/** CDC Class specific request to retrieve an encapsulated command response from the device. */
+		/** CDC class-specific request to retrieve an encapsulated command response from the device. */
 		#define REQ_GetEncapsulatedResponse      0x01
 		
 		/** Notification type constant for a change in the virtual serial port handshake line states, for
@@ -90,47 +90,47 @@
 		 */
 		#define NOTIF_SerialState                0x20
 
-		/** Mask for the DTR handshake line for use with the REQ_SetControlLineState class specific request
+		/** Mask for the DTR handshake line for use with the REQ_SetControlLineState class-specific request
 		 *  from the host, to indicate that the DTR line state should be high.
 		 */
 		#define CDC_CONTROL_LINE_OUT_DTR         (1 << 0)
 
-		/** Mask for the RTS handshake line for use with the REQ_SetControlLineState class specific request
+		/** Mask for the RTS handshake line for use with the REQ_SetControlLineState class-specific request
 		 *  from the host, to indicate that theRTS line state should be high.
 		 */
 		#define CDC_CONTROL_LINE_OUT_RTS         (1 << 1)
 		
-		/** Mask for the DCD handshake line for use with the a NOTIF_SerialState class specific notification
+		/** Mask for the DCD handshake line for use with the a NOTIF_SerialState class-specific notification
 		 *  from the device to the host, to indicate that the DCD line state is currently high.
 		 */
 		#define CDC_CONTROL_LINE_IN_DCD          (1 << 0)
 
-		/** Mask for the DSR handshake line for use with the a NOTIF_SerialState class specific notification
+		/** Mask for the DSR handshake line for use with the a NOTIF_SerialState class-specific notification
 		 *  from the device to the host, to indicate that the DSR line state is currently high.
 		 */
 		#define CDC_CONTROL_LINE_IN_DSR          (1 << 1)
 
-		/** Mask for the BREAK handshake line for use with the a NOTIF_SerialState class specific notification
+		/** Mask for the BREAK handshake line for use with the a NOTIF_SerialState class-specific notification
 		 *  from the device to the host, to indicate that the BREAK line state is currently high.
 		 */
 		#define CDC_CONTROL_LINE_IN_BREAK        (1 << 2)
 
-		/** Mask for the RING handshake line for use with the a NOTIF_SerialState class specific notification
+		/** Mask for the RING handshake line for use with the a NOTIF_SerialState class-specific notification
 		 *  from the device to the host, to indicate that the RING line state is currently high.
 		 */
 		#define CDC_CONTROL_LINE_IN_RING         (1 << 3)
 
-		/** Mask for use with the a NOTIF_SerialState class specific notification from the device to the host,
+		/** Mask for use with the a NOTIF_SerialState class-specific notification from the device to the host,
 		 *  to indicate that a framing error has occurred on the virtual serial port.
 		 */
 		#define CDC_CONTROL_LINE_IN_FRAMEERROR   (1 << 4)
 
-		/** Mask for use with the a NOTIF_SerialState class specific notification from the device to the host,
+		/** Mask for use with the a NOTIF_SerialState class-specific notification from the device to the host,
 		 *  to indicate that a parity error has occurred on the virtual serial port.
 		 */
 		#define CDC_CONTROL_LINE_IN_PARITYERROR  (1 << 5)
 
-		/** Mask for use with the a NOTIF_SerialState class specific notification from the device to the host,
+		/** Mask for use with the a NOTIF_SerialState class-specific notification from the device to the host,
 		 *  to indicate that a data overrun error has occurred on the virtual serial port.
 		 */
 		#define CDC_CONTROL_LINE_IN_OVERRUNERROR (1 << 6)
@@ -140,7 +140,7 @@
 		 *  a single typedef struct. A macro is used instead so that functional descriptors can be created
 		 *  easily by specifying the size of the payload. This allows sizeof() to work correctly.
 		 *
-		 *  \param[in] DataSize  Size in bytes of the CDC functional descriptor's data payload
+		 *  \param[in] DataSize  Size in bytes of the CDC functional descriptor's data payload.
 		 */
 		#define CDC_FUNCTIONAL_DESCRIPTOR(DataSize)        \
 		     struct                                        \
@@ -152,21 +152,21 @@
 
 	/* Enums: */
 		/** Enum for the possible line encoding formats of a virtual serial port. */
-		enum CDC_LineCodingFormats_t
+		enum CDC_LineEncodingFormats_t
 		{
-			CDC_LINEENCODING_OneStopBit          = 0, /**< Each frame contains one stop bit */
-			CDC_LINEENCODING_OneAndAHalfStopBits = 1, /**< Each frame contains one and a half stop bits */
-			CDC_LINEENCODING_TwoStopBits         = 2, /**< Each frame contains two stop bits */
+			CDC_LINEENCODING_OneStopBit          = 0, /**< Each frame contains one stop bit. */
+			CDC_LINEENCODING_OneAndAHalfStopBits = 1, /**< Each frame contains one and a half stop bits. */
+			CDC_LINEENCODING_TwoStopBits         = 2, /**< Each frame contains two stop bits. */
 		};
 		
 		/** Enum for the possible line encoding parity settings of a virtual serial port. */
-		enum CDC_LineCodingParity_t
+		enum CDC_LineEncodingParity_t
 		{
-			CDC_PARITY_None    = 0, /**< No parity bit mode on each frame */
-			CDC_PARITY_Odd     = 1, /**< Odd parity bit mode on each frame */
-			CDC_PARITY_Even    = 2, /**< Even parity bit mode on each frame */
-			CDC_PARITY_Mark    = 3, /**< Mark parity bit mode on each frame */
-			CDC_PARITY_Space   = 4, /**< Space parity bit mode on each frame */
+			CDC_PARITY_None    = 0, /**< No parity bit mode on each frame. */
+			CDC_PARITY_Odd     = 1, /**< Odd parity bit mode on each frame. */
+			CDC_PARITY_Even    = 2, /**< Even parity bit mode on each frame. */
+			CDC_PARITY_Mark    = 3, /**< Mark parity bit mode on each frame. */
+			CDC_PARITY_Space   = 4, /**< Space parity bit mode on each frame. */
 		};
 
 	/* Disable C linkage for C++ Compilers: */

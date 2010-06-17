@@ -103,7 +103,7 @@
 			/** Performs a complete ADC on the temperature sensor channel, and converts the result into a
 			 *  valid temperature between \ref TEMP_MIN_TEMP and \ref TEMP_MAX_TEMP in degrees Celsius.
 			 *
-			 *  \return Signed temperature in degrees Celsius
+			 *  \return Signed temperature value in degrees Celsius.
 			 */
 			int8_t Temperature_GetTemperature(void) ATTR_WARN_UNUSED_RESULT;
 

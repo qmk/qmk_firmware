@@ -96,25 +96,25 @@
 		/** Enum for the possible NDIS adapter states. */
 		enum RNDIS_States_t
 		{
-			RNDIS_Uninitialized    = 0, /**< Adapter currently uninitialized */
-			RNDIS_Initialized      = 1, /**< Adapter currently initialized but not ready for data transfers */
-			RNDIS_Data_Initialized = 2, /**< Adapter currently initialized and ready for data transfers */
+			RNDIS_Uninitialized    = 0, /**< Adapter currently uninitialized. */
+			RNDIS_Initialized      = 1, /**< Adapter currently initialized but not ready for data transfers. */
+			RNDIS_Data_Initialized = 2, /**< Adapter currently initialized and ready for data transfers. */
 		};
 
 		/** Enum for the NDIS hardware states. */
 		enum NDIS_Hardware_Status_t
 		{
-			NDIS_HardwareStatus_Ready, /**< Hardware Ready to accept commands from the host */
-			NDIS_HardwareStatus_Initializing, /**< Hardware busy initializing */
-			NDIS_HardwareStatus_Reset, /**< Hardware reset */
-			NDIS_HardwareStatus_Closing, /**< Hardware currently closing */
-			NDIS_HardwareStatus_NotReady /**< Hardware not ready to accept commands from the host */
+			NDIS_HardwareStatus_Ready, /**< Hardware Ready to accept commands from the host. */
+			NDIS_HardwareStatus_Initializing, /**< Hardware busy initializing. */
+			NDIS_HardwareStatus_Reset, /**< Hardware reset. */
+			NDIS_HardwareStatus_Closing, /**< Hardware currently closing. */
+			NDIS_HardwareStatus_NotReady /**< Hardware not ready to accept commands from the host. */
 		};
 		
 	/* Type Defines: */
 		/** \brief MAC Address Structure.
 		 *
-		 *  Type define for a physical MAC address of a device on a network
+		 *  Type define for a physical MAC address of a device on a network.
 		 */
 		typedef struct
 		{
@@ -127,9 +127,9 @@
 		 */
 		typedef struct
 		{
-			uint8_t       FrameData[ETHERNET_FRAME_SIZE_MAX]; /**< Ethernet frame contents */
-			uint16_t      FrameLength; /**< Length in bytes of the Ethernet frame stored in the buffer */
-			bool          FrameInBuffer; /**< Indicates if a frame is currently stored in the buffer */
+			uint8_t       FrameData[ETHERNET_FRAME_SIZE_MAX]; /**< Ethernet frame contents. */
+			uint16_t      FrameLength; /**< Length in bytes of the Ethernet frame stored in the buffer. */
+			bool          FrameInBuffer; /**< Indicates if a frame is currently stored in the buffer. */
 		} Ethernet_Frame_Info_t;
 
 		/** \brief RNDIS Common Message Header Structure.

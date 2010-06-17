@@ -66,13 +66,13 @@
 		/* Macros: */
 			/** Mask for the VBUS pulsing method of SRP, supported by some OTG devices.
 			 *
-			 *  \see USB_OTG_DEV_Initiate_SRP()
+			 *  \see \ref USB_OTG_Device_InitiateSRP().
 			 */			 
 			#define USB_OTG_SRP_VBUS                   (1 << SRPSEL)
 
 			/** Mask for the Data + pulsing method of SRP, supported by some OTG devices.
 			 *
-			 *  \see USB_OTG_DEV_Initiate_SRP()
+			 *  \see \ref USB_OTG_Device_InitiateSRP().
 			 */			 
 			#define USB_OTG_STP_DATA                   0
 
@@ -94,6 +94,18 @@
 				 */
 				static inline bool USB_OTG_Device_IsSendingHNP(void);
 				
+				/** Initiates a Session Request Protocol request. Most OTG devices turn off VBUS when the USB
+				 *  interface is not in use, to conserve power. Sending a SRP to a USB OTG device running in
+				 *  host mode indicates that VBUS should be applied and a session started.
+				 *
+				 *  There are two different methods of sending a SRP - either pulses on the VBUS line, or by
+				 *  pulsing the Data + line via the internal pull-up resistor.
+				 *
+				 *  \param[in] SRPTypeMask  Mask indicating the type of SRP to use, either \ref USB_OTG_SRP_VBUS or
+				 *                          \ref USB_OTG_STP_DATA.
+				 */
+				static inline void USB_OTG_Device_InitiateSRP(uint8_t SRPTypeMask);
+
 				/** Accepts a HNP from a connected device, indicating that both devices should exchange
 				 *  device/host roles.
 				 */
@@ -109,17 +121,6 @@
 				 *  \return Boolean true if a HNP is currently being issued by the connected device, false otherwise.
 				 */
 				static inline bool USB_OTG_Host_IsHNPReceived(void);
-				
-				/** Initiates a Session Request Protocol request. Most OTG devices turn off VBUS when the USB
-				 *  interface is not in use, to conserve power. Sending a SRP to a USB OTG device running in
-				 *  host mode indicates that VBUS should be applied and a session started.
-				 *
-				 *  There are two different methods of sending a SRP - either pulses on the VBUS line, or by
-				 *  pulsing the Data + line via the internal pull-up resistor.
-				 *
-				 *  \param[in] SRPTypeMask  Mask indicating the type of SRP to use, either \ref USB_OTG_SRP_VBUS or \ref USB_OTG_STP_DATA.
-				 */
-				static inline void USB_OTG_Dev_InitiateSRP(uint8_t SRPTypeMask);
 			#else
 				#define USB_OTG_Device_RequestHNP()         MACROS{ OTGCON |=  (1 << HNPREQ); }MACROE
 
@@ -127,13 +128,13 @@
 
 				#define USB_OTG_Device_IsSendingHNP()             ((OTGCON &   (1 << HNPREQ)) ? true : false)
 				
+				#define USB_OTG_Device_InitiateSRP(type)    MACROS{ OTGCON = ((OTGCON & ~(1 << SRPSEL)) | ((type) | (1 << SRPREQ))); }MACROE
+
 				#define USB_OTG_Host_AcceptHNP()            MACROS{ OTGCON |=  (1 << HNPREQ); }MACROE
 
 				#define USB_OTG_Host_RejectHNP()            MACROS{ OTGCON &= ~(1 << HNPREQ); }MACROE
 				
-				#define USB_OTG_Host_IsHNPReceived()              ((OTGCON &   (1 << HNPREQ)) ? true : false)
-				
-				#define USB_OTG_Device_InitiateSRP(type)    MACROS{ OTGCON = ((OTGCON & ~(1 << SRPSEL)) | ((type) | (1 << SRPREQ))); }MACROE
+				#define USB_OTG_Host_IsHNPReceived()              ((OTGCON &   (1 << HNPREQ)) ? true : false)				
 			#endif
 	
 #endif

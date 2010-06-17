@@ -99,19 +99,19 @@
 			{
 				const struct
 				{
-					uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device */
+					uint8_t  ControlInterfaceNumber; /**< Interface number of the CDC control interface within the device. */
 
-					uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint */
-					uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint */
-					bool     DataINEndpointDoubleBank; /**< Indicates if the CDC interface's IN data endpoint should use double banking */
+					uint8_t  DataINEndpointNumber; /**< Endpoint number of the CDC interface's IN data endpoint. */
+					uint16_t DataINEndpointSize; /**< Size in bytes of the CDC interface's IN data endpoint. */
+					bool     DataINEndpointDoubleBank; /**< Indicates if the CDC interface's IN data endpoint should use double banking. */
 
-					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint */
-					uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint */
-					bool     DataOUTEndpointDoubleBank; /**< Indicates if the CDC interface's OUT data endpoint should use double banking */
+					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the CDC interface's OUT data endpoint. */
+					uint16_t DataOUTEndpointSize;  /**< Size in bytes of the CDC interface's OUT data endpoint. */
+					bool     DataOUTEndpointDoubleBank; /**< Indicates if the CDC interface's OUT data endpoint should use double banking. */
 
-					uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used */
-					uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used */
-					bool     NotificationEndpointDoubleBank; /**< Indicates if the CDC interface's notification endpoint should use double banking */
+					uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used. */
+					uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used. */
+					bool     NotificationEndpointDoubleBank; /**< Indicates if the CDC interface's notification endpoint should use double banking. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -130,14 +130,14 @@
 
 					struct
 					{
-						uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
+						uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second. */
 						uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
-											  *   CDCDevice_CDC_LineCodingFormats_t enum
+											  *   \ref CDC_LineEncodingFormats_t enum.
 											  */
 						uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
-											  *   CDCDevice_LineCodingParity_t enum
+											  *   \ref CDC_LineEncodingParity_t enum.
 											  */
-						uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
+						uint8_t  DataBits; /**< Bits of data per character of the virtual serial port. */
 					} LineEncoding;	/** Line encoding used in the virtual serial port, for the device's information. This is generally
 					                 *  only used if the virtual serial port data is to be reconstructed on a physical UART.
 					                 */		
@@ -151,23 +151,23 @@
 			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration containing
 			 *  the given CDC interface is selected.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 *
-			 *  \return Boolean true if the endpoints were successfully configured, false otherwise
+			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.
 			 */
 			bool CDC_Device_ConfigureEndpoints(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Processes incoming control requests from the host, that are directed to the given CDC class interface. This should be
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 */
 			void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** General management task for a given CDC class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 */
 			void CDC_Device_USBTask(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -176,7 +176,7 @@
 			 *  user program by declaring a handler function with the same name and parameters listed here. The new line encoding
 			 *  settings are available in the LineEncoding structure inside the CDC interface structure passed as a parameter.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 */
 			void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -186,15 +186,15 @@
 			 *  are available in the ControlLineStates.HostToDevice value inside the CDC interface structure passed as a parameter, set as
 			 *  a mask of CDC_CONTROL_LINE_OUT_* masks.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 */
 			void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** CDC class driver event for a send break request sent to the device from the host. This is generally used to separate
 			 *  data or to indicate a special condition to the receiving device.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
-			 *  \param[in]     Duration          Duration of the break that has been sent by the host, in milliseconds
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+			 *  \param[in]     Duration          Duration of the break that has been sent by the host, in milliseconds.
 			 */
 			void EVENT_CDC_Device_BreakSent(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, uint8_t Duration) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -206,11 +206,11 @@
 			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
-			 *  \param[in,out]   CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
-			 *  \param[in]       Data              Pointer to the string to send to the host
-			 *  \param[in]       Length            Size in bytes of the string to send to the host
+			 *  \param[in,out]   CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+			 *  \param[in]       Data              Pointer to the string to send to the host.
+			 *  \param[in]       Length            Size in bytes of the string to send to the host.
 			 *
-			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum
+			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t CDC_Device_SendString(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, char* const Data, const uint16_t Length)
 			                              ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
@@ -223,10 +223,10 @@
 			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
-			 *  \param[in]     Data              Byte of data to send to the host
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+			 *  \param[in]     Data              Byte of data to send to the host.
 			 *
-			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum
+			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum.
 			 */
 			uint8_t CDC_Device_SendByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, const uint8_t Data) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -235,9 +235,9 @@
 			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 *
-			 *  \return Total number of buffered bytes received from the host
+			 *  \return Total number of buffered bytes received from the host.
 			 */
 			uint16_t CDC_Device_BytesReceived(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -248,9 +248,9 @@
 			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 *
-			 *  \return Next received byte from the host, or 0 if no data received
+			 *  \return Next received byte from the host, or 0 if no data received.
 			 */
 			uint8_t CDC_Device_ReceiveByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -259,9 +259,9 @@
 			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 *
-			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum
+			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum.
 			 */
 			uint8_t CDC_Device_Flush(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -273,7 +273,7 @@
 			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 */
 			void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -289,8 +289,8 @@
 			 *  \note The created stream can be given as stdout if desired to direct the standard output from all <stdio.h> functions
 			 *        to the given CDC interface.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
-			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed.
 			 */
 			void CDC_Device_CreateStream(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, FILE* Stream)
 			                             ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
@@ -298,8 +298,8 @@
 			/** Identical to CDC_Device_CreateStream(), except that reads are blocking until the calling stream function terminates
 			 *  the transfer. While blocking, the USB and CDC service tasks are called repeatedly to maintain USB communications.
 			 *
-			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state
-			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed.
 			 */
 			void CDC_Device_CreateBlockingStream(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, FILE* Stream)
 			                                     ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);

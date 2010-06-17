@@ -81,30 +81,30 @@
 			{
 				const struct
 				{
-					uint8_t  InterfaceNumber; /**< Interface number of the Mass Storage interface within the device */
+					uint8_t  InterfaceNumber; /**< Interface number of the Mass Storage interface within the device. */
 
-					uint8_t  DataINEndpointNumber; /**< Endpoint number of the Mass Storage interface's IN data endpoint */
-					uint16_t DataINEndpointSize; /**< Size in bytes of the Mass Storage interface's IN data endpoint */
-					bool     DataINEndpointDoubleBank; /**< Indicates if the Mass Storage interface's IN data endpoint should use double banking */
+					uint8_t  DataINEndpointNumber; /**< Endpoint number of the Mass Storage interface's IN data endpoint. */
+					uint16_t DataINEndpointSize; /**< Size in bytes of the Mass Storage interface's IN data endpoint. */
+					bool     DataINEndpointDoubleBank; /**< Indicates if the Mass Storage interface's IN data endpoint should use double banking. */
 
-					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the Mass Storage interface's OUT data endpoint */
-					uint16_t DataOUTEndpointSize;  /**< Size in bytes of the Mass Storage interface's OUT data endpoint */
-					bool     DataOUTEndpointDoubleBank; /**< Indicates if the Mass Storage interface's OUT data endpoint should use double banking */
+					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the Mass Storage interface's OUT data endpoint. */
+					uint16_t DataOUTEndpointSize;  /**< Size in bytes of the Mass Storage interface's OUT data endpoint. */
+					bool     DataOUTEndpointDoubleBank; /**< Indicates if the Mass Storage interface's OUT data endpoint should use double banking. */
 
-					uint8_t  TotalLUNs; /**< Total number of logical drives in the Mass Storage interface */
+					uint8_t  TotalLUNs; /**< Total number of logical drives in the Mass Storage interface. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
 				struct
 				{
 					MS_CommandBlockWrapper_t  CommandBlock; /**< Mass Storage class command block structure, stores the received SCSI
-															 *   command from the host which is to be processed
+															 *   command from the host which is to be processed.
 															 */
 					MS_CommandStatusWrapper_t CommandStatus; /**< Mass Storage class command status structure, set elements to indicate
-															  *   the issued command's success or failure to the host
+															  *   the issued command's success or failure to the host.
 															  */
 					volatile bool IsMassStoreReset; /**< Flag indicating that the host has requested that the Mass Storage interface be reset
-											         *   and that all current Mass Storage operations should immediately abort
+											         *   and that all current Mass Storage operations should immediately abort.
 											         */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
@@ -116,23 +116,23 @@
 			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration
 			 *  containing the given Mass Storage interface is selected.
 			 *
-			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
+			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
 			 *
-			 *  \return Boolean true if the endpoints were successfully configured, false otherwise
+			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.
 			 */
 			bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Processes incoming control requests from the host, that are directed to the given Mass Storage class interface. This should be
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
-			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
+			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
 			 */		
 			void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** General management task for a given Mass Storage class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
-			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage configuration and state
+			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage configuration and state.
 			 */
 			void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -141,9 +141,9 @@
 			 *  for the processing of the received SCSI command from the host. The SCSI command is available in the CommandBlock structure
 			 *  inside the Mass Storage class state structure passed as a parameter to the callback function.
 			 *
-			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
+			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
 			 *
-			 *  \return Boolean true if the SCSI command was successfully processed, false otherwise
+			 *  \return Boolean true if the SCSI command was successfully processed, false otherwise.
 			 */
 			bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 		

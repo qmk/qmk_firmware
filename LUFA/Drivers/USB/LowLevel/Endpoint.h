@@ -186,7 +186,7 @@
 				 *
 				 *  \ingroup Group_EndpointRW
 				 *
-				 *  \return Total number of bytes in the currently selected Endpoint's FIFO buffer
+				 *  \return Total number of bytes in the currently selected Endpoint's FIFO buffer.
 				 */
 				static inline uint16_t Endpoint_BytesInEndpoint(void);
 			
@@ -194,7 +194,7 @@
 				 *  the currently selected endpoint number so that it can be restored after another endpoint has
 				 *  been manipulated.
 				 *
-				 *  \return Index of the currently selected endpoint
+				 *  \return Index of the currently selected endpoint.
 				 */
 				static inline uint8_t Endpoint_GetCurrentEndpoint(void);
 				
@@ -205,14 +205,14 @@
 				 *  Any endpoint operations which do not require the endpoint number to be indicated will operate on
 				 *  the currently selected endpoint.
 				 *
-				 *  \param[in] EndpointNumber Endpoint number to select
+				 *  \param[in] EndpointNumber Endpoint number to select.
 				 */
 				static inline void Endpoint_SelectEndpoint(uint8_t EndpointNumber);
 				
 				/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB controller's
 				 *  In and Out pointers to the bank's contents.
 				 *
-				 *  \param[in] EndpointNumber Endpoint number whose FIFO buffers are to be reset
+				 *  \param[in] EndpointNumber Endpoint number whose FIFO buffers are to be reset.
 				 */
 				static inline void Endpoint_ResetFIFO(uint8_t EndpointNumber);
 				
@@ -230,7 +230,7 @@
 				
 				/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
 				 *
-				 * \return Boolean True if the currently selected endpoint is enabled, false otherwise
+				 * \return Boolean True if the currently selected endpoint is enabled, false otherwise.
 				 */
 				static inline bool Endpoint_IsEnabled(void);
 				
@@ -242,13 +242,13 @@
 				 *
 				 *  \ingroup Group_EndpointPacketManagement
 				 *
-				 *  \return Boolean true if the currently selected endpoint may be read from or written to, depending on its direction
+				 *  \return Boolean true if the currently selected endpoint may be read from or written to, depending on its direction.
 				 */
 				static inline bool Endpoint_IsReadWriteAllowed(void);
 				
 				/** Determines if the currently selected endpoint is configured.
 				 *
-				 *  \return Boolean true if the currently selected endpoint has been configured, false otherwise
+				 *  \return Boolean true if the currently selected endpoint has been configured, false otherwise.
 				 */
 				static inline bool Endpoint_IsConfigured(void);
 				
@@ -256,16 +256,16 @@
 				 *  interrupt duration has elapsed. Which endpoints have interrupted can be determined by
 				 *  masking the return value against (1 << {Endpoint Number}).
 				 *
-				 *  \return Mask whose bits indicate which endpoints have interrupted
+				 *  \return Mask whose bits indicate which endpoints have interrupted.
 				 */
 				static inline uint8_t Endpoint_GetEndpointInterrupts(void);
 				
 				/** Determines if the specified endpoint number has interrupted (valid only for INTERRUPT type
 				 *  endpoints).
 				 *
-				 *  \param[in] EndpointNumber  Index of the endpoint whose interrupt flag should be tested
+				 *  \param[in] EndpointNumber  Index of the endpoint whose interrupt flag should be tested.
 				 *
-				 *  \return Boolean true if the specified endpoint has interrupted, false otherwise
+				 *  \return Boolean true if the specified endpoint has interrupted, false otherwise.
 				 */
 				static inline bool Endpoint_HasEndpointInterrupted(uint8_t EndpointNumber);
 				
@@ -339,7 +339,7 @@
 				 *
 				 *  \ingroup Group_EndpointPacketManagement
 				 *
-				 *  \return Boolean true if the currently selected endpoint is stalled, false otherwise
+				 *  \return Boolean true if the currently selected endpoint is stalled, false otherwise.
 				 */
 				static inline bool Endpoint_IsStalled(void);
 				
@@ -501,7 +501,7 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW
 			 *
-			 *  \return Next byte in the currently selected endpoint's FIFO buffer
+			 *  \return Next byte in the currently selected endpoint's FIFO buffer.
 			 */
 			static inline uint8_t Endpoint_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_Read_Byte(void)
@@ -513,7 +513,7 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW
 			 *
-			 *  \param[in] Byte  Next byte to write into the the currently selected endpoint's FIFO buffer
+			 *  \param[in] Byte  Next byte to write into the the currently selected endpoint's FIFO buffer.
 			 */
 			static inline void Endpoint_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Byte(const uint8_t Byte)
@@ -538,7 +538,7 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW
 			 *
-			 *  \return Next word in the currently selected endpoint's FIFO buffer
+			 *  \return Next word in the currently selected endpoint's FIFO buffer.
 			 */
 			static inline uint16_t Endpoint_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_Read_Word_LE(void)
@@ -560,7 +560,7 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW
 			 *
-			 *  \return Next word in the currently selected endpoint's FIFO buffer
+			 *  \return Next word in the currently selected endpoint's FIFO buffer.
 			 */
 			static inline uint16_t Endpoint_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Endpoint_Read_Word_BE(void)
@@ -582,7 +582,7 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer
+			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer.
 			 */
 			static inline void Endpoint_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Word_LE(const uint16_t Word)
@@ -596,7 +596,7 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer
+			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer.
 			 */
 			static inline void Endpoint_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Word_BE(const uint16_t Word)
@@ -623,7 +623,7 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW
 			 *
-			 *  \return Next double word in the currently selected endpoint's FIFO buffer
+			 *  \return Next double word in the currently selected endpoint's FIFO buffer.
 			 */
 			static inline uint32_t Endpoint_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Endpoint_Read_DWord_LE(void)
@@ -647,7 +647,7 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW
 			 *
-			 *  \return Next double word in the currently selected endpoint's FIFO buffer
+			 *  \return Next double word in the currently selected endpoint's FIFO buffer.
 			 */
 			static inline uint32_t Endpoint_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Endpoint_Read_DWord_BE(void)
@@ -671,7 +671,7 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer
+			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer.
 			 */
 			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord)
@@ -687,7 +687,7 @@
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer
+			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer.
 			 */
 			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord)
@@ -763,7 +763,7 @@
 			 *  \note This routine will select the specified endpoint, and the endpoint will remain selected
 			 *        once the routine completes regardless of if the endpoint configuration succeeds.
 			 *
-			 *  \return Boolean true if the configuration succeeded, false otherwise
+			 *  \return Boolean true if the configuration succeeded, false otherwise.
 			 */
 			bool Endpoint_ConfigureEndpoint(const uint8_t  Number, const uint8_t Type, const uint8_t Direction,
 			                                const uint16_t Size, const uint8_t Banks);
@@ -801,7 +801,7 @@
 			 *  \ingroup Group_EndpointStreamRW
 			 *
 			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -824,7 +824,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -836,7 +836,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -850,7 +850,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -873,7 +873,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -885,7 +885,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -899,7 +899,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -922,7 +922,7 @@
 			 *
 			 *  \param[out] Buffer   Pointer to the destination data buffer to write to.
 			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -934,7 +934,7 @@
 			 *
 			 *  \param[out] Buffer   Pointer to the destination data buffer to write to, located in EEPROM memory space.
 			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -957,7 +957,7 @@
 			 *
 			 *  \param[out] Buffer    Pointer to the destination data buffer to write to.
 			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -969,7 +969,7 @@
 			 *
 			 *  \param[out] Buffer   Pointer to the destination data buffer to write to, located in EEPROM memory space.
 			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */

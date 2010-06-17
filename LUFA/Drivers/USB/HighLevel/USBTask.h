@@ -107,7 +107,7 @@
 					 *
 					 *  \note This global is only present if the user application can be a USB host.
 					 *
-					 *  \see \ref USB_Host_States_t for a list of possible device states
+					 *  \see \ref USB_Host_States_t for a list of possible device states.
 					 *
 					 *  \ingroup Group_Host
 					 */
@@ -140,7 +140,7 @@
 					 *  \note This variable should be treated as read-only in the user application, and never manually
 					 *        changed in value except in the circumstances outlined above.
 					 *
-					 *  \see \ref USB_Device_States_t for a list of possible device states
+					 *  \see \ref USB_Device_States_t for a list of possible device states.
 					 *
 					 *  \ingroup Group_Device
 					 */

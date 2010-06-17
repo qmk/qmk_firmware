@@ -20,6 +20,7 @@
   *  - Changed over the AVRISP-MKII and TemperatureDataLogger projects to use eeprom_update_byte() when writing non-volatile
   *    parameters to EEPROM to preserve its lifespan
   *  - Removed unused line encoding data and control requests from the CDC Bootloader code, to save space
+  *  - Renamed SERIAL_STREAM_ASSERT() macro to STDOUT_ASSERT()
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project sending a LOAD EXTENDED ADDRESS command to 128KB AVRs after programming or reading from

@@ -92,7 +92,7 @@
 			 *
 			 *  \note This event only exists on USB AVR models which support dual role modes.
 			 *
-			 *  \param[in] ErrorCode  Error code indicating the failure reason, a value in \ref USB_InitErrorCodes_t
+			 *  \param[in] ErrorCode  Error code indicating the failure reason, a value in \ref USB_InitErrorCodes_t.
 			 */
 			void EVENT_USB_InitFailure(const uint8_t ErrorCode);
 
@@ -112,7 +112,7 @@
 			/** Event for USB host error. This event fires when a hardware fault has occurred whilst the USB
 			 *  interface is in host mode.
 			 *
-			 *  \param[in] ErrorCode  Error code indicating the failure reason, a value in \ref USB_Host_ErrorCodes_t
+			 *  \param[in] ErrorCode  Error code indicating the failure reason, a value in \ref USB_Host_ErrorCodes_t.
 			 *
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *        \n\n
@@ -155,7 +155,7 @@
 			 *  in host mode, and an attached USB device has failed to enumerate completely.
 			 *
 			 *  \param[in] ErrorCode     Error code indicating the failure reason, a value in 
-			 *                           \ref USB_Host_EnumerationErrorCodes_t
+			 *                           \ref USB_Host_EnumerationErrorCodes_t.
 			 *
 			 *  \param[in] SubErrorCode  Sub error code indicating the reason for failure - for example, if the
 			 *                           ErrorCode parameter indicates a control error, this will give the error

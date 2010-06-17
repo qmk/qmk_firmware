@@ -134,21 +134,21 @@
 				 *  false otherwise. While suspended, no USB communications can occur until the bus is resumed,
 				 *  except for the Remote Wakeup event from the device if supported.
 				 *
-				 *  \return Boolean true if the bus is currently suspended, false otherwise
+				 *  \return Boolean true if the bus is currently suspended, false otherwise.
 				 */
 				 static inline bool USB_Host_IsBusSuspended(void);
 				 
 				/** Determines if the attached device is currently enumerated in Full Speed mode (12Mb/s), or
 				 *  false if the attached device is enumerated in Low Speed mode (1.5Mb/s).
 				 *
-				 *  \return Boolean true if the attached device is enumerated in Full Speed mode, false otherwise
+				 *  \return Boolean true if the attached device is enumerated in Full Speed mode, false otherwise.
 				 */
 				static inline bool USB_Host_IsDeviceFullSpeed(void);
 
 				/** Determines if the attached device is currently issuing a Remote Wakeup request, requesting
 				 *  that the host resume the USB bus and wake up the device, false otherwise.
 				 *
-				 *  \return Boolean true if the attached device has sent a Remote Wakeup request, false otherwise
+				 *  \return Boolean true if the attached device has sent a Remote Wakeup request, false otherwise.
 				 */
 				static inline bool USB_Host_IsRemoteWakeupSent(void);
 
@@ -164,7 +164,7 @@
 				/** Determines if a resume from Remote Wakeup request is currently being sent to an attached
 				 *  device.
 				 *
-				 *  \return Boolean true if no resume request is currently being sent, false otherwise
+				 *  \return Boolean true if no resume request is currently being sent, false otherwise.
 				 */
 				static inline bool USB_Host_IsResumeFromWakeupRequestSent(void);
 			#else
@@ -196,7 +196,7 @@
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
-			 *  \param[in] ConfigNumber  Configuration index to send to the device
+			 *  \param[in] ConfigNumber  Configuration index to send to the device.
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
@@ -209,7 +209,7 @@
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
 			 *  \param[out] DeviceDescriptorPtr  Pointer to the destination device descriptor structure where
-			 *                                   the read data is to be stored
+			 *                                   the read data is to be stored.
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
@@ -222,10 +222,10 @@
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
-			 *  \param[in]  Index        Index of the string index to retrieve
+			 *  \param[in]  Index        Index of the string index to retrieve.
 			 *  \param[out] Buffer       Pointer to the destination buffer where the retrieved string descriptor is
-			 *                           to be stored
-			 *  \param[in] BufferLength  Maximum size of the string descriptor which can be stored into the buffer
+			 *                           to be stored.
+			 *  \param[in] BufferLength  Maximum size of the string descriptor which can be stored into the buffer.
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
@@ -235,7 +235,7 @@
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
-			 *  \param[in] EndpointIndex  Index of the endpoint to clear
+			 *  \param[in] EndpointIndex  Index of the endpoint to clear.
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */			

@@ -66,58 +66,58 @@
 		#endif
 		
 	/* Macros: */
-		/** Length in bytes of a given Unicode string's character length
+		/** Length in bytes of a given Unicode string's character length.
 		 *
-		 *  \param[in] chars  Total number of Unicode characters in the string
+		 *  \param[in] Chars  Total number of Unicode characters in the string.
 		 *
-		 *  \return Number of bytes of the given unicode string
+		 *  \return Number of bytes of the given unicode string.
 		 */
-		#define UNICODE_STRING_LENGTH(chars)   ((chars) << 1)
+		#define UNICODE_STRING_LENGTH(Chars)   ((Chars) << 1)
 		
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a command container.
 		 *
-		 *  \param[in] params  Number of parameters which are to be sent in the Param field of the container
+		 *  \param[in] Params  Number of parameters which are to be sent in the Param field of the container.
 		 */
-		#define PIMA_COMMAND_SIZE(params)      ((sizeof(SI_PIMA_Container_t) - 12) + \
-		                                        ((params) * sizeof(uint32_t)))
+		#define PIMA_COMMAND_SIZE(Params)      ((sizeof(SI_PIMA_Container_t) - 12) + \
+		                                        ((Params) * sizeof(uint32_t)))
 
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a data container.
 		 *
-		 *  \param[in] datalen  Length in bytes of the data in the container
+		 *  \param[in] DataLen  Length in bytes of the data in the container.
 		 */
-		#define PIMA_DATA_SIZE(datalen)        ((sizeof(SI_PIMA_Container_t) - 12) + \
-		                                        (datalen))
+		#define PIMA_DATA_SIZE(DataLen)        ((sizeof(SI_PIMA_Container_t) - 12) + \
+		                                        (DataLen))
 
 	/* Enums: */
 		/** Enum for the possible PIMA contains types. */
 		enum SI_PIMA_Container_Types_t
 		{
-			CType_Undefined         = 0, /**< Undefined container type */
-			CType_CommandBlock      = 1, /**< Command Block container type */
-			CType_DataBlock         = 2, /**< Data Block container type */
-			CType_ResponseBlock     = 3, /**< Response container type */
-			CType_EventBlock        = 4, /**< Event Block container type */
+			CType_Undefined         = 0, /**< Undefined container type. */
+			CType_CommandBlock      = 1, /**< Command Block container type. */
+			CType_DataBlock         = 2, /**< Data Block container type. */
+			CType_ResponseBlock     = 3, /**< Response container type. */
+			CType_EventBlock        = 4, /**< Event Block container type. */
 		};	
 		
 	/* Enums: */
 		/** Enums for the possible status codes of a returned Response Block from an attached PIMA compliant Still Image device. */
 		enum SI_PIMA_ResponseCodes_t
 		{
-			PIMA_RESPONSE_OK                     = 1, /**< Response code indicating no error in the issued command */
+			PIMA_RESPONSE_OK                     = 1, /**< Response code indicating no error in the issued command. */
 			PIMA_RESPONSE_GeneralError           = 2, /**< Response code indicating a general error while processing the
-			                                            *  issued command
+			                                            *  issued command.
 			                                            */
 			PIMA_RESPONSE_SessionNotOpen         = 3, /**< Response code indicating that the sent command requires an open
-			                                           *   session before being issued
+			                                           *   session before being issued.
 			                                           */
-			PIMA_RESPONSE_InvalidTransaction     = 4, /**< Response code indicating an invalid transaction occurred */
+			PIMA_RESPONSE_InvalidTransaction     = 4, /**< Response code indicating an invalid transaction occurred. */
 			PIMA_RESPONSE_OperationNotSupported  = 5, /**< Response code indicating that the issued command is not supported
-			                                           *   by the attached device
+			                                           *   by the attached device.
 			                                           */
 			PIMA_RESPONSE_ParameterNotSupported  = 6, /**< Response code indicating that one or more of the issued command's
-			                                           *   parameters are not supported by the device
+			                                           *   parameters are not supported by the device.
 			                                           */
 		};
 	
@@ -129,11 +129,11 @@
 		 */
 		typedef struct
 		{
-			uint32_t DataLength; /**< Length of the container and data, in bytes */
-			uint16_t Type; /**< Container type, a value from the PIMA_Container_Types_t enum */
-			uint16_t Code; /**< Command, event or response code of the container */
-			uint32_t TransactionID; /**< Unique container ID to link blocks together */
-			uint32_t Params[3]; /**< Block parameters to be issued along with the block code (command blocks only) */
+			uint32_t DataLength; /**< Length of the container and data, in bytes. */
+			uint16_t Type; /**< Container type, a value from the \ref SI_PIMA_Container_Types_t enum. */
+			uint16_t Code; /**< Command, event or response code of the container. */
+			uint32_t TransactionID; /**< Unique container ID to link blocks together. */
+			uint32_t Params[3]; /**< Block parameters to be issued along with the block code (command blocks only). */
 		} SI_PIMA_Container_t;
 		
 	/* Disable C linkage for C++ Compilers: */

@@ -204,27 +204,27 @@
 				 *
 				 *  \ingroup Group_PipeRW
 				 *
-				 *  \return Total number of bytes in the currently selected Pipe's FIFO buffer
+				 *  \return Total number of bytes in the currently selected Pipe's FIFO buffer.
 				 */
 				static inline uint16_t Pipe_BytesInPipe(void);
 				
 				/** Returns the pipe address of the currently selected pipe. This is typically used to save the
 				 *  currently selected pipe number so that it can be restored after another pipe has been manipulated.
 				 *
-				 *  \return Index of the currently selected pipe
+				 *  \return Index of the currently selected pipe.
 				 */
 				static inline uint8_t Pipe_GetCurrentPipe(void);
 
 				/** Selects the given pipe number. Any pipe operations which do not require the pipe number to be
 				 *  indicated will operate on the currently selected pipe.
 				 *
-				 *  \param[in] PipeNumber  Index of the pipe to select
+				 *  \param[in] PipeNumber  Index of the pipe to select.
 				 */
 				static inline void Pipe_SelectPipe(uint8_t PipeNumber);
 				
 				/** Resets the desired pipe, including the pipe banks and flags.
 				 *
-				 *  \param[in] PipeNumber  Index of the pipe to reset
+				 *  \param[in] PipeNumber  Index of the pipe to reset.
 				 */
 				static inline void Pipe_ResetPipe(uint8_t PipeNumber);
 				
@@ -242,13 +242,13 @@
 
 				/** Determines if the currently selected pipe is enabled, but not necessarily configured.
 				 *
-				 * \return Boolean True if the currently selected pipe is enabled, false otherwise
+				 * \return Boolean True if the currently selected pipe is enabled, false otherwise.
 				 */
 				static inline bool Pipe_IsEnabled(void);
 				
 				/** Gets the current pipe token, indicating the pipe's data direction and type.
 				 *
-				 *  \return The current pipe token, as a PIPE_TOKEN_* mask
+				 *  \return The current pipe token, as a PIPE_TOKEN_* mask.
 				 */
 				static inline uint8_t Pipe_GetPipeToken(void);
 				
@@ -257,7 +257,7 @@
 				 *  control requests, or on regular pipes to allow for half-duplex bidirectional data transfer to devices
 				 *  which have two endpoints of opposite direction sharing the same endpoint address within the device.
 				 *
-				 *  \param[in] Token  New pipe token to set the selected pipe to, as a PIPE_TOKEN_* mask
+				 *  \param[in] Token  New pipe token to set the selected pipe to, as a PIPE_TOKEN_* mask.
 				 */
 				static inline void Pipe_SetPipeToken(uint8_t Token);
 				
@@ -267,42 +267,42 @@
 				/** Configures the currently selected pipe to only allow the specified number of IN requests to be
 				 *  accepted by the pipe before it is automatically frozen.
 				 *
-				 *  \param[in] TotalINRequests  Total number of IN requests that the pipe may receive before freezing
+				 *  \param[in] TotalINRequests  Total number of IN requests that the pipe may receive before freezing.
 				 */
 				static inline void Pipe_SetFiniteINRequests(uint8_t TotalINRequests);
 
 				/** Determines if the currently selected pipe is configured.
 				 *
-				 *  \return Boolean true if the selected pipe is configured, false otherwise
+				 *  \return Boolean true if the selected pipe is configured, false otherwise.
 				 */
 				static inline bool Pipe_IsConfigured(void);
 				
 				/** Retrieves the endpoint number of the endpoint within the attached device that the currently selected
 				 *  pipe is bound to.
 				 *
-				 *  \return Endpoint number the currently selected pipe is bound to
+				 *  \return Endpoint number the currently selected pipe is bound to.
 				 */
 				static inline uint8_t Pipe_BoundEndpointNumber(void);
 
 				/** Sets the period between interrupts for an INTERRUPT type pipe to a specified number of milliseconds.
 				 *
-				 *  \param[in] Milliseconds  Number of milliseconds between each pipe poll
+				 *  \param[in] Milliseconds  Number of milliseconds between each pipe poll.
 				 */
 				static inline void Pipe_SetInterruptPeriod(uint8_t Milliseconds);
 				
 				/** Returns a mask indicating which pipe's interrupt periods have elapsed, indicating that the pipe should
 				 *  be serviced.
 				 *
-				 *  \return Mask whose bits indicate which pipes have interrupted
+				 *  \return Mask whose bits indicate which pipes have interrupted.
 				 */
 				static inline uint8_t Pipe_GetPipeInterrupts(void);
 				
 				/** Determines if the specified pipe number has interrupted (valid only for INTERRUPT type
 				 *  pipes).
 				 *
-				 *  \param[in] PipeNumber  Index of the pipe whose interrupt flag should be tested
+				 *  \param[in] PipeNumber  Index of the pipe whose interrupt flag should be tested.
 				 *
-				 *  \return Boolean true if the specified pipe has interrupted, false otherwise
+				 *  \return Boolean true if the specified pipe has interrupted, false otherwise.
 				 */
 				static inline bool Pipe_HasPipeInterrupted(uint8_t PipeNumber);
 				
@@ -314,7 +314,7 @@
 
 				/** Determines if the currently selected pipe is frozen, and not able to accept data.
 				 *
-				 *  \return Boolean true if the currently selected pipe is frozen, false otherwise
+				 *  \return Boolean true if the currently selected pipe is frozen, false otherwise.
 				 */
 				static inline bool Pipe_IsFrozen(void);
 				
@@ -326,7 +326,7 @@
 				 *
 				 *  \see \ref Pipe_GetErrorFlags() macro for information on retrieving the exact error flag.
 				 *
-				 *  \return Boolean true if an error has occurred on the selected pipe, false otherwise
+				 *  \return Boolean true if an error has occurred on the selected pipe, false otherwise.
 				 */
 				static inline bool Pipe_IsError(void);
 				
@@ -338,7 +338,7 @@
 				/** Gets a mask of the hardware error flags which have occurred on the currently selected pipe. This
 				 *  value can then be masked against the PIPE_ERRORFLAG_* masks to determine what error has occurred.
 				 *
-				 *  \return  Mask comprising of PIPE_ERRORFLAG_* bits indicating what error has occurred on the selected pipe
+				 *  \return  Mask comprising of PIPE_ERRORFLAG_* bits indicating what error has occurred on the selected pipe.
 				 */
 				static inline uint8_t Pipe_GetErrorFlags(void);
 				
@@ -352,7 +352,7 @@
 				 *
 				 *  \ingroup Group_PipePacketManagement
 				 *  
-				 *  \return Boolean true if the currently selected pipe may be read from or written to, depending on its direction
+				 *  \return Boolean true if the currently selected pipe may be read from or written to, depending on its direction.
 				 */
 				static inline bool Pipe_IsReadWriteAllowed(void);
 				
@@ -409,7 +409,7 @@
 				 *
 				 *  \ingroup Group_PipePacketManagement
 				 *
-				 *  \return Boolean true if an NAK has been received on the current pipe, false otherwise
+				 *  \return Boolean true if an NAK has been received on the current pipe, false otherwise.
 				 */
 				static inline bool Pipe_IsNAKReceived(void);
 
@@ -425,7 +425,7 @@
 				 *
 				 *  \ingroup Group_PipePacketManagement
 				 *
-				 *  \return Boolean true if the current pipe has been stalled by the attached device, false otherwise
+				 *  \return Boolean true if the current pipe has been stalled by the attached device, false otherwise.
 				*/
 				static inline bool Pipe_IsStalled(void);
 				
@@ -509,13 +509,13 @@
 			#endif
 
 		/* Enums: */
-			/** Enum for the possible error return codes of the Pipe_WaitUntilReady function
+			/** Enum for the possible error return codes of the Pipe_WaitUntilReady function.
 			 *
 			 *  \ingroup Group_PipeRW
 			 */
 			enum Pipe_WaitUntilReady_ErrorCodes_t
 			{
-				PIPE_READYWAIT_NoError                 = 0, /**< Pipe ready for next packet, no error */
+				PIPE_READYWAIT_NoError                 = 0, /**< Pipe ready for next packet, no error. */
 				PIPE_READYWAIT_PipeStalled             = 1,	/**< The device stalled the pipe while waiting. */			
 				PIPE_READYWAIT_DeviceDisconnected      = 2,	/**< Device was disconnected from the host while waiting. */
 				PIPE_READYWAIT_Timeout                 = 3, /**< The device failed to accept or send the next packet
@@ -549,7 +549,7 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW
 			 *
-			 *  \return Next byte in the currently selected pipe's FIFO buffer
+			 *  \return Next byte in the currently selected pipe's FIFO buffer.
 			 */
 			static inline uint8_t Pipe_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_Read_Byte(void)
@@ -561,7 +561,7 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW
 			 *
-			 *  \param[in] Byte  Next byte to write into the the currently selected pipe's FIFO buffer
+			 *  \param[in] Byte  Next byte to write into the the currently selected pipe's FIFO buffer.
 			 */
 			static inline void Pipe_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Byte(const uint8_t Byte)
@@ -586,7 +586,7 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW
 			 *
-			 *  \return Next word in the currently selected pipe's FIFO buffer
+			 *  \return Next word in the currently selected pipe's FIFO buffer.
 			 */
 			static inline uint16_t Pipe_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_Read_Word_LE(void)
@@ -608,7 +608,7 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW
 			 *
-			 *  \return Next word in the currently selected pipe's FIFO buffer
+			 *  \return Next word in the currently selected pipe's FIFO buffer.
 			 */
 			static inline uint16_t Pipe_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_Read_Word_BE(void)
@@ -630,7 +630,7 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer
+			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer.
 			 */
 			static inline void Pipe_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_LE(const uint16_t Word)
@@ -644,7 +644,7 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW
 			 *
-			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer
+			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer.
 			 */
 			static inline void Pipe_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_BE(const uint16_t Word)
@@ -671,7 +671,7 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW
 			 *
-			 *  \return Next double word in the currently selected pipe's FIFO buffer
+			 *  \return Next double word in the currently selected pipe's FIFO buffer.
 			 */
 			static inline uint32_t Pipe_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Pipe_Read_DWord_LE(void)
@@ -695,7 +695,7 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW
 			 *
-			 *  \return Next double word in the currently selected pipe's FIFO buffer
+			 *  \return Next double word in the currently selected pipe's FIFO buffer.
 			 */
 			static inline uint32_t Pipe_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Pipe_Read_DWord_BE(void)
@@ -719,7 +719,7 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer
+			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer.
 			 */
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord)
@@ -735,7 +735,7 @@
 			 *
 			 *  \ingroup Group_PipePrimitiveRW
 			 *
-			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer
+			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer.
 			 */
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord)
@@ -806,7 +806,7 @@
 			 *  \note This routine will select the specified pipe, and the pipe will remain selected once the
 			 *        routine completes regardless of if the pipe configuration succeeds.
 			 *
-			 *  \return Boolean true if the configuration is successful, false otherwise
+			 *  \return Boolean true if the configuration is successful, false otherwise.
 			 */
 			bool Pipe_ConfigurePipe(const uint8_t  Number, const uint8_t Type, const uint8_t Token, const uint8_t EndpointNumber,
 			                        const uint16_t Size, const uint8_t Banks);
@@ -823,10 +823,10 @@
 			/** Determines if a pipe has been bound to the given device endpoint address. If a pipe which is bound to the given
 			 *  endpoint is found, it is automatically selected.
 			 *
-			 *  \param[in] EndpointAddress Address and direction mask of the endpoint within the attached device to check
+			 *  \param[in] EndpointAddress Address and direction mask of the endpoint within the attached device to check.
 			 *
 			 *  \return Boolean true if a pipe bound to the given endpoint address of the specified direction is found, false
-			 *          otherwise
+			 *          otherwise.
 			 */
 			bool Pipe_IsEndpointBound(const uint8_t EndpointAddress);
 		
@@ -846,7 +846,7 @@
 			 *  \ingroup Group_PipeStreamRW
 			 *
 			 *  \param[in] Length    Number of bytes to send via the currently selected pipe.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -869,7 +869,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -881,7 +881,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -895,7 +895,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -918,7 +918,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -930,7 +930,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -944,7 +944,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected pipe into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -967,7 +967,7 @@
 			 *
 			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
 			 *  \param[in]  Length    Number of bytes to read for the currently selected pipe to read from.
-			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -979,7 +979,7 @@
 			 *
 			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
 			 *  \param[in]  Length    Number of bytes to read for the currently selected pipe to read from.
-			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -1002,7 +1002,7 @@
 			 *
 			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
 			 *  \param[in]  Length    Number of bytes to read for the currently selected pipe to read from.
-			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -1014,7 +1014,7 @@
 			 *
 			 *  \param[out] Buffer    Pointer to the source data buffer to write to.
 			 *  \param[in]  Length    Number of bytes to read for the currently selected pipe to read from.
-			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */

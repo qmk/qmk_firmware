@@ -80,7 +80,7 @@
 			#if defined(__DOXYGEN__)
 				/** Indicates whether a character has been received through the USART.
 				 *
-				 *  \return Boolean true if a character has been received, false otherwise
+				 *  \return Boolean true if a character has been received, false otherwise.
 				 */
 				static inline bool Serial_IsCharReceived(void);
 			#else
@@ -90,13 +90,13 @@
 		/* Function Prototypes: */
 			/** Transmits a given string located in program space (FLASH) through the USART.
 			 *
-			 *  \param[in] FlashStringPtr  Pointer to a string located in program space
+			 *  \param[in] FlashStringPtr  Pointer to a string located in program space.
 			 */
 			void Serial_TxString_P(const char *FlashStringPtr) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Transmits a given string located in SRAM memory through the USART.
 			 *
-			 *  \param[in] StringPtr  Pointer to a string located in SRAM space
+			 *  \param[in] StringPtr  Pointer to a string located in SRAM space.
 			 */
 			void Serial_TxString(const char *StringPtr) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -104,8 +104,8 @@
 			/** Initializes the USART, ready for serial data transmission and reception. This initializes the interface to
 			 *  standard 8-bit, no parity, 1 stop bit settings suitable for most applications.
 			 *
-			 *  \param[in] BaudRate     Serial baud rate, in bits per second
-			 *  \param[in] DoubleSpeed  Enables double speed mode when set, halving the sample time to double the baud rate
+			 *  \param[in] BaudRate     Serial baud rate, in bits per second.
+			 *  \param[in] DoubleSpeed  Enables double speed mode when set, halving the sample time to double the baud rate.
 			 */
 			static inline void Serial_Init(const uint32_t BaudRate, const bool DoubleSpeed)
 			{
@@ -134,7 +134,7 @@
 			
 			/** Transmits a given byte through the USART.
 			 *
-			 *  \param[in] DataByte  Byte to transmit through the USART
+			 *  \param[in] DataByte  Byte to transmit through the USART.
 			 */
 			static inline void Serial_TxByte(const char DataByte)
 			{
@@ -144,7 +144,7 @@
 
 			/** Receives a byte from the USART.
 			 *
-			 *  \return Byte received from the USART
+			 *  \return Byte received from the USART.
 			 */
 			static inline char Serial_RxByte(void)
 			{

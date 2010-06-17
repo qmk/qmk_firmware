@@ -63,7 +63,10 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			#if !defined(DISABLE_TERMINAL_CODES)
-				/** Creates an ANSII escape sequence with the payload specified by "c". */
+				/** Creates an ANSI escape sequence with the payload specified by "c".
+				 *
+				 *  \param[in] c  Payload to encode as an ANSI escape sequence, a ESC_* mask.
+				 */
 				#define ANSI_ESCAPE_SEQUENCE(c)  "\33[" c
 			#else
 				#define ANSI_ESCAPE_SEQUENCE(c)

@@ -82,21 +82,21 @@
 				const struct
 				{
 					uint8_t  StreamingInterfaceNumber; /**< Index of the Audio Streaming interface within the device this
-														*   structure controls
+														*   structure controls.
 														*/
 
 					uint8_t  DataINEndpointNumber; /**< Endpoint number of the incoming Audio Streaming data, if available
-													*   (zero if unused)
+													*   (zero if unused).
 													*/
 					uint16_t DataINEndpointSize; /**< Size in bytes of the incoming Audio Streaming data endpoint, if available
-												  *   (zero if unused)
+												  *   (zero if unused).
 												  */
 
 					uint8_t  DataOUTEndpointNumber; /**< Endpoint number of the outgoing Audio Streaming data, if available
-													 *   (zero if unused)
+													 *   (zero if unused).
 													 */
 					uint16_t DataOUTEndpointSize; /**< Size in bytes of the outgoing Audio Streaming data endpoint, if available
-												   *   (zero if unused)
+												   *   (zero if unused).
 												   */			
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
@@ -116,16 +116,16 @@
 			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration containing the
 			 *  given Audio interface is selected.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *
-			 *  \return Boolean true if the endpoints were successfully configured, false otherwise
+			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.
 			 */
 			bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Processes incoming control requests from the host, that are directed to the given Audio class interface. This should be
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 */
 			void Audio_Device_ProcessControlRequest(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -133,7 +133,7 @@
 			/** General management task for a given Audio class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 */
 			static inline void Audio_Device_USBTask(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 			                                        ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
@@ -148,9 +148,9 @@
 			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *
-			 *  \return Boolean true if the given Audio interface has a sample to be read, false otherwise
+			 *  \return Boolean true if the given Audio interface has a sample to be read, false otherwise.
 			 */
 			static inline bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 			                                                 ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
@@ -169,9 +169,9 @@
 			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *
-			 *  \return Boolean true if the given Audio interface is ready to accept the next sample, false otherwise
+			 *  \return Boolean true if the given Audio interface is ready to accept the next sample, false otherwise.
 			 */
 			static inline bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 			                                                     ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
@@ -189,9 +189,9 @@
 			 *  \pre This should be preceded immediately by a call to the \ref Audio_Device_IsSampleReceived() function to ensure
 			 *       ensure the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *
-			 *  \return  Signed 8-bit audio sample from the audio interface
+			 *  \return  Signed 8-bit audio sample from the audio interface.
 			 */
 			static inline int8_t Audio_Device_ReadSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 			                                              ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
@@ -214,9 +214,9 @@
 			 *  \pre This should be preceded immediately by a call to the \ref Audio_Device_IsSampleReceived() function to ensure
 			 *       that the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *
-			 *  \return  Signed 16-bit audio sample from the audio interface
+			 *  \return  Signed 16-bit audio sample from the audio interface.
 			 */
 			static inline int16_t Audio_Device_ReadSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 			                                                ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
@@ -239,9 +239,9 @@
 			 *  \pre This should be preceded immediately by a call to the \ref Audio_Device_IsSampleReceived() function to ensure
 			 *       that the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *
-			 *  \return  Signed 24-bit audio sample from the audio interface
+			 *  \return Signed 24-bit audio sample from the audio interface.
 			 */
 			static inline int32_t Audio_Device_ReadSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 			                                                ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
@@ -264,8 +264,8 @@
 			 *  \pre This should be preceded immediately by a call to the \ref Audio_Device_IsReadyForNextSample() function to
 			 *       ensure that the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
-			 *  \param[in] Sample  Signed 8-bit audio sample
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in]     Sample              Signed 8-bit audio sample.
 			 */
 			static inline void Audio_Device_WriteSample8(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
 			                                             const int8_t Sample) ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
@@ -283,8 +283,8 @@
 			 *  \pre This should be preceded immediately by a call to the \ref Audio_Device_IsReadyForNextSample() function to
 			 *       ensure that the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
-			 *  \param[in] Sample  Signed 16-bit audio sample
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in]     Sample              Signed 16-bit audio sample.
 			 */
 			static inline void Audio_Device_WriteSample16(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
 			                                              const int16_t Sample) ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
@@ -302,8 +302,8 @@
 			 *  \pre This should be preceded immediately by a call to the \ref Audio_Device_IsReadyForNextSample() function to
 			 *       ensure that the correct endpoint is selected and ready for data.
 			 *
-			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state
-			 *  \param[in] Sample  Signed 24-bit audio sample
+			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
+			 *  \param[in]     Sample              Signed 24-bit audio sample.
 			 */
 			static inline void Audio_Device_WriteSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
 			                                              const int32_t Sample) ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;

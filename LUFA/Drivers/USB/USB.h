@@ -37,7 +37,7 @@
  *  including any headers in the USB/LowLevel/ or USB/HighLevel/ subdirectories.
  */
 
-/** @defgroup Group_USB USB - LUFA/Drivers/USB/USB.h
+/** @defgroup Group_USB USB Core - LUFA/Drivers/USB/USB.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
@@ -67,8 +67,7 @@
  *  of USB management functions found \ref Group_USBManagement.
  */
 
-/** \ingroup Group_USB
- *  @defgroup Group_USBClassDrivers USB Class Drivers
+/** @defgroup Group_USBClassDrivers USB Class Drivers
  *
  *  Drivers for both host and device mode of the standard USB classes, for rapid application development.
  *  Class drivers give a framework which sits on top of the low level library API, allowing for standard

@@ -219,7 +219,7 @@
              *  Type define for all descriptors' standard header, indicating the descriptor's length and type. This structure
 			 *  uses LUFA-specific element names to make each element's purpose clearer.
 			 *
-			 *  \see \ref USB_StdDescriptor_Header_t for the version of this define with standard element names
+			 *  \see \ref USB_StdDescriptor_Header_t for the version of this define with standard element names.
 			 */
 			typedef struct
 			{
@@ -234,7 +234,7 @@
 			 *  Type define for all descriptors' standard header, indicating the descriptor's length and type. This structure
 			 *  uses the relevant standard's given element names to ensure compatibility with the standard.
 			 *
-			 *  \see \ref USB_Descriptor_Header_t for the version of this define with non-standard LUFA specific element names
+			 *  \see \ref USB_Descriptor_Header_t for the version of this define with non-standard LUFA specific element names.
 			 */
 			typedef struct
 			{
@@ -249,7 +249,7 @@
 			 *  Type define for a standard Device Descriptor. This structure uses LUFA-specific element names to make each
 			 *  element's purpose clearer.
 			 *
-			 *  \see \ref USB_StdDescriptor_Device_t for the version of this define with standard element names
+			 *  \see \ref USB_StdDescriptor_Device_t for the version of this define with standard element names.
 			 */
 			typedef struct
 			{
@@ -298,7 +298,7 @@
 			 *  Type define for a standard Device Descriptor. This structure uses the relevant standard's given element names
 			 *  to ensure compatibility with the standard.
 			 *
-			 *  \see \ref USB_Descriptor_Device_t for the version of this define with non-standard LUFA specific element names
+			 *  \see \ref USB_Descriptor_Device_t for the version of this define with non-standard LUFA specific element names.
 			 */
 			typedef struct
 			{
@@ -346,7 +346,7 @@
 			 *  Type define for a standard Configuration Descriptor header. This structure uses LUFA-specific element names
 			 *  to make each element's purpose clearer.
 			 *
-			 *  \see \ref USB_StdDescriptor_Configuration_Header_t for the version of this define with standard element names
+			 *  \see \ref USB_StdDescriptor_Configuration_Header_t for the version of this define with standard element names.
 			 */
 			typedef struct
 			{
@@ -375,7 +375,7 @@
 			 *  Type define for a standard Configuration Descriptor header. This structure uses the relevant standard's given element names
 			 *  to ensure compatibility with the standard.
 			 *
-			 *  \see \ref USB_Descriptor_Device_t for the version of this define with non-standard LUFA specific element names
+			 *  \see \ref USB_Descriptor_Device_t for the version of this define with non-standard LUFA specific element names.
 			 */
 			typedef struct
 			{
@@ -403,7 +403,7 @@
 			 *  Type define for a standard Interface Descriptor. This structure uses LUFA-specific element names
 			 *  to make each element's purpose clearer.
 			 *
-			 *  \see \ref USB_StdDescriptor_Interface_t for the version of this define with standard element names
+			 *  \see \ref USB_StdDescriptor_Interface_t for the version of this define with standard element names.
 			 */
 			typedef struct
 			{
@@ -431,7 +431,7 @@
 			 *  Type define for a standard Interface Descriptor. This structure uses the relevant standard's given element names
 			 *  to ensure compatibility with the standard.
 			 *
-			 *  \see \ref USB_Descriptor_Interface_t for the version of this define with non-standard LUFA specific element names
+			 *  \see \ref USB_Descriptor_Interface_t for the version of this define with non-standard LUFA specific element names.
 			 */
 			typedef struct
 			{
@@ -465,7 +465,7 @@
 			 *  together at the point of enumeration, loading one generic driver for all the interfaces in the single
 			 *  function. Read the ECN for more information.
 			 *
-			 *  \see \ref USB_StdDescriptor_Interface_Association_t for the version of this define with standard element names
+			 *  \see \ref USB_StdDescriptor_Interface_Association_t for the version of this define with standard element names.
 			 */
 			typedef struct
 			{
@@ -495,7 +495,7 @@
 			 *  function. Read the ECN for more information.
 			 *
 			 *  \see \ref USB_Descriptor_Interface_Association_t for the version of this define with non-standard LUFA specific
-			 *       element names
+			 *       element names.
 			 */
 			typedef struct
 			{
@@ -518,7 +518,7 @@
 			 *  Type define for a standard Endpoint Descriptor. This structure uses LUFA-specific element names
 			 *  to make each element's purpose clearer.
 			 *
-			 *  \see \ref USB_StdDescriptor_Endpoint_t for the version of this define with standard element names
+			 *  \see \ref USB_StdDescriptor_Endpoint_t for the version of this define with standard element names.
 			 */
 			typedef struct
 			{
@@ -547,7 +547,7 @@
 			 *  element names to ensure compatibility with the standard.
 			 *
 			 *  \see \ref USB_Descriptor_Endpoint_t for the version of this define with non-standard LUFA specific
-			 *       element names
+			 *       element names.
 			 */
 			typedef struct
 			{
@@ -582,7 +582,7 @@
 			 *
 			 *  This structure uses LUFA-specific element names to make each element's purpose clearer.
 			 *
-			 *  \see \ref USB_StdDescriptor_String_t for the version of this define with standard element names
+			 *  \see \ref USB_StdDescriptor_String_t for the version of this define with standard element names.
 			 */
 			typedef struct
 			{
@@ -613,7 +613,7 @@
 			 *  This structure uses the relevant standard's given element names to ensure compatibility with the standard.
 			 *
 			 *  \see \ref USB_Descriptor_String_t for the version of this define with with non-standard LUFA specific
-			 *       element names
+			 *       element names.
 			 */
 			typedef struct
 			{

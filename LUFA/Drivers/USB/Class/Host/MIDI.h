@@ -79,11 +79,11 @@
 			{
 				const struct
 				{
-					uint8_t  DataINPipeNumber; /**< Pipe number of the MIDI interface's streaming IN data pipe */
-					bool     DataINPipeDoubleBank; /**< Indicates if the MIDI interface's IN data pipe should use double banking */
+					uint8_t  DataINPipeNumber; /**< Pipe number of the MIDI interface's streaming IN data pipe. */
+					bool     DataINPipeDoubleBank; /**< Indicates if the MIDI interface's IN data pipe should use double banking. */
 					
-					uint8_t  DataOUTPipeNumber; /**< Pipe number of the MIDI interface's streaming OUT data pipe */
-					bool     DataOUTPipeDoubleBank; /**< Indicates if the MIDI interface's OUT data pipe should use double banking */
+					uint8_t  DataOUTPipeNumber; /**< Pipe number of the MIDI interface's streaming OUT data pipe. */
+					bool     DataOUTPipeDoubleBank; /**< Indicates if the MIDI interface's OUT data pipe should use double banking. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
 				           */
@@ -91,11 +91,11 @@
 				{
 					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
 					                *   after \ref MIDI_Host_ConfigurePipes() is called and the Host state machine is in the
-					                *   Configured state
+					                *   Configured state.
 					                */
 
-					uint16_t DataINPipeSize; /**< Size in bytes of the MIDI Streaming Data interface's IN data pipe */
-					uint16_t DataOUTPipeSize;  /**< Size in bytes of the MIDI Streaming Data interface's OUT data pipe */
+					uint16_t DataINPipeSize; /**< Size in bytes of the MIDI Streaming Data interface's IN data pipe. */
+					uint16_t DataOUTPipeSize;  /**< Size in bytes of the MIDI Streaming Data interface's OUT data pipe. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.
@@ -106,10 +106,10 @@
 			/** Enum for the possible error codes returned by the \ref MIDI_Host_ConfigurePipes() function. */
 			enum MIDIHost_EnumerationFailure_ErrorCodes_t
 			{
-				MIDI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully */
-				MIDI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor */
-				MIDI_ENUMERROR_NoStreamingInterfaceFound  = 2, /**< A compatible MIDI interface was not found in the device's Configuration Descriptor */
-				MIDI_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible MIDI data endpoints were not found in the device's MIDI interface */
+				MIDI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
+				MIDI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
+				MIDI_ENUMERROR_NoStreamingInterfaceFound  = 2, /**< A compatible MIDI interface was not found in the device's Configuration Descriptor. */
+				MIDI_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible MIDI data endpoints were not found in the device's MIDI interface. */
 			};
 	
 		/* Function Prototypes: */
@@ -119,11 +119,11 @@
 			 *  This should be called once after the stack has enumerated the attached device, while the host state machine is in
 			 *  the Addressed state.
 			 *
-			 *  \param[in,out] MIDIInterfaceInfo       Pointer to a structure containing an MIDI Class host configuration and state
-			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor
-			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor
+			 *  \param[in,out] MIDIInterfaceInfo       Pointer to a structure containing an MIDI Class host configuration and state.
+			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
+			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor.
 			 *
-			 *  \return A value from the \ref MIDIHost_EnumerationFailure_ErrorCodes_t enum
+			 *  \return A value from the \ref MIDIHost_EnumerationFailure_ErrorCodes_t enum.
 			 */
 			uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo, uint16_t ConfigDescriptorSize,
 			                                 void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
@@ -133,10 +133,10 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state
-			 *  \param[in]     Event              Pointer to a populated USB_MIDI_EventPacket_t structure containing the MIDI event to send
+			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
+			 *  \param[in]     Event              Pointer to a populated USB_MIDI_EventPacket_t structure containing the MIDI event to send.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum			 
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo,
 			                                  MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
@@ -146,9 +146,9 @@
 			 *  pipe bank until either the pipe bank is full, or \ref MIDI_Host_Flush() is called. This allows for multiple MIDI
 			 *  events to be packed into a single pipe packet, increasing data throughput.
 			 *
-			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state
+			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
 			 *
-			 *  \return A value from the \ref Pipe_WaitUntilReady_ErrorCodes_t enum
+			 *  \return A value from the \ref Pipe_WaitUntilReady_ErrorCodes_t enum.
 			 */
 			 uint8_t MIDI_Host_Flush(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			 
@@ -157,10 +157,10 @@
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state
-			 *  \param[out]    Event              Pointer to a USB_MIDI_EventPacket_t structure where the received MIDI event is to be placed
+			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
+			 *  \param[out]    Event              Pointer to a USB_MIDI_EventPacket_t structure where the received MIDI event is to be placed.
 			 *
-			 *  \return Boolean true if a MIDI event packet was received, false otherwise
+			 *  \return Boolean true if a MIDI event packet was received, false otherwise.
 			 */
 			bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo,
 			                                  MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
@@ -169,7 +169,7 @@
 			/** General management task for a given MIDI host class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
-			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing an MIDI Class host configuration and state
+			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing an MIDI Class host configuration and state.
 			 */
 			static inline void MIDI_Host_USBTask(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			static inline void MIDI_Host_USBTask(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
