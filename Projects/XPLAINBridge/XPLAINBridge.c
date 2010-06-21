@@ -86,14 +86,9 @@ int main(void)
 	for (;;)
 	{
 		if (CurrentFirmwareMode == MODE_USART_BRIDGE)
-		{
-			USARTBridge_Task();
-		}
+		  UARTBridge_Task();
 		else
-		{
-			AVRISP_Task();
-			V2Params_UpdateParamValues();
-		}
+		  AVRISP_Task();
 
 		USB_USBTask();
 	}
@@ -104,6 +99,8 @@ void AVRISP_Task(void)
 	/* Must be in the configured state for the AVRISP code to process data */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
+
+	V2Params_UpdateParamValues();
 
 	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPNUM);
 	
@@ -119,7 +116,7 @@ void AVRISP_Task(void)
 	}
 }
 
-void USARTBridge_Task(void)
+void UARTBridge_Task(void)
 {
 	/* Must be in the configured state for the USART Bridge code to process data */
 	if (USB_DeviceState != DEVICE_STATE_Configured)

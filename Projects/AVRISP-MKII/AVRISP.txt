@@ -57,7 +57,6 @@
  *    - Minimum ISP target clock speed of 500KHz due to hardware SPI module prescaler limitations
  *    - No reversed/shorted target connector detection and notification
  *    - A seperate header is required for each of the ISP, PDI and TPI programming protocols that the user wishes to use
- *    - XMEGA EEPROM erase section command does not work (but EEPROM read/write and chip erase does)
  *
  *  On AVR models with an ADC converter, AVCC should be tied to 5V (e.g. VBUS) and the VTARGET_ADC_CHANNEL token should be
  *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models

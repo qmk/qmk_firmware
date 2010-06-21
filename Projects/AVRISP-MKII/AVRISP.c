@@ -48,9 +48,7 @@ int main(void)
 
 	for (;;)
 	{
-		Process_AVRISP_Commands();
-		V2Params_UpdateParamValues();
-		
+		AVRISP_Task();
 		USB_USBTask();
 	}
 }
@@ -108,11 +106,13 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 }
 
 /** Processes incoming V2 Protocol commands from the host, returning a response when required. */
-void Process_AVRISP_Commands(void)
+void AVRISP_Task(void)
 {
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
+
+	V2Params_UpdateParamValues();
 
 	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPNUM);
 	

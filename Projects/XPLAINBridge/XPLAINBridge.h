@@ -84,7 +84,7 @@
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void AVRISP_Task(void);
-		void USARTBridge_Task(void);
+		void UARTBridge_Task(void);
 
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_UnhandledControlRequest(void);
