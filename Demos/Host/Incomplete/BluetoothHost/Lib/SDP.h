@@ -218,7 +218,7 @@
 
 			static bool     SDP_SearchServiceTable(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs,
 			                                       const ServiceAttributeTable_t* CurrAttributeTable);
-			static void     SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, bool UUIDMatch[],
+			static void     SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, uint16_t* UUIDMatchFlags,
 			                                   const void* CurrAttribute);
 
 			static uint8_t  SDP_GetAttributeList(uint16_t AttributeList[][2], const void** const CurrentParameter);

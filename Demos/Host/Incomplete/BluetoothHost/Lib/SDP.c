@@ -458,27 +458,20 @@ static void* SDP_GetAttributeValue(const ServiceAttributeTable_t* AttributeTable
 static bool SDP_SearchServiceTable(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs,
 			                       const ServiceAttributeTable_t* CurrAttributeTable)
 {
-	bool UUIDMatch[TotalUUIDs];	
-	
-	/* Set all the match flags to false (not matched) before starting the search */
-	memset(UUIDMatch, false, sizeof(UUIDMatch));
-
 	const void* CurrAttribute;
+	uint16_t    UUIDMatchFlags = 0;
 	
 	/* Search through the current attribute table, checking each attribute value for UUID matches */
 	while ((CurrAttribute = pgm_read_ptr(&CurrAttributeTable->Data)) != NULL)
 	{
-		SDP_CheckUUIDMatch(UUIDList, TotalUUIDs, UUIDMatch, CurrAttribute);
+		SDP_CheckUUIDMatch(UUIDList, TotalUUIDs, &UUIDMatchFlags, CurrAttribute);
 		CurrAttributeTable++;
 	}
 
 	/* Determine how many UUID matches in the list we have found */
-	uint8_t UUIDMatches = 0;
-	for (uint8_t i = 0; i < TotalUUIDs; i++)
-	{
-		if (UUIDMatch[i])
-		  UUIDMatches++;
-	}
+	uint8_t UUIDMatches;
+	for (UUIDMatches = 0; UUIDMatchFlags; UUIDMatches++)
+	  UUIDMatchFlags &= (UUIDMatchFlags - 1);
 	
 	/* If all UUIDs have been matched to the current service, return true */
 	return (UUIDMatches == TotalUUIDs);
@@ -494,7 +487,7 @@ static bool SDP_SearchServiceTable(uint8_t UUIDList[][UUID_SIZE_BYTES], const ui
  *
  *  \return True if all the UUIDs given in the UUID list appear in the given attribute table, false otherwise
  */
-static void SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, bool UUIDMatch[],
+static void SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, uint16_t* UUIDMatchFlags,
                                const void* CurrAttribute)
 {
 	uint8_t CurrAttributeType = (pgm_read_byte(CurrAttribute) & ~0x07);
@@ -502,16 +495,20 @@ static void SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_
 	/* Check the data type of the current attribute value - if UUID, compare, if Sequence, unwrap and recurse */
 	if (CurrAttributeType == SDP_DATATYPE_UUID)
 	{
+		uint16_t CurrUUIDMatchMask = (1 << 0);
+	
 		/* Look for matches in the UUID list against the current attribute UUID value */
 		for (uint8_t i = 0; i < TotalUUIDs; i++)
 		{
 			/* Check if the current unmatched UUID is identical to the search UUID */
-			if (!(UUIDMatch[i]) && !(memcmp_P(UUIDList[i], (CurrAttribute + 1), UUID_SIZE_BYTES)))
+			if (!(*UUIDMatchFlags & CurrUUIDMatchMask) && !(memcmp_P(UUIDList[i], (CurrAttribute + 1), UUID_SIZE_BYTES)))
 			{
 				/* Indicate match found for the current attribute UUID and early-abort */
-				UUIDMatch[i] = true;
+				*UUIDMatchFlags |= CurrUUIDMatchMask;
 				break;
 			}
+			
+			CurrUUIDMatchMask <<= 1;
 		}
 	}
 	else if (CurrAttributeType == SDP_DATATYPE_Sequence)
@@ -527,8 +524,10 @@ static void SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_
 			uint8_t  InnerHeaderSize;
 			uint16_t InnerSize = SDP_GetLocalAttributeContainerSize(CurrAttribute, &InnerHeaderSize);
 			
-			SDP_CheckUUIDMatch(UUIDList, TotalUUIDs, UUIDMatch, CurrAttribute);
-						
+			/* Recursively search of the next element in the sequence, trying to match UUIDs with the UUID list */
+			SDP_CheckUUIDMatch(UUIDList, TotalUUIDs, UUIDMatchFlags, CurrAttribute);
+
+			/* Skip to the next element in the sequence */
 			SequenceSize  -= InnerHeaderSize + InnerSize;
 			CurrAttribute += InnerHeaderSize + InnerSize;
 		}
