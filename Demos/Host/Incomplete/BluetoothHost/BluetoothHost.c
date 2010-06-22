@@ -281,9 +281,9 @@ bool Bluetooth_ChannelConnectionRequest(const uint16_t PSM)
 /** Bluetooth stack callback event for a non-signal ACL packet reception. This callback fires once a connection
  *  to a remote Bluetooth device has been made, and the remote device has sent a non-signalling ACL packet.
  *
- *  \param[in] Data    Pointer to a buffer where the received data is stored
- *  \param[in] DataLen Length of the packet data, in bytes
- *  \param[in] Channel Bluetooth ACL data channel information structure for the packet's destination channel
+ *  \param[in] Data     Pointer to a buffer where the received data is stored
+ *  \param[in] DataLen  Length of the packet data, in bytes
+ *  \param[in] Channel  Bluetooth ACL data channel information structure for the packet's destination channel
  */
 void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const Channel)
 {

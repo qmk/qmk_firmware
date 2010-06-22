@@ -58,26 +58,7 @@
 		#define SDP_ATTRIBUTE_ID_LANGUAGEBASEATTROFFSET 0x0006
 		#define SDP_ATTRIBUTE_ID_SERVICENAME            0x0100
 		#define SDP_ATTRIBUTE_ID_SERVICEDESCRIPTION     0x0101
-		
-		/** Swaps the byte ordering of a 16-bit value at compile time. Do not use this macro for swapping byte orderings
-		 *  of dynamic values computed at runtime -- use SwapEndian_16() instead.
-		 *
-		 *  \param[in]  x  16-bit value whose byte ordering is to be swapped
-		 *
-		 *  \return Input value with the byte ordering reversed
-		 */
-		#define SWAPENDIAN_16(x)                        ((((x) & 0xFF00) >> 8) | (((x) & 0x00FF) << 8))
-
-		/** Swaps the byte ordering of a 32-bit value at compile time. Do not use this macro for swapping byte orderings
-		 *  of dynamic values computed at runtime -- use SwapEndian_32() instead.
-		 *
-		 *  \param[in]  x  32-bit value whose byte ordering is to be swapped
-		 *
-		 *  \return Input value with the byte ordering reversed
-		 */
-		#define SWAPENDIAN_32(x)                        ((((x) & 0xFF000000UL) >> 24UL) | (((x) & 0x00FF0000UL) >> 8UL) | \
-		                                                 (((x) & 0x0000FF00UL) << 8UL) | (((x) & 0x000000FFUL) << 24UL))
-		
+				
 		/** Terminator for a service attribute table of type \ref ServiceAttributeTable_t. */
 		#define SERVICE_ATTRIBUTE_TABLE_TERMINATOR      {.Data = NULL}
 		

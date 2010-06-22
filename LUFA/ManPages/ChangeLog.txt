@@ -11,6 +11,8 @@
   *  - Added new ADC_DisableChannel() function (thanks to Mich Davis)
   *  - Added new VTARGET_REF_VOLTS and VTARGET_SCALE_FACTOR compile time defines to the AVRISP-MKII programmer project to set
   *    the VTARGET reference voltage and scale factor
+  *  - Added new pgm_read_ptr() macro to Common.h for reading of pointers out of flash memory space
+  *  - Added new SWAPENDIAN_16() and SWAPENDIAN_32() macros to Common.h for statically initialized variables at compile time
   *
   *  <b>Changed:</b>
   *  - The RingBuff library code has been replaced in the XPLAINBridge, Benito and USBtoSerial projects with an ultra lightweight

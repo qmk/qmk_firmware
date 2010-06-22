@@ -60,14 +60,6 @@
 		#define SDP_PDU_SERVICEATTRIBUTERESPONSE        0x05
 		#define SDP_PDU_SERVICESEARCHATTRIBUTEREQUEST   0x06
 		#define SDP_PDU_SERVICESEARCHATTRIBUTERESPONSE  0x07
-		
-		/** Convenience macro - read a pointer out of PROGMEM space.
-		 *
-		 *  \param[in] x  Address of the pointer to read
-		 *
-		 *  \return  Pointer retrieved from PROGMEM space
-		 */
-		#define pgm_read_ptr(x)                         (void*)pgm_read_word(x)
 
 	/* Enums: */
 		/** Data sizes for SDP Data Element headers, to indicate the size of the data contained in the element. When creating

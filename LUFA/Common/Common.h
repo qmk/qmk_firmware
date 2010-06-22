@@ -107,10 +107,45 @@
 			 *
 			 *  \ingroup Group_Debugging
 			 */
-			#define STDOUT_ASSERT(x) MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
+			#define STDOUT_ASSERT(x)        MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
 			                                             "Assertion \"%s\" failed.\r\n"),     \
-			                                             __FILE__, __func__, __LINE__, #x); } \
-			                                }MACROE
+			                                             __FILE__, __func__, __LINE__, #x); } }MACROE
+
+			#if !defined(pgm_read_ptr) || defined(__DOXYGEN__)
+				/** Reads a pointer out of PROGMEM space. This is currently a wrapper for the avr-libc pgm_read_ptr()
+				 *  macro with a void* cast, so that its value can be assigned diretly to a pointer variable or used
+				 *  in pointer arithmetic without further casting in C. In a future avr-libc distribution this will be
+				 *  part of the standard API and will be implemented in a more formal manner.
+				 *
+				 *  \param[in] Addr  Address of the pointer to read.
+				 *
+				 *  \return Pointer retrieved from PROGMEM space.
+				 */
+				#define pgm_read_ptr(Addr)    (void*)pgm_read_word(Addr)
+			#endif
+
+			/** Swaps the byte ordering of a 16-bit value at compile time. Do not use this macro for swapping byte orderings
+			 *  of dynamic values computed at runtime, use \ref SwapEndian_16() instead. The result of this macro can be used
+			 *  inside struct or other variable initializers outside of a function, something that is not possible with the
+			 *  inline function variant.
+			 *
+			 *  \param[in]  x  16-bit value whose byte ordering is to be swapped.
+			 *
+			 *  \return Input value with the byte ordering reversed.
+			 */
+			#define SWAPENDIAN_16(x)          ((((x) & 0xFF00) >> 8) | (((x) & 0x00FF) << 8))
+
+			/** Swaps the byte ordering of a 32-bit value at compile time. Do not use this macro for swapping byte orderings
+			 *  of dynamic values computed at runtime- use \ref SwapEndian_32() instead. The result of this macro can be used
+			 *  inside struct or other variable initializers outside of a function, something that is not possible with the
+			 *  inline function variant.
+			 *
+			 *  \param[in]  x  32-bit value whose byte ordering is to be swapped.
+			 *
+			 *  \return Input value with the byte ordering reversed.
+			 */
+			#define SWAPENDIAN_32(x)          ((((x) & 0xFF000000UL) >> 24UL) | (((x) & 0x00FF0000UL) >> 8UL) | \
+			                                   (((x) & 0x0000FF00UL) << 8UL)  | (((x) & 0x000000FFUL) << 24UL))
 
 		/* Inline Functions: */
 			/** Function to reverse the individual bits in a byte - i.e. bit 7 is moved to bit 0, bit 6 to bit 1,
