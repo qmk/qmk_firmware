@@ -235,7 +235,6 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress, Bluet
 			CurrRFCOMMChannel->DLCI         = FrameAddress->DLCI;
 			CurrRFCOMMChannel->State        = RFCOMM_Channel_Open;
 			CurrRFCOMMChannel->Priority     = 7 + (CurrRFCOMMChannel->DLCI >> 3) + ((CurrRFCOMMChannel->DLCI >> 3) * 7);
-			CurrRFCOMMChannel->UseUIFrames  = false;
 			CurrRFCOMMChannel->MTU          = 0xFFFF;
 			CurrRFCOMMChannel->Signals      = 0;
 			CurrRFCOMMChannel->BreakSignals = 0;

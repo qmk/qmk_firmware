@@ -85,7 +85,6 @@
 			uint8_t  DLCI;
 			uint8_t  State;
 			uint8_t  Priority;
-			bool     UseUIFrames;
 			uint16_t MTU;
 			uint8_t  StatusFlags;
 			uint8_t  Signals;

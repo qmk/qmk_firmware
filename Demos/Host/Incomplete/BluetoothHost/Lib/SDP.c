@@ -487,8 +487,8 @@ static bool SDP_SearchServiceTable(uint8_t UUIDList[][UUID_SIZE_BYTES], const ui
  *
  *  \return True if all the UUIDs given in the UUID list appear in the given attribute table, false otherwise
  */
-static void SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs, uint16_t* UUIDMatchFlags,
-                               const void* CurrAttribute)
+static void SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs,
+                               uint16_t* const UUIDMatchFlags, const void* CurrAttribute)
 {
 	uint8_t CurrAttributeType = (pgm_read_byte(CurrAttribute) & ~0x07);
 
