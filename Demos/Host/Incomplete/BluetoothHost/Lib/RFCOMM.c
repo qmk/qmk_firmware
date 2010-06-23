@@ -232,12 +232,14 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress, Bluet
 		/* If the channel's DLCI is zero, the channel state entry is free */
 		if (!(CurrRFCOMMChannel->DLCI))
 		{
-			CurrRFCOMMChannel->DLCI         = FrameAddress->DLCI;
-			CurrRFCOMMChannel->State        = RFCOMM_Channel_Open;
-			CurrRFCOMMChannel->Priority     = 7 + (CurrRFCOMMChannel->DLCI >> 3) + ((CurrRFCOMMChannel->DLCI >> 3) * 7);
-			CurrRFCOMMChannel->MTU          = 0xFFFF;
-			CurrRFCOMMChannel->Signals      = 0;
-			CurrRFCOMMChannel->BreakSignals = 0;
+			CurrRFCOMMChannel->DLCI     = FrameAddress->DLCI;
+			CurrRFCOMMChannel->State    = RFCOMM_Channel_Open;
+			CurrRFCOMMChannel->Priority = 7 + (CurrRFCOMMChannel->DLCI >> 3) + ((CurrRFCOMMChannel->DLCI >> 3) * 7);
+			CurrRFCOMMChannel->MTU      = 0xFFFF;
+			CurrRFCOMMChannel->Remote.Signals     = 0 | (1 << 0);
+			CurrRFCOMMChannel->Remote.BreakSignal = 0 | (1 << 0);
+			CurrRFCOMMChannel->Local.Signals      = RFCOMM_SIGNAL_RTC | RFCOMM_SIGNAL_RTR | RFCOMM_SIGNAL_DV | (1 << 0);
+			CurrRFCOMMChannel->Local.BreakSignal  = 0 | (1 << 0);
 		
 			BT_RFCOMM_DEBUG(1, ">> UA Sent");
 			RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);

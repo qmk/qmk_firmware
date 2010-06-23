@@ -88,7 +88,7 @@ static void RFCOMM_ProcessTestCommand(const RFCOMM_Command_t* const CommandHeade
 	} TestResponse;
 
 	/* Fill out the Test response data */
-	TestResponse.CommandHeader = (RFCOMM_Command_t){.Command = RFCOMM_Control_Test, .EA = true};
+	TestResponse.CommandHeader = (RFCOMM_Command_t){.Command = RFCOMM_Control_Test, .EA = true, .CR = false};
 	TestResponse.Length        = (CommandDataLen << 1) | 0x01;
 	memcpy(TestResponse.TestData, Params, CommandDataLen);
 	
@@ -130,11 +130,11 @@ static void RFCOMM_ProcessMSCommand(const RFCOMM_Command_t* const CommandHeader,
 	  return;
 	  
 	/* Save the new channel signals to the channel state structure */
-	RFCOMMChannel->Signals = Params->Signals;
+	RFCOMMChannel->Remote.Signals = Params->Signals;
 	
 	/* If the command contains the optional break signals field, store the value */
 	if (CommandDataLen == sizeof(RFCOMM_MS_Parameters_t))
-	  RFCOMMChannel->BreakSignals = Params->BreakSignals;
+	  RFCOMMChannel->Remote.BreakSignal = Params->BreakSignal;
 	  
 	struct
 	{
@@ -144,14 +144,15 @@ static void RFCOMM_ProcessMSCommand(const RFCOMM_Command_t* const CommandHeader,
 	} MSResponse;
 
 	/* Fill out the MS response data */
-	MSResponse.CommandHeader = (RFCOMM_Command_t){.Command = RFCOMM_Control_ModemStatus, .EA = true};
-	MSResponse.Length        = (CommandDataLen << 1) | 0x01;
-	MSResponse.Params        = *Params;
+	MSResponse.CommandHeader  = (RFCOMM_Command_t){.Command = RFCOMM_Control_ModemStatus, .EA = true, .CR = false};
+	MSResponse.Length         = (CommandDataLen << 1) | 0x01;
+	memcpy(&MSResponse.Params, Params, sizeof(RFCOMM_MS_Parameters_t));
 	
 	BT_RFCOMM_DEBUG(1, ">> MS Response");
 
 	/* Send the PDN response to acknowledge the command */
-	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH, sizeof(MSResponse), &MSResponse, Channel);
+	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH,
+	                 (sizeof(MSResponse) - sizeof(MSResponse.Params) + CommandDataLen), &MSResponse, Channel);
 }
 
 static void RFCOMM_ProcessRPNCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
@@ -190,10 +191,13 @@ static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader
 			/* If the channel's DLCI is zero, the channel state entry is free */
 			if (!(RFCOMM_Channels[i].DLCI))
 			{
-				RFCOMMChannel               = &RFCOMM_Channels[i];
-				RFCOMMChannel->DLCI         = Params->DLCI;
-				RFCOMMChannel->Signals      = 0;
-				RFCOMMChannel->BreakSignals = 0;
+				RFCOMMChannel       = &RFCOMM_Channels[i];
+				RFCOMMChannel->DLCI = Params->DLCI;
+				RFCOMMChannel->MTU  = 0xFFFF;
+				RFCOMMChannel->Remote.Signals     = 0 | (1 << 0);
+				RFCOMMChannel->Remote.BreakSignal = 0 | (1 << 0);
+				RFCOMMChannel->Local.Signals      = RFCOMM_SIGNAL_RTC | RFCOMM_SIGNAL_RTR | RFCOMM_SIGNAL_DV | (1 << 0);
+				RFCOMMChannel->Local.BreakSignal  = 0 | (1 << 0);
 				break;
 			}
 		}
@@ -207,9 +211,9 @@ static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader
 	}
 	
 	/* Save the new channel configuration */
-	RFCOMMChannel->State       = RFCOMM_Channel_Open;
-	RFCOMMChannel->Priority    = Params->Priority;
-	RFCOMMChannel->MTU         = Params->MaximumFrameSize;
+	RFCOMMChannel->State    = RFCOMM_Channel_Open;
+	RFCOMMChannel->Priority = Params->Priority;
+	RFCOMMChannel->MTU      = Params->MaximumFrameSize;
 	
 	struct
 	{
@@ -219,9 +223,9 @@ static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader
 	} DPNResponse;
 	
 	/* Fill out the DPN response data */
-	DPNResponse.CommandHeader           = (RFCOMM_Command_t){.Command = RFCOMM_Control_DLCParameterNegotiation, .EA = true};
+	DPNResponse.CommandHeader           = (RFCOMM_Command_t){.Command = RFCOMM_Control_DLCParameterNegotiation, .EA = true, .CR = false};
 	DPNResponse.Length                  = (sizeof(DPNResponse.Params) << 1) | 0x01;
-	DPNResponse.Params                  = *Params;
+	memcpy(&DPNResponse.Params, Params, sizeof(RFCOMM_DPN_Parameters_t));
 	DPNResponse.Params.ConvergenceLayer = 0x00; // TODO: Enable credit based transaction support
 	
 	BT_RFCOMM_DEBUG(1, ">> DPN Response");

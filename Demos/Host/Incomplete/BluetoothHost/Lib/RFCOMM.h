@@ -86,9 +86,16 @@
 			uint8_t  State;
 			uint8_t  Priority;
 			uint16_t MTU;
-			uint8_t  StatusFlags;
-			uint8_t  Signals;
-			uint8_t  BreakSignals;
+			struct
+			{
+				uint8_t  Signals;
+				uint8_t  BreakSignal;
+			} Remote;
+			struct
+			{
+				uint8_t  Signals;
+				uint8_t  BreakSignal;
+			} Local;
 		} RFCOMM_Channel_t;
 		
 	/* External Variables: */

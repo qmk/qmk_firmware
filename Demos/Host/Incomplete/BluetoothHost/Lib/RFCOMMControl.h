@@ -50,11 +50,11 @@
 		#include "RFCOMM.h"
 		
 	/* Macros: */
-		#define RFCOMM_STATUSFLAG_FC     (1 << 1)
-		#define RFCOMM_STATUSFLAG_RTC    (1 << 2)
-		#define RFCOMM_STATUSFLAG_RTR    (1 << 3)
-		#define RFCOMM_STATUSFLAG_IC     (1 << 6)
-		#define RFCOMM_STATUSFLAG_DV     (1 << 7)
+		#define RFCOMM_SIGNAL_FC     (1 << 1)
+		#define RFCOMM_SIGNAL_RTC    (1 << 2)
+		#define RFCOMM_SIGNAL_RTR    (1 << 3)
+		#define RFCOMM_SIGNAL_IC     (1 << 6)
+		#define RFCOMM_SIGNAL_DV     (1 << 7)
 
 	/* Enums: */
 		enum RFCOMM_Control_Commands_t
@@ -106,7 +106,7 @@
 		{
 			RFCOMM_Address_t Channel;
 			uint8_t          Signals;
-			uint8_t          BreakSignals;
+			uint8_t          BreakSignal;
 		} RFCOMM_MS_Parameters_t;
 
 	/* Function Prototypes: */
