@@ -79,18 +79,12 @@ ISR(INT0_vect, ISR_BLOCK)
 	RX_Data    = 0;
 	RX_BitMask = (1 << 0);
 
-	/* Check that the start bit is still low to prevent noise from triggering a reception */
-	if (!(SRXPIN & (1 << SRX)))
-	{
-		/* Clear reception channel ISR flag in case it is pending */
-		TIFR1 = (1 << OCF1A);
+	/* Clear reception channel ISR flag and enable the bit reception ISR */
+	TIFR1  = (1 << OCF1A);
+	TIMSK1 = (1 << OCIE1A);		
 
-		/* Still low, enable bit receive ISR */
-		TIMSK1 =  (1 << OCIE1A);		
-
-		/* Clear the start bit detection ISR flag */
-		EIMSK &= ~(1 << INT0);
-	}
+	/* Disable start bit detection ISR while the next byte is received */
+	EIMSK &= ~(1 << INT0);
 }
 
 /** ISR to manage the reception of bits to the software UART. */
