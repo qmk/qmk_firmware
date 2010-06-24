@@ -44,7 +44,7 @@
 
 	/* Defines: */
 		/** Size of each ring buffer, in data elements - must be between 1 and 255. */
-		#define BUFFER_SIZE      128
+		#define BUFFER_SIZE      255
 		
 		/** Type of data to store into the buffer. */
 		#define RingBuff_Data_t  uint8_t
