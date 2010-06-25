@@ -77,7 +77,7 @@ static void TINYNVM_SendWriteNVMRegister(const uint8_t Address)
 bool TINYNVM_WaitWhileNVMBusBusy(void)
 {
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
-	while (TimeoutMSRemaining)
+	for (;;)
 	{
 		/* Send the SLDCS command to read the TPI STATUS register to see the NVM bus is active */
 		XPROGTarget_SendByte(TPI_CMD_SLDCS | TPI_STATUS_REG);
@@ -95,8 +95,6 @@ bool TINYNVM_WaitWhileNVMBusBusy(void)
 			return true;
 		}
 	}
-
-	return false;
 }
 
 /** Waits while the target's NVM controller is busy performing an operation, exiting if the
@@ -107,7 +105,7 @@ bool TINYNVM_WaitWhileNVMBusBusy(void)
 bool TINYNVM_WaitWhileNVMControllerBusy(void)
 {
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
-	while (TimeoutMSRemaining)
+	for (;;)
 	{
 		/* Send the SIN command to read the TPI STATUS register to see the NVM bus is busy */
 		TINYNVM_SendReadNVMRegister(XPROG_Param_NVMCSRRegAddr);
@@ -125,8 +123,6 @@ bool TINYNVM_WaitWhileNVMControllerBusy(void)
 			return true;
 		}
 	}
-
-	return false;
 }
 
 /** Reads memory from the target's memory spaces.

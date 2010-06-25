@@ -72,7 +72,7 @@ static void XMEGANVM_SendNVMRegAddress(const uint8_t Register)
 bool XMEGANVM_WaitWhileNVMBusBusy(void)
 {
 	/* Poll the STATUS register to check to see if NVM access has been enabled */
-	while (TimeoutMSRemaining)
+	for (;;)
 	{
 		/* Send the LDCS command to read the PDI STATUS register to see the NVM bus is active */
 		XPROGTarget_SendByte(PDI_CMD_LDCS | PDI_STATUS_REG);
@@ -90,8 +90,6 @@ bool XMEGANVM_WaitWhileNVMBusBusy(void)
 			return true;
 		}
 	}
-	
-	return false;
 }
 
 /** Waits while the target's NVM controller is busy performing an operation, exiting if the
@@ -102,7 +100,7 @@ bool XMEGANVM_WaitWhileNVMBusBusy(void)
 bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 {
 	/* Poll the NVM STATUS register while the NVM controller is busy */
-	while (TimeoutMSRemaining)
+	for (;;)
 	{
 		/* Send a LDS command to read the NVM STATUS register to check the BUSY flag */
 		XPROGTarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
@@ -121,8 +119,6 @@ bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 			return true;
 		}
 	}
-	
-	return false;
 }
 
 /** Retrieves the CRC value of the given memory space.

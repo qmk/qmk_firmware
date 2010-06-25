@@ -192,8 +192,6 @@ static void XPROGTarget_SetTxMode(void)
 
 	UCSR1B &= ~(1 << RXEN1);
 	UCSR1B |=  (1 << TXEN1);
-		
-	IsSending = true;
 
     if (TimeoutMSRemaining)
 	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
