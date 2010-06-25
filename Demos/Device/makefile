@@ -13,6 +13,8 @@
 # custom LUFA library build options are reflected in the compiled
 # code.
 
+all:
+
 %:
 	$(MAKE) -C ClassDriver $@
 	$(MAKE) -C LowLevel $@
