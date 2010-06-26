@@ -111,7 +111,7 @@ RFCOMM_Channel_t* RFCOMM_GetChannelData(const uint8_t DLCI)
 		RFCOMM_Channel_t* CurrRFCOMMChannel = &RFCOMM_Channels[i];
 	
 		/* If the current non-closed channel's DLCI matches the search DLCI, return it to the caller */
-		if ((CurrRFCOMMChannel->DLCI == DLCI) && (CurrRFCOMMChannel->State != RFCOMM_Channel_Closed))
+		if ((CurrRFCOMMChannel->State != RFCOMM_Channel_Closed) && (CurrRFCOMMChannel->DLCI == DLCI))
 		  return CurrRFCOMMChannel;
 	}
 
@@ -192,6 +192,7 @@ static uint8_t RFCOMM_GetFCSValue(const void* FrameStart, uint8_t Length)
 {
 	uint8_t FCS = 0xFF;
 	
+	/* Calculate new Frame CRC value via the given data bytes and the CRC table */
 	for (uint8_t i = 0; i < Length; i++)
 	  FCS = pgm_read_byte(&CRC8_Table[FCS ^ ((uint8_t*)FrameStart)[i]]);
 
@@ -213,7 +214,7 @@ static void RFCOMM_ProcessDISC(const RFCOMM_Address_t* const FrameAddress, Bluet
 	
 	/* If the requested channel is currently open, destroy it */
 	if (RFCOMMChannel != NULL)
-	  RFCOMMChannel->DLCI = 0x00;
+	  RFCOMMChannel->State = RFCOMM_Channel_Closed;
 
 	BT_RFCOMM_DEBUG(1, ">> UA Sent");
 	RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
@@ -229,8 +230,8 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress, Bluet
 	{
 		RFCOMM_Channel_t* CurrRFCOMMChannel = &RFCOMM_Channels[i];
 	
-		/* If the channel's DLCI is zero, the channel state entry is free */
-		if (!(CurrRFCOMMChannel->DLCI))
+		/* If the channel's state is closed, the channel state entry is free */
+		if (CurrRFCOMMChannel->State == RFCOMM_Channel_Closed)
 		{
 			CurrRFCOMMChannel->DLCI     = FrameAddress->DLCI;
 			CurrRFCOMMChannel->State    = RFCOMM_Channel_Open;

@@ -111,14 +111,14 @@
 			                               const uint16_t DataLen, const void* Data, Bluetooth_Channel_t* const Channel);
 
 		#if defined(INCLUDE_FROM_RFCOMM_C)
+			static uint8_t RFCOMM_GetFCSValue(const void* FrameStart, uint8_t Length);			
+
 			static void RFCOMM_ProcessDM(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessDISC(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessUA(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessUIH(const RFCOMM_Address_t* const FrameAddress, const uint16_t FrameLength, 
                                           const uint8_t* FrameData, Bluetooth_Channel_t* const Channel);
-
-			static uint8_t RFCOMM_GetFCSValue(const void* FrameStart, uint8_t Length);			
 		#endif
 		
 #endif

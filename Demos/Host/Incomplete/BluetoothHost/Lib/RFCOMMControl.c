@@ -188,12 +188,12 @@ static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader
 		/* Find a free entry in the RFCOMM channel multiplexer state array */
 		for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
 		{
-			/* If the channel's DLCI is zero, the channel state entry is free */
-			if (!(RFCOMM_Channels[i].DLCI))
+			/* If the channel's state is closed, the channel state entry is free */
+			if (RFCOMMChannel->State == RFCOMM_Channel_Closed)
 			{
-				RFCOMMChannel       = &RFCOMM_Channels[i];
-				RFCOMMChannel->DLCI = Params->DLCI;
-				RFCOMMChannel->MTU  = 0xFFFF;
+				RFCOMMChannel        = &RFCOMM_Channels[i];
+				RFCOMMChannel->DLCI  = Params->DLCI;
+				RFCOMMChannel->MTU   = 0xFFFF;
 				RFCOMMChannel->Remote.Signals     = 0 | (1 << 0);
 				RFCOMMChannel->Remote.BreakSignal = 0 | (1 << 0);
 				RFCOMMChannel->Local.Signals      = RFCOMM_SIGNAL_RTC | RFCOMM_SIGNAL_RTR | RFCOMM_SIGNAL_DV | (1 << 0);
@@ -230,6 +230,6 @@ static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader
 	
 	BT_RFCOMM_DEBUG(1, ">> DPN Response");
 
-	/* Send the PDN response to acknowledge the command */
+	/* Send the DPN response to acknowledge the command */
 	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH, sizeof(DPNResponse), &DPNResponse, Channel);
 }

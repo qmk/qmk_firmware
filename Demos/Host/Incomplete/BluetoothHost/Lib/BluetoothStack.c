@@ -84,9 +84,14 @@ Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t SearchValue, const 
 	for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
 	{
 		Bluetooth_Channel_t* ChannelData = &Bluetooth_Connection.Channels[i];
+
+		/* Closed channels should be ignored as they are not considered valid data */
+		if (ChannelData->State == BT_Channel_Closed)
+		  continue;
 	
 		bool FoundMatch = false;
 		
+		/* Search the current channel for the search key to see if it matches */
 		switch (SearchKey)
 		{
 			case CHANNEL_SEARCH_LOCALNUMBER:
