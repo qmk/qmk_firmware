@@ -58,6 +58,12 @@ int main(void)
 
 	for (;;)
 	{
+		Bluetooth_Channel_t* RFCOMMChannel = Bluetooth_GetChannelData(CHANNEL_PSM_RFCOMM, CHANNEL_SEARCH_PSM);
+
+		/* If an RFCOMM channel is open, service the RFCOMM logical channels */
+		if (RFCOMMChannel)
+		  RFCOMM_ServiceChannels(RFCOMMChannel);
+
 		Bluetooth_Stack_USBTask();
 		Bluetooth_Host_Task();
 		USB_USBTask();
@@ -215,7 +221,6 @@ void Bluetooth_StackInitialized(void)
 	         Bluetooth_State.LocalBDADDR[2], Bluetooth_State.LocalBDADDR[1], Bluetooth_State.LocalBDADDR[0]);
 			 
 	/* Reinitialize the services placed on top of the Bluetooth stack ready for new connections */
-	SDP_Initialize();
 	RFCOMM_Initialize();
 }
 
@@ -287,6 +292,7 @@ bool Bluetooth_ChannelConnectionRequest(const uint16_t PSM)
  */
 void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const Channel)
 {
+	/* Run the correct packet handler based on the received packet's PSM, which indicates the service being carried */
 	switch (Channel->PSM)
 	{
 		case CHANNEL_PSM_SDP:

@@ -52,12 +52,6 @@ const ServiceAttributeTable_t* SDP_Services_Table[] PROGMEM =
 /** Base UUID value common to all standardized Bluetooth services */
 const UUID_t BaseUUID PROGMEM = {0x00000000, BASE_80BIT_UUID};
 
-/** Initializes the SDP service, ready for new connections from a SDP client. */
-void SDP_Initialize(void)
-{
-	/* Not currently used */
-}
-
 /** Main Service Discovery Protocol packet processing routine. This function processes incomming SDP packets from
  *  a connected Bluetooth device, and sends back appropriate responses to allow other devices to determine the
  *  services the local device exposes.

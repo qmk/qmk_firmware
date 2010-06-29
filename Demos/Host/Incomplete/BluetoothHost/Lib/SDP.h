@@ -203,7 +203,6 @@
 		}
 		
 	/* Function Prototypes: */
-		void SDP_Initialize(void);
 		void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel);
 
 		#if defined(INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C)

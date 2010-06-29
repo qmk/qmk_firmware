@@ -50,11 +50,15 @@
 		#include "RFCOMM.h"
 		
 	/* Macros: */
-		#define RFCOMM_SIGNAL_FC     (1 << 1)
-		#define RFCOMM_SIGNAL_RTC    (1 << 2)
-		#define RFCOMM_SIGNAL_RTR    (1 << 3)
-		#define RFCOMM_SIGNAL_IC     (1 << 6)
-		#define RFCOMM_SIGNAL_DV     (1 << 7)
+		#define RFCOMM_SIGNAL_FC               (1 << 1)
+		#define RFCOMM_SIGNAL_RTC              (1 << 2)
+		#define RFCOMM_SIGNAL_RTR              (1 << 3)
+		#define RFCOMM_SIGNAL_IC               (1 << 6)
+		#define RFCOMM_SIGNAL_DV               (1 << 7)
+		
+		#define RFCOMM_CONFIG_REMOTESIGNALS    (1 << 0)
+		#define RFCOMM_CONFIG_LOCALSIGNALS     (1 << 1)
+		#define RFCOMM_CONFIG_LOCALSIGNALSSENT (1 << 2)
 
 	/* Enums: */
 		enum RFCOMM_Control_Commands_t
@@ -107,7 +111,7 @@
 			RFCOMM_Address_t Channel;
 			uint8_t          Signals;
 			uint8_t          BreakSignal;
-		} RFCOMM_MS_Parameters_t;
+		} RFCOMM_MSC_Parameters_t;
 
 	/* Function Prototypes: */
 		void RFCOMM_ProcessControlCommand(const uint8_t* Command, Bluetooth_Channel_t* const Channel);
@@ -119,8 +123,8 @@
 			                                     Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessFCDCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
 			                                     Bluetooth_Channel_t* const Channel);
-			static void RFCOMM_ProcessMSCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t CommandDataLen,
-			                                    const uint8_t* CommandData, Bluetooth_Channel_t* const Channel);
+			static void RFCOMM_ProcessMSCCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t CommandDataLen,
+			                                     const uint8_t* CommandData, Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessRPNCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
 			                                     Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessRLSCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,

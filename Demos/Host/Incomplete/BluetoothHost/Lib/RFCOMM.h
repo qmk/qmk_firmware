@@ -51,7 +51,7 @@
 		
 	/* Macros: */
 		#define BT_RFCOMM_DEBUG(l, s, ...)              do { if (RFCOMM_DEBUG_LEVEL >= l) printf_P(PSTR("(RFCOMM) " s "\r\n"), ##__VA_ARGS__); } while (0)
-		#define RFCOMM_DEBUG_LEVEL                      2
+		#define RFCOMM_DEBUG_LEVEL                      0
 		
 		#define FRAME_POLL_FINAL                        (1 << 4)
 		
@@ -72,11 +72,8 @@
 		enum RFCOMM_Channel_States_t
 		{
 			RFCOMM_Channel_Closed      = 0,
-			RFCOMM_Channel_Create      = 1,
-			RFCOMM_Channel_Creating    = 2,
-			RFCOMM_Channel_Configure   = 3,
-			RFCOMM_Channel_Configuring = 4,
-			RFCOMM_Channel_Open        = 5,
+			RFCOMM_Channel_Configure   = 1,
+			RFCOMM_Channel_Open        = 2,
 		};
 		
 	/* Type Defines: */
@@ -86,15 +83,16 @@
 			uint8_t  State;
 			uint8_t  Priority;
 			uint16_t MTU;
+			uint8_t  ConfigFlags;
 			struct
 			{
-				uint8_t  Signals;
-				uint8_t  BreakSignal;
+				uint8_t Signals;
+				uint8_t BreakSignal;
 			} Remote;
 			struct
 			{
-				uint8_t  Signals;
-				uint8_t  BreakSignal;
+				uint8_t Signals;
+				uint8_t BreakSignal;
 			} Local;
 		} RFCOMM_Channel_t;
 		
@@ -103,15 +101,19 @@
 
 	/* Function Prototypes: */
 		void              RFCOMM_Initialize(void);
-		void              RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel);
+		void              RFCOMM_ServiceChannels(Bluetooth_Channel_t* const Channel);
+		void              RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const BluetoothChannel);
 		
+		void              RFCOMM_SendChannelSignals(const RFCOMM_Channel_t* const RFCOMMChannel,
+		                                            Bluetooth_Channel_t* const BluetoothChannel);
 		RFCOMM_Channel_t* RFCOMM_GetChannelData(const uint8_t DLCI);
+
 		uint16_t          RFCOMM_GetVariableFieldValue(const uint8_t** BufferPos);
 		void              RFCOMM_SendFrame(const uint8_t DLCI, const bool CommandResponse, const uint8_t Control,
 			                               const uint16_t DataLen, const void* Data, Bluetooth_Channel_t* const Channel);
 
 		#if defined(INCLUDE_FROM_RFCOMM_C)
-			static uint8_t RFCOMM_GetFCSValue(const void* FrameStart, uint8_t Length);			
+			static uint8_t RFCOMM_GetFCSValue(const void* FrameStart, uint8_t Length);
 
 			static void RFCOMM_ProcessDM(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel);
 			static void RFCOMM_ProcessDISC(const RFCOMM_Address_t* const FrameAddress, Bluetooth_Channel_t* const Channel);
