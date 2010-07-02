@@ -76,7 +76,8 @@ RingBuff_t UARTtoUSB_Buffer;
 int main(void)
 {
 	SetupHardware();
-	
+	V2Protocol_Init();
+
 	RingBuffer_InitBuffer(&USBtoUART_Buffer);
 	RingBuffer_InitBuffer(&UARTtoUSB_Buffer);
 	
@@ -147,7 +148,6 @@ void SetupHardware(void)
 	SoftUART_Init();
 	LEDs_Init();
 	USB_Init();
-	V2Protocol_Init();
 
 	/* Disable JTAG debugging */
 	MCUCR |= (1 << JTD);

@@ -13,6 +13,7 @@
   *    the VTARGET reference voltage and scale factor
   *  - Added new pgm_read_ptr() macro to Common.h for reading of pointers out of flash memory space
   *  - Added new SWAPENDIAN_16() and SWAPENDIAN_32() macros to Common.h for statically initialized variables at compile time
+  *  - Added new Drivers/USB/LowLevel/Device.c file to house Device mode specific functions that are more complicated than simple macros
   *
   *  <b>Changed:</b>
   *  - The RingBuff library code has been replaced in the XPLAINBridge, Benito and USBtoSerial projects with an ultra lightweight
@@ -23,6 +24,7 @@
   *    parameters to EEPROM to preserve its lifespan
   *  - Removed unused line encoding data and control requests from the CDC Bootloader code, to save space
   *  - Renamed SERIAL_STREAM_ASSERT() macro to STDOUT_ASSERT()
+  *  - The USB_Device_IsRemoteWakeupSent() and USB_Device_IsUSBSuspended() macros have been deleted, as they are now obsolete
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project sending a LOAD EXTENDED ADDRESS command to 128KB AVRs after programming or reading from
@@ -36,6 +38,7 @@
   *  - Fixed internal device serial not being accessible on the ATMEGAXXU2 AVRs (thanks to Axel Rohde)
   *  - Fixed void pointer arithmetic in ConfigDescriptor.h breaking C++ compatibility (thanks to Michael Hennebry)
   *  - Fixed broken PDI EEPROM Section Erase functionality in the AVRISP-MKII project
+  *  - Fixed USB_Device_SendRemoteWakeup() not working when the USB clock was frozen during USB bus suspend (thanks to Brian Dickman)
   *
   *  \section Sec_ChangeLog100513 Version 100513
   *  <b>New:</b>

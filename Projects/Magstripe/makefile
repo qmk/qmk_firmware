@@ -128,6 +128,7 @@ SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
 	  Lib/CircularBitBuffer.c                                     \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Device.c             \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c       \

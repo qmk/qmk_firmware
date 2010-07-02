@@ -85,49 +85,26 @@
 			 *  USB interface should be initialized in full speed (12Mb/s) mode.
 			 */
 			#define USB_DEVICE_OPT_FULLSPEED               (0 << 0)
-			
+
+		/* Function Prototypes: */
+			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
+			 *  be taken out of suspended mode, and communications should resume.
+			 *
+			 *  Typically, this is implemented so that HID devices (mice, keyboards, etc.) can wake up the
+			 *  host computer when the host has suspended all USB devices to enter a low power state.
+			 *
+			 *  \note This macro should only be used if the device has indicated to the host that it
+			 *        supports the Remote Wakeup feature in the device descriptors, and should only be
+			 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
+			 *        the \ref USB_RemoteWakeupEnabled flag is set). When the NO_DEVICE_REMOTE_WAKEUP compile
+			 *        time option is used, this macro is unavailable.
+			 *
+			 *  \see \ref Group_Descriptors for more information on the RMWAKEUP feature and device descriptors.
+			 */
+			void USB_Device_SendRemoteWakeup(void);
+							
 		/* Pseudo-Function Macros: */
-			#if defined(__DOXYGEN__)
-				/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
-				 *  be taken out of suspended mode, and communications should resume.
-				 *
-				 *  Typically, this is implemented so that HID devices (mice, keyboards, etc.) can wake up the
-				 *  host computer when the host has suspended all USB devices to enter a low power state.
-				 *
-				 *  \note This macro should only be used if the device has indicated to the host that it
-				 *        supports the Remote Wakeup feature in the device descriptors, and should only be
-				 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
-				 *        the \ref USB_RemoteWakeupEnabled flag is set). When the NO_DEVICE_REMOTE_WAKEUP compile
-				 *        time option is used, this macro is unavailable.
-				 *
-				 *  \see \ref Group_Descriptors for more information on the RMWAKEUP feature and device descriptors.
-				 */
-				static inline void USB_Device_SendRemoteWakeup(void);
-				
-				/** Indicates if a Remote Wakeup request is being sent to the host. This returns true if a
-				 *  remote wakeup is currently being sent, false otherwise.
-				 *
-				 *  This can be used in conjunction with the \ref USB_Device_IsUSBSuspended() macro to determine if
-				 *  a sent RMWAKEUP request was accepted or rejected by the host.
-				 *
-				 *  \note This macro should only be used if the device has indicated to the host that it
-				 *        supports the Remote Wakeup feature in the device descriptors. When the NO_DEVICE_REMOTE_WAKEUP
-				 *        compile time option is used, this macro is unavailable.
-				 *
-				 *  \see \ref Group_Descriptors for more information on the RMWAKEUP feature and device descriptors.
-				 *
-				 *  \return Boolean true if no Remote Wakeup request is currently being sent, false otherwise
-				 */
-				static inline bool USB_Device_IsRemoteWakeupSent(void);
-				
-				/** Indicates if the device is currently suspended by the host. Whilst suspended, the device is
-				 *  to enter a low power state until resumed by the host. No USB traffic to or from the device
-				 *  can occur (except for Remote Wakeup requests) during suspension by the host.
-				 *
-				 *  \return Boolean true if the USB communications have been suspended by the host, false otherwise.
-				 */
-				static inline bool USB_Device_IsUSBSuspended(void);
-				
+			#if defined(__DOXYGEN__)				
 				/** Enables the device mode Start Of Frame events. When enabled, this causes the
 				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
 				 *  at the start of each USB frame when enumerated in device mode.
@@ -139,14 +116,6 @@
 				 */
 				static inline bool USB_Device_DisableSOFEvents(void);
 			#else
-				#if !defined(NO_DEVICE_REMOTE_WAKEUP)
-					#define USB_Device_SendRemoteWakeup()   MACROS{ UDCON |= (1 << RMWKUP); }MACROE
-
-					#define USB_Device_IsRemoteWakeupSent()       ((UDCON &  (1 << RMWKUP)) ? false : true)
-				#endif
-				
-				#define USB_Device_IsUSBSuspended()           ((UDINT &  (1 << SUSPI)) ? true : false)
-				
 				#define USB_Device_EnableSOFEvents()    MACROS{ USB_INT_Enable(USB_INT_SOFI); }MACROE
 
 				#define USB_Device_DisableSOFEvents()   MACROS{ USB_INT_Disable(USB_INT_SOFI); }MACROE

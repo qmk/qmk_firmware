@@ -127,6 +127,7 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENAB
 SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Device.c             \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c       \

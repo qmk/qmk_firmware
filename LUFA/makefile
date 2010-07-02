@@ -9,6 +9,7 @@
 # Makefile for the LUFA library itself.
 
 LUFA_SRC_FILES =     ./Drivers/USB/LowLevel/DevChapter9.c        \
+                     ./Drivers/USB/LowLevel/Device.c             \
                      ./Drivers/USB/LowLevel/Endpoint.c           \
                      ./Drivers/USB/LowLevel/Host.c               \
                      ./Drivers/USB/LowLevel/HostChapter9.c       \

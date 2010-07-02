@@ -130,6 +130,7 @@ SRC = $(TARGET).c                                                 \
 	  Lib/SCSI.c                                                  \
 	  Lib/DataflashManager.c                                      \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/DevChapter9.c        \
+	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Device.c             \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Endpoint.c           \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/Host.c               \
 	  $(LUFA_PATH)/LUFA/Drivers/USB/LowLevel/HostChapter9.c       \

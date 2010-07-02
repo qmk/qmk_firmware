@@ -42,6 +42,7 @@
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/LowLevel/DevChapter9.c
+ *    - LUFA/Drivers/USB/LowLevel/Device.c
  *    - LUFA/Drivers/USB/LowLevel/Endpoint.c
  *    - LUFA/Drivers/USB/LowLevel/Host.c
  *    - LUFA/Drivers/USB/LowLevel/HostChapter9.c

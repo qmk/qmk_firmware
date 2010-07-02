@@ -42,6 +42,7 @@
 int main(void)
 {
 	SetupHardware();
+	V2Protocol_Init();
 	
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
@@ -66,7 +67,6 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
-	V2Protocol_Init();
 }
 
 /** Event handler for the library USB Connection event. */
