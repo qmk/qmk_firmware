@@ -59,6 +59,7 @@
 		#define RFCOMM_CONFIG_REMOTESIGNALS    (1 << 0)
 		#define RFCOMM_CONFIG_LOCALSIGNALS     (1 << 1)
 		#define RFCOMM_CONFIG_LOCALSIGNALSSENT (1 << 2)
+		#define RFCOMM_CONFIG_ABMMODESET       (1 << 3)
 
 	/* Enums: */
 		enum RFCOMM_Control_Commands_t

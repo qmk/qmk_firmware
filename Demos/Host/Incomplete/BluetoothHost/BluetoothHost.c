@@ -58,12 +58,15 @@ int main(void)
 
 	for (;;)
 	{
-		Bluetooth_Channel_t* RFCOMMChannel = Bluetooth_GetChannelData(CHANNEL_PSM_RFCOMM, CHANNEL_SEARCH_PSM);
+		if (Bluetooth_Connection.IsConnected)
+		{
+			Bluetooth_Channel_t* RFCOMMChannel = Bluetooth_GetChannelData(CHANNEL_PSM_RFCOMM, CHANNEL_SEARCH_PSM);
 
-		/* If an RFCOMM channel is open, service the RFCOMM logical channels */
-		if (RFCOMMChannel)
-		  RFCOMM_ServiceChannels(RFCOMMChannel);
-
+			/* If an RFCOMM channel is open, service the RFCOMM logical channels */
+			if (RFCOMMChannel)
+			  RFCOMM_ServiceChannels(RFCOMMChannel);
+		}
+		
 		Bluetooth_Stack_USBTask();
 		Bluetooth_Host_Task();
 		USB_USBTask();

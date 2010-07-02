@@ -195,23 +195,8 @@ static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader
 	/* Check if the channel has no corresponding entry - remote did not open it first */
 	if (RFCOMMChannel == NULL)
 	{
-		/* Find a free entry in the RFCOMM channel multiplexer state array */
-		for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
-		{
-			/* If the channel's state is closed, the channel state entry is free */
-			if (RFCOMM_Channels[i].State == RFCOMM_Channel_Closed)
-			{
-				RFCOMMChannel                     = &RFCOMM_Channels[i];
-				RFCOMMChannel->DLCI               = Params->DLCI;
-				RFCOMMChannel->MTU                = 0xFFFF;
-				RFCOMMChannel->Remote.Signals     = 0 | (1 << 0);
-				RFCOMMChannel->Remote.BreakSignal = 0 | (1 << 0);
-				RFCOMMChannel->Local.Signals      = RFCOMM_SIGNAL_RTC | RFCOMM_SIGNAL_RTR | RFCOMM_SIGNAL_DV | (1 << 0);
-				RFCOMMChannel->Local.BreakSignal  = 0 | (1 << 0);
-				RFCOMMChannel->ConfigFlags        = 0;
-				break;
-			}
-		}
+		/* Create a new entry in the channel table for the new channel */
+		RFCOMMChannel = RFCOMM_GetFreeChannelEntry(Params->DLCI);
 		
 		/* No free entry was found, discard the request */
 		if (RFCOMMChannel == NULL)

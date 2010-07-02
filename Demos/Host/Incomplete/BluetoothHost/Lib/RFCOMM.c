@@ -129,6 +129,11 @@ void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 	}
 }
 
+RFCOMM_Channel_t* RFCOMM_OpenChannel(Bluetooth_Channel_t* const BluetoothChannel)
+{
+	return NULL;
+}
+
 void RFCOMM_SendChannelSignals(const RFCOMM_Channel_t* const RFCOMMChannel, Bluetooth_Channel_t* const BluetoothChannel)
 {
 	BT_RFCOMM_DEBUG(1, ">> MSC Command");
@@ -149,6 +154,33 @@ void RFCOMM_SendChannelSignals(const RFCOMM_Channel_t* const RFCOMMChannel, Blue
 
 	/* Send the MSC command to the remote device */
 	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, true, RFCOMM_Frame_UIH, sizeof(MSCommand), &MSCommand, BluetoothChannel);	
+}
+
+RFCOMM_Channel_t* RFCOMM_GetFreeChannelEntry(const uint8_t DLCI)
+{
+	/* Find a free entry in the RFCOMM channel multiplexer state array */
+	for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
+	{
+		RFCOMM_Channel_t* RFCOMMChannel = &RFCOMM_Channels[i];
+
+		/* If the channel's state is closed, the channel state entry is free */
+		if (RFCOMMChannel->State == RFCOMM_Channel_Closed)
+		{
+			RFCOMMChannel->DLCI               = DLCI;
+			RFCOMMChannel->State              = RFCOMM_Channel_Configure;
+			RFCOMMChannel->Priority           = 7 + (RFCOMMChannel->DLCI & 0xF8);
+			RFCOMMChannel->MTU                = 0xFFFF;
+			RFCOMMChannel->Remote.Signals     = 0 | (1 << 0);
+			RFCOMMChannel->Remote.BreakSignal = 0 | (1 << 0);
+			RFCOMMChannel->Local.Signals      = RFCOMM_SIGNAL_RTC | RFCOMM_SIGNAL_RTR | RFCOMM_SIGNAL_DV | (1 << 0);
+			RFCOMMChannel->Local.BreakSignal  = 0 | (1 << 0);
+			RFCOMMChannel->ConfigFlags        = 0;
+			
+			return RFCOMMChannel;
+		}
+	}
+	
+	return NULL;
 }
 
 RFCOMM_Channel_t* RFCOMM_GetChannelData(const uint8_t DLCI)
@@ -268,32 +300,25 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress, Bluet
 	BT_RFCOMM_DEBUG(1, "<< SABM Received");
 	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
 
-	RFCOMM_Channel_t* RFCOMMChannel;
-	
-	if (FrameAddress->DLCI != RFCOMM_CONTROL_DLCI)
+	if (FrameAddress->DLCI == RFCOMM_CONTROL_DLCI)
 	{
-		/* Find a free entry in the RFCOMM channel multiplexer state array */
-		for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
-		{
-			/* If the channel's state is closed, the channel state entry is free */
-			if (RFCOMM_Channels[i].State == RFCOMM_Channel_Closed)
-			{
-				RFCOMMChannel                     = &RFCOMM_Channels[i];
-				RFCOMMChannel->DLCI               = FrameAddress->DLCI;
-				RFCOMMChannel->State              = RFCOMM_Channel_Configure;
-				RFCOMMChannel->Priority           = 7 + (RFCOMMChannel->DLCI & 0xF8);
-				RFCOMMChannel->MTU                = 0xFFFF;
-				RFCOMMChannel->Remote.Signals     = 0 | (1 << 0);
-				RFCOMMChannel->Remote.BreakSignal = 0 | (1 << 0);
-				RFCOMMChannel->Local.Signals      = RFCOMM_SIGNAL_RTC | RFCOMM_SIGNAL_RTR | RFCOMM_SIGNAL_DV | (1 << 0);
-				RFCOMMChannel->Local.BreakSignal  = 0 | (1 << 0);
-				RFCOMMChannel->ConfigFlags        = 0;
-				break;
-			}
-		}
+		BT_RFCOMM_DEBUG(1, ">> UA Sent");
+		
+		/* Free channel found, or request was to the control channel - accept SABM by sending a UA frame */
+		RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, Channel);
+
+		return;
 	}
+
+	/* Find the existing channel's entry in the channel table */
+	RFCOMM_Channel_t* RFCOMMChannel = RFCOMM_GetChannelData(FrameAddress->DLCI);
 	
-	if (RFCOMMChannel || (FrameAddress->DLCI == RFCOMM_CONTROL_DLCI))
+	/* Existing entry not found, create a new entry for the channel */
+	if (RFCOMMChannel == NULL)
+	  RFCOMMChannel = RFCOMM_GetFreeChannelEntry(FrameAddress->DLCI);
+
+	/* If space was found in the channel table for the new channel, ACK the request */
+	if (RFCOMMChannel != NULL)
 	{
 		BT_RFCOMM_DEBUG(1, ">> UA Sent");
 		
