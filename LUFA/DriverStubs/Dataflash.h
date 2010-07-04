@@ -67,10 +67,10 @@
 			#define DATAFLASH_NO_CHIP                    DATAFLASH_CHIPCS_MASK
 
 			/** Mask for the first dataflash chip selected. */
-			#define DATAFLASH_CHIP1                      // TODO: Replace with mask to select the first Dataflash chip
+			#define DATAFLASH_CHIP1                      // TODO: Replace with mask to hold /CS of first Dataflash low, and all others high
 
 			/** Mask for the second dataflash chip selected. */
-			#define DATAFLASH_CHIP2                      // TODO: Replace with mask to select the second Dataflash chip, if available
+			#define DATAFLASH_CHIP2                      // TODO: Replace with mask to hold /CS of second Dataflash low, and all others high
 			
 			/** Internal main memory page size for the board's dataflash ICs. */
 			#define DATAFLASH_PAGE_SIZE                  // TODO: Replace with the page size for the Dataflash ICs
@@ -95,8 +95,14 @@
 				if (PageAddress >= (DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS))
 				  return;
 
-				// TODO: If more than one dataflash chip, select the correct chip from the page address here
-				Dataflash_SelectChip(DATAFLASH_CHIP1);
+				#if (DATAFLASH_TOTALCHIPS == 2)
+					if (PageAddress & 0x01)
+					  Dataflash_SelectChip(DATAFLASH_CHIP2);
+					else
+					  Dataflash_SelectChip(DATAFLASH_CHIP1);
+				#else
+					Dataflash_SelectChip(DATAFLASH_CHIP1);
+				#endif
 			}
 
 			/** Sends a set of page and buffer address bytes to the currently selected dataflash IC, for use with
@@ -106,9 +112,11 @@
 			 *  \param[in] BufferByte   Address within the dataflash's buffer
 			 */
 			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress, const uint16_t BufferByte)
-			{	
-				// TODO: If more than one dataflash chip, adjust absolute page address to be correct for the current chip,
-				//       also the shifts may need to be altered to suit the dataflash model being used				
+			{
+				#if (DATAFLASH_TOTALCHIPS == 2)
+					PageAddress >>= 1;
+				#endif
+				
 				Dataflash_SendByte(PageAddress >> 5);
 				Dataflash_SendByte((PageAddress << 3) | (BufferByte >> 8));
 				Dataflash_SendByte(BufferByte);
