@@ -272,8 +272,8 @@
  *  should be called in response to the host state machine entering the \ref HOST_STATE_Addressed state. This function
  *  will return an error code from the class driver's <i><b>{Class Name}</b>_EnumerationFailure_ErrorCodes_t</i> enum
  *  to indicate if the driver sucessfully initialized the instance and bound it to an interface in the attached device.
- *  Like all the class driver functions, this function takes in the address of the specific instance you wish to initialize
- *  - in this manner, multiple seperate instances of the same class type can be initialized. A fragment of a Class Driver
+ *  Like all the class driver functions, this function takes in the address of the specific instance you wish to initialize - 
+ *  in this manner, multiple seperate instances of the same class type can be initialized. A fragment of a Class Driver
  *  based Host mode application may look like the following:
  *
  *  \code
