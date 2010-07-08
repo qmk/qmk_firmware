@@ -94,6 +94,7 @@ void RFCOMM_ServiceChannels(Bluetooth_Channel_t* const BluetoothChannel)
 			                                  (RFCOMM_CONFIG_REMOTESIGNALS | RFCOMM_CONFIG_LOCALSIGNALS))
 			{
 				RFCOMMChannel->State = RFCOMM_Channel_Open;
+				RFCOMM_ChannelOpened(RFCOMMChannel);
 			}
 		}
 	}
@@ -129,11 +130,6 @@ void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 	}
 }
 
-RFCOMM_Channel_t* RFCOMM_OpenChannel(Bluetooth_Channel_t* const BluetoothChannel)
-{
-	return NULL;
-}
-
 void RFCOMM_SendChannelSignals(const RFCOMM_Channel_t* const RFCOMMChannel, Bluetooth_Channel_t* const BluetoothChannel)
 {
 	BT_RFCOMM_DEBUG(1, ">> MSC Command");
@@ -154,6 +150,19 @@ void RFCOMM_SendChannelSignals(const RFCOMM_Channel_t* const RFCOMMChannel, Blue
 
 	/* Send the MSC command to the remote device */
 	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, true, RFCOMM_Frame_UIH, sizeof(MSCommand), &MSCommand, BluetoothChannel);	
+}
+
+void RFCOMM_SendData(const uint16_t DataLen, const uint8_t* Data, const RFCOMM_Channel_t* const RFCOMMChannel,
+                     Bluetooth_Channel_t* const BluetoothChannel)
+{
+	if (RFCOMMChannel->State != RFCOMM_Channel_Open)
+	  return;
+	  
+	BT_RFCOMM_DEBUG(1, ">> UIH Frame");
+	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", RFCOMMChannel->DLCI);
+
+	/* Send the MSC command to the remote device */
+	RFCOMM_SendFrame(RFCOMMChannel->DLCI, false, RFCOMM_Frame_UIH, DataLen, Data, BluetoothChannel);		
 }
 
 RFCOMM_Channel_t* RFCOMM_GetFreeChannelEntry(const uint8_t DLCI)

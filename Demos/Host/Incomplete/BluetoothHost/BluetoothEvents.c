@@ -37,11 +37,15 @@
 
 #include "BluetoothEvents.h"
 
-/** Bluetooth RFCOMM channel structure - used to send and receive RFCOMM data between the local and remote
- *  device once a RFCOMM channel has been opened.
+/** Pointer to the opened Bluetooth ACL channel structure for RFCOMM, used to send and receive data between the
+ *  local and remote device once a RFCOMM channel has been opened.
  */
 Bluetooth_Channel_t* RFCOMMChannel = NULL;
 
+/** Pointer to the opened RFCOMM logical channel between local and remote device, once a RFCOMM ACL channel has been
+ *  negotiated and a logical RFCOMM channel requested.
+ */
+RFCOMM_Channel_t* SerialPortChannel = NULL;
 
 /** Bluetooth stack callback event for when the Bluetooth stack has fully initialized using the attached
  *  Bluetooth dongle.
@@ -155,15 +159,24 @@ void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t*
 	}
 }
 
+void RFCOMM_ChannelOpened(RFCOMM_Channel_t* const Channel)
+{
+	/* Save the serial port RFCOMM logical channel for later use */
+	SerialPortChannel = Channel;
+}
+
 /** RFCOMM layer callback for when a packet is received on an open RFCOMM channel.
  *
- *  \param[in] RFCOMMChannel  RFCOMM channel that the data was directed to
- *  \param[in] DataLen        Length of the received data, in bytes
- *  \param[in] Data           Pointer to a buffer where the received data is stored
+ *  \param[in] Channel  RFCOMM channel that the data was directed to
+ *  \param[in] DataLen  Length of the received data, in bytes
+ *  \param[in] Data     Pointer to a buffer where the received data is stored
  */
-void RFCOMM_DataReceived(RFCOMM_Channel_t* const RFCOMMChannel, uint16_t DataLen, const uint8_t* Data)
+void RFCOMM_DataReceived(RFCOMM_Channel_t* const Channel, uint16_t DataLen, const uint8_t* Data)
 {
 	/* Write the received bytes to the serial port */
 	for (uint8_t i = 0; i < DataLen; i++)
 	  putchar(Data[i]);
+	
+	/* Echo the data back to the sending device */
+	RFCOMM_SendData(DataLen, Data, Channel, RFCOMMChannel);
 }

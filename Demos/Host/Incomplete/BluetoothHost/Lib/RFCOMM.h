@@ -106,8 +106,12 @@
 		
 		void              RFCOMM_SendChannelSignals(const RFCOMM_Channel_t* const RFCOMMChannel,
 		                                            Bluetooth_Channel_t* const BluetoothChannel);
+		void              RFCOMM_SendData(const uint16_t DataLen, const uint8_t* Data,
+		                                  const RFCOMM_Channel_t* const RFCOMMChannel,
+		                                  Bluetooth_Channel_t* const BluetoothChannel);
 
-		void              RFCOMM_DataReceived(RFCOMM_Channel_t* const RFCOMMChannel, uint16_t DataLen, const uint8_t* Data);
+		void              RFCOMM_ChannelOpened(RFCOMM_Channel_t* const Channel);
+		void              RFCOMM_DataReceived(RFCOMM_Channel_t* const Channel, uint16_t DataLen, const uint8_t* Data);
 
 		RFCOMM_Channel_t* RFCOMM_GetFreeChannelEntry(const uint8_t DLCI);
 		RFCOMM_Channel_t* RFCOMM_GetChannelData(const uint8_t DLCI);
