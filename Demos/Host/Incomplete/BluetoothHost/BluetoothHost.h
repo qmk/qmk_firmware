@@ -44,12 +44,10 @@
 		#include <avr/interrupt.h>
 		#include <stdio.h>
 
-		#include "Lib/BluetoothStack.h"
-		#include "Lib/SDP.h"
-		#include "Lib/RFCOMM.h"
-
+		#include "BluetoothEvents.h"
 		#include "DeviceDescriptor.h"
 		#include "ConfigDescriptor.h"
+		#include "Lib/BluetoothStack.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>

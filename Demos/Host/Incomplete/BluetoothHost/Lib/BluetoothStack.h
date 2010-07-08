@@ -156,6 +156,8 @@
 		void                 Bluetooth_DisconnectionComplete(void);
 		bool                 Bluetooth_ChannelConnectionRequest(const uint16_t PSM);
 		void                 Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const Channel);
+		void                 Bluetooth_ChannelOpened(Bluetooth_Channel_t* const Channel);
+
 		Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t SearchValue, const uint8_t SearchKey);
 		Bluetooth_Channel_t* Bluetooth_OpenChannel(const uint16_t PSM);
 		void                 Bluetooth_CloseChannel(Bluetooth_Channel_t* const Channel);

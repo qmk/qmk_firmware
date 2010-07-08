@@ -552,6 +552,7 @@ static inline void Bluetooth_Signal_ConfigurationReq(const BT_Signal_Header_t* c
 				break;
 			case BT_Channel_Config_WaitReq:
 				ChannelData->State = BT_Channel_Open;
+				Bluetooth_ChannelOpened(ChannelData);
 				break;
 		}
 	}
@@ -594,6 +595,7 @@ static inline void Bluetooth_Signal_ConfigurationResp(const BT_Signal_Header_t* 
 					break;
 				case BT_Channel_Config_WaitResp:
 					ChannelData->State = BT_Channel_Open;
+					Bluetooth_ChannelOpened(ChannelData);
 					break;
 			}	
 		}

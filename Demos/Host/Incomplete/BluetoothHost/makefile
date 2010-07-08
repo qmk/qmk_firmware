@@ -130,6 +130,7 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
+	  BluetoothEvents.c                                           \
 	  DeviceDescriptor.c                                          \
 	  ConfigDescriptor.c                                          \
 	  Lib/BluetoothStack.c                                        \

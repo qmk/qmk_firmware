@@ -126,10 +126,10 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENAB
 # List C source files here. (C dependencies are automatically generated.)
 SRC = $(TARGET).c                                                 \
 	  Descriptors.c                                               \
-      Lib/V2Protocol.c                                            \
-      Lib/V2ProtocolParams.c                                      \
-      Lib/ISP/ISPProtocol.c                                       \
-      Lib/ISP/ISPTarget.c                                         \
+	  Lib/V2Protocol.c                                            \
+	  Lib/V2ProtocolParams.c                                      \
+	  Lib/ISP/ISPProtocol.c                                       \
+	  Lib/ISP/ISPTarget.c                                         \
 	  Lib/XPROG/XPROGProtocol.c                                   \
 	  Lib/XPROG/XPROGTarget.c                                     \
 	  Lib/XPROG/XMEGANVM.c                                        \
