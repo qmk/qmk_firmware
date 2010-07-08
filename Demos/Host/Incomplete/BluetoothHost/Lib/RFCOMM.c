@@ -352,11 +352,9 @@ static void RFCOMM_ProcessUIH(const RFCOMM_Address_t* const FrameAddress, const 
 	BT_RFCOMM_DEBUG(1, "<< UIH Received");
 	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
 	BT_RFCOMM_DEBUG(2, "-- Length 0x%02X", FrameLength);
-		
-	puts("RFCOMM Data: ");
 	
-	for (uint8_t i = 0; i < FrameLength; i++)
-	  printf("0x%02X (%c) ", FrameData[i], FrameData[i]);
+	RFCOMM_Channel_t* RFCOMMChannel = RFCOMM_GetChannelData(FrameAddress->DLCI);
 	
-	printf("\r\n");
+	if (RFCOMMChannel != NULL)
+	  RFCOMM_DataReceived(RFCOMMChannel, FrameLength, FrameData);
 }

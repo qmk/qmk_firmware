@@ -154,3 +154,16 @@ void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t*
 			break;
 	}
 }
+
+/** RFCOMM layer callback for when a packet is received on an open RFCOMM channel.
+ *
+ *  \param[in] RFCOMMChannel  RFCOMM channel that the data was directed to
+ *  \param[in] DataLen        Length of the received data, in bytes
+ *  \param[in] Data           Pointer to a buffer where the received data is stored
+ */
+void RFCOMM_DataReceived(RFCOMM_Channel_t* const RFCOMMChannel, uint16_t DataLen, const uint8_t* Data)
+{
+	/* Write the received bytes to the serial port */
+	for (uint8_t i = 0; i < DataLen; i++)
+	  putchar(Data[i]);
+}
