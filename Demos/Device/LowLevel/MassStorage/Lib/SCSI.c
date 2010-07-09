@@ -159,7 +159,7 @@ static void SCSI_Command_Inquiry(void)
 	uint8_t PadBytes[AllocationLength - BytesTransferred];
 	
 	/* Pad out remaining bytes with 0x00 */
-	Endpoint_Write_Stream_LE(&PadBytes, (AllocationLength - BytesTransferred), StreamCallback_AbortOnMassStoreReset);
+	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), StreamCallback_AbortOnMassStoreReset);
 
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearIN();
@@ -182,7 +182,7 @@ static void SCSI_Command_Request_Sense(void)
 	uint8_t PadBytes[AllocationLength - BytesTransferred];
 	
 	/* Pad out remaining bytes with 0x00 */
-	Endpoint_Write_Stream_LE(&PadBytes, (AllocationLength - BytesTransferred), StreamCallback_AbortOnMassStoreReset);
+	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), StreamCallback_AbortOnMassStoreReset);
 
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearIN();
@@ -256,16 +256,12 @@ static void SCSI_Command_ReadWrite_10(const bool IsDataRead)
 	uint32_t BlockAddress;
 	uint16_t TotalBlocks;
 	
-	/* Load in the 32-bit block address (SCSI uses big-endian, so have to do it byte-by-byte) */
-	((uint8_t*)&BlockAddress)[3] = CommandBlock.SCSICommandData[2];
-	((uint8_t*)&BlockAddress)[2] = CommandBlock.SCSICommandData[3];
-	((uint8_t*)&BlockAddress)[1] = CommandBlock.SCSICommandData[4];
-	((uint8_t*)&BlockAddress)[0] = CommandBlock.SCSICommandData[5];
+	/* Load in the 32-bit block address (SCSI uses big-endian, so have to reverse the byte order) */
+	BlockAddress = SwapEndian_32(*(uint32_t*)&CommandBlock.SCSICommandData[2]);
 
-	/* Load in the 16-bit total blocks (SCSI uses big-endian, so have to do it byte-by-byte) */
-	((uint8_t*)&TotalBlocks)[1]  = CommandBlock.SCSICommandData[7];
-	((uint8_t*)&TotalBlocks)[0]  = CommandBlock.SCSICommandData[8];
-	
+	/* Load in the 16-bit total blocks (SCSI uses big-endian, so have to reverse the byte order) */
+	TotalBlocks  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[7]);
+
 	/* Check if the block address is outside the maximum allowable value for the LUN */
 	if (BlockAddress >= LUN_MEDIA_BLOCKS)
 	{

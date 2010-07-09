@@ -174,7 +174,21 @@
 			static inline uint16_t SwapEndian_16(uint16_t Word) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
 			static inline uint16_t SwapEndian_16(uint16_t Word)
 			{
-				return ((Word >> 8) | (Word << 8));				
+				uint8_t Temp;
+
+				union
+				{
+					uint16_t Word;
+					uint8_t  Bytes[2];
+				} Data;
+				
+				Data.Word = Word;
+				
+				Temp = Data.Bytes[0];
+				Data.Bytes[0] = Data.Bytes[1];
+				Data.Bytes[1] = Temp;
+				
+				return Data.Word;
 			}
 
 			/** Function to reverse the byte ordering of the individual bytes in a 32 bit number.
@@ -186,10 +200,25 @@
 			static inline uint32_t SwapEndian_32(uint32_t DWord) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
 			static inline uint32_t SwapEndian_32(uint32_t DWord)
 			{
-				return (((DWord & 0xFF000000) >> 24) |
-				        ((DWord & 0x00FF0000) >> 8)  |
-						((DWord & 0x0000FF00) << 8)  |
-						((DWord & 0x000000FF) << 24));
+				uint8_t Temp;
+
+				union
+				{
+					uint32_t DWord;
+					uint8_t  Bytes[4];
+				} Data;
+				
+				Data.DWord = DWord;
+				
+				Temp = Data.Bytes[0];
+				Data.Bytes[0] = Data.Bytes[3];
+				Data.Bytes[3] = Temp;
+				
+				Temp = Data.Bytes[1];
+				Data.Bytes[1] = Data.Bytes[2];
+				Data.Bytes[2] = Temp;
+				
+				return Data.DWord;
 			}
 
 			/** Function to reverse the byte ordering of the individual bytes in a n byte number.

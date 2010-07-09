@@ -161,7 +161,7 @@ static void SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 	uint8_t PadBytes[AllocationLength - BytesTransferred];
 	
 	/* Pad out remaining bytes with 0x00 */
-	Endpoint_Write_Stream_LE(&PadBytes, (AllocationLength - BytesTransferred), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), NO_STREAM_CALLBACK);
 
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearIN();
@@ -183,7 +183,7 @@ static void SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* const MSInterf
 	uint8_t PadBytes[AllocationLength - BytesTransferred];
 
 	Endpoint_Write_Stream_LE(&SenseData, BytesTransferred, NO_STREAM_CALLBACK);
-	Endpoint_Write_Stream_LE(&PadBytes, (AllocationLength - BytesTransferred), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), NO_STREAM_CALLBACK);
 	Endpoint_ClearIN();
 
 	/* Succeed the command and update the bytes transferred counter */
@@ -258,7 +258,7 @@ static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfa
 	BlockAddress = SwapEndian_32(*(uint32_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[2]);
 
 	/* Load in the 16-bit total blocks (SCSI uses big-endian, so have to reverse the byte order) */
-	TotalBlocks  = SwapEndian_16(*(uint32_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[7]);
+	TotalBlocks  = SwapEndian_16(*(uint16_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[7]);
 	
 	/* Check if the block address is outside the maximum allowable value for the LUN */
 	if (BlockAddress >= VIRTUAL_MEMORY_BLOCKS)

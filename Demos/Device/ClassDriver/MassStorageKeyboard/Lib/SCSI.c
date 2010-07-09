@@ -170,7 +170,7 @@ static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
 	uint8_t PadBytes[AllocationLength - BytesTransferred];
 	
 	/* Pad out remaining bytes with 0x00 */
-	Endpoint_Write_Stream_LE(&PadBytes, (AllocationLength - BytesTransferred), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), NO_STREAM_CALLBACK);
 
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearIN();
@@ -196,7 +196,7 @@ static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* MSInterfaceInf
 	uint8_t PadBytes[AllocationLength - BytesTransferred];
 
 	Endpoint_Write_Stream_LE(&SenseData, BytesTransferred, NO_STREAM_CALLBACK);
-	Endpoint_Write_Stream_LE(&PadBytes, (AllocationLength - BytesTransferred), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), NO_STREAM_CALLBACK);
 	Endpoint_ClearIN();
 
 	/* Succeed the command and update the bytes transferred counter */
@@ -306,15 +306,11 @@ static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo
 	uint32_t BlockAddress;
 	uint16_t TotalBlocks;
 	
-	/* Load in the 32-bit block address (SCSI uses big-endian, so have to do it byte-by-byte) */
-	((uint8_t*)&BlockAddress)[3] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[2];
-	((uint8_t*)&BlockAddress)[2] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[3];
-	((uint8_t*)&BlockAddress)[1] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[4];
-	((uint8_t*)&BlockAddress)[0] = MSInterfaceInfo->State.CommandBlock.SCSICommandData[5];
+	/* Load in the 32-bit block address (SCSI uses big-endian, so have to reverse the byte order) */
+	BlockAddress = SwapEndian_32(*(uint32_t*)&CommandBlock.SCSICommandData[2]);
 
-	/* Load in the 16-bit total blocks (SCSI uses big-endian, so have to do it byte-by-byte) */
-	((uint8_t*)&TotalBlocks)[1]  = MSInterfaceInfo->State.CommandBlock.SCSICommandData[7];
-	((uint8_t*)&TotalBlocks)[0]  = MSInterfaceInfo->State.CommandBlock.SCSICommandData[8];
+	/* Load in the 16-bit total blocks (SCSI uses big-endian, so have to reverse the byte order) */
+	TotalBlocks  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[7]);
 	
 	/* Check if the block address is outside the maximum allowable value for the LUN */
 	if (BlockAddress >= LUN_MEDIA_BLOCKS)
