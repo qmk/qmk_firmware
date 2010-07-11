@@ -76,7 +76,6 @@ RingBuff_t UARTtoUSB_Buffer;
 int main(void)
 {
 	SetupHardware();
-	V2Protocol_Init();
 
 	RingBuffer_InitBuffer(&USBtoUART_Buffer);
 	RingBuffer_InitBuffer(&UARTtoUSB_Buffer);
@@ -127,9 +126,15 @@ void UARTBridge_Task(void)
 	if (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface))
 	  RingBuffer_Insert(&USBtoUART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 	
-	/* Read bytes from the UART receive buffer into the USB IN endpoint */
-	if (UARTtoUSB_Buffer.Count)
-	  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&UARTtoUSB_Buffer));
+	/* Check if the software UART flush timer has expired */
+	if (TIFR0 & (1 << TOV0))
+	{
+		TIFR0 |= (1 << TOV0);
+
+		/* Read bytes from the UART receive buffer into the USB IN endpoint */
+		while (UARTtoUSB_Buffer.Count)
+		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&UARTtoUSB_Buffer));
+	}
 
 	CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 }
@@ -174,6 +179,9 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	if (CurrentFirmwareMode == MODE_USART_BRIDGE)
 	{
 		EndpointConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
+
+		/* Configure the UART flush timer */
+		TCCR0B = ((1 << CS02) | (1 << CS00));
 	}
 	else
 	{
@@ -186,6 +194,9 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 		                                                    ENDPOINT_DIR_IN, AVRISP_DATA_EPSIZE,
 		                                                    ENDPOINT_BANK_SINGLE);
 		#endif
+	
+		/* Configure the V2 protocol packet handler */
+		V2Protocol_Init();
 	}
 
 	if (EndpointConfigSuccess)

@@ -27,6 +27,7 @@
   *  - The USB_Device_IsRemoteWakeupSent() and USB_Device_IsUSBSuspended() macros have been deleted, as they are now obsolete
   *  - Rewrote the implementation of the SwapEndian_16() and SwapEndian_32() functions so that they compile down in most instances to
   *    minimal loads and stores rather than complicated shifts
+  *  - The software UART in the XPLAINBridge has been largely altered to try to improve upon its performance and reliability
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project sending a LOAD EXTENDED ADDRESS command to 128KB AVRs after programming or reading from

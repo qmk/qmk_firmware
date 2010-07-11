@@ -43,7 +43,7 @@
 
 	/* Macros: */
 		#define BAUD       9600
-		#define BIT_TIME   ((F_CPU + (BAUD / 2)) / BAUD)
+		#define BIT_TIME   ((F_CPU / BAUD) - 1)
 
 		#define SRX        PD0
 		#define SRXPIN     PIND
