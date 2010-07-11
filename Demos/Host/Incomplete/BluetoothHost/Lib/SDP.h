@@ -146,7 +146,7 @@
 		 */
 		static inline uint8_t SDP_ReadData8(const void** BufferPos)
 		{
-			uint8_t Data = *((uint8_t*)*BufferPos);
+			uint8_t Data = *((const uint8_t*)*BufferPos);
 			*BufferPos += sizeof(uint8_t);
 			
 			return Data;
@@ -160,7 +160,7 @@
 		 */
 		static inline uint16_t SDP_ReadData16(const void** BufferPos)
 		{
-			uint16_t Data = SwapEndian_16(*((uint16_t*)*BufferPos));
+			uint16_t Data = SwapEndian_16(*((const uint16_t*)*BufferPos));
 			*BufferPos += sizeof(uint16_t);
 			
 			return Data;
@@ -174,7 +174,7 @@
 		 */
 		static inline uint32_t SDP_ReadData32(const void** BufferPos)
 		{
-			uint32_t Data = SwapEndian_32(*((uint32_t*)*BufferPos));
+			uint32_t Data = SwapEndian_32(*((const uint32_t*)*BufferPos));
 			*BufferPos += sizeof(uint32_t);
 			
 			return Data;

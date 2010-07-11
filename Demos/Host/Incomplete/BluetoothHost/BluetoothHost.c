@@ -58,8 +58,7 @@ int main(void)
 
 	for (;;)
 	{
-		if ((RFCOMMChannel != NULL) && (RFCOMMChannel->State == BT_Channel_Open))
-		  RFCOMM_ServiceChannels(RFCOMMChannel);
+		RFCOMM_ServiceChannels(SerialChannel_ACL);
 		
 		Bluetooth_Host_Task();
 		Bluetooth_Stack_USBTask();

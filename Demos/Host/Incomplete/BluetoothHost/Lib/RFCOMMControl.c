@@ -38,7 +38,7 @@
 #define  INCLUDE_FROM_RFCOMM_CONTROL_C
 #include "RFCOMMControl.h"
 
-void RFCOMM_ProcessControlCommand(const uint8_t* Command, Bluetooth_Channel_t* const Channel)
+void RFCOMM_ProcessControlCommand(const uint8_t* Command, Bluetooth_Channel_t* const ACLChannel)
 {
 	const RFCOMM_Command_t* CommandHeader  = (const RFCOMM_Command_t*)Command;
 	const uint8_t*          CommandData    = (const uint8_t*)Command + sizeof(RFCOMM_Command_t);
@@ -47,25 +47,25 @@ void RFCOMM_ProcessControlCommand(const uint8_t* Command, Bluetooth_Channel_t* c
 	switch (CommandHeader->Command)
 	{
 		case RFCOMM_Control_Test:
-			RFCOMM_ProcessTestCommand(CommandHeader, CommandDataLen, CommandData, Channel);
+			RFCOMM_ProcessTestCommand(CommandHeader, CommandDataLen, CommandData, ACLChannel);
 			break;
 		case RFCOMM_Control_FlowControlEnable:
-			RFCOMM_ProcessFCECommand(CommandHeader, CommandData, Channel);
+			RFCOMM_ProcessFCECommand(CommandHeader, CommandData, ACLChannel);
 			break;
 		case RFCOMM_Control_FlowControlDisable:
-			RFCOMM_ProcessFCDCommand(CommandHeader, CommandData, Channel);
+			RFCOMM_ProcessFCDCommand(CommandHeader, CommandData, ACLChannel);
 			break;
 		case RFCOMM_Control_ModemStatus:
-			RFCOMM_ProcessMSCCommand(CommandHeader, CommandDataLen, CommandData, Channel);
+			RFCOMM_ProcessMSCCommand(CommandHeader, CommandDataLen, CommandData, ACLChannel);
 			break;
 		case RFCOMM_Control_RemotePortNegotiation:
-			RFCOMM_ProcessRPNCommand(CommandHeader, CommandData, Channel);
+			RFCOMM_ProcessRPNCommand(CommandHeader, CommandData, ACLChannel);
 			break;
 		case RFCOMM_Control_RemoteLineStatus:
-			RFCOMM_ProcessRLSCommand(CommandHeader, CommandData, Channel);
+			RFCOMM_ProcessRLSCommand(CommandHeader, CommandData, ACLChannel);
 			break;
 		case RFCOMM_Control_DLCParameterNegotiation:
-			RFCOMM_ProcessDPNCommand(CommandHeader, CommandData, Channel);
+			RFCOMM_ProcessDPNCommand(CommandHeader, CommandData, ACLChannel);
 			break;
 		default:
 			BT_RFCOMM_DEBUG(1, "<< Unknown Command");		
@@ -74,7 +74,7 @@ void RFCOMM_ProcessControlCommand(const uint8_t* Command, Bluetooth_Channel_t* c
 }
 
 static void RFCOMM_ProcessTestCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t CommandDataLen,
-                                      const uint8_t* CommandData, Bluetooth_Channel_t* const Channel)
+                                      const uint8_t* CommandData, Bluetooth_Channel_t* const ACLChannel)
 {
 	const uint8_t* Params = (const uint8_t*)CommandData;
 
@@ -95,23 +95,23 @@ static void RFCOMM_ProcessTestCommand(const RFCOMM_Command_t* const CommandHeade
 	BT_RFCOMM_DEBUG(1, ">> TEST Response");
 
 	/* Send the PDN response to acknowledge the command */
-	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH, sizeof(TestResponse), &TestResponse, Channel);
+	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH, sizeof(TestResponse), &TestResponse, ACLChannel);
 }
 
 static void RFCOMM_ProcessFCECommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
-			                         Bluetooth_Channel_t* const Channel)
+			                         Bluetooth_Channel_t* const ACLChannel)
 {
 	BT_RFCOMM_DEBUG(1, "<< FCE Command");
 }
 
 static void RFCOMM_ProcessFCDCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
-			                         Bluetooth_Channel_t* const Channel)
+			                         Bluetooth_Channel_t* const ACLChannel)
 {
 	BT_RFCOMM_DEBUG(1, "<< FCD Command");
 }
 
 static void RFCOMM_ProcessMSCCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t CommandDataLen,
-                                     const uint8_t* CommandData, Bluetooth_Channel_t* const Channel)
+                                     const uint8_t* CommandData, Bluetooth_Channel_t* const ACLChannel)
 {
 	const RFCOMM_MSC_Parameters_t* Params = (const RFCOMM_MSC_Parameters_t*)CommandData;
 
@@ -139,6 +139,9 @@ static void RFCOMM_ProcessMSCCommand(const RFCOMM_Command_t* const CommandHeader
 		/* If the command contains the optional break signals field, store the value */
 		if (CommandDataLen == sizeof(RFCOMM_MSC_Parameters_t))
 		  RFCOMMChannel->Remote.BreakSignal = Params->BreakSignal;
+
+		/* Notify the user application that the signals have been received */
+		RFCOMM_ChannelSignalsReceived(RFCOMMChannel);
 		  
 		struct
 		{
@@ -156,7 +159,7 @@ static void RFCOMM_ProcessMSCCommand(const RFCOMM_Command_t* const CommandHeader
 
 		/* Send the MSC response to acknowledge the command */
 		RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH,
-						 (sizeof(MSResponse) - sizeof(MSResponse.Params) + CommandDataLen), &MSResponse, Channel);
+						 (sizeof(MSResponse) - sizeof(MSResponse.Params) + CommandDataLen), &MSResponse, ACLChannel);
 	}
 	else
 	{
@@ -166,19 +169,19 @@ static void RFCOMM_ProcessMSCCommand(const RFCOMM_Command_t* const CommandHeader
 }
 
 static void RFCOMM_ProcessRPNCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
-			                         Bluetooth_Channel_t* const Channel)
+			                         Bluetooth_Channel_t* const ACLChannel)
 {
 	BT_RFCOMM_DEBUG(1, "<< RPN Command");
 }
 
 static void RFCOMM_ProcessRLSCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
-			                         Bluetooth_Channel_t* const Channel)
+			                         Bluetooth_Channel_t* const ACLChannel)
 {
 	BT_RFCOMM_DEBUG(1, "<< RLS Command");
 }
 
 static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
-			                         Bluetooth_Channel_t* const Channel)
+			                         Bluetooth_Channel_t* const ACLChannel)
 {
 	const RFCOMM_DPN_Parameters_t* Params = (const RFCOMM_DPN_Parameters_t*)CommandData;
 
@@ -227,5 +230,5 @@ static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader
 	BT_RFCOMM_DEBUG(1, ">> DPN Response");
 
 	/* Send the DPN response to acknowledge the command */
-	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH, sizeof(DPNResponse), &DPNResponse, Channel);
+	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, false, RFCOMM_Frame_UIH, sizeof(DPNResponse), &DPNResponse, ACLChannel);
 }

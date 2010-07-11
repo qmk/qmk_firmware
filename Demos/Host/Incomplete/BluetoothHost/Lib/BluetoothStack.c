@@ -55,7 +55,7 @@ Bluetooth_Stack_State_t Bluetooth_State     = { IsInitialized: false };
  */
 void Bluetooth_Stack_Init(void)
 {
-	/* Reset the HCI state machine - this will eventually reset the adapter and stack when the Bluetooth stack task is called */
+	/* Reset the HCI state machine - this will reset the adapter and stack when the Bluetooth stack task is called */
 	Bluetooth_State.CurrentHCIState = Bluetooth_Init;
 	Bluetooth_State.NextHCIState    = Bluetooth_Init;
 }
@@ -70,44 +70,4 @@ void Bluetooth_Stack_USBTask(void)
 
 	Bluetooth_HCITask();
 	Bluetooth_ACLTask();
-}
-
-/** Retrieves the channel information structure with the given local or remote channel number from the channel list.
- *
- *  \param[in] SearchValue  Value to search for in the channel structure list
- *  \param[in] SearchKey    Key to search within the channel structure, a CHANNEL_SEARCH_* mask
- *
- *  \return Pointer to the matching channel information structure in the channel table if found, NULL otherwise
- */
-Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t SearchValue, const uint8_t SearchKey)
-{
-	for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
-	{
-		Bluetooth_Channel_t* ChannelData = &Bluetooth_Connection.Channels[i];
-
-		/* Closed channels should be ignored as they are not considered valid data */
-		if (ChannelData->State == BT_Channel_Closed)
-		  continue;
-	
-		bool FoundMatch = false;
-		
-		/* Search the current channel for the search key to see if it matches */
-		switch (SearchKey)
-		{
-			case CHANNEL_SEARCH_LOCALNUMBER:
-				FoundMatch = (SearchValue == ChannelData->LocalNumber);
-				break;
-			case CHANNEL_SEARCH_REMOTENUMBER:
-				FoundMatch = (SearchValue == ChannelData->RemoteNumber);
-				break;
-			case CHANNEL_SEARCH_PSM:
-				FoundMatch = (SearchValue == ChannelData->PSM);
-				break;
-		}
-	
-		if (FoundMatch)
-		  return ChannelData;
-	}
-
-	return NULL;
 }

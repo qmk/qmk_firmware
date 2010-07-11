@@ -40,12 +40,12 @@
 /** Pointer to the opened Bluetooth ACL channel structure for RFCOMM, used to send and receive data between the
  *  local and remote device once a RFCOMM channel has been opened.
  */
-Bluetooth_Channel_t* RFCOMMChannel = NULL;
+Bluetooth_Channel_t* SerialChannel_ACL    = NULL;
 
 /** Pointer to the opened RFCOMM logical channel between local and remote device, once a RFCOMM ACL channel has been
  *  negotiated and a logical RFCOMM channel requested.
  */
-RFCOMM_Channel_t* SerialPortChannel = NULL;
+RFCOMM_Channel_t*    SerialChannel_RFCOMM = NULL;
 
 /** Bluetooth stack callback event for when the Bluetooth stack has fully initialized using the attached
  *  Bluetooth dongle.
@@ -115,8 +115,8 @@ void Bluetooth_DisconnectionComplete(void)
  */
 bool Bluetooth_ChannelConnectionRequest(const uint16_t PSM)
 {
-	/* Always accept channel connection requests regardless of PSM */
-	return true;
+	/* Only accept connections for channels that will be used for RFCOMM or SDP data */
+	return ((PSM == CHANNEL_PSM_RFCOMM) || (PSM == CHANNEL_PSM_SDP));
 }
 
 /** Bluetooth stack callback event for when a Bluetooth ACL channel has been fully created and configured,
@@ -124,11 +124,11 @@ bool Bluetooth_ChannelConnectionRequest(const uint16_t PSM)
  *
  *  \param[in] Channel  Bluetooth ACL data channel information structure for the channel that can now be used
  */
-void Bluetooth_ChannelOpened(Bluetooth_Channel_t* const Channel)
+void Bluetooth_ChannelOpened(Bluetooth_Channel_t* const ACLChannel)
 {
 	/* Save the RFCOMM channel for later use when we want to send RFCOMM data */
-	if (Channel->PSM == CHANNEL_PSM_RFCOMM)
-	  RFCOMMChannel = Channel;
+	if (ACLChannel->PSM == CHANNEL_PSM_RFCOMM)
+	  SerialChannel_ACL = ACLChannel;
 }
 
 /** Bluetooth stack callback event for a non-signal ACL packet reception. This callback fires once a connection
@@ -138,31 +138,26 @@ void Bluetooth_ChannelOpened(Bluetooth_Channel_t* const Channel)
  *  \param[in] DataLen  Length of the packet data, in bytes
  *  \param[in] Channel  Bluetooth ACL data channel information structure for the packet's destination channel
  */
-void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const Channel)
+void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const ACLChannel)
 {
 	/* Run the correct packet handler based on the received packet's PSM, which indicates the service being carried */
-	switch (Channel->PSM)
+	switch (ACLChannel->PSM)
 	{
 		case CHANNEL_PSM_SDP:
 			/* Service Discovery Protocol packet */
-			SDP_ProcessPacket(Data, Channel);
+			SDP_ProcessPacket(Data, ACLChannel);
 			break;
 		case CHANNEL_PSM_RFCOMM:
 			/* RFCOMM (Serial Port) Protocol packet */
-			RFCOMM_ProcessPacket(Data, Channel);
-			break;
-		default:
-			/* Unknown Protocol packet */
-			printf_P(PSTR("Unknown Packet Received (Channel 0x%04X, PSM: 0x%02X, Len: 0x%04X):\r\n"),
-			              Channel->LocalNumber, Channel->PSM, DataLen);			
+			RFCOMM_ProcessPacket(Data, ACLChannel);
 			break;
 	}
 }
 
-void RFCOMM_ChannelOpened(RFCOMM_Channel_t* const Channel)
+void RFCOMM_ChannelOpened(RFCOMM_Channel_t* const RFCOMMChannel)
 {
 	/* Save the serial port RFCOMM logical channel for later use */
-	SerialPortChannel = Channel;
+	SerialChannel_RFCOMM = RFCOMMChannel;
 }
 
 /** RFCOMM layer callback for when a packet is received on an open RFCOMM channel.
@@ -171,12 +166,17 @@ void RFCOMM_ChannelOpened(RFCOMM_Channel_t* const Channel)
  *  \param[in] DataLen  Length of the received data, in bytes
  *  \param[in] Data     Pointer to a buffer where the received data is stored
  */
-void RFCOMM_DataReceived(RFCOMM_Channel_t* const Channel, uint16_t DataLen, const uint8_t* Data)
+void RFCOMM_DataReceived(RFCOMM_Channel_t* const ACLChannel, uint16_t DataLen, const uint8_t* Data)
 {
 	/* Write the received bytes to the serial port */
 	for (uint8_t i = 0; i < DataLen; i++)
 	  putchar(Data[i]);
 	
 	/* Echo the data back to the sending device */
-	RFCOMM_SendData(DataLen, Data, Channel, RFCOMMChannel);
+	RFCOMM_SendData(DataLen, Data, SerialChannel_RFCOMM, SerialChannel_ACL);
+}
+
+void RFCOMM_ChannelSignalsReceived(RFCOMM_Channel_t* const RFCOMMChannel)
+{
+	// Currently do nothing in response to the remote device sending new terminal control signals
 }

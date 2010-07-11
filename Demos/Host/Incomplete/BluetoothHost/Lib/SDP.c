@@ -90,7 +90,7 @@ void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
  */
 static void SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel)
 {
-	const void* CurrentParameter = ((void*)SDPHeader + sizeof(SDP_PDUHeader_t));
+	const void* CurrentParameter = ((const void*)SDPHeader + sizeof(SDP_PDUHeader_t));
 
 	BT_SDP_DEBUG(1, "<< Service Search");
 
@@ -171,7 +171,7 @@ static void SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Blu
  */
 static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel)
 {
-	const void* CurrentParameter = ((void*)SDPHeader + sizeof(SDP_PDUHeader_t));
+	const void* CurrentParameter = ((const void*)SDPHeader + sizeof(SDP_PDUHeader_t));
 
 	BT_SDP_DEBUG(1, "<< Service Attribute");
 
@@ -261,7 +261,7 @@ static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, 
  */
 static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel)
 {
-	const void* CurrentParameter = ((void*)SDPHeader + sizeof(SDP_PDUHeader_t));
+	const void* CurrentParameter = ((const void*)SDPHeader + sizeof(SDP_PDUHeader_t));
 	
 	BT_SDP_DEBUG(1, "<< Service Search Attribute");
 

@@ -65,6 +65,7 @@
 		#define LEDMASK_USB_BUSY          LEDS_LED2
 	
 	/* External Variables: */
-		extern Bluetooth_Channel_t* RFCOMMChannel;
+		extern Bluetooth_Channel_t* SerialChannel_ACL;
+		extern RFCOMM_Channel_t*    SerialChannel_RFCOMM;
 		
 #endif
