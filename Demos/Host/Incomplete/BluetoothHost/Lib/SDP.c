@@ -474,10 +474,10 @@ static bool SDP_SearchServiceTable(uint8_t UUIDList[][UUID_SIZE_BYTES], const ui
 /** Recursively upwraps the given locally stored attribute (in PROGMEM space), searching for UUIDs to match against
  *  the given UUID list. As matches are found, they are indicated in the UUIDMatch flag list.
  *
- *  \param[in]      UUIDList       List of UUIDs which must be matched within the service attribute table
- *  \param[in]      TotalUUIDs     Total number of UUIDs stored in the UUID list
- *  \param[in, out] UUIDMatch      Array of flags indicating which UUIDs in the list have already been matched
- *  \param[in]      CurrAttribute  Pointer to the current attribute to search through
+ *  \param[in]      UUIDList        List of UUIDs which must be matched within the service attribute table
+ *  \param[in]      TotalUUIDs      Total number of UUIDs stored in the UUID list
+ *  \param[in, out] UUIDMatchFlags  Array of flags indicating which UUIDs in the list have already been matched
+ *  \param[in]      CurrAttribute   Pointer to the current attribute to search through
  *
  *  \return True if all the UUIDs given in the UUID list appear in the given attribute table, false otherwise
  */

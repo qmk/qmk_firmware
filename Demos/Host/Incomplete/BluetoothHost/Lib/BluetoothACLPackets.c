@@ -246,10 +246,10 @@ Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t SearchValue, const 
 
 /** Sends a packet to the remote device on the specified channel.
  *
- * \param[in] Data     Pointer to a buffer where the data is to be sourced from
- * \param[in] DataLen  Length of the data to send
- * \param[in] Channel  Channel information structure containing the destination channel's information, NULL to send
- *                     to the remote device's signalling channel
+ * \param[in] Data        Pointer to a buffer where the data is to be sourced from
+ * \param[in] DataLen     Length of the data to send
+ * \param[in] ACLChannel  ACL channel information structure containing the destination channel's information, NULL
+ *                        to send to the remote device's signalling channel
  *
  * \return A value from the \ref BT_SendPacket_ErrorCodes_t enum
  */
@@ -263,7 +263,7 @@ uint8_t Bluetooth_SendPacket(void* Data, const uint16_t DataLen, Bluetooth_Chann
 	  return BT_SENDPACKET_NotConnected;
 
 	/* If the destination channel is not the signalling channel and it is not currently fully open, abort */
-	if ((ACLChannel == NULL) || (ACLChannel->State != BT_Channel_Open))
+	if ((ACLChannel != NULL) && (ACLChannel->State != BT_Channel_Open))
 	  return BT_SENDPACKET_ChannelNotOpen;
 
 	/* Fill out the packet's header from the remote device connection information structure */
@@ -366,7 +366,7 @@ Bluetooth_Channel_t* Bluetooth_OpenChannel(const uint16_t PSM)
  *        returned channel is unusable by the user application upon return however the channel is not completely
  *        closed until its State element has progressed to the Closed state.
  *
- * \param[in,out] Channel  Channel information structure of the channel to close
+ * \param[in,out] ACLChannel  ACL channel information structure of the channel to close
  */
 void Bluetooth_CloseChannel(Bluetooth_Channel_t* const ACLChannel)
 {

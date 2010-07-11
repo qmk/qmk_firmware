@@ -122,7 +122,7 @@ bool Bluetooth_ChannelConnectionRequest(const uint16_t PSM)
 /** Bluetooth stack callback event for when a Bluetooth ACL channel has been fully created and configured,
  *  either at the request of the local device, or the remote device.
  *
- *  \param[in] Channel  Bluetooth ACL data channel information structure for the channel that can now be used
+ *  \param[in] ACLChannel  Bluetooth ACL data channel information structure for the channel that can now be used
  */
 void Bluetooth_ChannelOpened(Bluetooth_Channel_t* const ACLChannel)
 {
@@ -134,9 +134,9 @@ void Bluetooth_ChannelOpened(Bluetooth_Channel_t* const ACLChannel)
 /** Bluetooth stack callback event for a non-signal ACL packet reception. This callback fires once a connection
  *  to a remote Bluetooth device has been made, and the remote device has sent a non-signalling ACL packet.
  *
- *  \param[in] Data     Pointer to a buffer where the received data is stored
- *  \param[in] DataLen  Length of the packet data, in bytes
- *  \param[in] Channel  Bluetooth ACL data channel information structure for the packet's destination channel
+ *  \param[in] Data        Pointer to a buffer where the received data is stored
+ *  \param[in] DataLen     Length of the packet data, in bytes
+ *  \param[in] ACLChannel  Bluetooth ACL data channel information structure for the packet's destination channel
  */
 void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const ACLChannel)
 {
@@ -154,17 +154,23 @@ void Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t*
 	}
 }
 
+/** RFCOMM layer callback for event for when a RFCOMM logical channel has been fully opened and configured between
+ *  the local and remote device. Once open, this RFCOMM channel can be read from and written to freely until is it
+ *  closed by either end.
+ *
+ *  \param[in] RFCOMMChannel  RFCOMM channel that was opened
+ */ 
 void RFCOMM_ChannelOpened(RFCOMM_Channel_t* const RFCOMMChannel)
 {
 	/* Save the serial port RFCOMM logical channel for later use */
 	SerialChannel_RFCOMM = RFCOMMChannel;
 }
 
-/** RFCOMM layer callback for when a packet is received on an open RFCOMM channel.
+/** RFCOMM layer callback event for when a packet is received on an open RFCOMM channel.
  *
- *  \param[in] Channel  RFCOMM channel that the data was directed to
- *  \param[in] DataLen  Length of the received data, in bytes
- *  \param[in] Data     Pointer to a buffer where the received data is stored
+ *  \param[in] ACLChannel  RFCOMM ACL channel that the data was directed to
+ *  \param[in] DataLen     Length of the received data, in bytes
+ *  \param[in] Data        Pointer to a buffer where the received data is stored
  */
 void RFCOMM_DataReceived(RFCOMM_Channel_t* const ACLChannel, uint16_t DataLen, const uint8_t* Data)
 {
@@ -176,6 +182,11 @@ void RFCOMM_DataReceived(RFCOMM_Channel_t* const ACLChannel, uint16_t DataLen, c
 	RFCOMM_SendData(DataLen, Data, SerialChannel_RFCOMM, SerialChannel_ACL);
 }
 
+/** RFCOMM layer callback event for when the remote device has updated the channel terminal control signals
+ *  for a particular RFCOMM channel.
+ *
+ *  \param[in] RFCOMMChannel  RFCOMM logical channel whose signals were altered
+ */ 
 void RFCOMM_ChannelSignalsReceived(RFCOMM_Channel_t* const RFCOMMChannel)
 {
 	// Currently do nothing in response to the remote device sending new terminal control signals
