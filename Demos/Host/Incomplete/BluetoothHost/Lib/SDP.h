@@ -138,7 +138,7 @@
 			*BufferPos += sizeof(uint32_t);
 		}
 
-		/** Reads 8 bits of raw data frpm the given buffer, incrementing the buffer position afterwards.
+		/** Reads 8 bits of raw data from the given buffer, incrementing the buffer position afterwards.
 		 *
 		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be read from
 		 *
@@ -152,7 +152,7 @@
 			return Data;
 		}
 
-		/** Reads 16 bits of raw data frpm the given buffer, incrementing the buffer position afterwards.
+		/** Reads 16 bits of raw data from the given buffer, incrementing the buffer position afterwards.
 		 *
 		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be read from
 		 *
@@ -166,7 +166,7 @@
 			return Data;
 		}
 
-		/** Reads 32 bits of raw data frpm the given buffer, incrementing the buffer position afterwards.
+		/** Reads 32 bits of raw data from the given buffer, incrementing the buffer position afterwards.
 		 *
 		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be read from
 		 *
@@ -190,7 +190,7 @@
 		 *
 		 *  \param[in, out] BufferPos  Pointer to a buffer where the container header is to be placed
 		 *
-		 *  \return Pointer to the 16-bit size value of the contaner header, which has been pre-zeroed
+		 *  \return Pointer to the 16-bit size value of the container header, which has been pre-zeroed
 		 */
 		static inline uint16_t* SDP_AddSequence16(void** BufferPos)
 		{

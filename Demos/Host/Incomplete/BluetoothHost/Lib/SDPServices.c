@@ -102,7 +102,7 @@ const struct
 	};
 
 /** Serial Port Profile attribute, listing the Browse Group List UUIDs which this service is a member of.
- *  Browse Group UUIDs give a way to group together services within a device in a simple heirachy, so that
+ *  Browse Group UUIDs give a way to group together services within a device in a simple hierarchy, so that
  *  a SDP client can progressively narrow down an general browse to a specific service which it requires.
  */
 const struct

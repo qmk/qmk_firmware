@@ -44,7 +44,7 @@
 #define  INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C
 #include "BluetoothHCICommands.h"
 
-/** Temporary Bluetooth Device Address, for HCI responses which much include the detination address */
+/** Temporary Bluetooth Device Address, for HCI responses which much include the destination address */
 static uint8_t Bluetooth_TempDeviceAddress[6];
 
 /** Bluetooth HCI processing task. This task should be called repeatedly the main Bluetooth

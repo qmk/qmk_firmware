@@ -49,7 +49,7 @@
 			DevControlError                 = 1, /**< A control request to the device failed to complete successfully */
 			DescriptorTooLarge              = 2, /**< The device's Configuration Descriptor is too large to process */
 			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
-			NoBTInterfaceFound              = 4, /**< A compatible Blutooth interface was not found in the device's Configuration Descriptor */
+			NoBTInterfaceFound              = 4, /**< A compatible Bluetooth interface was not found in the device's Configuration Descriptor */
 			NoEndpointFound                 = 5, /**< A compatible set of Bluetooth endpoints were not found in the
 			                                      *   device's Bluetooth interface
 			                                      */

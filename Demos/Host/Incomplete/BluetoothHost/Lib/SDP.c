@@ -52,11 +52,11 @@ const ServiceAttributeTable_t* SDP_Services_Table[] PROGMEM =
 /** Base UUID value common to all standardized Bluetooth services */
 const UUID_t BaseUUID PROGMEM = {0x00000000, BASE_80BIT_UUID};
 
-/** Main Service Discovery Protocol packet processing routine. This function processes incomming SDP packets from
+/** Main Service Discovery Protocol packet processing routine. This function processes incoming SDP packets from
  *  a connected Bluetooth device, and sends back appropriate responses to allow other devices to determine the
  *  services the local device exposes.
  *
- *  \param[in] Data     Incomming packet data containing the SDP request
+ *  \param[in] Data     Incoming packet data containing the SDP request
  *  \param[in] Channel  ACL channel the request was issued to by the remote device
  */
 void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
@@ -99,7 +99,7 @@ static void SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Blu
 	uint8_t TotalUUIDs = SDP_GetUUIDList(UUIDList, &CurrentParameter);
 	BT_SDP_DEBUG(2, "-- Total UUIDs: %d", TotalUUIDs);
 	
-	/* Retrieve the maximum service record reponse count from the request */
+	/* Retrieve the maximum service record response count from the request */
 	uint16_t MaxServiceRecordCount = SDP_ReadData16(&CurrentParameter);
 	BT_SDP_DEBUG(2, "-- Max Return Service Count: 0x%04X", MaxServiceRecordCount);
 	
@@ -179,7 +179,7 @@ static void SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, 
 	uint32_t ServiceHandle = SDP_ReadData32(&CurrentParameter);
 	BT_SDP_DEBUG(2, "-- Service Handle: 0x%08lX", ServiceHandle);
 	
-	/* Retrieve the maximum Attribute reponse size from the request */
+	/* Retrieve the maximum Attribute response size from the request */
 	uint16_t MaxAttributeSize = SDP_ReadData16(&CurrentParameter);
 	BT_SDP_DEBUG(2, "-- Max Return Attribute Bytes: 0x%04X", MaxAttributeSize);
 	
@@ -270,7 +270,7 @@ static void SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHe
 	uint8_t TotalUUIDs = SDP_GetUUIDList(UUIDList, &CurrentParameter);
 	BT_SDP_DEBUG(2, "-- Total UUIDs: %d", TotalUUIDs);
 	
-	/* Retrieve the maximum Attribute reponse size from the request */
+	/* Retrieve the maximum Attribute response size from the request */
 	uint16_t MaxAttributeSize = SDP_ReadData16(&CurrentParameter);
 	BT_SDP_DEBUG(2, "-- Max Return Attribute Bytes: 0x%04X", MaxAttributeSize);
 	
@@ -388,7 +388,7 @@ static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t*
 	return TotalResponseSize;
 }
 
-/** Adds the given attribute ID and value to the reponse buffer, and advances the response buffer pointer past the added data.
+/** Adds the given attribute ID and value to the response buffer, and advances the response buffer pointer past the added data.
  *
  *  \param[in] AttributeID          Attribute ID to add to the response buffer
  *  \param[in] AttributeValue       Pointer to the start of the Attribute's value, located in PROGMEM

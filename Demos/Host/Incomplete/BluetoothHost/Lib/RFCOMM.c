@@ -68,7 +68,7 @@ RFCOMM_Channel_t RFCOMM_Channels[RFCOMM_MAX_OPEN_CHANNELS];
 /** Initializes the RFCOMM service, ready for new connections from a SDP client. */
 void RFCOMM_Initialize(void)
 {
-	/* Reset the RFCOMM channel structures, to invalidate any confiured RFCOMM channels */
+	/* Reset the RFCOMM channel structures, to invalidate any configured RFCOMM channels */
 	for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
 	  RFCOMM_Channels[i].State = RFCOMM_Channel_Closed;
 }
@@ -115,7 +115,7 @@ void RFCOMM_ServiceChannels(Bluetooth_Channel_t* const ACLChannel)
 /** Processes an incoming RFCOMM packet on an ACL channel which has been previously opened between the local and
  *  a remote device to handle RFCOMM traffic.
  *
- *  \param[in] Data        Incomming packet data containing the RFCOMM packet
+ *  \param[in] Data        Incoming packet data containing the RFCOMM packet
  *  \param[in] ACLChannel  ACL channel the request was issued to by the remote device
  */
 void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const ACLChannel)

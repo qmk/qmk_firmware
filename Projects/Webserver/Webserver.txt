@@ -80,7 +80,7 @@
  *   <tr>
  *    <td>ENABLE_TELNET_SERVER</td>
  *    <td>Makefile CDEFS</td>
- *    <td>When defined, this enables the TELNET server in addition to the HTTP webserver, which listens for incomming connections
+ *    <td>When defined, this enables the TELNET server in addition to the HTTP webserver, which listens for incoming connections
  *        and processes user commands.</td>
  *   </tr>
  *   <tr>

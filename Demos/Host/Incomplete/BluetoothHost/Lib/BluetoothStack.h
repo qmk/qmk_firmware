@@ -87,13 +87,13 @@
 		/** Enum for the possible error codes returned by the \ref Bluetooth_SendPacket() function. */
 		enum BT_SendPacket_ErrorCodes_t
 		{
-			BT_SENDPACKET_NoError            = 0, /**< The packet was sent sucessfully. */
+			BT_SENDPACKET_NoError            = 0, /**< The packet was sent successfully. */
 			BT_SENDPACKET_NotConnected       = 1, /**< The Bluetooth stack is not currently connected to a remote device. */
 			BT_SENDPACKET_ChannelNotOpen     = 2, /**< The given channel is not currently in the Open state. */
 		};
 
 	/* Type Defines: */
-		/** Type define for a Bluetooth ACL channel information structure. This structure contains all the relevent
+		/** Type define for a Bluetooth ACL channel information structure. This structure contains all the relevant
 		 *  information on an ACL channel for data transmission and reception by the stack.
 		 */
 		typedef struct
@@ -117,7 +117,7 @@
 			uint16_t            ConnectionHandle; /**< Connection handle to the remote device, used internally in the stack. */
 			uint8_t             RemoteAddress[6]; /**< Bluetooth device address of the attached remote device. */
 			Bluetooth_Channel_t Channels[BLUETOOTH_MAX_OPEN_CHANNELS]; /**< Channel information structures for the connection. */
-			uint8_t             SignallingIdentifier; /**< Next Signalling Channel unique command sequence identifier. */
+			uint8_t             SignalingIdentifier; /**< Next Signaling Channel unique command sequence identifier. */
 		} Bluetooth_Connection_t;
 		
 		/** Local Bluetooth device information structure, for the defining of local device characteristics for the Bluetooth stack. */
