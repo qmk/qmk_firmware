@@ -73,6 +73,13 @@ void RFCOMM_Initialize(void)
 	  RFCOMM_Channels[i].State = RFCOMM_Channel_Closed;
 }
 
+/** Services all the logical RFCOMM channels on the given ACL channel, sending any RFCOMM control requests to
+ *  the remote device as needed to establish new logical RFCOMM channels. This function should be called repeatedly
+ *  in the main program loop when an ACL channel with an RFCOMM PSM has been established between the local and remote
+ *  device.
+ *
+ *  \param[in] ACLChannel  ACL channel which has been previously opened to handle RFCOMM traffic between devices
+ */
 void RFCOMM_ServiceChannels(Bluetooth_Channel_t* const ACLChannel)
 {
 	/* Abort if the RFCOMM ACL channel is not currently open */
@@ -105,6 +112,12 @@ void RFCOMM_ServiceChannels(Bluetooth_Channel_t* const ACLChannel)
 	}
 }
 
+/** Processes an incoming RFCOMM packet on an ACL channel which has been previously opened between the local and
+ *  a remote device to handle RFCOMM traffic.
+ *
+ *  \param[in] Data        Incomming packet data containing the RFCOMM packet
+ *  \param[in] ACLChannel  ACL channel the request was issued to by the remote device
+ */
 void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const ACLChannel)
 {
 	const RFCOMM_Header_t* FrameHeader  = (const RFCOMM_Header_t*)Data;
@@ -135,6 +148,12 @@ void RFCOMM_ProcessPacket(void* Data, Bluetooth_Channel_t* const ACLChannel)
 	}
 }
 
+/** Sends an RFCOMM notification to the remote device that the local terminal control signals (located in the
+ *  "Local" structure of the RFCOMM channel) have changed, pushing the new signals to the remote device.
+ *
+ *  \param[in] RFCOMMChannel  RFCOMM logical channel whose local terminal signals have changed
+ *  \param[in] ACLChannel     ACL channel which has been opened to carry RFCOMM traffic between devices
+ */
 void RFCOMM_SendChannelSignals(const RFCOMM_Channel_t* const RFCOMMChannel, Bluetooth_Channel_t* const ACLChannel)
 {
 	BT_RFCOMM_DEBUG(1, ">> MSC Command");
@@ -157,6 +176,14 @@ void RFCOMM_SendChannelSignals(const RFCOMM_Channel_t* const RFCOMMChannel, Blue
 	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, true, RFCOMM_Frame_UIH, sizeof(MSCommand), &MSCommand, ACLChannel);	
 }
 
+/** Sends new data through an open logical RFCOMM channel. This should be used to transmit data through a
+ *  RFCOMM channel once it has been opened.
+ *
+ *  \param[in] DataLen        Length of the RFCOMM data to send, in bytes
+ *  \param[in] Data           Pointer to a buffer where the data to send is located
+ *  \param[in] RFCOMMChannel  RFCOMM logical channel which is to be transmitted to
+ *  \param[in] ACLChannel     ACL channel which has been opened to carry RFCOMM traffic between devices
+ */
 void RFCOMM_SendData(const uint16_t DataLen, const uint8_t* Data, const RFCOMM_Channel_t* const RFCOMMChannel,
                      Bluetooth_Channel_t* const ACLChannel)
 {

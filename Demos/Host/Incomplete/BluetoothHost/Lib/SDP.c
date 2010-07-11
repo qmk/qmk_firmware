@@ -56,8 +56,8 @@ const UUID_t BaseUUID PROGMEM = {0x00000000, BASE_80BIT_UUID};
  *  a connected Bluetooth device, and sends back appropriate responses to allow other devices to determine the
  *  services the local device exposes.
  *
- *  \param[in]  Data     Incomming packet data containing the SDP request
- *  \param[in]  Channel  Channel the request was issued to by the remote device
+ *  \param[in] Data     Incomming packet data containing the SDP request
+ *  \param[in] Channel  ACL channel the request was issued to by the remote device
  */
 void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel)
 {
