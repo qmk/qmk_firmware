@@ -124,8 +124,8 @@ void SetupHardware(void)
 	LEDs_Init();
 	USB_Init();
 
-	/* Configure the UART flush timer - run at Fcpu/1024 for maximum interval before overflow */
-	TCCR0B = ((1 << CS02) | (1 << CS00));
+	/* Start the flush timer so that overflows occur rapidly to push received bytes to the USB interface */
+	TCCR0B = (1 << CS02);
 }
 
 /** Event handler for the library USB Connection event. */

@@ -124,7 +124,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 }
 
 /** ISR to manage the transmission of bits via the software UART. */
-ISR(TIMER3_COMPA_vect, ISR_NOBLOCK)
+ISR(TIMER3_COMPA_vect, ISR_BLOCK)
 {
 	/* Check if transmission has finished */
 	if (TX_BitsRemaining)
