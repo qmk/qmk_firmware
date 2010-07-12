@@ -180,7 +180,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	{
 		EndpointConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
 
-		/* Configure the UART flush timer */
+		/* Configure the UART flush timer - run at FCPU/1024 for maximum interval before overflow */
 		TCCR0B = ((1 << CS02) | (1 << CS00));
 	}
 	else

@@ -76,15 +76,21 @@ void SoftUART_Init(void)
 /** ISR to detect the start of a bit being sent to the software UART. */
 ISR(INT0_vect, ISR_BLOCK)
 {
-	/* Reset and start the reception timer */
-	TCNT1  = 0;
-	TCCR1B = ((1 << CS10) | (1 << WGM12));
-
 	/* Reset the number of reception bits remaining counter */
 	RX_BitsRemaining = 8;
+	
+	/* Reset the bit reception timer */
+	TCNT1 = 0;
 
-	/* Disable start bit detection ISR while the next byte is received */
-	EIMSK = 0;
+	/* Check to see that the pin is still low (prevents glitches from starting a frame reception) */
+	if (!(SRXPIN & (1 << SRX)))
+	{
+		/* Disable start bit detection ISR while the next byte is received */
+		EIMSK = 0;
+
+		/* Start the reception timer */
+		TCCR1B = ((1 << CS10) | (1 << WGM12));
+	}
 }
 
 /** ISR to manage the reception of bits to the software UART. */
@@ -133,7 +139,7 @@ ISR(TIMER3_COMPA_vect, ISR_NOBLOCK)
 		TX_Data >>= 1;
 		TX_BitsRemaining--;
 	}
-	else if (USBtoUART_Buffer.Count)
+	else if (USBtoUART_Buffer.Count && !(RX_BitsRemaining))
 	{
 		/* Start bit - TX line low */
 		STXPORT &= ~(1 << STX);
