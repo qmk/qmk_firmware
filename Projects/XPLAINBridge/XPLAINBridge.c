@@ -77,9 +77,6 @@ int main(void)
 {
 	SetupHardware();
 
-	RingBuffer_InitBuffer(&USBtoUART_Buffer);
-	RingBuffer_InitBuffer(&UARTtoUSB_Buffer);
-	
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
 
@@ -124,7 +121,7 @@ void UARTBridge_Task(void)
 
 	/* Read bytes from the USB OUT endpoint into the UART transmit buffer */
 	if (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface))
-	  RingBuffer_Insert(&USBtoUART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+	  RingBuffer_AtomicInsert(&USBtoUART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 	
 	/* Check if the software UART flush timer has expired */
 	if (TIFR0 & (1 << TOV0))
@@ -133,7 +130,7 @@ void UARTBridge_Task(void)
 
 		/* Read bytes from the UART receive buffer into the USB IN endpoint */
 		while (UARTtoUSB_Buffer.Count)
-		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&UARTtoUSB_Buffer));
+		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_AtomicRemove(&UARTtoUSB_Buffer));
 	}
 
 	CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
@@ -180,8 +177,12 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	{
 		EndpointConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
 
-		/* Configure the UART flush timer - run at FCPU/1024 for maximum interval before overflow */
+		/* Configure the UART flush timer - run at Fcpu/1024 for maximum interval before overflow */
 		TCCR0B = ((1 << CS02) | (1 << CS00));
+
+		/* Initialize ring buffers used to hold serial data between USB and software UART interfaces */
+		RingBuffer_InitBuffer(&USBtoUART_Buffer);
+		RingBuffer_InitBuffer(&UARTtoUSB_Buffer);
 	}
 	else
 	{

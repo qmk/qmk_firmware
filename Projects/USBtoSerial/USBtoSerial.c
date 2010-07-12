@@ -87,16 +87,22 @@ int main(void)
 			if (!(BUFFER_SIZE - USBtoUSART_Buffer.Count))
 			  break;
 			  
-			RingBuffer_Insert(&USBtoUSART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+			RingBuffer_AtomicInsert(&USBtoUSART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 		}
 		
-		/* Read bytes from the USART receive buffer into the USB IN endpoint */
-		while (USARTtoUSB_Buffer.Count)
-		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&USARTtoUSB_Buffer));
+		/* Check if the software USART flush timer has expired */
+		if (TIFR0 & (1 << TOV0))
+		{
+			TIFR0 |= (1 << TOV0);
+
+			/* Read bytes from the USART receive buffer into the USB IN endpoint */
+			while (USARTtoUSB_Buffer.Count)
+			  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_AtomicRemove(&USARTtoUSB_Buffer));
+		}
 		
-		/* Load bytes from the USART transmit buffer into the USART */
-		while (USBtoUSART_Buffer.Count)
-		  Serial_TxByte(RingBuffer_Remove(&USBtoUSART_Buffer));
+		/* Load the next byte from the USART transmit buffer into the USART */
+		if (USBtoUSART_Buffer.Count)
+		  Serial_TxByte(RingBuffer_AtomicRemove(&USBtoUSART_Buffer));
 		
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
@@ -117,6 +123,9 @@ void SetupHardware(void)
 	Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
+
+	/* Configure the UART flush timer - run at Fcpu/1024 for maximum interval before overflow */
+	TCCR0B = ((1 << CS02) | (1 << CS00));
 }
 
 /** Event handler for the library USB Connection event. */

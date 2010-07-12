@@ -100,7 +100,7 @@ int main(void)
 		/* Echo bytes from the target to the host via the virtual serial port */
 		while (Tx_Buffer.Count)
 		{
-			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&Tx_Buffer));
+			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_AtomicRemove(&Tx_Buffer));
 
 			LEDs_TurnOnLEDs(LEDMASK_RX);
 			PulseMSRemaining.RxLEDPulse = TX_RX_LED_PULSE_MS;

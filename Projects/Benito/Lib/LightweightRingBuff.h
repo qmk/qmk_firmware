@@ -75,12 +75,12 @@
 			Buffer->Count = 0;
 		}
 		
-		/** Inserts an element into the ring buffer.
+		/** Atomically inserts an element into the ring buffer.
 		 *
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
 		 *  \param[in]     Data    Data element to insert into the buffer
 		 */
-		static inline void RingBuffer_Insert(RingBuff_t* const Buffer, RingBuff_Data_t Data)
+		static inline void RingBuffer_AtomicInsert(RingBuff_t* const Buffer, RingBuff_Data_t Data)
 		{
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 			{
@@ -93,13 +93,13 @@
 			}
 		}
 
-		/** Retrieves an element from the ring buffer.
+		/** Atomically retrieves an element from the ring buffer.
 		 *
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to retrieve from
 		 *
 		 *  \return Next data element stored in the buffer
 		 */
-		static inline RingBuff_Data_t RingBuffer_Remove(RingBuff_t* const Buffer)
+		static inline RingBuff_Data_t RingBuffer_AtomicRemove(RingBuff_t* const Buffer)
 		{
 			RingBuff_Data_t Data;
 			
@@ -112,6 +112,39 @@
 				  
 				Buffer->Count--;
 			}
+
+			return Data;
+		}
+
+		/** Inserts an element into the ring buffer.
+		 *
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
+		 *  \param[in]     Data    Data element to insert into the buffer
+		 */
+		static inline void RingBuffer_Insert(RingBuff_t* const Buffer, RingBuff_Data_t Data)
+		{
+			*Buffer->In = Data;
+			
+			if (++Buffer->In == &Buffer->Buffer[BUFFER_SIZE])
+			  Buffer->In = Buffer->Buffer;
+				  
+			Buffer->Count++;
+		}
+
+		/** Retrieves an element from the ring buffer.
+		 *
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to retrieve from
+		 *
+		 *  \return Next data element stored in the buffer
+		 */
+		static inline RingBuff_Data_t RingBuffer_Remove(RingBuff_t* const Buffer)
+		{
+			RingBuff_Data_t Data = *Buffer->Out;
+			
+			if (++Buffer->Out == &Buffer->Buffer[BUFFER_SIZE])
+			  Buffer->Out = Buffer->Buffer;
+				  
+			Buffer->Count--;
 
 			return Data;
 		}
