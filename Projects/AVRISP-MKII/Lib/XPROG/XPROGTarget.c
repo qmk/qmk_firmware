@@ -138,9 +138,6 @@ void XPROGTarget_SendByte(const uint8_t Byte)
 	while (!(UCSR1A & (1 << UDRE1)));
 	UCSR1A |= (1 << TXC1);
 	UDR1    = Byte;
-
-    if (TimeoutMSRemaining)
-	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 }
 
 /** Receives a byte via the software USART, blocking until data is received.
@@ -154,10 +151,7 @@ uint8_t XPROGTarget_ReceiveByte(void)
 	  XPROGTarget_SetRxMode();
 
 	/* Wait until a byte has been received before reading */
-	while (!(UCSR1A & (1 << RXC1)) && TimeoutMSRemaining);
-	
-	if (TimeoutMSRemaining)
-	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
+	while (!(UCSR1A & (1 << RXC1)) && TimeoutTicksRemaining);
 
 	return UDR1;
 }
@@ -176,9 +170,6 @@ void XPROGTarget_SendBreak(void)
 		while (PIND & (1 << 5));
 		while (!(PIND & (1 << 5)));
 	}
-
-    if (TimeoutMSRemaining)
-	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 }
 
 static void XPROGTarget_SetTxMode(void)
@@ -193,9 +184,6 @@ static void XPROGTarget_SetTxMode(void)
 	UCSR1B &= ~(1 << RXEN1);
 	UCSR1B |=  (1 << TXEN1);
 
-    if (TimeoutMSRemaining)
-	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
-
 	IsSending = true;
 }
 
@@ -209,9 +197,6 @@ static void XPROGTarget_SetRxMode(void)
 
 	DDRD   &= ~(1 << 3);
 	PORTD  &= ~(1 << 3);
-
-    if (TimeoutMSRemaining)
-	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 
 	IsSending = false;
 }

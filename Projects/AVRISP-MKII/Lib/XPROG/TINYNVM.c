@@ -85,15 +85,12 @@ bool TINYNVM_WaitWhileNVMBusBusy(void)
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 
 		/* We might have timed out waiting for the status register read response, check here */
-		if (!(TimeoutMSRemaining))
+		if (!(TimeoutTicksRemaining))
 		  return false;
 
 		/* Check the status register read response to see if the NVM bus is enabled */
 		if (StatusRegister & TPI_STATUS_NVM)
-		{
-			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
-			return true;
-		}
+		  return true;
 	}
 }
 
@@ -113,15 +110,12 @@ bool TINYNVM_WaitWhileNVMControllerBusy(void)
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 
 		/* We might have timed out waiting for the status register read response, check here */
-		if (!(TimeoutMSRemaining))
+		if (!(TimeoutTicksRemaining))
 		  return false;
 
 		/* Check to see if the BUSY flag is still set */
 		if (!(StatusRegister & (1 << 7)))
-		{
-			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
-			return true;
-		}
+		  return true;
 	}
 }
 
@@ -146,14 +140,14 @@ bool TINYNVM_ReadMemory(const uint16_t ReadAddress, uint8_t* ReadBuffer, uint16_
 	/* Send the address of the location to read from */
 	TINYNVM_SendPointerAddress(ReadAddress);
 	
-	while (ReadSize-- && TimeoutMSRemaining)
+	while (ReadSize-- && TimeoutTicksRemaining)
 	{
 		/* Read the byte of data from the target */
 		XPROGTarget_SendByte(TPI_CMD_SLD | TPI_POINTER_INDIRECT_PI);
 		*(ReadBuffer++) = XPROGTarget_ReceiveByte();
 	}
 	
-	return (TimeoutMSRemaining != 0);
+	return (TimeoutTicksRemaining != 0);
 }
 
 /** Writes word addressed memory to the target's memory spaces.

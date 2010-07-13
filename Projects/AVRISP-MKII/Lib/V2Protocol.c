@@ -46,8 +46,8 @@ bool MustLoadExtendedAddress;
 /** ISR to manage timeouts whilst processing a V2Protocol command */
 ISR(TIMER0_COMPA_vect, ISR_NOBLOCK)
 {
-	if (TimeoutMSRemaining)
-	  TimeoutMSRemaining--;
+	if (TimeoutTicksRemaining)
+	  TimeoutTicksRemaining--;
 }
 
 /** Initializes the hardware and software associated with the V2 protocol command handling. */
@@ -60,8 +60,8 @@ void V2Protocol_Init(void)
 	ADC_StartReading(VTARGET_ADC_CHANNEL_MASK | ADC_RIGHT_ADJUSTED | ADC_REFERENCE_AVCC);
 	#endif
 	
-	/* Millisecond timer initialization for managing the command timeout counter */
-	OCR0A  = ((F_CPU / 64) / 1000);
+	/* Timeout timer initialization (10ms period) */
+	OCR0A  = ((F_CPU / 1024) / 100);
 	TCCR0A = (1 << WGM01);
 	TIMSK0 = (1 << OCIE0A);
 	
@@ -77,8 +77,8 @@ void V2Protocol_ProcessCommand(void)
 	uint8_t V2Command = Endpoint_Read_Byte();
 	
 	/* Start the timeout management timer */
-	TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
-	TCCR0B = ((1 << CS01) | (1 << CS00));
+	TimeoutTicksRemaining = COMMAND_TIMEOUT_TICKS;
+	TCCR0B = ((1 << CS02) | (1 << CS00));
 	
 	switch (V2Command)
 	{

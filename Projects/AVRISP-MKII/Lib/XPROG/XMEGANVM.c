@@ -80,15 +80,12 @@ bool XMEGANVM_WaitWhileNVMBusBusy(void)
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 		
 		/* We might have timed out waiting for the status register read response, check here */
-		if (!(TimeoutMSRemaining))
+		if (!(TimeoutTicksRemaining))
 		  return false;
 		
 		/* Check the status register read response to see if the NVM bus is enabled */
 		if (StatusRegister & PDI_STATUS_NVM)
-		{
-			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
-			return true;
-		}
+		  return true;
 	}
 }
 
@@ -109,15 +106,12 @@ bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 
 		/* We might have timed out waiting for the status register read response, check here */
-		if (!(TimeoutMSRemaining))
+		if (!(TimeoutTicksRemaining))
 		  return false;
 
 		/* Check to see if the BUSY flag is still set */
 		if (!(StatusRegister & (1 << 7)))
-		{
-			TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
-			return true;
-		}
+		  return true;
 	}
 }
 
@@ -165,7 +159,7 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
 	for (uint8_t i = 0; i < XMEGA_CRC_LENGTH; i++)
 	  ((uint8_t*)CRCDest)[i] = XPROGTarget_ReceiveByte();
 	
-	return (TimeoutMSRemaining != 0);
+	return (TimeoutTicksRemaining != 0);
 }
 
 /** Reads memory from the target's memory spaces.
@@ -197,10 +191,10 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16
 		
 	/* Send a LD command with indirect access and post-increment to read out the bytes */
 	XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
-	while (ReadSize-- && TimeoutMSRemaining)
+	while (ReadSize-- && TimeoutTicksRemaining)
 	  *(ReadBuffer++) = XPROGTarget_ReceiveByte();
 	
-	return (TimeoutMSRemaining != 0);
+	return (TimeoutTicksRemaining != 0);
 }
 
 /** Writes byte addressed memory to the target's memory spaces.

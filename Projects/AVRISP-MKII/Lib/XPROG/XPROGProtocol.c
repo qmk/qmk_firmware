@@ -131,7 +131,7 @@ static void XPROGProtocol_EnterXPROGMode(void)
 		XPROGTarget_SendByte(0x07);
 
 		/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
-		XPROGTarget_SendByte(PDI_CMD_KEY);	
+		XPROGTarget_SendByte(PDI_CMD_KEY);
 		for (uint8_t i = sizeof(PDI_NVMENABLE_KEY); i > 0; i--)
 		  XPROGTarget_SendByte(PDI_NVMENABLE_KEY[i - 1]);
 

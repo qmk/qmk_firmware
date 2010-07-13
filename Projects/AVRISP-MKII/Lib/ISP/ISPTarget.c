@@ -129,9 +129,9 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 				SPI_SendByte(PollAddress >> 8);
 				SPI_SendByte(PollAddress & 0xFF);
 			}
-			while ((SPI_TransferByte(0x00) == PollValue) && TimeoutMSRemaining);
+			while ((SPI_TransferByte(0x00) == PollValue) && TimeoutTicksRemaining);
 
-			if (!(TimeoutMSRemaining))
+			if (!(TimeoutTicksRemaining))
 			 ProgrammingStatus = STATUS_CMD_TOUT;
 			
 			break;		
@@ -140,9 +140,6 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint1
 			ProgrammingStatus = ISPTarget_WaitWhileTargetBusy();
 			break;
 	}
-
-	if (ProgrammingStatus == STATUS_CMD_OK)
-	  TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
 
 	return ProgrammingStatus;
 }
@@ -160,17 +157,9 @@ uint8_t ISPTarget_WaitWhileTargetBusy(void)
 		SPI_SendByte(0x00);
 		SPI_SendByte(0x00);
 	}
-	while ((SPI_ReceiveByte() & 0x01) && TimeoutMSRemaining);
+	while ((SPI_ReceiveByte() & 0x01) && TimeoutTicksRemaining);
 
-	if (TimeoutMSRemaining)
-	{
-		TimeoutMSRemaining = COMMAND_TIMEOUT_MS;
-		return STATUS_CMD_OK;
-	}
-	else
-	{
-		return STATUS_RDY_BSY_TOUT;
-	}
+	return TimeoutTicksRemaining ? STATUS_CMD_OK : STATUS_RDY_BSY_TOUT;
 }
 
 /** Sends a low-level LOAD EXTENDED ADDRESS command to the target, for addressing of memory beyond the

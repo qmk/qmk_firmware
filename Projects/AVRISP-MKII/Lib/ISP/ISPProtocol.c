@@ -76,7 +76,7 @@ void ISPProtocol_EnterISPMode(void)
 
 	/* Continuously attempt to synchronize with the target until either the number of attempts specified
 	 * by the host has exceeded, or the the device sends back the expected response values */
-	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus == STATUS_CMD_FAILED) && TimeoutMSRemaining)
+	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus == STATUS_CMD_FAILED) && TimeoutTicksRemaining)
 	{
 		uint8_t ResponseBytes[4];
 
@@ -552,13 +552,8 @@ void ISPProtocol_SPIMulti(void)
  */
 void ISPProtocol_DelayMS(uint8_t DelayMS)
 {
-	while (DelayMS-- && TimeoutMSRemaining)
-	{
-		if (TimeoutMSRemaining)
-		  TimeoutMSRemaining--;
-		  
-		_delay_ms(1);
-	}
+	while (DelayMS-- && TimeoutTicksRemaining)
+	  _delay_ms(1);
 }
 
 #endif
