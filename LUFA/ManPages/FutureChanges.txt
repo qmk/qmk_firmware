@@ -16,10 +16,8 @@
   *      -# Add hub support when in Host mode for multiple devices
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Add standardized descriptor names to class driver structures
-  *      -# Master LUFA include file rather than per-module includes
   *      -# Change makefiles to allow for absolute LUFA location to be used
   *  - Documentation/Support
-  *      -# Remake AVRStudio project files
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews
   *      -# Write LUFA tutorials
