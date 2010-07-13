@@ -34,7 +34,7 @@
  *  the project and is responsible for the initial application hardware configuration.
  */
 
-#include "AVRISP.h"
+#include "AVRISP-MKII.h"
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.

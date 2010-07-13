@@ -102,7 +102,7 @@ FORMAT = ihex
 
 
 # Target file name (without extension).
-TARGET = AVRISP
+TARGET = AVRISP-MKII
 
 
 # Object files directory
