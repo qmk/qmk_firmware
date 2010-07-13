@@ -14,7 +14,7 @@
   *  - Added new pgm_read_ptr() macro to Common.h for reading of pointers out of flash memory space
   *  - Added new SWAPENDIAN_16() and SWAPENDIAN_32() macros to Common.h for statically initialized variables at compile time
   *  - Added new Drivers/USB/LowLevel/Device.c file to house Device mode specific functions that are more complicated than simple macros
-  *  - Added new AVRStudio 4 project files for all projects
+  *  - Added new AVRStudio 4 project files for all library projects and bootloaders
   *
   *  <b>Changed:</b>
   *  - The RingBuff library code has been replaced in the XPLAINBridge, Benito and USBtoSerial projects with an ultra lightweight
