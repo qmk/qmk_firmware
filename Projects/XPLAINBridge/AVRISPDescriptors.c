@@ -81,7 +81,7 @@ AVRISP_USB_Descriptor_Configuration_t PROGMEM AVRISP_ConfigurationDescriptor =
 			.ConfigurationNumber    = 1,
 			.ConfigurationStrIndex  = NO_DESCRIPTOR,
 				
-			.ConfigAttributes       = USB_CONFIG_ATTR_SELFPOWERED,
+			.ConfigAttributes       = USB_CONFIG_ATTR_BUSPOWERED,
 			
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},

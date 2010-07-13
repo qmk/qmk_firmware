@@ -70,7 +70,7 @@
 		#define COMMAND_TIMEOUT_TICKS      100
 		
 		/** Command timeout counter register, GPIOR for speed. */
-		#define TimeoutTicksRemaining      GPIOR0
+		#define TimeoutTicksRemaining      GPIOR1
 
 		/** MUX mask for the VTARGET ADC channel number. */
 		#define VTARGET_ADC_CHANNEL_MASK   _GETADCMUXMASK(ADC_CHANNEL, VTARGET_ADC_CHANNEL)
