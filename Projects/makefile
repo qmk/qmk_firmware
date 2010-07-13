@@ -32,8 +32,8 @@ all:
 	$(MAKE) -C RelayBoard clean
 	$(MAKE) -C RelayBoard all
 
-	$(MAKE) -C TemperatureDataLogger clean
-	$(MAKE) -C TemperatureDataLogger all
+	$(MAKE) -C TempDataLogger clean
+	$(MAKE) -C TempDataLogger all
 
 	$(MAKE) -C USBtoSerial clean
 	$(MAKE) -C USBtoSerial all
