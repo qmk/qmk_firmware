@@ -180,7 +180,7 @@ uint8_t PRNT_Host_SoftReset(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
 	return USB_Host_SendControlRequest(NULL);
 }
 
-uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, void* PrinterCommands, uint16_t CommandSize)
+uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, void* PrinterCommands, const uint16_t CommandSize)
 {
 	uint8_t ErrorCode;
 
@@ -205,7 +205,7 @@ uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, v
 	return PIPE_RWSTREAM_NoError;
 }
 
-uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, char* DeviceIDString, uint16_t BufferSize)
+uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, char* DeviceIDString, const uint16_t BufferSize)
 {
 	uint8_t  ErrorCode = HOST_SENDCONTROL_Successful;
 	uint16_t DeviceIDStringLength = 0;

@@ -171,7 +171,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, void* PrinterCommands, 
-			                           uint16_t CommandSize) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+			                           const uint16_t CommandSize) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Retrieves the attached printer device's ID string, formatted according to IEEE 1284. This string is sent as a
 			 *  Unicode string from the device and is automatically converted to an ASCII encoded C string by this function, thus
@@ -187,7 +187,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, char* DeviceIDString,
-			                              uint16_t BufferSize) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+			                              const uint16_t BufferSize) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 		/* Inline Functions: */
 			/** General management task for a given Printer host class interface, required for the correct operation of

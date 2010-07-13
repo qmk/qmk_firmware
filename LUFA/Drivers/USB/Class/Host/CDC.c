@@ -399,13 +399,13 @@ uint8_t CDC_Host_Flush(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 	return PIPE_READYWAIT_NoError;
 }
 
-void CDC_Host_CreateStream(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, FILE* Stream)
+void CDC_Host_CreateStream(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, FILE* const Stream)
 {
 	*Stream = (FILE)FDEV_SETUP_STREAM(CDC_Host_putchar, CDC_Host_getchar, _FDEV_SETUP_RW);
 	fdev_set_udata(Stream, CDCInterfaceInfo);
 }
 
-void CDC_Host_CreateBlockingStream(USB_ClassInfo_CDC_Host_t* CDCInterfaceInfo, FILE* Stream)
+void CDC_Host_CreateBlockingStream(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo, FILE* const Stream)
 {
 	*Stream = (FILE)FDEV_SETUP_STREAM(CDC_Host_putchar, CDC_Host_getchar_Blocking, _FDEV_SETUP_RW);
 	fdev_set_udata(Stream, CDCInterfaceInfo);

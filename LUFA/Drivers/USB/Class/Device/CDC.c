@@ -257,13 +257,13 @@ void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDC
 	Endpoint_ClearIN();
 }
 
-void CDC_Device_CreateStream(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, FILE* Stream)
+void CDC_Device_CreateStream(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, FILE* const Stream)
 {
 	*Stream = (FILE)FDEV_SETUP_STREAM(CDC_Device_putchar, CDC_Device_getchar, _FDEV_SETUP_RW);
 	fdev_set_udata(Stream, CDCInterfaceInfo);
 }
 
-void CDC_Device_CreateBlockingStream(USB_ClassInfo_CDC_Device_t* CDCInterfaceInfo, FILE* Stream)
+void CDC_Device_CreateBlockingStream(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, FILE* const Stream)
 {
 	*Stream = (FILE)FDEV_SETUP_STREAM(CDC_Device_putchar, CDC_Device_getchar_Blocking, _FDEV_SETUP_RW);
 	fdev_set_udata(Stream, CDCInterfaceInfo);

@@ -155,7 +155,7 @@
 										              void* ResponseData, uint16_t* const ResponseSize) ATTR_NON_NULL_PTR_ARG(1)
 			                                          ATTR_NON_NULL_PTR_ARG(5) ATTR_NON_NULL_PTR_ARG(6);
 			static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, const uint32_t OId,
-			                                        void* SetData, const uint16_t SetSize) ATTR_NON_NULL_PTR_ARG(1)
+			                                        const void* SetData, const uint16_t SetSize) ATTR_NON_NULL_PTR_ARG(1)
 			                                        ATTR_NON_NULL_PTR_ARG(3);
 		#endif
 		

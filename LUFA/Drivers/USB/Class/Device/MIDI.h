@@ -125,7 +125,7 @@
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo,
-			                                    MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+			                                    const MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 
 			/** Flushes the MIDI send buffer, sending any queued MIDI events to the host. This should be called to override the

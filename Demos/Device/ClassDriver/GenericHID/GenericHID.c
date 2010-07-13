@@ -144,7 +144,7 @@ void EVENT_USB_Device_StartOfFrame(void)
  *  \return Boolean true to force the sending of the report, false to let the library determine if it needs to be sent
  */
 bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo, uint8_t* const ReportID,
-                                         const uint8_t ReportType, void* ReportData, uint16_t* ReportSize)
+                                         const uint8_t ReportType, void* ReportData, uint16_t* const ReportSize)
 {
 	if (HIDReportEcho.ReportID)
 	  *ReportID = HIDReportEcho.ReportID;

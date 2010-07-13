@@ -448,7 +448,7 @@ static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RN
 }
 
 static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, const uint32_t OId,
-                                        void* SetData, const uint16_t SetSize)
+                                        const void* SetData, const uint16_t SetSize)
 {
 	(void)SetSize;
 

@@ -213,7 +213,7 @@
 			 *          returned a logical command failure.
 			 */
 			uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, const uint16_t Operation,
-			                                const uint8_t TotalParams, uint32_t* Params) ATTR_NON_NULL_PTR_ARG(1);
+			                                const uint8_t TotalParams, uint32_t* const Params) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Receives and checks a response block from the attached PIMA device, once a command has been issued and all data
 			 *  associated with the command has been transferred.

@@ -177,8 +177,8 @@
 			 *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
 			 *          logical command failure.
 			 */
-			uint8_t RNDIS_Host_SetRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, uint32_t Oid, void* Buffer,
-			                                    uint16_t Length) ATTR_NON_NULL_PTR_ARG(1)  ATTR_NON_NULL_PTR_ARG(3);
+			uint8_t RNDIS_Host_SetRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, const uint32_t Oid, void* Buffer,
+			                                    const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1)  ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Gets a given RNDIS property of an attached RNDIS device.
 			 *
@@ -190,8 +190,8 @@
 			 *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
 			 *          logical command failure.
 			 */
-			uint8_t RNDIS_Host_QueryRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, uint32_t Oid, void* Buffer,
-			                                      uint16_t MaxLength) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
+			uint8_t RNDIS_Host_QueryRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, const uint32_t Oid, void* Buffer,
+			                                      const uint16_t MaxLength) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Determines if a packet is currently waiting for the host to read in and process.
 			 *
@@ -216,7 +216,7 @@
 			 *
 			 *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, void* Buffer, uint16_t* PacketLength)
+			uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, void* Buffer, uint16_t* const PacketLength)
 			                              ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Sends the given packet to the attached RNDIS device, after adding a RNDIS packet message header.
@@ -230,7 +230,7 @@
 			 *
 			 *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t RNDIS_Host_SendPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, void* Buffer, uint16_t PacketLength)
+			uint8_t RNDIS_Host_SendPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, void* Buffer, const uint16_t PacketLength)
 			                              ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 		/* Inline Functions: */
@@ -262,10 +262,10 @@
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_RNDIS_CLASS_HOST_C)
 				static uint8_t RNDIS_SendEncapsulatedCommand(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, 
-				                                             void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1)
+				                                             void* Buffer, const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1)
 				                                             ATTR_NON_NULL_PTR_ARG(2);
 				static uint8_t RNDIS_GetEncapsulatedResponse(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
-				                                             void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1)
+				                                             void* Buffer, const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1)
 				                                             ATTR_NON_NULL_PTR_ARG(2);
 
 				static uint8_t DCOMP_RNDIS_Host_NextRNDISControlInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);

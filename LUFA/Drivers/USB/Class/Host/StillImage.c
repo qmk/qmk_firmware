@@ -371,7 +371,7 @@ uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 }
 
 uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo, const uint16_t Operation,
-                                const uint8_t TotalParams, uint32_t* Params)
+                                const uint8_t TotalParams, uint32_t* const Params)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;

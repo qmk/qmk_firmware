@@ -332,7 +332,7 @@
 			 *
 			 *  \return Boolean true if the item should be stored into the HID_ReportInfo_t structure, false if it should be ignored.
 			 */
-			bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem);
+			bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* const CurrentItem);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
