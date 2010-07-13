@@ -51,7 +51,7 @@ all:
 	$(MAKE) -C Magstripe $@
 	$(MAKE) -C MissileLauncher $@
 	$(MAKE) -C RelayBoard $@
-	$(MAKE) -C TemperatureDataLogger $@
+	$(MAKE) -C TempDataLogger $@
 	$(MAKE) -C USBtoSerial $@
 	$(MAKE) -C Webserver $@
 	$(MAKE) -C XPLAINBridge $@
