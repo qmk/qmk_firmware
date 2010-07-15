@@ -43,6 +43,7 @@
  *  - CD Driver Emulator Dongle for ISO Files: http://cdemu.blogspot.com/
  *  - ClockTamer, a configurable clock generator: http://code.google.com/p/clock-tamer/
  *  - EMUCOMBOX, a USB-RS422 adapter for E-Mu Emax samplers: http://users.skynet.be/emxp/EMUCOMBOX.htm
+ *  - Estick JTAG, an ARM JTAG debugger: http://code.google.com/p/estick-jtag/
  *  - "Fingerlicking Wingdinger" (WARNING: Bad Language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
  *  - Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
  *  - Generic HID Device Creator: http://generichid.sourceforge.net/
@@ -53,7 +54,7 @@
  *  - MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
  *  - MidiMonster, a USB-to-MIDI gateway board: http://www.dorkbotpdx.org/wiki/midimonster
  *  - NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
- *  - Opendous-JTAG, an open source JTAG device: http://code.google.com/p/opendous-jtag/
+ *  - Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
  *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
  *  - Orbee, a USB connected RGB Orb for notifications: http://www.franksworkshop.com.au/Electronics/Orbee/Orbee.htm
  *  - Programmable XBOX controller: http://richard-burke.dyndns.org/wordpress/pan-galactic-gargantuan-gargle-brain-aka-xbox-360-usb-controller/

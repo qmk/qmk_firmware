@@ -46,6 +46,8 @@
   *  - Fixed USB_Device_SendRemoteWakeup() not working when the USB clock was frozen during USB bus suspend (thanks to Brian Dickman)
   *  - Fixed occasional lockup of the AVRISP project due to the timeout extension code incorrectly extending the timeout in
   *    PDI and TPI programming modes infinitely
+  *  - Fixed HID device class driver still using PrevReportINBuffer for GetReport control requests even when it has been
+  *    set to NULL by the user application (thanks to Axel Rohde)
   *
   *  \section Sec_ChangeLog100513 Version 100513
   *  <b>New:</b>
