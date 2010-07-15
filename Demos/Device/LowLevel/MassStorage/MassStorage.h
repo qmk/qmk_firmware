@@ -60,15 +60,7 @@
 		#define REQ_GetMaxLUN              0xFE
 
 		/** Maximum length of a SCSI command which can be issued by the device or host in a Mass Storage bulk wrapper. */
-		#define MAX_SCSI_COMMAND_LENGTH    16
-		
-		/** Total number of Logical Units (drives) in the device. The total device capacity is shared equally between
-		 *  each drive - this can be set to any positive non-zero amount.
-		 */
-		#define TOTAL_LUNS                 1
-		
-		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */
-		#define LUN_MEDIA_BLOCKS           (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)    
+		#define MAX_SCSI_COMMAND_LENGTH    16 
 		
 		/** Magic signature for a Command Block Wrapper used in the Mass Storage Bulk-Only transport protocol. */
 		#define CBW_SIGNATURE              0x43425355UL

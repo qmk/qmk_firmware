@@ -65,6 +65,14 @@
 		 */
 		#define VIRTUAL_MEMORY_BLOCKS               (VIRTUAL_MEMORY_BYTES / VIRTUAL_MEMORY_BLOCK_SIZE)
 		
+		/** Total number of Logical Units (drives) in the device. The total device capacity is shared equally between
+		 *  each drive - this can be set to any positive non-zero amount.
+		 */
+		#define TOTAL_LUNS                           1
+		
+		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */
+		#define LUN_MEDIA_BLOCKS                    (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)   
+		
 	/* Function Prototypes: */
 		void DataflashManager_WriteBlocks(const uint32_t BlockAddress, uint16_t TotalBlocks);
 		void DataflashManager_ReadBlocks(const uint32_t BlockAddress, uint16_t TotalBlocks);

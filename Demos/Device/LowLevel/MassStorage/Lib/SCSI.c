@@ -136,8 +136,7 @@ bool SCSI_DecodeSCSICommand(void)
  */
 static void SCSI_Command_Inquiry(void)
 {
-	uint16_t AllocationLength  = (((uint16_t)CommandBlock.SCSICommandData[3] << 8) |
-	                                         CommandBlock.SCSICommandData[4]);
+	uint16_t AllocationLength  = SwapEndian_16(*(uint32_t*)&CommandBlock.SCSICommandData[3]);
 	uint16_t BytesTransferred  = (AllocationLength < sizeof(InquiryData))? AllocationLength :
 	                                                                       sizeof(InquiryData);
 
@@ -260,7 +259,7 @@ static void SCSI_Command_ReadWrite_10(const bool IsDataRead)
 	BlockAddress = SwapEndian_32(*(uint32_t*)&CommandBlock.SCSICommandData[2]);
 
 	/* Load in the 16-bit total blocks (SCSI uses big-endian, so have to reverse the byte order) */
-	TotalBlocks  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[7]);
+	TotalBlocks  = SwapEndian_16(*(uint32_t*)&CommandBlock.SCSICommandData[7]);
 
 	/* Check if the block address is outside the maximum allowable value for the LUN */
 	if (BlockAddress >= LUN_MEDIA_BLOCKS)
