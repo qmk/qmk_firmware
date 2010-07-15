@@ -63,12 +63,13 @@ void SoftUART_Init(void)
 	EICRA  = (1 << ISC01);
 	EIMSK  = (1 << INT0);
 
-	/* Set reception timer compare period and enable compare ISR */
-	OCR1A  = BIT_TIME;
+	/* Set the transmission and reception timer compare values for the default baud rate */
+	SoftUART_SetBaud(9600);
+
+	/* Setup reception timer compare ISR */
 	TIMSK1 = (1 << OCIE1A);
 
-	/* Set transmission timer compare period, enable compare ISR and start the timer */
-	OCR3A  = BIT_TIME;
+	/* Setup transmission timer compare ISR and start the timer */
 	TIMSK3 = (1 << OCIE3A);
 	TCCR3B = ((1 << CS30) | (1 << WGM32));
 }

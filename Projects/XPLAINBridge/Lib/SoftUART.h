@@ -42,9 +42,6 @@
 		#include "LightweightRingBuff.h"
 
 	/* Macros: */
-		#define BAUD       9600
-		#define BIT_TIME   ((F_CPU / BAUD) - 1)
-
 		#define SRX        PD0
 		#define SRXPIN     PIND
 		#define SRXPORT    PORTD
@@ -52,6 +49,15 @@
 		#define STX        PD1
 		#define STXPORT    PORTD
 		#define STXDDR     DDRD
+
+	/* Inline Functions: */	
+		static inline void SoftUART_SetBaud(const uint32_t Baud)
+		{
+			uint16_t BitTime = ((F_CPU / Baud) - 1);
+		
+			OCR1A = BitTime;
+			OCR3A = BitTime;
+		}
 
 	/* Function Prototypes: */
 		void    SoftUART_Init(void);

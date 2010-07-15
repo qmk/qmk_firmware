@@ -118,7 +118,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Data                   = {0x06}
 		},
 		
-	.CDC_Functional_Union= 
+	.CDC_Functional_Union = 
 		{
 			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(2)), .Type = 0x24},
 			.SubType                = 0x06,

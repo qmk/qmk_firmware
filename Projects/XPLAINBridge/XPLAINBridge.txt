@@ -54,12 +54,17 @@
  *  will enumerate as a regular COM port on the host, which can then be opened and data exchanged between the XMEGA and Host as if
  *  the XMEGA was connected directly to the host's serial port. If the pin is pulled low by shorting it to GND (pin 10), the device
  *  will enumerate as an AVRISP-MKII to the host, so that the XMEGA can be reprogrammed by AVRStudio or other compatible software
- *  such as avrdude.
+ *  such as avrdude by connecting to the board as if it was an Atmel AVRISP-MKII programmer.
  *
- *  After running this project for the first time on a new computer, you will need to supply the .INF file located in this project
- *  project's directory as the device's driver when running under Windows. This will enable Windows to use its inbuilt CDC drivers,
- *  negating the need for custom drivers for the device. Other Operating Systems should automatically use their own inbuilt CDC-ACM
- *  drivers.
+ *  After running this project in serial bridge mode for the first time on a new computer, you will need to supply the .INF file
+ *  located in this project project's directory as the device's driver when running under Windows. This will enable Windows to use
+ *  its inbuilt CDC virtual serial drivers, negating the need for custom drivers for the device. Other Operating Systems should
+ *  automatically use their own inbuilt CDC-ACM drivers.
+ *
+ *  In serial bridge mode, the UART baud rate can be altered through the host terminal software to select a new baud rate - the default
+ *  baud is 9600. Note that parity, data bits and stop bits are fixed at none, eight and one respectively can cannot be altered. Changes
+ *  to the connection's parity, data bits or stop bits are ignored by the firmware. As the serial link between the controllers on the
+ *  XPLAIN is software emulated by the USB AVR, not all baud rates will work correctly.
  *
  *  This project relies on files from the LUFA AVRISP-MKII project for compilation.
  *

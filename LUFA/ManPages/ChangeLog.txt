@@ -15,6 +15,7 @@
   *  - Added new SWAPENDIAN_16() and SWAPENDIAN_32() macros to Common.h for statically initialized variables at compile time
   *  - Added new Drivers/USB/LowLevel/Device.c file to house Device mode specific functions that are more complicated than simple macros
   *  - Added new AVRStudio 4 project files for all library demos, projects and bootloaders
+  *  - Added ability to set the serial baud rate via the user's terminal in the XPLAINBridge project
   *
   *  <b>Changed:</b>
   *  - The RingBuff library code has been replaced in the XPLAINBridge, Benito and USBtoSerial projects with an ultra lightweight
