@@ -120,7 +120,7 @@ void UARTBridge_Task(void)
 	  return;
 
 	/* Read bytes from the USB OUT endpoint into the UART transmit buffer */
-	if (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface))
+	if (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface) && !(RingBuffer_IsFull(&USBtoUART_Buffer)))
 	  RingBuffer_AtomicInsert(&USBtoUART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 	
 	/* Check if the software UART flush timer has expired */

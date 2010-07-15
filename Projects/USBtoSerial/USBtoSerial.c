@@ -84,7 +84,7 @@ int main(void)
 		/* Read bytes from the USB OUT endpoint into the USART transmit buffer */
 		for (uint8_t DataBytesRem = CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface); DataBytesRem != 0; DataBytesRem--)
 		{
-			if (!(BUFFER_SIZE - USBtoUSART_Buffer.Count))
+			if (RingBuffer_IsFull(&USBtoUSART_Buffer))
 			  break;
 			  
 			RingBuffer_AtomicInsert(&USBtoUSART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));

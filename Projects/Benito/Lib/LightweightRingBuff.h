@@ -75,6 +75,26 @@
 			Buffer->Count = 0;
 		}
 		
+		/** Atomically determines if the specified ring buffer contains any free space. This should
+		 *  be tested before storing data to the buffer, to ensure that no data is lost due to a
+		 *  buffer overrun.
+		 *
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
+		 *
+		 *  \return Boolean true if the buffer contains no free space, false otherwise
+		 */		 
+		static inline bool RingBuffer_IsFull(RingBuff_t* const Buffer)
+		{
+			bool IsFull;
+			
+			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+			{
+				IsFull = (Buffer->Count == BUFFER_SIZE);
+			}
+			
+			return IsFull;
+		}
+		
 		/** Atomically inserts an element into the ring buffer.
 		 *
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
