@@ -1029,9 +1029,6 @@
 				#define ENDPOINT_CONTROLEP         0
 			#endif
 			
-			#define Pipe_AllocateMemory()          MACROS{ UPCFG1X |=  (1 << ALLOC); }MACROE
-			#define Pipe_DeallocateMemory()        MACROS{ UPCFG1X &= ~(1 << ALLOC); }MACROE
-
 		/* Function Prototypes: */
 			void Pipe_ClearPipes(void);
 

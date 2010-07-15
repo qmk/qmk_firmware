@@ -65,9 +65,9 @@ void Endpoint_ClearEndpoints(void)
 	for (uint8_t EPNum = 0; EPNum < ENDPOINT_TOTAL_ENDPOINTS; EPNum++)
 	{
 		Endpoint_SelectEndpoint(EPNum);	
-		UEIENX = 0;
-		UEINTX = 0;
-		Endpoint_DeallocateMemory();
+		UEIENX  = 0;
+		UEINTX  = 0;
+		UECFG1X = 0;
 		Endpoint_DisableEndpoint();
 	}
 }

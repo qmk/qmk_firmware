@@ -457,7 +457,7 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
 # Default target.
-all: begin gccversion sizebefore build checkinvalidevents showliboptions showtarget sizeafter end
+all: begin gccversion sizebefore build showliboptions showtarget sizeafter end
 
 # Change the build target to build a HEX file or a library.
 build: elf hex eep lss sym
@@ -500,17 +500,6 @@ sizeafter:
 	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
 	2>/dev/null; echo; fi
 
-$(LUFA_PATH)/LUFA/LUFA_Events.lst:
-	@$(MAKE) -C $(LUFA_PATH)/LUFA/ LUFA_Events.lst
-
-checkinvalidevents: $(LUFA_PATH)/LUFA/LUFA_Events.lst
-	@echo
-	@echo Checking for invalid events...
-	@$(shell) avr-nm $(OBJ) | sed -n -e 's/^.*EVENT_/EVENT_/p' | \
-	                 grep -F -v --file=$(LUFA_PATH)/LUFA/LUFA_Events.lst > InvalidEvents.tmp || true
-	@sed -n -e 's/^/  WARNING - INVALID EVENT NAME: /p' InvalidEvents.tmp
-	@if test -s InvalidEvents.tmp; then exit 1; fi
-	
 showliboptions:
 	@echo
 	@echo ---- Compile Time Library Options ----
@@ -732,9 +721,8 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Listing of phony targets.
-.PHONY : all checkinvalidevents showliboptions    \
-showtarget begin finish end sizebefore sizeafter  \
-gccversion build elf hex eep lss sym coff extcoff \
-program dfu flip flip-ee dfu-ee clean debug       \
-clean_list clean_binary clean_doxygen gdb-config  \
-doxygen
+.PHONY : all showliboptions showtarget begin       \
+finish end sizebefore sizeafter gccversion build   \
+elf hex eep lss sym coff extcoff program dfu flip  \
+flip-ee dfu-ee clean debug clean_list clean_binary \
+clean_doxygen gdb-config doxygen

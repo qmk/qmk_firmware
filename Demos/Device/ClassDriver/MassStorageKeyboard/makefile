@@ -701,8 +701,8 @@ clean_list:
 	$(REMOVE) $(SRC:.c=.s)
 	$(REMOVE) $(SRC:.c=.d)
 	$(REMOVE) $(SRC:.c=.i)
+	$(REMOVE) InvalidEvents.tmp
 	$(REMOVEDIR) .dep
-
 
 doxygen:
 	@echo Generating Project Documentation...
@@ -721,9 +721,8 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Listing of phony targets.
-.PHONY : all checkinvalidevents showliboptions    \
-showtarget begin finish end sizebefore sizeafter  \
-gccversion build elf hex eep lss sym coff extcoff \
-program dfu flip flip-ee dfu-ee clean debug       \
-clean_list clean_binary clean_doxygen gdb-config  \
-doxygen
+.PHONY : all showliboptions showtarget begin       \
+finish end sizebefore sizeafter gccversion build   \
+elf hex eep lss sym coff extcoff program dfu flip  \
+flip-ee dfu-ee clean debug clean_list clean_binary \
+clean_doxygen gdb-config doxygen

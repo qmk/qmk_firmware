@@ -98,6 +98,11 @@
 			 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
 			 *        the \ref USB_RemoteWakeupEnabled flag is set). When the NO_DEVICE_REMOTE_WAKEUP compile
 			 *        time option is used, this macro is unavailable.
+			 *        \n
+			 *
+			 *  \note The USB clock must be running for this function to operate. If the stack is initialized with
+			 *        the \ref USB_OPT_MANUAL_PLL option enabled, the user must ensure that the PLL is running
+			 *        before attempting to call this function.
 			 *
 			 *  \see \ref Group_Descriptors for more information on the RMWAKEUP feature and device descriptors.
 			 */

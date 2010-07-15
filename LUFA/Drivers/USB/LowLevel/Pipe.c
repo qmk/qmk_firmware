@@ -60,13 +60,10 @@ void Pipe_ClearPipes(void)
 
 	for (uint8_t PNum = 0; PNum < PIPE_TOTAL_PIPES; PNum++)
 	{
-		Pipe_ResetPipe(PNum);
 		Pipe_SelectPipe(PNum);
-		UPIENX = 0;
-		UPINTX = 0;
-		Pipe_ClearError();
-		Pipe_ClearErrorFlags();
-		Pipe_DeallocateMemory();
+		UPIENX  = 0;
+		UPINTX  = 0;
+		UPCFG1X = 0;
 		Pipe_DisablePipe();
 	}
 }
