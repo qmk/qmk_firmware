@@ -14,12 +14,12 @@ void DS1307_SetDate(uint8_t Day, uint8_t Month, uint8_t Year)
 #endif
 
 	DS1307_DateRegs_t CurrentRTCDate;		
-	CurrentRTCDate.Byte1.TenDay   = (Day / 10);
-	CurrentRTCDate.Byte1.Day      = (Day % 10);
-	CurrentRTCDate.Byte2.TenMonth = (Month / 10);
-	CurrentRTCDate.Byte2.Month    = (Month % 10);
-	CurrentRTCDate.Byte3.TenYear  = (Year / 10);
-	CurrentRTCDate.Byte3.Year     = (Year % 10);
+	CurrentRTCDate.Byte1.Fields.TenDay   = (Day / 10);
+	CurrentRTCDate.Byte1.Fields.Day      = (Day % 10);
+	CurrentRTCDate.Byte2.Fields.TenMonth = (Month / 10);
+	CurrentRTCDate.Byte2.Fields.Month    = (Month % 10);
+	CurrentRTCDate.Byte3.Fields.TenYear  = (Year / 10);
+	CurrentRTCDate.Byte3.Fields.Year     = (Year % 10);
 
 	if (TWI_StartTransmission(DS1307_ADDRESS_WRITE, 10))
 	{
@@ -39,14 +39,14 @@ void DS1307_SetTime(uint8_t Hour, uint8_t Minute, uint8_t Second)
 #endif
 
 	DS1307_TimeRegs_t CurrentRTCTime;
-	CurrentRTCTime.Byte1.TenSec  = (Second / 10);
-	CurrentRTCTime.Byte1.Sec     = (Second % 10);
-	CurrentRTCTime.Byte1.CH      = false;
-	CurrentRTCTime.Byte2.TenMin  = (Minute / 10);
-	CurrentRTCTime.Byte2.Min     = (Minute % 10);
-	CurrentRTCTime.Byte3.TenHour = (Hour / 10);
-	CurrentRTCTime.Byte3.Hour    = (Hour % 10);
-	CurrentRTCTime.Byte3.TwelveHourMode = false;
+	CurrentRTCTime.Byte1.Fields.TenSec  = (Second / 10);
+	CurrentRTCTime.Byte1.Fields.Sec     = (Second % 10);
+	CurrentRTCTime.Byte1.Fields.CH      = false;
+	CurrentRTCTime.Byte2.Fields.TenMin  = (Minute / 10);
+	CurrentRTCTime.Byte2.Fields.Min     = (Minute % 10);
+	CurrentRTCTime.Byte3.Fields.TenHour = (Hour / 10);
+	CurrentRTCTime.Byte3.Fields.Hour    = (Hour % 10);
+	CurrentRTCTime.Byte3.Fields.TwelveHourMode = false;
 	
 	if (TWI_StartTransmission(DS1307_ADDRESS_WRITE, 10))
 	{
@@ -86,9 +86,9 @@ void DS1307_GetDate(uint8_t* Day, uint8_t* Month, uint8_t* Year)
 		TWI_StopTransmission();
 	}
 
-	*Day    = (CurrentRTCDate.Byte1.TenDay   * 10) + CurrentRTCDate.Byte1.Day;
-	*Month  = (CurrentRTCDate.Byte2.TenMonth * 10) + CurrentRTCDate.Byte2.Month;
-	*Year   = (CurrentRTCDate.Byte3.TenYear  * 10) + CurrentRTCDate.Byte3.Year;
+	*Day    = (CurrentRTCDate.Byte1.Fields.TenDay   * 10) + CurrentRTCDate.Byte1.Fields.Day;
+	*Month  = (CurrentRTCDate.Byte2.Fields.TenMonth * 10) + CurrentRTCDate.Byte2.Fields.Month;
+	*Year   = (CurrentRTCDate.Byte3.Fields.TenYear  * 10) + CurrentRTCDate.Byte3.Fields.Year;
 }
 
 void DS1307_GetTime(uint8_t* Hour, uint8_t* Minute, uint8_t* Second)
@@ -118,7 +118,7 @@ void DS1307_GetTime(uint8_t* Hour, uint8_t* Minute, uint8_t* Second)
 		TWI_StopTransmission();
 	}
 
-	*Second  = (CurrentRTCTime.Byte1.TenSec  * 10) + CurrentRTCTime.Byte1.Sec;
-	*Minute  = (CurrentRTCTime.Byte2.TenMin  * 10) + CurrentRTCTime.Byte2.Min;
-	*Hour    = (CurrentRTCTime.Byte3.TenHour * 10) + CurrentRTCTime.Byte3.Hour;
+	*Second  = (CurrentRTCTime.Byte1.Fields.TenSec  * 10) + CurrentRTCTime.Byte1.Fields.Sec;
+	*Minute  = (CurrentRTCTime.Byte2.Fields.TenMin  * 10) + CurrentRTCTime.Byte2.Fields.Min;
+	*Hour    = (CurrentRTCTime.Byte3.Fields.TenHour * 10) + CurrentRTCTime.Byte3.Fields.Hour;
 }

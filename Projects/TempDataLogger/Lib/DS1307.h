@@ -23,7 +23,7 @@
 					unsigned int Sec            : 4;
 					unsigned int TenSec         : 3;
 					unsigned int CH             : 1;
-				};
+				} Fields;
 				
 				uint8_t IntVal;
 			} Byte1;
@@ -35,7 +35,7 @@
 					unsigned int Min            : 4;
 					unsigned int TenMin         : 3;
 					unsigned int _RESERVED      : 1;
-				};
+				} Fields;
 				
 				uint8_t IntVal;
 			} Byte2;
@@ -48,7 +48,7 @@
 					unsigned int TenHour         : 2;
 					unsigned int TwelveHourMode  : 1;
 					unsigned int _RESERVED       : 1;
-				};
+				} Fields;
 				
 				uint8_t IntVal;
 			} Byte3;
@@ -63,7 +63,7 @@
 					unsigned int Day             : 4;
 					unsigned int TenDay          : 2;
 					unsigned int _RESERVED       : 2;
-				};
+				} Fields;
 			
 				uint8_t IntVal;
 			} Byte1;
@@ -75,7 +75,7 @@
 					unsigned int Month           : 4;
 					unsigned int TenMonth        : 1;
 					unsigned int _RESERVED       : 3;
-				};
+				} Fields;
 				
 				uint8_t IntVal;
 			} Byte2;
@@ -86,7 +86,7 @@
 				{
 					unsigned int Year            : 4;
 					unsigned int TenYear         : 4;
-				};
+				} Fields;
 				
 				uint8_t IntVal;
 			} Byte3;

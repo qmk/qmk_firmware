@@ -94,12 +94,7 @@
 		{
 			MAC_Address_t Destination; /**< Physical MAC address of the packet recipient */
 			MAC_Address_t Source; /**< Physics MAC address of the packet source */
-			
-			union
-			{
-				uint16_t  EtherType; /**< Ethernet packet sub-protocol type, for Ethernet V2 packets */
-				uint16_t  Length; /**< Ethernet frame length, for Ethernet V1 packets */
-			};
+			uint16_t      EtherType; /**< Ethernet packet sub-protocol type, for Ethernet V2 packets */
 		} Ethernet_Frame_Header_t;
 		
 	/* External Variables: */
