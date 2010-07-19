@@ -85,7 +85,7 @@
  *   </tr>
  *   <tr>
  *    <td>LIBUSB_DRIVER_COMPAT</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to switch to a non-standard endpoint scheme, breaking compatibility with AVRStudio under Windows but making
  *        the code compatible with software such as avrdude (all platforms) that use the libUSB driver.
  *   </tr>

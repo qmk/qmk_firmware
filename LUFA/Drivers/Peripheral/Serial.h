@@ -39,7 +39,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/Peripheral/Serial.c
+ *    - LUFA/Drivers/Peripheral/Serial.c <i>(Makefile source module name: LUFA_SRC_SERIAL)</i>
  *
  *  \section Module Description
  *  Hardware serial USART driver. This module provides an easy to use driver for

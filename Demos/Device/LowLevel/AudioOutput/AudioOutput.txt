@@ -73,17 +73,17 @@
  *   </tr>
  *   <tr>
  *    <td>AUDIO_OUT_STEREO</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, this outputs the audio samples in stereo to the timer output pins of the microcontroller.</td>
  *   </tr>
  *   <tr>
  *    <td>AUDIO_OUT_MONO</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, this outputs the audio samples in mono to the timer output pin of the microcontroller.</td>
  *   </tr>
  *   <tr>
  *    <td>AUDIO_OUT_PORTC</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, this outputs the audio samples in mono to port C of the microcontroller, for connection to an
  *        external DAC.</td>
  *   </tr>

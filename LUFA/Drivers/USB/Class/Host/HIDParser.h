@@ -41,7 +41,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/USB/Class/Host/HIDParser.c
+ *    - LUFA/Drivers/USB/Class/Host/HIDParser.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
  *  \section Module Description
  *  Functions, macros, variables, enums and types related to the parsing of HID class device report descriptors.

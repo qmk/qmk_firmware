@@ -214,62 +214,62 @@
  *   </tr>
  *   <tr>
  *    <td>AUX_LINE_PORT</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>PORT register for the programmer's AUX target line. The use of this line varies between the programming protocols,
  *        but is generally used for the target's /RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
  *    <td>AUX_LINE_PIN</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>PIN register for the programmer's AUX target line. The use of this line varies between the programming protocols,
  *        but is generally used for the target's /RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
  *    <td>AUX_LINE_DDR</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>DDR register for the programmer's AUX target line. The use of this line varies between the programming protocols,
  *        but is generally used for the target's /RESET line. <i>Ignored when compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
  *    <td>AUX_LINE_MASK</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Mask for the programmer's AUX target line. The use of this line varies between the programming protocols,
  *        but is generally used for the target's /RESET line. <b>Must not be the AVR's /SS pin</b>. <i>Ignored when
  *        compiled for the XPLAIN board.</i></td>
  *   </tr>
  *   <tr>
  *    <td>VTARGET_ADC_CHANNEL</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>ADC channel number (on supported AVRs) to use for VTARGET level detection, if NO_VTARGET_DETECT is not defined.
  *        <i>Ignored when compiled for targets lacking an ADC.</i></td> 
  *   </tr>
  *   <tr>
  *    <td>ENABLE_ISP_PROTOCOL</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to enable SPI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *   <tr>
  *    <td>ENABLE_XPROG_PROTOCOL</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to enable PDI and TPI programming protocol support. <i>Ignored when compiled for the XPLAIN board.</i></td>  
  *   </tr>
  *   <tr>
  *    <td>NO_VTARGET_DETECT</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to disable VTARGET sampling and reporting on AVR models with an ADC converter. This will cause the programmer
  *        to report a fixed 5V target voltage to the host regardless of the real target voltage. <i>Ignored when compiled for
  *        targets lacking an ADC.</i></td>  
  *   </tr>
  *   <tr>
  *    <td>VTARGET_REF_VOLTS</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Indicates the programmer AVR's AVCC reference voltage when measuring the target's supply voltage. Note that the supply
  *        voltage should never exceed the reference voltage on the programmer AVR without some form of protection to prevent damage
  *        to the ADC. <i>Ignored when compiled for targets lacking an ADC, or when NO_VTARGET_DETECT is defined.</i></td>  
  *   </tr>
  *   <tr>
  *    <td>VTARGET_SCALE_FACTOR</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Indicates the target's supply voltage scale factor when applied to the ADC. A simple resistive divider can be used on the
  *        ADC pin for measuring the target's supply voltage, so that voltages above the programmer AVR's AVCC reference voltage can be
  *        measured. This should be the reciprocal of the division performed - e.g. if the VTARGET voltage is halved, this should be set
@@ -277,7 +277,7 @@
  *   </tr> 
  *   <tr>
  *    <td>LIBUSB_DRIVER_COMPAT</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to switch to a non-standard endpoint scheme, breaking compatibility with AVRStudio under Windows but making
  *        the code compatible with software such as avrdude (all platforms) that use the libUSB driver.
  *   </tr>

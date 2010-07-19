@@ -43,7 +43,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Scheduler/Scheduler.c
+ *    - LUFA/Scheduler/Scheduler.c <i>(Makefile source module name: LUFA_SRC_SCHEDULER)</i>
  *
  *  \section Module Description
  *  Simple round-robbin cooperative scheduler for use in basic projects where non real-time tasks need

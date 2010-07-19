@@ -71,7 +71,7 @@
  *   </tr>
  *   <tr>
  *    <td>MICROPHONE_BIASED_TO_HALF_RAIL</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, this alters the demo so that the half VCC bias of the microphone input is subtracted.</td>
  *   </tr>
  *   <tr>

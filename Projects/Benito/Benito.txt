@@ -68,32 +68,32 @@
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_LINE_PORT</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Indicates the PORT register of the pin used to generate the target /RESET line pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_LINE_DDR</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Indicates the DDR register of the pin used to generate the target /RESET line pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_LINE_MASK</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Indicates the mask of the pin used to generate the target /RESET line pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>AVR_RESET_PULSE_MS</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Pulse length in milliseconds for the target /RESET pulse.</td>
  *   </tr>
  *   <tr>
  *    <td>TX_RX_LED_PULSE_MS</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Pulse length in milliseconds for the activity Tx/Rx LEDs.</td>
  *   </tr>
  *   <tr>
  *    <td>PING_PONG_LED_PULSE_MS</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>Pulse length in milliseconds for the enumeration LED ping-poning between toggles.</td>
  *   </tr>
  *  </table>

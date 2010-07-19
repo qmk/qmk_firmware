@@ -85,8 +85,8 @@
  *   <tr>
  *    <td>TOTAL_LUNS</td>
  *    <td>MassStorage.h</td>
- *    <td>Total number of Logical Units (drives) in the device. The total device capacity is shared equally between each drive
- *        - this can be set to any positive non-zero amount.</td>
+ *    <td>Total number of Logical Units (drives) in the device. The total device capacity is shared equally between each drive -
+ *        this can be set to any positive non-zero amount.</td>
  *   </tr>
  *  </table>
  */

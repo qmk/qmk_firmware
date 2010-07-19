@@ -42,7 +42,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/Peripheral/SerialStream.c
+ *    - LUFA/Drivers/Peripheral/SerialStream.c <i>(Makefile source module name: LUFA_SRC_SERIALSTREAM)</i>
  *
  *  \section Module Description
  *  Serial stream driver for the USART subsystem on supported USB AVRs. This makes use of the functions in the

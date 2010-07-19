@@ -77,7 +77,7 @@
  *   </tr>
  *   <tr>
  *    <td>DUMMY_RTC</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When a DS1307 RTC chip is not fitted, this token can be defined to make the demo assume a 1/1/1 01:01:01 date/time
  *        stamp at all times, effectively transforming the project into a basic data logger with no specified sample times.</td>
  *   </tr>

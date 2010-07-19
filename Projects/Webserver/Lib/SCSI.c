@@ -249,14 +249,8 @@ static void SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* const MSInte
  */
 static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo, const bool IsDataRead)
 {
-	uint32_t BlockAddress;
-	uint16_t TotalBlocks;
-	
-	/* Load in the 32-bit block address (SCSI uses big-endian, so have to reverse the byte order) */
-	BlockAddress = SwapEndian_32(*(uint32_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[2]);
-
-	/* Load in the 16-bit total blocks (SCSI uses big-endian, so have to reverse the byte order) */
-	TotalBlocks  = SwapEndian_16(*(uint16_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[7]);
+	uint32_t BlockAddress = SwapEndian_32(*(uint32_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[2]);
+	uint16_t TotalBlocks  = SwapEndian_16(*(uint16_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[7]);
 	
 	/* Check if the block address is outside the maximum allowable value for the LUN */
 	if (BlockAddress >= VIRTUAL_MEMORY_BLOCKS)

@@ -42,7 +42,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/USB/Class/Host/Printer.c
+ *    - LUFA/Drivers/USB/Class/Host/Printer.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
  *  \section Module Description
  *  Host Mode USB Class driver framework interface, for the Printer USB Class driver.

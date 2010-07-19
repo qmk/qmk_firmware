@@ -85,37 +85,37 @@
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_ETHERNET</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, received Ethernet headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_ARP</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, received ARP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_IP</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, received IP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_ICMP</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, received ICMP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_TCP</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, received TCP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_UDP</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, received UDP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *   <tr>
  *    <td>NO_DECODE_DHCP</td>
- *    <td>Makefile CDEFS</td>
+ *    <td>Makefile LUFA_OPTS</td>
  *    <td>When defined, received DHCP headers will not be decoded and printed to the device serial port.</td>
  *   </tr>
  *  </table>

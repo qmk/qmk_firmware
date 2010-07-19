@@ -41,17 +41,17 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/USB/LowLevel/DevChapter9.c
- *    - LUFA/Drivers/USB/LowLevel/Device.c
- *    - LUFA/Drivers/USB/LowLevel/Endpoint.c
- *    - LUFA/Drivers/USB/LowLevel/Host.c
- *    - LUFA/Drivers/USB/LowLevel/HostChapter9.c
- *    - LUFA/Drivers/USB/LowLevel/LowLevel.c
- *    - LUFA/Drivers/USB/LowLevel/Pipe.c
- *    - LUFA/Drivers/USB/LowLevel/USBInterrupt.c
- *    - LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c
- *    - LUFA/Drivers/USB/HighLevel/Events.c
- *    - LUFA/Drivers/USB/HighLevel/USBTask.c
+ *    - LUFA/Drivers/USB/LowLevel/DevChapter9.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/LowLevel/Device.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/LowLevel/Endpoint.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/LowLevel/Host.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/LowLevel/HostChapter9.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/LowLevel/LowLevel.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/LowLevel/Pipe.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/LowLevel/USBInterrupt.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/HighLevel/Events.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/HighLevel/USBTask.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
  *  \section Module Description
  *  Driver and framework for the USB controller hardware on the USB series of AVR microcontrollers. This module
