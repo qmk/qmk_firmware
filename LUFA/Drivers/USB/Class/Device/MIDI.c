@@ -69,7 +69,7 @@ uint8_t MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInter
 	
 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpointNumber);
 
-	if (Endpoint_IsReadWriteAllowed());
+	if (Endpoint_IsReadWriteAllowed())
 	{
 		uint8_t ErrorCode;
 
