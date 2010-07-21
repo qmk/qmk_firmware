@@ -46,8 +46,8 @@
  *  @{
  */
 
-#ifndef __USBLOWLEVEL_H__
-#define __USBLOWLEVEL_H__
+#ifndef __USBCONTROLLER_H__
+#define __USBCONTROLLER_H__
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -66,12 +66,13 @@
 			#include "Host.h"
 			#include "Pipe.h"
 			#include "OTG.h"
+			#include "../HighLevel/HostStandardReq.h"
 		#endif
 		
 		#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
 			#include "Device.h"
 			#include "Endpoint.h"
-			#include "DevChapter9.h"
+			#include "../HighLevel/DeviceStandardReq.h"
 		#endif
 
 	/* Enable C linkage for C++ Compilers: */

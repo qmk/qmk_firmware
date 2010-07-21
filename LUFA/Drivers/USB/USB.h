@@ -41,16 +41,16 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/USB/LowLevel/DevChapter9.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/LowLevel/Device.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/LowLevel/Endpoint.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/LowLevel/Host.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/LowLevel/HostChapter9.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/LowLevel/LowLevel.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/LowLevel/Pipe.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/LowLevel/USBController.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/LowLevel/USBInterrupt.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/HighLevel/DeviceStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/HighLevel/Events.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/HighLevel/HostStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/HighLevel/USBTask.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
  *  \section Module Description
@@ -372,19 +372,19 @@
 		#include "HighLevel/StdDescriptors.h"
 		#include "HighLevel/ConfigDescriptor.h"
 
-		#include "LowLevel/LowLevel.h"
+		#include "LowLevel/USBController.h"
 		#include "LowLevel/USBInterrupt.h"
 	
 		#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
 			#include "LowLevel/Host.h"
-			#include "LowLevel/HostChapter9.h"
 			#include "LowLevel/Pipe.h"
+			#include "HighLevel/HostStandardReq.h"
 		#endif
 		
 		#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
 			#include "LowLevel/Device.h"
-			#include "LowLevel/DevChapter9.h"
 			#include "LowLevel/Endpoint.h"
+			#include "HighLevel/DeviceStandardReq.h"
 		#endif
 		
 		#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)

@@ -191,8 +191,11 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */		
-			#define USB_Device_SetLowSpeed()        MACROS{ UDCON |=  (1 << LSM);   }MACROE
-			#define USB_Device_SetFullSpeed()       MACROS{ UDCON &= ~(1 << LSM);   }MACROE
+			#define USB_Device_SetLowSpeed()          MACROS{ UDCON |=  (1 << LSM);   }MACROE
+			#define USB_Device_SetFullSpeed()         MACROS{ UDCON &= ~(1 << LSM);   }MACROE
+			
+			#define USB_Device_SetDeviceAddress(addr) MACROS{ UDADDR = ((1 << ADDEN) | (addr & 0x7F)); }MACROE
+			
 	#endif
 
 #endif

@@ -87,7 +87,7 @@
 #define __SCHEDULER_H__
 
 	/* Includes: */
-		#include <avr/io.h>
+		#include <stdint.h>
 		#include <stdbool.h>
 		
 		#include <util/atomic.h>

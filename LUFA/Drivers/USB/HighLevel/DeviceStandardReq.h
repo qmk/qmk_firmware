@@ -38,21 +38,22 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-#ifndef __DEVCHAPTER9_H__
-#define __DEVCHAPTER9_H__
+#ifndef __DEVICESTDREQ_H__
+#define __DEVICESTDREQ_H__
 
 	/* Includes: */
-		#include <avr/io.h>
 		#include <avr/pgmspace.h>
 		#include <avr/eeprom.h>
 		#include <avr/boot.h>
 		#include <util/atomic.h>
+		#include <stdint.h>
+		#include <stdbool.h>
 		
-		#include "../HighLevel/StdDescriptors.h"
-		#include "../HighLevel/Events.h"
-		#include "../HighLevel/StdRequestType.h"
-		#include "../HighLevel/USBTask.h"
-		#include "LowLevel.h"
+		#include "StdDescriptors.h"
+		#include "Events.h"
+		#include "StdRequestType.h"
+		#include "USBTask.h"
+		#include "../LowLevel/USBController.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -141,7 +142,7 @@
 		/* Function Prototypes: */
 			void USB_Device_ProcessControlRequest(void);
 			
-			#if defined(__INCLUDE_FROM_DEVCHAPTER9_C)
+			#if defined(__INCLUDE_FROM_DEVICESTDREQ_C)
 				static void USB_Device_SetAddress(void);
 				static void USB_Device_SetConfiguration(void);
 				static void USB_Device_GetConfiguration(void);

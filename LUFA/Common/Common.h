@@ -57,7 +57,8 @@
 #define __COMMON_H__
 
 	/* Includes: */
-		#include <avr/io.h>
+		#include <stdint.h>
+		#include <stdbool.h>
 	
 		#include "Attributes.h"
 		#include "BoardTypes.h"

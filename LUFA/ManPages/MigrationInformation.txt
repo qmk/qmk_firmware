@@ -15,6 +15,12 @@
  *  <b>USB Core</b>
  *    - A new USB driver source file, Drivers/USB/LowLevel/Device.c now exists. This source file should be added to all project
  *      makefiles using the USB driver of LUFA, or the makefile should be updated to use the new module source variables.
+ *    - The Drivers/USB/LowLevel/DevChapter9.c source file has moved to Drivers/USB/HighLevel/DeviceStandardReq.c - this should
+ *      be updated in all project makefiles, or the makefile should be updated to use the new module source variables.
+ *    - The Drivers/USB/LowLevel/HostChapter9.h source file has moved to Drivers/USB/HighLevel/HostStandardReq.c - this should
+ *      be updated in all project makefiles, or the makefile should be updated to use the new module source variables.
+ *    - The Drivers/USB/LowLevel/LowLevel.c source file has moved to Drivers/LowLevel/USBController.c - this should be updated 
+ *      in all project makefiles, or the makefile should be updated to use the new module source variables.
  *
  *  <b>Device Mode</b>
  *    - The USB_Device_IsRemoteWakeupSent() macro has been removed, as the remote wakeup request is now fully handled by the

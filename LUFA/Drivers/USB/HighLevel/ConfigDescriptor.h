@@ -51,12 +51,12 @@
 #define __CONFIGDESCRIPTOR_H__
 
 	/* Includes: */
-		#include <avr/io.h>
+		#include <stdint.h>
 		
 		#include "../../../Common/Common.h"
-		#include "../HighLevel/USBMode.h"
-		#include "../LowLevel/HostChapter9.h"
-		#include "../HighLevel/StdDescriptors.h"
+		#include "HostStandardReq.h"
+		#include "USBMode.h"
+		#include "StdDescriptors.h"
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

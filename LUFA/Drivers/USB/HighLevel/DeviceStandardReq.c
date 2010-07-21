@@ -29,12 +29,12 @@
 */
 
 #define  __INCLUDE_FROM_USB_DRIVER
-#include "../HighLevel/USBMode.h"
+#include "USBMode.h"
 
 #if defined(USB_CAN_BE_DEVICE)
 
-#define  __INCLUDE_FROM_DEVCHAPTER9_C
-#include "DevChapter9.h"
+#define  __INCLUDE_FROM_DEVICESTDREQ_C
+#include "DeviceStandardReq.h"
 
 uint8_t USB_ConfigurationNumber;
 
@@ -138,7 +138,7 @@ static void USB_Device_SetAddress(void)
 
 	USB_DeviceState = (DeviceAddress) ? DEVICE_STATE_Addressed : DEVICE_STATE_Default;
 
-	UDADDR = ((1 << ADDEN) | DeviceAddress);
+	USB_Device_SetDeviceAddress(DeviceAddress);
 
 	return;
 }

@@ -50,7 +50,7 @@
 		#include "../../../Common/Common.h"
 		#include "../HighLevel/USBMode.h"
 		#include "../HighLevel/Events.h"
-		#include "LowLevel.h"
+		#include "USBController.h"
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

@@ -38,17 +38,17 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-#ifndef __HOSTCHAPTER9_H__
-#define __HOSTCHAPTER9_H__
+#ifndef __HOSTSTDREQ_H__
+#define __HOSTSTDREQ_H__
 
 	/* Includes: */
-		#include <avr/io.h>
+		#include <stdint.h>
 		#include <stdbool.h>
 		
-		#include "LowLevel.h"
-		#include "../HighLevel/USBMode.h"
-		#include "../HighLevel/StdRequestType.h"
-
+		#include "USBMode.h"
+		#include "StdRequestType.h"
+		#include "../LowLevel/USBController.h"
+		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -104,7 +104,7 @@
 			};
 	
 		/* Function Prototypes: */
-			#if defined(__INCLUDE_FROM_HOSTCHAPTER9_C)
+			#if defined(__INCLUDE_FROM_HOSTSTDREQ_C)
 				static uint8_t USB_Host_WaitForIOS(const uint8_t WaitType);
 			#endif
 	#endif

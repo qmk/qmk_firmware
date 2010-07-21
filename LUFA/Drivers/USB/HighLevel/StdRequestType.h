@@ -49,6 +49,9 @@
 #ifndef __STDREQTYPE_H__
 #define __STDREQTYPE_H__
 
+	/* Includes: */
+		#include <stdint.h>
+
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.

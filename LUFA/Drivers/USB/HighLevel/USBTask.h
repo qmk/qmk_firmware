@@ -42,22 +42,22 @@
 #define __USBTASK_H__
 
 	/* Includes: */
-		#include <avr/io.h>
 		#include <avr/interrupt.h>
+		#include <stdint.h>
 		#include <stdbool.h>
 		
-		#include "../LowLevel/LowLevel.h"
+		#include "../LowLevel/USBController.h"
 		#include "Events.h"
 		#include "StdRequestType.h"
 		#include "StdDescriptors.h"
 		#include "USBMode.h"
 
 		#if defined(USB_CAN_BE_DEVICE)
-			#include "../LowLevel/DevChapter9.h"
+			#include "DeviceStandardReq.h"
 		#endif
 
 		#if defined(USB_CAN_BE_HOST)
-			#include "../LowLevel/HostChapter9.h"
+			#include "HostStandardReq.h"
 		#endif
 		
 	/* Enable C linkage for C++ Compilers: */

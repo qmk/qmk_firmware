@@ -29,12 +29,12 @@
 */
 
 #define  __INCLUDE_FROM_USB_DRIVER
-#include "../HighLevel/USBMode.h"
+#include "USBMode.h"
 
 #if defined(USB_CAN_BE_HOST)
 
-#define  __INCLUDE_FROM_HOSTCHAPTER9_C
-#include "HostChapter9.h"
+#define  __INCLUDE_FROM_HOSTSTDREQ_C
+#include "HostStandardReq.h"
 
 uint8_t USB_Host_SendControlRequest(void* BufferPtr)
 {
