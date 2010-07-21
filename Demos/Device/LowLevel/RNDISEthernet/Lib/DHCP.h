@@ -120,6 +120,8 @@
 		} DHCP_Header_t;
 
 	/* Function Prototypes: */
-		int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart, void* DHCPHeaderInStart, void* DHCPHeaderOutStart);
+		int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart,
+		                               void* DHCPHeaderInStart,
+		                               void* DHCPHeaderOutStart);
 
 #endif

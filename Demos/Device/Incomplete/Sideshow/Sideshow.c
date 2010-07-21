@@ -122,13 +122,11 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR | REQREC_DEVICE))
 			{
 				void*    DescriptorPointer;
-				uint16_t DescriptorSize;
+				uint16_t DescriptorSize = USB_GetOSFeatureDescriptor(USB_ControlRequest.wValue, USB_ControlRequest.wIndex,
+				                                                     &DescriptorPointer, &DescriptorSize);
 
-				if (!(USB_GetOSFeatureDescriptor(USB_ControlRequest.wValue, USB_ControlRequest.wIndex,
-				                                 &DescriptorPointer, &DescriptorSize)))
-				{
-					return;
-				}
+				if (DescriptorSize == NO_DESCRIPTOR)
+				  return;
 				
 				Endpoint_ClearSETUP();
 				

@@ -108,8 +108,10 @@
 		void    SImage_SendBlockHeader(void);
 		uint8_t SImage_ReceiveBlockHeader(void);
 		uint8_t SImage_ReceiveEventHeader(void);
-		uint8_t SImage_SendData(void* const Buffer, const uint16_t Bytes);
-		uint8_t SImage_ReadData(void* const Buffer, const uint16_t Bytes);
+		uint8_t SImage_SendData(void* const Buffer,
+		                        const uint16_t Bytes);
+		uint8_t SImage_ReadData(void* const Buffer,
+		                        const uint16_t Bytes);
 		bool    SImage_IsEventReceived(void);
 
 #endif

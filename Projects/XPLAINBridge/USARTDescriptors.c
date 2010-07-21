@@ -221,7 +221,9 @@ USB_Descriptor_String_t PROGMEM USART_ProductString =
 /** Descriptor retrieval function for the USART Bridge descriptors. This function is in turn called by the GetDescriptor
  *  callback function in the main source file, to retrieve the device's descriptors when in USART bridge mode.
  */
-uint16_t USART_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
+uint16_t USART_GetDescriptor(const uint16_t wValue,
+                             const uint8_t wIndex,
+                             void** const DescriptorAddress)
 {
 	const uint8_t  DescriptorType   = (wValue >> 8);
 	const uint8_t  DescriptorNumber = (wValue & 0xFF);

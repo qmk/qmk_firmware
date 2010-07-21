@@ -60,6 +60,6 @@
 		}
 
 	/* Function Prototypes: */
-		void    SoftUART_Init(void);
+		void SoftUART_Init(void);
 
 #endif

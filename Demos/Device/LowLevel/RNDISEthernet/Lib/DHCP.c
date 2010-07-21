@@ -46,7 +46,9 @@
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise
  */
-int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart, void* DHCPHeaderInStart, void* DHCPHeaderOutStart)
+int16_t DHCP_ProcessDHCPPacket(void* IPHeaderInStart,
+                               void* DHCPHeaderInStart,
+                               void* DHCPHeaderOutStart)
 {
 	IP_Header_t*   IPHeaderIN    = (IP_Header_t*)IPHeaderInStart;
 	DHCP_Header_t* DHCPHeaderIN  = (DHCP_Header_t*)DHCPHeaderInStart;

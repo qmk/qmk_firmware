@@ -31,7 +31,8 @@
 #define  INCLUDE_FROM_SIDESHOWCONTENT_C
 #include "SideshowContent.h"
 
-bool SideShow_AddSimpleContent(SideShow_PacketHeader_t* const PacketHeader, SideShow_Application_t* const Application)
+bool SideShow_AddSimpleContent(SideShow_PacketHeader_t* const PacketHeader,
+                               SideShow_Application_t* const Application)
 {
 	uint32_t ContentSize;
 	uint32_t ContentID;
@@ -69,7 +70,8 @@ bool SideShow_AddSimpleContent(SideShow_PacketHeader_t* const PacketHeader, Side
 	return true;
 }
 
-static void SideShow_ProcessXMLContent(void* ContentData, uint32_t ContentSize)
+static void SideShow_ProcessXMLContent(void* ContentData,
+                                       uint32_t ContentSize)
 {
 	printf(" XML");
 	Endpoint_Discard_Stream(ContentSize);

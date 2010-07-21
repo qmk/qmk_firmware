@@ -75,6 +75,7 @@
 		} ICMP_Header_t;
 		
 	/* Function Prototypes: */
-		int16_t ICMP_ProcessICMPPacket(void* InDataStart, void* OutDataStart);
+		int16_t ICMP_ProcessICMPPacket(void* InDataStart,
+		                               void* OutDataStart);
 
 #endif

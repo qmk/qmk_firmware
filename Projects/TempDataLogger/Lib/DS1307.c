@@ -7,7 +7,9 @@
 
 #include "DS1307.h"
 
-void DS1307_SetDate(uint8_t Day, uint8_t Month, uint8_t Year)
+void DS1307_SetDate(const uint8_t Day,
+                    const uint8_t Month,
+                    const uint8_t Year)
 {
 #if defined(DUMMY_RTC)
 	return;
@@ -32,7 +34,9 @@ void DS1307_SetDate(uint8_t Day, uint8_t Month, uint8_t Year)
 	}
 }
 
-void DS1307_SetTime(uint8_t Hour, uint8_t Minute, uint8_t Second)
+void DS1307_SetTime(const uint8_t Hour,
+                    const uint8_t Minute,
+                    const uint8_t Second)
 {
 #if defined(DUMMY_RTC)
 	return;
@@ -59,7 +63,9 @@ void DS1307_SetTime(uint8_t Hour, uint8_t Minute, uint8_t Second)
 	}
 }
 		
-void DS1307_GetDate(uint8_t* Day, uint8_t* Month, uint8_t* Year)
+void DS1307_GetDate(uint8_t* const Day,
+                    uint8_t* const Month,
+                    uint8_t* const Year)
 {
 #if defined(DUMMY_RTC)
 	*Day   = 1;
@@ -91,7 +97,9 @@ void DS1307_GetDate(uint8_t* Day, uint8_t* Month, uint8_t* Year)
 	*Year   = (CurrentRTCDate.Byte3.Fields.TenYear  * 10) + CurrentRTCDate.Byte3.Fields.Year;
 }
 
-void DS1307_GetTime(uint8_t* Hour, uint8_t* Minute, uint8_t* Second)
+void DS1307_GetTime(uint8_t* const Hour,
+                    uint8_t* const Minute,
+                    uint8_t* const Second)
 {
 #if defined(DUMMY_RTC)
 	*Hour   = 1;

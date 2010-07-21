@@ -100,7 +100,8 @@
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
 		 *  \param[in]     Data    Data element to insert into the buffer
 		 */
-		static inline void RingBuffer_AtomicInsert(RingBuff_t* const Buffer, RingBuff_Data_t Data)
+		static inline void RingBuffer_AtomicInsert(RingBuff_t* const Buffer,
+		                                           const RingBuff_Data_t Data)
 		{
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 			{
@@ -141,7 +142,8 @@
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
 		 *  \param[in]     Data    Data element to insert into the buffer
 		 */
-		static inline void RingBuffer_Insert(RingBuff_t* const Buffer, RingBuff_Data_t Data)
+		static inline void RingBuffer_Insert(RingBuff_t* const Buffer,
+		                                     const RingBuff_Data_t Data)
 		{
 			*Buffer->In = Data;
 			

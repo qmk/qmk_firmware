@@ -69,6 +69,7 @@
 		} ARP_Header_t;
 		
 	/* Function Prototypes: */
-		int16_t ARP_ProcessARPPacket(void* InDataStart, void* OutDataStart);
+		int16_t ARP_ProcessARPPacket(void* InDataStart,
+		                             void* OutDataStart);
 
 #endif

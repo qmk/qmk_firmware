@@ -151,7 +151,8 @@ void Read_Joystick_Status(void)
  *  \param[in] Report  Report data to send.
  *  \param[in] ReportSize  Report length in bytes.
  */
-void Send_Command_Report(uint8_t* const Report, const uint16_t ReportSize)
+void Send_Command_Report(uint8_t* const Report,
+                         const uint16_t ReportSize)
 {
 	memcpy(CmdBuffer, Report, 8);
 	WriteNextReport(CmdBuffer, ReportSize);
@@ -212,7 +213,8 @@ void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 /** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
-void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
+void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
+                                            const uint8_t SubErrorCode)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
@@ -245,7 +247,8 @@ void DiscardNextReport(void)
  *  \param[in] ReportOUTData  Buffer containing the report to send to the device
  *  \param[in] ReportLength  Length of the report to send
  */
-void WriteNextReport(uint8_t* const ReportOUTData, const uint16_t ReportLength)
+void WriteNextReport(uint8_t* const ReportOUTData,
+                     const uint16_t ReportLength)
 {
 	/* Select and unfreeze HID data OUT pipe */
 	Pipe_SelectPipe(HID_DATA_OUT_PIPE);

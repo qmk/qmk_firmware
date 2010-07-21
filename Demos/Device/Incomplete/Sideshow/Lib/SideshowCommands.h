@@ -151,7 +151,8 @@
 			static void SideShow_GetCurrentUser(SideShow_PacketHeader_t* const PacketHeader);
 			static void SideShow_SetCurrentUser(SideShow_PacketHeader_t* const PacketHeader);
 			static void SideShow_GetCapabilities(SideShow_PacketHeader_t* const PacketHeader);
-			static void SideShow_GetString(SideShow_PacketHeader_t* const PacketHeader, void* const UnicodeStruct);
+			static void SideShow_GetString(SideShow_PacketHeader_t* const PacketHeader,
+			                               void* const UnicodeStruct);
 			static void SideShow_GetApplicationOrder(SideShow_PacketHeader_t* const PacketHeader);
 			static void SideShow_GetSupportedEndpoints(SideShow_PacketHeader_t* const PacketHeader);
 			static void SideShow_AddApplication(SideShow_PacketHeader_t* const PacketHeader);

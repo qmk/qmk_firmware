@@ -62,6 +62,8 @@
 		} UDP_Header_t;
 		
 	/* Function Prototypes: */
-		int16_t UDP_ProcessUDPPacket(void* IPHeaderInStart, void* UDPHeaderInStart, void* UDPHeaderOutStart);
+		int16_t UDP_ProcessUDPPacket(void* IPHeaderInStart,
+		                             void* UDPHeaderInStart,
+		                             void* UDPHeaderOutStart);
 
 #endif

@@ -151,7 +151,8 @@ uint8_t V2Params_GetParameterValue(const uint8_t ParamID)
  *
  *  \return Pointer to the associated parameter information from the parameter table if found, NULL otherwise
  */
-void V2Params_SetParameterValue(const uint8_t ParamID, const uint8_t Value)
+void V2Params_SetParameterValue(const uint8_t ParamID,
+                                const uint8_t Value)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
 

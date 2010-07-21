@@ -109,8 +109,11 @@ void ISPTarget_ChangeTargetResetLine(const bool ResetTarget)
  *  \return V2 Protocol status \ref STATUS_CMD_OK if the no timeout occurred, \ref STATUS_RDY_BSY_TOUT or
  *          \ref STATUS_CMD_TOUT otherwise
  */
-uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode, const uint16_t PollAddress, const uint8_t PollValue,
-                                      const uint8_t DelayMS, const uint8_t ReadMemCommand)
+uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode,
+                                      const uint16_t PollAddress,
+                                      const uint8_t PollValue,
+                                      const uint8_t DelayMS,
+                                      const uint8_t ReadMemCommand)
 {
 	uint8_t ProgrammingStatus  = STATUS_CMD_OK;
 

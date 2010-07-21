@@ -170,13 +170,15 @@ void DHCPClientApp_Callback(void)
 /** Fills the DHCP packet response with the appropriate BOOTP header for DHCP. This fills out all the required
  *  fields, leaving only the additional DHCP options to be added to the packet before it is sent to the DHCP server.
  *
- *  \param[out] DHCPHeader  Location in the packet buffer where the BOOTP header should be written to
+ *  \param[out] DHCPHeader       Location in the packet buffer where the BOOTP header should be written to
  *  \param[in]  DHCPMessageType  DHCP Message type, such as DHCP_DISCOVER
- *  \param[in]  AppState    Application state of the current UDP connection
+ *  \param[in]  AppState         Application state of the current UDP connection
  *
  *  \return Size in bytes of the created DHCP packet
  */
-static uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* const DHCPHeader, const uint8_t DHCPMessageType, uip_udp_appstate_t* AppState)
+static uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* const DHCPHeader,
+                                             const uint8_t DHCPMessageType,
+                                             uip_udp_appstate_t* const AppState)
 {
 	/* Erase existing packet data so that we start will all 0x00 DHCP header data */
  	memset(DHCPHeader, 0, sizeof(DHCP_Header_t));
@@ -215,7 +217,10 @@ static uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* const DHCPHeader, co
  *
  *  \return Number of bytes added to the DHCP packet
  */
-static uint8_t DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, uint8_t DataLen, void* OptionData)
+static uint8_t DHCPClientApp_SetOption(uint8_t* DHCPOptionList,
+                                       const uint8_t Option,
+                                       const uint8_t DataLen,
+                                       void* const OptionData)
 {
 	/* Skip through the DHCP options list until the terminator option is found */
 	while (*DHCPOptionList != DHCP_OPTION_END)
@@ -239,7 +244,9 @@ static uint8_t DHCPClientApp_SetOption(uint8_t* DHCPOptionList, uint8_t Option, 
  *
  *  \return Boolean true if the option was found in the DHCP packet's options list, false otherwise
  */
-static bool DHCPClientApp_GetOption(const uint8_t* DHCPOptionList, const uint8_t Option, void* const Destination)
+static bool DHCPClientApp_GetOption(const uint8_t* DHCPOptionList,
+                                    const uint8_t Option,
+                                    void* const Destination)
 {
 	/* Look through the incoming DHCP packet's options list for the requested option */
 	while (*DHCPOptionList != DHCP_OPTION_END)

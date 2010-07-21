@@ -107,6 +107,6 @@
 		void EVENT_USB_Device_UnhandledControlRequest(void);
 		void EVENT_USB_Device_StartOfFrame(void);
 
-		void CreateMouseReport(USB_MouseReport_Data_t* ReportData);
+		void CreateMouseReport(USB_MouseReport_Data_t* const ReportData);
 
 #endif

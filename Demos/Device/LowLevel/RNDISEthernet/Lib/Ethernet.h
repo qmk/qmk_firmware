@@ -109,6 +109,7 @@
 		
 	/* Function Prototypes: */
 		void     Ethernet_ProcessPacket(void);
-		uint16_t Ethernet_Checksum16(void* Data, uint16_t Bytes);
+		uint16_t Ethernet_Checksum16(void* Data,
+		                             uint16_t Bytes);
 		
 #endif

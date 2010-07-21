@@ -46,7 +46,9 @@
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise
  */
-int16_t UDP_ProcessUDPPacket(void* IPHeaderInStart, void* UDPHeaderInStart, void* UDPHeaderOutStart)
+int16_t UDP_ProcessUDPPacket(void* IPHeaderInStart,
+                             void* UDPHeaderInStart,
+                             void* UDPHeaderOutStart)
 {
 	UDP_Header_t* UDPHeaderIN  = (UDP_Header_t*)UDPHeaderInStart;
 	UDP_Header_t* UDPHeaderOUT = (UDP_Header_t*)UDPHeaderOutStart;

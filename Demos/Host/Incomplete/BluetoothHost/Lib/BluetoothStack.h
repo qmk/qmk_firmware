@@ -155,13 +155,17 @@
 		void                 Bluetooth_ConnectionComplete(void);
 		void                 Bluetooth_DisconnectionComplete(void);
 		bool                 Bluetooth_ChannelConnectionRequest(const uint16_t PSM);
-		void                 Bluetooth_PacketReceived(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const ACLChannel);
+		void                 Bluetooth_PacketReceived(void* Data, uint16_t DataLen,
+		                                              Bluetooth_Channel_t* const ACLChannel);
 		void                 Bluetooth_ChannelOpened(Bluetooth_Channel_t* const ACLChannel);
 
-		Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t SearchValue, const uint8_t SearchKey);
+		Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t SearchValue,
+		                                              const uint8_t SearchKey);
 		Bluetooth_Channel_t* Bluetooth_OpenChannel(const uint16_t PSM);
 		void                 Bluetooth_CloseChannel(Bluetooth_Channel_t* const ACLChannel);
-		uint8_t              Bluetooth_SendPacket(void* Data, uint16_t DataLen, Bluetooth_Channel_t* const ACLChannel);
+		uint8_t              Bluetooth_SendPacket(void* Data,
+		                                          uint16_t DataLen,
+		                                          Bluetooth_Channel_t* const ACLChannel);
 
 	/* External Variables: */
 		extern Bluetooth_Device_t      Bluetooth_DeviceConfiguration;

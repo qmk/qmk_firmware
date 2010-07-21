@@ -56,7 +56,8 @@ const IP_Address_t  ClientIPAddress     = {CLIENT_IP_ADDRESS};
 /** Processes an incoming Ethernet frame, and writes the appropriate response to the output Ethernet
  *  frame buffer if the sub protocol handlers create a valid response.
  */
-void Ethernet_ProcessPacket(Ethernet_Frame_Info_t* FrameIN, Ethernet_Frame_Info_t* FrameOUT)
+void Ethernet_ProcessPacket(Ethernet_Frame_Info_t* const FrameIN,
+                            Ethernet_Frame_Info_t* const FrameOUT)
 {
 	DecodeEthernetFrameHeader(FrameIN);
 
@@ -115,7 +116,8 @@ void Ethernet_ProcessPacket(Ethernet_Frame_Info_t* FrameIN, Ethernet_Frame_Info_
  *
  *  \return A 16-bit Ethernet checksum value
  */
-uint16_t Ethernet_Checksum16(void* Data, uint16_t Bytes)
+uint16_t Ethernet_Checksum16(void* Data,
+                             uint16_t Bytes)
 {
 	uint16_t* Words    = (uint16_t*)Data;
 	uint32_t  Checksum = 0;

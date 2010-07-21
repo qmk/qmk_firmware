@@ -117,7 +117,8 @@ void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 /** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
-void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
+void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
+                                            const uint8_t SubErrorCode)
 {
 	printf_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"
 	                         " -- Error Code %d\r\n"
@@ -373,7 +374,8 @@ void MassStorage_Task(void)
  *  \param[in] CommandString  ASCII string located in PROGMEM space indicating what operation failed
  *  \param[in] ErrorCode      Error code of the function which failed to complete successfully
  */
-void ShowDiskReadError(char* CommandString, uint8_t ErrorCode)
+void ShowDiskReadError(char* CommandString,
+                       const uint8_t ErrorCode)
 {
 	if (ErrorCode == MASS_STORE_SCSI_COMMAND_FAILED)
 	{

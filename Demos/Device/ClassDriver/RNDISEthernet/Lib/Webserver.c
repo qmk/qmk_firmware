@@ -90,7 +90,8 @@ void Webserver_Init(void)
  *
  *  \return Boolean true if the command matches the request, false otherwise
  */
-static bool IsHTTPCommand(uint8_t* RequestHeader, char* Command)
+static bool IsHTTPCommand(uint8_t* RequestHeader,
+                          char* Command)
 {
 	/* Returns true if the non null terminated string in RequestHeader matches the null terminated string Command */
 	return (strncmp((char*)RequestHeader, Command, strlen(Command)) == 0);
@@ -102,7 +103,8 @@ static bool IsHTTPCommand(uint8_t* RequestHeader, char* Command)
  *  \param[in] ConnectionState  Pointer to a TCP Connection State structure giving connection information
  *  \param[in,out] Buffer       Pointer to the application's send/receive packet buffer
  */
-void Webserver_ApplicationCallback(TCP_ConnectionState_t* ConnectionState, TCP_ConnectionBuffer_t* Buffer)
+void Webserver_ApplicationCallback(TCP_ConnectionState_t* const ConnectionState,
+                                   TCP_ConnectionBuffer_t* const Buffer)
 {
 	char*          BufferDataStr = (char*)Buffer->Data;
 	static uint8_t PageBlock     = 0;

@@ -211,7 +211,8 @@ static void Bluetooth_ProcessIncomingACLPackets(void)
  *
  *  \return Pointer to the matching channel information structure in the channel table if found, NULL otherwise
  */
-Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t SearchValue, const uint8_t SearchKey)
+Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t SearchValue,
+                                              const uint8_t SearchKey)
 {
 	for (uint8_t i = 0; i < BLUETOOTH_MAX_OPEN_CHANNELS; i++)
 	{
@@ -253,7 +254,9 @@ Bluetooth_Channel_t* Bluetooth_GetChannelData(const uint16_t SearchValue, const 
  *
  * \return A value from the \ref BT_SendPacket_ErrorCodes_t enum
  */
-uint8_t Bluetooth_SendPacket(void* Data, const uint16_t DataLen, Bluetooth_Channel_t* const ACLChannel)
+uint8_t Bluetooth_SendPacket(void* Data,
+                             const uint16_t DataLen,
+                             Bluetooth_Channel_t* const ACLChannel)
 {
 	BT_ACL_Header_t        ACLPacketHeader;
 	BT_DataPacket_Header_t DataHeader;

@@ -239,7 +239,7 @@ void ProcessRNDISControlMessage(void)
  *
  *  \return Boolean true if the query was handled, false otherwise
  */
-static bool ProcessNDISQuery(uint32_t OId, void* QueryData, uint16_t QuerySize,
+static bool ProcessNDISQuery(const uint32_t OId, void* QueryData, uint16_t QuerySize,
                              void* ResponseData, uint16_t* ResponseSize)
 {
 	/* Handler for REMOTE_NDIS_QUERY_MSG messages */

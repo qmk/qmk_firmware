@@ -280,7 +280,8 @@ static void SideShow_GetCapabilities(SideShow_PacketHeader_t* const PacketHeader
 	return;
 }
 
-static void SideShow_GetString(SideShow_PacketHeader_t* const PacketHeader, void* const UnicodeStruct)
+static void SideShow_GetString(SideShow_PacketHeader_t* const PacketHeader,
+                               void* const UnicodeStruct)
 {
 	Endpoint_ClearOUT();
 

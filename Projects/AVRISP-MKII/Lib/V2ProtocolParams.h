@@ -75,7 +75,8 @@
 	
 		uint8_t V2Params_GetParameterPrivileges(const uint8_t ParamID);
 		uint8_t V2Params_GetParameterValue(const uint8_t ParamID);
-		void    V2Params_SetParameterValue(const uint8_t ParamID, const uint8_t Value);
+		void    V2Params_SetParameterValue(const uint8_t ParamID,
+		                                   const uint8_t Value);
 		
 		#if defined(INCLUDE_FROM_V2PROTOCOL_PARAMS_C)
 			static ParameterItem_t* V2Params_GetParamFromTable(const uint8_t ParamID);

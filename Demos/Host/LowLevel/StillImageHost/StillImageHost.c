@@ -113,7 +113,8 @@ void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 /** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
-void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
+void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
+                                            const uint8_t SubErrorCode)
 {
 	printf_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"
 	                         " -- Error Code %d\r\n"
@@ -339,7 +340,8 @@ void StillImage_Task(void)
  *  \param[in] UnicodeString  Pointer to a Unicode encoded input string
  *  \param[out] Buffer        Pointer to a buffer where the converted ASCII string should be stored
  */
-void UnicodeToASCII(uint8_t* UnicodeString, char* Buffer)
+void UnicodeToASCII(uint8_t* UnicodeString,
+                    char* Buffer)
 {
 	/* Get the number of characters in the string, skip to the start of the string data */
 	uint8_t CharactersRemaining = *(UnicodeString++);
@@ -363,7 +365,8 @@ void UnicodeToASCII(uint8_t* UnicodeString, char* Buffer)
  *  \param[in] ErrorCode          Error code of the function which failed to complete successfully
  *  \param[in] ResponseCodeError  Indicates if the error is due to a command failed indication from the device, or a communication failure
  */
-void ShowCommandError(uint8_t ErrorCode, bool ResponseCodeError)
+void ShowCommandError(uint8_t ErrorCode,
+                      bool ResponseCodeError)
 {
 	char* FailureType = ((ResponseCodeError) ? PSTR("Response Code != OK") : PSTR("Transaction Fail"));
 

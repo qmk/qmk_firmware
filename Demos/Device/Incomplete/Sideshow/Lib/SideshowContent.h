@@ -116,10 +116,12 @@
 		#define XML_END_TAG           "</body>"
 	
 	/* Function Prototypes: */
-		bool SideShow_AddSimpleContent(SideShow_PacketHeader_t* const PacketHeader, SideShow_Application_t* const Application);
+		bool SideShow_AddSimpleContent(SideShow_PacketHeader_t* const PacketHeader,
+		                               SideShow_Application_t* const Application);
 
 		#if defined(INCLUDE_FROM_SIDESHOWCONTENT_C)
-			static void SideShow_ProcessXMLContent(void* ContentData, uint32_t ContentSize);
+			static void SideShow_ProcessXMLContent(void* ContentData,
+			                                       uint32_t ContentSize);
 		#endif
 		
 #endif

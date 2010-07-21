@@ -228,18 +228,31 @@
 		} TCP_Header_t;
 		
 	/* Function Prototypes: */
-		void                  TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* RNDISInterfaceInfo);
+		void                  TCP_TCPTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo);
 		void                  TCP_Init(void);
-		bool                  TCP_SetPortState(uint16_t Port, uint8_t State, void (*Handler)(TCP_ConnectionState_t*, TCP_ConnectionBuffer_t*));
-		uint8_t               TCP_GetPortState(uint16_t Port);
-		bool                  TCP_SetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16_t RemotePort, uint8_t State);
-		uint8_t               TCP_GetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16_t RemotePort);
-		TCP_ConnectionInfo_t* TCP_GetConnectionInfo(uint16_t Port, IP_Address_t RemoteAddress, uint16_t RemotePort);
-		int16_t               TCP_ProcessTCPPacket(void* IPHeaderInStart, void* TCPHeaderInStart, void* TCPHeaderOutStart);
+		bool                  TCP_SetPortState(const uint16_t Port,
+		                                       const uint8_t State,
+		                                       void (*Handler)(TCP_ConnectionState_t*, TCP_ConnectionBuffer_t*));
+		uint8_t               TCP_GetPortState(const uint16_t Port);
+		bool                  TCP_SetConnectionState(const uint16_t Port,
+		                                             const IP_Address_t RemoteAddress,
+		                                             const uint16_t RemotePort,
+		                                             const uint8_t State);
+		uint8_t               TCP_GetConnectionState(const uint16_t Port,
+		                                             const IP_Address_t RemoteAddress,
+		                                             const uint16_t RemotePort);
+		TCP_ConnectionInfo_t* TCP_GetConnectionInfo(const uint16_t Port,
+		                                            const IP_Address_t RemoteAddress,
+		                                            const uint16_t RemotePort);
+		int16_t               TCP_ProcessTCPPacket(void* IPHeaderInStart,
+		                                           void* TCPHeaderInStart,
+		                                           void* TCPHeaderOutStart);
 
 		#if defined(INCLUDE_FROM_TCP_C)
-			static uint16_t TCP_Checksum16(void* TCPHeaderOutStart, IP_Address_t SourceAddress,
-										   IP_Address_t DestinationAddress, uint16_t TCPOutSize);
+			static uint16_t TCP_Checksum16(void* TCPHeaderOutStart,
+			                               const IP_Address_t SourceAddress,
+										   const IP_Address_t DestinationAddress,
+			                               uint16_t TCPOutSize);
 		#endif
 
 #endif

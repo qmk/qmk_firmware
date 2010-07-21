@@ -44,7 +44,7 @@ SideShow_Application_t* SideShow_GetFreeApplication(void)
 	return NULL;
 }
 
-SideShow_Application_t* SideShow_GetApplicationFromGUID(GUID_t* GUID)
+SideShow_Application_t* SideShow_GetApplicationFromGUID(GUID_t* const GUID)
 {
 	for (uint8_t App = 0; App < ARRAY_ELEMENTS(InstalledApplications); App++)
 	{

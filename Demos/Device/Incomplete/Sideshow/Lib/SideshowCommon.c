@@ -30,7 +30,8 @@
 
 #include "SideshowCommon.h"
 
-uint16_t SideShow_Read_Unicode_String(void* const UnicodeString, const uint16_t MaxBytes)
+uint16_t SideShow_Read_Unicode_String(void* const UnicodeString,
+                                      const uint16_t MaxBytes)
 {
 	Unicode_String_t* const UnicodeStruct = (Unicode_String_t*)UnicodeString;
 	uint32_t                UnicodeCharsToRead;

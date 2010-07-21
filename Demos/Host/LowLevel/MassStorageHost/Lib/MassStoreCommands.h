@@ -185,25 +185,34 @@
 	
 	/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_MASSSTORE_COMMANDS_C)
-			static uint8_t MassStore_SendCommand(CommandBlockWrapper_t* SCSICommandBlock, void* BufferPtr);
+			static uint8_t MassStore_SendCommand(CommandBlockWrapper_t* const SCSICommandBlock,
+			                                     void* BufferPtr);
 			static uint8_t MassStore_WaitForDataReceived(void);
-			static uint8_t MassStore_SendReceiveData(CommandBlockWrapper_t* SCSICommandBlock, void* BufferPtr) ATTR_NON_NULL_PTR_ARG(1);
-			static uint8_t MassStore_GetReturnedStatus(CommandStatusWrapper_t* SCSICommandStatus) ATTR_NON_NULL_PTR_ARG(1);
+			static uint8_t MassStore_SendReceiveData(CommandBlockWrapper_t* const SCSICommandBlock,
+			                                         void* BufferPtr) ATTR_NON_NULL_PTR_ARG(1);
+			static uint8_t MassStore_GetReturnedStatus(CommandStatusWrapper_t* const SCSICommandStatus) ATTR_NON_NULL_PTR_ARG(1);
 		#endif
 		
 		uint8_t MassStore_MassStorageReset(void);
 		uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex);
-		uint8_t MassStore_RequestSense(const uint8_t LUNIndex, SCSI_Request_Sense_Response_t* const SensePtr)
-		                               ATTR_NON_NULL_PTR_ARG(2);
-		uint8_t MassStore_Inquiry(const uint8_t LUNIndex, SCSI_Inquiry_Response_t* const InquiryPtr)
-		                               ATTR_NON_NULL_PTR_ARG(2);
-		uint8_t MassStore_ReadDeviceBlock(const uint8_t LUNIndex, const uint32_t BlockAddress,
-		                                  const uint8_t Blocks, const uint16_t BlockSize, void* BufferPtr) ATTR_NON_NULL_PTR_ARG(5);
-		uint8_t MassStore_WriteDeviceBlock(const uint8_t LUNIndex, const uint32_t BlockAddress,
-                                           const uint8_t Blocks, const uint16_t BlockSize, void* BufferPtr) ATTR_NON_NULL_PTR_ARG(5);
-		uint8_t MassStore_ReadCapacity(const uint8_t LUNIndex, SCSI_Capacity_t* const CapacityPtr)
-		                               ATTR_NON_NULL_PTR_ARG(2);
+		uint8_t MassStore_RequestSense(const uint8_t LUNIndex,
+		                               SCSI_Request_Sense_Response_t* const SensePtr) ATTR_NON_NULL_PTR_ARG(2);
+		uint8_t MassStore_Inquiry(const uint8_t LUNIndex,
+		                          SCSI_Inquiry_Response_t* const InquiryPtr) ATTR_NON_NULL_PTR_ARG(2);
+		uint8_t MassStore_ReadDeviceBlock(const uint8_t LUNIndex,
+		                                  const uint32_t BlockAddress,
+		                                  const uint8_t Blocks,
+		                                  const uint16_t BlockSize,
+		                                  void* BufferPtr) ATTR_NON_NULL_PTR_ARG(5);
+		uint8_t MassStore_WriteDeviceBlock(const uint8_t LUNIndex,
+		                                   const uint32_t BlockAddress,
+                                           const uint8_t Blocks,
+		                                   const uint16_t BlockSize,
+		                                   void* BufferPtr) ATTR_NON_NULL_PTR_ARG(5);
+		uint8_t MassStore_ReadCapacity(const uint8_t LUNIndex,
+		                               SCSI_Capacity_t* const CapacityPtr) ATTR_NON_NULL_PTR_ARG(2);
 		uint8_t MassStore_TestUnitReady(const uint8_t LUNIndex);
-		uint8_t MassStore_PreventAllowMediumRemoval(const uint8_t LUNIndex, const bool PreventRemoval);
+		uint8_t MassStore_PreventAllowMediumRemoval(const uint8_t LUNIndex,
+		                                            const bool PreventRemoval);
 
 #endif

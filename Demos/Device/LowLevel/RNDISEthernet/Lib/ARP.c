@@ -46,7 +46,8 @@
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise
  */
-int16_t ARP_ProcessARPPacket(void* InDataStart, void* OutDataStart)
+int16_t ARP_ProcessARPPacket(void* InDataStart,
+                             void* OutDataStart)
 {
 	DecodeARPHeader(InDataStart);
 

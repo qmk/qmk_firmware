@@ -72,7 +72,7 @@
 		#define LEDMASK_USB_BUSY          LEDS_LED2
 		
 	/* External Variables: */
-		extern FILE DiskStream;
+		extern FILE  DiskStream;
 		extern FATFS DiskFATState;
 	
 	/* Function Prototypes: */

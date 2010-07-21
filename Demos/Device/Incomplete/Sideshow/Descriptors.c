@@ -154,7 +154,9 @@ USB_OSCompatibleIDDescriptor_t PROGMEM DevCompatIDs =
 	                         SubCompatibleID: "UNIV1"}
 };
 
-uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
+uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
+                                    const uint8_t wIndex,
+                                    void** const DescriptorAddress)
 {
 	const uint8_t  DescriptorType   = (wValue >> 8);
 	const uint8_t  DescriptorNumber = (wValue & 0xFF);
@@ -207,11 +209,12 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex,
 	return Size;
 }
 
-bool USB_GetOSFeatureDescriptor(const uint16_t wValue, const uint8_t wIndex,
-                                void** const DescriptorAddress, uint16_t* const DescriptorSize)
+uint16_t USB_GetOSFeatureDescriptor(const uint16_t wValue,
+                                    const uint8_t wIndex,
+                                    void** const DescriptorAddress)
 {
 	void*    Address = NULL;
-	uint16_t Size    = 0;
+	uint16_t Size    = NO_DESCRIPTOR;
 
 	/* Check if a device level OS feature descriptor is being requested */
 	if (wValue == 0x0000)
@@ -224,13 +227,6 @@ bool USB_GetOSFeatureDescriptor(const uint16_t wValue, const uint8_t wIndex,
 		}
 	}
 
-	if (Address != NULL)
-	{
-		*DescriptorAddress = Address;
-		*DescriptorSize    = Size;
-
-		return true;
-	}
-		
-	return false;
+	*DescriptorAddress = Address;
+	return Size;
 }

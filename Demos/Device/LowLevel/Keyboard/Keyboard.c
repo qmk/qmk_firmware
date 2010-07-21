@@ -257,7 +257,7 @@ void EVENT_USB_Device_StartOfFrame(void)
  *
  *  \param[out] ReportData  Pointer to a HID report data structure to be filled
  */
-void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
+void CreateKeyboardReport(USB_KeyboardReport_Data_t* const ReportData)
 {
 	uint8_t JoyStatus_LCL     = Joystick_GetStatus();
 	uint8_t ButtonStatus_LCL  = Buttons_GetStatus();
@@ -291,7 +291,7 @@ void CreateKeyboardReport(USB_KeyboardReport_Data_t* ReportData)
  *
  *  \param[in] LEDReport  LED status report from the host
  */
-void ProcessLEDReport(uint8_t LEDReport)
+void ProcessLEDReport(const uint8_t LEDReport)
 {
 	uint8_t LEDMask = LEDS_LED2;
 	

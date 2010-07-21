@@ -215,9 +215,14 @@
 		void ProcessRNDISControlMessage(void);
 
 		#if defined(INCLUDE_FROM_RNDIS_C)
-			static bool ProcessNDISQuery(uint32_t OId, void* QueryData, uint16_t QuerySize,
-										 void* ResponseData, uint16_t* ResponseSize);
-			static bool ProcessNDISSet(uint32_t OId, void* SetData, uint16_t SetSize);	
+			static bool ProcessNDISQuery(const uint32_t OId,
+			                             void* QueryData,
+			                             uint16_t QuerySize,
+										 void* ResponseData,
+			                             uint16_t* ResponseSize);
+			static bool ProcessNDISSet(const uint32_t OId,
+			                           void* SetData,
+			                           uint16_t SetSize);	
 		#endif
 		
 #endif

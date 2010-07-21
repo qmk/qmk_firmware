@@ -175,7 +175,9 @@ void TCP_Init(void)
  *
  *  \return Boolean true if the port state was set, false otherwise (no more space in the port state table)
  */
-bool TCP_SetPortState(uint16_t Port, uint8_t State, void (*Handler)(TCP_ConnectionState_t*, TCP_ConnectionBuffer_t*))
+bool TCP_SetPortState(const uint16_t Port,
+                      const uint8_t State,
+                      void (*Handler)(TCP_ConnectionState_t*, TCP_ConnectionBuffer_t*))
 {
 	/* Note, Port number should be specified in BIG endian to simplify network code */
 
@@ -222,7 +224,7 @@ bool TCP_SetPortState(uint16_t Port, uint8_t State, void (*Handler)(TCP_Connecti
  *
  *  \return A value from the TCP_PortStates_t enum
  */
-uint8_t TCP_GetPortState(uint16_t Port)
+uint8_t TCP_GetPortState(const uint16_t Port)
 {
 	/* Note, Port number should be specified in BIG endian to simplify network code */
 
@@ -247,7 +249,10 @@ uint8_t TCP_GetPortState(uint16_t Port)
  *
  *  \return Boolean true if the connection was updated or created, false otherwise (no more space in the connection state table)
  */
-bool TCP_SetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16_t RemotePort, uint8_t State)
+bool TCP_SetConnectionState(const uint16_t Port,
+                            const IP_Address_t RemoteAddress,
+                            const uint16_t RemotePort,
+                            const uint8_t State)
 {
 	/* Note, Port number should be specified in BIG endian to simplify network code */
 
@@ -287,7 +292,9 @@ bool TCP_SetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16_t 
  *
  *  \return A value from the TCP_ConnectionStates_t enum
  */
-uint8_t TCP_GetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16_t RemotePort)
+uint8_t TCP_GetConnectionState(const uint16_t Port,
+                               const IP_Address_t RemoteAddress,
+                               const uint16_t RemotePort)
 {
 	/* Note, Port number should be specified in BIG endian to simplify network code */
 
@@ -314,7 +321,9 @@ uint8_t TCP_GetConnectionState(uint16_t Port, IP_Address_t RemoteAddress, uint16
  *
  *  \return ConnectionInfo structure of the connection if found, NULL otherwise
  */
-TCP_ConnectionInfo_t* TCP_GetConnectionInfo(uint16_t Port, IP_Address_t RemoteAddress, uint16_t RemotePort)
+TCP_ConnectionInfo_t* TCP_GetConnectionInfo(const uint16_t Port,
+                                            const IP_Address_t RemoteAddress,
+                                            const uint16_t RemotePort)
 {
 	/* Note, Port number should be specified in BIG endian to simplify network code */
 
@@ -343,7 +352,9 @@ TCP_ConnectionInfo_t* TCP_GetConnectionInfo(uint16_t Port, IP_Address_t RemoteAd
  *           response was generated, NO_PROCESS if the packet processing was deferred until the
  *           next Ethernet packet handler iteration
  */
-int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart, void* TCPHeaderInStart, void* TCPHeaderOutStart)
+int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart,
+                             void* TCPHeaderInStart,
+                             void* TCPHeaderOutStart)
 {
 	IP_Header_t*  IPHeaderIN   = (IP_Header_t*)IPHeaderInStart;
 	TCP_Header_t* TCPHeaderIN  = (TCP_Header_t*)TCPHeaderInStart;
@@ -590,8 +601,10 @@ int16_t TCP_ProcessTCPPacket(void* IPHeaderInStart, void* TCPHeaderInStart, void
  *
  *  \return A 16-bit TCP checksum value
  */
-static uint16_t TCP_Checksum16(void* TCPHeaderOutStart, IP_Address_t SourceAddress,
-                               IP_Address_t DestinationAddress, uint16_t TCPOutSize)
+static uint16_t TCP_Checksum16(void* TCPHeaderOutStart,
+                               const IP_Address_t SourceAddress,
+                               const IP_Address_t DestinationAddress,
+                               uint16_t TCPOutSize)
 {
 	uint32_t Checksum = 0;
 	

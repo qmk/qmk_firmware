@@ -141,7 +141,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
  *
  *  \return Boolean true if the new report differs from the last report, false otherwise
  */
-bool GetNextReport(USB_JoystickReport_Data_t* ReportData)
+bool GetNextReport(USB_JoystickReport_Data_t* const ReportData)
 {
 	static uint8_t PrevJoyStatus    = 0;
 	static uint8_t PrevButtonStatus = 0;

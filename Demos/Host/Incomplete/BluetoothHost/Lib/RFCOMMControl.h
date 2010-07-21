@@ -115,22 +115,32 @@
 		} RFCOMM_MSC_Parameters_t;
 
 	/* Function Prototypes: */
-		void RFCOMM_ProcessControlCommand(const uint8_t* Command, Bluetooth_Channel_t* const Channel);
+		void RFCOMM_ProcessControlCommand(const uint8_t* Command,
+		                                  Bluetooth_Channel_t* const Channel);
 
 		#if defined(INCLUDE_FROM_RFCOMM_CONTROL_C)
-			static void RFCOMM_ProcessTestCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t CommandDataLen, 
-			                                      const uint8_t* CommandData, Bluetooth_Channel_t* const ACLChannel);
-			static void RFCOMM_ProcessFCECommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
+			static void RFCOMM_ProcessTestCommand(const RFCOMM_Command_t* const CommandHeader,
+			                                      const uint8_t CommandDataLen, 
+			                                      const uint8_t* CommandData,
+			                                      Bluetooth_Channel_t* const ACLChannel);
+			static void RFCOMM_ProcessFCECommand(const RFCOMM_Command_t* const CommandHeader,
+			                                     const uint8_t* CommandData,
 			                                     Bluetooth_Channel_t* const ACLChannel);
-			static void RFCOMM_ProcessFCDCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
+			static void RFCOMM_ProcessFCDCommand(const RFCOMM_Command_t* const CommandHeader,
+			                                     const uint8_t* CommandData,
 			                                     Bluetooth_Channel_t* const ACLChannel);
-			static void RFCOMM_ProcessMSCCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t CommandDataLen,
-			                                     const uint8_t* CommandData, Bluetooth_Channel_t* const ACLChannel);
-			static void RFCOMM_ProcessRPNCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
+			static void RFCOMM_ProcessMSCCommand(const RFCOMM_Command_t* const CommandHeader,
+			                                     const uint8_t CommandDataLen,
+			                                     const uint8_t* CommandData,
 			                                     Bluetooth_Channel_t* const ACLChannel);
-			static void RFCOMM_ProcessRLSCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
+			static void RFCOMM_ProcessRPNCommand(const RFCOMM_Command_t* const CommandHeader,
+			                                     const uint8_t* CommandData,
 			                                     Bluetooth_Channel_t* const ACLChannel);
-			static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader, const uint8_t* CommandData,
+			static void RFCOMM_ProcessRLSCommand(const RFCOMM_Command_t* const CommandHeader,
+			                                     const uint8_t* CommandData,
+			                                     Bluetooth_Channel_t* const ACLChannel);
+			static void RFCOMM_ProcessDPNCommand(const RFCOMM_Command_t* const CommandHeader,
+			                                     const uint8_t* CommandData,
 			                                     Bluetooth_Channel_t* const ACLChannel);
 		#endif
 		

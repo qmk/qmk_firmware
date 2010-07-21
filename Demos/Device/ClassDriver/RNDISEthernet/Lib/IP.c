@@ -47,7 +47,9 @@
  *           response was generated, NO_PROCESS if the packet processing was deferred until the
  *           next Ethernet packet handler iteration
  */
-int16_t IP_ProcessIPPacket(Ethernet_Frame_Info_t* FrameIN, void* InDataStart, void* OutDataStart)
+int16_t IP_ProcessIPPacket(Ethernet_Frame_Info_t* const FrameIN,
+                           void* InDataStart,
+                           void* OutDataStart)
 {
 	DecodeIPHeader(InDataStart);
 

@@ -87,6 +87,6 @@
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_UnhandledControlRequest(void);
 
-		bool GetNextReport(USB_JoystickReport_Data_t* ReportData);
+		bool GetNextReport(USB_JoystickReport_Data_t* const ReportData);
 
 #endif

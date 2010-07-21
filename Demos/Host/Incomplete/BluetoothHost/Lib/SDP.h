@@ -110,7 +110,8 @@
 		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be written to
 		 *  \param[in]      Data       Data to write to the buffer
 		 */
-		static inline void SDP_WriteData8(void** BufferPos, uint8_t Data)
+		static inline void SDP_WriteData8(void** BufferPos,
+		                                  const uint8_t Data)
 		{
 			*((uint8_t*)*BufferPos) = Data;
 			*BufferPos += sizeof(uint8_t);
@@ -121,7 +122,8 @@
 		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be written to
 		 *  \param[in]      Data       Data to write to the buffer
 		 */
-		static inline void SDP_WriteData16(void** BufferPos, uint16_t Data)
+		static inline void SDP_WriteData16(void** BufferPos,
+		                                   const uint16_t Data)
 		{
 			*((uint16_t*)*BufferPos) = SwapEndian_16(Data);
 			*BufferPos += sizeof(uint16_t);
@@ -132,7 +134,8 @@
 		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be written to
 		 *  \param[in]      Data       Data to write to the buffer
 		 */
-		static inline void SDP_WriteData32(void** BufferPos, uint32_t Data)
+		static inline void SDP_WriteData32(void** BufferPos,
+		                                   const uint32_t Data)
 		{
 			*((uint32_t*)*BufferPos) = SwapEndian_32(Data);
 			*BufferPos += sizeof(uint32_t);
@@ -203,28 +206,44 @@
 		}
 		
 	/* Function Prototypes: */
-		void SDP_ProcessPacket(void* Data, Bluetooth_Channel_t* const Channel);
+		void SDP_ProcessPacket(void* Data,
+		                       Bluetooth_Channel_t* const Channel);
 
 		#if defined(INCLUDE_FROM_SERVICEDISCOVERYPROTOCOL_C)
-			static void     SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
-			static void     SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
-			static void     SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHeader, Bluetooth_Channel_t* const Channel);
+			static void     SDP_ProcessServiceSearch(const SDP_PDUHeader_t* const SDPHeader,
+			                                         Bluetooth_Channel_t* const Channel);
+			static void     SDP_ProcessServiceAttribute(const SDP_PDUHeader_t* const SDPHeader,
+			                                            Bluetooth_Channel_t* const Channel);
+			static void     SDP_ProcessServiceSearchAttribute(const SDP_PDUHeader_t* const SDPHeader,
+			                                                  Bluetooth_Channel_t* const Channel);
 
-			static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t* AttributeTable, uint16_t AttributeList[][2],
-			                                                  const uint8_t TotalAttributes, void** const BufferPos);
-			static uint16_t SDP_AddAttributeToResponse(const uint16_t AttributeID, const void* AttributeValue, void** ResponseBuffer);
-			static void*    SDP_GetAttributeValue(const ServiceAttributeTable_t* AttributeTable, const uint16_t AttributeID);
+			static uint16_t SDP_AddListedAttributesToResponse(const ServiceAttributeTable_t* AttributeTable,
+			                                                  uint16_t AttributeList[][2],
+			                                                  const uint8_t TotalAttributes,
+			                                                  void** const BufferPos);
+			static uint16_t SDP_AddAttributeToResponse(const uint16_t AttributeID,
+			                                           const void* AttributeValue,
+			                                           void** ResponseBuffer);
+			static void*    SDP_GetAttributeValue(const ServiceAttributeTable_t* AttributeTable,
+			                                      const uint16_t AttributeID);
 
-			static bool     SDP_SearchServiceTable(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs,
+			static bool     SDP_SearchServiceTable(uint8_t UUIDList[][UUID_SIZE_BYTES],
+			                                       const uint8_t TotalUUIDs,
 			                                       const ServiceAttributeTable_t* CurrAttributeTable);
-			static void     SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES], const uint8_t TotalUUIDs,
-			                                   uint16_t* const UUIDMatchFlags, const void* CurrAttribute);
+			static void     SDP_CheckUUIDMatch(uint8_t UUIDList[][UUID_SIZE_BYTES],
+			                                   const uint8_t TotalUUIDs,
+			                                   uint16_t* const UUIDMatchFlags,
+			                                   const void* CurrAttribute);
 
-			static uint8_t  SDP_GetAttributeList(uint16_t AttributeList[][2], const void** const CurrentParameter);
-			static uint8_t  SDP_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES], const void** const CurrentParameter);
+			static uint8_t  SDP_GetAttributeList(uint16_t AttributeList[][2],
+			                                     const void** const CurrentParameter);
+			static uint8_t  SDP_GetUUIDList(uint8_t UUIDList[][UUID_SIZE_BYTES],
+			                                const void** const CurrentParameter);
 
-			static uint32_t SDP_GetLocalAttributeContainerSize(const void* const AttributeData, uint8_t* const HeaderSize);
-			static uint32_t SDP_GetDataElementSize(const void** const AttributeHeader, uint8_t* const ElementHeaderSize);
+			static uint32_t SDP_GetLocalAttributeContainerSize(const void* const AttributeData,
+			                                                   uint8_t* const HeaderSize);
+			static uint32_t SDP_GetDataElementSize(const void** const AttributeHeader,
+			                                       uint8_t* const ElementHeaderSize);
 		#endif
 
 #endif

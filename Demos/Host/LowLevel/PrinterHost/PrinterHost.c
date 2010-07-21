@@ -98,7 +98,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 }
 
 /** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
-void EVENT_USB_Host_HostError(uint8_t ErrorCode)
+void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 {
 	USB_ShutDown();
 
@@ -112,7 +112,8 @@ void EVENT_USB_Host_HostError(uint8_t ErrorCode)
 /** Event handler for the USB_DeviceEnumerationFailed event. This indicates that a problem occurred while
  *  enumerating an attached USB device.
  */
-void EVENT_USB_Host_DeviceEnumerationFailed(uint8_t ErrorCode, uint8_t SubErrorCode)
+void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
+                                            const uint8_t SubErrorCode)
 {
 	printf_P(PSTR(ESC_FG_RED "Dev Enum Error\r\n"
 	                         " -- Error Code %d\r\n"

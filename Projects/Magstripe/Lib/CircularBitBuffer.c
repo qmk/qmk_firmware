@@ -50,7 +50,8 @@ void BitBuffer_Init(BitBuffer_t* const Buffer)
 }
 
 /** Function to store the given bit into the given bit buffer. */
-void BitBuffer_StoreNextBit(BitBuffer_t* const Buffer, const bool Bit)
+void BitBuffer_StoreNextBit(BitBuffer_t* const Buffer,
+                            const bool Bit)
 {
 	/* If the bit to store is true, set the next bit in the buffer */
 	if (Bit)

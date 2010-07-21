@@ -57,6 +57,6 @@
 		
 	/* Function Prototypes: */
 		SideShow_Application_t* SideShow_GetFreeApplication(void);
-		SideShow_Application_t* SideShow_GetApplicationFromGUID(GUID_t* GUID);
+		SideShow_Application_t* SideShow_GetApplicationFromGUID(GUID_t* const GUID);
 		
 #endif

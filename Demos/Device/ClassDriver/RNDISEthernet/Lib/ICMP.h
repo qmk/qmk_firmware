@@ -75,6 +75,8 @@
 		} ICMP_Header_t;
 		
 	/* Function Prototypes: */
-		int16_t ICMP_ProcessICMPPacket(Ethernet_Frame_Info_t* FrameIN, void* InDataStart, void* OutDataStart);
+		int16_t ICMP_ProcessICMPPacket(Ethernet_Frame_Info_t* const FrameIN,
+		                               void* InDataStart,
+		                               void* OutDataStart);
 
 #endif

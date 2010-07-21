@@ -53,7 +53,7 @@
  *
  *  \param[in] FrameINData  Pointer to the start of an Ethernet frame information structure
  */
-void DecodeEthernetFrameHeader(Ethernet_Frame_Info_t* FrameINData)
+void DecodeEthernetFrameHeader(Ethernet_Frame_Info_t* const FrameINData)
 {
 	#if !defined(NO_DECODE_ETHERNET)
 	Ethernet_Frame_Header_t* FrameHeader = (Ethernet_Frame_Header_t*)FrameINData->FrameData;

@@ -127,7 +127,9 @@ bool TINYNVM_WaitWhileNVMControllerBusy(void)
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool TINYNVM_ReadMemory(const uint16_t ReadAddress, uint8_t* ReadBuffer, uint16_t ReadSize)
+bool TINYNVM_ReadMemory(const uint16_t ReadAddress,
+                        uint8_t* ReadBuffer,
+                        uint16_t ReadSize)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(TINYNVM_WaitWhileNVMControllerBusy()))
@@ -158,7 +160,9 @@ bool TINYNVM_ReadMemory(const uint16_t ReadAddress, uint8_t* ReadBuffer, uint16_
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool TINYNVM_WriteMemory(const uint16_t WriteAddress, uint8_t* WriteBuffer, uint16_t WriteLength)
+bool TINYNVM_WriteMemory(const uint16_t WriteAddress,
+                         uint8_t* WriteBuffer,
+                         uint16_t WriteLength)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(TINYNVM_WaitWhileNVMControllerBusy()))
@@ -203,7 +207,8 @@ bool TINYNVM_WriteMemory(const uint16_t WriteAddress, uint8_t* WriteBuffer, uint
  *
  *  \return Boolean true if the command sequence complete successfully
  */
-bool TINYNVM_EraseMemory(const uint8_t EraseCommand, const uint16_t Address)
+bool TINYNVM_EraseMemory(const uint8_t EraseCommand,
+                         const uint16_t Address)
 {
 	/* Wait until the NVM controller is no longer busy */
 	if (!(TINYNVM_WaitWhileNVMControllerBusy()))

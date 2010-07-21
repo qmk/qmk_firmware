@@ -198,7 +198,8 @@ uint8_t SImage_ReceiveBlockHeader(void)
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
-uint8_t SImage_SendData(void* const Buffer, const uint16_t Bytes)
+uint8_t SImage_SendData(void* const Buffer,
+                        const uint16_t Bytes)
 {
 	uint8_t ErrorCode;
 
@@ -225,7 +226,8 @@ uint8_t SImage_SendData(void* const Buffer, const uint16_t Bytes)
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
-uint8_t SImage_ReadData(void* const Buffer, const uint16_t Bytes)
+uint8_t SImage_ReadData(void* const Buffer,
+                        const uint16_t Bytes)
 {
 	uint8_t ErrorCode;
 

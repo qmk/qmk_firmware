@@ -204,7 +204,8 @@
 		void Bluetooth_HCITask(void);
 			
 		#if defined(INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C)
-			static uint8_t Bluetooth_SendHCICommand(const BT_HCICommand_Header_t* const HCICommandHeader, const void* Parameters,
+			static uint8_t Bluetooth_SendHCICommand(const BT_HCICommand_Header_t* const HCICommandHeader,
+			                                        const void* Parameters,
 			                                        const uint16_t ParameterLength);
 		#endif
 		

@@ -96,7 +96,9 @@
 		extern const IP_Address_t  ClientIPAddress;
 		
 	/* Function Prototypes: */
-		void     Ethernet_ProcessPacket(Ethernet_Frame_Info_t* FrameIN, Ethernet_Frame_Info_t* FrameOUT);
-		uint16_t Ethernet_Checksum16(void* Data, uint16_t Bytes);
+		void     Ethernet_ProcessPacket(Ethernet_Frame_Info_t* const FrameIN,
+		                                Ethernet_Frame_Info_t* const FrameOUT);
+		uint16_t Ethernet_Checksum16(void* Data,
+		                             uint16_t Bytes);
 		
 #endif

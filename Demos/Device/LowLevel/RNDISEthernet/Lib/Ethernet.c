@@ -120,7 +120,8 @@ void Ethernet_ProcessPacket(void)
  *
  *  \return A 16-bit Ethernet checksum value
  */
-uint16_t Ethernet_Checksum16(void* Data, uint16_t Bytes)
+uint16_t Ethernet_Checksum16(void* Data,
+                             uint16_t Bytes)
 {
 	uint16_t* Words    = (uint16_t*)Data;
 	uint32_t  Checksum = 0;

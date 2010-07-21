@@ -90,6 +90,7 @@
 		} IP_Header_t;
 		
 	/* Function Prototypes: */
-		int16_t IP_ProcessIPPacket(void* InDataStart, void* OutDataStart);
+		int16_t IP_ProcessIPPacket(void* InDataStart,
+		                           void* OutDataStart);
 
 #endif

@@ -46,7 +46,9 @@
  *
  *  \return The number of bytes written to the out Ethernet frame if any, NO_RESPONSE otherwise
  */
-int16_t ICMP_ProcessICMPPacket(Ethernet_Frame_Info_t* FrameIN, void* InDataStart, void* OutDataStart)
+int16_t ICMP_ProcessICMPPacket(Ethernet_Frame_Info_t* const FrameIN,
+                               void* InDataStart,
+                               void* OutDataStart)
 {
 	ICMP_Header_t* ICMPHeaderIN  = (ICMP_Header_t*)InDataStart;
 	ICMP_Header_t* ICMPHeaderOUT = (ICMP_Header_t*)OutDataStart;

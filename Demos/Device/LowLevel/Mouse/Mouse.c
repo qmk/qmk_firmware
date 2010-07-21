@@ -226,7 +226,7 @@ void EVENT_USB_Device_StartOfFrame(void)
  *
  *  \param[out] ReportData  Pointer to a HID report data structure to be filled
  */
-void CreateMouseReport(USB_MouseReport_Data_t* ReportData)
+void CreateMouseReport(USB_MouseReport_Data_t* const ReportData)
 {
 	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
 	uint8_t ButtonStatus_LCL = Buttons_GetStatus();

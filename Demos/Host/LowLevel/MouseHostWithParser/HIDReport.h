@@ -92,6 +92,6 @@
 	/* Function Prototypes: */
 		uint8_t GetHIDReportData(void);
 		
-		bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* CurrentItem);
+		bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* const CurrentItem);
 		
 #endif

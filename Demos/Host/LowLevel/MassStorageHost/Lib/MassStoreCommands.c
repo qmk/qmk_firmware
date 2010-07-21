@@ -63,7 +63,8 @@ static uint32_t MassStore_Tag = 1;
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
-static uint8_t MassStore_SendCommand(CommandBlockWrapper_t* SCSICommandBlock, void* BufferPtr)
+static uint8_t MassStore_SendCommand(CommandBlockWrapper_t* const SCSICommandBlock,
+                                     void* BufferPtr)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
@@ -178,7 +179,8 @@ static uint8_t MassStore_WaitForDataReceived(void)
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum
  */
-static uint8_t MassStore_SendReceiveData(CommandBlockWrapper_t* SCSICommandBlock, void* BufferPtr)
+static uint8_t MassStore_SendReceiveData(CommandBlockWrapper_t* const SCSICommandBlock,
+                                         void* BufferPtr)
 {
 	uint8_t  ErrorCode = PIPE_RWSTREAM_NoError;
 	uint16_t BytesRem  = SCSICommandBlock->DataTransferLength;
@@ -233,7 +235,7 @@ static uint8_t MassStore_SendReceiveData(CommandBlockWrapper_t* SCSICommandBlock
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum, or MASS_STORE_SCSI_COMMAND_FAILED if the SCSI command fails
  */
-static uint8_t MassStore_GetReturnedStatus(CommandStatusWrapper_t* SCSICommandStatus)
+static uint8_t MassStore_GetReturnedStatus(CommandStatusWrapper_t* const SCSICommandStatus)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
@@ -334,7 +336,8 @@ uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex)
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum, or MASS_STORE_SCSI_COMMAND_FAILED if the SCSI command fails
  */
-uint8_t MassStore_Inquiry(const uint8_t LUNIndex, SCSI_Inquiry_Response_t* const InquiryPtr)
+uint8_t MassStore_Inquiry(const uint8_t LUNIndex,
+                          SCSI_Inquiry_Response_t* const InquiryPtr)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
@@ -384,7 +387,8 @@ uint8_t MassStore_Inquiry(const uint8_t LUNIndex, SCSI_Inquiry_Response_t* const
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum, or MASS_STORE_SCSI_COMMAND_FAILED if the SCSI command fails
  */
-uint8_t MassStore_RequestSense(const uint8_t LUNIndex, SCSI_Request_Sense_Response_t* const SensePtr)
+uint8_t MassStore_RequestSense(const uint8_t LUNIndex,
+                               SCSI_Request_Sense_Response_t* const SensePtr)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
@@ -437,8 +441,11 @@ uint8_t MassStore_RequestSense(const uint8_t LUNIndex, SCSI_Request_Sense_Respon
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum, or MASS_STORE_SCSI_COMMAND_FAILED if the SCSI command fails
  */
-uint8_t MassStore_ReadDeviceBlock(const uint8_t LUNIndex, const uint32_t BlockAddress,
-                                  const uint8_t Blocks, const uint16_t BlockSize, void* BufferPtr)
+uint8_t MassStore_ReadDeviceBlock(const uint8_t LUNIndex,
+                                  const uint32_t BlockAddress,
+                                  const uint8_t Blocks,
+                                  const uint16_t BlockSize,
+                                  void* BufferPtr)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
@@ -495,8 +502,11 @@ uint8_t MassStore_ReadDeviceBlock(const uint8_t LUNIndex, const uint32_t BlockAd
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum, or MASS_STORE_SCSI_COMMAND_FAILED if the SCSI command fails
  */
-uint8_t MassStore_WriteDeviceBlock(const uint8_t LUNIndex, const uint32_t BlockAddress,
-                                   const uint8_t Blocks, const uint16_t BlockSize, void* BufferPtr)
+uint8_t MassStore_WriteDeviceBlock(const uint8_t LUNIndex,
+                                   const uint32_t BlockAddress,
+                                   const uint8_t Blocks,
+                                   const uint16_t BlockSize,
+                                   void* BufferPtr)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
@@ -599,7 +609,8 @@ uint8_t MassStore_TestUnitReady(const uint8_t LUNIndex)
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum, or MASS_STORE_SCSI_COMMAND_FAILED if the SCSI command fails
  */
-uint8_t MassStore_ReadCapacity(const uint8_t LUNIndex, SCSI_Capacity_t* const CapacityPtr)
+uint8_t MassStore_ReadCapacity(const uint8_t LUNIndex,
+                               SCSI_Capacity_t* const CapacityPtr)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
@@ -658,7 +669,8 @@ uint8_t MassStore_ReadCapacity(const uint8_t LUNIndex, SCSI_Capacity_t* const Ca
  *
  *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum, or MASS_STORE_SCSI_COMMAND_FAILED if the SCSI command fails
  */
-uint8_t MassStore_PreventAllowMediumRemoval(const uint8_t LUNIndex, const bool PreventRemoval)
+uint8_t MassStore_PreventAllowMediumRemoval(const uint8_t LUNIndex,
+                                            const bool PreventRemoval)
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 

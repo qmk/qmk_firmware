@@ -240,8 +240,16 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
  *  to the USB library. When the device receives a Get Descriptor request on the control endpoint, this function
  *  is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
  *  USB host.
+ *
+ *  \param[in]  wValue  Descriptor type and index to retrieve
+ *  \param[in]  wIndex  Sub-index to retrieve (such as a localized string language)
+ *  \param[out] DescriptorAddress  Address of the retrieved descriptor
+ *
+ *  \return Length of the retrieved descriptor in bytes, or NO_DESCRIPTOR if the descriptor was not found
  */
-uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress)
+uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
+                                    const uint8_t wIndex,
+                                    void** const DescriptorAddress)
 {
 	/* Return the correct descriptors based on the selected mode */
 	if (CurrentFirmwareMode == MODE_USART_BRIDGE)
