@@ -1061,18 +1061,16 @@
 			static inline uint8_t Pipe_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_BytesToEPSizeMask(const uint16_t Bytes)
 			{
-				if (Bytes <= 8)
-				  return (0 << EPSIZE0);
-				else if (Bytes <= 16)
-				  return (1 << EPSIZE0);
-				else if (Bytes <= 32)
-				  return (2 << EPSIZE0);
-				else if (Bytes <= 64)
-				  return (3 << EPSIZE0);
-				else if (Bytes <= 128)
-				  return (4 << EPSIZE0);
-				else
-				  return (5 << EPSIZE0);
+				uint8_t  MaskVal    = 0;
+				uint16_t CheckBytes = 8;
+				
+				while ((CheckBytes < Bytes) && (CheckBytes < PIPE_MAX_SIZE))
+				{
+					MaskVal++;
+					CheckBytes <<= 1;
+				}
+				
+				return (MaskVal << EPSIZE0);
 			}
 
 	#endif
