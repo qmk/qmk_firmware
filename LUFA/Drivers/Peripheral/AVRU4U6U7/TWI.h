@@ -99,7 +99,7 @@
 			 *
 			 *  \return Boolean true if the recipient ACKed the byte, false otherwise
 			 */
-			static inline bool TWI_SendByte(uint8_t Byte)
+			static inline bool TWI_SendByte(const uint8_t Byte)
 			{
 				TWDR = Byte;
 				TWCR = ((1 << TWINT) | (1 << TWEN));	
@@ -115,7 +115,8 @@
 			 *
 			 *  \return Boolean true if the byte reception successfully completed, false otherwise
 			 */
-			static inline bool TWI_ReceiveByte(uint8_t* Byte, bool LastByte)
+			static inline bool TWI_ReceiveByte(uint8_t* const Byte,
+			                                   const bool LastByte)
 			{
 				uint8_t TWCRMask = ((1 << TWINT) | (1 << TWEN));
 				
@@ -137,7 +138,8 @@
 			 *
 			 *  \return Boolean true if the device is ready for data, false otherwise
 			 */
-			bool TWI_StartTransmission(uint8_t SlaveAddress, uint8_t TimeoutMS);
+			bool TWI_StartTransmission(const uint8_t SlaveAddress,
+			                           const uint8_t TimeoutMS);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

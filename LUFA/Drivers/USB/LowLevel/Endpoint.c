@@ -45,7 +45,9 @@ uint8_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size)
 	return Endpoint_BytesToEPSizeMask(Size);
 }
 
-bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number, const uint8_t UECFG0XData, const uint8_t UECFG1XData)
+bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
+                                    const uint8_t UECFG0XData,
+                                    const uint8_t UECFG1XData)
 {
 	Endpoint_SelectEndpoint(Number);
 	Endpoint_EnableEndpoint();
@@ -115,7 +117,7 @@ uint8_t Endpoint_WaitUntilReady(void)
 		else
 		{
 			if (Endpoint_IsOUTReceived())
-			  return ENDPOINT_READYWAIT_NoError;		
+			  return ENDPOINT_READYWAIT_NoError;
 		}
 		
 		if (USB_DeviceState == DEVICE_STATE_Unattached)

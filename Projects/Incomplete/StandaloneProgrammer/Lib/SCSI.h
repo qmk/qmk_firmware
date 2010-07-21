@@ -73,7 +73,7 @@
 		
 	/* Function Prototypes: */
 		#if defined(USB_CAN_BE_DEVICE)
-			bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* MSInterfaceInfo);
+			bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
 			
 			#if defined(INCLUDE_FROM_SCSI_C)
 				static void SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);

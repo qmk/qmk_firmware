@@ -91,7 +91,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_SendControlRequest(void* BufferPtr);
+			uint8_t USB_Host_SendControlRequest(void* const BufferPtr);
 			
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

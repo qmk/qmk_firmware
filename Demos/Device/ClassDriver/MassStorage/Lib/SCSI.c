@@ -86,7 +86,7 @@ SCSI_Request_Sense_Response_t SenseData =
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  */
-bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
+bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	/* Set initial sense data, before the requested command is processed */
 	SCSI_SET_SENSE(SCSI_SENSE_KEY_GOOD,
@@ -136,7 +136,7 @@ bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  */
-static void SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
+static void SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	uint16_t AllocationLength  = SwapEndian_16(*(uint16_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[3]);
 	uint16_t BytesTransferred  = (AllocationLength < sizeof(InquiryData))? AllocationLength :
@@ -173,7 +173,7 @@ static void SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  */
-static void SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
+static void SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	uint8_t  AllocationLength = MSInterfaceInfo->State.CommandBlock.SCSICommandData[4];
 	uint8_t  BytesTransferred = (AllocationLength < sizeof(SenseData))? AllocationLength : sizeof(SenseData);
@@ -193,7 +193,7 @@ static void SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* MSInterfaceInf
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  */
-static void SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
+static void SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	uint32_t LastBlockAddressInLUN = (LUN_MEDIA_BLOCKS - 1);
 	uint32_t MediaBlockSize        = VIRTUAL_MEMORY_BLOCK_SIZE;
@@ -212,7 +212,7 @@ static void SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* MSInterface
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  */
-static void SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* MSInterfaceInfo)
+static void SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	/* Check to see if the SELF TEST bit is not set */
 	if (!(MSInterfaceInfo->State.CommandBlock.SCSICommandData[1] & (1 << 2)))
@@ -247,7 +247,7 @@ static void SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* MSInterfaceI
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  *  \param[in] IsDataRead  Indicates if the command is a READ (10) command or WRITE (10) command (DATA_READ or DATA_WRITE)
  */
-static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const bool IsDataRead)
+static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo, const bool IsDataRead)
 {
 	uint32_t BlockAddress = SwapEndian_32(*(uint32_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[2]);
 	uint16_t TotalBlocks  = SwapEndian_16(*(uint16_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[7]);

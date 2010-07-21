@@ -92,13 +92,13 @@
 			 *
 			 *  \param[in] FlashStringPtr  Pointer to a string located in program space.
 			 */
-			void Serial_TxString_P(const char *FlashStringPtr) ATTR_NON_NULL_PTR_ARG(1);
+			void Serial_TxString_P(const char* FlashStringPtr) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Transmits a given string located in SRAM memory through the USART.
 			 *
 			 *  \param[in] StringPtr  Pointer to a string located in SRAM space.
 			 */
-			void Serial_TxString(const char *StringPtr) ATTR_NON_NULL_PTR_ARG(1);
+			void Serial_TxString(const char* StringPtr) ATTR_NON_NULL_PTR_ARG(1);
 
 		/* Inline Functions: */
 			/** Initializes the USART, ready for serial data transmission and reception. This initializes the interface to
@@ -107,7 +107,8 @@
 			 *  \param[in] BaudRate     Serial baud rate, in bits per second.
 			 *  \param[in] DoubleSpeed  Enables double speed mode when set, halving the sample time to double the baud rate.
 			 */
-			static inline void Serial_Init(const uint32_t BaudRate, const bool DoubleSpeed)
+			static inline void Serial_Init(const uint32_t BaudRate,
+			                               const bool DoubleSpeed)
 			{
 				UCSR1A = (DoubleSpeed ? (1 << U2X1) : 0);
 				UCSR1B = ((1 << TXEN1)  | (1 << RXEN1));

@@ -143,7 +143,8 @@
 			 *
 			 *  \return A value from the \ref MSHost_EnumerationFailure_ErrorCodes_t enum.
 			 */
-			uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, uint16_t ConfigDescriptorSize,
+			uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
+			                               uint16_t ConfigDescriptorSize,
 			                               void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Sends a MASS STORAGE RESET control request to the attached device, resetting the Mass Storage Interface
@@ -168,8 +169,8 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
 			 */
-			uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, uint8_t* const MaxLUNIndex)
-			                          ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
+			                          uint8_t* const MaxLUNIndex) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Retrieves the Mass Storage device's inquiry data for the specified LUN, indicating the device characteristics and
 			 *  properties.
@@ -183,7 +184,8 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED.
 			 */
-			uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, const uint8_t LUNIndex,
+			uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
+			                               const uint8_t LUNIndex,
 			                               SCSI_Inquiry_Response_t* const InquiryData) ATTR_NON_NULL_PTR_ARG(1)
 			                               ATTR_NON_NULL_PTR_ARG(3);
 
@@ -194,8 +196,8 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
-			uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, const uint8_t LUNIndex)
-			                              ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
+			                              const uint8_t LUNIndex) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Retrieves the total capacity of the attached USB Mass Storage device, in blocks, and block size.
 			 *
@@ -208,7 +210,8 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
-			uint8_t MS_Host_ReadDeviceCapacity(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, const uint8_t LUNIndex,
+			uint8_t MS_Host_ReadDeviceCapacity(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
+			                                   const uint8_t LUNIndex,
 			                                   SCSI_Capacity_t* const DeviceCapacity) ATTR_NON_NULL_PTR_ARG(1)
 			                                   ATTR_NON_NULL_PTR_ARG(3);
 		
@@ -224,7 +227,8 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
-			uint8_t MS_Host_RequestSense(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, const uint8_t LUNIndex,
+			uint8_t MS_Host_RequestSense(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
+			                             const uint8_t LUNIndex,
 			                             SCSI_Request_Sense_Response_t* const SenseData) ATTR_NON_NULL_PTR_ARG(1)
 			                             ATTR_NON_NULL_PTR_ARG(3);
 		
@@ -240,7 +244,8 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
-			uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, const uint8_t LUNIndex,
+			uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
+			                                          const uint8_t LUNIndex,
 			                                          const bool PreventRemoval) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Reads blocks of data from the attached Mass Storage device's medium.
@@ -257,8 +262,11 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
-			uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, const uint8_t LUNIndex,
-			                                 const uint32_t BlockAddress, const uint8_t Blocks, const uint16_t BlockSize,
+			uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
+			                                 const uint8_t LUNIndex,
+			                                 const uint32_t BlockAddress,
+			                                 const uint8_t Blocks,
+			                                 const uint16_t BlockSize,
 			                                 void* BlockBuffer) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(6);
 		
 			/** Writes blocks of data to the attached Mass Storage device's medium.
@@ -275,8 +283,11 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
-			uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, const uint8_t LUNIndex,
-			                                  const uint32_t BlockAddress, const uint8_t Blocks, const uint16_t BlockSize,
+			uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
+			                                  const uint8_t LUNIndex,
+			                                  const uint32_t BlockAddress,
+			                                  const uint8_t Blocks,
+			                                  const uint16_t BlockSize,
 			                                  const void* BlockBuffer) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(6);
 
 		/* Inline Functions: */
@@ -323,8 +334,8 @@
 				                                   const void* const BufferPtr) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 				static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, 
-                                                       MS_CommandBlockWrapper_t* const SCSICommandBlock, void* BufferPtr)
-				                                        ATTR_NON_NULL_PTR_ARG(1)  ATTR_NON_NULL_PTR_ARG(2);
+				                                       MS_CommandBlockWrapper_t* const SCSICommandBlock,
+				                                       void* BufferPtr) ATTR_NON_NULL_PTR_ARG(1)  ATTR_NON_NULL_PTR_ARG(2);
 				static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 				                                         MS_CommandStatusWrapper_t* const SCSICommandStatus)
 				                                         ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);

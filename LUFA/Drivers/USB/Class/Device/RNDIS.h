@@ -151,11 +151,16 @@
 			static void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
 			                                                    ATTR_NON_NULL_PTR_ARG(1);
 			static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, 
-			                                          const uint32_t OId, void* const QueryData, const uint16_t QuerySize,
-										              void* ResponseData, uint16_t* const ResponseSize) ATTR_NON_NULL_PTR_ARG(1)
+			                                          const uint32_t OId,
+                                                      void* const QueryData,
+                                                      const uint16_t QuerySize,
+										              void* ResponseData,
+                                                      uint16_t* const ResponseSize) ATTR_NON_NULL_PTR_ARG(1)
 			                                          ATTR_NON_NULL_PTR_ARG(5) ATTR_NON_NULL_PTR_ARG(6);
-			static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, const uint32_t OId,
-			                                        const void* SetData, const uint16_t SetSize) ATTR_NON_NULL_PTR_ARG(1)
+			static bool RNDIS_Device_ProcessNDISSet(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
+                                                    const uint32_t OId,
+			                                        const void* SetData,
+                                                    const uint16_t SetSize) ATTR_NON_NULL_PTR_ARG(1)
 			                                        ATTR_NON_NULL_PTR_ARG(3);
 		#endif
 		

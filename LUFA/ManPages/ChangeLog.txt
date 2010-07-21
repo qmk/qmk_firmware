@@ -34,6 +34,7 @@
   *  - The USBtoSerial project now flushes received data via a flush timer, so that several bytes can be transmitted at once
   *  - Removed the automated checking of event names in the demo, project and bootloader makefiles due to inconsistancies between the
   *    behaviour of the command line tools used to perform the check on each platform
+  *  - Internal USB driver source files renamed and moved to ease future possible architecture ports
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project sending a LOAD EXTENDED ADDRESS command to 128KB AVRs after programming or reading from

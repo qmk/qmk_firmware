@@ -169,12 +169,12 @@
 					 *  be used in the device. Different USB AVR models support different amounts of endpoints,
 					 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
 					 */
-					#define ENDPOINT_TOTAL_ENDPOINTS          7
+					#define ENDPOINT_TOTAL_ENDPOINTS      7
 				#else
-					#define ENDPOINT_TOTAL_ENDPOINTS          5			
+					#define ENDPOINT_TOTAL_ENDPOINTS      5
 				#endif
 			#else
-				#define ENDPOINT_TOTAL_ENDPOINTS              1
+				#define ENDPOINT_TOTAL_ENDPOINTS          1
 			#endif
 			
 		/* Pseudo-Function Macros: */
@@ -207,14 +207,14 @@
 				 *
 				 *  \param[in] EndpointNumber Endpoint number to select.
 				 */
-				static inline void Endpoint_SelectEndpoint(uint8_t EndpointNumber);
+				static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber);
 				
 				/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB controller's
 				 *  In and Out pointers to the bank's contents.
 				 *
 				 *  \param[in] EndpointNumber Endpoint number whose FIFO buffers are to be reset.
 				 */
-				static inline void Endpoint_ResetFIFO(uint8_t EndpointNumber);
+				static inline void Endpoint_ResetFIFO(const uint8_t EndpointNumber);
 				
 				/** Enables the currently selected endpoint so that data can be sent and received through it to
 				 *  and from a host.
@@ -267,7 +267,7 @@
 				 *
 				 *  \return Boolean true if the specified endpoint has interrupted, false otherwise.
 				 */
-				static inline bool Endpoint_HasEndpointInterrupted(uint8_t EndpointNumber);
+				static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber);
 				
 				/** Determines if the selected IN endpoint is ready for a new packet.
 				 *
@@ -298,7 +298,7 @@
 				 *
 				 *  \ingroup Group_EndpointPacketManagement
 				 *
-				 *  \note This is not applicable for non CONTROL type endpoints.			 
+				 *  \note This is not applicable for non CONTROL type endpoints. 
 				 */
 				static inline void Endpoint_ClearSETUP(void);
 				
@@ -356,12 +356,12 @@
 				 *
 				 *  \param[in] DirectionMask  New endpoint direction, as a ENDPOINT_DIR_* mask.
 				 */
-				static inline void Endpoint_SetEndpointDirection(uint8_t DirectionMask);
+				static inline void Endpoint_SetEndpointDirection(const uint8_t DirectionMask);
 			#else
 				#if defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 					#define Endpoint_BytesInEndpoint()        UEBCX
 				#elif defined(USB_SERIES_4_AVR)
-					#define Endpoint_BytesInEndpoint()        (((uint16_t)UEBCHX << 8) | UEBCLX)				
+					#define Endpoint_BytesInEndpoint()        (((uint16_t)UEBCHX << 8) | UEBCLX)
 				#elif defined(USB_SERIES_2_AVR)
 					#define Endpoint_BytesInEndpoint()        UEBCLX
 				#endif
@@ -739,7 +739,7 @@
 			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
 				#define __CALLBACK_PARAM     , StreamCallbackPtr_t Callback
 			#else
-				#define __CALLBACK_PARAM			
+				#define __CALLBACK_PARAM
 			#endif
 		
 			/** Configures the specified endpoint number with the given endpoint type, direction, bank size
@@ -765,8 +765,11 @@
 			 *
 			 *  \return Boolean true if the configuration succeeded, false otherwise.
 			 */
-			bool Endpoint_ConfigureEndpoint(const uint8_t  Number, const uint8_t Type, const uint8_t Direction,
-			                                const uint16_t Size, const uint8_t Banks);
+			bool Endpoint_ConfigureEndpoint(const uint8_t  Number,
+			                                const uint8_t Type,
+			                                const uint8_t Direction,
+			                                const uint16_t Size,
+			                                const uint8_t Banks);
 
 			/** Spin-loops until the currently selected non-control endpoint is ready for the next packet of data
 			 *  to be read or written to it.
@@ -805,7 +808,8 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Discard_Stream(uint16_t Length __CALLBACK_PARAM);
+			uint8_t Endpoint_Discard_Stream(uint16_t Length
+			                                __CALLBACK_PARAM);
 
 			/** Writes the given number of bytes to the endpoint from the given buffer in little endian,
 			 *  sending full packets to the host as needed. The last packet filled is not automatically sent;
@@ -828,7 +832,9 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Stream_LE(const void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_Stream_LE(const void* Buffer,
+			                                 uint16_t Length
+			                                 __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Endpoint_Write_Stream_LE().
 			 *
@@ -840,7 +846,9 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_EStream_LE(const void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_EStream_LE(const void* Buffer,
+			                                  uint16_t Length
+			                                  __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** FLASH buffer source version of \ref Endpoint_Write_Stream_LE().
 			 *
@@ -854,7 +862,9 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_PStream_LE(const void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_PStream_LE(const void* Buffer,
+			                                  uint16_t Length
+			                                  __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Writes the given number of bytes to the endpoint from the given buffer in big endian,
 			 *  sending full packets to the host as needed. The last packet filled is not automatically sent;
@@ -877,7 +887,9 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Stream_BE(const void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_Stream_BE(const void* Buffer,
+			                                 uint16_t Length
+			                                 __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Endpoint_Write_Stream_BE().
 			 *
@@ -889,7 +901,9 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_EStream_BE(const void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_EStream_BE(const void* Buffer,
+			                                  uint16_t Length
+			                                  __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** FLASH buffer source version of \ref Endpoint_Write_Stream_BE().
 			 *
@@ -903,7 +917,9 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_PStream_BE(const void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_PStream_BE(const void* Buffer,
+			                                  uint16_t Length
+			                                  __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the endpoint from the given buffer in little endian,
 			 *  discarding fully read packets from the host as needed. The last packet is not automatically
@@ -926,7 +942,9 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Stream_LE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Read_Stream_LE(void* Buffer,
+			                                uint16_t Length
+			                                __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Endpoint_Read_Stream_LE().
 			 *
@@ -938,7 +956,9 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_EStream_LE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Read_EStream_LE(void* Buffer,
+			                                 uint16_t Length
+			                                 __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Reads the given number of bytes from the endpoint from the given buffer in big endian,
 			 *  discarding fully read packets from the host as needed. The last packet is not automatically
@@ -961,7 +981,9 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Stream_BE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Read_Stream_BE(void* Buffer,
+			                                uint16_t Length
+			                                __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Endpoint_Read_Stream_BE().
 			 *
@@ -973,7 +995,9 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_EStream_BE(void* Buffer, uint16_t Length __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Read_EStream_BE(void* Buffer,
+			                                 uint16_t Length
+			                                 __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in little endian,
 			 *  sending full packets to the host as needed. The host OUT acknowledgement is not automatically cleared
@@ -996,7 +1020,8 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer,
+			                                         uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of Endpoint_Write_Control_Stream_LE.
 			 *
@@ -1016,7 +1041,8 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_EStream_LE(const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_Control_EStream_LE(const void* Buffer,
+			                                          uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** FLASH buffer source version of \ref Endpoint_Write_Control_Stream_LE().
 			 *
@@ -1038,7 +1064,8 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_PStream_LE(const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_Control_PStream_LE(const void* Buffer,
+			                                          uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in big endian,
 			 *  sending full packets to the host as needed. The host OUT acknowledgement is not automatically cleared
@@ -1061,7 +1088,8 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer,
+			                                         uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Endpoint_Write_Control_Stream_BE().
 			 *
@@ -1081,7 +1109,8 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_EStream_BE(const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_Control_EStream_BE(const void* Buffer,
+			                                          uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** FLASH buffer source version of \ref Endpoint_Write_Control_Stream_BE().
 			 *
@@ -1103,7 +1132,8 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_PStream_BE(const void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Write_Control_PStream_BE(const void* Buffer,
+			                                          uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in little endian,
 			 *  discarding fully read packets from the host as needed. The device IN acknowledgement is not
@@ -1126,7 +1156,8 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer,
+			                                        uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Endpoint_Read_Control_Stream_LE().
 			 *
@@ -1146,7 +1177,8 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Control_EStream_LE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t Endpoint_Read_Control_EStream_LE(void* Buffer,
+			                                         uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in big endian,
 			 *  discarding fully read packets from the host as needed. The device IN acknowledgement is not
@@ -1169,7 +1201,8 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);		
+			uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer,
+			                                        uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** EEPROM buffer source version of \ref Endpoint_Read_Control_Stream_BE().
 			 *
@@ -1189,7 +1222,8 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Control_EStream_BE(void* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);		
+			uint8_t Endpoint_Read_Control_EStream_BE(void* Buffer,
+			                                         uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
@@ -1225,11 +1259,13 @@
 			                                                (__builtin_constant_p(Size) ?       \
 			                                                 Endpoint_BytesToEPSizeMask(Size) : \
 			                                                 Endpoint_BytesToEPSizeMaskDynamic(Size))))
-													
+			
 		/* Function Prototypes: */
 			void    Endpoint_ClearEndpoints(void);
 			uint8_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size);
-			bool    Endpoint_ConfigureEndpoint_Prv(const uint8_t Number, const uint8_t UECFG0XData, const uint8_t UECFG1XData);
+			bool    Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
+			                                       const uint8_t UECFG0XData,
+			                                       const uint8_t UECFG1XData);
 			
 		/* Inline Functions: */
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;

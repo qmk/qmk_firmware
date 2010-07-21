@@ -33,7 +33,8 @@
 volatile SchedulerDelayCounter_t Scheduler_TickCounter;
 volatile uint8_t                 Scheduler_TotalTasks;
 
-bool Scheduler_HasDelayElapsed(const uint16_t Delay, SchedulerDelayCounter_t* const DelayCounter)
+bool Scheduler_HasDelayElapsed(const uint16_t Delay,
+                               SchedulerDelayCounter_t* const DelayCounter)
 {
 	SchedulerDelayCounter_t CurrentTickValue_LCL;
 	SchedulerDelayCounter_t DelayCounter_LCL;
@@ -65,7 +66,8 @@ bool Scheduler_HasDelayElapsed(const uint16_t Delay, SchedulerDelayCounter_t* co
 	return false;
 }
 
-void Scheduler_SetTaskMode(const TaskPtr_t Task, const bool TaskStatus)
+void Scheduler_SetTaskMode(const TaskPtr_t Task,
+                           const bool TaskStatus)
 {
 	TaskEntry_t* CurrTask = &Scheduler_TaskList[0];
 					
@@ -81,7 +83,8 @@ void Scheduler_SetTaskMode(const TaskPtr_t Task, const bool TaskStatus)
 	}
 }
 
-void Scheduler_SetGroupTaskMode(const uint8_t GroupID, const bool TaskStatus)
+void Scheduler_SetGroupTaskMode(const uint8_t GroupID,
+                                const bool TaskStatus)
 {
 	TaskEntry_t* CurrTask = &Scheduler_TaskList[0];
 					

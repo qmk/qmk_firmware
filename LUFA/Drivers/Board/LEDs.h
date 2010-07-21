@@ -163,7 +163,8 @@
 		 *  \param[in] LEDMask     Mask of the board LEDs to manipulate (see board-specific LEDs.h driver file).
 		 *  \param[in] ActiveMask  Mask of whether the LEDs in the LED mask should be turned on or off.
 		 */
-		static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask);
+		static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
+		                                   const uint8_t ActiveMask);
 		
 		/** Toggles all LEDs in the LED mask, leaving all others in their current states.
 		 *

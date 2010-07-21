@@ -109,7 +109,7 @@
 			void USB_Device_SendRemoteWakeup(void);
 							
 		/* Pseudo-Function Macros: */
-			#if defined(__DOXYGEN__)				
+			#if defined(__DOXYGEN__)
 				/** Enables the device mode Start Of Frame events. When enabled, this causes the
 				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
 				 *  at the start of each USB frame when enumerated in device mode.
@@ -181,16 +181,17 @@
 			 *
 			 *  \return Size in bytes of the descriptor if it exists, zero or \ref NO_DESCRIPTOR otherwise.
 			 */
-			uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint8_t wIndex, void** const DescriptorAddress
+			uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
+			                                    const uint8_t wIndex,
+			                                    void** const DescriptorAddress
 			#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
 			                                    , uint8_t* MemoryAddressSpace
-			#endif			
-			                                    )
-									            ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
+			#endif
+			                                    ) ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */		
+		/* Macros: */
 			#define USB_Device_SetLowSpeed()          MACROS{ UDCON |=  (1 << LSM);   }MACROE
 			#define USB_Device_SetFullSpeed()         MACROS{ UDCON &= ~(1 << LSM);   }MACROE
 			

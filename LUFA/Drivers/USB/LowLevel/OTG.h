@@ -104,7 +104,7 @@
 				 *  \param[in] SRPTypeMask  Mask indicating the type of SRP to use, either \ref USB_OTG_SRP_VBUS or
 				 *                          \ref USB_OTG_STP_DATA.
 				 */
-				static inline void USB_OTG_Device_InitiateSRP(uint8_t SRPTypeMask);
+				static inline void USB_OTG_Device_InitiateSRP(const uint8_t SRPTypeMask);
 
 				/** Accepts a HNP from a connected device, indicating that both devices should exchange
 				 *  device/host roles.

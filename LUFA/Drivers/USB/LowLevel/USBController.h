@@ -92,7 +92,7 @@
 		#if (F_CLOCK == 8000000)
 			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
 			     defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
-				 defined(__AVR_ATmega32U2__))
+			     defined(__AVR_ATmega32U2__))
 				#define USB_PLL_PSC                0
 			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
 				#define USB_PLL_PSC                0
@@ -104,7 +104,7 @@
 		#elif (F_CLOCK == 16000000)
 			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
 			     defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
-				 defined(__AVR_ATmega32U2__))
+			     defined(__AVR_ATmega32U2__))
 				#define USB_PLL_PSC                (1 << PLLP0)
 			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
 				#define USB_PLL_PSC                (1 << PINDIV)
@@ -278,14 +278,14 @@
 			void USB_Init(
 			               #if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
 			               const uint8_t Mode
-						   #endif
+			               #endif
 
 			               #if (defined(USB_CAN_BE_BOTH) && !defined(USE_STATIC_OPTIONS)) || defined(__DOXYGEN__)
 			               ,
-						   #elif (!defined(USB_CAN_BE_BOTH) && defined(USE_STATIC_OPTIONS))
-						   void
+			               #elif (!defined(USB_CAN_BE_BOTH) && defined(USE_STATIC_OPTIONS))
+			               void
 			               #endif
-						   
+
 			               #if !defined(USE_STATIC_OPTIONS) || defined(__DOXYGEN__)
 			               const uint8_t Options
 			               #endif
@@ -309,8 +309,8 @@
 			enum USB_InitErrorCodes_t
 			{
 				USB_INITERROR_NoUSBModeSpecified       = 0, /**< Indicates that \ref USB_Init() was called with an
-			                                                 *   invalid or missing Mode parameter.
-			                                                 */
+				                                             *   invalid or missing Mode parameter.
+				                                             */
 			};
 
 		/* Global Variables: */
@@ -352,7 +352,7 @@
 				#define USB_REG_Off()          MACROS{ UHWCON  &= ~(1 << UVREGE);               }MACROE
 			#else
 				#define USB_REG_On()           MACROS{ REGCR   &= ~(1 << REGDIS);               }MACROE
-				#define USB_REG_Off()          MACROS{ REGCR   |=  (1 << REGDIS);               }MACROE			
+				#define USB_REG_Off()          MACROS{ REGCR   |=  (1 << REGDIS);               }MACROE
 			#endif
 			
 			#define USB_OTGPAD_On()            MACROS{ USBCON  |=  (1 << OTGPADE);              }MACROE

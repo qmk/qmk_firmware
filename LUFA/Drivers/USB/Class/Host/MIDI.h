@@ -125,7 +125,8 @@
 			 *
 			 *  \return A value from the \ref MIDIHost_EnumerationFailure_ErrorCodes_t enum.
 			 */
-			uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo, uint16_t ConfigDescriptorSize,
+			uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo,
+			                                 uint16_t ConfigDescriptorSize,
 			                                 void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Sends a MIDI event packet to the device. If no device is connected, the event packet is discarded.

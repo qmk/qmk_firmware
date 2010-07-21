@@ -221,7 +221,8 @@
 			 *  \param[in] PageAddress  Page address within the selected dataflash IC.
 			 *  \param[in] BufferByte   Address within the dataflash's buffer.
 			 */
-			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress, const uint16_t BufferByte);
+			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress,
+			                                              const uint16_t BufferByte);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

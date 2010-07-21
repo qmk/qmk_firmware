@@ -30,7 +30,7 @@
 
 #include "Serial.h"
 
-void Serial_TxString_P(const char *FlashStringPtr)
+void Serial_TxString_P(const char* FlashStringPtr)
 {
 	uint8_t CurrByte;
 
@@ -41,7 +41,7 @@ void Serial_TxString_P(const char *FlashStringPtr)
 	}
 }
 
-void Serial_TxString(const char *StringPtr)
+void Serial_TxString(const char* StringPtr)
 {
 	uint8_t CurrByte;
 

@@ -173,7 +173,7 @@
 				TaskPtr_t Task;       /**< Pointer to the task to execute. */
 				bool      TaskStatus; /**< Status of the task (either TASK_RUN or TASK_STOP). */
 				uint8_t   GroupID;    /**< Group ID of the task so that its status can be changed as a group. */
-			} TaskEntry_t;			
+			} TaskEntry_t;
 
 		/* Global Variables: */
 			/** Task entry list, containing the scheduler tasks, task statuses and group IDs. Each entry is of type
@@ -222,7 +222,7 @@
 			 *  Usage Example:
 			 *  \code
 			 *      static SchedulerDelayCounter_t DelayCounter = 10000; // Force immediate run on start-up
-			 *				 
+			 *
 			 *      // Task runs every 10000 ticks, 10 seconds for this demo
 			 *      if (Scheduler_HasDelayElapsed(10000, &DelayCounter))
 			 *      {
@@ -232,14 +232,15 @@
 			 */
 			bool Scheduler_HasDelayElapsed(const uint16_t Delay,
 			                               SchedulerDelayCounter_t* const DelayCounter)
-										   ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(2);
+			                               ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(2);
 			
 			/** Sets the task mode for a given task.
 			 *
 			 *  \param[in] Task        Name of the task whose status is to be changed.
 			 *  \param[in] TaskStatus  New task status for the task (\ref TASK_RUN or \ref TASK_STOP).
 			 */
-			void Scheduler_SetTaskMode(const TaskPtr_t Task, const bool TaskStatus);
+			void Scheduler_SetTaskMode(const TaskPtr_t Task,
+			                           const bool TaskStatus);
 			
 			/** Sets the task mode for a given task group ID, allowing for an entire group of tasks to have their
 			 *  statuses changed at once.
@@ -247,9 +248,10 @@
 			 *  \param[in] GroupID     Value of the task group ID whose status is to be changed.
 			 *  \param[in] TaskStatus  New task status for tasks in the specified group (\ref TASK_RUN or \ref TASK_STOP).
 			 */
-			void Scheduler_SetGroupTaskMode(const uint8_t GroupID, const bool TaskStatus);
+			void Scheduler_SetGroupTaskMode(const uint8_t GroupID,
+			                                const bool TaskStatus);
 
-	/* Private Interface - For use in library only: */		
+	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
 			#define TOTAL_TASKS                       (sizeof(Scheduler_TaskList) / sizeof(TaskEntry_t))

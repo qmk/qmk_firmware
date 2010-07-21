@@ -101,7 +101,8 @@
 				PORTB = ((PORTB & ~LEDS_ALL_LEDS) | LedMask);
 			}
 		
-			static inline void LEDs_ChangeLEDs(const uint8_t LedMask, const uint8_t ActiveMask)
+			static inline void LEDs_ChangeLEDs(const uint8_t LedMask,
+			                                   const uint8_t ActiveMask)
 			{
 				PORTB = ((PORTB & ~LedMask) | ActiveMask);
 			}

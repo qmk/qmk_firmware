@@ -36,7 +36,8 @@
 #define  __INCLUDE_FROM_HID_DRIVER
 #include "HID.h"
 
-uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint16_t ConfigDescriptorSize,
+uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+                                uint16_t ConfigDescriptorSize,
                                 void* ConfigDescriptorData)
 {
 	uint8_t FoundEndpoints = 0;
@@ -153,7 +154,9 @@ static uint8_t DCOMP_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescri
 }
 
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
-uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID, void* Buffer)
+uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+                                   const uint8_t ReportID,
+                                   void* Buffer)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
@@ -170,7 +173,8 @@ uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 }											   
 #endif
 										   
-uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, void* Buffer)
+uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+                               void* Buffer)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return PIPE_READYWAIT_DeviceDisconnected;
@@ -215,7 +219,9 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
                                 const uint8_t ReportID,
 #endif
-                                const uint8_t ReportType, void* Buffer, const uint16_t ReportSize)
+                                const uint8_t ReportType,
+                                void* Buffer,
+                                const uint16_t ReportSize)
 {
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))

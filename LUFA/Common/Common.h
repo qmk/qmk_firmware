@@ -64,7 +64,7 @@
 		#include "BoardTypes.h"
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */		
+		/* Macros: */
 			/** Macro for encasing other multi-statement macros. This should be used along with an opening brace
 			 *  before the start of any multi-statement macro, so that the macros contents as a whole are treated
 			 *  as a discrete block and not as a list of separate statements which may cause problems when used as
@@ -172,8 +172,8 @@
 			 *
 			 *  \param[in] Word  Word of data whose bytes are to be swapped.
 			 */
-			static inline uint16_t SwapEndian_16(uint16_t Word) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
-			static inline uint16_t SwapEndian_16(uint16_t Word)
+			static inline uint16_t SwapEndian_16(const uint16_t Word) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
+			static inline uint16_t SwapEndian_16(const uint16_t Word)
 			{
 				uint8_t Temp;
 
@@ -198,8 +198,8 @@
 			 *
 			 *  \param[in] DWord  Double word of data whose bytes are to be swapped.
 			 */
-			static inline uint32_t SwapEndian_32(uint32_t DWord) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
-			static inline uint32_t SwapEndian_32(uint32_t DWord)
+			static inline uint32_t SwapEndian_32(const uint32_t DWord) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
+			static inline uint32_t SwapEndian_32(const uint32_t DWord)
 			{
 				uint8_t Temp;
 
@@ -229,8 +229,10 @@
 			 *  \param[in,out] Data   Pointer to a number containing an even number of bytes to be reversed.
 			 *  \param[in]     Bytes  Length of the data in bytes.
 			 */
-			static inline void SwapEndian_n(void* Data, uint8_t Bytes);
-			static inline void SwapEndian_n(void* Data, uint8_t Bytes)
+			static inline void SwapEndian_n(void* Data,
+			                                uint8_t Bytes) ATTR_NON_NULL_PTR_ARG(1);
+			static inline void SwapEndian_n(void* Data,
+			                                uint8_t Bytes)
 			{
 				uint8_t* CurrDataPos = (uint8_t*)Data;
 			

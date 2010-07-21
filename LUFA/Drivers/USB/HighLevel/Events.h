@@ -167,7 +167,8 @@
 			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 */
-			void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode);
+			void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
+			                                            const uint8_t SubErrorCode);
 
 			/** Event for USB device enumeration completion. This event fires when a the USB interface is
 			 *  in host mode and an attached USB device has been completely enumerated and is ready to be
@@ -335,8 +336,9 @@
 					void EVENT_USB_Host_DeviceAttached(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 					void EVENT_USB_Host_DeviceUnattached(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 					void EVENT_USB_Host_DeviceEnumerationComplete(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
-					void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8_t SubErrorCode)
-					                                       ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
+					void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
+                                                                const uint8_t SubErrorCode)
+					                                            ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 				#endif
 
 				#if defined(USB_CAN_BE_DEVICE)

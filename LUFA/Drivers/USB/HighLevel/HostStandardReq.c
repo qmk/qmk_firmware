@@ -36,7 +36,7 @@
 #define  __INCLUDE_FROM_HOSTSTDREQ_C
 #include "HostStandardReq.h"
 
-uint8_t USB_Host_SendControlRequest(void* BufferPtr)
+uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 {
 	uint8_t* HeaderStream   = (uint8_t*)&USB_ControlRequest;
 	uint8_t* DataStream     = (uint8_t*)BufferPtr;

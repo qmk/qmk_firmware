@@ -161,7 +161,8 @@
 			 *
 			 *  \return A value from the \ref HIDHost_EnumerationFailure_ErrorCodes_t enum.
 			 */
-			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, uint16_t ConfigDescriptorSize,
+			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+			                                uint16_t ConfigDescriptorSize,
 			                                void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 
@@ -178,8 +179,8 @@
 			 *
 			 *  \return An error code from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, void* Buffer)
-			                               ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+			                               void* Buffer) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 			/** Receives a HID IN report from the attached device, by the report ID.
@@ -195,7 +196,8 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
 			 */
-			uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo, const uint8_t ReportID,
+			uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
+			                                   const uint8_t ReportID,
 			                                   void* Buffer) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 			#endif
 			
@@ -221,7 +223,9 @@
 			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 			                                const uint8_t ReportID,
 			#endif
-			                                const uint8_t ReportType, void* Buffer, const uint16_t ReportSize) ATTR_NON_NULL_PTR_ARG(1)
+			                                const uint8_t ReportType,
+			                                void* Buffer,
+			                                const uint16_t ReportSize) ATTR_NON_NULL_PTR_ARG(1)
 			#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 			                                ATTR_NON_NULL_PTR_ARG(4);
 			#else

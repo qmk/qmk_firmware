@@ -112,7 +112,8 @@
 				PORTD = (PORTD & ~LEDS_ALL_LEDS) | (LEDMask & LEDS_ALL_LEDS);
 			}
 			
-			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask, const uint8_t ActiveMask)
+			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
+			                                   const uint8_t ActiveMask)
 			{
 				PORTD = ((PORTD & ~(LEDMask & LEDS_ALL_LEDS)) | (ActiveMask & LEDS_ALL_LEDS));
 			}

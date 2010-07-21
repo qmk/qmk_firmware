@@ -70,9 +70,9 @@
 		#define LUN_MEDIA_BLOCKS                   (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)
 		
 	/* Function Prototypes: */
-		void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const uint32_t BlockAddress,
+		void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo, const uint32_t BlockAddress,
 		                                  uint16_t TotalBlocks);
-		void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* MSInterfaceInfo, const uint32_t BlockAddress,
+		void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo, const uint32_t BlockAddress,
 		                                 uint16_t TotalBlocks);
 		void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress, uint16_t TotalBlocks,
 		                                      uint8_t* BufferPtr) ATTR_NON_NULL_PTR_ARG(3);

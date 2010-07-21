@@ -110,7 +110,8 @@
 			 *  \param[in] PageAddress  Page address within the selected dataflash IC
 			 *  \param[in] BufferByte   Address within the dataflash's buffer
 			 */
-			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress, const uint16_t BufferByte)
+			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress,
+			                                              const uint16_t BufferByte)
 			{	
 				Dataflash_SendByte(PageAddress >> 6);
 				Dataflash_SendByte((PageAddress << 2) | (BufferByte >> 8));

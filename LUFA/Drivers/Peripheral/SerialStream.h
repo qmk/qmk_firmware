@@ -74,7 +74,8 @@
 
 		/* Function Prototypes: */
 		#if defined(__INCLUDE_FROM_SERIALSTREAM_C)
-			static int SerialStream_TxByte(char DataByte, FILE *Stream) ATTR_NON_NULL_PTR_ARG(2);
+			static int SerialStream_TxByte(char DataByte,
+			                               FILE *Stream) ATTR_NON_NULL_PTR_ARG(2);
 			static int SerialStream_RxByte(FILE *Stream) ATTR_NON_NULL_PTR_ARG(1);
 		#endif
 	#endif
@@ -87,7 +88,8 @@
 			 *  \param[in] BaudRate     Baud rate to configure the USART to.
 			 *  \param[in] DoubleSpeed  Enables double speed mode when set, halving the sample time to double the baud rate.
 			 */
-			static inline void SerialStream_Init(const uint32_t BaudRate, const bool DoubleSpeed)
+			static inline void SerialStream_Init(const uint32_t BaudRate,
+			                                     const bool DoubleSpeed)
 			{
 				Serial_Init(BaudRate, DoubleSpeed);
 				

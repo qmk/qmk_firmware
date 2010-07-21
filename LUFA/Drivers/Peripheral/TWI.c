@@ -7,7 +7,8 @@
 
 #include "TWI.h"
 
-bool TWI_StartTransmission(uint8_t SlaveAddress, uint8_t TimeoutMS)
+bool TWI_StartTransmission(const uint8_t SlaveAddress,
+                           const uint8_t TimeoutMS)
 {
 	for (;;)
 	{

@@ -36,7 +36,8 @@
 #define  __INCLUDE_FROM_PRINTER_DRIVER
 #include "Printer.h"
 
-uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, uint16_t ConfigDescriptorSize,
+uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+                                 uint16_t ConfigDescriptorSize,
 							     void* DeviceConfigDescriptor)
 {
 	uint8_t FoundEndpoints = 0;
@@ -148,7 +149,8 @@ uint8_t PRNT_Host_SetBidirectionalMode(USB_ClassInfo_PRNT_Host_t* const PRNTInte
 	return HOST_SENDCONTROL_Successful;
 }
 
-uint8_t PRNT_Host_GetPortStatus(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, uint8_t* const PortStatus)
+uint8_t PRNT_Host_GetPortStatus(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+                                uint8_t* const PortStatus)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
@@ -180,7 +182,9 @@ uint8_t PRNT_Host_SoftReset(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
 	return USB_Host_SendControlRequest(NULL);
 }
 
-uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, void* PrinterCommands, const uint16_t CommandSize)
+uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+                           void* PrinterCommands,
+                           const uint16_t CommandSize)
 {
 	uint8_t ErrorCode;
 
@@ -205,7 +209,9 @@ uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, v
 	return PIPE_RWSTREAM_NoError;
 }
 
-uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo, char* DeviceIDString, const uint16_t BufferSize)
+uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+                              char* const DeviceIDString,
+                              const uint16_t BufferSize)
 {
 	uint8_t  ErrorCode = HOST_SENDCONTROL_Successful;
 	uint16_t DeviceIDStringLength = 0;

@@ -177,7 +177,7 @@
 				#define USB_Host_SuspendBus()              MACROS{ UHCON &= ~(1 << SOFEN);          }MACROE 
 				
 				#define USB_Host_IsBusSuspended()                ((UHCON &   (1 << SOFEN)) ? false : true)
-			
+
 				#define USB_Host_IsDeviceFullSpeed()             ((USBSTA &  (1 << SPEED)) ? true : false)
 
 				#define USB_Host_IsRemoteWakeupSent()            ((UHINT &   (1 << RXRSMI)) ? true : false)
@@ -229,7 +229,9 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index, void* const Buffer, const uint8_t BufferLength);
+			uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
+			                                           void* const Buffer,
+			                                           const uint8_t BufferLength);
 			
 			/** Clears a stall condition on the given pipe, via a ClearFeature request to the attached device.
 			 *
@@ -238,7 +240,7 @@
 			 *  \param[in] EndpointIndex  Index of the endpoint to clear.
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
-			 */			
+			 */
 			uint8_t USB_Host_ClearPipeStall(uint8_t EndpointIndex);
 
 		/* Enums: */
@@ -377,7 +379,7 @@
 				                                      */
 				HOST_ENUMERROR_ControlError     = 3, /**< One of the enumeration control requests failed to
 				                                      *   complete successfully.
-													  */
+				                                      */
 				HOST_ENUMERROR_PipeConfigError  = 4, /**< The default control pipe (address 0) failed to
 				                                      *   configure correctly.
 				                                      */
