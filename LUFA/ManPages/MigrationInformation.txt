@@ -12,6 +12,11 @@
  *
  * \section Sec_Migration100513 Migrating from 100513 to XXXXXX
  *
+ *  <b>Non-USB Library Components</b>
+ *    - The Dataflash board driver stub file has changed, as dataflash functions previously located in the internal
+ *      Dataflash driver of the library have now been moved to the individual board files. Existing drivers can
+ *      copy-paste the new functions from the board Dataflash stub driver.
+ *
  *  <b>USB Core</b>
  *    - A new USB driver source file, Drivers/USB/LowLevel/Device.c now exists. This source file should be added to all project
  *      makefiles using the USB driver of LUFA, or the makefile should be updated to use the new module source variables.

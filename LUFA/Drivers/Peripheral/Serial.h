@@ -76,17 +76,6 @@
 			 */
 			#define SERIAL_2X_UBBRVAL(baud) ((((F_CPU / 8) + (baud / 2)) / (baud)) - 1)
 
-		/* Pseudo-Function Macros: */
-			#if defined(__DOXYGEN__)
-				/** Indicates whether a character has been received through the USART.
-				 *
-				 *  \return Boolean true if a character has been received, false otherwise.
-				 */
-				static inline bool Serial_IsCharReceived(void);
-			#else
-				#define Serial_IsCharReceived() ((UCSR1A & (1 << RXC1)) ? true : false)
-			#endif
-
 		/* Function Prototypes: */
 			/** Transmits a given string located in program space (FLASH) through the USART.
 			 *
@@ -132,11 +121,22 @@
 				
 				UBRR1  = 0;
 			}
+
+			/** Indicates whether a character has been received through the USART.
+			 *
+			 *  \return Boolean true if a character has been received, false otherwise.
+			 */
+			static inline bool Serial_IsCharReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Serial_IsCharReceived(void)
+			{
+				return ((UCSR1A & (1 << RXC1)) ? true : false);
+			}
 			
 			/** Transmits a given byte through the USART.
 			 *
 			 *  \param[in] DataByte  Byte to transmit through the USART.
 			 */
+			static inline void Serial_TxByte(const char DataByte) ATTR_ALWAYS_INLINE;
 			static inline void Serial_TxByte(const char DataByte)
 			{
 				while (!(UCSR1A & (1 << UDRE1)));
@@ -147,6 +147,7 @@
 			 *
 			 *  \return Byte received from the USART.
 			 */
+			static inline char Serial_RxByte(void) ATTR_ALWAYS_INLINE;
 			static inline char Serial_RxByte(void)
 			{
 				while (!(UCSR1A & (1 << RXC1)));

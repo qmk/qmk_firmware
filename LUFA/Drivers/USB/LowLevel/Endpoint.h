@@ -83,6 +83,7 @@
 
 		#include "../../../Common/Common.h"
 		#include "../HighLevel/USBTask.h"
+		#include "USBInterrupt.h"
 
 		#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
 			#include "../HighLevel/StreamCallbacks.h"
@@ -149,7 +150,7 @@
 			/** Endpoint bank size mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  bank size in the device.
 			 */
-			#define ENDPOINT_EPSIZE_MASK                  0x7FF
+			#define ENDPOINT_EPSIZE_MASK                  0x7F
 			
 			/** Maximum size in bytes of a given endpoint.
 			 *
@@ -175,258 +176,6 @@
 				#endif
 			#else
 				#define ENDPOINT_TOTAL_ENDPOINTS          1
-			#endif
-			
-		/* Pseudo-Function Macros: */
-			#if defined(__DOXYGEN__)
-				/** Indicates the number of bytes currently stored in the current endpoint's selected bank.
-				 *
-				 *  \note The return width of this function may differ, depending on the maximum endpoint bank size
-				 *        of the selected AVR model.
-				 *
-				 *  \ingroup Group_EndpointRW
-				 *
-				 *  \return Total number of bytes in the currently selected Endpoint's FIFO buffer.
-				 */
-				static inline uint16_t Endpoint_BytesInEndpoint(void);
-			
-				/** Get the endpoint address of the currently selected endpoint. This is typically used to save
-				 *  the currently selected endpoint number so that it can be restored after another endpoint has
-				 *  been manipulated.
-				 *
-				 *  \return Index of the currently selected endpoint.
-				 */
-				static inline uint8_t Endpoint_GetCurrentEndpoint(void);
-				
-				/** Selects the given endpoint number. If the address from the device descriptors is used, the
-				 *  value should be masked with the \ref ENDPOINT_EPNUM_MASK constant to extract only the endpoint
-				 *  number (and discarding the endpoint direction bit).
-				 *
-				 *  Any endpoint operations which do not require the endpoint number to be indicated will operate on
-				 *  the currently selected endpoint.
-				 *
-				 *  \param[in] EndpointNumber Endpoint number to select.
-				 */
-				static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber);
-				
-				/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB controller's
-				 *  In and Out pointers to the bank's contents.
-				 *
-				 *  \param[in] EndpointNumber Endpoint number whose FIFO buffers are to be reset.
-				 */
-				static inline void Endpoint_ResetFIFO(const uint8_t EndpointNumber);
-				
-				/** Enables the currently selected endpoint so that data can be sent and received through it to
-				 *  and from a host.
-				 *
-				 *  \note Endpoints must first be configured properly via \ref Endpoint_ConfigureEndpoint().
-				 */
-				static inline void Endpoint_EnableEndpoint(void);
-
-				/** Disables the currently selected endpoint so that data cannot be sent and received through it
-				 *  to and from a host.
-				 */
-				static inline void Endpoint_DisableEndpoint(void);
-				
-				/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
-				 *
-				 * \return Boolean True if the currently selected endpoint is enabled, false otherwise.
-				 */
-				static inline bool Endpoint_IsEnabled(void);
-				
-				/** Determines if the currently selected endpoint may be read from (if data is waiting in the endpoint
-				 *  bank and the endpoint is an OUT direction, or if the bank is not yet full if the endpoint is an IN
-				 *  direction). This function will return false if an error has occurred in the endpoint, if the endpoint
-				 *  is an OUT direction and no packet (or an empty packet) has been received, or if the endpoint is an IN
-				 *  direction and the endpoint bank is full.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 *
-				 *  \return Boolean true if the currently selected endpoint may be read from or written to, depending on its direction.
-				 */
-				static inline bool Endpoint_IsReadWriteAllowed(void);
-				
-				/** Determines if the currently selected endpoint is configured.
-				 *
-				 *  \return Boolean true if the currently selected endpoint has been configured, false otherwise.
-				 */
-				static inline bool Endpoint_IsConfigured(void);
-				
-				/** Returns a mask indicating which INTERRUPT type endpoints have interrupted - i.e. their
-				 *  interrupt duration has elapsed. Which endpoints have interrupted can be determined by
-				 *  masking the return value against (1 << {Endpoint Number}).
-				 *
-				 *  \return Mask whose bits indicate which endpoints have interrupted.
-				 */
-				static inline uint8_t Endpoint_GetEndpointInterrupts(void);
-				
-				/** Determines if the specified endpoint number has interrupted (valid only for INTERRUPT type
-				 *  endpoints).
-				 *
-				 *  \param[in] EndpointNumber  Index of the endpoint whose interrupt flag should be tested.
-				 *
-				 *  \return Boolean true if the specified endpoint has interrupted, false otherwise.
-				 */
-				static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber);
-				
-				/** Determines if the selected IN endpoint is ready for a new packet.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 *
-				 *  \return Boolean true if the current endpoint is ready for an IN packet, false otherwise.
-				 */
-				static inline bool Endpoint_IsINReady(void);
-				
-				/** Determines if the selected OUT endpoint has received new packet.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 *
-				 *  \return Boolean true if current endpoint is has received an OUT packet, false otherwise.
-				 */
-				static inline bool Endpoint_IsOUTReceived(void);
-				
-				/** Determines if the current CONTROL type endpoint has received a SETUP packet.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 *
-				 *  \return Boolean true if the selected endpoint has received a SETUP packet, false otherwise.
-				 */
-				static inline bool Endpoint_IsSETUPReceived(void);
-				
-				/** Clears a received SETUP packet on the currently selected CONTROL type endpoint, freeing up the
-				 *  endpoint for the next packet.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 *
-				 *  \note This is not applicable for non CONTROL type endpoints. 
-				 */
-				static inline void Endpoint_ClearSETUP(void);
-				
-				/** Sends an IN packet to the host on the currently selected endpoint, freeing up the endpoint for the
-				 *  next packet and switching to the alternative endpoint bank if double banked.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 */
-				static inline void Endpoint_ClearIN(void);
-				
-				/** Acknowledges an OUT packet to the host on the currently selected endpoint, freeing up the endpoint
-				 *  for the next packet and switching to the alternative endpoint bank if double banked.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 */
-				static inline void Endpoint_ClearOUT(void);
-				
-				/** Stalls the current endpoint, indicating to the host that a logical problem occurred with the
-				 *  indicated endpoint and that the current transfer sequence should be aborted. This provides a
-				 *  way for devices to indicate invalid commands to the host so that the current transfer can be
-				 *  aborted and the host can begin its own recovery sequence.
-				 *
-				 *  The currently selected endpoint remains stalled until either the \ref Endpoint_ClearStall() macro
-				 *  is called, or the host issues a CLEAR FEATURE request to the device for the currently selected
-				 *  endpoint.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 */
-				static inline void Endpoint_StallTransaction(void);
-				
-				/** Clears the STALL condition on the currently selected endpoint.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 */
-				static inline void Endpoint_ClearStall(void);
-				
-				/** Determines if the currently selected endpoint is stalled, false otherwise.
-				 *
-				 *  \ingroup Group_EndpointPacketManagement
-				 *
-				 *  \return Boolean true if the currently selected endpoint is stalled, false otherwise.
-				 */
-				static inline bool Endpoint_IsStalled(void);
-				
-				/** Resets the data toggle of the currently selected endpoint. */
-				static inline void Endpoint_ResetDataToggle(void);
-				
-				/** Determines the currently selected endpoint's direction.
-				 *
-				 *  \return The currently selected endpoint's direction, as a ENDPOINT_DIR_* mask.
-				 */
-				static inline uint8_t Endpoint_GetEndpointDirection(void);
-
-				/** Sets the direction of the currently selected endpoint.
-				 *
-				 *  \param[in] DirectionMask  New endpoint direction, as a ENDPOINT_DIR_* mask.
-				 */
-				static inline void Endpoint_SetEndpointDirection(const uint8_t DirectionMask);
-			#else
-				#if defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-					#define Endpoint_BytesInEndpoint()        UEBCX
-				#elif defined(USB_SERIES_4_AVR)
-					#define Endpoint_BytesInEndpoint()        (((uint16_t)UEBCHX << 8) | UEBCLX)
-				#elif defined(USB_SERIES_2_AVR)
-					#define Endpoint_BytesInEndpoint()        UEBCLX
-				#endif
-				
-				#if !defined(CONTROL_ONLY_DEVICE)
-					#define Endpoint_GetCurrentEndpoint()     (UENUM & ENDPOINT_EPNUM_MASK)
-				#else
-					#define Endpoint_GetCurrentEndpoint()     ENDPOINT_CONTROLEP
-				#endif
-				
-				#if !defined(CONTROL_ONLY_DEVICE)
-					#define Endpoint_SelectEndpoint(epnum)    MACROS{ UENUM = (epnum); }MACROE
-				#else
-					#define Endpoint_SelectEndpoint(epnum)    (void)(epnum)
-				#endif
-
-				#define Endpoint_ResetFIFO(epnum)             MACROS{ UERST = (1 << (epnum)); UERST = 0; }MACROE
-
-				#define Endpoint_EnableEndpoint()             MACROS{ UECONX |= (1 << EPEN); }MACROE
-
-				#define Endpoint_DisableEndpoint()            MACROS{ UECONX &= ~(1 << EPEN); }MACROE
-
-				#define Endpoint_IsEnabled()                  ((UECONX & (1 << EPEN)) ? true : false)
-
-				#if !defined(CONTROL_ONLY_DEVICE)
-					#define Endpoint_IsReadWriteAllowed()     ((UEINTX & (1 << RWAL)) ? true : false)
-				#endif
-				
-				#define Endpoint_IsConfigured()               ((UESTA0X & (1 << CFGOK)) ? true : false)
-
-				#define Endpoint_GetEndpointInterrupts()      UEINT
-
-				#define Endpoint_HasEndpointInterrupted(n)    ((UEINT & (1 << (n))) ? true : false)
-				
-				#define Endpoint_IsINReady()                  ((UEINTX & (1 << TXINI))  ? true : false)
-				
-				#define Endpoint_IsOUTReceived()              ((UEINTX & (1 << RXOUTI)) ? true : false)
-
-				#define Endpoint_IsSETUPReceived()            ((UEINTX & (1 << RXSTPI)) ? true : false)
-
-				#define Endpoint_ClearSETUP()                 MACROS{ UEINTX &= ~(1 << RXSTPI); }MACROE
-
-				#if !defined(CONTROL_ONLY_DEVICE)
-					#define Endpoint_ClearIN()                MACROS{ UEINTX &= ~((1 << TXINI) | (1 << FIFOCON)); }MACROE
-				#else
-					#define Endpoint_ClearIN()                MACROS{ UEINTX &= ~(1 << TXINI); }MACROE
-				#endif
-
-				#if !defined(CONTROL_ONLY_DEVICE)
-					#define Endpoint_ClearOUT()               MACROS{ UEINTX &= ~((1 << RXOUTI) | (1 << FIFOCON)); }MACROE
-				#else
-					#define Endpoint_ClearOUT()               MACROS{ UEINTX &= ~(1 << RXOUTI); }MACROE			
-				#endif
-
-				#define Endpoint_StallTransaction()           MACROS{ UECONX |= (1 << STALLRQ); }MACROE
-
-				#define Endpoint_ClearStall()                 MACROS{ UECONX |= (1 << STALLRQC); }MACROE
-
-				#define Endpoint_IsStalled()                  ((UECONX & (1 << STALLRQ)) ? true : false)
-
-				#define Endpoint_ResetDataToggle()            MACROS{ UECONX |= (1 << RSTDT); }MACROE
-				
-				#define Endpoint_GetEndpointDirection()       (UECFG0X & ENDPOINT_DIR_IN)
-				
-				#define Endpoint_SetEndpointDirection(dir)    MACROS{ UECFG0X = ((UECFG0X & ~ENDPOINT_DIR_IN) | (dir)); }MACROE
 			#endif
 
 		/* Enums: */
@@ -497,6 +246,298 @@
 			};
 
 		/* Inline Functions: */
+			/** Indicates the number of bytes currently stored in the current endpoint's selected bank.
+			 *
+			 *  \note The return width of this function may differ, depending on the maximum endpoint bank size
+			 *        of the selected AVR model.
+			 *
+			 *  \ingroup Group_EndpointRW
+			 *
+			 *  \return Total number of bytes in the currently selected Endpoint's FIFO buffer.
+			 */
+			static inline uint16_t Endpoint_BytesInEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint16_t Endpoint_BytesInEndpoint(void)
+			{
+				#if defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+					return UEBCX;
+				#elif defined(USB_SERIES_4_AVR)
+					return (((uint16_t)UEBCHX << 8) | UEBCLX);
+				#elif defined(USB_SERIES_2_AVR)
+					return UEBCLX;
+				#endif
+			}
+		
+			/** Get the endpoint address of the currently selected endpoint. This is typically used to save
+			 *  the currently selected endpoint number so that it can be restored after another endpoint has
+			 *  been manipulated.
+			 *
+			 *  \return Index of the currently selected endpoint.
+			 */
+			static inline uint8_t Endpoint_GetCurrentEndpoint(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint8_t Endpoint_GetCurrentEndpoint(void)
+			{
+				#if !defined(CONTROL_ONLY_DEVICE)
+					return (UENUM & ENDPOINT_EPNUM_MASK);
+				#else
+					return ENDPOINT_CONTROLEP;
+				#endif
+			}
+			
+			/** Selects the given endpoint number. If the address from the device descriptors is used, the
+			 *  value should be masked with the \ref ENDPOINT_EPNUM_MASK constant to extract only the endpoint
+			 *  number (and discarding the endpoint direction bit).
+			 *
+			 *  Any endpoint operations which do not require the endpoint number to be indicated will operate on
+			 *  the currently selected endpoint.
+			 *
+			 *  \param[in] EndpointNumber Endpoint number to select.
+			 */
+			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_SelectEndpoint(const uint8_t EndpointNumber)
+			{
+				#if !defined(CONTROL_ONLY_DEVICE)
+					UENUM = EndpointNumber;
+				#endif			
+			}
+			
+			/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB controller's
+			 *  In and Out pointers to the bank's contents.
+			 *
+			 *  \param[in] EndpointNumber Endpoint number whose FIFO buffers are to be reset.
+			 */
+			static inline void Endpoint_ResetFIFO(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_ResetFIFO(const uint8_t EndpointNumber)
+			{
+				UERST = (1 << EndpointNumber);
+				UERST = 0;
+			}
+			
+			/** Enables the currently selected endpoint so that data can be sent and received through it to
+			 *  and from a host.
+			 *
+			 *  \note Endpoints must first be configured properly via \ref Endpoint_ConfigureEndpoint().
+			 */
+			static inline void Endpoint_EnableEndpoint(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_EnableEndpoint(void)
+			{
+				UECONX |= (1 << EPEN);
+			}
+
+			/** Disables the currently selected endpoint so that data cannot be sent and received through it
+			 *  to and from a host.
+			 */
+			static inline void Endpoint_DisableEndpoint(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_DisableEndpoint(void)
+			{
+				UECONX &= ~(1 << EPEN);
+			}
+			
+			/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
+			 *
+			 * \return Boolean True if the currently selected endpoint is enabled, false otherwise.
+			 */
+			static inline bool Endpoint_IsEnabled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Endpoint_IsEnabled(void)
+			{
+				return ((UECONX & (1 << EPEN)) ? true : false);
+			}
+			
+			/** Determines if the currently selected endpoint may be read from (if data is waiting in the endpoint
+			 *  bank and the endpoint is an OUT direction, or if the bank is not yet full if the endpoint is an IN
+			 *  direction). This function will return false if an error has occurred in the endpoint, if the endpoint
+			 *  is an OUT direction and no packet (or an empty packet) has been received, or if the endpoint is an IN
+			 *  direction and the endpoint bank is full.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 *
+			 *  \return Boolean true if the currently selected endpoint may be read from or written to, depending on its direction.
+			 */
+			static inline bool Endpoint_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Endpoint_IsReadWriteAllowed(void)
+			{
+				return ((UEINTX & (1 << RWAL)) ? true : false);
+			}
+			
+			/** Determines if the currently selected endpoint is configured.
+			 *
+			 *  \return Boolean true if the currently selected endpoint has been configured, false otherwise.
+			 */
+			static inline bool Endpoint_IsConfigured(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Endpoint_IsConfigured(void)
+			{
+				return ((UESTA0X & (1 << CFGOK)) ? true : false);
+			}
+			
+			/** Returns a mask indicating which INTERRUPT type endpoints have interrupted - i.e. their
+			 *  interrupt duration has elapsed. Which endpoints have interrupted can be determined by
+			 *  masking the return value against (1 << {Endpoint Number}).
+			 *
+			 *  \return Mask whose bits indicate which endpoints have interrupted.
+			 */
+			static inline uint8_t Endpoint_GetEndpointInterrupts(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint8_t Endpoint_GetEndpointInterrupts(void)
+			{
+				return UEINT;
+			}
+			
+			/** Determines if the specified endpoint number has interrupted (valid only for INTERRUPT type
+			 *  endpoints).
+			 *
+			 *  \param[in] EndpointNumber  Index of the endpoint whose interrupt flag should be tested.
+			 *
+			 *  \return Boolean true if the specified endpoint has interrupted, false otherwise.
+			 */
+			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber)
+			{
+				return ((UEINT & (1 << EndpointNumber)) ? true : false);
+			}
+			
+			/** Determines if the selected IN endpoint is ready for a new packet.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 *
+			 *  \return Boolean true if the current endpoint is ready for an IN packet, false otherwise.
+			 */
+			static inline bool Endpoint_IsINReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Endpoint_IsINReady(void)
+			{
+				return ((UEINTX & (1 << TXINI))  ? true : false);
+			}
+			
+			/** Determines if the selected OUT endpoint has received new packet.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 *
+			 *  \return Boolean true if current endpoint is has received an OUT packet, false otherwise.
+			 */
+			static inline bool Endpoint_IsOUTReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Endpoint_IsOUTReceived(void)
+			{
+				return ((UEINTX & (1 << RXOUTI)) ? true : false);
+			}
+			
+			/** Determines if the current CONTROL type endpoint has received a SETUP packet.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 *
+			 *  \return Boolean true if the selected endpoint has received a SETUP packet, false otherwise.
+			 */
+			static inline bool Endpoint_IsSETUPReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Endpoint_IsSETUPReceived(void)
+			{
+				return ((UEINTX & (1 << RXSTPI)) ? true : false);
+			}
+			
+			/** Clears a received SETUP packet on the currently selected CONTROL type endpoint, freeing up the
+			 *  endpoint for the next packet.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 *
+			 *  \note This is not applicable for non CONTROL type endpoints. 
+			 */
+			static inline void Endpoint_ClearSETUP(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_ClearSETUP(void)
+			{
+				UEINTX &= ~(1 << RXSTPI);
+			}
+			
+			/** Sends an IN packet to the host on the currently selected endpoint, freeing up the endpoint for the
+			 *  next packet and switching to the alternative endpoint bank if double banked.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 */
+			static inline void Endpoint_ClearIN(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_ClearIN(void)
+			{
+				#if !defined(CONTROL_ONLY_DEVICE)
+					UEINTX &= ~((1 << TXINI) | (1 << FIFOCON));
+				#else
+					UEINTX &= ~(1 << TXINI);
+				#endif
+			}
+			
+			/** Acknowledges an OUT packet to the host on the currently selected endpoint, freeing up the endpoint
+			 *  for the next packet and switching to the alternative endpoint bank if double banked.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 */
+			static inline void Endpoint_ClearOUT(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_ClearOUT(void)
+			{
+				#if !defined(CONTROL_ONLY_DEVICE)
+					UEINTX &= ~((1 << RXOUTI) | (1 << FIFOCON));
+				#else
+					UEINTX &= ~(1 << RXOUTI);	
+				#endif
+			}
+			
+			/** Stalls the current endpoint, indicating to the host that a logical problem occurred with the
+			 *  indicated endpoint and that the current transfer sequence should be aborted. This provides a
+			 *  way for devices to indicate invalid commands to the host so that the current transfer can be
+			 *  aborted and the host can begin its own recovery sequence.
+			 *
+			 *  The currently selected endpoint remains stalled until either the \ref Endpoint_ClearStall() macro
+			 *  is called, or the host issues a CLEAR FEATURE request to the device for the currently selected
+			 *  endpoint.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 */
+			static inline void Endpoint_StallTransaction(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_StallTransaction(void)
+			{
+				UECONX |= (1 << STALLRQ);
+			}
+			
+			/** Clears the STALL condition on the currently selected endpoint.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 */
+			static inline void Endpoint_ClearStall(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_ClearStall(void)
+			{
+				UECONX |= (1 << STALLRQC);
+			}
+			
+			/** Determines if the currently selected endpoint is stalled, false otherwise.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 *
+			 *  \return Boolean true if the currently selected endpoint is stalled, false otherwise.
+			 */
+			static inline bool Endpoint_IsStalled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool Endpoint_IsStalled(void)
+			{
+				return ((UECONX & (1 << STALLRQ)) ? true : false);
+			}
+			
+			/** Resets the data toggle of the currently selected endpoint. */
+			static inline void Endpoint_ResetDataToggle(void) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_ResetDataToggle(void)
+			{
+				UECONX |= (1 << RSTDT);
+			}
+			
+			/** Determines the currently selected endpoint's direction.
+			 *
+			 *  \return The currently selected endpoint's direction, as a ENDPOINT_DIR_* mask.
+			 */
+			static inline uint8_t Endpoint_GetEndpointDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint8_t Endpoint_GetEndpointDirection(void)
+			{
+				return (UECFG0X & ENDPOINT_DIR_IN);
+			}
+
+			/** Sets the direction of the currently selected endpoint.
+			 *
+			 *  \param[in] DirectionMask  New endpoint direction, as a ENDPOINT_DIR_* mask.
+			 */
+			static inline void Endpoint_SetEndpointDirection(const uint8_t DirectionMask) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_SetEndpointDirection(const uint8_t DirectionMask)
+			{
+				UECFG0X = ((UECFG0X & ~ENDPOINT_DIR_IN) | DirectionMask);
+			}
+
 			/** Reads one byte from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
 			 *  \ingroup Group_EndpointPrimitiveRW
@@ -936,9 +977,9 @@
 			 *
 			 *  \ingroup Group_EndpointStreamRW
 			 *
-			 *  \param[out] Buffer   Pointer to the destination data buffer to write to.
-			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[out] Buffer    Pointer to the destination data buffer to write to.
+			 *  \param[in]  Length    Number of bytes to send via the currently selected endpoint.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -950,9 +991,9 @@
 			 *
 			 *  \ingroup Group_EndpointStreamRW
 			 *
-			 *  \param[out] Buffer   Pointer to the destination data buffer to write to, located in EEPROM memory space.
-			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[out] Buffer    Pointer to the destination data buffer to write to, located in EEPROM memory space.
+			 *  \param[in]  Length    Number of bytes to send via the currently selected endpoint.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -976,8 +1017,8 @@
 			 *  \ingroup Group_EndpointStreamRW
 			 *
 			 *  \param[out] Buffer    Pointer to the destination data buffer to write to.
-			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in]  Length    Number of bytes to send via the currently selected endpoint.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -989,9 +1030,9 @@
 			 *
 			 *  \ingroup Group_EndpointStreamRW
 			 *
-			 *  \param[out] Buffer   Pointer to the destination data buffer to write to, located in EEPROM memory space.
-			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[out] Buffer    Pointer to the destination data buffer to write to, located in EEPROM memory space.
+			 *  \param[in]  Length    Number of bytes to send via the currently selected endpoint.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -1260,13 +1301,6 @@
 			                                                 Endpoint_BytesToEPSizeMask(Size) : \
 			                                                 Endpoint_BytesToEPSizeMaskDynamic(Size))))
 			
-		/* Function Prototypes: */
-			void    Endpoint_ClearEndpoints(void);
-			uint8_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size);
-			bool    Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
-			                                       const uint8_t UECFG0XData,
-			                                       const uint8_t UECFG1XData);
-			
 		/* Inline Functions: */
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
@@ -1283,6 +1317,12 @@
 				return (MaskVal << EPSIZE0);
 			}
 
+		/* Function Prototypes: */
+			void    Endpoint_ClearEndpoints(void);
+			uint8_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size);
+			bool    Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
+			                                       const uint8_t UECFG0XData,
+			                                       const uint8_t UECFG1XData);			
 	#endif
 
 	/* Disable C linkage for C++ Compilers: */

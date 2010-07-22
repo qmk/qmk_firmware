@@ -50,11 +50,13 @@
 #define __USBDEVICE_H__
 
 	/* Includes: */
+		#include <avr/io.h>
 		#include <avr/pgmspace.h>
 		#include <avr/eeprom.h>
 
 		#include "../../../Common/Common.h"	
 		#include "../HighLevel/StdDescriptors.h"
+		#include "USBInterrupt.h"
 		#include "Endpoint.h"
 
 	/* Preprocessor Checks: */
@@ -107,24 +109,6 @@
 			 *  \see \ref Group_Descriptors for more information on the RMWAKEUP feature and device descriptors.
 			 */
 			void USB_Device_SendRemoteWakeup(void);
-							
-		/* Pseudo-Function Macros: */
-			#if defined(__DOXYGEN__)
-				/** Enables the device mode Start Of Frame events. When enabled, this causes the
-				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
-				 *  at the start of each USB frame when enumerated in device mode.
-				 */
-				static inline bool USB_Device_EnableSOFEvents(void);
-				
-				/** Disables the device mode Start Of Frame events. When disabled, this stop the firing of the
-				 *  \ref EVENT_USB_Device_StartOfFrame() event when enumerated in device mode.
-				 */
-				static inline bool USB_Device_DisableSOFEvents(void);
-			#else
-				#define USB_Device_EnableSOFEvents()    MACROS{ USB_INT_Enable(USB_INT_SOFI); }MACROE
-
-				#define USB_Device_DisableSOFEvents()   MACROS{ USB_INT_Disable(USB_INT_SOFI); }MACROE
-			#endif
 			
 		/* Type Defines: */
 			enum USB_Device_States_t
@@ -154,6 +138,26 @@
 				                                                *   resumed.
 				                                                */
 			};
+			
+		/* Inline Functions: */
+			/** Enables the device mode Start Of Frame events. When enabled, this causes the
+			 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
+			 *  at the start of each USB frame when enumerated in device mode.
+			 */
+ 			static inline void USB_Device_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Device_EnableSOFEvents(void)
+			{
+				USB_INT_Enable(USB_INT_SOFI);
+			}
+				
+			/** Disables the device mode Start Of Frame events. When disabled, this stop the firing of the
+			 *  \ref EVENT_USB_Device_StartOfFrame() event when enumerated in device mode.
+			 */
+			static inline void USB_Device_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Device_DisableSOFEvents(void)
+			{
+				USB_INT_Disable(USB_INT_SOFI);
+			}
 			
 		/* Function Prototypes: */
 			/** Function to retrieve a given descriptor's size and memory location from the given descriptor type value,
@@ -191,12 +195,26 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define USB_Device_SetLowSpeed()          MACROS{ UDCON |=  (1 << LSM);   }MACROE
-			#define USB_Device_SetFullSpeed()         MACROS{ UDCON &= ~(1 << LSM);   }MACROE
+		/* Inline Functions: */
+			#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
+			static inline void USB_Device_SetLowSpeed(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Device_SetLowSpeed(void)
+			{
+				UDCON |=  (1 << LSM);
+			}
 			
-			#define USB_Device_SetDeviceAddress(addr) MACROS{ UDADDR = ((1 << ADDEN) | (addr & 0x7F)); }MACROE
+			static inline void USB_Device_SetFullSpeed(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Device_SetFullSpeed(void)
+			{
+				UDCON &= ~(1 << LSM);
+			}
+			#endif
 			
+			static inline void USB_Device_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;
+			static inline void USB_Device_SetDeviceAddress(const uint8_t Address)
+			{
+				UDADDR = ((1 << ADDEN) | (Address & 0x7F));
+			}			
 	#endif
 
 #endif

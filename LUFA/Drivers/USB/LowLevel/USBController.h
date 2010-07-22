@@ -196,31 +196,6 @@
 			 */
 			#define EP_TYPE_INTERRUPT                  0x03
 
-			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
-				/** Returns boolean true if the VBUS line is currently high (i.e. the USB host is supplying power),
-				 *  otherwise returns false.
-				 *
-				 *  \note This token is not available on some AVR models which do not support hardware VBUS monitoring.
-				 */
-				#define USB_VBUS_GetStatus()             ((USBSTA & (1 << VBUS)) ? true : false)
-			#endif
-
-			/** Detaches the device from the USB bus. This has the effect of removing the device from any
-			 *  attached host, ceasing USB communications. If no host is present, this prevents any host from
-			 *  enumerating the device once attached until \ref USB_Attach() is called.
-			 */
-			#define USB_Detach()                    MACROS{ UDCON  |=  (1 << DETACH);  }MACROE
-
-			/** Attaches the device to the USB bus. This announces the device's presence to any attached
-			 *  USB host, starting the enumeration process. If no host is present, attaching the device
-			 *  will allow for enumeration once a host is connected to the device.
-			 *
-			 *  This is inexplicably also required for proper operation while in host mode, to enable the
-			 *  attachment of a device to the host. This is despite the bit being located in the device-mode
-			 *  register and despite the datasheet making no mention of its requirement in host mode.
-			 */
-			#define USB_Attach()                    MACROS{ UDCON  &= ~(1 << DETACH);  }MACROE
-			
 			#if !defined(USB_STREAM_TIMEOUT_MS) || defined(__DOXYGEN__)
 				/** Constant for the maximum software timeout period of the USB data stream transfer functions
 				 *  (both control and standard) when in either device or host mode. If the next packet of a stream
@@ -231,6 +206,44 @@
 				 */
 				#define USB_STREAM_TIMEOUT_MS       100
 			#endif
+		
+		/* Inline Functions: */
+			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
+				/** Returns boolean true if the VBUS line is currently high (i.e. the USB host is supplying power),
+				 *  otherwise returns false.
+				 *
+				 *  \note This function is not available on some AVR models which do not support hardware VBUS monitoring.
+				 */
+				static inline bool USB_VBUS_GetStatus(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+				static inline bool USB_VBUS_GetStatus(void)
+				{
+					return ((USBSTA & (1 << VBUS)) ? true : false);
+				}
+			#endif
+
+			/** Detaches the device from the USB bus. This has the effect of removing the device from any
+			 *  attached host, ceasing USB communications. If no host is present, this prevents any host from
+			 *  enumerating the device once attached until \ref USB_Attach() is called.
+			 */
+			static inline void USB_Detach(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Detach(void)
+			{
+				UDCON  |=  (1 << DETACH);
+			}
+
+			/** Attaches the device to the USB bus. This announces the device's presence to any attached
+			 *  USB host, starting the enumeration process. If no host is present, attaching the device
+			 *  will allow for enumeration once a host is connected to the device.
+			 *
+			 *  This is inexplicably also required for proper operation while in host mode, to enable the
+			 *  attachment of a device to the host. This is despite the bit being located in the device-mode
+			 *  register and despite the datasheet making no mention of its requirement in host mode.
+			 */
+			static inline void USB_Attach(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Attach(void)
+			{
+				UDCON  &= ~(1 << DETACH);
+			}
 
 		/* Function Prototypes: */
 			/** Main function to initialize and start the USB interface. Once active, the USB interface will
@@ -342,31 +355,93 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define USB_PLL_On()               MACROS{ PLLCSR   =  USB_PLL_PSC; PLLCSR |= (1 << PLLE); }MACROE
-			#define USB_PLL_Off()              MACROS{ PLLCSR   =  0;                           }MACROE
-			#define USB_PLL_IsReady()                ((PLLCSR  &   (1 << PLOCK)) ? true : false)
-
-			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-				#define USB_REG_On()           MACROS{ UHWCON  |=  (1 << UVREGE);               }MACROE
-				#define USB_REG_Off()          MACROS{ UHWCON  &= ~(1 << UVREGE);               }MACROE
-			#else
-				#define USB_REG_On()           MACROS{ REGCR   &= ~(1 << REGDIS);               }MACROE
-				#define USB_REG_Off()          MACROS{ REGCR   |=  (1 << REGDIS);               }MACROE
-			#endif
-			
-			#define USB_OTGPAD_On()            MACROS{ USBCON  |=  (1 << OTGPADE);              }MACROE
-			#define USB_OTGPAD_Off()           MACROS{ USBCON  &= ~(1 << OTGPADE);              }MACROE
-
-			#define USB_CLK_Freeze()           MACROS{ USBCON  |=  (1 << FRZCLK);               }MACROE
-			#define USB_CLK_Unfreeze()         MACROS{ USBCON  &= ~(1 << FRZCLK);               }MACROE
-
-			#define USB_Controller_Enable()    MACROS{ USBCON  |=  (1 << USBE);                 }MACROE
-			#define USB_Controller_Disable()   MACROS{ USBCON  &= ~(1 << USBE);                 }MACROE
-			#define USB_Controller_Reset()     MACROS{ const uint8_t Temp = USBCON; USBCON = (Temp & ~(1 << USBE)); \
-			                                           USBCON = (Temp | (1 << USBE));           }MACROE
-	
 		/* Inline Functions: */
+			static inline void USB_PLL_On(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_PLL_On(void)
+			{
+				PLLCSR  = USB_PLL_PSC;
+				PLLCSR |= (1 << PLLE);
+			}
+			
+			static inline void USB_PLL_Off(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_PLL_Off(void)
+			{
+				PLLCSR  = 0;
+			}
+			
+			static inline bool USB_PLL_IsReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool USB_PLL_IsReady(void)
+			{
+				return ((PLLCSR  &   (1 << PLOCK)) ? true : false);
+			}
+
+			static inline void USB_REG_On(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_REG_On(void)
+			{
+			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+				UHWCON  |=  (1 << UVREGE);
+			#else
+				REGCR   &= ~(1 << REGDIS);
+			#endif			
+			}
+
+			static inline void USB_REG_Off(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_REG_Off(void)
+			{
+			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+				UHWCON  &= ~(1 << UVREGE);
+			#else
+				REGCR   |=  (1 << REGDIS);
+			#endif			
+			}
+			
+			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+			static inline void USB_OTGPAD_On(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_OTGPAD_On(void)
+			{
+				USBCON  |=  (1 << OTGPADE);
+			}
+
+			static inline void USB_OTGPAD_Off(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_OTGPAD_Off(void)
+			{
+				USBCON  &= ~(1 << OTGPADE);
+			}
+			#endif
+
+			static inline void USB_CLK_Freeze(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_CLK_Freeze(void)
+			{
+				USBCON  |=  (1 << FRZCLK);
+			}
+			
+			static inline void USB_CLK_Unfreeze(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_CLK_Unfreeze(void)
+			{
+				USBCON  &= ~(1 << FRZCLK);
+			}
+			
+			static inline void USB_Controller_Enable(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Controller_Enable(void)
+			{
+				USBCON  |=  (1 << USBE);
+			}
+
+			static inline void USB_Controller_Disable(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Controller_Disable(void)
+			{
+				USBCON  &= ~(1 << USBE);
+			}
+
+			static inline void USB_Controller_Reset(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Controller_Reset(void)
+			{
+				const uint8_t Temp = USBCON;
+				
+				USBCON = (Temp & ~(1 << USBE));
+				USBCON = (Temp |  (1 << USBE));
+			}
+	
 			#if defined(USB_CAN_BE_BOTH)
 			static inline uint8_t USB_GetUSBModeFromUID(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t USB_GetUSBModeFromUID(void)

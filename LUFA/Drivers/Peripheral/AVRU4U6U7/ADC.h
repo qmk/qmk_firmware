@@ -196,52 +196,6 @@
 				#define  ADC_INT_TEMP_SENS           ((1 << 8) | (0x07 << MUX0))
 			#endif
 			//@}
-		
-		/* Pseudo-Function Macros: */
-			#if defined(__DOXYGEN__)
-				/** Initializes the ADC, ready for conversions. This must be called before any other ADC operations.
-				 *  The "mode" parameter should be a mask comprised of a conversion mode (free running or single) and
-				 *  prescaler masks.
-				 *
-				 *  \param[in] Mode  Mask of ADC settings, including adjustment, prescale, mode and reference.
-				 */
-				static inline void ADC_Init(uint8_t Mode);
-
-				/** Turns off the ADC. If this is called, any further ADC operations will require a call to
-				 *  \ref ADC_Init() before the ADC can be used again.
-				 */
-				static inline void ADC_ShutDown(void);
-				
-				/** Indicates if the ADC is currently enabled.
-				 *
-				 *  \return Boolean true if the ADC subsystem is currently enabled, false otherwise.
-				 */
-				static inline bool ADC_GetStatus(void);
-				
-				/** Indicates if the current ADC conversion is completed, or still in progress.
-				 *
-				 *  \return Boolean false if the reading is still taking place, or true if the conversion is
-				 *          complete and ready to be read out with \ref ADC_GetResult().
-				 */
-				static inline bool ADC_IsReadingComplete(void);
-				
-				/** Retrieves the conversion value of the last completed ADC conversion and clears the reading
-				 *  completion flag.
-				 *
-				 *  \return The result of the last ADC conversion as an unsigned value.
-				 */
-				static inline uint16_t ADC_GetResult(void);
-			#else
-				#define  ADC_Init(mode)          MACROS{ ADCSRA = ((1 << ADEN) | mode);         }MACROE
-
-				#define  ADC_ShutDown()          MACROS{ ADCSRA = 0;                            }MACROE
-				
-				#define  ADC_GetStatus()               ((ADCSRA & (1 << ADEN)) ? true : false)
-
-				#define  ADC_IsReadingComplete()       ((ADCSRA & (1 << ADIF)) ? true : false)
-				
-				#define  ADC_GetResult()                (ADCSRA |= (1 << ADIF), ADC)
-			#endif
 			
 		/* Inline Functions: */
 			/** Configures the given ADC channel, ready for ADC conversions. This function sets the
@@ -354,6 +308,29 @@
 				ADCSRA |= (1 << ADSC);
 			}
 
+			/** Indicates if the current ADC conversion is completed, or still in progress.
+			 *
+			 *  \return Boolean false if the reading is still taking place, or true if the conversion is
+			 *          complete and ready to be read out with \ref ADC_GetResult().
+			 */
+			static inline bool ADC_IsReadingComplete(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool ADC_IsReadingComplete(void)
+			{
+				return ((ADCSRA & (1 << ADIF)) ? true : false);
+			}
+			
+			/** Retrieves the conversion value of the last completed ADC conversion and clears the reading
+			 *  completion flag.
+			 *
+			 *  \return The result of the last ADC conversion as an unsigned value.
+			 */
+			static inline uint16_t ADC_GetResult(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline uint16_t ADC_GetResult(void)
+			{
+				ADCSRA |= (1 << ADIF);
+				return ADC;
+			}
+
 			/** Performs a complete single reading from channel, including a polling spin-loop to wait for the
 			 *  conversion to complete, and the returning of the converted value.
 			 *
@@ -373,6 +350,37 @@
 				return ADC_GetResult();
 			}
 
+			/** Initializes the ADC, ready for conversions. This must be called before any other ADC operations.
+			 *  The "mode" parameter should be a mask comprised of a conversion mode (free running or single) and
+			 *  prescaler masks.
+			 *
+			 *  \param[in] Mode  Mask of ADC settings, including adjustment, prescale, mode and reference.
+			 */
+			static inline void ADC_Init(uint8_t Mode) ATTR_ALWAYS_INLINE;
+			static inline void ADC_Init(uint8_t Mode)
+			{
+				ADCSRA = ((1 << ADEN) | Mode);
+			}
+
+			/** Turns off the ADC. If this is called, any further ADC operations will require a call to
+			 *  \ref ADC_Init() before the ADC can be used again.
+			 */
+			static inline void ADC_ShutDown(void) ATTR_ALWAYS_INLINE;
+			static inline void ADC_ShutDown(void)
+			{
+				ADCSRA = 0;
+			}
+			
+			/** Indicates if the ADC is currently enabled.
+			 *
+			 *  \return Boolean true if the ADC subsystem is currently enabled, false otherwise.
+			 */
+			static inline bool ADC_GetStatus(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool ADC_GetStatus(void)
+			{
+				return ((ADCSRA & (1 << ADEN)) ? true : false);
+			}
+			
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}

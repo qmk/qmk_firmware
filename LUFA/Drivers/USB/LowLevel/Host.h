@@ -100,148 +100,6 @@
 				 */
 				#define HOST_DEVICE_SETTLE_DELAY_MS        1500
 			#endif
-		
-		/* Pseudo-Function Macros: */
-			#if defined(__DOXYGEN__)
-				/** Resets the USB bus, including the endpoints in any attached device and pipes on the AVR host.
-				 *  USB bus resets leave the default control pipe configured (if already configured).
-				 *
-				 *  If the USB bus has been suspended prior to issuing a bus reset, the attached device will be
-				 *  woken up automatically and the bus resumed after the reset has been correctly issued.
-				 */
-				static inline void USB_Host_ResetBus(void);
-
-				/** Determines if a previously issued bus reset (via the \ref USB_Host_ResetBus() macro) has
-				 *  completed.
-				 *
-				 *  \return Boolean true if no bus reset is currently being sent, false otherwise.
-				 */
-				static inline void USB_Host_IsBusResetComplete(void);
-
-				/** Resumes USB communications with an attached and enumerated device, by resuming the transmission
-				 *  of the 1MS Start Of Frame messages to the device. When resumed, USB communications between the
-				 *  host and attached device may occur.
-				 */
-				static inline void USB_Host_ResumeBus(void);
-
-				/** Suspends the USB bus, preventing any communications from occurring between the host and attached
-				 *  device until the bus has been resumed. This stops the transmission of the 1MS Start Of Frame
-				 *  messages to the device.
-				 */
-				static inline void USB_Host_SuspendBus(void);
-				
-				/** Determines if the USB bus has been suspended via the use of the \ref USB_Host_SuspendBus() macro,
-				 *  false otherwise. While suspended, no USB communications can occur until the bus is resumed,
-				 *  except for the Remote Wakeup event from the device if supported.
-				 *
-				 *  \return Boolean true if the bus is currently suspended, false otherwise.
-				 */
-				 static inline bool USB_Host_IsBusSuspended(void);
-				 
-				/** Determines if the attached device is currently enumerated in Full Speed mode (12Mb/s), or
-				 *  false if the attached device is enumerated in Low Speed mode (1.5Mb/s).
-				 *
-				 *  \return Boolean true if the attached device is enumerated in Full Speed mode, false otherwise.
-				 */
-				static inline bool USB_Host_IsDeviceFullSpeed(void);
-
-				/** Determines if the attached device is currently issuing a Remote Wakeup request, requesting
-				 *  that the host resume the USB bus and wake up the device, false otherwise.
-				 *
-				 *  \return Boolean true if the attached device has sent a Remote Wakeup request, false otherwise.
-				 */
-				static inline bool USB_Host_IsRemoteWakeupSent(void);
-
-				/** Clears the flag indicating that a Remote Wakeup request has been issued by an attached device. */
-				static inline void USB_Host_ClearRemoteWakeupSent(void);
-
-				/** Accepts a Remote Wakeup request from an attached device. This must be issued in response to
-				 *  a device's Remote Wakeup request within 2ms for the request to be accepted and the bus to
-				 *  be resumed.
-				 */
-				static inline void USB_Host_ResumeFromWakeupRequest(void);
-				
-				/** Determines if a resume from Remote Wakeup request is currently being sent to an attached
-				 *  device.
-				 *
-				 *  \return Boolean true if no resume request is currently being sent, false otherwise.
-				 */
-				static inline bool USB_Host_IsResumeFromWakeupRequestSent(void);
-			#else
-				#define USB_Host_ResetBus()                MACROS{ UHCON |=  (1 << RESET);          }MACROE
-
-				#define USB_Host_IsBusResetComplete()      ((UHCON &   (1 << RESET)) ? false : true)
-
-				#define USB_Host_ResumeBus()               MACROS{ UHCON |=  (1 << SOFEN);          }MACROE 
-
-				#define USB_Host_SuspendBus()              MACROS{ UHCON &= ~(1 << SOFEN);          }MACROE 
-				
-				#define USB_Host_IsBusSuspended()                ((UHCON &   (1 << SOFEN)) ? false : true)
-
-				#define USB_Host_IsDeviceFullSpeed()             ((USBSTA &  (1 << SPEED)) ? true : false)
-
-				#define USB_Host_IsRemoteWakeupSent()            ((UHINT &   (1 << RXRSMI)) ? true : false)
-
-				#define USB_Host_ClearRemoteWakeupSent()   MACROS{ UHINT &= ~(1 << RXRSMI);         }MACROE
-
-				#define USB_Host_ResumeFromWakeupRequest() MACROS{ UHCON |=  (1 << RESUME);         }MACROE
-				
-				#define USB_Host_IsResumeFromWakeupRequestSent() ((UHCON &   (1 << RESUME)) ? false : true)
-			#endif
-
-		/* Function Prototypes: */
-			/** Convenience function. This routine sends a SetConfiguration standard request to the attached
-			 *  device, with the given configuration index. This can be used to easily set the device
-			 *  configuration without creating and sending the request manually.
-			 *
-			 *  \note After this routine returns, the control pipe will be selected.
-			 *
-			 *  \param[in] ConfigNumber  Configuration index to send to the device.
-			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
-			 */
-			uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber);
-			
-			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
-			 *  device, requesting the device descriptor. This can be used to easily retrieve information
-			 *  about the device such as its VID, PID and power requirements.
-			 *
-			 *  \note After this routine returns, the control pipe will be selected.
-			 *
-			 *  \param[out] DeviceDescriptorPtr  Pointer to the destination device descriptor structure where
-			 *                                   the read data is to be stored.
-			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
-			 */
-			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr);
-			
-			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
-			 *  device, requesting the string descriptor of the specified index. This can be used to easily
-			 *  retrieve string descriptors from the device by index, after the index is obtained from the
-			 *  Device or Configuration descriptors.
-			 *
-			 *  \note After this routine returns, the control pipe will be selected.
-			 *
-			 *  \param[in]  Index        Index of the string index to retrieve.
-			 *  \param[out] Buffer       Pointer to the destination buffer where the retrieved string descriptor is
-			 *                           to be stored.
-			 *  \param[in] BufferLength  Maximum size of the string descriptor which can be stored into the buffer.
-			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
-			 */
-			uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
-			                                           void* const Buffer,
-			                                           const uint8_t BufferLength);
-			
-			/** Clears a stall condition on the given pipe, via a ClearFeature request to the attached device.
-			 *
-			 *  \note After this routine returns, the control pipe will be selected.
-			 *
-			 *  \param[in] EndpointIndex  Index of the endpoint to clear.
-			 *
-			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
-			 */
-			uint8_t USB_Host_ClearPipeStall(uint8_t EndpointIndex);
 
 		/* Enums: */
 			/** Enum for the various states of the USB Host state machine. Only some states are
@@ -385,22 +243,226 @@
 				                                      */
 			};
 
+		/* Inline Functions: */
+			/** Resets the USB bus, including the endpoints in any attached device and pipes on the AVR host.
+			 *  USB bus resets leave the default control pipe configured (if already configured).
+			 *
+			 *  If the USB bus has been suspended prior to issuing a bus reset, the attached device will be
+			 *  woken up automatically and the bus resumed after the reset has been correctly issued.
+			 */
+			static inline void USB_Host_ResetBus(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_ResetBus(void)
+			{
+				UHCON |=  (1 << RESET);
+			}
+
+			/** Determines if a previously issued bus reset (via the \ref USB_Host_ResetBus() macro) has
+			 *  completed.
+			 *
+			 *  \return Boolean true if no bus reset is currently being sent, false otherwise.
+			 */
+			static inline bool USB_Host_IsBusResetComplete(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool USB_Host_IsBusResetComplete(void)
+			{
+				return ((UHCON & (1 << RESET)) ? false : true);
+			}
+
+			/** Resumes USB communications with an attached and enumerated device, by resuming the transmission
+			 *  of the 1MS Start Of Frame messages to the device. When resumed, USB communications between the
+			 *  host and attached device may occur.
+			 */
+			static inline void USB_Host_ResumeBus(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_ResumeBus(void)
+			{
+				UHCON |=  (1 << SOFEN);
+			}
+
+			/** Suspends the USB bus, preventing any communications from occurring between the host and attached
+			 *  device until the bus has been resumed. This stops the transmission of the 1MS Start Of Frame
+			 *  messages to the device.
+			 */
+			static inline void USB_Host_SuspendBus(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_SuspendBus(void)
+			{
+				UHCON &= ~(1 << SOFEN);
+			}
+			
+			/** Determines if the USB bus has been suspended via the use of the \ref USB_Host_SuspendBus() macro,
+			 *  false otherwise. While suspended, no USB communications can occur until the bus is resumed,
+			 *  except for the Remote Wakeup event from the device if supported.
+			 *
+			 *  \return Boolean true if the bus is currently suspended, false otherwise.
+			 */
+			static inline bool USB_Host_IsBusSuspended(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool USB_Host_IsBusSuspended(void)
+			{
+				return ((UHCON & (1 << SOFEN)) ? false : true);
+			}
+			 
+			/** Determines if the attached device is currently enumerated in Full Speed mode (12Mb/s), or
+			 *  false if the attached device is enumerated in Low Speed mode (1.5Mb/s).
+			 *
+			 *  \return Boolean true if the attached device is enumerated in Full Speed mode, false otherwise.
+			 */
+			static inline bool USB_Host_IsDeviceFullSpeed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool USB_Host_IsDeviceFullSpeed(void)
+			{
+				return ((USBSTA & (1 << SPEED)) ? true : false);
+			}
+
+			/** Determines if the attached device is currently issuing a Remote Wakeup request, requesting
+			 *  that the host resume the USB bus and wake up the device, false otherwise.
+			 *
+			 *  \return Boolean true if the attached device has sent a Remote Wakeup request, false otherwise.
+			 */
+			static inline bool USB_Host_IsRemoteWakeupSent(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool USB_Host_IsRemoteWakeupSent(void)
+			{
+				return ((UHINT & (1 << RXRSMI)) ? true : false);
+			}
+
+			/** Clears the flag indicating that a Remote Wakeup request has been issued by an attached device. */
+			static inline void USB_Host_ClearRemoteWakeupSent(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_ClearRemoteWakeupSent(void)
+			{
+				UHINT &= ~(1 << RXRSMI);
+			}
+
+			/** Accepts a Remote Wakeup request from an attached device. This must be issued in response to
+			 *  a device's Remote Wakeup request within 2ms for the request to be accepted and the bus to
+			 *  be resumed.
+			 */
+			static inline void USB_Host_ResumeFromWakeupRequest(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_ResumeFromWakeupRequest(void)
+			{
+				UHCON |=  (1 << RESUME);
+			}
+			
+			/** Determines if a resume from Remote Wakeup request is currently being sent to an attached
+			 *  device.
+			 *
+			 *  \return Boolean true if no resume request is currently being sent, false otherwise.
+			 */
+			static inline bool USB_Host_IsResumeFromWakeupRequestSent(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool USB_Host_IsResumeFromWakeupRequestSent(void)
+			{
+				return ((UHCON & (1 << RESUME)) ? false : true);
+			}
+
+		/* Function Prototypes: */
+			/** Convenience function. This routine sends a SetConfiguration standard request to the attached
+			 *  device, with the given configuration index. This can be used to easily set the device
+			 *  configuration without creating and sending the request manually.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \param[in] ConfigNumber  Configuration index to send to the device.
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber);
+			
+			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
+			 *  device, requesting the device descriptor. This can be used to easily retrieve information
+			 *  about the device such as its VID, PID and power requirements.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \param[out] DeviceDescriptorPtr  Pointer to the destination device descriptor structure where
+			 *                                   the read data is to be stored.
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr);
+			
+			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
+			 *  device, requesting the string descriptor of the specified index. This can be used to easily
+			 *  retrieve string descriptors from the device by index, after the index is obtained from the
+			 *  Device or Configuration descriptors.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \param[in]  Index        Index of the string index to retrieve.
+			 *  \param[out] Buffer       Pointer to the destination buffer where the retrieved string descriptor is
+			 *                           to be stored.
+			 *  \param[in] BufferLength  Maximum size of the string descriptor which can be stored into the buffer.
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
+			                                           void* const Buffer,
+			                                           const uint8_t BufferLength);
+			
+			/** Clears a stall condition on the given pipe, via a ClearFeature request to the attached device.
+			 *
+			 *  \note After this routine returns, the control pipe will be selected.
+			 *
+			 *  \param[in] EndpointIndex  Index of the endpoint to clear.
+			 *
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
+			 */
+			uint8_t USB_Host_ClearPipeStall(uint8_t EndpointIndex);
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define USB_Host_HostMode_On()          MACROS{ USBCON |=  (1 << HOST);           }MACROE
-			#define USB_Host_HostMode_Off()         MACROS{ USBCON &= ~(1 << HOST);           }MACROE
+			static inline void USB_Host_HostMode_On(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_HostMode_On(void)
+			{
+				USBCON |=  (1 << HOST);
+			}
 
-			#define USB_Host_VBUS_Auto_Enable()     MACROS{ OTGCON &= ~(1 << VBUSHWC); UHWCON |=  (1 << UVCONE);                   }MACROE
-			#define USB_Host_VBUS_Manual_Enable()   MACROS{ OTGCON |=  (1 << VBUSHWC); UHWCON &= ~(1 << UVCONE); DDRE |= (1 << 7); }MACROE
+			static inline void USB_Host_HostMode_Off(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_HostMode_Off(void)
+			{
+				USBCON &= ~(1 << HOST);
+			}
 
-			#define USB_Host_VBUS_Auto_On()         MACROS{ OTGCON |= (1 << VBUSREQ);         }MACROE
-			#define USB_Host_VBUS_Manual_On()       MACROS{ PORTE  |= (1 << 7);               }MACROE
+			static inline void USB_Host_VBUS_Auto_Enable(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_VBUS_Auto_Enable(void)
+			{
+				OTGCON &= ~(1 << VBUSHWC);
+				UHWCON |=  (1 << UVCONE);
+			}
+			
+			static inline void USB_Host_VBUS_Manual_Enable(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_VBUS_Manual_Enable(void)
+			{
+				OTGCON |=  (1 << VBUSHWC);
+				UHWCON &= ~(1 << UVCONE);
+				
+				DDRE   |=  (1 << 7);
+			}
 
-			#define USB_Host_VBUS_Auto_Off()        MACROS{ OTGCON |=  (1 << VBUSRQC);        }MACROE
-			#define USB_Host_VBUS_Manual_Off()      MACROS{ PORTE  &= ~(1 << 7);              }MACROE
+			static inline void USB_Host_VBUS_Auto_On(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_VBUS_Auto_On(void)
+			{
+				OTGCON |=  (1 << VBUSREQ);
+			}
 
-			#define USB_Host_SetDeviceAddress(addr) MACROS{ UHADDR  =  ((addr) & 0x7F);       }MACROE
+			static inline void USB_Host_VBUS_Manual_On(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_VBUS_Manual_On(void)
+			{
+				PORTE  |=  (1 << 7);
+			}
+			
+			static inline void USB_Host_VBUS_Auto_Off(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_VBUS_Auto_Off(void)
+			{
+				OTGCON |=  (1 << VBUSRQC);
+			}
+
+			static inline void USB_Host_VBUS_Manual_Off(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_VBUS_Manual_Off(void)
+			{
+				PORTE  &= ~(1 << 7);
+			}			
+
+			static inline void USB_Host_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;
+			static inline void USB_Host_SetDeviceAddress(const uint8_t Address)
+			{
+				UHADDR  =  (Address & 0x7F);
+			}
 
 		/* Enums: */
 			enum USB_Host_WaitMSErrorCodes_t

@@ -45,25 +45,32 @@
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
-		#define LEDMASK_USB_NOTREADY              LEDS_LED1
+		#define LEDMASK_USB_NOTREADY                   LEDS_LED1
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
-		#define LEDMASK_USB_ENUMERATING          (LEDS_LED2 | LEDS_LED3)
+		#define LEDMASK_USB_ENUMERATING               (LEDS_LED2 | LEDS_LED3)
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
-		#define LEDMASK_USB_READY                (LEDS_LED2 | LEDS_LED4)
+		#define LEDMASK_USB_READY                     (LEDS_LED2 | LEDS_LED4)
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
-		#define LEDMASK_USB_ERROR                (LEDS_LED1 | LEDS_LED3)
+		#define LEDMASK_USB_ERROR                     (LEDS_LED1 | LEDS_LED3)
 		
-		#define Req_InitiateAbortBulkOut         0x01
-		#define Req_CheckAbortBulkOutStatus      0x02
-		#define Req_InitiateAbortBulkIn          0x03
-		#define Req_CheckAbortBulkInStatus       0x04
-		#define Req_InitiateClear                0x05
-		#define Req_CheckClearStatus             0x06
-		#define Req_GetCapabilities              0x07
-		#define Req_IndicatorPulse               0x40
+		#define Req_InitiateAbortBulkOut              0x01
+		#define Req_CheckAbortBulkOutStatus           0x02
+		#define Req_InitiateAbortBulkIn               0x03
+		#define Req_CheckAbortBulkInStatus            0x04
+		#define Req_InitiateClear                     0x05
+		#define Req_CheckClearStatus                  0x06
+		#define Req_GetCapabilities                   0x07
+		#define Req_IndicatorPulse                    0x40
+		
+		#define TMC_REQUEST_STATUS_SUCCESS            0x01
+		#define TMC_REQUEST_STATUS_PENDING            0x02
+		#define TMC_REQUEST_STATUS_FAILED             0x80
+		#define TMC_REQUEST_STATUS_NOTRANSFER         0x81
+		#define TMC_REQUEST_STATUS_NOCHECKINITIATED   0x82
+		#define TMC_REQUEST_STATUS_CHECKINPROGRESS    0x83
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);

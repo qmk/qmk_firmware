@@ -36,6 +36,7 @@
   *  - Removed the automated checking of event names in the demo, project and bootloader makefiles due to inconsistancies between the
   *    behaviour of the command line tools used to perform the check on each platform
   *  - Internal USB driver source files renamed and moved to ease future possible architecture ports
+  *  - All internal pseudo-function macros have been converted to true inline functions for type-safety and readability
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project sending a LOAD EXTENDED ADDRESS command to 128KB AVRs after programming or reading from
