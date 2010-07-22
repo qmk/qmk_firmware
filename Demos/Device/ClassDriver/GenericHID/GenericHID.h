@@ -74,7 +74,7 @@
 
 		bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo,
 		                                         uint8_t* const ReportID,
-                                                 const uint8_t ReportType,
+		                                         const uint8_t ReportType,
 		                                         void* ReportData,
 		                                         uint16_t* const ReportSize);
 		void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo,

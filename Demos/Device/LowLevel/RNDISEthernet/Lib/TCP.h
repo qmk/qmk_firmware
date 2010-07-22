@@ -252,7 +252,7 @@
 		#if defined(INCLUDE_FROM_TCP_C)
 			static uint16_t TCP_Checksum16(void* TCPHeaderOutStart,
 			                               const IP_Address_t SourceAddress,
-										   const IP_Address_t DestinationAddress,
+			                               const IP_Address_t DestinationAddress,
 			                               uint16_t TCPOutSize);
 		#endif
 

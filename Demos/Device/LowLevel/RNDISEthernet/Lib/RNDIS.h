@@ -218,7 +218,7 @@
 			static bool ProcessNDISQuery(const uint32_t OId,
 			                             void* QueryData,
 			                             uint16_t QuerySize,
-										 void* ResponseData,
+			                             void* ResponseData,
 			                             uint16_t* ResponseSize);
 			static bool ProcessNDISSet(const uint32_t OId,
 			                           void* SetData,
