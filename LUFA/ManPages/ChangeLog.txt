@@ -17,6 +17,7 @@
   *  - Added new AVRStudio 4 project files for all library demos, projects and bootloaders
   *  - Added ability to set the serial baud rate via the user's terminal in the XPLAINBridge project
   *  - Added new LUFA module variables for the different source modules in the core library makefile to simplify project makefiles
+  *  - Added start of a new Test and Measurement class demo (thanks to Peter Lawrence)
   *
   *  <b>Changed:</b>
   *  - The RingBuff library code has been replaced in the XPLAINBridge, Benito and USBtoSerial projects with an ultra lightweight

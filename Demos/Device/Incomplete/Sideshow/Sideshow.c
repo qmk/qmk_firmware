@@ -115,7 +115,6 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 void EVENT_USB_Device_UnhandledControlRequest(void)
 {
-	/* Process UFI specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
 		case REQ_GetOSFeatureDescriptor:

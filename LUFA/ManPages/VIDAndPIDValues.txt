@@ -289,7 +289,7 @@
  *     0x2065
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     Test and Measurement Demo
  *    </td>
  *   </tr>
  *
