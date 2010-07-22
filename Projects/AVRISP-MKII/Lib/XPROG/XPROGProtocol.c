@@ -115,7 +115,7 @@ static void XPROGProtocol_EnterXPROGMode(void)
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 	
-	bool NVMBusEnabled;
+	bool NVMBusEnabled = false;
 
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
 	{
@@ -138,7 +138,7 @@ static void XPROGProtocol_EnterXPROGMode(void)
 		/* Wait until the NVM bus becomes active */
 		NVMBusEnabled = XMEGANVM_WaitWhileNVMBusBusy();
 	}
-	else
+	else if (XPROG_SelectedProtocol == XPRG_PROTOCOL_TPI)
 	{
 		/* Enable TPI programming mode with the attached target */
 		XPROGTarget_EnableTargetTPI();
