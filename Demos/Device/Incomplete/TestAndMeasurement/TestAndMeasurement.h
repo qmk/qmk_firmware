@@ -71,6 +71,32 @@
 		#define TMC_REQUEST_STATUS_NOTRANSFER         0x81
 		#define TMC_REQUEST_STATUS_NOCHECKINITIATED   0x82
 		#define TMC_REQUEST_STATUS_CHECKINPROGRESS    0x83
+
+	/* Type Defines */
+		typedef struct
+		{
+			uint8_t  Status;
+			uint8_t  _RESERVED1;
+
+			uint16_t TMCVersion;
+			
+			struct
+			{
+				unsigned char ListenOnly             : 1;
+				unsigned char TalkOnly               : 1;
+				unsigned char PulseIndicateSupported : 1;
+				unsigned char _RESERVED              : 5;
+			} Interface;
+			
+			struct
+			{
+				unsigned char SupportsAbortINOnMatch : 1;
+				unsigned char _RESERVED              : 7;
+			} Device;
+			
+			uint8_t _RESERVED2[6];
+			uint8_t _RESERVED3[12];			
+		} TMC_Capabilities_t;
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);

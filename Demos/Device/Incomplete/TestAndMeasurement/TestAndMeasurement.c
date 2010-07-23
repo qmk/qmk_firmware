@@ -30,6 +30,29 @@
 
 #include "TestAndMeasurement.h"
 
+/** Contains the (usually static) capabilities of the TMC device. This table is requested by the
+ *  host upon enumeration to give it information on what features of the Test and Measurement USB
+ *  Class the device supports.
+ */
+TMC_Capabilities_t Capabilities =
+	{
+		.Status     = TMC_REQUEST_STATUS_SUCCESS,
+		.TMCVersion = VERSION_BCD(1.00),
+		
+		.Interface  =
+			{
+				.ListenOnly             = false,
+				.TalkOnly               = false,
+				.PulseIndicateSupported = true,
+			},
+
+		.Device     =
+			{
+				.SupportsAbortINOnMatch = false,
+			},
+	};
+
+
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */
@@ -141,7 +164,14 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 		case Req_GetCapabilities:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-			
+				/* Acknowledge the SETUP packet, ready for data transfer */
+				Endpoint_ClearSETUP();
+					
+				/* Write the device capabilities to the control endpoint */
+				Endpoint_Write_Control_Stream_LE(&Capabilities, sizeof(TMC_Capabilities_t));
+				
+				/* Finalize the stream transfer to send the last packet or clear the host abort */
+				Endpoint_ClearOUT();
 			}
 			
 			break;
@@ -153,4 +183,13 @@ void TMC_Task(void)
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
+	  
+	Endpoint_SelectEndpoint(TMC_OUT_EPNUM);
+	
+	if (Endpoint_IsOUTReceived())
+	{
+		// TEMP - Indicate data received
+		LEDs_SetAllLEDs(LEDS_ALL_LEDS);
+		Endpoint_ClearOUT();
+	}
 }

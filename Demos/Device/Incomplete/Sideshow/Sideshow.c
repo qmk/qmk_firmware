@@ -130,7 +130,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_ClearSETUP();
 				
 				Endpoint_Write_Control_PStream_LE(DescriptorPointer, DescriptorSize);
-				Endpoint_ClearOUT();				
+				Endpoint_ClearOUT();
 			}
 
 			break;
