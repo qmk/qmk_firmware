@@ -144,7 +144,7 @@
 			 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
 			 *  at the start of each USB frame when enumerated in device mode.
 			 */
- 			static inline void USB_Device_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
+			static inline void USB_Device_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Device_EnableSOFEvents(void)
 			{
 				USB_INT_Enable(USB_INT_SOFI);
