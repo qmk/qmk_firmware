@@ -96,5 +96,10 @@
  *    <td>Makefile LUFA_OPTS</td>
  *    <td>Pulse length in milliseconds for the enumeration LED ping-poning between toggles.</td>
  *   </tr>
+ *   <tr>
+ *    <td>RECEIVE_BUFFER_FLUSH_MS</td>
+ *    <td>Makefile LUFA_OPTS</td>
+ *    <td>Period between flushings of received data buffer to the attached USB host.</td>
+ *   </tr>
  *  </table>
  */

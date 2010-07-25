@@ -51,6 +51,9 @@ volatile struct
 /** Previous state of the virtual DTR control line from the host */
 bool PreviousDTRState = false;
 
+/** Milliseconds remaining until the receive buffer is flushed to the USB host */
+uint8_t FlushPeriodRemaining = RECEIVE_BUFFER_FLUSH_MS;
+
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another.
@@ -89,21 +92,12 @@ int main(void)
 	for (;;)
 	{
 		/* Echo bytes from the host to the target via the hardware USART */
-		while (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface) > 0)
+		if (CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface) && (UCSR1A & (1 << UDRE1)))
 		{
-			Serial_TxByte(CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+			UDR1 = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
 			LEDs_TurnOnLEDs(LEDMASK_TX);
 			PulseMSRemaining.TxLEDPulse = TX_RX_LED_PULSE_MS;			
-		}
-		
-		/* Echo bytes from the target to the host via the virtual serial port */
-		while (Tx_Buffer.Count)
-		{
-			CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_AtomicRemove(&Tx_Buffer));
-
-			LEDs_TurnOnLEDs(LEDMASK_RX);
-			PulseMSRemaining.RxLEDPulse = TX_RX_LED_PULSE_MS;
 		}
 		
 		/* Check if the millisecond timer has elapsed */
@@ -131,6 +125,22 @@ int main(void)
 			if (PulseMSRemaining.RxLEDPulse && !(--PulseMSRemaining.RxLEDPulse))
 			  LEDs_TurnOffLEDs(LEDMASK_RX);
 
+			/* Check if the receive buffer flush period has expired */
+			if (!(--FlushPeriodRemaining) || (Tx_Buffer.Count > 200))
+			{
+				/* Echo bytes from the target to the host via the virtual serial port */
+				if (Tx_Buffer.Count)
+				{
+					while (Tx_Buffer.Count)
+					  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_AtomicRemove(&Tx_Buffer));
+
+					LEDs_TurnOnLEDs(LEDMASK_RX);
+					PulseMSRemaining.RxLEDPulse = TX_RX_LED_PULSE_MS;
+				}
+				
+				FlushPeriodRemaining = RECEIVE_BUFFER_FLUSH_MS;
+			}
+
 			/* Clear the millisecond timer CTC flag (cleared by writing logic one to the register) */
 			TIFR0 |= (1 << OCF0A);		
 		}
@@ -148,7 +158,6 @@ void SetupHardware(void)
 	wdt_disable();
 
 	/* Hardware Initialization */
-	Serial_Init(9600, false);
 	LEDs_Init();
 	USB_Init();
 

@@ -128,6 +128,7 @@ LUFA_OPTS += -D AVR_RESET_LINE_MASK="(1 << 4)"
 LUFA_OPTS += -D AVR_RESET_PULSE_MS=10
 LUFA_OPTS += -D TX_RX_LED_PULSE_MS=30
 LUFA_OPTS += -D PING_PONG_LED_PULSE_MS=100
+LUFA_OPTS += -D RECEIVE_BUFFER_FLUSH_MS=20
 
 
 # Create the LUFA source path variables by including the LUFA root makefile
