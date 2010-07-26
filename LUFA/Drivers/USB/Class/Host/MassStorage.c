@@ -546,7 +546,7 @@ uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 					(BlockAddress >> 16),
 					(BlockAddress >> 8),
 					(BlockAddress & 0xFF),  // LSB of Block Address
-					0x00,                   // Unused (reserved)
+					0x00,                   // Reserved
 					0x00,                   // MSB of Total Blocks to Read
 					Blocks,                 // LSB of Total Blocks to Read
 					0x00                    // Unused (control)
@@ -590,7 +590,7 @@ uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo
 					(BlockAddress >> 16),
 					(BlockAddress >> 8),
 					(BlockAddress & 0xFF),  // LSB of Block Address
-					0x00,                   // Unused (reserved)
+					0x00,                   // Reserved
 					0x00,                   // MSB of Total Blocks to Write
 					Blocks,                 // LSB of Total Blocks to Write
 					0x00                    // Unused (control)

@@ -465,7 +465,7 @@ uint8_t MassStore_ReadDeviceBlock(const uint8_t LUNIndex,
 					(BlockAddress >> 16),
 					(BlockAddress >> 8),
 					(BlockAddress & 0xFF),  // LSB of Block Address
-					0x00,                   // Unused (reserved)
+					0x00,                   // Reserved
 					0x00,                   // MSB of Total Blocks to Read
 					Blocks,                 // LSB of Total Blocks to Read
 					0x00                    // Unused (control)

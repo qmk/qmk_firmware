@@ -64,12 +64,12 @@
 		{
 			uint8_t                                FirstInterfaceNumber;
 
-			uint8_t                                RESERVED;
+			uint8_t                                Reserved;
 			
 			uint8_t                                CompatibleID[8];
 			uint8_t                                SubCompatibleID[8];			
 
-			uint8_t                                RESERVED2[6];
+			uint8_t                                Reserved2[6];
 		} USB_OSCompatibleSection_t;
 		
 		typedef struct
@@ -79,7 +79,7 @@
 			uint16_t                               Index;
 			uint8_t                                TotalSections;
 			
-			uint8_t                                RESERVED[7];
+			uint8_t                                Reserved[7];
 			
 			USB_OSCompatibleSection_t              SideshowCompatID;
 		} USB_OSCompatibleIDDescriptor_t;

@@ -34,7 +34,7 @@
 				{
 					unsigned int Min            : 4;
 					unsigned int TenMin         : 3;
-					unsigned int _RESERVED      : 1;
+					unsigned int Reserved       : 1;
 				} Fields;
 				
 				uint8_t IntVal;
@@ -47,7 +47,7 @@
 					unsigned int Hour            : 4;
 					unsigned int TenHour         : 2;
 					unsigned int TwelveHourMode  : 1;
-					unsigned int _RESERVED       : 1;
+					unsigned int Reserved        : 1;
 				} Fields;
 				
 				uint8_t IntVal;
@@ -62,7 +62,7 @@
 				{
 					unsigned int Day             : 4;
 					unsigned int TenDay          : 2;
-					unsigned int _RESERVED       : 2;
+					unsigned int Reserved        : 2;
 				} Fields;
 			
 				uint8_t IntVal;
@@ -74,7 +74,7 @@
 				{
 					unsigned int Month           : 4;
 					unsigned int TenMonth        : 1;
-					unsigned int _RESERVED       : 3;
+					unsigned int Reserved        : 3;
 				} Fields;
 				
 				uint8_t IntVal;

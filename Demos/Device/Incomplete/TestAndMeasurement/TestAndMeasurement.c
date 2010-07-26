@@ -36,7 +36,7 @@
  */
 TMC_Capabilities_t Capabilities =
 	{
-		.Status     = TMC_REQUEST_STATUS_SUCCESS,
+		.Status     = TMC_STATUS_SUCCESS,
 		.TMCVersion = VERSION_BCD(1.00),
 		
 		.Interface  =
@@ -53,19 +53,16 @@ TMC_Capabilities_t Capabilities =
 	};
 
 /** Current TMC control request that is being processed */
-uint8_t RequestInProgess = 0;
+uint8_t RequestInProgess   = 0;
 
 /** Stream callback abort flag for bulk IN data */
-bool IsTMCBulkINReset    = false;
+bool IsTMCBulkINReset      = false;
 
 /** Stream callback abort flag for bulk OUT data */
-bool IsTMCBulkOUTReset   = false;
+bool IsTMCBulkOUTReset     = false;
 
-/** Last used tag value for bulk IN transfers */
-uint8_t NextTransferINTag  = 0;
-
-/** Last used tag value for bulk IN transfers */
-uint8_t NextTransferOUTTag  = 0;
+/** Last used tag value for data transfers */
+uint8_t CurrentTransferTag = 0;
 
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -145,7 +142,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
  */
 void EVENT_USB_Device_UnhandledControlRequest(void)
 {
-	uint8_t TMCRequestStatus = TMC_REQUEST_STATUS_SUCCESS;
+	uint8_t TMCRequestStatus = TMC_STATUS_SUCCESS;
 
 	/* Process TMC specific control requests */
 	switch (USB_ControlRequest.bRequest)
@@ -155,14 +152,14 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
-				/* Check that no split transaction is already in progress and the data OUT transfer tag is valid */
+				/* Check that no split transaction is already in progress and the data transfer tag is valid */
 				if (RequestInProgess != 0)
 				{
-					TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS;
+					TMCRequestStatus = TMC_STATUS_SPLIT_IN_PROGRESS;
 				}
-				else if (USB_ControlRequest.wValue != NextTransferOUTTag)
+				else if (USB_ControlRequest.wValue != CurrentTransferTag)
 				{
-					TMCRequestStatus = TMC_REQUEST_STATUS_TRANSFER_NOT_IN_PROGRESS;
+					TMCRequestStatus = TMC_STATUS_TRANSFER_NOT_IN_PROGRESS;
 				}
 				else
 				{
@@ -188,9 +185,9 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				
 				/* Check that an ABORT BULK OUT transaction has been requested and that the request has completed */
 				if (RequestInProgess != Req_InitiateAbortBulkOut)
-				  TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS;				
+				  TMCRequestStatus = TMC_STATUS_SPLIT_NOT_IN_PROGRESS;				
 				else if (IsTMCBulkOUTReset)
-				  TMCRequestStatus = TMC_REQUEST_STATUS_PENDING;
+				  TMCRequestStatus = TMC_STATUS_PENDING;
 				else
 				  RequestInProgess = 0;			
 				
@@ -209,14 +206,14 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
-				/* Check that no split transaction is already in progress and the data IN transfer tag is valid */
+				/* Check that no split transaction is already in progress and the data transfer tag is valid */
 				if (RequestInProgess != 0)
 				{
-					TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS;				
+					TMCRequestStatus = TMC_STATUS_SPLIT_IN_PROGRESS;				
 				}
-				else if (USB_ControlRequest.wValue != NextTransferINTag)
+				else if (USB_ControlRequest.wValue != CurrentTransferTag)
 				{
-					TMCRequestStatus = TMC_REQUEST_STATUS_TRANSFER_NOT_IN_PROGRESS;
+					TMCRequestStatus = TMC_STATUS_TRANSFER_NOT_IN_PROGRESS;
 				}
 				else
 				{
@@ -229,7 +226,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				
 				/* Write the request response bytes */
 				Endpoint_Write_Byte(TMCRequestStatus);
-				Endpoint_Write_Byte(NextTransferINTag);
+				Endpoint_Write_Byte(CurrentTransferTag);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -243,9 +240,9 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				
 				/* Check that an ABORT BULK IN transaction has been requested and that the request has completed */
 				if (RequestInProgess != Req_InitiateAbortBulkIn)
-				  TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS;
+				  TMCRequestStatus = TMC_STATUS_SPLIT_NOT_IN_PROGRESS;
 				else if (IsTMCBulkINReset)
-				  TMCRequestStatus = TMC_REQUEST_STATUS_PENDING;
+				  TMCRequestStatus = TMC_STATUS_PENDING;
 				else
 				  RequestInProgess = 0;
 				
@@ -267,7 +264,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				/* Check that no split transaction is already in progress */
 				if (RequestInProgess != 0)
 				{
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS);				
+					Endpoint_Write_Byte(TMC_STATUS_SPLIT_IN_PROGRESS);				
 				}
 				else
 				{
@@ -294,9 +291,9 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				
 				/* Check that a CLEAR transaction has been requested and that the request has completed */
 				if (RequestInProgess != Req_InitiateClear)
-				  TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS;				
+				  TMCRequestStatus = TMC_STATUS_SPLIT_NOT_IN_PROGRESS;				
 				else if (IsTMCBulkINReset || IsTMCBulkOUTReset)
-				  TMCRequestStatus = TMC_REQUEST_STATUS_PENDING;
+				  TMCRequestStatus = TMC_STATUS_PENDING;
 				else
 				  RequestInProgess = 0;
 				
@@ -337,8 +334,26 @@ void TMC_Task(void)
 	
 	if (Endpoint_IsOUTReceived())
 	{
-		// TEMP - Indicate data received
-		LEDs_SetAllLEDs(LEDS_ALL_LEDS);
+		TMC_MessageHeader_t MessageHeader;
+		
+		Endpoint_Read_Stream_LE(&MessageHeader, sizeof(MessageHeader), StreamCallback_AbortOUTOnRequest);
+		CurrentTransferTag = MessageHeader.Tag;
+
+		switch (MessageHeader.MessageID)
+		{
+			case TMC_MESSAGEID_DEV_DEP_MSG_OUT:
+
+				break;
+			case TMC_MESSAGEID_DEV_DEP_MSG_IN:
+
+				break;
+			case TMC_MESSAGEID_DEV_VENDOR_OUT:
+
+				break;
+			case TMC_MESSAGEID_DEV_VENDOR_IN:
+				break;
+		}
+		
 		Endpoint_ClearOUT();
 	}
 	

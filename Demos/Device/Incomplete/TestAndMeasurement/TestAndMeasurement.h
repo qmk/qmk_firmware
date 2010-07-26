@@ -65,18 +65,23 @@
 		#define Req_GetCapabilities                   0x07
 		#define Req_IndicatorPulse                    0x40
 		
-		#define TMC_REQUEST_STATUS_SUCCESS                   0x01
-		#define TMC_REQUEST_STATUS_PENDING                   0x02
-		#define TMC_REQUEST_STATUS_FAILED                    0x80
-		#define TMC_REQUEST_STATUS_TRANSFER_NOT_IN_PROGRESS  0x81
-		#define TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS     0x82
-		#define TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS         0x83
+		#define TMC_STATUS_SUCCESS                    0x01
+		#define TMC_STATUS_PENDING                    0x02
+		#define TMC_STATUS_FAILED                     0x80
+		#define TMC_STATUS_TRANSFER_NOT_IN_PROGRESS   0x81
+		#define TMC_STATUS_SPLIT_NOT_IN_PROGRESS      0x82
+		#define TMC_STATUS_SPLIT_IN_PROGRESS          0x83
+		
+		#define TMC_MESSAGEID_DEV_DEP_MSG_OUT         0x01
+		#define TMC_MESSAGEID_DEV_DEP_MSG_IN          0x02
+		#define TMC_MESSAGEID_DEV_VENDOR_OUT          0x7E
+		#define TMC_MESSAGEID_DEV_VENDOR_IN           0x7F
 
 	/* Type Defines */
 		typedef struct
 		{
 			uint8_t  Status;
-			uint8_t  _RESERVED1;
+			uint8_t  Reserved;
 
 			uint16_t TMCVersion;
 			
@@ -85,18 +90,26 @@
 				unsigned char ListenOnly             : 1;
 				unsigned char TalkOnly               : 1;
 				unsigned char PulseIndicateSupported : 1;
-				unsigned char _RESERVED              : 5;
+				unsigned char Reserved               : 5;
 			} Interface;
 			
 			struct
 			{
 				unsigned char SupportsAbortINOnMatch : 1;
-				unsigned char _RESERVED              : 7;
+				unsigned char Reserved               : 7;
 			} Device;
 			
-			uint8_t _RESERVED2[6];
-			uint8_t _RESERVED3[12];			
+			uint8_t Reserved2[6];
+			uint8_t Reserved3[12];			
 		} TMC_Capabilities_t;
+
+		typedef struct
+		{
+			uint8_t MessageID;
+			uint8_t Tag;
+			uint8_t InverseTag;
+			uint8_t Reserved;
+		} TMC_MessageHeader_t;
 		
 	/* Function Prototypes: */
 		void SetupHardware(void);

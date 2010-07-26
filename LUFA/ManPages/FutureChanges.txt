@@ -25,7 +25,7 @@
   *      -# Multiple-Report HID device
   *      -# Device/Host USB bridge
   *      -# Alternative (USB-IF endorsed) USB-CDC Ethernet Class
-  *      -# USB Test and Measurement Class
+  *      -# Finish Test and Measurement Class demo
   *      -# Finish BluetoothHost demo
   *      -# Finish SideShow demo
   *      -# Finish StandaloneProgrammer project
