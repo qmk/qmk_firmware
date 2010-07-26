@@ -100,16 +100,25 @@ void SetupHardware(void)
 	USB_Init();
 }
 
+/** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and
+ *  starts the library USB task to begin the enumeration and USB management process.
+ */
 void EVENT_USB_Device_Connect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
+/** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
+ *  the status LEDs and stops the USB management and CDC management tasks.
+ */
 void EVENT_USB_Device_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
+/** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
+ *  of the USB device after enumeration - the device endpoints are configured and the CDC management task started.
+ */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
@@ -130,10 +139,15 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	}
 }
 
+/** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
+ *  control requests that are not handled internally by the USB library (including the CDC control commands,
+ *  which are all issued via the control endpoint), so that they can be handled appropriately for the application.
+ */
 void EVENT_USB_Device_UnhandledControlRequest(void)
 {
 	uint8_t TMCRequestStatus = TMC_REQUEST_STATUS_SUCCESS;
 
+	/* Process TMC specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
 		case Req_InitiateAbortBulkOut:
@@ -141,6 +155,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
+				/* Check that no split transaction is already in progress and the data OUT transfer tag is valid */
 				if (RequestInProgess != 0)
 				{
 					TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS;
@@ -171,6 +186,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
+				/* Check that an ABORT BULK OUT transaction has been requested and that the request has completed */
 				if (RequestInProgess != Req_InitiateAbortBulkOut)
 				  TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS;				
 				else if (IsTMCBulkOUTReset)
@@ -193,6 +209,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
+				/* Check that no split transaction is already in progress and the data IN transfer tag is valid */
 				if (RequestInProgess != 0)
 				{
 					TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS;				
@@ -224,6 +241,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
+				/* Check that an ABORT BULK IN transaction has been requested and that the request has completed */
 				if (RequestInProgess != Req_InitiateAbortBulkIn)
 				  TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS;
 				else if (IsTMCBulkINReset)
@@ -246,6 +264,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
+				/* Check that no split transaction is already in progress */
 				if (RequestInProgess != 0)
 				{
 					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS);				
@@ -273,6 +292,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
+				/* Check that a CLEAR transaction has been requested and that the request has completed */
 				if (RequestInProgess != Req_InitiateClear)
 				  TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS;				
 				else if (IsTMCBulkINReset || IsTMCBulkOUTReset)
@@ -305,7 +325,8 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			break;
 	}
 }
-	
+
+/** Function to manage TMC data transmission and reception to and from the host. */
 void TMC_Task(void)
 {
 	/* Device must be connected and configured for the task to run */
