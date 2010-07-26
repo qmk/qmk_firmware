@@ -61,6 +61,12 @@ bool IsTMCBulkINReset    = false;
 /** Stream callback abort flag for bulk OUT data */
 bool IsTMCBulkOUTReset   = false;
 
+/** Last used tag value for bulk IN transfers */
+uint8_t NextTransferINTag  = 0;
+
+/** Last used tag value for bulk IN transfers */
+uint8_t NextTransferOUTTag  = 0;
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -126,6 +132,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 void EVENT_USB_Device_UnhandledControlRequest(void)
 {
+	uint8_t TMCRequestStatus = TMC_REQUEST_STATUS_SUCCESS;
+
 	switch (USB_ControlRequest.bRequest)
 	{
 		case Req_InitiateAbortBulkOut:
@@ -133,10 +141,13 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
-				/* Check to see if a split request is already being processed before starting a new one */
 				if (RequestInProgess != 0)
 				{
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS);				
+					TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS;
+				}
+				else if (USB_ControlRequest.wValue != NextTransferOUTTag)
+				{
+					TMCRequestStatus = TMC_REQUEST_STATUS_TRANSFER_NOT_IN_PROGRESS;
 				}
 				else
 				{
@@ -145,10 +156,11 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					
 					/* Save the split request for later checking when a new request is received */
 					RequestInProgess = Req_InitiateAbortBulkOut;
-
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SUCCESS);
 				}
 				
+				/* Write the request response byte */
+				Endpoint_Write_Byte(TMCRequestStatus);
+
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
@@ -159,21 +171,18 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
-				/* Check to see the correct split request is in progress before the status can be retrieved */
 				if (RequestInProgess != Req_InitiateAbortBulkOut)
-				{
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS);				
-				}
+				  TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS;				
+				else if (IsTMCBulkOUTReset)
+				  TMCRequestStatus = TMC_REQUEST_STATUS_PENDING;
 				else
-				{
-					// TODO: CLEAR BULK OUT
+				  RequestInProgess = 0;			
 				
-					/* Clear the pending split request value so that a new request can be made */
-					RequestInProgess = 0;
+				/* Write the request response bytes */
+				Endpoint_Write_Byte(TMCRequestStatus);
+				Endpoint_Write_Word_LE(0);
+				Endpoint_Write_DWord_LE(0); // TODO - Last transfer length
 
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SUCCESS);
-				}
-				
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();				
 			}
@@ -184,10 +193,13 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
-				/* Check to see if a split request is already being processed before starting a new one */
 				if (RequestInProgess != 0)
 				{
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS);				
+					TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS;				
+				}
+				else if (USB_ControlRequest.wValue != NextTransferINTag)
+				{
+					TMCRequestStatus = TMC_REQUEST_STATUS_TRANSFER_NOT_IN_PROGRESS;
 				}
 				else
 				{
@@ -196,10 +208,12 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					
 					/* Save the split request for later checking when a new request is received */
 					RequestInProgess = Req_InitiateAbortBulkIn;
-
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SUCCESS);
 				}
 				
+				/* Write the request response bytes */
+				Endpoint_Write_Byte(TMCRequestStatus);
+				Endpoint_Write_Byte(NextTransferINTag);
+
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
@@ -210,23 +224,20 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
-				/* Check to see the correct split request is in progress before the status can be retrieved */
 				if (RequestInProgess != Req_InitiateAbortBulkIn)
-				{
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS);				
-				}
+				  TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS;
+				else if (IsTMCBulkINReset)
+				  TMCRequestStatus = TMC_REQUEST_STATUS_PENDING;
 				else
-				{
-					// TODO: CLEAR BULK IN
+				  RequestInProgess = 0;
 				
-					/* Clear the pending split request value so that a new request can be made */
-					RequestInProgess = 0;
+				/* Write the request response bytes */
+				Endpoint_Write_Byte(TMCRequestStatus);
+				Endpoint_Write_Word_LE(0);
+				Endpoint_Write_DWord_LE(0); // TODO - Last transfer length
 
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SUCCESS);
-				}
-				
 				Endpoint_ClearIN();
-				Endpoint_ClearStatusStage();				
+				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -235,7 +246,6 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
-				/* Check to see if a split request is already being processed before starting a new one */
 				if (RequestInProgess != 0)
 				{
 					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS);				
@@ -248,10 +258,11 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					
 					/* Save the split request for later checking when a new request is received */
 					RequestInProgess = Req_InitiateClear;
-
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SUCCESS);
 				}
 				
+				/* Write the request response byte */
+				Endpoint_Write_Byte(TMCRequestStatus);
+
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
@@ -262,20 +273,16 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				Endpoint_ClearSETUP();
 				
-				/* Check to see the correct split request is in progress before the status can be retrieved */
 				if (RequestInProgess != Req_InitiateClear)
-				{
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS);				
-				}
+				  TMCRequestStatus = TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS;				
+				else if (IsTMCBulkINReset || IsTMCBulkOUTReset)
+				  TMCRequestStatus = TMC_REQUEST_STATUS_PENDING;
 				else
-				{
-					// TODO: CLEAR STATUS
+				  RequestInProgess = 0;
 				
-					/* Clear the pending split request value so that a new request can be made */
-					RequestInProgess = 0;
-
-					Endpoint_Write_Byte(TMC_REQUEST_STATUS_SUCCESS);
-				}
+				/* Write the request response bytes */
+				Endpoint_Write_Byte(TMCRequestStatus);
+				Endpoint_Write_Byte(0);
 				
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();				
@@ -313,6 +320,10 @@ void TMC_Task(void)
 		LEDs_SetAllLEDs(LEDS_ALL_LEDS);
 		Endpoint_ClearOUT();
 	}
+	
+	/* All pending data has been processed - reset the data abort flags */
+	IsTMCBulkINReset  = false;
+	IsTMCBulkOUTReset = false;
 }
 
 /** Stream callback function for the Endpoint stream write functions. This callback will abort the current stream transfer
