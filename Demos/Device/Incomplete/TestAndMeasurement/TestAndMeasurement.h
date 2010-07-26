@@ -65,12 +65,12 @@
 		#define Req_GetCapabilities                   0x07
 		#define Req_IndicatorPulse                    0x40
 		
-		#define TMC_REQUEST_STATUS_SUCCESS            0x01
-		#define TMC_REQUEST_STATUS_PENDING            0x02
-		#define TMC_REQUEST_STATUS_FAILED             0x80
-		#define TMC_REQUEST_STATUS_NOTRANSFER         0x81
-		#define TMC_REQUEST_STATUS_NOCHECKINITIATED   0x82
-		#define TMC_REQUEST_STATUS_CHECKINPROGRESS    0x83
+		#define TMC_REQUEST_STATUS_SUCCESS                   0x01
+		#define TMC_REQUEST_STATUS_PENDING                   0x02
+		#define TMC_REQUEST_STATUS_FAILED                    0x80
+		#define TMC_REQUEST_STATUS_TRANSFER_NOT_IN_PROGRESS  0x81
+		#define TMC_REQUEST_STATUS_SPLIT_NOT_IN_PROGRESS     0x82
+		#define TMC_REQUEST_STATUS_SPLIT_IN_PROGRESS         0x83
 
 	/* Type Defines */
 		typedef struct
@@ -106,5 +106,8 @@
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_UnhandledControlRequest(void);
+
+		uint8_t StreamCallback_AbortINOnRequest(void);
+		uint8_t StreamCallback_AbortOUTOnRequest(void);
 
 #endif
