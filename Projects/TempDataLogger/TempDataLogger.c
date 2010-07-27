@@ -105,10 +105,10 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	if (CurrentLoggingTicks++ < LoggingInterval500MS_SRAM)
 	  return;
 	    
-	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-
 	/* Reset log tick counter to prepare for next logging interval */
 	CurrentLoggingTicks = 0;
+
+	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 	
 	/* Only log when not connected to a USB host */
 	if (USB_DeviceState == DEVICE_STATE_Unattached)

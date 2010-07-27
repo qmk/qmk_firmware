@@ -102,15 +102,40 @@
 			uint8_t Reserved2[6];
 			uint8_t Reserved3[12];			
 		} TMC_Capabilities_t;
+		
+		typedef struct
+		{
+			unsigned char LastMessageTransaction : 1;
+			unsigned char Reserved               : 7;
+
+			uint8_t Reserved2[3];
+		} TMC_DevOUTMessageHeader_t;
 
 		typedef struct
 		{
-			uint8_t MessageID;
-			uint8_t Tag;
-			uint8_t InverseTag;
-			uint8_t Reserved;
+			unsigned char TermCharEnabled        : 1;
+			unsigned char Reserved               : 7;
+
+			uint8_t TermChar;
+			uint8_t Reserved2[2];
+		} TMC_DevINMessageHeader_t;
+
+		typedef struct
+		{
+			uint8_t  MessageID;
+			uint8_t  Tag;
+			uint8_t  InverseTag;
+			uint8_t  Reserved;
+			uint32_t TransferSize;
+			
+			union
+			{
+				TMC_DevOUTMessageHeader_t DeviceOUT;
+				TMC_DevINMessageHeader_t  DeviceIN;
+				uint32_t                  VendorSpecific;
+			} MessageIDSpecific;
 		} TMC_MessageHeader_t;
-		
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void TMC_Task(void);

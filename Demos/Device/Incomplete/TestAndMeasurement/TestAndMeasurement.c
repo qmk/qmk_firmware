@@ -218,7 +218,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				else
 				{
 					/* Indicate that all in-progress/pending data IN requests should be aborted */
-					IsTMCBulkINReset  = true;
+					IsTMCBulkINReset = true;
 					
 					/* Save the split request for later checking when a new request is received */
 					RequestInProgess = Req_InitiateAbortBulkIn;
@@ -338,7 +338,7 @@ void TMC_Task(void)
 		
 		Endpoint_Read_Stream_LE(&MessageHeader, sizeof(MessageHeader), StreamCallback_AbortOUTOnRequest);
 		CurrentTransferTag = MessageHeader.Tag;
-
+		
 		switch (MessageHeader.MessageID)
 		{
 			case TMC_MESSAGEID_DEV_DEP_MSG_OUT:
@@ -351,6 +351,10 @@ void TMC_Task(void)
 
 				break;
 			case TMC_MESSAGEID_DEV_VENDOR_IN:
+
+				break;
+			default:
+				Endpoint_StallTransaction();
 				break;
 		}
 		

@@ -131,8 +131,8 @@
 			#define ENDPOINT_CONTROLEP                    0
 
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
-				/** Default size of the default control endpoint's bank, until altered by the Endpoint0Size value 
-				 *  in the device descriptor. Not available if the FIXED_CONTROL_ENDPOINT_SIZE token is defined.
+				/** Default size of the default control endpoint's bank, until altered by the control endpoint bank size 
+				 *  value in the device descriptor. Not available if the FIXED_CONTROL_ENDPOINT_SIZE token is defined.
 				 */
 				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE   8
 			#endif
