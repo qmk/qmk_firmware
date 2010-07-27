@@ -1293,14 +1293,23 @@
 				#define ENDPOINT_DETAILS_EP4               64,  true			
 			#endif
 
-			#define Endpoint_ConfigureEndpoint(Number, Type, Direction, Size, Banks)            \
-			                                    Endpoint_ConfigureEndpoint_Prv((Number),        \
-			                                              (((Type) << EPTYPE0) | (Direction)),  \
-			                                              ((1 << ALLOC) | (Banks) |             \
-			                                                (__builtin_constant_p(Size) ?       \
-			                                                 Endpoint_BytesToEPSizeMask(Size) : \
-			                                                 Endpoint_BytesToEPSizeMaskDynamic(Size))))
-			
+			#define Endpoint_ConfigureEndpoint(Number, Type, Direction, Size, Banks)                           \
+			                     (__builtin_constant_p(Size) ? Endpoint_ConfigureEndpointStatic((Number),      \
+			                                                                                    (Type),        \
+			                                                                                    (Direction),   \
+			                                                                                    Size, Banks) : \
+			                                                   Endpoint_ConfigureEndpointDynamic((Number),     \
+			                                                                                     (Type),       \
+			                                                                                     (Direction),  \
+			                                                                                     Size, Banks))
+
+		/* Function Prototypes: */
+			void    Endpoint_ClearEndpoints(void);
+			uint8_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size);
+			bool    Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
+			                                       const uint8_t UECFG0XData,
+			                                       const uint8_t UECFG1XData);			
+
 		/* Inline Functions: */
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
@@ -1316,13 +1325,26 @@
 				
 				return (MaskVal << EPSIZE0);
 			}
+			
+			static inline bool Endpoint_ConfigureEndpointStatic(const uint8_t Number,
+			                                                    const uint8_t Type,
+			                                                    const uint8_t Direction,
+			                                                    const uint16_t Size,
+			                                                    const uint8_t Banks)
+			{
+				return Endpoint_ConfigureEndpoint_Prv(Number, (((Type) << EPTYPE0) | (Direction)),
+				                                      ((1 << ALLOC) | Banks | Endpoint_BytesToEPSizeMask(Size)));
+			}
 
-		/* Function Prototypes: */
-			void    Endpoint_ClearEndpoints(void);
-			uint8_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size);
-			bool    Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
-			                                       const uint8_t UECFG0XData,
-			                                       const uint8_t UECFG1XData);			
+			static inline bool Endpoint_ConfigureEndpointDynamic(const uint8_t Number,
+			                                                     const uint8_t Type,
+			                                                     const uint8_t Direction,
+			                                                     const uint16_t Size,
+			                                                     const uint8_t Banks)
+			{
+				return Endpoint_ConfigureEndpoint_Prv(Number, (((Type) << EPTYPE0) | (Direction)),
+				                                      ((1 << ALLOC) | Banks | Endpoint_BytesToEPSizeMaskDynamic(Size)));
+			}
 	#endif
 
 	/* Disable C linkage for C++ Compilers: */
