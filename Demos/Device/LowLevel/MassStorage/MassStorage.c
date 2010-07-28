@@ -173,47 +173,35 @@ void MassStorage_Task(void)
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
-	  
-	/* Select the Data Out Endpoint */
-	Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
-	
-	/* Check to see if a command from the host has been issued */
-	if (Endpoint_IsReadWriteAllowed())
+
+	/* Process sent command block from the host if one has been sent */
+	if (ReadInCommandBlock())
 	{
 		/* Indicate busy */
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
-		/* Process sent command block from the host */
-		if (ReadInCommandBlock())
-		{
-			/* Check direction of command, select Data IN endpoint if data is from the device */
-			if (CommandBlock.Flags & COMMAND_DIRECTION_DATA_IN)
-			  Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
+		/* Check direction of command, select Data IN endpoint if data is from the device */
+		if (CommandBlock.Flags & COMMAND_DIRECTION_DATA_IN)
+		  Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
 
-			/* Decode the received SCSI command, set returned status code */
-			CommandStatus.Status = SCSI_DecodeSCSICommand() ? Command_Pass : Command_Fail;		
+		/* Decode the received SCSI command, set returned status code */
+		CommandStatus.Status = SCSI_DecodeSCSICommand() ? Command_Pass : Command_Fail;		
 
-			/* Load in the CBW tag into the CSW to link them together */
-			CommandStatus.Tag = CommandBlock.Tag;
+		/* Load in the CBW tag into the CSW to link them together */
+		CommandStatus.Tag = CommandBlock.Tag;
 
-			/* Load in the data residue counter into the CSW */
-			CommandStatus.DataTransferResidue = CommandBlock.DataTransferLength;
-			
-			/* Stall the selected data pipe if command failed (if data is still to be transferred) */
-			if ((CommandStatus.Status == Command_Fail) && (CommandStatus.DataTransferResidue))
-			  Endpoint_StallTransaction();
+		/* Load in the data residue counter into the CSW */
+		CommandStatus.DataTransferResidue = CommandBlock.DataTransferLength;
+		
+		/* Stall the selected data pipe if command failed (if data is still to be transferred) */
+		if ((CommandStatus.Status == Command_Fail) && (CommandStatus.DataTransferResidue))
+		  Endpoint_StallTransaction();
 
-			/* Return command status block to the host */
-			ReturnCommandStatus();
+		/* Return command status block to the host */
+		ReturnCommandStatus();
 
-			/* Indicate ready */
-			LEDs_SetAllLEDs(LEDMASK_USB_READY);
-		}
-		else
-		{
-			/* Indicate error reading in the command block from the host */
-			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-		}
+		/* Indicate ready */
+		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
 
 	/* Check if a Mass Storage Reset occurred */
@@ -244,6 +232,10 @@ static bool ReadInCommandBlock(void)
 {
 	/* Select the Data Out endpoint */
 	Endpoint_SelectEndpoint(MASS_STORAGE_OUT_EPNUM);
+	
+	/* Abort if no command has been sent from the host */
+	if (!(Endpoint_IsOUTReceived()))
+	  return false;
 
 	/* Read in command block header */
 	Endpoint_Read_Stream_LE(&CommandBlock, (sizeof(CommandBlock) - sizeof(CommandBlock.SCSICommandData)),

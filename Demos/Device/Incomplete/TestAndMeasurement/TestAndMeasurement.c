@@ -329,41 +329,80 @@ void TMC_Task(void)
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
-	  
-	Endpoint_SelectEndpoint(TMC_OUT_EPNUM);
 	
-	if (Endpoint_IsOUTReceived())
+	TMC_MessageHeader_t MessageHeader;
+	
+	/* Check if a TMC packet has been received */
+	if (ReadTMCHeader(&MessageHeader))
 	{
-		TMC_MessageHeader_t MessageHeader;
-		
-		Endpoint_Read_Stream_LE(&MessageHeader, sizeof(MessageHeader), StreamCallback_AbortOUTOnRequest);
-		CurrentTransferTag = MessageHeader.Tag;
+		/* Indicate busy */
+		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 		
 		switch (MessageHeader.MessageID)
 		{
 			case TMC_MESSAGEID_DEV_DEP_MSG_OUT:
-
+				Endpoint_Discard_Stream(MessageHeader.TransferSize, StreamCallback_AbortOUTOnRequest);
+				Endpoint_ClearOUT();
 				break;
 			case TMC_MESSAGEID_DEV_DEP_MSG_IN:
+				Endpoint_ClearOUT();
 
-				break;
-			case TMC_MESSAGEID_DEV_VENDOR_OUT:
+				MessageHeader.TransferSize = 3;
+				WriteTMCHeader(&MessageHeader);
 
-				break;
-			case TMC_MESSAGEID_DEV_VENDOR_IN:
-
+				Endpoint_Write_Stream_LE("TMC", 3, StreamCallback_AbortINOnRequest);
+				Endpoint_ClearIN();
 				break;
 			default:
 				Endpoint_StallTransaction();
 				break;
 		}
-		
-		Endpoint_ClearOUT();
+
+		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
 	
 	/* All pending data has been processed - reset the data abort flags */
 	IsTMCBulkINReset  = false;
 	IsTMCBulkOUTReset = false;
+}
+
+bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
+{
+	/* Select the Data Out endpoint */
+	Endpoint_SelectEndpoint(TMC_OUT_EPNUM);
+	
+	/* Abort if no command has been sent from the host */
+	if (!(Endpoint_IsOUTReceived()))
+	  return false;
+	
+	/* Read in the header of the command from the host */
+	Endpoint_Read_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), StreamCallback_AbortOUTOnRequest);
+
+	/* Store the new command tag value for later use */
+	CurrentTransferTag = MessageHeader->Tag;
+	
+	/* Indicate if the command has been aborted or not */
+	return !IsTMCBulkOUTReset;
+}
+
+bool WriteTMCHeader(TMC_MessageHeader_t* const MessageHeader)
+{
+	/* Compute the next transfer tag value, must be between 1 and 254 */
+	if (++CurrentTransferTag == 0xFF)
+	  CurrentTransferTag = 1;
+
+	/* Set the message tag of the command header */
+	MessageHeader->Tag        =  CurrentTransferTag;
+	MessageHeader->InverseTag = ~CurrentTransferTag;
+
+	/* Select the Data In endpoint */
+	Endpoint_SelectEndpoint(TMC_IN_EPNUM);
+
+	/* Send the command header to the host */
+	Endpoint_Write_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), StreamCallback_AbortINOnRequest);
+
+	/* Indicate if the command has been aborted or not */
+	return !IsTMCBulkINReset;
 }
 
 /** Stream callback function for the Endpoint stream write functions. This callback will abort the current stream transfer
