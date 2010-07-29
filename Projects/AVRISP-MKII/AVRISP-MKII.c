@@ -49,6 +49,12 @@ int main(void)
 
 	for (;;)
 	{
+		#if (BOARD == BOARD_USBTINYMKII)
+		/* On the USBTINY-MKII target, there is a secondary LED which indicates the current selected power
+		   mode - either VBUS, or sourced from the VTARGET pin of the programming connectors */
+		LEDs_ChangeLEDs(LEDMASK_VBUSPOWER, (PIND & (1 << 0)) ? LEDMASK_VBUSPOWER : 0);
+		#endif
+		
 		AVRISP_Task();
 		USB_USBTask();
 	}
@@ -66,7 +72,7 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	LEDs_Init();
-	USB_Init();
+	USB_Init();	
 }
 
 /** Event handler for the library USB Connection event. */

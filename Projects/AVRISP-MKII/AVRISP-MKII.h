@@ -42,8 +42,6 @@
 		#include <avr/interrupt.h>
 		#include <avr/power.h>
 
-		#include "Descriptors.h"
-
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
@@ -52,6 +50,7 @@
 			#include <LUFA/Drivers/Peripheral/ADC.h>
 		#endif
 		
+		#include "Descriptors.h"
 		#include "Lib/V2Protocol.h"
 
 	/* Macros: */
@@ -59,16 +58,19 @@
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is enumerating. */
-		#define LEDMASK_USB_ENUMERATING  (LEDS_LED2 | LEDS_LED3)
+		#define LEDMASK_USB_ENUMERATING  (LEDS_LED1 | LEDS_LED2)
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is ready. */
-		#define LEDMASK_USB_READY        (LEDS_LED2 | LEDS_LED4)
+		#define LEDMASK_USB_READY         LEDS_LED2
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
-		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
+		#define LEDMASK_USB_ERROR         LEDS_LED1
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_BUSY             (LEDS_LED1 | LEDS_LED2)
+		
+		/** LED mask for the library LED driver, to indicate that the target is being powered by VBUS. */
+		#define LEDMASK_VBUSPOWER         LEDS_LED3
 
 	/* Function Prototypes: */
 		void SetupHardware(void);

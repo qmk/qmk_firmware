@@ -20,6 +20,7 @@
   *  - Added start of a new Test and Measurement class demo (thanks to Peter Lawrence)
   *  - Added new SPI_ORDER_* data order masks to the SPI peripheral driver
   *  - Added support to the AVRISP-MKII project for ISP speeds slower than 125KHz via a new software SPI driver
+  *  - Added support for the new button/LED on the latest model USBTINY-MKII
   *
   *  <b>Changed:</b>
   *  - The RingBuff library code has been replaced in the XPLAINBridge, Benito and USBtoSerial projects with an ultra lightweight
@@ -39,6 +40,7 @@
   *    behaviour of the command line tools used to perform the check on each platform
   *  - Internal USB driver source files renamed and moved to ease future possible architecture ports
   *  - All internal pseudo-function macros have been converted to true inline functions for type-safety and readability
+  *  - Changed LED indicator masks for the AVRISP-MKII project, so that there are defined roles for each LED
   *
   *  <b>Fixed:</b>
   *  - Fixed AVRISP project sending a LOAD EXTENDED ADDRESS command to 128KB AVRs after programming or reading from
