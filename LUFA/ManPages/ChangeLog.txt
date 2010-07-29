@@ -60,6 +60,8 @@
   *  - Fixed HID device class driver still using PrevReportINBuffer for GetReport control requests even when it has been
   *    set to NULL by the user application (thanks to Axel Rohde)
   *  - Fixed MIDI_Device_SendEventPacket() not correctly waiting for the endpoint to become ready (thanks to Robin Green)
+  *  - Fixed Benito and USBtoSerial projects not turning off the USART before reconfiguring it, which could cause incorrect
+  *    operation to occur (thanks to Bob Paddock)
   *
   *  \section Sec_ChangeLog100513 Version 100513
   *  <b>New:</b>
