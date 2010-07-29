@@ -72,7 +72,7 @@ void ISPProtocol_EnterISPMode(void)
 
 	/* Perform execution delay, initialize SPI bus */
 	ISPProtocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS); 
-	SPI_Init(ISPTarget_GetSPIPrescalerMask() | SPI_SCK_LEAD_RISING | SPI_SAMPLE_LEADING | SPI_MODE_MASTER);
+	ISPTarget_Init();
 
 	/* Continuously attempt to synchronize with the target until either the number of attempts specified
 	 * by the host has exceeded, or the the device sends back the expected response values */
@@ -86,7 +86,7 @@ void ISPProtocol_EnterISPMode(void)
 		for (uint8_t RByte = 0; RByte < sizeof(ResponseBytes); RByte++)
 		{
 			ISPProtocol_DelayMS(Enter_ISP_Params.ByteDelay);
-			ResponseBytes[RByte] = SPI_TransferByte(Enter_ISP_Params.EnterProgBytes[RByte]);
+			ResponseBytes[RByte] = ISPTarget_TransferByte(Enter_ISP_Params.EnterProgBytes[RByte]);
 		}
 		
 		/* Check if polling disabled, or if the polled value matches the expected value */
@@ -124,7 +124,7 @@ void ISPProtocol_LeaveISPMode(void)
 	/* Perform pre-exit delay, release the target /RESET, disable the SPI bus and perform the post-exit delay */
 	ISPProtocol_DelayMS(Leave_ISP_Params.PreDelayMS);
 	ISPTarget_ChangeTargetResetLine(false);
-	SPI_ShutDown();
+	ISPTarget_ShutDown();
 	ISPProtocol_DelayMS(Leave_ISP_Params.PostDelayMS);
 
 	/* Turn off the synchronous USART to terminate the recovery clock on XCK pin */
@@ -204,10 +204,10 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			bool    IsOddByte   = (CurrentByte & 0x01);
 			uint8_t ByteToWrite = *(NextWriteByte++);
 		
-			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
-			SPI_SendByte(CurrentAddress >> 8);
-			SPI_SendByte(CurrentAddress & 0xFF);
-			SPI_SendByte(ByteToWrite);
+			ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
+			ISPTarget_SendByte(CurrentAddress >> 8);
+			ISPTarget_SendByte(CurrentAddress & 0xFF);
+			ISPTarget_SendByte(ByteToWrite);
 			
 			/* AVR FLASH addressing requires us to modify the write command based on if we are writing a high
 			 * or low byte at the current word address */
@@ -231,10 +231,10 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 		/* If the current page must be committed, send the PROGRAM PAGE command to the target */
 		if (Write_Memory_Params.ProgrammingMode & PROG_MODE_COMMIT_PAGE_MASK)
 		{
-			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[1]);
-			SPI_SendByte(StartAddress >> 8);
-			SPI_SendByte(StartAddress & 0xFF);
-			SPI_SendByte(0x00);
+			ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[1]);
+			ISPTarget_SendByte(StartAddress >> 8);
+			ISPTarget_SendByte(StartAddress & 0xFF);
+			ISPTarget_SendByte(0x00);
 			
 			/* Check if polling is possible, if not switch to timed delay mode */
 			if (!(PollAddress))
@@ -266,10 +266,10 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 				MustLoadExtendedAddress = false;
 			}
 
-			SPI_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
-			SPI_SendByte(CurrentAddress >> 8);
-			SPI_SendByte(CurrentAddress & 0xFF);
-			SPI_SendByte(ByteToWrite);
+			ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
+			ISPTarget_SendByte(CurrentAddress >> 8);
+			ISPTarget_SendByte(CurrentAddress & 0xFF);
+			ISPTarget_SendByte(ByteToWrite);
 			
 			/* AVR FLASH addressing requires us to modify the write command based on if we are writing a high
 			 * or low byte at the current word address */
@@ -343,10 +343,10 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 		}
 
 		/* Read the next byte from the desired memory space in the device */
-		SPI_SendByte(Read_Memory_Params.ReadMemoryCommand);
-		SPI_SendByte(CurrentAddress >> 8);
-		SPI_SendByte(CurrentAddress & 0xFF);
-		Endpoint_Write_Byte(SPI_ReceiveByte());
+		ISPTarget_SendByte(Read_Memory_Params.ReadMemoryCommand);
+		ISPTarget_SendByte(CurrentAddress >> 8);
+		ISPTarget_SendByte(CurrentAddress & 0xFF);
+		Endpoint_Write_Byte(ISPTarget_ReceiveByte());
 		
 		/* Check if the endpoint bank is currently full, if so send the packet */
 		if (!(Endpoint_IsReadWriteAllowed()))
@@ -406,7 +406,7 @@ void ISPProtocol_ChipErase(void)
 	
 	/* Send the chip erase commands as given by the host to the device */
 	for (uint8_t SByte = 0; SByte < sizeof(Erase_Chip_Params.EraseCommandBytes); SByte++)
-	  SPI_SendByte(Erase_Chip_Params.EraseCommandBytes[SByte]);
+	  ISPTarget_SendByte(Erase_Chip_Params.EraseCommandBytes[SByte]);
 
 	/* Use appropriate command completion check as given by the host (delay or busy polling) */
 	if (!(Erase_Chip_Params.PollMethod))
@@ -442,7 +442,7 @@ void ISPProtocol_ReadFuseLockSigOSCCAL(uint8_t V2Command)
 
 	/* Send the Fuse or Lock byte read commands as given by the host to the device, store response */
 	for (uint8_t RByte = 0; RByte < sizeof(ResponseBytes); RByte++)
-	  ResponseBytes[RByte] = SPI_TransferByte(Read_FuseLockSigOSCCAL_Params.ReadCommandBytes[RByte]);
+	  ResponseBytes[RByte] = ISPTarget_TransferByte(Read_FuseLockSigOSCCAL_Params.ReadCommandBytes[RByte]);
 		
 	Endpoint_Write_Byte(V2Command);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
@@ -471,7 +471,7 @@ void ISPProtocol_WriteFuseLock(uint8_t V2Command)
 
 	/* Send the Fuse or Lock byte program commands as given by the host to the device */
 	for (uint8_t SByte = 0; SByte < sizeof(Write_FuseLockSig_Params.WriteCommandBytes); SByte++)
-	  SPI_SendByte(Write_FuseLockSig_Params.WriteCommandBytes[SByte]);
+	  ISPTarget_SendByte(Write_FuseLockSig_Params.WriteCommandBytes[SByte]);
 		
 	Endpoint_Write_Byte(V2Command);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
@@ -507,9 +507,9 @@ void ISPProtocol_SPIMulti(void)
 	while (CurrTxPos < SPI_Multi_Params.RxStartAddr)
 	{
 		if (CurrTxPos < SPI_Multi_Params.TxBytes)
-		  SPI_SendByte(SPI_Multi_Params.TxData[CurrTxPos]);
+		  ISPTarget_SendByte(SPI_Multi_Params.TxData[CurrTxPos]);
 		else
-		  SPI_SendByte(0);
+		  ISPTarget_SendByte(0);
 		
 		CurrTxPos++;
 	}
@@ -518,9 +518,9 @@ void ISPProtocol_SPIMulti(void)
 	while (CurrRxPos < SPI_Multi_Params.RxBytes)
 	{
 		if (CurrTxPos < SPI_Multi_Params.TxBytes)
-		  Endpoint_Write_Byte(SPI_TransferByte(SPI_Multi_Params.TxData[CurrTxPos++]));
+		  Endpoint_Write_Byte(ISPTarget_TransferByte(SPI_Multi_Params.TxData[CurrTxPos++]));
 		else
-		  Endpoint_Write_Byte(SPI_ReceiveByte());
+		  Endpoint_Write_Byte(ISPTarget_ReceiveByte());
 		  
 		/* Check to see if we have filled the endpoint bank and need to send the packet */
 		if (!(Endpoint_IsReadWriteAllowed()))

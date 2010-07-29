@@ -99,6 +99,15 @@
 
 			/** SPI data sample mode mask for SPI_Init(). Indicates that the data should be sampled on the trailing edge. */
 			#define SPI_SAMPLE_TRAILING            (1 << CPHA)
+
+			/** SPI data order mask for SPI_Init(). Indicates that data should be shifted out MSB first. */
+			#define SPI_ORDER_MSB_FIRST            (0 << DORD)
+
+			/** SPI data order mask for SPI_Init(). Indicates that data should be shifted out MSB first. */
+			#define SPI_ORDER_LSB_FIRST            (1 << DORD)
+
+			/** SPI data sample mode mask for SPI_Init(). Indicates that the data should be sampled on the trailing edge. */
+			#define SPI_SAMPLE_TRAILING            (1 << CPHA)
 			
 			/** SPI mode mask for SPI_Init(). Indicates that the SPI interface should be initialized into slave mode. */
 			#define SPI_MODE_SLAVE                 (0 << MSTR)
@@ -111,7 +120,7 @@
 			 *  SPI routines.
 			 *
 			 *  \param[in] SPIOptions  SPI Options, a mask consisting of one of each of the SPI_SPEED_*,
-			 *                         SPI_SCK_*, SPI_SAMPLE_* and SPI_MODE_* masks.
+			 *                         SPI_SCK_*, SPI_SAMPLE_*, SPI_ORDER_* and SPI_MODE_* masks.
 			 */
 			static inline void SPI_Init(const uint8_t SPIOptions)
 			{

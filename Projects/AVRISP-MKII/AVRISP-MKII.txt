@@ -54,7 +54,6 @@
  *  drivers. When prompted, direct your OS to install Atmel's AVRISP-MKII drivers provided with AVRStudio.
  *
  *  Note that this design currently has the following limitations:
- *    - Minimum ISP target clock speed of 500KHz due to hardware SPI module prescaler limitations
  *    - No reversed/shorted target connector detection and notification
  *    - A seperate header is required for each of the ISP, PDI and TPI programming protocols that the user wishes to use
  *

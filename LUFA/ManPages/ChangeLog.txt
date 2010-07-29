@@ -18,6 +18,8 @@
   *  - Added ability to set the serial baud rate via the user's terminal in the XPLAINBridge project
   *  - Added new LUFA module variables for the different source modules in the core library makefile to simplify project makefiles
   *  - Added start of a new Test and Measurement class demo (thanks to Peter Lawrence)
+  *  - Added new SPI_ORDER_* data order masks to the SPI peripheral driver
+  *  - Added support to the AVRISP-MKII project for ISP speeds slower than 125KHz via a new software SPI driver
   *
   *  <b>Changed:</b>
   *  - The RingBuff library code has been replaced in the XPLAINBridge, Benito and USBtoSerial projects with an ultra lightweight
