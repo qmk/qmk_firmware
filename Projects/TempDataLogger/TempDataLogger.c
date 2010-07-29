@@ -89,7 +89,7 @@ uint8_t LoggingInterval500MS_SRAM;
 /** Total number of 500ms logging ticks elapsed since the last log value was recorded */
 uint16_t CurrentLoggingTicks;
 
-/** FAT Fs structure to hold the internal state of the FAT driver for the dataflash contents. */
+/** FAT Fs structure to hold the internal state of the FAT driver for the Dataflash contents. */
 FATFS DiskFATState;
 
 /** FAT Fs structure to hold a FAT file handle for the log data write destination. */
@@ -146,7 +146,7 @@ int main(void)
 	if (LoggingInterval500MS_SRAM == 0xFF)
 	  LoggingInterval500MS_SRAM = DEFAULT_LOG_INTERVAL;
 
-	/* Mount and open the log file on the dataflash FAT partition */
+	/* Mount and open the log file on the Dataflash FAT partition */
 	OpenLogFile();
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
@@ -230,7 +230,7 @@ void EVENT_USB_Device_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	
-	/* Mount and open the log file on the dataflash FAT partition */
+	/* Mount and open the log file on the Dataflash FAT partition */
 	OpenLogFile();
 }
 

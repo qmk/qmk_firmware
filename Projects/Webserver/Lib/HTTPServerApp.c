@@ -77,7 +77,7 @@ const MIME_Type_t MIMETypes[] =
 		{.Extension = "pdf", .MIMEType = "application/pdf"},
 	};
 
-/** FATFs structure to hold the internal state of the FAT driver for the dataflash contents. */
+/** FATFs structure to hold the internal state of the FAT driver for the Dataflash contents. */
 FATFS DiskFATState;
 
 
@@ -87,7 +87,7 @@ void HTTPServerApp_Init(void)
 	/* Listen on port 80 for HTTP connections from hosts */
 	uip_listen(HTONS(HTTP_SERVER_PORT));
 	
-	/* Mount the dataflash disk via FatFS */
+	/* Mount the Dataflash disk via FatFS */
 	f_mount(0, &DiskFATState);
 }
 

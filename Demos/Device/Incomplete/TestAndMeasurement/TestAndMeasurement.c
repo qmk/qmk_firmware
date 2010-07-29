@@ -53,7 +53,7 @@ TMC_Capabilities_t Capabilities =
 	};
 
 /** Current TMC control request that is being processed */
-uint8_t RequestInProgess   = 0;
+uint8_t RequestInProgress   = 0;
 
 /** Stream callback abort flag for bulk IN data */
 bool IsTMCBulkINReset      = false;
@@ -153,7 +153,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_ClearSETUP();
 				
 				/* Check that no split transaction is already in progress and the data transfer tag is valid */
-				if (RequestInProgess != 0)
+				if (RequestInProgress != 0)
 				{
 					TMCRequestStatus = TMC_STATUS_SPLIT_IN_PROGRESS;
 				}
@@ -167,7 +167,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					IsTMCBulkOUTReset = true;
 					
 					/* Save the split request for later checking when a new request is received */
-					RequestInProgess = Req_InitiateAbortBulkOut;
+					RequestInProgress = Req_InitiateAbortBulkOut;
 				}
 				
 				/* Write the request response byte */
@@ -184,12 +184,12 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_ClearSETUP();
 				
 				/* Check that an ABORT BULK OUT transaction has been requested and that the request has completed */
-				if (RequestInProgess != Req_InitiateAbortBulkOut)
+				if (RequestInProgress != Req_InitiateAbortBulkOut)
 				  TMCRequestStatus = TMC_STATUS_SPLIT_NOT_IN_PROGRESS;				
 				else if (IsTMCBulkOUTReset)
 				  TMCRequestStatus = TMC_STATUS_PENDING;
 				else
-				  RequestInProgess = 0;			
+				  RequestInProgress = 0;			
 				
 				/* Write the request response bytes */
 				Endpoint_Write_Byte(TMCRequestStatus);
@@ -207,7 +207,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_ClearSETUP();
 				
 				/* Check that no split transaction is already in progress and the data transfer tag is valid */
-				if (RequestInProgess != 0)
+				if (RequestInProgress != 0)
 				{
 					TMCRequestStatus = TMC_STATUS_SPLIT_IN_PROGRESS;				
 				}
@@ -221,7 +221,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					IsTMCBulkINReset = true;
 					
 					/* Save the split request for later checking when a new request is received */
-					RequestInProgess = Req_InitiateAbortBulkIn;
+					RequestInProgress = Req_InitiateAbortBulkIn;
 				}
 				
 				/* Write the request response bytes */
@@ -239,12 +239,12 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_ClearSETUP();
 				
 				/* Check that an ABORT BULK IN transaction has been requested and that the request has completed */
-				if (RequestInProgess != Req_InitiateAbortBulkIn)
+				if (RequestInProgress != Req_InitiateAbortBulkIn)
 				  TMCRequestStatus = TMC_STATUS_SPLIT_NOT_IN_PROGRESS;
 				else if (IsTMCBulkINReset)
 				  TMCRequestStatus = TMC_STATUS_PENDING;
 				else
-				  RequestInProgess = 0;
+				  RequestInProgress = 0;
 				
 				/* Write the request response bytes */
 				Endpoint_Write_Byte(TMCRequestStatus);
@@ -262,7 +262,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_ClearSETUP();
 				
 				/* Check that no split transaction is already in progress */
-				if (RequestInProgess != 0)
+				if (RequestInProgress != 0)
 				{
 					Endpoint_Write_Byte(TMC_STATUS_SPLIT_IN_PROGRESS);				
 				}
@@ -273,7 +273,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					IsTMCBulkOUTReset = true;
 					
 					/* Save the split request for later checking when a new request is received */
-					RequestInProgess = Req_InitiateClear;
+					RequestInProgress = Req_InitiateClear;
 				}
 				
 				/* Write the request response byte */
@@ -290,12 +290,12 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_ClearSETUP();
 				
 				/* Check that a CLEAR transaction has been requested and that the request has completed */
-				if (RequestInProgess != Req_InitiateClear)
+				if (RequestInProgress != Req_InitiateClear)
 				  TMCRequestStatus = TMC_STATUS_SPLIT_NOT_IN_PROGRESS;				
 				else if (IsTMCBulkINReset || IsTMCBulkOUTReset)
 				  TMCRequestStatus = TMC_STATUS_PENDING;
 				else
-				  RequestInProgess = 0;
+				  RequestInProgress = 0;
 				
 				/* Write the request response bytes */
 				Endpoint_Write_Byte(TMCRequestStatus);

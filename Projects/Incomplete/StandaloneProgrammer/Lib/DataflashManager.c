@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  Functions to manage the physical dataflash media, including reading and writing of
+ *  Functions to manage the physical Dataflash media, including reading and writing of
  *  blocks of data. These functions are called by the SCSI layer when data must be stored
  *  or retrieved to/from the physical storage media. If a different media is used (such
  *  as a SD card or EEPROM), functions similar to these will need to be generated.
@@ -40,9 +40,9 @@
 #include "DataflashManager.h"
 
 #if defined(USB_CAN_BE_DEVICE)
-/** Writes blocks (OS blocks, not Dataflash pages) to the storage medium, the board dataflash IC(s), from
+/** Writes blocks (OS blocks, not Dataflash pages) to the storage medium, the board Dataflash IC(s), from
  *  the pre-selected data OUT endpoint. This routine reads in OS sized blocks from the endpoint and writes
- *  them to the dataflash in Dataflash page sized blocks.
+ *  them to the Dataflash in Dataflash page sized blocks.
  *
  *  \param[in] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state
  *  \param[in] BlockAddress  Data block starting address for the write sequence
@@ -61,13 +61,13 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 	Dataflash_SelectChipFromPage(CurrDFPage);
 
 #if (DATAFLASH_PAGE_SIZE > VIRTUAL_MEMORY_BLOCK_SIZE)
-	/* Copy selected dataflash's current page contents to the dataflash buffer */
+	/* Copy selected dataflash's current page contents to the Dataflash buffer */
 	Dataflash_SendByte(DF_CMD_MAINMEMTOBUFF1);
 	Dataflash_SendAddressBytes(CurrDFPage, 0);
 	Dataflash_WaitWhileBusy();
 #endif
 
-	/* Send the dataflash buffer write command */
+	/* Send the Dataflash buffer write command */
 	Dataflash_SendByte(DF_CMD_BUFF1WRITE);
 	Dataflash_SendAddressBytes(0, CurrDFPageByte);
 
@@ -79,7 +79,7 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 	{
 		uint8_t BytesInBlockDiv16 = 0;
 		
-		/* Write an endpoint packet sized data block to the dataflash */
+		/* Write an endpoint packet sized data block to the Dataflash */
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
 			/* Check if the endpoint is currently empty */
@@ -93,30 +93,30 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 				  return;
 			}
 
-			/* Check if end of dataflash page reached */
+			/* Check if end of Dataflash page reached */
 			if (CurrDFPageByteDiv16 == (DATAFLASH_PAGE_SIZE >> 4))
 			{
-				/* Write the dataflash buffer contents back to the dataflash page */
+				/* Write the Dataflash buffer contents back to the Dataflash page */
 				Dataflash_WaitWhileBusy();
 				Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2TOMAINMEMWITHERASE : DF_CMD_BUFF1TOMAINMEMWITHERASE);
 				Dataflash_SendAddressBytes(CurrDFPage, 0);
 
-				/* Reset the dataflash buffer counter, increment the page counter */
+				/* Reset the Dataflash buffer counter, increment the page counter */
 				CurrDFPageByteDiv16 = 0;
 				CurrDFPage++;
 
-				/* Once all the dataflash ICs have had their first buffers filled, switch buffers to maintain throughput */
+				/* Once all the Dataflash ICs have had their first buffers filled, switch buffers to maintain throughput */
 				if (Dataflash_GetSelectedChip() == DATAFLASH_CHIP_MASK(DATAFLASH_TOTALCHIPS))
 				  UsingSecondBuffer = !(UsingSecondBuffer);
 
-				/* Select the next dataflash chip based on the new dataflash page index */
+				/* Select the next Dataflash chip based on the new Dataflash page index */
 				Dataflash_SelectChipFromPage(CurrDFPage);
 
 #if (DATAFLASH_PAGE_SIZE > VIRTUAL_MEMORY_BLOCK_SIZE)
-				/* If less than one dataflash page remaining, copy over the existing page to preserve trailing data */
+				/* If less than one Dataflash page remaining, copy over the existing page to preserve trailing data */
 				if ((TotalBlocks * (VIRTUAL_MEMORY_BLOCK_SIZE >> 4)) < (DATAFLASH_PAGE_SIZE >> 4))
 				{
-					/* Copy selected dataflash's current page contents to the dataflash buffer */
+					/* Copy selected dataflash's current page contents to the Dataflash buffer */
 					Dataflash_WaitWhileBusy();
 					Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_MAINMEMTOBUFF2 : DF_CMD_MAINMEMTOBUFF1);
 					Dataflash_SendAddressBytes(CurrDFPage, 0);
@@ -124,12 +124,12 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 				}
 #endif
 
-				/* Send the dataflash buffer write command */
+				/* Send the Dataflash buffer write command */
 				Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2WRITE : DF_CMD_BUFF1WRITE);
 				Dataflash_SendAddressBytes(0, 0);				
 			}
 
-			/* Write one 16-byte chunk of data to the dataflash */
+			/* Write one 16-byte chunk of data to the Dataflash */
 			Dataflash_SendByte(Endpoint_Read_Byte());
 			Dataflash_SendByte(Endpoint_Read_Byte());
 			Dataflash_SendByte(Endpoint_Read_Byte());
@@ -147,7 +147,7 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 			Dataflash_SendByte(Endpoint_Read_Byte());
 			Dataflash_SendByte(Endpoint_Read_Byte());
 			
-			/* Increment the dataflash page 16 byte block counter */
+			/* Increment the Dataflash page 16 byte block counter */
 			CurrDFPageByteDiv16++;
 
 			/* Increment the block 16 byte block counter */
@@ -162,7 +162,7 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 		TotalBlocks--;
 	}
 
-	/* Write the dataflash buffer contents back to the dataflash page */
+	/* Write the Dataflash buffer contents back to the Dataflash page */
 	Dataflash_WaitWhileBusy();
 	Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2TOMAINMEMWITHERASE : DF_CMD_BUFF1TOMAINMEMWITHERASE);
 	Dataflash_SendAddressBytes(CurrDFPage, 0x00);
@@ -172,11 +172,11 @@ void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 	if (!(Endpoint_IsReadWriteAllowed()))
 	  Endpoint_ClearOUT();
 
-	/* Deselect all dataflash chips */
+	/* Deselect all Dataflash chips */
 	Dataflash_DeselectChip();
 }
 
-/** Reads blocks (OS blocks, not Dataflash pages) from the storage medium, the board dataflash IC(s), into
+/** Reads blocks (OS blocks, not Dataflash pages) from the storage medium, the board Dataflash IC(s), into
  *  the pre-selected data IN endpoint. This routine reads in Dataflash page sized blocks from the Dataflash
  *  and writes them in OS sized blocks to the endpoint.
  *
@@ -195,7 +195,7 @@ void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 	/* Select the correct starting Dataflash IC for the block requested */
 	Dataflash_SelectChipFromPage(CurrDFPage);
 
-	/* Send the dataflash main memory page read command */
+	/* Send the Dataflash main memory page read command */
 	Dataflash_SendByte(DF_CMD_MAINMEMPAGEREAD);
 	Dataflash_SendAddressBytes(CurrDFPage, CurrDFPageByte);
 	Dataflash_SendByte(0x00);
@@ -211,7 +211,7 @@ void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 	{
 		uint8_t BytesInBlockDiv16 = 0;
 		
-		/* Write an endpoint packet sized data block to the dataflash */
+		/* Write an endpoint packet sized data block to the Dataflash */
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
 			/* Check if the endpoint is currently full */
@@ -225,17 +225,17 @@ void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 				  return;
 			}
 			
-			/* Check if end of dataflash page reached */
+			/* Check if end of Dataflash page reached */
 			if (CurrDFPageByteDiv16 == (DATAFLASH_PAGE_SIZE >> 4))
 			{
-				/* Reset the dataflash buffer counter, increment the page counter */
+				/* Reset the Dataflash buffer counter, increment the page counter */
 				CurrDFPageByteDiv16 = 0;
 				CurrDFPage++;
 
-				/* Select the next dataflash chip based on the new dataflash page index */
+				/* Select the next Dataflash chip based on the new Dataflash page index */
 				Dataflash_SelectChipFromPage(CurrDFPage);
 				
-				/* Send the dataflash main memory page read command */
+				/* Send the Dataflash main memory page read command */
 				Dataflash_SendByte(DF_CMD_MAINMEMPAGEREAD);
 				Dataflash_SendAddressBytes(CurrDFPage, 0);
 				Dataflash_SendByte(0x00);
@@ -244,7 +244,7 @@ void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 				Dataflash_SendByte(0x00);
 			}	
 
-			/* Read one 16-byte chunk of data from the dataflash */
+			/* Read one 16-byte chunk of data from the Dataflash */
 			Endpoint_Write_Byte(Dataflash_ReceiveByte());
 			Endpoint_Write_Byte(Dataflash_ReceiveByte());
 			Endpoint_Write_Byte(Dataflash_ReceiveByte());
@@ -262,7 +262,7 @@ void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 			Endpoint_Write_Byte(Dataflash_ReceiveByte());
 			Endpoint_Write_Byte(Dataflash_ReceiveByte());
 			
-			/* Increment the dataflash page 16 byte block counter */
+			/* Increment the Dataflash page 16 byte block counter */
 			CurrDFPageByteDiv16++;
 			
 			/* Increment the block 16 byte block counter */
@@ -281,14 +281,14 @@ void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 	if (!(Endpoint_IsReadWriteAllowed()))
 	  Endpoint_ClearIN();
 
-	/* Deselect all dataflash chips */
+	/* Deselect all Dataflash chips */
 	Dataflash_DeselectChip();
 }
 
-/** Writes blocks (OS blocks, not Dataflash pages) to the storage medium, the board dataflash IC(s), from
+/** Writes blocks (OS blocks, not Dataflash pages) to the storage medium, the board Dataflash IC(s), from
  *  the a given RAM buffer. This routine reads in OS sized blocks from the buffer and writes them to the
- *  dataflash in Dataflash page sized blocks. This can be linked to FAT libraries to write files to the
- *  dataflash.
+ *  Dataflash in Dataflash page sized blocks. This can be linked to FAT libraries to write files to the
+ *  Dataflash.
  *
  *  \param[in] BlockAddress  Data block starting address for the write sequence
  *  \param[in] TotalBlocks   Number of blocks of data to write
@@ -307,13 +307,13 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress,
 	Dataflash_SelectChipFromPage(CurrDFPage);
 
 #if (DATAFLASH_PAGE_SIZE > VIRTUAL_MEMORY_BLOCK_SIZE)
-	/* Copy selected dataflash's current page contents to the dataflash buffer */
+	/* Copy selected dataflash's current page contents to the Dataflash buffer */
 	Dataflash_SendByte(DF_CMD_MAINMEMTOBUFF1);
 	Dataflash_SendAddressBytes(CurrDFPage, 0);
 	Dataflash_WaitWhileBusy();
 #endif
 
-	/* Send the dataflash buffer write command */
+	/* Send the Dataflash buffer write command */
 	Dataflash_SendByte(DF_CMD_BUFF1WRITE);
 	Dataflash_SendAddressBytes(0, CurrDFPageByte);
 	
@@ -321,33 +321,33 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress,
 	{
 		uint8_t BytesInBlockDiv16 = 0;
 		
-		/* Write an endpoint packet sized data block to the dataflash */
+		/* Write an endpoint packet sized data block to the Dataflash */
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
-			/* Check if end of dataflash page reached */
+			/* Check if end of Dataflash page reached */
 			if (CurrDFPageByteDiv16 == (DATAFLASH_PAGE_SIZE >> 4))
 			{
-				/* Write the dataflash buffer contents back to the dataflash page */
+				/* Write the Dataflash buffer contents back to the Dataflash page */
 				Dataflash_WaitWhileBusy();
 				Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2TOMAINMEMWITHERASE : DF_CMD_BUFF1TOMAINMEMWITHERASE);
 				Dataflash_SendAddressBytes(CurrDFPage, 0);
 
-				/* Reset the dataflash buffer counter, increment the page counter */
+				/* Reset the Dataflash buffer counter, increment the page counter */
 				CurrDFPageByteDiv16 = 0;
 				CurrDFPage++;
 
-				/* Once all the dataflash ICs have had their first buffers filled, switch buffers to maintain throughput */
+				/* Once all the Dataflash ICs have had their first buffers filled, switch buffers to maintain throughput */
 				if (Dataflash_GetSelectedChip() == DATAFLASH_CHIP_MASK(DATAFLASH_TOTALCHIPS))
 				  UsingSecondBuffer = !(UsingSecondBuffer);
 
-				/* Select the next dataflash chip based on the new dataflash page index */
+				/* Select the next Dataflash chip based on the new Dataflash page index */
 				Dataflash_SelectChipFromPage(CurrDFPage);
 
 #if (DATAFLASH_PAGE_SIZE > VIRTUAL_MEMORY_BLOCK_SIZE)
-				/* If less than one dataflash page remaining, copy over the existing page to preserve trailing data */
+				/* If less than one Dataflash page remaining, copy over the existing page to preserve trailing data */
 				if ((TotalBlocks * (VIRTUAL_MEMORY_BLOCK_SIZE >> 4)) < (DATAFLASH_PAGE_SIZE >> 4))
 				{
-					/* Copy selected dataflash's current page contents to the dataflash buffer */
+					/* Copy selected dataflash's current page contents to the Dataflash buffer */
 					Dataflash_WaitWhileBusy();
 					Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_MAINMEMTOBUFF2 : DF_CMD_MAINMEMTOBUFF1);
 					Dataflash_SendAddressBytes(CurrDFPage, 0);
@@ -355,17 +355,17 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress,
 				}
 #endif
 
-				/* Send the dataflash buffer write command */
+				/* Send the Dataflash buffer write command */
 				Dataflash_ToggleSelectedChipCS();
 				Dataflash_SendByte(DF_CMD_BUFF1WRITE);
 				Dataflash_SendAddressBytes(0, 0);
 			}
 			
-			/* Write one 16-byte chunk of data to the dataflash */
+			/* Write one 16-byte chunk of data to the Dataflash */
 			for (uint8_t ByteNum = 0; ByteNum < 16; ByteNum++)
 			  Dataflash_SendByte(*(BufferPtr++));
 			
-			/* Increment the dataflash page 16 byte block counter */
+			/* Increment the Dataflash page 16 byte block counter */
 			CurrDFPageByteDiv16++;
 
 			/* Increment the block 16 byte block counter */
@@ -376,20 +376,20 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress,
 		TotalBlocks--;
 	}
 
-	/* Write the dataflash buffer contents back to the dataflash page */
+	/* Write the Dataflash buffer contents back to the Dataflash page */
 	Dataflash_WaitWhileBusy();
 	Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2TOMAINMEMWITHERASE : DF_CMD_BUFF1TOMAINMEMWITHERASE);
 	Dataflash_SendAddressBytes(CurrDFPage, 0x00);
 	Dataflash_WaitWhileBusy();
 
-	/* Deselect all dataflash chips */
+	/* Deselect all Dataflash chips */
 	Dataflash_DeselectChip();
 }
 
-/** Reads blocks (OS blocks, not Dataflash pages) from the storage medium, the board dataflash IC(s), into
+/** Reads blocks (OS blocks, not Dataflash pages) from the storage medium, the board Dataflash IC(s), into
  *  the a preallocated RAM buffer. This routine reads in Dataflash page sized blocks from the Dataflash
  *  and writes them in OS sized blocks to the given buffer. This can be linked to FAT libraries to read
- *  the files stored on the dataflash.
+ *  the files stored on the Dataflash.
  *
  *  \param[in] BlockAddress  Data block starting address for the read sequence
  *  \param[in] TotalBlocks   Number of blocks of data to read
@@ -406,7 +406,7 @@ void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress,
 	/* Select the correct starting Dataflash IC for the block requested */
 	Dataflash_SelectChipFromPage(CurrDFPage);
 
-	/* Send the dataflash main memory page read command */
+	/* Send the Dataflash main memory page read command */
 	Dataflash_SendByte(DF_CMD_MAINMEMPAGEREAD);
 	Dataflash_SendAddressBytes(CurrDFPage, CurrDFPageByte);
 	Dataflash_SendByte(0x00);
@@ -418,20 +418,20 @@ void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress,
 	{
 		uint8_t BytesInBlockDiv16 = 0;
 		
-		/* Write an endpoint packet sized data block to the dataflash */
+		/* Write an endpoint packet sized data block to the Dataflash */
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
-			/* Check if end of dataflash page reached */
+			/* Check if end of Dataflash page reached */
 			if (CurrDFPageByteDiv16 == (DATAFLASH_PAGE_SIZE >> 4))
 			{
-				/* Reset the dataflash buffer counter, increment the page counter */
+				/* Reset the Dataflash buffer counter, increment the page counter */
 				CurrDFPageByteDiv16 = 0;
 				CurrDFPage++;
 
-				/* Select the next dataflash chip based on the new dataflash page index */
+				/* Select the next Dataflash chip based on the new Dataflash page index */
 				Dataflash_SelectChipFromPage(CurrDFPage);
 				
-				/* Send the dataflash main memory page read command */
+				/* Send the Dataflash main memory page read command */
 				Dataflash_SendByte(DF_CMD_MAINMEMPAGEREAD);
 				Dataflash_SendAddressBytes(CurrDFPage, 0);
 				Dataflash_SendByte(0x00);
@@ -440,11 +440,11 @@ void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress,
 				Dataflash_SendByte(0x00);
 			}	
 
-			/* Read one 16-byte chunk of data from the dataflash */
+			/* Read one 16-byte chunk of data from the Dataflash */
 			for (uint8_t ByteNum = 0; ByteNum < 16; ByteNum++)
 			  *(BufferPtr++) = Dataflash_ReceiveByte();
 			
-			/* Increment the dataflash page 16 byte block counter */
+			/* Increment the Dataflash page 16 byte block counter */
 			CurrDFPageByteDiv16++;
 			
 			/* Increment the block 16 byte block counter */
@@ -455,14 +455,14 @@ void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress,
 		TotalBlocks--;
 	}
 
-	/* Deselect all dataflash chips */
+	/* Deselect all Dataflash chips */
 	Dataflash_DeselectChip();
 }
 
-/** Disables the dataflash memory write protection bits on the board Dataflash ICs, if enabled. */
+/** Disables the Dataflash memory write protection bits on the board Dataflash ICs, if enabled. */
 void DataflashManager_ResetDataflashProtections(void)
 {
-	/* Select first dataflash chip, send the read status register command */
+	/* Select first Dataflash chip, send the read status register command */
 	Dataflash_SelectChip(DATAFLASH_CHIP1);
 	Dataflash_SendByte(DF_CMD_GETSTATUS);
 	
@@ -478,7 +478,7 @@ void DataflashManager_ResetDataflashProtections(void)
 		Dataflash_SendByte(DF_CMD_SECTORPROTECTIONOFF[3]);
 	}
 	
-	/* Select second dataflash chip (if present on selected board), send read status register command */
+	/* Select second Dataflash chip (if present on selected board), send read status register command */
 	#if (DATAFLASH_TOTALCHIPS == 2)
 	Dataflash_SelectChip(DATAFLASH_CHIP2);
 	Dataflash_SendByte(DF_CMD_GETSTATUS);
@@ -496,7 +496,7 @@ void DataflashManager_ResetDataflashProtections(void)
 	}
 	#endif
 	
-	/* Deselect current dataflash chip */
+	/* Deselect current Dataflash chip */
 	Dataflash_DeselectChip();
 }
 

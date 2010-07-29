@@ -47,7 +47,7 @@
  *  \section SSec_Description Project Description: 
  *
  *  This project serves a dual purpose. When loaded into the USB AVR on the XPLAIN board, it will act as either a USB to Serial
- *  converter for the XPLAIN's hardware USART (at a speed of 9600 baud), or an AVRStudio compaible PDI programmer for the XMEGA.
+ *  converter for the XPLAIN's hardware USART (at a speed of 9600 baud), or an AVRStudio compatible PDI programmer for the XMEGA.
  *  This project replaces the firmware preloaded onto the XPLAIN's onboard AT90USB1287 microcontroller.
  *
  *  When power to the board is applied, the TDI pin (pin 9) of the USB AVR's JTAG port is read. If the pin is left high, the device
@@ -70,7 +70,7 @@
  *
  *  \section SSec_Options Project Options
  *
- *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *  The following defines can be found in this project, which can control the project behavior when defined, or changed in value.
  *
  *  <table>
  *   <tr>

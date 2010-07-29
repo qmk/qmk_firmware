@@ -156,7 +156,7 @@ void EVENT_USB_Device_Connect(void)
 	/* PWM speaker timer initialization */
 	TCCR3A  = ((1 << WGM30) | (1 << COM3A1) | (1 << COM3A0)
 	        | (1 << COM3B1) | (1 << COM3B0)); // Set on match, clear on TOP
-	TCCR3B  = ((1 << WGM32) | (1 << CS30));  // Fast 8-Bit PWM, Fcpu speed
+	TCCR3B  = ((1 << WGM32) | (1 << CS30));  // Fast 8-Bit PWM, F_CPU speed
 #endif
 }
 

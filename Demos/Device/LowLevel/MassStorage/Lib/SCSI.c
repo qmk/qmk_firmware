@@ -245,7 +245,7 @@ static void SCSI_Command_Send_Diagnostic(void)
 }
 
 /** Command processing for an issued SCSI READ (10) or WRITE (10) command. This command reads in the block start address
- *  and total number of blocks to process, then calls the appropriate low-level dataflash routine to handle the actual
+ *  and total number of blocks to process, then calls the appropriate low-level Dataflash routine to handle the actual
  *  reading and writing of the data.
  *
  *  \param[in] IsDataRead  Indicates if the command is a READ (10) command or WRITE (10) command (DATA_READ or DATA_WRITE)

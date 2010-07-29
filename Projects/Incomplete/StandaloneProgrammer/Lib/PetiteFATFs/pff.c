@@ -3,7 +3,7 @@
 /-----------------------------------------------------------------------------/
 / Petit FatFs module is an open source software to implement FAT file system to
 / small embedded systems. This is a free software and is opened for education,
-/ research and commercial developments under license policy of following trems.
+/ research and commercial developments under license policy of following terms.
 /
 /  Copyright (C) 2010, ChaN, all right reserved.
 /
@@ -106,7 +106,7 @@ CLUST get_fat (	/* 1:IO error, Else:Cluster status */
 #endif
 	}
 
-	return 1;	/* An error occured at the disk I/O layer */
+	return 1;	/* An error occurred at the disk I/O layer */
 }
 
 
@@ -167,7 +167,7 @@ FRESULT dir_rewind (
 /*-----------------------------------------------------------------------*/
 
 static
-FRESULT dir_next (	/* FR_OK:Succeeded, FR_NO_FILE:End of table, FR_DENIED:EOT and could not streach */
+FRESULT dir_next (	/* FR_OK:Succeeded, FR_NO_FILE:End of table, FR_DENIED:EOT and could not stretch */
 	DIR *dj			/* Pointer to directory object */
 )
 {
@@ -310,7 +310,7 @@ FRESULT create_name (
 		sfn[i++] = c;
 	}
 	if (!i) return FR_INVALID_NAME;		/* Reject null string */
-	*path = &p[si];						/* Rerurn pointer to the next segment */
+	*path = &p[si];						/* Rerun pointer to the next segment */
 
 	sfn[11] = (c < ' ') ? 1 : 0;		/* Set last segment flag if end of path */
 
@@ -448,7 +448,7 @@ BYTE check_fs (	/* 0:The FAT boot record, 1:Valid boot record but not an FAT, 2:
 
 
 /*-----------------------------------------------------------------------*/
-/* Mount/Unmount a Locical Drive                                         */
+/* Mount/Unmount a Logical Drive                                         */
 /*-----------------------------------------------------------------------*/
 
 FRESULT pf_mount (
@@ -480,7 +480,7 @@ FRESULT pf_mount (
 		}
 	}
 	if (fmt == 3) return FR_DISK_ERR;
-	if (fmt) return FR_NO_FILESYSTEM;	/* No valid FAT patition is found */
+	if (fmt) return FR_NO_FILESYSTEM;	/* No valid FAT partition is found */
 
 	/* Initialize the file system object */
 	if (disk_readp(buf, bsect, 13, sizeof(buf))) return FR_DISK_ERR;
@@ -491,7 +491,7 @@ FRESULT pf_mount (
 	fsize *= buf[BPB_NumFATs-13];						/* Number of sectors in FAT area */
 	fs->fatbase = bsect + LD_WORD(buf+BPB_RsvdSecCnt-13); /* FAT start sector (lba) */
 	fs->csize = buf[BPB_SecPerClus-13];					/* Number of sectors per cluster */
-	fs->n_rootdir = LD_WORD(buf+BPB_RootEntCnt-13);		/* Nmuber of root directory entries */
+	fs->n_rootdir = LD_WORD(buf+BPB_RootEntCnt-13);		/* Number of root directory entries */
 	tsect = LD_WORD(buf+BPB_TotSec16-13);				/* Number of sectors on the file system */
 	if (!tsect) tsect = LD_DWORD(buf+BPB_TotSec32-13);
 	mclst = (tsect						/* Last cluster# + 1 */
@@ -688,7 +688,7 @@ FRESULT pf_lseek (
 
 #if _USE_DIR
 /*-----------------------------------------------------------------------*/
-/* Create a Directroy Object                                             */
+/* Create a Directory Object                                             */
 /*-----------------------------------------------------------------------*/
 
 FRESULT pf_opendir (
@@ -733,7 +733,7 @@ FRESULT pf_opendir (
 
 
 /*-----------------------------------------------------------------------*/
-/* Read Directory Entry in Sequense                                      */
+/* Read Directory Entry in Sequence                                      */
 /*-----------------------------------------------------------------------*/
 
 FRESULT pf_readdir (

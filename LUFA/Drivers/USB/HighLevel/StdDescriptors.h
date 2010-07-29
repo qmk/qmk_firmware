@@ -99,7 +99,7 @@
 				#define USE_INTERNAL_SERIAL           NO_DESCRIPTOR
 			#endif
 			
-			/** Macro to calculate the power value for the configuration descriptor, from a given number of milliamps. */
+			/** Macro to calculate the power value for the configuration descriptor, from a given number of milliamperes. */
 			#define USB_CONFIG_POWER_MA(mA)           ((mA) >> 1)
 
 			/** Macro to calculate the Unicode length of a string with a given number of Unicode characters.

@@ -263,7 +263,7 @@ uint16_t RFCOMM_GetVariableFieldValue(const uint8_t** BufferPos)
 		  (*BufferPos)++;
 	}
 
-	/* Bitshift the bytes that comprise the variable length field so that they form a single integer */
+	/* Bit-shift the bytes that comprise the variable length field so that they form a single integer */
 	return (((uint16_t)SecondOctet << 7) | FirstOctet >> 1);
 }
 

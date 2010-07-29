@@ -55,7 +55,7 @@
  *
  *  Note that this design currently has the following limitations:
  *    - No reversed/shorted target connector detection and notification
- *    - A seperate header is required for each of the ISP, PDI and TPI programming protocols that the user wishes to use
+ *    - A separate header is required for each of the ISP, PDI and TPI programming protocols that the user wishes to use
  *
  *  On AVR models with an ADC converter, AVCC should be tied to 5V (e.g. VBUS) and the VTARGET_ADC_CHANNEL token should be
  *  set to an appropriate ADC channel number in the project makefile for VTARGET detection to operate correctly. On models
@@ -203,7 +203,7 @@
  *
  *  \section SSec_Options Project Options
  *
- *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *  The following defines can be found in this project, which can control the project behavior when defined, or changed in value.
  *
  *  <table>
  *   <tr>

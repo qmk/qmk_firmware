@@ -113,7 +113,7 @@
 #define _FS_RPATH	0		/* 0:Disable or 1:Enable */
 /* When _FS_RPATH is set to 1, relative path feature is enabled and f_chdir,
 /  f_chdrive function are available.
-/  Note that output of the f_readdir fnction is affected by this option. */
+/  Note that output of the f_readdir function is affected by this option. */
 
 
 
@@ -129,7 +129,7 @@
 /* Maximum sector size to be handled.
 /  Always set 512 for memory card and hard disk but a larger value may be
 /  required for floppy disk (512/1024) and optical disk (512/2048).
-/  When _MAX_SS is larger than 512, GET_SECTOR_SIZE command must be implememted
+/  When _MAX_SS is larger than 512, GET_SECTOR_SIZE command must be implemented
 /  to the disk_ioctl function. */
 
 
@@ -172,7 +172,7 @@
 
 
 #define	_FS_SHARE	0	/* 0:Disable or >=1:Enable */
-/* To enable file shareing feature, set _FS_SHARE to >= 1 and also user
+/* To enable file sharing feature, set _FS_SHARE to >= 1 and also user
    provided memory handlers, ff_memalloc and ff_memfree function must be
    added to the project. The value defines number of files can be opened
    per volume. */

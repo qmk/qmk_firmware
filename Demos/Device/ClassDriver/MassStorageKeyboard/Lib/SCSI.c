@@ -292,7 +292,7 @@ static bool SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* const MSInte
 }
 
 /** Command processing for an issued SCSI READ (10) or WRITE (10) command. This command reads in the block start address
- *  and total number of blocks to process, then calls the appropriate low-level dataflash routine to handle the actual
+ *  and total number of blocks to process, then calls the appropriate low-level Dataflash routine to handle the actual
  *  reading and writing of the data.
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with

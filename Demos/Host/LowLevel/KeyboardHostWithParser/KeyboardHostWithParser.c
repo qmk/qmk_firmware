@@ -254,13 +254,13 @@ void ProcessKeyboardReport(uint8_t* KeyboardReport)
 		/* Create a temporary item pointer to the next report item */
 		HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
 
-		/* Check if the current report item is a keyboard scancode */
+		/* Check if the current report item is a keyboard scan-code */
 		if ((ReportItem->Attributes.Usage.Page      == USAGE_PAGE_KEYBOARD) &&
 			(ReportItem->Attributes.BitSize         == 8)                   &&
 			(ReportItem->Attributes.Logical.Maximum > 1)                    &&
 			(ReportItem->ItemType                   == REPORT_ITEM_TYPE_In))
 		{
-			/* Retrieve the keyboard scancode from the report data retrieved from the device */
+			/* Retrieve the keyboard scan-code from the report data retrieved from the device */
 			bool FoundData = USB_GetHIDReportItemInfo(KeyboardReport, ReportItem);
 			
 			/* For multi-report devices - if the requested data was not in the issued report, continue */
@@ -270,7 +270,7 @@ void ProcessKeyboardReport(uint8_t* KeyboardReport)
 			/* Key code is an unsigned char in length, cast to the appropriate type */
 			uint8_t KeyCode = (uint8_t)ReportItem->Value;
 
-			/* If scancode is non-zero, a key is being pressed */
+			/* If scan-code is non-zero, a key is being pressed */
 			if (KeyCode)
 			{
 				/* Toggle status LED to indicate keypress */
@@ -278,7 +278,7 @@ void ProcessKeyboardReport(uint8_t* KeyboardReport)
 
 				char PressedKey = 0;
 
-				/* Convert scancode to printable character if alphanumeric */
+				/* Convert scan-code to printable character if alphanumeric */
 				if ((KeyCode >= 0x04) && (KeyCode <= 0x1D))
 				  PressedKey = (KeyCode - 0x04) + 'A';
 				else if ((KeyCode >= 0x1E) && (KeyCode <= 0x27))
@@ -293,7 +293,7 @@ void ProcessKeyboardReport(uint8_t* KeyboardReport)
 				  putchar(PressedKey);
 			}
 			
-			/* Once a scancode is found, stop scanning through the report items */
+			/* Once a scan-code is found, stop scanning through the report items */
 			break;
 		}
 	}

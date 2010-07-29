@@ -58,7 +58,7 @@
  *
  *  \section SSec_Options Project Options
  *
- *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *  The following defines can be found in this project, which can control the project behavior when defined, or changed in value.
  *
  *  <table>
  *   <tr>
@@ -94,7 +94,7 @@
  *   <tr>
  *    <td>PING_PONG_LED_PULSE_MS</td>
  *    <td>Makefile LUFA_OPTS</td>
- *    <td>Pulse length in milliseconds for the enumeration LED ping-poning between toggles.</td>
+ *    <td>Pulse length in milliseconds for the enumeration LED ping-ponging between toggles.</td>
  *   </tr>
  *   <tr>
  *    <td>RECEIVE_BUFFER_FLUSH_MS</td>

@@ -31,7 +31,7 @@
 /** \file
  *
  *  Ethernet frame packet handling routines. This protocol handles the processing of raw Ethernet
- *  frames sent and received, deferring the processing of subpacket protocols to the appropriate
+ *  frames sent and received, deferring the processing of sub-packet protocols to the appropriate
  *  protocol handlers, such as DHCP or ARP.
  */
  

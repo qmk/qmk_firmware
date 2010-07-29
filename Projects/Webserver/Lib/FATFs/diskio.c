@@ -8,10 +8,10 @@
 #include "diskio.h"
 
 /*-----------------------------------------------------------------------*/
-/* Inidialize a Drive                                                    */
+/* Initialize a Drive                                                    */
 
 DSTATUS disk_initialize (
-	BYTE drv				/* Physical drive nmuber (0..) */
+	BYTE drv				/* Physical drive number (0..) */
 )
 {
 	return FR_OK;
@@ -23,7 +23,7 @@ DSTATUS disk_initialize (
 /* Return Disk Status                                                    */
 
 DSTATUS disk_status (
-	BYTE drv		/* Physical drive nmuber (0..) */
+	BYTE drv		/* Physical drive number (0..) */
 )
 {
 	return FR_OK;
@@ -35,7 +35,7 @@ DSTATUS disk_status (
 /* Read Sector(s)                                                        */
 
 DRESULT disk_read (
-	BYTE drv,		/* Physical drive nmuber (0..) */
+	BYTE drv,		/* Physical drive number (0..) */
 	BYTE *buff,		/* Data buffer to store read data */
 	DWORD sector,	/* Sector address (LBA) */
 	BYTE count		/* Number of sectors to read (1..255) */
@@ -52,7 +52,7 @@ DRESULT disk_read (
 
 #if _READONLY == 0
 DRESULT disk_write (
-	BYTE drv,			/* Physical drive nmuber (0..) */
+	BYTE drv,			/* Physical drive number (0..) */
 	const BYTE *buff,	/* Data to be written */
 	DWORD sector,		/* Sector address (LBA) */
 	BYTE count			/* Number of sectors to write (1..255) */

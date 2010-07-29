@@ -36,8 +36,8 @@
   *    minimal loads and stores rather than complicated shifts
   *  - The software UART in the XPLAINBridge has been largely altered to try to improve upon its performance and reliability
   *  - The USBtoSerial and Benito projects now flushes received data via a flush timer, so that several bytes can be transmitted at once
-  *  - Removed the automated checking of event names in the demo, project and bootloader makefiles due to inconsistancies between the
-  *    behaviour of the command line tools used to perform the check on each platform
+  *  - Removed the automated checking of event names in the demo, project and bootloader makefiles due to inconsistencies between the
+  *    behavior of the command line tools used to perform the check on each platform
   *  - Internal USB driver source files renamed and moved to ease future possible architecture ports
   *  - All internal pseudo-function macros have been converted to true inline functions for type-safety and readability
   *  - Changed LED indicator masks for the AVRISP-MKII project, so that there are defined roles for each LED
@@ -425,7 +425,7 @@
   *    internal control
   *  - Interrupts are no longer disabled during the processing of Control Requests on the default endpoint while in device mode
   *  - AudioOutput demos now always output to board LEDs, regardless of output mode (removed AUDIO_OUT_LEDS project option)
-  *  - Removed SINGLE_DEVICE_CONFIGURATION compile time option in favour of the new FIXED_NUM_CONFIGURATIONS option so that the exact number
+  *  - Removed SINGLE_DEVICE_CONFIGURATION compile time option in favor of the new FIXED_NUM_CONFIGURATIONS option so that the exact number
   *    of device configurations can be defined statically
   *  - Removed VBUS events, as they are already exposed to the user application via the regular device connection and disconnection events
   *  - Renamed and altered existing events to properly separate out Host and Device mode events
@@ -513,7 +513,7 @@
   *    pipes can be used with the function
   *  - The USB Host management task now saves and restores the currently selected pipe before and after the task completes
   *  - Fixed GenericHIDHost demo report write routine incorrect for control type requests (thanks to Andrei Krainev)
-  *  - Removed Endpoint_ClearCurrentBank() and Pipe_ClearCurrentBank() in favour of new Endpoint_ClearIN(), Endpoint_ClearOUT(),
+  *  - Removed Endpoint_ClearCurrentBank() and Pipe_ClearCurrentBank() in favor of new Endpoint_ClearIN(), Endpoint_ClearOUT(),
   *    Pipe_ClearIN() and Pipe_ClearOUT() macros (done to allow for the detection of packets of zero length)
   *  - Renamed *_ReadWriteAllowed() macros to *_IsReadWriteAllowed() to remain consistent with the rest of the LUFA API
   *  - Endpoint_IsSetupReceived() macro has been renamed to Endpoint_IsSETUPReceived(), Endpoint_ClearSetupReceived() macro has been
@@ -540,7 +540,7 @@
   *  - Changed over all deprecated GCC structure tag initializers to the standardized C99 format (thanks to Mike Alexander)
   *  - USB_HostRequest renamed to USB_ControlRequest, entire control request header is now read into USB_ControlRequest in Device mode
   *    rather than having the library pass only partially read header data to the application
-  *  - The USB_UnhandledControlPacket event has had its parameters removed, in favour of accessing the new USB_ControlRequest structure
+  *  - The USB_UnhandledControlPacket event has had its parameters removed, in favor of accessing the new USB_ControlRequest structure
   *  - The Endpoint control stream functions now correctly send a ZLP to the host when less data than requested is sent
   *  - Fixed USB_RemoteWakeupEnabled flag never being set (the REMOTE WAKEUP Set Feature request was not being handled)
   *  - Renamed the FEATURELESS_CONTROL_ONLY_DEVICE compile-time token to CONTROL_ONLY_DEVICE
@@ -747,7 +747,7 @@
   *
   *  - Fixed SwapEndian_32() function in Common.h so that it now works correctly (wrong parameter types)
   *  - Updated RNDIS demo - notification endpoint is no longer blocking so that it works with faulty Linux RNDIS
-  *    implementations (where the notification endpoint is ignored in favour of polling the control endpoint)
+  *    implementations (where the notification endpoint is ignored in favor of polling the control endpoint)
   *  - Fixed incorrect Vendor Description string return size in RNDIS demo for the OID_GEN_VENDOR_DESCRIPTION OID token
   *  - Added very basic TCP/IP stack and HTTP/TELNET servers to RNDIS demo
   *  - Fixed DFU bootloader exit causing programming software to complain about failed writes
@@ -880,7 +880,7 @@
   *  - Separated out SPI code into new SPI driver in AT90USBXXX driver directory
   *  - Bootloader now returns correct PID for the selected USB AVR model, not just the AT90USB128X PID
   *  - Added support for the RZUSBSTICK board
-  *  - Bicolour driver removed in favour of generic LEDs driver
+  *  - Bicolour driver removed in favor of generic LEDs driver
   *  - Added support for the ATMEGA32U4 AVR
   *  - Added MANUAL_PLL_CONTROL compile time option to prevent the USB library from manipulating the PLL
   *

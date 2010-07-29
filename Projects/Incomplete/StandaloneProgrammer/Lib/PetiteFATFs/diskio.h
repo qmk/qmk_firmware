@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------
-/  PFF - Low level disk interface modlue include file    (C)ChaN, 2010
+/  PFF - Low level disk interface module include file    (C)ChaN, 2010
 /-----------------------------------------------------------------------*/
 
 #ifndef _DISKIO
@@ -15,7 +15,7 @@ typedef BYTE	DSTATUS;
 typedef enum {
 	RES_OK = 0,		/* 0: Function succeeded */
 	RES_ERROR,		/* 1: Disk error */
-	RES_STRERR,		/* 2: Seream error */
+	RES_STRERR,		/* 2: Stream error */
 	RES_NOTRDY,		/* 3: Not ready */
 	RES_PARERR		/* 4: Invalid parameter */
 } DRESULT;

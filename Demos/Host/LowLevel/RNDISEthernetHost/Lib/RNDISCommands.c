@@ -184,7 +184,7 @@ uint8_t RNDIS_SetRNDISProperty(const uint32_t Oid,
 	struct
 	{
 		RNDIS_Set_Message_t SetMessage;
-		uint8_t             ContigiousBuffer[Length];
+		uint8_t             ContiguousBuffer[Length];
 	} SetMessageData;
 	
 	RNDIS_Set_Complete_t SetMessageResponse;
@@ -198,7 +198,7 @@ uint8_t RNDIS_SetRNDISProperty(const uint32_t Oid,
 	SetMessageData.SetMessage.InformationBufferOffset = (sizeof(RNDIS_Set_Message_t) - sizeof(RNDIS_Message_Header_t));
 	SetMessageData.SetMessage.DeviceVcHandle = 0;
 	
-	memcpy(&SetMessageData.ContigiousBuffer, Buffer, Length);
+	memcpy(&SetMessageData.ContiguousBuffer, Buffer, Length);
 
 	if ((ErrorCode = RNDIS_SendEncapsulatedCommand(&SetMessageData,
 	                                               SetMessageData.SetMessage.MessageLength)) != HOST_SENDCONTROL_Successful)
@@ -238,7 +238,7 @@ uint8_t RNDIS_QueryRNDISProperty(const uint32_t Oid,
 	struct
 	{
 		RNDIS_Query_Complete_t QueryMessageResponse;
-		uint8_t                ContigiousBuffer[MaxLength];
+		uint8_t                ContiguousBuffer[MaxLength];
 	} QueryMessageResponseData;
 
 	QueryMessage.MessageType    = REMOTE_NDIS_QUERY_MSG;
@@ -265,7 +265,7 @@ uint8_t RNDIS_QueryRNDISProperty(const uint32_t Oid,
 	if (QueryMessageResponseData.QueryMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
 	  return RNDIS_COMMAND_FAILED;
 
-	memcpy(Buffer, &QueryMessageResponseData.ContigiousBuffer, MaxLength);
+	memcpy(Buffer, &QueryMessageResponseData.ContiguousBuffer, MaxLength);
 
 	return HOST_SENDCONTROL_Successful;
 }

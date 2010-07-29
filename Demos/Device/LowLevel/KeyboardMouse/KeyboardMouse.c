@@ -197,7 +197,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 /** Processes a given Keyboard LED report from the host, and sets the board LEDs to match. Since the Keyboard
  *  LED report can be sent through either the control endpoint (via a HID SetReport request) or the HID OUT
  *  endpoint, the processing code is placed here to avoid duplicating it and potentially having different
- *  behaviour depending on the method used to sent it.
+ *  behavior depending on the method used to sent it.
  */
 void Keyboard_ProcessLEDReport(const uint8_t LEDStatus)
 {

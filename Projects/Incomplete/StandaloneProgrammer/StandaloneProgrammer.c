@@ -40,7 +40,7 @@
 /** Standard file stream for the currently open file on the disk. */
 FILE DiskStream = FDEV_SETUP_STREAM(NULL, Disk_getchar, _FDEV_SETUP_READ);
 
-/** Petite FAT Fs structure to hold the internal state of the FAT driver for the dataflash contents. */
+/** Petite FAT Fs structure to hold the internal state of the FAT driver for the Dataflash contents. */
 FATFS DiskFATState;
 
 /** Stream character fetching routine for the FAT driver so that characters from the currently open file can be
@@ -68,7 +68,7 @@ void EVENT_USB_UIDChange(void)
 #endif
 
 /** Task to determine if the user is wishes to start the programming sequence, and if so executes the 
- *  required functions to program the attached target (if any) with the files loaded to the dataflash.
+ *  required functions to program the attached target (if any) with the files loaded to the Dataflash.
  */
 void Programmer_Task(void)
 {

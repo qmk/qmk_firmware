@@ -48,7 +48,7 @@
  *  \section SSec_Description Project Description: 
  *
  *  Simple HTTP webserver project. This project combines the LUFA library with the uIP TCP/IP full network stack and FatFS
- *  library to create a RNDIS host capable of serving out HTTP webpages to multiple hosts simultaneously. This project
+ *  library to create a RNDIS host capable of serving out HTTP web pages to multiple hosts simultaneously. This project
  *  demonstrates how the libraries can be combined into a robust network enabled application, with the addition of a RNDIS
  *  network device.
  *
@@ -63,13 +63,13 @@
  *  device being used for this project to work if the DHCP client is disabled (see \ref SSec_Options) - otherwise, the device
  *  will query the network's DHCP server for these parameters automatically.
  *
- *  When properly configured, the webserver can be accessed from any HTTP webrowser by typing in the device's statically or
+ *  When properly configured, the webserver can be accessed from any HTTP web browser by typing in the device's statically or
  *  dynamically allocated IP address. The TELNET client can be accessed via any network socket app by connecting to the device
  *  on port 23 on the device's statically or dynamically allocated IP address.
  *
  *  \section SSec_Options Project Options
  *
- *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *  The following defines can be found in this project, which can control the project behavior when defined, or changed in value.
  *
  *  <table>
  *   <tr>
@@ -107,7 +107,7 @@
  *   <tr>
  *    <td>MAX_URI_LENGTH</td>
  *    <td>Makefile LUFA_OPTS</td>
- *    <td>Maximum length of a URI for the Webserver. This is the maximum file path, including subdirectories and seperators.</td>
+ *    <td>Maximum length of a URI for the Webserver. This is the maximum file path, including subdirectories and separators.</td>
  *   </tr>
  *  </table>
  */

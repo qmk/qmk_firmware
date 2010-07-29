@@ -26,7 +26,7 @@ quick and easy creation of complex USB devices and hosts.
 To get started, you will need to install the "Doxygen" documentation
 generation tool. If you use Linux, this can be installed via the "doxygen"
 package in your chosen package management tool - under Ubuntu, this can be
-acheived by running the following command in the terminal:
+achieved by running the following command in the terminal:
 
    sudo apt-get install doxygen
 	

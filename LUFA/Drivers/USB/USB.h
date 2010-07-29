@@ -173,8 +173,8 @@
  *
  *  To initialize the Class driver instance, the driver's <i><b>{Class Name}</b>_Device_ConfigureEndpoints()</i> function
  *  should be called in response to the \ref EVENT_USB_Device_ConfigurationChanged() event. This function will return a
- *  boolean value if the driver sucessfully initialized the instance. Like all the class driver functions, this function
- *  takes in the address of the specific instance you wish to initialize - in this manner, multiple seperate instances of
+ *  boolean value if the driver successfully initialized the instance. Like all the class driver functions, this function
+ *  takes in the address of the specific instance you wish to initialize - in this manner, multiple separate instances of
  *  the same class type can be initialized like thus:
  *
  *  \code
@@ -191,7 +191,7 @@
  *  <i><b>{Class Name}</b>_Device_USBTask()</i> function in the main program loop. The exact implementation of this
  *  function varies between class drivers, and can be used for any internal class driver purpose to maintain each
  *  instance. Again, this function uses the address of the instance to operate on, and thus needs to be called for each
- *  seperate instance, just like the main USB maintenance routine \ref USB_USBTask():
+ *  separate instance, just like the main USB maintenance routine \ref USB_USBTask():
  *
  *  \code
  *  int main(void)
@@ -271,9 +271,9 @@
  *  To initialize the Class driver instance, the driver's <i><b>{Class Name}</b>_Host_ConfigurePipes()</i> function
  *  should be called in response to the host state machine entering the \ref HOST_STATE_Addressed state. This function
  *  will return an error code from the class driver's <i><b>{Class Name}</b>_EnumerationFailure_ErrorCodes_t</i> enum
- *  to indicate if the driver sucessfully initialized the instance and bound it to an interface in the attached device.
+ *  to indicate if the driver successfully initialized the instance and bound it to an interface in the attached device.
  *  Like all the class driver functions, this function takes in the address of the specific instance you wish to initialize - 
- *  in this manner, multiple seperate instances of the same class type can be initialized. A fragment of a Class Driver
+ *  in this manner, multiple separate instances of the same class type can be initialized. A fragment of a Class Driver
  *  based Host mode application may look like the following:
  *
  *  \code
@@ -315,7 +315,7 @@
  *  <i><b>{Class Name}</b>_Host_USBTask()</i> function in the main program loop. The exact implementation of this
  *  function varies between class drivers, and can be used for any internal class driver purpose to maintain each
  *  instance. Again, this function uses the address of the instance to operate on, and thus needs to be called for each
- *  seperate instance, just like the main USB maintenance routine \ref USB_USBTask():
+ *  separate instance, just like the main USB maintenance routine \ref USB_USBTask():
  *
  *  \code
  *  int main(void)

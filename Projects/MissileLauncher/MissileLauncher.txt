@@ -47,7 +47,7 @@
  *
  *  \section SSec_Options Project Options
  *
- *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *  The following defines can be found in this project, which can control the project behavior when defined, or changed in value.
  *
  *  <table>
  *   <tr>

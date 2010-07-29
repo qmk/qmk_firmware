@@ -53,7 +53,7 @@
 		#endif
 
 	/* Defines: */
-		/** Total number of bytes of the storage medium, comprised of one or more dataflash ICs. */
+		/** Total number of bytes of the storage medium, comprised of one or more Dataflash ICs. */
 		#define VIRTUAL_MEMORY_BYTES                ((uint32_t)DATAFLASH_PAGES * DATAFLASH_PAGE_SIZE * DATAFLASH_TOTALCHIPS)
 
 		/** Block size of the device. This is kept at 512 to remain compatible with the OS despite the underlying

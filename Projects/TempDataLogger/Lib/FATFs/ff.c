@@ -1593,7 +1593,7 @@ FRESULT follow_path (	/* FR_OK(0): successful, !=0: error code */
 			res = dir_find(dj);				/* Find it */
 			ns = *(dj->fn+NS);
 			if (res != FR_OK) {				/* Failed to find the object */
-				if (res != FR_NO_FILE) break;	/* Abort if any hard error occured */
+				if (res != FR_NO_FILE) break;	/* Abort if any hard error occurred */
 				/* Object not found */
 				if (_FS_RPATH && (ns & NS_DOT)) {	/* If dot entry is not exit */
 					dj->sclust = 0; dj->dir = 0;	/* It is the root dir */
@@ -1710,7 +1710,7 @@ FRESULT chk_mounted (	/* FR_OK(0): successful, !=0: any error occurred */
 	if (chk_wp && (stat & STA_PROTECT))	/* Check disk write protection if needed */
 		return FR_WRITE_PROTECTED;
 #endif
-	/* Search FAT partition on the drive (Supports only generic partitionings, FDISK and SFD) */
+	/* Search FAT partition on the drive (Supports only generic partitions, FDISK and SFD) */
 	fmt = check_fs(fs, bsect = 0);		/* Check sector 0 if it is a VBR */
 	if (fmt == 1) {						/* Not an FAT-VBR, the disk may be partitioned */
 		/* Check the partition listed in top of the partition table */
@@ -2569,7 +2569,7 @@ FRESULT f_opendir (
 
 
 /*-----------------------------------------------------------------------*/
-/* Read Directory Entry in Sequense                                      */
+/* Read Directory Entry in Sequence                                      */
 /*-----------------------------------------------------------------------*/
 
 FRESULT f_readdir (
@@ -2943,7 +2943,7 @@ FRESULT f_chmod (
 
 
 /*-----------------------------------------------------------------------*/
-/* Change Timestamp                                                      */
+/* Change Time-stamp                                                      */
 /*-----------------------------------------------------------------------*/
 
 FRESULT f_utime (
@@ -3361,18 +3361,18 @@ TCHAR* f_gets (
 #if _LFN_UNICODE					/* Read a character in UTF-8 encoding */
 		if (c >= 0x80) {
 			if (c < 0xC0) continue;	/* Skip stray trailer */
-			if (c < 0xE0) {			/* Two-byte sequense */
+			if (c < 0xE0) {			/* Two-byte sequence */
 				f_read(fil, s, 1, &rc);
 				if (rc != 1) break;
 				c = ((c & 0x1F) << 6) | (s[0] & 0x3F);
 				if (c < 0x80) c = '?';
 			} else {
-				if (c < 0xF0) {		/* Three-byte sequense */
+				if (c < 0xF0) {		/* Three-byte sequence */
 					f_read(fil, s, 2, &rc);
 					if (rc != 2) break;
 					c = (c << 12) | ((s[0] & 0x3F) << 6) | (s[1] & 0x3F);
 					if (c < 0x800) c = '?';
-				} else {			/* Reject four-byte sequense */
+				} else {			/* Reject four-byte sequence */
 					c = '?';
 				}
 			}
@@ -3510,7 +3510,7 @@ int f_printf (
 		case 'D' :					/* Signed decimal */
 		case 'U' :					/* Unsigned decimal */
 			r = 10; break;
-		case 'X' :					/* Hexdecimal */
+		case 'X' :					/* Hexadecimal */
 			r = 16; break;
 		default:					/* Unknown */
 			cc = f_putc(c, fil); continue;

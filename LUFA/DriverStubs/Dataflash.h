@@ -53,7 +53,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define DATAFLASH_CHIPCS_MASK                // TODO: Replace this with a mask of all the /CS pins of all dataflashes
+			#define DATAFLASH_CHIPCS_MASK                // TODO: Replace this with a mask of all the /CS pins of all Dataflashes
 			#define DATAFLASH_CHIPCS_DDR                 // TODO: Replace with the DDR register name for the board's Dataflash ICs
 			#define DATAFLASH_CHIPCS_PORT                // TODO: Replace with the PORT register name for the board's Dataflash ICs
 	#endif
@@ -61,7 +61,7 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Constant indicating the total number of dataflash ICs mounted on the selected board. */
-			#define DATAFLASH_TOTALCHIPS                 // TODO: Replace with the number of dataflashes on the board, max 2
+			#define DATAFLASH_TOTALCHIPS                 // TODO: Replace with the number of Dataflashes on the board, max 2
 
 			/** Mask for no dataflash chip selected. */
 			#define DATAFLASH_NO_CHIP                    DATAFLASH_CHIPCS_MASK

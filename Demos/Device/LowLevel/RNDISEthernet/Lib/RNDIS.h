@@ -131,7 +131,7 @@
 			uint32_t AFListSize;
 		} RNDIS_Initialize_Complete_t;
 		
-		/** Type define for a RNDIS Keepalive command message. */
+		/** Type define for a RNDIS Keep-alive command message. */
 		typedef struct
 		{
 			uint32_t MessageType;
@@ -139,7 +139,7 @@
 			uint32_t RequestId;
 		} RNDIS_KeepAlive_Message_t;
 
-		/** Type define for a RNDIS Keepalive complete message. */
+		/** Type define for a RNDIS Keep-alive complete message. */
 		typedef struct
 		{
 			uint32_t MessageType;

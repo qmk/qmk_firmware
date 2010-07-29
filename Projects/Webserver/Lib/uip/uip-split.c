@@ -89,7 +89,7 @@ uip_split_output(void)
     /* Now, create the second packet. To do this, it is not enough to
        just alter the length field, but we must also update the TCP
        sequence number and point the uip_appdata to a new place in
-       memory. This place is detemined by the length of the first
+       memory. This place is determined by the length of the first
        packet (len1). */
     uip_len = len2 + UIP_TCPIP_HLEN + UIP_LLH_LEN;
 #if UIP_CONF_IPV6

@@ -364,7 +364,7 @@ uip_arp_out(void)
   struct arp_entry *tabptr = NULL;
   
   /* Find the destination IP address in the ARP table and construct
-     the Ethernet header. If the destination IP addres isn't on the
+     the Ethernet header. If the destination IP address isn't on the
      local network, we use the default router's IP address instead.
 
      If not ARP table entry is found, we overwrite the original IP

@@ -114,7 +114,7 @@
 
 			#if !defined(pgm_read_ptr) || defined(__DOXYGEN__)
 				/** Reads a pointer out of PROGMEM space. This is currently a wrapper for the avr-libc pgm_read_ptr()
-				 *  macro with a void* cast, so that its value can be assigned diretly to a pointer variable or used
+				 *  macro with a void* cast, so that its value can be assigned directly to a pointer variable or used
 				 *  in pointer arithmetic without further casting in C. In a future avr-libc distribution this will be
 				 *  part of the standard API and will be implemented in a more formal manner.
 				 *
