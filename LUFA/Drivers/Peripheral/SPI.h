@@ -106,9 +106,6 @@
 			/** SPI data order mask for SPI_Init(). Indicates that data should be shifted out MSB first. */
 			#define SPI_ORDER_LSB_FIRST            (1 << DORD)
 
-			/** SPI data sample mode mask for SPI_Init(). Indicates that the data should be sampled on the trailing edge. */
-			#define SPI_SAMPLE_TRAILING            (1 << CPHA)
-			
 			/** SPI mode mask for SPI_Init(). Indicates that the SPI interface should be initialized into slave mode. */
 			#define SPI_MODE_SLAVE                 (0 << MSTR)
 
