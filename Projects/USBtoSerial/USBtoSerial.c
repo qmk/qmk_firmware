@@ -200,15 +200,15 @@ void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCI
 	}
 
 	/* Must turn off USART before reconfiguring it, otherwise incorrect operation may occur */
-	UCSR1A = 0;
 	UCSR1B = 0;
+	UCSR1A = 0;
 	UCSR1C = 0;
 
 	/* Set the new baud rate before configuring the USART */
 	UBRR1  = SERIAL_2X_UBBRVAL(CDCInterfaceInfo->State.LineEncoding.BaudRateBPS);
 	
 	/* Reconfigure the USART in double speed mode for a wider baud rate range at the expense of accuracy */
+	UCSR1C = ConfigMask;
 	UCSR1A = (1 << U2X1);	
 	UCSR1B = ((1 << RXCIE1) | (1 << TXEN1) | (1 << RXEN1));
-	UCSR1C = ConfigMask;
 }

@@ -38,11 +38,11 @@ all:
 	$(MAKE) -C PrinterHost clean
 	$(MAKE) -C PrinterHost all
 
-	$(MAKE) -C StillImageHost clean
-	$(MAKE) -C StillImageHost all
-
 	$(MAKE) -C RNDISEthernetHost clean
 	$(MAKE) -C RNDISEthernetHost all
+
+	$(MAKE) -C StillImageHost clean
+	$(MAKE) -C StillImageHost all
 
 	$(MAKE) -C VirtualSerialHost clean
 	$(MAKE) -C VirtualSerialHost all
@@ -57,6 +57,6 @@ all:
 	$(MAKE) -C MouseHost $@
 	$(MAKE) -C MouseHostWithParser $@
 	$(MAKE) -C PrinterHost $@
-	$(MAKE) -C StillImageHost $@
 	$(MAKE) -C RNDISEthernetHost $@
+	$(MAKE) -C StillImageHost $@
 	$(MAKE) -C VirtualSerialHost $@
