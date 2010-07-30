@@ -236,7 +236,10 @@
 			uint8_t CDC_Host_SendByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 			                          const uint8_t Data) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** Determines the number of bytes received by the CDC interface from the device, waiting to be read.
+			/** Determines the number of bytes received by the CDC interface from the device, waiting to be read. This indicates the number
+			 *  of bytes in the IN pipe bank only, and thus the number of calls to \ref CDC_Host_ReceiveByte() which are guaranteed to succeed
+			 *  immediately. If multiple bytes are to be received, they should be buffered by the user application, as the pipe bank will not be
+			 *  released back to the USB controller until all bytes are read.
 			 *
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
@@ -248,17 +251,17 @@
 			uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads a byte of data from the device. If no data is waiting to be read of if a USB device is not connected, the function
-			 *  returns 0. The \ref CDC_Host_BytesReceived() function should be queried before data is received to ensure that no data
-			 *  underflow occurs.
+			 *  returns a negative value. The \ref CDC_Host_BytesReceived() function may be queried in advance to determine how many bytes
+			 *  are currently buffered in the CDC interface's data receive pipe.
 			 *
 			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
 			 *
-			 *  \return Next received byte from the device, or 0 if no data received.
+			 *  \return Next received byte from the device, or a negative value if no data received.
 			 */
-			uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			int16_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			
 			/** Flushes any data waiting to be sent, ensuring that the send buffer is cleared.
 			 *

@@ -220,14 +220,19 @@ void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 			                    sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost),
 			                    NO_STREAM_CALLBACK);
 			
+			Pipe_ClearIN();
+
+			EVENT_CDC_Host_ControLineStateChanged(CDCInterfaceInfo);
 		}
-
-		Pipe_ClearIN();
-
-		EVENT_CDC_Host_ControLineStateChanged(CDCInterfaceInfo);
+		else
+		{
+			Pipe_ClearIN();
+		}
 	}
 	
 	Pipe_Freeze();
+
+	CDC_Host_Flush(CDCInterfaceInfo);
 }
 
 uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
@@ -353,9 +358,9 @@ uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 	}
 }
 
-uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
+int16_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 {
-	uint8_t ReceivedByte = 0;
+	uint8_t ReceivedByte = -1;
 
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
 	  return 0;
@@ -364,11 +369,14 @@ uint8_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	Pipe_Unfreeze();
 
-	ReceivedByte = Pipe_Read_Byte();
-	
+	if (!(Pipe_IsINReceived()))
+	  return -1;
+	else if (Pipe_BytesInPipe())
+	  ReceivedByte = Pipe_Read_Byte();
+
 	if (!(Pipe_BytesInPipe()))
 	  Pipe_ClearIN();
-	
+		
 	Pipe_Freeze();
 	
 	return ReceivedByte;
@@ -426,15 +434,19 @@ static int CDC_Host_putchar(char c,
 
 static int CDC_Host_getchar(FILE* Stream)
 {
-	if (!(CDC_Host_BytesReceived((USB_ClassInfo_CDC_Host_t*)fdev_get_udata(Stream))))
+	int16_t ReceivedByte = CDC_Host_ReceiveByte((USB_ClassInfo_CDC_Host_t*)fdev_get_udata(Stream));
+
+	if (ReceivedByte < 0)
 	  return _FDEV_EOF;
 
-	return CDC_Host_ReceiveByte((USB_ClassInfo_CDC_Host_t*)fdev_get_udata(Stream));
+	return ReceivedByte;
 }
 
 static int CDC_Host_getchar_Blocking(FILE* Stream)
 {
-	while (!(CDC_Host_BytesReceived((USB_ClassInfo_CDC_Host_t*)fdev_get_udata(Stream))))
+	int16_t ReceivedByte;
+	
+	while ((ReceivedByte = CDC_Host_ReceiveByte((USB_ClassInfo_CDC_Host_t*)fdev_get_udata(Stream))) < 0)
 	{
 		if (USB_HostState == HOST_STATE_Unattached)
 		  return _FDEV_EOF;
@@ -443,7 +455,7 @@ static int CDC_Host_getchar_Blocking(FILE* Stream)
 		USB_USBTask();
 	}
 
-	return CDC_Host_ReceiveByte((USB_ClassInfo_CDC_Host_t*)fdev_get_udata(Stream));
+	return ReceivedByte;
 }
 
 void CDC_Host_Event_Stub(void)

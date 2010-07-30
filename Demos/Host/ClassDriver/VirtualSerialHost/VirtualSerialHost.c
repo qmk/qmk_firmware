@@ -111,10 +111,9 @@ int main(void)
 				if (CDC_Host_BytesReceived(&VirtualSerial_CDC_Interface))
 				{
 					/* Echo received bytes from the attached device through the USART */
-					while (CDC_Host_BytesReceived(&VirtualSerial_CDC_Interface))
-					  putchar(CDC_Host_ReceiveByte(&VirtualSerial_CDC_Interface));
-					  
-					CDC_Host_Flush(&VirtualSerial_CDC_Interface);  
+					int16_t ReceivedByte = CDC_Host_ReceiveByte(&VirtualSerial_CDC_Interface);
+					if (!(ReceivedByte < 0))
+					  putchar(ReceivedByte);
 				}
 			
 				break;

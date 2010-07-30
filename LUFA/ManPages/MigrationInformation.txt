@@ -32,6 +32,16 @@
  *      enhanced \ref USB_Device_SendRemoteWakeup() function. Existing code may now discard any checks to USB_Device_IsRemoteWakeupSent().
  *    - The USB_Device_IsUSBSuspended() macro has been removed, as it is obsolete. Existing code should compare \ref USB_DeviceState
  *      to see if it the device is in the \ref DEVICE_STATE_Suspended state instead.
+ *    - The \ref CDC_Device_ReceiveByte() function has changed, and now returns a signed 16-bit integer, with -1 indicating no data was
+ *      received. This allows for more efficient coding, as a call to \ref CDC_Device_BytesReceived() is no longer needed if the exact
+ *      number of queued bytes received is not needed.
+ *
+ *  <b>Host Mode</b>
+ *    - The \ref CDC_Host_ReceiveByte() function has changed, and now returns a signed 16-bit integer, with -1 indicating no data was
+ *      received. This allows for more efficient coding, as a call to \ref CDC_Device_BytesReceived() is no longer needed if the exact
+ *      number of queued bytes received is not needed.
+ *    - The \ref CDC_Host_USBTask() now calls \ref CDC_Host_Flush() automatically, flushing any queued data to the attached device. Manual
+ *      flushing of the interface is no longer needed if the flushes should be in sync with calls to \ref CDC_Host_USBTask().
  *
  * \section Sec_Migration100513 Migrating from 100219 to 100513
  *
