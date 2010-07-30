@@ -51,7 +51,7 @@ static uint8_t RX_BitsRemaining;
 /** Temporary data variable to hold the byte being received as it is shifted in */
 static uint8_t RX_Data;
 
-/** Initializes the software UART, ready for data transmission and reception into the global ring buffers. */
+/** Initialises the software UART, ready for data transmission and reception into the global ring buffers. */
 void SoftUART_Init(void)
 {
 	/* Set TX pin to output high, enable RX pull-up */

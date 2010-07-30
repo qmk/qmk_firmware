@@ -132,7 +132,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	PORTB ^= (1 << 1);	
 }
 
-/** Initializes the appropriate SPI driver (hardware or software, depending on the selected ISP speed) ready for
+/** Initialises the appropriate SPI driver (hardware or software, depending on the selected ISP speed) ready for
  *  communication with the attached target.
  */
 void ISPTarget_Init(void)

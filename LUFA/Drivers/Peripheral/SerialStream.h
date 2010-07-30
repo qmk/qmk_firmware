@@ -82,7 +82,7 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Inline Functions: */
-			/** Initializes the serial stream (and regular USART driver) so that both the stream and regular
+			/** Initialises the serial stream (and regular USART driver) so that both the stream and regular
 			 *  USART driver functions can be used. Must be called before any stream or regular USART functions.
 			 *
 			 *  \param[in] BaudRate     Baud rate to configure the USART to.

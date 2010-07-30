@@ -45,7 +45,7 @@
 /                   Fixed f_mkdir() on FAT32 creates incorrect directory.
 / Feb 03,'08 R0.05a Added f_truncate() and f_utime().
 /                   Fixed off by one error at FAT sub-type determination.
-/                   Fixed btr in f_read() can be mistruncated.
+/                   Fixed btr in f_read() can be mis-truncated.
 /                   Fixed cached sector is not flushed when create and close
 /                   without write.
 /
@@ -495,7 +495,7 @@ DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, Else:Cluster status 
 	BYTE *p;
 
 
-	if (clst < 2 || clst >= fs->n_fatent)	/* Chack range */
+	if (clst < 2 || clst >= fs->n_fatent)	/* Check range */
 		return 1;
 
 	switch (fs->fs_type) {
@@ -1321,7 +1321,7 @@ FRESULT create_name (
 		if (w != ' ' && w != '.') break;
 		di--;
 	}
-	if (!di) return FR_INVALID_NAME;	/* Reject nul string */
+	if (!di) return FR_INVALID_NAME;	/* Reject null string */
 
 	lfn[di] = 0;						/* LFN is created */
 
@@ -1458,7 +1458,7 @@ FRESULT create_name (
 	*path = &p[si];						/* Return pointer to the next segment */
 	c = (c <= ' ') ? NS_LAST : 0;		/* Set last segment flag if end of path */
 
-	if (!i) return FR_INVALID_NAME;		/* Reject nul string */
+	if (!i) return FR_INVALID_NAME;		/* Reject null string */
 	if (sfn[0] == 0xE5) sfn[0] = 0x05;	/* When first char collides with 0xE5, replace it with 0x05 */
 
 	if (ni == 8) b <<= 2;
@@ -1582,7 +1582,7 @@ FRESULT follow_path (	/* FR_OK(0): successful, !=0: error code */
 	dj->sclust = 0;						/* Start from the root dir */
 #endif
 
-	if ((UINT)*path < ' ') {			/* Nul path means the start directory itself */
+	if ((UINT)*path < ' ') {			/* Null path means the start directory itself */
 		res = dir_sdi(dj, 0);
 		dj->dir = 0;
 
@@ -1723,7 +1723,7 @@ FRESULT chk_mounted (	/* FR_OK(0): successful, !=0: any error occurred */
 	if (fmt == 3) return FR_DISK_ERR;
 	if (fmt) return FR_NO_FILESYSTEM;					/* No FAT volume is found */
 
-	/* Following code initializes the file system object */
+	/* Following code initialises the file system object */
 
 	if (LD_WORD(fs->win+BPB_BytsPerSec) != SS(fs))		/* (BPB_BytsPerSec must be equal to the physical sector size) */
 		return FR_NO_FILESYSTEM;
@@ -2527,7 +2527,7 @@ FRESULT f_lseek (
 
 #if _FS_MINIMIZE <= 1
 /*-----------------------------------------------------------------------*/
-/* Create a Directroy Object                                             */
+/* Create a Directory Object                                             */
 /*-----------------------------------------------------------------------*/
 
 FRESULT f_opendir (
@@ -2878,7 +2878,7 @@ FRESULT f_mkdir (
 					mem_set(dir, 0, SS(dj.fs));
 				}
 			}
-			if (res == FR_OK) res = dir_register(&dj);	/* Register the object to the directoy */
+			if (res == FR_OK) res = dir_register(&dj);	/* Register the object to the directory */
 			if (res != FR_OK) {
 				remove_chain(dj.fs, dcl);				/* Could not register, remove cluster chain */
 			} else {
@@ -3177,7 +3177,7 @@ FRESULT f_mkfs (
 	if (au == 0) au = 1;
 	if (au > 128) au = 128;
 
-	/* Pre-compute number of clusters and FAT syb-type */
+	/* Pre-compute number of clusters and FAT sub-type */
 	n_clst = n_vol / au;
 	fmt = FS_FAT12;
 	if (n_clst >= MIN_FAT16) fmt = FS_FAT16;

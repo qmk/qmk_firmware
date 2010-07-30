@@ -264,7 +264,7 @@
 			 *                      Valid mode masks are \ref USB_MODE_DEVICE, \ref USB_MODE_HOST or \ref USB_MODE_UID.
 			 *
 			 *  \param[in] Options  Mask indicating the options which should be used when initializing the USB
-			 *                      interface to control the USB interface's behavior. This should be comprised of
+			 *                      interface to control the USB interface's behaviour. This should be comprised of
 			 *                      a USB_OPT_REG_* mask to control the regulator, a USB_OPT_*_PLL mask to control the
 			 *                      PLL, and a USB_DEVICE_OPT_* mask (when the device mode is enabled) to set the device
 			 *                      mode speed.

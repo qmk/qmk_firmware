@@ -76,7 +76,7 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Inline Functions: */
-			/** Initializes the magnetic stripe card reader ports and pins so that the card reader
+			/** Initialises the magnetic stripe card reader ports and pins so that the card reader
 			 *  device can be controlled and read by the card reader driver. This must be called before
 			 *  trying to read any of the card reader's status lines.
 			 */

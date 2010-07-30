@@ -53,7 +53,7 @@
  *  
  *  \section SSec_Options Project Options
  *
- *  The following defines can be found in this demo, which can control the demo behavior when defined, or changed in value.
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
  *
  *  <table>
  *   <tr>

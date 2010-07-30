@@ -145,7 +145,7 @@
 				 */
 				void Scheduler_Start(void);
 				
-				/** Initializes the scheduler so that the scheduler functions can be called before the scheduler itself
+				/** Initialises the scheduler so that the scheduler functions can be called before the scheduler itself
 				 *  is started. This must be executed before any scheduler function calls other than Scheduler_Start(),
 				 *  and can be omitted if no such functions could be called before the scheduler is started.
 				 */

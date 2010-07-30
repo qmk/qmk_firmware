@@ -350,7 +350,7 @@
 				return ADC_GetResult();
 			}
 
-			/** Initializes the ADC, ready for conversions. This must be called before any other ADC operations.
+			/** Initialises the ADC, ready for conversions. This must be called before any other ADC operations.
 			 *  The "mode" parameter should be a mask comprised of a conversion mode (free running or single) and
 			 *  prescaler masks.
 			 *

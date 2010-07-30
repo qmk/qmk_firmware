@@ -92,7 +92,7 @@
 			#define DATAFLASH_CHIP_MASK(index)      __GET_DATAFLASH_MASK(index)
 			
 		/* Inline Functions: */
-			/** Initializes the dataflash driver so that commands and data may be sent to an attached dataflash IC.
+			/** Initialises the dataflash driver so that commands and data may be sent to an attached dataflash IC.
 			 *  The AVR's SPI driver MUST be initialized before any of the dataflash commands are used.
 			 */
 			static inline void Dataflash_Init(void);

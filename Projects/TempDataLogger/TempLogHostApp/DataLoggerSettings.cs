@@ -101,7 +101,7 @@ namespace Project1HostApp
             try
             {
                 ConnectionHandle.Write(0x00, DeviceReport.ToReport());
-                MessageBox.Show("Device parameters updated sucessfully.");
+                MessageBox.Show("Device parameters updated successfully.");
             }
             catch (Exception ex)
             {
@@ -156,7 +156,7 @@ namespace Project1HostApp
                     nudLogInterval.Value = nudLogInterval.Minimum;
                 }
 
-                MessageBox.Show("Device parameters retrieved sucessfully.");
+                MessageBox.Show("Device parameters retrieved successfully.");
             }
             catch (Exception ex)
             {

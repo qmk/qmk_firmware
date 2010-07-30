@@ -122,7 +122,7 @@ uint8_t RNDIS_SendKeepAlive(void)
 	return HOST_SENDCONTROL_Successful;
 }
 
-/** Initializes the attached RNDIS device's RNDIS interface.
+/** Initialises the attached RNDIS device's RNDIS interface.
  *
  *  \param[in] HostMaxPacketSize  Size of the packet buffer on the host
  *  \param[out] DeviceMaxPacketSize   Pointer to where the packet buffer size of the device is to be stored

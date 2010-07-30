@@ -53,7 +53,7 @@
  * statement. While it would be possible to break the uip_process()
  * function into many smaller functions, this would increase the code
  * size because of the overhead of parameter passing and the fact that
- * the optimier would not be as efficient.
+ * the optimiser would not be as efficient.
  *
  * The principle is that we have a small buffer, called the uip_buf,
  * in which the device driver puts an incoming packet. The TCP/IP
@@ -598,7 +598,7 @@ uip_reass(void)
 	     ~bitmap_bits[((offset + len) / 8 ) & 7];
     } else {
       /* If the two endpoints are in different bytes, we update the
-	 bytes in the endpoints and fill the stuff inbetween with
+	 bytes in the endpoints and fill the stuff in-between with
 	 0xff. */
       uip_reassbitmap[offset / (8 * 8)] |=
 	bitmap_bits[(offset / 8 ) & 7];
@@ -749,7 +749,7 @@ uip_process(u8_t flag)
 	    goto tcp_send_nodata;
 	  }
 
-	  /* Exponential backoff. */
+	  /* Exponential back-off. */
 	  uip_connr->timer = UIP_RTO << (uip_connr->nrtx > 4?
 					 4:
 					 uip_connr->nrtx);
@@ -1297,7 +1297,7 @@ uip_process(u8_t flag)
      with a connection in LISTEN. In that case, we should create a new
      connection and send a SYNACK in return. */
  found_listen:
-  /* First we check if there are any connections avaliable. Unused
+  /* First we check if there are any connections available. Unused
      connections are kept in the same table as used connections, but
      unused ones have the tcpstate set to CLOSED. Also, connections in
      TIME_WAIT are kept track of and we'll use the oldest one if no

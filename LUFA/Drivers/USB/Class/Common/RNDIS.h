@@ -96,7 +96,7 @@
 		/** Enum for the possible NDIS adapter states. */
 		enum RNDIS_States_t
 		{
-			RNDIS_Uninitialized    = 0, /**< Adapter currently uninitialized. */
+			RNDIS_Uninitialized    = 0, /**< Adapter currently uninitialised. */
 			RNDIS_Initialized      = 1, /**< Adapter currently initialized but not ready for data transfers. */
 			RNDIS_Data_Initialized = 2, /**< Adapter currently initialized and ready for data transfers. */
 		};

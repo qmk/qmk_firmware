@@ -80,7 +80,7 @@
 			#define MACROE                  while (0)
 			
 			/** Defines a volatile NOP statement which cannot be optimized out by the compiler, and thus can always
-			 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimizer
+			 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimiser
 			 *  removes/reorders code to the point where break points cannot reliably be set.
 			 *
 			 *  \ingroup Group_Debugging
@@ -127,7 +127,7 @@
 
 			/** Swaps the byte ordering of a 16-bit value at compile time. Do not use this macro for swapping byte orderings
 			 *  of dynamic values computed at runtime, use \ref SwapEndian_16() instead. The result of this macro can be used
-			 *  inside struct or other variable initializers outside of a function, something that is not possible with the
+			 *  inside struct or other variable initialisers outside of a function, something that is not possible with the
 			 *  inline function variant.
 			 *
 			 *  \param[in]  x  16-bit value whose byte ordering is to be swapped.
@@ -138,7 +138,7 @@
 
 			/** Swaps the byte ordering of a 32-bit value at compile time. Do not use this macro for swapping byte orderings
 			 *  of dynamic values computed at runtime- use \ref SwapEndian_32() instead. The result of this macro can be used
-			 *  inside struct or other variable initializers outside of a function, something that is not possible with the
+			 *  inside struct or other variable initialisers outside of a function, something that is not possible with the
 			 *  inline function variant.
 			 *
 			 *  \param[in]  x  32-bit value whose byte ordering is to be swapped.

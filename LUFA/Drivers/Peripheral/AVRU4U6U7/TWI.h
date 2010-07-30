@@ -71,7 +71,7 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Inline Functions: */
-			/** Initializes the TWI hardware into master mode, ready for data transmission and reception. This must be
+			/** Initialises the TWI hardware into master mode, ready for data transmission and reception. This must be
 			 *  before any other TWI operations.
 			 */
 			static inline void TWI_Init(void) ATTR_ALWAYS_INLINE;

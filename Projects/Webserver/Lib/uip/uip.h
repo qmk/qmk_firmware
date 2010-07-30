@@ -62,14 +62,14 @@
  */
 #if UIP_CONF_IPV6
 typedef union uip_ip6addr_t {
-  u8_t  u8[16];			/* Initializer, must come first!!! */
+  u8_t  u8[16];			/* Initialiser, must come first!!! */
   u16_t u16[8];
 } uip_ip6addr_t;
 
 typedef uip_ip6addr_t uip_ipaddr_t;
 #else /* UIP_CONF_IPV6 */
 typedef union uip_ip4addr_t {
-  u8_t  u8[4];			/* Initializer, must come first!!! */
+  u8_t  u8[4];			/* Initialiser, must come first!!! */
   u16_t u16[2];
 #if 0
   u32_t u32;
@@ -232,7 +232,7 @@ typedef struct uip_eth_addr uip_lladdr_t;
 /**
  * uIP initialization function.
  *
- * This function should be called at boot up to initilize the uIP
+ * This function should be called at boot up to initialise the uIP
  * TCP/IP stack.
  */
 void uip_init(void);
@@ -311,7 +311,7 @@ void uip_setipid(u16_t id);
  * Periodic processing for a connection identified by its number.
  *
  * This function does the necessary periodic processing (timers,
- * polling) for a uIP TCP conneciton, and should be called when the
+ * polling) for a uIP TCP connection, and should be called when the
  * periodic uIP timer goes off. It should be called for every
  * connection, regardless of whether they are open of closed.
  *
@@ -1426,17 +1426,17 @@ struct uip_stats {
   } icmp;                 /**< ICMP statistics. */
 #if UIP_TCP
   struct {
-    uip_stats_t recv;     /**< Number of recived TCP segments. */
+    uip_stats_t recv;     /**< Number of received TCP segments. */
     uip_stats_t sent;     /**< Number of sent TCP segments. */
     uip_stats_t drop;     /**< Number of dropped TCP segments. */
     uip_stats_t chkerr;   /**< Number of TCP segments with a bad
 			     checksum. */
     uip_stats_t ackerr;   /**< Number of TCP segments with a bad ACK
 			     number. */
-    uip_stats_t rst;      /**< Number of recevied TCP RST (reset) segments. */
+    uip_stats_t rst;      /**< Number of received TCP RST (reset) segments. */
     uip_stats_t rexmit;   /**< Number of retransmitted TCP segments. */
     uip_stats_t syndrop;  /**< Number of dropped SYNs due to too few
-			     connections was avaliable. */
+			     connections was available. */
     uip_stats_t synrst;   /**< Number of SYNs for closed ports,
 			     triggering a RST. */
   } tcp;                  /**< TCP statistics. */
@@ -1444,7 +1444,7 @@ struct uip_stats {
 #if UIP_UDP
   struct {
     uip_stats_t drop;     /**< Number of dropped UDP segments. */
-    uip_stats_t recv;     /**< Number of recived UDP segments. */
+    uip_stats_t recv;     /**< Number of received UDP segments. */
     uip_stats_t sent;     /**< Number of sent UDP segments. */
     uip_stats_t chkerr;   /**< Number of UDP segments with a bad
 			     checksum. */
@@ -1453,7 +1453,7 @@ struct uip_stats {
 #if UIP_CONF_IPV6
   struct {
     uip_stats_t drop;     /**< Number of dropped ND6 packets. */
-    uip_stats_t recv;     /**< Number of recived ND6 packets */
+    uip_stats_t recv;     /**< Number of received ND6 packets */
     uip_stats_t sent;     /**< Number of sent ND6 packets */
   } nd6;
 #endif /*UIP_CONF_IPV6*/

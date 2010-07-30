@@ -334,7 +334,7 @@ typedef struct {
 	DWORD	dsect;			/* Current data sector */
 #if !_FS_READONLY
 	DWORD	dir_sect;		/* Sector containing the directory entry */
-	BYTE*	dir_ptr;		/* Ponter to the directory entry in the window */
+	BYTE*	dir_ptr;		/* Pointer to the directory entry in the window */
 #endif
 #if _USE_FASTSEEK
 	DWORD*	cltbl;			/* Pointer to the cluster link map table */
@@ -429,7 +429,7 @@ FRESULT f_sync (FIL*);								/* Flush cached data of a writing file */
 FRESULT f_unlink (const TCHAR*);					/* Delete an existing file or directory */
 FRESULT	f_mkdir (const TCHAR*);						/* Create a new directory */
 FRESULT f_chmod (const TCHAR*, BYTE, BYTE);			/* Change attribute of the file/dir */
-FRESULT f_utime (const TCHAR*, const FILINFO*);		/* Change timestamp of the file/dir */
+FRESULT f_utime (const TCHAR*, const FILINFO*);		/* Change time-stamp of the file/dir */
 FRESULT f_rename (const TCHAR*, const TCHAR*);		/* Rename/Move a file or directory */
 #endif
 #if _USE_FORWARD

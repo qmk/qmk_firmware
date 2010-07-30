@@ -158,7 +158,7 @@
 			 */
 			uint8_t RNDIS_Host_SendKeepAlive(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** Initializes the attached RNDIS device's RNDIS interface. This should be called after the device's pipes have been
+			/** Initialises the attached RNDIS device's RNDIS interface. This should be called after the device's pipes have been
 			 *  configured via the call to \ref RNDIS_Host_ConfigurePipes().
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.

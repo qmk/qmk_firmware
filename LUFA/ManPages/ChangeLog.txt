@@ -37,11 +37,11 @@
   *  - The software UART in the XPLAINBridge has been largely altered to try to improve upon its performance and reliability
   *  - The USBtoSerial and Benito projects now flushes received data via a flush timer, so that several bytes can be transmitted at once
   *  - Removed the automated checking of event names in the demo, project and bootloader makefiles due to inconsistencies between the
-  *    behavior of the command line tools used to perform the check on each platform
+  *    behaviour of the command line tools used to perform the check on each platform
   *  - Internal USB driver source files renamed and moved to ease future possible architecture ports
   *  - All internal pseudo-function macros have been converted to true inline functions for type-safety and readability
   *  - Changed LED indicator masks for the AVRISP-MKII project, so that there are defined roles for each LED
-  *  - Altered the CDC Deivice and Host Class drivers' receive byte routines, so that no data is indicated by the function returning a
+  *  - Altered the CDC Device and Host Class drivers' receive byte routines, so that no data is indicated by the function returning a
   *    negative value (thanks to Andreas Paulin)
   *  - Added auto flushing of OUT data to the CDC Host Class driver's USBTask function to automatically flush the send pipe buffer
   *
@@ -220,7 +220,7 @@
   *
   *  <b>Changed:</b>
   *  - Removed code in the Keyboard demos to send zeroed reports between two reports with differing numbers of key codes
-  *    as this relied on non-standard OS driver behavior to repeat key groups
+  *    as this relied on non-standard OS driver behaviour to repeat key groups
   *  - The SCSI_Request_Sense_Response_t and SCSI_Inquiry_Response_t type defines are now part of the Mass Storage Class
   *    driver common defines, rather than being defined in the Host mode Class driver section only
   *  - The USB_MODE_HOST token is now defined even when host mode is not available
@@ -254,7 +254,7 @@
   *    devices from timing out the data pipes
   *  - Fixed the definition of the Endpoint_BytesInEndpoint() macro for the U4 series AVR parts
   *  - Fixed MIDI host Class driver MIDI_Host_SendEventPacket() routine not properly checking for Pipe ready before writing
-  *  - Fixed use of deprecated struct initializers, removed library unused parameter warnings when compiled with -Wextra enabled
+  *  - Fixed use of deprecated struct initialisers, removed library unused parameter warnings when compiled with -Wextra enabled
   *  - Fixed Still Image Host Class driver truncating the PIMA response code (thanks to Daniel Seibert)
   *  - Fixed USB_CurrentMode not being reset to USB_MODE_NONE when the USB interface is shut down and both Host and Device modes can be
   *    used (thanks to Daniel Levy)
@@ -338,7 +338,7 @@
   *  - Added new "Common" section to the class drivers, to hold all mode-independent definitions for clarity
   *  - Moved SCSI command/sense constants into the Mass Storage Class driver, instead of the user-code
   *  - Altered the SCSI commands in the LowLevel Mass Storage Host to save on FLASH space by reducing function calls
-  *  - Changed the parameters and behavior of the USB_GetDeviceConfigDescriptor() function so that it now performs size checks
+  *  - Changed the parameters and behaviour of the USB_GetDeviceConfigDescriptor() function so that it now performs size checks
   *    and data validations internally, to simplify user code
   *  - Changed HIDParser to only zero out important values in the Parsed HID Report Item Information structure to save cycles
   *  - The HID report parser now always processed FEATURE items - HID_ENABLE_FEATURE_PROCESSING token now has no effect
@@ -540,7 +540,7 @@
   *    USB_INITERROR_NoUSBModeSpecified
   *  - Renamed USB_PowerOnFail event to USB_InitFailure
   *  - Renamed OTG.h header functions to be more consistent with the rest of the library API
-  *  - Changed over all deprecated GCC structure tag initializers to the standardized C99 format (thanks to Mike Alexander)
+  *  - Changed over all deprecated GCC structure tag initialisers to the standardized C99 format (thanks to Mike Alexander)
   *  - USB_HostRequest renamed to USB_ControlRequest, entire control request header is now read into USB_ControlRequest in Device mode
   *    rather than having the library pass only partially read header data to the application
   *  - The USB_UnhandledControlPacket event has had its parameters removed, in favor of accessing the new USB_ControlRequest structure

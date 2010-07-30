@@ -65,7 +65,7 @@ const uint8_t CRC8_Table[256] PROGMEM =
 RFCOMM_Channel_t RFCOMM_Channels[RFCOMM_MAX_OPEN_CHANNELS];
 
 
-/** Initializes the RFCOMM service, ready for new connections from a SDP client. */
+/** Initialises the RFCOMM service, ready for new connections from a SDP client. */
 void RFCOMM_Initialize(void)
 {
 	/* Reset the RFCOMM channel structures, to invalidate any configured RFCOMM channels */

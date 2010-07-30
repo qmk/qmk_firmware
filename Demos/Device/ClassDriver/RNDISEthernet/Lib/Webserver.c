@@ -74,7 +74,7 @@ char PROGMEM HTTPPage[]   =
 		"</html>";
 
 
-/** Initializes the Webserver application, opening the appropriate HTTP port in the TCP handler and registering the application
+/** Initialises the Webserver application, opening the appropriate HTTP port in the TCP handler and registering the application
  *  callback routine for packets sent to the HTTP protocol port.
  */
 void Webserver_Init(void)

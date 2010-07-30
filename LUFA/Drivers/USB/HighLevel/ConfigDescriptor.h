@@ -218,7 +218,7 @@
 			 *  function. The routine updates the position and remaining configuration descriptor bytes values
 			 *  automatically. If a comparator routine fails a search, the descriptor pointer is retreated back
 			 *  so that the next descriptor search invocation will start from the descriptor which first caused the
-			 *  original search to fail. This behavior allows for one comparator to be used immediately after another
+			 *  original search to fail. This behaviour allows for one comparator to be used immediately after another
 			 *  has failed, starting the second search from the descriptor which failed the first.
 			 *
 			 *  Comparator functions should be standard functions which accept a pointer to the header of the current

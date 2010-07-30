@@ -62,7 +62,7 @@
 		} RingBuff_t;
 	
 	/* Inline Functions: */
-		/** Initializes a ring buffer ready for use. Buffers must be initialized via this function
+		/** Initialises a ring buffer ready for use. Buffers must be initialized via this function
 		 *  before any operations are called upon them. Already initialized buffers may be reset
 		 *  by re-initializing them using this function.
 		 *

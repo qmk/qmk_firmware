@@ -32,7 +32,7 @@
  *  \brief AVR-GCC special function/variable attribute macros.
  *
  *  This file contains macros for applying GCC specific attributes to functions and variables to control various
- *  optimizer and code generation features of the compiler. Attributes may be placed in the function prototype 
+ *  optimiser and code generation features of the compiler. Attributes may be placed in the function prototype 
  *  or variable declaration in any order, and multiple attributes can be specified for a single item via a space
  *  separated list.
  *
@@ -115,7 +115,7 @@
 				
 				/** Forces the compiler to not automatically zero the given global variable on startup, so that the
 				 *  current RAM contents is retained. Under most conditions this value will be random due to the
-				 *  behavior of volatile memory once power is removed, but may be used in some specific circumstances,
+				 *  behaviour of volatile memory once power is removed, but may be used in some specific circumstances,
 				 *  like the passing of values back after a system watchdog reset.
 				 */
 				#define ATTR_NO_INIT                __attribute__ ((section (".noinit")))

@@ -81,7 +81,7 @@
  *  <b>Host Mode</b>
  *    - The MIDI Host Class driver send and receive routines now operate on packed events, where multiple MIDI events may be
  *      packed into a single USB packet. This means that the sending of MIDI events will now be delayed until the MIDI send
- *      pipe bank is full. To override this new behavior and revert to the previous behavior, the user application may manually
+ *      pipe bank is full. To override this new behaviour and revert to the previous behaviour, the user application may manually
  *      flush the queued event(s) to the device by calling \ref MIDI_Host_Flush().
  *    - The Pipe_IsEndpointBound() function now takes the endpoint's direction into account, by checking if the MSB of the endpoint's address
  *      is set to denote IN endpoints. If the previous functionality where the direction is to be discounted is required, mask the endpoint
@@ -90,7 +90,7 @@
  *  <b>Device Mode</b>
  *    - The MIDI Device Class driver send and receive routines now operate on packed events, where multiple MIDI events may be
  *      packed into a single USB packet. This means that the sending of MIDI events will now be delayed until the MIDI send
- *      endpoint bank is full. To override this new behavior and revert to the previous behavior, the user application may manually
+ *      endpoint bank is full. To override this new behaviour and revert to the previous behaviour, the user application may manually
  *      flush the queued event(s) to the host by calling \ref MIDI_Device_Flush().
  *
  * \section Sec_Migration091223 Migrating from 091122 to 091223
@@ -122,11 +122,11 @@
  *    - The ADC_Off() function has been renamed to \ref ADC_ShutDown() to be consistent with the rest of the library.
  *    - The \ref SPI_Init() routine's parameters have changed, so that the clock polarity and data sampling modes can be set. See
  *      the \ref SPI_Init() function documentation for more details
- *    - The \ref Dataflash_Init() routine no longer initializes the SPI bus - the SPI bus should be initialized manually via a
+ *    - The \ref Dataflash_Init() routine no longer initialises the SPI bus - the SPI bus should be initialized manually via a
  *      call to SPI_Init() before using the Dataflash driver
  *
  *  <b>Host Mode</b>
- *    - The USB_GetDeviceConfigDescriptor() function's parameters and behavior has changed; the user is required to
+ *    - The USB_GetDeviceConfigDescriptor() function's parameters and behaviour has changed; the user is required to
  *      preallocate the largest allowable buffer, and pass the size of the buffer to the function. This allows for a single
  *      call to the function to retrieve, size check and validate the Configuration Descriptor rather than having the user
  *      application perform these intermediary steps.
@@ -435,7 +435,7 @@
  *
  *  <b>Library Demos</b>
  *    - The RNDIS demo application has been updated so that it is functional on Linux under earlier implementations
- *      of the RNDIS specification, which had non-standard behavior. Projects built upon the demo should upgrade
+ *      of the RNDIS specification, which had non-standard behaviour. Projects built upon the demo should upgrade
  *      to the latest code.
  *    - The DFU class bootloader has had several bugs corrected in this release. It is recommended that where
  *      possible any existing devices upgrade to the latest bootloader code.
