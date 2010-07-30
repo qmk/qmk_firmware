@@ -104,7 +104,7 @@ int main(void)
 		CDC_Device_ReceiveByte(&VirtualSerial1_CDC_Interface);
 
 		/* Echo all received data on the second CDC interface */
-		int16_t ReceivedByte; = CDC_Device_ReceiveByte(&VirtualSerial2_CDC_Interface);
+		int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial2_CDC_Interface);
 		if (!(ReceivedByte < 0))
 		  CDC_Device_SendByte(&VirtualSerial2_CDC_Interface, (uint8_t)ReceivedByte);
 		  

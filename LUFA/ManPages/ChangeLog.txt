@@ -41,7 +41,8 @@
   *  - Internal USB driver source files renamed and moved to ease future possible architecture ports
   *  - All internal pseudo-function macros have been converted to true inline functions for type-safety and readability
   *  - Changed LED indicator masks for the AVRISP-MKII project, so that there are defined roles for each LED
-  *  - Altered the CDC Deivice and Host Class drivers' receive byte routines, so that no data is indicated by a negative return value
+  *  - Altered the CDC Deivice and Host Class drivers' receive byte routines, so that no data is indicated by the function returning a
+  *    negative value (thanks to Andreas Paulin)
   *  - Added auto flushing of OUT data to the CDC Host Class driver's USBTask function to automatically flush the send pipe buffer
   *
   *  <b>Fixed:</b>
