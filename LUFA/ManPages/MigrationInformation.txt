@@ -122,7 +122,7 @@
  *    - The ADC_Off() function has been renamed to \ref ADC_ShutDown() to be consistent with the rest of the library.
  *    - The \ref SPI_Init() routine's parameters have changed, so that the clock polarity and data sampling modes can be set. See
  *      the \ref SPI_Init() function documentation for more details
- *    - The \ref Dataflash_Init() routine no longer initialises the SPI bus - the SPI bus should be initialized manually via a
+ *    - The \ref Dataflash_Init() routine no longer initializes the SPI bus - the SPI bus should be initialized manually via a
  *      call to SPI_Init() before using the Dataflash driver
  *
  *  <b>Host Mode</b>

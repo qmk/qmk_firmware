@@ -127,7 +127,7 @@
 
 			/** Swaps the byte ordering of a 16-bit value at compile time. Do not use this macro for swapping byte orderings
 			 *  of dynamic values computed at runtime, use \ref SwapEndian_16() instead. The result of this macro can be used
-			 *  inside struct or other variable initialisers outside of a function, something that is not possible with the
+			 *  inside struct or other variable initializers outside of a function, something that is not possible with the
 			 *  inline function variant.
 			 *
 			 *  \param[in]  x  16-bit value whose byte ordering is to be swapped.
@@ -138,7 +138,7 @@
 
 			/** Swaps the byte ordering of a 32-bit value at compile time. Do not use this macro for swapping byte orderings
 			 *  of dynamic values computed at runtime- use \ref SwapEndian_32() instead. The result of this macro can be used
-			 *  inside struct or other variable initialisers outside of a function, something that is not possible with the
+			 *  inside struct or other variable initializers outside of a function, something that is not possible with the
 			 *  inline function variant.
 			 *
 			 *  \param[in]  x  32-bit value whose byte ordering is to be swapped.

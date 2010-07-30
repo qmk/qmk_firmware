@@ -635,7 +635,7 @@ static void ProcessWriteCommand(void)
 		WaitForExit = true;
 
 		/* Check if empty request data array - an empty request after a filled request retains the
-		   previous valid request data, but initialises the reset */
+		   previous valid request data, but initializes the reset */
 		if (!(SentCommand.DataSize))
 		{
 			if (SentCommand.Data[1] == 0x00)                                   // Start via watchdog

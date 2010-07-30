@@ -232,7 +232,7 @@ typedef struct uip_eth_addr uip_lladdr_t;
 /**
  * uIP initialization function.
  *
- * This function should be called at boot up to initialise the uIP
+ * This function should be called at boot up to initialize the uIP
  * TCP/IP stack.
  */
 void uip_init(void);

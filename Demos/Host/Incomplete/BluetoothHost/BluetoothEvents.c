@@ -56,7 +56,7 @@ void Bluetooth_StackInitialized(void)
 	         Bluetooth_State.LocalBDADDR[5], Bluetooth_State.LocalBDADDR[4], Bluetooth_State.LocalBDADDR[3],
 	         Bluetooth_State.LocalBDADDR[2], Bluetooth_State.LocalBDADDR[1], Bluetooth_State.LocalBDADDR[0]);
 			 
-	/* Reinitialise the services placed on top of the Bluetooth stack ready for new connections */
+	/* Reinitialize the services placed on top of the Bluetooth stack ready for new connections */
 	RFCOMM_Initialize();
 }
 
