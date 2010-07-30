@@ -133,9 +133,9 @@
 /  to the disk_ioctl function. */
 
 
-#define	_MULTI_PARTITION	0	/* 0:Single parition or 1:Multiple partition */
+#define	_MULTI_PARTITION	0	/* 0:Single partition or 1:Multiple partition */
 /* When _MULTI_PARTITION is set to 0, each volume is bound to the same physical
-/ drive number and can mount only first primaly partition. When it is set to 1,
+/ drive number and can mount only first primary partition. When it is set to 1,
 / each volume is tied to the partitions listed in Drives[]. */
 
 
@@ -161,12 +161,12 @@
 #define _FS_TIMEOUT		1000	/* Timeout period in unit of time ticks */
 #define	_SYNC_t			HANDLE	/* O/S dependent type of sync object. e.g. HANDLE, OS_EVENT*, ID and etc.. */
 /* Include a header file here to define O/S system calls */
-/* #include <windows.h>, <ucos_ii.h.h>, <semphr.h> or ohters. */
+/* #include <windows.h>, <ucos_ii.h.h>, <semphr.h> or others. */
 
-/* The _FS_REENTRANT option switches the reentrancy of the FatFs module.
+/* The _FS_REENTRANT option switches the re-entrancy of the FatFs module.
 /
-/   0: Disable reentrancy. _SYNC_t and _FS_TIMEOUT have no effect.
-/   1: Enable reentrancy. Also user provided synchronization handlers,
+/   0: Disable re-entrancy. _SYNC_t and _FS_TIMEOUT have no effect.
+/   1: Enable re-entrancy. Also user provided synchronization handlers,
 /      ff_req_grant, ff_rel_grant, ff_del_syncobj and ff_cre_syncobj
 /      function must be added to the project. */
 

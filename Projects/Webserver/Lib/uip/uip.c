@@ -158,7 +158,7 @@ struct uip_conn uip_conns[UIP_CONNS];
 				connections. */
 u16_t uip_listenports[UIP_LISTENPORTS];
                              /* The uip_listenports list all currently
-				listning ports. */
+				listening ports. */
 #if UIP_UDP
 struct uip_udp_conn *uip_udp_conn;
 struct uip_udp_conn uip_udp_conns[UIP_UDP_CONNS];
@@ -696,7 +696,7 @@ uip_process(u8_t flag)
     }
     goto drop;
     
-    /* Check if we were invoked because of the perodic timer fireing. */
+    /* Check if we were invoked because of the periodic timer firing. */
   } else if(flag == UIP_TIMER) {
 #if UIP_REASSEMBLY
     if(uip_reasstmr != 0) {
@@ -980,7 +980,7 @@ uip_process(u8_t flag)
 
   /* If we are configured to use ping IP address assignment, we use
      the destination IP address of this ping packet and assign it to
-     ourself. */
+     yourself. */
 #if UIP_PINGADDRCONF
   if(uip_ipaddr_cmp(&uip_hostaddr, &uip_all_zeroes_addr)) {
     uip_hostaddr = BUF->destipaddr;
@@ -1030,7 +1030,7 @@ uip_process(u8_t flag)
       }
       
       /* We should now send a neighbor advertisement back to where the
-	 neighbor solicication came from. */
+	 neighbor solicitation came from. */
       ICMPBUF->type = ICMP6_NEIGHBOR_ADVERTISEMENT;
       ICMPBUF->flags = ICMP6_FLAG_S; /* Solicited flag. */
       
@@ -1411,7 +1411,7 @@ uip_process(u8_t flag)
   uip_flags = 0;
   /* We do a very naive form of TCP reset processing; we just accept
      any RST and kill our connection. We should in fact check if the
-     sequence number of this reset is wihtin our advertised window
+     sequence number of this reset is within our advertised window
      before we accept the reset. */
   if(BUF->flags & TCP_RST) {
     uip_connr->tcpstateflags = UIP_CLOSED;
@@ -1642,7 +1642,7 @@ uip_process(u8_t flag)
        the initial MSS so that the application will send an entire MSS
        of data. This data will not be acknowledged by the receiver,
        and the application will retransmit it. This is called the
-       "persistent timer" and uses the retransmission mechanim.
+       "persistent timer" and uses the retransmission mechanism.
     */
     tmp16 = ((u16_t)BUF->wnd[0] << 8) + (u16_t)BUF->wnd[1];
     if(tmp16 > uip_connr->initialmss ||

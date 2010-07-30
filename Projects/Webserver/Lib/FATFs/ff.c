@@ -114,7 +114,7 @@
 #endif
 
 
-/* Reentrancy related */
+/* Re-entrancy related */
 #if _FS_REENTRANT
 #if _USE_LFN == 1
 #error Static LFN work area must not be used in re-entrant configuration.
