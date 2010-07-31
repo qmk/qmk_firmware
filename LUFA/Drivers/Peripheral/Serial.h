@@ -99,27 +99,27 @@
 			static inline void Serial_Init(const uint32_t BaudRate,
 			                               const bool DoubleSpeed)
 			{
+				UBRR1  = (DoubleSpeed ? SERIAL_2X_UBBRVAL(BaudRate) : SERIAL_UBBRVAL(BaudRate));
+
+				UCSR1C = ((1 << UCSZ11) | (1 << UCSZ10));
 				UCSR1A = (DoubleSpeed ? (1 << U2X1) : 0);
 				UCSR1B = ((1 << TXEN1)  | (1 << RXEN1));
-				UCSR1C = ((1 << UCSZ11) | (1 << UCSZ10));
 				
-				DDRD  |= (1 << 3);	
+				DDRD  |= (1 << 3);
 				PORTD |= (1 << 2);
-				
-				UBRR1  = (DoubleSpeed ? SERIAL_2X_UBBRVAL(BaudRate) : SERIAL_UBBRVAL(BaudRate));
 			}
 
 			/** Turns off the USART driver, disabling and returning used hardware to their default configuration. */
 			static inline void Serial_ShutDown(void)
 			{
-				UCSR1A = 0;
 				UCSR1B = 0;
+				UCSR1A = 0;
 				UCSR1C = 0;
-				
-				DDRD  &= ~(1 << 3);	
-				PORTD &= ~(1 << 2);
-				
+
 				UBRR1  = 0;
+				
+				DDRD  &= ~(1 << 3);
+				PORTD &= ~(1 << 2);
 			}
 
 			/** Indicates whether a character has been received through the USART.
@@ -143,7 +143,9 @@
 				UDR1 = DataByte;
 			}
 
-			/** Receives a byte from the USART.
+			/** Receives a byte from the USART. This function blocks until a byte has been
+			 *  received; if non-blocking behaviour is required, test for a received character
+			 *  beforehand with \ref Serial_IsCharReceived().
 			 *
 			 *  \return Byte received from the USART.
 			 */

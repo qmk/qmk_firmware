@@ -53,13 +53,13 @@ TMC_Capabilities_t Capabilities =
 	};
 
 /** Current TMC control request that is being processed */
-uint8_t RequestInProgress   = 0;
+uint8_t RequestInProgress = 0;
 
 /** Stream callback abort flag for bulk IN data */
-bool IsTMCBulkINReset      = false;
+bool IsTMCBulkINReset = false;
 
 /** Stream callback abort flag for bulk OUT data */
-bool IsTMCBulkOUTReset     = false;
+bool IsTMCBulkOUTReset = false;
 
 /** Last used tag value for data transfers */
 uint8_t CurrentTransferTag = 0;

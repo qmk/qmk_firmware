@@ -86,7 +86,7 @@ int main(void)
 		if (!(ReceivedByte < 0) && !(RingBuffer_IsFull(&USBtoUSART_Buffer)))
 		  RingBuffer_AtomicInsert(&USBtoUSART_Buffer, (uint8_t)ReceivedByte);		
 		
-		/* Check if the software USART flush timer has expired */
+		/* Check if the UART receive buffer flush timer has expired */
 		if (TIFR0 & (1 << TOV0))
 		{
 			TIFR0 |= (1 << TOV0);

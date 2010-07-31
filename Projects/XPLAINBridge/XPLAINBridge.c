@@ -124,7 +124,7 @@ void UARTBridge_Task(void)
 	if (!(ReceivedByte < 0) && !(RingBuffer_IsFull(&USBtoUART_Buffer)))
 	  RingBuffer_AtomicInsert(&USBtoUART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
 	
-	/* Check if the software UART flush timer has expired */
+	/* Check if the UART receive buffer flush timer has expired */
 	if (TIFR0 & (1 << TOV0))
 	{
 		TIFR0 |= (1 << TOV0);
