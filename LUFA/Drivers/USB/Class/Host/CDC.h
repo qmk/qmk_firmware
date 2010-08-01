@@ -217,7 +217,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
-			                            char* const Data,
+			                            const char* const Data,
 			                            const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 			
 			/** Sends a given byte to the attached USB device, if connected. If a device is not connected when the function is called, the

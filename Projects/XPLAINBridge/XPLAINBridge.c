@@ -36,8 +36,8 @@
 
 #include "XPLAINBridge.h"
 
-/* Current firmware mode, making the device behave as either a programmer or a USART bridge */
-bool CurrentFirmwareMode = MODE_PDI_PROGRAMMER;
+/** Current firmware mode, making the device behave as either a programmer or a USART bridge */
+bool CurrentFirmwareMode = MODE_USART_BRIDGE;
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -122,16 +122,17 @@ void UARTBridge_Task(void)
 	/* Read bytes from the USB OUT endpoint into the UART transmit buffer */
 	int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 	if (!(ReceivedByte < 0) && !(RingBuffer_IsFull(&USBtoUART_Buffer)))
-	  RingBuffer_AtomicInsert(&USBtoUART_Buffer, CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface));
+	  RingBuffer_Insert(&USBtoUART_Buffer, ReceivedByte);
 	
-	/* Check if the UART receive buffer flush timer has expired */
-	if (TIFR0 & (1 << TOV0))
+	/* Check if the UART receive buffer flush timer has expired or buffer is nearly full */
+	RingBuff_Count_t BufferCount = RingBuffer_GetCount(&UARTtoUSB_Buffer);
+	if ((TIFR0 & (1 << TOV0)) || (BufferCount > 200))
 	{
 		TIFR0 |= (1 << TOV0);
 
 		/* Read bytes from the UART receive buffer into the USB IN endpoint */
-		while (UARTtoUSB_Buffer.Count)
-		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_AtomicRemove(&UARTtoUSB_Buffer));
+		while (BufferCount--)
+		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&UARTtoUSB_Buffer));
 	}
 
 	CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
@@ -184,6 +185,9 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 		/* Initialize ring buffers used to hold serial data between USB and software UART interfaces */
 		RingBuffer_InitBuffer(&USBtoUART_Buffer);
 		RingBuffer_InitBuffer(&UARTtoUSB_Buffer);
+		
+		/* Start the software USART */
+		SoftUART_Init();
 	}
 	else
 	{

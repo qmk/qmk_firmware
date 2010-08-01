@@ -127,13 +127,14 @@ int main(void)
 			  LEDs_TurnOffLEDs(LEDMASK_RX);
 
 			/* Check if the receive buffer flush period has expired */
-			if (!(--FlushPeriodRemaining) || (Tx_Buffer.Count > 200))
+			RingBuff_Count_t BufferCount = RingBuffer_GetCount(&Tx_Buffer);
+			if (!(--FlushPeriodRemaining) || (BufferCount > 200))
 			{
 				/* Echo bytes from the target to the host via the virtual serial port */
-				if (Tx_Buffer.Count)
+				if (BufferCount)
 				{
-					while (Tx_Buffer.Count)
-					  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_AtomicRemove(&Tx_Buffer));
+					while (BufferCount--)
+					  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&Tx_Buffer));
 
 					LEDs_TurnOnLEDs(LEDMASK_RX);
 					PulseMSRemaining.RxLEDPulse = TX_RX_LED_PULSE_MS;

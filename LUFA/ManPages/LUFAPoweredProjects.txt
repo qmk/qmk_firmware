@@ -61,6 +61,7 @@
  *  - SD Card reader: http://elasticsheep.com/2010/04/teensy2-usb-mass-storage-with-an-sd-card/
  *  - SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
+ *  - Touchscreen Input Device: http://capnstech.blogspot.com/2010/07/touchscreen-update.html
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  - Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/
  *  - XUM1541, a Commodore 64 floppy drive to USB adapter: http://www.root.org/~nate/c64/xum1541/

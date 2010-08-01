@@ -205,7 +205,6 @@ void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 	  return;
 	
 	Pipe_SelectPipe(CDCInterfaceInfo->Config.NotificationPipeNumber);
-	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	Pipe_Unfreeze();
 
 	if (Pipe_IsINReceived())
@@ -285,7 +284,7 @@ uint8_t CDC_Host_SendBreak(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 }
 
 uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
-                            char* const Data,
+                            const char* const Data,
                             const uint16_t Length)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
@@ -333,7 +332,6 @@ uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 	  return 0;
 	
 	Pipe_SelectPipe(CDCInterfaceInfo->Config.DataINPipeNumber);
-	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	Pipe_Unfreeze();
 
 	if (Pipe_IsINReceived())
@@ -360,25 +358,25 @@ uint16_t CDC_Host_BytesReceived(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 
 int16_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 {
-	uint8_t ReceivedByte = -1;
-
 	if ((USB_HostState != HOST_STATE_Configured) || !(CDCInterfaceInfo->State.IsActive))
-	  return 0;
+	  return -1;
 	  
+	int16_t ReceivedByte = -1;
+
 	Pipe_SelectPipe(CDCInterfaceInfo->Config.DataINPipeNumber);
-	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	Pipe_Unfreeze();
 
-	if (!(Pipe_IsINReceived()))
-	  return -1;
-	else if (Pipe_BytesInPipe())
-	  ReceivedByte = Pipe_Read_Byte();
+	if (Pipe_IsINReceived())
+	{
+		if (Pipe_BytesInPipe())
+		  ReceivedByte = Pipe_Read_Byte();
 
-	if (!(Pipe_BytesInPipe()))
-	  Pipe_ClearIN();
-		
-	Pipe_Freeze();
+		if (!(Pipe_BytesInPipe()))
+		  Pipe_ClearIN();
+	}
 	
+	Pipe_Freeze();
+
 	return ReceivedByte;
 }
 

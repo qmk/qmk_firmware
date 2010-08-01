@@ -140,7 +140,7 @@ ISR(TIMER3_COMPA_vect, ISR_BLOCK)
 		TX_Data >>= 1;
 		TX_BitsRemaining--;
 	}
-	else if (USBtoUART_Buffer.Count && !(RX_BitsRemaining))
+	else if (!(RX_BitsRemaining) && !(RingBuffer_IsEmpty(&USBtoUART_Buffer)))
 	{
 		/* Start bit - TX line low */
 		STXPORT &= ~(1 << STX);

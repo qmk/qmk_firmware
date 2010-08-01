@@ -133,7 +133,7 @@ void CDC_Device_USBTask(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 }
 
 uint8_t CDC_Device_SendString(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo,
-                              char* const Data,
+                              const char* const Data,
                               const uint16_t Length)
 {
 	if ((USB_DeviceState != DEVICE_STATE_Configured) || !(CDCInterfaceInfo->State.LineEncoding.BaudRateBPS))
@@ -219,20 +219,21 @@ uint16_t CDC_Device_BytesReceived(USB_ClassInfo_CDC_Device_t* const CDCInterface
 
 int16_t CDC_Device_ReceiveByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
-	uint8_t ReceivedByte = -1;
-
 	if ((USB_DeviceState != DEVICE_STATE_Configured) || !(CDCInterfaceInfo->State.LineEncoding.BaudRateBPS))
-	  return 0;
+	  return -1;
+
+	int16_t ReceivedByte = -1;
 
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataOUTEndpointNumber);
 	
-	if (!(Endpoint_IsOUTReceived()))
-	  return -1;
-	else if (Endpoint_BytesInEndpoint())
-	  ReceivedByte = Endpoint_Read_Byte();
+	if (Endpoint_IsOUTReceived())
+	{
+		if (Endpoint_BytesInEndpoint())
+		  ReceivedByte = Endpoint_Read_Byte();
 	
-	if (!(Endpoint_BytesInEndpoint()))
-	  Endpoint_ClearOUT();
+		if (!(Endpoint_BytesInEndpoint()))
+		  Endpoint_ClearOUT();
+	}
 	
 	return ReceivedByte;
 }

@@ -386,12 +386,9 @@ bool RNDIS_Host_IsPacketReceived(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfac
 	  return false;
 
 	Pipe_SelectPipe(RNDISInterfaceInfo->Config.DataINPipeNumber);
-	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	
 	Pipe_Unfreeze();
-
-	PacketWaiting = Pipe_IsINReceived();
-	
+	PacketWaiting = Pipe_IsINReceived();	
 	Pipe_Freeze();
 	
 	return PacketWaiting;
@@ -407,7 +404,6 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	  return PIPE_READYWAIT_DeviceDisconnected;
 
 	Pipe_SelectPipe(RNDISInterfaceInfo->Config.DataINPipeNumber);
-	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	Pipe_Unfreeze();
 	
 	if (!(Pipe_IsReadWriteAllowed()))

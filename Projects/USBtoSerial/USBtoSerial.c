@@ -84,21 +84,22 @@ int main(void)
 		/* Read bytes from the USB OUT endpoint into the USART transmit buffer */
 		int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 		if (!(ReceivedByte < 0) && !(RingBuffer_IsFull(&USBtoUSART_Buffer)))
-		  RingBuffer_AtomicInsert(&USBtoUSART_Buffer, (uint8_t)ReceivedByte);		
+		  RingBuffer_Insert(&USBtoUSART_Buffer, ReceivedByte);		
 		
-		/* Check if the UART receive buffer flush timer has expired */
-		if (TIFR0 & (1 << TOV0))
+		/* Check if the UART receive buffer flush timer has expired or the buffer is nearly full */
+		RingBuff_Count_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
+		if ((TIFR0 & (1 << TOV0)) || (BufferCount > 200))
 		{
 			TIFR0 |= (1 << TOV0);
 
 			/* Read bytes from the USART receive buffer into the USB IN endpoint */
-			while (USARTtoUSB_Buffer.Count)
-			  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_AtomicRemove(&USARTtoUSB_Buffer));
+			while (BufferCount--)
+			  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&USARTtoUSB_Buffer));
 		}
 		
 		/* Load the next byte from the USART transmit buffer into the USART */
-		if (USBtoUSART_Buffer.Count)
-		  Serial_TxByte(RingBuffer_AtomicRemove(&USBtoUSART_Buffer));
+		if (!(RingBuffer_IsEmpty(&USBtoUSART_Buffer)))
+		  Serial_TxByte(RingBuffer_Remove(&USBtoUSART_Buffer));
 		
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);
 		USB_USBTask();
