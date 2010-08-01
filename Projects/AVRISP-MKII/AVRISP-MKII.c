@@ -52,7 +52,7 @@ int main(void)
 		#if (BOARD == BOARD_USBTINYMKII)
 		/* On the USBTINY-MKII target, there is a secondary LED which indicates the current selected power
 		   mode - either VBUS, or sourced from the VTARGET pin of the programming connectors */
-		LEDs_ChangeLEDs(LEDMASK_VBUSPOWER, (PIND & (1 << 0)) ? LEDMASK_VBUSPOWER : 0);
+		LEDs_ChangeLEDs(LEDMASK_VBUSPOWER, (PIND & (1 << 0)) ? 0 : LEDMASK_VBUSPOWER);
 		#endif
 		
 		AVRISP_Task();
