@@ -37,7 +37,10 @@
 
 #if defined(ENABLE_ISP_PROTOCOL) || defined(__DOXYGEN__)
 
-/** List of hardware SPI prescaler masks for possible AVRStudio ISP programming speeds. */
+/** List of hardware SPI prescaler masks for possible AVRStudio ISP programming speeds.
+ *
+ *  \hideinitializer
+ */
 static uint8_t SPIMaskFromSCKDuration[] PROGMEM =
 {
 #if (F_CPU == 8000000)
@@ -61,7 +64,10 @@ static uint8_t SPIMaskFromSCKDuration[] PROGMEM =
 #endif
 };
 
-/** Lookup table to convert the slower ISP speeds into a compare value for the software SPI driver. */
+/** Lookup table to convert the slower ISP speeds into a compare value for the software SPI driver.
+ *
+ *  \hideinitializer
+ */
 static uint16_t TimerCompareFromSCKDuration[] PROGMEM =
 {
 	TIMER_COMP(96386), TIMER_COMP(89888), TIMER_COMP(84211), TIMER_COMP(79208), TIMER_COMP(74767),

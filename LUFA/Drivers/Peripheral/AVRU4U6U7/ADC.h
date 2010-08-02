@@ -70,130 +70,130 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */			
 			/** Reference mask, for using the voltage present at the AVR's AREF pin for the ADC reference. */
-			#define  ADC_REFERENCE_AREF              0
+			#define ADC_REFERENCE_AREF              0
 
 			/** Reference mask, for using the voltage present at the AVR's AVCC pin for the ADC reference. */
-			#define  ADC_REFERENCE_AVCC              (1 << REFS0)
+			#define ADC_REFERENCE_AVCC              (1 << REFS0)
 
 			/** Reference mask, for using the internally generated 2.56V reference voltage as the ADC reference. */
-			#define  ADC_REFERENCE_INT2560MV         ((1 << REFS1)| (1 << REFS0))
+			#define ADC_REFERENCE_INT2560MV         ((1 << REFS1) | (1 << REFS0))
 			
 			/** Left-adjusts the 10-bit ADC result, so that the upper 8 bits of the value returned by the
 			 *  ADC_GetResult() macro contain the 8 most significant bits of the result. */
-			#define  ADC_LEFT_ADJUSTED               (1 << ADLAR)
+			#define ADC_LEFT_ADJUSTED               (1 << ADLAR)
 
 			/** Right-adjusts the 10-bit ADC result, so that the lower 8 bits of the value returned by the
 			 *  ADC_GetResult() macro contain the 8 least significant bits of the result. */
-			#define  ADC_RIGHT_ADJUSTED              (0 << ADLAR)
+			#define ADC_RIGHT_ADJUSTED              (0 << ADLAR)
 			
 			/** Sets the ADC mode to free running, so that conversions take place continuously as fast as the ADC
 			 *  is capable of at the given input clock speed. */
-			#define  ADC_FREE_RUNNING                (1 << ADATE)
+			#define ADC_FREE_RUNNING                (1 << ADATE)
 
 			/** Sets the ADC mode to single conversion, so that only a single conversion will take place before
 			 *  the ADC returns to idle. */
-			#define  ADC_SINGLE_CONVERSION           (0 << ADATE)
+			#define ADC_SINGLE_CONVERSION           (0 << ADATE)
 			
 			/** Sets the ADC input clock to prescale by a factor of 2 the AVR's system clock. */
-			#define  ADC_PRESCALE_2                  (1 << ADPS0)
+			#define ADC_PRESCALE_2                  (1 << ADPS0)
 
 			/** Sets the ADC input clock to prescale by a factor of 4 the AVR's system clock. */
-			#define  ADC_PRESCALE_4                  (1 << ADPS1)
+			#define ADC_PRESCALE_4                  (1 << ADPS1)
 
 			/** Sets the ADC input clock to prescale by a factor of 8 the AVR's system clock. */
-			#define  ADC_PRESCALE_8                  ((1 << ADPS0) | (1 << ADPS1))
+			#define ADC_PRESCALE_8                  ((1 << ADPS0) | (1 << ADPS1))
 
 			/** Sets the ADC input clock to prescale by a factor of 16 the AVR's system clock. */
-			#define  ADC_PRESCALE_16                 (1 << ADPS2)
+			#define ADC_PRESCALE_16                 (1 << ADPS2)
 
 			/** Sets the ADC input clock to prescale by a factor of 32 the AVR's system clock. */
-			#define  ADC_PRESCALE_32                 ((1 << ADPS2) | (1 << ADPS0))
+			#define ADC_PRESCALE_32                 ((1 << ADPS2) | (1 << ADPS0))
 
 			/** Sets the ADC input clock to prescale by a factor of 64 the AVR's system clock. */
-			#define  ADC_PRESCALE_64                 ((1 << ADPS2) | (1 << ADPS1))
+			#define ADC_PRESCALE_64                 ((1 << ADPS2) | (1 << ADPS1))
 
 			/** Sets the ADC input clock to prescale by a factor of 128 the AVR's system clock. */
-			#define  ADC_PRESCALE_128                ((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0))
+			#define ADC_PRESCALE_128                ((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0))
 			
 			//@{
 			/** MUX mask define for the ADC0 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
-			#define  ADC_CHANNEL0                    (0x00 << MUX0)
+			#define ADC_CHANNEL0                    (0x00 << MUX0)
 
 			/** MUX mask define for the ADC1 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
-			#define  ADC_CHANNEL1                    (0x01 << MUX0)
+			#define ADC_CHANNEL1                    (0x01 << MUX0)
 
 			#if !(defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
 				/** MUX mask define for the ADC2 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
 				 *  \note Not available on all AVR models.
 				 */
-				#define  ADC_CHANNEL2                (0x02 << MUX0)
+				#define ADC_CHANNEL2                (0x02 << MUX0)
 
 				/** MUX mask define for the ADC3 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
 				 *  \note Not available on all AVR models.
 				 */
-				#define  ADC_CHANNEL3                (0x03 << MUX0)
+				#define ADC_CHANNEL3                (0x03 << MUX0)
 			#endif
 
 			/** MUX mask define for the ADC4 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
-			#define  ADC_CHANNEL4                    (0x04 << MUX0)
+			#define ADC_CHANNEL4                    (0x04 << MUX0)
 
 			/** MUX mask define for the ADC5 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
-			#define  ADC_CHANNEL5                    (0x05 << MUX0)
+			#define ADC_CHANNEL5                    (0x05 << MUX0)
 
 			/** MUX mask define for the ADC6 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
-			#define  ADC_CHANNEL6                    (0x06 << MUX0)
+			#define ADC_CHANNEL6                    (0x06 << MUX0)
 
 			/** MUX mask define for the ADC7 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
-			#define  ADC_CHANNEL7                    (0x07 << MUX0)
+			#define ADC_CHANNEL7                    (0x07 << MUX0)
 
 			/** MUX mask define for the internal 1.1V bandgap channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
-			#define  ADC_1100MV_BANDGAP              (0x1E << MUX0)
+			#define ADC_1100MV_BANDGAP              (0x1E << MUX0)
 			
 			#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
 				/** MUX mask define for the ADC8 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
 				 *  \note Not available on all AVR models.
 				 */
-				#define  ADC_CHANNEL8                ((1 << 8) | (0x00 << MUX0))
+				#define ADC_CHANNEL8                ((1 << 8) | (0x00 << MUX0))
 
 				/** MUX mask define for the ADC9 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
 				 *  \note Not available on all AVR models.
 				 */
-				#define  ADC_CHANNEL9                ((1 << 8) | (0x01 << MUX0))
+				#define ADC_CHANNEL9                ((1 << 8) | (0x01 << MUX0))
 
 				/** MUX mask define for the ADC10 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
 				 *  \note Not available on all AVR models.
 				 */
-				#define  ADC_CHANNEL10               ((1 << 8) | (0x02 << MUX0))
+				#define ADC_CHANNEL10               ((1 << 8) | (0x02 << MUX0))
 
 				/** MUX mask define for the ADC11 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
 				 *  \note Not available on all AVR models.
 				 */
-				#define  ADC_CHANNEL11               ((1 << 8) | (0x03 << MUX0))
+				#define ADC_CHANNEL11               ((1 << 8) | (0x03 << MUX0))
 
 				/** MUX mask define for the ADC12 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
 				 *  \note Not available on all AVR models.
 				 */
-				#define  ADC_CHANNEL12               ((1 << 8) | (0x04 << MUX0))
+				#define ADC_CHANNEL12               ((1 << 8) | (0x04 << MUX0))
 
 				/** MUX mask define for the ADC13 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
 				 *  \note Not available on all AVR models.
 				 */
-				#define  ADC_CHANNEL13               ((1 << 8) | (0x05 << MUX0))
+				#define ADC_CHANNEL13               ((1 << 8) | (0x05 << MUX0))
 
 				/** MUX mask define for the internal temperature sensor channel of the ADC. See \ref ADC_StartReading and
 				 *  \ref ADC_GetChannelReading.
 				 *
 				 *  \note Not available on all AVR models.
 				 */
-				#define  ADC_INT_TEMP_SENS           ((1 << 8) | (0x07 << MUX0))
+				#define ADC_INT_TEMP_SENS           ((1 << 8) | (0x07 << MUX0))
 			#endif
 			//@}
 			
