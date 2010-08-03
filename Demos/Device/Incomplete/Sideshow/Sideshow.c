@@ -122,7 +122,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				void*    DescriptorPointer;
 				uint16_t DescriptorSize = USB_GetOSFeatureDescriptor(USB_ControlRequest.wValue, USB_ControlRequest.wIndex,
-				                                                     &DescriptorPointer, &DescriptorSize);
+				                                                     &DescriptorPointer);
 
 				if (DescriptorSize == NO_DESCRIPTOR)
 				  return;

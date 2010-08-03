@@ -113,11 +113,11 @@ int main(void)
 	for (;;)
 	{
 		/* Read in next LED colour command from the host */
-		uint8_t ColorUpdate = fgetc(&USBSerialStream);
+		uint8_t ColourUpdate = fgetc(&USBSerialStream);
 		
 		/* Top 3 bits select the LED, bottom 5 control the brightness */
-		uint8_t Channel = (ColorUpdate & 0b11100000);
-		uint8_t Duty    = (ColorUpdate & 0b00011111);
+		uint8_t Channel = (ColourUpdate & 0b11100000);
+		uint8_t Duty    = (ColourUpdate & 0b00011111);
 		
 		if (Channel & (1 << 5))
 		  SoftPWM_Channel1_Duty = Duty;

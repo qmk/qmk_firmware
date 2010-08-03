@@ -85,7 +85,7 @@
 				int ErrorCode     : 6;
 				int NAK           : 1;
 				int Response      : 1;				
-			};
+			} TypeFields;
 		} SideShowPacketType_t;
 	
 		typedef struct
