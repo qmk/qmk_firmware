@@ -634,9 +634,22 @@ static void ProcessWriteCommand(void)
 		/* Indicate that the bootloader is terminating */
 		WaitForExit = true;
 
-		/* Check if empty request data array - an empty request after a filled request retains the
-		   previous valid request data, but initializes the reset */
-		if (!(SentCommand.DataSize))
+		/* Check if data supplied for the Start Program command - no data executes the program */
+		if (SentCommand.DataSize)
+		{
+			if (SentCommand.Data[1] == 0x01)                                   // Start via jump
+			{
+				union
+				{
+					uint8_t  Bytes[2];
+					AppPtr_t FuncPtr;
+				} Address = {.Bytes = {SentCommand.Data[4], SentCommand.Data[3]}};
+
+				/* Load in the jump address into the application start address pointer */
+				AppStartPtr = Address.FuncPtr;
+			}
+		}
+		else
 		{
 			if (SentCommand.Data[1] == 0x00)                                   // Start via watchdog
 			{
@@ -645,15 +658,6 @@ static void ProcessWriteCommand(void)
 			}
 			else                                                               // Start via jump
 			{
-				/* Load in the jump address into the application start address pointer */
-				union
-				{
-					uint8_t  Bytes[2];
-					AppPtr_t FuncPtr;
-				} Address = {.Bytes = {SentCommand.Data[4], SentCommand.Data[3]}};
-
-				AppStartPtr = Address.FuncPtr;
-				
 				/* Set the flag to terminate the bootloader at next opportunity */
 				RunBootloader = false;
 			}

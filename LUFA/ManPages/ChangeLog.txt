@@ -67,6 +67,8 @@
   *    operation to occur (thanks to Bob Paddock)
   *  - Fixed Serial peripheral driver not turning off the USART before reconfiguring it, which would cause incorrect operation
   *    to occur (thanks to Bob Paddock)
+  *  - Fixed software application start command broken in the DFU class bootloader when dfu-programmer is used due to application
+  *    start address corruption
   *
   *  \section Sec_ChangeLog100513 Version 100513
   *  <b>New:</b>
