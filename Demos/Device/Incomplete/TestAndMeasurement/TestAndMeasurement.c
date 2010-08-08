@@ -332,7 +332,7 @@ void TMC_Task(void)
 	
 	TMC_MessageHeader_t MessageHeader;
 	
-	/* Check if a TMC packet has been received */
+	/* Try to read in a TMC message from the interface, process if one is available */
 	if (ReadTMCHeader(&MessageHeader))
 	{
 		/* Indicate busy */
@@ -366,6 +366,12 @@ void TMC_Task(void)
 	IsTMCBulkOUTReset = false;
 }
 
+/** Attempts to read in the TMC message header from the TMC interface.
+ *
+ *  \param[out] MessageHeader  Pointer to a location where the read header (if any) should be stored
+ *
+ *  \return Boolean true if a header was read, false otherwise
+ */
 bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 {
 	/* Select the Data Out endpoint */
@@ -382,7 +388,7 @@ bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 	CurrentTransferTag = MessageHeader->Tag;
 	
 	/* Indicate if the command has been aborted or not */
-	return !IsTMCBulkOUTReset;
+	return !(IsTMCBulkOUTReset);
 }
 
 bool WriteTMCHeader(TMC_MessageHeader_t* const MessageHeader)
@@ -402,7 +408,7 @@ bool WriteTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 	Endpoint_Write_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), StreamCallback_AbortINOnRequest);
 
 	/* Indicate if the command has been aborted or not */
-	return !IsTMCBulkINReset;
+	return !(IsTMCBulkINReset);
 }
 
 /** Stream callback function for the Endpoint stream write functions. This callback will abort the current stream transfer
