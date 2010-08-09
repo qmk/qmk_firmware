@@ -6,7 +6,7 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
-  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  \section Sec_ChangeLog100807 Version 100807
   *  <b>New:</b>
   *  - Added new ADC_DisableChannel() function (thanks to Mich Davis)
   *  - Added new VTARGET_REF_VOLTS and VTARGET_SCALE_FACTOR compile time defines to the AVRISP-MKII programmer project to set

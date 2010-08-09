@@ -64,7 +64,7 @@ void ISPProtocol_EnterISPMode(void)
 	
 	CurrentAddress = 0;
 	
-	/* Set up the synchronous USART to generate the recovery clock on XCK pin */
+	/* Set up the synchronous USART to generate the .5MHz recovery clock on XCK pin */
 	UBRR1  = (F_CPU / 500000UL);
 	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
