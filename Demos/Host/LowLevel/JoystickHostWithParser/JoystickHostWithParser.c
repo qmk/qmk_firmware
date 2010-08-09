@@ -285,17 +285,13 @@ void ProcessJoystickReport(uint8_t* JoystickReport)
 			  
 			int16_t DeltaMovement = HID_ALIGN_DATA(ReportItem, int16_t);
 			
-			/* Determine if the report is for the X or Y delta movement */
-			if (ReportItem->Attributes.Usage.Usage == USAGE_X)
+			/* Check to see if a (non-zero) delta movement has been indicated */
+			if (DeltaMovement)
 			{
-				/* Turn on the appropriate LED according to direction if the delta is non-zero */
-				if (DeltaMovement)
+				/* Determine if the report is for the X or Y delta movement, light LEDs as appropriate */
+				if (ReportItem->Attributes.Usage.Usage == USAGE_X)
 				  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED1 : LEDS_LED2);
-			}
-			else
-			{
-				/* Turn on the appropriate LED according to direction if the delta is non-zero */
-				if (DeltaMovement)
+				else
 				  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED3 : LEDS_LED4);
 			}
 		}

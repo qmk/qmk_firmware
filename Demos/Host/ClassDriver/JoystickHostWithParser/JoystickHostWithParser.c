@@ -148,16 +148,13 @@ int main(void)
 								  (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
 								 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
 						{
-							int16_t DeltaMovement = (int16_t)(ReportItem->Value << (16 - ReportItem->Attributes.BitSize));
+							int16_t DeltaMovement = HID_ALIGN_DATA(ReportItem, int16_t);
 							
-							if (ReportItem->Attributes.Usage.Usage == USAGE_X)
+							if (DeltaMovement)
 							{
-								if (DeltaMovement)
+								if (ReportItem->Attributes.Usage.Usage == USAGE_X)
 								  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED1 : LEDS_LED2);
-							}
-							else
-							{
-								if (DeltaMovement)
+								else
 								  LEDMask |= ((DeltaMovement > 0) ? LEDS_LED3 : LEDS_LED4);
 							}
 						}
