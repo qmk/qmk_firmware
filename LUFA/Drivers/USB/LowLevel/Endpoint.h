@@ -98,7 +98,65 @@
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
-		
+
+		#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
+			#define __CALLBACK_PARAM     , StreamCallbackPtr_t Callback
+		#else
+			#define __CALLBACK_PARAM
+		#endif
+
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* Macros: */
+			#define _ENDPOINT_GET_MAXSIZE(EPIndex)         _ENDPOINT_GET_MAXSIZE2(ENDPOINT_DETAILS_EP ## EPIndex)
+			#define _ENDPOINT_GET_MAXSIZE2(EPDetails)      _ENDPOINT_GET_MAXSIZE3(EPDetails)
+			#define _ENDPOINT_GET_MAXSIZE3(MaxSize, DB)    (MaxSize)
+
+			#define _ENDPOINT_GET_DOUBLEBANK(EPIndex)      _ENDPOINT_GET_DOUBLEBANK2(ENDPOINT_DETAILS_EP ## EPIndex)
+			#define _ENDPOINT_GET_DOUBLEBANK2(EPDetails)   _ENDPOINT_GET_DOUBLEBANK3(EPDetails)
+			#define _ENDPOINT_GET_DOUBLEBANK3(MaxSize, DB) (DB)
+			
+			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+				#define ENDPOINT_DETAILS_EP0               64,  true
+				#define ENDPOINT_DETAILS_EP1               256, true
+				#define ENDPOINT_DETAILS_EP2               64,  true
+				#define ENDPOINT_DETAILS_EP3               64,  true
+				#define ENDPOINT_DETAILS_EP4               64,  true
+				#define ENDPOINT_DETAILS_EP5               64,  true
+				#define ENDPOINT_DETAILS_EP6               64,  true
+			#else
+				#define ENDPOINT_DETAILS_EP0               64,  true
+				#define ENDPOINT_DETAILS_EP1               64,  false
+				#define ENDPOINT_DETAILS_EP2               64,  false
+				#define ENDPOINT_DETAILS_EP3               64,  true
+				#define ENDPOINT_DETAILS_EP4               64,  true			
+			#endif
+
+		/* Inline Functions: */
+			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST
+			                                                                       ATTR_ALWAYS_INLINE;
+			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
+			{
+				uint8_t  MaskVal    = 0;
+				uint16_t CheckBytes = 8;
+				
+				while (CheckBytes < Bytes)
+				{
+					MaskVal++;
+					CheckBytes <<= 1;
+				}
+				
+				return (MaskVal << EPSIZE0);
+			}
+
+		/* Function Prototypes: */
+			void Endpoint_ClearEndpoints(void);
+			bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
+			                                    const uint8_t UECFG0XData,
+			                                    const uint8_t UECFG1XData);
+
+	#endif
+	
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
@@ -245,7 +303,45 @@
 				                                            */
 			};
 
-		/* Inline Functions: */
+		/* Inline Functions: */			
+			/** Configures the specified endpoint number with the given endpoint type, direction, bank size
+			 *  and banking mode. Endpoints should be allocated in ascending order by their address in the
+			 *  device (i.e. endpoint 1 should be configured before endpoint 2 and so on) to prevent fragmentation
+			 *  of the USB FIFO memory.
+			 *
+			 *  The endpoint type may be one of the EP_TYPE_* macros listed in LowLevel.h and the direction
+			 *  may be either \ref ENDPOINT_DIR_OUT or \ref ENDPOINT_DIR_IN.
+			 *
+			 *  The bank size must indicate the maximum packet size that the endpoint can handle. Different
+			 *  endpoint numbers can handle different maximum packet sizes - refer to the chosen USB AVR's
+			 *  datasheet to determine the maximum bank size for each endpoint.
+			 *
+			 *  The banking mode may be either \ref ENDPOINT_BANK_SINGLE or \ref ENDPOINT_BANK_DOUBLE.
+			 *
+			 *  \note The default control endpoint should not be manually configured by the user application, as 
+			 *        it is automatically configured by the library internally.
+			 *        \n\n
+			 *
+			 *  \note This routine will select the specified endpoint, and the endpoint will remain selected
+			 *        once the routine completes regardless of if the endpoint configuration succeeds.
+			 *
+			 *  \return Boolean true if the configuration succeeded, false otherwise.
+			 */
+			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Number,
+			                                              const uint8_t Type,
+			                                              const uint8_t Direction,
+			                                              const uint16_t Size,
+			                                              const uint8_t Banks) ATTR_ALWAYS_INLINE;
+			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Number,
+			                                              const uint8_t Type,
+			                                              const uint8_t Direction,
+			                                              const uint16_t Size,
+			                                              const uint8_t Banks)
+			{
+				return Endpoint_ConfigureEndpoint_Prv(Number, (((Type) << EPTYPE0) | (Direction)),
+				                                      ((1 << ALLOC) | Banks | Endpoint_BytesToEPSizeMask(Size)));
+			}
+
 			/** Indicates the number of bytes currently stored in the current endpoint's selected bank.
 			 *
 			 *  \note The return width of this function may differ, depending on the maximum endpoint bank size
@@ -777,41 +873,6 @@
 			#endif
 
 		/* Function Prototypes: */
-			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-				#define __CALLBACK_PARAM     , StreamCallbackPtr_t Callback
-			#else
-				#define __CALLBACK_PARAM
-			#endif
-		
-			/** Configures the specified endpoint number with the given endpoint type, direction, bank size
-			 *  and banking mode. Endpoints should be allocated in ascending order by their address in the
-			 *  device (i.e. endpoint 1 should be configured before endpoint 2 and so on) to prevent fragmentation
-			 *  of the USB FIFO memory.
-			 *
-			 *  The endpoint type may be one of the EP_TYPE_* macros listed in LowLevel.h and the direction
-			 *  may be either \ref ENDPOINT_DIR_OUT or \ref ENDPOINT_DIR_IN.
-			 *
-			 *  The bank size must indicate the maximum packet size that the endpoint can handle. Different
-			 *  endpoint numbers can handle different maximum packet sizes - refer to the chosen USB AVR's
-			 *  datasheet to determine the maximum bank size for each endpoint.
-			 *
-			 *  The banking mode may be either \ref ENDPOINT_BANK_SINGLE or \ref ENDPOINT_BANK_DOUBLE.
-			 *
-			 *  \note The default control endpoint should not be manually configured by the user application, as 
-			 *        it is automatically configured by the library internally.
-			 *        \n\n
-			 *
-			 *  \note This routine will select the specified endpoint, and the endpoint will remain selected
-			 *        once the routine completes regardless of if the endpoint configuration succeeds.
-			 *
-			 *  \return Boolean true if the configuration succeeded, false otherwise.
-			 */
-			bool Endpoint_ConfigureEndpoint(const uint8_t  Number,
-			                                const uint8_t Type,
-			                                const uint8_t Direction,
-			                                const uint16_t Size,
-			                                const uint8_t Banks);
-
 			/** Spin-loops until the currently selected non-control endpoint is ready for the next packet of data
 			 *  to be read or written to it.
 			 *
@@ -1265,87 +1326,6 @@
 			 */
 			uint8_t Endpoint_Read_Control_EStream_BE(void* Buffer,
 			                                         uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
-
-	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define _ENDPOINT_GET_MAXSIZE(n)               _ENDPOINT_GET_MAXSIZE2(ENDPOINT_DETAILS_EP ## n)
-			#define _ENDPOINT_GET_MAXSIZE2(details)        _ENDPOINT_GET_MAXSIZE3(details)
-			#define _ENDPOINT_GET_MAXSIZE3(maxsize, db)    maxsize
-
-			#define _ENDPOINT_GET_DOUBLEBANK(n)            _ENDPOINT_GET_DOUBLEBANK2(ENDPOINT_DETAILS_EP ## n)
-			#define _ENDPOINT_GET_DOUBLEBANK2(details)     _ENDPOINT_GET_DOUBLEBANK3(details)
-			#define _ENDPOINT_GET_DOUBLEBANK3(maxsize, db) db
-			
-			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-				#define ENDPOINT_DETAILS_EP0               64,  true
-				#define ENDPOINT_DETAILS_EP1               256, true
-				#define ENDPOINT_DETAILS_EP2               64,  true
-				#define ENDPOINT_DETAILS_EP3               64,  true
-				#define ENDPOINT_DETAILS_EP4               64,  true
-				#define ENDPOINT_DETAILS_EP5               64,  true
-				#define ENDPOINT_DETAILS_EP6               64,  true
-			#else
-				#define ENDPOINT_DETAILS_EP0               64,  true
-				#define ENDPOINT_DETAILS_EP1               64,  false
-				#define ENDPOINT_DETAILS_EP2               64,  false
-				#define ENDPOINT_DETAILS_EP3               64,  true
-				#define ENDPOINT_DETAILS_EP4               64,  true			
-			#endif
-
-			#define Endpoint_ConfigureEndpoint(Number, Type, Direction, Size, Banks)                           \
-			                     (__builtin_constant_p(Size) ? Endpoint_ConfigureEndpointStatic((Number),      \
-			                                                                                    (Type),        \
-			                                                                                    (Direction),   \
-			                                                                                    Size, Banks) : \
-			                                                   Endpoint_ConfigureEndpointDynamic((Number),     \
-			                                                                                     (Type),       \
-			                                                                                     (Direction),  \
-			                                                                                     Size, Banks))
-
-		/* Function Prototypes: */
-			void    Endpoint_ClearEndpoints(void);
-			uint8_t Endpoint_BytesToEPSizeMaskDynamic(const uint16_t Size);
-			bool    Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
-			                                       const uint8_t UECFG0XData,
-			                                       const uint8_t UECFG1XData);			
-
-		/* Inline Functions: */
-			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
-			static inline uint8_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes)
-			{
-				uint8_t  MaskVal    = 0;
-				uint16_t CheckBytes = 8;
-				
-				while (CheckBytes < Bytes)
-				{
-					MaskVal++;
-					CheckBytes <<= 1;
-				}
-				
-				return (MaskVal << EPSIZE0);
-			}
-			
-			static inline bool Endpoint_ConfigureEndpointStatic(const uint8_t Number,
-			                                                    const uint8_t Type,
-			                                                    const uint8_t Direction,
-			                                                    const uint16_t Size,
-			                                                    const uint8_t Banks)
-			{
-				return Endpoint_ConfigureEndpoint_Prv(Number, (((Type) << EPTYPE0) | (Direction)),
-				                                      ((1 << ALLOC) | Banks | Endpoint_BytesToEPSizeMask(Size)));
-			}
-
-			static inline bool Endpoint_ConfigureEndpointDynamic(const uint8_t Number,
-			                                                     const uint8_t Type,
-			                                                     const uint8_t Direction,
-			                                                     const uint16_t Size,
-			                                                     const uint8_t Banks)
-			{
-				return Endpoint_ConfigureEndpoint_Prv(Number, (((Type) << EPTYPE0) | (Direction)),
-				                                      ((1 << ALLOC) | Banks | Endpoint_BytesToEPSizeMaskDynamic(Size)));
-			}
-	#endif
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

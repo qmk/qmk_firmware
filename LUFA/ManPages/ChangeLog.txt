@@ -7,7 +7,11 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
-  *  There is currently no changelog information for this release.
+  *  <b>Changed:</b>
+  *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions
+  *    depending of if the given bank size is a compile time constant, as the compiler does a better job of optimizing
+  *    with basic code
+  *  - Changed over all device demos to use a clearer algorithm for the configuring of the application's endpoints
   *
   *  \section Sec_ChangeLog100807 Version 100807
   *  <b>New:</b>

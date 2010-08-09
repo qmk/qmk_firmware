@@ -190,11 +190,13 @@ void EVENT_USB_Device_Disconnect(void)
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	PulseMSRemaining.PingPongLEDPulse = 0;
-	LEDs_SetAllLEDs(LEDS_NO_LEDS);
+	bool ConfigSuccess = true;
 
-	if (!(CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface)))
-	  LEDs_SetAllLEDs(LEDMASK_ERROR);
+	ConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
+
+	PulseMSRemaining.PingPongLEDPulse = 0;
+
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDS_NO_LEDS : LEDMASK_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Request event. */

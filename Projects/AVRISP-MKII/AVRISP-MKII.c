@@ -90,25 +90,19 @@ void EVENT_USB_Device_Disconnect(void)
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	/* Indicate USB connected and ready */
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	/* Setup AVRISP data Endpoints */
-	if (!(Endpoint_ConfigureEndpoint(AVRISP_DATA_OUT_EPNUM, EP_TYPE_BULK,
-	                                 ENDPOINT_DIR_OUT, AVRISP_DATA_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
+	/* Setup AVRISP Data Endpoint(s) */
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
+	                                            AVRISP_DATA_EPSIZE, ENDPOINT_BANK_SINGLE);
 
 	#if defined(LIBUSB_DRIVER_COMPAT)
-	if (!(Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPNUM, EP_TYPE_BULK,
-	                                 ENDPOINT_DIR_IN, AVRISP_DATA_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
+	                                            AVRISP_DATA_EPSIZE, ENDPOINT_BANK_SINGLE);
 	#endif
+	
+	/* Indicate endpoint configuration success or failure */
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);	
 }
 
 /** Processes incoming V2 Protocol commands from the host, returning a response when required. */

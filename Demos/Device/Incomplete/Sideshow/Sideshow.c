@@ -95,22 +95,16 @@ void EVENT_USB_Device_Disconnect(void)
 
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	/* Setup Sideshow In and Out Endpoints */
-	if (!(Endpoint_ConfigureEndpoint(SIDESHOW_IN_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_IN, SIDESHOW_IO_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
+	/* Setup Sideshow Data Endpoints */
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(SIDESHOW_IN_EPNUM,  EP_TYPE_BULK, ENDPOINT_DIR_IN,
+	                                            SIDESHOW_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(SIDESHOW_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
+	                                            SIDESHOW_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
 
-	if (!(Endpoint_ConfigureEndpoint(SIDESHOW_OUT_EPNUM, EP_TYPE_BULK,
-		                             ENDPOINT_DIR_OUT, SIDESHOW_IO_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
+	/* Indicate endpoint configuration success or failure */
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
 void EVENT_USB_Device_UnhandledControlRequest(void)

@@ -77,13 +77,13 @@
 					
 	/* Macros: */
 		/** Endpoint number of the Keyboard HID reporting IN endpoint. */
-		#define KEYBOARD_EPNUM               1
+		#define KEYBOARD_IN_EPNUM         1
 
 		/** Endpoint number of the Keyboard HID reporting OUT endpoint. */
-		#define KEYBOARD_LEDS_EPNUM          2
+		#define KEYBOARD_OUT_EPNUM        2
 		
 		/** Size in bytes of the Keyboard HID reporting IN and OUT endpoints. */		
-		#define KEYBOARD_EPSIZE              8
+		#define KEYBOARD_EPSIZE           8
 
 		/** Descriptor header type value, to indicate a HID class HID descriptor. */
 		#define DTYPE_HID                 0x21

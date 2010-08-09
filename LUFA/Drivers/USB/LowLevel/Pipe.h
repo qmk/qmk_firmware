@@ -106,13 +106,11 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 
-	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#if !defined(ENDPOINT_CONTROLEP) && !defined(__DOXYGEN__)
-				#define ENDPOINT_CONTROLEP          0
-			#endif
-	#endif
+		#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
+			#define __CALLBACK_PARAM     , StreamCallbackPtr_t Callback
+		#else
+			#define __CALLBACK_PARAM
+		#endif
 		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
@@ -848,12 +846,6 @@
 			extern uint8_t USB_ControlPipeSize;
 
 		/* Function Prototypes: */
-			#if !defined(NO_STREAM_CALLBACKS) || defined(__DOXYGEN__)
-				#define __CALLBACK_PARAM     , StreamCallbackPtr_t Callback
-			#else
-				#define __CALLBACK_PARAM
-			#endif
-
 			/** Configures the specified pipe number with the given pipe type, token, target endpoint number in the
 			 *  attached device, bank size and banking mode. Pipes should be allocated in ascending order by their
 			 *  address in the device (i.e. pipe 1 should be configured before pipe 2 and so on) to prevent fragmentation
@@ -1121,10 +1113,12 @@
 			                             __CALLBACK_PARAM) ATTR_NON_NULL_PTR_ARG(1);
 
 	/* Private Interface - For use in library only: */
-	#if !defined(__DOXYGEN__)			
-		/* Function Prototypes: */
-			void Pipe_ClearPipes(void);
-
+	#if !defined(__DOXYGEN__)
+		/* Macros: */
+			#if !defined(ENDPOINT_CONTROLEP)
+				#define ENDPOINT_CONTROLEP          0
+			#endif
+			
 		/* Inline Functions: */
 			static inline uint8_t Pipe_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_BytesToEPSizeMask(const uint16_t Bytes)
@@ -1141,6 +1135,8 @@
 				return (MaskVal << EPSIZE0);
 			}
 
+		/* Function Prototypes: */
+			void Pipe_ClearPipes(void);
 	#endif
 
 	/* Disable C linkage for C++ Compilers: */

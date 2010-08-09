@@ -137,16 +137,14 @@ void EVENT_USB_Device_Disconnect(void)
  */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	/* Indicate USB connected and ready */
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	/* Setup audio stream endpoint */
-	if (!(Endpoint_ConfigureEndpoint(AUDIO_STREAM_EPNUM, EP_TYPE_ISOCHRONOUS,
-		                             ENDPOINT_DIR_OUT, AUDIO_STREAM_EPSIZE,
-	                                 ENDPOINT_BANK_DOUBLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
+	/* Setup Audio Stream Endpoint */
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(AUDIO_STREAM_EPNUM, EP_TYPE_ISOCHRONOUS, ENDPOINT_DIR_OUT,
+	                                            AUDIO_STREAM_EPSIZE, ENDPOINT_BANK_DOUBLE);
+
+	/* Indicate endpoint configuration success or failure */
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific

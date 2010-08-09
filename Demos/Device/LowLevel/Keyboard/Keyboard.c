@@ -114,26 +114,19 @@ void EVENT_USB_Device_Disconnect(void)
  */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {	
-	/* Indicate USB connected and ready */
-	LEDs_SetAllLEDs(LEDMASK_USB_READY);
+	bool ConfigSuccess = true;
 
-	/* Setup Keyboard Keycode Report Endpoint */
-	if (!(Endpoint_ConfigureEndpoint(KEYBOARD_EPNUM, EP_TYPE_INTERRUPT,
-		                             ENDPOINT_DIR_IN, KEYBOARD_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
-	/* Setup Keyboard LED Report Endpoint */
-	if (!(Endpoint_ConfigureEndpoint(KEYBOARD_LEDS_EPNUM, EP_TYPE_INTERRUPT,
-		                             ENDPOINT_DIR_OUT, KEYBOARD_EPSIZE,
-	                                 ENDPOINT_BANK_SINGLE)))
-	{
-		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-	}
-	
+	/* Setup HID Report Endpoints */
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+	                                            KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(KEYBOARD_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
+	                                            KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
+
+	/* Turn on Start-of-Frame events for tracking HID report period exiry */
 	USB_Device_EnableSOFEvents();
+
+	/* Indicate endpoint configuration success or failure */
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);	
 }
 
 /** Event handler for the USB_UnhandledControlRequest event. This is used to catch standard and class specific
@@ -332,7 +325,7 @@ void SendNextReport(void)
 	}
 	
 	/* Select the Keyboard Report Endpoint */
-	Endpoint_SelectEndpoint(KEYBOARD_EPNUM);
+	Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
 
 	/* Check if Keyboard Endpoint Ready for Read/Write and if we should send a new report */
 	if (Endpoint_IsReadWriteAllowed() && SendReport)
@@ -352,7 +345,7 @@ void SendNextReport(void)
 void ReceiveNextReport(void)
 {
 	/* Select the Keyboard LED Report Endpoint */
-	Endpoint_SelectEndpoint(KEYBOARD_LEDS_EPNUM);
+	Endpoint_SelectEndpoint(KEYBOARD_OUT_EPNUM);
 
 	/* Check if Keyboard LED Endpoint contains a packet */
 	if (Endpoint_IsOUTReceived())

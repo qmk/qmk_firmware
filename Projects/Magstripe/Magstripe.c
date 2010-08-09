@@ -145,7 +145,7 @@ void ReadMagstripeData(void)
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	HID_Device_ConfigureEndpoints(&Keyboard_HID_Interface);
-	
+
 	USB_Device_EnableSOFEvents();
 }
 

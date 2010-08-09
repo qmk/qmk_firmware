@@ -172,12 +172,12 @@ void SetupHardware(void)
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
-	bool EndpointConfigSuccess = true;
+	bool ConfigSuccess = true;
 
 	/* Configure the device endpoints according to the selected mode */
 	if (CurrentFirmwareMode == MODE_USART_BRIDGE)
 	{
-		EndpointConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
+		ConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
 
 		/* Configure the UART flush timer - run at Fcpu/1024 for maximum interval before overflow */
 		TCCR0B = ((1 << CS02) | (1 << CS00));
@@ -191,24 +191,19 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	}
 	else
 	{
-		EndpointConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_OUT_EPNUM, EP_TYPE_BULK,
-										                    ENDPOINT_DIR_OUT, AVRISP_DATA_EPSIZE,
-										                    ENDPOINT_BANK_SINGLE);
+		ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
+		                                            AVRISP_DATA_EPSIZE, ENDPOINT_BANK_SINGLE);
 
 		#if defined(LIBUSB_DRIVER_COMPAT)
-		EndpointConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPNUM, EP_TYPE_BULK,
-		                                                    ENDPOINT_DIR_IN, AVRISP_DATA_EPSIZE,
-		                                                    ENDPOINT_BANK_SINGLE);
+		ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
+		                                            AVRISP_DATA_EPSIZE, ENDPOINT_BANK_SINGLE);
 		#endif
 	
 		/* Configure the V2 protocol packet handler */
 		V2Protocol_Init();
 	}
 
-	if (EndpointConfigSuccess)
-	  LEDs_SetAllLEDs(LEDMASK_USB_READY);
-	else
-	  LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Request event. */
