@@ -120,7 +120,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
-	/* Setup TMC In and Out Endpoints */
+	/* Setup TMC In, Out and Notification Endpoints */
 	if (!(Endpoint_ConfigureEndpoint(TMC_IN_EPNUM, EP_TYPE_BULK,
 		                             ENDPOINT_DIR_IN, TMC_IO_EPSIZE,
 	                                 ENDPOINT_BANK_SINGLE)))
@@ -130,6 +130,13 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 	if (!(Endpoint_ConfigureEndpoint(TMC_OUT_EPNUM, EP_TYPE_BULK,
 		                             ENDPOINT_DIR_OUT, TMC_IO_EPSIZE,
+	                                 ENDPOINT_BANK_SINGLE)))
+	{
+		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
+	}
+
+	if (!(Endpoint_ConfigureEndpoint(TMC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT,
+		                             ENDPOINT_DIR_IN, TMC_NOTIFICATION_EPSIZE,
 	                                 ENDPOINT_BANK_SINGLE)))
 	{
 		LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
