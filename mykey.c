@@ -85,16 +85,16 @@ int main(void)
 		reset_idle = 0;
 		for (i=0; i<8; i++) {
 			if (((b & mask) == 0) && (b_prev & mask) != 0) {
-				usb_keyboard_press(KEY_B, KEY_SHIFT);
-				usb_keyboard_press(number_keys[i], 0);
+				//usb_keyboard_press(KEY_B, KEY_SHIFT);
+				//usb_keyboard_press(number_keys[i], 0);
 				print("Port B, bit ");
 				phex(i);
 				print("\n");
 				reset_idle = 1;
 			}
 			if (((d & mask) == 0) && (d_prev & mask) != 0) {
-				usb_keyboard_press(KEY_D, KEY_SHIFT);
-				usb_keyboard_press(number_keys[i], 0);
+				//usb_keyboard_press(KEY_D, KEY_SHIFT);
+				//usb_keyboard_press(number_keys[i], 0);
 				print("Port D, bit ");
 				phex(i);
 				print("\n");
@@ -130,7 +130,7 @@ ISR(TIMER0_OVF_vect)
 	if (idle_count > 61 * 8) {
 		idle_count = 0;
 		print("Timer Event :)\n");
-		usb_keyboard_press(KEY_SPACE, 0);
+		//usb_keyboard_press(KEY_SPACE, 0);
 	}
 }
 
