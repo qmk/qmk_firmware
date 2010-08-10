@@ -285,8 +285,10 @@
 			/** Extracts the given report item's value out of the given HID report and places it into the Value
 			 *  member of the report item's \ref HID_ReportItem_t structure.
 			 *
-			 *  When called, this copies the report item's Value element to it's PreviousValue element for easy
-			 *  checking to see if an item's value has changed before processing a report.
+			 *  When called on a report with an item that exists in that report, this copies the report item's Value 
+			 *  to it's PreviousValue element for easy checking to see if an item's value has changed before processing
+			 *  a report. If the given item does not exist in the report, the function does not modify the report item's
+			 *  data.
 			 *
 			 *  \param[in]     ReportData  Buffer containing an IN or FEATURE report from an attached device.
 			 *  \param[in,out] ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array.

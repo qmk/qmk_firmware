@@ -13,6 +13,10 @@
   *    with basic code
   *  - Changed over all device demos to use a clearer algorithm for the configuring of the application's endpoints
   *
+  *  <b>Fixed:</b>
+  *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist
+  *    within the supplied report of a multiple report HID device
+  *
   *  \section Sec_ChangeLog100807 Version 100807
   *  <b>New:</b>
   *  - Added new ADC_DisableChannel() function (thanks to Mich Davis)

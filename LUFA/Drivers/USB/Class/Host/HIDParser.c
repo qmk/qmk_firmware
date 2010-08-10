@@ -276,7 +276,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 		{
 			UsageMinMax.Minimum = 0;
 			UsageMinMax.Maximum = 0;
-			UsageListSize   = 0;
+			UsageListSize       = 0;
 		}
 	}
 	
@@ -292,9 +292,6 @@ bool USB_GetHIDReportItemInfo(const uint8_t* ReportData,
 	uint16_t DataBitsRem  = ReportItem->Attributes.BitSize;
 	uint16_t CurrentBit   = ReportItem->BitOffset;
 	uint32_t BitMask      = (1 << 0);
-
-	ReportItem->PreviousValue = ReportItem->Value;
-	ReportItem->Value = 0;
 	
 	if (ReportItem->ReportID)
 	{
@@ -303,6 +300,9 @@ bool USB_GetHIDReportItemInfo(const uint8_t* ReportData,
 
 		ReportData++;
 	}
+
+	ReportItem->PreviousValue = ReportItem->Value;
+	ReportItem->Value = 0;
 
 	while (DataBitsRem--)
 	{
