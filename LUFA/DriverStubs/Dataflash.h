@@ -91,7 +91,7 @@
 			/** Determines the currently selected dataflash chip.
 			 *
 			 *  \return Mask of the currently selected Dataflash chip, either \ref DATAFLASH_NO_CHIP if no chip is selected
-			 *  or a DATAFLASH_CHIPn mask (where n is the chip number).
+			 *          or a DATAFLASH_CHIPn mask (where n is the chip number).
 			 */
 			static inline uint8_t Dataflash_GetSelectedChip(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Dataflash_GetSelectedChip(void)

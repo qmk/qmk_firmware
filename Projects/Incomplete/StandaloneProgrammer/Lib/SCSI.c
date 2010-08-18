@@ -86,39 +86,39 @@ SCSI_Request_Sense_Response_t SenseData =
  *  a command failure due to a ILLEGAL REQUEST.
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise
  */
 bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
-	/* Set initial sense data, before the requested command is processed */
-	SCSI_SET_SENSE(SCSI_SENSE_KEY_GOOD,
-	               SCSI_ASENSE_NO_ADDITIONAL_INFORMATION,
-	               SCSI_ASENSEQ_NO_QUALIFIER);
-					   
+	bool CommandSuccess = false;
+
 	/* Run the appropriate SCSI command hander function based on the passed command */
 	switch (MSInterfaceInfo->State.CommandBlock.SCSICommandData[0])
 	{
 		case SCSI_CMD_INQUIRY:
-			SCSI_Command_Inquiry(MSInterfaceInfo);			
+			CommandSuccess = SCSI_Command_Inquiry(MSInterfaceInfo);			
 			break;
 		case SCSI_CMD_REQUEST_SENSE:
-			SCSI_Command_Request_Sense(MSInterfaceInfo);
+			CommandSuccess = SCSI_Command_Request_Sense(MSInterfaceInfo);
 			break;
 		case SCSI_CMD_READ_CAPACITY_10:
-			SCSI_Command_Read_Capacity_10(MSInterfaceInfo);			
+			CommandSuccess = SCSI_Command_Read_Capacity_10(MSInterfaceInfo);			
 			break;
 		case SCSI_CMD_SEND_DIAGNOSTIC:
-			SCSI_Command_Send_Diagnostic(MSInterfaceInfo);
+			CommandSuccess = SCSI_Command_Send_Diagnostic(MSInterfaceInfo);
 			break;
 		case SCSI_CMD_WRITE_10:
-			SCSI_Command_ReadWrite_10(MSInterfaceInfo, DATA_WRITE);
+			CommandSuccess = SCSI_Command_ReadWrite_10(MSInterfaceInfo, DATA_WRITE);
 			break;
 		case SCSI_CMD_READ_10:
-			SCSI_Command_ReadWrite_10(MSInterfaceInfo, DATA_READ);
+			CommandSuccess = SCSI_Command_ReadWrite_10(MSInterfaceInfo, DATA_READ);
 			break;
 		case SCSI_CMD_TEST_UNIT_READY:
 		case SCSI_CMD_PREVENT_ALLOW_MEDIUM_REMOVAL:
 		case SCSI_CMD_VERIFY_10:
 			/* These commands should just succeed, no handling required */
+			CommandSuccess = true;
 			MSInterfaceInfo->State.CommandBlock.DataTransferLength = 0;
 			break;
 		default:
@@ -129,15 +129,27 @@ bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 			break;
 	}
 
-	return (SenseData.SenseKey == SCSI_SENSE_KEY_GOOD);
+	/* Check if command was successfully processed */
+	if (CommandSuccess)
+	{
+		SCSI_SET_SENSE(SCSI_SENSE_KEY_GOOD,
+		               SCSI_ASENSE_NO_ADDITIONAL_INFORMATION,
+		               SCSI_ASENSEQ_NO_QUALIFIER);
+		
+		return true;
+	}
+
+	return false;
 }
 
 /** Command processing for an issued SCSI INQUIRY command. This command returns information about the device's features
  *  and capabilities to the host.
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static void SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
+static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	uint16_t AllocationLength  = SwapEndian_16(*(uint16_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[3]);
 	uint16_t BytesTransferred  = (AllocationLength < sizeof(InquiryData))? AllocationLength :
@@ -152,7 +164,7 @@ static void SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 		               SCSI_ASENSE_INVALID_FIELD_IN_CDB,
 		               SCSI_ASENSEQ_NO_QUALIFIER);
 
-		return;
+		return false;
 	}
 	
 	Endpoint_Write_Stream_LE(&InquiryData, BytesTransferred, NO_STREAM_CALLBACK);
@@ -167,14 +179,18 @@ static void SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 
 	/* Succeed the command and update the bytes transferred counter */
 	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= BytesTransferred;
+	
+	return true;
 }
 
 /** Command processing for an issued SCSI REQUEST SENSE command. This command returns information about the last issued command,
  *  including the error code and additional error information so that the host can determine why a command failed to complete.
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static void SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
+static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	uint8_t  AllocationLength = MSInterfaceInfo->State.CommandBlock.SCSICommandData[4];
 	uint8_t  BytesTransferred = (AllocationLength < sizeof(SenseData))? AllocationLength : sizeof(SenseData);
@@ -187,14 +203,18 @@ static void SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* const MSInterf
 
 	/* Succeed the command and update the bytes transferred counter */
 	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= BytesTransferred;
+
+	return true;
 }
 
 /** Command processing for an issued SCSI READ CAPACITY (10) command. This command returns information about the device's capacity
  *  on the selected Logical Unit (drive), as a number of OS-sized blocks.
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static void SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
+static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	uint32_t LastBlockAddressInLUN = (VIRTUAL_MEMORY_BLOCKS - 1);
 	uint32_t MediaBlockSize        = VIRTUAL_MEMORY_BLOCK_SIZE;
@@ -205,6 +225,8 @@ static void SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInt
 	
 	/* Succeed the command and update the bytes transferred counter */
 	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= 8;
+	
+	return true;
 }
 
 /** Command processing for an issued SCSI SEND DIAGNOSTIC command. This command performs a quick check of the Dataflash ICs on the
@@ -212,8 +234,10 @@ static void SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInt
  *  supported.
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static void SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
+static bool SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	/* Check to see if the SELF TEST bit is not set */
 	if (!(MSInterfaceInfo->State.CommandBlock.SCSICommandData[1] & (1 << 2)))
@@ -223,7 +247,7 @@ static void SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* const MSInte
 		               SCSI_ASENSE_INVALID_FIELD_IN_CDB,
 		               SCSI_ASENSEQ_NO_QUALIFIER);
 
-		return;
+		return false;
 	}
 	
 	/* Check to see if all attached Dataflash ICs are functional */
@@ -234,11 +258,13 @@ static void SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* const MSInte
 		               SCSI_ASENSE_NO_ADDITIONAL_INFORMATION,
 		               SCSI_ASENSEQ_NO_QUALIFIER);	
 	
-		return;
+		return false;
 	}
 	
 	/* Succeed the command and update the bytes transferred counter */
 	MSInterfaceInfo->State.CommandBlock.DataTransferLength = 0;
+	
+	return true;
 }
 
 /** Command processing for an issued SCSI READ (10) or WRITE (10) command. This command reads in the block start address
@@ -247,12 +273,20 @@ static void SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* const MSInte
  *
  *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
  *  \param[in] IsDataRead  Indicates if the command is a READ (10) command or WRITE (10) command (DATA_READ or DATA_WRITE)
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
+static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
                                       const bool IsDataRead)
 {
-	uint32_t BlockAddress = SwapEndian_32(*(uint32_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[2]);
-	uint16_t TotalBlocks  = SwapEndian_16(*(uint16_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[7]);
+	uint32_t BlockAddress;
+	uint16_t TotalBlocks;
+	
+	/* Load in the 32-bit block address (SCSI uses big-endian, so have to reverse the byte order) */
+	BlockAddress = SwapEndian_32(*(uint32_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[2]);
+
+	/* Load in the 16-bit total blocks (SCSI uses big-endian, so have to reverse the byte order) */
+	TotalBlocks  = SwapEndian_16(*(uint16_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[7]);
 	
 	/* Check if the block address is outside the maximum allowable value for the LUN */
 	if (BlockAddress >= VIRTUAL_MEMORY_BLOCKS)
@@ -262,7 +296,7 @@ static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfa
 		               SCSI_ASENSE_LOGICAL_BLOCK_ADDRESS_OUT_OF_RANGE,
 		               SCSI_ASENSEQ_NO_QUALIFIER);
 
-		return;
+		return false;
 	}
 	
 	/* Determine if the packet is a READ (10) or WRITE (10) command, call appropriate function */
@@ -273,5 +307,7 @@ static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfa
 
 	/* Update the bytes transferred counter and succeed the command */
 	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= ((uint32_t)TotalBlocks * VIRTUAL_MEMORY_BLOCK_SIZE);
+	
+	return true;
 }
 #endif

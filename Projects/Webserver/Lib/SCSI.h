@@ -55,9 +55,9 @@
 		 *  \param[in] acode  New SCSI additional sense key to set the additional sense code to
 		 *  \param[in] aqual  New SCSI additional sense key qualifier to set the additional sense qualifier code to
 		 */
-		#define SCSI_SET_SENSE(key, acode, aqual)  MACROS{ SenseData.SenseKey = (key);                   \
-		                                                   SenseData.AdditionalSenseCode = (acode);      \
-		                                                   SenseData.AdditionalSenseQualifier = (aqual); }MACROE
+		#define SCSI_SET_SENSE(Key, Acode, Aqual)  MACROS{ SenseData.SenseKey                 = (Key);   \
+		                                                   SenseData.AdditionalSenseCode      = (Acode); \
+		                                                   SenseData.AdditionalSenseQualifier = (Aqual); }MACROE
 
 		/** Macro for the \ref SCSI_Command_ReadWrite_10() function, to indicate that data is to be read from the storage medium. */
 		#define DATA_READ           true
@@ -75,11 +75,11 @@
 		bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
 		
 		#if defined(INCLUDE_FROM_SCSI_C)
-			static void SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
-			static void SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
-			static void SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
-			static void SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
-			static void SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
+			static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
+			static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
+			static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
+			static bool SCSI_Command_Send_Diagnostic(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo);
+			static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 			                                      const bool IsDataRead);
 		#endif
 		

@@ -88,36 +88,34 @@ SCSI_Request_Sense_Response_t SenseData =
  */
 bool SCSI_DecodeSCSICommand(void)
 {
-	/* Set initial sense data, before the requested command is processed */
-	SCSI_SET_SENSE(SCSI_SENSE_KEY_GOOD,
-	               SCSI_ASENSE_NO_ADDITIONAL_INFORMATION,
-	               SCSI_ASENSEQ_NO_QUALIFIER);
+	bool CommandSuccess = false;
 
 	/* Run the appropriate SCSI command hander function based on the passed command */
 	switch (CommandBlock.SCSICommandData[0])
 	{
 		case SCSI_CMD_INQUIRY:
-			SCSI_Command_Inquiry();			
+			CommandSuccess = SCSI_Command_Inquiry();			
 			break;
 		case SCSI_CMD_REQUEST_SENSE:
-			SCSI_Command_Request_Sense();
+			CommandSuccess = SCSI_Command_Request_Sense();
 			break;
 		case SCSI_CMD_READ_CAPACITY_10:
-			SCSI_Command_Read_Capacity_10();			
+			CommandSuccess = SCSI_Command_Read_Capacity_10();			
 			break;
 		case SCSI_CMD_SEND_DIAGNOSTIC:
-			SCSI_Command_Send_Diagnostic();
+			CommandSuccess = SCSI_Command_Send_Diagnostic();
 			break;
 		case SCSI_CMD_WRITE_10:
-			SCSI_Command_ReadWrite_10(DATA_WRITE);
+			CommandSuccess = SCSI_Command_ReadWrite_10(DATA_WRITE);
 			break;
 		case SCSI_CMD_READ_10:
-			SCSI_Command_ReadWrite_10(DATA_READ);
+			CommandSuccess = SCSI_Command_ReadWrite_10(DATA_READ);
 			break;
 		case SCSI_CMD_TEST_UNIT_READY:
 		case SCSI_CMD_PREVENT_ALLOW_MEDIUM_REMOVAL:
 		case SCSI_CMD_VERIFY_10:
 			/* These commands should just succeed, no handling required */
+			CommandSuccess = true;
 			CommandBlock.DataTransferLength = 0;
 			break;
 		default:
@@ -128,13 +126,25 @@ bool SCSI_DecodeSCSICommand(void)
 			break;
 	}
 	
-	return (SenseData.SenseKey == SCSI_SENSE_KEY_GOOD);
+	/* Check if command was successfully processed */
+	if (CommandSuccess)
+	{
+		SCSI_SET_SENSE(SCSI_SENSE_KEY_GOOD,
+		               SCSI_ASENSE_NO_ADDITIONAL_INFORMATION,
+		               SCSI_ASENSEQ_NO_QUALIFIER);
+		
+		return true;
+	}
+
+	return false;
 }
 
 /** Command processing for an issued SCSI INQUIRY command. This command returns information about the device's features
  *  and capabilities to the host.
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static void SCSI_Command_Inquiry(void)
+static bool SCSI_Command_Inquiry(void)
 {
 	uint16_t AllocationLength  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[3]);
 	uint16_t BytesTransferred  = (AllocationLength < sizeof(InquiryData))? AllocationLength :
@@ -149,7 +159,7 @@ static void SCSI_Command_Inquiry(void)
 		               SCSI_ASENSE_INVALID_FIELD_IN_CDB,
 		               SCSI_ASENSEQ_NO_QUALIFIER);
 
-		return;
+		return false;
 	}
 
 	/* Write the INQUIRY data to the endpoint */
@@ -165,12 +175,16 @@ static void SCSI_Command_Inquiry(void)
 
 	/* Succeed the command and update the bytes transferred counter */
 	CommandBlock.DataTransferLength -= BytesTransferred;
+	
+	return true;
 }
 
 /** Command processing for an issued SCSI REQUEST SENSE command. This command returns information about the last issued command,
  *  including the error code and additional error information so that the host can determine why a command failed to complete.
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static void SCSI_Command_Request_Sense(void)
+static bool SCSI_Command_Request_Sense(void)
 {
 	uint8_t  AllocationLength = CommandBlock.SCSICommandData[4];
 	uint8_t  BytesTransferred = (AllocationLength < sizeof(SenseData))? AllocationLength : sizeof(SenseData);
@@ -188,12 +202,16 @@ static void SCSI_Command_Request_Sense(void)
 
 	/* Succeed the command and update the bytes transferred counter */
 	CommandBlock.DataTransferLength -= BytesTransferred;
+
+	return true;
 }
 
 /** Command processing for an issued SCSI READ CAPACITY (10) command. This command returns information about the device's capacity
  *  on the selected Logical Unit (drive), as a number of OS-sized blocks.
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static void SCSI_Command_Read_Capacity_10(void)
+static bool SCSI_Command_Read_Capacity_10(void)
 {
 	/* Send the total number of logical blocks in the current LUN */
 	Endpoint_Write_DWord_BE(LUN_MEDIA_BLOCKS - 1);
@@ -203,20 +221,24 @@ static void SCSI_Command_Read_Capacity_10(void)
 
 	/* Check if the current command is being aborted by the host */
 	if (IsMassStoreReset)
-	  return;
+	  return false;
 
 	/* Send the endpoint data packet to the host */
 	Endpoint_ClearIN();
 
 	/* Succeed the command and update the bytes transferred counter */
 	CommandBlock.DataTransferLength -= 8;
+	
+	return true;
 }
 
 /** Command processing for an issued SCSI SEND DIAGNOSTIC command. This command performs a quick check of the Dataflash ICs on the
  *  board, and indicates if they are present and functioning correctly. Only the Self-Test portion of the diagnostic command is
  *  supported.
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static void SCSI_Command_Send_Diagnostic(void)
+static bool SCSI_Command_Send_Diagnostic(void)
 {
 	/* Check to see if the SELF TEST bit is not set */
 	if (!(CommandBlock.SCSICommandData[1] & (1 << 2)))
@@ -226,7 +248,7 @@ static void SCSI_Command_Send_Diagnostic(void)
 		               SCSI_ASENSE_INVALID_FIELD_IN_CDB,
 		               SCSI_ASENSEQ_NO_QUALIFIER);
 
-		return;
+		return false;
 	}
 	
 	/* Check to see if all attached Dataflash ICs are functional */
@@ -237,11 +259,13 @@ static void SCSI_Command_Send_Diagnostic(void)
 		               SCSI_ASENSE_NO_ADDITIONAL_INFORMATION,
 		               SCSI_ASENSEQ_NO_QUALIFIER);	
 	
-		return;
+		return false;
 	}
 	
 	/* Succeed the command and update the bytes transferred counter */
 	CommandBlock.DataTransferLength = 0;
+	
+	return true;
 }
 
 /** Command processing for an issued SCSI READ (10) or WRITE (10) command. This command reads in the block start address
@@ -249,8 +273,10 @@ static void SCSI_Command_Send_Diagnostic(void)
  *  reading and writing of the data.
  *
  *  \param[in] IsDataRead  Indicates if the command is a READ (10) command or WRITE (10) command (DATA_READ or DATA_WRITE)
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
  */
-static void SCSI_Command_ReadWrite_10(const bool IsDataRead)
+static bool SCSI_Command_ReadWrite_10(const bool IsDataRead)
 {
 	uint32_t BlockAddress = SwapEndian_32(*(uint32_t*)&CommandBlock.SCSICommandData[2]);
 	uint16_t TotalBlocks  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[7]);
@@ -263,7 +289,7 @@ static void SCSI_Command_ReadWrite_10(const bool IsDataRead)
 		               SCSI_ASENSE_LOGICAL_BLOCK_ADDRESS_OUT_OF_RANGE,
 		               SCSI_ASENSEQ_NO_QUALIFIER);
 
-		return;
+		return false;
 	}
 
 	#if (TOTAL_LUNS > 1)
@@ -279,4 +305,6 @@ static void SCSI_Command_ReadWrite_10(const bool IsDataRead)
 
 	/* Update the bytes transferred counter and succeed the command */
 	CommandBlock.DataTransferLength -= ((uint32_t)TotalBlocks * VIRTUAL_MEMORY_BLOCK_SIZE);
+	
+	return true;
 }
