@@ -24,6 +24,8 @@
   *    within the supplied report of a multiple report HID device
   *  - Fixed MassStorage based demos and projects resetting the SCSI sense values before the command is executed, leading to
   *    missed SCSI sense values when the host retrieves the sense key (thanks to Martin Degelsegger)
+  *  - Fixed critical pipe/endpoint memory allocation issue where the bank memory address space could be silently overlapped
+  *    in the USB controller if the endpoints or pipes were allocated in anything other than ascending order (thanks to Martin Degelsegger)
   *
   *  \section Sec_ChangeLog100807 Version 100807
   *  <b>New:</b>
