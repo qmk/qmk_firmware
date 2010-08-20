@@ -176,6 +176,11 @@
 		/** SCSI Additional Sense Code to indicate an invalid field was encountered while processing the issued command. */
 		#define SCSI_ASENSE_INVALID_FIELD_IN_CDB               0x24
 
+		/** SCSI Additional Sense Code to indicate that a medium that was previously indicated as not ready has now
+		 *  become ready for use.
+		 */
+		#define SCSI_ASENSE_NOT_READY_TO_READY_CHANGE          0x28
+
 		/** SCSI Additional Sense Code to indicate that an attempt to write to a protected area was made. */
 		#define SCSI_ASENSE_WRITE_PROTECTED                    0x27
 

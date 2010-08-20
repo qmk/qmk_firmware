@@ -70,11 +70,12 @@
 
 		#define SCSI_ASENSE_NO_ADDITIONAL_INFORMATION          0x00
 		#define SCSI_ASENSE_LOGICAL_UNIT_NOT_READY             0x04
-		#define SCSI_ASENSE_INVALID_FIELD_IN_CDB               0x24
-		#define SCSI_ASENSE_WRITE_PROTECTED                    0x27
-		#define SCSI_ASENSE_FORMAT_ERROR                       0x31
 		#define SCSI_ASENSE_INVALID_COMMAND                    0x20
 		#define SCSI_ASENSE_LOGICAL_BLOCK_ADDRESS_OUT_OF_RANGE 0x21
+		#define SCSI_ASENSE_INVALID_FIELD_IN_CDB               0x24
+		#define SCSI_ASENSE_WRITE_PROTECTED                    0x27
+		#define SCSI_ASENSE_NOT_READY_TO_READY_CHANGE          0x28
+		#define SCSI_ASENSE_FORMAT_ERROR                       0x31
 		#define SCSI_ASENSE_MEDIUM_NOT_PRESENT                 0x3A
 
 		#define SCSI_ASENSEQ_NO_QUALIFIER                      0x00
