@@ -33,9 +33,9 @@
  *   </tr>
  *   <tr>
  *    <td><b>Relevant Standards:</b></td>
- *    <td>USBIF Audio Class Specification \n
- *        USBIF Audio Class Terminal Types Specification \n
- *        USBIF Audio Data Formats Specification</td>
+ *    <td>USBIF Audio 1.0 Class Specification \n
+ *        USBIF Audio 1.0 Class Terminal Types Specification \n
+ *        USBIF Audio 1.0 Data Formats Specification</td>
  *   </tr>
  *   <tr>
  *    <td><b>Usable Speeds:</b></td>
@@ -47,7 +47,7 @@
  *
  *  Audio demonstration application. This gives a simple reference
  *  application for implementing a USB Audio Input device using the
- *  basic USB Audio drivers in all modern OSes (i.e. no special drivers
+ *  basic USB Audio 1.0 drivers in all modern OSes (i.e. no special drivers
  *  required).
  *  
  *  On start-up the system will automatically enumerate and function

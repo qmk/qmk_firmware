@@ -45,7 +45,7 @@
  *    - LUFA/Drivers/USB/Class/Device/Audio.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
  *  \section Module Description
- *  Audio Class Driver module. This module contains an internal implementation of the USB Audio Class, for Device
+ *  Audio Class Driver module. This module contains an internal implementation of the USB Audio 1.0 Class, for Device
  *  USB mode only. User applications can use this class driver instead of implementing the Audio class manually via 
  *  the low-level LUFA APIs.
  *

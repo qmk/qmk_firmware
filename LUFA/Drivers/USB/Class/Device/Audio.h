@@ -29,9 +29,9 @@
 */
 
 /** \file
- *  \brief Device mode driver for the library USB Audio Class driver.
+ *  \brief Device mode driver for the library USB Audio 1.0 Class driver.
  *
- *  Device mode driver for the library USB Audio Class driver.
+ *  Device mode driver for the library USB Audio 1.0 Class driver.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the class driver
  *        dispatch header located in LUFA/Drivers/USB/Class/Audio.h.
@@ -45,7 +45,7 @@
  *    - LUFA/Drivers/USB/Class/Device/Audio.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
  *  \section Module Description
- *  Device Mode USB Class driver framework interface, for the Audio USB Class driver.
+ *  Device Mode USB Class driver framework interface, for the Audio 1.0 USB Class driver.
  *
  *  @{
  */
