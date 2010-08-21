@@ -184,8 +184,6 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 	ConfigSuccess &= MIDI_Device_ConfigureEndpoints(&Keyboard_MIDI_Interface);
 
-	USB_Device_EnableSOFEvents();
-
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 

@@ -114,8 +114,6 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 	ConfigSuccess &= MS_Device_ConfigureEndpoints(&Disk_MS_Interface);
 
-	USB_Device_EnableSOFEvents();
-
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
