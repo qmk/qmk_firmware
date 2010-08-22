@@ -161,11 +161,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				
+				Endpoint_ClearStatusStage();
+
 				/* Check if the host is enabling the audio interface (setting AlternateSetting to 1) */
 				StreamingAudioInterfaceSelected = ((USB_ControlRequest.wValue) != 0);
-				
-				Endpoint_ClearStatusStage();
 			}
 
 			break;

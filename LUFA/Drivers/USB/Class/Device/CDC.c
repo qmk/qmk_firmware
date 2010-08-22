@@ -64,7 +64,6 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInter
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-
 				Endpoint_Read_Control_Stream_LE(&CDCInterfaceInfo->State.LineEncoding, sizeof(CDCInterfaceInfo->State.LineEncoding));
 				Endpoint_ClearIN();
 
@@ -75,11 +74,10 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInter
 		case REQ_SetControlLineState:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{				
-				Endpoint_ClearSETUP();				
+				Endpoint_ClearSETUP();
+				Endpoint_ClearStatusStage();
 
 				CDCInterfaceInfo->State.ControlLineStates.HostToDevice = USB_ControlRequest.wValue;
-
-				Endpoint_ClearStatusStage();
 
 				EVENT_CDC_Device_ControLineStateChanged(CDCInterfaceInfo);
 			}

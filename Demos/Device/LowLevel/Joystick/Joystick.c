@@ -117,15 +117,13 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				USB_JoystickReport_Data_t JoystickReportData;
 				
-				Endpoint_ClearSETUP();
-
 				/* Create the next HID report to send to the host */				
 				GetNextReport(&JoystickReportData);
-					
+
+				Endpoint_ClearSETUP();
+
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&JoystickReportData, sizeof(JoystickReportData));
-				
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
 			}
 		

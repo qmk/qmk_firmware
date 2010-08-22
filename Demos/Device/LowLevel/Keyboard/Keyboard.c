@@ -143,15 +143,13 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				USB_KeyboardReport_Data_t KeyboardReportData;
 
-				Endpoint_ClearSETUP();
-	
 				/* Create the next keyboard report for transmission to the host */
 				CreateKeyboardReport(&KeyboardReportData);
 
+				Endpoint_ClearSETUP();
+
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
-				
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
 			}
 		
@@ -171,13 +169,11 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				/* Read in the LED report from the host */
 				uint8_t LEDStatus = Endpoint_Read_Byte();
 
+				Endpoint_ClearOUT();
+				Endpoint_ClearStatusStage();
+
 				/* Process the incoming LED report */
 				ProcessLEDReport(LEDStatus);
-			
-				/* Clear the endpoint data */
-				Endpoint_ClearOUT();
-
-				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -188,10 +184,8 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				
 				/* Write the current protocol flag to the host */
 				Endpoint_Write_Byte(UsingReportProtocol);
-				
-				/* Send the flag to the host */
-				Endpoint_ClearIN();
 
+				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
 			
@@ -200,23 +194,21 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
+				Endpoint_ClearStatusStage();
 
 				/* Set or clear the flag depending on what the host indicates that the current Protocol should be */
 				UsingReportProtocol = (USB_ControlRequest.wValue != 0);
-
-				Endpoint_ClearStatusStage();
 			}
 			
 			break;
 		case REQ_SetIdle:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSETUP();
-				
+				Endpoint_ClearSETUP();				
+				Endpoint_ClearStatusStage();
+
 				/* Get idle period in MSB, IdleCount must be multiplied by 4 to get number of milliseconds */
 				IdleCount = ((USB_ControlRequest.wValue & 0xFF00) >> 6);
-				
-				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -226,11 +218,9 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_ClearSETUP();
 				
 				/* Write the current idle duration to the host, must be divided by 4 before sent to host */
-				Endpoint_Write_Byte(IdleCount >> 2);
-				
-				/* Send the flag to the host */
-				Endpoint_ClearIN();
+				Endpoint_Write_Byte(IdleCount >> 2);				
 
+				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
 

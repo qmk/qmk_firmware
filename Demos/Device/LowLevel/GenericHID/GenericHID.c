@@ -120,15 +120,12 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				uint8_t GenericData[GENERIC_REPORT_SIZE];
+				CreateGenericHIDReport(GenericData);
 
 				Endpoint_ClearSETUP();
-	
-				CreateGenericHIDReport(GenericData);
 
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&GenericData, sizeof(GenericData));
-
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
 			}
 		
@@ -139,30 +136,12 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				uint8_t GenericData[GENERIC_REPORT_SIZE];
 
 				Endpoint_ClearSETUP();
-				
-				/* Wait until the generic report has been sent by the host */
-				while (!(Endpoint_IsOUTReceived()))
-				{
-					if (USB_DeviceState == DEVICE_STATE_Unattached)
-					  return;
-				}
 
+				/* Read the report data from the control endpoint */
 				Endpoint_Read_Control_Stream_LE(&GenericData, sizeof(GenericData));
-
-				ProcessGenericHIDReport(GenericData);
-			
-				/* Clear the endpoint data */
 				Endpoint_ClearOUT();
 
-				/* Wait until the host is ready to receive the request confirmation */
-				while (!(Endpoint_IsINReady()))
-				{
-					if (USB_DeviceState == DEVICE_STATE_Unattached)
-					  return;
-				}
-				
-				/* Handshake the request by sending an empty IN packet */
-				Endpoint_ClearIN();
+				ProcessGenericHIDReport(GenericData);
 			}
 			
 			break;

@@ -133,11 +133,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
+				Endpoint_ClearStatusStage();
 
 				/* Indicate that the current transfer should be aborted */
 				IsMassStoreReset = true;
-
-				Endpoint_ClearStatusStage();
 			}
 
 			break;
@@ -149,8 +148,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				/* Indicate to the host the number of supported LUNs (virtual disks) on the device */
 				Endpoint_Write_Byte(TOTAL_LUNS - 1);
 				
-				Endpoint_ClearIN();
-				
+				Endpoint_ClearIN();				
 				Endpoint_ClearStatusStage();
 			}
 			

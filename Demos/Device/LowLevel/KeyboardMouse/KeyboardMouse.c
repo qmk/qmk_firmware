@@ -148,12 +148,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(ReportData, ReportSize);
+				Endpoint_ClearOUT();
 
 				/* Clear the report data afterwards */
 				memset(ReportData, 0, ReportSize);
-				
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearOUT();
 			}
 		
 			break;
@@ -169,13 +167,14 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					  return;
 				}
 
-				/* Read in and process the LED report from the host */
-				Keyboard_ProcessLEDReport(Endpoint_Read_Byte());
+				/* Read in the LED report from the host */
+				uint8_t LEDStatus = Endpoint_Read_Byte();
 
-				/* Clear the endpoint data */
 				Endpoint_ClearOUT();
-
 				Endpoint_ClearStatusStage();
+
+				/* Process the incoming LED report */
+				Keyboard_ProcessLEDReport(LEDStatus);
 			}
 			
 			break;

@@ -124,13 +124,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 		case REQ_SendEncapsulatedCommand:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Clear the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
 				
 				/* Read in the RNDIS message into the message buffer */
 				Endpoint_Read_Control_Stream_LE(RNDISMessageBuffer, USB_ControlRequest.wLength);
-
-				/* Finalize the stream transfer to clear the last packet from the host */
 				Endpoint_ClearIN();
 
 				/* Process the RNDIS message */
@@ -141,9 +138,6 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 		case REQ_GetEncapsulatedResponse:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Clear the SETUP packet, ready for data transfer */
-				Endpoint_ClearSETUP();
-				
 				/* Check if a response to the last message is ready */
 				if (!(MessageHeader->MessageLength))
 				{
@@ -152,10 +146,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 					MessageHeader->MessageLength = 1;
 				}
 
+				Endpoint_ClearSETUP();
+				
 				/* Write the message response data to the endpoint */
 				Endpoint_Write_Control_Stream_LE(RNDISMessageBuffer, MessageHeader->MessageLength);
-				
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
 
 				/* Reset the message header once again after transmission */

@@ -140,19 +140,17 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			{
 				USB_MouseReport_Data_t MouseReportData;
 
-				Endpoint_ClearSETUP();
-
 				/* Create the next mouse report for transmission to the host */
 				CreateMouseReport(&MouseReportData);
-	
+
+				Endpoint_ClearSETUP();
+
 				/* Write the report data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&MouseReportData, sizeof(MouseReportData));
-				
+				Endpoint_ClearOUT();
+
 				/* Clear the report data afterwards */
 				memset(&MouseReportData, 0, sizeof(MouseReportData));
-
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
-				Endpoint_ClearOUT();
 			}
 		
 			break;
@@ -164,9 +162,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				/* Write the current protocol flag to the host */
 				Endpoint_Write_Byte(UsingReportProtocol);
 				
-				/* Send the flag to the host */
 				Endpoint_ClearIN();
-
 				Endpoint_ClearStatusStage();
 			}
 			
@@ -175,11 +171,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				
+				Endpoint_ClearStatusStage();
+
 				/* Set or clear the flag depending on what the host indicates that the current Protocol should be */
 				UsingReportProtocol = (USB_ControlRequest.wValue != 0);
-				
-				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -187,11 +182,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				
+				Endpoint_ClearStatusStage();
+
 				/* Get idle period in MSB, must multiply by 4 to get the duration in milliseconds */
 				IdleCount = ((USB_ControlRequest.wValue & 0xFF00) >> 6);
-				
-				Endpoint_ClearStatusStage();
 			}
 			
 			break;
@@ -202,10 +196,8 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				
 				/* Write the current idle duration to the host, must be divided by 4 before sent to host */
 				Endpoint_Write_Byte(IdleCount >> 2);
-				
-				/* Send the flag to the host */
-				Endpoint_ClearIN();
 
+				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
 

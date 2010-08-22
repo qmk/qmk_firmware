@@ -52,10 +52,9 @@ void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfac
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-
-				MSInterfaceInfo->State.IsMassStoreReset = true;			
-
 				Endpoint_ClearStatusStage();
+
+				MSInterfaceInfo->State.IsMassStoreReset = true;
 			}
 
 			break;
@@ -63,10 +62,8 @@ void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfac
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-
 				Endpoint_Write_Byte(MSInterfaceInfo->Config.TotalLUNs - 1);				
-				Endpoint_ClearIN();
-				
+				Endpoint_ClearIN();				
 				Endpoint_ClearStatusStage();
 			}
 			

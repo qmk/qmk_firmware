@@ -134,13 +134,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 		case REQ_GetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{	
-				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
 				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
-				
-				/* Finalize the stream transfer to send the last packet or clear the host abort */
 				Endpoint_ClearOUT();
 			}
 			
@@ -148,13 +145,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 		case REQ_SetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
 				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
-
-				/* Finalize the stream transfer to clear the last packet from the host */
 				Endpoint_ClearIN();
 			}
 	
@@ -162,15 +156,13 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 		case REQ_SetControlLineState:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
-				/* Acknowledge the SETUP packet, ready for data transfer */
 				Endpoint_ClearSETUP();
-				
+				Endpoint_ClearStatusStage();
+
 				/* NOTE: Here you can read in the line state mask from the host, to get the current state of the output handshake
 				         lines. The mask is read in from the wValue parameter in USB_ControlRequest, and can be masked against the
 						 CONTROL_LINE_OUT_* masks to determine the RTS and DTR line states using the following code:
 				*/
-				
-				Endpoint_ClearStatusStage();
 			}
 	
 			break;

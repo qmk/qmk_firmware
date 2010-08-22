@@ -133,12 +133,11 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			/* Set Interface is not handled by the library, as its function is application-specific */
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSETUP();
-				
+				Endpoint_ClearSETUP();				
+				Endpoint_ClearStatusStage();
+
 				/* Check if the host is enabling the audio interface (setting AlternateSetting to 1) */
 				StreamingAudioInterfaceSelected = ((USB_ControlRequest.wValue) != 0);
-				
-				Endpoint_ClearStatusStage();
 			}
 
 			break;
