@@ -26,7 +26,9 @@ LUFA_SRC_USB          = $(LUFA_ROOT_PATH)/Drivers/USB/LowLevel/Device.c         
                         $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/ConfigDescriptor.c  \
                         $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/DeviceStandardReq.c \
                         $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/Events.c            \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/EndpointStream.c    \
                         $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/HostStandardReq.c   \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/PipeStream.c        \
                         $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/USBTask.c           \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/HIDParser.c
 LUFA_SRC_USBCLASS     = $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/Audio.c          \

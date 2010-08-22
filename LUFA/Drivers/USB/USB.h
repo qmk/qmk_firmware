@@ -50,7 +50,9 @@
  *    - LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/HighLevel/DeviceStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/HighLevel/Events.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/HighLevel/EndpointStream.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/HighLevel/HostStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/HighLevel/PipeStream.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/HighLevel/USBTask.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
  *  \section Module Description
@@ -379,12 +381,14 @@
 			#include "LowLevel/Host.h"
 			#include "LowLevel/Pipe.h"
 			#include "HighLevel/HostStandardReq.h"
+			#include "HighLevel/PipeStream.h"
 		#endif
 		
 		#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
 			#include "LowLevel/Device.h"
 			#include "LowLevel/Endpoint.h"
 			#include "HighLevel/DeviceStandardReq.h"
+			#include "HighLevel/EndpointStream.h"
 		#endif
 		
 		#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)

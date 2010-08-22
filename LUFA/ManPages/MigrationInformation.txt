@@ -11,7 +11,12 @@
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
  * \section Sec_MigrationXXXXXX Migrating from XXXXXX to XXXXXX
- * There is currently no migration information for this release.
+ *  <b>USB Core</b>
+ *    - A new USB driver source file, Drivers/USB/HighLevel/EndpointStream.c now exists. This source file should be added
+ *      to all project makefiles using the USB driver of LUFA, or the makefile should be updated to use the new module source
+ *      variables.
+ *    - A new USB driver source file, Drivers/USB/HighLevel/PipeStream.c now exists. This source file should be added to all
+ *      project makefiles using the USB driver of LUFA, or the makefile should be updated to use the new module source variables.
  *
  * \section Sec_Migration100807 Migrating from 100513 to 100807
  *

@@ -64,15 +64,17 @@
 		
 		#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
 			#include "Host.h"
-			#include "Pipe.h"
 			#include "OTG.h"
+			#include "Pipe.h"
 			#include "../HighLevel/HostStandardReq.h"
+			#include "../HighLevel/PipeStream.h"
 		#endif
 		
 		#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
 			#include "Device.h"
 			#include "Endpoint.h"
 			#include "../HighLevel/DeviceStandardReq.h"
+			#include "../HighLevel/EndpointStream.h"
 		#endif
 
 	/* Enable C linkage for C++ Compilers: */

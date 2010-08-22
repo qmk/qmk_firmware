@@ -10,6 +10,7 @@
   *  <b>New:</b>
   *  - Added new SCSI_ASENSE_NOT_READY_TO_READY_CHANGE constant to the Mass Storage class driver, to indicate when a previously
   *    not ready removable medium has now become ready for the host's use (thanks to Martin Degelsegger)
+  *  - Moved the Pipe and Endpoint stream related code to two new USB library core source files EndpointStream.c and PipeStream.c
   *
   *  <b>Changed:</b>
   *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions
