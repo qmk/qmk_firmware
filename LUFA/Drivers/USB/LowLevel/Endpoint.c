@@ -43,6 +43,16 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
                                     const uint8_t UECFG0XData,
                                     const uint8_t UECFG1XData)
 {
+#if defined(CONTROL_ONLY_DEVICE)
+	Endpoint_SelectEndpoint(ENDPOINT_CONTROLEP);
+	Endpoint_EnableEndpoint();
+
+	UECFG1X = 0;
+	UECFG0X = UECFG0XData;
+	UECFG1X = UECFG1XData;
+
+	return Endpoint_IsConfigured();
+#else
 	uint8_t UECFG0XTemp[ENDPOINT_TOTAL_ENDPOINTS];
 	uint8_t UECFG1XTemp[ENDPOINT_TOTAL_ENDPOINTS];
 	
@@ -82,6 +92,7 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 	
 	Endpoint_SelectEndpoint(Number);
 	return true;
+#endif
 }
 
 void Endpoint_ClearEndpoints(void)
