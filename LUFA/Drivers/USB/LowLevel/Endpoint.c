@@ -87,6 +87,8 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 
 void Endpoint_ClearEndpoints(void)
 {
+	UEINT = 0;
+
 	for (uint8_t EPNum = 0; EPNum < ENDPOINT_TOTAL_ENDPOINTS; EPNum++)
 	{
 		Endpoint_SelectEndpoint(EPNum);	
