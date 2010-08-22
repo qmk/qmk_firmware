@@ -20,6 +20,8 @@
   *    SCSI_Codes.h file as these values are part of the MassStorage Class Driver
   *  - Added compile time error to the AVRISP-MKII project when built for the U4 chips, as the default VTARGET detection ADC channel
   *    does not exist on these chips (thanks to Marco)
+  *  - Moved calls to Device mode Class Driver events to after the request has been acknowledged, so that long event handlers do
+  *    do skew the timing of the control requests
   *
   *  <b>Fixed:</b>
   *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist
@@ -28,6 +30,8 @@
   *    missed SCSI sense values when the host retrieves the sense key (thanks to Martin Degelsegger)
   *  - Fixed critical pipe/endpoint memory allocation issue where the bank memory address space could be silently overlapped
   *    in the USB controller if the endpoints or pipes were allocated in anything other than ascending order (thanks to Martin Degelsegger)
+  *  - Fixed USBtoSerial and Benito project SetLineEncoding calls failing if the USART is busy, due to the RX ISR delaying the control
+  *    request handler
   *
   *  \section Sec_ChangeLog100807 Version 100807
   *  <b>New:</b>

@@ -83,8 +83,9 @@ void RNDIS_Device_ProcessControlRequest(USB_ClassInfo_RNDIS_Device_t* const RNDI
 				Endpoint_ClearSETUP();
 
 				Endpoint_Read_Control_Stream_LE(RNDISInterfaceInfo->State.RNDISMessageBuffer, USB_ControlRequest.wLength);
-				RNDIS_Device_ProcessRNDISControlMessage(RNDISInterfaceInfo);
 				Endpoint_ClearIN();
+
+				RNDIS_Device_ProcessRNDISControlMessage(RNDISInterfaceInfo);
 			}
 			
 			break;
