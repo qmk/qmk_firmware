@@ -27,6 +27,7 @@
 #include <util/delay.h>
 #include "usb_keyboard_debug.h"
 #include "print.h"
+#include "keymap.h"
 
 #define LED_CONFIG	(DDRD |= (1<<6))
 #define LED_ON		(PORTD &= ~(1<<6))
@@ -38,21 +39,127 @@ uint8_t number_keys[10]=
 
 uint16_t idle_count=0;
 
+
+
+//
+// scan matrix
+//
+uint8_t MAX_ROW = 9;
+
+// initialize ports for matrix
+void port_setup(void)
+{
+        // Column: input w/pullup
+	DDRB = 0x00;
+	PORTB = 0xFF;
+
+        // Row: Hi-Z(unselected)
+        // PD:0,1,2,3,6,7
+        // PC:6,7
+        // PF:7
+	DDRD = 0x00;
+	PORTD = 0x00;
+	DDRC = 0x00;
+	PORTC = 0x00;
+	DDRF = 0x00;
+	PORTF = 0x00;
+}
+
+// select a row of matrix for read
+void select_row(uint8_t row)
+{
+    switch (row) {
+        case 0:
+            DDRD  = (1<<0);
+            PORTD = 0x00;
+            DDRC  = 0x00;
+            PORTC = 0x00;
+            DDRF  = 0x00;
+            PORTF = 0x00;
+            break;
+        case 1:
+            DDRD  = (1<<1);
+            PORTD = 0x00;
+            DDRC  = 0x00;
+            PORTC = 0x00;
+            DDRF  = 0x00;
+            PORTF = 0x00;
+            break;
+        case 2:
+            DDRD  = (1<<2);
+            PORTD = 0x00;
+            DDRC  = 0x00;
+            PORTC = 0x00;
+            DDRF  = 0x00;
+            PORTF = 0x00;
+            break;
+        case 3:
+            DDRD  = (1<<3);
+            PORTD = 0x00;
+            DDRC  = 0x00;
+            PORTC = 0x00;
+            DDRF  = 0x00;
+            PORTF = 0x00;
+            break;
+        case 4:
+            DDRD  = (1<<6);
+            PORTD = 0x00;
+            DDRC  = 0x00;
+            PORTC = 0x00;
+            DDRF  = 0x00;
+            PORTF = 0x00;
+            break;
+        case 5:
+            DDRD  = (1<<7);
+            PORTD = 0x00;
+            DDRC  = 0x00;
+            PORTC = 0x00;
+            DDRF  = 0x00;
+            PORTF = 0x00;
+            break;
+        case 6:
+            DDRD  = 0x00;
+            PORTD = 0x00;
+            DDRC  = (1<<6);
+            PORTC = 0x00;
+            DDRF  = 0x00;
+            PORTF = 0x00;
+            break;
+        case 7:
+            DDRD  = 0x00;
+            PORTD = 0x00;
+            DDRC  = (1<<7);
+            PORTC = 0x00;
+            DDRF  = 0x00;
+            PORTF = 0x00;
+            break;
+        case 8:
+            DDRD  = 0x00;
+            PORTD = 0x00;
+            DDRC  = 0x00;
+            PORTC = 0x00;
+            DDRF  = (1<<7);
+            PORTF = 0x00;
+            break;
+    }
+}
+
+uint8_t read_col(void)
+{
+    return PINB;
+}
+
 int main(void)
 {
-	uint8_t b, d, mask, i, reset_idle;
-	uint8_t b_prev=0xFF, d_prev=0xFF;
+	uint8_t i, reset_idle;
+	uint8_t prev_state[MAX_ROW];
+        for (int i=0; i < MAX_ROW; i++) prev_state[i] = 0xFF;
 
 	// set for 16 MHz clock
 	CPU_PRESCALE(0);
 
-	// Configure all port B and port D pins as inputs with pullup resistors.
-	// See the "Using I/O Pins" page for details.
-	// http://www.pjrc.com/teensy/pins.html
-	DDRD = 0x00;
-	DDRB = 0x00;
-	PORTB = 0xFF;
-	PORTD = 0xFF;
+        port_setup();
+
 
 	// Initialize the USB, and then wait for the host to set configuration.
 	// If the Teensy is powered without a PC connected to the USB port,
@@ -76,32 +183,40 @@ int main(void)
 	print("All Port B or Port D pins are inputs with pullup resistors.\n");
 	print("Any connection to ground on Port B or D pins will result in\n");
 	print("keystrokes sent to the PC (and debug messages here).\n");
+
+        uint8_t col;
+        uint8_t code;
 	while (1) {
-		// read all port B and port D pins
-		b = PINB;
-		d = PIND;
-		// check if any pins are low, but were high previously
-		mask = 1;
-		reset_idle = 0;
-		for (i=0; i<8; i++) {
-			if (((b & mask) == 0) && (b_prev & mask) != 0) {
-				//usb_keyboard_press(KEY_B, KEY_SHIFT);
-				//usb_keyboard_press(number_keys[i], 0);
-				print("Port B, bit ");
-				phex(i);
-				print("\n");
-				reset_idle = 1;
-			}
-			if (((d & mask) == 0) && (d_prev & mask) != 0) {
-				//usb_keyboard_press(KEY_D, KEY_SHIFT);
-				//usb_keyboard_press(number_keys[i], 0);
-				print("Port D, bit ");
-				phex(i);
-				print("\n");
-				reset_idle = 1;
-			}
-			mask = mask << 1;
-		}
+            reset_idle = 0;
+
+            for (uint8_t r=0; r < MAX_ROW; r++) {
+                select_row(r);
+
+                // without this read unstable value.
+                _delay_us(30);
+
+                col = read_col();
+                if (col != prev_state[r]) {
+                    prev_state[r] = col;
+                    phex(r);
+                    print(": ");
+                    pbin(col);
+                    print("\n");
+
+                    for (int c = 0; c < 8; c++) {
+                        if (col & 1<<c) continue;
+                        code = get_keycode(r, c);
+                        phex(code);
+                        print("\n");
+                        usb_keyboard_press(code, 0);
+                    }
+
+                    reset_idle = 1;
+                }
+            }
+                
+
+
 		// if any keypresses were detected, reset the idle counter
 		if (reset_idle) {
 			// variables shared with interrupt routines must be
@@ -111,11 +226,10 @@ int main(void)
 			idle_count = 0;
 			sei();
 		}
+
 		// now the current pins will be the previous, and
 		// wait a short delay so we're not highly sensitive
 		// to mechanical "bounce".
-		b_prev = b;
-		d_prev = d;
 		_delay_ms(2);
 	}
 }
