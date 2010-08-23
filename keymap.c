@@ -1,12 +1,13 @@
-#include "keymap.h"
-
-/*
+/* 
  * keymap for modified macway keyboard
  */
+#include <avr/pgmspace.h>
+#include "keymap.h"
+
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 8
 
-const uint8_t Keymap[MATRIX_COLS][MATRIX_ROWS] = {
+static const uint8_t PROGMEM Keymap[MATRIX_COLS][MATRIX_ROWS] = {
     { KB_LALT,   KB_1,      KB_2,     KB_3,      KB_4,   KB_7,   KB_8,        KB_9,     KB_0 },
     { KB_NO,     KB_ESCAPE, KB_RALT,  KB_NO,     KB_5,   KB_6,   KB_EQUAL,    KB_NO,    KB_MINUS },
     { KB_BSPACE, KB_TAB,    KB_LGUI,  KB_RSHIFT, KB_T,   KB_Y,   KB_RBRACKET, KB_NO,    KB_LBRACKET },
@@ -23,5 +24,5 @@ uint8_t get_keycode(uint8_t row, uint8_t col)
         return KB_NO;
     if (col >= MATRIX_COLS)
         return KB_NO;
-    return Keymap[col][row];
+    return pgm_read_byte(&Keymap[col][row]);
 }
