@@ -1,0 +1,60 @@
+Keyboard Firmware
+=================
+2010/08/23 noname
+
+
+VERSION
+-------
+0.1     2010/08/23
+        implemented for macway modified.
+        It works as normal keyboard now.
+
+
+TODO
+----
+modulization
+    clean source
+debouncing
+anti-ghost
+keymap layer
+    key combination switch
+    toggle siwtch
+    HHKB like cursor etc.
+setting menu(wizard)
+    debug console
+    keymap setting
+    matrix display
+HHKB support
+Trackpoint(PS/2) support
+    Thinkpad keyboard support
+
+
+target board
+------------
+Teensy 2.0
+http://www.pjrc.com/teensy
+
+
+projects based on/related to
+----------------------------
+PJRC USB Keyboard Example
+    http://www.pjrc.com/teensy/usb_keyboard.html
+kbupgrade
+    http://github.com/rhomann/kbupgrade
+    http://geekhack.org/showwiki.php?title=Island:8406
+c64key
+    http://symlink.dk/projects/c64key/
+rump
+    http://mg8.org/rump/
+    http://github.com/clee/rump
+dulcimer
+    http://www.schatenseite.de/dulcimer.html
+humblehacker-keyboard
+    http://github.com/humblehacker
+    http://www.humblehacker.com/keyboard/
+    http://geekhack.org/showwiki.php?title=Island:6292
+ps2avr
+    http://sourceforge.net/projects/ps2avr/
+
+
+EOF

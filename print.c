@@ -60,7 +60,14 @@ void phex16(unsigned int i)
 
 void pbin(unsigned char c)
 {
-    for (int i=7; i>=0; i--) {
+    for (int i = 7; i >= 0; i--) {
+        usb_debug_putchar((c & (1<<i)) ? '1' : '0');
+    }
+}
+
+void pbin_reverse(unsigned char c)
+{
+    for (int i = 0; i < 8; i++) {
         usb_debug_putchar((c & (1<<i)) ? '1' : '0');
     }
 }
