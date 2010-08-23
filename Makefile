@@ -47,6 +47,7 @@ TARGET = mykey
 # List C source files here. (C dependencies are automatically generated.)
 SRC =	$(TARGET).c \
 	keymap.c \
+	matrix.c \
 	usb_keyboard_debug.c \
 	print.c
 
