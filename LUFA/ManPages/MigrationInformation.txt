@@ -18,6 +18,11 @@
  *    - A new USB driver source file, Drivers/USB/HighLevel/PipeStream.c now exists. This source file should be added to all
  *      project makefiles using the USB driver of LUFA, or the makefile should be updated to use the new module source variables.
  *
+ *  <b>Device Mode</b>
+ *    - The signature for the CALLBACK_USB_GetDescriptor() callback has changed, the "void** const DescriptorAddress" parameter is
+ *      now "const void** const DescriptorAddress". Existing applications should update their callback signatures to match this, and
+ *      eliminate any casting of descriptor pointers to a non-const pointer.
+ *
  * \section Sec_Migration100807 Migrating from 100513 to 100807
  *
  *  <b>Non-USB Library Components</b>

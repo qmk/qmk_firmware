@@ -24,6 +24,8 @@
   *  - Changed all Device mode LowLevel demos and Device Class drivers so that the control request is acknowledged and any data
   *    transferred as quickly as possible without any processing inbetween sections, so that long callbacks or event handlers will
   *    not break communications with the host by exceeding the maximum control request stage timeout period
+  *  - Changed the signature of the CALLBACK_USB_GetDescriptor() callback function so that the descriptor pointer is const, to remove
+  *    the need for extra casting inside the callback (thanks to Jonathan Kollasch)
   *
   *  <b>Fixed:</b>
   *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist

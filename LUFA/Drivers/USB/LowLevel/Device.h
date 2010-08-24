@@ -187,7 +187,7 @@
 			 */
 			uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			                                    const uint8_t wIndex,
-			                                    void** const DescriptorAddress
+			                                    const void** const DescriptorAddress
 			#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
 			                                    , uint8_t* MemoryAddressSpace
 			#endif

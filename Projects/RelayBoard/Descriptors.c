@@ -155,41 +155,41 @@ USB_Descriptor_String_t PROGMEM RelayBoard_SerialString =
  */
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                                     const uint8_t wIndex,
-                                    void** const DescriptorAddress)
+                                    const void** const DescriptorAddress)
 {
 	const uint8_t  DescriptorType   = (wValue >> 8);
 	const uint8_t  DescriptorNumber = (wValue & 0xFF);
 
-	void*    Address = NULL;
-	uint16_t Size    = NO_DESCRIPTOR;
+	const void* Address = NULL;
+	uint16_t    Size    = NO_DESCRIPTOR;
 
 	switch (DescriptorType)
 	{
 		case DTYPE_Device:
-			Address = (void*)&RelayBoard_DeviceDescriptor;
+			Address = &RelayBoard_DeviceDescriptor;
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
 		case DTYPE_Configuration:
-			Address = (void*)&RelayBoard_ConfigurationDescriptor;
+			Address = &RelayBoard_ConfigurationDescriptor;
 			Size    = sizeof(RelayBoard_USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_String:
 			switch (DescriptorNumber)
 			{
 				case 0x00:
-					Address = (void*)&RelayBoard_LanguageString;
+					Address = &RelayBoard_LanguageString;
 					Size    = pgm_read_byte(&RelayBoard_LanguageString.Header.Size);
 					break;
 				case 0x01:
-					Address = (void*)&RelayBoard_ManufacturerString;
+					Address = &RelayBoard_ManufacturerString;
 					Size    = pgm_read_byte(&RelayBoard_ManufacturerString.Header.Size);
 					break;
 				case 0x02:
-					Address = (void*)&RelayBoard_ProductString;
+					Address = &RelayBoard_ProductString;
 					Size    = pgm_read_byte(&RelayBoard_ProductString.Header.Size);
 					break;
 				case 0x03:
-					Address = (void*)&RelayBoard_SerialString;
+					Address = &RelayBoard_SerialString;
 					Size    = pgm_read_byte(&RelayBoard_SerialString.Header.Size);
 					break;
 			}

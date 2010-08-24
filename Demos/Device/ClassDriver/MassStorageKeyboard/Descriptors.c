@@ -256,48 +256,48 @@ USB_Descriptor_String_t PROGMEM ProductString =
  */
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                                     const uint8_t wIndex,
-                                    void** const DescriptorAddress)
+                                    const void** const DescriptorAddress)
 {
 	const uint8_t  DescriptorType   = (wValue >> 8);
 	const uint8_t  DescriptorNumber = (wValue & 0xFF);
 
-	void*    Address = NULL;
-	uint16_t Size    = NO_DESCRIPTOR;
+	const void* Address = NULL;
+	uint16_t    Size    = NO_DESCRIPTOR;
 
 	switch (DescriptorType)
 	{
 		case DTYPE_Device: 
-			Address = (void*)&DeviceDescriptor;
+			Address = &DeviceDescriptor;
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
 		case DTYPE_Configuration: 
-			Address = (void*)&ConfigurationDescriptor;
+			Address = &ConfigurationDescriptor;
 			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_String: 
 			switch (DescriptorNumber)
 			{
 				case 0x00: 
-					Address = (void*)&LanguageString;
+					Address = &LanguageString;
 					Size    = pgm_read_byte(&LanguageString.Header.Size);
 					break;
 				case 0x01: 
-					Address = (void*)&ManufacturerString;
+					Address = &ManufacturerString;
 					Size    = pgm_read_byte(&ManufacturerString.Header.Size);
 					break;
 				case 0x02: 
-					Address = (void*)&ProductString;
+					Address = &ProductString;
 					Size    = pgm_read_byte(&ProductString.Header.Size);
 					break;
 			}
 			
 			break;
 		case DTYPE_HID:
-			Address = (void*)&ConfigurationDescriptor.HID_KeyboardHID;
+			Address = &ConfigurationDescriptor.HID_KeyboardHID;
 			Size    = sizeof(USB_HID_Descriptor_t);
 			break;
 		case DTYPE_Report:
-			Address = (void*)&KeyboardReport;
+			Address = &KeyboardReport;
 			Size    = sizeof(KeyboardReport);
 			break;
 	}

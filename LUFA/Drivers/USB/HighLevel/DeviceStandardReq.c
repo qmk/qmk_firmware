@@ -254,8 +254,8 @@ static void USB_Device_GetInternalSerialDescriptor(void)
 
 static void USB_Device_GetDescriptor(void)
 {
-	void*    DescriptorPointer;
-	uint16_t DescriptorSize;
+	const void* DescriptorPointer;
+	uint16_t    DescriptorSize;
 	
 	#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
 	uint8_t  DescriptorAddressSpace;

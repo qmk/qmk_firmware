@@ -41,7 +41,6 @@
 		#include <avr/pgmspace.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
-
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -56,6 +55,6 @@
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 		                                    const uint8_t wIndex,
-		                                    void** const DescriptorAddress);
-
+		                                    const void** const DescriptorAddress)
+		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
 #endif
