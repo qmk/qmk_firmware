@@ -75,10 +75,10 @@
 				 *  USB interface should be initialized in low speed (1.5Mb/s) mode.
 				 *
 				 *  \note Low Speed mode is not available on all USB AVR models.
-				 *        \n\n
+				 *        \n
 				 *
 				 *  \note Restrictions apply on the number, size and type of endpoints which can be used
-				 *        when running in low speed mode -- refer to the USB 2.0 standard.
+				 *        when running in low speed mode - refer to the USB 2.0 specification.
 				 */
 				#define USB_DEVICE_OPT_LOWSPEED            (1 << 0)
 			#endif
@@ -150,7 +150,7 @@
 				USB_INT_Enable(USB_INT_SOFI);
 			}
 				
-			/** Disables the device mode Start Of Frame events. When disabled, this stop the firing of the
+			/** Disables the device mode Start Of Frame events. When disabled, this stops the firing of the
 			 *  \ref EVENT_USB_Device_StartOfFrame() event when enumerated in device mode.
 			 */
 			static inline void USB_Device_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
