@@ -245,25 +245,38 @@
 
 		/* Inline Functions: */			
 			/** Configures the specified endpoint number with the given endpoint type, direction, bank size
-			 *  and banking mode. Endpoints should be allocated in ascending order by their address in the
-			 *  device (i.e. endpoint 1 should be configured before endpoint 2 and so on) to prevent fragmentation
-			 *  of the USB FIFO memory.
+			 *  and banking mode. Once configured, the endpoint may be read from or written to, depending
+			 *  on its direction.
 			 *
-			 *  The endpoint type may be one of the EP_TYPE_* macros listed in LowLevel.h and the direction
-			 *  may be either \ref ENDPOINT_DIR_OUT or \ref ENDPOINT_DIR_IN.
+			 *  \param[in] Number     Endpoint number to configure. This must be more than 0 and less than
+			 *                        \ref ENDPOINT_TOTAL_ENDPOINTS.
 			 *
-			 *  The bank size must indicate the maximum packet size that the endpoint can handle. Different
-			 *  endpoint numbers can handle different maximum packet sizes - refer to the chosen USB AVR's
-			 *  datasheet to determine the maximum bank size for each endpoint.
+			 *  \param[in] Type       Type of endpoint to configure, a EP_TYPE_* mask. Not all endpoint types
+			 *                        are available on Low Speed USB devices - refer to the USB 2.0 specification.
 			 *
-			 *  The banking mode may be either \ref ENDPOINT_BANK_SINGLE or \ref ENDPOINT_BANK_DOUBLE.
+			 *  \param[in] Direction  Endpoint data direction, either \ref ENDPOINT_DIR_OUT or \ref ENDPOINT_DIR_IN.
+			 *                        All endpoints (except Control type) are unidirectional - data may only be read
+			 *                        from or written to the endpoint bank based on its direction, not both.
+			 *
+			 *  \param[in] Size       Size of the endpoint's bank, where packets are stored before they are transmitted
+			 *                        to the USB host, or after they have been received from the USB host (depending on
+			 *                        the endpoint's data direction). The bank size must indicate the maximum packet size
+			 *                        that the endpoint can handle.
+			 *
+			 *  \param[in] Banks      Number of banks to use for the endpoint being configured, an ENDPOINT_BANK_* mask.
+			 *                        More banks uses more USB DPRAM, but offers better performance. Isochronous type
+			 *                        endpoints <b>must</b> have at least two banks.
+			 *
+			 *  \note Certain models of USB AVR's endpoints may have different maximum packet sizes based on the endpoint's
+			 *        index - refer to the chosen USB AVR's datasheet to determine the maximum bank size for each endpoint.
+			 *        \n\n
 			 *
 			 *  \note The default control endpoint should not be manually configured by the user application, as 
 			 *        it is automatically configured by the library internally.
 			 *        \n\n
 			 *
-			 *  \note This routine will select the specified endpoint, and the endpoint will remain selected
-			 *        once the routine completes regardless of if the endpoint configuration succeeds.
+			 *  \note This routine will automatically select the specified endpoint upon success. Upon failure, the endpoint
+			 *        which failed to reconfigure correctly will be selected.
 			 *
 			 *  \return Boolean true if the configuration succeeded, false otherwise.
 			 */

@@ -811,18 +811,7 @@
 
 		/* Function Prototypes: */
 			/** Configures the specified pipe number with the given pipe type, token, target endpoint number in the
-			 *  attached device, bank size and banking mode. Pipes should be allocated in ascending order by their
-			 *  address in the device (i.e. pipe 1 should be configured before pipe 2 and so on) to prevent fragmentation
-			 *  of the USB FIFO memory.
-			 *
-			 *  The pipe type may be one of the EP_TYPE_* macros listed in LowLevel.h, the token may be one of the
-			 *  PIPE_TOKEN_* masks.
-			 *
-			 *  The bank size must indicate the maximum packet size that the pipe can handle. Different pipe
-			 *  numbers can handle different maximum packet sizes - refer to the chosen USB AVR's datasheet to
-			 *  determine the maximum bank size for each pipe.
-			 *
-			 *  The banking mode may be either \ref PIPE_BANK_SINGLE or \ref PIPE_BANK_DOUBLE.
+			 *  attached device, bank size and banking mode.
 			 *
 			 *  A newly configured pipe is frozen by default, and must be unfrozen before use via the \ref Pipe_Unfreeze()
 			 *  before being used. Pipes should be kept frozen unless waiting for data from a device while in IN mode, or
@@ -830,14 +819,38 @@
 			 *  numbers of IN requests without automatic freezing - this can be overridden by a call to
 			 *  \ref Pipe_SetFiniteINRequests().
 			 *
-			 *  \note The default control pipe should not be manually configured by the user application, as it 
-			 *        is automatically configured by the library internally.
+			 *  \param[in] Number          Pipe number to configure. This must be more than 0 and less than \ref PIPE_TOTAL_PIPES.
+			 *
+			 *  \param[in] Type            Type of pipe to configure, a EP_TYPE_* mask. Not all pipe types are available on Low
+			 *                             Speed USB devices - refer to the USB 2.0 specification.
+			 *
+			 *  \param[in] Token           Pipe data token, either \ref PIPE_TOKEN_SETUP, \ref PIPE_TOKEN_OUT or \ref PIPE_TOKEN_IN.
+			 *                             All pipes (except Control type) are unidirectional - data may only be read from or 
+			 *                             written to the pipe bank based on its direction, not both.
+			 *
+			 *  \param[in] EndpointNumber  Endpoint index within the attached device that the pipe should interface to.
+			 *
+			 *  \param[in] Size            Size of the pipe's bank, where packets are stored before they are transmitted to
+			 *                             the USB device, or after they have been received from the USB device (depending on 
+			 *                             the pipe's data direction). The bank size must indicate the maximum packet size that 
+			 *                             the pipe can handle.
+			 *
+			 *  \param[in] Banks           Number of banks to use for the pipe being configured, a PIPE_BANK_* mask. More banks
+			 *                             uses more USB DPRAM, but offers better performance. Isochronous type pipes <b>must</b>
+			 *                             have at least two banks.
+			 *
+			 *  \note Certain models of USB AVR's pipes may have different maximum packet sizes based on the pipe's
+			 *        index - refer to the chosen USB AVR's datasheet to determine the maximum bank size for each pipe.
 			 *        \n\n
 			 *
-			 *  \note This routine will select the specified pipe, and the pipe will remain selected once the
-			 *        routine completes regardless of if the pipe configuration succeeds.
+			 *  \note The default control pipe should not be manually configured by the user application, as it is
+			 *        automatically configured by the library internally.
+			 *        \n\n
 			 *
-			 *  \return Boolean true if the configuration is successful, false otherwise.
+			 *  \note This routine will automatically select the specified pipe upon success. Upon failure, the pipe which
+			 *        failed to reconfigure correctly will be selected.
+			 *
+			 *  \return Boolean true if the configuration succeeded, false otherwise.
 			 */
 			bool Pipe_ConfigurePipe(const uint8_t  Number,
 			                        const uint8_t Type,
