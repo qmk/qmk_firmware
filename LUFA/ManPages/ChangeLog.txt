@@ -36,6 +36,7 @@
   *    in the USB controller if the endpoints or pipes were allocated in anything other than ascending order (thanks to Martin Degelsegger)
   *  - Fixed USBtoSerial and Benito project SetLineEncoding calls failing if the USART is busy, due to the RX ISR delaying the control
   *    request handler
+  *  - Fixed LowLevel PrinterHost demo not sending control requests to the attached printer with the correct printer interface wIndex value
   *
   *  \section Sec_ChangeLog100807 Version 100807
   *  <b>New:</b>

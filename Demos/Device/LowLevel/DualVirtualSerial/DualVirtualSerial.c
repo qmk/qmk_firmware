@@ -153,7 +153,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 void EVENT_USB_Device_UnhandledControlRequest(void)
 {
 	/* Determine which interface's Line Coding data is being set from the wIndex parameter */
-	uint8_t* LineEncodingData = (USB_ControlRequest.wIndex == 0) ? (uint8_t*)&LineEncoding1 : (uint8_t*)&LineEncoding2;
+	void* LineEncodingData = (USB_ControlRequest.wIndex == 0) ? &LineEncoding1 : &LineEncoding2;
 
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)

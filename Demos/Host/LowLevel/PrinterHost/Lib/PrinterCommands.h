@@ -41,6 +41,8 @@
 		#include <string.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
+		
+		#include "../PrinterHost.h"
 
 	/* Macros: */
 		/** Printer class-specific request to retrieve the printer's ID string. */

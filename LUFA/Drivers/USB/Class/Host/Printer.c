@@ -171,10 +171,10 @@ uint8_t PRNT_Host_SoftReset(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest     = REQ_SoftReset,
-			.wValue       = 0,
-			.wIndex       = PRNTInterfaceInfo->State.InterfaceNumber,
-			.wLength      = 0,
+			.bRequest      = REQ_SoftReset,
+			.wValue        = 0,
+			.wIndex        = PRNTInterfaceInfo->State.InterfaceNumber,
+			.wLength       = 0,
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);

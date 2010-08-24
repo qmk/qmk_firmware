@@ -70,6 +70,9 @@
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY          LEDS_LED2
 	
+	/* External Variables: */
+		extern uint8_t PrinterInterfaceNumber;
+	
 	/* Function Prototypes: */
 		void EVENT_USB_Host_DeviceAttached(void);
 		void EVENT_USB_Host_DeviceUnattached(void);

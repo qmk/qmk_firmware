@@ -86,7 +86,7 @@ uint8_t Printer_GetDeviceID(char* DeviceIDString,
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
 			.bRequest      = REQ_GetDeviceID,
 			.wValue        = 0,
-			.wIndex        = 0,
+			.wIndex        = PrinterInterfaceNumber,
 			.wLength       = sizeof(DeviceIDStringLength),
 		};
 		
@@ -130,11 +130,11 @@ uint8_t Printer_GetPortStatus(uint8_t* const PortStatus)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
-			bmRequestType: (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			bRequest:      REQ_GetPortStatus,
-			wValue:        0,
-			wIndex:        0,
-			wLength:       sizeof(uint8_t),
+			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
+			.bRequest      = REQ_GetPortStatus,
+			.wValue        = 0,
+			.wIndex        = PrinterInterfaceNumber,
+			.wLength       = sizeof(uint8_t),
 		};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
@@ -154,7 +154,7 @@ uint8_t Printer_SoftReset(void)
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
 			.bRequest      = REQ_SoftReset,
 			.wValue        = 0,
-			.wIndex        = 0,
+			.wIndex        = PrinterInterfaceNumber,
 			.wLength       = 0,
 		};
 
