@@ -30,7 +30,14 @@
 
 /** \file
  *
- *  Ultra lightweight ring buffer, for fast insertion/deletion.
+ *  Ultra lightweight ring buffer, for fast insertion/deletion. This uses inlined functions
+ *  for maximum speed. All buffers created with this library must be of the same size, however
+ *  multiple independant buffers can be created.
+ *
+ *  Note that for each buffer, insertion and removal operations may occur at the same time (via
+ *  a multithreaded ISR based system) however the same kind of operation (two or more insertions
+ *  or deletions) must not overlap. If there is possibility of two or more of the same kind of
+ *  operating occuring at the same point in time, atomic (mutex) locking should be used.
  */
  
 #ifndef _ULW_RING_BUFF_H_

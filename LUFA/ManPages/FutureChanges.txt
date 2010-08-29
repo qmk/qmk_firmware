@@ -17,10 +17,12 @@
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Add standardized descriptor names to class driver structures
   *      -# Change makefiles to allow for absolute LUFA location to be used
+  *      -# Re-add interrupt Pipe/Endpoint support
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews
   *      -# Write LUFA tutorials
+  *      -# Add makefile template
   *  - Demos/Projects
   *      -# Multiple-Report HID device
   *      -# Device/Host USB bridge
