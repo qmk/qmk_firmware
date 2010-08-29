@@ -213,8 +213,8 @@ uint16_t USB_GetOSFeatureDescriptor(const uint16_t wValue,
                                     const uint8_t wIndex,
                                     const void** const DescriptorAddress)
 {
-	void*    Address = NULL;
-	uint16_t Size    = NO_DESCRIPTOR;
+	const void* Address = NULL;
+	uint16_t    Size    = NO_DESCRIPTOR;
 
 	/* Check if a device level OS feature descriptor is being requested */
 	if (wValue == 0x0000)
@@ -222,7 +222,7 @@ uint16_t USB_GetOSFeatureDescriptor(const uint16_t wValue,
 		/* Only the Extended Device Compatibility descriptor is supported */
 		if (wIndex == EXTENDED_COMPAT_ID_DESCRIPTOR)
 		{
-			Address = (void*)&DevCompatIDs;
+			Address = &DevCompatIDs;
 			Size    = sizeof(USB_OSCompatibleIDDescriptor_t);
 		}
 	}

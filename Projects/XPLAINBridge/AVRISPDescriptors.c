@@ -174,41 +174,41 @@ USB_Descriptor_String_t PROGMEM AVRISP_SerialString =
  */
 uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
                               const uint8_t wIndex,
-                              void** const DescriptorAddress)
+                              const void** const DescriptorAddress)
 {
 	const uint8_t  DescriptorType   = (wValue >> 8);
 	const uint8_t  DescriptorNumber = (wValue & 0xFF);
 
-	void*    Address = NULL;
-	uint16_t Size    = NO_DESCRIPTOR;
+	const void* Address = NULL;
+	uint16_t    Size    = NO_DESCRIPTOR;
 	
 	switch (DescriptorType)
 	{
 		case DTYPE_Device: 
-			Address = (void*)&AVRISP_DeviceDescriptor;
+			Address = &AVRISP_DeviceDescriptor;
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
 		case DTYPE_Configuration: 
-			Address = (void*)&AVRISP_ConfigurationDescriptor;
+			Address = &AVRISP_ConfigurationDescriptor;
 			Size    = sizeof(AVRISP_USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_String: 
 			switch (DescriptorNumber)
 			{
 				case 0x00: 
-					Address = (void*)&AVRISP_LanguageString;
+					Address = &AVRISP_LanguageString;
 					Size    = pgm_read_byte(&AVRISP_LanguageString.Header.Size);
 					break;
 				case 0x01: 
-					Address = (void*)&AVRISP_ManufacturerString;
+					Address = &AVRISP_ManufacturerString;
 					Size    = pgm_read_byte(&AVRISP_ManufacturerString.Header.Size);
 					break;
 				case 0x02: 
-					Address = (void*)&AVRISP_ProductString;
+					Address = &AVRISP_ProductString;
 					Size    = pgm_read_byte(&AVRISP_ProductString.Header.Size);
 					break;
 				case 0x03:
-					Address = (void*)&AVRISP_SerialString;
+					Address = &AVRISP_SerialString;
 					Size    = pgm_read_byte(&AVRISP_SerialString.Header.Size);
 					break;					
 			}

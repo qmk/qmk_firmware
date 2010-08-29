@@ -79,6 +79,6 @@
 	/* Function Prototypes: */
 		uint16_t USART_GetDescriptor(const uint16_t wValue,
 		                             const uint8_t wIndex,
-		                             void** const DescriptorAddress);
+		                             const void** const DescriptorAddress);
 
 #endif

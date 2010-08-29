@@ -238,11 +238,11 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			
 			break;
 		case DTYPE_HID: 
-			Address = (void*)&ConfigurationDescriptor.HID_MouseHID;
+			Address = &ConfigurationDescriptor.HID_MouseHID;
 			Size    = sizeof(USB_Descriptor_HID_t);
 			break;
 		case DTYPE_Report: 
-			Address = (void*)&MouseReport;
+			Address = &MouseReport;
 			Size    = sizeof(MouseReport);
 			break;
 	}

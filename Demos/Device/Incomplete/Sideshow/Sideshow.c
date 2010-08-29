@@ -114,9 +114,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 		case REQ_GetOSFeatureDescriptor:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_VENDOR | REQREC_DEVICE))
 			{
-				void*    DescriptorPointer;
-				uint16_t DescriptorSize = USB_GetOSFeatureDescriptor(USB_ControlRequest.wValue, USB_ControlRequest.wIndex,
-				                                                     &DescriptorPointer);
+				const void* DescriptorPointer;
+				uint16_t    DescriptorSize = USB_GetOSFeatureDescriptor(USB_ControlRequest.wValue,
+				                                                        USB_ControlRequest.wIndex,
+				                                                        &DescriptorPointer);
 
 				if (DescriptorSize == NO_DESCRIPTOR)
 				  return;
