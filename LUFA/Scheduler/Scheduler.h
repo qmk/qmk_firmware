@@ -51,34 +51,52 @@
  *
  *  For a task to yield it must return, thus each task should have persistent data marked with the static attribute.
  *
+ *  Each LUFA scheduler task should be written similar to an ISR; it should execute quickly (so that no one task
+ *  hogs the processor, preventing another from running before some sort of timeout is exceeded). Unlike normal RTOS
+ *  tasks, each LUFA scheduler task is a regular function, and thus must be designed to be called, and designed to
+ *  return to the calling scheduler function repeatedly. Data which must be preserved between task calls should be
+ *  declared as global or (preferably) as a static local variable inside the task.
+ *
+ *  The scheduler consists of a task list, listing all the tasks which can be executed by the scheduler. Once started,
+ *  each task is then called one after another, unless the task is stopped by another running task or interrupt.
+ *
  *  Usage Example:
  *  \code
  *      #include <LUFA/Scheduler/Scheduler.h>
  *      
- *      TASK(MyTask1);
- *      TASK(MyTask2);
+ *      TASK(MyTask1); // Task prototype
+ *      TASK(MyTask2); // Task prototype
  *      
  *      TASK_LIST
  *      {
- *      	{ .Task = MyTask1, .TaskStatus = TASK_RUN, .GroupID = 1  },
- *      	{ .Task = MyTask2, .TaskStatus = TASK_RUN, .GroupID = 1  },
+ *          { .Task = MyTask1, .TaskStatus = TASK_RUN, .GroupID = 1  },
+ *          { .Task = MyTask2, .TaskStatus = TASK_RUN, .GroupID = 1  },
  *      }
  *
  *      int main(void)
  *      {
- *      	Scheduler_Start();
+ *          Scheduler_Init();
+ *
+ *          // Other initialisation here
+ *
+ *          Scheduler_Start();
  *      }
  *
  *      TASK(MyTask1)
  *      {
- *      	// Implementation Here
+ *          // Task implementation here
  *      }
  *
  *      TASK(MyTask2)
  *      {
- *      	// Implementation Here
+ *          // Task implementation here
  *      }
  *  \endcode
+ *
+ *  If desired, the LUFA scheduler <b>does not need to be used</b> in a LUFA powered application. A more conventional
+ *  approach to application design can be used, or a proper scheduling RTOS inserted in the place of the LUFA scheduler.
+ *  In the case of the former the USB task must be run manually repeatedly to maintain USB communications, and in the
+ *  case of the latter a proper RTOS task must be set up to do the same.
  *
  *  @{
  */

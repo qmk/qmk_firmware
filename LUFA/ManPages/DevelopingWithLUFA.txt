@@ -17,6 +17,5 @@
  *  \li \subpage Page_BuildLibrary - Building as a Linkable Library
  *  \li \subpage Page_WritingBoardDrivers - How to Write Custom Board Drivers
  *  \li \subpage Page_SoftwareBootloaderStart - How to jump to the bootloader in software
- *  \li \subpage Page_SchedulerOverview - Overview of the Simple LUFA Scheduler (DEPRECATED)
  */
  
