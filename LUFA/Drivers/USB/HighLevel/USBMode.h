@@ -62,22 +62,22 @@
 	/* Public Interface - May be used in end-application: */
 	#if defined(__DOXYGEN__)
 		/** Indicates that the target AVR microcontroller belongs to the Series 2 USB controller
-		 *  (i.e. AT90USBXXX2 or ATMEGAXXU2) when defined.
+		 *  (i.e. AT90USBxxx2 or ATMEGAxxU2) when defined.
 		 */
 		#define USB_SERIES_2_AVR
 
 		/** Indicates that the target AVR microcontroller belongs to the Series 4 USB controller
-		 *  (i.e. ATMEGAXXU4) when defined.
+		 *  (i.e. ATMEGAxxU4) when defined.
 		 */
 		#define USB_SERIES_4_AVR
 
 		/** Indicates that the target AVR microcontroller belongs to the Series 6 USB controller
-		 *  (i.e. AT90USBXXX6) when defined.
+		 *  (i.e. AT90USBxxx6) when defined.
 		 */
 		#define USB_SERIES_6_AVR
 
 		/** Indicates that the target AVR microcontroller belongs to the Series 7 USB controller
-		 *  (i.e. AT90USBXXX7) when defined.
+		 *  (i.e. AT90USBxxx7) when defined.
 		 */
 		#define USB_SERIES_7_AVR
 
