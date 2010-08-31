@@ -49,6 +49,7 @@
  *  - Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/
  *  - IR Remote to Keyboard decoder: http://netzhansa.blogspot.com/2010/04/our-living-room-hi-fi-setup-needs-mp3.html
  *  - LED Panel controller: http://projects.peterpolidoro.net/caltech/panelscontroller/panelscontroller.htm
+ *  - Single LED Matrix Display: http://guysoft.wordpress.com/2009/10/08/bumble-b/
  *  - Linux Secure Storage Dongle: http://github.com/TomMD/teensy
  *  - MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
  *  - MidiMonster, a USB-to-MIDI gateway board: http://www.dorkbotpdx.org/wiki/midimonster
@@ -61,6 +62,7 @@
  *  - SD Card reader: http://elasticsheep.com/2010/04/teensy2-usb-mass-storage-with-an-sd-card/
  *  - SEGA Megadrive/Genesis Development Cartridge: http://www.makestuff.eu/wordpress/?page_id=398
  *  - Stripe Snoop, a Magnetic Card reader: http://www.ossguy.com/ss_usb/
+ *  - Teensy SD Card .WAV file player: http://elasticsheep.com/2010/04/teensy2-usb-wav-player-part-1/
  *  - Touchscreen Input Device: http://capnstech.blogspot.com/2010/07/touchscreen-update.html
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  - Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/

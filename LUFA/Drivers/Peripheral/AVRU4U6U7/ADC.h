@@ -31,7 +31,8 @@
 /** \file
  *  \brief ADC peripheral driver for the U7, U6 and U4 USB AVRs.
  *
- *  ADC driver for the AT90USB1287, AT90USB1286, AT90USB647, AT90USB646, ATMEGA16U4 and ATMEGA32U4 AVRs.
+ *  On-chip Analogue-to-Digital converter (ADC) driver for supported U4, U6 and U7 model AVRs that contain an ADC
+ *  peripheral internally.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the ADC driver
  *        dispatch header located in LUFA/Drivers/Peripheral/ADC.h.
@@ -40,7 +41,8 @@
 /** \ingroup Group_ADC
  *  @defgroup Group_ADC_AVRU4U6U7 Series U4, U6 and U7 Model ADC Driver
  *
- *  ADC driver for the AT90USB1287, AT90USB1286, AT90USB647, AT90USB646, ATMEGA16U4 and ATMEGA32U4 AVRs.
+ *  On-chip Analogue-to-Digital converter (ADC) driver for supported U4, U6 and U7 model AVRs that contain an ADC
+ *  peripheral internally.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the ADC driver
  *        dispatch header located in LUFA/Drivers/Peripheral/ADC.h.
@@ -208,35 +210,35 @@
 			 *
 			 *  \note The channel number must be specified as an integer, and NOT a ADC_CHANNELx mask.
 			 *
-			 *  \param[in] Channel  ADC channel number to set up for conversions.
+			 *  \param[in] ChannelIndex  ADC channel number to set up for conversions.
 			 */
-			static inline void ADC_SetupChannel(const uint8_t Channel)
+			static inline void ADC_SetupChannel(const uint8_t ChannelIndex)
 			{
 				#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
 					 defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
 					 defined(__AVR_ATmega32U6__))				
-				DDRF  &= ~(1 << Channel);
-				DIDR0 |=  (1 << Channel);
+				DDRF  &= ~(1 << ChannelIndex);
+				DIDR0 |=  (1 << ChannelIndex);
 				#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-				if (Channel < 8)
+				if (ChannelIndex < 8)
 				{
-					DDRF  &= ~(1 << Channel);
-					DIDR0 |=  (1 << Channel);
+					DDRF  &= ~(1 << ChannelIndex);
+					DIDR0 |=  (1 << ChannelIndex);
 				}
-				else if (Channel == 8)
+				else if (ChannelIndex == 8)
 				{
 					DDRD  &= ~(1 << 4);
 					DIDR2 |=  (1 << 0);
 				}
-				else if (Channel < 11)
+				else if (ChannelIndex < 11)
 				{
-					DDRD  &= ~(1 << (Channel - 3));
-					DIDR2 |=  (1 << (Channel - 8));
+					DDRD  &= ~(1 << (ChannelIndex - 3));
+					DIDR2 |=  (1 << (ChannelIndex - 8));
 				}
 				else
 				{
-					DDRB  &= ~(1 << (Channel - 7));
-					DIDR2 |=  (1 << (Channel - 8));
+					DDRB  &= ~(1 << (ChannelIndex - 7));
+					DIDR2 |=  (1 << (ChannelIndex - 8));
 				}
 				#endif
 			}
@@ -251,35 +253,35 @@
 			 *
 			 *  \note The channel number must be specified as an integer, and NOT a ADC_CHANNELx mask.
 			 *
-			 *  \param[in] Channel  ADC channel number to set up for conversions.
+			 *  \param[in] ChannelIndex  ADC channel number to set up for conversions.
 			 */
-			static inline void ADC_DisableChannel(const uint8_t Channel)
+			static inline void ADC_DisableChannel(const uint8_t ChannelIndex)
 			{
 				#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
 					 defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
 					 defined(__AVR_ATmega32U6__))				
-				DDRF  &= ~(1 << Channel);
-				DIDR0 &= ~(1 << Channel);
+				DDRF  &= ~(1 << ChannelIndex);
+				DIDR0 &= ~(1 << ChannelIndex);
 				#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-				if (Channel < 8)
+				if (ChannelIndex < 8)
 				{
-					DDRF  &= ~(1 << Channel);
-					DIDR0 &= ~(1 << Channel);
+					DDRF  &= ~(1 << ChannelIndex);
+					DIDR0 &= ~(1 << ChannelIndex);
 				}
-				else if (Channel == 8)
+				else if (ChannelIndex == 8)
 				{
 					DDRD  &= ~(1 << 4);
 					DIDR2 &= ~(1 << 0);
 				}
-				else if (Channel < 11)
+				else if (ChannelIndex < 11)
 				{
-					DDRD  &= ~(1 << (Channel - 3));
-					DIDR2 &= ~(1 << (Channel - 8));
+					DDRD  &= ~(1 << (ChannelIndex - 3));
+					DIDR2 &= ~(1 << (ChannelIndex - 8));
 				}
 				else
 				{
-					DDRB  &= ~(1 << (Channel - 7));
-					DIDR2 &= ~(1 << (Channel - 8));
+					DDRB  &= ~(1 << (ChannelIndex - 7));
+					DIDR2 &= ~(1 << (ChannelIndex - 8));
 				}
 				#endif
 			}
@@ -292,7 +294,7 @@
 			 *  conversions. If the ADC is in single conversion mode (or the channel to convert from is to be changed),
 			 *  this function must be called each time a conversion is to take place.
 			 *
-			 *  \param[in] MUXMask  Mask comprising of an ADC channel mask, reference mask and adjustment mask.
+			 *  \param[in] MUXMask  ADC channel mask, reference mask and adjustment mask.
 			 */
 			static inline void ADC_StartReading(const uint16_t MUXMask)
 			{
@@ -354,7 +356,7 @@
 			 *  The "mode" parameter should be a mask comprised of a conversion mode (free running or single) and
 			 *  prescaler masks.
 			 *
-			 *  \param[in] Mode  Mask of ADC settings, including adjustment, prescale, mode and reference.
+			 *  \param[in] Mode  Mask of ADC prescale and mode settings.
 			 */
 			static inline void ADC_Init(uint8_t Mode) ATTR_ALWAYS_INLINE;
 			static inline void ADC_Init(uint8_t Mode)
