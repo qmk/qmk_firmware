@@ -139,20 +139,20 @@
 				                                               *   
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
-				HOST_STATE_Powered_WaitForDeviceSettle = 4,   /**< Internally implemented by the library. This state indicates
+				HOST_STATE_Powered_WaitForDeviceSettle  = 4,  /**< Internally implemented by the library. This state indicates
 				                                               *   that the stack is waiting for the initial settling period to
 				                                               *   elapse before beginning the enumeration process.
 				                                               *   
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
-				HOST_STATE_Powered_WaitForConnect      = 5,   /**< Internally implemented by the library. This state indicates
+				HOST_STATE_Powered_WaitForConnect       = 5,  /**< Internally implemented by the library. This state indicates
 				                                               *   that the stack is waiting for a connection event from the USB
 				                                               *   controller to indicate a valid USB device has been attached to
 				                                               *   the bus and is ready to be enumerated.
 				                                               *   
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
-				HOST_STATE_Powered_DoReset             = 6,   /**< Internally implemented by the library. This state indicates
+				HOST_STATE_Powered_DoReset              = 6,  /**< Internally implemented by the library. This state indicates
 				                                               *   that a valid USB device has been attached, and that it is
 				                                               *   will now be reset to ensure it is ready for enumeration.
 				                                               *   

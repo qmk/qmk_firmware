@@ -39,6 +39,8 @@
  *
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/LEDs.h file in the user project
  *  directory.
+ *
+ *  For possible BOARD makefile values, see \ref Group_BoardTypes.
  */
 
 /** \ingroup Group_BoardDrivers
@@ -55,6 +57,8 @@
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file. If the BOARD value
  *  is set to BOARD_NONE, this driver is silently disabled.
+ *
+ *  For possible BOARD makefile values, see \ref Group_BoardTypes.
  *
  *  \note To make code as compatible as possible, it is assumed that all boards carry a minimum of four LEDs. If
  *        a board contains less than four LEDs, the remaining LED masks are defined to 0 so as to have no effect.
@@ -111,6 +115,8 @@
 		#include "BENITO/LEDs.h"
 	#elif (BOARD == BOARD_JMDBU2)
 		#include "JMDBU2/LEDs.h"
+	#elif (BOARD == BOARD_OLIMEX162)
+		#include "OLIMEX162/LEDs.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
 	#endif

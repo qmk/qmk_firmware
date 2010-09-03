@@ -35,7 +35,8 @@
  *   - Benito
  *   - JM-DB-U2
  *   - Teensy (all revisions and versions)
- *   - USBTINY MKII (all revisions and versions)
+ *   - USBTINY-MKII (all revisions and versions)
+ *   - Olimex AVR-USB-162
  *   - Any Other Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
  */
  

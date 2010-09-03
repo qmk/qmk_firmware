@@ -60,6 +60,8 @@
  *        - <b>VirtualSerial</b> - Virtual Serial Port demo, using the low level LUFA APIs to implement the USB CDC class
  *      - <b>Incomplete</b>
  *        - <b>SideShow</b> - Incomplete Windows SideShow demo, using the low level LUFA APIs to implement the USB SideShow class
+ *        - <b>TestAndMeasurement</b> - Incomplete Test and Measurement demo, using the low level LUFA APIs to implement the USB Test and
+ *                                      Measurement class
  *    - <b>Host</b>
  *      - <b>ClassDriver</b>
  *        - <b>JoystickHostWithParser</b> - Joystick host demo with HID Descriptor parser, using the library USB HID Class driver framework

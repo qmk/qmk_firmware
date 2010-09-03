@@ -39,6 +39,8 @@
  *
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/Buttons.h file in the user project
  *  directory.
+ *
+ *  For possible BOARD makefile values, see \ref Group_BoardTypes.
  */
 
 /** \ingroup Group_BoardDrivers
@@ -55,6 +57,8 @@
  *
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file.
+ *
+ *  For possible BOARD makefile values, see \ref Group_BoardTypes.
  *
  *  @{
  */
@@ -91,6 +95,8 @@
 		#include "BENITO/Buttons.h"
 	#elif (BOARD == BOARD_JMDBU2)
 		#include "JMDBU2/Buttons.h"
+	#elif (BOARD == BOARD_OLIMEX162)
+		#include "OLIMEX162/Buttons.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/Buttons.h"
 	#else

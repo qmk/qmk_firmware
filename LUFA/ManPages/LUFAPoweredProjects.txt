@@ -20,12 +20,12 @@
  *
  *  - AT90USB162 Breadboard PCB (Russian): http://microsin.ru/content/view/685/44/
  *  - Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/wiki/benito
- *  - JM-DB-U2, an ATMEGA32U2 development board: http://www.mattairtech.com/index.php/development-boards/atmega32u2-development-board.html
+ *  - JM-DB-U2, an ATMEGA32U2 development board: http://u2.mattair.net/index.html
  *  - Micropendous, an open design/source set of AVR USB development boards: http://micropendous.org/
  *  - Nanduino, a do-it-yourself AT90USB162 board: http://www.makestuff.eu/wordpress/?page_id=569
+ *  - AVR-USB-162, a USBKEY like development board for the AT90USB162: http://olimex.com/dev/avr-usb-162.html
  *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
  *  - U2DIL/U4DIL, a set of DIP layout USB AVR boards: http://www.reworld.eu/re/en/products/u2dil/
- *  - USB10 AKA "The Ferret", a AT90USB162 development board: http://www.soc-machines.com
  *  - USBFOO 2, AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102
  * 
  *  \section Sec_LUFAProjects Projects Using LUFA (Hobbyist)
@@ -49,6 +49,7 @@
  *  - Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/
  *  - IR Remote to Keyboard decoder: http://netzhansa.blogspot.com/2010/04/our-living-room-hi-fi-setup-needs-mp3.html
  *  - LED Panel controller: http://projects.peterpolidoro.net/caltech/panelscontroller/panelscontroller.htm
+ *  - PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
  *  - Single LED Matrix Display: http://guysoft.wordpress.com/2009/10/08/bumble-b/
  *  - Linux Secure Storage Dongle: http://github.com/TomMD/teensy
  *  - MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
@@ -80,6 +81,7 @@
  *  - MIDIFighter, a USB-MIDI controller: http://www.midifighter.com/
  *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
  *  - Retrode, a USB Games Console Cartridge Reader: http://www.retrode.org
+ *  - USBTINY-MKII, an AVRISP-MKII Clone AVR Programmer: http://tom-itx.dyndns.org:81/~webpage/boards/USBTiny_Mkii/USBTiny_Mkii_index.php
  *  - XMEGA Development Board, using LUFA as an On-Board Programmer: http://xmega.mattair.net/
  *
  *  \section Sec_LUFAPublications Publications Mentioning LUFA
