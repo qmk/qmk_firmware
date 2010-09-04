@@ -28,6 +28,7 @@
   *    not break communications with the host by exceeding the maximum control request stage timeout period
   *  - Changed the signature of the CALLBACK_USB_GetDescriptor() callback function so that the descriptor pointer is const, to remove
   *    the need for extra casting inside the callback (thanks to Jonathan Kollasch)
+  *  - Reduced HOST_DEVICE_SETTLE_DELAY_MS to 1000ms down from 1500ms to improve device compatibility while in USB Host mode
   *
   *  <b>Fixed:</b>
   *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist

@@ -95,10 +95,11 @@
 				 *  after connection before the enumeration process can start or incorrect operation will
 				 *  occur.
 				 *
-				 *  This value may be overridden in the user project makefile as the value of the 
-				 *  HOST_DEVICE_SETTLE_DELAY_MS token, and passed to the compiler using the -D switch.
+				 *  The default delay value may be overridden in the user project makefile by definining the
+				 *  HOST_DEVICE_SETTLE_DELAY_MS token to tbe required delay in milliseconds, and passed to the
+				 *  compiler using the -D switch.
 				 */
-				#define HOST_DEVICE_SETTLE_DELAY_MS        1500
+				#define HOST_DEVICE_SETTLE_DELAY_MS        1000
 			#endif
 
 		/* Enums: */
