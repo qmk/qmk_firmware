@@ -12,6 +12,7 @@
   *    not ready removable medium has now become ready for the host's use (thanks to Martin Degelsegger)
   *  - Moved the Pipe and Endpoint stream related code to two new USB library core source files EndpointStream.c and PipeStream.c
   *  - Added board hardware driver support for the Olimex AVR-USB-162 development board (thanks to Steve Fawcett)
+  *  - Added board hardware driver support for the USBFOO development board
   *
   *  <b>Changed:</b>
   *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions

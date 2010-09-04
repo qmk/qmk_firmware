@@ -23,7 +23,7 @@
  *  - JM-DB-U2, an ATMEGA32U2 development board: http://u2.mattair.net/index.html
  *  - Micropendous, an open design/source set of AVR USB development boards: http://micropendous.org/
  *  - Nanduino, a do-it-yourself AT90USB162 board: http://www.makestuff.eu/wordpress/?page_id=569
- *  - AVR-USB-162, a USBKEY like development board for the AT90USB162: http://olimex.com/dev/avr-usb-162.html
+ *  - AVR-USB-162, a USBKEY-like development board for the AT90USB162: http://olimex.com/dev/avr-usb-162.html
  *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
  *  - U2DIL/U4DIL, a set of DIP layout USB AVR boards: http://www.reworld.eu/re/en/products/u2dil/
  *  - USBFOO 2, AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102
