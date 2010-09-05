@@ -13,6 +13,9 @@
   *  - Moved the Pipe and Endpoint stream related code to two new USB library core source files EndpointStream.c and PipeStream.c
   *  - Added board hardware driver support for the Olimex AVR-USB-162 development board (thanks to Steve Fawcett)
   *  - Added board hardware driver support for the USBFOO development board
+  *  - Added new USB_Device_GetFrameNumber() and USB_Host_GetFrameNumber() functions to retrieve the current USB frame number
+  *  - Added new USB_Host_EnableSOFEvents(), USB_Host_DisableSOFEvents() and EVENT_USB_Host_StartOfFrame() for the user application
+  *    handling of USB Start of Frame events while in USB Host mode
   *
   *  <b>Changed:</b>
   *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions
@@ -29,6 +32,8 @@
   *  - Changed the signature of the CALLBACK_USB_GetDescriptor() callback function so that the descriptor pointer is const, to remove
   *    the need for extra casting inside the callback (thanks to Jonathan Kollasch)
   *  - Reduced HOST_DEVICE_SETTLE_DELAY_MS to 1000ms down from 1500ms to improve device compatibility while in USB Host mode
+  *  - Changed over all demos, drivers and internal functions to use the current frame number over the Start of Frame flag where possible
+  *    to free up the Start of Frame flag for interrupt use in the user application
   *
   *  <b>Fixed:</b>
   *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist

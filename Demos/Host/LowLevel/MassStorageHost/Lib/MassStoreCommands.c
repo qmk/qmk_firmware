@@ -110,20 +110,23 @@ static uint8_t MassStore_SendCommand(CommandBlockWrapper_t* const SCSICommandBlo
  */
 static uint8_t MassStore_WaitForDataReceived(void)
 {
-	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t TimeoutMSRem        = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t PreviousFrameNumber = USB_Host_GetFrameNumber();
 
 	/* Select the IN data pipe for data reception */
 	Pipe_SelectPipe(MASS_STORE_DATA_IN_PIPE);
 	Pipe_Unfreeze();
-
+	
 	/* Wait until data received in the IN pipe */
 	while (!(Pipe_IsINReceived()))
 	{
+		uint16_t CurrentFrameNumber = USB_Host_GetFrameNumber();
+		
 		/* Check to see if a new frame has been issued (1ms elapsed) */
-		if (USB_INT_HasOccurred(USB_INT_HSOFI))
+		if (CurrentFrameNumber != PreviousFrameNumber)
 		{
-			/* Clear the flag and decrement the timeout period counter */
-			USB_INT_Clear(USB_INT_HSOFI);
+			/* Save the new frame number and decrement the timeout period */
+			PreviousFrameNumber = CurrentFrameNumber;
 			TimeoutMSRem--;
 
 			/* Check to see if the timeout period for the command has elapsed */

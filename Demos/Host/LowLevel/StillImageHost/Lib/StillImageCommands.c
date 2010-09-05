@@ -108,28 +108,28 @@ uint8_t SImage_ReceiveEventHeader(void)
  */
 uint8_t SImage_ReceiveBlockHeader(void)
 {
-	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t TimeoutMSRem        = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t PreviousFrameNumber = USB_Host_GetFrameNumber();
 
 	/* Unfreeze the data IN pipe */
 	Pipe_SelectPipe(SIMAGE_DATA_IN_PIPE);
 	Pipe_Unfreeze();
 	
 	/* Wait until data received on the IN pipe */
-	while (!(Pipe_IsReadWriteAllowed()))
+	while (!(Pipe_IsINReceived()))
 	{
+		uint16_t CurrentFrameNumber = USB_Host_GetFrameNumber();
+
 		/* Check to see if a new frame has been issued (1ms elapsed) */
-		if (USB_INT_HasOccurred(USB_INT_HSOFI))
+		if (CurrentFrameNumber != PreviousFrameNumber)
 		{
-			/* Clear the flag and decrement the timeout period counter */
-			USB_INT_Clear(USB_INT_HSOFI);
+			/* Save the new frame number and decrement the timeout period */
+			PreviousFrameNumber = CurrentFrameNumber;
 			TimeoutMSRem--;
 
 			/* Check to see if the timeout period for the command has elapsed */
 			if (!(TimeoutMSRem))
-			{
-				/* Return error code */
-				return PIPE_RWSTREAM_Timeout;
-			}
+			  return PIPE_RWSTREAM_Timeout;
 		}
 		
 		Pipe_Freeze();

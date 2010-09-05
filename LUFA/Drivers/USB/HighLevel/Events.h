@@ -180,6 +180,23 @@
 			 */
 			void EVENT_USB_Host_DeviceEnumerationComplete(void);
 
+			/** Event for USB Start Of Frame detection, when enabled. This event fires at the start of each USB
+			 *  frame, once per millisecond, and is synchronized to the USB bus. This can be used as an accurate
+			 *  millisecond timer source when the USB bus is not suspended while in host mode.
+			 *
+			 *  This event is time-critical; it is run once per millisecond and thus long handlers will significantly
+			 *  degrade device performance. This event should only be enabled when needed to reduce device wake-ups.
+			 *
+			 *  \note This event is not normally active - it must be manually enabled and disabled via the
+			 *        \ref USB_Host_EnableSOFEvents() and \ref USB_Host_DisableSOFEvents() commands after enumeration of
+			 *        a USB device.
+			 *        \n\n
+			 *
+			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
+			 *        \ref Group_USBManagement documentation).
+			 */
+			void EVENT_USB_Host_StartOfFrame(void);
+
 			/** Event for USB device connection. This event fires when the AVR in device mode and the device is connected
 			 *  to a host, beginning the enumeration process, measured by a rising level on the AVR's VBUS pin.
 			 *
@@ -339,6 +356,7 @@
 					void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
                                                                 const uint8_t SubErrorCode)
 					                                            ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
+					void EVENT_USB_Host_StartOfFrame(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 				#endif
 
 				#if defined(USB_CAN_BE_DEVICE)

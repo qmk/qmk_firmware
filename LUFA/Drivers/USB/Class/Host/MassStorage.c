@@ -166,19 +166,21 @@ static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInf
 
 static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
 {
-	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t TimeoutMSRem        = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t PreviousFrameNumber = USB_Host_GetFrameNumber();
 
 	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
 	Pipe_Unfreeze();
 
 	while (!(Pipe_IsINReceived()))
 	{
-		if (USB_INT_HasOccurred(USB_INT_HSOFI))
+		uint16_t CurrentFrameNumber = USB_Host_GetFrameNumber();
+		
+		if (CurrentFrameNumber != PreviousFrameNumber)
 		{
-			USB_INT_Clear(USB_INT_HSOFI);
-			TimeoutMSRem--;
+			PreviousFrameNumber = CurrentFrameNumber;
 
-			if (!(TimeoutMSRem))
+			if (!(TimeoutMSRem--))
 			  return PIPE_RWSTREAM_Timeout;
 		}
 	

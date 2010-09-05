@@ -179,7 +179,8 @@ uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceIn
 uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
                                        SI_PIMA_Container_t* const PIMAHeader)
 {
-	uint16_t TimeoutMSRem = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t TimeoutMSRem        = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t PreviousFrameNumber = USB_Host_GetFrameNumber();
 
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return PIPE_RWSTREAM_DeviceDisconnected;
@@ -187,17 +188,16 @@ uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfac
 	Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipeNumber);
 	Pipe_Unfreeze();
 	
-	while (!(Pipe_IsReadWriteAllowed()))
+	while (!(Pipe_IsINReceived()))
 	{
-		if (USB_INT_HasOccurred(USB_INT_HSOFI))
+		uint16_t CurrentFrameNumber = USB_Host_GetFrameNumber();
+		
+		if (CurrentFrameNumber != PreviousFrameNumber)
 		{
-			USB_INT_Clear(USB_INT_HSOFI);
-			TimeoutMSRem--;
+			PreviousFrameNumber = CurrentFrameNumber;
 
-			if (!(TimeoutMSRem))
-			{
-				return PIPE_RWSTREAM_Timeout;
-			}
+			if (!(TimeoutMSRem--))
+			  return PIPE_RWSTREAM_Timeout;
 		}
 		
 		Pipe_Freeze();

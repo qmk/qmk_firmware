@@ -142,6 +142,8 @@ uint8_t Endpoint_WaitUntilReady(void)
 	uint16_t TimeoutMSRem = USB_STREAM_TIMEOUT_MS;
 	#endif
 
+	uint16_t PreviousFrameNumber = USB_Device_GetFrameNumber();
+
 	for (;;)
 	{
 		if (Endpoint_GetEndpointDirection() == ENDPOINT_DIR_IN)
@@ -161,10 +163,12 @@ uint8_t Endpoint_WaitUntilReady(void)
 		  return ENDPOINT_READYWAIT_BusSuspended;
 		else if (Endpoint_IsStalled())
 		  return ENDPOINT_READYWAIT_EndpointStalled;
-			  
-		if (USB_INT_HasOccurred(USB_INT_SOFI))
+
+		uint16_t CurrentFrameNumber = USB_Device_GetFrameNumber();
+
+		if (CurrentFrameNumber != PreviousFrameNumber)
 		{
-			USB_INT_Clear(USB_INT_SOFI);
+			PreviousFrameNumber = CurrentFrameNumber;
 
 			if (!(TimeoutMSRem--))
 			  return ENDPOINT_READYWAIT_Timeout;

@@ -140,6 +140,14 @@
 			};
 			
 		/* Inline Functions: */
+			/** Returns the current USB frame number, when in device mode. Every millisecond the USB bus is active (i.e. enumerated to a host)
+			 *  the frame number is incremented by one.
+			 */
+			static inline uint16_t USB_Device_GetFrameNumber(void)
+			{
+				return UDFNUM;
+			}
+		
 			/** Enables the device mode Start Of Frame events. When enabled, this causes the
 			 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
 			 *  at the start of each USB frame when enumerated in device mode.

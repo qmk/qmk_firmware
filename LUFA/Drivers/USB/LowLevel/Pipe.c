@@ -133,6 +133,8 @@ uint8_t Pipe_WaitUntilReady(void)
 	#else
 	uint16_t TimeoutMSRem = USB_STREAM_TIMEOUT_MS;
 	#endif
+
+	uint16_t PreviousFrameNumber = USB_Host_GetFrameNumber();
 	
 	for (;;)
 	{
@@ -151,10 +153,12 @@ uint8_t Pipe_WaitUntilReady(void)
 		  return PIPE_READYWAIT_PipeStalled;
 		else if (USB_HostState == HOST_STATE_Unattached)
 		  return PIPE_READYWAIT_DeviceDisconnected;
-			  
-		if (USB_INT_HasOccurred(USB_INT_HSOFI))
+
+		uint16_t CurrentFrameNumber = USB_Host_GetFrameNumber();
+
+		if (CurrentFrameNumber != PreviousFrameNumber)
 		{
-			USB_INT_Clear(USB_INT_HSOFI);
+			PreviousFrameNumber = CurrentFrameNumber;
 
 			if (!(TimeoutMSRem--))
 			  return PIPE_READYWAIT_Timeout;

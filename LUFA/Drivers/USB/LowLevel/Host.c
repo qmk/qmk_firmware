@@ -194,16 +194,19 @@ void USB_Host_ProcessNextHostState(void)
 
 uint8_t USB_Host_WaitMS(uint8_t MS)
 {
-	bool    BusSuspended = USB_Host_IsBusSuspended();
-	uint8_t ErrorCode    = HOST_WAITERROR_Successful;
+	bool     BusSuspended        = USB_Host_IsBusSuspended();
+	uint8_t  ErrorCode           = HOST_WAITERROR_Successful;
+	uint16_t PreviousFrameNumber = USB_Host_GetFrameNumber();
 	
 	USB_Host_ResumeBus();
 
 	while (MS)
 	{
-		if (USB_INT_HasOccurred(USB_INT_HSOFI))
+		uint16_t CurrentFrameNumber = USB_Host_GetFrameNumber();
+
+		if (CurrentFrameNumber != PreviousFrameNumber)
 		{
-			USB_INT_Clear(USB_INT_HSOFI);
+			PreviousFrameNumber = CurrentFrameNumber;
 			MS--;
 		}
 					
@@ -245,11 +248,13 @@ static void USB_Host_ResetDevice(void)
 	
 	USB_Host_ResetBus();
 	while (!(USB_Host_IsBusResetComplete()));
-
 	USB_Host_ResumeBus();
 
-	USB_INT_Clear(USB_INT_HSOFI);
+	bool HSOFIEnabled = USB_INT_IsEnabled(USB_INT_HSOFI);
 
+	USB_INT_Disable(USB_INT_HSOFI);
+	USB_INT_Clear(USB_INT_HSOFI);
+	
 	for (uint8_t MSRem = 10; MSRem != 0; MSRem--)
 	{
 		/* Workaround for powerless-pull-up devices. After a USB bus reset,
@@ -266,6 +271,9 @@ static void USB_Host_ResetDevice(void)
 		
 		_delay_ms(1);
 	}
+
+	if (HSOFIEnabled)
+	  USB_INT_Enable(USB_INT_HSOFI);
 
 	if (BusSuspended)
 	  USB_Host_SuspendBus();
