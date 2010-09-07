@@ -55,16 +55,19 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 #else
 	uint8_t UECFG0XTemp[ENDPOINT_TOTAL_ENDPOINTS];
 	uint8_t UECFG1XTemp[ENDPOINT_TOTAL_ENDPOINTS];
+	uint8_t UEIENXTemp[ENDPOINT_TOTAL_ENDPOINTS];
 	
 	for (uint8_t EPNum = 0; EPNum < ENDPOINT_TOTAL_ENDPOINTS; EPNum++)
 	{
 		Endpoint_SelectEndpoint(EPNum);
 		UECFG0XTemp[EPNum] = UECFG0X;
 		UECFG1XTemp[EPNum] = UECFG1X;
+		UEIENXTemp[EPNum]  = UEIENX;
 	}
 	
 	UECFG0XTemp[Number] = UECFG0XData;
 	UECFG1XTemp[Number] = UECFG1XData;
+	UEIENXTemp[Number]  = 0;
 	
 	for (uint8_t EPNum = 1; EPNum < ENDPOINT_TOTAL_ENDPOINTS; EPNum++)
 	{
@@ -85,6 +88,7 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 
 		UECFG0X = UECFG0XTemp[EPNum];
 		UECFG1X = UECFG1XTemp[EPNum];
+		UEIENX  = UEIENXTemp[EPNum];
 		
 		if (!(Endpoint_IsConfigured()))
 		  return false;

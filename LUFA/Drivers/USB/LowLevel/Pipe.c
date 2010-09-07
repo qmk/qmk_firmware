@@ -49,6 +49,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 	uint8_t UPCFG2XTemp[PIPE_TOTAL_PIPES];
 	uint8_t UPCONXTemp[PIPE_TOTAL_PIPES];
 	uint8_t UPINRQXTemp[PIPE_TOTAL_PIPES];
+	uint8_t UPIENXTemp[PIPE_TOTAL_PIPES];
 	
 	for (uint8_t PNum = 0; PNum < PIPE_TOTAL_PIPES; PNum++)
 	{
@@ -58,6 +59,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 		UPCFG2XTemp[PNum] = UPCFG2X;
 		UPCONXTemp[PNum]  = UPCONX;
 		UPINRQXTemp[PNum] = UPINRQX;
+		UPIENXTemp[PNum]  = UPIENX;
 	}
 	
 	UPCFG0XTemp[Number] = ((Type << EPTYPE0) | Token | ((EndpointNumber & PIPE_EPNUM_MASK) << PEPNUM0));
@@ -65,6 +67,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 	UPCFG2XTemp[Number] = 0;
 	UPCONXTemp[Number]  = (1 << INMODE);
 	UPINRQXTemp[Number] = 0;
+	UPIENXTemp[Number]  = 0;
 	
 	for (uint8_t PNum = 0; PNum < PIPE_TOTAL_PIPES; PNum++)
 	{
@@ -88,6 +91,7 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 		UPCFG2X  = UPCFG2XTemp[PNum];
 		UPCONX  |= UPCONXTemp[PNum];
 		UPINRQX  = UPINRQXTemp[PNum];
+		UPIENX   = UPIENXTemp[PNum];
 
 		if (!(Pipe_IsConfigured()))
 		  return false;
