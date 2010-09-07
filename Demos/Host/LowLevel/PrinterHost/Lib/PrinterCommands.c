@@ -56,11 +56,8 @@ uint8_t Printer_SendData(const void* const PrinterCommands,
 	  return ErrorCode;
 
 	Pipe_ClearOUT();
-	while (!(Pipe_IsOUTReady()))
-	{
-		if (USB_HostState == HOST_STATE_Unattached)
-		  return PIPE_RWSTREAM_DeviceDisconnected;
-	}
+	
+	Pipe_WaitUntilReady();
 	
 	Pipe_Freeze();
 

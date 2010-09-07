@@ -182,9 +182,9 @@ uint8_t PRNT_Host_SoftReset(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
 	return USB_Host_SendControlRequest(NULL);
 }
 
-uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
-                           void* PrinterCommands,
-                           const uint16_t CommandSize)
+uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+                             void* Buffer,
+                             const uint16_t Length)
 {
 	uint8_t ErrorCode;
 
@@ -194,19 +194,70 @@ uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
 	Pipe_SelectPipe(PRNTInterfaceInfo->Config.DataOUTPipeNumber);
 	Pipe_Unfreeze();
 	
-	if ((ErrorCode = Pipe_Write_Stream_LE(PrinterCommands, CommandSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	if ((ErrorCode = Pipe_Write_Stream_LE(Buffer, Length, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	Pipe_ClearOUT();
-	while (!(Pipe_IsOUTReady()))
+	
+	ErrorCode = Pipe_WaitUntilReady();
+	
+	Pipe_Freeze();
+
+	return ErrorCode;
+}
+
+uint16_t PRNT_Host_BytesReceived(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(PRNTInterfaceInfo->State.IsActive))
+	  return 0;
+	
+	Pipe_SelectPipe(PRNTInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_Unfreeze();
+
+	if (Pipe_IsINReceived())
 	{
-		if (USB_HostState == HOST_STATE_Unattached)
-		  return PIPE_RWSTREAM_DeviceDisconnected;
+		if (!(Pipe_BytesInPipe()))
+		{
+			Pipe_ClearIN();
+			Pipe_Freeze();
+			return 0;
+		}
+		else
+		{
+			Pipe_Freeze();
+			return Pipe_BytesInPipe();
+		}
+	}
+	else
+	{
+		Pipe_Freeze();
+		
+		return 0;
+	}
+}
+
+int16_t PRNT_Host_ReceiveByte(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(PRNTInterfaceInfo->State.IsActive))
+	  return PIPE_RWSTREAM_DeviceDisconnected;
+
+	int16_t ReceivedByte = -1;
+
+	Pipe_SelectPipe(PRNTInterfaceInfo->Config.DataINPipeNumber);
+	Pipe_Unfreeze();
+
+	if (Pipe_IsINReceived())
+	{
+		if (Pipe_BytesInPipe())
+		  ReceivedByte = Pipe_Read_Byte();
+
+		if (!(Pipe_BytesInPipe()))
+		  Pipe_ClearIN();
 	}
 	
 	Pipe_Freeze();
 
-	return PIPE_RWSTREAM_NoError;
+	return ReceivedByte;
 }
 
 uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,

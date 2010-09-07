@@ -134,7 +134,7 @@ int main(void)
 			
 				printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), TestPageLength);
 
-				if (PRNT_Host_SendData(&Printer_PRNT_Interface, &TestPageData, TestPageLength) != PIPE_RWSTREAM_NoError)
+				if (PRNT_Host_SendString(&Printer_PRNT_Interface, &TestPageData, TestPageLength) != PIPE_RWSTREAM_NoError)
 				{
 					puts_P(PSTR("Error Sending Page Data.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);

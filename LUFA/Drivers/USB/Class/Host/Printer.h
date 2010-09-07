@@ -167,15 +167,42 @@
 			 *       call will fail.
 			 *
 			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
-			 *  \param[in]     PrinterCommands    Pointer to a buffer containing the raw command stream to send to the printer.
-			 *  \param[in]     CommandSize        Size in bytes of the command stream to be sent.
+			 *  \param[in]     Buffer             Pointer to a buffer containing the raw command stream to send to the printer.
+			 *  \param[in]     Length             Size in bytes of the command stream to be sent.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
-			                           void* PrinterCommands, 
-			                           const uint16_t CommandSize) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+			                             void* PrinterCommands, 
+			                             const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
+			/** Determines the number of bytes received by the printer interface from the device, waiting to be read. This indicates the number
+			 *  of bytes in the IN pipe bank only, and thus the number of calls to \ref PRNT_Host_ReceiveByte() which are guaranteed to succeed
+			 *  immediately. If multiple bytes are to be received, they should be buffered by the user application, as the pipe bank will not be
+			 *  released back to the USB controller until all bytes are read.
+			 *
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
+			 *
+			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
+			 *
+			 *  \return Total number of buffered bytes received from the device.
+			 */
+			uint16_t PRNT_Host_BytesReceived(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo);			
+			
+			/** Reads a byte of data from the device. If no data is waiting to be read of if a USB device is not connected, the function
+			 *  returns a negative value. The \ref PRNT_Host_BytesReceived() function may be queried in advance to determine how many bytes
+			 *  are currently buffered in the Printer interface's data receive pipe.
+			 *
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
+			 *
+			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
+			 *
+			 *  \return Next received byte from the device, or a negative value if no data received.
+			 */
+			int16_t PRNT_Host_ReceiveByte(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo);
+			
 			/** Retrieves the attached printer device's ID string, formatted according to IEEE 1284. This string is sent as a
 			 *  Unicode string from the device and is automatically converted to an ASCII encoded C string by this function, thus
 			 *  the maximum reportable string length is two less than the size given (to accommodate the Unicode string length
