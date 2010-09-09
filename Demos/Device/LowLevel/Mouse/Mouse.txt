@@ -10,10 +10,10 @@
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
- *  - Series 7 USB AVRs
- *  - Series 6 USB AVRs
- *  - Series 4 USB AVRs
- *  - Series 2 USB AVRs
+ *  - Series 7 USB AVRs (AT90USBxxx7)
+ *  - Series 6 USB AVRs (AT90USBxxx6)
+ *  - Series 4 USB AVRs (ATMEGAxxU4)
+ *  - Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
  *
  *  \section SSec_Info USB Information:
  *
