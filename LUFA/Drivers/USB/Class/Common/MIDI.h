@@ -99,43 +99,95 @@
 		#define MIDI_CHANNEL(channel)        ((channel) - 1)
 		
 	/* Type Defines: */
-		/** \brief MIDI class-specific Streaming Interface Descriptor.
+		/** \brief MIDI class-specific Streaming Interface Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific MIDI streaming interface descriptor. This indicates to the host
 		 *  how MIDI the specification compliance of the device and the total length of the Audio class-specific descriptors.
 		 *  See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_MIDI_StdDescriptor_AudioInterface_AS_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length. */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
+			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 			
-			uint16_t                  AudioSpecification; /**< Binary coded decimal value, indicating the supported Audio Class
+			uint16_t                AudioSpecification; /**< Binary coded decimal value, indicating the supported Audio Class
 			                                               *   specification version.
 			                                               */
-			uint16_t                  TotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
-		} USB_MIDI_AudioInterface_AS_t;
+			uint16_t                TotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
+		} USB_MIDI_Descriptor_AudioInterface_AS_t;
 		
-		/** \brief MIDI class-specific Input Jack Descriptor.
+		/** \brief MIDI class-specific Streaming Interface Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific MIDI streaming interface descriptor. This indicates to the host
+		 *  how MIDI the specification compliance of the device and the total length of the Audio class-specific descriptors.
+		 *  See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_MIDI_Descriptor_AudioInterface_AS_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+
+			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+			
+			uint16_t bcdMSC; /**< Binary coded decimal value, indicating the supported MIDI Class specification version. */
+			uint16_t wTotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
+		} USB_MIDI_StdDescriptor_AudioInterface_AS_t;
+
+		/** \brief MIDI class-specific Input Jack Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific MIDI IN jack. This gives information to the host on a MIDI input, either
 		 *  a physical input jack, or a logical jack (receiving input data internally, or from the host via an endpoint).
+		 *
+		 *  \see \ref USB_MIDI_StdDescriptor_InputJack_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length. */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
+			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint8_t                   JackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
-			uint8_t                   JackID; /**< ID value of this jack - must be a unique value within the device. */
+			uint8_t                 JackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
+			uint8_t                 JackID; /**< ID value of this jack - must be a unique value within the device. */
 			
-			uint8_t                   JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_MIDI_In_Jack_t;
+			uint8_t                 JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
+		} USB_MIDI_Descriptor_InputJack_t;
 
-		/** \brief MIDI class-specific Output Jack Descriptor.
+
+		/** \brief MIDI class-specific Input Jack Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific MIDI IN jack. This gives information to the host on a MIDI input, either
+		 *  a physical input jack, or a logical jack (receiving input data internally, or from the host via an endpoint).
+		 *
+		 *  \see \ref USB_MIDI_Descriptor_InputJack_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+
+			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+
+			uint8_t  bJackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
+			uint8_t  bJackID; /**< ID value of this jack - must be a unique value within the device. */
+			
+			uint8_t  iJack; /**< Index of a string descriptor describing this descriptor within the device. */
+		} USB_MIDI_StdDescriptor_InputJack_t;
+
+		/** \brief MIDI class-specific Output Jack Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific MIDI OUT jack. This gives information to the host on a MIDI output, either
 		 *  a physical output jack, or a logical jack (sending output data internally, or to the host via an endpoint).
+		 *
+		 *  \see \ref USB_MIDI_StdDescriptor_OutputJack_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
@@ -150,13 +202,42 @@
 			uint8_t                   SourcePinID[1]; /**< Pin number in the input jack of each output pin's source data. */
 			
 			uint8_t                   JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_MIDI_Out_Jack_t;
+		} USB_MIDI_Descriptor_OutputJack_t;
 		
-		/** \brief Audio class-specific Jack Endpoint Descriptor.
+		/** \brief MIDI class-specific Output Jack Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific MIDI OUT jack. This gives information to the host on a MIDI output, either
+		 *  a physical output jack, or a logical jack (sending output data internally, or to the host via an endpoint).
+		 *
+		 *  \see \ref USB_MIDI_Descriptor_OutputJack_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+
+			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+
+			uint8_t  bJackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
+			uint8_t  bJackID; /**< ID value of this jack - must be a unique value within the device. */
+			
+			uint8_t  bNrInputPins; /**< Number of output channels within the jack, either physical or logical. */
+			uint8_t  baSourceID[1]; /**< ID of each output pin's source data jack. */
+			uint8_t  baSourcePin[1]; /**< Pin number in the input jack of each output pin's source data. */
+			
+			uint8_t  iJack; /**< Index of a string descriptor describing this descriptor within the device. */
+		} USB_MIDI_StdDescriptor_OutputJack_t;
+
+		/** \brief Audio class-specific Jack Endpoint Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific extended MIDI jack endpoint descriptor. This contains extra information
 		 *  on the usage of MIDI endpoints used to stream MIDI events in and out of the USB Audio device, and follows an Audio
 		 *  class-specific extended MIDI endpoint descriptor. See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_MIDI_StdDescriptor_Jack_Endpoint_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
@@ -165,7 +246,29 @@
 
 			uint8_t                   TotalEmbeddedJacks; /**< Total number of jacks inside this endpoint. */
 			uint8_t                   AssociatedJackID[1]; /**< IDs of each jack inside the endpoint. */
-		} USB_MIDI_Jack_Endpoint_t;
+		} USB_MIDI_Descriptor_Jack_Endpoint_t;
+
+		/** \brief Audio class-specific Jack Endpoint Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific extended MIDI jack endpoint descriptor. This contains extra information
+		 *  on the usage of MIDI endpoints used to stream MIDI events in and out of the USB Audio device, and follows an Audio
+		 *  class-specific extended MIDI endpoint descriptor. See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_MIDI_Descriptor_Jack_Endpoint_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+
+			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+
+			uint8_t  bNumEmbMIDIJack; /**< Total number of jacks inside this endpoint. */
+			uint8_t  bAssocJackID[1]; /**< IDs of each jack inside the endpoint. */
+		} USB_MIDI_StdDescriptor_Jack_Endpoint_t;
 
 		/** \brief MIDI Class Driver Event Packet.
 		 *

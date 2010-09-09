@@ -130,7 +130,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 	.HID_GenericHID = 
 		{
-			.Header                 = {.Size = sizeof(USB_HID_Descriptor_t), .Type = DTYPE_HID},
+			.Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = DTYPE_HID},
 									 
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
@@ -229,7 +229,7 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			break;
 		case DTYPE_HID: 
 			Address = &ConfigurationDescriptor.HID_GenericHID;
-			Size    = sizeof(USB_HID_Descriptor_t);
+			Size    = sizeof(USB_HID_Descriptor_HID_t);
 			break;
 		case DTYPE_Report: 
 			Address = &GenericReport;

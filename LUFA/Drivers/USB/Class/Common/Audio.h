@@ -236,103 +236,244 @@
 		#define EP_ACCEPTS_SMALL_PACKETS     (0 << 7)
 		
 	/* Type Defines: */
-		/** \brief Audio class-specific Interface Descriptor.
+		/** \brief Audio class-specific Interface Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific interface descriptor. This follows a regular interface descriptor to
 		 *  supply extra information about the audio device's layout to the host. See the USB Audio specification for more
 		 *  details.
+		 *
+		 *  \see \ref USB_Audio_StdDescriptor_Interface_AC_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length. */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
+			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint16_t                  ACSpecification; /**< Binary coded decimal value, indicating the supported Audio Class specification version. */
-			uint16_t                  TotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
+			uint16_t                ACSpecification; /**< Binary coded decimal value, indicating the supported Audio Class specification version. */
+			uint16_t                TotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
 			
-			uint8_t                   InCollection; /**< Total number of audio class interfaces within this device. */
-			uint8_t                   InterfaceNumbers[1]; /**< Interface numbers of each audio interface. */
-		} USB_Audio_Interface_AC_t;
+			uint8_t                 InCollection; /**< Total number of audio class interfaces within this device. */
+			uint8_t                 InterfaceNumbers[1]; /**< Interface numbers of each audio interface. */
+		} USB_Audio_Descriptor_Interface_AC_t;
+
+		/** \brief Audio class-specific Interface Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific interface descriptor. This follows a regular interface descriptor to
+		 *  supply extra information about the audio device's layout to the host. See the USB Audio specification for more
+		 *  details.
+		 *
+		 *  \see \ref USB_Audio_Descriptor_Interface_AC_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+
+			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+
+			uint16_t bcdADC; /**< Binary coded decimal value, indicating the supported Audio Class specification version. */
+			uint16_t wTotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
+			
+			uint8_t  bInCollection; /**< Total number of audio class interfaces within this device. */
+			uint8_t  bInterfaceNumbers[1]; /**< Interface numbers of each audio interface. */
+		} USB_Audio_StdDescriptor_Interface_AC_t;
 		
-		/** \brief Audio class-specific Feature Unit Descriptor.
+		/** \brief Audio class-specific Feature Unit Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific Feature Unit descriptor. This indicates to the host what features
 		 *  are present in the device's audio stream for basic control, such as per-channel volume. See the USB Audio
 		 *  specification for more details.
+		 *
+		 *  \see \ref USB_Audio_StdDescriptor_FeatureUnit_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length. */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
+			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 			
-			uint8_t                   UnitID; /**< ID value of this feature unit - must be a unique value within the device. */
-			uint8_t                   SourceID; /**< Source ID value of the audio source input into this feature unit. */
+			uint8_t                 UnitID; /**< ID value of this feature unit - must be a unique value within the device. */
+			uint8_t                 SourceID; /**< Source ID value of the audio source input into this feature unit. */
 			
-			uint8_t                   ControlSize; /**< Size of each element in the ChanelControlls array. */
-			uint8_t                   ChannelControls[3]; /**< Feature masks for the control channel, and each separate audio channel. */
+			uint8_t                 ControlSize; /**< Size of each element in the ChanelControlls array. */
+			uint8_t                 ChannelControls[3]; /**< Feature masks for the control channel, and each separate audio channel. */
 			
-			uint8_t                   FeatureUnitStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_Audio_FeatureUnit_t;
+			uint8_t                 FeatureUnitStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
+		} USB_Audio_Descriptor_FeatureUnit_t;
 
-		/** \brief Audio class-specific Input Terminal Descriptor.
+		/** \brief Audio class-specific Feature Unit Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific Feature Unit descriptor. This indicates to the host what features
+		 *  are present in the device's audio stream for basic control, such as per-channel volume. See the USB Audio
+		 *  specification for more details.
+		 *
+		 *  \see \ref USB_Audio_Descriptor_FeatureUnit_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+
+			uint8_t bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+			
+			uint8_t bUnitID; /**< ID value of this feature unit - must be a unique value within the device. */
+			uint8_t bSourceID; /**< Source ID value of the audio source input into this feature unit. */
+			
+			uint8_t bControlSize; /**< Size of each element in the ChanelControlls array. */
+			uint8_t bmaControls[3]; /**< Feature masks for the control channel, and each separate audio channel. */
+			
+			uint8_t iFeature; /**< Index of a string descriptor describing this descriptor within the device. */
+		} USB_Audio_StdDescriptor_FeatureUnit_t;
+
+		/** \brief Audio class-specific Input Terminal Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific input terminal descriptor. This indicates to the host that the device
 		 *  contains an input audio source, either from a physical terminal on the device, or a logical terminal (for example,
 		 *  a USB endpoint). See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_StdDescriptor_InputTerminal_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length. */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
+			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 		
-			uint8_t                   TerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
-			uint16_t                  TerminalType; /**< Type of terminal, a TERMINAL_* mask. */
-			uint8_t                   AssociatedOutputTerminal; /**< ID of associated output terminal, for physically grouped terminals
+			uint8_t                 TerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
+			uint16_t                TerminalType; /**< Type of terminal, a TERMINAL_* mask. */
+			uint8_t                 AssociatedOutputTerminal; /**< ID of associated output terminal, for physically grouped terminals
 			                                                     *   such as the speaker and microphone of a phone handset.
 			                                                     */
-			uint8_t                   TotalChannels; /**< Total number of separate audio channels within this interface (right, left, etc.) */
-			uint16_t                  ChannelConfig; /**< CHANNEL_* masks indicating what channel layout is supported by this terminal. */
+			uint8_t                 TotalChannels; /**< Total number of separate audio channels within this interface (right, left, etc.) */
+			uint16_t                ChannelConfig; /**< CHANNEL_* masks indicating what channel layout is supported by this terminal. */
 			
-			uint8_t                   ChannelStrIndex; /**< Index of a string descriptor describing this channel within the device. */
-			uint8_t                   TerminalStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_Audio_InputTerminal_t;
+			uint8_t                 ChannelStrIndex; /**< Index of a string descriptor describing this channel within the device. */
+			uint8_t                 TerminalStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
+		} USB_Audio_Descriptor_InputTerminal_t;
 
-		/** \brief Audio class-specific Output Terminal Descriptor.
+		/** \brief Audio class-specific Input Terminal Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific input terminal descriptor. This indicates to the host that the device
+		 *  contains an input audio source, either from a physical terminal on the device, or a logical terminal (for example,
+		 *  a USB endpoint). See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_Descriptor_InputTerminal_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+
+			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+			uint8_t  bTerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
+			uint16_t wTerminalType; /**< Type of terminal, a TERMINAL_* mask. */
+			uint8_t  bAssocTerminal; /**< ID of associated output terminal, for physically grouped terminals
+			                          *   such as the speaker and microphone of a phone handset.
+			                          */
+			uint8_t  bNrChannels; /**< Total number of separate audio channels within this interface (right, left, etc.) */
+			uint16_t wChannelConfig; /**< CHANNEL_* masks indicating what channel layout is supported by this terminal. */
+			
+			uint8_t  iChannelNames; /**< Index of a string descriptor describing this channel within the device. */
+			uint8_t  iTerminal; /**< Index of a string descriptor describing this descriptor within the device. */
+		} USB_Audio_StdDescriptor_InputTerminal_t;
+
+		/** \brief Audio class-specific Output Terminal Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific output terminal descriptor. This indicates to the host that the device
 		 *  contains an output audio sink, either to a physical terminal on the device, or a logical terminal (for example,
 		 *  a USB endpoint). See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_StdDescriptor_OutputTerminal_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length. */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
+			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 		
-			uint8_t                   TerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
-			uint16_t                  TerminalType; /**< Type of terminal, a TERMINAL_* mask. */
-			uint8_t                   AssociatedInputTerminal; /**< ID of associated input terminal, for physically grouped terminals
+			uint8_t                 TerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
+			uint16_t                TerminalType; /**< Type of terminal, a TERMINAL_* mask. */
+			uint8_t                 AssociatedInputTerminal; /**< ID of associated input terminal, for physically grouped terminals
 			                                                    *   such as the speaker and microphone of a phone handset.
 			                                                    */
-			uint8_t                   SourceID; /**< ID value of the unit this terminal's audio is sourced from. */
+			uint8_t                 SourceID; /**< ID value of the unit this terminal's audio is sourced from. */
 			
-			uint8_t                   TerminalStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_Audio_OutputTerminal_t;
+			uint8_t                 TerminalStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
+		} USB_Audio_Descriptor_OutputTerminal_t;
+
+		/** \brief Audio class-specific Output Terminal Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific output terminal descriptor. This indicates to the host that the device
+		 *  contains an output audio sink, either to a physical terminal on the device, or a logical terminal (for example,
+		 *  a USB endpoint). See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_Descriptor_OutputTerminal_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+
+			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */		
+			uint8_t  bTerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
+			uint16_t wTerminalType; /**< Type of terminal, a TERMINAL_* mask. */
+			uint8_t  bAssocTerminal; /**< ID of associated input terminal, for physically grouped terminals
+			                          *   such as the speaker and microphone of a phone handset.
+			                          */
+			uint8_t  bSourceID; /**< ID value of the unit this terminal's audio is sourced from. */
+			
+			uint8_t  iTerminal; /**< Index of a string descriptor describing this descriptor within the device. */
+		} USB_Audio_StdDescriptor_OutputTerminal_t;
 		
-		/** \brief Audio class-specific Streaming Audio Interface Descriptor.
+		/** \brief Audio class-specific Streaming Audio Interface Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific streaming interface descriptor. This indicates to the host
 		 *  how audio streams within the device are formatted. See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_StdDescriptor_Interface_AS_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length. */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
+			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 			
-			uint8_t                   TerminalLink; /**< ID value of the output terminal this descriptor is describing. */
+			uint8_t                 TerminalLink; /**< ID value of the output terminal this descriptor is describing. */
 			
-			uint8_t                   FrameDelay; /**< Delay in frames resulting from the complete sample processing from input to output. */
-			uint16_t                  AudioFormat; /**< Format of the audio stream, see Audio Device Formats specification. */
-		} USB_Audio_Interface_AS_t;
+			uint8_t                 FrameDelay; /**< Delay in frames resulting from the complete sample processing from input to output. */
+			uint16_t                AudioFormat; /**< Format of the audio stream, see Audio Device Formats specification. */
+		} USB_Audio_Descriptor_Interface_AS_t;
+
+		/** \brief Audio class-specific Streaming Audio Interface Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific streaming interface descriptor. This indicates to the host
+		 *  how audio streams within the device are formatted. See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_Descriptor_Interface_AS_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+
+			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */		
+			
+			uint8_t  bTerminalLink; /**< ID value of the output terminal this descriptor is describing. */
+			
+			uint8_t  bDelay; /**< Delay in frames resulting from the complete sample processing from input to output. */
+			uint16_t wFormatTag; /**< Format of the audio stream, see Audio Device Formats specification. */
+		} USB_Audio_StdDescriptor_Interface_AS_t;
 		
 		/** \brief 24-Bit Audio Frequency Structure.
 		 *
@@ -341,35 +482,67 @@
 		 */
 		typedef struct
 		{
-			uint16_t                  LowWord; /**< Low 16 bits of the 24-bit value. */
-			uint8_t                   HighByte; /**< Upper 8 bits of the 24-bit value. */
+			uint16_t    LowWord; /**< Low 16 bits of the 24-bit value. */
+			uint8_t     HighByte; /**< Upper 8 bits of the 24-bit value. */
 		} USB_Audio_SampleFreq_t;
 
-		/** \brief Audio class-specific Format Descriptor.
+		/** \brief Audio class-specific Format Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific audio format descriptor. This is used to give the host full details
 		 *  about the number of channels, the sample resolution, acceptable sample frequencies and encoding method used
 		 *  in the device's audio streams. See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_StdDescriptor_Format_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length. */
-			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
+			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
+			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint8_t                   FormatType; /**< Format of the audio stream, see Audio Device Formats specification. */
-			uint8_t                   Channels; /**< Total number of discrete channels in the stream. */
+			uint8_t                 FormatType; /**< Format of the audio stream, see Audio Device Formats specification. */
+			uint8_t                 Channels; /**< Total number of discrete channels in the stream. */
 			
-			uint8_t                   SubFrameSize; /**< Size in bytes of each channel's sample data in the stream. */
-			uint8_t                   BitResolution; /**< Bits of resolution of each channel's samples in the stream. */
+			uint8_t                 SubFrameSize; /**< Size in bytes of each channel's sample data in the stream. */
+			uint8_t                 BitResolution; /**< Bits of resolution of each channel's samples in the stream. */
 
-			uint8_t                   SampleFrequencyType; /**< Total number of sample frequencies supported by the device. */			
-			USB_Audio_SampleFreq_t    SampleFrequencies[AUDIO_TOTAL_SAMPLE_RATES]; /**< Sample frequencies supported by the device. */
-		} USB_Audio_Format_t;
+			uint8_t                 SampleFrequencyType; /**< Total number of sample frequencies supported by the device. */			
+			USB_Audio_SampleFreq_t  SampleFrequencies[AUDIO_TOTAL_SAMPLE_RATES]; /**< Sample frequencies supported by the device (must be 24-bit). */
+		} USB_Audio_Descriptor_Format_t;
+
+		/** \brief Audio class-specific Format Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific audio format descriptor. This is used to give the host full details
+		 *  about the number of channels, the sample resolution, acceptable sample frequencies and encoding method used
+		 *  in the device's audio streams. See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_Descriptor_Format_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+
+			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */		
+
+			uint8_t  bFormatType; /**< Format of the audio stream, see Audio Device Formats specification. */
+			uint8_t  bNrChannels; /**< Total number of discrete channels in the stream. */
+			
+			uint8_t  bSubFrameSize; /**< Size in bytes of each channel's sample data in the stream. */
+			uint8_t  bBitResolution; /**< Bits of resolution of each channel's samples in the stream. */
+
+			uint8_t  bSampleFrequencyType; /**< Total number of sample frequencies supported by the device. */			
+			uint8_t  SampleFrequencies[AUDIO_TOTAL_SAMPLE_RATES * 3]; /**< Sample frequencies supported by the device (must be 24-bit). */
+		} USB_Audio_StdDescriptor_Format_t;
 		
-		/** \brief Audio class-specific Streaming Endpoint Descriptor.
+		/** \brief Audio class-specific Streaming Endpoint Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific endpoint descriptor. This contains a regular endpoint 
 		 *  descriptor with a few Audio-class-specific extensions. See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_StdDescriptor_StreamEndpoint_Std_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
@@ -377,13 +550,46 @@
 
 			uint8_t                   Refresh; /**< Always set to zero for Audio class devices. */
 			uint8_t                   SyncEndpointNumber; /**< Endpoint address to send synchronization information to, if needed (zero otherwise). */
-		} USB_Audio_StreamEndpoint_Std_t;
+		} USB_Audio_Descriptor_StreamEndpoint_Std_t;
+
+		/** \brief Audio class-specific Streaming Endpoint Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific endpoint descriptor. This contains a regular endpoint 
+		 *  descriptor with a few Audio-class-specific extensions. See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_Descriptor_StreamEndpoint_Std_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a
+									   *   value given by the specific class.
+									   */
+			uint8_t  bEndpointAddress; /**< Logical address of the endpoint within the device for the current 
+										*   configuration, including direction mask.
+										*/
+			uint8_t  bmAttributes; /**< Endpoint attributes, comprised of a mask of the endpoint type (EP_TYPE_*) 
+									*   and attributes (ENDPOINT_ATTR_*) masks.
+									*/
+			uint16_t wMaxPacketSize; /**< Size of the endpoint bank, in bytes. This indicates the maximum packet size
+									  *   that the endpoint can receive at a time.
+									  */
+			uint8_t  bInterval; /**< Polling interval in milliseconds for the endpoint if it is an INTERRUPT or
+								 *   ISOCHRONOUS type.
+								 */
+								 
+			uint8_t  bRefresh; /**< Always set to zero for Audio class devices. */
+			uint8_t  bSynchAddress; /**< Endpoint address to send synchronization information to, if needed (zero otherwise). */
+		} USB_Audio_StdDescriptor_StreamEndpoint_Std_t;
 					
-		/** \brief Audio class-specific Extended Endpoint Descriptor.
+		/** \brief Audio class-specific Extended Endpoint Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific extended endpoint descriptor. This contains extra information
 		 *  on the usage of endpoints used to stream audio in and out of the USB Audio device, and follows an Audio
 		 *  class-specific extended endpoint descriptor. See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_StdDescriptor_StreamEndpoint_Spc_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
@@ -394,8 +600,32 @@
 
 			uint8_t                   LockDelayUnits; /**< Units used for the LockDelay field, see Audio class specification. */
 			uint16_t                  LockDelay; /**< Time required to internally lock endpoint's internal clock recovery circuitry. */
-		} USB_Audio_StreamEndpoint_Spc_t;
+		} USB_Audio_Descriptor_StreamEndpoint_Spc_t;
 
+		/** \brief Audio class-specific Extended Endpoint Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for an Audio class-specific extended endpoint descriptor. This contains extra information
+		 *  on the usage of endpoints used to stream audio in and out of the USB Audio device, and follows an Audio
+		 *  class-specific extended endpoint descriptor. See the USB Audio specification for more details.
+		 *
+		 *  \see \ref USB_Audio_Descriptor_StreamEndpoint_Spc_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+
+			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */		
+			
+			uint8_t  bmAttributes; /**< Audio class-specific endpoint attributes, such as ACCEPTS_SMALL_PACKETS. */
+
+			uint8_t  bLockDelayUnits; /**< Units used for the LockDelay field, see Audio class specification. */
+			uint16_t wLockDelay; /**< Time required to internally lock endpoint's internal clock recovery circuitry. */
+		} USB_Audio_StdDescriptor_StreamEndpoint_Spc_t;
+		
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}

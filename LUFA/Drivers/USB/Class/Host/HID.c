@@ -69,7 +69,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		return HID_ENUMERROR_NoHIDDescriptorFound;
 	}
 
-	HIDInterfaceInfo->State.HIDReportSize = DESCRIPTOR_CAST(ConfigDescriptorData, USB_HID_Descriptor_t).HIDReportLength;
+	HIDInterfaceInfo->State.HIDReportSize = DESCRIPTOR_CAST(ConfigDescriptorData, USB_HID_Descriptor_HID_t).HIDReportLength;
 
 	while (FoundEndpoints != (HID_FOUND_DATAPIPE_IN | HID_FOUND_DATAPIPE_OUT))
 	{

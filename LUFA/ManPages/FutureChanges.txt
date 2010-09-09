@@ -15,7 +15,6 @@
   *  - Code Features
   *      -# Add hub support when in Host mode for multiple devices
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
-  *      -# Add standardized descriptor names to class driver structures
   *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Re-add interrupt Pipe/Endpoint support
   *  - Documentation/Support

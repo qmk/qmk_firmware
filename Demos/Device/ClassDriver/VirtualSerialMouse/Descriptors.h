@@ -83,7 +83,7 @@
 			USB_Descriptor_Endpoint_t                CDC_DataOutEndpoint;
 			USB_Descriptor_Endpoint_t                CDC_DataInEndpoint;
 			USB_Descriptor_Interface_t               HID_Interface;
-			USB_HID_Descriptor_t                     HID_MouseHID;
+			USB_HID_Descriptor_HID_t                 HID_MouseHID;
 	        USB_Descriptor_Endpoint_t                HID_ReportINEndpoint;
 		} USB_Descriptor_Configuration_t;
 

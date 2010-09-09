@@ -173,7 +173,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
-			                             void* PrinterCommands, 
+			                             void* Buffer, 
 			                             const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Determines the number of bytes received by the printer interface from the device, waiting to be read. This indicates the number

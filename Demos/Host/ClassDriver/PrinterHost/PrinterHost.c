@@ -129,7 +129,7 @@ int main(void)
 				
 				printf_P(PSTR("Device ID: %s.\r\n"), DeviceIDString);
 				
-				char  TestPageData[]    = "\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X";
+				char     TestPageData[] = "\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X";
 				uint16_t TestPageLength = strlen(TestPageData);
 			
 				printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), TestPageLength);

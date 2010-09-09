@@ -179,7 +179,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 	.HID1_KeyboardHID = 
 		{  
-			.Header                 = {.Size = sizeof(USB_HID_Descriptor_t), .Type = DTYPE_HID},
+			.Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = DTYPE_HID},
 			
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
@@ -216,7 +216,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 	.HID2_MouseHID = 
 		{  
-			.Header                 = {.Size = sizeof(USB_HID_Descriptor_t), .Type = DTYPE_HID},
+			.Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = DTYPE_HID},
 			
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
@@ -317,12 +317,12 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			if (!(wIndex))
 			{
 				Address = &ConfigurationDescriptor.HID1_KeyboardHID;
-				Size    = sizeof(USB_HID_Descriptor_t);
+				Size    = sizeof(USB_HID_Descriptor_HID_t);
 			}
 			else
 			{
 				Address = &ConfigurationDescriptor.HID2_MouseHID;
-				Size    = sizeof(USB_HID_Descriptor_t);			
+				Size    = sizeof(USB_HID_Descriptor_HID_t);			
 			}
 			break;
 		case DTYPE_Report: 

@@ -145,23 +145,49 @@
 			REPORT_ITEM_TYPE_Feature              = 2, /**< Indicates that the item is a FEATURE report type. */
 		};
 
-		/** \brief HID class-specific HID Descriptor.
+		/** \brief HID class-specific HID Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for the HID class-specific HID descriptor, to describe the HID device's specifications. Refer to the HID
 		 *  specification for details on the structure elements.
+		 *
+		 *  \see \ref USB_HID_StdDescriptor_HID_t for the version of this type with standard element names.
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Header_t  Header; /**< Regular descriptor header containing the descriptor's type and length. */
+			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
 				
-			uint16_t                 HIDSpec; /**< BCD encoded version that the HID descriptor and device complies to. */
-			uint8_t                  CountryCode; /**< Country code of the localized device, or zero if universal. */
+			uint16_t                HIDSpec; /**< BCD encoded version that the HID descriptor and device complies to. */
+			uint8_t                 CountryCode; /**< Country code of the localized device, or zero if universal. */
 		
-			uint8_t                  TotalReportDescriptors; /**< Total number of HID report descriptors for the interface. */
+			uint8_t                 TotalReportDescriptors; /**< Total number of HID report descriptors for the interface. */
 
-			uint8_t                  HIDReportType; /**< Type of HID report, set to \ref DTYPE_Report. */
-			uint16_t                 HIDReportLength; /**< Length of the associated HID report descriptor, in bytes. */
-		} USB_HID_Descriptor_t;
+			uint8_t                 HIDReportType; /**< Type of HID report, set to \ref DTYPE_Report. */
+			uint16_t                HIDReportLength; /**< Length of the associated HID report descriptor, in bytes. */
+		} USB_HID_Descriptor_HID_t;
+
+		/** \brief HID class-specific HID Descriptor (USB-IF naming conventions).
+		 *
+		 *  Type define for the HID class-specific HID descriptor, to describe the HID device's specifications. Refer to the HID
+		 *  specification for details on the structure elements.
+		 *
+		 *  \see \ref USB_HID_Descriptor_HID_t for the version of this type with non-standard LUFA specific
+		 *       element names.
+		 */
+		typedef struct
+		{
+			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
+			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
+				                      *   given by the specific class.
+				                      */
+				
+			uint16_t bcdHID; /**< BCD encoded version that the HID descriptor and device complies to. */
+			uint8_t  bCountryCode; /**< Country code of the localized device, or zero if universal. */
+		
+			uint8_t  bNumDescriptors; /**< Total number of HID report descriptors for the interface. */
+
+			uint8_t  bDescriptorType2; /**< Type of HID report, set to \ref DTYPE_Report. */
+			uint16_t wDescriptorLength; /**< Length of the associated HID report descriptor, in bytes. */
+		} USB_HID_StdDescriptor_HID_t;
 
 		/** \brief Standard HID Boot Protocol Mouse Report.
 		 *

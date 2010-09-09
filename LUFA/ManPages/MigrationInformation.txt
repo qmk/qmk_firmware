@@ -22,10 +22,14 @@
  *    - The signature for the CALLBACK_USB_GetDescriptor() callback has changed, the "void** const DescriptorAddress" parameter is
  *      now "const void** const DescriptorAddress". Existing applications should update their callback signatures to match this, and
  *      eliminate any casting of descriptor pointers to a non-const pointer.
+ *    - The names of the class specific descriptor type defines in the USB Class drivers have changed - refer to the driver documentation
+ *      for each class driver for the new class specific descriptor type names.
  *
  *  <b>Host Mode</b>
  *    - The PRNT_Host_SendData() function has been renamed to \ref PRNT_Host_SendString(). Existing applications should simply
  *      replace all references to the obsolete function name with the new function name.
+ *    - The names of the class specific descriptor type defines in the USB Class drivers have changed - refer to the driver documentation
+ *      for each class driver for the new class specific descriptor type names.
  *
  * \section Sec_Migration100807 Migrating from 100513 to 100807
  *

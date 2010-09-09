@@ -59,19 +59,19 @@
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Configuration_Header_t Config;
-			USB_Descriptor_Interface_t            Audio_ControlInterface;
-			USB_Audio_Interface_AC_t              Audio_ControlInterface_SPC;
-			USB_Descriptor_Interface_t            Audio_StreamInterface;
-			USB_MIDI_AudioInterface_AS_t          Audio_StreamInterface_SPC;
-			USB_MIDI_In_Jack_t                    MIDI_In_Jack_Emb;
-			USB_MIDI_In_Jack_t                    MIDI_In_Jack_Ext;
-			USB_MIDI_Out_Jack_t                   MIDI_Out_Jack_Emb;
-			USB_MIDI_Out_Jack_t                   MIDI_Out_Jack_Ext;
-			USB_Audio_StreamEndpoint_Std_t        MIDI_In_Jack_Endpoint;
-			USB_MIDI_Jack_Endpoint_t              MIDI_In_Jack_Endpoint_SPC;
-			USB_Audio_StreamEndpoint_Std_t        MIDI_Out_Jack_Endpoint;
-			USB_MIDI_Jack_Endpoint_t              MIDI_Out_Jack_Endpoint_SPC;
+			USB_Descriptor_Configuration_Header_t     Config;
+			USB_Descriptor_Interface_t                Audio_ControlInterface;
+			USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
+			USB_Descriptor_Interface_t                Audio_StreamInterface;
+			USB_MIDI_Descriptor_AudioInterface_AS_t   Audio_StreamInterface_SPC;
+			USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Emb;
+			USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Ext;
+			USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Emb;
+			USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Ext;
+			USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_In_Jack_Endpoint;
+			USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_In_Jack_Endpoint_SPC;
+			USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_Out_Jack_Endpoint;
+			USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_Out_Jack_Endpoint_SPC;
 		} USB_Descriptor_Configuration_t;
 		
 	/* Function Prototypes: */

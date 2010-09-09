@@ -52,7 +52,7 @@
 		{
 			USB_Descriptor_Configuration_Header_t Config; /**< Configuration descriptor header structure */
 			USB_Descriptor_Interface_t            HID_Interface; /**< Keyboard interface descriptor */
-			USB_HID_Descriptor_t                  HID_KeyboardHID; /**< Keyboard HID descriptor */
+			USB_HID_Descriptor_HID_t              HID_KeyboardHID; /**< Keyboard HID descriptor */
 	        USB_Descriptor_Endpoint_t             HID_ReportINEndpoint; /**< Keyboard key report endpoint descriptor */
 		} USB_Descriptor_Configuration_t;
 					
