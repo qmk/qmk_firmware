@@ -131,8 +131,8 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
+			                           *   given by the specific class.
+			                           */
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 			
@@ -171,8 +171,8 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
+			                           *   given by the specific class.
+			                           */
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
@@ -216,8 +216,8 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
+			                           *   given by the specific class.
+			                           */
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
@@ -261,8 +261,8 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
+			                           *   given by the specific class.
+			                           */
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 

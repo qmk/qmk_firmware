@@ -155,7 +155,7 @@
 		typedef struct
 		{
 			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
-				
+			
 			uint16_t                HIDSpec; /**< BCD encoded version that the HID descriptor and device complies to. */
 			uint8_t                 CountryCode; /**< Country code of the localized device, or zero if universal. */
 		
@@ -177,9 +177,9 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
-				
+			                           *   given by the specific class.
+			                           */
+			
 			uint16_t bcdHID; /**< BCD encoded version that the HID descriptor and device complies to. */
 			uint8_t  bCountryCode; /**< Country code of the localized device, or zero if universal. */
 		

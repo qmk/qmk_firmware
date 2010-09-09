@@ -269,8 +269,8 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
+			                           *   given by the specific class.
+			                           */
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
@@ -316,8 +316,8 @@
 		{
 			uint8_t bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
+			                          *   given by the specific class.
+			                          */
 
 			uint8_t bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 			
@@ -346,8 +346,8 @@
 			uint8_t                 TerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
 			uint16_t                TerminalType; /**< Type of terminal, a TERMINAL_* mask. */
 			uint8_t                 AssociatedOutputTerminal; /**< ID of associated output terminal, for physically grouped terminals
-			                                                     *   such as the speaker and microphone of a phone handset.
-			                                                     */
+			                                                   *   such as the speaker and microphone of a phone handset.
+			                                                   */
 			uint8_t                 TotalChannels; /**< Total number of separate audio channels within this interface (right, left, etc.) */
 			uint16_t                ChannelConfig; /**< CHANNEL_* masks indicating what channel layout is supported by this terminal. */
 			
@@ -368,8 +368,8 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
+			                           *   given by the specific class.
+			                           */
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 			uint8_t  bTerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
@@ -420,8 +420,8 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
+			                           *   given by the specific class.
+			                           */
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */		
 			uint8_t  bTerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
@@ -464,8 +464,8 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
+			                           *   given by the specific class.
+			                           */
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */		
 			
@@ -522,8 +522,8 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
+			                           *   given by the specific class.
+			                           */
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */		
 
@@ -564,25 +564,25 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a
-									   *   value given by the specific class.
-									   */
+			                           *   value given by the specific class.
+			                           */
 			uint8_t  bEndpointAddress; /**< Logical address of the endpoint within the device for the current 
-										*   configuration, including direction mask.
-										*/
+			                            *   configuration, including direction mask.
+			                            */
 			uint8_t  bmAttributes; /**< Endpoint attributes, comprised of a mask of the endpoint type (EP_TYPE_*) 
-									*   and attributes (ENDPOINT_ATTR_*) masks.
-									*/
+			                        *   and attributes (ENDPOINT_ATTR_*) masks.
+			                        */
 			uint16_t wMaxPacketSize; /**< Size of the endpoint bank, in bytes. This indicates the maximum packet size
-									  *   that the endpoint can receive at a time.
-									  */
+			                          *   that the endpoint can receive at a time.
+			                          */
 			uint8_t  bInterval; /**< Polling interval in milliseconds for the endpoint if it is an INTERRUPT or
-								 *   ISOCHRONOUS type.
-								 */
-								 
+			                     *   ISOCHRONOUS type.
+			                     */
+			
 			uint8_t  bRefresh; /**< Always set to zero for Audio class devices. */
 			uint8_t  bSynchAddress; /**< Endpoint address to send synchronization information to, if needed (zero otherwise). */
 		} USB_Audio_StdDescriptor_StreamEndpoint_Std_t;
-					
+
 		/** \brief Audio class-specific Extended Endpoint Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for an Audio class-specific extended endpoint descriptor. This contains extra information
@@ -615,8 +615,8 @@
 		{
 			uint8_t  bLength; /**< Size of the descriptor, in bytes. */
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
-				                      *   given by the specific class.
-				                      */
+			                           *   given by the specific class.
+			                           */
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */		
 			
