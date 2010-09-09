@@ -122,7 +122,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-	
+		
 #endif
 
 /** @} */

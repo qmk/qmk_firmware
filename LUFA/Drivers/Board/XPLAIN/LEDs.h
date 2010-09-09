@@ -103,12 +103,12 @@
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
 			                                   const uint8_t ActiveMask)
 			{
-				PORTB = ((PORTB | (LEDMask & LEDS_ALL_LEDS)) & (~ActiveMask & LEDS_ALL_LEDS));
+				PORTB = ((PORTB | LEDMask) & ~ActiveMask);
 			}
 			
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTD = (PORTB ^ (LEDMask & LEDS_ALL_LEDS));
+				PORTB ^= LEDMask;
 			}
 			
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
