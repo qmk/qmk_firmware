@@ -16,7 +16,8 @@
   *  - Added new USB_Device_GetFrameNumber() and USB_Host_GetFrameNumber() functions to retrieve the current USB frame number
   *  - Added new USB_Host_EnableSOFEvents(), USB_Host_DisableSOFEvents() and EVENT_USB_Host_StartOfFrame() for the user application
   *    handling of USB Start of Frame events while in USB Host mode
-  *  - Added new PRNT_Host_BytesReceived() and PRNT_Host_ReceiveByte() functions to the Print Host Class driver
+  *  - Added new PRNT_Host_BytesReceived(), PRNT_Host_ReceiveByte(), PRNT_Host_SendByte() and PRNT_Host_Flush() functions to the
+  *    Print Host Class driver
   *  - Added class specific descriptor type defines with standard USB-IF element naming
   *  - Added new project makefile template to the library and moved board driver stub files into in a new "CodeTemplates" directory
   *

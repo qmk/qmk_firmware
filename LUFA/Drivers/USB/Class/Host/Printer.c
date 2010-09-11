@@ -125,6 +125,11 @@ static uint8_t DCOMP_PRNT_NextPRNTInterfaceEndpoint(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
+void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
+{
+	PRNT_Host_Flush(PRNTInterfaceInfo);
+}
+
 uint8_t PRNT_Host_SetBidirectionalMode(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
 {
 	if (PRNTInterfaceInfo->State.AlternateSetting)
@@ -180,6 +185,61 @@ uint8_t PRNT_Host_SoftReset(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
 	return USB_Host_SendControlRequest(NULL);
+}
+
+uint8_t PRNT_Host_Flush(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(PRNTInterfaceInfo->State.IsActive))
+	  return PIPE_READYWAIT_DeviceDisconnected;
+	  
+	uint8_t ErrorCode;
+
+	Pipe_SelectPipe(PRNTInterfaceInfo->Config.DataOUTPipeNumber);	
+	Pipe_Unfreeze();
+	
+	if (!(Pipe_BytesInPipe()))
+	  return PIPE_READYWAIT_NoError;
+
+	bool BankFull = !(Pipe_IsReadWriteAllowed());
+
+	Pipe_ClearOUT();
+
+	if (BankFull)
+	{
+		if ((ErrorCode = Pipe_WaitUntilReady()) != PIPE_READYWAIT_NoError)
+		  return ErrorCode;
+
+		Pipe_ClearOUT();
+	}
+
+	Pipe_Freeze();
+	
+	return PIPE_READYWAIT_NoError;
+}
+
+uint8_t PRNT_Host_SendByte(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+                           const uint8_t Data)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(PRNTInterfaceInfo->State.IsActive))
+	  return PIPE_READYWAIT_DeviceDisconnected;
+	  
+	uint8_t ErrorCode;
+
+	Pipe_SelectPipe(PRNTInterfaceInfo->Config.DataOUTPipeNumber);	
+	Pipe_Unfreeze();
+	
+	if (!(Pipe_IsReadWriteAllowed()))
+	{
+		Pipe_ClearOUT();
+
+		if ((ErrorCode = Pipe_WaitUntilReady()) != PIPE_READYWAIT_NoError)
+		  return ErrorCode;
+	}
+
+	Pipe_Write_Byte(Data);	
+	Pipe_Freeze();
+	
+	return PIPE_READYWAIT_NoError;
 }
 
 uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,

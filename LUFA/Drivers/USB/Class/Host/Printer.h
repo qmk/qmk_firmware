@@ -114,6 +114,14 @@
 			};
 	
 		/* Function Prototypes: */
+			/** General management task for a given Printer host class interface, required for the correct operation of
+			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
+			 *  \ref USB_USBTask().
+			 *
+			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
+			 */
+			void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+
 			/** Host interface configuration routine, to configure a given Printer host interface instance using the
 			 *  Configuration Descriptor read from an attached USB device. This function automatically updates the given Printer
 			 *  instance's state values and configures the pipes required to communicate with the interface if it is found within
@@ -159,6 +167,17 @@
 			 */
 			uint8_t PRNT_Host_SoftReset(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			/** Flushes any data waiting to be sent, ensuring that the send buffer is cleared.
+			 *
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
+			 *
+			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
+			 *
+			 *  \return A value from the \ref Pipe_WaitUntilReady_ErrorCodes_t enum.
+			 */
+			uint8_t PRNT_Host_Flush(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+
 			/** Sends the given raw data stream to the attached printer's input endpoint. This should contain commands that the
 			 *  printer is able to understand - for example, PCL data. Not all printers accept all printer languages; see
 			 *  \ref PRNT_Host_GetDeviceID() for details on determining acceptable languages for an attached printer.
@@ -175,6 +194,22 @@
 			uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
 			                             void* Buffer, 
 			                             const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+
+			/** Sends a given byte to the attached USB device, if connected. If a device is not connected when the function is called, the
+			 *  byte is discarded. Bytes will be queued for transmission to the device until either the pipe bank becomes full, or the
+			 *  \ref PRNT_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
+			 *  packed into a single pipe packet, increasing data throughput.
+			 *
+			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *       call will fail.
+			 *
+			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
+			 *  \param[in]     Data               Byte of data to send to the device.
+			 *
+			 *  \return A value from the \ref Pipe_WaitUntilReady_ErrorCodes_t enum.
+			 */
+			uint8_t PRNT_Host_SendByte(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+			                           const uint8_t Data) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Determines the number of bytes received by the printer interface from the device, waiting to be read. This indicates the number
 			 *  of bytes in the IN pipe bank only, and thus the number of calls to \ref PRNT_Host_ReceiveByte() which are guaranteed to succeed
@@ -219,19 +254,6 @@
 			uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
 			                              char* const DeviceIDString,
 			                              const uint16_t BufferSize) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
-
-		/* Inline Functions: */
-			/** General management task for a given Printer host class interface, required for the correct operation of
-			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
-			 *  \ref USB_USBTask().
-			 *
-			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
-			 */
-			static inline void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			static inline void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
-			{
-				(void)PRNTInterfaceInfo;
-			}
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
