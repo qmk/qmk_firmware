@@ -161,7 +161,27 @@
  *  should not be included directly in user applications; the similarly named dispatch header files located in the parent Board
  *  directory should be included instead.
  *
- *  \dir LUFA/DriverStubs
+ *  \dir LUFA/Drivers/Board/OLIMEX162
+ *  \brief Olimex USB-STK-162 board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the Olimex AVR-USB-162 boards (http://www.olimex.com/dev/avr-usb-162.html).
+ *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
+ *  located in the parent Board directory should be included instead.
+ *
+ *  \dir LUFA/Drivers/Board/USBFOO
+ *  \brief USBFOO board hardware driver files.
+ *  
+ *  This folder contains drivers for hardware on the USBFOO boards (http://shop.kernelconcepts.de/product_info.php?products_id=102).
+ *  The header files in this folder should not be included directly in user applications; the similarly named dispatch header files
+ *  located in the parent Board directory should be included instead.
+ *
+ *  \dir LUFA/CodeTemplates
+ *  \brief Code templates for use in LUFA powered applications.
+ *  
+ *  This contains code templates for board drivers, sample LUFA project makefiles and other similar templates that can be copied into
+ *  a LUFA powered application and modified to speed up development.
+ *
+ *  \dir LUFA/CodeTemplates/DriverStubs
  *  \brief Driver stub header files for custom boards, to allow the LUFA board drivers to operate.
  *  
  *  This contains stub files for the LUFA board drivers. If the LUFA board drivers are used with board hardware other than those

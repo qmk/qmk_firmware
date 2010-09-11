@@ -61,7 +61,7 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Constant indicating the total number of dataflash ICs mounted on the selected board. */
-			#define DATAFLASH_TOTALCHIPS                 // TODO: Replace with the number of Dataflashes on the board, max 2
+			#define DATAFLASH_TOTALCHIPS                 1 // TODO: Replace with the number of Dataflashes on the board, max 2
 
 			/** Mask for no dataflash chip selected. */
 			#define DATAFLASH_NO_CHIP                    DATAFLASH_CHIPCS_MASK

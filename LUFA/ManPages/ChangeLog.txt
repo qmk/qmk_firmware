@@ -18,6 +18,7 @@
   *    handling of USB Start of Frame events while in USB Host mode
   *  - Added new PRNT_Host_BytesReceived() and PRNT_Host_ReceiveByte() functions to the Print Host Class driver
   *  - Added class specific descriptor type defines with standard USB-IF element naming
+  *  - Added new project makefile template to the library and moved board driver stub files into in a new "CodeTemplates" directory
   *
   *  <b>Changed:</b>
   *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions
