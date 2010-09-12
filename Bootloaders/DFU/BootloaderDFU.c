@@ -156,7 +156,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 
 	switch (USB_ControlRequest.bRequest)
 	{
-		case DFU_DNLOAD:
+		case REQ_DFU_DNLOAD:
 			Endpoint_ClearSETUP();
 			
 			/* Check if bootloader is waiting to terminate */
@@ -309,7 +309,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			Endpoint_ClearStatusStage();
 
 			break;
-		case DFU_UPLOAD:
+		case REQ_DFU_UPLOAD:
 			Endpoint_ClearSETUP();
 
 			while (!(Endpoint_IsINReady()))
@@ -408,7 +408,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 
 			Endpoint_ClearStatusStage();
 			break;
-		case DFU_GETSTATUS:
+		case REQ_DFU_GETSTATUS:
 			Endpoint_ClearSETUP();
 			
 			/* Write 8-bit status value */
@@ -428,7 +428,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			
 			Endpoint_ClearStatusStage();
 			break;		
-		case DFU_CLRSTATUS:
+		case REQ_DFU_CLRSTATUS:
 			Endpoint_ClearSETUP();
 			
 			/* Reset the status value variable to the default OK status */
@@ -436,7 +436,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 
 			Endpoint_ClearStatusStage();
 			break;
-		case DFU_GETSTATE:
+		case REQ_DFU_GETSTATE:
 			Endpoint_ClearSETUP();
 			
 			/* Write the current device state to the endpoint */
@@ -446,7 +446,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			
 			Endpoint_ClearStatusStage();
 			break;
-		case DFU_ABORT:
+		case REQ_DFU_ABORT:
 			Endpoint_ClearSETUP();
 			
 			/* Reset the current state variable to the default idle state */
