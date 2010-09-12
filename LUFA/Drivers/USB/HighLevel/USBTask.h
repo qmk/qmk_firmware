@@ -97,7 +97,7 @@
 					 *
 					 *  This value may be altered by the user application to implement the \ref HOST_STATE_Addressed,
 					 *  \ref HOST_STATE_Configured and \ref HOST_STATE_Suspended states which are not implemented by
-					 *  the library.
+					 *  the library internally.
 					 *
 					 *  To reduce program size and speed up checks of this global, it can be placed into one of the AVR's
 					 *  GPIOR hardware registers instead of RAM by defining the HOST_STATE_AS_GPIOR token to a value 
@@ -153,7 +153,7 @@
 			#endif
 
 		/* Function Prototypes: */
-			/** This is the main USB management task. The USB driver requires that this task be executed
+			/** This is the main USB management task. The USB driver requires this task to be executed
 			 *  continuously when the USB system is active (device attached in host mode, or attached to a host
 			 *  in device mode) in order to manage USB communications. This task may be executed inside an RTOS,
 			 *  fast timer ISR or the main user application loop.
@@ -191,9 +191,9 @@
 			#endif
 			
 		/* Macros: */
-			#define HOST_TASK_NONBLOCK_WAIT(duration, nextstate) MACROS{ USB_HostState = HOST_STATE_WaitForDevice; \
-			                                                             WaitMSRemaining = (duration);             \
-			                                                             PostWaitState = (nextstate);        }MACROE
+			#define HOST_TASK_NONBLOCK_WAIT(Duration, NextState) MACROS{ USB_HostState   = HOST_STATE_WaitForDevice; \
+			                                                             WaitMSRemaining = (Duration);               \
+			                                                             PostWaitState   = (NextState);        }MACROE
 	#endif
 	
 	/* Disable C linkage for C++ Compilers: */
