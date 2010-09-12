@@ -24,10 +24,12 @@
  * THE SOFTWARE.
  */
 
+#include <stdbool.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+
 #include "usb_keyboard_debug.h"
 #include "print.h"
 #include "matrix.h"
@@ -45,7 +47,8 @@ uint16_t idle_count=0;
 
 int main(void)
 {
-    uint8_t modified = 0;
+    bool modified = false;
+    bool has_ghost = false;
     uint8_t key_index = 0;
 
     // set for 16 MHz clock
@@ -77,54 +80,39 @@ int main(void)
     while (1) {
         uint8_t row, col, code;
 
-        modified = 0;
-
         matrix_scan();
 
-        keyboard_modifier_keys = 0;
-        for (int i = 0; i < 6; i++)
-            keyboard_keys[i] = KB_NO;
-        key_index = 0;
+        modified = matrix_is_modified();
+        has_ghost = matrix_has_ghost();
 
-        for (row = 0; row < MATRIX_ROWS; row++) {
-            if (matrix[row] != prev_matrix[row]) {
-                modified = 1;
-            }
+        // doesnt send keys during ghost occurs
+        if (modified && !has_ghost) {
+            key_index = 0;
+            keyboard_modifier_keys = 0;
+            for (int i = 0; i < 6; i++) keyboard_keys[i] = KB_NO;
 
-            for (col = 0; col < MATRIX_COLS; col++) {
-                if (matrix[row] & 1<<col) continue;
-                code = get_keycode(row, col);
-                
-                // Modifier keycode: 0xE0-0xE7
-                if (KB_LCTRL <= code && code <= KB_RGUI) {
-                    keyboard_modifier_keys |= 1<<(code&0x07);
-                } else {
-                    if (key_index < 6) {
-                        keyboard_keys[key_index] = code;
-                    }
-                    key_index++;
-                }
-
-            }
-        }
-
-        if (key_index > 6) {
-            //Rollover
-        }
-                
-
-
-        // if any keypresses were detected, reset the idle counter
-        if (modified) {
-            print("    01234567\n");
             for (row = 0; row < MATRIX_ROWS; row++) {
-                phex(row); print(": "); pbin_reverse(matrix[row]); print("\n");
+                for (col = 0; col < MATRIX_COLS; col++) {
+                    if (matrix[row] & 1<<col) continue;
+
+                    code = get_keycode(row, col);
+                    if (KB_LCTRL <= code && code <= KB_RGUI) {
+                        // modifier keycode: 0xE0-0xE7
+                        keyboard_modifier_keys |= 1<<(code & 0x07);
+                    } else {
+                        if (key_index < 6)
+                            keyboard_keys[key_index] = code;
+                        key_index++;
+                    }
+                }
             }
-            print("keys: ");
-            for (int i = 0; i < 6; i++) { phex(keyboard_keys[i]); print(" "); }
-            print("\n");
-            print("mod: "); phex(keyboard_modifier_keys); print("\n");
+
+            if (key_index > 6) {
+                //Rollover
+            }
+
             usb_keyboard_send();
+
 
             // variables shared with interrupt routines must be
             // accessed carefully so the interrupt routine doesn't
@@ -132,6 +120,23 @@ int main(void)
             cli();
             idle_count = 0;
             sei();
+        }
+
+        // print matrix state for debug
+        if (modified) {
+            print("r/c 01234567\n");
+            for (row = 0; row < MATRIX_ROWS; row++) {
+                phex(row); print(": ");
+                pbin_reverse(matrix[row]);
+                if (matrix_has_ghost_in_row(row)) {
+                    print(" <ghost");
+                }
+                print("\n");
+            }
+            print("keys: ");
+            for (int i = 0; i < 6; i++) { phex(keyboard_keys[i]); print(" "); }
+            print("\n");
+            print("mod: "); phex(keyboard_modifier_keys); print("\n");
         }
 
         // now the current pins will be the previous, and

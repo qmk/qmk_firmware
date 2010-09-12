@@ -16,6 +16,9 @@ modulization
     clean source
 debouncing
 anti-ghost
+sleep&wakeup
+boot keyboard support
+mouse key
 keymap layer
     key combination switch
     toggle siwtch
@@ -24,6 +27,7 @@ setting menu(wizard)
     debug console
     keymap setting
     matrix display
+PS/2 keyboard mode
 HHKB support
 Trackpoint(PS/2) support
     Thinkpad keyboard support
