@@ -14,6 +14,7 @@
   *  <b>Targeted for Future Releases:</b>
   *  - Code Features
   *      -# Add hub support when in Host mode for multiple devices
+  *      -# Investigate virtual hubs when in device mode instead of compound devices
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Re-add interrupt Pipe/Endpoint support
@@ -30,7 +31,6 @@
   *      -# Finish BluetoothHost demo
   *      -# Finish SideShow demo
   *      -# Finish StandaloneProgrammer project
-  *      -# Finish MIDIToneGenerator project
   *      -# Correct mishandling of error cases in Mass Storage demos
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
