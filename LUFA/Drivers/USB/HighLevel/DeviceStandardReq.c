@@ -364,18 +364,18 @@ static void USB_Device_ClearSetFeature(void)
 
 				Endpoint_SelectEndpoint(EndpointIndex);
 
-				if (!(Endpoint_IsEnabled()))
-				  return;
-
-				if (USB_ControlRequest.bRequest == REQ_SetFeature)
-				{
-					Endpoint_StallTransaction();
-				}
-				else
-				{
-					Endpoint_ClearStall();
-					Endpoint_ResetFIFO(EndpointIndex);
-					Endpoint_ResetDataToggle();
+				if (Endpoint_IsEnabled())
+				{				
+					if (USB_ControlRequest.bRequest == REQ_SetFeature)
+					{
+						Endpoint_StallTransaction();
+					}
+					else
+					{
+						Endpoint_ClearStall();
+						Endpoint_ResetFIFO(EndpointIndex);
+						Endpoint_ResetDataToggle();
+					}					
 				}
 			}
 			

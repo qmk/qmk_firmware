@@ -24,7 +24,7 @@ uint8_t TEMPLATE_FUNC_NAME (const void* Buffer,
 		  
 		if (Endpoint_IsINReady())
 		{
-			uint8_t BytesInEndpoint = Endpoint_BytesInEndpoint();
+			uint16_t BytesInEndpoint = Endpoint_BytesInEndpoint();
 		
 			while (Length && (BytesInEndpoint < USB_ControlEndpointSize))
 			{

@@ -250,9 +250,9 @@ void USB_ResetInterface(void)
 		USB_INT_Enable(USB_INT_VBUS);
 		#endif
 
-		#if defined(CONTROL_ONLY_DEVICE)
-		UENUM = ENDPOINT_CONTROLEP;
-		#endif
+		Endpoint_ConfigureEndpoint(ENDPOINT_CONTROLEP, EP_TYPE_CONTROL,
+		                           ENDPOINT_DIR_OUT, USB_ControlEndpointSize,
+		                           ENDPOINT_BANK_SINGLE);
 	}
 	else if (USB_CurrentMode == USB_MODE_HOST)
 	{
