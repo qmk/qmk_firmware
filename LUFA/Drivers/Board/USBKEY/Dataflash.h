@@ -29,9 +29,9 @@
 */
 
 /** \file
- *  \brief Board specific Dataflash driver header for the USBKEY.
+ *  \brief Board specific Dataflash driver header for the Atmel USBKEY.
  *
- *  Board specific Dataflash driver header for the USBKEY.
+ *  Board specific Dataflash driver header for the Atmel USBKEY.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
@@ -40,7 +40,7 @@
 /** \ingroup Group_Dataflash
  *  @defgroup Group_Dataflash_USBKEY USBKEY
  *
- *  Board specific Dataflash driver header for the USBKEY board.
+ *  Board specific Dataflash driver header for the Atmel USBKEY board.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h. 

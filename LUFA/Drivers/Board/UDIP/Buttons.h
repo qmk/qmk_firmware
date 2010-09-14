@@ -29,9 +29,9 @@
 */
 
 /** \file
- *  \brief Board specific Buttons driver header for the Benito.
+ *  \brief Board specific Buttons driver header for the UDIP.
  *
- *  Board specific Buttons driver header for the Benito (http://dorkbotpdx.org/wiki/benito).
+ *  Board specific Buttons driver header for the Linnix UDIP (http://linnix.com/udip/).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -40,7 +40,7 @@
 /** \ingroup Group_Buttons
  *  @defgroup Group_Buttons_UDIP UDIP
  *
- *  Board specific Buttons driver header for the UDIP (http://linnix.com/udip/).
+ *  Board specific Buttons driver header for the Linnix UDIP (http://linnix.com/udip/).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.

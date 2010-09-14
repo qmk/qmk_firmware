@@ -29,9 +29,9 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the USBFOO.
+ *  \brief Board specific LED driver header for the Kernel Concepts USBFOO.
  *
- *  Board specific LED driver header for the USBFOO Development Board (http://shop.kernelconcepts.de/product_info.php?products_id=102).
+ *  Board specific LED driver header for the Kernel Concepts USBFOO (http://shop.kernelconcepts.de/product_info.php?products_id=102).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -40,7 +40,7 @@
 /** \ingroup Group_LEDs
  *  @defgroup Group_LEDs_USBFOO USBFOO
  *
- *  Board specific LED driver header for the USBFOO Development Board (http://shop.kernelconcepts.de/product_info.php?products_id=102).
+ *  Board specific LED driver header for the Kernel Concepts USBFOO (http://shop.kernelconcepts.de/product_info.php?products_id=102).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -69,13 +69,13 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
-			#define LEDS_LED1             (1 << 4)
+			#define LEDS_LED1        (1 << 4)
 
 			/** LED mask for all the LEDs on the board. */
-			#define LEDS_ALL_LEDS         (1 << 4)
+			#define LEDS_ALL_LEDS    LEDS_LED1
 
-			/** LED mask for the none of the board LEDs. */
-			#define LEDS_NO_LEDS          0
+			/** LED mask for none of the board LEDs. */
+			#define LEDS_NO_LEDS     0
 			
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)

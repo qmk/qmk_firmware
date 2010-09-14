@@ -29,9 +29,9 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the ATAVRUSBRF01.
+ *  \brief Board specific LED driver header for the Atmel ATAVRUSBRF01.
  *
- *  Board specific LED driver header for the ATAVRUSBRF01.
+ *  Board specific LED driver header for the Atmel ATAVRUSBRF01.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -40,7 +40,7 @@
 /** \ingroup Group_LEDs
  *  @defgroup Group_LEDs_ATAVRUSBRF01 ATAVRUSBRF01
  *
- *  Board specific LED driver header for the ATAVRUSBRF01.
+ *  Board specific LED driver header for the Atmel ATAVRUSBRF01.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -78,16 +78,16 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
-			#define LEDS_LED1             (1 << 0)
+			#define LEDS_LED1        (1 << 0)
 
 			/** LED mask for the second LED on the board. */
-			#define LEDS_LED2             (1 << 1)
+			#define LEDS_LED2        (1 << 1)
 
 			/** LED mask for all the LEDs on the board. */
-			#define LEDS_ALL_LEDS         (LEDS_LED1 | LEDS_LED2)
+			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2)
 
-			/** LED mask for the none of the board LEDs. */
-			#define LEDS_NO_LEDS          0
+			/** LED mask for none of the board LEDs. */
+			#define LEDS_NO_LEDS     0
 			
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)

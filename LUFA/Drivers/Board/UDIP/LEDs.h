@@ -29,9 +29,9 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the UDIP.
+ *  \brief Board specific LED driver header for the Linnix UDIP.
  *
- *  Board specific LED driver header for the UDIP (http://linnix.com/udip/).
+ *  Board specific LED driver header for the Linnix UDIP (http://linnix.com/udip/).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -40,7 +40,7 @@
 /** \ingroup Group_LEDs
  *  @defgroup Group_LEDs_UDIP UDIP
  *
- *  Board specific LED driver header for the UDIP (http://linnix.com/udip/).
+ *  Board specific LED driver header for the Linnix UDIP (http://linnix.com/udip/).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -92,7 +92,7 @@
 			/** LED mask for all the LEDs on the board. */
 			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4)
 
-			/** LED mask for the none of the board LEDs. */
+			/** LED mask for none of the board LEDs. */
 			#define LEDS_NO_LEDS     0
 
 		/* Inline Functions: */

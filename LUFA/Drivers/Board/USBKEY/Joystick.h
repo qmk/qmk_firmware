@@ -29,9 +29,9 @@
 */
 
 /** \file
- *  \brief Board specific joystick driver header for the USBKEY.
+ *  \brief Board specific joystick driver header for the Atmel USBKEY.
  *
- *  Board specific joystick driver header for the USBKEY.
+ *  Board specific joystick driver header for the Atmel USBKEY.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
@@ -40,7 +40,7 @@
 /** \ingroup Group_Joystick
  *  @defgroup Group_Joystick_USBKEY USBKEY
  *
- *  Board specific joystick driver header for the USBKEY.
+ *  Board specific joystick driver header for the Atmel USBKEY.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.

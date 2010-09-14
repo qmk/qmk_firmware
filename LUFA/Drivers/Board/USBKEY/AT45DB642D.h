@@ -29,9 +29,9 @@
 */
 
 /** \file
- *  \brief Board specific Dataflash commands header for the AT45DB642D as mounted on the USBKEY.
+ *  \brief Board specific Dataflash commands header for the AT45DB642D as mounted on the Atmel USBKEY.
  *
- *  Board specific Dataflash commands header for the AT45DB642D as mounted on the USBKEY.
+ *  Board specific Dataflash commands header for the AT45DB642D as mounted on the Atmel USBKEY.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
@@ -40,7 +40,7 @@
 /** \ingroup Group_Dataflash_USBKEY
  *  @defgroup Group_Dataflash_USBKEY_AT45DB642D AT45DB642D
  *
- *  Board specific Dataflash commands header for the AT45DB642D as mounted on the USBKEY.
+ *  Board specific Dataflash commands header for the AT45DB642D as mounted on the Atmel USBKEY.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.

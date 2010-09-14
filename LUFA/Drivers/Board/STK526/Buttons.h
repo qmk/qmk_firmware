@@ -29,9 +29,9 @@
 */
 
 /** \file
- *  \brief Board specific Buttons driver header for the STK526.
+ *  \brief Board specific Buttons driver header for the Atmel STK526.
  *
- *  Board specific Buttons driver header for the STK526.
+ *  Board specific Buttons driver header for the Atmel STK526.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -40,7 +40,7 @@
 /** \ingroup Group_Buttons
  *  @defgroup Group_Buttons_STK526 STK526
  *
- *  Board specific Buttons driver header for the STK526.
+ *  Board specific Buttons driver header for the Atmel STK526.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
