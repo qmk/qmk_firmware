@@ -119,6 +119,8 @@
 		#include "OLIMEX162/LEDs.h"
 	#elif (BOARD == BOARD_USBFOO)
 		#include "USBFOO/LEDs.h"
+	#elif (BOARD == BOARD_UDIP)
+		#include "UDIP/LEDs.h"		
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
 	#endif

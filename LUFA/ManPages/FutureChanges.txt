@@ -31,7 +31,6 @@
   *      -# Finish BluetoothHost demo
   *      -# Finish SideShow demo
   *      -# Finish StandaloneProgrammer project
-  *      -# Correct mishandling of error cases in Mass Storage demos
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

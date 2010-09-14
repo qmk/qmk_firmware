@@ -29,27 +29,27 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the USBFOO.
+ *  \brief Board specific LED driver header for the UDIP.
  *
- *  Board specific LED driver header for the USBFOO Development Board (http://shop.kernelconcepts.de/product_info.php?products_id=102).
+ *  Board specific LED driver header for the UDIP (http://linnix.com/udip/).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_USBFOO USBFOO
+ *  @defgroup Group_LEDs_UDIP UDIP
  *
- *  Board specific LED driver header for the USBFOO Development Board (http://shop.kernelconcepts.de/product_info.php?products_id=102).
+ *  Board specific LED driver header for the UDIP (http://linnix.com/udip/).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  *
  *  @{
  */
- 
-#ifndef __LEDS_USBFOO_H__
-#define __LEDS_USBFOO_H__
+
+#ifndef __LEDS_UDIP_H__
+#define __LEDS_UDIP_H__
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -66,55 +66,80 @@
 			#error Do not include this file directly. Include LUFA/Drivers/Board/LEDS.h instead.
 		#endif
 
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* Macros: */
+			#define LEDS_PORTB_LEDS       (LEDS_LED1 | LEDS_LED2)
+			#define LEDS_PORTD_LEDS       (LEDS_LED3 | LEDS_LED4)
+			
+			#define LEDS_PORTD_MASK_SHIFT 1
+	#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
-			#define LEDS_LED1             (1 << 4)
+			#define LEDS_LED1        (1 << 6)
+
+			/** LED mask for the second LED on the board. */
+			#define LEDS_LED2        (1 << 5)
+
+			/** LED mask for the third LED on the board. */
+			#define LEDS_LED3        ((1 << 5) >> LEDS_PORTD_MASK_SHIFT)
+
+			/** LED mask for the fourth LED on the board. */
+			#define LEDS_LED4        ((1 << 4) >> LEDS_PORTD_MASK_SHIFT)
 
 			/** LED mask for all the LEDs on the board. */
-			#define LEDS_ALL_LEDS         (1 << 4)
+			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4)
 
 			/** LED mask for the none of the board LEDs. */
-			#define LEDS_NO_LEDS          0
-			
+			#define LEDS_NO_LEDS     0
+
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
 			static inline void LEDs_Init(void)
 			{
-				DDRD  |= LEDS_ALL_LEDS;
-				PORTD |= LEDS_ALL_LEDS;
+				DDRB |= LEDS_PORTB_LEDS;
+				DDRD |= (LEDS_PORTD_LEDS << LEDS_PORTD_MASK_SHIFT);
 			}
 			
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
-				PORTD &= ~LEDMask;
+				PORTB |= (LEDMask & LEDS_PORTB_LEDS);
+				PORTD |= ((LEDMask & LEDS_PORTD_LEDS) << LEDS_PORTD_MASK_SHIFT);
 			}
 
 			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
 			{
-				PORTD |= LEDMask;
+				PORTB &= ~(LEDMask & LEDS_PORTB_LEDS);
+				PORTD &= ~((LEDMask & LEDS_PORTD_LEDS) << LEDS_PORTD_MASK_SHIFT);
 			}
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				PORTD = ((PORTD | LEDS_ALL_LEDS) & ~LEDMask);
+				PORTB = (PORTB & ~LEDS_PORTB_LEDS) | (LEDMask & LEDS_PORTB_LEDS);
+				PORTD = (PORTD & ~(LEDS_PORTD_LEDS << LEDS_PORTD_MASK_SHIFT)) |
+				        ((LEDMask & LEDS_PORTD_LEDS) << LEDS_PORTD_MASK_SHIFT);
 			}
 			
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
 			                                   const uint8_t ActiveMask)
 			{
-				PORTD = ((PORTD | LEDMask) & ~ActiveMask);
+				PORTB = (PORTB & ~(LEDMask & LEDS_PORTB_LEDS)) | (ActiveMask & LEDS_PORTB_LEDS);
+				PORTD = (PORTD & ~((LEDMask & LEDS_PORTD_LEDS) << LEDS_PORTD_MASK_SHIFT)) |
+				        ((ActiveMask & LEDS_PORTD_LEDS) << LEDS_PORTD_MASK_SHIFT);
 			}
 			
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTD ^= LEDMask;
+				PORTB ^= (LEDMask & LEDS_PORTB_LEDS);
+				PORTD ^= ((LEDMask & LEDS_PORTD_LEDS) << LEDS_PORTD_MASK_SHIFT);
 			}
-
+			
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t LEDs_GetLEDs(void)
 			{
-				return (~PORTD & LEDS_ALL_LEDS);
+				return ((PORTB & LEDS_PORTB_LEDS) | ((PORTD & LEDS_PORTD_LEDS) >> LEDS_PORTD_MASK_SHIFT));
 			}
 		#endif
 
@@ -122,7 +147,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-	
+		
 #endif
 
 /** @} */

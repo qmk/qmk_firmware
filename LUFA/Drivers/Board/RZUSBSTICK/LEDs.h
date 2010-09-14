@@ -78,22 +78,22 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
-			#define LEDS_LED1             (1 << 7)
+			#define LEDS_LED1        (1 << 7)
 
 			/** LED mask for the second LED on the board. */
-			#define LEDS_LED2             (1 << 5)
+			#define LEDS_LED2        (1 << 5)
 
 			/** LED mask for the third LED on the board. */
-			#define LEDS_LED3             ((1 << 6) >> LEDS_PORTE_MASK_SHIFT)
+			#define LEDS_LED3        ((1 << 6) >> LEDS_PORTE_MASK_SHIFT)
 
 			/** LED mask for the fourth LED on the board. */
-			#define LEDS_LED4             ((1 << 7) >> LEDS_PORTE_MASK_SHIFT)
+			#define LEDS_LED4        ((1 << 7) >> LEDS_PORTE_MASK_SHIFT)
 
 			/** LED mask for all the LEDs on the board. */
-			#define LEDS_ALL_LEDS         (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4)
+			#define LEDS_ALL_LEDS    (LEDS_LED1 | LEDS_LED2 | LEDS_LED3 | LEDS_LED4)
 
 			/** LED mask for the none of the board LEDs. */
-			#define LEDS_NO_LEDS          0
+			#define LEDS_NO_LEDS     0
 			
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)

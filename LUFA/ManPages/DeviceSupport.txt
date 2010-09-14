@@ -38,6 +38,7 @@
  *   - USBTINY-MKII (all revisions and versions)
  *   - Olimex AVR-USB-162
  *   - USBFOO
+ *   - UDIP
  *   - Any Other Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
  */
  

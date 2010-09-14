@@ -20,6 +20,7 @@
   *    Print Host Class driver
   *  - Added class specific descriptor type defines with standard USB-IF element naming
   *  - Added new project makefile template to the library and moved board driver stub files into in a new "CodeTemplates" directory
+  *  - Added board hardware driver support for the UDIP development board
   *
   *  <b>Changed:</b>
   *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions
