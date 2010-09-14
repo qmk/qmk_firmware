@@ -40,7 +40,7 @@
 /** \ingroup Group_Buttons
  *  @defgroup Group_Buttons_USBFOO USBFOO
  *
- *  Board specific Buttons driver header for the USBFOO Development Board (http://shop.kernelconcepts.de/product_info.php?products_id=102).
+ *  Board specific Buttons driver header for the Kernel Concepts USBFOO (http://shop.kernelconcepts.de/product_info.php?products_id=102).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.

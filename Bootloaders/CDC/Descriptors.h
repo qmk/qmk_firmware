@@ -70,8 +70,8 @@
 			#define AVR_SIGNATURE_3               0x88
 		#elif defined(__AVR_ATmega32U2__)
 			#define AVR_SIGNATURE_1               0x1E
-			#define AVR_SIGNATURE_2               0x94
-			#define AVR_SIGNATURE_3               0x82
+			#define AVR_SIGNATURE_2               0x95
+			#define AVR_SIGNATURE_3               0x8A
 		#elif defined(__AVR_ATmega16U2__)
 			#define AVR_SIGNATURE_1               0x1E
 			#define AVR_SIGNATURE_2               0x94
