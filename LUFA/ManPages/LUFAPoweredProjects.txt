@@ -55,6 +55,7 @@
  *  - Linux Secure Storage Dongle: http://github.com/TomMD/teensy
  *  - MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
  *  - MidiMonster, a USB-to-MIDI gateway board: http://www.dorkbotpdx.org/wiki/midimonster
+ *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
  *  - NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
  *  - Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
  *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
@@ -80,7 +81,6 @@
  *  - Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
  *  - Many of Busware's Products: http://www.busware.de/
  *  - MIDIFighter, a USB-MIDI controller: http://www.midifighter.com/
- *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
  *  - Retrode, a USB Games Console Cartridge Reader: http://www.retrode.org
  *  - USBTINY-MKII, an AVRISP-MKII Clone AVR Programmer: http://tom-itx.dyndns.org:81/~webpage/boards/USBTiny_Mkii/USBTiny_Mkii_index.php
  *  - XMEGA Development Board, using LUFA as an On-Board Programmer: http://xmega.mattair.net/

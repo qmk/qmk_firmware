@@ -109,7 +109,6 @@
  *    - <b>Webserver</b> - RNDIS Host Webserver with DHCP client, powered by uIP TCP/IP stack project and FatFS library
  *    - <b>XPLAINBridge</b> - XPLAIN alternative PDI Programmer/USB to Serial Bridge firmware project
  *    - <b>Incomplete</b>
- *      - <b>MIDIToneGenerator</b> - Incomplete MIDI Tone Generator application, to convert MIDI note messages into audio tones
  *      - <b>StandaloneProgrammer</b> - Incomplete Standalone AVR Programmer application, to program AVRs directly from a Mass Storage disk
  *
  *  </small>

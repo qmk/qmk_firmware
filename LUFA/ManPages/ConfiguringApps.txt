@@ -6,11 +6,11 @@
  
 /** \page Page_ConfiguringApps Configuring the Demos, Bootloaders and Projects
  *
- *  If the target AVR model, clock speed, board or other settings are different to the current settings, they must be changed
+ *  If the target AVR model, clock speed, board or other settings are different from the current settings, they must be changed
  *  and the project recompiled from the source code before being programmed into the AVR microcontroller. Most project
  *  configuration options are located in the "makefile" build script inside each LUFA application's folder, however some
- *  demo or application-specific configuration settings (such as the output format in the AudioOut demo) are located in the
- *  main .c source file of the project. See each project's individual documentation for application-specific configuration
+ *  demo or application-specific configuration settings (such as the output format in the AudioOut demo) are located in one or
+ *  more of the source files of the project. See each project's individual documentation for application-specific configuration
  *  values.
  *
  *  Each project "makefile" contains all the script and configuration data required to compile each project. When opened with
@@ -20,7 +20,7 @@
  *  Inside each makefile, a number of configuration variables are located, with the format "<VARIABLE NAME> = <VALUE>". For
  *  each application, the important variables which should be altered are:
  *
- *    - <b>MCU</b>, the target AVR processor.
+ *    - <b>MCU</b>, the target AVR processor
  *    - <b>BOARD</b>, the target board hardware
  *    - <b>F_CLOCK</b>, the target raw master clock frequency, before any prescaling is performed
  *    - <b>F_CPU</b>, the target AVR CPU master clock frequency, after any prescaling
@@ -35,7 +35,7 @@
  *  (such as the AT90USB1287, or the ATMEGA32U4), in all lower-case (e.g. "at90usb1287"). Note that not all demos support all the
  *  USB AVR models, as they may make use of peripherals or modes only present in some devices.
  *
- *  For supported library AVR models, see main documentation page.
+ *  For supported processor models, see \ref Page_DeviceSupport.
  *
  *  \section Sec_BOARD The BOARD Parameter
  *  This parameter indicates the target AVR board hardware for the compiled application. Some LUFA library drivers are board-specific,
@@ -47,6 +47,8 @@
  *  board-specific hardware drivers inside the LUFA library, then the appropriate stub drives files should be copied from the /BoardStubs/
  *  directory into a /Board/ folder inside the application directory, and the stub driver completed with the appropriate code to drive the
  *  custom board's hardware.
+ *
+ *  For boards with built in hardware driver support within the LUFA library, see \ref Page_DeviceSupport.
  *
  *  \section Sec_F_CLOCK The F_CLOCK Parameter
  *  This parameter indicates the target AVR's input clock frequency, in Hz. This is the actual clock input, before any prescaling is performed. In the
