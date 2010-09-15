@@ -143,14 +143,14 @@
 			 *  should have its stall condition cleared. If used in a similar manner inside a Set Feature
 			 *  request, this stalls an endpoint.
 			 */
-			#define FEATURE_ENDPOINT_HALT           0x00
+			#define FEATURE_ENDPOINT_HALT      0x00
 
 			/** Feature indicator for Clear Feature or Set Feature commands. When used in a Clear Feature
 			 *  request this indicates that the remote wakeup enabled device should not issue remote
 			 *  wakeup requests until further notice. If used in a similar manner inside a Set Feature
 			 *  request, this re-enabled the remote wakeup feature on the device.
 			 */
-			#define FEATURE_REMOTE_WAKEUP           0x01
+			#define FEATURE_REMOTE_WAKEUP      0x01
 
 		/* Type Defines: */
 			/** \brief Standard USB Control Request
@@ -193,8 +193,10 @@
 				                              *   to the user application for other recipients via the
 				                              *   \ref EVENT_USB_Device_UnhandledControlRequest() event when received in
 				                              *   device mode. */
-				REQ_GetDescriptor       = 6, /**< Implemented in the library for all recipients and all request
-				                              *   types. */
+				REQ_GetDescriptor       = 6, /**< Implemented in the library for device and interface recipients. Passed to the
+				                              *   user application for other recipients via the
+				                              *   \ref EVENT_USB_Device_UnhandledControlRequest() event when received in
+				                              *   device mode. */
 				REQ_SetDescriptor       = 7, /**< Not implemented in the library, passed to the user application
 				                              *   via the \ref EVENT_USB_Device_UnhandledControlRequest() event when received in
 				                              *   device mode. */
