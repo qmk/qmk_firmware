@@ -317,17 +317,6 @@
 			 */
 			void USB_ResetInterface(void);
 
-		/* Enums: */
-			/** Enum for error codes relating to the powering on of the USB interface. These error codes are
-			 *  used in the ErrorCode parameter value of the \ref EVENT_USB_InitFailure() event.
-			 */
-			enum USB_InitErrorCodes_t
-			{
-				USB_INITERROR_NoUSBModeSpecified       = 0, /**< Indicates that \ref USB_Init() was called with an
-				                                             *   invalid or missing Mode parameter.
-				                                             */
-			};
-
 		/* Global Variables: */
 			#if (!defined(USB_HOST_ONLY) && !defined(USB_DEVICE_ONLY)) || defined(__DOXYGEN__)
 				/** Indicates the mode that the USB interface is currently initialized to. This value will be

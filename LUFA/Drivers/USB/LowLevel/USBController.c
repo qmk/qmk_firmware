@@ -72,16 +72,7 @@ void USB_Init(
 	#elif defined(USB_HOST_ONLY)
 	UHWCON &= ~(1 << UIMOD);
 	#elif defined(USB_CAN_BE_BOTH)
-	if (Mode == USB_MODE_UID)
-	{
-		UHWCON |=  (1 << UIDE);
-
-		USB_INT_Clear(USB_INT_IDTI);
-		USB_INT_Enable(USB_INT_IDTI);
-		
-		USB_CurrentMode = USB_GetUSBModeFromUID();
-	}
-	else if (Mode == USB_MODE_DEVICE)
+	if (Mode == USB_MODE_DEVICE)
 	{
 		UHWCON |=  (1 << UIMOD);
 	}
@@ -91,8 +82,7 @@ void USB_Init(
 	}
 	else
 	{
-		EVENT_USB_InitFailure(USB_INITERROR_NoUSBModeSpecified);
-		return;
+		UHWCON |=  (1 << UIDE);
 	}
 	#endif
 	

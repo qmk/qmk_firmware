@@ -87,15 +87,6 @@
 	/* Public Interface - May be used in end-application: */			
 		/* Pseudo-Functions for Doxygen: */
 		#if !defined(__INCLUDE_FROM_EVENTS_C) || defined(__DOXYGEN__)
-			/** Event for USB stack initialization failure. This event fires when the USB interface fails to
-			 *  initialize correctly due to a hardware or software fault.
-			 *
-			 *  \note This event only exists on USB AVR models which support dual role modes.
-			 *
-			 *  \param[in] ErrorCode  Error code indicating the failure reason, a value in \ref USB_InitErrorCodes_t.
-			 */
-			void EVENT_USB_InitFailure(const uint8_t ErrorCode);
-
 			/** Event for USB mode pin level change. This event fires when the USB interface is set to dual role
 			 *  mode, and the UID pin level has changed to indicate a new mode (device or host). This event fires
 			 *  before the mode is switched to the newly indicated mode but after the \ref EVENT_USB_Device_Disconnect
@@ -344,7 +335,6 @@
 				void USB_Event_Stub(void) ATTR_CONST;
 					
 				#if defined(USB_CAN_BE_BOTH)
-					void EVENT_USB_InitFailure(const uint8_t ErrorCode) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 					void EVENT_USB_UIDChange(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);
 				#endif
 				
