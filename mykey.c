@@ -78,9 +78,11 @@ int main(void)
     print("keyboard firmware 0.1 for t.m.k.\n");
 
     while (1) {
+        int layer = 0;
         uint8_t row, col, code;
 
         matrix_scan();
+        layer = get_layer();
 
         modified = matrix_is_modified();
         has_ghost = matrix_has_ghost();
@@ -95,8 +97,10 @@ int main(void)
                 for (col = 0; col < MATRIX_COLS; col++) {
                     if (matrix[row] & 1<<col) continue;
 
-                    code = get_keycode(row, col);
-                    if (KB_LCTRL <= code && code <= KB_RGUI) {
+                    code = get_keycode(layer, row, col);
+                    if (code == KB_NO) {
+                        continue;
+                    } else if (KB_LCTRL <= code && code <= KB_RGUI) {
                         // modifier keycode: 0xE0-0xE7
                         keyboard_modifier_keys |= 1<<(code & 0x07);
                     } else {

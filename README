@@ -15,14 +15,18 @@ TODO
 modulization
     clean source
 debouncing
+    will be coded when bouncing occurs.
+    bouncing doesnt occur on my alps switch so far.
+    scan rate is too slow?(to be measure)
 anti-ghost
+    2010/09/13 done
 sleep&wakeup
 boot keyboard support
 mouse key
 keymap layer
+    2010/09/16 simple layer(HHKB/vi cursor)
     key combination switch
     toggle siwtch
-    HHKB like cursor etc.
 setting menu(wizard)
     debug console
     keymap setting
