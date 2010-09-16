@@ -4,7 +4,8 @@
 #include <stdint.h>
 #include "usbkeycodes.h"
 
-uint8_t get_keycode(uint8_t row, uint8_t col);
+int get_layer(void);
+uint8_t get_keycode(int layer, uint8_t row, uint8_t col);
 
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 8

@@ -255,11 +255,7 @@ enum keycodes {
     KP_DECIMAL,
     KP_HEXADECIMAL,
 
-    /*
-     * These are NOT standard USB HID - handled specially in decoding,
-     * so they will be mapped to the modifier byte in the USB report.
-     */
-    MOD_START = 0xE0,
+    /* modifiers */
     KB_LCTRL = 0xE0,    /* 0x01 */
     KB_LSHIFT,          /* 0x02 */
     KB_LALT,            /* 0x04 */
@@ -268,6 +264,12 @@ enum keycodes {
     KB_RSHIFT,          /* 0x20 */
     KB_RALT,            /* 0x40 */
     KB_RGUI,            /* 0x80 */
+
+    /* function keys */
+    FN_0 = 0xF0,
+    FN_1,
+    FN_2,
+    FN_3,
 };
 
 #endif /* USBKEYCODES_H */
