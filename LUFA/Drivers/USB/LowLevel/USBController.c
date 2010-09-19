@@ -104,7 +104,9 @@ void USB_ShutDown(void)
 
 void USB_ResetInterface(void)
 {
+	#if defined(USB_CAN_BE_BOTH)
 	bool UIDModeSelectEnabled = ((UHWCON & (1 << UIDE)) != 0);
+	#endif
 
 	USB_INT_DisableAllInterrupts();
 	USB_INT_ClearAllInterrupts();
