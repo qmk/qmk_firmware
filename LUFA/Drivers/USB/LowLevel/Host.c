@@ -194,19 +194,21 @@ void USB_Host_ProcessNextHostState(void)
 
 uint8_t USB_Host_WaitMS(uint8_t MS)
 {
-	bool     BusSuspended        = USB_Host_IsBusSuspended();
-	uint8_t  ErrorCode           = HOST_WAITERROR_Successful;
-	uint16_t PreviousFrameNumber = USB_Host_GetFrameNumber();
+	bool    BusSuspended = USB_Host_IsBusSuspended();
+	uint8_t ErrorCode    = HOST_WAITERROR_Successful;
 	
 	USB_Host_ResumeBus();
 
+	bool HSOFIEnabled = USB_INT_IsEnabled(USB_INT_HSOFI);
+
+	USB_INT_Disable(USB_INT_HSOFI);
+	USB_INT_Clear(USB_INT_HSOFI);
+
 	while (MS)
 	{
-		uint16_t CurrentFrameNumber = USB_Host_GetFrameNumber();
-
-		if (CurrentFrameNumber != PreviousFrameNumber)
+		if (USB_INT_HasOccurred(USB_INT_HSOFI))
 		{
-			PreviousFrameNumber = CurrentFrameNumber;
+			USB_INT_Clear(USB_INT_HSOFI);
 			MS--;
 		}
 					
@@ -233,6 +235,9 @@ uint8_t USB_Host_WaitMS(uint8_t MS)
 			break;			
 		}
 	}
+
+	if (HSOFIEnabled)
+	  USB_INT_Enable(USB_INT_HSOFI);
 
 	if (BusSuspended)
 	  USB_Host_SuspendBus();

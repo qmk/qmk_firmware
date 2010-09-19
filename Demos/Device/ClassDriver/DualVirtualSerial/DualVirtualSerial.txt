@@ -50,7 +50,7 @@
  *
  *  Dual Communications Device Class demonstration application.
  *  This gives a simple reference application for implementing
- *  a compound device with dual CDC functions acting as a pair
+ *  a composite device with dual CDC functions acting as a pair
  *  of virtual serial ports. This demo uses Interface Association
  *  Descriptors to link together the pair of related CDC
  *  descriptors for each virtual serial port, which may not be

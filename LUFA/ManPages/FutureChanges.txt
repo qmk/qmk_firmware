@@ -14,7 +14,7 @@
   *  <b>Targeted for Future Releases:</b>
   *  - Code Features
   *      -# Add hub support when in Host mode for multiple devices
-  *      -# Investigate virtual hubs when in device mode instead of compound devices
+  *      -# Investigate virtual hubs when in device mode instead of composite devices
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Re-add interrupt Pipe/Endpoint support

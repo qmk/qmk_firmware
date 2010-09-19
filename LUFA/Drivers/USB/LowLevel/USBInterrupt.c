@@ -34,14 +34,17 @@
 void USB_INT_DisableAllInterrupts(void)
 {
 	#if defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-	USBCON &= ~((1 << VBUSTE) | (1 << IDTE));				
+	USBCON &= ~((1 << OTGPADE) | (1 << VBUSTE) | (1 << IDTE));				
 	#elif defined(USB_SERIES_4_AVR)
 	USBCON &= ~(1 << VBUSTE);
 	#endif
 	
+	#if defined(USB_CAN_BE_BOTH)
+	OTGIEN  = 0;
+	#endif
+	
 	#if defined(USB_CAN_BE_HOST)
 	UHIEN   = 0;
-	OTGIEN  = 0;
 	#endif
 	
 	#if defined(USB_CAN_BE_DEVICE)
@@ -55,9 +58,12 @@ void USB_INT_ClearAllInterrupts(void)
 	USBINT  = 0;
 	#endif
 	
+	#if defined(USB_CAN_BE_BOTH)
+	OTGINT  = 0;
+	#endif
+	
 	#if defined(USB_CAN_BE_HOST)
 	UHINT   = 0;
-	OTGINT  = 0;
 	#endif
 	
 	#if defined(USB_CAN_BE_DEVICE)

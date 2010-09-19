@@ -459,7 +459,7 @@
 			 *  to make each element's purpose clearer.
 			 *
 			 *  This descriptor has been added as a supplement to the USB2.0 standard, in the ECN located at
-			 *  <a>http://www.usb.org/developers/docs/InterfaceAssociationDescriptor_ecn.pdf</a>. It allows compound
+			 *  <a>http://www.usb.org/developers/docs/InterfaceAssociationDescriptor_ecn.pdf</a>. It allows composite
 			 *  devices with multiple interfaces related to the same function to have the multiple interfaces bound
 			 *  together at the point of enumeration, loading one generic driver for all the interfaces in the single
 			 *  function. Read the ECN for more information.
@@ -488,7 +488,7 @@
 			 *  element names to ensure compatibility with the standard.
 			 *
 			 *  This descriptor has been added as a supplement to the USB2.0 standard, in the ECN located at
-			 *  <a>http://www.usb.org/developers/docs/InterfaceAssociationDescriptor_ecn.pdf</a>. It allows compound
+			 *  <a>http://www.usb.org/developers/docs/InterfaceAssociationDescriptor_ecn.pdf</a>. It allows composite
 			 *  devices with multiple interfaces related to the same function to have the multiple interfaces bound
 			 *  together at the point of enumeration, loading one generic driver for all the interfaces in the single
 			 *  function. Read the ECN for more information.

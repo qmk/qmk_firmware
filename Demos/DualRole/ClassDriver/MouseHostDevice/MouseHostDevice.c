@@ -82,3 +82,12 @@ void SetupHardware(void)
 	Buttons_Init();
 	USB_Init(USB_MODE_UID);
 }
+
+/** Event handler for the library USB mode change event. */
+void EVENT_USB_UIDChange(void)
+{
+	printf_P(PSTR(ESC_FG_YELLOW "UID Change to %S mode\r\n" ESC_FG_WHITE),
+	         (USB_CurrentMode == USB_MODE_DEVICE) ? PSTR("Device") : PSTR("Host"));
+			 
+	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+}
