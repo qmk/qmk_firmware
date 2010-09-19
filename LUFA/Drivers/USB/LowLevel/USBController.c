@@ -60,6 +60,11 @@ void USB_Init(
 	USB_Options = Options;
 	#endif
 	
+	if (!(USB_Options & USB_OPT_REG_DISABLED))
+	  USB_REG_On();
+	else
+	  USB_REG_Off();
+
 	#if defined(USB_CAN_BE_BOTH)
 	if (Mode == USB_MODE_UID)
 	{
@@ -112,11 +117,6 @@ void USB_ResetInterface(void)
 	USB_INT_ClearAllInterrupts();
 	
 	USB_Controller_Reset();
-
-	if (!(USB_Options & USB_OPT_REG_DISABLED))
-	  USB_REG_On();
-	else
-	  USB_REG_Off();
 	  
 	if (!(USB_Options & USB_OPT_MANUAL_PLL))
 	{
@@ -126,9 +126,7 @@ void USB_ResetInterface(void)
 
 		USB_PLL_On();
 		while (!(USB_PLL_IsReady()));
-	}	  
-
-	USB_CLK_Unfreeze();
+	}
 
 	#if defined(USB_CAN_BE_BOTH)
 	if (UIDModeSelectEnabled)
@@ -137,6 +135,8 @@ void USB_ResetInterface(void)
 		USB_INT_Enable(USB_INT_IDTI);
 	}
 	#endif
+
+	USB_CLK_Unfreeze();
 	
 	if (USB_CurrentMode == USB_MODE_DEVICE)
 	{
@@ -159,8 +159,6 @@ void USB_ResetInterface(void)
 	#if (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 	USB_OTGPAD_On();
 	#endif
-	
-	USB_Attach();
 }
 
 #if defined(USB_CAN_BE_DEVICE)
@@ -201,10 +199,14 @@ static void USB_Init_Device(void)
 	USB_INT_Enable(USB_INT_VBUS);
 	#endif
 
-	USB_INT_Clear(USB_INT_SUSPEND);
+	Endpoint_ConfigureEndpoint(ENDPOINT_CONTROLEP, EP_TYPE_CONTROL,
+							   ENDPOINT_DIR_OUT, USB_ControlEndpointSize,
+							   ENDPOINT_BANK_SINGLE);		
+
 	USB_INT_Enable(USB_INT_SUSPEND);
-	USB_INT_Clear(USB_INT_EORSTI);
 	USB_INT_Enable(USB_INT_EORSTI);
+
+	USB_Attach();
 }
 #endif
 
