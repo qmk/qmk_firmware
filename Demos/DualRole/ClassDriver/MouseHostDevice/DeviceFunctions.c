@@ -62,14 +62,12 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Device_Interface =
 /** Event handler for the library USB WakeUp event. */
 void EVENT_USB_Device_Connect(void)
 {
-	puts_P(PSTR("Device Connected.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
 /** Event handler for the library USB Suspend event. */
 void EVENT_USB_Device_Disconnect(void)
 {
-	puts_P(PSTR("Device Disconnected.\r\n"));
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 

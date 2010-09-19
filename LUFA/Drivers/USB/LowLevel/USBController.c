@@ -203,7 +203,7 @@ static void USB_Init_Device(void)
 							   ENDPOINT_DIR_OUT, USB_ControlEndpointSize,
 							   ENDPOINT_BANK_SINGLE);		
 
-	USB_INT_Enable(USB_INT_SUSPEND);
+	USB_INT_Enable(USB_INT_SUSPI);
 	USB_INT_Enable(USB_INT_EORSTI);
 
 	USB_Attach();

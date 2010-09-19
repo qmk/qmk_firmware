@@ -92,12 +92,12 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 	}
 	#endif
 
-	if (USB_INT_HasOccurred(USB_INT_SUSPEND) && USB_INT_IsEnabled(USB_INT_SUSPEND))
+	if (USB_INT_HasOccurred(USB_INT_SUSPI) && USB_INT_IsEnabled(USB_INT_SUSPI))
 	{
-		USB_INT_Clear(USB_INT_SUSPEND);
+		USB_INT_Clear(USB_INT_SUSPI);
 
-		USB_INT_Disable(USB_INT_SUSPEND);
-		USB_INT_Enable(USB_INT_WAKEUP);
+		USB_INT_Disable(USB_INT_SUSPI);
+		USB_INT_Enable(USB_INT_WAKEUPI);
 		
 		USB_CLK_Freeze();
 		
@@ -113,7 +113,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		#endif
 	}
 
-	if (USB_INT_HasOccurred(USB_INT_WAKEUP) && USB_INT_IsEnabled(USB_INT_WAKEUP))
+	if (USB_INT_HasOccurred(USB_INT_WAKEUPI) && USB_INT_IsEnabled(USB_INT_WAKEUPI))
 	{
 		if (!(USB_Options & USB_OPT_MANUAL_PLL))
 		{
@@ -123,10 +123,10 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 
 		USB_CLK_Unfreeze();
 
-		USB_INT_Clear(USB_INT_WAKEUP);
+		USB_INT_Clear(USB_INT_WAKEUPI);
 
-		USB_INT_Disable(USB_INT_WAKEUP);
-		USB_INT_Enable(USB_INT_SUSPEND);
+		USB_INT_Disable(USB_INT_WAKEUPI);
+		USB_INT_Enable(USB_INT_SUSPI);
 		
 		#if defined(USB_SERIES_2_AVR) && !defined(NO_LIMITED_CONTROLLER_CONNECT)
 		USB_DeviceState = (USB_ConfigurationNumber) ? DEVICE_STATE_Configured : DEVICE_STATE_Powered;
@@ -144,9 +144,9 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		USB_DeviceState         = DEVICE_STATE_Default;
 		USB_ConfigurationNumber = 0;
 
-		USB_INT_Clear(USB_INT_SUSPEND);
-		USB_INT_Disable(USB_INT_SUSPEND);
-		USB_INT_Enable(USB_INT_WAKEUP);
+		USB_INT_Clear(USB_INT_SUSPI);
+		USB_INT_Disable(USB_INT_SUSPI);
+		USB_INT_Enable(USB_INT_WAKEUPI);
 
 		Endpoint_ConfigureEndpoint(ENDPOINT_CONTROLEP, EP_TYPE_CONTROL,
 		                           ENDPOINT_DIR_OUT, USB_ControlEndpointSize,

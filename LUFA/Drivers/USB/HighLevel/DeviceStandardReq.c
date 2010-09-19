@@ -139,8 +139,6 @@ static void USB_Device_SetAddress(void)
 	USB_DeviceState = (DeviceAddress) ? DEVICE_STATE_Addressed : DEVICE_STATE_Default;
 
 	USB_Device_SetDeviceAddress(DeviceAddress);
-
-	return;
 }
 
 static void USB_Device_SetConfiguration(void)
