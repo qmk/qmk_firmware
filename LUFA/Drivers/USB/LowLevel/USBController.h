@@ -346,6 +346,17 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
+		/* Function Prototypes: */
+			#if defined(__INCLUDE_FROM_USB_CONTROLLER_C)
+				#if defined(USB_CAN_BE_DEVICE)
+				static void USB_Init_Device(void);
+				#endif
+				
+				#if defined(USB_CAN_BE_HOST)
+				static void USB_Init_Host(void);
+				#endif
+			#endif
+	
 		/* Inline Functions: */
 			static inline void USB_PLL_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_PLL_On(void)
@@ -443,7 +454,7 @@
 				  return USB_MODE_HOST;
 			}
 			#endif
-			
+
 	#endif
 	
 	/* Disable C linkage for C++ Compilers: */

@@ -168,6 +168,8 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 	#endif
 	
 	#if defined(USB_CAN_BE_HOST)
+	bool MustResetInterface = false;
+
 	if (USB_INT_HasOccurred(USB_INT_DDISCI) && USB_INT_IsEnabled(USB_INT_DDISCI))
 	{
 		USB_INT_Clear(USB_INT_DDISCI);
@@ -175,8 +177,8 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		USB_INT_Disable(USB_INT_DDISCI);
 			
 		EVENT_USB_Host_DeviceUnattached();
-
-		USB_ResetInterface();
+		
+		MustResetInterface = true;
 	}
 	
 	if (USB_INT_HasOccurred(USB_INT_VBERRI) && USB_INT_IsEnabled(USB_INT_VBERRI))
@@ -211,7 +213,7 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		EVENT_USB_Host_DeviceEnumerationFailed(HOST_ENUMERROR_NoDeviceDetected, 0);
 		EVENT_USB_Host_DeviceUnattached();
 
-		USB_ResetInterface();
+		MustResetInterface = true;
 	}
 
 	if (USB_INT_HasOccurred(USB_INT_HSOFI) && USB_INT_IsEnabled(USB_INT_HSOFI))
@@ -236,8 +238,11 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 		USB_CurrentMode = USB_GetUSBModeFromUID();
 		EVENT_USB_UIDChange();
 
-		USB_ResetInterface();
+		MustResetInterface = true;
 	}
+	
+	if (MustResetInterface)
+	  USB_ResetInterface();
 	#endif
 }
 
