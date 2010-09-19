@@ -130,32 +130,36 @@ void USB_ResetInterface(void)
 
 	USB_CLK_Unfreeze();
 
-	#if defined(USB_DEVICE_ONLY) && (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
-	UHWCON |=  (1 << UIMOD);
-	USB_Init_Device();
-	#elif defined(USB_HOST_ONLY)
-	UHWCON &= ~(1 << UIMOD);
-	USB_Init_Host();
-	#elif defined(USB_CAN_BE_BOTH)
+	#if defined(USB_CAN_BE_BOTH)
 	if (UIDModeSelectEnabled)
 	{
 		UHWCON |= (1 << UIDE);
 		USB_INT_Enable(USB_INT_IDTI);
 	}
+	#endif
 	
 	if (USB_CurrentMode == USB_MODE_DEVICE)
 	{
+		#if defined(USB_CAN_BE_DEVICE)
+		#if (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 		UHWCON |=  (1 << UIMOD);
+		#endif
+		
 		USB_Init_Device();
+		#endif
 	}
 	else
 	{
+		#if defined(USB_CAN_BE_HOST)
 		UHWCON &= ~(1 << UIMOD);
 		USB_Init_Host();
+		#endif
 	}
+	
+	#if (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
+	USB_OTGPAD_On();
 	#endif
 	
-	USB_OTGPAD_On();
 	USB_Attach();
 }
 
