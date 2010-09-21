@@ -425,7 +425,7 @@
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *
-			 *  \param[in] EndpointIndex  Index of the endpoint to clear.
+			 *  \param[in] EndpointIndex  Index of the endpoint to clear, including the endpoint's direction.
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */

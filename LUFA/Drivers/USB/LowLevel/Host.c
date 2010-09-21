@@ -338,9 +338,6 @@ uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
 
 uint8_t USB_Host_ClearPipeStall(uint8_t EndpointNum)
 {
-	if (Pipe_GetPipeToken() == PIPE_TOKEN_IN)
-	  EndpointNum |= ENDPOINT_DESCRIPTOR_DIR_IN;
-
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT),
