@@ -217,7 +217,6 @@ static void USB_Init_Host(void)
 	USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
 
 	USB_Host_HostMode_On();
-	USB_CLK_Unfreeze();
 	
 	USB_Host_VBUS_Auto_Off();
 	USB_Host_VBUS_Manual_Enable();
@@ -225,5 +224,7 @@ static void USB_Init_Host(void)
 
 	USB_INT_Enable(USB_INT_SRPI);
 	USB_INT_Enable(USB_INT_BCERRI);
+
+	USB_Attach();
 }
 #endif
