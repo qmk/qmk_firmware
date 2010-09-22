@@ -85,14 +85,14 @@
 			 *
 			 *  \ingroup Group_Debugging
 			 */
-			#define JTAG_DEBUG_POINT()      asm volatile ("NOP" ::)
+			#define JTAG_DEBUG_POINT()      __asm__ volatile ("NOP" ::)
 
 			/** Defines an explicit JTAG break point in the resulting binary via the ASM BREAK statement. When
 			 *  a JTAG is used, this causes the program execution to halt when reached until manually resumed.
 			 *
 			 *  \ingroup Group_Debugging
 			 */
-			#define JTAG_DEBUG_BREAK()      asm volatile ("BREAK" ::)
+			#define JTAG_DEBUG_BREAK()      __asm__ volatile ("BREAK" ::)
 			
 			/** Macro for testing condition "x" and breaking via JTAG_DEBUG_BREAK() if the condition is false.
 			 *
