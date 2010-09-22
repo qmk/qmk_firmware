@@ -160,6 +160,5 @@ ISR(TIMER0_OVF_vect)
     if (idle_count > 61 * 8) {
         idle_count = 0;
         //print("Timer Event :)\n");
-        //usb_keyboard_press(KEY_SPACE, 0);
     }
 }
