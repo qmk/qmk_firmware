@@ -21,11 +21,12 @@
  * THE SOFTWARE.
  */
 
-// Version 1.0: Initial Release
-// Version 1.1: Add support for Teensy 2.0
+#include <avr/pgmspace.h>
+#include <avr/interrupt.h>
+#include "usb_device.h"
+#include "usb_keyboard.h"
+#include "usb_debug.h"
 
-#define USB_SERIAL_PRIVATE_INCLUDE
-#include "usb_keyboard_debug.h"
 
 /**************************************************************************
  *
@@ -62,16 +63,6 @@
  **************************************************************************/
 
 #define ENDPOINT0_SIZE		32
-
-#define KEYBOARD_INTERFACE	0
-#define KEYBOARD_ENDPOINT	3
-#define KEYBOARD_SIZE		8
-#define KEYBOARD_BUFFER		EP_DOUBLE_BUFFER
-
-#define DEBUG_INTERFACE		1
-#define DEBUG_TX_ENDPOINT	4
-#define DEBUG_TX_SIZE		32
-#define DEBUG_TX_BUFFER		EP_DOUBLE_BUFFER
 
 static const uint8_t PROGMEM endpoint_config_table[] = {
 	0,
@@ -191,7 +182,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0,					// bCountryCode
 	1,					// bNumDescriptors
 	0x22,					// bDescriptorType
-	sizeof(keyboard_hid_report_desc),	// wDescriptorLength
+	sizeof(keyboard_hid_report_desc),     	// wDescriptorLength
 	0,
 	// endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	7,					// bLength
@@ -255,17 +246,22 @@ static struct usb_string_descriptor_struct PROGMEM string2 = {
 // This table defines which descriptor data is sent for each specific
 // request from the host (in wValue and wIndex).
 static struct descriptor_list_struct {
-	uint16_t	wValue;
+	uint16_t	wValue;     // descriptor type
 	uint16_t	wIndex;
 	const uint8_t	*addr;
 	uint8_t		length;
 } PROGMEM descriptor_list[] = {
+        // DEVICE descriptor
 	{0x0100, 0x0000, device_descriptor, sizeof(device_descriptor)},
+        // CONFIGURATION descriptor
 	{0x0200, 0x0000, config1_descriptor, sizeof(config1_descriptor)},
+        // HID REPORT
 	{0x2200, KEYBOARD_INTERFACE, keyboard_hid_report_desc, sizeof(keyboard_hid_report_desc)},
 	{0x2100, KEYBOARD_INTERFACE, config1_descriptor+KEYBOARD_HID_DESC_OFFSET, 9},
+        // HID REPORT
 	{0x2200, DEBUG_INTERFACE, debug_hid_report_desc, sizeof(debug_hid_report_desc)},
 	{0x2100, DEBUG_INTERFACE, config1_descriptor+DEBUG_HID_DESC_OFFSET, 9},
+        // STRING descriptor
 	{0x0300, 0x0000, (const uint8_t *)&string0, 4},
 	{0x0301, 0x0409, (const uint8_t *)&string1, sizeof(STR_MANUFACTURER)},
 	{0x0302, 0x0409, (const uint8_t *)&string2, sizeof(STR_PRODUCT)}
@@ -281,33 +277,6 @@ static struct descriptor_list_struct {
 
 // zero when we are not configured, non-zero when enumerated
 static volatile uint8_t usb_configuration=0;
-
-// the time remaining before we transmit any partially full
-// packet, or send a zero length packet.
-static volatile uint8_t debug_flush_timer=0;
-
-// which modifier keys are currently pressed
-// 1=left ctrl,    2=left shift,   4=left alt,    8=left gui
-// 16=right ctrl, 32=right shift, 64=right alt, 128=right gui
-uint8_t keyboard_modifier_keys=0;
-
-// which keys are currently pressed, up to 6 keys may be down at once
-uint8_t keyboard_keys[6]={0,0,0,0,0,0};
-
-// protocol setting from the host.  We use exactly the same report
-// either way, so this variable only stores the setting since we
-// are required to be able to report which setting is in use.
-static uint8_t keyboard_protocol=1;
-
-// the idle configuration, how often we send the report to the
-// host (ms * 4) even when it hasn't changed
-static uint8_t keyboard_idle_config=125;
-
-// count until idle timeout
-static uint8_t keyboard_idle_count=0;
-
-// 1=num lock, 2=caps lock, 4=scroll lock, 8=compose, 16=kana
-volatile uint8_t keyboard_leds=0;
 
 
 /**************************************************************************
@@ -336,127 +305,6 @@ void usb_init(void)
 uint8_t usb_configured(void)
 {
 	return usb_configuration;
-}
-
-
-// perform a single keystroke
-int8_t usb_keyboard_press(uint8_t key, uint8_t modifier)
-{
-	int8_t r;
-
-	keyboard_modifier_keys = modifier;
-	keyboard_keys[0] = key;
-	r = usb_keyboard_send();
-	if (r) return r;
-	keyboard_modifier_keys = 0;
-	keyboard_keys[0] = 0;
-	return usb_keyboard_send();
-}
-
-// send the contents of keyboard_keys and keyboard_modifier_keys
-int8_t usb_keyboard_send(void)
-{
-	uint8_t i, intr_state, timeout;
-
-	if (!usb_configuration) return -1;
-	intr_state = SREG;
-	cli();
-	UENUM = KEYBOARD_ENDPOINT;
-	timeout = UDFNUML + 50;
-	while (1) {
-		// are we ready to transmit?
-		if (UEINTX & (1<<RWAL)) break;
-		SREG = intr_state;
-		// has the USB gone offline?
-		if (!usb_configuration) return -1;
-		// have we waited too long?
-		if (UDFNUML == timeout) return -1;
-		// get ready to try checking again
-		intr_state = SREG;
-		cli();
-		UENUM = KEYBOARD_ENDPOINT;
-	}
-	UEDATX = keyboard_modifier_keys;
-	UEDATX = 0;
-	for (i=0; i<6; i++) {
-		UEDATX = keyboard_keys[i];
-	}
-	UEINTX = 0x3A;
-	keyboard_idle_count = 0;
-	SREG = intr_state;
-	return 0;
-}
-
-// transmit a character.  0 returned on success, -1 on error
-int8_t usb_debug_putchar(uint8_t c)
-{
-	static uint8_t previous_timeout=0;
-	uint8_t timeout, intr_state;
-
-	// if we're not online (enumerated and configured), error
-	if (!usb_configuration) return -1;
-	// interrupts are disabled so these functions can be
-	// used from the main program or interrupt context,
-	// even both in the same program!
-	intr_state = SREG;
-	cli();
-	UENUM = DEBUG_TX_ENDPOINT;
-	// if we gave up due to timeout before, don't wait again
-	if (previous_timeout) {
-		if (!(UEINTX & (1<<RWAL))) {
-			SREG = intr_state;
-			return -1;
-		}
-		previous_timeout = 0;
-	}
-	// wait for the FIFO to be ready to accept data
-	timeout = UDFNUML + 4;
-	while (1) {
-		// are we ready to transmit?
-		if (UEINTX & (1<<RWAL)) break;
-		SREG = intr_state;
-		// have we waited too long?
-		if (UDFNUML == timeout) {
-			previous_timeout = 1;
-			return -1;
-		}
-		// has the USB gone offline?
-		if (!usb_configuration) return -1;
-		// get ready to try checking again
-		intr_state = SREG;
-		cli();
-		UENUM = DEBUG_TX_ENDPOINT;
-	}
-	// actually write the byte into the FIFO
-	UEDATX = c;
-	// if this completed a packet, transmit it now!
-	if (!(UEINTX & (1<<RWAL))) {
-		UEINTX = 0x3A;
-		debug_flush_timer = 0;
-	} else {
-		debug_flush_timer = 2;
-	}
-	SREG = intr_state;
-	return 0;
-}
-
-
-// immediately transmit any buffered output.
-void usb_debug_flush_output(void)
-{
-	uint8_t intr_state;
-
-	intr_state = SREG;
-	cli();
-	if (debug_flush_timer) {
-		UENUM = DEBUG_TX_ENDPOINT;
-		while ((UEINTX & (1<<RWAL))) {
-			UEDATX = 0;
-		}
-		UEINTX = 0x3A;
-		debug_flush_timer = 0;
-	}
-	SREG = intr_state;
 }
 
 

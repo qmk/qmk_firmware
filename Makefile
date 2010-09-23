@@ -48,7 +48,9 @@ TARGET = mykey
 SRC =	$(TARGET).c \
 	keymap.c \
 	matrix.c \
-	usb_keyboard_debug.c \
+	usb_device.c \
+	usb_keyboard.c \
+	usb_debug.c \
 	print.c
 
 
