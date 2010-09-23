@@ -1,29 +1,17 @@
-#ifndef usb_serial_h__
-#define usb_serial_h__
+#ifndef USB_DEVICE_H
+#define  USB_DEVICE_H 1
 
 #include <stdint.h>
+#include <avr/io.h>
+#include "usb_keyboard.h"
+#include "usb_debug.h"
+
 
 void usb_init(void);			// initialize everything
 uint8_t usb_configured(void);		// is the USB port configured
 
-int8_t usb_keyboard_press(uint8_t key, uint8_t modifier);
-int8_t usb_keyboard_send(void);
-extern uint8_t keyboard_modifier_keys;
-extern uint8_t keyboard_keys[6];
-extern volatile uint8_t keyboard_leds;
-
-int8_t usb_debug_putchar(uint8_t c);	// transmit a character
-void usb_debug_flush_output(void);	// immediately transmit any buffered output
-#define USB_DEBUG_HID
 
 
-
-
-// Everything below this point is only intended for usb_serial.c
-#ifdef USB_SERIAL_PRIVATE_INCLUDE
-#include <avr/io.h>
-#include <avr/pgmspace.h>
-#include <avr/interrupt.h>
 
 #define EP_TYPE_CONTROL			0x00
 #define EP_TYPE_BULK_IN			0x81
@@ -89,5 +77,5 @@ void usb_debug_flush_output(void);	// immediately transmit any buffered output
 #define CDC_SET_LINE_CODING		0x20
 #define CDC_GET_LINE_CODING		0x21
 #define CDC_SET_CONTROL_LINE_STATE	0x22
-#endif
+
 #endif

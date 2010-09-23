@@ -30,7 +30,7 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
-#include "usb_keyboard_debug.h"
+#include "usb_device.h"
 #include "print.h"
 #include "matrix.h"
 #include "keymap.h"
