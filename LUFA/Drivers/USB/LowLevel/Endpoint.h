@@ -451,7 +451,7 @@
 			static inline bool Endpoint_IsINReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsINReady(void)
 			{
-				return ((UEINTX & (1 << TXINI))  ? true : false);
+				return ((UEINTX & (1 << TXINI)) ? true : false);
 			}
 			
 			/** Determines if the selected OUT endpoint has received new packet.
