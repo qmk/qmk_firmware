@@ -66,7 +66,7 @@ MCU = at90usb1287
 # Target board (see library "Board Types" documentation, NONE for projects not requiring
 # LUFA board drivers). If USER is selected, put custom board drivers in a directory called 
 # "Board" inside the application directory.
-BOARD  = USBKEY
+BOARD = USBKEY
 
 
 # Processor frequency.
@@ -529,7 +529,7 @@ flip: $(TARGET).hex
 
 dfu: $(TARGET).hex
 	dfu-programmer $(MCU) erase
-	dfu-programmer $(MCU) flash --debug 1 $(TARGET).hex
+	dfu-programmer $(MCU) flash --suppress-bootloader-mem --debug 1 $(TARGET).hex
 	dfu-programmer $(MCU) reset
 
 flip-ee: $(TARGET).hex $(TARGET).eep
@@ -540,7 +540,7 @@ flip-ee: $(TARGET).hex $(TARGET).eep
 	$(REMOVE) $(TARGET)eep.hex
 
 dfu-ee: $(TARGET).hex $(TARGET).eep
-	dfu-programmer $(MCU) flash-eeprom --debug 1 --suppress-bootloader-mem $(TARGET).eep
+	dfu-programmer $(MCU) eeprom-flash --debug 1 --suppress-bootloader-mem $(TARGET).eep
 	dfu-programmer $(MCU) reset
 
 

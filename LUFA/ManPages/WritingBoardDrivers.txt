@@ -18,9 +18,9 @@
  *  with the LUFA hardware API. To do this, the BOARD macro should be defined to the value BOARD_USER. This indicates
  *  that the board level drivers should be located in a folder named "Board" located inside the application's folder.
  *
- *  When used, the driver stub files located in the DriverStubs folder should be copied to the user Board directory,
- *  and fleshed out to include the values and code needed to control the custom board hardware. Once done, the existing
- *  LUFA board level APIs (accessed in the regular LUFA/Drivers/Board/ folder) will redirect to the user board drivers,
- *  maintaining code compatibility and allowing for a different board to be selected through the project makefile with
- *  no code changes.
+ *  When used, the driver stub files located in the LUFA/CodeTemplates/DriverStubs folder should be copied to the user
+ *  Board/ directory, and fleshed out to include the values and code needed to control the custom board hardware. Once
+ *  done, the existing LUFA board level APIs (accessed in the regular LUFA/Drivers/Board/ folder) will redirect to the
+ *  user board drivers, maintaining code compatibility and allowing for a different board to be selected through the
+ *  project makefile with no code changes.
  */
