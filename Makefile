@@ -51,7 +51,8 @@ SRC =	$(TARGET).c \
 	usb_device.c \
 	usb_keyboard.c \
 	usb_debug.c \
-	print.c
+	print.c \
+	jump_bootloader.c
 
 
 # MCU name, you MUST set this to match the board you are using

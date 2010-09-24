@@ -34,6 +34,7 @@
 #include "print.h"
 #include "matrix.h"
 #include "keymap.h"
+#include "jump_bootloader.h"
 
 #define LED_CONFIG    (DDRD |= (1<<6))
 #define LED_ON        (PORTD &= ~(1<<6))
@@ -111,6 +112,13 @@ int main(void)
                 }
             }
 
+            // run bootloader when 4 left modifier keys down
+            if (keyboard_modifier_keys == (MOD_LCTRL | MOD_LSHIFT | MOD_LALT | MOD_LGUI)) {
+                print("jump to bootloader...\n");
+                _delay_ms(1000);
+                jump_bootloader();
+            }
+
             if (key_index > 6) {
                 //Rollover
             }
@@ -128,7 +136,7 @@ int main(void)
 
         // print matrix state for debug
         if (modified) {
-            print("r/c 01234567\n");
+            print("\nr/c 01234567\n");
             for (row = 0; row < MATRIX_ROWS; row++) {
                 phex(row); print(": ");
                 pbin_reverse(matrix[row]);
@@ -159,6 +167,6 @@ ISR(TIMER0_OVF_vect)
     idle_count++;
     if (idle_count > 61 * 8) {
         idle_count = 0;
-        //print("Timer Event :)\n");
+        print(".");
     }
 }
