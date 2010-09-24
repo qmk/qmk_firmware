@@ -12,7 +12,7 @@
   *    not ready removable medium has now become ready for the host's use (thanks to Martin Degelsegger)
   *  - Moved the Pipe and Endpoint stream related code to two new USB library core source files EndpointStream.c and PipeStream.c
   *  - Added board hardware driver support for the Olimex AVR-USB-162 development board (thanks to Steve Fawcett)
-  *  - Added board hardware driver support for the USBFOO development board
+  *  - Added board hardware driver support for the Kernel Concepts USBFOO development board
   *  - Added new USB_Device_GetFrameNumber() and USB_Host_GetFrameNumber() functions to retrieve the current USB frame number
   *  - Added new USB_Host_EnableSOFEvents(), USB_Host_DisableSOFEvents() and EVENT_USB_Host_StartOfFrame() for the user application
   *    handling of USB Start of Frame events while in USB Host mode
@@ -20,8 +20,8 @@
   *    Print Host Class driver
   *  - Added class specific descriptor type defines with standard USB-IF element naming
   *  - Added new project makefile template to the library and moved board driver stub files into in a new "CodeTemplates" directory
-  *  - Added board hardware driver support for the UDIP development board
-  *  - Added board hardware driver support for the BUI development board
+  *  - Added board hardware driver support for the Linnix UDIP development board
+  *  - Added board hardware driver support for the Busware BUI development board
   *
   *  <b>Changed:</b>
   *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions
@@ -42,8 +42,6 @@
   *    to free up the Start of Frame flag for interrupt use in the user application
   *  - All project makefiles now correctly clean intermediate build files from assembly and C++ sources (thanks to Daniel Czigany)
   *  - Removed the EVENT_USB_InitFailure() event, not specifying a USB mode now defaults to UID selection mode
-  *  - Added the --suppress-bootloader-mem option to the makefile dfu target, to ensure that writes to the bootloader section of the AVR's
-  *    flash memory are ignored (thanks to Axel Rohde)
   *
   *  <b>Fixed:</b>
   *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist

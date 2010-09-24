@@ -518,7 +518,7 @@ flip: $(TARGET).hex
 
 dfu: $(TARGET).hex
 	dfu-programmer $(MCU) erase
-	dfu-programmer $(MCU) flash --suppress-bootloader-mem --debug 1 $(TARGET).hex
+	dfu-programmer $(MCU) flash $(TARGET).hex
 	dfu-programmer $(MCU) reset
 
 flip-ee: $(TARGET).hex $(TARGET).eep
@@ -529,7 +529,7 @@ flip-ee: $(TARGET).hex $(TARGET).eep
 	$(REMOVE) $(TARGET)eep.hex
 
 dfu-ee: $(TARGET).hex $(TARGET).eep
-	dfu-programmer $(MCU) eeprom-flash --debug 1 --suppress-bootloader-mem $(TARGET).eep
+	dfu-programmer $(MCU) eeprom-flash $(TARGET).eep
 	dfu-programmer $(MCU) reset
 
 
