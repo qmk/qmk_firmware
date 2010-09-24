@@ -76,7 +76,7 @@ int main(void)
     TCCR0B = 0x05;
     TIMSK0 = (1<<TOIE0);
 
-    print("keyboard firmware 0.1 for t.m.k.\n");
+    print("firmware 0.2 for t.m.k.\n");
 
     while (1) {
         int layer = 0;
