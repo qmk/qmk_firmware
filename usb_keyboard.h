@@ -10,6 +10,16 @@
 #define KEYBOARD_SIZE		8
 #define KEYBOARD_BUFFER		EP_DOUBLE_BUFFER
 
+// modifier bits
+#define MOD_LCTRL   (1<<0)
+#define MOD_LSHIFT  (1<<1)
+#define MOD_LALT    (1<<2)
+#define MOD_LGUI    (1<<3)
+#define MOD_RCTRL   (1<<4)
+#define MOD_RSHIFT  (1<<5)
+#define MOD_RALT    (1<<6)
+#define MOD_RGUI    (1<<7)
+
 
 extern uint8_t keyboard_modifier_keys;
 extern uint8_t keyboard_keys[6];
