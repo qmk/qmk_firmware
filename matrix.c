@@ -5,7 +5,6 @@
 #include <util/delay.h>
 #include "keymap.h"
 #include "matrix.h"
-#include "print.h"
 
 // matrix is active low. (key on: 0/key off: 1)
 // row: Hi-Z(unselected)/low output(selected)

@@ -41,6 +41,8 @@
 #define LED_OFF        (PORTD |= (1<<6))
 #define CPU_PRESCALE(n)    (CLKPR = 0x80, CLKPR = (n))
 
+static void print_matrix(void);
+
 
 uint16_t idle_count=0;
 
@@ -78,9 +80,9 @@ int main(void)
 
     print("firmware 0.2 for t.m.k.\n");
 
+    int loop_count = 0;
     while (1) {
         int layer = 0;
-        uint8_t row, col, code;
 
         matrix_scan();
         layer = get_layer();
@@ -94,11 +96,11 @@ int main(void)
             keyboard_modifier_keys = 0;
             for (int i = 0; i < 6; i++) keyboard_keys[i] = KB_NO;
 
-            for (row = 0; row < MATRIX_ROWS; row++) {
-                for (col = 0; col < MATRIX_COLS; col++) {
+            for (int row = 0; row < MATRIX_ROWS; row++) {
+                for (int col = 0; col < MATRIX_COLS; col++) {
                     if (matrix[row] & 1<<col) continue;
 
-                    code = get_keycode(layer, row, col);
+                    uint8_t code = get_keycode(layer, row, col);
                     if (code == KB_NO) {
                         continue;
                     } else if (KB_LCTRL <= code && code <= KB_RGUI) {
@@ -114,6 +116,11 @@ int main(void)
 
             // run bootloader when 4 left modifier keys down
             if (keyboard_modifier_keys == (MOD_LCTRL | MOD_LSHIFT | MOD_LALT | MOD_LGUI)) {
+                // cancel all keys
+                keyboard_modifier_keys = 0;
+                for (int i = 0; i < 6; i++) keyboard_keys[i] = KB_NO;
+                usb_keyboard_send();
+
                 print("jump to bootloader...\n");
                 _delay_ms(1000);
                 jump_bootloader();
@@ -130,14 +137,46 @@ int main(void)
             // accessed carefully so the interrupt routine doesn't
             // try to use the variable in the middle of our access
             cli();
-            idle_count = 0;
+            //idle_count = 0;
             sei();
         }
 
         // print matrix state for debug
         if (modified) {
+            print_matrix();
+
+            // LED flush
+            DDRD |= 1<<PD6;
+            PORTD |= 1<<PD6;
+        }
+
+/*
+        // print counts for debug
+        if ((loop_count % 0x1000) == 0) {
+            //print(".");
+            print("idle_count: "); phex((idle_count & 0xFF00) >> 8); phex(idle_count & 0xFF); print("\n");
+            print("loop_count: "); phex((loop_count & 0xFF00) >> 8); phex(loop_count & 0xFF); print("\n");
+            print_matrix();
+        }
+
+        // teensy LED flush for debug
+        if ((loop_count & 0x100) == 0) {
+            DDRD |= 1<<PD6;
+            PORTD |= 1<<PD6;
+        }
+*/
+
+        // now the current pins will be the previous, and
+        // wait a short delay so we're not highly sensitive
+        // to mechanical "bounce".
+        _delay_ms(2);
+        loop_count++;
+    }
+}
+
+static void print_matrix(void) {
             print("\nr/c 01234567\n");
-            for (row = 0; row < MATRIX_ROWS; row++) {
+            for (int row = 0; row < MATRIX_ROWS; row++) {
                 phex(row); print(": ");
                 pbin_reverse(matrix[row]);
                 if (matrix_has_ghost_in_row(row)) {
@@ -149,13 +188,6 @@ int main(void)
             for (int i = 0; i < 6; i++) { phex(keyboard_keys[i]); print(" "); }
             print("\n");
             print("mod: "); phex(keyboard_modifier_keys); print("\n");
-        }
-
-        // now the current pins will be the previous, and
-        // wait a short delay so we're not highly sensitive
-        // to mechanical "bounce".
-        _delay_ms(2);
-    }
 }
 
 // This interrupt routine is run approx 61 times per second.
@@ -165,8 +197,4 @@ int main(void)
 ISR(TIMER0_OVF_vect)
 {
     idle_count++;
-    if (idle_count > 61 * 8) {
-        idle_count = 0;
-        print(".");
-    }
 }
