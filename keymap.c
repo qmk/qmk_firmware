@@ -59,7 +59,7 @@ static const uint8_t PROGMEM Keymap[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-uint8_t get_keycode(int layer, uint8_t row, uint8_t col)
+uint8_t get_keycode(int layer, int row, int col)
 {
     if (row >= MATRIX_ROWS)
         return KB_NO;
