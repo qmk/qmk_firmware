@@ -104,7 +104,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 		
 	.DFU_Functional = 
 		{
-			.Header                 = {.Size = sizeof(USB_DFU_Functional_Descriptor_t), .Type = DTYPE_DFUFunctional},
+			.Header                 = {.Size = sizeof(USB_Descriptor_DFU_Functional_t), .Type = DTYPE_DFUFunctional},
 			
 			.Attributes             = (ATTR_CAN_UPLOAD | ATTR_CAN_DOWNLOAD),
 

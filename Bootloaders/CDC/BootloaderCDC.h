@@ -49,7 +49,7 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 
-	/* Macros: */		
+	/* Macros: */
 		/** Version major of the CDC bootloader. */
 		#define BOOTLOADER_VERSION_MAJOR     0x01
 
@@ -65,10 +65,50 @@
 		/** Eight character bootloader firmware identifier reported to the host when requested */
 		#define SOFTWARE_IDENTIFIER          "LUFACDC"
 		
+		/** CDC Class specific request to get the current virtual serial port configuration settings. */
+		#define REQ_GetLineEncoding          0x21
+
+		/** CDC Class specific request to set the current virtual serial port configuration settings. */
+		#define REQ_SetLineEncoding          0x20
+
 	/* Type Defines: */
+		/** Type define for the virtual serial port line encoding settings, for storing the current USART configuration
+		 *  as set by the host via a class specific request.
+		 */
+		typedef struct
+		{
+			uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second */
+			uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
+			                      *   CDCDevice_CDC_LineCodingFormats_t enum
+			                      */
+			uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
+			                      *   CDCDevice_LineCodingParity_t enum
+			                      */
+			uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
+		} CDC_Line_Coding_t;
+
 		/** Type define for a non-returning pointer to the start of the loaded application in flash memory. */
 		typedef void (*AppPtr_t)(void) ATTR_NO_RETURN;
 		
+	/* Enums: */
+		/** Enum for the possible line encoding formats of a virtual serial port. */
+		enum CDCDevice_CDC_LineCodingFormats_t
+		{
+			OneStopBit          = 0, /**< Each frame contains one stop bit */
+			OneAndAHalfStopBits = 1, /**< Each frame contains one and a half stop bits */
+			TwoStopBits         = 2, /**< Each frame contains two stop bits */
+		};
+		
+		/** Enum for the possible line encoding parity settings of a virtual serial port. */
+		enum CDCDevice_LineCodingParity_t
+		{
+			Parity_None         = 0, /**< No parity bit mode on each frame */
+			Parity_Odd          = 1, /**< Odd parity bit mode on each frame */
+			Parity_Even         = 2, /**< Even parity bit mode on each frame */
+			Parity_Mark         = 3, /**< Mark parity bit mode on each frame */
+			Parity_Space        = 4, /**< Space parity bit mode on each frame */
+		};
+
 	/* Function Prototypes: */
 		void CDC_Task(void);
 		void SetupHardware(void);

@@ -61,6 +61,7 @@
   *  - Fixed JTAG_DEBUG_POINT() and JTAG_DEBUG_BREAK() macros not compiling under pure C99 standards mode
   *  - Fixed endpoint selection within the CALLBACK_HID_Device_CreateHIDReport() callback function causing broken GET REPORT requests
   *  - Fixed incorrect command name for EEPROM memory programming in the makefile dfu-ee target
+  *  - Fixed BootloaderCDC project failing on some operating systems due to removed Line Encoding options (thanks to Alexey Belyaev)
   *
   *  \section Sec_ChangeLog100807 Version 100807
   *  <b>New:</b>

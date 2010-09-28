@@ -140,19 +140,19 @@
 			USB_Descriptor_Header_t               Header; /**< Standard descriptor header structure */
 			
 			uint8_t                               Attributes; /**< DFU device attributes, a mask comprising of the
-			                                                    *  ATTR_* macros listed in this source file
-			                                                    */
+			                                                   *  ATTR_* macros listed in this source file
+			                                                   */
 			uint16_t                              DetachTimeout; /**< Timeout in milliseconds between a USB_DETACH
-			                                                        *  command being issued and the device detaching
-			                                                        *  from the USB bus
-			                                                        */																	
+			                                                       *  command being issued and the device detaching
+			                                                       *  from the USB bus
+			                                                       */																	
 			uint16_t                              TransferSize; /**< Maximum number of bytes the DFU device can accept
-			                                                      *  from the host in a transaction
-			                                                      */			
+			                                                     *  from the host in a transaction
+			                                                     */			
 			uint16_t                              DFUSpecification;	/**< BCD packed DFU specification number this DFU
-			                                                          *  device complies with
-			                                                          */
-		} USB_DFU_Functional_Descriptor_t;
+			                                                         *  device complies with
+			                                                         */
+		} USB_Descriptor_DFU_Functional_t;
 	
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -162,7 +162,7 @@
 		{
 			USB_Descriptor_Configuration_Header_t Config;
 			USB_Descriptor_Interface_t            DFU_Interface;
-			USB_DFU_Functional_Descriptor_t       DFU_Functional;
+			USB_Descriptor_DFU_Functional_t       DFU_Functional;
 		} USB_Descriptor_Configuration_t;
 		
 	/* Function Prototypes: */

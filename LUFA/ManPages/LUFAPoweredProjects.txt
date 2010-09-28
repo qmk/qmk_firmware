@@ -76,6 +76,7 @@
  *  The following is a list of known commercial products using LUFA. Some of these are open source, although many are "black-box"
  *  solutions with no source code given.
  *
+ *  - Arduino Uno, the official Arduino board: www.arduino.cc
  *  - ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
  *  - Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
  *  - Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR

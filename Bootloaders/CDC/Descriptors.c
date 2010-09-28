@@ -55,7 +55,7 @@ USB_Descriptor_Device_t DeviceDescriptor =
 		
 	.VendorID               = 0x03EB,
 	.ProductID              = 0x204A,
-	.ReleaseNumber          = 0x0000,
+	.ReleaseNumber          = 0x0002,
 		
 	.ManufacturerStrIndex   = NO_DESCRIPTOR,
 	.ProductStrIndex        = 0x01,
@@ -102,29 +102,30 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.CDC_Functional_IntHeader = 
+	.CDC_Functional_Header = 
 		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(2)), .Type = 0x24},
-			.SubType                = 0x00,
+			.Header                 = {.Size = sizeof(USB_Descriptor_CDC_FunctionalHeader_t), .Type = DTYPE_CSInterface},
+			.Subtype                = 0x00,
 			
-			.Data                   = {0x10, 0x01}
+			.CDCSpecification       = VERSION_BCD(01.10),
 		},
 
-	.CDC_Functional_AbstractControlManagement = 
+	.CDC_Functional_ACM = 
 		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(1)), .Type = 0x24},
-			.SubType                = 0x02,
+			.Header                 = {.Size = sizeof(USB_Descriptor_CDC_FunctionalACM_t), .Type = DTYPE_CSInterface},
+			.Subtype                = 0x02,
 			
-			.Data                   = {0x06}
+			.Capabilities           = 0x04,
 		},
 		
 	.CDC_Functional_Union = 
 		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(2)), .Type = 0x24},
-			.SubType                = 0x06,
+			.Header                 = {.Size = sizeof(USB_Descriptor_CDC_FunctionalUnion_t), .Type = DTYPE_CSInterface},
+			.Subtype                = 0x06,
 			
-			.Data                   = {0x00, 0x01}
-		},	
+			.MasterInterfaceNumber  = 0,
+			.SlaveInterfaceNumber   = 1,
+		},
 
 	.CDC_NotificationEndpoint = 
 		{
