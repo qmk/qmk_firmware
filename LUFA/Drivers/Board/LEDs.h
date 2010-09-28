@@ -120,9 +120,11 @@
 	#elif (BOARD == BOARD_USBFOO)
 		#include "USBFOO/LEDs.h"
 	#elif (BOARD == BOARD_UDIP)
-		#include "UDIP/LEDs.h"		
+		#include "UDIP/LEDs.h"
 	#elif (BOARD == BOARD_BUI)
-		#include "BUI/LEDs.h"		
+		#include "BUI/LEDs.h"
+	#elif (BOARD == BOARD_UNO)
+		#include "UNO/LEDs.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
 	#endif

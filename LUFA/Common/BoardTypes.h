@@ -115,6 +115,9 @@
 
 			/** Selects the BUI specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_BUI           17
+
+			/** Selects the Arduino Uno specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_UNO           18
 			
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE

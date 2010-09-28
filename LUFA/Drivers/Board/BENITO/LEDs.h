@@ -54,7 +54,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 
-/* Enable C linkage for C++ Compilers: */
+	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
 		#endif
@@ -104,7 +104,7 @@
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
 			                                   const uint8_t ActiveMask)
 			{
-				PORTC = ((PORTC | ActiveMask) & ~LEDMask);
+				PORTC = ((PORTC | LEDMask) & ~ActiveMask);
 			}
 
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)

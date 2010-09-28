@@ -40,6 +40,7 @@
  *   - Kernel Concepts USBFOO
  *   - Linnix UDIP
  *   - Busware BUI
+ *   - Arduino Uno
  *   - Any Other Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
  */
  

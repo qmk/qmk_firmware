@@ -22,6 +22,7 @@
   *  - Added new project makefile template to the library and moved board driver stub files into in a new "CodeTemplates" directory
   *  - Added board hardware driver support for the Linnix UDIP development board
   *  - Added board hardware driver support for the Busware BUI development board
+  *  - Added board hardware driver support for the Arduino Uno development board
   *
   *  <b>Changed:</b>
   *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions
@@ -62,6 +63,7 @@
   *  - Fixed endpoint selection within the CALLBACK_HID_Device_CreateHIDReport() callback function causing broken GET REPORT requests
   *  - Fixed incorrect command name for EEPROM memory programming in the makefile dfu-ee target
   *  - Fixed BootloaderCDC project failing on some operating systems due to removed Line Encoding options (thanks to Alexey Belyaev)
+  *  - Fixed incorrect LEDs_ChangeLEDs() function in the Benito board LED driver
   *
   *  \section Sec_ChangeLog100807 Version 100807
   *  <b>New:</b>
