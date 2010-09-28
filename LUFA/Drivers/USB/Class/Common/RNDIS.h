@@ -76,13 +76,7 @@
 
 		/** Implemented RNDIS Version Minor. */
 		#define REMOTE_NDIS_VERSION_MINOR             0x00
-	
-		/** RNDIS request to issue a host-to-device NDIS command. */
-		#define REQ_SendEncapsulatedCommand           0x00
-
-		/** RNDIS request to issue a device-to-host NDIS response. */
-		#define REQ_GetEncapsulatedResponse           0x01
-		
+			
 		/** Maximum size in bytes of a RNDIS control message which can be sent or received. */
 		#define RNDIS_MESSAGE_BUFFER_SIZE             128
 
@@ -93,6 +87,13 @@
 		#define NOTIF_ResponseAvailable               1
 		
 	/* Enums: */
+		/** Enum for the RNDIS class specific control requests that can be issued by the USB bus host. */
+		enum RNDIS_ClassRequests_t
+		{
+			RNDIS_REQ_SendEncapsulatedCommand = 0x00, /**< RNDIS request to issue a host-to-device NDIS command. */
+			RNDIS_REQ_GetEncapsulatedResponse = 0x01, /**< RNDIS request to issue a device-to-host NDIS response. */
+		};
+		
 		/** Enum for the possible NDIS adapter states. */
 		enum RNDIS_States_t
 		{

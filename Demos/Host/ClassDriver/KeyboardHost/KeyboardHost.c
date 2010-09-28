@@ -50,7 +50,7 @@ USB_ClassInfo_HID_Host_t Keyboard_HID_Interface =
 				.DataOUTPipeNumber      = 2,
 				.DataOUTPipeDoubleBank  = false,
 				
-				.HIDInterfaceProtocol   = HID_BOOT_KEYBOARD_PROTOCOL,
+				.HIDInterfaceProtocol   = HID_BOOTP_KeyboardBootProtocol,
 			},
 	};
 

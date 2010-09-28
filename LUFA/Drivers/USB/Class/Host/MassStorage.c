@@ -284,7 +284,7 @@ static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* const MSInterf
 	Pipe_ClearIN();
 	Pipe_Freeze();
 	
-	if (SCSICommandStatus->Status != SCSI_Command_Pass)
+	if (SCSICommandStatus->Status != MS_SCSI_COMMAND_Pass)
 	  ErrorCode = MS_ERROR_LOGICAL_CMD_FAILED;
 	
 	return ErrorCode;

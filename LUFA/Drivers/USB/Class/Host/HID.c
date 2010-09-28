@@ -62,12 +62,10 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 	         (CurrentHIDInterface->Protocol != HIDInterfaceInfo->Config.HIDInterfaceProtocol));
 
 	HIDInterfaceInfo->State.InterfaceNumber      = CurrentHIDInterface->InterfaceNumber;
-	HIDInterfaceInfo->State.SupportsBootProtocol = (CurrentHIDInterface->SubClass != HID_NON_BOOT_PROTOCOL);
+	HIDInterfaceInfo->State.SupportsBootProtocol = (CurrentHIDInterface->SubClass != HID_BOOTP_NonBootProtocol);
 
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, DCOMP_HID_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		return HID_ENUMERROR_NoHIDDescriptorFound;
-	}
+	  return HID_ENUMERROR_NoHIDDescriptorFound;
 
 	HIDInterfaceInfo->State.HIDReportSize = DESCRIPTOR_CAST(ConfigDescriptorData, USB_HID_Descriptor_HID_t).HIDReportLength;
 
@@ -127,7 +125,7 @@ static uint8_t DCOMP_HID_Host_NextHIDInterface(void* const CurrentDescriptor)
 
 static uint8_t DCOMP_HID_NextHID(void* const CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_HID)
+	if (DESCRIPTOR_TYPE(CurrentDescriptor) == HID_DTYPE_HID)
 	  return DESCRIPTOR_SEARCH_Found;
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	  return DESCRIPTOR_SEARCH_Fail;
@@ -161,10 +159,10 @@ uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
 		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-		.bRequest      = REQ_SetReport,
-		.wValue        = ((REPORT_ITEM_TYPE_In + 1) << 8) | ReportID,
+		.bRequest      = HID_REQ_SetReport,
+		.wValue        = ((HID_REPORT_ITEM_In + 1) << 8) | ReportID,
 		.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
-		.wLength       = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, REPORT_ITEM_TYPE_In),
+		.wLength       = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, HID_REPORT_ITEM_In),
 	};
 
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
@@ -198,7 +196,7 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 			*(BufferPos++) = ReportID;
 		}
 		
-		ReportSize = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, REPORT_ITEM_TYPE_In);
+		ReportSize = USB_GetHIDReportSize(HIDInterfaceInfo->Config.HIDParserData, ReportID, HID_REPORT_ITEM_In);
 	}
 	else
 #endif
@@ -227,7 +225,7 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 	if ((USB_HostState != HOST_STATE_Configured) || !(HIDInterfaceInfo->State.IsActive))
 	  return false;
 
-	if (HIDInterfaceInfo->State.DeviceUsesOUTPipe && (ReportType == REPORT_ITEM_TYPE_Out))
+	if (HIDInterfaceInfo->State.DeviceUsesOUTPipe && (ReportType == HID_REPORT_ITEM_Out))
 	{
 		uint8_t ErrorCode;
 	
@@ -251,7 +249,7 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SetReport,
+			.bRequest      = HID_REQ_SetReport,
 #if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 			.wValue        = ((ReportType + 1) << 8) | ReportID,
 #else
@@ -291,7 +289,7 @@ uint8_t HID_Host_SetBootProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInf
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SetProtocol,
+			.bRequest      = HID_REQ_SetProtocol,
 			.wValue        = 0,
 			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
 			.wLength       = 0,
@@ -322,7 +320,7 @@ uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE),
 			.bRequest      = REQ_GetDescriptor,
-			.wValue        = (DTYPE_Report << 8),
+			.wValue        = (HID_DTYPE_Report << 8),
 			.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
 			.wLength       = HIDInterfaceInfo->State.HIDReportSize,
 		};
@@ -337,7 +335,7 @@ uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 		USB_ControlRequest = (USB_Request_Header_t)
 			{
 				.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-				.bRequest      = REQ_SetProtocol,
+				.bRequest      = HID_REQ_SetProtocol,
 				.wValue        = 1,
 				.wIndex        = HIDInterfaceInfo->State.InterfaceNumber,
 				.wLength       = 0,

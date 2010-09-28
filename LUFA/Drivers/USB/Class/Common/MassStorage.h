@@ -66,12 +66,6 @@
 		#endif
 		
 	/* Macros: */
-		/** Mass Storage class-specific request to reset the Mass Storage interface, ready for the next command. */
-		#define REQ_MassStorageReset       0xFF
-
-		/** Mass Storage class-specific request to retrieve the total number of Logical Units (drives) in the SCSI device. */
-		#define REQ_GetMaxLUN              0xFE
-		
 		/** Magic signature for a Command Block Wrapper used in the Mass Storage Bulk-Only transport protocol. */
 		#define MS_CBW_SIGNATURE           0x43425355UL
 
@@ -209,8 +203,30 @@
 
 		/** SCSI Additional Sense Qualifier Code to indicate that an operation is currently in progress. */
 		#define SCSI_ASENSEQ_OPERATION_IN_PROGRESS             0x07
-		
-	/* Type defines: */
+	
+	/* Enums: */
+		/** Enum for the Mass Storage class specific control requests that can be issued by the USB bus host. */
+		enum MS_ClassRequests_t
+		{
+			MS_REQ_GetMaxLUN        = 0xFE, /**< Mass Storage class-specific request to retrieve the total number of Logical
+			                                 *   Units (drives) in the SCSI device.
+			                                 */
+			MS_REQ_MassStorageReset = 0xFF, /**< Mass Storage class-specific request to reset the Mass Storage interface,
+			                                 *   ready for the next command.
+		                                     */
+		};
+	
+		/** Enum for the possible command status wrapper return status codes. */
+		enum MS_CommandStatusCodes_t
+		{
+			MS_SCSI_COMMAND_Pass        = 0, /**< Command completed with no error */
+			MS_SCSI_COMMAND_Fail        = 1, /**< Command failed to complete - host may check the exact error via a
+			                                  *   SCSI REQUEST SENSE command.
+			                                  */
+			MS_SCSI_COMMAND_PhaseError  = 2, /**< Command failed due to being invalid in the current phase. */
+		};
+
+	/* Type Defines: */
 		/** \brief Mass Storage Class Command Block Wrapper.
 		 *
 		 *  Type define for a Command Block Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
@@ -256,13 +272,13 @@
 			unsigned char EOM                 : 1;
 			unsigned char FileMark            : 1;
 			
-			uint8_t      Information[4];
-			uint8_t      AdditionalLength;
-			uint8_t      CmdSpecificInformation[4];
-			uint8_t      AdditionalSenseCode;
-			uint8_t      AdditionalSenseQualifier;
-			uint8_t      FieldReplaceableUnitCode;
-			uint8_t      SenseKeySpecific[3];
+			uint8_t       Information[4];
+			uint8_t       AdditionalLength;
+			uint8_t       CmdSpecificInformation[4];
+			uint8_t       AdditionalSenseCode;
+			uint8_t       AdditionalSenseQualifier;
+			uint8_t       FieldReplaceableUnitCode;
+			uint8_t       SenseKeySpecific[3];
 		} SCSI_Request_Sense_Response_t;
 
 		/** \brief Mass Storage Class SCSI Inquiry Structure.
@@ -281,7 +297,7 @@
 			unsigned char Reserved            : 7;
 			unsigned char Removable           : 1;
 			
-			uint8_t      Version;
+			uint8_t       Version;
 			
 			unsigned char ResponseDataFormat  : 4;
 			unsigned char Reserved2           : 1;
@@ -289,8 +305,8 @@
 			unsigned char TrmTsk              : 1;
 			unsigned char AERC                : 1;
 
-			uint8_t      AdditionalLength;
-			uint8_t      Reserved3[2];
+			uint8_t       AdditionalLength;
+			uint8_t       Reserved3[2];
 
 			unsigned char SoftReset           : 1;
 			unsigned char CmdQue              : 1;
@@ -301,21 +317,10 @@
 			unsigned char WideBus32Bit        : 1;
 			unsigned char RelAddr             : 1;
 			
-			uint8_t      VendorID[8];
-			uint8_t      ProductID[16];
-			uint8_t      RevisionID[4];
+			uint8_t       VendorID[8];
+			uint8_t       ProductID[16];
+			uint8_t       RevisionID[4];
 		} SCSI_Inquiry_Response_t;
-
-	/* Enums: */
-		/** Enum for the possible command status wrapper return status codes. */
-		enum MassStorage_CommandStatusCodes_t
-		{
-			SCSI_Command_Pass = 0, /**< Command completed with no error */
-			SCSI_Command_Fail = 1, /**< Command failed to complete - host may check the exact error via a
-			                        *   SCSI REQUEST SENSE command.
-			                        */
-			SCSI_Phase_Error  = 2  /**< Command failed due to being invalid in the current phase. */
-		};
 	
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

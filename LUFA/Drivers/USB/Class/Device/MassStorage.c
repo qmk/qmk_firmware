@@ -48,7 +48,7 @@ void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfac
 
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_MassStorageReset:
+		case MS_REQ_MassStorageReset:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -58,7 +58,7 @@ void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfac
 			}
 
 			break;
-		case REQ_GetMaxLUN:
+		case MS_REQ_GetMaxLUN:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -107,12 +107,12 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 			  Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
 			  
 			MSInterfaceInfo->State.CommandStatus.Status = CALLBACK_MS_Device_SCSICommandReceived(MSInterfaceInfo) ?
-			                                                                 SCSI_Command_Pass : SCSI_Command_Fail;
+			                                                                 MS_SCSI_COMMAND_Pass : MS_SCSI_COMMAND_Fail;
 			MSInterfaceInfo->State.CommandStatus.Signature           = MS_CSW_SIGNATURE;
 			MSInterfaceInfo->State.CommandStatus.Tag                 = MSInterfaceInfo->State.CommandBlock.Tag;
 			MSInterfaceInfo->State.CommandStatus.DataTransferResidue = MSInterfaceInfo->State.CommandBlock.DataTransferLength;
 
-			if ((MSInterfaceInfo->State.CommandStatus.Status == SCSI_Command_Fail) &&
+			if ((MSInterfaceInfo->State.CommandStatus.Status == MS_SCSI_COMMAND_Fail) &&
 			    (MSInterfaceInfo->State.CommandStatus.DataTransferResidue))
 			{
 				Endpoint_StallTransaction();

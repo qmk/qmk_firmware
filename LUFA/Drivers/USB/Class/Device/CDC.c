@@ -51,7 +51,7 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInter
 
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetLineEncoding:
+		case CDC_REQ_GetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -60,7 +60,7 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInter
 			}
 			
 			break;
-		case REQ_SetLineEncoding:
+		case CDC_REQ_SetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -71,7 +71,7 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInter
 			}
 	
 			break;
-		case REQ_SetControlLineState:
+		case CDC_REQ_SetControlLineState:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{				
 				Endpoint_ClearSETUP();
@@ -83,7 +83,7 @@ void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInter
 			}
 	
 			break;
-		case REQ_SendBreak:
+		case CDC_REQ_SendBreak:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{				
 				Endpoint_ClearSETUP();
@@ -248,7 +248,7 @@ void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDC
 	USB_Request_Header_t Notification = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = NOTIF_SerialState,
+			.bRequest      = CDC_NOTIF_SerialState,
 			.wValue        = 0,
 			.wIndex        = 0,
 			.wLength       = sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost),

@@ -194,9 +194,9 @@ void Keyboard_HID_Task(void)
 			{
 				HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[i];
 				
-				uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_In];
-				uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Out];
-				uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Feature];
+				uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_In];
+				uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Out];
+				uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Feature];
 
 				/* Print out the byte sizes of each report within the device */
 				printf_P(PSTR("  + Report ID %d - In: %d bytes, Out: %d bytes, Feature: %d bytes\r\n"),
@@ -258,7 +258,7 @@ void ProcessKeyboardReport(uint8_t* KeyboardReport)
 		if ((ReportItem->Attributes.Usage.Page      == USAGE_PAGE_KEYBOARD) &&
 			(ReportItem->Attributes.BitSize         == 8)                   &&
 			(ReportItem->Attributes.Logical.Maximum > 1)                    &&
-			(ReportItem->ItemType                   == REPORT_ITEM_TYPE_In))
+			(ReportItem->ItemType                   == HID_REPORT_ITEM_In))
 		{
 			/* Retrieve the keyboard scan-code from the report data retrieved from the device */
 			bool FoundData = USB_GetHIDReportItemInfo(KeyboardReport, ReportItem);

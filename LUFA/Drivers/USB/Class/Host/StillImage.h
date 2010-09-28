@@ -97,7 +97,7 @@
 				struct
 				{
 					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
-					                *   after \ref SImage_Host_ConfigurePipes() is called and the Host state machine is in the
+					                *   after \ref SI_Host_ConfigurePipes() is called and the Host state machine is in the
 					                *   Configured state.
 					                */
 
@@ -114,7 +114,7 @@
 			} USB_ClassInfo_SI_Host_t;
 	
 		/* Enums: */
-			/** Enum for the possible error codes returned by the \ref SImage_Host_ConfigurePipes() function. */
+			/** Enum for the possible error codes returned by the \ref SI_Host_ConfigurePipes() function. */
 			enum SIHost_EnumerationFailure_ErrorCodes_t
 			{
 				SI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
@@ -140,9 +140,9 @@
 			 *
 			 *  \return A value from the \ref SIHost_EnumerationFailure_ErrorCodes_t enum.
 			 */
-			uint8_t SImage_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-			                                   uint16_t ConfigDescriptorSize,
-			                                   void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
+			uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
+			                               uint16_t ConfigDescriptorSize,
+			                               void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Opens a new PIMA session with the attached device. This should be used before any session-orientated PIMA commands
 			 *  are issued to the device. Only one session can be open at the one time.
@@ -155,7 +155,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
 			 *          returned a logical command failure.
 			 */
-			uint8_t SImage_Host_OpenSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t SI_Host_OpenSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Closes an already opened PIMA session with the attached device. This should be used after all session-orientated
 			 *  PIMA commands have been issued to the device.
@@ -168,7 +168,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
 			 *          returned a logical command failure.
 			 */
-			uint8_t SImage_Host_CloseSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t SI_Host_CloseSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Sends a raw PIMA block header to the device, filling out the transaction ID automatically. This can be used to send
 			 *  arbitrary PIMA blocks to the device with or without parameters.
@@ -181,9 +181,9 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t SImage_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-			                                    SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
-			                                    ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t SI_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
+			                                SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
+			                                ATTR_NON_NULL_PTR_ARG(2);
 			
 			/** Receives a raw PIMA block header to the device. This can be used to receive arbitrary PIMA blocks from the device with
 			 *  or without parameters.
@@ -196,9 +196,9 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t SImage_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-			                                       SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
-			                                       ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t SI_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
+			                                   SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
+			                                   ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Sends a given PIMA command to the attached device, filling out the PIMA command header's Transaction ID automatically.
 			 *	
@@ -213,10 +213,10 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
 			 *          returned a logical command failure.
 			 */
-			uint8_t SImage_Host_SendCommand(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-			                                const uint16_t Operation,
-			                                const uint8_t TotalParams,
-			                                uint32_t* const Params) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t SI_Host_SendCommand(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
+			                            const uint16_t Operation,
+			                            const uint8_t TotalParams,
+			                            uint32_t* const Params) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Receives and checks a response block from the attached PIMA device, once a command has been issued and all data
 			 *  associated with the command has been transferred.
@@ -229,7 +229,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
 			 *          returned a logical command failure.
 			 */
-			uint8_t SImage_Host_ReceiveResponse(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			uint8_t SI_Host_ReceiveResponse(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Indicates if the device has issued a PIMA event block to the host via the asynchronous events pipe.
 			 *
@@ -240,7 +240,7 @@
 			 *
 			 *  \return Boolean true if an event is waiting to be read, false otherwise.
 			 */
-			bool SImage_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			bool SI_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Receives an asynchronous event block from the device via the asynchronous events pipe.
 			 *
@@ -253,9 +253,9 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum, or \ref SI_ERROR_LOGICAL_CMD_FAILED if the device
 			 *          returned a logical command failure.
 			 */
-			uint8_t SImage_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-			                                       SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
-			                                       ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t SI_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
+			                                   SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
+			                                   ATTR_NON_NULL_PTR_ARG(2);
 			
 			/** Sends arbitrary data to the attached device, for use in the data phase of PIMA commands which require data
 			 *  transfer beyond the regular PIMA command block parameters.
@@ -269,9 +269,9 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t SImage_Host_SendData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-			                             void* Buffer,
-			                             const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t SI_Host_SendData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
+			                         void* Buffer,
+			                         const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Receives arbitrary data from the attached device, for use in the data phase of PIMA commands which require data
 			 *  transfer beyond the regular PIMA command block parameters.
@@ -285,9 +285,9 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t SImage_Host_ReadData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-			                             void* Buffer,
-			                             const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t SI_Host_ReadData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
+			                         void* Buffer,
+			                         const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 		
 		/* Inline Functions: */
 			/** General management task for a given Still Image host class interface, required for the correct operation of the
@@ -296,8 +296,8 @@
 			 *
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
 			 */
-			static inline void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			static inline void SImage_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
+			static inline void SI_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
+			static inline void SI_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 			{
 				(void)SIInterfaceInfo;
 			}		

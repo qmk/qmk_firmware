@@ -194,9 +194,9 @@ void Mouse_HID_Task(void)
 			{
 				HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[i];
 				
-				uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_In];
-				uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Out];
-				uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[REPORT_ITEM_TYPE_Feature];
+				uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_In];
+				uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Out];
+				uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Feature];
 
 				/* Print out the byte sizes of each report within the device */
 				printf_P(PSTR("  + Report ID %d - In: %d bytes, Out: %d bytes, Feature: %d bytes\r\n"),
@@ -259,7 +259,7 @@ void ProcessMouseReport(uint8_t* MouseReport)
 		bool FoundData;
 
 		if ((ReportItem->Attributes.Usage.Page        == USAGE_PAGE_BUTTON) &&
-			(ReportItem->ItemType                     == REPORT_ITEM_TYPE_In))
+			(ReportItem->ItemType                     == HID_REPORT_ITEM_In))
 		{
 			/* Get the mouse button value */
 			FoundData = USB_GetHIDReportItemInfo(MouseReport, ReportItem);
@@ -274,7 +274,7 @@ void ProcessMouseReport(uint8_t* MouseReport)
 		}
 		else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
 				 (ReportItem->Attributes.Usage.Usage  == USAGE_SCROLL_WHEEL)       &&
-				 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
+				 (ReportItem->ItemType                == HID_REPORT_ITEM_In))
 		{
 			/* Get the mouse wheel value if it is contained within the current 
 			 * report, if not, skip to the next item in the parser list
@@ -290,7 +290,7 @@ void ProcessMouseReport(uint8_t* MouseReport)
 		else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
 				 ((ReportItem->Attributes.Usage.Usage == USAGE_X)                  ||
 				  (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
-				 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
+				 (ReportItem->ItemType                == HID_REPORT_ITEM_In))
 		{
 			/* Get the mouse relative position value */
 			FoundData = USB_GetHIDReportItemInfo(MouseReport, ReportItem);

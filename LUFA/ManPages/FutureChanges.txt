@@ -18,11 +18,11 @@
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Re-add interrupt Pipe/Endpoint support
+  *      -# Fix intermittent device mode enumeration errors
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews
   *      -# Write LUFA tutorials
-  *      -# Add makefile template
   *  - Demos/Projects
   *      -# Multiple-Report HID device
   *      -# Device/Host USB bridge
@@ -31,6 +31,7 @@
   *      -# Finish BluetoothHost demo
   *      -# Finish SideShow demo
   *      -# Finish StandaloneProgrammer project
+  *      -# Arduino Uno compatible USB-MIDI, USB-HID
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

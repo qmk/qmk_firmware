@@ -77,7 +77,7 @@ void RNDIS_Device_ProcessControlRequest(USB_ClassInfo_RNDIS_Device_t* const RNDI
 
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_SendEncapsulatedCommand:
+		case RNDIS_REQ_SendEncapsulatedCommand:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -88,7 +88,7 @@ void RNDIS_Device_ProcessControlRequest(USB_ClassInfo_RNDIS_Device_t* const RNDI
 			}
 			
 			break;
-		case REQ_GetEncapsulatedResponse:
+		case RNDIS_REQ_GetEncapsulatedResponse:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				RNDIS_Message_Header_t* MessageHeader = (RNDIS_Message_Header_t*)&RNDISInterfaceInfo->State.RNDISMessageBuffer;

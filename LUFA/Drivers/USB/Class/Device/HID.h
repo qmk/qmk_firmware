@@ -156,7 +156,7 @@
 			 *  \param[in,out] ReportID          If preset to a non-zero value, this is the report ID being requested by the host. If zero, 
 			 *                                   this should be set to the report ID of the generated HID input report (if any). If multiple
 			 *                                   reports are not sent via the given HID interface, this parameter should be ignored.
-			 *  \param[in]     ReportType        Type of HID report to generate, either \ref REPORT_ITEM_TYPE_In or \ref REPORT_ITEM_TYPE_Feature.
+			 *  \param[in]     ReportType        Type of HID report to generate, either \ref HID_REPORT_ITEM_In or \ref HID_REPORT_ITEM_Feature.
 			 *  \param[out]    ReportData        Pointer to a buffer where the generated HID report should be stored.
 			 *  \param[out]    ReportSize        Number of bytes in the generated input report, or zero if no report is to be sent.
 			 *
@@ -177,7 +177,7 @@
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
 			 *  \param[in]     ReportID          Report ID of the received output report. If multiple reports are not received via the given HID
 			 *                                   interface, this parameter should be ignored.
-			 *  \param[in]     ReportType        Type of received HID report, either \ref REPORT_ITEM_TYPE_Out or \ref REPORT_ITEM_TYPE_Feature.
+			 *  \param[in]     ReportType        Type of received HID report, either \ref HID_REPORT_ITEM_Out or \ref HID_REPORT_ITEM_Feature.
 			 *  \param[in]     ReportData        Pointer to a buffer where the received HID report is stored.
 			 *  \param[in]     ReportSize        Size in bytes of the received report from the host.
 			 */

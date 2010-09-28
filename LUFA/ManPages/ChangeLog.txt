@@ -42,6 +42,7 @@
   *    to free up the Start of Frame flag for interrupt use in the user application
   *  - All project makefiles now correctly clean intermediate build files from assembly and C++ sources (thanks to Daniel Czigany)
   *  - Removed the EVENT_USB_InitFailure() event, not specifying a USB mode now defaults to UID selection mode
+  *  - Renamed and moved class driver common constant definitions to make the naming scheme more uniform
   *
   *  <b>Fixed:</b>
   *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist

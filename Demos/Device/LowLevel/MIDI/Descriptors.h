@@ -42,14 +42,8 @@
 		#include <avr/pgmspace.h>
 
 	/* Macros: */
-		/** Descriptor header constant to indicate a Audio class interface descriptor. */
-		#define DTYPE_AudioInterface        0x24
-
-		/** Descriptor header constant to indicate a Audio class endpoint descriptor. */
-		#define DTYPE_AudioEndpoint         0x25
-
 		/** Audio class descriptor subtype value for a Audio class specific header descriptor. */
-		#define DSUBTYPE_Header             0x01
+		#define DSUBTYPE_AudioHeader        0x01
 
 		/** Audio class descriptor subtype value for a Audio class specific MIDI input jack descriptor. */
 		#define DSUBTYPE_InputJack          0x02

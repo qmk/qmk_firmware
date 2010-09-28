@@ -75,7 +75,7 @@
 		/** Additional error code for Mass Storage functions when a device returns a logical command failure. */
 		#define MASS_STORE_SCSI_COMMAND_FAILED      0xC0
 
-	/* Type defines: */
+	/* Type Defines: */
 		/** Type define for a Mass Storage class Command Block Wrapper, used to wrap SCSI
 		 *  commands for transport over the USB bulk endpoints to the device.
 		 */

@@ -53,7 +53,7 @@ USB_ClassInfo_HID_Host_t Mouse_HID_Interface =
 				.DataOUTPipeNumber      = 2,
 				.DataOUTPipeDoubleBank  = false,
 				
-				.HIDInterfaceProtocol   = HID_NON_BOOT_PROTOCOL,
+				.HIDInterfaceProtocol   = HID_BOOTP_NonBootProtocol,
 				
 				.HIDParserData          = &HIDReportInfo
 			},
@@ -138,14 +138,14 @@ int main(void)
 						
 						/* Determine what report item is being tested, process updated value as needed */
 						if ((ReportItem->Attributes.Usage.Page        == USAGE_PAGE_BUTTON) &&
-							(ReportItem->ItemType                     == REPORT_ITEM_TYPE_In))
+							(ReportItem->ItemType                     == HID_REPORT_ITEM_In))
 						{
 							if (ReportItem->Value)
 							  LEDMask = LEDS_ALL_LEDS;
 						}
 						else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
 								 (ReportItem->Attributes.Usage.Usage  == USAGE_SCROLL_WHEEL)       &&
-								 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
+								 (ReportItem->ItemType                == HID_REPORT_ITEM_In))
 						{
 							int16_t WheelDelta = HID_ALIGN_DATA(ReportItem, int16_t);
 							
@@ -155,7 +155,7 @@ int main(void)
 						else if ((ReportItem->Attributes.Usage.Page   == USAGE_PAGE_GENERIC_DCTRL) &&
 								 ((ReportItem->Attributes.Usage.Usage == USAGE_X)                  ||
 								  (ReportItem->Attributes.Usage.Usage == USAGE_Y))                 &&
-								 (ReportItem->ItemType                == REPORT_ITEM_TYPE_In))
+								 (ReportItem->ItemType                == HID_REPORT_ITEM_In))
 						{
 							int16_t DeltaMovement = HID_ALIGN_DATA(ReportItem, int16_t);
 							

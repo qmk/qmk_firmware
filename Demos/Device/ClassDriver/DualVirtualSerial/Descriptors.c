@@ -128,28 +128,29 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.CDC1_Functional_IntHeader = 
+	.CDC1_Functional_Header = 
 		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(2)), .Type = 0x24},
-			.SubType                = 0x00,
+			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalHeader_t), .Type = DTYPE_CSInterface},
+			.Subtype                = CDC_DSUBTYPE_CSInterface_Header,
 			
-			.Data                   = {0x01, 0x10}
+			.CDCSpecification       = VERSION_BCD(01.10),
 		},
 
-	.CDC1_Functional_AbstractControlManagement = 
+	.CDC1_Functional_ACM = 
 		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(1)), .Type = 0x24},
-			.SubType                = 0x02,
+			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalACM_t), .Type = DTYPE_CSInterface},
+			.Subtype                = CDC_DSUBTYPE_CSInterface_ACM,
 			
-			.Data                   = {0x06}
+			.Capabilities           = 0x06,
 		},
 		
 	.CDC1_Functional_Union = 
 		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(2)), .Type = 0x24},
-			.SubType                = 0x06,
+			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalUnion_t), .Type = DTYPE_CSInterface},
+			.Subtype                = CDC_DSUBTYPE_CSInterface_Union,
 			
-			.Data                   = {0x00, 0x01}
+			.MasterInterfaceNumber  = 0,
+			.SlaveInterfaceNumber   = 1,
 		},
 
 	.CDC1_ManagementEndpoint = 
@@ -228,28 +229,29 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.CDC2_Functional_IntHeader = 
+	.CDC2_Functional_Header = 
 		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(2)), .Type = 0x24},
-			.SubType                = 0x00,
+			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalHeader_t), .Type = DTYPE_CSInterface},
+			.Subtype                = CDC_DSUBTYPE_CSInterface_Header,
 			
-			.Data                   = {0x01, 0x10}
+			.CDCSpecification       = VERSION_BCD(01.10),
 		},
 
-	.CDC2_Functional_AbstractControlManagement = 
+	.CDC2_Functional_ACM = 
 		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(1)), .Type = 0x24},
-			.SubType                = 0x02,
+			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalACM_t), .Type = DTYPE_CSInterface},
+			.Subtype                = CDC_DSUBTYPE_CSInterface_ACM,
 			
-			.Data                   = {0x06}
+			.Capabilities           = 0x06,
 		},
 		
 	.CDC2_Functional_Union = 
 		{
-			.Header                 = {.Size = sizeof(CDC_FUNCTIONAL_DESCRIPTOR(2)), .Type = 0x24},
-			.SubType                = 0x06,
+			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalUnion_t), .Type = DTYPE_CSInterface},
+			.Subtype                = CDC_DSUBTYPE_CSInterface_Union,
 			
-			.Data                   = {0x02, 0x03}
+			.MasterInterfaceNumber  = 2,
+			.SlaveInterfaceNumber   = 3,
 		},
 
 	.CDC2_ManagementEndpoint = 

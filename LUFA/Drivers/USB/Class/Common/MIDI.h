@@ -70,18 +70,6 @@
 		#endif
 		
 	/* Macros: */
-		/** Audio class descriptor subtype value for a Audio class-specific MIDI input jack descriptor. */
-		#define DSUBTYPE_InputJack          0x02
-
-		/** Audio class descriptor subtype value for a Audio class-specific MIDI output jack descriptor. */
-		#define DSUBTYPE_OutputJack         0x03
-		
-		/** Audio class descriptor jack type value for an embedded (logical) MIDI input or output jack. */
-		#define MIDI_JACKTYPE_EMBEDDED      0x01
-
-		/** Audio class descriptor jack type value for an external (physical) MIDI input or output jack. */
-		#define MIDI_JACKTYPE_EXTERNAL      0x02
-
 		/** MIDI command for a note on (activation) event. */
 		#define MIDI_COMMAND_NOTE_ON        0x90
 
@@ -97,6 +85,13 @@
 		 *  \param[in] channel  MIDI channel number to address.
 		 */
 		#define MIDI_CHANNEL(channel)        ((channel) - 1)
+	
+	/* Enums: */
+		enum MIDI_JackTypes_t
+		{
+			MIDI_JACKTYPE_Embedded = 0x01, /**< MIDI class descriptor jack type value for an embedded (logical) MIDI input or output jack. */
+			MIDI_JACKTYPE_External = 0x02, /**< MIDI class descriptor jack type value for an external (physical) MIDI input or output jack. */
+		};
 		
 	/* Type Defines: */
 		/** \brief MIDI class-specific Streaming Interface Descriptor (LUFA naming conventions).
@@ -113,8 +108,8 @@
 			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 			
 			uint16_t                AudioSpecification; /**< Binary coded decimal value, indicating the supported Audio Class
-			                                               *   specification version.
-			                                               */
+			                                             *   specification version.
+			                                             */
 			uint16_t                TotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
 		} USB_MIDI_Descriptor_AudioInterface_AS_t;
 		
@@ -157,7 +152,6 @@
 			
 			uint8_t                 JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
 		} USB_MIDI_Descriptor_InputJack_t;
-
 
 		/** \brief MIDI class-specific Input Jack Descriptor (USB-IF naming conventions).
 		 *

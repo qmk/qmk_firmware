@@ -45,7 +45,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetReport:
+		case HID_REQ_GetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				uint16_t ReportSize = 0;
@@ -68,7 +68,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			}
 		
 			break;
-		case REQ_SetReport:
+		case HID_REQ_SetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				uint16_t ReportSize = USB_ControlRequest.wLength;
@@ -84,7 +84,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			}
 			
 			break;
-		case REQ_GetProtocol:
+		case HID_REQ_GetProtocol:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -94,7 +94,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			}
 			
 			break;
-		case REQ_SetProtocol:
+		case HID_REQ_SetProtocol:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -104,7 +104,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			}
 			
 			break;
-		case REQ_SetIdle:
+		case HID_REQ_SetIdle:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -114,7 +114,7 @@ void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInter
 			}
 			
 			break;
-		case REQ_GetIdle:
+		case HID_REQ_GetIdle:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{		
 				Endpoint_ClearSETUP();
@@ -158,7 +158,7 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 
 		memset(ReportINData, 0, sizeof(ReportINData));
 
-		bool ForceSend         = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, REPORT_ITEM_TYPE_In,
+		bool ForceSend         = CALLBACK_HID_Device_CreateHIDReport(HIDInterfaceInfo, &ReportID, HID_REPORT_ITEM_In,
 		                                                             ReportINData, &ReportINSize);
 		bool StatesChanged     = false;
 		bool IdlePeriodElapsed = (HIDInterfaceInfo->State.IdleCount && !(HIDInterfaceInfo->State.IdleMSRemaining));

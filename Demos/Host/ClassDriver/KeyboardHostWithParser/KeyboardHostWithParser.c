@@ -53,7 +53,7 @@ USB_ClassInfo_HID_Host_t Keyboard_HID_Interface =
 				.DataOUTPipeNumber      = 2,
 				.DataOUTPipeDoubleBank  = false,
 				
-				.HIDInterfaceProtocol   = HID_NON_BOOT_PROTOCOL,
+				.HIDInterfaceProtocol   = HID_BOOTP_NonBootProtocol,
 				
 				.HIDParserData          = &HIDReportInfo
 			},
@@ -138,7 +138,7 @@ int main(void)
 						if ((ReportItem->Attributes.Usage.Page      == USAGE_PAGE_KEYBOARD) &&
 							(ReportItem->Attributes.BitSize         == 8)                   &&
 							(ReportItem->Attributes.Logical.Maximum > 1)                    &&
-							(ReportItem->ItemType                   == REPORT_ITEM_TYPE_In))
+							(ReportItem->ItemType                   == HID_REPORT_ITEM_In))
 						{
 							/* Key code is an unsigned char in length, cast to the appropriate type */
 							uint8_t KeyCode = (uint8_t)ReportItem->Value;

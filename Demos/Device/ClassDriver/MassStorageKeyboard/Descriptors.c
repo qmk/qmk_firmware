@@ -188,19 +188,19 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 				
 			.Class                  = 0x03,
 			.SubClass               = 0x01,
-			.Protocol               = 0x01,
+			.Protocol               = HID_BOOTP_KeyboardBootProtocol,
 				
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
 	.HID_KeyboardHID = 
 		{  
-			.Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = DTYPE_HID},
+			.Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
 			
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
 			.TotalReportDescriptors = 1,
-			.HIDReportType          = DTYPE_Report,
+			.HIDReportType          = HID_DTYPE_Report,
 			.HIDReportLength        = sizeof(KeyboardReport)
 		},
 		
@@ -292,11 +292,11 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			}
 			
 			break;
-		case DTYPE_HID:
+		case HID_DTYPE_HID:
 			Address = &ConfigurationDescriptor.HID_KeyboardHID;
 			Size    = sizeof(USB_HID_Descriptor_HID_t);
 			break;
-		case DTYPE_Report:
+		case HID_DTYPE_Report:
 			Address = &KeyboardReport;
 			Size    = sizeof(KeyboardReport);
 			break;

@@ -32,6 +32,8 @@
  *      replace all references to the obsolete function name with the new function name.
  *    - The names of the class specific descriptor type defines in the USB Class drivers have changed - refer to the driver documentation
  *      for each class driver for the new class specific descriptor type names.
+ *    - The Still Image Host class' function prefix has been changed from "SImage_" to "SI_", to remain consistent with the rest of the
+ *      driver's enums, type defines and constants.
  *
  * \section Sec_Migration100807 Migrating from 100513 to 100807
  *
@@ -120,7 +122,7 @@
  *
  *  <b>Host Mode</b>
  *    - The Still Image Host Class driver SI_Host_USBTask() and SI_Host_ConfigurePipes() functions were misnamed, and are
- *      now named \ref SImage_Host_USBTask() and \ref SImage_Host_ConfigurePipes() respectively.
+ *      now named SImage_Host_USBTask() and SImage_Host_ConfigurePipes() respectively.
  *    - The HOST_SENDCONTROL_DeviceDisconnect enum value has been renamed to \ref HOST_SENDCONTROL_DeviceDisconnected to be in
  *      line with the rest of the library error codes.
  *    - The HID Parser item usages no longer contain separate minimum and maximum values, as this was a violation of the HID

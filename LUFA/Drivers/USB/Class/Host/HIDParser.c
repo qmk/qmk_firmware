@@ -244,11 +244,11 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 					uint8_t ItemTag = (HIDReportItem & TAG_MASK);
 
 					if (ItemTag == TAG_MAIN_INPUT)
-					  NewReportItem.ItemType = REPORT_ITEM_TYPE_In;
+					  NewReportItem.ItemType = HID_REPORT_ITEM_In;
 					else if (ItemTag == TAG_MAIN_OUTPUT)
-					  NewReportItem.ItemType = REPORT_ITEM_TYPE_Out;
+					  NewReportItem.ItemType = HID_REPORT_ITEM_Out;
 					else
-					  NewReportItem.ItemType = REPORT_ITEM_TYPE_Feature;
+					  NewReportItem.ItemType = HID_REPORT_ITEM_Feature;
 					
 					NewReportItem.BitOffset = CurrReportIDInfo->ReportSizeBits[NewReportItem.ItemType];
 

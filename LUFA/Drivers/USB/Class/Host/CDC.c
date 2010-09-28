@@ -212,7 +212,7 @@ void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 		USB_Request_Header_t Notification;
 		Pipe_Read_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NO_STREAM_CALLBACK);
 		
-		if ((Notification.bRequest      == NOTIF_SerialState) &&
+		if ((Notification.bRequest      == CDC_NOTIF_SerialState) &&
 		    (Notification.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE)))
 		{
 			Pipe_Read_Stream_LE(&CDCInterfaceInfo->State.ControlLineStates.DeviceToHost,
@@ -239,7 +239,7 @@ uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInf
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
 		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-		.bRequest      = REQ_SetLineEncoding,
+		.bRequest      = CDC_REQ_SetLineEncoding,
 		.wValue        = 0,
 		.wIndex        = CDCInterfaceInfo->State.ControlInterfaceNumber,
 		.wLength       = sizeof(CDCInterfaceInfo->State.LineEncoding),
@@ -255,7 +255,7 @@ uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* const CDCI
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
 		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-		.bRequest      = REQ_SetControlLineState,
+		.bRequest      = CDC_REQ_SetControlLineState,
 		.wValue        = CDCInterfaceInfo->State.ControlLineStates.HostToDevice,
 		.wIndex        = CDCInterfaceInfo->State.ControlInterfaceNumber,
 		.wLength       = 0,
@@ -272,7 +272,7 @@ uint8_t CDC_Host_SendBreak(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 	USB_ControlRequest = (USB_Request_Header_t)
 	{
 		.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-		.bRequest      = REQ_SendBreak,
+		.bRequest      = CDC_REQ_SendBreak,
 		.wValue        = Duration,
 		.wIndex        = CDCInterfaceInfo->State.ControlInterfaceNumber,
 		.wLength       = 0,

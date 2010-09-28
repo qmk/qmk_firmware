@@ -92,9 +92,8 @@
 					bool     DataOUTPipeDoubleBank; /**< Indicates if the HID interface's OUT data pipe should use double banking. */
 
 					uint8_t  HIDInterfaceProtocol; /**< HID interface protocol value to match against if a specific
-					                                *   boot subclass protocol is required, either \ref HID_BOOT_MOUSE_PROTOCOL,
-													*   \ref HID_BOOT_KEYBOARD_PROTOCOL or \ref HID_NON_BOOT_PROTOCOL if any
-													*   HID device should be enumerated by the interface.
+					                                *   boot subclass protocol is required, a value from the \ref HID_BootProtocols_t
+					                                *   enum.
 					                                */
 					#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 					HID_ReportInfo_t* HIDParserData; /**< HID parser data to store the parsed HID report data, when boot protocol
@@ -212,7 +211,7 @@
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state.
 			 *  \param[in]     ReportID          Report ID of the report to send to the device, or 0 if the device does not use report IDs.
-			 *  \param[in]     ReportType        Type of report to issue to the device, either \ref REPORT_ITEM_TYPE_Out or \ref REPORT_ITEM_TYPE_Feature.
+			 *  \param[in]     ReportType        Type of report to issue to the device, either \ref HID_REPORT_ITEM_Out or \ref HID_REPORT_ITEM_Feature.
 			 *  \param[in]     Buffer            Buffer containing the report to send to the attached device.
 			 *  \param[in]     ReportSize        Report size in bytes to send to the attached device.
 			 *

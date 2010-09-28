@@ -202,7 +202,7 @@ static uint8_t RNDIS_SendEncapsulatedCommand(USB_ClassInfo_RNDIS_Host_t* const R
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SendEncapsulatedCommand,
+			.bRequest      = RNDIS_REQ_SendEncapsulatedCommand,
 			.wValue        = 0,
 			.wIndex        = RNDISInterfaceInfo->State.ControlInterfaceNumber,
 			.wLength       = Length,
@@ -219,7 +219,7 @@ static uint8_t RNDIS_GetEncapsulatedResponse(USB_ClassInfo_RNDIS_Host_t* const R
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_GetEncapsulatedResponse,
+			.bRequest      = RNDIS_REQ_GetEncapsulatedResponse,
 			.wValue        = 0,
 			.wIndex        = RNDISInterfaceInfo->State.ControlInterfaceNumber,
 			.wLength       = Length,
