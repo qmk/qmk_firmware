@@ -139,7 +139,7 @@
 			
 		/* Enums: */
 			/** Enum for the possible error codes returned by the \ref CDC_Host_ConfigurePipes() function. */
-			enum CDCHost_EnumerationFailure_ErrorCodes_t
+			enum CDC_Host_EnumerationFailure_ErrorCodes_t
 			{
 				CDC_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				CDC_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
@@ -165,7 +165,7 @@
 			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
 			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor.
 			 *
-			 *  \return A value from the \ref CDCHost_EnumerationFailure_ErrorCodes_t enum.
+			 *  \return A value from the \ref CDC_Host_EnumerationFailure_ErrorCodes_t enum.
 			 */
 			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 			                                uint16_t ConfigDescriptorSize,

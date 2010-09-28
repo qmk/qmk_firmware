@@ -104,7 +104,7 @@
 			
 		/* Enums: */
 			/** Enum for the possible error codes returned by the \ref MIDI_Host_ConfigurePipes() function. */
-			enum MIDIHost_EnumerationFailure_ErrorCodes_t
+			enum MIDI_Host_EnumerationFailure_ErrorCodes_t
 			{
 				MIDI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				MIDI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
@@ -123,7 +123,7 @@
 			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
 			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor.
 			 *
-			 *  \return A value from the \ref MIDIHost_EnumerationFailure_ErrorCodes_t enum.
+			 *  \return A value from the \ref MIDI_Host_EnumerationFailure_ErrorCodes_t enum.
 			 */
 			uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo,
 			                                 uint16_t ConfigDescriptorSize,

@@ -122,11 +122,11 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Subtype                  = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
 		
 			.TerminalID               = 0x01,
-			.TerminalType             = TERMINAL_STREAMING,
+			.TerminalType             = AUDIO_TERMINAL_STREAMING,
 			.AssociatedOutputTerminal = 0x00,
 			
 			.TotalChannels            = 2,
-			.ChannelConfig            = (CHANNEL_LEFT_FRONT | CHANNEL_RIGHT_FRONT),
+			.ChannelConfig            = (AUDIO_CHANNEL_LEFT_FRONT | AUDIO_CHANNEL_RIGHT_FRONT),
 			
 			.ChannelStrIndex          = NO_DESCRIPTOR,
 			.TerminalStrIndex         = NO_DESCRIPTOR
@@ -138,7 +138,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Subtype                  = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
 		
 			.TerminalID               = 0x02,
-			.TerminalType             = TERMINAL_OUT_SPEAKER,
+			.TerminalType             = AUDIO_TERMINAL_OUT_SPEAKER,
 			.AssociatedInputTerminal  = 0x00,
 			
 			.SourceID                 = 0x01,
@@ -225,7 +225,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Spc_t), .Type = DTYPE_CSEndpoint},
 			.Subtype                  = AUDIO_DSUBTYPE_CSEndpoint_General,
 			
-			.Attributes               = EP_ACCEPTS_SMALL_PACKETS,
+			.Attributes               = AUDIO_EP_ACCEPTS_SMALL_PACKETS,
 			
 			.LockDelayUnits           = 0x00,
 			.LockDelay                = 0x0000

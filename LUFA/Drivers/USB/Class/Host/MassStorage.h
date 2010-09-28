@@ -122,7 +122,7 @@
 			} SCSI_Capacity_t;
 
 		/* Enums: */
-			enum MSHost_EnumerationFailure_ErrorCodes_t
+			enum MS_Host_EnumerationFailure_ErrorCodes_t
 			{
 				MS_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				MS_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
@@ -141,7 +141,7 @@
 			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
 			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor.
 			 *
-			 *  \return A value from the \ref MSHost_EnumerationFailure_ErrorCodes_t enum.
+			 *  \return A value from the \ref MS_Host_EnumerationFailure_ErrorCodes_t enum.
 			 */
 			uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 			                               uint16_t ConfigDescriptorSize,

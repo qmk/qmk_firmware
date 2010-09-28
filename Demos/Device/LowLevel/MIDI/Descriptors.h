@@ -79,7 +79,7 @@
 			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length */
 			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class specific descriptors */
 
-			uint16_t                  ACSpecification; /**< Binary coded decimal value, indicating the supported Audio Class specification version */
+			uint16_t                  AudioSpecification; /**< Binary coded decimal value, indicating the supported Audio Class specification version */
 			uint16_t                  TotalLength; /**< Total length of the Audio class specific control descriptors, including this descriptor */
 			
 			uint8_t                   InCollection; /**< Total number of audio class interfaces within this device */

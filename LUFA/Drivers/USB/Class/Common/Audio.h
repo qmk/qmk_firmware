@@ -74,140 +74,140 @@
 		#endif
 		
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_LEFT_FRONT           (1 << 0)
+		#define AUDIO_CHANNEL_LEFT_FRONT           (1 << 0)
 
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_RIGHT_FRONT          (1 << 1)
+		#define AUDIO_CHANNEL_RIGHT_FRONT          (1 << 1)
 
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_CENTER_FRONT         (1 << 2)
+		#define AUDIO_CHANNEL_CENTER_FRONT         (1 << 2)
 
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_LOW_FREQ_ENHANCE     (1 << 3)
+		#define AUDIO_CHANNEL_LOW_FREQ_ENHANCE     (1 << 3)
 
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_LEFT_SURROUND        (1 << 4)
+		#define AUDIO_CHANNEL_LEFT_SURROUND        (1 << 4)
 
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_RIGHT_SURROUND       (1 << 5)
+		#define AUDIO_CHANNEL_RIGHT_SURROUND       (1 << 5)
 
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_LEFT_OF_CENTER       (1 << 6)
+		#define AUDIO_CHANNEL_LEFT_OF_CENTER       (1 << 6)
 
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_RIGHT_OF_CENTER      (1 << 7)
+		#define AUDIO_CHANNEL_RIGHT_OF_CENTER      (1 << 7)
 
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_SURROUND             (1 << 8)
+		#define AUDIO_CHANNEL_SURROUND             (1 << 8)
 
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_SIDE_LEFT            (1 << 9)
+		#define AUDIO_CHANNEL_SIDE_LEFT            (1 << 9)
 
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_SIDE_RIGHT           (1 << 10)
+		#define AUDIO_CHANNEL_SIDE_RIGHT           (1 << 10)
 
 		/** Supported channel mask for an Audio class terminal descriptor. See the Audio class specification for more details. */
-		#define CHANNEL_TOP                  (1 << 11)
+		#define AUDIO_CHANNEL_TOP                  (1 << 11)
 
 		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
-		#define FEATURE_MUTE                 (1 << 0)
+		#define AUDIO_FEATURE_MUTE                 (1 << 0)
 
 		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
-		#define FEATURE_VOLUME               (1 << 1)
+		#define AUDIO_FEATURE_VOLUME               (1 << 1)
 
 		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
-		#define FEATURE_BASS                 (1 << 2)
+		#define AUDIO_FEATURE_BASS                 (1 << 2)
 
 		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
-		#define FEATURE_MID                  (1 << 3)
+		#define AUDIO_FEATURE_MID                  (1 << 3)
 
 		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
-		#define FEATURE_TREBLE               (1 << 4)
+		#define AUDIO_FEATURE_TREBLE               (1 << 4)
 
 		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
-		#define FEATURE_GRAPHIC_EQUALIZER    (1 << 5)
+		#define AUDIO_FEATURE_GRAPHIC_EQUALIZER    (1 << 5)
 
 		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
-		#define FEATURE_AUTOMATIC_GAIN       (1 << 6)
+		#define AUDIO_FEATURE_AUTOMATIC_GAIN       (1 << 6)
 
 		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
-		#define FEATURE_DELAY                (1 << 7)
+		#define AUDIO_FEATURE_DELAY                (1 << 7)
 
 		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
-		#define FEATURE_BASS_BOOST           (1 << 8)
+		#define AUDIO_FEATURE_BASS_BOOST           (1 << 8)
 
 		/** Supported feature mask for an Audio class feature unit descriptor. See the Audio class specification for more details. */
-		#define FEATURE_BASS_LOUDNESS        (1 << 9)
+		#define AUDIO_FEATURE_BASS_LOUDNESS        (1 << 9)
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_UNDEFINED           0x0100
+		#define AUDIO_TERMINAL_UNDEFINED           0x0100
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_STREAMING           0x0101
+		#define AUDIO_TERMINAL_STREAMING           0x0101
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_VENDOR              0x01FF
+		#define AUDIO_TERMINAL_VENDOR              0x01FF
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_IN_UNDEFINED        0x0200
+		#define AUDIO_TERMINAL_IN_UNDEFINED        0x0200
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_IN_MIC              0x0201
+		#define AUDIO_TERMINAL_IN_MIC              0x0201
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_IN_DESKTOP_MIC      0x0202
+		#define AUDIO_TERMINAL_IN_DESKTOP_MIC      0x0202
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_IN_PERSONAL_MIC     0x0203
+		#define AUDIO_TERMINAL_IN_PERSONAL_MIC     0x0203
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_IN_OMNIDIR_MIC      0x0204
+		#define AUDIO_TERMINAL_IN_OMNIDIR_MIC      0x0204
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_IN_MIC_ARRAY        0x0205
+		#define AUDIO_TERMINAL_IN_MIC_ARRAY        0x0205
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_IN_PROCESSING_MIC   0x0206
+		#define AUDIO_TERMINAL_IN_PROCESSING_MIC   0x0206
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_IN_OUT_UNDEFINED    0x0300
+		#define AUDIO_TERMINAL_IN_OUT_UNDEFINED    0x0300
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_OUT_SPEAKER         0x0301
+		#define AUDIO_TERMINAL_OUT_SPEAKER         0x0301
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_OUT_HEADPHONES      0x0302
+		#define AUDIO_TERMINAL_OUT_HEADPHONES      0x0302
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_OUT_HEAD_MOUNTED    0x0303
+		#define AUDIO_TERMINAL_OUT_HEAD_MOUNTED    0x0303
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_OUT_DESKTOP         0x0304
+		#define AUDIO_TERMINAL_OUT_DESKTOP         0x0304
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_OUT_ROOM            0x0305
+		#define AUDIO_TERMINAL_OUT_ROOM            0x0305
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_OUT_COMMUNICATION   0x0306
+		#define AUDIO_TERMINAL_OUT_COMMUNICATION   0x0306
 
 		/** Terminal type constant for an Audio class terminal descriptor. See the Audio class specification for more details. */		
-		#define TERMINAL_OUT_LOWFREQ         0x0307
+		#define AUDIO_TERMINAL_OUT_LOWFREQ         0x0307
 
-		/** Convenience macro, to fill a 24-bit AudioSampleFreq_t structure with the given sample rate as a 24-bit number.
+		/** Convenience macro to fill a 24-bit \ref USB_Audio_SampleFreq_t structure with the given sample rate as a 24-bit number.
 		 *
 		 *  \param[in] freq  Required audio sampling frequency in HZ
 		 */
-		#define AUDIO_SAMPLE_FREQ(freq)      {LowWord: ((uint32_t)freq & 0x00FFFF), HighByte: (((uint32_t)freq >> 16) & 0x0000FF)}
+		#define AUDIO_SAMPLE_FREQ(freq)           {((uint32_t)freq & 0x00FFFF), (((uint32_t)freq >> 16) & 0x0000FF)}
 		
 		/** Mask for the attributes parameter of an Audio class-specific Endpoint descriptor, indicating that the endpoint
 		 *  accepts only filled endpoint packets of audio samples.
 		 */
-		#define EP_ACCEPTS_ONLY_FULL_PACKETS (1 << 7)
+		#define AUDIO_EP_FULL_PACKETS_ONLY        (1 << 7)
 
 		/** Mask for the attributes parameter of an Audio class-specific Endpoint descriptor, indicating that the endpoint
 		 *  will accept partially filled endpoint packets of audio samples.
 		 */
-		#define EP_ACCEPTS_SMALL_PACKETS     (0 << 7)
+		#define AUDIO_EP_ACCEPTS_SMALL_PACKETS    (0 << 7)
 	
 	/* Enums: */
 		/** Audio class specific interface description subtypes, for the Audio Control interface. */

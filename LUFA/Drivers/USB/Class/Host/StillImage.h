@@ -115,7 +115,7 @@
 	
 		/* Enums: */
 			/** Enum for the possible error codes returned by the \ref SI_Host_ConfigurePipes() function. */
-			enum SIHost_EnumerationFailure_ErrorCodes_t
+			enum SI_Host_EnumerationFailure_ErrorCodes_t
 			{
 				SI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				SI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
@@ -138,7 +138,7 @@
 			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
 			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor.
 			 *
-			 *  \return A value from the \ref SIHost_EnumerationFailure_ErrorCodes_t enum.
+			 *  \return A value from the \ref SI_Host_EnumerationFailure_ErrorCodes_t enum.
 			 */
 			uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 			                               uint16_t ConfigDescriptorSize,

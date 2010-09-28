@@ -135,7 +135,7 @@
 
 		/* Enums: */
 			/** Enum for the possible error codes returned by the \ref HID_Host_ConfigurePipes() function. */
-			enum HIDHost_EnumerationFailure_ErrorCodes_t
+			enum HID_Host_EnumerationFailure_ErrorCodes_t
 			{
 				HID_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				HID_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
@@ -158,7 +158,7 @@
 			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
 			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor.
 			 *
-			 *  \return A value from the \ref HIDHost_EnumerationFailure_ErrorCodes_t enum.
+			 *  \return A value from the \ref HID_Host_EnumerationFailure_ErrorCodes_t enum.
 			 */
 			uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 			                                uint16_t ConfigDescriptorSize,

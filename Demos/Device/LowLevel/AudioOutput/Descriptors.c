@@ -46,7 +46,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 		
-	.USBSpecification       = VERSION_BCD(02.00),
+	.USBSpecification       = VERSION_BCD(01.10),
 	.Class                  = 0x00,
 	.SubClass               = 0x00,
 	.Protocol               = 0x00,

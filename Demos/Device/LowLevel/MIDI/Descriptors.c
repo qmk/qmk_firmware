@@ -107,7 +107,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.Header                   = {.Size = sizeof(USB_Audio_Interface_AC_t), .Type = DTYPE_CSInterface},
 			.Subtype                  = DSUBTYPE_AudioHeader,
 			
-			.ACSpecification          = VERSION_BCD(01.00),
+			.AudioSpecification       = VERSION_BCD(01.00),
 			.TotalLength              = sizeof(USB_Audio_Interface_AC_t),
 			
 			.InCollection             = 1,

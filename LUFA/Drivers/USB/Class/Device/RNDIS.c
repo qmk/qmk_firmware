@@ -152,7 +152,7 @@ void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo
 		USB_Request_Header_t Notification = (USB_Request_Header_t)
 			{
 				.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-				.bRequest      = NOTIF_ResponseAvailable,
+				.bRequest      = RNDIS_NOTIF_ResponseAvailable,
 				.wValue        = 0,
 				.wIndex        = 0,
 				.wLength       = 0,

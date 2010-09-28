@@ -83,9 +83,6 @@
 		/** Maximum size in bytes of an Ethernet frame according to the Ethernet standard. */
 		#define ETHERNET_FRAME_SIZE_MAX               1500
 		
-		/** Notification request value for a RNDIS Response Available notification. */
-		#define NOTIF_ResponseAvailable               1
-		
 	/* Enums: */
 		/** Enum for the RNDIS class specific control requests that can be issued by the USB bus host. */
 		enum RNDIS_ClassRequests_t
@@ -100,6 +97,12 @@
 			RNDIS_Uninitialized    = 0, /**< Adapter currently uninitialized. */
 			RNDIS_Initialized      = 1, /**< Adapter currently initialized but not ready for data transfers. */
 			RNDIS_Data_Initialized = 2, /**< Adapter currently initialized and ready for data transfers. */
+		};
+
+		/** Enum for the RNDIS class specific notification requests that can be issued by a RNDIS device to a host. */
+		enum RNDIS_ClassNotifications_t
+		{
+			RNDIS_NOTIF_ResponseAvailable             = 0x01, /**< Notification request value for a RNDIS Response Available notification. */
 		};
 
 		/** Enum for the NDIS hardware states. */
