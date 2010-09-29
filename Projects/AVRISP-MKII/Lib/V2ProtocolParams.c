@@ -72,7 +72,7 @@ static ParameterItem_t ParameterTable[] =
 
 		{ .ParamID          = PARAM_RESET_POLARITY,
 		  .ParamPrivileges  = PARAM_PRIV_WRITE,
-		  .ParamValue       = 0x00                               },
+		  .ParamValue       = 0x01                               },
 
 		{ .ParamID          = PARAM_STATUS_TGT_CONN,
 		  .ParamPrivileges  = PARAM_PRIV_READ,

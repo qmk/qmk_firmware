@@ -216,7 +216,9 @@ void ISPTarget_ChangeTargetResetLine(const bool ResetTarget)
 		AUX_LINE_DDR |= AUX_LINE_MASK;
 		
 		if (!(V2Params_GetParameterValue(PARAM_RESET_POLARITY)))
-		  AUX_LINE_PORT |= AUX_LINE_MASK;
+		  AUX_LINE_PORT |=  AUX_LINE_MASK;
+		else
+		  AUX_LINE_PORT &= ~AUX_LINE_MASK;
 	}
 	else
 	{

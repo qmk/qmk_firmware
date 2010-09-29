@@ -223,7 +223,13 @@
 			{
 				UDADDR  = ((UDADDR & (1 << ADDEN)) | (Address & 0x7F));
 				UDADDR |= (1 << ADDEN);
-			}			
+			}
+
+			static inline bool USB_Device_IsAddressSet(void) ATTR_ALWAYS_INLINE;
+			static inline bool USB_Device_IsAddressSet(void)
+			{
+				return (UDADDR & (1 << ADDEN));
+			}
 	#endif
 
 #endif

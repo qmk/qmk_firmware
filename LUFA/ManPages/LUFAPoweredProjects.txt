@@ -38,7 +38,7 @@
  *  - Arcade Controller: http://fletchtronics.net/arcade-controller-made-petunia
  *  - AVR USB Modem, a 3G Wireless Modem host: http://code.google.com/p/avrusbmodem/
  *  - Bicycle POV: http://www.code.google.com/p/bicycleledpov/
- *  - BusNinja, an AVR clone of the popular BusPirate project: http://blog.hodgepig.org/busninja/
+ *  - Bus Ninja, an AVR clone of the popular BusPirate project: http://blog.hodgepig.org/busninja/
  *  - CAMTRIG, a remote Camera Trigger device: http://code.astraw.com/projects/motmot/camtrig
  *  - CD Driver Emulator Dongle for ISO Files: http://cdemu.blogspot.com/
  *  - ClockTamer, a configurable clock generator: http://code.google.com/p/clock-tamer/

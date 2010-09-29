@@ -191,7 +191,10 @@ static void USB_Device_SetConfiguration(void)
 
 	Endpoint_ClearStatusStage();
 
-	USB_DeviceState = (USB_ConfigurationNumber) ? DEVICE_STATE_Configured : DEVICE_STATE_Addressed;
+	if (USB_ConfigurationNumber)
+	  USB_DeviceState = DEVICE_STATE_Configured;
+	else
+	  USB_DeviceState = (USB_Device_IsAddressSet()) ? DEVICE_STATE_Configured : DEVICE_STATE_Powered;
 
 	EVENT_USB_Device_ConfigurationChanged();
 }
