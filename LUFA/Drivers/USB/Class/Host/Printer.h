@@ -109,8 +109,7 @@
 			{
 				PRNT_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				PRNT_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
-				PRNT_ENUMERROR_NoPrinterInterfaceFound    = 2, /**< A compatible Printer interface was not found in the device's Configuration Descriptor. */
-				PRNT_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible Printer endpoints were not found in the device's interfaces. */
+				PRNT_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible Printer interface was not found in the device's Configuration Descriptor. */
 			};
 	
 		/* Function Prototypes: */
@@ -127,6 +126,10 @@
 			 *  instance's state values and configures the pipes required to communicate with the interface if it is found within
 			 *  the device. This should be called once after the stack has enumerated the attached device, while the host state
 			 *  machine is in the Addressed state.
+			 *
+			 *  \note The pipe index numbers as given in the interface's configuration structure must not overlap with any other
+			 *        interface, or pipe bank corruption will occur. Gaps in the allocated pipe numbers or non-sequential indexes
+			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved pipe indexes.
 			 *
 			 *  \param[in,out] PRNTInterfaceInfo       Pointer to a structure containing a Printer Class host configuration and state.
 			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
@@ -265,9 +268,6 @@
 			#define REQ_GetDeviceID                0
 			#define REQ_GetPortStatus              1
 			#define REQ_SoftReset                  2
-		
-			#define PRNT_FOUND_DATAPIPE_IN         (1 << 0)
-			#define PRNT_FOUND_DATAPIPE_OUT        (1 << 1)
 			
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_PRINTER_CLASS_HOST_C)		

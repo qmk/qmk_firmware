@@ -96,10 +96,11 @@
 				           */
 				struct
 				{
-					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
-					                *   after \ref SI_Host_ConfigurePipes() is called and the Host state machine is in the
-					                *   Configured state.
-					                */
+					bool     IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
+					                    *   after \ref SI_Host_ConfigurePipes() is called and the Host state machine is in the
+					                    *   Configured state.
+					                    */
+					uint8_t  InterfaceNumber; /**< Interface index of the Mass Storage interface within the attached device. */
 
 					uint16_t DataINPipeSize; /**< Size in bytes of the Still Image interface's IN data pipe. */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the Still Image interface's OUT data pipe. */
@@ -119,11 +120,8 @@
 			{
 				SI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				SI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
-				SI_ENUMERROR_NoSIInterfaceFound         = 2, /**< A compatible Still Image interface was not found in the device's
+				SI_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible Still Image interface was not found in the device's
 				                                              *   Configuration Descriptor.
-				                                              */
-				SI_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible Still Image data endpoints were not found in the
-				                                              *   device's Still Image interface.
 				                                              */
 			};
 
@@ -134,15 +132,19 @@
 			 *  found within the device. This should be called once after the stack has enumerated the attached device, while
 			 *  the host state machine is in the Addressed state.
 			 *
-			 *  \param[in,out] SIInterfaceInfo         Pointer to a structure containing a Still Image Class host configuration and state.
-			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
-			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor.
+			 *  \note The pipe index numbers as given in the interface's configuration structure must not overlap with any other
+			 *        interface, or pipe bank corruption will occur. Gaps in the allocated pipe numbers or non-sequential indexes
+			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved pipe indexes.
+			 *
+			 *  \param[in,out] SIInterfaceInfo       Pointer to a structure containing a Still Image Class host configuration and state.
+			 *  \param[in]     ConfigDescriptorSize  Length of the attached device's Configuration Descriptor.
+			 *  \param[in]     ConfigDescriptorData  Pointer to a buffer containing the attached device's Configuration Descriptor.
 			 *
 			 *  \return A value from the \ref SI_Host_EnumerationFailure_ErrorCodes_t enum.
 			 */
 			uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 			                               uint16_t ConfigDescriptorSize,
-			                               void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
+			                               void* ConfigDescriptorData) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Opens a new PIMA session with the attached device. This should be used before any session-orientated PIMA commands
 			 *  are issued to the device. Only one session can be open at the one time.
@@ -308,10 +310,6 @@
 			#define STILL_IMAGE_CLASS              0x06
 			#define STILL_IMAGE_SUBCLASS           0x01
 			#define STILL_IMAGE_PROTOCOL           0x01
-
-			#define SI_FOUND_EVENTS_IN             (1 << 0)
-			#define SI_FOUND_DATAPIPE_IN           (1 << 1)
-			#define SI_FOUND_DATAPIPE_OUT          (1 << 2)
 
 			#define COMMAND_DATA_TIMEOUT_MS        10000
 		

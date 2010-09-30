@@ -40,8 +40,9 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
                                  uint16_t ConfigDescriptorSize,
 							     void* DeviceConfigDescriptor)
 {
-	uint8_t FoundEndpoints = 0;
-	
+	USB_Descriptor_Endpoint_t*  DataINEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint = NULL;
+
 	memset(&PRNTInterfaceInfo->State, 0x00, sizeof(PRNTInterfaceInfo->State));
 
 	if (DESCRIPTOR_TYPE(DeviceConfigDescriptor) != DTYPE_Configuration)
@@ -50,45 +51,66 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
 	                              DCOMP_PRNT_NextPRNTInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
-		return PRNT_ENUMERROR_NoPrinterInterfaceFound;
+		return PRNT_ENUMERROR_NoCompatibleInterfaceFound;
 	}
 
-	USB_Descriptor_Interface_t* PrinterInterface = DESCRIPTOR_PCAST(DeviceConfigDescriptor, USB_Descriptor_Interface_t);
-
-	PRNTInterfaceInfo->State.InterfaceNumber  = PrinterInterface->InterfaceNumber;
-	PRNTInterfaceInfo->State.AlternateSetting = PrinterInterface->AlternateSetting;
+	PRNTInterfaceInfo->State.InterfaceNumber  = DESCRIPTOR_PCAST(DeviceConfigDescriptor,
+	                                                             USB_Descriptor_Interface_t)->InterfaceNumber;
+	PRNTInterfaceInfo->State.AlternateSetting = DESCRIPTOR_PCAST(DeviceConfigDescriptor,
+	                                                             USB_Descriptor_Interface_t)->AlternateSetting;
 	
-	while (FoundEndpoints != (PRNT_FOUND_DATAPIPE_IN | PRNT_FOUND_DATAPIPE_OUT))
+	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
 		                              DCOMP_PRNT_NextPRNTInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			return PRNT_ENUMERROR_EndpointsNotFound;
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
+
+			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
+										  DCOMP_PRNT_NextPRNTInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				return PRNT_ENUMERROR_NoCompatibleInterfaceFound;
+			}
+			
+			PRNTInterfaceInfo->State.InterfaceNumber  = DESCRIPTOR_PCAST(DeviceConfigDescriptor,
+			                                                             USB_Descriptor_Interface_t)->InterfaceNumber;
+			PRNTInterfaceInfo->State.AlternateSetting = DESCRIPTOR_PCAST(DeviceConfigDescriptor,
+			                                                             USB_Descriptor_Interface_t)->AlternateSetting;	
+
+			continue;
 		}
 		
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(DeviceConfigDescriptor, USB_Descriptor_Endpoint_t);
 
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		{
-			Pipe_ConfigurePipe(PRNTInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
-			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PRNTInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			PRNTInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
-
-			FoundEndpoints |= PRNT_FOUND_DATAPIPE_IN;
-		}
+		  DataINEndpoint  = EndpointData;
 		else
+		  DataOUTEndpoint = EndpointData;
+	}
+	
+	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
+	{
+		if (PipeNum == PRNTInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Pipe_ConfigurePipe(PRNTInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PRNTInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			PRNTInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
-
-			FoundEndpoints |= PRNT_FOUND_DATAPIPE_OUT;
-		}		
+			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
+							   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+							   PRNTInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			
+			PRNTInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;			
+		}
+		else if (PipeNum == PRNTInterfaceInfo->Config.DataOUTPipeNumber)
+		{
+			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+							   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
+							   PRNTInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			
+			PRNTInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;			
+		}
 	}
 
 	PRNTInterfaceInfo->State.IsActive = true;
+
 	return PRNT_ENUMERROR_NoError;
 }
 

@@ -38,58 +38,78 @@
 
 uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
                                uint16_t ConfigDescriptorSize,
-							   void* DeviceConfigDescriptor)
+							   void* ConfigDescriptorData)
 {
-	uint8_t FoundEndpoints = 0;
-	
+	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
+
 	memset(&MSInterfaceInfo->State, 0x00, sizeof(MSInterfaceInfo->State));
 
-	if (DESCRIPTOR_TYPE(DeviceConfigDescriptor) != DTYPE_Configuration)
+	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return MS_ENUMERROR_InvalidConfigDescriptor;
-	
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
-	                              DCOMP_MS_NextMSInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		return MS_ENUMERROR_NoMSInterfaceFound;
-	}
 
-	MSInterfaceInfo->State.InterfaceNumber = DESCRIPTOR_PCAST(DeviceConfigDescriptor, USB_Descriptor_Interface_t)->InterfaceNumber;
-	
-	while (FoundEndpoints != (MS_FOUND_DATAPIPE_IN | MS_FOUND_DATAPIPE_OUT))
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+	                              DCOMP_MS_Host_NextMSInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
-		                              DCOMP_MS_NextMSInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		return MS_ENUMERROR_NoCompatibleInterfaceFound;
+	}
+	
+	MSInterfaceInfo->State.InterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t)->InterfaceNumber;
+
+	while (!(DataINEndpoint) || !(DataOUTEndpoint))
+	{
+		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		                              DCOMP_MS_Host_NextMSInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			return MS_ENUMERROR_EndpointsNotFound;
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
+
+			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+										  DCOMP_MS_Host_NextMSInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				return MS_ENUMERROR_NoCompatibleInterfaceFound;
+			}
+
+			MSInterfaceInfo->State.InterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
+			                                                          USB_Descriptor_Interface_t)->InterfaceNumber;
+
+			continue;
 		}
 		
-		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(DeviceConfigDescriptor, USB_Descriptor_Endpoint_t);
+		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
 
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		{
-			Pipe_ConfigurePipe(MSInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
-			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   MSInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			MSInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
-
-			FoundEndpoints |= MS_FOUND_DATAPIPE_IN;
-		}
+		  DataINEndpoint = EndpointData;
 		else
+		  DataOUTEndpoint = EndpointData;
+	}
+	
+	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
+	{
+		if (PipeNum == MSInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Pipe_ConfigurePipe(MSInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   MSInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			MSInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
-
-			FoundEndpoints |= MS_FOUND_DATAPIPE_OUT;
-		}		
+			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
+							   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+							   MSInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			
+			MSInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;			
+		}
+		else if (PipeNum == MSInterfaceInfo->Config.DataOUTPipeNumber)
+		{
+			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+							   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
+							   MSInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			
+			MSInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;			
+		}
 	}
 
 	MSInterfaceInfo->State.IsActive = true;
+
 	return MS_ENUMERROR_NoError;
 }
 
-static uint8_t DCOMP_MS_NextMSInterface(void* const CurrentDescriptor)
+static uint8_t DCOMP_MS_Host_NextMSInterface(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -107,7 +127,7 @@ static uint8_t DCOMP_MS_NextMSInterface(void* const CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DCOMP_MS_NextMSInterfaceEndpoint(void* const CurrentDescriptor)
+static uint8_t DCOMP_MS_Host_NextMSInterfaceEndpoint(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

@@ -124,6 +124,10 @@
 			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration
 			 *  containing the given HID interface is selected.
 			 *
+			 *  \note The endpoint index numbers as given in the interface's configuration structure must not overlap with any other
+			 *        interface, or endpoint bank corruption will occur. Gaps in the allocated endpoint numbers or non-sequential indexes
+			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved endpoint indexes.
+			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 *
 			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.

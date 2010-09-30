@@ -75,8 +75,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 	}
 
 	/* Save Printer interface details for later use */
-	PrinterInterfaceNumber = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_Interface_t).InterfaceNumber;
-	PrinterAltSetting      = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_Interface_t).AlternateSetting;
+	PrinterInterfaceNumber = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t)->InterfaceNumber;
+	PrinterAltSetting      = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t)->AlternateSetting;
 
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
@@ -97,8 +97,11 @@ uint8_t ProcessConfigurationDescriptor(void)
 			}
 			
 			/* Save Printer interface details for later use */
-			PrinterInterfaceNumber = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_Interface_t).InterfaceNumber;
-			PrinterAltSetting      = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_Interface_t).AlternateSetting;			
+			PrinterInterfaceNumber = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t)->InterfaceNumber;
+			PrinterAltSetting      = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t)->AlternateSetting;			
+
+			/* Skip the remainder of the loop as we have not found an endpoint yet */
+			continue;
 		}
 		
 		/* Retrieve the endpoint address from the endpoint descriptor */
@@ -106,7 +109,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 		/* If the endpoint is a IN type endpoint */
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		  DataINEndpoint = EndpointData;
+		  DataINEndpoint  = EndpointData;
 		else
 		  DataOUTEndpoint = EndpointData;
 	}

@@ -110,6 +110,9 @@ uint8_t ProcessConfigurationDescriptor(void)
 				/* Clear any found endpoints */
 				NotificationEndpoint = NULL;
 			}
+
+			/* Skip the remainder of the loop as we have not found an endpoint yet */
+			continue;
 		}
 		
 		/* Retrieve the endpoint address from the endpoint descriptor */

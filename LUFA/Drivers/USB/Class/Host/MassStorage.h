@@ -93,11 +93,11 @@
 				           */
 				struct
 				{
-					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
-					                *   after \ref MS_Host_ConfigurePipes() is called and the Host state machine is in the
-					                *   Configured state.
-					                */
-					uint8_t InterfaceNumber; /**< Interface index of the Mass Storage interface within the attached device. */
+					bool     IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
+					                    *   after \ref MS_Host_ConfigurePipes() is called and the Host state machine is in the
+					                    *   Configured state.
+					                    */
+					uint8_t  InterfaceNumber; /**< Interface index of the Mass Storage interface within the attached device. */
 
 					uint16_t DataINPipeSize; /**< Size in bytes of the Mass Storage interface's IN data pipe. */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the Mass Storage interface's OUT data pipe. */
@@ -126,8 +126,7 @@
 			{
 				MS_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				MS_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
-				MS_ENUMERROR_NoMSInterfaceFound         = 2, /**< A compatible Mass Storage interface was not found in the device's Configuration Descriptor. */
-				MS_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible Mass Storage endpoints were not found in the device's interfaces. */
+				MS_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible Mass Storage interface was not found in the device's Configuration Descriptor. */
 			};
 	
 		/* Function Prototypes: */
@@ -137,15 +136,19 @@
 			 *  is found within the device. This should be called once after the stack has enumerated the attached device, while
 			 *  the host state machine is in the Addressed state.
 			 *
-			 *  \param[in,out] MSInterfaceInfo         Pointer to a structure containing an MS Class host configuration and state.
-			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
-			 *  \param[in]     DeviceConfigDescriptor  Pointer to a buffer containing the attached device's Configuration Descriptor.
+			 *  \note The pipe index numbers as given in the interface's configuration structure must not overlap with any other
+			 *        interface, or pipe bank corruption will occur. Gaps in the allocated pipe numbers or non-sequential indexes
+			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved pipe indexes.
+			 *
+			 *  \param[in,out] MSInterfaceInfo       Pointer to a structure containing an MS Class host configuration and state.
+			 *  \param[in]     ConfigDescriptorSize  Length of the attached device's Configuration Descriptor.
+			 *  \param[in]     ConfigDescriptorData  Pointer to a buffer containing the attached device's Configuration Descriptor.
 			 *
 			 *  \return A value from the \ref MS_Host_EnumerationFailure_ErrorCodes_t enum.
 			 */
 			uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 			                               uint16_t ConfigDescriptorSize,
-			                               void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
+			                               void* ConfigDescriptorData) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
 			/** Sends a MASS STORAGE RESET control request to the attached device, resetting the Mass Storage Interface
 			 *  and readying it for the next Mass Storage command.
@@ -320,14 +323,11 @@
 			#define COMMAND_DIRECTION_DATA_IN      (1 << 7)
 			
 			#define COMMAND_DATA_TIMEOUT_MS        10000
-
-			#define MS_FOUND_DATAPIPE_IN           (1 << 0)
-			#define MS_FOUND_DATAPIPE_OUT          (1 << 1)
 			
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_MS_CLASS_HOST_C)		
-				static uint8_t DCOMP_MS_NextMSInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DCOMP_MS_NextMSInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_MS_Host_NextMSInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_MS_Host_NextMSInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				
 				static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 				                                   MS_CommandBlockWrapper_t* const SCSICommandBlock,

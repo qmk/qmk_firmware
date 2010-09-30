@@ -94,6 +94,9 @@ uint8_t ProcessConfigurationDescriptor(void)
 				/* Descriptor not found, error out */
 				return NoCompatibleInterfaceFound;
 			}
+
+			/* Skip the remainder of the loop as we have not found an endpoint yet */
+			continue;
 		}
 
 		/* Retrieve the endpoint address from the endpoint descriptor */

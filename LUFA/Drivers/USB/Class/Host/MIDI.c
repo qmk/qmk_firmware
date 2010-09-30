@@ -40,50 +40,72 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
                                  uint16_t ConfigDescriptorSize,
                                  void* ConfigDescriptorData)
 {
-	uint8_t FoundEndpoints = 0;
+	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
 
 	memset(&MIDIInterfaceInfo->State, 0x00, sizeof(MIDIInterfaceInfo->State));
 
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return MIDI_ENUMERROR_InvalidConfigDescriptor;
-	
+
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 	                              DCOMP_MIDI_Host_NextMIDIStreamingInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
-		return MIDI_ENUMERROR_NoStreamingInterfaceFound;
+		return MIDI_ENUMERROR_NoCompatibleInterfaceFound;
 	}
 	
-	while (FoundEndpoints != (MIDI_FOUND_DATAPIPE_IN | MIDI_FOUND_DATAPIPE_OUT))
+	MIDIInterfaceInfo->State.InterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t)->InterfaceNumber;
+
+	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DCOMP_MIDI_Host_NextMIDIStreamingDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			return MIDI_ENUMERROR_EndpointsNotFound;
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
+
+			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+										  DCOMP_MIDI_Host_NextMIDIStreamingInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				return MIDI_ENUMERROR_NoCompatibleInterfaceFound;
+			}
+
+			MIDIInterfaceInfo->State.InterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
+			                                                            USB_Descriptor_Interface_t)->InterfaceNumber;
+
+			continue;
 		}
 		
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
 
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		{
-			Pipe_ConfigurePipe(MIDIInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-							   MIDIInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			MIDIInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
-			
-			FoundEndpoints |= MIDI_FOUND_DATAPIPE_IN;
-		}
+		  DataINEndpoint = EndpointData;
 		else
-		{
-			Pipe_ConfigurePipe(MIDIInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-							   MIDIInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			MIDIInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
-
-			FoundEndpoints |= MIDI_FOUND_DATAPIPE_OUT;
-		}
+		  DataOUTEndpoint = EndpointData;
 	}
 	
+	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
+	{
+		if (PipeNum == MIDIInterfaceInfo->Config.DataINPipeNumber)
+		{
+			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
+							   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+							   MIDIInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			
+			MIDIInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;			
+		}
+		else if (PipeNum == MIDIInterfaceInfo->Config.DataOUTPipeNumber)
+		{
+			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+							   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
+							   MIDIInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			
+			MIDIInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;			
+		}
+	}
+
 	MIDIInterfaceInfo->State.IsActive = true;
+
 	return MIDI_ENUMERROR_NoError;
 }
 

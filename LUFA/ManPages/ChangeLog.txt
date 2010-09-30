@@ -45,7 +45,7 @@
   *  - Removed the EVENT_USB_InitFailure() event, not specifying a USB mode now defaults to UID selection mode
   *  - Renamed and moved class driver common constant definitions to make the naming scheme more uniform
   *  - Changed default value for the reset polarity parameter in the AVRISP-MKII project so that it defaults to active low drive
-  *  - Rewritten configuration descriptor parser for all host mode projects and class drivers to ensure better compatibility
+  *  - Changed configuration descriptor parser for all host mode projects and class drivers to ensure better compatibility with devices
   *
   *  <b>Fixed:</b>
   *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist

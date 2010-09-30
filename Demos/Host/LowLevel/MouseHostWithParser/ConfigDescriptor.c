@@ -83,7 +83,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	}
 	
 	/* Save the HID report size for later use */
-	HIDReportSize = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_HID_t).HIDReportLength;
+	HIDReportSize = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_HID_t)->HIDReportLength;
 
 	while (!(DataINEndpoint))
 	{
@@ -108,7 +108,10 @@ uint8_t ProcessConfigurationDescriptor(void)
 			}
 			
 			/* Save the HID report size for later use */
-			HIDReportSize = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_HID_t).HIDReportLength;			
+			HIDReportSize = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_HID_t)->HIDReportLength;			
+
+			/* Skip the remainder of the loop as we have not found an endpoint yet */
+			continue;
 		}
 		
 		/* Retrieve the endpoint address from the endpoint descriptor */

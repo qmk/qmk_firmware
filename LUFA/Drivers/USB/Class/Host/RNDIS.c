@@ -40,99 +40,103 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
                                   uint16_t ConfigDescriptorSize,
                                   void* ConfigDescriptorData)
 {
-	uint8_t FoundEndpoints = 0;
+	USB_Descriptor_Endpoint_t* DataINEndpoint       = NULL;
+	USB_Descriptor_Endpoint_t* DataOUTEndpoint      = NULL;
+	USB_Descriptor_Endpoint_t* NotificationEndpoint = NULL;
 
 	memset(&RNDISInterfaceInfo->State, 0x00, sizeof(RNDISInterfaceInfo->State));
 
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return RNDIS_ENUMERROR_InvalidConfigDescriptor;
-	
+
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 	                              DCOMP_RNDIS_Host_NextRNDISControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
-		return RNDIS_ENUMERROR_NoRNDISInterfaceFound;
+		return RNDIS_ENUMERROR_NoCompatibleInterfaceFound;
 	}
 	
-	RNDISInterfaceInfo->State.ControlInterfaceNumber = DESCRIPTOR_CAST(ConfigDescriptorData, USB_Descriptor_Interface_t).InterfaceNumber;
+	RNDISInterfaceInfo->State.ControlInterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
+	                                                                    USB_Descriptor_Interface_t)->InterfaceNumber;
 
-	while (FoundEndpoints != (RNDIS_FOUND_NOTIFICATION_IN | RNDIS_FOUND_DATAPIPE_IN | RNDIS_FOUND_DATAPIPE_OUT))
+	while (!(DataINEndpoint) || !(DataOUTEndpoint) || !(NotificationEndpoint))
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DCOMP_RNDIS_Host_NextRNDISInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			if (FoundEndpoints & RNDIS_FOUND_NOTIFICATION_IN)
+			if (NotificationEndpoint)
 			{
-				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, 
-				                              DCOMP_RNDIS_Host_NextRNDISDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+											  DCOMP_RNDIS_Host_NextRNDISDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
-					return RNDIS_ENUMERROR_NoRNDISInterfaceFound;
-				}
+					return RNDIS_ENUMERROR_NoCompatibleInterfaceFound;
+				}			
+
+				DataINEndpoint  = NULL;
+				DataOUTEndpoint = NULL;
 			}
 			else
 			{
-				FoundEndpoints = 0;
-
-				Pipe_SelectPipe(RNDISInterfaceInfo->Config.DataINPipeNumber);
-				Pipe_DisablePipe();
-				Pipe_SelectPipe(RNDISInterfaceInfo->Config.DataOUTPipeNumber);
-				Pipe_DisablePipe();
-				Pipe_SelectPipe(RNDISInterfaceInfo->Config.NotificationPipeNumber);
-				Pipe_DisablePipe();
-			
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-				                              DCOMP_RNDIS_Host_NextRNDISControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+											  DCOMP_RNDIS_Host_NextRNDISControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
-					return RNDIS_ENUMERROR_NoRNDISInterfaceFound;
+					return RNDIS_ENUMERROR_NoCompatibleInterfaceFound;
 				}
-			}
 
-			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-			                              DCOMP_RNDIS_Host_NextRNDISInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
-			{
-				return RNDIS_ENUMERROR_EndpointsNotFound;
+				RNDISInterfaceInfo->State.ControlInterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
+				                                                                    USB_Descriptor_Interface_t)->InterfaceNumber;
+
+				NotificationEndpoint = NULL;
 			}
+			
+			continue;
 		}
 		
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
 
-		if ((EndpointData->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT)
+		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 		{
-			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-			{
-				Pipe_ConfigurePipe(RNDISInterfaceInfo->Config.NotificationPipeNumber, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-								   RNDISInterfaceInfo->Config.NotificationPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-				RNDISInterfaceInfo->State.NotificationPipeSize = EndpointData->EndpointSize;
-
-				Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
-				
-				FoundEndpoints |= RNDIS_FOUND_NOTIFICATION_IN;
-			}
+			if ((EndpointData->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT)
+			  NotificationEndpoint = EndpointData;
+			else
+			  DataINEndpoint = EndpointData;
 		}
 		else
 		{
-			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-			{
-				Pipe_ConfigurePipe(RNDISInterfaceInfo->Config.DataINPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_IN,
-				                   EndpointData->EndpointAddress, EndpointData->EndpointSize, 
-				                   RNDISInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-				RNDISInterfaceInfo->State.DataINPipeSize = EndpointData->EndpointSize;
+			DataOUTEndpoint = EndpointData;
+		}
+	}
+	
+	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
+	{
+		if (PipeNum == RNDISInterfaceInfo->Config.DataINPipeNumber)
+		{
+			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
+							   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+			                   RNDISInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 
-				FoundEndpoints |= RNDIS_FOUND_DATAPIPE_IN;
-			}
-			else
-			{
-				Pipe_ConfigurePipe(RNDISInterfaceInfo->Config.DataOUTPipeNumber, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-				                   EndpointData->EndpointAddress, EndpointData->EndpointSize, 
-				                   RNDISInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-				RNDISInterfaceInfo->State.DataOUTPipeSize = EndpointData->EndpointSize;
-				
-				FoundEndpoints |= RNDIS_FOUND_DATAPIPE_OUT;
-			}
+			RNDISInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
+		}
+		else if (PipeNum == RNDISInterfaceInfo->Config.DataOUTPipeNumber)
+		{
+			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
+			                   RNDISInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+
+			RNDISInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
+		}
+		else if (PipeNum == RNDISInterfaceInfo->Config.NotificationPipeNumber)
+		{
+			Pipe_ConfigurePipe(PipeNum, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
+			                   NotificationEndpoint->EndpointAddress, NotificationEndpoint->EndpointSize,
+			                   RNDISInterfaceInfo->Config.NotificationPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Pipe_SetInterruptPeriod(NotificationEndpoint->PollingIntervalMS);
+
+			RNDISInterfaceInfo->State.NotificationPipeSize = NotificationEndpoint->EndpointSize;
 		}
 	}
 
 	RNDISInterfaceInfo->State.IsActive = true;
+
 	return RNDIS_ENUMERROR_NoError;
 }
 

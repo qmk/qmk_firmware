@@ -139,9 +139,7 @@
 			{
 				HID_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				HID_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
-				HID_ENUMERROR_NoHIDInterfaceFound        = 2, /**< A compatible HID interface was not found in the device's Configuration Descriptor. */
-				HID_ENUMERROR_NoHIDDescriptorFound       = 3, /**< The HID descriptor was not found in the device's HID interface. */
-				HID_ENUMERROR_EndpointsNotFound          = 4, /**< Compatible HID endpoints were not found in the device's HID interface. */
+				HID_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible HID interface was not found in the device's Configuration Descriptor. */
 			};
 	
 		/* Function Prototypes: */
@@ -150,6 +148,11 @@
 			 *  state values and configures the pipes required to communicate with the interface if it is found within the
 			 *  device. This should be called once after the stack has enumerated the attached device, while the host state
 			 *  machine is in the Addressed state.
+			 *
+			 *  \note The pipe index numbers as given in the interface's configuration structure must not overlap with any other
+			 *        interface, or pipe bank corruption will occur. Gaps in the allocated pipe numbers or non-sequential indexes
+			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved pipe indexes.
+			 *        \n\n
 			 *
 			 *  \note Once the device pipes are configured, the HID device's reporting protocol <b>must</b> be set via a call
 			 *        to either the \ref HID_Host_SetBootProtocol() or \ref HID_Host_SetReportProtocol() function.
@@ -291,9 +294,6 @@
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
 			#define HID_INTERFACE_CLASS             0x03
-			
-			#define HID_FOUND_DATAPIPE_IN           (1 << 0)
-			#define HID_FOUND_DATAPIPE_OUT          (1 << 1)
 
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_HID_CLASS_HOST_C)

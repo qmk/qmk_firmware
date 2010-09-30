@@ -89,10 +89,11 @@
 				           */
 				struct
 				{
-					bool IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
-					                *   after \ref MIDI_Host_ConfigurePipes() is called and the Host state machine is in the
-					                *   Configured state.
-					                */
+					bool     IsActive; /**< Indicates if the current interface instance is connected to an attached device, valid
+					                    *   after \ref MIDI_Host_ConfigurePipes() is called and the Host state machine is in the
+					                    *   Configured state.
+					                    */
+					uint8_t  InterfaceNumber; /**< Interface index of the MIDI interface within the attached device. */
 
 					uint16_t DataINPipeSize; /**< Size in bytes of the MIDI Streaming Data interface's IN data pipe. */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the MIDI Streaming Data interface's OUT data pipe. */
@@ -108,8 +109,7 @@
 			{
 				MIDI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				MIDI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
-				MIDI_ENUMERROR_NoStreamingInterfaceFound  = 2, /**< A compatible MIDI interface was not found in the device's Configuration Descriptor. */
-				MIDI_ENUMERROR_EndpointsNotFound          = 3, /**< Compatible MIDI data endpoints were not found in the device's MIDI interface. */
+				MIDI_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible MIDI interface was not found in the device's Configuration Descriptor. */
 			};
 	
 		/* Function Prototypes: */
@@ -118,6 +118,10 @@
 			 *  state values and configures the pipes required to communicate with the interface if it is found within the device.
 			 *  This should be called once after the stack has enumerated the attached device, while the host state machine is in
 			 *  the Addressed state.
+			 *
+			 *  \note The pipe index numbers as given in the interface's configuration structure must not overlap with any other
+			 *        interface, or pipe bank corruption will occur. Gaps in the allocated pipe numbers or non-sequential indexes
+			 *        within a single interface is allowed, but no two interfaces of any type have have interleaved pipe indexes.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo       Pointer to a structure containing an MIDI Class host configuration and state.
 			 *  \param[in]     ConfigDescriptorSize    Length of the attached device's Configuration Descriptor.
@@ -184,9 +188,6 @@
 			#define MIDI_STREAMING_CLASS           0x01
 			#define MIDI_STREAMING_SUBCLASS        0x03
 			#define MIDI_STREAMING_PROTOCOL        0x00
-			
-			#define MIDI_FOUND_DATAPIPE_IN           (1 << 0)
-			#define MIDI_FOUND_DATAPIPE_OUT          (1 << 1)
 
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_MIDI_CLASS_HOST_C)
