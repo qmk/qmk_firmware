@@ -49,7 +49,9 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
-	uint8_t  FoundEndpoints = 0;
+	
+	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -64,52 +66,58 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlError;
 	}
 	
-	/* Get the printer interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation, DComp_NextBidirectionalPrinterInterface))
+	/* Get the first Printer interface from the configuration descriptor */
+	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+	                              DComp_NextBidirectionalPrinterInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
-		return NoInterfaceFound;
+		return NoCompatibleInterfaceFound;
 	}
-	
+
+	/* Save Printer interface details for later use */
 	PrinterInterfaceNumber = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_Interface_t).InterfaceNumber;
 	PrinterAltSetting      = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_Interface_t).AlternateSetting;
 
-	/* Get the IN and OUT data endpoints for the printer interface */
-	while (FoundEndpoints != ((1 << PRINTER_DATA_OUT_PIPE) | (1 << PRINTER_DATA_IN_PIPE)))
+	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		/* Fetch the next bulk endpoint from the current printer interface */
-		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation, DComp_NextPrinterInterfaceBulkDataEndpoint))
+		/* Get the next Printer interface's data endpoint descriptor */
+		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+		                              DComp_NextPrinterInterfaceBulkDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			/* Descriptor not found, error out */
-			return NoEndpointFound;
+			/* Clear any found endpoints */
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
+
+			/* Get the next Printer interface from the configuration descriptor */
+			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+										  DComp_NextBidirectionalPrinterInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				/* Descriptor not found, error out */
+				return NoCompatibleInterfaceFound;
+			}
+			
+			/* Save Printer interface details for later use */
+			PrinterInterfaceNumber = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_Interface_t).InterfaceNumber;
+			PrinterAltSetting      = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_Interface_t).AlternateSetting;			
 		}
 		
+		/* Retrieve the endpoint address from the endpoint descriptor */
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
-		/* Check if the endpoint is a bulk IN or bulk OUT endpoint, set appropriate globals */
+		/* If the endpoint is a IN type endpoint */
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		{
-			/* Configure the data IN pipe */
-			Pipe_ConfigurePipe(PRINTER_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
-			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PIPE_BANK_SINGLE);
-
-			Pipe_SetInfiniteINRequests();
-
-			/* Set the flag indicating that the data IN pipe has been found */
-			FoundEndpoints |= (1 << PRINTER_DATA_IN_PIPE);
-		}
+		  DataINEndpoint = EndpointData;
 		else
-		{
-			/* Configure the data OUT pipe */
-			Pipe_ConfigurePipe(PRINTER_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PIPE_BANK_SINGLE);
-
-			/* Set the flag indicating that the data OUT pipe has been found */
-			FoundEndpoints |= (1 << PRINTER_DATA_OUT_PIPE);
-		}		
+		  DataOUTEndpoint = EndpointData;
 	}
+	
+	/* Configure the Printer data IN pipe */
+	Pipe_ConfigurePipe(PRINTER_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
+	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+
+	/* Configure the Printer data OUT pipe */
+	Pipe_ConfigurePipe(PRINTER_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+					   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;

@@ -53,15 +53,6 @@
 		#include "ConfigDescriptor.h"
 		
 	/* Macros: */
-		/** Pipe number for the CDC data IN pipe. */
-		#define CDC_DATAPIPE_IN           1
-
-		/** Pipe number for the CDC data OUT pipe. */
-		#define CDC_DATAPIPE_OUT          2
-
-		/** Pipe number for the CDC notification pipe. */
-		#define CDC_NOTIFICATIONPIPE      3
-
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 

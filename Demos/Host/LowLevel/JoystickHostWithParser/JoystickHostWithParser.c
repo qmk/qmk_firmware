@@ -211,7 +211,7 @@ void Joystick_HID_Task(void)
 			break;
 		case HOST_STATE_Configured:
 			/* Select and unfreeze joystick data pipe */
-			Pipe_SelectPipe(JOYSTICK_DATAPIPE);	
+			Pipe_SelectPipe(JOYSTICK_DATA_IN_PIPE);	
 			Pipe_Unfreeze();
 			
 			/* Check to see if a packet has been received */

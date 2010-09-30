@@ -39,26 +39,39 @@ bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* const MIDIInter
 {
 	memset(&MIDIInterfaceInfo->State, 0x00, sizeof(MIDIInterfaceInfo->State));
 
-	if (MIDIInterfaceInfo->Config.DataINEndpointNumber)
+	for (uint8_t EndpointNum = 1; EndpointNum < ENDPOINT_TOTAL_ENDPOINTS; EndpointNum++)
 	{
-		if (!(Endpoint_ConfigureEndpoint(MIDIInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,
-										 ENDPOINT_DIR_IN, MIDIInterfaceInfo->Config.DataINEndpointSize,
-										 MIDIInterfaceInfo->Config.DataINEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Direction;
+		bool     DoubleBanked;
+
+		if (EndpointNum == MIDIInterfaceInfo->Config.DataINEndpointNumber)
+		{
+			Size         = MIDIInterfaceInfo->Config.DataINEndpointSize;
+			Direction    = ENDPOINT_DIR_IN;
+			Type         = EP_TYPE_BULK;
+			DoubleBanked = MIDIInterfaceInfo->Config.DataINEndpointDoubleBank;
+		}
+		else if (EndpointNum == MIDIInterfaceInfo->Config.DataOUTEndpointNumber)
+		{
+			Size         = MIDIInterfaceInfo->Config.DataOUTEndpointSize;
+			Direction    = ENDPOINT_DIR_OUT;
+			Type         = EP_TYPE_BULK;
+			DoubleBanked = MIDIInterfaceInfo->Config.DataOUTEndpointDoubleBank;
+		}
+		else
+		{
+			continue;
+		}
+		
+		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size,
+										 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
 		{
 			return false;
 		}
 	}
-
-	if (MIDIInterfaceInfo->Config.DataOUTEndpointNumber)
-	{
-		if (!(Endpoint_ConfigureEndpoint(MIDIInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_BULK,
-										 ENDPOINT_DIR_OUT, MIDIInterfaceInfo->Config.DataOUTEndpointSize,
-										 MIDIInterfaceInfo->Config.DataOUTEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
-		{
-			return false;
-		}
-	}
-
+	
 	return true;
 }
 

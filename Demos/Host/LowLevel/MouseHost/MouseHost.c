@@ -132,7 +132,7 @@ void ReadNextReport(void)
 	uint8_t                LEDMask = LEDS_NO_LEDS;
 
 	/* Select mouse data pipe */
-	Pipe_SelectPipe(MOUSE_DATAPIPE);	
+	Pipe_SelectPipe(MOUSE_DATA_IN_PIPE);	
 
 	/* Unfreeze keyboard data pipe */
 	Pipe_Unfreeze();

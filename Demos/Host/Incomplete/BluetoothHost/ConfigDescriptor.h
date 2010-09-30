@@ -39,7 +39,10 @@
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
 		
-		#include "BluetoothHost.h"
+	/* Macros: */
+		#define BLUETOOTH_DATA_IN_PIPE         1
+		#define BLUETOOTH_DATA_OUT_PIPE        2
+		#define BLUETOOTH_EVENTS_PIPE          3
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
@@ -49,10 +52,7 @@
 			DevControlError                 = 1, /**< A control request to the device failed to complete successfully */
 			DescriptorTooLarge              = 2, /**< The device's Configuration Descriptor is too large to process */
 			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
-			NoBTInterfaceFound              = 4, /**< A compatible Bluetooth interface was not found in the device's Configuration Descriptor */
-			NoEndpointFound                 = 5, /**< A compatible set of Bluetooth endpoints were not found in the
-			                                      *   device's Bluetooth interface
-			                                      */
+			NoCompatibleInterfaceFound      = 4, /**< A compatible interface with the required endpoints was not found */
 		};
 	
 	/* Function Prototypes: */

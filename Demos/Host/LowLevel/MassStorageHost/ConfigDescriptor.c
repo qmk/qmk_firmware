@@ -50,7 +50,9 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
-	uint8_t  FoundEndpoints     = 0;
+	
+	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -65,49 +67,50 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlError;
 	}
 	
-	/* Get the mass storage interface from the configuration descriptor */
+	/* Get the first Mass Storage interface from the configuration descriptor */
 	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 	                              DComp_NextMSInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
-		return NoInterfaceFound;
+		return NoCompatibleInterfaceFound;
 	}
 
-	/* Get the IN and OUT data endpoints for the mass storage interface */
-	while (FoundEndpoints != ((1 << MASS_STORE_DATA_IN_PIPE) | (1 << MASS_STORE_DATA_OUT_PIPE)))
+	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		/* Fetch the next bulk endpoint from the current mass storage interface */
+		/* Get the next Mass Storage interface's data endpoint descriptor */
 		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextMSInterfaceBulkDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			/* Descriptor not found, error out */
-			return NoEndpointFound;
+			/* Clear any found endpoints */
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
+
+			/* Get the next Mass Storage interface from the configuration descriptor */
+			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+										  DComp_NextMSInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				/* Descriptor not found, error out */
+				return NoCompatibleInterfaceFound;
+			}
 		}
 		
+		/* Retrieve the endpoint address from the endpoint descriptor */
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
-		/* Check if the endpoint is a bulk IN or bulk OUT endpoint, set appropriate globals */
+		/* If the endpoint is a IN type endpoint */
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		{
-			/* Configure the data IN pipe */
-			Pipe_ConfigurePipe(MASS_STORE_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
-			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PIPE_BANK_DOUBLE);
-
-			/* Set the flag indicating that the data IN pipe has been found */
-			FoundEndpoints |= (1 << MASS_STORE_DATA_IN_PIPE);
-		}
+		  DataINEndpoint = EndpointData;
 		else
-		{
-			/* Configure the data OUT pipe */
-			Pipe_ConfigurePipe(MASS_STORE_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-			                   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-			                   PIPE_BANK_DOUBLE);
-
-			/* Set the flag indicating that the data OUT pipe has been found */
-			FoundEndpoints |= (1 << MASS_STORE_DATA_OUT_PIPE);
-		}		
+		  DataOUTEndpoint = EndpointData;
 	}
+	
+	/* Configure the Mass Storage data IN pipe */
+	Pipe_ConfigurePipe(MASS_STORE_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
+	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+
+	/* Configure the Mass Storage data OUT pipe */
+	Pipe_ConfigurePipe(MASS_STORE_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+					   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;

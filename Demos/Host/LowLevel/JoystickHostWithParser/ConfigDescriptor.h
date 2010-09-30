@@ -54,6 +54,9 @@
 		/** Descriptor header type constant for a HID report descriptor. */
 		#define DTYPE_Report                0x22
 	
+		/** Pipe number for the joystick report data pipe. */
+		#define JOYSTICK_DATA_IN_PIPE       1
+
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum JoystickHostWithParser_GetConfigDescriptorDataCodes_t
@@ -64,7 +67,7 @@
 			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
 			NoHIDInterfaceFound             = 4, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
 			NoHIDDescriptorFound            = 5, /**< A compatible HID descriptor was not found in the device's HID interface */
-			NoEndpointFound                 = 5, /**< A compatible HID IN endpoint was not found in the device's HID interface */
+			NoCompatibleInterfaceFound      = 4, /**< A compatible interface with the required endpoints was not found */
 		};
 
 	/* Function Prototypes: */

@@ -121,11 +121,11 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup TMC In, Out and Notification Endpoints */
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(TMC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+	                                            TMC_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
 	ConfigSuccess &= Endpoint_ConfigureEndpoint(TMC_IN_EPNUM,  EP_TYPE_BULK, ENDPOINT_DIR_IN,
 	                                            TMC_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
 	ConfigSuccess &= Endpoint_ConfigureEndpoint(TMC_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-	                                            TMC_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(TMC_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
 	                                            TMC_IO_EPSIZE, ENDPOINT_BANK_SINGLE);
 
 	/* Indicate endpoint configuration success or failure */

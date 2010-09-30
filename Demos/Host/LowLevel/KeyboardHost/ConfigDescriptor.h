@@ -48,6 +48,9 @@
 		/** Interface Protocol value for a Boot Protocol Keyboard compliant device. */
 		#define KEYBOARD_PROTOCOL              0x01
 	
+		/** Pipe number for the keyboard data IN pipe. */
+		#define KEYBOARD_DATA_IN_PIPE          1
+
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum KeyboardHost_GetConfigDescriptorDataCodes_t
@@ -56,8 +59,7 @@
 			ControlError                    = 1, /**< A control request to the device failed to complete successfully */
 			DescriptorTooLarge              = 2, /**< The device's Configuration Descriptor is too large to process */
 			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
-			NoHIDInterfaceFound             = 4, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
-			NoEndpointFound                 = 5, /**< A compatible HID IN endpoint was not found in the device's HID interface */
+			NoCompatibleInterfaceFound      = 4, /**< A compatible interface with the required endpoints was not found */
 		};
 
 	/* Function Prototypes: */

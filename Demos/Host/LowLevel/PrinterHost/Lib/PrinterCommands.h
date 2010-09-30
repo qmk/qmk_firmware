@@ -53,12 +53,6 @@
 
 		/** Printer class-specific request to soft-reset the device. */
 		#define REQ_SoftReset                2
-
-		/** Pipe number of the Printer data IN pipe. */
-		#define PRINTER_DATA_IN_PIPE         1
-
-		/** Pipe number of the Printer data OUT pipe. */
-		#define PRINTER_DATA_OUT_PIPE        2
 		
 	/* Function Prototypes: */
 		uint8_t Printer_SendData(const void* const PrinterCommands,

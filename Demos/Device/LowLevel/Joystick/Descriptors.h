@@ -75,10 +75,10 @@
 					
 	/* Macros: */
 		/** Endpoint number of the Joystick HID reporting IN endpoint. */
-		#define JOYSTICK_EPNUM               1
+		#define JOYSTICK_EPNUM            1
 
 		/** Size in bytes of the Joystick HID reporting IN endpoint. */
-		#define JOYSTICK_EPSIZE              8
+		#define JOYSTICK_EPSIZE           8
 
 		/** Descriptor header type value, to indicate a HID class HID descriptor. */
 		#define DTYPE_HID                 0x21

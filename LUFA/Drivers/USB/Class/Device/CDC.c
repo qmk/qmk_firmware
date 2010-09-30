@@ -100,27 +100,46 @@ bool CDC_Device_ConfigureEndpoints(USB_ClassInfo_CDC_Device_t* const CDCInterfac
 {
 	memset(&CDCInterfaceInfo->State, 0x00, sizeof(CDCInterfaceInfo->State));
 
-	if (!(Endpoint_ConfigureEndpoint(CDCInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,
-							         ENDPOINT_DIR_IN, CDCInterfaceInfo->Config.DataINEndpointSize,
-							         CDCInterfaceInfo->Config.DataINEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
+	for (uint8_t EndpointNum = 1; EndpointNum < ENDPOINT_TOTAL_ENDPOINTS; EndpointNum++)
 	{
-		return false;
-	}
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Direction;
+		bool     DoubleBanked;
 
-	if (!(Endpoint_ConfigureEndpoint(CDCInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_BULK,
-	                                 ENDPOINT_DIR_OUT, CDCInterfaceInfo->Config.DataOUTEndpointSize,
-	                                 CDCInterfaceInfo->Config.DataOUTEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
-	{
-		return false;
+		if (EndpointNum == CDCInterfaceInfo->Config.DataINEndpointNumber)
+		{
+			Size         = CDCInterfaceInfo->Config.DataINEndpointSize;
+			Direction    = ENDPOINT_DIR_IN;
+			Type         = EP_TYPE_BULK;
+			DoubleBanked = CDCInterfaceInfo->Config.DataINEndpointDoubleBank;
+		}
+		else if (EndpointNum == CDCInterfaceInfo->Config.DataOUTEndpointNumber)
+		{
+			Size         = CDCInterfaceInfo->Config.DataOUTEndpointSize;
+			Direction    = ENDPOINT_DIR_OUT;
+			Type         = EP_TYPE_BULK;
+			DoubleBanked = CDCInterfaceInfo->Config.DataOUTEndpointDoubleBank;
+		}
+		else if (EndpointNum == CDCInterfaceInfo->Config.NotificationEndpointNumber)
+		{
+			Size         = CDCInterfaceInfo->Config.NotificationEndpointSize;
+			Direction    = ENDPOINT_DIR_IN;
+			Type         = EP_TYPE_INTERRUPT;
+			DoubleBanked = CDCInterfaceInfo->Config.NotificationEndpointDoubleBank;
+		}
+		else
+		{
+			continue;
+		}
+		
+		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size,
+										 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
+		{
+			return false;
+		}
 	}
-
-	if (!(Endpoint_ConfigureEndpoint(CDCInterfaceInfo->Config.NotificationEndpointNumber, EP_TYPE_INTERRUPT,
-	                                 ENDPOINT_DIR_IN, CDCInterfaceInfo->Config.NotificationEndpointSize,
-	                                 CDCInterfaceInfo->Config.NotificationEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
-	{
-		return false;
-	}
-
+	
 	return true;
 }
 

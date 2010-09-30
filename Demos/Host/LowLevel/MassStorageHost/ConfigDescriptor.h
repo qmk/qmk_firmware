@@ -51,6 +51,12 @@
 		/** Interface Protocol value for the Bulk Only transport protocol. */
 		#define MASS_STORE_PROTOCOL            0x50
 
+		/** Pipe number of the Mass Storage data IN pipe. */
+		#define MASS_STORE_DATA_IN_PIPE        1
+
+		/** Pipe number of the Mass Storage data OUT pipe. */
+		#define MASS_STORE_DATA_OUT_PIPE       2
+
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum MassStorageHost_GetConfigDescriptorDataCodes_t
@@ -59,8 +65,7 @@
 			ControlError                    = 1, /**< A control request to the device failed to complete successfully */
 			DescriptorTooLarge              = 2, /**< The device's Configuration Descriptor is too large to process */
 			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
-			NoInterfaceFound                = 4, /**< A compatible MSD interface was not found in the device's Configuration Descriptor */
-			NoEndpointFound                 = 5, /**< The correct MSD endpoint descriptors were not found in the device's MSD interface */
+			NoCompatibleInterfaceFound      = 4, /**< A compatible interface with the required endpoints was not found */
 		};
 		
 	/* Function Prototypes: */

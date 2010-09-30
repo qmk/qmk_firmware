@@ -93,19 +93,19 @@
 		#endif
 
 		/** Endpoint number for the CDC control interface event notification endpoint. */
-		#define CDC_NOTIFICATION_EPNUM         3
-
-		/** Size of the CDC control interface notification endpoint bank, in bytes. */
-		#define CDC_NOTIFICATION_EPSIZE        8
+		#define CDC_NOTIFICATION_EPNUM         2
 
 		/** Endpoint number for the CDC data interface TX (data IN) endpoint. */
-		#define CDC_TX_EPNUM                   1	
+		#define CDC_TX_EPNUM                   3	
 
 		/** Endpoint number for the CDC data interface RX (data OUT) endpoint. */
-		#define CDC_RX_EPNUM                   2	
+		#define CDC_RX_EPNUM                   4
 
 		/** Size of the CDC data interface TX and RX data endpoint banks, in bytes. */
 		#define CDC_TXRX_EPSIZE                16
+
+		/** Size of the CDC control interface notification endpoint bank, in bytes. */
+		#define CDC_NOTIFICATION_EPSIZE        8
 
 	/* Type Defines: */
 		/** Type define for a CDC class-specific functional header descriptor. This indicates to the host that the device

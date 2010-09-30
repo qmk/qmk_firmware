@@ -50,7 +50,10 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
-	uint8_t  FoundEndpoints = 0;
+	
+	USB_Descriptor_Endpoint_t* DataINEndpoint       = NULL;
+	USB_Descriptor_Endpoint_t* DataOUTEndpoint      = NULL;
+	USB_Descriptor_Endpoint_t* NotificationEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -65,104 +68,80 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlError;
 	}
 	
-	/* Get the CDC control interface from the configuration descriptor */
+	/* Get the first CDC control interface from the configuration descriptor */
 	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 	                              DComp_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
-		return NoCDCInterfaceFound;
+		return NoCompatibleInterfaceFound;
 	}
 
-	/* Get the IN and OUT data and IN notification endpoints for the CDC interface */
-	while (FoundEndpoints != ((1 << CDC_NOTIFICATIONPIPE) | (1 << CDC_DATAPIPE_IN) | (1 << CDC_DATAPIPE_OUT)))
+	while (!(DataINEndpoint) || !(DataOUTEndpoint) || !(NotificationEndpoint))
 	{
-		/* Fetch the next bulk or interrupt endpoint from the current CDC interface */
+		/* Get the next CDC interface's endpoint descriptor */
 		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextCDCDataInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			/* Check to see if the control interface's notification pipe has been found, if so search for the data interface */
-			if (FoundEndpoints & (1 << CDC_NOTIFICATIONPIPE))
+			/* Check if we have already found the control interface's notification endpoint or not */
+			if (NotificationEndpoint)
 			{
-				/* Get the next CDC data interface from the configuration descriptor (CDC class has two CDC interfaces) */
-				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation, 
-				                              DComp_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				/* Get the next CDC data interface from the configuration descriptor */
+				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+											  DComp_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					/* Descriptor not found, error out */
-					return NoCDCInterfaceFound;
-				}
+					return NoCompatibleInterfaceFound;
+				}			
+
+				/* Clear any found endpoints */
+				DataINEndpoint       = NULL;
+				DataOUTEndpoint      = NULL;
 			}
 			else
 			{
-				/* Clear the found endpoints mask, since any already processed endpoints aren't in the CDC interface we need */
-				FoundEndpoints = 0;
-
-				/* Disable any already configured pipes from the invalid CDC interfaces */
-				Pipe_SelectPipe(CDC_NOTIFICATIONPIPE);
-				Pipe_DisablePipe();
-				Pipe_SelectPipe(CDC_DATAPIPE_IN);
-				Pipe_DisablePipe();
-				Pipe_SelectPipe(CDC_DATAPIPE_OUT);
-				Pipe_DisablePipe();
-			
-				/* Get the next CDC control interface from the configuration descriptor (CDC class has two CDC interfaces) */
+				/* Get the next CDC control interface from the configuration descriptor */
 				if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-				                              DComp_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+											  DComp_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					/* Descriptor not found, error out */
-					return NoCDCInterfaceFound;
+					return NoCompatibleInterfaceFound;
 				}
-			}
 
-			/* Fetch the next bulk or interrupt endpoint from the current CDC interface */
-			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-			                              DComp_NextCDCDataInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
-			{
-				/* Descriptor not found, error out */
-				return NoEndpointFound;
+				/* Clear any found endpoints */
+				NotificationEndpoint = NULL;
 			}
 		}
 		
+		/* Retrieve the endpoint address from the endpoint descriptor */
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
-		/* Check if the found endpoint is a interrupt or bulk type descriptor */
-		if ((EndpointData->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT)
+		/* If the endpoint is a IN type endpoint */
+		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 		{
-			/* If the endpoint is a IN type interrupt endpoint */
-			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-			{							   
-				/* Configure the notification pipe */
-				Pipe_ConfigurePipe(CDC_NOTIFICATIONPIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-
-				Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
-				
-				/* Set the flag indicating that the notification pipe has been found */
-				FoundEndpoints |= (1 << CDC_NOTIFICATIONPIPE);
-			}
+			/* Check if the found endpoint is a interrupt or bulk type descriptor */
+			if ((EndpointData->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT)
+			  NotificationEndpoint = EndpointData;
+			else
+			  DataINEndpoint = EndpointData;
 		}
 		else
 		{
-			/* Check if the endpoint is a bulk IN or bulk OUT endpoint */
-			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-			{
-				/* Configure the data IN pipe */
-				Pipe_ConfigurePipe(CDC_DATAPIPE_IN, EP_TYPE_BULK, PIPE_TOKEN_IN,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-				
-				/* Set the flag indicating that the data IN pipe has been found */
-				FoundEndpoints |= (1 << CDC_DATAPIPE_IN);
-			}
-			else
-			{
-				/* Configure the data OUT pipe */
-				Pipe_ConfigurePipe(CDC_DATAPIPE_OUT, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-				
-				/* Set the flag indicating that the data OUT pipe has been found */
-				FoundEndpoints |= (1 << CDC_DATAPIPE_OUT);
-			}
+			DataOUTEndpoint = EndpointData;
 		}
 	}
+	
+	/* Configure the CDC data IN pipe */
+	Pipe_ConfigurePipe(CDC_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
+	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+
+	/* Configure the CDC data OUT pipe */
+	Pipe_ConfigurePipe(CDC_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+					   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+
+	/* Configure the CDC notification pipe */
+	Pipe_ConfigurePipe(CDC_NOTIFICATION_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
+					   NotificationEndpoint->EndpointAddress, NotificationEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_SetInterruptPeriod(NotificationEndpoint->PollingIntervalMS);
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;

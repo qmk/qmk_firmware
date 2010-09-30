@@ -39,11 +39,9 @@
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
 		
+		#include "../ConfigDescriptor.h"
+		
 	/* Macros: */
-		#define BLUETOOTH_DATA_IN_PIPE         1
-		#define BLUETOOTH_DATA_OUT_PIPE        2
-		#define BLUETOOTH_EVENTS_PIPE          3
-
 		#define BLUETOOTH_MAX_OPEN_CHANNELS    6
 		
 		#define CHANNEL_PSM_SDP                0x0001

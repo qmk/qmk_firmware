@@ -21,6 +21,9 @@
  *      specified, the controller will default to UID selection mode.
  *
  *  <b>Device Mode</b>
+ *    - Endpoints MUST be allocated in ascending order to ensure that bank corruption does not occur. Ensure that your user application
+ *      allocated endpoints in ascending order - or if your application uses the USB device mode class drivers, ensure that each instance's
+ *      endpoint indexes are non-overlapped with other interface's endpoints.
  *    - The signature for the CALLBACK_USB_GetDescriptor() callback has changed, the "void** const DescriptorAddress" parameter is
  *      now "const void** const DescriptorAddress". Existing applications should update their callback signatures to match this, and
  *      eliminate any casting of descriptor pointers to a non-const pointer.
@@ -28,6 +31,9 @@
  *      for each class driver for the new class specific descriptor type names.
  *
  *  <b>Host Mode</b>
+ *    - Pipes MUST be allocated in ascending order to ensure that bank corruption does not occur. Ensure that your user application
+ *      allocated pipes in ascending order - or if your application uses the USB host mode class drivers, ensure that each instance's
+ *      pipe indexes are non-overlapped with other interface's pipes.
  *    - The PRNT_Host_SendData() function has been renamed to \ref PRNT_Host_SendString(). Existing applications should simply
  *      replace all references to the obsolete function name with the new function name.
  *    - The names of the class specific descriptor type defines in the USB Class drivers have changed - refer to the driver documentation

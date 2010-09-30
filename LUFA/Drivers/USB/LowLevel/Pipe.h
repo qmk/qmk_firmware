@@ -462,7 +462,7 @@
 				return ((UPINTX & (1 << RWAL)) ? true : false);
 			}
 			
-			/** Determines if an IN request has been received on the currently selected pipe.
+			/** Determines if a packet has been received on the currently selected IN pipe from the attached device.
 			 *
 			 *  \ingroup Group_PipePacketManagement
 			 *
@@ -474,7 +474,7 @@
 				return ((UPINTX & (1 << RXINI)) ? true : false);
 			}
 			
-			/** Determines if the currently selected pipe is ready to send an OUT request.
+			/** Determines if the currently selected OUT pipe is ready to send an OUT packet to the attached device.
 			 *
 			 *  \ingroup Group_PipePacketManagement
 			 *
@@ -838,6 +838,9 @@
 			 *  \param[in] Banks           Number of banks to use for the pipe being configured, a PIPE_BANK_* mask. More banks
 			 *                             uses more USB DPRAM, but offers better performance. Isochronous type pipes <b>must</b>
 			 *                             have at least two banks.
+			 *
+			 *  \note Endpoints <b>must</b> be configured in ascending order, or bank corruption will occur.
+			 *        \n\n
 			 *
 			 *  \note Certain models of USB AVR's pipes may have different maximum packet sizes based on the pipe's
 			 *        index - refer to the chosen USB AVR's datasheet to determine the maximum bank size for each pipe.

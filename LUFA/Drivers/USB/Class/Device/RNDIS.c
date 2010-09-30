@@ -114,27 +114,46 @@ bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_Device_t* const RNDISIn
 {
 	memset(&RNDISInterfaceInfo->State, 0x00, sizeof(RNDISInterfaceInfo->State));
 
-	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,
-							         ENDPOINT_DIR_IN, RNDISInterfaceInfo->Config.DataINEndpointSize,
-							         RNDISInterfaceInfo->Config.DataINEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
+	for (uint8_t EndpointNum = 1; EndpointNum < ENDPOINT_TOTAL_ENDPOINTS; EndpointNum++)
 	{
-		return false;
-	}
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Direction;
+		bool     DoubleBanked;
 
-	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_BULK,
-	                                 ENDPOINT_DIR_OUT, RNDISInterfaceInfo->Config.DataOUTEndpointSize,
-	                                 RNDISInterfaceInfo->Config.DataOUTEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
-	{
-		return false;
+		if (EndpointNum == RNDISInterfaceInfo->Config.DataINEndpointNumber)
+		{
+			Size         = RNDISInterfaceInfo->Config.DataINEndpointSize;
+			Direction    = ENDPOINT_DIR_IN;
+			Type         = EP_TYPE_BULK;
+			DoubleBanked = RNDISInterfaceInfo->Config.DataINEndpointDoubleBank;
+		}
+		else if (EndpointNum == RNDISInterfaceInfo->Config.DataOUTEndpointNumber)
+		{
+			Size         = RNDISInterfaceInfo->Config.DataOUTEndpointSize;
+			Direction    = ENDPOINT_DIR_OUT;
+			Type         = EP_TYPE_BULK;
+			DoubleBanked = RNDISInterfaceInfo->Config.DataOUTEndpointDoubleBank;
+		}
+		else if (EndpointNum == RNDISInterfaceInfo->Config.NotificationEndpointNumber)
+		{
+			Size         = RNDISInterfaceInfo->Config.NotificationEndpointSize;
+			Direction    = ENDPOINT_DIR_IN;
+			Type         = EP_TYPE_INTERRUPT;
+			DoubleBanked = RNDISInterfaceInfo->Config.NotificationEndpointDoubleBank;
+		}
+		else
+		{
+			continue;
+		}
+		
+		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size,
+										 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
+		{
+			return false;
+		}
 	}
-
-	if (!(Endpoint_ConfigureEndpoint(RNDISInterfaceInfo->Config.NotificationEndpointNumber, EP_TYPE_INTERRUPT,
-	                                 ENDPOINT_DIR_IN, RNDISInterfaceInfo->Config.NotificationEndpointSize,
-	                                 RNDISInterfaceInfo->Config.NotificationEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
-	{
-		return false;
-	}
-
+	
 	return true;
 }
 

@@ -50,6 +50,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
+	
+	USB_Descriptor_Endpoint_t* DataINEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -63,41 +65,43 @@ uint8_t ProcessConfigurationDescriptor(void)
 		default:
 			return ControlError;
 	}
-
-	/* Get the joystick interface from the configuration descriptor */
+	
+	/* Get the first HID interface from the configuration descriptor */
 	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 	                              DComp_NextJoystickInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
-		return NoHIDInterfaceFound;
+		return NoCompatibleInterfaceFound;
 	}
-	
-	/* Get the joystick interface's HID descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
+
+	while (!(DataINEndpoint))
 	{
-		/* Descriptor not found, error out */
-		return NoHIDDescriptorFound;
+		/* Get the next HID interface's data endpoint descriptor */
+		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+		                              DComp_NextJoystickInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		{
+			/* Get the next HID interface from the configuration descriptor */
+			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+										  DComp_NextJoystickInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				/* Descriptor not found, error out */
+				return NoCompatibleInterfaceFound;
+			}
+		}
+		
+		/* Retrieve the endpoint address from the endpoint descriptor */
+		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
+
+		/* If the endpoint is a IN type endpoint */
+		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
+		  DataINEndpoint = EndpointData;
 	}
-
-	/* Save the HID report size for later use */
-	HIDReportSize = DESCRIPTOR_CAST(CurrConfigLocation, USB_Descriptor_HID_t).HIDReportLength;
 	
-	/* Get the joystick interface's data endpoint descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextJoystickInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		/* Descriptor not found, error out */
-		return NoEndpointFound;
-	}
-	
-	/* Retrieve the endpoint address from the endpoint descriptor */
-	USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
-
-	/* Configure the joystick data pipe */
-	Pipe_ConfigurePipe(JOYSTICK_DATAPIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-	                   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-
+	/* Configure the HID data IN pipe */
+	Pipe_ConfigurePipe(JOYSTICK_DATA_IN_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
+	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_SetInterruptPeriod(DataINEndpoint->PollingIntervalMS);
+			
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;
 }

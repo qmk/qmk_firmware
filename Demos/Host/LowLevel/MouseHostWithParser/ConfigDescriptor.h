@@ -53,6 +53,9 @@
 
 		/** Descriptor header type constant for a HID report descriptor. */
 		#define DTYPE_Report                0x22
+
+		/** Pipe number for the mouse report data pipe. */
+		#define MOUSE_DATA_IN_PIPE          1
 	
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
@@ -62,9 +65,7 @@
 			ControlError                    = 1, /**< A control request to the device failed to complete successfully */
 			DescriptorTooLarge              = 2, /**< The device's Configuration Descriptor is too large to process */
 			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
-			NoHIDInterfaceFound             = 4, /**< A compatible HID interface was not found in the device's Configuration Descriptor */
-			NoHIDDescriptorFound            = 5, /**< A compatible HID descriptor was not found in the device's HID interface */
-			NoEndpointFound                 = 5, /**< A compatible HID IN endpoint was not found in the device's HID interface */
+			NoCompatibleInterfaceFound      = 4, /**< A compatible interface with the required endpoints was not found */
 		};
 
 	/* Function Prototypes: */

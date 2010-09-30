@@ -51,6 +51,12 @@
 		/** Interface Class value for the MIDI Audio Streaming protocol. */
 		#define MIDI_STREAMING_PROTOCOL        0x00
 	
+		/** Pipe number for the MIDI data IN pipe. */
+		#define MIDI_DATA_IN_PIPE              1
+
+		/** Pipe number for the MIDI data OUT pipe. */
+		#define MIDI_DATA_OUT_PIPE             2
+
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum MIDIHost_GetConfigDescriptorDataCodes_t
@@ -59,8 +65,7 @@
 			ControlError                    = 1, /**< A control request to the device failed to complete successfully */
 			DescriptorTooLarge              = 2, /**< The device's Configuration Descriptor is too large to process */
 			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
-			NoCDCInterfaceFound             = 4, /**< A compatible CDC interface was not found in the device's Configuration Descriptor */
-			NoEndpointFound                 = 5, /**< Compatible CDC endpoints were not found in the device's CDC interface */
+			NoCompatibleInterfaceFound      = 4, /**< A compatible interface with the required endpoints was not found */
 		};
 
 	/* Function Prototypes: */

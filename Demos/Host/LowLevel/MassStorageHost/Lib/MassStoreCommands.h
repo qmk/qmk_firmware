@@ -65,12 +65,6 @@
 		
 		/** Timeout period between the issuing of a CBW to a device, and the reception of the first packet. */
 		#define COMMAND_DATA_TIMEOUT_MS             10000
-
-		/** Pipe number of the Mass Storage data IN pipe. */
-		#define MASS_STORE_DATA_IN_PIPE             1
-
-		/** Pipe number of the Mass Storage data OUT pipe. */
-		#define MASS_STORE_DATA_OUT_PIPE            2
 		
 		/** Additional error code for Mass Storage functions when a device returns a logical command failure. */
 		#define MASS_STORE_SCSI_COMMAND_FAILED      0xC0

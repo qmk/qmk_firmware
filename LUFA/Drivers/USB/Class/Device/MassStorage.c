@@ -75,20 +75,39 @@ bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 {
 	memset(&MSInterfaceInfo->State, 0x00, sizeof(MSInterfaceInfo->State));
 
-	if (!(Endpoint_ConfigureEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_BULK,
-							         ENDPOINT_DIR_IN, MSInterfaceInfo->Config.DataINEndpointSize,
-							         MSInterfaceInfo->Config.DataINEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
+	for (uint8_t EndpointNum = 1; EndpointNum < ENDPOINT_TOTAL_ENDPOINTS; EndpointNum++)
 	{
-		return false;
-	}
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Direction;
+		bool     DoubleBanked;
 
-	if (!(Endpoint_ConfigureEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_BULK,
-	                                 ENDPOINT_DIR_OUT, MSInterfaceInfo->Config.DataOUTEndpointSize,
-	                                 MSInterfaceInfo->Config.DataOUTEndpointDoubleBank ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
-	{
-		return false;
+		if (EndpointNum == MSInterfaceInfo->Config.DataINEndpointNumber)
+		{
+			Size         = MSInterfaceInfo->Config.DataINEndpointSize;
+			Direction    = ENDPOINT_DIR_IN;
+			Type         = EP_TYPE_BULK;
+			DoubleBanked = MSInterfaceInfo->Config.DataINEndpointDoubleBank;
+		}
+		else if (EndpointNum == MSInterfaceInfo->Config.DataOUTEndpointNumber)
+		{
+			Size         = MSInterfaceInfo->Config.DataOUTEndpointSize;
+			Direction    = ENDPOINT_DIR_OUT;
+			Type         = EP_TYPE_BULK;
+			DoubleBanked = MSInterfaceInfo->Config.DataOUTEndpointDoubleBank;
+		}
+		else
+		{
+			continue;
+		}
+		
+		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size,
+										 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
+		{
+			return false;
+		}
 	}
-
+	
 	return true;
 }
 

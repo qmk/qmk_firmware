@@ -175,7 +175,7 @@ void MIDI_Host_Task(void)
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
-			Pipe_SelectPipe(MIDI_DATAPIPE_IN);
+			Pipe_SelectPipe(MIDI_DATA_IN_PIPE);
 			
 			if (Pipe_IsINReceived())
 			{
@@ -196,7 +196,7 @@ void MIDI_Host_Task(void)
 				Pipe_ClearIN();
 			}
 			
-			Pipe_SelectPipe(MIDI_DATAPIPE_OUT);
+			Pipe_SelectPipe(MIDI_DATA_OUT_PIPE);
 			
 			static uint8_t PrevJoystickStatus;
 

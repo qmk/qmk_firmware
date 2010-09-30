@@ -50,6 +50,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
+	
+	USB_Descriptor_Endpoint_t* DataINEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -64,28 +66,41 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlError;
 	}
 	
-	/* Get the keyboard interface from the configuration descriptor */
+	/* Get the first HID interface from the configuration descriptor */
 	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 	                              DComp_NextKeyboardInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
-		return NoHIDInterfaceFound;
+		return NoCompatibleInterfaceFound;
 	}
 
-	/* Get the keyboard interface's data endpoint descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextKeyboardInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+	while (!(DataINEndpoint))
 	{
-		/* Descriptor not found, error out */
-		return NoEndpointFound;
+		/* Get the next HID interface's data endpoint descriptor */
+		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+		                              DComp_NextKeyboardInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		{
+			/* Get the next HID interface from the configuration descriptor */
+			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+										  DComp_NextKeyboardInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				/* Descriptor not found, error out */
+				return NoCompatibleInterfaceFound;
+			}
+		}
+		
+		/* Retrieve the endpoint address from the endpoint descriptor */
+		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
+
+		/* If the endpoint is a IN type endpoint */
+		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
+		  DataINEndpoint = EndpointData;
 	}
 	
-	/* Retrieve the endpoint address from the endpoint descriptor */
-	USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
-
-	/* Configure the keyboard data pipe */
-	Pipe_ConfigurePipe(KEYBOARD_DATAPIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-	                   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
+	/* Configure the HID data IN pipe */
+	Pipe_ConfigurePipe(KEYBOARD_DATA_IN_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
+	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_SetInterruptPeriod(DataINEndpoint->PollingIntervalMS);
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;

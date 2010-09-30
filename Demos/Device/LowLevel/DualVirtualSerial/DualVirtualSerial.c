@@ -123,20 +123,20 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup first CDC Interface's Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-	                                            CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
 	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_TX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
 	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
 	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_RX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
 	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC1_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+	                                            CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
 
 	/* Setup second CDC Interface's Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-	                                            CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
 	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_TX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
 	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
 	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_RX_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
 	                                            CDC_TXRX_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC2_NOTIFICATION_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+	                                            CDC_NOTIFICATION_EPSIZE, ENDPOINT_BANK_SINGLE);
 
 	/* Reset line encoding baud rates so that the host knows to send new values */
 	LineEncoding1.BaudRateBPS = 0;

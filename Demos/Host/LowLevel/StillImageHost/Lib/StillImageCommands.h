@@ -40,17 +40,9 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		
 		#include "PIMACodes.h"
+		#include "../StillImageHost.h"
 
-	/* Macros: */
-		/** Pipe number of the Still Image data IN pipe. */
-		#define SIMAGE_DATA_IN_PIPE            0x01
-
-		/** Pipe number of the Still Image data OUT pipe. */
-		#define SIMAGE_DATA_OUT_PIPE           0x02
-
-		/** Pipe number of the Still Image events pipe. */
-		#define SIMAGE_EVENTS_PIPE             0x03
-		
+	/* Macros: */		
 		/** Length in bytes of a given Unicode string's character length.
 		 *
 		 *  \param[in] chars  Total number of Unicode characters in the string

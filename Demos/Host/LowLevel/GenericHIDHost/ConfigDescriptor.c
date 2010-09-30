@@ -50,7 +50,9 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
-	uint8_t  FoundEndpoints = 0;
+	
+	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -65,15 +67,15 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlError;
 	}
 	
-	/* Get the HID interface from the configuration descriptor */
+	/* Get the first HID interface from the configuration descriptor */
 	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 	                              DComp_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
-		return NoHIDInterfaceFound;
+		return NoCompatibleInterfaceFound;
 	}
 
-	while (FoundEndpoints != ((1 << HID_DATA_IN_PIPE) | (1 << HID_DATA_OUT_PIPE)))
+	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
 		/* Get the next HID interface's data endpoint descriptor */
 		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
@@ -81,11 +83,19 @@ uint8_t ProcessConfigurationDescriptor(void)
 		{
 			/* Not all HID devices have an OUT endpoint - if we've reached the end of the HID descriptor
 			 * but only found the mandatory IN endpoint, it's safe to continue with the device enumeration */
-			if (FoundEndpoints == (1 << HID_DATA_IN_PIPE))
+			if (DataINEndpoint)
 			  break;
-				
-			/* Descriptor not found, error out */
-			return NoEndpointFound;
+			
+			/* Clear any found endpoints */
+			DataOUTEndpoint = NULL;
+
+			/* Get the next HID interface from the configuration descriptor */
+			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+										  DComp_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				/* Descriptor not found, error out */
+				return NoCompatibleInterfaceFound;
+			}
 		}
 		
 		/* Retrieve the endpoint address from the endpoint descriptor */
@@ -93,22 +103,23 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 		/* If the endpoint is a IN type endpoint */
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		{
-			/* Configure the HID data IN pipe */
-			Pipe_ConfigurePipe(HID_DATA_IN_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-			
-			FoundEndpoints |= (1 << HID_DATA_IN_PIPE);
-		}
+		  DataINEndpoint = EndpointData;
 		else
-		{
-			/* Configure the HID data OUT pipe */
-			Pipe_ConfigurePipe(HID_DATA_OUT_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_OUT,
-							   EndpointData->EndpointAddress, EndpointData->EndpointSize, PIPE_BANK_SINGLE);
-			
-			FoundEndpoints |= (1 << HID_DATA_OUT_PIPE);		
-		}
+		  DataOUTEndpoint = EndpointData;
 	}
+	
+	/* Configure the HID data IN pipe */
+	Pipe_ConfigurePipe(HID_DATA_IN_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
+	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_SetInterruptPeriod(DataINEndpoint->PollingIntervalMS);
+	
+	/* Check if the HID interface contained an optional OUT data endpoint */
+	if (DataOUTEndpoint)
+	{
+		/* Configure the HID data OUT pipe */
+		Pipe_ConfigurePipe(HID_DATA_OUT_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_OUT,
+						   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	}	
 			
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;

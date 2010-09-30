@@ -173,7 +173,7 @@ void CDC_Host_Task(void)
 			break;
 		case HOST_STATE_Configured:
 			/* Select the data IN pipe */
-			Pipe_SelectPipe(CDC_DATAPIPE_IN);
+			Pipe_SelectPipe(CDC_DATA_IN_PIPE);
 			Pipe_Unfreeze();
 
 			/* Check to see if a packet has been received */
@@ -205,7 +205,7 @@ void CDC_Host_Task(void)
 			Pipe_Freeze();
 
 			/* Select and unfreeze the notification pipe */
-			Pipe_SelectPipe(CDC_NOTIFICATIONPIPE);
+			Pipe_SelectPipe(CDC_NOTIFICATION_PIPE);
 			Pipe_Unfreeze();
 			
 			/* Check if a packet has been received */

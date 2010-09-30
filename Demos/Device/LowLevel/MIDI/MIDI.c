@@ -94,9 +94,9 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	bool ConfigSuccess = true;
 
 	/* Setup MIDI Data Endpoints */
-	ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
-	                                            MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
 	ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
+	                                            MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
+	ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_OUT,
 	                                            MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
 
 	/* Indicate endpoint configuration success or failure */

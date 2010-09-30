@@ -50,7 +50,10 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
-	uint8_t  FoundEndpoints = 0;
+	
+	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
+	USB_Descriptor_Endpoint_t* EventsEndpoint  = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -65,69 +68,64 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlError;
 	}
 	
-	/* Get the Still Image interface from the configuration descriptor */
+	/* Get the first Still Image interface from the configuration descriptor */
 	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 	                              DComp_NextStillImageInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		/* Descriptor not found, error out */
-		return NoInterfaceFound;
+		return NoCompatibleInterfaceFound;
 	}
 
-	/* Get the IN and OUT data and event endpoints for the Still Image interface */
-	while (FoundEndpoints != ((1 << SIMAGE_EVENTS_PIPE) | (1 << SIMAGE_DATA_IN_PIPE) | (1 << SIMAGE_DATA_OUT_PIPE)))
+	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		/* Fetch the next endpoint from the current Still Image interface */
+		/* Get the next Still Image interface's data endpoint descriptor */
 		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextStillImageInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			/* Descriptor not found, error out */
-			return NoEndpointFound;
+			/* Clear any found endpoints */
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
+			EventsEndpoint  = NULL;
+
+			/* Get the next Still Image interface from the configuration descriptor */
+			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+										  DComp_NextStillImageInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				/* Descriptor not found, error out */
+				return NoCompatibleInterfaceFound;
+			}
 		}
-		
+
+		/* Retrieve the endpoint address from the endpoint descriptor */
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
-		/* Check if the found endpoint is a interrupt or bulk type descriptor */
-		if ((EndpointData->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT)
+		/* If the endpoint is a IN type endpoint */
+		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 		{
-			/* If the endpoint is a IN type interrupt endpoint */
-			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-			{
-				/* Configure the events pipe */
-				Pipe_ConfigurePipe(SIMAGE_EVENTS_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-								   PIPE_BANK_DOUBLE);			
-
-				Pipe_SetInterruptPeriod(EndpointData->PollingIntervalMS);
-				
-				/* Set the flag indicating that the events pipe has been found */
-				FoundEndpoints |= (1 << SIMAGE_EVENTS_PIPE);
-			}
+			/* Check if the found endpoint is a interrupt or bulk type descriptor */
+			if ((EndpointData->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT)
+			  EventsEndpoint = EndpointData;
+			else
+			  DataINEndpoint = EndpointData;
 		}
 		else
 		{
-			/* Check if the endpoint is a bulk IN or bulk OUT endpoint */
-			if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-			{
-				/* Configure the data IN pipe */
-				Pipe_ConfigurePipe(SIMAGE_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-								   PIPE_BANK_DOUBLE);
-
-				/* Set the flag indicating that the data IN pipe has been found */
-				FoundEndpoints |= (1 << SIMAGE_DATA_IN_PIPE);
-			}
-			else
-			{
-				/* Configure the data OUT pipe */
-				Pipe_ConfigurePipe(SIMAGE_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-								   EndpointData->EndpointAddress, EndpointData->EndpointSize,
-								   PIPE_BANK_DOUBLE);
-
-				/* Set the flag indicating that the data OUT pipe has been found */
-				FoundEndpoints |= (1 << SIMAGE_DATA_OUT_PIPE);
-			}
+			DataOUTEndpoint = EndpointData;
 		}
 	}
+	
+	/* Configure the Still Image data IN pipe */
+	Pipe_ConfigurePipe(SIMAGE_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
+	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+
+	/* Configure the Still Image data OUT pipe */
+	Pipe_ConfigurePipe(SIMAGE_DATA_OUT_PIPE, EP_TYPE_BULK, PIPE_TOKEN_OUT,
+					   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+
+	/* Configure the Still Image events pipe */
+	Pipe_ConfigurePipe(SIMAGE_EVENTS_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
+					   EventsEndpoint->EndpointAddress, EventsEndpoint->EndpointSize, PIPE_BANK_SINGLE);
+	Pipe_SetInterruptPeriod(EventsEndpoint->PollingIntervalMS);
 
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;

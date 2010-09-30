@@ -267,6 +267,9 @@
 			 *                        More banks uses more USB DPRAM, but offers better performance. Isochronous type
 			 *                        endpoints <b>must</b> have at least two banks.
 			 *
+			 *  \note Endpoints <b>must</b> be configured in ascending order, or bank corruption will occur.
+			 *        \n\n
+			 *
 			 *  \note Certain models of USB AVR's endpoints may have different maximum packet sizes based on the endpoint's
 			 *        index - refer to the chosen USB AVR's datasheet to determine the maximum bank size for each endpoint.
 			 *        \n\n
@@ -442,7 +445,7 @@
 				return ((UEINT & (1 << EndpointNumber)) ? true : false);
 			}
 			
-			/** Determines if the selected IN endpoint is ready for a new packet.
+			/** Determines if the selected IN endpoint is ready for a new packet to be sent to the host.
 			 *
 			 *  \ingroup Group_EndpointPacketManagement
 			 *
@@ -454,7 +457,7 @@
 				return ((UEINTX & (1 << TXINI)) ? true : false);
 			}
 			
-			/** Determines if the selected OUT endpoint has received new packet.
+			/** Determines if the selected OUT endpoint has received new packet from the host.
 			 *
 			 *  \ingroup Group_EndpointPacketManagement
 			 *

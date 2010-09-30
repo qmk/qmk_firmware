@@ -44,6 +44,7 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		
 		#include "RNDISConstants.h"
+		#include "../RNDISEthernetHost.h"
 
 	/* Type Defines: */
 		/** Type define for a RNDIS message header, sent before RNDIS messages. */
@@ -186,15 +187,6 @@
 
 		/** Implemented RNDIS Version Minor. */
 		#define REMOTE_NDIS_VERSION_MINOR             0x00
-
-		/** Pipe number for the RNDIS data IN pipe. */
-		#define RNDIS_DATAPIPE_IN                     1
-
-		/** Pipe number for the RNDIS data OUT pipe. */
-		#define RNDIS_DATAPIPE_OUT                    2
-
-		/** Pipe number for the RNDIS notification pipe. */
-		#define RNDIS_NOTIFICATIONPIPE                3
 		
 		/** Additional error code for RNDIS functions when a device returns a logical command failure. */
 		#define RNDIS_COMMAND_FAILED                  0xC0

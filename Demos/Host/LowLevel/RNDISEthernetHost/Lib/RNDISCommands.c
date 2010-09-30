@@ -281,7 +281,7 @@ uint8_t RNDIS_GetPacketLength(uint16_t* const PacketLength)
 {
 	uint8_t ErrorCode;
 
-	Pipe_SelectPipe(RNDIS_DATAPIPE_IN);
+	Pipe_SelectPipe(RNDIS_DATA_IN_PIPE);
 	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	Pipe_Unfreeze();
 	

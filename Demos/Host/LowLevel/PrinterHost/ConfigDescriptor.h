@@ -47,6 +47,12 @@
 		/** Interface Protocol value for a Bidirectional communication encapsulation. */
 		#define PRINTER_PROTOCOL                 0x02
 
+		/** Pipe number of the Printer data IN pipe. */
+		#define PRINTER_DATA_IN_PIPE             1
+
+		/** Pipe number of the Printer data OUT pipe. */
+		#define PRINTER_DATA_OUT_PIPE            2
+
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum PrinterHost_GetConfigDescriptorDataCodes_t
@@ -55,8 +61,7 @@
 			ControlError                    = 1, /**< A control request to the device failed to complete successfully */
 			DescriptorTooLarge              = 2, /**< The device's Configuration Descriptor is too large to process */
 			InvalidConfigDataReturned       = 3, /**< The device returned an invalid Configuration Descriptor */
-			NoInterfaceFound                = 4, /**< A compatible printer interface was not found in the device's Configuration Descriptor */
-			NoEndpointFound                 = 5, /**< The printer data endpoints were not found in the device's Configuration Descriptor */
+			NoCompatibleInterfaceFound      = 4, /**< A compatible interface with the required endpoints was not found */
 		};
 	
 	/* External Variables: */

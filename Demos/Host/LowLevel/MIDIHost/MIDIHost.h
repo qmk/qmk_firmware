@@ -71,12 +71,6 @@
 		 */
 		#define MIDI_CHANNEL(channel)     (channel - 1)
 
-		/** Pipe number for the MIDI data IN pipe. */
-		#define MIDI_DATAPIPE_IN          1
-
-		/** Pipe number for the MIDI data OUT pipe. */
-		#define MIDI_DATAPIPE_OUT         2
-
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 

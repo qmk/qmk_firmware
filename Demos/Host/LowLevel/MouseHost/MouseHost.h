@@ -53,9 +53,6 @@
 		#include "ConfigDescriptor.h"
 		
 	/* Macros: */
-		/** Pipe number for the mouse data IN pipe. */
-		#define MOUSE_DATAPIPE            1
-		
 		/** HID Class Specific request to set the report protocol mode. */
 		#define REQ_SetProtocol           0x0B
 

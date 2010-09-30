@@ -131,7 +131,7 @@ void ReadNextReport(void)
 	USB_KeyboardReport_Data_t KeyboardReport;
 		
 	/* Select keyboard data pipe */
-	Pipe_SelectPipe(KEYBOARD_DATAPIPE);	
+	Pipe_SelectPipe(KEYBOARD_DATA_IN_PIPE);	
 
 	/* Unfreeze keyboard data pipe */
 	Pipe_Unfreeze();

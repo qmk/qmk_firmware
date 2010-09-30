@@ -60,11 +60,11 @@
 		/** Audio class descriptor jack type value for an external (physical) MIDI input or output jack. */
 		#define JACKTYPE_EXTERNAL           0x02
 		
-		/** Endpoint number of the MIDI streaming data OUT endpoint, for host-to-device data transfers. */
-		#define MIDI_STREAM_OUT_EPNUM       1
-
 		/** Endpoint number of the MIDI streaming data IN endpoint, for device-to-host data transfers. */
-		#define MIDI_STREAM_IN_EPNUM        2
+		#define MIDI_STREAM_IN_EPNUM        1
+
+		/** Endpoint number of the MIDI streaming data OUT endpoint, for host-to-device data transfers. */
+		#define MIDI_STREAM_OUT_EPNUM       2
 
 		/** Endpoint size in bytes of the Audio isochronous streaming data IN and OUT endpoints. */
 		#define MIDI_STREAM_EPSIZE          64

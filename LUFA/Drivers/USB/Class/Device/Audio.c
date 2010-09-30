@@ -62,21 +62,30 @@ bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioIn
 {
 	memset(&AudioInterfaceInfo->State, 0x00, sizeof(AudioInterfaceInfo->State));
 
-	if (AudioInterfaceInfo->Config.DataINEndpointNumber)
+	for (uint8_t EndpointNum = 1; EndpointNum < ENDPOINT_TOTAL_ENDPOINTS; EndpointNum++)
 	{
-		if (!(Endpoint_ConfigureEndpoint(AudioInterfaceInfo->Config.DataINEndpointNumber, EP_TYPE_ISOCHRONOUS,
-										 ENDPOINT_DIR_IN, AudioInterfaceInfo->Config.DataINEndpointSize,
-										 ENDPOINT_BANK_DOUBLE)))
-		{
-			return false;
-		}
-	}
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Direction;
 
-	if (AudioInterfaceInfo->Config.DataOUTEndpointNumber)
-	{
-		if (!(Endpoint_ConfigureEndpoint(AudioInterfaceInfo->Config.DataOUTEndpointNumber, EP_TYPE_ISOCHRONOUS,
-										 ENDPOINT_DIR_OUT, AudioInterfaceInfo->Config.DataOUTEndpointSize,
-										 ENDPOINT_BANK_DOUBLE)))
+		if (EndpointNum == AudioInterfaceInfo->Config.DataINEndpointNumber)
+		{
+			Size         = AudioInterfaceInfo->Config.DataINEndpointSize;
+			Direction    = ENDPOINT_DIR_IN;
+			Type         = EP_TYPE_ISOCHRONOUS;
+		}
+		else if (EndpointNum == AudioInterfaceInfo->Config.DataOUTEndpointNumber)
+		{
+			Size         = AudioInterfaceInfo->Config.DataOUTEndpointSize;
+			Direction    = ENDPOINT_DIR_OUT;
+			Type         = EP_TYPE_ISOCHRONOUS;
+		}
+		else
+		{
+			continue;
+		}
+		
+		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size, ENDPOINT_BANK_DOUBLE)))
 		{
 			return false;
 		}
