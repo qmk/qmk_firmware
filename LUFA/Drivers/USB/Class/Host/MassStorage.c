@@ -40,38 +40,31 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
                                uint16_t ConfigDescriptorSize,
 							   void* ConfigDescriptorData)
 {
-	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
-	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint       = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint      = NULL;
+	USB_Descriptor_Interface_t* MassStorageInterface = NULL;
 
 	memset(&MSInterfaceInfo->State, 0x00, sizeof(MSInterfaceInfo->State));
 
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return MS_ENUMERROR_InvalidConfigDescriptor;
 
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              DCOMP_MS_Host_NextMSInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		return MS_ENUMERROR_NoCompatibleInterfaceFound;
-	}
-	
-	MSInterfaceInfo->State.InterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t)->InterfaceNumber;
-
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		if (!(MassStorageInterface) ||
+		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DCOMP_MS_Host_NextMSInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			DataINEndpoint  = NULL;
-			DataOUTEndpoint = NULL;
-
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 										  DCOMP_MS_Host_NextMSInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return MS_ENUMERROR_NoCompatibleInterfaceFound;
 			}
 
-			MSInterfaceInfo->State.InterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
-			                                                          USB_Descriptor_Interface_t)->InterfaceNumber;
+			MassStorageInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
+
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
 
 			continue;
 		}
@@ -104,6 +97,7 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 		}
 	}
 
+	MSInterfaceInfo->State.InterfaceNumber = MassStorageInterface->InterfaceNumber;
 	MSInterfaceInfo->State.IsActive = true;
 
 	return MS_ENUMERROR_NoError;

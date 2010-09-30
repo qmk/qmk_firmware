@@ -40,43 +40,20 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
                                 uint16_t ConfigDescriptorSize,
                                 void* ConfigDescriptorData)
 {
-	USB_Descriptor_Interface_t* CurrentHIDInterface;
-
 	USB_Descriptor_Endpoint_t*  DataINEndpoint  = NULL;
 	USB_Descriptor_Endpoint_t*  DataOUTEndpoint = NULL;
+	USB_Descriptor_Interface_t* HIDInterface    = NULL;
+	USB_HID_Descriptor_HID_t*   HIDDescriptor   = NULL;
 	
 	memset(&HIDInterfaceInfo->State, 0x00, sizeof(HIDInterfaceInfo->State));
 	
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return HID_ENUMERROR_InvalidConfigDescriptor;
-	
-	do
-	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-									  DCOMP_HID_Host_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-		{
-			return HID_ENUMERROR_NoCompatibleInterfaceFound;
-		}
-		
-		CurrentHIDInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
-	} while (HIDInterfaceInfo->Config.HIDInterfaceProtocol &&
-	         (CurrentHIDInterface->Protocol != HIDInterfaceInfo->Config.HIDInterfaceProtocol));
-
-	HIDInterfaceInfo->State.InterfaceNumber      = CurrentHIDInterface->InterfaceNumber;
-	HIDInterfaceInfo->State.SupportsBootProtocol = (CurrentHIDInterface->SubClass != HID_BOOTP_NonBootProtocol);
-
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              DCOMP_HID_Host_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		return HID_ENUMERROR_NoCompatibleInterfaceFound;
-	}
-	
-	HIDInterfaceInfo->State.HIDReportSize = DESCRIPTOR_PCAST(ConfigDescriptorData,
-	                                                         USB_HID_Descriptor_HID_t)->HIDReportLength;
 
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		if (!(HIDInterface) ||
+		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DCOMP_HID_Host_NextHIDInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			if (DataINEndpoint || DataOUTEndpoint)
@@ -90,21 +67,17 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 					return HID_ENUMERROR_NoCompatibleInterfaceFound;
 				}
 				
-				CurrentHIDInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
+				HIDInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
 			} while (HIDInterfaceInfo->Config.HIDInterfaceProtocol &&
-					 (CurrentHIDInterface->Protocol != HIDInterfaceInfo->Config.HIDInterfaceProtocol));
+					 (HIDInterface->Protocol != HIDInterfaceInfo->Config.HIDInterfaceProtocol));
 			
-			HIDInterfaceInfo->State.InterfaceNumber      = CurrentHIDInterface->InterfaceNumber;
-			HIDInterfaceInfo->State.SupportsBootProtocol = (CurrentHIDInterface->SubClass != HID_BOOTP_NonBootProtocol);
-
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 			                              DCOMP_HID_Host_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return HID_ENUMERROR_NoCompatibleInterfaceFound;
 			}
 
-			HIDInterfaceInfo->State.HIDReportSize = DESCRIPTOR_PCAST(ConfigDescriptorData,
-			                                                         USB_HID_Descriptor_HID_t)->HIDReportLength;
+			HIDDescriptor = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_HID_Descriptor_HID_t);
 
 			DataINEndpoint  = NULL;
 			DataOUTEndpoint = NULL;
@@ -143,7 +116,10 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		}
 	}
 	
-	HIDInterfaceInfo->State.LargestReportSize = 8;
+	HIDInterfaceInfo->State.InterfaceNumber = HIDInterface->InterfaceNumber;
+	HIDInterfaceInfo->State.HIDReportSize   = HIDDescriptor->HIDReportLength;
+	HIDInterfaceInfo->State.SupportsBootProtocol = (HIDInterface->SubClass != HID_BOOTP_NonBootProtocol);
+	HIDInterfaceInfo->State.LargestReportSize    = 8;
 	HIDInterfaceInfo->State.IsActive = true;
 	
 	return HID_ENUMERROR_NoError;

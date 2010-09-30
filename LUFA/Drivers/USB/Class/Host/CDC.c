@@ -40,27 +40,20 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
                                 uint16_t ConfigDescriptorSize,
                                 void* ConfigDescriptorData)
 {
-	USB_Descriptor_Endpoint_t* DataINEndpoint       = NULL;
-	USB_Descriptor_Endpoint_t* DataOUTEndpoint      = NULL;
-	USB_Descriptor_Endpoint_t* NotificationEndpoint = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint       = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint      = NULL;
+	USB_Descriptor_Endpoint_t*  NotificationEndpoint = NULL;
+	USB_Descriptor_Interface_t* CDCControlInterface  = NULL;
 
 	memset(&CDCInterfaceInfo->State, 0x00, sizeof(CDCInterfaceInfo->State));
 
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return CDC_ENUMERROR_InvalidConfigDescriptor;
 
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              DCOMP_CDC_Host_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		return CDC_ENUMERROR_NoCompatibleInterfaceFound;
-	}
-	
-	CDCInterfaceInfo->State.ControlInterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
-	                                                                  USB_Descriptor_Interface_t)->InterfaceNumber;
-
 	while (!(DataINEndpoint) || !(DataOUTEndpoint) || !(NotificationEndpoint))
 	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		if (!(CDCControlInterface) ||
+		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DCOMP_CDC_Host_NextCDCInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			if (NotificationEndpoint)
@@ -82,8 +75,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 					return CDC_ENUMERROR_NoCompatibleInterfaceFound;
 				}
 
-				CDCInterfaceInfo->State.ControlInterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
-				                                                                 USB_Descriptor_Interface_t)->InterfaceNumber;
+				CDCControlInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
 
 				NotificationEndpoint = NULL;
 			}
@@ -135,6 +127,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 		}
 	}
 
+	CDCInterfaceInfo->State.ControlInterfaceNumber = CDCControlInterface->InterfaceNumber;
 	CDCInterfaceInfo->State.ControlLineStates.HostToDevice = (CDC_CONTROL_LINE_OUT_RTS | CDC_CONTROL_LINE_OUT_DTR);
 	CDCInterfaceInfo->State.ControlLineStates.DeviceToHost = (CDC_CONTROL_LINE_IN_DCD  | CDC_CONTROL_LINE_IN_DSR);
 	CDCInterfaceInfo->State.IsActive = true;

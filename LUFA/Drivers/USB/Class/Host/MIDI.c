@@ -40,38 +40,31 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
                                  uint16_t ConfigDescriptorSize,
                                  void* ConfigDescriptorData)
 {
-	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
-	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint = NULL;
+	USB_Descriptor_Interface_t* MIDIInterface   = NULL;
 
 	memset(&MIDIInterfaceInfo->State, 0x00, sizeof(MIDIInterfaceInfo->State));
 
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return MIDI_ENUMERROR_InvalidConfigDescriptor;
 
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              DCOMP_MIDI_Host_NextMIDIStreamingInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		return MIDI_ENUMERROR_NoCompatibleInterfaceFound;
-	}
-	
-	MIDIInterfaceInfo->State.InterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t)->InterfaceNumber;
-
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		if (!(MIDIInterface) ||
+		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DCOMP_MIDI_Host_NextMIDIStreamingDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			DataINEndpoint  = NULL;
-			DataOUTEndpoint = NULL;
-
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 										  DCOMP_MIDI_Host_NextMIDIStreamingInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return MIDI_ENUMERROR_NoCompatibleInterfaceFound;
 			}
 
-			MIDIInterfaceInfo->State.InterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
-			                                                            USB_Descriptor_Interface_t)->InterfaceNumber;
+			MIDIInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
+
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
 
 			continue;
 		}
@@ -104,6 +97,7 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 		}
 	}
 
+	MIDIInterfaceInfo->State.InterfaceNumber = MIDIInterface->InterfaceNumber;
 	MIDIInterfaceInfo->State.IsActive = true;
 
 	return MIDI_ENUMERROR_NoError;

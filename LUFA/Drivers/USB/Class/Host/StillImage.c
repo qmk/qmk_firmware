@@ -40,41 +40,33 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
                                uint16_t ConfigDescriptorSize,
                                void* ConfigDescriptorData)
 {
-	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
-	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
-	USB_Descriptor_Endpoint_t* EventsEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint      = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint     = NULL;
+	USB_Descriptor_Endpoint_t*  EventsEndpoint      = NULL;
+	USB_Descriptor_Interface_t* StillImageInterface = NULL;
 
 	memset(&SIInterfaceInfo->State, 0x00, sizeof(SIInterfaceInfo->State));
 	
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return SI_ENUMERROR_InvalidConfigDescriptor;
 
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              DCOMP_SI_Host_NextSIInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		return SI_ENUMERROR_NoCompatibleInterfaceFound;
-	}
-
-	SIInterfaceInfo->State.InterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
-	                                                          USB_Descriptor_Interface_t)->InterfaceNumber;
-
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		if (!(StillImageInterface) ||
+		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DCOMP_SI_Host_NextSIInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			DataINEndpoint  = NULL;
-			DataOUTEndpoint = NULL;
-			EventsEndpoint  = NULL;
-
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 										  DCOMP_SI_Host_NextSIInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return SI_ENUMERROR_NoCompatibleInterfaceFound;
 			}
 
-			SIInterfaceInfo->State.InterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
-			                                                          USB_Descriptor_Interface_t)->InterfaceNumber;
+			StillImageInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
+			
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
+			EventsEndpoint  = NULL;
 
 			continue;
 		}
@@ -123,7 +115,9 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 		}
 	}	
 	
+	SIInterfaceInfo->State.InterfaceNumber = StillImageInterface->InterfaceNumber;
 	SIInterfaceInfo->State.IsActive = true;
+
 	return SI_ENUMERROR_NoError;
 }
 

@@ -40,27 +40,22 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
                                   uint16_t ConfigDescriptorSize,
                                   void* ConfigDescriptorData)
 {
-	USB_Descriptor_Endpoint_t* DataINEndpoint       = NULL;
-	USB_Descriptor_Endpoint_t* DataOUTEndpoint      = NULL;
-	USB_Descriptor_Endpoint_t* NotificationEndpoint = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint        = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint       = NULL;
+	USB_Descriptor_Endpoint_t*  NotificationEndpoint  = NULL;
+	USB_Descriptor_Interface_t* RNDISControlInterface = NULL;
 
 	memset(&RNDISInterfaceInfo->State, 0x00, sizeof(RNDISInterfaceInfo->State));
 
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return RNDIS_ENUMERROR_InvalidConfigDescriptor;
 
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-	                              DCOMP_RNDIS_Host_NextRNDISControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		return RNDIS_ENUMERROR_NoCompatibleInterfaceFound;
-	}
-	
-	RNDISInterfaceInfo->State.ControlInterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
-	                                                                    USB_Descriptor_Interface_t)->InterfaceNumber;
+	RNDISControlInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
 
 	while (!(DataINEndpoint) || !(DataOUTEndpoint) || !(NotificationEndpoint))
 	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+		if (!(RNDISControlInterface) ||
+		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DCOMP_RNDIS_Host_NextRNDISInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			if (NotificationEndpoint)
@@ -81,9 +76,8 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 				{
 					return RNDIS_ENUMERROR_NoCompatibleInterfaceFound;
 				}
-
-				RNDISInterfaceInfo->State.ControlInterfaceNumber = DESCRIPTOR_PCAST(ConfigDescriptorData,
-				                                                                    USB_Descriptor_Interface_t)->InterfaceNumber;
+				
+				RNDISControlInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
 
 				NotificationEndpoint = NULL;
 			}
@@ -135,6 +129,7 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 		}
 	}
 
+	RNDISInterfaceInfo->State.ControlInterfaceNumber = RNDISControlInterface->InterfaceNumber;
 	RNDISInterfaceInfo->State.IsActive = true;
 
 	return RNDIS_ENUMERROR_NoError;

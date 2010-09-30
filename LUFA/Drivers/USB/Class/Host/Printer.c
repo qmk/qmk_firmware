@@ -40,43 +40,31 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
                                  uint16_t ConfigDescriptorSize,
 							     void* DeviceConfigDescriptor)
 {
-	USB_Descriptor_Endpoint_t*  DataINEndpoint  = NULL;
-	USB_Descriptor_Endpoint_t*  DataOUTEndpoint = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint   = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint  = NULL;
+	USB_Descriptor_Interface_t* PrinterInterface = NULL;
 
 	memset(&PRNTInterfaceInfo->State, 0x00, sizeof(PRNTInterfaceInfo->State));
 
 	if (DESCRIPTOR_TYPE(DeviceConfigDescriptor) != DTYPE_Configuration)
 	  return PRNT_ENUMERROR_InvalidConfigDescriptor;
-	
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
-	                              DCOMP_PRNT_Host_NextPRNTInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		return PRNT_ENUMERROR_NoCompatibleInterfaceFound;
-	}
-
-	PRNTInterfaceInfo->State.InterfaceNumber  = DESCRIPTOR_PCAST(DeviceConfigDescriptor,
-	                                                             USB_Descriptor_Interface_t)->InterfaceNumber;
-	PRNTInterfaceInfo->State.AlternateSetting = DESCRIPTOR_PCAST(DeviceConfigDescriptor,
-	                                                             USB_Descriptor_Interface_t)->AlternateSetting;
-	
+		
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
+		if (!(PrinterInterface) ||
+		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
 		                              DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			DataINEndpoint  = NULL;
-			DataOUTEndpoint = NULL;
-
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
 										  DCOMP_PRNT_Host_NextPRNTInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return PRNT_ENUMERROR_NoCompatibleInterfaceFound;
 			}
 			
-			PRNTInterfaceInfo->State.InterfaceNumber  = DESCRIPTOR_PCAST(DeviceConfigDescriptor,
-			                                                             USB_Descriptor_Interface_t)->InterfaceNumber;
-			PRNTInterfaceInfo->State.AlternateSetting = DESCRIPTOR_PCAST(DeviceConfigDescriptor,
-			                                                             USB_Descriptor_Interface_t)->AlternateSetting;	
+			PrinterInterface = DESCRIPTOR_PCAST(DeviceConfigDescriptor, USB_Descriptor_Interface_t);	
+
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
 
 			continue;
 		}
@@ -109,6 +97,8 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 		}
 	}
 
+	PRNTInterfaceInfo->State.InterfaceNumber  = PrinterInterface->InterfaceNumber;
+	PRNTInterfaceInfo->State.AlternateSetting = PrinterInterface->AlternateSetting;
 	PRNTInterfaceInfo->State.IsActive = true;
 
 	return PRNT_ENUMERROR_NoError;

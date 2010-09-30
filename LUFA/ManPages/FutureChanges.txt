@@ -19,6 +19,7 @@
   *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Re-add interrupt Pipe/Endpoint support
   *      -# Fix intermittent device mode enumeration errors
+  *      -# Add HID report macros to make HID report editing easier
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews
