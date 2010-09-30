@@ -1,5 +1,5 @@
-#ifndef print_h__
-#define print_h__
+#ifndef PRINT_H__
+#define PRINT_H__ 1
 
 #include <avr/pgmspace.h>
 #include "usb_debug.h"
