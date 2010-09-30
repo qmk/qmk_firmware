@@ -65,9 +65,12 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 	HIDInterfaceInfo->State.InterfaceNumber      = CurrentHIDInterface->InterfaceNumber;
 	HIDInterfaceInfo->State.SupportsBootProtocol = (CurrentHIDInterface->SubClass != HID_BOOTP_NonBootProtocol);
 
-	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, DCOMP_HID_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
-	  return HID_ENUMERROR_NoCompatibleInterfaceFound;
-
+	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+	                              DCOMP_HID_Host_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
+	{
+		return HID_ENUMERROR_NoCompatibleInterfaceFound;
+	}
+	
 	HIDInterfaceInfo->State.HIDReportSize = DESCRIPTOR_PCAST(ConfigDescriptorData,
 	                                                         USB_HID_Descriptor_HID_t)->HIDReportLength;
 
@@ -94,8 +97,11 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 			HIDInterfaceInfo->State.InterfaceNumber      = CurrentHIDInterface->InterfaceNumber;
 			HIDInterfaceInfo->State.SupportsBootProtocol = (CurrentHIDInterface->SubClass != HID_BOOTP_NonBootProtocol);
 
-			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData, DCOMP_HID_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
-			  return HID_ENUMERROR_NoCompatibleInterfaceFound;
+			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
+			                              DCOMP_HID_Host_NextHID) != DESCRIPTOR_SEARCH_COMP_Found)
+			{
+				return HID_ENUMERROR_NoCompatibleInterfaceFound;
+			}
 
 			HIDInterfaceInfo->State.HIDReportSize = DESCRIPTOR_PCAST(ConfigDescriptorData,
 			                                                         USB_HID_Descriptor_HID_t)->HIDReportLength;
@@ -157,7 +163,7 @@ static uint8_t DCOMP_HID_Host_NextHIDInterface(void* const CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DCOMP_HID_NextHID(void* const CurrentDescriptor)
+static uint8_t DCOMP_HID_Host_NextHID(void* const CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == HID_DTYPE_HID)
 	  return DESCRIPTOR_SEARCH_Found;

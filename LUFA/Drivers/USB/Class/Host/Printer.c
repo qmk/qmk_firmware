@@ -49,7 +49,7 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 	  return PRNT_ENUMERROR_InvalidConfigDescriptor;
 	
 	if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
-	                              DCOMP_PRNT_NextPRNTInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+	                              DCOMP_PRNT_Host_NextPRNTInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 	{
 		return PRNT_ENUMERROR_NoCompatibleInterfaceFound;
 	}
@@ -62,13 +62,13 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
 		if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
-		                              DCOMP_PRNT_NextPRNTInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
+		                              DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			DataINEndpoint  = NULL;
 			DataOUTEndpoint = NULL;
 
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
-										  DCOMP_PRNT_NextPRNTInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+										  DCOMP_PRNT_Host_NextPRNTInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return PRNT_ENUMERROR_NoCompatibleInterfaceFound;
 			}
@@ -114,7 +114,7 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 	return PRNT_ENUMERROR_NoError;
 }
 
-static uint8_t DCOMP_PRNT_NextPRNTInterface(void* CurrentDescriptor)
+static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
@@ -129,7 +129,7 @@ static uint8_t DCOMP_PRNT_NextPRNTInterface(void* CurrentDescriptor)
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
-static uint8_t DCOMP_PRNT_NextPRNTInterfaceEndpoint(void* CurrentDescriptor)
+static uint8_t DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
 	{

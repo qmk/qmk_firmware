@@ -298,7 +298,7 @@
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_HID_CLASS_HOST_C)
 				static uint8_t DCOMP_HID_Host_NextHIDInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t DCOMP_HID_NextHID(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
+				static uint8_t DCOMP_HID_Host_NextHID(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif	
 	#endif	
