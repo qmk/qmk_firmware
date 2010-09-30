@@ -2,11 +2,11 @@
 #define  USB_KEYBOARD_H 1
 
 #include <stdint.h>
-#include "usb_device.h"
+#include "usb.h"
 
 
 #define KEYBOARD_INTERFACE	0
-#define KEYBOARD_ENDPOINT	3
+#define KEYBOARD_ENDPOINT	1
 #define KEYBOARD_SIZE		8
 #define KEYBOARD_BUFFER		EP_DOUBLE_BUFFER
 

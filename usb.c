@@ -21,10 +21,12 @@
  * THE SOFTWARE.
  */
 
+#include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
-#include "usb_device.h"
+#include "usb.h"
 #include "usb_keyboard.h"
+#include "usb_mouse.h"
 #include "usb_debug.h"
 
 
@@ -64,11 +66,15 @@
 
 #define ENDPOINT0_SIZE		32
 
+// 0:control endpoint is enabled automatically by controller.
 static const uint8_t PROGMEM endpoint_config_table[] = {
-	0,
-	0,
-	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KEYBOARD_SIZE) | KEYBOARD_BUFFER,
-	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(DEBUG_TX_SIZE) | DEBUG_TX_BUFFER
+	// enable, UECFG0X(type, direction), UECFG1X(size, bank, allocation)
+	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KEYBOARD_SIZE) | KEYBOARD_BUFFER, // 1
+	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(MOUSE_SIZE)    | MOUSE_BUFFER,    // 2
+	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(DEBUG_TX_SIZE) | DEBUG_TX_BUFFER, // 3
+        0, // 4
+        0, // 5
+        0, // 6
 };
 
 
@@ -138,6 +144,36 @@ static uint8_t PROGMEM keyboard_hid_report_desc[] = {
         0xc0                 // End Collection
 };
 
+// Mouse Protocol 1, HID 1.11 spec, Appendix B, page 59-60, with wheel extension
+static uint8_t PROGMEM mouse_hid_report_desc[] = {
+	0x05, 0x01,			// Usage Page (Generic Desktop)
+	0x09, 0x02,			// Usage (Mouse)
+	0xA1, 0x01,			// Collection (Application)
+	0x05, 0x09,			//   Usage Page (Button)
+	0x19, 0x01,			//   Usage Minimum (Button #1)
+	0x29, 0x03,			//   Usage Maximum (Button #3)
+	0x15, 0x00,			//   Logical Minimum (0)
+	0x25, 0x01,			//   Logical Maximum (1)
+	0x95, 0x03,			//   Report Count (3)
+	0x75, 0x01,			//   Report Size (1)
+	0x81, 0x02,			//   Input (Data, Variable, Absolute)
+	0x95, 0x01,			//   Report Count (1)
+	0x75, 0x05,			//   Report Size (5)
+	0x81, 0x03,			//   Input (Constant)
+	0x05, 0x01,			//   Usage Page (Generic Desktop)
+	0x09, 0x30,			//   Usage (X)
+	0x09, 0x31,			//   Usage (Y)
+	0x15, 0x81,			//   Logical Minimum (-127)
+	0x25, 0x7F,			//   Logical Maximum (127)
+	0x75, 0x08,			//   Report Size (8),
+	0x95, 0x02,			//   Report Count (2),
+	0x81, 0x06,			//   Input (Data, Variable, Relative)
+	0x09, 0x38,			//   Usage (Wheel)
+	0x95, 0x01,			//   Report Count (1),
+	0x81, 0x06,			//   Input (Data, Variable, Relative)
+	0xC0				// End Collection
+};
+
 static uint8_t PROGMEM debug_hid_report_desc[] = {
 	0x06, 0x31, 0xFF,			// Usage Page 0xFF31 (vendor defined)
 	0x09, 0x74,				// Usage 0x74
@@ -151,20 +187,22 @@ static uint8_t PROGMEM debug_hid_report_desc[] = {
 	0xC0					// end collection
 };
 
-#define CONFIG1_DESC_SIZE        (9+9+9+7+9+9+7)
+#define CONFIG1_DESC_SIZE        (9+(9+9+7)+(9+9+7)+(9+9+7))
 #define KEYBOARD_HID_DESC_OFFSET (9+9)
-#define DEBUG_HID_DESC_OFFSET    (9+9+9+7+9)
+#define MOUSE_HID_DESC_OFFSET    (9+(9+9+7)+9)
+#define DEBUG_HID_DESC_OFFSET    (9+(9+9+7)+(9+9+7)+9)
 static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	// configuration descriptor, USB spec 9.6.3, page 264-266, Table 9-10
 	9, 					// bLength;
 	2,					// bDescriptorType;
 	LSB(CONFIG1_DESC_SIZE),			// wTotalLength
 	MSB(CONFIG1_DESC_SIZE),
-	2,					// bNumInterfaces
+	3,					// bNumInterfaces
 	1,					// bConfigurationValue
 	0,					// iConfiguration
 	0xC0,					// bmAttributes
 	50,					// bMaxPower
+
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
 	9,					// bLength
 	4,					// bDescriptorType
@@ -175,7 +213,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0x01,					// bInterfaceSubClass (0x01 = Boot)
 	0x01,					// bInterfaceProtocol (0x01 = Keyboard)
 	0,					// iInterface
-	// HID interface descriptor, HID 1.11 spec, section 6.2.1
+	// HID descriptor, HID 1.11 spec, section 6.2.1
 	9,					// bLength
 	0x21,					// bDescriptorType
 	0x11, 0x01,				// bcdHID
@@ -191,6 +229,34 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0x03,					// bmAttributes (0x03=intr)
 	KEYBOARD_SIZE, 0,			// wMaxPacketSize
 	1,					// bInterval
+
+	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
+	9,					// bLength
+	4,					// bDescriptorType
+	MOUSE_INTERFACE,			// bInterfaceNumber
+	0,					// bAlternateSetting
+	1,					// bNumEndpoints
+	0x03,					// bInterfaceClass (0x03 = HID)
+	0x01,					// bInterfaceSubClass (0x01 = Boot)
+	0x02,					// bInterfaceProtocol (0x02 = Mouse)
+	0,					// iInterface
+	// HID descriptor, HID 1.11 spec, section 6.2.1
+	9,					// bLength
+	0x21,					// bDescriptorType
+	0x11, 0x01,				// bcdHID
+	0,					// bCountryCode
+	1,					// bNumDescriptors
+	0x22,					// bDescriptorType
+	sizeof(mouse_hid_report_desc),		// wDescriptorLength
+	0,
+	// endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+	7,					// bLength
+	5,					// bDescriptorType
+	MOUSE_ENDPOINT | 0x80,			// bEndpointAddress
+	0x03,					// bmAttributes (0x03=intr)
+	4, 0,					// wMaxPacketSize
+	1,					// bInterval
+
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
 	9,					// bLength
 	4,					// bDescriptorType
@@ -201,7 +267,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0x00,					// bInterfaceSubClass
 	0x00,					// bInterfaceProtocol
 	0,					// iInterface
-	// HID interface descriptor, HID 1.11 spec, section 6.2.1
+	// HID descriptor, HID 1.11 spec, section 6.2.1
 	9,					// bLength
 	0x21,					// bDescriptorType
 	0x11, 0x01,				// bcdHID
@@ -258,6 +324,9 @@ static struct descriptor_list_struct {
         // HID REPORT
 	{0x2200, KEYBOARD_INTERFACE, keyboard_hid_report_desc, sizeof(keyboard_hid_report_desc)},
 	{0x2100, KEYBOARD_INTERFACE, config1_descriptor+KEYBOARD_HID_DESC_OFFSET, 9},
+        // HID REPORT
+	{0x2200, MOUSE_INTERFACE, mouse_hid_report_desc, sizeof(mouse_hid_report_desc)},
+	{0x2100, MOUSE_INTERFACE, config1_descriptor+MOUSE_HID_DESC_OFFSET, 9},
         // HID REPORT
 	{0x2200, DEBUG_INTERFACE, debug_hid_report_desc, sizeof(debug_hid_report_desc)},
 	{0x2100, DEBUG_INTERFACE, config1_descriptor+DEBUG_HID_DESC_OFFSET, 9},
@@ -470,7 +539,7 @@ ISR(USB_COM_vect)
 			usb_configuration = wValue;
 			usb_send_in();
 			cfg = endpoint_config_table;
-			for (i=1; i<5; i++) {
+			for (i=1; i<=6; i++) {
 				UENUM = i;
 				en = pgm_read_byte(cfg++);
 				UECONX = en;
@@ -479,7 +548,7 @@ ISR(USB_COM_vect)
 					UECFG1X = pgm_read_byte(cfg++);
 				}
 			}
-        		UERST = 0x1E;
+        		UERST = 0x7E;
         		UERST = 0;
 			return;
 		}
@@ -566,6 +635,32 @@ ISR(USB_COM_vect)
 				if (bRequest == HID_SET_PROTOCOL) {
 					keyboard_protocol = wValue;
 					//usb_wait_in_ready();
+					usb_send_in();
+					return;
+				}
+			}
+		}
+		if (wIndex == MOUSE_INTERFACE) {
+			if (bmRequestType == 0xA1) {
+				if (bRequest == HID_GET_REPORT) {
+					usb_wait_in_ready();
+					UEDATX = mouse_buttons;
+					UEDATX = 0;
+					UEDATX = 0;
+					UEDATX = 0;
+					usb_send_in();
+					return;
+				}
+				if (bRequest == HID_GET_PROTOCOL) {
+					usb_wait_in_ready();
+					UEDATX = mouse_protocol;
+					usb_send_in();
+					return;
+				}
+			}
+			if (bmRequestType == 0x21) {
+				if (bRequest == HID_SET_PROTOCOL) {
+					mouse_protocol = wValue;
 					usb_send_in();
 					return;
 				}

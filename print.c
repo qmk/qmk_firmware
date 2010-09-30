@@ -25,7 +25,6 @@
 
 #include <avr/io.h>
 #include <avr/pgmspace.h>
-
 #include "print.h"
 
 void print_P(const char *s)

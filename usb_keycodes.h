@@ -1,5 +1,8 @@
-/* Some modified from Keyboard Upgrade 0.3.0
- * 2010/08/22
+/* 
+ * Key codes from HID Keyboard/Keypad Page
+ * http://www.usb.org/developers/devclass_docs/Hut1_12.pdf
+ *
+ * Based on Keyboard Upgrade v0.3.0 http://github.com/rhomann/kbupgrade
  */
 /*
  * Keyboard Upgrade -- Firmware for homebrew computer keyboard controllers.
@@ -30,17 +33,10 @@
  * MA  02110-1301  USA
  */
 
-#ifndef USBKEYCODES_H
-#define USBKEYCODES_H
+#ifndef USB_KEYCODES_H
+#define USB_KEYCODES_H
 
-/*
- * The USB keycodes are enumerated here - the first part is simply
- * an enumeration of the allowed scan-codes used for USB HID devices.
- */
-/*
- * see 10 Keyboard/Keypad Page(0x07)
- * http://www.usb.org/developers/devclass_docs/Hut1_12.pdf
- */
+
 enum keycodes {
     KB_NO = 0,
     KB_ROLL_OVER,
@@ -265,11 +261,11 @@ enum keycodes {
     KB_RALT,            /* 0x40 */
     KB_RGUI,            /* 0x80 */
 
-    /* function keys */
+    /* extensions for internal use */
     FN_0 = 0xF0,
     FN_1,
     FN_2,
     FN_3,
 };
 
-#endif /* USBKEYCODES_H */
+#endif /* USB_KEYCODES_H */

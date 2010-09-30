@@ -1,10 +1,8 @@
-#ifndef USB_DEVICE_H
-#define  USB_DEVICE_H 1
+#ifndef USB_H
+#define  USB_H 1
 
 #include <stdint.h>
 #include <avr/io.h>
-#include "usb_keyboard.h"
-#include "usb_debug.h"
 
 
 void usb_init(void);			// initialize everything
