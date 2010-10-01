@@ -51,8 +51,9 @@ uint8_t ProcessConfigurationDescriptor(void)
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
 	
-	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
-	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
+	USB_Descriptor_Interface_t* MIDIInterface   = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint  = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -67,24 +68,13 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlError;
 	}
 	
-	/* Get the first MIDI interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextMIDIStreamingInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		/* Descriptor not found, error out */
-		return NoCompatibleInterfaceFound;
-	}
-
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		/* Get the next MIDI interface's data endpoint descriptor */
-		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+		/* See if we've found a likely compatible interface, and if there is an endpoint within that interface */
+		if (!(MIDIInterface) ||
+		    USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextMIDIStreamingDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			/* Clear any found endpoints */
-			DataINEndpoint  = NULL;
-			DataOUTEndpoint = NULL;
-
 			/* Get the next Mass Storage interface from the configuration descriptor */
 			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 										  DComp_NextMIDIStreamingInterface) != DESCRIPTOR_SEARCH_COMP_Found)
@@ -92,6 +82,13 @@ uint8_t ProcessConfigurationDescriptor(void)
 				/* Descriptor not found, error out */
 				return NoCompatibleInterfaceFound;
 			}
+
+			/* Save the interface in case we need to refer back to it later */
+			MIDIInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);
+
+			/* Clear any found endpoints */
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
 
 			/* Skip the remainder of the loop as we have not found an endpoint yet */
 			continue;
@@ -102,7 +99,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 
 		/* If the endpoint is a IN type endpoint */
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		  DataINEndpoint = EndpointData;
+		  DataINEndpoint  = EndpointData;
 		else
 		  DataOUTEndpoint = EndpointData;
 	}

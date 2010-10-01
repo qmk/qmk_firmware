@@ -51,7 +51,8 @@ uint8_t ProcessConfigurationDescriptor(void)
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
 	
-	USB_Descriptor_Endpoint_t* DataINEndpoint = NULL;
+	USB_Descriptor_Interface_t* HIDInterface   = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -65,19 +66,12 @@ uint8_t ProcessConfigurationDescriptor(void)
 		default:
 			return ControlError;
 	}
-	
-	/* Get the first HID interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextMouseInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		/* Descriptor not found, error out */
-		return NoCompatibleInterfaceFound;
-	}
 
 	while (!(DataINEndpoint))
 	{
-		/* Get the next HID interface's data endpoint descriptor */
-		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+		/* See if we've found a likely compatible interface, and if there is an endpoint within that interface */
+		if (!(HIDInterface) ||
+		    USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextMouseInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			/* Get the next HID interface from the configuration descriptor */
@@ -87,6 +81,9 @@ uint8_t ProcessConfigurationDescriptor(void)
 				/* Descriptor not found, error out */
 				return NoCompatibleInterfaceFound;
 			}
+
+			/* Save the interface in case we need to refer back to it later */
+			HIDInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);
 
 			/* Skip the remainder of the loop as we have not found an endpoint yet */
 			continue;

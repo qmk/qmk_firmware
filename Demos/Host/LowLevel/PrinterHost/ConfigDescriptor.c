@@ -50,8 +50,9 @@ uint8_t ProcessConfigurationDescriptor(void)
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
 	
-	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
-	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
+	USB_Descriptor_Interface_t* PrinterInterface = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint   = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint  = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -66,28 +67,13 @@ uint8_t ProcessConfigurationDescriptor(void)
 			return ControlError;
 	}
 	
-	/* Get the first Printer interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextBidirectionalPrinterInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		/* Descriptor not found, error out */
-		return NoCompatibleInterfaceFound;
-	}
-
-	/* Save Printer interface details for later use */
-	PrinterInterfaceNumber = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t)->InterfaceNumber;
-	PrinterAltSetting      = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t)->AlternateSetting;
-
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		/* Get the next Printer interface's data endpoint descriptor */
-		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+		/* See if we've found a likely compatible interface, and if there is an endpoint within that interface */
+		if (!(PrinterInterface) ||
+		    USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextPrinterInterfaceBulkDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			/* Clear any found endpoints */
-			DataINEndpoint  = NULL;
-			DataOUTEndpoint = NULL;
-
 			/* Get the next Printer interface from the configuration descriptor */
 			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 										  DComp_NextBidirectionalPrinterInterface) != DESCRIPTOR_SEARCH_COMP_Found)
@@ -96,9 +82,12 @@ uint8_t ProcessConfigurationDescriptor(void)
 				return NoCompatibleInterfaceFound;
 			}
 			
-			/* Save Printer interface details for later use */
-			PrinterInterfaceNumber = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t)->InterfaceNumber;
-			PrinterAltSetting      = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t)->AlternateSetting;			
+			/* Save the interface in case we need to refer back to it later */
+			PrinterInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);
+
+			/* Clear any found endpoints */
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
 
 			/* Skip the remainder of the loop as we have not found an endpoint yet */
 			continue;
@@ -114,6 +103,10 @@ uint8_t ProcessConfigurationDescriptor(void)
 		  DataOUTEndpoint = EndpointData;
 	}
 	
+	/* Save Printer interface details for later use */
+	PrinterInterfaceNumber = PrinterInterface->InterfaceNumber;
+	PrinterAltSetting      = PrinterInterface->AlternateSetting;			
+
 	/* Configure the Printer data IN pipe */
 	Pipe_ConfigurePipe(PRINTER_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
 	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);

@@ -51,9 +51,10 @@ uint8_t ProcessConfigurationDescriptor(void)
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
 	
-	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
-	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
-	USB_Descriptor_Endpoint_t* EventsEndpoint  = NULL;
+	USB_Descriptor_Interface_t* StillImageInterface = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint      = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint     = NULL;
+	USB_Descriptor_Endpoint_t*  EventsEndpoint      = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -67,26 +68,14 @@ uint8_t ProcessConfigurationDescriptor(void)
 		default:
 			return ControlError;
 	}
-	
-	/* Get the first Still Image interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextStillImageInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		/* Descriptor not found, error out */
-		return NoCompatibleInterfaceFound;
-	}
 
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
-		/* Get the next Still Image interface's data endpoint descriptor */
-		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+		/* See if we've found a likely compatible interface, and if there is an endpoint within that interface */
+		if (!(StillImageInterface) ||
+		    USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextStillImageInterfaceDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			/* Clear any found endpoints */
-			DataINEndpoint  = NULL;
-			DataOUTEndpoint = NULL;
-			EventsEndpoint  = NULL;
-
 			/* Get the next Still Image interface from the configuration descriptor */
 			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 										  DComp_NextStillImageInterface) != DESCRIPTOR_SEARCH_COMP_Found)
@@ -94,6 +83,14 @@ uint8_t ProcessConfigurationDescriptor(void)
 				/* Descriptor not found, error out */
 				return NoCompatibleInterfaceFound;
 			}
+
+			/* Save the interface in case we need to refer back to it later */
+			StillImageInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);
+
+			/* Clear any found endpoints */
+			DataINEndpoint  = NULL;
+			DataOUTEndpoint = NULL;
+			EventsEndpoint  = NULL;
 
 			/* Skip the remainder of the loop as we have not found an endpoint yet */
 			continue;

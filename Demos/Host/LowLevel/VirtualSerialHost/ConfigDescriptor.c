@@ -51,9 +51,10 @@ uint8_t ProcessConfigurationDescriptor(void)
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
 	
-	USB_Descriptor_Endpoint_t* DataINEndpoint       = NULL;
-	USB_Descriptor_Endpoint_t* DataOUTEndpoint      = NULL;
-	USB_Descriptor_Endpoint_t* NotificationEndpoint = NULL;
+	USB_Descriptor_Interface_t* CDCControlInterface  = NULL;
+	USB_Descriptor_Endpoint_t*  DataINEndpoint       = NULL;
+	USB_Descriptor_Endpoint_t*  DataOUTEndpoint      = NULL;
+	USB_Descriptor_Endpoint_t*  NotificationEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
 	switch (USB_Host_GetDeviceConfigDescriptor(1, &CurrConfigBytesRem, ConfigDescriptorData, sizeof(ConfigDescriptorData)))
@@ -67,19 +68,12 @@ uint8_t ProcessConfigurationDescriptor(void)
 		default:
 			return ControlError;
 	}
-	
-	/* Get the first CDC control interface from the configuration descriptor */
-	if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
-	                              DComp_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
-	{
-		/* Descriptor not found, error out */
-		return NoCompatibleInterfaceFound;
-	}
 
 	while (!(DataINEndpoint) || !(DataOUTEndpoint) || !(NotificationEndpoint))
 	{
-		/* Get the next CDC interface's endpoint descriptor */
-		if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
+		/* See if we've found a likely compatible interface, and if there is an endpoint within that interface */
+		if (!(CDCControlInterface) ||
+		    USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 		                              DComp_NextCDCDataInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			/* Check if we have already found the control interface's notification endpoint or not */
@@ -106,6 +100,9 @@ uint8_t ProcessConfigurationDescriptor(void)
 					/* Descriptor not found, error out */
 					return NoCompatibleInterfaceFound;
 				}
+
+				/* Save the interface in case we need to refer back to it later */
+				CDCControlInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);
 
 				/* Clear any found endpoints */
 				NotificationEndpoint = NULL;
