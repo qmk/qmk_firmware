@@ -56,7 +56,7 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 		                              DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
-										  DCOMP_PRNT_Host_NextPRNTInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			                              DCOMP_PRNT_Host_NextPRNTInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return PRNT_ENUMERROR_NoCompatibleInterfaceFound;
 			}
@@ -82,16 +82,16 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 		if (PipeNum == PRNTInterfaceInfo->Config.DataINPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
-							   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
-							   PRNTInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+			                   PRNTInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			
 			PRNTInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;			
 		}
 		else if (PipeNum == PRNTInterfaceInfo->Config.DataOUTPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-							   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
-							   PRNTInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
+			                   PRNTInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			
 			PRNTInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;			
 		}
@@ -108,9 +108,12 @@ static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == PRINTER_CLASS)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == PRINTER_SUBCLASS) &&
-			(DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == PRINTER_PROTOCOL))
+		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
+		                                                                USB_Descriptor_Interface_t);
+
+		if ((CurrentInterface->Class    == PRINTER_CLASS)    &&
+		    (CurrentInterface->SubClass == PRINTER_SUBCLASS) &&
+		    (CurrentInterface->Protocol == PRINTER_PROTOCOL))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}

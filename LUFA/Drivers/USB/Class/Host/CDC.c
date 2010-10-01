@@ -59,7 +59,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 			if (NotificationEndpoint)
 			{
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-											  DCOMP_CDC_Host_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DCOMP_CDC_Host_NextCDCDataInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					return CDC_ENUMERROR_NoCompatibleInterfaceFound;
 				}			
@@ -70,7 +70,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 			else
 			{
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-											  DCOMP_CDC_Host_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DCOMP_CDC_Host_NextCDCControlInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					return CDC_ENUMERROR_NoCompatibleInterfaceFound;
 				}
@@ -103,7 +103,7 @@ uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo
 		if (PipeNum == CDCInterfaceInfo->Config.DataINPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
-							   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
 			                   CDCInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 
 			CDCInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
@@ -144,7 +144,7 @@ static uint8_t DCOMP_CDC_Host_NextCDCControlInterface(void* const CurrentDescrip
 	
 		if ((CurrentInterface->Class    == CDC_CONTROL_CLASS)    &&
 		    (CurrentInterface->SubClass == CDC_CONTROL_SUBCLASS) &&
-			(CurrentInterface->Protocol == CDC_CONTROL_PROTOCOL))
+		    (CurrentInterface->Protocol == CDC_CONTROL_PROTOCOL))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -162,7 +162,7 @@ static uint8_t DCOMP_CDC_Host_NextCDCDataInterface(void* const CurrentDescriptor
 	
 		if ((CurrentInterface->Class    == CDC_DATA_CLASS)    &&
 		    (CurrentInterface->SubClass == CDC_DATA_SUBCLASS) &&
-			(CurrentInterface->Protocol == CDC_DATA_PROTOCOL))
+		    (CurrentInterface->Protocol == CDC_DATA_PROTOCOL))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}

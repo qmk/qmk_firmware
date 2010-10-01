@@ -57,7 +57,7 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 		                              DCOMP_SI_Host_NextSIInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-										  DCOMP_SI_Host_NextSIInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			                              DCOMP_SI_Host_NextSIInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return SI_ENUMERROR_NoCompatibleInterfaceFound;
 			}
@@ -91,7 +91,7 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 		if (PipeNum == SIInterfaceInfo->Config.DataINPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
-							   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
 			                   SIInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 
 			SIInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
@@ -187,7 +187,7 @@ uint8_t SI_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 		  return ErrorCode;
 	}
 	
-	Pipe_ClearOUT();	
+	Pipe_ClearOUT();
 	Pipe_Freeze();
 	
 	return PIPE_RWSTREAM_NoError;
@@ -411,9 +411,9 @@ uint8_t SI_Host_SendCommand(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 			.Type          = SI_PIMA_CONTAINER_CommandBlock,
 			.Code          = Operation,
 		};
-							
+	
 	memcpy(&PIMABlock.Params, Params, sizeof(uint32_t) * TotalParams);
-							
+	
 	if ((ErrorCode = SI_Host_SendBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 

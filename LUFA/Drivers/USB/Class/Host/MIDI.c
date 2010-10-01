@@ -56,7 +56,7 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 		                              DCOMP_MIDI_Host_NextMIDIStreamingDataEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-										  DCOMP_MIDI_Host_NextMIDIStreamingInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			                              DCOMP_MIDI_Host_NextMIDIStreamingInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return MIDI_ENUMERROR_NoCompatibleInterfaceFound;
 			}
@@ -82,16 +82,16 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 		if (PipeNum == MIDIInterfaceInfo->Config.DataINPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
-							   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
-							   MIDIInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+			                   MIDIInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			
 			MIDIInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;			
 		}
 		else if (PipeNum == MIDIInterfaceInfo->Config.DataOUTPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-							   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
-							   MIDIInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
+			                   MIDIInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			
 			MIDIInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;			
 		}

@@ -62,7 +62,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 			do
 			{
 				if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-											  DCOMP_HID_Host_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+				                              DCOMP_HID_Host_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 				{
 					return HID_ENUMERROR_NoCompatibleInterfaceFound;
 				}
@@ -90,7 +90,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 		  DataINEndpoint = EndpointData;
 		else
-		  DataOUTEndpoint = EndpointData;		  
+		  DataOUTEndpoint = EndpointData;  
 	}
 	
 	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
@@ -98,17 +98,17 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		if (PipeNum == HIDInterfaceInfo->Config.DataINPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-							   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
-							   HIDInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+			                   HIDInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			Pipe_SetInterruptPeriod(DataINEndpoint->PollingIntervalMS);
 			
-			HIDInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;			
+			HIDInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
 		}
 		else if (PipeNum == HIDInterfaceInfo->Config.DataOUTPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_INTERRUPT, PIPE_TOKEN_OUT,
-							   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
-							   HIDInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
+			                   HIDInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			Pipe_SetInterruptPeriod(DataOUTEndpoint->PollingIntervalMS);
 
 			HIDInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
@@ -146,7 +146,7 @@ static uint8_t DCOMP_HID_Host_NextHID(void* const CurrentDescriptor)
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	  return DESCRIPTOR_SEARCH_Fail;
 	else
-	  return DESCRIPTOR_SEARCH_NotFound;	  
+	  return DESCRIPTOR_SEARCH_NotFound;
 }
 
 static uint8_t DCOMP_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescriptor)
@@ -184,9 +184,9 @@ uint8_t HID_Host_ReceiveReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceI
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 	
 	return USB_Host_SendControlRequest(Buffer);
-}											   
+}
 #endif
-										   
+ 
 uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
                                void* Buffer)
 {
@@ -223,7 +223,7 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 	if ((ErrorCode = Pipe_Read_Stream_LE(BufferPos, ReportSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 	 
-	Pipe_ClearIN();		
+	Pipe_ClearIN();
 	Pipe_Freeze();
 	
 	return PIPE_RWSTREAM_NoError;

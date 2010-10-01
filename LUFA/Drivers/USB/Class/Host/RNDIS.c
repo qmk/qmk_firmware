@@ -105,7 +105,7 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 		if (PipeNum == RNDISInterfaceInfo->Config.DataINPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
-							   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
 			                   RNDISInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 
 			RNDISInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
@@ -144,7 +144,7 @@ static uint8_t DCOMP_RNDIS_Host_NextRNDISControlInterface(void* const CurrentDes
 	
 		if ((CurrentInterface->Class    == RNDIS_CONTROL_CLASS)    &&
 		    (CurrentInterface->SubClass == RNDIS_CONTROL_SUBCLASS) &&
-			(CurrentInterface->Protocol == RNDIS_CONTROL_PROTOCOL))
+		    (CurrentInterface->Protocol == RNDIS_CONTROL_PROTOCOL))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -162,7 +162,7 @@ static uint8_t DCOMP_RNDIS_Host_NextRNDISDataInterface(void* const CurrentDescri
 	
 		if ((CurrentInterface->Class    == RNDIS_DATA_CLASS)    &&
 		    (CurrentInterface->SubClass == RNDIS_DATA_SUBCLASS) &&
-			(CurrentInterface->Protocol == RNDIS_DATA_PROTOCOL))
+		    (CurrentInterface->Protocol == RNDIS_DATA_PROTOCOL))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -307,7 +307,7 @@ uint8_t RNDIS_Host_SetRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInter
 	SetMessageData.SetMessage.MessageType    = REMOTE_NDIS_SET_MSG;
 	SetMessageData.SetMessage.MessageLength  = sizeof(RNDIS_Set_Message_t) + Length;
 	SetMessageData.SetMessage.RequestId      = RNDISInterfaceInfo->State.RequestID++;
-			
+	
 	SetMessageData.SetMessage.Oid            = Oid;
 	SetMessageData.SetMessage.InformationBufferLength = Length;
 	SetMessageData.SetMessage.InformationBufferOffset = (sizeof(RNDIS_Set_Message_t) - sizeof(RNDIS_Message_Header_t));
@@ -351,7 +351,7 @@ uint8_t RNDIS_Host_QueryRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInt
 	QueryMessage.MessageType    = REMOTE_NDIS_QUERY_MSG;
 	QueryMessage.MessageLength  = sizeof(RNDIS_Query_Message_t);
 	QueryMessage.RequestId      = RNDISInterfaceInfo->State.RequestID++;
-			
+	
 	QueryMessage.Oid            = Oid;
 	QueryMessage.InformationBufferLength = 0;
 	QueryMessage.InformationBufferOffset = 0;
@@ -427,7 +427,7 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	
 	Pipe_Discard_Stream(DeviceMessage.DataOffset - (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)),
 	                    NO_STREAM_CALLBACK);
-						
+	
 	Pipe_Read_Stream_LE(Buffer, *PacketLength, NO_STREAM_CALLBACK);
 	
 	if (!(Pipe_BytesInPipe()))

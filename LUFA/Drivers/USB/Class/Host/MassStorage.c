@@ -56,7 +56,7 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 		                              DCOMP_MS_Host_NextMSInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
 			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
-										  DCOMP_MS_Host_NextMSInterface) != DESCRIPTOR_SEARCH_COMP_Found)
+			                              DCOMP_MS_Host_NextMSInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return MS_ENUMERROR_NoCompatibleInterfaceFound;
 			}
@@ -82,16 +82,16 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 		if (PipeNum == MSInterfaceInfo->Config.DataINPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
-							   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
-							   MSInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
+			                   MSInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			
 			MSInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;			
 		}
 		else if (PipeNum == MSInterfaceInfo->Config.DataOUTPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-							   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
-							   MSInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
+			                   MSInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
 			
 			MSInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;			
 		}
@@ -388,7 +388,7 @@ uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 	if ((USB_HostState != HOST_STATE_Configured) || !(MSInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
 
-	uint8_t ErrorCode;	
+	uint8_t ErrorCode;
 
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
