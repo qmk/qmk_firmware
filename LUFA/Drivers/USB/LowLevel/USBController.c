@@ -156,7 +156,7 @@ void USB_ResetInterface(void)
 		#endif
 	}
 	
-	#if (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
+	#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 	USB_OTGPAD_On();
 	#endif
 }
