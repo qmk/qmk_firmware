@@ -5,7 +5,7 @@
 #include "matrix.h"
 #include "keymap.h"
 
-int current_layer = 1;
+int current_layer = 0;
 
 static const uint8_t PROGMEM Keymap[][MATRIX_ROWS][MATRIX_COLS] = {
     // 0: default
@@ -20,7 +20,7 @@ static const uint8_t PROGMEM Keymap[][MATRIX_ROWS][MATRIX_COLS] = {
         { KB_9,    KB_NO,     KB_NO,      KB_O,  KB_L,      FN_2,       KB_DOT,   KB_NO },
         { KB_0,    KB_MINUS,  KB_LBRACKET,KB_P,  KB_SCOLON, KB_QUOTE,   KB_NO,    KB_SLASH }
     },
-    // 1: FN_0
+    // 1: FN_0(RIGHT ALT)
     {
         { KB_LALT, KB_NO,     KB_DELETE,  KB_NO, KB_NO,     KB_NO,      KB_BSLASH,KB_NO },
         { KB_F1,   KB_GRAVE,  KB_BSLASH,  KB_NO, KB_NO,     KB_LCTRL,   KB_NO,    KB_NO },
@@ -32,7 +32,7 @@ static const uint8_t PROGMEM Keymap[][MATRIX_ROWS][MATRIX_COLS] = {
         { KB_F9,   KB_NO,     KB_NO,      KB_NO, KB_RIGHT,  KB_NO,      KB_END,   KB_NO },
         { KB_F10,  KB_F11,    KB_NO,      KB_NO, KB_NO,     KB_NO,      KB_NO,    KB_NO }
     },
-    // 2: FN_1
+    // 2: FN_1(HHKB Fn)
     {
         { KB_LALT, KB_NO,     KB_DELETE,  KB_NO, KB_NO,     KB_NO,      KB_BSLASH,KB_NO },
         { KB_F1,   KB_GRAVE,  KB_BSLASH,  KB_NO, KB_VOLDOWN,KB_LCTRL,   KB_NO,    KB_NO },
@@ -44,17 +44,17 @@ static const uint8_t PROGMEM Keymap[][MATRIX_ROWS][MATRIX_COLS] = {
         { KB_F9,   KB_NO,     KB_NO,      KB_NO, KB_PGUP,   KB_NO,      KB_PGDOWN,KB_NO },
         { KB_F10,  KB_F11,    KB_UP,      KB_NO, KB_LEFT,   KB_RIGHT,   KB_NO,    KB_DOWN }
     },
-    // 3: FN_2
+    // 3: FN_2(LEFT Bottom)
     {
-        { KB_LALT, KB_NO,     KB_DELETE,  KB_NO, KB_NO,     KB_NO,      KB_BSLASH,KB_NO },
-        { KB_F1,   KB_GRAVE,  KB_BSLASH,  KB_NO, KB_NO,     KB_LCTRL,   KB_NO,    KB_NO },
-        { KB_F2,   KB_NO,     KB_LGUI,    KB_NO, KB_NO,     KB_NO,      KB_NO,    KB_NO },
-        { KB_F3,   KB_NO,     KB_RSHIFT,  KB_NO, KB_NO,     KB_NO,      KB_NO,    KB_NO },
-        { KB_F4,   KB_F5,     KB_NO,      KB_NO, KB_NO,     KB_NO,      KB_NO,    KB_NO },
-        { KB_F7,   KB_F6,     KB_NO,      KB_NO, KB_DOWN,   KB_LEFT,    KB_PGDOWN,KB_HOME },
-        { KB_F8,   KB_F12,    KB_NO,      KB_NO, KB_UP,     KB_NO,      KB_PGUP,  KB_LSHIFT },
-        { KB_F9,   KB_NO,     KB_NO,      KB_NO, KB_RIGHT,  KB_NO,      KB_END,   KB_NO },
-        { KB_F10,  KB_F11,    KB_NO,      KB_NO, KB_NO,     KB_NO,      KB_NO,    KB_NO }
+        { KB_LALT, KB_NO,     KB_DELETE,  KB_NO, MS_LEFT,   KB_NO,      KB_BSLASH,  MS_BTN1 },
+        { KB_F1,   KB_GRAVE,  KB_BSLASH,  KB_NO, MS_BTN1,   KB_LCTRL,   KB_NO,      MS_RIGHT },
+        { KB_F2,   MS_BTN2,   KB_LGUI,    KB_NO, MS_BTN2,   KB_NO,      KB_NO,      MS_UP },
+        { KB_F3,   KB_NO,     KB_RSHIFT,  KB_NO, MS_BTN3,   KB_NO,      KB_NO,      MS_DOWN },
+        { KB_F4,   KB_F5,     KB_NO,      KB_NO, KB_NO,     KB_NO,      KB_NO,      KB_NO },
+        { KB_F7,   KB_F6,     KB_NO,      KB_NO, MS_DOWN,   MS_LEFT,    MS_WH_UP,   MS_WH_LEFT },
+        { KB_F8,   KB_F12,    MS_BTN5,    KB_NO, MS_UP,     KB_NO,      MS_WH_DOWN, KB_LSHIFT },
+        { KB_F9,   KB_NO,     KB_NO,      KB_NO, MS_RIGHT,  KB_NO,      MS_WH_RIGHT,KB_NO },
+        { KB_F10,  KB_F11,    MS_BTN4,    KB_NO, KB_NO,     KB_NO,      KB_NO,      KB_NO }
     },
 };
 

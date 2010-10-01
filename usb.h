@@ -71,6 +71,9 @@ uint8_t usb_configured(void);		// is the USB port configured
 #define HID_SET_REPORT			9
 #define HID_SET_IDLE			10
 #define HID_SET_PROTOCOL		11
+#define HID_REPORT_INPUT		1
+#define HID_REPORT_OUTPUT		2
+#define HID_REPORT_FEATURE		3
 // CDC (communication class device)
 #define CDC_SET_LINE_CODING		0x20
 #define CDC_GET_LINE_CODING		0x21
