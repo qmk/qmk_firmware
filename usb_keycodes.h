@@ -262,10 +262,23 @@ enum keycodes {
     KB_RGUI,            /* 0x80 */
 
     /* extensions for internal use */
-    FN_0 = 0xF0,
+    FN_0 = 0xE8,
     FN_1,
     FN_2,
     FN_3,
+    MS_UP = 0xF0,
+    MS_DOWN,
+    MS_LEFT,
+    MS_RIGHT,
+    MS_BTN1 = 0xF4,
+    MS_BTN2,
+    MS_BTN3,
+    MS_BTN4,
+    MS_BTN5,
+    MS_WH_UP,
+    MS_WH_DOWN,
+    MS_WH_LEFT,
+    MS_WH_RIGHT,
 };
 
 #endif /* USB_KEYCODES_H */

@@ -75,18 +75,22 @@ int main(void)
 
 
     matrix_init();
-    print("firmware 0.2 for t.m.k.\n");
+    print("firmware 0.3 for t.m.k.\n");
 
     bool modified = false;
     bool has_ghost = false;
-    int key_index = 0;
-    int loop_count = 0;
     int layer = 0;
+    int key_index = 0;
+    uint8_t mouse_x = 0;
+    uint8_t mouse_y = 0;
+    uint8_t mouse_btn = 0;
+    int8_t mouse_wheel = 0;
+    int8_t mouse_hwheel = 0;
     while (1) {
         matrix_scan();
-        layer = get_layer();
         modified = matrix_is_modified();
         has_ghost = matrix_has_ghost();
+        layer = get_layer();
 
         // print matrix state for debug
         if (modified) {
@@ -97,10 +101,16 @@ int main(void)
             PORTD |= 1<<PD6;
         }
 
-        // set matrix state to keyboard_keys, keyboard_modifier_keys
-        key_index = 0;
         keyboard_modifier_keys = 0;
         for (int i = 0; i < 6; i++) keyboard_keys[i] = KB_NO;
+        key_index = 0;
+        mouse_x = 0;
+        mouse_y = 0;
+        mouse_btn = 0;
+        mouse_wheel = 0;
+        mouse_hwheel = 0;
+
+        // convert matrix state to HID report
         for (int row = 0; row < MATRIX_ROWS; row++) {
             for (int col = 0; col < MATRIX_COLS; col++) {
                 if (matrix[row] & 1<<col) continue;
@@ -111,6 +121,21 @@ int main(void)
                 } else if (KB_LCTRL <= code && code <= KB_RGUI) {
                     // modifier keycode: 0xE0-0xE7
                     keyboard_modifier_keys |= 1<<(code & 0x07);
+                } else if (code >= MS_UP) {
+                    // mouse
+                    if (code == MS_UP)    mouse_y -= 15;
+                    if (code == MS_DOWN)  mouse_y += 15;
+                    if (code == MS_LEFT)  mouse_x -= 15;
+                    if (code == MS_RIGHT) mouse_x += 15;
+                    if (code == MS_BTN1)  mouse_btn |= 1<<0;
+                    if (code == MS_BTN2)  mouse_btn |= 1<<1;
+                    if (code == MS_BTN3)  mouse_btn |= 1<<2;
+                    if (code == MS_BTN4)  mouse_btn |= 1<<3;
+                    if (code == MS_BTN5)  mouse_btn |= 1<<4;
+                    if (code == MS_WH_UP)  mouse_wheel -= 1;
+                    if (code == MS_WH_DOWN)  mouse_wheel += 1;
+                    if (code == MS_WH_LEFT)  mouse_hwheel -= 1;
+                    if (code == MS_WH_RIGHT) mouse_hwheel += 1;
                 } else {
                     if (key_index < 6)
                         keyboard_keys[key_index] = code;
@@ -127,18 +152,17 @@ int main(void)
                 for (int i = 0; i < 6; i++) keyboard_keys[i] = KB_NO;
                 usb_keyboard_send();
 
-                /*
                 print("jump to bootloader...\n");
                 _delay_ms(1000);
-                jump_bootloader();
-                */
+                jump_bootloader(); // not return
+            }
 
-                // mouse
-                print("usb_mouse_move\n");
-                usb_mouse_move(10, 0, 0);
-
+            if (mouse_x || mouse_y || mouse_wheel || mouse_hwheel || mouse_btn != mouse_buttons) {
+                mouse_buttons = mouse_btn;
+                print("mouse_buttons: 0b"); pbin(mouse_buttons); print("\n");
+                print("mouse_wheel: 0x"); phex(mouse_wheel); print("\n");
+                usb_mouse_move(mouse_x, mouse_y, mouse_wheel, mouse_hwheel);
                 _delay_ms(100);
-                continue;
             }
 
 
@@ -150,7 +174,6 @@ int main(void)
                 usb_keyboard_send();
             }
         }
-        loop_count++;
         _delay_ms(2);
     }
 }

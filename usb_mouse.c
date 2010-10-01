@@ -22,11 +22,11 @@ int8_t usb_mouse_buttons(uint8_t left, uint8_t middle, uint8_t right)
 	if (middle) mask |= 4;
 	if (right) mask |= 2;
 	mouse_buttons = mask;
-	return usb_mouse_move(0, 0, 0);
+	return usb_mouse_move(0, 0, 0, 0);
 }
 
 // Move the mouse.  x, y and wheel are -127 to 127.  Use 0 for no movement.
-int8_t usb_mouse_move(int8_t x, int8_t y, int8_t wheel)
+int8_t usb_mouse_move(int8_t x, int8_t y, int8_t wheel, int8_t hwheel)
 {
 	uint8_t intr_state, timeout;
 
@@ -34,6 +34,7 @@ int8_t usb_mouse_move(int8_t x, int8_t y, int8_t wheel)
 	if (x == -128) x = -127;
 	if (y == -128) y = -127;
 	if (wheel == -128) wheel = -127;
+	if (hwheel == -128) hwheel = -127;
 	intr_state = SREG;
 	cli();
 	UENUM = MOUSE_ENDPOINT;
@@ -55,8 +56,8 @@ int8_t usb_mouse_move(int8_t x, int8_t y, int8_t wheel)
 	UEDATX = x;
 	UEDATX = y;
 	UEDATX = wheel;
+	//UEDATX = hwheel;
 	UEINTX = 0x3A;
 	SREG = intr_state;
 	return 0;
 }
-
