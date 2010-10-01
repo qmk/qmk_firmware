@@ -29,7 +29,6 @@
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-
 #include "usb.h"
 #include "usb_keyboard.h"
 #include "usb_mouse.h"
@@ -38,16 +37,22 @@
 #include "keymap.h"
 #include "jump_bootloader.h"
 
+
+// for teensy 2.0
 #define LED_CONFIG    (DDRD |= (1<<6))
-#define LED_ON        (PORTD &= ~(1<<6))
-#define LED_OFF        (PORTD |= (1<<6))
+#define LED_ON        (PORTD |= (1<<6))
+#define LED_OFF       (PORTD &= ~(1<<6))
 #define CPU_PRESCALE(n)    (CLKPR = 0x80, CLKPR = (n))
+
+#define MOUSE_MOVE_UNIT 10
+#define MOUSE_DELAY_MS 200
+#define MOUSE_DELAY_ACC 4
+
 
 static void print_matrix(void);
 
 
 uint16_t idle_count=0;
-
 
 
 int main(void)
@@ -63,7 +68,14 @@ int main(void)
 
     // Wait an extra second for the PC's operating system to load drivers
     // and do whatever it does to actually be ready for input
-    _delay_ms(1000);
+    // needs such long time in my PC.
+    for (int i =0; i < 6; i++) {
+        LED_CONFIG;
+        LED_ON;
+        _delay_ms(500);
+        LED_OFF;
+        _delay_ms(500);
+    }
 
     // Configure timer 0 to generate a timer overflow interrupt every
     // 256*1024 clock cycles, or approx 61 Hz when using 16 MHz clock
@@ -75,7 +87,6 @@ int main(void)
 
 
     matrix_init();
-    print("firmware 0.3 for t.m.k.\n");
 
     bool modified = false;
     bool has_ghost = false;
@@ -86,6 +97,9 @@ int main(void)
     uint8_t mouse_btn = 0;
     int8_t mouse_wheel = 0;
     int8_t mouse_hwheel = 0;
+    int mouse_repeat = 0;
+
+    print("\nt.m.k. keyboard 1.0\n");
     while (1) {
         matrix_scan();
         modified = matrix_is_modified();
@@ -96,9 +110,8 @@ int main(void)
         if (modified) {
             print_matrix();
 
-            // LED flush
-            DDRD |= 1<<PD6;
-            PORTD |= 1<<PD6;
+            LED_CONFIG;
+            LED_ON;
         }
 
         keyboard_modifier_keys = 0;
@@ -119,14 +132,14 @@ int main(void)
                 if (code == KB_NO) {
                     continue;
                 } else if (KB_LCTRL <= code && code <= KB_RGUI) {
-                    // modifier keycode: 0xE0-0xE7
+                    // modifier keys(0xE0-0xE7)
                     keyboard_modifier_keys |= 1<<(code & 0x07);
                 } else if (code >= MS_UP) {
                     // mouse
-                    if (code == MS_UP)    mouse_y -= 15;
-                    if (code == MS_DOWN)  mouse_y += 15;
-                    if (code == MS_LEFT)  mouse_x -= 15;
-                    if (code == MS_RIGHT) mouse_x += 15;
+                    if (code == MS_UP)    mouse_y -= MOUSE_MOVE_UNIT;
+                    if (code == MS_DOWN)  mouse_y += MOUSE_MOVE_UNIT;
+                    if (code == MS_LEFT)  mouse_x -= MOUSE_MOVE_UNIT;
+                    if (code == MS_RIGHT) mouse_x += MOUSE_MOVE_UNIT;
                     if (code == MS_BTN1)  mouse_btn |= 1<<0;
                     if (code == MS_BTN2)  mouse_btn |= 1<<1;
                     if (code == MS_BTN3)  mouse_btn |= 1<<2;
@@ -137,6 +150,7 @@ int main(void)
                     if (code == MS_WH_LEFT)  mouse_hwheel -= 1;
                     if (code == MS_WH_RIGHT) mouse_hwheel += 1;
                 } else {
+                    // normal keys
                     if (key_index < 6)
                         keyboard_keys[key_index] = code;
                     key_index++;
@@ -153,16 +167,19 @@ int main(void)
                 usb_keyboard_send();
 
                 print("jump to bootloader...\n");
-                _delay_ms(1000);
+                _delay_ms(100);
                 jump_bootloader(); // not return
             }
 
             if (mouse_x || mouse_y || mouse_wheel || mouse_hwheel || mouse_btn != mouse_buttons) {
                 mouse_buttons = mouse_btn;
-                print("mouse_buttons: 0b"); pbin(mouse_buttons); print("\n");
-                print("mouse_wheel: 0x"); phex(mouse_wheel); print("\n");
                 usb_mouse_move(mouse_x, mouse_y, mouse_wheel, mouse_hwheel);
-                _delay_ms(100);
+
+                // acceleration
+                _delay_ms(MOUSE_DELAY_MS >> (mouse_repeat < MOUSE_DELAY_ACC ? mouse_repeat : MOUSE_DELAY_ACC));
+                mouse_repeat++;
+            } else {
+                mouse_repeat = 0;
             }
 
 
