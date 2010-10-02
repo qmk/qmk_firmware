@@ -220,15 +220,6 @@ bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAd
 	XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	XMEGANVM_SendAddress(WriteAddress);
 	XPROGTarget_SendByte(Byte);
-
-	/* Lock bytes need a special confirmation sequence for the write to complete */
-	if (WriteCommand == XMEGA_NVM_CMD_WRITELOCK)
-	{
-		/* Set CMDEX bit in NVM CTRLA register to start the Lock Byte write sequence */
-		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
-		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CTRLA);
-		XPROGTarget_SendByte(1 << 0);
-	}
 	
 	return true;
 }
