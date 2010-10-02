@@ -324,8 +324,6 @@ static void XPROGProtocol_WriteMemory(void)
 				EraseBuffCommand = XMEGA_NVM_CMD_ERASEEEPROMPAGEBUFF;			
 				break;
 			case XPRG_MEM_TYPE_USERSIG:
-				/* User signature is paged, but needs us to manually indicate the mode bits since the host doesn't set them */
-				WriteMemory_XPROG_Params.PageMode = (XPRG_PAGEMODE_ERASE | XPRG_PAGEMODE_WRITE);
 				WriteCommand     = XMEGA_NVM_CMD_WRITEUSERSIG;
 				break;
 			case XPRG_MEM_TYPE_FUSE:
