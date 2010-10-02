@@ -1,5 +1,7 @@
 t.m.k. Keyboard Firmware
 ========================
+http://github.com/tmk/tmk_keyboard
+
 This is keyboard firmware for PFU HHKB style keyboard and teensy 2.0.
 OS see this as composite device which has keyboard and mouse.
 
