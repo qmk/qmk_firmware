@@ -1,40 +1,29 @@
-Keyboard Firmware
-=================
-2010/08/23 noname
+t.m.k. Keyboard Firmware
+========================
+This is keyboard firmware for PFU HHKB style keyboard and teensy 2.0.
+OS see this as composite device which has keyboard and mouse.
+
+The project is heavily based on PJRC USB Keyboard/Mouse Example and
+owes a debt to preceding keyboard firmware projects.
 
 
 VERSION
 -------
 0.1     2010/08/23
-        implemented for macway modified.
-        It works as normal keyboard now.
+        It works as normal keyboard.
+        It is for modified Macway keyboard(TP-999KB-E).
 
-
-TODO
-----
-modulization
-    clean source
-debouncing
-    will be coded when bouncing occurs.
-    bouncing doesnt occur on my alps switch so far.
-    scan rate is too slow?(to be measure)
-anti-ghost
-    2010/09/13 done
-sleep&wakeup
-boot keyboard support
-mouse key
-keymap layer
-    2010/09/16 simple layer(HHKB/vi cursor)
-    key combination switch
-    toggle siwtch
-setting menu(wizard)
-    debug console
-    keymap setting
-    matrix display
-PS/2 keyboard mode
-HHKB support
-Trackpoint(PS/2) support
-    Thinkpad keyboard support
+1.0     2010/10/02
+        keyboard has mouse key now.
+        keyboard with layers.(see keymap.c)
+            FN_1(right cmd):
+                vi style layer
+            FN_2(next to right shift):
+                HHKB style layer
+            FN_3(left bottom):
+                h j k l:   mouse move
+                a s d spc: mouse buttons
+                m ,:       mouse wheel
 
 
 target board
@@ -43,10 +32,11 @@ Teensy 2.0
 http://www.pjrc.com/teensy
 
 
-projects based on/related to
-----------------------------
-PJRC USB Keyboard Example
+projects related
+----------------
+PJRC USB Keyboard/Mouse Example
     http://www.pjrc.com/teensy/usb_keyboard.html
+    http://www.pjrc.com/teensy/usb_mouse.html
 kbupgrade
     http://github.com/rhomann/kbupgrade
     http://geekhack.org/showwiki.php?title=Island:8406
@@ -63,6 +53,27 @@ humblehacker-keyboard
     http://geekhack.org/showwiki.php?title=Island:6292
 ps2avr
     http://sourceforge.net/projects/ps2avr/
+
+
+TODO
+----
+licensing notes(GPL)
+    I think GPL is not infringement of PJRC license.
+souce code cleaning
+sleep&wakeup
+debouncing
+    will be coded when bouncing occurs.
+    bouncing doesnt occur on my ALPS switch so far.
+    scan rate is too slow?(to be measure)
+setting menu(wizard)
+    debug console
+    keymap setting
+    matrix display
+PS/2 keyboard mode
+support for HHKB pro matrix signal
+Trackpoint(PS/2) support
+Thinkpad keyboard support
+mouse horizontal wheel
 
 
 EOF

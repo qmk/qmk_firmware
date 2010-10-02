@@ -41,7 +41,7 @@
 
 
 # Target file name (without extension).
-TARGET = mykey
+TARGET = tmk
 
 
 # List C source files here. (C dependencies are automatically generated.)
