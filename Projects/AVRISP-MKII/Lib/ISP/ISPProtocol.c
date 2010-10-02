@@ -184,7 +184,7 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 	uint16_t PollAddress       = 0;
 	uint8_t  PollValue         = (V2Command == CMD_PROGRAM_FLASH_ISP) ? Write_Memory_Params.PollValue1 :
 	                                                                    Write_Memory_Params.PollValue2;
-	uint8_t* NextWriteByte = Write_Memory_Params.ProgData;
+	uint8_t* NextWriteByte     = Write_Memory_Params.ProgData;
 
 	/* Check the programming mode desired by the host, either Paged or Word memory writes */
 	if (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_WRITES_MASK)
@@ -236,8 +236,8 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			ISPTarget_SendByte(StartAddress & 0xFF);
 			ISPTarget_SendByte(0x00);
 			
-			/* Check if polling is possible, if not switch to timed delay mode */
-			if (!(PollAddress))
+			/* Check if polling is possible and enabled, if not switch to timed delay mode */
+			if (!(PollAddress) && (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_VALUE_MASK))
 			{
 				Write_Memory_Params.ProgrammingMode &= ~PROG_MODE_PAGED_VALUE_MASK;
 				Write_Memory_Params.ProgrammingMode |=  PROG_MODE_PAGED_TIMEDELAY_MASK;				
@@ -275,6 +275,9 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			 * or low byte at the current word address */
 			if (V2Command == CMD_PROGRAM_FLASH_ISP)
 			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
+			
+			/* Save previous programming mode in case we modify it for the current word */
+			uint8_t PreviousProgrammingMode = Write_Memory_Params.ProgrammingMode;
 
 			if (ByteToWrite != PollValue)
 			{
@@ -283,10 +286,18 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 				  
 				PollAddress = (CurrentAddress & 0xFFFF);
 			}
+			else if (!(Write_Memory_Params.ProgrammingMode & PROG_MODE_WORD_READYBUSY_MASK))
+			{
+				Write_Memory_Params.ProgrammingMode &= ~PROG_MODE_WORD_VALUE_MASK;
+				Write_Memory_Params.ProgrammingMode |=  PROG_MODE_WORD_TIMEDELAY_MASK;				
+			}
 			
 			ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
 			                                                  Write_Memory_Params.DelayMS, Write_Memory_Params.ProgrammingCommands[2]);
 			  
+			/* Restore previous programming mode mask in case the current word needed to change it */
+			Write_Memory_Params.ProgrammingMode = PreviousProgrammingMode;
+
 			/* Abort the programming loop early if the byte/word programming failed */
 			if (ProgrammingStatus != STATUS_CMD_OK)
 			  break;

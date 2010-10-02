@@ -275,7 +275,7 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode,
                                       const uint8_t DelayMS,
                                       const uint8_t ReadMemCommand)
 {
-	uint8_t ProgrammingStatus  = STATUS_CMD_OK;
+	uint8_t ProgrammingStatus = STATUS_CMD_OK;
 
 	/* Determine method of Programming Complete check */
 	switch (ProgrammingMode & ~(PROG_MODE_PAGED_WRITES_MASK | PROG_MODE_COMMIT_PAGE_MASK))
