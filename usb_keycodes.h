@@ -262,10 +262,10 @@ enum keycodes {
     KB_RGUI,            /* 0x80 */
 
     /* extensions for internal use */
-    FN_0 = 0xE8,
-    FN_1,
+    FN_1 = 0xE8,
     FN_2,
     FN_3,
+    FN_4,
     MS_UP = 0xF0,
     MS_DOWN,
     MS_LEFT,
