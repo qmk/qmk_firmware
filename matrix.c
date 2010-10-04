@@ -114,15 +114,15 @@ static void select_row(uint8_t row)
             PORTF = 0x00;
             break;
         case 1:
-            DDRD  = (1<<1);
+            DDRD  = 0x00;
             PORTD = 0x00;
-            DDRC  = 0x00;
+            DDRC  = (1<<7);
             PORTC = 0x00;
             DDRF  = 0x00;
             PORTF = 0x00;
             break;
         case 2:
-            DDRD  = (1<<2);
+            DDRD  = (1<<7);
             PORTD = 0x00;
             DDRC  = 0x00;
             PORTC = 0x00;
@@ -130,11 +130,11 @@ static void select_row(uint8_t row)
             PORTF = 0x00;
             break;
         case 3:
-            DDRD  = (1<<3);
+            DDRD  = 0x00;
             PORTD = 0x00;
             DDRC  = 0x00;
             PORTC = 0x00;
-            DDRF  = 0x00;
+            DDRF  = (1<<6);
             PORTF = 0x00;
             break;
         case 4:
@@ -146,7 +146,7 @@ static void select_row(uint8_t row)
             PORTF = 0x00;
             break;
         case 5:
-            DDRD  = (1<<7);
+            DDRD  = (1<<1);
             PORTD = 0x00;
             DDRC  = 0x00;
             PORTC = 0x00;
@@ -154,9 +154,9 @@ static void select_row(uint8_t row)
             PORTF = 0x00;
             break;
         case 6:
-            DDRD  = 0x00;
+            DDRD  = (1<<2);
             PORTD = 0x00;
-            DDRC  = (1<<6);
+            DDRC  = 0x00;
             PORTC = 0x00;
             DDRF  = 0x00;
             PORTF = 0x00;
@@ -164,7 +164,7 @@ static void select_row(uint8_t row)
         case 7:
             DDRD  = 0x00;
             PORTD = 0x00;
-            DDRC  = (1<<7);
+            DDRC  = (1<<6);
             PORTC = 0x00;
             DDRF  = 0x00;
             PORTF = 0x00;
