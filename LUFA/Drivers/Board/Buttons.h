@@ -101,6 +101,8 @@
 		#include "USBFOO/Buttons.h"
 	#elif (BOARD == BOARD_UDIP)
 		#include "UDIP/Buttons.h"
+	#elif (BOARD == BOARD_CULV3)
+		#include "CULV3/Buttons.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/Buttons.h"
 	#else

@@ -29,27 +29,27 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the Olimex AVR-USB-162.
+ *  \brief Board specific LED driver header for the Busware CUL V3.
  *
- *  Board specific LED driver header for the Olimex AVR-USB-162 (http://www.olimex.com/dev/avr-usb-162.html).
+ *  Board specific LED driver header for the Busware CUL V3 (http://busware.de/tiki-index.php?page=CUL).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_OLIMEX162 OLIMEX162
+ *  @defgroup Group_LEDs_CULV3 CUL V3
  *
- *  Board specific LED driver header for the Olimex AVR-USB-162 (http://www.olimex.com/dev/avr-usb-162.html).
+ *  Board specific LED driver header for the Busware CUL V3 (http://busware.de/tiki-index.php?page=CUL).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  *
  *  @{
  */
- 
-#ifndef __LEDS_OLIMEX162_H__
-#define __LEDS_OLIMEX162_H__
+
+#ifndef __LEDS_CULV3_H__
+#define __LEDS_CULV3_H__
 
 	/* Includes: */
 		#include <avr/io.h>
@@ -69,52 +69,52 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** LED mask for the first LED on the board. */
-			#define LEDS_LED1        (1 << 4)
+			#define LEDS_LED1        (1 << 6)
 
 			/** LED mask for all the LEDs on the board. */
 			#define LEDS_ALL_LEDS    LEDS_LED1
 
-			/** LED mask for none of the board LEDs. */
+			/** LED mask for the none of the board LEDs. */
 			#define LEDS_NO_LEDS     0
-			
+
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
 			static inline void LEDs_Init(void)
 			{
-				DDRD  |= LEDS_ALL_LEDS;
-				PORTD |= LEDS_ALL_LEDS;
-			}
+				DDRE  |=  LEDS_ALL_LEDS;
+				PORTE &= ~LEDS_ALL_LEDS;
+         	}
 			
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
-				PORTD &= ~LEDMask;
+				PORTE |= LEDMask;
 			}
 
 			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
 			{
-				PORTD |= LEDMask;
+				PORTE &= ~LEDMask;
 			}
 
 			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
 			{
-				PORTD = ((PORTD | LEDS_ALL_LEDS) & ~LEDMask);
+				PORTE = ((PORTE & ~LEDS_ALL_LEDS) | LEDMask);
 			}
 			
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
 			                                   const uint8_t ActiveMask)
 			{
-				PORTD = ((PORTD | LEDMask) & ~ActiveMask);
+				PORTE = ((PORTE & ~LEDMask) | ActiveMask);
 			}
 			
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
-				PORTD ^= LEDMask;
+				PORTE = (PORTE ^ (LEDMask & LEDS_ALL_LEDS));
 			}
-
+			
 			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t LEDs_GetLEDs(void)
 			{
-				return (~PORTD & LEDS_ALL_LEDS);
+				return (PORTE & LEDS_ALL_LEDS);
 			}
 		#endif
 

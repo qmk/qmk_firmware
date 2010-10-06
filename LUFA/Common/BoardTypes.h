@@ -119,6 +119,9 @@
 			/** Selects the Arduino Uno specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_UNO           18
 			
+			/** Selects the CUL V3 specific board drivers, including the Button and LEDs drivers. */
+			#define BOARD_CULV3         19
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 				

@@ -29,30 +29,31 @@
 */
 
 /** \file
- *  \brief Board specific LED driver header for the Olimex AVR-USB-162.
+ *  \brief Board specific LED driver header for the Busware CUL V3.
  *
- *  Board specific LED driver header for the Olimex AVR-USB-162 (http://www.olimex.com/dev/avr-usb-162.html).
+ *  Board specific LED driver header for the Busware CUL V3 (http://busware.de/tiki-index.php?page=CUL).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_OLIMEX162 OLIMEX162
+ *  @defgroup Group_LEDs_CULV3 CUL V3
  *
- *  Board specific LED driver header for the Olimex AVR-USB-162 (http://www.olimex.com/dev/avr-usb-162.html).
+ *  Board specific LED driver header for the Busware CUL V3 (http://busware.de/tiki-index.php?page=CUL).
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  *
  *  @{
  */
- 
-#ifndef __LEDS_OLIMEX162_H__
-#define __LEDS_OLIMEX162_H__
+
+#ifndef __BUTTONS_CULV3_H__
+#define __BUTTONS_CULV3_H__
 
 	/* Includes: */
 		#include <avr/io.h>
+		#include <stdbool.h>
 
 		#include "../../../Common/Common.h"
 
@@ -62,59 +63,27 @@
 		#endif
 
 	/* Preprocessor Checks: */
-		#if !defined(__INCLUDE_FROM_LEDS_H)
-			#error Do not include this file directly. Include LUFA/Drivers/Board/LEDS.h instead.
+		#if !defined(__INCLUDE_FROM_BUTTONS_H)
+			#error Do not include this file directly. Include LUFA/Drivers/Board/Buttons.h instead.
 		#endif
-
+		
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** LED mask for the first LED on the board. */
-			#define LEDS_LED1        (1 << 4)
-
-			/** LED mask for all the LEDs on the board. */
-			#define LEDS_ALL_LEDS    LEDS_LED1
-
-			/** LED mask for none of the board LEDs. */
-			#define LEDS_NO_LEDS     0
-			
+			/** Button mask for the first button on the board. */
+			#define BUTTONS_BUTTON1      (1 << 2)
+	
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
-			static inline void LEDs_Init(void)
+			static inline void Buttons_Init(void)
 			{
-				DDRD  |= LEDS_ALL_LEDS;
-				PORTD |= LEDS_ALL_LEDS;
-			}
-			
-			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
-			{
-				PORTD &= ~LEDMask;
+				DDRE  &= ~BUTTONS_BUTTON1;
+				PORTE |=  BUTTONS_BUTTON1;
 			}
 
-			static inline void LEDs_TurnOffLEDs(const uint8_t LEDMask)
+			static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint8_t Buttons_GetStatus(void)
 			{
-				PORTD |= LEDMask;
-			}
-
-			static inline void LEDs_SetAllLEDs(const uint8_t LEDMask)
-			{
-				PORTD = ((PORTD | LEDS_ALL_LEDS) & ~LEDMask);
-			}
-			
-			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
-			                                   const uint8_t ActiveMask)
-			{
-				PORTD = ((PORTD | LEDMask) & ~ActiveMask);
-			}
-			
-			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
-			{
-				PORTD ^= LEDMask;
-			}
-
-			static inline uint8_t LEDs_GetLEDs(void) ATTR_WARN_UNUSED_RESULT;
-			static inline uint8_t LEDs_GetLEDs(void)
-			{
-				return (~PORTD & LEDS_ALL_LEDS);
+				return ((PINE & BUTTONS_BUTTON1) ^ BUTTONS_BUTTON1);
 			}
 		#endif
 
@@ -122,7 +91,7 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+			
 #endif
 
 /** @} */

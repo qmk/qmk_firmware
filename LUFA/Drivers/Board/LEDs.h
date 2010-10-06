@@ -125,6 +125,8 @@
 		#include "BUI/LEDs.h"
 	#elif (BOARD == BOARD_UNO)
 		#include "UNO/LEDs.h"
+	#elif (BOARD == BOARD_CULV3)
+		#include "CULV3/LEDs.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
 	#endif
