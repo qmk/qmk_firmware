@@ -8,13 +8,14 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer,
 	
 	while (Length)
 	{
-		if (Endpoint_IsSETUPReceived())
-		  return ENDPOINT_RWCSTREAM_HostAborted;
+		uint8_t USB_DeviceState_LCL = USB_DeviceState;
 
-		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		if (USB_DeviceState_LCL == DEVICE_STATE_Unattached)
 		  return ENDPOINT_RWCSTREAM_DeviceDisconnected;
-		else if (USB_DeviceState == DEVICE_STATE_Suspended)
+		else if (USB_DeviceState_LCL == DEVICE_STATE_Suspended)
 		  return ENDPOINT_RWCSTREAM_BusSuspended;
+		else if (Endpoint_IsSETUPReceived())
+		  return ENDPOINT_RWCSTREAM_HostAborted;
 		  
 		if (Endpoint_IsOUTReceived())
 		{
@@ -30,9 +31,11 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer,
 	
 	while (!(Endpoint_IsINReady()))
 	{
-		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		uint8_t USB_DeviceState_LCL = USB_DeviceState;
+
+		if (USB_DeviceState_LCL == DEVICE_STATE_Unattached)
 		  return ENDPOINT_RWCSTREAM_DeviceDisconnected;
-		else if (USB_DeviceState == DEVICE_STATE_Suspended)
+		else if (USB_DeviceState_LCL == DEVICE_STATE_Suspended)
 		  return ENDPOINT_RWCSTREAM_BusSuspended;
 	}
 	

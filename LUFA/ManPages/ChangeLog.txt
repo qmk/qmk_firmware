@@ -18,7 +18,7 @@
   *    handling of USB Start of Frame events while in USB Host mode
   *  - Added new PRNT_Host_BytesReceived(), PRNT_Host_ReceiveByte(), PRNT_Host_SendByte() and PRNT_Host_Flush() functions to the
   *    Print Host Class driver
-  *  - Added class specific descriptor type defines with standard USB-IF element naming
+  *  - Added class specific descriptor alternative struct type defines with standard USB-IF element naming
   *  - Added new project makefile template to the library and moved board driver stub files into in a new "CodeTemplates" directory
   *  - Added board hardware driver support for the Linnix UDIP development board
   *  - Added board hardware driver support for the Busware BUI development board
@@ -42,7 +42,7 @@
   *  - Changed over all demos, drivers and internal functions to use the current frame number over the Start of Frame flag where possible
   *    to free up the Start of Frame flag for interrupt use in the user application
   *  - All project makefiles now correctly clean intermediate build files from assembly and C++ sources (thanks to Daniel Czigany)
-  *  - Removed the EVENT_USB_InitFailure() event, not specifying a USB mode now defaults to UID selection mode
+  *  - Removed the EVENT_USB_InitFailure() event, not specifying a USB mode correctly now defaults to UID selection mode
   *  - Renamed and moved class driver common constant definitions to make the naming scheme more uniform
   *  - Changed default value for the reset polarity parameter in the AVRISP-MKII project so that it defaults to active low drive
   *  - Changed configuration descriptor parser for all host mode projects and class drivers to ensure better compatibility with devices

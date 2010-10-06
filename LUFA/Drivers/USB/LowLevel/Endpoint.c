@@ -115,10 +115,12 @@ uint8_t Endpoint_WaitUntilReady(void)
 			  return ENDPOINT_READYWAIT_NoError;
 		}
 		
-		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		uint8_t USB_DeviceState_LCL = USB_DeviceState;
+
+		if (USB_DeviceState_LCL == DEVICE_STATE_Unattached)
 		  return ENDPOINT_READYWAIT_DeviceDisconnected;
-		else if (USB_DeviceState == DEVICE_STATE_Suspended)
-		  return ENDPOINT_READYWAIT_BusSuspended;
+		else if (USB_DeviceState_LCL == DEVICE_STATE_Suspended)
+		  return ENDPOINT_READYWAIT_BusSuspended;		
 		else if (Endpoint_IsStalled())
 		  return ENDPOINT_READYWAIT_EndpointStalled;
 
