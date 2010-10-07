@@ -148,24 +148,30 @@
 				return UDFNUM;
 			}
 		
-			/** Enables the device mode Start Of Frame events. When enabled, this causes the
-			 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
-			 *  at the start of each USB frame when enumerated in device mode.
-			 */
-			static inline void USB_Device_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_Device_EnableSOFEvents(void)
-			{
-				USB_INT_Enable(USB_INT_SOFI);
-			}
-				
-			/** Disables the device mode Start Of Frame events. When disabled, this stops the firing of the
-			 *  \ref EVENT_USB_Device_StartOfFrame() event when enumerated in device mode.
-			 */
-			static inline void USB_Device_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_Device_DisableSOFEvents(void)
-			{
-				USB_INT_Disable(USB_INT_SOFI);
-			}
+			#if !defined(NO_SOF_EVENTS)
+				/** Enables the device mode Start Of Frame events. When enabled, this causes the
+				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
+				 *  at the start of each USB frame when enumerated in device mode.
+				 *
+				 *  \note Not available when the NO_SOF_EVENTS compile time token is defined.
+				 */
+				static inline void USB_Device_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
+				static inline void USB_Device_EnableSOFEvents(void)
+				{
+					USB_INT_Enable(USB_INT_SOFI);
+				}
+					
+				/** Disables the device mode Start Of Frame events. When disabled, this stops the firing of the
+				 *  \ref EVENT_USB_Device_StartOfFrame() event when enumerated in device mode.
+				 *
+				 *  \note Not available when the NO_SOF_EVENTS compile time token is defined.
+				 */
+				static inline void USB_Device_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
+				static inline void USB_Device_DisableSOFEvents(void)
+				{
+					USB_INT_Disable(USB_INT_SOFI);
+				}
+			#endif
 			
 		/* Function Prototypes: */
 			/** Function to retrieve a given descriptor's size and memory location from the given descriptor type value,

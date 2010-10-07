@@ -115,6 +115,11 @@
  *  can be accurately set and the \ref EVENT_USB_Device_Connect() and \ref EVENT_USB_Device_Disconnect() events manually raised by the RAISE_EVENT macro.
  *  When defined, this token disables the library's auto-detection of the connection state by the aforementioned suspension and wake up events.
  *
+ *  <b>NO_SOF_EVENTS</b> - ( \ref Group_Events ) \n
+ *  By default, there exists a LUFA application event for the start of each USB frame while the USB bus is not suspended in either host or device mode.
+ *  This event can be selectively enabled or disabled by calling the appropriate device or host mode function. When this compile time token is defined,
+ *  the ability to receive USB Start of Frame events via the \ref EVENT_USB_Device_StartOfFrame() or \ref EVENT_USB_Host_StartOfFrame() events is removed,
+ *  reducing the compiled program's binary size.
  *
  *  \section Sec_SummaryUSBDeviceTokens USB Device Mode Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack of the LUFA library when used in Device mode.

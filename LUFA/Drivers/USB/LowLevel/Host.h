@@ -253,25 +253,31 @@
 				return UHFNUM;
 			}
 			
-			/** Enables the host mode Start Of Frame events. When enabled, this causes the
-			 *  \ref EVENT_USB_Host_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
-			 *  at the start of each USB frame when a device is enumerated while in host mode.
-			 */
-			static inline void USB_Host_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_Host_EnableSOFEvents(void)
-			{
-				USB_INT_Enable(USB_INT_HSOFI);
-			}
-				
-			/** Disables the host mode Start Of Frame events. When disabled, this stops the firing of the
-			 *  \ref EVENT_USB_Host_StartOfFrame() event when enumerated in host mode.
-			 */
-			static inline void USB_Host_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_Host_DisableSOFEvents(void)
-			{
-				USB_INT_Disable(USB_INT_HSOFI);
-			}
-
+			#if !defined(NO_SOF_EVENTS)
+				/** Enables the host mode Start Of Frame events. When enabled, this causes the
+				 *  \ref EVENT_USB_Host_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
+				 *  at the start of each USB frame when a device is enumerated while in host mode.
+				 *
+				 *  \note Not available when the NO_SOF_EVENTS compile time token is defined.
+				 */
+				static inline void USB_Host_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
+				static inline void USB_Host_EnableSOFEvents(void)
+				{
+					USB_INT_Enable(USB_INT_HSOFI);
+				}
+					
+				/** Disables the host mode Start Of Frame events. When disabled, this stops the firing of the
+				 *  \ref EVENT_USB_Host_StartOfFrame() event when enumerated in host mode.
+				 *
+				 *  \note Not available when the NO_SOF_EVENTS compile time token is defined.
+				 */
+				static inline void USB_Host_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
+				static inline void USB_Host_DisableSOFEvents(void)
+				{
+					USB_INT_Disable(USB_INT_HSOFI);
+				}
+			#endif
+			
 			/** Resets the USB bus, including the endpoints in any attached device and pipes on the AVR host.
 			 *  USB bus resets leave the default control pipe configured (if already configured).
 			 *

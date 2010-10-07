@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_CULV3 CUL V3
+ *  @defgroup Group_LEDs_CULV3 CULV3
  *
  *  Board specific LED driver header for the Busware CUL V3 (http://busware.de/tiki-index.php?page=CUL).
  *
