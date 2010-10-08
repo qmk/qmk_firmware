@@ -8,9 +8,9 @@
 
 // matrix is active low. (key on: 0/key off: 1)
 // row: Hi-Z(unselected)/low output(selected)
-//      PD:0,1,2,3,6,7/PC:6,7/PF:7
+//      PD0, PC7, PD7, PF6, PD6, PD1, PD2, PC6, PF7
 // col: input w/pullup
-//      PB:0-8
+//      PB0-PB7
 
 // matrix state buffer
 uint8_t *matrix;
