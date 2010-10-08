@@ -9,7 +9,7 @@ The project is heavily based on PJRC USB Keyboard/Mouse Example and
 owes a debt to preceding keyboard firmware projects.
 
 
-VERSION
+Version
 -------
 0.1     2010/08/23
         It works as normal keyboard.
@@ -27,14 +27,18 @@ VERSION
                 a s d spc: mouse buttons
                 m ,:       mouse wheel
 
+1.1     2010/10/08
+        Matrix wiring changed for casing.
+        (and my Teensy PD3 seems to be latchuped and unusable. :<)
 
-target board
+
+Target board
 ------------
 Teensy 2.0
 http://www.pjrc.com/teensy
 
 
-projects related
+Projects related
 ----------------
 PJRC USB Keyboard/Mouse Example
     http://www.pjrc.com/teensy/usb_keyboard.html
@@ -57,25 +61,35 @@ ps2avr
     http://sourceforge.net/projects/ps2avr/
 
 
-TODO
-----
+TODO & ideas
+------------
 licensing notes(GPL)
     I think GPL is not infringement of PJRC license.
 souce code cleaning
 sleep&wakeup
-debouncing
+debouncing logic
     will be coded when bouncing occurs.
     bouncing doesnt occur on my ALPS switch so far.
     scan rate is too slow?(to be measure)
-setting menu(wizard)
-    debug console
-    keymap setting
+
+support for HHKB pro matrix signal
+    exchange controller board with teensy
+Trackpoint(PS/2)
+    receive PS/2 signal from TrackPoint
+    send USB HID report
+Thinkpad keyboard support
+    turn keyboard to USB keyboard/mouse composite device
+mouse horizontal wheel
+    http://www.microchip.com/forums/tm.aspx?high=&m=391435&mpage=1#391521
+    http://www.keil.com/forum/15671/
+    http://www.microsoft.com/whdc/device/input/wheel.mspx
+setting menu(configure without changing firmware)
+    console for display
+    keymap/layer setting
+    mouse speed/acceleration
     matrix display
 PS/2 keyboard mode
-support for HHKB pro matrix signal
-Trackpoint(PS/2) support
-Thinkpad keyboard support
-mouse horizontal wheel
+    with USB to PS/2 dumb adapter(possible?)
 
 
 EOF
