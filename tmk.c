@@ -34,7 +34,7 @@
 #include "usb_mouse.h"
 #include "print.h"
 #include "matrix.h"
-#include "keymap.h"
+#include "keymap_hhkb.h"
 #include "jump_bootloader.h"
 
 
@@ -46,7 +46,7 @@
 
 #define MOUSE_MOVE_UNIT 10
 #define MOUSE_DELAY_MS 200
-#define MOUSE_DELAY_ACC 4
+#define MOUSE_DELAY_ACC 5
 
 
 static void print_matrix(void);
@@ -99,7 +99,7 @@ int main(void)
     int8_t mouse_hwheel = 0;
     int mouse_repeat = 0;
 
-    print("\nt.m.k. keyboard 1.0\n");
+    print("\nt.m.k. keyboard 1.0 for hhkb\n");
     while (1) {
         matrix_scan();
         modified = matrix_is_modified();
@@ -110,12 +110,13 @@ int main(void)
         if (modified) {
             print_matrix();
 
+            // LED flash for debug
             LED_CONFIG;
             LED_ON;
         }
 
         keyboard_modifier_keys = 0;
-        for (int i = 0; i < 6; i++) keyboard_keys[i] = KB_NO;
+        for (int i = 0; i < 3; i++) keyboard_keys[i] = KB_NO;
         key_index = 0;
         mouse_x = 0;
         mouse_y = 0;
@@ -136,10 +137,10 @@ int main(void)
                     keyboard_modifier_keys |= 1<<(code & 0x07);
                 } else if (code >= MS_UP) {
                     // mouse
-                    if (code == MS_UP)    mouse_y -= MOUSE_MOVE_UNIT;
-                    if (code == MS_DOWN)  mouse_y += MOUSE_MOVE_UNIT;
-                    if (code == MS_LEFT)  mouse_x -= MOUSE_MOVE_UNIT;
-                    if (code == MS_RIGHT) mouse_x += MOUSE_MOVE_UNIT;
+                    if (code == MS_UP)    mouse_y -= MOUSE_MOVE_UNIT + (mouse_repeat < 50 ? mouse_repeat/5 : 10);
+                    if (code == MS_DOWN)  mouse_y += MOUSE_MOVE_UNIT + (mouse_repeat < 50 ? mouse_repeat/5 : 10);
+                    if (code == MS_LEFT)  mouse_x -= MOUSE_MOVE_UNIT + (mouse_repeat < 50 ? mouse_repeat/5 : 10);
+                    if (code == MS_RIGHT) mouse_x += MOUSE_MOVE_UNIT + (mouse_repeat < 50 ? mouse_repeat/5 : 10);
                     if (code == MS_BTN1)  mouse_btn |= 1<<0;
                     if (code == MS_BTN2)  mouse_btn |= 1<<1;
                     if (code == MS_BTN3)  mouse_btn |= 1<<2;
@@ -189,6 +190,10 @@ int main(void)
                     //Rollover
                 }
                 usb_keyboard_send();
+
+                // LED flash for debug
+                LED_CONFIG;
+                LED_OFF;
             }
         }
         _delay_ms(2);

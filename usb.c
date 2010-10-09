@@ -47,7 +47,7 @@
 // INF file is needed to load the driver.  These numbers need to
 // match the INF file.
 #define VENDOR_ID		0xFEED
-#define PRODUCT_ID		0xBABE
+#define PRODUCT_ID		0xCAFE
 
 
 // USB devices are supposed to implment a halt feature, which is
