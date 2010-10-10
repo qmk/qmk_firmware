@@ -69,6 +69,7 @@ int main(void)
     // Wait an extra second for the PC's operating system to load drivers
     // and do whatever it does to actually be ready for input
     // needs such long time in my PC.
+    /* wait for debug print. no need for normal use */
     for (int i =0; i < 6; i++) {
         LED_CONFIG;
         LED_ON;
@@ -146,10 +147,10 @@ int main(void)
                     if (code == MS_BTN3)  mouse_btn |= 1<<2;
                     if (code == MS_BTN4)  mouse_btn |= 1<<3;
                     if (code == MS_BTN5)  mouse_btn |= 1<<4;
-                    if (code == MS_WH_UP)  mouse_wheel -= 1;
-                    if (code == MS_WH_DOWN)  mouse_wheel += 1;
-                    if (code == MS_WH_LEFT)  mouse_hwheel -= 1;
-                    if (code == MS_WH_RIGHT) mouse_hwheel += 1;
+                    if (code == MS_WH_UP)  mouse_wheel += 1;
+                    if (code == MS_WH_DOWN)  mouse_wheel -= 1;
+                    if (code == MS_WH_LEFT)  mouse_hwheel += 1;
+                    if (code == MS_WH_RIGHT) mouse_hwheel -= 1;
                 } else {
                     // normal keys
                     if (key_index < 6)

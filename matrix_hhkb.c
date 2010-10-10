@@ -37,7 +37,7 @@ void matrix_init(void)
     // row & col output(PB0-6)
     DDRB = 0xFF;
     PORTB = KEY_SELELCT(0, 0);
-    // key input(KEY/VALID)
+    // KEY & VALID input w/o pullup(PE6,7)
     DDRE = 0x3F;
     PORTE = 0x00;
 
