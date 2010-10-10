@@ -30,6 +30,11 @@
   this software.
 */
 
+/** \file
+ *
+ *  Header file for SoftUART.c.
+ */
+
 #ifndef _SOFT_UART_
 #define _SOFT_UART_
 
@@ -55,8 +60,8 @@
 		{
 			uint16_t BitTime = ((F_CPU / Baud) - 1);
 		
-			OCR1A = BitTime;
-			OCR3A = BitTime;
+			ICR1 = BitTime;
+			ICR3 = BitTime;
 		}
 
 	/* Function Prototypes: */

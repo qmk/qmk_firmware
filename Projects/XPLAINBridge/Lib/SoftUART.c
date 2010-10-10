@@ -67,11 +67,11 @@ void SoftUART_Init(void)
 	SoftUART_SetBaud(9600);
 
 	/* Setup reception timer compare ISR */
-	TIMSK1 = (1 << OCIE1A);
+	TIMSK1 = (1 << ICIE1);
 
 	/* Setup transmission timer compare ISR and start the timer */
-	TIMSK3 = (1 << OCIE3A);
-	TCCR3B = ((1 << CS30) | (1 << WGM32));
+	TIMSK3 = (1 << ICIE3);
+	TCCR3B = ((1 << CS30) | (1 << WGM33) | (1 << WGM32));
 }
 
 /** ISR to detect the start of a bit being sent to the software UART. */
@@ -90,12 +90,12 @@ ISR(INT0_vect, ISR_BLOCK)
 		EIMSK = 0;
 
 		/* Start the reception timer */
-		TCCR1B = ((1 << CS10) | (1 << WGM12));
+		TCCR1B = ((1 << CS10) | (1 << WGM13) | (1 << WGM12));
 	}
 }
 
 /** ISR to manage the reception of bits to the software UART. */
-ISR(TIMER1_COMPA_vect, ISR_BLOCK)
+ISR(TIMER1_CAPT_vect, ISR_BLOCK)
 {
 	/* Cache the current RX pin value for later checking */
 	uint8_t SRX_Cached = (SRXPIN & (1 << SRX));
@@ -120,12 +120,12 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 
 		/* Reception complete, store the received byte if stop bit valid */
 		if (SRX_Cached)
-		  RingBuffer_Insert(&UARTtoUSB_Buffer, RX_Data);	
+		  RingBuffer_Insert(&XMEGAtoUSB_Buffer, RX_Data);	
 	}
 }
 
 /** ISR to manage the transmission of bits via the software UART. */
-ISR(TIMER3_COMPA_vect, ISR_BLOCK)
+ISR(TIMER3_CAPT_vect, ISR_BLOCK)
 {
 	/* Check if transmission has finished */
 	if (TX_BitsRemaining)
@@ -140,13 +140,13 @@ ISR(TIMER3_COMPA_vect, ISR_BLOCK)
 		TX_Data >>= 1;
 		TX_BitsRemaining--;
 	}
-	else if (!(RX_BitsRemaining) && !(RingBuffer_IsEmpty(&USBtoUART_Buffer)))
+	else if (!(RX_BitsRemaining) && !(RingBuffer_IsEmpty(&USBtoXMEGA_Buffer)))
 	{
 		/* Start bit - TX line low */
 		STXPORT &= ~(1 << STX);
 
 		/* Transmission complete, get the next byte to send (if available) */
-		TX_Data          = ~RingBuffer_Remove(&USBtoUART_Buffer);
+		TX_Data          = ~RingBuffer_Remove(&USBtoXMEGA_Buffer);
 		TX_BitsRemaining = 9;
 	}
 }
