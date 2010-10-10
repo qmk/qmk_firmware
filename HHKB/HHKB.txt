@@ -1,0 +1,230 @@
+Alternative Controller for HHKB pro
+===================================
+I want to add vi cursor and mouse keys to HHKB. Original HHKB controller is not programmable and
+firmware source code is not open. So, customizing HHKB needs to replace original controller with programmable one.
+I used Teensy++ as alternative controller. Though a Teensy has enough ports to drive HHKB,
+Teensy++ has clean pinout and it makes programing and wiring easier.
+
+This is just a proof of concept for replacing controller of HHKB, not a complete firmware.
+
+My prototype firmware source tree is here:
+    branch: hhkb(http://github.com/tmk/tmk_keyboard/tree/hhkb)
+This firmware is a port of my previous project:
+    HHKB style Mod(http://geekhack.org/showwiki.php?title=Island:11930)
+PJRC(Teensy++/Teensy)
+    http://www.pjrc.com/teensy/
+
+
+Pros:
+    * without pattern cuting, case mod  and soldering
+    * can keep original controller intact
+    * can change HHKB behaviour as you like(by C programming)
+
+Cons:
+    * void your warranty
+    * unavailability of Teensy++/Teensy(because of PS3 cracking boom?)
+
+Features:
+    * customized keymap
+    * more keymap layers
+    * mouse keys for minimum mouse operation(never comfortable for normal use)
+    * and more...(in the future)
+
+Any suggestions or ideas are welcome.
+
+
+NOTE:
+    My HHKB is just "Professional". This means followings may not be applied to "Professional2".
+DISCLAIMER:
+    I'm not a professional for electronics and MCU programming. This may damage your HHKB.
+    And my English writing is poor, I'm not sure I can convey my notions accurately.
+
+
+Teensy++ installation
+---------------------
+Angled USB mini B adapter is used to install Teensy++ laterally.
+(teensy_install.jpg)
+
+Bread baord cables used for connect Teensy++.
+(teensy_wiring.jpg)
+(connector_contact.jpg)
+
+
+HHKB internal
+-------------
+HHKB pro has two PCBs and some chips.
+
+Controller PCB:
+    M38K07M4    Renesas MCU with USB function
+                http://documentation.renesas.com/eng/products/mpumcu/rej03b0192_38k0ds.pdf
+    (HHKB_controller.jpg)
+
+Keyswitch PCB:
+    HC4051      Analog Multiplexer: select a row line.
+                http://www.alldatasheet.com/datasheet-pdf/pdf/203989/KODENSHI/KK74HC4051A.html
+    LS145       BCD Decoder: select a column line.
+                http://www.alldatasheet.com/datasheet-pdf/pdf/27373/TI/SN74LS145D.html
+    BU9831      Non-volatile electronic potentiometer: for calibration?
+                http://www.alldatasheet.com/datasheet-pdf/pdf/36387/ROHM/BU9831.html
+    TP1684      Capacitive Sensing controller: no datasheet available.
+    (HHKB_keyswitch.jpg)
+    Topre original chip?
+    (HHKB_TP1684.jpg)
+
+
+Two PCBs are connected by 15 lines. Vcc/GND uses 3 lines each, 9lines for keyboard signaling.
+
+    Keyswitch PCB connector                                 Teensy++ pins
+    -------------------------------------------------------------------------------
+     1  Vcc(5V)                                             5V
+     2  Vcc(5V)
+     3  Vcc(5V)
+     4  TP1684    KEY: Low(0) when key pressed              PE6 input w/o pullup
+     5  TP1684    unknown:how to use                        PE7 input w/o pullup
+     6  HC4051    A(bit0) select 8 rows(0 to 7)             PB0 output
+     7  HC4051    B(bit1)                                   PB1 output
+     8  HC4051    C(bit2)                                   PB2 output
+     9  LS145     A(bit0) select 8 columns(0 to 7)          PB3 output
+    10  LS145     B(bit1)                                   PB4 output
+    11  LS145     C(bit2)                                   PB5 output
+    12  LS145     D(enable) Low(0) enable selected column   PB6 output
+    13  GND
+    14  GND
+    15  GND                                                 GND
+    (HHKB_connector.jpg)
+
+
+Keyswitch matrix
+----------------
+60 keyswitches in 8*8 matrix. ghost free. bounce free.
+
+  COL 0     1       2       3       4       5       6       7
+ROW ---------------------------------------------------------------
+  0|  2     q       w       s       a       z       x       c
+  1|  3     4       r       e       d       f       v       b
+  2|  5     6       y       t       g       h       n       _NONE_
+  3|  1     Esc     Tab     Control LShift  LAlt    LMeta   Space
+  4|  7     8       u       i       k       j       m       _NONE_
+  5|  \     `       Delete  Return  Fn      RShift  RAlt    RMeta
+  6|  9     0       o       p       ;       l       ,       _NONE_
+  7|  -     +       ]       [       '       /       .       _NONE_
+
+
+Matrix diagram:
+             +-------------------------+-+-+-+-+-+-+-+     Vcc
+             |bias control?            - - - - - - - -     ---
+             |                  3.9K*8 R R R R R R R R      |
+    +--------^+      +--------+        - - - - - - - -      |  
+    | TP 1684 |      | HC4051 <0-------|-|-|-|-|-|-|-|--|R|-+
+    |         |capa. |        <1-------|-|-|-|-|-|-|-|--|R|-+
+    |         |sense |        <2-------|-|-|-|-|-|-|-|--|R|-+
+    |         <------|        <3-------|-|-|-|-|-|-|-|--|R|-+
+    |         |      |        <4-------|-|-|-|-|-|-|-|--|R|-+
+    |         |      |        <5-------|-|-|-|-|-|-|-|--|R|-+
+    |         |calib.|        <6-------|-|-|-|-|-|-|-|--|R|-+
+    |         <-+?   |        <7-------|-|-|-|-|-|-|-|--|R|-+
+    +---V-----+ |    +-^-^-^--+        0 1 2 3 4 5 6 7  33K*8
+       KEY ???  |      A B C         +-----------------+
+        |   | +-^----+ | | |         |      LS145      |
+    Vcc |   | |BU9831| | | |         +-^--^--^--^------+
+    --- |   | +------+ | | |           A  B  C  D   +------+
+     |  |   |          | | |           |  |  |  |   |      |
+    1-3 4   5          6 7 8           9 10 11 12 13-15    |
+    +--------------------------------------------------+   |
+    |                connector                         |  ---
+    +--------------------------------------------------+  GND
+                    to controller
+                                    
+
+Signals charts:
+    While pressing space bar, watched HHKB original controller signals by logic analyzer.
+    Row and column is looping between 0-7 each for selecting a key.
+    A key is scaned every about 15ms, so scan rate is 66Hz.
+    (HHKB_chart1.jpg)
+
+    Space bar locate at ROW:3 COL:7. Key are selected by HC4051(C,B,A) and LS145(C,B,A).
+    Key state can be read on TP1684(4/KEY) while asserting low on LS145(D). 
+    Usage of TP1684(5) is unknown. Key state can be read without using this signal.
+    (HHKB_chart2.jpg)
+
+
+Matrix scan pseudo code:
+    for (row: 0-7) {
+        SELECT_ROW(row);        // set HC4051(A,B,C)
+
+        for (col: 0-7) {
+            SELECT_COL(col);    // set LS145(A,B,C)
+
+            _delay_us(50);
+
+            ENALBLE_COL();      // set LS145(D) to low
+
+            _delay_us(10);
+
+            if (KEY == 0) {     // read TP1684(KEY)
+                // key pressed
+            } else {
+                // not pressed
+            }
+        }
+    }
+
+
+Keymap layers
+-------------
+Followings are added layers with additional Fn keys. They are not final decision.
+
+Layer0(Default Layer):
+    ,-----------------------------------------------------------.
+    |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|  \|  `|
+    |-----------------------------------------------------------|
+    |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|Backs|
+    |-----------------------------------------------------------|
+    |Contro|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
+    |-----------------------------------------------------------|
+    |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Fn2   |Fn1|
+    `-----------------------------------------------------------'
+          |Gui|Alt  |Space                  |Fn3  |Gui|
+          `-------------------------------------------'
+    
+Layer1(Fn1) HHKB mode:
+    ,-----------------------------------------------------------.
+    |Pow| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
+    |-----------------------------------------------------------|
+    |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |Backs|
+    |-----------------------------------------------------------|
+    |Contro|VoD|VoU|Mut|   |   |  *|  /|Hom|PgU|Lef|Rig|Enter   |
+    |-----------------------------------------------------------|
+    |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |xxx|
+    `-----------------------------------------------------------'
+         |Gui |Alt  |Space                  |Alt  |Gui|
+         `--------------------------------------------'
+
+Layer2(Fn2) mouse mode:
+    ,-----------------------------------------------------------.
+    |Esc|   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+    |-----------------------------------------------------------|
+    |Tab  |   |   |   |   |   |   |   |   |   |   |   |   |Backs|
+    |-----------------------------------------------------------|
+    |Contro|   |   |   |   |   |   |   |MwL|MwD|MwU|MwR|Return  |
+    |-----------------------------------------------------------|
+    |Shift   |   |   |   |   |   |   |McL|McD|McU|McR|xxxxxx|   |
+    `-----------------------------------------------------------'
+         |Gui |Alt  |Mb1                    |Mb1  |Mb2|
+         `--------------------------------------------'
+
+Layer3(Fn3) vi mode:
+    ,-----------------------------------------------------------.
+    |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |   |
+    |-----------------------------------------------------------|
+    |Tab  |   |   |   |   |   |Hom|PgD|PgUlEnd|   |MwD|MwU|Backs|
+    |-----------------------------------------------------------|
+    |Contro|   |   |   |   |   |Lef|Dow|Up |Rig|   |   |Return  |
+    |-----------------------------------------------------------|
+    |Shift   |   |   |   |   |   |   |McL|McD|McU|McR|Mb1   |   |
+    `-----------------------------------------------------------'
+          |Gui|Alt  |Mb1                    |xxxxx|Mb2|
+          `-------------------------------------------'
+    Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
+
+EOF
