@@ -37,9 +37,9 @@ void matrix_init(void)
     // row & col output(PB0-6)
     DDRB = 0xFF;
     PORTB = KEY_SELELCT(0, 0);
-    // KEY & VALID input w/o pullup(PE6,7)
+    // KEY & VALID input with pullup(PE6,7)
     DDRE = 0x3F;
-    PORTE = 0x00;
+    PORTE = 0xC0;
 
     // initialize matrix state: all keys off
     for (int i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0xFF;

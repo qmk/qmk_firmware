@@ -11,12 +11,12 @@ My prototype firmware source tree is here:
     branch: hhkb(http://github.com/tmk/tmk_keyboard/tree/hhkb)
 This firmware is a port of my previous project:
     HHKB style Mod(http://geekhack.org/showwiki.php?title=Island:11930)
-PJRC(Teensy++/Teensy)
-    http://www.pjrc.com/teensy/
+PJRC:
+    Teensy++/Teensy(http://www.pjrc.com/teensy/)
 
 
 Pros:
-    * without pattern cuting, case mod  and soldering
+    * without pattern cutting, case mod  and soldering
     * can keep original controller intact
     * can change HHKB behaviour as you like(by C programming)
 
@@ -35,6 +35,7 @@ Any suggestions or ideas are welcome.
 
 NOTE:
     My HHKB is just "Professional". This means followings may not be applied to "Professional2".
+
 DISCLAIMER:
     I'm not a professional for electronics and MCU programming. This may damage your HHKB.
     And my English writing is poor, I'm not sure I can convey my notions accurately.
@@ -57,6 +58,7 @@ HHKB pro has two PCBs and some chips.
 Controller PCB:
     M38K07M4    Renesas MCU with USB function
                 http://documentation.renesas.com/eng/products/mpumcu/rej03b0192_38k0ds.pdf
+
     (HHKB_controller.jpg)
 
 Keyswitch PCB:
@@ -67,7 +69,9 @@ Keyswitch PCB:
     BU9831      Non-volatile electronic potentiometer: for calibration?
                 http://www.alldatasheet.com/datasheet-pdf/pdf/36387/ROHM/BU9831.html
     TP1684      Capacitive Sensing controller: no datasheet available.
+
     (HHKB_keyswitch.jpg)
+
     Topre original chip?
     (HHKB_TP1684.jpg)
 
@@ -79,8 +83,8 @@ Two PCBs are connected by 15 lines. Vcc/GND uses 3 lines each, 9lines for keyboa
      1  Vcc(5V)                                             5V
      2  Vcc(5V)
      3  Vcc(5V)
-     4  TP1684    KEY: Low(0) when key pressed              PE6 input w/o pullup
-     5  TP1684    unknown:how to use                        PE7 input w/o pullup
+     4  TP1684    KEY: Low(0) when key pressed              PE6 input(with pullup)
+     5  TP1684    unknown:how to use                        PE7 input(with pullup)
      6  HC4051    A(bit0) select 8 rows(0 to 7)             PB0 output
      7  HC4051    B(bit1)                                   PB1 output
      8  HC4051    C(bit2)                                   PB2 output
@@ -91,6 +95,7 @@ Two PCBs are connected by 15 lines. Vcc/GND uses 3 lines each, 9lines for keyboa
     13  GND
     14  GND
     15  GND                                                 GND
+
     (HHKB_connector.jpg)
 
 
@@ -140,11 +145,13 @@ Signals charts:
     While pressing space bar, watched HHKB original controller signals by logic analyzer.
     Row and column is looping between 0-7 each for selecting a key.
     A key is scaned every about 15ms, so scan rate is 66Hz.
+
     (HHKB_chart1.jpg)
 
     Space bar locate at ROW:3 COL:7. Key are selected by HC4051(C,B,A) and LS145(C,B,A).
     Key state can be read on TP1684(4/KEY) while asserting low on LS145(D). 
     Usage of TP1684(5) is unknown. Key state can be read without using this signal.
+
     (HHKB_chart2.jpg)
 
 
@@ -174,57 +181,6 @@ Keymap layers
 -------------
 Followings are added layers with additional Fn keys. They are not final decision.
 
-Layer0(Default Layer):
-    ,-----------------------------------------------------------.
-    |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|  \|  `|
-    |-----------------------------------------------------------|
-    |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|Backs|
-    |-----------------------------------------------------------|
-    |Contro|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
-    |-----------------------------------------------------------|
-    |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Fn2   |Fn1|
-    `-----------------------------------------------------------'
-          |Gui|Alt  |Space                  |Fn3  |Gui|
-          `-------------------------------------------'
-    
-Layer1(Fn1) HHKB mode:
-    ,-----------------------------------------------------------.
-    |Pow| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
-    |-----------------------------------------------------------|
-    |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |Backs|
-    |-----------------------------------------------------------|
-    |Contro|VoD|VoU|Mut|   |   |  *|  /|Hom|PgU|Lef|Rig|Enter   |
-    |-----------------------------------------------------------|
-    |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |xxx|
-    `-----------------------------------------------------------'
-         |Gui |Alt  |Space                  |Alt  |Gui|
-         `--------------------------------------------'
-
-Layer2(Fn2) mouse mode:
-    ,-----------------------------------------------------------.
-    |Esc|   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-    |-----------------------------------------------------------|
-    |Tab  |   |   |   |   |   |   |   |   |   |   |   |   |Backs|
-    |-----------------------------------------------------------|
-    |Contro|   |   |   |   |   |   |   |MwL|MwD|MwU|MwR|Return  |
-    |-----------------------------------------------------------|
-    |Shift   |   |   |   |   |   |   |McL|McD|McU|McR|xxxxxx|   |
-    `-----------------------------------------------------------'
-         |Gui |Alt  |Mb1                    |Mb1  |Mb2|
-         `--------------------------------------------'
-
-Layer3(Fn3) vi mode:
-    ,-----------------------------------------------------------.
-    |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |   |
-    |-----------------------------------------------------------|
-    |Tab  |   |   |   |   |   |Hom|PgD|PgUlEnd|   |MwD|MwU|Backs|
-    |-----------------------------------------------------------|
-    |Contro|   |   |   |   |   |Lef|Dow|Up |Rig|   |   |Return  |
-    |-----------------------------------------------------------|
-    |Shift   |   |   |   |   |   |   |McL|McD|McU|McR|Mb1   |   |
-    `-----------------------------------------------------------'
-          |Gui|Alt  |Mb1                    |xxxxx|Mb2|
-          `-------------------------------------------'
-    Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
+see keymap_hhkb.c
 
 EOF
