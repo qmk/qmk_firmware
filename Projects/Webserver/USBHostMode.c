@@ -63,7 +63,7 @@ USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface =
  */
 void USBHostMode_USBTask(void)
 {
-	if (USB_CurrentMode != USB_MODE_HOST)
+	if (USB_CurrentMode != USB_MODE_Host)
 	  return;
 
 	switch (USB_HostState)

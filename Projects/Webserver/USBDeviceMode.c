@@ -64,7 +64,7 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
  */
 void USBDeviceMode_USBTask(void)
 {
-	if (USB_CurrentMode != USB_MODE_DEVICE)
+	if (USB_CurrentMode != USB_MODE_Device)
 	  return;
 
 	MS_Device_USBTask(&Disk_MS_Interface);
