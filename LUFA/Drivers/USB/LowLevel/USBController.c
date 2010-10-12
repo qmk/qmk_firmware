@@ -33,7 +33,7 @@
 #include "USBController.h"
 
 #if (!defined(USB_HOST_ONLY) && !defined(USB_DEVICE_ONLY))
-volatile uint8_t USB_CurrentMode     = USB_MODE_NONE;
+volatile uint8_t USB_CurrentMode = USB_MODE_None;
 #endif
 
 #if !defined(USE_STATIC_OPTIONS)
@@ -101,7 +101,7 @@ void USB_ShutDown(void)
 	#endif
 
 	#if defined(USB_CAN_BE_BOTH)
-	USB_CurrentMode = USB_MODE_NONE;
+	USB_CurrentMode = USB_MODE_None;
 	#endif
 
 	USB_IsInitialized = false;
@@ -138,7 +138,7 @@ void USB_ResetInterface(void)
 
 	USB_CLK_Unfreeze();
 	
-	if (USB_CurrentMode == USB_MODE_DEVICE)
+	if (USB_CurrentMode == USB_MODE_Device)
 	{
 		#if defined(USB_CAN_BE_DEVICE)
 		#if (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
@@ -148,7 +148,7 @@ void USB_ResetInterface(void)
 		USB_Init_Device();
 		#endif
 	}
-	else
+	else if (USB_CurrentMode == USB_MODE_Host)
 	{
 		#if defined(USB_CAN_BE_HOST)
 		UHWCON &= ~(1 << UIMOD);

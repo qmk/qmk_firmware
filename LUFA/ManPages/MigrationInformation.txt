@@ -19,6 +19,8 @@
  *      project makefiles using the USB driver of LUFA, or the makefile should be updated to use the new module source variables.
  *    - The EVENT_USB_InitFailure() event has been removed, as the USB_Init() function will no longer fail; if not USB mode is
  *      specified, the controller will default to UID selection mode.
+ *    - The USB mode specifier constants have been moved into a new enum and renamed. Existing projects should use the equivalent
+ *      value in the new \ref USB_Modes_t enum.
  *
  *  <b>Device Mode</b>
  *    - Endpoints MUST be allocated in ascending order to ensure that bank corruption does not occur. Ensure that your user application

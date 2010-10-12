@@ -122,32 +122,7 @@
 		#endif
 		
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */
-			/** Mode mask for the \ref USB_CurrentMode global. This indicates that the USB interface is currently not
-			 *  initialized into any mode.
-			 */
-			#define USB_MODE_NONE                      0
-
-			/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the
-			 *  USB interface is or should be initialized in the USB device mode.
-			 */
-			#define USB_MODE_DEVICE                    1
-			
-			/** Mode mask for the \ref USB_CurrentMode global and the \ref USB_Init() function. This indicates that the
-			 *  USB interface is or should be initialized in the USB host mode.
-			 */
-			#define USB_MODE_HOST                      2
-			
-			#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
-				/** Mode mask for the the \ref USB_Init() function. This indicates that the USB interface should be
-				 *  initialized into whatever mode the UID pin of the USB AVR indicates, and that the device
-				 *  should swap over its mode when the level of the UID pin changes during operation.
-				 *
-				 *  \note This token is not available on AVR models which do not support both host and device modes.
-				 */
-				#define USB_MODE_UID                       3
-			#endif
-			
+		/* Macros: */			
 			/** Regulator disable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
 			 *  regulator should be enabled to regulate the data pin voltages to within the USB standard.
 			 *
@@ -262,8 +237,8 @@
 			 *  Calling this function when the USB interface is already initialized will cause a complete USB
 			 *  interface reset and re-enumeration.
 			 *
-			 *  \param[in] Mode     This is a mask indicating what mode the USB interface is to be initialized to.
-			 *                      Valid mode masks are \ref USB_MODE_DEVICE, \ref USB_MODE_HOST or \ref USB_MODE_UID.
+			 *  \param[in] Mode     This is a mask indicating what mode the USB interface is to be initialized to, a value
+			 *                      from the \ref USB_Modes_t enum.
 			 *
 			 *  \param[in] Options  Mask indicating the options which should be used when initializing the USB
 			 *                      interface to control the USB interface's behaviour. This should be comprised of
@@ -319,17 +294,25 @@
 
 		/* Global Variables: */
 			#if (!defined(USB_HOST_ONLY) && !defined(USB_DEVICE_ONLY)) || defined(__DOXYGEN__)
-				/** Indicates the mode that the USB interface is currently initialized to. This value will be
-				 *  one of the USB_MODE_* masks defined elsewhere in this module.
+				/** Indicates the mode that the USB interface is currently initialized to, a value from the
+				 *  \ref USB_Modes_t enum.
 				 *
 				 *  \note This variable should be treated as read-only in the user application, and never manually
 				 *        changed in value.
+				 *        \n\n
+				 *
+				 *  \note When the controller is initialized into UID autodetection mode, this variable will hold the
+				 *        currently selected USB mode (i.e. \ref USB_MODE_Device or \ref USB_MODE_Host). If the controller
+				 *        is fixed into a specific mode (either through the USB_DEVICE_ONLY or USB_HOST_ONLY compile time
+				 *        options, or a limitation of the USB controller in the chosen device model) this will evaluate to
+				 *        a constant of the appropriate value and will never evaluate to \ref USB_MODE_None even when the
+				 *        USB interface is not initialized.
 				 */
 				extern volatile uint8_t USB_CurrentMode;
 			#elif defined(USB_HOST_ONLY)
-				#define USB_CurrentMode USB_MODE_HOST
+				#define USB_CurrentMode USB_MODE_Host
 			#elif defined(USB_DEVICE_ONLY)
-				#define USB_CurrentMode USB_MODE_DEVICE
+				#define USB_CurrentMode USB_MODE_Device
 			#endif
 			
 			#if !defined(USE_STATIC_OPTIONS) || defined(__DOXYGEN__)
@@ -343,6 +326,20 @@
 			#elif defined(USE_STATIC_OPTIONS)
 				#define USB_Options USE_STATIC_OPTIONS
 			#endif
+
+		/* Enums: */
+			/** Enum for the possible USB controller modes, for initialization via \ref USB_Init() and indication back to the
+			 *  user application via \ref USB_CurrentMode.
+			 */
+			enum USB_Modes_t
+			{
+				USB_MODE_None   = 0, /**< Indicates that the controller is currently not initialized in any specific USB mode. */
+				USB_MODE_Device = 1, /**< Indicates that the controller is currently initialized in USB Device mode. */
+				USB_MODE_Host   = 2, /**< Indicates that the controller is currently initialized in USB Host mode. */
+				USB_MODE_UID    = 3, /**< Indicates that the controller should determine the USB mode from the UID pin of the
+				                      *   USB connector.
+				                      */
+			};
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
@@ -449,9 +446,9 @@
 			static inline uint8_t USB_GetUSBModeFromUID(void)
 			{
 				if (USBSTA & (1 << ID))
-				  return USB_MODE_DEVICE;
+				  return USB_MODE_Device;
 				else
-				  return USB_MODE_HOST;
+				  return USB_MODE_Host;
 			}
 			#endif
 

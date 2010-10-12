@@ -855,7 +855,7 @@
 			 *
 			 *  \return Boolean true if the configuration succeeded, false otherwise.
 			 */
-			bool Pipe_ConfigurePipe(const uint8_t  Number,
+			bool Pipe_ConfigurePipe(const uint8_t Number,
 			                        const uint8_t Type,
 			                        const uint8_t Token,
 			                        const uint8_t EndpointNumber,

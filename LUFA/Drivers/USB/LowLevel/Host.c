@@ -196,13 +196,12 @@ uint8_t USB_Host_WaitMS(uint8_t MS)
 {
 	bool    BusSuspended = USB_Host_IsBusSuspended();
 	uint8_t ErrorCode    = HOST_WAITERROR_Successful;
+	bool    HSOFIEnabled = USB_INT_IsEnabled(USB_INT_HSOFI);
 	
-	USB_Host_ResumeBus();
-
-	bool HSOFIEnabled = USB_INT_IsEnabled(USB_INT_HSOFI);
-
 	USB_INT_Disable(USB_INT_HSOFI);
 	USB_INT_Clear(USB_INT_HSOFI);
+
+	USB_Host_ResumeBus();
 
 	while (MS)
 	{
@@ -212,7 +211,7 @@ uint8_t USB_Host_WaitMS(uint8_t MS)
 			MS--;
 		}
 					
-		if ((USB_HostState == HOST_STATE_Unattached) || (USB_CurrentMode == USB_MODE_DEVICE))
+		if ((USB_HostState == HOST_STATE_Unattached) || (USB_CurrentMode != USB_MODE_Host))
 		{
 			ErrorCode = HOST_WAITERROR_DeviceDisconnect;
 			
@@ -236,11 +235,11 @@ uint8_t USB_Host_WaitMS(uint8_t MS)
 		}
 	}
 
-	if (HSOFIEnabled)
-	  USB_INT_Enable(USB_INT_HSOFI);
-
 	if (BusSuspended)
 	  USB_Host_SuspendBus();
+
+	if (HSOFIEnabled)
+	  USB_INT_Enable(USB_INT_HSOFI);
 
 	return ErrorCode;
 }
@@ -336,7 +335,7 @@ uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
 	return USB_Host_SendControlRequest(Buffer);
 }
 
-uint8_t USB_Host_ClearPipeStall(uint8_t EndpointNum)
+uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointNum)
 {
 	USB_ControlRequest = (USB_Request_Header_t)
 		{

@@ -435,7 +435,7 @@
 			 *
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
-			uint8_t USB_Host_ClearPipeStall(uint8_t EndpointIndex);
+			uint8_t USB_Host_ClearPipeStall(const uint8_t EndpointIndex);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

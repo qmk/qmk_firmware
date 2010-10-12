@@ -118,7 +118,7 @@
 			static inline void USB_OTG_Device_InitiateSRP(const uint8_t SRPTypeMask) ATTR_ALWAYS_INLINE;
 			static inline void USB_OTG_Device_InitiateSRP(const uint8_t SRPTypeMask)
 			{
-				OTGCON  =  ((OTGCON & ~(1 << SRPSEL)) | (SRPTypeMask | (1 << SRPREQ)));
+				OTGCON = ((OTGCON & ~(1 << SRPSEL)) | (SRPTypeMask | (1 << SRPREQ)));
 			}
 
 			/** Accepts a HNP from a connected device, indicating that both devices should exchange

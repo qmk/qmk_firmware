@@ -51,7 +51,7 @@ int main(void)
 	for (;;)
 	{
 		/* Determine which USB mode we are currently in */
-		if (USB_CurrentMode == USB_MODE_HOST)
+		if (USB_CurrentMode == USB_MODE_Host)
 		{
 			MouseHostTask();
 			HID_Host_USBTask(&Mouse_HID_Host_Interface);
@@ -87,7 +87,7 @@ void SetupHardware(void)
 void EVENT_USB_UIDChange(void)
 {
 	printf_P(PSTR(ESC_FG_YELLOW "UID Change to %S mode\r\n" ESC_FG_WHITE),
-	         (USB_CurrentMode == USB_MODE_DEVICE) ? PSTR("Device") : PSTR("Host"));
+	         (USB_CurrentMode == USB_MODE_Device) ? PSTR("Device") : PSTR("Host"));
 			 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }

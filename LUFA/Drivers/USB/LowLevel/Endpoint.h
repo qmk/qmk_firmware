@@ -100,6 +100,8 @@
 			#define _ENDPOINT_GET_DOUBLEBANK3(MaxSize, DB) (DB)
 			
 			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
+				#define ENDPOINT_DETAILS_MAXEP             7
+				
 				#define ENDPOINT_DETAILS_EP0               64,  true
 				#define ENDPOINT_DETAILS_EP1               256, true
 				#define ENDPOINT_DETAILS_EP2               64,  true
@@ -108,6 +110,8 @@
 				#define ENDPOINT_DETAILS_EP5               64,  true
 				#define ENDPOINT_DETAILS_EP6               64,  true
 			#else
+				#define ENDPOINT_DETAILS_MAXEP             5
+
 				#define ENDPOINT_DETAILS_EP0               64,  true
 				#define ENDPOINT_DETAILS_EP1               64,  false
 				#define ENDPOINT_DETAILS_EP2               64,  false
@@ -145,78 +149,74 @@
 			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the OUT direction - i.e. data flows from host to device.
 			 */
-			#define ENDPOINT_DIR_OUT                      (0 << EPDIR)
+			#define ENDPOINT_DIR_OUT                        (0 << EPDIR)
 
 			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the IN direction - i.e. data flows from device to host.
 			 */
-			#define ENDPOINT_DIR_IN                       (1 << EPDIR)
+			#define ENDPOINT_DIR_IN                         (1 << EPDIR)
 
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
 			 *  that the endpoint should have one single bank, which requires less USB FIFO memory but results
 			 *  in slower transfers as only one USB device (the AVR or the host) can access the endpoint's
 			 *  bank at the one time.
 			 */
-			#define ENDPOINT_BANK_SINGLE                  (0 << EPBK0)
+			#define ENDPOINT_BANK_SINGLE                    (0 << EPBK0)
 
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
 			 *  that the endpoint should have two banks, which requires more USB FIFO memory but results
 			 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
 			 *  accesses the second bank.
 			 */
-			#define ENDPOINT_BANK_DOUBLE                  (1 << EPBK0)
+			#define ENDPOINT_BANK_DOUBLE                    (1 << EPBK0)
 			
 			/** Endpoint address for the default control endpoint, which always resides in address 0. This is
 			 *  defined for convenience to give more readable code when used with the endpoint macros.
 			 */
-			#define ENDPOINT_CONTROLEP                    0
+			#define ENDPOINT_CONTROLEP                      0
 
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
 				/** Default size of the default control endpoint's bank, until altered by the control endpoint bank size 
 				 *  value in the device descriptor. Not available if the FIXED_CONTROL_ENDPOINT_SIZE token is defined.
 				 */
-				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE   8
+				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE     8
 			#endif
 			
 			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  numerical address in the device.
 			 */
-			#define ENDPOINT_EPNUM_MASK                   0x07
+			#define ENDPOINT_EPNUM_MASK                     0x07
 
 			/** Endpoint direction mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  direction for comparing with the ENDPOINT_DESCRIPTOR_DIR_* masks.
 			 */
-			#define ENDPOINT_EPDIR_MASK                   0x80
+			#define ENDPOINT_EPDIR_MASK                     0x80
 
 			/** Endpoint bank size mask, for masking against endpoint addresses to retrieve the endpoint's
 			 *  bank size in the device.
 			 */
-			#define ENDPOINT_EPSIZE_MASK                  0x7F
+			#define ENDPOINT_EPSIZE_MASK                    0x7F
 			
 			/** Maximum size in bytes of a given endpoint.
 			 *
-			 *  \param[in] n  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
+			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */				
-			#define ENDPOINT_MAX_SIZE(n)                  _ENDPOINT_GET_MAXSIZE(n)
+			#define ENDPOINT_MAX_SIZE(EPIndex)              _ENDPOINT_GET_MAXSIZE(EPIndex)
 
 			/** Indicates if the given endpoint supports double banking.
 			 *
-			 *  \param[in] n  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
+			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */				
-			#define ENDPOINT_DOUBLEBANK_SUPPORTED(n)      _ENDPOINT_GET_DOUBLEBANK(n)
+			#define ENDPOINT_DOUBLEBANK_SUPPORTED(EPIndex)  _ENDPOINT_GET_DOUBLEBANK(EPIndex)
 
-			#if !defined(CONTROL_ONLY_DEVICE)
-				#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
-					/** Total number of endpoints (including the default control endpoint at address 0) which may
-					 *  be used in the device. Different USB AVR models support different amounts of endpoints,
-					 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
-					 */
-					#define ENDPOINT_TOTAL_ENDPOINTS      7
-				#else
-					#define ENDPOINT_TOTAL_ENDPOINTS      5
-				#endif
+			#if !defined(CONTROL_ONLY_DEVICE) || defined(__DOXYGEN__)
+				/** Total number of endpoints (including the default control endpoint at address 0) which may
+				 *  be used in the device. Different USB AVR models support different amounts of endpoints,
+				 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
+				 */
+				#define ENDPOINT_TOTAL_ENDPOINTS            ENDPOINT_DETAILS_MAXEP
 			#else
-				#define ENDPOINT_TOTAL_ENDPOINTS          1
+				#define ENDPOINT_TOTAL_ENDPOINTS            1
 			#endif
 
 		/* Enums: */

@@ -50,9 +50,9 @@ void USB_USBTask(void)
 	#elif defined(USB_DEVICE_ONLY)
 		USB_DeviceTask();
 	#else
-		if (USB_CurrentMode == USB_MODE_DEVICE)
+		if (USB_CurrentMode == USB_MODE_Device)
 		  USB_DeviceTask();
-		else if (USB_CurrentMode == USB_MODE_HOST)
+		else if (USB_CurrentMode == USB_MODE_Host)
 		  USB_HostTask();
 	#endif
 }
