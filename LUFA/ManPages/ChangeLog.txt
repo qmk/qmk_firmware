@@ -70,6 +70,7 @@
   *  - Fixed incorrect USB_DeviceState value when unconfiguring the device without an address set
   *  - Fixed broken FLASH/EEPROM programming in the AVRISP-MKII clone project when writing in non-paged mode and the polling byte cannot be used
   *  - Fixed SPI driver not explicitly setting /SS and MISO pins as inputs when SPI_Init() is called
+  *  - Fixed ISR definition conflict in the XPLAIN bridge between the software UART and the AVRISP-MKII ISP modules
   *
   *  \section Sec_ChangeLog100807 Version 100807
   *  <b>New:</b>

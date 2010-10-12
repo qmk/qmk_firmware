@@ -29,6 +29,13 @@
  *                        German Physicist. It compiles for AVR-GCC and can potentially be modified to work on other USB
  *                        AVR models.
  *
+ *  - <b>Name:</b> FreakUSB Stack (<i>FreakLabs</i>) \n
+ *    <b>Cost:</b> Free \n
+ *    <b>License:</b> Modified BSD \n
+ *    <b>Website:</b> http://freaklabs.org/index.php/FreakUSB-Open-Source-USB-Device-Stack.html \n
+ *    <b>Description:</b> An open source simple USB stack for a selection of the USB AVRs. Contains a sample class driver
+ *                        for the CDC-ACM class, however other class driver implementations are also possible.
+ *
  *  - <b>Name:</b> PJRC Teensy Stack (<i>Paul Stoffregen</i>) \n
  *    <b>Cost:</b> Free \n
  *    <b>License:</b> BSD \n

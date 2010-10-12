@@ -20,6 +20,7 @@
   *      -# Re-add interrupt Pipe/Endpoint support
   *      -# Fix intermittent device mode enumeration errors
   *      -# Add HID report macros to make HID report editing easier
+  *      -# Add endpoint/pipe bank kill macros
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews
@@ -33,6 +34,7 @@
   *      -# Finish SideShow demo
   *      -# Finish StandaloneProgrammer project
   *      -# Arduino Uno compatible USB-MIDI, USB-HID
+  *      -# Make Webserver project work in RNDIS device mode
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers
