@@ -69,7 +69,7 @@ static const uint8_t PROGMEM Keymap[][MATRIX_ROWS][MATRIX_COLS] = {
         { KB_5,       KB_6,       KB_Y,       KB_T,       KB_G,       KB_H,       KB_N,       KB_NO       },
         { KB_1,       KB_ESCAPE,  KB_TAB,     KB_LCTRL,   KB_LSHIFT,  KB_LGUI,    KB_LALT,    KB_SPACE    },
         { KB_7,       KB_8,       KB_U,       KB_I,       KB_K,       KB_J,       KB_M,       KB_NO       },
-        { KB_BSLASH,  KB_GRAVE,   KB_BSPACE,  KB_ENTER,   FN_1,       FN_2,       KB_RGUI,    FN_3        },
+        { KB_BSLASH,  KB_GRAVE,   KB_BSPACE,  FN_4,       FN_1,       FN_2,       KB_RGUI,    FN_3        },
         { KB_9,       KB_0,       KB_O,       KB_P,       KB_SCOLON,  KB_L,       KB_COMMA,   KB_NO       },
         { KB_MINUS,   KB_EQUAL,   KB_RBRACKET,KB_LBRACKET,KB_QUOTE,   KB_SLASH,   KB_DOT,     KB_NO       },
     },
@@ -106,6 +106,17 @@ static const uint8_t PROGMEM Keymap[][MATRIX_ROWS][MATRIX_COLS] = {
         { KB_F9,      KB_F10,     KB_END,     KB_NO,      KB_NO,      KB_RIGHT,   MS_DOWN,    KB_NO       },
         { KB_F11,     KB_F12,     MS_WH_UP,   MS_WH_DOWN, KB_NO,      MS_RIGHT,   MS_UP,      KB_NO       },
     },
+    // 3: FN_4(Enter) vi mouse mode
+    {
+        { KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO       },
+        { KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO       },
+        { KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO,      KB_NO       },
+        { KB_NO,      KB_ESCAPE,  KB_TAB,     KB_LCTRL,   KB_LSHIFT,  KB_LGUI,    KB_LALT,    MS_BTN1     },
+        { KB_NO,      KB_NO,      KB_NO,      KB_NO,      MS_LEFT,    KB_NO,      KB_NO,      KB_NO       },
+        { KB_NO,      KB_NO,      KB_BSPACE,  KB_NO,      KB_NO,      KB_NO,      MS_BTN2,    MS_BTN1     },
+        { KB_NO,      KB_NO,      KB_NO,      KB_NO,      MS_UP,      MS_DOWN,    KB_NO,      KB_NO       },
+        { KB_NO,      KB_NO,      KB_NO,      KB_NO,      MS_RIGHT,   KB_NO,      KB_NO,      KB_NO       },
+    },
 };
 
 
@@ -123,11 +134,17 @@ int get_layer(void) {
     for (int row = 0; row < MATRIX_ROWS; row++) {
         for (int col = 0; col < MATRIX_ROWS; col++) {
             if (matrix[row] & 1<<col) continue;
-            if (get_keycode(0, row, col) == FN_1) layer = ((layer == 0 || layer > 1) ? 1 : layer);
-            if (get_keycode(0, row, col) == FN_2) layer = ((layer == 0 || layer > 2) ? 2 : layer);
-            if (get_keycode(0, row, col) == FN_3) layer = ((layer == 0 || layer > 3) ? 3 : layer);
+            if (get_keycode(0, row, col) == FN_1) layer = 1;
+            if (get_keycode(0, row, col) == FN_2) layer = 2;
+            if (get_keycode(0, row, col) == FN_3) layer = 3;
+            if (get_keycode(0, row, col) == FN_4) layer = 4;
         }
     }
-    current_layer = layer;
+
+    if (layer == 0)
+        current_layer = 0;
+    else if (current_layer == 0)
+        current_layer = layer;
+
     return current_layer;
 }
