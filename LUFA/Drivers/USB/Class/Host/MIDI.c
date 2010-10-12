@@ -143,7 +143,7 @@ static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingDataEndpoint(void* const Current
 
 uint8_t MIDI_Host_Flush(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
 {
-	if (USB_HostState != HOST_STATE_Configured)
+	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
 	  return PIPE_RWSTREAM_DeviceDisconnected;
 	
 	uint8_t ErrorCode;

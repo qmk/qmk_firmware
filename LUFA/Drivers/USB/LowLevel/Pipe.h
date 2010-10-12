@@ -867,7 +867,7 @@
 			 *
 			 *  \ingroup Group_PipeRW
 			 *
-			 *  \return A value from the Pipe_WaitUntilReady_ErrorCodes_t enum.
+			 *  \return A value from the \ref Pipe_WaitUntilReady_ErrorCodes_t enum.
 			 */
 			uint8_t Pipe_WaitUntilReady(void);
 			

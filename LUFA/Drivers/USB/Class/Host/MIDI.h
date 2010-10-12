@@ -135,7 +135,7 @@
 
 			/** Sends a MIDI event packet to the device. If no device is connected, the event packet is discarded.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
@@ -159,7 +159,7 @@
 			 
 			/** Receives a MIDI event packet from the device.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.

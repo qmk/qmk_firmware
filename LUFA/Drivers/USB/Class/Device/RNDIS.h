@@ -106,7 +106,7 @@
 																			 *   managed by the class driver.
 																			 */
 					bool     ResponseReady; /**< Internal flag indicating if a RNDIS message is waiting to be returned to the host. */
-					uint8_t  CurrRNDISState; /**< Current RNDIS state of the adapter, a value from the RNDIS_States_t enum. */
+					uint8_t  CurrRNDISState; /**< Current RNDIS state of the adapter, a value from the \ref RNDIS_States_t enum. */
 					uint32_t CurrPacketFilter; /**< Current packet filter mode, used internally by the class driver. */
 					Ethernet_Frame_Info_t FrameIN; /**< Structure holding the last received Ethernet frame from the host, for user
 													*   processing.

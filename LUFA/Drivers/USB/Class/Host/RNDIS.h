@@ -156,7 +156,7 @@
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
 			 *
-			 *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
 			 *          logical command failure.
 			 */
 			uint8_t RNDIS_Host_SendKeepAlive(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
@@ -166,7 +166,7 @@
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
 			 *
-			 *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
 			 *          logical command failure.
 			 */
 			uint8_t RNDIS_Host_InitializeDevice(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
@@ -178,7 +178,7 @@
 			 *  \param[in]     Buffer              Pointer to where the property data is to be sourced from.
 			 *  \param[in]     Length              Length in bytes of the property data to sent to the device.
 			 *
-			 *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
 			 *          logical command failure.
 			 */
 			uint8_t RNDIS_Host_SetRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
@@ -193,7 +193,7 @@
 			 *  \param[in]     Buffer              Pointer to where the property data is to be written to.
 			 *  \param[in]     MaxLength           Length in bytes of the destination buffer size.
 			 *
-			 *  \return A value from the USB_Host_SendControlErrorCodes_t enum or RNDIS_COMMAND_FAILED if the device returned a
+			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum or \ref RNDIS_COMMAND_FAILED if the device returned a
 			 *          logical command failure.
 			 */
 			uint8_t RNDIS_Host_QueryRNDISProperty(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
@@ -203,7 +203,7 @@
 
 			/** Determines if a packet is currently waiting for the host to read in and process.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
@@ -215,14 +215,14 @@
 			/** Retrieves the next pending packet from the device, discarding the remainder of the RNDIS packet header to leave
 			 *  only the packet contents for processing by the host in the nominated buffer.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
 			 *  \param[out]    Buffer              Pointer to a buffer where the packer data is to be written to.
 			 *  \param[out]    PacketLength        Pointer to where the length in bytes of the read packet is to be stored.
 			 *
-			 *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum.
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
 			                              void* Buffer,
@@ -231,14 +231,14 @@
 
 			/** Sends the given packet to the attached RNDIS device, after adding a RNDIS packet message header.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
 			 *  \param[in]     Buffer              Pointer to a buffer where the packer data is to be read from.
 			 *  \param[in]     PacketLength        Length in bytes of the packet to send.
 			 *
-			 *  \return A value from the Pipe_Stream_RW_ErrorCodes_t enum.
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t RNDIS_Host_SendPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
 			                              void* Buffer,

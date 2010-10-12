@@ -67,16 +67,16 @@
 		
 	/* Macros: */
 		/** Magic signature for a Command Block Wrapper used in the Mass Storage Bulk-Only transport protocol. */
-		#define MS_CBW_SIGNATURE           0x43425355UL
+		#define MS_CBW_SIGNATURE                               0x43425355UL
 
 		/** Magic signature for a Command Status Wrapper used in the Mass Storage Bulk-Only transport protocol. */
-		#define MS_CSW_SIGNATURE           0x53425355UL
+		#define MS_CSW_SIGNATURE                               0x53425355UL
 		
 		/** Mask for a Command Block Wrapper's flags attribute to specify a command with data sent from host-to-device. */
-		#define MS_COMMAND_DIR_DATA_OUT    (0 << 7)
+		#define MS_COMMAND_DIR_DATA_OUT                        (0 << 7)
 
 		/** Mask for a Command Block Wrapper's flags attribute to specify a command with data sent from device-to-host. */
-		#define MS_COMMAND_DIR_DATA_IN     (1 << 7)
+		#define MS_COMMAND_DIR_DATA_IN                         (1 << 7)
 
 		/** SCSI Command Code for an INQUIRY command. */
 		#define SCSI_CMD_INQUIRY                               0x12
@@ -250,7 +250,7 @@
 			uint32_t Signature; /**< Status block signature, must be CSW_SIGNATURE to indicate a valid Command Status. */
 			uint32_t Tag; /**< Unique command ID value, to associate a command block wrapper with its command status wrapper. */
 			uint32_t DataTransferResidue; /**< Number of bytes of data not processed in the SCSI command. */
-			uint8_t  Status; /**< Status code of the issued command - a value from the MassStorage_CommandStatusCodes_t enum. */
+			uint8_t  Status; /**< Status code of the issued command - a value from the \ref MS_CommandStatusCodes_t enum. */
 		} MS_CommandStatusWrapper_t;
 		
 		/** \brief Mass Storage Class SCSI Sense Structure

@@ -208,7 +208,7 @@
 			 *  \ref CDC_Device_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
 			 *  packed into a single endpoint packet, increasing data throughput.
 			 *
-			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
 			 *  \param[in,out]   CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
@@ -226,7 +226,7 @@
 			 *  \ref CDC_Device_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
 			 *  packed into a single endpoint packet, increasing data throughput.
 			 *
-			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
@@ -242,7 +242,7 @@
 			 *  succeed immediately. If multiple bytes are to be received, they should be buffered by the user application, as the endpoint
 			 *  bank will not be released back to the USB controller until all bytes are read.
 			 *
-			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
@@ -256,7 +256,7 @@
 			 *  bytes are currently buffered in the CDC interface's data receive endpoint bank, and thus how many repeated calls to this
 			 *  function which are guaranteed to succeed.
 			 *
-			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
@@ -267,7 +267,7 @@
 			
 			/** Flushes any data waiting to be sent, ensuring that the send buffer is cleared.
 			 *
-			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
@@ -281,7 +281,7 @@
 			 *  until they are cleared via a second notification. This should be called each time the CDC class driver's 
 			 *  ControlLineStates.DeviceToHost value is updated to push the new states to the USB host.
 			 *
-			 *  \pre This function must only be called when the Device state machine is in the DEVICE_STATE_Configured state or
+			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.

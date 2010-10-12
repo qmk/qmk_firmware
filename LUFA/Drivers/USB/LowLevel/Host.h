@@ -184,24 +184,24 @@
 				                                               *   completed the device enumeration process. This state causes the
 				                                               *   stack to change the current USB device address to that set for
 				                                               *   the connected device, before progressing to the user-implemented
-				                                               *   HOST_STATE_Addressed state for further communications.
+				                                               *   \ref HOST_STATE_Addressed state for further communications.
 				                                               *   
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
 				HOST_STATE_Addressed                    = 11, /**< May be implemented by the user project. This state should
 				                                               *   set the device configuration before progressing to the
-				                                               *   HOST_STATE_Configured state. Other processing (such as the
+				                                               *   \ref HOST_STATE_Configured state. Other processing (such as the
 				                                               *   retrieval and processing of the device descriptor) should also
 				                                               *   be placed in this state.
 				                                               */
 				HOST_STATE_Configured                   = 12, /**< May be implemented by the user project. This state should implement the
 				                                               *   actual work performed on the attached device and changed to the
-				                                               *   HOST_STATE_Suspended or HOST_STATE_WaitForDeviceRemoval states as needed.
+				                                               *   \ref HOST_STATE_Suspended or \ref HOST_STATE_WaitForDeviceRemoval states as needed.
 				                                               */
 				HOST_STATE_Suspended                    = 15, /**< May be implemented by the user project. This state should be maintained
-				                                               *   while the bus is suspended, and changed to either the HOST_STATE_Configured
+				                                               *   while the bus is suspended, and changed to either the \ref HOST_STATE_Configured
 				                                               *   (after resuming the bus with the USB_Host_ResumeBus() macro) or the
-				                                               *   HOST_STATE_WaitForDeviceRemoval states as needed.
+				                                               *   \ref HOST_STATE_WaitForDeviceRemoval states as needed.
 				                                               */
 			};
 			

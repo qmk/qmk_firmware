@@ -95,7 +95,7 @@
 				           */									 
 				struct
 				{
-					// No state information for this class yet
+					// No state information for this class
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
 				          */
@@ -120,11 +120,11 @@
 			 *  endpoint bank until either the endpoint bank is full, or \ref MIDI_Device_Flush() is called. This allows for multiple
 			 *  MIDI events to be packed into a single endpoint packet, increasing data throughput.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
-			 *  \param[in]     Event              Pointer to a populated USB_MIDI_EventPacket_t structure containing the MIDI event to send.
+			 *  \param[in]     Event              Pointer to a populated \ref MIDI_EventPacket_t structure containing the MIDI event to send.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -144,7 +144,7 @@
 			/** Receives a MIDI event packet from the host. Events are unpacked from the endpoint, thus if the endpoint bank contains
 			 *  multiple MIDI events from the host in the one packet, multiple calls to this function will return each individual event.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.

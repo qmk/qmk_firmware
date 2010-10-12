@@ -73,7 +73,8 @@
 	/* Public Interface - May be used in end-application: */
 		/* Global Variables: */
 			/** Indicates if the USB interface is currently initialized but not necessarily connected to a host
-			 *  or device (i.e. if \ref USB_Init() has been run). If this is false, all other library globals are invalid.
+			 *  or device (i.e. if \ref USB_Init() has been run). If this is false, all other library globals related
+			 *  to the USB driver are invalid.
 			 *
 			 *  \note This variable should be treated as read-only in the user application, and never manually
 			 *        changed in value.

@@ -178,14 +178,14 @@
 			/** Retrieves the Mass Storage device's inquiry data for the specified LUN, indicating the device characteristics and
 			 *  properties.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state.
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to.
 			 *  \param[out]    InquiryData      Location where the read inquiry data should be stored.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED.
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or \ref MS_ERROR_LOGICAL_CMD_FAILED.
 			 */
 			uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 			                               const uint8_t LUNIndex,
@@ -197,21 +197,21 @@
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state.
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or \ref MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
 			uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 			                              const uint8_t LUNIndex) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Retrieves the total capacity of the attached USB Mass Storage device, in blocks, and block size.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state.
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to.
 			 *  \param[out]    DeviceCapacity   Pointer to the location where the capacity information should be stored.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or \ref MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
 			uint8_t MS_Host_ReadDeviceCapacity(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 			                                   const uint8_t LUNIndex,
@@ -221,14 +221,14 @@
 			/** Retrieves the device sense data, indicating the current device state and error codes for the previously
 			 *  issued command.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state.
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to.
 			 *  \param[out]    SenseData        Pointer to the location where the sense information should be stored.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or \ref MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
 			uint8_t MS_Host_RequestSense(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 			                             const uint8_t LUNIndex,
@@ -238,14 +238,14 @@
 			/** Issues a PREVENT MEDIUM REMOVAL command, to logically (or, depending on the type of device, physically) lock
 			 *  the device from removal so that blocks of data on the medium can be read or altered.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state.
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to.
 			 *  \param[in]     PreventRemoval   Boolean true if the device should be locked from removal, false otherwise.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or \ref MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
 			uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 			                                          const uint8_t LUNIndex,
@@ -253,7 +253,7 @@
 			
 			/** Reads blocks of data from the attached Mass Storage device's medium.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state.
@@ -263,7 +263,7 @@
 			 *  \param[in]     BlockSize        Size in bytes of each block within the device.
 			 *  \param[out]    BlockBuffer      Pointer to where the read data from the device should be stored.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or \ref MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
 			uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 			                                 const uint8_t LUNIndex,
@@ -274,7 +274,7 @@
 		
 			/** Writes blocks of data to the attached Mass Storage device's medium.
 			 *
-			 *  \pre This function must only be called when the Host state machine is in the HOST_STATE_Configured state or the
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state.
@@ -284,7 +284,7 @@
 			 *  \param[in]     BlockSize        Size in bytes of each block within the device.
 			 *  \param[in]     BlockBuffer      Pointer to where the data to write should be sourced from.
 			 *
-			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or MS_ERROR_LOGICAL_CMD_FAILED if not ready.
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or \ref MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */
 			uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 			                                  const uint8_t LUNIndex,
@@ -298,7 +298,7 @@
 			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
 			 *  \ref USB_USBTask().
 			 *
-			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing an MS Class host configuration and state.
+			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing an Mass Storage Class host configuration and state.
 			 */
 			static inline void MS_Host_USBTask(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo);
 			static inline void MS_Host_USBTask(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
