@@ -76,37 +76,37 @@
 		 */
 		#define CONTROL_LINE_OUT_RTS         (1 << 1)
 
-		/** Mask for the DCD handshake line for use with the a NOTIF_SerialState class specific notification
+		/** Mask for the DCD handshake line for use with the NOTIF_SerialState class specific notification
 		 *  from the device to the host, to indicate that the DCD line state is currently high.
 		 */
 		#define CONTROL_LINE_IN_DCD          (1 << 0)
 
-		/** Mask for the DSR handshake line for use with the a NOTIF_SerialState class specific notification
+		/** Mask for the DSR handshake line for use with the NOTIF_SerialState class specific notification
 		 *  from the device to the host, to indicate that the DSR line state is currently high.
 		 */
 		#define CONTROL_LINE_IN_DSR          (1 << 1)
 
-		/** Mask for the BREAK handshake line for use with the a NOTIF_SerialState class specific notification
+		/** Mask for the BREAK handshake line for use with the NOTIF_SerialState class specific notification
 		 *  from the device to the host, to indicate that the BREAK line state is currently high.
 		 */
 		#define CONTROL_LINE_IN_BREAK        (1 << 2)
 
-		/** Mask for the RING handshake line for use with the a NOTIF_SerialState class specific notification
+		/** Mask for the RING handshake line for use with the NOTIF_SerialState class specific notification
 		 *  from the device to the host, to indicate that the RING line state is currently high.
 		 */
 		#define CONTROL_LINE_IN_RING         (1 << 3)
 
-		/** Mask for use with the a NOTIF_SerialState class specific notification from the device to the host,
+		/** Mask for use with the NOTIF_SerialState class specific notification from the device to the host,
 		 *  to indicate that a framing error has occurred on the virtual serial port.
 		 */
 		#define CONTROL_LINE_IN_FRAMEERROR   (1 << 4)
 
-		/** Mask for use with the a NOTIF_SerialState class specific notification from the device to the host,
+		/** Mask for use with the NOTIF_SerialState class specific notification from the device to the host,
 		 *  to indicate that a parity error has occurred on the virtual serial port.
 		 */
 		#define CONTROL_LINE_IN_PARITYERROR  (1 << 5)
 
-		/** Mask for use with the a NOTIF_SerialState class specific notification from the device to the host,
+		/** Mask for use with the NOTIF_SerialState class specific notification from the device to the host,
 		 *  to indicate that a data overrun error has occurred on the virtual serial port.
 		 */
 		#define CONTROL_LINE_IN_OVERRUNERROR (1 << 6)

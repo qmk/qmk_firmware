@@ -286,7 +286,7 @@ void DataflashManager_ReadBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 }
 
 /** Writes blocks (OS blocks, not Dataflash pages) to the storage medium, the board Dataflash IC(s), from
- *  the a given RAM buffer. This routine reads in OS sized blocks from the buffer and writes them to the
+ *  the given RAM buffer. This routine reads in OS sized blocks from the buffer and writes them to the
  *  Dataflash in Dataflash page sized blocks. This can be linked to FAT libraries to write files to the
  *  Dataflash.
  *
@@ -387,7 +387,7 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress,
 }
 
 /** Reads blocks (OS blocks, not Dataflash pages) from the storage medium, the board Dataflash IC(s), into
- *  the a preallocated RAM buffer. This routine reads in Dataflash page sized blocks from the Dataflash
+ *  the preallocated RAM buffer. This routine reads in Dataflash page sized blocks from the Dataflash
  *  and writes them in OS sized blocks to the given buffer. This can be linked to FAT libraries to read
  *  the files stored on the Dataflash.
  *
