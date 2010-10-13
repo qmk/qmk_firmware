@@ -81,19 +81,23 @@
 			#define ADC_REFERENCE_INT2560MV         ((1 << REFS1) | (1 << REFS0))
 
 			/** Left-adjusts the 10-bit ADC result, so that the upper 8 bits of the value returned by the
-			 *  ADC_GetResult() macro contain the 8 most significant bits of the result. */
+			 *  ADC_GetResult() macro contain the 8 most significant bits of the result.
+			 */
 			#define ADC_LEFT_ADJUSTED               (1 << ADLAR)
 
 			/** Right-adjusts the 10-bit ADC result, so that the lower 8 bits of the value returned by the
-			 *  ADC_GetResult() macro contain the 8 least significant bits of the result. */
+			 *  ADC_GetResult() macro contain the 8 least significant bits of the result.
+			 */
 			#define ADC_RIGHT_ADJUSTED              (0 << ADLAR)
 
 			/** Sets the ADC mode to free running, so that conversions take place continuously as fast as the ADC
-			 *  is capable of at the given input clock speed. */
+			 *  is capable of at the given input clock speed.
+			 */
 			#define ADC_FREE_RUNNING                (1 << ADATE)
 
 			/** Sets the ADC mode to single conversion, so that only a single conversion will take place before
-			 *  the ADC returns to idle. */
+			 *  the ADC returns to idle.
+			 */
 			#define ADC_SINGLE_CONVERSION           (0 << ADATE)
 
 			/** Sets the ADC input clock to prescale by a factor of 2 the AVR's system clock. */

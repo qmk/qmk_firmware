@@ -120,7 +120,7 @@ ISR(TIMER1_CAPT_vect, ISR_BLOCK)
 
 		/* Reception complete, store the received byte if stop bit valid */
 		if (SRX_Cached)
-		  RingBuffer_Insert(&XMEGAtoUSB_Buffer, RX_Data);
+		  RingBuffer_Insert(&UARTtoUSB_Buffer, RX_Data);
 	}
 }
 
@@ -140,13 +140,13 @@ ISR(TIMER3_CAPT_vect, ISR_BLOCK)
 		TX_Data >>= 1;
 		TX_BitsRemaining--;
 	}
-	else if (!(RX_BitsRemaining) && !(RingBuffer_IsEmpty(&USBtoXMEGA_Buffer)))
+	else if (!(RX_BitsRemaining) && !(RingBuffer_IsEmpty(&USBtoUART_Buffer)))
 	{
 		/* Start bit - TX line low */
 		STXPORT &= ~(1 << STX);
 
 		/* Transmission complete, get the next byte to send (if available) */
-		TX_Data          = ~RingBuffer_Remove(&USBtoXMEGA_Buffer);
+		TX_Data          = ~RingBuffer_Remove(&USBtoUART_Buffer);
 		TX_BitsRemaining = 9;
 	}
 }
