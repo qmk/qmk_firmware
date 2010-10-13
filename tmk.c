@@ -176,6 +176,7 @@ int main(void)
             if (mouse_x || mouse_y || mouse_wheel || mouse_hwheel || mouse_btn != mouse_buttons) {
                 mouse_buttons = mouse_btn;
                 usb_mouse_move(mouse_x, mouse_y, mouse_wheel, mouse_hwheel);
+                key_sent = true;
 
                 // acceleration
                 _delay_ms(MOUSE_DELAY_MS >> (mouse_repeat < MOUSE_DELAY_ACC ? mouse_repeat : MOUSE_DELAY_ACC));
@@ -191,6 +192,8 @@ int main(void)
                     //Rollover
                 }
                 usb_keyboard_send();
+                if (keyboard_keys[0])
+                    key_sent = true;
 
                 // LED flash for debug
                 LED_CONFIG;
