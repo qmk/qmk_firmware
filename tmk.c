@@ -149,8 +149,8 @@ int main(void)
                     if (code == MS_BTN5)  mouse_btn |= 1<<4;
                     if (code == MS_WH_UP)  mouse_wheel += 1;
                     if (code == MS_WH_DOWN)  mouse_wheel -= 1;
-                    if (code == MS_WH_LEFT)  mouse_hwheel += 1;
-                    if (code == MS_WH_RIGHT) mouse_hwheel -= 1;
+                    if (code == MS_WH_LEFT)  mouse_hwheel -= 1;
+                    if (code == MS_WH_RIGHT) mouse_hwheel += 1;
                 } else {
                     // normal keys
                     if (key_index < 6)

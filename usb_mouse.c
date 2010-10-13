@@ -56,7 +56,8 @@ int8_t usb_mouse_move(int8_t x, int8_t y, int8_t wheel, int8_t hwheel)
 	UEDATX = x;
 	UEDATX = y;
 	UEDATX = wheel;
-	//UEDATX = hwheel;
+	UEDATX = hwheel;
+        
 	UEINTX = 0x3A;
 	SREG = intr_state;
 	return 0;
