@@ -34,7 +34,7 @@ DRESULT disk_readp (
 	DRESULT ErrorCode = RES_OK;
 	uint8_t BlockTemp[512];
 
-	if (USB_CurrentMode == USB_MODE_HOST)
+	if (USB_CurrentMode == USB_MODE_Host)
 	{
 		#if defined(USB_CAN_BE_HOST)
 		if (USB_HostState != HOST_STATE_Configured)

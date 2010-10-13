@@ -84,7 +84,7 @@ void Programmer_Task(void)
 		puts("==== PROGRAMMING CYCLE STARTED ====\r\n");
 
 		#if defined(USB_CAN_BE_BOTH)
-		printf("Using %s Drive...\r\n", (USB_CurrentMode == USB_MODE_HOST) ? "External" : "Internal");
+		printf("Using %s Drive...\r\n", (USB_CurrentMode == USB_MODE_Host) ? "External" : "Internal");
 		#endif
 
 		puts("Reading Configuration File...\r\n");
@@ -114,7 +114,7 @@ int main(void)
 	{
 		Programmer_Task();
 
-		if (USB_CurrentMode == USB_MODE_HOST)
+		if (USB_CurrentMode == USB_MODE_Host)
 		{
 			#if defined(USB_CAN_BE_HOST)
 			DiskHost_USBTask();
