@@ -69,3 +69,4 @@
 		extern RFCOMM_Channel_t*    SerialChannel_RFCOMM;
 		
 #endif
+

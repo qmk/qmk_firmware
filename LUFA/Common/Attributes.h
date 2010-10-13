@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,7 +32,7 @@
  *  \brief AVR-GCC special function/variable attribute macros.
  *
  *  This file contains macros for applying GCC specific attributes to functions and variables to control various
- *  optimiser and code generation features of the compiler. Attributes may be placed in the function prototype 
+ *  optimiser and code generation features of the compiler. Attributes may be placed in the function prototype
  *  or variable declaration in any order, and multiple attributes can be specified for a single item via a space
  *  separated list.
  *
@@ -42,7 +42,7 @@
  *  \note Do not include this file directly, rather include the Common.h header file instead to gain this file's
  *        functionality.
  */
- 
+
 /** \ingroup Group_Common
  *  @defgroup Group_GCCAttr Function/Variable Attributes
  *
@@ -67,7 +67,7 @@
 				 *  return code may be omitted by the compiler in the resulting binary.
 				 */
 				#define ATTR_NO_RETURN              __attribute__ ((noreturn))
-				
+
 				/** Indicates that the function returns a value which should not be ignored by the user code. When
 				 *  applied, any ignored return value from calling the function will produce a compiler warning.
 				 */
@@ -84,7 +84,7 @@
 				 *  is responsible for maintaining stack and register integrity.
 				 */
 				#define ATTR_NAKED                  __attribute__ ((naked))
-				
+
 				/** Prevents the compiler from considering a specified function for inlining. When applied, the given
 				 *  function will not be inlined under any circumstances.
 				 */
@@ -94,25 +94,25 @@
 				 *  inlined under all circumstances.
 				 */
 				#define ATTR_ALWAYS_INLINE          __attribute__ ((always_inline))
-				
+
 				/** Indicates that the specified function is pure, in that it has no side-effects other than global
 				 *  or parameter variable access.
 				 */
 				#define ATTR_PURE                   __attribute__ ((pure))
-				
+
 				/** Indicates that the specified function is constant, in that it has no side effects other than
 				 *  parameter access.
 				 */
 				#define ATTR_CONST                  __attribute__ ((const))
-				
+
 				/** Marks a given function as deprecated, which produces a warning if the function is called. */
 				#define ATTR_DEPRECATED             __attribute__ ((deprecated))
-				
+
 				/** Marks a function as a weak reference, which can be overridden by other functions with an
 				 *  identical name (in which case the weak reference is discarded at link time).
 				 */
 				#define ATTR_WEAK                   __attribute__ ((weak))
-				
+
 				/** Forces the compiler to not automatically zero the given global variable on startup, so that the
 				 *  current RAM contents is retained. Under most conditions this value will be random due to the
 				 *  behaviour of volatile memory once power is removed, but may be used in some specific circumstances,
@@ -127,7 +127,7 @@
 			 *  \param[in] SectionIndex  Initialization section number where the function should be placed.
 			 */
 			#define ATTR_INIT_SECTION(SectionIndex) __attribute__ ((naked, section (".init" #SectionIndex )))
-			
+
 			/** Marks a function as an alias for another function.
 			 *
 			 *  \param[in] Func  Name of the function which the given function name should alias.
@@ -136,3 +136,4 @@
 #endif
 
 /** @} */
+

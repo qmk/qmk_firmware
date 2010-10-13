@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -46,7 +46,7 @@
  *
  *  @{
  */
- 
+
 #ifndef _CDC_CLASS_COMMON_H_
 #define _CDC_CLASS_COMMON_H_
 
@@ -64,7 +64,7 @@
 		#if !defined(__INCLUDE_FROM_CDC_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/Class/CDC.h instead.
 		#endif
-		
+
 	/* Macros: */
 		/** Mask for the DTR handshake line for use with the \ref CDC_REQ_SetControlLineState class-specific request
 		 *  from the host, to indicate that the DTR line state should be high.
@@ -75,7 +75,7 @@
 		 *  from the host, to indicate that the RTS line state should be high.
 		 */
 		#define CDC_CONTROL_LINE_OUT_RTS         (1 << 1)
-		
+
 		/** Mask for the DCD handshake line for use with the \ref CDC_NOTIF_SerialState class-specific notification
 		 *  from the device to the host, to indicate that the DCD line state is currently high.
 		 */
@@ -110,7 +110,7 @@
 		 *  to indicate that a data overrun error has occurred on the virtual serial port.
 		 */
 		#define CDC_CONTROL_LINE_IN_OVERRUNERROR (1 << 6)
-		
+
 		/** Macro to define a CDC class-specific functional descriptor. CDC functional descriptors have a
 		 *  uniform structure but variable sized data payloads, thus cannot be represented accurately by
 		 *  a single typedef struct. A macro is used instead so that functional descriptors can be created
@@ -125,19 +125,19 @@
 			      uint8_t                 SubType;         \
 		          uint8_t                 Data[DataSize];  \
 		     }
-			 
+
 	/* Enums: */
 		/** Enum for the CDC class specific control requests that can be issued by the USB bus host. */
 		enum CDC_ClassRequests_t
-		{		
+		{
 			CDC_REQ_SendEncapsulatedCommand = 0x00, /**< CDC class-specific request to send an encapsulated command to the device. */
-			CDC_REQ_GetEncapsulatedResponse = 0x01, /**< CDC class-specific request to retrieve an encapsulated command response from the device. */	
+			CDC_REQ_GetEncapsulatedResponse = 0x01, /**< CDC class-specific request to retrieve an encapsulated command response from the device. */
 			CDC_REQ_SetLineEncoding         = 0x20, /**< CDC class-specific request to set the current virtual serial port configuration settings. */
 			CDC_REQ_GetLineEncoding         = 0x21, /**< CDC class-specific request to get the current virtual serial port configuration settings. */
 			CDC_REQ_SetControlLineState     = 0x22, /**< CDC class-specific request to set the current virtual serial port handshake line states. */
 			CDC_REQ_SendBreak               = 0x23, /**< CDC class-specific request to send a break to the receiver via the carrier channel. */
 		};
-		
+
 		/** Enum for the CDC class specific notification requests that can be issued by a CDC device to a host. */
 		enum CDC_ClassNotifications_t
 		{
@@ -147,7 +147,7 @@
 			                                             *   endpoint.
 			                                             */
 		};
-	
+
 		/** Enum for the CDC class specific interface descriptor subtypes. */
 		enum CDC_DescriptorSubtypes_t
 		{
@@ -169,7 +169,7 @@
 			CDC_DSUBTYPE_CSInterface_Ethernet         = 0x0F, /**< CDC class-specific Ethernet functional descriptor. */
 			CDC_DSUBTYPE_CSInterface_ATM              = 0x10, /**< CDC class-specific Asynchronous Transfer Mode functional descriptor. */
 		};
-		
+
 		/** Enum for the possible line encoding formats of a virtual serial port. */
 		enum CDC_LineEncodingFormats_t
 		{
@@ -177,7 +177,7 @@
 			CDC_LINEENCODING_OneAndAHalfStopBits = 1, /**< Each frame contains one and a half stop bits. */
 			CDC_LINEENCODING_TwoStopBits         = 2, /**< Each frame contains two stop bits. */
 		};
-		
+
 		/** Enum for the possible line encoding parity settings of a virtual serial port. */
 		enum CDC_LineEncodingParity_t
 		{
@@ -270,7 +270,7 @@
 			                         *   to the CDC ACM specification.
 			                         */
 		} USB_CDC_StdDescriptor_FunctionalACM_t;
-		
+
 		/** \brief CDC class-specific Functional Union Descriptor (LUFA naming conventions).
 		 *
 		 *  Type define for a CDC class-specific functional Union descriptor. This indicates to the host that specific
@@ -287,7 +287,7 @@
 			uint8_t                 MasterInterfaceNumber; /**< Interface number of the CDC Control interface. */
 			uint8_t                 SlaveInterfaceNumber; /**< Interface number of the CDC Data interface. */
 		} USB_CDC_Descriptor_FunctionalUnion_t;
-		
+
 		/** \brief CDC class-specific Functional Union Descriptor (USB-IF naming conventions).
 		 *
 		 *  Type define for a CDC class-specific functional Union descriptor. This indicates to the host that specific
@@ -313,7 +313,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

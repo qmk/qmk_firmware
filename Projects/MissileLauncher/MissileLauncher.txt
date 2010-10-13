@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage David Fletcher's Missile Launcher
  *
  *  \section SSec_Compat Project Compatibility:
@@ -25,7 +25,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Human Interface Device (HID)</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>N/A</td>
  *   </tr>
@@ -39,7 +39,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Missile Launcher host. This is a host driver for the popular USB-controller table top toy missile launchers,
  *  which can typically aim and fire small foam "missiles" from a spring-loaded turret. This project controls the
@@ -57,3 +57,4 @@
  *   </tr>
  *  </table>
  */
+

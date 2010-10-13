@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -74,7 +74,7 @@
 
 	/* Includes: */
 	#include "../../Common/Common.h"
-	
+
 	#if (BOARD == BOARD_NONE)
 		#error The Board Buttons driver cannot be used if the makefile BOARD option is not set.
 	#elif (BOARD == BOARD_USBKEY)
@@ -90,7 +90,7 @@
 	#elif (BOARD == BOARD_EVK527)
 		#include "EVK527/Buttons.h"
 	#elif (BOARD == BOARD_USBTINYMKII)
-		#include "USBTINYMKII/Buttons.h"		
+		#include "USBTINYMKII/Buttons.h"
 	#elif (BOARD == BOARD_BENITO)
 		#include "BENITO/Buttons.h"
 	#elif (BOARD == BOARD_JMDBU2)
@@ -108,7 +108,7 @@
 	#else
 		#error The selected board does not contain any GPIO buttons.
 	#endif
-	
+
 	/* Pseudo-Functions for Doxygen: */
 	#if defined(__DOXYGEN__)
 		/** Initialises the BUTTONS driver, so that the current button position can be read. This sets the appropriate
@@ -117,7 +117,7 @@
 		 *  This must be called before any Button driver functions are used.
 		 */
 		static inline void Buttons_Init(void);
-		
+
 		/** Returns a mask indicating which board buttons are currently pressed.
 		 *
 		 *  \return Mask indicating which board buttons are currently pressed.
@@ -128,3 +128,4 @@
 #endif
 
 /** @} */
+

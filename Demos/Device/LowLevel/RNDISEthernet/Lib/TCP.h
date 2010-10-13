@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -39,11 +39,11 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <stdbool.h>
-		
+
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"
 		#include "ProtocolDecoders.h"
-		
+
 	/* Macros: */
 		/** Maximum number of TCP ports which can be open at the one time. */
 		#define MAX_OPEN_TCP_PORTS              1
@@ -53,16 +53,16 @@
 
 		/** TCP window size, giving the maximum number of bytes which can be buffered at the one time. */
 		#define TCP_WINDOW_SIZE                 512
-		
+
 		/** Port number for HTTP transmissions. */
 		#define TCP_PORT_HTTP                   SwapEndian_16(80)
-		
+
 		/** Data direction indicator for a TCP application buffer, indicating data from host-to-device. */
 		#define TCP_PACKETDIR_IN                false
 
 		/** Data direction indicator for a TCP application buffer, indicating data from device-to-host. */
 		#define TCP_PACKETDIR_OUT               true
-		
+
 		/** Congestion Window Reduced TCP flag mask. */
 		#define TCP_FLAG_CWR                    (1 << 7)
 
@@ -86,7 +86,7 @@
 
 		/** Connection Finalize TCP flag mask. */
 		#define TCP_FLAG_FIN                    (1 << 0)
-		
+
 		/** Application macro: Determines if the given application buffer contains a packet received from the host
 		 *
 		 *  \param[in] Buffer  Application buffer to check
@@ -139,7 +139,7 @@
 		 *  \param[in] Buffer  Application buffer to clear
 		 */
 		#define TCP_APP_CLEAR_BUFFER(Buffer)         MACROS{ Buffer->Ready = false; Buffer->Length = 0; }MACROE
-		
+
 		/** Application macro: Closes an open connection to a host.
 		 *
 		 *  \param[in] Connection  Open TCP connection to close
@@ -153,7 +153,7 @@
 			TCP_Port_Closed            = 0, /**< TCP port closed, no connections to a host may be made on this port. */
 			TCP_Port_Open              = 1, /**< TCP port open, connections to a host may be made on this port. */
 		};
-	
+
 		/** Enum for possible TCP connection states. */
 		enum TCP_ConnectionStates_t
 		{
@@ -167,9 +167,9 @@
 			TCP_Connection_Closing     = 7, /**< Unused */
 			TCP_Connection_LastACK     = 8, /**< Unused */
 			TCP_Connection_TimeWait    = 9, /**< Unused */
-			TCP_Connection_Closed      = 10, /**< Connection closed in both directions */			
+			TCP_Connection_Closed      = 10, /**< Connection closed in both directions */
 		};
-	
+
 	/* Type Defines: */
 		/** Type define for a TCP connection buffer structure, including size, data and direction. */
 		typedef struct
@@ -186,7 +186,7 @@
 		/** Type define for a TCP connection information structure. */
 		typedef struct
 		{
-			uint32_t               SequenceNumberIn; /**< Current TCP sequence number for host-to-device */	
+			uint32_t               SequenceNumberIn; /**< Current TCP sequence number for host-to-device */
 			uint32_t               SequenceNumberOut; /**< Current TCP sequence number for device-to-host */
 			TCP_ConnectionBuffer_t Buffer; /**< Connection application data buffer */
 		} TCP_ConnectionInfo_t;
@@ -215,15 +215,15 @@
 		{
 			uint16_t               SourcePort; /**< Source port of the TCP packet */
 			uint16_t               DestinationPort; /**< Destination port of the TCP packet */
-			
+
 			uint32_t               SequenceNumber; /**< Data sequence number of the packet */
 			uint32_t               AcknowledgmentNumber; /**< Data acknowledgment number of the packet */
-			
+
 			unsigned char          Reserved   : 4; /**< Reserved, must be all 0 */
 			unsigned char          DataOffset : 4; /**< Offset of the data from the start of the header, in 4 byte chunks */
 			uint8_t                Flags; /**< TCP packet flags */
 			uint16_t               WindowSize; /**< Current data window size (bytes remaining in reception buffer) */
-			
+
 			uint16_t               Checksum; /**< TCP checksum */
 			uint16_t               UrgentPointer; /**< Urgent data pointer */
 		} TCP_Header_t;
@@ -257,3 +257,4 @@
 		#endif
 
 #endif
+

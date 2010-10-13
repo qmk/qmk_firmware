@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -27,7 +27,7 @@
   arising out of or in connection with the use or performance of
   this software.
 */
- 
+
 /** \file
  *  \brief USB OTG mode definitions.
  *
@@ -54,26 +54,26 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <stdbool.h>
-		
+
 		#include "../../../Common/Common.h"
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Mask for the VBUS pulsing method of SRP, supported by some OTG devices.
 			 *
 			 *  \see \ref USB_OTG_Device_InitiateSRP().
-			 */			 
+			 */
 			#define USB_OTG_SRP_VBUS                   (1 << SRPSEL)
 
 			/** Mask for the Data + pulsing method of SRP, supported by some OTG devices.
 			 *
 			 *  \see \ref USB_OTG_Device_InitiateSRP().
-			 */			 
+			 */
 			#define USB_OTG_STP_DATA                   0
 
 		/* Inline Functions: */
@@ -85,7 +85,7 @@
 			{
 				OTGCON |=  (1 << HNPREQ);
 			}
-			
+
 			/** Cancel a Host Negotiation Protocol request. This stops a pending HNP request to the other
 			 *  connected device.
 			 */
@@ -94,7 +94,7 @@
 			{
 				OTGCON &= ~(1 << HNPREQ);
 			}
-			
+
 			/** Determines if the device is currently sending a HNP to an attached host.
 			 *
 			 *  \return Boolean true if currently sending a HNP to the other connected device, false otherwise
@@ -104,7 +104,7 @@
 			{
 				return ((OTGCON & (1 << HNPREQ)) ? true : false);
 			}
-			
+
 			/** Initiates a Session Request Protocol request. Most OTG devices turn off VBUS when the USB
 			 *  interface is not in use, to conserve power. Sending a SRP to a USB OTG device running in
 			 *  host mode indicates that VBUS should be applied and a session started.
@@ -129,7 +129,7 @@
 			{
 				OTGCON |=  (1 << HNPREQ);
 			}
-			
+
 			/** Rejects a HNP from a connected device, indicating that both devices should remain in their
 			 *  current device/host roles.
 			 */
@@ -138,7 +138,7 @@
 			{
 				OTGCON &= ~(1 << HNPREQ);
 			}
-			
+
 			/** Indicates if the connected device is not currently sending a HNP request.
 			 *
 			 *  \return Boolean true if a HNP is currently being issued by the connected device, false otherwise.
@@ -148,7 +148,8 @@
 			{
 				return ((OTGCON & (1 << HNPREQ)) ? true : false);
 			}
-	
+
 #endif
-			
+
 /** @} */
+

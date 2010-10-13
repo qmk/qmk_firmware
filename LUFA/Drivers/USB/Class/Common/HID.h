@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -46,7 +46,7 @@
  *
  *  @{
  */
- 
+
 #ifndef _HID_CLASS_COMMON_H_
 #define _HID_CLASS_COMMON_H_
 
@@ -59,8 +59,8 @@
 		#if !defined(__INCLUDE_FROM_HID_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/Class/HID.h instead.
 		#endif
-		
-	/* Macros: */		
+
+	/* Macros: */
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's left control key is currently pressed. */
 		#define HID_KEYBOARD_MODIFER_LEFTCTRL   (1 << 0)
 
@@ -84,10 +84,10 @@
 
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right GUI key is currently pressed. */
 		#define HID_KEYBOARD_MODIFER_RIGHTGUI   (1 << 7)
-		
+
 		/** Constant for a keyboard output report LED byte, indicating that the host's NUM LOCK mode is currently set. */
 		#define HID_KEYBOARD_LED_NUMLOCK        (1 << 0)
-		
+
 		/** Constant for a keyboard output report LED byte, indicating that the host's CAPS LOCK mode is currently set. */
 		#define HID_KEYBOARD_LED_CAPSLOCK       (1 << 1)
 
@@ -108,14 +108,14 @@
 			HID_REQ_GetProtocol = 0x03, /**< HID class-specific Request to get the current HID report protocol mode. */
 			HID_REQ_SetProtocol = 0x0B, /**< HID class-specific Request to set the current HID report protocol mode. */
 		};
-		
+
 		/** Enum for the HID class specific descriptor types. */
 		enum HID_DescriptorTypes_t
 		{
 			HID_DTYPE_HID    = 0x21, /**< Descriptor header type value, to indicate a HID class HID descriptor. */
 			HID_DTYPE_Report = 0x22, /**< Descriptor header type value, to indicate a HID class HID report descriptor. */
 		};
-		
+
 		/** Enum for the HID class boot protocols that may be supported by HID devices. */
 		enum HID_BootProtocols_t
 		{
@@ -132,7 +132,7 @@
 			                                        *   Specification).
 			                                        */
 		};
-	
+
 		/** Enum for the different types of HID reports. */
 		enum HID_ReportItemTypes_t
 		{
@@ -151,10 +151,10 @@
 		typedef struct
 		{
 			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
-			
+
 			uint16_t                HIDSpec; /**< BCD encoded version that the HID descriptor and device complies to. */
 			uint8_t                 CountryCode; /**< Country code of the localized device, or zero if universal. */
-		
+
 			uint8_t                 TotalReportDescriptors; /**< Total number of HID report descriptors for the interface. */
 
 			uint8_t                 HIDReportType; /**< Type of HID report, set to \ref HID_DTYPE_Report. */
@@ -175,10 +175,10 @@
 			uint8_t  bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
 			                           *   given by the specific class.
 			                           */
-			
+
 			uint16_t bcdHID; /**< BCD encoded version that the HID descriptor and device complies to. */
 			uint8_t  bCountryCode; /**< Country code of the localized device, or zero if universal. */
-		
+
 			uint8_t  bNumDescriptors; /**< Total number of HID report descriptors for the interface. */
 
 			uint8_t  bDescriptorType2; /**< Type of HID report, set to \ref HID_DTYPE_Report. */
@@ -195,7 +195,7 @@
 			int8_t  X; /**< Current delta X movement of the mouse. */
 			int8_t  Y; /**< Current delta Y movement on the mouse. */
 		} USB_MouseReport_Data_t;
-		
+
 		/** \brief Standard HID Boot Protocol Keyboard Report.
 		 *
 		 *  Type define for a standard Boot Protocol Keyboard report
@@ -215,3 +215,4 @@
 #endif
 
 /** @} */
+

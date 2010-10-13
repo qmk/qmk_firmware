@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -46,7 +46,7 @@
  *
  *  @{
  */
-	
+
 #ifndef __BOARDTYPES_H__
 #define __BOARDTYPES_H__
 
@@ -68,7 +68,7 @@
 
 			/** Selects the RZUSBSTICK specific board drivers, including the driver for the boards LEDs. */
 			#define BOARD_RZUSBSTICK    3
-			
+
 			/** Selects the ATAVRUSBRF01 specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_ATAVRUSBRF01  4
 
@@ -81,7 +81,7 @@
 
 			/** Selects the BUMBLEB specific board drivers, using the officially recommended peripheral layout. */
 			#define BOARD_BUMBLEB       6
-			
+
 			/** Selects the XPLAIN (Revision 2 or newer) specific board drivers, including LED and Dataflash driver. */
 			#define BOARD_XPLAIN        7
 
@@ -90,20 +90,20 @@
 
 			/** Selects the EVK527 specific board drivers, including Temperature, Button, Dataflash, Joystick and LED drivers. */
 			#define BOARD_EVK527        9
-			
+
 			/** Disables board drivers when operation will not be adversely affected (e.g. LEDs) - use of board drivers
 			 *  such as the Joystick driver, where the removal would adversely affect the code's operation is still disallowed. */
 			#define BOARD_NONE          10
-			
+
 			/** Selects the Teensy (all versions) specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_TEENSY        11
-			
+
 			/** Selects the USBTINY MKII specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_USBTINYMKII   12
-			
+
 			/** Selects the Benito specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_BENITO        13
-			
+
 			/** Selects the JM-DB-U2 specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_JMDBU2        14
 
@@ -118,13 +118,13 @@
 
 			/** Selects the Arduino Uno specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_UNO           18
-			
+
 			/** Selects the CUL V3 specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_CULV3         19
 
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
-				
+
 				#if !defined(BOARD)
 					#define BOARD       BOARD_NONE
 				#endif
@@ -133,3 +133,4 @@
 #endif
 
 /** @} */
+

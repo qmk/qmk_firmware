@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage Dual HID Keyboard and Mouse Device Demo
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -28,7 +28,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Human Interface Device (HID)</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>N/A</td>
  *   </tr>
@@ -44,7 +44,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Keyboard/Mouse demonstration application. This gives a simple reference
  *  application for implementing a composite device containing both USB Keyboard
@@ -52,13 +52,13 @@
  *  (i.e. no special drivers required). This example uses two separate HID
  *  interfaces for each function. It is boot protocol compatible, and thus works under
  *  compatible BIOS as if it was a native keyboard and mouse (e.g. PS/2).
- *  
+ *
  *  On start-up the system will automatically enumerate and function
  *  as a keyboard when the USB connection to a host is present and the HWB is not
  *  pressed. When enabled, manipulate the joystick to send the letters
  *  a, b, c, d and e. See the USB HID documentation for more information
  *  on sending keyboard event and key presses.
- *  
+ *
  *  When the HWB is pressed, the mouse mode is enabled. When enabled, move the
  *  joystick to move the pointer, and push the joystick inwards to simulate a
  *  left-button click.
@@ -75,3 +75,4 @@
  *   </tr>
  *  </table>
  */
+

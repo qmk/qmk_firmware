@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -56,9 +56,9 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "../Common/RNDIS.h"
-		
+
 		#include <string.h>
-	
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -68,9 +68,9 @@
 		#if !defined(__INCLUDE_FROM_RNDIS_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/Class/RNDIS.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
-		/* Type Defines: */					 
+		/* Type Defines: */
 			/** \brief RNDIS Class Device Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made for each RNDIS interface
@@ -94,7 +94,7 @@
 					uint8_t  NotificationEndpointNumber; /**< Endpoint number of the CDC interface's IN notification endpoint, if used. */
 					uint16_t NotificationEndpointSize;  /**< Size in bytes of the CDC interface's IN notification endpoint, if used. */
 					bool     NotificationEndpointDoubleBank; /**< Indicates if the RNDIS interface's notification endpoint should use double banking. */
-					
+
 					char*         AdapterVendorDescription; /**< String description of the adapter vendor. */
 					MAC_Address_t AdapterMACAddress; /**< MAC address of the adapter. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section.
@@ -118,7 +118,7 @@
 				          *   are reset to their defaults when the interface is enumerated.
 				          */
 			} USB_ClassInfo_RNDIS_Device_t;
-	
+
 		/* Function Prototypes: */
 			/** Configures the endpoints of a given RNDIS interface, ready for use. This should be linked to the library
 			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration
@@ -138,23 +138,23 @@
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
-			 */		
+			 */
 			void RNDIS_Device_ProcessControlRequest(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** General management task for a given HID class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 */
 			void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-		
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 		#if defined(__INCLUDE_FROM_RNDIS_CLASS_DEVICE_C)
 			static void RNDIS_Device_ProcessRNDISControlMessage(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo)
 			                                                    ATTR_NON_NULL_PTR_ARG(1);
-			static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo, 
+			static bool RNDIS_Device_ProcessNDISQuery(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo,
 			                                          const uint32_t OId,
                                                       void* const QueryData,
                                                       const uint16_t QuerySize,
@@ -167,14 +167,15 @@
                                                     const uint16_t SetSize) ATTR_NON_NULL_PTR_ARG(1)
 			                                        ATTR_NON_NULL_PTR_ARG(3);
 		#endif
-		
+
 	#endif
-	
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

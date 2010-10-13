@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -49,7 +49,7 @@
 		#if !defined(__INCLUDE_FROM_DATAFLASH_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Board/Dataflash.h instead.
 		#endif
-		
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
@@ -57,7 +57,7 @@
 			#define DATAFLASH_CHIPCS_DDR                 // TODO: Replace with the DDR register name for the board's Dataflash ICs
 			#define DATAFLASH_CHIPCS_PORT                // TODO: Replace with the PORT register name for the board's Dataflash ICs
 	#endif
-	
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Constant indicating the total number of dataflash ICs mounted on the selected board. */
@@ -71,7 +71,7 @@
 
 			/** Mask for the second dataflash chip selected. */
 			#define DATAFLASH_CHIP2                      // TODO: Replace with mask to hold /CS of second Dataflash low, and all others high
-			
+
 			/** Internal main memory page size for the board's dataflash ICs. */
 			#define DATAFLASH_PAGE_SIZE                  // TODO: Replace with the page size for the Dataflash ICs
 
@@ -87,7 +87,7 @@
 				DATAFLASH_CHIPCS_DDR  |= DATAFLASH_CHIPCS_MASK;
 				DATAFLASH_CHIPCS_PORT |= DATAFLASH_CHIPCS_MASK;
 			}
-			
+
 			/** Determines the currently selected dataflash chip.
 			 *
 			 *  \return Mask of the currently selected Dataflash chip, either \ref DATAFLASH_NO_CHIP if no chip is selected
@@ -129,7 +129,7 @@
 			static inline void Dataflash_SelectChipFromPage(const uint16_t PageAddress)
 			{
 				Dataflash_DeselectChip();
-				
+
 				if (PageAddress >= (DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS))
 				  return;
 
@@ -149,11 +149,11 @@
 			static inline void Dataflash_ToggleSelectedChipCS(void)
 			{
 				uint8_t SelectedChipMask = Dataflash_GetSelectedChip();
-					
+
 				Dataflash_DeselectChip();
 				Dataflash_SelectChip(SelectedChipMask);
 			}
-			
+
 			/** Spin-loops while the currently selected dataflash is busy executing a command, such as a main
 			 *  memory page program or main memory to buffer transfer.
 			 */
@@ -162,7 +162,7 @@
 				Dataflash_ToggleSelectedChipCS();
 				Dataflash_SendByte(DF_CMD_GETSTATUS);
 				while (!(Dataflash_ReceiveByte() & DF_STATUS_READY));
-				Dataflash_ToggleSelectedChipCS();				
+				Dataflash_ToggleSelectedChipCS();
 			}
 
 			/** Sends a set of page and buffer address bytes to the currently selected dataflash IC, for use with
@@ -176,10 +176,11 @@
 				#if (DATAFLASH_TOTALCHIPS == 2)
 					PageAddress >>= 1;
 				#endif
-				
+
 				Dataflash_SendByte(PageAddress >> 5);
 				Dataflash_SendByte((PageAddress << 3) | (BufferByte >> 8));
 				Dataflash_SendByte(BufferByte);
 			}
-			
+
 #endif
+

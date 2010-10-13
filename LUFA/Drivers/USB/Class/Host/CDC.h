@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -59,7 +59,7 @@
 
 		#include <stdio.h>
 		#include <string.h>
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -88,7 +88,7 @@
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the CDC interface's OUT data pipe. */
 					bool     DataOUTPipeDoubleBank; /**< Indicates if the CDC interface's OUT data pipe should use double banking. */
 
-					uint8_t  NotificationPipeNumber; /**< Pipe number of the CDC interface's IN notification endpoint, if used. */			
+					uint8_t  NotificationPipeNumber; /**< Pipe number of the CDC interface's IN notification endpoint, if used. */
 					bool     NotificationPipeDoubleBank; /**< Indicates if the CDC interface's notification pipe should use double banking. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
@@ -100,11 +100,11 @@
 					                *   Configured state.
 					                */
 					uint8_t  ControlInterfaceNumber; /**< Interface index of the CDC-ACM control interface within the attached device. */
-				
+
 					uint16_t DataINPipeSize; /**< Size in bytes of the CDC interface's IN data pipe. */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the CDC interface's OUT data pipe. */
 					uint16_t NotificationPipeSize;  /**< Size in bytes of the CDC interface's IN notification pipe, if used. */
-					
+
 					struct
 					{
 						uint8_t HostToDevice; /**< Control line states from the host to device, as a set of CDC_CONTROL_LINE_OUT_*
@@ -115,7 +115,7 @@
 											   *   masks. This value is updated each time \ref CDC_Host_USBTask() is called.
 											   */
 					} ControlLineStates; /**< Current states of the virtual serial port's control lines between the device and host. */
-					
+
 					struct
 					{
 						uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second. */
@@ -136,7 +136,7 @@
 						  *   the interface is enumerated.
 						  */
 			} USB_ClassInfo_CDC_Host_t;
-			
+
 		/* Enums: */
 			/** Enum for the possible error codes returned by the \ref CDC_Host_ConfigurePipes() function. */
 			enum CDC_Host_EnumerationFailure_ErrorCodes_t
@@ -145,7 +145,7 @@
 				CDC_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
 				CDC_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible CDC interface was not found in the device's Configuration Descriptor. */
 			};
-	
+
 		/* Function Prototypes: */
 			/** General management task for a given CDC host class interface, required for the correct operation of the interface. This should
 			 *  be called frequently in the main program loop, before the master USB management task \ref USB_USBTask().
@@ -153,7 +153,7 @@
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing an CDC Class host configuration and state.
 			 */
 			void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Host interface configuration routine, to configure a given CDC host interface instance using the Configuration
 			 *  Descriptor read from an attached USB device. This function automatically updates the given CDC Host instance's
 			 *  state values and configures the pipes required to communicate with the interface if it is found within the device.
@@ -173,7 +173,7 @@
 			uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 			                                uint16_t ConfigDescriptorSize,
 			                                void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
-			
+
 			/** Sets the line encoding for the attached device's virtual serial port. This should be called when the LineEncoding
 			 *  values of the interface have been changed to push the new settings to the USB device.
 			 *
@@ -193,7 +193,7 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
 			 */
 			uint8_t CDC_Host_SendControlLineStateChange(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Sends a Send Break request to the device. This is generally used to separate data data or to indicate a special condition
 			 *  to the receiving device.
 			 *
@@ -204,10 +204,10 @@
 			 */
 			uint8_t CDC_Host_SendBreak(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 			                           const uint8_t Duration) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Sends a given string to the attached USB device, if connected. If a device is not connected when the function is called, the
 			 *  string is discarded. Bytes will be queued for transmission to the device until either the pipe bank becomes full, or the
-			 *  \ref CDC_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
+			 *  \ref CDC_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be
 			 *  packed into a single pipe packet, increasing data throughput.
 			 *
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
@@ -222,10 +222,10 @@
 			uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 			                            const char* const Data,
 			                            const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
-			
+
 			/** Sends a given byte to the attached USB device, if connected. If a device is not connected when the function is called, the
 			 *  byte is discarded. Bytes will be queued for transmission to the device until either the pipe bank becomes full, or the
-			 *  \ref CDC_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
+			 *  \ref CDC_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be
 			 *  packed into a single pipe packet, increasing data throughput.
 			 *
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
@@ -265,7 +265,7 @@
 			 *  \return Next received byte from the device, or a negative value if no data received.
 			 */
 			int16_t CDC_Host_ReceiveByte(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Flushes any data waiting to be sent, ensuring that the send buffer is cleared.
 			 *
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
@@ -335,7 +335,7 @@
 				static uint8_t DCOMP_CDC_Host_NextCDCInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif
 	#endif
-				
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
@@ -344,3 +344,4 @@
 #endif
 
 /** @} */
+

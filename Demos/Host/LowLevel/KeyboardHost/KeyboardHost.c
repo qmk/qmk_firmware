@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the KeyboardHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "KeyboardHost.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -129,9 +129,9 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 void ReadNextReport(void)
 {
 	USB_KeyboardReport_Data_t KeyboardReport;
-		
+
 	/* Select keyboard data pipe */
-	Pipe_SelectPipe(KEYBOARD_DATA_IN_PIPE);	
+	Pipe_SelectPipe(KEYBOARD_DATA_IN_PIPE);
 
 	/* Unfreeze keyboard data pipe */
 	Pipe_Unfreeze();
@@ -141,10 +141,10 @@ void ReadNextReport(void)
 	{
 		/* Refreeze HID data IN pipe */
 		Pipe_Freeze();
-			
+
 		return;
 	}
-	
+
 	/* Ensure pipe contains data before trying to read from it */
 	if (Pipe_IsReadWriteAllowed())
 	{
@@ -153,13 +153,13 @@ void ReadNextReport(void)
 
 		/* Indicate if the modifier byte is non-zero (special key such as shift is being pressed) */
 		LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);
-		
+
 		/* Check if a key has been pressed */
 		if (KeyboardReport.KeyCode)
 		{
 			/* Toggle status LED to indicate keypress */
 			LEDs_ToggleLEDs(LEDS_LED2);
-				  
+
 			char PressedKey = 0;
 
 			/* Retrieve pressed key character if alphanumeric */
@@ -168,16 +168,16 @@ void ReadNextReport(void)
 			else if ((KeyboardReport.KeyCode[0] >= 0x1E) && (KeyboardReport.KeyCode[0] <= 0x27))
 			  PressedKey = (KeyboardReport.KeyCode[0] - 0x1E) + '0';
 			else if (KeyboardReport.KeyCode[0] == 0x2C)
-			  PressedKey = ' ';						
+			  PressedKey = ' ';
 			else if (KeyboardReport.KeyCode[0] == 0x28)
 			  PressedKey = '\n';
-				 
+
 			/* Print the pressed key character out through the serial port if valid */
 			if (PressedKey)
 			  putchar(PressedKey);
 		}
 	}
-		
+
 	/* Clear the IN endpoint, ready for next data packet */
 	Pipe_ClearIN();
 
@@ -196,7 +196,7 @@ void Keyboard_HID_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -206,7 +206,7 @@ void Keyboard_HID_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -214,7 +214,7 @@ void Keyboard_HID_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-		
+
 			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
 			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
@@ -228,7 +228,7 @@ void Keyboard_HID_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-				
+
 			/* HID class request to set the keyboard protocol to the Boot Protocol */
 			USB_ControlRequest = (USB_Request_Header_t)
 				{
@@ -250,7 +250,7 @@ void Keyboard_HID_Task(void)
 
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
+
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
@@ -267,3 +267,4 @@ void Keyboard_HID_Task(void)
 			break;
 	}
 }
+

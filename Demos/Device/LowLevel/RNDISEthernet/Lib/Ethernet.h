@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,7 +32,7 @@
  *
  *  Header file for Ethernet.c.
  */
- 
+
 #ifndef _ETHERNET_H_
 #define _ETHERNET_H_
 
@@ -48,19 +48,19 @@
 		#include "DHCP.h"
 		#include "ARP.h"
 		#include "IP.h"
-		
+
 	/* Macros: */
 		/** Physical MAC address of the USB RNDIS network adapter. */
 		#define ADAPTER_MAC_ADDRESS              {0x02, 0x00, 0x02, 0x00, 0x02, 0x00}
-	
+
 		/** Physical MAC address of the virtual server on the network. */
-		#define SERVER_MAC_ADDRESS               {0x00, 0x01, 0x00, 0x01, 0x00, 0x01}		
+		#define SERVER_MAC_ADDRESS               {0x00, 0x01, 0x00, 0x01, 0x00, 0x01}
 
 		/** Physical MAC address of the network broadcast address. */
 		#define BROADCAST_MAC_ADDRESS            {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}
-	
+
 		/** Performs a comparison between two MAC addresses, indicating if they are identical.
-		 *  
+		 *
 		 *  \param[in] MAC1  First MAC address
 		 *  \param[in] MAC2  Second MAC address
 		 *
@@ -70,12 +70,12 @@
 
 		/** Maximum size of an incoming or outgoing Ethernet frame in bytes. */
 		#define ETHERNET_FRAME_SIZE_MAX          1500
-		
+
 		/** Minimum size of an Ethernet packet in bytes, to conform to the Ethernet V2 packet standard. */
 		#define ETHERNET_VER2_MINSIZE            0x0600
-		
+
 		/** Return value for all sub protocol handling routines, indicating that no response packet has been generated. */
-		#define NO_RESPONSE                      0		
+		#define NO_RESPONSE                      0
 
 		/** Return value for all sub protocol handling routines, indicating that the packet has not yet been handled. */
 		#define NO_PROCESS                       -1
@@ -96,7 +96,7 @@
 			MAC_Address_t Source; /**< Physics MAC address of the packet source */
 			uint16_t      EtherType; /**< Ethernet packet sub-protocol type, for Ethernet V2 packets */
 		} Ethernet_Frame_Header_t;
-		
+
 	/* External Variables: */
 		extern Ethernet_Frame_Info_t FrameIN;
 		extern Ethernet_Frame_Info_t FrameOUT;
@@ -106,10 +106,11 @@
 		extern const MAC_Address_t BroadcastMACAddress;
 		extern const IP_Address_t  BroadcastIPAddress;
 		extern const IP_Address_t  ClientIPAddress;
-		
+
 	/* Function Prototypes: */
 		void     Ethernet_ProcessPacket(void);
 		uint16_t Ethernet_Checksum16(void* Data,
 		                             uint16_t Bytes);
-		
+
 #endif
+

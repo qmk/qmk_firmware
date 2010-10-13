@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -43,13 +43,13 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SPI.h>
-		
+
 		#include "../V2ProtocolParams.h"
 
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL
-			
+
 			#if !defined(ENABLE_XPROG_PROTOCOL)
 				#define ENABLE_XPROG_PROTOCOL
 			#endif
@@ -58,7 +58,7 @@
 	/* Macros: */
 		/** Low level device command to issue an extended FLASH address, for devices with other 128KB of FLASH. */
 		#define LOAD_EXTENDED_ADDRESS_CMD     0x4D
-		
+
 		/** Macro to convert an ISP frequency to a number of timer clock cycles for the software SPI driver */
 		#define TIMER_COMP(freq) ((((F_CPU / 8) / freq) / 2) - 1)
 
@@ -121,3 +121,4 @@
 		}
 
 #endif
+

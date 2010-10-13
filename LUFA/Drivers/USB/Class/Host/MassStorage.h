@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -56,7 +56,7 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "../Common/MassStorage.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -71,7 +71,7 @@
 		/* Macros: */
 			/** Error code for some Mass Storage Host functions, indicating a logical (and not hardware) error. */
 			#define MS_ERROR_LOGICAL_CMD_FAILED              0x80
-	
+
 		/* Type Defines: */
 			/** \brief Mass Storage Class Host Mode Configuration and State Structure.
 			 *
@@ -101,14 +101,14 @@
 
 					uint16_t DataINPipeSize; /**< Size in bytes of the Mass Storage interface's IN data pipe. */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the Mass Storage interface's OUT data pipe. */
-					
+
 					uint32_t TransactionTag; /**< Current transaction tag for data synchronizing of packets. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.
 						  */
 			} USB_ClassInfo_MS_Host_t;
-			
+
 			/** \brief SCSI Device LUN Capacity Structure.
 			 *
 			 *  SCSI capacity structure, to hold the total capacity of the device in both the number
@@ -128,7 +128,7 @@
 				MS_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
 				MS_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible Mass Storage interface was not found in the device's Configuration Descriptor. */
 			};
-	
+
 		/* Function Prototypes: */
 			/** Host interface configuration routine, to configure a given Mass Storage host interface instance using the
 			 *  Configuration Descriptor read from an attached USB device. This function automatically updates the given Mass
@@ -217,7 +217,7 @@
 			                                   const uint8_t LUNIndex,
 			                                   SCSI_Capacity_t* const DeviceCapacity) ATTR_NON_NULL_PTR_ARG(1)
 			                                   ATTR_NON_NULL_PTR_ARG(3);
-		
+
 			/** Retrieves the device sense data, indicating the current device state and error codes for the previously
 			 *  issued command.
 			 *
@@ -234,7 +234,7 @@
 			                             const uint8_t LUNIndex,
 			                             SCSI_Request_Sense_Response_t* const SenseData) ATTR_NON_NULL_PTR_ARG(1)
 			                             ATTR_NON_NULL_PTR_ARG(3);
-		
+
 			/** Issues a PREVENT MEDIUM REMOVAL command, to logically (or, depending on the type of device, physically) lock
 			 *  the device from removal so that blocks of data on the medium can be read or altered.
 			 *
@@ -250,7 +250,7 @@
 			uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 			                                          const uint8_t LUNIndex,
 			                                          const bool PreventRemoval) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Reads blocks of data from the attached Mass Storage device's medium.
 			 *
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
@@ -271,7 +271,7 @@
 			                                 const uint8_t Blocks,
 			                                 const uint16_t BlockSize,
 			                                 void* BlockBuffer) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(6);
-		
+
 			/** Writes blocks of data to the attached Mass Storage device's medium.
 			 *
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
@@ -318,22 +318,22 @@
 
 			#define CBW_SIGNATURE                  0x43425355UL
 			#define CSW_SIGNATURE                  0x53425355UL
-			
+
 			#define COMMAND_DIRECTION_DATA_OUT     (0 << 7)
 			#define COMMAND_DIRECTION_DATA_IN      (1 << 7)
-			
+
 			#define COMMAND_DATA_TIMEOUT_MS        10000
-			
+
 		/* Function Prototypes: */
-			#if defined(__INCLUDE_FROM_MS_CLASS_HOST_C)		
+			#if defined(__INCLUDE_FROM_MS_CLASS_HOST_C)
 				static uint8_t DCOMP_MS_Host_NextMSInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_MS_Host_NextMSInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-				
+
 				static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 				                                   MS_CommandBlockWrapper_t* const SCSICommandBlock,
 				                                   const void* const BufferPtr) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 				static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-				static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo, 
+				static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 				                                       MS_CommandBlockWrapper_t* const SCSICommandBlock,
 				                                       void* BufferPtr) ATTR_NON_NULL_PTR_ARG(1)  ATTR_NON_NULL_PTR_ARG(2);
 				static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
@@ -341,7 +341,7 @@
 				                                         ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 			#endif
 	#endif
-	
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
@@ -350,3 +350,4 @@
 #endif
 
 /** @} */
+

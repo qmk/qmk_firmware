@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -50,7 +50,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
-	
+
 	USB_Descriptor_Interface_t* HIDInterface    = NULL;
 	USB_Descriptor_Endpoint_t*  DataINEndpoint  = NULL;
 	USB_Descriptor_Endpoint_t*  DataOUTEndpoint = NULL;
@@ -79,7 +79,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			 * but only found the mandatory IN endpoint, it's safe to continue with the device enumeration */
 			if (DataINEndpoint)
 			  break;
-			
+
 			/* Get the next HID interface from the configuration descriptor */
 			if (USB_GetNextDescriptorComp(&CurrConfigBytesRem, &CurrConfigLocation,
 										  DComp_NextHIDInterface) != DESCRIPTOR_SEARCH_COMP_Found)
@@ -87,17 +87,17 @@ uint8_t ProcessConfigurationDescriptor(void)
 				/* Descriptor not found, error out */
 				return NoCompatibleInterfaceFound;
 			}
-			
+
 			/* Save the interface in case we need to refer back to it later */
 			HIDInterface = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Interface_t);
 
 			/* Clear any found endpoints */
 			DataOUTEndpoint = NULL;
-			
+
 			/* Skip the remainder of the loop as we have not found an endpoint yet */
 			continue;
 		}
-		
+
 		/* Retrieve the endpoint address from the endpoint descriptor */
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
@@ -107,20 +107,20 @@ uint8_t ProcessConfigurationDescriptor(void)
 		else
 		  DataOUTEndpoint = EndpointData;
 	}
-	
+
 	/* Configure the HID data IN pipe */
 	Pipe_ConfigurePipe(HID_DATA_IN_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
 	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
 	Pipe_SetInterruptPeriod(DataINEndpoint->PollingIntervalMS);
-	
+
 	/* Check if the HID interface contained an optional OUT data endpoint */
 	if (DataOUTEndpoint)
 	{
 		/* Configure the HID data OUT pipe */
 		Pipe_ConfigurePipe(HID_DATA_OUT_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_OUT,
 						   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize, PIPE_BANK_SINGLE);
-	}	
-			
+	}
+
 	/* Valid data found, return success */
 	return SuccessfulConfigRead;
 }
@@ -145,7 +145,7 @@ uint8_t DComp_NextHIDInterface(void* CurrentDescriptor)
 			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
-	
+
 	/* Current descriptor does not match what this comparator is looking for */
 	return DESCRIPTOR_SEARCH_NotFound;
 }
@@ -176,3 +176,4 @@ uint8_t DComp_NextHIDInterfaceDataEndpoint(void* CurrentDescriptor)
 	/* Current descriptor does not match what this comparator is looking for */
 	return DESCRIPTOR_SEARCH_NotFound;
 }
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the VirtualSerial demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "VirtualSerial.h"
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
@@ -71,7 +71,7 @@ static FILE USBSerialStream;
 int main(void)
 {
 	SetupHardware();
-	
+
 	/* Create a regular character stream for the interface so that it can be used with the stdio.h functions */
 	CDC_Device_CreateStream(&VirtualSerial_CDC_Interface, &USBSerialStream);
 
@@ -81,7 +81,7 @@ int main(void)
 	for (;;)
 	{
 		CheckJoystickMovement();
-		 
+
 		/* Must throw away unused bytes from the host, or it will lock up while waiting for the device */
 		CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
@@ -112,7 +112,7 @@ void CheckJoystickMovement(void)
 	uint8_t     JoyStatus_LCL = Joystick_GetStatus();
 	char*       ReportString  = NULL;
 	static bool ActionSent    = false;
-	
+
 	if (JoyStatus_LCL & JOY_UP)
 	  ReportString = "Joystick Up\r\n";
 	else if (JoyStatus_LCL & JOY_DOWN)
@@ -125,7 +125,7 @@ void CheckJoystickMovement(void)
 	  ReportString = "Joystick Pressed\r\n";
 	else
 	  ActionSent = false;
-	  
+
 	if ((ReportString != NULL) && (ActionSent == false))
 	{
 		ActionSent = true;
@@ -165,3 +165,4 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 {
 	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }
+

@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage RNDIS Class Ethernet Demo (with Webserver/Telnet)
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -26,7 +26,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Communications Device Class (CDC)</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>Remote NDIS (Microsoft Proprietary CDC Class Networking Standard)</td>
  *   </tr>
@@ -40,7 +40,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Remote Network Driver Interface demonstration application.
  *  This gives a simple reference application for implementing
@@ -49,7 +49,7 @@
  *  standard; this demo will only work on Windows 2000 (manually
  *  patched with the Microsoft RNDIS hotfix) and above (with no
  *  manual patches), or on the latest Linux kernels.
- *  
+ *
  *  Before running, you will need to install the INF file that
  *  is located in the RNDISEthernet project directory. This will
  *  enable Windows to use its inbuilt RNDIS drivers, negating the
@@ -58,7 +58,7 @@
  *  Windows 2000 is used, the Microsoft INF file in the hotfix
  *  will need to be altered to use the VID/PID of the demo and
  *  then chosen instead of the LUFA RNDIS INF file when prompted.
- *  
+ *
  *  When enumerated, this demo will install as a new network
  *  adapter which ethernet packets can be sent to and received
  *  from. Running on top of the adapter is a very simple TCP/IP
@@ -66,10 +66,10 @@
  *  accessed through a web browser at IP address 10.0.0.2:80 or
  *  through a TELNET client at 10.0.0.2:25. This device also supports
  *  ping echos via the ICMP protocol.
- *  
+ *
  *  \note The TCP/IP stack in this demo has a number of limitations
  *  and should serve as an example only - it is not fully featured nor
- *  compliant to the TCP/IP specification. For complete projects, it is 
+ *  compliant to the TCP/IP specification. For complete projects, it is
  *  recommended that it be replaced with an external open source TCP/IP
  *  stack that is feature complete, such as the uIP stack.
  *
@@ -120,3 +120,4 @@
  *   </tr>
  *  </table>
  */
+

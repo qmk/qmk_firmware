@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -44,13 +44,13 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
-		
+
 		#include "BluetoothStack.h"
-		
+
 	/* Macros: */
 		#define BT_ACL_DEBUG(l, s, ...)           do { if (ACL_DEBUG_LEVEL >= l) printf_P(PSTR("(ACL) " s "\r\n"), ##__VA_ARGS__); } while (0)
 		#define ACL_DEBUG_LEVEL                   0
-	
+
 		/** Lowest possible channel number for L2CAP data channels. */
 		#define BT_CHANNELNUMBER_BASEOFFSET       0x0040
 
@@ -59,7 +59,7 @@
 
 		/** Bluetooth specification defined channel number for connectionless data. */
 		#define BT_CHANNEL_CONNECTIONLESS         0x0002
-		
+
 		#define BT_ACL_FIRST_AUTOFLUSH            (1 << 13)
 
 		#define BT_SIGNAL_COMMAND_REJECT          0x01
@@ -73,23 +73,23 @@
 		#define BT_SIGNAL_ECHO_RESPONSE           0x09
 		#define BT_SIGNAL_INFORMATION_REQUEST     0x0A
 		#define BT_SIGNAL_INFORMATION_RESPONSE    0x0B
-		
+
 		#define BT_INFOREQ_MTU                    0x0001
 		#define BT_INFOREQ_EXTENDEDFEATURES       0x0002
-		
+
 		#define BT_INFORMATION_SUCCESSFUL         0x0000
 		#define BT_INFORMATION_NOTSUPPORTED       0x0001
-		
+
 		#define BT_CONNECTION_SUCCESSFUL          0x0000
 		#define BT_CONNECTION_REFUSED_PSM         0x0002
 		#define BT_CONNECTION_REFUSED_RESOURCES   0x0004
-		
+
 		#define BT_CONFIGURATION_SUCCESSFUL       0x0000
 		#define BT_CONFIGURATION_REJECTED         0x0002
 		#define BT_CONFIGURATION_UNKNOWNOPTIONS   0x0003
-		
+
 		#define BT_CONFIG_OPTION_MTU              1
-				
+
 	/* Type Defines: */
 		/** Bluetooth ACL header structure, common to all ACL data packets. */
 		typedef struct
@@ -104,7 +104,7 @@
 			uint16_t PayloadLength; /**< Size of the data payload, in bytes */
 			uint16_t DestinationChannel; /**< Destination channel in the device the data is directed to */
 		} BT_DataPacket_Header_t;
-		
+
 		/** Bluetooth signaling command header structure, for all ACL packets containing a signaling command. */
 		typedef struct
 		{
@@ -112,7 +112,7 @@
 			uint8_t  Identifier; /**< Unique signal command identifier to link requests and responses */
 			uint16_t Length; /**< Length of the signaling command data, in bytes */
 		} BT_Signal_Header_t;
-		
+
 		/** Connection Request signaling command structure, for channel connection requests. */
 		typedef struct
 		{
@@ -135,13 +135,13 @@
 			uint16_t DestinationChannel; /**< Destination channel address which is to be disconnected */
 			uint16_t SourceChannel; /**< Source channel address which is to be disconnected */
 		} BT_Signal_DisconnectionReq_t;
-		
+
 		/** Disconnection response signaling command structure, for responses to channel disconnection requests. */
 		typedef struct
 		{
 			uint16_t DestinationChannel; /**< Destination channel address which was disconnected */
 			uint16_t SourceChannel; /**< Source channel address which was disconnected */
-		} BT_Signal_DisconnectionResp_t;		
+		} BT_Signal_DisconnectionResp_t;
 
 		/** Configuration Request signaling command structure, for channel configuration requests. */
 		typedef struct
@@ -163,14 +163,14 @@
 		{
 			uint16_t InfoType; /**< Data type that is being requested, a BT_INFOREQ_* mask value */
 		} BT_Signal_InformationReq_t;
-		
+
 		/** Information Response signaling command structure, for responses to information requests. */
 		typedef struct
 		{
 			uint16_t InfoType; /**< Data type that was requested, a BT_INFOREQ_* mask value */
 			uint16_t Result; /**< Result of the request, a BT_INFORMATION_* mask value */
 		} BT_Signal_InformationResp_t;
-		
+
 		/** Configuration Option header structure, placed at the start of each option in a Channel Configuration
 		 *  request's options list.
 		 */
@@ -182,7 +182,7 @@
 
 	/* Function Prototypes: */
 		void Bluetooth_ACLTask(void);
-		
+
 		#if defined(INCLUDE_FROM_BLUETOOTH_ACLPACKETS_C)
 			static void Bluetooth_ProcessIncomingACLPackets(void);
 
@@ -195,5 +195,6 @@
 			static inline void Bluetooth_Signal_EchoReq(const BT_Signal_Header_t* const SignalCommandHeader);
 			static inline void Bluetooth_Signal_InformationReq(const BT_Signal_Header_t* const SignalCommandHeader);
 		#endif
-		
+
 #endif
+

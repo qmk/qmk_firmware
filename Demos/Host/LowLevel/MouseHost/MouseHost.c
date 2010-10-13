@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the MouseHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "MouseHost.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -64,7 +64,7 @@ void SetupHardware(void)
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
-	
+
 	/* Hardware Initialization */
 	SerialStream_Init(9600, false);
 	LEDs_Init();
@@ -132,7 +132,7 @@ void ReadNextReport(void)
 	uint8_t                LEDMask = LEDS_NO_LEDS;
 
 	/* Select mouse data pipe */
-	Pipe_SelectPipe(MOUSE_DATA_IN_PIPE);	
+	Pipe_SelectPipe(MOUSE_DATA_IN_PIPE);
 
 	/* Unfreeze keyboard data pipe */
 	Pipe_Unfreeze();
@@ -142,10 +142,10 @@ void ReadNextReport(void)
 	{
 		/* No packet received (no movement), turn off LEDs */
 		LEDs_SetAllLEDs(LEDS_NO_LEDS);
-	
+
 		/* Refreeze HID data IN pipe */
 		Pipe_Freeze();
-			
+
 		return;
 	}
 
@@ -153,14 +153,14 @@ void ReadNextReport(void)
 	if (Pipe_IsReadWriteAllowed())
 	{
 		/* Read in mouse report data */
-		Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport));				
+		Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport));
 
 		/* Alter status LEDs according to mouse X movement */
 		if (MouseReport.X > 0)
 		  LEDMask |= LEDS_LED1;
 		else if (MouseReport.X < 0)
 		  LEDMask |= LEDS_LED2;
-			
+
 		/* Alter status LEDs according to mouse Y movement */
 		if (MouseReport.Y > 0)
 		  LEDMask |= LEDS_LED3;
@@ -170,9 +170,9 @@ void ReadNextReport(void)
 		/* Alter status LEDs according to mouse button position */
 		if (MouseReport.Button)
 		  LEDMask  = LEDS_ALL_LEDS;
-		
+
 		LEDs_SetAllLEDs(LEDMask);
-		
+
 		/* Print mouse report data through the serial port */
 		printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
 													  MouseReport.Y,
@@ -198,7 +198,7 @@ void Mouse_HID_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -208,7 +208,7 @@ void Mouse_HID_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -225,12 +225,12 @@ void Mouse_HID_Task(void)
 
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
+
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* HID class request to set the mouse protocol to the Boot Protocol */
 			USB_ControlRequest = (USB_Request_Header_t)
 				{
@@ -252,7 +252,7 @@ void Mouse_HID_Task(void)
 
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
+
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
@@ -269,3 +269,4 @@ void Mouse_HID_Task(void)
 			break;
 	}
 }
+

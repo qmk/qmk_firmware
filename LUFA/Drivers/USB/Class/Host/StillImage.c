@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -46,7 +46,7 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 	USB_Descriptor_Interface_t* StillImageInterface = NULL;
 
 	memset(&SIInterfaceInfo->State, 0x00, sizeof(SIInterfaceInfo->State));
-	
+
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return SI_ENUMERROR_InvalidConfigDescriptor;
 
@@ -63,7 +63,7 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 			}
 
 			StillImageInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
-			
+
 			DataINEndpoint  = NULL;
 			DataOUTEndpoint = NULL;
 			EventsEndpoint  = NULL;
@@ -85,7 +85,7 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 			DataOUTEndpoint = EndpointData;
 		}
 	}
-	
+
 	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
 	{
 		if (PipeNum == SIInterfaceInfo->Config.DataINPipeNumber)
@@ -113,8 +113,8 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 
 			SIInterfaceInfo->State.EventsPipeSize = EventsEndpoint->EndpointSize;
 		}
-	}	
-	
+	}
+
 	SIInterfaceInfo->State.InterfaceNumber = StillImageInterface->InterfaceNumber;
 	SIInterfaceInfo->State.IsActive = true;
 
@@ -135,7 +135,7 @@ uint8_t DCOMP_SI_Host_NextSIInterface(void* const CurrentDescriptor)
 			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
-	
+
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
@@ -145,7 +145,7 @@ uint8_t DCOMP_SI_Host_NextSIInterfaceEndpoint(void* const CurrentDescriptor)
 	{
 		USB_Descriptor_Endpoint_t* CurrentEndpoint = DESCRIPTOR_PCAST(CurrentDescriptor,
 		                                                              USB_Descriptor_Endpoint_t);
-	
+
 		uint8_t EndpointType = (CurrentEndpoint->Attributes & EP_TYPE_MASK);
 
 		if (((EndpointType == EP_TYPE_BULK) || (EndpointType == EP_TYPE_INTERRUPT)) &&
@@ -166,7 +166,7 @@ uint8_t SI_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
                                 SI_PIMA_Container_t* const PIMAHeader)
 {
 	uint8_t ErrorCode;
-	
+
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))
 	  return PIPE_RWSTREAM_DeviceDisconnected;
 
@@ -178,7 +178,7 @@ uint8_t SI_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 
 	if ((ErrorCode = Pipe_Write_Stream_LE(PIMAHeader, PIMA_COMMAND_SIZE(0), NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
-	
+
 	uint8_t ParamBytes = (PIMAHeader->DataLength - PIMA_COMMAND_SIZE(0));
 
 	if (ParamBytes)
@@ -186,10 +186,10 @@ uint8_t SI_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 		if ((ErrorCode = Pipe_Write_Stream_LE(&PIMAHeader->Params, ParamBytes, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
 		  return ErrorCode;
 	}
-	
+
 	Pipe_ClearOUT();
 	Pipe_Freeze();
-	
+
 	return PIPE_RWSTREAM_NoError;
 }
 
@@ -204,11 +204,11 @@ uint8_t SI_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 
 	Pipe_SelectPipe(SIInterfaceInfo->Config.DataINPipeNumber);
 	Pipe_Unfreeze();
-	
+
 	while (!(Pipe_IsINReceived()))
 	{
 		uint16_t CurrentFrameNumber = USB_Host_GetFrameNumber();
-		
+
 		if (CurrentFrameNumber != PreviousFrameNumber)
 		{
 			PreviousFrameNumber = CurrentFrameNumber;
@@ -216,7 +216,7 @@ uint8_t SI_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 			if (!(TimeoutMSRem--))
 			  return PIPE_RWSTREAM_Timeout;
 		}
-		
+
 		Pipe_Freeze();
 		Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipeNumber);
 		Pipe_Unfreeze();
@@ -236,25 +236,25 @@ uint8_t SI_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 			USB_Host_ClearPipeStall(SIInterfaceInfo->Config.DataINPipeNumber);
 			return PIPE_RWSTREAM_PipeStalled;
 		}
-		  
+
 		if (USB_HostState == HOST_STATE_Unattached)
 		  return PIPE_RWSTREAM_DeviceDisconnected;
 	}
-	
+
 	Pipe_Read_Stream_LE(PIMAHeader, PIMA_COMMAND_SIZE(0), NO_STREAM_CALLBACK);
-	
+
 	if (PIMAHeader->Type == SI_PIMA_CONTAINER_ResponseBlock)
 	{
 		uint8_t ParamBytes = (PIMAHeader->DataLength - PIMA_COMMAND_SIZE(0));
 
 		if (ParamBytes)
 		  Pipe_Read_Stream_LE(&PIMAHeader->Params, ParamBytes, NO_STREAM_CALLBACK);
-		
+
 		Pipe_ClearIN();
 	}
-	
+
 	Pipe_Freeze();
-	
+
 	return PIPE_RWSTREAM_NoError;
 }
 
@@ -269,12 +269,12 @@ uint8_t SI_Host_SendData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 
 	Pipe_SelectPipe(SIInterfaceInfo->Config.DataOUTPipeNumber);
 	Pipe_Unfreeze();
-	
+
 	ErrorCode = Pipe_Write_Stream_LE(Buffer, Bytes, NO_STREAM_CALLBACK);
 
 	Pipe_ClearOUT();
 	Pipe_Freeze();
-	
+
 	return ErrorCode;
 }
 
@@ -293,7 +293,7 @@ uint8_t SI_Host_ReadData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 	ErrorCode = Pipe_Read_Stream_LE(Buffer, Bytes, NO_STREAM_CALLBACK);
 
 	Pipe_Freeze();
-	
+
 	return ErrorCode;
 }
 
@@ -306,12 +306,12 @@ bool SI_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 
 	Pipe_SelectPipe(SIInterfaceInfo->Config.EventsPipeNumber);
 	Pipe_Unfreeze();
-	
+
 	if (Pipe_BytesInPipe())
 	  IsEventReceived = true;
-	
+
 	Pipe_Freeze();
-	
+
 	return IsEventReceived;
 }
 
@@ -325,12 +325,12 @@ uint8_t SI_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInf
 
 	Pipe_SelectPipe(SIInterfaceInfo->Config.EventsPipeNumber);
 	Pipe_Unfreeze();
-	
+
 	ErrorCode = Pipe_Read_Stream_LE(PIMAHeader, sizeof(SI_PIMA_Container_t), NO_STREAM_CALLBACK);
-	
+
 	Pipe_ClearIN();
 	Pipe_Freeze();
-	
+
 	return ErrorCode;
 }
 
@@ -351,16 +351,16 @@ uint8_t SI_Host_OpenSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 			.Code          = 0x1002,
 			.Params        = {1},
 		};
-	
+
 	if ((ErrorCode = SI_Host_SendBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
-	  
+
 	if ((ErrorCode = SI_Host_ReceiveBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
-	  
+
 	if ((PIMABlock.Type != SI_PIMA_CONTAINER_ResponseBlock) || (PIMABlock.Code != 0x2001))
 	  return SI_ERROR_LOGICAL_CMD_FAILED;
-	  
+
 	SIInterfaceInfo->State.IsSessionOpen = true;
 
 	return PIPE_RWSTREAM_NoError;
@@ -380,10 +380,10 @@ uint8_t SI_Host_CloseSession(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 			.Code          = 0x1003,
 			.Params        = {1},
 		};
-	
+
 	if ((ErrorCode = SI_Host_SendBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
-	  
+
 	if ((ErrorCode = SI_Host_ReceiveBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
@@ -411,9 +411,9 @@ uint8_t SI_Host_SendCommand(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 			.Type          = SI_PIMA_CONTAINER_CommandBlock,
 			.Code          = Operation,
 		};
-	
+
 	memcpy(&PIMABlock.Params, Params, sizeof(uint32_t) * TotalParams);
-	
+
 	if ((ErrorCode = SI_Host_SendBlockHeader(SIInterfaceInfo, &PIMABlock)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
@@ -433,8 +433,9 @@ uint8_t SI_Host_ReceiveResponse(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 
 	if ((PIMABlock.Type != SI_PIMA_CONTAINER_ResponseBlock) || (PIMABlock.Code != 0x2001))
 	  return SI_ERROR_LOGICAL_CMD_FAILED;
-	  
+
 	return PIPE_RWSTREAM_NoError;
 }
 
 #endif
+

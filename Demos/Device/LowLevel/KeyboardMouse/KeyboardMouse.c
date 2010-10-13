@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,14 +9,14 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
-	  
-  Permission to use, copy, modify, distribute, and sell this 
+
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -34,7 +34,7 @@
  *  Main source file for the KeyboardMouse demo. This file contains the main tasks of the demo and
  *  is responsible for the initial application hardware configuration.
  */
- 
+
 #include "KeyboardMouse.h"
 
 /** Global structure to hold the current keyboard interface HID report, for transmission to the host */
@@ -50,7 +50,7 @@ USB_MouseReport_Data_t    MouseReportData;
 int main(void)
 {
 	SetupHardware();
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
 
@@ -114,7 +114,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	                                            HID_EPSIZE, ENDPOINT_BANK_SINGLE);
 
 	/* Indicate endpoint configuration success or failure */
-	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);	
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the USB_UnhandledControlPacket event. This is used to catch standard and class specific
@@ -133,7 +133,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-	
+
 				/* Determine if it is the mouse or the keyboard data that is being requested */
 				if (!(USB_ControlRequest.wIndex))
 				{
@@ -153,13 +153,13 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				/* Clear the report data afterwards */
 				memset(ReportData, 0, ReportSize);
 			}
-		
+
 			break;
 		case REQ_SetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				
+
 				/* Wait until the LED report has been sent by the host */
 				while (!(Endpoint_IsOUTReceived()))
 				{
@@ -176,7 +176,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				/* Process the incoming LED report */
 				Keyboard_ProcessLEDReport(LEDStatus);
 			}
-			
+
 			break;
 	}
 }
@@ -189,10 +189,10 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 void Keyboard_ProcessLEDReport(const uint8_t LEDStatus)
 {
 	uint8_t LEDMask = LEDS_LED2;
-	
+
 	if (LEDStatus & KEYBOARD_LED_NUMLOCK)
 	  LEDMask |= LEDS_LED1;
-	
+
 	if (LEDStatus & KEYBOARD_LED_CAPSLOCK)
 	  LEDMask |= LEDS_LED3;
 
@@ -256,7 +256,7 @@ void Keyboard_HID_Task(void)
 
 	/* Check if Keyboard LED Endpoint Ready for Read/Write */
 	if (Endpoint_IsReadWriteAllowed())
-	{		
+	{
 		/* Read in and process the LED report from the host */
 		Keyboard_ProcessLEDReport(Endpoint_Read_Byte());
 
@@ -309,3 +309,4 @@ void Mouse_HID_Task(void)
 		memset(&MouseReportData, 0, sizeof(MouseReportData));
 	}
 }
+

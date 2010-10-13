@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the MassStorageHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "MassStorageHost.h"
 
 /** LUFA Mass Storage Class driver interface configuration and state information. This structure is
@@ -46,13 +46,13 @@ USB_ClassInfo_MS_Host_t FlashDisk_MS_Interface =
 			{
 				.DataINPipeNumber       = 1,
 				.DataINPipeDoubleBank   = false,
-				
+
 				.DataOUTPipeNumber      = 2,
 				.DataOUTPipeDoubleBank  = false,
 			},
 	};
 
-	
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -71,7 +71,7 @@ int main(void)
 		{
 			case HOST_STATE_Addressed:
 				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-			
+
 				uint16_t ConfigDescriptorSize;
 				uint8_t  ConfigDescriptorData[512];
 
@@ -92,7 +92,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
 					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
@@ -100,14 +100,14 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				puts_P(PSTR("Mass Storage Device Enumerated.\r\n"));
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
 				LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-				
+
 				uint8_t MaxLUNIndex;
 				if (MS_Host_GetMaxLUN(&FlashDisk_MS_Interface, &MaxLUNIndex))
 				{
@@ -116,9 +116,9 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				printf_P(PSTR("Total LUNs: %d - Using first LUN in device.\r\n"), (MaxLUNIndex + 1));
-				
+
 				if (MS_Host_ResetMSInterface(&FlashDisk_MS_Interface))
 				{
 					puts_P(PSTR("Error resetting Mass Storage interface.\r\n"));
@@ -126,7 +126,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				SCSI_Request_Sense_Response_t SenseData;
 				if (MS_Host_RequestSense(&FlashDisk_MS_Interface, 0, &SenseData) != 0)
 				{
@@ -135,7 +135,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-			
+
 				if (MS_Host_PreventAllowMediumRemoval(&FlashDisk_MS_Interface, 0, true))
 				{
 					puts_P(PSTR("Error setting Prevent Device Removal bit.\r\n"));
@@ -150,17 +150,17 @@ int main(void)
 					puts_P(PSTR("Error retrieving device Inquiry data.\r\n"));
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;				
+					break;
 				}
 
 				printf_P(PSTR("Vendor \"%.8s\", Product \"%.16s\"\r\n"), InquiryData.VendorID, InquiryData.ProductID);
-				
+
 				puts_P(PSTR("Waiting until ready...\r\n"));
 
 				for (;;)
 				{
 					uint8_t ErrorCode = MS_Host_TestUnitReady(&FlashDisk_MS_Interface, 0);
-					
+
 					if (!(ErrorCode))
 					  break;
 
@@ -184,7 +184,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				printf_P(PSTR("%lu blocks of %lu bytes.\r\n"), DiskCapacity.Blocks, DiskCapacity.BlockSize);
 
 				uint8_t BlockBuffer[DiskCapacity.BlockSize];
@@ -196,20 +196,20 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-			
+
 				puts_P(PSTR("\r\nContents of first block:\r\n"));
 
 				for (uint16_t Chunk = 0; Chunk < (DiskCapacity.BlockSize >> 4); Chunk++)
 				{
 					uint8_t* ChunkPtr = &BlockBuffer[Chunk << 4];
-					
+
 					/* Print out the 16 bytes of the chunk in HEX format */
 					for (uint8_t ByteOffset = 0; ByteOffset < (1 << 4); ByteOffset++)
 					{
 						char CurrByte = *(ChunkPtr + ByteOffset);
 						printf_P(PSTR("%.2X "), CurrByte);
 					}
-					
+
 					printf_P(PSTR("    "));
 
 					/* Print out the 16 bytes of the chunk in ASCII format */
@@ -218,7 +218,7 @@ int main(void)
 						char CurrByte = *(ChunkPtr + ByteOffset);
 						putchar(isprint(CurrByte) ? CurrByte : '.');
 					}
-					
+
 					printf_P(PSTR("\r\n"));
 				}
 
@@ -226,7 +226,7 @@ int main(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 		}
-	
+
 		MS_Host_USBTask(&FlashDisk_MS_Interface);
 		USB_USBTask();
 	}
@@ -296,6 +296,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
+

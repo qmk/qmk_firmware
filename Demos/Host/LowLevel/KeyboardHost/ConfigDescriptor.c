@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -50,7 +50,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
-	
+
 	USB_Descriptor_Interface_t* HIDInterface   = NULL;
 	USB_Descriptor_Endpoint_t*  DataINEndpoint = NULL;
 
@@ -66,7 +66,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 		default:
 			return ControlError;
 	}
-	
+
 	while (!(DataINEndpoint))
 	{
 		/* See if we've found a likely compatible interface, and if there is an endpoint within that interface */
@@ -88,7 +88,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			/* Skip the remainder of the loop as we have not found an endpoint yet */
 			continue;
 		}
-		
+
 		/* Retrieve the endpoint address from the endpoint descriptor */
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_Endpoint_t);
 
@@ -96,7 +96,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 		  DataINEndpoint = EndpointData;
 	}
-	
+
 	/* Configure the HID data IN pipe */
 	Pipe_ConfigurePipe(KEYBOARD_DATA_IN_PIPE, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
 	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
@@ -125,7 +125,7 @@ uint8_t DComp_NextKeyboardInterface(void* CurrentDescriptor)
 			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
-	
+
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
@@ -152,3 +152,4 @@ uint8_t DComp_NextKeyboardInterfaceDataEndpoint(void* CurrentDescriptor)
 
 	return DESCRIPTOR_SEARCH_NotFound;
 }
+

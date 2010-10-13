@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -30,7 +30,7 @@
 
 /** \file
  *
- *  USB Device Descriptor processing routines, to determine the overall device parameters. Descriptors are special 
+ *  USB Device Descriptor processing routines, to determine the overall device parameters. Descriptors are special
  *  computer-readable structures which the host requests upon device enumeration, to determine information about
  *  the attached device.
  */
@@ -50,11 +50,11 @@ uint8_t ProcessDeviceDescriptor(void)
 	/* Send the request to retrieve the device descriptor */
 	if (USB_Host_GetDeviceDescriptor(&DeviceDescriptor) != HOST_SENDCONTROL_Successful)
 	  return DevControlError;
-	  
+
 	/* Validate returned data - ensure the returned data is a device descriptor */
 	if (DeviceDescriptor.Header.Type != DTYPE_Device)
 	  return InvalidDeviceDataReturned;
-	
+
 	/* Validate returned device Class, SubClass and Protocol values against the Bluetooth spec values */
 	if ((DeviceDescriptor.Class    != BLUETOOTH_DEVICE_CLASS)    ||
 	    (DeviceDescriptor.SubClass != BLUETOOTH_DEVICE_SUBCLASS) ||
@@ -62,6 +62,7 @@ uint8_t ProcessDeviceDescriptor(void)
 	{
 		return IncorrectBTDevice;
 	}
-	
+
 	return SuccessfulDeviceRead;
 }
+

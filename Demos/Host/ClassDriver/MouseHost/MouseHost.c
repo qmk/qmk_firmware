@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the MouseHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "MouseHost.h"
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
@@ -46,15 +46,15 @@ USB_ClassInfo_HID_Host_t Mouse_HID_Interface =
 			{
 				.DataINPipeNumber       = 1,
 				.DataINPipeDoubleBank   = false,
-				
+
 				.DataOUTPipeNumber      = 2,
 				.DataOUTPipeDoubleBank  = false,
-				
+
 				.HIDInterfaceProtocol   = HID_BOOTP_MouseBootProtocol,
 			},
 	};
 
-	
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -73,7 +73,7 @@ int main(void)
 		{
 			case HOST_STATE_Addressed:
 				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-			
+
 				uint16_t ConfigDescriptorSize;
 				uint8_t  ConfigDescriptorData[512];
 
@@ -94,7 +94,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
 					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
@@ -110,7 +110,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				puts_P(PSTR("Mouse Enumerated.\r\n"));
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
@@ -119,10 +119,10 @@ int main(void)
 				if (HID_Host_IsReportReceived(&Mouse_HID_Interface))
 				{
 					uint8_t LEDMask  = LEDS_NO_LEDS;
-				
+
 					USB_MouseReport_Data_t MouseReport;
 					HID_Host_ReceiveReport(&Mouse_HID_Interface, &MouseReport);
-					
+
 					printf_P(PSTR("dX:%2d dY:%2d Button:%d\r\n"), MouseReport.X,
 																  MouseReport.Y,
 																  MouseReport.Button);
@@ -130,7 +130,7 @@ int main(void)
 					  LEDMask |= LEDS_LED1;
 					else if (MouseReport.X < 0)
 					  LEDMask |= LEDS_LED2;
-						
+
 					if (MouseReport.Y > 0)
 					  LEDMask |= LEDS_LED3;
 					else if (MouseReport.Y < 0)
@@ -141,10 +141,10 @@ int main(void)
 
 					LEDs_SetAllLEDs(LEDMask);
 				}
-				
+
 				break;
 		}
-	
+
 		HID_Host_USBTask(&Mouse_HID_Interface);
 		USB_USBTask();
 	}
@@ -214,6 +214,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
+

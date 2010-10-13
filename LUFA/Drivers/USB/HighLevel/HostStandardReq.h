@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -44,11 +44,11 @@
 	/* Includes: */
 		#include <stdint.h>
 		#include <stdbool.h>
-		
+
 		#include "USBMode.h"
 		#include "StdRequestType.h"
 		#include "../LowLevel/USBController.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -58,7 +58,7 @@
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Enums: */
 			/** Enum for the \ref USB_Host_SendControlRequest() return code, indicating the reason for the error
@@ -78,7 +78,7 @@
 				                                        */
 				HOST_SENDCONTROL_SoftwareTimeOut    = 4, /**< The request or data transfer timed out. */
 			};
-			
+
 		/* Function Prototypes: */
 			/** Sends the request stored in the \ref USB_ControlRequest global structure to the attached device,
 			 *  and transfers the data stored in the buffer to the device, or from the device to the buffer
@@ -92,7 +92,7 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
 			uint8_t USB_Host_SendControlRequest(void* const BufferPtr);
-			
+
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Enums: */
@@ -102,7 +102,7 @@
 				USB_HOST_WAITFOR_InReceived,
 				USB_HOST_WAITFOR_OutReady,
 			};
-	
+
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_HOSTSTDREQ_C)
 				static uint8_t USB_Host_WaitForIOS(const uint8_t WaitType);
@@ -113,5 +113,6 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
+

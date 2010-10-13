@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \page Page_CompilingApps Compiling the Demos, Bootloaders and Projects
  *
  *  The following details how to compile the included LUFA demos, applications and bootloaders using AVR-GCC.

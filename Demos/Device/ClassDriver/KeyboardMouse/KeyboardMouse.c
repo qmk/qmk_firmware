@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-	  
-  Permission to use, copy, modify, distribute, and sell this 
+
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -61,7 +61,7 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 				.PrevReportINBufferSize       = sizeof(PrevKeyboardHIDReportBuffer),
 			},
 	};
-	
+
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
  *  within a device can be differentiated from one another. This is for the mouse HID
@@ -78,7 +78,7 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 
 				.PrevReportINBuffer           = PrevMouseHIDReportBuffer,
 				.PrevReportINBufferSize       = sizeof(PrevMouseHIDReportBuffer),
-			},		
+			},
 	};
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -177,11 +177,11 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 	if (HIDInterfaceInfo == &Keyboard_HID_Interface)
 	{
 		USB_KeyboardReport_Data_t* KeyboardReport = (USB_KeyboardReport_Data_t*)ReportData;
-		
+
 		/* If first board button not being held down, no keyboard report */
 		if (!(ButtonStatus_LCL & BUTTONS_BUTTON1))
 		  return 0;
-		
+
 		KeyboardReport->Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
 
 		if (JoyStatus_LCL & JOY_UP)
@@ -196,7 +196,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 
 		if (JoyStatus_LCL & JOY_PRESS)
 		  KeyboardReport->KeyCode[0] = 0x08; // E
-		
+
 		*ReportSize = sizeof(USB_KeyboardReport_Data_t);
 		return false;
 	}
@@ -207,7 +207,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 		/* If first board button being held down, no mouse report */
 		if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 		  return 0;
-		  
+
 		if (JoyStatus_LCL & JOY_UP)
 		  MouseReport->Y = -1;
 		else if (JoyStatus_LCL & JOY_DOWN)
@@ -220,9 +220,9 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 
 		if (JoyStatus_LCL & JOY_PRESS)
 		  MouseReport->Button |= (1 << 0);
-		
+
 		*ReportSize = sizeof(USB_MouseReport_Data_t);
-		return true;		
+		return true;
 	}
 }
 
@@ -247,13 +247,13 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 
 		if (*LEDReport & HID_KEYBOARD_LED_NUMLOCK)
 		  LEDMask |= LEDS_LED1;
-		
+
 		if (*LEDReport & HID_KEYBOARD_LED_CAPSLOCK)
 		  LEDMask |= LEDS_LED3;
 
 		if (*LEDReport & HID_KEYBOARD_LED_SCROLLLOCK)
 		  LEDMask |= LEDS_LED4;
-		  
+
 		LEDs_SetAllLEDs(LEDMask);
 	}
 }

@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage Audio Output Device Demo
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -27,7 +27,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Audio Class</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>Standard Audio Device</td>
  *   </tr>
@@ -43,13 +43,13 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Audio demonstration application. This gives a simple reference
  *  application for implementing a USB Audio Output device using the
  *  basic USB Audio 1.0 drivers in all modern OSes (i.e. no special drivers
  *  required).
- *  
+ *
  *  On start-up the system will automatically enumerate and function
  *  as a USB speaker. Outgoing audio will output in 8-bit PWM onto
  *  the timer 3 output compare channel A for AUDIO_OUT_MONO mode, on
@@ -57,7 +57,7 @@
  *  mono sample for AUDIO_OUT_PORTC. Audio output will also be indicated on
  *  the board LEDs in all modes. Decouple audio outputs with a capacitor and
  *  attach to a speaker to hear the audio.
- *  
+ *
  *  Under Windows, if a driver request dialogue pops up, select the option
  *  to automatically install the appropriate drivers.
  *
@@ -94,3 +94,4 @@
  *   </tr>
  *  </table>
  */
+

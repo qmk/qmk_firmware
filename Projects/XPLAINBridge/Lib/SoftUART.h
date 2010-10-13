@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -11,13 +11,13 @@
   Copyright 2010  Peter Danneger
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -42,7 +42,7 @@
 		#include <avr/io.h>
 		#include <avr/interrupt.h>
 		#include <stdbool.h>
-		
+
 		#include "../XPLAINBridge.h"
 		#include "LightweightRingBuff.h"
 
@@ -55,11 +55,11 @@
 		#define STXPORT    PORTD
 		#define STXDDR     DDRD
 
-	/* Inline Functions: */	
+	/* Inline Functions: */
 		static inline void SoftUART_SetBaud(const uint32_t Baud)
 		{
 			uint16_t BitTime = ((F_CPU / Baud) - 1);
-		
+
 			ICR1 = BitTime;
 			ICR3 = BitTime;
 		}

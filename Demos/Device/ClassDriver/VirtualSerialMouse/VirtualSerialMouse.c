@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the VirtualSerialMouse demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "VirtualSerialMouse.h"
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
@@ -88,14 +88,14 @@ USB_ClassInfo_HID_Device_t Mouse_HID_Interface =
 int main(void)
 {
 	SetupHardware();
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
 
 	for (;;)
 	{
 		CheckJoystickMovement();
-		 
+
 		/* Must throw away unused bytes from the host, or it will lock up while waiting for the device */
 		CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
@@ -127,7 +127,7 @@ void CheckJoystickMovement(void)
 	uint8_t     JoyStatus_LCL = Joystick_GetStatus();
 	char*       ReportString  = NULL;
 	static bool ActionSent    = false;
-	
+
 	if (JoyStatus_LCL & JOY_UP)
 	  ReportString = "Joystick Up\r\n";
 	else if (JoyStatus_LCL & JOY_DOWN)
@@ -140,12 +140,12 @@ void CheckJoystickMovement(void)
 	  ReportString = "Joystick Pressed\r\n";
 	else
 	  ActionSent = false;
-	  
+
 	if ((ReportString != NULL) && (ActionSent == false))
 	{
 		ActionSent = true;
-		
-		CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString, strlen(ReportString));		
+
+		CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString, strlen(ReportString));
 	}
 }
 
@@ -171,7 +171,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 
 	USB_Device_EnableSOFEvents();
 
-	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);	  
+	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Unhandled Control Request event. */
@@ -204,7 +204,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
                                          uint16_t* const ReportSize)
 {
 	USB_MouseReport_Data_t* MouseReport = (USB_MouseReport_Data_t*)ReportData;
-		
+
 	uint8_t JoyStatus_LCL    = Joystick_GetStatus();
 	uint8_t ButtonStatus_LCL = Buttons_GetStatus();
 
@@ -220,10 +220,10 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 
 	if (JoyStatus_LCL & JOY_PRESS)
 	  MouseReport->Button |= (1 << 0);
-	  
+
 	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 	  MouseReport->Button |= (1 << 1);
-	
+
 	*ReportSize = sizeof(USB_MouseReport_Data_t);
 	return true;
 }
@@ -244,3 +244,4 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 {
 	// Unused (but mandatory for the HID class driver) in this demo, since there are no Host->Device reports
 }
+

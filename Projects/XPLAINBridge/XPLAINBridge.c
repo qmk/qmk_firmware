@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -45,7 +45,7 @@ bool CurrentFirmwareMode = MODE_USART_BRIDGE;
  */
 USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 	{
-		.Config = 
+		.Config =
 			{
 				.ControlInterfaceNumber         = 0,
 
@@ -100,7 +100,7 @@ void AVRISP_Task(void)
 	V2Params_UpdateParamValues();
 
 	Endpoint_SelectEndpoint(AVRISP_DATA_OUT_EPNUM);
-	
+
 	/* Check to see if a V2 Protocol command has been received */
 	if (Endpoint_IsOUTReceived())
 	{
@@ -123,7 +123,7 @@ void UARTBridge_Task(void)
 	int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 	if (!(ReceivedByte < 0) && !(RingBuffer_IsFull(&USBtoUART_Buffer)))
 	  RingBuffer_Insert(&USBtoUART_Buffer, ReceivedByte);
-	
+
 	/* Check if the UART receive buffer flush timer has expired or buffer is nearly full */
 	RingBuff_Count_t BufferCount = RingBuffer_GetCount(&UARTtoUSB_Buffer);
 	if ((TIFR0 & (1 << TOV0)) || (BufferCount > 200))
@@ -185,7 +185,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 		/* Initialize ring buffers used to hold serial data between USB and software UART interfaces */
 		RingBuffer_InitBuffer(&USBtoUART_Buffer);
 		RingBuffer_InitBuffer(&UARTtoUSB_Buffer);
-		
+
 		/* Start the software USART */
 		SoftUART_Init();
 	}
@@ -198,7 +198,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 		ConfigSuccess &= Endpoint_ConfigureEndpoint(AVRISP_DATA_IN_EPNUM, EP_TYPE_BULK, ENDPOINT_DIR_IN,
 		                                            AVRISP_DATA_EPSIZE, ENDPOINT_BANK_SINGLE);
 		#endif
-	
+
 		/* Configure the V2 protocol packet handler */
 		V2Protocol_Init();
 	}
@@ -257,3 +257,4 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 	else
 	  return AVRISP_GetDescriptor(wValue, wIndex, DescriptorAddress);
 }
+

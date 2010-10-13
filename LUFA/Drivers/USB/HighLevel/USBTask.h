@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -45,7 +45,7 @@
 		#include <avr/interrupt.h>
 		#include <stdint.h>
 		#include <stdbool.h>
-		
+
 		#include "../LowLevel/USBController.h"
 		#include "Events.h"
 		#include "StdRequestType.h"
@@ -59,7 +59,7 @@
 		#if defined(USB_CAN_BE_HOST)
 			#include "HostStandardReq.h"
 		#endif
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -69,7 +69,7 @@
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Global Variables: */
 			/** Indicates if the USB interface is currently initialized but not necessarily connected to a host
@@ -90,7 +90,7 @@
 			 *  \ingroup Group_USBManagement
 			 */
 			 extern USB_Request_Header_t USB_ControlRequest;
-			
+
 			#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
 				#if !defined(HOST_STATE_AS_GPIOR) || defined(__DOXYGEN__)
 					/** Indicates the current host state machine state. When in host mode, this indicates the state
@@ -101,7 +101,7 @@
 					 *  the library internally.
 					 *
 					 *  To reduce program size and speed up checks of this global, it can be placed into one of the AVR's
-					 *  GPIOR hardware registers instead of RAM by defining the HOST_STATE_AS_GPIOR token to a value 
+					 *  GPIOR hardware registers instead of RAM by defining the HOST_STATE_AS_GPIOR token to a value
 					 *  between 0 and 2 in the project makefile and passing it to the compiler via the -D switch. When
 					 *  defined, the corresponding GPIOR register should not be used in the user application except
 					 *  implicitly via the library APIs.
@@ -130,7 +130,7 @@
 					 *  (see \ref EVENT_USB_Device_Connect() and \ref EVENT_USB_Device_Disconnect() events).
 					 *
 					 *  To reduce program size and speed up checks of this global, it can be placed into one of the AVR's
-					 *  GPIOR hardware registers instead of RAM by defining the DEVICE_STATE_AS_GPIOR token to a value 
+					 *  GPIOR hardware registers instead of RAM by defining the DEVICE_STATE_AS_GPIOR token to a value
 					 *  between 0 and 2 in the project makefile and passing it to the compiler via the -D switch. When
 					 *  defined, the corresponding GPIOR register should not be used in the user application except
 					 *  implicitly via the library APIs.
@@ -162,7 +162,7 @@
 			 *  The USB task must be serviced within 30ms while in device mode, or within 1ms while in host mode.
 			 *  The task may be serviced at all times, or (for minimum CPU consumption):
 			 *
-			 *    - In device mode, it may be disabled at start-up, enabled on the firing of the \ref EVENT_USB_Device_Connect() 
+			 *    - In device mode, it may be disabled at start-up, enabled on the firing of the \ref EVENT_USB_Device_Connect()
 			 *      event and disabled again on the firing of the \ref EVENT_USB_Device_Disconnect() event.
 			 *
 			 *    - In host mode, it may be disabled at start-up, enabled on the firing of the \ref EVENT_USB_Host_DeviceAttached()
@@ -185,21 +185,22 @@
 				#if defined(USB_CAN_BE_HOST)
 					static void USB_HostTask(void);
 				#endif
-				
+
 				#if defined(USB_CAN_BE_DEVICE)
 					static void USB_DeviceTask(void);
 				#endif
 			#endif
-			
+
 		/* Macros: */
 			#define HOST_TASK_NONBLOCK_WAIT(Duration, NextState) MACROS{ USB_HostState   = HOST_STATE_WaitForDevice; \
 			                                                             WaitMSRemaining = (Duration);               \
 			                                                             PostWaitState   = (NextState);        }MACROE
 	#endif
-	
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
+

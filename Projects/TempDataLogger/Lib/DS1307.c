@@ -1,6 +1,6 @@
 /*
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -15,7 +15,7 @@ void DS1307_SetDate(const uint8_t Day,
 	return;
 #endif
 
-	DS1307_DateRegs_t CurrentRTCDate;		
+	DS1307_DateRegs_t CurrentRTCDate;
 	CurrentRTCDate.Byte1.Fields.TenDay   = (Day / 10);
 	CurrentRTCDate.Byte1.Fields.Day      = (Day % 10);
 	CurrentRTCDate.Byte2.Fields.TenMonth = (Month / 10);
@@ -29,7 +29,7 @@ void DS1307_SetDate(const uint8_t Day,
 		TWI_SendByte(CurrentRTCDate.Byte1.IntVal);
 		TWI_SendByte(CurrentRTCDate.Byte2.IntVal);
 		TWI_SendByte(CurrentRTCDate.Byte3.IntVal);
-		
+
 		TWI_StopTransmission();
 	}
 }
@@ -51,18 +51,18 @@ void DS1307_SetTime(const uint8_t Hour,
 	CurrentRTCTime.Byte3.Fields.TenHour = (Hour / 10);
 	CurrentRTCTime.Byte3.Fields.Hour    = (Hour % 10);
 	CurrentRTCTime.Byte3.Fields.TwelveHourMode = false;
-	
+
 	if (TWI_StartTransmission(DS1307_ADDRESS_WRITE, 10))
 	{
 		TWI_SendByte(DS1307_TIMEREG_START);
 		TWI_SendByte(CurrentRTCTime.Byte1.IntVal);
 		TWI_SendByte(CurrentRTCTime.Byte2.IntVal);
 		TWI_SendByte(CurrentRTCTime.Byte3.IntVal);
-		
+
 		TWI_StopTransmission();
 	}
 }
-		
+
 void DS1307_GetDate(uint8_t* const Day,
                     uint8_t* const Month,
                     uint8_t* const Year)
@@ -77,7 +77,7 @@ void DS1307_GetDate(uint8_t* const Day,
 	if (TWI_StartTransmission(DS1307_ADDRESS_WRITE, 10))
 	{
 		TWI_SendByte(DS1307_DATEREG_START);
-		
+
 		TWI_StopTransmission();
 	}
 
@@ -88,7 +88,7 @@ void DS1307_GetDate(uint8_t* const Day,
 		TWI_ReceiveByte(&CurrentRTCDate.Byte1.IntVal, false);
 		TWI_ReceiveByte(&CurrentRTCDate.Byte2.IntVal, false);
 		TWI_ReceiveByte(&CurrentRTCDate.Byte3.IntVal, true);
-		
+
 		TWI_StopTransmission();
 	}
 
@@ -111,10 +111,10 @@ void DS1307_GetTime(uint8_t* const Hour,
 	if (TWI_StartTransmission(DS1307_ADDRESS_WRITE, 10))
 	{
 		TWI_SendByte(DS1307_TIMEREG_START);
-		
+
 		TWI_StopTransmission();
 	}
-	
+
 	DS1307_TimeRegs_t CurrentRTCTime;
 
 	if (TWI_StartTransmission(DS1307_ADDRESS_READ, 10))
@@ -122,7 +122,7 @@ void DS1307_GetTime(uint8_t* const Hour,
 		TWI_ReceiveByte(&CurrentRTCTime.Byte1.IntVal, false);
 		TWI_ReceiveByte(&CurrentRTCTime.Byte2.IntVal, false);
 		TWI_ReceiveByte(&CurrentRTCTime.Byte3.IntVal, true);
-		
+
 		TWI_StopTransmission();
 	}
 
@@ -130,3 +130,4 @@ void DS1307_GetTime(uint8_t* const Hour,
 	*Minute  = (CurrentRTCTime.Byte2.Fields.TenMin  * 10) + CurrentRTCTime.Byte2.Fields.Min;
 	*Hour    = (CurrentRTCTime.Byte3.Fields.TenHour * 10) + CurrentRTCTime.Byte3.Fields.Hour;
 }
+

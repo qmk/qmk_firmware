@@ -10,3 +10,4 @@ void clock_init(void);
 clock_time_t clock_time(void);
 
 #endif /* __CLOCK_ARCH_H__ */
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -50,7 +50,7 @@
  *  \note There are several major drawbacks to the CDC-ACM standard USB class, however
  *        it is very standardized and thus usually available as a built-in driver on
  *        most platforms, and so is a better choice than a proprietary serial class.
- *        
+ *
  *        One major issue with CDC-ACM is that it requires two Interface descriptors,
  *        which will upset most hosts when part of a multi-function "Composite" USB
  *        device, as each interface will be loaded into a separate driver instance. To
@@ -66,7 +66,7 @@
  *
  *  @{
  */
- 
+
 #ifndef _CDC_CLASS_DEVICE_H_
 #define _CDC_CLASS_DEVICE_H_
 
@@ -86,7 +86,7 @@
 		#if !defined(__INCLUDE_FROM_CDC_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/Class/CDC.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** \brief CDC Class Device Mode Configuration and State Structure.
@@ -140,13 +140,13 @@
 						uint8_t  DataBits; /**< Bits of data per character of the virtual serial port. */
 					} LineEncoding;	/** Line encoding used in the virtual serial port, for the device's information. This is generally
 					                 *  only used if the virtual serial port data is to be reconstructed on a physical UART.
-					                 */		
+					                 */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
 				          */
 			} USB_ClassInfo_CDC_Device_t;
-		
-		/* Function Prototypes: */		
+
+		/* Function Prototypes: */
 			/** Configures the endpoints of a given CDC interface, ready for use. This should be linked to the library
 			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration containing
 			 *  the given CDC interface is selected.
@@ -183,7 +183,7 @@
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 */
 			void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** CDC class driver event for a control line state change on a CDC interface. This event fires each time the host requests a
 			 *  control line state change (containing the virtual serial control line states, such as DTR) and may be hooked in the
 			 *  user program by declaring a handler function with the same name and parameters listed here. The new control line states
@@ -205,7 +205,7 @@
 
 			/** Sends a given string to the attached USB host, if connected. If a host is not connected when the function is called, the
 			 *  string is discarded. Bytes will be queued for transmission to the host until either the endpoint bank becomes full, or the
-			 *  \ref CDC_Device_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
+			 *  \ref CDC_Device_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be
 			 *  packed into a single endpoint packet, increasing data throughput.
 			 *
 			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
@@ -220,10 +220,10 @@
 			uint8_t CDC_Device_SendString(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo,
 			                              const char* const Data,
 			                              const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
-			
+
 			/** Sends a given byte to the attached USB host, if connected. If a host is not connected when the function is called, the
 			 *  byte is discarded. Bytes will be queued for transmission to the host until either the endpoint bank becomes full, or the
-			 *  \ref CDC_Device_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
+			 *  \ref CDC_Device_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be
 			 *  packed into a single endpoint packet, increasing data throughput.
 			 *
 			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
@@ -236,7 +236,7 @@
 			 */
 			uint8_t CDC_Device_SendByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo,
 			                            const uint8_t Data) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Determines the number of bytes received by the CDC interface from the host, waiting to be read. This indicates the number
 			 *  of bytes in the OUT endpoint bank only, and thus the number of calls to \ref CDC_Device_ReceiveByte() which are guaranteed to
 			 *  succeed immediately. If multiple bytes are to be received, they should be buffered by the user application, as the endpoint
@@ -250,7 +250,7 @@
 			 *  \return Total number of buffered bytes received from the host.
 			 */
 			uint16_t CDC_Device_BytesReceived(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Reads a byte of data from the host. If no data is waiting to be read of if a USB host is not connected, the function
 			 *  returns a negative value. The \ref CDC_Device_BytesReceived() function may be queried in advance to determine how many
 			 *  bytes are currently buffered in the CDC interface's data receive endpoint bank, and thus how many repeated calls to this
@@ -264,7 +264,7 @@
 			 *  \return Next received byte from the host, or a negative value if no data received.
 			 */
 			int16_t CDC_Device_ReceiveByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Flushes any data waiting to be sent, ensuring that the send buffer is cleared.
 			 *
 			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
@@ -275,10 +275,10 @@
 			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum.
 			 */
 			uint8_t CDC_Device_Flush(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Sends a Serial Control Line State Change notification to the host. This should be called when the virtual serial
 			 *  control lines (DCD, DSR, etc.) have changed states, or to give BREAK notifications to the host. Line states persist
-			 *  until they are cleared via a second notification. This should be called each time the CDC class driver's 
+			 *  until they are cleared via a second notification. This should be called each time the CDC class driver's
 			 *  ControlLineStates.DeviceToHost value is updated to push the new states to the USB host.
 			 *
 			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
@@ -323,7 +323,7 @@
 				                              FILE* Stream) ATTR_NON_NULL_PTR_ARG(2);
 				static int CDC_Device_getchar(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
 				static int CDC_Device_getchar_Blocking(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
-				
+
 				void CDC_Device_Event_Stub(void);
 				void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 				                                          ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Device_Event_Stub);
@@ -335,12 +335,13 @@
 			#endif
 
 	#endif
-	
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

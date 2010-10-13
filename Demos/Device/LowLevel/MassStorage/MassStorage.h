@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -60,14 +60,14 @@
 		#define REQ_GetMaxLUN              0xFE
 
 		/** Maximum length of a SCSI command which can be issued by the device or host in a Mass Storage bulk wrapper. */
-		#define MAX_SCSI_COMMAND_LENGTH    16 
-		
+		#define MAX_SCSI_COMMAND_LENGTH    16
+
 		/** Magic signature for a Command Block Wrapper used in the Mass Storage Bulk-Only transport protocol. */
 		#define CBW_SIGNATURE              0x43425355UL
 
 		/** Magic signature for a Command Status Wrapper used in the Mass Storage Bulk-Only transport protocol. */
 		#define CSW_SIGNATURE              0x53425355UL
-		
+
 		/** Mask for a Command Block Wrapper's flags attribute to specify a command with data sent from host-to-device. */
 		#define COMMAND_DIRECTION_DATA_OUT (0 << 7)
 
@@ -88,7 +88,7 @@
 
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY           LEDS_LED2
-		
+
 	/* Type Defines: */
 		/** Type define for a Command Block Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
 		typedef struct
@@ -101,7 +101,7 @@
 			uint8_t  SCSICommandLength; /**< Length of the issued SCSI command within the SCSI command data array */
 			uint8_t  SCSICommandData[MAX_SCSI_COMMAND_LENGTH]; /**< Issued SCSI command in the Command Block */
 		} CommandBlockWrapper_t;
-		
+
 		/** Type define for a Command Status Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
 		typedef struct
 		{
@@ -110,7 +110,7 @@
 			uint32_t DataTransferResidue; /**< Number of bytes of data not processed in the SCSI command */
 			uint8_t  Status; /**< Status code of the issued command - a value from the MassStorage_CommandStatusCodes_t enum */
 		} CommandStatusWrapper_t;
-		
+
 	/* Enums: */
 		/** Enum for the possible command status wrapper return status codes. */
 		enum MassStorage_CommandStatusCodes_t
@@ -119,16 +119,16 @@
 			Command_Fail = 1, /**< Command failed to complete - host may check the exact error via a SCSI REQUEST SENSE command */
 			Phase_Error  = 2  /**< Command failed due to being invalid in the current phase */
 		};
-		
+
 	/* Global Variables: */
 		extern CommandBlockWrapper_t  CommandBlock;
 		extern CommandStatusWrapper_t CommandStatus;
 		extern volatile bool          IsMassStoreReset;
-		
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void MassStorage_Task(void);
-	
+
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
@@ -142,3 +142,4 @@
 		uint8_t StreamCallback_AbortOnMassStoreReset(void);
 
 #endif
+

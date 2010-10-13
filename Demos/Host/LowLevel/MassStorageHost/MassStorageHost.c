@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -124,7 +124,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
@@ -139,7 +139,7 @@ void MassStorage_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -149,7 +149,7 @@ void MassStorage_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -171,7 +171,7 @@ void MassStorage_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-				
+
 			puts_P(PSTR("Mass Storage Disk Enumerated.\r\n"));
 
 			USB_HostState = HOST_STATE_Configured;
@@ -179,28 +179,28 @@ void MassStorage_Task(void)
 		case HOST_STATE_Configured:
 			/* Indicate device busy via the status LEDs */
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-			
+
 			/* Send the request, display error and wait for device detach if request fails */
 			if ((ErrorCode = MassStore_GetMaxLUN(&MassStore_MaxLUNIndex)) != HOST_SENDCONTROL_Successful)
-			{	
+			{
 				ShowDiskReadError(PSTR("Get Max LUN"), ErrorCode);
 
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Print number of LUNs detected in the attached device */
 			printf_P(PSTR("Total LUNs: %d - Using first LUN in device.\r\n"), (MassStore_MaxLUNIndex + 1));
-			
+
 			/* Reset the Mass Storage device interface, ready for use */
 			if ((ErrorCode = MassStore_MassStorageReset()) != HOST_SENDCONTROL_Successful)
 			{
 				ShowDiskReadError(PSTR("Mass Storage Reset"), ErrorCode);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Get sense data from the device - many devices will not accept any other commands until the sense data
 			 * is read - both on start-up and after a failed command */
 			SCSI_Request_Sense_Response_t SenseData;
@@ -210,12 +210,12 @@ void MassStorage_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Set the prevent removal flag for the device, allowing it to be accessed */
 			if ((ErrorCode = MassStore_PreventAllowMediumRemoval(0, true)) != 0)
 			{
 				ShowDiskReadError(PSTR("Prevent/Allow Medium Removal"), ErrorCode);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
@@ -225,14 +225,14 @@ void MassStorage_Task(void)
 			if ((ErrorCode = MassStore_Inquiry(0, &InquiryData)) != 0)
 			{
 				ShowDiskReadError(PSTR("Inquiry"), ErrorCode);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
 
 			/* Print vendor and product names of attached device */
 			printf_P(PSTR("Vendor \"%.8s\", Product \"%.16s\"\r\n"), InquiryData.VendorID, InquiryData.ProductID);
-						
+
 			/* Wait until disk ready */
 			puts_P(PSTR("Waiting until ready.."));
 
@@ -246,7 +246,7 @@ void MassStorage_Task(void)
 
 				/* Check to see if the attached device is ready for new commands */
 				ErrorCode = MassStore_TestUnitReady(0);
-				  
+
 				/* If attached device is ready, abort the loop */
 				if (!(ErrorCode))
 				  break;
@@ -270,11 +270,11 @@ void MassStorage_Task(void)
 			if ((ErrorCode = MassStore_ReadCapacity(0, &DiskCapacity)) != 0)
 			{
 				ShowDiskReadError(PSTR("Read Capacity"), ErrorCode);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Display the disk capacity in blocks * block size bytes */
 			printf_P(PSTR("%lu blocks of %lu bytes.\r\n"), DiskCapacity.Blocks, DiskCapacity.BlockSize);
 
@@ -285,11 +285,11 @@ void MassStorage_Task(void)
 			if ((ErrorCode = MassStore_ReadDeviceBlock(0, 0x00000000, 1, DiskCapacity.BlockSize, BlockBuffer)) != 0)
 			{
 				ShowDiskReadError(PSTR("Read Device Block"), ErrorCode);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			puts_P(PSTR("\r\nContents of first block:\r\n"));
 
 			/* Print out the first block in both HEX and ASCII, 16 bytes per line */
@@ -297,30 +297,30 @@ void MassStorage_Task(void)
 			{
 				/* Pointer to the start of the current 16-byte chunk in the read block of data */
 				uint8_t* ChunkPtr = &BlockBuffer[Chunk << 4];
-				
+
 				/* Print out the 16 bytes of the chunk in HEX format */
 				for (uint8_t ByteOffset = 0; ByteOffset < (1 << 4); ByteOffset++)
 				{
 					char CurrByte = *(ChunkPtr + ByteOffset);
-				
+
 					printf_P(PSTR("%.2X "), CurrByte);
 				}
-				
+
 				puts_P(PSTR("    "));
 
 				/* Print out the 16 bytes of the chunk in ASCII format */
 				for (uint8_t ByteOffset = 0; ByteOffset < (1 << 4); ByteOffset++)
 				{
 					char CurrByte = *(ChunkPtr + ByteOffset);
-				
+
 					putchar(isprint(CurrByte) ? CurrByte : '.');
 				}
-				
+
 				puts_P(PSTR("\r\n"));
 			}
-			
+
 			puts_P(PSTR("\r\n\r\nPress board button to read entire ASCII contents of disk...\r\n\r\n"));
-			
+
 			/* Wait for the board button to be pressed */
 			while (!(Buttons_GetStatus() & BUTTONS_BUTTON1))
 			{
@@ -332,7 +332,7 @@ void MassStorage_Task(void)
 			/* Abort if device removed */
 			if (USB_HostState == HOST_STATE_Unattached)
 			  break;
-			
+
 			/* Print out the entire disk contents in ASCII format */
 			for (uint32_t CurrBlockAddress = 0; CurrBlockAddress < DiskCapacity.Blocks; CurrBlockAddress++)
 			{
@@ -340,7 +340,7 @@ void MassStorage_Task(void)
 				if ((ErrorCode = MassStore_ReadDeviceBlock(0, CurrBlockAddress, 1, DiskCapacity.BlockSize, BlockBuffer)) != 0)
 				{
 					ShowDiskReadError(PSTR("Read Device Block"), ErrorCode);
-					
+
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
@@ -349,7 +349,7 @@ void MassStorage_Task(void)
 				for (uint16_t Byte = 0; Byte < DiskCapacity.BlockSize; Byte++)
 				{
 					char CurrByte = BlockBuffer[Byte];
-					
+
 					putchar(isprint(CurrByte) ? CurrByte : '.');
 				}
 
@@ -357,10 +357,10 @@ void MassStorage_Task(void)
 				if (USB_HostState == HOST_STATE_Unattached)
 				  break;
 			}
-			
+
 			/* Indicate device no longer busy */
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
-			
+
 			/* Wait until USB device disconnected */
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			break;
@@ -386,7 +386,7 @@ void ShowDiskReadError(char* CommandString,
 	{
 		/* Display the error code */
 		printf_P(PSTR(ESC_FG_RED "Command error (%S).\r\n"), CommandString);
-		printf_P(PSTR("  -- Error Code: %d" ESC_FG_WHITE), ErrorCode);	
+		printf_P(PSTR("  -- Error Code: %d" ESC_FG_WHITE), ErrorCode);
 	}
 
 	Pipe_Freeze();
@@ -394,3 +394,4 @@ void ShowDiskReadError(char* CommandString,
 	/* Indicate device error via the status LEDs */
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
+

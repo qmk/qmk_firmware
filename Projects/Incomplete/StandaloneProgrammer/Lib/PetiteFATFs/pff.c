@@ -400,7 +400,7 @@ FRESULT follow_path (	/* FR_OK(0): successful, !=0: error code */
 			}
 			dj->sclust =
 #if _FS_FAT32
-				((DWORD)LD_WORD(dir+DIR_FstClusHI) << 16) | 
+				((DWORD)LD_WORD(dir+DIR_FstClusHI) << 16) |
 #endif
 				LD_WORD(dir+DIR_FstClusLO);
 		}

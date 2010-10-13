@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -52,7 +52,7 @@
 #define __DATAFLASH_STK525_H__
 
 	/* Includes: */
-		#include "AT45DB321C.h"		
+		#include "AT45DB321C.h"
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_DATAFLASH_H)
@@ -77,7 +77,7 @@
 
 			/** Mask for the first dataflash chip selected. */
 			#define DATAFLASH_CHIP1                      0
-			
+
 			/** Internal main memory page size for the board's dataflash IC. */
 			#define DATAFLASH_PAGE_SIZE                  512
 
@@ -135,20 +135,20 @@
 			static inline void Dataflash_SelectChipFromPage(const uint16_t PageAddress)
 			{
 				Dataflash_DeselectChip();
-				
+
 				if (PageAddress >= DATAFLASH_PAGES)
 				  return;
 
 				Dataflash_SelectChip(DATAFLASH_CHIP1);
 			}
-			
+
 			/** Toggles the select line of the currently selected dataflash IC, so that it is ready to receive
 			 *  a new command.
 			 */
 			static inline void Dataflash_ToggleSelectedChipCS(void)
 			{
 				uint8_t SelectedChipMask = Dataflash_GetSelectedChip();
-					
+
 				Dataflash_DeselectChip();
 				Dataflash_SelectChip(SelectedChipMask);
 			}
@@ -161,7 +161,7 @@
 				Dataflash_ToggleSelectedChipCS();
 				Dataflash_SendByte(DF_CMD_GETSTATUS);
 				while (!(Dataflash_ReceiveByte() & DF_STATUS_READY));
-				Dataflash_ToggleSelectedChipCS();				
+				Dataflash_ToggleSelectedChipCS();
 			}
 
 			/** Sends a set of page and buffer address bytes to the currently selected dataflash IC, for use with
@@ -172,12 +172,13 @@
 			 */
 			static inline void Dataflash_SendAddressBytes(uint16_t PageAddress,
 			                                              const uint16_t BufferByte)
-			{	
+			{
 				Dataflash_SendByte(PageAddress >> 6);
 				Dataflash_SendByte((PageAddress << 2) | (BufferByte >> 8));
 				Dataflash_SendByte(BufferByte);
 			}
-			
+
 #endif
 
 /** @} */
+

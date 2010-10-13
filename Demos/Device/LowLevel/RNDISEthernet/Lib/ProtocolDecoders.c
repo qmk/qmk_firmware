@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -31,7 +31,7 @@
 /* Protocol decoders for Ethernet, TCP, IP, ICMP and ARP. Each of these routines
    accepts a header to the appropriate protocol and prints out pertinent information
    on the packet through the serial port.
-   
+
    To disable printing of a specific protocol, define the token NO_DECODE_{Protocol}
    in the project makefile, and pass it to the compiler using the -D switch.
 */
@@ -46,7 +46,7 @@
  *  Packet decoding routines can be disabled by defining NO_DECODE_{Protocol Name} in the project makefile
  *  and passing it to the compiler via the -D switch.
  */
- 
+
 #include "ProtocolDecoders.h"
 
 /** Decodes an Ethernet frame header and prints its contents to through the USART in a human readable format.
@@ -57,9 +57,9 @@ void DecodeEthernetFrameHeader(void* InDataStart)
 {
 	#if !defined(NO_DECODE_ETHERNET)
 	Ethernet_Frame_Header_t* FrameHeader = (Ethernet_Frame_Header_t*)InDataStart;
-	
+
 	printf_P(PSTR("\r\n"));
-	
+
 	printf_P(PSTR("  ETHERNET\r\n"));
 	printf_P(PSTR("  + Frame Size: %u\r\n"), FrameIN.FrameLength);
 
@@ -98,7 +98,7 @@ void DecodeEthernetFrameHeader(void* InDataStart)
 void DecodeARPHeader(void* InDataStart)
 {
 	#if !defined(NO_DECODE_ARP)
-	ARP_Header_t* ARPHeader = (ARP_Header_t*)InDataStart;	
+	ARP_Header_t* ARPHeader = (ARP_Header_t*)InDataStart;
 
 	printf_P(PSTR("   \\\r\n    ARP\r\n"));
 
@@ -106,12 +106,12 @@ void DecodeARPHeader(void* InDataStart)
 	    !(MAC_COMPARE(&ARPHeader->THA, &ServerMACAddress)))
 	{
 		printf_P(PSTR("    + NOT ADDRESSED TO DEVICE\r\n"));
-		return;		
+		return;
 	}
 
 	printf_P(PSTR("    + Protocol: %x\r\n"), SwapEndian_16(ARPHeader->ProtocolType));
 	printf_P(PSTR("    + Operation: %u\r\n"), SwapEndian_16(ARPHeader->Operation));
-	
+
 	if (SwapEndian_16(ARPHeader->ProtocolType) == ETHERTYPE_IPV4)
 	{
 		printf_P(PSTR("    + SHA MAC: %02X:%02X:%02X:%02X:%02X:%02X\r\n"), ARPHeader->SHA.Octets[0],
@@ -163,14 +163,14 @@ void DecodeIPHeader(void* InDataStart)
 	printf_P(PSTR("    + Header Length: %u Bytes\r\n"), HeaderLengthBytes);
 	printf_P(PSTR("    + Packet Version: %u\r\n"), IPHeader->Version);
 	printf_P(PSTR("    + Total Length: %u\r\n"), SwapEndian_16(IPHeader->TotalLength));
-	
+
 	printf_P(PSTR("    + Protocol: %u\r\n"), IPHeader->Protocol);
 	printf_P(PSTR("    + TTL: %u\r\n"), IPHeader->TTL);
-	
+
 	printf_P(PSTR("    + IP Src: %u.%u.%u.%u\r\n"), IPHeader->SourceAddress.Octets[0],
 	                                                IPHeader->SourceAddress.Octets[1],
 	                                                IPHeader->SourceAddress.Octets[2],
-	                                                IPHeader->SourceAddress.Octets[3]);	
+	                                                IPHeader->SourceAddress.Octets[3]);
 
 	printf_P(PSTR("    + IP Dst: %u.%u.%u.%u\r\n"), IPHeader->DestinationAddress.Octets[0],
 	                                                IPHeader->DestinationAddress.Octets[1],
@@ -215,9 +215,9 @@ void DecodeTCPHeader(void* InDataStart)
 
 	printf_P(PSTR("     + Sequence Number: %lu\r\n"), SwapEndian_32(TCPHeader->SequenceNumber));
 	printf_P(PSTR("     + Acknowledgment Number: %lu\r\n"), SwapEndian_32(TCPHeader->AcknowledgmentNumber));
-	
+
 	printf_P(PSTR("     + Flags: 0x%02X\r\n"), TCPHeader->Flags);
-	
+
 	if (TCP_GetPortState(TCPHeader->DestinationPort) == TCP_Port_Closed)
 	  printf_P(PSTR("     + NOT LISTENING ON DESTINATION PORT\r\n"));
 	#endif
@@ -272,8 +272,9 @@ void DecodeDHCPHeader(void* InDataStart)
 					break;
 			}
 		}
-		
+
 		DHCPOptions += ((DHCPOptions[0] == DHCP_OPTION_PAD) ? 1 : (DHCPOptions[1] + 2));
 	}
 	#endif
 }
+

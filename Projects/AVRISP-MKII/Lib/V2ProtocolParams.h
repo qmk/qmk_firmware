@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -45,7 +45,7 @@
 		#if defined(ADC)
 			#include <LUFA/Drivers/Peripheral/ADC.h>
 		#endif
-		
+
 		#include "V2Protocol.h"
 		#include "V2ProtocolConstants.h"
 		#include "ISP/ISPTarget.h"
@@ -56,7 +56,7 @@
 
 		/** Parameter privilege mask to allow the host PC to change the parameter's value. */
 		#define PARAM_PRIV_WRITE    (1 << 1)
-		
+
 		/** Total number of parameters in the parameter table */
 		#define TABLE_PARAM_COUNT   (sizeof(ParameterTable) / sizeof(ParameterTable[0]))
 
@@ -72,12 +72,12 @@
 	/* Function Prototypes: */
 		void    V2Params_LoadNonVolatileParamValues(void);
 		void    V2Params_UpdateParamValues(void);
-	
+
 		uint8_t V2Params_GetParameterPrivileges(const uint8_t ParamID);
 		uint8_t V2Params_GetParameterValue(const uint8_t ParamID);
 		void    V2Params_SetParameterValue(const uint8_t ParamID,
 		                                   const uint8_t Value);
-		
+
 		#if defined(INCLUDE_FROM_V2PROTOCOL_PARAMS_C)
 			static ParameterItem_t* V2Params_GetParamFromTable(const uint8_t ParamID);
 		#endif

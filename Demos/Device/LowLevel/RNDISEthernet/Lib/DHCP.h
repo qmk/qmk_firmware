@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,14 +32,14 @@
  *
  *  Header file for DHCP.c.
  */
- 
+
 #ifndef _DHCP_H_
 #define _DHCP_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <string.h>
-	
+
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"
 		#include "ProtocolDecoders.h"
@@ -50,13 +50,13 @@
 
 		/** DHCP operation constant, indicating a reply from a DHCP server to a host. */
 		#define DHCP_OP_BOOTREPLY         0x02
-		
+
 		/** Hardware type constant, indicating Ethernet as a carrier. */
 		#define DHCP_HTYPE_ETHERNET       0x01
-		
+
 		/** Magic boot protocol "cookie", inserted into all BOOTP packets (BOOTP is the carrier of DHCP). */
 		#define DHCP_MAGIC_COOKIE         0x63825363
-		
+
 		/** DHCP option list entry header, indicating that a subnet mask will follow. */
 		#define DHCP_OPTION_SUBNETMASK    1
 
@@ -71,7 +71,7 @@
 
 		/** DHCP option list entry header, indicating the end of option data. */
 		#define DHCP_OPTION_END           255
-			
+
 		/** Message type constant, used in the DHCP option data field, requesting that a DHCP server offer an IP address. */
 		#define DHCP_MESSAGETYPE_DISCOVER 1
 
@@ -106,16 +106,16 @@
 
 			uint16_t ElapsedSeconds; /**< Elapsed seconds since the request was made */
 			uint16_t Flags; /**< BOOTP packet flags */
-			
+
 			IP_Address_t ClientIP; /**< Client IP address, if already leased an IP */
 			IP_Address_t YourIP; /**< Client IP address */
 			IP_Address_t NextServerIP; /**< Legacy BOOTP protocol field, unused for DHCP */
 			IP_Address_t RelayAgentIP; /**< Legacy BOOTP protocol field, unused for DHCP */
-			
+
 			uint8_t ClientHardwareAddress[16]; /**< Hardware (MAC) address of the client making a request to the DHCP server */
 			uint8_t ServerHostnameString[64]; /**< Legacy BOOTP protocol field, unused for DHCP */
 			uint8_t BootFileName[128]; /**< Legacy BOOTP protocol field, unused for DHCP */
-			
+
 			uint32_t Cookie; /**< Magic BOOTP protocol cookie to indicate a valid packet */
 		} DHCP_Header_t;
 
@@ -125,3 +125,4 @@
 		                               void* DHCPHeaderOutStart);
 
 #endif
+

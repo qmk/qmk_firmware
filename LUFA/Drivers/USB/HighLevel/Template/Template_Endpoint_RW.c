@@ -4,7 +4,7 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 {
 	uint8_t* DataStream = ((uint8_t*)Buffer + TEMPLATE_BUFFER_OFFSET(Length));
 	uint8_t  ErrorCode;
-	
+
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
 
@@ -34,7 +34,7 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 					}
 
 					Length -= 8;
-					
+
 					TEMPLATE_TRANSFER_BYTE(DataStream);
 			case 7: TEMPLATE_TRANSFER_BYTE(DataStream);
 			case 6: TEMPLATE_TRANSFER_BYTE(DataStream);
@@ -43,7 +43,7 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 			case 3: TEMPLATE_TRANSFER_BYTE(DataStream);
 			case 2: TEMPLATE_TRANSFER_BYTE(DataStream);
 			case 1:	TEMPLATE_TRANSFER_BYTE(DataStream);
-				} while (Length >= 8);	
+				} while (Length >= 8);
 		}
 	}
 	#endif

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -35,7 +35,7 @@
  *  TELNET Webserver Application. When connected to the uIP stack,
  *  this will serve out raw TELNET to the client on port 23.
  */
- 
+
 #define  INCLUDE_FROM_TELNETSERVERAPP_C
 #include "TELNETServerApp.h"
 
@@ -50,7 +50,7 @@ const char PROGMEM TELNETMenu[] = "\r\n"
                                   "     c) List Active TCP Connections\r\n"
                                   "  =========================\r\n"
                                   "\r\n>";
-								  
+
 /** Header to print before the current connections are printed to the client */
 const char PROGMEM CurrentConnectionsHeader[] = "\r\n* Current TCP Connections: *\r\n";
 
@@ -78,7 +78,7 @@ void TELNETServerApp_Callback(void)
 	if (uip_acked())
 	{
 		/* Progress to the next state once the current state's data has been ACKed */
-		AppState->TELNETServer.CurrentState = AppState->TELNETServer.NextState;	
+		AppState->TELNETServer.CurrentState = AppState->TELNETServer.NextState;
 	}
 
 	if (uip_rexmit() || uip_acked() || uip_newdata() || uip_connected() || uip_poll())
@@ -89,14 +89,14 @@ void TELNETServerApp_Callback(void)
 				/* Copy over and send the TELNET welcome message upon first connection */
 				strcpy_P(AppData, WelcomeHeader);
 				uip_send(AppData, strlen(AppData));
-				
+
 				AppState->TELNETServer.NextState = TELNET_STATE_SendMenu;
 				break;
 			case TELNET_STATE_SendMenu:
 				/* Copy over and send the TELNET menu to the client */
 				strcpy_P(AppData, TELNETMenu);
 				uip_send(AppData, strlen(AppData));
-				
+
 				AppState->TELNETServer.NextState = TELNET_STATE_GetCommand;
 				break;
 			case TELNET_STATE_GetCommand:
@@ -105,7 +105,7 @@ void TELNETServerApp_Callback(void)
 
 				/* Save the issued command for later processing */
 				AppState->TELNETServer.IssuedCommand = AppData[0];
- 
+
 				AppState->TELNETServer.CurrentState  = TELNET_STATE_SendResponse;
 				break;
 			case TELNET_STATE_SendResponse:
@@ -124,7 +124,7 @@ void TELNETServerApp_Callback(void)
 				AppState->TELNETServer.NextState = TELNET_STATE_SendMenu;
 				break;
 		}
-	}		
+	}
 }
 
 /** Sends a list of active TCP connections to the TELNET client. */
@@ -133,7 +133,7 @@ static void TELNETServerApp_DisplayTCPConnections(void)
 	char* const AppData    = (char*)uip_appdata;
 
 	strcpy_P(AppData, CurrentConnectionsHeader);
-							
+
 	uint16_t ResponseLen     = strlen(AppData);
 	uint8_t  ActiveConnCount = 0;
 
@@ -141,7 +141,7 @@ static void TELNETServerApp_DisplayTCPConnections(void)
 	for (uint8_t i = 0; i < UIP_CONNS; i++)
 	{
 		struct uip_conn* CurrConnection = &uip_conns[i];
-		
+
 		/* If the connection is not closed, it is active and must be added to the out buffer */
 		if (CurrConnection->tcpstateflags != UIP_CLOSED)
 		{
@@ -160,3 +160,4 @@ static void TELNETServerApp_DisplayTCPConnections(void)
 }
 
 #endif
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -63,7 +63,7 @@
 		#define ETHERTYPE_FIBRECHANNEL           0x8906
 		#define ETHERTYPE_QINQ                   0x9100
 		#define ETHERTYPE_VLLT                   0xCAFE
-		
+
 		#define PROTOCOL_ICMP                    1
 		#define PROTOCOL_IGMP                    2
 		#define PROTOCOL_TCP                     6
@@ -71,7 +71,7 @@
 		#define PROTOCOL_OSPF                    89
 		#define PROTOCOL_SCTP                    132
 
-	/* Type Defines: */		
+	/* Type Defines: */
 		/** Type define for a protocol IP address of a device on a network. */
 		typedef struct
 		{
@@ -79,3 +79,4 @@
 		} IP_Address_t;
 
 #endif
+

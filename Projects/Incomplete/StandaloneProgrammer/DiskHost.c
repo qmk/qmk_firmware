@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -41,7 +41,7 @@ USB_ClassInfo_MS_Host_t DiskHost_MS_Interface =
 			{
 				.DataINPipeNumber       = 1,
 				.DataINPipeDoubleBank   = false,
-				
+
 				.DataOUTPipeNumber      = 2,
 				.DataOUTPipeDoubleBank  = false,
 			},
@@ -52,7 +52,7 @@ void DiskHost_USBTask(void)
 	if (USB_HostState == HOST_STATE_Addressed)
 	{
 		LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-	
+
 		uint16_t ConfigDescriptorSize;
 		uint8_t  ConfigDescriptorData[512];
 
@@ -71,14 +71,14 @@ void DiskHost_USBTask(void)
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			return;
 		}
-		
+
 		if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 		{
 			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			return;
 		}
-		
+
 		uint8_t MaxLUNIndex;
 		if (MS_Host_GetMaxLUN(&DiskHost_MS_Interface, &MaxLUNIndex))
 		{
@@ -86,17 +86,17 @@ void DiskHost_USBTask(void)
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			return;
 		}
-		
+
 		if (MS_Host_ResetMSInterface(&DiskHost_MS_Interface))
 		{
 			LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			return;
 		}
-		
+
 		USB_HostState = HOST_STATE_Configured;
-		
-		/* Note: For the RequestSense call to work, the host state machine must be in the 
+
+		/* Note: For the RequestSense call to work, the host state machine must be in the
 		 *       Configured state, or the call will be aborted */
 		SCSI_Request_Sense_Response_t SenseData;
 		if (MS_Host_RequestSense(&DiskHost_MS_Interface, 0, &SenseData) != 0)
@@ -105,13 +105,13 @@ void DiskHost_USBTask(void)
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			return;
 		}
-		
+
 		pf_mount(&DiskFATState);
-		
+
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
 
-	MS_Host_USBTask(&DiskHost_MS_Interface);		
+	MS_Host_USBTask(&DiskHost_MS_Interface);
 }
 
 void EVENT_USB_Host_DeviceAttached(void)
@@ -125,3 +125,4 @@ void EVENT_USB_Host_DeviceUnattached(void)
 }
 
 #endif
+

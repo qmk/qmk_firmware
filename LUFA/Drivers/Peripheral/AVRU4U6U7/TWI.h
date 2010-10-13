@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -53,12 +53,12 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
-		
+
 		#include <avr/io.h>
 		#include <stdbool.h>
 		#include <util/twi.h>
 		#include <util/delay.h>
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -79,10 +79,10 @@
 			{
 				TWCR |=  (1 << TWEN);
 			}
-			
+
 			/** Turns off the TWI driver hardware. If this is called, any further TWI operations will require a call to
 			 *  \ref TWI_Init() before the TWI can be used again.
-			 */				
+			 */
 			static inline void TWI_ShutDown(void) ATTR_ALWAYS_INLINE;
 			static inline void TWI_ShutDown(void)
 			{
@@ -105,7 +105,7 @@
 			static inline bool TWI_SendByte(const uint8_t Byte)
 			{
 				TWDR = Byte;
-				TWCR = ((1 << TWINT) | (1 << TWEN));	
+				TWCR = ((1 << TWINT) | (1 << TWEN));
 				while (!(TWCR & (1 << TWINT)));
 
 				return ((TWSR & TW_STATUS_MASK) == TW_MT_DATA_ACK);
@@ -122,7 +122,7 @@
 			                                   const bool LastByte)
 			{
 				uint8_t TWCRMask = ((1 << TWINT) | (1 << TWEN));
-				
+
 				if (!(LastByte))
 				  TWCRMask |= (1 << TWEA);
 
@@ -152,3 +152,4 @@
 #endif
 
 /** @} */
+

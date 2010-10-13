@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -57,9 +57,9 @@
 		#include "../../USB.h"
 		#include "RNDISConstants.h"
 		#include "CDC.h"
-		
+
 		#include <string.h>
-	
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -69,20 +69,20 @@
 		#if !defined(__INCLUDE_FROM_RNDIS_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/Class/RNDIS.h instead.
 		#endif
-		
+
 	/* Macros: */
 		/** Implemented RNDIS Version Major. */
 		#define REMOTE_NDIS_VERSION_MAJOR             0x01
 
 		/** Implemented RNDIS Version Minor. */
 		#define REMOTE_NDIS_VERSION_MINOR             0x00
-			
+
 		/** Maximum size in bytes of a RNDIS control message which can be sent or received. */
 		#define RNDIS_MESSAGE_BUFFER_SIZE             128
 
 		/** Maximum size in bytes of an Ethernet frame according to the Ethernet standard. */
 		#define ETHERNET_FRAME_SIZE_MAX               1500
-		
+
 	/* Enums: */
 		/** Enum for the RNDIS class specific control requests that can be issued by the USB bus host. */
 		enum RNDIS_ClassRequests_t
@@ -90,7 +90,7 @@
 			RNDIS_REQ_SendEncapsulatedCommand = 0x00, /**< RNDIS request to issue a host-to-device NDIS command. */
 			RNDIS_REQ_GetEncapsulatedResponse = 0x01, /**< RNDIS request to issue a device-to-host NDIS response. */
 		};
-		
+
 		/** Enum for the possible NDIS adapter states. */
 		enum RNDIS_States_t
 		{
@@ -114,7 +114,7 @@
 			NDIS_HardwareStatus_Closing, /**< Hardware currently closing. */
 			NDIS_HardwareStatus_NotReady /**< Hardware not ready to accept commands from the host. */
 		};
-		
+
 	/* Type Defines: */
 		/** \brief MAC Address Structure.
 		 *
@@ -174,12 +174,12 @@
 			uint32_t MessageType;
 			uint32_t MessageLength;
 			uint32_t RequestId;
-			
+
 			uint32_t MajorVersion;
 			uint32_t MinorVersion;
 			uint32_t MaxTransferSize;
 		} RNDIS_Initialize_Message_t;
-		
+
 		/** \brief RNDIS Initialize Complete Message Structure.
 		 *
 		 *  Type define for a RNDIS Initialize Complete response message.
@@ -190,7 +190,7 @@
 			uint32_t MessageLength;
 			uint32_t RequestId;
 			uint32_t Status;
-			
+
 			uint32_t MajorVersion;
 			uint32_t MinorVersion;
 			uint32_t DeviceFlags;
@@ -201,7 +201,7 @@
 			uint32_t AFListOffset;
 			uint32_t AFListSize;
 		} RNDIS_Initialize_Complete_t;
-		
+
 		/** \brief RNDIS Keep Alive Message Structure.
 		 *
 		 *  Type define for a RNDIS Keep Alive command message.
@@ -237,7 +237,7 @@
 
 			uint32_t AddressingReset;
 		} RNDIS_Reset_Complete_t;
-		
+
 		/** \brief RNDIS OID Property Set Message Structure.
 		 *
 		 *  Type define for a RNDIS OID Property Set command message.
@@ -247,7 +247,7 @@
 			uint32_t MessageType;
 			uint32_t MessageLength;
 			uint32_t RequestId;
-			
+
 			uint32_t Oid;
 			uint32_t InformationBufferLength;
 			uint32_t InformationBufferOffset;
@@ -265,7 +265,7 @@
 			uint32_t RequestId;
 			uint32_t Status;
 		} RNDIS_Set_Complete_t;
-		
+
 		/** \brief RNDIS OID Property Query Message Structure.
 		 *
 		 *  Type define for a RNDIS OID Property Query command message.
@@ -275,13 +275,13 @@
 			uint32_t MessageType;
 			uint32_t MessageLength;
 			uint32_t RequestId;
-			
+
 			uint32_t Oid;
 			uint32_t InformationBufferLength;
 			uint32_t InformationBufferOffset;
 			uint32_t DeviceVcHandle;
 		} RNDIS_Query_Message_t;
-		
+
 		/** \brief RNDIS OID Property Query Complete Message Structure.
 		 *
 		 *  Type define for a RNDIS OID Property Query Complete response message.
@@ -292,16 +292,17 @@
 			uint32_t MessageLength;
 			uint32_t RequestId;
 			uint32_t Status;
-			
+
 			uint32_t InformationBufferLength;
 			uint32_t InformationBufferOffset;
 		} RNDIS_Query_Complete_t;
-				
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

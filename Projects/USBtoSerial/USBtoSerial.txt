@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage USB to Serial Converter Project
  *
  *  \section SSec_Compat Project Compatibility:
@@ -28,7 +28,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Communications Device Class (CDC)</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>Abstract Control Model (ACM)</td>
  *   </tr>
@@ -42,7 +42,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  USB to Serial bridge project. This project allows a USB AVR to serve
  *  as a USB to USART bridge between a USB host and a device lacking a
@@ -54,7 +54,7 @@
  *  limitations, some options may not be supported (baud rates with unacceptable
  *  error rates at the AVR's clock speed, data lengths other than 6, 7 or 8 bits,
  *  1.5 stop bits, parity other than none, even or odd).
- *  
+ *
  *  After running this project for the first time on a new computer,
  *  you will need to supply the .INF file located in this project
  *  project's directory as the device's driver when running under
@@ -80,3 +80,4 @@
  *   </tr>
  *  </table>
  */
+

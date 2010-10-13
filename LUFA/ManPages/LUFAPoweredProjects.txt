@@ -28,7 +28,7 @@
  *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
  *  - U2DIL/U4DIL, a set of DIP layout USB AVR boards: http://www.reworld.eu/re/en/products/u2dil/
  *  - USBFOO 2, AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102
- * 
+ *
  *  \section Sec_LUFAProjects Projects Using LUFA (Hobbyist)
  *
  *  The following are known hobbyist projects using LUFA. Most are open source, and show off interesting ways that the LUFA library
@@ -70,7 +70,7 @@
  *  - USB Interface for Playstation Portable Devices: http://forums.ps2dev.org/viewtopic.php?t=11001
  *  - Userial, a USB to Serial converter with SPI, I2C and other protocols: http://www.tty1.net/userial/
  *  - XUM1541, a Commodore 64 floppy drive to USB adapter: http://www.root.org/~nate/c64/xum1541/
- * 
+ *
  *  \section Sec_LUFACommercialProjects Projects Using LUFA (Commercial)
  *
  *  The following is a list of known commercial products using LUFA. Some of these are open source, although many are "black-box"

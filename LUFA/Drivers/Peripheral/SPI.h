@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -64,7 +64,7 @@
 		/* Macros: */
 			#define SPI_USE_DOUBLESPEED            (1 << SPE)
 	#endif
-	
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** SPI prescaler mask for SPI_Init(). Divides the system clock by a factor of 2. */
@@ -87,7 +87,7 @@
 
 			/** SPI prescaler mask for SPI_Init(). Divides the system clock by a factor of 128. */
 			#define SPI_SPEED_FCPU_DIV_128         ((1 << SPR1) | (1 << SPR0))
-			
+
 			/** SPI clock polarity mask for SPI_Init(). Indicates that the SCK should lead on the rising edge. */
 			#define SPI_SCK_LEAD_RISING            (0 << CPOL)
 
@@ -124,25 +124,25 @@
 				DDRB  |= ((1 << 1) | (1 << 2));
 				DDRB  &= ((1 << 0) | (1 << 3));
 				PORTB |= ((1 << 0) | (1 << 3));
-				
+
 				SPCR   = ((1 << SPE) | SPIOptions);
-				
+
 				if (SPIOptions & SPI_USE_DOUBLESPEED)
 				  SPSR |= (1 << SPI2X);
 				else
 				  SPSR &= ~(1 << SPI2X);
 			}
-			
+
 			/** Turns off the SPI driver, disabling and returning used hardware to their default configuration. */
 			static inline void SPI_ShutDown(void)
 			{
 				DDRB  &= ~((1 << 1) | (1 << 2));
 				PORTB &= ~((1 << 0) | (1 << 3));
-				
+
 				SPCR   = 0;
 				SPSR   = 0;
 			}
-			
+
 			/** Sends and receives a byte through the SPI interface, blocking until the transfer is complete.
 			 *
 			 *  \param[in] Byte  Byte to send through the SPI interface.
@@ -186,7 +186,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

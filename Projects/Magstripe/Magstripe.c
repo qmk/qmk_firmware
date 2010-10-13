@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -10,13 +10,13 @@
   Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -28,13 +28,13 @@
   arising out of or in connection with the use or performance of
   this software.
 */
- 
+
 /** \file
  *
  *  Main source file for the MagStripe reader program. This file contains the main tasks of
  *  the project and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "Magstripe.h"
 
 /** Bit buffers to hold the read bits for each of the three magnetic card tracks before they are transmitted
@@ -73,10 +73,10 @@ USB_ClassInfo_HID_Device_t Keyboard_HID_Interface =
 int main(void)
 {
 	SetupHardware();
-	
+
 	for (uint8_t Buffer = 0; Buffer < TOTAL_TRACKS; Buffer++)
 	  BitBuffer_Init(&TrackDataBuffers[Buffer]);
-	  
+
 	sei();
 
 	for (;;)
@@ -113,7 +113,7 @@ void ReadMagstripeData(void)
 	const struct
 	{
 		uint8_t ClockMask;
-		uint8_t DataMask;	
+		uint8_t DataMask;
 	} TrackInfo[] = {{MAG_T1_CLOCK, MAG_T1_DATA},
 	                 {MAG_T2_CLOCK, MAG_T2_DATA},
 	                 {MAG_T3_CLOCK, MAG_T3_DATA}};
@@ -128,7 +128,7 @@ void ReadMagstripeData(void)
 			bool DataPinLevel      = ((Magstripe_LCL & TrackInfo[Track].DataMask) != 0);
 			bool ClockPinLevel     = ((Magstripe_LCL & TrackInfo[Track].ClockMask) != 0);
 			bool ClockLevelChanged = (((Magstripe_LCL ^ Magstripe_Prev) & TrackInfo[Track].ClockMask) != 0);
-		
+
 			/* Sample data on rising clock edges from the card reader */
 			if (ClockPinLevel && ClockLevelChanged)
 			  BitBuffer_StoreNextBit(&TrackDataBuffers[Track], DataPinLevel);
@@ -137,7 +137,7 @@ void ReadMagstripeData(void)
 		Magstripe_Prev = Magstripe_LCL;
 		Magstripe_LCL  = Magstripe_GetStatus();
 	}
-	
+
 	CurrentTrackBuffer = &TrackDataBuffers[0];
 }
 
@@ -200,7 +200,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 		/* Still data in the current track; convert next bit to a 1 or 0 keypress */
 		KeyboardReport->KeyCode[0] = BitBuffer_GetNextBit(CurrentTrackBuffer) ? KEY_1 : KEY_0;
 	}
-	
+
 	*ReportSize = sizeof(USB_KeyboardReport_Data_t);
 	return false;
 }
@@ -221,3 +221,4 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 {
 	// Unused (but mandatory for the HID class driver) in this demo, since there are no Host->Device reports
 }
+

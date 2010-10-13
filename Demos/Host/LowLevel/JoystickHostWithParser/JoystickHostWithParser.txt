@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage Joystick Host With HID Descriptor Parser Demo
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -25,7 +25,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Human Interface Device (HID)</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>N/A</td>
  *   </tr>
@@ -41,19 +41,19 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Joystick host demonstration application. This gives a simple reference
  *  application for implementing a USB Joystick host, for USB joysticks using
  *  the standard joystick HID profile. It uses a HID parser for the HID
  *  reports, allowing for correct operation across all USB joysticks. This
  *  demo supports joysticks with a single HID report.
- *  
+ *
  *  Joystick movement and button presses are displayed on the board LEDs.
  *  On connection to a USB joystick, the report items will be processed and
  *  printed as a formatted list through the USART before the joystick is
  *  fully enumerated.
- *  
+ *
  *  Currently only single interface joysticks are supported.
  *
  *  \section SSec_Options Project Options
@@ -68,3 +68,4 @@
  *   </tr>
  *  </table>
  */
+

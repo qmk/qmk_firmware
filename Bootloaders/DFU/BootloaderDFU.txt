@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage DFU Class USB AVR Bootloader
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -28,7 +28,7 @@
  *   <td><b>USB Class:</b></td>
  *   <td>Device Firmware Update Class (DFU)</td>
  *  </tr>
- *  <tr> 
+ *  <tr>
  *   <td><b>USB Subclass:</b></td>
  *   <td>None</td>
  *  </tr>
@@ -42,29 +42,29 @@
  *  </tr>
  * </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  This bootloader enumerates to the host as a DFU Class device, allowing for DFU-compatible programming
  *  software to load firmware onto the AVR.
- *  
+ *
  *  This bootloader is compatible with Atmel's FLIP application. However, it requires the use of Atmel's
  *  DFU drivers. You will need to install Atmel's DFU drivers prior to using this bootloader. If you are
  *  using a 64 bit Windows OS, you will need to either disable the driver signing requirement (see online
  *  tutorials for details) or use a digitally signed version of the official Atmel driver provided by a
  *  third party AVR user at
  *  <a>http://www.avrfreaks.net/index.php?module=Freaks%20Academy&func=viewItem&item_id=2196&item_type=project</a>.
- *  
+ *
  *  As an open-source option, this bootloader is also compatible with the Linux Atmel USB DFU Programmer
  *  software, available for download at <a>http://sourceforge.net/projects/dfu-programmer/</a>.
- *  
+ *
  *  If SECURE_MODE is defined as true, upon start-up the bootloader will be locked, with only the chip erase
- *  function available (similar to Atmel's DFU bootloader). If SECURE_MODE is defined as false, all functions 
+ *  function available (similar to Atmel's DFU bootloader). If SECURE_MODE is defined as false, all functions
  *  are usable on start-up without the prerequisite firmware erase.
- *  
+ *
  *  Out of the box this bootloader builds for the USB1287, and should fit into 4KB of bootloader space. If
  *  you wish to enlarge this space and/or change the AVR model, you will need to edit the BOOT_START and MCU
  *  values in the accompanying makefile.
- *  
+ *
  *  <b>NOTE:</b> This device spoofs Atmel's DFU Bootloader USB VID and PID so that the Atmel DFU bootloader
  *               drivers included with FLIP will work. If you do not wish to use Atmel's ID codes, please
  *               manually change them in Descriptors.c and alter your driver's INF file accordingly.
@@ -88,3 +88,4 @@
  *   </tr>
  *  </table>
  */
+

@@ -1,7 +1,7 @@
 /*
 			 LUFA Library
 	 Copyright (C) Dean Camera, 2010.
-			  
+
   dean [at] fourwalledcubicle [dot] com
 	  www.fourwalledcubicle.com
 */
@@ -11,13 +11,13 @@
   Copyright 2010  Peter Danneger
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -79,7 +79,7 @@ ISR(INT0_vect, ISR_BLOCK)
 {
 	/* Reset the number of reception bits remaining counter */
 	RX_BitsRemaining = 8;
-	
+
 	/* Reset the bit reception timer */
 	TCNT1 = 0;
 
@@ -120,7 +120,7 @@ ISR(TIMER1_CAPT_vect, ISR_BLOCK)
 
 		/* Reception complete, store the received byte if stop bit valid */
 		if (SRX_Cached)
-		  RingBuffer_Insert(&XMEGAtoUSB_Buffer, RX_Data);	
+		  RingBuffer_Insert(&XMEGAtoUSB_Buffer, RX_Data);
 	}
 }
 
@@ -150,3 +150,4 @@ ISR(TIMER3_CAPT_vect, ISR_BLOCK)
 		TX_BitsRemaining = 9;
 	}
 }
+

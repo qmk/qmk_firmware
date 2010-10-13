@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the RNDISEthernetHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "RNDISEthernetHost.h"
 
 /** Buffer to hold incoming and outgoing Ethernet packets. */
@@ -55,11 +55,11 @@ USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface =
 
 				.NotificationPipeNumber     = 3,
 				.NotificationPipeDoubleBank = false,
-				
+
 				.HostMaxPacketSize          = sizeof(PacketBuffer),
 			},
 	};
-	
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -78,7 +78,7 @@ int main(void)
 		{
 			case HOST_STATE_Addressed:
 				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-			
+
 				uint16_t ConfigDescriptorSize;
 				uint8_t  ConfigDescriptorData[512];
 
@@ -99,7 +99,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
 					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
@@ -107,18 +107,18 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				if (RNDIS_Host_InitializeDevice(&Ethernet_RNDIS_Interface) != HOST_SENDCONTROL_Successful)
 				{
 					puts_P(PSTR("Error Initializing Device.\r\n"));
 
 					LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;			
+					break;
 				}
-				
+
 				printf_P(PSTR("Device Max Transfer Size: %lu bytes.\r\n"), Ethernet_RNDIS_Interface.State.DeviceMaxPacketSize);
-				
+
 				uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST | REMOTE_NDIS_PACKET_ALL_MULTICAST);
 				if (RNDIS_Host_SetRNDISProperty(&Ethernet_RNDIS_Interface, OID_GEN_CURRENT_PACKET_FILTER,
 				                                &PacketFilter, sizeof(PacketFilter)) != HOST_SENDCONTROL_Successful)
@@ -129,7 +129,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				uint32_t VendorID;
 				if (RNDIS_Host_QueryRNDISProperty(&Ethernet_RNDIS_Interface, OID_GEN_VENDOR_ID,
 				                                  &VendorID, sizeof(VendorID)) != HOST_SENDCONTROL_Successful)
@@ -140,7 +140,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				printf_P(PSTR("Device Vendor ID: 0x%08lX\r\n"), VendorID);
 
 				puts_P(PSTR("RNDIS Device Enumerated.\r\n"));
@@ -149,10 +149,10 @@ int main(void)
 				break;
 			case HOST_STATE_Configured:
 				PrintIncomingPackets();
-			
+
 				break;
 		}
-	
+
 		RNDIS_Host_USBTask(&Ethernet_RNDIS_Interface);
 		USB_USBTask();
 	}
@@ -167,14 +167,14 @@ void PrintIncomingPackets(void)
 
 		uint16_t PacketLength;
 		RNDIS_Host_ReadPacket(&Ethernet_RNDIS_Interface, &PacketBuffer, &PacketLength);
-	
+
 		printf_P(PSTR("***PACKET (Size %d)***\r\n"), PacketLength);
-	
+
 		for (uint16_t i = 0; i < PacketLength; i++)
 		  printf("0x%02x ", PacketBuffer[i]);
 
 		printf_P(PSTR("\r\n\r\n"));
-		
+
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
 }
@@ -243,6 +243,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
+

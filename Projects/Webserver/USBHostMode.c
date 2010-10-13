@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  USB Host Mode management functions and variables. This file contains the LUFA code required to
  *  manage the USB RNDIS host mode.
  */
- 
+
 #include "USBHostMode.h"
 
 /** LUFA RNDIS Class driver interface configuration and state information. This structure is
@@ -52,7 +52,7 @@ USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface =
 
 				.NotificationPipeNumber     = 3,
 				.NotificationPipeDoubleBank = false,
-				
+
 				.HostMaxPacketSize          = UIP_CONF_BUFFER_SIZE,
 			},
 	};
@@ -70,7 +70,7 @@ void USBHostMode_USBTask(void)
 	{
 		case HOST_STATE_Addressed:
 			LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-		
+
 			uint16_t ConfigDescriptorSize;
 			uint8_t  ConfigDescriptorData[512];
 
@@ -89,21 +89,21 @@ void USBHostMode_USBTask(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 			{
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			if (RNDIS_Host_InitializeDevice(&Ethernet_RNDIS_Interface) != HOST_SENDCONTROL_Successful)
 			{
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;			
+				break;
 			}
-			
+
 			uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST);
 			if (RNDIS_Host_SetRNDISProperty(&Ethernet_RNDIS_Interface, OID_GEN_CURRENT_PACKET_FILTER,
 											&PacketFilter, sizeof(PacketFilter)) != HOST_SENDCONTROL_Successful)
@@ -112,7 +112,7 @@ void USBHostMode_USBTask(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			if (RNDIS_Host_QueryRNDISProperty(&Ethernet_RNDIS_Interface, OID_802_3_CURRENT_ADDRESS,
 											  &MACAddress, sizeof(MACAddress)) != HOST_SENDCONTROL_Successful)
 			{
@@ -120,16 +120,16 @@ void USBHostMode_USBTask(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Initialize uIP stack */
 			uIPManagement_Init();
-			
+
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
 			uIPManagement_ManageNetwork();
-		
+
 			break;
 	}
 
@@ -176,3 +176,4 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode, const uint8
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
+

@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage uIP Powered Webserver Project
  *
  *  \section SSec_Compat Project Compatibility:
@@ -26,7 +26,7 @@
  *    <td>Communications Device Class (CDC) \n
  *        Mass Storage Device</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>Remote NDIS (Microsoft Proprietary CDC Class Networking Standard) \n
  *        Bulk-Only Transport</td>
@@ -45,7 +45,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Simple HTTP webserver project. This project combines the LUFA library with the uIP TCP/IP full network stack and FatFS
  *  library to create a RNDIS host capable of serving out HTTP web pages to multiple hosts simultaneously. This project
@@ -111,3 +111,4 @@
  *   </tr>
  *  </table>
  */
+

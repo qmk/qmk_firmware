@@ -26,7 +26,7 @@
  *  both host and device modes. For information about the project progression, see the blog link at \ref Page_Resources.
  *
  *  LUFA is written specifically for the free AVR-GCC compiler, and uses several GCC-only extensions to make the
- *  library API more streamlined and robust. You can download AVR-GCC for free in a convenient windows package, 
+ *  library API more streamlined and robust. You can download AVR-GCC for free in a convenient windows package,
  *  from the the WinAVR website (see \ref Page_Resources).
  *
  *  The only required AVR peripherals for LUFA is the USB controller itself and interrupts - LUFA does not require the use of the
@@ -43,3 +43,4 @@
  *  \li \subpage Page_Donating - Donating to support this project
  *  \li \subpage Page_LibraryApps - Overview of included Demos, Bootloaders and Projects
  */
+

@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage RNDIS Host Demo
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -25,7 +25,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Communications Device Class (CDC)</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>Remote NDIS (Microsoft Proprietary CDC Class Networking Standard)</td>
  *   </tr>
@@ -39,12 +39,12 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  RNDIS host demonstration application. This gives a simple reference
  *  application for implementing a RNDIS Ethernet host, for USB devices such as
  *  modems.
- *  
+ *
  *  This demo will enumerate an attached USB RNDIS device, print out its vendor ID
  *  and any received packets in raw form through the serial USART.
  *
@@ -60,3 +60,4 @@
  *   </tr>
  *  </table>
  */
+

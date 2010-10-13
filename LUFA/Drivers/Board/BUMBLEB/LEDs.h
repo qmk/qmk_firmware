@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -98,7 +98,7 @@
 				DDRB  |=  LEDS_ALL_LEDS;
 				PORTB &= ~LEDS_ALL_LEDS;
 			}
-			
+
 			static inline void LEDs_TurnOnLEDs(const uint8_t LedMask)
 			{
 				PORTB |= LedMask;
@@ -113,13 +113,13 @@
 			{
 				PORTB = ((PORTB & ~LEDS_ALL_LEDS) | LedMask);
 			}
-		
+
 			static inline void LEDs_ChangeLEDs(const uint8_t LedMask,
 			                                   const uint8_t ActiveMask)
 			{
 				PORTB = ((PORTB & ~LedMask) | ActiveMask);
 			}
-			
+
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
 				PORTB ^= LEDMask;
@@ -136,7 +136,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -43,7 +43,7 @@ char PROGMEM HTTP200Header[] = "HTTP/1.1 200 OK\r\n"
                                "Server: LUFA RNDIS\r\n"
                                "Content-type: text/html\r\n"
                                "Connection: close\r\n\r\n";
-							
+
 /** HTTP server response header, for transmission before a resource not found error. This indicates to the host that the given
  *  given URL is invalid, and gives extra error information.
  */
@@ -54,7 +54,7 @@ char PROGMEM HTTP404Header[] = "HTTP/1.1 404 Not Found\r\n"
 /** HTTP page to serve to the host when a HTTP request is made. This page is too long for a single response, thus it is automatically
  *  broken up into smaller blocks and sent as a series of packets each time the webserver application callback is run.
  */
-char PROGMEM HTTPPage[]   = 
+char PROGMEM HTTPPage[]   =
 		"<html>"
 		"	<head>"
 		"		<title>"
@@ -108,7 +108,7 @@ void Webserver_ApplicationCallback(TCP_ConnectionState_t* const ConnectionState,
 {
 	char*          BufferDataStr = (char*)Buffer->Data;
 	static uint8_t PageBlock     = 0;
-	
+
 	/* Check to see if a packet has been received on the HTTP port from a remote host */
 	if (TCP_APP_HAS_RECEIVED_PACKET(Buffer))
 	{
@@ -120,7 +120,7 @@ void Webserver_ApplicationCallback(TCP_ConnectionState_t* const ConnectionState,
 
 				/* Copy the HTTP 200 response header into the packet buffer */
 				strcpy_P(BufferDataStr, HTTP200Header);
-				
+
 				/* Send the buffer contents to the host */
 				TCP_APP_SEND_BUFFER(Buffer, strlen(BufferDataStr));
 
@@ -131,10 +131,10 @@ void Webserver_ApplicationCallback(TCP_ConnectionState_t* const ConnectionState,
 			{
 				/* Copy the HTTP 404 response header into the packet buffer */
 				strcpy_P(BufferDataStr, HTTP404Header);
-				
+
 				/* Send the buffer contents to the host */
 				TCP_APP_SEND_BUFFER(Buffer, strlen(BufferDataStr));
-				
+
 				/* All data sent, close the connection */
 				TCP_APP_CLOSECONNECTION(ConnectionState);
 			}
@@ -155,9 +155,9 @@ void Webserver_ApplicationCallback(TCP_ConnectionState_t* const ConnectionState,
 				strcpy_P(BufferDataStr, HTTP404Header);
 
 				/* Send the buffer contents to the host */
-				TCP_APP_SEND_BUFFER(Buffer, strlen(BufferDataStr));			
+				TCP_APP_SEND_BUFFER(Buffer, strlen(BufferDataStr));
 			}
-			
+
 			/* All data sent, close the connection */
 			TCP_APP_CLOSECONNECTION(ConnectionState);
 		}
@@ -165,7 +165,7 @@ void Webserver_ApplicationCallback(TCP_ConnectionState_t* const ConnectionState,
 		{
 			/* Echo the host's query back to the host */
 			TCP_APP_SEND_BUFFER(Buffer, Buffer->Length);
-			
+
 			/* All data sent, close the connection */
 			TCP_APP_CLOSECONNECTION(ConnectionState);
 		}
@@ -179,13 +179,13 @@ void Webserver_ApplicationCallback(TCP_ConnectionState_t* const ConnectionState,
 	{
 		uint16_t RemLength = strlen_P(&HTTPPage[PageBlock * HTTP_REPLY_BLOCK_SIZE]);
 		uint16_t Length;
-	
+
 		/* Determine the length of the loaded block */
 		Length = ((RemLength > HTTP_REPLY_BLOCK_SIZE) ? HTTP_REPLY_BLOCK_SIZE : RemLength);
 
 		/* Copy the next buffer sized block of the page to the packet buffer */
 		strncpy_P(BufferDataStr, &HTTPPage[PageBlock * HTTP_REPLY_BLOCK_SIZE], Length);
-		
+
 		/* Send the buffer contents to the host */
 		TCP_APP_SEND_BUFFER(Buffer, Length);
 
@@ -194,9 +194,10 @@ void Webserver_ApplicationCallback(TCP_ConnectionState_t* const ConnectionState,
 		{
 			/* Unlock the buffer so that the host can fill it with future packets */
 			TCP_APP_RELEASE_BUFFER(Buffer);
-			
+
 			/* Close the connection to the host */
 			TCP_APP_CLOSECONNECTION(ConnectionState);
 		}
 	}
 }
+

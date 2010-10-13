@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -51,14 +51,14 @@ uint8_t Printer_SendData(const void* const PrinterCommands,
 
 	Pipe_SelectPipe(PRINTER_DATA_OUT_PIPE);
 	Pipe_Unfreeze();
-	
+
 	if ((ErrorCode = Pipe_Write_Stream_LE(PrinterCommands, CommandSize)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	Pipe_ClearOUT();
-	
+
 	Pipe_WaitUntilReady();
-	
+
 	Pipe_Freeze();
 
 	return PIPE_RWSTREAM_NoError;
@@ -86,33 +86,33 @@ uint8_t Printer_GetDeviceID(char* DeviceIDString,
 			.wIndex        = PrinterInterfaceNumber,
 			.wLength       = sizeof(DeviceIDStringLength),
 		};
-		
+
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
 	if ((ErrorCode = USB_Host_SendControlRequest(&DeviceIDStringLength)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
-	  
+
 	if (!(DeviceIDStringLength))
 	{
 		DeviceIDString[0] = 0x00;
 		return HOST_SENDCONTROL_Successful;
 	}
-	
+
 	DeviceIDStringLength = SwapEndian_16(DeviceIDStringLength);
 
 	if (DeviceIDStringLength > BufferSize)
 	  DeviceIDStringLength = BufferSize;
 
 	USB_ControlRequest.wLength = DeviceIDStringLength;
-	
+
 	if ((ErrorCode = USB_Host_SendControlRequest(DeviceIDString)) != HOST_SENDCONTROL_Successful)
 	  return ErrorCode;
-	  
+
 	/* Move string back two characters to remove the string length value from the start of the array */
 	memmove(&DeviceIDString[0], &DeviceIDString[2], DeviceIDStringLength - 2);
 
 	DeviceIDString[DeviceIDStringLength - 2] = 0x00;
-	
+
 	return HOST_SENDCONTROL_Successful;
 }
 

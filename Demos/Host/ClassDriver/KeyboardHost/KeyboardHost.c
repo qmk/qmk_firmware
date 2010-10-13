@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the KeyboardHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "KeyboardHost.h"
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
@@ -49,12 +49,12 @@ USB_ClassInfo_HID_Host_t Keyboard_HID_Interface =
 
 				.DataOUTPipeNumber      = 2,
 				.DataOUTPipeDoubleBank  = false,
-				
+
 				.HIDInterfaceProtocol   = HID_BOOTP_KeyboardBootProtocol,
 			},
 	};
 
-	
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -66,14 +66,14 @@ int main(void)
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
-	
+
 	for (;;)
 	{
 		switch (USB_HostState)
 		{
 			case HOST_STATE_Addressed:
 				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-			
+
 				uint16_t ConfigDescriptorSize;
 				uint8_t  ConfigDescriptorData[512];
 
@@ -94,7 +94,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
 					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
@@ -110,7 +110,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				puts_P(PSTR("Keyboard Enumerated.\r\n"));
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
@@ -118,11 +118,11 @@ int main(void)
 			case HOST_STATE_Configured:
 				if (HID_Host_IsReportReceived(&Keyboard_HID_Interface))
 				{
-					USB_KeyboardReport_Data_t KeyboardReport;					
+					USB_KeyboardReport_Data_t KeyboardReport;
 					HID_Host_ReceiveReport(&Keyboard_HID_Interface, &KeyboardReport);
 
 					LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);
-					
+
 					uint8_t PressedKeyCode = KeyboardReport.KeyCode[0];
 
 					if (PressedKeyCode)
@@ -130,25 +130,25 @@ int main(void)
 						char PressedKey = 0;
 
 						LEDs_ToggleLEDs(LEDS_LED2);
-							  
+
 						/* Retrieve pressed key character if alphanumeric */
 						if ((PressedKeyCode >= 0x04) && (PressedKeyCode <= 0x1D))
 						  PressedKey = (PressedKeyCode - 0x04) + 'A';
 						else if ((PressedKeyCode >= 0x1E) && (PressedKeyCode <= 0x27))
 						  PressedKey = (PressedKeyCode - 0x1E) + '0';
 						else if (PressedKeyCode == 0x2C)
-						  PressedKey = ' ';						
+						  PressedKey = ' ';
 						else if (PressedKeyCode == 0x28)
 						  PressedKey = '\n';
-							 
+
 						if (PressedKey)
 						  putchar(PressedKey);
 					}
 				}
-				
+
 				break;
 		}
-	
+
 		HID_Host_USBTask(&Keyboard_HID_Interface);
 		USB_USBTask();
 	}
@@ -218,6 +218,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
+

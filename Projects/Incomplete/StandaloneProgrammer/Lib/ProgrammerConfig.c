@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -34,7 +34,7 @@ struct
 {
 	uint16_t SigBytes[4];
 	bool EnforceSigBytes;
-	
+
 	uint32_t ProgrammingSpeed;
 } ProgrammerConfig;
 
@@ -47,14 +47,14 @@ bool ProgrammerConfig_ProcessConfiguration(void)
 		puts(" >> ERROR: CONF.txt File Not Found.\r\n");
 		return false;
 	}
-	
+
 	char  LineBuff[100];
 	char* CurrentLine;
-			
+
 	do
 	{
 		CurrentLine = fgets(LineBuff, sizeof(LineBuff), &DiskStream);
-		
+
 		if (CurrentLine)
 		{
 			sscanf(CurrentLine, "SIGNATURE = %02x %02x %02x %02x", &ProgrammerConfig.SigBytes[0],
@@ -65,13 +65,14 @@ bool ProgrammerConfig_ProcessConfiguration(void)
 			sscanf(CurrentLine, "SPEED = %lu", &ProgrammerConfig.ProgrammingSpeed);
 		}
 	} while (CurrentLine);
-	
+
 	printf(" >> *** Configuration: ***\r\n");
 	printf(" >> Device Signature: 0x%02x 0x%02x 0x%02x 0x%02x\r\n", ProgrammerConfig.SigBytes[0],
 			                                                        ProgrammerConfig.SigBytes[1],
 			                                                        ProgrammerConfig.SigBytes[2],
 			                                                        ProgrammerConfig.SigBytes[3]);
 	printf(" >> Programming Speed: %lu Hz\r\n", ProgrammerConfig.ProgrammingSpeed);
-	
+
 	return true;
 }
+

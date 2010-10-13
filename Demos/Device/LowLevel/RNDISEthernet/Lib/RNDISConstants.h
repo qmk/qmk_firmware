@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  RNDIS specification related constants. For more information on these
  *  constants, please refer to the Microsoft RNDIS specification.
  */
- 
+
 #ifndef _RNDIS_CONSTANTS_DEVICE_H_
 #define _RNDIS_CONSTANTS_DEVICE_H_
 
@@ -52,19 +52,19 @@
 		#define REMOTE_NDIS_SET_CMPLT                 0x80000005UL
 		#define REMOTE_NDIS_RESET_CMPLT               0x80000006UL
 		#define REMOTE_NDIS_KEEPALIVE_CMPLT           0x80000008UL
-		
+
 		#define REMOTE_NDIS_STATUS_SUCCESS            0x00000000UL
 		#define REMOTE_NDIS_STATUS_FAILURE            0xC0000001UL
 		#define REMOTE_NDIS_STATUS_INVALID_DATA       0xC0010015UL
 		#define REMOTE_NDIS_STATUS_NOT_SUPPORTED      0xC00000BBUL
 		#define REMOTE_NDIS_STATUS_MEDIA_CONNECT      0x4001000BUL
 		#define REMOTE_NDIS_STATUS_MEDIA_DISCONNECT   0x4001000CUL
-		
+
 		#define REMOTE_NDIS_MEDIA_STATE_CONNECTED     0x00000000UL
 		#define REMOTE_NDIS_MEDIA_STATE_DISCONNECTED  0x00000001UL
-		
+
 		#define REMOTE_NDIS_MEDIUM_802_3              0x00000000UL
-		
+
 		#define REMOTE_NDIS_DF_CONNECTIONLESS	      0x00000001UL
 		#define REMOTE_NDIS_DF_CONNECTION_ORIENTED    0x00000002UL
 
@@ -79,8 +79,8 @@
 		#define REMOTE_NDIS_PACKET_GROUP              0x00001000UL
 		#define REMOTE_NDIS_PACKET_ALL_FUNCTIONAL     0x00002000UL
 		#define REMOTE_NDIS_PACKET_FUNCTIONAL         0x00004000UL
-		#define REMOTE_NDIS_PACKET_MAC_FRAME          0x00008000UL	
-		
+		#define REMOTE_NDIS_PACKET_MAC_FRAME          0x00008000UL
+
 		#define OID_GEN_SUPPORTED_LIST                0x00010101UL
 		#define OID_GEN_HARDWARE_STATUS               0x00010102UL
 		#define OID_GEN_MEDIA_SUPPORTED               0x00010103UL
@@ -110,3 +110,4 @@
 		#define OID_802_3_XMIT_MORE_COLLISIONS        0x01020103UL
 
 #endif
+

@@ -2,7 +2,7 @@
          USB Missile Launcher Demo
 	 Copyright (C) Dave Fletcher, 2010.
 	  fletch at fletchtronics dot net
-	  
+
 	 Based on research by Scott Weston at
 	  http://code.google.com/p/pymissile
  */
@@ -11,13 +11,13 @@
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2010  Dave Fletcher (fletch [at] fletchtronics [dot] net)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -42,7 +42,7 @@
  *  the application and is responsible for the initial application hardware configuration as well
  *  as the sending of commands to the attached launcher toy.
  */
- 
+
 #include "MissileLauncher.h"
 
 /** Launcher first init command report data sequence */
@@ -103,7 +103,7 @@ int main(void)
 	for (;;)
 	{
 		Read_Joystick_Status();
-	
+
 		HID_Host_Task();
 		USB_USBTask();
 	}
@@ -173,7 +173,7 @@ void Send_Command(uint8_t* const Command)
 		Send_Command_Report(CMD_INITB, 8);
 		Send_Command_Report(Command, LAUNCHER_CMD_BUFFER_SIZE);
 	}
-	
+
 	CmdState = Command;
 }
 
@@ -231,13 +231,13 @@ void DiscardNextReport(void)
 	{
 		/* Refreeze HID data IN pipe */
 		Pipe_Freeze();
-			
+
 		return;
 	}
-		
+
 	/* Clear the IN endpoint, ready for next data packet */
 	Pipe_ClearIN();
-	
+
 	/* Refreeze HID data IN pipe */
 	Pipe_Freeze();
 }
@@ -252,7 +252,7 @@ void WriteNextReport(uint8_t* const ReportOUTData,
 {
 	/* Select and unfreeze HID data OUT pipe */
 	Pipe_SelectPipe(HID_DATA_OUT_PIPE);
-	
+
 	/* Not all HID devices have an OUT endpoint (some require OUT reports to be sent over the
 	 * control endpoint instead) - check to see if the OUT endpoint has been initialized */
 	if (Pipe_IsConfigured())
@@ -264,13 +264,13 @@ void WriteNextReport(uint8_t* const ReportOUTData,
 		{
 			/* Refreeze the data OUT pipe */
 			Pipe_Freeze();
-			
+
 			return;
 		}
-		
+
 		/* Write out HID report data */
-		Pipe_Write_Stream_LE(ReportOUTData, ReportLength);				
-			
+		Pipe_Write_Stream_LE(ReportOUTData, ReportLength);
+
 		/* Clear the OUT endpoint, send last data packet */
 		Pipe_ClearOUT();
 
@@ -324,12 +324,12 @@ void HID_Host_Task(void)
 			{
 				/* Indicate error status */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
+
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
@@ -338,3 +338,4 @@ void HID_Host_Task(void)
 			break;
 	}
 }
+

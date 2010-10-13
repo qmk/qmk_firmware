@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -49,16 +49,16 @@
  *
  *  @{
  */
- 
+
 #ifndef __ADC_AVRU4U6U7_H__
 #define __ADC_AVRU4U6U7_H__
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
-		
+
 		#include <avr/io.h>
 		#include <stdbool.h>
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -70,7 +70,7 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */			
+		/* Macros: */
 			/** Reference mask, for using the voltage present at the AVR's AREF pin for the ADC reference. */
 			#define ADC_REFERENCE_AREF              0
 
@@ -79,7 +79,7 @@
 
 			/** Reference mask, for using the internally generated 2.56V reference voltage as the ADC reference. */
 			#define ADC_REFERENCE_INT2560MV         ((1 << REFS1) | (1 << REFS0))
-			
+
 			/** Left-adjusts the 10-bit ADC result, so that the upper 8 bits of the value returned by the
 			 *  ADC_GetResult() macro contain the 8 most significant bits of the result. */
 			#define ADC_LEFT_ADJUSTED               (1 << ADLAR)
@@ -87,7 +87,7 @@
 			/** Right-adjusts the 10-bit ADC result, so that the lower 8 bits of the value returned by the
 			 *  ADC_GetResult() macro contain the 8 least significant bits of the result. */
 			#define ADC_RIGHT_ADJUSTED              (0 << ADLAR)
-			
+
 			/** Sets the ADC mode to free running, so that conversions take place continuously as fast as the ADC
 			 *  is capable of at the given input clock speed. */
 			#define ADC_FREE_RUNNING                (1 << ADATE)
@@ -95,7 +95,7 @@
 			/** Sets the ADC mode to single conversion, so that only a single conversion will take place before
 			 *  the ADC returns to idle. */
 			#define ADC_SINGLE_CONVERSION           (0 << ADATE)
-			
+
 			/** Sets the ADC input clock to prescale by a factor of 2 the AVR's system clock. */
 			#define ADC_PRESCALE_2                  (1 << ADPS0)
 
@@ -116,7 +116,7 @@
 
 			/** Sets the ADC input clock to prescale by a factor of 128 the AVR's system clock. */
 			#define ADC_PRESCALE_128                ((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0))
-			
+
 			//@{
 			/** MUX mask define for the ADC0 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
 			#define ADC_CHANNEL0                    (0x00 << MUX0)
@@ -152,7 +152,7 @@
 
 			/** MUX mask define for the internal 1.1V bandgap channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading. */
 			#define ADC_1100MV_BANDGAP              (0x1E << MUX0)
-			
+
 			#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
 				/** MUX mask define for the ADC8 channel of the ADC. See \ref ADC_StartReading and \ref ADC_GetChannelReading.
 				 *
@@ -198,7 +198,7 @@
 				#define ADC_INT_TEMP_SENS           ((1 << 8) | (0x07 << MUX0))
 			#endif
 			//@}
-			
+
 		/* Inline Functions: */
 			/** Configures the given ADC channel, ready for ADC conversions. This function sets the
 			 *  associated port pin as an input and disables the digital portion of the I/O to reduce
@@ -216,7 +216,7 @@
 			{
 				#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
 					 defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
-					 defined(__AVR_ATmega32U6__))				
+					 defined(__AVR_ATmega32U6__))
 				DDRF  &= ~(1 << ChannelIndex);
 				DIDR0 |=  (1 << ChannelIndex);
 				#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
@@ -242,7 +242,7 @@
 				}
 				#endif
 			}
-			
+
 			/** De-configures the given ADC channel, re-enabling digital I/O mode instead of analog. This
 			 *  function sets the associated port pin as an input and re-enabled the digital portion of
 			 *  the I/O.
@@ -259,7 +259,7 @@
 			{
 				#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
 					 defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
-					 defined(__AVR_ATmega32U6__))				
+					 defined(__AVR_ATmega32U6__))
 				DDRF  &= ~(1 << ChannelIndex);
 				DIDR0 &= ~(1 << ChannelIndex);
 				#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
@@ -299,14 +299,14 @@
 			static inline void ADC_StartReading(const uint16_t MUXMask)
 			{
 				ADMUX = MUXMask;
-				
+
 				#if (defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || defined(__DOXYGEN__))
 				if (MUXMask & (1 << 8))
 				  ADCSRB |=  (1 << MUX5);
 				else
 				  ADCSRB &= ~(1 << MUX5);
 				#endif
-			
+
 				ADCSRA |= (1 << ADSC);
 			}
 
@@ -320,7 +320,7 @@
 			{
 				return ((ADCSRA & (1 << ADIF)) ? true : false);
 			}
-			
+
 			/** Retrieves the conversion value of the last completed ADC conversion and clears the reading
 			 *  completion flag.
 			 *
@@ -346,9 +346,9 @@
 			static inline uint16_t ADC_GetChannelReading(const uint16_t MUXMask)
 			{
 				ADC_StartReading(MUXMask);
-	
+
 				while (!(ADC_IsReadingComplete()));
-	
+
 				return ADC_GetResult();
 			}
 
@@ -372,7 +372,7 @@
 			{
 				ADCSRA = 0;
 			}
-			
+
 			/** Indicates if the ADC is currently enabled.
 			 *
 			 *  \return Boolean true if the ADC subsystem is currently enabled, false otherwise.
@@ -382,12 +382,13 @@
 			{
 				return ((ADCSRA & (1 << ADEN)) ? true : false);
 			}
-			
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

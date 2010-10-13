@@ -57,7 +57,7 @@
  *      be updated in all project makefiles, or the makefile should be updated to use the new module source variables.
  *    - The Drivers/USB/LowLevel/HostChapter9.h source file has moved to Drivers/USB/HighLevel/HostStandardReq.c - this should
  *      be updated in all project makefiles, or the makefile should be updated to use the new module source variables.
- *    - The Drivers/USB/LowLevel/LowLevel.c source file has moved to Drivers/LowLevel/USBController.c - this should be updated 
+ *    - The Drivers/USB/LowLevel/LowLevel.c source file has moved to Drivers/LowLevel/USBController.c - this should be updated
  *      in all project makefiles, or the makefile should be updated to use the new module source variables.
  *
  *  <b>Device Mode</b>
@@ -107,8 +107,8 @@
  *
  *  <b>Non-USB Library Components</b>
  *    - Due to some ADC channels not being identical to their ADC MUX selection masks for single-ended conversions on some AVR models,
- *      the ADC driver now has explicit masks for each of the standard ADC channels (see \ref Group_ADC). These masks should be used 
- *      when calling the ADC functions to ensure proper operation across all AVR models. Note that the \ref ADC_SetupChannel() function 
+ *      the ADC driver now has explicit masks for each of the standard ADC channels (see \ref Group_ADC). These masks should be used
+ *      when calling the ADC functions to ensure proper operation across all AVR models. Note that the \ref ADC_SetupChannel() function
  *      is an exception, and should always be called with a channel number rather than a channel mask.
  *
  *  <b>Host Mode</b>
@@ -142,7 +142,7 @@
  *      indicate the report type to generate. Existing applications may simply add and ignore this additional parameter.
  *
  * \section Sec_Migration091122 Migrating from 090924 to 091122
- *  
+ *
  *  <b>Host Mode</b>
  *    - The HID_PARSE_UsageStackOverflow HID parser error constant is now named \ref HID_PARSE_UsageListOverflow
  *    - The \ref CALLBACK_HIDParser_FilterHIDReportItem() HID Parser callback now passes a complete HID_ReportItem_t to the
@@ -267,7 +267,7 @@
  *      library demos should update to the latest versions.
  *
  *  <b>Device Mode</b>
- *    - The Endpoint_ClearCurrentBank() macro has been removed, and is now replaced with the Endpoint_ClearIN(), Endpoint_ClearOUT() 
+ *    - The Endpoint_ClearCurrentBank() macro has been removed, and is now replaced with the Endpoint_ClearIN(), Endpoint_ClearOUT()
  *      macros. See Endpoint.h documentation for more details on the new endpoint management macros.
  *    - The Endpoint_ReadWriteAllowed() macro has been renamed to Endpoint_IsReadWriteAllowed() to be more consistent with the rest of
  *      the API naming scheme.
@@ -339,7 +339,7 @@
  *
  *  <b>Device Mode</b>
  *    - The NO_CLEARSET_FEATURE_REQUEST compile time token has been renamed to FEATURELESS_CONTROL_ONLY_DEVICE, and its function expanded
- *      to also remove parts of the Get Status chapter 9 request to further reduce code usage. On all applications currently using the 
+ *      to also remove parts of the Get Status chapter 9 request to further reduce code usage. On all applications currently using the
  *      NO_CLEARSET_FEATURE_REQUEST compile time token, it can be replaced with the FEATURELESS_CONTROL_ONLY_DEVICE token with no further
  *      modifications required.
  *
@@ -560,3 +560,4 @@
  *      finished enumerating the device. Projects relying on the event only firing in Host mode should be updated
  *      so that the event action only occurs when the USB_Mode global is set to USB_MODE_HOST.
  */
+

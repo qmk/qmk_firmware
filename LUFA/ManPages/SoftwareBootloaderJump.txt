@@ -30,7 +30,7 @@
  *
  *  #define MAGIC_BOOT_KEY            0xDC42ACCA
  *  #define BOOTLOADER_START_ADDRESS  (FLASH_SIZE_BYTES - BOOTLOADER_SEC_SIZE_BYTES)
- *  
+ *
  *  void Bootloader_Jump_Check(void) ATTR_INIT_SECTION(3);
  *  void Bootloader_Jump_Check(void)
  *  {
@@ -38,7 +38,7 @@
  *      if ((MCUSR & (1 << WDRF)) && (Boot_Key == MAGIC_BOOT_KEY))
  *      {
  *          Boot_Key = 0;
- *          ((void (*)(void))BOOTLOADER_START_ADDRESS)(); 
+ *          ((void (*)(void))BOOTLOADER_START_ADDRESS)();
  *      }
  *  }
  *
@@ -57,12 +57,13 @@
  *      // Set the bootloader key to the magic value and force a reset
  *      Boot_Key = MAGIC_BOOT_KEY;
  *      wdt_enable(WDTO_250MS);
- *      for (;;); 
+ *      for (;;);
  *  }
  *  \endcode
  *
  *  Note that the bootloader magic key can be any arbitrary value. The <em>FLASH_SIZE_BYTES</em> and
  *  <em>BOOTLOADER_SEC_SIZE_BYTES</em> tokens should be replaced with the total flash size of the AVR
  *  in bytes, and the allocated size of the bootloader section for the target AVR.
- * 
+ *
  */
+

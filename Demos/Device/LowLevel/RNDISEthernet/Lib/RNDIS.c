@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  RNDIS command handler functions. This handles RNDIS commands according to
  *  the Microsoft RNDIS specification, creating a USB Ethernet network adapter.
  */
- 
+
 #define  INCLUDE_FROM_RNDIS_C
 #include "RNDIS.h"
 
@@ -93,7 +93,7 @@ bool                    ResponseReady               = false;
 uint8_t                 CurrRNDISState              = RNDIS_Uninitialized;
 
 /** Current Ethernet packet filter mask. This is non-zero when the adapter is initialized, or zero when disabled. */
-uint32_t                CurrPacketFilter            = 0;							
+uint32_t                CurrPacketFilter            = 0;
 
 
 /** Processes the RNDIS message received by the host and stored in the RNDISMessageBuffer global buffer. If a response is
@@ -110,17 +110,17 @@ void ProcessRNDISControlMessage(void)
 			/* Initialize the adapter - return information about the supported RNDIS version and buffer sizes */
 
 			ResponseReady = true;
-			
+
 			RNDIS_Initialize_Message_t*  INITIALIZE_Message  = (RNDIS_Initialize_Message_t*)&RNDISMessageBuffer;
 			RNDIS_Initialize_Complete_t* INITIALIZE_Response = (RNDIS_Initialize_Complete_t*)&RNDISMessageBuffer;
-			
+
 			INITIALIZE_Response->MessageType           = REMOTE_NDIS_INITIALIZE_CMPLT;
 			INITIALIZE_Response->MessageLength         = sizeof(RNDIS_Initialize_Complete_t);
 			INITIALIZE_Response->RequestId             = INITIALIZE_Message->RequestId;
 			INITIALIZE_Response->Status                = REMOTE_NDIS_STATUS_SUCCESS;
-			
+
 			INITIALIZE_Response->MajorVersion          = REMOTE_NDIS_VERSION_MAJOR;
-			INITIALIZE_Response->MinorVersion          = REMOTE_NDIS_VERSION_MINOR;			
+			INITIALIZE_Response->MinorVersion          = REMOTE_NDIS_VERSION_MINOR;
 			INITIALIZE_Response->DeviceFlags           = REMOTE_NDIS_DF_CONNECTIONLESS;
 			INITIALIZE_Response->Medium                = REMOTE_NDIS_MEDIUM_802_3;
 			INITIALIZE_Response->MaxPacketsPerTransfer = 1;
@@ -128,9 +128,9 @@ void ProcessRNDISControlMessage(void)
 			INITIALIZE_Response->PacketAlignmentFactor = 0;
 			INITIALIZE_Response->AFListOffset          = 0;
 			INITIALIZE_Response->AFListSize            = 0;
-			
+
 			CurrRNDISState = RNDIS_Initialized;
-		
+
 			break;
 		case REMOTE_NDIS_HALT_MSG:
 			/* Halt the adapter, reset the adapter state - note that no response should be returned when completed */
@@ -145,42 +145,42 @@ void ProcessRNDISControlMessage(void)
 			/* Request for information about a parameter about the adapter, specified as an OID token */
 
 			ResponseReady = true;
-						
+
 			RNDIS_Query_Message_t*  QUERY_Message  = (RNDIS_Query_Message_t*)&RNDISMessageBuffer;
 			RNDIS_Query_Complete_t* QUERY_Response = (RNDIS_Query_Complete_t*)&RNDISMessageBuffer;
 			uint32_t                Query_Oid      = QUERY_Message->Oid;
-						
+
 			void*     QueryData                 = &RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
 			                                                          QUERY_Message->InformationBufferOffset];
-			void*     ResponseData              = &RNDISMessageBuffer[sizeof(RNDIS_Query_Complete_t)];		
+			void*     ResponseData              = &RNDISMessageBuffer[sizeof(RNDIS_Query_Complete_t)];
 			uint16_t  ResponseSize;
 
 			QUERY_Response->MessageType         = REMOTE_NDIS_QUERY_CMPLT;
 			QUERY_Response->MessageLength       = sizeof(RNDIS_Query_Complete_t);
-						
+
 			if (ProcessNDISQuery(Query_Oid, QueryData, QUERY_Message->InformationBufferLength,
 			                     ResponseData, &ResponseSize))
 			{
 				QUERY_Response->Status                  = REMOTE_NDIS_STATUS_SUCCESS;
 				QUERY_Response->MessageLength          += ResponseSize;
-							
+
 				QUERY_Response->InformationBufferLength = ResponseSize;
 				QUERY_Response->InformationBufferOffset = (sizeof(RNDIS_Query_Complete_t) - sizeof(RNDIS_Message_Header_t));
 			}
 			else
-			{				
+			{
 				QUERY_Response->Status                  = REMOTE_NDIS_STATUS_NOT_SUPPORTED;
 
 				QUERY_Response->InformationBufferLength = 0;
 				QUERY_Response->InformationBufferOffset = 0;
 			}
-			
+
 			break;
 		case REMOTE_NDIS_SET_MSG:
 			/* Request to set a parameter of the adapter, specified as an OID token */
-		
+
 			ResponseReady = true;
-			
+
 			RNDIS_Set_Message_t*  SET_Message  = (RNDIS_Set_Message_t*)&RNDISMessageBuffer;
 			RNDIS_Set_Complete_t* SET_Response = (RNDIS_Set_Complete_t*)&RNDISMessageBuffer;
 			uint32_t              SET_Oid      = SET_Message->Oid;
@@ -191,7 +191,7 @@ void ProcessRNDISControlMessage(void)
 
 			void* SetData                   = &RNDISMessageBuffer[sizeof(RNDIS_Message_Header_t) +
 			                                                      SET_Message->InformationBufferOffset];
-						
+
 			if (ProcessNDISSet(SET_Oid, SetData, SET_Message->InformationBufferLength))
 			  SET_Response->Status        = REMOTE_NDIS_STATUS_SUCCESS;
 			else
@@ -200,9 +200,9 @@ void ProcessRNDISControlMessage(void)
 			break;
 		case REMOTE_NDIS_RESET_MSG:
 			/* Soft reset the adapter */
-		
+
 			ResponseReady = true;
-			
+
 			RNDIS_Reset_Complete_t* RESET_Response = (RNDIS_Reset_Complete_t*)&RNDISMessageBuffer;
 
 			RESET_Response->MessageType         = REMOTE_NDIS_RESET_CMPLT;
@@ -213,9 +213,9 @@ void ProcessRNDISControlMessage(void)
 			break;
 		case REMOTE_NDIS_KEEPALIVE_MSG:
 			/* Keep alive message sent to the adapter every 5 seconds when idle to ensure it is still responding */
-		
+
 			ResponseReady = true;
-			
+
 			RNDIS_KeepAlive_Message_t*  KEEPALIVE_Message  = (RNDIS_KeepAlive_Message_t*)&RNDISMessageBuffer;
 			RNDIS_KeepAlive_Complete_t* KEEPALIVE_Response = (RNDIS_KeepAlive_Complete_t*)&RNDISMessageBuffer;
 
@@ -223,7 +223,7 @@ void ProcessRNDISControlMessage(void)
 			KEEPALIVE_Response->MessageLength   = sizeof(RNDIS_KeepAlive_Complete_t);
 			KEEPALIVE_Response->RequestId       = KEEPALIVE_Message->RequestId;
 			KEEPALIVE_Response->Status          = REMOTE_NDIS_STATUS_SUCCESS;
-			
+
 			break;
 	}
 }
@@ -248,66 +248,66 @@ static bool ProcessNDISQuery(const uint32_t OId, void* QueryData, uint16_t Query
 	{
 		case OID_GEN_SUPPORTED_LIST:
 			*ResponseSize = sizeof(AdapterSupportedOIDList);
-			
+
 			/* Copy the list of supported NDIS OID tokens to the response buffer */
 			memcpy_P(ResponseData, AdapterSupportedOIDList, sizeof(AdapterSupportedOIDList));
-			
+
 			return true;
 		case OID_GEN_PHYSICAL_MEDIUM:
 			*ResponseSize = sizeof(uint32_t);
-			
+
 			/* Indicate that the device is a true ethernet link */
 			*((uint32_t*)ResponseData) = 0;
-			
+
 			return true;
 		case OID_GEN_HARDWARE_STATUS:
 			*ResponseSize = sizeof(uint32_t);
-			
+
 			/* Always indicate hardware ready */
 			*((uint32_t*)ResponseData) = NdisHardwareStatusReady;
-			
+
 			return true;
 		case OID_GEN_MEDIA_SUPPORTED:
 		case OID_GEN_MEDIA_IN_USE:
 			*ResponseSize = sizeof(uint32_t);
-			
+
 			/* Indicate 802.3 (Ethernet) supported by the adapter */
 			*((uint32_t*)ResponseData) = REMOTE_NDIS_MEDIUM_802_3;
-			
+
 			return true;
 		case OID_GEN_VENDOR_ID:
 			*ResponseSize = sizeof(uint32_t);
-			
+
 			/* Vendor ID 0x0xFFFFFF is reserved for vendors who have not purchased a NDIS VID */
 			*((uint32_t*)ResponseData) = 0x00FFFFFF;
-			
+
 			return true;
 		case OID_GEN_MAXIMUM_FRAME_SIZE:
 		case OID_GEN_TRANSMIT_BLOCK_SIZE:
 		case OID_GEN_RECEIVE_BLOCK_SIZE:
 			*ResponseSize = sizeof(uint32_t);
-			
+
 			/* Indicate that the maximum frame size is the size of the ethernet frame buffer */
 			*((uint32_t*)ResponseData) = ETHERNET_FRAME_SIZE_MAX;
-			
+
 			return true;
 		case OID_GEN_VENDOR_DESCRIPTION:
 			*ResponseSize = sizeof(AdapterVendorDescription);
-			
+
 			/* Copy vendor description string to the response buffer */
 			memcpy_P(ResponseData, AdapterVendorDescription, sizeof(AdapterVendorDescription));
-			
+
 			return true;
 		case OID_GEN_MEDIA_CONNECT_STATUS:
 			*ResponseSize = sizeof(uint32_t);
-			
+
 			/* Always indicate that the adapter is connected to a network */
 			*((uint32_t*)ResponseData) = REMOTE_NDIS_MEDIA_STATE_CONNECTED;
-			
+
 			return true;
 		case OID_GEN_LINK_SPEED:
 			*ResponseSize = sizeof(uint32_t);
-			
+
 			/* Indicate 10Mb/s link speed */
 			*((uint32_t*)ResponseData) = 100000;
 
@@ -315,25 +315,25 @@ static bool ProcessNDISQuery(const uint32_t OId, void* QueryData, uint16_t Query
 		case OID_802_3_PERMANENT_ADDRESS:
 		case OID_802_3_CURRENT_ADDRESS:
 			*ResponseSize = sizeof(MAC_Address_t);
-			
+
 			/* Copy over the fixed adapter MAC to the response buffer */
 			memcpy_P(ResponseData, &AdapterMACAddress, sizeof(MAC_Address_t));
 
 			return true;
 		case OID_802_3_MAXIMUM_LIST_SIZE:
 			*ResponseSize = sizeof(uint32_t);
-			
+
 			/* Indicate only one multicast address supported */
 			*((uint32_t*)ResponseData) = 1;
-		
+
 			return true;
 		case OID_GEN_CURRENT_PACKET_FILTER:
 			*ResponseSize = sizeof(uint32_t);
-			
+
 			/* Indicate the current packet filter mask */
 			*((uint32_t*)ResponseData) = CurrPacketFilter;
-		
-			return true;			
+
+			return true;
 		case OID_GEN_XMIT_OK:
 		case OID_GEN_RCV_OK:
 		case OID_GEN_XMIT_ERROR:
@@ -343,24 +343,24 @@ static bool ProcessNDISQuery(const uint32_t OId, void* QueryData, uint16_t Query
 		case OID_802_3_XMIT_ONE_COLLISION:
 		case OID_802_3_XMIT_MORE_COLLISIONS:
 			*ResponseSize = sizeof(uint32_t);
-			
+
 			/* Unused statistic OIDs - always return 0 for each */
 			*((uint32_t*)ResponseData) = 0;
-		
+
 			return true;
 		case OID_GEN_MAXIMUM_TOTAL_SIZE:
 			*ResponseSize = sizeof(uint32_t);
-			
+
 			/* Indicate maximum overall buffer (Ethernet frame and RNDIS header) the adapter can handle */
 			*((uint32_t*)ResponseData) = (sizeof(RNDISMessageBuffer) + ETHERNET_FRAME_SIZE_MAX);
-		
+
 			return true;
 		default:
 			return false;
 	}
 }
 
-/** Processes RNDIS set commands, setting adapter parameters to values given by the host. The requested parameter is given 
+/** Processes RNDIS set commands, setting adapter parameters to values given by the host. The requested parameter is given
  *  as an OID value.
  *
  *  \param[in] OId      OId value of the parameter being set
@@ -378,16 +378,17 @@ static bool ProcessNDISSet(uint32_t OId, void* SetData, uint16_t SetSize)
 		case OID_GEN_CURRENT_PACKET_FILTER:
 			/* Save the packet filter mask in case the host queries it again later */
 			CurrPacketFilter = *((uint32_t*)SetData);
-		
+
 			/* Set the RNDIS state to initialized if the packet filter is non-zero */
 			CurrRNDISState = ((CurrPacketFilter) ? RNDIS_Data_Initialized : RNDIS_Data_Initialized);
-			
+
 			return true;
 		case OID_802_3_MULTICAST_LIST:
 			/* Do nothing - throw away the value from the host as it is unused */
-		
+
 			return true;
 		default:
 			return false;
 	}
 }
+

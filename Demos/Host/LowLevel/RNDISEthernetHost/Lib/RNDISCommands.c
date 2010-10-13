@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -83,7 +83,7 @@ uint8_t RNDIS_GetEncapsulatedResponse(void* const Buffer,
 			.wIndex        = 0,
 			.wLength       = Length,
 		};
-	
+
 	/* Select the control pipe for the request transfer */
 	Pipe_SelectPipe(PIPE_CONTROLPIPE);
 
@@ -102,7 +102,7 @@ uint8_t RNDIS_SendKeepAlive(void)
 
 	RNDIS_KeepAlive_Message_t  KeepAliveMessage;
 	RNDIS_KeepAlive_Complete_t KeepAliveMessageResponse;
-	
+
 	KeepAliveMessage.MessageType     = REMOTE_NDIS_KEEPALIVE_MSG;
 	KeepAliveMessage.MessageLength   = sizeof(RNDIS_KeepAlive_Message_t);
 	KeepAliveMessage.RequestId       = RequestID++;
@@ -112,13 +112,13 @@ uint8_t RNDIS_SendKeepAlive(void)
 	{
 		return ErrorCode;
 	}
-	
+
 	if ((ErrorCode = RNDIS_GetEncapsulatedResponse(&KeepAliveMessageResponse,
 	                                               sizeof(RNDIS_KeepAlive_Complete_t))) != HOST_SENDCONTROL_Successful)
 	{
 		return ErrorCode;
 	}
-	
+
 	return HOST_SENDCONTROL_Successful;
 }
 
@@ -145,13 +145,13 @@ uint8_t RNDIS_InitializeDevice(const uint16_t HostMaxPacketSize,
 	InitMessage.MajorVersion    = REMOTE_NDIS_VERSION_MAJOR;
 	InitMessage.MinorVersion    = REMOTE_NDIS_VERSION_MINOR;
 	InitMessage.MaxTransferSize = HostMaxPacketSize;
-	
+
 	if ((ErrorCode = RNDIS_SendEncapsulatedCommand(&InitMessage,
 	                                               sizeof(RNDIS_Initialize_Message_t))) != HOST_SENDCONTROL_Successful)
 	{
 		return ErrorCode;
 	}
-	
+
 	if ((ErrorCode = RNDIS_GetEncapsulatedResponse(&InitMessageResponse,
 	                                               sizeof(RNDIS_Initialize_Complete_t))) != HOST_SENDCONTROL_Successful)
 	{
@@ -160,9 +160,9 @@ uint8_t RNDIS_InitializeDevice(const uint16_t HostMaxPacketSize,
 
 	if (InitMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
 	  return RNDIS_COMMAND_FAILED;
-	  
+
 	*DeviceMaxPacketSize = InitMessageResponse.MaxTransferSize;
-	
+
 	return HOST_SENDCONTROL_Successful;
 }
 
@@ -186,18 +186,18 @@ uint8_t RNDIS_SetRNDISProperty(const uint32_t Oid,
 		RNDIS_Set_Message_t SetMessage;
 		uint8_t             ContiguousBuffer[Length];
 	} SetMessageData;
-	
+
 	RNDIS_Set_Complete_t SetMessageResponse;
-	
+
 	SetMessageData.SetMessage.MessageType    = REMOTE_NDIS_SET_MSG;
 	SetMessageData.SetMessage.MessageLength  = sizeof(RNDIS_Set_Message_t) + Length;
 	SetMessageData.SetMessage.RequestId      = RequestID++;
-			
+
 	SetMessageData.SetMessage.Oid            = Oid;
 	SetMessageData.SetMessage.InformationBufferLength = Length;
 	SetMessageData.SetMessage.InformationBufferOffset = (sizeof(RNDIS_Set_Message_t) - sizeof(RNDIS_Message_Header_t));
 	SetMessageData.SetMessage.DeviceVcHandle = 0;
-	
+
 	memcpy(&SetMessageData.ContiguousBuffer, Buffer, Length);
 
 	if ((ErrorCode = RNDIS_SendEncapsulatedCommand(&SetMessageData,
@@ -205,7 +205,7 @@ uint8_t RNDIS_SetRNDISProperty(const uint32_t Oid,
 	{
 		return ErrorCode;
 	}
-	
+
 	if ((ErrorCode = RNDIS_GetEncapsulatedResponse(&SetMessageResponse,
 	                                               sizeof(RNDIS_Set_Complete_t))) != HOST_SENDCONTROL_Successful)
 	{
@@ -214,7 +214,7 @@ uint8_t RNDIS_SetRNDISProperty(const uint32_t Oid,
 
 	if (SetMessageResponse.Status != REMOTE_NDIS_STATUS_SUCCESS)
 	  return RNDIS_COMMAND_FAILED;
-	  
+
 	return HOST_SENDCONTROL_Successful;
 }
 
@@ -244,7 +244,7 @@ uint8_t RNDIS_QueryRNDISProperty(const uint32_t Oid,
 	QueryMessage.MessageType    = REMOTE_NDIS_QUERY_MSG;
 	QueryMessage.MessageLength  = sizeof(RNDIS_Query_Message_t);
 	QueryMessage.RequestId      = RequestID++;
-			
+
 	QueryMessage.Oid            = Oid;
 	QueryMessage.InformationBufferLength = 0;
 	QueryMessage.InformationBufferOffset = 0;
@@ -255,7 +255,7 @@ uint8_t RNDIS_QueryRNDISProperty(const uint32_t Oid,
 	{
 		return ErrorCode;
 	}
-	
+
 	if ((ErrorCode = RNDIS_GetEncapsulatedResponse(&QueryMessageResponseData,
 	                                               sizeof(QueryMessageResponseData))) != HOST_SENDCONTROL_Successful)
 	{
@@ -284,7 +284,7 @@ uint8_t RNDIS_GetPacketLength(uint16_t* const PacketLength)
 	Pipe_SelectPipe(RNDIS_DATA_IN_PIPE);
 	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 	Pipe_Unfreeze();
-	
+
 	if (!(Pipe_IsReadWriteAllowed()))
 	{
 		*PacketLength = 0;
@@ -293,17 +293,18 @@ uint8_t RNDIS_GetPacketLength(uint16_t* const PacketLength)
 	}
 
 	RNDIS_Packet_Message_t DeviceMessage;
-	
+
 	if ((ErrorCode = Pipe_Read_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t))) != PIPE_RWSTREAM_NoError)
 	{
 		return ErrorCode;
 	}
 
 	*PacketLength = (uint16_t)DeviceMessage.DataLength;
-	
+
 	Pipe_Discard_Stream(DeviceMessage.DataOffset - (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)));
-	
+
 	Pipe_Freeze();
-	
+
 	return PIPE_RWSTREAM_NoError;
 }
+

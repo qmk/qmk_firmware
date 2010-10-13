@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -48,14 +48,14 @@
 
 		#include "BluetoothStack.h"
 		#include "RFCOMM.h"
-		
+
 	/* Macros: */
 		#define RFCOMM_SIGNAL_FC               (1 << 1)
 		#define RFCOMM_SIGNAL_RTC              (1 << 2)
 		#define RFCOMM_SIGNAL_RTR              (1 << 3)
 		#define RFCOMM_SIGNAL_IC               (1 << 6)
 		#define RFCOMM_SIGNAL_DV               (1 << 7)
-		
+
 		#define RFCOMM_CONFIG_REMOTESIGNALS    (1 << 0)
 		#define RFCOMM_CONFIG_LOCALSIGNALS     (1 << 1)
 		#define RFCOMM_CONFIG_LOCALSIGNALSSENT (1 << 2)
@@ -73,7 +73,7 @@
 			RFCOMM_Control_DLCParameterNegotiation = (0x80 >> 2),
 			RFCOMM_Control_NonSupportedCommand     = (0x10 >> 2),
 		};
-	
+
 	/* Type Defines: */
 		typedef struct
 		{
@@ -94,7 +94,7 @@
 			unsigned char CR      : 1;
 			unsigned char Command : 6;
 		} RFCOMM_Command_t;
-		
+
 		typedef struct
 		{
 			uint8_t          DLCI;
@@ -104,9 +104,9 @@
 			uint8_t          ACKTimerTicks;
 			uint16_t         MaximumFrameSize;
 			uint8_t          MaxRetransmissions;
-			uint8_t          RecoveryWindowSize;			
+			uint8_t          RecoveryWindowSize;
 		} RFCOMM_DPN_Parameters_t;
-		
+
 		typedef struct
 		{
 			RFCOMM_Address_t Channel;
@@ -120,7 +120,7 @@
 
 		#if defined(INCLUDE_FROM_RFCOMM_CONTROL_C)
 			static void RFCOMM_ProcessTestCommand(const RFCOMM_Command_t* const CommandHeader,
-			                                      const uint8_t CommandDataLen, 
+			                                      const uint8_t CommandDataLen,
 			                                      const uint8_t* CommandData,
 			                                      Bluetooth_Channel_t* const ACLChannel);
 			static void RFCOMM_ProcessFCECommand(const RFCOMM_Command_t* const CommandHeader,
@@ -143,5 +143,6 @@
 			                                     const uint8_t* CommandData,
 			                                     Bluetooth_Channel_t* const ACLChannel);
 		#endif
-		
+
 #endif
+

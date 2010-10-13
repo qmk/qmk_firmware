@@ -1,6 +1,6 @@
 /*
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -24,10 +24,10 @@
 					unsigned int TenSec         : 3;
 					unsigned int CH             : 1;
 				} Fields;
-				
+
 				uint8_t IntVal;
 			} Byte1;
-			
+
 			union
 			{
 				struct
@@ -36,10 +36,10 @@
 					unsigned int TenMin         : 3;
 					unsigned int Reserved       : 1;
 				} Fields;
-				
+
 				uint8_t IntVal;
 			} Byte2;
-			
+
 			union
 			{
 				struct
@@ -49,7 +49,7 @@
 					unsigned int TwelveHourMode  : 1;
 					unsigned int Reserved        : 1;
 				} Fields;
-				
+
 				uint8_t IntVal;
 			} Byte3;
 		} DS1307_TimeRegs_t;
@@ -64,7 +64,7 @@
 					unsigned int TenDay          : 2;
 					unsigned int Reserved        : 2;
 				} Fields;
-			
+
 				uint8_t IntVal;
 			} Byte1;
 
@@ -76,10 +76,10 @@
 					unsigned int TenMonth        : 1;
 					unsigned int Reserved        : 3;
 				} Fields;
-				
+
 				uint8_t IntVal;
 			} Byte2;
-			
+
 			union
 			{
 				struct
@@ -87,7 +87,7 @@
 					unsigned int Year            : 4;
 					unsigned int TenYear         : 4;
 				} Fields;
-				
+
 				uint8_t IntVal;
 			} Byte3;
 		} DS1307_DateRegs_t;
@@ -95,7 +95,7 @@
 	/* Macros: */
 		#define DS1307_TIMEREG_START  0x00
 		#define DS1307_DATEREG_START  0x04
-	
+
 		#define DS1307_ADDRESS_READ   0b11010001
 		#define DS1307_ADDRESS_WRITE  0b11010000
 
@@ -114,3 +114,4 @@
 		                    uint8_t* const Second);
 
 #endif
+

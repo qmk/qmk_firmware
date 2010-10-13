@@ -97,3 +97,4 @@ DWORD get_fattime (void)
 	             ((DWORD)Minute << 5) |
 	      (((DWORD)Second >> 1) << 0);
 }
+

@@ -1,7 +1,7 @@
 #
 #             LUFA Library
 #     Copyright (C) Dean Camera, 2010.
-#              
+#
 #  dean [at] fourwalledcubicle [dot] com
 #      www.fourwalledcubicle.com
 #
@@ -52,10 +52,10 @@ all:
 
 	$(MAKE) -C VirtualSerial clean
 	$(MAKE) -C VirtualSerial all
-	
+
 	$(MAKE) -C VirtualSerialMouse clean
-	$(MAKE) -C VirtualSerialMouse all	
-	
+	$(MAKE) -C VirtualSerialMouse all
+
 %:
 	$(MAKE) -C AudioInput $@
 	$(MAKE) -C AudioOutput $@
@@ -71,3 +71,4 @@ all:
 	$(MAKE) -C RNDISEthernet $@
 	$(MAKE) -C VirtualSerial $@
 	$(MAKE) -C VirtualSerialMouse $@
+

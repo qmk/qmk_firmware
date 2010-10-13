@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the DualVirtualSerial demo. This file contains the main tasks of the demo and
  *  is responsible for the initial application hardware configuration.
  */
- 
+
 #include "DualVirtualSerial.h"
 
 /** Contains the current baud rate and other settings of the first virtual serial port. While this demo does not use
@@ -69,7 +69,7 @@ CDC_Line_Coding_t LineEncoding2 = { .BaudRateBPS = 0,
 int main(void)
 {
 	SetupHardware();
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
 
@@ -160,14 +160,14 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	{
 		case REQ_GetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
-			{	
+			{
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(LineEncodingData, sizeof(CDC_Line_Coding_t));				
+				Endpoint_Write_Control_Stream_LE(LineEncodingData, sizeof(CDC_Line_Coding_t));
 				Endpoint_ClearOUT();
 			}
-			
+
 			break;
 		case REQ_SetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
@@ -178,7 +178,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_Read_Control_Stream_LE(LineEncodingData, sizeof(CDC_Line_Coding_t));
 				Endpoint_ClearIN();
 			}
-	
+
 			break;
 		case REQ_SetControlLineState:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
@@ -186,7 +186,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_ClearSETUP();
 				Endpoint_ClearStatusStage();
 			}
-	
+
 			break;
 	}
 }
@@ -199,7 +199,7 @@ void CDC1_Task(void)
 	char*       ReportString    = NULL;
 	uint8_t     JoyStatus_LCL   = Joystick_GetStatus();
 	static bool ActionSent      = false;
-	
+
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
@@ -222,26 +222,26 @@ void CDC1_Task(void)
 	if ((ReportString != NULL) && (ActionSent == false) && LineEncoding1.BaudRateBPS)
 	{
 		ActionSent = true;
-		
+
 		/* Select the Serial Tx Endpoint */
 		Endpoint_SelectEndpoint(CDC1_TX_EPNUM);
 
 		/* Write the String to the Endpoint */
 		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString));
-		
+
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
 
 		/* Wait until the endpoint is ready for another packet */
 		Endpoint_WaitUntilReady();
-		
+
 		/* Send an empty packet to ensure that the host does not buffer data sent to it */
 		Endpoint_ClearIN();
 	}
 
 	/* Select the Serial Rx Endpoint */
 	Endpoint_SelectEndpoint(CDC1_RX_EPNUM);
-	
+
 	/* Throw away any received data from the host */
 	if (Endpoint_IsOUTReceived())
 	  Endpoint_ClearOUT();
@@ -258,16 +258,16 @@ void CDC2_Task(void)
 
 	/* Select the Serial Rx Endpoint */
 	Endpoint_SelectEndpoint(CDC2_RX_EPNUM);
-	
+
 	/* Check to see if any data has been received */
 	if (Endpoint_IsOUTReceived())
 	{
 		/* Create a temp buffer big enough to hold the incoming endpoint packet */
 		uint8_t  Buffer[Endpoint_BytesInEndpoint()];
-		
+
 		/* Remember how large the incoming packet is */
 		uint16_t DataLength = Endpoint_BytesInEndpoint();
-	
+
 		/* Read in the incoming packet into the buffer */
 		Endpoint_Read_Stream_LE(&Buffer, DataLength);
 
@@ -276,7 +276,7 @@ void CDC2_Task(void)
 
 		/* Select the Serial Tx Endpoint */
 		Endpoint_SelectEndpoint(CDC2_TX_EPNUM);
-		
+
 		/* Write the received data to the endpoint */
 		Endpoint_Write_Stream_LE(&Buffer, DataLength);
 
@@ -290,3 +290,4 @@ void CDC2_Task(void)
 		Endpoint_ClearIN();
 	}
 }
+

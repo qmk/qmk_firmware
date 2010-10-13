@@ -42,8 +42,8 @@
  *    <b>Website:</b> http://www.pjrc.com/teensy/usb_debug_only.html \n
  *    <b>Description:</b> Not so much a complete stack as a collection of USB enabled demos, this library is specifically
  *                        designed for the PJRC Teensy line of USB AVRs, and thus may need to be modified for other USB AVR
- *                        chips. These minimal code samples shows the inner workings of the USB controller, without all the 
- *                        abstraction present in most other USB AVR stacks. 
+ *                        chips. These minimal code samples shows the inner workings of the USB controller, without all the
+ *                        abstraction present in most other USB AVR stacks.
  *
  *  \section Sec_SoftwareStacks Software AVR Stacks
  *  These are the known alternative USB stacks which can run on regular AVR models, lacking dedicated hardware USB controllers
@@ -66,4 +66,4 @@
  *                        Used in many commercial and non-commercial designs, with user-submitted projects available for viewing
  *                        on the company's website. Uses C language code mixed with assembly for time-critical sections.
  */
- 
+

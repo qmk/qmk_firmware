@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the MouseHostWithParser demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "MouseHostWithParser.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -64,7 +64,7 @@ void SetupHardware(void)
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
-	
+
 	/* Hardware Initialization */
 	SerialStream_Init(9600, false);
 	LEDs_Init();
@@ -119,7 +119,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
@@ -135,7 +135,7 @@ void Mouse_HID_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -145,7 +145,7 @@ void Mouse_HID_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -153,7 +153,7 @@ void Mouse_HID_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-		
+
 			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
 			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
@@ -162,12 +162,12 @@ void Mouse_HID_Task(void)
 
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
+
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			printf_P(PSTR("Processing HID Report (Size %d Bytes).\r\n"), HIDReportSize);
 
 			/* Get and process the device's first HID report descriptor */
@@ -179,21 +179,21 @@ void Mouse_HID_Task(void)
 					puts_P(PSTR("Not a valid Mouse." ESC_FG_WHITE));
 				else
 					printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-			
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
-				
+
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			printf("Total Reports: %d\r\n", HIDReportInfo.TotalDeviceReports);
 
 			for (uint8_t i = 0; i < HIDReportInfo.TotalDeviceReports; i++)
 			{
 				HID_ReportSizeInfo_t* CurrReportIDInfo = &HIDReportInfo.ReportIDSizes[i];
-				
+
 				uint8_t ReportSizeInBits      = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_In];
 				uint8_t ReportSizeOutBits     = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Out];
 				uint8_t ReportSizeFeatureBits = CurrReportIDInfo->ReportSizeBits[HID_REPORT_ITEM_Feature];
@@ -212,9 +212,9 @@ void Mouse_HID_Task(void)
 			break;
 		case HOST_STATE_Configured:
 			/* Select and unfreeze mouse data pipe */
-			Pipe_SelectPipe(MOUSE_DATA_IN_PIPE);	
+			Pipe_SelectPipe(MOUSE_DATA_IN_PIPE);
 			Pipe_Unfreeze();
-			
+
 			/* Check to see if a packet has been received */
 			if (Pipe_IsINReceived())
 			{
@@ -226,11 +226,11 @@ void Mouse_HID_Task(void)
 
 					/* Load in the mouse report */
 					Pipe_Read_Stream_LE(MouseReport, Pipe_BytesInPipe());
-				
+
 					/* Process the read in mouse report from the device */
 					ProcessMouseReport(MouseReport);
 				}
-				
+
 				/* Clear the IN endpoint, ready for next data packet */
 				Pipe_ClearIN();
 			}
@@ -255,7 +255,7 @@ void ProcessMouseReport(uint8_t* MouseReport)
 	{
 		/* Create a temporary item pointer to the next report item */
 		HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
-		
+
 		bool FoundData;
 
 		if ((ReportItem->Attributes.Usage.Page        == USAGE_PAGE_BUTTON) &&
@@ -263,7 +263,7 @@ void ProcessMouseReport(uint8_t* MouseReport)
 		{
 			/* Get the mouse button value */
 			FoundData = USB_GetHIDReportItemInfo(MouseReport, ReportItem);
-			
+
 			/* For multi-report devices - if the requested data was not in the issued report, continue */
 			if (!(FoundData))
 			  continue;
@@ -276,14 +276,14 @@ void ProcessMouseReport(uint8_t* MouseReport)
 				 (ReportItem->Attributes.Usage.Usage  == USAGE_SCROLL_WHEEL)       &&
 				 (ReportItem->ItemType                == HID_REPORT_ITEM_In))
 		{
-			/* Get the mouse wheel value if it is contained within the current 
+			/* Get the mouse wheel value if it is contained within the current
 			 * report, if not, skip to the next item in the parser list
 			 */
 			if (!(USB_GetHIDReportItemInfo(MouseReport, ReportItem)))
-			  continue;							  
+			  continue;
 
 			int16_t WheelDelta = HID_ALIGN_DATA(ReportItem, int16_t);
-			
+
 			if (WheelDelta)
 			  LEDMask = (LEDS_LED1 | LEDS_LED2 | ((WheelDelta > 0) ? LEDS_LED3 : LEDS_LED4));
 		}
@@ -294,13 +294,13 @@ void ProcessMouseReport(uint8_t* MouseReport)
 		{
 			/* Get the mouse relative position value */
 			FoundData = USB_GetHIDReportItemInfo(MouseReport, ReportItem);
-			
+
 			/* For multi-report devices - if the requested data was not in the issued report, continue */
 			if (!(FoundData))
 			  continue;
-			  
+
 			int16_t DeltaMovement = HID_ALIGN_DATA(ReportItem, int16_t);
-			
+
 			/* Check to see if a (non-zero) delta movement has been indicated */
 			if (DeltaMovement)
 			{
@@ -312,7 +312,7 @@ void ProcessMouseReport(uint8_t* MouseReport)
 			}
 		}
 	}
-	
+
 	/* Display the button information on the board LEDs */
 	LEDs_SetAllLEDs(LEDMask);
 }

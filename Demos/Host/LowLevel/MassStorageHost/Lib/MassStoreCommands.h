@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,7 +32,7 @@
  *
  *  Header file for MassStoreCommands.c.
  */
- 
+
 #ifndef _MASS_STORE_COMMANDS_H_
 #define _MASS_STORE_COMMANDS_H_
 
@@ -56,16 +56,16 @@
 
 		/** Command Static Wrapper signature byte, for verification of valid CSW blocks. */
 		#define CSW_SIGNATURE                       0x53425355UL
-		
+
 		/** Data direction mask for the Flags field of a CBW, indicating Host-to-Device transfer direction. */
 		#define COMMAND_DIRECTION_DATA_OUT          (0 << 7)
 
 		/** Data direction mask for the Flags field of a CBW, indicating Device-to-Host transfer direction. */
 		#define COMMAND_DIRECTION_DATA_IN           (1 << 7)
-		
+
 		/** Timeout period between the issuing of a CBW to a device, and the reception of the first packet. */
 		#define COMMAND_DATA_TIMEOUT_MS             10000
-		
+
 		/** Additional error code for Mass Storage functions when a device returns a logical command failure. */
 		#define MASS_STORE_SCSI_COMMAND_FAILED      0xC0
 
@@ -83,7 +83,7 @@
 			uint8_t  SCSICommandLength; /**< Length of the SCSI command in the CBW */
 			uint8_t  SCSICommandData[16]; /**< SCSI command to issue to the device */
 		} CommandBlockWrapper_t;
-		
+
 		/** Type define for a Mass Storage class Command Status Wrapper, used to wrap SCSI
 		 *  responses for transport over the USB bulk endpoints from the device.
 		 */
@@ -94,7 +94,7 @@
 			uint32_t DataTransferResidue; /**< Length of data not transferred */
 			uint8_t  Status; /**< Command status, a value from the MassStorageHost_CommandStatusCodes_t enum */
 		} CommandStatusWrapper_t;
-		
+
 		/** Type define for a SCSI Sense structure. Structures of this type are filled out by the
 		 *  device via the \ref MassStore_RequestSense() function, indicating the current sense data of the
 		 *  device (giving explicit error codes for the last issued command). For details of the
@@ -105,13 +105,13 @@
 			uint8_t       ResponseCode;
 
 			uint8_t       SegmentNumber;
-			
+
 			unsigned char SenseKey            : 4;
 			unsigned char Reserved            : 1;
 			unsigned char ILI                 : 1;
 			unsigned char EOM                 : 1;
 			unsigned char FileMark            : 1;
-			
+
 			uint8_t      Information[4];
 			uint8_t      AdditionalLength;
 			uint8_t      CmdSpecificInformation[4];
@@ -129,12 +129,12 @@
 		{
 			unsigned char DeviceType          : 5;
 			unsigned char PeripheralQualifier : 3;
-			
+
 			unsigned char Reserved            : 7;
 			unsigned char Removable           : 1;
-			
+
 			uint8_t      Version;
-			
+
 			unsigned char ResponseDataFormat  : 4;
 			unsigned char Reserved2           : 1;
 			unsigned char NormACA             : 1;
@@ -152,12 +152,12 @@
 			unsigned char WideBus16Bit        : 1;
 			unsigned char WideBus32Bit        : 1;
 			unsigned char RelAddr             : 1;
-			
+
 			uint8_t      VendorID[8];
 			uint8_t      ProductID[16];
 			uint8_t      RevisionID[4];
 		} SCSI_Inquiry_Response_t;
-		
+
 		/** SCSI capacity structure, to hold the total capacity of the device in both the number
 		 *  of blocks in the current LUN, and the size of each block. This structure is filled by
 		 *  the device when the \ref MassStore_ReadCapacity() function is called.
@@ -176,7 +176,7 @@
 			Command_Fail = 1, /**< Command failed to complete successfully */
 			Phase_Error  = 2 /**< Phase error while processing the issued command */
 		};
-	
+
 	/* Function Prototypes: */
 		#if defined(INCLUDE_FROM_MASSSTORE_COMMANDS_C)
 			static uint8_t MassStore_SendCommand(CommandBlockWrapper_t* const SCSICommandBlock,
@@ -186,7 +186,7 @@
 			                                         void* BufferPtr) ATTR_NON_NULL_PTR_ARG(1);
 			static uint8_t MassStore_GetReturnedStatus(CommandStatusWrapper_t* const SCSICommandStatus) ATTR_NON_NULL_PTR_ARG(1);
 		#endif
-		
+
 		uint8_t MassStore_MassStorageReset(void);
 		uint8_t MassStore_GetMaxLUN(uint8_t* const MaxLUNIndex);
 		uint8_t MassStore_RequestSense(const uint8_t LUNIndex,
@@ -210,3 +210,4 @@
 		                                            const bool PreventRemoval);
 
 #endif
+

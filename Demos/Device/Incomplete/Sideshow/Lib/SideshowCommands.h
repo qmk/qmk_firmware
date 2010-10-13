@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -35,7 +35,7 @@
 		#include <avr/io.h>
 		#include <stdbool.h>
 		#include <string.h>
-	
+
 		#include "Sideshow.h"
 		#include "SideshowCommon.h"
 		#include "SideshowApplications.h"
@@ -63,25 +63,25 @@
 			VT_UI4               = 19,
 			VT_LPWSTR            = 31,
 		};
-		
+
 		enum SideShow_ScreenTypeText_t
 		{
 			ScreenBitmap         = 0,
 			ScreenText           = 1,
 		};
-		
+
 		enum SideShow_ColorTypes_t
 		{
 			ColorDisplay         = 0,
 			GrayscaleDisplay     = 1,
-			BlackAndWhiteDisplay = 2, 		
+			BlackAndWhiteDisplay = 2,
 		};
 
 		enum SideShow_DeviceTypes_t
-		{ 
-			GenericDevice = 0, 
-			CameraDevice = 1, 
-			MediaPlayerDevice = 2, 
+		{
+			GenericDevice = 0,
+			CameraDevice = 1,
+			MediaPlayerDevice = 2,
 			PhoneDevice = 3,
 			VideoDevice = 4,
 			PIMDevice = 5,
@@ -94,11 +94,11 @@
 			GUID_t   PropertyGUID;
 			uint32_t PropertyID;
 		} SideShow_PropertyKey_t;
-		
+
 		typedef struct
 		{
 			uint32_t DataType;
-			
+
 			union
 			{
 				void*    DataPointer;
@@ -107,12 +107,12 @@
 				uint32_t Data32;
 			} Data;
 		} SideShow_PropertyData_t;
-		
+
 	/* Macros: */
 		#define SIDESHOW_CMD_PING                     0x001
 		#define SIDESHOW_CMD_SET_CURRENT_USER         0x100
 		#define SIDESHOW_CMD_GET_CURRENT_USER         0x101
-		#define SIDESHOW_CMD_GET_CAPABILITIES         0x103		
+		#define SIDESHOW_CMD_GET_CAPABILITIES         0x103
 		#define SIDESHOW_CMD_GET_APPLICATION_ORDER    0x104
 		#define SIDESHOW_CMD_ADD_APPLICATION          0x10D
 		#define SIDESHOW_CMD_DELETE_APPLICATION       0x10E
@@ -139,12 +139,12 @@
 		#define PROPERTY_SIDESHOW_CLIENTWIDTH         15
 		#define PROPERTY_SIDESHOW_CLIENTHEIGHT        16
 		#define PROPERTY_SIDESHOW_DEVICEICON          17
-		
+
 		#define PROPERTY_DEVICE_DEVICETYPE            15
-				
+
 	/* Function Prototypes: */
 		void Sideshow_ProcessCommandPacket(void);
-		
+
 		#if defined(INCLUDE_FROM_SIDESHOWCOMMANDS_H)
 			static void SideShow_Ping(SideShow_PacketHeader_t* const PacketHeader);
 			static void SideShow_Sync(SideShow_PacketHeader_t* const PacketHeader);
@@ -164,3 +164,4 @@
 		#endif
 
 #endif
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -59,9 +59,9 @@
 
 		/** CDC Class specific request to set the current virtual serial port handshake line states. */
 		#define REQ_SetControlLineState      0x22
-		
+
 		/** Notification type constant for a change in the virtual serial port handshake line states, for
-		 *  use with a USB_Notification_Header_t notification structure when sent to the host via the CDC 
+		 *  use with a USB_Notification_Header_t notification structure when sent to the host via the CDC
 		 *  notification endpoint.
 		 */
 		#define NOTIF_SerialState            0x20
@@ -75,7 +75,7 @@
 		 *  from the host, to indicate that theRTS line state should be high.
 		 */
 		#define CONTROL_LINE_OUT_RTS         (1 << 1)
-		
+
 		/** Mask for the DCD handshake line for use with the a NOTIF_SerialState class specific notification
 		 *  from the device to the host, to indicate that the DCD line state is currently high.
 		 */
@@ -110,7 +110,7 @@
 		 *  to indicate that a data overrun error has occurred on the virtual serial port.
 		 */
 		#define CONTROL_LINE_IN_OVERRUNERROR (1 << 6)
-		
+
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY         LEDS_LED1
 
@@ -138,7 +138,7 @@
 			                      */
 			uint8_t  DataBits; /**< Bits of data per character of the virtual serial port */
 		} CDC_Line_Coding_t;
-		
+
 		/** Type define for a CDC notification, sent to the host via the CDC notification endpoint to indicate a
 		 *  change in the device state asynchronously.
 		 */
@@ -152,7 +152,7 @@
 			uint16_t wIndex; /**< Notification wIndex, notification-specific */
 			uint16_t wLength; /**< Notification wLength, notification-specific */
 		} USB_Notification_Header_t;
-		
+
 	/* Enums: */
 		/** Enum for the possible line encoding formats of a virtual serial port. */
 		enum CDCDevice_CDC_LineCodingFormats_t
@@ -161,7 +161,7 @@
 			OneAndAHalfStopBits = 1, /**< Each frame contains one and a half stop bits */
 			TwoStopBits         = 2, /**< Each frame contains two stop bits */
 		};
-		
+
 		/** Enum for the possible line encoding parity settings of a virtual serial port. */
 		enum CDCDevice_LineCodingParity_t
 		{
@@ -171,14 +171,15 @@
 			Parity_Mark         = 3, /**< Mark parity bit mode on each frame */
 			Parity_Space        = 4, /**< Space parity bit mode on each frame */
 		};
-		
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void CDC_Task(void);
-		
+
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_UnhandledControlRequest(void);
 
 #endif
+

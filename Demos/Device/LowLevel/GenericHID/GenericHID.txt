@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage Generic HID Device
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -28,7 +28,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Human Interface Device (HID)</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>N/A</td>
  *   </tr>
@@ -44,19 +44,19 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Generic HID device demonstration application. This gives a simple reference application
  *  for implementing a generic HID device, using the basic USB HID drivers in all modern
  *  OSes (i.e. no special drivers required). By default it accepts and sends up to 8 byte reports
  *  to and from a USB Host, and transmits the last sent report back to the host.
- *  
+ *
  *  On start-up the system will automatically enumerate and function as a vendor HID device.
  *  When controlled by a custom HID class application, reports can be sent and received by
  *  both the standard data endpoint and control request methods defined in the HID specification.
  *
  *  \section SSec_Options Project Options
- *  
+ *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
  *
  *  <table>
@@ -73,3 +73,4 @@
  *   </tr>
  *  </table>
  */
+

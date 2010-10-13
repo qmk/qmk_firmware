@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -76,13 +76,13 @@ bool XMEGANVM_WaitWhileNVMBusBusy(void)
 	{
 		/* Send the LDCS command to read the PDI STATUS register to see the NVM bus is active */
 		XPROGTarget_SendByte(PDI_CMD_LDCS | PDI_STATUS_REG);
-		
+
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
-		
+
 		/* We might have timed out waiting for the status register read response, check here */
 		if (!(TimeoutTicksRemaining))
 		  return false;
-		
+
 		/* Check the status register read response to see if the NVM bus is enabled */
 		if (StatusRegister & PDI_STATUS_NVM)
 		  return true;
@@ -102,7 +102,7 @@ bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 		/* Send a LDS command to read the NVM STATUS register to check the BUSY flag */
 		XPROGTarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_STATUS);
-		
+
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 
 		/* We might have timed out waiting for the status register read response, check here */
@@ -127,7 +127,7 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
 	/* Wait until the NVM controller is no longer busy */
 	if (!(XMEGANVM_WaitWhileNVMControllerBusy()))
 	  return false;
-	  
+
 	/* Set the NVM command to the correct CRC read command */
 	XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CMD);
@@ -145,7 +145,7 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
 	/* Wait until the NVM controller is no longer busy */
 	if (!(XMEGANVM_WaitWhileNVMControllerBusy()))
 	  return false;
-	
+
 	/* Load the PDI pointer register with the DAT0 register start address */
 	XPROGTarget_SendByte(PDI_CMD_ST | (PDI_POINTER_DIRECT << 2) | PDI_DATSIZE_4BYTES);
 	XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_DAT0);
@@ -153,12 +153,12 @@ bool XMEGANVM_GetMemoryCRC(const uint8_t CRCCommand, uint32_t* const CRCDest)
 	/* Send the REPEAT command to grab the CRC bytes */
 	XPROGTarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
 	XPROGTarget_SendByte(XMEGA_CRC_LENGTH - 1);
-	
+
 	/* Read in the CRC bytes from the target */
 	XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
 	for (uint8_t i = 0; i < XMEGA_CRC_LENGTH; i++)
 	  ((uint8_t*)CRCDest)[i] = XPROGTarget_ReceiveByte();
-	
+
 	return (TimeoutTicksRemaining != 0);
 }
 
@@ -175,7 +175,7 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16
 	/* Wait until the NVM controller is no longer busy */
 	if (!(XMEGANVM_WaitWhileNVMControllerBusy()))
 	  return false;
-	
+
 	/* Send the READNVM command to the NVM controller for reading of an arbitrary location */
 	XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CMD);
@@ -188,12 +188,12 @@ bool XMEGANVM_ReadMemory(const uint32_t ReadAddress, uint8_t* ReadBuffer, uint16
 	/* Send the REPEAT command with the specified number of bytes to read */
 	XPROGTarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
 	XPROGTarget_SendByte(ReadSize - 1);
-		
+
 	/* Send a LD command with indirect access and post-increment to read out the bytes */
 	XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
 	while (ReadSize-- && TimeoutTicksRemaining)
 	  *(ReadBuffer++) = XPROGTarget_ReceiveByte();
-	
+
 	return (TimeoutTicksRemaining != 0);
 }
 
@@ -215,12 +215,12 @@ bool XMEGANVM_WriteByteMemory(const uint8_t WriteCommand, const uint32_t WriteAd
 	XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CMD);
 	XPROGTarget_SendByte(WriteCommand);
-	
+
 	/* Send new memory byte to the memory of the target */
 	XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 	XMEGANVM_SendAddress(WriteAddress);
 	XPROGTarget_SendByte(Byte);
-	
+
 	return true;
 }
 
@@ -275,13 +275,13 @@ bool XMEGANVM_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t Eras
 		/* Send the REPEAT command with the specified number of bytes to write */
 		XPROGTarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
 		XPROGTarget_SendByte(WriteSize - 1);
-			
+
 		/* Send a ST command with indirect access and post-increment to write the bytes */
 		XPROGTarget_SendByte(PDI_CMD_ST | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
 		while (WriteSize--)
 		  XPROGTarget_SendByte(*(WriteBuffer++));
 	}
-	
+
 	if (PageMode & XPRG_PAGEMODE_WRITE)
 	{
 		/* Wait until the NVM controller is no longer busy */
@@ -292,7 +292,7 @@ bool XMEGANVM_WritePageMemory(const uint8_t WriteBuffCommand, const uint8_t Eras
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CMD);
 		XPROGTarget_SendByte(WritePageCommand);
-		
+
 		/* Send the address of the first page location to write the memory page */
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendAddress(WriteAddress);
@@ -322,11 +322,11 @@ bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CMD);
 		XPROGTarget_SendByte(EraseCommand);
-	
+
 		/* Set CMDEX bit in NVM CTRLA register to start the erase sequence */
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CTRLA);
-		XPROGTarget_SendByte(1 << 0);	
+		XPROGTarget_SendByte(1 << 0);
 	}
 	else if (EraseCommand == XMEGA_NVM_CMD_ERASEEEPROM)
 	{
@@ -356,21 +356,21 @@ bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
 		/* Send the REPEAT command with the specified number of bytes to write */
 		XPROGTarget_SendByte(PDI_CMD_REPEAT | PDI_DATSIZE_1BYTE);
 		XPROGTarget_SendByte(XPROG_Param_EEPageSize - 1);
-			
+
 		/* Send a ST command with indirect access and post-increment to tag each byte in the EEPROM page buffer */
 		XPROGTarget_SendByte(PDI_CMD_ST | (PDI_POINTER_INDIRECT_PI << 2) | PDI_DATSIZE_1BYTE);
 		for (uint8_t PageByte = 0; PageByte < XPROG_Param_EEPageSize; PageByte++)
 		  XPROGTarget_SendByte(0x00);
-	
+
 		/* Send the memory erase command to the target */
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CMD);
 		XPROGTarget_SendByte(EraseCommand);
-	
+
 		/* Set CMDEX bit in NVM CTRLA register to start the EEPROM erase sequence */
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CTRLA);
-		XPROGTarget_SendByte(1 << 0);		
+		XPROGTarget_SendByte(1 << 0);
 	}
 	else
 	{
@@ -378,18 +378,19 @@ bool XMEGANVM_EraseMemory(const uint8_t EraseCommand, const uint32_t Address)
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_CMD);
 		XPROGTarget_SendByte(EraseCommand);
-	
+
 		/* Other erase modes just need us to address a byte within the target memory space */
 		XPROGTarget_SendByte(PDI_CMD_STS | (PDI_DATSIZE_4BYTES << 2));
 		XMEGANVM_SendAddress(Address);
 		XPROGTarget_SendByte(0x00);
 	}
-	
+
 	/* Wait until the NVM bus is ready again */
 	if (!(XMEGANVM_WaitWhileNVMBusBusy()))
 	  return false;
-	  
+
 	return true;
 }
 
 #endif
+

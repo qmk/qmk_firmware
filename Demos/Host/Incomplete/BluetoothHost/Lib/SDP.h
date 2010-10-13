@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -48,11 +48,11 @@
 
 		#include "BluetoothStack.h"
 		#include "SDPServices.h"
-		
+
 	/* Macros: */
 		#define BT_SDP_DEBUG(l, s, ...)                 do { if (SDP_DEBUG_LEVEL >= l) printf_P(PSTR("(SDP) " s "\r\n"), ##__VA_ARGS__); } while (0)
 		#define SDP_DEBUG_LEVEL                         0
-		
+
 		#define SDP_PDU_ERRORRESPONSE                   0x01
 		#define SDP_PDU_SERVICESEARCHREQUEST            0x02
 		#define SDP_PDU_SERVICESEARCHRESPONSE           0x03
@@ -103,7 +103,7 @@
 			uint16_t TransactionID; /**< Unique transaction ID number to associate requests and responses */
 			uint16_t ParameterLength; /**< Length of the data following the SDP header */
 		} SDP_PDUHeader_t;
-		
+
 	/* Inline Functions: */
 		/** Writes 8 bits of raw data to the given buffer, incrementing the buffer position afterwards.
 		 *
@@ -116,7 +116,7 @@
 			*((uint8_t*)*BufferPos) = Data;
 			*BufferPos += sizeof(uint8_t);
 		}
-		
+
 		/** Writes 16 bits of raw data to the given buffer, incrementing the buffer position afterwards.
 		 *
 		 *  \param[in, out] BufferPos  Current position in the buffer where the data is to be written to
@@ -127,7 +127,7 @@
 		{
 			*((uint16_t*)*BufferPos) = SwapEndian_16(Data);
 			*BufferPos += sizeof(uint16_t);
-		}		
+		}
 
 		/** Writes 32 bits of raw data to the given buffer, incrementing the buffer position afterwards.
 		 *
@@ -151,7 +151,7 @@
 		{
 			uint8_t Data = *((const uint8_t*)*BufferPos);
 			*BufferPos += sizeof(uint8_t);
-			
+
 			return Data;
 		}
 
@@ -165,7 +165,7 @@
 		{
 			uint16_t Data = SwapEndian_16(*((const uint16_t*)*BufferPos));
 			*BufferPos += sizeof(uint16_t);
-			
+
 			return Data;
 		}
 
@@ -179,13 +179,13 @@
 		{
 			uint32_t Data = SwapEndian_32(*((const uint32_t*)*BufferPos));
 			*BufferPos += sizeof(uint32_t);
-			
+
 			return Data;
 		}
 
-		/** Adds a new Data Element Sequence container with a 16-bit size header to the buffer. The buffer 
+		/** Adds a new Data Element Sequence container with a 16-bit size header to the buffer. The buffer
 		 *  pointer's position is advanced past the added header once the element has been added. The returned
-		 *  size header value is pre-zeroed out so that it can be incremented as data is placed into the Data 
+		 *  size header value is pre-zeroed out so that it can be incremented as data is placed into the Data
 		 *  Element Sequence container.
 		 *
 		 *  The total added size of the container header is three bytes, regardless of the size of its contents
@@ -199,12 +199,12 @@
 		{
 			SDP_WriteData8(BufferPos, (SDP_DATASIZE_Variable16Bit | SDP_DATATYPE_Sequence));
 
-			uint16_t* SizePos = *BufferPos;			
+			uint16_t* SizePos = *BufferPos;
 			SDP_WriteData16(BufferPos, 0);
 
 			return SizePos;
 		}
-		
+
 	/* Function Prototypes: */
 		void SDP_ProcessPacket(void* Data,
 		                       Bluetooth_Channel_t* const Channel);
@@ -247,3 +247,4 @@
 		#endif
 
 #endif
+

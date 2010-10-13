@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage XPLAIN UART Bridge/PDI Programmer Project
  *
  *  \section SSec_Compat Project Compatibility:
@@ -27,7 +27,7 @@
  *    <td>1) Communications Device Class (CDC)</td>
  *    <td>2) Vendor Specific Class</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>1) Abstract Control Model (ACM)</td>
  *    <td>2) N/A</td>
@@ -44,7 +44,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  This project serves a dual purpose. When loaded into the USB AVR on the XPLAIN board, it will act as either a USB to Serial
  *  converter for the XPLAIN's hardware USART (at a speed of 9600 baud), or an AVRStudio compatible PDI programmer for the XMEGA.
@@ -91,3 +91,4 @@
  *   </tr>
  *  </table>
  */
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -56,7 +56,7 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "../Common/StillImage.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -66,7 +66,7 @@
 		#if !defined(__INCLUDE_FROM_SI_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/Class/StillImage.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Error code for some Still Image Host functions, indicating a logical (and not hardware) error. */
@@ -89,7 +89,7 @@
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the Still Image interface's OUT data pipe. */
 					bool     DataOUTPipeDoubleBank; /**< Indicates if the Still Image interface's OUT data pipe should use double banking. */
 
-					uint8_t  EventsPipeNumber; /**< Pipe number of the Still Image interface's IN events endpoint, if used. */			
+					uint8_t  EventsPipeNumber; /**< Pipe number of the Still Image interface's IN events endpoint, if used. */
 					bool     EventsPipeDoubleBank; /**< Indicates if the Still Image interface's events data pipe should use double banking. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
@@ -105,7 +105,7 @@
 					uint16_t DataINPipeSize; /**< Size in bytes of the Still Image interface's IN data pipe. */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the Still Image interface's OUT data pipe. */
 					uint16_t EventsPipeSize;  /**< Size in bytes of the Still Image interface's IN events pipe. */
-					
+
 					bool IsSessionOpen; /**< Indicates if a PIMA session is currently open with the attached device. */
 					uint32_t TransactionID; /**< Transaction ID for the next transaction to send to the device. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
@@ -113,7 +113,7 @@
 						  *   the interface is enumerated.
 						  */
 			} USB_ClassInfo_SI_Host_t;
-	
+
 		/* Enums: */
 			/** Enum for the possible error codes returned by the \ref SI_Host_ConfigurePipes() function. */
 			enum SI_Host_EnumerationFailure_ErrorCodes_t
@@ -148,7 +148,7 @@
 
 			/** Opens a new PIMA session with the attached device. This should be used before any session-orientated PIMA commands
 			 *  are issued to the device. Only one session can be open at the one time.
-			 *	
+			 *
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
@@ -186,7 +186,7 @@
 			uint8_t SI_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 			                                SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
 			                                ATTR_NON_NULL_PTR_ARG(2);
-			
+
 			/** Receives a raw PIMA block header to the device. This can be used to receive arbitrary PIMA blocks from the device with
 			 *  or without parameters.
 			 *
@@ -203,7 +203,7 @@
 			                                   ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Sends a given PIMA command to the attached device, filling out the PIMA command header's Transaction ID automatically.
-			 *	
+			 *
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
@@ -258,7 +258,7 @@
 			uint8_t SI_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 			                                   SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
 			                                   ATTR_NON_NULL_PTR_ARG(2);
-			
+
 			/** Sends arbitrary data to the attached device, for use in the data phase of PIMA commands which require data
 			 *  transfer beyond the regular PIMA command block parameters.
 			 *
@@ -290,7 +290,7 @@
 			uint8_t SI_Host_ReadData(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 			                         void* Buffer,
 			                         const uint16_t Bytes) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
-		
+
 		/* Inline Functions: */
 			/** General management task for a given Still Image host class interface, required for the correct operation of the
 			 *  interface. This should be called frequently in the main program loop, before the master USB management task
@@ -302,7 +302,7 @@
 			static inline void SI_Host_USBTask(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo)
 			{
 				(void)SIInterfaceInfo;
-			}		
+			}
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
@@ -312,14 +312,14 @@
 			#define STILL_IMAGE_PROTOCOL           0x01
 
 			#define COMMAND_DATA_TIMEOUT_MS        10000
-		
+
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_SI_CLASS_HOST_C)
 				static uint8_t DCOMP_SI_Host_NextSIInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_SI_Host_NextSIInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif
 	#endif
-	
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
@@ -328,3 +328,4 @@
 #endif
 
 /** @} */
+

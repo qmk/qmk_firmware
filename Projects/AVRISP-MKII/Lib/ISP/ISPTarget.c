@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -132,10 +132,10 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 		  TCCR1B = 0;
 
 		if (PINB & (1 << 3))
-		  SoftSPI_Data |= 0x01;	
+		  SoftSPI_Data |= 0x01;
 	}
 
-	PORTB ^= (1 << 1);	
+	PORTB ^= (1 << 1);
 }
 
 /** Initialises the appropriate SPI driver (hardware or software, depending on the selected ISP speed) ready for
@@ -155,7 +155,7 @@ void ISPTarget_Init(void)
 	else
 	{
 		HardwareSPIMode = false;
-		
+
 		DDRB  |= ((1 << 1) | (1 << 2));
 		PORTB |= ((1 << 0) | (1 << 3));
 
@@ -176,7 +176,7 @@ void ISPTarget_ShutDown(void)
 	else
 	{
 		DDRB  &= ~((1 << 1) | (1 << 2));
-		PORTB &= ~((1 << 0) | (1 << 3));	
+		PORTB &= ~((1 << 0) | (1 << 3));
 	}
 }
 
@@ -200,7 +200,7 @@ uint8_t ISPTarget_TransferSoftSPIByte(const uint8_t Byte)
 	TCCR1B = ((1 << WGM12) | (1 << CS11));
 	while (SoftSPI_BitsRemaining && TimeoutTicksRemaining);
 	TCCR1B = 0;
-	
+
 	return SoftSPI_Data;
 }
 
@@ -214,7 +214,7 @@ void ISPTarget_ChangeTargetResetLine(const bool ResetTarget)
 	if (ResetTarget)
 	{
 		AUX_LINE_DDR |= AUX_LINE_MASK;
-		
+
 		if (!(V2Params_GetParameterValue(PARAM_RESET_POLARITY)))
 		  AUX_LINE_PORT |=  AUX_LINE_MASK;
 		else
@@ -254,7 +254,7 @@ void ISPTarget_LoadExtendedAddress(void)
 	ISPTarget_SendByte(LOAD_EXTENDED_ADDRESS_CMD);
 	ISPTarget_SendByte(0x00);
 	ISPTarget_SendByte((CurrentAddress & 0x00FF0000) >> 16);
-	ISPTarget_SendByte(0x00);	
+	ISPTarget_SendByte(0x00);
 }
 
 /** Waits until the last issued target memory programming command has completed, via the check mode given and using
@@ -296,8 +296,8 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode,
 
 			if (!(TimeoutTicksRemaining))
 			 ProgrammingStatus = STATUS_CMD_TOUT;
-			
-			break;		
+
+			break;
 		case PROG_MODE_WORD_READYBUSY_MASK:
 		case PROG_MODE_PAGED_READYBUSY_MASK:
 			ProgrammingStatus = ISPTarget_WaitWhileTargetBusy();
@@ -308,3 +308,4 @@ uint8_t ISPTarget_WaitForProgComplete(const uint8_t ProgrammingMode,
 }
 
 #endif
+

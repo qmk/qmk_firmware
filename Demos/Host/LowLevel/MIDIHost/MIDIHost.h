@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -51,19 +51,19 @@
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/Board/Joystick.h>
-		
+
 		#include "ConfigDescriptor.h"
-		
+
 	/* Macros: */
 		/** MIDI command for a note on (activation) event. */
 		#define MIDI_COMMAND_NOTE_ON      0x90
 
 		/** MIDI command for a note off (deactivation) event. */
 		#define MIDI_COMMAND_NOTE_OFF     0x80
-		
+
 		/** Standard key press velocity value used for all note events, as no pressure sensor is mounted. */
 		#define MIDI_STANDARD_VELOCITY    64
-		
+
 		/** Convenience macro. MIDI channels are numbered from 1-10 (natural numbers) however the logical channel
 		 *  addresses are zero-indexed. This converts a natural MIDI channel number into the logical channel address.
 		 *
@@ -89,21 +89,22 @@
 		{
 			unsigned char Command     : 4; /**< MIDI command being sent or received in the event packet */
 			unsigned char CableNumber : 4; /**< Virtual cable number of the event being sent or received in the given MIDI interface */
-			
+
 			uint8_t Data1; /**< First byte of data in the MIDI event */
 			uint8_t Data2; /**< Second byte of data in the MIDI event */
-			uint8_t Data3; /**< Third byte of data in the MIDI event */		
+			uint8_t Data3; /**< Third byte of data in the MIDI event */
 		} USB_MIDI_EventPacket_t;
 
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void MIDI_Host_Task(void);
-	
+
 		void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
 		void EVENT_USB_Host_DeviceAttached(void);
 		void EVENT_USB_Host_DeviceUnattached(void);
 		void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 		                                            const uint8_t SubErrorCode);
 		void EVENT_USB_Host_DeviceEnumerationComplete(void);
-		
+
 #endif
+

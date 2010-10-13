@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -38,12 +38,12 @@
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
-		
+
 		#include "../ConfigDescriptor.h"
-		
+
 	/* Macros: */
 		#define BLUETOOTH_MAX_OPEN_CHANNELS    6
-		
+
 		#define CHANNEL_PSM_SDP                0x0001
 		#define CHANNEL_PSM_UDP                0x0002
 		#define CHANNEL_PSM_RFCOMM             0x0003
@@ -53,13 +53,13 @@
 		#define CHANNEL_PSM_HTTP               0x000C
 		#define CHANNEL_PSM_UPNP               0x0010
 		#define CHANNEL_PSM_HIDP               0x0011
-		
+
 		#define CHANNEL_SEARCH_LOCALNUMBER     0
 		#define CHANNEL_SEARCH_REMOTENUMBER    1
 		#define CHANNEL_SEARCH_PSM             2
-		
+
 		#define MAXIMUM_CHANNEL_MTU            255
-		
+
 	/* Enums: */
 		/** Enum for the possible states for a Bluetooth ACL channel. */
 		enum BT_ChannelStates_t
@@ -117,7 +117,7 @@
 			Bluetooth_Channel_t Channels[BLUETOOTH_MAX_OPEN_CHANNELS]; /**< Channel information structures for the connection. */
 			uint8_t             SignalingIdentifier; /**< Next Signaling Channel unique command sequence identifier. */
 		} Bluetooth_Connection_t;
-		
+
 		/** Local Bluetooth device information structure, for the defining of local device characteristics for the Bluetooth stack. */
 		typedef struct
 		{
@@ -125,7 +125,7 @@
 			char     PINCode[16]; /**< Pin code required to send or receive in order to authenticate with a remote device. */
 			char     Name[]; /**< Name of the local Bluetooth device, up to 248 characters. */
 		} Bluetooth_Device_t;
-		
+
 		/** Bluetooth stack state information structure, for the containment of the Bluetooth stack state. The values in
 		 *  this structure are set by the Bluetooth stack internally, and should all be treated as read only by the user
 		 *  application.
@@ -139,12 +139,12 @@
 			                        */
 			uint8_t LocalBDADDR[6]; /**< Local Bluetooth adapter's BDADDR, valid when the stack is fully initialized. */
 		} Bluetooth_Stack_State_t;
-	
+
 	/* Includes: */
 		#include "BluetoothHCICommands.h"
-		#include "BluetoothACLPackets.h"		
-		
-	/* Function Prototypes: */		
+		#include "BluetoothACLPackets.h"
+
+	/* Function Prototypes: */
 		void Bluetooth_Stack_Init(void);
 		void Bluetooth_Stack_USBTask(void);
 
@@ -171,3 +171,4 @@
 		extern Bluetooth_Stack_State_t Bluetooth_State;
 
 #endif
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the LEDNotfier project. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "LEDNotifier.h"
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
@@ -89,7 +89,7 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 
 	if (SoftPWM_Count >= SoftPWM_Channel3_Duty)
 	  LEDMask &= ~LEDS_LED3;
-	  
+
 	LEDs_SetAllLEDs(LEDMask);
 }
 
@@ -104,24 +104,24 @@ static FILE USBSerialStream;
 int main(void)
 {
 	SetupHardware();
-	
+
 	/* Create a regular blocking character stream for the interface so that it can be used with the stdio.h functions */
 	CDC_Device_CreateBlockingStream(&VirtualSerial_CDC_Interface, &USBSerialStream);
-	
+
 	sei();
 
 	for (;;)
 	{
 		/* Read in next LED colour command from the host */
 		uint8_t ColourUpdate = fgetc(&USBSerialStream);
-		
+
 		/* Top 3 bits select the LED, bottom 5 control the brightness */
 		uint8_t Channel = (ColourUpdate & 0b11100000);
 		uint8_t Duty    = (ColourUpdate & 0b00011111);
-		
+
 		if (Channel & (1 << 5))
 		  SoftPWM_Channel1_Duty = Duty;
-		
+
 		if (Channel & (1 << 6))
 		  SoftPWM_Channel2_Duty = Duty;
 
@@ -146,7 +146,7 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
-	
+
 	/* Timer Initialization */
 	OCR0A  = 100;
 	TCCR0A = (1 << WGM01);
@@ -165,3 +165,4 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 {
 	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }
+

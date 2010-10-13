@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -40,9 +40,9 @@
  *  If the BOARD value is set to BOARD_USER, this will include the /Board/Joystick.h file in the user project
  *  directory.
  *
- *  For possible BOARD makefile values, see \ref Group_BoardTypes. 
+ *  For possible BOARD makefile values, see \ref Group_BoardTypes.
  */
- 
+
 /** \ingroup Group_BoardDrivers
  *  @defgroup Group_Joystick Joystick Driver - LUFA/Drivers/Board/Joystick.h
  *
@@ -73,7 +73,7 @@
 
 	/* Includes: */
 	#include "../../Common/Common.h"
-	
+
 	#if (BOARD == BOARD_NONE)
 		#error The Board Joystick driver cannot be used if the makefile BOARD option is not set.
 	#elif (BOARD == BOARD_USBKEY)
@@ -111,3 +111,4 @@
 #endif
 
 /** @} */
+

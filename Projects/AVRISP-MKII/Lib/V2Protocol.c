@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -59,12 +59,12 @@ void V2Protocol_Init(void)
 	ADC_SetupChannel(VTARGET_ADC_CHANNEL);
 	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | VTARGET_ADC_CHANNEL_MASK);
 	#endif
-	
+
 	/* Timeout timer initialization (10ms period) */
 	OCR0A  = ((F_CPU / 1024) / 100);
 	TCCR0A = (1 << WGM01);
 	TIMSK0 = (1 << OCIE0A);
-	
+
 	V2Params_LoadNonVolatileParamValues();
 }
 
@@ -75,11 +75,11 @@ void V2Protocol_Init(void)
 void V2Protocol_ProcessCommand(void)
 {
 	uint8_t V2Command = Endpoint_Read_Byte();
-	
+
 	/* Start the timeout management timer */
 	TimeoutTicksRemaining = COMMAND_TIMEOUT_TICKS;
 	TCCR0B = ((1 << CS02) | (1 << CS00));
-	
+
 	switch (V2Command)
 	{
 		case CMD_SIGN_ON:
@@ -104,7 +104,7 @@ void V2Protocol_ProcessCommand(void)
 			break;
 		case CMD_PROGRAM_FLASH_ISP:
 		case CMD_PROGRAM_EEPROM_ISP:
-			ISPProtocol_ProgramMemory(V2Command);			
+			ISPProtocol_ProgramMemory(V2Command);
 			break;
 		case CMD_READ_FLASH_ISP:
 		case CMD_READ_EEPROM_ISP:
@@ -139,7 +139,7 @@ void V2Protocol_ProcessCommand(void)
 			V2Protocol_UnknownCommand(V2Command);
 			break;
 	}
-	
+
 	/* Disable the timeout management timer */
 	TCCR0B = 0;
 
@@ -193,10 +193,10 @@ static void V2Protocol_ResetProtection(void)
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	
+
 	Endpoint_Write_Byte(CMD_RESET_PROTECTION);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
-	Endpoint_ClearIN();	
+	Endpoint_ClearIN();
 }
 
 
@@ -209,18 +209,18 @@ static void V2Protocol_GetSetParam(const uint8_t V2Command)
 {
 	uint8_t ParamID = Endpoint_Read_Byte();
 	uint8_t ParamValue;
-	
+
 	if (V2Command == CMD_SET_PARAMETER)
 	  ParamValue = Endpoint_Read_Byte();
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	
+
 	Endpoint_Write_Byte(V2Command);
-	
+
 	uint8_t ParamPrivs = V2Params_GetParameterPrivileges(ParamID);
-	
+
 	if ((V2Command == CMD_SET_PARAMETER) && (ParamPrivs & PARAM_PRIV_WRITE))
 	{
 		Endpoint_Write_Byte(STATUS_CMD_OK);
@@ -232,7 +232,7 @@ static void V2Protocol_GetSetParam(const uint8_t V2Command)
 		Endpoint_Write_Byte(V2Params_GetParameterValue(ParamID));
 	}
 	else
-	{	
+	{
 		Endpoint_Write_Byte(STATUS_CMD_FAILED);
 	}
 
@@ -250,7 +250,7 @@ static void V2Protocol_LoadAddress(void)
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
-	
+
 	if (CurrentAddress & (1UL << 31))
 	  MustLoadExtendedAddress = true;
 
@@ -258,3 +258,4 @@ static void V2Protocol_LoadAddress(void)
 	Endpoint_Write_Byte(STATUS_CMD_OK);
 	Endpoint_ClearIN();
 }
+

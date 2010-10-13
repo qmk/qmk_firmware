@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the KeyboardHostWithParser demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "KeyboardHostWithParser.h"
 
 /** Processed HID report descriptor items structure, containing information on each HID report element */
@@ -52,14 +52,14 @@ USB_ClassInfo_HID_Host_t Keyboard_HID_Interface =
 
 				.DataOUTPipeNumber      = 2,
 				.DataOUTPipeDoubleBank  = false,
-				
+
 				.HIDInterfaceProtocol   = HID_BOOTP_NonBootProtocol,
-				
+
 				.HIDParserData          = &HIDReportInfo
 			},
 	};
 
-	
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -78,7 +78,7 @@ int main(void)
 		{
 			case HOST_STATE_Addressed:
 				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-			
+
 				uint16_t ConfigDescriptorSize;
 				uint8_t  ConfigDescriptorData[512];
 
@@ -99,7 +99,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
 					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
@@ -115,7 +115,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				puts_P(PSTR("Keyboard Enumerated.\r\n"));
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
@@ -125,7 +125,7 @@ int main(void)
 				{
 					uint8_t KeyboardReport[Keyboard_HID_Interface.State.LargestReportSize];
 					HID_Host_ReceiveReport(&Keyboard_HID_Interface, &KeyboardReport);
-					
+
 					for (uint8_t ReportNumber = 0; ReportNumber < HIDReportInfo.TotalReportItems; ReportNumber++)
 					{
 						HID_ReportItem_t* ReportItem = &HIDReportInfo.ReportItems[ReportNumber];
@@ -157,24 +157,24 @@ int main(void)
 								else if ((KeyCode >= 0x1E) && (KeyCode <= 0x27))
 								  PressedKey = (KeyCode - 0x1E) + '0';
 								else if (KeyCode == 0x2C)
-								  PressedKey = ' ';						
+								  PressedKey = ' ';
 								else if (KeyCode == 0x28)
 								  PressedKey = '\n';
-									 
+
 								/* Print the pressed key character out through the serial port if valid */
 								if (PressedKey)
 								  putchar(PressedKey);
 							}
-							
+
 							/* Once a scan-code is found, stop scanning through the report items */
 							break;
 						}
 					}
 				}
-				
+
 				break;
 		}
-	
+
 		HID_Host_USBTask(&Keyboard_HID_Interface);
 		USB_USBTask();
 	}
@@ -244,7 +244,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
@@ -265,3 +265,4 @@ bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* const CurrentItem)
 	 */
 	return (CurrentItem->Attributes.Usage.Page == USAGE_PAGE_KEYBOARD);
 }
+

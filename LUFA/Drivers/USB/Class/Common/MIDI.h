@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -68,7 +68,7 @@
 		#if !defined(__INCLUDE_FROM_MIDI_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/Class/MIDI.h instead.
 		#endif
-		
+
 	/* Macros: */
 		/** MIDI command for a note on (activation) event. */
 		#define MIDI_COMMAND_NOTE_ON        0x90
@@ -78,21 +78,21 @@
 
 		/** Standard key press velocity value used for all note events. */
 		#define MIDI_STANDARD_VELOCITY      64
-		
+
 		/** Convenience macro. MIDI channels are numbered from 1-10 (natural numbers) however the logical channel
 		 *  addresses are zero-indexed. This converts a natural MIDI channel number into the logical channel address.
 		 *
 		 *  \param[in] channel  MIDI channel number to address.
 		 */
 		#define MIDI_CHANNEL(channel)        ((channel) - 1)
-	
+
 	/* Enums: */
 		enum MIDI_JackTypes_t
 		{
 			MIDI_JACKTYPE_Embedded = 0x01, /**< MIDI class descriptor jack type value for an embedded (logical) MIDI input or output jack. */
 			MIDI_JACKTYPE_External = 0x02, /**< MIDI class descriptor jack type value for an external (physical) MIDI input or output jack. */
 		};
-		
+
 	/* Type Defines: */
 		/** \brief MIDI class-specific Streaming Interface Descriptor (LUFA naming conventions).
 		 *
@@ -106,13 +106,13 @@
 		{
 			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
 			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
-			
+
 			uint16_t                AudioSpecification; /**< Binary coded decimal value, indicating the supported Audio Class
 			                                             *   specification version.
 			                                             */
 			uint16_t                TotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
 		} USB_MIDI_Descriptor_AudioInterface_AS_t;
-		
+
 		/** \brief MIDI class-specific Streaming Interface Descriptor (USB-IF naming conventions).
 		 *
 		 *  Type define for an Audio class-specific MIDI streaming interface descriptor. This indicates to the host
@@ -130,7 +130,7 @@
 			                           */
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
-			
+
 			uint16_t bcdMSC; /**< Binary coded decimal value, indicating the supported MIDI Class specification version. */
 			uint16_t wTotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
 		} USB_MIDI_StdDescriptor_AudioInterface_AS_t;
@@ -149,7 +149,7 @@
 
 			uint8_t                 JackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
 			uint8_t                 JackID; /**< ID value of this jack - must be a unique value within the device. */
-			
+
 			uint8_t                 JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
 		} USB_MIDI_Descriptor_InputJack_t;
 
@@ -172,7 +172,7 @@
 
 			uint8_t  bJackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
 			uint8_t  bJackID; /**< ID value of this jack - must be a unique value within the device. */
-			
+
 			uint8_t  iJack; /**< Index of a string descriptor describing this descriptor within the device. */
 		} USB_MIDI_StdDescriptor_InputJack_t;
 
@@ -190,14 +190,14 @@
 
 			uint8_t                   JackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
 			uint8_t                   JackID; /**< ID value of this jack - must be a unique value within the device. */
-			
+
 			uint8_t                   NumberOfPins; /**< Number of output channels within the jack, either physical or logical. */
 			uint8_t                   SourceJackID[1]; /**< ID of each output pin's source data jack. */
 			uint8_t                   SourcePinID[1]; /**< Pin number in the input jack of each output pin's source data. */
-			
+
 			uint8_t                   JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
 		} USB_MIDI_Descriptor_OutputJack_t;
-		
+
 		/** \brief MIDI class-specific Output Jack Descriptor (USB-IF naming conventions).
 		 *
 		 *  Type define for an Audio class-specific MIDI OUT jack. This gives information to the host on a MIDI output, either
@@ -217,11 +217,11 @@
 
 			uint8_t  bJackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
 			uint8_t  bJackID; /**< ID value of this jack - must be a unique value within the device. */
-			
+
 			uint8_t  bNrInputPins; /**< Number of output channels within the jack, either physical or logical. */
 			uint8_t  baSourceID[1]; /**< ID of each output pin's source data jack. */
 			uint8_t  baSourcePin[1]; /**< Pin number in the input jack of each output pin's source data. */
-			
+
 			uint8_t  iJack; /**< Index of a string descriptor describing this descriptor within the device. */
 		} USB_MIDI_StdDescriptor_OutputJack_t;
 
@@ -272,17 +272,18 @@
 		{
 			unsigned char Command     : 4; /**< Upper nibble of the MIDI command being sent or received in the event packet. */
 			unsigned char CableNumber : 4; /**< Virtual cable number of the event being sent or received in the given MIDI interface. */
-			
+
 			uint8_t Data1; /**< First byte of data in the MIDI event. */
 			uint8_t Data2; /**< Second byte of data in the MIDI event. */
-			uint8_t Data3; /**< Third byte of data in the MIDI event. */		
+			uint8_t Data3; /**< Third byte of data in the MIDI event. */
 		} MIDI_EventPacket_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

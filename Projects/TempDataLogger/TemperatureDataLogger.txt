@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage Temperature Datalogger Project
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -28,7 +28,7 @@
  *    <td>Mass Storage Device \n
  *        Human Interface Device</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclasses:</b></td>
  *    <td>Bulk-Only Transport \n
  *        Keyboard Subclass</td>
@@ -47,7 +47,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Temperature Data Logger project. This project is a very basic USB data logger for the current temperature as reported by
  *  the board's temperature sensor, writing the temperature to a file stored on the board's Dataflash in a FAT filesystem
@@ -83,3 +83,4 @@
  *   </tr>
  *  </table>
  */
+

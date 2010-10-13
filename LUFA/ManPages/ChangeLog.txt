@@ -208,7 +208,7 @@
   *    read (thanks to Andrei Krainev)
   *  - Fixed device state not being reset back to the default state if the host sets the address to 0
   *  - Fixed Set Configuration requests not being stalled until the host has set the device's address
-  *  - Fixed Host mode HID class driver not sending the correct report type when HID_Host_SendReportByID() was called and the 
+  *  - Fixed Host mode HID class driver not sending the correct report type when HID_Host_SendReportByID() was called and the
   *    HID_HOST_BOOT_PROTOCOL_ONLY compile time option is set
   *  - Fixed INTERRUPT_CONTROL_ENDPOINT compile time option preventing other interrupts from occurring while the control endpoint
   *    request is being processed, causing possible lockups if a USB interrupt occurs during a transfer
@@ -323,7 +323,7 @@
   *  - Fixed Mass Storage Host Class driver and Low Level demo not clearing the error condition if an attached device returns a
   *    STALL to a GET MAX LUN request (thanks to Martin Luxen)
   *  - Fixed TeensyHID bootloader not properly shutting down the USB interface to trigger a disconnection on the host before resetting
-  *  - Fixed MassStorageHost Class driver demo not having USB_STREAM_TIMEOUT_MS compile time option set properly to prevent slow 
+  *  - Fixed MassStorageHost Class driver demo not having USB_STREAM_TIMEOUT_MS compile time option set properly to prevent slow
   *    devices from timing out the data pipes
   *  - Fixed the definition of the Endpoint_BytesInEndpoint() macro for the U4 series AVR parts
   *  - Fixed MIDI host Class driver MIDI_Host_SendEventPacket() routine not properly checking for Pipe ready before writing
@@ -400,7 +400,7 @@
   *  - Added new Pipe_IsFrozen() macro to determine if the currently selected pipe is frozen
   *  - Added new USB_GetHIDReportSize() function to the HID report parser to retrieve the size of a given report by its ID
   *  - Added new combined Mass Storage and Keyboard demo (thanks to Matthias Hullin)
-  *  
+  *
   *  <b>Changed:</b>
   *  - SetIdle requests to the HID device driver with a 0 idle period (send changes only) now only affect the requested
   *    HID interface within the device, not all HID interfaces
@@ -479,7 +479,7 @@
   *  - Added new Pipe_BoundEndpointNumber() and Pipe_IsEndpointBound() functions
   *  - Added new DEVICE_STATE_AS_GPIOR and HOST_STATE_AS_GPIOR compile time options
   *  - Added 404 Not Found errors to the webserver in the RNDIS demos to indicate invalid URLs
-  *  
+  *
   *  <b>Changed:</b>
   *  - Deprecated pseudo-scheduler and removed dynamic memory allocator from the library (first no longer needed and second unused)
   *  - The device-mode CALLBACK_USB_GetDescriptor() function now has an extra parameter so that the memory space in which the requested
@@ -635,7 +635,7 @@
   *  - Changed HWB board driver to Buttons driver, to allow for the support of future boards with more than one mounted GPIO button
   *  - Serial driver now correctly calculates the baud register value when in double speed mode
   *  - Init function of the Serial driver is now static inline to product smaller code for the common-case of static init values
-  *    
+  *
   *
   *  \section Sec_ChangeLog090401 Version 090401
   *
@@ -757,9 +757,9 @@
   *  - Doxygen documentation now contains documentation on all the projects, bootloaders and most demos included with the library
   *  - CDC bootloader now runs user application when USB disconnected rather than waiting for a hard reset
   *  - MouseHostWithParser and KeyboardHostWithParser now support multiple-report devices
-  *  - RNDIS demo can now close connections correctly using the new TCP_APP_CLOSECONNECTION() macro - used in Webserver  
+  *  - RNDIS demo can now close connections correctly using the new TCP_APP_CLOSECONNECTION() macro - used in Webserver
   *  - Fixed the DFU bootloader, no longer freezes up when certain files are programmed into an AVR, made reading/writing faster
-  *  - Fixed mouse/joystick up/down movements reversed - HID mouse X/Y coordinates use a left-handed coordinate system, not a normal 
+  *  - Fixed mouse/joystick up/down movements reversed - HID mouse X/Y coordinates use a left-handed coordinate system, not a normal
   *    right-handed system
   *  - Added stub code to the CDC and USBtoSerial demos showing how to read and set the RS-232 handshake lines - not currently used in
   *    the demos, but the example code and supporting defines are now in place
@@ -814,7 +814,7 @@
   *  - All HID demos now pass the USB.org automated HID compliance tests
   *  - Polling interval of the interrupt endpoint in the CDC based demos changed to 0xFF to fix problems on Linux systems
   *  - Changed stream functions to accept a new callback function, with NO_STREAM_CALLBACKS used to disable all callbacks
-  *  - Mass Storage demo dataflash management routines changed to use the endpoint stream functions		
+  *  - Mass Storage demo dataflash management routines changed to use the endpoint stream functions
   *  - Added AVRStudio project files for each demo in addition to the existing Programmer's Notepad master project file
   *  - Re-added call to ReconfigureUSART() in USBtoSerial SetLineCoding request, so that baud rate changes
   *    are reflected in the hardware (change was previously lost)
@@ -950,7 +950,7 @@
   *
   *  - Added call to ReconfigureUSART() in USBtoSerial SetLineCoding request, so that baud rate changes
   *    are reflected in the hardware
-  *  - Fixed CDC and USBtoSerial demos - Stream commands do not work for control endpoints, and the 
+  *  - Fixed CDC and USBtoSerial demos - Stream commands do not work for control endpoints, and the
   *    GetLineCoding request had an incorrect RequestType mask preventing it from being processed
   *  - Improved reliability of the USBtoSerial demo, adding a busy wait while the buffer is full
   *  - Device control endpoint size is now determined from the device's descriptors rather than being fixed
@@ -1057,6 +1057,7 @@
   *  - ID transition interrupt now raises the appropriate device/host disconnect event if device attached
   *  - Fixed double VBUS change (and VBUS -) event when detaching in device mode
   *  - Added ability to disable ANSI terminal codes by the defining of DISABLE_TERMINAL_CODES in makefile
-  *  - Removed return from ConfigurePipe and ConfigureEndpoint functions - use Pipe_IsConfigured() and 
+  *  - Removed return from ConfigurePipe and ConfigureEndpoint functions - use Pipe_IsConfigured() and
   *    Endpoint_IsConfigured() after calling the config functions to determine success
   */
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -36,7 +36,7 @@
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
- 
+
 /** \ingroup Group_USB
  *  @defgroup Group_StdRequest Standard USB Requests
  *
@@ -56,7 +56,7 @@
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Mask for the request type parameter, to indicate the direction of the request data (Host to Device
@@ -137,7 +137,7 @@
 			 *  \see \ref CONTROL_REQTYPE_RECIPIENT macro.
 			 */
 			#define REQREC_OTHER               (3 << 0)
-			
+
 			/** Feature indicator for Clear Feature or Set Feature commands. When used in a Clear Feature
 			 *  request this indicates that an endpoint (whose address is given elsewhere in the request
 			 *  should have its stall condition cleared. If used in a similar manner inside a Set Feature
@@ -229,3 +229,4 @@
 #endif
 
 /** @} */
+

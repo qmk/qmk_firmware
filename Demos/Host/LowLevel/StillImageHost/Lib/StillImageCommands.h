@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,17 +32,17 @@
  *
  *  Header file for StillImageCommands.c.
  */
- 
+
 #ifndef _STILL_IMAGE_COMMANDS_H_
 #define _STILL_IMAGE_COMMANDS_H_
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
-		
+
 		#include "PIMACodes.h"
 		#include "../StillImageHost.h"
 
-	/* Macros: */		
+	/* Macros: */
 		/** Length in bytes of a given Unicode string's character length.
 		 *
 		 *  \param[in] chars  Total number of Unicode characters in the string
@@ -51,7 +51,7 @@
 
 		/** Timeout period between the issuing of a command to a device, and the reception of the first packet. */
 		#define COMMAND_DATA_TIMEOUT_MS        10000
-		
+
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a command container.
 		 *
@@ -79,7 +79,7 @@
 			uint32_t TransactionID; /**< Unique container ID to link blocks together */
 			uint32_t Params[3]; /**< Block parameters to be issued along with the block code (command blocks only) */
 		} PIMA_Container_t;
-	
+
 	/* Enums: */
 		/** Enum for the possible PIMA contains types. */
 		enum PIMA_Container_Types_t
@@ -90,12 +90,12 @@
 			CType_ResponseBlock     = 3, /**< Response container type */
 			CType_EventBlock        = 4, /**< Event Block container type */
 		};
-	
+
 	/* External Variables: */
 		extern PIMA_Container_t PIMA_SendBlock;
 		extern PIMA_Container_t PIMA_ReceivedBlock;
 		extern PIMA_Container_t PIMA_EventBlock;
-	
+
 	/* Function Prototypes: */
 		void    SImage_SendBlockHeader(void);
 		uint8_t SImage_ReceiveBlockHeader(void);
@@ -107,3 +107,4 @@
 		bool    SImage_IsEventReceived(void);
 
 #endif
+

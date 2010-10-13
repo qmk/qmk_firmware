@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,7 +37,7 @@
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
- 
+
 /** \ingroup Group_USB
  *  @defgroup Group_USBManagement USB Interface Management
  *
@@ -53,7 +53,7 @@
 		#include <avr/io.h>
 		#include <avr/interrupt.h>
 		#include <stdbool.h>
-		
+
 		#include "../HighLevel/USBMode.h"
 
 		#include "../../../Common/Common.h"
@@ -61,7 +61,7 @@
 		#include "../HighLevel/Events.h"
 		#include "../HighLevel/USBTask.h"
 		#include "USBInterrupt.h"
-		
+
 		#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
 			#include "Host.h"
 			#include "OTG.h"
@@ -69,7 +69,7 @@
 			#include "../HighLevel/HostStandardReq.h"
 			#include "../HighLevel/PipeStream.h"
 		#endif
-		
+
 		#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
 			#include "Device.h"
 			#include "Endpoint.h"
@@ -90,7 +90,7 @@
 		#if !defined(F_CLOCK)
 			#error F_CLOCK is not defined. You must define F_CLOCK to the frequency of the unprescaled input clock in your project makefile.
 		#endif
-	
+
 		#if (F_CLOCK == 8000000)
 			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
 			     defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
@@ -116,13 +116,13 @@
 				#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP0))
 			#endif
 		#endif
-		
+
 		#if !defined(USB_PLL_PSC)
 			#error No PLL prescale value available for chosen F_CPU value and AVR model.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
-		/* Macros: */			
+		/* Macros: */
 			/** Regulator disable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
 			 *  regulator should be enabled to regulate the data pin voltages to within the USB standard.
 			 *
@@ -136,7 +136,7 @@
 			 *  \note See USB AVR data sheet for more information on the internal pad regulator.
 			 */
 			#define USB_OPT_REG_ENABLED                (0 << 1)
-			
+
 			/** Manual PLL control option mask for \ref USB_Init(). This indicates to the library that the user application
 			 *  will take full responsibility for controlling the AVR's PLL (used to generate the high frequency clock
 			 *  that the USB controller requires) and ensuring that it is locked at the correct frequency for USB operations.
@@ -178,12 +178,12 @@
 				 *  (both control and standard) when in either device or host mode. If the next packet of a stream
 				 *  is not received or acknowledged within this time period, the stream function will fail.
 				 *
-				 *  This value may be overridden in the user project makefile as the value of the 
+				 *  This value may be overridden in the user project makefile as the value of the
 				 *  \ref USB_STREAM_TIMEOUT_MS token, and passed to the compiler using the -D switch.
 				 */
 				#define USB_STREAM_TIMEOUT_MS       100
 			#endif
-		
+
 		/* Inline Functions: */
 			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
 				/** Returns boolean true if the VBUS line is currently high (i.e. the USB host is supplying power),
@@ -246,21 +246,21 @@
 			 *                      PLL, and a USB_DEVICE_OPT_* mask (when the device mode is enabled) to set the device
 			 *                      mode speed.
 			 *
-			 *  \note To reduce the FLASH requirements of the library if only device or host mode is required, 
+			 *  \note To reduce the FLASH requirements of the library if only device or host mode is required,
 			 *        the mode can be statically set in the project makefile by defining the token USB_DEVICE_ONLY
-			 *        (for device mode) or USB_HOST_ONLY (for host mode), passing the token to the compiler 
+			 *        (for device mode) or USB_HOST_ONLY (for host mode), passing the token to the compiler
 			 *        via the -D switch. If the mode is statically set, this parameter does not exist in the
 			 *        function prototype.
 			 *        \n\n
 			 *
 			 *  \note To reduce the FLASH requirements of the library if only fixed settings are are required,
-			 *        the options may be set statically in the same manner as the mode (see the Mode parameter of 
+			 *        the options may be set statically in the same manner as the mode (see the Mode parameter of
 			 *        this function). To statically set the USB options, pass in the USE_STATIC_OPTIONS token,
 			 *        defined to the appropriate options masks. When the options are statically set, this
 			 *        parameter does not exist in the function prototype.
 			 *        \n\n
-			 *        
-			 *  \note The mode parameter does not exist on devices where only one mode is possible, such as USB 
+			 *
+			 *  \note The mode parameter does not exist on devices where only one mode is possible, such as USB
 			 *        AVR models which only implement the USB device mode in hardware.
 			 *
 			 *  \see Device.h for the USB_DEVICE_OPT_* masks.
@@ -280,7 +280,7 @@
 			               const uint8_t Options
 			               #endif
 			               );
-			
+
 			/** Shuts down the USB interface. This turns off the USB interface after deallocating all USB FIFO
 			 *  memory, endpoints and pipes. When turned off, no USB functionality can be used until the interface
 			 *  is restarted with the \ref USB_Init() function.
@@ -314,7 +314,7 @@
 			#elif defined(USB_DEVICE_ONLY)
 				#define USB_CurrentMode USB_MODE_Device
 			#endif
-			
+
 			#if !defined(USE_STATIC_OPTIONS) || defined(__DOXYGEN__)
 				/** Indicates the current USB options that the USB interface was initialized with when \ref USB_Init()
 				 *  was called. This value will be one of the USB_MODE_* masks defined elsewhere in this module.
@@ -348,12 +348,12 @@
 				#if defined(USB_CAN_BE_DEVICE)
 				static void USB_Init_Device(void);
 				#endif
-				
+
 				#if defined(USB_CAN_BE_HOST)
 				static void USB_Init_Host(void);
 				#endif
 			#endif
-	
+
 		/* Inline Functions: */
 			static inline void USB_PLL_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_PLL_On(void)
@@ -361,13 +361,13 @@
 				PLLCSR  = USB_PLL_PSC;
 				PLLCSR |= (1 << PLLE);
 			}
-			
+
 			static inline void USB_PLL_Off(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_PLL_Off(void)
 			{
 				PLLCSR  = 0;
 			}
-			
+
 			static inline bool USB_PLL_IsReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_PLL_IsReady(void)
 			{
@@ -381,7 +381,7 @@
 				UHWCON  |=  (1 << UVREGE);
 			#else
 				REGCR   &= ~(1 << REGDIS);
-			#endif			
+			#endif
 			}
 
 			static inline void USB_REG_Off(void) ATTR_ALWAYS_INLINE;
@@ -391,9 +391,9 @@
 				UHWCON  &= ~(1 << UVREGE);
 			#else
 				REGCR   |=  (1 << REGDIS);
-			#endif			
+			#endif
 			}
-			
+
 			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 			static inline void USB_OTGPAD_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_OTGPAD_On(void)
@@ -413,13 +413,13 @@
 			{
 				USBCON  |=  (1 << FRZCLK);
 			}
-			
+
 			static inline void USB_CLK_Unfreeze(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_CLK_Unfreeze(void)
 			{
 				USBCON  &= ~(1 << FRZCLK);
 			}
-			
+
 			static inline void USB_Controller_Enable(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Controller_Enable(void)
 			{
@@ -436,11 +436,11 @@
 			static inline void USB_Controller_Reset(void)
 			{
 				const uint8_t Temp = USBCON;
-				
+
 				USBCON = (Temp & ~(1 << USBE));
 				USBCON = (Temp |  (1 << USBE));
 			}
-	
+
 			#if defined(USB_CAN_BE_BOTH)
 			static inline uint8_t USB_GetUSBModeFromUID(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t USB_GetUSBModeFromUID(void)
@@ -453,12 +453,13 @@
 			#endif
 
 	#endif
-	
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
 		#endif
-			
+
 #endif
 
 /** @} */
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -49,7 +49,7 @@
  *
  *  @{
  */
- 
+
 #ifndef _HID_CLASS_DEVICE_H_
 #define _HID_CLASS_DEVICE_H_
 
@@ -88,14 +88,14 @@
 					uint8_t  InterfaceNumber; /**< Interface number of the HID interface within the device. */
 
 					uint8_t  ReportINEndpointNumber; /**< Endpoint number of the HID interface's IN report endpoint. */
-					uint16_t ReportINEndpointSize; /**< Size in bytes of the HID interface's IN report endpoint. */					
+					uint16_t ReportINEndpointSize; /**< Size in bytes of the HID interface's IN report endpoint. */
 					bool     ReportINEndpointDoubleBank; /**< Indicates if the HID interface's IN report endpoint should use double banking. */
-					
+
 					void*    PrevReportINBuffer; /**< Pointer to a buffer where the previously created HID input report can be
 					                              *  stored by the driver, for comparison purposes to detect report changes that
 					                              *  must be sent immediately to the host. This should point to a buffer big enough
 					                              *  to hold the largest HID input report sent from the HID interface. If this is set
-												  *  to NULL, it is up to the user to force transfers when needed in the 
+												  *  to NULL, it is up to the user to force transfers when needed in the
 												  *  \ref CALLBACK_HID_Device_CreateHIDReport() callback function.
 												  *
 												  *  \note Due to the single buffer, the internal driver can only correctly compare
@@ -111,18 +111,18 @@
 					                                  */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
-				           */										 
+				           */
 				struct
 				{
 					bool     UsingReportProtocol; /**< Indicates if the HID interface is set to Boot or Report protocol mode. */
 					uint16_t IdleCount; /**< Report idle period, in milliseconds, set by the host. */
-					uint16_t IdleMSRemaining; /**< Total number of milliseconds remaining before the idle period elapsed - this 
-											   *   should be decremented by the user application if non-zero each millisecond. */	
+					uint16_t IdleMSRemaining; /**< Total number of milliseconds remaining before the idle period elapsed - this
+											   *   should be decremented by the user application if non-zero each millisecond. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
 				          */
 			} USB_ClassInfo_HID_Device_t;
-	
+
 		/* Function Prototypes: */
 			/** Configures the endpoints of a given HID interface, ready for use. This should be linked to the library
 			 *  \ref EVENT_USB_Device_ConfigurationChanged() event so that the endpoints are configured when the configuration
@@ -137,12 +137,12 @@
 			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.
 			 */
 			bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Processes incoming control requests from the host, that are directed to the given HID class interface. This should be
 			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
-			 */		
+			 */
 			void HID_Device_ProcessControlRequest(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** General management task for a given HID class interface, required for the correct operation of the interface. This should
@@ -151,13 +151,13 @@
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
 			 */
 			void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** HID class driver callback for the user creation of a HID IN report. This callback may fire in response to either
 			 *  HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback the
 			 *  user is responsible for the creation of the next HID input report to be sent to the host.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
-			 *  \param[in,out] ReportID          If preset to a non-zero value, this is the report ID being requested by the host. If zero, 
+			 *  \param[in,out] ReportID          If preset to a non-zero value, this is the report ID being requested by the host. If zero,
 			 *                                   this should be set to the report ID of the generated HID input report (if any). If multiple
 			 *                                   reports are not sent via the given HID interface, this parameter should be ignored.
 			 *  \param[in]     ReportType        Type of HID report to generate, either \ref HID_REPORT_ITEM_In or \ref HID_REPORT_ITEM_Feature.
@@ -173,7 +173,7 @@
 			                                         void* ReportData,
 			                                         uint16_t* const ReportSize) ATTR_NON_NULL_PTR_ARG(1)
 			                                         ATTR_NON_NULL_PTR_ARG(2) ATTR_NON_NULL_PTR_ARG(4) ATTR_NON_NULL_PTR_ARG(5);
-			
+
 			/** HID class driver callback for the user processing of a received HID OUT report. This callback may fire in response to
 			 *  either HID class control requests from the host, or by the normal HID endpoint polling procedure. Inside this callback
 			 *  the user is responsible for the processing of the received HID output report from the host.
@@ -205,12 +205,13 @@
 				if (HIDInterfaceInfo->State.IdleMSRemaining)
 				  HIDInterfaceInfo->State.IdleMSRemaining--;
 			}
-			
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

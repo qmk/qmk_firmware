@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -39,7 +39,7 @@
    driver, a small surface mount four-way (plus button) digital joystick
    on most USB AVR boards.
 */
- 
+
 #ifndef __JOYSTICK_USER_H__
 #define __JOYSTICK_USER_H__
 
@@ -57,7 +57,7 @@
 		#if !defined(__INCLUDE_FROM_JOYSTICK_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Board/Joystick.h instead.
 		#endif
-	
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Mask for the joystick being pushed in the left direction. */
@@ -74,14 +74,14 @@
 
 			/** Mask for the joystick being pushed inward. */
 			#define JOY_PRESS                 // TODO: Add mask to indicate joystick pressed position here
-			
+
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
 			static inline void Joystick_Init(void)
 			{
 				// TODO: Initialize joystick port pins as inputs with pull-ups
 			}
-			
+
 			static inline uint8_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
 			static inline uint8_t Joystick_GetStatus(void)
 			{
@@ -95,3 +95,4 @@
 		#endif
 
 #endif
+

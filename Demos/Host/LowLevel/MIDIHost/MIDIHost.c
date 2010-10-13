@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the MIDIHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "MIDIHost.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -121,7 +121,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
@@ -137,7 +137,7 @@ void MIDI_Host_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -147,7 +147,7 @@ void MIDI_Host_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -155,7 +155,7 @@ void MIDI_Host_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
 			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
@@ -176,16 +176,16 @@ void MIDI_Host_Task(void)
 			break;
 		case HOST_STATE_Configured:
 			Pipe_SelectPipe(MIDI_DATA_IN_PIPE);
-			
+
 			if (Pipe_IsINReceived())
 			{
 				USB_MIDI_EventPacket_t MIDIEvent;
-				
+
 				Pipe_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
-				
+
 				bool NoteOnEvent  = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_ON  >> 4));
 				bool NoteOffEvent = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_OFF >> 4));
-				
+
 				if (NoteOnEvent || NoteOffEvent)
 				{
 					printf_P(PSTR("MIDI Note %s - Channel %d, Pitch %d, Velocity %d\r\n"), NoteOnEvent ? "On" : "Off",
@@ -195,19 +195,19 @@ void MIDI_Host_Task(void)
 
 				Pipe_ClearIN();
 			}
-			
+
 			Pipe_SelectPipe(MIDI_DATA_OUT_PIPE);
-			
+
 			static uint8_t PrevJoystickStatus;
 
 			if (Pipe_IsOUTReady())
 			{
 				uint8_t MIDICommand = 0;
 				uint8_t MIDIPitch;
-			
+
 				uint8_t JoystickStatus  = Joystick_GetStatus();
 				uint8_t JoystickChanges = (JoystickStatus ^ PrevJoystickStatus);
-				
+
 				/* Get board button status - if pressed use channel 10 (percussion), otherwise use channel 1 */
 				uint8_t Channel = ((Buttons_GetStatus() & BUTTONS_BUTTON1) ? MIDI_CHANNEL(10) : MIDI_CHANNEL(1));
 
@@ -228,7 +228,7 @@ void MIDI_Host_Task(void)
 					MIDICommand = ((JoystickStatus & JOY_RIGHT)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
 					MIDIPitch   = 0x3E;
 				}
-				
+
 				if (JoystickChanges & JOY_DOWN)
 				{
 					MIDICommand = ((JoystickStatus & JOY_DOWN)? MIDI_COMMAND_NOTE_ON : MIDI_COMMAND_NOTE_OFF);
@@ -248,19 +248,19 @@ void MIDI_Host_Task(void)
 						{
 							.CableNumber = 0,
 							.Command     = (MIDICommand >> 4),
-							
+
 							.Data1       = MIDICommand | Channel,
 							.Data2       = MIDIPitch,
-							.Data3       = MIDI_STANDARD_VELOCITY,			
+							.Data3       = MIDI_STANDARD_VELOCITY,
 						};
-						
+
 					/* Write the MIDI event packet to the pipe */
 					Pipe_Write_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
-				
+
 					/* Send the data in the pipe to the device */
 					Pipe_ClearOUT();
 				}
-				
+
 				/* Save previous joystick value for next joystick change detection */
 				PrevJoystickStatus = JoystickStatus;
 			}
@@ -268,3 +268,4 @@ void MIDI_Host_Task(void)
 			break;
 	}
 }
+

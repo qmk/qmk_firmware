@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -50,9 +50,9 @@
 		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		
+
 		#include "ConfigDescriptor.h"
-		
+
 	/* Macros: */
 		/** HID Class specific request to send a HID report to the device. */
 		#define REQ_SetReport             0x09
@@ -68,10 +68,10 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-		
+
 		/** Size of the Launcher report command buffer. */
 		#define LAUNCHER_CMD_BUFFER_SIZE 64
-		
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
 
@@ -92,5 +92,6 @@
 		void DiscardNextReport(void);
 		void WriteNextReport(uint8_t* const ReportOUTData,
 		                     const uint16_t ReportLength);
-		
+
 #endif
+

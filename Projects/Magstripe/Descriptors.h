@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -10,13 +10,13 @@
   Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -55,11 +55,11 @@
 			USB_HID_Descriptor_HID_t              HID_KeyboardHID; /**< Keyboard HID descriptor */
 	        USB_Descriptor_Endpoint_t             HID_ReportINEndpoint; /**< Keyboard key report endpoint descriptor */
 		} USB_Descriptor_Configuration_t;
-					
+
 	/* Macros: */
 		/** Endpoint number of the keyboard key press reporting endpoint. */
 		#define KEYBOARD_EPNUM               1
-		
+
 		/** Size of the keyboard report endpoints, in bytes. */
 		#define KEYBOARD_EPSIZE              8
 
@@ -70,3 +70,4 @@
 		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
 
 #endif
+

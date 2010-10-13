@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -68,7 +68,7 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 
 			continue;
 		}
-		
+
 		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
 
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
@@ -76,7 +76,7 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 		else
 		  DataOUTEndpoint = EndpointData;
 	}
-	
+
 	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
 	{
 		if (PipeNum == MIDIInterfaceInfo->Config.DataINPipeNumber)
@@ -84,16 +84,16 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
 			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
 			                   MIDIInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			
-			MIDIInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;			
+
+			MIDIInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
 		}
 		else if (PipeNum == MIDIInterfaceInfo->Config.DataOUTPipeNumber)
 		{
 			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
 			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
 			                   MIDIInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			
-			MIDIInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;			
+
+			MIDIInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
 		}
 	}
 
@@ -117,7 +117,7 @@ static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingInterface(void* const CurrentDes
 			return DESCRIPTOR_SEARCH_Found;
 		}
 	}
-	
+
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
@@ -127,9 +127,9 @@ static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingDataEndpoint(void* const Current
 	{
 		USB_Descriptor_Endpoint_t* CurrentEndpoint = DESCRIPTOR_PCAST(CurrentDescriptor,
 		                                                              USB_Descriptor_Endpoint_t);
-	
+
 		uint8_t EndpointType = (CurrentEndpoint->Attributes & EP_TYPE_MASK);
-	
+
 		if ((EndpointType == EP_TYPE_BULK) && !(Pipe_IsEndpointBound(CurrentEndpoint->EndpointAddress)))
 		  return DESCRIPTOR_SEARCH_Found;
 	}
@@ -145,7 +145,7 @@ uint8_t MIDI_Host_Flush(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
 	  return PIPE_RWSTREAM_DeviceDisconnected;
-	
+
 	uint8_t ErrorCode;
 
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipeNumber);
@@ -166,7 +166,7 @@ uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
-	
+
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipeNumber);
 
 	if (Pipe_IsReadWriteAllowed())
@@ -179,7 +179,7 @@ uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 		if (!(Pipe_IsReadWriteAllowed()))
 		  Pipe_ClearOUT();
 	}
-	
+
 	return PIPE_RWSTREAM_NoError;
 }
 
@@ -188,7 +188,7 @@ bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
-	
+
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataINPipeNumber);
 
 	if (!(Pipe_IsReadWriteAllowed()))
@@ -198,8 +198,9 @@ bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 
 	if (!(Pipe_IsReadWriteAllowed()))
 	  Pipe_ClearIN();
-	
+
 	return true;
 }
 
 #endif
+

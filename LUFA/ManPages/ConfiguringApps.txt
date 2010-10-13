@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \page Page_ConfiguringApps Configuring the Demos, Bootloaders and Projects
  *
  *  If the target AVR model, clock speed, board or other settings are different from the current settings, they must be changed

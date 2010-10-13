@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -37,7 +37,7 @@
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
- 
+
 /** \ingroup Group_USB
  *  @defgroup Group_StreamCallbacks Endpoint and Pipe Stream Callbacks
  *
@@ -47,7 +47,7 @@
  *
  *  @{
  */
- 
+
 #ifndef __STREAMCALLBACK_H__
 #define __STREAMCALLBACK_H__
 
@@ -58,14 +58,14 @@
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Used with the Endpoint and Pipe stream functions as the callback function parameter, indicating that the stream
 			 *  call has no callback function to be called between USB packets.
 			 */
 			#define NO_STREAM_CALLBACK    NULL
-			
+
 		/* Enums: */
 			/** Enum for the possible error return codes of a stream callback function. */
 			enum StreamCallback_Return_ErrorCodes_t
@@ -80,7 +80,8 @@
 			 *  are to be used as the callback parameter of the stream functions.
 			 */
 			typedef uint8_t (* const StreamCallbackPtr_t)(void);
-		
+
 #endif
 
 /** @} */
+

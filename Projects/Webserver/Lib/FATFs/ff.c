@@ -2289,7 +2289,7 @@ FRESULT f_close (
 #if _FS_REENTRANT
 		res = validate(fp->fs, fp->id);
 		if (res == FR_OK) {
-			res = dec_lock(fp->fs, fp->lockid);	
+			res = dec_lock(fp->fs, fp->lockid);
 			unlock_fs(fp->fs, FR_OK);
 		}
 #else
@@ -3539,7 +3539,7 @@ int f_printf (
 			res++;
 		}
 		do {
-			cc = f_putc(s[--i], fil); 
+			cc = f_putc(s[--i], fil);
 			res++;
 		} while (i && cc != EOF);
 		if (cc != EOF) cc = 0;
@@ -3551,3 +3551,4 @@ int f_printf (
 
 #endif /* !_FS_READONLY */
 #endif /* _USE_STRFUNC */
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -71,11 +71,11 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress,
 	/* Wait until endpoint is ready before continuing */
 	if (Endpoint_WaitUntilReady())
 	  return;
-	
+
 	while (TotalBlocks)
 	{
 		uint8_t BytesInBlockDiv16 = 0;
-		
+
 		/* Write an endpoint packet sized data block to the Dataflash */
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
@@ -84,7 +84,7 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress,
 			{
 				/* Clear the current endpoint bank */
 				Endpoint_ClearOUT();
-				
+
 				/* Wait until the host has sent another packet */
 				if (Endpoint_WaitUntilReady())
 				  return;
@@ -123,7 +123,7 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress,
 
 				/* Send the Dataflash buffer write command */
 				Dataflash_SendByte(UsingSecondBuffer ? DF_CMD_BUFF2WRITE : DF_CMD_BUFF1WRITE);
-				Dataflash_SendAddressBytes(0, 0);				
+				Dataflash_SendAddressBytes(0, 0);
 			}
 
 			/* Write one 16-byte chunk of data to the Dataflash */
@@ -143,7 +143,7 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress,
 			Dataflash_SendByte(Endpoint_Read_Byte());
 			Dataflash_SendByte(Endpoint_Read_Byte());
 			Dataflash_SendByte(Endpoint_Read_Byte());
-			
+
 			/* Increment the Dataflash page 16 byte block counter */
 			CurrDFPageByteDiv16++;
 
@@ -152,9 +152,9 @@ void DataflashManager_WriteBlocks(const uint32_t BlockAddress,
 
 			/* Check if the current command is being aborted by the host */
 			if (IsMassStoreReset)
-			  return;			
+			  return;
 		}
-			
+
 		/* Decrement the blocks remaining counter and reset the sub block counter */
 		TotalBlocks--;
 	}
@@ -197,15 +197,15 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress,
 	Dataflash_SendByte(0x00);
 	Dataflash_SendByte(0x00);
 	Dataflash_SendByte(0x00);
-	
+
 	/* Wait until endpoint is ready before continuing */
 	if (Endpoint_WaitUntilReady())
 	  return;
-	
+
 	while (TotalBlocks)
 	{
 		uint8_t BytesInBlockDiv16 = 0;
-		
+
 		/* Write an endpoint packet sized data block to the Dataflash */
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
@@ -214,12 +214,12 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress,
 			{
 				/* Clear the endpoint bank to send its contents to the host */
 				Endpoint_ClearIN();
-				
+
 				/* Wait until the endpoint is ready for more data */
 				if (Endpoint_WaitUntilReady())
 				  return;
 			}
-			
+
 			/* Check if end of Dataflash page reached */
 			if (CurrDFPageByteDiv16 == (DATAFLASH_PAGE_SIZE >> 4))
 			{
@@ -229,7 +229,7 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress,
 
 				/* Select the next Dataflash chip based on the new Dataflash page index */
 				Dataflash_SelectChipFromPage(CurrDFPage);
-				
+
 				/* Send the Dataflash main memory page read command */
 				Dataflash_SendByte(DF_CMD_MAINMEMPAGEREAD);
 				Dataflash_SendAddressBytes(CurrDFPage, 0);
@@ -237,7 +237,7 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress,
 				Dataflash_SendByte(0x00);
 				Dataflash_SendByte(0x00);
 				Dataflash_SendByte(0x00);
-			}	
+			}
 
 			/* Read one 16-byte chunk of data from the Dataflash */
 			Endpoint_Write_Byte(Dataflash_ReceiveByte());
@@ -256,10 +256,10 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress,
 			Endpoint_Write_Byte(Dataflash_ReceiveByte());
 			Endpoint_Write_Byte(Dataflash_ReceiveByte());
 			Endpoint_Write_Byte(Dataflash_ReceiveByte());
-			
+
 			/* Increment the Dataflash page 16 byte block counter */
 			CurrDFPageByteDiv16++;
-			
+
 			/* Increment the block 16 byte block counter */
 			BytesInBlockDiv16++;
 
@@ -267,11 +267,11 @@ void DataflashManager_ReadBlocks(const uint32_t BlockAddress,
 			if (IsMassStoreReset)
 			  return;
 		}
-		
+
 		/* Decrement the blocks remaining counter */
 		TotalBlocks--;
 	}
-	
+
 	/* If the endpoint is full, send its contents to the host */
 	if (!(Endpoint_IsReadWriteAllowed()))
 	  Endpoint_ClearIN();
@@ -315,7 +315,7 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress,
 	while (TotalBlocks)
 	{
 		uint8_t BytesInBlockDiv16 = 0;
-		
+
 		/* Write an endpoint packet sized data block to the Dataflash */
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
@@ -355,18 +355,18 @@ void DataflashManager_WriteBlocks_RAM(const uint32_t BlockAddress,
 				Dataflash_SendByte(DF_CMD_BUFF1WRITE);
 				Dataflash_SendAddressBytes(0, 0);
 			}
-			
+
 			/* Write one 16-byte chunk of data to the Dataflash */
 			for (uint8_t ByteNum = 0; ByteNum < 16; ByteNum++)
 			  Dataflash_SendByte(*(BufferPtr++));
-			
+
 			/* Increment the Dataflash page 16 byte block counter */
 			CurrDFPageByteDiv16++;
 
 			/* Increment the block 16 byte block counter */
-			BytesInBlockDiv16++;		
+			BytesInBlockDiv16++;
 		}
-			
+
 		/* Decrement the blocks remaining counter and reset the sub block counter */
 		TotalBlocks--;
 	}
@@ -412,7 +412,7 @@ void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress,
 	while (TotalBlocks)
 	{
 		uint8_t BytesInBlockDiv16 = 0;
-		
+
 		/* Write an endpoint packet sized data block to the Dataflash */
 		while (BytesInBlockDiv16 < (VIRTUAL_MEMORY_BLOCK_SIZE >> 4))
 		{
@@ -425,7 +425,7 @@ void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress,
 
 				/* Select the next Dataflash chip based on the new Dataflash page index */
 				Dataflash_SelectChipFromPage(CurrDFPage);
-				
+
 				/* Send the Dataflash main memory page read command */
 				Dataflash_SendByte(DF_CMD_MAINMEMPAGEREAD);
 				Dataflash_SendAddressBytes(CurrDFPage, 0);
@@ -433,19 +433,19 @@ void DataflashManager_ReadBlocks_RAM(const uint32_t BlockAddress,
 				Dataflash_SendByte(0x00);
 				Dataflash_SendByte(0x00);
 				Dataflash_SendByte(0x00);
-			}	
+			}
 
 			/* Read one 16-byte chunk of data from the Dataflash */
 			for (uint8_t ByteNum = 0; ByteNum < 16; ByteNum++)
 			  *(BufferPtr++) = Dataflash_ReceiveByte();
-			
+
 			/* Increment the Dataflash page 16 byte block counter */
 			CurrDFPageByteDiv16++;
-			
+
 			/* Increment the block 16 byte block counter */
 			BytesInBlockDiv16++;
 		}
-		
+
 		/* Decrement the blocks remaining counter */
 		TotalBlocks--;
 	}
@@ -460,7 +460,7 @@ void DataflashManager_ResetDataflashProtections(void)
 	/* Select first Dataflash chip, send the read status register command */
 	Dataflash_SelectChip(DATAFLASH_CHIP1);
 	Dataflash_SendByte(DF_CMD_GETSTATUS);
-	
+
 	/* Check if sector protection is enabled */
 	if (Dataflash_ReceiveByte() & DF_STATUS_SECTORPROTECTION_ON)
 	{
@@ -472,12 +472,12 @@ void DataflashManager_ResetDataflashProtections(void)
 		Dataflash_SendByte(DF_CMD_SECTORPROTECTIONOFF[2]);
 		Dataflash_SendByte(DF_CMD_SECTORPROTECTIONOFF[3]);
 	}
-	
+
 	/* Select second Dataflash chip (if present on selected board), send read status register command */
 	#if (DATAFLASH_TOTALCHIPS == 2)
 	Dataflash_SelectChip(DATAFLASH_CHIP2);
 	Dataflash_SendByte(DF_CMD_GETSTATUS);
-	
+
 	/* Check if sector protection is enabled */
 	if (Dataflash_ReceiveByte() & DF_STATUS_SECTORPROTECTION_ON)
 	{
@@ -490,7 +490,7 @@ void DataflashManager_ResetDataflashProtections(void)
 		Dataflash_SendByte(DF_CMD_SECTORPROTECTIONOFF[3]);
 	}
 	#endif
-	
+
 	/* Deselect current Dataflash chip */
 	Dataflash_DeselectChip();
 }
@@ -524,6 +524,7 @@ bool DataflashManager_CheckDataflashOperation(void)
 	if (ReturnByte != DF_MANUFACTURER_ATMEL)
 	  return false;
 	#endif
-	
+
 	return true;
 }
+

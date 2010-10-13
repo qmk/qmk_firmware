@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -42,7 +42,7 @@
  *
  *  @{
  */
- 
+
 #ifndef __HIDREPORTDATA_H__
 #define __HIDREPORTDATA_H__
 
@@ -107,11 +107,11 @@
 			#define DATA_SIZE_1              0x01
 			#define DATA_SIZE_2              0x02
 			#define DATA_SIZE_4              0x03
-			
+
 			#define TYPE_MAIN                0x00
 			#define TYPE_GLOBAL              0x04
 			#define TYPE_LOCAL               0x08
-			
+
 			#define TAG_MAIN_INPUT           0x80
 			#define TAG_MAIN_OUTPUT          0x90
 			#define TAG_MAIN_COLLECTION      0xA0
@@ -130,12 +130,13 @@
 			#define TAG_GLOBAL_REPORTCOUNT   0x90
 			#define TAG_GLOBAL_PUSH          0xA0
 			#define TAG_GLOBAL_POP           0xB0
-			
+
 			#define TAG_LOCAL_USAGE          0x00
 			#define TAG_LOCAL_USAGEMIN       0x10
 			#define TAG_LOCAL_USAGEMAX       0x20
 	#endif
 
 /** @} */
-		
+
 #endif
+

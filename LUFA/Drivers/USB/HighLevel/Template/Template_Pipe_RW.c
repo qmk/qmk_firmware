@@ -4,7 +4,7 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 {
 	uint8_t* DataStream = ((uint8_t*)Buffer + TEMPLATE_BUFFER_OFFSET(Length));
 	uint8_t  ErrorCode;
-	
+
 	Pipe_SetPipeToken(TEMPLATE_TOKEN);
 
 	if ((ErrorCode = Pipe_WaitUntilReady()))
@@ -36,7 +36,7 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 					}
 
 					Length -= 8;
-					
+
 					TEMPLATE_TRANSFER_BYTE(DataStream);
 			case 7: TEMPLATE_TRANSFER_BYTE(DataStream);
 			case 6: TEMPLATE_TRANSFER_BYTE(DataStream);
@@ -45,7 +45,7 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 			case 3: TEMPLATE_TRANSFER_BYTE(DataStream);
 			case 2: TEMPLATE_TRANSFER_BYTE(DataStream);
 			case 1:	TEMPLATE_TRANSFER_BYTE(DataStream);
-				} while (Length >= 8);	
+				} while (Length >= 8);
 		}
 	}
 	#endif
@@ -70,7 +70,7 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 			Length--;
 		}
 	}
-	
+
 	return PIPE_RWSTREAM_NoError;
 }
 
@@ -80,3 +80,4 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 #undef TEMPLATE_TRANSFER_BYTE
 #undef TEMPLATE_CLEAR_PIPE
 #undef TEMPLATE_BUFFER_OFFSET
+

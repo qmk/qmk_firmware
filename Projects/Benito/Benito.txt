@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage Benito Arduino Programmer Project
  *
  *  \section SSec_Compat Project Compatibility:
@@ -28,7 +28,7 @@
  *   <td><b>USB Class:</b></td>
  *   <td>Communications Device Class (CDC)</td>
  *  </tr>
- *  <tr> 
+ *  <tr>
  *   <td><b>USB Subclass:</b></td>
  *   <td>Abstract Control Model (ACM)</td>
  *  </tr>
@@ -43,7 +43,7 @@
  *  </tr>
  * </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Firmware for a USB AVR powered programmer for Arduino boards using the official Arduino bootloader. This
  *  project acts like a regular USB to Serial bridge, except that asserting the DTR line will cause a pulse
@@ -103,3 +103,4 @@
  *   </tr>
  *  </table>
  */
+

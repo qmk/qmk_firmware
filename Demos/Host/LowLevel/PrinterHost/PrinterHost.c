@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -47,7 +47,7 @@ int main(void)
 
 	puts_P(PSTR(ESC_FG_CYAN "Printer Host Demo running.\r\n" ESC_FG_WHITE));
 	sei();
-	
+
 	for (;;)
 	{
 		USB_Printer_Host();
@@ -134,10 +134,10 @@ void USB_Printer_Host(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-			
+
 			/* Select the control pipe for the request transfer */
-			Pipe_SelectPipe(PIPE_CONTROLPIPE);			
-		
+			Pipe_SelectPipe(PIPE_CONTROLPIPE);
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -147,7 +147,7 @@ void USB_Printer_Host(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n"), ErrorCode);
-				
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -155,7 +155,7 @@ void USB_Printer_Host(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-				
+
 			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
 			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
@@ -169,7 +169,7 @@ void USB_Printer_Host(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Some printers use alternate settings to determine the communication protocol used - if so, send a SetInterface
 			 * request to switch to the interface alternate setting with the Bidirectional protocol */
 			if (PrinterAltSetting)
@@ -182,7 +182,7 @@ void USB_Printer_Host(void)
 						.wIndex        = PrinterInterfaceNumber,
 						.wLength       = 0,
 					};
-					
+
 				if ((ErrorCode = USB_Host_SendControlRequest(NULL)) != HOST_SENDCONTROL_Successful)
 				{
 					printf_P(PSTR(ESC_FG_RED "Control Error (Set Interface).\r\n"
@@ -193,12 +193,12 @@ void USB_Printer_Host(void)
 
 					/* Wait until USB device disconnected */
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;					
+					break;
 				}
 			}
-			
+
 			puts_P(PSTR("Retrieving Device ID...\r\n"));
-		
+
 			char DeviceIDString[300];
 			if ((ErrorCode = Printer_GetDeviceID(DeviceIDString, sizeof(DeviceIDString))) != HOST_SENDCONTROL_Successful)
 			{
@@ -222,10 +222,10 @@ void USB_Printer_Host(void)
 		case HOST_STATE_Configured:
 			/* Indicate device busy via the status LEDs */
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-		
+
 			char  TestPageData[]    = "\033%-12345X\033E" "LUFA PCL Test Page" "\033E\033%-12345X";
 			uint16_t TestPageLength = strlen(TestPageData);
-		
+
 			printf_P(PSTR("Sending Test Page (%d bytes)...\r\n"), TestPageLength);
 
 			if ((ErrorCode = Printer_SendData(&TestPageData, TestPageLength)) != PIPE_RWSTREAM_NoError)
@@ -242,7 +242,7 @@ void USB_Printer_Host(void)
 			}
 
 			puts_P(PSTR("Test Page Sent.\r\n"));
-		
+
 			/* Indicate device no longer busy */
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
 
@@ -250,3 +250,4 @@ void USB_Printer_Host(void)
 			break;
 	}
 }
+

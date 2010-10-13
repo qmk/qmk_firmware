@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -120,7 +120,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
@@ -135,7 +135,7 @@ void StillImage_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -145,7 +145,7 @@ void StillImage_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -167,16 +167,16 @@ void StillImage_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-				
+
 			puts_P(PSTR("Still Image Device Enumerated.\r\n"));
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
 			/* Indicate device busy via the status LEDs */
 			LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-			
+
 			puts_P(PSTR("Retrieving Device Info...\r\n"));
-			
+
 			PIMA_SendBlock = (PIMA_Container_t)
 				{
 					.DataLength    = PIMA_COMMAND_SIZE(0),
@@ -185,34 +185,34 @@ void StillImage_Task(void)
 					.TransactionID = 0x00000000,
 					.Params        = {},
 				};
-			
+
 			/* Send the GETDEVICEINFO block */
 			SImage_SendBlockHeader();
-			
+
 			/* Receive the response data block */
 			if ((ErrorCode = SImage_ReceiveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Calculate the size of the returned device info data structure */
 			uint16_t DeviceInfoSize = (PIMA_ReceivedBlock.DataLength - PIMA_COMMAND_SIZE(0));
-			
+
 			/* Create a buffer large enough to hold the entire device info */
 			uint8_t DeviceInfo[DeviceInfoSize];
 
 			/* Read in the data block data (containing device info) */
 			SImage_ReadData(DeviceInfo, DeviceInfoSize);
-			
+
 			/* Once all the data has been read, the pipe must be cleared before the response can be sent */
 			Pipe_ClearIN();
-			
+
 			/* Create a pointer for walking through the info dataset */
 			uint8_t* DeviceInfoPos = DeviceInfo;
-			
+
 			/* Skip over the data before the unicode device information strings */
 			DeviceInfoPos +=  8;                                          // Skip to VendorExtensionDesc String
 			DeviceInfoPos += (1 + UNICODE_STRING_LENGTH(*DeviceInfoPos)); // Skip over VendorExtensionDesc String
@@ -222,7 +222,7 @@ void StillImage_Task(void)
 			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over Supported Device Properties Array
 			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over Capture Formats Array
 			DeviceInfoPos += (4 + (*(uint32_t*)DeviceInfoPos << 1));      // Skip over Image Formats Array
-			
+
 			/* Extract and convert the Manufacturer Unicode string to ASCII and print it through the USART */
 			char Manufacturer[*DeviceInfoPos];
 			UnicodeToASCII(DeviceInfoPos, Manufacturer);
@@ -246,22 +246,22 @@ void StillImage_Task(void)
 			if ((ErrorCode = SImage_ReceiveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Verify that the command completed successfully */
 			if ((PIMA_ReceivedBlock.Type != CType_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
 			{
 				ShowCommandError(PIMA_ReceivedBlock.Code, true);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			puts_P(PSTR("Opening Session...\r\n"));
-			
+
 			PIMA_SendBlock = (PIMA_Container_t)
 				{
 					.DataLength    = PIMA_COMMAND_SIZE(1),
@@ -270,24 +270,24 @@ void StillImage_Task(void)
 					.TransactionID = 0x00000000,
 					.Params        = {0x00000001},
 				};
-			
+
 			/* Send the OPENSESSION block, open a session with an ID of 0x0001 */
 			SImage_SendBlockHeader();
-			
+
 			/* Receive the response block from the device */
 			if ((ErrorCode = SImage_ReceiveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Verify that the command completed successfully */
 			if ((PIMA_ReceivedBlock.Type != CType_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
 			{
 				ShowCommandError(PIMA_ReceivedBlock.Code, true);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
@@ -302,15 +302,15 @@ void StillImage_Task(void)
 					.TransactionID = 0x00000001,
 					.Params        = {0x00000001},
 				};
-			
+
 			/* Send the CLOSESESSION block, close the session with an ID of 0x0001 */
 			SImage_SendBlockHeader();
-			
+
 			/* Receive the response block from the device */
 			if ((ErrorCode = SImage_ReceiveBlockHeader()) != PIPE_RWSTREAM_NoError)
 			{
 				ShowCommandError(ErrorCode, false);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
@@ -319,7 +319,7 @@ void StillImage_Task(void)
 			if ((PIMA_ReceivedBlock.Type != CType_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
 			{
 				ShowCommandError(PIMA_ReceivedBlock.Code, true);
-				
+
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
@@ -328,7 +328,7 @@ void StillImage_Task(void)
 
 			/* Indicate device no longer busy */
 			LEDs_SetAllLEDs(LEDMASK_USB_READY);
-			
+
 			USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 			break;
 	}
@@ -345,17 +345,17 @@ void UnicodeToASCII(uint8_t* UnicodeString,
 {
 	/* Get the number of characters in the string, skip to the start of the string data */
 	uint8_t CharactersRemaining = *(UnicodeString++);
-	
+
 	/* Loop through the entire unicode string */
 	while (CharactersRemaining--)
 	{
 		/* Load in the next unicode character (only the lower byte, as only Unicode coded ASCII is supported) */
 		*(Buffer++) = *UnicodeString;
-		
+
 		/* Jump to the next unicode character */
 		UnicodeString += 2;
 	}
-	
+
 	/* Null terminate the string */
 	*Buffer = 0;
 }
@@ -372,7 +372,8 @@ void ShowCommandError(uint8_t ErrorCode,
 
 	printf_P(PSTR(ESC_FG_RED "Command Error (%S).\r\n"
 	                         " -- Error Code %d\r\n" ESC_FG_WHITE), FailureType, ErrorCode);
-			
+
 	/* Indicate error via status LEDs */
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
+

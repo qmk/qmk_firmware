@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the StillImageHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "StillImageHost.h"
 
 /** LUFA Still Image Class driver interface configuration and state information. This structure is
@@ -46,10 +46,10 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 			{
 				.DataINPipeNumber       = 1,
 				.DataINPipeDoubleBank   = false,
-				
+
 				.DataOUTPipeNumber      = 2,
 				.DataOUTPipeDoubleBank  = false,
-				
+
 				.EventsPipeNumber       = 3,
 				.EventsPipeDoubleBank   = false,
 			},
@@ -73,7 +73,7 @@ int main(void)
 		{
 			case HOST_STATE_Addressed:
 				LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-			
+
 				uint16_t ConfigDescriptorSize;
 				uint8_t  ConfigDescriptorData[512];
 
@@ -94,7 +94,7 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				if (USB_Host_SetDeviceConfiguration(1) != HOST_SENDCONTROL_Successful)
 				{
 					puts_P(PSTR("Error Setting Device Configuration.\r\n"));
@@ -102,14 +102,14 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				puts_P(PSTR("Still Image Device Enumerated.\r\n"));
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_Configured;
 				break;
 			case HOST_STATE_Configured:
 				puts_P(PSTR("Opening Session...\r\n"));
-				
+
 				if (SI_Host_OpenSession(&DigitalCamera_SI_Interface) != PIPE_RWSTREAM_NoError)
 				{
 					puts_P(PSTR("Could not open PIMA session.\r\n"));
@@ -124,7 +124,7 @@ int main(void)
 				{
 					puts_P(PSTR("Could not turn off device.\r\n"));
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-					break;					
+					break;
 				}
 
 				puts_P(PSTR("Device Off.\r\n"));
@@ -137,12 +137,12 @@ int main(void)
 					USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 					break;
 				}
-				
+
 				LEDs_SetAllLEDs(LEDMASK_USB_READY);
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 		}
-	
+
 		SI_Host_USBTask(&DigitalCamera_SI_Interface);
 		USB_USBTask();
 	}
@@ -212,6 +212,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
+

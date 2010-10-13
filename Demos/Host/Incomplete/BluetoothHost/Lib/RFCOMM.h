@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -48,13 +48,13 @@
 
 		#include "BluetoothStack.h"
 		#include "RFCOMMControl.h"
-		
+
 	/* Macros: */
 		#define BT_RFCOMM_DEBUG(l, s, ...)              do { if (RFCOMM_DEBUG_LEVEL >= l) printf_P(PSTR("(RFCOMM) " s "\r\n"), ##__VA_ARGS__); } while (0)
 		#define RFCOMM_DEBUG_LEVEL                      0
-		
+
 		#define FRAME_POLL_FINAL                        (1 << 4)
-		
+
 		#define RFCOMM_CONTROL_DLCI                     0
 		#define RFCOMM_MAX_OPEN_CHANNELS                5
 
@@ -68,14 +68,14 @@
 			RFCOMM_Frame_UA    = 0x63, /**< Unnumbered Acknowledgement Field */
 			RFCOMM_Frame_UIH   = 0xEF, /**< Unnumbered Information with Header check Field */
 		};
-		
+
 		enum RFCOMM_Channel_States_t
 		{
 			RFCOMM_Channel_Closed      = 0,
 			RFCOMM_Channel_Configure   = 1,
 			RFCOMM_Channel_Open        = 2,
 		};
-		
+
 	/* Type Defines: */
 		typedef struct
 		{
@@ -95,7 +95,7 @@
 				uint8_t BreakSignal;
 			} Local;
 		} RFCOMM_Channel_t;
-		
+
 	/* External Variables: */
 		extern RFCOMM_Channel_t RFCOMM_Channels[RFCOMM_MAX_OPEN_CHANNELS];
 
@@ -104,7 +104,7 @@
 		void              RFCOMM_ServiceChannels(Bluetooth_Channel_t* const ACLChannel);
 		void              RFCOMM_ProcessPacket(void* Data,
 		                                       Bluetooth_Channel_t* const ACLChannel);
-		
+
 		void              RFCOMM_SendChannelSignals(const RFCOMM_Channel_t* const RFCOMMChannel,
 		                                            Bluetooth_Channel_t* const ACLChannel);
 		void              RFCOMM_SendData(const uint16_t DataLen,
@@ -141,9 +141,10 @@
 			static void RFCOMM_ProcessUA(const RFCOMM_Address_t* const FrameAddress,
 			                             Bluetooth_Channel_t* const ACLChannel);
 			static void RFCOMM_ProcessUIH(const RFCOMM_Address_t* const FrameAddress,
-			                              const uint16_t FrameLength, 
+			                              const uint16_t FrameLength,
                                           const uint8_t* FrameData,
 			                              Bluetooth_Channel_t* const ACLChannel);
 		#endif
-		
+
 #endif
+

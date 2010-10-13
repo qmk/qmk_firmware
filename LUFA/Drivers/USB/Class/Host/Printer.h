@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -56,7 +56,7 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "../Common/Printer.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -111,7 +111,7 @@
 				PRNT_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
 				PRNT_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible Printer interface was not found in the device's Configuration Descriptor. */
 			};
-	
+
 		/* Function Prototypes: */
 			/** General management task for a given Printer host class interface, required for the correct operation of
 			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
@@ -140,7 +140,7 @@
 			uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
 			                                 uint16_t ConfigDescriptorSize,
 			                                 void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
-			
+
 			/** Configures the printer to enable Bidirectional mode, if it is not already in this mode. This should be called
 			 *  once the connected device's configuration has been set, to ensure the printer is ready to accept commands.
 			 *
@@ -149,7 +149,7 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum.
 			 */
 			uint8_t PRNT_Host_SetBidirectionalMode(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Retrieves the status of the virtual Printer port's inbound status lines. The result can then be masked against the
 			 *  PRNT_PORTSTATUS_* macros to determine the printer port's status.
 			 *
@@ -195,12 +195,12 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
-			                             void* Buffer, 
+			                             void* Buffer,
 			                             const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Sends a given byte to the attached USB device, if connected. If a device is not connected when the function is called, the
 			 *  byte is discarded. Bytes will be queued for transmission to the device until either the pipe bank becomes full, or the
-			 *  \ref PRNT_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be 
+			 *  \ref PRNT_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be
 			 *  packed into a single pipe packet, increasing data throughput.
 			 *
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
@@ -226,8 +226,8 @@
 			 *
 			 *  \return Total number of buffered bytes received from the device.
 			 */
-			uint16_t PRNT_Host_BytesReceived(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo);			
-			
+			uint16_t PRNT_Host_BytesReceived(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo);
+
 			/** Reads a byte of data from the device. If no data is waiting to be read of if a USB device is not connected, the function
 			 *  returns a negative value. The \ref PRNT_Host_BytesReceived() function may be queried in advance to determine how many bytes
 			 *  are currently buffered in the Printer interface's data receive pipe.
@@ -240,7 +240,7 @@
 			 *  \return Next received byte from the device, or a negative value if no data received.
 			 */
 			int16_t PRNT_Host_ReceiveByte(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo);
-			
+
 			/** Retrieves the attached printer device's ID string, formatted according to IEEE 1284. This string is sent as a
 			 *  Unicode string from the device and is automatically converted to an ASCII encoded C string by this function, thus
 			 *  the maximum reportable string length is two less than the size given (to accommodate the Unicode string length
@@ -268,14 +268,14 @@
 			#define REQ_GetDeviceID                0
 			#define REQ_GetPortStatus              1
 			#define REQ_SoftReset                  2
-			
+
 		/* Function Prototypes: */
-			#if defined(__INCLUDE_FROM_PRINTER_CLASS_HOST_C)		
+			#if defined(__INCLUDE_FROM_PRINTER_CLASS_HOST_C)
 				static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif
 	#endif
-	
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
@@ -284,3 +284,4 @@
 #endif
 
 /** @} */
+

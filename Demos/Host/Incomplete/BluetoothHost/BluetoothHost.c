@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -52,14 +52,14 @@ int main(void)
 	SetupHardware();
 
 	puts_P(PSTR(ESC_FG_CYAN "Bluetooth Host Demo running.\r\n" ESC_FG_WHITE));
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
 
 	for (;;)
 	{
 		RFCOMM_ServiceChannels(SerialChannel_ACL);
-		
+
 		Bluetooth_Host_Task();
 		Bluetooth_Stack_USBTask();
 		USB_USBTask();
@@ -130,7 +130,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
@@ -143,7 +143,7 @@ void Bluetooth_Host_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Device Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessDeviceDescriptor()) != SuccessfulDeviceRead)
 			{
@@ -153,7 +153,7 @@ void Bluetooth_Host_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDS_LED1);
 
@@ -177,9 +177,9 @@ void Bluetooth_Host_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-				
+
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -189,7 +189,7 @@ void Bluetooth_Host_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDS_LED1);
 
@@ -199,7 +199,7 @@ void Bluetooth_Host_Task(void)
 			}
 
 			puts_P(PSTR("Bluetooth Dongle Enumerated.\r\n"));
-			
+
 			/* Initialize the Bluetooth stack */
 			Bluetooth_Stack_Init();
 
@@ -207,3 +207,4 @@ void Bluetooth_Host_Task(void)
 			break;
 	}
 }
+

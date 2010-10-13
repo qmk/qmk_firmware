@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -10,13 +10,13 @@
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -101,7 +101,7 @@
 
 		/** Constant for a keyboard output report LED byte, indicating that the host's NUM LOCK mode is currently set. */
 		#define KEYBOARD_LED_NUMLOCK        (1 << 0)
-		
+
 		/** Constant for a keyboard output report LED byte, indicating that the host's CAPS LOCK mode is currently set. */
 		#define KEYBOARD_LED_CAPSLOCK       (1 << 1)
 
@@ -110,7 +110,7 @@
 
 		/** Constant for a keyboard output report LED byte, indicating that the host's KATANA mode is currently set. */
 		#define KEYBOARD_LED_KATANA         (1 << 3)
-		
+
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY        LEDS_LED1
 
@@ -133,11 +133,11 @@
 			uint8_t Reserved; /**< Reserved, always set as 0x00 */
 			uint8_t KeyCode[6]; /**< Array of up to six simultaneous key codes of pressed keys */
 		} USB_KeyboardReport_Data_t;
-		
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void HID_Task(void);
-	
+
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
@@ -150,3 +150,4 @@
 		void ReceiveNextReport(void);
 
 #endif
+

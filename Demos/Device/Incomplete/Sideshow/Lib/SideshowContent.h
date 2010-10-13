@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -39,7 +39,7 @@
 
 		#include "SideshowCommon.h"
 		#include "SideshowApplications.h"
-	
+
 	/* Enums: */
 		enum SideShow_ContentTypes_t
 		{
@@ -50,24 +50,24 @@
 			Content_Text            = 4,
 			Content_EndOfContent    = 5
 		};
-		
+
 		enum SideShow_ActionTypes_t
 		{
 			TODO
 		};
-		
+
 		enum SideShow_AlignmentTypes_t
 		{
 			TODO2
 		};
-	
+
 	/* Type Defines: */
 		typedef struct
 		{
 			uint8_t ContentType;
-			uint8_t ContentSize;	
+			uint8_t ContentSize;
 		} SideShow_Content_Header_t;
-	
+
 		typedef struct
 		{
 			SideShow_Content_Header_t Header;
@@ -86,7 +86,7 @@
 			bool     IsSelected;
 			char     Text[];
 		} SideShow_Content_MenuItem_t;
-		
+
 		typedef struct
 		{
 			SideShow_Content_Header_t Header;
@@ -94,7 +94,7 @@
 			uint8_t  Key;
 			uint32_t Target;
 		} SideShow_Content_Button_t;
-		
+
 		typedef struct
 		{
 			SideShow_Content_Header_t Header;
@@ -108,13 +108,13 @@
 		{
 			SideShow_Content_Header_t Header;
 
-			char     Text[];		
+			char     Text[];
 		} SideShow_Content_Text_t;
-		
+
 	/* Defines: */
 		#define XML_START_TAG         "<body>"
 		#define XML_END_TAG           "</body>"
-	
+
 	/* Function Prototypes: */
 		bool SideShow_AddSimpleContent(SideShow_PacketHeader_t* const PacketHeader,
 		                               SideShow_Application_t* const Application);
@@ -123,5 +123,5 @@
 			static void SideShow_ProcessXMLContent(void* ContentData,
 			                                       uint32_t ContentSize);
 		#endif
-		
+
 #endif

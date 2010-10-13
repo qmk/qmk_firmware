@@ -1,7 +1,7 @@
 #
 #             LUFA Library
 #     Copyright (C) Dean Camera, 2010.
-#              
+#
 #  dean [at] fourwalledcubicle [dot] com
 #      www.fourwalledcubicle.com
 #
@@ -62,7 +62,7 @@ ifeq ($(origin LUFA_PATH), undefined)
 
    clean:
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.o)
-	
+
    clean_list:
 
    doxygen:

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -74,7 +74,7 @@ USB_ClassInfo_HID_Device_t Generic_HID_Interface =
 				.ReportINEndpointNumber       = GENERIC_IN_EPNUM,
 				.ReportINEndpointSize         = GENERIC_EPSIZE,
 				.ReportINEndpointDoubleBank   = false,
-				
+
 				.PrevReportINBuffer           = PrevHIDReportBuffer,
 				.PrevReportINBufferSize       = sizeof(PrevHIDReportBuffer),
 			},
@@ -104,12 +104,12 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	/* Check to see if the logging interval has expired */
 	if (CurrentLoggingTicks++ < LoggingInterval500MS_SRAM)
 	  return;
-	    
+
 	/* Reset log tick counter to prepare for next logging interval */
 	CurrentLoggingTicks = 0;
 
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-	
+
 	/* Only log when not connected to a USB host */
 	if (USB_DeviceState == DEVICE_STATE_Unattached)
 	{
@@ -128,7 +128,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 		f_write(&TempLogFile, LineBuffer, BytesWritten, &BytesWritten);
 		f_sync(&TempLogFile);
 	}
-	
+
 	LEDs_SetAllLEDs(LEDMask);
 }
 
@@ -141,7 +141,7 @@ int main(void)
 
 	/* Fetch logging interval from EEPROM */
 	LoggingInterval500MS_SRAM = eeprom_read_byte(&LoggingInterval500MS_EEPROM);
-	
+
 	/* Check if the logging interval is invalid (0xFF) indicating that the EEPROM is blank */
 	if (LoggingInterval500MS_SRAM == 0xFF)
 	  LoggingInterval500MS_SRAM = DEFAULT_LOG_INTERVAL;
@@ -155,7 +155,7 @@ int main(void)
 	/* Discard the first sample from the temperature sensor, as it is generally incorrect */
 	volatile uint8_t Dummy = Temperature_GetTemperature();
 	(void)Dummy;
-	
+
 	for (;;)
 	{
 		MS_Device_USBTask(&Disk_MS_Interface);
@@ -206,7 +206,7 @@ void SetupHardware(void)
 	Dataflash_Init();
 	USB_Init();
 	TWI_Init();
-	
+
 	/* 500ms logging interval timer configuration */
 	OCR1A   = ((F_CPU / 1024) / 2);
 	TCCR1B  = (1 << WGM12) | (1 << CS12) | (1 << CS10);
@@ -229,7 +229,7 @@ void EVENT_USB_Device_Connect(void)
 void EVENT_USB_Device_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-	
+
 	/* Mount and open the log file on the Dataflash FAT partition */
 	OpenLogFile();
 }
@@ -259,18 +259,18 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 {
 	bool CommandSuccess;
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 	CommandSuccess = SCSI_DecodeSCSICommand(MSInterfaceInfo);
 	LEDs_SetAllLEDs(LEDMASK_USB_READY);
-	
+
 	return CommandSuccess;
 }
 
 /** HID class driver callback function for the creation of HID reports to the host.
  *
  *  \param[in]     HIDInterfaceInfo  Pointer to the HID class interface configuration structure being referenced
- *  \param[in,out] ReportID    Report ID requested by the host if non-zero, otherwise callback should set to the 
+ *  \param[in,out] ReportID    Report ID requested by the host if non-zero, otherwise callback should set to the
  *                             generated report ID
  *  \param[in]     ReportType  Type of the report to create, either HID_REPORT_ITEM_In or HID_REPORT_ITEM_Feature
  *  \param[out]    ReportData  Pointer to a buffer where the created report should be stored
@@ -288,7 +288,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 
 	DS1307_GetDate(&ReportParams->Day,  &ReportParams->Month,  &ReportParams->Year);
 	DS1307_GetTime(&ReportParams->Hour, &ReportParams->Minute, &ReportParams->Second);
-	
+
 	ReportParams->LogInterval500MS = LoggingInterval500MS_SRAM;
 
 	*ReportSize = sizeof(Device_Report_t);
@@ -310,10 +310,10 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
                                           const uint16_t ReportSize)
 {
 	Device_Report_t* ReportParams = (Device_Report_t*)ReportData;
-	
+
 	DS1307_SetDate(ReportParams->Day,  ReportParams->Month,  ReportParams->Year);
 	DS1307_SetTime(ReportParams->Hour, ReportParams->Minute, ReportParams->Second);
-	
+
 	/* If the logging interval has changed from its current value, write it to EEPROM */
 	if (LoggingInterval500MS_SRAM != ReportParams->LogInterval500MS)
 	{
@@ -321,3 +321,4 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
 		eeprom_update_byte(&LoggingInterval500MS_EEPROM, LoggingInterval500MS_SRAM);
 	}
 }
+

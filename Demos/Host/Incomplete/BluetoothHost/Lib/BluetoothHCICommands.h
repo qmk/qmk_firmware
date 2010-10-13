@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -82,7 +82,7 @@
 		#define OCF_CTRLR_BASEBAND_WRITE_AUTHENTICATION_ENABLE 0x0020
 		#define OCF_CTRLR_INFORMATIONAL_READBUFFERSIZE         0x0005
 		#define OCF_CTRLR_INFORMATIONAL_READBDADDR             0x0009
-		
+
 		#define EVENT_COMMAND_STATUS                           0x0F
 		#define EVENT_COMMAND_COMPLETE                         0x0E
 		#define EVENT_CONNECTION_COMPLETE                      0x03
@@ -91,10 +91,10 @@
 		#define EVENT_REMOTE_NAME_REQUEST_COMPLETE             0x07
 		#define EVENT_PIN_CODE_REQUEST                         0x16
 		#define EVENT_LINK_KEY_REQUEST                         0x17
-		
+
 		#define ERROR_LIMITED_RESOURCES                        0x0D
 		#define ERROR_UNACCEPTABLE_BDADDR                      0x0F
-		
+
 	/* Type Defines: */
 		typedef struct
 		{
@@ -115,7 +115,7 @@
 			uint8_t  Packets;
 			uint16_t OpCode;
 		} BT_HCIEvent_CommandStatus_t;
-		
+
 		typedef struct
 		{
 			uint8_t  HCIPacketsAllowable;
@@ -139,7 +139,7 @@
 			uint8_t  LinkType;
 			uint8_t  EncryptionEnabled;
 		} BT_HCIEvent_ConnectionComplete_t;
-		
+
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
@@ -149,7 +149,7 @@
 		{
 			uint8_t  RemoteAddress[6];
 		} BT_HCIEvent_LinkKeyReq_t;
-				
+
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
@@ -161,18 +161,18 @@
 			uint8_t  PINCodeLength;
 			char     PINCode[16];
 		} BT_HCICommand_PinCodeResp_t;
-		
+
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
 			uint8_t  SlaveRole;
 		} BT_HCICommand_AcceptConnectionReq_t;
-		
+
 		typedef struct
 		{
 			uint8_t  RemoteAddress[6];
 			uint8_t  Reason;
-		} BT_HCICommand_RejectConnectionReq_t;		
+		} BT_HCICommand_RejectConnectionReq_t;
 
 	/* Enums: */
 		enum BT_ScanEnable_Modes_t
@@ -199,14 +199,15 @@
 			Bluetooth_Conn_SendPINCode       = 11,
 			Bluetooth_Conn_SendLinkKeyNAK    = 12,
 		};
-		
+
 	/* Function Prototypes: */
 		void Bluetooth_HCITask(void);
-			
+
 		#if defined(INCLUDE_FROM_BLUETOOTHHCICOMMANDS_C)
 			static uint8_t Bluetooth_SendHCICommand(const BT_HCICommand_Header_t* const HCICommandHeader,
 			                                        const void* Parameters,
 			                                        const uint16_t ParameterLength);
 		#endif
-		
+
 #endif
+

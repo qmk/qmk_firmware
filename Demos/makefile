@@ -1,7 +1,7 @@
 #
 #             LUFA Library
 #     Copyright (C) Dean Camera, 2010.
-#              
+#
 #  dean [at] fourwalledcubicle [dot] com
 #      www.fourwalledcubicle.com
 #
@@ -19,3 +19,4 @@ all:
 	$(MAKE) -C Device $@
 	$(MAKE) -C Host $@
 	$(MAKE) -C DualRole $@
+

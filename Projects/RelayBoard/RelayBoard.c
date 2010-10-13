@@ -44,7 +44,7 @@
 int main(void)
 {
 	SetupHardware();
-	
+
 	sei();
 
 	for (;;)
@@ -103,7 +103,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 						break;
 				}
 			}
-			
+
 			break;
 		case 0x01:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
@@ -130,7 +130,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 						ControlData[1] = (PORTC & RELAY4) ? 2 : 3;
 						break;
 				}
-				
+
 				if (ControlData[1])
 				  Endpoint_Write_Control_Stream_LE(ControlData, sizeof(ControlData));
 
@@ -140,3 +140,4 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			break;
 	}
 }
+

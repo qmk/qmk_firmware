@@ -1,7 +1,7 @@
 #
 #             LUFA Library
 #     Copyright (C) Dean Camera, 2010.
-#              
+#
 #  dean [at] fourwalledcubicle [dot] com
 #      www.fourwalledcubicle.com
 #
@@ -15,7 +15,7 @@
 
 all:
 	$(MAKE) -C JoystickHostWithParser clean
-	$(MAKE) -C JoystickHostWithParser all	
+	$(MAKE) -C JoystickHostWithParser all
 
 	$(MAKE) -C KeyboardHost clean
 	$(MAKE) -C KeyboardHost all
@@ -45,8 +45,8 @@ all:
 	$(MAKE) -C StillImageHost all
 
 	$(MAKE) -C VirtualSerialHost clean
-	$(MAKE) -C VirtualSerialHost all	
-	
+	$(MAKE) -C VirtualSerialHost all
+
 %:
 	$(MAKE) -C JoystickHostWithParser $@
 	$(MAKE) -C KeyboardHost $@
@@ -59,3 +59,4 @@ all:
 	$(MAKE) -C RNDISEthernetHost $@
 	$(MAKE) -C StillImageHost $@
 	$(MAKE) -C VirtualSerialHost $@
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -39,7 +39,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <stdbool.h>
-		
+
 		#include "RNDISEthernet.h"
 		#include "RNDISConstants.h"
 		#include "Ethernet.h"
@@ -50,13 +50,13 @@
 
 		/** Implemented RNDIS Version Minor. */
 		#define REMOTE_NDIS_VERSION_MINOR             0x00
-	
+
 		/** RNDIS request to issue a host-to-device NDIS command. */
 		#define REQ_SendEncapsulatedCommand           0x00
 
 		/** RNDIS request to issue a device-to-host NDIS response. */
 		#define REQ_GetEncapsulatedResponse           0x01
-		
+
 	/* Enums: */
 		/** Enum for the possible NDIS adapter states. */
 		enum RNDIS_States_t
@@ -99,19 +99,19 @@
 			uint32_t VcHandle;
 			uint32_t Reserved;
 		} RNDIS_Packet_Message_t;
-	
+
 		/** Type define for a RNDIS Initialize command message. */
 		typedef struct
 		{
 			uint32_t MessageType;
 			uint32_t MessageLength;
 			uint32_t RequestId;
-			
+
 			uint32_t MajorVersion;
 			uint32_t MinorVersion;
 			uint32_t MaxTransferSize;
 		} RNDIS_Initialize_Message_t;
-		
+
 		/** Type define for a RNDIS Initialize complete response message. */
 		typedef struct
 		{
@@ -119,7 +119,7 @@
 			uint32_t MessageLength;
 			uint32_t RequestId;
 			uint32_t Status;
-			
+
 			uint32_t MajorVersion;
 			uint32_t MinorVersion;
 			uint32_t DeviceFlags;
@@ -130,7 +130,7 @@
 			uint32_t AFListOffset;
 			uint32_t AFListSize;
 		} RNDIS_Initialize_Complete_t;
-		
+
 		/** Type define for a RNDIS Keep-alive command message. */
 		typedef struct
 		{
@@ -157,14 +157,14 @@
 
 			uint32_t AddressingReset;
 		} RNDIS_Reset_Complete_t;
-		
+
 		/** Type define for a RNDIS Set command message. */
 		typedef struct
 		{
 			uint32_t MessageType;
 			uint32_t MessageLength;
 			uint32_t RequestId;
-			
+
 			uint32_t Oid;
 			uint32_t InformationBufferLength;
 			uint32_t InformationBufferOffset;
@@ -179,20 +179,20 @@
 			uint32_t RequestId;
 			uint32_t Status;
 		} RNDIS_Set_Complete_t;
-		
+
 		/** Type define for a RNDIS Query command message. */
 		typedef struct
 		{
 			uint32_t MessageType;
 			uint32_t MessageLength;
 			uint32_t RequestId;
-			
+
 			uint32_t Oid;
 			uint32_t InformationBufferLength;
 			uint32_t InformationBufferOffset;
 			uint32_t DeviceVcHandle;
 		} RNDIS_Query_Message_t;
-		
+
 		/** Type define for a RNDIS Query complete response message. */
 		typedef struct
 		{
@@ -200,11 +200,11 @@
 			uint32_t MessageLength;
 			uint32_t RequestId;
 			uint32_t Status;
-			
+
 			uint32_t InformationBufferLength;
 			uint32_t InformationBufferOffset;
 		} RNDIS_Query_Complete_t;
-		
+
 	/* External Variables: */
 		extern uint8_t                 RNDISMessageBuffer[];
 		extern RNDIS_Message_Header_t* MessageHeader;
@@ -222,7 +222,8 @@
 			                             uint16_t* ResponseSize);
 			static bool ProcessNDISSet(const uint32_t OId,
 			                           void* SetData,
-			                           uint16_t SetSize);	
+			                           uint16_t SetSize);
 		#endif
-		
+
 #endif
+

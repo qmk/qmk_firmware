@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -92,7 +92,7 @@ USB_ClassInfo_CDC_Device_t VirtualSerial2_CDC_Interface =
 int main(void)
 {
 	SetupHardware();
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
 
@@ -107,7 +107,7 @@ int main(void)
 		int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial2_CDC_Interface);
 		if (!(ReceivedByte < 0))
 		  CDC_Device_SendByte(&VirtualSerial2_CDC_Interface, (uint8_t)ReceivedByte);
-		  
+
 		CDC_Device_USBTask(&VirtualSerial1_CDC_Interface);
 		CDC_Device_USBTask(&VirtualSerial2_CDC_Interface);
 		USB_USBTask();
@@ -151,12 +151,12 @@ void CheckJoystickMovement(void)
 	  ReportString = "Joystick Pressed\r\n";
 	else
 	  ActionSent = false;
-	  
+
 	if ((ReportString != NULL) && (ActionSent == false))
 	{
 		ActionSent = true;
-		
-		CDC_Device_SendString(&VirtualSerial1_CDC_Interface, ReportString, strlen(ReportString));		
+
+		CDC_Device_SendString(&VirtualSerial1_CDC_Interface, ReportString, strlen(ReportString));
 	}
 }
 
@@ -189,3 +189,4 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	CDC_Device_ProcessControlRequest(&VirtualSerial1_CDC_Interface);
 	CDC_Device_ProcessControlRequest(&VirtualSerial2_CDC_Interface);
 }
+

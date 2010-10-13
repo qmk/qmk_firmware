@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -27,7 +27,7 @@
   arising out of or in connection with the use or performance of
   this software.
 */
- 
+
 /** \file
  *  \brief USB host pipe management definitions.
  *
@@ -36,27 +36,27 @@
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
- */ 
+ */
 
 /** \ingroup Group_PipeManagement
  *  @defgroup Group_PipeRW Pipe Data Reading and Writing
  *
  *  Functions, macros, variables, enums and types related to data reading and writing from and to pipes.
  */
- 
-/** \ingroup Group_PipeRW  
+
+/** \ingroup Group_PipeRW
  *  @defgroup Group_PipePrimitiveRW Read/Write of Primitive Data Types
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
  *  from and to pipes.
  */
- 
+
 /** \ingroup Group_PipeManagement
  *  @defgroup Group_PipePacketManagement Pipe Packet Management
  *
  *  Functions, macros, variables, enums and types related to packet management of pipes.
  */
- 
+
 /** \ingroup Group_PipeManagement
  *  @defgroup Group_PipeControlReq Pipe Control Request Management
  *
@@ -64,7 +64,7 @@
  *  vendor control requests to the default control endpoint of an attached device while in host mode.
  *
  *  \see Chapter 9 of the USB 2.0 specification.
- */ 
+ */
 
 /** \ingroup Group_USB
  *  @defgroup Group_PipeManagement Pipe Management
@@ -85,7 +85,7 @@
 
 		#include "../../../Common/Common.h"
 		#include "../HighLevel/USBTask.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -95,7 +95,7 @@
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that an overflow error occurred in the pipe on the received data. */
@@ -146,17 +146,17 @@
 			 *  bank.
 			 */
 			#define PIPE_BANK_DOUBLE                (1 << EPBK0)
-			
+
 			/** Pipe address for the default control pipe, which always resides in address 0. This is
 			 *  defined for convenience to give more readable code when used with the pipe macros.
 			 */
 			#define PIPE_CONTROLPIPE                0
 
-			/** Default size of the default control pipe's bank, until altered by the Endpoint0Size value 
+			/** Default size of the default control pipe's bank, until altered by the Endpoint0Size value
 			 *  in the device descriptor of the attached device.
 			 */
 			#define PIPE_CONTROLPIPE_DEFAULT_SIZE   64
-			
+
 			/** Pipe number mask, for masking against pipe addresses to retrieve the pipe's numerical address
 			 *  in the device.
 			 */
@@ -193,7 +193,7 @@
 			enum Pipe_WaitUntilReady_ErrorCodes_t
 			{
 				PIPE_READYWAIT_NoError                 = 0, /**< Pipe ready for next packet, no error. */
-				PIPE_READYWAIT_PipeStalled             = 1,	/**< The device stalled the pipe while waiting. */			
+				PIPE_READYWAIT_PipeStalled             = 1,	/**< The device stalled the pipe while waiting. */
 				PIPE_READYWAIT_DeviceDisconnected      = 2,	/**< Device was disconnected from the host while waiting. */
 				PIPE_READYWAIT_Timeout                 = 3, /**< The device failed to accept or send the next packet
 				                                             *   within the software timeout period set by the
@@ -216,7 +216,7 @@
 			{
 				return UPBCX;
 			}
-			
+
 			/** Returns the pipe address of the currently selected pipe. This is typically used to save the
 			 *  currently selected pipe number so that it can be restored after another pipe has been manipulated.
 			 *
@@ -238,7 +238,7 @@
 			{
 				UPNUM = PipeNumber;
 			}
-			
+
 			/** Resets the desired pipe, including the pipe banks and flags.
 			 *
 			 *  \param[in] PipeNumber  Index of the pipe to reset.
@@ -249,7 +249,7 @@
 				UPRST = (1 << PipeNumber);
 				UPRST = 0;
 			}
-			
+
 			/** Enables the currently selected pipe so that data can be sent and received through it to and from
 			 *  an attached device.
 			 *
@@ -279,7 +279,7 @@
 			{
 				return ((UPCONX & (1 << PEN)) ? true : false);
 			}
-			
+
 			/** Gets the current pipe token, indicating the pipe's data direction and type.
 			 *
 			 *  \return The current pipe token, as a PIPE_TOKEN_* mask.
@@ -289,7 +289,7 @@
 			{
 				return (UPCFG0X & (0x03 << PTOKEN0));
 			}
-			
+
 			/** Sets the token for the currently selected pipe to one of the tokens specified by the PIPE_TOKEN_*
 			 *  masks. This can be used on CONTROL type pipes, to allow for bidirectional transfer of data during
 			 *  control requests, or on regular pipes to allow for half-duplex bidirectional data transfer to devices
@@ -302,14 +302,14 @@
 			{
 				UPCFG0X = ((UPCFG0X & ~(0x03 << PTOKEN0)) | Token);
 			}
-			
+
 			/** Configures the currently selected pipe to allow for an unlimited number of IN requests. */
 			static inline void Pipe_SetInfiniteINRequests(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_SetInfiniteINRequests(void)
 			{
 				UPCONX |= (1 << INMODE);
 			}
-			
+
 			/** Configures the currently selected pipe to only allow the specified number of IN requests to be
 			 *  accepted by the pipe before it is automatically frozen.
 			 *
@@ -331,7 +331,7 @@
 			{
 				return ((UPSTAX & (1 << CFGOK)) ? true : false);
 			}
-			
+
 			/** Retrieves the endpoint number of the endpoint within the attached device that the currently selected
 			 *  pipe is bound to.
 			 *
@@ -352,7 +352,7 @@
 			{
 				UPCFG2X = Milliseconds;
 			}
-			
+
 			/** Returns a mask indicating which pipe's interrupt periods have elapsed, indicating that the pipe should
 			 *  be serviced.
 			 *
@@ -363,7 +363,7 @@
 			{
 				return UPINT;
 			}
-			
+
 			/** Determines if the specified pipe number has interrupted (valid only for INTERRUPT type
 			 *  pipes).
 			 *
@@ -376,14 +376,14 @@
 			{
 				return ((UPINT & (1 << PipeNumber)) ? true : false);
 			}
-			
+
 			/** Unfreezes the selected pipe, allowing it to communicate with an attached device. */
 			static inline void Pipe_Unfreeze(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Unfreeze(void)
 			{
 				UPCONX &= ~(1 << PFREEZE);
 			}
-			
+
 			/** Freezes the selected pipe, preventing it from communicating with an attached device. */
 			static inline void Pipe_Freeze(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Freeze(void)
@@ -400,14 +400,14 @@
 			{
 				return ((UPCONX & (1 << PFREEZE)) ? true : false);
 			}
-			
+
 			/** Clears the master pipe error flag. */
 			static inline void Pipe_ClearError(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearError(void)
 			{
 				UPINTX &= ~(1 << PERRI);
 			}
-			
+
 			/** Determines if the master pipe error flag is set for the currently selected pipe, indicating that
 			 *  some sort of hardware error has occurred on the pipe.
 			 *
@@ -420,7 +420,7 @@
 			{
 				return ((UPINTX & (1 << PERRI)) ? true : false);
 			}
-			
+
 			/** Clears all the currently selected pipe's hardware error flags, but does not clear the master error
 			 *  flag for the pipe.
 			 */
@@ -429,7 +429,7 @@
 			{
 				UPERRX = 0;
 			}
-			
+
 			/** Gets a mask of the hardware error flags which have occurred on the currently selected pipe. This
 			 *  value can then be masked against the PIPE_ERRORFLAG_* masks to determine what error has occurred.
 			 *
@@ -443,7 +443,7 @@
 				                   PIPE_ERRORFLAG_DATATGL)) |
 				        (UPSTAX & (PIPE_ERRORFLAG_OVERFLOW | PIPE_ERRORFLAG_UNDERFLOW)));
 			}
-			
+
 			/** Determines if the currently selected pipe may be read from (if data is waiting in the pipe
 			 *  bank and the pipe is an IN direction, or if the bank is not yet full if the pipe is an OUT
 			 *  direction). This function will return false if an error has occurred in the pipe, or if the pipe
@@ -453,7 +453,7 @@
 			 *  \note This function is not valid on CONTROL type pipes.
 			 *
 			 *  \ingroup Group_PipePacketManagement
-			 *  
+			 *
 			 *  \return Boolean true if the currently selected pipe may be read from or written to, depending on its direction.
 			 */
 			static inline bool Pipe_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
@@ -461,7 +461,7 @@
 			{
 				return ((UPINTX & (1 << RWAL)) ? true : false);
 			}
-			
+
 			/** Determines if a packet has been received on the currently selected IN pipe from the attached device.
 			 *
 			 *  \ingroup Group_PipePacketManagement
@@ -473,7 +473,7 @@
 			{
 				return ((UPINTX & (1 << RXINI)) ? true : false);
 			}
-			
+
 			/** Determines if the currently selected OUT pipe is ready to send an OUT packet to the attached device.
 			 *
 			 *  \ingroup Group_PipePacketManagement
@@ -498,10 +498,10 @@
 			{
 				return ((UPINTX & (1 << TXSTPI)) ? true : false);
 			}
-			
+
 			/** Sends the currently selected CONTROL type pipe's contents to the device as a SETUP packet.
 			 *
-			 *  \ingroup Group_PipePacketManagement		
+			 *  \ingroup Group_PipePacketManagement
 			 */
 			static inline void Pipe_ClearSETUP(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearSETUP(void)
@@ -558,7 +558,7 @@
 			{
 				UPINTX &= ~(1 << NAKEDI);
 			}
-			 
+
 			/** Determines if the currently selected pipe has had the STALL condition set by the attached device.
 			 *
 			 *  \ingroup Group_PipePacketManagement
@@ -570,7 +570,7 @@
 			{
 				return ((UPINTX & (1 << RXSTALLI)) ? true : false);
 			}
-			
+
 			/** Clears the STALL condition detection flag on the currently selected pipe, but does not clear the
 			 *  STALL condition itself (this must be done via a ClearFeature control request to the device).
 			 *
@@ -614,10 +614,10 @@
 			static inline void Pipe_Discard_Byte(void)
 			{
 				uint8_t Dummy;
-				
+
 				Dummy = UPDATX;
 			}
-			
+
 			/** Reads two bytes from the currently selected pipe's bank in little endian format, for OUT
 			 *  direction pipes.
 			 *
@@ -633,10 +633,10 @@
 					uint16_t Word;
 					uint8_t  Bytes[2];
 				} Data;
-				
+
 				Data.Bytes[0] = UPDATX;
 				Data.Bytes[1] = UPDATX;
-			
+
 				return Data.Word;
 			}
 
@@ -655,13 +655,13 @@
 					uint16_t Word;
 					uint8_t  Bytes[2];
 				} Data;
-				
+
 				Data.Bytes[1] = UPDATX;
 				Data.Bytes[0] = UPDATX;
-			
+
 				return Data.Word;
 			}
-			
+
 			/** Writes two bytes to the currently selected pipe's bank in little endian format, for IN
 			 *  direction pipes.
 			 *
@@ -675,7 +675,7 @@
 				UPDATX = (Word & 0xFF);
 				UPDATX = (Word >> 8);
 			}
-			
+
 			/** Writes two bytes to the currently selected pipe's bank in big endian format, for IN
 			 *  direction pipes.
 			 *
@@ -698,7 +698,7 @@
 			static inline void Pipe_Discard_Word(void)
 			{
 				uint8_t Dummy;
-				
+
 				Dummy = UPDATX;
 				Dummy = UPDATX;
 			}
@@ -718,12 +718,12 @@
 					uint32_t DWord;
 					uint8_t  Bytes[4];
 				} Data;
-				
+
 				Data.Bytes[0] = UPDATX;
 				Data.Bytes[1] = UPDATX;
 				Data.Bytes[2] = UPDATX;
 				Data.Bytes[3] = UPDATX;
-			
+
 				return Data.DWord;
 			}
 
@@ -742,12 +742,12 @@
 					uint32_t DWord;
 					uint8_t  Bytes[4];
 				} Data;
-				
+
 				Data.Bytes[3] = UPDATX;
 				Data.Bytes[2] = UPDATX;
 				Data.Bytes[1] = UPDATX;
 				Data.Bytes[0] = UPDATX;
-			
+
 				return Data.DWord;
 			}
 
@@ -766,7 +766,7 @@
 				UPDATX = (DWord >> 16);
 				UPDATX = (DWord >> 24);
 			}
-			
+
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
 			 *  direction pipes.
 			 *
@@ -781,9 +781,9 @@
 				UPDATX = (DWord >> 16);
 				UPDATX = (DWord >> 8);
 				UPDATX = (DWord &  0xFF);
-			}			
-			
-			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.	
+			}
+
+			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.
 			 *
 			 *  \ingroup Group_PipePrimitiveRW
 			 */
@@ -791,7 +791,7 @@
 			static inline void Pipe_Discard_DWord(void)
 			{
 				uint8_t Dummy;
-				
+
 				Dummy = UPDATX;
 				Dummy = UPDATX;
 				Dummy = UPDATX;
@@ -825,14 +825,14 @@
 			 *                             Speed USB devices - refer to the USB 2.0 specification.
 			 *
 			 *  \param[in] Token           Pipe data token, either \ref PIPE_TOKEN_SETUP, \ref PIPE_TOKEN_OUT or \ref PIPE_TOKEN_IN.
-			 *                             All pipes (except Control type) are unidirectional - data may only be read from or 
+			 *                             All pipes (except Control type) are unidirectional - data may only be read from or
 			 *                             written to the pipe bank based on its direction, not both.
 			 *
 			 *  \param[in] EndpointNumber  Endpoint index within the attached device that the pipe should interface to.
 			 *
 			 *  \param[in] Size            Size of the pipe's bank, where packets are stored before they are transmitted to
-			 *                             the USB device, or after they have been received from the USB device (depending on 
-			 *                             the pipe's data direction). The bank size must indicate the maximum packet size that 
+			 *                             the USB device, or after they have been received from the USB device (depending on
+			 *                             the pipe's data direction). The bank size must indicate the maximum packet size that
 			 *                             the pipe can handle.
 			 *
 			 *  \param[in] Banks           Number of banks to use for the pipe being configured, a PIPE_BANK_* mask. More banks
@@ -862,7 +862,7 @@
 			                        const uint16_t Size,
 			                        const uint8_t Banks);
 
-			/** Spin-loops until the currently selected non-control pipe is ready for the next packed of data to be read 
+			/** Spin-loops until the currently selected non-control pipe is ready for the next packed of data to be read
 			 *  or written to it, aborting in the case of an error condition (such as a timeout or device disconnect).
 			 *
 			 *  \ingroup Group_PipeRW
@@ -870,7 +870,7 @@
 			 *  \return A value from the \ref Pipe_WaitUntilReady_ErrorCodes_t enum.
 			 */
 			uint8_t Pipe_WaitUntilReady(void);
-			
+
 			/** Determines if a pipe has been bound to the given device endpoint address. If a pipe which is bound to the given
 			 *  endpoint is found, it is automatically selected.
 			 *
@@ -887,20 +887,20 @@
 			#if !defined(ENDPOINT_CONTROLEP)
 				#define ENDPOINT_CONTROLEP          0
 			#endif
-			
+
 		/* Inline Functions: */
 			static inline uint8_t Pipe_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_BytesToEPSizeMask(const uint16_t Bytes)
 			{
 				uint8_t  MaskVal    = 0;
 				uint16_t CheckBytes = 8;
-				
+
 				while ((CheckBytes < Bytes) && (CheckBytes < PIPE_MAX_SIZE))
 				{
 					MaskVal++;
 					CheckBytes <<= 1;
 				}
-				
+
 				return (MaskVal << EPSIZE0);
 			}
 
@@ -912,7 +912,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-	
+
 #endif
 
 /** @} */
+

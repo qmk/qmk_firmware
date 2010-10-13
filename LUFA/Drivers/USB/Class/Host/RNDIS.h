@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -60,7 +60,7 @@
 
 		#include <stdio.h>
 		#include <string.h>
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -89,9 +89,9 @@
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the RNDIS interface's OUT data pipe. */
 					bool     DataOUTPipeDoubleBank; /**< Indicates if the RNDIS interface's OUT data pipe should use double banking. */
 
-					uint8_t  NotificationPipeNumber; /**< Pipe number of the RNDIS interface's IN notification endpoint, if used. */			
+					uint8_t  NotificationPipeNumber; /**< Pipe number of the RNDIS interface's IN notification endpoint, if used. */
 					bool     NotificationPipeDoubleBank; /**< Indicates if the RNDIS interface's notification pipe should use double banking. */
-					
+
 					uint32_t HostMaxPacketSize; /**< Maximum size of a packet which can be buffered by the host. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
 				           *   <b>must</b> be set or the interface will fail to enumerate and operate correctly.
@@ -103,20 +103,20 @@
 					                *   Configured state.
 					                */
 					uint8_t ControlInterfaceNumber; /**< Interface index of the RNDIS control interface within the attached device. */
-				
+
 					uint16_t DataINPipeSize; /**< Size in bytes of the RNDIS interface's IN data pipe. */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the RNDIS interface's OUT data pipe. */
-					uint16_t NotificationPipeSize;  /**< Size in bytes of the RNDIS interface's IN notification pipe, if used. */					
+					uint16_t NotificationPipeSize;  /**< Size in bytes of the RNDIS interface's IN notification pipe, if used. */
 
 					uint32_t DeviceMaxPacketSize; /**< Maximum size of a packet which can be buffered by the attached RNDIS device. */
-					
+
 					uint32_t RequestID; /**< Request ID counter to give a unique ID for each command/response pair. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
 						  *   the interface is enumerated.
 						  */
 			} USB_ClassInfo_RNDIS_Host_t;
-			
+
 		/* Enums: */
 			/** Enum for the possible error codes returned by the \ref RNDIS_Host_ConfigurePipes() function. */
 			enum RNDIS_Host_EnumerationFailure_ErrorCodes_t
@@ -211,7 +211,7 @@
 			 *  \return Boolean true if a packet is waiting to be read in by the host, false otherwise.
 			 */
 			bool RNDIS_Host_IsPacketReceived(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Retrieves the next pending packet from the device, discarding the remainder of the RNDIS packet header to leave
 			 *  only the packet contents for processing by the host in the nominated buffer.
 			 *
@@ -268,7 +268,7 @@
 
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_RNDIS_CLASS_HOST_C)
-				static uint8_t RNDIS_SendEncapsulatedCommand(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo, 
+				static uint8_t RNDIS_SendEncapsulatedCommand(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,
 				                                             void* Buffer,
 				                                             const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1)
 				                                             ATTR_NON_NULL_PTR_ARG(2);
@@ -291,3 +291,4 @@
 #endif
 
 /** @} */
+

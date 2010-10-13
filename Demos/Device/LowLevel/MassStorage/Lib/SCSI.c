@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -34,29 +34,29 @@
  *  devices use a thin "Bulk-Only Transport" protocol for issuing commands and status information,
  *  which wrap around standard SCSI device commands for controlling the actual storage medium.
  */
- 
+
 #define  INCLUDE_FROM_SCSI_C
 #include "SCSI.h"
 
 /** Structure to hold the SCSI response data to a SCSI INQUIRY command. This gives information about the device's
  *  features and capabilities.
  */
-SCSI_Inquiry_Response_t InquiryData = 
+SCSI_Inquiry_Response_t InquiryData =
 	{
 		.DeviceType          = DEVICE_TYPE_BLOCK,
 		.PeripheralQualifier = 0,
-			
+
 		.Removable           = true,
-			
+
 		.Version             = 0,
-			
+
 		.ResponseDataFormat  = 2,
 		.NormACA             = false,
 		.TrmTsk              = false,
 		.AERC                = false,
 
 		.AdditionalLength    = 0x1F,
-			
+
 		.SoftReset           = false,
 		.CmdQue              = false,
 		.Linked              = false,
@@ -64,7 +64,7 @@ SCSI_Inquiry_Response_t InquiryData =
 		.WideBus16Bit        = false,
 		.WideBus32Bit        = false,
 		.RelAddr             = false,
-		
+
 		.VendorID            = "LUFA",
 		.ProductID           = "Dataflash Disk",
 		.RevisionID          = {'0','.','0','0'},
@@ -94,13 +94,13 @@ bool SCSI_DecodeSCSICommand(void)
 	switch (CommandBlock.SCSICommandData[0])
 	{
 		case SCSI_CMD_INQUIRY:
-			CommandSuccess = SCSI_Command_Inquiry();			
+			CommandSuccess = SCSI_Command_Inquiry();
 			break;
 		case SCSI_CMD_REQUEST_SENSE:
 			CommandSuccess = SCSI_Command_Request_Sense();
 			break;
 		case SCSI_CMD_READ_CAPACITY_10:
-			CommandSuccess = SCSI_Command_Read_Capacity_10();			
+			CommandSuccess = SCSI_Command_Read_Capacity_10();
 			break;
 		case SCSI_CMD_SEND_DIAGNOSTIC:
 			CommandSuccess = SCSI_Command_Send_Diagnostic();
@@ -125,14 +125,14 @@ bool SCSI_DecodeSCSICommand(void)
 		                   SCSI_ASENSEQ_NO_QUALIFIER);
 			break;
 	}
-	
+
 	/* Check if command was successfully processed */
 	if (CommandSuccess)
 	{
 		SCSI_SET_SENSE(SCSI_SENSE_KEY_GOOD,
 		               SCSI_ASENSE_NO_ADDITIONAL_INFORMATION,
 		               SCSI_ASENSEQ_NO_QUALIFIER);
-		
+
 		return true;
 	}
 
@@ -166,7 +166,7 @@ static bool SCSI_Command_Inquiry(void)
 	Endpoint_Write_Stream_LE(&InquiryData, BytesTransferred, StreamCallback_AbortOnMassStoreReset);
 
 	uint8_t PadBytes[AllocationLength - BytesTransferred];
-	
+
 	/* Pad out remaining bytes with 0x00 */
 	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), StreamCallback_AbortOnMassStoreReset);
 
@@ -175,7 +175,7 @@ static bool SCSI_Command_Inquiry(void)
 
 	/* Succeed the command and update the bytes transferred counter */
 	CommandBlock.DataTransferLength -= BytesTransferred;
-	
+
 	return true;
 }
 
@@ -188,12 +188,12 @@ static bool SCSI_Command_Request_Sense(void)
 {
 	uint8_t  AllocationLength = CommandBlock.SCSICommandData[4];
 	uint8_t  BytesTransferred = (AllocationLength < sizeof(SenseData))? AllocationLength : sizeof(SenseData);
-	
+
 	/* Send the SENSE data - this indicates to the host the status of the last command */
 	Endpoint_Write_Stream_LE(&SenseData, BytesTransferred, StreamCallback_AbortOnMassStoreReset);
-	
+
 	uint8_t PadBytes[AllocationLength - BytesTransferred];
-	
+
 	/* Pad out remaining bytes with 0x00 */
 	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), StreamCallback_AbortOnMassStoreReset);
 
@@ -228,7 +228,7 @@ static bool SCSI_Command_Read_Capacity_10(void)
 
 	/* Succeed the command and update the bytes transferred counter */
 	CommandBlock.DataTransferLength -= 8;
-	
+
 	return true;
 }
 
@@ -250,21 +250,21 @@ static bool SCSI_Command_Send_Diagnostic(void)
 
 		return false;
 	}
-	
+
 	/* Check to see if all attached Dataflash ICs are functional */
 	if (!(DataflashManager_CheckDataflashOperation()))
 	{
 		/* Update SENSE key with a hardware error condition and return command fail */
 		SCSI_SET_SENSE(SCSI_SENSE_KEY_HARDWARE_ERROR,
 		               SCSI_ASENSE_NO_ADDITIONAL_INFORMATION,
-		               SCSI_ASENSEQ_NO_QUALIFIER);	
-	
+		               SCSI_ASENSEQ_NO_QUALIFIER);
+
 		return false;
 	}
-	
+
 	/* Succeed the command and update the bytes transferred counter */
 	CommandBlock.DataTransferLength = 0;
-	
+
 	return true;
 }
 
@@ -296,7 +296,7 @@ static bool SCSI_Command_ReadWrite_10(const bool IsDataRead)
 	/* Adjust the given block address to the real media address based on the selected LUN */
 	BlockAddress += ((uint32_t)CommandBlock.LUN * LUN_MEDIA_BLOCKS);
 	#endif
-	
+
 	/* Determine if the packet is a READ (10) or WRITE (10) command, call appropriate function */
 	if (IsDataRead == DATA_READ)
 	  DataflashManager_ReadBlocks(BlockAddress, TotalBlocks);
@@ -305,6 +305,7 @@ static bool SCSI_Command_ReadWrite_10(const bool IsDataRead)
 
 	/* Update the bytes transferred counter and succeed the command */
 	CommandBlock.DataTransferLength -= ((uint32_t)TotalBlocks * VIRTUAL_MEMORY_BLOCK_SIZE);
-	
+
 	return true;
 }
+

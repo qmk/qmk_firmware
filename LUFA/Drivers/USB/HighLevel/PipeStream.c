@@ -193,3 +193,4 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 #include "Template/Template_Pipe_RW.c"
 
 #endif
+

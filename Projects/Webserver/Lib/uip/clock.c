@@ -36,3 +36,4 @@ clock_time_t clock_time()
 
 	return time;
 }
+

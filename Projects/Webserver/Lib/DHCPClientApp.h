@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -38,11 +38,11 @@
 
 	/* Includes: */
 		#include <stdio.h>
-		
+
 		#include <uip.h>
-		
+
 		#include "../Webserver.h"
-		
+
 	/* Macros: */
 		/** UDP listen port for a BOOTP server. */
 		#define DHCPC_SERVER_PORT         67
@@ -58,10 +58,10 @@
 
 		/** BOOTP flag for a BOOTP broadcast message. */
 		#define BOOTP_BROADCAST           0x8000
-		
+
 		/** Magic DHCP cookie for a BOOTP message to identify it as a DHCP message. */
 		#define DHCP_MAGIC_COOKIE         0x63538263
-		
+
 		/** Unique transaction ID used to identify DHCP responses to the client. */
 		#define DHCP_TRANSACTION_ID       0x13245466
 
@@ -106,8 +106,8 @@
 
 		/** DHCP message option for the DHCP message type. */
 		#define DHCP_OPTION_MSG_TYPE      53
-		
-		/** DHCP message option for the DHCP server IP. */		
+
+		/** DHCP message option for the DHCP server IP. */
 		#define DHCP_OPTION_SERVER_ID     54
 
 		/** DHCP message option for the list of required options from the server. */
@@ -129,18 +129,18 @@
 
 			uint16_t ElapsedSeconds; /**< Elapsed seconds since the request was made */
 			uint16_t Flags; /**< BOOTP packet flags */
-			
+
 			uip_ipaddr_t ClientIP; /**< Client IP address, if already leased an IP */
 			uip_ipaddr_t YourIP; /**< Client IP address */
 			uip_ipaddr_t NextServerIP; /**< Legacy BOOTP protocol field, unused for DHCP */
 			uip_ipaddr_t RelayAgentIP; /**< Legacy BOOTP protocol field, unused for DHCP */
-			
+
 			uint8_t ClientHardwareAddress[16]; /**< Hardware (MAC) address of the client making a request to the DHCP server */
 			uint8_t ServerHostnameString[64]; /**< Legacy BOOTP protocol field, unused for DHCP */
 			uint8_t BootFileName[128]; /**< Legacy BOOTP protocol field, unused for DHCP */
-			
+
 			uint32_t Cookie; /**< Magic BOOTP protocol cookie to indicate a valid packet */
-			
+
 			uint8_t  Options[]; /**< DHCP message options */
 		} DHCP_Header_t;
 
@@ -158,7 +158,7 @@
 	/* Function Prototypes: */
 		void DHCPClientApp_Init(void);
 		void DHCPClientApp_Callback(void);
-		
+
 		#if defined(INCLUDE_FROM_DHCPCLIENTAPP_C)
 			static uint16_t DHCPClientApp_FillDHCPHeader(DHCP_Header_t* const DHCPHeader,
 			                                             const uint8_t DHCPMessageType,
@@ -172,3 +172,4 @@
 			                                        void* const Destination);
 		#endif
 #endif
+

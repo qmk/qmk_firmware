@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -124,7 +124,7 @@ void RFCOMM_ProcessPacket(void* Data,
 	const RFCOMM_Header_t* FrameHeader  = (const RFCOMM_Header_t*)Data;
 	const uint8_t*         FrameData    = (const uint8_t*)Data + sizeof(RFCOMM_Header_t);
 	uint16_t               FrameDataLen = RFCOMM_GetVariableFieldValue(&FrameData);
-	
+
 	/* Decode the RFCOMM frame type from the header */
 	switch (FrameHeader->Control & ~FRAME_POLL_FINAL)
 	{
@@ -167,7 +167,7 @@ void RFCOMM_SendChannelSignals(const RFCOMM_Channel_t* const RFCOMMChannel,
 		uint8_t                 Length;
 		RFCOMM_MSC_Parameters_t Params;
 	} MSCommand;
-	
+
 	MSCommand.CommandHeader      = (RFCOMM_Command_t){.Command = RFCOMM_Control_ModemStatus, .EA = true, .CR = true};
 	MSCommand.Length             = (sizeof(MSCommand.Params) << 1) | 0x01;
 	MSCommand.Params.Channel     = (RFCOMM_Address_t){.DLCI = RFCOMMChannel->DLCI, .EA = true, .CR = true};
@@ -175,7 +175,7 @@ void RFCOMM_SendChannelSignals(const RFCOMM_Channel_t* const RFCOMMChannel,
 	MSCommand.Params.BreakSignal = RFCOMMChannel->Local.BreakSignal;
 
 	/* Send the MSC command to the remote device */
-	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, true, RFCOMM_Frame_UIH, sizeof(MSCommand), &MSCommand, ACLChannel);	
+	RFCOMM_SendFrame(RFCOMM_CONTROL_DLCI, true, RFCOMM_Frame_UIH, sizeof(MSCommand), &MSCommand, ACLChannel);
 }
 
 /** Sends new data through an open logical RFCOMM channel. This should be used to transmit data through a
@@ -193,12 +193,12 @@ void RFCOMM_SendData(const uint16_t DataLen,
 {
 	if (RFCOMMChannel->State != RFCOMM_Channel_Open)
 	  return;
-	  
+
 	BT_RFCOMM_DEBUG(1, ">> UIH Frame");
 	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", RFCOMMChannel->DLCI);
 
 	/* Send the MSC command to the remote device */
-	RFCOMM_SendFrame(RFCOMMChannel->DLCI, false, RFCOMM_Frame_UIH, DataLen, Data, ACLChannel);		
+	RFCOMM_SendFrame(RFCOMMChannel->DLCI, false, RFCOMM_Frame_UIH, DataLen, Data, ACLChannel);
 }
 
 RFCOMM_Channel_t* RFCOMM_GetFreeChannelEntry(const uint8_t DLCI)
@@ -220,11 +220,11 @@ RFCOMM_Channel_t* RFCOMM_GetFreeChannelEntry(const uint8_t DLCI)
 			RFCOMMChannel->Local.Signals      = RFCOMM_SIGNAL_RTC | RFCOMM_SIGNAL_RTR | RFCOMM_SIGNAL_DV | (1 << 0);
 			RFCOMMChannel->Local.BreakSignal  = 0 | (1 << 0);
 			RFCOMMChannel->ConfigFlags        = 0;
-			
+
 			return RFCOMMChannel;
 		}
 	}
-	
+
 	return NULL;
 }
 
@@ -234,7 +234,7 @@ RFCOMM_Channel_t* RFCOMM_GetChannelData(const uint8_t DLCI)
 	for (uint8_t i = 0; i < RFCOMM_MAX_OPEN_CHANNELS; i++)
 	{
 		RFCOMM_Channel_t* CurrRFCOMMChannel = &RFCOMM_Channels[i];
-	
+
 		/* If the current non-closed channel's DLCI matches the search DLCI, return it to the caller */
 		if ((CurrRFCOMMChannel->State != RFCOMM_Channel_Closed) && (CurrRFCOMMChannel->DLCI == DLCI))
 		  return CurrRFCOMMChannel;
@@ -248,10 +248,10 @@ uint16_t RFCOMM_GetVariableFieldValue(const uint8_t** BufferPos)
 {
 	uint8_t FirstOctet;
 	uint8_t SecondOctet = 0;
-	
+
 	FirstOctet = **BufferPos;
 	(*BufferPos)++;
-	
+
 	/* If the field size is more than a single byte, fetch the next byte in the variable length field */
 	if (!(FirstOctet & 0x01))
 	{
@@ -281,30 +281,30 @@ void RFCOMM_SendFrame(const uint8_t DLCI,
 		uint8_t         Data[DataLen];
 		uint8_t         FCS;
 	} ResponsePacket;
-	
+
 	/* Set the frame header values to the specified address and frame type */
 	ResponsePacket.FrameHeader.Control = Control;
 	ResponsePacket.FrameHeader.Address = (RFCOMM_Address_t){.DLCI = DLCI, .EA   = true, .CR = CommandResponse};
-	
+
 	/* Set the lower 7 bits of the packet length */
 	ResponsePacket.Size[0] = (DataLen << 1);
-	
+
 	/* Terminate the size field if size is 7 bits or lower, otherwise set the upper 8 bits of the length */
 	if (DataLen < 128)
 	  ResponsePacket.Size[0] |= 0x01;
 	else
 	  ResponsePacket.Size[1]  = (DataLen >> 7);
-	
+
 	/* Copy over the packet data from the source buffer to the response packet buffer */
 	memcpy(ResponsePacket.Data, Data, DataLen);
-	
+
 	/* Determine the length of the frame which is to be used to calculate the CRC value */
 	uint8_t CRCLength = sizeof(ResponsePacket.FrameHeader);
 
 	/* UIH frames do not have the CRC calculated on the Size field in the response, all other frames do */
 	if ((Control & ~FRAME_POLL_FINAL) != RFCOMM_Frame_UIH)
 	  CRCLength += sizeof(ResponsePacket.Size);
-	
+
 	/* Calculate the frame checksum from the appropriate fields */
 	ResponsePacket.FCS = RFCOMM_GetFCSValue(&ResponsePacket, CRCLength);
 
@@ -316,7 +316,7 @@ static uint8_t RFCOMM_GetFCSValue(const void* FrameStart,
                                   uint8_t Length)
 {
 	uint8_t FCS = 0xFF;
-	
+
 	/* Calculate new Frame CRC value via the given data bytes and the CRC table */
 	for (uint8_t i = 0; i < Length; i++)
 	  FCS = pgm_read_byte(&CRC8_Table[FCS ^ ((const uint8_t*)FrameStart)[i]]);
@@ -338,7 +338,7 @@ static void RFCOMM_ProcessDISC(const RFCOMM_Address_t* const FrameAddress,
 	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
 
 	RFCOMM_Channel_t* RFCOMMChannel = RFCOMM_GetChannelData(FrameAddress->DLCI);
-	
+
 	/* If the requested channel is currently open, destroy it */
 	if (RFCOMMChannel != NULL)
 	  RFCOMMChannel->State = RFCOMM_Channel_Closed;
@@ -356,7 +356,7 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress,
 	if (FrameAddress->DLCI == RFCOMM_CONTROL_DLCI)
 	{
 		BT_RFCOMM_DEBUG(1, ">> UA Sent");
-		
+
 		/* Free channel found, or request was to the control channel - accept SABM by sending a UA frame */
 		RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, ACLChannel);
 
@@ -365,7 +365,7 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress,
 
 	/* Find the existing channel's entry in the channel table */
 	RFCOMM_Channel_t* RFCOMMChannel = RFCOMM_GetChannelData(FrameAddress->DLCI);
-	
+
 	/* Existing entry not found, create a new entry for the channel */
 	if (RFCOMMChannel == NULL)
 	  RFCOMMChannel = RFCOMM_GetFreeChannelEntry(FrameAddress->DLCI);
@@ -374,7 +374,7 @@ static void RFCOMM_ProcessSABM(const RFCOMM_Address_t* const FrameAddress,
 	if (RFCOMMChannel != NULL)
 	{
 		BT_RFCOMM_DEBUG(1, ">> UA Sent");
-		
+
 		/* Free channel found, or request was to the control channel - accept SABM by sending a UA frame */
 		RFCOMM_SendFrame(FrameAddress->DLCI, true, (RFCOMM_Frame_UA | FRAME_POLL_FINAL), 0, NULL, ACLChannel);
 	}
@@ -395,7 +395,7 @@ static void RFCOMM_ProcessUA(const RFCOMM_Address_t* const FrameAddress,
 }
 
 static void RFCOMM_ProcessUIH(const RFCOMM_Address_t* const FrameAddress,
-                              const uint16_t FrameLength, 
+                              const uint16_t FrameLength,
                               const uint8_t* FrameData,
                               Bluetooth_Channel_t* const ACLChannel)
 {
@@ -408,9 +408,10 @@ static void RFCOMM_ProcessUIH(const RFCOMM_Address_t* const FrameAddress,
 	BT_RFCOMM_DEBUG(1, "<< UIH Received");
 	BT_RFCOMM_DEBUG(2, "-- DLCI 0x%02X", FrameAddress->DLCI);
 	BT_RFCOMM_DEBUG(2, "-- Length 0x%02X", FrameLength);
-	
+
 	RFCOMM_Channel_t* RFCOMMChannel = RFCOMM_GetChannelData(FrameAddress->DLCI);
-	
+
 	if (RFCOMMChannel != NULL)
 	  RFCOMM_DataReceived(RFCOMMChannel, FrameLength, FrameData);
 }
+

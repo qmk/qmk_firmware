@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -40,7 +40,7 @@
 uint8_t EEMEM EEPROM_Rest_Polarity = 0x00;
 
 /* Volatile Parameter Values for RAM storage */
-static ParameterItem_t ParameterTable[] = 
+static ParameterItem_t ParameterTable[] =
 	{
 		{ .ParamID          = PARAM_BUILD_NUMBER_LOW,
 		  .ParamPrivileges  = PARAM_PRIV_READ,
@@ -109,11 +109,11 @@ void V2Params_UpdateParamValues(void)
  *  \param[in] ParamID  Parameter ID whose privileges are to be retrieved from the table
  *
  *  \return Privileges for the requested parameter, as a mask of PARAM_PRIV_* masks
- */ 
+ */
 uint8_t V2Params_GetParameterPrivileges(const uint8_t ParamID)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
-	
+
 	if (ParamInfo == NULL)
 	  return 0;
 
@@ -129,14 +129,14 @@ uint8_t V2Params_GetParameterPrivileges(const uint8_t ParamID)
  *  \param[in] ParamID  Parameter ID whose value is to be retrieved from the table
  *
  *  \return Current value of the parameter in the table, or 0 if not found
- */ 
+ */
 uint8_t V2Params_GetParameterValue(const uint8_t ParamID)
 {
 	ParameterItem_t* ParamInfo = V2Params_GetParamFromTable(ParamID);
-	
+
 	if (ParamInfo == NULL)
 	  return 0;
-	
+
 	return ParamInfo->ParamValue;
 }
 
@@ -163,7 +163,7 @@ void V2Params_SetParameterValue(const uint8_t ParamID,
 
 	/* The target RESET line polarity is a non-volatile parameter, save to EEPROM when changed */
 	if (ParamID == PARAM_RESET_POLARITY)
-	  eeprom_update_byte(&EEPROM_Rest_Polarity, Value);  
+	  eeprom_update_byte(&EEPROM_Rest_Polarity, Value);
 }
 
 /** Retrieves a parameter entry (including ID, value and privileges) from the parameter table that matches the given
@@ -182,9 +182,10 @@ static ParameterItem_t* V2Params_GetParamFromTable(const uint8_t ParamID)
 	{
 		if (ParamID == CurrTableItem->ParamID)
 		  return CurrTableItem;
-		
+
 		CurrTableItem++;
 	}
 
 	return NULL;
 }
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -30,9 +30,9 @@
 
 /** \file
  *
- *  USB Device Descriptors, for library use when in USB device mode. Descriptors are special 
+ *  USB Device Descriptors, for library use when in USB device mode. Descriptors are special
  *  computer-readable structures which the host requests upon device enumeration, to determine
- *  the device's capabilities and functions.  
+ *  the device's capabilities and functions.
  */
 
 #include "AVRISPDescriptors.h"
@@ -45,22 +45,22 @@
 USB_Descriptor_Device_t PROGMEM AVRISP_DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
-		
+
 	.USBSpecification       = VERSION_BCD(01.10),
 	.Class                  = 0xFF,
 	.SubClass               = 0x00,
 	.Protocol               = 0x00,
-				
+
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
-		
+
 	.VendorID               = 0x03EB,
 	.ProductID              = 0x2104,
 	.ReleaseNumber          = VERSION_BCD(02.00),
-		
+
 	.ManufacturerStrIndex   = 0x01,
 	.ProductStrIndex        = 0x02,
 	.SerialNumStrIndex      = 0x03,
-		
+
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
 
@@ -71,41 +71,41 @@ USB_Descriptor_Device_t PROGMEM AVRISP_DeviceDescriptor =
  */
 AVRISP_USB_Descriptor_Configuration_t PROGMEM AVRISP_ConfigurationDescriptor =
 {
-	.Config = 
+	.Config =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
 			.TotalConfigurationSize = sizeof(AVRISP_USB_Descriptor_Configuration_t),
 			.TotalInterfaces        = 1,
-				
+
 			.ConfigurationNumber    = 1,
 			.ConfigurationStrIndex  = NO_DESCRIPTOR,
-				
+
 			.ConfigAttributes       = USB_CONFIG_ATTR_BUSPOWERED,
-			
+
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
 
-	.AVRISP_Interface = 
+	.AVRISP_Interface =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
 			.InterfaceNumber        = 0,
 			.AlternateSetting       = 0,
-			
+
 			.TotalEndpoints         = 2,
-				
+
 			.Class                  = 0xFF,
 			.SubClass               = 0x00,
 			.Protocol               = 0x00,
-				
+
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.AVRISP_DataInEndpoint = 
+	.AVRISP_DataInEndpoint =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-			
+
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | AVRISP_DATA_IN_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = AVRISP_DATA_EPSIZE,
@@ -115,7 +115,7 @@ AVRISP_USB_Descriptor_Configuration_t PROGMEM AVRISP_ConfigurationDescriptor =
 	.AVRISP_DataOutEndpoint =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
-			
+
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | AVRISP_DATA_OUT_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = AVRISP_DATA_EPSIZE,
@@ -130,7 +130,7 @@ AVRISP_USB_Descriptor_Configuration_t PROGMEM AVRISP_ConfigurationDescriptor =
 USB_Descriptor_String_t PROGMEM AVRISP_LanguageString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
-		
+
 	.UnicodeString          = {LANGUAGE_ID_ENG}
 };
 
@@ -141,7 +141,7 @@ USB_Descriptor_String_t PROGMEM AVRISP_LanguageString =
 USB_Descriptor_String_t PROGMEM AVRISP_ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
-		
+
 	.UnicodeString          = L"Dean Camera"
 };
 
@@ -152,7 +152,7 @@ USB_Descriptor_String_t PROGMEM AVRISP_ManufacturerString =
 USB_Descriptor_String_t PROGMEM AVRISP_ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(22), .Type = DTYPE_String},
-		
+
 	.UnicodeString          = L"LUFA AVRISP MkII Clone"
 };
 
@@ -162,7 +162,7 @@ USB_Descriptor_String_t PROGMEM AVRISP_ProductString =
 USB_Descriptor_String_t PROGMEM AVRISP_SerialString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(13), .Type = DTYPE_String},
-		
+
 	.UnicodeString          = L"0000A00128255"
 };
 
@@ -181,41 +181,42 @@ uint16_t AVRISP_GetDescriptor(const uint16_t wValue,
 
 	const void* Address = NULL;
 	uint16_t    Size    = NO_DESCRIPTOR;
-	
+
 	switch (DescriptorType)
 	{
-		case DTYPE_Device: 
+		case DTYPE_Device:
 			Address = &AVRISP_DeviceDescriptor;
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
-		case DTYPE_Configuration: 
+		case DTYPE_Configuration:
 			Address = &AVRISP_ConfigurationDescriptor;
 			Size    = sizeof(AVRISP_USB_Descriptor_Configuration_t);
 			break;
-		case DTYPE_String: 
+		case DTYPE_String:
 			switch (DescriptorNumber)
 			{
-				case 0x00: 
+				case 0x00:
 					Address = &AVRISP_LanguageString;
 					Size    = pgm_read_byte(&AVRISP_LanguageString.Header.Size);
 					break;
-				case 0x01: 
+				case 0x01:
 					Address = &AVRISP_ManufacturerString;
 					Size    = pgm_read_byte(&AVRISP_ManufacturerString.Header.Size);
 					break;
-				case 0x02: 
+				case 0x02:
 					Address = &AVRISP_ProductString;
 					Size    = pgm_read_byte(&AVRISP_ProductString.Header.Size);
 					break;
 				case 0x03:
 					Address = &AVRISP_SerialString;
 					Size    = pgm_read_byte(&AVRISP_SerialString.Header.Size);
-					break;					
+					break;
 			}
-			
+
 			break;
 	}
-	
+
 	*DescriptorAddress = Address;
 	return Size;
 }
+

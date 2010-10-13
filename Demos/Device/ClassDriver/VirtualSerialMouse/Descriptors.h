@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,7 +32,7 @@
  *
  *  Header file for Descriptors.c.
  */
- 
+
 #ifndef _DESCRIPTORS_H_
 #define _DESCRIPTORS_H_
 
@@ -42,7 +42,7 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/USB/Class/CDC.h>
 		#include <LUFA/Drivers/USB/Class/HID.h>
-		
+
 	/* Macros: */
 		/** Endpoint number of the CDC device-to-host notification IN endpoint. */
 		#define CDC_NOTIFICATION_EPNUM         2
@@ -61,10 +61,10 @@
 
 		/** Endpoint number of the Mouse HID reporting IN endpoint. */
 		#define MOUSE_EPNUM                    1
-		
+
 		/** Size in bytes of the Mouse HID reporting IN endpoint. */
 		#define MOUSE_EPSIZE                   8
-		
+
 	/* Type Defines: */
 		/** Type define for the device configuration descriptor structure. This must be defined in the
 		 *  application code, as the configuration descriptor contains several sub-descriptors which
@@ -94,3 +94,4 @@
 		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
 
 #endif
+

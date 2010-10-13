@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -42,7 +42,7 @@
  *
  *  For possible BOARD makefile values, see \ref Group_BoardTypes.
  */
- 
+
 /** \ingroup Group_BoardDrivers
  *  @defgroup Group_Dataflash Dataflash Driver - LUFA/Drivers/Board/Dataflash.h
  *
@@ -61,7 +61,7 @@
  *
  *  @{
  */
- 
+
 #ifndef __DATAFLASH_H__
 #define __DATAFLASH_H__
 
@@ -86,7 +86,7 @@
 				#define __GET_DATAFLASH_MASK2(x, y) x ## y
 				#define __GET_DATAFLASH_MASK(x)     __GET_DATAFLASH_MASK2(DATAFLASH_CHIP,x)
 			#endif
-	
+
 			/** Retrieves the Dataflash chip select mask for the given Dataflash chip index.
 			 *
 			 *  \param[in] index  Index of the dataflash chip mask to retrieve
@@ -94,7 +94,7 @@
 			 *  \return Mask for the given Dataflash chip's /CS pin
 			 */
 			#define DATAFLASH_CHIP_MASK(index)      __GET_DATAFLASH_MASK(index)
-			
+
 		/* Inline Functions: */
 			/** Initialises the dataflash driver so that commands and data may be sent to an attached dataflash IC.
 			 *  The AVR's SPI driver MUST be initialized before any of the dataflash commands are used.
@@ -128,7 +128,7 @@
 			 *                          ((DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS) - 1).
 			 */
 			static inline void Dataflash_SelectChipFromPage(const uint16_t PageAddress);
-			
+
 			/** Toggles the select line of the currently selected dataflash IC, so that it is ready to receive
 			 *  a new command.
 			 */
@@ -169,7 +169,7 @@
 			{
 				SPI_SendByte(Byte);
 			}
-			
+
 			/** Sends a dummy byte to the currently selected dataflash IC, and returns the next byte from the dataflash.
 			 *
 			 *  \return Last response byte from the dataflash
@@ -205,7 +205,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-	
+
 #endif
 
 /** @} */
+

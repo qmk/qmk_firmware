@@ -7,13 +7,13 @@
  * \addtogroup uiparp
  * @{
  */
- 
+
 /**
  * \file
  * Macros and definitions for the ARP module.
  * \author Adam Dunkels <adam@dunkels.com>
  */
-  
+
 
 /*
  * Copyright (c) 2001-2003, Adam Dunkels.
@@ -143,3 +143,4 @@ void uip_arp_timer(void);
 
 #endif /* __UIP_ARP_H__ */
 /** @} */
+

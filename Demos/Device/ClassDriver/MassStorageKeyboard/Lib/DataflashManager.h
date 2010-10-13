@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,13 +32,13 @@
  *
  *  Header file for DataflashManager.c.
  */
- 
+
 #ifndef _DATAFLASH_MANAGER_H_
 #define _DATAFLASH_MANAGER_H_
 
 	/* Includes: */
 		#include <avr/io.h>
-		
+
 		#include "MassStorageKeyboard.h"
 		#include "Descriptors.h"
 
@@ -59,16 +59,16 @@
 		 *  storage media (Dataflash) using a different native block size.
 		 */
 		#define VIRTUAL_MEMORY_BLOCK_SIZE           512
-		
+
 		/** Total number of blocks of the virtual memory for reporting to the host as the device's total capacity. */
 		#define VIRTUAL_MEMORY_BLOCKS              (VIRTUAL_MEMORY_BYTES / VIRTUAL_MEMORY_BLOCK_SIZE)
-		
+
 		/** Total number of logical drives within the device - must be non-zero. */
 		#define TOTAL_LUNS                          1
-		
+
 		/** Blocks in each LUN, calculated from the total capacity divided by the total number of Logical Units in the device. */
 		#define LUN_MEDIA_BLOCKS                   (VIRTUAL_MEMORY_BLOCKS / TOTAL_LUNS)
-		
+
 	/* Function Prototypes: */
 		void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 		                                  const uint32_t BlockAddress,
@@ -84,5 +84,6 @@
 		                                     uint8_t* BufferPtr) ATTR_NON_NULL_PTR_ARG(3);
 		void DataflashManager_ResetDataflashProtections(void);
 		bool DataflashManager_CheckDataflashOperation(void);
-		
+
 #endif
+

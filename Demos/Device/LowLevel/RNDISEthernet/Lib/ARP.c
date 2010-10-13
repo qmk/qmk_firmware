@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -34,7 +34,7 @@
  *  conversion of physical MAC addresses to protocol IP addresses between the host and the
  *  device.
  */
- 
+
 #include "ARP.h"
 
 /** Processes an ARP packet inside an Ethernet frame, and writes the appropriate response
@@ -59,7 +59,7 @@ int16_t ARP_ProcessARPPacket(void* InDataStart,
 	    (SwapEndian_16(ARPHeaderIN->Operation) == ARP_OPERATION_REQUEST))
 	{
 		/* If the ARP packet is requesting the MAC or IP of the virtual webserver, return the response */
-		if (IP_COMPARE(&ARPHeaderIN->TPA, &ServerIPAddress) || 
+		if (IP_COMPARE(&ARPHeaderIN->TPA, &ServerIPAddress) ||
 		    MAC_COMPARE(&ARPHeaderIN->THA, &ServerMACAddress))
 		{
 			/* Fill out the ARP response header */
@@ -81,6 +81,7 @@ int16_t ARP_ProcessARPPacket(void* InDataStart,
 			return sizeof(ARP_Header_t);
 		}
 	}
-	
+
 	return NO_RESPONSE;
 }
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,15 +33,15 @@
 
 	/* Includes: */
 		#include <avr/io.h>
-		#include <string.h>	
-	
+		#include <string.h>
+
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */
 		#define GUID_COMPARE(a, b)                (memcmp(a, b, sizeof(GUID_t)) == 0)
-	
+
 		#define ARRAY_ELEMENTS(x)                 (sizeof(x) / sizeof(x[0]))
-		
+
 		#define UNICODE_STRING_t(x)               struct                          \
 		                                          {                               \
 		                                              uint16_t LengthInBytes;     \
@@ -67,12 +67,12 @@
 		{
 			uint32_t         Chunks[4];
 		} GUID_t;
-		
+
 		typedef struct
 		{
 			uint16_t         LengthInBytes;
 			int              UnicodeString[];
-		} Unicode_String_t;	
+		} Unicode_String_t;
 
 		typedef union
 		{
@@ -84,10 +84,10 @@
 
 				int ErrorCode     : 6;
 				int NAK           : 1;
-				int Response      : 1;				
+				int Response      : 1;
 			} TypeFields;
 		} SideShowPacketType_t;
-	
+
 		typedef struct
 		{
 			uint32_t               Length;

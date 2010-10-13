@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -45,7 +45,7 @@
  *
  *  @{
  */
- 
+
 #ifndef __USBHOST_H__
 #define __USBHOST_H__
 
@@ -68,7 +68,7 @@
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Indicates the fixed USB device address which any attached device is enumerated to when in
@@ -83,12 +83,12 @@
 				 *  device. If a device fails to respond to a sent control request within this period, the
 				 *  library will return a timeout error code.
 				 *
-				 *  This value may be overridden in the user project makefile as the value of the 
+				 *  This value may be overridden in the user project makefile as the value of the
 				 *  \ref USB_HOST_TIMEOUT_MS token, and passed to the compiler using the -D switch.
 				 */
 				#define USB_HOST_TIMEOUT_MS                1000
 			#endif
-			
+
 			#if !defined(HOST_DEVICE_SETTLE_DELAY_MS) || defined(__DOXYGEN__)
 				/** Constant for the delay in milliseconds after a device is connected before the library
 				 *  will start the enumeration process. Some devices require a delay of up to 5 seconds
@@ -131,52 +131,52 @@
 				HOST_STATE_Unattached                   = 2,  /**< Internally implemented by the library. This state indicates
 				                                               *   that the host state machine is waiting for a device to be
 				                                               *   attached so that it can start the enumeration process.
-				                                               *   
+				                                               *
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
 				HOST_STATE_Powered                      = 3,  /**< Internally implemented by the library. This state indicates
 				                                               *   that a device has been attached, and the library's internals
 				                                               *   are being configured to begin the enumeration process.
-				                                               *   
+				                                               *
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
 				HOST_STATE_Powered_WaitForDeviceSettle  = 4,  /**< Internally implemented by the library. This state indicates
 				                                               *   that the stack is waiting for the initial settling period to
 				                                               *   elapse before beginning the enumeration process.
-				                                               *   
+				                                               *
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
 				HOST_STATE_Powered_WaitForConnect       = 5,  /**< Internally implemented by the library. This state indicates
 				                                               *   that the stack is waiting for a connection event from the USB
 				                                               *   controller to indicate a valid USB device has been attached to
 				                                               *   the bus and is ready to be enumerated.
-				                                               *   
+				                                               *
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
 				HOST_STATE_Powered_DoReset              = 6,  /**< Internally implemented by the library. This state indicates
 				                                               *   that a valid USB device has been attached, and that it is
 				                                               *   will now be reset to ensure it is ready for enumeration.
-				                                               *   
+				                                               *
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
 				HOST_STATE_Powered_ConfigPipe           = 7,  /**< Internally implemented by the library. This state indicates
 				                                               *   that the attached device is currently powered and reset, and
 				                                               *   that the control pipe is now being configured by the stack.
-				                                               *   
+				                                               *
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
 				HOST_STATE_Default                      = 8,  /**< Internally implemented by the library. This state indicates
 				                                               *   that the stack is currently retrieving the control endpoint's
 				                                               *   size from the device, so that the control pipe can be altered
 				                                               *   to match.
-				                                               *   
+				                                               *
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
 				HOST_STATE_Default_PostReset            = 9,  /**< Internally implemented by the library. This state indicates that
 				                                               *   the control pipe is being reconfigured to match the retrieved
 				                                               *   control endpoint size from the device, and the device's USB bus
 				                                               *   address is being set.
-				                                               *   
+				                                               *
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
 				HOST_STATE_Default_PostAddressSet       = 10, /**< Internally implemented by the library. This state indicates that
@@ -185,7 +185,7 @@
 				                                               *   stack to change the current USB device address to that set for
 				                                               *   the connected device, before progressing to the user-implemented
 				                                               *   \ref HOST_STATE_Addressed state for further communications.
-				                                               *   
+				                                               *
 				                                               *   \note Do not manually change to this state in the user code.
 				                                               */
 				HOST_STATE_Addressed                    = 11, /**< May be implemented by the user project. This state should
@@ -204,7 +204,7 @@
 				                                               *   \ref HOST_STATE_WaitForDeviceRemoval states as needed.
 				                                               */
 			};
-			
+
 			/** Enum for the error codes for the \ref EVENT_USB_Host_HostError() event.
 			 *
 			 *  \see \ref Group_Events for more information on this event.
@@ -218,7 +218,7 @@
 				                                      *   current.
 				                                      */
 			};
-			
+
 			/** Enum for the error codes for the \ref EVENT_USB_Host_DeviceEnumerationFailed() event.
 			 *
 			 *  \see \ref Group_Events for more information on this event.
@@ -252,7 +252,7 @@
 			{
 				return UHFNUM;
 			}
-			
+
 			#if !defined(NO_SOF_EVENTS)
 				/** Enables the host mode Start Of Frame events. When enabled, this causes the
 				 *  \ref EVENT_USB_Host_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
@@ -265,7 +265,7 @@
 				{
 					USB_INT_Enable(USB_INT_HSOFI);
 				}
-					
+
 				/** Disables the host mode Start Of Frame events. When disabled, this stops the firing of the
 				 *  \ref EVENT_USB_Host_StartOfFrame() event when enumerated in host mode.
 				 *
@@ -277,7 +277,7 @@
 					USB_INT_Disable(USB_INT_HSOFI);
 				}
 			#endif
-			
+
 			/** Resets the USB bus, including the endpoints in any attached device and pipes on the AVR host.
 			 *  USB bus resets leave the default control pipe configured (if already configured).
 			 *
@@ -320,7 +320,7 @@
 			{
 				UHCON &= ~(1 << SOFEN);
 			}
-			
+
 			/** Determines if the USB bus has been suspended via the use of the \ref USB_Host_SuspendBus() macro,
 			 *  false otherwise. While suspended, no USB communications can occur until the bus is resumed,
 			 *  except for the Remote Wakeup event from the device if supported.
@@ -332,7 +332,7 @@
 			{
 				return ((UHCON & (1 << SOFEN)) ? false : true);
 			}
-			 
+
 			/** Determines if the attached device is currently enumerated in Full Speed mode (12Mb/s), or
 			 *  false if the attached device is enumerated in Low Speed mode (1.5Mb/s).
 			 *
@@ -371,7 +371,7 @@
 			{
 				UHCON |=  (1 << RESUME);
 			}
-			
+
 			/** Determines if a resume from Remote Wakeup request is currently being sent to an attached
 			 *  device.
 			 *
@@ -395,7 +395,7 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
 			uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber);
-			
+
 			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
 			 *  device, requesting the device descriptor. This can be used to easily retrieve information
 			 *  about the device such as its VID, PID and power requirements.
@@ -408,7 +408,7 @@
 			 *  \return A value from the \ref USB_Host_SendControlErrorCodes_t enum to indicate the result.
 			 */
 			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr);
-			
+
 			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
 			 *  device, requesting the string descriptor of the specified index. This can be used to easily
 			 *  retrieve string descriptors from the device by index, after the index is obtained from the
@@ -426,7 +426,7 @@
 			uint8_t USB_Host_GetDeviceStringDescriptor(const uint8_t Index,
 			                                           void* const Buffer,
 			                                           const uint8_t BufferLength);
-			
+
 			/** Clears a stall condition on the given pipe, via a ClearFeature request to the attached device.
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
@@ -458,13 +458,13 @@
 				OTGCON &= ~(1 << VBUSHWC);
 				UHWCON |=  (1 << UVCONE);
 			}
-			
+
 			static inline void USB_Host_VBUS_Manual_Enable(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Manual_Enable(void)
 			{
 				OTGCON |=  (1 << VBUSHWC);
 				UHWCON &= ~(1 << UVCONE);
-				
+
 				DDRE   |=  (1 << 7);
 			}
 
@@ -479,7 +479,7 @@
 			{
 				PORTE  |=  (1 << 7);
 			}
-			
+
 			static inline void USB_Host_VBUS_Auto_Off(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Auto_Off(void)
 			{
@@ -490,7 +490,7 @@
 			static inline void USB_Host_VBUS_Manual_Off(void)
 			{
 				PORTE  &= ~(1 << 7);
-			}			
+			}
 
 			static inline void USB_Host_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_SetDeviceAddress(const uint8_t Address)
@@ -510,7 +510,7 @@
 		/* Function Prototypes: */
 			void    USB_Host_ProcessNextHostState(void);
 			uint8_t USB_Host_WaitMS(uint8_t MS);
-			
+
 			#if defined(__INCLUDE_FROM_HOST_C)
 				static void USB_Host_ResetDevice(void);
 			#endif
@@ -520,7 +520,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-	
+
 #endif
 
 /** @} */
+

@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage Mass Storage Host Demo
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -25,7 +25,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Mass Storage Device</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>Bulk Only</td>
  *   </tr>
@@ -42,12 +42,12 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Mass Storage host demonstration application. This gives a simple reference
  *  application for implementing a USB Mass Storage host, for USB storage devices
  *  using the standard Mass Storage USB profile.
- *  
+ *
  *  The first 512 bytes (boot sector) of an attached disk's memory will be dumped
  *  out of the serial port in HEX and ASCII form when it is attached to the AT90USB1287
  *  AVR. The device will then wait for HWB to be pressed, whereupon the entire ASCII contents
@@ -65,3 +65,4 @@
  *   </tr>
  *  </table>
  */
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,10 +32,10 @@
 #define _SIDESHOW_APPLICATIONS_H_
 
 	/* Includes: */
-		#include <avr/io.h>	
+		#include <avr/io.h>
 		#include <string.h>
 		#include <stdbool.h>
-		
+
 		#include "SideshowCommon.h"
 
 	/* Type Defines: */
@@ -51,12 +51,13 @@
 			uint32_t               CurrentContentID;
 			uint8_t                CurrentContent[MAX_CONTENTBUFFER_PER_APP];
 		} SideShow_Application_t;
-	
+
 	/* External Variables: */
 		extern SideShow_Application_t InstalledApplications[MAX_APPLICATIONS];
-		
+
 	/* Function Prototypes: */
 		SideShow_Application_t* SideShow_GetFreeApplication(void);
 		SideShow_Application_t* SideShow_GetApplicationFromGUID(GUID_t* const GUID);
-		
+
 #endif
+

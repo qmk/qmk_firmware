@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -34,7 +34,7 @@
  *  This file contains macros which are common to all library elements, and which may be useful in user code. It
  *  also includes other common headers, such as Atomic.h, Attributes.h and BoardTypes.h.
  */
- 
+
 /** @defgroup Group_Common Common Utility Headers - LUFA/Drivers/Common/Common.h
  *
  *  Common utility headers containing macros, functions, enums and types which are common to all
@@ -47,7 +47,7 @@
  *
  *  Macros for debugging use.
  */
- 
+
 /** @defgroup Group_BitManip Endian and Bit Macros
  *
  *  Functions for swapping endianness and reversing bit orders.
@@ -59,7 +59,7 @@
 	/* Includes: */
 		#include <stdint.h>
 		#include <stdbool.h>
-	
+
 		#include "Attributes.h"
 		#include "BoardTypes.h"
 
@@ -78,7 +78,7 @@
 			 *  a block (such as inline IF statements).
 			 */
 			#define MACROE                  while (0)
-			
+
 			/** Defines a volatile NOP statement which cannot be optimized out by the compiler, and thus can always
 			 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimiser
 			 *  removes/reorders code to the point where break points cannot reliably be set.
@@ -93,7 +93,7 @@
 			 *  \ingroup Group_Debugging
 			 */
 			#define JTAG_DEBUG_BREAK()      __asm__ volatile ("BREAK" ::)
-			
+
 			/** Macro for testing condition "x" and breaking via JTAG_DEBUG_BREAK() if the condition is false.
 			 *
 			 *  \ingroup Group_Debugging
@@ -165,7 +165,7 @@
 
 				return Byte;
 			}
-			
+
 			/** Function to reverse the byte ordering of the individual bytes in a 16 bit number.
 			 *
 			 *  \ingroup Group_BitManip
@@ -182,13 +182,13 @@
 					uint16_t Word;
 					uint8_t  Bytes[2];
 				} Data;
-				
+
 				Data.Word = Word;
-				
+
 				Temp = Data.Bytes[0];
 				Data.Bytes[0] = Data.Bytes[1];
 				Data.Bytes[1] = Temp;
-				
+
 				return Data.Word;
 			}
 
@@ -208,17 +208,17 @@
 					uint32_t DWord;
 					uint8_t  Bytes[4];
 				} Data;
-				
+
 				Data.DWord = DWord;
-				
+
 				Temp = Data.Bytes[0];
 				Data.Bytes[0] = Data.Bytes[3];
 				Data.Bytes[3] = Temp;
-				
+
 				Temp = Data.Bytes[1];
 				Data.Bytes[1] = Data.Bytes[2];
 				Data.Bytes[2] = Temp;
-				
+
 				return Data.DWord;
 			}
 
@@ -235,7 +235,7 @@
 			                                uint8_t Bytes)
 			{
 				uint8_t* CurrDataPos = (uint8_t*)Data;
-			
+
 				while (Bytes > 1)
 				{
 					uint8_t Temp = *CurrDataPos;
@@ -250,3 +250,4 @@
 #endif
 
 /** @} */
+

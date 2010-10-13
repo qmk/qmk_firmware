@@ -2,10 +2,10 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer,
                             uint16_t Length)
 {
 	uint8_t* DataStream = ((uint8_t*)Buffer + TEMPLATE_BUFFER_OFFSET(Length));
-	
+
 	if (!(Length))
 	  Endpoint_ClearOUT();
-	
+
 	while (Length)
 	{
 		uint8_t USB_DeviceState_LCL = USB_DeviceState;
@@ -16,7 +16,7 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer,
 		  return ENDPOINT_RWCSTREAM_BusSuspended;
 		else if (Endpoint_IsSETUPReceived())
 		  return ENDPOINT_RWCSTREAM_HostAborted;
-		  
+
 		if (Endpoint_IsOUTReceived())
 		{
 			while (Length && Endpoint_BytesInEndpoint())
@@ -24,11 +24,11 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer,
 				TEMPLATE_TRANSFER_BYTE(DataStream);
 				Length--;
 			}
-			
+
 			Endpoint_ClearOUT();
-		}		  
+		}
 	}
-	
+
 	while (!(Endpoint_IsINReady()))
 	{
 		uint8_t USB_DeviceState_LCL = USB_DeviceState;
@@ -38,7 +38,7 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer,
 		else if (USB_DeviceState_LCL == DEVICE_STATE_Suspended)
 		  return ENDPOINT_RWCSTREAM_BusSuspended;
 	}
-	
+
 	return ENDPOINT_RWCSTREAM_NoError;
 }
 

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -38,19 +38,19 @@
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
-		
+
 		#include "MIDIHost.h"
-		
+
 	/* Macros: */
 		/** Interface Class value for the MIDI Audio class. */
 		#define MIDI_STREAMING_CLASS           0x01
-		
+
 		/** Interface Class value for the MIDI Audio Streaming subclass. */
 		#define MIDI_STREAMING_SUBCLASS        0x03
 
 		/** Interface Class value for the MIDI Audio Streaming protocol. */
 		#define MIDI_STREAMING_PROTOCOL        0x00
-	
+
 		/** Pipe number for the MIDI data IN pipe. */
 		#define MIDI_DATA_IN_PIPE              1
 
@@ -69,9 +69,10 @@
 		};
 
 	/* Function Prototypes: */
-		uint8_t ProcessConfigurationDescriptor(void);	
-		
+		uint8_t ProcessConfigurationDescriptor(void);
+
 		uint8_t DComp_NextMIDIStreamingInterface(void* CurrentDescriptor);
 		uint8_t DComp_NextMIDIStreamingDataEndpoint(void* CurrentDescriptor);
-		
+
 #endif
+

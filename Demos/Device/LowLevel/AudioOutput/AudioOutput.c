@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the AudioOutput demo. This file contains the main tasks of the demo and
  *  is responsible for the initial application hardware configuration.
  */
- 
+
 #include "AudioOutput.h"
 
 /** Flag to indicate if the streaming audio alternative interface has been selected by the host. */
@@ -48,7 +48,7 @@ int main(void)
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
-	
+
 	for (;;)
 	{
 		USB_Audio_Task();
@@ -65,7 +65,7 @@ void SetupHardware(void)
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
-	
+
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
@@ -78,12 +78,12 @@ void EVENT_USB_Device_Connect(void)
 {
 	/* Indicate USB enumerating */
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
-	
+
 	/* Sample reload timer initialization */
 	OCR0A   = (F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1;
 	TCCR0A  = (1 << WGM01);  // CTC mode
 	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
-			
+
 #if defined(AUDIO_OUT_MONO)
 	/* Set speaker as output */
 	DDRC   |= (1 << 6);
@@ -100,7 +100,7 @@ void EVENT_USB_Device_Connect(void)
 	TCCR3A  = ((1 << WGM30) | (1 << COM3A1) | (1 << COM3A0)
 	                        | (1 << COM3B1) | (1 << COM3B0)); // Set on match, clear on TOP
 	TCCR3B  = ((1 << WGM32) | (1 << CS30));  // Fast 8-Bit PWM, F_CPU speed
-#endif	
+#endif
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
@@ -112,7 +112,7 @@ void EVENT_USB_Device_Disconnect(void)
 	TCCR0B = 0;
 #if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
 	TCCR3B = 0;
-#endif		
+#endif
 
 #if defined(AUDIO_OUT_MONO)
 	/* Set speaker as input to reduce current draw */
@@ -182,11 +182,11 @@ void USB_Audio_Task(void)
 
 	/* Check to see if the streaming interface is selected, if not the host is not receiving audio */
 	if (!(StreamingAudioInterfaceSelected))
-	  return;	
+	  return;
 
 	/* Select the audio stream endpoint */
 	Endpoint_SelectEndpoint(AUDIO_STREAM_EPNUM);
-	
+
 	/* Check if the current endpoint can be read from (contains a packet) and that the next sample should be read */
 	if (Endpoint_IsOUTReceived() && (TIFR0 & (1 << OCF0A)))
 	{
@@ -234,3 +234,4 @@ void USB_Audio_Task(void)
 		LEDs_SetAllLEDs(LEDMask);
 	}
 }
+

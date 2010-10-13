@@ -19,3 +19,4 @@ methods.
 
 LogitechMX5000.cs is a simple example of how the library can be used. Other
 examples on common devices are welcomed.
+

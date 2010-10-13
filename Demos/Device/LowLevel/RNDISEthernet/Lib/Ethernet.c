@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -34,7 +34,7 @@
  *  frames sent and received, deferring the processing of sub-packet protocols to the appropriate
  *  protocol handlers, such as DHCP or ARP.
  */
- 
+
 #include "Ethernet.h"
 
 /** Ethernet Frame buffer structure, to hold the incoming Ethernet frame from the host. */
@@ -69,9 +69,9 @@ void Ethernet_ProcessPacket(void)
 	/* Cast the incoming Ethernet frame to the Ethernet header type */
 	Ethernet_Frame_Header_t* FrameINHeader  = (Ethernet_Frame_Header_t*)&FrameIN.FrameData;
 	Ethernet_Frame_Header_t* FrameOUTHeader = (Ethernet_Frame_Header_t*)&FrameOUT.FrameData;
-	
+
 	int16_t                  RetSize        = NO_RESPONSE;
-	
+
 	/* Ensure frame is addressed to either all (broadcast) or the virtual webserver, and is a type II frame */
 	if ((MAC_COMPARE(&FrameINHeader->Destination, &ServerMACAddress) ||
 	     MAC_COMPARE(&FrameINHeader->Destination, &BroadcastMACAddress)) &&
@@ -83,13 +83,13 @@ void Ethernet_ProcessPacket(void)
 			case ETHERTYPE_ARP:
 				RetSize = ARP_ProcessARPPacket(&FrameIN.FrameData[sizeof(Ethernet_Frame_Header_t)],
 				                               &FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t)]);
-				break;		
+				break;
 			case ETHERTYPE_IPV4:
 				RetSize = IP_ProcessIPPacket(&FrameIN.FrameData[sizeof(Ethernet_Frame_Header_t)],
 				                             &FrameOUT.FrameData[sizeof(Ethernet_Frame_Header_t)]);
 				break;
 		}
-		
+
 		/* Protocol processing routine has filled a response, complete the ethernet frame header */
 		if (RetSize > 0)
 		{
@@ -97,7 +97,7 @@ void Ethernet_ProcessPacket(void)
 			FrameOUTHeader->Source          = ServerMACAddress;
 			FrameOUTHeader->Destination     = FrameINHeader->Source;
 			FrameOUTHeader->EtherType       = FrameINHeader->EtherType;
-			
+
 			/* Set the response length in the buffer and indicate that a response is ready to be sent */
 			FrameOUT.FrameLength            = (sizeof(Ethernet_Frame_Header_t) + RetSize);
 			FrameOUT.FrameInBuffer          = true;
@@ -128,9 +128,10 @@ uint16_t Ethernet_Checksum16(void* Data,
 
 	for (uint16_t CurrWord = 0; CurrWord < (Bytes >> 1); CurrWord++)
 	  Checksum += Words[CurrWord];
-	  
+
 	while (Checksum & 0xFFFF0000)
 	  Checksum = ((Checksum & 0xFFFF) + (Checksum >> 16));
-	
+
 	return ~Checksum;
 }
+

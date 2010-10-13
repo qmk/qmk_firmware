@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,25 +33,25 @@
 USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	Header:                 {Size: sizeof(USB_Descriptor_Device_t), Type: DTYPE_Device},
-		
+
 	USBSpecification:       VERSION_BCD(01.10),
 	Class:                  0x00,
 	SubClass:               0x00,
 	Protocol:               0x00,
-				
+
 	Endpoint0Size:          8,
-		
+
 	VendorID:               0x03EB,
 	ProductID:              0x2040,
 	ReleaseNumber:          VERSION_BCD(00.01),
-		
+
 	ManufacturerStrIndex:   0x01,
 	ProductStrIndex:        0x02,
 	SerialNumStrIndex:      0x03,
-		
+
 	NumberOfConfigurations: 1
 };
-	
+
 USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
 	.Config =
@@ -60,28 +60,28 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			TotalConfigurationSize: sizeof(USB_Descriptor_Configuration_t),
 			TotalInterfaces:        1,
-				
+
 			ConfigurationNumber:    1,
 			ConfigurationStrIndex:  NO_DESCRIPTOR,
-				
+
 			ConfigAttributes:       (USB_CONFIG_ATTR_BUSPOWERED | USB_CONFIG_ATTR_SELFPOWERED),
-			
+
 			MaxPowerConsumption:    USB_CONFIG_POWER_MA(100)
 		},
-		
+
 	.SSHOW_Interface =
 		{
 			Header:                 {Size: sizeof(USB_Descriptor_Interface_t), Type: DTYPE_Interface},
 
 			InterfaceNumber:        0,
 			AlternateSetting:       0,
-			
+
 			TotalEndpoints:         2,
-				
+
 			Class:                  0xFF,
 			SubClass:               0x00,
 			Protocol:               0x00,
-				
+
 			InterfaceStrIndex:      NO_DESCRIPTOR
 		},
 
@@ -109,35 +109,35 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 USB_Descriptor_String_t PROGMEM LanguageString =
 {
 	Header:                 {Size: USB_STRING_LEN(1), Type: DTYPE_String},
-		
+
 	UnicodeString:          {LANGUAGE_ID_ENG}
 };
 
 USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
 	Header:                 {Size: USB_STRING_LEN(11), Type: DTYPE_String},
-		
+
 	UnicodeString:          L"Dean Camera"
 };
 
 USB_Descriptor_String_t PROGMEM ProductString =
 {
 	Header:                 {Size: USB_STRING_LEN(22), Type: DTYPE_String},
-		
+
 	UnicodeString:          L"LUFA Sideshow Demo"
 };
 
 USB_Descriptor_String_t PROGMEM SerialNumberString =
 {
 	Header:                 {Size: USB_STRING_LEN(12), Type: DTYPE_String},
-		
+
 	UnicodeString:          L"000000000000"
 };
 
 USB_OSDescriptor_t PROGMEM OSDescriptorString =
 {
 	Header:                 {Size: sizeof(USB_OSDescriptor_t), Type: DTYPE_String},
-	
+
 	Signature:              L"MSFT100",
 	VendorCode:             REQ_GetOSFeatureDescriptor
 };
@@ -148,7 +148,7 @@ USB_OSCompatibleIDDescriptor_t PROGMEM DevCompatIDs =
 	Version:                0x0100,
 	Index:                  EXTENDED_COMPAT_ID_DESCRIPTOR,
 	TotalSections:          1,
-	
+
 	SideshowCompatID:       {FirstInterfaceNumber: 0x00,
 	                         CompatibleID: "SIDESHW",
 	                         SubCompatibleID: "UNIV1"}
@@ -201,11 +201,11 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 					Size    = pgm_read_byte(&OSDescriptorString.Header.Size);
 					break;
 			}
-			
+
 			break;
 	}
-	
-	*DescriptorAddress = Address;		
+
+	*DescriptorAddress = Address;
 	return Size;
 }
 
@@ -230,3 +230,4 @@ uint16_t USB_GetOSFeatureDescriptor(const uint16_t wValue,
 	*DescriptorAddress = Address;
 	return Size;
 }
+

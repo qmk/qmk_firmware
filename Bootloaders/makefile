@@ -1,7 +1,7 @@
 #
 #             LUFA Library
 #     Copyright (C) Dean Camera, 2010.
-#              
+#
 #  dean [at] fourwalledcubicle [dot] com
 #      www.fourwalledcubicle.com
 #
@@ -23,3 +23,4 @@ all:
 %:
 	$(MAKE) -C DFU $@
 	$(MAKE) -C CDC $@
+

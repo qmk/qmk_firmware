@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -49,7 +49,7 @@ int main(void)
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
-	
+
 	for (;;)
 	{
 		Ethernet_Task();
@@ -125,7 +125,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				
+
 				/* Read in the RNDIS message into the message buffer */
 				Endpoint_Read_Control_Stream_LE(RNDISMessageBuffer, USB_ControlRequest.wLength);
 				Endpoint_ClearIN();
@@ -133,7 +133,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				/* Process the RNDIS message */
 				ProcessRNDISControlMessage();
 			}
-			
+
 			break;
 		case REQ_GetEncapsulatedResponse:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
@@ -147,7 +147,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				}
 
 				Endpoint_ClearSETUP();
-				
+
 				/* Write the message response data to the endpoint */
 				Endpoint_Write_Control_Stream_LE(RNDISMessageBuffer, MessageHeader->MessageLength);
 				Endpoint_ClearOUT();
@@ -155,7 +155,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				/* Reset the message header once again after transmission */
 				MessageHeader->MessageLength = 0;
 			}
-	
+
 			break;
 	}
 }
@@ -180,7 +180,7 @@ void RNDIS_Task(void)
 				.wIndex        = 0,
 				.wLength       = 0,
 			};
-		
+
 		/* Indicate that a message response is ready for the host */
 		Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
 
@@ -190,7 +190,7 @@ void RNDIS_Task(void)
 		/* Indicate a response is no longer ready */
 		ResponseReady = false;
 	}
-	
+
 	/* Don't process the data endpoints until the system is in the data initialized state, and the buffer is free */
 	if ((CurrRNDISState == RNDIS_Data_Initialized) && !(MessageHeader->MessageLength))
 	{
@@ -199,7 +199,7 @@ void RNDIS_Task(void)
 
 		/* Select the data OUT endpoint */
 		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
-		
+
 		/* Check if the data OUT endpoint contains data, and that the IN buffer is empty */
 		if (Endpoint_IsOUTReceived() && !(FrameIN.FrameInBuffer))
 		{
@@ -212,23 +212,23 @@ void RNDIS_Task(void)
 				Endpoint_StallTransaction();
 				return;
 			}
-			
+
 			/* Read in the Ethernet frame into the buffer */
 			Endpoint_Read_Stream_LE(FrameIN.FrameData, RNDISPacketHeader.DataLength);
 
 			/* Finalize the stream transfer to send the last packet */
 			Endpoint_ClearOUT();
-			
+
 			/* Store the size of the Ethernet frame */
 			FrameIN.FrameLength = RNDISPacketHeader.DataLength;
 
 			/* Indicate Ethernet IN buffer full */
 			FrameIN.FrameInBuffer = true;
 		}
-		
+
 		/* Select the data IN endpoint */
 		Endpoint_SelectEndpoint(CDC_TX_EPNUM);
-		
+
 		/* Check if the data IN endpoint is ready for more data, and that the IN buffer is full */
 		if (Endpoint_IsINReady() && FrameOUT.FrameInBuffer)
 		{
@@ -246,10 +246,10 @@ void RNDIS_Task(void)
 
 			/* Send the Ethernet frame data to the host */
 			Endpoint_Write_Stream_LE(FrameOUT.FrameData, RNDISPacketHeader.DataLength);
-			
+
 			/* Finalize the stream transfer to send the last packet */
 			Endpoint_ClearIN();
-			
+
 			/* Indicate Ethernet OUT buffer no longer full */
 			FrameOUT.FrameInBuffer = false;
 		}
@@ -282,3 +282,4 @@ void Ethernet_Task(void)
 		LEDs_SetAllLEDs(LEDMASK_USB_READY);
 	}
 }
+

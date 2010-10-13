@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -39,20 +39,20 @@
  *  or deletions) must not overlap. If there is possibility of two or more of the same kind of
  *  operating occuring at the same point in time, atomic (mutex) locking should be used.
  */
- 
+
 #ifndef _ULW_RING_BUFF_H_
 #define _ULW_RING_BUFF_H_
 
 	/* Includes: */
 		#include <util/atomic.h>
-	
+
 		#include <stdint.h>
 		#include <stdbool.h>
 
 	/* Defines: */
 		/** Size of each ring buffer, in data elements - must be between 1 and 255. */
 		#define BUFFER_SIZE         255
-		
+
 		/** Type of data to store into the buffer. */
 		#define RingBuff_Data_t     uint8_t
 
@@ -76,7 +76,7 @@
 			RingBuff_Data_t* Out; /**< Current retrieval location in the circular buffer */
 			RingBuff_Count_t Count;
 		} RingBuff_t;
-	
+
 	/* Inline Functions: */
 		/** Initializes a ring buffer ready for use. Buffers must be initialized via this function
 		 *  before any operations are called upon them. Already initialized buffers may be reset
@@ -92,7 +92,7 @@
 				Buffer->Out = Buffer->Buffer;
 			}
 		}
-		
+
 		/** Retrieves the minimum number of bytes stored in a particular buffer. This value is computed
 		 *  by entering an atomic lock on the buffer while the IN and OUT locations are fetched, so that
 		 *  the buffer cannot be modified while the computation takes place. This value should be cached
@@ -109,15 +109,15 @@
 		static inline RingBuff_Count_t RingBuffer_GetCount(RingBuff_t* const Buffer)
 		{
 			RingBuff_Count_t Count;
-			
+
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 			{
 				Count = Buffer->Count;
 			}
-			
+
 			return Count;
 		}
-		
+
 		/** Atomically determines if the specified ring buffer contains any free space. This should
 		 *  be tested before storing data to the buffer, to ensure that no data is lost due to a
 		 *  buffer overrun.
@@ -125,7 +125,7 @@
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
 		 *
 		 *  \return Boolean true if the buffer contains no free space, false otherwise
-		 */		 
+		 */
 		static inline bool RingBuffer_IsFull(RingBuff_t* const Buffer)
 		{
 			return (RingBuffer_GetCount(Buffer) == BUFFER_SIZE);
@@ -142,7 +142,7 @@
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
 		 *
 		 *  \return Boolean true if the buffer contains no free space, false otherwise
-		 */		 
+		 */
 		static inline bool RingBuffer_IsEmpty(RingBuff_t* const Buffer)
 		{
 			return (RingBuffer_GetCount(Buffer) == 0);
@@ -161,7 +161,7 @@
 		                                     const RingBuff_Data_t Data)
 		{
 			*Buffer->In = Data;
-			
+
 			if (++Buffer->In == &Buffer->Buffer[BUFFER_SIZE])
 			  Buffer->In = Buffer->Buffer;
 
@@ -184,7 +184,7 @@
 		static inline RingBuff_Data_t RingBuffer_Remove(RingBuff_t* const Buffer)
 		{
 			RingBuff_Data_t Data = *Buffer->Out;
-			
+
 			if (++Buffer->Out == &Buffer->Buffer[BUFFER_SIZE])
 			  Buffer->Out = Buffer->Buffer;
 
@@ -192,8 +192,9 @@
 			{
 				Buffer->Count--;
 			}
-			
+
 			return Data;
 		}
 
 #endif
+

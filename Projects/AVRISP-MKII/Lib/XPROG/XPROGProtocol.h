@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -40,10 +40,10 @@
 		#include <avr/io.h>
 		#include <util/delay.h>
 		#include <stdio.h>
-		
+
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
-	
+
 		#include "../V2Protocol.h"
 		#include "XPROGTarget.h"
 		#include "XMEGANVM.h"
@@ -52,12 +52,12 @@
 	/* Preprocessor Checks: */
 		#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
 			#undef ENABLE_ISP_PROTOCOL
-			
+
 			#if !defined(ENABLE_XPROG_PROTOCOL)
 				#define ENABLE_XPROG_PROTOCOL
 			#endif
 		#endif
-	
+
 	/* Macros: */
 		#define XPRG_CMD_ENTER_PROGMODE             0x01
 		#define XPRG_CMD_LEAVE_PROGMODE             0x02
@@ -100,25 +100,25 @@
 		#define XPRG_PARAM_EEPPAGESIZE              0x02
 		#define XPRG_PARAM_NVMCMD_REG               0x03
 		#define XPRG_PARAM_NVMCSR_REG               0x04
-		
+
 		#define XPRG_PROTOCOL_PDI                   0x00
 		#define XPRG_PROTOCOL_JTAG                  0x01
 		#define XPRG_PROTOCOL_TPI                   0x02
-		
+
 		#define XPRG_PAGEMODE_WRITE                 (1 << 1)
 		#define XPRG_PAGEMODE_ERASE                 (1 << 0)
-	
+
 	/* External Variables: */
 		extern uint32_t XPROG_Param_NVMBase;
 		extern uint16_t XPROG_Param_EEPageSize;
 		extern uint8_t  XPROG_Param_NVMCSRRegAddr;
 		extern uint8_t  XPROG_Param_NVMCMDRegAddr;
 		extern uint8_t  XPROG_SelectedProtocol;
-		
+
 	/* Function Prototypes: */
 		void XPROGProtocol_SetMode(void);
 		void XPROGProtocol_Command(void);
-		
+
 		#if (defined(INCLUDE_FROM_XPROGPROTOCOL_C) && defined(ENABLE_XPROG_PROTOCOL))
 			static void XPROGProtocol_EnterXPROGMode(void);
 			static void XPROGProtocol_LeaveXPROGMode(void);
@@ -128,5 +128,6 @@
 			static void XPROGProtocol_ReadMemory(void);
 			static void XPROGProtocol_ReadCRC(void);
 		#endif
-		
+
 #endif
+

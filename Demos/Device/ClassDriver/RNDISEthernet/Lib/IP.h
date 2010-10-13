@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -32,18 +32,18 @@
  *
  *  Header file for IP.c.
  */
- 
+
 #ifndef _IP_H_
 #define _IP_H_
 
 	/* Includes: */
 		#include <avr/io.h>
 		#include <string.h>
-		
+
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"
 		#include "ProtocolDecoders.h"
-	
+
 	/* Macros: */
 		/** Protocol IP address of the host (client) machine, once assigned by DHCP. */
 		#define CLIENT_IP_ADDRESS                { 10,     0,    0,    1}
@@ -58,16 +58,16 @@
 		 *  is reached.
 		 */
 		#define DEFAULT_TTL                      128
-		
+
 		/** Performs a comparison between two IP addresses, indicating if they are identical.
-		 *  
+		 *
 		 *  \param[in] IP1  First IP address
 		 *  \param[in] IP2  Second IP address
 		 *
 		 *  \return True if the addresses match, false otherwise
 		 */
 		#define IP_COMPARE(IP1, IP2)             (memcmp(IP1, IP2, sizeof(IP_Address_t)) == 0)
-		
+
 	/* Type Defines: */
 		/** Type define of an IP packet header. */
 		typedef struct
@@ -84,14 +84,15 @@
 			uint8_t        TTL; /**< Maximum allowable number of hops to reach the packet destination */
 			uint8_t        Protocol; /**< Encapsulated protocol type */
 			uint16_t       HeaderChecksum; /**< Ethernet checksum of the IP header */
-			
+
 			IP_Address_t  SourceAddress; /**< Source protocol IP address of the packet */
 			IP_Address_t  DestinationAddress; /**< Destination protocol IP address of the packet */
 		} IP_Header_t;
-		
+
 	/* Function Prototypes: */
 		int16_t IP_ProcessIPPacket(Ethernet_Frame_Info_t* const FrameIN,
 		                           void* InDataStart,
 		                           void* OutDataStart);
 
 #endif
+

@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \page Page_ProgrammingApps Programming an Application into a USB AVR
  *
  *  Once you have built an application, you will need a way to program in the resulting ".HEX" file (and, if your

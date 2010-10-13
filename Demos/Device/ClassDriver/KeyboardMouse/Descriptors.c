@@ -1,21 +1,21 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
 
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
-  
-  Permission to use, copy, modify, distribute, and sell this 
+
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -30,9 +30,9 @@
 
 /** \file
  *
- *  USB Device Descriptors, for library use when in USB device mode. Descriptors are special 
+ *  USB Device Descriptors, for library use when in USB device mode. Descriptors are special
  *  computer-readable structures which the host requests upon device enumeration, to determine
- *  the device's capabilities and functions.  
+ *  the device's capabilities and functions.
  */
 
 #include "Descriptors.h"
@@ -120,22 +120,22 @@ USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
 USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
-		
+
 	.USBSpecification       = VERSION_BCD(01.10),
 	.Class                  = 0x00,
 	.SubClass               = 0x00,
 	.Protocol               = 0x00,
-				
+
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
-		
+
 	.VendorID               = 0x03EB,
 	.ProductID              = 0x204D,
 	.ReleaseNumber          = VERSION_BCD(00.01),
-		
+
 	.ManufacturerStrIndex   = 0x01,
 	.ProductStrIndex        = 0x02,
 	.SerialNumStrIndex      = NO_DESCRIPTOR,
-		
+
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
 
@@ -146,49 +146,49 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
  */
 USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
-	.Config = 
+	.Config =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
 			.TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
 			.TotalInterfaces        = 2,
-				
+
 			.ConfigurationNumber    = 1,
 			.ConfigurationStrIndex  = NO_DESCRIPTOR,
-				
+
 			.ConfigAttributes       = (USB_CONFIG_ATTR_BUSPOWERED | USB_CONFIG_ATTR_SELFPOWERED),
-			
+
 			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
-		
-	.HID1_KeyboardInterface = 
+
+	.HID1_KeyboardInterface =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
 			.InterfaceNumber        = 0x00,
 			.AlternateSetting       = 0x00,
-			
+
 			.TotalEndpoints         = 1,
-				
+
 			.Class                  = 0x03,
 			.SubClass               = 0x01,
 			.Protocol               = HID_BOOTP_KeyboardBootProtocol,
-				
+
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.HID1_KeyboardHID = 
-		{  
+	.HID1_KeyboardHID =
+		{
 			.Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
-			
+
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
 			.TotalReportDescriptors = 1,
 			.HIDReportType          = HID_DTYPE_Report,
 			.HIDReportLength        = sizeof(KeyboardReport)
 		},
-		
-	.HID1_ReportINEndpoint = 
+
+	.HID1_ReportINEndpoint =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -198,34 +198,34 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.PollingIntervalMS      = 0x0A
 		},
 
-	.HID2_MouseInterface = 
+	.HID2_MouseInterface =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
 			.InterfaceNumber        = 0x01,
 			.AlternateSetting       = 0x00,
-			
+
 			.TotalEndpoints         = 1,
-				
+
 			.Class                  = 0x03,
 			.SubClass               = 0x01,
 			.Protocol               = HID_BOOTP_MouseBootProtocol,
-				
+
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
 
-	.HID2_MouseHID = 
-		{  
+	.HID2_MouseHID =
+		{
 			.Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
-			
+
 			.HIDSpec                = VERSION_BCD(01.11),
 			.CountryCode            = 0x00,
 			.TotalReportDescriptors = 1,
 			.HIDReportType          = HID_DTYPE_Report,
 			.HIDReportLength        = sizeof(MouseReport)
 		},
-		
-	.HID2_ReportINEndpoint = 
+
+	.HID2_ReportINEndpoint =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
@@ -243,7 +243,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 USB_Descriptor_String_t PROGMEM LanguageString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
-		
+
 	.UnicodeString          = {LANGUAGE_ID_ENG}
 };
 
@@ -254,7 +254,7 @@ USB_Descriptor_String_t PROGMEM LanguageString =
 USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
-		
+
 	.UnicodeString          = L"Dean Camera"
 };
 
@@ -265,7 +265,7 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
 USB_Descriptor_String_t PROGMEM ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(28), .Type = DTYPE_String},
-		
+
 	.UnicodeString          = L"LUFA Mouse and Keyboard Demo"
 };
 
@@ -287,33 +287,33 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 
 	switch (DescriptorType)
 	{
-		case DTYPE_Device: 
+		case DTYPE_Device:
 			Address = &DeviceDescriptor;
 			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
-		case DTYPE_Configuration: 
+		case DTYPE_Configuration:
 			Address = &ConfigurationDescriptor;
 			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
-		case DTYPE_String: 
+		case DTYPE_String:
 			switch (DescriptorNumber)
 			{
-				case 0x00: 
+				case 0x00:
 					Address = &LanguageString;
 					Size    = pgm_read_byte(&LanguageString.Header.Size);
 					break;
-				case 0x01: 
+				case 0x01:
 					Address = &ManufacturerString;
 					Size    = pgm_read_byte(&ManufacturerString.Header.Size);
 					break;
-				case 0x02: 
+				case 0x02:
 					Address = &ProductString;
 					Size    = pgm_read_byte(&ProductString.Header.Size);
 					break;
 			}
-			
+
 			break;
-		case HID_DTYPE_HID: 
+		case HID_DTYPE_HID:
 			if (!(wIndex))
 			{
 				Address = &ConfigurationDescriptor.HID1_KeyboardHID;
@@ -322,24 +322,25 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			else
 			{
 				Address = &ConfigurationDescriptor.HID2_MouseHID;
-				Size    = sizeof(USB_HID_Descriptor_HID_t);			
+				Size    = sizeof(USB_HID_Descriptor_HID_t);
 			}
 			break;
-		case HID_DTYPE_Report: 
+		case HID_DTYPE_Report:
 			if (!(wIndex))
 			{
 				Address = &KeyboardReport;
 				Size    = sizeof(KeyboardReport);
 			}
 			else
-			{			
+			{
 				Address = &MouseReport;
 				Size    = sizeof(MouseReport);
 			}
-			
+
 			break;
 	}
-	
+
 	*DescriptorAddress = Address;
 	return Size;
 }
+

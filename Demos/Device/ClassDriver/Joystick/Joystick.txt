@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage Joystick Device Demo
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -28,7 +28,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Human Interface Device (HID)</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>N/A</td>
  *   </tr>
@@ -44,19 +44,19 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Joystick demonstration application. This gives a simple reference
  *  application for implementing a USB Keyboard device, for USB Joysticks
  *  using the standard Keyboard HID profile.
- *  
+ *
  *  This device will show up as a generic joystick device, with two buttons.
  *  Pressing the joystick inwards is the first button, and the HWB button
  *  is the second.
- *  
+ *
  *  Moving the joystick on the selected board moves the joystick location on
  *  the host computer.
- *  
+ *
  *  Currently only single interface joysticks are supported.
  *
  *  \section SSec_Options Project Options
@@ -71,3 +71,4 @@
  *   </tr>
  *  </table>
  */
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -38,16 +38,16 @@
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
-		
+
 		#include "HIDReport.h"
-		
+
 	/* Macros: */
 		/** Interface Class value for the Human Interface Device class. */
 		#define MOUSE_CLASS                 0x03
 
 		/** Interface Protocol value for a Boot Protocol Mouse compliant device. */
 		#define MOUSE_PROTOCOL              0x02
-		
+
 		/** Descriptor header type constant for a HID descriptor. */
 		#define DTYPE_HID                   0x21
 
@@ -56,7 +56,7 @@
 
 		/** Pipe number for the mouse report data pipe. */
 		#define MOUSE_DATA_IN_PIPE          1
-	
+
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref ProcessConfigurationDescriptor() function. */
 		enum MouseHostWithParser_GetConfigDescriptorDataCodes_t
@@ -76,3 +76,4 @@
 		uint8_t DComp_NextHID(void* CurrentDescriptor);
 
 #endif
+

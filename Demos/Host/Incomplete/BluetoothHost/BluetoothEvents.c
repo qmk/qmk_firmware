@@ -191,3 +191,4 @@ void RFCOMM_ChannelSignalsReceived(RFCOMM_Channel_t* const RFCOMMChannel)
 {
 	// Currently do nothing in response to the remote device sending new terminal control signals
 }
+

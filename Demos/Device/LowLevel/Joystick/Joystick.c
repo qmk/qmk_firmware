@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -42,7 +42,7 @@
 int main(void)
 {
 	SetupHardware();
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
 
@@ -90,7 +90,7 @@ void EVENT_USB_Device_Disconnect(void)
 
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host set the current configuration
  *  of the USB device after enumeration - the device endpoints are configured and the joystick reporting task started.
- */ 
+ */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	bool ConfigSuccess = true;
@@ -116,8 +116,8 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				USB_JoystickReport_Data_t JoystickReportData;
-				
-				/* Create the next HID report to send to the host */				
+
+				/* Create the next HID report to send to the host */
 				GetNextReport(&JoystickReportData);
 
 				Endpoint_ClearSETUP();
@@ -126,7 +126,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 				Endpoint_Write_Control_Stream_LE(&JoystickReportData, sizeof(JoystickReportData));
 				Endpoint_ClearOUT();
 			}
-		
+
 			break;
 	}
 }
@@ -160,10 +160,10 @@ bool GetNextReport(USB_JoystickReport_Data_t* const ReportData)
 
 	if (JoyStatus_LCL & JOY_PRESS)
 	  ReportData->Button  = (1 << 1);
-	  
+
 	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 	  ReportData->Button |= (1 << 0);
-	  
+
 	/* Check if the new report is different to the previous report */
 	InputChanged = (uint8_t)(PrevJoyStatus ^ JoyStatus_LCL) | (uint8_t)(PrevButtonStatus ^ ButtonStatus_LCL);
 
@@ -181,7 +181,7 @@ void HID_Task(void)
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
-  
+
 	/* Select the Joystick Report Endpoint */
 	Endpoint_SelectEndpoint(JOYSTICK_EPNUM);
 
@@ -189,17 +189,18 @@ void HID_Task(void)
 	if (Endpoint_IsINReady())
 	{
 		USB_JoystickReport_Data_t JoystickReportData;
-		
+
 		/* Create the next HID report to send to the host */
 		GetNextReport(&JoystickReportData);
-	
+
 		/* Write Joystick Report Data */
 		Endpoint_Write_Stream_LE(&JoystickReportData, sizeof(JoystickReportData));
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
-		
+
 		/* Clear the report data afterwards */
 		memset(&JoystickReportData, 0, sizeof(JoystickReportData));
 	}
 }
+

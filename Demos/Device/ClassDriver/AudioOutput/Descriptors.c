@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -30,11 +30,11 @@
 
 /** \file
  *
- *  USB Device Descriptors, for library use when in USB device mode. Descriptors are special 
+ *  USB Device Descriptors, for library use when in USB device mode. Descriptors are special
  *  computer-readable structures which the host requests upon device enumeration, to determine
- *  the device's capabilities and functions.  
+ *  the device's capabilities and functions.
  */
- 
+
 #include "Descriptors.h"
 
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
@@ -71,7 +71,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
  */
 USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
-	.Config = 
+	.Config =
 		{
 			.Header                   = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
@@ -80,133 +80,133 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.ConfigurationNumber      = 1,
 			.ConfigurationStrIndex    = NO_DESCRIPTOR,
-			
+
 			.ConfigAttributes         = (USB_CONFIG_ATTR_BUSPOWERED | USB_CONFIG_ATTR_SELFPOWERED),
-			
+
 			.MaxPowerConsumption      = USB_CONFIG_POWER_MA(100)
 		},
-		
-	.Audio_ControlInterface = 
+
+	.Audio_ControlInterface =
 		{
 			.Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
 			.InterfaceNumber          = 0,
 			.AlternateSetting         = 0,
-			
+
 			.TotalEndpoints           = 0,
-			
+
 			.Class                    = 0x01,
 			.SubClass                 = 0x01,
 			.Protocol                 = 0x00,
-			
+
 			.InterfaceStrIndex        = NO_DESCRIPTOR
 		},
-	
-	.Audio_ControlInterface_SPC = 
+
+	.Audio_ControlInterface_SPC =
 		{
 			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_Interface_AC_t), .Type = DTYPE_CSInterface},
 			.Subtype                  = AUDIO_DSUBTYPE_CSInterface_Header,
-			
+
 			.ACSpecification          = VERSION_BCD(01.00),
 			.TotalLength              = (sizeof(USB_Audio_Descriptor_Interface_AC_t) +
 			                             sizeof(USB_Audio_Descriptor_InputTerminal_t) +
 			                             sizeof(USB_Audio_Descriptor_OutputTerminal_t)),
-			
+
 			.InCollection             = 1,
 			.InterfaceNumber          = 1,
 		},
 
-	.Audio_InputTerminal = 
+	.Audio_InputTerminal =
 		{
 			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_InputTerminal_t), .Type = DTYPE_CSInterface},
 			.Subtype                  = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
-		
+
 			.TerminalID               = 0x01,
 			.TerminalType             = AUDIO_TERMINAL_STREAMING,
 			.AssociatedOutputTerminal = 0x00,
-			
+
 			.TotalChannels            = 2,
 			.ChannelConfig            = (AUDIO_CHANNEL_LEFT_FRONT | AUDIO_CHANNEL_RIGHT_FRONT),
-			
+
 			.ChannelStrIndex          = NO_DESCRIPTOR,
 			.TerminalStrIndex         = NO_DESCRIPTOR
 		},
 
-	.Audio_OutputTerminal = 
+	.Audio_OutputTerminal =
 		{
 			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_OutputTerminal_t), .Type = DTYPE_CSInterface},
 			.Subtype                  = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
-		
+
 			.TerminalID               = 0x02,
 			.TerminalType             = AUDIO_TERMINAL_OUT_SPEAKER,
 			.AssociatedInputTerminal  = 0x00,
-			
+
 			.SourceID                 = 0x01,
-			
+
 			.TerminalStrIndex         = NO_DESCRIPTOR
 		},
 
-	.Audio_StreamInterface_Alt0 = 
+	.Audio_StreamInterface_Alt0 =
 		{
 			.Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
 			.InterfaceNumber          = 1,
 			.AlternateSetting         = 0,
-			
+
 			.TotalEndpoints           = 0,
-			
+
 			.Class                    = 0x01,
 			.SubClass                 = 0x02,
 			.Protocol                 = 0x00,
-			
+
 			.InterfaceStrIndex        = NO_DESCRIPTOR
 		},
 
-	.Audio_StreamInterface_Alt1 = 
+	.Audio_StreamInterface_Alt1 =
 		{
 			.Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
 			.InterfaceNumber          = 1,
 			.AlternateSetting         = 1,
-			
+
 			.TotalEndpoints           = 1,
-			
+
 			.Class                    = 0x01,
 			.SubClass                 = 0x02,
 			.Protocol                 = 0x00,
-			
+
 			.InterfaceStrIndex        = NO_DESCRIPTOR
 		},
-		
-	.Audio_StreamInterface_SPC = 
+
+	.Audio_StreamInterface_SPC =
 		{
 			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_Interface_AS_t), .Type = DTYPE_CSInterface},
 			.Subtype                  = AUDIO_DSUBTYPE_CSInterface_General,
-			
+
 			.TerminalLink             = 0x01,
-			
+
 			.FrameDelay               = 1,
 			.AudioFormat              = 0x0001
 		},
-		
-	.Audio_AudioFormat = 
+
+	.Audio_AudioFormat =
 		{
 			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_Format_t), .Type = DTYPE_CSInterface},
 			.Subtype                  = AUDIO_DSUBTYPE_CSInterface_FormatType,
 
 			.FormatType               = 0x01,
 			.Channels                 = 0x02,
-			
+
 			.SubFrameSize             = 0x02,
 			.BitResolution            = 16,
 
-			.SampleFrequencyType      = AUDIO_TOTAL_SAMPLE_RATES,		
+			.SampleFrequencyType      = AUDIO_TOTAL_SAMPLE_RATES,
 			.SampleFrequencies        = {AUDIO_SAMPLE_FREQ(AUDIO_SAMPLE_FREQUENCY)}
 		},
-	
-	.Audio_StreamEndpoint = 
+
+	.Audio_StreamEndpoint =
 		{
-			.Endpoint = 
+			.Endpoint =
 				{
 					.Header              = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
 
@@ -215,18 +215,18 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 					.EndpointSize        = AUDIO_STREAM_EPSIZE,
 					.PollingIntervalMS   = 1
 				},
-			
+
 			.Refresh                  = 0,
 			.SyncEndpointNumber       = 0
 		},
-		
-	.Audio_StreamEndpoint_SPC = 
+
+	.Audio_StreamEndpoint_SPC =
 		{
 			.Header                   = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Spc_t), .Type = DTYPE_CSEndpoint},
 			.Subtype                  = AUDIO_DSUBTYPE_CSEndpoint_General,
-			
+
 			.Attributes               = AUDIO_EP_ACCEPTS_SMALL_PACKETS,
-			
+
 			.LockDelayUnits           = 0x00,
 			.LockDelay                = 0x0000
 		}
@@ -291,26 +291,27 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			Address = &ConfigurationDescriptor;
 			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
-		case DTYPE_String: 
+		case DTYPE_String:
 			switch (DescriptorNumber)
 			{
 				case 0x00:
 					Address = &LanguageString;
 					Size    = pgm_read_byte(&LanguageString.Header.Size);
 					break;
-				case 0x01: 
+				case 0x01:
 					Address = &ManufacturerString;
 					Size    = pgm_read_byte(&ManufacturerString.Header.Size);
 					break;
-				case 0x02: 
+				case 0x02:
 					Address = &ProductString;
 					Size    = pgm_read_byte(&ProductString.Header.Size);
 					break;
 			}
-			
+
 			break;
 	}
-	
+
 	*DescriptorAddress = Address;
 	return Size;
 }
+

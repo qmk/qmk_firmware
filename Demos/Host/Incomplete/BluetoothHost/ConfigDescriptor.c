@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -50,7 +50,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint8_t  ConfigDescriptorData[512];
 	void*    CurrConfigLocation = ConfigDescriptorData;
 	uint16_t CurrConfigBytesRem;
-	
+
 	USB_Descriptor_Endpoint_t* DataINEndpoint  = NULL;
 	USB_Descriptor_Endpoint_t* DataOUTEndpoint = NULL;
 	USB_Descriptor_Endpoint_t* EventsEndpoint  = NULL;
@@ -67,11 +67,11 @@ uint8_t ProcessConfigurationDescriptor(void)
 		default:
 			return DevControlError;
 	}
-	
+
 	/* The Bluetooth USB transport addendum mandates that the data (not streaming voice) endpoints
 	   be in the first interface descriptor (interface 0) */
 	USB_GetNextDescriptorOfType(&CurrConfigBytesRem, &CurrConfigLocation, DTYPE_Interface);
-	
+
 	/* Ensure that an interface was found, and the end of the descriptor was not reached */
 	if (!(CurrConfigBytesRem))
 	  return NoCompatibleInterfaceFound;
@@ -103,7 +103,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			DataOUTEndpoint = EndpointData;
 		}
 	}
-	
+
 	/* Configure the Bluetooth data IN pipe */
 	Pipe_ConfigurePipe(BLUETOOTH_DATA_IN_PIPE, EP_TYPE_BULK, PIPE_TOKEN_IN,
 	                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize, PIPE_BANK_SINGLE);
@@ -125,7 +125,7 @@ uint8_t ProcessConfigurationDescriptor(void)
  *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
  *  descriptor processing if an incompatible descriptor configuration is found.
  *
- *  This comparator searches for the next Endpoint descriptor inside the current interface descriptor, aborting the 
+ *  This comparator searches for the next Endpoint descriptor inside the current interface descriptor, aborting the
  *  search if another interface descriptor is found before the required endpoint.
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum

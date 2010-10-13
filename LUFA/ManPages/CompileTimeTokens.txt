@@ -30,7 +30,7 @@
  *  Mouse or Keyboard operation is desired, using boot compatible devices), the code responsible for the Report protocol
  *  mode can be removed to save space in the compiled application by defining this token. When defined, it is still necessary
  *  to explicitly put the attached device into Boot protocol mode via a call to \ref HID_Host_SetBootProtocol().
- * 
+ *
  *  <b>HID_STATETABLE_STACK_DEPTH</b>=<i>x</i> - ( \ref Group_HIDParser ) \n
  *  HID reports may contain PUSH and POP elements, to store and retrieve the current HID state table onto a stack. This
  *  allows for reports to save the state table before modifying it slightly for a data item, and then restore the previous
@@ -203,3 +203,4 @@
  *  back to a known idle state before communications occur with the device. This token may be defined to a 16-bit value to set the device
  *  settle period, specified in milliseconds. If not defined, the default value specified in Host.h is used instead.
  */
+

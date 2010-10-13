@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *
  *  Driver for the USART subsystem on supported USB AVRs.
  */
- 
+
 /** \ingroup Group_PeripheralDrivers
  *  @defgroup Group_Serial Serial USART Driver - LUFA/Drivers/Peripheral/Serial.h
  *
@@ -47,7 +47,7 @@
  *
  *  @{
  */
- 
+
 #ifndef __SERIAL_H__
 #define __SERIAL_H__
 
@@ -55,7 +55,7 @@
 		#include <avr/io.h>
 		#include <avr/pgmspace.h>
 		#include <stdbool.h>
-		
+
 		#include "../../Common/Common.h"
 		#include "../Misc/TerminalCodes.h"
 
@@ -104,7 +104,7 @@
 				UCSR1C = ((1 << UCSZ11) | (1 << UCSZ10));
 				UCSR1A = (DoubleSpeed ? (1 << U2X1) : 0);
 				UCSR1B = ((1 << TXEN1)  | (1 << RXEN1));
-				
+
 				DDRD  |= (1 << 3);
 				PORTD |= (1 << 2);
 			}
@@ -117,7 +117,7 @@
 				UCSR1C = 0;
 
 				UBRR1  = 0;
-				
+
 				DDRD  &= ~(1 << 3);
 				PORTD &= ~(1 << 2);
 			}
@@ -131,7 +131,7 @@
 			{
 				return ((UCSR1A & (1 << RXC1)) ? true : false);
 			}
-			
+
 			/** Transmits a given byte through the USART.
 			 *
 			 *  \param[in] DataByte  Byte to transmit through the USART.
@@ -153,14 +153,15 @@
 			static inline char Serial_RxByte(void)
 			{
 				while (!(UCSR1A & (1 << RXC1)));
-				return UDR1; 
+				return UDR1;
 			}
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

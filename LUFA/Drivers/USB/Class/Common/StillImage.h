@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -54,7 +54,7 @@
 		#include "../../USB.h"
 
 		#include <string.h>
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -64,7 +64,7 @@
 		#if !defined(__INCLUDE_FROM_SI_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/Class/StillImage.h instead.
 		#endif
-		
+
 	/* Macros: */
 		/** Length in bytes of a given Unicode string's character length.
 		 *
@@ -73,7 +73,7 @@
 		 *  \return Number of bytes of the given unicode string.
 		 */
 		#define UNICODE_STRING_LENGTH(Chars)  ((Chars) << 1)
-		
+
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a command container.
 		 *
@@ -97,8 +97,8 @@
 			SI_PIMA_CONTAINER_DataBlock     = 2, /**< Data Block container type. */
 			SI_PIMA_CONTAINER_ResponseBlock = 3, /**< Response container type. */
 			SI_PIMA_CONTAINER_EventBlock    = 4, /**< Event Block container type. */
-		};	
-		
+		};
+
 	/* Enums: */
 		/** Enums for the possible status codes of a returned Response Block from an attached PIMA compliant Still Image device. */
 		enum SI_PIMA_ResponseCodes_t
@@ -118,7 +118,7 @@
 			                                             *   parameters are not supported by the device.
 			                                             */
 		};
-	
+
 	/* Type Defines: */
 		/** \brief PIMA Still Image Device Command/Response Container.
 		 *
@@ -133,12 +133,13 @@
 			uint32_t TransactionID; /**< Unique container ID to link blocks together. */
 			uint32_t Params[3]; /**< Block parameters to be issued along with the block code (command blocks only). */
 		} SI_PIMA_Container_t;
-		
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
 		#endif
-		
+
 #endif
 
 /** @} */
+

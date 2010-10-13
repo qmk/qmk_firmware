@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -58,7 +58,7 @@
 		#include "../../USB.h"
 		#include "../Common/HID.h"
 		#include "HIDParser.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -73,7 +73,7 @@
 		/* Macros: */
 			/** Error code for some HID Host functions, indicating a logical (and not hardware) error. */
 			#define HID_ERROR_LOGICAL              0x80
-	
+
 		/* Type Defines: */
 			/** \brief HID Class Host Mode Configuration and State Structure.
 			 *
@@ -116,7 +116,7 @@
 
 					uint16_t DataINPipeSize; /**< Size in bytes of the HID interface's IN data pipe. */
 					uint16_t DataOUTPipeSize;  /**< Size in bytes of the HID interface's OUT data pipe. */
-					
+
 					bool SupportsBootProtocol; /**< Indicates if the current interface instance supports the HID Boot
 					                            *   Protocol when enabled via \ref HID_Host_SetBootProtocol().
 					                            */
@@ -125,7 +125,7 @@
 					                         */
 					bool UsingBootProtocol; /**< Indicates that the interface is currently initialized in Boot Protocol mode */
 					uint16_t HIDReportSize; /**< Size in bytes of the HID report descriptor in the device. */
-					
+
 					uint8_t LargestReportSize; /**< Largest report the device will send, in bytes. */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 						  *   <b>may</b> be set to initial values, but may also be ignored to default to sane values when
@@ -141,7 +141,7 @@
 				HID_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
 				HID_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible HID interface was not found in the device's Configuration Descriptor. */
 			};
-	
+
 		/* Function Prototypes: */
 			/** Host interface configuration routine, to configure a given HID host interface instance using the Configuration
 			 *  Descriptor read from an attached USB device. This function automatically updates the given HID Host instance's
@@ -169,7 +169,7 @@
 
 
 			/** Receives a HID IN report from the attached HID device, when a report has been received on the HID IN Data pipe.
-			 *  
+			 *
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
@@ -202,7 +202,7 @@
 			                                   const uint8_t ReportID,
 			                                   void* Buffer) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 			#endif
-			
+
 			/** Sends an OUT or FEATURE report to the currently attached HID device, using the device's OUT pipe if available,
 			 *  or the device's Control pipe if not.
 			 *
@@ -244,7 +244,7 @@
 			 *  \return Boolean true if a report has been received, false otherwise.
 			 */
 			bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			
+
 			/** Switches the attached HID device's reporting protocol over to the Boot Report protocol mode, on supported devices.
 			 *
 			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method must still be called
@@ -276,7 +276,7 @@
 			 */
 			uint8_t HID_Host_SetReportProtocol(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 			#endif
-			
+
 		/* Inline Functions: */
 			/** General management task for a given Human Interface Class host class interface, required for the correct operation of
 			 *  the interface. This should be called frequently in the main program loop, before the master USB management task
@@ -288,7 +288,7 @@
 			static inline void HID_Host_USBTask(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo)
 			{
 				(void)HIDInterfaceInfo;
-			}		
+			}
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
@@ -300,9 +300,9 @@
 				static uint8_t DCOMP_HID_Host_NextHIDInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_HID_Host_NextHID(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-			#endif	
-	#endif	
-	
+			#endif
+	#endif
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
@@ -311,3 +311,4 @@
 #endif
 
 /** @} */
+

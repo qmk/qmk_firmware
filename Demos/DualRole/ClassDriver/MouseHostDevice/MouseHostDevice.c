@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,9 +33,9 @@
  *  Main source file for the MouseHostDevice demo. This file contains the main tasks of
  *  the demo and is responsible for the overall control flow of the demo.
  */
- 
+
 #include "MouseHostDevice.h"
-	
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */
@@ -88,6 +88,7 @@ void EVENT_USB_UIDChange(void)
 {
 	printf_P(PSTR(ESC_FG_YELLOW "UID Change to %S mode\r\n" ESC_FG_WHITE),
 	         (USB_CurrentMode == USB_MODE_Device) ? PSTR("Device") : PSTR("Host"));
-			 
+
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
+

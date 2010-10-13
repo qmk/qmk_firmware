@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -48,7 +48,7 @@ int main(void)
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
-	
+
 	for (;;)
 	{
 		USB_Audio_Task();
@@ -65,13 +65,13 @@ void SetupHardware(void)
 
 	/* Disable clock division */
 	clock_prescale_set(clock_div_1);
-	
+
 	/* Hardware Initialization */
 	LEDs_Init();
 	ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_32);
 	ADC_SetupChannel(MIC_IN_ADC_CHANNEL);
 	USB_Init();
-	
+
 	/* Start the ADC conversion in free running mode */
 	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | MIC_IN_ADC_MUX_MASK);
 }
@@ -133,7 +133,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			/* Set Interface is not handled by the library, as its function is application-specific */
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_INTERFACE))
 			{
-				Endpoint_ClearSETUP();				
+				Endpoint_ClearSETUP();
 				Endpoint_ClearStatusStage();
 
 				/* Check if the host is enabling the audio interface (setting AlternateSetting to 1) */
@@ -157,7 +157,7 @@ void USB_Audio_Task(void)
 
 	/* Select the audio stream endpoint */
 	Endpoint_SelectEndpoint(AUDIO_STREAM_EPNUM);
-	
+
 	/* Check if the current endpoint can be written to and that the next sample should be stored */
 	if (Endpoint_IsINReady() && (TIFR0 & (1 << OCF0A)))
 	{
@@ -166,7 +166,7 @@ void USB_Audio_Task(void)
 
 		/* Audio sample is ADC value scaled to fit the entire range */
 		int16_t AudioSample = ((SAMPLE_MAX_RANGE / ADC_MAX_RANGE) * ADC_GetResult());
-		
+
 		#if defined(MICROPHONE_BIASED_TO_HALF_RAIL)
 		/* Microphone is biased to half rail voltage, subtract the bias from the sample value */
 		AudioSample -= (SAMPLE_MAX_RANGE / 2);
@@ -183,3 +183,4 @@ void USB_Audio_Task(void)
 		}
 	}
 }
+

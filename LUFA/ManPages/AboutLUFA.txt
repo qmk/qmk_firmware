@@ -17,4 +17,4 @@
  *  \li \subpage Page_FutureChanges - Planned Changes to the Library
  *  \li \subpage Page_LUFAPoweredProjects - Other Projects Using LUFA
  */
- 
+

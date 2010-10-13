@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -33,7 +33,7 @@
  *  Main source file for the RNDISEthernetHost demo. This file contains the main tasks of
  *  the demo and is responsible for the initial application hardware configuration.
  */
- 
+
 #include "RNDISEthernetHost.h"
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -119,7 +119,7 @@ void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
 	                         " -- Error Code %d\r\n"
 	                         " -- Sub Error Code %d\r\n"
 	                         " -- In State %d\r\n" ESC_FG_WHITE), ErrorCode, SubErrorCode, USB_HostState);
-	
+
 	LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 }
 
@@ -133,13 +133,13 @@ void PrintIncomingPackets(void)
 	if ((ErrorCode = RNDIS_GetPacketLength(&PacketLength)) != HOST_SENDCONTROL_Successful)
 	{
 		printf_P(PSTR(ESC_FG_RED "Packet Reception Error.\r\n"
-								 " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);		
+								 " -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
 		return;
 	}
-	
+
 	if (!(PacketLength))
 	  return;
-	
+
 	Pipe_Unfreeze();
 
 	printf_P(PSTR("***PACKET (Size %d)***\r\n"), PacketLength);
@@ -152,13 +152,13 @@ void PrintIncomingPackets(void)
 	else
 	{
 		uint8_t PacketBuffer[PacketLength];
-		
+
 		Pipe_Read_Stream_LE(&PacketBuffer, PacketLength);
-		
+
 		for (uint16_t i = 0; i < PacketLength; i++)
 		  printf("0x%02x ", PacketBuffer[i]);
 	}
-	
+
 	Pipe_ClearIN();
 	Pipe_Freeze();
 
@@ -178,7 +178,7 @@ void RNDIS_Host_Task(void)
 	{
 		case HOST_STATE_Addressed:
 			puts_P(PSTR("Getting Config Data.\r\n"));
-		
+
 			/* Get and process the configuration descriptor data */
 			if ((ErrorCode = ProcessConfigurationDescriptor()) != SuccessfulConfigRead)
 			{
@@ -188,7 +188,7 @@ void RNDIS_Host_Task(void)
 				  puts_P(PSTR(ESC_FG_RED "Invalid Device.\r\n"));
 
 				printf_P(PSTR(" -- Error Code: %d\r\n" ESC_FG_WHITE), ErrorCode);
-				
+
 				/* Indicate error via status LEDs */
 				LEDs_SetAllLEDs(LEDMASK_USB_ERROR);
 
@@ -196,7 +196,7 @@ void RNDIS_Host_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			/* Set the device configuration to the first configuration (rarely do devices use multiple configurations) */
 			if ((ErrorCode = USB_Host_SetDeviceConfiguration(1)) != HOST_SENDCONTROL_Successful)
 			{
@@ -210,7 +210,7 @@ void RNDIS_Host_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			uint16_t DeviceMaxPacketSize;
 			if ((ErrorCode = RNDIS_InitializeDevice(1024, &DeviceMaxPacketSize)) != HOST_SENDCONTROL_Successful)
 			{
@@ -222,11 +222,11 @@ void RNDIS_Host_Task(void)
 
 				/* Wait until USB device disconnected */
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
-				break;			
+				break;
 			}
-			
+
 			printf_P(PSTR("Device Max Transfer Size: %lu bytes.\r\n"), DeviceMaxPacketSize);
-			
+
 			/* We set the default filter to only receive packets we would be interested in */
 			uint32_t PacketFilter = (REMOTE_NDIS_PACKET_DIRECTED | REMOTE_NDIS_PACKET_BROADCAST | REMOTE_NDIS_PACKET_ALL_MULTICAST);
 			if ((ErrorCode = RNDIS_SetRNDISProperty(OID_GEN_CURRENT_PACKET_FILTER,
@@ -242,7 +242,7 @@ void RNDIS_Host_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			uint32_t VendorID;
 			if ((ErrorCode = RNDIS_QueryRNDISProperty(OID_GEN_VENDOR_ID,
 			                                          &VendorID, sizeof(VendorID))) != HOST_SENDCONTROL_Successful)
@@ -257,16 +257,16 @@ void RNDIS_Host_Task(void)
 				USB_HostState = HOST_STATE_WaitForDeviceRemoval;
 				break;
 			}
-			
+
 			printf_P(PSTR("Device Vendor ID: 0x%08lX\r\n"), VendorID);
-			
+
 			puts_P(PSTR("RNDIS Device Enumerated.\r\n"));
 
 			USB_HostState = HOST_STATE_Configured;
 			break;
 		case HOST_STATE_Configured:
 			PrintIncomingPackets();
-		
+
 			break;
 	}
 }

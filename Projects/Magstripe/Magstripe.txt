@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage Denver Gingerich's USBSnoop Magnetic Card Reader Project
  *
  *  \section SSec_Compat Project Compatibility:
@@ -26,7 +26,7 @@
  *   <td><b>USB Class:</b></td>
  *   <td>Human Interface Device (HID)</td>
  *  </tr>
- *  <tr> 
+ *  <tr>
  *   <td><b>USB Subclass:</b></td>
  *   <td>Keyboard</td>
  *  </tr>
@@ -40,18 +40,18 @@
  *  </tr>
  * </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  Firmware for a USB AVR powered USB TTL magnetic stripe reader (using a card
  *  reader such as the Omron V3B-4K) by Denver Gingerich. This project is designed
  *  to be used with the open source Stripe Snoop project at <a>http://stripesnoop.sourceforge.net/</a>.
- * 
+ *
  *  See <a>http://ossguy.com/ss_usb/</a> for the USB reader hardware project website,
  *  including construction and support details.
- * 
+ *
  *  To use, connect your magnetic card reader device to the USB AVR as follows (pin and port mapping may be adjusted
  *  from the project makefile):
- * 
+ *
  *  <table>
  *   <tr>
  *    <td><b>Signal:</b></td>
@@ -162,3 +162,4 @@
  *   </tr>
  *  </table>
  */
+

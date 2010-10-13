@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -54,7 +54,7 @@ void uIPManagement_Init(void)
 	/* uIP Timing Initialization */
 	clock_init();
 	timer_set(&ConnectionTimer, CLOCK_SECOND / 2);
-	timer_set(&ARPTimer, CLOCK_SECOND * 10);	
+	timer_set(&ARPTimer, CLOCK_SECOND * 10);
 
 	/* uIP Stack Initialization */
 	uip_init();
@@ -75,10 +75,10 @@ void uIPManagement_Init(void)
 	uip_setnetmask(&Netmask);
 	uip_setdraddr(&GatewayIPAddress);
 	#endif
-	
+
 	/* HTTP Webserver Initialization */
 	HTTPServerApp_Init();
-	
+
 	/* TELNET Server Initialization */
 	#if defined(ENABLE_TELNET_SERVER)
 	TELNETServerApp_Init();
@@ -136,7 +136,7 @@ static void uIPManagement_ProcessIncomingPacket(void)
 	/* If no packet received, exit processing routine */
 	if (!(RNDIS_Host_IsPacketReceived(&Ethernet_RNDIS_Interface)))
 	  return;
-	  
+
 	LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
 	/* Read the Incoming packet straight into the UIP packet buffer */
@@ -162,16 +162,16 @@ static void uIPManagement_ProcessIncomingPacket(void)
 
 					uip_split_output();
 				}
-				
+
 				break;
 			case HTONS(UIP_ETHTYPE_ARP):
 				/* Process ARP packet */
 				uip_arp_arpin();
-				
+
 				/* If a response was generated, send it */
 				if (uip_len > 0)
 				  uip_split_output();
-				
+
 				break;
 		}
 	}
@@ -204,7 +204,7 @@ static void uIPManagement_ManageConnections(void)
 		timer_reset(&ConnectionTimer);
 
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
-		
+
 		for (uint8_t i = 0; i < UIP_CONNS; i++)
 		{
 			/* Run periodic connection management for each TCP connection */
@@ -220,7 +220,7 @@ static void uIPManagement_ManageConnections(void)
 				uip_split_output();
 			}
 		}
-		
+
 		#if defined(ENABLE_DHCP_CLIENT)
 		for (uint8_t i = 0; i < UIP_UDP_CONNS; i++)
 		{
@@ -249,3 +249,4 @@ static void uIPManagement_ManageConnections(void)
 		uip_arp_timer();
 	}
 }
+

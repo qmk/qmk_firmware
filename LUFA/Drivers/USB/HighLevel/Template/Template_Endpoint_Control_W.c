@@ -3,7 +3,7 @@ uint8_t TEMPLATE_FUNC_NAME (const void* Buffer,
 {
 	uint8_t* DataStream     = ((uint8_t*)Buffer + TEMPLATE_BUFFER_OFFSET(Length));
 	bool     LastPacketFull = false;
-	
+
 	if (Length > USB_ControlRequest.wLength)
 	  Length = USB_ControlRequest.wLength;
 	else if (!(Length))
@@ -12,7 +12,7 @@ uint8_t TEMPLATE_FUNC_NAME (const void* Buffer,
 	while (Length || LastPacketFull)
 	{
 		uint8_t USB_DeviceState_LCL = USB_DeviceState;
-		
+
 		if (USB_DeviceState_LCL == DEVICE_STATE_Unattached)
 		  return ENDPOINT_RWCSTREAM_DeviceDisconnected;
 		else if (USB_DeviceState_LCL == DEVICE_STATE_Suspended)
@@ -25,19 +25,19 @@ uint8_t TEMPLATE_FUNC_NAME (const void* Buffer,
 		if (Endpoint_IsINReady())
 		{
 			uint16_t BytesInEndpoint = Endpoint_BytesInEndpoint();
-		
+
 			while (Length && (BytesInEndpoint < USB_ControlEndpointSize))
 			{
 				TEMPLATE_TRANSFER_BYTE(DataStream);
 				Length--;
 				BytesInEndpoint++;
 			}
-			
+
 			LastPacketFull = (BytesInEndpoint == USB_ControlEndpointSize);
 			Endpoint_ClearIN();
 		}
 	}
-	
+
 	while (!(Endpoint_IsOUTReceived()))
 	{
 		uint8_t USB_DeviceState_LCL = USB_DeviceState;

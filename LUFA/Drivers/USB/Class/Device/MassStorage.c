@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -42,7 +42,7 @@ void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfac
 {
 	if (!(Endpoint_IsSETUPReceived()))
 	  return;
-	  
+
 	if (USB_ControlRequest.wIndex != MSInterfaceInfo->Config.InterfaceNumber)
 	  return;
 
@@ -62,11 +62,11 @@ void MS_Device_ProcessControlRequest(USB_ClassInfo_MS_Device_t* const MSInterfac
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
-				Endpoint_Write_Byte(MSInterfaceInfo->Config.TotalLUNs - 1);				
-				Endpoint_ClearIN();				
+				Endpoint_Write_Byte(MSInterfaceInfo->Config.TotalLUNs - 1);
+				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
 			}
-			
+
 			break;
 	}
 }
@@ -100,14 +100,14 @@ bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceIn
 		{
 			continue;
 		}
-		
+
 		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size,
 										 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
 		{
 			return false;
 		}
 	}
-	
+
 	return true;
 }
 
@@ -117,14 +117,14 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 	  return;
 
 	Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
-		
+
 	if (Endpoint_IsReadWriteAllowed())
 	{
 		if (MS_Device_ReadInCommandBlock(MSInterfaceInfo))
 		{
 			if (MSInterfaceInfo->State.CommandBlock.Flags & MS_COMMAND_DIR_DATA_IN)
 			  Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
-			  
+
 			MSInterfaceInfo->State.CommandStatus.Status = CALLBACK_MS_Device_SCSICommandReceived(MSInterfaceInfo) ?
 			                                                                 MS_SCSI_COMMAND_Pass : MS_SCSI_COMMAND_Fail;
 			MSInterfaceInfo->State.CommandStatus.Signature           = MS_CSW_SIGNATURE;
@@ -136,16 +136,16 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 			{
 				Endpoint_StallTransaction();
 			}
-			
+
 			MS_Device_ReturnCommandStatus(MSInterfaceInfo);
 		}
 	}
-	
+
 	if (MSInterfaceInfo->State.IsMassStoreReset)
 	{
 		Endpoint_ResetFIFO(MSInterfaceInfo->Config.DataOUTEndpointNumber);
 		Endpoint_ResetFIFO(MSInterfaceInfo->Config.DataINEndpointNumber);
-		
+
 		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
 		Endpoint_ClearStall();
 		Endpoint_ResetDataToggle();
@@ -168,7 +168,7 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 	{
 		return false;
 	}
-	
+
 	if ((MSInterfaceInfo->State.CommandBlock.Signature         != MS_CBW_SIGNATURE)                  ||
 	    (MSInterfaceInfo->State.CommandBlock.LUN               >= MSInterfaceInfo->Config.TotalLUNs) ||
 		(MSInterfaceInfo->State.CommandBlock.Flags              & 0x1F)                              ||
@@ -178,7 +178,7 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 		Endpoint_StallTransaction();
 		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
 		Endpoint_StallTransaction();
-		
+
 		return false;
 	}
 
@@ -191,7 +191,7 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 	}
 
 	Endpoint_ClearOUT();
-	
+
 	return true;
 }
 
@@ -216,11 +216,11 @@ static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInt
 		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
 		USB_USBTask();
 		#endif
-		
+
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return;
 	}
-	
+
 	CallbackIsResetSource = &MSInterfaceInfo->State.IsMassStoreReset;
 	if (Endpoint_Write_Stream_LE(&MSInterfaceInfo->State.CommandStatus, sizeof(MS_CommandStatusWrapper_t),
 	                             StreamCallback_MS_Device_AbortOnMassStoreReset))
@@ -244,3 +244,4 @@ static uint8_t StreamCallback_MS_Device_AbortOnMassStoreReset(void)
 }
 
 #endif
+

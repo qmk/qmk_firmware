@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /** \mainpage USB LED Notifier Project
  *
  *  \section SSec_Compat Demo Compatibility:
@@ -25,7 +25,7 @@
  *    <td><b>USB Class:</b></td>
  *    <td>Communications Device Class (CDC)</td>
  *   </tr>
- *   <tr> 
+ *   <tr>
  *    <td><b>USB Subclass:</b></td>
  *    <td>Abstract Control Model (ACM)</td>
  *   </tr>
@@ -39,7 +39,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description: 
+ *  \section SSec_Description Project Description:
  *
  *  USB LED Notifier Project. This project is designed for the Busware BUI board, however it can run easily on any
  *  USB AVR. It is a generic RGB LED controller (via a three channel software PWM) which listens for commands from the
@@ -60,3 +60,4 @@
  *   </tr>
  *  </table>
  */
+

@@ -3,7 +3,7 @@
  *  This file contains special DoxyGen information for the generation of the main page and other special
  *  documentation pages. It is not a project source file.
  */
- 
+
 /**
  *  \page Page_Resources Library Resources
  *
@@ -32,4 +32,4 @@
  *  \section Sec_USBResources USB Resources
  *  USB-IF Website: http://www.usb.org \n
  */
- 
+

@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -56,7 +56,7 @@
 	/* Includes: */
 		#include "../../USB.h"
 		#include "../Common/MIDI.h"
-		
+
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {
@@ -66,7 +66,7 @@
 		#if !defined(__INCLUDE_FROM_MIDI_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/Class/MIDI.h instead.
 		#endif
-		
+
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** \brief MIDI Class Host Mode Configuration and State Structure.
@@ -81,7 +81,7 @@
 				{
 					uint8_t  DataINPipeNumber; /**< Pipe number of the MIDI interface's streaming IN data pipe. */
 					bool     DataINPipeDoubleBank; /**< Indicates if the MIDI interface's IN data pipe should use double banking. */
-					
+
 					uint8_t  DataOUTPipeNumber; /**< Pipe number of the MIDI interface's streaming OUT data pipe. */
 					bool     DataOUTPipeDoubleBank; /**< Indicates if the MIDI interface's OUT data pipe should use double banking. */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
@@ -102,7 +102,7 @@
 						  *   the interface is enumerated.
 						  */
 			} USB_ClassInfo_MIDI_Host_t;
-			
+
 		/* Enums: */
 			/** Enum for the possible error codes returned by the \ref MIDI_Host_ConfigurePipes() function. */
 			enum MIDI_Host_EnumerationFailure_ErrorCodes_t
@@ -111,7 +111,7 @@
 				MIDI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
 				MIDI_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible MIDI interface was not found in the device's Configuration Descriptor. */
 			};
-	
+
 		/* Function Prototypes: */
 			/** Host interface configuration routine, to configure a given MIDI host interface instance using the Configuration
 			 *  Descriptor read from an attached USB device. This function automatically updates the given MIDI Host instance's
@@ -156,7 +156,7 @@
 			 *  \return A value from the \ref Pipe_WaitUntilReady_ErrorCodes_t enum.
 			 */
 			 uint8_t MIDI_Host_Flush(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
-			 
+
 			/** Receives a MIDI event packet from the device.
 			 *
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
@@ -193,9 +193,9 @@
 			#if defined(__INCLUDE_FROM_MIDI_CLASS_HOST_C)
 				static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingDataEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
-			#endif	
+			#endif
 	#endif
-				
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
@@ -204,3 +204,4 @@
 #endif
 
 /** @} */
+

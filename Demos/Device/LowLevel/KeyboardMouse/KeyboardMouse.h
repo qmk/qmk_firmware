@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,14 +9,14 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
   Copyright 2010  Denver Gingerich (denver [at] ossguy [dot] com)
-  
-  Permission to use, copy, modify, distribute, and sell this 
+
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -47,7 +47,7 @@
 		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
-		
+
 	/* Macros: */
 		/** HID Class specific request to get the next HID report from the device. */
 		#define REQ_GetReport               0x01
@@ -87,7 +87,7 @@
 
 		/** Constant for a keyboard output report LED byte, indicating that the host's NUM LOCK mode is currently set. */
 		#define KEYBOARD_LED_NUMLOCK        (1 << 0)
-		
+
 		/** Constant for a keyboard output report LED byte, indicating that the host's CAPS LOCK mode is currently set. */
 		#define KEYBOARD_LED_CAPSLOCK       (1 << 1)
 
@@ -108,7 +108,7 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR           (LEDS_LED1 | LEDS_LED3)
-		
+
 	/* Type Defines: */
 		/** Type define for the keyboard HID report structure, for creating and sending HID reports to the host PC.
 		 *  This mirrors the layout described to the host in the HID report descriptor, in Descriptors.c.
@@ -129,17 +129,18 @@
 			int8_t  X; /**< Current mouse delta X movement, as a signed 8-bit integer */
 			int8_t  Y; /**< Current mouse delta Y movement, as a signed 8-bit integer */
 		} USB_MouseReport_Data_t;
-			
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void Keyboard_ProcessLEDReport(const uint8_t LEDStatus);
 		void Keyboard_HID_Task(void);
 		void Mouse_HID_Task(void);
-		
+
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_UnhandledControlRequest(void);
 		void EVENT_USB_Device_StartOfFrame(void);
-		
+
 #endif
+

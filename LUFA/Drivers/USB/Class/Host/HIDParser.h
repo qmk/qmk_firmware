@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -35,7 +35,7 @@
  *  a HID device transmits to the host. It also provides an easy API for extracting and processing the data
  *  elements inside a HID report sent from an attached HID device.
  */
- 
+
 /** \ingroup Group_USB
  *  @defgroup Group_HIDParser HID Report Parser
  *
@@ -86,7 +86,7 @@
 			 */
 			#define HID_STATETABLE_STACK_DEPTH    2
 		#endif
-		
+
 		#if !defined(HID_USAGE_STACK_DEPTH) || defined(__DOXYGEN__)
 			/** Constant indicating the maximum stack depth of the usage table. A larger usage table
 			 *  allows for more USAGE items to be indicated sequentially for REPORT COUNT entries of more than
@@ -107,17 +107,17 @@
 			 */
 			#define HID_MAX_COLLECTIONS           10
 		#endif
-		
+
 		#if !defined(HID_MAX_REPORTITEMS) || defined(__DOXYGEN__)
-			/** Constant indicating the maximum number of report items (IN, OUT or FEATURE) that can be processed 
+			/** Constant indicating the maximum number of report items (IN, OUT or FEATURE) that can be processed
 			 *  in the report item descriptor and stored in the user HID Report Info structure. A large value allows
-			 *  for more report items to be stored, but consumes more memory. By default this is set to 20 items, 
+			 *  for more report items to be stored, but consumes more memory. By default this is set to 20 items,
 			 *  but this can be overridden by defining HID_MAX_REPORTITEMS to another value in the user project
 			 *  makefile, and passing the define to the compiler using the -D compiler switch.
 			 */
 			#define HID_MAX_REPORTITEMS           20
 		#endif
-		
+
 		#if !defined(HID_MAX_REPORT_IDS) || defined(__DOXYGEN__)
 			/** Constant indicating the maximum number of unique report IDs that can be processed in the report item
 			 *  descriptor for the report size information array in the user HID Report Info structure. A large value
@@ -141,12 +141,12 @@
 		#define HID_ALIGN_DATA(ReportItem, Type) ((Type)(ReportItem->Value << ((8 * sizeof(Type)) - ReportItem->Attributes.BitSize)))
 
 	/* Public Interface - May be used in end-application: */
-		/* Enums: */			
+		/* Enums: */
 			/** Enum for the possible error codes in the return value of the \ref USB_ProcessHIDReport() function. */
 			enum HID_Parse_ErrorCodes_t
 			{
 				HID_PARSE_Successful                  = 0, /**< Successful parse of the HID report descriptor, no error. */
-				HID_PARSE_HIDStackOverflow            = 1, /**< More than \ref HID_STATETABLE_STACK_DEPTH nested PUSHes in the report. */ 
+				HID_PARSE_HIDStackOverflow            = 1, /**< More than \ref HID_STATETABLE_STACK_DEPTH nested PUSHes in the report. */
 				HID_PARSE_HIDStackUnderflow           = 2, /**< A POP was found when the state table stack was empty. */
 				HID_PARSE_InsufficientReportItems     = 3, /**< More than \ref HID_MAX_REPORTITEMS report items in the report. */
 				HID_PARSE_UnexpectedEndCollection     = 4, /**< An END COLLECTION item found without matching COLLECTION item. */
@@ -155,8 +155,8 @@
 				HID_PARSE_InsufficientReportIDItems   = 7, /**< More than \ref HID_MAX_REPORT_IDS report IDs in the device. */
 				HID_PARSE_NoUnfilteredReportItems     = 8, /**< All report items from the device were filtered by the filtering callback routine. */
 			};
-		
-		/* Type Defines: */		
+
+		/* Type Defines: */
 			/** \brief HID Parser Report Item Min/Max Structure.
 			 *
 			 *  Type define for an attribute with both minimum and maximum values (e.g. Logical Min/Max).
@@ -176,7 +176,7 @@
 				uint32_t                     Type;     /**< Unit type (refer to HID specifications for details). */
 				uint8_t                      Exponent; /**< Unit exponent (refer to HID specifications for details). */
 			} HID_Unit_t;
-			
+
 			/** \brief HID Parser Report Item Usage Structure.
 			 *
 			 *  Type define for the Usage attributes of a report item.
@@ -206,13 +206,13 @@
 			typedef struct
 			{
 				uint8_t                      BitSize;  /**< Size in bits of the report item's data. */
-				
+
 				HID_Usage_t                  Usage;    /**< Usage of the report item. */
 				HID_Unit_t                   Unit;     /**< Unit type and exponent of the report item. */
 				HID_MinMax_t                 Logical;  /**< Logical minimum and maximum of the report item. */
 				HID_MinMax_t                 Physical; /**< Physical minimum and maximum of the report item. */
 			} HID_ReportItem_Attributes_t;
-			
+
 			/** \brief HID Parser Report Item Details Structure.
 			 *
 			 *  Type define for a report item (IN, OUT or FEATURE) layout attributes and other details.
@@ -226,13 +226,13 @@
 				HID_CollectionPath_t*        CollectionPath; /**< Collection path of the item. */
 
 				HID_ReportItem_Attributes_t  Attributes;     /**< Report item attributes. */
-							
+
 				uint32_t                     Value;          /**< Current value of the report item - use \ref HID_ALIGN_DATA() when processing
 				                                              *   a retrieved value so that it is aligned to a specific type.
 				                                              */
-				uint32_t                     PreviousValue;  /**< Previous value of the report item. */ 
+				uint32_t                     PreviousValue;  /**< Previous value of the report item. */
 			} HID_ReportItem_t;
-			
+
 			/** \brief HID Parser Report Size Structure.
 			 *
 			 *  Type define for a report item size information structure, to retain the size of a device's reports by ID.
@@ -267,7 +267,7 @@
 				                                              *   element in its HID report descriptor.
 				                                              */
 			} HID_ReportInfo_t;
-			
+
 		/* Function Prototypes: */
 			/** Function to process a given HID report returned from an attached device, and store it into a given
 			 *  \ref HID_ReportInfo_t structure.
@@ -285,7 +285,7 @@
 			/** Extracts the given report item's value out of the given HID report and places it into the Value
 			 *  member of the report item's \ref HID_ReportItem_t structure.
 			 *
-			 *  When called on a report with an item that exists in that report, this copies the report item's Value 
+			 *  When called on a report with an item that exists in that report, this copies the report item's Value
 			 *  to it's PreviousValue element for easy checking to see if an item's value has changed before processing
 			 *  a report. If the given item does not exist in the report, the function does not modify the report item's
 			 *  data.
@@ -348,7 +348,7 @@
 				 uint8_t                     ReportID;
 			} HID_StateTable_t;
 	#endif
-			
+
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			}
@@ -357,3 +357,4 @@
 #endif
 
 /** @} */
+

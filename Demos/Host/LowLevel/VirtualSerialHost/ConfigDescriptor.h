@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -38,9 +38,9 @@
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
-		
+
 		#include "VirtualSerialHost.h"
-		
+
 	/* Macros: */
 		/** Interface Class value for the CDC class. */
 		#define CDC_CONTROL_CLASS              0x02
@@ -50,7 +50,7 @@
 
 		/** Interface Class value for the CDC protocol. */
 		#define CDC_CONTROL_PROTOCOL           0x01
-		
+
 		/** Interface Class value for the CDC data class. */
 		#define CDC_DATA_CLASS                 0x0A
 
@@ -59,7 +59,7 @@
 
 		/** Interface Class value for the CDC data protocol. */
 		#define CDC_DATA_PROTOCOL              0x00
-	
+
 		/** Pipe number for the CDC data IN pipe. */
 		#define CDC_DATA_IN_PIPE               1
 
@@ -81,10 +81,11 @@
 		};
 
 	/* Function Prototypes: */
-		uint8_t ProcessConfigurationDescriptor(void);	
-		
+		uint8_t ProcessConfigurationDescriptor(void);
+
 		uint8_t DComp_NextCDCControlInterface(void* CurrentDescriptor);
 		uint8_t DComp_NextCDCDataInterface(void* CurrentDescriptor);
 		uint8_t DComp_NextCDCDataInterfaceEndpoint(void* CurrentDescriptor);
-		
+
 #endif
+

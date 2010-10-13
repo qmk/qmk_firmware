@@ -1,7 +1,7 @@
 /*
              LUFA Library
      Copyright (C) Dean Camera, 2010.
-              
+
   dean [at] fourwalledcubicle [dot] com
       www.fourwalledcubicle.com
 */
@@ -9,13 +9,13 @@
 /*
   Copyright 2010  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 
-  Permission to use, copy, modify, distribute, and sell this 
+  Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
-  without fee, provided that the above copyright notice appear in 
+  without fee, provided that the above copyright notice appear in
   all copies and that both that the copyright notice and this
-  permission notice and warranty disclaimer appear in supporting 
-  documentation, and that the name of the author not be used in 
-  advertising or publicity pertaining to distribution of the 
+  permission notice and warranty disclaimer appear in supporting
+  documentation, and that the name of the author not be used in
+  advertising or publicity pertaining to distribution of the
   software without specific, written prior permission.
 
   The author disclaim all warranties with regard to this
@@ -47,7 +47,7 @@
  *
  *  @{
  */
- 
+
 #ifndef __LEDS_RZUSBSTICK_H__
 #define __LEDS_RZUSBSTICK_H__
 
@@ -71,7 +71,7 @@
 		/* Macros: */
 			#define LEDS_PORTD_LEDS       (LEDS_LED1 | LEDS_LED2)
 			#define LEDS_PORTE_LEDS       (LEDS_LED3 | LEDS_LED4)
-			
+
 			#define LEDS_PORTE_MASK_SHIFT 4
 	#endif
 
@@ -94,7 +94,7 @@
 
 			/** LED mask for none of the board LEDs. */
 			#define LEDS_NO_LEDS     0
-			
+
 		/* Inline Functions: */
 		#if !defined(__DOXYGEN__)
 			static inline void LEDs_Init(void)
@@ -106,11 +106,11 @@
 				DDRE  |=  (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT);
 				PORTE |=  (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT);
 			}
-			
+
 			static inline void LEDs_TurnOnLEDs(const uint8_t LEDMask)
 			{
 				PORTD |=  (LEDMask & LEDS_LED1);
-				PORTD &= ~(LEDMask & LEDS_LED2);			
+				PORTD &= ~(LEDMask & LEDS_LED2);
 				PORTE &= ~((LEDMask & LEDS_PORTE_LEDS) << LEDS_PORTE_MASK_SHIFT);
 			}
 
@@ -128,7 +128,7 @@
 				PORTE = ((PORTE | (LEDS_PORTE_LEDS << LEDS_PORTE_MASK_SHIFT)) &
 				        ~((LEDMask & LEDS_PORTE_LEDS) << LEDS_PORTE_MASK_SHIFT));
 			}
-			
+
 			static inline void LEDs_ChangeLEDs(const uint8_t LEDMask,
 			                                   const uint8_t ActiveMask)
 			{
@@ -137,7 +137,7 @@
 				PORTE = ((PORTE | ((LEDMask & LEDS_PORTE_LEDS) << LEDS_PORTE_MASK_SHIFT)) &
 				        ~((ActiveMask & LEDS_PORTE_LEDS) << LEDS_PORTE_MASK_SHIFT));
 			}
-			
+
 			static inline void LEDs_ToggleLEDs(const uint8_t LEDMask)
 			{
 				PORTD = (PORTD ^ (LEDMask & LEDS_PORTD_LEDS));
@@ -156,7 +156,8 @@
 		#if defined(__cplusplus)
 			}
 		#endif
-	
+
 #endif
 
 /** @} */
+

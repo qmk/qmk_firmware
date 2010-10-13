@@ -47,7 +47,7 @@ uip_split_output(void)
 
   /* We only try to split maximum sized TCP segments. */
   if(BUF->proto == UIP_PROTO_TCP  && uip_len == UIP_BUFSIZE) {
-  
+
     tcplen = uip_len - UIP_TCPIP_HLEN - UIP_LLH_LEN;
     /* Split the segment in two. If the original packet length was
        odd, we make the second packet one byte larger. */
@@ -68,7 +68,7 @@ uip_split_output(void)
     BUF->len[0] = (uip_len - UIP_LLH_LEN) >> 8;
     BUF->len[1] = (uip_len - UIP_LLH_LEN) & 0xff;
 #endif /* UIP_CONF_IPV6 */
-    
+
     /* Recalculate the TCP checksum. */
     BUF->tcpchksum = 0;
     BUF->tcpchksum = ~(uip_tcpchksum());
@@ -78,14 +78,14 @@ uip_split_output(void)
     BUF->ipchksum = 0;
     BUF->ipchksum = ~(uip_ipchksum());
 #endif /* UIP_CONF_IPV6 */
-    
+
     /* Transmit the first packet. */
 #if UIP_CONF_IPV6
     tcpip_ipv6_output();
 #else
 	RNDIS_Host_SendPacket(&Ethernet_RNDIS_Interface, uip_buf, uip_len);
 #endif /* UIP_CONF_IPV6 */
-   
+
     /* Now, create the second packet. To do this, it is not enough to
        just alter the length field, but we must also update the TCP
        sequence number and point the uip_appdata to a new place in
@@ -101,7 +101,7 @@ uip_split_output(void)
     BUF->len[0] = (uip_len  - UIP_LLH_LEN) >> 8;
     BUF->len[1] = (uip_len - UIP_LLH_LEN) & 0xff;
 #endif /* UIP_CONF_IPV6 */
-    
+
     memcpy(uip_appdata, (u8_t *)uip_appdata + len1, len2);
 
     uip_add32(BUF->seqno, len1);
@@ -109,7 +109,7 @@ uip_split_output(void)
     BUF->seqno[1] = uip_acc32[1];
     BUF->seqno[2] = uip_acc32[2];
     BUF->seqno[3] = uip_acc32[3];
-    
+
     /* Recalculate the TCP checksum. */
     BUF->tcpchksum = 0;
     BUF->tcpchksum = ~(uip_tcpchksum());
@@ -139,3 +139,4 @@ uip_split_output(void)
 }
 
 /*-----------------------------------------------------------------------------*/
+

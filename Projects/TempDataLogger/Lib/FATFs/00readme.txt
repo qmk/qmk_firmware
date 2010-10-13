@@ -115,3 +115,4 @@ REVISION HISTORY
                        Changed some types on the API, XCHAR->TCHAR.
                        Changed fname member in the FILINFO structure on Unicode cfg.
                        String functions support UTF-8 encoding files on Unicode cfg.
+

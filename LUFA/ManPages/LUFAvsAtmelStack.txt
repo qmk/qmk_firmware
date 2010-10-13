@@ -43,4 +43,4 @@
  *    As many people are now using LUFA, there is a community being built around it. You can get answers to your LUFA related questions
  *    quickly by either emailing the library author (subject to author's schedule) or by posting to the official LUFA support mailing list.
  */
- 
+
