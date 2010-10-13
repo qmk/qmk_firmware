@@ -211,9 +211,9 @@
 			 *  \pre This function must only be called when the Device state machine is in the \ref DEVICE_STATE_Configured state or
 			 *       the call will fail.
 			 *
-			 *  \param[in,out]   CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
-			 *  \param[in]       Data              Pointer to the string to send to the host.
-			 *  \param[in]       Length            Size in bytes of the string to send to the host.
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
+			 *  \param[in]     Data              Pointer to the string to send to the host.
+			 *  \param[in]     Length            Size in bytes of the string to send to the host.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */

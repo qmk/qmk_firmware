@@ -31,6 +31,9 @@
  *      eliminate any casting of descriptor pointers to a non-const pointer.
  *    - The names of the class specific descriptor type defines in the USB Class drivers have changed - refer to the driver documentation
  *      for each class driver for the new class specific descriptor type names.
+ *    - The ENDPOINT_DOUBLEBANK_SUPPORTED() macro is has been renamed \ref ENDPOINT_BANKS_SUPPORTED() and now returns the total number of
+ *      banks supported by the given endpoint. Existing code should switch to the new naming scheme, and test that the return value of the
+ *      macro is equal to or greated than 2 to regain the previous functionality.
  *
  *  <b>Host Mode</b>
  *    - Pipes MUST be allocated in ascending order to ensure that bank corruption does not occur. Ensure that your user application

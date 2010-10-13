@@ -93,30 +93,30 @@
 		/* Macros: */
 			#define _ENDPOINT_GET_MAXSIZE(EPIndex)         _ENDPOINT_GET_MAXSIZE2(ENDPOINT_DETAILS_EP ## EPIndex)
 			#define _ENDPOINT_GET_MAXSIZE2(EPDetails)      _ENDPOINT_GET_MAXSIZE3(EPDetails)
-			#define _ENDPOINT_GET_MAXSIZE3(MaxSize, DB)    (MaxSize)
+			#define _ENDPOINT_GET_MAXSIZE3(MaxSize, Banks) (MaxSize)
 
-			#define _ENDPOINT_GET_DOUBLEBANK(EPIndex)      _ENDPOINT_GET_DOUBLEBANK2(ENDPOINT_DETAILS_EP ## EPIndex)
-			#define _ENDPOINT_GET_DOUBLEBANK2(EPDetails)   _ENDPOINT_GET_DOUBLEBANK3(EPDetails)
-			#define _ENDPOINT_GET_DOUBLEBANK3(MaxSize, DB) (DB)
+			#define _ENDPOINT_GET_BANKS(EPIndex)           _ENDPOINT_GET_BANKS2(ENDPOINT_DETAILS_EP ## EPIndex)
+			#define _ENDPOINT_GET_BANKS2(EPDetails)        _ENDPOINT_GET_BANKS3(EPDetails)
+			#define _ENDPOINT_GET_BANKS3(MaxSize, Banks)   (Banks)
 
 			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 				#define ENDPOINT_DETAILS_MAXEP             7
 
-				#define ENDPOINT_DETAILS_EP0               64,  true
-				#define ENDPOINT_DETAILS_EP1               256, true
-				#define ENDPOINT_DETAILS_EP2               64,  true
-				#define ENDPOINT_DETAILS_EP3               64,  true
-				#define ENDPOINT_DETAILS_EP4               64,  true
-				#define ENDPOINT_DETAILS_EP5               64,  true
-				#define ENDPOINT_DETAILS_EP6               64,  true
+				#define ENDPOINT_DETAILS_EP0               64,  2
+				#define ENDPOINT_DETAILS_EP1               256, 2
+				#define ENDPOINT_DETAILS_EP2               64,  2
+				#define ENDPOINT_DETAILS_EP3               64,  2
+				#define ENDPOINT_DETAILS_EP4               64,  2
+				#define ENDPOINT_DETAILS_EP5               64,  2
+				#define ENDPOINT_DETAILS_EP6               64,  2
 			#else
 				#define ENDPOINT_DETAILS_MAXEP             5
 
-				#define ENDPOINT_DETAILS_EP0               64,  true
-				#define ENDPOINT_DETAILS_EP1               64,  false
-				#define ENDPOINT_DETAILS_EP2               64,  false
-				#define ENDPOINT_DETAILS_EP3               64,  true
-				#define ENDPOINT_DETAILS_EP4               64,  true
+				#define ENDPOINT_DETAILS_EP0               64,  2
+				#define ENDPOINT_DETAILS_EP1               64,  1
+				#define ENDPOINT_DETAILS_EP2               64,  1
+				#define ENDPOINT_DETAILS_EP3               64,  2
+				#define ENDPOINT_DETAILS_EP4               64,  2
 			#endif
 
 		/* Inline Functions: */
@@ -203,11 +203,11 @@
 			 */
 			#define ENDPOINT_MAX_SIZE(EPIndex)              _ENDPOINT_GET_MAXSIZE(EPIndex)
 
-			/** Indicates if the given endpoint supports double banking.
+			/** Indicates the total number of banks supported by the given endpoint.
 			 *
 			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */
-			#define ENDPOINT_DOUBLEBANK_SUPPORTED(EPIndex)  _ENDPOINT_GET_DOUBLEBANK(EPIndex)
+			#define ENDPOINT_BANKS_SUPPORTED(EPIndex)       _ENDPOINT_GET_BANKS(EPIndex)
 
 			#if !defined(CONTROL_ONLY_DEVICE) || defined(__DOXYGEN__)
 				/** Total number of endpoints (including the default control endpoint at address 0) which may
