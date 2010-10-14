@@ -2,7 +2,7 @@ t.m.k. Keyboard Firmware
 ========================
 http://github.com/tmk/tmk_keyboard
 
-This is keyboard firmware for PFU HHKB style keyboard and teensy 2.0.
+This is keyboard firmware for PFU HHKB style keyboard and Teensy/Teensy++ 2.0.
 OS see this as composite device which has keyboard and mouse.
 
 The project is heavily based on PJRC USB Keyboard/Mouse Example and
@@ -31,10 +31,23 @@ Version
         Matrix wiring changed for casing.
         (and my Teensy PD3 seems to be latchuped and unusable. :<)
 
+1.2     2010/10/13
+        HHKB support
+        horizontal mouse wheel support
+        change keymaps
 
-Target board
-------------
-Teensy 2.0
+
+Build
+-----
+Compiling sources need AVR GCC, AVR Libc and GNU make.(You can use WinAVR on Windows.)
+
+$ cd <target> (hhkb or macway)
+$ make
+
+
+AVR Target board
+----------------
+Teensy/Teensy++
 http://www.pjrc.com/teensy
 
 
@@ -72,8 +85,6 @@ debouncing logic
     bouncing doesnt occur on my ALPS switch so far.
     scan rate is too slow?(to be measure)
 
-support for HHKB pro matrix signal
-    exchange controller board with teensy
 Trackpoint(PS/2)
     receive PS/2 signal from TrackPoint
     send USB HID report
@@ -90,6 +101,13 @@ setting menu(configure without changing firmware)
     matrix display
 PS/2 keyboard mode
     with USB to PS/2 dumb adapter(possible?)
+AT90USBKEY support
+    and other AVR USB boards
+
+DONE:
+support for HHKB pro matrix signal
+    exchange controller board with teensy
+    2010/10/11
 
 
 EOF

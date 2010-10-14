@@ -1,11 +1,14 @@
 /* 
- * keymap for modified macway keyboarq
+ * keymap for modified Macway
  */
+#include <stdbool.h>
 #include <avr/pgmspace.h>
 #include "matrix.h"
 #include "keymap.h"
+#include "usb_keyboard.h"
 
 int current_layer = 0;
+bool key_sent = false;
 
 /*
  * Layer0(Default Layer)

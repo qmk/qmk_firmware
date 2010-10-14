@@ -39,37 +39,28 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-
-# Target file name (without extension).
-TARGET = tmk
+# Following variables need to be set in <target>/Makefile:
+# 	TARGET
+# 	COMMON_DIR
+# 	TARGET_DIR
+# 	TARGET_SRC
+# 	MCU
+# 	F_CPU
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC =	$(TARGET).c \
+SRC =	tmk.c \
+	key_process.c \
 	usb.c \
 	usb_keyboard.c \
 	usb_mouse.c \
 	usb_debug.c \
-	keymap.c \
-	matrix.c \
 	jump_bootloader.c \
 	print.c
+SRC +=	$(TARGET_SRC)
 
-
-# MCU name, you MUST set this to match the board you are using
-# type "make clean" after changing this, so all files will be rebuilt
-#MCU = at90usb162       # Teensy 1.0
-MCU = atmega32u4        # Teensy 2.0
-#MCU = at90usb646       # Teensy++ 1.0
-#MCU = at90usb1286      # Teensy++ 2.0
-
-
-# Processor frequency.
-#   Normally the first thing your program should do is set the clock prescaler,
-#   so your program will run at the correct speed.  You should also set this
-#   variable to same clock speed.  The _delay_ms() macro uses this, and many
-#   examples use this variable to calculate timings.  Do not add a "UL" here.
-F_CPU = 16000000
+# C source file search path
+VPATH = $(TARGET_DIR):$(COMMON_DIR)
 
 
 # Output format. (can be srec, ihex, binary)
@@ -113,7 +104,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = 
+EXTRAINCDIRS = $(TARGET_DIR) $(COMMON_DIR)
 
 
 # Compiler flag to set the C Standard level.
@@ -161,7 +152,7 @@ CFLAGS += -Wstrict-prototypes
 #CFLAGS += -Wundef
 #CFLAGS += -Wunreachable-code
 #CFLAGS += -Wsign-compare
-CFLAGS += -Wa,-adhlns=$(<:%.c=$(OBJDIR)/%.lst)
+CFLAGS += -Wa,-adhlns=$(@:%.o=$(OBJDIR)/%.lst)
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
 
@@ -376,10 +367,10 @@ MSG_CREATING_LIBRARY = Creating library:
 
 
 # Define all object files.
-OBJ = $(SRC:%.c=$(OBJDIR)/%.o) $(CPPSRC:%.cpp=$(OBJDIR)/%.o) $(ASRC:%.S=$(OBJDIR)/%.o) 
+OBJ = $(SRC:%.c=$(OBJDIR)/%.o) $(CPPSRC:%.cpp=$(OBJDIR)/%.o) $(ASRC:%.S=$(OBJDIR)/%.o)
 
 # Define all listing files.
-LST = $(SRC:%.c=$(OBJDIR)/%.lst) $(CPPSRC:%.cpp=$(OBJDIR)/%.lst) $(ASRC:%.S=$(OBJDIR)/%.lst) 
+LST = $(SRC:%.c=$(OBJDIR)/%.lst) $(CPPSRC:%.cpp=$(OBJDIR)/%.lst) $(ASRC:%.S=$(OBJDIR)/%.lst)
 
 
 # Compiler flags to generate dependency files.
