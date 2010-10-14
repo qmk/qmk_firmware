@@ -2,10 +2,11 @@
 #define KEYMAP_H 1
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "usb_keycodes.h"
 
 
-#define MATRIX_ROWS 8
+#define MATRIX_ROWS 9
 #define MATRIX_COLS 8
 
 

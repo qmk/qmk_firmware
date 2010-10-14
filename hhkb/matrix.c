@@ -50,7 +50,6 @@ void matrix_init(void)
 
 uint8_t matrix_scan(void)
 {
-    uint8_t state;
     uint8_t *tmp;
 
     tmp = matrix_prev;
@@ -59,12 +58,10 @@ uint8_t matrix_scan(void)
 
     for (int row = 0; row < MATRIX_ROWS; row++) {
         for (int col = 0; col < MATRIX_COLS; col++) {
-//print("scan: "); phex(row); phex(col); print("\n");
             KEY_SELELCT(row, col);
             _delay_us(50);  // from logic analyzer chart
             KEY_ENABLE;
             _delay_us(10);  // from logic analyzer chart
-//print("PINE: "); phex(PINE); print("\n");
             if (KEY_ON) {
                 matrix[row] &= ~(1<<col);
             } else {

@@ -1,10 +1,10 @@
 /* 
- * keymap for modified macway keyboarq
+ * keymap for HHKB pro
  */
 #include <stdbool.h>
 #include <avr/pgmspace.h>
 #include "matrix.h"
-#include "keymap_hhkb.h"
+#include "keymap.h"
 #include "usb_keyboard.h"
 
 int current_layer = 0;
