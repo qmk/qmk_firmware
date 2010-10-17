@@ -122,6 +122,9 @@
 			/** Selects the CUL V3 specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_CULV3         19
 
+			/** Selects the Blackcat USB JTAG specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_BLACKCAT      20
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 

@@ -80,6 +80,7 @@
  *  - ARPS Locator: http://la3t.hamradio.no/lab//?id=tracker_en
  *  - Digital Survey Instruments Magnetometer and Pointer: http://www.digitalsurveyinstruments.com/
  *  - Penguino, an Arduino Board With On-Board LUFA Powered Debugger/Programmer: http://wiki.icy.com.au/PenguinoAVR
+ *  - PIR-1, an IR control interface for consumer electronics: http://www.promixis.com/pir-1.php
  *  - Many of Busware's Products: http://www.busware.de/
  *  - MIDIFighter, a USB-MIDI controller: http://www.midifighter.com/
  *  - Retrode, a USB Games Console Cartridge Reader: http://www.retrode.org
