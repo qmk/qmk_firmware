@@ -128,6 +128,9 @@
 			/** Selects the Maximus specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_MAXIMUS       21
 
+			/** Selects the Minimus specific board drivers, including the Button and LEDs drivers. */
+			#define BOARD_MINIMUS       22
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 
