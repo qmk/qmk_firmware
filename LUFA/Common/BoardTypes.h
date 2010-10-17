@@ -125,6 +125,9 @@
 			/** Selects the Blackcat USB JTAG specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_BLACKCAT      20
 
+			/** Selects the Maximus specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_MAXIMUS       21
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 
