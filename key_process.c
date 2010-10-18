@@ -58,7 +58,7 @@ void proc_matrix(void) {
         }
 
         keyboard_modifier_keys = 0;
-        for (int i = 0; i < 3; i++) keyboard_keys[i] = KB_NO;
+        for (int i = 0; i < 6; i++) keyboard_keys[i] = KB_NO;
         key_index = 0;
         mouse_btn = 0;
         mouse_x = 0;
