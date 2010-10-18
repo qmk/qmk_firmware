@@ -152,12 +152,17 @@ int get_layer(void) {
         for (int col = 0; col < MATRIX_ROWS; col++) {
             if (matrix[row] & 1<<col) continue; // NOT pressed
             uint8_t code = get_keycode(0, row, col);
-            if      (code == FN_1) layer = 1;
-            else if (code == FN_2) layer = 2;
-            else if (code == FN_3) layer = 3;
-            else if (code == FN_4) layer = 4;
+
+            // NOT change current_layer when one more Fn keys pressed
+            //                          when other than Fn key pressed
+            if      (code == FN_1) layer = layer ? current_layer : 1;
+            else if (code == FN_2) layer = layer ? current_layer : 2;
+            else if (code == FN_3) layer = layer ? current_layer : 3;
+            else if (code == FN_4) layer = layer ? current_layer : 4;
             else if (KB_LCTRL <= code && code <= KB_RGUI)
                 modifiers |= 1<<(code & 0x07);
+            else // other_key_pressed
+                layer = current_layer;
         }
     }
 
