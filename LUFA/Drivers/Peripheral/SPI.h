@@ -121,9 +121,9 @@
 			 */
 			static inline void SPI_Init(const uint8_t SPIOptions)
 			{
-				DDRB  |= ((1 << 1) | (1 << 2));
-				DDRB  &= ((1 << 0) | (1 << 3));
-				PORTB |= ((1 << 0) | (1 << 3));
+				DDRB  |=  ((1 << 1) | (1 << 2));
+				DDRB  &= ~((1 << 0) | (1 << 3));
+				PORTB |=  ((1 << 0) | (1 << 3));
 
 				SPCR   = ((1 << SPE) | SPIOptions);
 
