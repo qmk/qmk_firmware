@@ -7,7 +7,7 @@
  /** \page Page_FutureChanges Future Changes
   *
   *  Below is a list of future changes which are proposed for the LUFA library, but not yet started/complete.
-  *  This gives an unordered list of future changes which will be available in future releases of the library.
+  *  This gives an unordered list of future changes which may be available in future releases of the library.
   *  If you have an item to add to this list, please contact the library author via email, the LUFA mailing list,
   *  or post your suggestion as an enhancement request to the project bug tracker.
   *
@@ -18,9 +18,10 @@
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Re-add interrupt Pipe/Endpoint support
-  *      -# Fix intermittent device mode enumeration errors
   *      -# Add HID report macros to make HID report editing easier
   *      -# Add endpoint/pipe bank kill macros
+  *      -# Investigate dynamically created device descriptors
+  *      -# Add new event for EVENT_USB_Device_ControlRequest() fired before the internal library request handlers
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews

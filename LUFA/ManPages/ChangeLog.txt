@@ -27,6 +27,7 @@
   *  - Added board hardware driver support for the Blackcat USB JTAG board (thanks to the PSGroove team)
   *  - Added board hardware driver support for the Maximus board (thanks to the PSGroove team)
   *  - Added board hardware driver support for the Minimus board (thanks to the PSGroove team)
+  *  - Added default test tone generation mode to the Device mode AudioInput demos
   *
   *  <b>Changed:</b>
   *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions
