@@ -32,6 +32,7 @@ static uint8_t _matrix1[MATRIX_ROWS];
 
 
 static bool matrix_has_ghost_in_row(int row);
+static int bit_pop(uint8_t bits);
 
 
 inline
@@ -88,7 +89,7 @@ int matrix_scan(void)
 }
 
 bool matrix_is_modified(void) {
-    for (int i=0; i <MATRIX_ROWS; i++) {
+    for (int i = 0; i < MATRIX_ROWS; i++) {
         if (matrix[i] != matrix_prev[i])
             return true;
     }
@@ -117,7 +118,22 @@ void matrix_print(void) {
     }
 }
 
+int matrix_key_count(void) {
+    int count = 0;
+    for (int i = 0; i < MATRIX_ROWS; i++) {
+        count += bit_pop(~matrix[i]);
+    }
+    return count;
+}
+
 inline
 static bool matrix_has_ghost_in_row(int row) {
     return false;
+}
+
+static int bit_pop(uint8_t bits) {
+    int c;
+    for (c = 0; bits; c++)
+        bits &= bits -1;
+    return c;
 }

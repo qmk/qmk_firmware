@@ -27,8 +27,12 @@
 #include <avr/pgmspace.h>
 #include "print.h"
 
+
+bool print_enable = false;
+
 void print_P(const char *s)
 {
+	if (!print_enable) return;
 	char c;
 
 	while (1) {
@@ -41,17 +45,20 @@ void print_P(const char *s)
 
 void phex1(unsigned char c)
 {
+	if (!print_enable) return;
 	usb_debug_putchar(c + ((c < 10) ? '0' : 'A' - 10));
 }
 
 void phex(unsigned char c)
 {
+	if (!print_enable) return;
 	phex1(c >> 4);
 	phex1(c & 15);
 }
 
 void phex16(unsigned int i)
 {
+	if (!print_enable) return;
 	phex(i >> 8);
 	phex(i);
 }
@@ -59,6 +66,7 @@ void phex16(unsigned int i)
 
 void pbin(unsigned char c)
 {
+    if (!print_enable) return;
     for (int i = 7; i >= 0; i--) {
         usb_debug_putchar((c & (1<<i)) ? '1' : '0');
     }
@@ -66,6 +74,7 @@ void pbin(unsigned char c)
 
 void pbin_reverse(unsigned char c)
 {
+    if (!print_enable) return;
     for (int i = 0; i < 8; i++) {
         usb_debug_putchar((c & (1<<i)) ? '1' : '0');
     }

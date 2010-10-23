@@ -63,18 +63,6 @@ int main(void)
     usb_init();
     while (!usb_configured()) /* wait */ ;
 
-    // Wait an extra second for the PC's operating system to load drivers
-    // and do whatever it does to actually be ready for input
-    // needs such long time in my PC.
-    /* wait for debug print. no need for normal use */
-    for (int i =0; i < 6; i++) {
-        LED_CONFIG;
-        LED_ON;
-        _delay_ms(500);
-        LED_OFF;
-        _delay_ms(500);
-    }
-
     // Configure timer 0 to generate a timer overflow interrupt every
     // 256*1024 clock cycles, or approx 61 Hz when using 16 MHz clock
     // This demonstrates how to use interrupts to implement a simple
@@ -85,6 +73,20 @@ int main(void)
 
 
     matrix_init();
+    matrix_scan();
+    // debug on when 4 keys are pressed
+    if (matrix_key_count() == 4) print_enable = true;
+
+    /* wait for debug pipe to print greetings. */
+    if (print_enable) {
+        for (int i =0; i < 6; i++) {
+            LED_CONFIG;
+            LED_ON;
+            _delay_ms(500);
+            LED_OFF;
+            _delay_ms(500);
+        }
+    }
     print("\nt.m.k. keyboard 1.2\n");
     while (1) {
        proc_matrix(); 

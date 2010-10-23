@@ -1,8 +1,12 @@
 #ifndef PRINT_H__
 #define PRINT_H__ 1
 
+#include <stdbool.h>
 #include <avr/pgmspace.h>
 #include "usb_debug.h"
+
+
+bool print_enable;
 
 // this macro allows you to write print("some text") and
 // the string is automatically placed into flash memory :)

@@ -25,6 +25,7 @@
 #define MOUSE_DELAY_ACC 5
 
 
+// TODO: refactoring
 void proc_matrix(void) {
     static int mouse_repeat = 0;
 
