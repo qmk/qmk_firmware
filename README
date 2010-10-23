@@ -84,6 +84,9 @@ debouncing logic
     will be coded when bouncing occurs.
     bouncing doesnt occur on my ALPS switch so far.
     scan rate is too slow?(to be measure)
+layer switch
+    time before switching
+    timeout when not used during specific time
 
 Trackpoint(PS/2)
     receive PS/2 signal from TrackPoint
@@ -108,6 +111,11 @@ DONE:
 support for HHKB pro matrix signal
     exchange controller board with teensy
     2010/10/11
+keymap
+    Matias half keyboard style
+    2010/10/23
+souce code cleaning
+    2010/10/23
 
 
 EOF
