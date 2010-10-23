@@ -34,7 +34,7 @@
 #include "usb_keyboard.h"
 #include "usb_mouse.h"
 #include "print.h"
-#include "matrix.h"
+#include "matrix_skel.h"
 #include "keymap.h"
 #include "jump_bootloader.h"
 
