@@ -45,6 +45,12 @@ $ cd <target> (hhkb or macway)
 $ make
 
 
+Debuging
+--------
+Debug print is on if 4 keys are pressed during booting. 
+Use PJRC's hid_listen.exe to see debug messages.
+
+
 AVR Target board
 ----------------
 Teensy/Teensy++
@@ -84,9 +90,14 @@ debouncing logic
     will be coded when bouncing occurs.
     bouncing doesnt occur on my ALPS switch so far.
     scan rate is too slow?(to be measure)
-layer switch
+layer switching
     time before switching
     timeout when not used during specific time
+debug on/off
+    Fn key conbination during normal operation
+    matrix print on/off
+    key print on/off
+    mouse print on/off
 
 Trackpoint(PS/2)
     receive PS/2 signal from TrackPoint
@@ -115,6 +126,10 @@ keymap
     Matias half keyboard style
     2010/10/23
 souce code cleaning
+    2010/10/23
+debug on/off
+    debug off by default
+    pressing keys during booting
     2010/10/23
 
 
