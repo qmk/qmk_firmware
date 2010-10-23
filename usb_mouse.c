@@ -1,7 +1,10 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "usb_mouse.h"
+#include "print.h"
 
+
+static bool is_sent = false;
 
 // which buttons are currently pressed
 uint8_t mouse_buttons=0;
@@ -60,5 +63,23 @@ int8_t usb_mouse_move(int8_t x, int8_t y, int8_t wheel, int8_t hwheel)
         
 	UEINTX = 0x3A;
 	SREG = intr_state;
+        is_sent = true;
 	return 0;
+}
+
+void usb_mouse_clear(void) {
+    is_sent = false;
+}
+
+bool usb_mouse_is_sent(void) {
+    return is_sent;
+}
+
+void usb_mouse_print(int8_t mouse_x, int8_t mouse_y, int8_t wheel_v, int8_t wheel_h) {
+    print("mouse btn|x y v h: ");
+    phex(mouse_buttons); print("|");
+    phex(mouse_x); print(" ");
+    phex(mouse_y); print(" ");
+    phex(wheel_v); print(" ");
+    phex(wheel_h); print("\n");
 }

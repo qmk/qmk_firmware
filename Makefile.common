@@ -51,10 +51,10 @@
 # List C source files here. (C dependencies are automatically generated.)
 SRC =	tmk.c \
 	key_process.c \
-	usb.c \
 	usb_keyboard.c \
 	usb_mouse.c \
 	usb_debug.c \
+	usb.c \
 	jump_bootloader.c \
 	print.c
 SRC +=	$(TARGET_SRC)

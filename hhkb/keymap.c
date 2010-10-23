@@ -3,12 +3,18 @@
  */
 #include <stdbool.h>
 #include <avr/pgmspace.h>
+#include "usb_keyboard.h"
 #include "matrix.h"
 #include "keymap.h"
-#include "usb_keyboard.h"
+#include "print.h"
 
-int current_layer = 0;
-bool key_sent = false;
+#define FN_KEYCODE(fn) (pgm_read_byte(&fn_keycode[(fn)]))
+#define FN_LAYER(fn)   (pgm_read_byte(&fn_layer[(fn)]))
+#define KEYMAPS(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
+
+static int current_layer = 0;
+static bool layer_used = false;
+static int onbit(uint8_t bits);
 
 /*
  * Layer0(Default Layer)
@@ -66,15 +72,21 @@ bool key_sent = false;
  * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
  */
 
-/* keycode sent when Fn key released without using layer keys. */
-static const uint8_t PROGMEM FnKey[] = {
-    KB_NO,          // this must be KB_NO. (not used)
+/* keycode to sent when Fn key released without using layer keys. */
+static const uint8_t PROGMEM fn_keycode[] = {
+    KB_NO,          // FN_0
     KB_NO,          // FN_1
     KB_RALT,        // FN_2
     KB_SCOLON,      // FN_3
+    KB_NO,          // FN_4
+    KB_NO,          // FN_5
+    KB_NO,          // FN_6
+    KB_NO,          // FN_7
 };
+/* layer to change into while Fn key pressed */ 
+static const int PROGMEM fn_layer[] = { 0, 1, 2, 3, 0, 0, 0, 0 };
 
-static const uint8_t PROGMEM Keymap[][MATRIX_ROWS][MATRIX_COLS] = {
+static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*  plain keymap
     {
         { KB_2,       KB_Q,       KB_W,       KB_S,       KB_A,       KB_Z,       KB_X,       KB_C        },
@@ -134,61 +146,77 @@ static const uint8_t PROGMEM Keymap[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-uint8_t get_keycode(int layer, int row, int col)
+uint8_t keymap_get_keycode(int row, int col)
 {
-    if (row >= MATRIX_ROWS)
-        return KB_NO;
-    if (col >= MATRIX_COLS)
-        return KB_NO;
-    return pgm_read_byte(&Keymap[layer][row][col]);
+    return keymap_get_keycodel(current_layer, row, col);
 }
 
-int get_layer(void) {
-    // keep modifier state when Fn key pressed
-    static uint8_t preserved_modifiers = 0;
-    int layer = 0;
-    uint8_t modifiers = 0;
-    for (int row = 0; row < MATRIX_ROWS; row++) {
-        for (int col = 0; col < MATRIX_ROWS; col++) {
-            if (matrix[row] & 1<<col) continue; // NOT pressed
-            uint8_t code = get_keycode(0, row, col);
+uint8_t keymap_get_keycodel(int layer, int row, int col)
+{
+    uint8_t code = KEYMAPS(layer, row, col);
+    // normal key or mouse key
+    if ((KB_A <= code && code <= KP_HEXADECIMAL) ||
+        (MS_UP <= code && code <= MS_WH_RIGHT))
+        layer_used = true;
+    return code;
+}
 
-            // NOT change current_layer when one more Fn keys pressed
-            //                          when other than Fn key pressed
-            if      (code == FN_1) layer = layer ? current_layer : 1;
-            else if (code == FN_2) layer = layer ? current_layer : 2;
-            else if (code == FN_3) layer = layer ? current_layer : 3;
-            else if (code == FN_4) layer = layer ? current_layer : 4;
-            else if (KB_LCTRL <= code && code <= KB_RGUI)
-                modifiers |= 1<<(code & 0x07);
-            else // other_key_pressed
-                layer = current_layer;
-        }
-    }
+inline
+int keymap_get_layer(void) {
+    return current_layer;
+}
 
-    // TODO: this logic should go anywhere
-    // TODO: need timeout for key_sent
-    // send key when Fn key reloeased without used
-    if (layer != current_layer) {
-        if (layer == 0 && !key_sent) {
-            uint8_t code = pgm_read_byte(&FnKey[current_layer]);
-            if (code) {
-                // send modifiers when Fn key pressed.
-                keyboard_modifier_keys = preserved_modifiers;
-                for (int i = 0; i < 6; i++) keyboard_keys[i] = KB_NO;
+inline
+int keymap_set_layer(int layer) {
+    current_layer = layer;
+    return current_layer;
+}
 
-                if (KB_LCTRL <= code && code <= KB_RGUI) {
-                    keyboard_modifier_keys |= 1<<(code & 0x07);
-                } else  {
+void keymap_fn_proc(int fn_bits) {
+    // layer switching
+    static int last_bits = 0;
+    static uint8_t last_mod = 0;
+
+    if (usb_keyboard_has_key() || fn_bits == last_bits) {
+        // do nothing during press other than Fn key 
+        return;
+    } else if (fn_bits == 0) {
+        // send key when Fn key is released without using the layer
+        if (!layer_used) {
+            uint8_t code = FN_KEYCODE(onbit(last_bits));
+            if (code != KB_NO) {
+                if (KB_LCTRL <= code  && code <= KB_RGUI) {
+                    keyboard_modifier_keys = last_mod | 1<<(code & 0x07);
+                } else {
                     keyboard_keys[0] = code;
+                    keyboard_modifier_keys = last_mod;
                 }
                 usb_keyboard_send();
+                usb_keyboard_print();
+                usb_keyboard_clear();
             }
         }
-        current_layer = layer;
-        key_sent = false;
-        preserved_modifiers = modifiers;
+        last_bits = 0;
+        last_mod = 0;
+        layer_used = false;
+        keymap_set_layer(0); // default layer
+        print("layer default: "); phex(current_layer); print("\n");
+    } else if ((fn_bits & (fn_bits - 1)) == 0) {
+        // switch layer when just one Fn Key is pressed
+        last_bits = fn_bits;
+        last_mod = keyboard_modifier_keys;
+        layer_used = false;
+        keymap_set_layer(FN_LAYER(onbit(fn_bits)));
+        print("layer: "); phex(current_layer); print("\n");
+        print("last_bits: "); phex(last_bits); print("\n");
+        print("last_mod: "); phex(last_mod); print("\n");
     }
+}
 
-    return current_layer;
+static int onbit(uint8_t bits) {
+    int n = 0;
+    if (bits >> 4) { bits >>= 4; n += 4;}
+    if (bits >> 2) { bits >>= 2; n += 2;}
+    if (bits >> 1) { bits >>= 1; n += 1;}
+    return n;
 }

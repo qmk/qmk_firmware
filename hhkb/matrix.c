@@ -31,6 +31,19 @@ static uint8_t _matrix0[MATRIX_ROWS];
 static uint8_t _matrix1[MATRIX_ROWS];
 
 
+static bool matrix_has_ghost_in_row(int row);
+
+
+inline
+int matrix_rows(void) {
+    return MATRIX_ROWS;
+}
+
+inline
+int matrix_cols(void) {
+    return MATRIX_COLS;
+}
+
 // this must be called once before matrix_scan.
 void matrix_init(void)
 {
@@ -48,7 +61,7 @@ void matrix_init(void)
     matrix_prev = _matrix1;
 }
 
-uint8_t matrix_scan(void)
+int matrix_scan(void)
 {
     uint8_t *tmp;
 
@@ -82,10 +95,29 @@ bool matrix_is_modified(void) {
     return false;
 }
 
+inline
 bool matrix_has_ghost(void) {
     return false;
 }
 
-bool matrix_has_ghost_in_row(uint8_t row) {
+inline
+uint16_t matrix_get_row(int row) {
+    return matrix[row];
+}
+
+void matrix_print(void) {
+    print("\nr/c 01234567\n");
+    for (int row = 0; row < matrix_rows(); row++) {
+        phex(row); print(": ");
+        pbin_reverse(matrix_get_row(row));
+        if (matrix_has_ghost_in_row(row)) {
+            print(" <ghost");
+        }
+        print("\n");
+    }
+}
+
+inline
+static bool matrix_has_ghost_in_row(int row) {
     return false;
 }

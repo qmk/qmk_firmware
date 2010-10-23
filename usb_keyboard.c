@@ -1,7 +1,10 @@
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include "usb_keyboard.h"
+#include "print.h"
 
+
+static bool is_sent = false;
 
 // which modifier keys are currently pressed
 // 1=left ctrl,    2=left shift,   4=left alt,    8=left gui
@@ -72,5 +75,45 @@ int8_t usb_keyboard_send(void)
 	UEINTX = 0x3A;
 	keyboard_idle_count = 0;
 	SREG = intr_state;
+        is_sent = true;
 	return 0;
+}
+
+void usb_keyboard_init(void) {
+    usb_keyboard_clear();
+    is_sent = false;
+}
+
+void usb_keyboard_clear(void) {
+    usb_keyboard_clear_key();
+    usb_keyboard_clear_mod();
+}
+
+void usb_keyboard_clear_key(void) {
+    for (int i = 0; i < 6; i++) keyboard_keys[i] = 0;
+}
+
+void usb_keyboard_clear_mod(void) {
+    keyboard_modifier_keys = 0;
+}
+
+bool usb_keyboard_is_sent(void) {
+    return is_sent;
+}
+
+bool usb_keyboard_has_key(void) {
+    uint8_t keys = 0;    
+    for (int i = 0; i < 6; i++) keys |= keyboard_keys[i];
+    return keys ? true : false;
+}
+
+bool usb_keyboard_has_mod(void) {
+    return keyboard_modifier_keys ? true : false;
+}
+
+void usb_keyboard_print(void) {
+    print("\nkeys: ");
+    for (int i = 0; i < 6; i++) { phex(keyboard_keys[i]); print(" "); }
+    print("\n");
+    print("mods: "); phex(keyboard_modifier_keys); print("\n");
 }
