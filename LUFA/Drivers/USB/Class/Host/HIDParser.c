@@ -32,6 +32,7 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
+#define  __INCLUDE_FROM_HID_DRIVER
 #include "HIDParser.h"
 
 uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,

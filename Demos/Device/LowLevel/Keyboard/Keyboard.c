@@ -138,7 +138,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	/* Handle HID Class specific requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetReport:
+		case HID_REQ_GetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				USB_KeyboardReport_Data_t KeyboardReportData;
@@ -154,7 +154,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_SetReport:
+		case HID_REQ_SetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -177,7 +177,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_GetProtocol:
+		case HID_REQ_GetProtocol:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -190,7 +190,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_SetProtocol:
+		case HID_REQ_SetProtocol:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -201,7 +201,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_SetIdle:
+		case HID_REQ_SetIdle:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -212,7 +212,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_GetIdle:
+		case HID_REQ_GetIdle:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -251,7 +251,7 @@ void CreateKeyboardReport(USB_KeyboardReport_Data_t* const ReportData)
 	memset(ReportData, 0, sizeof(USB_KeyboardReport_Data_t));
 
 	/* Make sent key uppercase by indicating that the left shift key is pressed */
-	ReportData->Modifier = KEYBOARD_MODIFER_LEFTSHIFT;
+	ReportData->Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
 
 	if (JoyStatus_LCL & JOY_UP)
 	  ReportData->KeyCode[UsedKeyCodes++] = 0x04; // A
@@ -278,13 +278,13 @@ void ProcessLEDReport(const uint8_t LEDReport)
 {
 	uint8_t LEDMask = LEDS_LED2;
 
-	if (LEDReport & KEYBOARD_LED_NUMLOCK)
+	if (LEDReport & HID_KEYBOARD_LED_NUMLOCK)
 	  LEDMask |= LEDS_LED1;
 
-	if (LEDReport & KEYBOARD_LED_CAPSLOCK)
+	if (LEDReport & HID_KEYBOARD_LED_CAPSLOCK)
 	  LEDMask |= LEDS_LED3;
 
-	if (LEDReport & KEYBOARD_LED_SCROLLLOCK)
+	if (LEDReport & HID_KEYBOARD_LED_SCROLLLOCK)
 	  LEDMask |= LEDS_LED4;
 
 	/* Set the status LEDs to the current Keyboard LED status */
@@ -305,7 +305,7 @@ void SendNextReport(void)
 	SendReport = (memcmp(&PrevKeyboardReportData, &KeyboardReportData, sizeof(USB_KeyboardReport_Data_t)) != 0);
 
 	/* Check if the idle period is set and has elapsed */
-	if ((IdleCount != HID_IDLE_CHANGESONLY) && (!(IdleMSRemaining)))
+	if (IdleCount && (!(IdleMSRemaining)))
 	{
 		/* Reset the idle time remaining counter */
 		IdleMSRemaining = IdleCount;

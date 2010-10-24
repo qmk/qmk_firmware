@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBClassSI Still Image Class Driver - LUFA/Drivers/Class/StillImage.h
+ *  @defgroup Group_USBClassSI Still Image Class Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
@@ -59,15 +59,11 @@
 #define _SI_CLASS_H_
 
 	/* Macros: */
-		#define __INCLUDE_FROM_SI_DRIVER
 		#define __INCLUDE_FROM_USB_DRIVER
+		#define __INCLUDE_FROM_SI_DRIVER
 
 	/* Includes: */
 		#include "../HighLevel/USBMode.h"
-
-		#if defined(NO_STREAM_CALLBACKS)
-			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
-		#endif
 
 		#if defined(USB_CAN_BE_HOST)
 			#include "Host/StillImage.h"

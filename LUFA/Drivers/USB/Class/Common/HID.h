@@ -33,8 +33,8 @@
  *
  *  Common definitions and declarations for the library USB HID Class driver.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the class driver
- *        dispatch header located in LUFA/Drivers/USB/Class/HID.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the USB module driver
+ *        dispatch header located in LUFA/Drivers/USB.h.
  */
 
 /** \ingroup Group_USBClassHID
@@ -51,13 +51,13 @@
 #define _HID_CLASS_COMMON_H_
 
 	/* Includes: */
-		#include "../../USB.h"
+		#include "../../HighLevel/StdDescriptors.h"
 
 		#include <string.h>
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_HID_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/Class/HID.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 
 	/* Macros: */

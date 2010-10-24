@@ -38,25 +38,24 @@
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/Host/HIDParser.h>
 
 		#include "JoystickHostWithParser.h"
-
+		
 	/* Macros: */
-		/** HID Report Descriptor Usage for a Joystick. */
-		#define USAGE_JOYSTICK              0x04
-
 		/** HID Report Descriptor Usage Page value for a toggle button. */
 		#define USAGE_PAGE_BUTTON           0x09
 
 		/** HID Report Descriptor Usage Page value for a Generic Desktop Control. */
 		#define USAGE_PAGE_GENERIC_DCTRL    0x01
 
+		/** HID Report Descriptor Usage for a Joystick. */
+		#define USAGE_JOYSTICK              0x04
+
 		/** HID Report Descriptor Usage value for a X axis movement. */
 		#define USAGE_X                     0x30
 
 		/** HID Report Descriptor Usage value for a Y axis movement. */
-		#define USAGE_Y                     0x31
+		#define USAGE_Y                     0x31	
 
 	/* Enums: */
 		/** Enum for the possible return codes of the \ref GetHIDReportData() function. */
@@ -66,21 +65,6 @@
 			ParseError              = 1, /**< Failed to fully process the HID report descriptor */
 			ParseControlError       = 2, /**< Control error occurred while trying to read the device HID descriptor */
 		};
-
-	/* Type Defines: */
-		/** Type define for a HID descriptor. */
-		typedef struct
-		{
-			USB_Descriptor_Header_t  Header; /**< Regular descriptor header containing the descriptor's type and length */
-
-			uint16_t                 HIDSpec; /**< Implemented HID class specification, in BCD encoded format */
-			uint8_t                  CountryCode; /**< Country code value for localized hardware */
-
-			uint8_t                  TotalHIDDescriptors; /**< Total number of HID report descriptors in the current interface */
-
-			uint8_t                  HIDReportType; /**< HID report type of the first HID report descriptor */
-			uint16_t                 HIDReportLength; /**< Total size in bytes of the first HID report descriptor */
-		} USB_Descriptor_HID_t;
 
 	/* External Variables: */
 		extern uint16_t         HIDReportSize;

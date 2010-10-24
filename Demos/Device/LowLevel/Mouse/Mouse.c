@@ -44,7 +44,7 @@ bool UsingReportProtocol = true;
 /** Current Idle period. This is set by the host via a Set Idle HID class request to silence the device's reports
  *  for either the entire idle duration, or until the report status changes (e.g. the user moves the mouse).
  */
-uint16_t IdleCount = HID_IDLE_CHANGESONLY;
+uint16_t IdleCount = 0;
 
 /** Current Idle period remaining. When the IdleCount value is set, this tracks the remaining number of idle
  *  milliseconds. This is separate to the IdleCount timer and is incremented and compared as the host may request
@@ -135,7 +135,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	/* Handle HID Class specific requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetReport:
+		case HID_REQ_GetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				USB_MouseReport_Data_t MouseReportData;
@@ -154,7 +154,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_GetProtocol:
+		case HID_REQ_GetProtocol:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -167,7 +167,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_SetProtocol:
+		case HID_REQ_SetProtocol:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -178,7 +178,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_SetIdle:
+		case HID_REQ_SetIdle:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -189,7 +189,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_GetIdle:
+		case HID_REQ_GetIdle:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -261,7 +261,7 @@ void SendNextReport(void)
 	  SendReport = true;
 
 	/* Check if the idle period is set and has elapsed */
-	if ((IdleCount != HID_IDLE_CHANGESONLY) && (!(IdleMSRemaining)))
+	if (IdleCount && (!(IdleMSRemaining)))
 	{
 		/* Reset the idle time remaining counter */
 		IdleMSRemaining = IdleCount;

@@ -44,16 +44,6 @@
 
 		#include "../PrinterHost.h"
 
-	/* Macros: */
-		/** Printer class-specific request to retrieve the printer's ID string. */
-		#define REQ_GetDeviceID              0
-
-		/** Printer class-specific request to retrieve the printer's virtual port status flags. */
-		#define REQ_GetPortStatus            1
-
-		/** Printer class-specific request to soft-reset the device. */
-		#define REQ_SoftReset                2
-
 	/* Function Prototypes: */
 		uint8_t Printer_SendData(const void* const PrinterCommands,
 		                         const uint16_t CommandSize);

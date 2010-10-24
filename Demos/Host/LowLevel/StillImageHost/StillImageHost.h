@@ -45,7 +45,6 @@
 
 		#include "ConfigDescriptor.h"
 
-		#include "Lib/PIMACodes.h"
 		#include "Lib/StillImageCommands.h"
 
 		#include <LUFA/Drivers/Misc/TerminalCodes.h>

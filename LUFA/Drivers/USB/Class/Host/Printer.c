@@ -32,8 +32,8 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#define  __INCLUDE_FROM_PRINTER_CLASS_HOST_C
 #define  __INCLUDE_FROM_PRINTER_DRIVER
+#define  __INCLUDE_FROM_PRINTER_HOST_C
 #include "Printer.h"
 
 uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
@@ -175,7 +175,7 @@ uint8_t PRNT_Host_GetPortStatus(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceIn
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_GetPortStatus,
+			.bRequest      = PRNT_REQ_GetPortStatus,
 			.wValue        = 0,
 			.wIndex        = PRNTInterfaceInfo->State.InterfaceNumber,
 			.wLength       = sizeof(uint8_t),
@@ -191,7 +191,7 @@ uint8_t PRNT_Host_SoftReset(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SoftReset,
+			.bRequest      = PRNT_REQ_SoftReset,
 			.wValue        = 0,
 			.wIndex        = PRNTInterfaceInfo->State.InterfaceNumber,
 			.wLength       = 0,
@@ -345,7 +345,7 @@ uint8_t PRNT_Host_GetDeviceID(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      =  REQ_GetDeviceID,
+			.bRequest      = PRNT_REQ_GetDeviceID,
 			.wValue        = 0,
 			.wIndex        = PRNTInterfaceInfo->State.InterfaceNumber,
 			.wLength       = sizeof(DeviceIDStringLength),

@@ -32,8 +32,8 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_DEVICE)
 
-#define  __INCLUDE_FROM_MS_CLASS_DEVICE_C
 #define  __INCLUDE_FROM_MS_DRIVER
+#define  __INCLUDE_FROM_MASSSTORAGE_DEVICE_C
 #include "MassStorage.h"
 
 static volatile bool* CallbackIsResetSource;

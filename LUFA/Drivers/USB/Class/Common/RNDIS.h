@@ -33,8 +33,8 @@
  *
  *  Common definitions and declarations for the library USB RNDIS Class driver.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the class driver
- *        dispatch header located in LUFA/Drivers/USB/Class/RNDIS.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the USB module driver
+ *        dispatch header located in LUFA/Drivers/USB.h.
  */
 
 /** \ingroup Group_USBClassRNDIS
@@ -54,7 +54,7 @@
 		#define __INCLUDE_FROM_CDC_DRIVER
 
 	/* Includes: */
-		#include "../../USB.h"
+		#include "../../HighLevel/StdDescriptors.h"
 		#include "RNDISConstants.h"
 		#include "CDC.h"
 
@@ -67,7 +67,7 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_RNDIS_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/Class/RNDIS.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 
 	/* Macros: */

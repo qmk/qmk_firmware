@@ -129,7 +129,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	/* Handle HID Class specific requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetReport:
+		case HID_REQ_GetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -155,7 +155,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_SetReport:
+		case HID_REQ_SetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -190,13 +190,13 @@ void Keyboard_ProcessLEDReport(const uint8_t LEDStatus)
 {
 	uint8_t LEDMask = LEDS_LED2;
 
-	if (LEDStatus & KEYBOARD_LED_NUMLOCK)
+	if (LEDStatus & HID_KEYBOARD_LED_NUMLOCK)
 	  LEDMask |= LEDS_LED1;
 
-	if (LEDStatus & KEYBOARD_LED_CAPSLOCK)
+	if (LEDStatus & HID_KEYBOARD_LED_CAPSLOCK)
 	  LEDMask |= LEDS_LED3;
 
-	if (LEDStatus & KEYBOARD_LED_SCROLLLOCK)
+	if (LEDStatus & HID_KEYBOARD_LED_SCROLLLOCK)
 	  LEDMask |= LEDS_LED4;
 
 	/* Set the status LEDs to the current Keyboard LED status */
@@ -219,7 +219,7 @@ void Keyboard_HID_Task(void)
 	if (!(Buttons_GetStatus() & BUTTONS_BUTTON1))
 	{
 		/* Make sent key uppercase by indicating that the left shift key is pressed */
-		KeyboardReportData.Modifier = KEYBOARD_MODIFER_LEFTSHIFT;
+		KeyboardReportData.Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
 
 		if (JoyStatus_LCL & JOY_UP)
 		  KeyboardReportData.KeyCode[0] = 0x04; // A

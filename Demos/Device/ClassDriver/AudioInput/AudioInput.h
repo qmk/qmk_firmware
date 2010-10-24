@@ -47,7 +47,6 @@
 		#include <LUFA/Drivers/Board/Buttons.h>
 		#include <LUFA/Drivers/Peripheral/ADC.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/Audio.h>
 
 		#include "Descriptors.h"
 

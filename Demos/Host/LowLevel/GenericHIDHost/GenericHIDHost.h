@@ -53,9 +53,6 @@
 		#include "ConfigDescriptor.h"
 
 	/* Macros: */
-		/** HID Class specific request to send a HID report to the device. */
-		#define REQ_SetReport             0x09
-
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 

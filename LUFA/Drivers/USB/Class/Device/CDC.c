@@ -32,8 +32,8 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_DEVICE)
 
-#define  __INCLUDE_FROM_CDC_CLASS_DEVICE_C
 #define  __INCLUDE_FROM_CDC_DRIVER
+#define  __INCLUDE_FROM_CDC_DEVICE_C
 #include "CDC.h"
 
 void CDC_Device_Event_Stub(void)

@@ -47,7 +47,6 @@
 		#include "MassStorage.h"
 		#include "Descriptors.h"
 		#include "DataflashManager.h"
-		#include "SCSI_Codes.h"
 
 	/* Macros: */
 		/** Macro to set the current SCSI sense data to the given key, additional sense code and additional sense qualifier. This
@@ -109,7 +108,7 @@
 			uint8_t       VendorID[8];
 			uint8_t       ProductID[16];
 			uint8_t       RevisionID[4];
-		} SCSI_Inquiry_Response_t;
+		} MS_SCSI_Inquiry_Response_t;
 
 		/** Type define for a SCSI sense structure to a SCSI REQUEST SENSE command. For details of the
 		 *  structure contents, refer to the SCSI specifications.
@@ -133,7 +132,7 @@
 			uint8_t       AdditionalSenseQualifier;
 			uint8_t       FieldReplaceableUnitCode;
 			uint8_t       SenseKeySpecific[3];
-		} SCSI_Request_Sense_Response_t;
+		} MS_SCSI_Request_Sense_Response_t;
 
 	/* Function Prototypes: */
 		bool SCSI_DecodeSCSICommand(void);

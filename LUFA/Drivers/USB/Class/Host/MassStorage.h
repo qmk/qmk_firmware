@@ -33,8 +33,8 @@
  *
  *  Host mode driver for the library USB Mass Storage Class driver.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the class driver
- *        dispatch header located in LUFA/Drivers/USB/Class/MassStorage.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the USB module driver
+ *        dispatch header located in LUFA/Drivers/USB.h.
  */
 
 /** \ingroup Group_USBClassMS
@@ -64,7 +64,11 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_MS_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/Class/MassStorage.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+
+		#if defined(__INCLUDE_FROM_MASSSTORAGE_HOST_C) && defined(NO_STREAM_CALLBACKS)
+			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
 		#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -313,9 +317,6 @@
 			#define MASS_STORE_SUBCLASS            0x06
 			#define MASS_STORE_PROTOCOL            0x50
 
-			#define REQ_MassStorageReset           0xFF
-			#define REQ_GetMaxLUN                  0xFE
-
 			#define CBW_SIGNATURE                  0x43425355UL
 			#define CSW_SIGNATURE                  0x53425355UL
 
@@ -325,7 +326,7 @@
 			#define COMMAND_DATA_TIMEOUT_MS        10000
 
 		/* Function Prototypes: */
-			#if defined(__INCLUDE_FROM_MS_CLASS_HOST_C)
+			#if defined(__INCLUDE_FROM_MASSSTORAGE_HOST_C)
 				static uint8_t DCOMP_MS_Host_NextMSInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_MS_Host_NextMSInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 

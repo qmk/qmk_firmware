@@ -49,7 +49,6 @@
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/HID.h>
 
 	/* Macros: */
 		/** Total number of tracks which can be read from the card, between 1 and 3. */

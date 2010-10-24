@@ -33,8 +33,8 @@
  *
  *  Common definitions and declarations for the library USB Printer Class driver.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the class driver
- *        dispatch header located in LUFA/Drivers/USB/Class/Printer.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the USB module driver
+ *        dispatch header located in LUFA/Drivers/USB.h.
  */
 
 /** \ingroup Group_USBClassPrinter
@@ -51,7 +51,7 @@
 #define _PRINTER_CLASS_COMMON_H_
 
 	/* Includes: */
-		#include "../../USB.h"
+		#include "../../HighLevel/StdDescriptors.h"
 
 		#include <string.h>
 
@@ -62,7 +62,7 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_PRINTER_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/Class/Printer.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 
 	/* Macros: */
@@ -74,6 +74,22 @@
 
 		/** Port status mask for a printer device, indicating that the device is currently out of paper. */
 		#define PRNT_PORTSTATUS_PAPEREMPTY  (1 << 5)
+
+	/* Enums: */
+		/** Enum for the Printer class specific control requests that can be issued by the USB bus host. */
+		enum PRNT_ClassRequests_t
+		{
+			PRNT_REQ_GetDeviceID      = 0x00, /**< Printer class-specific request to retrieve the Unicode ID
+			                                   *   string of the device, containing the device's name, manufacturer
+			                                   *   and supported printer languages.
+			                                   */
+			PRNT_REQ_GetPortStatus    = 0x01, /**< Printer class-specific request to get the current status of the
+			                                   *   virtual printer port, for device selection and ready states.
+			                                   */
+			PRNT_REQ_SoftReset        = 0x02, /**< Printer class-specific request to reset the device, ready for new
+			                                   *   printer commands.
+			                                   */
+		};		
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

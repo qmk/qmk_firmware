@@ -40,7 +40,6 @@
 		#include <avr/pgmspace.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/MassStorage.h>
 
 	/* Macros: */
 		/** Endpoint number of the Mass Storage device-to-host data IN endpoint. */

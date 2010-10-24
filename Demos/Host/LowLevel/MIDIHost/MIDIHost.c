@@ -179,7 +179,7 @@ void MIDI_Host_Task(void)
 
 			if (Pipe_IsINReceived())
 			{
-				USB_MIDI_EventPacket_t MIDIEvent;
+				MIDI_EventPacket_t MIDIEvent;
 
 				Pipe_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
 
@@ -244,7 +244,7 @@ void MIDI_Host_Task(void)
 				/* Check if a MIDI command is to be sent */
 				if (MIDICommand)
 				{
-					USB_MIDI_EventPacket_t MIDIEvent = (USB_MIDI_EventPacket_t)
+					MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
 						{
 							.CableNumber = 0,
 							.Command     = (MIDICommand >> 4),

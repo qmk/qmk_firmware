@@ -33,8 +33,8 @@
  *
  *  Device mode driver for the library USB Mass Storage Class driver.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the class driver
- *        dispatch header located in LUFA/Drivers/USB/Class/MassStorage.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the USB module driver
+ *        dispatch header located in LUFA/Drivers/USB.h.
  */
 
 /** \ingroup Group_USBClassMS
@@ -66,7 +66,11 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_MS_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/Class/MassStorage.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+
+		#if defined(__INCLUDE_FROM_MASSSTORAGE_DEVICE_C) && defined(NO_STREAM_CALLBACKS)
+			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
 		#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -154,7 +158,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
-			#if defined(__INCLUDE_FROM_MS_CLASS_DEVICE_C)
+			#if defined(__INCLUDE_FROM_MASSSTORAGE_DEVICE_C)
 				static void    MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 				static bool    MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t StreamCallback_MS_Device_AbortOnMassStoreReset(void);

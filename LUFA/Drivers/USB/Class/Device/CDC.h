@@ -33,8 +33,8 @@
  *
  *  Device mode driver for the library USB CDC Class driver.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the class driver
- *        dispatch header located in LUFA/Drivers/USB/Class/CDC.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the USB module driver
+ *        dispatch header located in LUFA/Drivers/USB.h.
  */
 
 /** \ingroup Group_USBClassCDC
@@ -84,7 +84,11 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_CDC_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/Class/CDC.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+
+		#if defined(__INCLUDE_FROM_CDC_DEVICE_C) && defined(NO_STREAM_CALLBACKS)
+			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
 		#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -128,19 +132,10 @@
 											   */
 					} ControlLineStates; /**< Current states of the virtual serial port's control lines between the device and host. */
 
-					struct
-					{
-						uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second. */
-						uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
-											  *   \ref CDC_LineEncodingFormats_t enum.
-											  */
-						uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
-											  *   \ref CDC_LineEncodingParity_t enum.
-											  */
-						uint8_t  DataBits; /**< Bits of data per character of the virtual serial port. */
-					} LineEncoding;	/** Line encoding used in the virtual serial port, for the device's information. This is generally
-					                 *  only used if the virtual serial port data is to be reconstructed on a physical UART.
-					                 */
+					CDC_LineEncoding_t LineEncoding; /** Line encoding used in the virtual serial port, for the device's information.
+					                                  *  This is generally only used if the virtual serial port data is to be
+					                                  *  reconstructed on a physical UART.
+					                                  */
 				} State; /**< State data for the USB class interface within the device. All elements in this section
 				          *   are reset to their defaults when the interface is enumerated.
 				          */
@@ -318,7 +313,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
-			#if defined(__INCLUDE_FROM_CDC_CLASS_DEVICE_C)
+			#if defined(__INCLUDE_FROM_CDC_DEVICE_C)
 				static int CDC_Device_putchar(char c,
 				                              FILE* Stream) ATTR_NON_NULL_PTR_ARG(2);
 				static int CDC_Device_getchar(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);

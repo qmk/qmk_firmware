@@ -13,8 +13,6 @@
 		#include <avr/pgmspace.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/MassStorage.h>
-		#include <LUFA/Drivers/USB/Class/HID.h>
 
 		#include "TempDataLogger.h"
 

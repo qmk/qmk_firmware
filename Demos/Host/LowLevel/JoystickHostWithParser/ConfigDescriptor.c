@@ -52,7 +52,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint16_t CurrConfigBytesRem;
 
 	USB_Descriptor_Interface_t* HIDInterface   = NULL;
-	USB_Descriptor_HID_t*       HIDDescriptor  = NULL;
+	USB_HID_Descriptor_HID_t*   HIDDescriptor  = NULL;
 	USB_Descriptor_Endpoint_t*  DataINEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
@@ -95,7 +95,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			}
 
 			/* Save the HID descriptor for later use */
-			HIDDescriptor = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_HID_t);
+			HIDDescriptor = DESCRIPTOR_PCAST(CurrConfigLocation, USB_HID_Descriptor_HID_t);
 
 			/* Skip the remainder of the loop as we have not found an endpoint yet */
 			continue;
@@ -178,7 +178,7 @@ uint8_t DComp_NextJoystickInterfaceDataEndpoint(void* CurrentDescriptor)
  */
 uint8_t DComp_NextHID(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_HID)
+	if (DESCRIPTOR_TYPE(CurrentDescriptor) == HID_DTYPE_HID)
 	  return DESCRIPTOR_SEARCH_Found;
 	else
 	  return DESCRIPTOR_SEARCH_NotFound;

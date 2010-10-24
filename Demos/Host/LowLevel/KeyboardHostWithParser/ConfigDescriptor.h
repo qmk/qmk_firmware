@@ -48,12 +48,6 @@
 		/** Interface Protocol value for a Boot Protocol Keyboard compliant device. */
 		#define KEYBOARD_PROTOCOL              0x01
 
-		/** Descriptor header type constant for a HID descriptor. */
-		#define DTYPE_HID                      0x21
-
-		/** Descriptor header type constant for a HID report descriptor. */
-		#define DTYPE_Report                   0x22
-
 		/** Pipe number for the keyboard report data pipe. */
 		#define KEYBOARD_DATA_IN_PIPE          1
 

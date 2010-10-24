@@ -33,8 +33,8 @@
  *
  *  Device mode driver for the library USB Audio 1.0 Class driver.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the class driver
- *        dispatch header located in LUFA/Drivers/USB/Class/Audio.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the USB module driver
+ *        dispatch header located in LUFA/Drivers/USB.h.
  */
 
 /** \ingroup Group_USBClassAudio
@@ -66,7 +66,11 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_AUDIO_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/Class/Audio.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+
+		#if defined(__INCLUDE_FROM_AUDIO_DEVICE_C) && defined(NO_STREAM_CALLBACKS)
+			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
 		#endif
 
 	/* Public Interface - May be used in end-application: */

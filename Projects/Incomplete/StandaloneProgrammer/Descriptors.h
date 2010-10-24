@@ -40,8 +40,6 @@
 		#include <avr/pgmspace.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/MassStorage.h>
-		#include <LUFA/Drivers/USB/Class/CDC.h>
 
 	/* Macros: */
 		/** Endpoint number of the CDC device-to-host notification IN endpoint. */

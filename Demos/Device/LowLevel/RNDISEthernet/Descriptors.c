@@ -104,24 +104,24 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 	.CDC_Functional_Header =
 		{
-			.Header                 = {.Size = sizeof(USB_Descriptor_CDC_FunctionalHeader_t), .Type = DTYPE_CSInterface},
-			.Subtype                = 0x00,
+			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalHeader_t), .Type = DTYPE_CSInterface},
+			.Subtype                = CDC_DSUBTYPE_CSInterface_Header,
 
 			.CDCSpecification       = VERSION_BCD(01.10),
 		},
 
 	.CDC_Functional_ACM =
 		{
-			.Header                 = {.Size = sizeof(USB_Descriptor_CDC_FunctionalACM_t), .Type = DTYPE_CSInterface},
-			.Subtype                = 0x02,
+			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalACM_t), .Type = DTYPE_CSInterface},
+			.Subtype                = CDC_DSUBTYPE_CSInterface_ACM,
 
 			.Capabilities           = 0x00,
 		},
 
 	.CDC_Functional_Union =
 		{
-			.Header                 = {.Size = sizeof(USB_Descriptor_CDC_FunctionalUnion_t), .Type = DTYPE_CSInterface},
-			.Subtype                = 0x06,
+			.Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalUnion_t), .Type = DTYPE_CSInterface},
+			.Subtype                = CDC_DSUBTYPE_CSInterface_Union,
 
 			.MasterInterfaceNumber  = 0,
 			.SlaveInterfaceNumber   = 1,

@@ -116,7 +116,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	/* Handle HID Class specific requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetReport:
+		case HID_REQ_GetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				uint8_t GenericData[GENERIC_REPORT_SIZE];
@@ -130,7 +130,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_SetReport:
+		case HID_REQ_SetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				uint8_t GenericData[GENERIC_REPORT_SIZE];

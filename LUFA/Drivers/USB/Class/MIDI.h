@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBClassMIDI MIDI Class Driver - LUFA/Drivers/Class/MIDI.h
+ *  @defgroup Group_USBClassMIDI MIDI Class Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
@@ -63,15 +63,11 @@
 #define _MIDI_CLASS_H_
 
 	/* Macros: */
-		#define __INCLUDE_FROM_MIDI_DRIVER
 		#define __INCLUDE_FROM_USB_DRIVER
+		#define __INCLUDE_FROM_MIDI_DRIVER
 
 	/* Includes: */
 		#include "../HighLevel/USBMode.h"
-
-		#if defined(NO_STREAM_CALLBACKS)
-			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
-		#endif
 
 		#if defined(USB_CAN_BE_DEVICE)
 			#include "Device/MIDI.h"

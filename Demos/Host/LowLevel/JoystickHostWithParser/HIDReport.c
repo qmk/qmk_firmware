@@ -51,7 +51,7 @@ uint8_t GetHIDReportData(void)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE),
 			.bRequest      = REQ_GetDescriptor,
-			.wValue        = (DTYPE_Report << 8),
+			.wValue        = (HID_DTYPE_Report << 8),
 			.wIndex        = 0,
 			.wLength       = HIDReportSize,
 		};

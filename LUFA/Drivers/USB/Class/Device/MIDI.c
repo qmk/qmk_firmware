@@ -33,6 +33,7 @@
 #if defined(USB_CAN_BE_DEVICE)
 
 #define  __INCLUDE_FROM_MIDI_DRIVER
+#define  __INCLUDE_FROM_MIDI_DEVICE_C
 #include "MIDI.h"
 
 bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* const MIDIInterfaceInfo)

@@ -53,7 +53,7 @@ uint8_t RNDIS_SendEncapsulatedCommand(void* const Buffer,
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_SendEncapsulatedCommand,
+			.bRequest      = RNDIS_REQ_SendEncapsulatedCommand,
 			.wValue        = 0,
 			.wIndex        = 0,
 			.wLength       = Length,
@@ -78,7 +78,7 @@ uint8_t RNDIS_GetEncapsulatedResponse(void* const Buffer,
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_GetEncapsulatedResponse,
+			.bRequest      = RNDIS_REQ_GetEncapsulatedResponse,
 			.wValue        = 0,
 			.wIndex        = 0,
 			.wLength       = Length,

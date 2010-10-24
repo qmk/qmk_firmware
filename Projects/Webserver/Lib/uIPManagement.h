@@ -37,7 +37,7 @@
 #define _UIP_MANAGEMENT_H_
 
 	/* Includes: */
-		#include <LUFA/Drivers/USB/Class/RNDIS.h>
+		#include <LUFA/Drivers/USB/USB.h>
 
 		#include <uip.h>
 		#include <uip_arp.h>

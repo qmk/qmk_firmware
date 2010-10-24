@@ -121,7 +121,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	/* Process RNDIS class commands */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_SendEncapsulatedCommand:
+		case RNDIS_REQ_SendEncapsulatedCommand:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -135,7 +135,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_GetEncapsulatedResponse:
+		case RNDIS_REQ_GetEncapsulatedResponse:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				/* Check if a response to the last message is ready */
@@ -172,10 +172,10 @@ void RNDIS_Task(void)
 	/* Check if a message response is ready for the host */
 	if (Endpoint_IsINReady() && ResponseReady)
 	{
-		USB_Notification_t Notification = (USB_Notification_t)
+		USB_Request_Header_t Notification = (USB_Request_Header_t)
 			{
 				.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-				.bNotification = NOTIF_RESPONSE_AVAILABLE,
+				.bRequest      = RNDIS_NOTIF_ResponseAvailable,
 				.wValue        = 0,
 				.wIndex        = 0,
 				.wLength       = 0,

@@ -178,7 +178,7 @@ uint8_t DComp_NextKeyboardInterfaceDataEndpoint(void* CurrentDescriptor)
  */
 uint8_t DComp_NextHID(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_HID)
+	if (DESCRIPTOR_TYPE(CurrentDescriptor) == HID_DTYPE_HID)
 	  return DESCRIPTOR_SEARCH_Found;
 	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	  return DESCRIPTOR_SEARCH_Fail;

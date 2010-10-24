@@ -32,8 +32,8 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#define  __INCLUDE_FROM_CDC_CLASS_HOST_C
 #define  __INCLUDE_FROM_CDC_DRIVER
+#define  __INCLUDE_FROM_CDC_HOST_C
 #include "CDC.h"
 
 uint8_t CDC_Host_ConfigurePipes(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,

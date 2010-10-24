@@ -160,7 +160,7 @@ void MIDI_Task(void)
 		/* Check if a MIDI command is to be sent */
 		if (MIDICommand)
 		{
-			USB_MIDI_EventPacket_t MIDIEvent = (USB_MIDI_EventPacket_t)
+			MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
 				{
 					.CableNumber = 0,
 					.Command     = (MIDICommand >> 4),
@@ -187,7 +187,7 @@ void MIDI_Task(void)
 	/* Check if a MIDI command has been received */
 	if (Endpoint_IsOUTReceived())
 	{
-		USB_MIDI_EventPacket_t MIDIEvent;
+		MIDI_EventPacket_t MIDIEvent;
 
 		/* Read the MIDI event packet from the endpoint */
 		Endpoint_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));

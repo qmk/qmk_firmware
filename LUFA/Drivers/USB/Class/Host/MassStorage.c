@@ -32,8 +32,8 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#define  __INCLUDE_FROM_MS_CLASS_HOST_C
 #define  __INCLUDE_FROM_MS_DRIVER
+#define  __INCLUDE_FROM_MASSSTORAGE_HOST_C
 #include "MassStorage.h"
 
 uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
@@ -309,7 +309,7 @@ uint8_t MS_Host_ResetMSInterface(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_MassStorageReset,
+			.bRequest      = MS_REQ_MassStorageReset,
 			.wValue        = 0,
 			.wIndex        = MSInterfaceInfo->State.InterfaceNumber,
 			.wLength       = 0,
@@ -328,7 +328,7 @@ uint8_t MS_Host_GetMaxLUN(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 	USB_ControlRequest = (USB_Request_Header_t)
 		{
 			.bmRequestType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			.bRequest      = REQ_GetMaxLUN,
+			.bRequest      = MS_REQ_GetMaxLUN,
 			.wValue        = 0,
 			.wIndex        = MSInterfaceInfo->State.InterfaceNumber,
 			.wLength       = 1,

@@ -41,8 +41,7 @@
 		#include <avr/pgmspace.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/MassStorage.h>
-
+		
 		#include "../Descriptors.h"
 		#include "DataflashManager.h"
 

@@ -49,7 +49,6 @@
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/CDC.h>
 
 	/* Function Prototypes: */
 		void SetupHardware(void);

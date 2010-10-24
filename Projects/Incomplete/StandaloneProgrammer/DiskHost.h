@@ -44,7 +44,6 @@
 
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/USB/Class/MassStorage.h>
 
 	/* External Variables: */
 		#if defined(USB_CAN_BE_HOST)

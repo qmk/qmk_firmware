@@ -58,7 +58,7 @@ void SImage_SendBlockHeader(void)
 	Pipe_Write_Stream_LE(&PIMA_SendBlock, PIMA_COMMAND_SIZE(0));
 
 	/* If the block type is a command, send its parameters (if any) */
-	if (PIMA_SendBlock.Type == CType_CommandBlock)
+	if (PIMA_SendBlock.Type == PIMA_CONTAINER_CommandBlock)
 	{
 		/* Determine the size of the parameters in the block via the data length attribute */
 		uint8_t ParamBytes = (PIMA_SendBlock.DataLength - PIMA_COMMAND_SIZE(0));
@@ -169,7 +169,7 @@ uint8_t SImage_ReceiveBlockHeader(void)
 	Pipe_Read_Stream_LE(&PIMA_ReceivedBlock, PIMA_COMMAND_SIZE(0));
 
 	/* Check if the returned block type is a response block */
-	if (PIMA_ReceivedBlock.Type == CType_ResponseBlock)
+	if (PIMA_ReceivedBlock.Type == PIMA_CONTAINER_ResponseBlock)
 	{
 		/* Determine the size of the parameters in the block via the data length attribute */
 		uint8_t ParamBytes = (PIMA_ReceivedBlock.DataLength - PIMA_COMMAND_SIZE(0));

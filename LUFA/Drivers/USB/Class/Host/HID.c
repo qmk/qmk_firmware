@@ -32,8 +32,8 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#define  __INCLUDE_FROM_HID_CLASS_HOST_C
 #define  __INCLUDE_FROM_HID_DRIVER
+#define  __INCLUDE_FROM_HID_HOST_C
 #include "HID.h"
 
 uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,

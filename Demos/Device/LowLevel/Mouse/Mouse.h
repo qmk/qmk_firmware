@@ -53,27 +53,6 @@
 		#include <LUFA/Drivers/Board/Buttons.h>
 
 	/* Macros: */
-		/** Idle period indicating that reports should be sent only when the inputs have changed */
-		#define HID_IDLE_CHANGESONLY      0
-
-		/** HID Class specific request to get the next HID report from the device. */
-		#define REQ_GetReport             0x01
-
-		/** HID Class specific request to get the idle timeout period of the device. */
-		#define REQ_GetIdle               0x02
-
-		/** HID Class specific request to send the next HID report to the device. */
-		#define REQ_SetReport             0x09
-
-		/** HID Class specific request to set the idle timeout period of the device. */
-		#define REQ_SetIdle               0x0A
-
-		/** HID Class specific request to get the current HID protocol in use, either report or boot. */
-		#define REQ_GetProtocol           0x03
-
-		/** HID Class specific request to set the current HID protocol in use, either report or boot. */
-		#define REQ_SetProtocol           0x0B
-
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
 		#define LEDMASK_USB_NOTREADY      LEDS_LED1
 
@@ -85,17 +64,6 @@
 
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
-
-	/* Type Defines: */
-		/** Type define for the mouse HID report structure, for creating and sending HID reports to the host PC.
-		 *  This mirrors the layout described to the host in the HID report descriptor, in Descriptors.c.
-		 */
-		typedef struct
-		{
-			uint8_t Button; /**< Bit mask of the currently pressed mouse buttons */
-			int8_t  X; /**< Current mouse delta X movement, as a signed 8-bit integer */
-			int8_t  Y; /**< Current mouse delta Y movement, as a signed 8-bit integer */
-		} USB_MouseReport_Data_t;
 
 	/* Function Prototypes: */
 		void SetupHardware(void);

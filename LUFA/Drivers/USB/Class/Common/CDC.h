@@ -33,8 +33,8 @@
  *
  *  Common definitions and declarations for the library USB CDC Class driver.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the class driver
- *        dispatch header located in LUFA/Drivers/USB/Class/CDC.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the USB module driver
+ *        dispatch header located in LUFA/Drivers/USB.h.
  */
 
 /** \ingroup Group_USBClassCDC
@@ -51,7 +51,7 @@
 #define _CDC_CLASS_COMMON_H_
 
 	/* Includes: */
-		#include "../../USB.h"
+		#include "../../HighLevel/StdDescriptors.h"
 
 		#include <string.h>
 
@@ -62,7 +62,7 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_CDC_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/Class/CDC.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 
 	/* Macros: */
@@ -308,6 +308,21 @@
 			uint8_t bMasterInterface; /**< Interface number of the CDC Control interface. */
 			uint8_t bSlaveInterface0; /**< Interface number of the CDC Data interface. */
 		} USB_CDC_StdDescriptor_FunctionalUnion_t;
+		
+		/** Type define for a CDC Line Encoding structure, used to hold the various encoding parameters for a virtual
+		 *  serial port.
+		 */
+		typedef struct
+		{
+			uint32_t BaudRateBPS; /**< Baud rate of the virtual serial port, in bits per second. */
+			uint8_t  CharFormat; /**< Character format of the virtual serial port, a value from the
+								  *   \ref CDC_LineEncodingFormats_t enum.
+								  */
+			uint8_t  ParityType; /**< Parity setting of the virtual serial port, a value from the
+								  *   \ref CDC_LineEncodingParity_t enum.
+								  */
+			uint8_t  DataBits; /**< Bits of data per character of the virtual serial port. */
+		} CDC_LineEncoding_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

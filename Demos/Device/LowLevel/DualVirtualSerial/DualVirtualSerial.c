@@ -44,10 +44,10 @@
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineEncoding1 = { .BaudRateBPS = 0,
-                                    .CharFormat  = OneStopBit,
-                                    .ParityType  = Parity_None,
-                                    .DataBits    = 8            };
+CDC_LineEncoding_t LineEncoding1 = { .BaudRateBPS = 0,
+                                     .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                     .ParityType  = CDC_PARITY_None,
+                                     .DataBits    = 8                            };
 
 /** Contains the current baud rate and other settings of the second virtual serial port. While this demo does not use
  *  the physical USART and thus does not use these settings, they must still be retained and returned to the host
@@ -57,10 +57,10 @@ CDC_Line_Coding_t LineEncoding1 = { .BaudRateBPS = 0,
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineEncoding2 = { .BaudRateBPS = 0,
-                                    .CharFormat  = OneStopBit,
-                                    .ParityType  = Parity_None,
-                                    .DataBits    = 8            };
+CDC_LineEncoding_t LineEncoding2 = { .BaudRateBPS = 0,
+                                     .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                     .ParityType  = CDC_PARITY_None,
+                                     .DataBits    = 8                            };
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -158,29 +158,29 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetLineEncoding:
+		case CDC_REQ_GetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(LineEncodingData, sizeof(CDC_Line_Coding_t));
+				Endpoint_Write_Control_Stream_LE(LineEncodingData, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearOUT();
 			}
 
 			break;
-		case REQ_SetLineEncoding:
+		case CDC_REQ_SetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
-				Endpoint_Read_Control_Stream_LE(LineEncodingData, sizeof(CDC_Line_Coding_t));
+				Endpoint_Read_Control_Stream_LE(LineEncodingData, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearIN();
 			}
 
 			break;
-		case REQ_SetControlLineState:
+		case CDC_REQ_SetControlLineState:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();

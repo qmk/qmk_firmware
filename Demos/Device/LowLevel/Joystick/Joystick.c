@@ -112,7 +112,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	/* Handle HID Class specific requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetReport:
+		case HID_REQ_GetReport:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				USB_JoystickReport_Data_t JoystickReportData;

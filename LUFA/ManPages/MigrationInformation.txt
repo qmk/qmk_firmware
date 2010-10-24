@@ -21,6 +21,9 @@
  *      specified, the controller will default to UID selection mode.
  *    - The USB mode specifier constants have been moved into a new enum and renamed. Existing projects should use the equivalent
  *      value in the new \ref USB_Modes_t enum.
+ *    - All class driver headers are now included as part of the standard LUFA/Drivers/USB/USB.h master dispatch header, and should
+ *      no longer be included seperately. Class driver module source files must still be added as a seperate module in the project's
+ *      makefile if used.
  *
  *  <b>Device Mode</b>
  *    - Endpoints MUST be allocated in ascending order to ensure that bank corruption does not occur. Ensure that your user application

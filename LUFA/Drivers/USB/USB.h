@@ -394,6 +394,15 @@
 		#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
 			#include "LowLevel/OTG.h"
 		#endif
+		
+		#include "Class/Audio.h"
+		#include "Class/CDC.h"
+		#include "Class/HID.h"
+		#include "Class/MassStorage.h"
+		#include "Class/MIDI.h"
+		#include "Class/Printer.h"
+		#include "Class/RNDIS.h"
+		#include "Class/StillImage.h"
 
 #endif
 

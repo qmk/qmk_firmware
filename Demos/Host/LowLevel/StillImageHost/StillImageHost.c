@@ -180,7 +180,7 @@ void StillImage_Task(void)
 			PIMA_SendBlock = (PIMA_Container_t)
 				{
 					.DataLength    = PIMA_COMMAND_SIZE(0),
-					.Type          = CType_CommandBlock,
+					.Type          = PIMA_CONTAINER_CommandBlock,
 					.Code          = PIMA_OPERATION_GETDEVICEINFO,
 					.TransactionID = 0x00000000,
 					.Params        = {},
@@ -252,7 +252,7 @@ void StillImage_Task(void)
 			}
 
 			/* Verify that the command completed successfully */
-			if ((PIMA_ReceivedBlock.Type != CType_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
+			if ((PIMA_ReceivedBlock.Type != PIMA_CONTAINER_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
 			{
 				ShowCommandError(PIMA_ReceivedBlock.Code, true);
 
@@ -265,7 +265,7 @@ void StillImage_Task(void)
 			PIMA_SendBlock = (PIMA_Container_t)
 				{
 					.DataLength    = PIMA_COMMAND_SIZE(1),
-					.Type          = CType_CommandBlock,
+					.Type          = PIMA_CONTAINER_CommandBlock,
 					.Code          = PIMA_OPERATION_OPENSESSION,
 					.TransactionID = 0x00000000,
 					.Params        = {0x00000001},
@@ -284,7 +284,7 @@ void StillImage_Task(void)
 			}
 
 			/* Verify that the command completed successfully */
-			if ((PIMA_ReceivedBlock.Type != CType_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
+			if ((PIMA_ReceivedBlock.Type != PIMA_CONTAINER_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
 			{
 				ShowCommandError(PIMA_ReceivedBlock.Code, true);
 
@@ -297,7 +297,7 @@ void StillImage_Task(void)
 			PIMA_SendBlock = (PIMA_Container_t)
 				{
 					.DataLength    = PIMA_COMMAND_SIZE(1),
-					.Type          = CType_CommandBlock,
+					.Type          = PIMA_CONTAINER_CommandBlock,
 					.Code          = PIMA_OPERATION_CLOSESESSION,
 					.TransactionID = 0x00000001,
 					.Params        = {0x00000001},
@@ -316,7 +316,7 @@ void StillImage_Task(void)
 			}
 
 			/* Verify that the command completed successfully */
-			if ((PIMA_ReceivedBlock.Type != CType_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
+			if ((PIMA_ReceivedBlock.Type != PIMA_CONTAINER_ResponseBlock) || (PIMA_ReceivedBlock.Code != PIMA_RESPONSE_OK))
 			{
 				ShowCommandError(PIMA_ReceivedBlock.Code, true);
 

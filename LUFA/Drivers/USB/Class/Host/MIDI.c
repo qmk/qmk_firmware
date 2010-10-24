@@ -32,8 +32,8 @@
 #include "../../HighLevel/USBMode.h"
 #if defined(USB_CAN_BE_HOST)
 
-#define  __INCLUDE_FROM_MIDI_CLASS_HOST_C
 #define  __INCLUDE_FROM_MIDI_DRIVER
+#define  __INCLUDE_FROM_MIDI_HOST_C
 #include "MIDI.h"
 
 uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo,

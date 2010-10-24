@@ -44,10 +44,10 @@
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_Line_Coding_t LineEncoding = { .BaudRateBPS = 0,
-                                   .CharFormat  = OneStopBit,
-                                   .ParityType  = Parity_None,
-                                   .DataBits    = 8            };
+CDC_LineEncoding_t LineEncoding = { .BaudRateBPS = 0,
+                                    .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                    .ParityType  = CDC_PARITY_None,
+                                    .DataBits    = 8                            };
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -131,29 +131,29 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetLineEncoding:
+		case CDC_REQ_GetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
+				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearOUT();
 			}
 
 			break;
-		case REQ_SetLineEncoding:
+		case CDC_REQ_SetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
-				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
+				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearIN();
 			}
 
 			break;
-		case REQ_SetControlLineState:
+		case CDC_REQ_SetControlLineState:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -179,29 +179,6 @@ void CDC_Task(void)
 	/* Device must be connected and configured for the task to run */
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
-
-#if 0
-	/* NOTE: Here you can use the notification endpoint to send back line state changes to the host, for the special RS-232
-	 *       handshake signal lines (and some error states), via the CONTROL_LINE_IN_* masks and the following code:
-	 */
-	USB_Notification_Header_t Notification = (USB_Notification_Header_t)
-		{
-			.NotificationType = (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE),
-			.Notification     = NOTIF_SerialState,
-			.wValue           = 0,
-			.wIndex           = 0,
-			.wLength          = sizeof(uint16_t),
-		};
-
-	uint16_t LineStateMask;
-
-	// Set LineStateMask here to a mask of CONTROL_LINE_IN_* masks to set the input handshake line states to send to the host
-
-	Endpoint_SelectEndpoint(CDC_NOTIFICATION_EPNUM);
-	Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
-	Endpoint_Write_Stream_LE(&LineStateMask, sizeof(LineStateMask));
-	Endpoint_ClearIN();
-#endif
 
 	/* Determine if a joystick action has occurred */
 	if (JoyStatus_LCL & JOY_UP)

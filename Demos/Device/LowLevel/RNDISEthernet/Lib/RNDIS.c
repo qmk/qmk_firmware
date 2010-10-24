@@ -264,7 +264,7 @@ static bool ProcessNDISQuery(const uint32_t OId, void* QueryData, uint16_t Query
 			*ResponseSize = sizeof(uint32_t);
 
 			/* Always indicate hardware ready */
-			*((uint32_t*)ResponseData) = NdisHardwareStatusReady;
+			*((uint32_t*)ResponseData) = NDIS_HardwareStatus_Ready;
 
 			return true;
 		case OID_GEN_MEDIA_SUPPORTED:

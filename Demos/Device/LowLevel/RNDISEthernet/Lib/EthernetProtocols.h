@@ -76,7 +76,7 @@
 		typedef struct
 		{
 			uint8_t       Octets[6]; /**< Individual bytes of a MAC address */
-		} MAC_Address_t;
+		} RNDIS_MAC_Address_t;
 
 		/** Type define for a protocol IP address of a device on a network. */
 		typedef struct

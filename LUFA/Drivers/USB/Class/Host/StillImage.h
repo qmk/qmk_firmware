@@ -33,8 +33,8 @@
  *
  *  Host mode driver for the library USB Still Image Class driver.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the class driver
- *        dispatch header located in LUFA/Drivers/USB/Class/StillImage.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the USB module driver
+ *        dispatch header located in LUFA/Drivers/USB.h.
  */
 
 /** \ingroup Group_USBClassSI
@@ -64,7 +64,11 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_SI_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/Class/StillImage.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+
+		#if defined(__INCLUDE_FROM_STILLIMAGE_HOST_C) && defined(NO_STREAM_CALLBACKS)
+			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
 		#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -184,7 +188,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t SI_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-			                                SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
+			                                PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
 			                                ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Receives a raw PIMA block header to the device. This can be used to receive arbitrary PIMA blocks from the device with
@@ -199,7 +203,7 @@
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t SI_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-			                                   SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
+			                                   PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
 			                                   ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Sends a given PIMA command to the attached device, filling out the PIMA command header's Transaction ID automatically.
@@ -256,7 +260,7 @@
 			 *          returned a logical command failure.
 			 */
 			uint8_t SI_Host_ReceiveEventHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
-			                                   SI_PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
+			                                   PIMA_Container_t* const PIMAHeader) ATTR_NON_NULL_PTR_ARG(1)
 			                                   ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Sends arbitrary data to the attached device, for use in the data phase of PIMA commands which require data
@@ -314,7 +318,7 @@
 			#define COMMAND_DATA_TIMEOUT_MS        10000
 
 		/* Function Prototypes: */
-			#if defined(__INCLUDE_FROM_SI_CLASS_HOST_C)
+			#if defined(__INCLUDE_FROM_STILLIMAGE_HOST_C)
 				static uint8_t DCOMP_SI_Host_NextSIInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_SI_Host_NextSIInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif

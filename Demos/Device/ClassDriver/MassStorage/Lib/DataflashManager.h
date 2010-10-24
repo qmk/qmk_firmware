@@ -44,7 +44,6 @@
 
 		#include <LUFA/Common/Common.h>
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/MassStorage.h>
 		#include <LUFA/Drivers/Board/Dataflash.h>
 
 	/* Preprocessor Checks: */

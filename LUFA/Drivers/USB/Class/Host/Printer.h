@@ -33,8 +33,8 @@
  *
  *  Host mode driver for the library USB Printer Class driver.
  *
- *  \note This file should not be included directly. It is automatically included as needed by the class driver
- *        dispatch header located in LUFA/Drivers/USB/Class/Printer.h.
+ *  \note This file should not be included directly. It is automatically included as needed by the USB module driver
+ *        dispatch header located in LUFA/Drivers/USB.h.
  */
 
 /** \ingroup Group_USBClassPrinter
@@ -64,7 +64,11 @@
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_PRINTER_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/Class/Printer.h instead.
+			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
+		#endif
+
+		#if defined(__INCLUDE_FROM_PRINTER_HOST_C) && defined(NO_STREAM_CALLBACKS)
+			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
 		#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -265,12 +269,8 @@
 			#define PRINTER_SUBCLASS               0x01
 			#define PRINTER_PROTOCOL               0x02
 
-			#define REQ_GetDeviceID                0
-			#define REQ_GetPortStatus              1
-			#define REQ_SoftReset                  2
-
 		/* Function Prototypes: */
-			#if defined(__INCLUDE_FROM_PRINTER_CLASS_HOST_C)
+			#if defined(__INCLUDE_FROM_PRINTER_HOST_C)
 				static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 				static uint8_t DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);
 			#endif

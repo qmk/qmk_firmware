@@ -40,6 +40,8 @@
 		#include <avr/io.h>
 		#include <string.h>
 
+		#include <LUFA/Drivers/USB/USB.h>
+
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"
 		#include "ProtocolDecoders.h"

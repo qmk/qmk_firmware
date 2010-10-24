@@ -48,12 +48,6 @@
 		/** Interface Protocol value for a Boot Protocol Mouse compliant device. */
 		#define MOUSE_PROTOCOL              0x02
 
-		/** Descriptor header type constant for a HID descriptor. */
-		#define DTYPE_HID                   0x21
-
-		/** Descriptor header type constant for a HID report descriptor. */
-		#define DTYPE_Report                0x22
-
 		/** Pipe number for the mouse report data pipe. */
 		#define MOUSE_DATA_IN_PIPE          1
 

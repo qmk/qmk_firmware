@@ -38,7 +38,6 @@
 
 	/* Includes: */
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/USB/Class/HID.h>
 
 		#include <avr/pgmspace.h>
 

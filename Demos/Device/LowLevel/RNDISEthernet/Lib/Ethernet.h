@@ -81,14 +81,6 @@
 		#define NO_PROCESS                       -1
 
 	/* Type Defines: */
-		/** Type define for an Ethernet frame buffer. */
-		typedef struct
-		{
-			uint8_t       FrameData[ETHERNET_FRAME_SIZE_MAX]; /**< Ethernet frame contents */
-			uint16_t      FrameLength; /**< Length in bytes of the Ethernet frame stored in the buffer */
-			bool          FrameInBuffer; /**< Indicates if a frame is currently stored in the buffer */
-		} Ethernet_Frame_Info_t;
-
 		/** Type define for an Ethernet frame header. */
 		typedef struct
 		{

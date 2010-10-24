@@ -235,7 +235,7 @@ void Mouse_HID_Task(void)
 			USB_ControlRequest = (USB_Request_Header_t)
 				{
 					.bmRequestType = (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE),
-					.bRequest      = REQ_SetProtocol,
+					.bRequest      = HID_REQ_SetProtocol,
 					.wValue        = 0,
 					.wIndex        = 0,
 					.wLength       = 0,

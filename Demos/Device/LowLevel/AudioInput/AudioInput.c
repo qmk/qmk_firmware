@@ -185,7 +185,7 @@ void USB_Audio_Task(void)
 			/* Microphone is biased to half rail voltage, subtract the bias from the sample value */
 			AudioSample -= (SAMPLE_MAX_RANGE / 2);
 			#endif		
-		#end if
+		#endif
 
 		/* Write the sample to the buffer */
 		Endpoint_Write_Word_LE(AudioSample);

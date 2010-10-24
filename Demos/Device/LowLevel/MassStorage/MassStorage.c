@@ -38,13 +38,13 @@
 #include "MassStorage.h"
 
 /** Structure to hold the latest Command Block Wrapper issued by the host, containing a SCSI command to execute. */
-CommandBlockWrapper_t  CommandBlock;
+MS_CommandBlockWrapper_t  CommandBlock;
 
 /** Structure to hold the latest Command Status Wrapper to return to the host, containing the status of the last issued command. */
-CommandStatusWrapper_t CommandStatus = { .Signature = CSW_SIGNATURE };
+MS_CommandStatusWrapper_t CommandStatus = { .Signature = MS_CSW_SIGNATURE };
 
 /** Flag to asynchronously abort any in-progress data transfers upon the reception of a mass storage reset command. */
-volatile bool          IsMassStoreReset = false;
+volatile bool IsMassStoreReset = false;
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -129,7 +129,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	/* Process UFI specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_MassStorageReset:
+		case MS_REQ_MassStorageReset:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -140,7 +140,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 			}
 
 			break;
-		case REQ_GetMaxLUN:
+		case MS_REQ_GetMaxLUN:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
@@ -172,11 +172,11 @@ void MassStorage_Task(void)
 		LEDs_SetAllLEDs(LEDMASK_USB_BUSY);
 
 		/* Check direction of command, select Data IN endpoint if data is from the device */
-		if (CommandBlock.Flags & COMMAND_DIRECTION_DATA_IN)
+		if (CommandBlock.Flags & MS_COMMAND_DIR_DATA_IN)
 		  Endpoint_SelectEndpoint(MASS_STORAGE_IN_EPNUM);
 
 		/* Decode the received SCSI command, set returned status code */
-		CommandStatus.Status = SCSI_DecodeSCSICommand() ? Command_Pass : Command_Fail;
+		CommandStatus.Status = SCSI_DecodeSCSICommand() ? MS_SCSI_COMMAND_Pass : MS_SCSI_COMMAND_Fail;
 
 		/* Load in the CBW tag into the CSW to link them together */
 		CommandStatus.Tag = CommandBlock.Tag;
@@ -185,7 +185,7 @@ void MassStorage_Task(void)
 		CommandStatus.DataTransferResidue = CommandBlock.DataTransferLength;
 
 		/* Stall the selected data pipe if command failed (if data is still to be transferred) */
-		if ((CommandStatus.Status == Command_Fail) && (CommandStatus.DataTransferResidue))
+		if ((CommandStatus.Status == MS_SCSI_COMMAND_Fail) && (CommandStatus.DataTransferResidue))
 		  Endpoint_StallTransaction();
 
 		/* Return command status block to the host */
@@ -237,11 +237,11 @@ static bool ReadInCommandBlock(void)
 	  return false;
 
 	/* Verify the command block - abort if invalid */
-	if ((CommandBlock.Signature         != CBW_SIGNATURE) ||
-	    (CommandBlock.LUN               >= TOTAL_LUNS)    ||
-		(CommandBlock.Flags              & 0x1F)          ||
-		(CommandBlock.SCSICommandLength == 0)             ||
-		(CommandBlock.SCSICommandLength >  MAX_SCSI_COMMAND_LENGTH))
+	if ((CommandBlock.Signature         != MS_CBW_SIGNATURE) ||
+	    (CommandBlock.LUN               >= TOTAL_LUNS)       ||
+		(CommandBlock.Flags              & 0x1F)             ||
+		(CommandBlock.SCSICommandLength == 0)                ||
+		(CommandBlock.SCSICommandLength >  sizeof(CommandBlock.SCSICommandData)))
 	{
 		/* Stall both data pipes until reset by host */
 		Endpoint_StallTransaction();
