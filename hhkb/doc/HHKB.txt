@@ -46,14 +46,14 @@ Teensy++ installation
 Angled USB mini B adapter is used to install Teensy++ laterally.
 (teensy_install.jpg)
 
-Bread baord cables used for connect Teensy++.
+Bread baord wires are used to connect Teensy++.
 (teensy_wiring.jpg)
 (connector_contact.jpg)
 
 
 HHKB internal
 -------------
-HHKB pro has two PCBs and some chips.
+HHKB pro has some chips on separate two PCBs.
 
 Controller PCB:
     M38K07M4    Renesas MCU with USB function
@@ -76,7 +76,7 @@ Keyswitch PCB:
     (HHKB_TP1684.jpg)
 
 
-Two PCBs are connected by 15 lines. Vcc/GND uses 3 lines each, 9lines for keyboard signaling.
+Two PCBs are connected by 15 lines. Vcc and GND use 3 lines each, other 9 lines are for keyboard signaling.
 
     Keyswitch PCB connector                                 Teensy++ pins
     -------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ Two PCBs are connected by 15 lines. Vcc/GND uses 3 lines each, 9lines for keyboa
 
 Keyswitch matrix
 ----------------
-60 keyswitches in 8*8 matrix. ghost free. bounce free.
+60 keyswitches in 8*8 matrix. It is ghost-free and bounce-free.
 
   COL 0     1       2       3       4       5       6       7
 ROW ---------------------------------------------------------------
@@ -181,6 +181,6 @@ Keymap layers
 -------------
 Followings are added layers with additional Fn keys. They are not final decision.
 
-see keymap_hhkb.c
+see keymap.c
 
 EOF
