@@ -17,6 +17,8 @@ bool matrix_is_modified(void);
 bool matrix_has_ghost(void);
 /* matrix state on row */
 uint16_t matrix_get_row(int row);
+/* count keys pressed */
+int matrix_key_count(void);
 /* print matrix for debug */
 void matrix_print(void);
 
