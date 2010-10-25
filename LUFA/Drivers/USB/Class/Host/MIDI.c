@@ -110,9 +110,9 @@ static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingInterface(void* const CurrentDes
 		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
 		                                                                USB_Descriptor_Interface_t);
 
-		if ((CurrentInterface->Class    == MIDI_STREAMING_CLASS)    &&
-		    (CurrentInterface->SubClass == MIDI_STREAMING_SUBCLASS) &&
-		    (CurrentInterface->Protocol == MIDI_STREAMING_PROTOCOL))
+		if ((CurrentInterface->Class    == AUDIO_CSCP_AudioClass)            &&
+		    (CurrentInterface->SubClass == AUDIO_CSCP_MIDIStreamingSubclass) &&
+		    (CurrentInterface->Protocol == AUDIO_CSCP_StreamingProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}

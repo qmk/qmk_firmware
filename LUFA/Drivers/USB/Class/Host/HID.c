@@ -118,7 +118,7 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 
 	HIDInterfaceInfo->State.InterfaceNumber = HIDInterface->InterfaceNumber;
 	HIDInterfaceInfo->State.HIDReportSize   = HIDDescriptor->HIDReportLength;
-	HIDInterfaceInfo->State.SupportsBootProtocol = (HIDInterface->SubClass != HID_BOOTP_NonBootProtocol);
+	HIDInterfaceInfo->State.SupportsBootProtocol = (HIDInterface->SubClass != HID_CSCP_NonBootProtocol);
 	HIDInterfaceInfo->State.LargestReportSize    = 8;
 	HIDInterfaceInfo->State.IsActive = true;
 
@@ -132,7 +132,7 @@ static uint8_t DCOMP_HID_Host_NextHIDInterface(void* const CurrentDescriptor)
 		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
 		                                                                USB_Descriptor_Interface_t);
 
-		if (CurrentInterface->Class == HID_INTERFACE_CLASS)
+		if (CurrentInterface->Class == HID_CSCP_HIDClass)
 		  return DESCRIPTOR_SEARCH_Found;
 	}
 

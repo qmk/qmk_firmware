@@ -139,7 +139,7 @@ uint8_t DComp_NextHIDInterface(void* CurrentDescriptor)
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
 		/* Check the HID descriptor class, break out if correct class/protocol interface found */
-		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class == HID_CLASS)
+		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class == HID_CSCP_HIDClass)
 		{
 			/* Indicate that the descriptor being searched for has been found */
 			return DESCRIPTOR_SEARCH_Found;

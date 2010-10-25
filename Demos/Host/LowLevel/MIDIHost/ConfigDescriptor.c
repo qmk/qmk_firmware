@@ -129,9 +129,9 @@ uint8_t DComp_NextMIDIStreamingInterface(void* CurrentDescriptor)
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
 		/* Check the MIDI descriptor class, subclass and protocol, break out if correct data interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == MIDI_STREAMING_CLASS)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == MIDI_STREAMING_SUBCLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == MIDI_STREAMING_PROTOCOL))
+		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == AUDIO_CSCP_AudioClass)            &&
+		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == AUDIO_CSCP_MIDIStreamingSubclass) &&
+		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == AUDIO_CSCP_StreamingProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}

@@ -189,7 +189,7 @@ static uint8_t MassStore_SendReceiveData(MS_CommandBlockWrapper_t* const SCSICom
 	uint16_t BytesRem  = SCSICommandBlock->DataTransferLength;
 
 	/* Check the direction of the SCSI command data stage */
-	if (SCSICommandBlock->Flags & COMMAND_DIRECTION_DATA_IN)
+	if (SCSICommandBlock->Flags & MS_COMMAND_DIR_DATA_IN)
 	{
 		/* Wait until the device has replied with some data */
 		if ((ErrorCode = MassStore_WaitForDataReceived()) != PIPE_RWSTREAM_NoError)
@@ -347,9 +347,9 @@ uint8_t MassStore_Inquiry(const uint8_t LUNIndex,
 	/* Create a CBW with a SCSI command to issue INQUIRY command */
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
-			.Signature          = CBW_SIGNATURE,
+			.Signature          = MS_CBW_SIGNATURE,
 			.DataTransferLength = sizeof(SCSI_Inquiry_Response_t),
-			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.Flags              = MS_COMMAND_DIR_DATA_IN,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 6,
 			.SCSICommandData    =
@@ -398,9 +398,9 @@ uint8_t MassStore_RequestSense(const uint8_t LUNIndex,
 	/* Create a CBW with a SCSI command to issue REQUEST SENSE command */
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
-			.Signature          = CBW_SIGNATURE,
+			.Signature          = MS_CBW_SIGNATURE,
 			.DataTransferLength = sizeof(SCSI_Request_Sense_Response_t),
-			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.Flags              = MS_COMMAND_DIR_DATA_IN,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 6,
 			.SCSICommandData =
@@ -455,9 +455,9 @@ uint8_t MassStore_ReadDeviceBlock(const uint8_t LUNIndex,
 	/* Create a CBW with a SCSI command to read in the given blocks from the device */
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
-			.Signature          = CBW_SIGNATURE,
+			.Signature          = MS_CBW_SIGNATURE,
 			.DataTransferLength = ((uint32_t)Blocks * BlockSize),
-			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.Flags              = MS_COMMAND_DIR_DATA_IN,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 10,
 			.SCSICommandData    =
@@ -516,9 +516,9 @@ uint8_t MassStore_WriteDeviceBlock(const uint8_t LUNIndex,
 	/* Create a CBW with a SCSI command to write the given blocks to the device */
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
-			.Signature          = CBW_SIGNATURE,
+			.Signature          = MS_CBW_SIGNATURE,
 			.DataTransferLength = ((uint32_t)Blocks * BlockSize),
-			.Flags              = COMMAND_DIRECTION_DATA_OUT,
+			.Flags              = MS_COMMAND_DIR_DATA_OUT,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 10,
 			.SCSICommandData    =
@@ -569,9 +569,9 @@ uint8_t MassStore_TestUnitReady(const uint8_t LUNIndex)
 	/* Create a CBW with a SCSI command to issue TEST UNIT READY command */
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
-			.Signature          = CBW_SIGNATURE,
+			.Signature          = MS_CBW_SIGNATURE,
 			.DataTransferLength = 0,
-			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.Flags              = MS_COMMAND_DIR_DATA_IN,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 6,
 			.SCSICommandData    =
@@ -620,9 +620,9 @@ uint8_t MassStore_ReadCapacity(const uint8_t LUNIndex,
 	/* Create a CBW with a SCSI command to issue READ CAPACITY command */
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
-			.Signature          = CBW_SIGNATURE,
+			.Signature          = MS_CBW_SIGNATURE,
 			.DataTransferLength = sizeof(SCSI_Capacity_t),
-			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.Flags              = MS_COMMAND_DIR_DATA_IN,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 10,
 			.SCSICommandData    =
@@ -680,9 +680,9 @@ uint8_t MassStore_PreventAllowMediumRemoval(const uint8_t LUNIndex,
 	/* Create a CBW with a SCSI command to issue PREVENT ALLOW MEDIUM REMOVAL command */
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
-			.Signature          = CBW_SIGNATURE,
+			.Signature          = MS_CBW_SIGNATURE,
 			.DataTransferLength = 0,
-			.Flags              = COMMAND_DIRECTION_DATA_OUT,
+			.Flags              = MS_COMMAND_DIR_DATA_OUT,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 6,
 			.SCSICommandData    =

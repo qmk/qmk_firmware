@@ -47,9 +47,9 @@ USB_Descriptor_Device_t PROGMEM AVRISP_DeviceDescriptor =
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
 	.USBSpecification       = VERSION_BCD(01.10),
-	.Class                  = 0xFF,
-	.SubClass               = 0x00,
-	.Protocol               = 0x00,
+	.Class                  = USB_CSCP_VendorSpecificClass,
+	.SubClass               = USB_CSCP_NoDeviceSubclass,
+	.Protocol               = USB_CSCP_NoDeviceProtocol,
 
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 
@@ -95,7 +95,7 @@ AVRISP_USB_Descriptor_Configuration_t PROGMEM AVRISP_ConfigurationDescriptor =
 
 			.TotalEndpoints         = 2,
 
-			.Class                  = 0xFF,
+			.Class                  = USB_CSCP_VendorSpecificClass,
 			.SubClass               = 0x00,
 			.Protocol               = 0x00,
 

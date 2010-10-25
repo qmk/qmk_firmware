@@ -262,14 +262,6 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define RNDIS_CONTROL_CLASS               0x02
-			#define RNDIS_CONTROL_SUBCLASS            0x02
-			#define RNDIS_CONTROL_PROTOCOL            0xFF
-			#define RNDIS_DATA_CLASS                  0x0A
-			#define RNDIS_DATA_SUBCLASS               0x00
-			#define RNDIS_DATA_PROTOCOL               0x00
-
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_RNDIS_HOST_C)
 				static uint8_t RNDIS_SendEncapsulatedCommand(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo,

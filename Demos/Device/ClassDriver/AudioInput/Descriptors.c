@@ -47,9 +47,9 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
 	.USBSpecification       = VERSION_BCD(02.00),
-	.Class                  = 0x00,
-	.SubClass               = 0x00,
-	.Protocol               = 0x00,
+	.Class                  = USB_CSCP_NoDeviceClass,
+	.SubClass               = USB_CSCP_NoDeviceSubclass,
+	.Protocol               = USB_CSCP_NoDeviceProtocol,
 
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 
@@ -95,9 +95,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.TotalEndpoints           = 0,
 
-			.Class                    = 0x01,
-			.SubClass                 = 0x01,
-			.Protocol                 = 0x00,
+			.Class                    = AUDIO_CSCP_AudioClass,
+			.SubClass                 = AUDIO_CSCP_ControlSubclass,
+			.Protocol                 = AUDIO_CSCP_ControlProtocol,
 
 			.InterfaceStrIndex        = NO_DESCRIPTOR
 		},
@@ -155,9 +155,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.TotalEndpoints           = 0,
 
-			.Class                    = 0x01,
-			.SubClass                 = 0x02,
-			.Protocol                 = 0x00,
+			.Class                    = AUDIO_CSCP_AudioClass,
+			.SubClass                 = AUDIO_CSCP_AudioStreamingSubclass,
+			.Protocol                 = AUDIO_CSCP_StreamingProtocol,
 
 			.InterfaceStrIndex        = NO_DESCRIPTOR
 		},
@@ -171,9 +171,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.TotalEndpoints           = 1,
 
-			.Class                    = 0x01,
-			.SubClass                 = 0x02,
-			.Protocol                 = 0x00,
+			.Class                    = AUDIO_CSCP_AudioClass,
+			.SubClass                 = AUDIO_CSCP_AudioStreamingSubclass,
+			.Protocol                 = AUDIO_CSCP_StreamingProtocol,
 
 			.InterfaceStrIndex        = NO_DESCRIPTOR
 		},

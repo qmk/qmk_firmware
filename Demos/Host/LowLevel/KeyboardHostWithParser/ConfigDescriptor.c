@@ -52,7 +52,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 	uint16_t CurrConfigBytesRem;
 
 	USB_Descriptor_Interface_t* HIDInterface   = NULL;
-	USB_Descriptor_HID_t*       HIDDescriptor  = NULL;
+	USB_HID_Descriptor_HID_t*   HIDDescriptor  = NULL;
 	USB_Descriptor_Endpoint_t*  DataINEndpoint = NULL;
 
 	/* Retrieve the entire configuration descriptor into the allocated buffer */
@@ -95,7 +95,7 @@ uint8_t ProcessConfigurationDescriptor(void)
 			}
 
 			/* Save the HID descriptor for later use */
-			HIDDescriptor = DESCRIPTOR_PCAST(CurrConfigLocation, USB_Descriptor_HID_t);
+			HIDDescriptor = DESCRIPTOR_PCAST(CurrConfigLocation, USB_HID_Descriptor_HID_t);
 
 			/* Skip the remainder of the loop as we have not found an endpoint yet */
 			continue;
@@ -133,9 +133,8 @@ uint8_t DComp_NextKeyboardInterface(void* CurrentDescriptor)
 {
 	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
 	{
-		/* Check the HID descriptor class and protocol, break out if correct class/protocol interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == KEYBOARD_CLASS) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == KEYBOARD_PROTOCOL))
+		/* Check the HID descriptor class, break out if correct class interface found */
+		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == HID_CSCP_HIDClass)
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}

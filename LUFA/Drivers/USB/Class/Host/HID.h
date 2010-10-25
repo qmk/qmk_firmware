@@ -297,9 +297,6 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define HID_INTERFACE_CLASS             0x03
-
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_HID_HOST_C)
 				static uint8_t DCOMP_HID_Host_NextHIDInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);

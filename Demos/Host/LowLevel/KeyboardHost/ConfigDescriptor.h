@@ -42,12 +42,6 @@
 		#include "KeyboardHost.h"
 
 	/* Macros: */
-		/** Interface Class value for the Human Interface Device class. */
-		#define KEYBOARD_CLASS                 0x03
-
-		/** Interface Protocol value for a Boot Protocol Keyboard compliant device. */
-		#define KEYBOARD_PROTOCOL              0x01
-
 		/** Pipe number for the keyboard data IN pipe. */
 		#define KEYBOARD_DATA_IN_PIPE          1
 

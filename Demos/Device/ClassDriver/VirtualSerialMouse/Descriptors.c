@@ -95,9 +95,9 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
 	.USBSpecification       = VERSION_BCD(01.10),
-	.Class                  = 0xEF,
-	.SubClass               = 0x02,
-	.Protocol               = 0x01,
+	.Class                  = USB_CSCP_IADDeviceClass,
+	.SubClass               = USB_CSCP_IADDeviceSubclass,
+	.Protocol               = USB_CSCP_IADDeviceProtocol,
 
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 
@@ -141,9 +141,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.FirstInterfaceIndex    = 0,
 			.TotalInterfaces        = 2,
 
-			.Class                  = 0x02,
-			.SubClass               = 0x02,
-			.Protocol               = 0x01,
+			.Class                  = CDC_CSCP_CDCClass,
+			.SubClass               = CDC_CSCP_ACMSubclass,
+			.Protocol               = CDC_CSCP_ATCommandProtocol,
 
 			.IADStrIndex            = NO_DESCRIPTOR
 		},
@@ -157,9 +157,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.TotalEndpoints         = 1,
 
-			.Class                  = 0x02,
-			.SubClass               = 0x02,
-			.Protocol               = 0x01,
+			.Class                  = CDC_CSCP_CDCClass,
+			.SubClass               = CDC_CSCP_ACMSubclass,
+			.Protocol               = CDC_CSCP_ATCommandProtocol,
 
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
@@ -208,9 +208,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.TotalEndpoints         = 2,
 
-			.Class                  = 0x0A,
-			.SubClass               = 0x00,
-			.Protocol               = 0x00,
+			.Class                  = CDC_CSCP_CDCDataClass,
+			.SubClass               = CDC_CSCP_NoDataSubclass,
+			.Protocol               = CDC_CSCP_NoDataProtocol,
 
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},
@@ -244,9 +244,9 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 			.TotalEndpoints         = 1,
 
-			.Class                  = 0x03,
-			.SubClass               = 0x01,
-			.Protocol               = HID_BOOTP_MouseBootProtocol,
+			.Class                  = HID_CSCP_HIDClass,
+			.SubClass               = HID_CSCP_BootSubclass,
+			.Protocol               = HID_CSCP_MouseBootProtocol,
 
 			.InterfaceStrIndex      = NO_DESCRIPTOR
 		},

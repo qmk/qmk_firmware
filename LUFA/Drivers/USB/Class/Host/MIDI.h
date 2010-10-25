@@ -188,11 +188,6 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define MIDI_STREAMING_CLASS           0x01
-			#define MIDI_STREAMING_SUBCLASS        0x03
-			#define MIDI_STREAMING_PROTOCOL        0x00
-
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_MIDI_HOST_C)
 				static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);

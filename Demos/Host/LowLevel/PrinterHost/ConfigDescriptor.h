@@ -38,15 +38,6 @@
 		#include "Lib/PrinterCommands.h"
 
 	/* Macros: */
-		/** Interface Class value for the Printer Device class. */
-		#define PRINTER_CLASS                    0x07
-
-		/** Interface Subclass value for the Printer Device class. */
-		#define PRINTER_SUBCLASS                 0x01
-
-		/** Interface Protocol value for a Bidirectional communication encapsulation. */
-		#define PRINTER_PROTOCOL                 0x02
-
 		/** Pipe number of the Printer data IN pipe. */
 		#define PRINTER_DATA_IN_PIPE             1
 
@@ -68,12 +59,12 @@
 		/** Interface index of the Bidirectional Printer interface within the device, once the Configuration
 		 *  Descriptor has been processed.
 		 */
-		uint8_t PrinterInterfaceNumber;
+		extern uint8_t PrinterInterfaceNumber;
 
 		/** Interface Alternate Setting index of the Bidirectional Printer interface within the device, once
 		 *  the Configuration Descriptor has been processed.
 		 */
-		uint8_t PrinterAltSetting;
+		extern uint8_t PrinterAltSetting;
 
 	/* Function Prototypes: */
 		uint8_t ProcessConfigurationDescriptor(void);

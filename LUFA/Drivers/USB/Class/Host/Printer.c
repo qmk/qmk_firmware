@@ -111,9 +111,9 @@ static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* CurrentDescriptor)
 		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
 		                                                                USB_Descriptor_Interface_t);
 
-		if ((CurrentInterface->Class    == PRINTER_CLASS)    &&
-		    (CurrentInterface->SubClass == PRINTER_SUBCLASS) &&
-		    (CurrentInterface->Protocol == PRINTER_PROTOCOL))
+		if ((CurrentInterface->Class    == PRNT_CSCP_PrinterClass)    &&
+		    (CurrentInterface->SubClass == PRNT_CSCP_PrinterSubclass) &&
+		    (CurrentInterface->Protocol == PRNT_CSCP_BidirectionalProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}

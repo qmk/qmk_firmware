@@ -42,15 +42,6 @@
 		#include "MIDIHost.h"
 
 	/* Macros: */
-		/** Interface Class value for the MIDI Audio class. */
-		#define MIDI_STREAMING_CLASS           0x01
-
-		/** Interface Class value for the MIDI Audio Streaming subclass. */
-		#define MIDI_STREAMING_SUBCLASS        0x03
-
-		/** Interface Class value for the MIDI Audio Streaming protocol. */
-		#define MIDI_STREAMING_PROTOCOL        0x00
-
 		/** Pipe number for the MIDI data IN pipe. */
 		#define MIDI_DATA_IN_PIPE              1
 

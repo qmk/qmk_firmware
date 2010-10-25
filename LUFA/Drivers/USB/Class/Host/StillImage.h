@@ -311,11 +311,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define STILL_IMAGE_CLASS              0x06
-			#define STILL_IMAGE_SUBCLASS           0x01
-			#define STILL_IMAGE_PROTOCOL           0x01
-
-			#define COMMAND_DATA_TIMEOUT_MS        10000
+			#define SI_COMMAND_DATA_TIMEOUT_MS        10000
 
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_STILLIMAGE_HOST_C)

@@ -313,17 +313,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define MASS_STORE_CLASS               0x08
-			#define MASS_STORE_SUBCLASS            0x06
-			#define MASS_STORE_PROTOCOL            0x50
-
-			#define CBW_SIGNATURE                  0x43425355UL
-			#define CSW_SIGNATURE                  0x53425355UL
-
-			#define COMMAND_DIRECTION_DATA_OUT     (0 << 7)
-			#define COMMAND_DIRECTION_DATA_IN      (1 << 7)
-
-			#define COMMAND_DATA_TIMEOUT_MS        10000
+			#define MS_COMMAND_DATA_TIMEOUT_MS        10000
 
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_MASSSTORAGE_HOST_C)

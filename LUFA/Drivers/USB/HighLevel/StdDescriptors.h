@@ -203,17 +203,49 @@
 			/** Enum for the possible standard descriptor types, as given in each descriptor's header. */
 			enum USB_DescriptorTypes_t
 			{
-				DTYPE_Device               = 0x01, /**< Indicates that the descriptor is a device descriptor. */
-				DTYPE_Configuration        = 0x02, /**< Indicates that the descriptor is a configuration descriptor. */
-				DTYPE_String               = 0x03, /**< Indicates that the descriptor is a string descriptor. */
-				DTYPE_Interface            = 0x04, /**< Indicates that the descriptor is an interface descriptor. */
-				DTYPE_Endpoint             = 0x05, /**< Indicates that the descriptor is an endpoint descriptor. */
-				DTYPE_DeviceQualifier      = 0x06, /**< Indicates that the descriptor is a device qualifier descriptor. */
-				DTYPE_Other                = 0x07, /**< Indicates that the descriptor is of other type. */
-				DTYPE_InterfacePower       = 0x08, /**< Indicates that the descriptor is an interface power descriptor. */
-				DTYPE_InterfaceAssociation = 0x0B, /**< Indicates that the descriptor is an interface association descriptor. */
-				DTYPE_CSInterface          = 0x24, /**< Indicates that the descriptor is a class specific interface descriptor. */
-				DTYPE_CSEndpoint           = 0x25, /**< Indicates that the descriptor is a class specific endpoint descriptor. */
+				DTYPE_Device                    = 0x01, /**< Indicates that the descriptor is a device descriptor. */
+				DTYPE_Configuration             = 0x02, /**< Indicates that the descriptor is a configuration descriptor. */
+				DTYPE_String                    = 0x03, /**< Indicates that the descriptor is a string descriptor. */
+				DTYPE_Interface                 = 0x04, /**< Indicates that the descriptor is an interface descriptor. */
+				DTYPE_Endpoint                  = 0x05, /**< Indicates that the descriptor is an endpoint descriptor. */
+				DTYPE_DeviceQualifier           = 0x06, /**< Indicates that the descriptor is a device qualifier descriptor. */
+				DTYPE_Other                     = 0x07, /**< Indicates that the descriptor is of other type. */
+				DTYPE_InterfacePower            = 0x08, /**< Indicates that the descriptor is an interface power descriptor. */
+				DTYPE_InterfaceAssociation      = 0x0B, /**< Indicates that the descriptor is an interface association descriptor. */
+				DTYPE_CSInterface               = 0x24, /**< Indicates that the descriptor is a class specific interface descriptor. */
+				DTYPE_CSEndpoint                = 0x25, /**< Indicates that the descriptor is a class specific endpoint descriptor. */
+			};
+
+			/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors. */
+			enum USB_Descriptor_ClassSubclassProtocol_t
+			{
+				USB_CSCP_NoDeviceClass          = 0x00, /**< Descriptor Class value indicating that the device does not belong
+				                                         *   to a particular class at the device level.
+				                                         */
+				USB_CSCP_NoDeviceSubclass       = 0x00, /**< Descriptor Subclass value indicating that the device does not belong
+				                                         *   to a particular subclass at the device level.
+				                                         */
+				USB_CSCP_NoDeviceProtocol       = 0x00, /**< Descriptor Protocol value indicating that the device does not belong
+				                                         *   to a particular protocol at the device level.
+				                                         */
+				USB_CSCP_VendorSpecificClass    = 0xFF, /**< Descriptor Class value indicating that the device/interface belongs
+				                                         *   to a vendor specific class.
+				                                         */
+				USB_CSCP_VendorSpecificSubclass = 0xFF, /**< Descriptor Subclass value indicating that the device/interface belongs
+				                                         *   to a vendor specific subclass.
+				                                         */
+				USB_CSCP_VendorSpecificProtocol = 0xFF, /**< Descriptor Protocol value indicating that the device/interface belongs
+				                                         *   to a vendor specific protocol.
+				                                         */
+				USB_CSCP_IADDeviceClass         = 0xEF, /**< Descriptor Class value indicating that the device belongs to the
+				                                         *   Interface Association Descriptor class.
+				                                         */
+				USB_CSCP_IADDeviceSubclass      = 0x02, /**< Descriptor Subclass value indicating that the device belongs to the
+				                                         *   Interface Association Descriptor subclass.
+				                                         */
+				USB_CSCP_IADDeviceProtocol      = 0x01, /**< Descriptor Protocol value indicating that the device belongs to the
+				                                         *   Interface Association Descriptor protocol.
+				                                         */
 			};
 
 		/* Type Defines: */

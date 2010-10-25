@@ -110,9 +110,9 @@ static uint8_t DCOMP_MS_Host_NextMSInterface(void* const CurrentDescriptor)
 		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
 		                                                                USB_Descriptor_Interface_t);
 
-		if ((CurrentInterface->Class    == MASS_STORE_CLASS)    &&
-		    (CurrentInterface->SubClass == MASS_STORE_SUBCLASS) &&
-		    (CurrentInterface->Protocol == MASS_STORE_PROTOCOL))
+		if ((CurrentInterface->Class    == MS_CSCP_MassStorageClass)        &&
+		    (CurrentInterface->SubClass == MS_CSCP_SCSITransparentSubclass) &&
+		    (CurrentInterface->Protocol == MS_CSCP_BulkOnlyTransportProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -150,7 +150,7 @@ static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInf
 {
 	uint8_t ErrorCode = PIPE_RWSTREAM_NoError;
 
-	SCSICommandBlock->Signature = CBW_SIGNATURE;
+	SCSICommandBlock->Signature = MS_CBW_SIGNATURE;
 	SCSICommandBlock->Tag       = ++MSInterfaceInfo->State.TransactionTag;
 
 	if (MSInterfaceInfo->State.TransactionTag == 0xFFFFFFFF)
@@ -180,7 +180,7 @@ static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInf
 
 static uint8_t MS_Host_WaitForDataReceived(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo)
 {
-	uint16_t TimeoutMSRem        = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t TimeoutMSRem        = MS_COMMAND_DATA_TIMEOUT_MS;
 	uint16_t PreviousFrameNumber = USB_Host_GetFrameNumber();
 
 	Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
@@ -240,7 +240,7 @@ static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* const MSInterfac
 	uint8_t  ErrorCode = PIPE_RWSTREAM_NoError;
 	uint16_t BytesRem  = SCSICommandBlock->DataTransferLength;
 
-	if (SCSICommandBlock->Flags & COMMAND_DIRECTION_DATA_IN)
+	if (SCSICommandBlock->Flags & MS_COMMAND_DIR_DATA_IN)
 	{
 		if ((ErrorCode = MS_Host_WaitForDataReceived(MSInterfaceInfo)) != PIPE_RWSTREAM_NoError)
 		{
@@ -357,7 +357,7 @@ uint8_t MS_Host_GetInquiryData(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
 			.DataTransferLength = sizeof(SCSI_Inquiry_Response_t),
-			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.Flags              = MS_COMMAND_DIR_DATA_IN,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 6,
 			.SCSICommandData    =
@@ -393,7 +393,7 @@ uint8_t MS_Host_TestUnitReady(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
 			.DataTransferLength = 0,
-			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.Flags              = MS_COMMAND_DIR_DATA_IN,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 6,
 			.SCSICommandData    =
@@ -430,7 +430,7 @@ uint8_t MS_Host_ReadDeviceCapacity(USB_ClassInfo_MS_Host_t* const MSInterfaceInf
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
 			.DataTransferLength = sizeof(SCSI_Capacity_t),
-			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.Flags              = MS_COMMAND_DIR_DATA_IN,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 10,
 			.SCSICommandData    =
@@ -474,7 +474,7 @@ uint8_t MS_Host_RequestSense(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
 			.DataTransferLength = sizeof(SCSI_Request_Sense_Response_t),
-			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.Flags              = MS_COMMAND_DIR_DATA_IN,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 6,
 			.SCSICommandData    =
@@ -511,7 +511,7 @@ uint8_t MS_Host_PreventAllowMediumRemoval(USB_ClassInfo_MS_Host_t* const MSInter
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
 			.DataTransferLength = 0,
-			.Flags              = COMMAND_DIRECTION_DATA_OUT,
+			.Flags              = MS_COMMAND_DIR_DATA_OUT,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 6,
 			.SCSICommandData    =
@@ -551,7 +551,7 @@ uint8_t MS_Host_ReadDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
 			.DataTransferLength = ((uint32_t)Blocks * BlockSize),
-			.Flags              = COMMAND_DIRECTION_DATA_IN,
+			.Flags              = MS_COMMAND_DIR_DATA_IN,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 10,
 			.SCSICommandData    =
@@ -595,7 +595,7 @@ uint8_t MS_Host_WriteDeviceBlocks(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo
 	MS_CommandBlockWrapper_t SCSICommandBlock = (MS_CommandBlockWrapper_t)
 		{
 			.DataTransferLength = ((uint32_t)Blocks * BlockSize),
-			.Flags              = COMMAND_DIRECTION_DATA_OUT,
+			.Flags              = MS_COMMAND_DIR_DATA_OUT,
 			.LUN                = LUNIndex,
 			.SCSICommandLength  = 10,
 			.SCSICommandData    =

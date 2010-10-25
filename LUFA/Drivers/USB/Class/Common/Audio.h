@@ -210,6 +210,31 @@
 		#define AUDIO_EP_ACCEPTS_SMALL_PACKETS    (0 << 7)
 
 	/* Enums: */
+		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the Audio
+		 *  device class.
+		 */
+		enum Audio_Descriptor_ClassSubclassProtocol_t
+		{
+			AUDIO_CSCP_AudioClass                     = 0x01, /**< Descriptor Class value indicating that the device or
+			                                                   *   interface belongs to the USB Audio 1.0 class.
+			                                                   */
+			AUDIO_CSCP_ControlSubclass                = 0x01, /**< Descriptor Subclass value indicating that the device or
+			                                                   *   interface belongs to the Audio Control subclass.
+			                                                   */
+			AUDIO_CSCP_ControlProtocol                = 0x00, /**< Descriptor Protocol value indicating that the device or
+			                                                   *   interface belongs to the Audio Control protocol.
+			                                                   */
+			AUDIO_CSCP_AudioStreamingSubclass         = 0x02, /**< Descriptor Subclass value indicating that the device or
+			                                                   *   interface belongs to the MIDI Streaming subclass.
+			                                                   */
+			AUDIO_CSCP_MIDIStreamingSubclass          = 0x03, /**< Descriptor Subclass value indicating that the device or
+			                                                   *   interface belongs to the Audio streaming subclass.
+			                                                   */
+			AUDIO_CSCP_StreamingProtocol              = 0x00, /**< Descriptor Protocol value indicating that the device or
+			                                                   *   interface belongs to the Streaming Audio protocol.
+			                                                   */
+		};
+	
 		/** Audio class specific interface description subtypes, for the Audio Control interface. */
 		enum Audio_CSInterface_AC_SubTypes_t
 		{

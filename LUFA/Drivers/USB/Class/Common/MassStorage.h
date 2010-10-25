@@ -205,25 +205,42 @@
 		#define SCSI_ASENSEQ_OPERATION_IN_PROGRESS             0x07
 
 	/* Enums: */
+		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the Mass
+		 *  Storage device class.
+		 */
+		enum MS_Descriptor_ClassSubclassProtocol_t
+		{
+			MS_CSCP_MassStorageClass          = 0x08, /**< Descriptor Class value indicating that the device or interface
+			                                           *   belongs to the Mass Storage class.
+			                                           */
+			MS_CSCP_SCSITransparentSubclass   = 0x06, /**< Descriptor Subclass value indicating that the device or interface
+			                                           *   belongs to the SCSI Transparent Command Set subclass of the Mass
+			                                           *   storage class.
+			                                           */
+			MS_CSCP_BulkOnlyTransportProtocol = 0x50, /**< Descriptor Protocol value indicating that the device or interface
+			                                           *   belongs to the Bulk Only Transport protocol of the Mass Storage class.
+			                                           */
+		};
+	
 		/** Enum for the Mass Storage class specific control requests that can be issued by the USB bus host. */
 		enum MS_ClassRequests_t
 		{
-			MS_REQ_GetMaxLUN        = 0xFE, /**< Mass Storage class-specific request to retrieve the total number of Logical
-			                                 *   Units (drives) in the SCSI device.
-			                                 */
-			MS_REQ_MassStorageReset = 0xFF, /**< Mass Storage class-specific request to reset the Mass Storage interface,
-			                                 *   ready for the next command.
-		                                     */
+			MS_REQ_GetMaxLUN                  = 0xFE, /**< Mass Storage class-specific request to retrieve the total number of Logical
+			                                           *   Units (drives) in the SCSI device.
+			                                           */
+			MS_REQ_MassStorageReset           = 0xFF, /**< Mass Storage class-specific request to reset the Mass Storage interface,
+			                                           *   ready for the next command.
+		                                               */
 		};
 
 		/** Enum for the possible command status wrapper return status codes. */
 		enum MS_CommandStatusCodes_t
 		{
-			MS_SCSI_COMMAND_Pass        = 0, /**< Command completed with no error */
-			MS_SCSI_COMMAND_Fail        = 1, /**< Command failed to complete - host may check the exact error via a
-			                                  *   SCSI REQUEST SENSE command.
-			                                  */
-			MS_SCSI_COMMAND_PhaseError  = 2, /**< Command failed due to being invalid in the current phase. */
+			MS_SCSI_COMMAND_Pass              = 0, /**< Command completed with no error */
+			MS_SCSI_COMMAND_Fail              = 1, /**< Command failed to complete - host may check the exact error via a
+			                                        *   SCSI REQUEST SENSE command.
+			                                        */
+			MS_SCSI_COMMAND_PhaseError        = 2, /**< Command failed due to being invalid in the current phase. */
 		};
 
 	/* Type Defines: */

@@ -98,6 +98,31 @@
 		#define HID_KEYBOARD_LED_KATANA         (1 << 3)
 
 	/* Type Defines: */
+		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the HID
+		 *  device class.
+		 */
+		enum HID_Descriptor_ClassSubclassProtocol_t
+		{
+			HID_CSCP_HIDClass             = 0x03, /**< Descriptor Class value indicating that the device or interface
+			                                       *   belongs to the HID class.
+			                                       */
+			HID_CSCP_NonBootSubclass      = 0x00, /**< Descriptor Subclass value indicating that the device or interface
+			                                       *   does not implement a HID boot protocol.
+			                                       */
+			HID_CSCP_BootSubclass         = 0x01, /**< Descriptor Subclass value indicating that the device or interface
+			                                       * implements a HID boot protocol.
+			                                       */
+			HID_CSCP_NonBootProtocol      = 0x00, /**< Descriptor Protocol value indicating that the device or interface
+			                                       *   does not belong to a HID boot protocol.
+			                                       */
+			HID_CSCP_KeyboardBootProtocol = 0x01, /**< Descriptor Protocol value indicating that the device or interface
+			                                       *   belongs to the Keyboard HID boot protocol.
+			                                       */
+			HID_CSCP_MouseBootProtocol    = 0x02, /**< Descriptor Protocol value indicating that the device or interface
+			                                       *   belongs to the Mouse HID boot protocol.
+			                                       */
+		};
+	
 		/** Enum for the HID class specific control requests that can be issued by the USB bus host. */
 		enum HID_ClassRequests_t
 		{
@@ -114,23 +139,6 @@
 		{
 			HID_DTYPE_HID    = 0x21, /**< Descriptor header type value, to indicate a HID class HID descriptor. */
 			HID_DTYPE_Report = 0x22, /**< Descriptor header type value, to indicate a HID class HID report descriptor. */
-		};
-
-		/** Enum for the HID class boot protocols that may be supported by HID devices. */
-		enum HID_BootProtocols_t
-		{
-			HID_BOOTP_NonBootProtocol      = 0x00, /**< Constant for the protocol value of a HID interface descriptor, indicating
-			                                        *   that the interface does not support any HID class boot protocol (see HID
-			                                        *   Class Specification).
-			                                        */
-			HID_BOOTP_KeyboardBootProtocol = 0x01, /**< Constant for the protocol value of a HID interface descriptor, indicating
-			                                        *   that the interface supports the HID class Keyboard boot protocol (see HID
-			                                        *   Class Specification).
-			                                        */
-			HID_BOOTP_MouseBootProtocol    = 0x02, /**< Constant for the protocol value of a HID interface descriptor, indicating
-			                                        *   that the interface supports the HID class Mouse boot protocol (see HID Class
-			                                        *   Specification).
-			                                        */
 		};
 
 		/** Enum for the different types of HID reports. */

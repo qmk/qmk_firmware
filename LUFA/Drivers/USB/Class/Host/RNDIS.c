@@ -142,9 +142,9 @@ static uint8_t DCOMP_RNDIS_Host_NextRNDISControlInterface(void* const CurrentDes
 		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
 		                                                                USB_Descriptor_Interface_t);
 
-		if ((CurrentInterface->Class    == RNDIS_CONTROL_CLASS)    &&
-		    (CurrentInterface->SubClass == RNDIS_CONTROL_SUBCLASS) &&
-		    (CurrentInterface->Protocol == RNDIS_CONTROL_PROTOCOL))
+		if ((CurrentInterface->Class    == CDC_CSCP_CDCClass)    &&
+		    (CurrentInterface->SubClass == CDC_CSCP_ACMSubclass) &&
+		    (CurrentInterface->Protocol == CDC_CSCP_VendorSpecificProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -160,9 +160,9 @@ static uint8_t DCOMP_RNDIS_Host_NextRNDISDataInterface(void* const CurrentDescri
 		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
 		                                                                USB_Descriptor_Interface_t);
 
-		if ((CurrentInterface->Class    == RNDIS_DATA_CLASS)    &&
-		    (CurrentInterface->SubClass == RNDIS_DATA_SUBCLASS) &&
-		    (CurrentInterface->Protocol == RNDIS_DATA_PROTOCOL))
+		if ((CurrentInterface->Class    == CDC_CSCP_CDCDataClass)   &&
+		    (CurrentInterface->SubClass == CDC_CSCP_NoDataSubclass) &&
+		    (CurrentInterface->Protocol == CDC_CSCP_NoDataProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}

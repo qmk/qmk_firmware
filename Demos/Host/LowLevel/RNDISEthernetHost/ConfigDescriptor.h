@@ -42,15 +42,6 @@
 		#include "RNDISEthernetHost.h"
 
 	/* Macros: */
-		/** Interface Class value for the CDC data class. */
-		#define CDC_DATA_CLASS                 0x0A
-
-		/** Interface Class value for the CDC data subclass. */
-		#define CDC_DATA_SUBCLASS              0x00
-
-		/** Interface Class value for the CDC data protocol. */
-		#define CDC_DATA_PROTOCOL              0x00
-
 		/** Pipe number for the RNDIS data IN pipe. */
 		#define RNDIS_DATA_IN_PIPE             1
 

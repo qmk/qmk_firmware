@@ -128,9 +128,9 @@ uint8_t DCOMP_SI_Host_NextSIInterface(void* const CurrentDescriptor)
 		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
 		                                                                USB_Descriptor_Interface_t);
 
-		if ((CurrentInterface->Class    == STILL_IMAGE_CLASS)    &&
-		    (CurrentInterface->SubClass == STILL_IMAGE_SUBCLASS) &&
-		    (CurrentInterface->Protocol == STILL_IMAGE_PROTOCOL))
+		if ((CurrentInterface->Class    == SI_CSCP_StillImageClass)    &&
+		    (CurrentInterface->SubClass == SI_CSCP_StillImageSubclass) &&
+		    (CurrentInterface->Protocol == SI_CSCP_BulkOnlyProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -196,7 +196,7 @@ uint8_t SI_Host_SendBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 uint8_t SI_Host_ReceiveBlockHeader(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
                                    PIMA_Container_t* const PIMAHeader)
 {
-	uint16_t TimeoutMSRem        = COMMAND_DATA_TIMEOUT_MS;
+	uint16_t TimeoutMSRem        = SI_COMMAND_DATA_TIMEOUT_MS;
 	uint16_t PreviousFrameNumber = USB_Host_GetFrameNumber();
 
 	if ((USB_HostState != HOST_STATE_Configured) || !(SIInterfaceInfo->State.IsActive))

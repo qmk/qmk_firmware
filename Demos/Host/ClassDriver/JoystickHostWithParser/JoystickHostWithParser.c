@@ -53,7 +53,7 @@ USB_ClassInfo_HID_Host_t Joystick_HID_Interface =
 				.DataOUTPipeNumber      = 2,
 				.DataOUTPipeDoubleBank  = false,
 
-				.HIDInterfaceProtocol   = HID_BOOTP_NonBootProtocol,
+				.HIDInterfaceProtocol   = HID_CSCP_NonBootProtocol,
 
 				.HIDParserData          = &HIDReportInfo
 			},

@@ -42,12 +42,6 @@
 		#include "HIDReport.h"
 
 	/* Macros: */
-		/** Interface Class value for the Human Interface Device class. */
-		#define JOYSTICK_CLASS              0x03
-
-		/** Interface Protocol value for a Boot Protocol Mouse compliant device. */
-		#define JOYSTICK_PROTOCOL           0x02
-
 		/** Pipe number for the joystick report data pipe. */
 		#define JOYSTICK_DATA_IN_PIPE       1
 

@@ -306,14 +306,6 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define CDC_CONTROL_CLASS               0x02
-			#define CDC_CONTROL_SUBCLASS            0x02
-			#define CDC_CONTROL_PROTOCOL            0x01
-			#define CDC_DATA_CLASS                  0x0A
-			#define CDC_DATA_SUBCLASS               0x00
-			#define CDC_DATA_PROTOCOL               0x00
-
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_CDC_HOST_C)
 				static int CDC_Host_putchar(char c,

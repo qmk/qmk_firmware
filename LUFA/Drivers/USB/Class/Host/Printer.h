@@ -264,11 +264,6 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define PRINTER_CLASS                  0x07
-			#define PRINTER_SUBCLASS               0x01
-			#define PRINTER_PROTOCOL               0x02
-
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_PRINTER_HOST_C)
 				static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* const CurrentDescriptor) ATTR_NON_NULL_PTR_ARG(1);

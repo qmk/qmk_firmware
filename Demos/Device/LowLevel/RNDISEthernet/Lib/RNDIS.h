@@ -41,7 +41,6 @@
 		#include <stdbool.h>
 
 		#include "RNDISEthernet.h"
-		#include "RNDISConstants.h"
 		#include "Ethernet.h"
 
 	/* External Variables: */

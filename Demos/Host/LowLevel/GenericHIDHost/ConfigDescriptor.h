@@ -42,9 +42,6 @@
 		#include "GenericHIDHost.h"
 
 	/* Macros: */
-		/** Interface Class value for the Human Interface Device class. */
-		#define HID_CLASS                 0x03
-
 		/** Pipe number for the HID data IN pipe. */
 		#define HID_DATA_IN_PIPE          1
 

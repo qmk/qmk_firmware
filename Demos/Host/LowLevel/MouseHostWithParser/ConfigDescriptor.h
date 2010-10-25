@@ -42,12 +42,6 @@
 		#include "HIDReport.h"
 
 	/* Macros: */
-		/** Interface Class value for the Human Interface Device class. */
-		#define MOUSE_CLASS                 0x03
-
-		/** Interface Protocol value for a Boot Protocol Mouse compliant device. */
-		#define MOUSE_PROTOCOL              0x02
-
 		/** Pipe number for the mouse report data pipe. */
 		#define MOUSE_DATA_IN_PIPE          1
 

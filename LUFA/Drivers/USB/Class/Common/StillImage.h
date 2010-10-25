@@ -100,6 +100,22 @@
 		};
 
 	/* Enums: */
+		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the
+		 *  Still Image device class.
+		 */
+		enum SI_Descriptor_ClassSubclassProtocol_t
+		{
+			SI_CSCP_StillImageClass             = 0x06, /**< Descriptor Class value indicating that the device or interface
+			                                             *   belongs to the Still Image class.
+			                                             */
+			SI_CSCP_StillImageSubclass          = 0x01, /**< Descriptor Subclass value indicating that the device or interface
+			                                             *   belongs to the Still Image subclass.
+			                                             */
+			SI_CSCP_BulkOnlyProtocol            = 0x01, /**< Descriptor Protocol value indicating that the device or interface
+			                                             *   belongs to the Bulk Only Transport protocol of the Still Image class.
+			                                             */
+		};
+
 		/** Enums for the possible status codes of a returned Response Block from an attached PIMA compliant Still Image device. */
 		enum PIMA_ResponseCodes_t
 		{

@@ -87,6 +87,7 @@
 		#define MIDI_CHANNEL(channel)        ((channel) - 1)
 
 	/* Enums: */
+		/** Enum for the possible MIDI jack types in a MIDI device jack descriptor. */
 		enum MIDI_JackTypes_t
 		{
 			MIDI_JACKTYPE_Embedded = 0x01, /**< MIDI class descriptor jack type value for an embedded (logical) MIDI input or output jack. */

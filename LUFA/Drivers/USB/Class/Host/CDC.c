@@ -142,9 +142,9 @@ static uint8_t DCOMP_CDC_Host_NextCDCControlInterface(void* const CurrentDescrip
 		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
 		                                                                USB_Descriptor_Interface_t);
 
-		if ((CurrentInterface->Class    == CDC_CONTROL_CLASS)    &&
-		    (CurrentInterface->SubClass == CDC_CONTROL_SUBCLASS) &&
-		    (CurrentInterface->Protocol == CDC_CONTROL_PROTOCOL))
+		if ((CurrentInterface->Class    == CDC_CSCP_CDCClass)    &&
+		    (CurrentInterface->SubClass == CDC_CSCP_ACMSubclass) &&
+		    (CurrentInterface->Protocol == CDC_CSCP_ATCommandProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -160,9 +160,9 @@ static uint8_t DCOMP_CDC_Host_NextCDCDataInterface(void* const CurrentDescriptor
 		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
 		                                                                USB_Descriptor_Interface_t);
 
-		if ((CurrentInterface->Class    == CDC_DATA_CLASS)    &&
-		    (CurrentInterface->SubClass == CDC_DATA_SUBCLASS) &&
-		    (CurrentInterface->Protocol == CDC_DATA_PROTOCOL))
+		if ((CurrentInterface->Class    == CDC_CSCP_CDCDataClass)   &&
+		    (CurrentInterface->SubClass == CDC_CSCP_NoDataSubclass) &&
+		    (CurrentInterface->Protocol == CDC_CSCP_NoDataProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}

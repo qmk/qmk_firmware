@@ -42,15 +42,6 @@
 		#include "StillImageHost.h"
 
 	/* Macros: */
-		/** Interface Class value for the Still Image Device class. */
-		#define SIMAGE_CLASS                   0x06
-
-		/** Interface Class value for the Still Image Device subclass. */
-		#define SIMAGE_SUBCLASS                0x01
-
-		/** Interface Class value for the Still Image Device protocol. */
-		#define SIMAGE_PROTOCOL                0x01
-
 		/** Pipe number of the Still Image data IN pipe. */
 		#define SIMAGE_DATA_IN_PIPE            1
 
