@@ -3,7 +3,6 @@
  */
 #include <avr/io.h>
 #include <util/delay.h>
-#include "keymap.h"
 #include "matrix.h"
 #include "print.h"
 
