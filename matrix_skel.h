@@ -15,6 +15,8 @@ int  matrix_scan(void);
 bool matrix_is_modified(void);
 /* whether ghosting occur on matrix. */
 bool matrix_has_ghost(void);
+/* whether a swtich is on */
+bool matrix_is_on(int row, int col);
 /* matrix state on row */
 uint16_t matrix_get_row(int row);
 /* count keys pressed */

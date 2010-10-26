@@ -2,6 +2,7 @@
 #include <avr/pgmspace.h>
 #include "usb_keyboard.h"
 #include "print.h"
+#include "debug.h"
 
 
 static bool is_sent = false;
@@ -112,6 +113,7 @@ bool usb_keyboard_has_mod(void) {
 }
 
 void usb_keyboard_print(void) {
+    if (!debug_keyboard) return;
     print("\nkeys: ");
     for (int i = 0; i < 6; i++) { phex(keyboard_keys[i]); print(" "); }
     print("\n");

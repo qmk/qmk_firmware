@@ -2,6 +2,7 @@
 #include <util/delay.h>
 #include "usb_mouse.h"
 #include "print.h"
+#include "debug.h"
 
 
 static bool is_sent = false;
@@ -76,6 +77,7 @@ bool usb_mouse_is_sent(void) {
 }
 
 void usb_mouse_print(int8_t mouse_x, int8_t mouse_y, int8_t wheel_v, int8_t wheel_h) {
+    if (!debug_mouse) return;
     print("mouse btn|x y v h: ");
     phex(mouse_buttons); print("|");
     phex(mouse_x); print(" ");

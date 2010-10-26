@@ -11,16 +11,18 @@
 #define KEYBOARD_SIZE		8
 #define KEYBOARD_BUFFER		EP_DOUBLE_BUFFER
 
-// TODO: move to usb_keycodes.h ?
-// modifier bits
-#define MOD_LCTRL   (1<<0)
-#define MOD_LSHIFT  (1<<1)
-#define MOD_LALT    (1<<2)
-#define MOD_LGUI    (1<<3)
-#define MOD_RCTRL   (1<<4)
-#define MOD_RSHIFT  (1<<5)
-#define MOD_RALT    (1<<6)
-#define MOD_RGUI    (1<<7)
+#define BIT_LCTRL   (1<<0)
+#define BIT_LSHIFT  (1<<1)
+#define BIT_LALT    (1<<2)
+#define BIT_LGUI    (1<<3)
+#define BIT_RCTRL   (1<<4)
+#define BIT_RSHIFT  (1<<5)
+#define BIT_RALT    (1<<6)
+#define BIT_RGUI    (1<<7)
+#define BIT_LCTL BIT_LCTRL
+#define BIT_RCTL BIT_RCTRL
+#define BIT_LSFT BIT_LSHIFT
+#define BIT_RSFT BIT_RSHIFT
 
 
 // TODO: change variable name: usb_keyboard_ or usb_kb_

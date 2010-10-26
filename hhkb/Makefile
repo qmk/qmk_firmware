@@ -39,6 +39,7 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
+DESCRIPTION = 't.m.k. firmware for HHKB pro\n'
 
 # Target file name (without extension).
 TARGET = tmk_hhkb
