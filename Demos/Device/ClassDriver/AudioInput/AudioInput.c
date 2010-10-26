@@ -63,8 +63,6 @@ int main(void)
 
 	for (;;)
 	{
-		ProcessNextSample();
-
 		Audio_Device_USBTask(&Microphone_Audio_Interface);
 		USB_USBTask();
 	}
@@ -91,17 +89,14 @@ void SetupHardware(void)
 	ADC_StartReading(ADC_REFERENCE_AVCC | ADC_RIGHT_ADJUSTED | MIC_IN_ADC_MUX_MASK);
 }
 
-/** Processes the next audio sample by reading the last ADC conversion and writing it to the audio
- *  interface, each time the sample reload timer period elapses to give a constant sample rate.
- */
-void ProcessNextSample(void)
+/** ISR to handle the reloading of the data endpoint with the next sample. */
+ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
+	uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
+
 	/* Check if the sample reload timer period has elapsed, and that the USB bus is ready for a new sample */
-	if ((TIFR0 & (1 << OCF0A)) && Audio_Device_IsReadyForNextSample(&Microphone_Audio_Interface))
+	if (Audio_Device_IsReadyForNextSample(&Microphone_Audio_Interface))
 	{
-		/* Clear the sample reload timer compare flag, ready for the next interval */
-		TIFR0 |= (1 << OCF0A);
-		
 		int16_t AudioSample;
 
 		#if defined(USE_TEST_TONE)
@@ -126,6 +121,8 @@ void ProcessNextSample(void)
 		
 		Audio_Device_WriteSample16(&Microphone_Audio_Interface, AudioSample);
 	}
+
+	Endpoint_SelectEndpoint(PrevEndpoint);
 }
 
 /** Event handler for the library USB Connection event. */
@@ -134,6 +131,7 @@ void EVENT_USB_Device_Connect(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 
 	/* Sample reload timer initialization */
+	TIMSK0  = (1 << OCIE0A);
 	OCR0A   = (F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1;
 	TCCR0A  = (1 << WGM01);  // CTC mode
 	TCCR0B  = (1 << CS01);   // Fcpu/8 speed

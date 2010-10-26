@@ -97,8 +97,8 @@
 					bool     DataOUTPipeDoubleBank; /**< Indicates if the HID interface's OUT data pipe should use double banking. */
 
 					uint8_t  HIDInterfaceProtocol; /**< HID interface protocol value to match against if a specific
-					                                *   boot subclass protocol is required, a value from the \ref HID_BootProtocols_t
-					                                *   enum.
+					                                *   boot subclass protocol is required, a protocol value from the
+					                                *   \ref HID_Descriptor_ClassSubclassProtocol_t enum.
 					                                */
 					#if !defined(HID_HOST_BOOT_PROTOCOL_ONLY)
 					HID_ReportInfo_t* HIDParserData; /**< HID parser data to store the parsed HID report data, when boot protocol

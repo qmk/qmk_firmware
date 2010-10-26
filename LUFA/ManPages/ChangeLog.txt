@@ -57,6 +57,7 @@
   *  - Better algorithm to extract and convert the internal device serial number into a string descriptor (if present)
   *  - All USB class drivers are now automatically included when LUFA/Drivers/USB.h is included, and no longer need to be seperately included
   *  - All LowLevel demos changed to use the constants and types defined in the USB class drivers
+  *  - Changed AudioInput and AudioOutput demos to reload the next sample via an interrupt rather than polling the sample timer
   *
   *  <b>Fixed:</b>
   *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist

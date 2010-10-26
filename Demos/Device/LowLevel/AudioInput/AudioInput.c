@@ -51,7 +51,6 @@ int main(void)
 
 	for (;;)
 	{
-		USB_Audio_Task();
 		USB_USBTask();
 	}
 }
@@ -86,6 +85,7 @@ void EVENT_USB_Device_Connect(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 
 	/* Sample reload timer initialization */
+	TIMSK0  = (1 << OCIE0A);
 	OCR0A   = (F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1;
 	TCCR0A  = (1 << WGM01);  // CTC mode
 	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
@@ -145,26 +145,17 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	}
 }
 
-/** Task to manage the Audio interface, reading in ADC samples from the microphone, and them to the host. */
-void USB_Audio_Task(void)
+/** ISR to handle the reloading of the data endpoint with the next sample. */
+ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-	/* Device must be connected and configured for the task to run */
-	if (USB_DeviceState != DEVICE_STATE_Configured)
-	  return;
-
-	/* Check to see if the streaming interface is selected, if not the host is not receiving audio */
-	if (!(StreamingAudioInterfaceSelected))
-	  return;
+	uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
 
 	/* Select the audio stream endpoint */
 	Endpoint_SelectEndpoint(AUDIO_STREAM_EPNUM);
 
-	/* Check if the current endpoint can be written to and that the next sample should be stored */
-	if (Endpoint_IsINReady() && (TIFR0 & (1 << OCF0A)))
+	/* Check if the current endpoint can be written to and that the audio interface is enabled */
+	if (Endpoint_IsINReady() && StreamingAudioInterfaceSelected)
 	{
-		/* Clear the sample reload timer */
-		TIFR0 |= (1 << OCF0A);
-
 		int16_t AudioSample;
 
 		#if defined(USE_TEST_TONE)
@@ -197,5 +188,7 @@ void USB_Audio_Task(void)
 			Endpoint_ClearIN();
 		}
 	}
+
+	Endpoint_SelectEndpoint(PrevEndpoint);
 }
 

@@ -51,7 +51,6 @@ int main(void)
 
 	for (;;)
 	{
-		USB_Audio_Task();
 		USB_USBTask();
 	}
 }
@@ -80,27 +79,28 @@ void EVENT_USB_Device_Connect(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 
 	/* Sample reload timer initialization */
-	OCR0A   = (F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1;
-	TCCR0A  = (1 << WGM01);  // CTC mode
-	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
+	TIMSK0 = (1 << OCIE0A);
+	OCR0A  = (F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1;
+	TCCR0A = (1 << WGM01);  // CTC mode
+	TCCR0B = (1 << CS01);   // Fcpu/8 speed
 
-#if defined(AUDIO_OUT_MONO)
+	#if defined(AUDIO_OUT_MONO)
 	/* Set speaker as output */
-	DDRC   |= (1 << 6);
-#elif defined(AUDIO_OUT_STEREO)
+	DDRC  |= (1 << 6);
+	#elif defined(AUDIO_OUT_STEREO)
 	/* Set speakers as outputs */
-	DDRC   |= ((1 << 6) | (1 << 5));
-#elif defined(AUDIO_OUT_PORTC)
+	DDRC  |= ((1 << 6) | (1 << 5));
+	#elif defined(AUDIO_OUT_PORTC)
 	/* Set PORTC as outputs */
-	DDRC   |= 0xFF;
-#endif
+	DDRC  |= 0xFF;
+	#endif
 
-#if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
+	#if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
 	/* PWM speaker timer initialization */
-	TCCR3A  = ((1 << WGM30) | (1 << COM3A1) | (1 << COM3A0)
-	                        | (1 << COM3B1) | (1 << COM3B0)); // Set on match, clear on TOP
-	TCCR3B  = ((1 << WGM32) | (1 << CS30));  // Fast 8-Bit PWM, F_CPU speed
-#endif
+	TCCR3A = ((1 << WGM30) | (1 << COM3A1) | (1 << COM3A0)
+	                       | (1 << COM3B1) | (1 << COM3B0)); // Set on match, clear on TOP
+	TCCR3B = ((1 << WGM32) | (1 << CS30));  // Fast 8-Bit PWM, F_CPU speed
+	#endif
 }
 
 /** Event handler for the USB_Disconnect event. This indicates that the device is no longer connected to a host via
@@ -110,20 +110,20 @@ void EVENT_USB_Device_Disconnect(void)
 {
 	/* Stop the timers */
 	TCCR0B = 0;
-#if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
+	#if (defined(AUDIO_OUT_MONO) || defined(AUDIO_OUT_STEREO))
 	TCCR3B = 0;
-#endif
+	#endif
 
-#if defined(AUDIO_OUT_MONO)
+	#if defined(AUDIO_OUT_MONO)
 	/* Set speaker as input to reduce current draw */
-	DDRC   &= ~(1 << 6);
-#elif defined(AUDIO_OUT_STEREO)
+	DDRC  &= ~(1 << 6);
+	#elif defined(AUDIO_OUT_STEREO)
 	/* Set speakers as inputs to reduce current draw */
-	DDRC   &= ~((1 << 6) | (1 << 5));
-#elif defined(AUDIO_OUT_PORTC)
+	DDRC  &= ~((1 << 6) | (1 << 5));
+	#elif defined(AUDIO_OUT_PORTC)
 	/* Set PORTC low */
-	PORTC  = 0x00;
-#endif
+	PORTC = 0x00;
+	#endif
 
 	/* Indicate streaming audio interface not selected */
 	StreamingAudioInterfaceSelected = false;
@@ -171,34 +171,23 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	}
 }
 
-/** Task to manage the Audio interface, reading in audio samples from the host, and outputting them to the speakers/LEDs as
- *  desired.
- */
-void USB_Audio_Task(void)
+/** ISR to handle the reloading of the PWM timer with the next sample. */
+ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 {
-	/* Device must be connected and configured for the task to run */
-	if (USB_DeviceState != DEVICE_STATE_Configured)
-	  return;
-
-	/* Check to see if the streaming interface is selected, if not the host is not receiving audio */
-	if (!(StreamingAudioInterfaceSelected))
-	  return;
+	uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
 
 	/* Select the audio stream endpoint */
 	Endpoint_SelectEndpoint(AUDIO_STREAM_EPNUM);
 
-	/* Check if the current endpoint can be read from (contains a packet) and that the next sample should be read */
-	if (Endpoint_IsOUTReceived() && (TIFR0 & (1 << OCF0A)))
+	/* Check if the current endpoint can be read from (contains a packet) and the host is sending data */
+	if (Endpoint_IsOUTReceived() && StreamingAudioInterfaceSelected)
 	{
-		/* Clear the sample reload timer */
-		TIFR0 |= (1 << OCF0A);
-
 		/* Retrieve the signed 16-bit left and right audio samples, convert to 8-bit */
-		int8_t  LeftSample_8Bit   = ((int16_t)Endpoint_Read_Word_LE() >> 8);
-		int8_t  RightSample_8Bit  = ((int16_t)Endpoint_Read_Word_LE() >> 8);
+		int8_t LeftSample_8Bit   = ((int16_t)Endpoint_Read_Word_LE() >> 8);
+		int8_t RightSample_8Bit  = ((int16_t)Endpoint_Read_Word_LE() >> 8);
 
 		/* Mix the two channels together to produce a mono, 8-bit sample */
-		int8_t  MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
+		int8_t MixedSample_8Bit  = (((int16_t)LeftSample_8Bit + (int16_t)RightSample_8Bit) >> 1);
 
 		/* Check to see if the bank is now empty */
 		if (!(Endpoint_IsReadWriteAllowed()))
@@ -207,17 +196,17 @@ void USB_Audio_Task(void)
 			Endpoint_ClearOUT();
 		}
 
-#if defined(AUDIO_OUT_MONO)
+		#if defined(AUDIO_OUT_MONO)
 		/* Load the sample into the PWM timer channel */
 		OCR3A = (MixedSample_8Bit ^ (1 << 7));
-#elif defined(AUDIO_OUT_STEREO)
+		#elif defined(AUDIO_OUT_STEREO)
 		/* Load the dual 8-bit samples into the PWM timer channels */
 		OCR3A = (LeftSample_8Bit  ^ (1 << 7));
 		OCR3B = (RightSample_8Bit ^ (1 << 7));
-#elif defined(AUDIO_OUT_PORTC)
+		#elif defined(AUDIO_OUT_PORTC)
 		/* Load the 8-bit mixed sample into PORTC */
 		PORTC = MixedSample_8Bit;
-#endif
+		#endif
 
 		uint8_t LEDMask = LEDS_NO_LEDS;
 
@@ -233,5 +222,7 @@ void USB_Audio_Task(void)
 
 		LEDs_SetAllLEDs(LEDMask);
 	}
+	
+	Endpoint_SelectEndpoint(PrevEndpoint);
 }
 
