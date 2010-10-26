@@ -35,12 +35,14 @@ static int bit_pop(uint8_t bits);
 
 
 inline
-int matrix_rows(void) {
+int matrix_rows(void)
+{
     return MATRIX_ROWS;
 }
 
 inline
-int matrix_cols(void) {
+int matrix_cols(void)
+{
     return MATRIX_COLS;
 }
 
@@ -55,8 +57,8 @@ void matrix_init(void)
     PORTE = 0xC0;
 
     // initialize matrix state: all keys off
-    for (int i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0xFF;
-    for (int i=0; i < MATRIX_ROWS; i++) _matrix1[i] = 0xFF;
+    for (int i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
+    for (int i=0; i < MATRIX_ROWS; i++) _matrix1[i] = 0x00;
     matrix = _matrix0;
     matrix_prev = _matrix1;
 }
@@ -76,9 +78,9 @@ int matrix_scan(void)
             KEY_ENABLE;
             _delay_us(10);  // from logic analyzer chart
             if (KEY_ON) {
-                matrix[row] &= ~(1<<col);
-            } else {
                 matrix[row] |= (1<<col);
+            } else {
+                matrix[row] &= ~(1<<col);
             }
             KEY_UNABLE;
             _delay_us(150);  // from logic analyzer chart
@@ -87,7 +89,8 @@ int matrix_scan(void)
     return 1;
 }
 
-bool matrix_is_modified(void) {
+bool matrix_is_modified(void)
+{
     for (int i = 0; i < MATRIX_ROWS; i++) {
         if (matrix[i] != matrix_prev[i])
             return true;
@@ -96,16 +99,25 @@ bool matrix_is_modified(void) {
 }
 
 inline
-bool matrix_has_ghost(void) {
+bool matrix_has_ghost(void)
+{
     return false;
 }
 
 inline
-uint16_t matrix_get_row(int row) {
+bool matrix_is_on(int row, int col)
+{
+    return (matrix[row] & (1<<col));
+}
+
+inline
+uint16_t matrix_get_row(int row)
+{
     return matrix[row];
 }
 
-void matrix_print(void) {
+void matrix_print(void)
+{
     print("\nr/c 01234567\n");
     for (int row = 0; row < matrix_rows(); row++) {
         phex(row); print(": ");
@@ -117,20 +129,24 @@ void matrix_print(void) {
     }
 }
 
-int matrix_key_count(void) {
+int matrix_key_count(void)
+{
     int count = 0;
     for (int i = 0; i < MATRIX_ROWS; i++) {
-        count += bit_pop(~matrix[i]);
+        count += bit_pop(matrix[i]);
     }
     return count;
 }
 
 inline
-static bool matrix_has_ghost_in_row(int row) {
+static bool matrix_has_ghost_in_row(int row)
+{
     return false;
 }
 
-static int bit_pop(uint8_t bits) {
+inline
+static int bit_pop(uint8_t bits)
+{
     int c;
     for (c = 0; bits; c++)
         bits &= bits -1;

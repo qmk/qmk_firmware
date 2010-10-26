@@ -11,6 +11,7 @@ uint8_t keymap_get_keycodel(int layer, int row, int col);
 int keymap_get_layer(void);
 int keymap_set_layer(int layer);
 
+bool keymap_is_special_mode(int fn_bits);
 /* process Fn keys. This.should be called every scan. */
 void keymap_fn_proc(int fn_bits);
 

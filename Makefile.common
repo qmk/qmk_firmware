@@ -116,15 +116,15 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
-CDEFS = -DF_CPU=$(F_CPU)UL
+CDEFS = -DF_CPU=$(F_CPU)UL -DDESCRIPTION=$(DESCRIPTION)
 
 
 # Place -D or -U options here for ASM sources
-ADEFS = -DF_CPU=$(F_CPU)
+ADEFS = -DF_CPU=$(F_CPU) -DDESCRIPTION=$(DESCRIPTION)
 
 
 # Place -D or -U options here for C++ sources
-CPPDEFS = -DF_CPU=$(F_CPU)UL
+CPPDEFS = -DF_CPU=$(F_CPU)UL -DDESCRIPTION=$(DESCRIPTION)
 #CPPDEFS += -D__STDC_LIMIT_MACROS
 #CPPDEFS += -D__STDC_CONSTANT_MACROS
 

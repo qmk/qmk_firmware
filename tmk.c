@@ -24,30 +24,25 @@
  * THE SOFTWARE.
  */
 
-// TODO: clean unused headers
 #include <stdbool.h>
 #include <avr/io.h>
-#include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "usb.h"
-#include "usb_keyboard.h"
-#include "usb_mouse.h"
-#include "print.h"
 #include "matrix_skel.h"
-#include "keymap.h"
-#include "jump_bootloader.h"
-
 #include "key_process.h"
+#include "print.h"
+#include "debug.h"
+#include "util.h"
+#include "controller.h"
+
 
 #define CPU_PRESCALE(n)    (CLKPR = 0x80, CLKPR = (n))
 
-// TODO: should go to hardware dependent file
-// for Teensy/Teensy++ 2.0
-#define LED_CONFIG    (DDRD |= (1<<6))
-#define LED_ON        (PORTD |= (1<<6))
-#define LED_OFF       (PORTD &= ~(1<<6))
-
+bool debug_enable = false;
+bool debug_matrix = false;
+bool debug_keyboard = false;
+bool debug_mouse = false;
 
 uint16_t idle_count=0;
 
@@ -74,20 +69,26 @@ int main(void)
 
     matrix_init();
     matrix_scan();
-    // debug on when 4 keys are pressed
+    // debug on by pressing down any 4 keys during boot time.
     if (matrix_key_count() == 4) print_enable = true;
 
-    /* wait for debug pipe to print greetings. */
+    /* wait for debug pipe ready */
     if (print_enable) {
-        for (int i =0; i < 6; i++) {
-            LED_CONFIG;
-            LED_ON;
+#ifdef DEBUG_LED
+        for (int i = 0; i < 6; i++) {
+            DEBUG_LED_CONFIG;
+            DEBUG_LED_ON;
             _delay_ms(500);
-            LED_OFF;
+            DEBUG_LED_OFF;
             _delay_ms(500);
         }
+#else
+            _delay_ms(6000);
+#endif
     }
-    print("\nt.m.k. keyboard 1.2\n");
+    // print description
+    print(XSTR(DESCRIPTION));
+
     while (1) {
        proc_matrix(); 
         _delay_ms(2);

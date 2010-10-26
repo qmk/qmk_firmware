@@ -36,6 +36,55 @@
 #ifndef USB_KEYCODES_H
 #define USB_KEYCODES_H
 
+#define IS_ERROR(code) (KB_ROLL_OVER <= (code) && (code) <= KB_UNDEFINED)
+#define IS_KEY(code) (KB_A <= (code) && (code) <= KP_HEXADECIMAL)
+#define IS_MOD(code) (KB_LCTRL <= (code) && (code) <= KB_RGUI)
+#define IS_FN(code) (FN_0 <= (code) && (code) <= FN_7)
+#define IS_MOUSE(code) (MS_UP <= (code) && (code) <= MS_WH_RIGHT)
+#define IS_MOUSE_MOVE(code) (MS_UP <= (code) && (code) <= MS_RIGHT)
+#define IS_MOUSE_BUTTON(code) (MS_BTN1 <= (code) && (code) <= MS_BTN5)
+#define IS_MOUSE_WHEEL(code) (MS_WH_UP <= (code) && (code) <= MS_WH_RIGHT)
+
+#define MOD_BIT(code) (1<<((code) & 0x07))
+#define FN_BIT(code) (1<<((code) - FN_0))
+
+
+// short names
+#define KB_LCTL KB_LCTRL
+#define KB_RCTL KB_RCTRL
+#define KB_LSFT KB_LSHIFT
+#define KB_RSFT KB_RSHIFT
+#define KB_ESC  KB_ESCAPE
+#define KB_BSPC KB_BSPACE
+#define KB_ENT  KB_ENTER
+#define KB_DEL  KB_DELETE
+#define KB_INS  KB_INSERT
+#define KB_CAPS KB_CAPSLOCK
+#define KB_RGHT KB_RIGHT
+#define KB_PGDN KB_PGDOWN
+#define KB_PSCR KB_PSCREEN
+#define KB_SLCK KB_SCKLOCK
+#define KB_BRK  KB_BREAK
+#define KB_SPC  KB_SPACE
+#define KB_MINS KB_MINUS
+#define KB_EQL  KB_EQUAL
+#define KB_GRV  KB_GRAVE
+#define KB_RBRC KB_RBRACKET
+#define KB_LBRC KB_LBRACKET
+#define KB_COMM KB_COMMA
+#define KB_BSLS KB_BSLASH
+#define KB_SLSH KB_SLASH
+#define KB_SCLN KB_SCOLON
+#define KB_PWR  KB_POWER
+#define KP_SLSH KP_SLASH
+#define KP_ASTR KP_ASTERISK
+#define KP_MINS KP_MINUS
+#define MS_RGHT MS_RIGHT
+#define MS_WH_U MS_WH_UP
+#define MS_WH_D MS_WH_DOWN
+#define MS_WH_L MS_WH_LEFT
+#define MS_WH_R MS_WH_RIGHT
+
 
 enum keycodes {
     KB_NO = 0,

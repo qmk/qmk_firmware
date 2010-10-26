@@ -11,6 +11,13 @@
 #define MOUSE_SIZE		8
 #define MOUSE_BUFFER		EP_DOUBLE_BUFFER
 
+#define BIT_BTN1 (1<<0)
+#define BIT_BTN2 (1<<1)
+#define BIT_BTN3 (1<<2)
+#define BIT_BTN4 (1<<3)
+#define BIT_BTN5 (1<<4)
+
+
 extern uint8_t mouse_buttons;
 extern uint8_t mouse_protocol;
 
