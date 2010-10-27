@@ -1,140 +1,227 @@
 /* 
- * keymap for modified Macway
+ * Keymap for Macway mod
  */
+#include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
-#include "matrix.h"
-#include "keymap.h"
 #include "usb_keyboard.h"
+#include "usb_keycodes.h"
+#include "matrix.h"
+#include "print.h"
+#include "debug.h"
+#include "util.h"
+#include "keymap.h"
 
-int current_layer = 0;
-bool key_sent = false;
 
-/*
- * Layer0(Default Layer)
- * ,----------------------------------------------------------.
- * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp|
- * |----------------------------------------------------------|
- * |Tab |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     |
- * |----------------------------------------------------'     |
- * |Contr|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
- * |----------------------------------------------------------|
- * |Shift  |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Fn2|
- * |----------------------------------------------------------|
- * |Fn3|Gui |Alt  |Space                |Fn1  |Lef|Dow|Up |Rig|
- * `----------------------------------------------------------'
- * 
- * Layer1(with Fn1)
- * ,----------------------------------------------------------.
- * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete|
- * |----------------------------------------------------------|
- * |  \ |   |   |   |   |   |   |   |   |   |   |   |   |     |
- * |----------------------------------------------------'     |
- * |Contr|   |   |   |   |   |Lef|Dow|Up |Rig|   |   |  \     |
- * |----------------------------------------------------------|
- * |Shift  |   |   |   |   |   |Hom|PgD|PgU|End|   |Shift |   |
- * |----------------------------------------------------------|
- * |   |Gui |Alt  |                     |Fn1  |Lef|Dow|Up |Rig|
- * `----------------------------------------------------------'
- * 
- * Layer2(with Fn2)
- * ,----------------------------------------------------------.
- * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete|
- * |----------------------------------------------------------|
- * |  \ |   |   |   |   |   |   |   |   |   |   |Up |   |     |
- * |----------------------------------------------------'     |
- * |Contr|VoD|VoU|Mut|F20|   |  *|  /|Hom|PgU|Lef|Rig|  \     |
- * |----------------------------------------------------------|
- * |Shift  |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |Fn2|
- * |----------------------------------------------------------|
- * |   |Gui |Alt  |                     |     |Lef|Dow|Up |Rig|
- * `----------------------------------------------------------'
- * 
- * Layer3(with Fn3)
- * ,----------------------------------------------------------.
- * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete|
- * |----------------------------------------------------------|
- * |  \ |   |   |   |   |   |   |   |   |   |   |   |   |     |
- * |----------------------------------------------------'     |
- * |Contr|Mb1|Mb2|Mb3|   |   |McL|McD|McU|McR|   |   |  \     |
- * |----------------------------------------------------------|
- * |Shift  |   |   |   |   |   |MwL|MwD|MwU|MwR|   |Shift |   |
- * |----------------------------------------------------------|
- * |   |Gui |Alt  |Mb1                  |Mb2  |MsL|MsD|MsU|MsR|
- * `----------------------------------------------------------'
- * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
- */
-static const uint8_t PROGMEM Keymap[][MATRIX_ROWS][MATRIX_COLS] = {
-    // 0: default
-    {
-        { KB_LALT, KB_NO,     KB_BSPACE,  KB_NO, KB_LEFT,   KB_NO,      KB_ENTER, KB_SPACE },
-        { KB_1,    KB_ESCAPE, KB_TAB,     KB_Q,  KB_A,      KB_LCTRL,   KB_Z,     KB_RIGHT },
-        { KB_2,    FN_1,      KB_LGUI,    KB_W,  KB_S,      KB_NO,      KB_X,     KB_UP },
-        { KB_3,    KB_NO,     KB_RSHIFT,  KB_E,  KB_D,      FN_2,       KB_C,     KB_DOWN },
-        { KB_4,    KB_5,      KB_T,       KB_R,  KB_F,      KB_G,       KB_V,     KB_B },
-        { KB_7,    KB_6,      KB_Y,       KB_U,  KB_J,      KB_H,       KB_M,     KB_N },
-        { KB_8,    KB_EQUAL,  KB_RBRACKET,KB_I,  KB_K,      KB_NO,      KB_COMMA, KB_LSHIFT },
-        { KB_9,    KB_NO,     KB_NO,      KB_O,  KB_L,      FN_3,       KB_DOT,   KB_NO },
-        { KB_0,    KB_MINUS,  KB_LBRACKET,KB_P,  KB_SCOLON, KB_QUOTE,   KB_NO,    KB_SLASH }
-    },
-    // 1: FN_1(RIGHT ALT)
-    {
-        { KB_LALT, KB_NO,     KB_DELETE,  KB_NO, KB_NO,     KB_NO,      KB_BSLASH,KB_NO },
-        { KB_F1,   KB_GRAVE,  KB_BSLASH,  KB_NO, KB_NO,     KB_LCTRL,   KB_NO,    KB_NO },
-        { KB_F2,   KB_NO,     KB_LGUI,    KB_NO, KB_NO,     KB_NO,      KB_NO,    KB_NO },
-        { KB_F3,   KB_NO,     KB_RSHIFT,  KB_NO, KB_NO,     KB_NO,      KB_NO,    KB_NO },
-        { KB_F4,   KB_F5,     KB_NO,      KB_NO, KB_NO,     KB_NO,      KB_NO,    KB_NO },
-        { KB_F7,   KB_F6,     KB_NO,      KB_NO, KB_DOWN,   KB_LEFT,    KB_PGDOWN,KB_HOME },
-        { KB_F8,   KB_F12,    KB_NO,      KB_NO, KB_UP,     KB_NO,      KB_PGUP,  KB_LSHIFT },
-        { KB_F9,   KB_NO,     KB_NO,      KB_NO, KB_RIGHT,  KB_NO,      KB_END,   KB_NO },
-        { KB_F10,  KB_F11,    KB_NO,      KB_NO, KB_NO,     KB_NO,      KB_NO,    KB_NO }
-    },
-    // 2: FN_2(HHKB Fn)
-    {
-        { KB_LALT, KB_NO,     KB_DELETE,  KB_NO, KB_NO,     KB_NO,      KB_BSLASH,KB_NO },
-        { KB_F1,   KB_GRAVE,  KB_BSLASH,  KB_NO, KB_VOLDOWN,KB_LCTRL,   KB_NO,    KB_NO },
-        { KB_F2,   KB_NO,     KB_LGUI,    KB_NO, KB_VOLUP,  KB_NO,      KB_NO,    KB_NO },
-        { KB_F3,   KB_NO,     KB_RSHIFT,  KB_NO, KB_MUTE,   KB_NO,      KB_NO,    KB_NO },
-        { KB_F4,   KB_F5,     KB_NO,      KB_NO, KB_F20,    KB_NO,      KB_NO,    KB_NO },
-        { KB_F7,   KB_F6,     KB_NO,      KB_NO, KP_SLASH,  KP_ASTERISK,KP_MINUS, KP_PLUS },
-        { KB_F8,   KB_F12,    KB_NO,      KB_NO, KB_HOME,   KB_NO,      KB_END,   KB_LSHIFT },
-        { KB_F9,   KB_NO,     KB_NO,      KB_NO, KB_PGUP,   KB_NO,      KB_PGDOWN,KB_NO },
-        { KB_F10,  KB_F11,    KB_UP,      KB_NO, KB_LEFT,   KB_RIGHT,   KB_NO,    KB_DOWN }
-    },
-    // 3: FN_3(LEFT Bottom)
-    {
-        { KB_LALT, KB_NO,     KB_DELETE,  KB_NO, MS_LEFT,   KB_NO,      KB_BSLASH,  MS_BTN1 },
-        { KB_F1,   KB_GRAVE,  KB_BSLASH,  KB_NO, MS_BTN1,   KB_LCTRL,   KB_NO,      MS_RIGHT },
-        { KB_F2,   MS_BTN2,   KB_LGUI,    KB_NO, MS_BTN2,   KB_NO,      KB_NO,      MS_UP },
-        { KB_F3,   KB_NO,     KB_RSHIFT,  KB_NO, MS_BTN3,   KB_NO,      KB_NO,      MS_DOWN },
-        { KB_F4,   KB_F5,     KB_NO,      KB_NO, KB_NO,     KB_NO,      KB_NO,      KB_NO },
-        { KB_F7,   KB_F6,     KB_NO,      KB_NO, MS_DOWN,   MS_LEFT,    MS_WH_UP,   MS_WH_LEFT },
-        { KB_F8,   KB_F12,    MS_BTN5,    KB_NO, MS_UP,     KB_NO,      MS_WH_DOWN, KB_LSHIFT },
-        { KB_F9,   KB_NO,     KB_NO,      KB_NO, MS_RIGHT,  KB_NO,      MS_WH_RIGHT,KB_NO },
-        { KB_F10,  KB_F11,    MS_BTN4,    KB_NO, KB_NO,     KB_NO,      KB_NO,      KB_NO }
-    },
+#define FN_KEYCODE(fn) (pgm_read_byte(&fn_keycode[(fn)]))
+#define FN_LAYER(fn)   (pgm_read_byte(&fn_layer[(fn)]))
+#define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
+#define KEYMAP( \
+    R1C1, R1C0, R2C0, R3C0, R4C0, R4C1, R5C1, R5C0, R6C0, R7C0, R8C0, R8C1, R6C1, R0C2, \
+    R1C2, R1C3, R2C3, R3C3, R4C3, R4C2, R5C2, R5C3, R6C3, R7C3, R8C3, R8C2, R6C2, \
+    R1C5, R1C4, R2C4, R3C4, R4C4, R4C5, R5C5, R5C4, R6C4, R7C4, R8C4, R8C5, R0C6, \
+    R6C7, R1C6, R2C6, R3C6, R4C6, R4C7, R5C7, R5C6, R6C6, R7C6, R8C7, R3C2, R3C5, \
+    R7C5, R2C2, R0C0, R0C7, R2C1, R0C4, R3C7, R2C7, R1C7 \
+) { \
+    { R0C0, KB_NO, R0C2,  KB_NO, R0C4, KB_NO, R0C6,  R0C7 }, \
+    { R1C0, R1C1,  R1C2,  R1C3,  R1C4, R1C5,  R1C6,  R1C7 }, \
+    { R2C0, R2C1,  R2C2,  R2C3,  R2C4, KB_NO, R2C6,  R2C7 }, \
+    { R3C0, KB_NO, R3C2,  R3C3,  R3C4, R3C5,  R3C6,  R3C7 }, \
+    { R4C0, R4C1,  R4C2,  R4C3,  R4C4, R4C5,  R4C6,  R4C7 }, \
+    { R5C0, R5C1,  R5C2,  R5C3,  R5C4, R5C5,  R5C6,  R5C7 }, \
+    { R6C0, R6C1,  R6C2,  R6C3,  R6C4, KB_NO, R6C6,  R6C7 }, \
+    { R7C0, KB_NO, KB_NO, R7C3,  R7C4, R7C5,  R7C6,  KB_NO }, \
+    { R8C0, R8C1,  R8C2,  R8C3,  R8C4, R8C5,  KB_NO, R8C7 } \
+}
+
+
+static int current_layer = 0;
+static bool layer_used = false;
+
+/* layer to change into while Fn key pressed */ 
+static const int PROGMEM fn_layer[] = { 0, 1, 2, 3, 4, 0, 2, 3 };
+
+/* keycode to sent when Fn key released without using layer keys. */
+static const uint8_t PROGMEM fn_keycode[] = {
+    KB_NO,          // FN_0 [NOT USED]
+    KB_NO,          // FN_1 layer 1
+    KB_QUOTE,       // FN_2 layer 2
+    KB_SCOLON,      // FN_3 layer 3
+    KB_SPACE,       // FN_4 layer 4 [NOT USED]
+    KB_NO,          // FN_5 [NOT USED]
+    KB_NO,          // FN_6 layer 2
+    KB_NO           // FN_7 layer 3
+};
+
+static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* Layer 0: Default Layer
+     * ,-----------------------------------------------------------.
+     * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
+     * |-----------------------------------------------------------|
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     |
+     * |-----------------------------------------------------'     |
+     * |Contro|  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn3|Fn2|Return  |
+     * |-----------------------------------------------------------|
+     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Fn1|
+     * |-----------------------------------------------------------|
+     * |Fn7|Gui |Alt  |Space                 |Fn6  |\  |`  |   |   |
+     * `-----------------------------------------------------------'
+     */
+    KEYMAP(KB_ESC, KB_1,   KB_2,   KB_3,   KB_4,   KB_5,   KB_6,   KB_7,   KB_8,   KB_9,   KB_0,   KB_MINS,KB_EQL, KB_BSPC, \
+           KB_TAB, KB_Q,   KB_W,   KB_E,   KB_R,   KB_T,   KB_Y,   KB_U,   KB_I,   KB_O,   KB_P,   KB_LBRC,KB_RBRC, \
+           KB_LCTL,KB_A,   KB_S,   KB_D,   KB_F,   KB_G,   KB_H,   KB_J,   KB_K,   KB_L,   FN_3,   FN_2,   KB_ENT, \
+           KB_LSFT,KB_Z,   KB_X,   KB_C,   KB_V,   KB_B,   KB_N,   KB_M,   KB_COMM,KB_DOT, KB_SLSH,KB_RSFT,FN_1, \
+           FN_7,   KB_LGUI,KB_LALT,KB_SPC, FN_6,   KB_BSLS,KB_GRV, KB_NO,  KB_NO),
+
+    /* Layer 1: HHKB mode (HHKB Fn)
+     * ,-----------------------------------------------------------.
+     * |Pow| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
+     * |-----------------------------------------------------------|
+     * |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |     |
+     * |-----------------------------------------------------'     |
+     * |Contro|   |   |   |   |   |  *|  /|Hom|PgU|Lef|Rig|Enter   |
+     * |-----------------------------------------------------------|
+     * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |xxx|
+     * |-----------------------------------------------------------|
+     * |   |Gui |Alt  |                      |Alt  |   |   |   |   |
+     * `-----------------------------------------------------------'
+     */ 
+    KEYMAP(KB_PWR, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_DEL, \
+           KB_CAPS,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_PSCR,KB_SLCK,KB_BRK, KB_UP,  KB_NO, \
+           KB_LCTL,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KP_ASTR,KP_SLSH,KB_HOME,KB_PGUP,KB_LEFT,KB_RGHT,KB_ENT, \
+           KB_LSFT,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KP_PLUS,KP_MINS,KB_END, KB_PGDN,KB_DOWN,KB_RSFT,FN_1, \
+           KB_NO,  KB_LGUI,KB_LALT,KB_SPC, KB_RALT,KB_NO,  KB_NO,  KB_NO,  KB_NO),
+
+    /* Layer 2: Vi mode (Quote/Rmeta)
+     * ,-----------------------------------------------------------.
+     * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   `   |
+     * |-----------------------------------------------------------|
+     * |  \  |Hom|PgD|Up |PgU|End|Hom|PgD|PgU|End|   |   |   |     |
+     * |-----------------------------------------------------'     |
+     * |Contro|   |Lef|Dow|Rig|   |Lef|Dow|Up |Rig|   |xxx|   \    |
+     * |-----------------------------------------------------------|
+     * |Shift   |   |   |   |   |   |Hom|PgD|PgU|End|   |Shift |   |
+     * |-----------------------------------------------------------|
+     * |   |Gui |Alt  |Space                 |xxxxx|   |   |   |   |
+     * `-----------------------------------------------------------'
+     */
+    KEYMAP(KB_GRV, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_GRV, \
+           KB_BSLS,KB_HOME,KB_PGDN,KB_UP,  KB_PGUP,KB_END, KB_HOME,KB_PGDN,KB_PGUP,KB_END, KB_NO,  KB_NO,  KB_NO, \
+           KB_LCTL,KB_NO,  KB_LEFT,KB_DOWN,KB_RGHT,KB_NO,  KB_LEFT,KB_DOWN,KB_UP,  KB_RGHT,KB_NO,  FN_2,   KB_BSLS, \
+           KB_LSFT,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_RSFT,KB_NO, \
+           KB_NO,  KB_LGUI,KB_LALT,KB_SPC, FN_6,   KB_NO,  KB_NO,  KB_NO,  KB_NO),
+
+    /* Layer 3: Mouse mode (Semicolon)
+     * ,-------------------------------------------------------- --.
+     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
+     * |-----------------------------------------------------------|
+     * |Tab  |MwL|MwU|McU|MwD|MwR|MwL|MwD|MwU|MwR|   |   |   |     |
+     * |-----------------------------------------------------'     |
+     * |Contro|Mb1|Mb2|Mb3|   |   |McL|McD|McU|McR|xxx|   |Return  |
+     * |-----------------------------------------------------------|
+     * |Shift   |   |   |   |   |   |MwL|MwD|MwU|MwR|   |Shift |   |
+     * |-----------------------------------------------------------|
+     * |xxx|Gui |Alt  |Mb1                   |Alt  |   |   |   |   |
+     * `-----------------------------------------------------------'
+     * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
+     */
+    KEYMAP(KB_ESC, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_DEL, \
+           KB_TAB, MS_WH_L,MS_WH_U,MS_UP,  MS_WH_D,MS_WH_R,MS_WH_L,MS_WH_D,MS_WH_U,MS_WH_R,KB_NO,  KB_NO,  KB_NO, \
+           KB_LCTL,KB_NO,  MS_LEFT,MS_DOWN,MS_RGHT,KB_NO,  MS_LEFT,MS_DOWN,MS_UP,  MS_RGHT,FN_3,   KB_NO,  KB_ENT, \
+           KB_LSFT,KB_NO,  MS_DOWN,KB_NO,  KB_NO,  KB_NO,  MS_BTN2,MS_BTN1,MS_BTN2,MS_BTN3,KB_NO,  KB_RSFT,KB_NO, \
+           FN_7,   KB_LGUI,KB_LALT,MS_BTN1,KB_RALT,KB_NO,  KB_NO,  KB_NO,  KB_NO),
+
+    /* Layer 4: Matias half keyboard style (Space)
+     * ,-----------------------------------------------------------.
+     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
+     * |-----------------------------------------------------------|
+     * |Backs|  P|  O|  I|  U|  Y|  T|  R|  E|  W|  Q|Tab|Tab|     |
+     * |-----------------------------------------------------'     |
+     * |Contro|  ;|  L|  K|  J|  H|  G|  F|  D|  S|  A|Con|Control |
+     * |-----------------------------------------------------------|
+     * |Shift   |  /|  .|  ,|  M|  N|  B|  V|  C|  X|  Z|Shift |   |
+     * |-----------------------------------------------------------|
+     * |   |Gui |Alt  |xxxxxxxxxxxxxxxxxxxxxx|Alt  |   |   |   |   |
+     * `-----------------------------------------------------------'
+     */
+    KEYMAP(KB_MINS,KB_0,   KB_9,   KB_8,   KB_7,   KB_6,   KB_5,   KB_4,   KB_3,   KB_2,   KB_1,   KB_NO,  KB_NO,  KB_ESC, \
+           KB_BSPC,KB_P,   KB_O,   KB_I,   KB_U,   KB_Y,   KB_T,   KB_R,   KB_E,   KB_W,   KB_Q,   KB_TAB, KB_TAB, \
+           KB_LCTL,KB_SCLN,KB_L,   KB_K,   KB_J,   KB_H,   KB_G,   KB_F,   KB_D,   KB_S,   KB_A,   KB_RCTL,KB_RCTL, \
+           KB_LSFT,KB_SLSH,KB_DOT, KB_COMM,KB_M,   KB_N,   KB_B,   KB_V,   KB_C,   KB_X,   KB_Z,   KB_RSFT,KB_NO, \
+           KB_NO,  KB_LGUI,KB_LALT,FN_4,   KB_RALT,KB_NO,  KB_NO,  KB_NO,  KB_NO),
 };
 
 
-uint8_t get_keycode(int layer, int row, int col)
+uint8_t keymap_get_keycode(int row, int col)
 {
-    if (row >= MATRIX_ROWS)
-        return KB_NO;
-    if (col >= MATRIX_COLS)
-        return KB_NO;
-    return pgm_read_byte(&Keymap[layer][row][col]);
+    return keymap_get_keycodel(current_layer, row, col);
 }
 
-int get_layer(void) {
-    int layer = 0;
-    for (int row = 0; row < MATRIX_ROWS; row++) {
-        for (int col = 0; col < MATRIX_ROWS; col++) {
-            if (matrix[row] & 1<<col) continue;
-            if (get_keycode(0, row, col) == FN_1) layer = 1;
-            if (get_keycode(0, row, col) == FN_2) layer = 2;
-            if (get_keycode(0, row, col) == FN_3) layer = 3;
-        }
-    }
+uint8_t keymap_get_keycodel(int layer, int row, int col)
+{
+    uint8_t code = KEYCODE(layer, row, col);
+    // normal key or mouse key
+    if (IS_KEY(code) || IS_MOUSE(code))
+        layer_used = true;
+    return code;
+}
+
+inline
+int keymap_get_layer(void)
+{
+    return current_layer;
+}
+
+inline
+int keymap_set_layer(int layer)
+{
     current_layer = layer;
     return current_layer;
+}
+
+inline
+bool keymap_is_special_mode(int fn_bits)
+{
+    return (keyboard_modifier_keys == (BIT_LCTRL | BIT_LSHIFT | BIT_LALT | BIT_LGUI));
+}
+
+void keymap_fn_proc(int fn_bits)
+{
+    // layer switching
+    static int last_bits = 0;
+    static uint8_t last_mod = 0;
+
+    if (usb_keyboard_has_key() || fn_bits == last_bits) {
+        // do nothing during press other than Fn key 
+        return;
+    } else if (fn_bits == 0) {
+        // send key when Fn key is released without using the layer
+        if (!layer_used) {
+            uint8_t code = FN_KEYCODE(biton(last_bits));
+            if (code != KB_NO) {
+                if (IS_MOD(code)) {
+                    keyboard_modifier_keys = last_mod | 1<<(code & 0x07);
+                } else {
+                    keyboard_keys[0] = code;
+                    keyboard_modifier_keys = last_mod;
+                }
+                usb_keyboard_send();
+                usb_keyboard_print();
+                usb_keyboard_clear();
+            }
+        }
+        last_bits = 0;
+        last_mod = 0;
+        layer_used = false;
+        keymap_set_layer(0); // default layer
+    } else if ((fn_bits & (fn_bits - 1)) == 0) {
+        // switch layer when just one Fn Key is pressed
+        last_bits = fn_bits;
+        last_mod = keyboard_modifier_keys;
+        layer_used = false;
+        keymap_set_layer(FN_LAYER(biton(fn_bits)));
+        debug("layer: "); phex(current_layer); debug("(");
+        debug_bin(last_bits); debug(")\n");
+        debug("last_mod: "); debug_hex(last_mod); debug("\n");
+    }
 }

@@ -29,6 +29,7 @@
 #include "usb_mouse.h"
 #include "usb_debug.h"
 #include "print.h"
+#include "util.h"
 
 
 /**************************************************************************
@@ -38,16 +39,29 @@
  **************************************************************************/
 
 // You can change these to give your code its own name.
-#define STR_MANUFACTURER	L"t.m.k."
-#define STR_PRODUCT		L"t.m.k. keyboard"
+#ifndef MANUFACTURER
+#   define STR_MANUFACTURER	L"t.m.k."
+#else
+#   define STR_MANUFACTURER	LSTR(MANUFACTURER)
+#endif
+#ifndef PRODUCT
+#   define STR_PRODUCT		L"t.m.k. keyboard"
+#else
+#   define STR_PRODUCT		LSTR(PRODUCT)
+#endif
 
 
 // Mac OS-X and Linux automatically load the correct drivers.  On
 // Windows, even though the driver is supplied by Microsoft, an
 // INF file is needed to load the driver.  These numbers need to
 // match the INF file.
-#define VENDOR_ID		0xFEED
-#define PRODUCT_ID		0xCAFE
+#ifndef VENDOR_ID
+#   define VENDOR_ID		0xFEED
+#endif
+
+#ifndef PRODUCT_ID
+#   define PRODUCT_ID		0xBABE
+#endif
 
 
 // USB devices are supposed to implment a halt feature, which is
