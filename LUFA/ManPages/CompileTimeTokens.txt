@@ -67,6 +67,12 @@
  *  and their sizes calculated/stored into the resultant processed report structure. If not defined, this defaults to the value indicated in
  *  the HID.h file documentation.
  *
+ *  <b>NO_CLASS_DRIVER_AUTOFLUSH</b>
+ *  Many of the device and host mode class drivers automatically flush any data waiting to be written to an interface, when the corresponding
+ *  USB management task is executed. This is usually desirable to ensure that any queued data is sent as soon as possible once and new data is
+ *  constructed in the main program loop. However, if flushing is to be controlled manually by the user application via the *_Flush() commands,
+ *  the compile time token may be defined in the application's makefile to disable automatic flushing during calls to the class driver USB
+ *  management tasks.
  *
  *  \section Sec_SummaryUSBTokens General USB Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack as a whole in the LUFA library.

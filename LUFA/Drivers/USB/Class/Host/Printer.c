@@ -142,7 +142,12 @@ static uint8_t DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint(void* CurrentDescriptor
 
 void PRNT_Host_USBTask(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)
 {
+	if ((USB_HostState != HOST_STATE_Configured) || !(PRNTInterfaceInfo->State.IsActive))
+	  return;
+
+	#if !defined(NO_CLASS_DRIVER_AUTOFLUSH)
 	PRNT_Host_Flush(PRNTInterfaceInfo);
+	#endif
 }
 
 uint8_t PRNT_Host_SetBidirectionalMode(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo)

@@ -141,6 +141,16 @@ static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingDataEndpoint(void* const Current
 	return DESCRIPTOR_SEARCH_NotFound;
 }
 
+void MIDI_Host_USBTask(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
+{
+	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
+	  return;
+
+	#if !defined(NO_CLASS_DRIVER_AUTOFLUSH)
+	MIDI_Host_Flush(MIDIInterfaceInfo);
+	#endif	
+}
+
 uint8_t MIDI_Host_Flush(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo)
 {
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))

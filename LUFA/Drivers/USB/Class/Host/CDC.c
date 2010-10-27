@@ -226,7 +226,9 @@ void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 
 	Pipe_Freeze();
 
+	#if !defined(NO_CLASS_DRIVER_AUTOFLUSH)
 	CDC_Host_Flush(CDCInterfaceInfo);
+	#endif
 }
 
 uint8_t CDC_Host_SetLineEncoding(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)

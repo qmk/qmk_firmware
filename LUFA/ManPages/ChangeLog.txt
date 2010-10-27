@@ -28,6 +28,8 @@
   *  - Added board hardware driver support for the Maximus board (thanks to the PSGroove team)
   *  - Added board hardware driver support for the Minimus board (thanks to the PSGroove team)
   *  - Added default test tone generation mode to the Device mode AudioInput demos
+  *  - Added new NO_CLASS_DRIVER_AUTOFLUSH compile time option to disable automatic flushing of interfaces when the USB management
+  *    tasks for each driver is called
   *
   *  <b>Changed:</b>
   *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions
@@ -58,6 +60,7 @@
   *  - All USB class drivers are now automatically included when LUFA/Drivers/USB.h is included, and no longer need to be seperately included
   *  - All LowLevel demos changed to use the constants and types defined in the USB class drivers
   *  - Changed AudioInput and AudioOutput demos to reload the next sample via an interrupt rather than polling the sample timer
+  *  - The MIDI class drivers now automatically flushes the MIDI interface when the MIDI class driver's USBTask() function is called
   *
   *  <b>Fixed:</b>
   *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist

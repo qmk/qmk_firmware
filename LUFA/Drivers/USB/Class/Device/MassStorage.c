@@ -126,7 +126,7 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 			  Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
 
 			MSInterfaceInfo->State.CommandStatus.Status = CALLBACK_MS_Device_SCSICommandReceived(MSInterfaceInfo) ?
-			                                                                 MS_SCSI_COMMAND_Pass : MS_SCSI_COMMAND_Fail;
+			                                               MS_SCSI_COMMAND_Pass : MS_SCSI_COMMAND_Fail;
 			MSInterfaceInfo->State.CommandStatus.Signature           = MS_CSW_SIGNATURE;
 			MSInterfaceInfo->State.CommandStatus.Tag                 = MSInterfaceInfo->State.CommandBlock.Tag;
 			MSInterfaceInfo->State.CommandStatus.DataTransferResidue = MSInterfaceInfo->State.CommandBlock.DataTransferLength;

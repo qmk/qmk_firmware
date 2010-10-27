@@ -148,7 +148,9 @@ void CDC_Device_USBTask(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 	if ((USB_DeviceState != DEVICE_STATE_Configured) || !(CDCInterfaceInfo->State.LineEncoding.BaudRateBPS))
 	  return;
 
+	#if !defined(NO_CLASS_DRIVER_AUTOFLUSH)
 	CDC_Device_Flush(CDCInterfaceInfo);
+	#endif
 }
 
 uint8_t CDC_Device_SendString(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo,
