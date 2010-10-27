@@ -39,7 +39,13 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-DESCRIPTION = 't.m.k. firmware for HHKB pro\n'
+VENDOR_ID = 0xFEED
+PRODUCT_ID = 0xCAFE
+MANUFACTURER = 't.m.k.'
+PRODUCT = 't.m.k. HHKB pro'
+DESCRIPTION = 't.m.k. firmware for HHKB pro'
+
+MOUSE_DELAY_TIME = 127
 
 # Target file name (without extension).
 TARGET = tmk_hhkb

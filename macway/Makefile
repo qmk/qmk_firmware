@@ -39,14 +39,24 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
+VENDOR_ID = 0xFEED
+PRODUCT_ID = 0xBEEF
+MANUFACTURER = 't.m.k.'
+PRODUCT = 't.m.k. Macway mod'
+DESCRIPTION = 't.m.k. firmware for Macway mod'
 
 # Target file name (without extension).
 TARGET = tmk_macway
 
+# Directory common source filess exist
 COMMON_DIR = ..
+
+# Directory keyboard dependent files exist
 TARGET_DIR = .
-TARGET_SRC =	$(TARGET_DIR)/keymap.c \
-  	        $(TARGET_DIR)/matrix.c
+
+# keyboard dependent files
+TARGET_SRC =	keymap.c \
+  	        matrix.c
 
 
 # MCU name, you MUST set this to match the board you are using

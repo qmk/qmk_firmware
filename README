@@ -93,21 +93,12 @@ debouncing logic
 layer switching
     time before switching
     timeout when not used during specific time
-debug on/off
-    Fn key conbination during normal operation
-    matrix print on/off
-    key print on/off
-    mouse print on/off
 
 Trackpoint(PS/2)
     receive PS/2 signal from TrackPoint
     send USB HID report
 Thinkpad keyboard support
     turn keyboard to USB keyboard/mouse composite device
-mouse horizontal wheel
-    http://www.microchip.com/forums/tm.aspx?high=&m=391435&mpage=1#391521
-    http://www.keil.com/forum/15671/
-    http://www.microsoft.com/whdc/device/input/wheel.mspx
 setting menu(configure without changing firmware)
     console for display
     keymap/layer setting
@@ -131,6 +122,17 @@ debug on/off
     debug off by default
     pressing keys during booting
     2010/10/23
+mouse horizontal wheel
+    http://www.microchip.com/forums/tm.aspx?high=&m=391435&mpage=1#391521
+    http://www.keil.com/forum/15671/
+    http://www.microsoft.com/whdc/device/input/wheel.mspx
+    2010/10/13
+debug on/off
+    Fn key conbination during normal operation
+    matrix print on/off
+    key print on/off
+    mouse print on/off
+    2010/10/26
 
 
 EOF

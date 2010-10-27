@@ -69,8 +69,11 @@ int main(void)
 
     matrix_init();
     matrix_scan();
-    // debug on by pressing down any 4 keys during boot time.
-    if (matrix_key_count() == 4) print_enable = true;
+    // debug on by pressing down any 4 or more keys during boot time.
+    if (matrix_key_count() >= 4) {
+        print_enable = true;
+        debug_enable = true;
+    }
 
     /* wait for debug pipe ready */
     if (print_enable) {
@@ -87,7 +90,7 @@ int main(void)
 #endif
     }
     // print description
-    print(XSTR(DESCRIPTION));
+    print(STR(DESCRIPTION) "\n");
 
     while (1) {
        proc_matrix(); 

@@ -1,14 +1,16 @@
 /* 
  * Keymap for PFU HHKB Pro
  */
+#include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
 #include "usb_keyboard.h"
 #include "usb_keycodes.h"
 #include "matrix.h"
-#include "keymap.h"
 #include "print.h"
 #include "debug.h"
+#include "util.h"
+#include "keymap.h"
 
 
 #define FN_KEYCODE(fn) (pgm_read_byte(&fn_keycode[(fn)]))
@@ -31,9 +33,6 @@
     { R6C0, R6C1, R6C2, R6C3, R6C4, R6C5, R6C6, KB_NO }, \
     { R7C0, R7C1, R7C2, R7C3, R7C4, R7C5, R7C6, KB_NO } \
 }
-
-
-static int onbit(uint8_t bits);
 
 
 static int current_layer = 0;
@@ -104,7 +103,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Shift   |   |   |   |   |   |   |   |   |   |   |Shift |   |
      * `-----------------------------------------------------------'
-     *       |Gui|Alt  |Sapce                  |Alt  |Gui|
+     *       |Gui|Alt  |Space                  |Alt  |Gui|
      *       `-------------------------------------------'
      */
     KEYMAP(KB_ESC, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_INS, KB_DEL, \
@@ -199,7 +198,7 @@ void keymap_fn_proc(int fn_bits)
     } else if (fn_bits == 0) {
         // send key when Fn key is released without using the layer
         if (!layer_used) {
-            uint8_t code = FN_KEYCODE(onbit(last_bits));
+            uint8_t code = FN_KEYCODE(biton(last_bits));
             if (code != KB_NO) {
                 if (IS_MOD(code)) {
                     keyboard_modifier_keys = last_mod | 1<<(code & 0x07);
@@ -221,18 +220,9 @@ void keymap_fn_proc(int fn_bits)
         last_bits = fn_bits;
         last_mod = keyboard_modifier_keys;
         layer_used = false;
-        keymap_set_layer(FN_LAYER(onbit(fn_bits)));
+        keymap_set_layer(FN_LAYER(biton(fn_bits)));
         debug("layer: "); phex(current_layer); debug("(");
         debug_bin(last_bits); debug(")\n");
         debug("last_mod: "); debug_hex(last_mod); debug("\n");
     }
-}
-
-static int onbit(uint8_t bits)
-{
-    int n = 0;
-    if (bits >> 4) { bits >>= 4; n += 4;}
-    if (bits >> 2) { bits >>= 2; n += 2;}
-    if (bits >> 1) { bits >>= 1; n += 1;}
-    return n;
 }

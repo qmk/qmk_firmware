@@ -17,8 +17,11 @@
 
 #define MOUSE_MOVE_UNIT 10
 #define MOUSE_MOVE_ACCEL (mouse_repeat < 50 ? mouse_repeat/5 : 10)
-#define MOUSE_DELAY_TIME 255
-#define MOUSE_DELAY_MS (MOUSE_DELAY_TIME >> (mouse_repeat < 5 ? mouse_repeat : 5))
+
+#ifndef MOUSE_DELAY_TIME
+#   define MOUSE_DELAY_TIME 255
+#endif
+#define MOUSE_DELAY_MS (MOUSE_DELAY_TIME >> (mouse_repeat < 5 ? mouse_repeat : 4))
 
 
 // TODO: refactoring
@@ -157,7 +160,7 @@ void proc_matrix(void) {
             case KB_V: // print version & information
                 usb_keyboard_clear();
                 usb_keyboard_send();
-                print(XSTR(DESCRIPTION));
+                print(STR(DESCRIPTION) "\n");
                 _delay_ms(1000);
                 break;
         }
