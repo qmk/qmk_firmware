@@ -123,24 +123,33 @@ int main(void)
 
 					LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);
 
-					uint8_t PressedKeyCode = KeyboardReport.KeyCode[0];
+					uint8_t KeyCode = KeyboardReport.KeyCode[0];
 
-					if (PressedKeyCode)
+					if (KeyCode)
 					{
 						char PressedKey = 0;
 
 						LEDs_ToggleLEDs(LEDS_LED2);
 
 						/* Retrieve pressed key character if alphanumeric */
-						if ((PressedKeyCode >= 0x04) && (PressedKeyCode <= 0x1D))
-						  PressedKey = (PressedKeyCode - 0x04) + 'A';
-						else if ((PressedKeyCode >= 0x1E) && (PressedKeyCode <= 0x27))
-						  PressedKey = (PressedKeyCode - 0x1E) + '0';
-						else if (PressedKeyCode == 0x2C)
-						  PressedKey = ' ';
-						else if (PressedKeyCode == 0x28)
-						  PressedKey = '\n';
-
+						if ((KeyCode >= HID_KEYBOARD_SC_A) && (KeyCode <= HID_KEYBOARD_SC_Z))
+						{
+							PressedKey = (KeyCode - HID_KEYBOARD_SC_A) + 'A';
+						}
+						else if ((KeyCode >= HID_KEYBOARD_SC_1_AND_EXCLAMATION) &
+						         (KeyCode <= HID_KEYBOARD_SC_0_AND_CLOSING_PARENTHESIS))
+						{
+							PressedKey = (KeyCode - HID_KEYBOARD_SC_1_AND_EXCLAMATION) + '0';
+						}
+						else if (KeyCode == HID_KEYBOARD_SC_SPACE)
+						{
+							PressedKey = ' ';
+						}
+						else if (KeyCode == HID_KEYBOARD_SC_ENTER)
+						{
+							PressedKey = '\n';
+						}
+						
 						if (PressedKey)
 						  putchar(PressedKey);
 					}

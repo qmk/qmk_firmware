@@ -222,17 +222,17 @@ void Keyboard_HID_Task(void)
 		KeyboardReportData.Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
 
 		if (JoyStatus_LCL & JOY_UP)
-		  KeyboardReportData.KeyCode[0] = 0x04; // A
+		  KeyboardReportData.KeyCode[0] = HID_KEYBOARD_SC_A;
 		else if (JoyStatus_LCL & JOY_DOWN)
-		  KeyboardReportData.KeyCode[0] = 0x05; // B
+		  KeyboardReportData.KeyCode[0] = HID_KEYBOARD_SC_B;
 
 		if (JoyStatus_LCL & JOY_LEFT)
-		  KeyboardReportData.KeyCode[0] = 0x06; // C
+		  KeyboardReportData.KeyCode[0] = HID_KEYBOARD_SC_C;
 		else if (JoyStatus_LCL & JOY_RIGHT)
-		  KeyboardReportData.KeyCode[0] = 0x07; // D
+		  KeyboardReportData.KeyCode[0] = HID_KEYBOARD_SC_D;
 
 		if (JoyStatus_LCL & JOY_PRESS)
-		  KeyboardReportData.KeyCode[0] = 0x08; // E
+		  KeyboardReportData.KeyCode[0] = HID_KEYBOARD_SC_E;
 	}
 
 	/* Select the Keyboard Report Endpoint */

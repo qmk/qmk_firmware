@@ -254,20 +254,20 @@ void CreateKeyboardReport(USB_KeyboardReport_Data_t* const ReportData)
 	ReportData->Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
 
 	if (JoyStatus_LCL & JOY_UP)
-	  ReportData->KeyCode[UsedKeyCodes++] = 0x04; // A
+	  ReportData->KeyCode[UsedKeyCodes++] = HID_KEYBOARD_SC_A;
 	else if (JoyStatus_LCL & JOY_DOWN)
-	  ReportData->KeyCode[UsedKeyCodes++] = 0x05; // B
+	  ReportData->KeyCode[UsedKeyCodes++] = HID_KEYBOARD_SC_B;
 
 	if (JoyStatus_LCL & JOY_LEFT)
-	  ReportData->KeyCode[UsedKeyCodes++] = 0x06; // C
+	  ReportData->KeyCode[UsedKeyCodes++] = HID_KEYBOARD_SC_C;
 	else if (JoyStatus_LCL & JOY_RIGHT)
-	  ReportData->KeyCode[UsedKeyCodes++] = 0x07; // D
+	  ReportData->KeyCode[UsedKeyCodes++] = HID_KEYBOARD_SC_D;
 
 	if (JoyStatus_LCL & JOY_PRESS)
-	  ReportData->KeyCode[UsedKeyCodes++] = 0x08; // E
+	  ReportData->KeyCode[UsedKeyCodes++] = HID_KEYBOARD_SC_E;
 
 	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
-	  ReportData->KeyCode[UsedKeyCodes++] = 0x09; // F
+	  ReportData->KeyCode[UsedKeyCodes++] = HID_KEYBOARD_SC_F;
 }
 
 /** Processes a received LED report, and updates the board LEDs states to match.

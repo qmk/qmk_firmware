@@ -278,15 +278,24 @@ void ProcessKeyboardReport(uint8_t* KeyboardReport)
 
 				char PressedKey = 0;
 
-				/* Convert scan-code to printable character if alphanumeric */
-				if ((KeyCode >= 0x04) && (KeyCode <= 0x1D))
-				  PressedKey = (KeyCode - 0x04) + 'A';
-				else if ((KeyCode >= 0x1E) && (KeyCode <= 0x27))
-				  PressedKey = (KeyCode - 0x1E) + '0';
-				else if (KeyCode == 0x2C)
-				  PressedKey = ' ';
-				else if (KeyCode == 0x28)
-				  PressedKey = '\n';
+				/* Retrieve pressed key character if alphanumeric */
+				if ((KeyCode >= HID_KEYBOARD_SC_A) && (KeyCode <= HID_KEYBOARD_SC_Z))
+				{
+					PressedKey = (KeyCode - HID_KEYBOARD_SC_A) + 'A';
+				}
+				else if ((KeyCode >= HID_KEYBOARD_SC_1_AND_EXCLAMATION) &
+						 (KeyCode <= HID_KEYBOARD_SC_0_AND_CLOSING_PARENTHESIS))
+				{
+					PressedKey = (KeyCode - HID_KEYBOARD_SC_1_AND_EXCLAMATION) + '0';
+				}
+				else if (KeyCode == HID_KEYBOARD_SC_SPACE)
+				{
+					PressedKey = ' ';
+				}
+				else if (KeyCode == HID_KEYBOARD_SC_ENTER)
+				{
+					PressedKey = '\n';
+				}
 
 				/* Print the pressed key character out through the serial port if valid */
 				if (PressedKey)

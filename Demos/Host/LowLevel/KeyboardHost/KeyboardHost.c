@@ -154,8 +154,10 @@ void ReadNextReport(void)
 		/* Indicate if the modifier byte is non-zero (special key such as shift is being pressed) */
 		LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);
 
+		uint8_t KeyCode = KeyboardReport.KeyCode[0];
+
 		/* Check if a key has been pressed */
-		if (KeyboardReport.KeyCode)
+		if (KeyCode)
 		{
 			/* Toggle status LED to indicate keypress */
 			LEDs_ToggleLEDs(LEDS_LED2);
@@ -163,14 +165,23 @@ void ReadNextReport(void)
 			char PressedKey = 0;
 
 			/* Retrieve pressed key character if alphanumeric */
-			if ((KeyboardReport.KeyCode[0] >= 0x04) && (KeyboardReport.KeyCode[0] <= 0x1D))
-			  PressedKey = (KeyboardReport.KeyCode[0] - 0x04) + 'A';
-			else if ((KeyboardReport.KeyCode[0] >= 0x1E) && (KeyboardReport.KeyCode[0] <= 0x27))
-			  PressedKey = (KeyboardReport.KeyCode[0] - 0x1E) + '0';
-			else if (KeyboardReport.KeyCode[0] == 0x2C)
-			  PressedKey = ' ';
-			else if (KeyboardReport.KeyCode[0] == 0x28)
-			  PressedKey = '\n';
+			if ((KeyCode >= HID_KEYBOARD_SC_A) && (KeyCode <= HID_KEYBOARD_SC_Z))
+			{
+				PressedKey = (KeyCode - HID_KEYBOARD_SC_A) + 'A';
+			}
+			else if ((KeyCode >= HID_KEYBOARD_SC_1_AND_EXCLAMATION) &
+					 (KeyCode <= HID_KEYBOARD_SC_0_AND_CLOSING_PARENTHESIS))
+			{
+				PressedKey = (KeyCode - HID_KEYBOARD_SC_1_AND_EXCLAMATION) + '0';
+			}
+			else if (KeyCode == HID_KEYBOARD_SC_SPACE)
+			{
+				PressedKey = ' ';
+			}
+			else if (KeyCode == HID_KEYBOARD_SC_ENTER)
+			{
+				PressedKey = '\n';
+			}
 
 			/* Print the pressed key character out through the serial port if valid */
 			if (PressedKey)

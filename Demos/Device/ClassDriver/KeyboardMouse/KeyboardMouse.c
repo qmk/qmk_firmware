@@ -185,17 +185,17 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 		KeyboardReport->Modifier = HID_KEYBOARD_MODIFER_LEFTSHIFT;
 
 		if (JoyStatus_LCL & JOY_UP)
-		  KeyboardReport->KeyCode[0] = 0x04; // A
+		  KeyboardReport->KeyCode[0] = HID_KEYBOARD_SC_A;
 		else if (JoyStatus_LCL & JOY_DOWN)
-		  KeyboardReport->KeyCode[0] = 0x05; // B
+		  KeyboardReport->KeyCode[0] = HID_KEYBOARD_SC_B;
 
 		if (JoyStatus_LCL & JOY_LEFT)
-		  KeyboardReport->KeyCode[0] = 0x06; // C
+		  KeyboardReport->KeyCode[0] = HID_KEYBOARD_SC_C;
 		else if (JoyStatus_LCL & JOY_RIGHT)
-		  KeyboardReport->KeyCode[0] = 0x07; // D
+		  KeyboardReport->KeyCode[0] = HID_KEYBOARD_SC_D;
 
 		if (JoyStatus_LCL & JOY_PRESS)
-		  KeyboardReport->KeyCode[0] = 0x08; // E
+		  KeyboardReport->KeyCode[0] = HID_KEYBOARD_SC_E;
 
 		*ReportSize = sizeof(USB_KeyboardReport_Data_t);
 		return false;
