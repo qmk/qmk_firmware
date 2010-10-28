@@ -147,23 +147,6 @@
 			#define REQREC_OTHER               (3 << 0)
 			//@}
 
-			/** \name Feature Request Types */
-			//@{
-			/** Feature indicator for Clear Feature or Set Feature commands. When used in a Clear Feature
-			 *  request this indicates that an endpoint (whose address is given elsewhere in the request
-			 *  should have its stall condition cleared. If used in a similar manner inside a Set Feature
-			 *  request, this stalls an endpoint.
-			 */
-			#define FEATURE_ENDPOINT_HALT      0x00
-
-			/** Feature indicator for Clear Feature or Set Feature commands. When used in a Clear Feature
-			 *  request this indicates that the remote wakeup enabled device should not issue remote
-			 *  wakeup requests until further notice. If used in a similar manner inside a Set Feature
-			 *  request, this re-enabled the remote wakeup feature on the device.
-			 */
-			#define FEATURE_REMOTE_WAKEUP      0x01
-			//@}
-
 		/* Type Defines: */
 			/** \brief Standard USB Control Request
 			 *
@@ -229,6 +212,26 @@
 				REQ_SynchFrame          = 12, /**< Not implemented in the library, passed to the user application
 				                              *   via the \ref EVENT_USB_Device_UnhandledControlRequest() event when received in
 				                              *   device mode. */
+			};
+			
+			/** Feature Selector values for Set Feature and Clear Feature standard control requests directed to the device, interface
+			 *  and endpoint recipients.
+			 */
+			enum USB_Feature_Selectors_t
+			{
+				FEATURE_SEL_EndpointHalt       = 0x00, /**< Feature selector for Clear Feature or Set Feature commands. When
+				                                        *   used in a Set Feature or Clear Feature request this indicates that an
+				                                        *   endpoint (whose address is given elsewhere in the request should have
+				                                        *   its stall condition changed.
+				                                        */
+				FEATURE_SEL_DeviceRemoteWakeup = 0x01, /**< Feature selector for Device level Remote Wakeup enable set or clear.
+			                                            *   This feature can be controlled by the host on devices which indicate
+			                                            *   remote wakeup support in their descriptors to selectively disable or
+			                                            *   enable remote wakeup.
+			                                            */
+				FEATURE_SEL_TestMode           = 0x02, /**< Feature selector for Test Mode features, used to test the USB controller
+			                                            *   to check for incorrect operation.
+			                                            */
 			};
 
 	/* Private Interface - For use in library only: */
