@@ -3,7 +3,7 @@
 #     Copyright (C) Dean Camera, 2010.
 #
 #  dean [at] fourwalledcubicle [dot] com
-#      www.fourwalledcubicle.com
+#           www.lufa-lib.org
 #
 
 # Makefile for the LUFA library itself. This can be used to generate the library documentation.

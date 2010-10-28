@@ -7,14 +7,14 @@
                           Written by Dean Camera
                   dean [at] fourwalledcubicle [dot] com
 
-                 http://www.fourwalledcubicle.com/LUFA.php
+                         http://www.lufa-lib.org
                 =========================================
 
                LUFA is donation supported. To support LUFA,
-             please donate at http://www.fourwalledcubicle.com.
+             please donate at http://www.lufa-lib.org/donate
 
                 For Commercial Licensing information, see
-               http://fourwalledcubicle.com/PurchaseLUFA.php
+                     http://www.lufa-lib.org/license
 
 
 This package contains the complete LUFA library, demos, user-submitted

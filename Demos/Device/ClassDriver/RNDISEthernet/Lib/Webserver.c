@@ -3,7 +3,7 @@
      Copyright (C) Dean Camera, 2010.
 
   dean [at] fourwalledcubicle [dot] com
-      www.fourwalledcubicle.com
+           www.lufa-lib.org
 */
 
 /*
@@ -66,7 +66,7 @@ char PROGMEM HTTPPage[]   =
 		"		<p>"
 		"			Hello! Welcome to the LUFA RNDIS Demo Webserver test page, running on your USB AVR via the LUFA library. This demonstrates the HTTP webserver, TCP/IP stack and RNDIS demo all running atop the LUFA USB stack."
 		"			<br /><br />"
-		"			<small>Project Information: <a href=\"http://www.fourwalledcubicle.com/LUFA.php\">http://www.fourwalledcubicle.com/LUFA.php</a>.</small>"
+		"			<small>Project Information: <a href=\"http://www.lufa-lib.org\">http://www.lufa-lib.org</a>.</small>"
 		"			<hr />"
 		"			<i>LUFA Version: </i>" LUFA_VERSION_STRING
 		"		</p>"

@@ -8,26 +8,23 @@
  *  \page Page_Resources Library Resources
  *
  *  \section Sec_ProjectPages LUFA Related Webpages
- *  Project Homepage: http://www.fourwalledcubicle.com/LUFA.php \n
+ *  Project Homepage: http://www.lufa-lib.org \n
+ *  Commercial Licenses: http://www.lufa-lib.org/license \n
  *  Author's Website: http://www.fourwalledcubicle.com \n
  *  Development Blog: http://www.fourwalledcubicle.com/blog \n
- *  Commercial Licenses: http://fourwalledcubicle.com/PurchaseLUFA.php \n
  *
  *  \section Sec_ProjectHelp Assistance With LUFA
- *  Discussion Group: http://groups.google.com/group/myusb-support-list \n
+ *  Discussion Group: http://www.lufa-lib.org/support \n
  *  Author's Email: dean [at] fourwalledcubicle [dot] com
  *  Author's Skype: abcminiuser
  *
  *  \section Sec_InDevelopment Latest In-Development Source Code
- *  Official Releases, SVN Access, Issue Tracker: http://code.google.com/p/lufa-lib/ \n
- *  Git Access: http://github.com/abcminiuser/lufa-lib \n
- *  Mercurial Access: http://bitbucket.org/abcminiuser/lufa-lib \n
- *  Latest Repository Source Archive: http://github.com/abcminiuser/lufa-lib/archives/master \n
- *  Commit RSS Feed: http://github.com/feeds/abcminiuser/commits/lufa-lib/master \n
- *
- *  \section Sec_Toolchain AVR Toolchain
- *  WinAVR Website: http://winavr.sourceforge.net \n
- *  avr-libc Website: http://www.nongnu.org/avr-libc/ \n
+ *  Issue Tracker: http://www.lufa-lib.org/tracker \n
+ *  SVN Access: http://www.lufa-lib.org/svn \n
+ *  Git Access: http://www.lufa-lib.org/git \n
+ *  Mercurial Access: http://www.lufa-lib.org/hg \n
+ *  Latest Repository Source Archive: http://www.lufa-lib.org/latest-archive \n
+ *  Commit RSS Feed: http://www.lufa-lib.org/rss \n
  *
  *  \section Sec_USBResources USB Resources
  *  USB-IF Website: http://www.usb.org \n

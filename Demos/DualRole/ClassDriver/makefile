@@ -3,7 +3,7 @@
 #     Copyright (C) Dean Camera, 2010.
 #
 #  dean [at] fourwalledcubicle [dot] com
-#      www.fourwalledcubicle.com
+#           www.lufa-lib.org
 #
 
 # Makefile to build all the LUFA Dual Role Demos. Call with "make all" to
