@@ -180,12 +180,12 @@ int keymap_set_layer(int layer)
 }
 
 inline
-bool keymap_is_special_mode(int fn_bits)
+bool keymap_is_special_mode(uint8_t fn_bits)
 {
     return (keyboard_modifier_keys == (BIT_LCTRL | BIT_LSHIFT | BIT_LALT | BIT_LGUI));
 }
 
-void keymap_fn_proc(int fn_bits)
+void keymap_fn_proc(uint8_t fn_bits)
 {
     // layer switching
     static int last_bits = 0;

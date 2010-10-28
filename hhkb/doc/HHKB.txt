@@ -8,7 +8,7 @@ Teensy++ has clean pinout and it makes programing and wiring easier.
 This is just a proof of concept for replacing controller of HHKB, not a complete firmware.
 
 My prototype firmware source tree is here:
-    branch: hhkb(http://github.com/tmk/tmk_keyboard/tree/hhkb)
+    github(http://github.com/tmk/tmk_keyboard)
 This firmware is a port of my previous project:
     HHKB style Mod(http://geekhack.org/showwiki.php?title=Island:11930)
 PJRC:
@@ -173,13 +173,17 @@ Matrix scan pseudo code:
             } else {
                 // not pressed
             }
+
+            UNALBLE_COL();      // set LS145(D) to high
+
+            _delay_us(150);
         }
     }
 
 
 Keymap layers
 -------------
-Followings are added layers with additional Fn keys. They are not final decision.
+Followings are added layers with additional Fn keys.
 
 see keymap.c
 

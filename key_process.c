@@ -36,7 +36,7 @@ void proc_matrix(void) {
     int8_t mouse_y = 0;
     int8_t mouse_vwheel = 0;
     int8_t mouse_hwheel = 0;
-    int fn_bits = 0;
+    uint8_t fn_bits = 0;
 
     matrix_scan();
     modified = matrix_is_modified();
