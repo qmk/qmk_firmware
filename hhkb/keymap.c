@@ -40,7 +40,7 @@ static bool layer_used = false;
 
 
 /* layer to change into while Fn key pressed */ 
-static const int PROGMEM fn_layer[] = { 0, 1, 2, 3, 4, 0, 0, 0 };
+static const int PROGMEM fn_layer[] = { 0, 1, 2, 3, 4, 0, 0, 1 };
 
 /* keycode to sent when Fn key released without using layer keys. */
 static const uint8_t PROGMEM fn_keycode[] = {
@@ -51,7 +51,7 @@ static const uint8_t PROGMEM fn_keycode[] = {
     KB_SPACE,       // FN_4 layer 4 [NOT USED]
     KB_NO,          // FN_5 [NOT USED]
     KB_NO,          // FN_6 [NOT USED]
-    KB_NO           // FN_7 [NOT USED]
+    KB_NO           // FN_7 layer 1
 };
 
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -65,14 +65,14 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Fn1|
      * `-----------------------------------------------------------'
-     *       |Gui|Alt  |Space                  |Alt  |Gui|
+     *       |Gui|Alt  |Space                  |Alt  |Fn7|
      *       `-------------------------------------------'
      */
     KEYMAP(KB_ESC, KB_1,   KB_2,   KB_3,   KB_4,   KB_5,   KB_6,   KB_7,   KB_8,   KB_9,   KB_0,   KB_MINS,KB_EQL, KB_BSLS,KB_GRV, \
            KB_TAB, KB_Q,   KB_W,   KB_E,   KB_R,   KB_T,   KB_Y,   KB_U,   KB_I,   KB_O,   KB_P,   KB_LBRC,KB_RBRC,KB_BSPC, \
            KB_LCTL,KB_A,   KB_S,   KB_D,   KB_F,   KB_G,   KB_H,   KB_J,   KB_K,   KB_L,   FN_3,   FN_2,   KB_ENT, \
            KB_LSFT,KB_Z,   KB_X,   KB_C,   KB_V,   KB_B,   KB_N,   KB_M,   KB_COMM,KB_DOT, KB_SLSH,KB_RSFT,FN_1, \
-           KB_LGUI,KB_LALT,KB_SPC, KB_RALT,KB_RGUI),
+           KB_LGUI,KB_LALT,KB_SPC, KB_RALT,FN_7),
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
@@ -84,14 +84,14 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |xxx|
      * `-----------------------------------------------------------'
-     *      |Gui |Alt  |Space                  |Alt  |Gui|
+     *      |Gui |Alt  |Space                  |Alt  |xxx|
      *      `--------------------------------------------'
      */ 
     KEYMAP(KB_PWR, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_INS, KB_DEL, \
            KB_CAPS,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_PSCR,KB_SLCK,KB_BRK, KB_UP,  KB_NO,  KB_BSPC, \
            KB_LCTL,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KP_ASTR,KP_SLSH,KB_HOME,KB_PGUP,KB_LEFT,KB_RGHT,KB_ENT, \
            KB_LSFT,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KP_PLUS,KP_MINS,KB_END, KB_PGDN,KB_DOWN,KB_RSFT,FN_1, \
-           KB_LGUI,KB_LALT,KB_SPC, KB_RALT,KB_RGUI),
+           KB_LGUI,KB_LALT,KB_SPC, KB_RALT,FN_7),
 
     /* Layer 2: Vi mode (Quote/Rmeta)
      * ,-----------------------------------------------------------.
@@ -114,7 +114,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 3: Mouse mode (Semicolon)
      * ,-----------------------------------------------------------.
-     * |Esc|   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
      * |-----------------------------------------------------------|
      * |Tab  |MwL|MwU|McU|MwD|MwL|MwR|MwD|MwU|MwR|   |   |   |Backs|
      * |-----------------------------------------------------------|
@@ -181,15 +181,15 @@ int keymap_set_layer(int layer)
 }
 
 inline
-bool keymap_is_special_mode(int fn_bits)
+bool keymap_is_special_mode(uint8_t fn_bits)
 {
     return (keyboard_modifier_keys == (BIT_LCTRL | BIT_LSHIFT | BIT_LALT | BIT_LGUI));
 }
 
-void keymap_fn_proc(int fn_bits)
+void keymap_fn_proc(uint8_t fn_bits)
 {
     // layer switching
-    static int last_bits = 0;
+    static uint8_t last_bits = 0;
     static uint8_t last_mod = 0;
 
     if (usb_keyboard_has_key() || fn_bits == last_bits) {
