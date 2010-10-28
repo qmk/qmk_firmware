@@ -66,6 +66,8 @@
 		#endif
 
 	/* Macros: */
+		/** \name Virtual Printer Status Line Masks */
+		//@{
 		/** Port status mask for a printer device, indicating that an error has *not* occurred. */
 		#define PRNT_PORTSTATUS_NOTERROR    (1 << 3)
 
@@ -74,6 +76,7 @@
 
 		/** Port status mask for a printer device, indicating that the device is currently out of paper. */
 		#define PRNT_PORTSTATUS_PAPEREMPTY  (1 << 5)
+		//@}
 
 	/* Enums: */
 		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the Printer

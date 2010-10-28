@@ -55,7 +55,6 @@
 
 	/* Includes: */
 		#include "../../HighLevel/StdDescriptors.h"
-		#include "RNDISConstants.h"
 		#include "CDC.h"
 
 		#include <string.h>
@@ -76,6 +75,98 @@
 
 		/** Implemented RNDIS Version Minor. */
 		#define REMOTE_NDIS_VERSION_MINOR             0x00
+
+		/** \name RNDIS Message Values */
+		//@{
+		#define REMOTE_NDIS_PACKET_MSG                0x00000001UL
+		#define REMOTE_NDIS_INITIALIZE_MSG            0x00000002UL
+		#define REMOTE_NDIS_HALT_MSG                  0x00000003UL
+		#define REMOTE_NDIS_QUERY_MSG                 0x00000004UL
+		#define REMOTE_NDIS_SET_MSG                   0x00000005UL
+		#define REMOTE_NDIS_RESET_MSG                 0x00000006UL
+		#define REMOTE_NDIS_INDICATE_STATUS_MSG       0x00000007UL
+		#define REMOTE_NDIS_KEEPALIVE_MSG             0x00000008UL
+		//@}
+
+		/** \name RNDIS Response Values */
+		//@{
+		#define REMOTE_NDIS_INITIALIZE_CMPLT          0x80000002UL
+		#define REMOTE_NDIS_QUERY_CMPLT               0x80000004UL
+		#define REMOTE_NDIS_SET_CMPLT                 0x80000005UL
+		#define REMOTE_NDIS_RESET_CMPLT               0x80000006UL
+		#define REMOTE_NDIS_KEEPALIVE_CMPLT           0x80000008UL
+		//@}
+
+		/** \name RNDIS Status Values */
+		//@{
+		#define REMOTE_NDIS_STATUS_SUCCESS            0x00000000UL
+		#define REMOTE_NDIS_STATUS_FAILURE            0xC0000001UL
+		#define REMOTE_NDIS_STATUS_INVALID_DATA       0xC0010015UL
+		#define REMOTE_NDIS_STATUS_NOT_SUPPORTED      0xC00000BBUL
+		#define REMOTE_NDIS_STATUS_MEDIA_CONNECT      0x4001000BUL
+		#define REMOTE_NDIS_STATUS_MEDIA_DISCONNECT   0x4001000CUL
+		//@}
+
+		/** \name RNDIS Media States */
+		//@{
+		#define REMOTE_NDIS_MEDIA_STATE_CONNECTED     0x00000000UL
+		#define REMOTE_NDIS_MEDIA_STATE_DISCONNECTED  0x00000001UL
+		//@}
+		
+		#define REMOTE_NDIS_MEDIUM_802_3              0x00000000UL
+
+		/** \name RNDIS Connection Types */
+		//@{
+		#define REMOTE_NDIS_DF_CONNECTIONLESS	      0x00000001UL
+		#define REMOTE_NDIS_DF_CONNECTION_ORIENTED    0x00000002UL
+		//@}
+		
+		/** \name RNDIS Packet Types */
+		//@{
+		#define REMOTE_NDIS_PACKET_DIRECTED           0x00000001UL
+		#define REMOTE_NDIS_PACKET_MULTICAST          0x00000002UL
+		#define REMOTE_NDIS_PACKET_ALL_MULTICAST      0x00000004UL
+		#define REMOTE_NDIS_PACKET_BROADCAST          0x00000008UL
+		#define REMOTE_NDIS_PACKET_SOURCE_ROUTING     0x00000010UL
+		#define REMOTE_NDIS_PACKET_PROMISCUOUS        0x00000020UL
+		#define REMOTE_NDIS_PACKET_SMT                0x00000040UL
+		#define REMOTE_NDIS_PACKET_ALL_LOCAL          0x00000080UL
+		#define REMOTE_NDIS_PACKET_GROUP              0x00001000UL
+		#define REMOTE_NDIS_PACKET_ALL_FUNCTIONAL     0x00002000UL
+		#define REMOTE_NDIS_PACKET_FUNCTIONAL         0x00004000UL
+		#define REMOTE_NDIS_PACKET_MAC_FRAME          0x00008000UL
+		//@}
+		
+		/** \name RNDIS OID Values */
+		//@{
+		#define OID_GEN_SUPPORTED_LIST                0x00010101UL
+		#define OID_GEN_HARDWARE_STATUS               0x00010102UL
+		#define OID_GEN_MEDIA_SUPPORTED               0x00010103UL
+		#define OID_GEN_MEDIA_IN_USE                  0x00010104UL
+		#define OID_GEN_MAXIMUM_FRAME_SIZE            0x00010106UL
+		#define OID_GEN_MAXIMUM_TOTAL_SIZE            0x00010111UL
+		#define OID_GEN_LINK_SPEED                    0x00010107UL
+		#define OID_GEN_TRANSMIT_BLOCK_SIZE           0x0001010AUL
+		#define OID_GEN_RECEIVE_BLOCK_SIZE            0x0001010BUL
+		#define OID_GEN_VENDOR_ID                     0x0001010CUL
+		#define OID_GEN_VENDOR_DESCRIPTION            0x0001010DUL
+		#define OID_GEN_CURRENT_PACKET_FILTER         0x0001010EUL
+		#define OID_GEN_MAXIMUM_TOTAL_SIZE            0x00010111UL
+		#define OID_GEN_MEDIA_CONNECT_STATUS          0x00010114UL
+		#define OID_GEN_PHYSICAL_MEDIUM               0x00010202UL
+		#define OID_GEN_XMIT_OK                       0x00020101UL
+		#define OID_GEN_RCV_OK                        0x00020102UL
+		#define OID_GEN_XMIT_ERROR                    0x00020103UL
+		#define OID_GEN_RCV_ERROR                     0x00020104UL
+		#define OID_GEN_RCV_NO_BUFFER                 0x00020105UL
+		#define OID_802_3_PERMANENT_ADDRESS           0x01010101UL
+		#define OID_802_3_CURRENT_ADDRESS             0x01010102UL
+		#define OID_802_3_MULTICAST_LIST              0x01010103UL
+		#define OID_802_3_MAXIMUM_LIST_SIZE           0x01010104UL
+		#define OID_802_3_RCV_ERROR_ALIGNMENT         0x01020101UL
+		#define OID_802_3_XMIT_ONE_COLLISION          0x01020102UL
+		#define OID_802_3_XMIT_MORE_COLLISIONS        0x01020103UL
+		//@}
 
 		/** Maximum size in bytes of a RNDIS control message which can be sent or received. */
 		#define RNDIS_MESSAGE_BUFFER_SIZE             128

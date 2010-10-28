@@ -53,12 +53,17 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
+			/** \name Dataflash Status Values */
+			//@{
 			#define DF_STATUS_READY                         (1 << 7)
 			#define DF_STATUS_COMPMISMATCH                  (1 << 6)
 			#define DF_STATUS_SECTORPROTECTION_ON           (1 << 1)
+			//@}
 
 			#define DF_MANUFACTURER_ATMEL                   0x1F
 
+			/** \name Dataflash Commands */
+			//@{
 			#define DF_CMD_GETSTATUS                        0xD7
 
 			#define DF_CMD_MAINMEMTOBUFF1                   0x53
@@ -92,6 +97,7 @@
 			#define DF_CMD_SECTORPROTECTIONOFF_BYTE4        0xCF
 
 			#define DF_CMD_READMANUFACTURERDEVICEINFO       0x9F
+			//@}
 
 #endif
 

@@ -61,6 +61,8 @@
 		#endif
 
 	/* Macros: */
+		/** \name Keyboard Standard Report Modifier Masks */
+		//@{
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's left control key is currently pressed. */
 		#define HID_KEYBOARD_MODIFER_LEFTCTRL   (1 << 0)
 
@@ -84,7 +86,10 @@
 
 		/** Constant for a keyboard report modifier byte, indicating that the keyboard's right GUI key is currently pressed. */
 		#define HID_KEYBOARD_MODIFER_RIGHTGUI   (1 << 7)
-
+		//@}
+		
+		/** \name Keyboard Standard Report LED Masks */
+		//@{
 		/** Constant for a keyboard output report LED byte, indicating that the host's NUM LOCK mode is currently set. */
 		#define HID_KEYBOARD_LED_NUMLOCK        (1 << 0)
 
@@ -96,6 +101,7 @@
 
 		/** Constant for a keyboard output report LED byte, indicating that the host's KATANA mode is currently set. */
 		#define HID_KEYBOARD_LED_KATANA         (1 << 3)
+		//@}
 
 	/* Type Defines: */
 		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the HID

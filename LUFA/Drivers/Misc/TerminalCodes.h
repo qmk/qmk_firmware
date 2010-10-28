@@ -72,9 +72,8 @@
 				#define ANSI_ESCAPE_SEQUENCE(c)
 			#endif
 
-			/** Resets any escape sequence modifiers back to their defaults. */
-			#define ESC_RESET                ANSI_ESCAPE_SEQUENCE("0m")
-
+			/** \name Text Display Modifier Escape Sequences */
+			//@{
 			/** Turns on bold so that any following text is printed to the terminal in bold. */
 			#define ESC_BOLD_ON              ANSI_ESCAPE_SEQUENCE("1m")
 
@@ -108,7 +107,10 @@
 			 *  the center.
 			 */
 			#define ESC_STRIKETHROUGH_OFF    ANSI_ESCAPE_SEQUENCE("29m")
-
+			//@}
+			
+			/** \name Text Colour Control Sequences */
+			//@{
 			/** Sets the foreground (text) colour to black. */
 			#define ESC_FG_BLACK             ANSI_ESCAPE_SEQUENCE("30m")
 
@@ -162,7 +164,10 @@
 
 			/** Sets the text background colour to the terminal's default. */
 			#define ESC_BG_DEFAULT           ANSI_ESCAPE_SEQUENCE("49m")
+			//@}
 
+			/** \name Cursor Positioning Control Sequences */
+			//@{
 			/** Sets the cursor position to the given line and column. */
 			#define ESC_CURSOR_POS(L, C)     ANSI_ESCAPE_SEQUENCE(#L ";" #C "H")
 
@@ -183,12 +188,19 @@
 
 			/** Restores the cursor position to the last position saved with \ref ESC_CURSOR_POS_SAVE. */
 			#define ESC_CURSOR_POS_RESTORE   ANSI_ESCAPE_SEQUENCE("u")
+			//@}
+
+			/** \name Miscellaneous Control Sequences */
+			//@{
+			/** Resets any escape sequence modifiers back to their defaults. */
+			#define ESC_RESET                ANSI_ESCAPE_SEQUENCE("0m")
 
 			/** Erases the entire display, returning the cursor to the top left. */
 			#define ESC_ERASE_DISPLAY        ANSI_ESCAPE_SEQUENCE("2J")
 
 			/** Erases the current line, returning the cursor to the far left. */
 			#define ESC_ERASE_LINE           ANSI_ESCAPE_SEQUENCE("K")
+			//@}
 
 #endif
 

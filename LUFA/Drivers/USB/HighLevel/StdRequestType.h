@@ -81,6 +81,8 @@
 			 */
 			#define CONTROL_REQTYPE_RECIPIENT  0x1F
 
+			/** \name Control Request Data Direction Masks */
+			//@{
 			/** Request data direction mask, indicating that the request data will flow from host to device.
 			 *
 			 *  \see \ref CONTROL_REQTYPE_DIRECTION macro.
@@ -92,7 +94,10 @@
 			 *  \see \ref CONTROL_REQTYPE_DIRECTION macro.
 			 */
 			#define REQDIR_DEVICETOHOST        (1 << 7)
+			//@}
 
+			/** \name Control Request Type Masks */
+			//@{
 			/** Request type mask, indicating that the request is a standard request.
 			 *
 			 *  \see \ref CONTROL_REQTYPE_TYPE macro.
@@ -110,7 +115,10 @@
 			 *  \see \ref CONTROL_REQTYPE_TYPE macro.
 			 */
 			#define REQTYPE_VENDOR             (2 << 5)
+			//@}
 
+			/** \name Control Request Recipient Masks */
+			//@{
 			/** Request recipient mask, indicating that the request is to be issued to the device as a whole.
 			 *
 			 *  \see \ref CONTROL_REQTYPE_RECIPIENT macro.
@@ -137,7 +145,10 @@
 			 *  \see \ref CONTROL_REQTYPE_RECIPIENT macro.
 			 */
 			#define REQREC_OTHER               (3 << 0)
+			//@}
 
+			/** \name Feature Request Types */
+			//@{
 			/** Feature indicator for Clear Feature or Set Feature commands. When used in a Clear Feature
 			 *  request this indicates that an endpoint (whose address is given elsewhere in the request
 			 *  should have its stall condition cleared. If used in a similar manner inside a Set Feature
@@ -151,6 +162,7 @@
 			 *  request, this re-enabled the remote wakeup feature on the device.
 			 */
 			#define FEATURE_REMOTE_WAKEUP      0x01
+			//@}
 
 		/* Type Defines: */
 			/** \brief Standard USB Control Request

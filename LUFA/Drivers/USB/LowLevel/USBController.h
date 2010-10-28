@@ -123,6 +123,8 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
+			/** \name USB Controller Option Masks */
+			//@{
 			/** Regulator disable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
 			 *  regulator should be enabled to regulate the data pin voltages to within the USB standard.
 			 *
@@ -148,7 +150,10 @@
 			 *  that the USB controller requires) and ensuring that it is locked at the correct frequency for USB operations.
 			 */
 			#define USB_OPT_AUTO_PLL                   (0 << 2)
-
+			//@}
+			
+			/** \name Endpoint/Pipe Type Masks */
+			//@{
 			/** Mask for a CONTROL type endpoint or pipe.
 			 *
 			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
@@ -172,6 +177,7 @@
 			 *  \note See \ref Group_EndpointManagement and \ref Group_PipeManagement for endpoint/pipe functions.
 			 */
 			#define EP_TYPE_INTERRUPT                  0x03
+			//@}
 
 			#if !defined(USB_STREAM_TIMEOUT_MS) || defined(__DOXYGEN__)
 				/** Constant for the maximum software timeout period of the USB data stream transfer functions

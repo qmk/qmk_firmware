@@ -146,6 +146,8 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
+			/** \name Endpoint Direction Masks */
+			//@{
 			/** Endpoint data direction mask for \ref Endpoint_ConfigureEndpoint(). This indicates that the endpoint
 			 *  should be initialized in the OUT direction - i.e. data flows from host to device.
 			 */
@@ -155,7 +157,10 @@
 			 *  should be initialized in the IN direction - i.e. data flows from device to host.
 			 */
 			#define ENDPOINT_DIR_IN                         (1 << EPDIR)
-
+			//@}
+			
+			/** \name Endpoint Bank Mode Masks */
+			//@{
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
 			 *  that the endpoint should have one single bank, which requires less USB FIFO memory but results
 			 *  in slower transfers as only one USB device (the AVR or the host) can access the endpoint's
@@ -169,7 +174,8 @@
 			 *  accesses the second bank.
 			 */
 			#define ENDPOINT_BANK_DOUBLE                    (1 << EPBK0)
-
+			//@}
+			
 			/** Endpoint address for the default control endpoint, which always resides in address 0. This is
 			 *  defined for convenience to give more readable code when used with the endpoint macros.
 			 */

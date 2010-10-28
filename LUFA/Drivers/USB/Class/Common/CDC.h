@@ -66,6 +66,8 @@
 		#endif
 
 	/* Macros: */
+		/** \name Virtual Control Line Masks */
+		//@{
 		/** Mask for the DTR handshake line for use with the \ref CDC_REQ_SetControlLineState class-specific request
 		 *  from the host, to indicate that the DTR line state should be high.
 		 */
@@ -110,7 +112,8 @@
 		 *  to indicate that a data overrun error has occurred on the virtual serial port.
 		 */
 		#define CDC_CONTROL_LINE_IN_OVERRUNERROR (1 << 6)
-
+		//@}
+		
 		/** Macro to define a CDC class-specific functional descriptor. CDC functional descriptors have a
 		 *  uniform structure but variable sized data payloads, thus cannot be represented accurately by
 		 *  a single typedef struct. A macro is used instead so that functional descriptors can be created

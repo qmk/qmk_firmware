@@ -78,6 +78,8 @@
 		/** Mask for a Command Block Wrapper's flags attribute to specify a command with data sent from device-to-host. */
 		#define MS_COMMAND_DIR_DATA_IN                         (1 << 7)
 
+		/** \name SCSI Commands*/
+		//@{
 		/** SCSI Command Code for an INQUIRY command. */
 		#define SCSI_CMD_INQUIRY                               0x12
 
@@ -116,7 +118,10 @@
 
 		/** SCSI Command Code for a MODE SENSE (10) command. */
 		#define SCSI_CMD_MODE_SENSE_10                         0x5A
-
+		//@}
+		
+		/** \name SCSI Sense Key Values */
+		//@{
 		/** SCSI Sense Code to indicate no error has occurred. */
 		#define SCSI_SENSE_KEY_GOOD                            0x00
 
@@ -160,7 +165,10 @@
 
 		/** SCSI Sense Code to indicate that the source data did not match the data read from the medium. */
 		#define SCSI_SENSE_KEY_MISCOMPARE                      0x0E
-
+		//@}
+		
+		/** \name SCSI Additional Sense Codes */
+		//@{
 		/** SCSI Additional Sense Code to indicate no additional sense information is available. */
 		#define SCSI_ASENSE_NO_ADDITIONAL_INFORMATION          0x00
 
@@ -189,7 +197,10 @@
 
 		/** SCSI Additional Sense Code to indicate that no removable medium is inserted into the device. */
 		#define SCSI_ASENSE_MEDIUM_NOT_PRESENT                 0x3A
-
+		//@}
+		
+		/** \name SCSI Additional Sense Key Code Qualifiers */
+		//@{
 		/** SCSI Additional Sense Qualifier Code to indicate no additional sense qualifier information is available. */
 		#define SCSI_ASENSEQ_NO_QUALIFIER                      0x00
 
@@ -203,7 +214,8 @@
 
 		/** SCSI Additional Sense Qualifier Code to indicate that an operation is currently in progress. */
 		#define SCSI_ASENSEQ_OPERATION_IN_PROGRESS             0x07
-
+		//@}
+		
 	/* Enums: */
 		/** Enum for possible Class, Subclass and Protocol values of device and interface descriptors relating to the Mass
 		 *  Storage device class.

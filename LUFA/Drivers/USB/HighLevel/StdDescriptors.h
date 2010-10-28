@@ -119,6 +119,8 @@
 			 */
 			#define LANGUAGE_ID_ENG                   0x0409
 
+			/** \name Endpoint Address Direction Masks */
+			//@{
 			/** Can be masked with an endpoint address for a \ref USB_Descriptor_Endpoint_t endpoint descriptor's
 			 *  EndpointAddress value to indicate to the host that the endpoint is of the IN direction (i.e, from
 			 *  device to host).
@@ -130,7 +132,10 @@
 			 *  host to device).
 			 */
 			#define ENDPOINT_DESCRIPTOR_DIR_OUT       0x00
+			//@}
 
+			/** \name USB Configuration Descriptor Attribute Masks */
+			//@{
 			/** Can be masked with other configuration descriptor attributes for a \ref USB_Descriptor_Configuration_Header_t
 			 *  descriptor's ConfigAttributes value to indicate that the specified configuration can draw its power
 			 *  from the host's VBUS line.
@@ -149,7 +154,10 @@
 			 *  request.
 			 */
 			#define USB_CONFIG_ATTR_REMOTEWAKEUP      0x20
-
+			//@}
+			
+			/** \name Endpoint Descriptor Attribute Masks */
+			//@{
 			/** Can be masked with other endpoint descriptor attributes for a \ref USB_Descriptor_Endpoint_t descriptor's
 			 *  Attributes value to indicate that the specified endpoint is not synchronized.
 			 *
@@ -177,7 +185,10 @@
 			 *  \see The USB specification for more details on the possible Endpoint attributes.
 			 */
 			#define ENDPOINT_ATTR_SYNC                (3 << 2)
-
+			//@}
+			
+			/** \name Endpoint Descriptor Usage Masks */
+			//@{
 			/** Can be masked with other endpoint descriptor attributes for a \ref USB_Descriptor_Endpoint_t descriptor's
 			 *  Attributes value to indicate that the specified endpoint is used for data transfers.
 			 *
@@ -198,7 +209,8 @@
 			 *  \see The USB specification for more details on the possible Endpoint usage attributes.
 			 */
 			#define ENDPOINT_USAGE_IMPLICIT_FEEDBACK  (2 << 4)
-
+			//@}
+			
 		/* Enums: */
 			/** Enum for the possible standard descriptor types, as given in each descriptor's header. */
 			enum USB_DescriptorTypes_t

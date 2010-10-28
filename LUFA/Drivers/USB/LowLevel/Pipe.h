@@ -98,6 +98,8 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
+			/** \name Pipe Error Flag Masks */
+			//@{
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that an overflow error occurred in the pipe on the received data. */
 			#define PIPE_ERRORFLAG_OVERFLOW         (1 << 6)
 
@@ -118,7 +120,10 @@
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a hardware data toggle error occurred in the pipe. */
 			#define PIPE_ERRORFLAG_DATATGL          (1 << 0)
+			//@}
 
+			/** \name Pipe Token Masks */
+			//@{
 			/** Token mask for \ref Pipe_ConfigurePipe(). This sets the pipe as a SETUP token (for CONTROL type pipes),
 			 *  which will trigger a control request on the attached device when data is written to the pipe.
 			 */
@@ -133,7 +138,10 @@
 			 *  indicating that the pipe data will flow from host to device.
 			 */
 			#define PIPE_TOKEN_OUT                  (2 << PTOKEN0)
-
+			//@}
+			
+			/** \name Pipe Bank Mode Masks */
+			//@{
 			/** Mask for the bank mode selection for the \ref Pipe_ConfigurePipe() macro. This indicates that the pipe
 			 *  should have one single bank, which requires less USB FIFO memory but results in slower transfers as
 			 *  only one USB device (the AVR or the attached device) can access the pipe's bank at the one time.
@@ -146,7 +154,8 @@
 			 *  bank.
 			 */
 			#define PIPE_BANK_DOUBLE                (1 << EPBK0)
-
+			//@}
+			
 			/** Pipe address for the default control pipe, which always resides in address 0. This is
 			 *  defined for convenience to give more readable code when used with the pipe macros.
 			 */
