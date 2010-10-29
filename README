@@ -93,9 +93,6 @@ debouncing logic
     will be coded when bouncing occurs.
     bouncing doesnt occur on my ALPS switch so far.
     scan rate is too slow?(to be measure)
-layer switching
-    time before switching
-    timeout when not used during specific time
 
 Trackpoint(PS/2)
     receive PS/2 signal from TrackPoint
@@ -136,6 +133,9 @@ debug on/off
     key print on/off
     mouse print on/off
     2010/10/26
-
+layer switching
+    time before switching
+    timeout when not used during specific time
+    2010/10/30
 
 EOF

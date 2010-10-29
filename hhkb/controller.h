@@ -3,4 +3,10 @@
 
 #include "controller_teensy.h"
 
+
+/* matrix row size */
+#define MATRIX_ROWS 8
+/* matrix column size */
+#define MATRIX_COLS 8
+
 #endif
