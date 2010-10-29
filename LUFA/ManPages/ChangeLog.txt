@@ -30,9 +30,9 @@
   *  - Added default test tone generation mode to the Device mode AudioInput demos
   *  - Added new NO_CLASS_DRIVER_AUTOFLUSH compile time option to disable automatic flushing of interfaces when the USB management
   *    tasks for each driver is called
-  *  - Added standard keyboard HID report scancode defines (thanks to László Monda)
+  *  - Added standard keyboard HID report scancode defines (thanks to Laszlo Monda)
   *  - Added new Pipe_GetBusyBanks(), Endpoint_GetBusyBanks() and Endpoint_AbortPendingIN() functions
-  *  - Added new NO_BLOCK_SUPPORT, NO_EEPROM_BYTE_SUPPORT, NO_FLASH_BYTE_SUPPORT and NO_LOCK_BYTE_SUPPORT compile time options to the
+  *  - Added new NO_BLOCK_SUPPORT, NO_EEPROM_BYTE_SUPPORT, NO_FLASH_BYTE_SUPPORT and NO_LOCK_BYTE_WRITE_SUPPORT compile time options to the
   *    CDC class bootloader
   *
   *  <b>Changed:</b>

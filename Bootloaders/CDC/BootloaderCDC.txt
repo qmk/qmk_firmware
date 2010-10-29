@@ -82,7 +82,7 @@
  *        to be made using the block-level commands.
  *   </tr>
  *   <tr>
- *    <td>NO_LOCK_BYTE_SUPPORT</td>
+ *    <td>NO_LOCK_BYTE_WRITE_SUPPORT</td>
  *    <td>Makefile LUFA_OPTS</td>
  *    <td>Define to disable lock byte write support in the bootloader, preventing the lock bits from being set progmatically.
  *   </tr>

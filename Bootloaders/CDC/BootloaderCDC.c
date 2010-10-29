@@ -332,223 +332,230 @@ void CDC_Task(void)
 	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
 
 	/* Check if endpoint has a command in it sent from the host */
-	if (Endpoint_IsOUTReceived())
+	if (!(Endpoint_IsOUTReceived()))
+	  return;
+
+	/* Read in the bootloader command (first byte sent from host) */
+	uint8_t Command = FetchNextCommandByte();
+
+	if (Command == 'E')
 	{
-		/* Read in the bootloader command (first byte sent from host) */
-		uint8_t Command = FetchNextCommandByte();
+		RunBootloader = false;
+	
+		/* Send confirmation byte back to the host */
+		WriteNextResponseByte('\r');
+	}
+	else if (Command == 'T')
+	{
+		FetchNextCommandByte();
 
-		if ((Command == 'L') || (Command == 'P') || (Command == 'T') || (Command == 'E'))
-		{
-			if (Command == 'E')
-			  RunBootloader = false;
-			else if (Command == 'T')
-			  FetchNextCommandByte();
+		/* Send confirmation byte back to the host */
+		WriteNextResponseByte('\r');
+	}
+	else if ((Command == 'L') || (Command == 'P'))
+	{
+		/* Send confirmation byte back to the host */
+		WriteNextResponseByte('\r');
+	}
+	else if (Command == 't')
+	{
+		/* Return ATMEGA128 part code - this is only to allow AVRProg to use the bootloader */
+		WriteNextResponseByte(0x44);
+		WriteNextResponseByte(0x00);
+	}
+	else if (Command == 'a')
+	{
+		/* Indicate auto-address increment is supported */
+		WriteNextResponseByte('Y');
+	}
+	else if (Command == 'A')
+	{
+		/* Set the current address to that given by the host */
+		CurrAddress   = (FetchNextCommandByte() << 9);
+		CurrAddress  |= (FetchNextCommandByte() << 1);
 
-			/* Send confirmation byte back to the host */
-			WriteNextResponseByte('\r');
-		}
-		else if (Command == 't')
+		/* Send confirmation byte back to the host */
+		WriteNextResponseByte('\r');
+	}
+	else if (Command == 'p')
+	{
+		/* Indicate serial programmer back to the host */
+		WriteNextResponseByte('S');
+	}
+	else if (Command == 'S')
+	{
+		/* Write the 7-byte software identifier to the endpoint */
+		for (uint8_t CurrByte = 0; CurrByte < 7; CurrByte++)
+		  WriteNextResponseByte(SOFTWARE_IDENTIFIER[CurrByte]);
+	}
+	else if (Command == 'V')
+	{
+		WriteNextResponseByte('0' + BOOTLOADER_VERSION_MAJOR);
+		WriteNextResponseByte('0' + BOOTLOADER_VERSION_MINOR);
+	}
+	else if (Command == 's')
+	{
+		WriteNextResponseByte(AVR_SIGNATURE_3);
+		WriteNextResponseByte(AVR_SIGNATURE_2);
+		WriteNextResponseByte(AVR_SIGNATURE_1);
+	}
+	else if (Command == 'e')
+	{
+		/* Clear the application section of flash */
+		for (uint32_t CurrFlashAddress = 0; CurrFlashAddress < BOOT_START_ADDR; CurrFlashAddress += SPM_PAGESIZE)
 		{
-			/* Return ATMEGA128 part code - this is only to allow AVRProg to use the bootloader */
-			WriteNextResponseByte(0x44);
-			WriteNextResponseByte(0x00);
-		}
-		else if (Command == 'a')
-		{
-			/* Indicate auto-address increment is supported */
-			WriteNextResponseByte('Y');
-		}
-		else if (Command == 'A')
-		{
-			/* Set the current address to that given by the host */
-			CurrAddress   = (FetchNextCommandByte() << 9);
-			CurrAddress  |= (FetchNextCommandByte() << 1);
-
-			/* Send confirmation byte back to the host */
-			WriteNextResponseByte('\r');
-		}
-		else if (Command == 'p')
-		{
-			/* Indicate serial programmer back to the host */
-			WriteNextResponseByte('S');
-		}
-		else if (Command == 'S')
-		{
-			/* Write the 7-byte software identifier to the endpoint */
-			for (uint8_t CurrByte = 0; CurrByte < 7; CurrByte++)
-			  WriteNextResponseByte(SOFTWARE_IDENTIFIER[CurrByte]);
-		}
-		else if (Command == 'V')
-		{
-			WriteNextResponseByte('0' + BOOTLOADER_VERSION_MAJOR);
-			WriteNextResponseByte('0' + BOOTLOADER_VERSION_MINOR);
-		}
-		else if (Command == 's')
-		{
-			WriteNextResponseByte(AVR_SIGNATURE_3);
-			WriteNextResponseByte(AVR_SIGNATURE_2);
-			WriteNextResponseByte(AVR_SIGNATURE_1);
-		}
-		else if (Command == 'e')
-		{
-			/* Clear the application section of flash */
-			for (uint32_t CurrFlashAddress = 0; CurrFlashAddress < BOOT_START_ADDR; CurrFlashAddress++)
-			{
-				boot_page_erase(CurrFlashAddress);
-				boot_spm_busy_wait();
-				boot_page_write(CurrFlashAddress);
-				boot_spm_busy_wait();
-
-				CurrFlashAddress += SPM_PAGESIZE;
-			}
-
-			/* Send confirmation byte back to the host */
-			WriteNextResponseByte('\r');
-		}
-		#if !defined(NO_LOCK_BYTE_SUPPORT)
-		else if (Command == 'l')
-		{
-			/* Set the lock bits to those given by the host */
-			boot_lock_bits_set(FetchNextCommandByte());
-
-			/* Send confirmation byte back to the host */
-			WriteNextResponseByte('\r');
-		}
-		#endif
-		else if (Command == 'r')
-		{
-			WriteNextResponseByte(boot_lock_fuse_bits_get(GET_LOCK_BITS));
-		}
-		else if (Command == 'F')
-		{
-			WriteNextResponseByte(boot_lock_fuse_bits_get(GET_LOW_FUSE_BITS));
-		}
-		else if (Command == 'N')
-		{
-			WriteNextResponseByte(boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS));
-		}
-		else if (Command == 'Q')
-		{
-			WriteNextResponseByte(boot_lock_fuse_bits_get(GET_EXTENDED_FUSE_BITS));
-		}
-		#if !defined(NO_BLOCK_SUPPORT)
-		else if (Command == 'b')
-		{
-			WriteNextResponseByte('Y');
-
-			/* Send block size to the host */
-			WriteNextResponseByte(SPM_PAGESIZE >> 8);
-			WriteNextResponseByte(SPM_PAGESIZE & 0xFF);
-		}
-		else if ((Command == 'B') || (Command == 'g'))
-		{
-			/* Delegate the block write/read to a separate function for clarity */
-			ReadWriteMemoryBlock(Command);
-		}
-		#endif
-		#if !defined(NO_FLASH_BYTE_SUPPORT)
-		else if (Command == 'C')
-		{
-			/* Write the high byte to the current flash page */
-			boot_page_fill(CurrAddress, FetchNextCommandByte());
-
-			/* Send confirmation byte back to the host */
-			WriteNextResponseByte('\r');
-		}
-		else if (Command == 'c')
-		{
-			/* Write the low byte to the current flash page */
-			boot_page_fill(CurrAddress | 0x01, FetchNextCommandByte());
-
-			/* Increment the address */
-			CurrAddress += 2;
-
-			/* Send confirmation byte back to the host */
-			WriteNextResponseByte('\r');
-		}
-		else if (Command == 'm')
-		{
-			/* Commit the flash page to memory */
-			boot_page_write(CurrAddress);
-
-			/* Wait until write operation has completed */
+			boot_page_erase(CurrFlashAddress);
 			boot_spm_busy_wait();
-
-			/* Send confirmation byte back to the host */
-			WriteNextResponseByte('\r');
+			boot_page_write(CurrFlashAddress);
+			boot_spm_busy_wait();
 		}
-		else if (Command == 'R')
-		{
-			#if (FLASHEND > 0xFFFF)
-			uint16_t ProgramWord = pgm_read_word_far(CurrAddress);
-			#else
-			uint16_t ProgramWord = pgm_read_word(CurrAddress);
-			#endif
 
-			WriteNextResponseByte(ProgramWord >> 8);
-			WriteNextResponseByte(ProgramWord & 0xFF);
-		}
+		/* Send confirmation byte back to the host */
+		WriteNextResponseByte('\r');
+	}
+	#if !defined(NO_LOCK_BYTE_WRITE_SUPPORT)
+	else if (Command == 'l')
+	{
+		/* Set the lock bits to those given by the host */
+		boot_lock_bits_set(FetchNextCommandByte());
+
+		/* Send confirmation byte back to the host */
+		WriteNextResponseByte('\r');
+	}
+	#endif
+	else if (Command == 'r')
+	{
+		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_LOCK_BITS));
+	}
+	else if (Command == 'F')
+	{
+		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_LOW_FUSE_BITS));
+	}
+	else if (Command == 'N')
+	{
+		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS));
+	}
+	else if (Command == 'Q')
+	{
+		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_EXTENDED_FUSE_BITS));
+	}
+	#if !defined(NO_BLOCK_SUPPORT)
+	else if (Command == 'b')
+	{
+		WriteNextResponseByte('Y');
+
+		/* Send block size to the host */
+		WriteNextResponseByte(SPM_PAGESIZE >> 8);
+		WriteNextResponseByte(SPM_PAGESIZE & 0xFF);
+	}
+	else if ((Command == 'B') || (Command == 'g'))
+	{
+		/* Delegate the block write/read to a separate function for clarity */
+		ReadWriteMemoryBlock(Command);
+	}
+	#endif
+	#if !defined(NO_FLASH_BYTE_SUPPORT)
+	else if (Command == 'C')
+	{
+		/* Write the high byte to the current flash page */
+		boot_page_fill(CurrAddress, FetchNextCommandByte());
+
+		/* Send confirmation byte back to the host */
+		WriteNextResponseByte('\r');
+	}
+	else if (Command == 'c')
+	{
+		/* Write the low byte to the current flash page */
+		boot_page_fill(CurrAddress | 0x01, FetchNextCommandByte());
+
+		/* Increment the address */
+		CurrAddress += 2;
+
+		/* Send confirmation byte back to the host */
+		WriteNextResponseByte('\r');
+	}
+	else if (Command == 'm')
+	{
+		/* Commit the flash page to memory */
+		boot_page_write(CurrAddress);
+
+		/* Wait until write operation has completed */
+		boot_spm_busy_wait();
+
+		/* Send confirmation byte back to the host */
+		WriteNextResponseByte('\r');
+	}
+	else if (Command == 'R')
+	{
+		#if (FLASHEND > 0xFFFF)
+		uint16_t ProgramWord = pgm_read_word_far(CurrAddress);
+		#else
+		uint16_t ProgramWord = pgm_read_word(CurrAddress);
 		#endif
-		#if !defined(NO_EEPROM_BYTE_SUPPORT)
-		else if (Command == 'D')
-		{
-			/* Read the byte from the endpoint and write it to the EEPROM */
-			eeprom_write_byte((uint8_t*)((intptr_t)(CurrAddress >> 1)), FetchNextCommandByte());
 
-			/* Increment the address after use */
-			CurrAddress += 2;
+		WriteNextResponseByte(ProgramWord >> 8);
+		WriteNextResponseByte(ProgramWord & 0xFF);
+	}
+	#endif
+	#if !defined(NO_EEPROM_BYTE_SUPPORT)
+	else if (Command == 'D')
+	{
+		/* Read the byte from the endpoint and write it to the EEPROM */
+		eeprom_write_byte((uint8_t*)((intptr_t)(CurrAddress >> 1)), FetchNextCommandByte());
 
-			/* Send confirmation byte back to the host */
-			WriteNextResponseByte('\r');
-		}
-		else if (Command == 'd')
-		{
-			/* Read the EEPROM byte and write it to the endpoint */
-			WriteNextResponseByte(eeprom_read_byte((uint8_t*)((intptr_t)(CurrAddress >> 1))));
+		/* Increment the address after use */
+		CurrAddress += 2;
 
-			/* Increment the address after use */
-			CurrAddress += 2;
-		}
-		#endif
-		else if (Command != 27)
-		{
-			/* Unknown (non-sync) command, return fail code */
-			WriteNextResponseByte('?');
-		}
+		/* Send confirmation byte back to the host */
+		WriteNextResponseByte('\r');
+	}
+	else if (Command == 'd')
+	{
+		/* Read the EEPROM byte and write it to the endpoint */
+		WriteNextResponseByte(eeprom_read_byte((uint8_t*)((intptr_t)(CurrAddress >> 1))));
 
-		/* Select the IN endpoint */
-		Endpoint_SelectEndpoint(CDC_TX_EPNUM);
+		/* Increment the address after use */
+		CurrAddress += 2;
+	}
+	#endif
+	else if (Command != 27)
+	{
+		/* Unknown (non-sync) command, return fail code */
+		WriteNextResponseByte('?');
+	}
 
-		/* Remember if the endpoint is completely full before clearing it */
-		bool IsEndpointFull = !(Endpoint_IsReadWriteAllowed());
+	/* Select the IN endpoint */
+	Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
-		/* Send the endpoint data to the host */
-		Endpoint_ClearIN();
+	/* Remember if the endpoint is completely full before clearing it */
+	bool IsEndpointFull = !(Endpoint_IsReadWriteAllowed());
 
-		/* If a full endpoint's worth of data was sent, we need to send an empty packet afterwards to signal end of transfer */
-		if (IsEndpointFull)
-		{
-			while (!(Endpoint_IsINReady()))
-			{
-				if (USB_DeviceState == DEVICE_STATE_Unattached)
-				  return;
-			}
+	/* Send the endpoint data to the host */
+	Endpoint_ClearIN();
 
-			Endpoint_ClearIN();
-		}
-
-		/* Wait until the data has been sent to the host */
+	/* If a full endpoint's worth of data was sent, we need to send an empty packet afterwards to signal end of transfer */
+	if (IsEndpointFull)
+	{
 		while (!(Endpoint_IsINReady()))
 		{
 			if (USB_DeviceState == DEVICE_STATE_Unattached)
 			  return;
 		}
 
-		/* Select the OUT endpoint */
-		Endpoint_SelectEndpoint(CDC_RX_EPNUM);
-
-		/* Acknowledge the command from the host */
-		Endpoint_ClearOUT();
+		Endpoint_ClearIN();
 	}
+
+	/* Wait until the data has been sent to the host */
+	while (!(Endpoint_IsINReady()))
+	{
+		if (USB_DeviceState == DEVICE_STATE_Unattached)
+		  return;
+	}
+
+	/* Select the OUT endpoint */
+	Endpoint_SelectEndpoint(CDC_RX_EPNUM);
+
+	/* Acknowledge the command from the host */
+	Endpoint_ClearOUT();
 }
 
