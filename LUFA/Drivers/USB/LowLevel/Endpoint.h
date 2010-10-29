@@ -409,7 +409,7 @@
 			 */
 			static inline void Endpoint_AbortPendingIN(void)
 			{
-				while (UESTA0X & (0x03 << NBUSYBK))
+				while (UESTA0X & (0x03 << NBUSYBK0))
 				{
 					UEINTX |= (1 << RXOUTI);
 					while (UEINTX & (1 << RXOUTI));
@@ -426,7 +426,7 @@
 			 */
 			static inline uint8_t Endpoint_GetBusyBanks(void)
 			{
-				return (UESTA0X & (0x03 << NBUSYBK));
+				return (UESTA0X & (0x03 << NBUSYBK0));
 			}
 
 			/** Determines if the currently selected endpoint may be read from (if data is waiting in the endpoint

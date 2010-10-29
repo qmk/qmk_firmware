@@ -463,7 +463,7 @@
 			 */
 			static inline uint8_t Pipe_GetBusyBanks(void)
 			{
-				return (UPSTAX & (0x03 << NBUSYBK));
+				return (UPSTAX & (0x03 << NBUSYBK0));
 			}
 
 			/** Determines if the currently selected pipe may be read from (if data is waiting in the pipe
