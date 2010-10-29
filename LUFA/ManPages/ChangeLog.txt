@@ -31,6 +31,7 @@
   *  - Added new NO_CLASS_DRIVER_AUTOFLUSH compile time option to disable automatic flushing of interfaces when the USB management
   *    tasks for each driver is called
   *  - Added standard keyboard HID report scancode defines (thanks to László Monda)
+  *  - Added new Pipe_GetBusyBanks(), Endpoint_GetBusyBanks() and Endpoint_AbortPendingIN() functions
   *
   *  <b>Changed:</b>
   *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions

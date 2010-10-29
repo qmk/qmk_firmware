@@ -452,6 +452,19 @@
 				                   PIPE_ERRORFLAG_DATATGL)) |
 				        (UPSTAX & (PIPE_ERRORFLAG_OVERFLOW | PIPE_ERRORFLAG_UNDERFLOW)));
 			}
+			
+			/** Retrieves the number of busy banks in the currently selected pipe, which have been queued for
+			 *  transmission via the \ref Pipe_ClearOUT() command, or are awaiting acknowledgement via the
+			 *  \ref Pipe_ClearIN() command.
+			 *
+			 *  \ingroup Group_PipePacketManagement
+			 *
+			 *  \return Total number of busy banks in the selected pipe.
+			 */
+			static inline uint8_t Pipe_GetBusyBanks(void)
+			{
+				return (UPSTAX & (0x03 << NBUSYBK));
+			}
 
 			/** Determines if the currently selected pipe may be read from (if data is waiting in the pipe
 			 *  bank and the pipe is an IN direction, or if the bank is not yet full if the pipe is an OUT

@@ -400,6 +400,35 @@
 				return ((UECONX & (1 << EPEN)) ? true : false);
 			}
 
+			/** Aborts all pending IN transactions on the currently selected endpoint, once the bank
+			 *  has been queued for transmission to the host via \ref Endpoint_ClearIN(). This function
+			 *  will terminate all queued transactions, resetting the endpoint banks ready for a new
+			 *  packet.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 */
+			static inline void Endpoint_AbortPendingIN(void)
+			{
+				while (UESTA0X & (0x03 << NBUSYBK))
+				{
+					UEINTX |= (1 << RXOUTI);
+					while (UEINTX & (1 << RXOUTI));
+				}
+			}
+			
+			/** Retrieves the number of busy banks in the currently selected endpoint, which have been queued for
+			 *  transmission via the \ref Endpoint_ClearIN() command, or are awaiting acknowledgement via the
+			 *  \ref Endpoint_ClearOUT() command.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement
+			 *
+			 *  \return Total number of busy banks in the selected endpoint.
+			 */
+			static inline uint8_t Endpoint_GetBusyBanks(void)
+			{
+				return (UESTA0X & (0x03 << NBUSYBK));
+			}
+
 			/** Determines if the currently selected endpoint may be read from (if data is waiting in the endpoint
 			 *  bank and the endpoint is an OUT direction, or if the bank is not yet full if the endpoint is an IN
 			 *  direction). This function will return false if an error has occurred in the endpoint, if the endpoint
