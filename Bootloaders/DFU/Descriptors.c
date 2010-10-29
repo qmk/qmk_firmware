@@ -37,7 +37,7 @@
 
 #include "Descriptors.h"
 
-/** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
+/** Device descriptor structure. This descriptor, located in SRAM memory, describes the overall
  *  device characteristics, including the supported USB version, control endpoint size and the
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
@@ -64,7 +64,7 @@ USB_Descriptor_Device_t DeviceDescriptor =
 	.NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
 
-/** Configuration descriptor structure. This descriptor, located in FLASH memory, describes the usage
+/** Configuration descriptor structure. This descriptor, located in SRAM memory, describes the usage
  *  of the device in one of its supported configurations, including information about any device interfaces
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
@@ -115,7 +115,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 		}
 };
 
-/** Language descriptor structure. This descriptor, located in FLASH memory, is returned when the host requests
+/** Language descriptor structure. This descriptor, located in SRAM memory, is returned when the host requests
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
  */

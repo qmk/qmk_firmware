@@ -64,9 +64,27 @@
  *
  *  <table>
  *   <tr>
- *    <td>
- *     None
- *    </td>
+ *    <td>NO_BLOCK_SUPPORT</td>
+ *    <td>Makefile LUFA_OPTS</td>
+ *    <td>Define to disable memory block read/write support in the bootloader, requiring all reads and writes to be made
+ *        using the byte-level commands.
+ *   </tr>
+ *   <tr>
+ *    <td>NO_EEPROM_BYTE_SUPPORT</td>
+ *    <td>Makefile LUFA_OPTS</td>
+ *    <td>Define to disable EEPROM memory byte read/write support in the bootloader, requiring all EEPROM reads and writes
+ *        to be made using the block-level commands.
+ *   </tr>
+ *   <tr>
+ *    <td>NO_FLASH_BYTE_SUPPORT</td>
+ *    <td>Makefile LUFA_OPTS</td>
+ *    <td>Define to disable FLASH memory byte read/write support in the bootloader, requiring all FLASH reads and writes
+ *        to be made using the block-level commands.
+ *   </tr>
+ *   <tr>
+ *    <td>NO_LOCK_BYTE_SUPPORT</td>
+ *    <td>Makefile LUFA_OPTS</td>
+ *    <td>Define to disable lock byte write support in the bootloader, preventing the lock bits from being set progmatically.
  *   </tr>
  *  </table>
  */

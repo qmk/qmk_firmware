@@ -155,6 +155,7 @@ void EVENT_USB_Device_UnhandledControlRequest(void)
 	}
 }
 
+#if !defined(NO_BLOCK_SUPPORT)
 /** Reads or writes a block of EEPROM or FLASH memory to or from the appropriate CDC data endpoint, depending
  *  on the AVR910 protocol command issued.
  *
@@ -236,15 +237,13 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 
 					/* Increment the address counter after use */
 					CurrAddress += 2;
-
-					HighByte = false;
 				}
 				else
 				{
 					LowByte = FetchNextCommandByte();
-
-					HighByte = true;
 				}
+				
+				HighByte = !HighByte;
 			}
 			else
 			{
@@ -270,6 +269,7 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 		WriteNextResponseByte('\r');
 	}
 }
+#endif
 
 /** Retrieves the next byte from the host in the CDC data OUT endpoint, and clears the endpoint bank if needed
  *  to allow reception of the next data packet from the host.
@@ -389,14 +389,6 @@ void CDC_Task(void)
 			WriteNextResponseByte(AVR_SIGNATURE_2);
 			WriteNextResponseByte(AVR_SIGNATURE_1);
 		}
-		else if (Command == 'b')
-		{
-			WriteNextResponseByte('Y');
-
-			/* Send block size to the host */
-			WriteNextResponseByte(SPM_PAGESIZE >> 8);
-			WriteNextResponseByte(SPM_PAGESIZE & 0xFF);
-		}
 		else if (Command == 'e')
 		{
 			/* Clear the application section of flash */
@@ -413,6 +405,7 @@ void CDC_Task(void)
 			/* Send confirmation byte back to the host */
 			WriteNextResponseByte('\r');
 		}
+		#if !defined(NO_LOCK_BYTE_SUPPORT)
 		else if (Command == 'l')
 		{
 			/* Set the lock bits to those given by the host */
@@ -421,6 +414,7 @@ void CDC_Task(void)
 			/* Send confirmation byte back to the host */
 			WriteNextResponseByte('\r');
 		}
+		#endif
 		else if (Command == 'r')
 		{
 			WriteNextResponseByte(boot_lock_fuse_bits_get(GET_LOCK_BITS));
@@ -437,6 +431,22 @@ void CDC_Task(void)
 		{
 			WriteNextResponseByte(boot_lock_fuse_bits_get(GET_EXTENDED_FUSE_BITS));
 		}
+		#if !defined(NO_BLOCK_SUPPORT)
+		else if (Command == 'b')
+		{
+			WriteNextResponseByte('Y');
+
+			/* Send block size to the host */
+			WriteNextResponseByte(SPM_PAGESIZE >> 8);
+			WriteNextResponseByte(SPM_PAGESIZE & 0xFF);
+		}
+		else if ((Command == 'B') || (Command == 'g'))
+		{
+			/* Delegate the block write/read to a separate function for clarity */
+			ReadWriteMemoryBlock(Command);
+		}
+		#endif
+		#if !defined(NO_FLASH_BYTE_SUPPORT)
 		else if (Command == 'C')
 		{
 			/* Write the high byte to the current flash page */
@@ -448,7 +458,7 @@ void CDC_Task(void)
 		else if (Command == 'c')
 		{
 			/* Write the low byte to the current flash page */
-			boot_page_fill(CurrAddress | 1, FetchNextCommandByte());
+			boot_page_fill(CurrAddress | 0x01, FetchNextCommandByte());
 
 			/* Increment the address */
 			CurrAddress += 2;
@@ -467,11 +477,6 @@ void CDC_Task(void)
 			/* Send confirmation byte back to the host */
 			WriteNextResponseByte('\r');
 		}
-		else if ((Command == 'B') || (Command == 'g'))
-		{
-			/* Delegate the block write/read to a separate function for clarity */
-			ReadWriteMemoryBlock(Command);
-		}
 		else if (Command == 'R')
 		{
 			#if (FLASHEND > 0xFFFF)
@@ -483,6 +488,8 @@ void CDC_Task(void)
 			WriteNextResponseByte(ProgramWord >> 8);
 			WriteNextResponseByte(ProgramWord & 0xFF);
 		}
+		#endif
+		#if !defined(NO_EEPROM_BYTE_SUPPORT)
 		else if (Command == 'D')
 		{
 			/* Read the byte from the endpoint and write it to the EEPROM */
@@ -502,13 +509,10 @@ void CDC_Task(void)
 			/* Increment the address after use */
 			CurrAddress += 2;
 		}
-		else if (Command == 27)
+		#endif
+		else if (Command != 27)
 		{
-			/* Escape is sync, ignore */
-		}
-		else
-		{
-			/* Unknown command, return fail code */
+			/* Unknown (non-sync) command, return fail code */
 			WriteNextResponseByte('?');
 		}
 
