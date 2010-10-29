@@ -6,13 +6,16 @@
 #include "usb_keycodes.h"
 
 
-uint8_t keymap_get_keycode(int row, int col);
-uint8_t keymap_get_keycodel(int layer, int row, int col);
-int keymap_get_layer(void);
-int keymap_set_layer(int layer);
+/* keycode in specific layer */
+uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col);
 
+/* layer to move during press Fn key */
+int keymap_fn_layer(uint8_t fn_bits);
+
+/* keycode to send when release Fn key without using */
+uint8_t keymap_fn_keycode(uint8_t fn_bits);
+
+/* whether special key combination */
 bool keymap_is_special_mode(uint8_t fn_bits);
-/* process Fn keys. This.should be called every scan. */
-void keymap_fn_proc(uint8_t fn_bits);
 
 #endif

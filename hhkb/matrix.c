@@ -5,9 +5,10 @@
 #include <stdbool.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include "matrix.h"
 #include "print.h"
 #include "util.h"
+#include "controller.h"
+#include "matrix_skel.h"
 
 // matrix is active low. (key on: 0/key off: 1)
 //
@@ -27,8 +28,8 @@
 #define KEY_ON                  ((PINE&(1<<6)) ? false : true)
 
 // matrix state buffer
-uint8_t *matrix;
-uint8_t *matrix_prev;
+static uint8_t *matrix;
+static uint8_t *matrix_prev;
 static uint8_t _matrix0[MATRIX_ROWS];
 static uint8_t _matrix1[MATRIX_ROWS];
 

@@ -35,16 +35,16 @@
 #include "debug.h"
 #include "util.h"
 #include "controller.h"
+#include "timer.h"
 
 
 #define CPU_PRESCALE(n)    (CLKPR = 0x80, CLKPR = (n))
+
 
 bool debug_enable = false;
 bool debug_matrix = false;
 bool debug_keyboard = false;
 bool debug_mouse = false;
-
-uint16_t idle_count=0;
 
 
 int main(void)
@@ -58,14 +58,7 @@ int main(void)
     usb_init();
     while (!usb_configured()) /* wait */ ;
 
-    // Configure timer 0 to generate a timer overflow interrupt every
-    // 256*1024 clock cycles, or approx 61 Hz when using 16 MHz clock
-    // This demonstrates how to use interrupts to implement a simple
-    // inactivity timeout.
-    TCCR0A = 0x00;
-    TCCR0B = 0x05;
-    TIMSK0 = (1<<TOIE0);
-
+    timer_init();
 
     matrix_init();
     matrix_scan();
@@ -96,14 +89,4 @@ int main(void)
        proc_matrix(); 
         _delay_ms(2);
     }
-}
-
-
-// This interrupt routine is run approx 61 times per second.
-// A very simple inactivity timeout is implemented, where we
-// will send a space character and print a message to the
-// hid_listen debug message window.
-ISR(TIMER0_OVF_vect)
-{
-    idle_count++;
 }

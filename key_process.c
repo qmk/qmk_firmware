@@ -1,17 +1,18 @@
 #include <stdbool.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include "print.h"
+#include "debug.h"
+#include "timer.h"
+#include "util.h"
+#include "jump_bootloader.h"
 #include "usb_keyboard.h"
 #include "usb_mouse.h"
 #include "usb_keycodes.h"
-#include "print.h"
-#include "debug.h"
-#include "util.h"
-#include "jump_bootloader.h"
+#include "layer.h"
 #include "matrix_skel.h"
 #include "keymap_skel.h"
 #include "controller.h"
-
 #include "key_process.h"
 
 
@@ -61,7 +62,7 @@ void proc_matrix(void) {
         for (int col = 0; col < matrix_cols(); col++) {
             if (!matrix_is_on(row, col)) continue;
 
-            uint8_t code = keymap_get_keycode(row, col);
+            uint8_t code = layer_get_keycode(row, col);
             if (code == KB_NO) {
                 // do nothing
             } else if (IS_MOD(code)) {
@@ -95,12 +96,25 @@ void proc_matrix(void) {
             }
         }
     }
-    keymap_fn_proc(fn_bits);
+    layer_switching(fn_bits);
 
     // when 4 left modifier keys down
     if (keymap_is_special_mode(fn_bits)) {
         switch (keyboard_keys[0]) {
-            case KB_B:  // bootloader
+            case KB_H: // help
+                print_enable = true;
+                print("b: jump to bootloader\n");
+                print("d: debug print toggle\n");
+                print("k: keyboard debug toggle\n");
+                print("m: mouse debug toggle\n");
+                print("x: matrix debug toggle\n");
+                print("v: print version\n");
+                print("t: print timer count\n");
+                print("p: print enable toggle\n");
+                _delay_ms(500);
+                print_enable = false;
+                break;
+            case KB_B: // bootloader
                 usb_keyboard_clear();
                 usb_keyboard_send();
                 print_enable = true;
@@ -113,8 +127,8 @@ void proc_matrix(void) {
                 usb_keyboard_send();
                 debug_enable = !debug_enable;
                 if (debug_enable) {
-                    print("debug enabled.\n");
                     print_enable = true;
+                    print("debug enabled.\n");
                     debug_matrix = true;
                     debug_keyboard = true;
                     debug_mouse = true;
@@ -160,7 +174,27 @@ void proc_matrix(void) {
             case KB_V: // print version & information
                 usb_keyboard_clear();
                 usb_keyboard_send();
+                print_enable = true;
                 print(STR(DESCRIPTION) "\n");
+                _delay_ms(1000);
+                break;
+            case KB_T: // print timer
+                usb_keyboard_clear();
+                usb_keyboard_send();
+                print_enable = true;
+                print("timer: "); phex16(timer_count); print("\n");
+                _delay_ms(500);
+                break;
+            case KB_P: // print toggle
+                usb_keyboard_clear();
+                usb_keyboard_send();
+                if (print_enable) {
+                    print("print disabled.\n");
+                    print_enable = false;
+                } else {
+                    print_enable = true;
+                    print("print enabled.\n");
+                }
                 _delay_ms(1000);
                 break;
         }
