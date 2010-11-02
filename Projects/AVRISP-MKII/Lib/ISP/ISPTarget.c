@@ -119,7 +119,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
 	if (!(PINB & (1 << 1)))
 	{
-		if (SoftSPI_Data & 0x80)
+		if (SoftSPI_Data & (1 << 7))
 		  PORTB |=  (1 << 2);
 		else
 		  PORTB &= ~(1 << 2);
@@ -132,10 +132,11 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 		  TCCR1B = 0;
 
 		if (PINB & (1 << 3))
-		  SoftSPI_Data |= 0x01;
+		  SoftSPI_Data |= (1 << 0);
 	}
 
-	PORTB ^= (1 << 1);
+	/* Fast toggle of PORTB.1 via the PIN register (see datasheet) */
+	PINB |= (1 << 1);
 }
 
 /** Initialises the appropriate SPI driver (hardware or software, depending on the selected ISP speed) ready for
@@ -159,8 +160,7 @@ void ISPTarget_Init(void)
 		DDRB  |= ((1 << 1) | (1 << 2));
 		PORTB |= ((1 << 0) | (1 << 3));
 
-		TIMSK1 = (1 << OCIE1A);
-		OCR1A  = pgm_read_word(&TimerCompareFromSCKDuration[SCKDuration - sizeof(SPIMaskFromSCKDuration)]);
+		ISPTarget_ConfigureSoftwareISP(SCKDuration);
 	}
 }
 
@@ -177,7 +177,46 @@ void ISPTarget_ShutDown(void)
 	{
 		DDRB  &= ~((1 << 1) | (1 << 2));
 		PORTB &= ~((1 << 0) | (1 << 3));
+		
+		ISPTarget_ConfigureRescueClock();
 	}
+}
+
+/** Configures the AVR to produce a .5MHz rescue clock out of the OCR1A pin of the AVR, so
+ *  that it can be fed into the XTAL1 pin of an AVR whose fuses have been misconfigured for
+ *  an external clock rather than a crystal. When used, the ISP speed must be 125KHz for this
+ *  functionality to work correctly.
+ */
+void ISPTarget_ConfigureRescueClock(void)
+{
+	/* Configure OCR1A as an output for the specified AVR model */
+	#if defined(USB_SERIES_2_AVR)
+	DDRC |= (1 << 6);
+	#else
+	DDRB |= (1 << 5);
+	#endif
+
+	/* Start Timer 1 to generate a .5MHz clock on the OCR1A pin */
+	TIMSK1 = 0;
+	TCNT1  = 0;
+	OCR1A  = (F_CPU / 2 / 500000UL);
+	TCCR1A = (1 << COM1A0);
+	TCCR1B = ((1 << WGM12) | (1 << CS10));
+}
+
+/** Configures the AVR's timer ready to produce software ISP for the slower ISP speeds that
+ *  cannot be obtained when using the AVR's hardware SPI module.
+ *
+ *  \param[in] SCKDuration  Duration of the desired software ISP SCK clock
+ */
+void ISPTarget_ConfigureSoftwareISP(const uint8_t SCKDuration)
+{
+	/* Configure Timer 1 for software ISP using the specified SCK duration */
+	TIMSK1 = (1 << OCIE1A);
+	TCNT1  = 0;
+	OCR1A  = pgm_read_word(&TimerCompareFromSCKDuration[SCKDuration - sizeof(SPIMaskFromSCKDuration)]);
+	TCCR1A = 0;
+	TCCR1B = 0;
 }
 
 /** Sends and receives a single byte of data to and from the attached target via software SPI.

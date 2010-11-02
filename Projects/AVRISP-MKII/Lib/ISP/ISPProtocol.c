@@ -64,12 +64,6 @@ void ISPProtocol_EnterISPMode(void)
 
 	CurrentAddress = 0;
 
-	/* Set up the synchronous USART to generate the .5MHz recovery clock on XCK pin */
-	UBRR1  = (F_CPU / 500000UL);
-	UCSR1B = (1 << TXEN1);
-	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
-	DDRD  |= (1 << 5);
-
 	/* Perform execution delay, initialize SPI bus */
 	ISPProtocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS);
 	ISPTarget_Init();
@@ -126,12 +120,6 @@ void ISPProtocol_LeaveISPMode(void)
 	ISPTarget_ChangeTargetResetLine(false);
 	ISPTarget_ShutDown();
 	ISPProtocol_DelayMS(Leave_ISP_Params.PostDelayMS);
-
-	/* Turn off the synchronous USART to terminate the recovery clock on XCK pin */
-	UBRR1  = (F_CPU / 500000UL);
-	UCSR1B = (1 << TXEN1);
-	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
-	DDRD  &= ~(1 << 5);
 
 	Endpoint_Write_Byte(CMD_LEAVE_PROGMODE_ISP);
 	Endpoint_Write_Byte(STATUS_CMD_OK);

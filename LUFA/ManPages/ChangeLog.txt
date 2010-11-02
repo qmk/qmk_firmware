@@ -65,6 +65,7 @@
   *  - All LowLevel demos changed to use the constants and types defined in the USB class drivers
   *  - Changed AudioInput and AudioOutput demos to reload the next sample via an interrupt rather than polling the sample timer
   *  - The MIDI class drivers now automatically flushes the MIDI interface when the MIDI class driver's USBTask() function is called
+  *  - Rescue clock of the AVRISP-MKII moved to the AVR's OCR1A pin, so that the clock can be generated at all times
   *
   *  <b>Fixed:</b>
   *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist

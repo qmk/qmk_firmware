@@ -68,6 +68,8 @@
 	/* Function Prototypes: */
 		void    ISPTarget_Init(void);
 		void    ISPTarget_ShutDown(void);
+		void    ISPTarget_ConfigureRescueClock(void);
+		void    ISPTarget_ConfigureSoftwareISP(const uint8_t SCKDuration);
 		uint8_t ISPTarget_TransferSoftSPIByte(const uint8_t Byte);
 		void    ISPTarget_ChangeTargetResetLine(const bool ResetTarget);
 		uint8_t ISPTarget_WaitWhileTargetBusy(void);
