@@ -141,12 +141,16 @@ uint8_t ProcessConfigurationDescriptor(void)
  */
 uint8_t DComp_NextStillImageInterface(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Interface)
 	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
 		/* Check the descriptor class, subclass and protocol, break out if correct interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == SI_CSCP_StillImageClass)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == SI_CSCP_StillImageSubclass) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == SI_CSCP_BulkOnlyProtocol))
+		if ((Interface->Class    == SI_CSCP_StillImageClass)    &&
+		    (Interface->SubClass == SI_CSCP_StillImageSubclass) &&
+		    (Interface->Protocol == SI_CSCP_BulkOnlyProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -166,15 +170,20 @@ uint8_t DComp_NextStillImageInterface(void* CurrentDescriptor)
  */
 uint8_t DComp_NextStillImageInterfaceDataEndpoint(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-	{
-		uint8_t EndpointType = (DESCRIPTOR_CAST(CurrentDescriptor,
-		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
-		if ((EndpointType == EP_TYPE_BULK) || (EndpointType == EP_TYPE_INTERRUPT))
-		  return DESCRIPTOR_SEARCH_Found;
+	if (Header->Type == DTYPE_Endpoint)
+	{
+		USB_Descriptor_Endpoint_t* Endpoint = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Endpoint_t);
+
+		/* Check the endpoint type, break out if correct BULK or INTERRUPT type endpoint found */
+		if (((Endpoint->Attributes & EP_TYPE_MASK) == EP_TYPE_BULK) || 
+		    ((Endpoint->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT))
+		{
+			return DESCRIPTOR_SEARCH_Found;
+		}
 	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	{
 		return DESCRIPTOR_SEARCH_Fail;
 	}

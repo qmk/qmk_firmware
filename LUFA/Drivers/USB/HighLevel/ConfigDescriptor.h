@@ -107,10 +107,10 @@
 			 *  This value's meaning depends on the descriptor's placement in the descriptor, but standard type
 			 *  values can be accessed in the \ref USB_DescriptorTypes_t enum.
 			 */
-			#define DESCRIPTOR_TYPE(DescriptorPtr)    DESCRIPTOR_CAST(DescriptorPtr, USB_Descriptor_Header_t).Type
+			#define DESCRIPTOR_TYPE(DescriptorPtr)    DESCRIPTOR_PCAST(DescriptorPtr, USB_Descriptor_Header_t)->Type
 
 			/** Returns the descriptor's size, expressed as the 8-bit value indicating the number of bytes. */
-			#define DESCRIPTOR_SIZE(DescriptorPtr)    DESCRIPTOR_CAST(DescriptorPtr, USB_Descriptor_Header_t).Size
+			#define DESCRIPTOR_SIZE(DescriptorPtr)    DESCRIPTOR_PCAST(DescriptorPtr, USB_Descriptor_Header_t)->Size
 
 		/* Type Defines: */
 			/** Type define for a Configuration Descriptor comparator function (function taking a pointer to an array

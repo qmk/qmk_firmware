@@ -105,14 +105,15 @@ uint8_t MIDI_Host_ConfigurePipes(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceI
 
 static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingInterface(void* const CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
-	{
-		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
-		                                                                USB_Descriptor_Interface_t);
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
-		if ((CurrentInterface->Class    == AUDIO_CSCP_AudioClass)            &&
-		    (CurrentInterface->SubClass == AUDIO_CSCP_MIDIStreamingSubclass) &&
-		    (CurrentInterface->Protocol == AUDIO_CSCP_StreamingProtocol))
+	if (Header->Type == DTYPE_Interface)
+	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
+		if ((Interface->Class    == AUDIO_CSCP_AudioClass)            &&
+		    (Interface->SubClass == AUDIO_CSCP_MIDIStreamingSubclass) &&
+		    (Interface->Protocol == AUDIO_CSCP_StreamingProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -123,17 +124,18 @@ static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingInterface(void* const CurrentDes
 
 static uint8_t DCOMP_MIDI_Host_NextMIDIStreamingDataEndpoint(void* const CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Endpoint)
 	{
-		USB_Descriptor_Endpoint_t* CurrentEndpoint = DESCRIPTOR_PCAST(CurrentDescriptor,
-		                                                              USB_Descriptor_Endpoint_t);
+		USB_Descriptor_Endpoint_t* Endpoint = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Endpoint_t);
 
-		uint8_t EndpointType = (CurrentEndpoint->Attributes & EP_TYPE_MASK);
+		uint8_t EndpointType = (Endpoint->Attributes & EP_TYPE_MASK);
 
-		if ((EndpointType == EP_TYPE_BULK) && !(Pipe_IsEndpointBound(CurrentEndpoint->EndpointAddress)))
+		if ((EndpointType == EP_TYPE_BULK) && !(Pipe_IsEndpointBound(Endpoint->EndpointAddress)))
 		  return DESCRIPTOR_SEARCH_Found;
 	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	{
 		return DESCRIPTOR_SEARCH_Fail;
 	}

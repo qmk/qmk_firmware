@@ -130,12 +130,16 @@ uint8_t ProcessConfigurationDescriptor(void)
  */
 uint8_t DComp_NextBidirectionalPrinterInterface(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Interface)
 	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
 		/* Check the descriptor class, subclass and protocol, break out if correct value interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == PRNT_CSCP_PrinterClass)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == PRNT_CSCP_PrinterSubclass) &&
-			(DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == PRNT_CSCP_BidirectionalProtocol))
+		if ((Interface->Class    == PRNT_CSCP_PrinterClass)    &&
+		    (Interface->SubClass == PRNT_CSCP_PrinterSubclass) &&
+			(Interface->Protocol == PRNT_CSCP_BidirectionalProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -155,16 +159,17 @@ uint8_t DComp_NextBidirectionalPrinterInterface(void* CurrentDescriptor)
  */
 uint8_t DComp_NextPrinterInterfaceBulkDataEndpoint(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Endpoint)
 	{
-		uint8_t EndpointType = (DESCRIPTOR_CAST(CurrentDescriptor,
-		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
+		USB_Descriptor_Endpoint_t* Endpoint = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Endpoint_t);
 
 		/* Check the endpoint type, break out if correct BULK type endpoint found */
-		if (EndpointType == EP_TYPE_BULK)
+		if ((Endpoint->Attributes & EP_TYPE_MASK) == EP_TYPE_BULK)
 		  return DESCRIPTOR_SEARCH_Found;
 	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	{
 		return DESCRIPTOR_SEARCH_Fail;
 	}

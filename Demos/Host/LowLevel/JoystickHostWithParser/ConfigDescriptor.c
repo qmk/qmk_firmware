@@ -131,10 +131,14 @@ uint8_t ProcessConfigurationDescriptor(void)
  */
 uint8_t DComp_NextJoystickInterface(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Interface)
 	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
 		/* Check the HID descriptor class, break out if correct class interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class == HID_CSCP_HIDClass))
+		if ((Interface->Class == HID_CSCP_HIDClass))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -147,24 +151,21 @@ uint8_t DComp_NextJoystickInterface(void* CurrentDescriptor)
  *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
  *  descriptor processing if an incompatible descriptor configuration is found.
  *
- *  This comparator searches for the next IN Endpoint descriptor inside the current interface descriptor,
- *  aborting the search if another interface descriptor is found before the required endpoint.
+ *  This comparator searches for the next Endpoint descriptor inside the current interface descriptor, aborting the
+ *  search if another interface descriptor is found before the required endpoint.
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
 uint8_t DComp_NextJoystickInterfaceDataEndpoint(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-	{
-		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Endpoint_t).EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		  return DESCRIPTOR_SEARCH_Found;
-	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
-	{
-		return DESCRIPTOR_SEARCH_Fail;
-	}
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
-	return DESCRIPTOR_SEARCH_NotFound;
+	if (Header->Type == DTYPE_Endpoint)
+	  return DESCRIPTOR_SEARCH_Found;
+	else if (Header->Type == DTYPE_Interface)
+	  return DESCRIPTOR_SEARCH_Fail;
+	else
+	  return DESCRIPTOR_SEARCH_NotFound;
 }
 
 /** Descriptor comparator function. This comparator function is can be called while processing an attached USB device's
@@ -177,7 +178,9 @@ uint8_t DComp_NextJoystickInterfaceDataEndpoint(void* CurrentDescriptor)
  */
 uint8_t DComp_NextHID(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == HID_DTYPE_HID)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == HID_DTYPE_HID)
 	  return DESCRIPTOR_SEARCH_Found;
 	else
 	  return DESCRIPTOR_SEARCH_NotFound;

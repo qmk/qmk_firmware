@@ -116,12 +116,16 @@ uint8_t ProcessConfigurationDescriptor(void)
  */
 uint8_t DComp_NextMouseInterface(void* CurrentDescriptor)
 {
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
 	/* Determine if the current descriptor is an interface descriptor */
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	if (Header->Type == DTYPE_Interface)
 	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
 		/* Check the HID descriptor class and protocol, break out if correct class/protocol interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == HID_CSCP_HIDClass) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == HID_CSCP_MouseBootProtocol))
+		if ((Interface->Class    == HID_CSCP_HIDClass) &&
+		    (Interface->Protocol == HID_CSCP_MouseBootProtocol))
 		{
 			/* Indicate that the descriptor being searched for has been found */
 			return DESCRIPTOR_SEARCH_Found;
@@ -136,30 +140,21 @@ uint8_t DComp_NextMouseInterface(void* CurrentDescriptor)
  *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
  *  descriptor processing if an incompatible descriptor configuration is found.
  *
- *  This comparator searches for the next IN Endpoint descriptor inside the current interface descriptor,
- *  aborting the search if another interface descriptor is found before the required endpoint.
+ *  This comparator searches for the next Endpoint descriptor inside the current interface descriptor, aborting the
+ *  search if another interface descriptor is found before the required endpoint.
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
 uint8_t DComp_NextMouseInterfaceDataEndpoint(void* CurrentDescriptor)
 {
-	/* Determine the type of the current descriptor */
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-	{
-		/* Check if the current Endpoint descriptor is of type IN */
-		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Endpoint_t).EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		{
-			/* Indicate that the descriptor being searched for has been found */
-			return DESCRIPTOR_SEARCH_Found;
-		}
-	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
-	{
-		/* Indicate that the search has failed prematurely and should be aborted */
-		return DESCRIPTOR_SEARCH_Fail;
-	}
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
-	/* Current descriptor does not match what this comparator is looking for */
-	return DESCRIPTOR_SEARCH_NotFound;
+	/* Determine the type of the current descriptor */
+	if (Header->Type == DTYPE_Endpoint)
+	  return DESCRIPTOR_SEARCH_Found;
+	else if (Header->Type == DTYPE_Interface)
+	  return DESCRIPTOR_SEARCH_Fail;
+	else
+	  return DESCRIPTOR_SEARCH_NotFound;
 }
 

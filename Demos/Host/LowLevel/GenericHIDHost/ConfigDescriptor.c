@@ -135,11 +135,15 @@ uint8_t ProcessConfigurationDescriptor(void)
  */
 uint8_t DComp_NextHIDInterface(void* CurrentDescriptor)
 {
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
 	/* Determine if the current descriptor is an interface descriptor */
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	if (Header->Type == DTYPE_Interface)
 	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
 		/* Check the HID descriptor class, break out if correct class/protocol interface found */
-		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class == HID_CSCP_HIDClass)
+		if (Interface->Class == HID_CSCP_HIDClass)
 		{
 			/* Indicate that the descriptor being searched for has been found */
 			return DESCRIPTOR_SEARCH_Found;
@@ -161,13 +165,15 @@ uint8_t DComp_NextHIDInterface(void* CurrentDescriptor)
  */
 uint8_t DComp_NextHIDInterfaceDataEndpoint(void* CurrentDescriptor)
 {
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
 	/* Determine the type of the current descriptor */
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
+	if (Header->Type == DTYPE_Endpoint)
 	{
 		/* Indicate that the descriptor being searched for has been found */
 		return DESCRIPTOR_SEARCH_Found;
 	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	{
 		/* Indicate that the search has failed prematurely and should be aborted */
 		return DESCRIPTOR_SEARCH_Fail;

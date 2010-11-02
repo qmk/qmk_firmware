@@ -119,7 +119,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	ConfigSuccess &= Endpoint_ConfigureEndpoint(MOUSE_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
 	                                            MOUSE_EPSIZE, ENDPOINT_BANK_SINGLE);
 
-	/* Turn on Start-of-Frame events for tracking HID report period exiry */
+	/* Turn on Start-of-Frame events for tracking HID report period expiry */
 	USB_Device_EnableSOFEvents();
 
 	/* Indicate endpoint configuration success or failure */

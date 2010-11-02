@@ -38,7 +38,7 @@
 
 uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
                                  uint16_t ConfigDescriptorSize,
-							     void* DeviceConfigDescriptor)
+							     void* ConfigDescriptorData)
 {
 	USB_Descriptor_Endpoint_t*  DataINEndpoint   = NULL;
 	USB_Descriptor_Endpoint_t*  DataOUTEndpoint  = NULL;
@@ -46,22 +46,22 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 
 	memset(&PRNTInterfaceInfo->State, 0x00, sizeof(PRNTInterfaceInfo->State));
 
-	if (DESCRIPTOR_TYPE(DeviceConfigDescriptor) != DTYPE_Configuration)
+	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return PRNT_ENUMERROR_InvalidConfigDescriptor;
 
 	while (!(DataINEndpoint) || !(DataOUTEndpoint))
 	{
 		if (!(PrinterInterface) ||
-		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
+		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 		                              DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint) != DESCRIPTOR_SEARCH_COMP_Found)
 		{
-			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &DeviceConfigDescriptor,
+			if (USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
 			                              DCOMP_PRNT_Host_NextPRNTInterface) != DESCRIPTOR_SEARCH_COMP_Found)
 			{
 				return PRNT_ENUMERROR_NoCompatibleInterfaceFound;
 			}
 
-			PrinterInterface = DESCRIPTOR_PCAST(DeviceConfigDescriptor, USB_Descriptor_Interface_t);
+			PrinterInterface = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Interface_t);
 
 			DataINEndpoint  = NULL;
 			DataOUTEndpoint = NULL;
@@ -69,7 +69,7 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 			continue;
 		}
 
-		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(DeviceConfigDescriptor, USB_Descriptor_Endpoint_t);
+		USB_Descriptor_Endpoint_t* EndpointData = DESCRIPTOR_PCAST(ConfigDescriptorData, USB_Descriptor_Endpoint_t);
 
 		if (EndpointData->EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
 		  DataINEndpoint  = EndpointData;
@@ -106,14 +106,15 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 
 static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
-	{
-		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
-		                                                                USB_Descriptor_Interface_t);
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
-		if ((CurrentInterface->Class    == PRNT_CSCP_PrinterClass)    &&
-		    (CurrentInterface->SubClass == PRNT_CSCP_PrinterSubclass) &&
-		    (CurrentInterface->Protocol == PRNT_CSCP_BidirectionalProtocol))
+	if (Header->Type == DTYPE_Interface)
+	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
+		if ((Interface->Class    == PRNT_CSCP_PrinterClass)    &&
+		    (Interface->SubClass == PRNT_CSCP_PrinterSubclass) &&
+		    (Interface->Protocol == PRNT_CSCP_BidirectionalProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -124,15 +125,18 @@ static uint8_t DCOMP_PRNT_Host_NextPRNTInterface(void* CurrentDescriptor)
 
 static uint8_t DCOMP_PRNT_Host_NextPRNTInterfaceEndpoint(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Endpoint)
 	{
-		uint8_t EndpointType = (DESCRIPTOR_CAST(CurrentDescriptor,
-		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
+		USB_Descriptor_Endpoint_t* Endpoint = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Endpoint_t);
+
+		uint8_t EndpointType = (Endpoint->Attributes & EP_TYPE_MASK);
 
 		if (EndpointType == EP_TYPE_BULK)
 		  return DESCRIPTOR_SEARCH_Found;
 	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	{
 		return DESCRIPTOR_SEARCH_Fail;
 	}

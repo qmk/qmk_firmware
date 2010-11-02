@@ -67,7 +67,7 @@ void SoftUART_Init(void)
 	SoftUART_SetBaud(9600);
 
 	/* Setup reception timer compare ISR */
-	TIMSK2 = (1 << ICIE2);
+	TIMSK1 = (1 << ICIE1);
 
 	/* Setup transmission timer compare ISR and start the timer */
 	TIMSK3 = (1 << ICIE3);
@@ -81,7 +81,7 @@ ISR(INT0_vect, ISR_BLOCK)
 	RX_BitsRemaining = 8;
 
 	/* Reset the bit reception timer */
-	TCNT2 = 0;
+	TCNT1 = 0;
 
 	/* Check to see that the pin is still low (prevents glitches from starting a frame reception) */
 	if (!(SRXPIN & (1 << SRX)))
@@ -90,12 +90,12 @@ ISR(INT0_vect, ISR_BLOCK)
 		EIMSK = 0;
 
 		/* Start the reception timer */
-		TCCR2B = ((1 << CS20) | (1 << WGM23) | (1 << WGM22));
+		TCCR1B = ((1 << CS10) | (1 << WGM13) | (1 << WGM12));
 	}
 }
 
 /** ISR to manage the reception of bits to the software UART. */
-ISR(TIMER2_CAPT_vect, ISR_BLOCK)
+ISR(TIMER1_CAPT_vect, ISR_BLOCK)
 {
 	/* Cache the current RX pin value for later checking */
 	uint8_t SRX_Cached = (SRXPIN & (1 << SRX));
@@ -114,7 +114,7 @@ ISR(TIMER2_CAPT_vect, ISR_BLOCK)
 	else
 	{
 		/* Disable the reception timer as all data has now been received, re-enable start bit detection ISR */
-		TCCR2B = 0;
+		TCCR1B = 0;
 		EIFR   = (1 << INTF0);
 		EIMSK  = (1 << INT0);
 

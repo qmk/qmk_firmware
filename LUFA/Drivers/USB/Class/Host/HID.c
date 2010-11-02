@@ -116,8 +116,8 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		}
 	}
 
-	HIDInterfaceInfo->State.InterfaceNumber = HIDInterface->InterfaceNumber;
-	HIDInterfaceInfo->State.HIDReportSize   = HIDDescriptor->HIDReportLength;
+	HIDInterfaceInfo->State.InterfaceNumber      = HIDInterface->InterfaceNumber;
+	HIDInterfaceInfo->State.HIDReportSize        = HIDDescriptor->HIDReportLength;
 	HIDInterfaceInfo->State.SupportsBootProtocol = (HIDInterface->SubClass != HID_CSCP_NonBootProtocol);
 	HIDInterfaceInfo->State.LargestReportSize    = 8;
 	HIDInterfaceInfo->State.IsActive = true;
@@ -127,12 +127,13 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 
 static uint8_t DCOMP_HID_Host_NextHIDInterface(void* const CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
-	{
-		USB_Descriptor_Interface_t* CurrentInterface = DESCRIPTOR_PCAST(CurrentDescriptor,
-		                                                                USB_Descriptor_Interface_t);
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
-		if (CurrentInterface->Class == HID_CSCP_HIDClass)
+	if (Header->Type == DTYPE_Interface)
+	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
+		if (Interface->Class == HID_CSCP_HIDClass)
 		  return DESCRIPTOR_SEARCH_Found;
 	}
 
@@ -141,9 +142,11 @@ static uint8_t DCOMP_HID_Host_NextHIDInterface(void* const CurrentDescriptor)
 
 static uint8_t DCOMP_HID_Host_NextHID(void* const CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == HID_DTYPE_HID)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == HID_DTYPE_HID)
 	  return DESCRIPTOR_SEARCH_Found;
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	  return DESCRIPTOR_SEARCH_Fail;
 	else
 	  return DESCRIPTOR_SEARCH_NotFound;
@@ -151,15 +154,16 @@ static uint8_t DCOMP_HID_Host_NextHID(void* const CurrentDescriptor)
 
 static uint8_t DCOMP_HID_Host_NextHIDInterfaceEndpoint(void* const CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-	{
-		USB_Descriptor_Endpoint_t* CurrentEndpoint = DESCRIPTOR_PCAST(CurrentDescriptor,
-		                                                              USB_Descriptor_Endpoint_t);
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
-		if (!(Pipe_IsEndpointBound(CurrentEndpoint->EndpointAddress)))
+	if (Header->Type == DTYPE_Endpoint)
+	{
+		USB_Descriptor_Endpoint_t* Endpoint = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Endpoint_t);
+
+		if (!(Pipe_IsEndpointBound(Endpoint->EndpointAddress)))
 		  return DESCRIPTOR_SEARCH_Found;
 	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	{
 		return DESCRIPTOR_SEARCH_Fail;
 	}

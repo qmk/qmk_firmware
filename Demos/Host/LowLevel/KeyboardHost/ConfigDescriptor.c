@@ -116,11 +116,15 @@ uint8_t ProcessConfigurationDescriptor(void)
  */
 uint8_t DComp_NextKeyboardInterface(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Interface)
 	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
 		/* Check the HID descriptor class and protocol, break out if correct class/protocol interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == HID_CSCP_HIDClass) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == HID_CSCP_KeyboardBootProtocol))
+		if ((Interface->Class    == HID_CSCP_HIDClass) &&
+		    (Interface->Protocol == HID_CSCP_KeyboardBootProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -133,23 +137,20 @@ uint8_t DComp_NextKeyboardInterface(void* CurrentDescriptor)
  *  configuration descriptor, to search for a specific sub descriptor. It can also be used to abort the configuration
  *  descriptor processing if an incompatible descriptor configuration is found.
  *
- *  This comparator searches for the next IN Endpoint descriptor inside the current interface descriptor,
- *  aborting the search if another interface descriptor is found before the required endpoint.
+ *  This comparator searches for the next Endpoint descriptor inside the current interface descriptor, aborting the
+ *  search if another interface descriptor is found before the required endpoint.
  *
  *  \return A value from the DSEARCH_Return_ErrorCodes_t enum
  */
 uint8_t DComp_NextKeyboardInterfaceDataEndpoint(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-	{
-		if (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Endpoint_t).EndpointAddress & ENDPOINT_DESCRIPTOR_DIR_IN)
-		  return DESCRIPTOR_SEARCH_Found;
-	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
-	{
-		return DESCRIPTOR_SEARCH_Fail;
-	}
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
-	return DESCRIPTOR_SEARCH_NotFound;
+	if (Header->Type == DTYPE_Endpoint)
+	  return DESCRIPTOR_SEARCH_Found;
+	else if (Header->Type == DTYPE_Interface)
+	  return DESCRIPTOR_SEARCH_Fail;
+	else
+	  return DESCRIPTOR_SEARCH_NotFound;
 }
 

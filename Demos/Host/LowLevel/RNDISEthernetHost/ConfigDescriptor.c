@@ -157,12 +157,16 @@ uint8_t ProcessConfigurationDescriptor(void)
  */
 uint8_t DComp_NextCDCControlInterface(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Interface)
 	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
 		/* Check the CDC descriptor class, subclass and protocol, break out if correct control interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == CDC_CSCP_CDCClass)    &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == CDC_CSCP_ACMSubclass) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == CDC_CSCP_VendorSpecificProtocol))
+		if ((Interface->Class    == CDC_CSCP_CDCClass)    &&
+		    (Interface->SubClass == CDC_CSCP_ACMSubclass) &&
+		    (Interface->Protocol == CDC_CSCP_VendorSpecificProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -181,12 +185,16 @@ uint8_t DComp_NextCDCControlInterface(void* CurrentDescriptor)
  */
 uint8_t DComp_NextCDCDataInterface(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
+	if (Header->Type == DTYPE_Interface)
 	{
+		USB_Descriptor_Interface_t* Interface = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Interface_t);
+
 		/* Check the CDC descriptor class, subclass and protocol, break out if correct data interface found */
-		if ((DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Class    == CDC_CSCP_CDCDataClass)   &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).SubClass == CDC_CSCP_NoDataSubclass) &&
-		    (DESCRIPTOR_CAST(CurrentDescriptor, USB_Descriptor_Interface_t).Protocol == CDC_CSCP_NoDataProtocol))
+		if ((Interface->Class    == CDC_CSCP_CDCDataClass)   &&
+		    (Interface->SubClass == CDC_CSCP_NoDataSubclass) &&
+		    (Interface->Protocol == CDC_CSCP_NoDataProtocol))
 		{
 			return DESCRIPTOR_SEARCH_Found;
 		}
@@ -207,15 +215,20 @@ uint8_t DComp_NextCDCDataInterface(void* CurrentDescriptor)
  */
 uint8_t DComp_NextCDCDataInterfaceEndpoint(void* CurrentDescriptor)
 {
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
-	{
-		uint8_t EndpointType = (DESCRIPTOR_CAST(CurrentDescriptor,
-		                                        USB_Descriptor_Endpoint_t).Attributes & EP_TYPE_MASK);
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
 
-		if ((EndpointType == EP_TYPE_BULK) || (EndpointType == EP_TYPE_INTERRUPT))
-		  return DESCRIPTOR_SEARCH_Found;
+	if (Header->Type == DTYPE_Endpoint)
+	{
+		USB_Descriptor_Endpoint_t* Endpoint = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Endpoint_t);
+
+		/* Check the endpoint type, break out if correct BULK or INTERRUPT type endpoint found */
+		if (((Endpoint->Attributes & EP_TYPE_MASK) == EP_TYPE_BULK) || 
+		    ((Endpoint->Attributes & EP_TYPE_MASK) == EP_TYPE_INTERRUPT))
+		{
+			return DESCRIPTOR_SEARCH_Found;
+		}
 	}
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	{
 		return DESCRIPTOR_SEARCH_Fail;
 	}

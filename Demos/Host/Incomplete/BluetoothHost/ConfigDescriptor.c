@@ -132,10 +132,12 @@ uint8_t ProcessConfigurationDescriptor(void)
  */
 uint8_t DComp_NextInterfaceBluetoothDataEndpoint(void* CurrentDescriptor)
 {
+	USB_Descriptor_Header_t* Header = DESCRIPTOR_PCAST(CurrentDescriptor, USB_Descriptor_Header_t);
+
 	/* Determine the type of the current descriptor */
-	if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Endpoint)
+	if (Header->Type == DTYPE_Endpoint)
 	  return DESCRIPTOR_SEARCH_Found;
-	else if (DESCRIPTOR_TYPE(CurrentDescriptor) == DTYPE_Interface)
+	else if (Header->Type == DTYPE_Interface)
 	  return DESCRIPTOR_SEARCH_Fail;
 	else
 	  return DESCRIPTOR_SEARCH_NotFound;

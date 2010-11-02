@@ -66,7 +66,10 @@ void V2Protocol_Init(void)
 	TIMSK0 = (1 << OCIE0A);
 
 	V2Params_LoadNonVolatileParamValues();
+	
+	#if defined(ENABLE_ISP_PROTOCOL)
 	ISPTarget_ConfigureRescueClock();
+	#endif
 }
 
 /** Master V2 Protocol packet handler, for received V2 Protocol packets from a connected host.
