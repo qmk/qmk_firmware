@@ -478,16 +478,16 @@ ISR(USB_GEN_vect)
 				UEINTX = 0x3A;
 			}
 		}
-		if (keyboard_idle_config && (++div4 & 3) == 0) {
+		if (usb_keyboard_idle_config && (++div4 & 3) == 0) {
 			UENUM = KEYBOARD_ENDPOINT;
 			if (UEINTX & (1<<RWAL)) {
-				keyboard_idle_count++;
-				if (keyboard_idle_count == keyboard_idle_config) {
-					keyboard_idle_count = 0;
-					UEDATX = keyboard_modifier_keys;
+				usb_keyboard_idle_count++;
+				if (usb_keyboard_idle_count == usb_keyboard_idle_config) {
+					usb_keyboard_idle_count = 0;
+					UEDATX = usb_keyboard_mods;
 					UEDATX = 0;
 					for (i=0; i<6; i++) {
-						UEDATX = keyboard_keys[i];
+						UEDATX = usb_keyboard_keys[i];
 					}
 					UEINTX = 0x3A;
 				}
@@ -658,23 +658,23 @@ ISR(USB_COM_vect)
 			if (bmRequestType == 0xA1) {
 				if (bRequest == HID_GET_REPORT) {
 					usb_wait_in_ready();
-					UEDATX = keyboard_modifier_keys;
+					UEDATX = usb_keyboard_mods;
 					UEDATX = 0;
 					for (i=0; i<6; i++) {
-						UEDATX = keyboard_keys[i];
+						UEDATX = usb_keyboard_keys[i];
 					}
 					usb_send_in();
 					return;
 				}
 				if (bRequest == HID_GET_IDLE) {
 					usb_wait_in_ready();
-					UEDATX = keyboard_idle_config;
+					UEDATX = usb_keyboard_idle_config;
 					usb_send_in();
 					return;
 				}
 				if (bRequest == HID_GET_PROTOCOL) {
 					usb_wait_in_ready();
-					UEDATX = keyboard_protocol;
+					UEDATX = usb_keyboard_protocol;
 					usb_send_in();
 					return;
 				}
@@ -682,20 +682,20 @@ ISR(USB_COM_vect)
 			if (bmRequestType == 0x21) {
 				if (bRequest == HID_SET_REPORT) {
 					usb_wait_receive_out();
-					keyboard_leds = UEDATX;
+					usb_keyboard_leds = UEDATX;
 					usb_ack_out();
 					usb_send_in();
 					return;
 				}
 				if (bRequest == HID_SET_IDLE) {
-					keyboard_idle_config = (wValue >> 8);
-					keyboard_idle_count = 0;
+					usb_keyboard_idle_config = (wValue >> 8);
+					usb_keyboard_idle_count = 0;
 					//usb_wait_in_ready();
 					usb_send_in();
 					return;
 				}
 				if (bRequest == HID_SET_PROTOCOL) {
-					keyboard_protocol = wValue;
+					usb_keyboard_protocol = wValue;
 					//usb_wait_in_ready();
 					usb_send_in();
 					return;

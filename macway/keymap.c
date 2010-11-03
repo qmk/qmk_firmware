@@ -42,7 +42,7 @@ static const uint8_t PROGMEM fn_keycode[] = {
     KB_NO,          // FN_1 layer 1
     KB_QUOTE,       // FN_2 layer 2
     KB_SCOLON,      // FN_3 layer 3
-    KB_SPACE,       // FN_4 layer 4 [NOT USED]
+    KB_SPACE,       // FN_4 layer 4
     KB_NO,          // FN_5 [NOT USED]
     KB_NO,          // FN_6 layer 2
     KB_NO           // FN_7 layer 3
@@ -59,14 +59,14 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Fn1|
      * |-----------------------------------------------------------|
-     * |Fn7|Gui |Alt  |Space                 |Fn6  |\  |`  |   |   |
+     * |Fn7|Gui |Alt  |Fn4                   |Fn6  |\  |`  |   |   |
      * `-----------------------------------------------------------'
      */
     KEYMAP(KB_ESC, KB_1,   KB_2,   KB_3,   KB_4,   KB_5,   KB_6,   KB_7,   KB_8,   KB_9,   KB_0,   KB_MINS,KB_EQL, KB_BSPC, \
            KB_TAB, KB_Q,   KB_W,   KB_E,   KB_R,   KB_T,   KB_Y,   KB_U,   KB_I,   KB_O,   KB_P,   KB_LBRC,KB_RBRC, \
            KB_LCTL,KB_A,   KB_S,   KB_D,   KB_F,   KB_G,   KB_H,   KB_J,   KB_K,   KB_L,   FN_3,   FN_2,   KB_ENT, \
            KB_LSFT,KB_Z,   KB_X,   KB_C,   KB_V,   KB_B,   KB_N,   KB_M,   KB_COMM,KB_DOT, KB_SLSH,KB_RSFT,FN_1, \
-           FN_7,   KB_LGUI,KB_LALT,KB_SPC, FN_6,   KB_BSLS,KB_GRV, KB_NO,  KB_NO),
+           FN_7,   KB_LGUI,KB_LALT,FN_4,   FN_6,   KB_BSLS,KB_GRV, KB_NO,  KB_NO),
 
 
     /* Layer 1: HHKB mode (HHKB Fn)
@@ -113,20 +113,20 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-------------------------------------------------------- --.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
      * |-----------------------------------------------------------|
-     * |Tab  |MwL|MwU|McU|MwD|MwR|MwL|MwD|MwU|MwR|   |   |   |     |
+     * |Tab  |MwL|MwD|McU|MwU|MwR|MwL|MwD|MwU|MwR|   |   |   |     |
      * |-----------------------------------------------------'     |
-     * |Contro|Mb1|Mb2|Mb3|   |   |McL|McD|McU|McR|xxx|   |Return  |
+     * |Contro|   |McL|McD|McR|   |McL|McD|McU|McR|xxx|   |Return  |
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |   |   |   |MwL|MwD|MwU|MwR|   |Shift |   |
+     * |Shift   |   |   |Mb1|Mb2|Mb3|Mb2|Mb1|   |   |   |Shift |   |
      * |-----------------------------------------------------------|
      * |xxx|Gui |Alt  |Mb1                   |Alt  |   |   |   |   |
      * `-----------------------------------------------------------'
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
      */
     KEYMAP(KB_ESC, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_DEL, \
-           KB_TAB, MS_WH_L,MS_WH_U,MS_UP,  MS_WH_D,MS_WH_R,MS_WH_L,MS_WH_D,MS_WH_U,MS_WH_R,KB_NO,  KB_NO,  KB_NO, \
+           KB_TAB, MS_WH_L,MS_WH_D,MS_UP,  MS_WH_U,MS_WH_R,MS_WH_L,MS_WH_D,MS_WH_U,MS_WH_R,KB_NO,  KB_NO,  KB_NO, \
            KB_LCTL,KB_NO,  MS_LEFT,MS_DOWN,MS_RGHT,KB_NO,  MS_LEFT,MS_DOWN,MS_UP,  MS_RGHT,FN_3,   KB_NO,  KB_ENT, \
-           KB_LSFT,KB_NO,  MS_DOWN,KB_NO,  KB_NO,  KB_NO,  MS_BTN2,MS_BTN1,MS_BTN2,MS_BTN3,KB_NO,  KB_RSFT,KB_NO, \
+           KB_LSFT,KB_NO,  KB_NO,  MS_BTN1,MS_BTN2,MS_BTN3,MS_BTN2,MS_BTN1,KB_NO,  KB_NO,  KB_NO,  KB_RSFT,KB_NO, \
            FN_7,   KB_LGUI,KB_LALT,MS_BTN1,KB_RALT,KB_NO,  KB_NO,  KB_NO,  KB_NO),
 
 
@@ -168,5 +168,5 @@ uint8_t keymap_fn_keycode(uint8_t fn_bits)
 
 bool keymap_is_special_mode(uint8_t fn_bits)
 {
-    return (keyboard_modifier_keys == (BIT_LCTRL | BIT_LSHIFT | BIT_LALT | BIT_LGUI));
+    return (usb_keyboard_mods == (BIT_LCTRL | BIT_LSHIFT | BIT_LALT | BIT_LGUI));
 }
