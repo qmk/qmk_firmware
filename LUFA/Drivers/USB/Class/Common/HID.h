@@ -351,19 +351,19 @@
 		/** Enum for the HID class specific control requests that can be issued by the USB bus host. */
 		enum HID_ClassRequests_t
 		{
-			HID_REQ_GetReport   = 0x01, /**< HID class-specific Request to get the current HID report from the device. */
-			HID_REQ_GetIdle     = 0x02, /**< HID class-specific Request to get the current device idle count. */
-			HID_REQ_SetReport   = 0x09, /**< HID class-specific Request to set the current HID report to the device. */
-			HID_REQ_SetIdle     = 0x0A, /**< HID class-specific Request to set the device's idle count. */
-			HID_REQ_GetProtocol = 0x03, /**< HID class-specific Request to get the current HID report protocol mode. */
-			HID_REQ_SetProtocol = 0x0B, /**< HID class-specific Request to set the current HID report protocol mode. */
+			HID_REQ_GetReport       = 0x01, /**< HID class-specific Request to get the current HID report from the device. */
+			HID_REQ_GetIdle         = 0x02, /**< HID class-specific Request to get the current device idle count. */
+			HID_REQ_GetProtocol     = 0x03, /**< HID class-specific Request to get the current HID report protocol mode. */
+			HID_REQ_SetReport       = 0x09, /**< HID class-specific Request to set the current HID report to the device. */
+			HID_REQ_SetIdle         = 0x0A, /**< HID class-specific Request to set the device's idle count. */
+			HID_REQ_SetProtocol     = 0x0B, /**< HID class-specific Request to set the current HID report protocol mode. */
 		};
 
 		/** Enum for the HID class specific descriptor types. */
 		enum HID_DescriptorTypes_t
 		{
-			HID_DTYPE_HID    = 0x21, /**< Descriptor header type value, to indicate a HID class HID descriptor. */
-			HID_DTYPE_Report = 0x22, /**< Descriptor header type value, to indicate a HID class HID report descriptor. */
+			HID_DTYPE_HID           = 0x21, /**< Descriptor header type value, to indicate a HID class HID descriptor. */
+			HID_DTYPE_Report        = 0x22, /**< Descriptor header type value, to indicate a HID class HID report descriptor. */
 		};
 
 		/** Enum for the different types of HID reports. */

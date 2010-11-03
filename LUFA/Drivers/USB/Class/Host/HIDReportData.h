@@ -48,52 +48,52 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** HID_ReportItem_t.ItemFlags flag for constant data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for constant data. */
 			#define IOF_CONSTANT             (1 << 0)
 
-			/** HID_ReportItem_t.ItemFlags flag for data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for data. */
 			#define IOF_DATA                 (0 << 0)
 
-			/** HID_ReportItem_t.ItemFlags flag for variable data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for variable data. */
 			#define IOF_VARIABLE             (1 << 1)
 
-			/** HID_ReportItem_t.ItemFlags flag for array data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for array data. */
 			#define IOF_ARRAY                (0 << 1)
 
-			/** HID_ReportItem_t.ItemFlags flag for relative data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for relative data. */
 			#define IOF_RELATIVE             (1 << 2)
 
-			/** HID_ReportItem_t.ItemFlags flag for absolute data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for absolute data. */
 			#define IOF_ABSOLUTE             (0 << 2)
 
-			/** HID_ReportItem_t.ItemFlags flag for wrapped value data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for wrapped value data. */
 			#define IOF_WRAP                 (1 << 3)
 
-			/** HID_ReportItem_t.ItemFlags flag for non-wrapped value data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for non-wrapped value data. */
 			#define IOF_NOWRAP               (0 << 3)
 
-			/** HID_ReportItem_t.ItemFlags flag for non linear data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for non linear data. */
 			#define IOF_NONLINEAR            (1 << 4)
 
-			/** HID_ReportItem_t.ItemFlags flag for linear data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for linear data. */
 			#define IOF_LINEAR               (0 << 4)
 
-			/** HID_ReportItem_t.ItemFlags flag for no preferred state. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for no preferred state. */
 			#define IOF_NOPREFERRED          (1 << 5)
 
-			/** HID_ReportItem_t.ItemFlags flag for preferred state items. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for preferred state items. */
 			#define IOF_PREFERREDSTATE       (0 << 5)
 
-			/** HID_ReportItem_t.ItemFlags flag for null state items. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for null state items. */
 			#define IOF_NULLSTATE            (1 << 6)
 
-			/** HID_ReportItem_t.ItemFlags flag for no null position data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for no null position data. */
 			#define IOF_NONULLPOSITION       (0 << 6)
 
-			/** HID_ReportItem_t.ItemFlags flag for buffered bytes. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for buffered bytes. */
 			#define IOF_BUFFEREDBYTES        (1 << 8)
 
-			/** HID_ReportItem_t.ItemFlags flag for bit field data. */
+			/** \ref HID_ReportItem_t.ItemFlags flag for bit field data. */
 			#define IOF_BITFIELD             (0 << 8)
 
 	/* Private Interface - For use in library only: */
