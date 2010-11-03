@@ -81,15 +81,21 @@ int main(void)
 
 	for (;;)
 	{
-		/* Read bytes from the USB OUT endpoint into the USART transmit buffer */
-		int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
-		if (!(ReceivedByte < 0) && !(RingBuffer_IsFull(&USBtoUSART_Buffer)))
-		  RingBuffer_Insert(&USBtoUSART_Buffer, ReceivedByte);
+		/* Only try to read in bytes from the CDC interface if the transmit buffer is not full */
+		if (!(RingBuffer_IsFull(&USBtoUSART_Buffer)))
+		{
+			int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
+			/* Read bytes from the USB OUT endpoint into the USART transmit buffer */
+			if (!(ReceivedByte < 0))
+			  RingBuffer_Insert(&USBtoUSART_Buffer, ReceivedByte);
+		}
+		
 		/* Check if the UART receive buffer flush timer has expired or the buffer is nearly full */
 		RingBuff_Count_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
 		if ((TIFR0 & (1 << TOV0)) || (BufferCount > 200))
 		{
+			/* Clear flush timer expiry flag */
 			TIFR0 |= (1 << TOV0);
 
 			/* Read bytes from the USART receive buffer into the USB IN endpoint */

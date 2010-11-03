@@ -119,15 +119,21 @@ void UARTBridge_Task(void)
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return;
 
-	/* Read bytes from the USB OUT endpoint into the UART transmit buffer */
-	int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
-	if (!(ReceivedByte < 0) && !(RingBuffer_IsFull(&USBtoUART_Buffer)))
-	  RingBuffer_Insert(&USBtoUART_Buffer, ReceivedByte);
+	/* Only try to read in bytes from the CDC interface if the transmit buffer is not full */
+	if (!(RingBuffer_IsFull(&USBtoUART_Buffer)))
+	{
+		int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
+		/* Read bytes from the USB OUT endpoint into the UART transmit buffer */
+		if (!(ReceivedByte < 0))
+		  RingBuffer_Insert(&USBtoUART_Buffer, ReceivedByte);
+	}
+	
 	/* Check if the UART receive buffer flush timer has expired or buffer is nearly full */
 	RingBuff_Count_t BufferCount = RingBuffer_GetCount(&UARTtoUSB_Buffer);
 	if ((TIFR0 & (1 << TOV0)) || (BufferCount > 200))
 	{
+		/* Clear flush timer expiry flag */
 		TIFR0 |= (1 << TOV0);
 
 		/* Read bytes from the UART receive buffer into the USB IN endpoint */

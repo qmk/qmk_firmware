@@ -93,6 +93,7 @@
   *  - Fixed random enumeration failure while in device mode due to interrupts causing the Set Address request to exceed maximum timings
   *  - Fixed MIDI_Host_Flush() not aborting early when the specified MIDI host interface was not configured
   *  - Fixed MIDI class driver send routines silently discarding packets if the endpoint or pipe is busy (thanks to Robin Green)
+  *  - Fixed USBtoSerial and XPLAINBridge demos discarding data from the PC if the send buffer becomes full
   *
   *  \section Sec_ChangeLog100807 Version 100807
   *  <b>New:</b>

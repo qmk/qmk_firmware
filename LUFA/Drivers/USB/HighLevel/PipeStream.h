@@ -51,7 +51,6 @@
 #define __PIPE_STREAM_H__
 
 	/* Includes: */
-		#include <avr/io.h>
 		#include <avr/pgmspace.h>
 		#include <avr/eeprom.h>
 		#include <stdbool.h>

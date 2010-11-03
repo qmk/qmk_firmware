@@ -20,6 +20,7 @@
  *
  *  \section Sec_InDevelopment Latest In-Development Source Code
  *  Issue Tracker: http://www.lufa-lib.org/tracker \n
+ *  Bazaar Access: http://www.lufa-lib.org/bzr \n
  *  SVN Access: http://www.lufa-lib.org/svn \n
  *  Git Access: http://www.lufa-lib.org/git \n
  *  Mercurial Access: http://www.lufa-lib.org/hg \n
