@@ -92,18 +92,15 @@ uint8_t MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInter
 	if (USB_DeviceState != DEVICE_STATE_Configured)
 	  return ENDPOINT_RWSTREAM_DeviceDisconnected;
 
+	uint8_t ErrorCode;
+
 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpointNumber);
 
-	if (Endpoint_IsReadWriteAllowed())
-	{
-		uint8_t ErrorCode;
+	if ((ErrorCode = Endpoint_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK)) != ENDPOINT_RWSTREAM_NoError)
+	  return ErrorCode;
 
-		if ((ErrorCode = Endpoint_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK)) != ENDPOINT_RWSTREAM_NoError)
-		  return ErrorCode;
-
-		if (!(Endpoint_IsReadWriteAllowed()))
-		  Endpoint_ClearIN();
-	}
+	if (!(Endpoint_IsReadWriteAllowed()))
+	  Endpoint_ClearIN();
 
 	return ENDPOINT_RWSTREAM_NoError;
 }

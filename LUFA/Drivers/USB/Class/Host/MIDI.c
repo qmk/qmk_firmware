@@ -179,18 +179,15 @@ uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 	if ((USB_HostState != HOST_STATE_Configured) || !(MIDIInterfaceInfo->State.IsActive))
 	  return HOST_SENDCONTROL_DeviceDisconnected;
 
+	uint8_t ErrorCode;
+
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipeNumber);
 
-	if (Pipe_IsReadWriteAllowed())
-	{
-		uint8_t ErrorCode;
+	if ((ErrorCode = Pipe_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	  return ErrorCode;
 
-		if ((ErrorCode = Pipe_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
-		  return ErrorCode;
-
-		if (!(Pipe_IsReadWriteAllowed()))
-		  Pipe_ClearOUT();
-	}
+	if (!(Pipe_IsReadWriteAllowed()))
+	  Pipe_ClearOUT();
 
 	return PIPE_RWSTREAM_NoError;
 }
