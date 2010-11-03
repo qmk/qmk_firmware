@@ -24,25 +24,50 @@
 #define BIT_LSFT BIT_LSHIFT
 #define BIT_RSFT BIT_RSHIFT
 
+typedef struct report {
+    uint8_t keys[6];
+    uint8_t mods;
+    bool is_sent;
+} usb_keyboard_report_t;
 
-// TODO: change variable name: usb_keyboard_ or usb_kb_
-extern uint8_t keyboard_modifier_keys;
-extern uint8_t keyboard_keys[6];
-extern uint8_t keyboard_protocol;
-extern uint8_t keyboard_idle_config;
-extern uint8_t keyboard_idle_count;
-extern volatile uint8_t keyboard_leds; // TODO: delete NOT USED?
+
+#define usb_keyboard_keys usb_keyboard_report->keys
+#define usb_keyboard_mods usb_keyboard_report->mods
+
+
+extern usb_keyboard_report_t *usb_keyboard_report;
+extern usb_keyboard_report_t *usb_keyboard_report_prev;
+extern uint8_t usb_keyboard_protocol;
+extern uint8_t usb_keyboard_idle_config;
+extern uint8_t usb_keyboard_idle_count;
+extern volatile uint8_t usb_keyboard_leds;
 
 
 int8_t usb_keyboard_press(uint8_t key, uint8_t modifier);
 int8_t usb_keyboard_send(void);
-void usb_keyboard_init(void);
-void usb_keyboard_clear(void);
-void usb_keyboard_clear_key(void);
-void usb_keyboard_clear_mod(void);
+int8_t usb_keyboard_send_report(usb_keyboard_report_t *report);
+
+void usb_keyboard_swap_report(void);
+
+void usb_keyboard_clear_report(void);
+void usb_keyboard_clear_keys(void);
+void usb_keyboard_clear_mods(void);
+
+void usb_keyboard_set_keys(uint8_t keys[6]);
+void usb_keyboard_set_mods(uint8_t mods);
+
+void usb_keyboard_add_code(uint8_t code);
+void usb_keyboard_add_key(uint8_t code);
+void usb_keyboard_add_mod(uint8_t code);
+
+void usb_keyboard_del_code(uint8_t code);
+void usb_keyboard_del_key(uint8_t code);
+void usb_keyboard_del_mod(uint8_t code);
+
 bool usb_keyboard_is_sent(void);
 bool usb_keyboard_has_key(void);
 bool usb_keyboard_has_mod(void);
-void usb_keyboard_print(void);
+
+void usb_keyboard_print_report(usb_keyboard_report_t *report);
 
 #endif

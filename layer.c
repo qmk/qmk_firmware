@@ -5,26 +5,51 @@
 #include "layer.h"
 
 /*
- * LAYER_ENTER_DELAY: prevent from moving new layer
- *                     press                release
- * Fn key sate     ____|~~~~~~~~~~~~~~~~~~~|_______________
- * 
- * enter_delay         |======|
- *                              new layer
- * Layer sw        ___________|~~~~~~~~~~~~|_______________
- */ 
+ * Parameters:
+ *     enter_delay         |=======|
+ *     send_fn_term        |================|
+ *
+ * Fn key processing cases:
+ * 1. release Fn after send_fn_term.
+ *     Layer sw         ___________|~~~~~~~~~~~|___
+ *     Fn press         ___|~~~~~~~~~~~~~~~~~~~|___
+ *     Fn send          ___________________________
+ *
+ * 2. release Fn in send_fn_term.(not layer used)
+ *     Layer sw         ___________|~~~~~~|________
+ *     Fn press         ___|~~~~~~~~~~~~~~|________
+ *     Fn key send      __________________|~|______
+ *     other key press  ___________________________
+ *     other key send   ___________________________
+ *
+ * 3. release Fn in send_fn_term.(layer used)
+ *     Layer sw         ___________|~~~~~~|________
+ *     Fn press         ___|~~~~~~~~~~~~~~|________
+ *     Fn key send      ___________________________
+ *     Fn send          ___________________________
+ *     other key press  _____________|~~|__________
+ *     other key send   _____________|~~|__________
+ *
+ * 4. press other key in ENTER_DELAY.
+ *     Layer sw         ___________________________
+ *     Fn key press     ___|~~~~~~~~~|_____________
+ *     Fn key send      ______|~~~~~~|_____________
+ *     other key press  ______|~~~|________________
+ *     other key send   _______|~~|________________
+ *
+ * 5. press Fn while press other key.
+ *     Layer sw         ___________________________
+ *     Fn key press     ___|~~~~~~~~~|_____________
+ *     Fn key send      ___|~~~~~~~~~|_____________
+ *     other key press  ~~~~~~~|___________________
+ *     other key send   ~~~~~~~|___________________
+ */
+
+// LAYER_ENTER_DELAY: prevent from moving new layer
 #define LAYER_ENTER_DELAY 10
 
-/*
- * LAYER_SEND_FN_TERM: send keycode if release key in this term
- *                     press          release(send)
- * Fn key state    ____|~~~~~~~~~~~~~|_______________
- *                     press         |       release(not send)
- * Fn key state    ____|~~~~~~~~~~~~~|~~~~~~|__________
- *                                   |      |
- * send_fn_term        |=============o==|   x
- */
-#define LAYER_SEND_FN_TERM 30
+// LAYER_SEND_FN_TERM: send keycode if release key in this term
+#define LAYER_SEND_FN_TERM 40
 
 
 static uint8_t current_layer = 0;
@@ -35,58 +60,86 @@ uint8_t layer_get_keycode(uint8_t row, uint8_t col)
 {
     uint8_t code = keymap_get_keycode(current_layer, row, col);
     // normal key or mouse key
-    if ((IS_KEY(code) || IS_MOUSE(code)))
+    if ((IS_KEY(code) || IS_MOUSE(code))) {
         layer_used = true;
+    }
     return code;
 }
 
 void layer_switching(uint8_t fn_bits)
 {
     // layer switching
+    static uint8_t new_layer = 0;
     static uint8_t last_bits = 0;
-    static uint8_t last_mod = 0;
+    static uint8_t last_mods = 0;
     static uint16_t last_timer = 0; 
 
-    //uint16_t now_timer;
-
-    if (fn_bits == last_bits) {
-        // switch layer when specific time elapsed
-        if (current_layer != keymap_fn_layer(fn_bits) &&
-                timer_elapsed(last_timer) > LAYER_ENTER_DELAY) {
-            current_layer = keymap_fn_layer(fn_bits);
-            debug("time_elapsed: "); debug_hex16(timer_elapsed(last_timer)); debug("\n"); 
-            debug("switch layer: "); debug_hex(current_layer); debug("\n");
-        }
-    } else if (fn_bits == 0) {
-        // send key when Fn key is released without using the layer and within specific time
-        if ((!layer_used || current_layer != keymap_fn_layer(last_bits)) &&
-                timer_elapsed(last_timer) < LAYER_SEND_FN_TERM) {
-            uint8_t code = keymap_fn_keycode(last_bits);
-            if (code != KB_NO) {
-                if (IS_MOD(code)) {
-                    keyboard_modifier_keys = last_mod | MOD_BIT(code);
-                } else {
-                    keyboard_keys[0] = code;
-                    keyboard_modifier_keys = last_mod;
-                }
+    if (fn_bits == last_bits) { // Fn key is not changed
+        if (current_layer != new_layer) {
+            // not switch layer yet
+            if (timer_elapsed(last_timer) > LAYER_ENTER_DELAY) {
+                debug("Fn case: 1,2,3(switch layer)\n");
+                // case: 1,2,3
+                // switch layer after LAYER_ENTER_DELAY elapse
+                current_layer = new_layer;
+                debug("timer_elapsed: "); debug_hex16(timer_elapsed(last_timer)); debug("\n"); 
+                debug("switch layer: "); debug_hex(current_layer); debug("\n");
+            } else if (usb_keyboard_has_key()) {
+                debug("Fn case: 4(send Fn first, then add Fn to report)\n");
+                // case: 4
+                // send only Fn key first
+                usb_keyboard_swap_report();
+                usb_keyboard_clear_report();
+                usb_keyboard_add_code(keymap_fn_keycode(last_bits));
+                usb_keyboard_set_mods(last_mods);
                 usb_keyboard_send();
-                usb_keyboard_print();
-                usb_keyboard_clear();
+                usb_keyboard_swap_report();
+                // add Fn key to send with other keys
+                usb_keyboard_add_code(keymap_fn_keycode(last_bits));
+                // cancel layer switching 
+                new_layer = 0;
+           }
+        } else {
+            if (fn_bits && new_layer == 0) {
+                // case: 4,5
+                // send Fn key
+                usb_keyboard_add_code(keymap_fn_keycode(last_bits));
             }
         }
-        last_bits = 0;
-        last_mod = 0;
-        layer_used = false;
-        current_layer = 0; // default layer
-    } else if ((fn_bits & (fn_bits - 1)) == 0) {
-        // switch layer when just one Fn Key is pressed
-        if (!usb_keyboard_has_key()) {
-            last_bits = fn_bits;
-            last_mod = keyboard_modifier_keys;
-            last_timer = timer_read();
-            debug("last_bits: "); debug_bin(last_bits); debug("\n");
-            debug("last_mod: "); debug_hex(last_mod); debug("\n");
-            debug("last_timer: "); debug_hex16(last_timer); debug("\n");
+    } else { // Fn key is changed
+        if (fn_bits == 0) { // Fn key is released(falling edge)
+            if (!layer_used && timer_elapsed(last_timer) < LAYER_SEND_FN_TERM) {
+                debug("Fn case: 2(send Fn)\n");
+                // send Fn key (case: 2[no layer used],3)
+                usb_keyboard_swap_report();
+                usb_keyboard_clear_report();
+                usb_keyboard_add_code(keymap_fn_keycode(last_bits));
+                usb_keyboard_set_mods(last_mods);
+                usb_keyboard_send();
+                usb_keyboard_swap_report();
+            }
+            debug("Fn case: 1,2,3,4,5(return to default layer)\n");
+            // return to default layer(case: 1,2,3,4,5)
+            new_layer = 0;
+            current_layer = 0;
+        } else { // Fn Key is pressed(rising edge)
+            if (!usb_keyboard_has_key()) {
+                debug("Fn case: 1,2,3,4(ready for switching layer)\n");
+                // ready for switching layer(case: 1,2,3,4)
+                new_layer = keymap_fn_layer(fn_bits);
+            } else {
+                debug("Fn case: 5(add Fn to report)\n");
+                // add Fn key to send with other keys(case: 5)
+                usb_keyboard_add_code(keymap_fn_keycode(fn_bits));
+            }
         }
+        layer_used = false;
+        last_bits = fn_bits;
+        last_mods = usb_keyboard_mods;
+        last_timer = timer_read();
+        debug("new_layer: "); debug_hex(new_layer); debug("\n");
+        debug("last_bits: "); debug_bin(last_bits); debug("\n");
+        debug("last_mods: "); debug_hex(last_mods); debug("\n");
+        debug("last_timer: "); debug_hex16(last_timer); debug("\n");
     }
 }

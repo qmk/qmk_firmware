@@ -57,7 +57,7 @@ void proc_matrix(void) {
         return;
     }
 
-    usb_keyboard_clear();
+    usb_keyboard_clear_report();
     for (int row = 0; row < matrix_rows(); row++) {
         for (int col = 0; col < matrix_cols(); col++) {
             if (!matrix_is_on(row, col)) continue;
@@ -66,7 +66,7 @@ void proc_matrix(void) {
             if (code == KB_NO) {
                 // do nothing
             } else if (IS_MOD(code)) {
-                keyboard_modifier_keys |= MOD_BIT(code);
+                usb_keyboard_mods |= MOD_BIT(code);
             } else if (IS_MOUSE(code)) {
                 // mouse
                 if (code == MS_UP)
@@ -91,7 +91,7 @@ void proc_matrix(void) {
             } else {
                 // normal keys
                 if (key_index < 6)
-                    keyboard_keys[key_index] = code;
+                    usb_keyboard_keys[key_index] = code;
                 key_index++;
             }
         }
@@ -100,7 +100,7 @@ void proc_matrix(void) {
 
     // when 4 left modifier keys down
     if (keymap_is_special_mode(fn_bits)) {
-        switch (keyboard_keys[0]) {
+        switch (usb_keyboard_keys[0]) {
             case KB_H: // help
                 print_enable = true;
                 print("b: jump to bootloader\n");
@@ -115,7 +115,7 @@ void proc_matrix(void) {
                 print_enable = false;
                 break;
             case KB_B: // bootloader
-                usb_keyboard_clear();
+                usb_keyboard_clear_report();
                 usb_keyboard_send();
                 print_enable = true;
                 print("jump to bootloader...\n");
@@ -123,7 +123,7 @@ void proc_matrix(void) {
                 jump_bootloader(); // not return
                 break;
             case KB_D: // debug all toggle
-                usb_keyboard_clear();
+                usb_keyboard_clear_report();
                 usb_keyboard_send();
                 debug_enable = !debug_enable;
                 if (debug_enable) {
@@ -142,7 +142,7 @@ void proc_matrix(void) {
                 _delay_ms(1000);
                 break;
             case KB_X: // debug matrix toggle
-                usb_keyboard_clear();
+                usb_keyboard_clear_report();
                 usb_keyboard_send();
                 debug_matrix = !debug_matrix;
                 if (debug_matrix)
@@ -152,7 +152,7 @@ void proc_matrix(void) {
                 _delay_ms(1000);
                 break;
             case KB_K: // debug keyboard toggle
-                usb_keyboard_clear();
+                usb_keyboard_clear_report();
                 usb_keyboard_send();
                 debug_keyboard = !debug_keyboard;
                 if (debug_keyboard)
@@ -162,7 +162,7 @@ void proc_matrix(void) {
                 _delay_ms(1000);
                 break;
             case KB_M: // debug mouse toggle
-                usb_keyboard_clear();
+                usb_keyboard_clear_report();
                 usb_keyboard_send();
                 debug_mouse = !debug_mouse;
                 if (debug_mouse)
@@ -172,21 +172,21 @@ void proc_matrix(void) {
                 _delay_ms(1000);
                 break;
             case KB_V: // print version & information
-                usb_keyboard_clear();
+                usb_keyboard_clear_report();
                 usb_keyboard_send();
                 print_enable = true;
                 print(STR(DESCRIPTION) "\n");
                 _delay_ms(1000);
                 break;
             case KB_T: // print timer
-                usb_keyboard_clear();
+                usb_keyboard_clear_report();
                 usb_keyboard_send();
                 print_enable = true;
                 print("timer: "); phex16(timer_count); print("\n");
                 _delay_ms(500);
                 break;
             case KB_P: // print toggle
-                usb_keyboard_clear();
+                usb_keyboard_clear_report();
                 usb_keyboard_send();
                 if (print_enable) {
                     print("print disabled.\n");
@@ -224,7 +224,6 @@ void proc_matrix(void) {
             //Rollover
         }
         usb_keyboard_send();
-        usb_keyboard_print();
 #ifdef DEBUG_LED
         // LED flash for debug
         DEBUG_LED_CONFIG;

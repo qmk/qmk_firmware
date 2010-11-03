@@ -43,7 +43,7 @@ static const uint8_t PROGMEM fn_keycode[] = {
     KB_NO,          // FN_1 layer 1
     KB_QUOTE,       // FN_2 layer 2
     KB_SCOLON,      // FN_3 layer 3
-    KB_SPACE,       // FN_4 layer 4 [NOT USED]
+    KB_SPACE,       // FN_4 layer 4
     KB_NO,          // FN_5 [NOT USED]
     KB_NO,          // FN_6 [NOT USED]
     KB_NO           // FN_7 layer 1
@@ -60,14 +60,14 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Fn1|
      * `-----------------------------------------------------------'
-     *       |Gui|Alt  |Space                  |Alt  |Fn7|
+     *       |Gui|Alt  |Fn4                    |Alt  |Fn7|
      *       `-------------------------------------------'
      */
     KEYMAP(KB_ESC, KB_1,   KB_2,   KB_3,   KB_4,   KB_5,   KB_6,   KB_7,   KB_8,   KB_9,   KB_0,   KB_MINS,KB_EQL, KB_BSLS,KB_GRV, \
            KB_TAB, KB_Q,   KB_W,   KB_E,   KB_R,   KB_T,   KB_Y,   KB_U,   KB_I,   KB_O,   KB_P,   KB_LBRC,KB_RBRC,KB_BSPC, \
            KB_LCTL,KB_A,   KB_S,   KB_D,   KB_F,   KB_G,   KB_H,   KB_J,   KB_K,   KB_L,   FN_3,   FN_2,   KB_ENT, \
            KB_LSFT,KB_Z,   KB_X,   KB_C,   KB_V,   KB_B,   KB_N,   KB_M,   KB_COMM,KB_DOT, KB_SLSH,KB_RSFT,FN_1, \
-           KB_LGUI,KB_LALT,KB_SPC, KB_RALT,FN_7),
+           KB_LGUI,KB_LALT,FN_4,   KB_RALT,FN_7),
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
@@ -111,7 +111,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
      * |-----------------------------------------------------------|
-     * |Tab  |MwL|MwU|McU|MwD|MwL|MwR|MwD|MwU|MwR|   |   |   |Backs|
+     * |Tab  |MwL|MwU|McU|MwD|MwR|MwL|MwD|MwU|MwR|   |   |   |Backs|
      * |-----------------------------------------------------------|
      * |Contro|   |McL|McD|McR|   |McL|McD|McU|McR|xxx|   |Return  |
      * |-----------------------------------------------------------|
@@ -165,5 +165,5 @@ uint8_t keymap_fn_keycode(uint8_t fn_bits)
 
 bool keymap_is_special_mode(uint8_t fn_bits)
 {
-    return (keyboard_modifier_keys == (BIT_LCTRL | BIT_LSHIFT | BIT_LALT | BIT_LGUI));
+    return (usb_keyboard_mods == (BIT_LCTRL | BIT_LSHIFT | BIT_LALT | BIT_LGUI));
 }
