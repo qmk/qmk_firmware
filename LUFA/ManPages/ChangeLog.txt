@@ -66,6 +66,10 @@
   *  - Changed AudioInput and AudioOutput demos to reload the next sample via an interrupt rather than polling the sample timer
   *  - The MIDI class drivers now automatically flushes the MIDI interface when the MIDI class driver's USBTask() function is called
   *  - Rescue clock of the AVRISP-MKII moved to the AVR's OCR1A pin, so that the clock can be generated at all times
+  *  - Changed ClassDriver MIDI demos to process all incomming events in a loop until the bank becomes empty rather than one at a time
+  *  - Changed LowLevel MIDI demos to only clear the incomming event bank once it has become empty to support packed event packets
+  *  - Renamed the EVENT_USB_Device_UnhandledControlRequest() event to EVENT_USB_Device_ControlRequest() as it is now fired before the library
+  *    request handlers, not afterwards
   *
   *  <b>Fixed:</b>
   *  - Fixed USB_GetHIDReportItemInfo() function modifying the given report item's data when the report item does not exist

@@ -144,7 +144,7 @@
 			bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Processes incoming control requests from the host, that are directed to the given HID class interface. This should be
-			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
+			 *  linked to the library \ref EVENT_USB_Device_ControlRequest() event.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
 			 */

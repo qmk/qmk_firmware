@@ -168,7 +168,7 @@
 
 		/* Inline Functions: */
 			/** Processes incoming control requests from the host, that are directed to the given MIDI class interface. This should be
-			 *  linked to the library \ref EVENT_USB_Device_UnhandledControlRequest() event.
+			 *  linked to the library \ref EVENT_USB_Device_ControlRequest() event.
 			 *
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
 			 */

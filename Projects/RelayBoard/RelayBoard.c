@@ -69,8 +69,8 @@ void SetupHardware(void)
 	PORTC &= ~ALL_RELAYS;
 }
 
-/** Event handler for the library USB Unhandled Control Packet event. */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+/** Event handler for the library USB Control Request reception event. */
+void EVENT_USB_Device_ControlRequest(void)
 {
     const uint8_t SerialNumber[5] = { 0, 0, 0, 0, 1 };
 	uint8_t ControlData[2]        = { 0, 0 };

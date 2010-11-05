@@ -149,8 +149,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	USB_Device_EnableSOFEvents();
 }
 
-/** Event handler for the library USB Unhandled Control Packet event. */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+/** Event handler for the library USB Control Request reception event. */
+void EVENT_USB_Device_ControlRequest(void)
 {
 	HID_Device_ProcessControlRequest(&Keyboard_HID_Interface);
 }

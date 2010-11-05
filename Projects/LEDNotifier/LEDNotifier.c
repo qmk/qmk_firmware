@@ -160,8 +160,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
 }
 
-/** Event handler for the library USB Unhandled Control Request event. */
-void EVENT_USB_Device_UnhandledControlRequest(void)
+/** Event handler for the library USB Control Request reception event. */
+void EVENT_USB_Device_ControlRequest(void)
 {
 	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }

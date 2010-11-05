@@ -214,14 +214,14 @@
  *
  *  The final standardized Device Class Driver function is the Control Request handler function
  *  <i><b>{Class Name}</b>_Device_ProcessControlRequest()</i>, which should be called when the
- *  \ref EVENT_USB_Device_UnhandledControlRequest() event fires. This function should also be
- *  called for each class driver instance, using the address of the instance to operate on as
- *  the function's parameter. The request handler will abort if it is determined that the current
- *  request is not targeted at the given class driver instance, thus these methods can safely be
- *  called one-after-another in the event handler with no form of error checking:
+ *  \ref EVENT_USB_Device_ControlRequest() event fires. This function should also be called for
+ *  each class driver instance, using the address of the instance to operate on as the function's
+ *  parameter. The request handler will abort if it is determined that the current request is not
+ *  targeted at the given class driver instance, thus these methods can safely be called
+ *  one-after-another in the event handler with no form of error checking:
  *
  *  \code
- *  void EVENT_USB_Device_UnhandledControlRequest(void)
+ *  void EVENT_USB_Device_ControlRequest(void)
  *  {
  *      Audio_Device_ProcessControlRequest(&My_Audio_Interface);
  *  }

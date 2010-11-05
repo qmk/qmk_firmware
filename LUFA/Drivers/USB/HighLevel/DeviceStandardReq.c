@@ -48,72 +48,61 @@ bool    USB_RemoteWakeupEnabled;
 
 void USB_Device_ProcessControlRequest(void)
 {
-	bool     RequestHandled = false;
 	uint8_t* RequestHeader  = (uint8_t*)&USB_ControlRequest;
 
 	for (uint8_t RequestHeaderByte = 0; RequestHeaderByte < sizeof(USB_Request_Header_t); RequestHeaderByte++)
 	  *(RequestHeader++) = Endpoint_Read_Byte();
 
-	uint8_t bmRequestType = USB_ControlRequest.bmRequestType;
+	EVENT_USB_Device_ControlRequest();
 
-	switch (USB_ControlRequest.bRequest)
+	if (Endpoint_IsSETUPReceived())
 	{
-		case REQ_GetStatus:
-			if ((bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE)) ||
-			    (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_ENDPOINT)))
-			{
-				USB_Device_GetStatus();
-				RequestHandled = true;
-			}
+		uint8_t bmRequestType = USB_ControlRequest.bmRequestType;
 
-			break;
-		case REQ_ClearFeature:
-		case REQ_SetFeature:
-			if ((bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE)) ||
-			    (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT)))
-			{
-				USB_Device_ClearSetFeature();
-				RequestHandled = true;
-			}
+		switch (USB_ControlRequest.bRequest)
+		{
+			case REQ_GetStatus:
+				if ((bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE)) ||
+					(bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_ENDPOINT)))
+				{
+					USB_Device_GetStatus();
+				}
 
-			break;
-		case REQ_SetAddress:
-			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE))
-			{
-				USB_Device_SetAddress();
-				RequestHandled = true;
-			}
+				break;
+			case REQ_ClearFeature:
+			case REQ_SetFeature:
+				if ((bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE)) ||
+					(bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_ENDPOINT)))
+				{
+					USB_Device_ClearSetFeature();
+				}
 
-			break;
-		case REQ_GetDescriptor:
-			if ((bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE)) ||
-			    (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE)))
-			{
-				USB_Device_GetDescriptor();
-				RequestHandled = true;
-			}
+				break;
+			case REQ_SetAddress:
+				if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE))
+				  USB_Device_SetAddress();
 
-			break;
-		case REQ_GetConfiguration:
-			if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE))
-			{
-				USB_Device_GetConfiguration();
-				RequestHandled = true;
-			}
+				break;
+			case REQ_GetDescriptor:
+				if ((bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE)) ||
+					(bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_INTERFACE)))
+				{
+					USB_Device_GetDescriptor();
+				}
 
-			break;
-		case REQ_SetConfiguration:
-			if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE))
-			{
-				USB_Device_SetConfiguration();
-				RequestHandled = true;
-			}
+				break;
+			case REQ_GetConfiguration:
+				if (bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_STANDARD | REQREC_DEVICE))
+				  USB_Device_GetConfiguration();
 
-			break;
+				break;
+			case REQ_SetConfiguration:
+				if (bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_STANDARD | REQREC_DEVICE))
+				  USB_Device_SetConfiguration();
+
+				break;
+		}
 	}
-
-	if (!(RequestHandled))
-	  EVENT_USB_Device_UnhandledControlRequest();
 
 	if (Endpoint_IsSETUPReceived())
 	{

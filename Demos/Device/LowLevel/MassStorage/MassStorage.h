@@ -80,7 +80,7 @@
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
-		void EVENT_USB_Device_UnhandledControlRequest(void);
+		void EVENT_USB_Device_ControlRequest(void);
 
 		#if defined(INCLUDE_FROM_MASSSTORAGE_C)
 			static bool ReadInCommandBlock(void);

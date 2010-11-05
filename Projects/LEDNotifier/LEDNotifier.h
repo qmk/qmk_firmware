@@ -54,7 +54,7 @@
 		void SetupHardware(void);
 
 		void EVENT_USB_Device_ConfigurationChanged(void);
-		void EVENT_USB_Device_UnhandledControlRequest(void);
+		void EVENT_USB_Device_ControlRequest(void);
 
 #endif
 
