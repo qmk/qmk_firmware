@@ -84,7 +84,7 @@ Two PCBs are connected by 15 lines. Vcc and GND use 3 lines each, other 9 lines 
      2  Vcc(5V)
      3  Vcc(5V)
      4  TP1684    KEY: Low(0) when key pressed              PE6 input(with pullup)
-     5  TP1684    unknown:how to use                        PE7 input(with pullup)
+     5  TP1684    KEY_PREV: assert previous key state???    PE7 output
      6  HC4051    A(bit0) select 8 rows(0 to 7)             PB0 output
      7  HC4051    B(bit1)                                   PB1 output
      8  HC4051    C(bit2)                                   PB2 output
@@ -148,9 +148,11 @@ Signals charts:
 
     (HHKB_chart1.jpg)
 
-    Space bar locate at ROW:3 COL:7. Key are selected by HC4051(C,B,A) and LS145(C,B,A).
+    Space bar locate at ROW:3 COL:7. A key is selected by HC4051(C,B,A) and LS145(C,B,A).
     Key state can be read on TP1684(4/KEY) while asserting low on LS145(D). 
-    Usage of TP1684(5) is unknown. Key state can be read without using this signal.
+
+    Usage of TP1684(5) is not clear. Controller seemed to output previous key state on this line.
+    However key state can be read without using this signal.
 
     (HHKB_chart2.jpg)
 
@@ -162,7 +164,13 @@ Matrix scan pseudo code:
         for (col: 0-7) {
             SELECT_COL(col);    // set LS145(A,B,C)
 
-            _delay_us(50);
+            _delay_us(40);
+
+            if (prev_key_state(row, col)) {
+                KEY_PREV_ON;
+            }
+
+            _delay_us(7);
 
             ENALBLE_COL();      // set LS145(D) to low
 
@@ -174,6 +182,7 @@ Matrix scan pseudo code:
                 // not pressed
             }
 
+            KEY_PREV_OFF;
             UNALBLE_COL();      // set LS145(D) to high
 
             _delay_us(150);
