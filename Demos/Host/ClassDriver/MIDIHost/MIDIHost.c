@@ -109,7 +109,7 @@ int main(void)
 				CheckJoystickMovement();
 
 				MIDI_EventPacket_t MIDIEvent;
-				if (MIDI_Host_ReceiveEventPacket(&Keyboard_MIDI_Interface, &MIDIEvent))
+				while (MIDI_Host_ReceiveEventPacket(&Keyboard_MIDI_Interface, &MIDIEvent))
 				{
 					bool NoteOnEvent  = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_ON  >> 4));
 					bool NoteOffEvent = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_OFF >> 4));

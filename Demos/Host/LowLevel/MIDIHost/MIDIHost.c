@@ -192,19 +192,19 @@ void MIDI_Host_Task(void)
 				                                                                           ((MIDIEvent.Data1 & 0x0F) + 1),
 				                                                                           MIDIEvent.Data2, MIDIEvent.Data3);
 				}
-
-				Pipe_ClearIN();
+				
+				if (!(Pipe_BytesInPipe()))
+				  Pipe_ClearIN();
 			}
 
 			Pipe_SelectPipe(MIDI_DATA_OUT_PIPE);
-
-			static uint8_t PrevJoystickStatus;
 
 			if (Pipe_IsOUTReady())
 			{
 				uint8_t MIDICommand = 0;
 				uint8_t MIDIPitch;
 
+				static uint8_t PrevJoystickStatus;
 				uint8_t JoystickStatus  = Joystick_GetStatus();
 				uint8_t JoystickChanges = (JoystickStatus ^ PrevJoystickStatus);
 

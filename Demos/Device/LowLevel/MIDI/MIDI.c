@@ -204,8 +204,12 @@ void MIDI_Task(void)
 			LEDs_SetAllLEDs(LEDS_NO_LEDS);
 		}
 
-		/* Clear the endpoint ready for new packet */
-		Endpoint_ClearOUT();
+		/* If the endpoint is now empty, clear the bank */
+		if (!(Endpoint_BytesInEndpoint()))
+		{
+			/* Clear the endpoint ready for new packet */
+			Endpoint_ClearOUT();
+		}
 	}
 }
 
