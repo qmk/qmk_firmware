@@ -19,13 +19,15 @@
 //      PB3, PB4, PB5, PB6(A, B, C, D)
 //      use D as ENABLE: (enable: 0/unenable: 1)
 // key: KEY: (on: 0/ off:1)
-//      UNKNOWN: unknown whether input or output
-//      PE6,PE7(KEY, UNKNOWN)
+//      KEY_PREV: (on: 1/ off: 0)
+//      PE6,PE7(KEY, KEY_PREV)
 #define COL_ENABLE              (1<<6)
 #define KEY_SELELCT(ROW, COL)   (PORTB = COL_ENABLE|(((COL)&0x07)<<3)|((ROW)&0x07))
 #define KEY_ENABLE              (PORTB &= ~COL_ENABLE)
 #define KEY_UNABLE              (PORTB |=  COL_ENABLE)
-#define KEY_ON                  ((PINE&(1<<6)) ? false : true)
+#define KEY_STATE               (PINE&(1<<6))
+#define KEY_PREV_ON             (PORTE |= (1<<7))
+#define KEY_PREV_OFF            (PORTE &= ~(1<<7))
 
 // matrix state buffer
 static uint8_t *matrix;
@@ -52,9 +54,10 @@ void matrix_init(void)
     // row & col output(PB0-6)
     DDRB = 0xFF;
     PORTB = KEY_SELELCT(0, 0);
-    // KEY & VALID input with pullup(PE6,7)
-    DDRE = 0x3F;
-    PORTE = 0xC0;
+    // KEY: input with pullup(PE6)
+    // KEY_PREV: output(PE7)
+    DDRE = 0xBF;
+    PORTE = 0x40;
 
     // initialize matrix state: all keys off
     for (int i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
@@ -74,14 +77,19 @@ int matrix_scan(void)
     for (int row = 0; row < MATRIX_ROWS; row++) {
         for (int col = 0; col < MATRIX_COLS; col++) {
             KEY_SELELCT(row, col);
-            _delay_us(50);  // from logic analyzer chart
+            _delay_us(40);  // from logic analyzer chart
+            if (matrix_prev[row] & (1<<col)) {
+                KEY_PREV_ON;
+            }
+            _delay_us(7);  // from logic analyzer chart
             KEY_ENABLE;
             _delay_us(10);  // from logic analyzer chart
-            if (KEY_ON) {
-                matrix[row] |= (1<<col);
-            } else {
+            if (KEY_STATE) {
                 matrix[row] &= ~(1<<col);
+            } else {
+                matrix[row] |= (1<<col);
             }
+            KEY_PREV_OFF;
             KEY_UNABLE;
             _delay_us(150);  // from logic analyzer chart
         }
