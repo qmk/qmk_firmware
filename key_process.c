@@ -96,6 +96,15 @@ void proc_matrix(void) {
             }
         }
     }
+
+    if (modified) {
+#ifdef DEBUG_LED
+        // LED flash for debug
+        DEBUG_LED_CONFIG;
+        DEBUG_LED_OFF;
+#endif
+    }
+
     layer_switching(fn_bits);
 
     // when 4 left modifier keys down
@@ -224,10 +233,5 @@ void proc_matrix(void) {
             //Rollover
         }
         usb_keyboard_send();
-#ifdef DEBUG_LED
-        // LED flash for debug
-        DEBUG_LED_CONFIG;
-        DEBUG_LED_OFF;
-#endif
     }
 }
