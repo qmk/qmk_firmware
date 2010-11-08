@@ -196,10 +196,10 @@ void ISPTarget_ConfigureRescueClock(void)
 	DDRB |= (1 << 5);
 	#endif
 
-	/* Start Timer 1 to generate a .5MHz clock on the OCR1A pin */
+	/* Start Timer 1 to generate a 4MHz clock on the OCR1A pin */
 	TIMSK1 = 0;
 	TCNT1  = 0;
-	OCR1A  = (F_CPU / 2 / 500000UL);
+	OCR1A  = ((F_CPU / 2 / 4000000UL) - 1);
 	TCCR1A = (1 << COM1A0);
 	TCCR1B = ((1 << WGM12) | (1 << CS10));
 }

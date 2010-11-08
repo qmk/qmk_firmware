@@ -27,6 +27,7 @@
   *  - Added board hardware driver support for the Blackcat USB JTAG board (thanks to the PSGroove team)
   *  - Added board hardware driver support for the Maximus board (thanks to the PSGroove team)
   *  - Added board hardware driver support for the Minimus board (thanks to the PSGroove team)
+  *  - Added board hardware driver support for the Adafruit U4 breakout board
   *  - Added default test tone generation mode to the Device mode AudioInput demos
   *  - Added new NO_CLASS_DRIVER_AUTOFLUSH compile time option to disable automatic flushing of interfaces when the USB management
   *    tasks for each driver is called

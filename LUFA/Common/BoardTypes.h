@@ -131,6 +131,9 @@
 			/** Selects the Minimus specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_MINIMUS       22
 
+			/** Selects the Adafruit U4 specific board drivers, including the Button and LEDs drivers. */
+			#define BOARD_ADAFRUITU4    23
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 

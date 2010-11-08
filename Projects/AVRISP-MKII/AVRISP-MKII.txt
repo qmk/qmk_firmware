@@ -105,9 +105,9 @@
  *   </tr>
  *  </table>
  *
- *  In addition, the AVR's OCR1A pin will generate a .5MHz clock, to act as an external rescue device clock
- *  if the fuses have been mis-set. To use the recovery clock, connect the OCR1A pin of the USB AVR to the target
- *  AVR's XTAL1 pin, and set the ISP programming speed to 125KHz (note: other ISP speeds will not work correctly).
+ *  In addition, the AVR's OCR1A pin will generate a 4MHz clock, to act as an external rescue device clock if the
+ *  fuses have been mis-set. To use the recovery clock, connect the OCR1A pin of the USB AVR to the target AVR's
+ *  XTAL1 pin, and set the ISP programming speed to 125KHz (note: other ISP speeds will not work correctly).
  *
  *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
  *  <b><sup>2</sup></b> <i>See AUX line related tokens in the \ref SSec_Options section</i>

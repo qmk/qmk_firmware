@@ -132,7 +132,7 @@ void EVENT_USB_Device_Connect(void)
 
 	/* Sample reload timer initialization */
 	TIMSK0  = (1 << OCIE0A);
-	OCR0A   = (F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1;
+	OCR0A   = ((F_CPU / 8 / AUDIO_SAMPLE_FREQUENCY) - 1);
 	TCCR0A  = (1 << WGM01);  // CTC mode
 	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
 }

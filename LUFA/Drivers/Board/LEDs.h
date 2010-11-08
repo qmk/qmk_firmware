@@ -133,6 +133,8 @@
 		#include "MAXIMUS/LEDs.h"
 	#elif (BOARD == BOARD_MINIMUS)
 		#include "MINIMUS/LEDs.h"
+	#elif (BOARD == BOARD_ADAFRUITU4)
+		#include "ADAFRUITU4/LEDs.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
 	#endif

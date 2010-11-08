@@ -61,7 +61,7 @@ void V2Protocol_Init(void)
 	#endif
 
 	/* Timeout timer initialization (10ms period) */
-	OCR0A  = ((F_CPU / 1024) / 100);
+	OCR0A  = (((F_CPU / 1024) / 100) - 1);
 	TCCR0A = (1 << WGM01);
 	TIMSK0 = (1 << OCIE0A);
 
