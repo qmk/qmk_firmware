@@ -23,7 +23,6 @@
  *  Bazaar Access: http://www.lufa-lib.org/bzr \n
  *  SVN Access: http://www.lufa-lib.org/svn \n
  *  Git Access: http://www.lufa-lib.org/git \n
- *  Mercurial Access: http://www.lufa-lib.org/hg \n
  *  Latest Repository Source Archive: http://www.lufa-lib.org/latest-archive \n
  *  Commit RSS Feed: http://www.lufa-lib.org/rss \n
  *
