@@ -31,20 +31,21 @@
  *   - XPLAIN (Both original first revision board, and newer boards with a different Dataflash model)
  *
  *  Currently supported third-party boards (see \ref Group_BoardTypes for makefile BOARD constant names):
- *   - Fletchtronics Bumble-B (using officially recommended peripheral layout)
- *   - Tempusdictum Benito
- *   - MattairTech JM-DB-U2
- *   - PJRC Teensy (all revisions and versions)
- *   - Tom's USBTINY-MKII (all revisions and versions)
- *   - Olimex AVR-USB-162
- *   - Kernel Concepts USBFOO
- *   - Linnix UDIP
+ *   - Adafruit U4 Breakout Board
+ *   - Arduino Uno
  *   - Busware BUI
  *   - Busware CUL V3
- *   - Arduino Uno
- *   - TCNISO Blackcat USB JTAG
+ *   - Fletchtronics Bumble-B (using officially recommended peripheral layout)
+ *   - Kernel Concepts USBFOO
+ *   - Linnix UDIP
+ *   - MattairTech JM-DB-U2
  *   - Maximus USB
  *   - Minimus USB
+ *   - Olimex AVR-USB-162
+ *   - PJRC Teensy (all revisions and versions)
+ *   - TCNISO Blackcat USB JTAG
+ *   - Tempusdictum Benito
+ *   - Tom's USBTINY-MKII (all revisions and versions)
  *   - Any Other Custom User Boards (with Board Drivers if desired, see \ref Page_WritingBoardDrivers)
  */
 

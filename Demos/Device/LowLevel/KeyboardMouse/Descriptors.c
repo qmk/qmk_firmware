@@ -196,7 +196,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | KEYBOARD_IN_EPNUM),
 			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = HID_EPSIZE,
-			.PollingIntervalMS      = 0x0A
+			.PollingIntervalMS      = 0x01
 		},
 
 	.HID1_ReportOUTEndpoint =
@@ -206,7 +206,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | KEYBOARD_OUT_EPNUM),
 			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = HID_EPSIZE,
-			.PollingIntervalMS      = 0x0A
+			.PollingIntervalMS      = 0x01
 		},
 
 	.HID2_MouseInterface =
@@ -243,7 +243,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | MOUSE_IN_EPNUM),
 			.Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = HID_EPSIZE,
-			.PollingIntervalMS      = 0x0A
+			.PollingIntervalMS      = 0x01
 		}
 };
 

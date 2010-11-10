@@ -213,7 +213,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 					.EndpointAddress     = (ENDPOINT_DESCRIPTOR_DIR_OUT | AUDIO_STREAM_EPNUM),
 					.Attributes          = (EP_TYPE_ISOCHRONOUS | ENDPOINT_ATTR_SYNC | ENDPOINT_USAGE_DATA),
 					.EndpointSize        = AUDIO_STREAM_EPSIZE,
-					.PollingIntervalMS   = 1
+					.PollingIntervalMS   = 0x01
 				},
 
 			.Refresh                  = 0,
