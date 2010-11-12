@@ -59,8 +59,11 @@
 		/** Low level device command to issue an extended FLASH address, for devices with other 128KB of FLASH. */
 		#define LOAD_EXTENDED_ADDRESS_CMD     0x4D
 
-		/** Macro to convert an ISP frequency to a number of timer clock cycles for the software SPI driver */
-		#define TIMER_COMP(freq) ((((F_CPU / 8) / freq) / 2) - 1)
+		/** Macro to convert an ISP frequency to a number of timer clock cycles for the software SPI driver. */
+		#define TIMER_COMP(freq)              (((F_CPU / 8) / 2 / freq) - 1)
+
+		/** ISP rescue clock speed, for clocking targets with incorrectly set fuses. */
+		#define ISP_RESCUE_CLOCK_SPEED        4000000
 
 	/* External Variables: */
 		extern bool HardwareSPIMode;
