@@ -55,7 +55,7 @@ void XPROGTarget_EnableTargetPDI(void)
 	_delay_us(1);
 
 	/* Set up the synchronous USART for XMEGA communications - 8 data bits, even parity, 2 stop bits */
-	UBRR1  = (F_CPU / XPROG_HARDWARE_SPEED);
+	UBRR1  = ((F_CPU / 2 / XPROG_HARDWARE_SPEED) - 1);
 	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
 

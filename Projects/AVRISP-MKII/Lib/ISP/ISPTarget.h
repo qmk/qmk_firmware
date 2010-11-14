@@ -69,8 +69,8 @@
 		extern bool HardwareSPIMode;
 
 	/* Function Prototypes: */
-		void    ISPTarget_Init(void);
-		void    ISPTarget_ShutDown(void);
+		void    ISPTarget_EnableTargetISP(void);
+		void    ISPTarget_DisableTargetISP(void);
 		void    ISPTarget_ConfigureRescueClock(void);
 		void    ISPTarget_ConfigureSoftwareISP(const uint8_t SCKDuration);
 		uint8_t ISPTarget_TransferSoftSPIByte(const uint8_t Byte);

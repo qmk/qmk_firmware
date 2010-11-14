@@ -66,7 +66,7 @@ void ISPProtocol_EnterISPMode(void)
 
 	/* Perform execution delay, initialize SPI bus */
 	ISPProtocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS);
-	ISPTarget_Init();
+	ISPTarget_EnableTargetISP();
 
 	/* Continuously attempt to synchronize with the target until either the number of attempts specified
 	 * by the host has exceeded, or the the device sends back the expected response values */
@@ -118,7 +118,7 @@ void ISPProtocol_LeaveISPMode(void)
 	/* Perform pre-exit delay, release the target /RESET, disable the SPI bus and perform the post-exit delay */
 	ISPProtocol_DelayMS(Leave_ISP_Params.PreDelayMS);
 	ISPTarget_ChangeTargetResetLine(false);
-	ISPTarget_ShutDown();
+	ISPTarget_DisableTargetISP();
 	ISPProtocol_DelayMS(Leave_ISP_Params.PostDelayMS);
 
 	Endpoint_Write_Byte(CMD_LEAVE_PROGMODE_ISP);

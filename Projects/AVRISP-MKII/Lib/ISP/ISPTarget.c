@@ -142,7 +142,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 /** Initialises the appropriate SPI driver (hardware or software, depending on the selected ISP speed) ready for
  *  communication with the attached target.
  */
-void ISPTarget_Init(void)
+void ISPTarget_EnableTargetISP(void)
 {
 	uint8_t SCKDuration = V2Params_GetParameterValue(PARAM_SCK_DURATION);
 
@@ -167,7 +167,7 @@ void ISPTarget_Init(void)
 /** Shuts down the current selected SPI driver (hardware or software, depending on the selected ISP speed) so that no
  *  further communications can occur until the driver is re-initialized.
  */
-void ISPTarget_ShutDown(void)
+void ISPTarget_DisableTargetISP(void)
 {
 	if (HardwareSPIMode)
 	{
