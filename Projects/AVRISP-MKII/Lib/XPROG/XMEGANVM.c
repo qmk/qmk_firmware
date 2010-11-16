@@ -96,13 +96,15 @@ bool XMEGANVM_WaitWhileNVMBusBusy(void)
  */
 bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 {
+	/* Preload the pointer register with the NVM STATUS register address to check the BUSY flag */
+	XPROGTarget_SendByte(PDI_CMD_ST | (PDI_POINTER_DIRECT << 2) | PDI_DATSIZE_4BYTES);
+	XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_STATUS);
+
 	/* Poll the NVM STATUS register while the NVM controller is busy */
 	for (;;)
 	{
-		/* Send a LDS command to read the NVM STATUS register to check the BUSY flag */
-		XPROGTarget_SendByte(PDI_CMD_LDS | (PDI_DATSIZE_4BYTES << 2));
-		XMEGANVM_SendNVMRegAddress(XMEGA_NVM_REG_STATUS);
-
+		/* Fetch the current status value via the pointer register (without auto-increment afterwards) */
+		XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT << 2) | PDI_DATSIZE_1BYTE);
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 
 		/* We might have timed out waiting for the status register read response, check here */
