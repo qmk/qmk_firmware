@@ -280,6 +280,12 @@
  *    <td>Define to switch to a non-standard endpoint scheme, breaking compatibility with AVRStudio under Windows but making
  *        the code compatible with software such as avrdude (all platforms) that use the libUSB driver.
  *   </tr>
+ *   <tr>
+ *    <td>XCK_RESCUE_CLOCK_ENABLE</td>
+ *    <td>Makefile LUFA_OPTS</td>
+ *    <td>Define to move the ISP rescue clock to the AVR's XCK pin instead of the OCR1A output pin. This is useful for existing programming
+ *        hardware that does not expose the OCR1A pin of the AVR, but *may* cause some issues with PDI programming mode.
+ *   </tr>
  *  </table>
  */
 

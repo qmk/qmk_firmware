@@ -196,6 +196,10 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 		XPROGTarget_DisableTargetTPI();
 	}
 
+	#if defined(XCK_RESCUE_CLOCK_ENABLE) && defined(ENABLE_ISP_PROTOCOL)
+	ISPTarget_ConfigureRescueClock();
+	#endif
+
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_LEAVE_PROGMODE);
 	Endpoint_Write_Byte(XPRG_ERR_OK);

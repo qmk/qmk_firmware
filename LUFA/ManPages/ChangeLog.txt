@@ -35,6 +35,7 @@
   *  - Added new Pipe_GetBusyBanks(), Endpoint_GetBusyBanks() and Endpoint_AbortPendingIN() functions
   *  - Added new NO_BLOCK_SUPPORT, NO_EEPROM_BYTE_SUPPORT, NO_FLASH_BYTE_SUPPORT and NO_LOCK_BYTE_WRITE_SUPPORT compile time options to the
   *    CDC class bootloader
+  *  - Added new XCK_RESCUE_CLOCK_ENABLE compile time option to the AVRISP-MKII clone programmer project (thanks to Tom Light)
   *
   *  <b>Changed:</b>
   *  - Removed complicated logic for the Endpoint_ConfigureEndpoint() function to use inlined or function called versions

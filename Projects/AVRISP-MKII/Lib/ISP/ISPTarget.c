@@ -189,19 +189,29 @@ void ISPTarget_DisableTargetISP(void)
  */
 void ISPTarget_ConfigureRescueClock(void)
 {
-	/* Configure OCR1A as an output for the specified AVR model */
-	#if defined(USB_SERIES_2_AVR)
-	DDRC |= (1 << 6);
+	#if defined(XCK_RESCUE_CLOCK_ENABLE)
+		/* Configure XCK as an output for the specified AVR model */
+		DDRD  |= (1 << 5);
+		
+		/* Start USART to generate a 4MHz clock on the XCK pin */
+		UBRR1  = ((F_CPU / 2 / ISP_RESCUE_CLOCK_SPEED) - 1);
+		UCSR1B = (1 << TXEN1);
+		UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
 	#else
-	DDRB |= (1 << 5);
-	#endif
+		/* Configure OCR1A as an output for the specified AVR model */
+		#if defined(USB_SERIES_2_AVR)
+		DDRC |= (1 << 6);
+		#else
+		DDRB |= (1 << 5);
+		#endif
 
-	/* Start Timer 1 to generate a 4MHz clock on the OCR1A pin */
-	TIMSK1 = 0;
-	TCNT1  = 0;
-	OCR1A  = ((F_CPU / 2 / ISP_RESCUE_CLOCK_SPEED) - 1);
-	TCCR1A = (1 << COM1A0);
-	TCCR1B = ((1 << WGM12) | (1 << CS10));
+		/* Start Timer 1 to generate a 4MHz clock on the OCR1A pin */
+		TIMSK1 = 0;
+		TCNT1  = 0;
+		OCR1A  = ((F_CPU / 2 / ISP_RESCUE_CLOCK_SPEED) - 1);
+		TCCR1A = (1 << COM1A0);
+		TCCR1B = ((1 << WGM12) | (1 << CS10));
+	#endif
 }
 
 /** Configures the AVR's timer ready to produce software ISP for the slower ISP speeds that
