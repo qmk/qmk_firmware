@@ -75,7 +75,10 @@
 #define KB_BSLS KB_BSLASH
 #define KB_SLSH KB_SLASH
 #define KB_SCLN KB_SCOLON
+#define KB_QUOT KB_QUOTE
 #define KB_PWR  KB_POWER
+#define KB_VUP  KB_VOLUP
+#define KB_VDWN KB_VOLDOWN
 #define KP_SLSH KP_SLASH
 #define KP_ASTR KP_ASTERISK
 #define KP_MINS KP_MINUS

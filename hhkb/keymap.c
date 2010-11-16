@@ -41,7 +41,7 @@ static const int PROGMEM fn_layer[] = { 0, 1, 2, 3, 4, 0, 0, 1 };
 static const uint8_t PROGMEM fn_keycode[] = {
     KB_NO,          // FN_0 [NOT USED]
     KB_NO,          // FN_1 layer 1
-    KB_QUOTE,       // FN_2 layer 2
+    KB_SLSH,        // FN_2 layer 2
     KB_SCOLON,      // FN_3 layer 3
     KB_SPACE,       // FN_4 layer 4
     KB_NO,          // FN_5 [NOT USED]
@@ -56,17 +56,17 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|Backs|
      * |-----------------------------------------------------------|
-     * |Contro|  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn3|Fn2|Return  |
+     * |Contro|  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn3|  '|Return  |
      * |-----------------------------------------------------------|
-     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Fn1|
+     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|Fn2|Shift |Fn1|
      * `-----------------------------------------------------------'
      *       |Gui|Alt  |Fn4                    |Alt  |Fn7|
      *       `-------------------------------------------'
      */
     KEYMAP(KB_ESC, KB_1,   KB_2,   KB_3,   KB_4,   KB_5,   KB_6,   KB_7,   KB_8,   KB_9,   KB_0,   KB_MINS,KB_EQL, KB_BSLS,KB_GRV, \
            KB_TAB, KB_Q,   KB_W,   KB_E,   KB_R,   KB_T,   KB_Y,   KB_U,   KB_I,   KB_O,   KB_P,   KB_LBRC,KB_RBRC,KB_BSPC, \
-           KB_LCTL,KB_A,   KB_S,   KB_D,   KB_F,   KB_G,   KB_H,   KB_J,   KB_K,   KB_L,   FN_3,   FN_2,   KB_ENT, \
-           KB_LSFT,KB_Z,   KB_X,   KB_C,   KB_V,   KB_B,   KB_N,   KB_M,   KB_COMM,KB_DOT, KB_SLSH,KB_RSFT,FN_1, \
+           KB_LCTL,KB_A,   KB_S,   KB_D,   KB_F,   KB_G,   KB_H,   KB_J,   KB_K,   KB_L,   FN_3,   KB_QUOT,KB_ENT, \
+           KB_LSFT,KB_Z,   KB_X,   KB_C,   KB_V,   KB_B,   KB_N,   KB_M,   KB_COMM,KB_DOT, FN_2,   KB_RSFT,FN_1, \
            KB_LGUI,KB_LALT,FN_4,   KB_RALT,FN_7),
 
     /* Layer 1: HHKB mode (HHKB Fn)
@@ -84,27 +84,27 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */ 
     KEYMAP(KB_PWR, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_INS, KB_DEL, \
            KB_CAPS,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_PSCR,KB_SLCK,KB_BRK, KB_UP,  KB_NO,  KB_BSPC, \
-           KB_LCTL,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KP_ASTR,KP_SLSH,KB_HOME,KB_PGUP,KB_LEFT,KB_RGHT,KB_ENT, \
+           KB_LCTL,KB_VUP, KB_VDWN,KB_MUTE,KB_NO,  KB_NO,  KP_ASTR,KP_SLSH,KB_HOME,KB_PGUP,KB_LEFT,KB_RGHT,KB_ENT, \
            KB_LSFT,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KP_PLUS,KP_MINS,KB_END, KB_PGDN,KB_DOWN,KB_RSFT,FN_1, \
            KB_LGUI,KB_LALT,KB_SPC, KB_RALT,FN_7),
 
-    /* Layer 2: Vi mode (Quote/Rmeta)
+    /* Layer 2: Vi mode (Slash)
      * ,-----------------------------------------------------------.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
      * |-----------------------------------------------------------|
      * |Tab  |Hom|PgD|Up |PgU|End|Hom|PgD|PgUlEnd|   |   |   |Backs|
      * |-----------------------------------------------------------|
-     * |Contro|   |Lef|Dow|Rig|   |Lef|Dow|Up |Rig|   |xxx|Return  |
+     * |Contro|   |Lef|Dow|Rig|   |Lef|Dow|Up |Rig|   |   |Return  |
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |   |   |   |   |   |   |   |   |Shift |   |
+     * |Shift   |   |   |   |   |   |Hom|PgD|PgUlEnd|xxx|Shift |   |
      * `-----------------------------------------------------------'
      *       |Gui|Alt  |Space                  |Alt  |Gui|
      *       `-------------------------------------------'
      */
     KEYMAP(KB_ESC, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_INS, KB_DEL, \
            KB_TAB, KB_HOME,KB_PGDN,KB_UP,  KB_PGUP,KB_END, KB_HOME,KB_PGDN,KB_PGUP,KB_END, KB_NO,  KB_NO,  KB_NO,  KB_BSPC, \
-           KB_LCTL,KB_NO,  KB_LEFT,KB_DOWN,KB_RGHT,KB_NO,  KB_LEFT,KB_DOWN,KB_UP,  KB_RGHT,KB_NO,  FN_2,   KB_ENT, \
-           KB_LSFT,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_RSFT,KB_NO, \
+           KB_LCTL,KB_NO,  KB_LEFT,KB_DOWN,KB_RGHT,KB_NO,  KB_LEFT,KB_DOWN,KB_UP,  KB_RGHT,KB_NO,  KB_NO,  KB_ENT, \
+           KB_LSFT,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_HOME,KB_PGDN,KB_PGUP,KB_END, FN_2,   KB_RSFT,KB_NO, \
            KB_LGUI,KB_LALT,KB_SPC, KB_RALT,KB_RGUI),
 
     /* Layer 3: Mouse mode (Semicolon)
@@ -115,7 +115,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Contro|   |McL|McD|McR|   |McL|McD|McU|McR|xxx|   |Return  |
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |   |   |   |Mb2|Mb1|Mb2|Mb3|   |Shift |   |
+     * |Shift   |Mb4|Mb5|Mb1|Mb2|Mb3|Mb2|Mb1|Mb4|Mb5|   |Shift |   |
      * `-----------------------------------------------------------'
      *      |Gui |Alt  |Mb1                    |Alt  |Gui|
      *      `--------------------------------------------'
@@ -124,7 +124,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP(KB_ESC, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_INS, KB_DEL, \
            KB_TAB, MS_WH_L,MS_WH_U,MS_UP,  MS_WH_D,MS_WH_R,MS_WH_L,MS_WH_D,MS_WH_U,MS_WH_R,KB_NO,  KB_NO,  KB_NO,  KB_BSPC, \
            KB_LCTL,KB_NO,  MS_LEFT,MS_DOWN,MS_RGHT,KB_NO,  MS_LEFT,MS_DOWN,MS_UP,  MS_RGHT,FN_3,   KB_NO,  KB_ENT, \
-           KB_LSFT,KB_NO,  MS_DOWN,KB_NO,  KB_NO,  KB_NO,  MS_BTN2,MS_BTN1,MS_BTN2,MS_BTN3,KB_NO,  KB_RSFT,KB_NO, \
+           KB_LSFT,MS_BTN4,MS_BTN5,MS_BTN1,MS_BTN2,MS_BTN3,MS_BTN2,MS_BTN1,MS_BTN4,MS_BTN5,KB_NO,  KB_RSFT,KB_NO, \
            KB_LGUI,KB_LALT,MS_BTN1,KB_RALT,KB_RGUI),
 
     /* Layer 4: Matias half keyboard style (Space)
