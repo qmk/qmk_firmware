@@ -64,6 +64,8 @@
 	/* Function Prototypes: */
 		bool TINYNVM_WaitWhileNVMBusBusy(void);
 		bool TINYNVM_WaitWhileNVMControllerBusy(void);
+		bool TINYNVM_EnableTPI(void);
+		void TINYNVM_DisableTPI(void);
 		bool TINYNVM_ReadMemory(const uint16_t ReadAddress,
 		                        uint8_t* ReadBuffer,
 		                        uint16_t ReadLength);

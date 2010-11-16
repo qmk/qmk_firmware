@@ -119,6 +119,40 @@ bool TINYNVM_WaitWhileNVMControllerBusy(void)
 	}
 }
 
+/** Enables the physical TPI interface on the target and enables access to the internal NVM controller.
+ *
+ *  \return Boolean true if the TPI interface was enabled successfully, false otherwise
+ */
+bool TINYNVM_EnableTPI(void)
+{
+	/* Enable TPI programming mode with the attached target */
+	XPROGTarget_EnableTargetTPI();
+
+	/* Lower direction change guard time to 0 USART bits */
+	XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_CTRL_REG);
+	XPROGTarget_SendByte(0x07);
+
+	/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
+	XPROGTarget_SendByte(TPI_CMD_SKEY);
+	for (uint8_t i = sizeof(TPI_NVMENABLE_KEY); i > 0; i--)
+	  XPROGTarget_SendByte(TPI_NVMENABLE_KEY[i - 1]);
+
+	/* Wait until the NVM bus becomes active */
+	return TINYNVM_WaitWhileNVMBusBusy();
+}
+
+/** Removes access to the target's NVM controller and physically disables the target's physical TPI interface. */
+void TINYNVM_DisableTPI(void)
+{
+	TINYNVM_WaitWhileNVMBusBusy();
+
+	/* Clear the NVMEN bit in the TPI STATUS register to disable TPI mode */
+	XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_STATUS_REG);
+	XPROGTarget_SendByte(0x00);
+
+	XPROGTarget_DisableTargetTPI();
+}
+
 /** Reads memory from the target's memory spaces.
  *
  *  \param[in]  ReadAddress  Start address to read from within the target's address space

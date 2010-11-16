@@ -45,7 +45,6 @@
 		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 
 		#include "../V2Protocol.h"
-		#include "XPROGTarget.h"
 		#include "XMEGANVM.h"
 		#include "TINYNVM.h"
 

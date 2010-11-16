@@ -118,43 +118,9 @@ static void XPROGProtocol_EnterXPROGMode(void)
 	bool NVMBusEnabled = false;
 
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
-	{
-		/* Enable PDI programming mode with the attached target */
-		XPROGTarget_EnableTargetPDI();
-
-		/* Store the RESET key into the RESET PDI register to keep the XMEGA in reset */
-		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);
-		XPROGTarget_SendByte(PDI_RESET_KEY);
-
-		/* Lower direction change guard time to 0 USART bits */
-		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_CTRL_REG);
-		XPROGTarget_SendByte(0x07);
-
-		/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
-		XPROGTarget_SendByte(PDI_CMD_KEY);
-		for (uint8_t i = sizeof(PDI_NVMENABLE_KEY); i > 0; i--)
-		  XPROGTarget_SendByte(PDI_NVMENABLE_KEY[i - 1]);
-
-		/* Wait until the NVM bus becomes active */
-		NVMBusEnabled = XMEGANVM_WaitWhileNVMBusBusy();
-	}
+	  NVMBusEnabled = XMEGANVM_EnablePDI();
 	else if (XPROG_SelectedProtocol == XPRG_PROTOCOL_TPI)
-	{
-		/* Enable TPI programming mode with the attached target */
-		XPROGTarget_EnableTargetTPI();
-
-		/* Lower direction change guard time to 0 USART bits */
-		XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_CTRL_REG);
-		XPROGTarget_SendByte(0x07);
-
-		/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
-		XPROGTarget_SendByte(TPI_CMD_SKEY);
-		for (uint8_t i = sizeof(TPI_NVMENABLE_KEY); i > 0; i--)
-		  XPROGTarget_SendByte(TPI_NVMENABLE_KEY[i - 1]);
-
-		/* Wait until the NVM bus becomes active */
-		NVMBusEnabled = TINYNVM_WaitWhileNVMBusBusy();
-	}
+	  NVMBusEnabled = TINYNVM_EnableTPI();
 
 	Endpoint_Write_Byte(CMD_XPROG);
 	Endpoint_Write_Byte(XPRG_CMD_ENTER_PROGMODE);
@@ -172,29 +138,9 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	if (XPROG_SelectedProtocol == XPRG_PROTOCOL_PDI)
-	{
-		XMEGANVM_WaitWhileNVMBusBusy();
-
-		/* Clear the RESET key in the RESET PDI register to allow the XMEGA to run */
-		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);
-		XPROGTarget_SendByte(0x00);
-
-		/* Do it twice to make sure it takes affect (silicon bug?) */
-		XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);
-		XPROGTarget_SendByte(0x00);
-
-		XPROGTarget_DisableTargetPDI();
-	}
+	  XMEGANVM_DisablePDI();
 	else
-	{
-		TINYNVM_WaitWhileNVMBusBusy();
-
-		/* Clear the NVMEN bit in the TPI CONTROL register to disable TPI mode */
-		XPROGTarget_SendByte(TPI_CMD_SSTCS | TPI_CTRL_REG);
-		XPROGTarget_SendByte(0x00);
-
-		XPROGTarget_DisableTargetTPI();
-	}
+	  TINYNVM_DisableTPI();
 
 	#if defined(XCK_RESCUE_CLOCK_ENABLE) && defined(ENABLE_ISP_PROTOCOL)
 	ISPTarget_ConfigureRescueClock();

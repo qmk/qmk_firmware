@@ -39,7 +39,7 @@
 #if defined(ENABLE_XPROG_PROTOCOL) || defined(__DOXYGEN__)
 
 /** Flag to indicate if the USART is currently in Tx or Rx mode. */
-volatile bool IsSending;
+bool IsSending;
 
 /** Enables the target's PDI interface, holding the target in reset until PDI mode is exited. */
 void XPROGTarget_EnableTargetPDI(void)
@@ -115,7 +115,7 @@ void XPROGTarget_DisableTargetTPI(void)
 	UCSR1B  = 0;
 	UCSR1C  = 0;
 
-	/* Set all USART lines as input, tristate */
+	/* Set all USART lines as inputs, tristate */
 	DDRD  &= ~((1 << 5) | (1 << 3));
 	PORTD &= ~((1 << 5) | (1 << 3) | (1 << 2));
 	

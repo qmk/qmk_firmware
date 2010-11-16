@@ -105,6 +105,7 @@ bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 	{
 		/* Fetch the current status value via the pointer register (without auto-increment afterwards) */
 		XPROGTarget_SendByte(PDI_CMD_LD | (PDI_POINTER_INDIRECT << 2) | PDI_DATSIZE_1BYTE);
+
 		uint8_t StatusRegister = XPROGTarget_ReceiveByte();
 
 		/* We might have timed out waiting for the status register read response, check here */
@@ -115,6 +116,48 @@ bool XMEGANVM_WaitWhileNVMControllerBusy(void)
 		if (!(StatusRegister & (1 << 7)))
 		  return true;
 	}
+}
+
+/** Enables the physical PDI interface on the target and enables access to the internal NVM controller.
+ *
+ *  \return Boolean true if the PDI interface was enabled successfully, false otherwise
+ */
+bool XMEGANVM_EnablePDI(void)
+{
+	/* Enable PDI programming mode with the attached target */
+	XPROGTarget_EnableTargetPDI();
+
+	/* Store the RESET key into the RESET PDI register to keep the XMEGA in reset */
+	XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);
+	XPROGTarget_SendByte(PDI_RESET_KEY);
+
+	/* Lower direction change guard time to 0 USART bits */
+	XPROGTarget_SendByte(PDI_CMD_STCS | PDI_CTRL_REG);
+	XPROGTarget_SendByte(0x07);
+
+	/* Enable access to the XPROG NVM bus by sending the documented NVM access key to the device */
+	XPROGTarget_SendByte(PDI_CMD_KEY);
+	for (uint8_t i = sizeof(PDI_NVMENABLE_KEY); i > 0; i--)
+	  XPROGTarget_SendByte(PDI_NVMENABLE_KEY[i - 1]);
+
+	/* Wait until the NVM bus becomes active */
+	return XMEGANVM_WaitWhileNVMBusBusy();
+}
+
+/** Removes access to the target's NVM controller and physically disables the target's physical PDI interface. */
+void XMEGANVM_DisablePDI(void)
+{
+	XMEGANVM_WaitWhileNVMBusBusy();
+
+	/* Clear the RESET key in the RESET PDI register to allow the XMEGA to run */
+	XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);
+	XPROGTarget_SendByte(0x00);
+
+	/* Do it twice to make sure it takes effect (silicon bug?) */
+	XPROGTarget_SendByte(PDI_CMD_STCS | PDI_RESET_REG);
+	XPROGTarget_SendByte(0x00);
+
+	XPROGTarget_DisableTargetPDI();
 }
 
 /** Retrieves the CRC value of the given memory space.
