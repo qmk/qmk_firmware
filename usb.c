@@ -28,6 +28,7 @@
 #include "usb_keyboard.h"
 #include "usb_mouse.h"
 #include "usb_debug.h"
+#include "usb_extra.h"
 #include "print.h"
 #include "util.h"
 
@@ -87,7 +88,7 @@ static const uint8_t PROGMEM endpoint_config_table[] = {
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KEYBOARD_SIZE) | KEYBOARD_BUFFER, // 1
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(MOUSE_SIZE)    | MOUSE_BUFFER,    // 2
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(DEBUG_TX_SIZE) | DEBUG_TX_BUFFER, // 3
-        0, // 4
+	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(EXTRA_SIZE)    | EXTRA_BUFFER,    // 4
         0, // 5
         0, // 6
 };
@@ -249,17 +250,43 @@ static uint8_t PROGMEM debug_hid_report_desc[] = {
 	0xC0					// end collection
 };
 
-#define CONFIG1_DESC_SIZE        (9+(9+9+7)+(9+9+7)+(9+9+7))
-#define KEYBOARD_HID_DESC_OFFSET (9+9)
-#define MOUSE_HID_DESC_OFFSET    (9+(9+9+7)+9)
-#define DEBUG_HID_DESC_OFFSET    (9+(9+9+7)+(9+9+7)+9)
+// audio controls(consumer page)
+// http://www.microsoft.com/whdc/archive/w2kbd.mspx
+static uint8_t PROGMEM extra_hid_report_desc[] = {
+    0x05, 0x0c,                    // USAGE_PAGE (Consumer Devices)
+    0x09, 0x01,                    // USAGE (Consumer Control)
+    0xa1, 0x01,                    // COLLECTION (Application)
+    0x85, 0x01,                    //   REPORT_ID (1)
+    0x09, 0xe9,                    //   USAGE (Volume Up)
+    0x09, 0xea,                    //   USAGE (Volume Down)
+    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+    0x25, 0x01,                    //   LOGICAL_MAXIMUM (1)
+    0x75, 0x01,                    //   REPORT_SIZE (1)
+    0x95, 0x02,                    //   REPORT_COUNT (2)
+    0x81, 0x02,                    //   INPUT (Data,Var,Abs)
+    0x09, 0xe2,                    //   USAGE (Mute)
+    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+    0x25, 0x01,                    //   LOGICAL_MAXIMUM (1)
+    0x75, 0x01,                    //   REPORT_SIZE (1)
+    0x95, 0x01,                    //   REPORT_COUNT (1)
+    0x81, 0x06,                    //   INPUT (Data,Var,Rel)
+    0x95, 0x05,                    //   REPORT_COUNT (5)
+    0x81, 0x07,                    //   INPUT (Cnst,Var,Abs)
+    0xc0                           // END_COLLECTION
+};
+
+#define CONFIG1_DESC_SIZE        (9+(9+9+7)*4)
+#define KEYBOARD_HID_DESC_OFFSET (9+(9+9+7)*0+9)
+#define MOUSE_HID_DESC_OFFSET    (9+(9+9+7)*1+9)
+#define DEBUG_HID_DESC_OFFSET    (9+(9+9+7)*2+9)
+#define EXTRA_HID_DESC_OFFSET    (9+(9+9+7)*3+9)
 static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	// configuration descriptor, USB spec 9.6.3, page 264-266, Table 9-10
 	9, 					// bLength;
 	2,					// bDescriptorType;
 	LSB(CONFIG1_DESC_SIZE),			// wTotalLength
 	MSB(CONFIG1_DESC_SIZE),
-	3,					// bNumInterfaces
+	4,					// bNumInterfaces
 	1,					// bConfigurationValue
 	0,					// iConfiguration
 	0xC0,					// bmAttributes
@@ -344,7 +371,34 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	DEBUG_TX_ENDPOINT | 0x80,		// bEndpointAddress
 	0x03,					// bmAttributes (0x03=intr)
 	DEBUG_TX_SIZE, 0,			// wMaxPacketSize
-	1					// bInterval
+	1,					// bInterval
+
+	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
+	9,					// bLength
+	4,					// bDescriptorType
+	EXTRA_INTERFACE,			// bInterfaceNumber
+	0,					// bAlternateSetting
+	1,					// bNumEndpoints
+	0x03,					// bInterfaceClass (0x03 = HID)
+	0x00,					// bInterfaceSubClass
+	0x00,					// bInterfaceProtocol
+	0,					// iInterface
+	// HID descriptor, HID 1.11 spec, section 6.2.1
+	9,					// bLength
+	0x21,					// bDescriptorType
+	0x11, 0x01,				// bcdHID
+	0,					// bCountryCode
+	1,					// bNumDescriptors
+	0x22,					// bDescriptorType
+	sizeof(extra_hid_report_desc),		// wDescriptorLength
+	0,
+	// endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+	7,					// bLength
+	5,					// bDescriptorType
+	EXTRA_ENDPOINT | 0x80,			// bEndpointAddress
+	0x03,					// bmAttributes (0x03=intr)
+	EXTRA_SIZE, 0,				// wMaxPacketSize
+	10,					// bInterval
 };
 
 // If you're desperate for a little extra code memory, these strings
@@ -392,6 +446,9 @@ static struct descriptor_list_struct {
         // HID REPORT
 	{0x2200, DEBUG_INTERFACE, debug_hid_report_desc, sizeof(debug_hid_report_desc)},
 	{0x2100, DEBUG_INTERFACE, config1_descriptor+DEBUG_HID_DESC_OFFSET, 9},
+        // HID REPORT
+	{0x2200, EXTRA_INTERFACE, extra_hid_report_desc, sizeof(extra_hid_report_desc)},
+	{0x2100, EXTRA_INTERFACE, config1_descriptor+EXTRA_HID_DESC_OFFSET, 9},
         // STRING descriptor
 	{0x0300, 0x0000, (const uint8_t *)&string0, 4},
 	{0x0301, 0x0409, (const uint8_t *)&string1, sizeof(STR_MANUFACTURER)},

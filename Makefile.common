@@ -55,6 +55,7 @@ SRC =	tmk.c \
 	usb_keyboard.c \
 	usb_mouse.c \
 	usb_debug.c \
+	usb_extra.c \
 	usb.c \
 	jump_bootloader.c \
 	print.c \

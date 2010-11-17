@@ -8,6 +8,7 @@
 #include "jump_bootloader.h"
 #include "usb_keyboard.h"
 #include "usb_mouse.h"
+#include "usb_extra.h"
 #include "usb_keycodes.h"
 #include "layer.h"
 #include "matrix_skel.h"
@@ -88,6 +89,18 @@ void proc_matrix(void) {
                 if (code == MS_WH_RIGHT) mouse_hwheel += 1;
             } else if (IS_FN(code)) {
                 fn_bits |= FN_BIT(code);
+            } else if (code == KB_MUTE) {
+                usb_extra_send(AUDIO_MUTE);
+                usb_extra_send(0);
+                _delay_ms(500);
+            } else if (code == KB_VOLU) {
+                usb_extra_send(AUDIO_VOL_UP);
+                usb_extra_send(0);
+                _delay_ms(100);
+            } else if (code == KB_VOLD) {
+                usb_extra_send(AUDIO_VOL_DOWN);
+                usb_extra_send(0);
+                _delay_ms(100);
             } else {
                 // normal keys
                 if (key_index < 6)
