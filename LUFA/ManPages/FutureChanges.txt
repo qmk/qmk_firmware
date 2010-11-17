@@ -20,7 +20,6 @@
   *      -# Re-add interrupt Pipe/Endpoint support
   *      -# Add HID report macros to make HID report editing easier
   *      -# Investigate dynamically created device descriptors
-  *      -# Add new event for EVENT_USB_Device_ControlRequest() fired before the internal library request handlers
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews

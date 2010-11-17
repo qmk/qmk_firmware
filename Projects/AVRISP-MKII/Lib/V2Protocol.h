@@ -37,6 +37,9 @@
 #define _V2_PROTOCOL_
 
 	/* Includes: */
+		#include <avr/io.h>
+		#include <avr/interrupt.h>
+	
 		#include <LUFA/Drivers/USB/USB.h>
 
 		#include "../Descriptors.h"

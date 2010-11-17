@@ -59,9 +59,9 @@ void XPROGTarget_EnableTargetPDI(void)
 	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
 
-	/* Send two BREAKs of 12 bits each to enable PDI interface (need at least 16 idle bits) */
-	XPROGTarget_SendBreak();
-	XPROGTarget_SendBreak();
+	/* Send two IDLEs of 12 bits each to enable PDI interface (need at least 16 idle bits) */
+	XPROGTarget_SendIdle();
+	XPROGTarget_SendIdle();
 }
 
 /** Enables the target's TPI interface, holding the target in reset until TPI mode is exited. */
@@ -83,9 +83,9 @@ void XPROGTarget_EnableTargetTPI(void)
 	UCSR1B = (1 << TXEN1);
 	UCSR1C = (1 << UMSEL10) | (1 << UPM11) | (1 << USBS1) | (1 << UCSZ11) | (1 << UCSZ10) | (1 << UCPOL1);
 
-	/* Send two BREAKs of 12 bits each to enable TPI interface (need at least 16 idle bits) */
-	XPROGTarget_SendBreak();
-	XPROGTarget_SendBreak();
+	/* Send two IDLEs of 12 bits each to enable TPI interface (need at least 16 idle bits) */
+	XPROGTarget_SendIdle();
+	XPROGTarget_SendIdle();
 }
 
 /** Disables the target's PDI interface, exits programming mode and starts the target's application. */
@@ -156,14 +156,14 @@ uint8_t XPROGTarget_ReceiveByte(void)
 	return UDR1;
 }
 
-/** Sends a BREAK via the USART to the attached target, consisting of a full frame of idle bits. */
-void XPROGTarget_SendBreak(void)
+/** Sends an IDLE via the USART to the attached target, consisting of a full frame of idle bits. */
+void XPROGTarget_SendIdle(void)
 {
 	/* Switch to Tx mode if currently in Rx mode */
 	if (!(IsSending))
 	  XPROGTarget_SetTxMode();
-
-	/* Need to do nothing for a full frame to send a BREAK */
+	
+	/* Need to do nothing for a full frame to send an IDLE */
 	for (uint8_t i = 0; i < BITS_IN_USART_FRAME; i++)
 	{
 		/* Wait for a full cycle of the clock */

@@ -115,7 +115,7 @@
 		void    XPROGTarget_DisableTargetTPI(void);
 		void    XPROGTarget_SendByte(const uint8_t Byte);
 		uint8_t XPROGTarget_ReceiveByte(void);
-		void    XPROGTarget_SendBreak(void);
+		void    XPROGTarget_SendIdle(void);
 		bool    XPROGTarget_WaitWhileNVMBusBusy(void);
 
 		#if (defined(INCLUDE_FROM_XPROGTARGET_C) && defined(ENABLE_XPROG_PROTOCOL))
