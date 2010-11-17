@@ -63,143 +63,159 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			#if !defined(DISABLE_TERMINAL_CODES)
-				/** Creates an ANSI escape sequence with the payload specified by "c".
+				/** Creates an ANSI escape sequence with the specified payload.
 				 *
-				 *  \param[in] c  Payload to encode as an ANSI escape sequence, a ESC_* mask.
+				 *  \param[in] EscapeSeq  Payload to encode as an ANSI escape sequence, a ESC_* mask.
 				 */
-				#define ANSI_ESCAPE_SEQUENCE(c)  "\33[" c
+				#define ANSI_ESCAPE_SEQUENCE(EscapeSeq)  "\33[" EscapeSeq
 			#else
-				#define ANSI_ESCAPE_SEQUENCE(c)
+				#define ANSI_ESCAPE_SEQUENCE(EscapeSeq)
 			#endif
 
 			/** \name Text Display Modifier Escape Sequences */
 			//@{
 			/** Turns on bold so that any following text is printed to the terminal in bold. */
-			#define ESC_BOLD_ON              ANSI_ESCAPE_SEQUENCE("1m")
+			#define ESC_BOLD_ON                     ANSI_ESCAPE_SEQUENCE("1m")
 
 			/** Turns on italics so that any following text is printed to the terminal in italics. */
-			#define ESC_ITALICS_ON           ANSI_ESCAPE_SEQUENCE("3m")
+			#define ESC_ITALICS_ON                  ANSI_ESCAPE_SEQUENCE("3m")
 
 			/** Turns on underline so that any following text is printed to the terminal underlined. */
-			#define ESC_UNDERLINE_ON         ANSI_ESCAPE_SEQUENCE("4m")
+			#define ESC_UNDERLINE_ON                ANSI_ESCAPE_SEQUENCE("4m")
 
 			/** Turns on inverse so that any following text is printed to the terminal in inverted colours. */
-			#define ESC_INVERSE_ON           ANSI_ESCAPE_SEQUENCE("7m")
+			#define ESC_INVERSE_ON                  ANSI_ESCAPE_SEQUENCE("7m")
 
 			/** Turns on strikethrough so that any following text is printed to the terminal with a line through the
 			 *  center.
 			 */
-			#define ESC_STRIKETHROUGH_ON     ANSI_ESCAPE_SEQUENCE("9m")
+			#define ESC_STRIKETHROUGH_ON            ANSI_ESCAPE_SEQUENCE("9m")
 
 			/** Turns off bold so that any following text is printed to the terminal in non bold. */
-			#define ESC_BOLD_OFF             ANSI_ESCAPE_SEQUENCE("22m")
+			#define ESC_BOLD_OFF                    ANSI_ESCAPE_SEQUENCE("22m")
 
 			/** Turns off italics so that any following text is printed to the terminal in non italics. */
-			#define ESC_ITALICS_OFF          ANSI_ESCAPE_SEQUENCE("23m")
+			#define ESC_ITALICS_OFF                 ANSI_ESCAPE_SEQUENCE("23m")
 
 			/** Turns off underline so that any following text is printed to the terminal non underlined. */
-			#define ESC_UNDERLINE_OFF        ANSI_ESCAPE_SEQUENCE("24m")
+			#define ESC_UNDERLINE_OFF               ANSI_ESCAPE_SEQUENCE("24m")
 
 			/** Turns off inverse so that any following text is printed to the terminal in non inverted colours. */
-			#define ESC_INVERSE_OFF          ANSI_ESCAPE_SEQUENCE("27m")
+			#define ESC_INVERSE_OFF                 ANSI_ESCAPE_SEQUENCE("27m")
 
 			/** Turns off strikethrough so that any following text is printed to the terminal without a line through
 			 *  the center.
 			 */
-			#define ESC_STRIKETHROUGH_OFF    ANSI_ESCAPE_SEQUENCE("29m")
+			#define ESC_STRIKETHROUGH_OFF           ANSI_ESCAPE_SEQUENCE("29m")
 			//@}
 			
 			/** \name Text Colour Control Sequences */
 			//@{
 			/** Sets the foreground (text) colour to black. */
-			#define ESC_FG_BLACK             ANSI_ESCAPE_SEQUENCE("30m")
+			#define ESC_FG_BLACK                    ANSI_ESCAPE_SEQUENCE("30m")
 
 			/** Sets the foreground (text) colour to red. */
-			#define ESC_FG_RED               ANSI_ESCAPE_SEQUENCE("31m")
+			#define ESC_FG_RED                      ANSI_ESCAPE_SEQUENCE("31m")
 
 			/** Sets the foreground (text) colour to green. */
-			#define ESC_FG_GREEN             ANSI_ESCAPE_SEQUENCE("32m")
+			#define ESC_FG_GREEN                    ANSI_ESCAPE_SEQUENCE("32m")
 
 			/** Sets the foreground (text) colour to yellow. */
-			#define ESC_FG_YELLOW            ANSI_ESCAPE_SEQUENCE("33m")
+			#define ESC_FG_YELLOW                   ANSI_ESCAPE_SEQUENCE("33m")
 
 			/** Sets the foreground (text) colour to blue. */
-			#define ESC_FG_BLUE              ANSI_ESCAPE_SEQUENCE("34m")
+			#define ESC_FG_BLUE                     ANSI_ESCAPE_SEQUENCE("34m")
 
 			/** Sets the foreground (text) colour to magenta. */
-			#define ESC_FG_MAGENTA           ANSI_ESCAPE_SEQUENCE("35m")
+			#define ESC_FG_MAGENTA                  ANSI_ESCAPE_SEQUENCE("35m")
 
 			/** Sets the foreground (text) colour to cyan. */
-			#define ESC_FG_CYAN              ANSI_ESCAPE_SEQUENCE("36m")
+			#define ESC_FG_CYAN                     ANSI_ESCAPE_SEQUENCE("36m")
 
 			/** Sets the foreground (text) colour to white. */
-			#define ESC_FG_WHITE             ANSI_ESCAPE_SEQUENCE("37m")
+			#define ESC_FG_WHITE                    ANSI_ESCAPE_SEQUENCE("37m")
 
 			/** Sets the foreground (text) colour to the terminal's default. */
-			#define ESC_FG_DEFAULT           ANSI_ESCAPE_SEQUENCE("39m")
+			#define ESC_FG_DEFAULT                  ANSI_ESCAPE_SEQUENCE("39m")
 
 			/** Sets the text background colour to black. */
-			#define ESC_BG_BLACK             ANSI_ESCAPE_SEQUENCE("40m")
+			#define ESC_BG_BLACK                    ANSI_ESCAPE_SEQUENCE("40m")
 
 			/** Sets the text background colour to red. */
-			#define ESC_BG_RED               ANSI_ESCAPE_SEQUENCE("41m")
+			#define ESC_BG_RED                      ANSI_ESCAPE_SEQUENCE("41m")
 
 			/** Sets the text background colour to green. */
-			#define ESC_BG_GREEN             ANSI_ESCAPE_SEQUENCE("42m")
+			#define ESC_BG_GREEN                    ANSI_ESCAPE_SEQUENCE("42m")
 
 			/** Sets the text background colour to yellow. */
-			#define ESC_BG_YELLOW            ANSI_ESCAPE_SEQUENCE("43m")
+			#define ESC_BG_YELLOW                   ANSI_ESCAPE_SEQUENCE("43m")
 
 			/** Sets the text background colour to blue. */
-			#define ESC_BG_BLUE              ANSI_ESCAPE_SEQUENCE("44m")
+			#define ESC_BG_BLUE                     ANSI_ESCAPE_SEQUENCE("44m")
 
 			/** Sets the text background colour to magenta. */
-			#define ESC_BG_MAGENTA           ANSI_ESCAPE_SEQUENCE("45m")
+			#define ESC_BG_MAGENTA                  ANSI_ESCAPE_SEQUENCE("45m")
 
 			/** Sets the text background colour to cyan. */
-			#define ESC_BG_CYAN              ANSI_ESCAPE_SEQUENCE("46m")
+			#define ESC_BG_CYAN                     ANSI_ESCAPE_SEQUENCE("46m")
 
 			/** Sets the text background colour to white. */
-			#define ESC_BG_WHITE             ANSI_ESCAPE_SEQUENCE("47m")
+			#define ESC_BG_WHITE                    ANSI_ESCAPE_SEQUENCE("47m")
 
 			/** Sets the text background colour to the terminal's default. */
-			#define ESC_BG_DEFAULT           ANSI_ESCAPE_SEQUENCE("49m")
+			#define ESC_BG_DEFAULT                  ANSI_ESCAPE_SEQUENCE("49m")
 			//@}
 
 			/** \name Cursor Positioning Control Sequences */
 			//@{
-			/** Sets the cursor position to the given line and column. */
-			#define ESC_CURSOR_POS(L, C)     ANSI_ESCAPE_SEQUENCE(#L ";" #C "H")
-
-			/** Moves the cursor up the given number of lines. */
-			#define ESC_CURSOR_UP(L)         ANSI_ESCAPE_SEQUENCE(#L "A")
-
-			/** Moves the cursor down the given number of lines. */
-			#define ESC_CURSOR_DOWN(L)       ANSI_ESCAPE_SEQUENCE(#L "B")
-
-			/** Moves the cursor to the right the given number of columns. */
-			#define ESC_CURSOR_FORWARD(C)    ANSI_ESCAPE_SEQUENCE(#C "C")
-
-			/** Moves the cursor to the left the given number of columns. */
-			#define ESC_CURSOR_BACKWARD(C)   ANSI_ESCAPE_SEQUENCE(#C "D")
-
 			/** Saves the current cursor position so that it may be restored with \ref ESC_CURSOR_POS_RESTORE. */
-			#define ESC_CURSOR_POS_SAVE      ANSI_ESCAPE_SEQUENCE("s")
+			#define ESC_CURSOR_POS_SAVE             ANSI_ESCAPE_SEQUENCE("s")
 
 			/** Restores the cursor position to the last position saved with \ref ESC_CURSOR_POS_SAVE. */
-			#define ESC_CURSOR_POS_RESTORE   ANSI_ESCAPE_SEQUENCE("u")
+			#define ESC_CURSOR_POS_RESTORE          ANSI_ESCAPE_SEQUENCE("u")
+
+			/** Sets the cursor position to the given line and column.
+			 *
+			 *  \param[in] Line    Line number to position the cursor at
+			 *  \param[in] Column  Column number to position the cursor at
+			 */
+			#define ESC_CURSOR_POS(Line, Column)    ANSI_ESCAPE_SEQUENCE(#Line ";" #Column "H")
+
+			/** Moves the cursor up the given number of lines.
+			 *
+			 *  \param[in] Lines  Number of lines to move the cursor position
+			 */
+			#define ESC_CURSOR_UP(Lines)            ANSI_ESCAPE_SEQUENCE(#Lines "A")
+
+			/** Moves the cursor down the given number of lines.
+			 *
+			 *  \param[in] Lines  Number of lines to move the cursor position
+			 */
+			#define ESC_CURSOR_DOWN(Lines)          ANSI_ESCAPE_SEQUENCE(#Lines "B")
+
+			/** Moves the cursor to the right the given number of columns.
+			 *
+			 *  \param[in] Columns  Number of columns to move the cursor position
+			 */
+			#define ESC_CURSOR_FORWARD(Columns)     ANSI_ESCAPE_SEQUENCE(#Columns "C")
+
+			/** Moves the cursor to the left the given number of columns.
+			 *
+			 *  \param[in] Columns  Number of columns to move the cursor position
+			 */
+			#define ESC_CURSOR_BACKWARD(Columns)    ANSI_ESCAPE_SEQUENCE(#Columns "D")
 			//@}
 
 			/** \name Miscellaneous Control Sequences */
 			//@{
 			/** Resets any escape sequence modifiers back to their defaults. */
-			#define ESC_RESET                ANSI_ESCAPE_SEQUENCE("0m")
+			#define ESC_RESET                       ANSI_ESCAPE_SEQUENCE("0m")
 
 			/** Erases the entire display, returning the cursor to the top left. */
-			#define ESC_ERASE_DISPLAY        ANSI_ESCAPE_SEQUENCE("2J")
+			#define ESC_ERASE_DISPLAY               ANSI_ESCAPE_SEQUENCE("2J")
 
 			/** Erases the current line, returning the cursor to the far left. */
-			#define ESC_ERASE_LINE           ANSI_ESCAPE_SEQUENCE("K")
+			#define ESC_ERASE_LINE                  ANSI_ESCAPE_SEQUENCE("K")
 			//@}
 
 #endif
