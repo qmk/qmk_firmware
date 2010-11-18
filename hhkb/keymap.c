@@ -71,7 +71,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
-     * |Pow| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
+     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
      * |-----------------------------------------------------------|
      * |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |Backs|
      * |-----------------------------------------------------------|
@@ -82,7 +82,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *      |Gui |Alt  |Space                  |Alt  |xxx|
      *      `--------------------------------------------'
      */ 
-    KEYMAP(KB_PWR, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_INS, KB_DEL, \
+    KEYMAP(KB_ESC, KB_F1,  KB_F2,  KB_F3,  KB_F4,  KB_F5,  KB_F6,  KB_F7,  KB_F8,  KB_F9,  KB_F10, KB_F11, KB_F12, KB_INS, KB_DEL, \
            KB_CAPS,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_PSCR,KB_SLCK,KB_BRK, KB_UP,  KB_NO,  KB_BSPC, \
            KB_LCTL,KB_VOLD,KB_VOLU,KB_MUTE,KB_NO,  KB_NO,  KP_ASTR,KP_SLSH,KB_HOME,KB_PGUP,KB_LEFT,KB_RGHT,KB_ENT, \
            KB_LSFT,KB_NO,  KB_NO,  KB_NO,  KB_NO,  KB_NO,  KP_PLUS,KP_MINS,KB_END, KB_PGDN,KB_DOWN,KB_RSFT,FN_1, \

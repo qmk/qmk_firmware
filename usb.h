@@ -2,11 +2,13 @@
 #define  USB_H 1
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <avr/io.h>
 
 
 void usb_init(void);			// initialize everything
 uint8_t usb_configured(void);		// is the USB port configured
+void usb_remote_wakeup(void);
 
 
 
@@ -78,5 +80,13 @@ uint8_t usb_configured(void);		// is the USB port configured
 #define CDC_SET_LINE_CODING		0x20
 #define CDC_GET_LINE_CODING		0x21
 #define CDC_SET_CONTROL_LINE_STATE	0x22
+// HID feature selectors
+#define DEVICE_REMOTE_WAKEUP		1
+#define ENDPOINT_HALT			0
+#define TEST_MODE			2
+
+
+extern bool remote_wakeup;
+extern bool suspend;
 
 #endif

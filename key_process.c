@@ -10,6 +10,7 @@
 #include "usb_mouse.h"
 #include "usb_extra.h"
 #include "usb_keycodes.h"
+#include "usb.h"
 #include "layer.h"
 #include "matrix_skel.h"
 #include "keymap_skel.h"
@@ -31,7 +32,6 @@ void proc_matrix(void) {
     static int mouse_repeat = 0;
 
     bool modified = false;
-    //bool has_ghost = false;
     int key_index = 0;
     uint8_t mouse_btn = 0;
     int8_t mouse_x = 0;
@@ -42,7 +42,7 @@ void proc_matrix(void) {
 
     matrix_scan();
     modified = matrix_is_modified();
-
+    
     if (modified) {
         if (debug_matrix) matrix_print();
 #ifdef DEBUG_LED
@@ -63,46 +63,54 @@ void proc_matrix(void) {
         for (int col = 0; col < matrix_cols(); col++) {
             if (!matrix_is_on(row, col)) continue;
 
+            // TODO: clean code
             uint8_t code = layer_get_keycode(row, col);
             if (code == KB_NO) {
                 // do nothing
             } else if (IS_MOD(code)) {
                 usb_keyboard_mods |= MOD_BIT(code);
+            } else if (IS_FN(code)) {
+                fn_bits |= FN_BIT(code);
             } else if (IS_MOUSE(code)) {
-                // mouse
-                if (code == MS_UP)
-                    mouse_y -= MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
-                if (code == MS_DOWN)
-                    mouse_y += MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
-                if (code == MS_LEFT)
-                    mouse_x -= MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
-                if (code == MS_RIGHT)
-                    mouse_x += MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
+                if (code == MS_UP)   mouse_y -= MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
+                if (code == MS_DOWN) mouse_y += MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
+                if (code == MS_LEFT) mouse_x -= MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
+                if (code == MS_RGHT) mouse_x += MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
                 if (code == MS_BTN1) mouse_btn |= BIT_BTN1;
                 if (code == MS_BTN2) mouse_btn |= BIT_BTN2;
                 if (code == MS_BTN3) mouse_btn |= BIT_BTN3;
                 if (code == MS_BTN4) mouse_btn |= BIT_BTN4;
                 if (code == MS_BTN5) mouse_btn |= BIT_BTN5;
-                if (code == MS_WH_UP)    mouse_vwheel  += 1;
-                if (code == MS_WH_DOWN)  mouse_vwheel  -= 1;
-                if (code == MS_WH_LEFT)  mouse_hwheel -= 1;
-                if (code == MS_WH_RIGHT) mouse_hwheel += 1;
-            } else if (IS_FN(code)) {
-                fn_bits |= FN_BIT(code);
-            } else if (code == KB_MUTE) {
-                usb_extra_send(AUDIO_MUTE);
-                usb_extra_send(0);
+                if (code == MS_WH_U) mouse_vwheel += 1;
+                if (code == MS_WH_D) mouse_vwheel -= 1;
+                if (code == MS_WH_L) mouse_hwheel -= 1;
+                if (code == MS_WH_R) mouse_hwheel += 1;
+            }
+
+            // audio control & system control
+            else if (code == KB_MUTE) {
+                usb_extra_audio_send(AUDIO_MUTE);
+                usb_extra_audio_send(0);
                 _delay_ms(500);
             } else if (code == KB_VOLU) {
-                usb_extra_send(AUDIO_VOL_UP);
-                usb_extra_send(0);
+                usb_extra_audio_send(AUDIO_VOL_UP);
+                usb_extra_audio_send(0);
                 _delay_ms(100);
             } else if (code == KB_VOLD) {
-                usb_extra_send(AUDIO_VOL_DOWN);
-                usb_extra_send(0);
+                usb_extra_audio_send(AUDIO_VOL_DOWN);
+                usb_extra_audio_send(0);
                 _delay_ms(100);
-            } else {
-                // normal keys
+            } else if (code == KB_PWR) {
+                if (suspend && remote_wakeup) {
+                    usb_remote_wakeup();
+                } else {
+                    usb_extra_system_send(SYSTEM_POWER_DOWN);
+                }
+                _delay_ms(1000);
+            }
+
+            // normal keys
+            else {
                 if (key_index < 6)
                     usb_keyboard_keys[key_index] = code;
                 key_index++;
@@ -120,6 +128,7 @@ void proc_matrix(void) {
 
     layer_switching(fn_bits);
 
+    // TODO: clean code
     // when 4 left modifier keys down
     if (keymap_is_special_mode(fn_bits)) {
         switch (usb_keyboard_keys[0]) {
@@ -127,12 +136,14 @@ void proc_matrix(void) {
                 print_enable = true;
                 print("b: jump to bootloader\n");
                 print("d: debug print toggle\n");
+                print("x: matrix debug toggle\n");
                 print("k: keyboard debug toggle\n");
                 print("m: mouse debug toggle\n");
-                print("x: matrix debug toggle\n");
+                print("p: print enable toggle\n");
                 print("v: print version\n");
                 print("t: print timer count\n");
-                print("p: print enable toggle\n");
+                print("r: print registers\n");
+                print("ESC: power down/wake up\n");
                 _delay_ms(500);
                 print_enable = false;
                 break;
@@ -216,6 +227,23 @@ void proc_matrix(void) {
                 } else {
                     print_enable = true;
                     print("print enabled.\n");
+                }
+                _delay_ms(1000);
+                break;
+            case KB_R:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                print("UDIEN: "); phex(UDIEN); print("\n");
+                print("UDINT: "); phex(UDINT); print("\n");
+                _delay_ms(1000);
+                break;
+            case KB_ESC:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                if (suspend && remote_wakeup) {
+                    usb_remote_wakeup();
+                } else {
+                    usb_extra_system_send(SYSTEM_POWER_DOWN);
                 }
                 _delay_ms(1000);
                 break;

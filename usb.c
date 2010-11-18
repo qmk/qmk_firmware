@@ -21,6 +21,8 @@
  * THE SOFTWARE.
  */
 
+#include <stdint.h>
+#include <stdbool.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
@@ -81,6 +83,9 @@
  **************************************************************************/
 
 #define ENDPOINT0_SIZE		32
+
+bool remote_wakeup = false;
+bool suspend = false;
 
 // 0:control endpoint is enabled automatically by controller.
 static const uint8_t PROGMEM endpoint_config_table[] = {
@@ -250,7 +255,7 @@ static uint8_t PROGMEM debug_hid_report_desc[] = {
 	0xC0					// end collection
 };
 
-// audio controls(consumer page)
+// audio controls & system controls
 // http://www.microsoft.com/whdc/archive/w2kbd.mspx
 static uint8_t PROGMEM extra_hid_report_desc[] = {
     0x05, 0x0c,                    // USAGE_PAGE (Consumer Devices)
@@ -272,6 +277,18 @@ static uint8_t PROGMEM extra_hid_report_desc[] = {
     0x81, 0x06,                    //   INPUT (Data,Var,Rel)
     0x95, 0x05,                    //   REPORT_COUNT (5)
     0x81, 0x07,                    //   INPUT (Cnst,Var,Abs)
+    0xc0,                          // END_COLLECTION
+
+    0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
+    0x09, 0x80,                    // USAGE (System Control)
+    0xa1, 0x01,                    // COLLECTION (Application)
+    0x85, 0x02,                    //   REPORT_ID (2)
+    0x19, 0x81,                    //   USAGE_MINIMUM (System Power Down)
+    0x29, 0x83,                    //   USAGE_MAXIMUM (System Wake Up)
+    0x95, 0x03,                    //   REPORT_COUNT (3)
+    0x81, 0x06,                    //   INPUT (Data,Var,Rel)
+    0x95, 0x05,                    //   REPORT_COUNT (5)
+    0x81, 0x07,                    //   INPUT (Cnst,Var,Rel)
     0xc0                           // END_COLLECTION
 };
 
@@ -289,7 +306,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	4,					// bNumInterfaces
 	1,					// bConfigurationValue
 	0,					// iConfiguration
-	0xC0,					// bmAttributes
+	0xA0,					// bmAttributes
 	50,					// bMaxPower
 
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
@@ -484,7 +501,7 @@ void usb_init(void)
         USB_CONFIG();				// start USB clock
         UDCON = 0;				// enable attach resistor
 	usb_configuration = 0;
-        UDIEN = (1<<EORSTE)|(1<<SOFE);
+        UDIEN = (1<<EORSTE)|(1<<SOFE)|(1<<SUSPE);
 	sei();
 }
 
@@ -492,7 +509,12 @@ void usb_init(void)
 // number selected by the HOST
 uint8_t usb_configured(void)
 {
-	return usb_configuration;
+	return usb_configuration && !suspend;
+}
+
+void usb_remote_wakeup(void)
+{
+    UDCON |= (1<<RMWKUP);
 }
 
 
@@ -515,6 +537,11 @@ ISR(USB_GEN_vect)
 
         intbits = UDINT;
         UDINT = 0;
+        if (intbits & (1<<SUSPI)) {
+            suspend = true;
+        } else {
+            suspend = false;
+        }
         if (intbits & (1<<EORSTI)) {
 		UENUM = 0;
 		UECONX = 1;
@@ -693,9 +720,9 @@ ISR(USB_COM_vect)
 			usb_send_in();
 			return;
 		}
-		#ifdef SUPPORT_ENDPOINT_HALT
-		if ((bRequest == CLEAR_FEATURE || bRequest == SET_FEATURE)
-		  && bmRequestType == 0x02 && wValue == 0) {
+		if (bRequest == CLEAR_FEATURE || bRequest == SET_FEATURE) {
+#ifdef SUPPORT_ENDPOINT_HALT
+		    if (bmRequestType == 0x02 && wValue == ENDPOINT_HALT) {
 			i = wIndex & 0x7F;
 			if (i >= 1 && i <= MAX_ENDPOINT) {
 				usb_send_in();
@@ -709,8 +736,18 @@ ISR(USB_COM_vect)
 				}
 				return;
 			}
+                    }
+#endif
+                    if (bmRequestType == 0x00 && wValue == DEVICE_REMOTE_WAKEUP) {
+                        if (bRequest == SET_FEATURE) {
+                            remote_wakeup = true;   
+                        } else {
+                            remote_wakeup = false;
+                        }
+                        usb_send_in();
+                        return;
+                    }
 		}
-		#endif
 		if (wIndex == KEYBOARD_INTERFACE) {
 			if (bmRequestType == 0xA1) {
 				if (bRequest == HID_GET_REPORT) {
