@@ -36,6 +36,7 @@
 #include "util.h"
 #include "controller.h"
 #include "timer.h"
+#include "jump_bootloader.h"
 
 
 #define CPU_PRESCALE(n)    (CLKPR = 0x80, CLKPR = (n))
@@ -65,14 +66,8 @@ int main(void)
 
     matrix_init();
     matrix_scan();
-    // debug on by pressing down any 4 or more keys during boot time.
+    // bootloader comes up when any 4 or more keys are pressed at startup
     if (matrix_key_count() >= 4) {
-        print_enable = true;
-        debug_enable = true;
-    }
-
-    /* wait for debug pipe ready */
-    if (print_enable) {
 #ifdef DEBUG_LED
         for (int i = 0; i < 6; i++) {
             DEBUG_LED_CONFIG;
@@ -82,11 +77,13 @@ int main(void)
             _delay_ms(500);
         }
 #else
-            _delay_ms(6000);
+        _delay_ms(5000);
 #endif
+        print_enable = true;
+        print("jump to bootloader...\n");
+        _delay_ms(1000);
+        jump_bootloader(); // not return
     }
-    // print description
-    print(STR(DESCRIPTION) "\n");
 
     while (1) {
        proc_matrix(); 

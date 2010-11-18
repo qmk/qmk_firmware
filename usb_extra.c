@@ -1,7 +1,8 @@
 #include <avr/interrupt.h>
 #include "usb_extra.h"
 
-int8_t usb_extra_send(uint8_t bits)
+
+int8_t usb_extra_send(uint8_t report_id, uint8_t bits)
 {
 	uint8_t intr_state, timeout;
 
@@ -24,10 +25,20 @@ int8_t usb_extra_send(uint8_t bits)
 		UENUM = EXTRA_ENDPOINT;
 	}
 
-	UEDATX = 1; // report id
+	UEDATX = report_id;
 	UEDATX = bits;
 
 	UEINTX = 0x3A;
 	SREG = intr_state;
 	return 0;
+}
+
+int8_t usb_extra_audio_send(uint8_t bits)
+{
+	return usb_extra_send(1, bits);
+}
+
+int8_t usb_extra_system_send(uint8_t bits)
+{
+	return usb_extra_send(2, bits);
 }
