@@ -198,12 +198,6 @@ static void USB_Device_GetConfiguration(void)
 }
 
 #if !defined(NO_INTERNAL_SERIAL) && (USE_INTERNAL_SERIAL != NO_DESCRIPTOR)
-static char USB_Device_NibbleToASCII(uint8_t Nibble)
-{
-	Nibble &= 0x0F;
-	return (Nibble >= 10) ? (('A' - 10) + Nibble) : ('0' + Nibble);
-}
-
 static void USB_Device_GetInternalSerialDescriptor(void)
 {
 	struct
@@ -229,7 +223,10 @@ static void USB_Device_GetInternalSerialDescriptor(void)
 				SigReadAddress++;
 			}
 
-			SignatureDescriptor.UnicodeString[SerialCharNum] = USB_Device_NibbleToASCII(SerialByte);
+			SerialByte &= 0x0F;
+
+			SignatureDescriptor.UnicodeString[SerialCharNum] = (SerialByte >= 10) ?
+			                                                   (('A' - 10) + SerialByte) : ('0' + SerialByte);
 		}
 	}
 
