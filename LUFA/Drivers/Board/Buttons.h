@@ -105,6 +105,8 @@
 		#include "CULV3/Buttons.h"
 	#elif (BOARD == BOARD_MINIMUS)
 		#include "MINIMUS/Buttons.h"
+	#elif (BOARD == BOARD_MICROSIN162)
+		#include "MICROSIN162/Buttons.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/Buttons.h"
 	#else

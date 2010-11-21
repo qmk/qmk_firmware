@@ -19,16 +19,17 @@
   *      Print Host Class driver
   *    - Added class specific descriptor alternative struct type defines with standard USB-IF element naming
   *    - Added new project makefile template to the library and moved board driver stub files into in a new "CodeTemplates" directory
-  *    - Added board hardware driver support for the Olimex AVR-USB-162 development board (thanks to Steve Fawcett)
+  *    - Added board hardware driver support for the Adafruit U4 breakout board
+  *    - Added board hardware driver support for the Arduino Uno development board
+  *    - Added board hardware driver support for the Blackcat USB JTAG board (thanks to the PSGroove team)
+  *    - Added board hardware driver support for the Busware BUI development board
+  *    - Added board hardware driver support for the Busware CUL V3 868MHZ radio board (thanks to Dirk Tostmann)
   *    - Added board hardware driver support for the Kernel Concepts USBFOO development board
   *    - Added board hardware driver support for the Linnix UDIP development board
-  *    - Added board hardware driver support for the Busware BUI development board
-  *    - Added board hardware driver support for the Arduino Uno development board
-  *    - Added board hardware driver support for the Busware CUL V3 868MHZ radio board (thanks to Dirk Tostmann)
-  *    - Added board hardware driver support for the Blackcat USB JTAG board (thanks to the PSGroove team)
+  *    - Added board hardware driver support for the Olimex AVR-USB-162 development board (thanks to Steve Fawcett)
   *    - Added board hardware driver support for the Maximus board (thanks to the PSGroove team)
+  *    - Added board hardware driver support for the Microsin AVR-USB162 breakout board
   *    - Added board hardware driver support for the Minimus board (thanks to the PSGroove team)
-  *    - Added board hardware driver support for the Adafruit U4 breakout board
   *    - Added new NO_CLASS_DRIVER_AUTOFLUSH compile time option to disable automatic flushing of interfaces when the USB management
   *      tasks for each driver is called
   *    - Added standard keyboard HID report scancode defines (thanks to Laszlo Monda)

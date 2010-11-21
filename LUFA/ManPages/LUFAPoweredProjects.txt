@@ -18,11 +18,11 @@
  *  The following is a list of known AVR USB development boards, which recommend using LUFA for the USB stack. Some of these
  *  are open design, and all are available for purchase as completed development boards suitable for project development.
  *
- *  - AT90USB162 Breadboard PCB (Russian): http://microsin.ru/content/view/685/44/
  *  - AVR-USB-162, a USBKEY-like development board for the AT90USB162: http://olimex.com/dev/avr-usb-162.html
  *  - Benito #7, a no-frills USB board: http://www.dorkbotpdx.org/wiki/benito
  *  - JM-DB-U2, an ATMEGA32U2 development board: http://u2.mattair.net/index.html
  *  - Micropendous, an open design/source set of AVR USB development boards: http://micropendous.org/
+ *  - Microsin AVR-USB162 breakout board, a DIY AT90USB162 development board: http://microsin.ru/content/view/685/44/
  *  - Minimus USB, a board specially designed for PSGroove: http://www.minimususb.com/
  *  - Nanduino, a do-it-yourself AT90USB162 board: http://www.makestuff.eu/wordpress/?page_id=569
  *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
