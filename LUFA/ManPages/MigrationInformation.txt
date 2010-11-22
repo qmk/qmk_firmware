@@ -10,7 +10,10 @@
  *  to the next version released. It does not indicate all new additions to the library in each version change, only
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
- * \section Sec_MigrationXXXXXX Migrating from 100807 to XXXXXX
+ *  \section Sec_MigrationXXXXXX Migrating from 101122 to XXXXXX
+ *  None yet.
+ *
+ *  \section Sec_Migration101122 Migrating from 100807 to 101122
  *  <b>USB Core</b>
  *    - A new USB driver source file, Drivers/USB/HighLevel/EndpointStream.c now exists. This source file should be added
  *      to all project makefiles using the USB driver of LUFA, or the makefile should be updated to use the new module source
@@ -52,7 +55,7 @@
  *    - The Still Image Host class' function prefix has been changed from "SImage_" to "SI_", to remain consistent with the rest of the
  *      driver's enums, type defines and constants.
  *
- * \section Sec_Migration100807 Migrating from 100513 to 100807
+ *  \section Sec_Migration100807 Migrating from 100513 to 100807
  *
  *  <b>Non-USB Library Components</b>
  *    - The Dataflash board driver stub file has changed, as dataflash functions previously located in the internal
@@ -85,7 +88,7 @@
  *    - The \ref CDC_Host_USBTask() now calls \ref CDC_Host_Flush() automatically, flushing any queued data to the attached device. Manual
  *      flushing of the interface is no longer needed if the flushes should be in sync with calls to \ref CDC_Host_USBTask().
  *
- * \section Sec_Migration100513 Migrating from 100219 to 100513
+ *  \section Sec_Migration100513 Migrating from 100219 to 100513
  *
  *  <b>Non-USB Library Components</b>
  *    - The \ref TWI_StartTransmission() function now takes in a timeout period, expressed in milliseconds, within which the addressed
@@ -112,7 +115,7 @@
  *    - The HID Host Class driver's function signature for the HID_Host_SendReportByID() function has been changed, to allow for a new
  *      ReportType parameter. Existing calls to this function should substitute REPORT_ITEM_TYPE_Out as this parameter's value.
  *
- * \section Sec_Migration100219 Migrating from 091223 to 100219
+ *  \section Sec_Migration100219 Migrating from 091223 to 100219
  *
  *  <b>Non-USB Library Components</b>
  *    - Due to some ADC channels not being identical to their ADC MUX selection masks for single-ended conversions on some AVR models,
@@ -135,7 +138,7 @@
  *      endpoint bank is full. To override this new behaviour and revert to the previous behaviour, the user application may manually
  *      flush the queued event(s) to the host by calling \ref MIDI_Device_Flush().
  *
- * \section Sec_Migration091223 Migrating from 091122 to 091223
+ *  \section Sec_Migration091223 Migrating from 091122 to 091223
  *
  *  <b>Host Mode</b>
  *    - The Still Image Host Class driver SI_Host_USBTask() and SI_Host_ConfigurePipes() functions were misnamed, and are
@@ -150,7 +153,7 @@
  *    - The CALLBACK_HID_Device_CreateHIDReport() HID Device Class driver callback now has a new ReportType parameter to
  *      indicate the report type to generate. Existing applications may simply add and ignore this additional parameter.
  *
- * \section Sec_Migration091122 Migrating from 090924 to 091122
+ *  \section Sec_Migration091122 Migrating from 090924 to 091122
  *
  *  <b>Host Mode</b>
  *    - The HID_PARSE_UsageStackOverflow HID parser error constant is now named \ref HID_PARSE_UsageListOverflow
@@ -158,7 +161,7 @@
  *      user application, instead of just its attributes.
  *    - The USB_GetDeviceConfigDescriptor() function was incorrectly named and is now called \ref USB_Host_GetDeviceConfigDescriptor().
  *
- * \section Sec_Migration090924 Migrating from 090810 to 090924
+ *  \section Sec_Migration090924 Migrating from 090810 to 090924
  *
  *  <b>Non-USB Library Components</b>
  *    - The ADC_Off() function has been renamed to \ref ADC_ShutDown() to be consistent with the rest of the library.
@@ -185,7 +188,7 @@
  *      and USB_StdDescriptor_* structures for both the LUFA and standardized element naming conventions so that both may be used in
  *      the one project. For existing projects using the standardized names, change all code to use the USB_StdDescriptor_* variants.
  *
- * \section Sec_Migration090810 Migrating from 090605 to 090810
+ *  \section Sec_Migration090810 Migrating from 090605 to 090810
  *
  *  <b>All</b>
  *    - The "Simple Scheduler" has been <i>deprecated</i>, as it was little more than an abstracted loop and caused much confusion.
@@ -228,7 +231,7 @@
  *    - The USB event names have been changed and their firing conditions changed to properly separate out Host mode events from Device mode
  *      events. See the \ref Group_Events page for details on the new event names and firing conditions. *
  *
- * \section Sec_Migration090605 Migrating from 090510 to 090605
+ *  \section Sec_Migration090605 Migrating from 090510 to 090605
  *
  *  <b>Device Mode</b>
  *    - Support for non-control data endpoint interrupts has been dropped due to many issues in the implementation. All existing
@@ -256,8 +259,7 @@
  *    - The DESCRIPTOR_COMPARATOR() macro has been removed. User applications should replace all instances of the macro with
  *      regular function signatures of a function accepting a void pointer to the descriptor to test, and returning a uint8_t value.
  *
- *
- * \section Sec_Migration090510 Migrating from 090401 to 090510
+ *  \section Sec_Migration090510 Migrating from 090401 to 090510
  *
  *  <b>All</b>
  *    - The ButtLoadTag.h header has been removed, as it was never used for its intended purpose. Projects should either remove all
@@ -325,8 +327,7 @@
  *      structure type has been renamed to USB_Request_Header_t.
  *    - The values of the Pipe_Stream_RW_ErrorCodes_t enum have had the "ERROR_" portion of their names removed.
  *
- *
- * \section Sec_Migration090401 Migrating from 090209 to 090401
+ *  \section Sec_Migration090401 Migrating from 090209 to 090401
  *
  *  <b>All</b>
  *    - LUFA projects must now give the raw input clock frequency (before any prescaling) as a compile time constant "F_CLOCK",
@@ -352,8 +353,7 @@
  *      NO_CLEARSET_FEATURE_REQUEST compile time token, it can be replaced with the FEATURELESS_CONTROL_ONLY_DEVICE token with no further
  *      modifications required.
  *
- *
- * \section Sec_Migration090209 Migrating from 081217 to 090209
+ *  \section Sec_Migration090209 Migrating from 081217 to 090209
  *
  *  <b>Device Mode</b>
  *    - The ENDPOINT_MAX_ENDPOINTS constant has been renamed to the more appropriate name of ENDPOINT_TOTAL_ENDPOINTS.
@@ -381,8 +381,7 @@
  *    - Most library demos have been enhanced and/or had errors corrected. All users of all demos should upgrade their codebase to
  *      the latest demo versions.
  *
- *
- * \section Sec_Migration171208 Migrating from V1.5.3 to 081217
+ *  \section Sec_Migration171208 Migrating from V1.5.3 to 081217
  *
  *  <b>All</b>
  *    - The MyUSB project name has been changed to LUFA (Lightweight Framework for USB AVRs). All references to MyUSB, including macro names,
@@ -426,8 +425,7 @@
  *    - Calling USB_Init() now forces a complete USB interface reset and enumeration, even if the USB interface is
  *      currently initialized.
  *
- *
- * \section Sec_Migration152 Migrating from V1.5.2 to V1.5.3
+ *  \section Sec_Migration152 Migrating from V1.5.2 to V1.5.3
  *
  *  <b>Library Demos</b>
  *    - Previously, all demos contained a serial number string descriptor, filled with all zeros. A serial number
@@ -472,8 +470,7 @@
  *      to either supply NO_STREAM_CALLBACK as the extra parameter, or disable stream callbacks altogether by passing
  *      the token NO_STREAM_CALLBACKS to the compiler using the -D switch.
  *
- *
- * \section Sec_Migration151 Migrating from V1.5.1 to V1.5.2
+ *  \section Sec_Migration151 Migrating from V1.5.1 to V1.5.2
  *
  *  <b>Library Demos</b>
  *    - The RNDIS demo application has been updated so that it is functional on Linux under earlier implementations
@@ -482,8 +479,7 @@
  *    - The DFU class bootloader has had several bugs corrected in this release. It is recommended that where
  *      possible any existing devices upgrade to the latest bootloader code.
  *
- *
- * \section Sec_Migration150 Migrating from V1.5.0 to V1.5.1
+ *  \section Sec_Migration150 Migrating from V1.5.0 to V1.5.1
  *
  *  <b>Library Demos</b>
  *    - The USBtoSerial demo was broken in the 1.5.0 release, due to incorrect register polling in place of the
@@ -498,8 +494,7 @@
  *    - The AudioOut demo did not correctly tristate the speaker pins when USB was disconnected, wasting power.
  *      Projects built upon the AudioOut demo should upgrade to the latest code.
  *
- *
- * \section Sec_Migration141 Migrating from V1.4.1 to V1.5.0
+ *  \section Sec_Migration141 Migrating from V1.4.1 to V1.5.0
  *
  *  <b>Library Demos</b>
  *    - Previous versions of the library demos had incorrectly encoded BCD version numbers in the descriptors. To

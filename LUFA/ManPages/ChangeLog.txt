@@ -7,6 +7,9 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  None yet.
+  *
+  *  \section Sec_ChangeLog101122 Version 101122
   *  <b>New:</b>
   *  - Core:
   *    - Added new SCSI_ASENSE_NOT_READY_TO_READY_CHANGE constant to the Mass Storage class driver, to indicate when a previously
