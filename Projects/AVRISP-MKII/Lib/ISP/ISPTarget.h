@@ -62,7 +62,7 @@
 		/** Macro to convert an ISP frequency to a number of timer clock cycles for the software SPI driver. */
 		#define TIMER_COMP(freq)              (((F_CPU / 8) / 2 / freq) - 1)
 
-		/** ISP rescue clock speed, for clocking targets with incorrectly set fuses. */
+		/** ISP rescue clock speed in Hz, for clocking targets with incorrectly set fuses. */
 		#define ISP_RESCUE_CLOCK_SPEED        4000000
 
 	/* External Variables: */

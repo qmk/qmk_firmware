@@ -164,7 +164,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | MASS_STORAGE_IN_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = MASS_STORAGE_IO_EPSIZE,
-			.PollingIntervalMS      = 0x0A
+			.PollingIntervalMS      = 0x01
 		},
 
 	.MS_DataOutEndpoint =
@@ -174,7 +174,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | MASS_STORAGE_OUT_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = MASS_STORAGE_IO_EPSIZE,
-			.PollingIntervalMS      = 0x0A
+			.PollingIntervalMS      = 0x01
 		},
 
 	.HID_KeyboardInterface =

@@ -222,7 +222,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_OUT | CDC_RX_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = CDC_TXRX_EPSIZE,
-			.PollingIntervalMS      = 0x0A
+			.PollingIntervalMS      = 0x01
 		},
 
 	.CDC_DataInEndpoint =
@@ -232,7 +232,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 			.EndpointAddress        = (ENDPOINT_DESCRIPTOR_DIR_IN | CDC_TX_EPNUM),
 			.Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
 			.EndpointSize           = CDC_TXRX_EPSIZE,
-			.PollingIntervalMS      = 0x0A
+			.PollingIntervalMS      = 0x01
 		},
 
 	.HID_Interface =
