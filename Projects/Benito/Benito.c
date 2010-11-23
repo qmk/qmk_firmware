@@ -92,10 +92,9 @@ int main(void)
 	for (;;)
 	{
 		/* Echo bytes from the host to the target via the hardware USART */
-		int16_t ReceivedByte = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
-		if (!(ReceivedByte < 0) && (UCSR1A & (1 << UDRE1)))
+		if ((UCSR1A & (1 << UDRE1)) && CDC_Device_BytesReceived(&VirtualSerial_CDC_Interface))
 		{
-			UDR1 = ReceivedByte;
+			UDR1 = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
 
 			LEDs_TurnOnLEDs(LEDMASK_TX);
 			PulseMSRemaining.TxLEDPulse = TX_RX_LED_PULSE_MS;

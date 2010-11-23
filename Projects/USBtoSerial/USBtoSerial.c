@@ -31,7 +31,7 @@
 /** \file
  *
  *  Main source file for the USBtoSerial project. This file contains the main tasks of
- *  the demo and is responsible for the initial application hardware configuration.
+ *  the project and is responsible for the initial application hardware configuration.
  */
 
 #include "USBtoSerial.h"

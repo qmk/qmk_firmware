@@ -7,7 +7,23 @@
  /** \page Page_ChangeLog Project Changelog
   *
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
-  *  None yet.
+  *  <b>New:</b>
+  *  - Core:
+  *   - None
+  *  - Library Applications:
+  *   - None
+  *
+  *  <b>Changed:</b>
+  *  - Core:
+  *   - None
+  *  - Library Applications:
+  *   - None
+  *
+  *  <b>Fixed:</b>
+  *  - Core:
+  *   - None
+  *  - Library Applications:
+  *   - Fixed Benito project discarding incoming data from the USB virtual serial port when the USART is busy
   *
   *  \section Sec_ChangeLog101122 Version 101122
   *  <b>New:</b>

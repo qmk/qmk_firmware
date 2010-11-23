@@ -40,6 +40,7 @@
  *   - Linnix UDIP
  *   - MattairTech JM-DB-U2
  *   - Maximus USB
+ *   - Microsin AVR-USB162
  *   - Minimus USB
  *   - Olimex AVR-USB-162
  *   - PJRC Teensy (all revisions and versions)

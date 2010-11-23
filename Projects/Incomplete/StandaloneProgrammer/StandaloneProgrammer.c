@@ -31,7 +31,7 @@
 /** \file
  *
  *  Main source file for the Standalone Programmer project. This file contains the main tasks of
- *  the demo and is responsible for the initial application hardware configuration.
+ *  the project and is responsible for the initial application hardware configuration.
  */
 
 #define  INCLUDE_FROM_STANDALONEPROG_C

@@ -31,7 +31,7 @@
 /** \file
  *
  *  Main source file for the XPLAINBridge project. This file contains the main tasks of
- *  the demo and is responsible for the initial application hardware configuration.
+ *  the project and is responsible for the initial application hardware configuration.
  */
 
 #include "XPLAINBridge.h"
