@@ -319,7 +319,7 @@ static void WriteNextResponseByte(const uint8_t Response)
 		}
 	}
 
-	/* Write the next byte to the OUT endpoint */
+	/* Write the next byte to the IN endpoint */
 	Endpoint_Write_Byte(Response);
 }
 
