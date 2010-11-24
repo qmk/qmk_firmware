@@ -32,7 +32,6 @@ void proc_matrix(void) {
     static int mouse_repeat = 0;
 
     bool modified = false;
-    int key_index = 0;
     uint8_t mouse_btn = 0;
     int8_t mouse_x = 0;
     int8_t mouse_y = 0;
@@ -58,6 +57,7 @@ void proc_matrix(void) {
         return;
     }
 
+    usb_keyboard_swap_report();
     usb_keyboard_clear_report();
     for (int row = 0; row < matrix_rows(); row++) {
         for (int col = 0; col < matrix_cols(); col++) {
@@ -111,9 +111,22 @@ void proc_matrix(void) {
 
             // normal keys
             else {
-                if (key_index < 6)
-                    usb_keyboard_keys[key_index] = code;
-                key_index++;
+                // TODO: fix ugly code
+                int8_t i = 0;
+                int8_t empty = -1;
+                for (; i < KEYBOARD_REPORT_MAX; i++) {
+                    if (usb_keyboard_keys_prev[i] == code) {
+                        usb_keyboard_keys[i] = code;
+                        break;
+                    } else if (empty == -1 && usb_keyboard_keys_prev[i] == 0 && usb_keyboard_keys[i] == 0) {
+                        empty = i;
+                    }
+                }
+                if (i == KEYBOARD_REPORT_MAX) {
+                    if (empty != -1) {
+                        usb_keyboard_keys[empty] = code;
+                    }
+                }
             }
         }
     }
@@ -270,9 +283,6 @@ void proc_matrix(void) {
 
     // send key packet to host
     if (modified) {
-        if (key_index > 6) {
-            //Rollover
-        }
         usb_keyboard_send();
     }
 }

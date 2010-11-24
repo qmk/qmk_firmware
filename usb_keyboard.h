@@ -8,6 +8,8 @@
 
 #define KEYBOARD_INTERFACE	0
 #define KEYBOARD_ENDPOINT	1
+#define KEYBOARD_INTERFACE2	4
+#define KEYBOARD_ENDPOINT2	5
 #define KEYBOARD_SIZE		8
 #define KEYBOARD_BUFFER		EP_DOUBLE_BUFFER
 
@@ -24,8 +26,9 @@
 #define BIT_LSFT BIT_LSHIFT
 #define BIT_RSFT BIT_RSHIFT
 
+#define KEYBOARD_REPORT_MAX	12
 typedef struct report {
-    uint8_t keys[6];
+    uint8_t keys[KEYBOARD_REPORT_MAX];
     uint8_t mods;
     bool is_sent;
 } usb_keyboard_report_t;
@@ -33,6 +36,8 @@ typedef struct report {
 
 #define usb_keyboard_keys usb_keyboard_report->keys
 #define usb_keyboard_mods usb_keyboard_report->mods
+#define usb_keyboard_keys_prev usb_keyboard_report_prev->keys
+#define usb_keyboard_mods_prev usb_keyboard_report_prev->mods
 
 
 extern usb_keyboard_report_t *usb_keyboard_report;
