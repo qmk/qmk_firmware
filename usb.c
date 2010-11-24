@@ -53,6 +53,12 @@
 #   define STR_PRODUCT		LSTR(PRODUCT)
 #endif
 
+#define STR_KEYBOARD_INTERFACE	L"t.m.k. keyboard I/F"
+#define STR_MOUSE_INTERFACE	L"t.m.k. mouse I/F"
+#define STR_DEBUG_INTERFACE	L"t.m.k. debug I/F"
+#define STR_EXTRA_INTERFACE	L"t.m.k. extrakey I/F"
+#define STR_KEYBOARD2_INTERFACE	L"t.m.k. keyboard2 I/F"
+
 
 // Mac OS-X and Linux automatically load the correct drivers.  On
 // Windows, even though the driver is supplied by Microsoft, an
@@ -94,7 +100,7 @@ static const uint8_t PROGMEM endpoint_config_table[] = {
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(MOUSE_SIZE)    | MOUSE_BUFFER,    // 2
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(DEBUG_TX_SIZE) | DEBUG_TX_BUFFER, // 3
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(EXTRA_SIZE)    | EXTRA_BUFFER,    // 4
-        0, // 5
+	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KEYBOARD_SIZE) | KEYBOARD_BUFFER, // 5
         0, // 6
 };
 
@@ -292,18 +298,20 @@ static uint8_t PROGMEM extra_hid_report_desc[] = {
     0xc0                           // END_COLLECTION
 };
 
-#define CONFIG1_DESC_SIZE        (9+(9+9+7)*4)
-#define KEYBOARD_HID_DESC_OFFSET (9+(9+9+7)*0+9)
-#define MOUSE_HID_DESC_OFFSET    (9+(9+9+7)*1+9)
-#define DEBUG_HID_DESC_OFFSET    (9+(9+9+7)*2+9)
-#define EXTRA_HID_DESC_OFFSET    (9+(9+9+7)*3+9)
+#define NUM_INTERFACES			5
+#define KEYBOARD_HID_DESC_OFFSET	(9+9)
+#define MOUSE_HID_DESC_OFFSET		(9+(9+9+7)+9)
+#define DEBUG_HID_DESC_OFFSET		(9+(9+9+7)+(9+9+7)+9)
+#define EXTRA_HID_DESC_OFFSET		(9+(9+9+7)+(9+9+7)+(9+9+7)+9)
+#define KEYBOARD2_HID_DESC_OFFSET	(9+(9+9+7)+(9+9+7)+(9+9+7)+(9+9+7)+9)
+#define CONFIG1_DESC_SIZE		(9+(9+9+7)+(9+9+7)+(9+9+7)+(9+9+7)+(9+9+7))
 static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	// configuration descriptor, USB spec 9.6.3, page 264-266, Table 9-10
 	9, 					// bLength;
 	2,					// bDescriptorType;
 	LSB(CONFIG1_DESC_SIZE),			// wTotalLength
 	MSB(CONFIG1_DESC_SIZE),
-	4,					// bNumInterfaces
+	NUM_INTERFACES,				// bNumInterfaces
 	1,					// bConfigurationValue
 	0,					// iConfiguration
 	0xA0,					// bmAttributes
@@ -318,7 +326,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0x03,					// bInterfaceClass (0x03 = HID)
 	0x01,					// bInterfaceSubClass (0x01 = Boot)
 	0x01,					// bInterfaceProtocol (0x01 = Keyboard)
-	0,					// iInterface
+	3,					// iInterface
 	// HID descriptor, HID 1.11 spec, section 6.2.1
 	9,					// bLength
 	0x21,					// bDescriptorType
@@ -345,7 +353,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0x03,					// bInterfaceClass (0x03 = HID)
 	0x01,					// bInterfaceSubClass (0x01 = Boot)
 	0x02,					// bInterfaceProtocol (0x02 = Mouse)
-	0,					// iInterface
+	4,					// iInterface
 	// HID descriptor, HID 1.11 spec, section 6.2.1
 	9,					// bLength
 	0x21,					// bDescriptorType
@@ -372,7 +380,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0x03,					// bInterfaceClass (0x03 = HID)
 	0x00,					// bInterfaceSubClass
 	0x00,					// bInterfaceProtocol
-	0,					// iInterface
+	5,					// iInterface
 	// HID descriptor, HID 1.11 spec, section 6.2.1
 	9,					// bLength
 	0x21,					// bDescriptorType
@@ -399,7 +407,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0x03,					// bInterfaceClass (0x03 = HID)
 	0x00,					// bInterfaceSubClass
 	0x00,					// bInterfaceProtocol
-	0,					// iInterface
+	6,					// iInterface
 	// HID descriptor, HID 1.11 spec, section 6.2.1
 	9,					// bLength
 	0x21,					// bDescriptorType
@@ -416,6 +424,33 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0x03,					// bmAttributes (0x03=intr)
 	EXTRA_SIZE, 0,				// wMaxPacketSize
 	10,					// bInterval
+
+	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
+	9,					// bLength
+	4,					// bDescriptorType
+	KEYBOARD_INTERFACE2,			// bInterfaceNumber
+	0,					// bAlternateSetting
+	1,					// bNumEndpoints
+	0x03,					// bInterfaceClass (0x03 = HID)
+	0x00,					// bInterfaceSubClass (0x01 = Boot)
+	0x00,					// bInterfaceProtocol (0x01 = Keyboard)
+	7,					// iInterface
+	// HID descriptor, HID 1.11 spec, section 6.2.1
+	9,					// bLength
+	0x21,					// bDescriptorType
+	0x11, 0x01,				// bcdHID
+	0,					// bCountryCode
+	1,					// bNumDescriptors
+	0x22,					// bDescriptorType
+	sizeof(keyboard_hid_report_desc),     	// wDescriptorLength
+	0,
+	// endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
+	7,					// bLength
+	5,					// bDescriptorType
+	KEYBOARD_ENDPOINT2 | 0x80,		// bEndpointAddress
+	0x03,					// bmAttributes (0x03=intr)
+	KEYBOARD_SIZE, 0,			// wMaxPacketSize
+	1,					// bInterval
 };
 
 // If you're desperate for a little extra code memory, these strings
@@ -441,6 +476,31 @@ static struct usb_string_descriptor_struct PROGMEM string2 = {
 	3,
 	STR_PRODUCT
 };
+static struct usb_string_descriptor_struct PROGMEM string3 = {
+	sizeof(STR_KEYBOARD_INTERFACE),
+	3,
+	STR_KEYBOARD_INTERFACE
+};
+static struct usb_string_descriptor_struct PROGMEM string4 = {
+	sizeof(STR_MOUSE_INTERFACE),
+	3,
+	STR_MOUSE_INTERFACE
+};
+static struct usb_string_descriptor_struct PROGMEM string5 = {
+	sizeof(STR_DEBUG_INTERFACE),
+	3,
+	STR_DEBUG_INTERFACE
+};
+static struct usb_string_descriptor_struct PROGMEM string6 = {
+	sizeof(STR_EXTRA_INTERFACE),
+	3,
+	STR_EXTRA_INTERFACE
+};
+static struct usb_string_descriptor_struct PROGMEM string7 = {
+	sizeof(STR_KEYBOARD2_INTERFACE),
+	3,
+	STR_KEYBOARD2_INTERFACE
+};
 
 // This table defines which descriptor data is sent for each specific
 // request from the host (in wValue and wIndex).
@@ -454,22 +514,26 @@ static struct descriptor_list_struct {
 	{0x0100, 0x0000, device_descriptor, sizeof(device_descriptor)},
         // CONFIGURATION descriptor
 	{0x0200, 0x0000, config1_descriptor, sizeof(config1_descriptor)},
-        // HID REPORT
-	{0x2200, KEYBOARD_INTERFACE, keyboard_hid_report_desc, sizeof(keyboard_hid_report_desc)},
+        // HID/REPORT descriptors
 	{0x2100, KEYBOARD_INTERFACE, config1_descriptor+KEYBOARD_HID_DESC_OFFSET, 9},
-        // HID REPORT
-	{0x2200, MOUSE_INTERFACE, mouse_hid_report_desc, sizeof(mouse_hid_report_desc)},
+	{0x2200, KEYBOARD_INTERFACE, keyboard_hid_report_desc, sizeof(keyboard_hid_report_desc)},
 	{0x2100, MOUSE_INTERFACE, config1_descriptor+MOUSE_HID_DESC_OFFSET, 9},
-        // HID REPORT
-	{0x2200, DEBUG_INTERFACE, debug_hid_report_desc, sizeof(debug_hid_report_desc)},
+	{0x2200, MOUSE_INTERFACE, mouse_hid_report_desc, sizeof(mouse_hid_report_desc)},
 	{0x2100, DEBUG_INTERFACE, config1_descriptor+DEBUG_HID_DESC_OFFSET, 9},
-        // HID REPORT
-	{0x2200, EXTRA_INTERFACE, extra_hid_report_desc, sizeof(extra_hid_report_desc)},
+	{0x2200, DEBUG_INTERFACE, debug_hid_report_desc, sizeof(debug_hid_report_desc)},
 	{0x2100, EXTRA_INTERFACE, config1_descriptor+EXTRA_HID_DESC_OFFSET, 9},
-        // STRING descriptor
+	{0x2200, EXTRA_INTERFACE, extra_hid_report_desc, sizeof(extra_hid_report_desc)},
+	{0x2100, KEYBOARD_INTERFACE2, config1_descriptor+KEYBOARD2_HID_DESC_OFFSET, 9},
+	{0x2200, KEYBOARD_INTERFACE2, keyboard_hid_report_desc, sizeof(keyboard_hid_report_desc)},
+        // STRING descriptors
 	{0x0300, 0x0000, (const uint8_t *)&string0, 4},
 	{0x0301, 0x0409, (const uint8_t *)&string1, sizeof(STR_MANUFACTURER)},
-	{0x0302, 0x0409, (const uint8_t *)&string2, sizeof(STR_PRODUCT)}
+	{0x0302, 0x0409, (const uint8_t *)&string2, sizeof(STR_PRODUCT)},
+	{0x0303, 0x0409, (const uint8_t *)&string3, sizeof(STR_KEYBOARD_INTERFACE)},
+	{0x0304, 0x0409, (const uint8_t *)&string4, sizeof(STR_MOUSE_INTERFACE)},
+	{0x0305, 0x0409, (const uint8_t *)&string5, sizeof(STR_DEBUG_INTERFACE)},
+	{0x0306, 0x0409, (const uint8_t *)&string6, sizeof(STR_EXTRA_INTERFACE)},
+	{0x0307, 0x0409, (const uint8_t *)&string7, sizeof(STR_KEYBOARD2_INTERFACE)},
 };
 #define NUM_DESC_LIST (sizeof(descriptor_list)/sizeof(struct descriptor_list_struct))
 
