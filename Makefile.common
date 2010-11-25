@@ -129,6 +129,9 @@ CDEFS += -DPRODUCT=$(PRODUCT)
 ifdef MOUSE_DELAY_TIME
 CDEFS += -DMOUSE_DELAY_TIME=$(MOUSE_DELAY_TIME)
 endif
+ifdef USB_12KRO
+CDEFS += -DUSB_12KRO
+endif
 
 
 # Place -D or -U options here for ASM sources

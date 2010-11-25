@@ -46,6 +46,7 @@ PRODUCT = 't.m.k. HHKB pro'
 DESCRIPTION = 't.m.k. firmware for HHKB pro'
 
 MOUSE_DELAY_TIME = 127
+USB_12KRO = yes
 
 # Target file name (without extension).
 TARGET = tmk_hhkb

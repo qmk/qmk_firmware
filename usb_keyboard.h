@@ -8,8 +8,10 @@
 
 #define KEYBOARD_INTERFACE	0
 #define KEYBOARD_ENDPOINT	1
+#ifdef USB_12KRO
 #define KEYBOARD_INTERFACE2	4
 #define KEYBOARD_ENDPOINT2	5
+#endif
 #define KEYBOARD_SIZE		8
 #define KEYBOARD_BUFFER		EP_DOUBLE_BUFFER
 
@@ -26,7 +28,11 @@
 #define BIT_LSFT BIT_LSHIFT
 #define BIT_RSFT BIT_RSHIFT
 
-#define KEYBOARD_REPORT_MAX	12
+#ifdef USB_12KRO
+#   define KEYBOARD_REPORT_MAX	12
+#else
+#   define KEYBOARD_REPORT_MAX	6
+#endif
 typedef struct report {
     uint8_t keys[KEYBOARD_REPORT_MAX];
     uint8_t mods;
