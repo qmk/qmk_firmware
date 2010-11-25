@@ -65,14 +65,38 @@
 		/** LED mask for the library LED driver, to indicate that an error has occurred in the USB interface. */
 		#define LEDMASK_USB_ERROR        (LEDS_LED1 | LEDS_LED3)
 		
-		#define SCALE_FACTOR             65536
-		#define BASE_FREQUENCY           27.5
-		#define NOTE_OCTIVE_RATIO        1.05946
-		#define BASE_PITCH_INDEX         21
-		#define MAX_SIMULTANEOUS_NOTES   3
+		/** Scale factor used to convert the floating point frequencies and ratios into a fixed point number */
+		#define SCALE_FACTOR               65536
 		
-		#define BASE_INCREMENT           (((F_CPU / 255 / 2) / BASE_FREQUENCY))
+		/** Base (lowest) allowable MIDI note frequency */
+		#define BASE_FREQUENCY             27.5
 		
+		/** Ratio between each note in an octave */
+		#define NOTE_OCTIVE_RATIO          1.05946
+		
+		/** Lowest valid MIDI pitch index */
+		#define BASE_PITCH_INDEX           21
+		
+		/** Maximum number of MIDI notes that can be played simultaneously */
+		#define MAX_SIMULTANEOUS_NOTES     3
+		
+		/** Number of samples in the virtual sample table (can be expanded to lower maximum frequency, but allow for
+		 *  more simultaneous notes due to the reduced amount of processing time needed when the samples are spaced out)
+		 */
+		#define VIRTUAL_SAMPLE_TABLE_SIZE  512
+		
+		/** Sample table increments per period for the base MIDI note frequency */
+		#define BASE_INCREMENT             (((F_CPU / VIRTUAL_SAMPLE_TABLE_SIZE / 2) / BASE_FREQUENCY))
+
+	/* Type Defines: */
+		typedef struct
+		{
+			uint8_t  LRUAge;
+			uint8_t  Pitch;
+			uint32_t TableIncrement;
+			uint32_t TablePosition;
+		} DDSNoteData;		
+
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		

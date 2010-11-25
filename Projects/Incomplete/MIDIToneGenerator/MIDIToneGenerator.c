@@ -78,14 +78,7 @@ const uint8_t SineTable[256] =
 };
 
 /** Array of structures describing each note being generated */
-struct
-{
-	uint8_t  Pitch;
-	uint32_t TableIncrement;
-	uint32_t TablePosition;
-} NoteData[3];
-
-uint8_t PhaseCounter;
+DDSNoteData NoteData[MAX_SIMULTANEOUS_NOTES];
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -104,19 +97,34 @@ int main(void)
 		{
 			if ((ReceivedMIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4)) && ((ReceivedMIDIEvent.Data1 & 0x0F) == 0))
 			{
+				DDSNoteData* LRUNoteStruct = &NoteData[0];
+			
 				/* Find a free entry in the note table to use for the note being turned on */
 				for (uint8_t i = 0; i < MAX_SIMULTANEOUS_NOTES; i++)
 				{
+					/* Check if the note is unused */
 					if (!(NoteData[i].Pitch))
 					{
-						NoteData[i].Pitch          = ReceivedMIDIEvent.Data2;
-						NoteData[i].TableIncrement = (uint32_t)(BASE_INCREMENT * SCALE_FACTOR) +
-						                             ((uint32_t)(BASE_INCREMENT * NOTE_OCTIVE_RATIO * SCALE_FACTOR) *
-						                              (ReceivedMIDIEvent.Data2 - BASE_PITCH_INDEX));
-						NoteData[i].TablePosition  = 0;
+						/* If a note is unused, it's age is essentially infinite - always prefer unused not entries */
+						LRUNoteStruct = &NoteData[i];
 						break;
 					}
+					else if (NoteData[i].LRUAge > LRUNoteStruct->LRUAge)
+					{
+						/* If an older entry that the current entry has been found, prefer overwriting that one */						
+						LRUNoteStruct = &NoteData[i];
+					}
+					
+					NoteData[i].LRUAge++;
 				}
+				
+				/* Update the oldest note entry with the new note data and reset its age */
+				LRUNoteStruct->Pitch          = ReceivedMIDIEvent.Data2;
+				LRUNoteStruct->TableIncrement = (uint32_t)(BASE_INCREMENT * SCALE_FACTOR) +
+						                         ((uint32_t)(BASE_INCREMENT * NOTE_OCTIVE_RATIO * SCALE_FACTOR) *
+						                          (ReceivedMIDIEvent.Data2 - BASE_PITCH_INDEX));
+				LRUNoteStruct->TablePosition  = 0;
+				LRUNoteStruct->LRUAge         = 0;
 
 				/* Turn on indicator LED to indicate note generation activity */
 				LEDs_SetAllLEDs(LEDS_LED1);
@@ -129,11 +137,9 @@ int main(void)
 				for (uint8_t i = 0; i < MAX_SIMULTANEOUS_NOTES; i++)
 				{
 					if (NoteData[i].Pitch == ReceivedMIDIEvent.Data2)
-					{
-						NoteData[i].Pitch = 0;
-						FoundActiveNote      = true;
-						break;
-					}
+					  NoteData[i].Pitch = 0;
+					else if (NoteData[i].Pitch)
+					  FoundActiveNote   = true;
 				}
 				
 				/* If all notes off, turn off the indicator LED */
@@ -182,15 +188,15 @@ void SetupHardware(void)
 
 	/* Sample reload timer initialization */
 	TIMSK0  = (1 << OCIE0A);
-	OCR0A   = 255;
+	OCR0A   = (VIRTUAL_SAMPLE_TABLE_SIZE / 8);
 	TCCR0A  = (1 << WGM01);  // CTC mode
-	TCCR0B  = (1 << CS00);   // Fcpu speed
+	TCCR0B  = (1 << CS01);   // Fcpu/8 speed
 
 	/* Set speaker as output */
 	DDRC |= (1 << 6);
 
 	/* PWM speaker timer initialization */
-	TCCR3A  = ((1 << WGM30) | (1 << COM3A1) | (1 << COM3A0)); // Set on match, clear on TOP
+	TCCR3A  = ((1 << WGM31) | (1 << COM3A1) | (1 << COM3A0)); // Set on match, clear on TOP
 	TCCR3B  = ((1 << WGM32) | (1 << CS30));  // Fast 8-Bit PWM, Fcpu speed
 }
 
@@ -207,6 +213,10 @@ void EVENT_USB_Device_Connect(void)
 void EVENT_USB_Device_Disconnect(void)
 {
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+
+	/* Disable any notes currently being played */
+	for (uint8_t i = 0; i < MAX_SIMULTANEOUS_NOTES; i++)
+	  NoteData[i].Pitch = 0;
 
 	/* Set speaker as input to reduce current draw */
 	DDRC &= ~(1 << 6);
