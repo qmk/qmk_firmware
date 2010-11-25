@@ -64,6 +64,7 @@ int8_t usb_keyboard_send_report(usb_keyboard_report_t *report)
 	UEINTX = 0x3A;
 	SREG = intr_state;
 
+#ifdef USB_12KRO
 	if (!usb_configured()) return -1;
 	intr_state = SREG;
 	cli();
@@ -82,17 +83,18 @@ int8_t usb_keyboard_send_report(usb_keyboard_report_t *report)
 		cli();
 		UENUM = KEYBOARD_ENDPOINT2;
 	}
-	UEDATX = 0;
+	UEDATX = report->mods;
 	UEDATX = 0;
 	for (i = 6; i < 12; i++) {
 		UEDATX = report->keys[i];
 	}
 	UEINTX = 0x3A;
 	SREG = intr_state;
+#endif
 
 	usb_keyboard_idle_count = 0;
-        report->is_sent =true;
-        usb_keyboard_print_report(report);
+	report->is_sent =true;
+	usb_keyboard_print_report(report);
 	return 0;
 }
 
