@@ -11,13 +11,14 @@
   *  - Core:
   *   - None
   *  - Library Applications:
-  *   - None
+  *   - Added new incomplete MIDIToneGenerator project
   *
   *  <b>Changed:</b>
   *  - Core:
   *   - None
   *  - Library Applications:
-  *   - None
+  *   - Changed the XPLAINBridge software UART to use the regular CTC mode instead of the alternative CTC mode
+  *     via the Input Capture register, to reduce user confusion
   *
   *  <b>Fixed:</b>
   *  - Core:

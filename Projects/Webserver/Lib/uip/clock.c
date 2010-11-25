@@ -11,7 +11,7 @@
 volatile clock_time_t clock_datetime = 0;
 
 //Overflow interrupt
-ISR(TIMER1_COMPA_vect)
+ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
 	clock_datetime += 1;
 }

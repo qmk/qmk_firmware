@@ -60,8 +60,8 @@
 		{
 			uint16_t BitTime = ((F_CPU / Baud) - 1);
 
-			ICR1 = BitTime;
-			ICR3 = BitTime;
+			OCR1A = BitTime;
+			OCR3A = BitTime;
 		}
 
 	/* Function Prototypes: */
