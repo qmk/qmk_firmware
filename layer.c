@@ -51,7 +51,7 @@
  */
 
 // LAYER_ENTER_DELAY: prevent from moving new layer
-#define LAYER_ENTER_DELAY 10
+#define LAYER_ENTER_DELAY 8
 
 // LAYER_SEND_FN_TERM: send keycode if release key in this term
 #define LAYER_SEND_FN_TERM 40
