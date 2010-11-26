@@ -67,10 +67,10 @@ void SoftUART_Init(void)
 	SoftUART_SetBaud(9600);
 
 	/* Setup reception timer compare ISR */
-	TIMSK1 = (1 << OC1E1A);
+	TIMSK1 = (1 << OCIE1A);
 
 	/* Setup transmission timer compare ISR and start the timer */
-	TIMSK3 = (1 << OC1E3A);
+	TIMSK3 = (1 << OCIE3A);
 	TCCR3B = ((1 << CS30) | (1 << WGM32));
 }
 
