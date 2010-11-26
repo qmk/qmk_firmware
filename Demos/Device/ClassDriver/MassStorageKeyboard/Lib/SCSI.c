@@ -113,6 +113,9 @@ bool SCSI_DecodeSCSICommand(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 		case SCSI_CMD_READ_10:
 			CommandSuccess = SCSI_Command_ReadWrite_10(MSInterfaceInfo, DATA_READ);
 			break;
+		case SCSI_CMD_MODE_SENSE_6:
+			CommandSuccess = SCSI_Command_ModeSense_6(MSInterfaceInfo);
+			break;
 		case SCSI_CMD_TEST_UNIT_READY:
 		case SCSI_CMD_PREVENT_ALLOW_MEDIUM_REMOVAL:
 		case SCSI_CMD_VERIFY_10:
@@ -281,6 +284,17 @@ static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfa
 	uint32_t BlockAddress;
 	uint16_t TotalBlocks;
 
+	/* Check if the disk is write protected or not */
+	if ((IsDataRead == DATA_WRITE) && DISK_READ_ONLY)
+	{
+		/* Block address is invalid, update SENSE key and return command fail */
+		SCSI_SET_SENSE(SCSI_SENSE_KEY_DATA_PROTECT,
+		               SCSI_ASENSE_WRITE_PROTECTED,
+		               SCSI_ASENSEQ_NO_QUALIFIER);
+
+		return false;		
+	}
+
 	/* Load in the 32-bit block address (SCSI uses big-endian, so have to reverse the byte order) */
 	BlockAddress = SwapEndian_32(*(uint32_t*)&MSInterfaceInfo->State.CommandBlock.SCSICommandData[2]);
 
@@ -315,3 +329,24 @@ static bool SCSI_Command_ReadWrite_10(USB_ClassInfo_MS_Device_t* const MSInterfa
 	return true;
 }
 
+/** Command processing for an issued SCSI MODE SENSE (6) command. This command returns various informational pages about
+ *  the SCSI device, as well as the device's Write Protect status.
+ *
+ *  \param[in] MSInterfaceInfo  Pointer to the Mass Storage class interface structure that the command is associated with
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
+ */
+static bool SCSI_Command_ModeSense_6(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
+{
+	/* Send an empty header response with the Write Protect flag status */
+	Endpoint_Write_Byte(0x00);
+	Endpoint_Write_Byte(0x00);
+	Endpoint_Write_Byte(DISK_READ_ONLY ? 0x80 : 0x00);
+	Endpoint_Write_Byte(0x00);
+	Endpoint_ClearIN();
+
+	/* Update the bytes transferred counter and succeed the command */
+	MSInterfaceInfo->State.CommandBlock.DataTransferLength -= 4;
+
+	return true;
+}

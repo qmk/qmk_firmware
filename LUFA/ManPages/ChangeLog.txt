@@ -12,6 +12,7 @@
   *   - None
   *  - Library Applications:
   *   - Added new incomplete MIDIToneGenerator project
+  *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *
   *  <b>Changed:</b>
   *  - Core:

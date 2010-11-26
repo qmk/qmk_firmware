@@ -143,6 +143,7 @@
 			static bool SCSI_Command_Read_Capacity_10(void);
 			static bool SCSI_Command_Send_Diagnostic(void);
 			static bool SCSI_Command_ReadWrite_10(const bool IsDataRead);
+			static bool SCSI_Command_ModeSense_6(void);
 		#endif
 
 #endif

@@ -111,6 +111,9 @@ bool SCSI_DecodeSCSICommand(void)
 		case SCSI_CMD_READ_10:
 			CommandSuccess = SCSI_Command_ReadWrite_10(DATA_READ);
 			break;
+		case SCSI_CMD_MODE_SENSE_6:
+			CommandSuccess = SCSI_Command_ModeSense_6();
+			break;
 		case SCSI_CMD_TEST_UNIT_READY:
 		case SCSI_CMD_PREVENT_ALLOW_MEDIUM_REMOVAL:
 		case SCSI_CMD_VERIFY_10:
@@ -278,9 +281,23 @@ static bool SCSI_Command_Send_Diagnostic(void)
  */
 static bool SCSI_Command_ReadWrite_10(const bool IsDataRead)
 {
-	uint32_t BlockAddress = SwapEndian_32(*(uint32_t*)&CommandBlock.SCSICommandData[2]);
-	uint16_t TotalBlocks  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[7]);
+	uint32_t BlockAddress;
+	uint16_t TotalBlocks;
 
+	/* Check if the disk is write protected or not */
+	if ((IsDataRead == DATA_WRITE) && DISK_READ_ONLY)
+	{
+		/* Block address is invalid, update SENSE key and return command fail */
+		SCSI_SET_SENSE(SCSI_SENSE_KEY_DATA_PROTECT,
+		               SCSI_ASENSE_WRITE_PROTECTED,
+		               SCSI_ASENSEQ_NO_QUALIFIER);
+
+		return false;		
+	}
+
+	BlockAddress = SwapEndian_32(*(uint32_t*)&CommandBlock.SCSICommandData[2]);
+	TotalBlocks  = SwapEndian_16(*(uint16_t*)&CommandBlock.SCSICommandData[7]);
+	
 	/* Check if the block address is outside the maximum allowable value for the LUN */
 	if (BlockAddress >= LUN_MEDIA_BLOCKS)
 	{
@@ -309,3 +326,22 @@ static bool SCSI_Command_ReadWrite_10(const bool IsDataRead)
 	return true;
 }
 
+/** Command processing for an issued SCSI MODE SENSE (6) command. This command returns various informational pages about
+ *  the SCSI device, as well as the device's Write Protect status.
+ *
+ *  \return Boolean true if the command completed successfully, false otherwise.
+ */
+static bool SCSI_Command_ModeSense_6(void)
+{
+	/* Send an empty header response with the Write Protect flag status */
+	Endpoint_Write_Byte(0x00);
+	Endpoint_Write_Byte(0x00);
+	Endpoint_Write_Byte(DISK_READ_ONLY ? 0x80 : 0x00);
+	Endpoint_Write_Byte(0x00);
+	Endpoint_ClearIN();
+
+	/* Update the bytes transferred counter and succeed the command */
+	CommandBlock.DataTransferLength -= 4;
+
+	return true;
+}

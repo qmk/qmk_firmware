@@ -64,6 +64,9 @@
 		 */
 		#define VIRTUAL_MEMORY_BLOCKS               (VIRTUAL_MEMORY_BYTES / VIRTUAL_MEMORY_BLOCK_SIZE)
 
+		/** Indicates if the disk is write protected or not. */
+		#define DISK_READ_ONLY                      false
+
 	/* Function Prototypes: */
 		void DataflashManager_WriteBlocks(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo,
 		                                  const uint32_t BlockAddress,

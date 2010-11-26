@@ -68,6 +68,9 @@
 		/** LED mask for the library LED driver, to indicate that the USB interface is busy. */
 		#define LEDMASK_USB_BUSY           LEDS_LED2
 
+		/** Indicates if the disk is write protected or not. */
+		#define DISK_READ_ONLY            false
+
 	/* Global Variables: */
 		extern MS_CommandBlockWrapper_t  CommandBlock;
 		extern MS_CommandStatusWrapper_t CommandStatus;

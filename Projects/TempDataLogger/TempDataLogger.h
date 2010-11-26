@@ -78,6 +78,9 @@
 		/** Default log interval when the EEPROM is blank, in 500ms ticks. */
 		#define DEFAULT_LOG_INTERVAL     20
 
+		/** Indicates if the disk is write protected or not. */
+		#define DISK_READ_ONLY           false
+
 	/* Type Defines: */
 		typedef struct
 		{
