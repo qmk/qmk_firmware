@@ -41,6 +41,7 @@
 		#include <avr/wdt.h>
 		#include <avr/power.h>
 		#include <avr/interrupt.h>
+		#include <util/delay.h>
 
 		#include "AVRISPDescriptors.h"
 		#include "USARTDescriptors.h"

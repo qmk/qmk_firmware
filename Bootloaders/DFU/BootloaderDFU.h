@@ -44,6 +44,7 @@
 		#include <avr/eeprom.h>
 		#include <avr/power.h>
 		#include <avr/interrupt.h>
+		#include <util/delay.h>
 		#include <stdbool.h>
 
 		#include "Descriptors.h"

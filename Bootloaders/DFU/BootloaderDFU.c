@@ -102,6 +102,23 @@ int main(void)
 	/* Configure hardware required by the bootloader */
 	SetupHardware();
 
+	#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
+	/* Disable JTAG debugging */
+	MCUCR |= (1 << JTD);
+	MCUCR |= (1 << JTD);
+
+	/* Enable pull-up on the JTAG TCK pin so we can use it to select the mode */
+	PORTF |= (1 << 4);
+	_delay_ms(10);
+
+	/* If the TCK pin is not jumpered to ground, start the user application instead */
+	RunBootloader = (!(PINF & (1 << 4)));
+	
+	/* Re-enable JTAG debugging */
+	MCUCR &= ~(1 << JTD);
+	MCUCR &= ~(1 << JTD);	
+	#endif
+
 	/* Enable global interrupts so that the USB stack can function */
 	sei();
 
@@ -153,6 +170,13 @@ void EVENT_USB_Device_ControlRequest(void)
 {
 	/* Get the size of the command and data from the wLength value */
 	SentCommand.DataSize = USB_ControlRequest.wLength;
+	
+	/* Ignore any requests that aren't directed to the DFU interface */
+	if ((USB_ControlRequest.bmRequestType & (CONTROL_REQTYPE_TYPE | CONTROL_REQTYPE_RECIPIENT)) !=
+	    (REQTYPE_CLASS | REQREC_INTERFACE))
+	{
+		return;
+	}
 
 	switch (USB_ControlRequest.bRequest)
 	{
