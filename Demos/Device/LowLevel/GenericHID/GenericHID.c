@@ -139,7 +139,7 @@ void EVENT_USB_Device_ControlRequest(void)
 
 				/* Read the report data from the control endpoint */
 				Endpoint_Read_Control_Stream_LE(&GenericData, sizeof(GenericData));
-				Endpoint_ClearOUT();
+				Endpoint_ClearIN();
 
 				ProcessGenericHIDReport(GenericData);
 			}

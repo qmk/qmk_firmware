@@ -48,8 +48,8 @@
  *  @{
  */
 
-#ifndef __LEDS_BENITO_H__
-#define __LEDS_BENITO_H__
+#ifndef __LEDS_UNO_H__
+#define __LEDS_UNO_H__
 
 	/* Includes: */
 		#include <avr/io.h>

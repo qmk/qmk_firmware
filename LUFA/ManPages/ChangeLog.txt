@@ -27,6 +27,7 @@
   *  - Library Applications:
   *   - Fixed Benito project discarding incoming data from the USB virtual serial port when the USART is busy
   *   - Fixed broken DFU bootloader, added XPLAIN support for bootloader start when XCK jumpered to ground
+  *   - Fixed broken HID_REQ_GetReport request handler in the Low Level GenericHID demo
   *
   *  \section Sec_ChangeLog101122 Version 101122
   *  <b>New:</b>
