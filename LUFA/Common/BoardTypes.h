@@ -137,6 +137,9 @@
 			/** Selects the Microsin AVR-USB162 specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_MICROSIN162   24
 
+			/** Selects the Kernel Concepts USBFOO specific board drivers, including the Button and LEDs drivers. */
+			#define BOARD_USBFOO        25
+
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 

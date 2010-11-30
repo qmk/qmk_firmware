@@ -109,7 +109,7 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 			.Attributes             = (ATTR_CAN_UPLOAD | ATTR_CAN_DOWNLOAD),
 
 			.DetachTimeout          = 0x0000,
-			.TransferSize           = 0x0c00,
+			.TransferSize           = 0x0C00,
 
 			.DFUSpecification       = VERSION_BCD(01.01)
 		}
