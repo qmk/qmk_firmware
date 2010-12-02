@@ -114,6 +114,7 @@
 				MIDI_ENUMERROR_NoError                    = 0, /**< Configuration Descriptor was processed successfully. */
 				MIDI_ENUMERROR_InvalidConfigDescriptor    = 1, /**< The device returned an invalid Configuration Descriptor. */
 				MIDI_ENUMERROR_NoCompatibleInterfaceFound = 2, /**< A compatible MIDI interface was not found in the device's Configuration Descriptor. */
+				MIDI_ENUMERROR_PipeConfigurationFailed    = 3, /**< One or more pipes for the specified interface could not be configured correctly. */
 			};
 
 		/* Function Prototypes: */

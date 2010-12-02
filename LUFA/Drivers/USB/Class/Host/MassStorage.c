@@ -79,21 +79,41 @@ uint8_t MS_Host_ConfigurePipes(USB_ClassInfo_MS_Host_t* const MSInterfaceInfo,
 
 	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
 	{
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Token;
+		uint8_t  EndpointAddress;
+		bool     DoubleBanked;
+
 		if (PipeNum == MSInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
-			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
-			                   MSInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Size            = DataINEndpoint->EndpointSize;
+			EndpointAddress = DataINEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_IN;
+			Type            = EP_TYPE_BULK;
+			DoubleBanked    = MSInterfaceInfo->Config.DataINPipeDoubleBank;
 
 			MSInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
 		}
 		else if (PipeNum == MSInterfaceInfo->Config.DataOUTPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
-			                   MSInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-
+			Size            = DataOUTEndpoint->EndpointSize;
+			EndpointAddress = DataOUTEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_OUT;
+			Type            = EP_TYPE_BULK;
+			DoubleBanked    = MSInterfaceInfo->Config.DataOUTPipeDoubleBank;
+			
 			MSInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
+		}
+		else
+		{
+			continue;
+		}
+
+		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
+		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
+		{
+			return MS_ENUMERROR_PipeConfigurationFailed;
 		}
 	}
 

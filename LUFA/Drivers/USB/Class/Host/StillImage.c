@@ -88,31 +88,59 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 
 	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
 	{
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Token;
+		uint8_t  EndpointAddress;
+		uint8_t  InterruptPeriod;
+		bool     DoubleBanked;
+
 		if (PipeNum == SIInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
-			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
-			                   SIInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Size            = DataINEndpoint->EndpointSize;
+			EndpointAddress = DataINEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_IN;
+			Type            = EP_TYPE_BULK;
+			DoubleBanked    = SIInterfaceInfo->Config.DataINPipeDoubleBank;
+			InterruptPeriod = 0;
 
 			SIInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
 		}
 		else if (PipeNum == SIInterfaceInfo->Config.DataOUTPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
-			                   SIInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Size            = DataOUTEndpoint->EndpointSize;
+			EndpointAddress = DataOUTEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_OUT;
+			Type            = EP_TYPE_BULK;
+			DoubleBanked    = SIInterfaceInfo->Config.DataOUTPipeDoubleBank;
+			InterruptPeriod = 0;
 
 			SIInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
 		}
 		else if (PipeNum == SIInterfaceInfo->Config.EventsPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-			                   EventsEndpoint->EndpointAddress, EventsEndpoint->EndpointSize,
-			                   SIInterfaceInfo->Config.EventsPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			Pipe_SetInterruptPeriod(EventsEndpoint->PollingIntervalMS);
+			Size            = EventsEndpoint->EndpointSize;
+			EndpointAddress = EventsEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_IN;
+			Type            = EP_TYPE_INTERRUPT;
+			DoubleBanked    = SIInterfaceInfo->Config.EventsPipeDoubleBank;
+			InterruptPeriod = EventsEndpoint->PollingIntervalMS;
 
 			SIInterfaceInfo->State.EventsPipeSize = EventsEndpoint->EndpointSize;
 		}
+		else
+		{
+			continue;
+		}
+		
+		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
+		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
+		{
+			return SI_ENUMERROR_PipeConfigurationFailed;
+		}
+		
+		if (InterruptPeriod)
+		  Pipe_SetInterruptPeriod(InterruptPeriod);
 	}
 
 	SIInterfaceInfo->State.InterfaceNumber = StillImageInterface->InterfaceNumber;

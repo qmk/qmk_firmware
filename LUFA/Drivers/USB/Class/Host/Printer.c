@@ -79,21 +79,41 @@ uint8_t PRNT_Host_ConfigurePipes(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceI
 
 	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
 	{
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Token;
+		uint8_t  EndpointAddress;
+		bool     DoubleBanked;
+
 		if (PipeNum == PRNTInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
-			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
-			                   PRNTInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Size            = DataINEndpoint->EndpointSize;
+			EndpointAddress = DataINEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_IN;
+			Type            = EP_TYPE_BULK;
+			DoubleBanked    = PRNTInterfaceInfo->Config.DataINPipeDoubleBank;
 
 			PRNTInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
 		}
 		else if (PipeNum == PRNTInterfaceInfo->Config.DataOUTPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
-			                   PRNTInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Size            = DataOUTEndpoint->EndpointSize;
+			EndpointAddress = DataOUTEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_OUT;
+			Type            = EP_TYPE_BULK;
+			DoubleBanked    = PRNTInterfaceInfo->Config.DataOUTPipeDoubleBank;
 
 			PRNTInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
+		}
+		else
+		{
+			continue;
+		}
+
+		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
+		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
+		{
+			return PRNT_ENUMERROR_PipeConfigurationFailed;
 		}
 	}
 

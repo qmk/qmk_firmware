@@ -102,31 +102,59 @@ uint8_t RNDIS_Host_ConfigurePipes(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfa
 
 	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
 	{
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Token;
+		uint8_t  EndpointAddress;
+		uint8_t  InterruptPeriod;
+		bool     DoubleBanked;
+
 		if (PipeNum == RNDISInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_IN,
-			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
-			                   RNDISInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Size            = DataINEndpoint->EndpointSize;
+			EndpointAddress = DataINEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_IN;
+			Type            = EP_TYPE_BULK;
+			DoubleBanked    = RNDISInterfaceInfo->Config.DataINPipeDoubleBank;
+			InterruptPeriod = 0;
 
 			RNDISInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
 		}
 		else if (PipeNum == RNDISInterfaceInfo->Config.DataOUTPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_BULK, PIPE_TOKEN_OUT,
-			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
-			                   RNDISInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
+			Size            = DataOUTEndpoint->EndpointSize;
+			EndpointAddress = DataOUTEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_OUT;
+			Type            = EP_TYPE_BULK;
+			DoubleBanked    = RNDISInterfaceInfo->Config.DataOUTPipeDoubleBank;
+			InterruptPeriod = 0;
 
 			RNDISInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
 		}
 		else if (PipeNum == RNDISInterfaceInfo->Config.NotificationPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-			                   NotificationEndpoint->EndpointAddress, NotificationEndpoint->EndpointSize,
-			                   RNDISInterfaceInfo->Config.NotificationPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			Pipe_SetInterruptPeriod(NotificationEndpoint->PollingIntervalMS);
+			Size            = NotificationEndpoint->EndpointSize;
+			EndpointAddress = NotificationEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_IN;
+			Type            = EP_TYPE_INTERRUPT;
+			DoubleBanked    = RNDISInterfaceInfo->Config.NotificationPipeDoubleBank;
+			InterruptPeriod = NotificationEndpoint->PollingIntervalMS;
 
 			RNDISInterfaceInfo->State.NotificationPipeSize = NotificationEndpoint->EndpointSize;
 		}
+		else
+		{
+			continue;
+		}
+		
+		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
+		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
+		{
+			return CDC_ENUMERROR_PipeConfigurationFailed;
+		}
+		
+		if (InterruptPeriod)
+		  Pipe_SetInterruptPeriod(InterruptPeriod);
 	}
 
 	RNDISInterfaceInfo->State.ControlInterfaceNumber = RNDISControlInterface->InterfaceNumber;

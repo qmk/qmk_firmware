@@ -95,25 +95,49 @@ uint8_t HID_Host_ConfigurePipes(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 
 	for (uint8_t PipeNum = 1; PipeNum < PIPE_TOTAL_PIPES; PipeNum++)
 	{
+		uint16_t Size;
+		uint8_t  Type;
+		uint8_t  Token;
+		uint8_t  EndpointAddress;
+		uint8_t  InterruptPeriod;
+		bool     DoubleBanked;
+
 		if (PipeNum == HIDInterfaceInfo->Config.DataINPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_INTERRUPT, PIPE_TOKEN_IN,
-			                   DataINEndpoint->EndpointAddress, DataINEndpoint->EndpointSize,
-			                   HIDInterfaceInfo->Config.DataINPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			Pipe_SetInterruptPeriod(DataINEndpoint->PollingIntervalMS);
+			Size            = DataINEndpoint->EndpointSize;
+			EndpointAddress = DataINEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_IN;
+			Type            = EP_TYPE_INTERRUPT;
+			DoubleBanked    = HIDInterfaceInfo->Config.DataINPipeDoubleBank;
+			InterruptPeriod = DataINEndpoint->PollingIntervalMS;
 
-			HIDInterfaceInfo->State.DataINPipeSize = DataINEndpoint->EndpointSize;
+			HIDInterfaceInfo->State.DataINPipeSize   = DataINEndpoint->EndpointSize;
 		}
 		else if (PipeNum == HIDInterfaceInfo->Config.DataOUTPipeNumber)
 		{
-			Pipe_ConfigurePipe(PipeNum, EP_TYPE_INTERRUPT, PIPE_TOKEN_OUT,
-			                   DataOUTEndpoint->EndpointAddress, DataOUTEndpoint->EndpointSize,
-			                   HIDInterfaceInfo->Config.DataOUTPipeDoubleBank ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE);
-			Pipe_SetInterruptPeriod(DataOUTEndpoint->PollingIntervalMS);
+			Size            = DataOUTEndpoint->EndpointSize;
+			EndpointAddress = DataOUTEndpoint->EndpointAddress;
+			Token           = PIPE_TOKEN_OUT;
+			Type            = EP_TYPE_INTERRUPT;
+			DoubleBanked    = HIDInterfaceInfo->Config.DataOUTPipeDoubleBank;
+			InterruptPeriod = DataOUTEndpoint->PollingIntervalMS;
 
-			HIDInterfaceInfo->State.DataOUTPipeSize = DataOUTEndpoint->EndpointSize;
+			HIDInterfaceInfo->State.DataOUTPipeSize   = DataOUTEndpoint->EndpointSize;
 			HIDInterfaceInfo->State.DeviceUsesOUTPipe = true;
 		}
+		else
+		{
+			continue;
+		}
+
+		if (!(Pipe_ConfigurePipe(PipeNum, Type, Token, EndpointAddress, Size,
+		                         DoubleBanked ? PIPE_BANK_DOUBLE : PIPE_BANK_SINGLE)))
+		{
+			return HID_ENUMERROR_PipeConfigurationFailed;
+		}
+		
+		if (InterruptPeriod)
+		  Pipe_SetInterruptPeriod(InterruptPeriod);
 	}
 
 	HIDInterfaceInfo->State.InterfaceNumber      = HIDInterface->InterfaceNumber;

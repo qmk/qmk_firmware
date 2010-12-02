@@ -16,7 +16,8 @@
   *
   *  <b>Changed:</b>
   *  - Core:
-  *   - None
+  *   - Refactored Host mode Class Driver *_Host_ConfigurePipes() routines to be more space efficient when compiled
+  *   - Added new *_ENUMERROR_PipeConfigurationFailed error codes for the *_Host_ConfigurePipes() routines
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion

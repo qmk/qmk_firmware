@@ -134,7 +134,7 @@ bool CDC_Device_ConfigureEndpoints(USB_ClassInfo_CDC_Device_t* const CDCInterfac
 		}
 
 		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size,
-										 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
+		                                 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
 		{
 			return false;
 		}

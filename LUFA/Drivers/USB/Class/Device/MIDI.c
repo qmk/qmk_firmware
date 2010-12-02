@@ -67,7 +67,7 @@ bool MIDI_Device_ConfigureEndpoints(USB_ClassInfo_MIDI_Device_t* const MIDIInter
 		}
 
 		if (!(Endpoint_ConfigureEndpoint(EndpointNum, Type, Direction, Size,
-										 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
+		                                 DoubleBanked ? ENDPOINT_BANK_DOUBLE : ENDPOINT_BANK_SINGLE)))
 		{
 			return false;
 		}
