@@ -26,6 +26,9 @@ all:
 	$(MAKE) -C Magstripe clean
 	$(MAKE) -C Magstripe all
 
+	$(MAKE) -C MIDIToneGenerator clean
+	$(MAKE) -C MIDIToneGenerator all
+
 	$(MAKE) -C MissileLauncher clean
 	$(MAKE) -C MissileLauncher all
 

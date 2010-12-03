@@ -95,7 +95,7 @@
 			uint8_t  Pitch;
 			uint32_t TableIncrement;
 			uint32_t TablePosition;
-		} DDSNoteData;		
+		} DDSNoteData;
 
 	/* Function Prototypes: */
 		void SetupHardware(void);

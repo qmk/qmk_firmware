@@ -9,7 +9,7 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *  <b>New:</b>
   *  - Core:
-  *   - None
+  *   - Added new MIDIToneGenerator project
   *  - Library Applications:
   *   - Added new incomplete MIDIToneGenerator project
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
@@ -25,7 +25,7 @@
   *  <b>Fixed:</b>
   *  - Core:
   *   - Fixed broken USBFOO board drivers due to missing BOARD_USBFOO define
-  *   - Fixed HID hpst class driver incorrectly binding to HID devices that do not have an OUT endpoint
+  *   - Fixed HID host class driver incorrectly binding to HID devices that do not have an OUT endpoint
   *  - Library Applications:
   *   - Fixed Benito project discarding incoming data from the USB virtual serial port when the USART is busy
   *   - Fixed broken DFU bootloader, added XPLAIN support for bootloader start when XCK jumpered to ground

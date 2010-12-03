@@ -112,7 +112,7 @@ OBJDIR = .
 
 
 # Path to the LUFA library
-LUFA_PATH = ../../../
+LUFA_PATH = ../../
 
 
 # LUFA library compile-time options and predefined tokens
@@ -121,10 +121,6 @@ LUFA_OPTS += -D FIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -D FIXED_NUM_CONFIGURATIONS=1
 LUFA_OPTS += -D USE_FLASH_DESCRIPTORS
 LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
-
-LUFA_OPTS += -D AUDIO_OUT_STEREO
-#LUFA_OPTS += -D AUDIO_OUT_MONO
-#LUFA_OPTS += -D AUDIO_OUT_PORTC
 
 
 # Create the LUFA source path variables by including the LUFA root makefile

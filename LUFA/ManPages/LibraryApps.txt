@@ -102,6 +102,7 @@
  *    - <b>Benito</b> - Benito Board Arduino Programmer project
  *    - <b>LEDNotifier</b> - USB LED Notification project
  *    - <b>Magstripe</b> - Magnetic Stripe Card Reader project
+ *    - <b>MIDIToneGenerator</b> - MIDI Note Tone Generator project
  *    - <b>MissileLaucher</b> - Toy Missile Launcher Host project
  *    - <b>RelayBoard</b> - Relay board controller, controllable via the "sismpctl" Linux application
  *    - <b>TempDataLogger</b> - Temperature Datalogging project, using the FatFS library

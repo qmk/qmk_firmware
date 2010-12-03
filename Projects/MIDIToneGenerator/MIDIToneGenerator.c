@@ -109,7 +109,7 @@ int main(void)
 						LRUNoteStruct = &NoteData[i];
 						break;
 					}
-					else if (NoteData[i].LRUAge > LRUNoteStruct->LRUAge)
+					else if (NoteData[i].LRUAge >= LRUNoteStruct->LRUAge)
 					{
 						/* If an older entry that the current entry has been found, prefer overwriting that one */						
 						LRUNoteStruct = &NoteData[i];
@@ -161,9 +161,14 @@ ISR(TIMER0_COMPA_vect, ISR_BLOCK)
 	/* Sum together all the active notes to form a single sample */
 	for (uint8_t i = 0; i < MAX_SIMULTANEOUS_NOTES; i++)
 	{
+		/* A non-zero pitch indicates the note is active */
 		if (NoteData[i].Pitch)
 		{
-			MixedSample += SineTable[NoteData[i].TablePosition >> 24];
+			/* Use the top 8 bits of the table position as the sample table index */
+			uint8_t TableIndex = ((uint8_t*)&NoteData[i].TablePosition)[3];
+			
+			/* Add the new tone sample to the accumulator and increment the table position */
+			MixedSample += SineTable[TableIndex];
 			NoteData[i].TablePosition += NoteData[i].TableIncrement;
 		}
 	}
