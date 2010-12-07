@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 #include "print.h"
 #include "debug.h"
@@ -68,7 +69,7 @@ void proc_matrix(void) {
             if (code == KB_NO) {
                 // do nothing
             } else if (IS_MOD(code)) {
-                usb_keyboard_mods |= MOD_BIT(code);
+                usb_keyboard_add_mod(code);
             } else if (IS_FN(code)) {
                 fn_bits |= FN_BIT(code);
             } else if (IS_MOUSE(code)) {
@@ -111,22 +112,7 @@ void proc_matrix(void) {
 
             // normal keys
             else {
-                // TODO: fix ugly code
-                int8_t i = 0;
-                int8_t empty = -1;
-                for (; i < KEYBOARD_REPORT_MAX; i++) {
-                    if (usb_keyboard_keys_prev[i] == code) {
-                        usb_keyboard_keys[i] = code;
-                        break;
-                    } else if (empty == -1 && usb_keyboard_keys_prev[i] == 0 && usb_keyboard_keys[i] == 0) {
-                        empty = i;
-                    }
-                }
-                if (i == KEYBOARD_REPORT_MAX) {
-                    if (empty != -1) {
-                        usb_keyboard_keys[empty] = code;
-                    }
-                }
+                usb_keyboard_add_key(code);
             }
         }
     }
@@ -142,20 +128,24 @@ void proc_matrix(void) {
     layer_switching(fn_bits);
 
     // TODO: clean code
-    // when 4 left modifier keys down
+    // special mode for control, develop and debug
     if (keymap_is_special_mode(fn_bits)) {
-        switch (usb_keyboard_keys[0]) {
+        switch (usb_keyboard_get_key()) {
             case KB_H: // help
                 print_enable = true;
                 print("b: jump to bootloader\n");
-                print("d: debug print toggle\n");
-                print("x: matrix debug toggle\n");
-                print("k: keyboard debug toggle\n");
-                print("m: mouse debug toggle\n");
-                print("p: print enable toggle\n");
+                print("d: toggle debug enable\n");
+                print("x: toggle matrix debug\n");
+                print("k: toggle keyboard debug\n");
+                print("m: toggle mouse debug\n");
+                print("p: toggle print enable\n");
                 print("v: print version\n");
                 print("t: print timer count\n");
-                print("r: print registers\n");
+                print("s: print status\n");
+                print("`: toggle protcol(boot/report)\n");
+#ifdef NKRO_ENABLE
+                print("n: toggle NKRO\n");
+#endif
                 print("ESC: power down/wake up\n");
                 _delay_ms(500);
                 print_enable = false;
@@ -243,13 +233,42 @@ void proc_matrix(void) {
                 }
                 _delay_ms(1000);
                 break;
-            case KB_R:
+            case KB_S:
                 usb_keyboard_clear_report();
                 usb_keyboard_send();
+                print("UDCON: "); phex(UDCON); print("\n");
                 print("UDIEN: "); phex(UDIEN); print("\n");
                 print("UDINT: "); phex(UDINT); print("\n");
+                print("usb_keyboard_leds:"); phex(usb_keyboard_leds); print("\n");
+                print("usb_keyboard_protocol:"); phex(usb_keyboard_protocol); print("\n");
+                print("usb_keyboard_idle_config:"); phex(usb_keyboard_idle_config); print("\n");
+                print("usb_keyboard_idle_count:"); phex(usb_keyboard_idle_count); print("\n");
+                print("mouse_protocol:"); phex(mouse_protocol); print("\n");
+                if (usb_keyboard_nkro) print("NKRO: enabled\n"); else print("NKRO: disabled\n");
+                _delay_ms(500);
+                break;
+            case KB_GRV:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                usb_keyboard_protocol = !usb_keyboard_protocol;
+                mouse_protocol = !mouse_protocol;
+                print("keyboard protcol: ");
+                if (usb_keyboard_protocol) print("report"); else print("boot");
+                print("\n");
+                print("mouse protcol: ");
+                if (mouse_protocol) print("report"); else print("boot");
+                print("\n");
                 _delay_ms(1000);
                 break;
+#ifdef NKRO_ENABLE
+            case KB_N:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                usb_keyboard_nkro = !usb_keyboard_nkro;
+                if (usb_keyboard_nkro) print("NKRO: enabled\n"); else print("NKRO: disabled\n");
+                _delay_ms(1000);
+                break;
+#endif
             case KB_ESC:
                 usb_keyboard_clear_report();
                 usb_keyboard_send();
