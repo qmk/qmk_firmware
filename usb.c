@@ -90,12 +90,12 @@ bool suspend = false;
 // 0:control endpoint is enabled automatically by controller.
 static const uint8_t PROGMEM endpoint_config_table[] = {
 	// enable, UECFG0X(type, direction), UECFG1X(size, bank, allocation)
-	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KEYBOARD_SIZE) | KEYBOARD_BUFFER, // 1
+	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KBD_SIZE)      | KBD_BUFFER,      // 1
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(MOUSE_SIZE)    | MOUSE_BUFFER,    // 2
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(DEBUG_TX_SIZE) | DEBUG_TX_BUFFER, // 3
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(EXTRA_SIZE)    | EXTRA_BUFFER,    // 4
-#ifdef USB_12KRO
-	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KEYBOARD_SIZE) | KEYBOARD_BUFFER, // 5
+#ifdef NKRO_ENABLE
+	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KBD2_SIZE)      | KBD2_BUFFER,      // 5
 #else
         0, // 5
 #endif
@@ -158,16 +158,52 @@ static uint8_t PROGMEM keyboard_hid_report_desc[] = {
         0x95, 0x01,          //   Report Count (1),
         0x75, 0x03,          //   Report Size (3),
         0x91, 0x03,          //   Output (Constant),                 ;LED report padding
-        0x95, 0x06,          //   Report Count (6),
+        0x95, KBD_REPORT_KEYS,    //   Report Count (),
         0x75, 0x08,          //   Report Size (8),
         0x15, 0x00,          //   Logical Minimum (0),
-        0x25, 0x68,          //   Logical Maximum(104),
+        0x25, 0xFF,          //   Logical Maximum(255),
         0x05, 0x07,          //   Usage Page (Key Codes),
         0x19, 0x00,          //   Usage Minimum (0),
-        0x29, 0x68,          //   Usage Maximum (104),
+        0x29, 0xFF,          //   Usage Maximum (255),
         0x81, 0x00,          //   Input (Data, Array),
         0xc0                 // End Collection
 };
+#ifdef NKRO_ENABLE
+static uint8_t PROGMEM keyboard2_hid_report_desc[] = {
+        0x05, 0x01,          // Usage Page (Generic Desktop),
+        0x09, 0x06,          // Usage (Keyboard),
+        0xA1, 0x01,          // Collection (Application),
+        0x75, 0x01,          //   Report Size (1),
+        0x95, 0x08,          //   Report Count (8),
+        0x05, 0x07,          //   Usage Page (Key Codes),
+        0x19, 0xE0,          //   Usage Minimum (224),
+        0x29, 0xE7,          //   Usage Maximum (231),
+        0x15, 0x00,          //   Logical Minimum (0),
+        0x25, 0x01,          //   Logical Maximum (1),
+        0x81, 0x02,          //   Input (Data, Variable, Absolute), ;Modifier byte
+        0x95, 0x01,          //   Report Count (1),
+        0x75, 0x08,          //   Report Size (8),
+        0x81, 0x03,          //   Input (Constant),                 ;Reserved byte
+        0x95, 0x05,          //   Report Count (5),
+        0x75, 0x01,          //   Report Size (1),
+        0x05, 0x08,          //   Usage Page (LEDs),
+        0x19, 0x01,          //   Usage Minimum (1),
+        0x29, 0x05,          //   Usage Maximum (5),
+        0x91, 0x02,          //   Output (Data, Variable, Absolute), ;LED report
+        0x95, 0x01,          //   Report Count (1),
+        0x75, 0x03,          //   Report Size (3),
+        0x91, 0x03,          //   Output (Constant),                 ;LED report padding
+        0x95, KBD2_REPORT_KEYS*8,	//   Report Count (),
+        0x75, 0x01,          //   Report Size (1),
+        0x15, 0x00,          //   Logical Minimum (0),
+        0x25, 0x01,          //   Logical Maximum(1),
+        0x05, 0x07,          //   Usage Page (Key Codes),
+        0x19, 0x00,          //   Usage Minimum (0),
+        0x29, KBD2_REPORT_KEYS*8-1,	//   Usage Maximum (),
+        0x81, 0x02,          //   Input (Data, Variable, Absolute),
+        0xc0                 // End Collection
+};
+#endif
 
 // Mouse Protocol 1, HID 1.11 spec, Appendix B, page 59-60, with wheel extension
 // http://www.microchip.com/forums/tm.aspx?high=&m=391435&mpage=1#391521
@@ -296,17 +332,17 @@ static uint8_t PROGMEM extra_hid_report_desc[] = {
     0xc0                           // END_COLLECTION
 };
 
-#define KEYBOARD_HID_DESC_OFFSET	(9+(9+9+7)*0+9)
-#define MOUSE_HID_DESC_OFFSET		(9+(9+9+7)*1+9)
-#define DEBUG_HID_DESC_OFFSET		(9+(9+9+7)*2+9)
-#define EXTRA_HID_DESC_OFFSET		(9+(9+9+7)*3+9)
-#ifdef USB_12KRO
-#   define NUM_INTERFACES		5
-#   define KEYBOARD2_HID_DESC_OFFSET	(9+(9+9+7)*4+9)
+#define KBD_HID_DESC_OFFSET	(9+(9+9+7)*0+9)
+#define MOUSE_HID_DESC_OFFSET	(9+(9+9+7)*1+9)
+#define DEBUG_HID_DESC_OFFSET	(9+(9+9+7)*2+9)
+#define EXTRA_HID_DESC_OFFSET	(9+(9+9+7)*3+9)
+#ifdef NKRO_ENABLE
+#   define NUM_INTERFACES	5
+#   define KBD2_HID_DESC_OFFSET	(9+(9+9+7)*4+9)
 #else
-#   define NUM_INTERFACES		4
+#   define NUM_INTERFACES	4
 #endif
-#define CONFIG1_DESC_SIZE		(9+(9+9+7)*NUM_INTERFACES)
+#define CONFIG1_DESC_SIZE	(9+(9+9+7)*NUM_INTERFACES)
 static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	// configuration descriptor, USB spec 9.6.3, page 264-266, Table 9-10
 	9, 					// bLength;
@@ -322,7 +358,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
 	9,					// bLength
 	4,					// bDescriptorType
-	KEYBOARD_INTERFACE,			// bInterfaceNumber
+	KBD_INTERFACE,				// bInterfaceNumber
 	0,					// bAlternateSetting
 	1,					// bNumEndpoints
 	0x03,					// bInterfaceClass (0x03 = HID)
@@ -341,10 +377,10 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	// endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	7,					// bLength
 	5,					// bDescriptorType
-	KEYBOARD_ENDPOINT | 0x80,		// bEndpointAddress
+	KBD_ENDPOINT | 0x80,			// bEndpointAddress
 	0x03,					// bmAttributes (0x03=intr)
-	KEYBOARD_SIZE, 0,			// wMaxPacketSize
-	1,					// bInterval
+	KBD_SIZE, 0,				// wMaxPacketSize
+	10,					// bInterval
 
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
 	9,					// bLength
@@ -353,8 +389,13 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0,					// bAlternateSetting
 	1,					// bNumEndpoints
 	0x03,					// bInterfaceClass (0x03 = HID)
+        // ThinkPad T23 BIOS doesn't work with boot mouse.
+	0x00,					// bInterfaceSubClass (0x01 = Boot)
+	0x00,					// bInterfaceProtocol (0x02 = Mouse)
+/*
 	0x01,					// bInterfaceSubClass (0x01 = Boot)
 	0x02,					// bInterfaceProtocol (0x02 = Mouse)
+*/
 	0,					// iInterface
 	// HID descriptor, HID 1.11 spec, section 6.2.1
 	9,					// bLength
@@ -427,11 +468,11 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	EXTRA_SIZE, 0,				// wMaxPacketSize
 	10,					// bInterval
 
-#ifdef USB_12KRO
+#ifdef NKRO_ENABLE
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
 	9,					// bLength
 	4,					// bDescriptorType
-	KEYBOARD_INTERFACE2,			// bInterfaceNumber
+	KBD2_INTERFACE,				// bInterfaceNumber
 	0,					// bAlternateSetting
 	1,					// bNumEndpoints
 	0x03,					// bInterfaceClass (0x03 = HID)
@@ -445,14 +486,14 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0,					// bCountryCode
 	1,					// bNumDescriptors
 	0x22,					// bDescriptorType
-	sizeof(keyboard_hid_report_desc),     	// wDescriptorLength
+	sizeof(keyboard2_hid_report_desc),     	// wDescriptorLength
 	0,
 	// endpoint descriptor, USB spec 9.6.6, page 269-271, Table 9-13
 	7,					// bLength
 	5,					// bDescriptorType
-	KEYBOARD_ENDPOINT2 | 0x80,		// bEndpointAddress
+	KBD2_ENDPOINT | 0x80,			// bEndpointAddress
 	0x03,					// bmAttributes (0x03=intr)
-	KEYBOARD_SIZE, 0,			// wMaxPacketSize
+	KBD2_SIZE, 0,				// wMaxPacketSize
 	1,					// bInterval
 #endif
 };
@@ -494,17 +535,17 @@ static struct descriptor_list_struct {
         // CONFIGURATION descriptor
 	{0x0200, 0x0000, config1_descriptor, sizeof(config1_descriptor)},
         // HID/REPORT descriptors
-	{0x2100, KEYBOARD_INTERFACE, config1_descriptor+KEYBOARD_HID_DESC_OFFSET, 9},
-	{0x2200, KEYBOARD_INTERFACE, keyboard_hid_report_desc, sizeof(keyboard_hid_report_desc)},
+	{0x2100, KBD_INTERFACE, config1_descriptor+KBD_HID_DESC_OFFSET, 9},
+	{0x2200, KBD_INTERFACE, keyboard_hid_report_desc, sizeof(keyboard_hid_report_desc)},
 	{0x2100, MOUSE_INTERFACE, config1_descriptor+MOUSE_HID_DESC_OFFSET, 9},
 	{0x2200, MOUSE_INTERFACE, mouse_hid_report_desc, sizeof(mouse_hid_report_desc)},
 	{0x2100, DEBUG_INTERFACE, config1_descriptor+DEBUG_HID_DESC_OFFSET, 9},
 	{0x2200, DEBUG_INTERFACE, debug_hid_report_desc, sizeof(debug_hid_report_desc)},
 	{0x2100, EXTRA_INTERFACE, config1_descriptor+EXTRA_HID_DESC_OFFSET, 9},
 	{0x2200, EXTRA_INTERFACE, extra_hid_report_desc, sizeof(extra_hid_report_desc)},
-#ifdef USB_12KRO
-	{0x2100, KEYBOARD_INTERFACE2, config1_descriptor+KEYBOARD2_HID_DESC_OFFSET, 9},
-	{0x2200, KEYBOARD_INTERFACE2, keyboard_hid_report_desc, sizeof(keyboard_hid_report_desc)},
+#ifdef NKRO_ENABLE
+	{0x2100, KBD2_INTERFACE, config1_descriptor+KBD2_HID_DESC_OFFSET, 9},
+	{0x2200, KBD2_INTERFACE, keyboard2_hid_report_desc, sizeof(keyboard2_hid_report_desc)},
 #endif
         // STRING descriptors
 	{0x0300, 0x0000, (const uint8_t *)&string0, 4},
@@ -603,7 +644,7 @@ ISR(USB_GEN_vect)
 			}
 		}
 		if (usb_keyboard_idle_config && (++div4 & 3) == 0) {
-			UENUM = KEYBOARD_ENDPOINT;
+			UENUM = KBD_ENDPOINT;
 			if (UEINTX & (1<<RWAL)) {
 				usb_keyboard_idle_count++;
 				if (usb_keyboard_idle_count == usb_keyboard_idle_config) {
@@ -728,10 +769,12 @@ ISR(USB_COM_vect)
 			for (i=1; i<=6; i++) {
 				UENUM = i;
 				en = pgm_read_byte(cfg++);
-				UECONX = en;
-				if (en) {
-					UECFG0X = pgm_read_byte(cfg++);
-					UECFG1X = pgm_read_byte(cfg++);
+                                if (en) {
+                                    UECONX = (1<<EPEN);
+                                    UECFG0X = pgm_read_byte(cfg++);
+                                    UECFG1X = pgm_read_byte(cfg++);
+                                } else {
+                                    UECONX = 0;
 				}
 			}
         		UERST = 0x7E;
@@ -788,7 +831,7 @@ ISR(USB_COM_vect)
                         return;
                     }
 		}
-		if (wIndex == KEYBOARD_INTERFACE) {
+		if (wIndex == KBD_INTERFACE) {
 			if (bmRequestType == 0xA1) {
 				if (bRequest == HID_GET_REPORT) {
 					usb_wait_in_ready();

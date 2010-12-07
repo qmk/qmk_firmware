@@ -1,5 +1,6 @@
 #include "util.h"
 
+// bit population
 int bitpop(uint8_t bits)
 {
     int c;
@@ -8,6 +9,7 @@ int bitpop(uint8_t bits)
     return c;
 }
 
+// most significant on-bit
 int biton(uint8_t bits)
 {
     int n = 0;

@@ -66,8 +66,7 @@ int main(void)
 
     matrix_init();
     matrix_scan();
-    // bootloader comes up when any 4 or more keys are pressed at startup
-    if (matrix_key_count() >= 4) {
+    if (matrix_key_count() >= 3) {
 #ifdef DEBUG_LED
         for (int i = 0; i < 6; i++) {
             DEBUG_LED_CONFIG;
@@ -80,6 +79,13 @@ int main(void)
         _delay_ms(5000);
 #endif
         print_enable = true;
+        debug_enable = true;
+        debug_matrix = true;
+        debug_keyboard = true;
+        debug_mouse = true;
+        print("debug enabled.\n");
+    }
+    if (matrix_key_count() >= 4) {
         print("jump to bootloader...\n");
         _delay_ms(1000);
         jump_bootloader(); // not return

@@ -2,42 +2,23 @@ t.m.k. Keyboard Firmware
 ========================
 http://github.com/tmk/tmk_keyboard
 
-This is keyboard firmware for PFU HHKB style keyboard and Teensy/Teensy++ 2.0.
-OS see this as composite device which has keyboard and mouse.
+This is keyboard firmware for AVR USB MCUs or Teensy/Teensy++ 2.0.
 
 The project is heavily based on PJRC USB Keyboard/Mouse Example and
 owes a debt to preceding keyboard firmware projects.
 
+http://www.pjrc.com/teensy
 
-Version
--------
-0.1     2010/08/23
-        It works as normal keyboard.
-        It is for modified Macway keyboard(TP-999KB-E).
 
-1.0     2010/10/02
-        keyboard has mouse key now.
-        keyboard with layers.(see keymap.c)
-            FN_1(right cmd):
-                vi style layer
-            FN_2(next to right shift):
-                HHKB style layer
-            FN_3(left bottom):
-                h j k l:   mouse move
-                a s d spc: mouse buttons
-                m ,:       mouse wheel
 
-1.1     2010/10/08
-        Matrix wiring changed for casing.
-        (and my Teensy PD3 seems to be latchuped and unusable. :<)
-
-1.2     2010/10/13
-        HHKB support
-        horizontal mouse wheel support
-        change keymaps
-
-2.0     2010/10/27
-        HHKB/Macway support merged
+Functions
+---------
+Mouse key
+System Control Key
+    Power Down, Sleep, Wake Up & USB Remote Wake up
+Media Control Key
+    Volume Down/Up, Mute
+USB NKRO
 
 
 Build
@@ -47,17 +28,16 @@ Compiling sources need AVR GCC, AVR Libc and GNU make.(You can use WinAVR on Win
 $ cd <target> (hhkb or macway)
 $ make
 
+http://winavr.sourceforge.net/
 
-Debuging
---------
-Debug print is on if 4 keys are pressed during booting. 
+
+Debuging & Rescue
+-----------------
 Use PJRC's hid_listen.exe to see debug messages.
+Press right Control + Shift + Alt + GUI + H to debug menu. 
 
-
-AVR Target board
-----------------
-Teensy/Teensy++
-http://www.pjrc.com/teensy
+Pressing any 3 keys when connected enables debug output.
+Pressing any 4 keys when connected makes bootloader comes up.
 
 
 Projects related
@@ -82,60 +62,5 @@ humblehacker-keyboard
 ps2avr
     http://sourceforge.net/projects/ps2avr/
 
-
-TODO & ideas
-------------
-licensing notes(GPL)
-    I think GPL is not infringement of PJRC license.
-souce code cleaning
-sleep&wakeup
-debouncing logic
-    will be coded when bouncing occurs.
-    bouncing doesnt occur on my ALPS switch so far.
-    scan rate is too slow?(to be measure)
-
-Trackpoint(PS/2)
-    receive PS/2 signal from TrackPoint
-    send USB HID report
-Thinkpad keyboard support
-    turn keyboard to USB keyboard/mouse composite device
-setting menu(configure without changing firmware)
-    console for display
-    keymap/layer setting
-    mouse speed/acceleration
-    matrix display
-PS/2 keyboard mode
-    with USB to PS/2 dumb adapter(possible?)
-AT90USBKEY support
-    and other AVR USB boards
-
-DONE:
-support for HHKB pro matrix signal
-    exchange controller board with teensy
-    2010/10/11
-keymap
-    Matias half keyboard style
-    2010/10/23
-souce code cleaning
-    2010/10/23
-debug on/off
-    debug off by default
-    pressing keys during booting
-    2010/10/23
-mouse horizontal wheel
-    http://www.microchip.com/forums/tm.aspx?high=&m=391435&mpage=1#391521
-    http://www.keil.com/forum/15671/
-    http://www.microsoft.com/whdc/device/input/wheel.mspx
-    2010/10/13
-debug on/off
-    Fn key conbination during normal operation
-    matrix print on/off
-    key print on/off
-    mouse print on/off
-    2010/10/26
-layer switching
-    time before switching
-    timeout when not used during specific time
-    2010/10/30
 
 EOF

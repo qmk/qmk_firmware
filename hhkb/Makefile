@@ -39,14 +39,15 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
+# TODO: use config.h for build options?
 VENDOR_ID = 0xFEED
 PRODUCT_ID = 0xCAFE
 MANUFACTURER = 't.m.k.'
-PRODUCT = 't.m.k. HHKB pro'
+PRODUCT = 'HHKB Mod'
 DESCRIPTION = 't.m.k. firmware for HHKB pro'
 
 MOUSE_DELAY_TIME = 127
-USB_12KRO = yes
+NKRO_ENABLE = true
 
 # Target file name (without extension).
 TARGET = tmk_hhkb

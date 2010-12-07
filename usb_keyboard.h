@@ -6,14 +6,26 @@
 #include "usb.h"
 
 
-#define KEYBOARD_INTERFACE	0
-#define KEYBOARD_ENDPOINT	1
-#ifdef USB_12KRO
-#define KEYBOARD_INTERFACE2	4
-#define KEYBOARD_ENDPOINT2	5
+#define KBD_INTERFACE		0
+#define KBD_ENDPOINT		1
+#define KBD_SIZE		8
+#define KBD_BUFFER		EP_DOUBLE_BUFFER
+#define KBD_REPORT_KEYS		(KBD_SIZE - 2)
+
+// secondary keyboard
+#ifdef NKRO_ENABLE
+#define KBD2_INTERFACE		4
+#define KBD2_ENDPOINT		5
+#define KBD2_SIZE		16
+#define KBD2_BUFFER		EP_DOUBLE_BUFFER
+#define KBD2_REPORT_KEYS	(KBD2_SIZE - 2)
 #endif
-#define KEYBOARD_SIZE		8
-#define KEYBOARD_BUFFER		EP_DOUBLE_BUFFER
+
+#if defined(KBD2_REPORT_KEYS) && KBD2_REPORT_KEYS > KBD_REPORT_KEYS
+#define KEYS_MAX KBD2_REPORT_KEYS
+#else
+#define KEYS_MAX KBD_REPORT_KEYS
+#endif
 
 #define BIT_LCTRL   (1<<0)
 #define BIT_LSHIFT  (1<<1)
@@ -28,13 +40,8 @@
 #define BIT_LSFT BIT_LSHIFT
 #define BIT_RSFT BIT_RSHIFT
 
-#ifdef USB_12KRO
-#   define KEYBOARD_REPORT_MAX	12
-#else
-#   define KEYBOARD_REPORT_MAX	6
-#endif
 typedef struct report {
-    uint8_t keys[KEYBOARD_REPORT_MAX];
+    uint8_t keys[KEYS_MAX];
     uint8_t mods;
     bool is_sent;
 } usb_keyboard_report_t;
@@ -52,9 +59,9 @@ extern uint8_t usb_keyboard_protocol;
 extern uint8_t usb_keyboard_idle_config;
 extern uint8_t usb_keyboard_idle_count;
 extern volatile uint8_t usb_keyboard_leds;
+extern bool usb_keyboard_nkro;
 
 
-int8_t usb_keyboard_press(uint8_t key, uint8_t modifier);
 int8_t usb_keyboard_send(void);
 int8_t usb_keyboard_send_report(usb_keyboard_report_t *report);
 
@@ -64,7 +71,7 @@ void usb_keyboard_clear_report(void);
 void usb_keyboard_clear_keys(void);
 void usb_keyboard_clear_mods(void);
 
-void usb_keyboard_set_keys(uint8_t keys[6]);
+void usb_keyboard_set_keys(uint8_t *keys);
 void usb_keyboard_set_mods(uint8_t mods);
 
 void usb_keyboard_add_code(uint8_t code);
@@ -78,6 +85,8 @@ void usb_keyboard_del_mod(uint8_t code);
 bool usb_keyboard_is_sent(void);
 bool usb_keyboard_has_key(void);
 bool usb_keyboard_has_mod(void);
+
+uint8_t usb_keyboard_get_key(void);
 
 void usb_keyboard_print_report(usb_keyboard_report_t *report);
 

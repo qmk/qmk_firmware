@@ -1,0 +1,99 @@
+USB NKRO MEMO
+=============
+2010/12/07
+
+
+References
+----------
+USB - boot mode, NKRO, compatibility, etc...
+    http://geekhack.org/showthread.php?t=13162
+NKey Rollover - Overview, Testing Methodology, and Results
+    http://geekhack.org/showwiki.php?title=NKey+Rollover+-+Overview+Testing+Methodology+and+Results
+
+
+Terminogy
+---------
+NKRO
+ghost
+matrix
+mechanical with diodes
+membrane
+
+
+OS Support Status
+-----------------
+NKRO is possible at least relatively new OS.
+Following OS supports both Extended and Bitmarp report.
+    Windows7 64bit
+    Windows2000 SP4
+    Ubuntu 10.4(Linux 2.6)
+
+
+USB NKRO methods
+----------------
+1. Virtual keyboards
+    Keyboard can increase its KRO by using virtual keyboards with Standard or Extended report.
+    If the keyboard has 2 virtul keyboard with Standard report(6KRO), it gets 12KRO.
+    Using this method means the keyboard is a composite device.
+
+2. Exteded report
+    It needs large report size for this method to achive NKRO.
+    If a keyboard has 101keys, it needs 103byte report. It seems to be inefficient.
+
+3. Bitmap report
+    If the keyboard has less than 128keys, 16byte report will be enough for NKRO.
+    The 16byte report seems to be reasonable cost to get NKRO.
+
+
+Report Format
+-------------
+Other report formats than followings are possible, though these format are typical one.
+
+1. Standard             8bytes
+    modifiers(bitmap)       1byte
+    reserved                1byte(not used)
+    keys(array)             1byte*6
+Standard report can send 6keys plus 8modifiers simultaneously.
+Standard report is used by most keyboards in the marketplace.
+Standard report is identical to boot protocol report.
+Standard report is hard to suffer from compatibility problems.
+
+2. Extended standard    16,32,64bytes
+    modifiers(bitmap)       1byte
+    reserved                1byte(not used)
+    keys(array)             1byte*(14,32,62)
+Extended report can send N-keys by using N+2bytes.
+Extended report is expected to be compatible with boot protocol.
+
+3. Bitmap               16,32,64bytes
+    keys(bitmap)            (16,32)bytes
+Bitmap report can send at most 128keys by 16bytes and 256keys by 32bytes.
+Bitmap report can achieve USB NKRO efficiently in terms of report size.
+Bitmap report needs a deliberation for boot protocol implementation.
+
+
+Compatibility Problem
+---------------------
+Some BIOS doesn't send SET_PROTCOL request, a keyboard can't switch to boot protocol mode.
+This may cuase a problem on a keyboard which uses other report than Standard.
+
+
+Windows Problem
+---------------
+1. Windows accepts only 6keys  in case of Standard report.
+        It should be able to send 6keys plus 8modifiers.
+
+2. Windows accepts only 10keys in case of 16bytes Extended report.
+        It should be able to send 14keys plus 8modifiers.
+
+3. Windows accepts only 18keys in case of 32bytes Extended report.
+        It should be able to send 30keys plus 8modifiers.
+
+If keys are pressed in excess of the number, wrong keys are registered on Windows.
+
+
+This problem will be reportedly fixed soon.(2010/12/05)
+    http://forums.anandtech.com/showpost.php?p=30873364&postcount=17
+
+
+EOF

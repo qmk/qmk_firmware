@@ -42,8 +42,8 @@ static const uint8_t PROGMEM fn_keycode[] = {
     KB_NO,          // FN_0 [NOT USED]
     KB_NO,          // FN_1 layer 1
     KB_SLSH,        // FN_2 layer 2
-    KB_SCOLON,      // FN_3 layer 3
-    KB_SPACE,       // FN_4 layer 4
+    KB_SCLN,        // FN_3 layer 3
+    KB_SPC,         // FN_4 layer 4
     KB_NO,          // FN_5 [NOT USED]
     KB_NO,          // FN_6 [NOT USED]
     KB_NO           // FN_7 layer 1
@@ -67,7 +67,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KB_TAB, KB_Q,   KB_W,   KB_E,   KB_R,   KB_T,   KB_Y,   KB_U,   KB_I,   KB_O,   KB_P,   KB_LBRC,KB_RBRC,KB_BSPC, \
            KB_LCTL,KB_A,   KB_S,   KB_D,   KB_F,   KB_G,   KB_H,   KB_J,   KB_K,   KB_L,   FN_3,   KB_QUOT,KB_ENT, \
            KB_LSFT,KB_Z,   KB_X,   KB_C,   KB_V,   KB_B,   KB_N,   KB_M,   KB_COMM,KB_DOT, FN_2,   KB_RSFT,FN_1, \
-           KB_LGUI,KB_LALT,FN_4,   KB_RALT,FN_7),
+           KB_LGUI,KB_LALT,FN_4,   KB_RALT,KB_RGUI),
 
     /* Layer 1: HHKB mode (HHKB Fn)
      * ,-----------------------------------------------------------.
