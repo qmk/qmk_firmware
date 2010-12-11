@@ -95,7 +95,7 @@ static const uint8_t PROGMEM endpoint_config_table[] = {
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(DEBUG_TX_SIZE) | DEBUG_TX_BUFFER, // 3
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(EXTRA_SIZE)    | EXTRA_BUFFER,    // 4
 #ifdef NKRO_ENABLE
-	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KBD2_SIZE)      | KBD2_BUFFER,      // 5
+	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KBD2_SIZE)     | KBD2_BUFFER,     // 5
 #else
         0, // 5
 #endif
@@ -170,38 +170,38 @@ static uint8_t PROGMEM keyboard_hid_report_desc[] = {
 };
 #ifdef NKRO_ENABLE
 static uint8_t PROGMEM keyboard2_hid_report_desc[] = {
-        0x05, 0x01,          // Usage Page (Generic Desktop),
-        0x09, 0x06,          // Usage (Keyboard),
-        0xA1, 0x01,          // Collection (Application),
-        0x75, 0x01,          //   Report Size (1),
-        0x95, 0x08,          //   Report Count (8),
-        0x05, 0x07,          //   Usage Page (Key Codes),
-        0x19, 0xE0,          //   Usage Minimum (224),
-        0x29, 0xE7,          //   Usage Maximum (231),
-        0x15, 0x00,          //   Logical Minimum (0),
-        0x25, 0x01,          //   Logical Maximum (1),
-        0x81, 0x02,          //   Input (Data, Variable, Absolute), ;Modifier byte
-        0x95, 0x01,          //   Report Count (1),
-        0x75, 0x08,          //   Report Size (8),
-        0x81, 0x03,          //   Input (Constant),                 ;Reserved byte
-        0x95, 0x05,          //   Report Count (5),
-        0x75, 0x01,          //   Report Size (1),
-        0x05, 0x08,          //   Usage Page (LEDs),
-        0x19, 0x01,          //   Usage Minimum (1),
-        0x29, 0x05,          //   Usage Maximum (5),
-        0x91, 0x02,          //   Output (Data, Variable, Absolute), ;LED report
-        0x95, 0x01,          //   Report Count (1),
-        0x75, 0x03,          //   Report Size (3),
-        0x91, 0x03,          //   Output (Constant),                 ;LED report padding
-        0x95, KBD2_REPORT_KEYS*8,	//   Report Count (),
-        0x75, 0x01,          //   Report Size (1),
-        0x15, 0x00,          //   Logical Minimum (0),
-        0x25, 0x01,          //   Logical Maximum(1),
-        0x05, 0x07,          //   Usage Page (Key Codes),
-        0x19, 0x00,          //   Usage Minimum (0),
-        0x29, KBD2_REPORT_KEYS*8-1,	//   Usage Maximum (),
-        0x81, 0x02,          //   Input (Data, Variable, Absolute),
-        0xc0                 // End Collection
+        0x05, 0x01,                     // Usage Page (Generic Desktop),
+        0x09, 0x06,                     // Usage (Keyboard),
+        0xA1, 0x01,                     // Collection (Application),
+        // bitmap of modifiers
+        0x75, 0x01,                     //   Report Size (1),
+        0x95, 0x08,                     //   Report Count (8),
+        0x05, 0x07,                     //   Usage Page (Key Codes),
+        0x19, 0xE0,                     //   Usage Minimum (224),
+        0x29, 0xE7,                     //   Usage Maximum (231),
+        0x15, 0x00,                     //   Logical Minimum (0),
+        0x25, 0x01,                     //   Logical Maximum (1),
+        0x81, 0x02,                     //   Input (Data, Variable, Absolute), ;Modifier byte
+        // LED output report
+        0x95, 0x05,                     //   Report Count (5),
+        0x75, 0x01,                     //   Report Size (1),
+        0x05, 0x08,                     //   Usage Page (LEDs),
+        0x19, 0x01,                     //   Usage Minimum (1),
+        0x29, 0x05,                     //   Usage Maximum (5),
+        0x91, 0x02,                     //   Output (Data, Variable, Absolute),
+        0x95, 0x01,                     //   Report Count (1),
+        0x75, 0x03,                     //   Report Size (3),
+        0x91, 0x03,                     //   Output (Constant),
+        // bitmap of keys
+        0x95, KBD2_REPORT_KEYS*8,       //   Report Count (),
+        0x75, 0x01,                     //   Report Size (1),
+        0x15, 0x00,                     //   Logical Minimum (0),
+        0x25, 0x01,                     //   Logical Maximum(1),
+        0x05, 0x07,                     //   Usage Page (Key Codes),
+        0x19, 0x00,                     //   Usage Minimum (0),
+        0x29, KBD2_REPORT_KEYS*8-1,     //   Usage Maximum (),
+        0x81, 0x02,                     //   Input (Data, Variable, Absolute),
+        0xc0                            // End Collection
 };
 #endif
 
