@@ -211,7 +211,8 @@ static inline int8_t _send_report(usb_keyboard_report_t *report, uint8_t endpoin
             UENUM = endpoint;
     }
     UEDATX = report->mods;
-    UEDATX = 0;
+    if (!usb_keyboard_nkro)
+        UEDATX = 0;
     for (uint8_t i = keys_start; i < keys_end; i++) {
             UEDATX = report->keys[i];
     }
