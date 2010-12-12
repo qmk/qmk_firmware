@@ -13,6 +13,7 @@
   *  - Library Applications:
   *   - Added new incomplete MIDIToneGenerator project
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
+  *   - Added new RingBuffer_Peek() function to the lightweight ring buffer headers
   *
   *  <b>Changed:</b>
   *  - Core:

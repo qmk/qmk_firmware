@@ -196,5 +196,16 @@
 			return Data;
 		}
 
+		/** Returns the next element stored in the ring buffer, without removing it.
+		 *
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to retrieve from
+		 *
+		 *  \return Next data element stored in the buffer
+		 */
+		static inline RingBuff_Data_t RingBuffer_Peek(RingBuff_t* const Buffer)
+		{
+			return *Buffer->Out;
+		}
+
 #endif
 

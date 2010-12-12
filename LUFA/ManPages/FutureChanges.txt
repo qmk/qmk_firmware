@@ -34,6 +34,7 @@
   *      -# Finish StandaloneProgrammer project
   *      -# Arduino Uno compatible USB-MIDI, USB-HID
   *      -# Make Webserver project work in RNDIS device mode
+  *      -# Make rescue clock always active on U4, U6 and U7 targets in AVRISP-MKII Clone project
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers
