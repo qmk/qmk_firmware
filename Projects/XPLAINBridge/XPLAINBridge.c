@@ -136,9 +136,19 @@ void UARTBridge_Task(void)
 		/* Clear flush timer expiry flag */
 		TIFR0 |= (1 << TOV0);
 
-		/* Read bytes from the UART receive buffer into the USB IN endpoint */
+		/* Read bytes from the USART receive buffer into the USB IN endpoint */
 		while (BufferCount--)
-		  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&UARTtoUSB_Buffer));
+		{
+			/* Try to send the next byte of data to the host, abort if there is an error without dequeuing */
+			if (CDC_Device_SendByte(&VirtualSerial_CDC_Interface,
+									RingBuffer_Peek(&UARTtoUSB_Buffer)) != ENDPOINT_READYWAIT_NoError)
+			{
+				break;
+			}
+
+			/* Dequeue the already sent byte from the buffer now we have confirmed that no transmission error occurred */
+			RingBuffer_Remove(&UARTtoUSB_Buffer);
+		}
 	}
 
 	CDC_Device_USBTask(&VirtualSerial_CDC_Interface);

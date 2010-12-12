@@ -37,7 +37,7 @@
 #include "Benito.h"
 
 /** Circular buffer to hold data from the serial port before it is sent to the host. */
-RingBuff_t Tx_Buffer;
+RingBuff_t USARTtoUSB_Buffer;
 
 /** Pulse generation counters to keep track of the number of milliseconds remaining for each pulse type */
 volatile struct
@@ -85,7 +85,7 @@ int main(void)
 {
 	SetupHardware();
 
-	RingBuffer_InitBuffer(&Tx_Buffer);
+	RingBuffer_InitBuffer(&USARTtoUSB_Buffer);
 
 	sei();
 
@@ -126,15 +126,25 @@ int main(void)
 			  LEDs_TurnOffLEDs(LEDMASK_RX);
 
 			/* Check if the receive buffer flush period has expired */
-			RingBuff_Count_t BufferCount = RingBuffer_GetCount(&Tx_Buffer);
+			RingBuff_Count_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
 			if (!(--FlushPeriodRemaining) || (BufferCount > 200))
 			{
 				/* Echo bytes from the target to the host via the virtual serial port */
 				if (BufferCount)
 				{
 					while (BufferCount--)
-					  CDC_Device_SendByte(&VirtualSerial_CDC_Interface, RingBuffer_Remove(&Tx_Buffer));
+					{
+						/* Try to send the next byte of data to the host, abort if there is an error without dequeuing */
+						if (CDC_Device_SendByte(&VirtualSerial_CDC_Interface,
+												RingBuffer_Peek(&USARTtoUSB_Buffer)) != ENDPOINT_READYWAIT_NoError)
+						{
+							break;
+						}
 
+						/* Dequeue the already sent byte from the buffer now we have confirmed that no transmission error occurred */
+						RingBuffer_Remove(&USARTtoUSB_Buffer);
+					}
+			
 					LEDs_TurnOnLEDs(LEDMASK_RX);
 					PulseMSRemaining.RxLEDPulse = TX_RX_LED_PULSE_MS;
 				}
@@ -263,7 +273,7 @@ ISR(USART1_RX_vect, ISR_BLOCK)
 	uint8_t ReceivedByte = UDR1;
 
 	if (USB_DeviceState == DEVICE_STATE_Configured)
-	  RingBuffer_Insert(&Tx_Buffer, ReceivedByte);
+	  RingBuffer_Insert(&USARTtoUSB_Buffer, ReceivedByte);
 }
 
 /** Event handler for the CDC Class driver Host-to-Device Line Encoding Changed event.
