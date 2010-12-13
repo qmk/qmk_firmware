@@ -117,6 +117,7 @@ volatile uint8_t SoftSPI_BitsRemaining;
 /** ISR to handle software SPI transmission and reception */
 ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
+	/* Check if rising edge (output next bit) or falling edge (read in next bit) */
 	if (!(PINB & (1 << 1)))
 	{
 		if (SoftSPI_Data & (1 << 7))
@@ -178,6 +179,8 @@ void ISPTarget_DisableTargetISP(void)
 		DDRB  &= ~((1 << 1) | (1 << 2));
 		PORTB &= ~((1 << 0) | (1 << 3));
 		
+		/* Must re-enable rescue clock once software ISP has exited, as the timer for the rescue clock is
+		 * re-purposed for software SPI */
 		ISPTarget_ConfigureRescueClock();
 	}
 }

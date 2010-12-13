@@ -111,7 +111,7 @@
 		#define HID_KEYBOARD_SC_A                                 0x04
 		#define HID_KEYBOARD_SC_B                                 0x05
 		#define HID_KEYBOARD_SC_C                                 0x06
-		#define HID_KEYBOARD_SC_D                                 0x04
+		#define HID_KEYBOARD_SC_D                                 0x07
 		#define HID_KEYBOARD_SC_E                                 0x08
 		#define HID_KEYBOARD_SC_F                                 0x09
 		#define HID_KEYBOARD_SC_G                                 0x0A
@@ -239,7 +239,8 @@
 		#define HID_KEYBOARD_SC_KEYPAD_EQUAL_SIGN                 0x86
 		#define HID_KEYBOARD_SC_INTERNATIONAL1                    0x87
 		#define HID_KEYBOARD_SC_INTERNATIONAL2                    0x88
-		#define HID_KEYBOARD_SC_INTERNATIONAL3                    0x8A
+		#define HID_KEYBOARD_SC_INTERNATIONAL3                    0x89
+		#define HID_KEYBOARD_SC_INTERNATIONAL4                    0x8A
 		#define HID_KEYBOARD_SC_INTERNATIONAL5                    0x8B
 		#define HID_KEYBOARD_SC_INTERNATIONAL6                    0x8C
 		#define HID_KEYBOARD_SC_INTERNATIONAL7                    0x8D
