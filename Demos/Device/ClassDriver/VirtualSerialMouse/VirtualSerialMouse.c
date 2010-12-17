@@ -166,8 +166,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	bool ConfigSuccess = true;
 
-	ConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
 	ConfigSuccess &= HID_Device_ConfigureEndpoints(&Mouse_HID_Interface);
+	ConfigSuccess &= CDC_Device_ConfigureEndpoints(&VirtualSerial_CDC_Interface);
 
 	USB_Device_EnableSOFEvents();
 

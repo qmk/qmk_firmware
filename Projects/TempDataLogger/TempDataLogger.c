@@ -239,8 +239,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	bool ConfigSuccess = true;
 
-	ConfigSuccess &= MS_Device_ConfigureEndpoints(&Disk_MS_Interface);
 	ConfigSuccess &= HID_Device_ConfigureEndpoints(&Generic_HID_Interface);
+	ConfigSuccess &= MS_Device_ConfigureEndpoints(&Disk_MS_Interface);
 
 	LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }

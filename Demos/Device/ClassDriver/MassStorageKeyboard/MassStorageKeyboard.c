@@ -138,8 +138,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 {
 	bool ConfigSuccess = true;
 
-	ConfigSuccess &= MS_Device_ConfigureEndpoints(&Disk_MS_Interface);
 	ConfigSuccess &= HID_Device_ConfigureEndpoints(&Keyboard_HID_Interface);
+	ConfigSuccess &= MS_Device_ConfigureEndpoints(&Disk_MS_Interface);
 
 	USB_Device_EnableSOFEvents();
 
