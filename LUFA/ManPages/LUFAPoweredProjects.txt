@@ -56,6 +56,7 @@
  *  - MakeTV Episode Dispenser: http://www.youtube.com/watch?v=BkWUi18hl3g
  *  - MidiMonster, a USB-to-MIDI gateway board: http://www.dorkbotpdx.org/wiki/midimonster
  *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
+ *  - NeroJTAG, a JTAG dongle: https://github.com/makestuff/neroJtag
  *  - NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
  *  - Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
  *  - Openkubus, an open source hardware-based authentication dongle: http://code.google.com/p/openkubus/
