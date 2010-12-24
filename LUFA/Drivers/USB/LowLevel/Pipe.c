@@ -56,58 +56,53 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 	Pipe_SetInfiniteINRequests();
 
 	return Pipe_IsConfigured();
-#else
-	uint8_t UPCFG0XTemp[PIPE_TOTAL_PIPES];
-	uint8_t UPCFG1XTemp[PIPE_TOTAL_PIPES];
-	uint8_t UPCFG2XTemp[PIPE_TOTAL_PIPES];
-	uint8_t UPCONXTemp[PIPE_TOTAL_PIPES];
-	uint8_t UPINRQXTemp[PIPE_TOTAL_PIPES];
-	uint8_t UPIENXTemp[PIPE_TOTAL_PIPES];
-	
-	for (uint8_t PNum = 0; PNum < PIPE_TOTAL_PIPES; PNum++)
+#else	
+	for (uint8_t PNum = Number; PNum < PIPE_TOTAL_PIPES; PNum++)
 	{
-		Pipe_SelectPipe(PNum);
-		UPCFG0XTemp[PNum] = UPCFG0X;
-		UPCFG1XTemp[PNum] = UPCFG1X;
-		UPCFG2XTemp[PNum] = UPCFG2X;
-		UPCONXTemp[PNum]  = UPCONX;
-		UPINRQXTemp[PNum] = UPINRQX;
-		UPIENXTemp[PNum]  = UPIENX;
-	}
-	
-	UPCFG0XTemp[Number] = ((Type << EPTYPE0) | Token | ((EndpointNumber & PIPE_EPNUM_MASK) << PEPNUM0));
-	UPCFG1XTemp[Number] = ((1 << ALLOC) | Banks | Pipe_BytesToEPSizeMask(Size));
-	UPCFG2XTemp[Number] = 0;
-	UPCONXTemp[Number]  = (1 << INMODE);
-	UPINRQXTemp[Number] = 0;
-	UPIENXTemp[Number]  = 0;
-	
-	for (uint8_t PNum = 0; PNum < PIPE_TOTAL_PIPES; PNum++)
-	{
-		Pipe_SelectPipe(PNum);
-		UPIENX  = 0;
-		UPINTX  = 0;
-		UPCFG1X = 0;
-		Pipe_DisablePipe();
-	}
+		uint8_t UPCFG0XTemp;
+		uint8_t UPCFG1XTemp;
+		uint8_t UPCFG2XTemp;
+		uint8_t UPCONXTemp;
+		uint8_t UPINRQXTemp;
+		uint8_t UPIENXTemp;
 
-	for (uint8_t PNum = 0; PNum < PIPE_TOTAL_PIPES; PNum++)
-	{
-		if (!(UPCFG1XTemp[PNum] & (1 << ALLOC)))
-		  continue;
+		Pipe_SelectPipe(PNum);
 		
-		Pipe_SelectPipe(PNum);		
-		Pipe_EnablePipe();
+		if (PNum == Number)
+		{
+			UPCFG0XTemp = ((Type << EPTYPE0) | Token | ((EndpointNumber & PIPE_EPNUM_MASK) << PEPNUM0));
+			UPCFG1XTemp = ((1 << ALLOC) | Banks | Pipe_BytesToEPSizeMask(Size));
+			UPCFG2XTemp = 0;
+			UPCONXTemp  = ((1 << PEN) | (1 << INMODE));
+			UPINRQXTemp = 0;
+			UPIENXTemp  = 0;
+		}
+		else
+		{
+			UPCFG0XTemp = UPCFG0X;
+			UPCFG1XTemp = UPCFG1X;
+			UPCFG2XTemp = UPCFG2X;
+			UPCONXTemp  = UPCONX;
+			UPINRQXTemp = UPINRQX;
+			UPIENXTemp  = UPIENX;
+		}
 
-		UPCFG0X  = UPCFG0XTemp[PNum];
-		UPCFG1X  = UPCFG1XTemp[PNum];
-		UPCFG2X  = UPCFG2XTemp[PNum];
-		UPCONX  |= UPCONXTemp[PNum];
-		UPINRQX  = UPINRQXTemp[PNum];
-		UPIENX   = UPIENXTemp[PNum];
+		if (!(UPCFG1XTemp & (1 << ALLOC)))
+		  continue;
+		  
+		Pipe_DisablePipe();
+		UPCFG1X &= (1 << ALLOC);
+
+		Pipe_EnablePipe();
+		UPCFG0X = UPCFG0XTemp;
+		UPCFG1X = UPCFG1XTemp;
+		UPCFG2X = UPCFG2XTemp;
+		UPCONX  = UPCONXTemp;
+		UPINRQX = UPINRQXTemp;
+		UPIENX  = UPIENXTemp;
 
 		if (!(Pipe_IsConfigured()))
-		  return false;
+		  return false;		
 	}
 		
 	Pipe_SelectPipe(Number);	
