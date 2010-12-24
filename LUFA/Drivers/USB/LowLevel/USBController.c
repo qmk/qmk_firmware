@@ -152,6 +152,7 @@ void USB_ResetInterface(void)
 	{
 		#if defined(USB_CAN_BE_HOST)
 		UHWCON &= ~(1 << UIMOD);
+
 		USB_Init_Host();
 		#endif
 	}

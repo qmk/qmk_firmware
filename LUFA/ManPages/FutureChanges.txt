@@ -20,6 +20,7 @@
   *      -# Re-add interrupt Pipe/Endpoint support
   *      -# Add HID report macros to make HID report editing easier
   *      -# Investigate dynamically created device descriptors
+  *      -# Check if ALL the workaround reg save/restore code in the unordered EP config is required
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews

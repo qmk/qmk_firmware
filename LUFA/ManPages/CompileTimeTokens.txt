@@ -77,6 +77,11 @@
  *  \section Sec_SummaryUSBTokens General USB Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack as a whole in the LUFA library.
  *
+ *  <b>ORDERED_EP_CONFIG</b> - ( \ref Group_EndpointManagement , \ref Group_PipeManagement )\n
+ *  The USB AVRs do not allow for Endpoints and Pipes to be configured out of order; they <i>must</i> be configured in an ascending order to
+ *  prevent data corruption issues. However, by default LUFA employs a workaround to allow for unordered Endpoint/Pipe initialisation. This compile
+ *  time token may be used to restrict the intialisation order to ascending indexes only in exchange for a smaller compiled binary size.
+ *
  *  <b>NO_STREAM_CALLBACKS</b> - ( \ref Group_EndpointPacketManagement , \ref Group_PipePacketManagement )\n
  *  Both the endpoint and the pipe driver code contains stream functions, allowing for arrays of data to be sent to or from the
  *  host easily via a single function call (rather than complex routines worrying about sending full packets, waiting for the endpoint/

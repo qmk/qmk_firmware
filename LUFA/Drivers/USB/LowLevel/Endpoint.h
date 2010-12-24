@@ -273,7 +273,8 @@
 			 *                        More banks uses more USB DPRAM, but offers better performance. Isochronous type
 			 *                        endpoints <b>must</b> have at least two banks.
 			 *
-			 *  \note Endpoints <b>must</b> be configured in ascending order, or bank corruption will occur.
+			 *  \note When the ORDERED_EP_CONFIG compile time option is used, Endpoints <b>must</b> be configured in ascending
+			 *        order, or bank corruption will occur.
 			 *        \n\n
 			 *
 			 *  \note Certain models of USB AVR's endpoints may have different maximum packet sizes based on the endpoint's

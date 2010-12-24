@@ -10,6 +10,8 @@
   *  <b>New:</b>
   *  - Core:
   *   - Added new MIDIToneGenerator project
+  *   - Added new ORDERED_EP_CONFIG compile time option to restrict endpoint/pipe configuration to ascending order
+  *     in exchange for a smaller compiled program binary size
   *  - Library Applications:
   *   - Added new incomplete MIDIToneGenerator project
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
@@ -17,6 +19,7 @@
   *
   *  <b>Changed:</b>
   *  - Core:
+  *   - Unordered Endpoint/Pipe configuration is now allowed once again via the previous reconfig workaround
   *   - Refactored Host mode Class Driver *_Host_ConfigurePipes() routines to be more space efficient when compiled
   *   - Added new *_ENUMERROR_PipeConfigurationFailed error codes for the *_Host_ConfigurePipes() routines
   *  - Library Applications:

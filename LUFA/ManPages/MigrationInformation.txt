@@ -11,7 +11,11 @@
  *  areas relevant to making older projects compatible with the API changes of each new release.
  *
  *  \section Sec_MigrationXXXXXX Migrating from 101122 to XXXXXX
- *  None yet.
+ *  <b>USB Core</b>
+ *    - By default, unordered Endpoint and Pipe configuration is now allowed once again, via the previous workaround of
+ *      reconfiguring all Endpoints/Pipes in order each time a new Endpoint/Pipe is created. To minimise the compiled program
+ *      size, the new ORDERED_EP_CONFIG compile time option may be defined in the project makefile to restrict the ordering
+ *      in exchange for a smaller compiled binary size.
  *
  *  \section Sec_Migration101122 Migrating from 100807 to 101122
  *  <b>USB Core</b>

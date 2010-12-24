@@ -861,7 +861,8 @@
 			 *                             uses more USB DPRAM, but offers better performance. Isochronous type pipes <b>must</b>
 			 *                             have at least two banks.
 			 *
-			 *  \note Endpoints <b>must</b> be configured in ascending order, or bank corruption will occur.
+			 *  \note When the ORDERED_EP_CONFIG compile time option is used, Pipes <b>must</b> be configured in ascending order,
+			 *        or bank corruption will occur.
 			 *        \n\n
 			 *
 			 *  \note Certain models of USB AVR's pipes may have different maximum packet sizes based on the pipe's
