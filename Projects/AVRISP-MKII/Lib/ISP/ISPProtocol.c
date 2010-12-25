@@ -70,7 +70,7 @@ void ISPProtocol_EnterISPMode(void)
 
 	/* Continuously attempt to synchronize with the target until either the number of attempts specified
 	 * by the host has exceeded, or the the device sends back the expected response values */
-	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus == STATUS_CMD_FAILED) && TimeoutTicksRemaining)
+	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus != STATUS_CMD_OK) && TimeoutTicksRemaining)
 	{
 		uint8_t ResponseBytes[4];
 
@@ -167,15 +167,16 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);
 
 	uint8_t  ProgrammingStatus = STATUS_CMD_OK;
-	uint16_t PollAddress       = 0;
 	uint8_t  PollValue         = (V2Command == CMD_PROGRAM_FLASH_ISP) ? Write_Memory_Params.PollValue1 :
 	                                                                    Write_Memory_Params.PollValue2;
+	uint16_t PollAddress       = 0;
 	uint8_t* NextWriteByte     = Write_Memory_Params.ProgData;
+	uint16_t PageStartAddress  = (CurrentAddress & 0xFFFF);
 
-	/* Check the programming mode desired by the host, either Paged or Word memory writes */
-	if (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_WRITES_MASK)
+	for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
 	{
-		uint16_t StartAddress = (CurrentAddress & 0xFFFF);
+		uint8_t ByteToWrite     = *(NextWriteByte++);
+		uint8_t ProgrammingMode = Write_Memory_Params.ProgrammingMode;
 
 		/* Check to see if we need to send a LOAD EXTENDED ADDRESS command to the target */
 		if (MustLoadExtendedAddress)
@@ -184,126 +185,81 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			MustLoadExtendedAddress = false;
 		}
 
-		/* Paged mode memory programming */
-		for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
+		ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
+		ISPTarget_SendByte(CurrentAddress >> 8);
+		ISPTarget_SendByte(CurrentAddress & 0xFF);
+		ISPTarget_SendByte(ByteToWrite);
+
+		/* AVR FLASH addressing requires us to modify the write command based on if we are writing a high
+		 * or low byte at the current word address */
+		if (V2Command == CMD_PROGRAM_FLASH_ISP)
+		  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
+
+		/* Check to see if we have a valid polling address */
+		if (!(PollAddress) && (ByteToWrite != PollValue))
 		{
-			bool    IsOddByte   = (CurrentByte & 0x01);
-			uint8_t ByteToWrite = *(NextWriteByte++);
+			if ((CurrentByte & 0x01) && (V2Command == CMD_PROGRAM_FLASH_ISP))
+			  Write_Memory_Params.ProgrammingCommands[2] |=  READ_WRITE_HIGH_BYTE_MASK;
+			else
+			  Write_Memory_Params.ProgrammingCommands[2] &= ~READ_WRITE_HIGH_BYTE_MASK;
 
-			ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
-			ISPTarget_SendByte(CurrentAddress >> 8);
-			ISPTarget_SendByte(CurrentAddress & 0xFF);
-			ISPTarget_SendByte(ByteToWrite);
-
-			/* AVR FLASH addressing requires us to modify the write command based on if we are writing a high
-			 * or low byte at the current word address */
-			if (V2Command == CMD_PROGRAM_FLASH_ISP)
-			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
-
-			/* Check to see the write completion method, to see if we have a valid polling address */
-			if (!(PollAddress) && (ByteToWrite != PollValue))
-			{
-				if (IsOddByte && (V2Command == CMD_PROGRAM_FLASH_ISP))
-				  Write_Memory_Params.ProgrammingCommands[2] |=  READ_WRITE_HIGH_BYTE_MASK;
-
-				PollAddress = (CurrentAddress & 0xFFFF);
-			}
-
-			/* EEPROM increments the address on each byte, flash needs to increment on each word */
-			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
-			  CurrentAddress++;
+			PollAddress = (CurrentAddress & 0xFFFF);
 		}
 
-		/* If the current page must be committed, send the PROGRAM PAGE command to the target */
-		if (Write_Memory_Params.ProgrammingMode & PROG_MODE_COMMIT_PAGE_MASK)
+		/* If in word programming mode, commit the byte to the target's memory */
+		if (!(ProgrammingMode & PROG_MODE_PAGED_WRITES_MASK))
 		{
-			ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[1]);
-			ISPTarget_SendByte(StartAddress >> 8);
-			ISPTarget_SendByte(StartAddress & 0xFF);
-			ISPTarget_SendByte(0x00);
+			/* If the current polling address is invalid, switch to timed delay write completion mode */
+			if (!(PollAddress) && !(ProgrammingMode & PROG_MODE_WORD_READYBUSY_MASK))
+			  ProgrammingMode = (ProgrammingMode & ~PROG_MODE_WORD_VALUE_MASK) | PROG_MODE_WORD_TIMEDELAY_MASK;
 
-			/* Check if polling is enabled and possible, if not switch to timed delay mode */
-			if ((Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_VALUE_MASK) && !(PollAddress))
-			{
-				Write_Memory_Params.ProgrammingMode = (Write_Memory_Params.ProgrammingMode & ~PROG_MODE_PAGED_VALUE_MASK) |
-				                                       PROG_MODE_PAGED_TIMEDELAY_MASK;
-			}
-
-			ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
+			ProgrammingStatus = ISPTarget_WaitForProgComplete(ProgrammingMode, PollAddress, PollValue,
 			                                                  Write_Memory_Params.DelayMS,
 			                                                  Write_Memory_Params.ProgrammingCommands[2]);
-
-			/* Check to see if the FLASH address has crossed the extended address boundary */
-			if ((V2Command == CMD_PROGRAM_FLASH_ISP) && !(CurrentAddress & 0xFFFF))
-			  MustLoadExtendedAddress = true;
-		}
-	}
-	else
-	{
-		/* Word/byte mode memory programming */
-		for (uint16_t CurrentByte = 0; CurrentByte < Write_Memory_Params.BytesToWrite; CurrentByte++)
-		{
-			bool    IsOddByte   = (CurrentByte & 0x01);
-			uint8_t ByteToWrite = *(NextWriteByte++);
-
-			/* Check to see if we need to send a LOAD EXTENDED ADDRESS command to the target */
-			if (MustLoadExtendedAddress)
-			{
-				ISPTarget_LoadExtendedAddress();
-				MustLoadExtendedAddress = false;
-			}
-
-			ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[0]);
-			ISPTarget_SendByte(CurrentAddress >> 8);
-			ISPTarget_SendByte(CurrentAddress & 0xFF);
-			ISPTarget_SendByte(ByteToWrite);
-
-			/* AVR FLASH addressing requires us to modify the write command based on if we are writing a high
-			 * or low byte at the current word address */
-			if (V2Command == CMD_PROGRAM_FLASH_ISP)
-			  Write_Memory_Params.ProgrammingCommands[0] ^= READ_WRITE_HIGH_BYTE_MASK;
-
-			/* Save previous programming mode in case we modify it for the current word */
-			uint8_t PreviousProgrammingMode = Write_Memory_Params.ProgrammingMode;
-
-			if (ByteToWrite != PollValue)
-			{
-				if (IsOddByte && (V2Command == CMD_PROGRAM_FLASH_ISP))
-				  Write_Memory_Params.ProgrammingCommands[2] |=  READ_WRITE_HIGH_BYTE_MASK;
-				else
-				  Write_Memory_Params.ProgrammingCommands[2] &= ~READ_WRITE_HIGH_BYTE_MASK;
-
-				PollAddress = (CurrentAddress & 0xFFFF);
-			}
-			else if (!(Write_Memory_Params.ProgrammingMode & PROG_MODE_WORD_READYBUSY_MASK))
-			{
-				Write_Memory_Params.ProgrammingMode = (Write_Memory_Params.ProgrammingMode & ~PROG_MODE_WORD_VALUE_MASK) |
-				                                       PROG_MODE_WORD_TIMEDELAY_MASK;
-			}
-
-			ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
-			                                                  Write_Memory_Params.DelayMS,
-			                                                  Write_Memory_Params.ProgrammingCommands[2]);
-
-			/* Restore previous programming mode mask in case the current word needed to change it */
-			Write_Memory_Params.ProgrammingMode = PreviousProgrammingMode;
 
 			/* Abort the programming loop early if the byte/word programming failed */
 			if (ProgrammingStatus != STATUS_CMD_OK)
 			  break;
 
-			/* EEPROM just increments the address each byte, flash needs to increment on each word and
-			 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
-			 * address boundary has been crossed */
-			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
-			{
-				CurrentAddress++;
+			/* Must reset the polling address afterwards, so it is not erronously used for the next byte */
+			PollAddress = 0;
+		}
+		
+		/* EEPROM just increments the address each byte, flash needs to increment on each word and
+		 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
+		 * address boundary has been crossed */
+		if ((CurrentByte & 0x01) || (V2Command == CMD_PROGRAM_EEPROM_ISP))
+		{
+			CurrentAddress++;
 
-				if ((V2Command != CMD_PROGRAM_EEPROM_ISP) && !(CurrentAddress & 0xFFFF))
-				  MustLoadExtendedAddress = true;
-			}
+			if ((V2Command != CMD_PROGRAM_EEPROM_ISP) && !(CurrentAddress & 0xFFFF))
+			  MustLoadExtendedAddress = true;
 		}
 	}
+	
+	/* If the current page must be committed, send the PROGRAM PAGE command to the target */
+	if (Write_Memory_Params.ProgrammingMode & PROG_MODE_COMMIT_PAGE_MASK)
+	{
+		ISPTarget_SendByte(Write_Memory_Params.ProgrammingCommands[1]);
+		ISPTarget_SendByte(PageStartAddress >> 8);
+		ISPTarget_SendByte(PageStartAddress & 0xFF);
+		ISPTarget_SendByte(0x00);
+
+		/* Check if polling is enabled and possible, if not switch to timed delay mode */
+		if ((Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_VALUE_MASK) && !(PollAddress))
+		{
+			Write_Memory_Params.ProgrammingMode = (Write_Memory_Params.ProgrammingMode & ~PROG_MODE_PAGED_VALUE_MASK) |
+												   PROG_MODE_PAGED_TIMEDELAY_MASK;
+		}
+
+		ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
+		                                                  Write_Memory_Params.DelayMS,
+		                                                  Write_Memory_Params.ProgrammingCommands[2]);
+
+		/* Check to see if the FLASH address has crossed the extended address boundary */
+		if ((V2Command == CMD_PROGRAM_FLASH_ISP) && !(CurrentAddress & 0xFFFF))
+		  MustLoadExtendedAddress = true;
+	}	
 
 	Endpoint_Write_Byte(V2Command);
 	Endpoint_Write_Byte(ProgrammingStatus);

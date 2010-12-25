@@ -25,6 +25,8 @@
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion
+  *   - Combined page and word ISP programming mode code in the AVRISP-MKII clone project to reduce compiled size and
+  *     increase maintainability of the code
   *
   *  <b>Fixed:</b>
   *  - Core:
