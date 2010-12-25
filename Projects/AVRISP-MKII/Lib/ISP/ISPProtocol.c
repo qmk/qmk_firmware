@@ -146,8 +146,6 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 
 	Endpoint_Read_Stream_LE(&Write_Memory_Params, (sizeof(Write_Memory_Params) -
 	                                               sizeof(Write_Memory_Params.ProgData)), NO_STREAM_CALLBACK);
-
-
 	Write_Memory_Params.BytesToWrite = SwapEndian_16(Write_Memory_Params.BytesToWrite);
 
 	if (Write_Memory_Params.BytesToWrite > sizeof(Write_Memory_Params.ProgData))
@@ -206,7 +204,7 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			if (!(PollAddress) && (ByteToWrite != PollValue))
 			{
 				if (IsOddByte && (V2Command == CMD_PROGRAM_FLASH_ISP))
-				  Write_Memory_Params.ProgrammingCommands[2] |= READ_WRITE_HIGH_BYTE_MASK;
+				  Write_Memory_Params.ProgrammingCommands[2] |=  READ_WRITE_HIGH_BYTE_MASK;
 
 				PollAddress = (CurrentAddress & 0xFFFF);
 			}
@@ -224,15 +222,16 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			ISPTarget_SendByte(StartAddress & 0xFF);
 			ISPTarget_SendByte(0x00);
 
-			/* Check if polling is possible and enabled, if not switch to timed delay mode */
-			if (!(PollAddress) && (Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_VALUE_MASK))
+			/* Check if polling is enabled and possible, if not switch to timed delay mode */
+			if ((Write_Memory_Params.ProgrammingMode & PROG_MODE_PAGED_VALUE_MASK) && !(PollAddress))
 			{
-				Write_Memory_Params.ProgrammingMode &= ~PROG_MODE_PAGED_VALUE_MASK;
-				Write_Memory_Params.ProgrammingMode |=  PROG_MODE_PAGED_TIMEDELAY_MASK;
+				Write_Memory_Params.ProgrammingMode = (Write_Memory_Params.ProgrammingMode & ~PROG_MODE_PAGED_VALUE_MASK) |
+				                                       PROG_MODE_PAGED_TIMEDELAY_MASK;
 			}
 
 			ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
-			                                                  Write_Memory_Params.DelayMS, Write_Memory_Params.ProgrammingCommands[2]);
+			                                                  Write_Memory_Params.DelayMS,
+			                                                  Write_Memory_Params.ProgrammingCommands[2]);
 
 			/* Check to see if the FLASH address has crossed the extended address boundary */
 			if ((V2Command == CMD_PROGRAM_FLASH_ISP) && !(CurrentAddress & 0xFFFF))
@@ -270,18 +269,21 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			if (ByteToWrite != PollValue)
 			{
 				if (IsOddByte && (V2Command == CMD_PROGRAM_FLASH_ISP))
-				  Write_Memory_Params.ProgrammingCommands[2] |= READ_WRITE_HIGH_BYTE_MASK;
+				  Write_Memory_Params.ProgrammingCommands[2] |=  READ_WRITE_HIGH_BYTE_MASK;
+				else
+				  Write_Memory_Params.ProgrammingCommands[2] &= ~READ_WRITE_HIGH_BYTE_MASK;
 
 				PollAddress = (CurrentAddress & 0xFFFF);
 			}
 			else if (!(Write_Memory_Params.ProgrammingMode & PROG_MODE_WORD_READYBUSY_MASK))
 			{
-				Write_Memory_Params.ProgrammingMode &= ~PROG_MODE_WORD_VALUE_MASK;
-				Write_Memory_Params.ProgrammingMode |=  PROG_MODE_WORD_TIMEDELAY_MASK;
+				Write_Memory_Params.ProgrammingMode = (Write_Memory_Params.ProgrammingMode & ~PROG_MODE_WORD_VALUE_MASK) |
+				                                       PROG_MODE_WORD_TIMEDELAY_MASK;
 			}
 
 			ProgrammingStatus = ISPTarget_WaitForProgComplete(Write_Memory_Params.ProgrammingMode, PollAddress, PollValue,
-			                                                  Write_Memory_Params.DelayMS, Write_Memory_Params.ProgrammingCommands[2]);
+			                                                  Write_Memory_Params.DelayMS,
+			                                                  Write_Memory_Params.ProgrammingCommands[2]);
 
 			/* Restore previous programming mode mask in case the current word needed to change it */
 			Write_Memory_Params.ProgrammingMode = PreviousProgrammingMode;
@@ -293,7 +295,7 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 			/* EEPROM just increments the address each byte, flash needs to increment on each word and
 			 * also check to ensure that a LOAD EXTENDED ADDRESS command is issued each time the extended
 			 * address boundary has been crossed */
-			if ((CurrentByte & 0x01) || (V2Command == CMD_PROGRAM_EEPROM_ISP))
+			if (IsOddByte || (V2Command == CMD_PROGRAM_EEPROM_ISP))
 			{
 				CurrentAddress++;
 
