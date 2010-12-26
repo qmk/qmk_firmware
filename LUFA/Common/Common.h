@@ -106,7 +106,7 @@
 			 *  must be pre-initialized before this macro is run and linked to an output device, such as the AVR's USART
 			 *  peripheral.
 			 *
-			 *  The output takes the form "{FILENAME}: Function {FUNCTION NAME}, Line {LINE NUMBER}: Assertion {x} failed."
+			 *  The output takes the form "{FILENAME}: Function {FUNCTION NAME}, Line {LINE NUMBER}: Assertion {Condition} failed."
 			 *
 			 *  \param[in] Condition  Condition that will be evaluated,
 			 *
@@ -114,7 +114,7 @@
 			 */
 			#define STDOUT_ASSERT(Condition)        MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
 			                                                "Assertion \"%s\" failed.\r\n"),     \
-			                                                __FILE__, __func__, __LINE__, #x); } }MACROE
+			                                                __FILE__, __func__, __LINE__, #Condition); } }MACROE
 			
 			/** Forces GCC to use pointer indirection (via the AVR's pointer register pairs) when accessing the given
 			 *  struct pointer. In some cases GCC will emit non-optimal assembly code when accessing a structure through

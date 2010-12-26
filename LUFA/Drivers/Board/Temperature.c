@@ -30,7 +30,7 @@
 
 #include "Temperature.h"
 
-static const uint16_t PROGMEM Temperature_Lookup[] = {
+static const uint16_t PROGMEM Temperature_Lookup[TEMP_TABLE_SIZE] = {
    0x3B4, 0x3B0, 0x3AB, 0x3A6, 0x3A0, 0x39A, 0x394, 0x38E, 0x388, 0x381, 0x37A, 0x373,
    0x36B, 0x363, 0x35B, 0x353, 0x34A, 0x341, 0x338, 0x32F, 0x325, 0x31B, 0x311, 0x307,
    0x2FC, 0x2F1, 0x2E6, 0x2DB, 0x2D0, 0x2C4, 0x2B8, 0x2AC, 0x2A0, 0x294, 0x288, 0x27C,
@@ -50,7 +50,7 @@ int8_t Temperature_GetTemperature(void)
 	if (Temp_ADC > pgm_read_word(&Temperature_Lookup[0]))
 	  return TEMP_MIN_TEMP;
 
-	for (uint16_t Index = 0; Index < (sizeof(Temperature_Lookup) / sizeof(Temperature_Lookup[0])); Index++)
+	for (uint16_t Index = 0; Index < TEMP_TABLE_SIZE; Index++)
 	{
 		if (Temp_ADC > pgm_read_word(&Temperature_Lookup[Index]))
 		  return (Index + TEMP_TABLE_OFFSET_DEGREES);

@@ -92,12 +92,15 @@
 
 			/** ADC channel MUX mask for the temperature sensor. */
 			#define TEMP_ADC_CHANNEL_MASK  ADC_CHANNEL0
+			
+			/** Size of the temperature sensor lookup table, in lookup values */
+			#define TEMP_TABLE_SIZE        120
 
 			/** Minimum returnable temperature from the \ref Temperature_GetTemperature() function. */
-			#define TEMP_MIN_TEMP          TEMP_TABLE_OFFSET
+			#define TEMP_MIN_TEMP          TEMP_TABLE_OFFSET_DEGREES
 
 			/** Maximum returnable temperature from the \ref Temperature_GetTemperature() function. */
-			#define TEMP_MAX_TEMP          ((TEMP_TABLE_SIZE - 1) + TEMP_TABLE_OFFSET)
+			#define TEMP_MAX_TEMP          ((TEMP_TABLE_SIZE - 1) + TEMP_TABLE_OFFSET_DEGREES)
 
 		/* Inline Functions: */
 			/** Initialises the temperature sensor driver, including setting up the appropriate ADC channel.

@@ -97,6 +97,13 @@
 	#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* External Variables: */
+			/** Named stream for the USART, once \ref SerialStream_Init() has been called. This may be used with the
+			 *  file based stream functions (fprintf, fscanf, etc.) that require a handle to the stream rather than
+			 *  using the stdin and stdout named streams.
+			 */
+			extern FILE USARTStream;
+
 		/* Inline Functions: */
 			/** Initialises the serial stream (and regular USART driver) so that both the stream and regular
 			 *  USART driver functions can be used. Must be called before any stream or regular USART functions.
@@ -120,13 +127,6 @@
 			{
 				Serial_ShutDown();
 			}
-
-		/* External Variables: */
-			/** Named stream for the USART, once \ref SerialStream_Init() has been called. This may be used with the
-			 *  file based stream functions (fprintf, fscanf, etc.) that require a handle to the stream rather than
-			 *  using the stdin and stdout named streams.
-			 */
-			extern FILE USARTStream;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
