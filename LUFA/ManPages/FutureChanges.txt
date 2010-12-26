@@ -21,7 +21,6 @@
   *      -# Add HID report macros to make HID report editing easier
   *      -# Investigate dynamically created device descriptors
   *  - Known Bugs
-  *      -# Errors with AVRISP-MKII program with full EEPROM programming on the ATMEGA8 (and others?)
   *      -# No wakeup when plugged into hub, and hub plugged into host
   *      -# Incomplete TMC class demo errors
   *  - Documentation/Support

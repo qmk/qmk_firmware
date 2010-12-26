@@ -85,14 +85,14 @@
 			 *
 			 *  \ingroup Group_Debugging
 			 */
-			#define JTAG_DEBUG_POINT()      __asm__ volatile ("NOP" ::)
+			#define JTAG_DEBUG_POINT()      __asm__ __volatile__ ("NOP" ::)
 
 			/** Defines an explicit JTAG break point in the resulting binary via the ASM BREAK statement. When
 			 *  a JTAG is used, this causes the program execution to halt when reached until manually resumed.
 			 *
 			 *  \ingroup Group_Debugging
 			 */
-			#define JTAG_DEBUG_BREAK()      __asm__ volatile ("BREAK" ::)
+			#define JTAG_DEBUG_BREAK()      __asm__ __volatile__ ("BREAK" ::)
 
 			/** Macro for testing condition "x" and breaking via JTAG_DEBUG_BREAK() if the condition is false.
 			 *
@@ -111,6 +111,16 @@
 			#define STDOUT_ASSERT(x)        MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
 			                                             "Assertion \"%s\" failed.\r\n"),     \
 			                                             __FILE__, __func__, __LINE__, #x); } }MACROE
+			
+			/** Forces GCC to use pointer indirection (via the AVR's pointer register pairs) when accessing the given
+			 *  struct pointer. In some cases GCC will emit non-optimal assembly code when accessing a structure through
+			 *  a pointer, resulting in a larger binary. When this macro is used on a (non-const) structure pointer before
+			 *  use, it will force GCC to use pointer indirection on the elements rather than direct store and load
+			 *  instructions.
+			 *
+			 *  \param[in, out] StructPtr  Pointer to a structure which is to be forced into indirect access mode.
+			 */
+			#define GCC_FORCE_POINTER_ACCESS(StructPtr) __asm__ __volatile__("" : "=b" (StructPtr) : "0" (StructPtr))
 
 			#if !defined(pgm_read_ptr) || defined(__DOXYGEN__)
 				/** Reads a pointer out of PROGMEM space. This is currently a wrapper for the avr-libc pgm_read_ptr()

@@ -39,8 +39,15 @@
 /** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
 RingBuff_t USBtoUSART_Buffer;
 
+/** Underlying data buffer for \ref USBtoUSART_Buffer, where the stored bytes are located. */
+uint8_t    USBtoUSART_Buffer_Data[128];
+
 /** Circular buffer to hold data from the serial port before it is sent to the host. */
 RingBuff_t USARTtoUSB_Buffer;
+
+/** Underlying data buffer for \ref USARTtoUSB_Buffer, where the stored bytes are located. */
+uint8_t    USARTtoUSB_Buffer_Data[128];
+
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -73,8 +80,8 @@ int main(void)
 {
 	SetupHardware();
 
-	RingBuffer_InitBuffer(&USBtoUSART_Buffer);
-	RingBuffer_InitBuffer(&USARTtoUSB_Buffer);
+	RingBuffer_InitBuffer(&USBtoUSART_Buffer, USBtoUSART_Buffer_Data, sizeof(USBtoUSART_Buffer_Data));
+	RingBuffer_InitBuffer(&USARTtoUSB_Buffer, USARTtoUSB_Buffer_Data, sizeof(USARTtoUSB_Buffer_Data));
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
@@ -92,7 +99,7 @@ int main(void)
 		}
 		
 		/* Check if the UART receive buffer flush timer has expired or the buffer is nearly full */
-		RingBuff_Count_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
+		uint16_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
 		if ((TIFR0 & (1 << TOV0)) || (BufferCount > 200))
 		{
 			/* Clear flush timer expiry flag */

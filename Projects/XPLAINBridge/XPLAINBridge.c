@@ -66,8 +66,14 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 /** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
 RingBuff_t USBtoUART_Buffer;
 
+/** Underlying data buffer for \ref USBtoUART_Buffer, where the stored bytes are located. */
+uint8_t    USBtoUART_Buffer_Data[128];
+
 /** Circular buffer to hold data from the serial port before it is sent to the host. */
 RingBuff_t UARTtoUSB_Buffer;
+
+/** Underlying data buffer for \ref UARTtoUSB_Buffer, where the stored bytes are located. */
+uint8_t    UARTtoUSB_Buffer_Data[128];
 
 
 /** Main program entry point. This routine contains the overall program flow, including initial
@@ -130,7 +136,7 @@ void UARTBridge_Task(void)
 	}
 	
 	/* Check if the UART receive buffer flush timer has expired or buffer is nearly full */
-	RingBuff_Count_t BufferCount = RingBuffer_GetCount(&UARTtoUSB_Buffer);
+	uint16_t BufferCount = RingBuffer_GetCount(&UARTtoUSB_Buffer);
 	if ((TIFR0 & (1 << TOV0)) || (BufferCount > 200))
 	{
 		/* Clear flush timer expiry flag */
@@ -199,8 +205,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 		TCCR0B = ((1 << CS02) | (1 << CS00));
 
 		/* Initialize ring buffers used to hold serial data between USB and software UART interfaces */
-		RingBuffer_InitBuffer(&USBtoUART_Buffer);
-		RingBuffer_InitBuffer(&UARTtoUSB_Buffer);
+		RingBuffer_InitBuffer(&USBtoUART_Buffer, USBtoUART_Buffer_Data, sizeof(USBtoUART_Buffer_Data));
+		RingBuffer_InitBuffer(&UARTtoUSB_Buffer, UARTtoUSB_Buffer_Data, sizeof(UARTtoUSB_Buffer_Data));
 
 		/* Start the software USART */
 		SoftUART_Init();

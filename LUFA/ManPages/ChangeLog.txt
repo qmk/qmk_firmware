@@ -12,6 +12,8 @@
   *   - Added new MIDIToneGenerator project
   *   - Added new ORDERED_EP_CONFIG compile time option to restrict endpoint/pipe configuration to ascending order
   *     in exchange for a smaller compiled program binary size
+  *   - Added a new general RingBuff.h miscellaneous ring buffer library driver header
+  *   - Added new GCC_FORCE_POINTER_ACCESS() macro to correct GCC's mishandling of struct pointer accesses
   *  - Library Applications:
   *   - Added new incomplete MIDIToneGenerator project
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
@@ -27,6 +29,7 @@
   *     via the Input Capture register, to reduce user confusion
   *   - Combined page and word ISP programming mode code in the AVRISP-MKII clone project to reduce compiled size and
   *     increase maintainability of the code
+  *   - Changed over library projects to use the new general ring buffer library driver module
   *
   *  <b>Fixed:</b>
   *  - Core:

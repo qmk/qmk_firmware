@@ -46,12 +46,12 @@
 		#include "AVRISPDescriptors.h"
 		#include "USARTDescriptors.h"
 
-		#include "Lib/LightweightRingBuff.h"
 		#include "Lib/SoftUART.h"
 		#include "Lib/V2Protocol.h"
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
+		#include <LUFA/Drivers/Misc/RingBuffer.h>
 		#include <LUFA/Drivers/USB/USB.h>
 
 	/* Macros: */

@@ -39,6 +39,9 @@
 /** Circular buffer to hold data from the serial port before it is sent to the host. */
 RingBuff_t USARTtoUSB_Buffer;
 
+/** Underlying data buffer for \ref USARTtoUSB_Buffer, where the stored bytes are located. */
+uint8_t    USARTtoUSB_Buffer_Data[128];
+
 /** Pulse generation counters to keep track of the number of milliseconds remaining for each pulse type */
 volatile struct
 {
@@ -85,7 +88,7 @@ int main(void)
 {
 	SetupHardware();
 
-	RingBuffer_InitBuffer(&USARTtoUSB_Buffer);
+	RingBuffer_InitBuffer(&USARTtoUSB_Buffer, USARTtoUSB_Buffer_Data, sizeof(USARTtoUSB_Buffer_Data));
 
 	sei();
 
@@ -126,7 +129,7 @@ int main(void)
 			  LEDs_TurnOffLEDs(LEDMASK_RX);
 
 			/* Check if the receive buffer flush period has expired */
-			RingBuff_Count_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
+			uint16_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
 			if (!(--FlushPeriodRemaining) || (BufferCount > 200))
 			{
 				/* Echo bytes from the target to the host via the virtual serial port */
