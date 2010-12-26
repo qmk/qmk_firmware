@@ -107,10 +107,10 @@
 		{
 			uint8_t* In; /**< Current storage location in the circular buffer */
 			uint8_t* Out; /**< Current retrieval location in the circular buffer */
-			uint8_t* Start; /** Pointer to the start of the buffer's underlying storage array */
-			uint8_t* End; /** Pointer to the end of the buffer's underlying storage array */
-			uint8_t  Size; /** Size of the buffer's underlying storage array */
-			uint16_t Count; /** Number of bytes currently stored in the buffer */
+			uint8_t* Start; /**< Pointer to the start of the buffer's underlying storage array */
+			uint8_t* End; /**< Pointer to the end of the buffer's underlying storage array */
+			uint8_t  Size; /**< Size of the buffer's underlying storage array */
+			uint16_t Count; /**< Number of bytes currently stored in the buffer */
 		} RingBuff_t;
 
 	/* Inline Functions: */
@@ -118,9 +118,9 @@
 		 *  before any operations are called upon them. Already initialized buffers may be reset
 		 *  by re-initializing them using this function.
 		 *
-		 *  \param[out] Buffer   Pointer to a ring buffer structure to initialize
-		 *  \param[out] DataPtr  Pointer to a global array that will hold the data stored into the ring buffer
-		 *  \param[out] Size     Maximum number of bytes that can be stored in the underlying data array
+		 *  \param[out] Buffer   Pointer to a ring buffer structure to initialize.
+		 *  \param[out] DataPtr  Pointer to a global array that will hold the data stored into the ring buffer.
+		 *  \param[out] Size     Maximum number of bytes that can be stored in the underlying data array.
 		 */
 		static inline void RingBuffer_InitBuffer(RingBuff_t* Buffer, uint8_t* const DataPtr, const uint16_t Size)
 		{
@@ -148,7 +148,7 @@
 		 *        the returned number should be used only to determine how many successive reads may safely
 		 *        be performed on the buffer.
 		 *
-		 *  \param[in] Buffer  Pointer to a ring buffer structure whose count is to be computed
+		 *  \param[in] Buffer  Pointer to a ring buffer structure whose count is to be computed.
 		 */
 		static inline uint16_t RingBuffer_GetCount(RingBuff_t* const Buffer)
 		{
@@ -166,9 +166,9 @@
 		 *  be tested before storing data to the buffer, to ensure that no data is lost due to a
 		 *  buffer overrun.
 		 *
-		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into.
 		 *
-		 *  \return Boolean true if the buffer contains no free space, false otherwise
+		 *  \return Boolean true if the buffer contains no free space, false otherwise.
 		 */
 		static inline bool RingBuffer_IsFull(RingBuff_t* const Buffer)
 		{
@@ -183,9 +183,9 @@
 		 *  buffer (via a call to the \ref RingBuffer_GetCount() function) in a temporary variable
 		 *  to reduce the time spent in atomicity locks.
 		 *
-		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into.
 		 *
-		 *  \return Boolean true if the buffer contains no free space, false otherwise
+		 *  \return Boolean true if the buffer contains no free space, false otherwise.
 		 */
 		static inline bool RingBuffer_IsEmpty(RingBuff_t* const Buffer)
 		{
@@ -198,8 +198,8 @@
 		 *        otherwise data corruption may occur. Insertion and removal may occur from different execution
 		 *        threads.
 		 *
-		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into
-		 *  \param[in]     Data    Data element to insert into the buffer
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into.
+		 *  \param[in]     Data    Data element to insert into the buffer.
 		 */
 		static inline void RingBuffer_Insert(RingBuff_t* const Buffer,
 		                                     const uint8_t Data)
@@ -221,9 +221,9 @@
 		 *        otherwise data corruption may occur. Insertion and removal may occur from different execution
 		 *        threads.
 		 *
-		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to retrieve from
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to retrieve from.
 		 *
-		 *  \return Next data element stored in the buffer
+		 *  \return Next data element stored in the buffer.
 		 */
 		static inline uint8_t RingBuffer_Remove(RingBuff_t* const Buffer)
 		{
@@ -242,9 +242,9 @@
 
 		/** Returns the next element stored in the ring buffer, without removing it.
 		 *
-		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to retrieve from
+		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to retrieve from.
 		 *
-		 *  \return Next data element stored in the buffer
+		 *  \return Next data element stored in the buffer.
 		 */
 		static inline uint8_t RingBuffer_Peek(RingBuff_t* const Buffer)
 		{

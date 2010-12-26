@@ -182,8 +182,8 @@
 
 			/** Sets the cursor position to the given line and column.
 			 *
-			 *  \param[in] Line    Line number to position the cursor at
-			 *  \param[in] Column  Column number to position the cursor at
+			 *  \param[in] Line    Line number to position the cursor at.
+			 *  \param[in] Column  Column number to position the cursor at.
 			 */
 			#define ESC_CURSOR_POS(Line, Column)    ANSI_ESCAPE_SEQUENCE(#Line ";" #Column "H")
 
