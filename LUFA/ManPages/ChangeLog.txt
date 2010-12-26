@@ -14,18 +14,19 @@
   *     in exchange for a smaller compiled program binary size
   *   - Added a new general RingBuff.h miscellaneous ring buffer library driver header
   *   - Added new GCC_FORCE_POINTER_ACCESS() macro to correct GCC's mishandling of struct pointer accesses
+  *   - Added basic driver example use code to the library documentation
   *  - Library Applications:
-  *   - Added new incomplete MIDIToneGenerator project
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
-  *   - Added new RingBuffer_Peek() function to the lightweight ring buffer headers
   *
   *  <b>Changed:</b>
   *  - Core:
-  *   - Unordered Endpoint/Pipe configuration is now allowed once again via the previous reconfig workaround
+  *   - Unordered Endpoint/Pipe configuration is now allowed once again by default via the previous reconfig workaround
   *   - Refactored Host mode Class Driver *_Host_ConfigurePipes() routines to be more space efficient when compiled
   *   - Added new *_ENUMERROR_PipeConfigurationFailed error codes for the *_Host_ConfigurePipes() routines
+  *   - The USARTStream global is now public and documented in the SerialStream module, allowing for the serial USART
+  *     stream to be accessed via its handle rather than via the implicit stdout and stdin streams
   *  - Library Applications:
-  *   - Changed the XPLAINBridge software UART to use the regular CTC mode instead of the alternative CTC mode
+  *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion
   *   - Combined page and word ISP programming mode code in the AVRISP-MKII clone project to reduce compiled size and
   *     increase maintainability of the code

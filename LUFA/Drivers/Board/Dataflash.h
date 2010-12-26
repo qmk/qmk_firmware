@@ -59,6 +59,54 @@
  *
  *  For possible BOARD makefile values, see \ref Group_BoardTypes.
  *
+ *  <b>Example Usage:</b>
+ *  \code
+ *      // Initialise the SPI and board Dataflash drivers before first use
+ *      SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_ORDER_MSB_FIRST | SPI_SCK_LEAD_FALLING |
+ *               SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
+ *      Dataflash_Init();
+ *
+ *      uint8_t WriteBuffer[DATAFLASH_PAGE_SIZE];
+ *      uint8_t ReadBuffer[DATAFLASH_PAGE_SIZE];
+ *
+ *      // Fill page write buffer with a repeating pattern
+ *      for (uint16_t i = 0; i < DATAFLASH_PAGE_SIZE; i++)
+ *        WriteBuffer[i] = (i & 0xFF);
+ *
+ *      // Must select the chip of interest first before operating on it
+ *      Dataflash_SelectChip(DATAFLASH_CHIP1);
+ *
+ *      // Write to the Dataflash's first internal memory buffer
+ *      printf("Writing data to first dataflash buffer:\r\n");
+ *      Dataflash_SendByte(DF_CMD_BUFF1WRITE);
+ *      Dataflash_SendAddressBytes(0, 0);
+ *
+ *      for (uint16_t i = 0; i < DATAFLASH_PAGE_SIZE; i++)
+ *        Dataflash_SendByte(WriteBuffer[i]);
+ *
+ *      // Commit the Dataflash's first memory buffer to the non-voltatile FLASH memory
+ *      printf("Committing page to non-volatile memory page index 5:\r\n");
+ *      Dataflash_SendByte(DF_CMD_BUFF1TOMAINMEMWITHERASE);
+ *      Dataflash_SendAddressBytes(5, 0);
+ *      Dataflash_WaitWhileBusy();
+ *
+ *      // Read the page from non-voltatile FLASH memory into the Dataflash's second memory buffer
+ *      printf("Reading data into second dataflash buffer:\r\n");
+ *      Dataflash_SendByte(DF_CMD_MAINMEMTOBUFF2);
+ *      Dataflash_SendAddressBytes(5, 0);
+ *      Dataflash_WaitWhileBusy();
+ *
+ *      // Read the Dataflash's second internal memory buffer
+ *      Dataflash_SendByte(DF_CMD_BUFF2READ);
+ *      Dataflash_SendAddressBytes(0, 0);
+ *
+ *      for (uint16_t i = 0; i < DATAFLASH_PAGE_SIZE; i++)
+ *        ReadBuffer[i] = Dataflash_ReceiveByte();
+ *
+ *      // Deselect the chip after use
+ *      Dataflash_DeselectChip();
+ *  \endcode
+ *
  *  @{
  */
 
@@ -97,7 +145,8 @@
 
 		/* Inline Functions: */
 			/** Initialises the dataflash driver so that commands and data may be sent to an attached dataflash IC.
-			 *  The AVR's SPI driver MUST be initialized before any of the dataflash commands are used.
+			 *
+			 *  \note The AVR's SPI driver must be initialized before any of the dataflash commands are used.
 			 */
 			static inline void Dataflash_Init(void);
 

@@ -96,9 +96,11 @@
 
 			/** Macro for testing condition "x" and breaking via JTAG_DEBUG_BREAK() if the condition is false.
 			 *
+			 *  \param[in] Condition  Condition that will be evaluated,
+			 *
 			 *  \ingroup Group_Debugging
 			*/
-			#define JTAG_DEBUG_ASSERT(x)    MACROS{ if (!(x)) { JTAG_DEBUG_BREAK(); } }MACROE
+			#define JTAG_DEBUG_ASSERT(Condition)    MACROS{ if (!(Condition)) { JTAG_DEBUG_BREAK(); } }MACROE
 
 			/** Macro for testing condition "x" and writing debug data to the stdout stream if false. The stdout stream
 			 *  must be pre-initialized before this macro is run and linked to an output device, such as the AVR's USART
@@ -106,11 +108,13 @@
 			 *
 			 *  The output takes the form "{FILENAME}: Function {FUNCTION NAME}, Line {LINE NUMBER}: Assertion {x} failed."
 			 *
+			 *  \param[in] Condition  Condition that will be evaluated,
+			 *
 			 *  \ingroup Group_Debugging
 			 */
-			#define STDOUT_ASSERT(x)        MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
-			                                             "Assertion \"%s\" failed.\r\n"),     \
-			                                             __FILE__, __func__, __LINE__, #x); } }MACROE
+			#define STDOUT_ASSERT(Condition)        MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
+			                                                "Assertion \"%s\" failed.\r\n"),     \
+			                                                __FILE__, __func__, __LINE__, #x); } }MACROE
 			
 			/** Forces GCC to use pointer indirection (via the AVR's pointer register pairs) when accessing the given
 			 *  struct pointer. In some cases GCC will emit non-optimal assembly code when accessing a structure through

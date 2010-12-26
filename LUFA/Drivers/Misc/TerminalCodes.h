@@ -49,7 +49,7 @@
  *        compiler via the -D switch to disable the terminal codes without modifying the source, for use with non
  *        compatible terminals (any terminal codes then equate to empty strings).
  *
- *  Example Usage:
+ *  <b>Example Usage:</b>
  *  \code
  *      printf("Some String, " ESC_BOLD_ON " Some bold string");
  *  \endcode

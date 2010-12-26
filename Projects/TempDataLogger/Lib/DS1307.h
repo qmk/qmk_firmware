@@ -96,8 +96,8 @@
 		#define DS1307_TIMEREG_START  0x00
 		#define DS1307_DATEREG_START  0x04
 
-		#define DS1307_ADDRESS_READ   0b11010001
-		#define DS1307_ADDRESS_WRITE  0b11010000
+		#define DS1307_ADDRESS_READ   (0xD0 | TWI_ADDRESS_READ)
+		#define DS1307_ADDRESS_WRITE  (0xD0 | TWI_ADDRESS_WRITE)
 
 	/* Function Prototypes: */
 		void DS1307_SetDate(const uint8_t Day,

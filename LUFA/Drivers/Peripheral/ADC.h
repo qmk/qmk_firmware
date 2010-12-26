@@ -48,6 +48,9 @@
  *  Hardware ADC driver. This module provides an easy to use driver for the hardware
  *  ADC present on many AVR models, for the conversion of analogue signals into the
  *  digital domain.
+ *
+ *  \note The exact API for this driver may vary depending on the target used - see
+ *        individual target module documentation for the API specific to your target processor.
  */
 
 #ifndef __ADC_H__

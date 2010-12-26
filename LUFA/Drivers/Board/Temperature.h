@@ -47,6 +47,16 @@
  *  current temperature in degrees C. It is designed for and will only work with the temperature sensor located on the
  *  official Atmel USB AVR boards, as each sensor has different characteristics.
  *
+ *  <b>Example Usage:</b>
+ *  \code
+ *      // Initialise the ADC and board temperature sensor drivers before first use
+ *      ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_128);
+ *      Temperature_Init();
+ *
+ *      // Display converted temperature in degrees Celcius
+ *      printf("Current Temperature: %d Degrees\r\n", Temperature_GetTemperature());
+ *  \endcode
+ * 
  *  @{
  */
 
@@ -110,8 +120,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define TEMP_TABLE_SIZE   (sizeof(Temperature_Lookup) / sizeof(Temperature_Lookup[0]))
-			#define TEMP_TABLE_OFFSET -21
+			#define TEMP_TABLE_OFFSET_DEGREES   -21
 	#endif
 
 	/* Disable C linkage for C++ Compilers: */

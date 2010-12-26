@@ -47,8 +47,24 @@
  *  \section Module Description
  *  Serial stream driver for the USART subsystem on supported USB AVRs. This makes use of the functions in the
  *  regular USART driver (see \ref Group_Serial), but allows the avr-libc standard stream functions (printf,
- *  puts, etc.) to work with the
- *  USART.
+ *  puts, etc.) to work with the USART. Upon configuration, this will redirect the standard input and output
+ *  streams to the USART.
+ *
+ *  <b>Example Usage:</b>
+ *  \code
+ *      // Initialise the Serial Stream driver before first use, with 9600 baud (and no double-speed mode)
+ *      SerialStream_Init(9600, false);
+ *
+ *      // Write a string to the USART via the implicit stdout stream
+ *      printf("Test String using stdout\r\n");
+ *
+ *      // Write a string to the USART via the explicit USART stream
+ *      fprintf(&USARTStream, "Test String using explicit stream handle\r\n");
+ * 
+ *      // Read in an integer from the USART using the implicit stdin stream
+ *      uint16_t TestValue;
+ *      scanf("%d", &TestValue);
+ *  \endcode
  *
  *  @{
  */
@@ -69,9 +85,6 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* External Variables: */
-			extern FILE USARTStream;
-
 		/* Function Prototypes: */
 		#if defined(__INCLUDE_FROM_SERIALSTREAM_C)
 			static int SerialStream_TxByte(char DataByte,
@@ -104,6 +117,13 @@
 			{
 				Serial_ShutDown();
 			}
+
+		/* External Variables: */
+			/** Named stream for the USART, once \ref SerialStream_Init() has been called. This may be used with the
+			 *  file based stream functions (fprintf, fscanf, etc.) that require a handle to the stream rather than
+			 *  using the stdin and stdout named streams.
+			 */
+			extern FILE USARTStream;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

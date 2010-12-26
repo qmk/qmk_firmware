@@ -48,6 +48,9 @@
  *  \section Module Description
  *  Master Mode Hardware TWI driver. This module provides an easy to use driver for the hardware
  *  TWI present on many AVR models, for the transmission and reception of data on a TWI bus.
+ *
+ *  \note The exact API for this driver may vary depending on the target used - see
+ *        individual target module documentation for the API specific to your target processor.
  */
 
 #ifndef __TWI_H__

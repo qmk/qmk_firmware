@@ -56,7 +56,7 @@
  *  or deletions) must not overlap. If there is possibility of two or more of the same kind of
  *  operating occuring at the same point in time, atomic (mutex) locking should be used.
  *
- *  Example Usage:
+ *  <b>Example Usage:</b>
  *  \code
  *      // Create the buffer structure and its underlying storage array
  *      RingBuff_t Buffer;
@@ -76,7 +76,7 @@
  *      uint16_t BufferCount = RingBuffer_GetCount(&Buffer);
  *
  *      // Printer stored data length
- *      printf("Buffer Length: %d, Buffer Data:\r\n", BufferCount);
+ *      printf("Buffer Length: %d, Buffer Data: \r\n", BufferCount);
  *
  *      // Print contents of the buffer one character at a time
  *      while (BufferCount--)

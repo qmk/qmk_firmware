@@ -45,6 +45,37 @@
  *  \note This file should not be included directly. It is automatically included as needed by the TWI driver
  *        dispatch header located in LUFA/Drivers/Peripheral/TWI.h.
  *
+ *  <b>Example Usage:</b>
+ *  \code
+ *      // Initialise the TWI driver before first use
+ *      TWI_Init();
+ *
+ *      // Start a write session to device at address 0xA0 with a 10ms timeout
+ *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_WRITE, 10))
+ *      {
+ *          TWI_SendByte(0x01);
+ *          TWI_SendByte(0x02);
+ *          TWI_SendByte(0x03);
+ *
+ *          // Must stop transmission afterwards to release the bus
+ *          TWI_StopTransmission();
+ *      }
+ *
+ *      // Start a read session to device at address 0xA0 with a 10ms timeout
+ *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_READ, 10))
+ *      {
+ *          uint8_t Byte1, Byte2, Byte3;
+ *
+ *          // Read three bytes, acknowledge after the third byte is received
+ *          TWI_ReceiveByte(&Byte1, false);
+ *          TWI_ReceiveByte(&Byte2, false);
+ *          TWI_ReceiveByte(&Byte3, true);
+ *
+ *          // Must stop transmission afterwards to release the bus
+ *          TWI_StopTransmission();
+ *      }
+ *  \endcode
+ * 
  *  @{
  */
 
@@ -70,6 +101,17 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Macros: */
+			/** TWI slave device address mask for a read session. Mask with a slave device base address to obtain
+			 *  the correct TWI bus address for the slave device when reading data from it.
+			 */
+			#define TWI_ADDRESS_READ        0x00
+
+			/** TWI slave device address mask for a write session. Mask with a slave device base address to obtain
+			 *  the correct TWI bus address for the slave device when writing data to it.
+			 */
+			#define TWI_ADDRESS_WRITE       0x01
+	
 		/* Inline Functions: */
 			/** Initialises the TWI hardware into master mode, ready for data transmission and reception. This must be
 			 *  before any other TWI operations.

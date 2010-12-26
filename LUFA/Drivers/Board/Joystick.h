@@ -59,6 +59,30 @@
  *
  *  For possible BOARD makefile values, see \ref Group_BoardTypes.
  *
+ *  <b>Example Usage:</b>
+ *  \code
+ *      // Initialise the board Joystick driver before first use
+ *      Joystick_Init();
+ *
+ *      printf("Waiting for joystick movement...\r\n");
+ *
+ *      // Loop until a the joystick has been moved
+ *      uint8_t JoystickMovement;
+ *      while (!(JoystickMovement = Joystick_GetStatus())) {};
+ *
+ *      // Display which direction the joystick was moved in
+ *      printf("Joystick moved:\r\n");
+ *      
+ *      if (JoystickMovement & (JOY_UP | JOY_DOWN))
+ *        printf("%s ", (JoystickMovement & JOY_UP) ? "Up" : "Down");
+ *
+ *      if (JoystickMovement & (JOY_LEFT | JOY_RIGHT))
+ *        printf("%s ", (JoystickMovement & JOY_LEFT) ? "Left" : "Right");
+ *
+ *      if (JoystickMovement & JOY_PRESSED)
+ *        printf("Pressed");
+ *  \endcode
+ *
  *  @{
  */
 
