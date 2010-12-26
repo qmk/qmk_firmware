@@ -44,7 +44,7 @@
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/RNDIS.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Host Mode USB Class driver framework interface, for the Microsoft RNDIS Ethernet
  *  USB Class driver.
  *

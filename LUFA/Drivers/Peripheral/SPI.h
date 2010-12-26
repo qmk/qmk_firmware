@@ -41,11 +41,14 @@
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Driver for the hardware SPI port available on most AVR models. This module provides
  *  an easy to use driver for the setup of and transfer of data over the AVR's SPI port.
  *
- *  <b>Example Usage:</b>
+ *  \section Sec_ExampleUsage Example Usage
+ *  The following snippet is an example of how this module may be used within a typical
+ *  application.
+ *
  *  \code
  *      // Initialise the SPI driver before first use
  *      SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_ORDER_MSB_FIRST | SPI_SCK_LEAD_FALLING |

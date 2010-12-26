@@ -6,7 +6,7 @@
 
 /** \mainpage Keyboard Device Demo
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section Sec_Compat Demo Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
@@ -15,7 +15,7 @@
  *  - Series 4 USB AVRs (ATMEGAxxU4)
  *  - Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this demo.
  *
@@ -44,7 +44,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  Keyboard demonstration application. This gives a simple reference application
  *  for implementing a USB Keyboard using the basic USB HID drivers in all modern
@@ -58,7 +58,7 @@
  *  other LUFA Keyboard demos, this example shows explicitly how to send multiple key presses
  *  inside the same report to the host.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
  *

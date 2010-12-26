@@ -6,13 +6,13 @@
 
 /** \mainpage MIDI Host Demo
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section Sec_Compat Demo Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
  *  - Series 7 USB AVRs (AT90USBxxx7)
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this demo.
  *
@@ -39,13 +39,13 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  MIDI host demonstration application. This demo will enumerate an attached USB-MIDI device, and print incoming MIDI note
  *  on and off messages on any channel to the serial port. Pressing the board joystick will send note on and off messages to
  *  the attached MIDI device, with the board HWB controlling the note channel.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
  *

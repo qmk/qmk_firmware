@@ -6,13 +6,13 @@
 
 /** \mainpage XPLAIN UART Bridge/PDI Programmer Project
  *
- *  \section SSec_Compat Project Compatibility:
+ *  \section Sec_Compat Project Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this project.
  *
  *  - AT90USB1287
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this project.
  *
@@ -44,7 +44,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  This project serves a dual purpose. When loaded into the USB AVR on the XPLAIN board, it will act as either a USB to Serial
  *  converter for the XPLAIN's hardware USART (at a speed of 9600 baud), or an AVRStudio compatible PDI programmer for the XMEGA.
@@ -68,7 +68,7 @@
  *
  *  This project relies on files from the LUFA AVRISP-MKII project for compilation.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
  *

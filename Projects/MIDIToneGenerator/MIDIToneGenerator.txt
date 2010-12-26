@@ -6,7 +6,7 @@
 
 /** \mainpage MIDI Tone Generator Project
  *
- *  \section SSec_Compat Project Compatibility:
+ *  \section Sec_Compat Project Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this project.
  *
@@ -14,7 +14,7 @@
  *  - Series 6 USB AVRs (AT90USBxxx6)
  *  - Series 4 USB AVRs (ATMEGAxxU4)
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this project.
  *
@@ -43,7 +43,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  MIDI note synthesiser project. This project implements a basic DDS frequency synthesiser, capable of producing 8-bit PWM sine
  *  waves of variable frequency. When attached to a USB host, this project will allow for multiple MIDI notes to be synthesised into
@@ -52,7 +52,7 @@
  *  Outgoing audio will output in 8-bit PWM onto the timer 3 output compare channel A. Decouple the audio output with a capacitor
  *  and attach to a speaker to hear the audio.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
  *

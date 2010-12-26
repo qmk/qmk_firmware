@@ -6,13 +6,13 @@
 
 /** \mainpage Printer Host Demo
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section Sec_Compat Demo Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
  *  - Series 7 USB AVRs (AT90USBxxx7)
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this demo.
  *
@@ -38,7 +38,7 @@
  *        Full Speed Mode</td>
  *  </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  Printer host demonstration application. This gives a simple reference
  *  application for implementing a USB Printer host, for USB printers using
@@ -48,7 +48,7 @@
  *  to the AVR's serial port, and a simple test page is printed using the PCL
  *  printer language.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
  *

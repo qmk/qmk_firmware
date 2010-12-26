@@ -6,13 +6,13 @@
 
 /** \mainpage Still Image Host Demo
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section Sec_Compat Demo Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
  *  - Series 7 USB AVRs (AT90USBxxx7)
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this demo.
  *
@@ -40,7 +40,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  Still Image host demonstration application. This gives a simple reference
  *  application for implementing a Still Image host, for USB devices such as
@@ -50,7 +50,7 @@
  *  information structure, open a session with the device and finally close the
  *  session.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
  *

@@ -6,7 +6,7 @@
 
 /** \mainpage AVRISP MKII Programmer Project
  *
- *  \section SSec_Compat Project Compatibility:
+ *  \section Sec_Compat Project Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this project.
  *
@@ -15,7 +15,7 @@
  *  - Series 4 USB AVRs (ATMEGAxxU4)
  *  - Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2) - <i>8KB versions with reduced features only</i>
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this project.
  *
@@ -42,7 +42,7 @@
  *  </tr>
  * </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  Firmware for an AVRStudio compatible AVRISP-MKII clone programmer. This project will enable the USB AVR series of
  *  microcontrollers to act as a clone of the official Atmel AVRISP-MKII programmer, usable within AVRStudio. In its
@@ -109,8 +109,8 @@
  *  fuses have been mis-set. To use the recovery clock, connect the OCR1A pin of the USB AVR to the target AVR's
  *  XTAL1 pin, and set the ISP programming speed to 125KHz (note: other ISP speeds will not work correctly).
  *
- *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
- *  <b><sup>2</sup></b> <i>See AUX line related tokens in the \ref SSec_Options section</i>
+ *  <b><sup>1</sup></b> <i>Optional, see \ref Sec_Options section - for USB AVRs with ADC modules only</i> \n
+ *  <b><sup>2</sup></b> <i>See AUX line related tokens in the \ref Sec_Options section</i>
  *
  *  \section Sec_PDI PDI Connections
  *  Connections to the device for PDI programming (when enabled):
@@ -153,7 +153,7 @@
  *   </tr>
  *  </table>
  *
- *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
+ *  <b><sup>1</sup></b> <i>Optional, see \ref Sec_Options section - for USB AVRs with ADC modules only</i> \n
  *  <b><sup>2</sup></b> <i>The AVR's Tx and Rx become the DATA line when connected together via a pair of 220 ohm resistors</i> \n
  *
  *  \section Sec_TPI TPI Connections
@@ -197,11 +197,11 @@
  *   </tr>
  *  </table>
  *
- *  <b><sup>1</sup></b> <i>Optional, see \ref SSec_Options section - for USB AVRs with ADC modules only</i> \n
+ *  <b><sup>1</sup></b> <i>Optional, see \ref Sec_Options section - for USB AVRs with ADC modules only</i> \n
  *  <b><sup>2</sup></b> <i>The AVR's Tx and Rx become the DATA line when connected together via a pair of 220 ohm resistors</i> \n
- *  <b><sup>3</sup></b> <i>See AUX line related tokens in the \ref SSec_Options section</i>
+ *  <b><sup>3</sup></b> <i>See AUX line related tokens in the \ref Sec_Options section</i>
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
  *

@@ -46,7 +46,7 @@
  *    - LUFA/Drivers/USB/Class/Host/HID.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *    - LUFA/Drivers/USB/Class/Host/HIDParser.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  HID Class Driver module. This module contains an internal implementation of the USB HID Class, for both Device
  *  and Host USB modes. User applications can use this class driver instead of implementing the HID class manually
  *  via the low-level LUFA APIs.

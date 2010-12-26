@@ -45,7 +45,7 @@
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Scheduler/Scheduler.c <i>(Makefile source module name: LUFA_SRC_SCHEDULER)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Simple round-robbin cooperative scheduler for use in basic projects where non real-time tasks need
  *  to be executed. Each task is executed in sequence, and can be enabled or disabled individually or as a group.
  *

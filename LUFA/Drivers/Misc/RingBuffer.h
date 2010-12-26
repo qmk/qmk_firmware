@@ -47,7 +47,7 @@
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Lightweight ring buffer, for fast insertion/deletion. Multiple buffers can be created of
  *  different sizes to suit different needs.
  *
@@ -56,7 +56,10 @@
  *  or deletions) must not overlap. If there is possibility of two or more of the same kind of
  *  operating occuring at the same point in time, atomic (mutex) locking should be used.
  *
- *  <b>Example Usage:</b>
+ *  \section Sec_ExampleUsage Example Usage
+ *  The following snippet is an example of how this module may be used within a typical
+ *  application.
+ *
  *  \code
  *      // Create the buffer structure and its underlying storage array
  *      RingBuff_t Buffer;

@@ -42,16 +42,22 @@
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Escape code macros for ANSI compliant text terminals.
  *
  *  \note If desired, the macro DISABLE_TERMINAL_CODES can be defined in the project makefile and passed to the GCC
  *        compiler via the -D switch to disable the terminal codes without modifying the source, for use with non
  *        compatible terminals (any terminal codes then equate to empty strings).
  *
- *  <b>Example Usage:</b>
+ *  \section Sec_ExampleUsage Example Usage
+ *  The following snippet is an example of how this module may be used within a typical
+ *  application.
+ *
  *  \code
- *      printf("Some String, " ESC_BOLD_ON " Some bold string");
+ *      printf("Normal String, "
+ *             ESC_BOLD_ON "Bold String, "
+ *             ESC_UNDERLINE_ON "Bold and Underlined String"
+ *             ESC_RESET ESC_FG_BLUE ESC_BG_YELLOW "Normal Blue-on-Yellow String");
  *  \endcode
  *
  *  @{

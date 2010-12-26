@@ -45,7 +45,7 @@
  *    - LUFA/Drivers/Peripheral/TWI.c <i>(Makefile source module name: LUFA_SRC_TWI)</i>
  *
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Master Mode Hardware TWI driver. This module provides an easy to use driver for the hardware
  *  TWI present on many AVR models, for the transmission and reception of data on a TWI bus.
  *

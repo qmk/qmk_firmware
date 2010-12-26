@@ -6,7 +6,7 @@
 
 /** \mainpage DFU Class USB AVR Bootloader
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section Sec_Compat Demo Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
@@ -15,7 +15,7 @@
  *  - Series 4 USB AVRs (ATMEGAxxU4)
  *  - Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this demo.
  *
@@ -42,7 +42,7 @@
  *  </tr>
  * </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  This bootloader enumerates to the host as a DFU Class device, allowing for DFU-compatible programming
  *  software to load firmware onto the AVR.
@@ -69,7 +69,7 @@
  *               drivers included with FLIP will work. If you do not wish to use Atmel's ID codes, please
  *               manually change them in Descriptors.c and alter your driver's INF file accordingly.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
  *

@@ -6,7 +6,7 @@
 
 /** \mainpage USB to Serial Converter Project
  *
- *  \section SSec_Compat Project Compatibility:
+ *  \section Sec_Compat Project Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this project.
  *
@@ -15,7 +15,7 @@
  *  - Series 4 USB AVRs (ATMEGAxxU4)
  *  - Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this project.
  *
@@ -42,7 +42,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  USB to Serial bridge project. This project allows a USB AVR to serve
  *  as a USB to USART bridge between a USB host and a device lacking a
@@ -63,7 +63,7 @@
  *  Operating Systems should automatically use their own inbuilt
  *  CDC-ACM drivers.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
  *

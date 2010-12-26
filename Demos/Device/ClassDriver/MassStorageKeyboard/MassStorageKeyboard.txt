@@ -6,7 +6,7 @@
 
 /** \mainpage Combined Mass Storage and Keyboard Device Demo
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section Sec_Compat Demo Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
@@ -15,7 +15,7 @@
  *  - Series 4 USB AVRs (ATMEGAxxU4)
  *  - Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this demo.
  *
@@ -49,7 +49,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  Combined Mass Storage and Keyboard demonstration application. This gives a
  *  simple reference application for implementing a dual class USB Mass Storage
@@ -72,7 +72,7 @@
  *  the host to reset the Mass Storage device state during long transfers without
  *  the need for complicated polling logic.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
  *

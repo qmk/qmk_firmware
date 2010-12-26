@@ -6,13 +6,13 @@
 
 /** \mainpage USB LED Notifier Project
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section Sec_Compat Demo Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
  *  - AT90USB646
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this demo.
  *
@@ -39,7 +39,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  USB LED Notifier Project. This project is designed for the Busware BUI board, however it can run easily on any
  *  USB AVR. It is a generic RGB LED controller (via a three channel software PWM) which listens for commands from the
@@ -48,7 +48,7 @@
  *  This can be controlled with any host application that can write to the virtual serial port, allowing it to become
  *  a visual notification system for any number of custom host applications, such as a new unread email notifier.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
  *

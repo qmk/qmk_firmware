@@ -47,7 +47,10 @@
  *  \note This file should not be included directly. It is automatically included as needed by the ADC driver
  *        dispatch header located in LUFA/Drivers/Peripheral/ADC.h.
  *
- *  <b>Example Usage:</b>
+ *  \section Sec_ExampleUsage Example Usage
+ *  The following snippet is an example of how this module may be used within a typical
+ *  application.
+ *
  *  \code
  *      // Initialise the ADC driver before first use
  *      ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_32);

@@ -44,7 +44,7 @@
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Hardware ADC driver. This module provides an easy to use driver for the hardware
  *  ADC present on many AVR models, for the conversion of analogue signals into the
  *  digital domain.

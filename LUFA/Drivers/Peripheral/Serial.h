@@ -41,11 +41,14 @@
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/Peripheral/Serial.c <i>(Makefile source module name: LUFA_SRC_SERIAL)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Hardware serial USART driver. This module provides an easy to use driver for
  *  the setup of and transfer of data over the AVR's USART port.
  *
- *  <b>Example Usage:</b>
+ *  \section Sec_ExampleUsage Example Usage
+ *  The following snippet is an example of how this module may be used within a typical
+ *  application.
+ *
  *  \code
  *      // Initialise the serial USART driver before first use, with 9600 baud (and no double-speed mode)
  *      Serial_Init(9600, false);

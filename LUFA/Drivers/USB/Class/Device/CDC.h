@@ -44,7 +44,7 @@
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Device/CDC.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Device Mode USB Class driver framework interface, for the CDC USB Class driver.
  *
  *  \note There are several major drawbacks to the CDC-ACM standard USB class, however

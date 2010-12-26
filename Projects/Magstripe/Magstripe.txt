@@ -6,14 +6,14 @@
 
 /** \mainpage Denver Gingerich's USBSnoop Magnetic Card Reader Project
  *
- *  \section SSec_Compat Project Compatibility:
+ *  \section Sec_Compat Project Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this project.
  *
  *  - AT90USB1287
  *  - AT90USB1286
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this project.
  *
@@ -40,7 +40,7 @@
  *  </tr>
  * </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  Firmware for a USB AVR powered USB TTL magnetic stripe reader (using a card
  *  reader such as the Omron V3B-4K) by Denver Gingerich. This project is designed
@@ -95,7 +95,7 @@
  *  obtained from the magnetic stripe reader is "typed" through the keyboard
  *  driver as 0's and 1's. After every card swipe, the project will send a return key.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
  *

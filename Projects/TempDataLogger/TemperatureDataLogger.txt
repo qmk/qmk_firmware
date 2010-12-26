@@ -6,7 +6,7 @@
 
 /** \mainpage Temperature Datalogger Project
  *
- *  \section SSec_Compat Demo Compatibility:
+ *  \section Sec_Compat Demo Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this demo.
  *
@@ -14,7 +14,7 @@
  *  - Series 6 USB AVRs (AT90USBxxx6)
  *  - Series 4 USB AVRs (ATMEGAxxU4) - <i>those with >16KB of FLASH memory only</i>
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this demo.
  *
@@ -47,7 +47,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  Temperature Data Logger project. This project is a very basic USB data logger for the current temperature as reported by
  *  the board's temperature sensor, writing the temperature to a file stored on the board's Dataflash in a FAT filesystem
@@ -57,7 +57,7 @@
  *
  *  A DS1307 or compatible RTC IC is designed to be attached to the AVR's TWI bus, for the management of timestamps on the
  *  sampled data. This project will not function correctly if the RTC chip is omitted unless the DUMMY_RTC compile time token
- *  is specified - see \ref SSec_Options.
+ *  is specified - see \ref Sec_Options.
  *
  *  Due to the host's need for exclusive access to the file system, the device will not log samples while connected to a host.
  *  For the logger to store data, the Dataflash must first be formatted by the host so that it contains a valid FAT file system.
@@ -65,7 +65,7 @@
  *  This project uses the FatFS library from ELM Chan (http://elm-chan.org/fsw/ff/00index_e.html) and the .NET HID device library
  *  LibHIDNet (http://sourceforge.net/projects/libhidnet/).
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
  *

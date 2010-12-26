@@ -55,7 +55,7 @@
  *    - LUFA/Drivers/USB/HighLevel/PipeStream.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/HighLevel/USBTask.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Driver and framework for the USB controller hardware on the USB series of AVR microcontrollers. This module
  *  consists of many submodules, and is designed to provide an easy way to configure and control USB host, device
  *  or OTG mode USB applications.
@@ -139,7 +139,7 @@
  *  slightly differently, and thus will be explained separately. For information on a specific class driver, read
  *  the class driver's module documentation.
  *
- *  \subsection SSec_ClassDriverDevice Device Mode Class Drivers
+ *  \subsection Sec_ClassDriverDevice Device Mode Class Drivers
  *  Implementing a Device Mode Class Driver in a user application requires a number of steps to be followed. Firstly,
  *  the module configuration and state structure must be added to the project source. These structures are named in a
  *  similar manner between classes, that of <i>USB_ClassInfo_<b>{Class Name}</b>_Device_t</i>, and are used to hold the
@@ -238,7 +238,7 @@
  *  read and write routines. See each driver's individual documentation for more information on the
  *  class-specific functions.
  *
- *  \subsection SSec_ClassDriverHost Host Mode Class Drivers
+ *  \subsection Sec_ClassDriverHost Host Mode Class Drivers
  *  Implementing a Host Mode Class Driver in a user application requires a number of steps to be followed. Firstly,
  *  the module configuration and state structure must be added to the project source. These structures are named in a
  *  similar manner between classes, that of <i>USB_ClassInfo_<b>{Class Name}</b>_Host_t</i>, and are used to hold the

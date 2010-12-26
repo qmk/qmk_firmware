@@ -45,7 +45,10 @@
  *  \note This file should not be included directly. It is automatically included as needed by the TWI driver
  *        dispatch header located in LUFA/Drivers/Peripheral/TWI.h.
  *
- *  <b>Example Usage:</b>
+ *  \section Sec_ExampleUsage Example Usage
+ *  The following snippet is an example of how this module may be used within a typical
+ *  application.
+ *
  *  \code
  *      // Initialise the TWI driver before first use
  *      TWI_Init();

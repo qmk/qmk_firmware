@@ -6,13 +6,13 @@
 
 /** \mainpage OB's Quad-Relay outlet control using a Teensy2++
  *
- *  \section SSec_Compat Project Compatibility:
+ *  \section Sec_Compat Project Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this project.
  *
  *  - AT90USB1286
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this project.
  *
@@ -39,7 +39,7 @@
  *  </tr>
  * </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  Firmware for a Teensy2++ AVR-based miniboard to control four relays, using the
  *  same protocol used by the commercially available Silver Shield PM power outlets

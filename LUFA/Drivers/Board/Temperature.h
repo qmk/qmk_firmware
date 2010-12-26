@@ -41,13 +41,16 @@
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/Board/Temperature.c <i>(Makefile source module name: LUFA_SRC_TEMPERATURE)</i>
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Temperature sensor driver. This provides an easy to use interface for the hardware temperature sensor located
  *  on many boards. It provides an interface to configure the sensor and appropriate ADC channel, plus read out the
  *  current temperature in degrees C. It is designed for and will only work with the temperature sensor located on the
  *  official Atmel USB AVR boards, as each sensor has different characteristics.
  *
- *  <b>Example Usage:</b>
+ *  \section Sec_ExampleUsage Example Usage
+ *  The following snippet is an example of how this module may be used within a typical
+ *  application.
+ *
  *  \code
  *      // Initialise the ADC and board temperature sensor drivers before first use
  *      ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_128);

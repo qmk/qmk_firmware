@@ -50,7 +50,7 @@
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Hardware Joystick driver. This module provides an easy to use interface to control the hardware digital Joystick
  *  located on many boards.
  *
@@ -59,7 +59,10 @@
  *
  *  For possible BOARD makefile values, see \ref Group_BoardTypes.
  *
- *  <b>Example Usage:</b>
+ *  \section Sec_ExampleUsage Example Usage
+ *  The following snippet is an example of how this module may be used within a typical
+ *  application.
+ *
  *  \code
  *      // Initialise the board Joystick driver before first use
  *      Joystick_Init();

@@ -50,7 +50,7 @@
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
- *  \section Module Description
+ *  \section Sec_ModDescription Module Description
  *  Dataflash driver. This module provides an easy to use interface for the Dataflash ICs located on many boards,
  *  for the storage of large amounts of data into the Dataflash's non-volatile memory.
  *
@@ -59,7 +59,10 @@
  *
  *  For possible BOARD makefile values, see \ref Group_BoardTypes.
  *
- *  <b>Example Usage:</b>
+ *  \section Sec_ExampleUsage Example Usage
+ *  The following snippet is an example of how this module may be used within a typical
+ *  application.
+ *
  *  \code
  *      // Initialise the SPI and board Dataflash drivers before first use
  *      SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_ORDER_MSB_FIRST | SPI_SCK_LEAD_FALLING |

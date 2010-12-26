@@ -6,13 +6,13 @@
 
 /** \mainpage uIP Powered Webserver Project
  *
- *  \section SSec_Compat Project Compatibility:
+ *  \section Sec_Compat Project Compatibility:
  *
  *  The following list indicates what microcontrollers are compatible with this project.
  *
  *  - Series 7 USB AVRs (AT90USBxxx7)
  *
- *  \section SSec_Info USB Information:
+ *  \section Sec_Info USB Information:
  *
  *  The following table gives a rundown of the USB utilization of this project.
  *
@@ -45,7 +45,7 @@
  *   </tr>
  *  </table>
  *
- *  \section SSec_Description Project Description:
+ *  \section Sec_Description Project Description:
  *
  *  Simple HTTP webserver project. This project combines the LUFA library with the uIP TCP/IP full network stack and FatFS
  *  library to create a RNDIS host capable of serving out HTTP web pages to multiple hosts simultaneously. This project
@@ -55,19 +55,19 @@
  *  To use this project, plug the USB AVR into a computer, so that it enumerates as a standard Mass Storage device. Load
  *  HTML files onto the disk, so that they can be served out to clients -- the default file to serve should be called
  *  <i>index.htm</i>. Filenames must be in 8.3 format for them to be retrieved correctly by the webserver, and the total
- *  requested file path must be equal to or less than the maximum URI length (\see \ref SSec_Options).
+ *  requested file path must be equal to or less than the maximum URI length (\see \ref Sec_Options).
  *
  *  When attached to a RNDIS class device, such as a USB (desktop) modem, the system will enumerate the device, set the
  *  appropriate parameters needed for connectivity and begin listening for new HTTP connections on port 80 and TELNET
  *  connections on port 23. The device IP, netmask and default gateway IP must be set to values appropriate for the RNDIS
- *  device being used for this project to work if the DHCP client is disabled (see \ref SSec_Options) - otherwise, the device
+ *  device being used for this project to work if the DHCP client is disabled (see \ref Sec_Options) - otherwise, the device
  *  will query the network's DHCP server for these parameters automatically.
  *
  *  When properly configured, the webserver can be accessed from any HTTP web browser by typing in the device's statically or
  *  dynamically allocated IP address. The TELNET client can be accessed via any network socket app by connecting to the device
  *  on port 23 on the device's statically or dynamically allocated IP address.
  *
- *  \section SSec_Options Project Options
+ *  \section Sec_Options Project Options
  *
  *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
  *
