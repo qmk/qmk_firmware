@@ -38,6 +38,7 @@
   *   - Fixed HID host class driver incorrectly binding to HID devices that do not have an OUT endpoint
   *   - Fixed incorrect definition of the HID_KEYBOARD_SC_D constant in the HID class driver (thanks to Opendous Inc.)
   *   - Fixed incorrect endpoint initialisation order in the several device demos (thanks to Rick Drolet)
+  *   - Fixed inverted Minimum board LEDs
   *  - Library Applications:
   *   - Fixed Benito project discarding incoming data from the USB virtual serial port when the USART is busy
   *   - Fixed broken DFU bootloader, added XPLAIN support for bootloader start when XCK jumpered to ground
