@@ -39,6 +39,7 @@
   *   - Fixed incorrect definition of the HID_KEYBOARD_SC_D constant in the HID class driver (thanks to Opendous Inc.)
   *   - Fixed incorrect endpoint initialisation order in the several device demos (thanks to Rick Drolet)
   *   - Fixed inverted Minimum board LEDs
+  *   - Fixed incorrect byte ordering in the Audio_Device_WriteSample24 function (thanks to WZab)
   *  - Library Applications:
   *   - Fixed Benito project discarding incoming data from the USB virtual serial port when the USART is busy
   *   - Fixed broken DFU bootloader, added XPLAIN support for bootloader start when XCK jumpered to ground

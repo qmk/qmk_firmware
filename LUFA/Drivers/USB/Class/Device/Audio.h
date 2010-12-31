@@ -318,8 +318,8 @@
 			static inline void Audio_Device_WriteSample24(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo,
 			                                              const int32_t Sample)
 			{
-				Endpoint_Write_Byte(Sample >> 16);
 				Endpoint_Write_Word_LE(Sample);
+				Endpoint_Write_Byte(Sample >> 16);
 
 				if (Endpoint_BytesInEndpoint() == AudioInterfaceInfo->Config.DataINEndpointSize)
 				  Endpoint_ClearIN();
