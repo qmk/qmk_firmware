@@ -37,13 +37,13 @@
 #include "USBtoSerial.h"
 
 /** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
-RingBuff_t USBtoUSART_Buffer;
+RingBuffer_t USBtoUSART_Buffer;
 
 /** Underlying data buffer for \ref USBtoUSART_Buffer, where the stored bytes are located. */
-uint8_t    USBtoUSART_Buffer_Data[128];
+uint8_t      USBtoUSART_Buffer_Data[128];
 
 /** Circular buffer to hold data from the serial port before it is sent to the host. */
-RingBuff_t USARTtoUSB_Buffer;
+RingBuffer_t USARTtoUSB_Buffer;
 
 /** Underlying data buffer for \ref USARTtoUSB_Buffer, where the stored bytes are located. */
 uint8_t    USARTtoUSB_Buffer_Data[128];

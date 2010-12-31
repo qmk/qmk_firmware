@@ -62,8 +62,8 @@
  *
  *  \code
  *      // Create the buffer structure and its underlying storage array
- *      RingBuff_t Buffer;
- *      uint8_t    BufferData[128];
+ *      RingBuffer_t Buffer;
+ *      uint8_t      BufferData[128];
  *
  *      // Initialise the buffer with the created storage array
  *      RingBuffer_InitBuffer(&Buffer, BufferData, sizeof(BufferData));
@@ -111,7 +111,7 @@
 			uint8_t* End; /**< Pointer to the end of the buffer's underlying storage array */
 			uint8_t  Size; /**< Size of the buffer's underlying storage array */
 			uint16_t Count; /**< Number of bytes currently stored in the buffer */
-		} RingBuff_t;
+		} RingBuffer_t;
 
 	/* Inline Functions: */
 		/** Initializes a ring buffer ready for use. Buffers must be initialized via this function
@@ -122,7 +122,7 @@
 		 *  \param[out] DataPtr  Pointer to a global array that will hold the data stored into the ring buffer.
 		 *  \param[out] Size     Maximum number of bytes that can be stored in the underlying data array.
 		 */
-		static inline void RingBuffer_InitBuffer(RingBuff_t* Buffer, uint8_t* const DataPtr, const uint16_t Size)
+		static inline void RingBuffer_InitBuffer(RingBuffer_t* Buffer, uint8_t* const DataPtr, const uint16_t Size)
 		{
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 			{
@@ -150,7 +150,7 @@
 		 *
 		 *  \param[in] Buffer  Pointer to a ring buffer structure whose count is to be computed.
 		 */
-		static inline uint16_t RingBuffer_GetCount(RingBuff_t* const Buffer)
+		static inline uint16_t RingBuffer_GetCount(RingBuffer_t* const Buffer)
 		{
 			uint16_t Count;
 
@@ -170,7 +170,7 @@
 		 *
 		 *  \return Boolean true if the buffer contains no free space, false otherwise.
 		 */
-		static inline bool RingBuffer_IsFull(RingBuff_t* const Buffer)
+		static inline bool RingBuffer_IsFull(RingBuffer_t* const Buffer)
 		{
 			return (RingBuffer_GetCount(Buffer) == Buffer->Size);
 		}
@@ -187,7 +187,7 @@
 		 *
 		 *  \return Boolean true if the buffer contains no free space, false otherwise.
 		 */
-		static inline bool RingBuffer_IsEmpty(RingBuff_t* const Buffer)
+		static inline bool RingBuffer_IsEmpty(RingBuffer_t* const Buffer)
 		{
 			return (RingBuffer_GetCount(Buffer) == 0);
 		}
@@ -201,7 +201,7 @@
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into.
 		 *  \param[in]     Data    Data element to insert into the buffer.
 		 */
-		static inline void RingBuffer_Insert(RingBuff_t* const Buffer,
+		static inline void RingBuffer_Insert(RingBuffer_t* const Buffer,
 		                                     const uint8_t Data)
 		{
 			*Buffer->In = Data;
@@ -225,7 +225,7 @@
 		 *
 		 *  \return Next data element stored in the buffer.
 		 */
-		static inline uint8_t RingBuffer_Remove(RingBuff_t* const Buffer)
+		static inline uint8_t RingBuffer_Remove(RingBuffer_t* const Buffer)
 		{
 			uint8_t Data = *Buffer->Out;
 
@@ -246,7 +246,7 @@
 		 *
 		 *  \return Next data element stored in the buffer.
 		 */
-		static inline uint8_t RingBuffer_Peek(RingBuff_t* const Buffer)
+		static inline uint8_t RingBuffer_Peek(RingBuffer_t* const Buffer)
 		{
 			return *Buffer->Out;
 		}
