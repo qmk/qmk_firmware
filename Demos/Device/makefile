@@ -1,6 +1,6 @@
 #
 #             LUFA Library
-#     Copyright (C) Dean Camera, 2010.
+#     Copyright (C) Dean Camera, 2011.
 #
 #  dean [at] fourwalledcubicle [dot] com
 #           www.lufa-lib.org
