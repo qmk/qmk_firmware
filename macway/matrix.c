@@ -7,16 +7,10 @@
 #include <util/delay.h>
 #include "print.h"
 #include "util.h"
-#include "controller.h"
 #include "matrix_skel.h"
 
-// matrix is active low. (key on: 0/key off: 1)
-// row: Hi-Z(unselected)/low output(selected)
-//      PD0, PC7, PD7, PF6, PD6, PD1, PD2, PC6, PF7
-// col: input w/pullup
-//      PB0-PB7
 
-// matrix state buffer
+// matrix state buffer (key on: 1/key off: 0)
 static uint8_t *matrix;
 static uint8_t *matrix_prev;
 static uint8_t _matrix0[MATRIX_ROWS];
@@ -45,6 +39,7 @@ void matrix_init(void)
 {
     // initialize row and col
     unselect_rows();
+    // Input with pull-up(DDR:0, PORT:1)
     DDRB = 0x00;
     PORTB = 0xFF;
 
@@ -64,11 +59,12 @@ int matrix_scan(void)
     matrix = tmp;
 
     for (int i = 0; i < MATRIX_ROWS; i++) {
+        unselect_rows();
         select_row(i);
         _delay_us(30);  // without this wait read unstable value.
         matrix[i] = ~read_col();
-        unselect_rows();
     }
+    unselect_rows();
     return 1;
 }
 
@@ -145,88 +141,56 @@ static uint8_t read_col(void)
 
 static void unselect_rows(void)
 {
-    DDRD  = 0x00;
-    PORTD = 0x00;
-    DDRC  = 0x00;
-    PORTC = 0x00;
-    DDRF  = 0x00;
-    PORTF = 0x00;
+    // Hi-Z(DDR:0, PORT:0) to unselect
+    DDRC  &= ~0b11000000; // PC: 7,6
+    PORTC &= ~0b11000000;
+    DDRD  &= ~0b11000111; // PD: 7,6,2,1,0
+    PORTD &= ~0b11000111;
+    DDRF  &= ~0b11000000; // PF: 7,6
+    PORTF &= ~0b11000000;
 }
 
 static void select_row(uint8_t row)
 {
+    // Output low(DDR:1, PORT:0) to select
+    // row: 0    1    2    3    4    5    6    7    8
+    // pin: PD0, PC7, PD7, PF6, PD6, PD1, PD2, PC6, PF7
     switch (row) {
         case 0:
-            DDRD  = (1<<0);
-            PORTD = 0x00;
-            DDRC  = 0x00;
-            PORTC = 0x00;
-            DDRF  = 0x00;
-            PORTF = 0x00;
+            DDRD  |= (1<<0);
+            PORTD &= ~(1<<0);
             break;
         case 1:
-            DDRD  = 0x00;
-            PORTD = 0x00;
-            DDRC  = (1<<7);
-            PORTC = 0x00;
-            DDRF  = 0x00;
-            PORTF = 0x00;
+            DDRC  |= (1<<7);
+            PORTC &= ~(1<<7);
             break;
         case 2:
-            DDRD  = (1<<7);
-            PORTD = 0x00;
-            DDRC  = 0x00;
-            PORTC = 0x00;
-            DDRF  = 0x00;
-            PORTF = 0x00;
+            DDRD  |= (1<<7);
+            PORTD &= ~(1<<7);
             break;
         case 3:
-            DDRD  = 0x00;
-            PORTD = 0x00;
-            DDRC  = 0x00;
-            PORTC = 0x00;
-            DDRF  = (1<<6);
-            PORTF = 0x00;
+            DDRF  |= (1<<6);
+            PORTF &= ~(1<<6);
             break;
         case 4:
-            DDRD  = (1<<6);
-            PORTD = 0x00;
-            DDRC  = 0x00;
-            PORTC = 0x00;
-            DDRF  = 0x00;
-            PORTF = 0x00;
+            DDRD  |= (1<<6);
+            PORTD &= ~(1<<6);
             break;
         case 5:
-            DDRD  = (1<<1);
-            PORTD = 0x00;
-            DDRC  = 0x00;
-            PORTC = 0x00;
-            DDRF  = 0x00;
-            PORTF = 0x00;
+            DDRD  |= (1<<1);
+            PORTD &= ~(1<<1);
             break;
         case 6:
-            DDRD  = (1<<2);
-            PORTD = 0x00;
-            DDRC  = 0x00;
-            PORTC = 0x00;
-            DDRF  = 0x00;
-            PORTF = 0x00;
+            DDRD  |= (1<<2);
+            PORTD &= ~(1<<2);
             break;
         case 7:
-            DDRD  = 0x00;
-            PORTD = 0x00;
-            DDRC  = (1<<6);
-            PORTC = 0x00;
-            DDRF  = 0x00;
-            PORTF = 0x00;
+            DDRC  |= (1<<6);
+            PORTC &= ~(1<<6);
             break;
         case 8:
-            DDRD  = 0x00;
-            PORTD = 0x00;
-            DDRC  = 0x00;
-            PORTC = 0x00;
-            DDRF  = (1<<7);
-            PORTF = 0x00;
+            DDRF  |= (1<<7);
+            PORTF &= ~(1<<7);
             break;
     }
 }

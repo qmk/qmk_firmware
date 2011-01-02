@@ -94,7 +94,7 @@ static const uint8_t PROGMEM endpoint_config_table[] = {
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(MOUSE_SIZE)    | MOUSE_BUFFER,    // 2
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(DEBUG_TX_SIZE) | DEBUG_TX_BUFFER, // 3
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(EXTRA_SIZE)    | EXTRA_BUFFER,    // 4
-#ifdef NKRO_ENABLE
+#ifdef USB_NKRO_ENABLE
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KBD2_SIZE)     | KBD2_BUFFER,     // 5
 #else
         0, // 5
@@ -168,7 +168,7 @@ static uint8_t PROGMEM keyboard_hid_report_desc[] = {
         0x81, 0x00,          //   Input (Data, Array),
         0xc0                 // End Collection
 };
-#ifdef NKRO_ENABLE
+#ifdef USB_NKRO_ENABLE
 static uint8_t PROGMEM keyboard2_hid_report_desc[] = {
         0x05, 0x01,                     // Usage Page (Generic Desktop),
         0x09, 0x06,                     // Usage (Keyboard),
@@ -336,7 +336,7 @@ static uint8_t PROGMEM extra_hid_report_desc[] = {
 #define MOUSE_HID_DESC_OFFSET	(9+(9+9+7)*1+9)
 #define DEBUG_HID_DESC_OFFSET	(9+(9+9+7)*2+9)
 #define EXTRA_HID_DESC_OFFSET	(9+(9+9+7)*3+9)
-#ifdef NKRO_ENABLE
+#ifdef USB_NKRO_ENABLE
 #   define NUM_INTERFACES	5
 #   define KBD2_HID_DESC_OFFSET	(9+(9+9+7)*4+9)
 #else
@@ -468,7 +468,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	EXTRA_SIZE, 0,				// wMaxPacketSize
 	10,					// bInterval
 
-#ifdef NKRO_ENABLE
+#ifdef USB_NKRO_ENABLE
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
 	9,					// bLength
 	4,					// bDescriptorType
@@ -543,7 +543,7 @@ static struct descriptor_list_struct {
 	{0x2200, DEBUG_INTERFACE, debug_hid_report_desc, sizeof(debug_hid_report_desc)},
 	{0x2100, EXTRA_INTERFACE, config1_descriptor+EXTRA_HID_DESC_OFFSET, 9},
 	{0x2200, EXTRA_INTERFACE, extra_hid_report_desc, sizeof(extra_hid_report_desc)},
-#ifdef NKRO_ENABLE
+#ifdef USB_NKRO_ENABLE
 	{0x2100, KBD2_INTERFACE, config1_descriptor+KBD2_HID_DESC_OFFSET, 9},
 	{0x2200, KBD2_INTERFACE, keyboard2_hid_report_desc, sizeof(keyboard2_hid_report_desc)},
 #endif
@@ -884,7 +884,7 @@ ISR(USB_COM_vect)
 				if (bRequest == HID_GET_REPORT) {
                                     if (wValue == HID_REPORT_INPUT) {
 					usb_wait_in_ready();
-					UEDATX = mouse_buttons;
+					UEDATX = 0;
 					UEDATX = 0;
 					UEDATX = 0;
 					UEDATX = 0;
@@ -900,14 +900,14 @@ ISR(USB_COM_vect)
 				}
 				if (bRequest == HID_GET_PROTOCOL) {
 					usb_wait_in_ready();
-					UEDATX = mouse_protocol;
+					UEDATX = usb_mouse_protocol;
 					usb_send_in();
 					return;
 				}
 			}
 			if (bmRequestType == 0x21) {
 				if (bRequest == HID_SET_PROTOCOL) {
-					mouse_protocol = wValue;
+					usb_mouse_protocol = wValue;
 					usb_send_in();
 					return;
 				}

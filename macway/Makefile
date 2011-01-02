@@ -39,12 +39,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-VENDOR_ID = 0xFEED
-PRODUCT_ID = 0xBEEF
-MANUFACTURER = 't.m.k.'
-PRODUCT = 't.m.k. Macway mod'
-DESCRIPTION = 't.m.k. firmware for Macway mod'
-
 # Target file name (without extension).
 TARGET = tmk_macway
 
@@ -73,5 +67,12 @@ MCU = atmega32u4       # Teensy 2.0
 #   variable to same clock speed.  The _delay_ms() macro uses this, and many
 #   examples use this variable to calculate timings.  Do not add a "UL" here.
 F_CPU = 16000000
+
+
+# Options
+#     comment out to disable
+#USB_NKRO_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+PS2_MOUSE_ENABLE = yes
 
 include $(COMMON_DIR)/Makefile.common

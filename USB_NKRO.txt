@@ -143,4 +143,18 @@ This problem will be reportedly fixed soon.(2010/12/05)
     http://forums.anandtech.com/showpost.php?p=30873364&postcount=17
 
 
+Tools for testing NKRO
+----------------------
+Browser App:
+http://www.microsoft.com/appliedsciences/content/projects/KeyboardGhostingDemo.aspx
+http://random.xem.us/rollover.html
+
+Windows:
+AquaKeyTest.exe http://geekhack.org/showthread.php?t=6643
+
+Linux:
+xkeycaps
+xev
+showkeys
+
 EOF

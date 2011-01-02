@@ -39,16 +39,6 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-# TODO: use config.h for build options?
-VENDOR_ID = 0xFEED
-PRODUCT_ID = 0xCAFE
-MANUFACTURER = 't.m.k.'
-PRODUCT = 'HHKB Mod'
-DESCRIPTION = 't.m.k. firmware for HHKB pro'
-
-MOUSE_DELAY_TIME = 127
-NKRO_ENABLE = true
-
 # Target file name (without extension).
 TARGET = tmk_hhkb
 
@@ -77,5 +67,12 @@ MCU = at90usb1286      # Teensy++ 2.0
 #   variable to same clock speed.  The _delay_ms() macro uses this, and many
 #   examples use this variable to calculate timings.  Do not add a "UL" here.
 F_CPU = 16000000
+
+
+# Options
+#     comment out to disable
+USB_NKRO_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+#PS2_MOUSE_ENABLE = yes
 
 include $(COMMON_DIR)/Makefile.common

@@ -28,7 +28,7 @@ uint8_t usb_keyboard_idle_count=0;
 // 1=num lock, 2=caps lock, 4=scroll lock, 8=compose, 16=kana
 volatile uint8_t usb_keyboard_leds=0;
 
-// enable NKRO
+// enable USB NKRO
 bool usb_keyboard_nkro = false;
 
 
@@ -42,7 +42,7 @@ int8_t usb_keyboard_send_report(usb_keyboard_report_t *report)
 {
     int8_t result = 0;
 
-#ifdef NKRO_ENABLE
+#ifdef USB_NKRO_ENABLE
     if (usb_keyboard_nkro)
         result = _send_report(report, KBD2_ENDPOINT, 0, KBD2_REPORT_KEYS);
     else
@@ -106,7 +106,7 @@ static inline void _add_key_byte(uint8_t code);
 static inline void _add_key_bit(uint8_t code);
 void usb_keyboard_add_key(uint8_t code)
 {
-#ifdef NKRO_ENABLE
+#ifdef USB_NKRO_ENABLE
     if (usb_keyboard_nkro) {
         _add_key_bit(code);
         return;
@@ -131,7 +131,7 @@ void usb_keyboard_del_code(uint8_t code)
 
 void usb_keyboard_del_key(uint8_t code)
 {
-#ifdef NKRO_ENABLE
+#ifdef USB_NKRO_ENABLE
     if ((code>>3) < KEYS_MAX) {
         usb_keyboard_keys[code>>3] &= ~(1<<(code&7));
     }
@@ -169,7 +169,7 @@ bool usb_keyboard_has_mod(void)
 
 uint8_t usb_keyboard_get_key(void)
 {
-#ifdef NKRO_ENABLE
+#ifdef USB_NKRO_ENABLE
     if (usb_keyboard_nkro) {
         uint8_t i = 0;
         for (; i < KEYS_MAX && !usb_keyboard_keys[i]; i++);

@@ -62,6 +62,13 @@ SRC =	tmk.c \
 	timer.c \
 	util.c
 SRC +=	$(TARGET_SRC)
+ifdef MOUSEKEY_ENABLE
+    SRC += mousekey.c
+endif
+ifdef PS2_MOUSE_ENABLE
+    SRC += ps2.c \
+	   ps2_mouse.c
+endif
 
 # C source file search path
 VPATH = $(TARGET_DIR):$(COMMON_DIR)
@@ -119,45 +126,32 @@ EXTRAINCDIRS = $(TARGET_DIR) $(COMMON_DIR)
 CSTANDARD = -std=gnu99
 
 
+OPT_DEFS =
+ifdef USB_NKRO_ENABLE
+    OPT_DEFS += -DUSB_NKRO_ENABLE
+endif
+ifdef MOUSEKEY_ENABLE
+    OPT_DEFS += -DMOUSEKEY_ENABLE
+endif
+ifdef PS2_MOUSE_ENABLE
+    OPT_DEFS += -DPS2_MOUSE_ENABLE
+endif
+
 # Place -D or -U options here for C sources
 CDEFS = -DF_CPU=$(F_CPU)UL
-CDEFS += -DDESCRIPTION=$(DESCRIPTION)
-CDEFS += -DVENDOR_ID=$(VENDOR_ID)
-CDEFS += -DPRODUCT_ID=$(PRODUCT_ID)
-CDEFS += -DMANUFACTURER=$(MANUFACTURER)
-CDEFS += -DPRODUCT=$(PRODUCT)
-ifdef MOUSE_DELAY_TIME
-CDEFS += -DMOUSE_DELAY_TIME=$(MOUSE_DELAY_TIME)
-endif
-ifdef NKRO_ENABLE
-CDEFS += -DNKRO_ENABLE
-endif
+CDEFS += $(OPT_DEFS)
 
 
 # Place -D or -U options here for ASM sources
 ADEFS = -DF_CPU=$(F_CPU)
-ADEFS += -DDESCRIPTION=$(DESCRIPTION)
-ADEFS += -DVENDOR_ID=$(VENDOR_ID)
-ADEFS += -DPRODUCT_ID=$(PRODUCT_ID)
-ADEFS += -DMANUFACTURER=$(MANUFACTURER)
-ADEFS += -DPRODUCT=$(PRODUCT)
-ifdef MOUSE_DELAY_TIME
-ADEFS += -DMOUSE_DELAY_TIME=$(MOUSE_DELAY_TIME)
-endif
+ADEFS += $(OPT_DEFS)
 
 
 # Place -D or -U options here for C++ sources
-CPPDEFS = -DF_CPU=$(F_CPU)UL -DDESCRIPTION=$(DESCRIPTION) -DVENDOR_ID=$(VENDOR_ID) -DPRODUCT_ID=$(PRODUCT_ID)
+CPPDEFS = -DF_CPU=$(F_CPU)UL
 #CPPDEFS += -D__STDC_LIMIT_MACROS
 #CPPDEFS += -D__STDC_CONSTANT_MACROS
-CPPDEFS += -DDESCRIPTION=$(DESCRIPTION)
-CPPDEFS += -DVENDOR_ID=$(VENDOR_ID)
-CPPDEFS += -DPRODUCT_ID=$(PRODUCT_ID)
-CPPDEFS += -DMANUFACTURER=$(MANUFACTURER)
-CPPDEFS += -DPRODUCT=$(PRODUCT)
-ifdef MOUSE_DELAY_TIME
-CPPDEFS += -DMOUSE_DELAY_TIME=$(MOUSE_DELAY_TIME)
-endif
+CPPDEFS += $(OPT_DEFS)
 
 
 
@@ -186,6 +180,7 @@ CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wa,-adhlns=$(@:%.o=$(OBJDIR)/%.lst)
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
+CFLAGS += -include config.h
 
 
 #---------------- Compiler Options C++ ----------------
@@ -213,6 +208,7 @@ CPPFLAGS += -Wundef
 CPPFLAGS += -Wa,-adhlns=$(<:%.cpp=$(OBJDIR)/%.lst)
 CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 #CPPFLAGS += $(CSTANDARD)
+CPPFLAGS += -include config.h
 
 
 #---------------- Assembler Options ----------------
@@ -225,6 +221,7 @@ CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex 
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS = $(ADEFS) -Wa,-adhlns=$(<:%.S=$(OBJDIR)/%.lst),-gstabs,--listing-cont-lines=100
+ASFLAGS += -include config.h
 
 
 #---------------- Library Options ----------------
@@ -420,6 +417,11 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 # Default target.
 all: begin gccversion sizebefore build sizeafter end
+
+depend: tmk.c
+	@echo $<
+	@echo $(<F)
+#	$(CC) -E $(ALL_CFLAGS) $<
 
 # Change the build target to build a HEX file or a library.
 build: elf hex eep lss sym
