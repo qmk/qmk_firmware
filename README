@@ -31,6 +31,47 @@ $ make
 http://winavr.sourceforge.net/
 
 
+Build Options
+-------------
+Makefile:
+Comment out to disable the option
+    # USB NKey Rollover
+    USB_NKRO_ENABLE = yes
+
+    # mouse keys
+    MOUSEKEY_ENABLE = yes
+
+    # PS/2 mouse support
+    PS2_MOUSE_ENABLE = yes
+
+config.h:
+    /* USB ID */
+    #define VENDOR_ID       0xFEED
+    #define PRODUCT_ID      0xBEEF
+    /* device description */
+    #define MANUFACTURER    t.m.k.
+    #define PRODUCT         Macway mod
+    #define DESCRIPTION     t.m.k. keyboard firmware for Macway mod
+    /* matrix size */
+    #define MATRIX_ROWS 8
+    #define MATRIX_COLS 8
+    /* mouse keys repeat delay */
+    #define MOUSEKEY_DELAY_TIME 192
+    /* PS/2 lines */
+    #define PS2_CLOCK_PORT  PORTF
+    #define PS2_CLOCK_PIN   PINF
+    #define PS2_CLOCK_DDR   DDRF
+    #define PS2_CLOCK_BIT   0
+    #define PS2_DATA_PORT   PORTF
+    #define PS2_DATA_PIN    PINF
+    #define PS2_DATA_DDR    DDRF
+    #define PS2_DATA_BIT    1
+
+
+Configuration
+-------------
+
+
 Debuging & Rescue
 -----------------
 Use PJRC's hid_listen.exe to see debug messages.

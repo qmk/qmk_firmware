@@ -15,29 +15,18 @@
 #include "layer.h"
 #include "matrix_skel.h"
 #include "keymap_skel.h"
-#include "controller.h"
 #include "key_process.h"
-
-
-#define MOUSE_MOVE_UNIT 10
-#define MOUSE_MOVE_ACCEL (mouse_repeat < 50 ? mouse_repeat/5 : 10)
-
-#ifndef MOUSE_DELAY_TIME
-#   define MOUSE_DELAY_TIME 255
+#ifdef MOUSEKEY_ENABLE
+#   include "mousekey.h"
 #endif
-#define MOUSE_DELAY_MS (MOUSE_DELAY_TIME >> (mouse_repeat < 5 ? mouse_repeat : 4))
+#ifdef PS2_MOUSE_ENABLE
+#   include "ps2_mouse.h"
+#endif
 
 
 // TODO: refactoring
 void proc_matrix(void) {
-    static int mouse_repeat = 0;
-
     bool modified = false;
-    uint8_t mouse_btn = 0;
-    int8_t mouse_x = 0;
-    int8_t mouse_y = 0;
-    int8_t mouse_vwheel = 0;
-    int8_t mouse_hwheel = 0;
     uint8_t fn_bits = 0;
 
     matrix_scan();
@@ -73,19 +62,9 @@ void proc_matrix(void) {
             } else if (IS_FN(code)) {
                 fn_bits |= FN_BIT(code);
             } else if (IS_MOUSE(code)) {
-                if (code == MS_UP)   mouse_y -= MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
-                if (code == MS_DOWN) mouse_y += MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
-                if (code == MS_LEFT) mouse_x -= MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
-                if (code == MS_RGHT) mouse_x += MOUSE_MOVE_UNIT + MOUSE_MOVE_ACCEL;
-                if (code == MS_BTN1) mouse_btn |= BIT_BTN1;
-                if (code == MS_BTN2) mouse_btn |= BIT_BTN2;
-                if (code == MS_BTN3) mouse_btn |= BIT_BTN3;
-                if (code == MS_BTN4) mouse_btn |= BIT_BTN4;
-                if (code == MS_BTN5) mouse_btn |= BIT_BTN5;
-                if (code == MS_WH_U) mouse_vwheel += 1;
-                if (code == MS_WH_D) mouse_vwheel -= 1;
-                if (code == MS_WH_L) mouse_hwheel -= 1;
-                if (code == MS_WH_R) mouse_hwheel += 1;
+#ifdef MOUSEKEY_ENABLE
+                mousekey_decode(code);
+#endif
             }
 
             // audio control & system control
@@ -143,13 +122,39 @@ void proc_matrix(void) {
                 print("t: print timer count\n");
                 print("s: print status\n");
                 print("`: toggle protcol(boot/report)\n");
-#ifdef NKRO_ENABLE
-                print("n: toggle NKRO\n");
+#ifdef USB_NKRO_ENABLE
+                print("n: toggle USB_NKRO\n");
 #endif
                 print("ESC: power down/wake up\n");
+#ifdef PS2_MOUSE_ENABLE
+                print("1: ps2_mouse_init \n");
+                print("2: ps2_mouse_read \n");
+#endif
                 _delay_ms(500);
                 print_enable = false;
                 break;
+#ifdef PS2_MOUSE_ENABLE
+            case KB_1:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                print_enable = true;
+                print("ps2_mouse_init...\n");
+                _delay_ms(500);
+                ps2_mouse_init();
+                break;
+            case KB_2:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                print_enable = true;
+                print("ps2_mouse_read[btn x y]: ");
+                _delay_ms(100);
+                ps2_mouse_read();
+                phex(ps2_mouse_btn); print(" ");
+                phex(ps2_mouse_x); print(" ");
+                phex(ps2_mouse_y); print("\n");
+                print("ps2_mouse_error_count: "); phex(ps2_mouse_error_count); print("\n");
+                break;
+#endif
             case KB_B: // bootloader
                 usb_keyboard_clear_report();
                 usb_keyboard_send();
@@ -243,29 +248,29 @@ void proc_matrix(void) {
                 print("usb_keyboard_protocol:"); phex(usb_keyboard_protocol); print("\n");
                 print("usb_keyboard_idle_config:"); phex(usb_keyboard_idle_config); print("\n");
                 print("usb_keyboard_idle_count:"); phex(usb_keyboard_idle_count); print("\n");
-                print("mouse_protocol:"); phex(mouse_protocol); print("\n");
-                if (usb_keyboard_nkro) print("NKRO: enabled\n"); else print("NKRO: disabled\n");
+                print("usb_mouse_protocol:"); phex(usb_mouse_protocol); print("\n");
+                if (usb_keyboard_nkro) print("USB_NKRO: enabled\n"); else print("USB_NKRO: disabled\n");
                 _delay_ms(500);
                 break;
             case KB_GRV:
                 usb_keyboard_clear_report();
                 usb_keyboard_send();
                 usb_keyboard_protocol = !usb_keyboard_protocol;
-                mouse_protocol = !mouse_protocol;
+                usb_mouse_protocol = !usb_mouse_protocol;
                 print("keyboard protcol: ");
                 if (usb_keyboard_protocol) print("report"); else print("boot");
                 print("\n");
                 print("mouse protcol: ");
-                if (mouse_protocol) print("report"); else print("boot");
+                if (usb_mouse_protocol) print("report"); else print("boot");
                 print("\n");
                 _delay_ms(1000);
                 break;
-#ifdef NKRO_ENABLE
+#ifdef USB_NKRO_ENABLE
             case KB_N:
                 usb_keyboard_clear_report();
                 usb_keyboard_send();
                 usb_keyboard_nkro = !usb_keyboard_nkro;
-                if (usb_keyboard_nkro) print("NKRO: enabled\n"); else print("NKRO: disabled\n");
+                if (usb_keyboard_nkro) print("USB_NKRO: enabled\n"); else print("USB_NKRO: disabled\n");
                 _delay_ms(1000);
                 break;
 #endif
@@ -283,25 +288,20 @@ void proc_matrix(void) {
     }
 
 
-    // send mouse packet to host
-    if (mouse_x || mouse_y || mouse_vwheel || mouse_hwheel || mouse_btn != mouse_buttons) {
-        mouse_buttons = mouse_btn;
-        if (mouse_x && mouse_y)
-            usb_mouse_move(mouse_x*0.7, mouse_y*0.7, mouse_vwheel, mouse_hwheel);
-        else
-            usb_mouse_move(mouse_x, mouse_y, mouse_vwheel, mouse_hwheel);
-        usb_mouse_print(mouse_x, mouse_y, mouse_vwheel, mouse_hwheel);
-
-        // acceleration
-        _delay_ms(MOUSE_DELAY_MS);
-        mouse_repeat++;
-    } else {
-        mouse_repeat = 0;
-    }
-
-
-    // send key packet to host
     if (modified) {
         usb_keyboard_send();
     }
+
+#ifdef MOUSEKEY_ENABLE
+    // mouse keys
+    mousekey_usb_send();
+#endif
+
+#ifdef PS2_MOUSE_ENABLE
+    // ps2 mouse
+    //if (ps2_mouse_error_count > 10) {
+        ps2_mouse_read();
+        ps2_mouse_usb_send();
+    //}
+#endif
 }

@@ -7,7 +7,6 @@
 #include <util/delay.h>
 #include "print.h"
 #include "util.h"
-#include "controller.h"
 #include "matrix_skel.h"
 
 // matrix is active low. (key on: 0/key off: 1)
@@ -22,7 +21,7 @@
 //      KEY_PREV: (on: 1/ off: 0)
 //      PE6,PE7(KEY, KEY_PREV)
 #define COL_ENABLE              (1<<6)
-#define KEY_SELELCT(ROW, COL)   (PORTB = COL_ENABLE|(((COL)&0x07)<<3)|((ROW)&0x07))
+#define KEY_SELELCT(ROW, COL)   (PORTB = (PORTB&(1<<7))|COL_ENABLE|(((COL)&0x07)<<3)|((ROW)&0x07))
 #define KEY_ENABLE              (PORTB &= ~COL_ENABLE)
 #define KEY_UNABLE              (PORTB |=  COL_ENABLE)
 #define KEY_STATE               (PINE&(1<<6))
@@ -53,7 +52,7 @@ void matrix_init(void)
 {
     // row & col output(PB0-6)
     DDRB = 0xFF;
-    PORTB = KEY_SELELCT(0, 0);
+    KEY_SELELCT(0, 0);
     // KEY: input with pullup(PE6)
     // KEY_PREV: output(PE7)
     DDRE = 0xBF;

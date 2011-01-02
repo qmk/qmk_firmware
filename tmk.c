@@ -34,9 +34,12 @@
 #include "print.h"
 #include "debug.h"
 #include "util.h"
-#include "controller.h"
 #include "timer.h"
 #include "jump_bootloader.h"
+#ifdef PS2_MOUSE_ENABLE
+#   include "ps2.h"
+#   include "ps2_mouse.h"
+#endif
 
 
 #define CPU_PRESCALE(n)    (CLKPR = 0x80, CLKPR = (n))
@@ -91,8 +94,12 @@ int main(void)
         jump_bootloader(); // not return
     }
 
+#ifdef PS2_MOUSE_ENABLE
+    ps2_host_init();
+    ps2_mouse_init();
+#endif
+
     while (1) {
        proc_matrix(); 
-        _delay_ms(2);
     }
 }

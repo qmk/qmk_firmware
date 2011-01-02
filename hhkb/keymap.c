@@ -9,7 +9,6 @@
 #include "print.h"
 #include "debug.h"
 #include "util.h"
-#include "controller.h"
 #include "keymap_skel.h"
 
 
@@ -75,7 +74,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----------------------------------------------------------|
      * |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |Backs|
      * |-----------------------------------------------------------|
-     * |Contro|   |   |   |   |   |  *|  /|Hom|PgU|Lef|Rig|Enter   |
+     * |Contro|VoD|VoU|Mut|   |   |  *|  /|Hom|PgU|Lef|Rig|Enter   |
      * |-----------------------------------------------------------|
      * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift |xxx|
      * `-----------------------------------------------------------'

@@ -11,21 +11,17 @@
 #define MOUSE_SIZE		8
 #define MOUSE_BUFFER		EP_DOUBLE_BUFFER
 
-#define BIT_BTN1 (1<<0)
-#define BIT_BTN2 (1<<1)
-#define BIT_BTN3 (1<<2)
-#define BIT_BTN4 (1<<3)
-#define BIT_BTN5 (1<<4)
+#define MOUSE_BTN1 (1<<0)
+#define MOUSE_BTN2 (1<<1)
+#define MOUSE_BTN3 (1<<2)
+#define MOUSE_BTN4 (1<<3)
+#define MOUSE_BTN5 (1<<4)
 
 
-extern uint8_t mouse_buttons;
-extern uint8_t mouse_protocol;
+extern uint8_t usb_mouse_protocol;
 
 
-int8_t usb_mouse_buttons(uint8_t left, uint8_t middle, uint8_t right);
-int8_t usb_mouse_move(int8_t x, int8_t y, int8_t wheel, int8_t hwheel);
-void usb_mouse_clear(void);
-bool usb_mouse_is_sent(void);
-void usb_mouse_print(int8_t mouse_x, int8_t mouse_y, int8_t wheel_v, int8_t wheel_h);
+int8_t usb_mouse_send(int8_t x, int8_t y, int8_t wheel_v, int8_t wheel_h, uint8_t buttons);
+void usb_mouse_print(int8_t x, int8_t y, int8_t wheel_v, int8_t wheel_h, uint8_t buttons);
 
 #endif
