@@ -100,7 +100,9 @@
 		#include <LUFA/Common/Common.h>
 
 	/* Type Defines: */
-		/** Type define for a new ring buffer object. Buffers should be initialized via a call to
+		/** \brief Ring Buffer Management Structure.
+		 *
+		 *  Type define for a new ring buffer object. Buffers should be initialized via a call to
 		 *  \ref RingBuffer_InitBuffer() before use.
 		 */
 		typedef struct

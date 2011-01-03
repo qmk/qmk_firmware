@@ -346,7 +346,9 @@
 			uint8_t bSlaveInterface0; /**< Interface number of the CDC Data interface. */
 		} USB_CDC_StdDescriptor_FunctionalUnion_t;
 		
-		/** Type define for a CDC Line Encoding structure, used to hold the various encoding parameters for a virtual
+		/** \brief CDC Virtual Serial Port Line Encoding Settings Structure.
+		 *
+		 *  Type define for a CDC Line Encoding structure, used to hold the various encoding parameters for a virtual
 		 *  serial port.
 		 */
 		typedef struct
