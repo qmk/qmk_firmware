@@ -15,65 +15,91 @@
 #   define phex16(h)
 #endif
 
+// disable when errors occur 255 times.
+#define ERROR_RETURN() do { \
+    if (ps2_error) { \
+        if (ps2_mouse_error_count < 255) { \
+            ps2_mouse_error_count++; \
+        } else { \
+            ps2_mouse_error_count = 0; \
+            ps2_mouse_enable = false; \
+        } \
+        return ps2_error; \
+    } \
+} while (0)
+
+
 /*
 TODO
 ----
-- Error handling
 - Stream mode
 - Tracpoint command support: needed
 - Middle button + move = Wheel traslation
 */
+bool ps2_mouse_enable = true;
 uint8_t ps2_mouse_x = 0;
 uint8_t ps2_mouse_y = 0;
 uint8_t ps2_mouse_btn = 0;
 uint8_t ps2_mouse_error_count = 0;
+
 static uint8_t ps2_mouse_btn_prev = 0;
 
-void ps2_mouse_init(void) {
+
+uint8_t ps2_mouse_init(void) {
     uint8_t rcv;
+
+    if (!ps2_mouse_enable) return 1;
 
     // Reset
     rcv = ps2_host_send(0xFF);
     print("ps2_mouse_init: send 0xFF: ");
     phex(ps2_error); print("\n");
+    ERROR_RETURN();
 
     // ACK
     rcv = ps2_host_recv();
     print("ps2_mouse_init: read ACK: ");
     phex(rcv); phex(ps2_error); print("\n");
+    ERROR_RETURN();
 
     // BAT takes some time
     _delay_ms(100);
     rcv = ps2_host_recv();
     print("ps2_mouse_init: read BAT: ");
     phex(rcv); phex(ps2_error); print("\n");
+    ERROR_RETURN();
 
     // Device ID
     rcv = ps2_host_recv();
     print("ps2_mouse_init: read DevID: ");
     phex(rcv); phex(ps2_error); print("\n");
+    ERROR_RETURN();
 
     // Enable data reporting
     ps2_host_send(0xF4);
     print("ps2_mouse_init: send 0xF4: ");
     phex(ps2_error); print("\n");
+    ERROR_RETURN();
 
     // ACK
     rcv = ps2_host_recv();
     print("ps2_mouse_init: read ACK: ");
     phex(rcv); phex(ps2_error); print("\n");
+    ERROR_RETURN();
 
     // Set Remote mode
     ps2_host_send(0xF0);
     print("ps2_mouse_init: send 0xF0: ");
     phex(ps2_error); print("\n");
+    ERROR_RETURN();
 
     // ACK
     rcv = ps2_host_recv();
     print("ps2_mouse_init: read ACK: ");
     phex(rcv); phex(ps2_error); print("\n");
+    ERROR_RETURN();
 
-    if (ps2_error) ps2_mouse_error_count++;
+    return 0;
 }
 
 /*
@@ -84,18 +110,27 @@ Data format:
 1   x:   X movement(0-255)
 2   y:   Y movement(0-255)
 */
-void ps2_mouse_read(void)
+uint8_t ps2_mouse_read(void)
 {
     uint8_t rcv;
 
+    if (!ps2_mouse_enable) return 1;
+
     ps2_host_send(0xEB);
+    ERROR_RETURN();
+
     rcv=ps2_host_recv();
+    ERROR_RETURN();
+
     if(rcv==0xFA) {
         ps2_mouse_btn = ps2_host_recv();
+        ERROR_RETURN();
         ps2_mouse_x = ps2_host_recv();
+        ERROR_RETURN();
         ps2_mouse_y = ps2_host_recv();
+        ERROR_RETURN();
     }
-    if (ps2_error) ps2_mouse_error_count++;
+    return 0;
 }
 
 bool ps2_mouse_changed(void)
@@ -107,6 +142,9 @@ bool ps2_mouse_changed(void)
 void ps2_mouse_usb_send(void)
 {
     static bool scrolled = false;
+
+    if (!ps2_mouse_enable) return;
+
     if (ps2_mouse_changed()) {
         int8_t x, y, v, h;
         x = y = v = h = 0;
