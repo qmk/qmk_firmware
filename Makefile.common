@@ -53,15 +53,18 @@ SRC =	tmk.c \
 	layer.c \
 	key_process.c \
 	usb_keyboard.c \
-	usb_mouse.c \
 	usb_debug.c \
-	usb_extra.c \
 	usb.c \
 	jump_bootloader.c \
 	print.c \
 	timer.c \
 	util.c
 SRC +=	$(TARGET_SRC)
+
+# Option modules
+ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)
+    SRC += usb_mouse.c
+endif
 ifdef MOUSEKEY_ENABLE
     SRC += mousekey.c
 endif
@@ -69,6 +72,17 @@ ifdef PS2_MOUSE_ENABLE
     SRC += ps2.c \
 	   ps2_mouse.c
 endif
+ifdef USB_EXTRA_ENABLE
+    SRC += usb_extra.c
+endif
+
+ALL_SRC = $(SRC)
+ALL_SRC += usb_mouse.c \
+	   mousekey.c \
+	   ps2.c \
+	   ps2_mouse.c \
+	   usb_extra.c
+
 
 # C source file search path
 VPATH = $(TARGET_DIR):$(COMMON_DIR)
@@ -127,14 +141,20 @@ CSTANDARD = -std=gnu99
 
 
 OPT_DEFS =
-ifdef USB_NKRO_ENABLE
-    OPT_DEFS += -DUSB_NKRO_ENABLE
-endif
 ifdef MOUSEKEY_ENABLE
     OPT_DEFS += -DMOUSEKEY_ENABLE
 endif
 ifdef PS2_MOUSE_ENABLE
     OPT_DEFS += -DPS2_MOUSE_ENABLE
+endif
+ifdef USB_EXTRA_ENABLE
+    OPT_DEFS += -DUSB_EXTRA_ENABLE
+endif
+ifdef USB_NKRO_ENABLE
+    OPT_DEFS += -DUSB_NKRO_ENABLE
+endif
+ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)
+    OPT_DEFS += -DUSB_MOUSE_ENABLE
 endif
 
 # Place -D or -U options here for C sources
@@ -622,11 +642,11 @@ clean_list :
 	$(REMOVE) $(TARGET).map
 	$(REMOVE) $(TARGET).sym
 	$(REMOVE) $(TARGET).lss
-	$(REMOVE) $(SRC:%.c=$(OBJDIR)/%.o)
-	$(REMOVE) $(SRC:%.c=$(OBJDIR)/%.lst)
-	$(REMOVE) $(SRC:.c=.s)
-	$(REMOVE) $(SRC:.c=.d)
-	$(REMOVE) $(SRC:.c=.i)
+	$(REMOVE) $(ALL_SRC:%.c=$(OBJDIR)/%.o)
+	$(REMOVE) $(ALL_SRC:%.c=$(OBJDIR)/%.lst)
+	$(REMOVE) $(ALL_SRC:.c=.s)
+	$(REMOVE) $(ALL_SRC:.c=.d)
+	$(REMOVE) $(ALL_SRC:.c=.i)
 	$(REMOVEDIR) .dep
 
 

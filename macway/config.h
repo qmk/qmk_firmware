@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xBEEF
+#define PRODUCT_ID      0xBEE0
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         Macway mod
 #define DESCRIPTION     t.m.k. keyboard firmware for Macway mod
