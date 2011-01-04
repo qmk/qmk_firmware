@@ -129,6 +129,7 @@ void proc_matrix(void) {
 #ifdef PS2_MOUSE_ENABLE
                 print("1: ps2_mouse_init \n");
                 print("2: ps2_mouse_read \n");
+                print("3: ps2_mouse: on/off toggle \n");
 #endif
                 _delay_ms(500);
                 print_enable = false;
@@ -153,6 +154,16 @@ void proc_matrix(void) {
                 phex(ps2_mouse_x); print(" ");
                 phex(ps2_mouse_y); print("\n");
                 print("ps2_mouse_error_count: "); phex(ps2_mouse_error_count); print("\n");
+                break;
+            case KB_3:
+                ps2_mouse_enable = !ps2_mouse_enable;
+                print("ps2_mouse: ");
+                if (ps2_mouse_enable)
+                    print("on");
+                else
+                    print("off");
+                print("\n");
+                _delay_ms(500);
                 break;
 #endif
             case KB_B: // bootloader
@@ -299,9 +310,7 @@ void proc_matrix(void) {
 
 #ifdef PS2_MOUSE_ENABLE
     // ps2 mouse
-    //if (ps2_mouse_error_count > 10) {
-        ps2_mouse_read();
+    if (ps2_mouse_read() == 0)
         ps2_mouse_usb_send();
-    //}
 #endif
 }
