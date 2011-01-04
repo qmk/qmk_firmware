@@ -69,10 +69,13 @@ MCU = atmega32u4       # Teensy 2.0
 F_CPU = 16000000
 
 
-# Options
-#     comment out to disable
-#USB_NKRO_ENABLE = yes
-MOUSEKEY_ENABLE = yes
-PS2_MOUSE_ENABLE = yes
+# Build Options
+#   comment out to disable the options.
+#
+MOUSEKEY_ENABLE = yes	# Mouse keys
+PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
+USB_EXTRA_ENABLE = yes	# Enhanced feature for Windows(Audio control and System control)
+#USB_NKRO_ENABLE = yes	# USB Nkey Rollover
+
 
 include $(COMMON_DIR)/Makefile.common

@@ -8,8 +8,6 @@
 #include "util.h"
 #include "jump_bootloader.h"
 #include "usb_keyboard.h"
-#include "usb_mouse.h"
-#include "usb_extra.h"
 #include "usb_keycodes.h"
 #include "usb.h"
 #include "layer.h"
@@ -21,6 +19,12 @@
 #endif
 #ifdef PS2_MOUSE_ENABLE
 #   include "ps2_mouse.h"
+#endif
+#ifdef USB_EXTRA_ENABLE
+#   include "usb_extra.h"
+#endif
+#ifdef USB_MOUSE_ENABLE
+#   include "usb_mouse.h"
 #endif
 
 
@@ -67,6 +71,7 @@ void proc_matrix(void) {
 #endif
             }
 
+#ifdef USB_EXTRA_ENABLE
             // audio control & system control
             else if (code == KB_MUTE) {
                 usb_extra_audio_send(AUDIO_MUTE);
@@ -88,6 +93,7 @@ void proc_matrix(void) {
                 }
                 _delay_ms(1000);
             }
+#endif
 
             // normal keys
             else {
@@ -259,7 +265,9 @@ void proc_matrix(void) {
                 print("usb_keyboard_protocol:"); phex(usb_keyboard_protocol); print("\n");
                 print("usb_keyboard_idle_config:"); phex(usb_keyboard_idle_config); print("\n");
                 print("usb_keyboard_idle_count:"); phex(usb_keyboard_idle_count); print("\n");
+#ifdef USB_MOUSE_ENABLE
                 print("usb_mouse_protocol:"); phex(usb_mouse_protocol); print("\n");
+#endif
                 if (usb_keyboard_nkro) print("USB_NKRO: enabled\n"); else print("USB_NKRO: disabled\n");
                 _delay_ms(500);
                 break;
@@ -267,13 +275,16 @@ void proc_matrix(void) {
                 usb_keyboard_clear_report();
                 usb_keyboard_send();
                 usb_keyboard_protocol = !usb_keyboard_protocol;
-                usb_mouse_protocol = !usb_mouse_protocol;
                 print("keyboard protcol: ");
                 if (usb_keyboard_protocol) print("report"); else print("boot");
                 print("\n");
+
+#ifdef USB_MOUSE_ENABLE
+                usb_mouse_protocol = !usb_mouse_protocol;
                 print("mouse protcol: ");
                 if (usb_mouse_protocol) print("report"); else print("boot");
                 print("\n");
+#endif
                 _delay_ms(1000);
                 break;
 #ifdef USB_NKRO_ENABLE
@@ -285,6 +296,7 @@ void proc_matrix(void) {
                 _delay_ms(1000);
                 break;
 #endif
+#ifdef USB_EXTRA_ENABLE
             case KB_ESC:
                 usb_keyboard_clear_report();
                 usb_keyboard_send();
@@ -295,6 +307,7 @@ void proc_matrix(void) {
                 }
                 _delay_ms(1000);
                 break;
+#endif
         }
     }
 

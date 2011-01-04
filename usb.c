@@ -91,15 +91,23 @@ bool suspend = false;
 static const uint8_t PROGMEM endpoint_config_table[] = {
 	// enable, UECFG0X(type, direction), UECFG1X(size, bank, allocation)
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KBD_SIZE)      | KBD_BUFFER,      // 1
+#ifdef USB_MOUSE_ENABLE
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(MOUSE_SIZE)    | MOUSE_BUFFER,    // 2
+#else
+        0,                                                                  // 2
+#endif
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(DEBUG_TX_SIZE) | DEBUG_TX_BUFFER, // 3
+#ifdef USB_EXTRA_ENABLE
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(EXTRA_SIZE)    | EXTRA_BUFFER,    // 4
+#else
+        0,                                                                  // 4
+#endif
 #ifdef USB_NKRO_ENABLE
 	1, EP_TYPE_INTERRUPT_IN,  EP_SIZE(KBD2_SIZE)     | KBD2_BUFFER,     // 5
 #else
-        0, // 5
+        0,                                                                  // 5
 #endif
-        0, // 6
+        0,                                                                  // 6
 };
 
 
@@ -205,6 +213,7 @@ static uint8_t PROGMEM keyboard2_hid_report_desc[] = {
 };
 #endif
 
+#ifdef USB_MOUSE_ENABLE
 // Mouse Protocol 1, HID 1.11 spec, Appendix B, page 59-60, with wheel extension
 // http://www.microchip.com/forums/tm.aspx?high=&m=391435&mpage=1#391521
 // http://www.keil.com/forum/15671/
@@ -281,6 +290,7 @@ static uint8_t PROGMEM mouse_hid_report_desc[] = {
     0xc0,              //   END_COLLECTION
     0xc0               // END_COLLECTION
 };
+#endif
 
 static uint8_t PROGMEM debug_hid_report_desc[] = {
 	0x06, 0x31, 0xFF,			// Usage Page 0xFF31 (vendor defined)
@@ -295,6 +305,7 @@ static uint8_t PROGMEM debug_hid_report_desc[] = {
 	0xC0					// end collection
 };
 
+#ifdef USB_EXTRA_ENABLE
 // audio controls & system controls
 // http://www.microsoft.com/whdc/archive/w2kbd.mspx
 static uint8_t PROGMEM extra_hid_report_desc[] = {
@@ -331,18 +342,37 @@ static uint8_t PROGMEM extra_hid_report_desc[] = {
     0x81, 0x07,                    //   INPUT (Cnst,Var,Rel)
     0xc0                           // END_COLLECTION
 };
-
-#define KBD_HID_DESC_OFFSET	(9+(9+9+7)*0+9)
-#define MOUSE_HID_DESC_OFFSET	(9+(9+9+7)*1+9)
-#define DEBUG_HID_DESC_OFFSET	(9+(9+9+7)*2+9)
-#define EXTRA_HID_DESC_OFFSET	(9+(9+9+7)*3+9)
-#ifdef USB_NKRO_ENABLE
-#   define NUM_INTERFACES	5
-#   define KBD2_HID_DESC_OFFSET	(9+(9+9+7)*4+9)
-#else
-#   define NUM_INTERFACES	4
 #endif
-#define CONFIG1_DESC_SIZE	(9+(9+9+7)*NUM_INTERFACES)
+
+#define KBD_HID_DESC_NUM                0
+#define KBD_HID_DESC_OFFSET             (9+(9+9+7)*KBD_HID_DESC_NUM+9)
+
+#ifdef USB_MOUSE_ENABLE
+#   define MOUSE_HID_DESC_NUM           (KBD_HID_DESC_NUM + 1)
+#   define MOUSE_HID_DESC_OFFSET        (9+(9+9+7)*MOUSE_HID_DESC_NUM+9)
+#else
+#   define MOUSE_HID_DESC_NUM           (KBD_HID_DESC_NUM + 0)
+#endif
+
+#define DEBUG_HID_DESC_NUM              (MOUSE_HID_DESC_NUM + 1)
+#define DEBUG_HID_DESC_OFFSET           (9+(9+9+7)*DEBUG_HID_DESC_NUM+9)
+
+#ifdef USB_EXTRA_ENABLE
+#   define EXTRA_HID_DESC_NUM           (DEBUG_HID_DESC_NUM + 1)
+#   define EXTRA_HID_DESC_OFFSET        (9+(9+9+7)*EXTRA_HID_DESC_NUM+9)
+#else
+#   define EXTRA_HID_DESC_NUM           (DEBUG_HID_DESC_NUM + 0)
+#endif
+
+#ifdef USB_NKRO_ENABLE
+#   define KBD2_HID_DESC_NUM            (EXTRA_HID_DESC_NUM + 1)
+#   define KBD2_HID_DESC_OFFSET         (9+(9+9+7)*EXTRA_HID_DESC_NUM+9)
+#else
+#   define KBD2_HID_DESC_NUM            (EXTRA_HID_DESC_NUM + 0)
+#endif
+
+#define NUM_INTERFACES                  (KBD2_HID_DESC_NUM + 1)
+#define CONFIG1_DESC_SIZE               (9+(9+9+7)*NUM_INTERFACES)
 static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	// configuration descriptor, USB spec 9.6.3, page 264-266, Table 9-10
 	9, 					// bLength;
@@ -382,6 +412,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	KBD_SIZE, 0,				// wMaxPacketSize
 	10,					// bInterval
 
+#ifdef USB_MOUSE_ENABLE
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
 	9,					// bLength
 	4,					// bDescriptorType
@@ -413,6 +444,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0x03,					// bmAttributes (0x03=intr)
 	MOUSE_SIZE, 0,				// wMaxPacketSize
 	1,					// bInterval
+#endif
 
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
 	9,					// bLength
@@ -441,6 +473,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	DEBUG_TX_SIZE, 0,			// wMaxPacketSize
 	1,					// bInterval
 
+#ifdef USB_EXTRA_ENABLE
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
 	9,					// bLength
 	4,					// bDescriptorType
@@ -467,6 +500,7 @@ static uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
 	0x03,					// bmAttributes (0x03=intr)
 	EXTRA_SIZE, 0,				// wMaxPacketSize
 	10,					// bInterval
+#endif
 
 #ifdef USB_NKRO_ENABLE
 	// interface descriptor, USB spec 9.6.5, page 267-269, Table 9-12
@@ -537,12 +571,16 @@ static struct descriptor_list_struct {
         // HID/REPORT descriptors
 	{0x2100, KBD_INTERFACE, config1_descriptor+KBD_HID_DESC_OFFSET, 9},
 	{0x2200, KBD_INTERFACE, keyboard_hid_report_desc, sizeof(keyboard_hid_report_desc)},
+#ifdef USB_MOUSE_ENABLE
 	{0x2100, MOUSE_INTERFACE, config1_descriptor+MOUSE_HID_DESC_OFFSET, 9},
 	{0x2200, MOUSE_INTERFACE, mouse_hid_report_desc, sizeof(mouse_hid_report_desc)},
+#endif
 	{0x2100, DEBUG_INTERFACE, config1_descriptor+DEBUG_HID_DESC_OFFSET, 9},
 	{0x2200, DEBUG_INTERFACE, debug_hid_report_desc, sizeof(debug_hid_report_desc)},
+#ifdef USB_EXTRA_ENABLE
 	{0x2100, EXTRA_INTERFACE, config1_descriptor+EXTRA_HID_DESC_OFFSET, 9},
 	{0x2200, EXTRA_INTERFACE, extra_hid_report_desc, sizeof(extra_hid_report_desc)},
+#endif
 #ifdef USB_NKRO_ENABLE
 	{0x2100, KBD2_INTERFACE, config1_descriptor+KBD2_HID_DESC_OFFSET, 9},
 	{0x2200, KBD2_INTERFACE, keyboard2_hid_report_desc, sizeof(keyboard2_hid_report_desc)},
@@ -879,6 +917,7 @@ ISR(USB_COM_vect)
 				}
 			}
 		}
+#ifdef USB_MOUSE_ENABLE
 		if (wIndex == MOUSE_INTERFACE) {
 			if (bmRequestType == 0xA1) {
 				if (bRequest == HID_GET_REPORT) {
@@ -913,6 +952,7 @@ ISR(USB_COM_vect)
 				}
 			}
 		}
+#endif
 		if (wIndex == DEBUG_INTERFACE) {
 			if (bRequest == HID_GET_REPORT && bmRequestType == 0xA1) {
 				len = wLength;
