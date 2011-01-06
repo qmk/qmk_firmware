@@ -10,7 +10,7 @@
 uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col);
 
 /* layer to move during press Fn key */
-int keymap_fn_layer(uint8_t fn_bits);
+uint8_t keymap_fn_layer(uint8_t fn_bits);
 
 /* keycode to send when release Fn key without using */
 uint8_t keymap_fn_keycode(uint8_t fn_bits);
