@@ -1,18 +1,20 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+/* controller configuration */
+#include "controller_teensy.h"
+
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xCAFE
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         HHKB mod
 #define DESCRIPTION     t.m.k. keyboard firmware for HHKB mod
 
-/* controller */
-#include "controller_teensy.h"
-
 /* matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
+/* define if matrix has ghost */
+//#define MATRIX_HAS_GHOST
 
 /* USB NKey Rollover */
 #ifdef USB_NKRO_ENABLE

@@ -10,31 +10,47 @@
 #include "matrix_skel.h"
 
 
-// matrix state buffer (key on: 1/key off: 0)
+#if (MATRIX_COLS > 16)
+#   error "MATRIX_COLS must not exceed 16"
+#endif
+#if (MATRIX_ROWS > 255)
+#   error "MATRIX_ROWS must not exceed 255"
+#endif
+
+
+// matrix state buffer(1:on, 0:off)
+#if (MATRIX_COLS <= 8)
 static uint8_t *matrix;
 static uint8_t *matrix_prev;
 static uint8_t _matrix0[MATRIX_ROWS];
 static uint8_t _matrix1[MATRIX_ROWS];
+#else
+static uint16_t *matrix;
+static uint16_t *matrix_prev;
+static uint16_t _matrix0[MATRIX_ROWS];
+static uint16_t _matrix1[MATRIX_ROWS];
+#endif
 
+#ifdef MATRIX_HAS_GHOST
 static bool matrix_has_ghost_in_row(uint8_t row);
+#endif
 static uint8_t read_col(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
 
 
 inline
-int matrix_rows(void)
+uint8_t matrix_rows(void)
 {
     return MATRIX_ROWS;
 }
 
 inline
-int matrix_cols(void)
+uint8_t matrix_cols(void)
 {
     return MATRIX_COLS;
 }
 
-// this must be called once before matrix_scan.
 void matrix_init(void)
 {
     // initialize row and col
@@ -44,13 +60,13 @@ void matrix_init(void)
     PORTB = 0xFF;
 
     // initialize matrix state: all keys off
-    for (int i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
-    for (int i=0; i < MATRIX_ROWS; i++) _matrix1[i] = 0x00;
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix1[i] = 0x00;
     matrix = _matrix0;
     matrix_prev = _matrix1;
 }
 
-int matrix_scan(void)
+uint8_t matrix_scan(void)
 {
     uint8_t *tmp;
 
@@ -58,7 +74,7 @@ int matrix_scan(void)
     matrix_prev = matrix;
     matrix = tmp;
 
-    for (int i = 0; i < MATRIX_ROWS; i++) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         unselect_rows();
         select_row(i);
         _delay_us(30);  // without this wait read unstable value.
@@ -70,30 +86,37 @@ int matrix_scan(void)
 
 bool matrix_is_modified(void)
 {
-    for (int i = 0; i < MATRIX_ROWS; i++) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         if (matrix[i] != matrix_prev[i])
             return true;
     }
     return false;
 }
 
+inline
 bool matrix_has_ghost(void)
 {
-    for (int i = 0; i < MATRIX_ROWS; i++) {
+#ifdef MATRIX_HAS_GHOST
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         if (matrix_has_ghost_in_row(i))
             return true;
     }
+#endif
     return false;
 }
 
 inline
-bool matrix_is_on(int row, int col)
+bool matrix_is_on(uint8_t row, uint8_t col)
 {
     return (matrix[row] & (1<<col));
 }
 
 inline
-uint16_t matrix_get_row(int row)
+#if (MATRIX_COLS <= 8)
+uint8_t matrix_get_row(uint8_t row)
+#else
+uint16_t matrix_get_row(uint8_t row)
+#endif
 {
     return matrix[row];
 }
@@ -101,25 +124,37 @@ uint16_t matrix_get_row(int row)
 void matrix_print(void)
 {
     print("\nr/c 01234567\n");
-    for (int row = 0; row < matrix_rows(); row++) {
+    for (uint8_t row = 0; row < matrix_rows(); row++) {
         phex(row); print(": ");
+#if (MATRIX_COLS <= 8)
         pbin_reverse(matrix_get_row(row));
+#else
+        pbin_reverse16(matrix_get_row(row));
+#endif
+#ifdef MATRIX_HAS_GHOST
         if (matrix_has_ghost_in_row(row)) {
             print(" <ghost");
         }
+#endif
         print("\n");
     }
 }
 
-int matrix_key_count(void)
+uint8_t matrix_key_count(void)
 {
-    int count = 0;
-    for (int i = 0; i < MATRIX_ROWS; i++) {
+    uint8_t count = 0;
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+#if (MATRIX_COLS <= 8)
         count += bitpop(matrix[i]);
+#else
+        count += bitpop16(matrix[i]);
+#endif
     }
     return count;
 }
 
+#ifdef MATRIX_HAS_GHOST
+inline
 static bool matrix_has_ghost_in_row(uint8_t row)
 {
     // no ghost exists in case less than 2 keys on
@@ -127,18 +162,21 @@ static bool matrix_has_ghost_in_row(uint8_t row)
         return false;
 
     // ghost exists in case same state as other row
-    for (int i=0; i < MATRIX_ROWS; i++) {
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         if (i != row && (matrix[i] & matrix[row]) == matrix[row])
             return true;
     }
     return false;
 }
+#endif
 
+inline
 static uint8_t read_col(void)
 {
     return PINB;
 }
 
+inline
 static void unselect_rows(void)
 {
     // Hi-Z(DDR:0, PORT:0) to unselect
@@ -150,6 +188,7 @@ static void unselect_rows(void)
     PORTF &= ~0b11000000;
 }
 
+inline
 static void select_row(uint8_t row)
 {
     // Output low(DDR:1, PORT:0) to select

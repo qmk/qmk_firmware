@@ -4,7 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
-#include <avr/interrupt.h>
 #include "usb_keyboard.h"
 #include "usb_keycodes.h"
 #include "print.h"
@@ -13,6 +12,8 @@
 #include "keymap_skel.h"
 
 
+// Convert physical keyboard layout to matrix array.
+// This is a macro to define keymap easily in keyboard layout form.
 #define KEYMAP( \
     R1C1, R1C0, R2C0, R3C0, R4C0, R4C1, R5C1, R5C0, R6C0, R7C0, R8C0, R8C1, R6C1, R0C2, \
     R1C2, R1C3, R2C3, R3C3, R4C3, R4C2, R5C2, R5C3, R6C3, R7C3, R8C3, R8C2, R6C2, \
@@ -34,17 +35,29 @@
 #define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
 
 
-static const uint8_t PROGMEM fn_layer[] = { 0, 1, 2, 3, 4, 0, 2, 3 };
+// Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
+static const uint8_t PROGMEM fn_layer[] = {
+    0,              // FN_0
+    1,              // FN_1
+    2,              // FN_2
+    3,              // FN_3
+    4,              // FN_4
+    0,              // FN_5
+    2,              // FN_6
+    3               // FN_7
+};
 
+// Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
+// See layer.c for details.
 static const uint8_t PROGMEM fn_keycode[] = {
-    KB_NO,          // FN_0 [NOT USED]
-    KB_NO,          // FN_1 layer 1
-    KB_SLSH,        // FN_2 layer 2
-    KB_SCLN,        // FN_3 layer 3
-    KB_SPC,         // FN_4 layer 4
-    KB_NO,          // FN_5 [NOT USED]
-    KB_NO,          // FN_6 layer 2
-    KB_NO           // FN_7 layer 3
+    KB_NO,          // FN_0
+    KB_NO,          // FN_1
+    KB_SLSH,        // FN_2
+    KB_SCLN,        // FN_3
+    KB_SPC,         // FN_4
+    KB_NO,          // FN_5
+    KB_NO,          // FN_6
+    KB_NO           // FN_7
 };
 
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -155,7 +168,7 @@ uint8_t keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t col)
     return KEYCODE(layer, row, col);
 }
 
-int keymap_fn_layer(uint8_t fn_bits)
+uint8_t keymap_fn_layer(uint8_t fn_bits)
 {
     return pgm_read_byte(&fn_layer[biton(fn_bits)]);
 }
@@ -165,6 +178,7 @@ uint8_t keymap_fn_keycode(uint8_t fn_bits)
     return pgm_read_byte(&fn_keycode[(biton(fn_bits))]);
 }
 
+// define a condition to enter special function mode
 bool keymap_is_special_mode(uint8_t fn_bits)
 {
     //return (usb_keyboard_mods == (BIT_LCTRL | BIT_LSHIFT | BIT_LALT | BIT_LGUI));
