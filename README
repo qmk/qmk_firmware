@@ -2,74 +2,96 @@ t.m.k. Keyboard Firmware
 ========================
 http://github.com/tmk/tmk_keyboard
 
-This is keyboard firmware for AVR USB MCUs or Teensy/Teensy++ 2.0.
+This is keyboard firmware for AVR USB MCUs or Teensy/Teensy++.
+http://www.pjrc.com/teensy
 
 The project is heavily based on PJRC USB Keyboard/Mouse Example and
 owes a debt to preceding keyboard firmware projects.
 
-http://www.pjrc.com/teensy
+This firmware is used in following projects:
+HHKB mod:   http://geekhack.org/showwiki.php?title=Island:12047
+Macway mod: http://geekhack.org/showwiki.php?title=Island:11930
 
 
-
-Functions
----------
+Features
+--------
 Mouse key
+    control mouse cursor from keyboard.
 System Control Key
     Power Down, Sleep, Wake Up & USB Remote Wake up
 Media Control Key
     Volume Down/Up, Mute
 USB NKRO
+    send 120 keys(+ 8 modifiers) at most simultaneously.
+PS/2 mouse support
+    integrate PS/2 mouse(TrackPoint) into keyboard as composite device.
+
+
+Limitations
+-----------
 
 
 Build
 -----
-Compiling sources need AVR GCC, AVR Libc and GNU make.(You can use WinAVR on Windows.)
+To compile needs AVR GCC, AVR Libc and GNU make.
+You can use WinAVR on Windows.  http://winavr.sourceforge.net/
 
-$ cd <target> (hhkb or macway)
+$ cd <target> (hhkb or macway currently)
 $ make
 
-http://winavr.sourceforge.net/
+The firmware will be compiled as a file tmk_<target>.hex.
+
+
+Build your own firmware
+-----------------------
+Copying exsistent target(macway) is easy way.
+1. Copy contens of macway/ to your own target directory.
+2. Edit Makefile. See next section.
+3. Edit config.h. See next section.
+4. Edit matrix.c. You will need to fix followings at least.
+     matrix_init()
+     matrix_scan()
+     read_col()
+     unselect_rows()
+     select_row()
+5. Edit keymap.c. NOTE: It is not final design and a bit messy.
+   You will need to fix followings at least.
+     KEYMAP
+     fn_layer[]
+     fn_keycode[]
+     keymaps[]
+6. Build.
 
 
 Build Options
 -------------
-Makefile:
-Comment out to disable the option
-    # USB NKey Rollover
-    USB_NKRO_ENABLE = yes
+<target>/Makefile:
+1. Set target name for your firmware.
+     TARGET = tmk_<target>
+2. Choose a MCU and its frequency.
+     MCU = atmega32u4       # Teensy 2.0
+     #MCU = at90usb1286      # Teensy++ 2.0
+     F_CPU = 16000000
+3. Choose optional modules as needed. Comment out to disable optional modules.
+     MOUSEKEY_ENABLE = yes	# Mouse keys
+     PS2_MOUSE_ENABLE = yes	# PS/2 mouse(TrackPoint) support
+     USB_EXTRA_ENABLE = yes	# Enhanced feature for Windows(Audio control and System control)
+     USB_NKRO_ENABLE = yes	# USB Nkey Rollover
 
-    # mouse keys
-    MOUSEKEY_ENABLE = yes
-
-    # PS/2 mouse support
-    PS2_MOUSE_ENABLE = yes
-
-config.h:
-    /* USB ID */
-    #define VENDOR_ID       0xFEED
-    #define PRODUCT_ID      0xBEEF
-    /* device description */
-    #define MANUFACTURER    t.m.k.
-    #define PRODUCT         Macway mod
-    #define DESCRIPTION     t.m.k. keyboard firmware for Macway mod
-    /* matrix size */
-    #define MATRIX_ROWS 8
-    #define MATRIX_COLS 8
-    /* mouse keys repeat delay */
-    #define MOUSEKEY_DELAY_TIME 192
-    /* PS/2 lines */
-    #define PS2_CLOCK_PORT  PORTF
-    #define PS2_CLOCK_PIN   PINF
-    #define PS2_CLOCK_DDR   DDRF
-    #define PS2_CLOCK_BIT   0
-    #define PS2_DATA_PORT   PORTF
-    #define PS2_DATA_PIN    PINF
-    #define PS2_DATA_DDR    DDRF
-    #define PS2_DATA_BIT    1
-
-
-Configuration
--------------
+<target>/config.h:
+1. USB vendor/product ID and device description
+     #define VENDOR_ID       0xFEED
+     #define PRODUCT_ID      0xBEEF
+     /* device description */
+     #define MANUFACTURER    t.m.k.
+     #define PRODUCT         Macway mod
+     #define DESCRIPTION     t.m.k. keyboard firmware for Macway mod
+2. Keyboard matrix configuration
+     #define MATRIX_ROWS 8
+     #define MATRIX_COLS 8
+     #define MATRIX_HAS_GHOST
+3. Mouse keys configuration if needed.
+4. PS/2 mouse configuration if needed.
 
 
 Debuging & Rescue
