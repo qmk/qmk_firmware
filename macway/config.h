@@ -1,18 +1,20 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+/* controller configuration */
+#include "controller_teensy.h"
+
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xBEE0
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         Macway mod
 #define DESCRIPTION     t.m.k. keyboard firmware for Macway mod
 
-/* controller */
-#include "controller_teensy.h"
-
 /* matrix size */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 8
+/* define if matrix has ghost */
+#define MATRIX_HAS_GHOST
 
 /* USB NKey Rollover */
 #ifdef USB_NKRO_ENABLE
