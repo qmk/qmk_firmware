@@ -57,7 +57,6 @@ void proc_matrix(void) {
         for (int col = 0; col < matrix_cols(); col++) {
             if (!matrix_is_on(row, col)) continue;
 
-            // TODO: clean code
             uint8_t code = layer_get_keycode(row, col);
             if (code == KB_NO) {
                 // do nothing
@@ -65,12 +64,12 @@ void proc_matrix(void) {
                 usb_keyboard_add_mod(code);
             } else if (IS_FN(code)) {
                 fn_bits |= FN_BIT(code);
-            } else if (IS_MOUSE(code)) {
-#ifdef MOUSEKEY_ENABLE
-                mousekey_decode(code);
-#endif
             }
-
+#ifdef MOUSEKEY_ENABLE
+            else if (IS_MOUSEKEY(code)) {
+                mousekey_decode(code);
+            }
+#endif
 #ifdef USB_EXTRA_ENABLE
             // audio control & system control
             else if (code == KB_MUTE) {
@@ -94,10 +93,11 @@ void proc_matrix(void) {
                 _delay_ms(1000);
             }
 #endif
-
-            // normal keys
-            else {
+            // normal key
+            else if (IS_KEY(code)) {
                 usb_keyboard_add_key(code);
+            } else {
+                debug("ignore keycode: "); debug_hex(code); debug("\n");
             }
         }
     }
@@ -317,12 +317,10 @@ void proc_matrix(void) {
     }
 
 #ifdef MOUSEKEY_ENABLE
-    // mouse keys
     mousekey_usb_send();
 #endif
 
 #ifdef PS2_MOUSE_ENABLE
-    // ps2 mouse
     if (ps2_mouse_read() == 0)
         ps2_mouse_usb_send();
 #endif

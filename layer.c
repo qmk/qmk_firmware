@@ -65,7 +65,7 @@ uint8_t layer_get_keycode(uint8_t row, uint8_t col)
 {
     uint8_t code = keymap_get_keycode(current_layer, row, col);
     // normal key or mouse key
-    if ((IS_KEY(code) || IS_MOUSE(code))) {
+    if ((IS_KEY(code) || IS_MOUSEKEY(code))) {
         layer_used = true;
     }
     return code;
