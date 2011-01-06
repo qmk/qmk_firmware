@@ -1,0 +1,103 @@
+TODO & IDEAS
+------------
+Code cleaning
+    keymap layer definition
+Debug/Config console
+    keymap/layer setting
+        layer switching timing
+        matrix display
+    help
+        display keymap
+        display matrix(row, col)
+    debug console
+        through PJRC console
+        through UART/USB CDC
+    mouse acceleration
+    store setting to EEPROM
+Document
+    development
+Interchangable protocol stack
+    USB
+        PJRC stack(default currently)
+        LUFA
+        original minimal stack for keyboard/mouse
+    PS/2
+        from keyboard-upgrade?
+Layer switch
+    toggle layer switch
+Debouncing logic
+    will be coded when bouncing occurs.
+    bouncing doesnt occur on my ALPS switch so far.
+    scan rate is too slow?(to be measure)
+Child lock
+    disable keyboard to protect against atacking by child
+Windows key blocking
+    disable Windows keys for gamers
+OneHand operation
+    RAlt + Del(or \) to Alt + Tab
+Licensings(GPL)
+    GPL will not be infringement of PJRC license.
+Extra switch
+    foot sw for layer switching
+    mouse button
+PS/2->USB keyboard converter
+    PS/2 keyboard host protocol support
+PS/2,USB detection
+    act as PS/2 keyboard or USB keyboard.
+    PS/2 keyboard device protocol support
+Thinkpad keyboard support
+    turn to USB keyboard/mouse composite device
+Other MCU/board support
+    architectures on which GCC is available.
+    AT90USBKEY and other AVR USB boards
+    Cortex-M3 ARM board(STM32)
+        http://strawberry-linux.com/catalog/items?code=32105  
+Separate keyboard support
+    comunicate between keyboards by I2C?
+    this is for ergo keyoboard style.
+
+
+DONE & STATUS
+-------------
+PS2 mouse bug to be FIX'd
+    macway/matrix: line select changes pins for mouse.
+    2010/01/02
+support for HHKB pro matrix signal
+    exchange controller board with teensy
+    2010/10/11
+OneHand operation
+    Matias half keyboard style
+    2010/10/23
+souce code cleaning
+    2010/10/23
+debug on/off
+    debug off by default
+    pressing keys during booting
+    2010/10/23
+mouse horizontal wheel
+    http://www.microchip.com/forums/tm.aspx?high=&m=391435&mpage=1#391521
+    http://www.keil.com/forum/15671/
+    http://www.microsoft.com/whdc/device/input/wheel.mspx
+    2010/10/13
+debug on/off
+    Fn key conbination during normal operation
+    matrix print on/off
+    key print on/off
+    mouse print on/off
+    2010/10/26
+layer switching
+    time before switching
+    timeout when not used during specific time
+    2010/10/30
+Build Option
+    windows media keys suport
+    2010/01/06
+Document
+     build, customize
+    2010/01/06
+Trackpoint(PS/2)
+    receive PS/2 signal from TrackPoint
+    2010/01/02
+    send USB HID report
+
+EOF
