@@ -193,7 +193,7 @@
 		/** Enum for the RNDIS class specific notification requests that can be issued by a RNDIS device to a host. */
 		enum RNDIS_ClassNotifications_t
 		{
-			RNDIS_NOTIF_ResponseAvailable  0x01, /**< Notification request value for a RNDIS Response Available notification. */
+			RNDIS_NOTIF_ResponseAvailable = 0x01, /**< Notification request value for a RNDIS Response Available notification. */
 		};
 
 		/** Enum for the NDIS hardware states. */
