@@ -123,10 +123,10 @@
 				{
 					struct
 					{
-						uint8_t HostToDevice; /**< Control line states from the host to device, as a set of CDC_CONTROL_LINE_OUT_*
+						uint8_t HostToDevice; /**< Control line states from the host to device, as a set of \c CDC_CONTROL_LINE_OUT_*
 											   *   masks. This value is updated each time \ref CDC_Device_USBTask() is called.
 											   */
-						uint8_t DeviceToHost; /**< Control line states from the device to host, as a set of CDC_CONTROL_LINE_IN_*
+						uint8_t DeviceToHost; /**< Control line states from the device to host, as a set of \c CDC_CONTROL_LINE_IN_*
 											   *   masks - to notify the host of changes to these values, call the
 											   *   \ref CDC_Device_SendControlLineStateChange() function.
 											   */
@@ -152,7 +152,7 @@
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 *
-			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.
+			 *  \return Boolean \c true if the endpoints were successfully configured, \c false otherwise.
 			 */
 			bool CDC_Device_ConfigureEndpoints(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -319,7 +319,7 @@
 				static int CDC_Device_getchar(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
 				static int CDC_Device_getchar_Blocking(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
 
-				void CDC_Device_Event_Stub(void);
+				void CDC_Device_Event_Stub(void) ATTR_CONST;
 				void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 				                                          ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Device_Event_Stub);
 				void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)

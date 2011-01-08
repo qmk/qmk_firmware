@@ -80,7 +80,7 @@
 			 *
 			 *  Class state structure. An instance of this structure should be made for each RNDIS interface
 			 *  within the user application, and passed to each of the RNDIS class driver functions as the
-			 *  RNDISInterfaceInfo parameter. This stores each RNDIS interface's configuration and state information.
+			 *  \c RNDISInterfaceInfo parameter. This stores each RNDIS interface's configuration and state information.
 			 */
 			typedef struct
 			{
@@ -135,7 +135,7 @@
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing a RNDIS Class configuration and state.
 			 *
-			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.
+			 *  \return Boolean \c true if the endpoints were successfully configured, \c false otherwise.
 			 */
 			bool RNDIS_Device_ConfigureEndpoints(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 

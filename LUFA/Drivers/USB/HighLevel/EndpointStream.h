@@ -80,7 +80,7 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Enums: */
-			/** Enum for the possible error return codes of the Endpoint_*_Stream_* functions. */
+			/** Enum for the possible error return codes of the \c Endpoint_*_Stream_* functions. */
 			enum Endpoint_Stream_RW_ErrorCodes_t
 			{
 				ENDPOINT_RWSTREAM_NoError            = 0, /**< Command completed successfully, no error. */
@@ -103,7 +103,7 @@
 				                                           */
 			};
 			
-			/** Enum for the possible error return codes of the Endpoint_*_Control_Stream_* functions. */
+			/** Enum for the possible error return codes of the \c Endpoint_*_Control_Stream_* functions. */
 			enum Endpoint_ControlStream_RW_ErrorCodes_t
 			{
 				ENDPOINT_RWCSTREAM_NoError            = 0, /**< Command completed successfully, no error. */
@@ -126,13 +126,13 @@
 			 *  packet is ready, allowing for early aborts of stream transfers.
 			 *
 			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
-			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  If the token \c NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
 			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
 			 *  \param[in] Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, \c NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -147,14 +147,14 @@
 			 *  aborts of stream transfers.
 			 *
 			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
-			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  If the token \c NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
 			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, \c NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -166,7 +166,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, \c NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -180,7 +180,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, \c NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -196,14 +196,14 @@
 			 *  aborts of stream transfers.
 			 *
 			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
-			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  If the token \c NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
 			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, \c NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -215,7 +215,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, \c NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -229,7 +229,7 @@
 			 *
 			 *  \param[in] Buffer    Pointer to the source data buffer to read from.
 			 *  \param[in] Length    Number of bytes to read for the currently selected endpoint into the buffer.
-			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in] Callback  Name of a callback routine to call between successive USB packet transfers, \c NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -245,14 +245,14 @@
 			 *  is ready to accept the next packet, allowing for early aborts of stream transfers.
 			 *
 			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
-			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  If the token \c NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
 			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
 			 *  \param[out] Buffer    Pointer to the destination data buffer to write to.
 			 *  \param[in]  Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, \c NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -264,7 +264,7 @@
 			 *
 			 *  \param[out] Buffer    Pointer to the destination data buffer to write to, located in EEPROM memory space.
 			 *  \param[in]  Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, \c NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -280,14 +280,14 @@
 			 *  is ready to accept the next packet, allowing for early aborts of stream transfers.
 			 *
 			 *	The callback routine should be created according to the information in \ref Group_StreamCallbacks.
-			 *  If the token NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
+			 *  If the token \c NO_STREAM_CALLBACKS is passed via the -D option to the compiler, stream callbacks are
 			 *  disabled and this function has the Callback parameter omitted.
 			 *
 			 *  \note This routine should not be used on CONTROL type endpoints.
 			 *
 			 *  \param[out] Buffer    Pointer to the destination data buffer to write to.
 			 *  \param[in]  Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, \c NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
@@ -299,7 +299,7 @@
 			 *
 			 *  \param[out] Buffer    Pointer to the destination data buffer to write to, located in EEPROM memory space.
 			 *  \param[in]  Length    Number of bytes to send via the currently selected endpoint.
-			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, NULL if no callback.
+			 *  \param[in]  Callback  Name of a callback routine to call between successive USB packet transfers, \c NULL if no callback.
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */

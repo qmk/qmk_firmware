@@ -190,12 +190,12 @@
 			#define PIPE_EPNUM_MASK                 0x0F
 
 			/** Endpoint direction mask, for masking against endpoint addresses to retrieve the endpoint's
-			 *  direction for comparing with the ENDPOINT_DESCRIPTOR_DIR_* masks.
+			 *  direction for comparing with the \c ENDPOINT_DESCRIPTOR_DIR_* masks.
 			 */
 			#define PIPE_EPDIR_MASK                 0x80
 
 		/* Enums: */
-			/** Enum for the possible error return codes of the Pipe_WaitUntilReady function.
+			/** Enum for the possible error return codes of the \ref Pipe_WaitUntilReady() function.
 			 *
 			 *  \ingroup Group_PipeRW
 			 */
@@ -218,7 +218,7 @@
 			 *
 			 *  \ingroup Group_PipeRW
 			 *
-			 *  \return Total number of bytes in the currently selected Pipe's FIFO buffer.
+			 *  \return Total number of bytes in the currently selected pipe's FIFO buffer.
 			 */
 			static inline uint16_t Pipe_BytesInPipe(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_BytesInPipe(void)
@@ -281,7 +281,7 @@
 
 			/** Determines if the currently selected pipe is enabled, but not necessarily configured.
 			 *
-			 * \return Boolean True if the currently selected pipe is enabled, false otherwise.
+			 * \return Boolean \c true if the currently selected pipe is enabled, \c false otherwise.
 			 */
 			static inline bool Pipe_IsEnabled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsEnabled(void)
@@ -291,7 +291,7 @@
 
 			/** Gets the current pipe token, indicating the pipe's data direction and type.
 			 *
-			 *  \return The current pipe token, as a PIPE_TOKEN_* mask.
+			 *  \return The current pipe token, as a \c PIPE_TOKEN_* mask.
 			 */
 			static inline uint8_t Pipe_GetPipeToken(void) ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetPipeToken(void)
@@ -299,12 +299,12 @@
 				return (UPCFG0X & (0x03 << PTOKEN0));
 			}
 
-			/** Sets the token for the currently selected pipe to one of the tokens specified by the PIPE_TOKEN_*
+			/** Sets the token for the currently selected pipe to one of the tokens specified by the \c PIPE_TOKEN_*
 			 *  masks. This can be used on CONTROL type pipes, to allow for bidirectional transfer of data during
 			 *  control requests, or on regular pipes to allow for half-duplex bidirectional data transfer to devices
 			 *  which have two endpoints of opposite direction sharing the same endpoint address within the device.
 			 *
-			 *  \param[in] Token  New pipe token to set the selected pipe to, as a PIPE_TOKEN_* mask.
+			 *  \param[in] Token  New pipe token to set the selected pipe to, as a \c PIPE_TOKEN_* mask.
 			 */
 			static inline void Pipe_SetPipeToken(const uint8_t Token) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_SetPipeToken(const uint8_t Token)
@@ -333,7 +333,7 @@
 
 			/** Determines if the currently selected pipe is configured.
 			 *
-			 *  \return Boolean true if the selected pipe is configured, false otherwise.
+			 *  \return Boolean \c true if the selected pipe is configured, \c false otherwise.
 			 */
 			static inline bool Pipe_IsConfigured(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsConfigured(void)
@@ -378,7 +378,7 @@
 			 *
 			 *  \param[in] PipeNumber  Index of the pipe whose interrupt flag should be tested.
 			 *
-			 *  \return Boolean true if the specified pipe has interrupted, false otherwise.
+			 *  \return Boolean \c true if the specified pipe has interrupted, \c false otherwise.
 			 */
 			static inline bool Pipe_HasPipeInterrupted(const uint8_t PipeNumber) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_HasPipeInterrupted(const uint8_t PipeNumber)
@@ -402,7 +402,7 @@
 
 			/** Determines if the currently selected pipe is frozen, and not able to accept data.
 			 *
-			 *  \return Boolean true if the currently selected pipe is frozen, false otherwise.
+			 *  \return Boolean \c true if the currently selected pipe is frozen, \c false otherwise.
 			 */
 			static inline bool Pipe_IsFrozen(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsFrozen(void)
@@ -422,7 +422,7 @@
 			 *
 			 *  \see \ref Pipe_GetErrorFlags() macro for information on retrieving the exact error flag.
 			 *
-			 *  \return Boolean true if an error has occurred on the selected pipe, false otherwise.
+			 *  \return Boolean \c true if an error has occurred on the selected pipe, \c false otherwise.
 			 */
 			static inline bool Pipe_IsError(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsError(void)
@@ -440,9 +440,9 @@
 			}
 
 			/** Gets a mask of the hardware error flags which have occurred on the currently selected pipe. This
-			 *  value can then be masked against the PIPE_ERRORFLAG_* masks to determine what error has occurred.
+			 *  value can then be masked against the \c PIPE_ERRORFLAG_* masks to determine what error has occurred.
 			 *
-			 *  \return  Mask comprising of PIPE_ERRORFLAG_* bits indicating what error has occurred on the selected pipe.
+			 *  \return  Mask comprising of \c PIPE_ERRORFLAG_* bits indicating what error has occurred on the selected pipe.
 			 */
 			static inline uint8_t Pipe_GetErrorFlags(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetErrorFlags(void)
@@ -476,7 +476,8 @@
 			 *
 			 *  \ingroup Group_PipePacketManagement
 			 *
-			 *  \return Boolean true if the currently selected pipe may be read from or written to, depending on its direction.
+			 *  \return Boolean \c true if the currently selected pipe may be read from or written to, depending
+			 *          on its direction.
 			 */
 			static inline bool Pipe_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsReadWriteAllowed(void)
@@ -488,7 +489,7 @@
 			 *
 			 *  \ingroup Group_PipePacketManagement
 			 *
-			 *  \return Boolean true if the current pipe has received an IN packet, false otherwise.
+			 *  \return Boolean \c true if the current pipe has received an IN packet, \c false otherwise.
 			 */
 			static inline bool Pipe_IsINReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsINReceived(void)
@@ -500,7 +501,7 @@
 			 *
 			 *  \ingroup Group_PipePacketManagement
 			 *
-			 *  \return Boolean true if the current pipe is ready for an OUT packet, false otherwise.
+			 *  \return Boolean \c true if the current pipe is ready for an OUT packet, \c false otherwise.
 			 */
 			static inline bool Pipe_IsOUTReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsOUTReady(void)
@@ -513,7 +514,7 @@
 			 *
 			 *  \ingroup Group_PipePacketManagement
 			 *
-			 *  \return Boolean true if the current pipe is ready for a SETUP packet, false otherwise.
+			 *  \return Boolean \c true if the current pipe is ready for a SETUP packet, \c false otherwise.
 			 */
 			static inline bool Pipe_IsSETUPSent(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsSETUPSent(void)
@@ -561,7 +562,7 @@
 			 *
 			 *  \ingroup Group_PipePacketManagement
 			 *
-			 *  \return Boolean true if an NAK has been received on the current pipe, false otherwise.
+			 *  \return Boolean \c true if an NAK has been received on the current pipe, \c false otherwise.
 			 */
 			static inline bool Pipe_IsNAKReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsNAKReceived(void)
@@ -585,7 +586,7 @@
 			 *
 			 *  \ingroup Group_PipePacketManagement
 			 *
-			 *  \return Boolean true if the current pipe has been stalled by the attached device, false otherwise.
+			 *  \return Boolean \c true if the current pipe has been stalled by the attached device, \c false otherwise.
 			 */
 			static inline bool Pipe_IsStalled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsStalled(void)
@@ -843,7 +844,7 @@
 			 *
 			 *  \param[in] Number          Pipe number to configure. This must be more than 0 and less than \ref PIPE_TOTAL_PIPES.
 			 *
-			 *  \param[in] Type            Type of pipe to configure, a EP_TYPE_* mask. Not all pipe types are available on Low
+			 *  \param[in] Type            Type of pipe to configure, an \c EP_TYPE_* mask. Not all pipe types are available on Low
 			 *                             Speed USB devices - refer to the USB 2.0 specification.
 			 *
 			 *  \param[in] Token           Pipe data token, either \ref PIPE_TOKEN_SETUP, \ref PIPE_TOKEN_OUT or \ref PIPE_TOKEN_IN.
@@ -857,11 +858,11 @@
 			 *                             the pipe's data direction). The bank size must indicate the maximum packet size that
 			 *                             the pipe can handle.
 			 *
-			 *  \param[in] Banks           Number of banks to use for the pipe being configured, a PIPE_BANK_* mask. More banks
+			 *  \param[in] Banks           Number of banks to use for the pipe being configured, a \c PIPE_BANK_* mask. More banks
 			 *                             uses more USB DPRAM, but offers better performance. Isochronous type pipes <b>must</b>
 			 *                             have at least two banks.
 			 *
-			 *  \note When the ORDERED_EP_CONFIG compile time option is used, Pipes <b>must</b> be configured in ascending order,
+			 *  \note When the \c ORDERED_EP_CONFIG compile time option is used, Pipes <b>must</b> be configured in ascending order,
 			 *        or bank corruption will occur.
 			 *        \n\n
 			 *
@@ -876,7 +877,7 @@
 			 *  \note This routine will automatically select the specified pipe upon success. Upon failure, the pipe which
 			 *        failed to reconfigure correctly will be selected.
 			 *
-			 *  \return Boolean true if the configuration succeeded, false otherwise.
+			 *  \return Boolean \c true if the configuration succeeded, \c false otherwise.
 			 */
 			bool Pipe_ConfigurePipe(const uint8_t Number,
 			                        const uint8_t Type,
@@ -899,8 +900,8 @@
 			 *
 			 *  \param[in] EndpointAddress Address and direction mask of the endpoint within the attached device to check.
 			 *
-			 *  \return Boolean true if a pipe bound to the given endpoint address of the specified direction is found, false
-			 *          otherwise.
+			 *  \return Boolean \c true if a pipe bound to the given endpoint address of the specified direction is found,
+			 *          \c false otherwise.
 			 */
 			bool Pipe_IsEndpointBound(const uint8_t EndpointAddress);
 

@@ -71,7 +71,7 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Mask for determining the type of an endpoint from an endpoint descriptor. This should then be compared
-			 *  with the EP_TYPE_* masks to determine the exact type of the endpoint.
+			 *  with the \c EP_TYPE_* masks to determine the exact type of the endpoint.
 			 */
 			#define EP_TYPE_MASK                       0x03
 
@@ -152,7 +152,7 @@
 			{
 				DESCRIPTOR_SEARCH_COMP_Found           = 0, /**< Configuration descriptor now points to descriptor which matches
 				                                             *   search criteria of the given comparator function. */
-				DESCRIPTOR_SEARCH_COMP_Fail            = 1, /**< Comparator function returned Descriptor_Search_Fail. */
+				DESCRIPTOR_SEARCH_COMP_Fail            = 1, /**< Comparator function returned \ref DESCRIPTOR_SEARCH_Fail. */
 				DESCRIPTOR_SEARCH_COMP_EndOfDescriptor = 2, /**< End of configuration descriptor reached before match found. */
 			};
 
@@ -162,7 +162,7 @@
 			 *
 			 *  \param[in]     ConfigNumber   Device configuration descriptor number to fetch from the device (usually set to 1 for
 			 *                                single configuration devices).
-			 *  \param[in,out] ConfigSizePtr  Pointer to a uint16_t for storing the retrieved configuration descriptor size.
+			 *  \param[in,out] ConfigSizePtr  Pointer to a location for storing the retrieved configuration descriptor size.
 			 *  \param[out]    BufferPtr      Pointer to the buffer for storing the configuration descriptor data.
 			 *  \param[out]    BufferSize     Size of the allocated buffer where the configuration descriptor is to be stored.
 			 *

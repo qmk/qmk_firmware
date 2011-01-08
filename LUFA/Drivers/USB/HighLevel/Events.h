@@ -95,7 +95,7 @@
 			 *  \note This event only exists on USB AVR models which support dual role modes.
 			 *        \n\n
 			 *
-			 *  \note This event does not exist if the USB_DEVICE_ONLY or USB_HOST_ONLY tokens have been supplied
+			 *  \note This event does not exist if the \c USB_DEVICE_ONLY or \c USB_HOST_ONLY tokens have been supplied
 			 *        to the compiler (see \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_UIDChange(void);
@@ -108,7 +108,7 @@
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *        \n\n
 			 *
-			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
+			 *  \note This event does not exist if the \c USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_Host_HostError(const uint8_t ErrorCode);
@@ -121,7 +121,7 @@
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *        \n\n
 			 *
-			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
+			 *  \note This event does not exist if the \c USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 *
 			 *  \see \ref USB_USBTask() for more information on the USB management task and reducing CPU usage.
@@ -135,7 +135,7 @@
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *        \n\n
 			 *
-			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
+			 *  \note This event does not exist if the \c USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 *
 			 *  \see \ref USB_USBTask() for more information on the USB management task and reducing CPU usage.
@@ -155,7 +155,7 @@
 			 *  \note This event only exists on USB AVR models which supports host mode.
 			 *        \n\n
 			 *
-			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
+			 *  \note This event does not exist if the \c USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_Host_DeviceEnumerationFailed(const uint8_t ErrorCode,
@@ -183,7 +183,7 @@
 			 *        a USB device.
 			 *        \n\n
 			 *
-			 *  \note This event does not exist if the USB_DEVICE_ONLY token is supplied to the compiler (see
+			 *  \note This event does not exist if the \c USB_DEVICE_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_Host_StartOfFrame(void);
@@ -198,14 +198,14 @@
 			 *        this means that the current connection state is derived from the bus suspension and wake up events by default,
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
-			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
+			 *        passing the \c NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
 			 *        and disconnection events may be manually fired, and the \ref USB_DeviceState global changed manually.
 			 *        \n\n
 			 *
 			 *  \note This event may fire multiple times during device enumeration on the series 2 USB AVRs with limited USB controllers
-			 *        if NO_LIMITED_CONTROLLER_CONNECT is not defined.
+			 *        if \c NO_LIMITED_CONTROLLER_CONNECT is not defined.
 			 *
-			 *  \see USBTask.h for more information on the USB management task and reducing CPU usage.
+			 *  \see \ref Group_USBManagement for more information on the USB management task and reducing CPU usage.
 			 */
 			void EVENT_USB_Device_Connect(void);
 
@@ -216,14 +216,14 @@
 			 *        this means that the current connection state is derived from the bus suspension and wake up events by default,
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
-			 *        passing the NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
+			 *        passing the \c NO_LIMITED_CONTROLLER_CONNECT token to the compiler via the -D switch at compile time. The connection
 			 *        and disconnection events may be manually fired, and the \ref USB_DeviceState global changed manually.
 			 *        \n\n
 			 *
 			 *  \note This event may fire multiple times during device enumeration on the series 2 USB AVRs with limited USB controllers
-			 *        if NO_LIMITED_CONTROLLER_CONNECT is not defined.
+			 *        if \c NO_LIMITED_CONTROLLER_CONNECT is not defined.
 			 *
-			 *  \see USBTask.h for more information on the USB management task and reducing CPU usage.
+			 *  \see \ref Group_USBManagement for more information on the USB management task and reducing CPU usage.
 			 */
 			void EVENT_USB_Device_Disconnect(void);
 
@@ -242,7 +242,7 @@
 			 *  for the user to process via this event if desired. If not handled in the user application or by
 			 *  the library internally, unknown requests are automatically STALLed.
 			 *
-			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
+			 *  \note This event does not exist if the \c USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 *        \n\n
 			 *
@@ -262,7 +262,7 @@
 			 *
 			 *  This event fires after the value of \ref USB_ConfigurationNumber has been changed.
 			 *
-			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
+			 *  \note This event does not exist if the \c USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_Device_ConfigurationChanged(void);
@@ -273,11 +273,11 @@
 			 *  enumerated with the \ref USB_OPT_AUTO_PLL option set, the library will automatically suspend the
 			 *  USB PLL before the event is fired to save power.
 			 *
-			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
+			 *  \note This event does not exist if the \c USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 *        \n\n
 			 *
-			 *  \note This event does not exist on the series 2 USB AVRs when the NO_LIMITED_CONTROLLER_CONNECT
+			 *  \note This event does not exist on the series 2 USB AVRs when the \c NO_LIMITED_CONTROLLER_CONNECT
 			 *        compile time token is not set - see \ref EVENT_USB_Device_Disconnect.
 			 *
 			 *  \see \ref EVENT_USB_Device_WakeUp() event for accompanying Wake Up event.
@@ -290,11 +290,11 @@
 			 *  mode. If the USB interface is enumerated with the \ref USB_OPT_AUTO_PLL option set, the library
 			 *  will automatically restart the USB PLL before the event is fired.
 			 *
-			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
+			 *  \note This event does not exist if the \c USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 *        \n\n
 			 *
-			 *  \note This event does not exist on the series 2 USB AVRs when the NO_LIMITED_CONTROLLER_CONNECT
+			 *  \note This event does not exist on the series 2 USB AVRs when the \c NO_LIMITED_CONTROLLER_CONNECT
 			 *        compile time token is not set - see \ref EVENT_USB_Device_Connect.
 			 *
 			 *  \see \ref EVENT_USB_Device_Suspend() event for accompanying Suspend event.
@@ -308,7 +308,7 @@
 			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
 			 *  two seconds) will prevent the device from enumerating correctly.
 			 *
-			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
+			 *  \note This event does not exist if the \c USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_Device_Reset(void);
@@ -324,7 +324,7 @@
 			 *        \ref USB_Device_EnableSOFEvents() and \ref USB_Device_DisableSOFEvents() commands after enumeration.
 			 *        \n\n
 			 *
-			 *  \note This event does not exist if the USB_HOST_ONLY token is supplied to the compiler (see
+			 *  \note This event does not exist if the \c USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).
 			 */
 			void EVENT_USB_Device_StartOfFrame(void);

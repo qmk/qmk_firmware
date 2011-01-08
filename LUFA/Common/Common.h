@@ -32,7 +32,7 @@
  *  \brief Common library convenience macros and functions.
  *
  *  This file contains macros which are common to all library elements, and which may be useful in user code. It
- *  also includes other common headers, such as Atomic.h, Attributes.h and BoardTypes.h.
+ *  also includes other common code headers.
  */
 
 /** @defgroup Group_Common Common Utility Headers - LUFA/Drivers/Common/Common.h
@@ -68,18 +68,18 @@
 			/** Macro for encasing other multi-statement macros. This should be used along with an opening brace
 			 *  before the start of any multi-statement macro, so that the macros contents as a whole are treated
 			 *  as a discrete block and not as a list of separate statements which may cause problems when used as
-			 *  a block (such as inline IF statements).
+			 *  a block (such as inline \c if statements).
 			 */
 			#define MACROS                  do
 
 			/** Macro for encasing other multi-statement macros. This should be used along with a preceding closing
 			 *  brace at the end of any multi-statement macro, so that the macros contents as a whole are treated
 			 *  as a discrete block and not as a list of separate statements which may cause problems when used as
-			 *  a block (such as inline IF statements).
+			 *  a block (such as inline \c if statements).
 			 */
 			#define MACROE                  while (0)
 
-			/** Defines a volatile NOP statement which cannot be optimized out by the compiler, and thus can always
+			/** Defines a volatile \c NOP statement which cannot be optimized out by the compiler, and thus can always
 			 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimiser
 			 *  removes/reorders code to the point where break points cannot reliably be set.
 			 *
@@ -87,14 +87,14 @@
 			 */
 			#define JTAG_DEBUG_POINT()      __asm__ __volatile__ ("NOP" ::)
 
-			/** Defines an explicit JTAG break point in the resulting binary via the ASM BREAK statement. When
+			/** Defines an explicit JTAG break point in the resulting binary via the assembly \c BREAK statement. When
 			 *  a JTAG is used, this causes the program execution to halt when reached until manually resumed.
 			 *
 			 *  \ingroup Group_Debugging
 			 */
 			#define JTAG_DEBUG_BREAK()      __asm__ __volatile__ ("BREAK" ::)
 
-			/** Macro for testing condition "x" and breaking via JTAG_DEBUG_BREAK() if the condition is false.
+			/** Macro for testing condition "x" and breaking via \ref JTAG_DEBUG_BREAK() if the condition is false.
 			 *
 			 *  \param[in] Condition  Condition that will be evaluated,
 			 *
@@ -102,7 +102,7 @@
 			*/
 			#define JTAG_DEBUG_ASSERT(Condition)    MACROS{ if (!(Condition)) { JTAG_DEBUG_BREAK(); } }MACROE
 
-			/** Macro for testing condition "x" and writing debug data to the stdout stream if false. The stdout stream
+			/** Macro for testing condition "x" and writing debug data to the stdout stream if \c false. The stdout stream
 			 *  must be pre-initialized before this macro is run and linked to an output device, such as the AVR's USART
 			 *  peripheral.
 			 *
@@ -118,7 +118,7 @@
 			
 			/** Forces GCC to use pointer indirection (via the AVR's pointer register pairs) when accessing the given
 			 *  struct pointer. In some cases GCC will emit non-optimal assembly code when accessing a structure through
-			 *  a pointer, resulting in a larger binary. When this macro is used on a (non-const) structure pointer before
+			 *  a pointer, resulting in a larger binary. When this macro is used on a (non \c const) structure pointer before
 			 *  use, it will force GCC to use pointer indirection on the elements rather than direct store and load
 			 *  instructions.
 			 *
@@ -127,8 +127,8 @@
 			#define GCC_FORCE_POINTER_ACCESS(StructPtr) __asm__ __volatile__("" : "=b" (StructPtr) : "0" (StructPtr))
 
 			#if !defined(pgm_read_ptr) || defined(__DOXYGEN__)
-				/** Reads a pointer out of PROGMEM space. This is currently a wrapper for the avr-libc pgm_read_ptr()
-				 *  macro with a void* cast, so that its value can be assigned directly to a pointer variable or used
+				/** Reads a pointer out of PROGMEM space. This is currently a wrapper for the avr-libc \c pgm_read_ptr()
+				 *  macro with a \c void* cast, so that its value can be assigned directly to a pointer variable or used
 				 *  in pointer arithmetic without further casting in C. In a future avr-libc distribution this will be
 				 *  part of the standard API and will be implemented in a more formal manner.
 				 *

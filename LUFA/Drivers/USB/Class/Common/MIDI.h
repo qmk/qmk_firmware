@@ -151,7 +151,7 @@
 			USB_Descriptor_Header_t Header; /**< Regular descriptor header containing the descriptor's type and length. */
 			uint8_t                 Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint8_t                 JackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
+			uint8_t                 JackType; /**< Type of jack, one of the \c JACKTYPE_* mask values. */
 			uint8_t                 JackID; /**< ID value of this jack - must be a unique value within the device. */
 
 			uint8_t                 JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
@@ -174,7 +174,7 @@
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint8_t  bJackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
+			uint8_t  bJackType; /**< Type of jack, one of the \c JACKTYPE_* mask values. */
 			uint8_t  bJackID; /**< ID value of this jack - must be a unique value within the device. */
 
 			uint8_t  iJack; /**< Index of a string descriptor describing this descriptor within the device. */
@@ -192,7 +192,7 @@
 			USB_Descriptor_Header_t   Header; /**< Regular descriptor header containing the descriptor's type and length. */
 			uint8_t                   Subtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint8_t                   JackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
+			uint8_t                   JackType; /**< Type of jack, one of the \c JACKTYPE_* mask values. */
 			uint8_t                   JackID; /**< ID value of this jack - must be a unique value within the device. */
 
 			uint8_t                   NumberOfPins; /**< Number of output channels within the jack, either physical or logical. */
@@ -219,7 +219,7 @@
 
 			uint8_t  bDescriptorSubtype; /**< Sub type value used to distinguish between audio class-specific descriptors. */
 
-			uint8_t  bJackType; /**< Type of jack, one of the JACKTYPE_* mask values. */
+			uint8_t  bJackType; /**< Type of jack, one of the \c JACKTYPE_* mask values. */
 			uint8_t  bJackID; /**< ID value of this jack - must be a unique value within the device. */
 
 			uint8_t  bNrInputPins; /**< Number of output channels within the jack, either physical or logical. */

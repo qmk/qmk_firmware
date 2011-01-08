@@ -117,7 +117,7 @@
 		/** Macro to define a CDC class-specific functional descriptor. CDC functional descriptors have a
 		 *  uniform structure but variable sized data payloads, thus cannot be represented accurately by
 		 *  a single typedef struct. A macro is used instead so that functional descriptors can be created
-		 *  easily by specifying the size of the payload. This allows sizeof() to work correctly.
+		 *  easily by specifying the size of the payload. This allows \c sizeof() to work correctly.
 		 *
 		 *  \param[in] DataSize  Size in bytes of the CDC functional descriptor's data payload.
 		 */

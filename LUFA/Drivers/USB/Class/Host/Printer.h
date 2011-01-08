@@ -76,7 +76,7 @@
 			/** \brief Printer Class Host Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made within the user application,
-			 *  and passed to each of the Printer class driver functions as the PRNTInterfaceInfo parameter. This
+			 *  and passed to each of the Printer class driver functions as the \c PRNTInterfaceInfo parameter. This
 			 *  stores each Printer interface's configuration and state information.
 			 */
 			typedef struct
@@ -156,7 +156,7 @@
 			uint8_t PRNT_Host_SetBidirectionalMode(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Retrieves the status of the virtual Printer port's inbound status lines. The result can then be masked against the
-			 *  PRNT_PORTSTATUS_* macros to determine the printer port's status.
+			 *  \c PRNT_PORTSTATUS_* macros to determine the printer port's status.
 			 *
 			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
 			 *  \param[out]    PortStatus         Location where the retrieved port status should be stored.

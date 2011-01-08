@@ -79,7 +79,7 @@
 			 *
 			 *  Class state structure. An instance of this structure should be made for each Mass Storage interface
 			 *  within the user application, and passed to each of the Mass Storage class driver functions as the
-			 *  MSInterfaceInfo parameter. This stores each Mass Storage interface's configuration and state information.
+			 *  \c MSInterfaceInfo parameter. This stores each Mass Storage interface's configuration and state information.
 			 */
 			typedef struct
 			{
@@ -126,7 +126,7 @@
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
 			 *
-			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.
+			 *  \return Boolean \c true if the endpoints were successfully configured, \c false otherwise.
 			 */
 			bool MS_Device_ConfigureEndpoints(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -151,7 +151,7 @@
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a Mass Storage Class configuration and state.
 			 *
-			 *  \return Boolean true if the SCSI command was successfully processed, false otherwise.
+			 *  \return Boolean \c true if the SCSI command was successfully processed, \c false otherwise.
 			 */
 			bool CALLBACK_MS_Device_SCSICommandReceived(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 

@@ -437,7 +437,7 @@
 		typedef struct
 		{
 			uint8_t Modifier; /**< Keyboard modifier byte, indicating pressed modifier keys (a combination of
-			                   *   HID_KEYBOARD_MODIFER_* masks).
+			                   *   \c HID_KEYBOARD_MODIFER_* masks).
 			                   */
 			uint8_t Reserved; /**< Reserved for OEM use, always set to 0. */
 			uint8_t KeyCode[6]; /**< Key codes of the currently pressed keys. */

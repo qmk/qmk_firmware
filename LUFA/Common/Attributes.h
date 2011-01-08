@@ -73,9 +73,9 @@
 				 */
 				#define ATTR_WARN_UNUSED_RESULT     __attribute__ ((warn_unused_result))
 
-				/** Indicates that the specified parameters of the function are pointers which should never be NULL.
+				/** Indicates that the specified parameters of the function are pointers which should never be \c NULL.
 				 *  When applied as a 1-based comma separated list the compiler will emit a warning if the specified
-				 *  parameters are known at compiler time to be NULL at the point of calling the function.
+				 *  parameters are known at compiler time to be \c NULL at the point of calling the function.
 				 */
 				#define ATTR_NON_NULL_PTR_ARG(...)  __attribute__ ((nonnull (__VA_ARGS__)))
 

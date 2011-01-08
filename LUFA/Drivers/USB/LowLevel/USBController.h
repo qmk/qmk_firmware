@@ -192,10 +192,11 @@
 
 		/* Inline Functions: */
 			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
-				/** Returns boolean true if the VBUS line is currently high (i.e. the USB host is supplying power),
-				 *  otherwise returns false.
+				/** Determines if the VBUS line is currently high (i.e. the USB host is supplying power).
 				 *
 				 *  \note This function is not available on some AVR models which do not support hardware VBUS monitoring.
+				 *
+				 *  \return Boolean \c true if the VBUS line is currently detecting power from a host, \c false otherwise.
 				 */
 				static inline bool USB_VBUS_GetStatus(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 				static inline bool USB_VBUS_GetStatus(void)
@@ -248,20 +249,20 @@
 			 *
 			 *  \param[in] Options  Mask indicating the options which should be used when initializing the USB
 			 *                      interface to control the USB interface's behaviour. This should be comprised of
-			 *                      a USB_OPT_REG_* mask to control the regulator, a USB_OPT_*_PLL mask to control the
-			 *                      PLL, and a USB_DEVICE_OPT_* mask (when the device mode is enabled) to set the device
+			 *                      a \c USB_OPT_REG_* mask to control the regulator, a \c USB_OPT_*_PLL mask to control the
+			 *                      PLL, and a \c USB_DEVICE_OPT_* mask (when the device mode is enabled) to set the device
 			 *                      mode speed.
 			 *
 			 *  \note To reduce the FLASH requirements of the library if only device or host mode is required,
-			 *        the mode can be statically set in the project makefile by defining the token USB_DEVICE_ONLY
-			 *        (for device mode) or USB_HOST_ONLY (for host mode), passing the token to the compiler
+			 *        the mode can be statically set in the project makefile by defining the token \c USB_DEVICE_ONLY
+			 *        (for device mode) or \c USB_HOST_ONLY (for host mode), passing the token to the compiler
 			 *        via the -D switch. If the mode is statically set, this parameter does not exist in the
 			 *        function prototype.
 			 *        \n\n
 			 *
 			 *  \note To reduce the FLASH requirements of the library if only fixed settings are are required,
 			 *        the options may be set statically in the same manner as the mode (see the Mode parameter of
-			 *        this function). To statically set the USB options, pass in the USE_STATIC_OPTIONS token,
+			 *        this function). To statically set the USB options, pass in the \c USE_STATIC_OPTIONS token,
 			 *        defined to the appropriate options masks. When the options are statically set, this
 			 *        parameter does not exist in the function prototype.
 			 *        \n\n
@@ -269,7 +270,7 @@
 			 *  \note The mode parameter does not exist on devices where only one mode is possible, such as USB
 			 *        AVR models which only implement the USB device mode in hardware.
 			 *
-			 *  \see Device.h for the USB_DEVICE_OPT_* masks.
+			 *  \see \ref Group_Device for the \c USB_DEVICE_OPT_* masks.
 			 */
 			void USB_Init(
 			               #if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
@@ -309,7 +310,7 @@
 				 *
 				 *  \note When the controller is initialized into UID autodetection mode, this variable will hold the
 				 *        currently selected USB mode (i.e. \ref USB_MODE_Device or \ref USB_MODE_Host). If the controller
-				 *        is fixed into a specific mode (either through the USB_DEVICE_ONLY or USB_HOST_ONLY compile time
+				 *        is fixed into a specific mode (either through the \c USB_DEVICE_ONLY or \c USB_HOST_ONLY compile time
 				 *        options, or a limitation of the USB controller in the chosen device model) this will evaluate to
 				 *        a constant of the appropriate value and will never evaluate to \ref USB_MODE_None even when the
 				 *        USB interface is not initialized.
@@ -323,7 +324,7 @@
 
 			#if !defined(USE_STATIC_OPTIONS) || defined(__DOXYGEN__)
 				/** Indicates the current USB options that the USB interface was initialized with when \ref USB_Init()
-				 *  was called. This value will be one of the USB_MODE_* masks defined elsewhere in this module.
+				 *  was called. This value will be one of the \c USB_MODE_* masks defined elsewhere in this module.
 				 *
 				 *  \note This variable should be treated as read-only in the user application, and never manually
 				 *        changed in value.

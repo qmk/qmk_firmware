@@ -142,17 +142,17 @@
  *  \subsection Sec_ClassDriverDevice Device Mode Class Drivers
  *  Implementing a Device Mode Class Driver in a user application requires a number of steps to be followed. Firstly,
  *  the module configuration and state structure must be added to the project source. These structures are named in a
- *  similar manner between classes, that of <i>USB_ClassInfo_<b>{Class Name}</b>_Device_t</i>, and are used to hold the
+ *  similar manner between classes, that of <tt>USB_ClassInfo_<i>{Class Name}</i>_Device_t</tt>, and are used to hold the
  *  complete state and configuration for each class instance. Multiple class instances is where the power of the class
- *  drivers lie; multiple interfaces of the same class simply require more instances of the Class Driver's ClassInfo
+ *  drivers lie; multiple interfaces of the same class simply require more instances of the Class Driver's \c USB_ClassInfo_*
  *  structure.
  *
- *  Inside the ClassInfo structure lies two sections, a <i>Config</i> section, and a <i>State</i> section. The Config
+ *  Inside the ClassInfo structure lies two sections, a \c Config section, and a \c State section. The \c Config
  *  section contains the instance's configuration parameters, and <b>must have all fields set by the user application</b>
  *  before the class driver is used. Each Device mode Class driver typically contains a set of configuration parameters
  *  for the endpoint size/number of the associated logical USB interface, plus any class-specific configuration parameters.
  *
- *  The <i>State</i> section of the ClassInfo structures are designed to be controlled by the Class Drivers only for
+ *  The \c State section of the \c USB_ClassInfo_* structures are designed to be controlled by the Class Drivers only for
  *  maintaining the Class Driver instance's state, and should not normally be set by the user application.
  *
  *  The following is an example of a properly initialized instance of the Audio Class Driver structure:
@@ -173,11 +173,11 @@
  *  \note The class driver's configuration parameters should match those used in the device's descriptors that are
  *  sent to the host.
  *
- *  To initialize the Class driver instance, the driver's <i><b>{Class Name}</b>_Device_ConfigureEndpoints()</i> function
+ *  To initialize the Class driver instance, the driver's <tt><i>{Class Name}</i>_Device_ConfigureEndpoints()</tt> function
  *  should be called in response to the \ref EVENT_USB_Device_ConfigurationChanged() event. This function will return a
  *  boolean value if the driver successfully initialized the instance. Like all the class driver functions, this function
  *  takes in the address of the specific instance you wish to initialize - in this manner, multiple separate instances of
- *  the same class type can be initialized like thus:
+ *  the same class type can be initialized like this:
  *
  *  \code
  *  void EVENT_USB_Device_ConfigurationChanged(void)
@@ -190,7 +190,7 @@
  *  \endcode
  *
  *  Once initialized, it is important to maintain the class driver's state by repeatedly calling the Class Driver's
- *  <i><b>{Class Name}</b>_Device_USBTask()</i> function in the main program loop. The exact implementation of this
+ *  <tt><i>{Class Name}</i>_Device_USBTask()</tt> function in the main program loop. The exact implementation of this
  *  function varies between class drivers, and can be used for any internal class driver purpose to maintain each
  *  instance. Again, this function uses the address of the instance to operate on, and thus needs to be called for each
  *  separate instance, just like the main USB maintenance routine \ref USB_USBTask():
@@ -213,7 +213,7 @@
  *  \endcode
  *
  *  The final standardized Device Class Driver function is the Control Request handler function
- *  <i><b>{Class Name}</b>_Device_ProcessControlRequest()</i>, which should be called when the
+ *  <tt><i>{Class Name}</i>_Device_ProcessControlRequest()</tt>, which should be called when the
  *  \ref EVENT_USB_Device_ControlRequest() event fires. This function should also be called for
  *  each class driver instance, using the address of the instance to operate on as the function's
  *  parameter. The request handler will abort if it is determined that the current request is not
@@ -227,10 +227,10 @@
  *  }
  *  \endcode
  *
- *  Each class driver may also define a set of callback functions (which are prefixed by "CALLBACK_"
+ *  Each class driver may also define a set of callback functions (which are prefixed by \c CALLBACK_*
  *  in the function's name) which <b>must</b> also be added to the user application - refer to each
  *  individual class driver's documentation for mandatory callbacks. In addition, each class driver may
- *  also define a set of events (identifiable by their prefix of "EVENT_" in the function's name), which
+ *  also define a set of events (identifiable by their prefix of \c EVENT_* in the function's name), which
  *  the user application <b>may</b> choose to implement, or ignore if not needed.
  *
  *  The individual Device Mode Class Driver documentation contains more information on the non-standardized,
@@ -241,17 +241,17 @@
  *  \subsection Sec_ClassDriverHost Host Mode Class Drivers
  *  Implementing a Host Mode Class Driver in a user application requires a number of steps to be followed. Firstly,
  *  the module configuration and state structure must be added to the project source. These structures are named in a
- *  similar manner between classes, that of <i>USB_ClassInfo_<b>{Class Name}</b>_Host_t</i>, and are used to hold the
+ *  similar manner between classes, that of <tt>USB_ClassInfo_<b>{Class Name}</b>_Host_t</tt>, and are used to hold the
  *  complete state and configuration for each class instance. Multiple class instances is where the power of the class
- *  drivers lie; multiple interfaces of the same class simply require more instances of the Class Driver's ClassInfo
+ *  drivers lie; multiple interfaces of the same class simply require more instances of the Class Driver's \c USB_ClassInfo_*
  *  structure.
  *
- *  Inside the ClassInfo structure lies two sections, a <i>Config</i> section, and a <i>State</i> section. The Config
+ *  Inside the \c USB_ClassInfo_* structure lies two sections, a \c Config section, and a \c State section. The \c Config
  *  section contains the instance's configuration parameters, and <b>must have all fields set by the user application</b>
  *  before the class driver is used. Each Device mode Class driver typically contains a set of configuration parameters
  *  for the endpoint size/number of the associated logical USB interface, plus any class-specific configuration parameters.
  *
- *  The <i>State</i> section of the ClassInfo structures are designed to be controlled by the Class Drivers only for
+ *  The \c State section of the \c USB_ClassInfo_* structures are designed to be controlled by the Class Drivers only for
  *  maintaining the Class Driver instance's state, and should not normally be set by the user application.
  *
  *  The following is an example of a properly initialized instance of the MIDI Class Driver structure:
@@ -270,9 +270,9 @@
  *  };
  *  \endcode
  *
- *  To initialize the Class driver instance, the driver's <i><b>{Class Name}</b>_Host_ConfigurePipes()</i> function
+ *  To initialize the Class driver instance, the driver's <tt><b>{Class Name}</b>_Host_ConfigurePipes()</tt> function
  *  should be called in response to the host state machine entering the \ref HOST_STATE_Addressed state. This function
- *  will return an error code from the class driver's <i><b>{Class Name}</b>_EnumerationFailure_ErrorCodes_t</i> enum
+ *  will return an error code from the class driver's <tt><b>{Class Name}</b>_EnumerationFailure_ErrorCodes_t</tt> enum
  *  to indicate if the driver successfully initialized the instance and bound it to an interface in the attached device.
  *  Like all the class driver functions, this function takes in the address of the specific instance you wish to initialize -
  *  in this manner, multiple separate instances of the same class type can be initialized. A fragment of a Class Driver
@@ -314,7 +314,7 @@
  *  the configuration will fail.
  *
  *  Once initialized, it is important to maintain the class driver's state by repeatedly calling the Class Driver's
- *  <i><b>{Class Name}</b>_Host_USBTask()</i> function in the main program loop. The exact implementation of this
+ *  <tt><b>{Class Name}</b>_Host_USBTask()</tt> function in the main program loop. The exact implementation of this
  *  function varies between class drivers, and can be used for any internal class driver purpose to maintain each
  *  instance. Again, this function uses the address of the instance to operate on, and thus needs to be called for each
  *  separate instance, just like the main USB maintenance routine \ref USB_USBTask():
@@ -339,10 +339,10 @@
  *  }
  *  \endcode
  *
- *  Each class driver may also define a set of callback functions (which are prefixed by "CALLBACK_"
+ *  Each class driver may also define a set of callback functions (which are prefixed by \c CALLBACK_*
  *  in the function's name) which <b>must</b> also be added to the user application - refer to each
  *  individual class driver's documentation for mandatory callbacks. In addition, each class driver may
- *  also define a set of events (identifiable by their prefix of "EVENT_" in the function's name), which
+ *  also define a set of events (identifiable by their prefix of \c EVENT_* in the function's name), which
  *  the user application <b>may</b> choose to implement, or ignore if not needed.
  *
  *  The individual Host Mode Class Driver documentation contains more information on the non-standardized,

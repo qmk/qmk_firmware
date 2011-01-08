@@ -80,7 +80,7 @@
 			 *
 			 *  Class state structure. An instance of this structure should be made for each HID interface
 			 *  within the user application, and passed to each of the HID class driver functions as the
-			 *  HIDInterfaceInfo parameter. This stores each HID interface's configuration and state information.
+			 *  \c HIDInterfaceInfo parameter. This stores each HID interface's configuration and state information.
 			 *
 			 *  \note Due to technical limitations, the HID device class driver does not utilize a separate OUT
 			 *        endpoint for host->device communications. Instead, the host->device data (if any) is sent to
@@ -100,18 +100,18 @@
 					                              *  stored by the driver, for comparison purposes to detect report changes that
 					                              *  must be sent immediately to the host. This should point to a buffer big enough
 					                              *  to hold the largest HID input report sent from the HID interface. If this is set
-												  *  to NULL, it is up to the user to force transfers when needed in the
+												  *  to \c NULL, it is up to the user to force transfers when needed in the
 												  *  \ref CALLBACK_HID_Device_CreateHIDReport() callback function.
 												  *
 												  *  \note Due to the single buffer, the internal driver can only correctly compare
 												  *        subsequent reports with identical report IDs. In multiple report devices,
-												  *        this buffer should be set to NULL and the decision to send reports made
+												  *        this buffer should be set to \c NULL and the decision to send reports made
 												  *        by the user application instead.
 					                              */
 					uint8_t  PrevReportINBufferSize; /**< Size in bytes of the given input report buffer. This is used to create a
 					                                  *  second buffer of the same size within the driver so that subsequent reports
 					                                  *  can be compared. If the user app is to determine when reports are to be sent
-					                                  *  exclusively (i.e. \ref PrevReportINBuffer is NULL) this value must still be
+					                                  *  exclusively (i.e. \ref PrevReportINBuffer is \c NULL) this value must still be
 													  *  set to the size of the largest report the device can issue to the host.
 					                                  */
 				} Config; /**< Config data for the USB class interface within the device. All elements in this section
@@ -139,7 +139,7 @@
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class configuration and state.
 			 *
-			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.
+			 *  \return Boolean \c true if the endpoints were successfully configured, \c false otherwise.
 			 */
 			bool HID_Device_ConfigureEndpoints(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -169,8 +169,8 @@
 			 *  \param[out]    ReportData        Pointer to a buffer where the generated HID report should be stored.
 			 *  \param[out]    ReportSize        Number of bytes in the generated input report, or zero if no report is to be sent.
 			 *
-			 *  \return Boolean true to force the sending of the report even if it is identical to the previous report and still within
-			 *          the idle period (useful for devices which report relative movement), false otherwise.
+			 *  \return Boolean \c true to force the sending of the report even if it is identical to the previous report and still within
+			 *          the idle period (useful for devices which report relative movement), \c false otherwise.
 			 */
 			bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo,
 			                                         uint8_t* const ReportID,

@@ -170,7 +170,7 @@
 		 *
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into.
 		 *
-		 *  \return Boolean true if the buffer contains no free space, false otherwise.
+		 *  \return Boolean \c true if the buffer contains no free space, false otherwise.
 		 */
 		static inline bool RingBuffer_IsFull(RingBuffer_t* const Buffer)
 		{
@@ -187,7 +187,7 @@
 		 *
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into.
 		 *
-		 *  \return Boolean true if the buffer contains no free space, false otherwise.
+		 *  \return Boolean \c true if the buffer contains no free space, false otherwise.
 		 */
 		static inline bool RingBuffer_IsEmpty(RingBuffer_t* const Buffer)
 		{

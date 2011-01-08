@@ -101,7 +101,7 @@
 			 *  \note This macro should only be used if the device has indicated to the host that it
 			 *        supports the Remote Wakeup feature in the device descriptors, and should only be
 			 *        issued if the host is currently allowing remote wakeup events from the device (i.e.,
-			 *        the \ref USB_RemoteWakeupEnabled flag is set). When the NO_DEVICE_REMOTE_WAKEUP compile
+			 *        the \ref USB_RemoteWakeupEnabled flag is set). When the \c NO_DEVICE_REMOTE_WAKEUP compile
 			 *        time option is used, this macro is unavailable.
 			 *        \n\n
 			 *
@@ -156,7 +156,7 @@
 				 *  \ref EVENT_USB_Device_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
 				 *  at the start of each USB frame when enumerated in device mode.
 				 *
-				 *  \note Not available when the NO_SOF_EVENTS compile time token is defined.
+				 *  \note Not available when the \c NO_SOF_EVENTS compile time token is defined.
 				 */
 				static inline void USB_Device_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
 				static inline void USB_Device_EnableSOFEvents(void)
@@ -167,7 +167,7 @@
 				/** Disables the device mode Start Of Frame events. When disabled, this stops the firing of the
 				 *  \ref EVENT_USB_Device_StartOfFrame() event when enumerated in device mode.
 				 *
-				 *  \note Not available when the NO_SOF_EVENTS compile time token is defined.
+				 *  \note Not available when the \c NO_SOF_EVENTS compile time token is defined.
 				 */
 				static inline void USB_Device_DisableSOFEvents(void) ATTR_ALWAYS_INLINE;
 				static inline void USB_Device_DisableSOFEvents(void)
@@ -185,19 +185,19 @@
 			 *                                  lower byte (when more than one descriptor of the given type exists, such as the
 			 *                                  case of string descriptors). The type may be one of the standard types defined
 			 *                                  in the DescriptorTypes_t enum, or may be a class-specific descriptor type value.
-			 *  \param[in] wIndex               The language ID of the string to return if the wValue type indicates DTYPE_String,
-			 *                                  otherwise zero for standard descriptors, or as defined in a class-specific
-			 *                                  standards.
+			 *  \param[in] wIndex               The language ID of the string to return if the \c wValue type indicates
+			 *                                  \ref DTYPE_String, otherwise zero for standard descriptors, or as defined in a
+			 *                                  class-specific standards.
 			 *  \param[out] DescriptorAddress   Pointer to the descriptor in memory. This should be set by the routine to
 			 *                                  the address of the descriptor.
 			 *  \param[out] MemoryAddressSpace  A value from the \ref USB_DescriptorMemorySpaces_t enum to indicate the memory
 			 *                                  space in which the descriptor is stored. This parameter does not exist when one
-			 *                                  of the USE_*_DESCRIPTORS compile time options is used.
+			 *                                  of the \c USE_*_DESCRIPTORS compile time options is used.
 			 *
-			 *  \note By default, the library expects all descriptors to be located in flash memory via the PROGMEM attribute.
+			 *  \note By default, the library expects all descriptors to be located in flash memory via the \c PROGMEM attribute.
 			 *        If descriptors should be located in RAM or EEPROM instead (to speed up access in the case of RAM, or to
-			 *        allow the descriptors to be changed dynamically at runtime) either the USE_RAM_DESCRIPTORS or the
-			 *        USE_EEPROM_DESCRIPTORS tokens may be defined in the project makefile and passed to the compiler by the -D
+			 *        allow the descriptors to be changed dynamically at runtime) either the \c USE_RAM_DESCRIPTORS or the
+			 *        \c USE_EEPROM_DESCRIPTORS tokens may be defined in the project makefile and passed to the compiler by the -D
 			 *        switch.
 			 *
 			 *  \return Size in bytes of the descriptor if it exists, zero or \ref NO_DESCRIPTOR otherwise.

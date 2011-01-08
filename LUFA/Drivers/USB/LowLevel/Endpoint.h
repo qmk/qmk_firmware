@@ -183,7 +183,7 @@
 
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
 				/** Default size of the default control endpoint's bank, until altered by the control endpoint bank size
-				 *  value in the device descriptor. Not available if the FIXED_CONTROL_ENDPOINT_SIZE token is defined.
+				 *  value in the device descriptor. Not available if the \c FIXED_CONTROL_ENDPOINT_SIZE token is defined.
 				 */
 				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE     8
 			#endif
@@ -194,7 +194,7 @@
 			#define ENDPOINT_EPNUM_MASK                     0x07
 
 			/** Endpoint direction mask, for masking against endpoint addresses to retrieve the endpoint's
-			 *  direction for comparing with the ENDPOINT_DESCRIPTOR_DIR_* masks.
+			 *  direction for comparing with the \c ENDPOINT_DESCRIPTOR_DIR_* masks.
 			 */
 			#define ENDPOINT_EPDIR_MASK                     0x80
 
@@ -205,13 +205,13 @@
 
 			/** Maximum size in bytes of a given endpoint.
 			 *
-			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
+			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (\ref ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */
 			#define ENDPOINT_MAX_SIZE(EPIndex)              _ENDPOINT_GET_MAXSIZE(EPIndex)
 
 			/** Indicates the total number of banks supported by the given endpoint.
 			 *
-			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (ENDPOINT_TOTAL_ENDPOINTS - 1)
+			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (\ref ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */
 			#define ENDPOINT_BANKS_SUPPORTED(EPIndex)       _ENDPOINT_GET_BANKS(EPIndex)
 
@@ -257,7 +257,7 @@
 			 *  \param[in] Number     Endpoint number to configure. This must be more than 0 and less than
 			 *                        \ref ENDPOINT_TOTAL_ENDPOINTS.
 			 *
-			 *  \param[in] Type       Type of endpoint to configure, a EP_TYPE_* mask. Not all endpoint types
+			 *  \param[in] Type       Type of endpoint to configure, a \c EP_TYPE_* mask. Not all endpoint types
 			 *                        are available on Low Speed USB devices - refer to the USB 2.0 specification.
 			 *
 			 *  \param[in] Direction  Endpoint data direction, either \ref ENDPOINT_DIR_OUT or \ref ENDPOINT_DIR_IN.
@@ -269,12 +269,12 @@
 			 *                        the endpoint's data direction). The bank size must indicate the maximum packet size
 			 *                        that the endpoint can handle.
 			 *
-			 *  \param[in] Banks      Number of banks to use for the endpoint being configured, an ENDPOINT_BANK_* mask.
+			 *  \param[in] Banks      Number of banks to use for the endpoint being configured, an \c ENDPOINT_BANK_* mask.
 			 *                        More banks uses more USB DPRAM, but offers better performance. Isochronous type
 			 *                        endpoints <b>must</b> have at least two banks.
 			 *
-			 *  \note When the ORDERED_EP_CONFIG compile time option is used, Endpoints <b>must</b> be configured in ascending
-			 *        order, or bank corruption will occur.
+			 *  \note When the \c ORDERED_EP_CONFIG compile time option is used, Endpoints <b>must</b> be configured in
+			 *        ascending order, or bank corruption will occur.
 			 *        \n\n
 			 *
 			 *  \note Certain models of USB AVR's endpoints may have different maximum packet sizes based on the endpoint's
@@ -288,7 +288,7 @@
 			 *  \note This routine will automatically select the specified endpoint upon success. Upon failure, the endpoint
 			 *        which failed to reconfigure correctly will be selected.
 			 *
-			 *  \return Boolean true if the configuration succeeded, false otherwise.
+			 *  \return Boolean \c true if the configuration succeeded, \c false otherwise.
 			 */
 			static inline bool Endpoint_ConfigureEndpoint(const uint8_t Number,
 			                                              const uint8_t Type,
@@ -360,7 +360,7 @@
 			}
 
 			/** Resets the endpoint bank FIFO. This clears all the endpoint banks and resets the USB controller's
-			 *  In and Out pointers to the bank's contents.
+			 *  data In and Out pointers to the bank's contents.
 			 *
 			 *  \param[in] EndpointNumber Endpoint number whose FIFO buffers are to be reset.
 			 */
@@ -393,7 +393,7 @@
 
 			/** Determines if the currently selected endpoint is enabled, but not necessarily configured.
 			 *
-			 * \return Boolean True if the currently selected endpoint is enabled, false otherwise.
+			 * \return Boolean \c true if the currently selected endpoint is enabled, \c false otherwise.
 			 */
 			static inline bool Endpoint_IsEnabled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsEnabled(void)
@@ -438,7 +438,8 @@
 			 *
 			 *  \ingroup Group_EndpointPacketManagement
 			 *
-			 *  \return Boolean true if the currently selected endpoint may be read from or written to, depending on its direction.
+			 *  \return Boolean \c true if the currently selected endpoint may be read from or written to, depending
+			 *          on its direction.
 			 */
 			static inline bool Endpoint_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsReadWriteAllowed(void)
@@ -448,7 +449,7 @@
 
 			/** Determines if the currently selected endpoint is configured.
 			 *
-			 *  \return Boolean true if the currently selected endpoint has been configured, false otherwise.
+			 *  \return Boolean \c true if the currently selected endpoint has been configured, \c false otherwise.
 			 */
 			static inline bool Endpoint_IsConfigured(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsConfigured(void)
@@ -458,7 +459,7 @@
 
 			/** Returns a mask indicating which INTERRUPT type endpoints have interrupted - i.e. their
 			 *  interrupt duration has elapsed. Which endpoints have interrupted can be determined by
-			 *  masking the return value against (1 << {Endpoint Number}).
+			 *  masking the return value against <tt>(1 << <i>{Endpoint Number}</i>)</tt>.
 			 *
 			 *  \return Mask whose bits indicate which endpoints have interrupted.
 			 */
@@ -473,7 +474,7 @@
 			 *
 			 *  \param[in] EndpointNumber  Index of the endpoint whose interrupt flag should be tested.
 			 *
-			 *  \return Boolean true if the specified endpoint has interrupted, false otherwise.
+			 *  \return Boolean \c true if the specified endpoint has interrupted, \c false otherwise.
 			 */
 			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber)
@@ -485,7 +486,7 @@
 			 *
 			 *  \ingroup Group_EndpointPacketManagement
 			 *
-			 *  \return Boolean true if the current endpoint is ready for an IN packet, false otherwise.
+			 *  \return Boolean \c true if the current endpoint is ready for an IN packet, \c false otherwise.
 			 */
 			static inline bool Endpoint_IsINReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsINReady(void)
@@ -497,7 +498,7 @@
 			 *
 			 *  \ingroup Group_EndpointPacketManagement
 			 *
-			 *  \return Boolean true if current endpoint is has received an OUT packet, false otherwise.
+			 *  \return Boolean \c true if current endpoint is has received an OUT packet, \c false otherwise.
 			 */
 			static inline bool Endpoint_IsOUTReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsOUTReceived(void)
@@ -509,7 +510,7 @@
 			 *
 			 *  \ingroup Group_EndpointPacketManagement
 			 *
-			 *  \return Boolean true if the selected endpoint has received a SETUP packet, false otherwise.
+			 *  \return Boolean \c true if the selected endpoint has received a SETUP packet, \c false otherwise.
 			 */
 			static inline bool Endpoint_IsSETUPReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsSETUPReceived(void)
@@ -591,7 +592,7 @@
 			 *
 			 *  \ingroup Group_EndpointPacketManagement
 			 *
-			 *  \return Boolean true if the currently selected endpoint is stalled, false otherwise.
+			 *  \return Boolean \c true if the currently selected endpoint is stalled, \c false otherwise.
 			 */
 			static inline bool Endpoint_IsStalled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_IsStalled(void)
@@ -608,7 +609,7 @@
 
 			/** Determines the currently selected endpoint's direction.
 			 *
-			 *  \return The currently selected endpoint's direction, as a ENDPOINT_DIR_* mask.
+			 *  \return The currently selected endpoint's direction, as a \c ENDPOINT_DIR_* mask.
 			 */
 			static inline uint8_t Endpoint_GetEndpointDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Endpoint_GetEndpointDirection(void)
@@ -618,7 +619,7 @@
 
 			/** Sets the direction of the currently selected endpoint.
 			 *
-			 *  \param[in] DirectionMask  New endpoint direction, as a ENDPOINT_DIR_* mask.
+			 *  \param[in] DirectionMask  New endpoint direction, as a \c ENDPOINT_DIR_* mask.
 			 */
 			static inline void Endpoint_SetEndpointDirection(const uint8_t DirectionMask) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_SetEndpointDirection(const uint8_t DirectionMask)
@@ -848,12 +849,12 @@
 			 *  project once the USB interface is initialized into device mode.
 			 *
 			 *  If space is an issue, it is possible to fix this to a static value by defining the control
-			 *  endpoint size in the FIXED_CONTROL_ENDPOINT_SIZE token passed to the compiler in the makefile
+			 *  endpoint size in the \c FIXED_CONTROL_ENDPOINT_SIZE token passed to the compiler in the makefile
 			 *  via the -D switch. When a fixed control endpoint size is used, the size is no longer dynamically
 			 *  read from the descriptors at runtime and instead fixed to the given value. When used, it is
 			 *  important that the descriptor control endpoint size value matches the size given as the
-			 *  FIXED_CONTROL_ENDPOINT_SIZE token - it is recommended that the FIXED_CONTROL_ENDPOINT_SIZE token
-			 *  be used in the descriptors to ensure this.
+			 *  \c FIXED_CONTROL_ENDPOINT_SIZE token - it is recommended that the \c FIXED_CONTROL_ENDPOINT_SIZE token
+			 *  be used in the device descriptors to ensure this.
 			 *
 			 *  \note This variable should be treated as read-only in the user application, and never manually
 			 *        changed in value.

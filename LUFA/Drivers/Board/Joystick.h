@@ -37,10 +37,10 @@
  *  User code should include this file, which will in turn include the correct joystick driver header file for the
  *  currently selected board.
  *
- *  If the BOARD value is set to BOARD_USER, this will include the /Board/Joystick.h file in the user project
+ *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/Joystick.h file in the user project
  *  directory.
  *
- *  For possible BOARD makefile values, see \ref Group_BoardTypes.
+ *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.
  */
 
 /** \ingroup Group_BoardDrivers
@@ -54,10 +54,10 @@
  *  Hardware Joystick driver. This module provides an easy to use interface to control the hardware digital Joystick
  *  located on many boards.
  *
- *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
+ *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/Dataflash.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file.
  *
- *  For possible BOARD makefile values, see \ref Group_BoardTypes.
+ *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.
  *
  *  \section Sec_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical

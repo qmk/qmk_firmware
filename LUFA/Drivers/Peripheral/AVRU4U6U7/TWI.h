@@ -145,7 +145,7 @@
 			 *
 			 *  \param[in] Byte  Byte to send to the currently addressed device
 			 *
-			 *  \return Boolean true if the recipient ACKed the byte, false otherwise
+			 *  \return Boolean \c true if the recipient ACKed the byte, \c false otherwise
 			 */
 			static inline bool TWI_SendByte(const uint8_t Byte)
 			{
@@ -161,7 +161,7 @@
 			 *  \param[in] Byte      Location where the read byte is to be stored
 			 *  \param[in] LastByte  Indicates if the byte should be ACKed if false, NAKed if true
 			 *
-			 *  \return Boolean true if the byte reception successfully completed, false otherwise
+			 *  \return Boolean \c true if the byte reception successfully completed, \c false otherwise
 			 */
 			static inline bool TWI_ReceiveByte(uint8_t* const Byte,
 			                                   const bool LastByte)
@@ -184,7 +184,7 @@
 			 *  \param[in] SlaveAddress  Address of the slave TWI device to communicate with
 			 *  \param[in] TimeoutMS     Timeout period within which the slave must respond, in milliseconds
 			 *
-			 *  \return Boolean true if the device is ready for data, false otherwise
+			 *  \return Boolean \c true if the device is ready for data, \c false otherwise
 			 */
 			bool TWI_StartTransmission(const uint8_t SlaveAddress,
 			                           const uint8_t TimeoutMS);

@@ -77,7 +77,7 @@
 		/** Used in the DataLength field of a PIMA container, to give the total container size in bytes for
 		 *  a command container.
 		 *
-		 *  \param[in] Params  Number of parameters which are to be sent in the Param field of the container.
+		 *  \param[in] Params  Number of parameters which are to be sent in the \c Param field of the container.
 		 */
 		#define PIMA_COMMAND_SIZE(Params)     ((sizeof(PIMA_Container_t) - 12) + ((Params) * sizeof(uint32_t)))
 

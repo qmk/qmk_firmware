@@ -79,7 +79,7 @@
 			 *
 			 *  Class state structure. An instance of this structure should be made for each Audio interface
 			 *  within the user application, and passed to each of the Audio class driver functions as the
-			 *  AudioInterfaceInfo parameter. This stores each Audio interface's configuration and state information.
+			 *  \c AudioInterfaceInfo parameter. This stores each Audio interface's configuration and state information.
 			 */
 			typedef struct
 			{
@@ -126,7 +126,7 @@
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *
-			 *  \return Boolean true if the endpoints were successfully configured, false otherwise.
+			 *  \return Boolean \c true if the endpoints were successfully configured, \c false otherwise.
 			 */
 			bool Audio_Device_ConfigureEndpoints(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -158,7 +158,7 @@
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *
-			 *  \return Boolean true if the given Audio interface has a sample to be read, false otherwise.
+			 *  \return Boolean \c true if the given Audio interface has a sample to be read, \c false otherwise.
 			 */
 			static inline bool Audio_Device_IsSampleReceived(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 			                                                 ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;
@@ -179,7 +179,7 @@
 			 *
 			 *  \param[in,out] AudioInterfaceInfo  Pointer to a structure containing an Audio Class configuration and state.
 			 *
-			 *  \return Boolean true if the given Audio interface is ready to accept the next sample, false otherwise.
+			 *  \return Boolean \c true if the given Audio interface is ready to accept the next sample, \c false otherwise.
 			 */
 			static inline bool Audio_Device_IsReadyForNextSample(USB_ClassInfo_Audio_Device_t* const AudioInterfaceInfo)
 			                                                     ATTR_NON_NULL_PTR_ARG(1) ATTR_ALWAYS_INLINE;

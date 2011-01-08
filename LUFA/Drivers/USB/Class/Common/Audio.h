@@ -206,7 +206,7 @@
 		 *
 		 *  \param[in] freq  Required audio sampling frequency in HZ
 		 */
-		#define AUDIO_SAMPLE_FREQ(freq)           {((uint32_t)freq & 0x00FFFF), (((uint32_t)freq >> 16) & 0x0000FF)}
+		#define AUDIO_SAMPLE_FREQ(freq)           {.Byte1 = (freq & 0x0000FF), .Byte2 = ((freq >> 8) & 0xFF), .Byte3 = ((freq >> 16) & 0xFF)}
 
 		/** Mask for the attributes parameter of an Audio class-specific Endpoint descriptor, indicating that the endpoint
 		 *  accepts only filled endpoint packets of audio samples.
@@ -288,12 +288,12 @@
 			                                  */
 
 			uint8_t                 TerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
-			uint16_t                TerminalType; /**< Type of terminal, a TERMINAL_* mask. */
+			uint16_t                TerminalType; /**< Type of terminal, a \c TERMINAL_* mask. */
 			uint8_t                 AssociatedOutputTerminal; /**< ID of associated output terminal, for physically grouped terminals
 			                                                   *   such as the speaker and microphone of a phone handset.
 			                                                   */
 			uint8_t                 TotalChannels; /**< Total number of separate audio channels within this interface (right, left, etc.) */
-			uint16_t                ChannelConfig; /**< CHANNEL_* masks indicating what channel layout is supported by this terminal. */
+			uint16_t                ChannelConfig; /**< \c CHANNEL_* masks indicating what channel layout is supported by this terminal. */
 
 			uint8_t                 ChannelStrIndex; /**< Index of a string descriptor describing this channel within the device. */
 			uint8_t                 TerminalStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
@@ -319,12 +319,12 @@
 			                              *   must be \ref AUDIO_DSUBTYPE_CSInterface_InputTerminal.
 			                              */
 			uint8_t  bTerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
-			uint16_t wTerminalType; /**< Type of terminal, a TERMINAL_* mask. */
+			uint16_t wTerminalType; /**< Type of terminal, a \c TERMINAL_* mask. */
 			uint8_t  bAssocTerminal; /**< ID of associated output terminal, for physically grouped terminals
 			                          *   such as the speaker and microphone of a phone handset.
 			                          */
 			uint8_t  bNrChannels; /**< Total number of separate audio channels within this interface (right, left, etc.) */
-			uint16_t wChannelConfig; /**< CHANNEL_* masks indicating what channel layout is supported by this terminal. */
+			uint16_t wChannelConfig; /**< \c CHANNEL_* masks indicating what channel layout is supported by this terminal. */
 
 			uint8_t  iChannelNames; /**< Index of a string descriptor describing this channel within the device. */
 			uint8_t  iTerminal; /**< Index of a string descriptor describing this descriptor within the device. */
@@ -346,7 +346,7 @@
 			                                  */
 
 			uint8_t                 TerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
-			uint16_t                TerminalType; /**< Type of terminal, a TERMINAL_* mask. */
+			uint16_t                TerminalType; /**< Type of terminal, a \c TERMINAL_* mask. */
 			uint8_t                 AssociatedInputTerminal; /**< ID of associated input terminal, for physically grouped terminals
 			                                                    *   such as the speaker and microphone of a phone handset.
 			                                                    */
@@ -375,7 +375,7 @@
 			                              *   a value from the \ref Audio_CSInterface_AC_SubTypes_t enum.
 			                              */
 			uint8_t  bTerminalID; /**< ID value of this terminal unit - must be a unique value within the device. */
-			uint16_t wTerminalType; /**< Type of terminal, a TERMINAL_* mask. */
+			uint16_t wTerminalType; /**< Type of terminal, a \c TERMINAL_* mask. */
 			uint8_t  bAssocTerminal; /**< ID of associated input terminal, for physically grouped terminals
 			                          *   such as the speaker and microphone of a phone handset.
 			                          */
@@ -451,7 +451,7 @@
 			uint8_t                 UnitID; /**< ID value of this feature unit - must be a unique value within the device. */
 			uint8_t                 SourceID; /**< Source ID value of the audio source input into this feature unit. */
 
-			uint8_t                 ControlSize; /**< Size of each element in the ChanelControlls array. */
+			uint8_t                 ControlSize; /**< Size of each element in the \c ChanelControlls array. */
 			uint8_t                 ChannelControls[3]; /**< Feature masks for the control channel, and each separate audio channel. */
 
 			uint8_t                 FeatureUnitStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
@@ -480,7 +480,7 @@
 			uint8_t bUnitID; /**< ID value of this feature unit - must be a unique value within the device. */
 			uint8_t bSourceID; /**< Source ID value of the audio source input into this feature unit. */
 
-			uint8_t bControlSize; /**< Size of each element in the ChanelControlls array. */
+			uint8_t bControlSize; /**< Size of each element in the \c ChanelControlls array. */
 			uint8_t bmaControls[3]; /**< Feature masks for the control channel, and each separate audio channel. */
 
 			uint8_t iFeature; /**< Index of a string descriptor describing this descriptor within the device. */
@@ -538,8 +538,9 @@
 		 */
 		typedef struct
 		{
-			uint16_t LowWord; /**< Low 16 bits of the 24-bit value. */
-			uint8_t  HighByte; /**< Upper 8 bits of the 24-bit value. */
+			uint8_t Byte1; /**< Lowest 8 bits of the 24-bit value. */
+			uint8_t Byte2; /**< Middle 8 bits of the 24-bit value. */
+			uint8_t Byte3; /**< Upper 8 bits of the 24-bit value. */
 		} USB_Audio_SampleFreq_t;
 
 		/** \brief Audio class-specific Format Descriptor (LUFA naming conventions).
@@ -629,8 +630,8 @@
 			uint8_t  bEndpointAddress; /**< Logical address of the endpoint within the device for the current
 			                            *   configuration, including direction mask.
 			                            */
-			uint8_t  bmAttributes; /**< Endpoint attributes, comprised of a mask of the endpoint type (EP_TYPE_*)
-			                        *   and attributes (ENDPOINT_ATTR_*) masks.
+			uint8_t  bmAttributes; /**< Endpoint attributes, comprised of a mask of the endpoint type (\c EP_TYPE_*)
+			                        *   and attributes (\c ENDPOINT_ATTR_*) masks.
 			                        */
 			uint16_t wMaxPacketSize; /**< Size of the endpoint bank, in bytes. This indicates the maximum packet size
 			                          *   that the endpoint can receive at a time.
@@ -658,7 +659,7 @@
 			                                  *   a value from the \ref Audio_CSEndpoint_SubTypes_t enum.
 			                                  */
 
-			uint8_t                 Attributes; /**< Audio class-specific endpoint attributes, such as ACCEPTS_SMALL_PACKETS. */
+			uint8_t                 Attributes; /**< Audio class-specific endpoint attributes, such as \ref AUDIO_EP_FULL_PACKETS_ONLY. */
 
 			uint8_t                 LockDelayUnits; /**< Units used for the LockDelay field, see Audio class specification. */
 			uint16_t                LockDelay; /**< Time required to internally lock endpoint's internal clock recovery circuitry. */
@@ -684,7 +685,7 @@
 			                              *   a value from the \ref Audio_CSEndpoint_SubTypes_t enum.
 			                              */
 
-			uint8_t  bmAttributes; /**< Audio class-specific endpoint attributes, such as ACCEPTS_SMALL_PACKETS. */
+			uint8_t  bmAttributes; /**< Audio class-specific endpoint attributes, such as \ref AUDIO_EP_FULL_PACKETS_ONLY. */
 
 			uint8_t  bLockDelayUnits; /**< Units used for the LockDelay field, see Audio class specification. */
 			uint16_t wLockDelay; /**< Time required to internally lock endpoint's internal clock recovery circuitry. */

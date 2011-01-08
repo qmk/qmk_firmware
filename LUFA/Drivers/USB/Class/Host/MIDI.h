@@ -76,7 +76,7 @@
 			/** \brief MIDI Class Host Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made within the user application,
-			 *  and passed to each of the MIDI class driver functions as the MIDIInterfaceInfo parameter. This
+			 *  and passed to each of the MIDI class driver functions as the \c MIDIInterfaceInfo parameter. This
 			 *  stores each MIDI interface's configuration and state information.
 			 */
 			typedef struct
@@ -177,7 +177,7 @@
 			 *  \param[in,out] MIDIInterfaceInfo  Pointer to a structure containing a MIDI Class configuration and state.
 			 *  \param[out]    Event              Pointer to a USB_MIDI_EventPacket_t structure where the received MIDI event is to be placed.
 			 *
-			 *  \return Boolean true if a MIDI event packet was received, false otherwise.
+			 *  \return Boolean \c true if a MIDI event packet was received, \c false otherwise.
 			 */
 			bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterfaceInfo,
 			                                  MIDI_EventPacket_t* const Event) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);

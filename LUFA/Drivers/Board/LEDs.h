@@ -37,10 +37,10 @@
  *  User code should include this file, which will in turn include the correct LED driver header file for the
  *  currently selected board.
  *
- *  If the BOARD value is set to BOARD_USER, this will include the /Board/LEDs.h file in the user project
+ *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/LEDs.h file in the user project
  *  directory.
  *
- *  For possible BOARD makefile values, see \ref Group_BoardTypes.
+ *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.
  */
 
 /** \ingroup Group_BoardDrivers
@@ -54,11 +54,11 @@
  *  Hardware LEDs driver. This provides an easy to use driver for the hardware LEDs present on many boards. It
  *  provides an interface to configure, test and change the status of all the board LEDs.
  *
- *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
+ *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/Dataflash.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file. If the BOARD value
- *  is set to BOARD_NONE, this driver is silently disabled.
+ *  is set to \c BOARD_NONE, this driver is silently disabled.
  *
- *  For possible BOARD makefile values, see \ref Group_BoardTypes.
+ *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.
  *
  *  \note To make code as compatible as possible, it is assumed that all boards carry a minimum of four LEDs. If
  *        a board contains less than four LEDs, the remaining LED masks are defined to 0 so as to have no effect.

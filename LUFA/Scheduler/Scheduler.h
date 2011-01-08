@@ -49,13 +49,13 @@
  *  Simple round-robbin cooperative scheduler for use in basic projects where non real-time tasks need
  *  to be executed. Each task is executed in sequence, and can be enabled or disabled individually or as a group.
  *
- *  For a task to yield it must return, thus each task should have persistent data marked with the static attribute.
+ *  For a task to yield it must \c return, thus each task should have persistent data marked with the \c static keyword.
  *
  *  Each LUFA scheduler task should be written similar to an ISR; it should execute quickly (so that no one task
  *  hogs the processor, preventing another from running before some sort of timeout is exceeded). Unlike normal RTOS
  *  tasks, each LUFA scheduler task is a regular function, and thus must be designed to be called, and designed to
  *  return to the calling scheduler function repeatedly. Data which must be preserved between task calls should be
- *  declared as global or (preferably) as a static local variable inside the task.
+ *  declared as global or (preferably) as a \c static local variable inside the task.
  *
  *  The scheduler consists of a task list, listing all the tasks which can be executed by the scheduler. Once started,
  *  each task is then called one after another, unless the task is stopped by another running task or interrupt.
@@ -131,7 +131,7 @@
 			 */
 			#define TASK(name)              void name (void)
 
-			/** Defines a task list array, containing one or more task entries of the type TaskEntry_t. Each task list
+			/** Defines a task list array, containing one or more task entries of the type \ref TaskEntry_t. Each task list
 			 *  should be encased in curly braces and ended with a comma.
 			 *
 			 *  Usage Example:
@@ -159,12 +159,12 @@
 		/* Pseudo-Function Macros: */
 			#if defined(__DOXYGEN__)
 				/** Starts the scheduler in its infinite loop, executing running tasks. This should be placed at the end
-				 *  of the user application's main() function, as it can never return to the calling function.
+				 *  of the user application's \c main() function, as it can never return to the calling function.
 				 */
 				void Scheduler_Start(void);
 
 				/** Initialises the scheduler so that the scheduler functions can be called before the scheduler itself
-				 *  is started. This must be executed before any scheduler function calls other than Scheduler_Start(),
+				 *  is started. This must be executed before any scheduler function calls other than \ref Scheduler_Start(),
 				 *  and can be omitted if no such functions could be called before the scheduler is started.
 				 */
 				void Scheduler_Init(void);
@@ -195,7 +195,7 @@
 
 		/* Global Variables: */
 			/** Task entry list, containing the scheduler tasks, task statuses and group IDs. Each entry is of type
-			 *  TaskEntry_t and can be manipulated as desired, although it is preferential that the proper Scheduler
+			 *  \ref TaskEntry_t and can be manipulated as desired, although it is preferred that the proper Scheduler
 			 *  functions should be used instead of direct manipulation.
 			 */
 			exter TaskEntry_t Scheduler_TaskList[];
@@ -235,7 +235,7 @@
 			 *  \param[in] Delay         The delay to test for, measured in ticks.
 			 *  \param[in] DelayCounter  The counter which is storing the starting tick value for the delay.
 			 *
-			 *  \return Boolean true if the delay has elapsed, false otherwise.
+			 *  \return Boolean \c true if the delay has elapsed, \c false otherwise.
 			 *
 			 *  Usage Example:
 			 *  \code

@@ -261,7 +261,7 @@
 		 *  Type define for a Command Block Wrapper, used in the Mass Storage Bulk-Only Transport protocol. */
 		typedef struct
 		{
-			uint32_t Signature; /**< Command block signature, must be CBW_SIGNATURE to indicate a valid Command Block. */
+			uint32_t Signature; /**< Command block signature, must be \ref MS_CBW_SIGNATURE to indicate a valid Command Block. */
 			uint32_t Tag; /**< Unique command ID value, to associate a command block wrapper with its command status wrapper. */
 			uint32_t DataTransferLength; /**< Length of the optional data portion of the issued command, in bytes. */
 			uint8_t  Flags; /**< Command block flags, indicating command data direction. */
@@ -276,7 +276,7 @@
 		 */
 		typedef struct
 		{
-			uint32_t Signature; /**< Status block signature, must be CSW_SIGNATURE to indicate a valid Command Status. */
+			uint32_t Signature; /**< Status block signature, must be \ref MS_CSW_SIGNATURE to indicate a valid Command Status. */
 			uint32_t Tag; /**< Unique command ID value, to associate a command block wrapper with its command status wrapper. */
 			uint32_t DataTransferResidue; /**< Number of bytes of data not processed in the SCSI command. */
 			uint8_t  Status; /**< Status code of the issued command - a value from the \ref MS_CommandStatusCodes_t enum. */

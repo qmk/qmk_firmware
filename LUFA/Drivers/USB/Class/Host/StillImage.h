@@ -80,7 +80,7 @@
 			/** \brief Still Image Class Host Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made within the user application,
-			 *  and passed to each of the Still Image class driver functions as the SIInterfaceInfo parameter. This
+			 *  and passed to each of the Still Image class driver functions as the \c SIInterfaceInfo parameter. This
 			 *  stores each Still Image interface's configuration and state information.
 			 */
 			typedef struct
@@ -245,7 +245,7 @@
 			 *
 			 *  \param[in,out] SIInterfaceInfo  Pointer to a structure containing a Still Image Class host configuration and state.
 			 *
-			 *  \return Boolean true if an event is waiting to be read, false otherwise.
+			 *  \return Boolean \c true if an event is waiting to be read, \c false otherwise.
 			 */
 			bool SI_Host_IsEventReceived(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 

@@ -97,7 +97,7 @@
 
 			/** Determines if the device is currently sending a HNP to an attached host.
 			 *
-			 *  \return Boolean true if currently sending a HNP to the other connected device, false otherwise
+			 *  \return Boolean \c true if currently sending a HNP to the other connected device, \c false otherwise
 			 */
 			static inline bool USB_OTG_Device_IsSendingHNP(void) ATTR_ALWAYS_INLINE;
 			static inline bool USB_OTG_Device_IsSendingHNP(void)
@@ -141,7 +141,7 @@
 
 			/** Indicates if the connected device is not currently sending a HNP request.
 			 *
-			 *  \return Boolean true if a HNP is currently being issued by the connected device, false otherwise.
+			 *  \return Boolean \c true if a HNP is currently being issued by the connected device, \c false otherwise.
 			 */
 			static inline bool USB_OTG_Host_IsHNPReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_OTG_Host_IsHNPReceived(void)

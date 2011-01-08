@@ -139,7 +139,7 @@
 
 			/** Indicates whether a character has been received through the USART.
 			 *
-			 *  \return Boolean true if a character has been received, false otherwise.
+			 *  \return Boolean \c true if a character has been received, \c false otherwise.
 			 */
 			static inline bool Serial_IsCharReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Serial_IsCharReceived(void)

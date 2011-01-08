@@ -45,7 +45,7 @@
  *  \section Sec_ModDescription Module Description
  *  Escape code macros for ANSI compliant text terminals.
  *
- *  \note If desired, the macro DISABLE_TERMINAL_CODES can be defined in the project makefile and passed to the GCC
+ *  \note If desired, the macro \c DISABLE_TERMINAL_CODES can be defined in the project makefile and passed to the GCC
  *        compiler via the -D switch to disable the terminal codes without modifying the source, for use with non
  *        compatible terminals (any terminal codes then equate to empty strings).
  *
@@ -71,7 +71,7 @@
 			#if !defined(DISABLE_TERMINAL_CODES)
 				/** Creates an ANSI escape sequence with the specified payload.
 				 *
-				 *  \param[in] EscapeSeq  Payload to encode as an ANSI escape sequence, a ESC_* mask.
+				 *  \param[in] EscapeSeq  Payload to encode as an ANSI escape sequence, a \c ESC_* mask.
 				 */
 				#define ANSI_ESCAPE_SEQUENCE(EscapeSeq)  "\33[" EscapeSeq
 			#else

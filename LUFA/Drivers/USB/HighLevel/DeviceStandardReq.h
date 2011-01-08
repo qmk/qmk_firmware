@@ -73,8 +73,8 @@
 
 		/* Enums: */
 			#if !defined(USE_FLASH_DESCRIPTORS) && !defined(USE_EEPROM_DESCRIPTORS) && !defined(USE_RAM_DESCRIPTORS)
-				/** Enum for the possible descriptor memory spaces, for the MemoryAddressSpace of the
-				 *  \ref CALLBACK_USB_GetDescriptor() function. This can be used when none of the USE_*_DESCRIPTORS
+				/** Enum for the possible descriptor memory spaces, for the \c MemoryAddressSpace parameter of the
+				 *  \ref CALLBACK_USB_GetDescriptor() function. This can be used when none of the \c USE_*_DESCRIPTORS
 				 *  compile time options are used, to indicate in which memory space the descriptor is stored.
 				 *
 				 *  \ingroup Group_Device
@@ -109,7 +109,7 @@
 				 *
 				 *  \note To reduce FLASH usage of the compiled applications where Remote Wakeup is not supported,
 				 *        this global and the underlying management code can be disabled by defining the
-				 *        NO_DEVICE_REMOTE_WAKEUP token in the project makefile and passing it to the compiler via
+				 *        \c NO_DEVICE_REMOTE_WAKEUP token in the project makefile and passing it to the compiler via
 				 *        the -D switch.
 				 *
 				 *  \ingroup Group_Device

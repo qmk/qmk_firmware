@@ -80,7 +80,7 @@
 			/** \brief RNDIS Class Host Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made within the user application,
-			 *  and passed to each of the RNDIS class driver functions as the RNDISInterfaceInfo parameter. This
+			 *  and passed to each of the RNDIS class driver functions as the \c RNDISInterfaceInfo parameter. This
 			 *  stores each RNDIS interface's configuration and state information.
 			 */
 			typedef struct
@@ -213,7 +213,7 @@
 			 *
 			 *  \param[in,out] RNDISInterfaceInfo  Pointer to a structure containing an RNDIS Class host configuration and state.
 			 *
-			 *  \return Boolean true if a packet is waiting to be read in by the host, false otherwise.
+			 *  \return Boolean \c true if a packet is waiting to be read in by the host, \c false otherwise.
 			 */
 			bool RNDIS_Host_IsPacketReceived(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 

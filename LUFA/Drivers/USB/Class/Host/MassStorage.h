@@ -80,7 +80,7 @@
 			/** \brief Mass Storage Class Host Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made within the user application,
-			 *  and passed to each of the Mass Storage class driver functions as the MSInterfaceInfo parameter. This
+			 *  and passed to each of the Mass Storage class driver functions as the \c MSInterfaceInfo parameter. This
 			 *  stores each Mass Storage interface's configuration and state information.
 			 */
 			typedef struct
@@ -248,7 +248,7 @@
 			 *
 			 *  \param[in,out] MSInterfaceInfo  Pointer to a structure containing a MS Class host configuration and state.
 			 *  \param[in]     LUNIndex         LUN index within the device the command is being issued to.
-			 *  \param[in]     PreventRemoval   Boolean true if the device should be locked from removal, false otherwise.
+			 *  \param[in]     PreventRemoval   Boolean \c true if the device should be locked from removal, \c false otherwise.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum or \ref MS_ERROR_LOGICAL_CMD_FAILED if not ready.
 			 */

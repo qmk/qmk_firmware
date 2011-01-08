@@ -77,7 +77,7 @@
 			/** Constant indicating the maximum stack depth of the state table. A larger state table
 			 *  allows for more PUSH/POP report items to be nested, but consumes more memory. By default
 			 *  this is set to 2 levels (allowing non-nested PUSH items) but this can be overridden by
-			 *  defining HID_STATETABLE_STACK_DEPTH to another value in the user project makefile, passing the
+			 *  defining \c HID_STATETABLE_STACK_DEPTH to another value in the user project makefile, passing the
 			 *  define to the compiler using the -D compiler switch.
 			 */
 			#define HID_STATETABLE_STACK_DEPTH    2
@@ -87,7 +87,7 @@
 			/** Constant indicating the maximum stack depth of the usage table. A larger usage table
 			 *  allows for more USAGE items to be indicated sequentially for REPORT COUNT entries of more than
 			 *  one, but requires more stack space. By default this is set to 8 levels (allowing for a report
-			 *  item with a count of 8) but this can be overridden by defining HID_USAGE_STACK_DEPTH to another
+			 *  item with a count of 8) but this can be overridden by defining \c HID_USAGE_STACK_DEPTH to another
 			 *  value in the user project makefile, passing the define to the compiler using the -D compiler
 			 *  switch.
 			 */
@@ -98,7 +98,7 @@
 			/** Constant indicating the maximum number of COLLECTION items (nested or unnested) that can be
 			 *  processed in the report item descriptor. A large value allows for more COLLECTION items to be
 			 *  processed, but consumes more memory. By default this is set to 10 collections, but this can be
-			 *  overridden by defining HID_MAX_COLLECTIONS to another value in the user project makefile, passing
+			 *  overridden by defining \c HID_MAX_COLLECTIONS to another value in the user project makefile, passing
 			 *  the define to the compiler using the -D compiler switch.
 			 */
 			#define HID_MAX_COLLECTIONS           10
@@ -108,7 +108,7 @@
 			/** Constant indicating the maximum number of report items (IN, OUT or FEATURE) that can be processed
 			 *  in the report item descriptor and stored in the user HID Report Info structure. A large value allows
 			 *  for more report items to be stored, but consumes more memory. By default this is set to 20 items,
-			 *  but this can be overridden by defining HID_MAX_REPORTITEMS to another value in the user project
+			 *  but this can be overridden by defining \c HID_MAX_REPORTITEMS to another value in the user project
 			 *  makefile, and passing the define to the compiler using the -D compiler switch.
 			 */
 			#define HID_MAX_REPORTITEMS           20
@@ -118,7 +118,7 @@
 			/** Constant indicating the maximum number of unique report IDs that can be processed in the report item
 			 *  descriptor for the report size information array in the user HID Report Info structure. A large value
 			 *  allows for more report ID report sizes to be stored, but consumes more memory. By default this is set
-			 *  to 10 items, but this can be overridden by defining HID_MAX_REPORT_IDS to another value in the user project
+			 *  to 10 items, but this can be overridden by defining \c HID_MAX_REPORT_IDS to another value in the user project
 			 *  makefile, and passing the define to the compiler using the -D compiler switch. Note that IN, OUT and FEATURE
 			 *  items sharing the same report ID consume only one size item in the array.
 			 */
@@ -192,7 +192,7 @@
 			{
 				uint8_t                      Type;   /**< Collection type (e.g. "Generic Desktop"). */
 				HID_Usage_t                  Usage;  /**< Collection usage. */
-				struct CollectionPath*       Parent; /**< Reference to parent collection, or NULL if root collection. */
+				struct CollectionPath*       Parent; /**< Reference to parent collection, or \c NULL if root collection. */
 			} HID_CollectionPath_t;
 
 			/** \brief HID Parser Report Item Attributes Structure.
@@ -216,7 +216,7 @@
 			typedef struct
 			{
 				uint16_t                     BitOffset;      /**< Bit offset in the IN, OUT or FEATURE report of the item. */
-				uint8_t                      ItemType;       /**< Report item type, a value in HID_ReportItemTypes_t. */
+				uint8_t                      ItemType;       /**< Report item type, a value in \ref HID_ReportItemTypes_t. */
 				uint16_t                     ItemFlags;      /**< Item data flags, such as constant/variable, etc. */
 				uint8_t                      ReportID;       /**< Report ID this item belongs to, or 0x00 if device has only one report */
 				HID_CollectionPath_t*        CollectionPath; /**< Collection path of the item. */
@@ -248,7 +248,7 @@
 			typedef struct
 			{
 				uint8_t                      TotalReportItems; /**< Total number of report items stored in the
-				                                                *   ReportItems array.
+				                                                *   \c ReportItems array.
 				                                                */
 				HID_ReportItem_t             ReportItems[HID_MAX_REPORTITEMS]; /**< Report items array, including
 			                                                                    *   all IN, OUT and FEATURE items.
@@ -289,7 +289,7 @@
 			 *  \param[in]     ReportData  Buffer containing an IN or FEATURE report from an attached device.
 			 *  \param[in,out] ReportItem  Pointer to the report item of interest in a \ref HID_ReportInfo_t ReportItem array.
 			 *
-			 *  \returns Boolean true if the item to retrieve was located in the given report, false otherwise.
+			 *  \returns Boolean \c true if the item to retrieve was located in the given report, \c false otherwise.
 			 */
 			bool USB_GetHIDReportItemInfo(const uint8_t* ReportData,
 			                              HID_ReportItem_t* const ReportItem) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
@@ -325,12 +325,13 @@
 
 			/** Callback routine for the HID Report Parser. This callback <b>must</b> be implemented by the user code when
 			 *  the parser is used, to determine what report IN, OUT and FEATURE item's information is stored into the user
-			 *  HID_ReportInfo_t structure. This can be used to filter only those items the application will be using, so that
+			 *  \ref HID_ReportInfo_t structure. This can be used to filter only those items the application will be using, so that
 			 *  no RAM is wasted storing the attributes for report items which will never be referenced by the application.
 			 *
 			 *  \param[in] CurrentItem  Pointer to the current report item for user checking.
 			 *
-			 *  \return Boolean true if the item should be stored into the HID_ReportInfo_t structure, false if it should be ignored.
+			 *  \return Boolean \c true if the item should be stored into the \ref HID_ReportInfo_t structure, \c false if
+			 *          it should be ignored.
 			 */
 			bool CALLBACK_HIDParser_FilterHIDReportItem(HID_ReportItem_t* const CurrentItem);
 

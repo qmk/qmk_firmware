@@ -96,7 +96,7 @@
 				 *  occur.
 				 *
 				 *  The default delay value may be overridden in the user project makefile by definining the
-				 *  HOST_DEVICE_SETTLE_DELAY_MS token to tbe required delay in milliseconds, and passed to the
+				 *  \c HOST_DEVICE_SETTLE_DELAY_MS token to tbe required delay in milliseconds, and passed to the
 				 *  compiler using the -D switch.
 				 */
 				#define HOST_DEVICE_SETTLE_DELAY_MS        1000
@@ -258,7 +258,7 @@
 				 *  \ref EVENT_USB_Host_StartOfFrame() event to fire once per millisecond, synchronized to the USB bus,
 				 *  at the start of each USB frame when a device is enumerated while in host mode.
 				 *
-				 *  \note Not available when the NO_SOF_EVENTS compile time token is defined.
+				 *  \note Not available when the \c NO_SOF_EVENTS compile time token is defined.
 				 */
 				static inline void USB_Host_EnableSOFEvents(void) ATTR_ALWAYS_INLINE;
 				static inline void USB_Host_EnableSOFEvents(void)
@@ -293,7 +293,7 @@
 			/** Determines if a previously issued bus reset (via the \ref USB_Host_ResetBus() macro) has
 			 *  completed.
 			 *
-			 *  \return Boolean true if no bus reset is currently being sent, false otherwise.
+			 *  \return Boolean \c true if no bus reset is currently being sent, \c false otherwise.
 			 */
 			static inline bool USB_Host_IsBusResetComplete(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_Host_IsBusResetComplete(void)
@@ -325,7 +325,7 @@
 			 *  false otherwise. While suspended, no USB communications can occur until the bus is resumed,
 			 *  except for the Remote Wakeup event from the device if supported.
 			 *
-			 *  \return Boolean true if the bus is currently suspended, false otherwise.
+			 *  \return Boolean \c true if the bus is currently suspended, \c false otherwise.
 			 */
 			static inline bool USB_Host_IsBusSuspended(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_Host_IsBusSuspended(void)
@@ -336,7 +336,7 @@
 			/** Determines if the attached device is currently enumerated in Full Speed mode (12Mb/s), or
 			 *  false if the attached device is enumerated in Low Speed mode (1.5Mb/s).
 			 *
-			 *  \return Boolean true if the attached device is enumerated in Full Speed mode, false otherwise.
+			 *  \return Boolean \c true if the attached device is enumerated in Full Speed mode, \c false otherwise.
 			 */
 			static inline bool USB_Host_IsDeviceFullSpeed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_Host_IsDeviceFullSpeed(void)
@@ -347,7 +347,7 @@
 			/** Determines if the attached device is currently issuing a Remote Wakeup request, requesting
 			 *  that the host resume the USB bus and wake up the device, false otherwise.
 			 *
-			 *  \return Boolean true if the attached device has sent a Remote Wakeup request, false otherwise.
+			 *  \return Boolean \c true if the attached device has sent a Remote Wakeup request, \c false otherwise.
 			 */
 			static inline bool USB_Host_IsRemoteWakeupSent(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_Host_IsRemoteWakeupSent(void)
@@ -375,7 +375,7 @@
 			/** Determines if a resume from Remote Wakeup request is currently being sent to an attached
 			 *  device.
 			 *
-			 *  \return Boolean true if no resume request is currently being sent, false otherwise.
+			 *  \return Boolean \c true if no resume request is currently being sent, \c false otherwise.
 			 */
 			static inline bool USB_Host_IsResumeFromWakeupRequestSent(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_Host_IsResumeFromWakeupRequestSent(void)
@@ -384,7 +384,7 @@
 			}
 
 		/* Function Prototypes: */
-			/** Convenience function. This routine sends a SetConfiguration standard request to the attached
+			/** Convenience function. This routine sends a SET CONFIGURATION standard request to the attached
 			 *  device, with the given configuration index. This can be used to easily set the device
 			 *  configuration without creating and sending the request manually.
 			 *
@@ -396,7 +396,7 @@
 			 */
 			uint8_t USB_Host_SetDeviceConfiguration(const uint8_t ConfigNumber);
 
-			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
+			/** Convenience function. This routine sends a GET DESCRIPTOR standard request to the attached
 			 *  device, requesting the device descriptor. This can be used to easily retrieve information
 			 *  about the device such as its VID, PID and power requirements.
 			 *
@@ -409,7 +409,7 @@
 			 */
 			uint8_t USB_Host_GetDeviceDescriptor(void* const DeviceDescriptorPtr);
 
-			/** Convenience function. This routine sends a GetDescriptor standard request to the attached
+			/** Convenience function. This routine sends a GET DESCRIPTOR standard request to the attached
 			 *  device, requesting the string descriptor of the specified index. This can be used to easily
 			 *  retrieve string descriptors from the device by index, after the index is obtained from the
 			 *  Device or Configuration descriptors.
@@ -427,7 +427,7 @@
 			                                           void* const Buffer,
 			                                           const uint8_t BufferLength);
 
-			/** Clears a stall condition on the given pipe, via a ClearFeature request to the attached device.
+			/** Clears a stall condition on the given pipe, via a CLEAR FEATURE standard request to the attached device.
 			 *
 			 *  \note After this routine returns, the control pipe will be selected.
 			 *

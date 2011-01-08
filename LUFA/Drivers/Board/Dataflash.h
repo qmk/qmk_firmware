@@ -37,10 +37,10 @@
  *  User code should include this file, which will in turn include the correct dataflash driver header file for
  *  the currently selected board.
  *
- *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
+ *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/Dataflash.h file in the user project
  *  directory.
  *
- *  For possible BOARD makefile values, see \ref Group_BoardTypes.
+ *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.
  */
 
 /** \ingroup Group_BoardDrivers
@@ -54,10 +54,10 @@
  *  Dataflash driver. This module provides an easy to use interface for the Dataflash ICs located on many boards,
  *  for the storage of large amounts of data into the Dataflash's non-volatile memory.
  *
- *  If the BOARD value is set to BOARD_USER, this will include the /Board/Dataflash.h file in the user project
+ *  If the \c BOARD value is set to \c BOARD_USER, this will include the \c /Board/Dataflash.h file in the user project
  *  directory. Otherwise, it will include the appropriate built in board driver header file.
  *
- *  For possible BOARD makefile values, see \ref Group_BoardTypes.
+ *  For possible \c BOARD makefile values, see \ref Group_BoardTypes.
  *
  *  \section Sec_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical
@@ -156,13 +156,13 @@
 			/** Determines the currently selected dataflash chip.
 			 *
 			 *  \return Mask of the currently selected Dataflash chip, either \ref DATAFLASH_NO_CHIP if no chip is selected
-			 *  or a DATAFLASH_CHIPn mask (where n is the chip number).
+			 *  or a \c DATAFLASH_CHIPn mask (where n is the chip number).
 			 */
 			static inline uint8_t Dataflash_GetSelectedChip(void) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
 
 			/** Selects the given dataflash chip.
 			 *
-			 *  \param[in]  ChipMask  Mask of the Dataflash IC to select, in the form of DATAFLASH_CHIPn mask (where n is
+			 *  \param[in]  ChipMask  Mask of the Dataflash IC to select, in the form of \c DATAFLASH_CHIPn mask (where n is
 			 *              the chip number).
 			 */
 			static inline void Dataflash_SelectChip(const uint8_t ChipMask) ATTR_ALWAYS_INLINE;
@@ -172,7 +172,7 @@
 
 			/** Selects a dataflash IC from the given page number, which should range from 0 to
 			 *  ((DATAFLASH_PAGES * DATAFLASH_TOTALCHIPS) - 1). For boards containing only one
-			 *  dataflash IC, this will select DATAFLASH_CHIP1. If the given page number is outside
+			 *  dataflash IC, this will select \ref DATAFLASH_CHIP1. If the given page number is outside
 			 *  the total number of pages contained in the boards dataflash ICs, all dataflash ICs
 			 *  are deselected.
 			 *

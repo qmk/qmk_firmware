@@ -32,8 +32,8 @@
  *  \brief Standard avr-libc character stream driver for the USART.
  *
  *  Serial stream driver for the USART subsystem on supported USB AVRs. This makes use of the functions in the
- *  regular USART driver (see \ref Group_Serial), but allows the avr-libc standard stream functions (printf,
- *  puts, etc.) to work with the
+ *  regular USART driver (see \ref Group_Serial), but allows the avr-libc standard stream functions (\c printf,
+ *  \c puts, etc.) to work with the
  *  USART.
  */
 
@@ -46,9 +46,9 @@
  *
  *  \section Sec_ModDescription Module Description
  *  Serial stream driver for the USART subsystem on supported USB AVRs. This makes use of the functions in the
- *  regular USART driver (see \ref Group_Serial), but allows the avr-libc standard stream functions (printf,
- *  puts, etc.) to work with the USART. Upon configuration, this will redirect the standard input and output
- *  streams to the USART.
+ *  regular USART driver (see \ref Group_Serial), but allows the avr-libc standard stream functions (\c printf,
+ *  \c puts, etc.) to work with the USART. Upon configuration, this will redirect the \c stdin standard input
+ *  and \c stdout output streams to the USART.
  *
  *  \section Sec_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical

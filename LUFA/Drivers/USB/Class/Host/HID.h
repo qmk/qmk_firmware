@@ -83,7 +83,7 @@
 			/** \brief HID Class Host Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made within the user application,
-			 *  and passed to each of the HID class driver functions as the HIDInterfaceInfo parameter. This
+			 *  and passed to each of the HID class driver functions as the \c HIDInterfaceInfo parameter. This
 			 *  stores each HID interface's configuration and state information.
 			 */
 			typedef struct
@@ -104,7 +104,7 @@
 					HID_ReportInfo_t* HIDParserData; /**< HID parser data to store the parsed HID report data, when boot protocol
 					                                  *   is not used.
 													  *
-					                                  *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined,
+					                                  *  \note When the \c HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined,
 					                                  *        this method is unavailable.
 					                                  */
 					#endif
@@ -196,7 +196,7 @@
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
+			 *  \note When the \c HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state.
 			 *  \param[in]     ReportID          Report ID of the received report if ControlRequest is false, set by the to the Report ID to fetch.
@@ -215,7 +215,7 @@
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
-			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, the ReportID parameter is removed
+			 *  \note When the \c HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, the ReportID parameter is removed
 			 *        from the parameter list of this function.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state.
@@ -247,13 +247,13 @@
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state.
 			 *
-			 *  \return Boolean true if a report has been received, false otherwise.
+			 *  \return Boolean \c true if a report has been received, \c false otherwise.
 			 */
 			bool HID_Host_IsReportReceived(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Switches the attached HID device's reporting protocol over to the Boot Report protocol mode, on supported devices.
 			 *
-			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method must still be called
+			 *  \note When the \c HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method must still be called
 			 *        to explicitly place the attached device into boot protocol mode before use.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state.
@@ -271,7 +271,7 @@
 			 *        Report Parser this function references <b>must</b> be implemented in the user code.
 			 *        \n\n
 			 *
-			 *  \note When the HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
+			 *  \note When the \c HID_HOST_BOOT_PROTOCOL_ONLY compile time token is defined, this method is unavailable.
 			 *
 			 *  \param[in,out] HIDInterfaceInfo  Pointer to a structure containing a HID Class host configuration and state.
 			 *

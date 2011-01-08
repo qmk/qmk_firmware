@@ -79,7 +79,7 @@
 			/** \brief CDC Class Host Mode Configuration and State Structure.
 			 *
 			 *  Class state structure. An instance of this structure should be made within the user application,
-			 *  and passed to each of the CDC class driver functions as the CDCInterfaceInfo parameter. This
+			 *  and passed to each of the CDC class driver functions as the \c CDCInterfaceInfo parameter. This
 			 *  stores each CDC interface's configuration and state information.
 			 */
 			typedef struct
@@ -111,11 +111,11 @@
 
 					struct
 					{
-						uint8_t HostToDevice; /**< Control line states from the host to device, as a set of CDC_CONTROL_LINE_OUT_*
+						uint8_t HostToDevice; /**< Control line states from the host to device, as a set of \c CDC_CONTROL_LINE_OUT_*
 											   *   masks - to notify the device of changes to these values, call the
 											   *   \ref CDC_Host_SendControlLineStateChange() function.
 											   */
-						uint8_t DeviceToHost; /**< Control line states from the device to host, as a set of CDC_CONTROL_LINE_IN_*
+						uint8_t DeviceToHost; /**< Control line states from the device to host, as a set of \c CDC_CONTROL_LINE_IN_*
 											   *   masks. This value is updated each time \ref CDC_Host_USBTask() is called.
 											   */
 					} ControlLineStates; /**< Current states of the virtual serial port's control lines between the device and host. */
@@ -170,7 +170,7 @@
 			                                uint16_t ConfigDescriptorSize,
 			                                void* DeviceConfigDescriptor) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(3);
 
-			/** Sets the line encoding for the attached device's virtual serial port. This should be called when the LineEncoding
+			/** Sets the line encoding for the attached device's virtual serial port. This should be called when the \c LineEncoding
 			 *  values of the interface have been changed to push the new settings to the USB device.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
@@ -181,7 +181,7 @@
 
 			/** Sends a Serial Control Line State Change notification to the device. This should be called when the virtual serial
 			 *  control lines (DTR, RTS, etc.) have changed states. Line states persist until they are cleared via a second
-			 *  notification. This should be called each time the CDC class driver's ControlLineStates.HostToDevice value is updated
+			 *  notification. This should be called each time the CDC class driver's \c ControlLineStates.HostToDevice value is updated
 			 *  to push the new states to the USB device.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
@@ -274,10 +274,10 @@
 			uint8_t CDC_Host_Flush(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Creates a standard character stream for the given CDC Device instance so that it can be used with all the regular
-			 *  functions in the avr-libc <stdio.h> library that accept a FILE stream as a destination (e.g. fprintf). The created
+			 *  functions in the avr-libc \c <stdio.h> library that accept a FILE stream as a destination (e.g. fprintf). The created
 			 *  stream is bidirectional and can be used for both input and output functions.
 			 *
-			 *  \note The created stream can be given as stdout if desired to direct the standard output from all <stdio.h> functions
+			 *  \note The created stream can be given as stdout if desired to direct the standard output from all \c <stdio.h> functions
 			 *        to the given CDC interface.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
@@ -299,7 +299,7 @@
 			 *  the host of a control line state change (containing the virtual serial control line states, such as DCD) and may be hooked in the
 			 *  user program by declaring a handler function with the same name and parameters listed here. The new control line states
 			 *  are available in the ControlLineStates.DeviceToHost value inside the CDC host interface structure passed as a parameter, set as
-			 *  a mask of CDC_CONTROL_LINE_IN_* masks.
+			 *  a mask of \c CDC_CONTROL_LINE_IN_* masks.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
 			 */
@@ -314,7 +314,7 @@
 				static int CDC_Host_getchar(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
 				static int CDC_Host_getchar_Blocking(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
 
-				void CDC_Host_Event_Stub(void);
+				void CDC_Host_Event_Stub(void) ATTR_CONST;
 				void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 				                                           ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Host_Event_Stub);
 
