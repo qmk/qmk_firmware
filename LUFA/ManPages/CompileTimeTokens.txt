@@ -90,13 +90,6 @@
  *  by defining this token, reducing the compiled binary size. When removed, the stream functions no longer accept a callback function as
  *  a parameter.
  *
- *  <b>FAST_STREAM_TRANSFERS</b> - ( \ref Group_EndpointPacketManagement , \ref Group_PipePacketManagement )\n
- *  By default, streams are transferred internally via a loop, sending or receiving one byte per iteration before checking for a bank full
- *  or empty condition. This allows for multiple stream functions to be chained together easily, as there are no alignment issues. However,
- *  this can lead to heavy performance penalties in applications where large streams are used frequently. When this compile time option is
- *  used, bytes are sent or received in groups of 8 bytes at a time increasing performance at the expense of a larger flash memory consumption
- *  due to the extra code required to deal with byte alignment.
- *
  *  <b>USE_STATIC_OPTIONS</b>=<i>x</i> - ( \ref Group_USBManagement ) \n
  *  By default, the USB_Init() function accepts dynamic options at runtime to alter the library behaviour, including whether the USB pad
  *  voltage regulator is enabled, and the device speed when in device mode. By defining this token to a mask comprised of the USB options

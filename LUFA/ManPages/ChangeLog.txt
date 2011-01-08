@@ -25,6 +25,7 @@
   *   - Added new *_ENUMERROR_PipeConfigurationFailed error codes for the *_Host_ConfigurePipes() routines
   *   - The USARTStream global is now public and documented in the SerialStream module, allowing for the serial USART
   *     stream to be accessed via its handle rather than via the implicit stdout and stdin streams
+  *   - The FAST_STREAM_TRANSFERS compile time option has been removed due to lack of use and low cost/benefit ratio
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion
@@ -48,6 +49,7 @@
   *     timeout period on received packets as set by USB_STREAM_TIMEOUT_MS (thanks to Justin Rajewski)
   *   - Fixed possible programming problem in the AVRISP-MKII clone project when programming specific patterns into a target
   *     memory space that is only byte (not page) addressable
+  *
   *
   *  \section Sec_ChangeLog101122 Version 101122
   *  <b>New:</b>
@@ -154,6 +156,7 @@
   *    - Fixed incorrect PollingIntervalMS values in the demo/project/bootloader endpoint descriptors (thanks to MCS Electronics)
   *    - Fixed AVRISP-MKII clone project not starting the target's program automatically after exiting TPI programming mode
   *
+  *
   *  \section Sec_ChangeLog100807 Version 100807
   *  <b>New:</b>
   *  - Added new ADC_DisableChannel() function (thanks to Mich Davis)
@@ -217,6 +220,7 @@
   *    to occur (thanks to Bob Paddock)
   *  - Fixed software application start command broken in the DFU class bootloader when dfu-programmer is used due to application
   *    start address corruption
+  *
   *
   *  \section Sec_ChangeLog100513 Version 100513
   *  <b>New:</b>
@@ -293,6 +297,7 @@
   *    request is being processed, causing possible lockups if a USB interrupt occurs during a transfer
   *  - Remove incorrect Abstract Call Management class specific descriptor from the CDC demos, bootloaders and projects
   *
+  *
   *  \section Sec_ChangeLog100219 Version 100219
   *
   *  <b>New:</b>
@@ -348,6 +353,7 @@
   *  - Fixed USB_GetHIDReportSize() returning the number of bits in the specified report instead of bytes
   *  - Fixed AVRISP project not extending the command delay after each successful page/word/byte program
   *  - Fixed accuracy of the SERIAL_UBBRVAL() and SERIAL_2X_UBBRVAL() macros for higher baud rates (thanks to Renaud Cerrato)
+  *
   *
   *  \section Sec_ChangeLog091223 Version 091223
   *
@@ -414,6 +420,7 @@
   *  - Fixed AVRISP project timeouts not checking for the correct timeout period (thanks to Carl Ott)
   *  - Fixed STK525 Dataflash driver using incorrect bit-shifting for Dataflash addresses (thanks to Tim Mitchell)
   *
+  *
   *  \section Sec_ChangeLog091122 Version 091122
   *
   *  <b>New:</b>
@@ -460,6 +467,7 @@
   *  - Fixed HOST_STATE_AS_GPIOR compile time option being ignored when in host mode (thanks to David Lyons)
   *  - Fixed LowLevel Keyboard demo not saving the issues report only after it has been sent to the host
   *  - Fixed Endpoint_Write_Control_Stream_* functions not sending a terminating IN when given data Length is zero
+  *
   *
   *  \section Sec_ChangeLog090924 Version 090924
   *

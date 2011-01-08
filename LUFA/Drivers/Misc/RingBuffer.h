@@ -126,10 +126,10 @@
 		 */
 		static inline void RingBuffer_InitBuffer(RingBuffer_t* Buffer, uint8_t* const DataPtr, const uint16_t Size)
 		{
+			GCC_FORCE_POINTER_ACCESS(Buffer);
+
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-			{
-				GCC_FORCE_POINTER_ACCESS(Buffer);
-				
+			{	
 				Buffer->In     = DataPtr;
 				Buffer->Out    = DataPtr;
 				Buffer->Start  = &DataPtr[0];
@@ -203,9 +203,11 @@
 		 *  \param[in,out] Buffer  Pointer to a ring buffer structure to insert into.
 		 *  \param[in]     Data    Data element to insert into the buffer.
 		 */
-		static inline void RingBuffer_Insert(RingBuffer_t* const Buffer,
+		static inline void RingBuffer_Insert(RingBuffer_t* Buffer,
 		                                     const uint8_t Data)
 		{
+			GCC_FORCE_POINTER_ACCESS(Buffer);
+
 			*Buffer->In = Data;
 
 			if (++Buffer->In == Buffer->End)
@@ -227,8 +229,10 @@
 		 *
 		 *  \return Next data element stored in the buffer.
 		 */
-		static inline uint8_t RingBuffer_Remove(RingBuffer_t* const Buffer)
+		static inline uint8_t RingBuffer_Remove(RingBuffer_t* Buffer)
 		{
+			GCC_FORCE_POINTER_ACCESS(Buffer);
+		
 			uint8_t Data = *Buffer->Out;
 
 			if (++Buffer->Out == Buffer->End)
