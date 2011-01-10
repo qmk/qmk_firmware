@@ -27,6 +27,10 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 				return ENDPOINT_RWSTREAM_IncompleteTransfer;
 			}
 
+			#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+			USB_USBTask();
+			#endif
+
 			if ((ErrorCode = Endpoint_WaitUntilReady()))
 			  return ErrorCode;
 		}

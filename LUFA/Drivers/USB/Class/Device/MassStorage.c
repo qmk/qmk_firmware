@@ -166,10 +166,6 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 	                               (sizeof(MS_CommandBlockWrapper_t) - 16), &BytesProcessed) ==
 	                               ENDPOINT_RWSTREAM_IncompleteTransfer)
 	{
-		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
-		USB_USBTask();
-		#endif
-
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return false;
 	}
@@ -192,10 +188,6 @@ static bool MS_Device_ReadInCommandBlock(USB_ClassInfo_MS_Device_t* const MSInte
 	                                MSInterfaceInfo->State.CommandBlock.SCSICommandLength, &BytesProcessed) ==
 	                                ENDPOINT_RWSTREAM_IncompleteTransfer)
 	{
-		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
-		USB_USBTask();
-		#endif
-
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return false;
 	}
@@ -236,10 +228,6 @@ static void MS_Device_ReturnCommandStatus(USB_ClassInfo_MS_Device_t* const MSInt
 	                                sizeof(MS_CommandStatusWrapper_t), &BytesProcessed) ==
 	                                ENDPOINT_RWSTREAM_IncompleteTransfer)
 	{
-		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
-		USB_USBTask();
-		#endif
-
 		if (MSInterfaceInfo->State.IsMassStoreReset)
 		  return;
 	}

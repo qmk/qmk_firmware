@@ -101,6 +101,8 @@ uint8_t Pipe_Null_Stream(uint16_t Length,
 				*BytesProcessed += BytesInTransfer;
 				return PIPE_RWSTREAM_IncompleteTransfer;
 			}
+			
+			USB_USBTask();
 
 			if ((ErrorCode = Pipe_WaitUntilReady()))
 			  return ErrorCode;

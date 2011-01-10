@@ -155,10 +155,6 @@ uint8_t Endpoint_WaitUntilReady(void)
 			if (Endpoint_IsOUTReceived())
 			  return ENDPOINT_READYWAIT_NoError;
 		}
-
-		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
-		USB_USBTask();
-		#endif
 		
 		uint8_t USB_DeviceState_LCL = USB_DeviceState;
 
