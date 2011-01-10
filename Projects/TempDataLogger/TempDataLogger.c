@@ -122,7 +122,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 		char     LineBuffer[100];
 		uint16_t BytesWritten;
 
-		BytesWritten = sprintf(LineBuffer, "%02d/%02d/20%04d, %02d:%02d:%02d, %d Degrees\r\n",
+		BytesWritten = sprintf(LineBuffer, "%02d/%02d/20%02d, %02d:%02d:%02d, %d Degrees\r\n",
 							   Day, Month, Year, Hour, Minute, Second, Temperature_GetTemperature());
 
 		f_write(&TempLogFile, LineBuffer, BytesWritten, &BytesWritten);
