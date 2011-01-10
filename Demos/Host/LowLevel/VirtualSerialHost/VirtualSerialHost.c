@@ -190,7 +190,7 @@ void CDC_Host_Task(void)
 					uint8_t  Buffer[BufferLength];
 
 					/* Read in the pipe data to the temporary buffer */
-					Pipe_Read_Stream_LE(Buffer, BufferLength);
+					Pipe_Read_Stream_LE(Buffer, BufferLength, NULL);
 
 					/* Print out the buffer contents to the USART */
 					for (uint16_t BufferByte = 0; BufferByte < BufferLength; BufferByte++)

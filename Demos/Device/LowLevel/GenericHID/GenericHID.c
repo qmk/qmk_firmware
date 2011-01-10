@@ -198,7 +198,7 @@ void HID_Task(void)
 			uint8_t GenericData[GENERIC_REPORT_SIZE];
 
 			/* Read Generic Report Data */
-			Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData));
+			Endpoint_Read_Stream_LE(&GenericData, sizeof(GenericData), NULL);
 
 			/* Process Generic Report Data */
 			ProcessGenericHIDReport(GenericData);
@@ -220,7 +220,7 @@ void HID_Task(void)
 		CreateGenericHIDReport(GenericData);
 
 		/* Write Generic Report Data */
-		Endpoint_Write_Stream_LE(&GenericData, sizeof(GenericData));
+		Endpoint_Write_Stream_LE(&GenericData, sizeof(GenericData), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();

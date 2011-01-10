@@ -450,7 +450,7 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	RNDIS_Packet_Message_t DeviceMessage;
 
 	if ((ErrorCode = Pipe_Read_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t),
-	                                     NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	                                     NULL)) != PIPE_RWSTREAM_NoError)
 	{
 		return ErrorCode;
 	}
@@ -458,9 +458,9 @@ uint8_t RNDIS_Host_ReadPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	*PacketLength = (uint16_t)DeviceMessage.DataLength;
 
 	Pipe_Discard_Stream(DeviceMessage.DataOffset - (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)),
-	                    NO_STREAM_CALLBACK);
+	                    NULL);
 
-	Pipe_Read_Stream_LE(Buffer, *PacketLength, NO_STREAM_CALLBACK);
+	Pipe_Read_Stream_LE(Buffer, *PacketLength, NULL);
 
 	if (!(Pipe_BytesInPipe()))
 	  Pipe_ClearIN();
@@ -491,12 +491,12 @@ uint8_t RNDIS_Host_SendPacket(USB_ClassInfo_RNDIS_Host_t* const RNDISInterfaceIn
 	Pipe_Unfreeze();
 
 	if ((ErrorCode = Pipe_Write_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t),
-	                                      NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	                                      NULL)) != PIPE_RWSTREAM_NoError)
 	{
 		return ErrorCode;
 	}
 
-	Pipe_Write_Stream_LE(Buffer, PacketLength, NO_STREAM_CALLBACK);
+	Pipe_Write_Stream_LE(Buffer, PacketLength, NULL);
 	Pipe_ClearOUT();
 
 	Pipe_Freeze();

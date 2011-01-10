@@ -172,6 +172,10 @@ uint8_t Pipe_WaitUntilReady(void)
 			  return PIPE_READYWAIT_NoError;
 		}
 
+		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+		USB_USBTask();
+		#endif
+
 		if (Pipe_IsStalled())
 		  return PIPE_READYWAIT_PipeStalled;
 		else if (USB_HostState == HOST_STATE_Unattached)

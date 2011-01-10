@@ -36,13 +36,13 @@ uint16_t SideShow_Read_Unicode_String(void* const UnicodeString,
 	Unicode_String_t* const UnicodeStruct = (Unicode_String_t*)UnicodeString;
 	uint32_t                UnicodeCharsToRead;
 
-	Endpoint_Read_Stream_LE(&UnicodeCharsToRead, sizeof(uint32_t));
+	Endpoint_Read_Stream_LE(&UnicodeCharsToRead, sizeof(uint32_t), NULL);
 
 	int UnicodeData[UnicodeCharsToRead];
 
 	UnicodeStruct->LengthInBytes = (UnicodeCharsToRead << 1);
 
-	Endpoint_Read_Stream_LE(&UnicodeData, UnicodeStruct->LengthInBytes);
+	Endpoint_Read_Stream_LE(&UnicodeData, UnicodeStruct->LengthInBytes, NULL);
 
 	if (UnicodeStruct->LengthInBytes > MaxBytes)
 	  UnicodeStruct->LengthInBytes = MaxBytes;
@@ -58,15 +58,15 @@ void SideShow_Write_Unicode_String(void* const UnicodeString)
 
 	uint32_t StringSizeInCharacters = (UnicodeStruct->LengthInBytes >> 1);
 
-	Endpoint_Write_Stream_LE(&StringSizeInCharacters, sizeof(uint32_t));
-	Endpoint_Write_Stream_LE(&UnicodeStruct->UnicodeString, UnicodeStruct->LengthInBytes);
+	Endpoint_Write_Stream_LE(&StringSizeInCharacters, sizeof(uint32_t), NULL);
+	Endpoint_Write_Stream_LE(&UnicodeStruct->UnicodeString, UnicodeStruct->LengthInBytes, NULL);
 }
 
 void SideShow_Discard_Byte_Stream(void)
 {
 	uint32_t StreamSize;
 
-	Endpoint_Read_Stream_LE(&StreamSize, sizeof(uint32_t));
-	Endpoint_Discard_Stream(StreamSize);
+	Endpoint_Read_Stream_LE(&StreamSize, sizeof(uint32_t), NULL);
+	Endpoint_Discard_Stream(StreamSize, NULL);
 }
 

@@ -96,7 +96,7 @@ uint8_t MIDI_Device_SendEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInter
 
 	Endpoint_SelectEndpoint(MIDIInterfaceInfo->Config.DataINEndpointNumber);
 
-	if ((ErrorCode = Endpoint_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK)) != ENDPOINT_RWSTREAM_NoError)
+	if ((ErrorCode = Endpoint_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NULL)) != ENDPOINT_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	if (!(Endpoint_IsReadWriteAllowed()))
@@ -136,7 +136,7 @@ bool MIDI_Device_ReceiveEventPacket(USB_ClassInfo_MIDI_Device_t* const MIDIInter
 	if (!(Endpoint_IsReadWriteAllowed()))
 	  return false;
 
-	Endpoint_Read_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NULL);
 
 	if (!(Endpoint_IsReadWriteAllowed()))
 	  Endpoint_ClearOUT();

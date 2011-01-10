@@ -161,7 +161,7 @@ uint8_t CDC_Device_SendString(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo
 	  return ENDPOINT_RWSTREAM_DeviceDisconnected;
 
 	Endpoint_SelectEndpoint(CDCInterfaceInfo->Config.DataINEndpointNumber);
-	return Endpoint_Write_Stream_LE(Data, Length, NO_STREAM_CALLBACK);
+	return Endpoint_Write_Stream_LE(Data, Length, NULL);
 }
 
 uint8_t CDC_Device_SendByte(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo,
@@ -275,10 +275,10 @@ void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDC
 			.wLength       = sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost),
 		};
 
-	Endpoint_Write_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NULL);
 	Endpoint_Write_Stream_LE(&CDCInterfaceInfo->State.ControlLineStates.DeviceToHost,
 	                         sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost),
-	                         NO_STREAM_CALLBACK);
+	                         NULL);
 	Endpoint_ClearIN();
 }
 

@@ -236,14 +236,14 @@ void CDC_Host_USBTask(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 	if (Pipe_IsINReceived())
 	{
 		USB_Request_Header_t Notification;
-		Pipe_Read_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NO_STREAM_CALLBACK);
+		Pipe_Read_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NULL);
 
 		if ((Notification.bRequest      == CDC_NOTIF_SerialState) &&
 		    (Notification.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE)))
 		{
 			Pipe_Read_Stream_LE(&CDCInterfaceInfo->State.ControlLineStates.DeviceToHost,
 			                    sizeof(CDCInterfaceInfo->State.ControlLineStates.DeviceToHost),
-			                    NO_STREAM_CALLBACK);
+			                    NULL);
 
 			Pipe_ClearIN();
 
@@ -323,7 +323,7 @@ uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 	Pipe_SelectPipe(CDCInterfaceInfo->Config.DataOUTPipeNumber);
 
 	Pipe_Unfreeze();
-	ErrorCode = Pipe_Write_Stream_LE(Data, Length, NO_STREAM_CALLBACK);
+	ErrorCode = Pipe_Write_Stream_LE(Data, Length, NULL);
 	Pipe_Freeze();
 
 	return ErrorCode;

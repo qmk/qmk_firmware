@@ -179,7 +179,7 @@ void HID_Device_USBTask(USB_ClassInfo_HID_Device_t* const HIDInterfaceInfo)
 			if (ReportID)
 			  Endpoint_Write_Byte(ReportID);
 
-			Endpoint_Write_Stream_LE(ReportINData, ReportINSize, NO_STREAM_CALLBACK);
+			Endpoint_Write_Stream_LE(ReportINData, ReportINSize, NULL);
 
 			Endpoint_ClearIN();
 		}

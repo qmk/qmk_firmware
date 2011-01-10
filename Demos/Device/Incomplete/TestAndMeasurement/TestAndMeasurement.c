@@ -64,6 +64,8 @@ bool IsTMCBulkOUTReset = false;
 /** Last used tag value for data transfers */
 uint8_t CurrentTransferTag = 0;
 
+/** Length of last data transfer, for reporting to the host in case an in-progress tranfer is aborted */
+uint32_t LastTransferLength = 0;
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -190,7 +192,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				/* Write the request response bytes */
 				Endpoint_Write_Byte(TMCRequestStatus);
 				Endpoint_Write_Word_LE(0);
-				Endpoint_Write_DWord_LE(0); // TODO - Last transfer length
+				Endpoint_Write_DWord_LE(LastTransferLength);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();				
@@ -245,7 +247,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				/* Write the request response bytes */
 				Endpoint_Write_Byte(TMCRequestStatus);
 				Endpoint_Write_Word_LE(0);
-				Endpoint_Write_DWord_LE(0); // TODO - Last transfer length
+				Endpoint_Write_DWord_LE(LastTransferLength);
 
 				Endpoint_ClearIN();
 				Endpoint_ClearStatusStage();
@@ -324,6 +326,7 @@ void TMC_Task(void)
 	  return;
 	
 	TMC_MessageHeader_t MessageHeader;
+	uint16_t            BytesTransferred;
 	
 	/* Try to read in a TMC message from the interface, process if one is available */
 	if (ReadTMCHeader(&MessageHeader))
@@ -334,16 +337,33 @@ void TMC_Task(void)
 		switch (MessageHeader.MessageID)
 		{
 			case TMC_MESSAGEID_DEV_DEP_MSG_OUT:
-				Endpoint_Discard_Stream(MessageHeader.TransferSize, StreamCallback_AbortOUTOnRequest);
+				BytesTransferred = 0;
+				while (Endpoint_Discard_Stream(MessageHeader.TransferSize, &BytesTransferred) ==
+				       ENDPOINT_RWSTREAM_IncompleteTransfer)
+				{
+					if (IsTMCBulkOUTReset)
+					  break;
+				}
+				LastTransferLength = BytesTransferred;
+				
 				Endpoint_ClearOUT();
 				break;
 			case TMC_MESSAGEID_DEV_DEP_MSG_IN:
 				Endpoint_ClearOUT();
 
 				MessageHeader.TransferSize = 3;
+				MessageHeader.MessageIDSpecific.DeviceOUT.LastMessageTransaction = true;
 				WriteTMCHeader(&MessageHeader);
 
-				Endpoint_Write_Stream_LE("TMC", 3, StreamCallback_AbortINOnRequest);
+				BytesTransferred = 0;
+				while (Endpoint_Write_Stream_LE("TMC", MessageHeader.TransferSize, &BytesTransferred) ==
+				       ENDPOINT_RWSTREAM_IncompleteTransfer)
+				{
+					if (IsTMCBulkINReset)
+					  break;
+				}
+				LastTransferLength = BytesTransferred;
+
 				Endpoint_ClearIN();
 				break;
 			default:
@@ -367,6 +387,8 @@ void TMC_Task(void)
  */
 bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 {
+	uint16_t BytesTransferred;
+
 	/* Select the Data Out endpoint */
 	Endpoint_SelectEndpoint(TMC_OUT_EPNUM);
 	
@@ -375,7 +397,13 @@ bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 	  return false;
 	
 	/* Read in the header of the command from the host */
-	Endpoint_Read_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), StreamCallback_AbortOUTOnRequest);
+	BytesTransferred = 0;
+	while (Endpoint_Read_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), &BytesTransferred) ==
+	       ENDPOINT_RWSTREAM_IncompleteTransfer)
+	{
+		if (IsTMCBulkOUTReset)
+		  break;
+	}
 
 	/* Store the new command tag value for later use */
 	CurrentTransferTag = MessageHeader->Tag;
@@ -386,9 +414,7 @@ bool ReadTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 
 bool WriteTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 {
-	/* Compute the next transfer tag value, must be between 1 and 254 */
-	if (++CurrentTransferTag == 0xFF)
-	  CurrentTransferTag = 1;
+	uint16_t BytesTransferred;
 
 	/* Set the message tag of the command header */
 	MessageHeader->Tag        =  CurrentTransferTag;
@@ -398,35 +424,14 @@ bool WriteTMCHeader(TMC_MessageHeader_t* const MessageHeader)
 	Endpoint_SelectEndpoint(TMC_IN_EPNUM);
 
 	/* Send the command header to the host */
-	Endpoint_Write_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), StreamCallback_AbortINOnRequest);
+	BytesTransferred = 0;
+	while (Endpoint_Write_Stream_LE(MessageHeader, sizeof(TMC_MessageHeader_t), &BytesTransferred) ==
+	       ENDPOINT_RWSTREAM_IncompleteTransfer)
+	{
+		if (IsTMCBulkINReset)
+		  break;
+	}
 
 	/* Indicate if the command has been aborted or not */
 	return !(IsTMCBulkINReset);
 }
-
-/** Stream callback function for the Endpoint stream write functions. This callback will abort the current stream transfer
- *  if a TMC Abort Bulk IN request has been issued to the control endpoint.
- */
-uint8_t StreamCallback_AbortINOnRequest(void)
-{	
-	/* Abort if a TMC Bulk Data IN abort was received */
-	if (IsTMCBulkINReset)
-	  return STREAMCALLBACK_Abort;
-	
-	/* Continue with the current stream operation */
-	return STREAMCALLBACK_Continue;
-}
-
-/** Stream callback function for the Endpoint stream read functions. This callback will abort the current stream transfer
- *  if a TMC Abort Bulk OUT request has been issued to the control endpoint.
- */
-uint8_t StreamCallback_AbortOUTOnRequest(void)
-{	
-	/* Abort if a TMC Bulk Data IN abort was received */
-	if (IsTMCBulkOUTReset)
-	  return STREAMCALLBACK_Abort;
-	
-	/* Continue with the current stream operation */
-	return STREAMCALLBACK_Continue;
-}
-

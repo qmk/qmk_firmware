@@ -48,7 +48,7 @@ void Sideshow_ProcessCommandPacket(void)
 	SideShow_PacketHeader_t PacketHeader;
 
 	Endpoint_SelectEndpoint(SIDESHOW_OUT_EPNUM);
-	Endpoint_Read_Stream_LE(&PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Read_Stream_LE(&PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 
 	PacketHeader.Type.TypeFields.Response = true;
 
@@ -104,14 +104,14 @@ void Sideshow_ProcessCommandPacket(void)
 		default:
 			PacketHeader.Length -= sizeof(SideShow_PacketHeader_t);
 
-			Endpoint_Discard_Stream(PacketHeader.Length);
+			Endpoint_Discard_Stream(PacketHeader.Length, NULL);
 			Endpoint_ClearOUT();
 
 			PacketHeader.Length   = sizeof(SideShow_PacketHeader_t);
 			PacketHeader.Type.TypeFields.NAK = true;
 
 			Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-			Endpoint_Write_Stream_LE(&PacketHeader, sizeof(SideShow_PacketHeader_t));
+			Endpoint_Write_Stream_LE(&PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 			Endpoint_ClearIN();
 
 			printf(" UNK");
@@ -123,7 +123,7 @@ static void SideShow_Ping(SideShow_PacketHeader_t* const PacketHeader)
 	Endpoint_ClearOUT();
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	Endpoint_ClearIN();
 }
 
@@ -131,15 +131,15 @@ static void SideShow_Sync(SideShow_PacketHeader_t* const PacketHeader)
 {
 	GUID_t ProtocolGUID;
 
-	Endpoint_Read_Stream_LE(&ProtocolGUID, sizeof(GUID_t));
+	Endpoint_Read_Stream_LE(&ProtocolGUID, sizeof(GUID_t), NULL);
 	Endpoint_ClearOUT();
 
 	if (!(GUID_COMPARE(&ProtocolGUID, (uint32_t[])STANDARD_PROTOCOL_GUID)))
 	  PacketHeader->Type.TypeFields.NAK = true;
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
-	Endpoint_Write_Stream_LE(&ProtocolGUID, sizeof(GUID_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
+	Endpoint_Write_Stream_LE(&ProtocolGUID, sizeof(GUID_t), NULL);
 	Endpoint_ClearIN();
 }
 
@@ -150,7 +150,7 @@ static void SideShow_GetCurrentUser(SideShow_PacketHeader_t* const PacketHeader)
 	PacketHeader->Length = sizeof(SideShow_PacketHeader_t) + sizeof(uint32_t) + UserSID.LengthInBytes;
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	SideShow_Write_Unicode_String(&UserSID);
 	Endpoint_ClearIN();
 }
@@ -163,7 +163,7 @@ static void SideShow_SetCurrentUser(SideShow_PacketHeader_t* const PacketHeader)
 	PacketHeader->Length = sizeof(SideShow_PacketHeader_t);
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	Endpoint_ClearIN();
 }
 
@@ -172,7 +172,7 @@ static void SideShow_GetCapabilities(SideShow_PacketHeader_t* const PacketHeader
 	SideShow_PropertyKey_t  Property;
 	SideShow_PropertyData_t PropertyData;
 
-	Endpoint_Read_Stream_LE(&Property, sizeof(SideShow_PropertyKey_t));
+	Endpoint_Read_Stream_LE(&Property, sizeof(SideShow_PropertyKey_t), NULL);
 	Endpoint_ClearOUT();
 
 	printf(" ID: %lu", Property.PropertyID);
@@ -255,7 +255,7 @@ static void SideShow_GetCapabilities(SideShow_PacketHeader_t* const PacketHeader
 	}
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 
 	if (!(PacketHeader->Type.TypeFields.NAK))
 	{
@@ -263,12 +263,12 @@ static void SideShow_GetCapabilities(SideShow_PacketHeader_t* const PacketHeader
 		{
 			case VT_UI4:
 			case VT_I4:
-				Endpoint_Write_Stream_LE(&PropertyData.Data.Data32, sizeof(uint32_t));
+				Endpoint_Write_Stream_LE(&PropertyData.Data.Data32, sizeof(uint32_t), NULL);
 				break;
 			case VT_UI2:
 			case VT_I2:
 			case VT_BOOL:
-				Endpoint_Write_Stream_LE(&PropertyData.Data.Data16, sizeof(uint16_t));
+				Endpoint_Write_Stream_LE(&PropertyData.Data.Data16, sizeof(uint16_t), NULL);
 				break;
 			case VT_LPWSTR:
 				SideShow_Write_Unicode_String((Unicode_String_t*)PropertyData.Data.Data16);
@@ -289,7 +289,7 @@ static void SideShow_GetString(SideShow_PacketHeader_t* const PacketHeader,
 	                       sizeof(uint32_t) + ((Unicode_String_t*)UnicodeStruct)->LengthInBytes;
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	SideShow_Write_Unicode_String(UnicodeStruct);
 	Endpoint_ClearIN();
 }
@@ -310,13 +310,13 @@ static void SideShow_GetApplicationOrder(SideShow_PacketHeader_t* const PacketHe
 	                       sizeof(uint32_t) + (TotalApplications * sizeof(GUID_t));
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	Endpoint_Write_DWord_LE(TotalApplications);
 
 	for (uint8_t App = 0; App < MAX_APPLICATIONS; App++)
 	{
 		if (InstalledApplications[App].InUse)
-		  Endpoint_Write_Stream_LE(&InstalledApplications[App].ApplicationID, sizeof(GUID_t));
+		  Endpoint_Write_Stream_LE(&InstalledApplications[App].ApplicationID, sizeof(GUID_t), NULL);
 	}
 
 	Endpoint_ClearIN();
@@ -331,9 +331,9 @@ static void SideShow_GetSupportedEndpoints(SideShow_PacketHeader_t* const Packet
 	PacketHeader->Length = sizeof(SideShow_PacketHeader_t) + sizeof(uint32_t) + sizeof(GUID_t);
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	Endpoint_Write_DWord_LE(1);
-	Endpoint_Write_Stream_LE(&SupportedEndpointGUID, sizeof(GUID_t));
+	Endpoint_Write_Stream_LE(&SupportedEndpointGUID, sizeof(GUID_t), NULL);
 	Endpoint_ClearIN();
 }
 
@@ -342,7 +342,7 @@ static void SideShow_AddApplication(SideShow_PacketHeader_t* const PacketHeader)
 	SideShow_Application_t* CurrApp;
 	GUID_t                  ApplicationID;
 
-	Endpoint_Read_Stream_LE(&ApplicationID, sizeof(GUID_t));
+	Endpoint_Read_Stream_LE(&ApplicationID, sizeof(GUID_t), NULL);
 
 	CurrApp = SideShow_GetApplicationFromGUID(&ApplicationID);
 
@@ -353,7 +353,7 @@ static void SideShow_AddApplication(SideShow_PacketHeader_t* const PacketHeader)
 	{
 		PacketHeader->Length -= sizeof(SideShow_PacketHeader_t) + sizeof(GUID_t);
 
-		Endpoint_Discard_Stream(PacketHeader->Length);
+		Endpoint_Discard_Stream(PacketHeader->Length, NULL);
 		Endpoint_ClearOUT();
 
 		PacketHeader->Type.TypeFields.NAK = true;
@@ -361,10 +361,10 @@ static void SideShow_AddApplication(SideShow_PacketHeader_t* const PacketHeader)
 	else
 	{
 		CurrApp->ApplicationID = ApplicationID;
-		Endpoint_Read_Stream_LE(&CurrApp->EndpointID, sizeof(GUID_t));
+		Endpoint_Read_Stream_LE(&CurrApp->EndpointID, sizeof(GUID_t), NULL);
 		SideShow_Read_Unicode_String(&CurrApp->ApplicationName, sizeof(CurrApp->ApplicationName.UnicodeString));
-		Endpoint_Read_Stream_LE(&CurrApp->CachePolicy, sizeof(uint32_t));
-		Endpoint_Read_Stream_LE(&CurrApp->OnlineOnly, sizeof(uint32_t));
+		Endpoint_Read_Stream_LE(&CurrApp->CachePolicy, sizeof(uint32_t), NULL);
+		Endpoint_Read_Stream_LE(&CurrApp->OnlineOnly, sizeof(uint32_t), NULL);
 		SideShow_Discard_Byte_Stream();
 		SideShow_Discard_Byte_Stream();
 		SideShow_Discard_Byte_Stream();
@@ -378,7 +378,7 @@ static void SideShow_AddApplication(SideShow_PacketHeader_t* const PacketHeader)
 	PacketHeader->Length = sizeof(SideShow_PacketHeader_t);
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	Endpoint_ClearIN();
 }
 
@@ -386,7 +386,7 @@ static void SideShow_DeleteApplication(SideShow_PacketHeader_t* const PacketHead
 {
 	GUID_t ApplicationGUID;
 
-	Endpoint_Read_Stream_LE(&ApplicationGUID, sizeof(GUID_t));
+	Endpoint_Read_Stream_LE(&ApplicationGUID, sizeof(GUID_t), NULL);
 	Endpoint_ClearOUT();
 
 	SideShow_Application_t* AppToDelete = SideShow_GetApplicationFromGUID(&ApplicationGUID);
@@ -399,7 +399,7 @@ static void SideShow_DeleteApplication(SideShow_PacketHeader_t* const PacketHead
 	PacketHeader->Length = sizeof(SideShow_PacketHeader_t);
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	Endpoint_ClearIN();
 }
 
@@ -411,7 +411,7 @@ static void SideShow_DeleteAllApplications(SideShow_PacketHeader_t* const Packet
 	  InstalledApplications[App].InUse = false;
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	Endpoint_ClearIN();
 }
 
@@ -421,8 +421,8 @@ static void SideShow_AddContent(SideShow_PacketHeader_t* const PacketHeader)
 	GUID_t EndpointID;
 	SideShow_Application_t* Application;
 
-	Endpoint_Read_Stream_LE(&ApplicationID, sizeof(GUID_t));
-	Endpoint_Read_Stream_LE(&EndpointID, sizeof(GUID_t));
+	Endpoint_Read_Stream_LE(&ApplicationID, sizeof(GUID_t), NULL);
+	Endpoint_Read_Stream_LE(&EndpointID, sizeof(GUID_t), NULL);
 
 	Application = SideShow_GetApplicationFromGUID(&ApplicationID);
 
@@ -441,7 +441,7 @@ static void SideShow_AddContent(SideShow_PacketHeader_t* const PacketHeader)
 	PacketHeader->Length = sizeof(SideShow_PacketHeader_t);
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	Endpoint_ClearIN();
 }
 
@@ -451,9 +451,9 @@ static void SideShow_DeleteContent(SideShow_PacketHeader_t* const PacketHeader)
 	GUID_t   EndpointID;
 	uint32_t ContentID;
 
-	Endpoint_Read_Stream_LE(&ApplicationID, sizeof(GUID_t));
-	Endpoint_Read_Stream_LE(&EndpointID, sizeof(GUID_t));
-	Endpoint_Read_Stream_LE(&ContentID, sizeof(uint32_t));
+	Endpoint_Read_Stream_LE(&ApplicationID, sizeof(GUID_t), NULL);
+	Endpoint_Read_Stream_LE(&EndpointID, sizeof(GUID_t), NULL);
+	Endpoint_Read_Stream_LE(&ContentID, sizeof(uint32_t), NULL);
 	Endpoint_ClearOUT();
 
 	SideShow_Application_t* Application = SideShow_GetApplicationFromGUID(&ApplicationID);
@@ -466,7 +466,7 @@ static void SideShow_DeleteContent(SideShow_PacketHeader_t* const PacketHeader)
 	PacketHeader->Length = sizeof(SideShow_PacketHeader_t);
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	Endpoint_ClearIN();
 }
 
@@ -475,8 +475,8 @@ static void SideShow_DeleteAllContent(SideShow_PacketHeader_t* const PacketHeade
 	GUID_t ApplicationID;
 	GUID_t EndpointID;
 
-	Endpoint_Read_Stream_LE(&ApplicationID, sizeof(GUID_t));
-	Endpoint_Read_Stream_LE(&EndpointID, sizeof(GUID_t));
+	Endpoint_Read_Stream_LE(&ApplicationID, sizeof(GUID_t), NULL);
+	Endpoint_Read_Stream_LE(&EndpointID, sizeof(GUID_t), NULL);
 	Endpoint_ClearOUT();
 
 	SideShow_Application_t* Application = SideShow_GetApplicationFromGUID(&ApplicationID);
@@ -489,7 +489,7 @@ static void SideShow_DeleteAllContent(SideShow_PacketHeader_t* const PacketHeade
 	PacketHeader->Length = sizeof(SideShow_PacketHeader_t);
 
 	Endpoint_SelectEndpoint(SIDESHOW_IN_EPNUM);
-	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t));
+	Endpoint_Write_Stream_LE(PacketHeader, sizeof(SideShow_PacketHeader_t), NULL);
 	Endpoint_ClearIN();
 }
 

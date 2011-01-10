@@ -169,12 +169,10 @@ static bool SCSI_Command_Inquiry(USB_ClassInfo_MS_Device_t* const MSInterfaceInf
 		return false;
 	}
 
-	Endpoint_Write_Stream_LE(&InquiryData, BytesTransferred, NO_STREAM_CALLBACK);
-
-	uint8_t PadBytes[AllocationLength - BytesTransferred];
+	Endpoint_Write_Stream_LE(&InquiryData, BytesTransferred, NULL);
 
 	/* Pad out remaining bytes with 0x00 */
-	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), NO_STREAM_CALLBACK);
+	Endpoint_Null_Stream((AllocationLength - BytesTransferred), NULL);
 
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearIN();
@@ -197,10 +195,8 @@ static bool SCSI_Command_Request_Sense(USB_ClassInfo_MS_Device_t* const MSInterf
 	uint8_t  AllocationLength = MSInterfaceInfo->State.CommandBlock.SCSICommandData[4];
 	uint8_t  BytesTransferred = (AllocationLength < sizeof(SenseData))? AllocationLength : sizeof(SenseData);
 
-	uint8_t PadBytes[AllocationLength - BytesTransferred];
-
-	Endpoint_Write_Stream_LE(&SenseData, BytesTransferred, NO_STREAM_CALLBACK);
-	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_LE(&SenseData, BytesTransferred, NULL);
+	Endpoint_Null_Stream((AllocationLength - BytesTransferred), NULL);
 	Endpoint_ClearIN();
 
 	/* Succeed the command and update the bytes transferred counter */
@@ -221,8 +217,8 @@ static bool SCSI_Command_Read_Capacity_10(USB_ClassInfo_MS_Device_t* const MSInt
 	uint32_t LastBlockAddressInLUN = (LUN_MEDIA_BLOCKS - 1);
 	uint32_t MediaBlockSize        = VIRTUAL_MEMORY_BLOCK_SIZE;
 
-	Endpoint_Write_Stream_BE(&LastBlockAddressInLUN, sizeof(LastBlockAddressInLUN), NO_STREAM_CALLBACK);
-	Endpoint_Write_Stream_BE(&MediaBlockSize, sizeof(MediaBlockSize), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_BE(&LastBlockAddressInLUN, sizeof(LastBlockAddressInLUN), NULL);
+	Endpoint_Write_Stream_BE(&MediaBlockSize, sizeof(MediaBlockSize), NULL);
 	Endpoint_ClearIN();
 
 	/* Succeed the command and update the bytes transferred counter */

@@ -194,7 +194,7 @@ void HID_Task(void)
 		GetNextReport(&JoystickReportData);
 
 		/* Write Joystick Report Data */
-		Endpoint_Write_Stream_LE(&JoystickReportData, sizeof(JoystickReportData));
+		Endpoint_Write_Stream_LE(&JoystickReportData, sizeof(JoystickReportData), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();

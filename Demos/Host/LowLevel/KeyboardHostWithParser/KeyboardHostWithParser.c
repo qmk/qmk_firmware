@@ -225,7 +225,7 @@ void Keyboard_HID_Task(void)
 					uint8_t KeyboardReport[Pipe_BytesInPipe()];
 
 					/* Load in the keyboard report */
-					Pipe_Read_Stream_LE(KeyboardReport, Pipe_BytesInPipe());
+					Pipe_Read_Stream_LE(KeyboardReport, Pipe_BytesInPipe(), NULL);
 
 					/* Process the read in keyboard report from the device */
 					ProcessKeyboardReport(KeyboardReport);

@@ -181,7 +181,10 @@ void MIDI_Host_Task(void)
 			{
 				MIDI_EventPacket_t MIDIEvent;
 
-				Pipe_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
+				Pipe_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
+
+				if (!(Pipe_BytesInPipe()))
+				  Pipe_ClearIN();
 
 				bool NoteOnEvent  = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_ON  >> 4));
 				bool NoteOffEvent = ((MIDIEvent.Command & 0x0F) == (MIDI_COMMAND_NOTE_OFF >> 4));
@@ -191,10 +194,7 @@ void MIDI_Host_Task(void)
 					printf_P(PSTR("MIDI Note %s - Channel %d, Pitch %d, Velocity %d\r\n"), NoteOnEvent ? "On" : "Off",
 				                                                                           ((MIDIEvent.Data1 & 0x0F) + 1),
 				                                                                           MIDIEvent.Data2, MIDIEvent.Data3);
-				}
-				
-				if (!(Pipe_BytesInPipe()))
-				  Pipe_ClearIN();
+				}				
 			}
 
 			Pipe_SelectPipe(MIDI_DATA_OUT_PIPE);
@@ -255,7 +255,7 @@ void MIDI_Host_Task(void)
 						};
 
 					/* Write the MIDI event packet to the pipe */
-					Pipe_Write_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
+					Pipe_Write_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
 
 					/* Send the data in the pipe to the device */
 					Pipe_ClearOUT();

@@ -87,10 +87,6 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 
-		#if defined(__INCLUDE_FROM_CDC_DEVICE_C) && defined(NO_STREAM_CALLBACKS)
-			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
-		#endif
-
 	/* Public Interface - May be used in end-application: */
 		/* Type Defines: */
 			/** \brief CDC Class Device Mode Configuration and State Structure.

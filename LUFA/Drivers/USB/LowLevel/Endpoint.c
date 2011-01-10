@@ -156,6 +156,10 @@ uint8_t Endpoint_WaitUntilReady(void)
 			  return ENDPOINT_READYWAIT_NoError;
 		}
 
+		#if !defined(INTERRUPT_CONTROL_ENDPOINT)
+		USB_USBTask();
+		#endif
+		
 		uint8_t USB_DeviceState_LCL = USB_DeviceState;
 
 		if (USB_DeviceState_LCL == DEVICE_STATE_Unattached)

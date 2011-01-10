@@ -22,6 +22,7 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer,
 			while (Length && Endpoint_BytesInEndpoint())
 			{
 				TEMPLATE_TRANSFER_BYTE(DataStream);
+				TEMPLATE_BUFFER_MOVE(DataStream, 1);
 				Length--;
 			}
 
@@ -44,5 +45,6 @@ uint8_t TEMPLATE_FUNC_NAME (void* Buffer,
 
 
 #undef TEMPLATE_BUFFER_OFFSET
+#undef TEMPLATE_BUFFER_MOVE
 #undef TEMPLATE_FUNC_NAME
 #undef TEMPLATE_TRANSFER_BYTE

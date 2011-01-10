@@ -185,7 +185,7 @@ static void V2Protocol_SignOn(void)
 	Endpoint_Write_Byte(CMD_SIGN_ON);
 	Endpoint_Write_Byte(STATUS_CMD_OK);
 	Endpoint_Write_Byte(sizeof(PROGRAMMER_ID) - 1);
-	Endpoint_Write_Stream_LE(PROGRAMMER_ID, (sizeof(PROGRAMMER_ID) - 1), NO_STREAM_CALLBACK);
+	Endpoint_Write_Stream_LE(PROGRAMMER_ID, (sizeof(PROGRAMMER_ID) - 1), NULL);
 	Endpoint_ClearIN();
 }
 
@@ -249,7 +249,7 @@ static void V2Protocol_GetSetParam(const uint8_t V2Command)
  */
 static void V2Protocol_LoadAddress(void)
 {
-	Endpoint_Read_Stream_BE(&CurrentAddress, sizeof(CurrentAddress), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_BE(&CurrentAddress, sizeof(CurrentAddress), NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);

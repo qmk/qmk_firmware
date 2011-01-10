@@ -227,7 +227,7 @@ void CDC1_Task(void)
 		Endpoint_SelectEndpoint(CDC1_TX_EPNUM);
 
 		/* Write the String to the Endpoint */
-		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString));
+		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
@@ -269,7 +269,7 @@ void CDC2_Task(void)
 		uint16_t DataLength = Endpoint_BytesInEndpoint();
 
 		/* Read in the incoming packet into the buffer */
-		Endpoint_Read_Stream_LE(&Buffer, DataLength);
+		Endpoint_Read_Stream_LE(&Buffer, DataLength, NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearOUT();
@@ -278,7 +278,7 @@ void CDC2_Task(void)
 		Endpoint_SelectEndpoint(CDC2_TX_EPNUM);
 
 		/* Write the received data to the endpoint */
-		Endpoint_Write_Stream_LE(&Buffer, DataLength);
+		Endpoint_Write_Stream_LE(&Buffer, DataLength, NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();

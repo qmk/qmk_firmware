@@ -1,12 +1,19 @@
 uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
-                            uint16_t Length
-                            __CALLBACK_PARAM)
+                            uint16_t Length,
+                            uint16_t* const BytesProcessed)
 {
-	uint8_t* DataStream = ((uint8_t*)Buffer + TEMPLATE_BUFFER_OFFSET(Length));
+	uint8_t* DataStream      = ((uint8_t*)Buffer + TEMPLATE_BUFFER_OFFSET(Length));
+	uint16_t BytesInTransfer = 0;
 	uint8_t  ErrorCode;
 
 	if ((ErrorCode = Endpoint_WaitUntilReady()))
 	  return ErrorCode;
+
+	if (BytesProcessed != NULL)
+	{
+		Length -= *BytesProcessed;
+		TEMPLATE_BUFFER_MOVE(DataStream, *BytesProcessed);
+	}
 
 	while (Length)
 	{
@@ -14,10 +21,11 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 		{
 			TEMPLATE_CLEAR_ENDPOINT();
 
-			#if !defined(NO_STREAM_CALLBACKS)
-			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return ENDPOINT_RWSTREAM_CallbackAborted;
-			#endif
+			if (BytesProcessed != NULL)
+			{
+				*BytesProcessed += BytesInTransfer;
+				return ENDPOINT_RWSTREAM_IncompleteTransfer;
+			}
 
 			if ((ErrorCode = Endpoint_WaitUntilReady()))
 			  return ErrorCode;
@@ -25,7 +33,9 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 		else
 		{
 			TEMPLATE_TRANSFER_BYTE(DataStream);
+			TEMPLATE_BUFFER_MOVE(DataStream, 1);
 			Length--;
+			BytesInTransfer++;
 		}
 	}
 
@@ -37,3 +47,4 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 #undef TEMPLATE_TRANSFER_BYTE
 #undef TEMPLATE_CLEAR_ENDPOINT
 #undef TEMPLATE_BUFFER_OFFSET
+#undef TEMPLATE_BUFFER_MOVE

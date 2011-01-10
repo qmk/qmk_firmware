@@ -224,7 +224,7 @@ void Joystick_HID_Task(void)
 					uint8_t JoystickReport[Pipe_BytesInPipe()];
 
 					/* Load in the joystick report */
-					Pipe_Read_Stream_LE(JoystickReport, Pipe_BytesInPipe());
+					Pipe_Read_Stream_LE(JoystickReport, Pipe_BytesInPipe(), NULL);
 
 					/* Process the read in joystick report from the device */
 					ProcessJoystickReport(JoystickReport);

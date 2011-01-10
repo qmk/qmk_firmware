@@ -166,12 +166,10 @@ static bool SCSI_Command_Inquiry(void)
 	}
 
 	/* Write the INQUIRY data to the endpoint */
-	Endpoint_Write_Stream_LE(&InquiryData, BytesTransferred, StreamCallback_AbortOnMassStoreReset);
-
-	uint8_t PadBytes[AllocationLength - BytesTransferred];
+	Endpoint_Write_Stream_LE(&InquiryData, BytesTransferred, NULL);
 
 	/* Pad out remaining bytes with 0x00 */
-	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), StreamCallback_AbortOnMassStoreReset);
+	Endpoint_Null_Stream((AllocationLength - BytesTransferred), NULL);
 
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearIN();
@@ -193,12 +191,10 @@ static bool SCSI_Command_Request_Sense(void)
 	uint8_t  BytesTransferred = (AllocationLength < sizeof(SenseData))? AllocationLength : sizeof(SenseData);
 
 	/* Send the SENSE data - this indicates to the host the status of the last command */
-	Endpoint_Write_Stream_LE(&SenseData, BytesTransferred, StreamCallback_AbortOnMassStoreReset);
-
-	uint8_t PadBytes[AllocationLength - BytesTransferred];
+	Endpoint_Write_Stream_LE(&SenseData, BytesTransferred, NULL);
 
 	/* Pad out remaining bytes with 0x00 */
-	Endpoint_Write_Stream_LE(&PadBytes, sizeof(PadBytes), StreamCallback_AbortOnMassStoreReset);
+	Endpoint_Null_Stream((AllocationLength - BytesTransferred), NULL);
 
 	/* Finalize the stream transfer to send the last packet */
 	Endpoint_ClearIN();

@@ -177,7 +177,7 @@ void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo
 				.wLength       = 0,
 			};
 
-		Endpoint_Write_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NO_STREAM_CALLBACK);
+		Endpoint_Write_Stream_LE(&Notification, sizeof(USB_Request_Header_t), NULL);
 
 		Endpoint_ClearIN();
 
@@ -192,7 +192,7 @@ void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo
 
 		if (Endpoint_IsOUTReceived() && !(RNDISInterfaceInfo->State.FrameIN.FrameInBuffer))
 		{
-			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NO_STREAM_CALLBACK);
+			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
 
 			if (RNDISPacketHeader.DataLength > ETHERNET_FRAME_SIZE_MAX)
 			{
@@ -200,7 +200,7 @@ void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo
 				return;
 			}
 
-			Endpoint_Read_Stream_LE(RNDISInterfaceInfo->State.FrameIN.FrameData, RNDISPacketHeader.DataLength, NO_STREAM_CALLBACK);
+			Endpoint_Read_Stream_LE(RNDISInterfaceInfo->State.FrameIN.FrameData, RNDISPacketHeader.DataLength, NULL);
 
 			Endpoint_ClearOUT();
 
@@ -220,8 +220,8 @@ void RNDIS_Device_USBTask(USB_ClassInfo_RNDIS_Device_t* const RNDISInterfaceInfo
 			RNDISPacketHeader.DataOffset    = (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t));
 			RNDISPacketHeader.DataLength    = RNDISInterfaceInfo->State.FrameOUT.FrameLength;
 
-			Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NO_STREAM_CALLBACK);
-			Endpoint_Write_Stream_LE(RNDISInterfaceInfo->State.FrameOUT.FrameData, RNDISPacketHeader.DataLength, NO_STREAM_CALLBACK);
+			Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
+			Endpoint_Write_Stream_LE(RNDISInterfaceInfo->State.FrameOUT.FrameData, RNDISPacketHeader.DataLength, NULL);
 			Endpoint_ClearIN();
 
 			RNDISInterfaceInfo->State.FrameOUT.FrameInBuffer = false;

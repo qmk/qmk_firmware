@@ -203,7 +203,7 @@ uint8_t MIDI_Host_SendEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 
 	Pipe_SelectPipe(MIDIInterfaceInfo->Config.DataOUTPipeNumber);
 
-	if ((ErrorCode = Pipe_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	if ((ErrorCode = Pipe_Write_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NULL)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	if (!(Pipe_IsReadWriteAllowed()))
@@ -223,7 +223,7 @@ bool MIDI_Host_ReceiveEventPacket(USB_ClassInfo_MIDI_Host_t* const MIDIInterface
 	if (!(Pipe_IsReadWriteAllowed()))
 	  return false;
 
-	Pipe_Read_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NO_STREAM_CALLBACK);
+	Pipe_Read_Stream_LE(Event, sizeof(MIDI_EventPacket_t), NULL);
 
 	if (!(Pipe_IsReadWriteAllowed()))
 	  Pipe_ClearIN();

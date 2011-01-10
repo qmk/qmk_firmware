@@ -324,7 +324,7 @@ void SendNextReport(void)
 		PrevKeyboardReportData = KeyboardReportData;
 
 		/* Write Keyboard Report Data */
-		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
+		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();

@@ -171,7 +171,7 @@ void MIDI_Task(void)
 				};
 
 			/* Write the MIDI event packet to the endpoint */
-			Endpoint_Write_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
+			Endpoint_Write_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
 
 			/* Send the data in the endpoint to the host */
 			Endpoint_ClearIN();
@@ -190,7 +190,7 @@ void MIDI_Task(void)
 		MIDI_EventPacket_t MIDIEvent;
 
 		/* Read the MIDI event packet from the endpoint */
-		Endpoint_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent));
+		Endpoint_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
 
 		/* Check to see if the sent command is a note on message with a non-zero velocity */
 		if ((MIDIEvent.Command == (MIDI_COMMAND_NOTE_ON >> 4)) && (MIDIEvent.Data3 > 0))

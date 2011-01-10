@@ -147,7 +147,7 @@ void ReadNextReport(void)
 		uint8_t ReportINData[Pipe_BytesInPipe()];
 
 		/* Read in HID report data */
-		Pipe_Read_Stream_LE(&ReportINData, sizeof(ReportINData));
+		Pipe_Read_Stream_LE(&ReportINData, sizeof(ReportINData), NULL);
 
 		/* Print report data through the serial port */
 		for (uint16_t CurrByte = 0; CurrByte < sizeof(ReportINData); CurrByte++)
@@ -198,7 +198,7 @@ void WriteNextReport(uint8_t* ReportOUTData,
 		  Pipe_Write_Byte(ReportIndex);
 
 		/* Write out HID report data */
-		Pipe_Write_Stream_LE(ReportOUTData, ReportLength);
+		Pipe_Write_Stream_LE(ReportOUTData, ReportLength, NULL);
 
 		/* Clear the OUT endpoint, send last data packet */
 		Pipe_ClearOUT();

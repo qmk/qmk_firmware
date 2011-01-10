@@ -182,7 +182,7 @@ void RNDIS_Task(void)
 			};
 
 		/* Indicate that a message response is ready for the host */
-		Endpoint_Write_Stream_LE(&Notification, sizeof(Notification));
+		Endpoint_Write_Stream_LE(&Notification, sizeof(Notification), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
@@ -204,7 +204,7 @@ void RNDIS_Task(void)
 		if (Endpoint_IsOUTReceived() && !(FrameIN.FrameInBuffer))
 		{
 			/* Read in the packet message header */
-			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t));
+			Endpoint_Read_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
 
 			/* Stall the request if the data is too large */
 			if (RNDISPacketHeader.DataLength > ETHERNET_FRAME_SIZE_MAX)
@@ -214,7 +214,7 @@ void RNDIS_Task(void)
 			}
 
 			/* Read in the Ethernet frame into the buffer */
-			Endpoint_Read_Stream_LE(FrameIN.FrameData, RNDISPacketHeader.DataLength);
+			Endpoint_Read_Stream_LE(FrameIN.FrameData, RNDISPacketHeader.DataLength, NULL);
 
 			/* Finalize the stream transfer to send the last packet */
 			Endpoint_ClearOUT();
@@ -242,10 +242,10 @@ void RNDIS_Task(void)
 			RNDISPacketHeader.DataLength    = FrameOUT.FrameLength;
 
 			/* Send the packet header to the host */
-			Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t));
+			Endpoint_Write_Stream_LE(&RNDISPacketHeader, sizeof(RNDIS_Packet_Message_t), NULL);
 
 			/* Send the Ethernet frame data to the host */
-			Endpoint_Write_Stream_LE(FrameOUT.FrameData, RNDISPacketHeader.DataLength);
+			Endpoint_Write_Stream_LE(FrameOUT.FrameData, RNDISPacketHeader.DataLength, NULL);
 
 			/* Finalize the stream transfer to send the last packet */
 			Endpoint_ClearIN();

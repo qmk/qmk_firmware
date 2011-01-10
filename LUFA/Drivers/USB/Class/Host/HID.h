@@ -69,11 +69,6 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.
 		#endif
 
-		#if defined(__INCLUDE_FROM_HID_HOST_C) && defined(NO_STREAM_CALLBACKS)
-			#error The NO_STREAM_CALLBACKS compile time option cannot be used in projects using the library Class drivers.
-		#endif
-
-
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Error code for some HID Host functions, indicating a logical (and not hardware) error. */

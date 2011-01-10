@@ -37,19 +37,19 @@ bool SideShow_AddSimpleContent(SideShow_PacketHeader_t* const PacketHeader,
 	uint32_t ContentSize;
 	uint32_t ContentID;
 
-	Endpoint_Read_Stream_LE(&ContentID, sizeof(uint32_t));
+	Endpoint_Read_Stream_LE(&ContentID, sizeof(uint32_t), NULL);
 
 	PacketHeader->Length -= sizeof(uint32_t);
 
 	if (Application->CurrentContentID != ContentID)
 	{
-		Endpoint_Discard_Stream(PacketHeader->Length);
+		Endpoint_Discard_Stream(PacketHeader->Length, NULL);
 
 		return false;
 	}
 
-	Endpoint_Read_Stream_LE(&ContentSize, sizeof(uint32_t));
-	Endpoint_Read_Stream_LE(&Application->CurrentContent, sizeof(XML_START_TAG) - 1);
+	Endpoint_Read_Stream_LE(&ContentSize, sizeof(uint32_t), NULL);
+	Endpoint_Read_Stream_LE(&Application->CurrentContent, (sizeof(XML_START_TAG) - 1), NULL);
 
 	PacketHeader->Length -= sizeof(uint32_t) + (sizeof(XML_START_TAG) - 1);
 
@@ -57,14 +57,14 @@ bool SideShow_AddSimpleContent(SideShow_PacketHeader_t* const PacketHeader,
 	{
 		SideShow_ProcessXMLContent(&Application->CurrentContent, (ContentSize - (sizeof(XML_END_TAG) - 1)));
 
-		Endpoint_Discard_Stream(sizeof(XML_END_TAG) - 1);
+		Endpoint_Discard_Stream((sizeof(XML_END_TAG) - 1), NULL);
 
 		Application->HaveContent = true;
 	}
 	else
 	{
 		printf(" BINARY");
-		Endpoint_Discard_Stream(ContentSize);
+		Endpoint_Discard_Stream(ContentSize, NULL);
 	}
 
 	return true;
@@ -74,6 +74,6 @@ static void SideShow_ProcessXMLContent(void* ContentData,
                                        uint32_t ContentSize)
 {
 	printf(" XML");
-	Endpoint_Discard_Stream(ContentSize);
+	Endpoint_Discard_Stream(ContentSize, NULL);
 }
 

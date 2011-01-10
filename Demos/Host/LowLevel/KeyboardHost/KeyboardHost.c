@@ -149,7 +149,7 @@ void ReadNextReport(void)
 	if (Pipe_IsReadWriteAllowed())
 	{
 		/* Read in keyboard report data */
-		Pipe_Read_Stream_LE(&KeyboardReport, sizeof(KeyboardReport));
+		Pipe_Read_Stream_LE(&KeyboardReport, sizeof(KeyboardReport), NULL);
 
 		/* Indicate if the modifier byte is non-zero (special key such as shift is being pressed) */
 		LEDs_ChangeLEDs(LEDS_LED1, (KeyboardReport.Modifier) ? LEDS_LED1 : 0);

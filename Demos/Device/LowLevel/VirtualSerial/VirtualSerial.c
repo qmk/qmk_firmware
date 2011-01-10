@@ -203,7 +203,7 @@ void CDC_Task(void)
 		Endpoint_SelectEndpoint(CDC_TX_EPNUM);
 
 		/* Write the String to the Endpoint */
-		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString));
+		Endpoint_Write_Stream_LE(ReportString, strlen(ReportString), NULL);
 
 		/* Remember if the packet to send completely fills the endpoint */
 		bool IsFull = (Endpoint_BytesInEndpoint() == CDC_TXRX_EPSIZE);

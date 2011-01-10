@@ -15,6 +15,7 @@
   *   - Added a new general RingBuff.h miscellaneous ring buffer library driver header
   *   - Added new GCC_FORCE_POINTER_ACCESS() macro to correct GCC's mishandling of struct pointer accesses
   *   - Added basic driver example use code to the library documentation
+  *   - Added new Endpoint_Null_Stream() and Pipe_Null_stream() functions
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *
@@ -26,6 +27,10 @@
   *   - The USARTStream global is now public and documented in the SerialStream module, allowing for the serial USART
   *     stream to be accessed via its handle rather than via the implicit stdout and stdin streams
   *   - The FAST_STREAM_TRANSFERS compile time option has been removed due to lack of use and low cost/benefit ratio
+  *   - Altered all endpoint/pipe stream transfers so that the new BytesProcessed parameter now points to a location
+  *     where the number of bytes in the transfer that have been completed can be stored (or NULL if entire transaction
+  *     should be performed in one chunk)
+  *   - The NO_STREAM_CALLBACKS compile time option has now been removed due to the new partial stream transfer feature
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion
@@ -49,6 +54,7 @@
   *     timeout period on received packets as set by USB_STREAM_TIMEOUT_MS (thanks to Justin Rajewski)
   *   - Fixed possible programming problem in the AVRISP-MKII clone project when programming specific patterns into a target
   *     memory space that is only byte (not page) addressable
+  *   - Fixed errors in the incomplete Test and Measurement device demo preventing proper operation (thanks to Pavel Plotnikov)
   *
   *
   *  \section Sec_ChangeLog101122 Version 101122

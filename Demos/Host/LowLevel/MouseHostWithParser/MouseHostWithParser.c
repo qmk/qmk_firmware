@@ -225,7 +225,7 @@ void Mouse_HID_Task(void)
 					uint8_t MouseReport[Pipe_BytesInPipe()];
 
 					/* Load in the mouse report */
-					Pipe_Read_Stream_LE(MouseReport, Pipe_BytesInPipe());
+					Pipe_Read_Stream_LE(MouseReport, Pipe_BytesInPipe(), NULL);
 
 					/* Process the read in mouse report from the device */
 					ProcessMouseReport(MouseReport);

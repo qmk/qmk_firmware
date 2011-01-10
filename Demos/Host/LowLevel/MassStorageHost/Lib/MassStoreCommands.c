@@ -80,8 +80,11 @@ static uint8_t MassStore_SendCommand(MS_CommandBlockWrapper_t* const SCSICommand
 	Pipe_Unfreeze();
 
 	/* Write the CBW command to the OUT pipe */
-	if ((ErrorCode = Pipe_Write_Stream_LE(SCSICommandBlock, sizeof(MS_CommandBlockWrapper_t))) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
+	if ((ErrorCode = Pipe_Write_Stream_LE(SCSICommandBlock, sizeof(MS_CommandBlockWrapper_t), NULL)) !=
+	                                      PIPE_RWSTREAM_NoError)
+	{
+		return ErrorCode;
+	}
 
 	/* Send the data in the OUT pipe to the attached device */
 	Pipe_ClearOUT();
@@ -200,7 +203,7 @@ static uint8_t MassStore_SendReceiveData(MS_CommandBlockWrapper_t* const SCSICom
 		Pipe_Unfreeze();
 
 		/* Read in the block data from the pipe */
-		if ((ErrorCode = Pipe_Read_Stream_LE(BufferPtr, BytesRem)) != PIPE_RWSTREAM_NoError)
+		if ((ErrorCode = Pipe_Read_Stream_LE(BufferPtr, BytesRem, NULL)) != PIPE_RWSTREAM_NoError)
 		  return ErrorCode;
 
 		/* Acknowledge the packet */
@@ -213,7 +216,7 @@ static uint8_t MassStore_SendReceiveData(MS_CommandBlockWrapper_t* const SCSICom
 		Pipe_Unfreeze();
 
 		/* Write the block data to the pipe */
-		if ((ErrorCode = Pipe_Write_Stream_LE(BufferPtr, BytesRem)) != PIPE_RWSTREAM_NoError)
+		if ((ErrorCode = Pipe_Write_Stream_LE(BufferPtr, BytesRem, NULL)) != PIPE_RWSTREAM_NoError)
 		  return ErrorCode;
 
 		/* Acknowledge the packet */
@@ -251,9 +254,12 @@ static uint8_t MassStore_GetReturnedStatus(MS_CommandStatusWrapper_t* const SCSI
 	Pipe_Unfreeze();
 
 	/* Load in the CSW from the attached device */
-	if ((ErrorCode = Pipe_Read_Stream_LE(SCSICommandStatus, sizeof(MS_CommandStatusWrapper_t))) != PIPE_RWSTREAM_NoError)
-	  return ErrorCode;
-
+	if ((ErrorCode = Pipe_Read_Stream_LE(SCSICommandStatus, sizeof(MS_CommandStatusWrapper_t), NULL)) !=
+	                                     PIPE_RWSTREAM_NoError)
+	{
+		return ErrorCode;
+	}
+	
 	/* Clear the data ready for next reception */
 	Pipe_ClearIN();
 

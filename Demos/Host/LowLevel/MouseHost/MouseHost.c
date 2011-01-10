@@ -153,7 +153,7 @@ void ReadNextReport(void)
 	if (Pipe_IsReadWriteAllowed())
 	{
 		/* Read in mouse report data */
-		Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport));
+		Pipe_Read_Stream_LE(&MouseReport, sizeof(MouseReport), NULL);
 
 		/* Alter status LEDs according to mouse X movement */
 		if (MouseReport.X > 0)

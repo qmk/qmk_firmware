@@ -45,6 +45,7 @@
  *  - EMUCOMBOX, a USB-RS422 adapter for E-Mu Emax samplers: http://users.skynet.be/emxp/EMUCOMBOX.htm
  *  - Estick JTAG, an ARM JTAG debugger: http://code.google.com/p/estick-jtag/
  *  - "Fingerlicking Wingdinger" (WARNING: Bad Language if no Javascript), a MIDI controller: http://noisybox.net/electronics/wingdinger/
+ *  - Flyatar, a real-time fly tracking system: https://github.com/peterpolidoro/Flyatar
  *  - Garmin GPS USB to NMEA standard serial sentence translator: http://github.com/nall/garmin-transmogrifier/tree/master
  *  - Generic HID Device Creator: http://generichid.sourceforge.net/
  *  - Ghetto Drum, a MIDI drum controller: http://noisybox.net/art/gdrum/

@@ -35,15 +35,19 @@
 
 #include "PipeStream.h"
 
-uint8_t Pipe_Discard_Stream(uint16_t Length
-                            __CALLBACK_PARAM)
+uint8_t Pipe_Discard_Stream(uint16_t Length,
+                            uint16_t* const BytesProcessed)
 {
 	uint8_t  ErrorCode;
+	uint16_t BytesInTransfer = 0;
 	
 	Pipe_SetPipeToken(PIPE_TOKEN_IN);
 
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
+
+	if (BytesProcessed != NULL)
+	  Length -= *BytesProcessed;
 
 	while (Length)
 	{
@@ -51,10 +55,11 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 		{
 			Pipe_ClearIN();
 				
-			#if !defined(NO_STREAM_CALLBACKS)
-			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return PIPE_RWSTREAM_CallbackAborted;
-			#endif
+			if (BytesProcessed != NULL)
+			{
+				*BytesProcessed += BytesInTransfer;
+				return PIPE_RWSTREAM_IncompleteTransfer;
+			}
 
 			if ((ErrorCode = Pipe_WaitUntilReady()))
 			  return ErrorCode;
@@ -62,7 +67,50 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 		else
 		{
 			Pipe_Discard_Byte();
+			
 			Length--;
+			BytesInTransfer++;
+		}
+	}
+
+	return PIPE_RWSTREAM_NoError;
+}
+
+uint8_t Pipe_Null_Stream(uint16_t Length,
+                         uint16_t* const BytesProcessed)
+{
+	uint8_t  ErrorCode;
+	uint16_t BytesInTransfer = 0;
+	
+	Pipe_SetPipeToken(PIPE_TOKEN_OUT);
+
+	if ((ErrorCode = Pipe_WaitUntilReady()))
+	  return ErrorCode;
+
+	if (BytesProcessed != NULL)
+	  Length -= *BytesProcessed;
+
+	while (Length)
+	{
+		if (!(Pipe_IsReadWriteAllowed()))
+		{
+			Pipe_ClearOUT();
+				
+			if (BytesProcessed != NULL)
+			{
+				*BytesProcessed += BytesInTransfer;
+				return PIPE_RWSTREAM_IncompleteTransfer;
+			}
+
+			if ((ErrorCode = Pipe_WaitUntilReady()))
+			  return ErrorCode;
+		}
+		else
+		{
+			Pipe_Write_Byte(0);
+			
+			Length--;
+			BytesInTransfer++;
 		}
 	}
 
@@ -77,7 +125,8 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*((uint8_t*)BufferPtr++))
+#define  TEMPLATE_BUFFER_MOVE(BufferPtr, Amount)   DataStream += Amount
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*BufferPtr)
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_PStream_LE
@@ -85,7 +134,8 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte((uint8_t*)BufferPtr++))
+#define  TEMPLATE_BUFFER_MOVE(BufferPtr, Amount)   DataStream += Amount
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte(BufferPtr))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_EStream_LE
@@ -93,7 +143,8 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte((uint8_t*)BufferPtr++))
+#define  TEMPLATE_BUFFER_MOVE(BufferPtr, Amount)   DataStream += Amount
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte(BufferPtr))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_Stream_BE
@@ -101,7 +152,8 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*((uint8_t*)BufferPtr--))
+#define  TEMPLATE_BUFFER_MOVE(BufferPtr, Amount)   DataStream -= Amount
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(*BufferPtr)
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_PStream_BE
@@ -109,7 +161,8 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte((uint8_t*)BufferPtr--))
+#define  TEMPLATE_BUFFER_MOVE(BufferPtr, Amount)   DataStream -= Amount
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(pgm_read_byte(BufferPtr))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Write_EStream_BE
@@ -117,7 +170,8 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_OUT
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearOUT()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte((uint8_t*)BufferPtr--))
+#define  TEMPLATE_BUFFER_MOVE(BufferPtr, Amount)   DataStream -= Amount
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         Pipe_Write_Byte(eeprom_read_byte(BufferPtr))
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_Stream_LE
@@ -125,7 +179,8 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *((uint8_t*)BufferPtr++) = Pipe_Read_Byte()
+#define  TEMPLATE_BUFFER_MOVE(BufferPtr, Amount)   DataStream += Amount
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *BufferPtr = Pipe_Read_Byte()
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_EStream_LE
@@ -133,7 +188,8 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            0
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_update_byte((uint8_t*)BufferPtr++, Pipe_Read_Byte())
+#define  TEMPLATE_BUFFER_MOVE(BufferPtr, Amount)   DataStream += Amount
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_update_byte(BufferPtr, Pipe_Read_Byte())
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_Stream_BE
@@ -141,7 +197,8 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *((uint8_t*)BufferPtr--) = Pipe_Read_Byte()
+#define  TEMPLATE_BUFFER_MOVE(BufferPtr, Amount)   DataStream -= Amount
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         *BufferPtr = Pipe_Read_Byte()
 #include "Template/Template_Pipe_RW.c"
 
 #define  TEMPLATE_FUNC_NAME                        Pipe_Read_EStream_BE
@@ -149,7 +206,8 @@ uint8_t Pipe_Discard_Stream(uint16_t Length
 #define  TEMPLATE_TOKEN                            PIPE_TOKEN_IN
 #define  TEMPLATE_CLEAR_PIPE()                     Pipe_ClearIN()
 #define  TEMPLATE_BUFFER_OFFSET(Length)            (Length - 1)
-#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_update_byte((uint8_t*)BufferPtr--, Pipe_Read_Byte())
+#define  TEMPLATE_BUFFER_MOVE(BufferPtr, Amount)   DataStream -= Amount
+#define  TEMPLATE_TRANSFER_BYTE(BufferPtr)         eeprom_update_byte(BufferPtr, Pipe_Read_Byte())
 #include "Template/Template_Pipe_RW.c"
 
 #endif

@@ -269,7 +269,7 @@ void WriteNextReport(uint8_t* const ReportOUTData,
 		}
 
 		/* Write out HID report data */
-		Pipe_Write_Stream_LE(ReportOUTData, ReportLength);
+		Pipe_Write_Stream_LE(ReportOUTData, ReportLength, NULL);
 
 		/* Clear the OUT endpoint, send last data packet */
 		Pipe_ClearOUT();

@@ -298,7 +298,7 @@ uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
 	Pipe_SelectPipe(PRNTInterfaceInfo->Config.DataOUTPipeNumber);
 	Pipe_Unfreeze();
 
-	if ((ErrorCode = Pipe_Write_Stream_LE(Buffer, Length, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	if ((ErrorCode = Pipe_Write_Stream_LE(Buffer, Length, NULL)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	Pipe_ClearOUT();

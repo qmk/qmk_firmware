@@ -41,7 +41,7 @@
 USB_KeyboardReport_Data_t KeyboardReportData;
 
 /** Global structure to hold the current mouse interface HID report, for transmission to the host */
-USB_MouseReport_Data_t    MouseReportData;
+USB_MouseReport_Data_t MouseReportData;
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -242,7 +242,7 @@ void Keyboard_HID_Task(void)
 	if (Endpoint_IsReadWriteAllowed())
 	{
 		/* Write Keyboard Report Data */
-		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData));
+		Endpoint_Write_Stream_LE(&KeyboardReportData, sizeof(KeyboardReportData), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();
@@ -300,7 +300,7 @@ void Mouse_HID_Task(void)
 	if (Endpoint_IsReadWriteAllowed())
 	{
 		/* Write Mouse Report Data */
-		Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData));
+		Endpoint_Write_Stream_LE(&MouseReportData, sizeof(MouseReportData), NULL);
 
 		/* Finalize the stream transfer to send the last packet */
 		Endpoint_ClearIN();

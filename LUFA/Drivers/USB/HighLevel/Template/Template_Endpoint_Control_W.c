@@ -29,6 +29,7 @@ uint8_t TEMPLATE_FUNC_NAME (const void* Buffer,
 			while (Length && (BytesInEndpoint < USB_ControlEndpointSize))
 			{
 				TEMPLATE_TRANSFER_BYTE(DataStream);
+				TEMPLATE_BUFFER_MOVE(DataStream, 1);
 				Length--;
 				BytesInEndpoint++;
 			}
@@ -52,5 +53,6 @@ uint8_t TEMPLATE_FUNC_NAME (const void* Buffer,
 }
 
 #undef TEMPLATE_BUFFER_OFFSET
+#undef TEMPLATE_BUFFER_MOVE
 #undef TEMPLATE_FUNC_NAME
 #undef TEMPLATE_TRANSFER_BYTE

@@ -294,14 +294,15 @@ uint8_t RNDIS_GetPacketLength(uint16_t* const PacketLength)
 
 	RNDIS_Packet_Message_t DeviceMessage;
 
-	if ((ErrorCode = Pipe_Read_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t))) != PIPE_RWSTREAM_NoError)
+	if ((ErrorCode = Pipe_Read_Stream_LE(&DeviceMessage, sizeof(RNDIS_Packet_Message_t), NULL)) != PIPE_RWSTREAM_NoError)
 	{
 		return ErrorCode;
 	}
 
 	*PacketLength = (uint16_t)DeviceMessage.DataLength;
 
-	Pipe_Discard_Stream(DeviceMessage.DataOffset - (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)));
+	Pipe_Discard_Stream(DeviceMessage.DataOffset - (sizeof(RNDIS_Packet_Message_t) - sizeof(RNDIS_Message_Header_t)),
+	                    NULL);
 
 	Pipe_Freeze();
 

@@ -82,14 +82,6 @@
  *  prevent data corruption issues. However, by default LUFA employs a workaround to allow for unordered Endpoint/Pipe initialisation. This compile
  *  time token may be used to restrict the intialisation order to ascending indexes only in exchange for a smaller compiled binary size.
  *
- *  <b>NO_STREAM_CALLBACKS</b> - ( \ref Group_EndpointPacketManagement , \ref Group_PipePacketManagement )\n
- *  Both the endpoint and the pipe driver code contains stream functions, allowing for arrays of data to be sent to or from the
- *  host easily via a single function call (rather than complex routines worrying about sending full packets, waiting for the endpoint/
- *  pipe to become ready, etc.). By default, these stream functions require a callback function which is executed after each byte processed,
- *  allowing for early-aborts of stream transfers by the application. If callbacks are not required in an application, they can be removed
- *  by defining this token, reducing the compiled binary size. When removed, the stream functions no longer accept a callback function as
- *  a parameter.
- *
  *  <b>USE_STATIC_OPTIONS</b>=<i>x</i> - ( \ref Group_USBManagement ) \n
  *  By default, the USB_Init() function accepts dynamic options at runtime to alter the library behaviour, including whether the USB pad
  *  voltage regulator is enabled, and the device speed when in device mode. By defining this token to a mask comprised of the USB options

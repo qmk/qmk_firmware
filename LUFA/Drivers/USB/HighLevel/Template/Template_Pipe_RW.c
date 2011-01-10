@@ -1,8 +1,9 @@
 uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
-                            uint16_t Length
-                            __CALLBACK_PARAM)
+                            uint16_t Length,
+                            uint16_t* const BytesProcessed)
 {
-	uint8_t* DataStream = ((uint8_t*)Buffer + TEMPLATE_BUFFER_OFFSET(Length));
+	uint8_t* DataStream      = ((uint8_t*)Buffer + TEMPLATE_BUFFER_OFFSET(Length));
+	uint16_t BytesInTransfer = 0;
 	uint8_t  ErrorCode;
 
 	Pipe_SetPipeToken(TEMPLATE_TOKEN);
@@ -10,16 +11,23 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 	if ((ErrorCode = Pipe_WaitUntilReady()))
 	  return ErrorCode;
 
+	if (BytesProcessed != NULL)
+	{
+		Length -= *BytesProcessed;
+		TEMPLATE_BUFFER_MOVE(DataStream, *BytesProcessed);
+	}
+	
 	while (Length)
 	{
 		if (!(Pipe_IsReadWriteAllowed()))
 		{
 			TEMPLATE_CLEAR_PIPE();
 
-			#if !defined(NO_STREAM_CALLBACKS)
-			if ((Callback != NULL) && (Callback() == STREAMCALLBACK_Abort))
-			  return PIPE_RWSTREAM_CallbackAborted;
-			#endif
+			if (BytesProcessed != NULL)
+			{
+				*BytesProcessed += BytesInTransfer;
+				return PIPE_RWSTREAM_IncompleteTransfer;
+			}
 
 			if ((ErrorCode = Pipe_WaitUntilReady()))
 			  return ErrorCode;
@@ -27,7 +35,9 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 		else
 		{
 			TEMPLATE_TRANSFER_BYTE(DataStream);
+			TEMPLATE_BUFFER_MOVE(DataStream, 1);
 			Length--;
+			BytesInTransfer++;
 		}
 	}
 
@@ -40,4 +50,4 @@ uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
 #undef TEMPLATE_TRANSFER_BYTE
 #undef TEMPLATE_CLEAR_PIPE
 #undef TEMPLATE_BUFFER_OFFSET
-
+#undef TEMPLATE_BUFFER_MOVE

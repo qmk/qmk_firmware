@@ -62,7 +62,7 @@ void XPROGProtocol_SetMode(void)
 		uint8_t Protocol;
 	} SetMode_XPROG_Params;
 
-	Endpoint_Read_Stream_LE(&SetMode_XPROG_Params, sizeof(SetMode_XPROG_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&SetMode_XPROG_Params, sizeof(SetMode_XPROG_Params), NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -163,7 +163,7 @@ static void XPROGProtocol_Erase(void)
 		uint32_t Address;
 	} Erase_XPROG_Params;
 
-	Endpoint_Read_Stream_LE(&Erase_XPROG_Params, sizeof(Erase_XPROG_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&Erase_XPROG_Params, sizeof(Erase_XPROG_Params), NULL);
 	Erase_XPROG_Params.Address = SwapEndian_32(Erase_XPROG_Params.Address);
 
 	Endpoint_ClearOUT();
@@ -243,10 +243,10 @@ static void XPROGProtocol_WriteMemory(void)
 	} WriteMemory_XPROG_Params;
 
 	Endpoint_Read_Stream_LE(&WriteMemory_XPROG_Params, (sizeof(WriteMemory_XPROG_Params) -
-	                                                    sizeof(WriteMemory_XPROG_Params).ProgData), NO_STREAM_CALLBACK);
+	                                                    sizeof(WriteMemory_XPROG_Params).ProgData), NULL);
 	WriteMemory_XPROG_Params.Address = SwapEndian_32(WriteMemory_XPROG_Params.Address);
 	WriteMemory_XPROG_Params.Length  = SwapEndian_16(WriteMemory_XPROG_Params.Length);
-	Endpoint_Read_Stream_LE(&WriteMemory_XPROG_Params.ProgData, WriteMemory_XPROG_Params.Length, NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&WriteMemory_XPROG_Params.ProgData, WriteMemory_XPROG_Params.Length, NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -326,7 +326,7 @@ static void XPROGProtocol_ReadMemory(void)
 		uint16_t Length;
 	} ReadMemory_XPROG_Params;
 
-	Endpoint_Read_Stream_LE(&ReadMemory_XPROG_Params, sizeof(ReadMemory_XPROG_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&ReadMemory_XPROG_Params, sizeof(ReadMemory_XPROG_Params), NULL);
 	ReadMemory_XPROG_Params.Address = SwapEndian_32(ReadMemory_XPROG_Params.Address);
 	ReadMemory_XPROG_Params.Length  = SwapEndian_16(ReadMemory_XPROG_Params.Length);
 
@@ -354,7 +354,7 @@ static void XPROGProtocol_ReadMemory(void)
 	Endpoint_Write_Byte(ReturnStatus);
 
 	if (ReturnStatus == XPRG_ERR_OK)
-	  Endpoint_Write_Stream_LE(ReadBuffer, ReadMemory_XPROG_Params.Length, NO_STREAM_CALLBACK);
+	  Endpoint_Write_Stream_LE(ReadBuffer, ReadMemory_XPROG_Params.Length, NULL);
 
 	Endpoint_ClearIN();
 }
@@ -371,7 +371,7 @@ static void XPROGProtocol_ReadCRC(void)
 		uint8_t CRCType;
 	} ReadCRC_XPROG_Params;
 
-	Endpoint_Read_Stream_LE(&ReadCRC_XPROG_Params, sizeof(ReadCRC_XPROG_Params), NO_STREAM_CALLBACK);
+	Endpoint_Read_Stream_LE(&ReadCRC_XPROG_Params, sizeof(ReadCRC_XPROG_Params), NULL);
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);

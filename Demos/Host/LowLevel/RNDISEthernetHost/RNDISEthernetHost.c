@@ -147,13 +147,13 @@ void PrintIncomingPackets(void)
 	if (PacketLength > 1024)
 	{
 		puts_P(PSTR(ESC_FG_RED "Packet too large.\r\n" ESC_FG_WHITE));
-		Pipe_Discard_Stream(PacketLength);
+		Pipe_Discard_Stream(PacketLength, NULL);
 	}
 	else
 	{
 		uint8_t PacketBuffer[PacketLength];
 
-		Pipe_Read_Stream_LE(&PacketBuffer, PacketLength);
+		Pipe_Read_Stream_LE(&PacketBuffer, PacketLength, NULL);
 
 		for (uint16_t i = 0; i < PacketLength; i++)
 		  printf("0x%02x ", PacketBuffer[i]);

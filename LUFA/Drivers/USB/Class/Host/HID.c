@@ -251,7 +251,7 @@ uint8_t HID_Host_ReceiveReport(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo,
 		ReportSize = Pipe_BytesInPipe();
 	}
 
-	if ((ErrorCode = Pipe_Read_Stream_LE(BufferPos, ReportSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	if ((ErrorCode = Pipe_Read_Stream_LE(BufferPos, ReportSize, NULL)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	Pipe_ClearIN();
@@ -280,9 +280,9 @@ uint8_t HID_Host_SendReportByID(USB_ClassInfo_HID_Host_t* const HIDInterfaceInfo
 		Pipe_Unfreeze();
 
 		if (ReportID)
-		  Pipe_Write_Stream_LE(&ReportID, sizeof(ReportID), NO_STREAM_CALLBACK);
+		  Pipe_Write_Stream_LE(&ReportID, sizeof(ReportID), NULL);
 
-		if ((ErrorCode = Pipe_Write_Stream_LE(Buffer, ReportSize, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+		if ((ErrorCode = Pipe_Write_Stream_LE(Buffer, ReportSize, NULL)) != PIPE_RWSTREAM_NoError)
 		  return ErrorCode;
 
 		Pipe_ClearOUT();

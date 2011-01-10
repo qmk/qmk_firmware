@@ -17,6 +17,20 @@
  *      size, the new ORDERED_EP_CONFIG compile time option may be defined in the project makefile to restrict the ordering
  *      in exchange for a smaller compiled binary size.
  *
+ *  <b>Device Mode</b>
+ *    - The Endpoint stream functions now all require a BytesProcessed parameter instead of the previous callback parameter.
+ *      This should be set to NULL to retain previous behaviour of the functions, or point to a location where the number of bytes
+ *      processed in the current transaction can be stored. If the BytesProcessed parameter is non-NULL, each time the endpoint
+ *      bank becomes full and the packet is sent, the routine will exit with the new \ref ENDPOINT_RWSTREAM_IncompleteTransfer
+ *      error code to allow the user application to determine when to send the next chunk of data.
+ *
+ *  <b>Host Mode</b>
+ *    - The Pipe stream functions now all require a BytesProcessed parameter instead of the previous callback parameter.
+ *      This should be set to NULL to retain previous behaviour of the functions, or point to a location where the number of bytes
+ *      processed in the current transaction can be stored. If the BytesProcessed parameter is non-NULL, each time the pipe
+ *      bank becomes full and the packet is sent, the routine will exit with the new \ref PIPE_RWSTREAM_IncompleteTransfer
+ *      error code to allow the user application to determine when to send the next chunk of data.
+ *
  *  \section Sec_Migration101122 Migrating from 100807 to 101122
  *  <b>USB Core</b>
  *    - A new USB driver source file, Drivers/USB/HighLevel/EndpointStream.c now exists. This source file should be added

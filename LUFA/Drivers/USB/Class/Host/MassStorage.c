@@ -181,7 +181,7 @@ static uint8_t MS_Host_SendCommand(USB_ClassInfo_MS_Host_t* const MSInterfaceInf
 	Pipe_Unfreeze();
 
 	if ((ErrorCode = Pipe_Write_Stream_LE(SCSICommandBlock, sizeof(MS_CommandBlockWrapper_t),
-	                                      NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	                                      NULL)) != PIPE_RWSTREAM_NoError)
 	  return ErrorCode;
 
 	Pipe_ClearOUT();
@@ -272,7 +272,7 @@ static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* const MSInterfac
 		Pipe_SelectPipe(MSInterfaceInfo->Config.DataINPipeNumber);
 		Pipe_Unfreeze();
 
-		if ((ErrorCode = Pipe_Read_Stream_LE(BufferPtr, BytesRem, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+		if ((ErrorCode = Pipe_Read_Stream_LE(BufferPtr, BytesRem, NULL)) != PIPE_RWSTREAM_NoError)
 		  return ErrorCode;
 
 		Pipe_ClearIN();
@@ -282,7 +282,7 @@ static uint8_t MS_Host_SendReceiveData(USB_ClassInfo_MS_Host_t* const MSInterfac
 		Pipe_SelectPipe(MSInterfaceInfo->Config.DataOUTPipeNumber);
 		Pipe_Unfreeze();
 
-		if ((ErrorCode = Pipe_Write_Stream_LE(BufferPtr, BytesRem, NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+		if ((ErrorCode = Pipe_Write_Stream_LE(BufferPtr, BytesRem, NULL)) != PIPE_RWSTREAM_NoError)
 		  return ErrorCode;
 
 		Pipe_ClearOUT();
@@ -311,7 +311,7 @@ static uint8_t MS_Host_GetReturnedStatus(USB_ClassInfo_MS_Host_t* const MSInterf
 	Pipe_Unfreeze();
 
 	if ((ErrorCode = Pipe_Read_Stream_LE(SCSICommandStatus, sizeof(MS_CommandStatusWrapper_t),
-	                                     NO_STREAM_CALLBACK)) != PIPE_RWSTREAM_NoError)
+	                                     NULL)) != PIPE_RWSTREAM_NoError)
 	{
 		return ErrorCode;
 	}
