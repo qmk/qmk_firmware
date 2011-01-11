@@ -104,9 +104,9 @@ uint8_t ps2_host_send(uint8_t data)
 
     /* request to send */
     clock_lo();
-    data_lo();
     _delay_us(100);
     /* start bit [1] */
+    data_lo();
     clock_hi();
     WAIT(clock_lo, 15000, 1);
     /* data [2-9] */
@@ -137,6 +137,9 @@ uint8_t ps2_host_send(uint8_t data)
 
     return 1;
 ERROR:
+    /* inhibit device to send */
+    data_hi();
+    clock_lo();
     return 0;
 }
 
@@ -187,6 +190,9 @@ uint8_t ps2_host_recv(void)
 
     return data;
 ERROR:
+    /* inhibit device to send */
+    data_hi();
+    clock_lo();
     return 0;
 }
 
