@@ -1,0 +1,134 @@
+ADB Protocol
+============
+
+Resources
+---------
+Apple IIgs Hardware Reference Second Edition [p80(Chapter6 p121)]
+    ftp://ftp.apple.asimov.net/pub/apple_II/documentation/Apple%20IIgs%20Hardware%20Reference.pdf
+ADB Keycode
+    http://72.0.193.250/Documentation/macppc/adbkeycodes/
+    http://m0115.web.fc2.com/m0115.jpg
+ADB Signaling
+    http://kbdbabel.sourceforge.net/doc/kbd_signaling_pcxt_ps2_adb.pdf
+ADB Overview & History
+    http://en.wikipedia.org/wiki/Apple_Desktop_Bus
+Microchip Application Note: ADB device(with code for PIC16C)
+    http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=1824&appnote=en011062
+AVR ATtiny2131 ADB to PS/2 converter(Japanese)
+    http://hp.vector.co.jp/authors/VA000177/html/KeyBoardA5DEA5CBA5A2II.html
+
+
+Pinouts
+-------
+    Female socket from the front
+
+      4o  o3
+     2o    o1
+        ==
+
+    1: Data
+    2: Power SW(low when press Power key)
+    3: Vcc(5V)
+    4: GND
+
+
+Commands
+--------
+    ADB command is 1byte and consists of 4bit-address, 2bit-command
+    type and 2bit-register. The commands are always sent by Host.
+
+    Command format:
+    7 6 5 4 3 2 1 0
+    | | | |------------ address
+            | |-------- command type
+                | |---- register
+
+    bits                commands
+    ------------------------------------------------------
+    - - - - 0 0 0 0     Send Request(reset all devices)
+    A A A A 0 0 0 1     Flush(reset a device)
+    - - - - 0 0 1 0     Reserved
+    - - - - 0 0 1 1     Reserved
+    - - - - 0 1 - -     Reserved
+    A A A A 1 0 R R     Listen(write to a device)
+    A A A A 1 1 R R     Talk(read from a device)
+
+    The command to read keycodes from keyboard is 0x2C which
+    consist of keyboard address 2 and Talk against register 0. 
+
+    Address:
+    2:  keyboard
+    3:  mice
+
+    Registers:
+    0: application(keyobard/mice use to store its data.)
+    1: application
+    2: application
+    3: status and command
+
+
+Communication
+-------------
+    This is a minimum information for keyboard communication.
+    See "Resources" for detail.
+
+    Signaling:
+
+    ~~~~____________~~||||||||||||__~~~~~_~~|||||||||||||||__~~~~
+
+        |800us     |  |7 Command 0|  |   |  |15-64  Data  0|Stopbit(0)
+        +Attention |              |  |   +Startbit(1)
+                   +Startbit(1)   |  +Tlt(140-260us)
+                                  +stopbit(0)
+
+    Bit cells:
+
+    bit0: ______~~~
+          65    :35us
+
+    bit1: ___~~~~~~
+          35 :65us
+
+    bit0 low time: 60-70% of bit cell(42-91us)
+    bit1 low time: 30-40% of bit cell(21-52us)
+    bit cell time: 70-130us
+    [from Apple IIgs Hardware Reference Second Edition]
+
+    Criterion for bit0/1:
+    After 55us if line is low/high then bit is 0/1.
+
+    Attention & start bit:
+    Host asserts low in 560-1040us then places start bit(1).
+
+    Tlt(Stop to Start):
+    Bus stays high in 140-260us then device places start bit(1).
+
+    Global reset:
+    Host asserts low in 2.8-5.2ms. All devices are forced to reset.
+
+    Send request from device(Srq):
+    Device can request to send at commad(Global only?) stop bit.
+    keep low for 300us to request.
+
+
+Keyboard data(register0)
+    This 16bit data can contains 2 keycodes and 2 released flags.
+    First keycode is palced in upper nibble. When one keyocode is sent,
+    lower nibble is 0xFF.
+    Release flag is 1 when key is released.
+
+    15 14 . . . . . 8 7 6 . . . . . 0
+    |  |keycode1      | |keycode2
+    |released(1)      |released(1)
+
+    Keycodes:
+    Scancode consists of 7bit keycode and 1bit release flag.
+    Device can send two keycodes at once. If just one keycode is sent
+    keycode1 contains it and keyocode2 is 0xFF.
+
+    Power switch:
+    You can read the state from PSW line(active low) however
+    the switch has a special scancode 0x7F7F, so you can
+    also read from Data line. It uses 0xFFFF for release scancode.
+
+END_OF_ADB
