@@ -1,7 +1,9 @@
 ADB to USB keyboard converter
 =============================
+http://geekhack.org/showwiki.php?title=Island:14290
 
 This firmware converts ADB keyboard protocol to USB.
+
 
 Build
 -----

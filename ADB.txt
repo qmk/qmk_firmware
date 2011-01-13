@@ -3,11 +3,14 @@ ADB Protocol
 
 Resources
 ---------
+ADB - The Untold Story: Space Aliens Ate My Mouse
+    http://developer.apple.com/legacy/mac/library/#technotes/hw/hw_01.html
 Apple IIgs Hardware Reference Second Edition [p80(Chapter6 p121)]
     ftp://ftp.apple.asimov.net/pub/apple_II/documentation/Apple%20IIgs%20Hardware%20Reference.pdf
 ADB Keycode
     http://72.0.193.250/Documentation/macppc/adbkeycodes/
     http://m0115.web.fc2.com/m0115.jpg
+    [Inside Macintosh volume V, pages 191-192]
 ADB Signaling
     http://kbdbabel.sourceforge.net/doc/kbd_signaling_pcxt_ps2_adb.pdf
 ADB Overview & History
@@ -61,9 +64,9 @@ Commands
     3:  mice
 
     Registers:
-    0: application(keyobard/mice use to store its data.)
+    0: application(keyobard uses this to store its data.)
     1: application
-    2: application
+    2: application(keyboard uses this for LEDs and state of modifiers)
     3: status and command
 
 
@@ -111,15 +114,17 @@ Communication
     keep low for 300us to request.
 
 
-Keyboard data(register0)
-    This 16bit data can contains 2 keycodes and 2 released flags.
-    First keycode is palced in upper nibble. When one keyocode is sent,
-    lower nibble is 0xFF.
+Keyboard Data(Register0)
+    This 16bit data can contains two keycodes and two released flags.
+    First keycode is palced in upper byte. When one keyocode is sent,
+    lower byte is 0xFF.
     Release flag is 1 when key is released.
 
-    15 14 . . . . . 8 7 6 . . . . . 0
-    |  |keycode1      | |keycode2
-    |released(1)      |released(1)
+    1514 . . . . . 8 7 6 . . . . . 0
+     | | | | | | | | | +-+-+-+-+-+-+-   Keycode2
+     | | | | | | | | +---------------   Released2(1 when the key is released)
+     | +-+-+-+-+-+-+-----------------   Keycode1
+     +-------------------------------   Released1(1 when the key is released)
 
     Keycodes:
     Scancode consists of 7bit keycode and 1bit release flag.
@@ -130,5 +135,25 @@ Keyboard data(register0)
     You can read the state from PSW line(active low) however
     the switch has a special scancode 0x7F7F, so you can
     also read from Data line. It uses 0xFFFF for release scancode.
+
+Keyboard LEDs & state of keys(Register2)
+    This register hold current state of three LEDs and nine keys.
+    The state of LEDs can be changed by sending Listen command.
+    
+    1514 . . . . . . 7 6 5 . 3 2 1 0
+     | | | | | | | | | | | | | | | +-   LED1(NumLock)
+     | | | | | | | | | | | | | | +---   LED2(CapsLock)
+     | | | | | | | | | | | | | +-----   LED3(ScrollLock)
+     | | | | | | | | | | +-+-+-------   Reserved
+     | | | | | | | | | +-------------   ScrollLock
+     | | | | | | | | +---------------   NumLock
+     | | | | | | | +-----------------   Apple/Command
+     | | | | | | +-------------------   Option
+     | | | | | +---------------------   Shift
+     | | | | +-----------------------   Control
+     | | | +-------------------------   Reset/Power
+     | | +---------------------------   CapsLock
+     | +-----------------------------   Delete
+     +-------------------------------   Reserved
 
 END_OF_ADB
