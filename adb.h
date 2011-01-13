@@ -14,5 +14,6 @@
 void     adb_host_init(void);
 bool     adb_host_psw(void);
 uint16_t adb_host_kbd_recv(void);
+void     adb_host_kbd_led(uint8_t led);
 
 #endif

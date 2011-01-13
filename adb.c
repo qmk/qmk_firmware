@@ -42,9 +42,9 @@ uint16_t adb_host_kbd_recv(void)
 {
     uint16_t data = 0;
     attention();
-    send_byte(0x2C);            // Addr:2, Cmd:talk(11), Reg:0(00)
-    place_bit0();               // Stopbit
-    if (!wait_data_lo(0xFF))    // Stop to Start(140-260us)
+    send_byte(0x2C);            // Addr:Keyboard(0010), Cmd:Talk(11), Register0(00)
+    place_bit0();               // Stopbit(0)
+    if (!wait_data_lo(0xFF))    // Tlt/Stop to Start(140-260us)
         return 0;               // No data to send
     if (!read_bit())            // Startbit(1)
         return -2;
@@ -53,6 +53,19 @@ uint16_t adb_host_kbd_recv(void)
     if (read_bit())             // Stopbit(0)
         return -3;
     return data;
+}
+
+// send state of LEDs
+void adb_host_kbd_led(uint8_t led)
+{
+    attention();
+    send_byte(0x2A);            // Addr:Keyboard(0010), Cmd:Listen(10), Register2(10)
+    place_bit0();               // Stopbit(0)
+    _delay_us(200);             // Tlt/Stop to Start
+    place_bit1();               // Startbit(1)
+    send_byte(0);               // send upper byte (not used)
+    send_byte(led&0x07);        // send lower byte (bit2: ScrollLock, bit1: CapsLock, bit0: NumLock)
+    place_bit0();               // Stopbit(0);
 }
 
 
