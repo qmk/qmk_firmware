@@ -16,6 +16,16 @@
 	/* Type Defines: */
 		typedef struct
 		{
+			uint8_t Hour;
+			uint8_t Minute;
+			uint8_t Second;
+			uint8_t Day;
+			uint8_t Month;
+			uint8_t Year;
+		} TimeDate_t;
+	
+		typedef struct
+		{
 			union
 			{
 				struct
@@ -93,25 +103,12 @@
 		} DS1307_DateRegs_t;
 
 	/* Macros: */
-		#define DS1307_TIMEREG_START  0x00
-		#define DS1307_DATEREG_START  0x04
-
 		#define DS1307_ADDRESS_READ   (0xD0 | TWI_ADDRESS_READ)
 		#define DS1307_ADDRESS_WRITE  (0xD0 | TWI_ADDRESS_WRITE)
 
 	/* Function Prototypes: */
-		void DS1307_SetDate(const uint8_t Day,
-		                    const uint8_t Month,
-		                    const uint8_t Year);
-		void DS1307_SetTime(const uint8_t Hour,
-		                    const uint8_t Minute,
-		                    const uint8_t Second);
-		void DS1307_GetDate(uint8_t* const Day,
-		                    uint8_t* const Month,
-		                    uint8_t* const Year);
-		void DS1307_GetTime(uint8_t* const Hour,
-		                    uint8_t* const Minute,
-		                    uint8_t* const Second);
+		void DS1307_SetTimeDate(const TimeDate_t* NewTimeDate);
+		void DS1307_GetTimeDate(TimeDate_t* const TimeDate);
 
 #endif
 

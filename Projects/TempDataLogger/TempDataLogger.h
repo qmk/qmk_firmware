@@ -84,15 +84,8 @@
 	/* Type Defines: */
 		typedef struct
 		{
-			uint8_t Day;
-			uint8_t Month;
-			uint8_t Year;
-
-			uint8_t Hour;
-			uint8_t Minute;
-			uint8_t Second;
-
-			uint8_t LogInterval500MS;
+			TimeDate_t TimeDate;
+			uint8_t    LogInterval500MS;
 		} Device_Report_t;
 
 	/* Function Prototypes: */

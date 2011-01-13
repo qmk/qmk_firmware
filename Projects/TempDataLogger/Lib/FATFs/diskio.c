@@ -83,18 +83,16 @@ DRESULT disk_ioctl (
 
 DWORD get_fattime (void)
 {
-	uint8_t Day,  Month,  Year;
-	uint8_t Hour, Minute, Second;
+	TimeDate_t CurrTimeDate;
 
-	DS1307_GetDate(&Day,  &Month,  &Year);
-	DS1307_GetTime(&Hour, &Minute, &Second);
+	DS1307_GetTimeDate(&CurrTimeDate);
 
 
-	return ((DWORD)(20 + Year) << 25) |
-	             ((DWORD)Month << 21) |
-	               ((DWORD)Day << 16) |
-	              ((DWORD)Hour << 11) |
-	             ((DWORD)Minute << 5) |
-	      (((DWORD)Second >> 1) << 0);
+	return ((DWORD)(20 + CurrTimeDate.Year) << 25) |
+	             ((DWORD)CurrTimeDate.Month << 21) |
+	               ((DWORD)CurrTimeDate.Day << 16) |
+	              ((DWORD)CurrTimeDate.Hour << 11) |
+	             ((DWORD)CurrTimeDate.Minute << 5) |
+	      (((DWORD)CurrTimeDate.Second >> 1) << 0);
 }
 

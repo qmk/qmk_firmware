@@ -113,17 +113,16 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 	/* Only log when not connected to a USB host */
 	if (USB_DeviceState == DEVICE_STATE_Unattached)
 	{
-		uint8_t Day,  Month,  Year;
-		uint8_t Hour, Minute, Second;
-
-		DS1307_GetDate(&Day,  &Month,  &Year);
-		DS1307_GetTime(&Hour, &Minute, &Second);
+		TimeDate_t CurrentTimeDate;
+		DS1307_GetTimeDate(&CurrentTimeDate);
 
 		char     LineBuffer[100];
 		uint16_t BytesWritten;
 
 		BytesWritten = sprintf(LineBuffer, "%02d/%02d/20%02d, %02d:%02d:%02d, %d Degrees\r\n",
-							   Day, Month, Year, Hour, Minute, Second, Temperature_GetTemperature());
+		                       CurrentTimeDate.Day, CurrentTimeDate.Month, CurrentTimeDate.Year,
+		                       CurrentTimeDate.Hour, CurrentTimeDate.Minute, CurrentTimeDate.Second,
+		                       Temperature_GetTemperature());
 
 		f_write(&TempLogFile, LineBuffer, BytesWritten, &BytesWritten);
 		f_sync(&TempLogFile);
@@ -170,9 +169,9 @@ void OpenLogFile(void)
 	char LogFileName[12];
 
 	/* Get the current date for the filename as "DDMMYY.csv" */
-	uint8_t Day, Month, Year;
-	DS1307_GetDate(&Day, &Month, &Year);
-	sprintf(LogFileName, "%02d%02d%02d.csv", Day, Month, Year);
+	TimeDate_t CurrentTimeDate;
+	DS1307_GetTimeDate(&CurrentTimeDate);
+	sprintf(LogFileName, "%02d%02d%02d.csv", CurrentTimeDate.Day, CurrentTimeDate.Month, CurrentTimeDate.Year);
 
 	/* Mount the storage device, open the file */
 	f_mount(0, &DiskFATState);
@@ -286,8 +285,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 {
 	Device_Report_t* ReportParams = (Device_Report_t*)ReportData;
 
-	DS1307_GetDate(&ReportParams->Day,  &ReportParams->Month,  &ReportParams->Year);
-	DS1307_GetTime(&ReportParams->Hour, &ReportParams->Minute, &ReportParams->Second);
+	DS1307_GetTimeDate(&ReportParams->TimeDate);
 
 	ReportParams->LogInterval500MS = LoggingInterval500MS_SRAM;
 
@@ -310,9 +308,8 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
                                           const uint16_t ReportSize)
 {
 	Device_Report_t* ReportParams = (Device_Report_t*)ReportData;
-
-	DS1307_SetDate(ReportParams->Day,  ReportParams->Month,  ReportParams->Year);
-	DS1307_SetTime(ReportParams->Hour, ReportParams->Minute, ReportParams->Second);
+	
+	DS1307_SetTimeDate(&ReportParams->TimeDate);
 
 	/* If the logging interval has changed from its current value, write it to EEPROM */
 	if (LoggingInterval500MS_SRAM != ReportParams->LogInterval500MS)

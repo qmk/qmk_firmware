@@ -37,6 +37,7 @@
   *   - Combined page and word ISP programming mode code in the AVRISP-MKII clone project to reduce compiled size and
   *     increase maintainability of the code
   *   - Changed over library projects to use the new general ring buffer library driver module
+  *   - Changed TempDataLogger project's DS1307 driver to simplify the function interface and prevent a possible race condition
   *
   *  <b>Fixed:</b>
   *  - Core:
