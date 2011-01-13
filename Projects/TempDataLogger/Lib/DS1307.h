@@ -62,10 +62,18 @@
 
 				uint8_t IntVal;
 			} Byte3;
-		} DS1307_TimeRegs_t;
 
-		typedef struct
-		{
+			union
+			{
+				struct
+				{
+					unsigned int DayOfWeek       : 3;
+					unsigned int Reserved        : 5;
+				} Fields;
+
+				uint8_t IntVal;
+			} Byte4;
+		
 			union
 			{
 				struct
@@ -76,7 +84,7 @@
 				} Fields;
 
 				uint8_t IntVal;
-			} Byte1;
+			} Byte5;
 
 			union
 			{
@@ -88,7 +96,7 @@
 				} Fields;
 
 				uint8_t IntVal;
-			} Byte2;
+			} Byte6;
 
 			union
 			{
@@ -99,8 +107,8 @@
 				} Fields;
 
 				uint8_t IntVal;
-			} Byte3;
-		} DS1307_DateRegs_t;
+			} Byte7;
+		} DS1307_DateTimeRegs_t;
 
 	/* Macros: */
 		#define DS1307_ADDRESS_READ   (0xD0 | TWI_ADDRESS_READ)
