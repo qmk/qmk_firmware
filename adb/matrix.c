@@ -76,9 +76,6 @@ uint8_t matrix_scan(void)
     codes = adb_host_kbd_recv();
     key0 = codes>>8;
     key1 = codes&0xFF;
-    if (debug_matrix) {
-        //print("adb_host_kbd_recv: "); phex16(codes); print("\n");
-    }
 
     if (codes == 0) {                           // no keys
         return 0;
@@ -91,6 +88,9 @@ uint8_t matrix_scan(void)
             _register_key(key1);
     }
 
+    if (debug_matrix && matrix_is_modified()) {
+        print("adb_host_kbd_recv: "); phex16(codes); print("\n");
+    }
     return 1;
 }
 

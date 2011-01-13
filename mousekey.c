@@ -30,19 +30,19 @@ static inline uint8_t move_unit(void)
 
 void mousekey_decode(uint8_t code)
 {
-    if      (code == MS_UP)   mousekey_y -= move_unit();
-    else if (code == MS_DOWN) mousekey_y += move_unit();
-    else if (code == MS_LEFT) mousekey_x -= move_unit();
-    else if (code == MS_RGHT) mousekey_x += move_unit();
-    else if (code == MS_BTN1) mousekey_btn |= MOUSE_BTN1;
-    else if (code == MS_BTN2) mousekey_btn |= MOUSE_BTN2;
-    else if (code == MS_BTN3) mousekey_btn |= MOUSE_BTN3;
-    else if (code == MS_BTN4) mousekey_btn |= MOUSE_BTN4;
-    else if (code == MS_BTN5) mousekey_btn |= MOUSE_BTN5;
-    else if (code == MS_WH_U) mousekey_v += 1;
-    else if (code == MS_WH_D) mousekey_v -= 1;
-    else if (code == MS_WH_L) mousekey_h -= 1;
-    else if (code == MS_WH_R) mousekey_h += 1;
+    if      (code == KB_MS_UP)   mousekey_y -= move_unit();
+    else if (code == KB_MS_DOWN) mousekey_y += move_unit();
+    else if (code == KB_MS_LEFT) mousekey_x -= move_unit();
+    else if (code == KB_MS_RIGHT) mousekey_x += move_unit();
+    else if (code == KB_MS_BTN1) mousekey_btn |= MOUSE_BTN1;
+    else if (code == KB_MS_BTN2) mousekey_btn |= MOUSE_BTN2;
+    else if (code == KB_MS_BTN3) mousekey_btn |= MOUSE_BTN3;
+    else if (code == KB_MS_BTN4) mousekey_btn |= MOUSE_BTN4;
+    else if (code == KB_MS_BTN5) mousekey_btn |= MOUSE_BTN5;
+    else if (code == KB_MS_WH_UP) mousekey_v += 1;
+    else if (code == KB_MS_WH_DOWN) mousekey_v -= 1;
+    else if (code == KB_MS_WH_LEFT) mousekey_h -= 1;
+    else if (code == KB_MS_WH_RIGHT) mousekey_h += 1;
 }
 
 bool mousekey_changed(void)
