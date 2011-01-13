@@ -32,24 +32,26 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301  USA
  */
-
 #ifndef USB_KEYCODES_H
 #define USB_KEYCODES_H
 
-#define IS_ERROR(code) (KB_ROLL_OVER <= (code) && (code) <= KB_UNDEFINED)
-#define IS_KEY(code) (KB_A <= (code) && (code) <= KP_HEXADECIMAL)
-#define IS_MOD(code) (KB_LCTRL <= (code) && (code) <= KB_RGUI)
-#define IS_FN(code) (FN_0 <= (code) && (code) <= FN_7)
-#define IS_MOUSEKEY(code) (MS_UP <= (code) && (code) <= MS_WH_RIGHT)
-#define IS_MOUSEKEY_MOVE(code) (MS_UP <= (code) && (code) <= MS_RIGHT)
-#define IS_MOUSEKEY_BUTTON(code) (MS_BTN1 <= (code) && (code) <= MS_BTN5)
-#define IS_MOUSEKEY_WHEEL(code) (MS_WH_UP <= (code) && (code) <= MS_WH_RIGHT)
+
+#define IS_ERROR(code)           (KB_ROLL_OVER <= (code) && (code) <= KB_UNDEFINED)
+#define IS_KEY(code)             (KB_A         <= (code) && (code) <= KB_KP_HEXADECIMAL)
+#define IS_MOD(code)             (KB_LCTRL     <= (code) && (code) <= KB_RGUI)
+#define IS_FN(code)              (KB_FN0       <= (code) && (code) <= KB_FN7)
+#define IS_MOUSEKEY(code)        (KB_MS_UP     <= (code) && (code) <= KB_MS_WH_RIGHT)
+#define IS_MOUSEKEY_MOVE(code)   (KB_MS_UP     <= (code) && (code) <= KB_MS_RIGHT)
+#define IS_MOUSEKEY_BUTTON(code) (KB_MS_BTN1   <= (code) && (code) <= KB_MS_BTN5)
+#define IS_MOUSEKEY_WHEEL(code)  (KB_MS_WH_UP  <= (code) && (code) <= KB_MS_WH_RIGHT)
 
 #define MOD_BIT(code) (1<<((code) & 0x07))
-#define FN_BIT(code) (1<<((code) - FN_0))
+#define FN_BIT(code)  (1<<((code) - KB_FN0))
 
 
-// short names
+//
+// Short names
+//
 #define KB_LCTL KB_LCTRL
 #define KB_RCTL KB_RCTRL
 #define KB_LSFT KB_LSHIFT
@@ -65,6 +67,7 @@
 #define KB_PSCR KB_PSCREEN
 #define KB_SLCK KB_SCKLOCK
 #define KB_BRK  KB_BREAK
+#define KB_NLCK KB_NUMLOCK
 #define KB_SPC  KB_SPACE
 #define KB_MINS KB_MINUS
 #define KB_EQL  KB_EQUAL
@@ -79,14 +82,38 @@
 #define KB_PWR  KB_POWER
 #define KB_VOLU KB_VOLUP
 #define KB_VOLD KB_VOLDOWN
-#define KP_SLSH KP_SLASH
-#define KP_ASTR KP_ASTERISK
-#define KP_MINS KP_MINUS
-#define MS_RGHT MS_RIGHT
-#define MS_WH_U MS_WH_UP
-#define MS_WH_D MS_WH_DOWN
-#define MS_WH_L MS_WH_LEFT
-#define MS_WH_R MS_WH_RIGHT
+// Keypad
+#define KB_P1   KB_KP_1
+#define KB_P2   KB_KP_2
+#define KB_P3   KB_KP_3
+#define KB_P4   KB_KP_4
+#define KB_P5   KB_KP_5
+#define KB_P6   KB_KP_6
+#define KB_P7   KB_KP_7
+#define KB_P8   KB_KP_8
+#define KB_P9   KB_KP_9
+#define KB_P0   KB_KP_0
+#define KB_PDOT KB_KP_DOT
+#define KB_PSLS KB_KP_SLASH
+#define KB_PAST KB_KP_ASTERISK
+#define KB_PMNS KB_KP_MINUS
+#define KB_PPLS KB_KP_PLUS
+#define KB_PEQL KB_KP_EQUAL
+#define KB_PENT KB_KP_ENTER
+// Mousekey
+#define KB_MS_U KB_MS_UP
+#define KB_MS_D KB_MS_DOWN
+#define KB_MS_L KB_MS_LEFT
+#define KB_MS_R KB_MS_RIGHT
+#define KB_BTN1 KB_MS_BTN1
+#define KB_BTN2 KB_MS_BTN2
+#define KB_BTN3 KB_MS_BTN3
+#define KB_BTN4 KB_MS_BTN4
+#define KB_BTN5 KB_MS_BTN5
+#define KB_WH_U KB_MS_WH_UP
+#define KB_WH_D KB_MS_WH_DOWN
+#define KB_WH_L KB_MS_WH_LEFT
+#define KB_WH_R KB_MS_WH_RIGHT
 
 
 enum keycodes {
@@ -174,26 +201,26 @@ enum keycodes {
     KB_DOWN,
     KB_UP,
     KB_NUMLOCK,
-    KP_SLASH,
-    KP_ASTERISK,
-    KP_MINUS,
-    KP_PLUS,
-    KP_ENTER,
-    KP_1,
-    KP_2,
-    KP_3,
-    KP_4,
-    KP_5,
-    KP_6,
-    KP_7,
-    KP_8,       /* 0x60 */
-    KP_9,
-    KP_0,
-    KP_DOT,
+    KB_KP_SLASH,
+    KB_KP_ASTERISK,
+    KB_KP_MINUS,
+    KB_KP_PLUS,
+    KB_KP_ENTER,
+    KB_KP_1,
+    KB_KP_2,
+    KB_KP_3,
+    KB_KP_4,
+    KB_KP_5,
+    KB_KP_6,
+    KB_KP_7,
+    KB_KP_8,       /* 0x60 */
+    KB_KP_9,
+    KB_KP_0,
+    KB_KP_DOT,
     KB_NONUS_BSLASH,      /* Non-US \ and | */
     KB_APPLICATION,
     KB_POWER,
-    KP_EQUAL,
+    KB_KP_EQUAL,
     KB_F13,
     KB_F14,
     KB_F15,
@@ -223,8 +250,8 @@ enum keycodes {
     KB_LOCKING_CAPS,      /* locking Caps Lock */
     KB_LOCKING_NUM,       /* locking Num Lock */
     KB_LOCKING_SCROLL,    /* locking Scroll Lock */
-    KP_COMMA,
-    KP_EQUAL_AS400,       /* equal sign on AS/400 */
+    KB_KP_COMMA,
+    KB_KP_EQUAL_AS400,       /* equal sign on AS/400 */
     KB_INT1,
     KB_INT2,
     KB_INT3,
@@ -256,52 +283,52 @@ enum keycodes {
     KB_CRSEL,
     KB_EXSEL,
 
-    KP_00 = 0xB0,
-    KP_000,
+    KB_KP_00 = 0xB0,
+    KB_KP_000,
     KB_THOUSANDS_SEPARATOR,
     KB_DECIMAL_SEPARATOR,
-    CURRENCY_UNIT,
-    CURRENCY_SUB_UNIT,
-    KP_LPAREN,
-    KP_RPAREN,
-    KP_LCBRACKET,         /* { */
-    KP_RCBRACKET,         /* } */
-    KP_TAB,
-    KP_BSPACE,
-    KP_A,
-    KP_B,
-    KP_C,
-    KP_D,
-    KP_E,
-    KP_F,
-    KP_XOR,
-    KP_HAT,
-    KP_PERC,
-    KP_LT,
-    KP_GT,
-    KP_AND,
-    KP_LAZYAND,
-    KP_OR,
-    KP_LAZYOR,
-    KP_COLON,
-    KP_HASH,
-    KP_SPACE,
-    KP_ATMARK,
-    KP_EXCLAMATION,
-    KP_MEM_STORE,
-    KP_MEM_RECALL,
-    KP_MEM_CLEAR,
-    KP_MEM_ADD,
-    KP_MEM_SUB,
-    KP_MEM_MUL,
-    KP_MEM_DIV,
-    KP_PLUS_MINUS,
-    KP_CLEAR,
-    KP_CLEAR_ENTRY,
-    KP_BINARY,
-    KP_OCTAL,
-    KP_DECIMAL,
-    KP_HEXADECIMAL,
+    KB_CURRENCY_UNIT,
+    KB_CURRENCY_SUB_UNIT,
+    KB_KP_LPAREN,
+    KB_KP_RPAREN,
+    KB_KP_LCBRACKET,         /* { */
+    KB_KP_RCBRACKET,         /* } */
+    KB_KP_TAB,
+    KB_KP_BSPACE,
+    KB_KP_A,
+    KB_KP_B,
+    KB_KP_C,
+    KB_KP_D,
+    KB_KP_E,
+    KB_KP_F,
+    KB_KP_XOR,
+    KB_KP_HAT,
+    KB_KP_PERC,
+    KB_KP_LT,
+    KB_KP_GT,
+    KB_KP_AND,
+    KB_KP_LAZYAND,
+    KB_KP_OR,
+    KB_KP_LAZYOR,
+    KB_KP_COLON,
+    KB_KP_HASH,
+    KB_KP_SPACE,
+    KB_KP_ATMARK,
+    KB_KP_EXCLAMATION,
+    KB_KP_MEM_STORE,
+    KB_KP_MEM_RECALL,
+    KB_KP_MEM_CLEAR,
+    KB_KP_MEM_ADD,
+    KB_KP_MEM_SUB,
+    KB_KP_MEM_MUL,
+    KB_KP_MEM_DIV,
+    KB_KP_PLUS_MINUS,
+    KB_KP_CLEAR,
+    KB_KP_CLEAR_ENTRY,
+    KB_KP_BINARY,
+    KB_KP_OCTAL,
+    KB_KP_DECIMAL,
+    KB_KP_HEXADECIMAL,
 
     /* modifiers */
     KB_LCTRL = 0xE0,    /* 0x01 */
@@ -314,27 +341,30 @@ enum keycodes {
     KB_RGUI,            /* 0x80 */
 
     /* extensions for internal use */
-    FN_0 = 0xE8,
-    FN_1,
-    FN_2,
-    FN_3,
-    FN_4,
-    FN_5,
-    FN_6,
-    FN_7,
-    MS_UP = 0xF0,
-    MS_DOWN,
-    MS_LEFT,
-    MS_RIGHT,
-    MS_BTN1 = 0xF4,
-    MS_BTN2,
-    MS_BTN3,
-    MS_BTN4,
-    MS_BTN5,
-    MS_WH_UP,
-    MS_WH_DOWN,
-    MS_WH_LEFT,
-    MS_WH_RIGHT,
+    KB_FN0 = 0xE8,
+    KB_FN1,
+    KB_FN2,
+    KB_FN3,
+    KB_FN4,
+    KB_FN5,
+    KB_FN6,
+    KB_FN7,
+    // Mousekey move
+    KB_MS_UP = 0xF0,
+    KB_MS_DOWN,
+    KB_MS_LEFT,
+    KB_MS_RIGHT,
+    // Mousekey buttons
+    KB_MS_BTN1 = 0xF4,
+    KB_MS_BTN2,
+    KB_MS_BTN3,
+    KB_MS_BTN4,
+    KB_MS_BTN5,
+    // Mousekey wheel
+    KB_MS_WH_UP,
+    KB_MS_WH_DOWN,
+    KB_MS_WH_LEFT,
+    KB_MS_WH_RIGHT,
 };
 
 #endif /* USB_KEYCODES_H */
