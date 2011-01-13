@@ -35,9 +35,9 @@
  *  different sizes to suit different needs.
  *
  *  Note that for each buffer, insertion and removal operations may occur at the same time (via
- *  a multithreaded ISR based system) however the same kind of operation (two or more insertions
+ *  a multi-threaded ISR based system) however the same kind of operation (two or more insertions
  *  or deletions) must not overlap. If there is possibility of two or more of the same kind of
- *  operating occuring at the same point in time, atomic (mutex) locking should be used.
+ *  operating occurring at the same point in time, atomic (mutex) locking should be used.
  */
  
 /** \ingroup Group_MiscDrivers
@@ -52,9 +52,9 @@
  *  different sizes to suit different needs.
  *
  *  Note that for each buffer, insertion and removal operations may occur at the same time (via
- *  a multithreaded ISR based system) however the same kind of operation (two or more insertions
+ *  a multi-threaded ISR based system) however the same kind of operation (two or more insertions
  *  or deletions) must not overlap. If there is possibility of two or more of the same kind of
- *  operating occuring at the same point in time, atomic (mutex) locking should be used.
+ *  operating occurring at the same point in time, atomic (mutex) locking should be used.
  *
  *  \section Sec_ExampleUsage Example Usage
  *  The following snippet is an example of how this module may be used within a typical

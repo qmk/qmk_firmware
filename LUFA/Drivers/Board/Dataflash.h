@@ -87,13 +87,13 @@
  *      for (uint16_t i = 0; i < DATAFLASH_PAGE_SIZE; i++)
  *        Dataflash_SendByte(WriteBuffer[i]);
  *
- *      // Commit the Dataflash's first memory buffer to the non-voltatile FLASH memory
+ *      // Commit the Dataflash's first memory buffer to the non-volatile FLASH memory
  *      printf("Committing page to non-volatile memory page index 5:\r\n");
  *      Dataflash_SendByte(DF_CMD_BUFF1TOMAINMEMWITHERASE);
  *      Dataflash_SendAddressBytes(5, 0);
  *      Dataflash_WaitWhileBusy();
  *
- *      // Read the page from non-voltatile FLASH memory into the Dataflash's second memory buffer
+ *      // Read the page from non-volatile FLASH memory into the Dataflash's second memory buffer
  *      printf("Reading data into second dataflash buffer:\r\n");
  *      Dataflash_SendByte(DF_CMD_MAINMEMTOBUFF2);
  *      Dataflash_SendAddressBytes(5, 0);

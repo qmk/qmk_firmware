@@ -56,7 +56,7 @@
  *      ADC_Init(ADC_FREE_RUNNING | ADC_PRESCALE_128);
  *      Temperature_Init();
  *
- *      // Display converted temperature in degrees Celcius
+ *      // Display converted temperature in degrees Celsius
  *      printf("Current Temperature: %d Degrees\r\n", Temperature_GetTemperature());
  *  \endcode
  * 

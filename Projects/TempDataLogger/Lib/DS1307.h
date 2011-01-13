@@ -111,12 +111,11 @@
 		} DS1307_DateTimeRegs_t;
 
 	/* Macros: */
-		#define DS1307_ADDRESS_READ   (0xD0 | TWI_ADDRESS_READ)
-		#define DS1307_ADDRESS_WRITE  (0xD0 | TWI_ADDRESS_WRITE)
+		#define DS1307_ADDRESS       0xD0
 
 	/* Function Prototypes: */
-		void DS1307_SetTimeDate(const TimeDate_t* NewTimeDate);
-		void DS1307_GetTimeDate(TimeDate_t* const TimeDate);
+		bool DS1307_SetTimeDate(const TimeDate_t* NewTimeDate);
+		bool DS1307_GetTimeDate(TimeDate_t* const TimeDate);
 
 #endif
 

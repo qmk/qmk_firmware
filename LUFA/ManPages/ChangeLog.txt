@@ -37,6 +37,7 @@
   *   - Combined page and word ISP programming mode code in the AVRISP-MKII clone project to reduce compiled size and
   *     increase maintainability of the code
   *   - Changed over library projects to use the new general ring buffer library driver module
+  *   - Added new high level TWI packet read/write commands, altered behaviour of the TWI_StartTransmission() function
   *   - Changed TempDataLogger project's DS1307 driver to simplify the function interface and prevent a possible race condition
   *
   *  <b>Fixed:</b>
@@ -106,7 +107,7 @@
   *    - Renamed ENDPOINT_DOUBLEBANK_SUPPORTED() to ENDPOINT_BANKS_SUPPORTED() and changed it to return the maximum number of supported banks for
   *      the given endpoint
   *    - Better algorithm to extract and convert the internal device serial number into a string descriptor (if present)
-  *    - All USB class drivers are now automatically included when LUFA/Drivers/USB.h is included, and no longer need to be seperately included
+  *    - All USB class drivers are now automatically included when LUFA/Drivers/USB.h is included, and no longer need to be separately included
   *    - The MIDI class drivers now automatically flushes the MIDI interface when the MIDI class driver's USBTask() function is called
   *    - Renamed the EVENT_USB_Device_UnhandledControlRequest() event to EVENT_USB_Device_ControlRequest() as it is now fired before the library
   *      request handlers, not afterwards
@@ -117,7 +118,7 @@
   *    - Added compile time error to the AVRISP-MKII project when built for the U4 chips, as the default VTARGET detection ADC channel
   *      does not exist on these chips (thanks to Marco)
   *    - Changed all Device mode LowLevel demos and Device Class drivers so that the control request is acknowledged and any data
-  *      transferred as quickly as possible without any processing inbetween sections, so that long callbacks or event handlers will
+  *      transferred as quickly as possible without any processing in between sections, so that long callbacks or event handlers will
   *      not break communications with the host by exceeding the maximum control request stage timeout period
   *    - Changed over all demos, drivers and internal functions to use the current frame number over the Start of Frame flag where possible
   *      to free up the Start of Frame flag for interrupt use in the user application
@@ -127,8 +128,8 @@
   *    - All LowLevel demos changed to use the constants and types defined in the USB class drivers
   *    - Changed AudioInput and AudioOutput demos to reload the next sample via an interrupt rather than polling the sample timer
   *    - Rescue clock of the AVRISP-MKII moved to the AVR's OCR1A pin, so that the clock can be generated at all times
-  *    - Changed ClassDriver MIDI demos to process all incomming events in a loop until the bank becomes empty rather than one at a time
-  *    - Changed LowLevel MIDI demos to only clear the incomming event bank once it has become empty to support packed event packets
+  *    - Changed ClassDriver MIDI demos to process all incoming events in a loop until the bank becomes empty rather than one at a time
+  *    - Changed LowLevel MIDI demos to only clear the incoming event bank once it has become empty to support packed event packets
   *
   *  <b>Fixed:</b>
   *  - Core:
@@ -599,7 +600,7 @@
   *    of device configurations can be defined statically
   *  - Removed VBUS events, as they are already exposed to the user application via the regular device connection and disconnection events
   *  - Renamed and altered existing events to properly separate out Host and Device mode events
-  *  - All demos switched over from GNU99 standards mode to C99 standards mode, to reduce the dependancies on GCC-only language extensions
+  *  - All demos switched over from GNU99 standards mode to C99 standards mode, to reduce the dependencies on GCC-only language extensions
   *
   *  <b>Fixed:</b>
   *  - Changed bootloaders to use FLASHEND rather than the existence of RAMPZ to determine if far FLASH pointers are needed to fix

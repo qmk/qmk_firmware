@@ -308,7 +308,7 @@
 				 *        changed in value.
 				 *        \n\n
 				 *
-				 *  \note When the controller is initialized into UID autodetection mode, this variable will hold the
+				 *  \note When the controller is initialized into UID auto-detection mode, this variable will hold the
 				 *        currently selected USB mode (i.e. \ref USB_MODE_Device or \ref USB_MODE_Host). If the controller
 				 *        is fixed into a specific mode (either through the \c USB_DEVICE_ONLY or \c USB_HOST_ONLY compile time
 				 *        options, or a limitation of the USB controller in the chosen device model) this will evaluate to

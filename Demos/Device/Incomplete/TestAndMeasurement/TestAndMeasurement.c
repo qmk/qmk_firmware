@@ -64,7 +64,7 @@ bool IsTMCBulkOUTReset = false;
 /** Last used tag value for data transfers */
 uint8_t CurrentTransferTag = 0;
 
-/** Length of last data transfer, for reporting to the host in case an in-progress tranfer is aborted */
+/** Length of last data transfer, for reporting to the host in case an in-progress transfer is aborted */
 uint32_t LastTransferLength = 0;
 
 /** Main program entry point. This routine contains the overall program flow, including initial

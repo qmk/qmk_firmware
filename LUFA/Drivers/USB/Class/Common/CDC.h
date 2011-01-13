@@ -189,7 +189,7 @@
 		enum CDC_DescriptorSubtypes_t
 		{
 			CDC_DSUBTYPE_CSInterface_Header           = 0x00, /**< CDC class-specific Header functional descriptor. */
-			CDC_DSUBTYPE_CSInterface_CallManagement   = 0x01, /**< CDC class-specific Call Managment functional descriptor. */
+			CDC_DSUBTYPE_CSInterface_CallManagement   = 0x01, /**< CDC class-specific Call Management functional descriptor. */
 			CDC_DSUBTYPE_CSInterface_ACM              = 0x02, /**< CDC class-specific Abstract Control Model functional descriptor. */
 			CDC_DSUBTYPE_CSInterface_DirectLine       = 0x03, /**< CDC class-specific Direct Line functional descriptor. */
 			CDC_DSUBTYPE_CSInterface_TelephoneRinger  = 0x04, /**< CDC class-specific Telephone Ringer functional descriptor. */
@@ -280,7 +280,7 @@
 			                                  *   must be \ref CDC_DSUBTYPE_CSInterface_ACM.
 			                                  */
 			uint8_t                 Capabilities; /**< Capabilities of the ACM interface, given as a bit mask. For most devices,
-			                                       *   this should be set to a fixed value of 0x06 - for other capabiltiies, refer
+			                                       *   this should be set to a fixed value of 0x06 - for other capabilities, refer
 			                                       *   to the CDC ACM specification.
 			                                       */
 		} USB_CDC_Descriptor_FunctionalACM_t;
@@ -303,7 +303,7 @@
 			                             *   must be \ref CDC_DSUBTYPE_CSInterface_ACM.
 			                             */
 			uint8_t bmCapabilities; /**< Capabilities of the ACM interface, given as a bit mask. For most devices,
-			                         *   this should be set to a fixed value of 0x06 - for other capabiltiies, refer
+			                         *   this should be set to a fixed value of 0x06 - for other capabilities, refer
 			                         *   to the CDC ACM specification.
 			                         */
 		} USB_CDC_StdDescriptor_FunctionalACM_t;

@@ -49,13 +49,16 @@
  *  The following snippet is an example of how this module may be used within a typical
  *  application.
  *
+ *  <b>Low Level API Example:</b>
  *  \code
  *      // Initialise the TWI driver before first use
  *      TWI_Init();
  *
- *      // Start a write session to device at address 0xA0 with a 10ms timeout
+ *      // Start a write session to device at device address 0xA0, internal address 0xDC with a 10ms timeout
  *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_WRITE, 10))
  *      {
+ *          TWI_SendByte(0xDC);
+ *
  *          TWI_SendByte(0x01);
  *          TWI_SendByte(0x02);
  *          TWI_SendByte(0x03);
@@ -64,21 +67,47 @@
  *          TWI_StopTransmission();
  *      }
  *
- *      // Start a read session to device at address 0xA0 with a 10ms timeout
- *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_READ, 10))
+ *      // Start a read session to device at address 0xA0, internal address 0xDC with a 10ms timeout
+ *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_WRITE, 10))
  *      {
- *          uint8_t Byte1, Byte2, Byte3;
- *
- *          // Read three bytes, acknowledge after the third byte is received
- *          TWI_ReceiveByte(&Byte1, false);
- *          TWI_ReceiveByte(&Byte2, false);
- *          TWI_ReceiveByte(&Byte3, true);
- *
- *          // Must stop transmission afterwards to release the bus
+ *          TWI_SendByte(0xDC);
  *          TWI_StopTransmission();
+ *
+ *          if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_READ, 10))
+ *          {
+ *              uint8_t Byte1, Byte2, Byte3;
+ *
+ *              // Read three bytes, acknowledge after the third byte is received
+ *              TWI_ReceiveByte(&Byte1, false);
+ *              TWI_ReceiveByte(&Byte2, false);
+ *              TWI_ReceiveByte(&Byte3, true);
+ *
+ *              // Must stop transmission afterwards to release the bus
+ *              TWI_StopTransmission();
+ *          }
  *      }
  *  \endcode
  * 
+ *  <b>High Level API Example:</b>
+ *  \code
+ *      // Initialise the TWI driver before first use
+ *      TWI_Init();
+ *
+ *      // Start a write session to device at device address 0xA0, internal address 0xDC with a 10ms timeout
+ *      uint8_t InternalWriteAddress = 0xDC;
+ *      uint8_t WritePacket[3] = {0x01, 0x02, 0x03};
+ *
+ *      TWI_WritePacket(0xA0, 10, &InternalWriteAddress, sizeof(InternalWriteAddress),
+ *                      &WritePacket, sizeof(WritePacket);
+ *
+ *      // Start a read session to device at address 0xA0, internal address 0xDC with a 10ms timeout
+ *      uint8_t InternalReadAddress = 0xDC;
+ *      uint8_t ReadPacket[3];
+ *
+ *      TWI_ReadPacket(0xA0, 10, &InternalReadAddress, sizeof(InternalReadAddress),
+ *                     &ReadPacket, sizeof(ReadPacket);
+ *  \endcode
+ *
  *  @{
  */
 
@@ -90,6 +119,7 @@
 
 		#include <avr/io.h>
 		#include <stdbool.h>
+		#include <stdio.h>
 		#include <util/twi.h>
 		#include <util/delay.h>
 
@@ -108,12 +138,29 @@
 			/** TWI slave device address mask for a read session. Mask with a slave device base address to obtain
 			 *  the correct TWI bus address for the slave device when reading data from it.
 			 */
-			#define TWI_ADDRESS_READ        0x00
+			#define TWI_ADDRESS_READ         0x00
 
 			/** TWI slave device address mask for a write session. Mask with a slave device base address to obtain
 			 *  the correct TWI bus address for the slave device when writing data to it.
 			 */
-			#define TWI_ADDRESS_WRITE       0x01
+			#define TWI_ADDRESS_WRITE        0x01
+
+			/** Mask to retrieve the base address for a TWI device, which can then be ORed with \ref TWI_ADDRESS_READ
+			 *  or \ref TWI_ADDRESS_WRITE to obtain the device's read and write address respectively.
+			 */
+			#define TWI_DEVICE_ADDRESS_MASK  0xFE
+			
+		/* Enums: */
+			/** Enum for the possible return codes of the TWI transfer start routine and other dependant TWI functions. */
+			enum TWI_ErrorCodes_t
+			{
+				TWI_ERROR_NoError              = 0, /**< Indicates that the command completed sucessfully. */
+				TWI_ERROR_BusFault             = 1, /**< A TWI bus fault occurred while attempting to capture the bus. */
+				TWI_ERROR_BusCaptureTimeout    = 2, /**< A timeout occurred whilst waiting for the bus to be ready. */
+				TWI_ERROR_SlaveResponseTimeout = 3, /**< No ACK received at the nominated slave address within the timeout period. */
+				TWI_ERROR_SlaveNotReady        = 4, /**< Slave NAKed the TWI bus START condition. */
+				TWI_ERROR_SlaveNAK             = 5, /**< Slave NAKed whilst attempting to send data to the device. */
+			};
 	
 		/* Inline Functions: */
 			/** Initialises the TWI hardware into master mode, ready for data transmission and reception. This must be
@@ -163,8 +210,8 @@
 			 *
 			 *  \return Boolean \c true if the byte reception successfully completed, \c false otherwise
 			 */
-			static inline bool TWI_ReceiveByte(uint8_t* const Byte,
-			                                   const bool LastByte)
+			static inline uint8_t TWI_ReceiveByte(uint8_t* const Byte,
+			                                      const bool LastByte)
 			{
 				uint8_t TWCRMask = ((1 << TWINT) | (1 << TWEN));
 
@@ -184,10 +231,44 @@
 			 *  \param[in] SlaveAddress  Address of the slave TWI device to communicate with
 			 *  \param[in] TimeoutMS     Timeout period within which the slave must respond, in milliseconds
 			 *
-			 *  \return Boolean \c true if the device is ready for data, \c false otherwise
+			 *  \return A value from the \ref TWI_ErrorCodes_t enum
 			 */
-			bool TWI_StartTransmission(const uint8_t SlaveAddress,
-			                           const uint8_t TimeoutMS);
+			uint8_t TWI_StartTransmission(const uint8_t SlaveAddress,
+			                              const uint8_t TimeoutMS);
+
+			/** High level function to perform a complete packet transfer over the TWI bus to the specified
+			 *  device.
+			 *
+			 *  \param[in] SlaveAddress        Base address of the TWI slave device to communicate with
+			 *  \param[in] TimeoutMS           Timeout for bus capture and slave START ACK, in milliseconds
+			 *  \param[in] InternalAddress     Pointer to a location where the internal slave read start address is stored
+			 *  \param[in] InternalAddressLen  Size of the internal device address, in bytes
+			 *  \param[in] Buffer              Pointer to a buffer where the read packet data is to be stored
+			 *  \param[in] Length              Size of the packet to read, in bytes
+			 */
+			uint8_t TWI_ReadPacket(const uint8_t SlaveAddress,
+			                       const uint8_t TimeoutMS,
+			                       const uint8_t* InternalAddress,
+			                       uint8_t InternalAddressLen,
+			                       uint8_t* Buffer,
+			                       uint8_t Length);
+
+			/** High level function to perform a complete packet transfer over the TWI bus from the specified
+			 *  device.
+			 *
+			 *  \param[in] SlaveAddress        Base address of the TWI slave device to communicate with
+			 *  \param[in] TimeoutMS           Timeout for bus capture and slave START ACK, in milliseconds
+			 *  \param[in] InternalAddress     Pointer to a location where the internal slave write start address is stored
+			 *  \param[in] InternalAddressLen  Size of the internal device address, in bytes
+			 *  \param[in] Buffer              Pointer to a buffer where the packet data to send is stored
+			 *  \param[in] Length              Size of the packet to send, in bytes
+			 */
+			uint8_t TWI_WritePacket(const uint8_t SlaveAddress,
+			                        const uint8_t TimeoutMS,
+			                        const uint8_t* InternalAddress,
+			                        uint8_t InternalAddressLen,
+			                        const uint8_t* Buffer,
+			                        uint8_t Length);
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
