@@ -52,6 +52,8 @@
   *   - Fixed incorrect endpoint initialisation order in the several device demos (thanks to Rick Drolet)
   *   - Fixed inverted Minimum board LEDs
   *   - Fixed incorrect byte ordering in the Audio_Device_WriteSample24 function (thanks to WZab)
+  *   - Fixed several functions in the Host mode Still Image Class driver returning an error code from the incorrect
+  *     error code enum (thanks to Daniel Seibert)
   *  - Library Applications:
   *   - Fixed Benito project discarding incoming data from the USB virtual serial port when the USART is busy
   *   - Fixed broken DFU bootloader, added XPLAIN support for bootloader start when XCK jumpered to ground
