@@ -79,11 +79,11 @@ void proc_matrix(void) {
             } else if (code == KB_VOLU) {
                 usb_extra_audio_send(AUDIO_VOL_UP);
                 usb_extra_audio_send(0);
-                _delay_ms(100);
+                _delay_ms(200);
             } else if (code == KB_VOLD) {
                 usb_extra_audio_send(AUDIO_VOL_DOWN);
                 usb_extra_audio_send(0);
-                _delay_ms(100);
+                _delay_ms(200);
             } else if (code == KB_PWR) {
                 if (suspend && remote_wakeup) {
                     usb_remote_wakeup();
