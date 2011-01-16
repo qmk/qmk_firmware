@@ -23,16 +23,30 @@ AVR ATtiny2131 ADB to PS/2 converter(Japanese)
 
 Pinouts
 -------
-    Female socket from the front
+    ADB female socket from the front:
+    __________
+    |        | <--- top
+    | 4o  o3 |
+    |2o    o1|
+    |   ==   |
+    |________| <--- bottom
+      |    |   <--- 4pins
 
-      4o  o3
-     2o    o1
-        ==
+
+    ADB female socket from bottom:
+
+    ========== <--- front
+    |        |
+    |        |
+    |2o    o1|
+    |4o    o3|
+    ---------- <--- back
 
     1: Data
     2: Power SW(low when press Power key)
     3: Vcc(5V)
     4: GND
+
 
 
 Commands
