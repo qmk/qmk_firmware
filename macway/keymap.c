@@ -181,6 +181,5 @@ uint8_t keymap_fn_keycode(uint8_t fn_bits)
 // define a condition to enter special function mode
 bool keymap_is_special_mode(uint8_t fn_bits)
 {
-    //return (usb_keyboard_mods == (BIT_LCTRL | BIT_LSHIFT | BIT_LALT | BIT_LGUI));
-    return (usb_keyboard_mods == (BIT_RSHIFT));
+    return usb_keyboard_mods == (BIT_LSHIFT | BIT_RSHIFT);
 }
