@@ -36,9 +36,9 @@
  */
 
 /** \ingroup Group_HIDParser
- *  @defgroup Group_HIDIOFConst Input/Output/Feature Masks
+ *  @defgroup Group_HIDReportItemConst HID Report Descriptor Item Constants
  *
- *  Masks indicating the type of Input, Output of Feature HID report item.
+ *  General HID constant definitions for HID Report Descriptor elements.
  *
  *  @{
  */

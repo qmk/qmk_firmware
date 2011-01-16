@@ -54,6 +54,7 @@
  *    - LUFA/Drivers/USB/HighLevel/HostStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/HighLevel/PipeStream.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/HighLevel/USBTask.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Class/Common/HIDParser.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
  *  \section Sec_ModDescription Module Description
  *  Driver and framework for the USB controller hardware on the USB series of AVR microcontrollers. This module

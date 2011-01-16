@@ -43,7 +43,6 @@
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - LUFA/Drivers/USB/Class/Host/HID.c <i>(Makefile source module name: LUFA_SRC_USBCLASS)</i>
- *    - LUFA/Drivers/USB/Class/Common/HIDParser.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
  *  \section Sec_ModDescription Module Description
  *  Host Mode USB Class driver framework interface, for the HID USB Class driver.
