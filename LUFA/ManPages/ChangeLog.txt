@@ -16,6 +16,7 @@
   *   - Added new GCC_FORCE_POINTER_ACCESS() macro to correct GCC's mishandling of struct pointer accesses
   *   - Added basic driver example use code to the library documentation
   *   - Added new Endpoint_Null_Stream() and Pipe_Null_stream() functions
+  *   - Added new ADC_GET_CHANNEL_MASK() convenience macro
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *

@@ -90,6 +90,13 @@
 			#error Do not include this file directly. Include LUFA/Drivers/Peripheral/ADC.h instead.
 		#endif
 
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* Macros: */
+			#define _ADC_GET_MUX_MASK2(y)           ADC_CHANNEL ## y
+			#define _ADC_GET_MUX_MASK(y)            _ADC_GET_MUX_MASK2(y)
+	#endif
+	
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** \name ADC Reference Configuration Masks */
@@ -235,6 +242,15 @@
 				 */
 				#define ADC_INT_TEMP_SENS           ((1 << 8) | (0x07 << MUX0))
 			#endif
+
+			/** Retrieves the ADC MUX mask for the given ADC channel number.
+			 *
+			 *  \note This macro will only work correctly on channel numbers that are compile-time
+			 *        constants defined by the preprocessor.
+			 *
+			 *  \param[in] Channel  Index of the ADC channel whose MUX mask is to be retrieved.
+			 */
+			#define ADC_GET_CHANNEL_MASK(Channel)   _ADC_GET_MUX_MASK(Channel)
 			//@}
 
 		/* Inline Functions: */

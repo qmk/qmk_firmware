@@ -203,13 +203,19 @@
 			 */
 			#define ENDPOINT_EPSIZE_MASK                    0x7F
 
-			/** Maximum size in bytes of a given endpoint.
+			/** Retrives the maximum bank size in bytes of a given endpoint.
+			 *
+			 *  \note This macro will only work correctly on endpoint indexes that are compile-time constants
+			 *        defined by the preprocessor.
 			 *
 			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (\ref ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */
 			#define ENDPOINT_MAX_SIZE(EPIndex)              _ENDPOINT_GET_MAXSIZE(EPIndex)
 
-			/** Indicates the total number of banks supported by the given endpoint.
+			/** Retrieves the total number of banks supported by the given endpoint.
+			 *
+			 *  \note This macro will only work correctly on endpoint indexes that are compile-time constants
+			 *        defined by the preprocessor.
 			 *
 			 *  \param[in] EPIndex  Endpoint number, a value between 0 and (\ref ENDPOINT_TOTAL_ENDPOINTS - 1)
 			 */
