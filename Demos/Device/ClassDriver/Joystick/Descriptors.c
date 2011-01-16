@@ -42,35 +42,34 @@
  *  descriptor is parsed by the host and its contents used to determine what data (and in what encoding)
  *  the device will send, and what it may be sent back from the host. Refer to the HID specification for
  *  more details on HID report descriptors.
- */
+ */ 
 USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] =
 {
-	0x05, 0x01,          /* Usage Page (Generic Desktop)                       */
-	0x09, 0x04,          /* Usage (Joystick)                                   */
-	0xa1, 0x01,          /* Collection (Application)                           */
-	0x09, 0x01,          /*   Usage (Pointer)                                  */
-	0xa1, 0x00,          /*   Collection (Physical)                            */
-	0x05, 0x01,          /*     Usage Page (Generic Desktop)                   */
-	0x09, 0x30,          /*     Usage (X)                                      */
-	0x09, 0x31,          /*     Usage (Y)                                      */
-	0x15, 0x9c,          /*     Logical Minimum (-100)                         */
-	0x25, 0x64,          /*     Logical Maximum (100)                          */
-	0x75, 0x08,          /*     Report Size (8)                                */
-	0x95, 0x02,          /*     Report Count (2)                               */
-	0x81, 0x82,          /*     Input (Data, Variable, Absolute, Volatile)     */
-	0xc0,                /*   End Collection                                   */
-	0x05, 0x09,          /*   Usage Page (Button)                              */
-	0x09, 0x02,          /*   Usage (Button 2)                                 */
-	0x09, 0x01,          /*   Usage (Button 1)                                 */
-	0x15, 0x00,          /*   Logical Minimum (0)                              */
-	0x25, 0x01,          /*   Logical Maximum (1)                              */
-	0x75, 0x01,          /*   Report Size (1)                                  */
-	0x95, 0x02,          /*   Report Count (2)                                 */
-	0x81, 0x02,          /*   Input (Data, Variable, Absolute)                 */
-	0x75, 0x06,          /*   Report Size (6)                                  */
-	0x95, 0x01,          /*   Report Count (1)                                 */
-	0x81, 0x01,          /*   Input (Constant)                                 */
-	0xc0                 /* End Collection                                     */
+	HID_RI_USAGE_PAGE(8),                0x01, /* Generic Desktop */
+	HID_RI_USAGE(8),                     0x04, /* Joystick */
+	HID_RI_COLLECTION(8),                0x01, /* Application */
+	    HID_RI_USAGE(8),                 0x01, /* Pointer */
+	    HID_RI_COLLECTION(8),            0x00, /* Physical */
+	        HID_RI_USAGE(8),             0x30, /* Usage X */
+	        HID_RI_USAGE(8),             0x31, /* Usage Y */
+	        HID_RI_LOGICAL_MINIMUM(8),   -100,
+	        HID_RI_LOGICAL_MAXIMUM(8),   100,
+	        HID_RI_REPORT_SIZE(8),       8,
+	        HID_RI_REPORT_COUNT(8),      2,
+	        HID_RI_INPUT(8),             (HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+	    HID_RI_END_COLLECTION(0),
+	    HID_RI_USAGE_PAGE(8),            0x09, /* Button */
+	    HID_RI_USAGE(8),                 0x02, /* Button 1 */
+	    HID_RI_USAGE(8),                 0x01, /* Button 2 */
+	    HID_RI_LOGICAL_MINIMUM(8),       0,
+	    HID_RI_LOGICAL_MAXIMUM(8),       1,
+	    HID_RI_REPORT_SIZE(8),           1,
+	    HID_RI_REPORT_COUNT(8),          2,
+	    HID_RI_INPUT(8),                 (HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+	    HID_RI_REPORT_SIZE(8),           6,
+	    HID_RI_REPORT_COUNT(8),          1,
+	    HID_RI_INPUT(8),                 HID_IOF_CONSTANT,
+	HID_RI_END_COLLECTION(0),
 };
 
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall

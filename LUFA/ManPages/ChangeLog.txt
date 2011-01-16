@@ -17,6 +17,7 @@
   *   - Added basic driver example use code to the library documentation
   *   - Added new Endpoint_Null_Stream() and Pipe_Null_stream() functions
   *   - Added new ADC_GET_CHANNEL_MASK() convenience macro
+  *   - New HID report item macros (with HID_RI_ prefix) to allow for easy creation and editing of HID report descriptors
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *
@@ -32,6 +33,8 @@
   *     where the number of bytes in the transfer that have been completed can be stored (or NULL if entire transaction
   *     should be performed in one chunk)
   *   - The NO_STREAM_CALLBACKS compile time option has now been removed due to the new partial stream transfer feature
+  *   - Changed over all project and demo HID report descriptors to use the new HID report item macros
+  *   - Moved the HIDParser.c source file to the LUFA/Drivers/USB/Class/Common/ directory from the LUFA/Drivers/USB/Class/Host/
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion

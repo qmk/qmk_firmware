@@ -52,6 +52,7 @@
 
 	/* Includes: */
 		#include "../../HighLevel/StdDescriptors.h"
+		#include "HIDParser.h"
 
 		#include <string.h>
 

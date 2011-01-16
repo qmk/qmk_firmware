@@ -30,7 +30,7 @@ LUFA_SRC_USB          = $(LUFA_ROOT_PATH)/Drivers/USB/LowLevel/Device.c         
                         $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/HostStandardReq.c   \
                         $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/PipeStream.c        \
                         $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/USBTask.c           \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/HIDParser.c
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Class/Common/HIDParser.c
 LUFA_SRC_USBCLASS     = $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/Audio.c          \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/CDC.c            \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/HID.c            \

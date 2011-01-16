@@ -18,7 +18,6 @@
   *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Re-add interrupt Pipe/Endpoint support
-  *      -# Add HID report macros to make HID report editing easier
   *      -# Investigate dynamically created device descriptors
   *  - Known Bugs
   *      -# No wakeup when plugged into hub, and hub plugged into host

@@ -29,9 +29,6 @@
 */
 
 #define  __INCLUDE_FROM_USB_DRIVER
-#include "../../HighLevel/USBMode.h"
-#if defined(USB_CAN_BE_HOST)
-
 #define  __INCLUDE_FROM_HID_DRIVER
 #include "HIDParser.h"
 
@@ -61,28 +58,28 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 		ReportData++;
 		ReportSize--;
 
-		switch (HIDReportItem & DATA_SIZE_MASK)
+		switch (HIDReportItem & HID_RI_DATA_SIZE_MASK)
 		{
-			case DATA_SIZE_4:
+			case HID_RI_DATA_BITS_32:
 				ReportItemData  = *((uint32_t*)ReportData);
 				ReportSize     -= 4;
 				ReportData     += 4;
 				break;
-			case DATA_SIZE_2:
+			case HID_RI_DATA_BITS_16:
 				ReportItemData  = *((uint16_t*)ReportData);
 				ReportSize     -= 2;
 				ReportData     += 2;
 				break;
-			case DATA_SIZE_1:
+			case HID_RI_DATA_BITS_8:
 				ReportItemData  = *((uint8_t*)ReportData);
 				ReportSize     -= 1;
 				ReportData     += 1;
 				break;
 		}
 
-		switch (HIDReportItem & (TYPE_MASK | TAG_MASK))
+		switch (HIDReportItem & (HID_RI_TYPE_MASK | HID_RI_TAG_MASK))
 		{
-			case (TYPE_GLOBAL | TAG_GLOBAL_PUSH):
+			case HID_RI_PUSH(0):
 				if (CurrStateTable == &StateTable[HID_STATETABLE_STACK_DEPTH - 1])
 				  return HID_PARSE_HIDStackOverflow;
 
@@ -92,40 +89,40 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 
 				CurrStateTable++;
 				break;
-			case (TYPE_GLOBAL | TAG_GLOBAL_POP):
+			case HID_RI_POP(0):
 				if (CurrStateTable == &StateTable[0])
 				  return HID_PARSE_HIDStackUnderflow;
 
 				CurrStateTable--;
 				break;
-			case (TYPE_GLOBAL | TAG_GLOBAL_USAGEPAGE):
+			case HID_RI_USAGE_PAGE(0):
 				CurrStateTable->Attributes.Usage.Page       = ReportItemData;
 				break;
-			case (TYPE_GLOBAL | TAG_GLOBAL_LOGICALMIN):
+			case HID_RI_LOGICAL_MINIMUM(0):
 				CurrStateTable->Attributes.Logical.Minimum  = ReportItemData;
 				break;
-			case (TYPE_GLOBAL | TAG_GLOBAL_LOGICALMAX):
+			case HID_RI_LOGICAL_MAXIMUM(0):
 				CurrStateTable->Attributes.Logical.Maximum  = ReportItemData;
 				break;
-			case (TYPE_GLOBAL | TAG_GLOBAL_PHYSMIN):
+			case HID_RI_PHYSICAL_MINIMUM(0):
 				CurrStateTable->Attributes.Physical.Minimum = ReportItemData;
 				break;
-			case (TYPE_GLOBAL | TAG_GLOBAL_PHYSMAX):
+			case HID_RI_PHYSICAL_MAXIMUM(0):
 				CurrStateTable->Attributes.Physical.Maximum = ReportItemData;
 				break;
-			case (TYPE_GLOBAL | TAG_GLOBAL_UNITEXP):
+			case HID_RI_UNIT_EXPONENT(0):
 				CurrStateTable->Attributes.Unit.Exponent    = ReportItemData;
 				break;
-			case (TYPE_GLOBAL | TAG_GLOBAL_UNIT):
+			case HID_RI_UNIT(0):
 				CurrStateTable->Attributes.Unit.Type        = ReportItemData;
 				break;
-			case (TYPE_GLOBAL | TAG_GLOBAL_REPORTSIZE):
+			case HID_RI_REPORT_SIZE(0):
 				CurrStateTable->Attributes.BitSize          = ReportItemData;
 				break;
-			case (TYPE_GLOBAL | TAG_GLOBAL_REPORTCOUNT):
+			case HID_RI_REPORT_COUNT(0):
 				CurrStateTable->ReportCount                 = ReportItemData;
 				break;
-			case (TYPE_GLOBAL | TAG_GLOBAL_REPORTID):
+			case HID_RI_REPORT_ID(0):
 				CurrStateTable->ReportID                    = ReportItemData;
 
 				if (ParserData->UsingReportIDs)
@@ -155,19 +152,19 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 
 				CurrReportIDInfo->ReportID = CurrStateTable->ReportID;
 				break;
-			case (TYPE_LOCAL | TAG_LOCAL_USAGE):
+			case HID_RI_USAGE(0):
 				if (UsageListSize == HID_USAGE_STACK_DEPTH)
 				  return HID_PARSE_UsageListOverflow;
 
 				UsageList[UsageListSize++] = ReportItemData;
 				break;
-			case (TYPE_LOCAL | TAG_LOCAL_USAGEMIN):
+			case HID_RI_USAGE_MINIMUM(0):
 				UsageMinMax.Minimum = ReportItemData;
 				break;
-			case (TYPE_LOCAL | TAG_LOCAL_USAGEMAX):
+			case HID_RI_USAGE_MAXIMUM(0):
 				UsageMinMax.Maximum = ReportItemData;
 				break;
-			case (TYPE_MAIN | TAG_MAIN_COLLECTION):
+			case HID_RI_COLLECTION(0):
 				if (CurrCollectionPath == NULL)
 				{
 					CurrCollectionPath = &ParserData->CollectionPaths[0];
@@ -207,15 +204,15 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 				}
 
 				break;
-			case (TYPE_MAIN | TAG_MAIN_ENDCOLLECTION):
+			case HID_RI_END_COLLECTION(0):
 				if (CurrCollectionPath == NULL)
 				  return HID_PARSE_UnexpectedEndCollection;
 
 				CurrCollectionPath = CurrCollectionPath->Parent;
 				break;
-			case (TYPE_MAIN | TAG_MAIN_INPUT):
-			case (TYPE_MAIN | TAG_MAIN_OUTPUT):
-			case (TYPE_MAIN | TAG_MAIN_FEATURE):
+			case HID_RI_INPUT(0):
+			case HID_RI_OUTPUT(0):
+			case HID_RI_FEATURE(0):
 				for (uint8_t ReportItemNum = 0; ReportItemNum < CurrStateTable->ReportCount; ReportItemNum++)
 				{
 					HID_ReportItem_t NewReportItem;
@@ -242,11 +239,11 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 						NewReportItem.Attributes.Usage.Usage = UsageMinMax.Minimum++;
 					}
 
-					uint8_t ItemTag = (HIDReportItem & TAG_MASK);
+					uint8_t ItemTypeTag = (HIDReportItem & (HID_RI_TYPE_MASK | HID_RI_TAG_MASK));
 
-					if (ItemTag == TAG_MAIN_INPUT)
+					if (ItemTypeTag == HID_RI_INPUT(0))
 					  NewReportItem.ItemType = HID_REPORT_ITEM_In;
-					else if (ItemTag == TAG_MAIN_OUTPUT)
+					else if (ItemTypeTag == HID_RI_OUTPUT(0))
 					  NewReportItem.ItemType = HID_REPORT_ITEM_Out;
 					else
 					  NewReportItem.ItemType = HID_REPORT_ITEM_Feature;
@@ -258,7 +255,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 					if (ParserData->LargestReportSizeBits < NewReportItem.BitOffset)
 					  ParserData->LargestReportSizeBits = NewReportItem.BitOffset;
 
-					if (!(ReportItemData & IOF_CONSTANT) && CALLBACK_HIDParser_FilterHIDReportItem(&NewReportItem))
+					if (!(ReportItemData & HID_IOF_CONSTANT) && CALLBACK_HIDParser_FilterHIDReportItem(&NewReportItem))
 					{
 						if (ParserData->TotalReportItems == HID_MAX_REPORTITEMS)
 						  return HID_PARSE_InsufficientReportItems;
@@ -273,7 +270,7 @@ uint8_t USB_ProcessHIDReport(const uint8_t* ReportData,
 				break;
 		}
 
-		if ((HIDReportItem & TYPE_MASK) == TYPE_MAIN)
+		if ((HIDReportItem & HID_RI_TYPE_MASK) == HID_RI_TYPE_MAIN)
 		{
 			UsageMinMax.Minimum = 0;
 			UsageMinMax.Maximum = 0;
@@ -356,6 +353,3 @@ uint16_t USB_GetHIDReportSize(HID_ReportInfo_t* const ParserData,
 
 	return 0;
 }
-
-#endif
-
