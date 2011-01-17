@@ -184,7 +184,7 @@
 		#define HID_KEYBOARD_SC_DELETE                            0x4C
 		#define HID_KEYBOARD_SC_END                               0x4D
 		#define HID_KEYBOARD_SC_PAGE_DOWN                         0x4E
-		#define HID_KEYBOARD_SC_RIGHT_ARROW                       0xEF
+		#define HID_KEYBOARD_SC_RIGHT_ARROW                       0x4F
 		#define HID_KEYBOARD_SC_LEFT_ARROW                        0x50
 		#define HID_KEYBOARD_SC_DOWN_ARROW                        0x51
 		#define HID_KEYBOARD_SC_UP_ARROW                          0x52
@@ -205,7 +205,8 @@
 		#define HID_KEYBOARD_SC_KEYPAD_9_AND_PAGE_UP              0x61
 		#define HID_KEYBOARD_SC_KEYPAD_0_AND_INSERT               0x62
 		#define HID_KEYBOARD_SC_KEYPAD_DOT_AND_DELETE             0x63
-		#define HID_KEYBOARD_SC_NON_US_BACKSLASH_AND_PIPE         0x64
+		#define HID_KEYBOARD_SC_NON_US_BACKSLASH_AND_PIPE         0x64		
+		#define HID_KEYBOARD_SC_POWER                             0x66
 		#define HID_KEYBOARD_SC_EQUAL_SIGN                        0x67
 		#define HID_KEYBOARD_SC_F13                               0x68
 		#define HID_KEYBOARD_SC_F14                               0x69

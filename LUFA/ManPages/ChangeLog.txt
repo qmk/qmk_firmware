@@ -49,6 +49,7 @@
   *   - Fixed broken USBFOO board drivers due to missing BOARD_USBFOO define
   *   - Fixed HID host class driver incorrectly binding to HID devices that do not have an OUT endpoint
   *   - Fixed incorrect definition of the HID_KEYBOARD_SC_D constant in the HID class driver (thanks to Opendous Inc.)
+  *   - Fixed incorrect definition of the HID_KEYBOARD_SC_RIGHT_ARROW constant in the HID class driver (thanks to Joby Taffey)
   *   - Fixed incorrect endpoint initialisation order in the several device demos (thanks to Rick Drolet)
   *   - Fixed inverted Minimum board LEDs
   *   - Fixed incorrect byte ordering in the Audio_Device_WriteSample24 function (thanks to WZab)
