@@ -45,22 +45,21 @@
  */
 USB_Descriptor_HIDReport_Datatype_t PROGMEM GenericReport[] =
 {
-	HID_RI_USAGE_PAGE(16),               0x00, 0xFF, /* Vendor Page 1 */
-	HID_RI_USAGE(8),                     0x01, /* Vendor Usage 1 */
-	HID_RI_COLLECTION(8),                0x01, /* Vendor Usage 1 */
-	    HID_RI_USAGE(8),                 0x02, /* Vendor Usage 2 */
-	    HID_RI_LOGICAL_MINIMUM(8),       0x00,
-	    HID_RI_LOGICAL_MAXIMUM(8),       0xFF,
-	    HID_RI_REPORT_SIZE(8),           8,
-	    HID_RI_REPORT_COUNT(8),          GENERIC_REPORT_SIZE,
-	    HID_RI_INPUT(8),                 (HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_VOLATILE),
-
-	    HID_RI_USAGE(8),                 0x03, /* Vendor Usage 3 */
-	    HID_RI_LOGICAL_MINIMUM(8),       0x00,
-	    HID_RI_LOGICAL_MAXIMUM(8),       0xFF,
-	    HID_RI_REPORT_SIZE(8),           8,
-	    HID_RI_REPORT_COUNT(8),          GENERIC_REPORT_SIZE,
-	    HID_RI_OUTPUT(8),                (HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_VOLATILE),
+	HID_RI_USAGE_PAGE(16, 0x00FF), /* Vendor Page 1 */
+	HID_RI_USAGE(8, 0x01), /* Vendor Usage 1 */
+	HID_RI_COLLECTION(8, 0x01), /* Vendor Usage 1 */
+	    HID_RI_USAGE(8, 0x02), /* Vendor Usage 2 */
+	    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+	    HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
+	    HID_RI_REPORT_SIZE(8, 0x08),
+	    HID_RI_REPORT_COUNT(8, GENERIC_REPORT_SIZE),
+	    HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_VOLATILE),
+	    HID_RI_USAGE(8, 0x03), /* Vendor Usage 3 */
+	    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+	    HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
+	    HID_RI_REPORT_SIZE(8, 0x08),
+	    HID_RI_REPORT_COUNT(8, GENERIC_REPORT_SIZE),
+	    HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_VOLATILE),
 	HID_RI_END_COLLECTION(0),
 };
 

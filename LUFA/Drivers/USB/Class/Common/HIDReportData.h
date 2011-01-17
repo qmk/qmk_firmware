@@ -49,19 +49,28 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define HID_RI_DATA_SIZE_MASK        0x03
-			#define HID_RI_TYPE_MASK             0x0C
-			#define HID_RI_TAG_MASK              0xF0
+			#define HID_RI_DATA_SIZE_MASK          0x03
+			#define HID_RI_TYPE_MASK               0x0C
+			#define HID_RI_TAG_MASK                0xF0
 
-			#define HID_RI_TYPE_MAIN             0x00
-			#define HID_RI_TYPE_GLOBAL           0x04
-			#define HID_RI_TYPE_LOCAL            0x08
+			#define HID_RI_TYPE_MAIN               0x00
+			#define HID_RI_TYPE_GLOBAL             0x04
+			#define HID_RI_TYPE_LOCAL              0x08
 
-			#define HID_RI_DATA_BITS_0           0x00
-			#define HID_RI_DATA_BITS_8           0x01
-			#define HID_RI_DATA_BITS_16          0x02
-			#define HID_RI_DATA_BITS_32          0x03
-			#define HID_RI_DATA_BITS(DataBits)   HID_RI_DATA_BITS_ ## DataBits
+			#define HID_RI_DATA_BITS_0             0x00
+			#define HID_RI_DATA_BITS_8             0x01
+			#define HID_RI_DATA_BITS_16            0x02
+			#define HID_RI_DATA_BITS_32            0x03
+			#define HID_RI_DATA_BITS(DataBits)     HID_RI_DATA_BITS_ ## DataBits
+
+			#define _HID_RI_ENCODE_0(Data)         /* No Data */
+			#define _HID_RI_ENCODE_8(Data)         , (Data & 0xFF)
+			#define _HID_RI_ENCODE_16(Data)        _HID_RI_ENCODE_8(Data >> 8)   _HID_RI_ENCODE_8(Data)
+			#define _HID_RI_ENCODE_32(Data)        _HID_RI_ENCODE_16(Data >> 16) _HID_RI_ENCODE_16(Data)
+			#define _HID_RI_ENCODE(DataBits, ...)  _HID_RI_ENCODE_ ## DataBits(__VA_ARGS__)
+			
+			#define _HID_RI_ENTRY(Type, Tag, DataBits, ...) \
+			                                       (Type | Tag | HID_RI_DATA_BITS(DataBits)) _HID_RI_ENCODE(DataBits, (__VA_ARGS__))
 	#endif
 	
 	/* Public Interface - May be used in end-application: */
@@ -90,28 +99,28 @@
 		
 		/** \name HID Report Descriptor Item Macros */
 		//@{
-			#define HID_RI_INPUT(DataBits)              (HID_RI_TYPE_MAIN   | 0x80 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_OUTPUT(DataBits)             (HID_RI_TYPE_MAIN   | 0x90 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_COLLECTION(DataBits)         (HID_RI_TYPE_MAIN   | 0xA0 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_FEATURE(DataBits)            (HID_RI_TYPE_MAIN   | 0xB0 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_END_COLLECTION(DataBits)     (HID_RI_TYPE_MAIN   | 0xC0 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_USAGE_PAGE(DataBits)         (HID_RI_TYPE_GLOBAL | 0x00 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_LOGICAL_MINIMUM(DataBits)    (HID_RI_TYPE_GLOBAL | 0x10 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_LOGICAL_MAXIMUM(DataBits)    (HID_RI_TYPE_GLOBAL | 0x20 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_PHYSICAL_MINIMUM(DataBits)   (HID_RI_TYPE_GLOBAL | 0x30 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_PHYSICAL_MAXIMUM(DataBits)   (HID_RI_TYPE_GLOBAL | 0x40 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_UNIT_EXPONENT(DataBits)      (HID_RI_TYPE_GLOBAL | 0x50 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_UNIT(DataBits)               (HID_RI_TYPE_GLOBAL | 0x60 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_REPORT_SIZE(DataBits)        (HID_RI_TYPE_GLOBAL | 0x70 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_REPORT_ID(DataBits)          (HID_RI_TYPE_GLOBAL | 0x80 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_REPORT_COUNT(DataBits)       (HID_RI_TYPE_GLOBAL | 0x90 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_PUSH(DataBits)               (HID_RI_TYPE_GLOBAL | 0xA0 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_POP(DataBits)                (HID_RI_TYPE_GLOBAL | 0xB0 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_USAGE(DataBits)              (HID_RI_TYPE_LOCAL  | 0x00 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_USAGE_MINIMUM(DataBits)      (HID_RI_TYPE_LOCAL  | 0x10 | HID_RI_DATA_BITS(DataBits))
-			#define HID_RI_USAGE_MAXIMUM(DataBits)      (HID_RI_TYPE_LOCAL  | 0x20 | HID_RI_DATA_BITS(DataBits))
+			#define HID_RI_INPUT(DataBits, ...)              _HID_RI_ENTRY(HID_RI_TYPE_MAIN  , 0x80, DataBits, __VA_ARGS__)
+			#define HID_RI_OUTPUT(DataBits, ...)             _HID_RI_ENTRY(HID_RI_TYPE_MAIN  , 0x90, DataBits, __VA_ARGS__)
+			#define HID_RI_COLLECTION(DataBits, ...)         _HID_RI_ENTRY(HID_RI_TYPE_MAIN  , 0xA0, DataBits, __VA_ARGS__)
+			#define HID_RI_FEATURE(DataBits, ...)            _HID_RI_ENTRY(HID_RI_TYPE_MAIN  , 0xB0, DataBits, __VA_ARGS__)
+			#define HID_RI_END_COLLECTION(DataBits, ...)     _HID_RI_ENTRY(HID_RI_TYPE_MAIN  , 0xC0, DataBits, __VA_ARGS__)
+			#define HID_RI_USAGE_PAGE(DataBits, ...)         _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0x00, DataBits, __VA_ARGS__)
+			#define HID_RI_LOGICAL_MINIMUM(DataBits, ...)    _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0x10, DataBits, __VA_ARGS__)
+			#define HID_RI_LOGICAL_MAXIMUM(DataBits, ...)    _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0x20, DataBits, __VA_ARGS__)
+			#define HID_RI_PHYSICAL_MINIMUM(DataBits, ...)   _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0x30, DataBits, __VA_ARGS__)
+			#define HID_RI_PHYSICAL_MAXIMUM(DataBits, ...)   _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0x40, DataBits, __VA_ARGS__)
+			#define HID_RI_UNIT_EXPONENT(DataBits, ...)      _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0x50, DataBits, __VA_ARGS__)
+			#define HID_RI_UNIT(DataBits, ...)               _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0x60, DataBits, __VA_ARGS__)
+			#define HID_RI_REPORT_SIZE(DataBits, ...)        _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0x70, DataBits, __VA_ARGS__)
+			#define HID_RI_REPORT_ID(DataBits, ...)          _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0x80, DataBits, __VA_ARGS__)
+			#define HID_RI_REPORT_COUNT(DataBits, ...)       _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0x90, DataBits, __VA_ARGS__)
+			#define HID_RI_PUSH(DataBits, ...)               _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0xA0, DataBits, __VA_ARGS__)
+			#define HID_RI_POP(DataBits, ...)                _HID_RI_ENTRY(HID_RI_TYPE_GLOBAL, 0xB0, DataBits, __VA_ARGS__)
+			#define HID_RI_USAGE(DataBits, ...)              _HID_RI_ENTRY(HID_RI_TYPE_LOCAL , 0x00, DataBits, __VA_ARGS__)
+			#define HID_RI_USAGE_MINIMUM(DataBits, ...)      _HID_RI_ENTRY(HID_RI_TYPE_LOCAL , 0x10, DataBits, __VA_ARGS__)
+			#define HID_RI_USAGE_MAXIMUM(DataBits, ...)      _HID_RI_ENTRY(HID_RI_TYPE_LOCAL , 0x20, DataBits, __VA_ARGS__)
 		//@}
-		
+
 /** @} */
 
 #endif

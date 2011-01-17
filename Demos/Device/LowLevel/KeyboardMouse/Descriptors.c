@@ -48,34 +48,32 @@
  */
 USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
 {
-	HID_RI_USAGE_PAGE(8),                0x01, /* Generic Desktop */
-	HID_RI_USAGE(8),                     0x02, /* Mouse */
-	HID_RI_COLLECTION(8),                0x01, /* Application */
-	    HID_RI_USAGE(8),                 0x01, /* Pointer */
-	    HID_RI_COLLECTION(8),            0x00, /* Physical */
-	        HID_RI_USAGE_PAGE(8),        0x09, /* Button */
-	        HID_RI_USAGE_MINIMUM(8),     0x01,
-	        HID_RI_USAGE_MAXIMUM(8),     0x03,
-	        HID_RI_LOGICAL_MINIMUM(8),   0,
-	        HID_RI_LOGICAL_MAXIMUM(8),   1,
-	        HID_RI_REPORT_COUNT(8),      3,
-	        HID_RI_REPORT_SIZE(8),       1,
-	        HID_RI_INPUT(8),             (HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_VOLATILE),
-
-	        HID_RI_REPORT_COUNT(8),      1,
-	        HID_RI_REPORT_SIZE(8),       5,
-	        HID_RI_INPUT(8),             HID_IOF_CONSTANT,
-
-	        HID_RI_USAGE_PAGE(8),        0x01, /* Generic Desktop */
-	        HID_RI_USAGE(8),             0x30, /* Usage X */
-	        HID_RI_USAGE(8),             0x31, /* Usage Y */
-	        HID_RI_LOGICAL_MINIMUM(8),   -1,
-	        HID_RI_LOGICAL_MAXIMUM(8),   1,
-	        HID_RI_PHYSICAL_MINIMUM(8),  -1,
-	        HID_RI_PHYSICAL_MAXIMUM(8),  1,
-	        HID_RI_REPORT_COUNT(8),      2,
-	        HID_RI_REPORT_SIZE(8),       8,
-	        HID_RI_INPUT(8),             (HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE | HID_IOF_NON_VOLATILE),
+	HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
+	HID_RI_USAGE(8, 0x02), /* Mouse */
+	HID_RI_COLLECTION(8, 0x01), /* Application */
+	    HID_RI_USAGE(8, 0x01), /* Pointer */
+	    HID_RI_COLLECTION(8, 0x00), /* Physical */
+	        HID_RI_USAGE_PAGE(8, 0x09), /* Button */
+	        HID_RI_USAGE_MINIMUM(8, 0x01),
+	        HID_RI_USAGE_MAXIMUM(8, 0x03),
+	        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+	        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+	        HID_RI_REPORT_COUNT(8, 0x03),
+	        HID_RI_REPORT_SIZE(8, 0x01),
+	        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_VOLATILE),
+	        HID_RI_REPORT_COUNT(8, 0x01),
+	        HID_RI_REPORT_SIZE(8, 0x05),
+	        HID_RI_INPUT(8, HID_IOF_CONSTANT),
+	        HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
+	        HID_RI_USAGE(8, 0x30), /* Usage X */
+	        HID_RI_USAGE(8, 0x31), /* Usage Y */
+	        HID_RI_LOGICAL_MINIMUM(8, -1),
+	        HID_RI_LOGICAL_MAXIMUM(8, 1),
+	        HID_RI_PHYSICAL_MINIMUM(8, -1),
+	        HID_RI_PHYSICAL_MAXIMUM(8, 1),
+	        HID_RI_REPORT_COUNT(8, 0x02),
+	        HID_RI_REPORT_SIZE(8, 0x08),
+	        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE | HID_IOF_NON_VOLATILE),
 	    HID_RI_END_COLLECTION(0),
 	HID_RI_END_COLLECTION(0),
 };
@@ -83,40 +81,37 @@ USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
 /** Same as the MouseReport structure, but defines the keyboard HID interface's report structure. */
 USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
 {
-	HID_RI_USAGE_PAGE(8),                0x01, /* Generic Desktop */
-	HID_RI_USAGE(8),                     0x06, /* Keyboard */
-	HID_RI_COLLECTION(8),                0x01, /* Application */
-	    HID_RI_USAGE_PAGE(8),            0x07, /* Key Codes */
-	    HID_RI_USAGE_MINIMUM(8),         0xE0, /* Keyboard Left Control */
-	    HID_RI_USAGE_MAXIMUM(8),         0xE7, /* Keyboard Right GUI */
-	    HID_RI_LOGICAL_MINIMUM(8),       0,
-	    HID_RI_LOGICAL_MAXIMUM(8),       1,
-	    HID_RI_REPORT_SIZE(8),           1,
-	    HID_RI_REPORT_COUNT(8),          8,
-	    HID_RI_INPUT(8),                 (HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
-
-	    HID_RI_REPORT_COUNT(8),          1,
-	    HID_RI_REPORT_SIZE(8),           8,
-	    HID_RI_INPUT(8),                 HID_IOF_CONSTANT,
-
-	    HID_RI_USAGE_PAGE(8),            0x08, /* LEDs */
-	    HID_RI_USAGE_MINIMUM(8),         0x01, /* Num Lock */
-	    HID_RI_USAGE_MAXIMUM(8),         0x05, /* Kana */
-	    HID_RI_REPORT_COUNT(8),          5,
-	    HID_RI_REPORT_SIZE(8),           1,
-	    HID_RI_OUTPUT(8),                (HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
-	    HID_RI_REPORT_COUNT(8),          1,
-	    HID_RI_REPORT_SIZE(8),           3,
-	    HID_RI_OUTPUT(8),                HID_IOF_CONSTANT,
-
-	    HID_RI_LOGICAL_MINIMUM(8),       0x00,
-	    HID_RI_LOGICAL_MAXIMUM(8),       0x65,
-	    HID_RI_USAGE_PAGE(8),            0x07, /* Keyboard */
-	    HID_RI_USAGE_MINIMUM(8),         0x00, /* Reserved (no event indicated) */
-	    HID_RI_USAGE_MAXIMUM(8),         0x65, /* Keyboard Application */
-	    HID_RI_REPORT_COUNT(8),          6,
-	    HID_RI_REPORT_SIZE(8),           8,
-	    HID_RI_INPUT(8),                 (HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+	HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
+	HID_RI_USAGE(8, 0x06), /* Keyboard */
+	HID_RI_COLLECTION(8, 0x01), /* Application */
+	    HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
+	    HID_RI_USAGE_MINIMUM(8, 0xE0), /* Keyboard Left Control */
+	    HID_RI_USAGE_MAXIMUM(8, 0xE7), /* Keyboard Right GUI */
+	    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+	    HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+	    HID_RI_REPORT_SIZE(8, 0x01),
+	    HID_RI_REPORT_COUNT(8, 0x08),
+	    HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+	    HID_RI_REPORT_COUNT(8, 0x01),
+	    HID_RI_REPORT_SIZE(8, 0x08),
+	    HID_RI_INPUT(8, HID_IOF_CONSTANT),
+	    HID_RI_USAGE_PAGE(8, 0x08), /* LEDs */
+	    HID_RI_USAGE_MINIMUM(8, 0x01), /* Num Lock */
+	    HID_RI_USAGE_MAXIMUM(8, 0x05), /* Kana */
+	    HID_RI_REPORT_COUNT(8, 0x05),
+	    HID_RI_REPORT_SIZE(8, 0x01),
+	    HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+	    HID_RI_REPORT_COUNT(8, 0x01),
+	    HID_RI_REPORT_SIZE(8, 0x03),
+	    HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
+	    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+	    HID_RI_LOGICAL_MAXIMUM(8, 0x65),
+	    HID_RI_USAGE_PAGE(8, 0x07), /* Keyboard */
+	    HID_RI_USAGE_MINIMUM(8, 0x00), /* Reserved (no event indicated) */
+	    HID_RI_USAGE_MAXIMUM(8, 0x65), /* Keyboard Application */
+	    HID_RI_REPORT_COUNT(8, 0x06),
+	    HID_RI_REPORT_SIZE(8, 0x08),
+	    HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
 	HID_RI_END_COLLECTION(0),
 };
 
