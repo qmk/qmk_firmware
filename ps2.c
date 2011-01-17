@@ -149,7 +149,7 @@ uint8_t ps2_host_recv(void)
     bool parity = true;
     ps2_error = 0;
 
-    /* cancel to sync */
+    /* terminate a transmission if we have */
     clock_lo();
     _delay_us(100);
 
@@ -158,7 +158,7 @@ uint8_t ps2_host_recv(void)
     data_hi();
 
     /* start bit [1] */
-    WAIT(clock_lo, 20000, 1);
+    WAIT(clock_lo, 2000, 1);    // How long should we wait?
     WAIT(data_lo, 1, 2);
     WAIT(clock_hi, 50, 3);
 

@@ -1,0 +1,103 @@
+PS/2 to USB keyboard converter
+==============================
+
+This firmware converts PS/2 keyboard protocol to USB.
+
+
+Demostration build
+------------------
+In this demo build, you can try several layouts,
+mouse keys and USB NKRO.
+
+Special keys:
+    Magic+0:    Qwerty with mouse keys(default)
+    Magic+1:    Qwerty
+    Magic+2:    Colemak
+    Magic+3:    Dvorak
+    Magic+4:    Workman
+    Magic+N:    toggles NKRO/6KRO(6KRO by default)
+    Magic+Esc:  sends Power Event
+    where Magic=(LShift+RShift) or (LControl+RShift)
+
+Keybinds:
+    Fn0+(hjkl): Mouse key move(vi cursor)
+    Fn0+(yuio): Mouse wheel(left,down,up,right)
+    Fn0+space:  Mouse button1
+    Fn0+(mnb):  Mouse buttons(1,2,3)
+    Fn0+(zxc):  Media control(Volup, Voldown, Mute)
+    Fn1+(hjkl): Cursor move(vi cursor)
+    Fn1+(nm,.): Cursor move(Home,PageDown,PageUp,End)
+
+    Fn2+(esdf): Mouse key move(invert T cursor)
+    Fn2+(qwrt): Mouse wheel(left,down,up,right)
+    Fn2+space:  Mouse button1
+    Fn2+(,./):  Media control(Volup, Voldown, Mute)
+    where Fn0=;, Fn1=/, Fn2=a
+
+
+Features
+--------
+Mouse keys
+    You can emulates mouse move and button click using keyboard.
+System/Media control
+    You can sends Power event, Volume down/up and Mute.
+USB NKRO(actually 120KRO+8Modifiers)
+    You can tolggles NKRO/6KRO.(Not tested on Mac.)
+Keymap customization
+    You can customize keymaps easily by editing source code.
+
+
+Build
+-----
+0. Connect PS/2 keyboard to Teensy by 4 lines(Vcc, GND, Data, Clock).
+1. Define following macros for PS/2 connection in config.h:
+   PS2_DATA_PORT
+   PS2_DATA_PIN
+   PS2_DATA_DDR
+   PS2_DATA_BIT
+   PS2_CLOCK_PORT
+   PS2_CLOCK_PIN
+   PS2_CLOCK_DDR
+   PS2_CLOCK_BIT
+2. Edit Makefile for build options and MCU setting.
+2. make
+3. program Teensy.
+   http://www.pjrc.com/teensy/loader.html
+
+
+Keymap
+------
+You can change a keymap by editing code of keymap.c like following.
+How to define the keymap is probably obvious. You can find  key
+symbols in usb_keycodes.h.
+If you want to define more than one keymap, see hhkb/keymap.c and
+macway/keymap.c as examples. To define keymap(layer) switching may
+needs a bit of your effort at this time.
+
+    /* Default Layer: plain keymap
+     * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.     ,-----------.
+     * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|     |Pwr|Slp|Wak|
+     * `---'   `---------------' `---------------' `---------------' `-----------'     `-----------'
+     * ,-----------------------------------------------------------. ,-----------. ,---------------.
+     * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backspa| |Ins|Hom|PgU| |NmL|  /|  *|  -|
+     * |-----------------------------------------------------------| |-----------| |---------------|
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \| |Del|End|PgD| |  7|  8|  9|   |
+     * |-----------------------------------------------------------| `-----------' |-----------|  +|
+     * |CapsLo|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |               |  4|  5|  6|   |
+     * |-----------------------------------------------------------|     ,---.     |---------------|
+     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shift     |     |Up |     |  1|  2|  3|   |
+     * |-----------------------------------------------------------| ,-----------. |-----------|Ent|
+     * |Ctrl |Gui |Alt |         Space         |Alt |Gui |Menu|Ctrl| |Lef|Dow|Rig| |      0|  .|   |
+     * `-----------------------------------------------------------' `-----------' `---------------'
+     */
+    KEYMAP(
+    ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,           PSCR,SLCK,BRK,          PWR, F13, F14,
+    GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC,     INS, HOME,PGUP,    NLCK,PSLS,PAST,PMNS,
+    TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,     DEL, END, PGDN,    P7,  P8,  P9,
+    CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     ENT,                         P4,  P5,  P6,  PPLS,
+    LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,          RSFT,          UP,           P1,  P2,  P3,
+    LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, RCTL,     LEFT,DOWN,RGHT,    P0,       PDOT,PENT
+    ),
+
+
+EOF

@@ -117,6 +117,8 @@ void proc_matrix(void) {
     if (keymap_is_special_mode(fn_bits)) {
         switch (usb_keyboard_get_key()) {
             case KB_H: // help
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
                 print_enable = true;
                 print("b: jump to bootloader\n");
                 print("d: toggle debug enable\n");
@@ -131,17 +133,80 @@ void proc_matrix(void) {
 #ifdef USB_NKRO_ENABLE
                 print("n: toggle USB_NKRO\n");
 #endif
+                print("Backspace: clear matrix\n");
                 print("ESC: power down/wake up\n");
+                print("0: switch to Layer0 \n");
+                print("1: switch to Layer1 \n");
+                print("2: switch to Layer2 \n");
+                print("3: switch to Layer3 \n");
+                print("4: switch to Layer4 \n");
 #ifdef PS2_MOUSE_ENABLE
-                print("1: ps2_mouse_init \n");
-                print("2: ps2_mouse_read \n");
-                print("3: ps2_mouse: on/off toggle \n");
+                print("[: ps2_mouse_init \n");
+                print("]: ps2_mouse_read \n");
+                print("\: ps2_mouse: on/off toggle \n");
 #endif
                 _delay_ms(500);
                 print_enable = false;
                 break;
-#ifdef PS2_MOUSE_ENABLE
+            case KB_BSPC:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                matrix_init();
+                print("clear matrix\n");
+                _delay_ms(500);
+                break;
+            case KB_0:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                print("current_layer: "); phex(current_layer); print("\n");
+                print("default_layer: "); phex(default_layer); print("\n");
+                current_layer = 0;
+                default_layer = 0;
+                print("switch to Layer0 \n");
+                _delay_ms(500);
+                break;
             case KB_1:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                print("current_layer: "); phex(current_layer); print("\n");
+                print("default_layer: "); phex(default_layer); print("\n");
+                current_layer = 1;
+                default_layer = 1;
+                print("switch to Layer1 \n");
+                _delay_ms(500);
+                break;
+            case KB_2:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                print("current_layer: "); phex(current_layer); print("\n");
+                print("default_layer: "); phex(default_layer); print("\n");
+                current_layer = 2;
+                default_layer = 2;
+                print("switch to Layer2 \n");
+                _delay_ms(500);
+                break;
+            case KB_3:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                print("current_layer: "); phex(current_layer); print("\n");
+                print("default_layer: "); phex(default_layer); print("\n");
+                current_layer = 3;
+                default_layer = 3;
+                print("switch to Layer3 \n");
+                _delay_ms(500);
+                break;
+            case KB_4:
+                usb_keyboard_clear_report();
+                usb_keyboard_send();
+                print("current_layer: "); phex(current_layer); print("\n");
+                print("default_layer: "); phex(default_layer); print("\n");
+                current_layer = 4;
+                default_layer = 4;
+                print("switch to Layer4 \n");
+                _delay_ms(500);
+                break;
+#ifdef PS2_MOUSE_ENABLE
+            case KB_LBRC:
                 usb_keyboard_clear_report();
                 usb_keyboard_send();
                 print_enable = true;
@@ -149,7 +214,7 @@ void proc_matrix(void) {
                 _delay_ms(500);
                 ps2_mouse_init();
                 break;
-            case KB_2:
+            case KB_RBRC:
                 usb_keyboard_clear_report();
                 usb_keyboard_send();
                 print_enable = true;
@@ -161,7 +226,7 @@ void proc_matrix(void) {
                 phex(ps2_mouse_y); print("\n");
                 print("ps2_mouse_error_count: "); phex(ps2_mouse_error_count); print("\n");
                 break;
-            case KB_3:
+            case KB_BSLS:
                 ps2_mouse_enable = !ps2_mouse_enable;
                 print("ps2_mouse: ");
                 if (ps2_mouse_enable)
@@ -187,15 +252,15 @@ void proc_matrix(void) {
                 if (debug_enable) {
                     print_enable = true;
                     print("debug enabled.\n");
-                    debug_matrix = true;
-                    debug_keyboard = true;
-                    debug_mouse = true;
+                    //debug_matrix = true;
+                    //debug_keyboard = true;
+                    //debug_mouse = true;
                 } else {
                     print("debug disabled.\n");
                     print_enable = false;
-                    debug_matrix = false;
-                    debug_keyboard = false;
-                    debug_mouse = false;
+                    //debug_matrix = false;
+                    //debug_keyboard = false;
+                    //debug_mouse = false;
                 }
                 _delay_ms(1000);
                 break;

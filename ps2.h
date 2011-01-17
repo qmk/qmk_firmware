@@ -59,6 +59,10 @@ POSSIBILITY OF SUCH DAMAGE.
 #define PS2_ERR_NONE    0
 #define PS2_ERR_PARITY  0x10
 
+#define PS2_LED_SCROLL_LOCK 0
+#define PS2_LED_NUM_LOCK    1
+#define PS2_LED_CAPS_LOCK   2
+
 
 extern uint8_t ps2_error;
 

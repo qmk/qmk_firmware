@@ -82,6 +82,7 @@
 #define KB_PWR  KB_POWER
 #define KB_VOLU KB_VOLUP
 #define KB_VOLD KB_VOLDOWN
+#define KB_APP  KB_APPLICATION,
 // Keypad
 #define KB_P1   KB_KP_1
 #define KB_P2   KB_KP_2
