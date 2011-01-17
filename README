@@ -62,6 +62,9 @@ Copying exsistent target(macway) is easy way.
      keymaps[]
 6. Build.
 
+If you have a build error like following, comment out "--relax" option in Makefile.common.
+    (.vectors+0x30): relocation truncated to fit: R_AVR_13_PCREL against symbol `__vector_12'
+
 
 Build Options
 -------------

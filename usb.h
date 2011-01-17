@@ -6,6 +6,9 @@
 #include <avr/io.h>
 
 
+extern bool remote_wakeup;
+extern bool suspend;
+
 void usb_init(void);			// initialize everything
 uint8_t usb_configured(void);		// is the USB port configured
 void usb_remote_wakeup(void);
@@ -85,8 +88,11 @@ void usb_remote_wakeup(void);
 #define ENDPOINT_HALT			0
 #define TEST_MODE			2
 
-
-extern bool remote_wakeup;
-extern bool suspend;
+// LEDS
+#define USB_LED_NUM_LOCK                0
+#define USB_LED_CAPS_LOCK               1
+#define USB_LED_SCROLL_LOCK             2
+#define USB_LED_COMPOSE                 3
+#define USB_LED_KANA                    4
 
 #endif
