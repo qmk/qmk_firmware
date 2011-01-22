@@ -68,14 +68,13 @@ void ISPProtocol_EnterISPMode(void)
 	ISPProtocol_DelayMS(Enter_ISP_Params.ExecutionDelayMS);
 	ISPTarget_EnableTargetISP();
 
+	ISPTarget_ChangeTargetResetLine(true);
+
 	/* Continuously attempt to synchronize with the target until either the number of attempts specified
 	 * by the host has exceeded, or the the device sends back the expected response values */
-	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus != STATUS_CMD_OK) && TimeoutTicksRemaining)
+	while (Enter_ISP_Params.SynchLoops-- && (ResponseStatus != STATUS_CMD_OK) && !(TimeoutExpired))
 	{
 		uint8_t ResponseBytes[4];
-
-		ISPTarget_ChangeTargetResetLine(true);
-		ISPProtocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
 
 		for (uint8_t RByte = 0; RByte < sizeof(ResponseBytes); RByte++)
 		{
@@ -92,6 +91,7 @@ void ISPProtocol_EnterISPMode(void)
 		{
 			ISPTarget_ChangeTargetResetLine(false);
 			ISPProtocol_DelayMS(Enter_ISP_Params.PinStabDelayMS);
+			ISPTarget_ChangeTargetResetLine(true);
 		}
 	}
 
@@ -509,7 +509,7 @@ void ISPProtocol_SPIMulti(void)
  */
 void ISPProtocol_DelayMS(uint8_t DelayMS)
 {
-	while (DelayMS-- && TimeoutTicksRemaining)
+	while (DelayMS-- && !(TimeoutExpired))
 	  _delay_ms(1);
 }
 

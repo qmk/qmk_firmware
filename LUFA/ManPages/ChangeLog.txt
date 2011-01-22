@@ -43,6 +43,8 @@
   *   - Changed over library projects to use the new general ring buffer library driver module
   *   - Added new high level TWI packet read/write commands, altered behaviour of the TWI_StartTransmission() function
   *   - Changed TempDataLogger project's DS1307 driver to simplify the function interface and prevent a possible race condition
+  *   - Changed AVRISP-MKII project to use the Watchdog interrupt for command timeouts, to reduce CPU usage and free timer 0
+  *     for other uses
   *
   *  <b>Fixed:</b>
   *  - Core:

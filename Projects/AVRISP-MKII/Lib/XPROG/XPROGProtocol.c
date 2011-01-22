@@ -143,6 +143,8 @@ static void XPROGProtocol_LeaveXPROGMode(void)
 	  TINYNVM_DisableTPI();
 
 	#if defined(XCK_RESCUE_CLOCK_ENABLE) && defined(ENABLE_ISP_PROTOCOL)
+	/* If the XCK rescue clock option is enabled, we need to restart it once the 
+	 * XPROG mode has been exited, since the XPROG protocol stops it after use. */
 	ISPTarget_ConfigureRescueClock();
 	#endif
 

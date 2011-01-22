@@ -39,6 +39,7 @@
 	/* Includes: */
 		#include <avr/io.h>
 		#include <avr/interrupt.h>
+		#include <avr/wdt.h>
 	
 		#include <LUFA/Drivers/USB/USB.h>
 
@@ -68,8 +69,8 @@
 		/** Timeout period for each issued command from the host before it is aborted (in 10ms ticks). */
 		#define COMMAND_TIMEOUT_TICKS      100
 
-		/** Command timeout counter register, GPIOR for speed. */
-		#define TimeoutTicksRemaining      GPIOR1
+		/** Command timeout expiration flag, GPIOR for speed. */
+		#define TimeoutExpired             GPIOR1
 
 		/** MUX mask for the VTARGET ADC channel number. */
 		#define VTARGET_ADC_CHANNEL_MASK   ADC_GET_CHANNEL_MASK(VTARGET_ADC_CHANNEL)

@@ -151,7 +151,7 @@ uint8_t XPROGTarget_ReceiveByte(void)
 	  XPROGTarget_SetRxMode();
 
 	/* Wait until a byte has been received before reading */
-	while (!(UCSR1A & (1 << RXC1)) && TimeoutTicksRemaining);
+	while (!(UCSR1A & (1 << RXC1)) && !(TimeoutExpired));
 
 	return UDR1;
 }
