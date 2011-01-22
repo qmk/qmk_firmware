@@ -6,23 +6,23 @@
 
 /*
  * Parameters:
- *     enter_delay         |=======|
- *     send_fn_term        |================|
+ *     ENTER_DELAY         |=======|
+ *     SEND_FN_TERM        |================|
  *
  * Fn key processing cases:
- * 1. release Fn after send_fn_term.
+ * 1. release Fn after SEND_FN_TERM.
  *     Layer sw         ___________|~~~~~~~~~~~|___
  *     Fn press         ___|~~~~~~~~~~~~~~~~~~~|___
  *     Fn send          ___________________________
  *
- * 2. release Fn in send_fn_term.(not layer used)
+ * 2. release Fn during SEND_FN_TERM.(not layer used)
  *     Layer sw         ___________|~~~~~~|________
  *     Fn press         ___|~~~~~~~~~~~~~~|________
  *     Fn key send      __________________|~|______
  *     other key press  ___________________________
  *     other key send   ___________________________
  *
- * 3. release Fn in send_fn_term.(layer used)
+ * 3. release Fn during SEND_FN_TERM.(layer used)
  *     Layer sw         ___________|~~~~~~|________
  *     Fn press         ___|~~~~~~~~~~~~~~|________
  *     Fn key send      ___________________________
@@ -30,7 +30,7 @@
  *     other key press  _____________|~~|__________
  *     other key send   _____________|~~|__________
  *
- * 4. press other key in ENTER_DELAY.
+ * 4. press other key during ENTER_DELAY.
  *     Layer sw         ___________________________
  *     Fn key press     ___|~~~~~~~~~|_____________
  *     Fn key send      ______|~~~~~~|_____________
@@ -51,14 +51,17 @@
  */
 
 // LAYER_ENTER_DELAY: prevent from moving new layer
-#define LAYER_ENTER_DELAY 8
+#define LAYER_ENTER_DELAY 10
 
 // LAYER_SEND_FN_TERM: send keycode if release key in this term
 #define LAYER_SEND_FN_TERM 40
 
 
-static uint8_t current_layer = 0;
+uint8_t default_layer = 0;
+uint8_t current_layer = 0;
+
 static bool layer_used = false;
+static uint8_t new_layer(uint8_t fn_bits);
 
 
 uint8_t layer_get_keycode(uint8_t row, uint8_t col)
@@ -71,83 +74,110 @@ uint8_t layer_get_keycode(uint8_t row, uint8_t col)
     return code;
 }
 
+// bit substract b from a
+#define BIT_SUBT(a, b) (a&(a^b))
 void layer_switching(uint8_t fn_bits)
 {
     // layer switching
-    static uint8_t new_layer = 0;
     static uint8_t last_fn = 0;
     static uint8_t last_mods = 0;
     static uint16_t last_timer = 0; 
     static uint8_t sent_fn = 0;
 
-    if (fn_bits == last_fn) { // Fn key is not changed
-        if (current_layer != new_layer) {
-            // not switch layer yet
-            if (timer_elapsed(last_timer) > LAYER_ENTER_DELAY) {
-                debug("Fn case: 1,2,3(switch layer)\n");
-                // case: 1,2,3
-                current_layer = new_layer;
-                debug("timer_elapsed: "); debug_hex16(timer_elapsed(last_timer)); debug("\n"); 
-                debug("switch layer: "); debug_hex(current_layer); debug("\n");
-            } else if (usb_keyboard_has_key()) {
-                debug("Fn case: 4(send Fn first, then add Fn to report)\n");
-                // case: 4
-                // send only Fn key first
-                usb_keyboard_swap_report();
-                usb_keyboard_clear_report();
-                usb_keyboard_add_code(keymap_fn_keycode(last_fn));
-                usb_keyboard_set_mods(last_mods);
-                usb_keyboard_send();
-                usb_keyboard_swap_report();
-                // add Fn key to send with other keys
-                usb_keyboard_add_code(keymap_fn_keycode(last_fn));
-
-                new_layer = 0;
-                sent_fn = last_fn;
-           }
+    if (fn_bits == last_fn) { // Fn state is not changed
+        if (fn_bits == 0) {
+            // do nothing
         } else {
-            if (fn_bits && new_layer == 0) {
-                // case: 4,5,6
-                usb_keyboard_add_code(keymap_fn_keycode(last_fn));
-                sent_fn = last_fn;
-            }
-        }
-    } else { // Fn key is changed
-        if (fn_bits == 0) { // Fn key is released(falling edge)
-            if (!layer_used && timer_elapsed(last_timer) < LAYER_SEND_FN_TERM) {
-                debug("Fn case: 2(send Fn)\n");
-                // case: 2
-                usb_keyboard_swap_report();
-                usb_keyboard_clear_report();
-                usb_keyboard_add_code(keymap_fn_keycode(last_fn));
-                usb_keyboard_set_mods(last_mods);
-                usb_keyboard_send();
-                usb_keyboard_swap_report();
-                sent_fn = last_fn;
-            }
-            debug("Fn case: 1,2,3,4,5,6(return to default layer)\n");
-            new_layer = 0;
-            current_layer = 0;
-        } else { // Fn Key is pressed(rising edge)
-            if (usb_keyboard_has_key() ||
-                    (fn_bits == sent_fn &&timer_elapsed(last_timer) < LAYER_ENTER_DELAY)) {
-                debug("Fn case: 5,6(add Fn to repeat)\n");
-                usb_keyboard_add_code(keymap_fn_keycode(fn_bits));
-                sent_fn = fn_bits;
+            if (timer_elapsed(last_timer) > LAYER_ENTER_DELAY) {
+                uint8_t _layer_to_switch = new_layer(BIT_SUBT(fn_bits, sent_fn));
+                if (current_layer != _layer_to_switch) { // not switch layer yet
+                    debug("Fn case: 1,2,3(LAYER_ENTER_DELAY passed)\n");
+                    debug("Switch Layer: "); debug_hex(current_layer);
+                    current_layer = _layer_to_switch;
+                    layer_used = false;
+                    debug(" -> "); debug_hex(current_layer); debug("\n");
+                }
             } else {
-                debug("Fn case: 1,2,3,4(ready for switching layer)\n");
-                // ready for switching layer(case: 1,2,3,4)
-                new_layer = keymap_fn_layer(fn_bits);
-                sent_fn = 0;
+                if (usb_keyboard_has_key()) { // other keys is pressed
+                    uint8_t _fn_to_send = BIT_SUBT(fn_bits, sent_fn);
+                    if (_fn_to_send) {
+                        debug("Fn case: 4(send Fn before other key pressed)\n");
+                        // send only Fn key first
+                        usb_keyboard_swap_report();
+                        usb_keyboard_clear_report();
+                        usb_keyboard_add_code(keymap_fn_keycode(_fn_to_send));   // TODO: do all Fn keys
+                        usb_keyboard_set_mods(last_mods);
+                        usb_keyboard_send();
+                        usb_keyboard_swap_report();
+                        sent_fn |= _fn_to_send;
+                    }
+                }
             }
+            // add Fn keys to send
+            //usb_keyboard_add_code(keymap_fn_keycode(fn_bits&sent_fn));  // TODO: do all Fn keys
         }
-        layer_used = false;
-        last_fn = fn_bits;
-        last_mods = usb_keyboard_mods;
-        last_timer = timer_read();
-        debug("new_layer: "); debug_hex(new_layer); debug("\n");
+    } else { // Fn state is changed(edge)
+        uint8_t fn_changed = 0;
+
+        debug("fn_bits: "); debug_bin(fn_bits); debug("\n");
+        debug("sent_fn: "); debug_bin(sent_fn); debug("\n");
         debug("last_fn: "); debug_bin(last_fn); debug("\n");
         debug("last_mods: "); debug_hex(last_mods); debug("\n");
         debug("last_timer: "); debug_hex16(last_timer); debug("\n");
+
+        // pressed Fn
+        if ((fn_changed = BIT_SUBT(fn_bits, last_fn))) {
+        debug("fn_changed: "); debug_bin(fn_changed); debug("\n");
+            if (usb_keyboard_has_key()) {
+                debug("Fn case: 5(pressed Fn with other key)\n");
+                sent_fn |= fn_changed;
+            } else if (fn_changed & sent_fn) { // pressed same Fn in a row
+                if (timer_elapsed(last_timer) > LAYER_ENTER_DELAY) {
+                    debug("Fn case: 6(repate2)\n");
+                    // time passed: not repeate
+                    sent_fn &= ~fn_changed;
+                } else {
+                    debug("Fn case: 6(repate)\n");
+                }
+            }
+        }
+        // released Fn
+        if ((fn_changed = BIT_SUBT(last_fn, fn_bits))) {
+        debug("fn_changed: "); debug_bin(fn_changed); debug("\n");
+            if (timer_elapsed(last_timer) < LAYER_SEND_FN_TERM) {
+                //if (!layer_used && BIT_SUBT(fn_changed, sent_fn)) {  // layer not used && Fn not sent
+                if (BIT_SUBT(fn_changed, sent_fn)) {  // layer not used && Fn not sent
+                    debug("Fn case: 2(send Fn one shot: released Fn during LAYER_SEND_FN_TERM)\n");
+                    // send only Fn key first
+                    usb_keyboard_swap_report();
+                    usb_keyboard_clear_report();
+                    usb_keyboard_add_code(keymap_fn_keycode(fn_changed));   // TODO: do all Fn keys
+                    usb_keyboard_set_mods(last_mods);
+                    usb_keyboard_send();
+                    usb_keyboard_swap_report();
+                    sent_fn |= fn_changed;
+                }
+            }
+            debug("Switch Layer(released Fn): "); debug_hex(current_layer);
+            current_layer = new_layer(BIT_SUBT(fn_bits, sent_fn));
+            layer_used = false;
+            debug(" -> "); debug_hex(current_layer); debug("\n");
+        }
+
+        last_fn = fn_bits;
+        last_mods = usb_keyboard_mods;
+        last_timer = timer_read();
     }
+    // send Fn keys
+    for (uint8_t i = 0; i < 8; i++) {
+        if ((sent_fn & fn_bits) & (1<<i)) {
+            usb_keyboard_add_code(keymap_fn_keycode(1<<i));
+        }
+    }
+}
+
+inline
+static uint8_t new_layer(uint8_t fn_bits)
+{
+    return (fn_bits ? keymap_fn_layer(fn_bits) : default_layer);
 }
