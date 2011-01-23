@@ -159,7 +159,7 @@ bool GetNextReport(USB_JoystickReport_Data_t* const ReportData)
 	  ReportData->X =  100;
 
 	if (JoyStatus_LCL & JOY_PRESS)
-	  ReportData->Button  = (1 << 1);
+	  ReportData->Button |= (1 << 1);
 
 	if (ButtonStatus_LCL & BUTTONS_BUTTON1)
 	  ReportData->Button |= (1 << 0);

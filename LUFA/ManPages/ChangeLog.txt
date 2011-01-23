@@ -17,7 +17,9 @@
   *   - Added basic driver example use code to the library documentation
   *   - Added new Endpoint_Null_Stream() and Pipe_Null_stream() functions
   *   - Added new ADC_GET_CHANNEL_MASK() convenience macro
-  *   - New HID report item macros (with HID_RI_ prefix) to allow for easy creation and editing of HID report descriptors
+  *   - Added new HID report item macros (with HID_RI_ prefix) to allow for easy creation and editing of HID report descriptors
+  *   - Added new HID_DESCRIPTOR_MOUSE, HID_DESCRIPTOR_KEYBOARD and HID_DESCRIPTOR_JOYSTICK macros for easy automatic creation of
+  *     basic USB HID device reports
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *

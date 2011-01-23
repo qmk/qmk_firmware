@@ -290,7 +290,7 @@ void Mouse_HID_Task(void)
 		  MouseReportData.X = -1;
 
 		if (JoyStatus_LCL & JOY_PRESS)
-		  MouseReportData.Button  = (1 << 0);
+		  MouseReportData.Button |= (1 << 0);
 	}
 
 	/* Select the Mouse Report Endpoint */
