@@ -59,8 +59,8 @@ USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] =
 	        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
 	    HID_RI_END_COLLECTION(0),
 	    HID_RI_USAGE_PAGE(8, 0x09), /* Button */
-	    HID_RI_USAGE(8, 0x02), /* Button 1 */
-	    HID_RI_USAGE(8, 0x01), /* Button 2 */
+	    HID_RI_USAGE_MINIMUM(8, 0x01),
+	    HID_RI_USAGE_MAXIMUM(8, 0x02),
 	    HID_RI_LOGICAL_MINIMUM(8, 0x00),
 	    HID_RI_LOGICAL_MAXIMUM(8, 0x01),
 	    HID_RI_REPORT_SIZE(8, 0x01),
