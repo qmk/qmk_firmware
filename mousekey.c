@@ -61,7 +61,8 @@ void mousekey_usb_send(void)
 
         usb_mouse_print(mousekey_x, mousekey_y, mousekey_v, mousekey_h, mousekey_btn);
 
-        _delay_ms(MOUSEKEY_DELAY_TIME >> (mousekey_repeat < 5 ? mousekey_repeat : 4));
+        if (mousekey_x || mousekey_y || mousekey_v || mousekey_h)
+            _delay_ms(MOUSEKEY_DELAY_TIME >> (mousekey_repeat < 5 ? mousekey_repeat : 4));
         mousekey_repeat++;
     } else {
         mousekey_repeat = 0;
