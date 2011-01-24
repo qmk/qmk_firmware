@@ -17,7 +17,7 @@
 // Convert physical keyboard layout to matrix array.
 // This is a macro to define keymap easily in keyboard layout form.
 #define KEYMAP( \
-    K76,  K05,K06,K04,K0C, K03,K0B,K83,K0A, K01,K09,K78,K07, KFE,K7E,KFF,      KB7,KBF,KDE, \
+    K76,  K05,K06,K04,K0C, K03,K0B,K83,K0A, K01,K09,K78,K07, KFC,K7E,KFE,      KB7,KBF,KDE, \
     K0E,K16,K1E,K26,K25,K2E,K36,K3D,K3E,K46,K45,K4E,K55,K66, KF0,KEC,KFD,  K77,KCA,K7C,K7B, \
     K0D,K15,K1D,K24,K2D,K2C,K35,K3C,K43,K44,K4D,K54,K5B,K5D, KF1,KE9,KFA,  K6C,K75,K7D,     \
     K58,K1C,K1B,K23,K2B,K34,K33,K3B,K42,K4B,K4C,K52,    K5A,               K6B,K73,K74,K79, \
@@ -55,7 +55,7 @@
     { KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO,    KB_NO    }, \
     { KB_NO,    KB_##KE9, KB_NO,    KB_##KEB, KB_##KEC, KB_NO,    KB_NO,    KB_NO    }, \
     { KB_##KF0, KB_##KF1, KB_##KF2, KB_NO,    KB_##KF4, KB_##KF5, KB_NO,    KB_NO    }, \
-    { KB_NO,    KB_NO,    KB_##KFA, KB_NO,    KB_NO,    KB_##KFD, KB_##KFE, KB_##KFF }, \
+    { KB_NO,    KB_NO,    KB_##KFA, KB_NO,    KB_##KFC, KB_##KFD, KB_##KFE, KB_NO    }, \
 }
 
 
@@ -161,7 +161,7 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F8,  F10, F11, F12, BSPC,     INS, HOME,PGUP,    NLCK,PSLS,PAST,PMNS,
     TAB, NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, NO,  NO,  NO,  BSLS,     DEL, END, PGDN,    P7,  P8,  P9,
     CAPS,NO,  NO,  NO,  NO,  NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,       ENT,                         P4,  P5,  P6,  PPLS,
-    LSFT,VOLD,VOLU,MUTE,NO,  NO,  HOME,PGUP,PGDN,END, FN1,           RSFT,          UP,           P1,  P2,  P3,
+    LSFT,VOLD,VOLU,MUTE,NO,  NO,  HOME,PGDN,PGUP,END, FN1,           RSFT,          UP,           P1,  P2,  P3,
     LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, RCTL,     LEFT,DOWN,RGHT,    P0,       PDOT,PENT
     ),
 };
