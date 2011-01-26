@@ -15,19 +15,15 @@
   *  - Code Features
   *      -# Add hub support when in Host mode for multiple devices
   *      -# Investigate virtual hubs when in device mode instead of composite devices
-  *      -# Add ability to get number of bytes not written with pipe/endpoint write routines after an error
   *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Re-add interrupt Pipe/Endpoint support
   *      -# Investigate dynamically created device descriptors
-  *  - Known Bugs
-  *      -# No wakeup when plugged into hub, and hub plugged into host
-  *      -# Incomplete TMC class demo errors
+  *      -# Re-add in software PDI/TPI support into the AVRISP-MKII project
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works
   *      -# Add board overviews
   *      -# Write LUFA tutorials
   *  - Demos/Projects
-  *      -# Multiple-Report HID device
   *      -# Device/Host USB bridge
   *      -# Alternative (USB-IF endorsed) USB-CDC Ethernet Class
   *      -# Finish Test and Measurement Class demo
@@ -36,7 +32,6 @@
   *      -# Finish StandaloneProgrammer project
   *      -# Arduino Uno compatible USB-MIDI, USB-HID
   *      -# Make Webserver project work in RNDIS device mode
-  *      -# Make rescue clock always active on U4, U6 and U7 targets in AVRISP-MKII Clone project
   *  - Ports
   *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers

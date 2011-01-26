@@ -38,6 +38,7 @@
  *        - <b>Joystick</b> - USB Joystick demo, using the library USB HID Class driver framework
  *        - <b>Keyboard</b> - USB Keyboard demo, using the library USB HID Class driver framework
  *        - <b>KeyboardMouse</b> - Dual Keyboard/Mouse demo, using the library USB HID Class driver framework
+ *        - <b>KeyboardMouseMultiReport</b> - Multi HID report Keyboard/Mouse demo, using the library USB HID Class driver framework
  *        - <b>MassStorage</b> - Dual Drive Mass Storage demo, using the library USB Mass Storage Class driver framework
  *        - <b>MassStorageKeyboard</b> - Mass Storage and Keyboard demo, using the library USB Mass Storage/HID Class driver frameworks
  *        - <b>MIDI</b> - MIDI In demo, using the library USB MIDI-Audio Class driver framework

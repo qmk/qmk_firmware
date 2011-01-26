@@ -340,7 +340,7 @@
 		 *  } Joystick_Report;
 		 *  \endcode
 		 *
-		 *  Where \c intA_t is a type large enough to hold one bit per button, and \c intB_t is a type large enough to hold the
+		 *  Where \c uintA_t is a type large enough to hold one bit per button, and \c intB_t is a type large enough to hold the
 		 *  ranges of the signed \c MinAxisVal and \c MaxAxisVal values.
 		 *
 		 *  \param[in] MinAxisVal  Minimum X/Y logical axis value
@@ -370,7 +370,7 @@
 				HID_RI_REPORT_SIZE(8, (8 - (Buttons % 8))), \
 				HID_RI_REPORT_COUNT(8, 0x01),      \
 				HID_RI_INPUT(8, HID_IOF_CONSTANT), \
-			HID_RI_END_COLLECTION(0),
+			HID_RI_END_COLLECTION(0)
 
 		/** \hideinitializer
 		 *  A list of HID report item array elements that describe a typical HID USB keyboard. The resulting report descriptor
@@ -421,7 +421,7 @@
 				HID_RI_REPORT_COUNT(8, MaxKeys),   \
 				HID_RI_REPORT_SIZE(8, 0x08),       \
 				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE), \
-			HID_RI_END_COLLECTION(0),
+			HID_RI_END_COLLECTION(0)
 
 		/** \hideinitializer
 		 *  A list of HID report item array elements that describe a typical HID USB mouse. The resulting report descriptor
@@ -475,7 +475,7 @@
 						HID_RI_REPORT_SIZE(8, (((((uint16_t)MinAxisVal > 0xFF) && ((uint16_t)MaxAxisVal < 0xFF)) ? 8 : 16))), \
 						HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | (AbsoluteCoords ? HID_IOF_ABSOLUTE : HID_IOF_RELATIVE) | HID_IOF_NON_VOLATILE), \
 					HID_RI_END_COLLECTION(0),            \
-				HID_RI_END_COLLECTION(0),
+				HID_RI_END_COLLECTION(0)
 		//@}
 		
 	/* Type Defines: */

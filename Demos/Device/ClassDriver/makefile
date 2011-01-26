@@ -35,6 +35,9 @@ all:
 	$(MAKE) -C KeyboardMouse clean
 	$(MAKE) -C KeyboardMouse all
 
+	$(MAKE) -C KeyboardMouseMultiReport clean
+	$(MAKE) -C KeyboardMouseMultiReport all
+
 	$(MAKE) -C MassStorage clean
 	$(MAKE) -C MassStorage all
 

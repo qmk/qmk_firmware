@@ -60,11 +60,11 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define USB_INT_Enable(int)              MACROS{ USB_INT_GET_EN_REG(int)   |=   USB_INT_GET_EN_MASK(int);   }MACROE
-			#define USB_INT_Disable(int)             MACROS{ USB_INT_GET_EN_REG(int)   &= ~(USB_INT_GET_EN_MASK(int));  }MACROE
-			#define USB_INT_Clear(int)               MACROS{ USB_INT_GET_INT_REG(int)  &= ~(USB_INT_GET_INT_MASK(int)); }MACROE
-			#define USB_INT_IsEnabled(int)                 ((USB_INT_GET_EN_REG(int)   &    USB_INT_GET_EN_MASK(int)) ? true : false)
-			#define USB_INT_HasOccurred(int)               ((USB_INT_GET_INT_REG(int)  &    USB_INT_GET_INT_MASK(int)) ? true : false)
+			#define USB_INT_Enable(int)                do { USB_INT_GET_EN_REG(int)   |=   USB_INT_GET_EN_MASK(int);   } while(0)
+			#define USB_INT_Disable(int)               do { USB_INT_GET_EN_REG(int)   &= ~(USB_INT_GET_EN_MASK(int));  } while(0)
+			#define USB_INT_Clear(int)                 do { USB_INT_GET_INT_REG(int)  &= ~(USB_INT_GET_INT_MASK(int)); } while(0)
+			#define USB_INT_IsEnabled(int)                 ((USB_INT_GET_EN_REG(int)  &    USB_INT_GET_EN_MASK(int)) ? true : false)
+			#define USB_INT_HasOccurred(int)               ((USB_INT_GET_INT_REG(int) &    USB_INT_GET_INT_MASK(int)) ? true : false)
 
 			#define USB_INT_GET_EN_REG(a, b, c, d)           a
 			#define USB_INT_GET_EN_MASK(a, b, c, d)          b

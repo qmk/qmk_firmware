@@ -79,6 +79,30 @@
 			 */
 			#define MACROE                  while (0)
 
+			/** Convenience macro to determine the larger of two values.
+			 *
+			 *  \note This macro should only be used with operands that do not have side effects from being evaluated
+			 *        multiple times.
+			 *
+			 *  \param[in] x  First value to compare
+			 *  \param[in] y  First value to compare
+			 *
+			 *  \return The larger of the two input parameters
+			 */
+			#define MAX(x, y)               ((x > y) ? x : y)
+
+			/** Convenience macro to determine the smaller of two values.
+			 *
+			 *  \note This macro should only be used with operands that do not have side effects from being evaluated
+			 *        multiple times.
+			 *
+			 *  \param[in] x  First value to compare
+			 *  \param[in] y  First value to compare
+			 *
+			 *  \return The smaller of the two input parameters
+			 */
+			#define MIN(x, y)               ((x < y) ? x : y)
+
 			/** Defines a volatile \c NOP statement which cannot be optimized out by the compiler, and thus can always
 			 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimiser
 			 *  removes/reorders code to the point where break points cannot reliably be set.
