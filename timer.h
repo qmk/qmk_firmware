@@ -6,7 +6,7 @@
 #define TIMER_DIFF(a, b) ((a) >= (b) ?  (a) - (b) : UINT16_MAX - (b) + (a))
 
 
-extern uint16_t timer_count;
+extern volatile uint16_t timer_count;
 
 
 void timer_init(void);

@@ -21,11 +21,10 @@
  * THE SOFTWARE.
  */
 
-// Version 1.0: Initial Release
-
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include "print.h"
+#include "sendchar.h"
 
 
 bool print_enable = false;
@@ -38,15 +37,15 @@ void print_P(const char *s)
 	while (1) {
 		c = pgm_read_byte(s++);
 		if (!c) break;
-		if (c == '\n') usb_debug_putchar('\r');
-		usb_debug_putchar(c);
+		if (c == '\n') sendchar('\r');
+		sendchar(c);
 	}
 }
 
 void phex1(unsigned char c)
 {
 	if (!print_enable) return;
-	usb_debug_putchar(c + ((c < 10) ? '0' : 'A' - 10));
+	sendchar(c + ((c < 10) ? '0' : 'A' - 10));
 }
 
 void phex(unsigned char c)
@@ -68,7 +67,7 @@ void pbin(unsigned char c)
 {
     if (!print_enable) return;
     for (int i = 7; i >= 0; i--) {
-        usb_debug_putchar((c & (1<<i)) ? '1' : '0');
+        sendchar((c & (1<<i)) ? '1' : '0');
     }
 }
 
@@ -76,6 +75,6 @@ void pbin_reverse(unsigned char c)
 {
     if (!print_enable) return;
     for (int i = 0; i < 8; i++) {
-        usb_debug_putchar((c & (1<<i)) ? '1' : '0');
+        sendchar((c & (1<<i)) ? '1' : '0');
     }
 }
