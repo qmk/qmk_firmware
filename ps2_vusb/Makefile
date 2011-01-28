@@ -1,0 +1,50 @@
+# Target file name (without extension).
+TARGET = ps2_vusb
+
+# Directory common source filess exist
+COMMON_DIR = ..
+
+# Directory keyboard dependent files exist
+TARGET_DIR = .
+
+# keyboard dependent files
+TARGET_SRC =	main.c \
+		keyboard_vusb.c \
+		layer.c \
+		keymap.c \
+		matrix.c \
+		ps2.c \
+		print.c \
+		util.c \
+		timer.c \
+		usart_print.c
+
+OPT_DEFS = -DDEBUG_LEVEL=0
+
+
+# MCU name, you MUST set this to match the board you are using
+# type "make clean" after changing this, so all files will be rebuilt
+#MCU = at90usb162       # Teensy 1.0
+#MCU = atmega32u4       # Teensy 2.0
+#MCU = at90usb646       # Teensy++ 1.0
+#MCU = at90usb1286      # Teensy++ 2.0
+MCU = atmega168
+
+
+# Processor frequency.
+#   Normally the first thing your program should do is set the clock prescaler,
+#   so your program will run at the correct speed.  You should also set this
+#   variable to same clock speed.  The _delay_ms() macro uses this, and many
+#   examples use this variable to calculate timings.  Do not add a "UL" here.
+F_CPU = 16000000
+
+
+# Build Options
+#   comment out to disable the options.
+#
+#MOUSEKEY_ENABLE = yes	# Mouse keys
+#USB_EXTRA_ENABLE = yes	# Enhanced feature for Windows(Audio control and System control)
+#USB_NKRO_ENABLE = yes	# USB Nkey Rollover
+
+
+include $(COMMON_DIR)/Makefile.vusb

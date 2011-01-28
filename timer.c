@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include "timer.h"
 
-uint16_t timer_count = 0;
+volatile uint16_t timer_count = 0;
 
 // Configure timer 0 to generate a timer overflow interrupt every
 // 256*1024 clock cycles, or approx 61 Hz when using 16 MHz clock
@@ -19,20 +19,21 @@ void timer_init(void)
 inline
 void timer_clear(void)
 {
+    uint8_t sreg = SREG;
     cli();
     timer_count = 0;
-    sei();
+    SREG = sreg;
 }
 
 inline
 uint16_t timer_read(void)
 {
-    uint8_t _sreg = SREG;
     uint16_t t;
 
+    uint8_t sreg = SREG;
     cli();
     t = timer_count;
-    SREG = _sreg;
+    SREG = sreg;
 
     return t;
 }
@@ -40,12 +41,12 @@ uint16_t timer_read(void)
 inline
 uint16_t timer_elapsed(uint16_t last)
 {
-    uint8_t _sreg = SREG;
     uint16_t t;
 
+    uint8_t sreg = SREG;
     cli();
     t = timer_count;
-    SREG = _sreg;
+    SREG = sreg;
 
     return TIMER_DIFF(t, last);
 }
@@ -58,4 +59,3 @@ ISR(TIMER0_OVF_vect)
 {
     timer_count++;
 }
-
