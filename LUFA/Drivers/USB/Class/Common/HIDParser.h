@@ -217,7 +217,7 @@
 			{
 				uint16_t                     BitOffset;      /**< Bit offset in the IN, OUT or FEATURE report of the item. */
 				uint8_t                      ItemType;       /**< Report item type, a value in \ref HID_ReportItemTypes_t. */
-				uint16_t                     ItemFlags;      /**< Item data flags, such as constant/variable, etc. */
+				uint16_t                     ItemFlags;      /**< Item data flags, a mask of HID_IOF_* constants. */
 				uint8_t                      ReportID;       /**< Report ID this item belongs to, or 0x00 if device has only one report */
 				HID_CollectionPath_t*        CollectionPath; /**< Collection path of the item. */
 

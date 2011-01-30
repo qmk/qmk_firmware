@@ -46,7 +46,7 @@ uint8_t      USBtoUSART_Buffer_Data[128];
 RingBuffer_t USARTtoUSB_Buffer;
 
 /** Underlying data buffer for \ref USARTtoUSB_Buffer, where the stored bytes are located. */
-uint8_t    USARTtoUSB_Buffer_Data[128];
+uint8_t      USARTtoUSB_Buffer_Data[128];
 
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is

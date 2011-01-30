@@ -219,6 +219,6 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t* const HIDI
                                           const void* ReportData,
                                           const uint16_t ReportSize)
 {
-	// Unused (but mandatory for the HID class driver) in this demo, since there are no Host->Device reports
+	// Ignore keyboard LED reports from the host, but still need to declare the callback routine
 }
 

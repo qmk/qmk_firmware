@@ -18,8 +18,8 @@
   *   - Added new Endpoint_Null_Stream() and Pipe_Null_stream() functions
   *   - Added new ADC_GET_CHANNEL_MASK() convenience macro
   *   - Added new HID report item macros (with HID_RI_ prefix) to allow for easy creation and editing of HID report descriptors
-  *   - Added new HID_DESCRIPTOR_MOUSE, HID_DESCRIPTOR_KEYBOARD and HID_DESCRIPTOR_JOYSTICK macros for easy automatic creation of
-  *     basic USB HID device reports
+  *   - Added new HID_DESCRIPTOR_MOUSE, HID_DESCRIPTOR_KEYBOARD, HID_DESCRIPTOR_JOYSTICK and HID_DESCRIPTOR_VENDOR macros
+  *     for easy automatic creation of basic USB HID device reports
   *   - Added new MAX() and MIN() convenience macros
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
@@ -39,6 +39,7 @@
   *   - The NO_STREAM_CALLBACKS compile time option has now been removed due to the new partial stream transfer feature
   *   - Changed over all project and demo HID report descriptors to use the new HID report item macros
   *   - Moved the HIDParser.c source file to the LUFA/Drivers/USB/Class/Common/ directory from the LUFA/Drivers/USB/Class/Host/
+  *   - Added support to the HID parser for extended USAGE items that contain the usage page as well as the usage index
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion

@@ -106,6 +106,9 @@ int main(void)
 		/* Check if the millisecond timer has elapsed */
 		if (TIFR0 & (1 << OCF0A))
 		{
+			/* Clear flush timer expiry flag */
+			TIFR0 |= (1 << TOV0);
+
 			/* Check if the reset pulse period has elapsed, if so tristate the target reset line */
 			if (PulseMSRemaining.ResetPulse && !(--PulseMSRemaining.ResetPulse))
 			{
@@ -132,31 +135,29 @@ int main(void)
 			uint16_t BufferCount = RingBuffer_GetCount(&USARTtoUSB_Buffer);
 			if (!(--FlushPeriodRemaining) || (BufferCount > 200))
 			{
-				/* Echo bytes from the target to the host via the virtual serial port */
+				FlushPeriodRemaining = RECEIVE_BUFFER_FLUSH_MS;
+
+				/* Start RX LED indicator pulse */
 				if (BufferCount)
 				{
-					while (BufferCount--)
-					{
-						/* Try to send the next byte of data to the host, abort if there is an error without dequeuing */
-						if (CDC_Device_SendByte(&VirtualSerial_CDC_Interface,
-												RingBuffer_Peek(&USARTtoUSB_Buffer)) != ENDPOINT_READYWAIT_NoError)
-						{
-							break;
-						}
-
-						/* Dequeue the already sent byte from the buffer now we have confirmed that no transmission error occurred */
-						RingBuffer_Remove(&USARTtoUSB_Buffer);
-					}
-			
 					LEDs_TurnOnLEDs(LEDMASK_RX);
 					PulseMSRemaining.RxLEDPulse = TX_RX_LED_PULSE_MS;
 				}
 
-				FlushPeriodRemaining = RECEIVE_BUFFER_FLUSH_MS;
+				/* Echo bytes from the target to the host via the virtual serial port */
+				while (BufferCount--)
+				{
+					/* Try to send the next byte of data to the host, abort if there is an error without dequeuing */
+					if (CDC_Device_SendByte(&VirtualSerial_CDC_Interface,
+											RingBuffer_Peek(&USARTtoUSB_Buffer)) != ENDPOINT_READYWAIT_NoError)
+					{
+						break;
+					}
+					
+					/* Dequeue the already sent byte from the buffer now we have confirmed that no transmission error occurred */
+					RingBuffer_Remove(&USARTtoUSB_Buffer);
+				}
 			}
-
-			/* Clear the millisecond timer CTC flag (cleared by writing logic one to the register) */
-			TIFR0 |= (1 << OCF0A);
 		}
 
 		CDC_Device_USBTask(&VirtualSerial_CDC_Interface);

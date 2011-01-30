@@ -320,9 +320,9 @@
 			 *  This event is time-critical; it is run once per millisecond and thus long handlers will significantly
 			 *  degrade device performance. This event should only be enabled when needed to reduce device wake-ups.
 			 *
-			 *  \note This event is not normally active - it must be manually enabled and disabled via the
-			 *        \ref USB_Device_EnableSOFEvents() and \ref USB_Device_DisableSOFEvents() commands after enumeration.
-			 *        \n\n
+			 *  \pre This event is not normally active - it must be manually enabled and disabled via the
+			 *       \ref USB_Device_EnableSOFEvents() and \ref USB_Device_DisableSOFEvents() commands after enumeration.
+			 *       \n\n
 			 *
 			 *  \note This event does not exist if the \c USB_HOST_ONLY token is supplied to the compiler (see
 			 *        \ref Group_USBManagement documentation).

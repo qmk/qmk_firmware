@@ -45,34 +45,15 @@
  */
 USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
 {
-	HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-	HID_RI_USAGE(8, 0x02), /* Mouse */
-	HID_RI_COLLECTION(8, 0x01), /* Application */
-	    HID_RI_USAGE(8, 0x01), /* Pointer */
-	    HID_RI_COLLECTION(8, 0x00), /* Physical */
-	        HID_RI_USAGE_PAGE(8, 0x09), /* Button */
-	        HID_RI_USAGE_MINIMUM(8, 0x01),
-	        HID_RI_USAGE_MAXIMUM(8, 0x03),
-	        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-	        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-	        HID_RI_REPORT_COUNT(8, 0x03),
-	        HID_RI_REPORT_SIZE(8, 0x01),
-	        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_VOLATILE),
-	        HID_RI_REPORT_COUNT(8, 0x01),
-	        HID_RI_REPORT_SIZE(8, 0x05),
-	        HID_RI_INPUT(8, HID_IOF_CONSTANT),
-	        HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-	        HID_RI_USAGE(8, 0x30), /* Usage X */
-	        HID_RI_USAGE(8, 0x31), /* Usage Y */
-	        HID_RI_LOGICAL_MINIMUM(8, -1),
-	        HID_RI_LOGICAL_MAXIMUM(8, 1),
-	        HID_RI_PHYSICAL_MINIMUM(8, -1),
-	        HID_RI_PHYSICAL_MAXIMUM(8, 1),
-	        HID_RI_REPORT_COUNT(8, 0x02),
-	        HID_RI_REPORT_SIZE(8, 0x08),
-	        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE | HID_IOF_NON_VOLATILE),
-	    HID_RI_END_COLLECTION(0),
-	HID_RI_END_COLLECTION(0),
+	/* Use the HID class driver's standard Mouse report.
+	 *   Min X/Y Axis values: -1
+	 *   Max X/Y Axis values:  1
+	 *   Min physical X/Y Axis values (used to determine resolution): -1
+	 *   Max physical X/Y Axis values (used to determine resolution):  1
+	 *   Buttons: 3
+	 *   Absolute screen coordinates: false
+	 */
+	HID_DESCRIPTOR_MOUSE(-1, 1, -1, 1, 3, false)
 };
 
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall

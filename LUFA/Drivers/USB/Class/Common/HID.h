@@ -348,28 +348,28 @@
 		 *  \param[in] Buttons     Total number of buttons in the device
 		 */
 		#define HID_DESCRIPTOR_JOYSTICK(MinAxisVal, MaxAxisVal, Buttons) \
-			HID_RI_USAGE_PAGE(8, 0x01),            \
-			HID_RI_USAGE(8, 0x04),                 \
-			HID_RI_COLLECTION(8, 0x01),            \
-				HID_RI_USAGE(8, 0x01),             \
-				HID_RI_COLLECTION(8, 0x00),        \
-					HID_RI_USAGE(8, 0x30),         \
-					HID_RI_USAGE(8, 0x31),         \
+			HID_RI_USAGE_PAGE(8, 0x01),                     \
+			HID_RI_USAGE(8, 0x04),                          \
+			HID_RI_COLLECTION(8, 0x01),                     \
+				HID_RI_USAGE(8, 0x01),                      \
+				HID_RI_COLLECTION(8, 0x00),                 \
+					HID_RI_USAGE(8, 0x30),                  \
+					HID_RI_USAGE(8, 0x31),                  \
 					HID_RI_REPORT_SIZE(8, (((((uint16_t)MinAxisVal > 0xFF) && ((uint16_t)MaxAxisVal < 0xFF)) ? 8 : 16))), \
-					HID_RI_REPORT_COUNT(8, 0x02),  \
-					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE), \
-				HID_RI_END_COLLECTION(0),          \
-				HID_RI_USAGE_PAGE(8, 0x09),        \
-				HID_RI_USAGE_MINIMUM(8, 0x01),     \
-				HID_RI_USAGE_MAXIMUM(8, Buttons),  \
-				HID_RI_LOGICAL_MINIMUM(8, 0x00),   \
-				HID_RI_LOGICAL_MAXIMUM(8, 0x01),   \
-				HID_RI_REPORT_SIZE(8, 0x01),       \
-				HID_RI_REPORT_COUNT(8, Buttons),   \
-				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE), \
+					HID_RI_REPORT_COUNT(8, 0x02),           \
+					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
+				HID_RI_END_COLLECTION(0),                   \
+				HID_RI_USAGE_PAGE(8, 0x09),                 \
+				HID_RI_USAGE_MINIMUM(8, 0x01),              \
+				HID_RI_USAGE_MAXIMUM(8, Buttons),           \
+				HID_RI_LOGICAL_MINIMUM(8, 0x00),            \
+				HID_RI_LOGICAL_MAXIMUM(8, 0x01),            \
+				HID_RI_REPORT_SIZE(8, 0x01),                \
+				HID_RI_REPORT_COUNT(8, Buttons),            \
+				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
 				HID_RI_REPORT_SIZE(8, (8 - (Buttons % 8))), \
-				HID_RI_REPORT_COUNT(8, 0x01),      \
-				HID_RI_INPUT(8, HID_IOF_CONSTANT), \
+				HID_RI_REPORT_COUNT(8, 0x01),               \
+				HID_RI_INPUT(8, HID_IOF_CONSTANT),          \
 			HID_RI_END_COLLECTION(0)
 
 		/** \hideinitializer
@@ -389,38 +389,38 @@
 		 *  \param[in] MaxKeys  Number of simultaneous keys that can be reported at the one time (a value between 1 and
 		 *                      (ENDPOINT_SIZE - 2) )
 		 */
-		#define HID_DESCRIPTOR_KEYBOARD(MaxKeys)   \
-			HID_RI_USAGE_PAGE(8, 0x01),            \
-			HID_RI_USAGE(8, 0x06),                 \
-			HID_RI_COLLECTION(8, 0x01),            \
-				HID_RI_USAGE_PAGE(8, 0x07),        \
-				HID_RI_USAGE_MINIMUM(8, 0xE0),     \
-				HID_RI_USAGE_MAXIMUM(8, 0xE7),     \
-				HID_RI_LOGICAL_MINIMUM(8, 0x00),   \
-				HID_RI_LOGICAL_MAXIMUM(8, 0x01),   \
-				HID_RI_REPORT_SIZE(8, 0x01),       \
-				HID_RI_REPORT_COUNT(8, 0x08),      \
-				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE), \
-				HID_RI_REPORT_COUNT(8, 0x01),      \
-				HID_RI_REPORT_SIZE(8, 0x08),       \
-				HID_RI_INPUT(8, HID_IOF_CONSTANT), \
-				HID_RI_USAGE_PAGE(8, 0x08),        \
-				HID_RI_USAGE_MINIMUM(8, 0x01),     \
-				HID_RI_USAGE_MAXIMUM(8, 0x05),     \
-				HID_RI_REPORT_COUNT(8, 0x05),      \
-				HID_RI_REPORT_SIZE(8, 0x01),       \
+		#define HID_DESCRIPTOR_KEYBOARD(MaxKeys)            \
+			HID_RI_USAGE_PAGE(8, 0x01),                     \
+			HID_RI_USAGE(8, 0x06),                          \
+			HID_RI_COLLECTION(8, 0x01),                     \
+				HID_RI_USAGE_PAGE(8, 0x07),                 \
+				HID_RI_USAGE_MINIMUM(8, 0xE0),              \
+				HID_RI_USAGE_MAXIMUM(8, 0xE7),              \
+				HID_RI_LOGICAL_MINIMUM(8, 0x00),            \
+				HID_RI_LOGICAL_MAXIMUM(8, 0x01),            \
+				HID_RI_REPORT_SIZE(8, 0x01),                \
+				HID_RI_REPORT_COUNT(8, 0x08),               \
+				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
+				HID_RI_REPORT_COUNT(8, 0x01),               \
+				HID_RI_REPORT_SIZE(8, 0x08),                \
+				HID_RI_INPUT(8, HID_IOF_CONSTANT),          \
+				HID_RI_USAGE_PAGE(8, 0x08),                 \
+				HID_RI_USAGE_MINIMUM(8, 0x01),              \
+				HID_RI_USAGE_MAXIMUM(8, 0x05),              \
+				HID_RI_REPORT_COUNT(8, 0x05),               \
+				HID_RI_REPORT_SIZE(8, 0x01),                \
 				HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE), \
-				HID_RI_REPORT_COUNT(8, 0x01),      \
-				HID_RI_REPORT_SIZE(8, 0x03),       \
-				HID_RI_OUTPUT(8, HID_IOF_CONSTANT), \
-				HID_RI_LOGICAL_MINIMUM(8, 0x00),   \
-				HID_RI_LOGICAL_MAXIMUM(8, 0x65),   \
-				HID_RI_USAGE_PAGE(8, 0x07),        \
-				HID_RI_USAGE_MINIMUM(8, 0x00),     \
-				HID_RI_USAGE_MAXIMUM(8, 0x65),     \
-				HID_RI_REPORT_COUNT(8, MaxKeys),   \
-				HID_RI_REPORT_SIZE(8, 0x08),       \
-				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE), \
+				HID_RI_REPORT_COUNT(8, 0x01),               \
+				HID_RI_REPORT_SIZE(8, 0x03),                \
+				HID_RI_OUTPUT(8, HID_IOF_CONSTANT),         \
+				HID_RI_LOGICAL_MINIMUM(8, 0x00),            \
+				HID_RI_LOGICAL_MAXIMUM(8, 0x65),            \
+				HID_RI_USAGE_PAGE(8, 0x07),                 \
+				HID_RI_USAGE_MINIMUM(8, 0x00),              \
+				HID_RI_USAGE_MAXIMUM(8, 0x65),              \
+				HID_RI_REPORT_COUNT(8, MaxKeys),            \
+				HID_RI_REPORT_SIZE(8, 0x08),                \
+				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE), \
 			HID_RI_END_COLLECTION(0)
 
 		/** \hideinitializer
@@ -448,34 +448,63 @@
 		 *  \param[in] AbsoluteCoords  Boolean true to use absolute X/Y coordinates (e.g. touchscreen)
 		 */
 		#define HID_DESCRIPTOR_MOUSE(MinAxisVal, MaxAxisVal, MinPhysicalVal, MaxPhysicalVal, Buttons, AbsoluteCoords) \
-				HID_RI_USAGE_PAGE(8, 0x01),              \
-				HID_RI_USAGE(8, 0x02),                   \
-				HID_RI_COLLECTION(8, 0x01),              \
-					HID_RI_USAGE(8, 0x01),               \
-					HID_RI_COLLECTION(8, 0x00),          \
-						HID_RI_USAGE_PAGE(8, 0x09),      \
-						HID_RI_USAGE_MINIMUM(8, 0x01),   \
-						HID_RI_USAGE_MAXIMUM(8, Buttons), \
-						HID_RI_LOGICAL_MINIMUM(8, 0x00), \
-						HID_RI_LOGICAL_MAXIMUM(8, 0x01), \
-						HID_RI_REPORT_COUNT(8, Buttons), \
-						HID_RI_REPORT_SIZE(8, 0x01),     \
-						HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_VOLATILE), \
-						HID_RI_REPORT_COUNT(8, 0x01),    \
-						HID_RI_REPORT_SIZE(8, (8 - (Buttons % 8))), \
-						HID_RI_INPUT(8, HID_IOF_CONSTANT), \
-						HID_RI_USAGE_PAGE(8, 0x01),      \
-						HID_RI_USAGE(8, 0x30),           \
-						HID_RI_USAGE(8, 0x31),           \
-						HID_RI_LOGICAL_MINIMUM(16, MinAxisVal), \
-						HID_RI_LOGICAL_MAXIMUM(16, MaxAxisVal), \
-						HID_RI_PHYSICAL_MINIMUM(16, MinPhysicalVal), \
-						HID_RI_PHYSICAL_MAXIMUM(16, MaxPhysicalVal), \
-						HID_RI_REPORT_COUNT(8, 0x02),    \
-						HID_RI_REPORT_SIZE(8, (((((uint16_t)MinAxisVal > 0xFF) && ((uint16_t)MaxAxisVal < 0xFF)) ? 8 : 16))), \
-						HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | (AbsoluteCoords ? HID_IOF_ABSOLUTE : HID_IOF_RELATIVE) | HID_IOF_NON_VOLATILE), \
-					HID_RI_END_COLLECTION(0),            \
-				HID_RI_END_COLLECTION(0)
+			HID_RI_USAGE_PAGE(8, 0x01),                     \
+			HID_RI_USAGE(8, 0x02),                          \
+			HID_RI_COLLECTION(8, 0x01),                     \
+				HID_RI_USAGE(8, 0x01),                      \
+				HID_RI_COLLECTION(8, 0x00),                 \
+					HID_RI_USAGE_PAGE(8, 0x09),             \
+					HID_RI_USAGE_MINIMUM(8, 0x01),          \
+					HID_RI_USAGE_MAXIMUM(8, Buttons),       \
+					HID_RI_LOGICAL_MINIMUM(8, 0x00),        \
+					HID_RI_LOGICAL_MAXIMUM(8, 0x01),        \
+					HID_RI_REPORT_COUNT(8, Buttons),        \
+					HID_RI_REPORT_SIZE(8, 0x01),            \
+					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
+					HID_RI_REPORT_COUNT(8, 0x01),           \
+					HID_RI_REPORT_SIZE(8, (8 - (Buttons % 8))), \
+					HID_RI_INPUT(8, HID_IOF_CONSTANT),      \
+					HID_RI_USAGE_PAGE(8, 0x01),             \
+					HID_RI_USAGE(8, 0x30),                  \
+					HID_RI_USAGE(8, 0x31),                  \
+					HID_RI_LOGICAL_MINIMUM(16, MinAxisVal), \
+					HID_RI_LOGICAL_MAXIMUM(16, MaxAxisVal), \
+					HID_RI_PHYSICAL_MINIMUM(16, MinPhysicalVal), \
+					HID_RI_PHYSICAL_MAXIMUM(16, MaxPhysicalVal), \
+					HID_RI_REPORT_COUNT(8, 0x02),           \
+					HID_RI_REPORT_SIZE(8, (((((uint16_t)MinAxisVal > 0xFF) && ((uint16_t)MaxAxisVal < 0xFF)) ? 8 : 16))), \
+					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | (AbsoluteCoords ? HID_IOF_ABSOLUTE : HID_IOF_RELATIVE)), \
+				HID_RI_END_COLLECTION(0),                   \
+			HID_RI_END_COLLECTION(0)
+
+		/** \hideinitializer
+		 *  A list of HID report item array elements that describe a typical Vendor Defined byte array HID report descriptor,
+		 *  used for transporting abitrary data between the USB host and device via HID reports. The resulting report should be
+		 *  a uint8_t byte array of the specified length in both Device to Host (IN) and Host to Device (OUT) directions.
+		 *
+		 *  \param[in] VendorPageNum    Vendor Defined HID Usage Page index, ranging from 0x00 to 0xFF
+		 *  \param[in] CollectionUsage  Vendor Usage for the encompasing report IN and OUT collection, ranging from 0x00 to 0xFF
+		 *  \param[in] DataINUsage      Vendor Usage for the IN report data, ranging from 0x00 to 0xFF
+		 *  \param[in] DataOUTUsage     Vendor Usage for the OUT report data, ranging from 0x00 to 0xFF   
+		 *  \param[in] NumBytes         Length of the data IN and OUT reports
+		 */
+		#define HID_DESCRIPTOR_VENDOR(VendorPageNum, CollectionUsage, DataINUsage, DataOUTUsage, NumBytes) \
+			HID_RI_USAGE_PAGE(16, (0xFF00 | VendorPageNum)), \
+			HID_RI_USAGE(8, CollectionUsage),           \
+			HID_RI_COLLECTION(8, 0x01),                 \
+				HID_RI_USAGE(8, DataINUsage),           \
+				HID_RI_LOGICAL_MINIMUM(8, 0x00),        \
+				HID_RI_LOGICAL_MAXIMUM(8, 0xFF),        \
+				HID_RI_REPORT_SIZE(8, 0x08),            \
+				HID_RI_REPORT_COUNT(8, NumBytes),       \
+				HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
+				HID_RI_USAGE(8, DataOUTUsage),          \
+				HID_RI_LOGICAL_MINIMUM(8, 0x00),        \
+				HID_RI_LOGICAL_MAXIMUM(8, 0xFF),        \
+				HID_RI_REPORT_SIZE(8, 0x08),            \
+				HID_RI_REPORT_COUNT(8, NumBytes),       \
+				HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE), \
+			HID_RI_END_COLLECTION(0)
 		//@}
 		
 	/* Type Defines: */

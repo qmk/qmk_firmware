@@ -44,14 +44,14 @@
  *  more details on HID report descriptors.
  */ 
 USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] =
-	{
-		/* Use the HID class driver's standard Joystick report.
-		 *   Min X/Y Axis values: -100
-		 *   Max X/Y Axis values:  100
-		 *   Buttons: 2
-		 */
-		HID_DESCRIPTOR_JOYSTICK(-100, 100, 2)
-	};
+{
+	/* Use the HID class driver's standard Joystick report.
+	 *   Min X/Y Axis values: -100
+	 *   Max X/Y Axis values:  100
+	 *   Buttons: 2
+	 */
+	HID_DESCRIPTOR_JOYSTICK(-100, 100, 2)
+};
 
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
  *  device characteristics, including the supported USB version, control endpoint size and the
