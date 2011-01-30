@@ -48,6 +48,7 @@
   *     value if no character is received (to remain consistent with the CDC class driver byte reception routines)
   *   - Renamed the PRNT_Host_SendString(), CDC_Host_SendString() and CDC_Device_SendString() functions to *_SendData(), and
   *     added new versions of the *_SendString() routines that expect a null terminated string instead
+  *   - Renamed all driver termination *_ShutDown() functions to the more logical name *_Disable()
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion

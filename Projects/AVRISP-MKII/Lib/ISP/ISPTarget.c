@@ -172,7 +172,7 @@ void ISPTarget_DisableTargetISP(void)
 {
 	if (HardwareSPIMode)
 	{
-		SPI_ShutDown();
+		SPI_Disable();
 	}
 	else
 	{

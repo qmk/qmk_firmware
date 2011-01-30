@@ -292,7 +292,7 @@
 			 *  memory, endpoints and pipes. When turned off, no USB functionality can be used until the interface
 			 *  is restarted with the \ref USB_Init() function.
 			 */
-			void USB_ShutDown(void);
+			void USB_Disable(void);
 
 			/** Resets the interface, when already initialized. This will re-enumerate the device if already connected
 			 *  to a host, or re-enumerate an already attached device when in host mode.

@@ -44,8 +44,8 @@
  *
  *  void Jump_To_Bootloader(void)
  *  {
- *      // If USB is used, detach from the bus
- *      USB_ShutDown();
+ *      // If USB is used, detach from the bus and reset it
+ *      USB_Disable();
  *
  *      // Disable all interrupts
  *      cli();

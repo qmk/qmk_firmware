@@ -228,7 +228,7 @@ void EVENT_USB_Host_DeviceEnumerationComplete(void)
 /** Event handler for the USB_HostError event. This indicates that a hardware error occurred while in host mode. */
 void EVENT_USB_Host_HostError(const uint8_t ErrorCode)
 {
-	USB_ShutDown();
+	USB_Disable();
 
 	printf_P(PSTR(ESC_FG_RED "Host Mode Error\r\n"
 	                         " -- Error Code %d\r\n" ESC_FG_WHITE), ErrorCode);

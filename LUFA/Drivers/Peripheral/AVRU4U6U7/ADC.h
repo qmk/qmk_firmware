@@ -421,8 +421,8 @@
 			/** Turns off the ADC. If this is called, any further ADC operations will require a call to
 			 *  \ref ADC_Init() before the ADC can be used again.
 			 */
-			static inline void ADC_ShutDown(void) ATTR_ALWAYS_INLINE;
-			static inline void ADC_ShutDown(void)
+			static inline void ADC_Disable(void) ATTR_ALWAYS_INLINE;
+			static inline void ADC_Disable(void)
 			{
 				ADCSRA = 0;
 			}

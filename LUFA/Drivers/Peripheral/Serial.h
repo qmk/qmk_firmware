@@ -145,7 +145,7 @@
 			}
 
 			/** Turns off the USART driver, disabling and returning used hardware to their default configuration. */
-			static inline void Serial_ShutDown(void)
+			static inline void Serial_Disable(void)
 			{
 				UCSR1B = 0;
 				UCSR1A = 0;

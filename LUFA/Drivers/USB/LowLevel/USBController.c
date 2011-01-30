@@ -83,7 +83,7 @@ void USB_Init(
 	USB_ResetInterface();
 }
 
-void USB_ShutDown(void)
+void USB_Disable(void)
 {
 	USB_INT_DisableAllInterrupts();
 	USB_INT_ClearAllInterrupts();

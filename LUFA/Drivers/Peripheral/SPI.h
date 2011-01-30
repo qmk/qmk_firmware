@@ -172,7 +172,7 @@
 			}
 
 			/** Turns off the SPI driver, disabling and returning used hardware to their default configuration. */
-			static inline void SPI_ShutDown(void)
+			static inline void SPI_Disable(void)
 			{
 				DDRB  &= ~((1 << 1) | (1 << 2));
 				PORTB &= ~((1 << 0) | (1 << 3));

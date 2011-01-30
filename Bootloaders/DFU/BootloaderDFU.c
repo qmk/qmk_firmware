@@ -155,7 +155,7 @@ void SetupHardware(void)
 void ResetHardware(void)
 {
 	/* Shut down the USB subsystem */
-	USB_ShutDown();
+	USB_Disable();
 
 	/* Relocate the interrupt vector table back to the application section */
 	MCUCR = (1 << IVCE);
