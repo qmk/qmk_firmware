@@ -241,7 +241,7 @@ void MassStorage_Task(void)
 
 			for (;;)
 			{
-				Serial_TxByte('.');
+				Serial_SendByte('.');
 
 				/* Abort if device removed */
 				if (USB_HostState == HOST_STATE_Unattached)
