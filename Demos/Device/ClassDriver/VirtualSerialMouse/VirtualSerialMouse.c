@@ -145,7 +145,7 @@ void CheckJoystickMovement(void)
 	{
 		ActionSent = true;
 
-		CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString, strlen(ReportString));
+		CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString);
 	}
 }
 

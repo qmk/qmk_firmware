@@ -182,6 +182,19 @@
 			 */
 			uint8_t PRNT_Host_Flush(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
+			/** Sends the given null terminated string to the attached printer's input endpoint.
+			 *
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
+			 *       call will fail.
+			 *
+			 *  \param[in,out] PRNTInterfaceInfo  Pointer to a structure containing a Printer Class host configuration and state.
+			 *  \param[in]     String             Pointer to a null terminated string to send.
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+			                             void* String) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+
 			/** Sends the given raw data stream to the attached printer's input endpoint. This should contain commands that the
 			 *  printer is able to understand - for example, PCL data. Not all printers accept all printer languages; see
 			 *  \ref PRNT_Host_GetDeviceID() for details on determining acceptable languages for an attached printer.
@@ -195,9 +208,9 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
-			                             void* Buffer,
-			                             const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+			uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+			                           void* Buffer,
+			                           const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Sends a given byte to the attached USB device, if connected. If a device is not connected when the function is called, the
 			 *  byte is discarded. Bytes will be queued for transmission to the device until either the pipe bank becomes full, or the

@@ -117,6 +117,13 @@
 			 */
 			void Serial_SendString(const char* StringPtr) ATTR_NON_NULL_PTR_ARG(1);
 			
+			/** Transmits a given buffer located in SRAM memory through the USART.
+			 *
+			 *  \param[in] Buffer  Pointer to a buffer containing the data to send.
+			 *  \param[in] Length  Length of the data to send, in bytes.
+			 */
+			void Serial_SendData(const uint8_t* Buffer, uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
+
 		/* Inline Functions: */
 			/** Initializes the USART, ready for serial data transmission and reception. This initializes the interface to
 			 *  standard 8-bit, no parity, 1 stop bit settings suitable for most applications.

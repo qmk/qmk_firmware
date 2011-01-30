@@ -197,23 +197,39 @@
 			uint8_t CDC_Host_SendBreak(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
 			                           const uint8_t Duration) ATTR_NON_NULL_PTR_ARG(1);
 
-			/** Sends a given string to the attached USB device, if connected. If a device is not connected when the function is called, the
-			 *  string is discarded. Bytes will be queued for transmission to the device until either the pipe bank becomes full, or the
-			 *  \ref CDC_Host_Flush() function is called to flush the pending data to the host. This allows for multiple bytes to be
-			 *  packed into a single pipe packet, increasing data throughput.
+			/** Sends a given data buffer to the attached USB device, if connected. If a device is not connected when the function is
+			 *  called, the data will be discarded. Bytes will be queued for transmission to the device until either the pipe bank
+			 *  becomes full, or the \ref CDC_Host_Flush() function is called to flush the pending data to the device. This allows for
+			 *  multiple bytes to be packed into a single pipe packet, increasing data throughput.
 			 *
 			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
 			 *       call will fail.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
-			 *  \param[in]     Data              Pointer to the string to send to the device.
-			 *  \param[in]     Length            Size in bytes of the string to send to the device.
+			 *  \param[in]     Buffer            Pointer to a buffer containing the data to send to the device.
+			 *  \param[in]     Length            Length of the data to send to the device.
+			 *
+			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
+			 */
+			uint8_t CDC_Host_SendData(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
+			                          const uint8_t* const Buffer,
+			                          const uint16_t Length);
+
+			/** Sends a given null-terminated string to the attached USB device, if connected. If a device is not connected when the
+			 *  function is called, the string is discarded. Bytes will be queued for transmission to the device until either the pipe
+			 *  bank becomes full, or the \ref CDC_Host_Flush() function is called to flush the pending data to the device. This allows
+			 *  for multiple bytes to be packed into a single pipe packet, increasing data throughput.
+			 *
+			 *  \pre This function must only be called when the Host state machine is in the \ref HOST_STATE_Configured state or the
+			 *       call will fail.
+			 *
+			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class host configuration and state.
+			 *  \param[in]     String            Pointer to the null terminated string to send to the device.
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
 			uint8_t CDC_Host_SendString(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
-			                            const char* const Data,
-			                            const uint16_t Length) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
+			                            const char* const String) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
 			/** Sends a given byte to the attached USB device, if connected. If a device is not connected when the function is called, the
 			 *  byte is discarded. Bytes will be queued for transmission to the device until either the pipe bank becomes full, or the

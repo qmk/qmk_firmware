@@ -81,3 +81,8 @@ void Serial_SendString(const char* StringPtr)
 	}
 }
 
+void Serial_SendData(const uint8_t* Buffer, uint16_t Length)
+{
+	while (Length--)
+	  Serial_SendByte(*(Buffer++));
+}

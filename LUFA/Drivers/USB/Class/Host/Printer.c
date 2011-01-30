@@ -287,8 +287,31 @@ uint8_t PRNT_Host_SendByte(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
 }
 
 uint8_t PRNT_Host_SendString(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
-                             void* Buffer,
-                             const uint16_t Length)
+                             void* String)
+{
+	uint8_t ErrorCode;
+
+	if ((USB_HostState != HOST_STATE_Configured) || !(PRNTInterfaceInfo->State.IsActive))
+	  return PIPE_RWSTREAM_DeviceDisconnected;
+
+	Pipe_SelectPipe(PRNTInterfaceInfo->Config.DataOUTPipeNumber);
+	Pipe_Unfreeze();
+
+	if ((ErrorCode = Pipe_Write_Stream_LE(String, strlen(String), NULL)) != PIPE_RWSTREAM_NoError)
+	  return ErrorCode;
+
+	Pipe_ClearOUT();
+
+	ErrorCode = Pipe_WaitUntilReady();
+
+	Pipe_Freeze();
+
+	return ErrorCode;
+}
+
+uint8_t PRNT_Host_SendData(USB_ClassInfo_PRNT_Host_t* const PRNTInterfaceInfo,
+                           void* Buffer,
+                           const uint16_t Length)
 {
 	uint8_t ErrorCode;
 

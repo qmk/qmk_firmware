@@ -134,7 +134,7 @@ void CheckJoystickMovement(void)
 		fputs(ReportString, &USBSerialStream);
 
 		/* Alternatively, without the stream: */
-		// CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString, strlen(ReportString));
+		// CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString);
 	}
 }
 

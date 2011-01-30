@@ -20,6 +20,7 @@
   *   - Added new HID_DESCRIPTOR_MOUSE, HID_DESCRIPTOR_KEYBOARD, HID_DESCRIPTOR_JOYSTICK and HID_DESCRIPTOR_VENDOR macros
   *     for easy automatic creation of basic USB HID device reports
   *   - Added new MAX() and MIN() convenience macros
+  *   - Added new Serial_SendData() function to the Serial driver
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *   - Added new MIDIToneGenerator project
@@ -45,6 +46,8 @@
   *   - Renamed the low level Serial byte send/receive functions, to be consistent with the CDC class driver byte functions
   *   - Altered the behaviour of the serial byte reception function so that is is non-blocking, and now returns a negative
   *     value if no character is received (to remain consistent with the CDC class driver byte reception routines)
+  *   - Renamed the PRNT_Host_SendString(), CDC_Host_SendString() and CDC_Device_SendString() functions to *_SendData(), and
+  *     added new versions of the *_SendString() routines that expect a null terminated string instead
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion
