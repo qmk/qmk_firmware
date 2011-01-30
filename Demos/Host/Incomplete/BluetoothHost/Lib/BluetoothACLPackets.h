@@ -43,7 +43,7 @@
 		#include <stdio.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 
 		#include "BluetoothStack.h"
 

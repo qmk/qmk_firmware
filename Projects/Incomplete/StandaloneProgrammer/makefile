@@ -142,8 +142,7 @@ SRC = $(TARGET).c                                                 \
 	  Lib/PetiteFATFs/pff.c                                       \
 	  $(LUFA_SRC_USB)                                             \
 	  $(LUFA_SRC_USBCLASS)                                        \
-	  $(LUFA_SRC_SERIAL)                                          \
-	  $(LUFA_SRC_SERIALSTREAM)
+	  $(LUFA_SRC_SERIAL)
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

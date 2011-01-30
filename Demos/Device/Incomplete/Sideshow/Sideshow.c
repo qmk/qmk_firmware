@@ -80,7 +80,10 @@ void SetupHardware(void)
 	/* Hardware Initialization */
 	LEDs_Init();
 	USB_Init();
-	SerialStream_Init(9600, false);
+	Serial_Init(9600, false);
+
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);
 }
 
 void EVENT_USB_Device_Connect(void)

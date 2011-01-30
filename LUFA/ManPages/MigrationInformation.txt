@@ -14,41 +14,47 @@
  *  <b>Non-USB Library Components</b>
  *    - The TWI driver \ref TWI_StartTransmission() function return type has now changed, so that the function returns an
  *      error code from the \ref TWI_ErrorCodes_t enum instead of a boolean success flag. Existing code must now check
- *      against the \ref TWI_ERROR_NoError return value for success instead of a boolean true value, or it will not function
+ *      against the \ref TWI_ERROR_NoError return value for success instead of a boolean \c true value, or it will not function
  *      correctly.
+ *    - The Serial Stream driver has been removed, and its functionality rolled into the regular serial driver. Existing code
+ *      should remove references to the \c LUFA_SRC_SERIALSTREAM module in their makefiles, include the regular Serial driver
+ *      header instead and call the regular \ref Serial_Init() function followed by the new \ref Serial_CreateStream() function
+ *      with a \c NULL parameter.
+ *    - The \ref Serial_ReceiveByte() function has changed, and now returns a signed 16-bit integer, with -1 indicating no data was
+ *      received.
  *
  *  <b>USB Core</b>
  *    - By default, unordered Endpoint and Pipe configuration is now allowed once again, via the previous workaround of
  *      reconfiguring all Endpoints/Pipes in order each time a new Endpoint/Pipe is created. To minimise the compiled program
- *      size, the new ORDERED_EP_CONFIG compile time option may be defined in the project makefile to restrict the ordering
+ *      size, the new \c ORDERED_EP_CONFIG compile time option may be defined in the project makefile to restrict the ordering
  *      in exchange for a smaller compiled binary size.
  *
  *  <b>Device Mode</b>
- *    - The Endpoint stream functions now all require a BytesProcessed parameter instead of the previous callback parameter.
- *      This should be set to NULL to retain previous behaviour of the functions, or point to a location where the number of bytes
- *      processed in the current transaction can be stored. If the BytesProcessed parameter is non-NULL, each time the endpoint
+ *    - The Endpoint stream functions now all require a \c BytesProcessed parameter instead of the previous callback parameter.
+ *      This should be set to \c NULL to retain previous behaviour of the functions, or point to a location where the number of bytes
+ *      processed in the current transaction can be stored. If the \c BytesProcessed parameter is non \c NULL, each time the endpoint
  *      bank becomes full and the packet is sent, the routine will exit with the new \ref ENDPOINT_RWSTREAM_IncompleteTransfer
  *      error code to allow the user application to determine when to send the next chunk of data.
  *
  *  <b>Host Mode</b>
- *    - The Pipe stream functions now all require a BytesProcessed parameter instead of the previous callback parameter.
- *      This should be set to NULL to retain previous behaviour of the functions, or point to a location where the number of bytes
- *      processed in the current transaction can be stored. If the BytesProcessed parameter is non-NULL, each time the pipe
+ *    - The Pipe stream functions now all require a \c BytesProcessed parameter instead of the previous callback parameter.
+ *      This should be set to \c NULL to retain previous behaviour of the functions, or point to a location where the number of bytes
+ *      processed in the current transaction can be stored. If the BytesProcessed parameter is non \c NULL, each time the pipe
  *      bank becomes full and the packet is sent, the routine will exit with the new \ref PIPE_RWSTREAM_IncompleteTransfer
  *      error code to allow the user application to determine when to send the next chunk of data.
  *
  *  \section Sec_Migration101122 Migrating from 100807 to 101122
  *  <b>USB Core</b>
- *    - A new USB driver source file, Drivers/USB/HighLevel/EndpointStream.c now exists. This source file should be added
+ *    - A new USB driver source file, \c Drivers/USB/HighLevel/EndpointStream.c now exists. This source file should be added
  *      to all project makefiles using the USB driver of LUFA, or the makefile should be updated to use the new module source
  *      variables.
- *    - A new USB driver source file, Drivers/USB/HighLevel/PipeStream.c now exists. This source file should be added to all
+ *    - A new USB driver source file, \c Drivers/USB/HighLevel/PipeStream.c now exists. This source file should be added to all
  *      project makefiles using the USB driver of LUFA, or the makefile should be updated to use the new module source variables.
- *    - The EVENT_USB_InitFailure() event has been removed, as the USB_Init() function will no longer fail; if not USB mode is
+ *    - The \c EVENT_USB_InitFailure() event has been removed, as the \ref USB_Init() function will no longer fail; if not USB mode is
  *      specified, the controller will default to UID selection mode.
  *    - The USB mode specifier constants have been moved into a new enum and renamed. Existing projects should use the equivalent
  *      value in the new \ref USB_Modes_t enum.
- *    - All class driver headers are now included as part of the standard LUFA/Drivers/USB/USB.h master dispatch header, and should
+ *    - All class driver headers are now included as part of the standard \c LUFA/Drivers/USB/USB.h master dispatch header, and should
  *      no longer be included separately. Class driver module source files must still be added as a separate module in the project's
  *      makefile if used.
  *
@@ -56,15 +62,15 @@
  *    - Endpoints MUST be allocated in ascending order to ensure that bank corruption does not occur. Ensure that your user application
  *      allocated endpoints in ascending order - or if your application uses the USB device mode class drivers, ensure that each instance's
  *      endpoint indexes are not overlapped with other interface's endpoints.
- *    - The signature for the CALLBACK_USB_GetDescriptor() callback has changed, the "void** const DescriptorAddress" parameter is
- *      now "const void** const DescriptorAddress". Existing applications should update their callback signatures to match this, and
- *      eliminate any casting of descriptor pointers to a non-const pointer.
+ *    - The signature for the \ref CALLBACK_USB_GetDescriptor() callback has changed, the \c void** \c const \c DescriptorAddress parameter is
+ *      now \c const \c void** \c const \c DescriptorAddress. Existing applications should update their callback signatures to match this, and
+ *      eliminate any casting of descriptor pointers to a non \c const pointer.
  *    - The names of the class specific descriptor type defines in the USB Class drivers have changed - refer to the driver documentation
  *      for each class driver for the new class specific descriptor type names.
- *    - The ENDPOINT_DOUBLEBANK_SUPPORTED() macro is has been renamed \ref ENDPOINT_BANKS_SUPPORTED() and now returns the total number of
+ *    - The \c ENDPOINT_DOUBLEBANK_SUPPORTED() macro is has been renamed \ref ENDPOINT_BANKS_SUPPORTED() and now returns the total number of
  *      banks supported by the given endpoint. Existing code should switch to the new naming scheme, and test that the return value of the
  *      macro is equal to or greater than 2 to regain the previous functionality.
- *    - The EVENT_USB_Device_UnhandledControlRequest() event is now named \ref EVENT_USB_Device_ControlRequest() and fires before (not after)
+ *    - The \c EVENT_USB_Device_UnhandledControlRequest() event is now named \ref EVENT_USB_Device_ControlRequest() and fires before (not after)
  *      the internal library event handlers. Existing code should rename the event handlers in the user application to match the new event
  *      name, and should ensure that the new execution order does not affect the application's operation.
  *
@@ -72,11 +78,11 @@
  *    - Pipes MUST be allocated in ascending order to ensure that bank corruption does not occur. Ensure that your user application
  *      allocated pipes in ascending order - or if your application uses the USB host mode class drivers, ensure that each instance's
  *      pipe indexes are not overlapped with other interface's pipes.
- *    - The PRNT_Host_SendData() function has been renamed to \ref PRNT_Host_SendString(). Existing applications should simply
+ *    - The \c PRNT_Host_SendData() function has been renamed to \ref PRNT_Host_SendString(). Existing applications should simply
  *      replace all references to the obsolete function name with the new function name.
  *    - The names of the class specific descriptor type defines in the USB Class drivers have changed - refer to the driver documentation
  *      for each class driver for the new class specific descriptor type names.
- *    - The Still Image Host class' function prefix has been changed from "SImage_" to "SI_", to remain consistent with the rest of the
+ *    - The Still Image Host class' function prefix has been changed from \c SImage_ to  \c SI_, to remain consistent with the rest of the
  *      driver's enums, type defines and constants.
  *
  *  \section Sec_Migration100807 Migrating from 100513 to 100807
@@ -87,19 +93,19 @@
  *      copy-paste the new functions from the board Dataflash stub driver.
  *
  *  <b>USB Core</b>
- *    - A new USB driver source file, Drivers/USB/LowLevel/Device.c now exists. This source file should be added to all project
+ *    - A new USB driver source file, \c Drivers/USB/LowLevel/Device.c now exists. This source file should be added to all project
  *      makefiles using the USB driver of LUFA, or the makefile should be updated to use the new module source variables.
- *    - The Drivers/USB/LowLevel/DevChapter9.c source file has moved to Drivers/USB/HighLevel/DeviceStandardReq.c - this should
+ *    - The \c Drivers/USB/LowLevel/DevChapter9.c source file has moved to \c Drivers/USB/HighLevel/DeviceStandardReq.c - this should
  *      be updated in all project makefiles, or the makefile should be updated to use the new module source variables.
- *    - The Drivers/USB/LowLevel/HostChapter9.h source file has moved to Drivers/USB/HighLevel/HostStandardReq.c - this should
+ *    - The \c Drivers/USB/LowLevel/HostChapter9.h source file has moved to \c Drivers/USB/HighLevel/HostStandardReq.c - this should
  *      be updated in all project makefiles, or the makefile should be updated to use the new module source variables.
- *    - The Drivers/USB/LowLevel/LowLevel.c source file has moved to Drivers/LowLevel/USBController.c - this should be updated
+ *    - The \c Drivers/USB/LowLevel/LowLevel.c source file has moved to \c Drivers/LowLevel/USBController.c - this should be updated
  *      in all project makefiles, or the makefile should be updated to use the new module source variables.
  *
  *  <b>Device Mode</b>
- *    - The USB_Device_IsRemoteWakeupSent() macro has been removed, as the remote wakeup request is now fully handled by the
- *      enhanced \ref USB_Device_SendRemoteWakeup() function. Existing code may now discard any checks to USB_Device_IsRemoteWakeupSent().
- *    - The USB_Device_IsUSBSuspended() macro has been removed, as it is obsolete. Existing code should compare \ref USB_DeviceState
+ *    - The \c USB_Device_IsRemoteWakeupSent() macro has been removed, as the remote wakeup request is now fully handled by the
+ *      enhanced \ref USB_Device_SendRemoteWakeup() function. Existing code may now discard any checks to \c USB_Device_IsRemoteWakeupSent().
+ *    - The \c USB_Device_IsUSBSuspended() macro has been removed, as it is obsolete. Existing code should compare \ref USB_DeviceState
  *      to see if it the device is in the \ref DEVICE_STATE_Suspended state instead.
  *    - The \ref CDC_Device_ReceiveByte() function has changed, and now returns a signed 16-bit integer, with -1 indicating no data was
  *      received. This allows for more efficient coding, as a call to \ref CDC_Device_BytesReceived() is no longer needed if the exact
@@ -119,25 +125,25 @@
  *      device must respond or the function will abort.
  *
  *  <b>Device Mode</b>
- *    - The \ref USB_Init() function no longer calls sei() to enable global interrupts, as the user application may need
+ *    - The \ref USB_Init() function no longer calls \c sei() to enable global interrupts, as the user application may need
  *      to perform other initialization before it is ready to handle global interrupts. The user application is now responsible
  *      for enabling global interrupts before or shortly after calling \ref USB_Init() to ensure that the enumeration process
  *      functions correctly.
- *    - The USBInterrupt.c USB driver source file has been relocated from LUFA/Drivers/USB/HighLevel/ to LUFA/Drivers/USB/LowLevel.
+ *    - The \c USBInterrupt.c USB driver source file has been relocated from \c LUFA/Drivers/USB/HighLevel/ to \c LUFA/Drivers/USB/LowLevel.
  *      Projects must update their makefile SRC values accordingly.
- *    - The HID Device Class driver's function signature for the CALLBACK_HID_Device_ProcessHIDReport() function has been changed, to
- *      allow for a new ReportType parameter. This new parameter must be added in all user applications using the Device mode HID Class
+ *    - The HID Device Class driver's function signature for the \ref CALLBACK_HID_Device_ProcessHIDReport() function has been changed, to
+ *      allow for a new \c ReportType parameter. This new parameter must be added in all user applications using the Device mode HID Class
  *      Driver, but may be ignored unless Host-to-Device FEATURE HID reports are used.
  *
  *  <b>Host Mode</b>
- *    - The \ref USB_Init() function no longer calls sei() to enable global interrupts, as the user application may need
+ *    - The \ref USB_Init() function no longer calls \c sei() to enable global interrupts, as the user application may need
  *      to perform other initialization before it is ready to handle global interrupts. The user application is now responsible
  *      for enabling global interrupts before or shortly after calling \ref USB_Init() to ensure that the enumeration process
  *      functions correctly.
- *    - The USBInterrupt.c USB driver source file has been relocated from LUFA/Drivers/USB/HighLevel/ to LUFA/Drivers/USB/LowLevel.
- *      Projects must update their makefile SRC values accordingly.
- *    - The HID Host Class driver's function signature for the HID_Host_SendReportByID() function has been changed, to allow for a new
- *      ReportType parameter. Existing calls to this function should substitute REPORT_ITEM_TYPE_Out as this parameter's value.
+ *    - The \c USBInterrupt.c USB driver source file has been relocated from \c LUFA/Drivers/USB/HighLevel/ to \c LUFA/Drivers/USB/LowLevel.
+ *      Projects must update their makefile \c SRC values accordingly.
+ *    - The HID Host Class driver's function signature for the \ref HID_Host_SendReportByID() function has been changed, to allow for a new
+ *      ReportType parameter. Existing calls to this function should substitute \c REPORT_ITEM_TYPE_Out as this parameter's value.
  *
  *  \section Sec_Migration100219 Migrating from 091223 to 100219
  *
@@ -152,9 +158,9 @@
  *      packed into a single USB packet. This means that the sending of MIDI events will now be delayed until the MIDI send
  *      pipe bank is full. To override this new behaviour and revert to the previous behaviour, the user application may manually
  *      flush the queued event(s) to the device by calling \ref MIDI_Host_Flush().
- *    - The Pipe_IsEndpointBound() function now takes the endpoint's direction into account, by checking if the MSB of the endpoint's address
+ *    - The \ref Pipe_IsEndpointBound() function now takes the endpoint's direction into account, by checking if the MSB of the endpoint's address
  *      is set to denote IN endpoints. If the previous functionality where the direction is to be discounted is required, mask the endpoint
- *      address against the \ref PIPE_EPNUM_MASK token before calling Pipe_IsEndpointBound().
+ *      address against the \ref PIPE_EPNUM_MASK token before calling \ref Pipe_IsEndpointBound().
  *
  *  <b>Device Mode</b>
  *    - The MIDI Device Class driver send and receive routines now operate on packed events, where multiple MIDI events may be
@@ -165,52 +171,52 @@
  *  \section Sec_Migration091223 Migrating from 091122 to 091223
  *
  *  <b>Host Mode</b>
- *    - The Still Image Host Class driver SI_Host_USBTask() and SI_Host_ConfigurePipes() functions were misnamed, and are
- *      now named SImage_Host_USBTask() and SImage_Host_ConfigurePipes() respectively.
- *    - The HOST_SENDCONTROL_DeviceDisconnect enum value has been renamed to \ref HOST_SENDCONTROL_DeviceDisconnected to be in
+ *    - The Still Image Host Class driver \ref SI_Host_USBTask() and \ref SI_Host_ConfigurePipes() functions were misnamed, and are
+ *      now named \c SImage_Host_USBTask() and \c SImage_Host_ConfigurePipes() respectively.
+ *    - The \c HOST_SENDCONTROL_DeviceDisconnect enum value has been renamed to \ref HOST_SENDCONTROL_DeviceDisconnected to be in
  *      line with the rest of the library error codes.
  *    - The HID Parser item usages no longer contain separate minimum and maximum values, as this was a violation of the HID
  *      specification. Instead, the values are distributed evenly across each item as its usage value, to ensure that all items
  *      can be distinguished from one-another.
  *
  *  <b>Device Mode</b>
- *    - The CALLBACK_HID_Device_CreateHIDReport() HID Device Class driver callback now has a new ReportType parameter to
+ *    - The \ref CALLBACK_HID_Device_CreateHIDReport() HID Device Class driver callback now has a new \c ReportType parameter to
  *      indicate the report type to generate. Existing applications may simply add and ignore this additional parameter.
  *
  *  \section Sec_Migration091122 Migrating from 090924 to 091122
  *
  *  <b>Host Mode</b>
- *    - The HID_PARSE_UsageStackOverflow HID parser error constant is now named \ref HID_PARSE_UsageListOverflow
- *    - The \ref CALLBACK_HIDParser_FilterHIDReportItem() HID Parser callback now passes a complete HID_ReportItem_t to the
+ *    - The \c HID_PARSE_UsageStackOverflow HID parser error constant is now named \ref HID_PARSE_UsageListOverflow
+ *    - The \ref CALLBACK_HIDParser_FilterHIDReportItem() HID Parser callback now passes a complete \ref HID_ReportItem_t to the
  *      user application, instead of just its attributes.
- *    - The USB_GetDeviceConfigDescriptor() function was incorrectly named and is now called \ref USB_Host_GetDeviceConfigDescriptor().
+ *    - The \c USB_GetDeviceConfigDescriptor() function was incorrectly named and is now called \ref USB_Host_GetDeviceConfigDescriptor().
  *
  *  \section Sec_Migration090924 Migrating from 090810 to 090924
  *
  *  <b>Non-USB Library Components</b>
- *    - The ADC_Off() function has been renamed to \ref ADC_ShutDown() to be consistent with the rest of the library.
+ *    - The \c ADC_Off() function has been renamed to \ref ADC_ShutDown() to be consistent with the rest of the library.
  *    - The \ref SPI_Init() routine's parameters have changed, so that the clock polarity and data sampling modes can be set. See
  *      the \ref SPI_Init() function documentation for more details
  *    - The \ref Dataflash_Init() routine no longer initializes the SPI bus - the SPI bus should be initialized manually via a
- *      call to SPI_Init() before using the Dataflash driver
+ *      call to \ref SPI_Init() before using the Dataflash driver
  *
  *  <b>Host Mode</b>
- *    - The USB_GetDeviceConfigDescriptor() function's parameters and behaviour has changed; the user is required to
+ *    - The \c USB_GetDeviceConfigDescriptor() function's parameters and behaviour has changed; the user is required to
  *      preallocate the largest allowable buffer, and pass the size of the buffer to the function. This allows for a single
  *      call to the function to retrieve, size check and validate the Configuration Descriptor rather than having the user
  *      application perform these intermediary steps.
  *    - The HID report parser now requires a mandatory callback in the user code, to filter only the items the application
  *      is interested in into the processed HID report item structure to save RAM. See \ref CALLBACK_HIDParser_FilterHIDReportItem().
- *    - The HID report parser now always parses FEATURE and always ignores constant-data items - the HID_ENABLE_FEATURE_PROCESSING
- *      and HID_INCLUDE_CONSTANT_DATA_ITEMS compile time tokens now have no effect.
- *    - The USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now separate USB_Descriptor_*
- *      and USB_StdDescriptor_* structures for both the LUFA and standardized element naming conventions so that both may be used in
- *      the one project. For existing projects using the standardized names, change all code to use the USB_StdDescriptor_* variants.
+ *    - The HID report parser now always parses FEATURE and always ignores constant-data items - the \c HID_ENABLE_FEATURE_PROCESSING
+ *      and \c HID_INCLUDE_CONSTANT_DATA_ITEMS compile time tokens now have no effect.
+ *    - The \c USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now separate \c USB_Descriptor_*
+ *      and \c USB_StdDescriptor_* structures for both the LUFA and standardized element naming conventions so that both may be used in
+ *      the one project. For existing projects using the standardized names, change all code to use the \c USB_StdDescriptor_* variants.
  *
  *  <b>Device Mode</b>
- *    - The USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now separate USB_Descriptor_*
- *      and USB_StdDescriptor_* structures for both the LUFA and standardized element naming conventions so that both may be used in
- *      the one project. For existing projects using the standardized names, change all code to use the USB_StdDescriptor_* variants.
+ *    - The \c USE_NONSTANDARD_DESCRIPTOR_NAMES compile time token has been removed - there are now separate \c USB_Descriptor_*
+ *      and \c USB_StdDescriptor_* structures for both the LUFA and standardized element naming conventions so that both may be used in
+ *      the one project. For existing projects using the standardized names, change all code to use the \c USB_StdDescriptor_* variants.
  *
  *  \section Sec_Migration090810 Migrating from 090605 to 090810
  *
@@ -219,11 +225,10 @@
  *      User applications using the scheduler should switch to regular loops instead. The scheduler code will be removed in a future
  *      release.
  *    - The "Dynamic Memory Block Allocator" has been removed, as it was unused in (and unrelated to) the LUFA library and never
- *      used in user applications. The library is available from the author's website for those wishing to still use it in their
- *      applications.
+ *      used in user applications.
  *
  *  <b>Non-USB Library Components</b>
- *    - The ATTR_NOINLINE function attribute macro has been renamed to ATTR_NO_INLINE to be in line with the rest of the function attribute
+ *    - The \c ATTR_NOINLINE function attribute macro has been renamed to \ref ATTR_NO_INLINE to be in line with the rest of the function attribute
  *      macro names.
  *
  *  <b>Library Demos</b>
@@ -232,178 +237,167 @@
  *      possible so that fixes to the class drivers propagate to all applications which use them automatically with each new LUFA release.
  *
  *  <b>Host Mode</b>
- *    - The HIDParser.c module has moved from LUFA/Drivers/USB/Class/ to LUFA/Drivers/USB/Class/Host/.
- *    - The USB_GetDeviceConfigDescriptor() function now requires the desired configuration index within the device as its first
+ *    - The \c HIDParser.c module has moved from \c LUFA/Drivers/USB/Class/ to \c LUFA/Drivers/USB/Class/Host/.
+ *    - The \c USB_GetDeviceConfigDescriptor() function now requires the desired configuration index within the device as its first
  *      parameter, to add support for multi-configuration devices. Existing code should use a configuration index of 1 to indicate the
  *      first configuration descriptor within the device.
  *    - The non-standard "Ready" host state has been removed. Existing \ref HOST_STATE_Configured code should be moved to the end of
  *      the existing \ref HOST_STATE_Addressed state, and the existing HOST_STATE_Ready state code should be moved to the \ref HOST_STATE_Configured
  *      state.
- *    - The USB_IsConnected global has been removed, as it is too vague for general use. Test \ref USB_HostState explicitly to ensure the host is
+ *    - The \c USB_IsConnected global has been removed, as it is too vague for general use. Test \ref USB_HostState explicitly to ensure the host is
  *      in the desired state instead.
  *    - The USB event names have been changed and their firing conditions changed to properly separate out Host mode events from Device mode
  *      events. See the \ref Group_Events page for details on the new event names and firing conditions.
  *
  *  <b>Device Mode</b>
  *    - The \ref CALLBACK_USB_GetDescriptor() function now takes an extra parameter to specify the descriptor's memory space so that
- *      descriptors in mixed memory spaces can be used. The previous functionality can be returned by defining the USE_FLASH_DESCRIPTORS
+ *      descriptors in mixed memory spaces can be used. The previous functionality can be returned by defining the \c USE_FLASH_DESCRIPTORS
  *      token in the project makefile to fix all descriptors into FLASH space and remove the extra function parameter.
- *    - The USB_IsSuspended global has been removed - test \ref USB_DeviceState against \ref DEVICE_STATE_Suspended instead.
- *    - The USB_IsConnected global has been removed, as it is too vague for general use. Test \ref USB_DeviceState explicitly to ensure the device
+ *    - The \c USB_IsSuspended global has been removed - test \ref USB_DeviceState against \ref DEVICE_STATE_Suspended instead.
+ *    - The \c USB_IsConnected global has been removed, as it is too vague for general use. Test \ref USB_DeviceState explicitly to ensure the device
  *      is in the desired state instead.
- *    - The VBUS events have been removed, as they are already exposed to the user via the USB_Connect and USB_Disconnect events.
+ *    - The VBUS events have been removed, as they are already exposed to the user via the \c USB_Connect and \c USB_Disconnect events.
  *    - The USB event names have been changed and their firing conditions changed to properly separate out Host mode events from Device mode
- *      events. See the \ref Group_Events page for details on the new event names and firing conditions. *
+ *      events. See the \ref Group_Events page for details on the new event names and firing conditions.
  *
  *  \section Sec_Migration090605 Migrating from 090510 to 090605
  *
  *  <b>Device Mode</b>
  *    - Support for non-control data endpoint interrupts has been dropped due to many issues in the implementation. All existing
  *      projects using interrupts on non-control endpoints should switch to polling. For control interrupts, the library can
- *      manage the control endpoint via interrupts automatically by compiling with the INTERRUPT_CONTROL_ENDPOINT token defined.
- *    - The DESCRIPTOR_ADDRESS() macro has been removed. User applications should use normal casts to obtain a descriptor's memory
+ *      manage the control endpoint via interrupts automatically by compiling with the \c INTERRUPT_CONTROL_ENDPOINT token defined.
+ *    - The \c DESCRIPTOR_ADDRESS() macro has been removed. User applications should use normal casts to obtain a descriptor's memory
  *      address.
  *    - The library events system has been rewritten, so that all macros have been removed to allow for clearer user code. See
  *      \ref Group_Events for new API details.
- *    - The STREAM_CALLBACK() macro has been removed. User applications should replace all instances of the macro with regular
- *      function signatures of a function accepting no arguments and returning a uint8_t value.
- *    - The Event_DeviceError() event no longer exists, as its sole caller (unlinked USB_GetDescriptor() function) now produces a
- *      compilation error rather than a runtime error. The StdDescriptors.c file no longer exists as a result, and should be removed
+ *    - The \c STREAM_CALLBACK() macro has been removed. User applications should replace all instances of the macro with regular
+ *      function signatures of a function accepting no arguments and returning a \c uint8_t value.
+ *    - The \c Event_DeviceError() event no longer exists, as its sole caller (unlinked \c USB_GetDescriptor() function) now produces a
+ *      compilation error rather than a runtime error. The \c StdDescriptors.c file no longer exists as a result, and should be removed
  *      from project makefiles.
- *    - The USB_GetDescriptor() function has been renamed to CALLBACK_USB_GetDescriptor() to be in line with the new CALLBACK_ function
- *      prefixes for functions which *must* be implemented in the user application.
+ *    - The \c USB_GetDescriptor() function has been renamed to \ref CALLBACK_USB_GetDescriptor() to be in line with the new \c CALLBACK_
+ *      function prefixes for functions which <i>must</i> be implemented in the user application.
  *
  *  <b>Host Mode</b>
  *    - Support for non-control data pipe interrupts has been dropped due to many issues in the implementation. All existing
  *      projects using interrupts on non-control pipes should switch to polling.
  *    - The library events system has been rewritten, so that all macros have been removed to allow for clearer user code. See
  *      \ref Group_Events for new API details.
- *    - The STREAM_CALLBACK() macro has been removed. User applications should replace all instances of the macro with regular
- *      function signatures of a function accepting no arguments and returning a uint8_t value.
- *    - The DESCRIPTOR_COMPARATOR() macro has been removed. User applications should replace all instances of the macro with
- *      regular function signatures of a function accepting a void pointer to the descriptor to test, and returning a uint8_t value.
+ *    - The \c STREAM_CALLBACK() macro has been removed. User applications should replace all instances of the macro with regular
+ *      function signatures of a function accepting no arguments and returning a \c uint8_t value.
+ *    - The \c DESCRIPTOR_COMPARATOR() macro has been removed. User applications should replace all instances of the macro with
+ *      regular function signatures of a function accepting a void pointer to the descriptor to test, and returning a \c uint8_t value.
  *
  *  \section Sec_Migration090510 Migrating from 090401 to 090510
  *
  *  <b>All</b>
- *    - The ButtLoadTag.h header has been removed, as it was never used for its intended purpose. Projects should either remove all
- *      BUTTLOADTAG elements, or download and extract ButtLoadTag.h header from the ButtLoad project.
- *    - The Drivers/AT90USBXXX directory has been renamed to Drivers/Peripheral.
- *    - The Serial_Stream driver has been renamed to SerialStream to remain consistent with the rest of the library naming scheme.
- *    - The HWB driver has changed to the Buttons driver. See the board Buttons driver documentation for the new API.
+ *    - The \c ButtLoadTag.h header has been removed, as it was never used for its intended purpose. Projects should either remove all
+ *      \c BUTTLOADTAG() elements, or download and extract \c ButtLoadTag.h header from the ButtLoad project.
+ *    - The \c Drivers/AT90USBXXX/ directory has been renamed to \c Drivers/Peripheral/.
+ *    - The \c Serial_Stream driver has been renamed to \c SerialStream to remain consistent with the rest of the library naming scheme.
+ *    - The HWB driver has changed to the \c Buttons driver. See the board Buttons driver documentation for the new API.
  *
  *  <b>Dual Role Mode</b>
- *    - The USB_PowerOnFail even has been renamed to USB_InitFailure.
- *    - The functions in OTG.h have been renamed to remain more consistent with the library API. See the functions in OTG.h for more
+ *    - The \c USB_PowerOnFail even has been renamed to \c USB_InitFailure.
+ *    - The functions in \c OTG.h have been renamed to remain more consistent with the library API. See the functions in \c OTG.h for more
  *      details.
  *
- *  <b>Library Demos</b>
- *    - Most demos, bootloaders and applications have had significant changes from previous versions. Applications built off of any
- *      library demos should update to the latest versions.
- *
  *  <b>Device Mode</b>
- *    - The Endpoint_ClearCurrentBank() macro has been removed, and is now replaced with the Endpoint_ClearIN(), Endpoint_ClearOUT()
- *      macros. See Endpoint.h documentation for more details on the new endpoint management macros.
- *    - The Endpoint_ReadWriteAllowed() macro has been renamed to Endpoint_IsReadWriteAllowed() to be more consistent with the rest of
+ *    - The \c Endpoint_ClearCurrentBank() macro has been removed, and is now replaced with the \ref Endpoint_ClearIN(), \ref Endpoint_ClearOUT()
+ *      macros. See \c Endpoint.h documentation for more details on the new endpoint management macros.
+ *    - The \c Endpoint_ReadWriteAllowed() macro has been renamed to \ref Endpoint_IsReadWriteAllowed() to be more consistent with the rest of
  *      the API naming scheme.
- *    - The Endpoint_IsSetupINReady() and Endpoint_IsSetupOutReceived() macros have been renamed to Endpoint_IsINReady() and
- *      Endpoint_IsOUTReceived() respectively.
- *    - The Endpoint_IsSetupReceived() macro has been renamed to Endpoint_IsSETUPReceived().
- *    - The Endpoint_ClearSetupReceived() macro has been renamed to Endpoint_ClearSETUP().
- *    - All endpoint read/write/discard aliases which did not have an explicitly endianness specifier (such as Endpoint_Read_Word()) have
- *      been removed for clarity. Existing projects should use the "_LE" suffix on such calls to use the explicit Little Endian versions.
- *    - The USB_UnhandledControlPacket event no longer has any parameters. User code should no longer attempt to read in the remainder of
+ *    - The \c Endpoint_IsSetupINReady() and \c Endpoint_IsSetupOUTReceived() macros have been renamed to \ref Endpoint_IsINReady() and
+ *      \ref Endpoint_IsOUTReceived() respectively.
+ *    - The \c Endpoint_IsSetupReceived() macro has been renamed to \ref Endpoint_IsSETUPReceived().
+ *    - The \c Endpoint_ClearSetupReceived() macro has been renamed to \ref Endpoint_ClearSETUP().
+ *    - All endpoint read/write/discard aliases which did not have an explicitly endianness specifier (such as \c Endpoint_Read_Word()) have
+ *      been removed for clarity. Existing projects should use the \c _LE suffix on such calls to use the explicit Little Endian versions.
+ *    - The \c USB_UnhandledControlPacket event no longer has any parameters. User code should no longer attempt to read in the remainder of
  *      the Control Request header as all Control Request header data is now preloaded by the library and made available in the
  *      USB_ControlRequest structure.
- *    - The FEATURELESS_CONTROL_ONLY_DEVICE token has been renamed to CONTROL_ONLY_DEVICE.
- *    - The STATIC_ENDPOINT_CONFIGURATION is no longer applicable as the library will apply this optimization when appropriate automatically.
- *    - The values of the Endpoint_Stream_RW_ErrorCodes_t and Endpoint_ControlStream_RW_ErrorCodes_t enums have had the "ERROR_" portion
+ *    - The \c FEATURELESS_CONTROL_ONLY_DEVICE token has been renamed to \c CONTROL_ONLY_DEVICE.
+ *    - The \c STATIC_ENDPOINT_CONFIGURATION is no longer applicable as the library will apply this optimization when appropriate automatically.
+ *    - The values of the \ref Endpoint_Stream_RW_ErrorCodes_t and \ref Endpoint_ControlStream_RW_ErrorCodes_t enums have had the \c ERROR_ portion
  *      of their names removed.
  *
  *  <b>Host Mode</b>
- *    - The USB_Host_SendControlRequest() function no longer automatically selects the Control pipe (pipe 0) to allow it to be used on
+ *    - The \ref USB_Host_SendControlRequest() function no longer automatically selects the Control pipe (pipe 0) to allow it to be used on
  *      other control type pipes. Care should be taken to ensure that the Control pipe is always selected before the function is called
  *      in existing projects where the Control pipe is to be operated on.
  *    - The USB Host management task now saves and restores the currently selected pipe before and after the task runs. Projects no longer
  *      need to manage this manually when calling the USB management task.
- *    - The Pipe_ClearCurrentBank() macro has been removed, and is now replaced with the Pipe_ClearIN(), Pipe_ClearOUT() macros. See
+ *    - The \c Pipe_ClearCurrentBank() macro has been removed, and is now replaced with the Pipe_ClearIN(), Pipe_ClearOUT() macros. See
  *      Pipe.h documentation for more details on the new pipe management macros.
- *    - The Pipe_ReadWriteAllowed() macro has been renamed to Pipe_IsReadWriteAllowed() to be more consistent with the rest of the API
+ *    - The \c Pipe_ReadWriteAllowed() macro has been renamed to \ref Pipe_IsReadWriteAllowed() to be more consistent with the rest of the API
  *      naming scheme.
- *    - The Pipe_IsSetupINReceived() and Pipe_IsOutReady() macros have been renamed to Pipe_IsINReceived() and Pipe_IsOUTReady()
+ *    - The \c Pipe_IsSetupINReceived() and \c Pipe_IsOutReady() macros have been renamed to \ref Pipe_IsINReceived() and \ref Pipe_IsOUTReady()
  *      respectively.
- *    - The new Pipe_ClearSETUP() macro should be used to send SETUP transactions, rather than the previous Pipe_ClearSetupOUT() macro.
- *    - The Pipe_IsSetupSent() macro has been renamed to Pipe_IsSETUPSent().
- *    - The Pipe_ClearSetupSent() macro is no longer applicable and should be removed.
- *    - All pipe read/write/discard aliases which did not have an explicitly endianness specifier (such as Pipe_Read_Word()) have
- *      been removed for clarity. Existing projects should use the "_LE" suffix on such calls to use the explicit Little Endian versions.
- *    - The Host_IsResetBusDone() macro has been renamed to Host_IsBusResetComplete().
- *    - The Pipe_Ignore_Word() and Pipe_Ignore_DWord() functions have been renamed to Pipe_Discard_Word() and Pipe_Discard_DWord() to remain
- *      consistent with the rest of the pipe API.
- *    - It is no longer needed to manually include the headers from LUFA/Drivers/USB/Class, as they are now included along with the rest
- *      of the USB headers when LUFA/Drivers/USB/USB.h is included.
- *    - Functions in the ConfigDescriptor.h header file no longer have "Host_" as part of their names.
- *    - The ProcessHIDReport() has been renamed to USB_ProcessHIDReport(), GetReportItemInfo() has been renamed to USB_GetHIDReportItemInfo()
- *      and SetReportItemInfo() has been renamed to USB_GetHIDReportItemInfo().
- *    - The values of the DSearch_Return_ErrorCodes_t and DSearch_Comp_Return_ErrorCodes_t enums have had their respective "Descriptor_Search"
- *      and "Descriptor_Search_Comp" prefixes changed to all caps.
- *    - The USB_HostRequest global has been renamed to USB_ControlRequest, and is used in Device mode also. The USB_Host_Request_Header_t
- *      structure type has been renamed to USB_Request_Header_t.
- *    - The values of the Pipe_Stream_RW_ErrorCodes_t enum have had the "ERROR_" portion of their names removed.
+ *    - The new \ref Pipe_ClearSETUP() macro should be used to send SETUP transactions, rather than the previous \c Pipe_ClearSetupOUT() macro.
+ *    - The \c Pipe_IsSetupSent() macro has been renamed to \ref Pipe_IsSETUPSent().
+ *    - The \c Pipe_ClearSetupSent() macro is no longer applicable and should be removed.
+ *    - All pipe read/write/discard aliases which did not have an explicitly endianness specifier (such as \c Pipe_Read_Word()) have
+ *      been removed for clarity. Existing projects should use the \c _LE suffix on such calls to use the explicit Little Endian versions.
+ *    - The \c Host_IsResetBusDone() macro has been renamed to \c Host_IsBusResetComplete().
+ *    - The \c Pipe_Ignore_Word() and \c Pipe_Ignore_DWord() functions have been renamed to \ref Pipe_Discard_Word() and \ref Pipe_Discard_DWord()
+ *      to remain consistent with the rest of the pipe API.
+ *    - It is no longer needed to manually include the headers from \c LUFA/Drivers/USB/Class, as they are now included along with the rest
+ *      of the USB headers when \c LUFA/Drivers/USB/USB.h is included.
+ *    - Functions in the \c ConfigDescriptor.h header file no longer have \c Host_ as part of their names.
+ *    - The \c ProcessHIDReport() has been renamed to \ref USB_ProcessHIDReport(), \c GetReportItemInfo() has been renamed to \ref USB_GetHIDReportItemInfo()
+ *      and \c SetReportItemInfo() has been renamed to \ref USB_GetHIDReportItemInfo().
+ *    - The values of the \ref DSearch_Return_ErrorCodes_t and \ref DSearch_Comp_Return_ErrorCodes_t enums have had their respective \c Descriptor_Search
+ *      and \c Descriptor_Search_Comp prefixes changed to all caps.
+ *    - The \c USB_HostRequest global has been renamed to \ref USB_ControlRequest, and is used in Device mode also. The \c USB_Host_Request_Header_t
+ *      structure type has been renamed to \ref USB_Request_Header_t.
+ *    - The values of the \ref Pipe_Stream_RW_ErrorCodes_t enum have had the \c ERROR_ portion of their names removed.
  *
  *  \section Sec_Migration090401 Migrating from 090209 to 090401
  *
  *  <b>All</b>
- *    - LUFA projects must now give the raw input clock frequency (before any prescaling) as a compile time constant "F_CLOCK",
+ *    - LUFA projects must now give the raw input clock frequency (before any prescaling) as a compile time constant \c F_CLOCK,
  *      defined in the project makefile and passed to the compiler via the -D switch.
  *    - The makefile EEPROM programming targets for FLIP and dfu-programmer no longer program in the FLASH data in addition to the
  *      EEPROM data into the device. If both are to be programmed, both the EEPROM and FLASH programming targets must be called.
- *    - As the avr-libc macro has been corrected in recent avr-libc distributions, the SetSystemClockPrescaler() macro has been removed.
- *      Include <avr/power.h> and call clock_prescale_set(clock_div_1); instead on recent avr-libc distributions.
+ *    - As the avr-libc macro has been corrected in recent avr-libc distributions, the \c SetSystemClockPrescaler() macro has been removed.
+ *      Include \c <avr/power.h> and call \c clock_prescale_set(clock_div_1); instead on recent avr-libc distributions.
  *
  *  <b>Library Demos</b>
  *    - The USBtoSerial demo now discards all data when not connected to a host, rather than buffering it for later transmission.
- *    - Most demos, bootloaders and applications have had their control request handling code corrected, to properly send the status
- *      stage in all handled requests. If you are using code based off one of the library demos, bootloaders or applications, you should
- *      update to the latest revisions.
  *
  *  <b>Non-USB Library Components</b>
- *    - The ATTR_ALWAYSINLINE function attribute macro has been renamed to ATTR_ALWAYS_INLINE.
- *    - Custom board Dataflash drivers now require the implementation of Dataflash_SelectChipFromPage() and Dataflash_SendAddressBytes().
+ *    - The \c ATTR_ALWAYSINLINE function attribute macro has been renamed to \ref ATTR_ALWAYS_INLINE.
+ *    - Custom board Dataflash drivers now require the implementation of \ref Dataflash_SelectChipFromPage() and \ref Dataflash_SendAddressBytes().
  *
  *  <b>Device Mode</b>
- *    - The NO_CLEARSET_FEATURE_REQUEST compile time token has been renamed to FEATURELESS_CONTROL_ONLY_DEVICE, and its function expanded
+ *    - The \c NO_CLEARSET_FEATURE_REQUEST compile time token has been renamed to \c FEATURELESS_CONTROL_ONLY_DEVICE, and its function expanded
  *      to also remove parts of the Get Status chapter 9 request to further reduce code usage. On all applications currently using the
- *      NO_CLEARSET_FEATURE_REQUEST compile time token, it can be replaced with the FEATURELESS_CONTROL_ONLY_DEVICE token with no further
+ *      \c NO_CLEARSET_FEATURE_REQUEST compile time token, it can be replaced with the \c FEATURELESS_CONTROL_ONLY_DEVICE token with no further
  *      modifications required.
  *
  *  \section Sec_Migration090209 Migrating from 081217 to 090209
  *
  *  <b>Device Mode</b>
- *    - The ENDPOINT_MAX_ENDPOINTS constant has been renamed to the more appropriate name of ENDPOINT_TOTAL_ENDPOINTS.
- *    - The USB_STREAM_TIMEOUT_MS stream timeout default period has been extended to 100ms. This can be overridden in the user
+ *    - The \c ENDPOINT_MAX_ENDPOINTS constant has been renamed to the more appropriate name of \c ENDPOINT_TOTAL_ENDPOINTS.
+ *    - The \c USB_STREAM_TIMEOUT_MS stream timeout default period has been extended to 100ms. This can be overridden in the user
  *      makefile if desired to restore the previous 50ms timeout.
  *
  *  <b>Host Mode</b>
- *    - The PIPE_MAX_ENDPOINTS constant has been renamed to the more appropriate name of PIPE_TOTAL_ENDPOINTS.
- *    - The USB_STREAM_TIMEOUT_MS stream timeout default period has been extended to 100ms. This can be overridden in the user
+ *    - The \c PIPE_MAX_ENDPOINTS constant has been renamed to the more appropriate name of \c PIPE_TOTAL_ENDPOINTS.
+ *    - The \c USB_STREAM_TIMEOUT_MS stream timeout default period has been extended to 100ms. This can be overridden in the user
  *      makefile if desired to restore the previous 50ms timeout.
- *    - The USB_DeviceEnumerationFailed event now contains a second "SubErrorCode" parameter, giving the error code of the function
+ *    - The \c USB_DeviceEnumerationFailed event now contains a second \c SubErrorCode parameter, giving the error code of the function
  *      which failed.
- *    - The HID_PARSE_Sucessful enum member constant has been corrected to HID_PARSE_Successful.
+ *    - The \c HID_PARSE_Sucessful enum member constant name has been corrected to \ref HID_PARSE_Successful.
  *
  *  <b>Non-USB Library Components</b>
- *    - The previous SPI_SendByte() functionality is now located in SPI_TransferByte(). SPI_SendByte() now discards the return byte
- *      for speed, to compliment the new SPI_ReceiveByte() function. If two-way SPI transfers are required, calls to SPI_SendByte()
- *      should be changed to SPI_TransferByte().
+ *    - The previous \c SPI_SendByte() functionality is now located in \ref SPI_TransferByte(). \ref SPI_SendByte() now discards the return byte
+ *      for speed, to compliment the new \ref SPI_ReceiveByte() function. If bidirectional SPI transfers are required, calls to \ref SPI_SendByte()
+ *      should be changed to \ref SPI_TransferByte().
  *    - The serial driver now sets the Tx line as an output explicitly, and enables the pull-up of the Rx line.
- *    - The Serial_Init() and SerialStream_Init() functions now take a second DoubleSpeed parameter, which indicates if the USART
- *      should be initialized in double speed mode - useful in some circumstances for attaining baud rates not usually possible at
- *      the given AVR clock speed.
- *
- *  <b>Library Demos</b>
- *    - Most library demos have been enhanced and/or had errors corrected. All users of all demos should upgrade their codebase to
- *      the latest demo versions.
+ *    - The \ref Serial_Init() and \c SerialStream_Init() functions now take a second \c DoubleSpeed parameter, which indicates if the USART
+ *      should be initialized in double speed mode - useful in some circumstances for attaining baud rates not usually possible at the given AVR
+ *      clock speed.
  *
  *  \section Sec_Migration171208 Migrating from V1.5.3 to 081217
  *

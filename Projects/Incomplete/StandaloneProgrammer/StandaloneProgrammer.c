@@ -152,7 +152,10 @@ void SetupHardware(void)
 	SPI_Init(SPI_SPEED_FCPU_DIV_2 | SPI_SCK_LEAD_FALLING | SPI_SAMPLE_TRAILING | SPI_MODE_MASTER);
 	Dataflash_Init();
 	Buttons_Init();
-	SerialStream_Init(9600, true);
+	Serial_Init(9600, true);
+
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);
 
 	#if defined(USB_CAN_BE_DEVICE)
 	/* Clear Dataflash sector protections, if enabled */

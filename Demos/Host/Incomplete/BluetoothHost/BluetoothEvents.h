@@ -45,7 +45,7 @@
 		#include "Lib/SDP.h"
 		#include "Lib/RFCOMM.h"
 
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
 		
 	/* Macros: */

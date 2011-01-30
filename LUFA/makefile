@@ -46,7 +46,6 @@ LUFA_SRC_USBCLASS     = $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/Audio.c      
                         $(LUFA_ROOT_PATH)/Drivers/USB/Class/Host/StillImage.c
 LUFA_SRC_TEMPERATURE  = $(LUFA_ROOT_PATH)/Drivers/Board/Temperature.c
 LUFA_SRC_SERIAL       = $(LUFA_ROOT_PATH)/Drivers/Peripheral/Serial.c
-LUFA_SRC_SERIALSTREAM = $(LUFA_ROOT_PATH)/Drivers/Peripheral/SerialStream.c
 LUFA_SRC_TWI          = $(LUFA_ROOT_PATH)/Drivers/Peripheral/TWI.c
 LUFA_SRC_SCHEDULER    = $(LUFA_ROOT_PATH)/Scheduler/Scheduler.c
 
@@ -55,8 +54,7 @@ LUFA_SRC_SCHEDULER    = $(LUFA_ROOT_PATH)/Scheduler/Scheduler.c
 ifeq ($(origin LUFA_PATH), undefined)
    LUFA_SRC_ALL_FILES = $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)       \
                         $(LUFA_SRC_TEMPERATURE) $(LUFA_SRC_SERIAL) \
-                        $(LUFA_SRC_SERIALSTREAM) $(LUFA_SRC_TWI)   \
-                        $(LUFA_SRC_SCHEDULER)
+                        $(LUFA_SRC_TWI) $(LUFA_SRC_SCHEDULER)
 
    all:
 

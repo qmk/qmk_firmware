@@ -9,7 +9,6 @@
   *  \section Sec_ChangeLogXXXXXX Version XXXXXX
   *  <b>New:</b>
   *  - Core:
-  *   - Added new MIDIToneGenerator project
   *   - Added new ORDERED_EP_CONFIG compile time option to restrict endpoint/pipe configuration to ascending order
   *     in exchange for a smaller compiled program binary size
   *   - Added a new general RingBuff.h miscellaneous ring buffer library driver header
@@ -23,6 +22,7 @@
   *   - Added new MAX() and MIN() convenience macros
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
+  *   - Added new MIDIToneGenerator project
   *   - Added new KeyboardMouseMultiReport Device ClassDriver demo
   *
   *  <b>Changed:</b>
@@ -40,6 +40,11 @@
   *   - Changed over all project and demo HID report descriptors to use the new HID report item macros
   *   - Moved the HIDParser.c source file to the LUFA/Drivers/USB/Class/Common/ directory from the LUFA/Drivers/USB/Class/Host/
   *   - Added support to the HID parser for extended USAGE items that contain the usage page as well as the usage index
+  *   - Removed the SerialStream driver, rolled functionality into the regular Serial peripheral driver via the new
+  *     Serial_CreateStream() and Serial_CreateBlockingStream() functions
+  *   - Renamed the low level Serial byte send/receive functions, to be consistent with the CDC class driver byte functions
+  *   - Altered the behaviour of the serial byte reception function so that is is non-blocking, and now returns a negative
+  *     value if no character is received (to remain consistent with the CDC class driver byte reception routines)
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion

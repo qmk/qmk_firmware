@@ -280,12 +280,12 @@
 			void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Creates a standard character stream for the given CDC Device instance so that it can be used with all the regular
-			 *  functions in the avr-libc <stdio.h> library that accept a FILE stream as a destination (e.g. fprintf). The created
+			 *  functions in the avr-libc <stdio.h> library that accept a \c FILE stream as a destination (e.g. \c fprintf). The created
 			 *  stream is bidirectional and can be used for both input and output functions.
 			 *
 			 *  Reading data from this stream is non-blocking, i.e. in most instances, complete strings cannot be read in by a single
 			 *  fetch, as the endpoint will not be ready at some point in the transmission, aborting the transfer. However, this may
-			 *  be used when the read data is processed byte-per-bye (via getc()) or when the user application will implement its own
+			 *  be used when the read data is processed byte-per-bye (via \c getc()) or when the user application will implement its own
 			 *  line buffering.
 			 *
 			 *  \note The created stream can be given as stdout if desired to direct the standard output from all <stdio.h> functions
@@ -297,7 +297,7 @@
 			void CDC_Device_CreateStream(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo,
 			                             FILE* const Stream) ATTR_NON_NULL_PTR_ARG(1) ATTR_NON_NULL_PTR_ARG(2);
 
-			/** Identical to CDC_Device_CreateStream(), except that reads are blocking until the calling stream function terminates
+			/** Identical to \ref CDC_Device_CreateStream(), except that reads are blocking until the calling stream function terminates
 			 *  the transfer. While blocking, the USB and CDC service tasks are called repeatedly to maintain USB communications.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.

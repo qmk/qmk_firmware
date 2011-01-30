@@ -43,7 +43,7 @@
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 
 	/* Macros: */
 		/** Device control request for used in the Microsoft OS Descriptor for retrieving the OS Feature

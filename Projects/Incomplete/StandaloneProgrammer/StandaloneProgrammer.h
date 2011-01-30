@@ -53,7 +53,7 @@
 
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/Board/Buttons.h>
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */

@@ -41,7 +41,7 @@
 		#include <avr/pgmspace.h>
 		#include <stdio.h>
 
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 
 		#include "EthernetProtocols.h"
 		#include "Ethernet.h"

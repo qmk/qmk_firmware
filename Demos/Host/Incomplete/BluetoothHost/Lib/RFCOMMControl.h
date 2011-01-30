@@ -44,7 +44,7 @@
 		#include <stdio.h>
 
 		#include <LUFA/Common/Common.h>
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 
 		#include "BluetoothStack.h"
 		#include "RFCOMM.h"

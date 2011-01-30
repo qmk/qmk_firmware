@@ -129,8 +129,7 @@ SRC = $(TARGET).c                                                 \
 	  ConfigDescriptor.c                                          \
 	  Lib/PrinterCommands.c                                       \
 	  $(LUFA_SRC_USB)                                             \
-	  $(LUFA_SRC_SERIAL)                                          \
-	  $(LUFA_SRC_SERIALSTREAM)
+	  $(LUFA_SRC_SERIAL)
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

@@ -30,24 +30,53 @@
 
 #include "Serial.h"
 
-void Serial_TxString_P(const char* FlashStringPtr)
+FILE USARTSerialStream;
+
+int Serial_putchar(char DataByte,
+                   FILE *Stream)
+{
+	(void)Stream;
+
+	Serial_SendByte(DataByte);
+	return 0;
+}
+
+int Serial_getchar(FILE *Stream)
+{
+	(void)Stream;
+
+	if (!(Serial_IsCharReceived()))
+	  return _FDEV_EOF;
+
+	return Serial_ReceiveByte();
+}
+
+int Serial_getchar_Blocking(FILE *Stream)
+{
+	(void)Stream;
+
+	while (!(Serial_IsCharReceived()));
+	return Serial_ReceiveByte();
+}
+
+void Serial_SendString_P(const char* FlashStringPtr)
 {
 	uint8_t CurrByte;
 
 	while ((CurrByte = pgm_read_byte(FlashStringPtr)) != 0x00)
 	{
-		Serial_TxByte(CurrByte);
+		Serial_SendByte(CurrByte);
 		FlashStringPtr++;
 	}
 }
 
-void Serial_TxString(const char* StringPtr)
+void Serial_SendString(const char* StringPtr)
 {
 	uint8_t CurrByte;
 
 	while ((CurrByte = *StringPtr) != 0x00)
 	{
-		Serial_TxByte(CurrByte);
+		Serial_SendByte(CurrByte);
 		StringPtr++;
 	}
 }

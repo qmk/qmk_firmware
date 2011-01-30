@@ -42,7 +42,6 @@
 		#include <stdio.h>
 
 		#include <LUFA/Drivers/USB/USB.h>
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
 
 		#include "../V2Protocol.h"
 		#include "XMEGANVM.h"

@@ -71,8 +71,11 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	LEDs_Init();
-	SerialStream_Init(9600, false);
+	Serial_Init(9600, false);
 	USB_Init();
+	
+	/* Create a stdio stream for the serial port for stdin and stdout */
+	Serial_CreateStream(NULL);	
 }
 
 /** Event handler for the USB_Connect event. This indicates that the device is enumerating via the status LEDs and

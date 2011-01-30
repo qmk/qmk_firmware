@@ -343,11 +343,11 @@
 		 *  Where \c uintA_t is a type large enough to hold one bit per button, and \c intB_t is a type large enough to hold the
 		 *  ranges of the signed \c MinAxisVal and \c MaxAxisVal values.
 		 *
-		 *  \param[in] MinAxisVal      Minimum X/Y logical axis value
-		 *  \param[in] MaxAxisVal      Maximum X/Y logical axis value
-		 *  \param[in] MinPhysicalVal  Minimum X/Y physical axis value, for movement resolution calculations
-		 *  \param[in] MaxPhysicalVal  Maximum X/Y physical axis value, for movement resolution calculations
-		 *  \param[in] Buttons         Total number of buttons in the device
+		 *  \param[in] MinAxisVal      Minimum X/Y logical axis value.
+		 *  \param[in] MaxAxisVal      Maximum X/Y logical axis value.
+		 *  \param[in] MinPhysicalVal  Minimum X/Y physical axis value, for movement resolution calculations.
+		 *  \param[in] MaxPhysicalVal  Maximum X/Y physical axis value, for movement resolution calculations.
+		 *  \param[in] Buttons         Total number of buttons in the device.
 		 */
 		#define HID_DESCRIPTOR_JOYSTICK(MinAxisVal, MaxAxisVal, MinPhysicalVal, MaxPhysicalVal, Buttons) \
 			HID_RI_USAGE_PAGE(8, 0x01),                     \
@@ -393,7 +393,7 @@
 		 *  \endcode
 		 *
 		 *  \param[in] MaxKeys  Number of simultaneous keys that can be reported at the one time (a value between 1 and
-		 *                      (ENDPOINT_SIZE - 2) )
+		 *                      (ENDPOINT_SIZE - 2) ).
 		 */
 		#define HID_DESCRIPTOR_KEYBOARD(MaxKeys)            \
 			HID_RI_USAGE_PAGE(8, 0x01),                     \
@@ -446,12 +446,12 @@
 		 *  Where \c intA_t is a type large enough to hold one bit per button, and \c intB_t is a type large enough to hold the
 		 *  ranges of the signed \c MinAxisVal and \c MaxAxisVal values.
 		 *
-		 *  \param[in] MinAxisVal      Minimum X/Y logical axis value
-		 *  \param[in] MaxAxisVal      Maximum X/Y logical axis value
-		 *  \param[in] MinPhysicalVal  Minimum X/Y physical axis value, for movement resolution calculations
-		 *  \param[in] MaxPhysicalVal  Maximum X/Y physical axis value, for movement resolution calculations
-		 *  \param[in] Buttons         Total number of buttons in the device
-		 *  \param[in] AbsoluteCoords  Boolean true to use absolute X/Y coordinates (e.g. touchscreen)
+		 *  \param[in] MinAxisVal      Minimum X/Y logical axis value.
+		 *  \param[in] MaxAxisVal      Maximum X/Y logical axis value.
+		 *  \param[in] MinPhysicalVal  Minimum X/Y physical axis value, for movement resolution calculations.
+		 *  \param[in] MaxPhysicalVal  Maximum X/Y physical axis value, for movement resolution calculations.
+		 *  \param[in] Buttons         Total number of buttons in the device.
+		 *  \param[in] AbsoluteCoords  Boolean true to use absolute X/Y coordinates (e.g. touchscreen).
 		 */
 		#define HID_DESCRIPTOR_MOUSE(MinAxisVal, MaxAxisVal, MinPhysicalVal, MaxPhysicalVal, Buttons, AbsoluteCoords) \
 			HID_RI_USAGE_PAGE(8, 0x01),                     \
@@ -488,11 +488,11 @@
 		 *  used for transporting abitrary data between the USB host and device via HID reports. The resulting report should be
 		 *  a uint8_t byte array of the specified length in both Device to Host (IN) and Host to Device (OUT) directions.
 		 *
-		 *  \param[in] VendorPageNum    Vendor Defined HID Usage Page index, ranging from 0x00 to 0xFF
-		 *  \param[in] CollectionUsage  Vendor Usage for the encompasing report IN and OUT collection, ranging from 0x00 to 0xFF
-		 *  \param[in] DataINUsage      Vendor Usage for the IN report data, ranging from 0x00 to 0xFF
-		 *  \param[in] DataOUTUsage     Vendor Usage for the OUT report data, ranging from 0x00 to 0xFF   
-		 *  \param[in] NumBytes         Length of the data IN and OUT reports
+		 *  \param[in] VendorPageNum    Vendor Defined HID Usage Page index, ranging from 0x00 to 0xFF.
+		 *  \param[in] CollectionUsage  Vendor Usage for the encompasing report IN and OUT collection, ranging from 0x00 to 0xFF.
+		 *  \param[in] DataINUsage      Vendor Usage for the IN report data, ranging from 0x00 to 0xFF.
+		 *  \param[in] DataOUTUsage     Vendor Usage for the OUT report data, ranging from 0x00 to 0xFF.   
+		 *  \param[in] NumBytes         Length of the data IN and OUT reports.
 		 */
 		#define HID_DESCRIPTOR_VENDOR(VendorPageNum, CollectionUsage, DataINUsage, DataOUTUsage, NumBytes) \
 			HID_RI_USAGE_PAGE(16, (0xFF00 | VendorPageNum)), \

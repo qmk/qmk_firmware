@@ -70,6 +70,7 @@
 		#include <avr/io.h>
 		#include <avr/pgmspace.h>
 		#include <stdbool.h>
+		#include <stdio.h>
 
 		#include "../../Common/Common.h"
 		#include "../Misc/TerminalCodes.h"
@@ -78,6 +79,18 @@
 		#if defined(__cplusplus)
 			extern "C" {
 		#endif
+
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* External Variables: */
+			extern FILE USARTSerialStream;
+	
+		/* Function Prototypes: */
+			int Serial_putchar(char DataByte,
+			                   FILE *Stream);
+			int Serial_getchar(FILE *Stream);
+			int Serial_getchar_Blocking(FILE *Stream);
+	#endif
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
@@ -96,14 +109,14 @@
 			 *
 			 *  \param[in] FlashStringPtr  Pointer to a string located in program space.
 			 */
-			void Serial_TxString_P(const char* FlashStringPtr) ATTR_NON_NULL_PTR_ARG(1);
+			void Serial_SendString_P(const char* FlashStringPtr) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Transmits a given string located in SRAM memory through the USART.
 			 *
 			 *  \param[in] StringPtr  Pointer to a string located in SRAM space.
 			 */
-			void Serial_TxString(const char* StringPtr) ATTR_NON_NULL_PTR_ARG(1);
-
+			void Serial_SendString(const char* StringPtr) ATTR_NON_NULL_PTR_ARG(1);
+			
 		/* Inline Functions: */
 			/** Initializes the USART, ready for serial data transmission and reception. This initializes the interface to
 			 *  standard 8-bit, no parity, 1 stop bit settings suitable for most applications.
@@ -137,6 +150,52 @@
 				PORTD &= ~(1 << 2);
 			}
 
+			/** Creates a standard character stream from the USART so that it can be used with all the regular functions
+			 *  in the avr-libc \c <stdio.h> library that accept a \c FILE stream as a destination (e.g. \c fprintf). The created
+			 *  stream is bidirectional and can be used for both input and output functions.
+			 *
+			 *  Reading data from this stream is non-blocking, i.e. in most instances, complete strings cannot be read in by a single
+			 *  fetch, as the endpoint will not be ready at some point in the transmission, aborting the transfer. However, this may
+			 *  be used when the read data is processed byte-per-bye (via \c getc()) or when the user application will implement its own
+			 *  line buffering.
+			 *
+			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed, if \c NULL stdio
+			 *                         and stdin will be configured to use the USART.
+			 *
+			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
+			 */
+			static inline void Serial_CreateStream(FILE* Stream)
+			{
+				if (!(Stream))
+				{
+					Stream = &USARTSerialStream;
+					stdin  = Stream;
+					stdout = Stream;
+				}
+			
+				*Stream = (FILE)FDEV_SETUP_STREAM(Serial_putchar, Serial_getchar, _FDEV_SETUP_RW);
+			}
+
+			/** Identical to \ref Serial_CreateStream(), except that reads are blocking until the calling stream function terminates
+			 *  the transfer.
+			 *
+			 *  \param[in,out] Stream  Pointer to a FILE structure where the created stream should be placed, if \c NULL stdio
+			 *                         and stdin will be configured to use the USART.
+			 *
+			 *  \pre The USART must first be configured via a call to \ref Serial_Init() before the stream is used.
+			 */
+			static inline void Serial_CreateBlockingStream(FILE* Stream)
+			{
+				if (!(Stream))
+				{
+					Stream = &USARTSerialStream;
+					stdin  = Stream;
+					stdout = Stream;
+				}
+
+				*Stream = (FILE)FDEV_SETUP_STREAM(Serial_putchar, Serial_getchar_Blocking, _FDEV_SETUP_RW);
+			}
+
 			/** Indicates whether a character has been received through the USART.
 			 *
 			 *  \return Boolean \c true if a character has been received, \c false otherwise.
@@ -151,23 +210,23 @@
 			 *
 			 *  \param[in] DataByte  Byte to transmit through the USART.
 			 */
-			static inline void Serial_TxByte(const char DataByte) ATTR_ALWAYS_INLINE;
-			static inline void Serial_TxByte(const char DataByte)
+			static inline void Serial_SendByte(const char DataByte) ATTR_ALWAYS_INLINE;
+			static inline void Serial_SendByte(const char DataByte)
 			{
 				while (!(UCSR1A & (1 << UDRE1)));
 				UDR1 = DataByte;
 			}
 
-			/** Receives a byte from the USART. This function blocks until a byte has been
-			 *  received; if non-blocking behaviour is required, test for a received character
-			 *  beforehand with \ref Serial_IsCharReceived().
+			/** Receives the next byte from the USART.
 			 *
-			 *  \return Byte received from the USART.
+			 *  \return Next byte received from the USART, or a negative value if no byte has been received.
 			 */
-			static inline char Serial_RxByte(void) ATTR_ALWAYS_INLINE;
-			static inline char Serial_RxByte(void)
+			static inline int16_t Serial_ReceiveByte(void) ATTR_ALWAYS_INLINE;
+			static inline int16_t Serial_ReceiveByte(void)
 			{
-				while (!(UCSR1A & (1 << RXC1)));
+				if (!(Serial_IsCharReceived()))
+				  return -1;
+				
 				return UDR1;
 			}
 

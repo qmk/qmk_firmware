@@ -44,13 +44,20 @@
  *    - LUFA/Drivers/USB/Class/Host/HIDParser.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
  *  \section Sec_ModDescription Module Description
- *  Functions, macros, variables, enums and types related to the parsing of HID class device report descriptors.
+ *  Human Interface Device (HID) class report descriptor parser. This module implements a parser than is
+ *  capable of processing a complete HID report descriptor, and outputting a flat structure containing the
+ *  contents of the report in an a more friendly format. The parsed data may then be further processed and used
+ *  within an application to process sent and received HID reports to and from an attached HID device.
  *
- *  The processed HID report is presented back to the user application as a flat structure containing each report
- *  item's IN, OUT and FEATURE items along with each item's attributes.
+ *  A HID report descriptor consists of a set of HID report items, which describe the function and layout
+ *  of data exchanged between a HID device and a host, including both the physical encoding of each item
+ *  (such as a button, key press or joystick axis) in the sent and received data packets - known as "reports" -
+ *  as well as other information about each item such as the usages, data range, physical location and other
+ *  characterstics. In this way a HID device can retain a high degree of flexibility in its capabilities, as it
+ *  is not forced to comply with a given report layout or featureset.
  *
- *  This library portion also allows for easy setting and retrieval of data from a HID report, including devices
- *  with multiple reports on the one HID interface.
+ *  This module also contains routines for the processing of data in an actual HID report, using the parsed report
+ *  descritor data as a guide for the encoding.
  *
  *  @{
  */
@@ -159,8 +166,8 @@
 			 */
 			typedef struct
 			{
-				uint32_t                     Minimum; /**< Minimum value for the attribute. */
-				uint32_t                     Maximum; /**< Maximum value for the attribute. */
+				uint32_t Minimum; /**< Minimum value for the attribute. */
+				uint32_t Maximum; /**< Maximum value for the attribute. */
 			} HID_MinMax_t;
 
 			/** \brief HID Parser Report Item Unit Structure.
@@ -169,8 +176,8 @@
 			 */
 			typedef struct
 			{
-				uint32_t                     Type;     /**< Unit type (refer to HID specifications for details). */
-				uint8_t                      Exponent; /**< Unit exponent (refer to HID specifications for details). */
+				uint32_t Type;     /**< Unit type (refer to HID specifications for details). */
+				uint8_t  Exponent; /**< Unit exponent (refer to HID specifications for details). */
 			} HID_Unit_t;
 
 			/** \brief HID Parser Report Item Usage Structure.
@@ -179,8 +186,8 @@
 			 */
 			typedef struct
 			{
-				uint16_t                     Page;   /**< Usage page of the report item. */
-				uint16_t                     Usage;  /**< Usage of the report item. */
+				uint16_t Page;  /**< Usage page of the report item. */
+				uint16_t Usage; /**< Usage of the report item. */
 			} HID_Usage_t;
 
 			/** \brief HID Parser Report Item Collection Path Structure.
@@ -188,11 +195,11 @@
 			 *  Type define for a COLLECTION object. Contains the collection attributes and a reference to the
 			 *  parent collection if any.
 			 */
-			typedef struct CollectionPath
+			typedef struct HID_CollectionPath
 			{
-				uint8_t                      Type;   /**< Collection type (e.g. "Generic Desktop"). */
-				HID_Usage_t                  Usage;  /**< Collection usage. */
-				struct CollectionPath*       Parent; /**< Reference to parent collection, or \c NULL if root collection. */
+				uint8_t                    Type;   /**< Collection type (e.g. "Generic Desktop"). */
+				HID_Usage_t                Usage;  /**< Collection usage. */
+				struct HID_CollectionPath* Parent; /**< Reference to parent collection, or \c NULL if root collection. */
 			} HID_CollectionPath_t;
 
 			/** \brief HID Parser Report Item Attributes Structure.
@@ -201,12 +208,12 @@
 			 */
 			typedef struct
 			{
-				uint8_t                      BitSize;  /**< Size in bits of the report item's data. */
+				uint8_t      BitSize;  /**< Size in bits of the report item's data. */
 
-				HID_Usage_t                  Usage;    /**< Usage of the report item. */
-				HID_Unit_t                   Unit;     /**< Unit type and exponent of the report item. */
-				HID_MinMax_t                 Logical;  /**< Logical minimum and maximum of the report item. */
-				HID_MinMax_t                 Physical; /**< Physical minimum and maximum of the report item. */
+				HID_Usage_t  Usage;    /**< Usage of the report item. */
+				HID_Unit_t   Unit;     /**< Unit type and exponent of the report item. */
+				HID_MinMax_t Logical;  /**< Logical minimum and maximum of the report item. */
+				HID_MinMax_t Physical; /**< Physical minimum and maximum of the report item. */
 			} HID_ReportItem_Attributes_t;
 
 			/** \brief HID Parser Report Item Details Structure.
@@ -215,18 +222,18 @@
 			 */
 			typedef struct
 			{
-				uint16_t                     BitOffset;      /**< Bit offset in the IN, OUT or FEATURE report of the item. */
-				uint8_t                      ItemType;       /**< Report item type, a value in \ref HID_ReportItemTypes_t. */
-				uint16_t                     ItemFlags;      /**< Item data flags, a mask of HID_IOF_* constants. */
-				uint8_t                      ReportID;       /**< Report ID this item belongs to, or 0x00 if device has only one report */
-				HID_CollectionPath_t*        CollectionPath; /**< Collection path of the item. */
+				uint16_t                    BitOffset;      /**< Bit offset in the IN, OUT or FEATURE report of the item. */
+				uint8_t                     ItemType;       /**< Report item type, a value in \ref HID_ReportItemTypes_t. */
+				uint16_t                    ItemFlags;      /**< Item data flags, a mask of HID_IOF_* constants. */
+				uint8_t                     ReportID;       /**< Report ID this item belongs to, or 0x00 if device has only one report */
+				HID_CollectionPath_t*       CollectionPath; /**< Collection path of the item. */
 
-				HID_ReportItem_Attributes_t  Attributes;     /**< Report item attributes. */
+				HID_ReportItem_Attributes_t Attributes;     /**< Report item attributes. */
 
-				uint32_t                     Value;          /**< Current value of the report item - use \ref HID_ALIGN_DATA() when processing
-				                                              *   a retrieved value so that it is aligned to a specific type.
-				                                              */
-				uint32_t                     PreviousValue;  /**< Previous value of the report item. */
+				uint32_t                    Value;          /**< Current value of the report item - use \ref HID_ALIGN_DATA() when processing
+				                                             *   a retrieved value so that it is aligned to a specific type.
+				                                             */
+				uint32_t                    PreviousValue;  /**< Previous value of the report item. */
 			} HID_ReportItem_t;
 
 			/** \brief HID Parser Report Size Structure.
@@ -235,10 +242,10 @@
 			 */
 			typedef struct
 			{
-				uint8_t                      ReportID; /**< Report ID of the report within the HID interface. */
-				uint16_t                     ReportSizeBits[3]; /**< Total number of bits in each report type for the given Report ID,
-				                                                 *   indexed by the \ref HID_ReportItemTypes_t enum.
-																 */
+				uint8_t  ReportID; /**< Report ID of the report within the HID interface. */
+				uint16_t ReportSizeBits[3]; /**< Total number of bits in each report type for the given Report ID,
+				                             *   indexed by the \ref HID_ReportItemTypes_t enum.
+				                             */
 			} HID_ReportSizeInfo_t;
 
 			/** \brief HID Parser State Structure.
@@ -247,21 +254,19 @@
 			 */
 			typedef struct
 			{
-				uint8_t                      TotalReportItems; /**< Total number of report items stored in the
-				                                                *   \c ReportItems array.
-				                                                */
-				HID_ReportItem_t             ReportItems[HID_MAX_REPORTITEMS]; /**< Report items array, including
-			                                                                    *   all IN, OUT and FEATURE items.
-				                                                                */
-				HID_CollectionPath_t         CollectionPaths[HID_MAX_COLLECTIONS]; /**< All collection items, referenced
-				                                                                    *   by the report items.
-				                                                                    */
-				uint8_t                      TotalDeviceReports; /**< Number of reports within the HID interface */
-				HID_ReportSizeInfo_t         ReportIDSizes[HID_MAX_REPORT_IDS]; /**< Report sizes for each report in the interface */
-				uint16_t                     LargestReportSizeBits; /**< Largest report that the attached device will generate, in bits */
-				bool                         UsingReportIDs; /**< Indicates if the device has at least one REPORT ID
-				                                              *   element in its HID report descriptor.
-				                                              */
+				uint8_t              TotalReportItems; /**< Total number of report items stored in the \c ReportItems array. */
+				HID_ReportItem_t     ReportItems[HID_MAX_REPORTITEMS]; /**< Report items array, including all IN, OUT
+			                                                            *   and FEATURE items.
+				                                                        */
+				HID_CollectionPath_t CollectionPaths[HID_MAX_COLLECTIONS]; /**< All collection items, referenced
+				                                                            *   by the report items.
+				                                                            */
+				uint8_t              TotalDeviceReports; /**< Number of reports within the HID interface */
+				HID_ReportSizeInfo_t ReportIDSizes[HID_MAX_REPORT_IDS]; /**< Report sizes for each report in the interface */
+				uint16_t             LargestReportSizeBits; /**< Largest report that the attached device will generate, in bits */
+				bool                 UsingReportIDs; /**< Indicates if the device has at least one REPORT ID
+				                                      *   element in its HID report descriptor.
+				                                      */
 			} HID_ReportInfo_t;
 
 		/* Function Prototypes: */
