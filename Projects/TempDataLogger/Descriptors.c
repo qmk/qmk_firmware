@@ -57,7 +57,7 @@
  */
 USB_Descriptor_HIDReport_Datatype_t PROGMEM GenericReport[] =
 {
-	/* Use the HID class driver's standard Joystick report.
+	/* Use the HID class driver's standard Vendor HID report.
 	 *  Vendor Usage Page: 1
 	 *  Vendor Collection Usage: 1
 	 *  Vendor Report IN Usage: 2

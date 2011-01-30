@@ -343,11 +343,13 @@
 		 *  Where \c uintA_t is a type large enough to hold one bit per button, and \c intB_t is a type large enough to hold the
 		 *  ranges of the signed \c MinAxisVal and \c MaxAxisVal values.
 		 *
-		 *  \param[in] MinAxisVal  Minimum X/Y logical axis value
-		 *  \param[in] MaxAxisVal  Maximum X/Y logical axis value
-		 *  \param[in] Buttons     Total number of buttons in the device
+		 *  \param[in] MinAxisVal      Minimum X/Y logical axis value
+		 *  \param[in] MaxAxisVal      Maximum X/Y logical axis value
+		 *  \param[in] MinPhysicalVal  Minimum X/Y physical axis value, for movement resolution calculations
+		 *  \param[in] MaxPhysicalVal  Maximum X/Y physical axis value, for movement resolution calculations
+		 *  \param[in] Buttons         Total number of buttons in the device
 		 */
-		#define HID_DESCRIPTOR_JOYSTICK(MinAxisVal, MaxAxisVal, Buttons) \
+		#define HID_DESCRIPTOR_JOYSTICK(MinAxisVal, MaxAxisVal, MinPhysicalVal, MaxPhysicalVal, Buttons) \
 			HID_RI_USAGE_PAGE(8, 0x01),                     \
 			HID_RI_USAGE(8, 0x04),                          \
 			HID_RI_COLLECTION(8, 0x01),                     \
@@ -355,8 +357,12 @@
 				HID_RI_COLLECTION(8, 0x00),                 \
 					HID_RI_USAGE(8, 0x30),                  \
 					HID_RI_USAGE(8, 0x31),                  \
-					HID_RI_REPORT_SIZE(8, (((((uint16_t)MinAxisVal > 0xFF) && ((uint16_t)MaxAxisVal < 0xFF)) ? 8 : 16))), \
+					HID_RI_LOGICAL_MINIMUM(16, MinAxisVal), \
+					HID_RI_LOGICAL_MAXIMUM(16, MaxAxisVal), \
+					HID_RI_PHYSICAL_MINIMUM(16, MinPhysicalVal), \
+					HID_RI_PHYSICAL_MAXIMUM(16, MaxPhysicalVal), \
 					HID_RI_REPORT_COUNT(8, 0x02),           \
+					HID_RI_REPORT_SIZE(8, (((((uint16_t)MinAxisVal > 0xFF) && ((uint16_t)MaxAxisVal < 0xFF)) ? 8 : 16))), \
 					HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
 				HID_RI_END_COLLECTION(0),                   \
 				HID_RI_USAGE_PAGE(8, 0x09),                 \
