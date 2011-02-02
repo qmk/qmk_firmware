@@ -72,6 +72,7 @@
   *   - Fixed several functions in the Host mode Still Image Class driver returning an error code from the incorrect
   *     error code enum (thanks to Daniel Seibert)
   *   - Fixed ReportID not being removed from the feature/out report data array in the HID class driver when Report IDs are used
+  *   - Fixed incorect BUTTONS_BUTTON1 definition for the Minimus board
   *  - Library Applications:
   *   - Fixed Benito project discarding incoming data from the USB virtual serial port when the USART is busy
   *   - Fixed broken DFU bootloader, added XPLAIN support for bootloader start when XCK jumpered to ground
