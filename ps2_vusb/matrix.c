@@ -190,8 +190,10 @@ uint8_t matrix_scan(void)
     }
 
     uint8_t code;
-    while ((code = ps2_host_recv())) {
-//debug_hex(code); debug(" ");
+    code = ps2_host_recv();
+    if (code == 0x00) return 0;
+    //while ((code = ps2_host_recv())) {
+//phex(code); print(" ");
         switch (state) {
             case INIT:
                 switch (code) {
@@ -348,7 +350,8 @@ uint8_t matrix_scan(void)
             default:
                 state = INIT;
         }
-    }
+    //}
+//print("|");
 
     // handle LED indicators
 /*
@@ -463,6 +466,7 @@ static void matrix_make(uint8_t code)
     if (!matrix_is_on(ROW(code), COL(code))) {
         matrix[ROW(code)] |= 1<<COL(code);
         is_modified = true;
+        //print("matrix_make: "); phex(code); print("\n");
     }
 }
 
@@ -472,6 +476,7 @@ static void matrix_break(uint8_t code)
     if (matrix_is_on(ROW(code), COL(code))) {
         matrix[ROW(code)] &= ~(1<<COL(code));
         is_modified = true;
+        //print("matrix_break: "); phex(code); print("\n");
     }
 }
 
