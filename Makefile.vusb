@@ -65,7 +65,7 @@ FORMAT = ihex
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
-OBJDIR = .
+OBJDIR = obj
 
 
 # Optimization level, can be [0, 1, 2, 3, s]. 
@@ -347,7 +347,7 @@ AR = avr-ar rcs
 NM = avr-nm
 AVRDUDE = avrdude
 REMOVE = rm -f
-REMOVEDIR = rm -rf
+REMOVEDIR = rmdir
 COPY = cp
 WINSHELL = cmd
 
@@ -601,7 +601,8 @@ clean_list :
 	$(REMOVE) $(LST)
 	$(REMOVE) $(OBJ:.o=.s)
 	$(REMOVE) $(OBJ:.o=.i)
-	$(REMOVEDIR) .dep
+	$(REMOVE) -r .dep
+	$(REMOVEDIR) $(OBJDIR)
 
 
 # Create object files directory

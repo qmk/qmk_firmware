@@ -9,11 +9,13 @@ TARGET_DIR = .
 
 # keyboard dependent files
 TARGET_SRC =	main.c \
-		keyboard_vusb.c \
+		keyboard.c \
+		mousekey.c \
 		layer.c \
 		keymap.c \
 		matrix.c \
 		ps2.c \
+		host_vusb.c \
 		print.c \
 		util.c \
 		timer.c \

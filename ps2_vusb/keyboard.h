@@ -1,27 +1,21 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#include "stdbool.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "host.h"
 
 
-#define REPORT_KEYS 6
-typedef struct{
-    uint8_t mods;
-    uint8_t rserved;    // not used
-    uint8_t keys[REPORT_KEYS];
-}report_t;
-
-
-//extern report_t *report;
-//extern report_t *report_prev;
-
-report_t *report_get(void);
-bool report_has_key(void);
-void report_send(void);
-void report_add_mod(uint8_t mod);
-void report_add_key(uint8_t key);
-void report_add_code(uint8_t code);
-void report_swap(void);
-void report_clear(void);
+void keyboard_send(void);
+bool keyboard_has_key(void);
+void keyboard_add_mod(uint8_t mod);
+void keyboard_add_key(uint8_t key);
+void keyboard_add_code(uint8_t code);
+void keyboard_swap_report(void);
+void keyboard_clear_report(void);
+report_keyboard_t *keyboard_report(void);
+report_keyboard_t *keyboard_report_prev(void);
 
 #endif
+
+
