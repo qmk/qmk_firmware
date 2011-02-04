@@ -147,7 +147,7 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 	Endpoint_Read_Stream_LE(&Write_Memory_Params, (sizeof(Write_Memory_Params) -
 	                                               sizeof(Write_Memory_Params.ProgData)), NULL);
 	Write_Memory_Params.BytesToWrite = SwapEndian_16(Write_Memory_Params.BytesToWrite);
-
+	
 	if (Write_Memory_Params.BytesToWrite > sizeof(Write_Memory_Params.ProgData))
 	{
 		Endpoint_ClearOUT();
@@ -161,6 +161,15 @@ void ISPProtocol_ProgramMemory(uint8_t V2Command)
 	}
 
 	Endpoint_Read_Stream_LE(&Write_Memory_Params.ProgData, Write_Memory_Params.BytesToWrite, NULL);
+
+	// The driver will terminate transfers that are a round multiple of the endpoint bank in size with a ZLP, need
+	// to catch this and discard it before continuing on with packet processing to prevent communication issues
+	if (((sizeof(uint8_t) + sizeof(Write_Memory_Params) - sizeof(Write_Memory_Params.ProgData)) +
+	    Write_Memory_Params.BytesToWrite) % AVRISP_DATA_EPSIZE == 0)
+	{
+		Endpoint_ClearOUT();
+		Endpoint_WaitUntilReady();
+	}
 
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
@@ -281,7 +290,7 @@ void ISPProtocol_ReadMemory(uint8_t V2Command)
 
 	Endpoint_Read_Stream_LE(&Read_Memory_Params, sizeof(Read_Memory_Params), NULL);
 	Read_Memory_Params.BytesToRead = SwapEndian_16(Read_Memory_Params.BytesToRead);
-
+	
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);

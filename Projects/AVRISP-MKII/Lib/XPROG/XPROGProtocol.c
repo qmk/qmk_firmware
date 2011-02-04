@@ -250,6 +250,15 @@ static void XPROGProtocol_WriteMemory(void)
 	WriteMemory_XPROG_Params.Length  = SwapEndian_16(WriteMemory_XPROG_Params.Length);
 	Endpoint_Read_Stream_LE(&WriteMemory_XPROG_Params.ProgData, WriteMemory_XPROG_Params.Length, NULL);
 
+	// The driver will terminate transfers that are a round multiple of the endpoint bank in size with a ZLP, need
+	// to catch this and discard it before continuing on with packet processing to prevent communication issues
+	if (((sizeof(uint8_t) + sizeof(WriteMemory_XPROG_Params) - sizeof(WriteMemory_XPROG_Params.ProgData)) +
+	    WriteMemory_XPROG_Params.Length) % AVRISP_DATA_EPSIZE == 0)
+	{
+		Endpoint_ClearOUT();
+		Endpoint_WaitUntilReady();
+	}
+	
 	Endpoint_ClearOUT();
 	Endpoint_SelectEndpoint(AVRISP_DATA_IN_EPNUM);
 	Endpoint_SetEndpointDirection(ENDPOINT_DIR_IN);

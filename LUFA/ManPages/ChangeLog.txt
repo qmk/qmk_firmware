@@ -82,6 +82,8 @@
   *   - Fixed possible programming problem in the AVRISP-MKII clone project when programming specific patterns into a target
   *     memory space that is only byte (not page) addressable
   *   - Fixed errors in the incomplete Test and Measurement device demo preventing proper operation (thanks to Pavel Plotnikov)
+  *   - Fixed programming errors in the AVRISP-MKII project when the programming packet is a round multiple of the endpoint bank
+  *     size under avrdude (thanks to Steffan Woltjer)
   *
   *
   *  \section Sec_ChangeLog101122 Version 101122
