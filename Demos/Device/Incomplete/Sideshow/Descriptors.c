@@ -30,7 +30,7 @@
 
 #include "Descriptors.h"
 
-USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
+const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	Header:                 {Size: sizeof(USB_Descriptor_Device_t), Type: DTYPE_Device},
 
@@ -52,7 +52,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	NumberOfConfigurations: 1
 };
 
-USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
+const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
 	.Config =
 		{
@@ -106,35 +106,35 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		}
 };
 
-USB_Descriptor_String_t PROGMEM LanguageString =
+const USB_Descriptor_String_t PROGMEM LanguageString =
 {
 	Header:                 {Size: USB_STRING_LEN(1), Type: DTYPE_String},
 
 	UnicodeString:          {LANGUAGE_ID_ENG}
 };
 
-USB_Descriptor_String_t PROGMEM ManufacturerString =
+const USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
 	Header:                 {Size: USB_STRING_LEN(11), Type: DTYPE_String},
 
 	UnicodeString:          L"Dean Camera"
 };
 
-USB_Descriptor_String_t PROGMEM ProductString =
+const USB_Descriptor_String_t PROGMEM ProductString =
 {
 	Header:                 {Size: USB_STRING_LEN(22), Type: DTYPE_String},
 
 	UnicodeString:          L"LUFA Sideshow Demo"
 };
 
-USB_Descriptor_String_t PROGMEM SerialNumberString =
+const USB_Descriptor_String_t PROGMEM SerialNumberString =
 {
 	Header:                 {Size: USB_STRING_LEN(12), Type: DTYPE_String},
 
 	UnicodeString:          L"000000000000"
 };
 
-USB_OSDescriptor_t PROGMEM OSDescriptorString =
+const USB_OSDescriptor_t PROGMEM OSDescriptorString =
 {
 	Header:                 {Size: sizeof(USB_OSDescriptor_t), Type: DTYPE_String},
 
@@ -142,7 +142,7 @@ USB_OSDescriptor_t PROGMEM OSDescriptorString =
 	VendorCode:             REQ_GetOSFeatureDescriptor
 };
 
-USB_OSCompatibleIDDescriptor_t PROGMEM DevCompatIDs =
+const USB_OSCompatibleIDDescriptor_t PROGMEM DevCompatIDs =
 {
 	TotalLength:            sizeof(USB_OSCompatibleIDDescriptor_t),
 	Version:                0x0100,

@@ -48,9 +48,9 @@
 		 */
 		typedef struct
 		{
-			USB_Descriptor_Configuration_Header_t    Config;
-			USB_Descriptor_Interface_t               RelayBoardInterface;
-		} RelayBoard_USB_Descriptor_Configuration_t;
+			USB_Descriptor_Configuration_Header_t Config;
+			USB_Descriptor_Interface_t            RelayBoardInterface;
+		} USB_Descriptor_Configuration_t;
 
 	/* Function Prototypes: */
 		uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,

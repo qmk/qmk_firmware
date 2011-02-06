@@ -43,7 +43,7 @@
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
  */
-USB_Descriptor_Device_t PROGMEM RelayBoard_DeviceDescriptor =
+const USB_Descriptor_Device_t PROGMEM RelayBoard_DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
@@ -70,13 +70,13 @@ USB_Descriptor_Device_t PROGMEM RelayBoard_DeviceDescriptor =
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
  */
-RelayBoard_USB_Descriptor_Configuration_t PROGMEM RelayBoard_ConfigurationDescriptor =
+const USB_Descriptor_Configuration_t PROGMEM RelayBoard_ConfigurationDescriptor =
 {
 	.Config =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
-			.TotalConfigurationSize = sizeof(RelayBoard_USB_Descriptor_Configuration_t),
+			.TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
 			.TotalInterfaces        = 1,
 
 			.ConfigurationNumber    = 1,
@@ -108,7 +108,7 @@ RelayBoard_USB_Descriptor_Configuration_t PROGMEM RelayBoard_ConfigurationDescri
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
  */
-USB_Descriptor_String_t PROGMEM RelayBoard_LanguageString =
+const USB_Descriptor_String_t PROGMEM RelayBoard_LanguageString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
 
@@ -119,7 +119,7 @@ USB_Descriptor_String_t PROGMEM RelayBoard_LanguageString =
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM RelayBoard_ManufacturerString =
+const USB_Descriptor_String_t PROGMEM RelayBoard_ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(5), .Type = DTYPE_String},
 
@@ -130,7 +130,7 @@ USB_Descriptor_String_t PROGMEM RelayBoard_ManufacturerString =
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM RelayBoard_ProductString =
+const USB_Descriptor_String_t PROGMEM RelayBoard_ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(10), .Type = DTYPE_String},
 
@@ -140,7 +140,7 @@ USB_Descriptor_String_t PROGMEM RelayBoard_ProductString =
 /** Serial number string. This is a Unicode string containing the device's unique serial number, expressed as a
  *  series of uppercase hexadecimal digits.
  */
-USB_Descriptor_String_t PROGMEM RelayBoard_SerialString =
+const USB_Descriptor_String_t PROGMEM RelayBoard_SerialString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(5), .Type = DTYPE_String},
 
@@ -171,7 +171,7 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 			break;
 		case DTYPE_Configuration:
 			Address = &RelayBoard_ConfigurationDescriptor;
-			Size    = sizeof(RelayBoard_USB_Descriptor_Configuration_t);
+			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_String:
 			switch (DescriptorNumber)

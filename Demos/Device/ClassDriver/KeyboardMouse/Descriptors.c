@@ -45,7 +45,7 @@
  *
  *  This descriptor describes the mouse HID interface's report structure.
  */
-USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
 {
 	/* Use the HID class driver's standard Mouse report.
 	 *   Min X/Y Axis values: -1
@@ -59,7 +59,7 @@ USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
 };
 
 /** Same as the MouseReport structure, but defines the keyboard HID interface's report structure. */
-USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
 {
 	/* Use the HID class driver's standard Keyboard report.
 	 *   Max simultaneous keys: 6
@@ -72,7 +72,7 @@ USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] =
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
  */
-USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
+const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
@@ -99,7 +99,7 @@ USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
  */
-USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
+const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
 	.Config =
 		{
@@ -195,7 +195,7 @@ USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
  */
-USB_Descriptor_String_t PROGMEM LanguageString =
+const USB_Descriptor_String_t PROGMEM LanguageString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
 
@@ -206,7 +206,7 @@ USB_Descriptor_String_t PROGMEM LanguageString =
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM ManufacturerString =
+const USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 
@@ -217,7 +217,7 @@ USB_Descriptor_String_t PROGMEM ManufacturerString =
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM ProductString =
+const USB_Descriptor_String_t PROGMEM ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(28), .Type = DTYPE_String},
 

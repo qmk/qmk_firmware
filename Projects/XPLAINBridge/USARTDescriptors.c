@@ -54,7 +54,7 @@
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
  */
-USB_Descriptor_Device_t PROGMEM USART_DeviceDescriptor =
+const USB_Descriptor_Device_t PROGMEM USART_DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
@@ -81,7 +81,7 @@ USB_Descriptor_Device_t PROGMEM USART_DeviceDescriptor =
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
  */
-USART_USB_Descriptor_Configuration_t PROGMEM USART_ConfigurationDescriptor =
+const USART_USB_Descriptor_Configuration_t PROGMEM USART_ConfigurationDescriptor =
 {
 	.Config =
 		{
@@ -190,7 +190,7 @@ USART_USB_Descriptor_Configuration_t PROGMEM USART_ConfigurationDescriptor =
  *  the string descriptor with index 0 (the first index). It is actually an array of 16-bit integers, which indicate
  *  via the language ID table available at USB.org what languages the device supports for its string descriptors.
  */
-USB_Descriptor_String_t PROGMEM USART_LanguageString =
+const USB_Descriptor_String_t PROGMEM USART_LanguageString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
 
@@ -201,7 +201,7 @@ USB_Descriptor_String_t PROGMEM USART_LanguageString =
  *  form, and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM USART_ManufacturerString =
+const USB_Descriptor_String_t PROGMEM USART_ManufacturerString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
 
@@ -212,7 +212,7 @@ USB_Descriptor_String_t PROGMEM USART_ManufacturerString =
  *  and is read out upon request by the host when the appropriate string ID is requested, listed in the Device
  *  Descriptor.
  */
-USB_Descriptor_String_t PROGMEM USART_ProductString =
+const USB_Descriptor_String_t PROGMEM USART_ProductString =
 {
 	.Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
 
