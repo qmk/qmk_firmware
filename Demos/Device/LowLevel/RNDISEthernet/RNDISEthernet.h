@@ -54,7 +54,7 @@
 		#include <LUFA/Version.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Peripheral/SerialStream.h>
+		#include <LUFA/Drivers/Peripheral/Serial.h>
 
 	/* Macros: */
 		/** Notification value to indicate that a frame is ready to be read by the host. */
