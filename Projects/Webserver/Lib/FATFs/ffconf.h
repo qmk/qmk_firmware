@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------/
-/  FatFs - FAT file system module configuration file  R0.08  (C)ChaN, 2010
+/  FatFs - FAT file system module configuration file  R0.08b (C)ChaN, 2011
 /----------------------------------------------------------------------------/
 /
 / CAUTION! Do not forget to make clean the project after any changes to
@@ -7,7 +7,7 @@
 /
 /----------------------------------------------------------------------------*/
 #ifndef _FFCONF
-#define _FFCONF 8085	/* Revision ID */
+#define _FFCONF 8237	/* Revision ID */
 
 
 /*---------------------------------------------------------------------------/
@@ -26,14 +26,14 @@
 /  f_truncate and useless f_getfree. */
 
 
-#define _FS_MINIMIZE	2	/* 0, 1, 2 or 3 */
+#define _FS_MINIMIZE	2	/* 0 to 3 */
 /* The _FS_MINIMIZE option defines minimization level to remove some functions.
 /
 /   0: Full function.
 /   1: f_stat, f_getfree, f_unlink, f_mkdir, f_chmod, f_truncate and f_rename
 /      are removed.
-/   2: f_opendir and f_readdir are removed in addition to level 1.
-/   3: f_lseek is removed in addition to level 2. */
+/   2: f_opendir and f_readdir are removed in addition to 1.
+/   3: f_lseek is removed in addition to 2. */
 
 
 #define	_USE_STRFUNC	0	/* 0:Disable or 1/2:Enable */
@@ -94,12 +94,12 @@
 #define	_MAX_LFN	255		/* Maximum LFN length to handle (12 to 255) */
 /* The _USE_LFN option switches the LFN support.
 /
-/   0: Disable LFN. _MAX_LFN and _LFN_UNICODE have no effect.
-/   1: Enable LFN with static working buffer on the bss. NOT REENTRANT.
+/   0: Disable LFN feature. _MAX_LFN and _LFN_UNICODE have no effect.
+/   1: Enable LFN with static working buffer on the BSS. Always NOT reentrant.
 /   2: Enable LFN with dynamic working buffer on the STACK.
 /   3: Enable LFN with dynamic working buffer on the HEAP.
 /
-/  The LFN working buffer occupies (_MAX_LFN + 1) * 2 bytes. When enable LFN,
+/  The LFN working buffer occupies (_MAX_LFN + 1) * 2 bytes. To enable LFN,
 /  Unicode handling functions ff_convert() and ff_wtoupper() must be added
 /  to the project. When enable to use heap, memory control functions
 /  ff_memalloc() and ff_memfree() must be added to the project. */
@@ -110,10 +110,14 @@
 /  enable LFN feature and set _LFN_UNICODE to 1. */
 
 
-#define _FS_RPATH	0		/* 0:Disable or 1:Enable */
-/* When _FS_RPATH is set to 1, relative path feature is enabled and f_chdir,
-/  f_chdrive function are available.
-/  Note that output of the f_readdir function is affected by this option. */
+#define _FS_RPATH		0	/* 0 to 2 */
+/* The _FS_RPATH option configures relative path feature.
+/
+/   0: Disable relative path feature and remove related functions.
+/   1: Enable relative path. f_chdrive() and f_chdir() are available.
+/   2: f_getcwd() is available in addition to 1.
+/
+/  Note that output of the f_readdir fnction is affected by this option. */
 
 
 
@@ -121,22 +125,27 @@
 / Physical Drive Configurations
 /----------------------------------------------------------------------------*/
 
-#define _DRIVES		1
+#define _VOLUMES	1
 /* Number of volumes (logical drives) to be used. */
 
 
 #define	_MAX_SS		512		/* 512, 1024, 2048 or 4096 */
 /* Maximum sector size to be handled.
 /  Always set 512 for memory card and hard disk but a larger value may be
-/  required for floppy disk (512/1024) and optical disk (512/2048).
-/  When _MAX_SS is larger than 512, GET_SECTOR_SIZE command must be implemented
-/  to the disk_ioctl function. */
+/  required for on-board flash memory, floppy disk and optical disk.
+/  When _MAX_SS is larger than 512, it configures FatFs to variable sector size
+/  and GET_SECTOR_SIZE command must be implememted to the disk_ioctl function. */
 
 
 #define	_MULTI_PARTITION	0	/* 0:Single partition or 1:Multiple partition */
-/* When _MULTI_PARTITION is set to 0, each volume is bound to the same physical
-/ drive number and can mount only first primary partition. When it is set to 1,
-/ each volume is tied to the partitions listed in Drives[]. */
+/* When set to 0, each volume is bound to the same physical drive number and
+/ it can mount only first primaly partition. When it is set to 1, each volume
+/ is tied to the partitions listed in VolToPart[]. */
+
+
+#define	_USE_ERASE	0	/* 0:Disable or 1:Enable */
+/* To enable sector erase feature, set _USE_ERASE to 1. CTRL_ERASE_SECTOR command
+/  should be added to the disk_ioctl functio. */
 
 
 
@@ -157,25 +166,24 @@
 /  performance and code size. */
 
 
+/* A header file that defines sync object types on the O/S, such as
+/  windows.h, ucos_ii.h and semphr.h, must be included prior to ff.h. */
+
 #define _FS_REENTRANT	0		/* 0:Disable or 1:Enable */
 #define _FS_TIMEOUT		1000	/* Timeout period in unit of time ticks */
 #define	_SYNC_t			HANDLE	/* O/S dependent type of sync object. e.g. HANDLE, OS_EVENT*, ID and etc.. */
-/* Include a header file here to define O/S system calls */
-/* #include <windows.h>, <ucos_ii.h.h>, <semphr.h> or others. */
 
-/* The _FS_REENTRANT option switches the re-entrancy of the FatFs module.
+/* The _FS_REENTRANT option switches the reentrancy (thread safe) of the FatFs module.
 /
-/   0: Disable re-entrancy. _SYNC_t and _FS_TIMEOUT have no effect.
-/   1: Enable re-entrancy. Also user provided synchronization handlers,
+/   0: Disable reentrancy. _SYNC_t and _FS_TIMEOUT have no effect.
+/   1: Enable reentrancy. Also user provided synchronization handlers,
 /      ff_req_grant, ff_rel_grant, ff_del_syncobj and ff_cre_syncobj
 /      function must be added to the project. */
 
 
 #define	_FS_SHARE	0	/* 0:Disable or >=1:Enable */
-/* To enable file sharing feature, set _FS_SHARE to >= 1 and also user
-   provided memory handlers, ff_memalloc and ff_memfree function must be
-   added to the project. The value defines number of files can be opened
-   per volume. */
+/* To enable file shareing feature, set _FS_SHARE to 1 or greater. The value
+   defines how many files can be opened simultaneously. */
 
 
 #endif /* _FFCONFIG */

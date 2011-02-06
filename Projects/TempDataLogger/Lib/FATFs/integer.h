@@ -32,8 +32,6 @@ typedef long			LONG;
 typedef unsigned long	ULONG;
 typedef unsigned long	DWORD;
 
-typedef unsigned char   BOOL;
-
 #endif
 
 #endif

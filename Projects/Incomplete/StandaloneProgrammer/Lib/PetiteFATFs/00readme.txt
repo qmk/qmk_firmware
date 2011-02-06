@@ -1,4 +1,4 @@
-Petit FatFs Module Source Files R0.01a                 (C)ChaN, 2010
+Petit FatFs Module Source Files R0.02a                (C)ChaN, 2010
 
 
 FILES
@@ -33,5 +33,10 @@ AGREEMENTS
 
 REVISION HISTORY
 
-  Jun 15, 2010  R0.01a  First release (Branched from FatFs R0.07b)
+  Jun 15, 2009  R0.01a  First release (Branched from FatFs R0.07b)
+  Dec 14, 2009  R0.02   Added multiple code page support.
+                        Added write funciton.
+                        Changed stream read mode interface.
+  Dec 07,'2010  R0.02a  Added some configuration options.
+                        Fixed fails to open objects with DBCS character.
 

@@ -1,9 +1,9 @@
 /*---------------------------------------------------------------------------/
-/  Petit FatFs - FAT file system module include file  R0.01a   (C)ChaN, 2010
+/  Petit FatFs - FAT file system module include file  R0.02a   (C)ChaN, 2010
 /----------------------------------------------------------------------------/
 / Petit FatFs module is an open source software to implement FAT file system to
 / small embedded systems. This is a free software and is opened for education,
-/ research and commercial developments under license policy of following terms.
+/ research and commercial developments under license policy of following trems.
 /
 /  Copyright (C) 2010, ChaN, all right reserved.
 /
@@ -11,6 +11,7 @@
 / * No restriction on use. You can use, modify and redistribute it for
 /   personal, non-profit or commercial use UNDER YOUR RESPONSIBILITY.
 / * Redistributions of source code must retain the above copyright notice.
+/
 /----------------------------------------------------------------------------*/
 
 #include "integer.h"
@@ -25,6 +26,26 @@
 #ifndef _FATFS
 #define _FATFS
 
+#define	_USE_READ	1	/* 1:Enable pf_read() */
+
+#define	_USE_DIR	0	/* 1:Enable pf_opendir() and pf_readdir() */
+
+#define	_USE_LSEEK	0	/* 1:Enable pf_lseek() */
+
+#define	_USE_WRITE	0	/* 1:Enable pf_write() */
+
+#define _FS_FAT12	1	/* 1:Enable FAT12 support */
+#define _FS_FAT32	0	/* 1:Enable FAT32 support */
+
+
+#define	_CODE_PAGE	1
+/* Defines which code page is used for path name. Supported code pages are:
+/  932, 936, 949, 950, 437, 720, 737, 775, 850, 852, 855, 857, 858, 862, 866,
+/  874, 1250, 1251, 1252, 1253, 1254, 1255, 1257, 1258 and 1 (ASCII only).
+/  SBCS code pages except for 1 requiers a case conversion table. This
+/  might occupy 128 bytes on the RAM on some platforms, e.g. avr-gcc. */
+
+
 #define _WORD_ACCESS	0
 /* The _WORD_ACCESS option defines which access method is used to the word
 /  data in the FAT structure.
@@ -38,20 +59,9 @@
 /  performance and code efficiency. */
 
 
-#define	_USE_DIR	0
-/* To enable pf_opendir and pf_readdir function, set _USE_DIR to 1. */
-
-
-#define	_USE_LSEEK	0
-/* To enable pf_lseek function, set _USE_LSEEK to 1. */
-
-
-#define _FS_FAT32	1
-/* To enable FAT32 support, set _FS_FAT32 to 1. */
-
-
 /* End of configuration options. Do not change followings without care.     */
 /*--------------------------------------------------------------------------*/
+
 
 
 #if _FS_FAT32
@@ -63,14 +73,13 @@
 
 /* File system object structure */
 
-typedef struct _FATFS_ {
+typedef struct {
 	BYTE	fs_type;	/* FAT sub type */
-	BYTE	csize;		/* Number of sectors per cluster */
 	BYTE	flag;		/* File status flags */
-	BYTE	csect;		/* File sector address in the cluster */
+	BYTE	csize;		/* Number of sectors per cluster */
+	BYTE	pad1;
 	WORD	n_rootdir;	/* Number of root directory entries (0 on FAT32) */
-	BYTE*	buf;		/* Pointer to the disk access buffer */
-	CLUST	max_clust;	/* Maximum cluster# + 1. Number of clusters is max_clust - 2 */
+	CLUST	n_fatent;	/* Number of FAT entries (= number of clusters + 2) */
 	DWORD	fatbase;	/* FAT start sector */
 	DWORD	dirbase;	/* Root directory start sector (Cluster# on FAT32) */
 	DWORD	database;	/* Data start sector */
@@ -85,7 +94,7 @@ typedef struct _FATFS_ {
 
 /* Directory object structure */
 
-typedef struct _DIR_ {
+typedef struct {
 	WORD	index;		/* Current read/write index number */
 	BYTE*	fn;			/* Pointer to the SFN (in/out) {file[8],ext[3],status[1]} */
 	CLUST	sclust;		/* Table start cluster (0:Static table) */
@@ -97,7 +106,7 @@ typedef struct _DIR_ {
 
 /* File status structure */
 
-typedef struct _FILINFO_ {
+typedef struct {
 	DWORD	fsize;		/* File size */
 	WORD	fdate;		/* Last modified date */
 	WORD	ftime;		/* Last modified time */
@@ -115,11 +124,9 @@ typedef enum {
 	FR_NOT_READY,		/* 2 */
 	FR_NO_FILE,			/* 3 */
 	FR_NO_PATH,			/* 4 */
-	FR_INVALID_NAME,	/* 5 */
-	FR_STREAM_ERR,		/* 6 */
-	FR_INVALID_OBJECT,	/* 7 */
-	FR_NOT_ENABLED,		/* 8 */
-	FR_NO_FILESYSTEM	/* 9 */
+	FR_NOT_OPENED,		/* 5 */
+	FR_NOT_ENABLED,		/* 6 */
+	FR_NO_FILESYSTEM	/* 7 */
 } FRESULT;
 
 
@@ -127,12 +134,13 @@ typedef enum {
 /*--------------------------------------------------------------*/
 /* Petit FatFs module application interface                     */
 
-FRESULT pf_mount (FATFS*);				/* Mount/Unmount a logical drive */
-FRESULT pf_open (const char*);			/* Open a file */
-FRESULT pf_read (void*, WORD, WORD*);	/* Read data from a file */
-FRESULT pf_lseek (DWORD);				/* Move file pointer of a file object */
-FRESULT pf_opendir (DIR*, const char*);	/* Open an existing directory */
-FRESULT pf_readdir (DIR*, FILINFO*);	/* Read a directory item */
+FRESULT pf_mount (FATFS*);						/* Mount/Unmount a logical drive */
+FRESULT pf_open (const char*);					/* Open a file */
+FRESULT pf_read (void*, WORD, WORD*);			/* Read data from the open file */
+FRESULT pf_write (const void*, WORD, WORD*);	/* Write data to the open file */
+FRESULT pf_lseek (DWORD);						/* Move file pointer of the open file */
+FRESULT pf_opendir (DIR*, const char*);			/* Open a directory */
+FRESULT pf_readdir (DIR*, FILINFO*);			/* Read a directory item from the open directory */
 
 
 
@@ -141,9 +149,9 @@ FRESULT pf_readdir (DIR*, FILINFO*);	/* Read a directory item */
 
 /* File status flag (FATFS.flag) */
 
-#define	FA_READ		0x01
-#define	FA_STREAM	0x40
-#define	FA__ERROR	0x80
+#define	FA_OPENED	0x01
+#define	FA_WPRT		0x02
+#define	FA__WIP		0x40
 
 
 /* FAT sub type (FATFS.fs_type) */
@@ -165,59 +173,6 @@ FRESULT pf_readdir (DIR*, FILINFO*);	/* Read a directory item */
 #define AM_MASK	0x3F	/* Mask of defined bits */
 
 
-/* FatFs refers the members in the FAT structures with byte offset instead
-/ of structure member because there are incompatibility of the packing option
-/ between various compilers. */
-
-#define BS_jmpBoot			0
-#define BS_OEMName			3
-#define BPB_BytsPerSec		11
-#define BPB_SecPerClus		13
-#define BPB_RsvdSecCnt		14
-#define BPB_NumFATs			16
-#define BPB_RootEntCnt		17
-#define BPB_TotSec16		19
-#define BPB_Media			21
-#define BPB_FATSz16			22
-#define BPB_SecPerTrk		24
-#define BPB_NumHeads		26
-#define BPB_HiddSec			28
-#define BPB_TotSec32		32
-#define BS_55AA				510
-
-#define BS_DrvNum			36
-#define BS_BootSig			38
-#define BS_VolID			39
-#define BS_VolLab			43
-#define BS_FilSysType		54
-
-#define BPB_FATSz32			36
-#define BPB_ExtFlags		40
-#define BPB_FSVer			42
-#define BPB_RootClus		44
-#define BPB_FSInfo			48
-#define BPB_BkBootSec		50
-#define BS_DrvNum32			64
-#define BS_BootSig32		66
-#define BS_VolID32			67
-#define BS_VolLab32			71
-#define BS_FilSysType32		82
-
-#define MBR_Table			446
-
-#define	DIR_Name			0
-#define	DIR_Attr			11
-#define	DIR_NTres			12
-#define	DIR_CrtTime			14
-#define	DIR_CrtDate			16
-#define	DIR_FstClusHI		20
-#define	DIR_WrtTime			22
-#define	DIR_WrtDate			24
-#define	DIR_FstClusLO		26
-#define	DIR_FileSize		28
-
-
-
 /*--------------------------------*/
 /* Multi-byte word access macros  */
 
@@ -227,12 +182,11 @@ FRESULT pf_readdir (DIR*, FILINFO*);	/* Read a directory item */
 #define	ST_WORD(ptr,val)	*(WORD*)(BYTE*)(ptr)=(WORD)(val)
 #define	ST_DWORD(ptr,val)	*(DWORD*)(BYTE*)(ptr)=(DWORD)(val)
 #else					/* Use byte-by-byte access to the FAT structure */
-#define	LD_WORD(ptr)		(WORD)(((WORD)*(BYTE*)((ptr)+1)<<8)|(WORD)*(BYTE*)(ptr))
-#define	LD_DWORD(ptr)		(DWORD)(((DWORD)*(BYTE*)((ptr)+3)<<24)|((DWORD)*(BYTE*)((ptr)+2)<<16)|((WORD)*(BYTE*)((ptr)+1)<<8)|*(BYTE*)(ptr))
-#define	ST_WORD(ptr,val)	*(BYTE*)(ptr)=(BYTE)(val); *(BYTE*)((ptr)+1)=(BYTE)((WORD)(val)>>8)
-#define	ST_DWORD(ptr,val)	*(BYTE*)(ptr)=(BYTE)(val); *(BYTE*)((ptr)+1)=(BYTE)((WORD)(val)>>8); *(BYTE*)((ptr)+2)=(BYTE)((DWORD)(val)>>16); *(BYTE*)((ptr)+3)=(BYTE)((DWORD)(val)>>24)
+#define	LD_WORD(ptr)		(WORD)(((WORD)*((BYTE*)(ptr)+1)<<8)|(WORD)*(BYTE*)(ptr))
+#define	LD_DWORD(ptr)		(DWORD)(((DWORD)*((BYTE*)(ptr)+3)<<24)|((DWORD)*((BYTE*)(ptr)+2)<<16)|((WORD)*((BYTE*)(ptr)+1)<<8)|*(BYTE*)(ptr))
+#define	ST_WORD(ptr,val)	*(BYTE*)(ptr)=(BYTE)(val); *((BYTE*)(ptr)+1)=(BYTE)((WORD)(val)>>8)
+#define	ST_DWORD(ptr,val)	*(BYTE*)(ptr)=(BYTE)(val); *((BYTE*)(ptr)+1)=(BYTE)((WORD)(val)>>8); *((BYTE*)(ptr)+2)=(BYTE)((DWORD)(val)>>16); *((BYTE*)(ptr)+3)=(BYTE)((DWORD)(val)>>24)
 #endif
 
 
 #endif /* _FATFS */
-

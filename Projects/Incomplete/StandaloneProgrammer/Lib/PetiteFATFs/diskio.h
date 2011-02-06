@@ -15,9 +15,8 @@ typedef BYTE	DSTATUS;
 typedef enum {
 	RES_OK = 0,		/* 0: Function succeeded */
 	RES_ERROR,		/* 1: Disk error */
-	RES_STRERR,		/* 2: Stream error */
-	RES_NOTRDY,		/* 3: Not ready */
-	RES_PARERR		/* 4: Invalid parameter */
+	RES_NOTRDY,		/* 2: Not ready */
+	RES_PARERR		/* 3: Invalid parameter */
 } DRESULT;
 
 
@@ -25,9 +24,7 @@ typedef enum {
 /* Prototypes for disk control functions */
 
 DSTATUS disk_initialize (void);
-DRESULT disk_readp (void*, DWORD, WORD, WORD);
-
-BOOL assign_drives (int argc, char *argv[]);
+DRESULT disk_readp (BYTE*, DWORD, WORD, WORD);
 
 #define STA_NOINIT		0x01	/* Drive not initialized */
 #define STA_NODISK		0x02	/* No medium in the drive */

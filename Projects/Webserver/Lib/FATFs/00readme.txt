@@ -1,4 +1,4 @@
-FatFs Module Source Files R0.08                        (C)ChaN, 2010
+FatFs Module Source Files R0.08b                       (C)ChaN, 2011
 
 
 FILES
@@ -7,7 +7,6 @@ FILES
   ff.h       Common include file for FatFs and application module.
   ff.c       FatFs module.
   diskio.h   Common include file for FatFs and disk I/O module.
-  diskio.c   Skeleton of low level disk I/O module.
   integer.h  Alternative type definitions for integer variables.
   option     Optional external functions.
 
@@ -24,7 +23,7 @@ AGREEMENTS
  small embedded systems. This is a free software and is opened for education,
  research and commercial developments under license policy of following trems.
 
-  Copyright (C) 2010, ChaN, all right reserved.
+  Copyright (C) 2011, ChaN, all right reserved.
 
  * The FatFs module is a free software and there is NO WARRANTY.
  * No restriction on use. You can use, modify and redistribute it for
@@ -41,14 +40,14 @@ REVISION HISTORY
 
   Jun 01, 2006  R0.02  Added FAT12.
                        Removed unbuffered mode.
-                       Fixed a problem on small (<32M) partition.
+                       Fixed a problem on small (<32M) patition.
 
   Jun 10, 2006  R0.02a Added a configuration option _FS_MINIMUM.
 
   Sep 22, 2006  R0.03  Added f_rename.
                        Changed option _FS_MINIMUM to _FS_MINIMIZE.
 
-  Dec 11, 2006  R0.03a Improved cluster scan algorithm to write files fast.
+  Dec 11, 2006  R0.03a Improved cluster scan algolithm to write files fast.
                        Fixed f_mkdir creates incorrect directory on FAT32.
 
   Feb 04, 2007  R0.04  Supported multiple drive system. (FatFs)
@@ -56,7 +55,7 @@ REVISION HISTORY
                        Added f_mkfs. (FatFs)
                        Added _USE_FAT32 option. (Tiny-FatFs)
 
-  Apr 01, 2007  R0.04a Supported multiple partitions on a physical drive. (FatFs)
+  Apr 01, 2007  R0.04a Supported multiple partitions on a plysical drive. (FatFs)
                        Fixed an endian sensitive code in f_mkfs. (FatFs)
                        Added a capability of extending the file size to f_lseek.
                        Added minimization level 3.
@@ -116,3 +115,13 @@ REVISION HISTORY
                        Changed fname member in the FILINFO structure on Unicode cfg.
                        String functions support UTF-8 encoding files on Unicode cfg.
 
+  Aug 16,'10 R0.08a    Added f_getcwd(). (_FS_RPATH = 2)
+                       Added sector erase feature. (_USE_ERASE)
+                       Moved file lock semaphore table from fs object to the bss.
+                       Fixed a wrong directory entry is created on non-LFN cfg when the given name contains ';'.
+                       Fixed f_mkfs() creates wrong FAT32 volume.
+
+  Jan 15,'11 R0.08b    Fast seek feature is also applied to f_read() and f_write().
+                       f_lseek() reports required table size on creating CLMP.
+                       Extended format syntax of f_printf function.
+                       Ignores duplicated directory separators in given path names.
