@@ -73,17 +73,17 @@ USB_Descriptor_Configuration_t ConfigurationDescriptor =
 {
 	.Config =
 		{
-			.Header                   = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
+			.Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
-			.TotalConfigurationSize   = sizeof(USB_Descriptor_Configuration_t),
-			.TotalInterfaces          = 1,
+			.TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
+			.TotalInterfaces        = 1,
 
-			.ConfigurationNumber      = 1,
-			.ConfigurationStrIndex    = NO_DESCRIPTOR,
+			.ConfigurationNumber    = 1,
+			.ConfigurationStrIndex  = NO_DESCRIPTOR,
 
-			.ConfigAttributes         = USB_CONFIG_ATTR_BUSPOWERED,
+			.ConfigAttributes       = USB_CONFIG_ATTR_BUSPOWERED,
 
-			.MaxPowerConsumption      = USB_CONFIG_POWER_MA(100)
+			.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 		},
 
 	.DFU_Interface =
@@ -147,38 +147,29 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                                     const uint8_t wIndex,
                                     const void** const DescriptorAddress)
 {
-	const uint8_t  DescriptorType   = (wValue >> 8);
-	const uint8_t  DescriptorNumber = (wValue & 0xFF);
+	const uint8_t DescriptorType   = (wValue >> 8);
+	const uint8_t DescriptorNumber = (wValue & 0xFF);
 
 	const void* Address = NULL;
-	uint16_t    Size    = NO_DESCRIPTOR;
 
 	switch (DescriptorType)
 	{
 		case DTYPE_Device:
 			Address = &DeviceDescriptor;
-			Size    = sizeof(USB_Descriptor_Device_t);
 			break;
 		case DTYPE_Configuration:
 			Address = &ConfigurationDescriptor;
-			Size    = sizeof(USB_Descriptor_Configuration_t);
 			break;
 		case DTYPE_String:
 			if (!(DescriptorNumber))
-			{
-				Address = &LanguageString;
-				Size    = LanguageString.Header.Size;
-			}
+			  Address = &LanguageString;
 			else
-			{
-				Address = &ProductString;
-				Size    = ProductString.Header.Size;
-			}
+			  Address = &ProductString;
 
 			break;
 	}
 
 	*DescriptorAddress = Address;
-	return Size;
+	return (Address != NULL) ? ((USB_Descriptor_Header_t*)Address)->Size : NO_DESCRIPTOR;
 }
 
