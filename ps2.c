@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010 Jun WAKO <wakojun@gmail.com>
+Copyright (c) 2010,2011 Jun WAKO <wakojun@gmail.com>
 
 This software is licensed with a Modified BSD License.
 All of this is supposed to be Free Software, Open Source, DFSG-free,
@@ -36,12 +36,13 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 #include <stdbool.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 #include "ps2.h"
-#include "print.h"
 #include "debug.h"
 
 
+static uint8_t recv_data(void);
 static inline void clock_lo(void);
 static inline void clock_hi(void);
 static inline bool clock_in(void);
@@ -52,6 +53,8 @@ static inline uint16_t wait_clock_lo(uint16_t us);
 static inline uint16_t wait_clock_hi(uint16_t us);
 static inline uint16_t wait_data_lo(uint16_t us);
 static inline uint16_t wait_data_hi(uint16_t us);
+static inline void idle(void);
+static inline void inhibit(void);
 
 
 /*
@@ -79,38 +82,38 @@ http://www.mcamafia.de/pdf/ibm_hitrc07.pdf
     } \
 } while (0)
 
-#define WAIT_NORETRY(stat, us, err) do { \
-    if (!wait_##stat(us)) { \
-        ps2_error = err; \
-        return 0; \
-    } \
-} while (0)
-
 
 uint8_t ps2_error = PS2_ERR_NONE;
 
 
 void ps2_host_init(void)
 {
-    /* inhibit */
-    clock_lo();
-    data_hi();
+#ifdef PS2_INT_ENABLE
+    PS2_INT_ENABLE();
+    idle();
+#else
+    inhibit();
+#endif
 }
 
 uint8_t ps2_host_send(uint8_t data)
 {
-    bool parity = true;
+    bool parity;
+RETRY:
+    parity = true;
     ps2_error = 0;
 
-    /* request to send */
-    clock_lo();
+    /* terminate a transmission if we have */
+    inhibit();
     _delay_us(100);
+
     /* start bit [1] */
     data_lo();
     clock_hi();
     WAIT(clock_lo, 15000, 1);
     /* data [2-9] */
     for (uint8_t i = 0; i < 8; i++) {
+        _delay_us(15);
         if (data&(1<<i)) {
             parity = !parity;
             data_hi();
@@ -121,44 +124,145 @@ uint8_t ps2_host_send(uint8_t data)
         WAIT(clock_lo, 50, 3);
     }
     /* parity [10] */
+    _delay_us(15);
     if (parity) { data_hi(); } else { data_lo(); }
     WAIT(clock_hi, 50, 4);
     WAIT(clock_lo, 50, 5);
     /* stop bit [11] */
+    _delay_us(15);
     data_hi();
     /* ack [12] */
     WAIT(data_lo, 50, 6);
     WAIT(clock_lo, 50, 7);
+
+    /* wait for idle state */
     WAIT(clock_hi, 50, 8);
     WAIT(data_hi, 50, 9);
 
-    /* inhibit device to send */
-    clock_lo();
+    uint8_t res = ps2_host_recv_response();
+    if (res == 0xFE && data != 0xFE)
+        goto RETRY;
 
-    return 1;
+    inhibit();
+    return res;
 ERROR:
-    /* inhibit device to send */
-    data_hi();
-    clock_lo();
+    inhibit();
     return 0;
 }
 
+/* receive data when host want else inhibit communication */
+uint8_t ps2_host_recv_response(void)
+{
+    uint8_t data = 0;
+
+    /* terminate a transmission if we have */
+    inhibit();
+    _delay_us(100);
+
+    /* release lines(idle state) */
+    idle();
+
+    /* wait start bit */
+    wait_clock_lo(2000);
+    data = recv_data();
+
+    inhibit();
+    return data;
+}
+
+#ifndef PS2_INT_VECT
 uint8_t ps2_host_recv(void)
+{
+    return ps2_host_recv_response();
+}
+#else
+/* ring buffer to store ps/2 key data */
+#define PBUF_SIZE 8
+static uint8_t pbuf[PBUF_SIZE];
+static uint8_t pbuf_head = 0;
+static uint8_t pbuf_tail = 0;
+static inline void pbuf_enqueue(uint8_t data)
+{
+    if (!data)
+        return;
+    uint8_t next = (pbuf_head + 1) % PBUF_SIZE;
+    if (next != pbuf_tail) {
+        pbuf[pbuf_head] = data;
+        pbuf_head = next;
+    } else {
+        print("pbuf: full\n");
+    }
+}
+static inline uint8_t pbuf_dequeue(void)
+{
+    uint8_t val = 0;
+    uint8_t sreg = SREG;
+    cli();
+    if (pbuf_head != pbuf_tail) {
+        val = pbuf[pbuf_tail];
+        pbuf_tail = (pbuf_tail + 1) % PBUF_SIZE;
+    }
+    SREG = sreg;
+    return val;
+}
+
+/* get data received by interrupt */
+uint8_t ps2_host_recv(void)
+{
+    return pbuf_dequeue();
+}
+
+ISR(PS2_INT_VECT)
+{
+PORTC = 0xFF;
+    /* interrupt means start bit comes */
+    pbuf_enqueue(recv_data());
+
+    /* release lines(idle state) */
+    idle();
+    _delay_us(5);
+PORTC = 0x00;
+}
+#endif
+
+
+/*
+static void ps2_reset(void)
+{
+    ps2_host_send(0xFF);
+    if (ps2_host_recv_response() == 0xFA) {
+        _delay_ms(1000);
+        ps2_host_recv_response();
+    }
+}
+*/
+
+/* send LED state to keyboard */
+void ps2_host_set_led(uint8_t led)
+{
+#ifdef PS2_INT_DISABLE
+    PS2_INT_DISABLE();
+#endif
+    ps2_host_send(0xED);
+    ps2_host_recv_response();
+    ps2_host_send(led);
+    ps2_host_recv_response();
+#ifdef PS2_INT_ENABLE
+    PS2_INT_ENABLE();
+    idle();
+#endif
+}
+
+
+/* called after start bit comes */
+static uint8_t recv_data(void)
 {
     uint8_t data = 0;
     bool parity = true;
     ps2_error = 0;
 
-    /* terminate a transmission if we have */
-    clock_lo();
-    _delay_us(100);
-
-    /* release lines(idle state) */
-    clock_hi();
-    data_hi();
-
     /* start bit [1] */
-    WAIT(clock_lo, 2000, 1);    // How long should we wait?
+    WAIT(clock_lo, 1, 1);
     WAIT(data_lo, 1, 2);
     WAIT(clock_hi, 50, 3);
 
@@ -185,17 +289,10 @@ uint8_t ps2_host_recv(void)
     WAIT(data_hi, 1, 9);
     WAIT(clock_hi, 50, 10);
 
-    /* inhibit device to send */
-    clock_lo();
-
     return data;
 ERROR:
-    /* inhibit device to send */
-    data_hi();
-    clock_lo();
     return 0;
 }
-
 
 static inline void clock_lo()
 {
@@ -251,4 +348,18 @@ static inline uint16_t wait_data_hi(uint16_t us)
 {
     while (!data_in() && us)  { asm(""); _delay_us(1); us--; }
     return us;
+}
+
+/* idle state that device can send */
+static inline void idle(void)
+{
+    clock_hi();
+    data_hi();
+}
+
+/* inhibit device to send */
+static inline void inhibit(void)
+{
+    clock_lo();
+    data_hi();
 }

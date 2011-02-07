@@ -28,9 +28,13 @@
 #include "host_vusb.h"
 #include "timer.h"
 
+#define DEBUGP_INIT() do { DDRC = 0xFF; } while (0)
+#define DEBUGP(x) do { PORTC = x; } while (0)
 
+static uint8_t last_led = 0;
 int main(void)
 {
+    DEBUGP_INIT();
     wdt_enable(WDTO_1S);
     /* Even if you don't use the watchdog, turn it off here. On newer devices,
      * the status of the watchdog (on/off, period) is PRESERVED OVER RESET!
@@ -60,10 +64,12 @@ int main(void)
 
     uint8_t fn_bits = 0;
     while (1) {                /* main event loop */
+        DEBUGP(0x01);
         wdt_reset();
         usbPoll();
         host_vusb_keyboard_send();
 
+        DEBUGP(0x02);
         matrix_scan();
         fn_bits = 0;
         keyboard_swap_report();
@@ -94,10 +100,16 @@ int main(void)
                 }
             }
         }
+        DEBUGP(0x03);
         layer_switching(fn_bits);
         if (matrix_is_modified()) {
             keyboard_send();
         }
         mousekey_send();
+
+        if (last_led != host_keyboard_led) {
+            keyboard_set_led(host_keyboard_led);
+            last_led = host_keyboard_led;
+        }
     }
 }

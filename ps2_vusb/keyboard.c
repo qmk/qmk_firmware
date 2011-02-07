@@ -1,11 +1,29 @@
 #include "usb_keycodes.h"
 #include "host.h"
+#include "ps2.h"
+#include "usb.h"
 #include "keyboard.h"
+#include "print.h"
 
 static report_keyboard_t report0;
 static report_keyboard_t report1;
 static report_keyboard_t *report = &report0;
 static report_keyboard_t *report_prev = &report1;
+
+
+void keyboard_set_led(uint8_t usb_led)
+{
+    uint8_t ps2_led = 0;
+    if (usb_led & (1<<USB_LED_SCROLL_LOCK))
+        ps2_led |= (1<<PS2_LED_SCROLL_LOCK);
+    if (usb_led & (1<<USB_LED_NUM_LOCK))
+        ps2_led |= (1<<PS2_LED_NUM_LOCK);
+    if (usb_led & (1<<USB_LED_CAPS_LOCK))
+        ps2_led |= (1<<PS2_LED_CAPS_LOCK);
+    print("ps2_led: "); phex(ps2_led); print("\n");
+
+    ps2_host_set_led(ps2_led);
+}
 
 void keyboard_send(void)
 {
