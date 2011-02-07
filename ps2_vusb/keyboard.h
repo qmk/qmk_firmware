@@ -6,6 +6,7 @@
 #include "host.h"
 
 
+void keyboard_set_led(uint8_t led);
 void keyboard_send(void);
 bool keyboard_has_key(void);
 void keyboard_add_mod(uint8_t mod);

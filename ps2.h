@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010 Jun WAKO <wakojun@gmail.com>
+Copyright (c) 2010,2011 Jun WAKO <wakojun@gmail.com>
 
 This software is licensed with a Modified BSD License.
 All of this is supposed to be Free Software, Open Source, DFSG-free,
@@ -66,11 +66,13 @@ POSSIBILITY OF SUCH DAMAGE.
 
 extern uint8_t ps2_error;
 
-/* host side */
+/* host role */
 void ps2_host_init(void);
-uint8_t ps2_host_send(uint8_t);
+uint8_t ps2_host_send(uint8_t data);
+uint8_t ps2_host_recv_response(void);
 uint8_t ps2_host_recv(void);
+void ps2_host_set_led(uint8_t usb_led);
 
-/* TODO: device side */
+/* device role */
 
 #endif

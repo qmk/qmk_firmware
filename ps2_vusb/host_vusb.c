@@ -6,7 +6,7 @@
 #include "host_vusb.h"
 
 
-#define KBUF_SIZE 8
+#define KBUF_SIZE 16
 static report_keyboard_t kbuf[KBUF_SIZE];
 static uint8_t kbuf_head = 0;
 static uint8_t kbuf_tail = 0;
@@ -14,12 +14,18 @@ static uint8_t kbuf_tail = 0;
 
 void host_vusb_keyboard_send()
 {
+    while (usbInterruptIsReady() && kbuf_head != kbuf_tail) {
+        usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
+        kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
+    }
+/*
     if (kbuf_head != kbuf_tail) {
         if (usbInterruptIsReady()) {
             usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
             kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
         }
     }
+*/
 }
 
 void host_keyboard_send(report_keyboard_t *report)
@@ -28,14 +34,20 @@ void host_keyboard_send(report_keyboard_t *report)
     if (next != kbuf_tail) {
         kbuf[kbuf_head] = *report;
         kbuf_head = next;
+        print("kbuf: "); phex(kbuf_head); phex(kbuf_tail); print("\n");
+    } else {
+        print("kbuf: full\n");
+        // hmm...
+        /*
+        matrix_init();
+        kbuf_head = 0;
+        kbuf_tail = 0;
+        */
     }
 }
 
 void host_mouse_send(report_mouse_t *report)
 {
-    // dirty hack to send twice a loop :(
-    //while (!usbInterruptIsReady3()) usbPoll();
-
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)report, sizeof(*report));
     } else {
@@ -46,30 +58,51 @@ void host_mouse_send(report_mouse_t *report)
 
 
 
+static struct {
+    uint16_t        len;
+    enum {
+        NONE,
+        SET_LED
+    }               kind;
+} last_req;
 
-static uchar    idleRate;   /* repeat rate for keyboards, never used for mice */
+uint8_t host_keyboard_led = 0;
+static uchar    idleRate;
+
 usbMsgLen_t usbFunctionSetup(uchar data[8])
 {
 usbRequest_t    *rq = (void *)data;
 
-    print("Setup: ");
+    //print("Setup: ");
     if((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS){    /* class request type */
+        /*
         print("CLASS: ");
-        phex(rq->bRequest);
+        phex(rq->bRequest); print(" ");
+        phex16(rq->wValue.word); print(" ");
+        phex16(rq->wIndex.word); print(" ");
+        phex16(rq->wLength.word); print(" ");
+        */
         if(rq->bRequest == USBRQ_HID_GET_REPORT){
-            print("GET_REPORT");
+            print(" GET_REPORT");
             /* we only have one report type, so don't look at wValue */
             usbMsgPtr = (void *)keyboard_report;
             return sizeof(*keyboard_report);
         }else if(rq->bRequest == USBRQ_HID_GET_IDLE){
-            print("GET_IDLE: ");
+            print(" GET_IDLE: ");
             phex(idleRate);
             usbMsgPtr = &idleRate;
             return 1;
         }else if(rq->bRequest == USBRQ_HID_SET_IDLE){
             idleRate = rq->wValue.bytes[1];
-            print("SET_IDLE: ");
+            print(" SET_IDLE: ");
             phex(idleRate);
+        }else if(rq->bRequest == USBRQ_HID_SET_REPORT){
+            //print(" SET_REPORT: ");
+            if (rq->wValue.word == 0x0200 && rq->wIndex.word == 0) {
+                last_req.kind = SET_LED;
+                last_req.len = rq->wLength.word;
+            }
+            return USB_NO_MSG; // to get data in usbFunctionWrite
         }
         print("\n");
     }else{
@@ -77,6 +110,26 @@ usbRequest_t    *rq = (void *)data;
         /* no vendor specific requests implemented */
     }
     return 0;   /* default for not implemented requests: return no data back to host */
+}
+
+uchar usbFunctionWrite(uchar *data, uchar len)
+{
+    if (last_req.len == 0) {
+        return -1;
+    }
+    switch (last_req.kind) {
+        case SET_LED:
+            //print("SET_LED\n");
+            host_keyboard_led = data[0];
+            last_req.len = 0;
+            return 1;
+            break;
+        case NONE:
+        default:
+            return -1;
+            break;
+    }
+    return 1;
 }
 
 
