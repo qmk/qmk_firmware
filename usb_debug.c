@@ -1,4 +1,5 @@
 #include <avr/interrupt.h>
+#include "sendchar.h"
 #include "usb_debug.h"
 
 
@@ -7,8 +8,7 @@
 volatile uint8_t debug_flush_timer=0;
 
 
-// transmit a character.  0 returned on success, -1 on error
-int8_t usb_debug_putchar(uint8_t c)
+int8_t sendchar(uint8_t c)
 {
 	static uint8_t previous_timeout=0;
 	uint8_t timeout, intr_state;
@@ -59,7 +59,6 @@ int8_t usb_debug_putchar(uint8_t c)
 	SREG = intr_state;
 	return 0;
 }
-
 
 // immediately transmit any buffered output.
 void usb_debug_flush_output(void)

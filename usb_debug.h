@@ -14,7 +14,6 @@
 extern volatile uint8_t debug_flush_timer;
 
 
-int8_t usb_debug_putchar(uint8_t c);	// transmit a character
 void usb_debug_flush_output(void);	// immediately transmit any buffered output
 
 #endif
