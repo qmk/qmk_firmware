@@ -84,7 +84,7 @@ int main(void)
                     // do nothing
                 }
                 else if (IS_MOD(code)) {
-                    keyboard_add_mod(MOD_BIT(code));
+                    keyboard_add_mod_bit(MOD_BIT(code));
                 }
                 else if (IS_KEY(code)) {
                     keyboard_add_key(code);

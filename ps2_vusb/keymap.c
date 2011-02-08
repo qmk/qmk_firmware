@@ -4,8 +4,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
-#include "usb_keyboard.h"
 #include "usb_keycodes.h"
+#include "keyboard.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -185,5 +185,5 @@ uint8_t keymap_fn_keycode(uint8_t fn_bits)
 // define a condition to enter special function mode
 bool keymap_is_special_mode(uint8_t fn_bits)
 {
-    return usb_keyboard_mods == (BIT_LSHIFT | BIT_RSHIFT) || usb_keyboard_mods == (BIT_LCTRL | BIT_RSHIFT);
+    return keyboard_get_mods() == (BIT_LSHIFT | BIT_RSHIFT) || keyboard_get_mods() == (BIT_LCTRL | BIT_RSHIFT);
 }

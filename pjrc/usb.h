@@ -88,11 +88,4 @@ void usb_remote_wakeup(void);
 #define ENDPOINT_HALT			0
 #define TEST_MODE			2
 
-// LEDS
-#define USB_LED_NUM_LOCK                0
-#define USB_LED_CAPS_LOCK               1
-#define USB_LED_SCROLL_LOCK             2
-#define USB_LED_COMPOSE                 3
-#define USB_LED_KANA                    4
-
 #endif
