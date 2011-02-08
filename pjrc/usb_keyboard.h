@@ -27,18 +27,6 @@
 #define KEYS_MAX KBD_REPORT_KEYS
 #endif
 
-#define BIT_LCTRL   (1<<0)
-#define BIT_LSHIFT  (1<<1)
-#define BIT_LALT    (1<<2)
-#define BIT_LGUI    (1<<3)
-#define BIT_RCTRL   (1<<4)
-#define BIT_RSHIFT  (1<<5)
-#define BIT_RALT    (1<<6)
-#define BIT_RGUI    (1<<7)
-#define BIT_LCTL BIT_LCTRL
-#define BIT_RCTL BIT_RCTRL
-#define BIT_LSFT BIT_LSHIFT
-#define BIT_RSFT BIT_RSHIFT
 
 typedef struct report {
     uint8_t keys[KEYS_MAX];

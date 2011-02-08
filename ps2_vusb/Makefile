@@ -9,16 +9,11 @@ TARGET_DIR = .
 
 # keyboard dependent files
 TARGET_SRC =	main.c \
-		keyboard.c \
-		mousekey.c \
-		layer.c \
 		keymap.c \
 		matrix.c \
+		led.c \
 		ps2.c \
 		host_vusb.c \
-		print.c \
-		util.c \
-		timer.c \
 		usart_print.c
 
 OPT_DEFS = -DDEBUG_LEVEL=0
@@ -44,9 +39,10 @@ F_CPU = 16000000
 # Build Options
 #   comment out to disable the options.
 #
-#MOUSEKEY_ENABLE = yes	# Mouse keys
+MOUSEKEY_ENABLE = yes	# Mouse keys
 #USB_EXTRA_ENABLE = yes	# Enhanced feature for Windows(Audio control and System control)
 #USB_NKRO_ENABLE = yes	# USB Nkey Rollover
 
 
 include $(COMMON_DIR)/Makefile.vusb
+include $(COMMON_DIR)/Makefile.common

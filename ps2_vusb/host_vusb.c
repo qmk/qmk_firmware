@@ -18,14 +18,6 @@ void host_vusb_keyboard_send()
         usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
         kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
     }
-/*
-    if (kbuf_head != kbuf_tail) {
-        if (usbInterruptIsReady()) {
-            usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
-            kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
-        }
-    }
-*/
 }
 
 void host_keyboard_send(report_keyboard_t *report)
@@ -37,12 +29,6 @@ void host_keyboard_send(report_keyboard_t *report)
         print("kbuf: "); phex(kbuf_head); phex(kbuf_tail); print("\n");
     } else {
         print("kbuf: full\n");
-        // hmm...
-        /*
-        matrix_init();
-        kbuf_head = 0;
-        kbuf_tail = 0;
-        */
     }
 }
 
