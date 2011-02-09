@@ -1,7 +1,14 @@
+/* Modified for the LUFA HID Bootloader by Dean Camera
+ *           http://www.lufa-lib.org
+ *
+ *   THIS MODIFIED VERSION IS UNSUPPORTED BY PJRC.
+ */
+
 /* Teensy Loader, Command Line Interface
  * Program and Reboot Teensy Board with HalfKay Bootloader
  * http://www.pjrc.com/teensy/loader_cli.html
  * Copyright 2008-2010, PJRC.COM, LLC
+ *
  *
  * You may redistribute this program and/or modify it under the terms
  * of the GNU General Public License as published by the Free Software
@@ -25,7 +32,6 @@
  * http://www.pjrc.com/teensy/49-teensy.rules
  */
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -35,13 +41,17 @@
 
 void usage(void)
 {
-	fprintf(stderr, "Usage: teensy_loader_cli -mmcu=<MCU> [-w] [-h] [-n] [-v] <file.hex>\n");
+	fprintf(stderr, "Usage: hid_bootloader_cli -mmcu=<MCU> [-w] [-h] [-n] [-v] <file.hex>\n");
 	fprintf(stderr, "\t-w : Wait for device to appear\n");
 	fprintf(stderr, "\t-r : Use hard reboot if device not online\n");
 	fprintf(stderr, "\t-n : No reboot after programming\n");
 	fprintf(stderr, "\t-v : Verbose output\n");
-	fprintf(stderr, "\n<MCU> = atmega32u4 | at90usb162 | at90usb646 | at90usb1286\n");
-	fprintf(stderr, "\nFor more information, please visit:\n");
+	fprintf(stderr, "\n<MCU> = atmegaXXuY or at90usbXXXY");
+
+	fprintf(stderr, "\nFor support and more information, please visit:\n");
+	fprintf(stderr, "http://www.lufa-lub.org\n");
+
+	fprintf(stderr, "\nBased on the TeensyHID command line programmer software:\n");
 	fprintf(stderr, "http://www.pjrc.com/teensy/loader_cli.html\n");
 	exit(1);
 }
@@ -238,8 +248,13 @@ int teensy_open(void)
 {
 	teensy_close();
 	libusb_teensy_handle = open_usb_device(0x16C0, 0x0478);
-	if (libusb_teensy_handle) return 1;
-	return 0;
+
+	if (!libusb_teensy_handle) {
+		libusb_teensy_handle = open_usb_device(0x03eb, 0x2067);
+	}
+
+	if (!libusb_teensy_handle) return 0;
+	return 1;
 }
 
 int teensy_write(void *buf, int len, double timeout)
@@ -267,6 +282,11 @@ int hard_reboot(void)
 	int r;
 
 	rebootor = open_usb_device(0x16C0, 0x0477);
+
+	if (!rebootor) {
+		rebootor = open_usb_device(0x03eb, 0x2067);
+	}
+
 	if (!rebootor) return 0;
 	r = usb_control_msg(rebootor, 0x21, 9, 0x0200, 0, "reboot", 6, 100);
 	usb_release_interface(rebootor, 0);
@@ -393,6 +413,11 @@ int teensy_open(void)
 {
 	teensy_close();
 	win32_teensy_handle = open_usb_device(0x16C0, 0x0478);
+
+	if (win32_teensy_handle) {
+		win32_teensy_handle = open_usb_device(0x03eb, 0x2067);
+	}
+
 	if (win32_teensy_handle) return 1;
 	return 0;
 }
@@ -402,7 +427,6 @@ int teensy_write(void *buf, int len, double timeout)
 	int r;
 	if (!win32_teensy_handle) return 0;
 	r = write_usb_device(win32_teensy_handle, buf, len, (int)(timeout * 1000.0));
-	//if (!r) print_win32_err();
 	return r;
 }
 
@@ -419,6 +443,11 @@ int hard_reboot(void)
 	int r;
 
 	rebootor = open_usb_device(0x16C0, 0x0477);
+
+	if (!rebootor) {
+		rebootor = open_usb_device(0x03eb, 0x2067);
+	}
+
 	if (!rebootor) return 0;
 	r = write_usb_device(rebootor, "reboot", 6, 100);
 	CloseHandle(rebootor);
@@ -571,6 +600,11 @@ int teensy_open(void)
 {
 	teensy_close();
 	iokit_teensy_reference = open_usb_device(0x16C0, 0x0478);
+
+	if (!iokit_teensy_reference) {
+		iokit_teensy_reference = open_usb_device(0x03eb, 0x2067);
+	}
+
 	if (iokit_teensy_reference) return 1;
 	return 0;
 }
@@ -603,6 +637,11 @@ int hard_reboot(void)
 	IOReturn ret;
 
 	rebootor = open_usb_device(0x16C0, 0x0477);
+
+	if (!rebootor) {
+		rebootor = open_usb_device(0x03eb, 0x2067);
+	}
+
 	if (!rebootor) return 0;
 	ret = IOHIDDeviceSetReport(rebootor,
 		kIOHIDReportTypeOutput, 0, (uint8_t *)("reboot"), 6);
@@ -704,6 +743,11 @@ int hard_reboot(void)
 	int r, rebootor_fd;
 
 	rebootor_fd = open_usb_device(0x16C0, 0x0477);
+
+	if (rebootor_fd < 0) {
+		rebootor_fd = open_usb_device(0x03eb, 0x2067);
+	}
+
 	if (rebootor_fd < 0) return 0;
 	r = write(rebootor_fd, "reboot", 6);
 	delay(0.1);
@@ -925,7 +969,7 @@ void parse_options(int argc, char **argv)
 
 	for (i=1; i<argc; i++) {
 		arg = argv[i];
-		//printf("arg: %s\n", arg);
+
 		if (*arg == '-') {
 			if (strcmp(arg, "-w") == 0) {
 				wait_for_device_to_appear = 1;
@@ -936,18 +980,35 @@ void parse_options(int argc, char **argv)
 			} else if (strcmp(arg, "-v") == 0) {
 				verbose = 1;
 			} else if (strncmp(arg, "-mmcu=", 6) == 0) {
-				if (strcasecmp(arg+6, "at90usb162") == 0) {
-					code_size = 15872;
-					block_size = 128;
-				} else if (strcasecmp(arg+6, "atmega32u4") == 0) {
-					code_size = 32256;
-					block_size = 128;
-				} else if (strcasecmp(arg+6, "at90usb646") == 0) {
-					code_size = 64512;
+				arg += 6;
+
+				uint8_t valid_prefix = 0;
+
+				if (strncmp(arg, "at90usb", 7) == 0) {
+					valid_prefix = 1;
+					arg += 7;
+				} else if (strncmp(arg, "atmega", 6) == 0) {
+					valid_prefix = 1;
+					arg += 6;
+				} else {
+					die("Unknown MCU type\n");
+				}
+
+				if (strncmp(arg, "128", 3) == 0) {
+					code_size  = 128 * 1024;
 					block_size = 256;
-				} else if (strcasecmp(arg+6, "at90usb1286") == 0) {
-					code_size = 130048;
+				} else if (strncmp(arg, "64", 2) == 0) {
+					code_size  = 64 * 1024;
 					block_size = 256;
+				} else if (strncmp(arg, "32", 2) == 0) {
+					code_size  = 32 * 1024;
+					block_size = 128;
+				} else if (strncmp(arg, "16", 2) == 0) {
+					code_size  = 16 * 1024;
+					block_size = 128;
+				} else if (strncmp(arg, "8", 1) == 0) {
+					code_size  = 8 * 1024;
+					block_size = 128;
 				} else {
 					die("Unknown MCU type\n");
 				}

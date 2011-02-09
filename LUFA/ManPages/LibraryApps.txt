@@ -96,8 +96,9 @@
  *      - <b>ClassDriver</b>
  *        - <b>MouseHostDevice</b> - Dual role Mouse Host and Mouse Device demo, using the library USB CDC Class driver framework
  *  - <b>Bootloaders</b>
- *    - <b>DFU</b> - DFU Class USB bootloader, compatible with Atmel's FLIP and the open source dfu-programmer software
  *    - <b>CDC</b> - CDC Class USB bootloader, compatible with any AVR910 protocol programming software such as AVRDude
+ *    - <b>DFU</b> - DFU Class USB bootloader, compatible with Atmel's FLIP and the open source dfu-programmer software
+ *    - <b>HID</b> - HID Class USB bootloader, compatible with a modified PJRC TeensyHID protocol loader application software
  *  - <b>Projects</b>
  *    - <b>AVRISP-MKII</b> - AVRISP-MKII Programmer Clone project
  *    - <b>Benito</b> - Benito Board Arduino Programmer project

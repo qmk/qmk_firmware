@@ -14,8 +14,8 @@ LIBS =
 .endif
 
 
-teensy_loader_cli: teensy_loader_cli.c
-	$(CC) $(CFLAGS) -s -o teensy_loader_cli teensy_loader_cli.c $(LIBS)
+hid_bootloader_cli: hid_bootloader_cli.c
+	$(CC) $(CFLAGS) -s -o hid_bootloader_cli hid_bootloader_cli.c $(LIBS)
 
 clean:
-	rm -f teensy_loader_cli
+	rm -f hid_bootloader_cli

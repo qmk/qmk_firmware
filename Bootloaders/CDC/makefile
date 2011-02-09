@@ -199,6 +199,7 @@ ADEFS += -DBOARD=BOARD_$(BOARD)
 ADEFS += -DBOOT_START_ADDR=$(BOOT_START)UL
 ADEFS += $(LUFA_OPTS)
 
+
 # Place -D or -U options here for C++ sources
 CPPDEFS  = -DF_CPU=$(F_CPU)UL
 CPPDEFS += -DF_CLOCK=$(F_CLOCK)UL
