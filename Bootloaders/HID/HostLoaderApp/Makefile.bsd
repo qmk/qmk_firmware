@@ -1,0 +1,21 @@
+OS ?= FreeBSD
+#OS ?= NetBSD
+#OS ?= OpenBSD
+
+CFLAGS ?= -O2 -Wall
+CC ?= gcc
+
+.if $(OS) == "FreeBSD"
+CFLAGS += -DUSE_LIBUSB
+LIBS =  -lusb
+.elif $(OS) == "NetBSD" || $(OS) == "OpenBSD"
+CFLAGS += -DUSE_UHID
+LIBS =
+.endif
+
+
+teensy_loader_cli: teensy_loader_cli.c
+	$(CC) $(CFLAGS) -s -o teensy_loader_cli teensy_loader_cli.c $(LIBS)
+
+clean:
+	rm -f teensy_loader_cli

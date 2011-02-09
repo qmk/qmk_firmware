@@ -127,6 +127,13 @@ void EVENT_USB_Device_ConfigurationChanged(void)
  */
 void EVENT_USB_Device_ControlRequest(void)
 {
+	/* Ignore any requests that aren't directed to the CDC interface */
+	if ((USB_ControlRequest.bmRequestType & (CONTROL_REQTYPE_TYPE | CONTROL_REQTYPE_RECIPIENT)) !=
+	    (REQTYPE_CLASS | REQREC_INTERFACE))
+	{
+		return;
+	}
+
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{

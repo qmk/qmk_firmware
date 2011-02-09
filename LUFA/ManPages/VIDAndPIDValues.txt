@@ -313,7 +313,7 @@
  *     0x2067
  *    </td>
  *    <td>
- *     <i>Currently Unallocated</i>
+ *     HID Class Bootloader
  *    </td>
  *   </tr>
  *
