@@ -86,11 +86,13 @@ F_CLOCK = $(F_CPU)
 
 
 # Starting byte address of the bootloader, as a byte address - computed via the formula
-#   BOOT_START = ((TOTAL_FLASH_BYTES - BOOTLOADER_SECTION_SIZE_BYTES) * 1024)
+#   BOOT_START = ((FLASH_SIZE_KB - BOOT_SECTION_SIZE_KB) * 1024)
 #
 # Note that the bootloader size and start address given in AVRStudio is in words and not
 # bytes, and so will need to be doubled to obtain the byte address needed by AVR-GCC.
-BOOT_START = 0x1E000
+FLASH_SIZE_KB        = 128
+BOOT_SECTION_SIZE_KB = 4
+BOOT_START           = 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
 
 
 # Output format. (can be srec, ihex, binary)

@@ -199,7 +199,7 @@
  *  \section Sec_Migration090924 Migrating from 090810 to 090924
  *
  *  <b>Non-USB Library Components</b>
- *    - The \c ADC_Off() function has been renamed to \ref ADC_ShutDown() to be consistent with the rest of the library.
+ *    - The \c ADC_Off() function has been renamed to \c ADC_ShutDown() to be consistent with the rest of the library.
  *    - The \ref SPI_Init() routine's parameters have changed, so that the clock polarity and data sampling modes can be set. See
  *      the \ref SPI_Init() function documentation for more details
  *    - The \ref Dataflash_Init() routine no longer initializes the SPI bus - the SPI bus should be initialized manually via a

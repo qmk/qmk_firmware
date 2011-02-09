@@ -38,9 +38,9 @@
 
 /** Flag to indicate if the bootloader is currently running in secure mode, disallowing memory operations
  *  other than erase. This is initially set to the value set by SECURE_MODE, and cleared by the bootloader
- *  once a memory erase has completed.
+ *  once a memory erase has completed in a bootloader session.
  */
-bool IsSecure      = SECURE_MODE;
+bool IsSecure = SECURE_MODE;
 
 /** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
  *  via a soft reset. When cleared, the bootloader will abort, the USB interface will shut down and the application

@@ -58,6 +58,7 @@
  *  - MidiMonster, a USB-to-MIDI gateway board: http://www.dorkbotpdx.org/wiki/midimonster
  *  - Mobo 4.3, a USB controlled all band (160-10m) HF SDR transceiver: http://sites.google.com/site/lofturj/mobo4_3
  *  - Moco, a native Arduino Uno MIDI replacement firmware: http://web.mac.com/kuwatay/morecat_lab./MocoLUFA.html
+ *  - Music Playing Alarm Clock (Tutorial): http://www.instructables.com/id/Music-Playing-Alarm-Clock/
  *  - NeroJTAG, a JTAG dongle: https://github.com/makestuff/neroJtag
  *  - NES Controller USB modification: http://projects.peterpolidoro.net/video/NESUSB.htm
  *  - Opendous-JTAG, an open source ARM JTAG debugger: http://code.google.com/p/opendous-jtag/
