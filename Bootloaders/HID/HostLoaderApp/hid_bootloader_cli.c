@@ -249,9 +249,8 @@ int teensy_open(void)
 	teensy_close();
 	libusb_teensy_handle = open_usb_device(0x16C0, 0x0478);
 
-	if (!libusb_teensy_handle) {
+	if (!libusb_teensy_handle)
 		libusb_teensy_handle = open_usb_device(0x03eb, 0x2067);
-	}
 
 	if (!libusb_teensy_handle) return 0;
 	return 1;
@@ -283,9 +282,8 @@ int hard_reboot(void)
 
 	rebootor = open_usb_device(0x16C0, 0x0477);
 
-	if (!rebootor) {
+	if (!rebootor)
 		rebootor = open_usb_device(0x03eb, 0x2067);
-	}
 
 	if (!rebootor) return 0;
 	r = usb_control_msg(rebootor, 0x21, 9, 0x0200, 0, "reboot", 6, 100);
@@ -414,12 +412,11 @@ int teensy_open(void)
 	teensy_close();
 	win32_teensy_handle = open_usb_device(0x16C0, 0x0478);
 
-	if (win32_teensy_handle) {
+	if (!win32_teensy_handle)
 		win32_teensy_handle = open_usb_device(0x03eb, 0x2067);
-	}
 
-	if (win32_teensy_handle) return 1;
-	return 0;
+	if (!win32_teensy_handle) return 0;
+	return 1;
 }
 
 int teensy_write(void *buf, int len, double timeout)
@@ -444,9 +441,8 @@ int hard_reboot(void)
 
 	rebootor = open_usb_device(0x16C0, 0x0477);
 
-	if (!rebootor) {
+	if (!rebootor)
 		rebootor = open_usb_device(0x03eb, 0x2067);
-	}
 
 	if (!rebootor) return 0;
 	r = write_usb_device(rebootor, "reboot", 6, 100);
@@ -601,12 +597,11 @@ int teensy_open(void)
 	teensy_close();
 	iokit_teensy_reference = open_usb_device(0x16C0, 0x0478);
 
-	if (!iokit_teensy_reference) {
+	if (!iokit_teensy_reference)
 		iokit_teensy_reference = open_usb_device(0x03eb, 0x2067);
-	}
 
-	if (iokit_teensy_reference) return 1;
-	return 0;
+	if (!iokit_teensy_reference) return 0;
+	return 1;
 }
 
 int teensy_write(void *buf, int len, double timeout)
@@ -638,9 +633,8 @@ int hard_reboot(void)
 
 	rebootor = open_usb_device(0x16C0, 0x0477);
 
-	if (!rebootor) {
+	if (!rebootor)
 		rebootor = open_usb_device(0x03eb, 0x2067);
-	}
 
 	if (!rebootor) return 0;
 	ret = IOHIDDeviceSetReport(rebootor,
@@ -716,6 +710,10 @@ int teensy_open(void)
 {
 	teensy_close();
 	uhid_teensy_fd = open_usb_device(0x16C0, 0x0478);
+	
+	if (uhid_teensy_fd < 0)
+		uhid_teensy_fd = open_usb_device(0x03eb, 0x2067);
+	
 	if (uhid_teensy_fd < 0) return 0;
 	return 1;
 }
@@ -744,9 +742,8 @@ int hard_reboot(void)
 
 	rebootor_fd = open_usb_device(0x16C0, 0x0477);
 
-	if (rebootor_fd < 0) {
+	if (rebootor_fd < 0)
 		rebootor_fd = open_usb_device(0x03eb, 0x2067);
-	}
 
 	if (rebootor_fd < 0) return 0;
 	r = write(rebootor_fd, "reboot", 6);
