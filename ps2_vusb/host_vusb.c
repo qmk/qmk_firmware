@@ -1,18 +1,111 @@
 #include "usbdrv.h"
 #include "usbconfig.h"
-#include "keyboard.h"
 #include "print.h"
+#include "usb_keycodes.h"
 #include "host.h"
 #include "host_vusb.h"
+#include "debug.h"
 
 
+static report_keyboard_t report0;
+static report_keyboard_t report1;
+report_keyboard_t *keyboard_report = &report0;
+report_keyboard_t *keyboard_report_prev = &report1;
+
+static uint8_t keyboard_led = 0;
+static uchar   idleRate = 0;
+
+uint8_t host_keyboard_led(void)
+{
+    return keyboard_led;
+}
+
+
+/*------------------------------------------------------------------*
+ * Keyboard report operations
+ *------------------------------------------------------------------*/
+void host_add_key(uint8_t code)
+{
+    int8_t i = 0;
+    int8_t empty = -1;
+    for (; i < REPORT_KEYS; i++) {
+        if (keyboard_report_prev->keys[i] == code) {
+            keyboard_report->keys[i] = code;
+            break;
+        }
+        if (empty == -1 && keyboard_report_prev->keys[i] == KB_NO && keyboard_report->keys[i] == KB_NO) {
+            empty = i;
+        }
+    }
+    if (i == REPORT_KEYS && empty != -1) {
+        keyboard_report->keys[empty] = code;
+    }
+}
+
+void host_add_mod_bit(uint8_t mod)
+{
+    keyboard_report->mods |= mod;
+}
+
+void host_set_mods(uint8_t mods)
+{
+    keyboard_report->mods = mods;
+}
+
+void host_add_code(uint8_t code)
+{
+    if (IS_MOD(code)) {
+        host_add_mod_bit(MOD_BIT(code));
+    } else {
+        host_add_key(code);
+    }
+}
+
+void host_swap_keyboard_report(void)
+{
+    report_keyboard_t *tmp = keyboard_report_prev;
+    keyboard_report_prev = keyboard_report;
+    keyboard_report = tmp;
+}
+
+void host_clear_keyboard_report(void)
+{
+    keyboard_report->mods = 0;
+    for (int8_t i = 0; i < REPORT_KEYS; i++) {
+        keyboard_report->keys[i] = 0;
+    }
+}
+
+uint8_t host_has_anykey(void)
+{
+    uint8_t cnt = 0;
+    for (int i = 0; i < REPORT_KEYS; i++) {
+        if (keyboard_report->keys[i])
+            cnt++;
+    }
+    return cnt;
+}
+
+uint8_t *host_get_keys(void)
+{
+    return keyboard_report->keys;
+}
+
+uint8_t host_get_mods(void)
+{
+    return keyboard_report->mods;
+}
+
+
+/*------------------------------------------------------------------*
+ * Keyboard report send buffer
+ *------------------------------------------------------------------*/
 #define KBUF_SIZE 16
 static report_keyboard_t kbuf[KBUF_SIZE];
 static uint8_t kbuf_head = 0;
 static uint8_t kbuf_tail = 0;
 
-
-void host_vusb_keyboard_send()
+void host_vusb_keyboard_send(void)
 {
     while (usbInterruptIsReady() && kbuf_head != kbuf_tail) {
         usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
@@ -20,30 +113,32 @@ void host_vusb_keyboard_send()
     }
 }
 
-void host_keyboard_send(report_keyboard_t *report)
+void host_send_keyboard_report(void)
 {
     uint8_t next = (kbuf_head + 1) % KBUF_SIZE;
     if (next != kbuf_tail) {
-        kbuf[kbuf_head] = *report;
+        kbuf[kbuf_head] = *keyboard_report;
         kbuf_head = next;
-        print("kbuf: "); phex(kbuf_head); phex(kbuf_tail); print("\n");
     } else {
-        print("kbuf: full\n");
+        debug("kbuf: full\n");
     }
 }
+
 
 void host_mouse_send(report_mouse_t *report)
 {
     if (usbInterruptIsReady3()) {
         usbSetInterrupt3((void *)report, sizeof(*report));
     } else {
-        print("Int3 not ready\n");
+        debug("Int3 not ready\n");
     }
 }
 
 
 
-
+/*------------------------------------------------------------------*
+ * Request from host                                                *
+ *------------------------------------------------------------------*/
 static struct {
     uint16_t        len;
     enum {
@@ -52,47 +147,36 @@ static struct {
     }               kind;
 } last_req;
 
-uint8_t host_keyboard_led = 0;
-static uchar    idleRate;
-
 usbMsgLen_t usbFunctionSetup(uchar data[8])
 {
 usbRequest_t    *rq = (void *)data;
 
-    //print("Setup: ");
     if((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS){    /* class request type */
-        /*
-        print("CLASS: ");
-        phex(rq->bRequest); print(" ");
-        phex16(rq->wValue.word); print(" ");
-        phex16(rq->wIndex.word); print(" ");
-        phex16(rq->wLength.word); print(" ");
-        */
         if(rq->bRequest == USBRQ_HID_GET_REPORT){
-            print(" GET_REPORT");
+            debug(" GET_REPORT");
             /* we only have one report type, so don't look at wValue */
             usbMsgPtr = (void *)keyboard_report;
             return sizeof(*keyboard_report);
         }else if(rq->bRequest == USBRQ_HID_GET_IDLE){
-            print(" GET_IDLE: ");
-            phex(idleRate);
+            debug(" GET_IDLE: ");
+            debug_hex(idleRate);
             usbMsgPtr = &idleRate;
             return 1;
         }else if(rq->bRequest == USBRQ_HID_SET_IDLE){
             idleRate = rq->wValue.bytes[1];
-            print(" SET_IDLE: ");
-            phex(idleRate);
+            debug(" SET_IDLE: ");
+            debug_hex(idleRate);
         }else if(rq->bRequest == USBRQ_HID_SET_REPORT){
-            //print(" SET_REPORT: ");
+            //debug(" SET_REPORT: ");
             if (rq->wValue.word == 0x0200 && rq->wIndex.word == 0) {
                 last_req.kind = SET_LED;
                 last_req.len = rq->wLength.word;
             }
             return USB_NO_MSG; // to get data in usbFunctionWrite
         }
-        print("\n");
+        debug("\n");
     }else{
-        print("VENDOR\n");
+        debug("VENDOR\n");
         /* no vendor specific requests implemented */
     }
     return 0;   /* default for not implemented requests: return no data back to host */
@@ -105,8 +189,8 @@ uchar usbFunctionWrite(uchar *data, uchar len)
     }
     switch (last_req.kind) {
         case SET_LED:
-            //print("SET_LED\n");
-            host_keyboard_led = data[0];
+            //debug("SET_LED\n");
+            keyboard_led = data[0];
             last_req.len = 0;
             return 1;
             break;
@@ -119,6 +203,16 @@ uchar usbFunctionWrite(uchar *data, uchar len)
 }
 
 
+
+/*------------------------------------------------------------------*
+ * Descriptors                                                      *
+ *------------------------------------------------------------------*/
+
+/*
+ * Report Descriptor for keyboard
+ *
+ * from an example in HID spec appendix
+ */
 PROGMEM uchar keyboard_hid_report[] = {
     0x05, 0x01,          // Usage Page (Generic Desktop),
     0x09, 0x06,          // Usage (Keyboard),
@@ -154,10 +248,14 @@ PROGMEM uchar keyboard_hid_report[] = {
     0xc0                 // End Collection
 };
 
-// Mouse Protocol 1, HID 1.11 spec, Appendix B, page 59-60, with wheel extension
-// http://www.microchip.com/forums/tm.aspx?high=&m=391435&mpage=1#391521
-// http://www.keil.com/forum/15671/
-// http://www.microsoft.com/whdc/device/input/wheel.mspx
+/*
+ * Report Descriptor for mouse
+ *
+ * Mouse Protocol 1, HID 1.11 spec, Appendix B, page 59-60, with wheel extension
+ * http://www.microchip.com/forums/tm.aspx?high=&m=391435&mpage=1#391521
+ * http://www.keil.com/forum/15671/
+ * http://www.microsoft.com/whdc/device/input/wheel.mspx
+ */
 PROGMEM uchar mouse_hid_report[] = {
     /* from HID 1.11 spec example */
     0x05, 0x01,     // Usage Page (Generic Desktop),
@@ -261,7 +359,11 @@ PROGMEM uchar mouse_hid_report[] = {
 };
 
 
-/* Descriptor for compite device: Keyboard + Mouse */
+/* 
+ * Descriptor for compite device: Keyboard + Mouse
+ * 
+ * contains: device, interface, HID and endpoint descriptors
+ */
 #if USB_CFG_DESCR_PROPS_CONFIGURATION
 PROGMEM char usbDescriptorConfiguration[] = {    /* USB configuration descriptor */
     9,          /* sizeof(usbDescriptorConfiguration): length of descriptor in bytes */
@@ -343,16 +445,17 @@ PROGMEM char usbDescriptorConfiguration[] = {    /* USB configuration descriptor
 };
 #endif
 
+
 USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq)
 {
     usbMsgLen_t len = 0;
 
-    print("usbFunctionDescriptor: ");
-    phex(rq->bmRequestType); print(" ");
-    phex(rq->bRequest); print(" ");
-    phex16(rq->wValue.word); print(" ");
-    phex16(rq->wIndex.word); print(" ");
-    phex16(rq->wLength.word); print("\n");
+    debug("usbFunctionDescriptor: ");
+    debug_hex(rq->bmRequestType); debug(" ");
+    debug_hex(rq->bRequest); debug(" ");
+    debug_hex16(rq->wValue.word); debug(" ");
+    debug_hex16(rq->wIndex.word); debug(" ");
+    debug_hex16(rq->wLength.word); debug("\n");
 
     switch (rq->wValue.bytes[1]) {
 #if USB_CFG_DESCR_PROPS_CONFIGURATION
@@ -379,6 +482,6 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq)
             }
             break;
     }
-    print("desc len: "); phex(len); print("\n");
+    debug("desc len: "); debug_hex(len); debug("\n");
     return len;
 }

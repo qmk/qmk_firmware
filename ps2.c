@@ -190,7 +190,7 @@ static inline void pbuf_enqueue(uint8_t data)
         pbuf[pbuf_head] = data;
         pbuf_head = next;
     } else {
-        print("pbuf: full\n");
+        debug("pbuf: full\n");
     }
 }
 static inline uint8_t pbuf_dequeue(void)
@@ -214,14 +214,12 @@ uint8_t ps2_host_recv(void)
 
 ISR(PS2_INT_VECT)
 {
-PORTC = 0xFF;
     /* interrupt means start bit comes */
     pbuf_enqueue(recv_data());
 
     /* release lines(idle state) */
     idle();
     _delay_us(5);
-PORTC = 0x00;
 }
 #endif
 

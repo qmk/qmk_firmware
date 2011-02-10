@@ -28,16 +28,14 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include "keyboard.h"
 #include "usb.h"
 #include "matrix_skel.h"
-#include "key_process.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
-#include "timer.h"
 #include "jump_bootloader.h"
 #ifdef PS2_MOUSE_ENABLE
-#   include "ps2.h"
 #   include "ps2_mouse.h"
 #endif
 
@@ -65,9 +63,7 @@ int main(void)
     usb_init();
     while (!usb_configured()) /* wait */ ;
 
-    timer_init();
-
-    matrix_init();
+    keyboard_init();
     matrix_scan();
     if (matrix_key_count() >= 3) {
 #ifdef DEBUG_LED
@@ -94,12 +90,8 @@ int main(void)
         jump_bootloader(); // not return
     }
 
-#ifdef PS2_MOUSE_ENABLE
-    ps2_host_init();
-    ps2_mouse_init();
-#endif
 
     while (1) {
-       proc_matrix(); 
+       keyboard_proc(); 
     }
 }

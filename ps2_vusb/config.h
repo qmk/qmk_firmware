@@ -23,6 +23,12 @@
 #   define MOUSEKEY_DELAY_TIME 255
 #endif
 
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (BIT_LSHIFT | BIT_RSHIFT) || \
+    keyboard_report->mods == (BIT_LCTRL | BIT_RSHIFT) \
+)
+
+
 /* PS/2 lines */
 #define PS2_CLOCK_PORT  PORTD
 #define PS2_CLOCK_PIN   PIND
@@ -39,6 +45,7 @@
     EICRA |= ((1<<ISC11) | (0<<ISC10)); \
     EIFR |= (1<<INTF1);         \
 } while (0)
+
 #define PS2_INT_DISABLE() do {  \
     EIMSK &= ~(1<<INT1);        \
 } while (0)
@@ -50,6 +57,7 @@
     PCICR |= (1<<PCIE2);        \
     PCIFR |= (1<<PCIF2);        \
 } while (0)
+
 #define PS2_INT_DISABLE() do {  \
     PCMSK2 &= ~(1<<PCINT22);    \
     PCICR &= ~(1<<PCIE);        \

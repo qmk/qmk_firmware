@@ -9,7 +9,6 @@
 #include "util.h"
 #include "debug.h"
 #include "ps2.h"
-#include "keyboard.h"
 #include "matrix_skel.h"
 
 

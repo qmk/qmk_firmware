@@ -50,6 +50,8 @@ uint8_t ps2_mouse_init(void) {
 
     if (!ps2_mouse_enable) return 1;
 
+    ps2_host_init();
+
     // Reset
     rcv = ps2_host_send(0xFF);
     print("ps2_mouse_init: send 0xFF: ");
