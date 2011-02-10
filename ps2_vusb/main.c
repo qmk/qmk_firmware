@@ -19,7 +19,6 @@
 #include "matrix_skel.h"
 #include "keymap_skel.h"
 #include "mousekey.h"
-#include "keyboard.h"
 #include "layer.h"
 #include "print.h"
 #include "debug.h"
@@ -27,11 +26,13 @@
 #include "host.h"
 #include "host_vusb.h"
 #include "timer.h"
+#include "led.h"
+#include "keyboard.h"
 
 #define DEBUGP_INIT() do { DDRC = 0xFF; } while (0)
 #define DEBUGP(x) do { PORTC = x; } while (0)
 
-static uint8_t last_led = 0;
+//static uint8_t last_led = 0;
 int main(void)
 {
     DEBUGP_INIT();
@@ -49,8 +50,7 @@ int main(void)
 
     print_enable = true;
     //debug_enable = true;
-    timer_init();
-    matrix_init();
+    keyboard_init();
 
     /* enforce re-enumeration, do this while interrupts are disabled! */
     usbDeviceDisconnect();
@@ -62,7 +62,7 @@ int main(void)
     usbDeviceConnect();
     sei();
 
-    uint8_t fn_bits = 0;
+    //uint8_t fn_bits = 0;
     while (1) {                /* main event loop */
         DEBUGP(0x01);
         wdt_reset();
@@ -70,10 +70,13 @@ int main(void)
         host_vusb_keyboard_send();
 
         DEBUGP(0x02);
+        keyboard_proc();
+        DEBUGP(0x03);
+/*
         matrix_scan();
         fn_bits = 0;
-        keyboard_swap_report();
-        keyboard_clear_report();
+        host_swap_keyboard_report();
+        host_clear_keyboard_report();
         mousekey_clear_report();
         for (int row = 0; row < matrix_rows(); row++) {
             for (int col = 0; col < matrix_cols(); col++) {
@@ -84,10 +87,10 @@ int main(void)
                     // do nothing
                 }
                 else if (IS_MOD(code)) {
-                    keyboard_add_mod_bit(MOD_BIT(code));
+                    host_add_mod_bit(MOD_BIT(code));
                 }
                 else if (IS_KEY(code)) {
-                    keyboard_add_key(code);
+                    host_add_key(code);
                 }
                 else if (IS_FN(code)) {
                     fn_bits |= FN_BIT(code);
@@ -103,13 +106,14 @@ int main(void)
         DEBUGP(0x03);
         layer_switching(fn_bits);
         if (matrix_is_modified()) {
-            keyboard_send();
+            host_send_keyboard_report();
         }
         mousekey_send();
 
-        if (last_led != host_keyboard_led) {
-            keyboard_set_led(host_keyboard_led);
-            last_led = host_keyboard_led;
+        if (last_led != host_keyboard_led()) {
+            led_set(host_keyboard_led());
+            last_led = host_keyboard_led();
         }
+*/
     }
 }

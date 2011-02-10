@@ -1,17 +1,19 @@
 #include <stdint.h>
 #include <util/delay.h>
 #include "usb_keycodes.h"
-#include "usb_mouse.h"
+#include "host.h"
+#include "timer.h"
+#include "print.h"
+#include "debug.h"
 #include "mousekey.h"
 
 
-static int8_t mousekey_x = 0;
-static int8_t mousekey_y = 0;
-static int8_t mousekey_v = 0;
-static int8_t mousekey_h = 0;
-static uint8_t mousekey_btn = 0;
-static uint8_t mousekey_btn_prev = 0;
+static report_mouse_t report;
+static report_mouse_t report_prev;
+
 static uint8_t mousekey_repeat =  0;
+
+static void mousekey_debug(void);
 
 
 /*
@@ -25,51 +27,95 @@ static uint8_t mousekey_repeat =  0;
 
 static inline uint8_t move_unit(void)
 {
-    return 10 + (mousekey_repeat < 50 ? mousekey_repeat/5 : 10);
+    uint16_t unit = 10 + (mousekey_repeat);
+    return (unit > 127 ? 127 : unit);
 }
 
 void mousekey_decode(uint8_t code)
 {
-    if      (code == KB_MS_UP)   mousekey_y -= move_unit();
-    else if (code == KB_MS_DOWN) mousekey_y += move_unit();
-    else if (code == KB_MS_LEFT) mousekey_x -= move_unit();
-    else if (code == KB_MS_RIGHT) mousekey_x += move_unit();
-    else if (code == KB_MS_BTN1) mousekey_btn |= MOUSE_BTN1;
-    else if (code == KB_MS_BTN2) mousekey_btn |= MOUSE_BTN2;
-    else if (code == KB_MS_BTN3) mousekey_btn |= MOUSE_BTN3;
-    else if (code == KB_MS_BTN4) mousekey_btn |= MOUSE_BTN4;
-    else if (code == KB_MS_BTN5) mousekey_btn |= MOUSE_BTN5;
-    else if (code == KB_MS_WH_UP) mousekey_v += 1;
-    else if (code == KB_MS_WH_DOWN) mousekey_v -= 1;
-    else if (code == KB_MS_WH_LEFT) mousekey_h -= 1;
-    else if (code == KB_MS_WH_RIGHT) mousekey_h += 1;
+    if      (code == KB_MS_UP)      report.y = -move_unit();
+    else if (code == KB_MS_DOWN)    report.y = move_unit();
+    else if (code == KB_MS_LEFT)    report.x = -move_unit();
+    else if (code == KB_MS_RIGHT)   report.x = move_unit();
+    else if (code == KB_MS_BTN1)    report.buttons |= MOUSE_BTN1;
+    else if (code == KB_MS_BTN2)    report.buttons |= MOUSE_BTN2;
+    else if (code == KB_MS_BTN3)    report.buttons |= MOUSE_BTN3;
+/*
+    else if (code == KB_MS_BTN4)    report.buttons |= MOUSE_BTN4;
+    else if (code == KB_MS_BTN5)    report.buttons |= MOUSE_BTN5;
+    else if (code == KB_MS_WH_UP)   report.v += 1;
+    else if (code == KB_MS_WH_DOWN) report.v -= 1;
+    else if (code == KB_MS_WH_LEFT) report.h -= 1;
+    else if (code == KB_MS_WH_RIGHT)report.h += 1;
+*/
 }
 
 bool mousekey_changed(void)
 {
-    return (mousekey_x || mousekey_y || mousekey_v || mousekey_h || mousekey_btn != mousekey_btn_prev);
+    return (report.buttons != report_prev.buttons ||
+            report.x != report_prev.x ||
+            report.y != report_prev.y ||
+            report.x || report.y);
+    //return (report.buttons != report_prev.buttons || report.x || report.y);
 }
 
-void mousekey_usb_send(void)
+void mousekey_send(void)
 {
-    if (mousekey_changed()) {
-        mousekey_btn_prev = mousekey_btn;
-        if (mousekey_x && mousekey_y)
-            usb_mouse_send(mousekey_x*0.7, mousekey_y*0.7, mousekey_v, mousekey_h, mousekey_btn);
-        else
-            usb_mouse_send(mousekey_x, mousekey_y, mousekey_v, mousekey_h, mousekey_btn);
+    static uint16_t last_timer = 0;
 
-        usb_mouse_print(mousekey_x, mousekey_y, mousekey_v, mousekey_h, mousekey_btn);
-
-        if (mousekey_x || mousekey_y || mousekey_v || mousekey_h)
-            _delay_ms(MOUSEKEY_DELAY_TIME >> (mousekey_repeat < 5 ? mousekey_repeat : 4));
-        mousekey_repeat++;
-    } else {
+    if (!mousekey_changed()) {
         mousekey_repeat = 0;
+        return;
     }
-    mousekey_x = 0;
-    mousekey_y = 0;
-    mousekey_v = 0;
-    mousekey_h = 0;
-    mousekey_btn = 0;
+
+    // send immediately when buttun state is changed
+    if (report.buttons == report_prev.buttons) {
+        // TODO: delay parameter setting
+        if ((timer_elapsed(last_timer) < (mousekey_repeat == 1 ? 20 : 5))) {
+            return;
+        }
+    }
+
+    if (report.x && report.y) {
+        report.x *= 0.7;
+        report.y *= 0.7;
+    }
+
+    /*
+    print("mousekey_repeat: "); phex(mousekey_repeat); print("\n");
+    print("timer: "); phex16(timer_read()); print("\n");
+    print("last_timer: "); phex16(last_timer); print("\n");
+    print("mousekey: "); phex(report.buttons); print(" "); phex(report.x); print(" "); phex(report.y); print("\n");
+    */
+
+    mousekey_debug();
+
+    host_mouse_send(&report);
+    report_prev.buttons = report.buttons;
+    report_prev.x = report.x;
+    report_prev.y = report.y;
+    if (mousekey_repeat != 0xFF) mousekey_repeat++;
+    last_timer = timer_read();
+    mousekey_clear_report();
+}
+
+void mousekey_clear_report(void)
+{
+    report.buttons = 0;
+    report.x = 0;
+    report.y = 0;
+}
+
+static void mousekey_debug(void)
+{
+    if (!debug_mouse) return;
+    print("mousekey[btn|x y v h]: ");
+    phex(report.buttons); print("|");
+    phex(report.x); print(" ");
+    phex(report.y); print(" ");
+/*
+    phex(report.v); print(" ");
+    phex(report.h);
+*/
+    print("\n");
 }

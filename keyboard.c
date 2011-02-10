@@ -1,93 +1,132 @@
-#include "usb_keycodes.h"
-#include "host.h"
-#include "led.h"
 #include "keyboard.h"
+#include "host.h"
+#include "layer.h"
+#include "matrix_skel.h"
+#include "led.h"
+#include "usb_keycodes.h"
+#include "timer.h"
 #include "print.h"
+#include "debug.h"
+#include "command.h"
+#ifdef MOUSEKEY_ENABLE
+#include "mousekey.h"
+#endif
 
-static report_keyboard_t report0;
-static report_keyboard_t report1;
-report_keyboard_t *keyboard_report = &report0;
-report_keyboard_t *keyboard_report_prev = &report1;
+
+static uint8_t last_led = 0;
 
 
-void keyboard_set_led(uint8_t usb_led)
+void keyboard_init(void)
 {
-    led_set(usb_led);
+    timer_init();
+    matrix_init();
+#ifdef PS2_MOUSE_ENABLE
+    ps2_mouse_init();
+#endif
 }
 
-void keyboard_send(void)
+void keyboard_proc(void)
 {
-    host_keyboard_send(keyboard_report);
-}
+    uint8_t fn_bits = 0;
 
-void keyboard_add_key(uint8_t code)
-{
-    int8_t i = 0;
-    int8_t empty = -1;
-    for (; i < REPORT_KEYS; i++) {
-        if (keyboard_report_prev->keys[i] == code) {
-            keyboard_report->keys[i] = code;
-            break;
+    matrix_scan();
+
+    if (matrix_is_modified()) {
+        if (debug_matrix) matrix_print();
+#ifdef DEBUG_LED
+        // LED flash for debug
+        DEBUG_LED_CONFIG;
+        DEBUG_LED_ON;
+#endif
+    }
+
+    if (matrix_has_ghost()) {
+        // should send error?
+        debug("matrix has ghost!!\n");
+        return;
+    }
+
+    host_swap_keyboard_report();
+    host_clear_keyboard_report();
+    for (int row = 0; row < matrix_rows(); row++) {
+        for (int col = 0; col < matrix_cols(); col++) {
+            if (!matrix_is_on(row, col)) continue;
+
+            uint8_t code = layer_get_keycode(row, col);
+            if (code == KB_NO) {
+                // do nothing
+            } else if (IS_MOD(code)) {
+                host_add_mod_bit(MOD_BIT(code));
+            } else if (IS_FN(code)) {
+                fn_bits |= FN_BIT(code);
+            }
+#ifdef USB_EXTRA_ENABLE
+/* TODO: use new API
+            // audio control & system control
+            else if (code == KB_MUTE) {
+                usb_extra_audio_send(AUDIO_MUTE);
+                usb_extra_audio_send(0);
+                _delay_ms(500);
+            } else if (code == KB_VOLU) {
+                usb_extra_audio_send(AUDIO_VOL_UP);
+                usb_extra_audio_send(0);
+                _delay_ms(200);
+            } else if (code == KB_VOLD) {
+                usb_extra_audio_send(AUDIO_VOL_DOWN);
+                usb_extra_audio_send(0);
+                _delay_ms(200);
+            } else if (code == KB_PWR) {
+                if (suspend && remote_wakeup) {
+                    usb_remote_wakeup();
+                } else {
+                    usb_extra_system_send(SYSTEM_POWER_DOWN);
+                }
+                _delay_ms(1000);
+            }
+*/
+#endif
+            else if (IS_KEY(code)) {
+                host_add_key(code);
+            }
+#ifdef MOUSEKEY_ENABLE
+            else if (IS_MOUSEKEY(code)) {
+                mousekey_decode(code);
+            }
+#endif
+            else {
+                debug("ignore keycode: "); debug_hex(code); debug("\n");
+            }
         }
-        if (empty == -1 && keyboard_report_prev->keys[i] == KB_NO && keyboard_report->keys[i] == KB_NO) {
-            empty = i;
-        }
     }
-    if (i == REPORT_KEYS && empty != -1) {
-        keyboard_report->keys[empty] = code;
+
+    layer_switching(fn_bits);
+
+    if (command_proc()) {
+        // not send report
+        return;
     }
-}
 
-void keyboard_add_mod_bit(uint8_t mod)
-{
-    keyboard_report->mods |= mod;
-}
-
-void keyboard_set_mods(uint8_t mods)
-{
-    keyboard_report->mods = mods;
-}
-
-void keyboard_add_code(uint8_t code)
-{
-    if (IS_MOD(code)) {
-        keyboard_add_mod_bit(MOD_BIT(code));
-    } else {
-        keyboard_add_key(code);
+    if (matrix_is_modified()) {
+        host_send_keyboard_report();
+#ifdef DEBUG_LED
+        // LED flash for debug
+        DEBUG_LED_CONFIG;
+        DEBUG_LED_OFF;
+#endif
     }
-}
 
-void keyboard_swap_report(void)
-{
-    report_keyboard_t *tmp = keyboard_report_prev;
-    keyboard_report_prev = keyboard_report;
-    keyboard_report = tmp;
-}
+#ifdef MOUSEKEY_ENABLE
+    mousekey_send();
+#endif
 
-void keyboard_clear_report(void)
-{
-    keyboard_report->mods = 0;
-    for (int8_t i = 0; i < REPORT_KEYS; i++) {
-        keyboard_report->keys[i] = 0;
+#ifdef PS2_MOUSE_ENABLE
+    // TODO: should comform new API
+    if (ps2_mouse_read() == 0)
+        ps2_mouse_usb_send();
+#endif
+
+    if (last_led != host_keyboard_led()) {
+        led_set(host_keyboard_led());
+        last_led = host_keyboard_led();
     }
-}
-
-uint8_t keyboard_has_anykey(void)
-{
-    uint8_t cnt = 0;
-    for (int i = 0; i < REPORT_KEYS; i++) {
-        if (keyboard_report->keys[i])
-            cnt++;
-    }
-    return cnt;
-}
-
-uint8_t *keyboard_get_keys(void)
-{
-    return keyboard_report->keys;
-}
-
-uint8_t keyboard_get_mods(void)
-{
-    return keyboard_report->mods;
 }
