@@ -37,7 +37,7 @@
 #include "RNDISEthernetHost.h"
 
 /** Buffer to hold incoming and outgoing Ethernet packets. */
-uint8_t PacketBuffer[1024];
+static int8_t PacketBuffer[1024];
 
 /** LUFA RNDIS Class driver interface configuration and state information. This structure is
  *  passed to all RNDIS Class driver functions, so that multiple instances of the same class
@@ -59,6 +59,7 @@ USB_ClassInfo_RNDIS_Host_t Ethernet_RNDIS_Interface =
 				.HostMaxPacketSize          = sizeof(PacketBuffer),
 			},
 	};
+
 
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.

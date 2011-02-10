@@ -39,18 +39,18 @@
 /** Indicates what report mode the host has requested, true for normal HID reporting mode, false for special boot
  *  protocol reporting mode.
  */
-bool UsingReportProtocol = true;
+static bool UsingReportProtocol = true;
 
 /** Current Idle period. This is set by the host via a Set Idle HID class request to silence the device's reports
  *  for either the entire idle duration, or until the report status changes (e.g. the user moves the mouse).
  */
-uint16_t IdleCount = 0;
+static uint16_t IdleCount = 0;
 
 /** Current Idle period remaining. When the IdleCount value is set, this tracks the remaining number of idle
  *  milliseconds. This is separate to the IdleCount timer and is incremented and compared as the host may request
  *  the current idle period via a Get Idle HID class request, thus its value must be preserved.
  */
-uint16_t IdleMSRemaining = 0;
+static uint16_t IdleMSRemaining = 0;
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then

@@ -44,10 +44,11 @@
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_LineEncoding_t LineEncoding = { .BaudRateBPS = 0,
-                                    .CharFormat  = CDC_LINEENCODING_OneStopBit,
-                                    .ParityType  = CDC_PARITY_None,
-                                    .DataBits    = 8                            };
+static CDC_LineEncoding_t LineEncoding = { .BaudRateBPS = 0,
+                                           .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                           .ParityType  = CDC_PARITY_None,
+                                           .DataBits    = 8                            };
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.

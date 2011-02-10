@@ -37,7 +37,7 @@
 #include "KeyboardMouseMultiReport.h"
 
 /** Buffer to hold the previously generated HID report, for comparison purposes inside the HID class driver. */
-uint8_t PrevHIDReportBuffer[MAX(sizeof(USB_KeyboardReport_Data_t), sizeof(USB_MouseReport_Data_t))];
+static uint8_t PrevHIDReportBuffer[MAX(sizeof(USB_KeyboardReport_Data_t), sizeof(USB_MouseReport_Data_t))];
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
@@ -57,6 +57,7 @@ USB_ClassInfo_HID_Device_t Device_HID_Interface =
 				.PrevReportINBufferSize       = sizeof(PrevHIDReportBuffer),
 			},
 	};
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.

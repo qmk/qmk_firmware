@@ -43,12 +43,12 @@
  *  the device will send, and what it may be sent back from the host. Refer to the HID specification for
  *  more details on HID report descriptors.
  */
-USB_Descriptor_HIDReport_Datatype_t HIDReport[] =
+const USB_Descriptor_HIDReport_Datatype_t HIDReport[] =
 {
-	HID_RI_USAGE_PAGE(16, 0xFF00), /* Vendor Page 1 */
-	HID_RI_USAGE(8, 0x01), /* Vendor Usage 1 */
+	HID_RI_USAGE_PAGE(16, 0xFFDC), /* Vendor Page 0xDC */
+	HID_RI_USAGE(8, 0xFB), /* Vendor Usage 0xFB */
 	HID_RI_COLLECTION(8, 0x01), /* Vendor Usage 1 */
-	    HID_RI_USAGE(8, 0x03), /* Vendor Usage 3 */
+	    HID_RI_USAGE(8, 0x02), /* Vendor Usage 2 */
 	    HID_RI_LOGICAL_MINIMUM(8, 0x00),
 	    HID_RI_LOGICAL_MAXIMUM(8, 0xFF),
 	    HID_RI_REPORT_SIZE(8, 0x08),
@@ -62,7 +62,7 @@ USB_Descriptor_HIDReport_Datatype_t HIDReport[] =
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
  */
-USB_Descriptor_Device_t DeviceDescriptor =
+const USB_Descriptor_Device_t DeviceDescriptor =
 {
 	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
@@ -89,7 +89,7 @@ USB_Descriptor_Device_t DeviceDescriptor =
  *  and endpoints. The descriptor is read out by the USB host during the enumeration process when selecting
  *  a configuration so that the host may correctly communicate with the USB device.
  */
-USB_Descriptor_Configuration_t ConfigurationDescriptor =
+const USB_Descriptor_Configuration_t ConfigurationDescriptor =
 {
 	.Config = 
 		{
@@ -154,33 +154,23 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                                     const uint8_t wIndex,
                                     const void** const DescriptorAddress)
 {
-	const uint8_t DescriptorType   = (wValue >> 8);
+	const uint8_t DescriptorType = (wValue >> 8);
 
 	const void* Address = NULL;
 	uint16_t    Size    = NO_DESCRIPTOR;
 	
-	/* If/Else If chain compiles slightly smaller than a switch case */
 	if (DescriptorType == DTYPE_Device)
-	{
-		Address = &DeviceDescriptor;
-		Size    = sizeof(USB_Descriptor_Device_t);	
-	}
+	  Address = &DeviceDescriptor;
 	else if (DescriptorType == DTYPE_Configuration)
-	{
-		Address = &ConfigurationDescriptor;
-		Size    = sizeof(USB_Descriptor_Configuration_t);	
-	}
+	  Address = &ConfigurationDescriptor;
 	else if (DescriptorType == HID_DTYPE_HID)
-	{
-		Address = &ConfigurationDescriptor.HID_VendorHID;
-		Size    = sizeof(USB_HID_Descriptor_HID_t);
-	}
+	  Address = &ConfigurationDescriptor.HID_VendorHID;
 	else
-	{
-		Address = &HIDReport;
-		Size    = sizeof(HIDReport);
-	}
+	  Address = &HIDReport;
 
+	if (Address != NULL)
+	  Size = (Address == &HIDReport) ? sizeof(HIDReport) : ((USB_Descriptor_Header_t*)Address)->Size;
+	
 	*DescriptorAddress = Address;
 	return Size;
 }

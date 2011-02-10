@@ -39,7 +39,7 @@
  *  via a soft reset. When cleared, the bootloader will abort, the USB interface will shut down and the application
  *  started via a forced watchdog reset.
  */
-bool RunBootloader = true;
+static bool RunBootloader = true;
 
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously 
  *  runs the bootloader processing routine until instructed to soft-exit.
@@ -127,7 +127,7 @@ void EVENT_USB_Device_ControlRequest(void)
 				boot_spm_busy_wait();
 				
 				/* Write each of the FLASH page's bytes in sequence */
-				for (uint16_t PageByte = 0; PageByte < SPM_PAGESIZE; PageByte += 2)				
+				for (uint8_t PageWord = 0; PageWord < (SPM_PAGESIZE / 2); PageWord++)				
 				{
 					/* Check if endpoint is empty - if so clear it and wait until ready for next packet */
 					if (!(Endpoint_BytesInEndpoint()))
@@ -137,7 +137,7 @@ void EVENT_USB_Device_ControlRequest(void)
 					}
 
 					/* Write the next data word to the FLASH page */
-					boot_page_fill(PageAddress + PageByte, Endpoint_Read_Word_LE());
+					boot_page_fill(PageAddress + ((uint16_t)PageWord << 1), Endpoint_Read_Word_LE());
 				}
 
 				/* Write the filled FLASH page to memory */

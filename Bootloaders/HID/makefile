@@ -91,7 +91,7 @@ F_CLOCK = $(F_CPU)
 # Note that the bootloader size and start address given in AVRStudio is in words and not
 # bytes, and so will need to be doubled to obtain the byte address needed by AVR-GCC.
 FLASH_SIZE_KB        = 128
-BOOT_SECTION_SIZE_KB = 2
+BOOT_SECTION_SIZE_KB = 4
 BOOT_START           = 0x$(shell echo "obase=16; ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024" | bc)
 
 
@@ -124,6 +124,7 @@ LUFA_OPTS += -D USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENAB
 LUFA_OPTS += -D NO_INTERNAL_SERIAL
 LUFA_OPTS += -D NO_DEVICE_SELF_POWER
 LUFA_OPTS += -D NO_DEVICE_REMOTE_WAKEUP
+LUFA_OPTS += -D NO_SOF_EVENTS
 
 
 # Create the LUFA source path variables by including the LUFA root makefile

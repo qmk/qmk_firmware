@@ -37,17 +37,16 @@
 #include "USBtoSerial.h"
 
 /** Circular buffer to hold data from the host before it is sent to the device via the serial port. */
-RingBuffer_t USBtoUSART_Buffer;
+static RingBuffer_t USBtoUSART_Buffer;
 
 /** Underlying data buffer for \ref USBtoUSART_Buffer, where the stored bytes are located. */
-uint8_t      USBtoUSART_Buffer_Data[128];
+static uint8_t      USBtoUSART_Buffer_Data[128];
 
 /** Circular buffer to hold data from the serial port before it is sent to the host. */
-RingBuffer_t USARTtoUSB_Buffer;
+static RingBuffer_t USARTtoUSB_Buffer;
 
 /** Underlying data buffer for \ref USARTtoUSB_Buffer, where the stored bytes are located. */
-uint8_t      USARTtoUSB_Buffer_Data[128];
-
+static uint8_t      USARTtoUSB_Buffer_Data[128];
 
 /** LUFA CDC Class driver interface configuration and state information. This structure is
  *  passed to all CDC Class driver functions, so that multiple instances of the same class
@@ -72,6 +71,7 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 				.NotificationEndpointDoubleBank = false,
 			},
 	};
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.

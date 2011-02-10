@@ -39,22 +39,22 @@
 /** Contains the current baud rate and other settings of the first virtual serial port. This must be retained as some
  *  operating systems will not open the port unless the settings can be set successfully.
  */
-CDC_Line_Coding_t LineEncoding = { .BaudRateBPS = 0,
-                                   .CharFormat  = OneStopBit,
-                                   .ParityType  = Parity_None,
-                                   .DataBits    = 8            };
+static CDC_LineEncoding_t LineEncoding = { .BaudRateBPS = 0,
+                                           .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                           .ParityType  = CDC_PARITY_None,
+                                           .DataBits    = 8                            };
 
 /** Current address counter. This stores the current address of the FLASH or EEPROM as set by the host,
  *  and is used when reading or writing to the AVRs memory (either FLASH or EEPROM depending on the issued
  *  command.)
  */
-uint32_t CurrAddress;
+static uint32_t CurrAddress;
 
 /** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
  *  via a watchdog reset. When cleared the bootloader will exit, starting the watchdog and entering an infinite
  *  loop until the AVR restarts and the application runs.
  */
-bool RunBootloader = true;
+static bool RunBootloader = true;
 
 
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously
@@ -137,24 +137,24 @@ void EVENT_USB_Device_ControlRequest(void)
 	/* Process CDC specific control requests */
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_GetLineEncoding:
+		case CDC_REQ_GetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
 
 				/* Write the line coding data to the control endpoint */
-				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
+				Endpoint_Write_Control_Stream_LE(&LineEncoding, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearOUT();
 			}
 
 			break;
-		case REQ_SetLineEncoding:
+		case CDC_REQ_SetLineEncoding:
 			if (USB_ControlRequest.bmRequestType == (REQDIR_HOSTTODEVICE | REQTYPE_CLASS | REQREC_INTERFACE))
 			{
 				Endpoint_ClearSETUP();
 
 				/* Read the line coding data in from the host into the global struct */
-				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(CDC_Line_Coding_t));
+				Endpoint_Read_Control_Stream_LE(&LineEncoding, sizeof(CDC_LineEncoding_t));
 				Endpoint_ClearIN();
 			}
 

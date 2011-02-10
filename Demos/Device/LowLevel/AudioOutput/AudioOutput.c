@@ -37,7 +37,8 @@
 #include "AudioOutput.h"
 
 /** Flag to indicate if the streaming audio alternative interface has been selected by the host. */
-bool StreamingAudioInterfaceSelected = false;
+static bool StreamingAudioInterfaceSelected = false;
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.

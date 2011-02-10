@@ -46,46 +46,46 @@
 #include "MissileLauncher.h"
 
 /** Launcher first init command report data sequence */
-uint8_t CMD_INITA[8]     = {  85, 83, 66, 67,  0,  0,  4,  0  };
+static const uint8_t CMD_INITA[8]     = {  85, 83, 66, 67,  0,  0,  4,  0  };
 
 /** Launcher second init command report data sequence */
-uint8_t CMD_INITB[8]     = {  85, 83, 66, 67,  0, 64,  2,  0  };
+static const uint8_t CMD_INITB[8]     = {  85, 83, 66, 67,  0, 64,  2,  0  };
 
 /** Launcher command report data sequence to stop all movement */
-uint8_t CMD_STOP[8]      = {   0,  0,  0,  0,  0,  0,  8,  8  };
+static const uint8_t CMD_STOP[8]      = {   0,  0,  0,  0,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move left */
-uint8_t CMD_LEFT[8]      = {   0,  1,  0,  0,  0,  0,  8,  8  };
+static const uint8_t CMD_LEFT[8]      = {   0,  1,  0,  0,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move right */
-uint8_t CMD_RIGHT[8]     = {   0,  0,  1,  0,  0,  0,  8,  8  };
+static const uint8_t CMD_RIGHT[8]     = {   0,  0,  1,  0,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move up */
-uint8_t CMD_UP[8]        = {   0,  0,  0,  1,  0,  0,  8,  8  };
+static const uint8_t CMD_UP[8]        = {   0,  0,  0,  1,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move down */
-uint8_t CMD_DOWN[8]      = {   0,  0,  0,  0,  1,  0,  8,  8  };
+static const uint8_t CMD_DOWN[8]      = {   0,  0,  0,  0,  1,  0,  8,  8  };
 
 /** Launcher command report data sequence to move left and up */
-uint8_t CMD_LEFTUP[8]    = {   0,  1,  0,  1,  0,  0,  8,  8  };
+static const uint8_t CMD_LEFTUP[8]    = {   0,  1,  0,  1,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move right and up */
-uint8_t CMD_RIGHTUP[8]   = {   0,  0,  1,  1,  0,  0,  8,  8  };
+static const uint8_t CMD_RIGHTUP[8]   = {   0,  0,  1,  1,  0,  0,  8,  8  };
 
 /** Launcher command report data sequence to move left and down */
-uint8_t CMD_LEFTDOWN[8]  = {   0,  1,  0,  0,  1,  0,  8,  8  };
+static const uint8_t CMD_LEFTDOWN[8]  = {   0,  1,  0,  0,  1,  0,  8,  8  };
 
 /** Launcher command report data sequence to move right and down */
-uint8_t CMD_RIGHTDOWN[8] = {   0,  0,  1,  0,  1,  0,  8,  8  };
+static const uint8_t CMD_RIGHTDOWN[8] = {   0,  0,  1,  0,  1,  0,  8,  8  };
 
 /** Launcher command report data sequence to fire a missile */
-uint8_t CMD_FIRE[8]      = {   0,  0,  0,  0,  0,  1,  8,  8  };
+static const uint8_t CMD_FIRE[8]      = {   0,  0,  0,  0,  0,  1,  8,  8  };
 
 /** Last command sent to the launcher, to determine what new command (if any) must be sent */
-uint8_t* CmdState;
+static const uint8_t* CmdState;
 
 /** Buffer to hold a command to send to the launcher */
-uint8_t  CmdBuffer[LAUNCHER_CMD_BUFFER_SIZE];
+static uint8_t CmdBuffer[LAUNCHER_CMD_BUFFER_SIZE];
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then
@@ -151,7 +151,7 @@ void Read_Joystick_Status(void)
  *  \param[in] Report  Report data to send.
  *  \param[in] ReportSize  Report length in bytes.
  */
-void Send_Command_Report(uint8_t* const Report,
+void Send_Command_Report(const uint8_t* const Report,
                          const uint16_t ReportSize)
 {
 	memcpy(CmdBuffer, Report, 8);
@@ -162,7 +162,7 @@ void Send_Command_Report(uint8_t* const Report,
  *
  *  \param[in] Command  One of the command constants.
  */
-void Send_Command(uint8_t* const Command)
+void Send_Command(const uint8_t* const Command)
 {
 	if ((CmdState == CMD_STOP && Command != CMD_STOP) ||
 		(CmdState != CMD_STOP && Command == CMD_STOP))

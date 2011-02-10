@@ -38,17 +38,19 @@
 #include "uIPManagement.h"
 
 /** Connection timer, to retain the time elapsed since the last time the uIP connections were managed. */
-struct timer ConnectionTimer;
+static struct timer ConnectionTimer;
 
 /** ARP timer, to retain the time elapsed since the ARP cache was last updated. */
-struct timer ARPTimer;
+static struct timer ARPTimer;
 
-/** MAC address of the RNDIS device, when enumerated */
+/** MAC address of the RNDIS device, when enumerated. */
 struct uip_eth_addr MACAddress;
 
+/** Indicates if an IP configuration has been set in the device. */
 bool HaveIPConfiguration;
 
-/** Configures the uIP stack ready for network traffic. */
+
+/** Configures the uIP stack ready for network traffic processing. */
 void uIPManagement_Init(void)
 {
 	/* uIP Timing Initialization */

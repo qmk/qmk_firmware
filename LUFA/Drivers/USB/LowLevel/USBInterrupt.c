@@ -55,19 +55,19 @@ void USB_INT_DisableAllInterrupts(void)
 void USB_INT_ClearAllInterrupts(void)
 {
 	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-	USBINT  = 0;
+	USBINT = 0;
 	#endif
 
 	#if defined(USB_CAN_BE_BOTH)
-	OTGINT  = 0;
+	OTGINT = 0;
 	#endif
 
 	#if defined(USB_CAN_BE_HOST)
-	UHINT   = 0;
+	UHINT  = 0;
 	#endif
 
 	#if defined(USB_CAN_BE_DEVICE)
-	UDINT   = 0;
+	UDINT  = 0;
 	#endif
 }
 

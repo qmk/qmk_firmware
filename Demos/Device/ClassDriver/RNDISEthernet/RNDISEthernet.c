@@ -63,6 +63,7 @@ USB_ClassInfo_RNDIS_Device_t Ethernet_RNDIS_Interface =
 			},
 	};
 
+
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */

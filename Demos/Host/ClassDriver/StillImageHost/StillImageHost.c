@@ -55,6 +55,7 @@ USB_ClassInfo_SI_Host_t DigitalCamera_SI_Interface =
 			},
 	};
 
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */

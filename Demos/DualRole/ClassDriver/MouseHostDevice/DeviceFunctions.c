@@ -37,7 +37,7 @@
 #include "DeviceFunctions.h"
 
 /** Buffer to hold the previously generated Mouse Device HID report, for comparison purposes inside the HID class driver. */
-uint8_t PrevMouseHIDReportBuffer[sizeof(USB_MouseReport_Data_t)];
+static uint8_t PrevMouseHIDReportBuffer[sizeof(USB_MouseReport_Data_t)];
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class

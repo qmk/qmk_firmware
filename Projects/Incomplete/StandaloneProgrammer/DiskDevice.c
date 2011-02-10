@@ -53,6 +53,7 @@ USB_ClassInfo_MS_Device_t DiskDevice_MS_Interface =
 			},
 	};
 
+
 void DiskDevice_USBTask(void)
 {
 	MS_Device_USBTask(&DiskDevice_MS_Interface);

@@ -40,57 +40,57 @@
  *  other than erase. This is initially set to the value set by SECURE_MODE, and cleared by the bootloader
  *  once a memory erase has completed in a bootloader session.
  */
-bool IsSecure = SECURE_MODE;
+static bool IsSecure = SECURE_MODE;
 
 /** Flag to indicate if the bootloader should be running, or should exit and allow the application code to run
  *  via a soft reset. When cleared, the bootloader will abort, the USB interface will shut down and the application
  *  jumped to via an indirect jump to location 0x0000 (or other location specified by the host).
  */
-bool RunBootloader = true;
+static bool RunBootloader = true;
 
 /** Flag to indicate if the bootloader is waiting to exit. When the host requests the bootloader to exit and
  *  jump to the application address it specifies, it sends two sequential commands which must be properly
  *  acknowledged. Upon reception of the first the RunBootloader flag is cleared and the WaitForExit flag is set,
  *  causing the bootloader to wait for the final exit command before shutting down.
  */
-bool WaitForExit = false;
+static bool WaitForExit = false;
 
 /** Current DFU state machine state, one of the values in the DFU_State_t enum. */
-uint8_t DFU_State = dfuIDLE;
+static uint8_t DFU_State = dfuIDLE;
 
 /** Status code of the last executed DFU command. This is set to one of the values in the DFU_Status_t enum after
  *  each operation, and returned to the host when a Get Status DFU request is issued.
  */
-uint8_t DFU_Status = OK;
+static uint8_t DFU_Status = OK;
 
 /** Data containing the DFU command sent from the host. */
-DFU_Command_t SentCommand;
+static DFU_Command_t SentCommand;
 
 /** Response to the last issued Read Data DFU command. Unlike other DFU commands, the read command
  *  requires a single byte response from the bootloader containing the read data when the next DFU_UPLOAD command
  *  is issued by the host.
  */
-uint8_t ResponseByte;
+static uint8_t ResponseByte;
 
 /** Pointer to the start of the user application. By default this is 0x0000 (the reset vector), however the host
  *  may specify an alternate address when issuing the application soft-start command.
  */
-AppPtr_t AppStartPtr = (AppPtr_t)0x0000;
+static AppPtr_t AppStartPtr = (AppPtr_t)0x0000;
 
 /** 64-bit flash page number. This is concatenated with the current 16-bit address on USB AVRs containing more than
  *  64KB of flash memory.
  */
-uint8_t Flash64KBPage = 0;
+static uint8_t Flash64KBPage = 0;
 
 /** Memory start address, indicating the current address in the memory being addressed (either FLASH or EEPROM
  *  depending on the issued command from the host).
  */
-uint16_t StartAddr = 0x0000;
+static uint16_t StartAddr = 0x0000;
 
 /** Memory end address, indicating the end address to read to/write from in the memory being addressed (either FLASH
  *  of EEPROM depending on the issued command from the host).
  */
-uint16_t EndAddr = 0x0000;
+static uint16_t EndAddr = 0x0000;
 
 
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously
@@ -180,7 +180,7 @@ void EVENT_USB_Device_ControlRequest(void)
 
 	switch (USB_ControlRequest.bRequest)
 	{
-		case REQ_DFU_DNLOAD:
+		case DFU_REQ_DNLOAD:
 			Endpoint_ClearSETUP();
 
 			/* Check if bootloader is waiting to terminate */
@@ -333,7 +333,7 @@ void EVENT_USB_Device_ControlRequest(void)
 			Endpoint_ClearStatusStage();
 
 			break;
-		case REQ_DFU_UPLOAD:
+		case DFU_REQ_UPLOAD:
 			Endpoint_ClearSETUP();
 
 			while (!(Endpoint_IsINReady()))
@@ -432,7 +432,7 @@ void EVENT_USB_Device_ControlRequest(void)
 
 			Endpoint_ClearStatusStage();
 			break;
-		case REQ_DFU_GETSTATUS:
+		case DFU_REQ_GETSTATUS:
 			Endpoint_ClearSETUP();
 
 			/* Write 8-bit status value */
@@ -452,7 +452,7 @@ void EVENT_USB_Device_ControlRequest(void)
 
 			Endpoint_ClearStatusStage();
 			break;
-		case REQ_DFU_CLRSTATUS:
+		case DFU_REQ_CLRSTATUS:
 			Endpoint_ClearSETUP();
 
 			/* Reset the status value variable to the default OK status */
@@ -460,7 +460,7 @@ void EVENT_USB_Device_ControlRequest(void)
 
 			Endpoint_ClearStatusStage();
 			break;
-		case REQ_DFU_GETSTATE:
+		case DFU_REQ_GETSTATE:
 			Endpoint_ClearSETUP();
 
 			/* Write the current device state to the endpoint */
@@ -470,7 +470,7 @@ void EVENT_USB_Device_ControlRequest(void)
 
 			Endpoint_ClearStatusStage();
 			break;
-		case REQ_DFU_ABORT:
+		case DFU_REQ_ABORT:
 			Endpoint_ClearSETUP();
 
 			/* Reset the current state variable to the default idle state */

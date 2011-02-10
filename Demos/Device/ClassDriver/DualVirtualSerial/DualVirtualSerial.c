@@ -86,6 +86,7 @@ USB_ClassInfo_CDC_Device_t VirtualSerial2_CDC_Interface =
 			},
 	};
 
+
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */

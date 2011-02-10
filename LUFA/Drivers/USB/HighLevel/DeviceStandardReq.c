@@ -48,7 +48,7 @@ bool    USB_RemoteWakeupEnabled;
 
 void USB_Device_ProcessControlRequest(void)
 {
-	uint8_t* RequestHeader  = (uint8_t*)&USB_ControlRequest;
+	uint8_t* RequestHeader = (uint8_t*)&USB_ControlRequest;
 
 	for (uint8_t RequestHeaderByte = 0; RequestHeaderByte < sizeof(USB_Request_Header_t); RequestHeaderByte++)
 	  *(RequestHeader++) = Endpoint_Read_Byte();
@@ -123,10 +123,10 @@ static void USB_Device_SetAddress(void)
 
 		while (!(Endpoint_IsINReady()));
 
-		USB_DeviceState = (DeviceAddress) ? DEVICE_STATE_Addressed : DEVICE_STATE_Default;
-
 		USB_Device_SetDeviceAddress(DeviceAddress);
 	}
+	
+	USB_DeviceState = (DeviceAddress) ? DEVICE_STATE_Addressed : DEVICE_STATE_Default;
 }
 
 static void USB_Device_SetConfiguration(void)

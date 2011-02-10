@@ -57,7 +57,7 @@ USB_ClassInfo_MIDI_Device_t Keyboard_MIDI_Interface =
 	};
 
 /** 8-bit 256 entry Sine Wave lookup table */
-const uint8_t SineTable[256] =
+static const uint8_t SineTable[256] =
 {
 	128, 131, 134, 137, 140, 143, 146, 149, 152, 156, 159, 162, 165, 168, 171, 174,
 	176, 179, 182, 185, 188, 191, 193, 196, 199, 201, 204, 206, 209, 211, 213, 216,
@@ -78,7 +78,8 @@ const uint8_t SineTable[256] =
 };
 
 /** Array of structures describing each note being generated */
-DDSNoteData NoteData[MAX_SIMULTANEOUS_NOTES];
+static DDSNoteData NoteData[MAX_SIMULTANEOUS_NOTES];
+
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.

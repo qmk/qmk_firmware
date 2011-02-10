@@ -51,6 +51,7 @@ static uint8_t RX_BitsRemaining;
 /** Temporary data variable to hold the byte being received as it is shifted in */
 static uint8_t RX_Data;
 
+
 /** Initialises the software UART, ready for data transmission and reception into the global ring buffers. */
 void SoftUART_Init(void)
 {

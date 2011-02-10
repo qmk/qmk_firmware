@@ -73,9 +73,9 @@
 		void SetupHardware(void);
 
 		void Read_Joystick_Status(void);
-        void Send_Command_Report(uint8_t* const Report,
+        void Send_Command_Report(const uint8_t* const Report,
 		                         const uint16_t ReportSize);
-        void Send_Command(uint8_t* const Command);
+        void Send_Command(const uint8_t* const Command);
 
 		void HID_Host_Task(void);
 

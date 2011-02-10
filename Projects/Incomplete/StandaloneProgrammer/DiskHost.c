@@ -47,6 +47,7 @@ USB_ClassInfo_MS_Host_t DiskHost_MS_Interface =
 			},
 	};
 
+
 void DiskHost_USBTask(void)
 {
 	if (USB_HostState == HOST_STATE_Addressed)

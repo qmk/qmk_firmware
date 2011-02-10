@@ -38,10 +38,10 @@
 #include "KeyboardMouse.h"
 
 /** Global structure to hold the current keyboard interface HID report, for transmission to the host */
-USB_KeyboardReport_Data_t KeyboardReportData;
+static USB_KeyboardReport_Data_t KeyboardReportData;
 
 /** Global structure to hold the current mouse interface HID report, for transmission to the host */
-USB_MouseReport_Data_t MouseReportData;
+static USB_MouseReport_Data_t MouseReportData;
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then

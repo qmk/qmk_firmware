@@ -55,6 +55,7 @@ USB_ClassInfo_CDC_Host_t VirtualSerial_CDC_Interface =
 			},
 	};
 
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */

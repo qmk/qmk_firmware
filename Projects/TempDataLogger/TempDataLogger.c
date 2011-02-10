@@ -59,7 +59,7 @@ USB_ClassInfo_MS_Device_t Disk_MS_Interface =
 	};
 
 /** Buffer to hold the previously generated HID report, for comparison purposes inside the HID class driver. */
-uint8_t PrevHIDReportBuffer[GENERIC_REPORT_SIZE];
+static uint8_t PrevHIDReportBuffer[GENERIC_REPORT_SIZE];
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
@@ -81,19 +81,19 @@ USB_ClassInfo_HID_Device_t Generic_HID_Interface =
 	};
 
 /** Non-volatile Logging Interval value in EEPROM, stored as a number of 500ms ticks */
-uint8_t EEMEM LoggingInterval500MS_EEPROM = DEFAULT_LOG_INTERVAL;
+static uint8_t EEMEM LoggingInterval500MS_EEPROM = DEFAULT_LOG_INTERVAL;
 
 /** SRAM Logging Interval value fetched from EEPROM, stored as a number of 500ms ticks */
-uint8_t LoggingInterval500MS_SRAM;
+static uint8_t LoggingInterval500MS_SRAM;
 
 /** Total number of 500ms logging ticks elapsed since the last log value was recorded */
-uint16_t CurrentLoggingTicks;
+static uint16_t CurrentLoggingTicks;
 
 /** FAT Fs structure to hold the internal state of the FAT driver for the Dataflash contents. */
-FATFS DiskFATState;
+static FATFS DiskFATState;
 
 /** FAT Fs structure to hold a FAT file handle for the log data write destination. */
-FIL TempLogFile;
+static FIL TempLogFile;
 
 
 /** ISR to handle the 500ms ticks for sampling and data logging */

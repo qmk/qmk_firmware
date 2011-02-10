@@ -52,6 +52,7 @@ USB_ClassInfo_PRNT_Host_t Printer_PRNT_Interface =
 			},
 	};
 
+
 /** Main program entry point. This routine configures the hardware required by the application, then
  *  enters a loop to run the application tasks in sequence.
  */

@@ -44,10 +44,10 @@
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_LineEncoding_t LineEncoding1 = { .BaudRateBPS = 0,
-                                     .CharFormat  = CDC_LINEENCODING_OneStopBit,
-                                     .ParityType  = CDC_PARITY_None,
-                                     .DataBits    = 8                            };
+static CDC_LineEncoding_t LineEncoding1 = { .BaudRateBPS = 0,
+                                            .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                            .ParityType  = CDC_PARITY_None,
+                                            .DataBits    = 8                            };
 
 /** Contains the current baud rate and other settings of the second virtual serial port. While this demo does not use
  *  the physical USART and thus does not use these settings, they must still be retained and returned to the host
@@ -57,10 +57,10 @@ CDC_LineEncoding_t LineEncoding1 = { .BaudRateBPS = 0,
  *  It is possible to completely ignore these value or use other settings as the host is completely unaware of the physical
  *  serial link characteristics and instead sends and receives data in endpoint streams.
  */
-CDC_LineEncoding_t LineEncoding2 = { .BaudRateBPS = 0,
-                                     .CharFormat  = CDC_LINEENCODING_OneStopBit,
-                                     .ParityType  = CDC_PARITY_None,
-                                     .DataBits    = 8                            };
+static CDC_LineEncoding_t LineEncoding2 = { .BaudRateBPS = 0,
+                                            .CharFormat  = CDC_LINEENCODING_OneStopBit,
+                                            .ParityType  = CDC_PARITY_None,
+                                            .DataBits    = 8                            };
 
 
 /** Main program entry point. This routine configures the hardware required by the application, then

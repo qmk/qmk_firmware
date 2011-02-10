@@ -56,6 +56,7 @@ USB_ClassInfo_MIDI_Device_t Keyboard_MIDI_Interface =
 			},
 	};
 
+
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */

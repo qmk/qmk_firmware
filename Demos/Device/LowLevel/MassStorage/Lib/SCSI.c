@@ -41,7 +41,7 @@
 /** Structure to hold the SCSI response data to a SCSI INQUIRY command. This gives information about the device's
  *  features and capabilities.
  */
-SCSI_Inquiry_Response_t InquiryData =
+static const SCSI_Inquiry_Response_t InquiryData =
 	{
 		.DeviceType          = DEVICE_TYPE_BLOCK,
 		.PeripheralQualifier = 0,
@@ -73,7 +73,7 @@ SCSI_Inquiry_Response_t InquiryData =
 /** Structure to hold the sense data for the last issued SCSI command, which is returned to the host after a SCSI REQUEST SENSE
  *  command is issued. This gives information on exactly why the last command failed to complete.
  */
-SCSI_Request_Sense_Response_t SenseData =
+static SCSI_Request_Sense_Response_t SenseData =
 	{
 		.ResponseCode        = 0x70,
 		.AdditionalLength    = 0x0A,

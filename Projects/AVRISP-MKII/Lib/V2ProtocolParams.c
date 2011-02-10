@@ -37,7 +37,7 @@
 #include "V2ProtocolParams.h"
 
 /* Non-Volatile Parameter Values for EEPROM storage */
-uint8_t EEMEM EEPROM_Rest_Polarity = 0x00;
+static uint8_t EEMEM EEPROM_Rest_Polarity = 0x00;
 
 /* Volatile Parameter Values for RAM storage */
 static ParameterItem_t ParameterTable[] =

@@ -67,13 +67,13 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 RingBuffer_t USBtoUART_Buffer;
 
 /** Underlying data buffer for \ref USBtoUART_Buffer, where the stored bytes are located. */
-uint8_t      USBtoUART_Buffer_Data[128];
+static uint8_t      USBtoUART_Buffer_Data[128];
 
 /** Circular buffer to hold data from the serial port before it is sent to the host. */
 RingBuffer_t UARTtoUSB_Buffer;
 
 /** Underlying data buffer for \ref UARTtoUSB_Buffer, where the stored bytes are located. */
-uint8_t      UARTtoUSB_Buffer_Data[128];
+static uint8_t      UARTtoUSB_Buffer_Data[128];
 
 
 /** Main program entry point. This routine contains the overall program flow, including initial

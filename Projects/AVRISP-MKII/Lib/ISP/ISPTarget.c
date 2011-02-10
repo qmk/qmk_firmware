@@ -108,10 +108,10 @@ static uint16_t TimerCompareFromSCKDuration[] PROGMEM =
 bool HardwareSPIMode = true;
 
 /** Software SPI data register for sending and receiving */
-volatile uint8_t SoftSPI_Data;
+static volatile uint8_t SoftSPI_Data;
 
 /** Number of bits left to transfer in the software SPI driver */
-volatile uint8_t SoftSPI_BitsRemaining;
+static volatile uint8_t SoftSPI_BitsRemaining;
 
 
 /** ISR to handle software SPI transmission and reception */

@@ -37,7 +37,7 @@
 #include "KeyboardHostWithParser.h"
 
 /** Processed HID report descriptor items structure, containing information on each HID report element */
-HID_ReportInfo_t HIDReportInfo;
+static HID_ReportInfo_t HIDReportInfo;
 
 /** LUFA HID Class driver interface configuration and state information. This structure is
  *  passed to all HID Class driver functions, so that multiple instances of the same class
