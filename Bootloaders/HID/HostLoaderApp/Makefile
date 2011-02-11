@@ -14,7 +14,7 @@ else ifeq ($(OS), WINDOWS)
 CC = i586-mingw32msvc-gcc
 CFLAGS ?= -O2 -Wall
 hid_bootloader_cli.exe: hid_bootloader_cli.c
-	$(CC) $(CFLAGS) -s -DUSE_WIN32 -o thid_bootloader_cli.exe hid_bootloader_cli.c -lhid -lsetupapi
+	$(CC) $(CFLAGS) -s -DUSE_WIN32 -o hid_bootloader_cli.exe hid_bootloader_cli.c -lhid -lsetupapi
 
 
 else ifeq ($(OS), MACOSX)
@@ -29,11 +29,11 @@ else ifeq ($(OS), BSD)  # works on NetBSD and OpenBSD
 CC ?= gcct
 CFLAGS ?= -O2 -Wall
 hid_bootloader_cli: hid_bootloader_cli.c
-	$(CC) $(CFLAGS) -s -DUSE_UHID -o teensy_loader_cli hid_bootloader_cli.c
+	$(CC) $(CFLAGS) -s -DUSE_UHID -o hid_bootloader_cli hid_bootloader_cli.c
 
 
 endif
 
 
 clean:
-	rm -f thid_bootloader_cli hid_bootloader_cli.exe
+	rm -f hid_bootloader_cli hid_bootloader_cli.exe
