@@ -13,8 +13,13 @@
 /* matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
+
+/* key combination for command */
+#define IS_COMMAND() (keyboard_report->mods == (BIT_LSHIFT | BIT_RSHIFT))
+
 
 /* USB NKey Rollover */
 #ifdef USB_NKRO_ENABLE

@@ -1,13 +1,5 @@
-# Following variables need to be set in <target>/Makefile:
-# 	TARGET
-# 	COMMON_DIR
-# 	TARGET_DIR
-# 	TARGET_SRC
-# 	MCU
-# 	F_CPU
+OPT_DEFS += -DHOST_VUSB
 
-
-# List C source files here. (C dependencies are automatically generated.)
 SRC =	usbdrv.c \
 	usbdrvasm.S \
 	oddebug.c

@@ -12,12 +12,12 @@ static report_keyboard_t report1;
 report_keyboard_t *keyboard_report = &report0;
 report_keyboard_t *keyboard_report_prev = &report1;
 
-static uint8_t keyboard_led = 0;
+static uint8_t keyboard_leds = 0;
 static uchar   idleRate = 0;
 
-uint8_t host_keyboard_led(void)
+uint8_t host_keyboard_leds(void)
 {
-    return keyboard_led;
+    return keyboard_leds;
 }
 
 
@@ -190,7 +190,7 @@ uchar usbFunctionWrite(uchar *data, uchar len)
     switch (last_req.kind) {
         case SET_LED:
             //debug("SET_LED\n");
-            keyboard_led = data[0];
+            keyboard_leds = data[0];
             last_req.len = 0;
             return 1;
             break;

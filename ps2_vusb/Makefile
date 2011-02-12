@@ -13,7 +13,6 @@ TARGET_SRC =	main.c \
 		matrix.c \
 		led.c \
 		ps2.c \
-		host_vusb.c \
 		usart_print.c
 
 OPT_DEFS = -DDEBUG_LEVEL=0

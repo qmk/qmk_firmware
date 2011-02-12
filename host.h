@@ -26,7 +26,17 @@
 #define MOUSE_BTN5 (1<<4)
 
 
-#define REPORT_KEYS 6
+#if defined(HOST_PJRC)
+#   include "usb.h"
+#   if defined(KBD2_REPORT_KEYS) && KBD2_REPORT_KEYS > KBD_REPORT_KEYS
+#       define REPORT_KEYS KBD2_REPORT_KEYS
+#   else
+#       define REPORT_KEYS KBD_REPORT_KEYS
+#   endif
+#elif defined(HOST_VUSB)
+#   define REPORT_KEYS 6
+#endif
+
 typedef struct {
     uint8_t mods;
     uint8_t rserved;
@@ -37,16 +47,20 @@ typedef struct {
     uint8_t buttons;
     int8_t x;
     int8_t y;
-/*
     int8_t v;
     int8_t h;
- */
 } report_mouse_t;
 
+
+#ifdef USB_NKRO_ENABLE
+extern bool keyboard_nkro;
+#endif
 
 extern report_keyboard_t *keyboard_report;
 extern report_keyboard_t *keyboard_report_prev;
 
+
+uint8_t host_keyboard_leds(void);
 
 /* keyboard report operations */
 void host_add_key(uint8_t key);
@@ -61,7 +75,6 @@ uint8_t host_get_mods(void);
 
 
 void host_send_keyboard_report(void);
-void host_send_mouse_report(void);
 void host_mouse_send(report_mouse_t *report);
 
 #endif

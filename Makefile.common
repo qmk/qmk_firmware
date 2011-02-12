@@ -1,18 +1,35 @@
-SRC +=	keyboard.c \
+SRC +=	host.c \
+	keyboard.c \
 	command.c \
 	layer.c \
 	timer.c \
 	print.c \
 	util.c
 
+
 # Option modules
 ifdef MOUSEKEY_ENABLE
     SRC += mousekey.c
+    OPT_DEFS += -DMOUSEKEY_ENABLE
 endif
 
 ifdef PS2_MOUSE_ENABLE
     SRC += ps2.c \
 	   ps2_mouse.c
+    OPT_DEFS += -DPS2_MOUSE_ENABLE
 endif
+
+ifdef USB_EXTRA_ENABLE
+    OPT_DEFS += -DUSB_EXTRA_ENABLE
+endif
+
+ifdef USB_NKRO_ENABLE
+    OPT_DEFS += -DUSB_NKRO_ENABLE
+endif
+
+ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)
+    OPT_DEFS += -DUSB_MOUSE_ENABLE
+endif
+
 
 include $(COMMON_DIR)/Makefile.rules

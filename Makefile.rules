@@ -78,22 +78,6 @@ EXTRAINCDIRS = $(subst :, ,$(VPATH))
 CSTANDARD = -std=gnu99
 
 
-ifdef MOUSEKEY_ENABLE
-    OPT_DEFS += -DMOUSEKEY_ENABLE
-endif
-ifdef PS2_MOUSE_ENABLE
-    OPT_DEFS += -DPS2_MOUSE_ENABLE
-endif
-ifdef USB_EXTRA_ENABLE
-    OPT_DEFS += -DUSB_EXTRA_ENABLE
-endif
-ifdef USB_NKRO_ENABLE
-    OPT_DEFS += -DUSB_NKRO_ENABLE
-endif
-ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)
-    OPT_DEFS += -DUSB_MOUSE_ENABLE
-endif
-
 # Place -D or -U options here for C sources
 CDEFS = -DF_CPU=$(F_CPU)UL
 CDEFS += $(OPT_DEFS)

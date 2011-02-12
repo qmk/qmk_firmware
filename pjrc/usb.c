@@ -687,10 +687,10 @@ ISR(USB_GEN_vect)
 				usb_keyboard_idle_count++;
 				if (usb_keyboard_idle_count == usb_keyboard_idle_config) {
 					usb_keyboard_idle_count = 0;
-					UEDATX = usb_keyboard_mods;
+					UEDATX = keyboard_report->mods;
 					UEDATX = 0;
 					for (i=0; i<6; i++) {
-						UEDATX = usb_keyboard_keys[i];
+						UEDATX = keyboard_report->keys[i];
 					}
 					UEINTX = 0x3A;
 				}
@@ -873,10 +873,10 @@ ISR(USB_COM_vect)
 			if (bmRequestType == 0xA1) {
 				if (bRequest == HID_GET_REPORT) {
 					usb_wait_in_ready();
-					UEDATX = usb_keyboard_mods;
+					UEDATX = keyboard_report->mods;
 					UEDATX = 0;
 					for (i=0; i<6; i++) {
-						UEDATX = usb_keyboard_keys[i];
+						UEDATX = keyboard_report->keys[i];
 					}
 					usb_send_in();
 					return;
