@@ -89,15 +89,15 @@
  *  @{
  */
 
-#ifndef __RING_BUFF_H__
-#define __RING_BUFF_H__
+#ifndef __RING_BUFFER_H__
+#define __RING_BUFFER_H__
 
 	/* Includes: */
 		#include <util/atomic.h>
 		#include <stdint.h>
 		#include <stdbool.h>
 
-		#include <LUFA/Common/Common.h>
+		#include "../../Common/Common.h"
 
 	/* Type Defines: */
 		/** \brief Ring Buffer Management Structure.
