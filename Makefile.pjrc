@@ -1,18 +1,15 @@
-# Following variables need to be set in <target>/Makefile:
-# 	TARGET
-# 	COMMON_DIR
-# 	TARGET_DIR
-# 	TARGET_SRC
-# 	MCU
-# 	F_CPU
+OPT_DEFS += -DHOST_PJRC
 
-
-# List C source files here. (C dependencies are automatically generated.)
 SRC =	usb_keyboard.c \
 	usb_debug.c \
 	usb.c \
 	jump_bootloader.c
 SRC +=	$(TARGET_SRC)
+
+
+# C source file search path
+VPATH = $(TARGET_DIR):$(COMMON_DIR):$(COMMON_DIR)/pjrc
+
 
 # Option modules
 ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)
@@ -22,7 +19,3 @@ endif
 ifdef USB_EXTRA_ENABLE
     SRC += usb_extra.c
 endif
-
-
-# C source file search path
-VPATH = $(TARGET_DIR):$(COMMON_DIR):$(COMMON_DIR)/pjrc

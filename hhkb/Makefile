@@ -9,7 +9,6 @@ TARGET_DIR = .
 
 # keyboard dependent files
 TARGET_SRC =	tmk.c \
-		host_pjrc.c \
 		keymap.c \
   	        matrix.c \
 		led.c

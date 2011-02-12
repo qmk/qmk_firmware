@@ -13,7 +13,7 @@
 #endif
 
 
-static uint8_t last_led = 0;
+static uint8_t last_leds = 0;
 
 
 void keyboard_init(void)
@@ -125,8 +125,13 @@ void keyboard_proc(void)
         ps2_mouse_usb_send();
 #endif
 
-    if (last_led != host_keyboard_led()) {
-        led_set(host_keyboard_led());
-        last_led = host_keyboard_led();
+    if (last_leds != host_keyboard_leds()) {
+        keyboard_set_leds(host_keyboard_leds());
+        last_leds = host_keyboard_leds();
     }
+}
+
+void keyboard_set_leds(uint8_t leds)
+{
+    led_set(leds);
 }

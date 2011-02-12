@@ -24,11 +24,15 @@ static void mousekey_debug(void);
 #   define MOUSEKEY_DELAY_TIME 255
 #endif
 
+// acceleration parameters
+uint8_t mousekey_move_unit = 2;
+uint8_t mousekey_resolution = 5;
+
 
 static inline uint8_t move_unit(void)
 {
-    uint16_t unit = 10 + (mousekey_repeat);
-    return (unit > 127 ? 127 : unit);
+    uint16_t unit = 5 + mousekey_repeat*2;
+    return (unit > 63 ? 63 : unit);
 }
 
 void mousekey_decode(uint8_t code)
@@ -40,23 +44,18 @@ void mousekey_decode(uint8_t code)
     else if (code == KB_MS_BTN1)    report.buttons |= MOUSE_BTN1;
     else if (code == KB_MS_BTN2)    report.buttons |= MOUSE_BTN2;
     else if (code == KB_MS_BTN3)    report.buttons |= MOUSE_BTN3;
-/*
     else if (code == KB_MS_BTN4)    report.buttons |= MOUSE_BTN4;
     else if (code == KB_MS_BTN5)    report.buttons |= MOUSE_BTN5;
     else if (code == KB_MS_WH_UP)   report.v += 1;
     else if (code == KB_MS_WH_DOWN) report.v -= 1;
     else if (code == KB_MS_WH_LEFT) report.h -= 1;
     else if (code == KB_MS_WH_RIGHT)report.h += 1;
-*/
 }
 
 bool mousekey_changed(void)
 {
     return (report.buttons != report_prev.buttons ||
-            report.x != report_prev.x ||
-            report.y != report_prev.y ||
-            report.x || report.y);
-    //return (report.buttons != report_prev.buttons || report.x || report.y);
+            report.x || report.y || report.v || report.h);
 }
 
 void mousekey_send(void)
@@ -65,15 +64,20 @@ void mousekey_send(void)
 
     if (!mousekey_changed()) {
         mousekey_repeat = 0;
+        mousekey_clear_report();
         return;
     }
 
     // send immediately when buttun state is changed
     if (report.buttons == report_prev.buttons) {
-        // TODO: delay parameter setting
-        if ((timer_elapsed(last_timer) < (mousekey_repeat == 1 ? 20 : 5))) {
+        if (timer_elapsed(last_timer) < 5) {
+            mousekey_clear_report();
             return;
         }
+    }
+
+    if (mousekey_repeat != 0xFF) {
+        mousekey_repeat++;
     }
 
     if (report.x && report.y) {
@@ -81,20 +85,9 @@ void mousekey_send(void)
         report.y *= 0.7;
     }
 
-    /*
-    print("mousekey_repeat: "); phex(mousekey_repeat); print("\n");
-    print("timer: "); phex16(timer_read()); print("\n");
-    print("last_timer: "); phex16(last_timer); print("\n");
-    print("mousekey: "); phex(report.buttons); print(" "); phex(report.x); print(" "); phex(report.y); print("\n");
-    */
-
     mousekey_debug();
-
     host_mouse_send(&report);
-    report_prev.buttons = report.buttons;
-    report_prev.x = report.x;
-    report_prev.y = report.y;
-    if (mousekey_repeat != 0xFF) mousekey_repeat++;
+    report_prev = report;
     last_timer = timer_read();
     mousekey_clear_report();
 }
@@ -104,6 +97,8 @@ void mousekey_clear_report(void)
     report.buttons = 0;
     report.x = 0;
     report.y = 0;
+    report.v = 0;
+    report.h = 0;
 }
 
 static void mousekey_debug(void)
@@ -113,9 +108,8 @@ static void mousekey_debug(void)
     phex(report.buttons); print("|");
     phex(report.x); print(" ");
     phex(report.y); print(" ");
-/*
     phex(report.v); print(" ");
     phex(report.h);
-*/
+    phex(mousekey_repeat);
     print("\n");
 }

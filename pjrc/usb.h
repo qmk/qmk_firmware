@@ -14,8 +14,6 @@ uint8_t usb_configured(void);		// is the USB port configured
 void usb_remote_wakeup(void);
 
 
-
-
 #define EP_TYPE_CONTROL			0x00
 #define EP_TYPE_BULK_IN			0x81
 #define EP_TYPE_BULK_OUT		0x80
@@ -87,5 +85,24 @@ void usb_remote_wakeup(void);
 #define DEVICE_REMOTE_WAKEUP		1
 #define ENDPOINT_HALT			0
 #define TEST_MODE			2
+
+
+/*------------------------------------------------------------------*
+ * Keyboard descriptor setting
+ *------------------------------------------------------------------*/
+#define KBD_INTERFACE		0
+#define KBD_ENDPOINT		1
+#define KBD_SIZE		8
+#define KBD_BUFFER		EP_DOUBLE_BUFFER
+#define KBD_REPORT_KEYS		(KBD_SIZE - 2)
+
+// secondary keyboard
+#ifdef USB_NKRO_ENABLE
+#define KBD2_INTERFACE		4
+#define KBD2_ENDPOINT		5
+#define KBD2_SIZE		16
+#define KBD2_BUFFER		EP_DOUBLE_BUFFER
+#define KBD2_REPORT_KEYS	(KBD2_SIZE - 1)
+#endif
 
 #endif

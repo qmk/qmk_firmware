@@ -11,8 +11,13 @@
 /* matrix size */
 #define MATRIX_ROWS 32  // keycode bit: 3-0
 #define MATRIX_COLS 8   // keycode bit: 6-4
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
+
+/* key combination for command */
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (BIT_LSHIFT | BIT_RSHIFT) || \
+    keyboard_report->mods == (BIT_LCTRL | BIT_RSHIFT) \
+)
+
 
 /* USB NKey Rollover */
 #ifdef USB_NKRO_ENABLE
@@ -22,11 +27,6 @@
 #ifdef MOUSEKEY_ENABLE
 #   define MOUSEKEY_DELAY_TIME 255
 #endif
-
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (BIT_LSHIFT | BIT_RSHIFT) || \
-    keyboard_report->mods == (BIT_LCTRL | BIT_RSHIFT) \
-)
 
 
 /* PS/2 lines */
