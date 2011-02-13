@@ -8,6 +8,10 @@ This firmware converts ADB keyboard protocol to USB.
 Build
 -----
 0. Connect ADB keyboard to Teensy by 3 lines(Vcc, GND, Data).
+   You need a external pull-up resistor on DATA line in most case,
+   in particular when you want to use a long or coiled cable.
+   This converter uses AVR's internal pull-up, but it seems to be too weak.
+   The external pull-up resistor is strongly recommended.
    PSW line is optional. See ADB.txt for details.
 1. Define following macros for ADB connection in config.h:
    ADB_PORT
