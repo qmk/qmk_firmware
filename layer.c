@@ -106,8 +106,8 @@ void layer_switching(uint8_t fn_bits)
                         // send only Fn key first
                         host_swap_keyboard_report();
                         host_clear_keyboard_report();
-                        host_add_code(keymap_fn_keycode(_fn_to_send));   // TODO: do all Fn keys
                         host_set_mods(last_mods);
+                        host_add_code(keymap_fn_keycode(_fn_to_send));   // TODO: do all Fn keys
                         host_send_keyboard_report();
                         host_swap_keyboard_report();
                         sent_fn |= _fn_to_send;
@@ -152,8 +152,8 @@ void layer_switching(uint8_t fn_bits)
                     // send only Fn key first
                     host_swap_keyboard_report();
                     host_clear_keyboard_report();
-                    host_add_code(keymap_fn_keycode(fn_changed));   // TODO: do all Fn keys
                     host_set_mods(last_mods);
+                    host_add_code(keymap_fn_keycode(fn_changed));   // TODO: do all Fn keys
                     host_send_keyboard_report();
                     host_swap_keyboard_report();
                     sent_fn |= fn_changed;
