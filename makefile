@@ -14,7 +14,6 @@
 # "make clean_doxygen" to remove generated Doxygen documentation from everything.
 
 all:
-
 %:
 	@echo Executing \"make $@\" on all LUFA library elements.
 	@echo

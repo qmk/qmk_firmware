@@ -107,12 +107,12 @@
 		 */
 		typedef struct
 		{
-			uint8_t* In; /**< Current storage location in the circular buffer */
-			uint8_t* Out; /**< Current retrieval location in the circular buffer */
-			uint8_t* Start; /**< Pointer to the start of the buffer's underlying storage array */
-			uint8_t* End; /**< Pointer to the end of the buffer's underlying storage array */
-			uint8_t  Size; /**< Size of the buffer's underlying storage array */
-			uint16_t Count; /**< Number of bytes currently stored in the buffer */
+			uint8_t* In; /**< Current storage location in the circular buffer. */
+			uint8_t* Out; /**< Current retrieval location in the circular buffer. */
+			uint8_t* Start; /**< Pointer to the start of the buffer's underlying storage array. */
+			uint8_t* End; /**< Pointer to the end of the buffer's underlying storage array. */
+			uint8_t  Size; /**< Size of the buffer's underlying storage array. */
+			uint16_t Count; /**< Number of bytes currently stored in the buffer. */
 		} RingBuffer_t;
 
 	/* Inline Functions: */

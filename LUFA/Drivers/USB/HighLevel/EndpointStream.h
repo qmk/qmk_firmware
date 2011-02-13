@@ -280,7 +280,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Stream_LE(const void* Buffer,
+			uint8_t Endpoint_Write_Stream_LE(const void* const Buffer,
 			                                 uint16_t Length,
 			                                 uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -298,7 +298,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Stream_BE(const void* Buffer,
+			uint8_t Endpoint_Write_Stream_BE(const void* const Buffer,
 			                                 uint16_t Length,
 			                                 uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -357,7 +357,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Stream_LE(void* Buffer,
+			uint8_t Endpoint_Read_Stream_LE(void* const Buffer,
 			                                uint16_t Length,
 			                                uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -375,7 +375,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Stream_BE(void* Buffer,
+			uint8_t Endpoint_Read_Stream_BE(void* const Buffer,
 			                                uint16_t Length,
 			                                uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -398,7 +398,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_Stream_LE(const void* Buffer,
+			uint8_t Endpoint_Write_Control_Stream_LE(const void* const Buffer,
 			                                         uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Writes the given number of bytes to the CONTROL type endpoint from the given buffer in big endian,
@@ -420,7 +420,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_Stream_BE(const void* Buffer,
+			uint8_t Endpoint_Write_Control_Stream_BE(const void* const Buffer,
 			                                         uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in little endian,
@@ -442,7 +442,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Control_Stream_LE(void* Buffer,
+			uint8_t Endpoint_Read_Control_Stream_LE(void* const Buffer,
 			                                        uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Reads the given number of bytes from the CONTROL endpoint from the given buffer in big endian,
@@ -464,7 +464,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Control_Stream_BE(void* Buffer,
+			uint8_t Endpoint_Read_Control_Stream_BE(void* const Buffer,
 			                                        uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 			//@}
 
@@ -480,7 +480,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_EStream_LE(const void* Buffer,
+			uint8_t Endpoint_Write_EStream_LE(const void* const Buffer,
 			                                  uint16_t Length,
 			                                  uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -493,7 +493,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_EStream_BE(const void* Buffer,
+			uint8_t Endpoint_Write_EStream_BE(const void* const Buffer,
 			                                  uint16_t Length,
 			                                  uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -506,7 +506,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_EStream_LE(void* Buffer,
+			uint8_t Endpoint_Read_EStream_LE(void* const Buffer,
 			                                 uint16_t Length,
 			                                 uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -519,7 +519,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_EStream_BE(void* Buffer,
+			uint8_t Endpoint_Read_EStream_BE(void* const Buffer,
 			                                 uint16_t Length,
 			                                 uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -539,7 +539,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_EStream_LE(const void* Buffer,
+			uint8_t Endpoint_Write_Control_EStream_LE(const void* const Buffer,
 			                                          uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Endpoint_Write_Control_Stream_BE().
@@ -558,7 +558,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_EStream_BE(const void* Buffer,
+			uint8_t Endpoint_Write_Control_EStream_BE(const void* const Buffer,
 			                                          uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Endpoint_Read_Control_Stream_LE().
@@ -577,7 +577,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Control_EStream_LE(void* Buffer,
+			uint8_t Endpoint_Read_Control_EStream_LE(void* const Buffer,
 			                                         uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** EEPROM buffer source version of \ref Endpoint_Read_Control_Stream_BE().
@@ -596,7 +596,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Read_Control_EStream_BE(void* Buffer,
+			uint8_t Endpoint_Read_Control_EStream_BE(void* const Buffer,
 			                                         uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 			//@}
 
@@ -614,7 +614,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_PStream_LE(const void* Buffer,
+			uint8_t Endpoint_Write_PStream_LE(const void* const Buffer,
 			                                  uint16_t Length,
 			                                  uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -629,7 +629,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_PStream_BE(const void* Buffer,
+			uint8_t Endpoint_Write_PStream_BE(const void* const Buffer,
 			                                  uint16_t Length,
 			                                  uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -651,7 +651,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_PStream_LE(const void* Buffer,
+			uint8_t Endpoint_Write_Control_PStream_LE(const void* const Buffer,
 			                                          uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** FLASH buffer source version of \ref Endpoint_Write_Control_Stream_BE().
@@ -672,7 +672,7 @@
 			 *
 			 *  \return A value from the \ref Endpoint_ControlStream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Endpoint_Write_Control_PStream_BE(const void* Buffer,
+			uint8_t Endpoint_Write_Control_PStream_BE(const void* const Buffer,
 			                                          uint16_t Length) ATTR_NON_NULL_PTR_ARG(1);
 			//@}
 

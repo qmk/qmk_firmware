@@ -1,4 +1,4 @@
-uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE Buffer,
+uint8_t TEMPLATE_FUNC_NAME (TEMPLATE_BUFFER_TYPE const Buffer,
                             uint16_t Length,
                             uint16_t* const BytesProcessed)
 {

@@ -258,7 +258,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_Stream_LE(const void* Buffer,
+			uint8_t Pipe_Write_Stream_LE(const void* const Buffer,
 			                             uint16_t Length,
 			                             uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -278,7 +278,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_Stream_BE(const void* Buffer,
+			uint8_t Pipe_Write_Stream_BE(const void* const Buffer,
 			                             uint16_t Length,
 			                             uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -339,7 +339,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Read_Stream_LE(void* Buffer,
+			uint8_t Pipe_Read_Stream_LE(void* const Buffer,
 			                            uint16_t Length,
 			                            uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -359,7 +359,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Read_Stream_BE(void* Buffer,
+			uint8_t Pipe_Read_Stream_BE(void* const Buffer,
 			                            uint16_t Length,
 			                            uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 			//@}
@@ -376,7 +376,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_EStream_LE(const void* Buffer,
+			uint8_t Pipe_Write_EStream_LE(const void* const Buffer,
 			                              uint16_t Length,
 			                              uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -389,7 +389,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_EStream_BE(const void* Buffer,
+			uint8_t Pipe_Write_EStream_BE(const void* const Buffer,
 			                              uint16_t Length,
 			                              uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 
@@ -402,7 +402,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Read_EStream_LE(void* Buffer,
+			uint8_t Pipe_Read_EStream_LE(void* const Buffer,
 			                             uint16_t Length,
 			                             uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -415,7 +415,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Read_EStream_BE(void* Buffer,
+			uint8_t Pipe_Read_EStream_BE(void* const Buffer,
 			                             uint16_t Length,
 			                             uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 			//@}
@@ -434,7 +434,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_PStream_LE(const void* Buffer,
+			uint8_t Pipe_Write_PStream_LE(const void* const Buffer,
 			                              uint16_t Length,
 			                              uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 			
@@ -449,7 +449,7 @@
 			 *
 			 *  \return A value from the \ref Pipe_Stream_RW_ErrorCodes_t enum.
 			 */
-			uint8_t Pipe_Write_PStream_BE(const void* Buffer,
+			uint8_t Pipe_Write_PStream_BE(const void* const Buffer,
 			                              uint16_t Length,
 			                              uint16_t* const BytesProcessed) ATTR_NON_NULL_PTR_ARG(1);
 			//@}
