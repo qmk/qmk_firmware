@@ -96,13 +96,15 @@ void ps2_host_init(void)
 #endif
 }
 
+// TODO: send using interrupt if available
 uint8_t ps2_host_send(uint8_t data)
 {
-    bool parity;
-RETRY:
-    parity = true;
-    ps2_error = 0;
-
+    uint8_t res = 0;
+    bool parity = true;
+    ps2_error = PS2_ERR_NONE;
+#ifdef PS2_INT_DISABLE
+    PS2_INT_DISABLE();
+#endif
     /* terminate a transmission if we have */
     inhibit();
     _delay_us(100);
@@ -139,15 +141,15 @@ RETRY:
     WAIT(clock_hi, 50, 8);
     WAIT(data_hi, 50, 9);
 
-    uint8_t res = ps2_host_recv_response();
-    if (res == 0xFE && data != 0xFE)
-        goto RETRY;
-
-    inhibit();
-    return res;
+    res = ps2_host_recv_response();
 ERROR:
+#ifdef PS2_INT_ENABLE
+    PS2_INT_ENABLE();
+    idle();
+#else
     inhibit();
-    return 0;
+#endif
+    return res;
 }
 
 /* receive data when host want else inhibit communication */
@@ -209,46 +211,99 @@ static inline uint8_t pbuf_dequeue(void)
 /* get data received by interrupt */
 uint8_t ps2_host_recv(void)
 {
+    // TODO: release clock line after 100us when inhibited by error
+    if (ps2_error) {
+        ps2_host_send(0xFE);    // request to resend
+        ps2_error = PS2_ERR_NONE;
+    }
     return pbuf_dequeue();
 }
 
+#define DEBUGP_INIT() do { DDRC = 0xFF; } while (0)
+#define DEBUGP(x) do { PORTC = x; } while (0)
 ISR(PS2_INT_VECT)
 {
-    /* interrupt means start bit comes */
-    pbuf_enqueue(recv_data());
+    static enum {
+        INIT,
+        START,
+        BIT0, BIT1, BIT2, BIT3, BIT4, BIT5, BIT6, BIT7,
+        PARITY,
+        STOP,
+    } state = INIT;
+    static uint8_t data = 0;
+    static uint8_t parity = 1;
 
-    /* release lines(idle state) */
-    idle();
-    _delay_us(5);
+    // TODO: abort if elapse 100us from previous interrupt
+
+    // return unless falling edge
+    if (clock_in()) {
+        goto RETURN;
+    }
+
+    state++;
+    DEBUGP(state);
+    switch (state) {
+        case START:
+            if (data_in())
+                goto ERROR;
+            break;
+        case BIT0:
+        case BIT1:
+        case BIT2:
+        case BIT3:
+        case BIT4:
+        case BIT5:
+        case BIT6:
+        case BIT7:
+            data >>= 1;
+            if (data_in()) {
+                data |= 0x80;
+                parity++;
+            }
+            break;
+        case PARITY:
+            if (data_in()) {
+                if (!(parity & 0x01))
+                    goto ERROR;
+            } else {
+                if (parity & 0x01)
+                    goto ERROR;
+            }
+            break;
+        case STOP:
+            if (!data_in())
+                goto ERROR;
+            pbuf_enqueue(data);
+            goto DONE;
+            break;
+        default:
+            goto ERROR;
+    }
+    goto RETURN;
+ERROR:
+    DEBUGP(0xFF);
+    inhibit();
+    ps2_error = state;
+DONE:
+    state = INIT;
+    data = 0;
+    parity = 1;
+RETURN:
+    return;
 }
 #endif
 
 
-/*
 static void ps2_reset(void)
 {
     ps2_host_send(0xFF);
-    if (ps2_host_recv_response() == 0xFA) {
-        _delay_ms(1000);
-        ps2_host_recv_response();
-    }
 }
-*/
 
 /* send LED state to keyboard */
 void ps2_host_set_led(uint8_t led)
 {
-#ifdef PS2_INT_DISABLE
-    PS2_INT_DISABLE();
-#endif
     ps2_host_send(0xED);
-    ps2_host_recv_response();
     ps2_host_send(led);
-    ps2_host_recv_response();
-#ifdef PS2_INT_ENABLE
-    PS2_INT_ENABLE();
-    idle();
-#endif
 }
 
 
@@ -257,7 +312,7 @@ static uint8_t recv_data(void)
 {
     uint8_t data = 0;
     bool parity = true;
-    ps2_error = 0;
+    ps2_error = PS2_ERR_NONE;
 
     /* start bit [1] */
     WAIT(clock_lo, 1, 1);
@@ -307,6 +362,7 @@ static inline bool clock_in()
 {
     PS2_CLOCK_DDR  &= ~(1<<PS2_CLOCK_BIT);
     PS2_CLOCK_PORT |=  (1<<PS2_CLOCK_BIT);
+    _delay_us(1);
     return PS2_CLOCK_PIN&(1<<PS2_CLOCK_BIT);
 }
 static inline void data_lo()
@@ -324,6 +380,7 @@ static inline bool data_in()
 {
     PS2_DATA_DDR  &= ~(1<<PS2_DATA_BIT);
     PS2_DATA_PORT |=  (1<<PS2_DATA_BIT);
+    _delay_us(1);
     return PS2_DATA_PIN&(1<<PS2_DATA_BIT);
 }
 
