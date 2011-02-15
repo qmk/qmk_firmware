@@ -49,7 +49,7 @@ int main(void)
     usbInit();
 
     print_enable = true;
-    //debug_enable = true;
+    debug_enable = true;
     keyboard_init();
 
     /* enforce re-enumeration, do this while interrupts are disabled! */
@@ -64,56 +64,9 @@ int main(void)
 
     //uint8_t fn_bits = 0;
     while (1) {                /* main event loop */
-        DEBUGP(0x01);
         wdt_reset();
         usbPoll();
-        host_vusb_keyboard_send();
-
-        DEBUGP(0x02);
         keyboard_proc();
-        DEBUGP(0x03);
-/*
-        matrix_scan();
-        fn_bits = 0;
-        host_swap_keyboard_report();
-        host_clear_keyboard_report();
-        mousekey_clear_report();
-        for (int row = 0; row < matrix_rows(); row++) {
-            for (int col = 0; col < matrix_cols(); col++) {
-                if (!matrix_is_on(row, col)) continue;
-
-                uint8_t code = layer_get_keycode(row, col);
-                if (code == KB_NO) {
-                    // do nothing
-                }
-                else if (IS_MOD(code)) {
-                    host_add_mod_bit(MOD_BIT(code));
-                }
-                else if (IS_KEY(code)) {
-                    host_add_key(code);
-                }
-                else if (IS_FN(code)) {
-                    fn_bits |= FN_BIT(code);
-                }
-                else if (IS_MOUSEKEY(code)) {
-                    mousekey_decode(code);
-                }
-                else {
-                    debug("ignore keycode: "); debug_hex(code); debug("\n");
-                }
-            }
-        }
-        DEBUGP(0x03);
-        layer_switching(fn_bits);
-        if (matrix_is_modified()) {
-            host_send_keyboard_report();
-        }
-        mousekey_send();
-
-        if (last_led != host_keyboard_led()) {
-            led_set(host_keyboard_led());
-            last_led = host_keyboard_led();
-        }
-*/
+        host_vusb_keyboard_send();
     }
 }

@@ -106,6 +106,7 @@ void keyboard_proc(void)
         return;
     }
 
+    // TODO: should send only when changed from last report
     if (matrix_is_modified()) {
         host_send_keyboard_report();
 #ifdef DEBUG_LED
