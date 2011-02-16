@@ -21,6 +21,7 @@
   *     for easy automatic creation of basic USB HID device reports
   *   - Added new MAX() and MIN() convenience macros
   *   - Added new Serial_SendData() function to the Serial driver
+  *   - Added board driver support for the Sparkfun ATMEGA8U2 breakout board
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *   - Added new MIDIToneGenerator project

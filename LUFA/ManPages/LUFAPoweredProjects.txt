@@ -25,6 +25,7 @@
  *  - Microsin AVR-USB162 breakout board, a DIY AT90USB162 development board: http://microsin.ru/content/view/685/44/
  *  - Minimus USB, a board specially designed for PSGroove: http://www.minimususb.com/
  *  - Nanduino, a do-it-yourself AT90USB162 board: http://www.makestuff.eu/wordpress/?page_id=569
+ *  - Sparkfun ATMEGA8U2 breakout board: http://www.sparkfun.com/products/10277
  *  - Teensy and Teensy++, two other AVR USB development boards: http://www.pjrc.com/teensy/index.html
  *  - U2DIL/U4DIL, a set of DIP layout USB AVR boards: http://www.reworld.eu/re/en/products/u2dil/
  *  - USBFOO 2, AT90USB162 based development board: http://shop.kernelconcepts.de/product_info.php?products_id=102

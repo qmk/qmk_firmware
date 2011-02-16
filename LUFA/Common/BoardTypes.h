@@ -139,6 +139,9 @@
 
 			/** Selects the Kernel Concepts USBFOO specific board drivers, including the Button and LEDs drivers. */
 			#define BOARD_USBFOO        25
+			
+			/** Selects the Sparkfun ATMEGA8U2 specific board drivers, including the driver for the board LEDs. */
+			#define BOARD_SPARKFUN8U2   26
 
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE

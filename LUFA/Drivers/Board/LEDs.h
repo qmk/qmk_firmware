@@ -163,6 +163,8 @@
 		#include "ADAFRUITU4/LEDs.h"
 	#elif (BOARD == BOARD_MICROSIN162)
 		#include "MICROSIN162/LEDs.h"
+	#elif (BOARD == BOARD_SPARKFUN8U2)
+		#include "SPARKFUN8U2/LEDs.h"
 	#elif (BOARD == BOARD_USER)
 		#include "Board/LEDs.h"
 	#endif
