@@ -82,7 +82,16 @@
 #define KB_PWR  KB_POWER
 #define KB_VOLU KB_VOLUP
 #define KB_VOLD KB_VOLDOWN
-#define KB_APP  KB_APPLICATION,
+#define KB_APP  KB_APPLICATION
+#define KB_NUHS KB_NONUS_HASH
+#define KB_NUBS KB_NONUS_BSLASH
+// for Japanese
+#define KB_RO   KB_INT1
+#define KB_KANA KB_INT2
+#define KB_JYEN KB_INT3
+#define KB_HENK KB_INT4
+#define KB_MHEN KB_INT5
+#define KB_ZEHA KB_GRAVE
 // Keypad
 #define KB_P1   KB_KP_1
 #define KB_P2   KB_KP_2
