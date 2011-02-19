@@ -74,6 +74,15 @@ void USB_INT_ClearAllInterrupts(void)
 ISR(USB_GEN_vect, ISR_BLOCK)
 {
 	#if defined(USB_CAN_BE_DEVICE)
+	#if !defined(NO_SOF_EVENTS)
+	if (USB_INT_HasOccurred(USB_INT_SOFI) && USB_INT_IsEnabled(USB_INT_SOFI))
+	{
+		USB_INT_Clear(USB_INT_SOFI);
+
+		EVENT_USB_Device_StartOfFrame();
+	}
+	#endif
+
 	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 	if (USB_INT_HasOccurred(USB_INT_VBUS) && USB_INT_IsEnabled(USB_INT_VBUS))
 	{
@@ -161,18 +170,18 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 
 		EVENT_USB_Device_Reset();
 	}
-
-	#if !defined(NO_SOF_EVENTS)
-	if (USB_INT_HasOccurred(USB_INT_SOFI) && USB_INT_IsEnabled(USB_INT_SOFI))
-	{
-		USB_INT_Clear(USB_INT_SOFI);
-
-		EVENT_USB_Device_StartOfFrame();
-	}
-	#endif
 	#endif
 
 	#if defined(USB_CAN_BE_HOST)
+	#if !defined(NO_SOF_EVENTS)
+	if (USB_INT_HasOccurred(USB_INT_HSOFI) && USB_INT_IsEnabled(USB_INT_HSOFI))
+	{
+		USB_INT_Clear(USB_INT_HSOFI);
+
+		EVENT_USB_Host_StartOfFrame();
+	}
+	#endif
+
 	if (USB_INT_HasOccurred(USB_INT_DDISCI) && USB_INT_IsEnabled(USB_INT_DDISCI))
 	{
 		USB_INT_Clear(USB_INT_DDISCI);
@@ -218,15 +227,6 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 
 		USB_ResetInterface();
 	}
-
-	#if !defined(NO_SOF_EVENTS)
-	if (USB_INT_HasOccurred(USB_INT_HSOFI) && USB_INT_IsEnabled(USB_INT_HSOFI))
-	{
-		USB_INT_Clear(USB_INT_HSOFI);
-
-		EVENT_USB_Host_StartOfFrame();
-	}
-	#endif
 	#endif
 
 	#if defined(USB_CAN_BE_BOTH)
