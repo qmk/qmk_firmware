@@ -52,7 +52,7 @@
 #define __DATAFLASH_EVK527_H__
 
 	/* Includes: */
-		#include "AT45DB321C.h"
+		#include "../../Misc/AT45DB321C.h"
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_DATAFLASH_H)
