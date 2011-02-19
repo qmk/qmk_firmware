@@ -66,14 +66,13 @@
 #define __HIDPARSER_H__
 
 	/* Includes: */
-		#include <string.h>
-		#include <stdbool.h>
+		#include "../../../../Common/Common.h"
 
 		#include "HIDReportData.h"
 		#include "../Common/HID.h"
 
-		#include "../../../../Common/Common.h"
-
+		#include <string.h>
+		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {

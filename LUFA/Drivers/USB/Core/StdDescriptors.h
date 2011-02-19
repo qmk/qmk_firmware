@@ -50,17 +50,12 @@
 #define __USBDESCRIPTORS_H__
 
 	/* Includes: */
-		#include <avr/pgmspace.h>
-		#include <stdbool.h>
-		#include <stdint.h>
-		#include <stddef.h>
-
 		#include "../../../Common/Common.h"
 		#include "USBMode.h"
 		#include "Events.h"
 
 		#if defined(USB_CAN_BE_DEVICE)
-			#include "../LowLevel/Device.h"
+			#include "Device.h"
 		#endif
 
 	/* Enable C linkage for C++ Compilers: */
@@ -80,24 +75,6 @@
 			 *  descriptor does not exist.
 			 */
 			#define NO_DESCRIPTOR                     0
-
-			#if (!defined(NO_INTERNAL_SERIAL) && \
-			     (defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1287__) || \
-			      defined(__AVR_ATmega32U6__) || defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB1286__) ||  \
-			      defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__)  || defined(__AVR_ATmega8U2__)))
-				/** String descriptor index for the device's unique serial number string descriptor within the device.
-				 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
-				 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some USB AVRs contain
-				 *  a unique serial number internally, and setting the device descriptors serial number string index to this value
-				 *  will cause it to use the internal serial number.
-				 *
-				 *  On unsupported devices, this will evaluate to NO_DESCRIPTOR and so will force the host to create a pseudo-serial
-				 *  number for the device.
-				 */
-				#define USE_INTERNAL_SERIAL           0xDC
-			#else
-				#define USE_INTERNAL_SERIAL           NO_DESCRIPTOR
-			#endif
 
 			/** Macro to calculate the power value for the configuration descriptor, from a given number of milliamperes. */
 			#define USB_CONFIG_POWER_MA(mA)           ((mA) >> 1)

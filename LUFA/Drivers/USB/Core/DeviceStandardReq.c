@@ -207,33 +207,12 @@ static void USB_Device_GetInternalSerialDescriptor(void)
 	} SignatureDescriptor;
 
 	SignatureDescriptor.Header.Type = DTYPE_String;
-	SignatureDescriptor.Header.Size = sizeof(SignatureDescriptor);
-
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-	{
-		uint8_t SigReadAddress = 0x0E;
-
-		for (uint8_t SerialCharNum = 0; SerialCharNum < 20; SerialCharNum++)
-		{
-			uint8_t SerialByte = boot_signature_byte_get(SigReadAddress);
-
-			if (SerialCharNum & 0x01)
-			{
-				SerialByte >>= 4;
-				SigReadAddress++;
-			}
-
-			SerialByte &= 0x0F;
-
-			SignatureDescriptor.UnicodeString[SerialCharNum] = (SerialByte >= 10) ?
-			                                                   (('A' - 10) + SerialByte) : ('0' + SerialByte);
-		}
-	}
+	SignatureDescriptor.Header.Size = USB_Device_GetSerialString(SignatureDescriptor.UnicodeString,
+	                                                             sizeof(SignatureDescriptor.UnicodeString));
 
 	Endpoint_ClearSETUP();
 
 	Endpoint_Write_Control_Stream_LE(&SignatureDescriptor, sizeof(SignatureDescriptor));
-
 	Endpoint_ClearOUT();
 }
 #endif

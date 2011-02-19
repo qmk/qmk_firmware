@@ -51,7 +51,7 @@
 #define _AUDIO_CLASS_COMMON_H_
 
 	/* Includes: */
-		#include "../../HighLevel/StdDescriptors.h"
+		#include "../../Core/StdDescriptors.h"
 
 		#include <string.h>
 

@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief USB device mode definitions.
+ *  \brief USB device mode definitions (AVR8)
  *
  *  This file contains structures, function prototypes and macros related to USB device mode.
  *
@@ -37,8 +37,8 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-/** \ingroup Group_USB
- *  \defgroup Group_Device Device Management
+/** \ingroup Group_Device
+ *  \defgroup Group_Device_AVR8 Device Management (AVR8)
  *
  *  USB Device mode related macros and enums. This module contains macros and enums which are used when
  *  the USB controller is initialized in device mode.
@@ -46,18 +46,16 @@
  *  @{
  */
 
-#ifndef __USBDEVICE_H__
-#define __USBDEVICE_H__
+#ifndef __USBDEVICE_AVR8_H__
+#define __USBDEVICE_AVR8_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <avr/pgmspace.h>
-		#include <avr/eeprom.h>
-
-		#include "../../../Common/Common.h"
-		#include "../HighLevel/StdDescriptors.h"
-		#include "USBInterrupt.h"
-		#include "Endpoint.h"
+		#include "../../../../Common/Common.h"
+		#include "../StdDescriptors.h"
+		#include "../USBInterrupt.h"
+		#include "../Endpoint.h"
+		
+		#include <avr/boot.h>
 
 	/* Preprocessor Checks: */
 		#if (defined(USE_RAM_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS))
@@ -90,6 +88,24 @@
 			 */
 			#define USB_DEVICE_OPT_FULLSPEED               (0 << 0)
 			//@}
+			
+			#if (!defined(NO_INTERNAL_SERIAL) && \
+			     (defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1287__) || \
+			      defined(__AVR_ATmega32U6__) || defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB1286__) ||  \
+			      defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__)  || defined(__AVR_ATmega8U2__)))
+				/** String descriptor index for the device's unique serial number string descriptor within the device.
+				 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
+				 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some USB AVRs contain
+				 *  a unique serial number internally, and setting the device descriptors serial number string index to this value
+				 *  will cause it to use the internal serial number.
+				 *
+				 *  On unsupported devices, this will evaluate to NO_DESCRIPTOR and so will force the host to create a pseudo-serial
+				 *  number for the device.
+				 */
+				#define USE_INTERNAL_SERIAL           0xDC
+			#else
+				#define USE_INTERNAL_SERIAL           NO_DESCRIPTOR
+			#endif			
 			
 		/* Function Prototypes: */
 			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
@@ -239,6 +255,38 @@
 			{
 				return (UDADDR & (1 << ADDEN));
 			}
+		
+			static inline uint8_t USB_Device_GetSerialString(wchar_t* UnicodeString, const uint8_t MaxLen)
+			{
+				uint8_t SerialCharNum = 0;
+
+				ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+				{
+					uint8_t SigReadAddress = 0x0E;
+
+					for (SerialCharNum = 0; SerialCharNum < MIN(MaxLen, 20); SerialCharNum++)
+					{
+						if (SerialCharNum == MaxLen)
+						  break;
+
+						uint8_t SerialByte = boot_signature_byte_get(SigReadAddress);
+
+						if (SerialCharNum & 0x01)
+						{
+							SerialByte >>= 4;
+							SigReadAddress++;
+						}
+
+						SerialByte &= 0x0F;
+
+						UnicodeString[SerialCharNum] = (SerialByte >= 10) ?
+						                               (('A' - 10) + SerialByte) : ('0' + SerialByte);
+					}
+				}
+				
+				return SerialCharNum;
+			}
+		
 	#endif
 
 #endif

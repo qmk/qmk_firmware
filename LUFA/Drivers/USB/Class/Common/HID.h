@@ -51,7 +51,7 @@
 #define _HID_CLASS_COMMON_H_
 
 	/* Includes: */
-		#include "../../HighLevel/StdDescriptors.h"
+		#include "../../Core/StdDescriptors.h"
 		#include "HIDParser.h"
 
 		#include <string.h>

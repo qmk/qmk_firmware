@@ -42,18 +42,12 @@
 #define __DEVICESTDREQ_H__
 
 	/* Includes: */
-		#include <avr/pgmspace.h>
-		#include <avr/eeprom.h>
-		#include <avr/boot.h>
-		#include <util/atomic.h>
-		#include <stdint.h>
-		#include <stdbool.h>
-
+		#include "../../../Common/Common.h"
 		#include "StdDescriptors.h"
 		#include "Events.h"
 		#include "StdRequestType.h"
 		#include "USBTask.h"
-		#include "../LowLevel/USBController.h"
+		#include "USBController.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

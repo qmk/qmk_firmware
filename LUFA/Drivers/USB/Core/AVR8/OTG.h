@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief USB OTG mode definitions.
+ *  \brief USB OTG mode definitions (AVR8)
  *
  *  This file contains structures, function prototypes and macros related to USB OTG mode, where two USB devices
  *  may be linked directly together and exchange host/device roles as needed.
@@ -38,8 +38,8 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-/** \ingroup Group_USB
- *  \defgroup Group_OTG USB On The Go (OTG) Management
+/** \ingroup Group_OTG
+ *  \defgroup Group_OTG_AVR8 USB On The Go (OTG) Management (AVR8)
  *
  *  This module contains macros for embedded USB hosts with dual role On The Go capabilities, for managing role
  *  exchange. OTG is a way for two USB dual role devices to talk to one another directly without fixed device/host
@@ -48,14 +48,11 @@
  *  @{
  */
 
-#ifndef __USBOTG_H__
-#define __USBOTG_H__
+#ifndef __USBOTG_AVR8_H__
+#define __USBOTG_AVR8_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
-
-		#include "../../../Common/Common.h"
+		#include "../../../../Common/Common.h"
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)

@@ -54,7 +54,7 @@
 		#define __INCLUDE_FROM_AUDIO_DRIVER
 
 	/* Includes: */
-		#include "../../HighLevel/StdDescriptors.h"
+		#include "../../Core/StdDescriptors.h"
 		#include "Audio.h"
 
 		#include <string.h>

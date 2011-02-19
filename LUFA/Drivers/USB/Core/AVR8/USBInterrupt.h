@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief USB controller interrupt service routine management.
+ *  \brief USB controller interrupt service routine management (AVR8)
  *
  *  This file contains definitions required for the correct handling of low level USB service routine interrupts
  *  from the USB controller.
@@ -38,14 +38,11 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-#ifndef __USBINTERRUPT_H__
-#define __USBINTERRUPT_H__
+#ifndef __USBINTERRUPT_AVR8_H__
+#define __USBINTERRUPT_AVR8_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <avr/interrupt.h>
-		#include <util/atomic.h>
-		#include <stdbool.h>
+		#include "../../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -87,10 +84,9 @@
 			#define USB_INT_RXSTPI                           UEIENX, (1 << RXSTPE) , UEINTX, (1 << RXSTPI)
 
 		/* Includes: */
-			#include "../../../Common/Common.h"
-			#include "../HighLevel/USBMode.h"
-			#include "../HighLevel/Events.h"
-			#include "USBController.h"
+			#include "../USBMode.h"
+			#include "../Events.h"
+			#include "../USBController.h"
 
 		/* Function Prototypes: */
 			void USB_INT_ClearAllInterrupts(void);

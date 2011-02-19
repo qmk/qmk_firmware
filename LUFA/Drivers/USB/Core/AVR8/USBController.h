@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief USB low level USB controller definitions.
+ *  \brief USB low level USB controller definitions (AVR8)
  *
  *  This file contains structures, function prototypes and macros related to the low level configuration of the
  *  USB controller, to start, stop and reset the USB library core.
@@ -38,43 +38,37 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-/** \ingroup Group_USB
- *  \defgroup Group_USBManagement USB Interface Management
+/** \ingroup Group_USBManagement
+ *  \defgroup Group_USBManagement_AVR8 USB Interface Management (AVR8)
  *
  *  Functions, macros, variables, enums and types related to the setup and management of the USB interface.
  *
  *  @{
  */
 
-#ifndef __USBCONTROLLER_H__
-#define __USBCONTROLLER_H__
+#ifndef __USBCONTROLLER_AVR8_H__
+#define __USBCONTROLLER_AVR8_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <avr/interrupt.h>
-		#include <stdbool.h>
-
-		#include "../HighLevel/USBMode.h"
-
-		#include "../../../Common/Common.h"
-		#include "../HighLevel/USBMode.h"
-		#include "../HighLevel/Events.h"
-		#include "../HighLevel/USBTask.h"
-		#include "USBInterrupt.h"
+		#include "../../../../Common/Common.h"
+		#include "../USBMode.h"
+		#include "../Events.h"
+		#include "../USBTask.h"
+		#include "../USBInterrupt.h"
 
 		#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
-			#include "Host.h"
-			#include "OTG.h"
-			#include "Pipe.h"
-			#include "../HighLevel/HostStandardReq.h"
-			#include "../HighLevel/PipeStream.h"
+			#include "../Host.h"
+			#include "../OTG.h"
+			#include "../Pipe.h"
+			#include "../HostStandardReq.h"
+			#include "../PipeStream.h"
 		#endif
 
 		#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
-			#include "Device.h"
-			#include "Endpoint.h"
-			#include "../HighLevel/DeviceStandardReq.h"
-			#include "../HighLevel/EndpointStream.h"
+			#include "../Device.h"
+			#include "../Endpoint.h"
+			#include "../DeviceStandardReq.h"
+			#include "../EndpointStream.h"
 		#endif
 
 	/* Enable C linkage for C++ Compilers: */

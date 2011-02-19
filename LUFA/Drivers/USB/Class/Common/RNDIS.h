@@ -54,7 +54,7 @@
 		#define __INCLUDE_FROM_CDC_DRIVER
 
 	/* Includes: */
-		#include "../../HighLevel/StdDescriptors.h"
+		#include "../../Core/StdDescriptors.h"
 		#include "CDC.h"
 
 		#include <string.h>

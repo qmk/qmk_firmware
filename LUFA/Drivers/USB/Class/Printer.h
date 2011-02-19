@@ -65,7 +65,7 @@
 		#define __INCLUDE_FROM_PRINTER_DRIVER
 
 	/* Includes: */
-		#include "../HighLevel/USBMode.h"
+		#include "../Core/USBMode.h"
 
 		#if defined(USB_CAN_BE_HOST)
 			#include "Host/Printer.h"

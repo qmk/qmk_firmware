@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief USB host mode definitions.
+ *  \brief USB host mode definitions  (AVR8)
  *
  *  This file contains structures, function prototypes and macros related to USB host mode.
  *
@@ -37,8 +37,8 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-/** \ingroup Group_USB
- *  \defgroup Group_Host Host Management
+/** \ingroup Group_Host
+ *  \defgroup Group_Host_AVR8 Host Management (AVR8)
  *
  *  USB Host mode related macros and enums. This module contains macros and enums which are used when
  *  the USB controller is initialized in host mode.
@@ -46,18 +46,14 @@
  *  @{
  */
 
-#ifndef __USBHOST_H__
-#define __USBHOST_H__
+#ifndef __USBHOST_AVR8_H__
+#define __USBHOST_AVR8_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
-		#include <util/delay.h>
-
-		#include "../../../Common/Common.h"
-		#include "../HighLevel/StdDescriptors.h"
-		#include "Pipe.h"
-		#include "USBInterrupt.h"
+		#include "../../../../Common/Common.h"
+		#include "../StdDescriptors.h"
+		#include "../Pipe.h"
+		#include "../USBInterrupt.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

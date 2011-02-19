@@ -42,12 +42,10 @@
 #define __HOSTSTDREQ_H__
 
 	/* Includes: */
-		#include <stdint.h>
-		#include <stdbool.h>
-
+		#include "../../../Common/Common.h"
 		#include "USBMode.h"
 		#include "StdRequestType.h"
-		#include "../LowLevel/USBController.h"
+		#include "USBController.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

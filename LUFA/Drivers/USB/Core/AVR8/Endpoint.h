@@ -38,27 +38,27 @@
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
-/** \ingroup Group_EndpointManagement
- *  \defgroup Group_EndpointRW Endpoint Data Reading and Writing
+/** \ingroup Group_EndpointRW
+ *  \defgroup Group_EndpointRW_AVR8 Endpoint Data Reading and Writing (AVR8)
  *
  *  Functions, macros, variables, enums and types related to data reading and writing from and to endpoints.
  */
 
-/** \ingroup Group_EndpointRW
- *  \defgroup Group_EndpointPrimitiveRW Read/Write of Primitive Data Types
+/** \ingroup Group_EndpointPrimitiveRW
+ *  \defgroup Group_EndpointPrimitiveRW_AVR8 Read/Write of Primitive Data Types (AVR8)
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
  *  from and to endpoints.
  */
 
-/** \ingroup Group_EndpointManagement
- *  \defgroup Group_EndpointPacketManagement Endpoint Packet Management
+/** \ingroup Group_EndpointPacketManagement
+ *  \defgroup Group_EndpointPacketManagement_AVR8 Endpoint Packet Management (AVR8)
  *
  *  Functions, macros, variables, enums and types related to packet management of endpoints.
  */
 
-/** \ingroup Group_USB
- *  \defgroup Group_EndpointManagement Endpoint Management
+/** \ingroup Group_EndpointManagement
+ *  \defgroup Group_EndpointManagement_AVR8 Endpoint Management (AVR8)
  *
  *  Functions, macros and enums related to endpoint management when in USB Device mode. This
  *  module contains the endpoint management macros, as well as endpoint interrupt and data
@@ -67,16 +67,13 @@
  *  @{
  */
 
-#ifndef __ENDPOINT_H__
-#define __ENDPOINT_H__
+#ifndef __ENDPOINT_AVR8_H__
+#define __ENDPOINT_AVR8_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
-
-		#include "../../../Common/Common.h"
-		#include "../HighLevel/USBTask.h"
-		#include "USBInterrupt.h"
+		#include "../../../../Common/Common.h"
+		#include "../USBTask.h"
+		#include "../USBInterrupt.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -234,7 +231,7 @@
 		/* Enums: */
 			/** Enum for the possible error return codes of the \ref Endpoint_WaitUntilReady() function.
 			 *
-			 *  \ingroup Group_EndpointRW
+			 *  \ingroup Group_EndpointRW_AVR8
 			 */
 			enum Endpoint_WaitUntilReady_ErrorCodes_t
 			{
@@ -316,7 +313,7 @@
 			 *  \note The return width of this function may differ, depending on the maximum endpoint bank size
 			 *        of the selected AVR model.
 			 *
-			 *  \ingroup Group_EndpointRW
+			 *  \ingroup Group_EndpointRW_AVR8
 			 *
 			 *  \return Total number of bytes in the currently selected Endpoint's FIFO buffer.
 			 */
@@ -412,7 +409,7 @@
 			 *  will terminate all queued transactions, resetting the endpoint banks ready for a new
 			 *  packet.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 */
 			static inline void Endpoint_AbortPendingIN(void)
 			{
@@ -427,7 +424,7 @@
 			 *  transmission via the \ref Endpoint_ClearIN() command, or are awaiting acknowledgement via the
 			 *  \ref Endpoint_ClearOUT() command.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 *
 			 *  \return Total number of busy banks in the selected endpoint.
 			 */
@@ -442,7 +439,7 @@
 			 *  is an OUT direction and no packet (or an empty packet) has been received, or if the endpoint is an IN
 			 *  direction and the endpoint bank is full.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 *
 			 *  \return Boolean \c true if the currently selected endpoint may be read from or written to, depending
 			 *          on its direction.
@@ -490,7 +487,7 @@
 
 			/** Determines if the selected IN endpoint is ready for a new packet to be sent to the host.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 *
 			 *  \return Boolean \c true if the current endpoint is ready for an IN packet, \c false otherwise.
 			 */
@@ -502,7 +499,7 @@
 
 			/** Determines if the selected OUT endpoint has received new packet from the host.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 *
 			 *  \return Boolean \c true if current endpoint is has received an OUT packet, \c false otherwise.
 			 */
@@ -514,7 +511,7 @@
 
 			/** Determines if the current CONTROL type endpoint has received a SETUP packet.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 *
 			 *  \return Boolean \c true if the selected endpoint has received a SETUP packet, \c false otherwise.
 			 */
@@ -527,7 +524,7 @@
 			/** Clears a received SETUP packet on the currently selected CONTROL type endpoint, freeing up the
 			 *  endpoint for the next packet.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 *
 			 *  \note This is not applicable for non CONTROL type endpoints.
 			 */
@@ -540,7 +537,7 @@
 			/** Sends an IN packet to the host on the currently selected endpoint, freeing up the endpoint for the
 			 *  next packet and switching to the alternative endpoint bank if double banked.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 */
 			static inline void Endpoint_ClearIN(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearIN(void)
@@ -555,7 +552,7 @@
 			/** Acknowledges an OUT packet to the host on the currently selected endpoint, freeing up the endpoint
 			 *  for the next packet and switching to the alternative endpoint bank if double banked.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 */
 			static inline void Endpoint_ClearOUT(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearOUT(void)
@@ -576,7 +573,7 @@
 			 *  is called, or the host issues a CLEAR FEATURE request to the device for the currently selected
 			 *  endpoint.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 */
 			static inline void Endpoint_StallTransaction(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_StallTransaction(void)
@@ -586,7 +583,7 @@
 
 			/** Clears the STALL condition on the currently selected endpoint.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 */
 			static inline void Endpoint_ClearStall(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_ClearStall(void)
@@ -596,7 +593,7 @@
 
 			/** Determines if the currently selected endpoint is stalled, false otherwise.
 			 *
-			 *  \ingroup Group_EndpointPacketManagement
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
 			 *
 			 *  \return Boolean \c true if the currently selected endpoint is stalled, \c false otherwise.
 			 */
@@ -635,7 +632,7 @@
 
 			/** Reads one byte from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
 			 *  \return Next byte in the currently selected endpoint's FIFO buffer.
 			 */
@@ -647,7 +644,7 @@
 
 			/** Writes one byte from the currently selected endpoint's bank, for IN direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
 			 *  \param[in] Byte  Next byte to write into the the currently selected endpoint's FIFO buffer.
 			 */
@@ -659,7 +656,7 @@
 
 			/** Discards one byte from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 */
 			static inline void Endpoint_Discard_Byte(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Discard_Byte(void)
@@ -672,7 +669,7 @@
 			/** Reads two bytes from the currently selected endpoint's bank in little endian format, for OUT
 			 *  direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
 			 *  \return Next word in the currently selected endpoint's FIFO buffer.
 			 */
@@ -694,7 +691,7 @@
 			/** Reads two bytes from the currently selected endpoint's bank in big endian format, for OUT
 			 *  direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
 			 *  \return Next word in the currently selected endpoint's FIFO buffer.
 			 */
@@ -716,7 +713,7 @@
 			/** Writes two bytes to the currently selected endpoint's bank in little endian format, for IN
 			 *  direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
 			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer.
 			 */
@@ -730,7 +727,7 @@
 			/** Writes two bytes to the currently selected endpoint's bank in big endian format, for IN
 			 *  direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
 			 *  \param[in] Word  Next word to write to the currently selected endpoint's FIFO buffer.
 			 */
@@ -743,7 +740,7 @@
 
 			/** Discards two bytes from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 */
 			static inline void Endpoint_Discard_Word(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Discard_Word(void)
@@ -757,7 +754,7 @@
 			/** Reads four bytes from the currently selected endpoint's bank in little endian format, for OUT
 			 *  direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
 			 *  \return Next double word in the currently selected endpoint's FIFO buffer.
 			 */
@@ -781,7 +778,7 @@
 			/** Reads four bytes from the currently selected endpoint's bank in big endian format, for OUT
 			 *  direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
 			 *  \return Next double word in the currently selected endpoint's FIFO buffer.
 			 */
@@ -805,7 +802,7 @@
 			/** Writes four bytes to the currently selected endpoint's bank in little endian format, for IN
 			 *  direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
 			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer.
 			 */
@@ -821,7 +818,7 @@
 			/** Writes four bytes to the currently selected endpoint's bank in big endian format, for IN
 			 *  direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 *
 			 *  \param[in] DWord  Next double word to write to the currently selected endpoint's FIFO buffer.
 			 */
@@ -836,7 +833,7 @@
 
 			/** Discards four bytes from the currently selected endpoint's bank, for OUT direction endpoints.
 			 *
-			 *  \ingroup Group_EndpointPrimitiveRW
+			 *  \ingroup Group_EndpointPrimitiveRW_AVR8
 			 */
 			static inline void Endpoint_Discard_DWord(void) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Discard_DWord(void)
@@ -883,7 +880,7 @@
 			 *
 			 *  \note This routine should not be called on CONTROL type endpoints.
 			 *
-			 *  \ingroup Group_EndpointRW
+			 *  \ingroup Group_EndpointRW_AVR8
 			 *
 			 *  \return A value from the \ref Endpoint_WaitUntilReady_ErrorCodes_t enum.
 			 */

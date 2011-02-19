@@ -51,8 +51,6 @@
 #define __CONFIGDESCRIPTOR_H__
 
 	/* Includes: */
-		#include <stdint.h>
-
 		#include "../../../Common/Common.h"
 		#include "HostStandardReq.h"
 		#include "USBMode.h"

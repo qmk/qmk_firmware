@@ -69,8 +69,6 @@
 #define __USBEVENTS_H__
 
 	/* Includes: */
-		#include <stdint.h>
-
 		#include "../../../Common/Common.h"
 		#include "USBMode.h"
 
@@ -92,7 +90,7 @@
 			 *  before the mode is switched to the newly indicated mode but after the \ref EVENT_USB_Device_Disconnect
 			 *  event has fired (if connected before the role change).
 			 *
-			 *  \note This event only exists on USB AVR models which support dual role modes.
+			 *  \note This event only exists on microcontrollers that support dual role USB modes.
 			 *        \n\n
 			 *
 			 *  \note This event does not exist if the \c USB_DEVICE_ONLY or \c USB_HOST_ONLY tokens have been supplied
@@ -105,7 +103,7 @@
 			 *
 			 *  \param[in] ErrorCode  Error code indicating the failure reason, a value in \ref USB_Host_ErrorCodes_t.
 			 *
-			 *  \note This event only exists on USB AVR models which supports host mode.
+			 *  \note This event only exists on microcontrollers that supports USB host mode.
 			 *        \n\n
 			 *
 			 *  \note This event does not exist if the \c USB_DEVICE_ONLY token is supplied to the compiler (see
@@ -118,7 +116,7 @@
 			 *  the standard \ref EVENT_USB_Device_Connect() event and so can be used to programmatically start the USB
 			 *  management task to reduce CPU consumption.
 			 *
-			 *  \note This event only exists on USB AVR models which supports host mode.
+			 *  \note This event only exists on microcontrollers that supports USB host mode.
 			 *        \n\n
 			 *
 			 *  \note This event does not exist if the \c USB_DEVICE_ONLY token is supplied to the compiler (see
@@ -132,7 +130,7 @@
 			 *  a USB device has been removed the USB interface whether or not it has been enumerated. This
 			 *  can be used to programmatically stop the USB management task to reduce CPU consumption.
 			 *
-			 *  \note This event only exists on USB AVR models which supports host mode.
+			 *  \note This event only exists on microcontrollers that supports USB host mode.
 			 *        \n\n
 			 *
 			 *  \note This event does not exist if the \c USB_DEVICE_ONLY token is supplied to the compiler (see
@@ -152,7 +150,7 @@
 			 *                           ErrorCode parameter indicates a control error, this will give the error
 			 *                           code returned by the \ref USB_Host_SendControlRequest() function.
 			 *
-			 *  \note This event only exists on USB AVR models which supports host mode.
+			 *  \note This event only exists on microcontrollers that supports USB host mode.
 			 *        \n\n
 			 *
 			 *  \note This event does not exist if the \c USB_DEVICE_ONLY token is supplied to the compiler (see
@@ -188,8 +186,9 @@
 			 */
 			void EVENT_USB_Host_StartOfFrame(void);
 
-			/** Event for USB device connection. This event fires when the AVR in device mode and the device is connected
-			 *  to a host, beginning the enumeration process, measured by a rising level on the AVR's VBUS pin.
+			/** Event for USB device connection. This event fires when the microcontroller is in USB Device mode
+			 *  and the device is connected to a USB host, beginning the enumeration process measured by a rising
+			 *  level on the microcontroller's VBUS sense pin.
 			 *
 			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
 			 *  two seconds) will prevent the device from enumerating correctly.
@@ -202,17 +201,17 @@
 			 *        and disconnection events may be manually fired, and the \ref USB_DeviceState global changed manually.
 			 *        \n\n
 			 *
-			 *  \note This event may fire multiple times during device enumeration on the series 2 USB AVRs with limited USB controllers
+			 *  \note This event may fire multiple times during device enumeration on the microcontrollers with limited USB controllers
 			 *        if \c NO_LIMITED_CONTROLLER_CONNECT is not defined.
 			 *
 			 *  \see \ref Group_USBManagement for more information on the USB management task and reducing CPU usage.
 			 */
 			void EVENT_USB_Device_Connect(void);
 
-			/** Event for USB device disconnection. This event fires when the AVR in device mode and the device is disconnected
-			 *  from a host, measured by a falling level on the AVR's VBUS pin.
+			/** Event for USB device disconnection. This event fires when the microcontroller is in USB Device mode and the device is
+			 *  disconnected from a host, measured by a falling level on the microcontroller's VBUS sense pin.
 			 *
-			 *  \note For the smaller series 2 USB AVRs with limited USB controllers, VBUS is not available to the USB controller.
+			 *  \note For the microcontrollers with limited USB controllers, VBUS sense is not available to the USB controller.
 			 *        this means that the current connection state is derived from the bus suspension and wake up events by default,
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by
@@ -220,7 +219,7 @@
 			 *        and disconnection events may be manually fired, and the \ref USB_DeviceState global changed manually.
 			 *        \n\n
 			 *
-			 *  \note This event may fire multiple times during device enumeration on the series 2 USB AVRs with limited USB controllers
+			 *  \note This event may fire multiple times during device enumeration on the microcontrollers with limited USB controllers
 			 *        if \c NO_LIMITED_CONTROLLER_CONNECT is not defined.
 			 *
 			 *  \see \ref Group_USBManagement for more information on the USB management task and reducing CPU usage.
@@ -277,8 +276,9 @@
 			 *        \ref Group_USBManagement documentation).
 			 *        \n\n
 			 *
-			 *  \note This event does not exist on the series 2 USB AVRs when the \c NO_LIMITED_CONTROLLER_CONNECT
-			 *        compile time token is not set - see \ref EVENT_USB_Device_Disconnect.
+			 *  \note This event does not exist on the microcontrollers with limited USB VBUS sensing abilities
+			 *        when the \c NO_LIMITED_CONTROLLER_CONNECT compile time token is not set - see
+			 *        \ref EVENT_USB_Device_Disconnect.
 			 *
 			 *  \see \ref EVENT_USB_Device_WakeUp() event for accompanying Wake Up event.
 			 */
@@ -294,8 +294,9 @@
 			 *        \ref Group_USBManagement documentation).
 			 *        \n\n
 			 *
-			 *  \note This event does not exist on the series 2 USB AVRs when the \c NO_LIMITED_CONTROLLER_CONNECT
-			 *        compile time token is not set - see \ref EVENT_USB_Device_Connect.
+			 *  \note This event does not exist on the microcontrollers with limited USB VBUS sensing abilities
+			 *        when the \c NO_LIMITED_CONTROLLER_CONNECT compile time token is not set - see
+			 *        \ref EVENT_USB_Device_Disconnect.
 			 *
 			 *  \see \ref EVENT_USB_Device_Suspend() event for accompanying Suspend event.
 			 */

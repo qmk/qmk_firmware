@@ -42,11 +42,8 @@
 #define __USBTASK_H__
 
 	/* Includes: */
-		#include <avr/interrupt.h>
-		#include <stdint.h>
-		#include <stdbool.h>
-
-		#include "../LowLevel/USBController.h"
+		#include "../../../Common/Common.h"
+		#include "USBController.h"
 		#include "Events.h"
 		#include "StdRequestType.h"
 		#include "StdDescriptors.h"
@@ -100,11 +97,11 @@
 					 *  \ref HOST_STATE_Configured and \ref HOST_STATE_Suspended states which are not implemented by
 					 *  the library internally.
 					 *
-					 *  To reduce program size and speed up checks of this global, it can be placed into one of the AVR's
-					 *  GPIOR hardware registers instead of RAM by defining the HOST_STATE_AS_GPIOR token to a value
-					 *  between 0 and 2 in the project makefile and passing it to the compiler via the -D switch. When
-					 *  defined, the corresponding GPIOR register should not be used in the user application except
-					 *  implicitly via the library APIs.
+					 *  To reduce program size and speed up checks of this global on the AVR8 architecture, it can be
+					 *  placed into one of the AVR's GPIOR hardware registers instead of RAM by defining the
+					 *  HOST_STATE_AS_GPIOR token to a value between 0 and 2 in the project makefile and passing it to
+					 *  the compiler via the -D switch. When defined, the corresponding GPIOR register should not be used
+					 *  in the user application except implicitly via the library APIs.
 					 *
 					 *  \note This global is only present if the user application can be a USB host.
 					 *
@@ -129,11 +126,11 @@
 					 *  library. The only exception to this rule is if the NO_LIMITED_CONTROLLER_CONNECT token is used
 					 *  (see \ref EVENT_USB_Device_Connect() and \ref EVENT_USB_Device_Disconnect() events).
 					 *
-					 *  To reduce program size and speed up checks of this global, it can be placed into one of the AVR's
-					 *  GPIOR hardware registers instead of RAM by defining the DEVICE_STATE_AS_GPIOR token to a value
-					 *  between 0 and 2 in the project makefile and passing it to the compiler via the -D switch. When
-					 *  defined, the corresponding GPIOR register should not be used in the user application except
-					 *  implicitly via the library APIs.
+					 *  To reduce program size and speed up checks of this global on the AVR8 architecture, it can be
+					 *  placed into one of the AVR's GPIOR hardware registers instead of RAM by defining the
+					 *  DEVICE_STATE_AS_GPIOR token to a value between 0 and 2 in the project makefile and passing it to
+					 *  the compiler via the -D switch. When defined, the corresponding GPIOR register should not be used
+					 *  in the user application except implicitly via the library APIs.
 					 *
 					 *  \note This global is only present if the user application can be a USB device.
 					 *        \n\n

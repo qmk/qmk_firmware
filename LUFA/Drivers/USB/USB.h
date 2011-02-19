@@ -34,36 +34,36 @@
  *  Master include file for the library USB functionality.
  *
  *  This file should be included in all user projects making use of the USB portions of the library, instead of
- *  including any headers in the USB/LowLevel/ or USB/HighLevel/ subdirectories.
+ *  the individual USB driver submodule headers.
  */
 
 /** \defgroup Group_USB USB Core - LUFA/Drivers/USB/USB.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/USB/LowLevel/Device.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/LowLevel/Endpoint.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/LowLevel/Host.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/LowLevel/Pipe.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/LowLevel/USBController.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/LowLevel/USBInterrupt.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/HighLevel/ConfigDescriptor.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/HighLevel/DeviceStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/HighLevel/Events.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/HighLevel/EndpointStream.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/HighLevel/HostStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/HighLevel/PipeStream.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
- *    - LUFA/Drivers/USB/HighLevel/USBTask.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/ConfigDescriptor.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/DeviceStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/Events.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/EndpointStream.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/HostStandardReq.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/PipeStream.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/USBTask.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/<i>ARCH</i>/Device.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/<i>ARCH</i>/Endpoint.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/<i>ARCH</i>/Host.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/<i>ARCH</i>/Pipe.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/<i>ARCH</i>/USBController.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
+ *    - LUFA/Drivers/USB/Core/<i>ARCH</i>/USBInterrupt.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *    - LUFA/Drivers/USB/Class/Common/HIDParser.c <i>(Makefile source module name: LUFA_SRC_USB)</i>
  *
  *  \section Sec_ModDescription Module Description
- *  Driver and framework for the USB controller hardware on the USB series of AVR microcontrollers. This module
+ *  Driver and framework for the USB controller of the selected architecture and microcontroller model. This module
  *  consists of many submodules, and is designed to provide an easy way to configure and control USB host, device
  *  or OTG mode USB applications.
  *
  *  The USB stack requires the sole control over the USB controller in the microcontroller only; i.e. it does not
- *  require any additional AVR timers, etc. to operate. This ensures that the USB stack requires as few resources
- *  as possible.
+ *  require any additional timers or other peripherals to operate. This ensures that the USB stack requires as few
+ *  resources as possible.
  *
  *  The USB stack can be used in Device Mode for connections to USB Hosts (see \ref Group_Device), in Host mode for
  *  hosting of other USB devices (see \ref Group_Host), or as a dual role device which can either act as a USB host
@@ -361,39 +361,38 @@
 		#endif
 
 	/* Includes: */
-		#include "HighLevel/USBMode.h"
+		#include "../../Common/Common.h"
+		#include "Core/USBMode.h"
 
 	/* Preprocessor Checks: */
-		#if (!defined(USB_SERIES_2_AVR) && !defined(USB_SERIES_4_AVR) && \
-		     !defined(USB_SERIES_6_AVR) && !defined(USB_SERIES_7_AVR))
-			#error The currently selected AVR model is not supported under the USB component of the LUFA library.
+		#if (!defined(USB_CAN_BE_DEVICE) && !defined(USB_CAN_BE_HOST))
+			#error The currently selected architecture is not supported under the USB component of the library.
 		#endif
 
 	/* Includes: */
-		#include "HighLevel/USBTask.h"
-		#include "HighLevel/Events.h"
-		#include "HighLevel/StdDescriptors.h"
-		#include "HighLevel/ConfigDescriptor.h"
-
-		#include "LowLevel/USBController.h"
-		#include "LowLevel/USBInterrupt.h"
+		#include "Core/USBTask.h"
+		#include "Core/Events.h"
+		#include "Core/StdDescriptors.h"
+		#include "Core/ConfigDescriptor.h"
+		#include "Core/USBController.h"
+		#include "Core/USBInterrupt.h"
 
 		#if defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__)
-			#include "LowLevel/Host.h"
-			#include "LowLevel/Pipe.h"
-			#include "HighLevel/HostStandardReq.h"
-			#include "HighLevel/PipeStream.h"
+			#include "Core/Host.h"
+			#include "Core/Pipe.h"
+			#include "Core/HostStandardReq.h"
+			#include "Core/PipeStream.h"
 		#endif
 
 		#if defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__)
-			#include "LowLevel/Device.h"
-			#include "LowLevel/Endpoint.h"
-			#include "HighLevel/DeviceStandardReq.h"
-			#include "HighLevel/EndpointStream.h"
+			#include "Core/Device.h"
+			#include "Core/Endpoint.h"
+			#include "Core/DeviceStandardReq.h"
+			#include "Core/EndpointStream.h"
 		#endif
 
 		#if defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__)
-			#include "LowLevel/OTG.h"
+			#include "Core/OTG.h"
 		#endif
 		
 		#include "Class/Audio.h"

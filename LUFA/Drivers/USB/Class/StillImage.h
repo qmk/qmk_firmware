@@ -63,7 +63,7 @@
 		#define __INCLUDE_FROM_SI_DRIVER
 
 	/* Includes: */
-		#include "../HighLevel/USBMode.h"
+		#include "../Core/USBMode.h"
 
 		#if defined(USB_CAN_BE_HOST)
 			#include "Host/StillImage.h"

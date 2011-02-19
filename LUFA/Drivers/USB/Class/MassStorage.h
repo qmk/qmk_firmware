@@ -64,7 +64,7 @@
 		#define __INCLUDE_FROM_MS_DRIVER
 
 	/* Includes: */
-		#include "../HighLevel/USBMode.h"
+		#include "../Core/USBMode.h"
 
 		#if defined(USB_CAN_BE_DEVICE)
 			#include "Device/MassStorage.h"

@@ -50,7 +50,7 @@
 #define __STDREQTYPE_H__
 
 	/* Includes: */
-		#include <stdint.h>
+		#include "../../../Common/Common.h"
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)

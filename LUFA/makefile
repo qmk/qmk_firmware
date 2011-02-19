@@ -22,19 +22,19 @@ ifeq ($(origin ARCH), undefined)
 endif
 
 # Define module source file lists
-LUFA_SRC_USB          = $(LUFA_ROOT_PATH)/Drivers/USB/LowLevel/Device.c             \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/LowLevel/Endpoint.c           \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/LowLevel/Host.c               \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/LowLevel/Pipe.c               \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/LowLevel/USBController.c      \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/LowLevel/USBInterrupt.c       \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/ConfigDescriptor.c  \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/DeviceStandardReq.c \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/Events.c            \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/EndpointStream.c    \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/HostStandardReq.c   \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/PipeStream.c        \
-                        $(LUFA_ROOT_PATH)/Drivers/USB/HighLevel/USBTask.c           \
+LUFA_SRC_USB          = $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/Device.c         \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/Endpoint.c       \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/Host.c           \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/Pipe.c           \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/USBController.c  \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/$(ARCH)/USBInterrupt.c   \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/ConfigDescriptor.c       \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/DeviceStandardReq.c      \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/Events.c                 \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/EndpointStream.c         \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/HostStandardReq.c        \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/PipeStream.c             \
+                        $(LUFA_ROOT_PATH)/Drivers/USB/Core/USBTask.c                \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Class/Common/HIDParser.c
 LUFA_SRC_USBCLASS     = $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/Audio.c          \
                         $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/CDC.c            \
