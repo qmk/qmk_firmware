@@ -43,7 +43,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/Peripheral/$(ARCH)TWI.c <i>(Makefile source module name: LUFA_SRC_TWI)</i>
+ *    - LUFA/Drivers/Peripheral/<i>ARCH</i>/TWI.c <i>(Makefile source module name: LUFA_SRC_TWI)</i>
  *
  *  \section Sec_ModDescription Module Description
  *  Hardware TWI driver. This module provides an easy to use driver for the setup and transfer of data over

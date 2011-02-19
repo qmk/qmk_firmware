@@ -34,7 +34,7 @@
  *  Dataflash command constants for the Atmel AT45DB642D Dataflash IC.
  */
 
-/** \ingroup Group_AT45DB642D
+/** \ingroup Group_MiscDrivers
  *  \defgroup Group_AT45DB642D AT45DB642D Commands
  *
  *  Dataflash command constants for the Atmel AT45DB642D Dataflash IC.

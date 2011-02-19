@@ -34,7 +34,7 @@
  *  Dataflash command constants for the Atmel AT45DB321C Dataflash IC.
  */
 
-/** \ingroup Group_AT45DB321C
+/** \ingroup Group_MiscDrivers
  *  \defgroup Group_AT45DB321C AT45DB321C Commands
  *
  *  Dataflash command constants for the Atmel AT45DB321C Dataflash IC.
