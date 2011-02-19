@@ -44,7 +44,7 @@
  */
 
 /** \ingroup Group_BoardDrivers
- *  @defgroup Group_LEDs LEDs Driver - LUFA/Drivers/Board/LEDs.h
+ *  \defgroup Group_LEDs LEDs Driver - LUFA/Drivers/Board/LEDs.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
@@ -165,7 +165,7 @@
 		#include "MICROSIN162/LEDs.h"
 	#elif (BOARD == BOARD_SPARKFUN8U2)
 		#include "SPARKFUN8U2/LEDs.h"
-	#elif (BOARD == BOARD_USER)
+	#else
 		#include "Board/LEDs.h"
 	#endif
 

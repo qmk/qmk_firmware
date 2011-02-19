@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_MINIMUS MINIMUS
+ *  \defgroup Group_LEDs_MINIMUS MINIMUS
  *
  *  Board specific LED driver header for the Minimus USB (http://www.minimususb.com/).
  *

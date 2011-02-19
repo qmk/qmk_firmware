@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_XPLAIN XPLAIN
+ *  \defgroup Group_LEDs_XPLAIN XPLAIN
  *
  *  Board specific LED driver header for the Atmel XPLAIN.
  *

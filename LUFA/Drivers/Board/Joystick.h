@@ -44,7 +44,7 @@
  */
 
 /** \ingroup Group_BoardDrivers
- *  @defgroup Group_Joystick Joystick Driver - LUFA/Drivers/Board/Joystick.h
+ *  \defgroup Group_Joystick Joystick Driver - LUFA/Drivers/Board/Joystick.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
@@ -113,10 +113,8 @@
 		#include "BUMBLEB/Joystick.h"
 	#elif (BOARD == BOARD_EVK527)
 		#include "EVK527/Joystick.h"
-	#elif (BOARD == BOARD_USER)
-		#include "Board/Joystick.h"
 	#else
-		#error The selected board does not contain a joystick.
+		#include "Board/Joystick.h"
 	#endif
 
 	/* Pseudo-Functions for Doxygen: */

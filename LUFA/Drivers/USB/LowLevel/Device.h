@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_USB
- *  @defgroup Group_Device Device Management
+ *  \defgroup Group_Device Device Management
  *
  *  USB Device mode related macros and enums. This module contains macros and enums which are used when
  *  the USB controller is initialized in device mode.

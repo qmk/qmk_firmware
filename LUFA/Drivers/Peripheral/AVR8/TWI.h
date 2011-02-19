@@ -29,18 +29,19 @@
 */
 
 /** \file
- *  \brief TWI peripheral driver for the U7, U6 and U4 USB AVRs.
+ *  \brief TWI Peripheral Driver (AVR8)
  *
- *  Master mode TWI driver for the AT90USB1287, AT90USB1286, AT90USB647, AT90USB646, ATMEGA16U4 and ATMEGA32U4 AVRs.
+ *  On-chip TWI driver for the 8-bit AVR microcontrollers.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the TWI driver
  *        dispatch header located in LUFA/Drivers/Peripheral/TWI.h.
  */
 
 /** \ingroup Group_TWI
- *  @defgroup Group_TWI_AVRU4U6U7 Series U4, U6 and U7 Model TWI Driver
+ *  \defgroup Group_TWI_AVR8 TWI Peripheral Driver (AVR8)
  *
- *  Master mode TWI driver for the AT90USB1287, AT90USB1286, AT90USB647, AT90USB646, ATMEGA16U4 and ATMEGA32U4 AVRs.
+ *  \section Sec_ModDescription Module Description
+ *  Master mode TWI driver for the 8-bit AVR microcontrollers which contain a hardware TWI module.
  *
  *  \note This file should not be included directly. It is automatically included as needed by the TWI driver
  *        dispatch header located in LUFA/Drivers/Peripheral/TWI.h.
@@ -111,17 +112,14 @@
  *  @{
  */
 
-#ifndef __TWI_AVRU4U6U7_H__
-#define __TWI_AVRU4U6U7_H__
+#ifndef __TWI_AVR8_H__
+#define __TWI_AVR8_H__
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
 
-		#include <avr/io.h>
-		#include <stdbool.h>
 		#include <stdio.h>
 		#include <util/twi.h>
-		#include <util/delay.h>
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -129,8 +127,15 @@
 		#endif
 
 	/* Preprocessor Checks: */
-		#if !defined(__INCLUDE_FROM_TWI_H)
+		#if !defined(__INCLUDE_FROM_TWI_H) && !defined(__INCLUDE_FROM_TWI_C)
 			#error Do not include this file directly. Include LUFA/Drivers/Peripheral/TWI.h instead.
+		#endif
+
+		#if !(defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
+		      defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
+			  defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || \
+			  defined(__AVR_ATmega32U6__))
+			#error The TWI peripheral driver is not currently available for your selected microcontroller model.
 		#endif
 
 	/* Public Interface - May be used in end-application: */

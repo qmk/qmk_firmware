@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Dataflash
- *  @defgroup Group_Dataflash_STK526 STK526
+ *  \defgroup Group_Dataflash_STK526 STK526
  *
  *  Board specific Dataflash driver header for the Atmel STK525.
  *

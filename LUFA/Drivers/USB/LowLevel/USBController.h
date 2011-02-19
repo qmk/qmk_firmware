@@ -39,7 +39,7 @@
  */
 
 /** \ingroup Group_USB
- *  @defgroup Group_USBManagement USB Interface Management
+ *  \defgroup Group_USBManagement USB Interface Management
  *
  *  Functions, macros, variables, enums and types related to the setup and management of the USB interface.
  *

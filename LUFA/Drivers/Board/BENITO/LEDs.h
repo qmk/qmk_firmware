@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_BENITO BENITO
+ *  \defgroup Group_LEDs_BENITO BENITO
  *
  *  Board specific LED driver header for the Tempusdictum Benito (http://dorkbotpdx.org/wiki/benito).
  *

@@ -44,7 +44,7 @@
  */
 
 /** \ingroup Group_BoardDrivers
- *  @defgroup Group_Buttons Buttons Driver - LUFA/Drivers/Board/Buttons.h
+ *  \defgroup Group_Buttons Buttons Driver - LUFA/Drivers/Board/Buttons.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
@@ -125,10 +125,8 @@
 		#include "MINIMUS/Buttons.h"
 	#elif (BOARD == BOARD_MICROSIN162)
 		#include "MICROSIN162/Buttons.h"
-	#elif (BOARD == BOARD_USER)
-		#include "Board/Buttons.h"
 	#else
-		#error The selected board does not contain any GPIO buttons.
+		#include "Board/Buttons.h"
 	#endif
 
 	/* Pseudo-Functions for Doxygen: */

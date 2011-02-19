@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_BENITO BENITO
+ *  \defgroup Group_Buttons_BENITO BENITO
  *
  *  Board specific Buttons driver header for the Tempusdictum Benito (http://dorkbotpdx.org/wiki/benito).
  *

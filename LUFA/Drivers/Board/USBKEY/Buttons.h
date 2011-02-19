@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_USBKEY USBKEY
+ *  \defgroup Group_Buttons_USBKEY USBKEY
  *
  *  Board specific Buttons driver header for the Atmel USBKEY.
  *

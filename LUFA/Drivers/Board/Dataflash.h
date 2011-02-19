@@ -44,7 +44,7 @@
  */
 
 /** \ingroup Group_BoardDrivers
- *  @defgroup Group_Dataflash Dataflash Driver - LUFA/Drivers/Board/Dataflash.h
+ *  \defgroup Group_Dataflash Dataflash Driver - LUFA/Drivers/Board/Dataflash.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
@@ -123,8 +123,8 @@
 	#endif
 
 	/* Includes: */
-	#include "../Peripheral/SPI.h"
 	#include "../../Common/Common.h"
+	#include "../Peripheral/SPI.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -247,10 +247,8 @@
 				#include "XPLAIN/Dataflash.h"
 			#elif (BOARD == BOARD_EVK527)
 				#include "EVK527/Dataflash.h"
-			#elif (BOARD == BOARD_USER)
-				#include "Board/Dataflash.h"
 			#else
-				#error The selected board does not contain a dataflash IC.
+				#include "Board/Dataflash.h"
 			#endif
 
 	/* Disable C linkage for C++ Compilers: */

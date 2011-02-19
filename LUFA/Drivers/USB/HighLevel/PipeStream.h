@@ -39,7 +39,7 @@
  */
 
 /** \ingroup Group_PipeRW  
- *  @defgroup Group_PipeStreamRW Read/Write of Multi-Byte Streams
+ *  \defgroup Group_PipeStreamRW Read/Write of Multi-Byte Streams
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of data streams from
  *  and to pipes.

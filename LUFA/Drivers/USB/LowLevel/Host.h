@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_USB
- *  @defgroup Group_Host Host Management
+ *  \defgroup Group_Host Host Management
  *
  *  USB Host mode related macros and enums. This module contains macros and enums which are used when
  *  the USB controller is initialized in host mode.

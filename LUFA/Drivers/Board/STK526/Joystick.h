@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Joystick
- *  @defgroup Group_Joystick_STK526 STK526
+ *  \defgroup Group_Joystick_STK526 STK526
  *
  *  Board specific joystick driver header for the Atmel STK526.
  *

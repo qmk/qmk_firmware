@@ -39,7 +39,7 @@
  */
 
 /** \ingroup Group_Common
- *  @defgroup Group_BoardTypes Board Types
+ *  \defgroup Group_BoardTypes Board Types
  *
  *  Macros for indicating the chosen physical board hardware to the library. These macros should be used when
  *  defining the BOARD token to the chosen hardware via the -D switch in the project makefile.
@@ -47,11 +47,11 @@
  *  @{
  */
 
-#ifndef __BOARDTYPES_H__
-#define __BOARDTYPES_H__
+#ifndef __LUFA_BOARDTYPES_H__
+#define __LUFA_BOARDTYPES_H__
 
 	/* Preprocessor Checks: */
-		#if !defined(__COMMON_H__)
+		#if !defined(__INCLUDE_FROM_COMMON_H)
 			#error Do not include this file directly. Include LUFA/Common/Common.h instead to gain this functionality.
 		#endif
 

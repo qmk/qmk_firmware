@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_JMDBU2 JMDBU2
+ *  \defgroup Group_LEDs_JMDBU2 JMDBU2
  *
  *  Board specific LED driver header for the Mattairtech JM-DB-U2 (http://u2.mattair.net/index.html).
  *

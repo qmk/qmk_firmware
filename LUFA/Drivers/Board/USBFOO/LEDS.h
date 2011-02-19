@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_USBFOO USBFOO
+ *  \defgroup Group_LEDs_USBFOO USBFOO
  *
  *  Board specific LED driver header for the Kernel Concepts USBFOO (http://shop.kernelconcepts.de/product_info.php?products_id=102).
  *

@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Dataflash
- *  @defgroup Group_Dataflash_USBKEY USBKEY
+ *  \defgroup Group_Dataflash_USBKEY USBKEY
  *
  *  Board specific Dataflash driver header for the Atmel USBKEY board.
  *

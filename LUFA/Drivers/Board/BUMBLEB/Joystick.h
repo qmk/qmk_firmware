@@ -41,7 +41,7 @@
  */
 
 /** \ingroup Group_Joystick
- *  @defgroup Group_Joystick_BUMBLEB BUMBLEB
+ *  \defgroup Group_Joystick_BUMBLEB BUMBLEB
  *
  *  Board specific joystick driver header for the Fletchtronics BUMBLEB (http://fletchtronics.net/bumble-b). The BUMBLEB
  *  third-party board does not include any on-board peripherals, but does have an officially recommended external peripheral

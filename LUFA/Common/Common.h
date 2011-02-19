@@ -35,7 +35,7 @@
  *  also includes other common code headers.
  */
 
-/** @defgroup Group_Common Common Utility Headers - LUFA/Drivers/Common/Common.h
+/** \defgroup Group_Common Common Utility Headers - LUFA/Drivers/Common/Common.h
  *
  *  Common utility headers containing macros, functions, enums and types which are common to all
  *  aspects of the library.
@@ -43,25 +43,41 @@
  *  @{
  */
 
-/** @defgroup Group_Debugging Debugging Macros
+/** \defgroup Group_Debugging Debugging Macros
  *
  *  Macros for debugging use.
  */
 
-/** @defgroup Group_BitManip Endian and Bit Macros
+/** \defgroup Group_BitManip Endian and Bit Macros
  *
  *  Functions for swapping endianness and reversing bit orders.
  */
 
-#ifndef __COMMON_H__
-#define __COMMON_H__
+#ifndef __LUFA_COMMON_H__
+#define __LUFA_COMMON_H__
 
+	/* Macros: */
+		#if !defined(__DOXYGEN__)
+			#define __INCLUDE_FROM_COMMON_H
+		#endif
+		
 	/* Includes: */
 		#include <stdint.h>
 		#include <stdbool.h>
 
+		#include "Architectures.h"
 		#include "Attributes.h"
 		#include "BoardTypes.h"
+		
+	/* Architecture specific utility includes: */
+		#if (ARCH == ARCH_AVR8)
+			#include <avr/io.h>
+			#include <avr/interrupt.h>
+			#include <avr/pgmspace.h>
+			#include <avr/eeprom.h>
+			#include <util/atomic.h>
+			#include <util/delay.h>
+		#endif
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
@@ -89,7 +105,9 @@
 			 *
 			 *  \return The larger of the two input parameters
 			 */
-			#define MAX(x, y)               ((x > y) ? x : y)
+			#if !defined(MAX) || defined(__DOXYGEN__)
+				#define MAX(x, y)               ((x > y) ? x : y)
+			#endif
 
 			/** Convenience macro to determine the smaller of two values.
 			 *
@@ -101,44 +119,61 @@
 			 *
 			 *  \return The smaller of the two input parameters
 			 */
-			#define MIN(x, y)               ((x < y) ? x : y)
+			#if !defined(MIN) || defined(__DOXYGEN__)
+				#define MIN(x, y)               ((x < y) ? x : y)
+			#endif
 
-			/** Defines a volatile \c NOP statement which cannot be optimized out by the compiler, and thus can always
-			 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimiser
-			 *  removes/reorders code to the point where break points cannot reliably be set.
-			 *
-			 *  \ingroup Group_Debugging
-			 */
-			#define JTAG_DEBUG_POINT()      __asm__ __volatile__ ("NOP" ::)
+			#if (ARCH == ARCH_AVR8)
+				/** Defines a volatile \c NOP statement which cannot be optimized out by the compiler, and thus can always
+				 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimiser
+				 *  removes/reorders code to the point where break points cannot reliably be set.
+				 *
+				 *  \ingroup Group_Debugging
+				 */
+				#define JTAG_DEBUG_POINT()      __asm__ __volatile__ ("NOP" ::)
 
-			/** Defines an explicit JTAG break point in the resulting binary via the assembly \c BREAK statement. When
-			 *  a JTAG is used, this causes the program execution to halt when reached until manually resumed.
-			 *
-			 *  \ingroup Group_Debugging
-			 */
-			#define JTAG_DEBUG_BREAK()      __asm__ __volatile__ ("BREAK" ::)
+				/** Defines an explicit JTAG break point in the resulting binary via the assembly \c BREAK statement. When
+				 *  a JTAG is used, this causes the program execution to halt when reached until manually resumed.
+				 *
+				 *  \ingroup Group_Debugging
+				 */
+				#define JTAG_DEBUG_BREAK()      __asm__ __volatile__ ("BREAK" ::)
 
-			/** Macro for testing condition "x" and breaking via \ref JTAG_DEBUG_BREAK() if the condition is false.
-			 *
-			 *  \param[in] Condition  Condition that will be evaluated,
-			 *
-			 *  \ingroup Group_Debugging
-			*/
-			#define JTAG_DEBUG_ASSERT(Condition)    MACROS{ if (!(Condition)) { JTAG_DEBUG_BREAK(); } }MACROE
+				#if !defined(pgm_read_ptr) || defined(__DOXYGEN__)
+					/** Reads a pointer out of PROGMEM space. This is currently a wrapper for the avr-libc \c pgm_read_ptr()
+					 *  macro with a \c void* cast, so that its value can be assigned directly to a pointer variable or used
+					 *  in pointer arithmetic without further casting in C. In a future avr-libc distribution this will be
+					 *  part of the standard API and will be implemented in a more formal manner.
+					 *
+					 *  \param[in] Addr  Address of the pointer to read.
+					 *
+					 *  \return Pointer retrieved from PROGMEM space.
+					 */
+					#define pgm_read_ptr(Addr)    (void*)pgm_read_word(Addr)
+				#endif
 
-			/** Macro for testing condition "x" and writing debug data to the stdout stream if \c false. The stdout stream
-			 *  must be pre-initialized before this macro is run and linked to an output device, such as the AVR's USART
-			 *  peripheral.
-			 *
-			 *  The output takes the form "{FILENAME}: Function {FUNCTION NAME}, Line {LINE NUMBER}: Assertion {Condition} failed."
-			 *
-			 *  \param[in] Condition  Condition that will be evaluated,
-			 *
-			 *  \ingroup Group_Debugging
-			 */
-			#define STDOUT_ASSERT(Condition)        MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
-			                                                "Assertion \"%s\" failed.\r\n"),     \
-			                                                __FILE__, __func__, __LINE__, #Condition); } }MACROE
+				/** Macro for testing condition "x" and breaking via \ref JTAG_DEBUG_BREAK() if the condition is false.
+				 *
+				 *  \param[in] Condition  Condition that will be evaluated,
+				 *
+				 *  \ingroup Group_Debugging
+				*/
+				#define JTAG_DEBUG_ASSERT(Condition)    MACROS{ if (!(Condition)) { JTAG_DEBUG_BREAK(); } }MACROE
+
+				/** Macro for testing condition "x" and writing debug data to the stdout stream if \c false. The stdout stream
+				 *  must be pre-initialized before this macro is run and linked to an output device, such as the AVR's USART
+				 *  peripheral.
+				 *
+				 *  The output takes the form "{FILENAME}: Function {FUNCTION NAME}, Line {LINE NUMBER}: Assertion {Condition} failed."
+				 *
+				 *  \param[in] Condition  Condition that will be evaluated,
+				 *
+				 *  \ingroup Group_Debugging
+				 */
+				#define STDOUT_ASSERT(Condition)        MACROS{ if (!(x)) { printf_P(PSTR("%s: Function \"%s\", Line %d: "   \
+				                                                "Assertion \"%s\" failed.\r\n"),     \
+				                                                __FILE__, __func__, __LINE__, #Condition); } }MACROE
+			#endif
 			
 			/** Forces GCC to use pointer indirection (via the AVR's pointer register pairs) when accessing the given
 			 *  struct pointer. In some cases GCC will emit non-optimal assembly code when accessing a structure through
@@ -149,19 +184,6 @@
 			 *  \param[in, out] StructPtr  Pointer to a structure which is to be forced into indirect access mode.
 			 */
 			#define GCC_FORCE_POINTER_ACCESS(StructPtr) __asm__ __volatile__("" : "=b" (StructPtr) : "0" (StructPtr))
-
-			#if !defined(pgm_read_ptr) || defined(__DOXYGEN__)
-				/** Reads a pointer out of PROGMEM space. This is currently a wrapper for the avr-libc \c pgm_read_ptr()
-				 *  macro with a \c void* cast, so that its value can be assigned directly to a pointer variable or used
-				 *  in pointer arithmetic without further casting in C. In a future avr-libc distribution this will be
-				 *  part of the standard API and will be implemented in a more formal manner.
-				 *
-				 *  \param[in] Addr  Address of the pointer to read.
-				 *
-				 *  \return Pointer retrieved from PROGMEM space.
-				 */
-				#define pgm_read_ptr(Addr)    (void*)pgm_read_word(Addr)
-			#endif
 
 			/** Swaps the byte ordering of a 16-bit value at compile time. Do not use this macro for swapping byte orderings
 			 *  of dynamic values computed at runtime, use \ref SwapEndian_16() instead. The result of this macro can be used

@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Joystick
- *  @defgroup Group_Joystick_EVK527 EVK527
+ *  \defgroup Group_Joystick_EVK527 EVK527
  *
  *  Board specific joystick driver header for the Atmel EVK527.
  *

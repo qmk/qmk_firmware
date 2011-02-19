@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Dataflash
- *  @defgroup Group_Dataflash_XPLAIN XPLAIN
+ *  \defgroup Group_Dataflash_XPLAIN XPLAIN
  *
  *  Board specific Dataflash driver header for the Atmel XPLAIN.
  *

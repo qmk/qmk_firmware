@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Joystick
- *  @defgroup Group_Joystick_USBKEY USBKEY
+ *  \defgroup Group_Joystick_USBKEY USBKEY
  *
  *  Board specific joystick driver header for the Atmel USBKEY.
  *

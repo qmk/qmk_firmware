@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_STK526 STK526
+ *  \defgroup Group_LEDs_STK526 STK526
  *
  *  Board specific LED driver header for the Atmel STK526.
  *

@@ -37,7 +37,7 @@
  *  \deprecated This module is deprecated and will be removed in a future library release.
  */
 
-/** @defgroup Group_Scheduler Simple Task Scheduler - LUFA/Scheduler/Scheduler.h
+/** \defgroup Group_Scheduler Simple Task Scheduler - LUFA/Scheduler/Scheduler.h
  *
  *  \deprecated This module is deprecated and will be removed in a future library release.
  *
@@ -105,11 +105,6 @@
 #define __SCHEDULER_H__
 
 	/* Includes: */
-		#include <stdint.h>
-		#include <stdbool.h>
-
-		#include <util/atomic.h>
-
 		#include "../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */
@@ -180,7 +175,7 @@
 			/** Type define for a variable which can hold a tick delay value for the scheduler up to the maximum delay
 			 *  possible.
 			 */
-			typedef uint16_t SchedulerDelayCounter_t;
+			typedef uint_least16_t SchedulerDelayCounter_t;
 
 			/** \brief Scheduler Task List Entry Structure.
 			 *
@@ -188,9 +183,9 @@
 			 */
 			typedef struct
 			{
-				TaskPtr_t Task;       /**< Pointer to the task to execute. */
-				bool      TaskStatus; /**< Status of the task (either TASK_RUN or TASK_STOP). */
-				uint8_t   GroupID;    /**< Group ID of the task so that its status can be changed as a group. */
+				TaskPtr_t     Task;       /**< Pointer to the task to execute. */
+				bool          TaskStatus; /**< Status of the task (either TASK_RUN or TASK_STOP). */
+				uint_least8_t GroupID;    /**< Group ID of the task so that its status can be changed as a group. */
 			} TaskEntry_t;
 
 		/* Global Variables: */
@@ -198,14 +193,14 @@
 			 *  \ref TaskEntry_t and can be manipulated as desired, although it is preferred that the proper Scheduler
 			 *  functions should be used instead of direct manipulation.
 			 */
-			exter TaskEntry_t Scheduler_TaskList[];
+			extern TaskEntry_t Scheduler_TaskList[];
 
 			/** Contains the total number of tasks in the task list, irrespective of if the task's status is set to
 			 *  \ref TASK_RUN or \ref TASK_STOP.
 			 *
 			 *  \note This value should be treated as read-only, and never altered in user-code.
 			 */
-			extern volatile uint8_t Scheduler_TotalTasks;
+			extern volatile uint_least8_t Scheduler_TotalTasks;
 
 			/**  Contains the current scheduler tick count, for use with the delay functions. If the delay functions
 			 *   are used in the user code, this should be incremented each tick period so that the delays can be
@@ -248,7 +243,7 @@
 			 *      }
 			 *  \endcode
 			 */
-			bool Scheduler_HasDelayElapsed(const uint16_t Delay,
+			bool Scheduler_HasDelayElapsed(const uint_least16_t Delay,
 			                               SchedulerDelayCounter_t* const DelayCounter)
 			                               ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(2);
 
@@ -266,24 +261,25 @@
 			 *  \param[in] GroupID     Value of the task group ID whose status is to be changed.
 			 *  \param[in] TaskStatus  New task status for tasks in the specified group (\ref TASK_RUN or \ref TASK_STOP).
 			 */
-			void Scheduler_SetGroupTaskMode(const uint8_t GroupID,
+			void Scheduler_SetGroupTaskMode(const uint_least8_t GroupID,
 			                                const bool TaskStatus);
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
 			#define TOTAL_TASKS                       (sizeof(Scheduler_TaskList) / sizeof(TaskEntry_t))
-			#define MAX_DELAYCTR_COUNT                0xFFFF
+			#define MAX_DELAYCTR_COUNT                UINT_LEAST16_MAX
 
 		/* Inline Functions: */
-			static inline void Scheduler_InitScheduler(const uint8_t TotalTasks) ATTR_ALWAYS_INLINE;
-			static inline void Scheduler_InitScheduler(const uint8_t TotalTasks)
+			static inline void Scheduler_InitScheduler(const uint_least8_t TotalTasks) ATTR_ALWAYS_INLINE;
+			static inline void Scheduler_InitScheduler(const uint_least8_t TotalTasks)
 			{
 				Scheduler_TotalTasks = TotalTasks;
 			}
 
-			static inline void Scheduler_GoSchedule(const uint8_t TotalTasks) ATTR_NO_RETURN ATTR_ALWAYS_INLINE ATTR_DEPRECATED;
-			static inline void Scheduler_GoSchedule(const uint8_t TotalTasks)
+			static inline void Scheduler_GoSchedule(const uint_least8_t TotalTasks)
+			                                        ATTR_NO_RETURN ATTR_ALWAYS_INLINE ATTR_DEPRECATED;
+			static inline void Scheduler_GoSchedule(const uint_least8_t TotalTasks)
 			{
 				Scheduler_InitScheduler(TotalTasks);
 

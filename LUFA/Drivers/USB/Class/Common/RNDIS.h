@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_USBClassRNDIS
- *  @defgroup Group_USBClassRNDISCommon  Common Class Definitions
+ *  \defgroup Group_USBClassRNDISCommon  Common Class Definitions
  *
  *  \section Sec_ModDescription Module Description
  *  Constants, Types and Enum definitions that are common to both Device and Host modes for the USB

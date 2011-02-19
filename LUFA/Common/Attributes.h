@@ -44,7 +44,7 @@
  */
 
 /** \ingroup Group_Common
- *  @defgroup Group_GCCAttr Function/Variable Attributes
+ *  \defgroup Group_GCCAttr Function/Variable Attributes
  *
  *  Macros for easy access GCC function and variable attributes, which can be applied to function prototypes or
  *  variable attributes.
@@ -52,11 +52,11 @@
  *  @{
  */
 
-#ifndef __FUNCATTR_H__
-#define __FUNCATTR_H__
+#ifndef __LUFA_FUNCATTR_H__
+#define __LUFA_FUNCATTR_H__
 
 	/* Preprocessor Checks: */
-		#if !defined(__COMMON_H__)
+		#if !defined(__INCLUDE_FROM_COMMON_H)
 			#error Do not include this file directly. Include LUFA/Common/Common.h instead to gain this functionality.
 		#endif
 

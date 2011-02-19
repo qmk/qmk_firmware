@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_USB
- *  @defgroup Group_Descriptors USB Descriptors
+ *  \defgroup Group_Descriptors USB Descriptors
  *
  *  Standard USB device descriptor defines and retrieval routines, for USB devices. This module contains
  *  structures and macros for the easy creation of standard USB descriptors in USB device projects.

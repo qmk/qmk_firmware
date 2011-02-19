@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_MICROSIN162 MICROSIN162
+ *  \defgroup Group_Buttons_MICROSIN162 MICROSIN162
  *
  *  Board specific Buttons driver header for the Microsin AVR-USB162 board (http://microsin.ru/content/view/685/44/).
  *

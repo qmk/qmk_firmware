@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_RZUSBSTICK RZUSBSTICK
+ *  \defgroup Group_LEDs_RZUSBSTICK RZUSBSTICK
  *
  *  Board specific LED driver header for the Atmel RZUSBSTICK.
  *

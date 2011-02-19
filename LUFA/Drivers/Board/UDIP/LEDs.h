@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_UDIP UDIP
+ *  \defgroup Group_LEDs_UDIP UDIP
  *
  *  Board specific LED driver header for the Linnix UDIP (http://linnix.com/udip/).
  *

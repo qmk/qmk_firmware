@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_ADAFRUITU4 ADAFRUITU4
+ *  \defgroup Group_LEDs_ADAFRUITU4 ADAFRUITU4
  *
  *  Board specific LED driver header for the Adafruit U4 Breakout board (http://ladyada.net/products/atmega32u4breakout).
  *

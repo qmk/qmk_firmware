@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Dataflash
- *  @defgroup Group_Dataflash_EVK527 EVK527
+ *  \defgroup Group_Dataflash_EVK527 EVK527
  *
  *  Board specific Dataflash driver header for the Atmel EVK527.
  *

@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_OLIMEX162 OLIMEX162
+ *  \defgroup Group_Buttons_OLIMEX162 OLIMEX162
  *
  *  Board specific Buttons driver header for the Olimex AVR-USB-162 Development Board (http://www.olimex.com/dev/avr-usb-162.html).
  *

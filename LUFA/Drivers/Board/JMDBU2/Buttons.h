@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_JMDBU2 JMDBU2
+ *  \defgroup Group_Buttons_JMDBU2 JMDBU2
  *
  *  Board specific Buttons driver header for the Mattairtech JM-DB-U2 (http://u2.mattair.net/index.html).
  *

@@ -35,7 +35,7 @@
  */
 
 /** \ingroup Group_BoardDrivers
- *  @defgroup Group_Temperature Temperature Sensor Driver - LUFA/Drivers/Board/Temperature.h
+ *  \defgroup Group_Temperature Temperature Sensor Driver - LUFA/Drivers/Board/Temperature.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
@@ -67,8 +67,6 @@
 #define __TEMPERATURE_H__
 
 	/* Includes: */
-		#include <avr/pgmspace.h>
-
 		#include "../../Common/Common.h"
 		#include "../Peripheral/ADC.h"
 
@@ -77,7 +75,7 @@
 		#elif ((BOARD != BOARD_USBKEY) && (BOARD != BOARD_STK525) && \
 		       (BOARD != BOARD_STK526) && (BOARD != BOARD_USER) &&   \
 			   (BOARD != BOARD_EVK527))
-			#error The selected board does not contain a temperature sensor.
+			#error The selected board does not contain a compatible temperature sensor.
 		#endif
 
 	/* Enable C linkage for C++ Compilers: */

@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_USBClassDrivers
- *  @defgroup Group_USBClassMS Mass Storage Class Driver
+ *  \defgroup Group_USBClassMS Mass Storage Class Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

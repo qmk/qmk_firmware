@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_MICROSIN162 MICROSIN162
+ *  \defgroup Group_LEDs_MICROSIN162 MICROSIN162
  *
  *  Board specific LED driver header for the Microsin AVR-USB162 board (http://microsin.ru/content/view/685/44/).
  *

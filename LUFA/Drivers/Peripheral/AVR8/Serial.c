@@ -28,6 +28,7 @@
   this software.
 */
 
+#define  __INCLUDE_FROM_SERIAL_C
 #include "Serial.h"
 
 FILE USARTSerialStream;

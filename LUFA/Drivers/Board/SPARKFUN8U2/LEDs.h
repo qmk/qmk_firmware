@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_SPARKFUN8U2 SPARKFUN8U2
+ *  \defgroup Group_LEDs_SPARKFUN8U2 SPARKFUN8U2
  *
  * Board specific LED driver header for the Sparkfun ATMEGA8U2 breakout board (http://www.sparkfun.com/products/10277).
  *

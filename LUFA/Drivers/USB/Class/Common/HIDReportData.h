@@ -36,7 +36,7 @@
  */
 
 /** \ingroup Group_HIDParser
- *  @defgroup Group_HIDReportItemConst HID Report Descriptor Item Constants
+ *  \defgroup Group_HIDReportItemConst HID Report Descriptor Item Constants
  *
  *  General HID constant definitions for HID Report Descriptor elements.
  *

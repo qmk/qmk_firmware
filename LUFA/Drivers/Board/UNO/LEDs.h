@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_UNO UNO
+ *  \defgroup Group_LEDs_UNO UNO
  *
  *  Board specific LED driver header for the Arduino Uno (http://arduino.cc/en/Main/ArduinoBoardUno).
  *

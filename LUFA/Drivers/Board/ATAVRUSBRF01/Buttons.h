@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_ATAVRUSBRF01 ATAVRUSBRF01
+ *  \defgroup Group_Buttons_ATAVRUSBRF01 ATAVRUSBRF01
  *
  *  Board specific Buttons driver header for the Atmel ATAVRUSBRF01.
  *

@@ -39,26 +39,26 @@
  */
 
 /** \ingroup Group_EndpointManagement
- *  @defgroup Group_EndpointRW Endpoint Data Reading and Writing
+ *  \defgroup Group_EndpointRW Endpoint Data Reading and Writing
  *
  *  Functions, macros, variables, enums and types related to data reading and writing from and to endpoints.
  */
 
 /** \ingroup Group_EndpointRW
- *  @defgroup Group_EndpointPrimitiveRW Read/Write of Primitive Data Types
+ *  \defgroup Group_EndpointPrimitiveRW Read/Write of Primitive Data Types
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
  *  from and to endpoints.
  */
 
 /** \ingroup Group_EndpointManagement
- *  @defgroup Group_EndpointPacketManagement Endpoint Packet Management
+ *  \defgroup Group_EndpointPacketManagement Endpoint Packet Management
  *
  *  Functions, macros, variables, enums and types related to packet management of endpoints.
  */
 
 /** \ingroup Group_USB
- *  @defgroup Group_EndpointManagement Endpoint Management
+ *  \defgroup Group_EndpointManagement Endpoint Management
  *
  *  Functions, macros and enums related to endpoint management when in USB Device mode. This
  *  module contains the endpoint management macros, as well as endpoint interrupt and data

@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_BLACKCAT BLACKCAT
+ *  \defgroup Group_LEDs_BLACKCAT BLACKCAT
  *
  *  Board specific LED driver header for the TCNISO Blackcat USB JTAG (http://www.embeddedcomputers.net/products/BlackcatUSB/.
  *

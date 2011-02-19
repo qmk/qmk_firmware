@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_STK525 STK525
+ *  \defgroup Group_LEDs_STK525 STK525
  *
  *  Board specific LED driver header for the Atmel STK525.
  *

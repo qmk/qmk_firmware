@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_USB
- *  @defgroup Group_StdRequest Standard USB Requests
+ *  \defgroup Group_StdRequest Standard USB Requests
  *
  *  This module contains definitions for the various control request parameters, so that the request
  *  details (such as data direction, request recipient, etc.) can be extracted via masking.

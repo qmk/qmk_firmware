@@ -40,7 +40,7 @@
  */
 
 /** \ingroup Group_Descriptors
- *  @defgroup Group_ConfigDescriptorParser Configuration Descriptor Parser
+ *  \defgroup Group_ConfigDescriptorParser Configuration Descriptor Parser
  *
  *  Functions, macros, variables, enums and types related to the parsing of Configuration Descriptors.
  *

@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Dataflash_STK526
- *  @defgroup Group_Dataflash_STK526_AT45DB642D AT45DB642D
+ *  \defgroup Group_Dataflash_STK526_AT45DB642D AT45DB642D
  *
  *  Board specific Dataflash commands header for the AT45DB642D as mounted on the Atmel STK526.
  *

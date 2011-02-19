@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_USBTINYMKII USBTINYMKII
+ *  \defgroup Group_Buttons_USBTINYMKII USBTINYMKII
  *
  *  Board specific Buttons driver header for Tom's USBTINY MKII (http://tom-itx.dyndns.org:81/~webpage/).
  *

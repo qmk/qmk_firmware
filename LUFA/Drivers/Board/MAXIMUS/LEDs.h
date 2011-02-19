@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_MAXIMUS MAXIMUS
+ *  \defgroup Group_LEDs_MAXIMUS MAXIMUS
  *
  *  Board specific LED driver header for the Maximus (http://www.avrusb.com/).
  *

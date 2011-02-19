@@ -31,22 +31,23 @@
 /** \file
  *  \brief Master include file for the ADC peripheral driver.
  *
- *  This file is the master dispatch header file for the device-specific ADC driver, for AVRs containing an ADC.
+ *  This file is the master dispatch header file for the device-specific ADC driver, for microcontrollers
+ *  containing an ADC.
  *
  *  User code should include this file, which will in turn include the correct ADC driver header file for the
- *  currently selected AVR model.
+ *  currently selected architecture and microcontroller model.
  */
 
 /** \ingroup Group_PeripheralDrivers
- *  @defgroup Group_ADC ADC Driver - LUFA/Drivers/Peripheral/ADC.h
+ *  \defgroup Group_ADC ADC Driver - LUFA/Drivers/Peripheral/ADC.h
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
  *    - None
  *
  *  \section Sec_ModDescription Module Description
- *  Hardware ADC driver. This module provides an easy to use driver for the hardware
- *  ADC present on many AVR models, for the conversion of analogue signals into the
+ *  Hardware ADC driver. This module provides an easy to use driver for the hardware ADC
+ *  present on many microcontrollers, for the conversion of analogue signals into the
  *  digital domain.
  *
  *  \note The exact API for this driver may vary depending on the target used - see
@@ -57,18 +58,18 @@
 #define __ADC_H__
 
 	/* Macros: */
-	#if !defined(__DOXYGEN__)
-		#define __INCLUDE_FROM_ADC_H
-	#endif
+		#if !defined(__DOXYGEN__)
+			#define __INCLUDE_FROM_ADC_H
+		#endif
 
 	/* Includes: */
-		#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
-		     defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
-			 defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || \
-			 defined(__AVR_ATmega32U6__))
-			#include "AVRU4U6U7/ADC.h"
+		#include "../../Common/Common.h"
+
+	/* Includes: */
+		#if (ARCH == ARCH_AVR8)
+			#include "AVR8/ADC.h"
 		#else
-			#error "ADC is not available for the currently selected AVR model."
+			#error The ADC peripheral driver is not currently available for your selected architecture.
 		#endif
 
 #endif

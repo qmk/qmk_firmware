@@ -38,7 +38,7 @@
  */
  
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_MINIMUS MINIMUS
+ *  \defgroup Group_Buttons_MINIMUS MINIMUS
  *
  *  Board specific Buttons driver header for the MINIMUS.
  *

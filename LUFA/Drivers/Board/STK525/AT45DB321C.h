@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Dataflash_STK525
- *  @defgroup Group_Dataflash_STK525_AT45DB321C AT45DB321C
+ *  \defgroup Group_Dataflash_STK525_AT45DB321C AT45DB321C
  *
  *  Board specific Dataflash commands header for the AT45DB321C as mounted on the Atmel STK525.
  *

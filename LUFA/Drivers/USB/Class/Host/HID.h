@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_USBClassHID
- *  @defgroup Group_USBClassHIDHost HID Class Host Mode Driver
+ *  \defgroup Group_USBClassHIDHost HID Class Host Mode Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

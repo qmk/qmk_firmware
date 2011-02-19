@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_UDIP UDIP
+ *  \defgroup Group_Buttons_UDIP UDIP
  *
  *  Board specific Buttons driver header for the Linnix UDIP (http://linnix.com/udip/).
  *

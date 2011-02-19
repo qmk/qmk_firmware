@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_USBTINYMKII USBTINYMKII
+ *  \defgroup Group_LEDs_USBTINYMKII USBTINYMKII
  *
  *  Board specific LED driver header for Tom's USBTINY MKII (http://tom-itx.dyndns.org:81/~webpage/).
  *

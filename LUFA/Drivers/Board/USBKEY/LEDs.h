@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_USBKEY USBKEY
+ *  \defgroup Group_LEDs_USBKEY USBKEY
  *
  *  Board specific LED driver header for the Atmel USBKEY.
  *

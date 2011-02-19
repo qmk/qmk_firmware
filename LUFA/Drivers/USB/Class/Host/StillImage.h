@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_USBClassSI
- *  @defgroup Group_USBClassStillImageHost Still Image Class Host Mode Driver
+ *  \defgroup Group_USBClassStillImageHost Still Image Class Host Mode Driver
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

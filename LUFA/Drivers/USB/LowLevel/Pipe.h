@@ -39,26 +39,26 @@
  */
 
 /** \ingroup Group_PipeManagement
- *  @defgroup Group_PipeRW Pipe Data Reading and Writing
+ *  \defgroup Group_PipeRW Pipe Data Reading and Writing
  *
  *  Functions, macros, variables, enums and types related to data reading and writing from and to pipes.
  */
 
 /** \ingroup Group_PipeRW
- *  @defgroup Group_PipePrimitiveRW Read/Write of Primitive Data Types
+ *  \defgroup Group_PipePrimitiveRW Read/Write of Primitive Data Types
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
  *  from and to pipes.
  */
 
 /** \ingroup Group_PipeManagement
- *  @defgroup Group_PipePacketManagement Pipe Packet Management
+ *  \defgroup Group_PipePacketManagement Pipe Packet Management
  *
  *  Functions, macros, variables, enums and types related to packet management of pipes.
  */
 
 /** \ingroup Group_PipeManagement
- *  @defgroup Group_PipeControlReq Pipe Control Request Management
+ *  \defgroup Group_PipeControlReq Pipe Control Request Management
  *
  *  Module for host mode request processing. This module allows for the transmission of standard, class and
  *  vendor control requests to the default control endpoint of an attached device while in host mode.
@@ -67,7 +67,7 @@
  */
 
 /** \ingroup Group_USB
- *  @defgroup Group_PipeManagement Pipe Management
+ *  \defgroup Group_PipeManagement Pipe Management
  *
  *  This module contains functions, macros and enums related to pipe management when in USB Host mode. This
  *  module contains the pipe management macros, as well as pipe interrupt and data send/receive functions

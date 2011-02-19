@@ -48,7 +48,7 @@
  */
 
 /** \ingroup Group_USB
- *  @defgroup Group_Events USB Events
+ *  \defgroup Group_Events USB Events
  *
  *  This module contains macros and functions relating to the management of library events, which are small
  *  pieces of code similar to ISRs which are run when a given condition is met. Each event can be fired from

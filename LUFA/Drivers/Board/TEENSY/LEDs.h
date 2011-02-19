@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_TEENSY TEENSY
+ *  \defgroup Group_LEDs_TEENSY TEENSY
  *
  *  Board specific LED driver header for the PJRC Teensy boards (http://www.pjrc.com/teensy/index.html).
  *

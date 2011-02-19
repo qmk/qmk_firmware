@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief ADC peripheral driver for the U7, U6 and U4 USB AVRs.
+ *  \brief ADC Peripheral Driver (AVR8)
  *
  *  On-chip Analogue-to-Digital converter (ADC) driver for supported U4, U6 and U7 model AVRs that contain an ADC
  *  peripheral internally.
@@ -39,8 +39,9 @@
  */
 
 /** \ingroup Group_ADC
- *  @defgroup Group_ADC_AVRU4U6U7 Series U4, U6 and U7 Model ADC Driver
+ *  \defgroup Group_ADC_AVR8 ADC Peripheral Driver (AVR8)
  *
+ *  \section Sec_ModDescription Module Description
  *  On-chip Analogue-to-Digital converter (ADC) driver for supported U4, U6 and U7 model AVRs that contain an ADC
  *  peripheral internally.
  *
@@ -71,14 +72,11 @@
  *  @{
  */
 
-#ifndef __ADC_AVRU4U6U7_H__
-#define __ADC_AVRU4U6U7_H__
+#ifndef __ADC_AVR8_H__
+#define __ADC_AVR8_H__
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
-
-		#include <avr/io.h>
-		#include <stdbool.h>
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
@@ -88,6 +86,13 @@
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_ADC_H)
 			#error Do not include this file directly. Include LUFA/Drivers/Peripheral/ADC.h instead.
+		#endif
+
+		#if !(defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__) || \
+		      defined(__AVR_AT90USB1287__) || defined(__AVR_AT90USB647__) || \
+			  defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__) || \
+			  defined(__AVR_ATmega32U6__))
+			#error The ADC peripheral driver is not currently available for your selected microcontroller model.
 		#endif
 
 	/* Private Interface - For use in library only: */

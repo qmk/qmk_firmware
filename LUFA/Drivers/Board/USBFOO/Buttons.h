@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_USBFOO USBFOO
+ *  \defgroup Group_Buttons_USBFOO USBFOO
  *
  *  Board specific Buttons driver header for the Kernel Concepts USBFOO (http://shop.kernelconcepts.de/product_info.php?products_id=102).
  *

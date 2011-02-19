@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Dataflash_USBKEY
- *  @defgroup Group_Dataflash_USBKEY_AT45DB642D AT45DB642D
+ *  \defgroup Group_Dataflash_USBKEY_AT45DB642D AT45DB642D
  *
  *  Board specific Dataflash commands header for the AT45DB642D as mounted on the Atmel USBKEY.
  *

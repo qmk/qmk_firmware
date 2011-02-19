@@ -31,9 +31,9 @@
 #include "Scheduler.h"
 
 volatile SchedulerDelayCounter_t Scheduler_TickCounter;
-volatile uint8_t                 Scheduler_TotalTasks;
+volatile uint_least8_t           Scheduler_TotalTasks;
 
-bool Scheduler_HasDelayElapsed(const uint16_t Delay,
+bool Scheduler_HasDelayElapsed(const uint_least16_t Delay,
                                SchedulerDelayCounter_t* const DelayCounter)
 {
 	SchedulerDelayCounter_t CurrentTickValue_LCL;
@@ -83,7 +83,7 @@ void Scheduler_SetTaskMode(const TaskPtr_t Task,
 	}
 }
 
-void Scheduler_SetGroupTaskMode(const uint8_t GroupID,
+void Scheduler_SetGroupTaskMode(const uint_least8_t GroupID,
                                 const bool TaskStatus)
 {
 	TaskEntry_t* CurrTask = &Scheduler_TaskList[0];

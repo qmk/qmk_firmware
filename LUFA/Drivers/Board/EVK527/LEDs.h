@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_EVK527 EVK527
+ *  \defgroup Group_LEDs_EVK527 EVK527
  *
  *  Board specific LED driver header for the Atmel EVK527.
  *

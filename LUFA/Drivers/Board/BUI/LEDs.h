@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_BUI BUI
+ *  \defgroup Group_LEDs_BUI BUI
  *
  *  Board specific LED driver header for the Busware BUI (http://www.busware.de/tiki-index.php?page=BUI).
  *

@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_STK526 STK526
+ *  \defgroup Group_Buttons_STK526 STK526
  *
  *  Board specific Buttons driver header for the Atmel STK526.
  *

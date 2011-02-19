@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_Buttons
- *  @defgroup Group_Buttons_EVK527 EVK527
+ *  \defgroup Group_Buttons_EVK527 EVK527
  *
  *  Board specific Buttons driver header for the Atmel EVK527.
  *

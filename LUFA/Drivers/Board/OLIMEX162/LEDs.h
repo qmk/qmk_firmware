@@ -38,7 +38,7 @@
  */
 
 /** \ingroup Group_LEDs
- *  @defgroup Group_LEDs_OLIMEX162 OLIMEX162
+ *  \defgroup Group_LEDs_OLIMEX162 OLIMEX162
  *
  *  Board specific LED driver header for the Olimex AVR-USB-162 (http://www.olimex.com/dev/avr-usb-162.html).
  *

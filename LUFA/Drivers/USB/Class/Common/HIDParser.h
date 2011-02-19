@@ -37,7 +37,7 @@
  */
 
 /** \ingroup Group_USB
- *  @defgroup Group_HIDParser HID Report Parser
+ *  \defgroup Group_HIDParser HID Report Parser
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
