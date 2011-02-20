@@ -36,8 +36,7 @@
    inside the application's folder.
 
    This stub is for the board-specific component of the LUFA Joystick
-   driver, a small surface mount four-way (plus button) digital joystick
-   on most USB AVR boards.
+   driver, for a digital four-way (plus button) joystick.
 */
 
 #ifndef __JOYSTICK_USER_H__

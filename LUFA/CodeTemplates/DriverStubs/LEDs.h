@@ -36,7 +36,7 @@
    inside the application's folder.
 
    This stub is for the board-specific component of the LUFA LEDs driver,
-   for the LEDs (up to four) mounted on most USB AVR boards.
+   for the LEDs (up to four) mounted on most development boards.
 */
 
 #ifndef __LEDS_USER_H__

@@ -82,17 +82,17 @@
 		 */
 		#define USB_SERIES_7_AVR
 
-		/** Indicates that the target AVR microcontroller and compilation settings allow for the
+		/** Indicates that the target microcontroller and compilation settings allow for the
 		 *  target to be configured in USB Device mode when defined.
 		 */
 		#define USB_CAN_BE_DEVICE
 
-		/** Indicates that the target AVR microcontroller and compilation settings allow for the
+		/** Indicates that the target microcontroller and compilation settings allow for the
 		 *  target to be configured in USB Host mode when defined.
 		 */
 		#define USB_CAN_BE_HOST
 
-		/** Indicates that the target AVR microcontroller and compilation settings allow for the
+		/** Indicates that the target microcontroller and compilation settings allow for the
 		 *  target to be configured in either USB Device or Host mode when defined.
 		 */
 		#define USB_CAN_BE_BOTH
@@ -101,36 +101,47 @@
 			#if (defined(__AVR_AT90USB162__) || defined(__AVR_AT90USB82__)  || \
 			     defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega8U2__))
 				#define USB_SERIES_2_AVR
+				#define USB_CAN_BE_DEVICE
 			#elif (defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega16U4__))
 				#define USB_SERIES_4_AVR
+				#define USB_CAN_BE_DEVICE
 			#elif (defined(__AVR_ATmega32U6__) || defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__))
 				#define USB_SERIES_6_AVR
+				#define USB_CAN_BE_DEVICE
 			#elif (defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1287__))
 				#define USB_SERIES_7_AVR
+				#define USB_CAN_BE_DEVICE
+				#define USB_CAN_BE_HOST
 			#endif
-
-			#if !defined(USB_SERIES_7_AVR)
-				#if defined(USB_HOST_ONLY)
-					#error USB_HOST_ONLY is not available for the currently selected USB AVR model.
-				#endif
-
-				#if !defined(USB_DEVICE_ONLY)
-					#define USB_DEVICE_ONLY
-				#endif
-			#endif
-
-			#if (!defined(USB_DEVICE_ONLY) && !defined(USB_HOST_ONLY))
+			
+			#if (defined(USB_CAN_BE_DEVICE) && defined(USB_CAN_BE_HOST))
 				#define USB_CAN_BE_BOTH
-				#define USB_CAN_BE_HOST
-				#define USB_CAN_BE_DEVICE
-			#elif defined(USB_HOST_ONLY)
-				#define USB_CAN_BE_HOST
-			#elif defined(USB_DEVICE_ONLY)
-				#define USB_CAN_BE_DEVICE
 			#endif
 
+			#if defined(USB_HOST_ONLY)
+				#if !defined(USB_CAN_BE_HOST)
+					#error USB_HOST_ONLY is not available for the currently selected microcontroller model.
+				#else
+					#undef USB_CAN_BE_DEVICE
+					#undef USB_CAN_BE_BOTH
+				#endif
+			#endif
+
+			#if defined(USB_DEVICE_ONLY)
+				#if !defined(USB_CAN_BE_DEVICE)
+					#error USB_DEVICE_ONLY is not available for the currently selected microcontroller model.
+				#else
+					#undef USB_CAN_BE_HOST
+					#undef USB_CAN_BE_BOTH
+				#endif
+			#endif
+			
 			#if (defined(USB_HOST_ONLY) && defined(USB_DEVICE_ONLY))
 				#error USB_HOST_ONLY and USB_DEVICE_ONLY are mutually exclusive.
+			#endif
+
+			#if (!defined(USB_CAN_BE_DEVICE) && !defined(USB_CAN_BE_HOST))
+				#error The currently selected architecture is not supported under the USB component of the library.
 			#endif
 	#endif
 

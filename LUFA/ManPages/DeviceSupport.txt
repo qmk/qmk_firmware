@@ -7,7 +7,9 @@
 /**
  *  \page Page_DeviceSupport Device and Hardware Support
  *
- *  Currently supported AVR models:
+ *  \section Sec_AVR8_Support Atmel 8-Bit AVR (AVR8)
+ *
+ *  Currently supported AVR8 models:
  *   - AT90USB82 (USB Device Only)
  *   - ATMEGA8U2 (USB Device Only)
  *   - AT90USB162 (USB Device Only)
@@ -44,6 +46,7 @@
  *   - Minimus USB
  *   - Olimex AVR-USB-162
  *   - PJRC Teensy (all revisions and versions)
+ *   - Sparkfun U2 Breakout Board
  *   - TCNISO Blackcat USB JTAG
  *   - Tempusdictum Benito
  *   - Tom's USBTINY-MKII (all revisions and versions)

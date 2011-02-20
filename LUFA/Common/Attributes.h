@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief AVR-GCC special function/variable attribute macros.
+ *  \brief GCC special function/variable attribute macros.
  *
  *  \copydetails Group_GCCAttributes
  *
@@ -39,7 +39,7 @@
 
 /** \ingroup Group_Common
  *  \defgroup Group_GCCAttributes Function/Variable Attributes
- *  \brief AVR-GCC special function/variable attribute macros.
+ *  \brief GCC special function/variable attribute macros.
  *
  *  This module contains macros for applying GCC specific attributes to functions and variables to control various
  *  optimiser and code generation features of the compiler. Attributes may be placed in the function prototype

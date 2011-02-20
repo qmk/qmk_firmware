@@ -18,7 +18,6 @@
   *      -# Change makefiles to allow for absolute LUFA location to be used
   *      -# Re-add interrupt Pipe/Endpoint support
   *      -# Investigate dynamically created device descriptors
-  *      -# Re-add in software PDI/TPI support into the AVRISP-MKII project
   *      -# Add makefile includes to reduce boilerplate in user makefiles
   *  - Documentation/Support
   *      -# Add detailed overviews of how each demo works

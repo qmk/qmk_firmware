@@ -183,7 +183,7 @@
 			 *  This event is time-critical; exceeding OS-specific delays within this event handler (typically of around
 			 *  two seconds) will prevent the device from enumerating correctly.
 			 *
-			 *  \note For the smaller series 2 USB AVRs with limited USB controllers, VBUS is not available to the USB controller.
+			 *  \note For the microcontrollers with limited USB controller functionality, VBUS sensing is not available.
 			 *        this means that the current connection state is derived from the bus suspension and wake up events by default,
 			 *        which is not always accurate (host may suspend the bus while still connected). If the actual connection state
 			 *        needs to be determined, VBUS should be routed to an external pin, and the auto-detect behaviour turned off by

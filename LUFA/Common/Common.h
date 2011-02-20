@@ -144,10 +144,11 @@
 				#define JTAG_DEBUG_BREAK()      __asm__ __volatile__ ("BREAK" ::)
 
 				#if !defined(pgm_read_ptr) || defined(__DOXYGEN__)
-					/** Reads a pointer out of PROGMEM space. This is currently a wrapper for the avr-libc \c pgm_read_ptr()
-					 *  macro with a \c void* cast, so that its value can be assigned directly to a pointer variable or used
-					 *  in pointer arithmetic without further casting in C. In a future avr-libc distribution this will be
-					 *  part of the standard API and will be implemented in a more formal manner.
+					/** Reads a pointer out of PROGMEM space on the AVR8 architecture. This is currently a wrapper for the
+					 *  avr-libc \c pgm_read_ptr() macro with a \c void* cast, so that its value can be assigned directly
+					 *  to a pointer variable or used in pointer arithmetic without further casting in C. In a future
+					 *  avr-libc distribution this will be part of the standard API and will be implemented in a more formal
+					 *  manner.
 					 *
 					 *  \param[in] Addr  Address of the pointer to read.
 					 *
@@ -165,8 +166,8 @@
 				#define JTAG_DEBUG_ASSERT(Condition)    MACROS{ if (!(Condition)) { JTAG_DEBUG_BREAK(); } }MACROE
 
 				/** Macro for testing condition "x" and writing debug data to the stdout stream if \c false. The stdout stream
-				 *  must be pre-initialized before this macro is run and linked to an output device, such as the AVR's USART
-				 *  peripheral.
+				 *  must be pre-initialized before this macro is run and linked to an output device, such as the microcontroller's
+				 *  USART peripheral.
 				 *
 				 *  The output takes the form "{FILENAME}: Function {FUNCTION NAME}, Line {LINE NUMBER}: Assertion {Condition} failed."
 				 *
@@ -179,7 +180,7 @@
 				                                                __FILE__, __func__, __LINE__, #Condition); } }MACROE
 			#endif
 			
-			/** Forces GCC to use pointer indirection (via the AVR's pointer register pairs) when accessing the given
+			/** Forces GCC to use pointer indirection (via the device's pointer register pairs) when accessing the given
 			 *  struct pointer. In some cases GCC will emit non-optimal assembly code when accessing a structure through
 			 *  a pointer, resulting in a larger binary. When this macro is used on a (non \c const) structure pointer before
 			 *  use, it will force GCC to use pointer indirection on the elements rather than direct store and load

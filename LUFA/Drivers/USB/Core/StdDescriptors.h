@@ -303,7 +303,7 @@
 				uint8_t  SerialNumStrIndex; /**< String index for the product's globally unique hexadecimal
 				                             *   serial number, in uppercase Unicode ASCII.
 				                             *
-				                             *  \note On some AVR models, there is an embedded serial number
+				                             *  \note On some microcontroller models, there is an embedded serial number
 				                             *        in the chip which can be used for the device serial number.
 				                             *        To use this serial number, set this to USE_INTERNAL_SERIAL.
 				                             *        On unsupported devices, this will evaluate to 0 and will cause
@@ -351,7 +351,7 @@
 				uint8_t iSerialNumber; /**< String index for the product's globally unique hexadecimal
 				                        *   serial number, in uppercase Unicode ASCII.
 				                        *
-				                        *  \note On some AVR models, there is an embedded serial number
+				                        *  \note On some microcontroller models, there is an embedded serial number
 				                        *        in the chip which can be used for the device serial number.
 				                        *        To use this serial number, set this to USE_INTERNAL_SERIAL.
 				                        *        On unsupported devices, this will evaluate to 0 and will cause

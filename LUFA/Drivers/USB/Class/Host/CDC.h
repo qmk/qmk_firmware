@@ -285,7 +285,7 @@
 			uint8_t CDC_Host_Flush(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo) ATTR_NON_NULL_PTR_ARG(1);
 
 			/** Creates a standard character stream for the given CDC Device instance so that it can be used with all the regular
-			 *  functions in the avr-libc \c <stdio.h> library that accept a \c FILE stream as a destination (e.g. \c fprintf). The created
+			 *  functions in the standard \c <stdio.h> library that accept a \c FILE stream as a destination (e.g. \c fprintf). The created
 			 *  stream is bidirectional and can be used for both input and output functions.
 			 *
 			 *  Reading data from this stream is non-blocking, i.e. in most instances, complete strings cannot be read in by a single

@@ -151,7 +151,7 @@
 		/* Inline Functions: */
 			/** Initialises the dataflash driver so that commands and data may be sent to an attached dataflash IC.
 			 *
-			 *  \note The AVR's SPI driver must be initialized before any of the dataflash commands are used.
+			 *  \note The microcontroller's SPI driver must be initialized before any of the dataflash commands are used.
 			 */
 			static inline void Dataflash_Init(void);
 

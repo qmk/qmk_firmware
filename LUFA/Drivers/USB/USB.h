@@ -364,11 +364,6 @@
 		#include "../../Common/Common.h"
 		#include "Core/USBMode.h"
 
-	/* Preprocessor Checks: */
-		#if (!defined(USB_CAN_BE_DEVICE) && !defined(USB_CAN_BE_HOST))
-			#error The currently selected architecture is not supported under the USB component of the library.
-		#endif
-
 	/* Includes: */
 		#include "Core/USBTask.h"
 		#include "Core/Events.h"

@@ -98,8 +98,8 @@
 					 *  the library internally.
 					 *
 					 *  To reduce program size and speed up checks of this global on the AVR8 architecture, it can be
-					 *  placed into one of the AVR's GPIOR hardware registers instead of RAM by defining the
-					 *  HOST_STATE_AS_GPIOR token to a value between 0 and 2 in the project makefile and passing it to
+					 *  placed into one of the AVR's \c GPIOR hardware registers instead of RAM by defining the
+					 *  \c HOST_STATE_AS_GPIOR token to a value between 0 and 2 in the project makefile and passing it to
 					 *  the compiler via the -D switch. When defined, the corresponding GPIOR register should not be used
 					 *  in the user application except implicitly via the library APIs.
 					 *
@@ -127,8 +127,8 @@
 					 *  (see \ref EVENT_USB_Device_Connect() and \ref EVENT_USB_Device_Disconnect() events).
 					 *
 					 *  To reduce program size and speed up checks of this global on the AVR8 architecture, it can be
-					 *  placed into one of the AVR's GPIOR hardware registers instead of RAM by defining the
-					 *  DEVICE_STATE_AS_GPIOR token to a value between 0 and 2 in the project makefile and passing it to
+					 *  placed into one of the AVR's \c GPIOR hardware registers instead of RAM by defining the
+					 *  \c DEVICE_STATE_AS_GPIOR token to a value between 0 and 2 in the project makefile and passing it to
 					 *  the compiler via the -D switch. When defined, the corresponding GPIOR register should not be used
 					 *  in the user application except implicitly via the library APIs.
 					 *
