@@ -6,7 +6,7 @@
 */
 
 #define  __INCLUDE_FROM_TWI_C
-#include "TWI.h"
+#include "../TWI.h"
 
 uint8_t TWI_StartTransmission(const uint8_t SlaveAddress,
                               const uint8_t TimeoutMS)

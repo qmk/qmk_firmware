@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief USB OTG definitions for the UC3B microcontrollers.
+ *  \brief USB OTG definitions for the AVR32 UC3B microcontrollers.
  *  \copydetails Group_OTG_UC3B
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
@@ -38,7 +38,7 @@
 
 /** \ingroup Group_OTG
  *  \defgroup Group_OTG_UC3B USB On The Go (OTG) Management (UC3B)
- *  \brief USB OTG definitions for the UC3B microcontrollers.
+ *  \brief USB OTG definitions for the AVR32 UC3B microcontrollers.
  *
  *  Architecture specific USB OTG definitions for the Atmel 32-bit AVR UC3B microcontrollers.
  *

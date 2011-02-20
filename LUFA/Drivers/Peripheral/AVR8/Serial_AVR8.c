@@ -29,7 +29,7 @@
 */
 
 #define  __INCLUDE_FROM_SERIAL_C
-#include "Serial.h"
+#include "../Serial.h"
 
 FILE USARTSerialStream;
 

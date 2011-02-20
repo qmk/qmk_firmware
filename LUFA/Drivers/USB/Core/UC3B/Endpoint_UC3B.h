@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief USB Endpoint definitions for the UC3B microcontrollers.
+ *  \brief USB Endpoint definitions for the AVR32 UC3B microcontrollers.
  *  \copydetails Group_EndpointManagement_UC3B
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
