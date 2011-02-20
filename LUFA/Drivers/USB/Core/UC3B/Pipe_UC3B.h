@@ -197,7 +197,7 @@
 		/* Enums: */
 			/** Enum for the possible error return codes of the \ref Pipe_WaitUntilReady() function.
 			 *
-			 *  \ingroup Group_PipeRW_AVR8
+			 *  \ingroup Group_PipeRW_UC3B
 			 */
 			enum Pipe_WaitUntilReady_ErrorCodes_t
 			{
@@ -216,7 +216,7 @@
 			 *  \note The return width of this function may differ, depending on the maximum pipe bank size
 			 *        of the selected AVR model.
 			 *
-			 *  \ingroup Group_PipeRW_AVR8
+			 *  \ingroup Group_PipeRW_UC3B
 			 *
 			 *  \return Total number of bytes in the currently selected pipe's FIFO buffer.
 			 */
@@ -457,7 +457,7 @@
 			 *  transmission via the \ref Pipe_ClearOUT() command, or are awaiting acknowledgement via the
 			 *  \ref Pipe_ClearIN() command.
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 *
 			 *  \return Total number of busy banks in the selected pipe.
 			 */
@@ -474,7 +474,7 @@
 			 *
 			 *  \note This function is not valid on CONTROL type pipes.
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 *
 			 *  \return Boolean \c true if the currently selected pipe may be read from or written to, depending
 			 *          on its direction.
@@ -487,7 +487,7 @@
 
 			/** Determines if a packet has been received on the currently selected IN pipe from the attached device.
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 *
 			 *  \return Boolean \c true if the current pipe has received an IN packet, \c false otherwise.
 			 */
@@ -499,7 +499,7 @@
 
 			/** Determines if the currently selected OUT pipe is ready to send an OUT packet to the attached device.
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 *
 			 *  \return Boolean \c true if the current pipe is ready for an OUT packet, \c false otherwise.
 			 */
@@ -512,7 +512,7 @@
 			/** Determines if no SETUP request is currently being sent to the attached device on the selected
 			 *  CONTROL type pipe.
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 *
 			 *  \return Boolean \c true if the current pipe is ready for a SETUP packet, \c false otherwise.
 			 */
@@ -524,7 +524,7 @@
 
 			/** Sends the currently selected CONTROL type pipe's contents to the device as a SETUP packet.
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 */
 			static inline void Pipe_ClearSETUP(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearSETUP(void)
@@ -535,7 +535,7 @@
 			/** Acknowledges the reception of a setup IN request from the attached device on the currently selected
 			 *  pipe, freeing the bank ready for the next packet.
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 */
 			static inline void Pipe_ClearIN(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearIN(void)
@@ -546,7 +546,7 @@
 			/** Sends the currently selected pipe's contents to the device as an OUT packet on the selected pipe, freeing
 			 *  the bank ready for the next packet.
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 */
 			static inline void Pipe_ClearOUT(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearOUT(void)
@@ -560,7 +560,7 @@
 			 *  received, it must be cleared using \ref Pipe_ClearNAKReceived() before the previous (or any other) packet
 			 *  can be re-sent.
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 *
 			 *  \return Boolean \c true if an NAK has been received on the current pipe, \c false otherwise.
 			 */
@@ -572,7 +572,7 @@
 
 			/** Clears the NAK condition on the currently selected pipe.
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 *
 			 *  \see \ref Pipe_IsNAKReceived() for more details.
 			 */
@@ -584,7 +584,7 @@
 
 			/** Determines if the currently selected pipe has had the STALL condition set by the attached device.
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 *
 			 *  \return Boolean \c true if the current pipe has been stalled by the attached device, \c false otherwise.
 			 */
@@ -597,7 +597,7 @@
 			/** Clears the STALL condition detection flag on the currently selected pipe, but does not clear the
 			 *  STALL condition itself (this must be done via a ClearFeature control request to the device).
 			 *
-			 *  \ingroup Group_PipePacketManagement_AVR8
+			 *  \ingroup Group_PipePacketManagement_UC3B
 			 */
 			static inline void Pipe_ClearStall(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearStall(void)
@@ -607,7 +607,7 @@
 
 			/** Reads one byte from the currently selected pipe's bank, for OUT direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 *
 			 *  \return Next byte in the currently selected pipe's FIFO buffer.
 			 */
@@ -619,7 +619,7 @@
 
 			/** Writes one byte from the currently selected pipe's bank, for IN direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 *
 			 *  \param[in] Byte  Next byte to write into the the currently selected pipe's FIFO buffer.
 			 */
@@ -631,7 +631,7 @@
 
 			/** Discards one byte from the currently selected pipe's bank, for OUT direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 */
 			static inline void Pipe_Discard_Byte(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Discard_Byte(void)
@@ -644,7 +644,7 @@
 			/** Reads two bytes from the currently selected pipe's bank in little endian format, for OUT
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 *
 			 *  \return Next word in the currently selected pipe's FIFO buffer.
 			 */
@@ -666,7 +666,7 @@
 			/** Reads two bytes from the currently selected pipe's bank in big endian format, for OUT
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 *
 			 *  \return Next word in the currently selected pipe's FIFO buffer.
 			 */
@@ -688,7 +688,7 @@
 			/** Writes two bytes to the currently selected pipe's bank in little endian format, for IN
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 *
 			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer.
 			 */
@@ -702,7 +702,7 @@
 			/** Writes two bytes to the currently selected pipe's bank in big endian format, for IN
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 *
 			 *  \param[in] Word  Next word to write to the currently selected pipe's FIFO buffer.
 			 */
@@ -715,7 +715,7 @@
 
 			/** Discards two bytes from the currently selected pipe's bank, for OUT direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 */
 			static inline void Pipe_Discard_Word(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Discard_Word(void)
@@ -729,7 +729,7 @@
 			/** Reads four bytes from the currently selected pipe's bank in little endian format, for OUT
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 *
 			 *  \return Next double word in the currently selected pipe's FIFO buffer.
 			 */
@@ -753,7 +753,7 @@
 			/** Reads four bytes from the currently selected pipe's bank in big endian format, for OUT
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 *
 			 *  \return Next double word in the currently selected pipe's FIFO buffer.
 			 */
@@ -777,7 +777,7 @@
 			/** Writes four bytes to the currently selected pipe's bank in little endian format, for IN
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 *
 			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer.
 			 */
@@ -793,7 +793,7 @@
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
 			 *  direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 *
 			 *  \param[in] DWord  Next double word to write to the currently selected pipe's FIFO buffer.
 			 */
@@ -808,7 +808,7 @@
 
 			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.
 			 *
-			 *  \ingroup Group_PipePrimitiveRW_AVR8
+			 *  \ingroup Group_PipePrimitiveRW_UC3B
 			 */
 			static inline void Pipe_Discard_DWord(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Discard_DWord(void)
@@ -889,7 +889,7 @@
 			/** Spin-loops until the currently selected non-control pipe is ready for the next packed of data to be read
 			 *  or written to it, aborting in the case of an error condition (such as a timeout or device disconnect).
 			 *
-			 *  \ingroup Group_PipeRW_AVR8
+			 *  \ingroup Group_PipeRW_UC3B
 			 *
 			 *  \return A value from the \ref Pipe_WaitUntilReady_ErrorCodes_t enum.
 			 */
