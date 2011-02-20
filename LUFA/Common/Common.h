@@ -29,13 +29,13 @@
 */
 
 /** \file
- *  \brief Common library convenience macros and functions.
+ *  \brief Common library convenience headers, macros and functions.
  *
  *  \copydetails Group_Common
  */
 
 /** \defgroup Group_Common Common Utility Headers - LUFA/Drivers/Common/Common.h
- *  \brief Common library convenience macros and functions.
+ *  \brief Common library convenience headers, macros and functions.
  *
  *  Common utility headers containing macros, functions, enums and types which are common to all
  *  aspects of the library.
@@ -44,13 +44,15 @@
  */
 
 /** \defgroup Group_Debugging Debugging Macros
+ *  \brief Convenience macros to aid in debugging applications.
  *
- *  Macros for debugging use.
+ *  Macros to aid debugging of a user application.
  */
 
 /** \defgroup Group_BitManip Endian and Bit Macros
+ *  \brief Convenience macros to aid in bit manipulations and endianness transforms.
  *
- *  Functions for swapping endianness and reversing bit orders.
+ *  Functions for swapping endianness and reversing bit orders of data.
  */
 
 #ifndef __LUFA_COMMON_H__

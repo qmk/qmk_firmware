@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Lightweight ring buffer, for fast insertion/deletion.
+ *  \brief Lightweight ring buffer, for fast insertion/deletion of bytes.
  *
  *  Lightweight ring buffer, for fast insertion/deletion. Multiple buffers can be created of
  *  different sizes to suit different needs.
@@ -42,6 +42,7 @@
  
 /** \ingroup Group_MiscDrivers
  *  \defgroup Group_RingBuff Generic Byte Ring Buffer - LUFA/Drivers/Misc/RingBuffer.h
+ *  \brief Lightweight ring buffer, for fast insertion/deletion of bytes.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

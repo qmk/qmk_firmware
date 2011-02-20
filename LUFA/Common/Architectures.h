@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Supported architecture defines.
+ *  \brief Supported library architecture defines.
  *
  *  \copydetails Group_Architectures
  *
@@ -39,10 +39,14 @@
 
 /** \ingroup Group_Common
  *  \defgroup Group_Architectures Hardware Architectures
- *  \brief Supported architecture defines.
+ *  \brief Supported library architecture defines.
  *
- *  Macros for indicating the chosen hardware architecture to the library. These macros should be used when
- *  defining the ARCH token to the chosen hardware via the -D switch in the project makefile.
+ *  Architecture macros for selecting the desired target microcontroller architecture. One of these values should be
+ *  defined as the value of \c ARCH in the user project makefile via the \c -D compiler switch to GCC, to select the
+ *  target architecture.
+ *
+ *  The selected architecture should remain consistent with the makefile \c ARCH value, which is used to select the
+ *  underlying driver source files for each architecture.
  *
  *  @{
  */

@@ -29,10 +29,10 @@
 */
 
 /** \file
- *  \brief Master include file for the board digital joystick driver.
+ *  \brief Digital joystick board hardware driver.
  *
  *  This file is the master dispatch header file for the board-specific Joystick driver, for boards containing a
- *  5-way joystick.
+ *  digital joystick.
  *
  *  User code should include this file, which will in turn include the correct joystick driver header file for the
  *  currently selected board.
@@ -45,6 +45,7 @@
 
 /** \ingroup Group_BoardDrivers
  *  \defgroup Group_Joystick Joystick Driver - LUFA/Drivers/Board/Joystick.h
+ *  \brief Digital joystick board hardware driver.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

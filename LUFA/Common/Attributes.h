@@ -41,13 +41,13 @@
  *  \defgroup Group_GCCAttributes Function/Variable Attributes
  *  \brief AVR-GCC special function/variable attribute macros.
  *
- *  This file contains macros for applying GCC specific attributes to functions and variables to control various
+ *  This module contains macros for applying GCC specific attributes to functions and variables to control various
  *  optimiser and code generation features of the compiler. Attributes may be placed in the function prototype
  *  or variable declaration in any order, and multiple attributes can be specified for a single item via a space
  *  separated list.
  *
  *  On incompatible versions of GCC or on other compilers, these macros evaluate to nothing unless they are
- *  critical to the code's function and thus must throw a compiler error when used.
+ *  critical to the code's function and thus must throw a compile error when used.
  *
  *  @{
  */

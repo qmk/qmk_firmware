@@ -38,7 +38,7 @@
 
 /** \ingroup Group_USB
  *  \defgroup Group_Device Device Management
- *  \brief Common USB Device definitions for all architectures.
+ *  \brief USB Device management definitions for USB device mode.
  *
  *  USB Device mode related definitions common to all architectures. This module contains definitions which
  *  are used when the USB controller is initialized in device mode.

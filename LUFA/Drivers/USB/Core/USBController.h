@@ -38,7 +38,7 @@
 
 /** \ingroup Group_USB
  *  \defgroup Group_USBManagement USB Interface Management
- *  \brief Common USB Controller definitions for all architectures.
+ *  \brief USB Controller definitions for general USB controller management.
  *
  *  Functions, macros, variables, enums and types related to the setup and management of the USB interface.
  *

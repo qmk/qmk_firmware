@@ -30,9 +30,10 @@
 
 /** \file
  *  \brief Master include file for the board dataflash IC driver.
+ *  \brief Atmel Dataflash storage IC board hardware driver.
  *
- *  This file is the master dispatch header file for the board-specific dataflash driver, for boards containing
- *  dataflash ICs for external non-volatile storage.
+ *  This file is the master dispatch header file for the board-specific Atmel dataflash driver, for boards containing
+ *  Atmel Dataflash ICs for external non-volatile storage.
  *
  *  User code should include this file, which will in turn include the correct dataflash driver header file for
  *  the currently selected board.
@@ -45,6 +46,7 @@
 
 /** \ingroup Group_BoardDrivers
  *  \defgroup Group_Dataflash Dataflash Driver - LUFA/Drivers/Board/Dataflash.h
+ *  \brief Atmel Dataflash storage IC board hardware driver.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

@@ -29,13 +29,14 @@
 */
 
 /** \file
- *  \brief Master include file for the board temperature sensor driver.
+ *  \brief NTC Temperature Sensor board hardware driver.
  *
  *  Master include file for the board temperature sensor driver, for the USB boards which contain a temperature sensor.
  */
 
 /** \ingroup Group_BoardDrivers
  *  \defgroup Group_Temperature Temperature Sensor Driver - LUFA/Drivers/Board/Temperature.h
+ *  \brief NTC Temperature Sensor board hardware driver.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Master include file for the board LEDs driver.
+ *  \brief LED board hardware driver.
  *
  *  This file is the master dispatch header file for the board-specific LED driver, for boards containing user
  *  controllable LEDs.
@@ -45,6 +45,7 @@
 
 /** \ingroup Group_BoardDrivers
  *  \defgroup Group_LEDs LEDs Driver - LUFA/Drivers/Board/LEDs.h
+ *  \brief LED board hardware driver.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

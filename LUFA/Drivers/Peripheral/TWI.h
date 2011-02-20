@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Master include file for the TWI peripheral driver.
+ *  \brief Hardware Two Wire Interface (I2C) driver.
  *
  *  This file is the master dispatch header file for the device-specific SPI driver, for microcontrollers
  *  containing a hardware TWI.
@@ -40,6 +40,7 @@
 
 /** \ingroup Group_PeripheralDrivers
  *  \defgroup Group_TWI TWI Driver - LUFA/Drivers/Peripheral/TWI.h
+ *  \brief Hardware Two Wire Interface (I2C) driver.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

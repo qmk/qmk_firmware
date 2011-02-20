@@ -38,13 +38,14 @@
 
 /** \ingroup Group_EndpointRW
  *  \defgroup Group_EndpointRW_AVR8 Endpoint Data Reading and Writing (AVR8)
- *  \brief USB Endpoint definitions for the AVR8 microcontrollers.
+ *  \brief Endpoint data read/write definitions for the Atmel AVR8 architecture.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing from and to endpoints.
  */
 
 /** \ingroup Group_EndpointPrimitiveRW
  *  \defgroup Group_EndpointPrimitiveRW_AVR8 Read/Write of Primitive Data Types (AVR8)
+ *  \brief Endpoint primative read/write definitions for the Atmel AVR8 architecture.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
  *  from and to endpoints.
@@ -52,12 +53,14 @@
 
 /** \ingroup Group_EndpointPacketManagement
  *  \defgroup Group_EndpointPacketManagement_AVR8 Endpoint Packet Management (AVR8)
+ *  \brief Endpoint packet management definitions for the Atmel AVR8 architecture.
  *
  *  Functions, macros, variables, enums and types related to packet management of endpoints.
  */
 
 /** \ingroup Group_EndpointManagement
  *  \defgroup Group_EndpointManagement_AVR8 Endpoint Management (AVR8)
+ *  \brief Endpoint management definitions for the Atmel AVR8 architecture.
  *
  *  Functions, macros and enums related to endpoint management when in USB Device mode. This
  *  module contains the endpoint management macros, as well as endpoint interrupt and data

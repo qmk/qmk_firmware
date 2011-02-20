@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Supported board hardware defines.
+ *  \brief Supported pre-made board hardware defines.
  *
  *  \copydetails Group_BoardTypes
  *
@@ -39,10 +39,11 @@
 
 /** \ingroup Group_Common
  *  \defgroup Group_BoardTypes Board Types
- *  \brief Supported board hardware defines.
+ *  \brief Supported pre-made board hardware defines.
  *
- *  Macros for indicating the chosen physical board hardware to the library. These macros should be used when
- *  defining the BOARD token to the chosen hardware via the -D switch in the project makefile.
+ *  Board macros for indicating the chosen physical board hardware to the library. These macros should be used when
+ *  defining the \c BOARD token to the chosen hardware via the \c -D switch in the project makefile. If a custom
+ *  board is used, the \ref BOARD_NONE or \ref BOARD_USER values should be selected.
  *
  *  @{
  */

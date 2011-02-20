@@ -29,10 +29,10 @@
 */
 
 /** \file
- *  \brief Master include file for the board digital button driver.
+ *  \brief Digital button board hardware driver.
  *
  *  This file is the master dispatch header file for the board-specific Buttons driver, for boards containing
- *  physical pushbuttons connected to the AVR's GPIO pins.
+ *  physical pushbuttons connected to the microcontroller's GPIO pins.
  *
  *  User code should include this file, which will in turn include the correct Button driver header file for the
  *  currently selected board.
@@ -45,6 +45,7 @@
 
 /** \ingroup Group_BoardDrivers
  *  \defgroup Group_Buttons Buttons Driver - LUFA/Drivers/Board/Buttons.h
+ *  \brief Digital button board hardware driver.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

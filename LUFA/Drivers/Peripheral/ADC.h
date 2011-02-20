@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Master include file for the ADC peripheral driver.
+ *  \brief Hardware Analogue-to-Digital converter driver.
  *
  *  This file is the master dispatch header file for the device-specific ADC driver, for microcontrollers
  *  containing an ADC.
@@ -40,6 +40,7 @@
 
 /** \ingroup Group_PeripheralDrivers
  *  \defgroup Group_ADC ADC Driver - LUFA/Drivers/Peripheral/ADC.h
+ *  \brief Hardware Analogue-to-Digital converter driver.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

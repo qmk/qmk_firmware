@@ -38,13 +38,14 @@
 
 /** \ingroup Group_PipeRW
  *  \defgroup Group_PipeRW_AVR8 Pipe Data Reading and Writing (AVR8)
- *  \brief USB Pipe definitions for the AVR8 microcontrollers.
+ *  \brief Pipe data read/write definitions for the Atmel AVR8 architecture.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing from and to pipes.
  */
 
 /** \ingroup Group_PipePrimitiveRW
  *  \defgroup Group_PipePrimitiveRW_AVR8 Read/Write of Primitive Data Types (AVR8)
+ *  \brief Pipe primative data read/write definitions for the Atmel AVR8 architecture.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
  *  from and to pipes.
@@ -52,12 +53,14 @@
 
 /** \ingroup Group_PipePacketManagement
  *  \defgroup Group_PipePacketManagement_AVR8 Pipe Packet Management (AVR8)
+ *  \brief Pipe packet management definitions for the Atmel AVR8 architecture.
  *
  *  Functions, macros, variables, enums and types related to packet management of pipes.
  */
 
 /** \ingroup Group_PipeControlReq
  *  \defgroup Group_PipeControlReq_AVR8 Pipe Control Request Management (AVR8)
+ *  \brief Pipe control request management definitions for the Atmel AVR8 architecture.
  *
  *  Module for host mode request processing. This module allows for the transmission of standard, class and
  *  vendor control requests to the default control endpoint of an attached device while in host mode.
@@ -67,6 +70,7 @@
 
 /** \ingroup Group_PipeManagement
  *  \defgroup Group_PipeManagement_AVR8 Pipe Management (AVR8)
+ *  \brief Pipe management definitions for the Atmel AVR8 architecture.
  *
  *  This module contains functions, macros and enums related to pipe management when in USB Host mode. This
  *  module contains the pipe management macros, as well as pipe interrupt and data send/receive functions

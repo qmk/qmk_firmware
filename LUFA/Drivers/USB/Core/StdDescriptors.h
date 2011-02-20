@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Common USB Descriptor definitions for all architectures.
+ *  \brief Common standard USB Descriptor definitions for all architectures.
  *  \copydetails Group_StdDescriptors
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
@@ -38,7 +38,7 @@
 
 /** \ingroup Group_USB
  *  \defgroup Group_StdDescriptors USB Descriptors
- *  \brief Common USB Descriptor definitions for all architectures.
+ *  \brief Standard USB Descriptor definitions.
  *
  *  Standard USB device descriptor defines and retrieval routines, for USB devices. This module contains
  *  structures and macros for the easy creation of standard USB descriptors in USB device projects.

@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Common USB Endpoint definitions for all architectures.
+ *  \brief USB Endpoint definitions for all architectures.
  *  \copydetails Group_EndpointManagement
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
@@ -38,13 +38,14 @@
 
 /** \ingroup Group_EndpointManagement
  *  \defgroup Group_EndpointRW Endpoint Data Reading and Writing
- *  \brief Common USB Endpoint definitions for all architectures.
+ *  \brief Endpoint data read/write definitions.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing from and to endpoints.
  */
 
 /** \ingroup Group_EndpointRW
  *  \defgroup Group_EndpointPrimitiveRW Read/Write of Primitive Data Types
+ *  \brief Endpoint data primative read/write definitions.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of primitive data types
  *  from and to endpoints.
@@ -52,12 +53,14 @@
 
 /** \ingroup Group_EndpointManagement
  *  \defgroup Group_EndpointPacketManagement Endpoint Packet Management
+ *  \brief USB Endpoint package management definitions.
  *
  *  Functions, macros, variables, enums and types related to packet management of endpoints.
  */
 
 /** \ingroup Group_USB
  *  \defgroup Group_EndpointManagement Endpoint Management
+ *  \brief Endpoint management definitions.
  *
  *  Functions, macros and enums related to endpoint management when in USB Device mode. This
  *  module contains the endpoint management macros, as well as endpoint interrupt and data

@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief Master include file for the SPI peripheral driver.
+ *  \brief Hardware Serial Peripheral Interface driver.
  *
  *  This file is the master dispatch header file for the device-specific SPI driver, for microcontrollers
  *  containing a hardware SPI.
@@ -40,6 +40,7 @@
 
 /** \ingroup Group_PeripheralDrivers
  *  \defgroup Group_SPI SPI Driver - LUFA/Drivers/Peripheral/SPI.h
+ *  \brief Hardware Serial Peripheral Interface driver.
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:

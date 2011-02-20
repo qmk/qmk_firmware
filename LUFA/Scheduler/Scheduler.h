@@ -38,6 +38,7 @@
  */
 
 /** \defgroup Group_Scheduler Simple Task Scheduler - LUFA/Scheduler/Scheduler.h
+ *  \brief Simple round-robbin pseudo-task scheduler.
  *
  *  \deprecated This module is deprecated and will be removed in a future library release.
  *
