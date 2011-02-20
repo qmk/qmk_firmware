@@ -67,6 +67,7 @@
 		#include <stdint.h>
 		#include <stdbool.h>
 		#include <string.h>
+		#include <stddef.h>
 		
 		#include "Architectures.h"
 		#include "Attributes.h"
@@ -81,6 +82,16 @@
 			#include <avr/boot.h>
 			#include <util/atomic.h>
 			#include <util/delay.h>
+			
+			typedef uint8_t uintN_t;
+			typedef int8_t  intN_t;
+		#elif (ARCH == ARCH_UC3B)
+			#include <avr32/io.h>
+
+			typedef uint32_t uintN_t;
+			typedef int32_t  intN_t;
+			
+			#warning The UC3B architecture support is currently experimental and incomplete!
 		#endif
 
 	/* Public Interface - May be used in end-application: */

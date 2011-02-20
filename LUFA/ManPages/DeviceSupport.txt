@@ -7,6 +7,22 @@
 /**
  *  \page Page_DeviceSupport Device and Hardware Support
  *
+ *  \section Sec_AVR8_Support Atmel 32-Bit UC3B AVR (UC3B)
+ *  <i>The AVR32 UC3B device support is currently <b>experimental</b>, and is included for preview purposes only.</i>
+ *
+ *  Currently supported UC3B models:
+ *   - AT32UC3B064 (USB Host and Device)
+ *   - AT32UC3B164 (USB Host and Device)
+ *   - AT32UC3B0128 (USB Host and Device)
+ *   - AT32UC3B1128 (USB Host and Device)
+ *   - AT32UC3B0256 (USB Host and Device)
+ *   - AT32UC3B1256 (USB Host and Device)
+ *   - AT32UC3B0512 (USB Host and Device)
+ *   - AT32UC3B1512 (USB Host and Device)
+ *
+ *  Currently supported Atmel boards (see \ref Group_BoardTypes):
+ *   - EVK1101
+ *
  *  \section Sec_AVR8_Support Atmel 8-Bit AVR (AVR8)
  *
  *  Currently supported AVR8 models:

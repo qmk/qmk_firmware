@@ -114,6 +114,8 @@
 		#include "BUMBLEB/Joystick.h"
 	#elif (BOARD == BOARD_EVK527)
 		#include "EVK527/Joystick.h"
+	#elif (BOARD == BOARD_EVK1101)
+		#include "EVK1101/Joystick.h"
 	#else
 		#include "Board/Joystick.h"
 	#endif

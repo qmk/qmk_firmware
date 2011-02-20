@@ -166,6 +166,8 @@
 		#include "MICROSIN162/LEDs.h"
 	#elif (BOARD == BOARD_SPARKFUN8U2)
 		#include "SPARKFUN8U2/LEDs.h"
+	#elif (BOARD == BOARD_EVK1101)
+		#include "EVK1101/LEDs.h"
 	#else
 		#include "Board/LEDs.h"
 	#endif

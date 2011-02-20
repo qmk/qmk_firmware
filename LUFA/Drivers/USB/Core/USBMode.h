@@ -82,6 +82,11 @@
 		 */
 		#define USB_SERIES_7_AVR
 
+		/** Indicates that the target AVR microcontroller belongs to the UC3B Series USB controller
+		 *  (i.e. AT32UC3B*) when defined.
+		 */
+		#define USB_SERIES_UC3B_AVR
+
 		/** Indicates that the target microcontroller and compilation settings allow for the
 		 *  target to be configured in USB Device mode when defined.
 		 */
@@ -110,6 +115,13 @@
 				#define USB_CAN_BE_DEVICE
 			#elif (defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1287__))
 				#define USB_SERIES_7_AVR
+				#define USB_CAN_BE_DEVICE
+				#define USB_CAN_BE_HOST
+			#elif (defined(__AVR32_UC3B0512__) || defined(__AVR32_UC3B1512__) || \
+			       defined(__AVR32_UC3B0256__) || defined(__AVR32_UC3B1256__) || \
+			       defined(__AVR32_UC3B0128__) || defined(__AVR32_UC3B1128__) || \
+			       defined(__AVR32_UC3B064__) || defined(__AVR32_UC3B164__))
+				#define USB_SERIES_UC3B_AVR
 				#define USB_CAN_BE_DEVICE
 				#define USB_CAN_BE_HOST
 			#endif

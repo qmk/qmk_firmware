@@ -197,11 +197,6 @@
 			 */
 			#define ENDPOINT_EPDIR_MASK                     0x80
 
-			/** Endpoint bank size mask, for masking against endpoint addresses to retrieve the endpoint's
-			 *  bank size in the device.
-			 */
-			#define ENDPOINT_EPSIZE_MASK                    0x7F
-
 			/** Retrives the maximum bank size in bytes of a given endpoint.
 			 *
 			 *  \note This macro will only work correctly on endpoint indexes that are compile-time constants
@@ -306,7 +301,7 @@
 			                                              const uint16_t Size,
 			                                              const uint8_t Banks)
 			{
-				return Endpoint_ConfigureEndpoint_Prv(Number, (((Type) << EPTYPE0) | (Direction)),
+				return Endpoint_ConfigureEndpoint_Prv(Number, ((Type << EPTYPE0) | Direction),
 				                                      ((1 << ALLOC) | Banks | Endpoint_BytesToEPSizeMask(Size)));
 			}
 
@@ -406,22 +401,6 @@
 				return ((UECONX & (1 << EPEN)) ? true : false);
 			}
 
-			/** Aborts all pending IN transactions on the currently selected endpoint, once the bank
-			 *  has been queued for transmission to the host via \ref Endpoint_ClearIN(). This function
-			 *  will terminate all queued transactions, resetting the endpoint banks ready for a new
-			 *  packet.
-			 *
-			 *  \ingroup Group_EndpointPacketManagement_AVR8
-			 */
-			static inline void Endpoint_AbortPendingIN(void)
-			{
-				while (UESTA0X & (0x03 << NBUSYBK0))
-				{
-					UEINTX |= (1 << RXOUTI);
-					while (UEINTX & (1 << RXOUTI));
-				}
-			}
-			
 			/** Retrieves the number of busy banks in the currently selected endpoint, which have been queued for
 			 *  transmission via the \ref Endpoint_ClearIN() command, or are awaiting acknowledgement via the
 			 *  \ref Endpoint_ClearOUT() command.
@@ -433,6 +412,22 @@
 			static inline uint8_t Endpoint_GetBusyBanks(void)
 			{
 				return (UESTA0X & (0x03 << NBUSYBK0));
+			}
+
+			/** Aborts all pending IN transactions on the currently selected endpoint, once the bank
+			 *  has been queued for transmission to the host via \ref Endpoint_ClearIN(). This function
+			 *  will terminate all queued transactions, resetting the endpoint banks ready for a new
+			 *  packet.
+			 *
+			 *  \ingroup Group_EndpointPacketManagement_AVR8
+			 */
+			static inline void Endpoint_AbortPendingIN(void)
+			{
+				while (Endpoint_GetBusyBanks() != 0)
+				{
+					UEINTX |= (1 << RXOUTI);
+					while (UEINTX & (1 << RXOUTI));
+				}
 			}
 
 			/** Determines if the currently selected endpoint may be read from (if data is waiting in the endpoint
@@ -484,7 +479,7 @@
 			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Endpoint_HasEndpointInterrupted(const uint8_t EndpointNumber)
 			{
-				return ((UEINT & (1 << EndpointNumber)) ? true : false);
+				return ((Endpoint_GetEndpointInterrupts() & (1 << EndpointNumber)) ? true : false);
 			}
 
 			/** Determines if the selected IN endpoint is ready for a new packet to be sent to the host.

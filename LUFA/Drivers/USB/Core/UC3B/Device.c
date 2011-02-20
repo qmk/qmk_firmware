@@ -28,41 +28,26 @@
   this software.
 */
 
-/** \file
- *  \brief Common USB Controller definitions for all architectures.
- *  \copydetails Group_USBManagement
- *
- *  \note This file should not be included directly. It is automatically included as needed by the USB driver
- *        dispatch header located in LUFA/Drivers/USB/USB.h.
- */
+#define  __INCLUDE_FROM_USB_DRIVER
+#include "../USBMode.h"
 
-/** \ingroup Group_USB
- *  \defgroup Group_USBManagement USB Interface Management
- *  \brief USB Controller definitions for general USB controller management.
- *
- *  Functions, macros, variables, enums and types related to the setup and management of the USB interface.
- *
- *  @{
- */
+#if defined(USB_CAN_BE_DEVICE)
 
-#ifndef __USBCONTROLLER_H__
-#define __USBCONTROLLER_H__
+#include "Device.h"
 
-	/* Includes: */
-		#include "../../../Common/Common.h"
+void USB_Device_SendRemoteWakeup(void)
+{
+	if (!(USB_Options & USB_OPT_MANUAL_PLL))
+	{
+		USB_PLL_On();
+		while (!(USB_PLL_IsReady()));
+	}
 
-		#if (ARCH == ARCH_AVR8)
-			#include "AVR8/USBController.h"
-		#elif (ARCH == ARCH_UC3B)
-			#include "UC3B/USBController.h"		
-		#endif
+	USB_CLK_Unfreeze();
 
-	/* Preprocessor Checks and Defines: */
-		#if !defined(__INCLUDE_FROM_USB_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
-		#endif
+	AVR32_USBB.UDCON |= (1 << RMWKUP);
+	while (!(AVR32_USBB.UDCON & (1 << RMWKUP)));
+}
 
 #endif
-
-/** @} */
 

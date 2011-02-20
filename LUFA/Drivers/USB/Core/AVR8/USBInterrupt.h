@@ -57,31 +57,31 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define USB_INT_Enable(int)              MACROS{ USB_INT_GET_EN_REG(int)   |=   USB_INT_GET_EN_MASK(int);   }MACROE
-			#define USB_INT_Disable(int)             MACROS{ USB_INT_GET_EN_REG(int)   &= ~(USB_INT_GET_EN_MASK(int));  }MACROE
-			#define USB_INT_Clear(int)               MACROS{ USB_INT_GET_INT_REG(int)  &= ~(USB_INT_GET_INT_MASK(int)); }MACROE
-			#define USB_INT_IsEnabled(int)                 ((USB_INT_GET_EN_REG(int)   &    USB_INT_GET_EN_MASK(int)) ? true : false)
-			#define USB_INT_HasOccurred(int)               ((USB_INT_GET_INT_REG(int)  &    USB_INT_GET_INT_MASK(int)) ? true : false)
+			#define USB_INT_Enable(int)       MACROS{ USB_INT_GET_EN_REG(int)   |=   USB_INT_GET_EN_MASK(int);   }MACROE
+			#define USB_INT_Disable(int)      MACROS{ USB_INT_GET_EN_REG(int)   &= ~(USB_INT_GET_EN_MASK(int));  }MACROE
+			#define USB_INT_Clear(int)        MACROS{ USB_INT_GET_INT_REG(int)  &= ~(USB_INT_GET_INT_MASK(int)); }MACROE
+			#define USB_INT_IsEnabled(int)          ((USB_INT_GET_EN_REG(int)   &    USB_INT_GET_EN_MASK(int))  ? true : false)
+			#define USB_INT_HasOccurred(int)        ((USB_INT_GET_INT_REG(int)  &    USB_INT_GET_INT_MASK(int)) ? true : false)
 
 			#define USB_INT_GET_EN_REG(EnableReg, EnableMask, FlagReg, FlagMask)    EnableReg
 			#define USB_INT_GET_EN_MASK(EnableReg, EnableMask, FlagReg, FlagMask)   EnableMask
 			#define USB_INT_GET_INT_REG(EnableReg, EnableMask, FlagReg, FlagMask)   FlagReg
 			#define USB_INT_GET_INT_MASK(EnableReg, EnableMask, FlagReg, FlagMask)  FlagMask
 			
-			#define USB_INT_VBUS                             USBCON, (1 << VBUSTE) , USBINT, (1 << VBUSTI)
-			#define USB_INT_IDTI                             USBCON, (1 << IDTE)   , USBINT, (1 << IDTI)
-			#define USB_INT_WAKEUPI                          UDIEN , (1 << WAKEUPE), UDINT , (1 << WAKEUPI)
-			#define USB_INT_SUSPI                            UDIEN , (1 << SUSPE)  , UDINT , (1 << SUSPI)
-			#define USB_INT_EORSTI                           UDIEN , (1 << EORSTE) , UDINT , (1 << EORSTI)
-			#define USB_INT_DCONNI                           UHIEN , (1 << DCONNE) , UHINT , (1 << DCONNI)
-			#define USB_INT_DDISCI                           UHIEN , (1 << DDISCE) , UHINT , (1 << DDISCI)
-			#define USB_INT_BCERRI                           OTGIEN, (1 << BCERRE) , OTGINT, (1 << BCERRI)
-			#define USB_INT_VBERRI                           OTGIEN, (1 << VBERRE) , OTGINT, (1 << VBERRI)
-			#define USB_INT_SOFI                             UDIEN,  (1 << SOFE)   , UDINT , (1 << SOFI)
-			#define USB_INT_HSOFI                            UHIEN,  (1 << HSOFE)  , UHINT , (1 << HSOFI)
-			#define USB_INT_RSTI                             UHIEN , (1 << RSTE)   , UHINT , (1 << RSTI)
-			#define USB_INT_SRPI                             OTGIEN, (1 << SRPE)   , OTGINT, (1 << SRPI)
-			#define USB_INT_RXSTPI                           UEIENX, (1 << RXSTPE) , UEINTX, (1 << RXSTPI)
+			#define USB_INT_VBUS     USBCON, (1 << VBUSTE) , USBINT, (1 << VBUSTI)
+			#define USB_INT_IDTI     USBCON, (1 << IDTE)   , USBINT, (1 << IDTI)
+			#define USB_INT_WAKEUPI  UDIEN , (1 << WAKEUPE), UDINT , (1 << WAKEUPI)
+			#define USB_INT_SUSPI    UDIEN , (1 << SUSPE)  , UDINT , (1 << SUSPI)
+			#define USB_INT_EORSTI   UDIEN , (1 << EORSTE) , UDINT , (1 << EORSTI)
+			#define USB_INT_DCONNI   UHIEN , (1 << DCONNE) , UHINT , (1 << DCONNI)
+			#define USB_INT_DDISCI   UHIEN , (1 << DDISCE) , UHINT , (1 << DDISCI)
+			#define USB_INT_BCERRI   OTGIEN, (1 << BCERRE) , OTGINT, (1 << BCERRI)
+			#define USB_INT_VBERRI   OTGIEN, (1 << VBERRE) , OTGINT, (1 << VBERRI)
+			#define USB_INT_SOFI     UDIEN,  (1 << SOFE)   , UDINT , (1 << SOFI)
+			#define USB_INT_HSOFI    UHIEN,  (1 << HSOFE)  , UHINT , (1 << HSOFI)
+			#define USB_INT_RSTI     UHIEN , (1 << RSTE)   , UHINT , (1 << RSTI)
+			#define USB_INT_SRPI     OTGIEN, (1 << SRPE)   , OTGINT, (1 << SRPI)
+			#define USB_INT_RXSTPI   UEIENX, (1 << RXSTPE) , UEINTX, (1 << RXSTPI)
 
 		/* Includes: */
 			#include "../USBMode.h"

@@ -54,6 +54,8 @@
 
 		#if (ARCH == ARCH_AVR8)
 			#include "AVR8/Host.h"
+		#elif (ARCH == ARCH_UC3B)
+			#include "UC3B/Host.h"		
 		#endif
 
 	/* Preprocessor Checks: */

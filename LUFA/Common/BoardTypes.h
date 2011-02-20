@@ -144,6 +144,9 @@
 			/** Selects the Sparkfun ATMEGA8U2 specific board drivers, including the driver for the board LEDs. */
 			#define BOARD_SPARKFUN8U2   26
 
+			/** Selects the Atmel EVK1101 specific board drivers, including the Button, Joystick and LED drivers. */
+			#define BOARD_EVK1101       27
+			
 			#if !defined(__DOXYGEN__)
 				#define BOARD_          BOARD_NONE
 

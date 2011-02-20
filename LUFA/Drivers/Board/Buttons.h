@@ -126,6 +126,8 @@
 		#include "MINIMUS/Buttons.h"
 	#elif (BOARD == BOARD_MICROSIN162)
 		#include "MICROSIN162/Buttons.h"
+	#elif (BOARD == BOARD_EVK1101)
+		#include "EVK1101/Buttons.h"
 	#else
 		#include "Board/Buttons.h"
 	#endif

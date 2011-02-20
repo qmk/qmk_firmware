@@ -62,8 +62,11 @@
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** Selects the Atmel 8-bit AVR (AT90USB* and ATMEGA*U* chips) architecture. */
-			#define ARCH_AVR8           1
+			#define ARCH_AVR8           0
 
+			/** Selects the Atmel 32-bit UC3B AVR (AT32UC3B* chips) architecture. */
+			#define ARCH_UC3B           1
+			
 			#if !defined(__DOXYGEN__)
 				#define ARCH_           ARCH_AVR8
 
