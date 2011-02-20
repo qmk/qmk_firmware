@@ -56,6 +56,10 @@ POSSIBILITY OF SUCH DAMAGE.
 #   error "PS/2 data port setting is required in config.h"
 #endif
 
+#define PS2_ACK         0xFA
+#define PS2_RESEND      0xFE
+#define PS2_SET_LED     0xED
+
 #define PS2_ERR_NONE    0
 #define PS2_ERR_PARITY  0x10
 

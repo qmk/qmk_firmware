@@ -11,6 +11,8 @@
 #ifndef __usbconfig_h_included__
 #define __usbconfig_h_included__
 
+#include "config.h"
+
 /*
 General Description:
 This file is an example configuration (with inline documentation) for the USB
@@ -27,7 +29,7 @@ section at the end of this file).
 /* This is the port where the USB bus is connected. When you configure it to
  * "B", the registers PORTB, PINB and DDRB will be used.
  */
-#define USB_CFG_DMINUS_BIT      4
+#define USB_CFG_DMINUS_BIT      3
 /* This is the bit number in USB_CFG_IOPORT where the USB D- line is connected.
  * This may be any bit in the port.
  */
@@ -216,7 +218,7 @@ section at the end of this file).
 
 /* -------------------------- Device Description --------------------------- */
 
-#define  USB_CFG_VENDOR_ID       0xc0, 0x16 /* = 0x16c0 = 5824 = voti.nl */
+#define USB_CFG_VENDOR_ID       (VENDOR_ID & 0xFF), ((VENDOR_ID >> 8) & 0xFF)
 /* USB vendor ID for the device, low byte first. If you have registered your
  * own Vendor ID, define it here. Otherwise you may use one of obdev's free
  * shared VID/PID pairs. Be sure to read USB-IDs-for-free.txt for rules!
@@ -225,7 +227,7 @@ section at the end of this file).
  * with libusb: 0x16c0/0x5dc.  Use this VID/PID pair ONLY if you understand
  * the implications!
  */
-#define  USB_CFG_DEVICE_ID       0xdd, 0x05 /* = 0x05dc = 1500 */
+#define USB_CFG_DEVICE_ID       (PRODUCT_ID & 0xFF), ((PRODUCT_ID >> 8) & 0xFF)
 /* This is the ID of the product, low byte first. It is interpreted in the
  * scope of the vendor ID. If you have registered your own VID with usb.org
  * or if you have licensed a PID from somebody else, define it here. Otherwise
@@ -249,8 +251,8 @@ section at the end of this file).
  * obdev's free shared VID/PID pair. See the file USB-IDs-for-free.txt for
  * details.
  */
-#define USB_CFG_DEVICE_NAME     'k', 'e', 'y', 'b', 'o', 'a', 'r', 'd'
-#define USB_CFG_DEVICE_NAME_LEN 8
+#define USB_CFG_DEVICE_NAME     'P', 'S', '/', '2', ' ', 'k', 'e', 'y', 'b', 'o', 'a', 'r', 'd', ' ', 'c', 'o', 'n', 'v', 'e', 'r', 't', 'e', 'r'
+#define USB_CFG_DEVICE_NAME_LEN 23
 /* Same as above for the device name. If you don't want a device name, undefine
  * the macros. See the file USB-IDs-for-free.txt before you assign a name if
  * you use a shared VID/PID.
