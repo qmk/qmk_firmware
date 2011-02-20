@@ -3,7 +3,9 @@
 
 
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6512
+#define PRODUCT_ID      0x2233
+// TODO: share these strings with usbconfig.h
+// Edit usbconfig.h to change these.
 #define MANUFACTURER    t.m.k.
 #define PRODUCT         PS/2 keyboard converter
 #define DESCRIPTION     convert PS/2 keyboard to USB
@@ -33,36 +35,84 @@
 #define PS2_CLOCK_PORT  PORTD
 #define PS2_CLOCK_PIN   PIND
 #define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   3
+#define PS2_CLOCK_BIT   4
 #define PS2_DATA_PORT   PORTD
 #define PS2_DATA_PIN    PIND
 #define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    7
+#define PS2_DATA_BIT    0
 
-/* External interrupt for PS/2 clock line (optional) */
-#define PS2_INT_ENABLE()  do {  \
-    EIMSK |= (1<<INT1);         \
-    EICRA |= ((1<<ISC11) | (0<<ISC10)); \
-    EIFR |= (1<<INTF1);         \
+
+// Synchronous USART is used to receive data from keyboard.
+// Use RXD pin for PS/2 DATA line and XCK for PS/2 CLOCK.
+// NOTE: This is recomended strongly if you use V-USB library.
+#define PS2_USE_USART
+
+// External or Pin Change Interrupt is used to receive data from keyboard.
+// Use INT1 or PCINTxx for PS/2 CLOCK line. see below.
+//#define PS2_USE_INT
+
+
+#ifdef PS2_USE_USART
+// synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge
+// set DDR of CLOCK as input to be slave
+#define PS2_USART_INIT() do {   \
+    PS2_CLOCK_DDR &= ~(1<<PS2_CLOCK_BIT);   \
+    PS2_DATA_DDR &= ~(1<<PS2_DATA_BIT);     \
+    UCSR0C = ((1 << UMSEL00) |  \
+              (3 << UPM00)   |  \
+              (0 << USBS0)   |  \
+              (3 << UCSZ00)  |  \
+              (0 << UCPOL0));   \
+    UCSR0A = 0;                 \
+    UBRR0H = 0;                 \
+    UBRR0L = 0;                 \
 } while (0)
+#define PS2_USART_RX_INT_ON() do {  \
+    UCSR0B = ((1 << RXCIE0) |       \
+              (1 << RXEN0));        \
+} while (0)
+#define PS2_USART_RX_POLL_ON() do { \
+    UCSR0B = (1 << RXEN0);          \
+} while (0)
+#define PS2_USART_OFF() do {    \
+    UCSR0C = 0;                 \
+    UCSR0B &= ~((1 << RXEN0) |  \
+                (1 << TXEN0));  \
+} while (0)
+#define PS2_USART_RX_READY      (UCSR0A & (1<<RXC0))
+#define PS2_USART_RX_DATA       UDR0
+#define PS2_USART_ERROR         (UCSR0A & ((1<<FE0) | (1<<DOR0) | (1<<UPE0)))
+#define PS2_USART_RX_VECT       USART_RX_vect
+#endif
 
-#define PS2_INT_DISABLE() do {  \
+
+#ifdef PS2_USE_INT
+/* INT1
+#define PS2_INT_INIT()  do {    \
+    EICRA |= ((1<<ISC11) |      \
+              (0<<ISC10));      \
+} while (0)
+#define PS2_INT_ON()  do {      \
+    EIMSK |= (1<<INT1);         \
+} while (0)
+#define PS2_INT_OFF() do {      \
     EIMSK &= ~(1<<INT1);        \
 } while (0)
 #define PS2_INT_VECT    INT1_vect
+*/
 
-/* Pin Change interrupt for PS/2 clock line (optional)
-#define PS2_INT_ENABLE()  do {  \
-    PCMSK2 |= (1<<PCINT22);     \
-    PCICR |= (1<<PCIE2);        \
-    PCIFR |= (1<<PCIF2);        \
+/* PCINT20 */
+#define PS2_INT_INIT()  do {    \
+    PCICR  |= (1<<PCIE2);       \
 } while (0)
-
-#define PS2_INT_DISABLE() do {  \
-    PCMSK2 &= ~(1<<PCINT22);    \
-    PCICR &= ~(1<<PCIE);        \
+#define PS2_INT_ON()  do {      \
+    PCMSK2 |= (1<<PCINT20);     \
+} while (0)
+#define PS2_INT_OFF() do {      \
+    PCMSK2 &= ~(1<<PCINT20);    \
+    PCICR  &= ~(1<<PCIE2);      \
 } while (0)
 #define PS2_INT_VECT    PCINT2_vect
-*/
+#endif
 
 #endif

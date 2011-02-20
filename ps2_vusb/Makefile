@@ -12,8 +12,9 @@ TARGET_SRC =	main.c \
 		keymap.c \
 		matrix.c \
 		led.c \
-		ps2.c \
-		usart_print.c
+		ps2_usart.c \
+		sendchar_dummy.c
+#		sendchar_usart.c
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 
@@ -32,7 +33,7 @@ MCU = atmega168
 #   so your program will run at the correct speed.  You should also set this
 #   variable to same clock speed.  The _delay_ms() macro uses this, and many
 #   examples use this variable to calculate timings.  Do not add a "UL" here.
-F_CPU = 16000000
+F_CPU = 20000000
 
 
 # Build Options
@@ -41,6 +42,36 @@ F_CPU = 16000000
 MOUSEKEY_ENABLE = yes	# Mouse keys
 #USB_EXTRA_ENABLE = yes	# Enhanced feature for Windows(Audio control and System control)
 #USB_NKRO_ENABLE = yes	# USB Nkey Rollover
+
+
+
+#---------------- Programming Options (avrdude) ----------------
+# Type: avrdude -c ? to get a full listing.
+AVRDUDE_PROGRAMMER = usbasp
+AVRDUDE_PORT =
+AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
+#AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
+
+# Uncomment the following if you want avrdude's erase cycle counter.
+# Note that this counter needs to be initialized first using -Yn,
+# see avrdude manual.
+#AVRDUDE_ERASE_COUNTER = -y
+
+# Uncomment the following if you do /not/ wish a verification to be
+# performed after programming the device.
+#AVRDUDE_NO_VERIFY = -V
+
+# Increase verbosity level.  Please use this when submitting bug
+# reports about avrdude. See <http://savannah.nongnu.org/projects/avrdude> 
+# to submit bug reports.
+#AVRDUDE_VERBOSE = -v -v
+
+#AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
+AVRDUDE_FLAGS = -p $(MCU) -c $(AVRDUDE_PROGRAMMER)
+AVRDUDE_FLAGS += $(AVRDUDE_NO_VERIFY)
+AVRDUDE_FLAGS += $(AVRDUDE_VERBOSE)
+AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
+
 
 
 include $(COMMON_DIR)/Makefile.vusb
