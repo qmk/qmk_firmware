@@ -92,61 +92,61 @@
 	#endif
 
 	/* Includes: */
-	#include "../../Common/Common.h"
+		#include "../../Common/Common.h"
 
-	#if (BOARD == BOARD_NONE)
-		#error The Board Buttons driver cannot be used if the makefile BOARD option is not set.
-	#elif (BOARD == BOARD_USBKEY)
-		#include "USBKEY/Buttons.h"
-	#elif (BOARD == BOARD_STK525)
-		#include "STK525/Buttons.h"
-	#elif (BOARD == BOARD_STK526)
-		#include "STK526/Buttons.h"
-	#elif (BOARD == BOARD_ATAVRUSBRF01)
-		#include "ATAVRUSBRF01/Buttons.h"
-	#elif (BOARD == BOARD_BUMBLEB)
-		#include "BUMBLEB/Buttons.h"
-	#elif (BOARD == BOARD_EVK527)
-		#include "EVK527/Buttons.h"
-	#elif (BOARD == BOARD_USBTINYMKII)
-		#include "USBTINYMKII/Buttons.h"
-	#elif (BOARD == BOARD_BENITO)
-		#include "BENITO/Buttons.h"
-	#elif (BOARD == BOARD_JMDBU2)
-		#include "JMDBU2/Buttons.h"
-	#elif (BOARD == BOARD_OLIMEX162)
-		#include "OLIMEX162/Buttons.h"
-	#elif (BOARD == BOARD_USBFOO)
-		#include "USBFOO/Buttons.h"
-	#elif (BOARD == BOARD_UDIP)
-		#include "UDIP/Buttons.h"
-	#elif (BOARD == BOARD_CULV3)
-		#include "CULV3/Buttons.h"
-	#elif (BOARD == BOARD_MINIMUS)
-		#include "MINIMUS/Buttons.h"
-	#elif (BOARD == BOARD_MICROSIN162)
-		#include "MICROSIN162/Buttons.h"
-	#elif (BOARD == BOARD_EVK1101)
-		#include "EVK1101/Buttons.h"
-	#else
-		#include "Board/Buttons.h"
-	#endif
+		#if (BOARD == BOARD_NONE)
+			#error The Board Buttons driver cannot be used if the makefile BOARD option is not set.
+		#elif (BOARD == BOARD_USBKEY)
+			#include "USBKEY/Buttons.h"
+		#elif (BOARD == BOARD_STK525)
+			#include "STK525/Buttons.h"
+		#elif (BOARD == BOARD_STK526)
+			#include "STK526/Buttons.h"
+		#elif (BOARD == BOARD_ATAVRUSBRF01)
+			#include "ATAVRUSBRF01/Buttons.h"
+		#elif (BOARD == BOARD_BUMBLEB)
+			#include "BUMBLEB/Buttons.h"
+		#elif (BOARD == BOARD_EVK527)
+			#include "EVK527/Buttons.h"
+		#elif (BOARD == BOARD_USBTINYMKII)
+			#include "USBTINYMKII/Buttons.h"
+		#elif (BOARD == BOARD_BENITO)
+			#include "BENITO/Buttons.h"
+		#elif (BOARD == BOARD_JMDBU2)
+			#include "JMDBU2/Buttons.h"
+		#elif (BOARD == BOARD_OLIMEX162)
+			#include "OLIMEX162/Buttons.h"
+		#elif (BOARD == BOARD_USBFOO)
+			#include "USBFOO/Buttons.h"
+		#elif (BOARD == BOARD_UDIP)
+			#include "UDIP/Buttons.h"
+		#elif (BOARD == BOARD_CULV3)
+			#include "CULV3/Buttons.h"
+		#elif (BOARD == BOARD_MINIMUS)
+			#include "MINIMUS/Buttons.h"
+		#elif (BOARD == BOARD_MICROSIN162)
+			#include "MICROSIN162/Buttons.h"
+		#elif (BOARD == BOARD_EVK1101)
+			#include "EVK1101/Buttons.h"
+		#else
+			#include "Board/Buttons.h"
+		#endif
 
-	/* Pseudo-Functions for Doxygen: */
-	#if defined(__DOXYGEN__)
-		/** Initialises the BUTTONS driver, so that the current button position can be read. This sets the appropriate
-		 *  I/O pins to an inputs with pull-ups enabled.
-		 *
-		 *  This must be called before any Button driver functions are used.
-		 */
-		static inline void Buttons_Init(void);
+		/* Pseudo-Functions for Doxygen: */
+		#if defined(__DOXYGEN__)
+			/** Initialises the BUTTONS driver, so that the current button position can be read. This sets the appropriate
+			 *  I/O pins to an inputs with pull-ups enabled.
+			 *
+			 *  This must be called before any Button driver functions are used.
+			 */
+			static inline void Buttons_Init(void);
 
-		/** Returns a mask indicating which board buttons are currently pressed.
-		 *
-		 *  \return Mask indicating which board buttons are currently pressed.
-		 */
-		static inline uint8_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
-	#endif
+			/** Returns a mask indicating which board buttons are currently pressed.
+			 *
+			 *  \return Mask indicating which board buttons are currently pressed.
+			 */
+			static inline uint_reg_t Buttons_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+		#endif
 
 #endif
 

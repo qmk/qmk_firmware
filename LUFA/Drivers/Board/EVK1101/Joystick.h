@@ -102,11 +102,11 @@
 				AVR32_GPIO.port[JOY_PRESS_PORT].puers = JOY_PRESS_MASK;
 			};
 			
-			static inline uintN_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
-			static inline uintN_t Joystick_GetStatus(void)
+			static inline uint32_t Joystick_GetStatus(void) ATTR_WARN_UNUSED_RESULT;
+			static inline uint32_t Joystick_GetStatus(void)
 			{
-				return (uintN_t)(~(((AVR32_GPIO.port[JOY_MOVE_PORT].pvr  & JOY_MOVE_MASK) |
-				                    (AVR32_GPIO.port[JOY_PRESS_PORT].pvr & JOY_PRESS_MASK)) << JOY_SHIFT_LEFT));
+				return (uint32_t)(~(((AVR32_GPIO.port[JOY_MOVE_PORT].pvr  & JOY_MOVE_MASK) |
+				                     (AVR32_GPIO.port[JOY_PRESS_PORT].pvr & JOY_PRESS_MASK)) << JOY_SHIFT_LEFT));
 			}
 		#endif
 

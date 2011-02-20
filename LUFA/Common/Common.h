@@ -74,7 +74,10 @@
 		#include "BoardTypes.h"
 		
 	/* Architecture specific utility includes: */
-		#if (ARCH == ARCH_AVR8)
+		#if defined(__DOXYGEN__)
+			/** Type define for an unsigned integer the same width as the selected architecture's machine register. */
+			typedef MACHINE_REG_t uint_reg_t;
+		#elif (ARCH == ARCH_AVR8)
 			#include <avr/io.h>
 			#include <avr/interrupt.h>
 			#include <avr/pgmspace.h>
@@ -83,13 +86,11 @@
 			#include <util/atomic.h>
 			#include <util/delay.h>
 			
-			typedef uint8_t uintN_t;
-			typedef int8_t  intN_t;
+			typedef uint8_t uint_reg_t;
 		#elif (ARCH == ARCH_UC3B)
 			#include <avr32/io.h>
 
-			typedef uint32_t uintN_t;
-			typedef int32_t  intN_t;
+			typedef uint32_t uint_reg_t;
 			
 			#warning The UC3B architecture support is currently experimental and incomplete!
 		#endif

@@ -98,23 +98,23 @@
 				AVR32_GPIO.port[LEDS_PORT].ovrs  = LEDS_ALL_LEDS;
 			}
 			
-			static inline void LEDs_TurnOnLEDs(const uintN_t LedMask)
+			static inline void LEDs_TurnOnLEDs(const uint32_t LedMask)
 			{
 				AVR32_GPIO.port[LEDS_PORT].ovrc  = LedMask;
 			}
 
-			static inline void LEDs_TurnOffLEDs(const uintN_t LedMask)
+			static inline void LEDs_TurnOffLEDs(const uint32_t LedMask)
 			{
 				AVR32_GPIO.port[LEDS_PORT].ovrs  = LedMask;
 			}
 
-			static inline void LEDs_SetAllLEDs(const uintN_t LedMask)
+			static inline void LEDs_SetAllLEDs(const uint32_t LedMask)
 			{
 				AVR32_GPIO.port[LEDS_PORT].ovrs  = LEDS_ALL_LEDS;
 				AVR32_GPIO.port[LEDS_PORT].ovrc  = LedMask;
 			}
 			
-			static inline void LEDs_ChangeLEDs(const uintN_t LedMask, const uintN_t ActiveMask)
+			static inline void LEDs_ChangeLEDs(const uint32_t LedMask, const uint32_t ActiveMask)
 			{
 				AVR32_GPIO.port[LEDS_PORT].ovrs  = LedMask;
 				AVR32_GPIO.port[LEDS_PORT].ovrc  = ActiveMask;
