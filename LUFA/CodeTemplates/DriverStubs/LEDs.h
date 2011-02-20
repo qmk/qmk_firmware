@@ -43,8 +43,6 @@
 #define __LEDS_USER_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-
 		// TODO: Add any required includes here
 
 /* Enable C linkage for C++ Compilers: */

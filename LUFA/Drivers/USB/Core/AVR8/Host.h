@@ -29,9 +29,8 @@
 */
 
 /** \file
- *  \brief USB host mode definitions  (AVR8)
- *
- *  This file contains structures, function prototypes and macros related to USB host mode.
+ *  \brief USB Host definitions for the AVR8 microcontrollers.
+ *  \copydetails Group_Host_AVR8
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
@@ -39,9 +38,9 @@
 
 /** \ingroup Group_Host
  *  \defgroup Group_Host_AVR8 Host Management (AVR8)
+ *  \brief USB Host definitions for the AVR8 microcontrollers.
  *
- *  USB Host mode related macros and enums. This module contains macros and enums which are used when
- *  the USB controller is initialized in host mode.
+ *  Architecture specific USB Host definitions for the Atmel 8-bit AVR microcontrollers.
  *
  *  @{
  */

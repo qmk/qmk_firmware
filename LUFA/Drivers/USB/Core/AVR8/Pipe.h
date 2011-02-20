@@ -29,10 +29,8 @@
 */
 
 /** \file
- *  \brief USB host pipe management definitions.
- *
- *  This file contains structures, function prototypes and macros related to the management of the device's
- *  data pipes when the library is initialized in USB host mode.
+ *  \brief USB Pipe definitions for the AVR8 microcontrollers.
+ *  \copydetails Group_PipeManagement_AVR8
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
@@ -40,6 +38,7 @@
 
 /** \ingroup Group_PipeRW
  *  \defgroup Group_PipeRW_AVR8 Pipe Data Reading and Writing (AVR8)
+ *  \brief USB Pipe definitions for the AVR8 microcontrollers.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing from and to pipes.
  */

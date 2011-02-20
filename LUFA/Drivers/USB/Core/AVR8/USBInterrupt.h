@@ -29,7 +29,7 @@
 */
 
 /** \file
- *  \brief USB controller interrupt service routine management (AVR8)
+ *  \brief USB Controller Interrupt definitions for the AVR8 microcontrollers.
  *
  *  This file contains definitions required for the correct handling of low level USB service routine interrupts
  *  from the USB controller.
@@ -63,11 +63,11 @@
 			#define USB_INT_IsEnabled(int)                 ((USB_INT_GET_EN_REG(int)   &    USB_INT_GET_EN_MASK(int)) ? true : false)
 			#define USB_INT_HasOccurred(int)               ((USB_INT_GET_INT_REG(int)  &    USB_INT_GET_INT_MASK(int)) ? true : false)
 
-			#define USB_INT_GET_EN_REG(a, b, c, d)           a
-			#define USB_INT_GET_EN_MASK(a, b, c, d)          b
-			#define USB_INT_GET_INT_REG(a, b, c, d)          c
-			#define USB_INT_GET_INT_MASK(a, b, c, d)         d
-
+			#define USB_INT_GET_EN_REG(EnableReg, EnableMask, FlagReg, FlagMask)    EnableReg
+			#define USB_INT_GET_EN_MASK(EnableReg, EnableMask, FlagReg, FlagMask)   EnableMask
+			#define USB_INT_GET_INT_REG(EnableReg, EnableMask, FlagReg, FlagMask)   FlagReg
+			#define USB_INT_GET_INT_MASK(EnableReg, EnableMask, FlagReg, FlagMask)  FlagMask
+			
 			#define USB_INT_VBUS                             USBCON, (1 << VBUSTE) , USBINT, (1 << VBUSTI)
 			#define USB_INT_IDTI                             USBCON, (1 << IDTE)   , USBINT, (1 << IDTI)
 			#define USB_INT_WAKEUPI                          UDIEN , (1 << WAKEUPE), UDINT , (1 << WAKEUPI)

@@ -120,17 +120,17 @@
  *  \section Sec_SummaryUSBDeviceTokens USB Device Mode Driver Related Tokens
  *  This section describes compile tokens which affect USB driver stack of the LUFA library when used in Device mode.
  *
- *  <b>USE_RAM_DESCRIPTORS</b> - ( \ref Group_Descriptors ) \n
+ *  <b>USE_RAM_DESCRIPTORS</b> - ( \ref Group_StdDescriptors ) \n
  *  Define this token to indicate to the USB driver that all device descriptors are stored in RAM, rather than being located in any one
  *  of the AVR's memory spaces. RAM descriptors may be desirable in applications where the descriptors need to be modified at runtime.
  *
- *  <b>USE_FLASH_DESCRIPTORS</b> - ( \ref Group_Descriptors ) \n
+ *  <b>USE_FLASH_DESCRIPTORS</b> - ( \ref Group_StdDescriptors ) \n
  *  Similar to USE_RAM_DESCRIPTORS, but all descriptors are stored in the AVR's FLASH memory rather than RAM.
  *
- *  <b>USE_EEPROM_DESCRIPTORS</b> - ( \ref Group_Descriptors ) \n
+ *  <b>USE_EEPROM_DESCRIPTORS</b> - ( \ref Group_StdDescriptors ) \n
  *  Similar to USE_RAM_DESCRIPTORS, but all descriptors are stored in the AVR's EEPROM memory rather than RAM.
  *
- *  <b>NO_INTERNAL_SERIAL</b> - ( \ref Group_Descriptors ) \n
+ *  <b>NO_INTERNAL_SERIAL</b> - ( \ref Group_StdDescriptors ) \n
  *  Some AVR models contain a unique 20-digit serial number which can be used as the device serial number, while in device mode. This
  *  allows the host to uniquely identify the device regardless of if it is moved between USB ports on the same computer, allowing
  *  allocated resources (such as drivers, COM Port number allocations) to be preserved. This is not needed in many apps, and so the

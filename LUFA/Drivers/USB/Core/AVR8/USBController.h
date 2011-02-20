@@ -29,10 +29,8 @@
 */
 
 /** \file
- *  \brief USB low level USB controller definitions (AVR8)
- *
- *  This file contains structures, function prototypes and macros related to the low level configuration of the
- *  USB controller, to start, stop and reset the USB library core.
+ *  \brief USB Controller definitions for the AVR8 microcontrollers.
+ *  \copydetails Group_USBManagement_AVR8
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
@@ -40,6 +38,7 @@
 
 /** \ingroup Group_USBManagement
  *  \defgroup Group_USBManagement_AVR8 USB Interface Management (AVR8)
+ *  \brief USB Controller definitions for the AVR8 microcontrollers.
  *
  *  Functions, macros, variables, enums and types related to the setup and management of the USB interface.
  *
@@ -82,7 +81,7 @@
 		#endif
 
 		#if !defined(F_CLOCK)
-			#error F_CLOCK is not defined. You must define F_CLOCK to the frequency of the unprescaled input clock in your project makefile.
+			#error F_CLOCK is not defined. You must define F_CLOCK to the frequency of the unprescaled USB controller clock in your project makefile.
 		#endif
 
 		#if (F_CLOCK == 8000000)

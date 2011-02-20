@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief USB control endpoint request definitions.
- *
- *  This file contains structures and macros for the easy creation and parsing of standard USB control requests.
+ *  \copydetails Group_StdRequest
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
@@ -39,6 +38,7 @@
 
 /** \ingroup Group_USB
  *  \defgroup Group_StdRequest Standard USB Requests
+ *  \brief USB control endpoint request definitions.
  *
  *  This module contains definitions for the various control request parameters, so that the request
  *  details (such as data direction, request recipient, etc.) can be extracted via masking.

@@ -29,13 +29,13 @@
 */
 
 /** \file
- *  \brief Dataflash command constants for the the Atmel AT45DB321C Dataflash IC
- *
- *  Dataflash command constants for the Atmel AT45DB321C Dataflash IC.
+ *  \brief Command constants for the Atmel AT45DB321C Dataflash.
+ *  \copydetails Group_AT45DB321C
  */
 
 /** \ingroup Group_MiscDrivers
- *  \defgroup Group_AT45DB321C AT45DB321C Commands
+ *  \defgroup Group_AT45DB321C Atmel AT45DB321C Dataflash Commands
+ *  \brief Command constants for the Atmel AT45DB321C Dataflash.
  *
  *  Dataflash command constants for the Atmel AT45DB321C Dataflash IC.
  *

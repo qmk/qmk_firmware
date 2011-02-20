@@ -30,11 +30,7 @@
 
 /** \file
  *  \brief Board specific joystick driver header for the Fletchtronics BUMLEB.
- *
- *  Board specific joystick driver header for the Fletchtronics BUMBLEB (http://fletchtronics.net/bumble-b).
- *
- *  The BUMBLEB third-party board does not include any on-board peripherals, but does have an officially recommended
- *  external peripheral layout for buttons, LEDs and a Joystick.
+ *  \copydetails Group_Joystick_BUMBLEB
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
@@ -42,13 +38,11 @@
 
 /** \ingroup Group_Joystick
  *  \defgroup Group_Joystick_BUMBLEB BUMBLEB
+ *  \brief Board specific joystick driver header for the Fletchtronics BUMLEB.
  *
  *  Board specific joystick driver header for the Fletchtronics BUMBLEB (http://fletchtronics.net/bumble-b). The BUMBLEB
  *  third-party board does not include any on-board peripherals, but does have an officially recommended external peripheral
  *  layout for buttons, LEDs and a Joystick.
- *
- *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
- *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
  *
  *  @{
  */
@@ -57,8 +51,6 @@
 #define __JOYSTICK_BUMBLEB_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

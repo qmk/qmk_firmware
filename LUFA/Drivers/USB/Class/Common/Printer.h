@@ -53,8 +53,6 @@
 	/* Includes: */
 		#include "../../Core/StdDescriptors.h"
 
-		#include <string.h>
-
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {

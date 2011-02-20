@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific joystick driver header for the Atmel STK526.
- *
- *  Board specific joystick driver header for the Atmel STK526.
+ *  \copydetails Group_Joystick_STK526
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_Joystick
  *  \defgroup Group_Joystick_STK526 STK526
+ *  \brief Board specific joystick driver header for the Atmel STK526.
  *
  *  Board specific joystick driver header for the Atmel STK526.
- *
- *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
- *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
  *
  *  @{
  */
@@ -52,8 +49,6 @@
 #define __JOYSTICK_STK526_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

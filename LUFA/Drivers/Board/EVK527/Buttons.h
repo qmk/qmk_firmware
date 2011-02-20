@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific Buttons driver header for the Atmel EVK527.
- *
- *  Board specific Buttons driver header for the Atmel EVK527.
+ *  \copydetails Group_Buttons_EVK527
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_Buttons
  *  \defgroup Group_Buttons_EVK527 EVK527
+ *  \brief Board specific Buttons driver header for the Atmel EVK527.
  *
  *  Board specific Buttons driver header for the Atmel EVK527.
- *
- *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
- *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  *
  *  @{
  */
@@ -52,15 +49,6 @@
 #define __BUTTONS_EVK527_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
-
-		#include "../../../Common/Common.h"
-
-	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

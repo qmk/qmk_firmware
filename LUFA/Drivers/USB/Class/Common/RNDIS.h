@@ -57,8 +57,6 @@
 		#include "../../Core/StdDescriptors.h"
 		#include "CDC.h"
 
-		#include <string.h>
-
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {

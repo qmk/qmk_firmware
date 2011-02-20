@@ -29,11 +29,8 @@
 */
 
 /** \file
- *  \brief Configuration descriptor parser API.
- *
- *  This section of the library gives a friendly API which can be used in host applications to easily
- *  parse an attached device's configuration descriptor so that endpoint, interface and other descriptor
- *  data can be extracted and used as needed.
+ *  \brief USB Configuration Descriptor definitions.
+ *  \copydetails Group_ConfigDescriptorParser
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
@@ -41,8 +38,11 @@
 
 /** \ingroup Group_Descriptors
  *  \defgroup Group_ConfigDescriptorParser Configuration Descriptor Parser
+ *  \brief USB Configuration Descriptor definitions.
  *
- *  Functions, macros, variables, enums and types related to the parsing of Configuration Descriptors.
+ *  This section of the library gives a friendly API which can be used in host applications to easily
+ *  parse an attached device's configuration descriptor so that endpoint, interface and other descriptor
+ *  data can be extracted and used as needed.
  *
  *  @{
  */

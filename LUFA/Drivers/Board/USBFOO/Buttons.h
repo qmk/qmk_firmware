@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific Buttons driver header for the Kernel Concepts USBFOO.
- *
- *  Board specific Buttons driver header for the Kernel Concepts USBFOO (http://shop.kernelconcepts.de/product_info.php?products_id=102).
+ *  \copydetails Group_Buttons_USBFOO
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_Buttons
  *  \defgroup Group_Buttons_USBFOO USBFOO
+ *  \brief Board specific Buttons driver header for the Kernel Concepts USBFOO.
  *
  *  Board specific Buttons driver header for the Kernel Concepts USBFOO (http://shop.kernelconcepts.de/product_info.php?products_id=102).
- *
- *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
- *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  *
  *  @{
  */
@@ -52,9 +49,6 @@
 #define __BUTTONS_USBFOO_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

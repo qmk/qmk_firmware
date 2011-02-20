@@ -43,9 +43,6 @@
 #define __BUTTONS_USER_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
-
 		// TODO: Add any required includes here
 
 	/* Enable C linkage for C++ Compilers: */

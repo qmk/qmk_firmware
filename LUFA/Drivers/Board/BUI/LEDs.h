@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific LED driver header for the Busware BUI.
- *
- *  Board specific LED driver header for the Busware BUI (http://www.busware.de/tiki-index.php?page=BUI).
+ *  \copydetails Group_LEDs_BUI
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_BUI BUI
+ *  \brief Board specific LED driver header for the Busware BUI.
  *
  *  Board specific LED driver header for the Busware BUI (http://www.busware.de/tiki-index.php?page=BUI).
- *
- *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
- *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  *
  *  @{
  */
@@ -52,7 +49,7 @@
 #define __LEDS_BUI_H__
 
 	/* Includes: */
-		#include <avr/io.h>
+		#include "../../../Common/Common.h"
 
 /* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

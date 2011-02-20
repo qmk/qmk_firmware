@@ -12,11 +12,14 @@
  *  hardware). This might be required because the device does not have any physical user input, or simply
  *  just to streamline the device upgrade process on the host PC.
  *
- *  The following C code snippet may be used to enter the bootloader upon request by the user application.
+ *  The following C code snippets may be used to enter the bootloader upon request by the user application.
  *  By using the watchdog to physically reset the controller, it is ensured that all system hardware is
  *  completely reset to their defaults before the bootloader is run. This is important; since bootloaders
  *  are written to occupy a very limited space, they usually make assumptions about the register states based
  *  on the default values after a hard-reset of the chip.
+ *
+ *  \section Sec_SoftareBootAVR8 AVR8 Architecture
+ *  The following software bootloader jump code is written for the AVR8 architecture.
  *
  *  \code
  *  #include <avr/wdt.h>

@@ -29,10 +29,8 @@
 */
 
 /** \file
- *  \brief USB host mode definitions.
- *
- *  USB Host mode related macros and enums. This module contains macros and enums which are used when
- *  the USB controller is initialized in host mode.
+ *  \brief Common USB Host definitions for all architectures.
+ *  \copydetails Group_Host
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
@@ -40,6 +38,7 @@
 
 /** \ingroup Group_USB
  *  \defgroup Group_Host Host Management
+ *  \brief Common USB Host definitions for all architectures.
  *
  *  USB Host mode related macros and enums. This module contains macros and enums which are used when
  *  the USB controller is initialized in host mode.

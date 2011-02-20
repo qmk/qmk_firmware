@@ -75,7 +75,6 @@
 		#include "../Common/CDC.h"
 
 		#include <stdio.h>
-		#include <string.h>
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

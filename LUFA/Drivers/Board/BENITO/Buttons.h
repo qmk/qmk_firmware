@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific Buttons driver header for the Tempusdictum Benito.
- *
- *  Board specific Buttons driver header for the Tempusdictum Benito (http://dorkbotpdx.org/wiki/benito).
+ *  \copydetails Group_Buttons_BENITO
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_Buttons
  *  \defgroup Group_Buttons_BENITO BENITO
+ *  \brief Board specific Buttons driver header for the Tempusdictum Benito.
  *
  *  Board specific Buttons driver header for the Tempusdictum Benito (http://dorkbotpdx.org/wiki/benito).
- *
- *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
- *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  *
  *  @{
  */
@@ -52,9 +49,6 @@
 #define __BUTTONS_BENITO_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

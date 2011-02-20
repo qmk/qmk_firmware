@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific LED driver header for the MINIMUS.
- *
- *  Board specific LED driver header for the Minimus USB (http://www.minimususb.com/).
+ *  \copydetails Group_LEDs_MINIMUS
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_MINIMUS MINIMUS
+ *  \brief Board specific LED driver header for the MINIMUS.
  *
  *  Board specific LED driver header for the Minimus USB (http://www.minimususb.com/).
- *
- *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
- *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  *
  *  @{
  */
@@ -52,8 +49,6 @@
 #define __LEDS_MINIMUS_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

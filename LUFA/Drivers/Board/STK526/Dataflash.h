@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific Dataflash driver header for the Atmel STK525.
- *
- *  Board specific Dataflash driver header for the Atmel STK525.
+ *  \copydetails Group_Dataflash_STK526
  *
  *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
  *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_Dataflash
  *  \defgroup Group_Dataflash_STK526 STK526
+ *  \brief Board specific Dataflash driver header for the Atmel STK525.
  *
  *  Board specific Dataflash driver header for the Atmel STK525.
- *
- *  \note This file should not be included directly. It is automatically included as needed by the dataflash driver
- *        dispatch header located in LUFA/Drivers/Board/Dataflash.h.
  *
  *  @{
  */

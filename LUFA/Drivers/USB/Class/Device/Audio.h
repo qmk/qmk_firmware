@@ -57,8 +57,6 @@
 		#include "../../USB.h"
 		#include "../Common/Audio.h"
 
-		#include <string.h>
-
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
 			extern "C" {

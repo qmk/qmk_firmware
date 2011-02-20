@@ -29,13 +29,13 @@
 */
 
 /** \file
- *  \brief Dataflash command constants for the the Atmel AT45DB642D Dataflash IC
- *
- *  Dataflash command constants for the Atmel AT45DB642D Dataflash IC.
+ *  \brief Command constants for the Atmel AT45DB642D Dataflash.
+ *  \copydetails Group_AT45DB642D
  */
 
 /** \ingroup Group_MiscDrivers
- *  \defgroup Group_AT45DB642D AT45DB642D Commands
+ *  \defgroup Group_AT45DB642D Atmel AT45DB642D Dataflash Commands
+ *  \brief Command constants for the Atmel AT45DB642D Dataflash.
  *
  *  Dataflash command constants for the Atmel AT45DB642D Dataflash IC.
  *

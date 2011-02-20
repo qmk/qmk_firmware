@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific joystick driver header for the Atmel EVK527.
- *
- *  Board specific joystick driver header for the Atmel EVK527.
+ *  \copydetails Group_Joystick_EVK527
  *
  *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
  *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_Joystick
  *  \defgroup Group_Joystick_EVK527 EVK527
+ *  \brief Board specific joystick driver header for the Atmel EVK527.
  *
  *  Board specific joystick driver header for the Atmel EVK527.
- *
- *  \note This file should not be included directly. It is automatically included as needed by the joystick driver
- *        dispatch header located in LUFA/Drivers/Board/Joystick.h.
  *
  *  @{
  */
@@ -52,8 +49,6 @@
 #define __JOYSTICK_EVK527_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

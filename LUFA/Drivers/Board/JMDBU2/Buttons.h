@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific Buttons driver header for the Mattairtech JM-DB-U2.
- *
- *  Board specific Buttons driver header for the Mattairtech JM-DB-U2 (http://u2.mattair.net/index.html).
+ *  \copydetails Group_Buttons_JMDBU2
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_Buttons
  *  \defgroup Group_Buttons_JMDBU2 JMDBU2
+ *  \brief Board specific Buttons driver header for the Mattairtech JM-DB-U2.
  *
  *  Board specific Buttons driver header for the Mattairtech JM-DB-U2 (http://u2.mattair.net/index.html).
- *
- *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
- *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  *
  *  @{
  */
@@ -52,9 +49,6 @@
 #define __BUTTONS_JMDBU2_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

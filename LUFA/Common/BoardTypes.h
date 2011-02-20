@@ -31,8 +31,7 @@
 /** \file
  *  \brief Supported board hardware defines.
  *
- *  This file contains constants which can be passed to the compiler (via setting the macro BOARD) in the
- *  user project makefile using the -D option to configure the library board-specific drivers.
+ *  \copydetails Group_BoardTypes
  *
  *  \note Do not include this file directly, rather include the Common.h header file instead to gain this file's
  *        functionality.
@@ -40,6 +39,7 @@
 
 /** \ingroup Group_Common
  *  \defgroup Group_BoardTypes Board Types
+ *  \brief Supported board hardware defines.
  *
  *  Macros for indicating the chosen physical board hardware to the library. These macros should be used when
  *  defining the BOARD token to the chosen hardware via the -D switch in the project makefile.

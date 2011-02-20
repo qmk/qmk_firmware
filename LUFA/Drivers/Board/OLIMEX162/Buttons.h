@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific Buttons driver header for the Olimex AVR-USB-162 Development Board.
- *
- *  Board specific Buttons driver header for the Olimex AVR-USB-162 Development Board (http://www.olimex.com/dev/avr-usb-162.html).
+ *  \copydetails Group_Buttons_OLIMEX162
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_Buttons
  *  \defgroup Group_Buttons_OLIMEX162 OLIMEX162
+ *  \brief Board specific Buttons driver header for the Olimex AVR-USB-162 Development Board.
  *
  *  Board specific Buttons driver header for the Olimex AVR-USB-162 Development Board (http://www.olimex.com/dev/avr-usb-162.html).
- *
- *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
- *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  *
  *  @{
  */
@@ -52,9 +49,6 @@
 #define __BUTTONS_OLIMEX162_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

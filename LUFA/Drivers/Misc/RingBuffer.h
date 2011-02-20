@@ -93,10 +93,6 @@
 #define __RING_BUFFER_H__
 
 	/* Includes: */
-		#include <util/atomic.h>
-		#include <stdint.h>
-		#include <stdbool.h>
-
 		#include "../../Common/Common.h"
 
 	/* Type Defines: */

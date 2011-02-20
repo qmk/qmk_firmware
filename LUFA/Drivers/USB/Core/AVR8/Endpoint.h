@@ -29,10 +29,8 @@
 */
 
 /** \file
- *  \brief USB device endpoint management definitions.
- *
- *  This file contains structures, function prototypes and macros related to the management of the device's
- *  data endpoints when the library is initialized in USB device mode.
+ *  \brief USB Endpoint definitions for the AVR8 microcontrollers.
+ *  \copydetails Group_EndpointManagement_AVR8
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
@@ -40,6 +38,7 @@
 
 /** \ingroup Group_EndpointRW
  *  \defgroup Group_EndpointRW_AVR8 Endpoint Data Reading and Writing (AVR8)
+ *  \brief USB Endpoint definitions for the AVR8 microcontrollers.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing from and to endpoints.
  */

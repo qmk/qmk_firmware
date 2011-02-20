@@ -29,10 +29,8 @@
 */
 
 /** \file
- *  \brief USB host pipe management definitions.
- *
- *  This file contains structures, function prototypes and macros related to the management of the device's
- *  data pipes when the library is initialized in USB host mode.
+ *  \brief Common USB Pipe definitions for all architectures.
+ *  \copydetails Group_PipeManagement
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
@@ -40,6 +38,7 @@
 
 /** \ingroup Group_PipeManagement
  *  \defgroup Group_PipeRW Pipe Data Reading and Writing
+ *  \brief Common USB Pipe definitions for all architectures.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing from and to pipes.
  */

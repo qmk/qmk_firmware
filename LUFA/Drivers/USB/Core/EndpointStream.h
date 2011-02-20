@@ -29,10 +29,8 @@
 */
 
 /** \file
- *  \brief USB device endpoint stream function definitions.
- *
- *  This file contains structures, function prototypes and macros related to the sending and receiving of
- *  arbitrary data streams through the device's data endpoints when the library is initialized in USB device mode.
+ *  \brief Endpoint data stream transmission and reception management.
+ *  \copydetails Group_EndpointStreamRW
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
@@ -40,6 +38,7 @@
 
 /** \ingroup Group_EndpointRW  
  *  \defgroup Group_EndpointStreamRW Read/Write of Multi-Byte Streams
+ *  \brief Endpoint data stream transmission and reception management.
  *
  *  Functions, macros, variables, enums and types related to data reading and writing of data streams from
  *  and to endpoints.

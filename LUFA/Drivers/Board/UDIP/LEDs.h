@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific LED driver header for the Linnix UDIP.
- *
- *  Board specific LED driver header for the Linnix UDIP (http://linnix.com/udip/).
+ *  \copydetails Group_LEDs_UDIP
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_UDIP UDIP
+ *  \brief Board specific LED driver header for the Linnix UDIP.
  *
  *  Board specific LED driver header for the Linnix UDIP (http://linnix.com/udip/).
- *
- *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
- *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  *
  *  @{
  */
@@ -52,8 +49,6 @@
 #define __LEDS_UDIP_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

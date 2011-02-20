@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific Buttons driver header for Tom's USBTINY MKII.
- *
- *  Board specific Buttons driver header for Tom's USBTINY MKII (http://tom-itx.dyndns.org:81/~webpage/).
+ *  \copydetails Group_Buttons_USBTINYMKII
  *
  *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
  *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_Buttons
  *  \defgroup Group_Buttons_USBTINYMKII USBTINYMKII
+ *  \brief Board specific Buttons driver header for Tom's USBTINY MKII.
  *
  *  Board specific Buttons driver header for Tom's USBTINY MKII (http://tom-itx.dyndns.org:81/~webpage/).
- *
- *  \note This file should not be included directly. It is automatically included as needed by the Buttons driver
- *        dispatch header located in LUFA/Drivers/Board/Buttons.h.
  *
  *  @{
  */
@@ -52,9 +49,6 @@
 #define __BUTTONS_USBTINYMKII_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-		#include <stdbool.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

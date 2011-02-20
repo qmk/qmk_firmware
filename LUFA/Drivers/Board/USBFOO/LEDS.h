@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific LED driver header for the Kernel Concepts USBFOO.
- *
- *  Board specific LED driver header for the Kernel Concepts USBFOO (http://shop.kernelconcepts.de/product_info.php?products_id=102).
+ *  \copydetails Group_LEDs_USBFOO
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_USBFOO USBFOO
+ *  \brief Board specific LED driver header for the Kernel Concepts USBFOO.
  *
  *  Board specific LED driver header for the Kernel Concepts USBFOO (http://shop.kernelconcepts.de/product_info.php?products_id=102).
- *
- *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
- *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  *
  *  @{
  */
@@ -52,8 +49,6 @@
 #define __LEDS_USBFOO_H__
 
 	/* Includes: */
-		#include <avr/io.h>
-
 		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */

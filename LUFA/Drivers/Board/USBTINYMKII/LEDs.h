@@ -30,8 +30,7 @@
 
 /** \file
  *  \brief Board specific LED driver header for Tom's USBTINY MKII.
- *
- *  Board specific LED driver header for Tom's USBTINY MKII (http://tom-itx.dyndns.org:81/~webpage/).
+ *  \copydetails Group_LEDs_USBTINYMKII
  *
  *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
  *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
@@ -39,11 +38,9 @@
 
 /** \ingroup Group_LEDs
  *  \defgroup Group_LEDs_USBTINYMKII USBTINYMKII
+ *  \brief Board specific LED driver header for Tom's USBTINY MKII.
  *
  *  Board specific LED driver header for Tom's USBTINY MKII (http://tom-itx.dyndns.org:81/~webpage/).
- *
- *  \note This file should not be included directly. It is automatically included as needed by the LEDs driver
- *        dispatch header located in LUFA/Drivers/Board/LEDs.h.
  *
  *  @{
  */
@@ -52,7 +49,7 @@
 #define __LEDS_USBTINYMKII_H__
 
 	/* Includes: */
-		#include <avr/io.h>
+		#include "../../../Common/Common.h"
 
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

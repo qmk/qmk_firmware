@@ -31,11 +31,11 @@
 /** \file
  *  \brief Common library convenience macros and functions.
  *
- *  This file contains macros which are common to all library elements, and which may be useful in user code. It
- *  also includes other common code headers.
+ *  \copydetails Group_Common
  */
 
 /** \defgroup Group_Common Common Utility Headers - LUFA/Drivers/Common/Common.h
+ *  \brief Common library convenience macros and functions.
  *
  *  Common utility headers containing macros, functions, enums and types which are common to all
  *  aspects of the library.
@@ -64,7 +64,8 @@
 	/* Includes: */
 		#include <stdint.h>
 		#include <stdbool.h>
-
+		#include <string.h>
+		
 		#include "Architectures.h"
 		#include "Attributes.h"
 		#include "BoardTypes.h"
@@ -75,6 +76,7 @@
 			#include <avr/interrupt.h>
 			#include <avr/pgmspace.h>
 			#include <avr/eeprom.h>
+			#include <avr/boot.h>
 			#include <util/atomic.h>
 			#include <util/delay.h>
 		#endif
@@ -123,7 +125,7 @@
 				#define MIN(x, y)               ((x < y) ? x : y)
 			#endif
 
-			#if (ARCH == ARCH_AVR8)
+			#if (ARCH == ARCH_AVR8) || defined(__DOXYGEN__)
 				/** Defines a volatile \c NOP statement which cannot be optimized out by the compiler, and thus can always
 				 *  be set as a breakpoint in the resulting code. Useful for debugging purposes, where the optimiser
 				 *  removes/reorders code to the point where break points cannot reliably be set.

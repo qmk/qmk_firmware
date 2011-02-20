@@ -54,8 +54,6 @@
 		#include "../../Core/StdDescriptors.h"
 		#include "HIDParser.h"
 
-		#include <string.h>
-
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_HID_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB.h instead.

@@ -70,8 +70,6 @@
 
 		#include "HIDReportData.h"
 		#include "../Common/HID.h"
-
-		#include <string.h>
 		
 	/* Enable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

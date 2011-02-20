@@ -31,8 +31,7 @@
 /** \file
  *  \brief Supported architecture defines.
  *
- *  This file contains constants which can be passed to the compiler (via setting the macro ARCH) in the
- *  user project makefile using the -D option to configure the library drivers.
+ *  \copydetails Group_Architectures
  *
  *  \note Do not include this file directly, rather include the Common.h header file instead to gain this file's
  *        functionality.
@@ -40,6 +39,7 @@
 
 /** \ingroup Group_Common
  *  \defgroup Group_Architectures Hardware Architectures
+ *  \brief Supported architecture defines.
  *
  *  Macros for indicating the chosen hardware architecture to the library. These macros should be used when
  *  defining the ARCH token to the chosen hardware via the -D switch in the project makefile.

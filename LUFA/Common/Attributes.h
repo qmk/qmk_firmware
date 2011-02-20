@@ -31,6 +31,16 @@
 /** \file
  *  \brief AVR-GCC special function/variable attribute macros.
  *
+ *  \copydetails Group_GCCAttributes
+ *
+ *  \note Do not include this file directly, rather include the Common.h header file instead to gain this file's
+ *        functionality.
+ */
+
+/** \ingroup Group_Common
+ *  \defgroup Group_GCCAttributes Function/Variable Attributes
+ *  \brief AVR-GCC special function/variable attribute macros.
+ *
  *  This file contains macros for applying GCC specific attributes to functions and variables to control various
  *  optimiser and code generation features of the compiler. Attributes may be placed in the function prototype
  *  or variable declaration in any order, and multiple attributes can be specified for a single item via a space
@@ -38,16 +48,6 @@
  *
  *  On incompatible versions of GCC or on other compilers, these macros evaluate to nothing unless they are
  *  critical to the code's function and thus must throw a compiler error when used.
- *
- *  \note Do not include this file directly, rather include the Common.h header file instead to gain this file's
- *        functionality.
- */
-
-/** \ingroup Group_Common
- *  \defgroup Group_GCCAttr Function/Variable Attributes
- *
- *  Macros for easy access GCC function and variable attributes, which can be applied to function prototypes or
- *  variable attributes.
  *
  *  @{
  */
