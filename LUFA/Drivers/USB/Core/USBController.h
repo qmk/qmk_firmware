@@ -52,9 +52,9 @@
 		#include "../../../Common/Common.h"
 
 		#if (ARCH == ARCH_AVR8)
-			#include "AVR8/USBController.h"
+			#include "AVR8/USBController_AVR8.h"
 		#elif (ARCH == ARCH_UC3B)
-			#include "UC3B/USBController.h"		
+			#include "UC3B/USBController_UC3B.h"	
 		#endif
 
 	/* Preprocessor Checks and Defines: */

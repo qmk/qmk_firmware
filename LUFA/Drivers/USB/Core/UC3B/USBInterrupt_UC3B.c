@@ -29,7 +29,7 @@
 */
 
 #define  __INCLUDE_FROM_USB_DRIVER
-#include "USBInterrupt.h"
+#include "../USBInterrupt.h"
 
 void USB_INT_DisableAllInterrupts(void)
 {

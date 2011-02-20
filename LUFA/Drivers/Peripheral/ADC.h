@@ -68,7 +68,7 @@
 
 	/* Includes: */
 		#if (ARCH == ARCH_AVR8)
-			#include "AVR8/ADC.h"
+			#include "AVR8/ADC_AVR8.h"
 		#else
 			#error The ADC peripheral driver is not currently available for your selected architecture.
 		#endif

@@ -86,9 +86,9 @@
 		#include "../../../Common/Common.h"
 
 		#if (ARCH == ARCH_AVR8)
-			#include "AVR8/Pipe.h"
+			#include "AVR8/Pipe_AVR8.h"
 		#elif (ARCH == ARCH_UC3B)
-			#include "UC3B/Pipe.h"		
+			#include "UC3B/Pipe_UC3B.h"
 		#endif
 
 	/* Preprocessor Checks: */

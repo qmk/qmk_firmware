@@ -34,7 +34,7 @@
 #if defined(USB_CAN_BE_HOST)
 
 #define  __INCLUDE_FROM_HOST_C
-#include "Host.h"
+#include "../Host.h"
 
 void USB_Host_ProcessNextHostState(void)
 {

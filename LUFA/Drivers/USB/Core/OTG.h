@@ -54,9 +54,9 @@
 		#include "../../../Common/Common.h"
 
 		#if (ARCH == ARCH_AVR8)
-			#include "AVR8/OTG.h"
+			#include "AVR8/OTG_AVR8.h"
 		#elif (ARCH == ARCH_UC3B)
-			#include "UC3B/OTG.h"		
+			#include "UC3B/OTG_UC3B.h"
 		#endif
 
 	/* Preprocessor Checks: */

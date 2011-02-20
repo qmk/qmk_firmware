@@ -44,7 +44,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/Peripheral/<i>ARCH</i>/Serial.c <i>(Makefile source module name: LUFA_SRC_SERIAL)</i>
+ *    - LUFA/Drivers/Peripheral/<i>ARCH</i>/Serial_<i>ARCH</i>.c <i>(Makefile source module name: LUFA_SRC_SERIAL)</i>
  *
  *  \section Sec_ModDescription Module Description
  *  Hardware serial USART driver. This module provides an easy to use driver for the setup and transfer
@@ -67,7 +67,7 @@
 
 	/* Includes: */
 		#if (ARCH == ARCH_AVR8)
-			#include "AVR8/Serial.h"
+			#include "AVR8/Serial_AVR8.h"
 		#else
 			#error The Serial peripheral driver is not currently available for your selected architecture.
 		#endif

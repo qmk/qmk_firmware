@@ -33,7 +33,7 @@
 
 #if defined(USB_CAN_BE_HOST)
 
-#include "Pipe.h"
+#include "../Pipe.h"
 
 uint8_t USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
 

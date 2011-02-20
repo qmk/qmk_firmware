@@ -33,7 +33,7 @@
 
 #if defined(USB_CAN_BE_DEVICE)
 
-#include "Device.h"
+#include "../Device.h"
 
 void USB_Device_SendRemoteWakeup(void)
 {

@@ -44,7 +44,7 @@
  *
  *  \section Sec_Dependencies Module Source Dependencies
  *  The following files must be built with any user project that uses this module:
- *    - LUFA/Drivers/Peripheral/<i>ARCH</i>/TWI.c <i>(Makefile source module name: LUFA_SRC_TWI)</i>
+ *    - LUFA/Drivers/Peripheral/<i>ARCH</i>/TWI_<i>ARCH</i>.c <i>(Makefile source module name: LUFA_SRC_TWI)</i>
  *
  *  \section Sec_ModDescription Module Description
  *  Hardware TWI driver. This module provides an easy to use driver for the setup and transfer of data over
@@ -67,7 +67,7 @@
 
 	/* Includes: */
 		#if (ARCH == ARCH_AVR8)
-			#include "AVR8/TWI.h"
+			#include "AVR8/TWI_AVR8.h"
 		#else
 			#error The TWI peripheral driver is not currently available for your selected architecture.
 		#endif

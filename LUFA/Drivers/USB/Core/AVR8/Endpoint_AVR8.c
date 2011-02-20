@@ -33,7 +33,7 @@
 
 #if defined(USB_CAN_BE_DEVICE)
 
-#include "Endpoint.h"
+#include "../Endpoint.h"
 
 #if !defined(FIXED_CONTROL_ENDPOINT_SIZE)
 uint8_t USB_ControlEndpointSize = ENDPOINT_CONTROLEP_DEFAULT_SIZE;

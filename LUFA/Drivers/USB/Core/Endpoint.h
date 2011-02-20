@@ -76,9 +76,9 @@
 		#include "../../../Common/Common.h"
 
 		#if (ARCH == ARCH_AVR8)
-			#include "AVR8/Endpoint.h"
+			#include "AVR8/Endpoint_AVR8.h"
 		#elif (ARCH == ARCH_UC3B)
-			#include "UC3B/Endpoint.h"		
+			#include "UC3B/Endpoint_UC3B.h"
 		#endif
 
 	/* Preprocessor Checks: */
