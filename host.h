@@ -70,8 +70,7 @@ void host_add_code(uint8_t code);
 void host_swap_keyboard_report(void);
 void host_clear_keyboard_report(void);
 uint8_t host_has_anykey(void);
-uint8_t *host_get_keys(void);
-uint8_t host_get_mods(void);
+uint8_t host_get_first_key(void);
 
 
 void host_send_keyboard_report(void);

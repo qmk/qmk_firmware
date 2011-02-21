@@ -32,7 +32,7 @@ uint8_t command_proc(void)
     uint8_t processed = 1;
     bool last_print_enable = print_enable;
     print_enable = true;
-    switch (keyboard_report->keys[0]) {
+    switch (host_get_first_key()) {
         case KB_H:
             help();
             break;
@@ -89,7 +89,7 @@ uint8_t command_proc(void)
             print("timer: "); phex16(timer_count); print("\n");
             break;
         case KB_P: // print toggle
-            if (print_enable) {
+            if (last_print_enable) {
                 print("print disabled.\n");
                 last_print_enable = false;
             } else {
@@ -107,6 +107,7 @@ uint8_t command_proc(void)
             break;
 #ifdef USB_NKRO_ENABLE
         case KB_N:
+            // send empty report before change
             host_clear_keyboard_report();
             host_send_keyboard_report();
             keyboard_nkro = !keyboard_nkro;
