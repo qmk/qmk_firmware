@@ -8,7 +8,7 @@
 #include "util.h"
 #include "timer.h"
 #include "layer.h"
-#include "matrix_skel.h"
+#include "matrix.h"
 #include "command.h"
 
 #ifdef HOST_PJRC
@@ -107,6 +107,8 @@ uint8_t command_proc(void)
             break;
 #ifdef USB_NKRO_ENABLE
         case KB_N:
+            host_clear_keyboard_report();
+            host_send_keyboard_report();
             keyboard_nkro = !keyboard_nkro;
             if (keyboard_nkro)
                 print("USB_NKRO: enabled\n");

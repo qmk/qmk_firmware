@@ -46,10 +46,10 @@ int main(void)
         _delay_ms(1);
     }
     usbDeviceConnect();
-    sei();
 
     keyboard_init();
 
+    sei();
     while (1) {
         DEBUGP(0x1);
         wdt_reset();

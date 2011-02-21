@@ -8,13 +8,16 @@ COMMON_DIR = ..
 TARGET_DIR = .
 
 # keyboard dependent files
-TARGET_SRC =	main.c \
+TARGET_SRC =	main_vusb.c \
 		keymap.c \
 		matrix.c \
 		led.c \
 		ps2_usart.c \
 		sendchar_dummy.c
 #		sendchar_usart.c
+
+CONFIG_H = config_vusb.h
+
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 
@@ -45,7 +48,8 @@ MOUSEKEY_ENABLE = yes	# Mouse keys
 
 
 
-#---------------- Programming Options (avrdude) ----------------
+#---------------- Programming Options --------------------------
+AVRDUDE = avrdude
 # Type: avrdude -c ? to get a full listing.
 AVRDUDE_PROGRAMMER = usbasp
 AVRDUDE_PORT =
@@ -71,6 +75,8 @@ AVRDUDE_FLAGS = -p $(MCU) -c $(AVRDUDE_PROGRAMMER)
 AVRDUDE_FLAGS += $(AVRDUDE_NO_VERIFY)
 AVRDUDE_FLAGS += $(AVRDUDE_VERBOSE)
 AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
+
+PROGRAM_CMD = $(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
 
 

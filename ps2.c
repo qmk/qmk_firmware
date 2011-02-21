@@ -187,6 +187,9 @@ static inline void pbuf_enqueue(uint8_t data)
 {
     if (!data)
         return;
+
+    uint8_t sreg = SREG;
+    cli();
     uint8_t next = (pbuf_head + 1) % PBUF_SIZE;
     if (next != pbuf_tail) {
         pbuf[pbuf_head] = data;
@@ -194,10 +197,12 @@ static inline void pbuf_enqueue(uint8_t data)
     } else {
         debug("pbuf: full\n");
     }
+    SREG = sreg;
 }
 static inline uint8_t pbuf_dequeue(void)
 {
     uint8_t val = 0;
+
     uint8_t sreg = SREG;
     cli();
     if (pbuf_head != pbuf_tail) {
@@ -205,17 +210,20 @@ static inline uint8_t pbuf_dequeue(void)
         pbuf_tail = (pbuf_tail + 1) % PBUF_SIZE;
     }
     SREG = sreg;
+
     return val;
 }
 
 /* get data received by interrupt */
 uint8_t ps2_host_recv(void)
 {
-    // TODO: release clock line after 100us when inhibited by error
     if (ps2_error) {
+        print("x");
+        phex(ps2_error);
         ps2_host_send(0xFE);    // request to resend
         ps2_error = PS2_ERR_NONE;
     }
+    idle();
     return pbuf_dequeue();
 }
 
@@ -281,7 +289,7 @@ ISR(PS2_INT_VECT)
     }
     goto RETURN;
 ERROR:
-    DEBUGP(0xFF);
+    DEBUGP(0x0F);
     inhibit();
     ps2_error = state;
 DONE:

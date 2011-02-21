@@ -1,5 +1,5 @@
-#ifndef KEYMAP_SKEL_H
-#define KEYMAP_SKEL_H 1
+#ifndef KEYMAP_H
+#define KEYMAP_H
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -14,8 +14,5 @@ uint8_t keymap_fn_layer(uint8_t fn_bits);
 
 /* keycode to send when release Fn key without using */
 uint8_t keymap_fn_keycode(uint8_t fn_bits);
-
-/* whether special key combination */
-bool keymap_is_special_mode(uint8_t fn_bits);
 
 #endif
