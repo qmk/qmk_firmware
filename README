@@ -1,16 +1,19 @@
 t.m.k. Keyboard Firmware
 ========================
+This is keyboard firmware for Teensy(AVR USB MCU) and V-USB board.
+
+source code repository:
 http://github.com/tmk/tmk_keyboard
-
-This is keyboard firmware for AVR USB MCUs or Teensy/Teensy++.
-http://www.pjrc.com/teensy
-
-The project is heavily based on PJRC USB Keyboard/Mouse Example and
-owes a debt to preceding keyboard firmware projects.
 
 This firmware is used in following projects:
 HHKB mod:   http://geekhack.org/showwiki.php?title=Island:12047
 Macway mod: http://geekhack.org/showwiki.php?title=Island:11930
+PS2 to USB: http://geekhack.org/showwiki.php?title=Island:14618
+ADB to USB: http://geekhack.org/showwiki.php?title=Island:14290
+
+The project is heavily based on PJRC USB Keyboard/Mouse Example and
+owes a debt to preceding keyboard firmware projects.
+http://www.pjrc.com/teensy
 
 
 Features
@@ -31,12 +34,27 @@ Limitations
 -----------
 
 
+Files & Directories
+-------------------
+Target:
+hhkb/                           keyboard controller for PFU HHKB pro
+macway/                         keyboard controller for Macway mod
+ps2_usb/                        PS2 to USB keyboard converter
+adb_usb/                        ADB to USB keyboard converter
+
+USB Protocol Stack:
+pjrc/                           PJRC  USB stack
+vusb/                           V-USB USB stack
+ps2.[ch]                        PS/2 protocol
+adb.[ch]                        ADB protocol
+
+
 Build
 -----
 To compile needs AVR GCC, AVR Libc and GNU make.
 You can use WinAVR on Windows.  http://winavr.sourceforge.net/
 
-$ cd <target> (hhkb or macway currently)
+$ cd <target>
 $ make
 
 The firmware will be compiled as a file tmk_<target>.hex.
@@ -100,7 +118,8 @@ Build Options
 Debuging & Rescue
 -----------------
 Use PJRC's hid_listen.exe to see debug messages.
-Press right Control + Shift + Alt + GUI + H to debug menu. 
+Press <COMMAND> + H to debug menu. 
+(see config.h for <COMMAND> key combination.)
 
 Pressing any 3 keys when connected enables debug output.
 Pressing any 4 keys when connected makes bootloader comes up.
