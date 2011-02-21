@@ -9,8 +9,7 @@
 #include "util.h"
 #include "debug.h"
 #include "adb.h"
-#include "usb_keyboard.h"
-#include "matrix_skel.h"
+#include "matrix.h"
 
 
 #if (MATRIX_COLS > 16)
@@ -71,12 +70,6 @@ uint8_t matrix_scan(void)
 {
     uint16_t codes;
     uint8_t key0, key1;
-
-    static uint8_t prev_led = 0;
-    if (prev_led != usb_keyboard_leds) {
-        adb_host_kbd_led(~usb_keyboard_leds);
-        prev_led = usb_keyboard_leds;
-    }
 
     _matrix_is_modified = false;
     codes = adb_host_kbd_recv();
