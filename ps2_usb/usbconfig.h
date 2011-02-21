@@ -11,7 +11,7 @@
 #ifndef __usbconfig_h_included__
 #define __usbconfig_h_included__
 
-#include "config.h"
+#include "config_vusb.h"
 
 /*
 General Description:

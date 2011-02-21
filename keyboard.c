@@ -1,7 +1,7 @@
 #include "keyboard.h"
 #include "host.h"
 #include "layer.h"
-#include "matrix_skel.h"
+#include "matrix.h"
 #include "led.h"
 #include "usb_keycodes.h"
 #include "timer.h"
@@ -10,6 +10,11 @@
 #include "command.h"
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
+#endif
+/* TODO: shoud make new API */
+#ifdef USB_EXTRA_ENABLE
+#include "usb_extra.h"
+#include <util/delay.h>
 #endif
 
 
@@ -61,7 +66,6 @@ void keyboard_proc(void)
                 fn_bits |= FN_BIT(code);
             }
 #ifdef USB_EXTRA_ENABLE
-/* TODO: use new API
             // audio control & system control
             else if (code == KB_MUTE) {
                 usb_extra_audio_send(AUDIO_MUTE);
@@ -83,7 +87,6 @@ void keyboard_proc(void)
                 }
                 _delay_ms(1000);
             }
-*/
 #endif
             else if (IS_KEY(code)) {
                 host_add_key(code);
@@ -102,7 +105,6 @@ void keyboard_proc(void)
     layer_switching(fn_bits);
 
     if (command_proc()) {
-        // not send report
         return;
     }
 

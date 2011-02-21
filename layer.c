@@ -1,4 +1,4 @@
-#include "keymap_skel.h"
+#include "keymap.h"
 #include "host.h"
 #include "debug.h"
 #include "timer.h"

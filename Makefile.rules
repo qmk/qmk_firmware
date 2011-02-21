@@ -47,7 +47,7 @@ FORMAT = ihex
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
-OBJDIR = obj
+OBJDIR = obj_$(TARGET)
 
 
 # Optimization level, can be [0, 1, 2, 3, s]. 
@@ -121,7 +121,7 @@ CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
-CFLAGS += -include config.h
+CFLAGS += -include $(CONFIG_H)
 
 
 #---------------- Compiler Options C++ ----------------
@@ -149,7 +149,7 @@ CPPFLAGS += -Wundef
 CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 #CPPFLAGS += $(CSTANDARD)
-CPPFLAGS += -include config.h
+CPPFLAGS += -include $(CONFIG_H)
 
 
 #---------------- Assembler Options ----------------
@@ -162,7 +162,7 @@ CPPFLAGS += -include config.h
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex 
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS = $(ADEFS) -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
-ASFLAGS += -include config.h
+ASFLAGS += -include $(CONFIG_H)
 
 
 #---------------- Library Options ----------------
@@ -273,7 +273,6 @@ OBJDUMP = avr-objdump
 SIZE = avr-size
 AR = avr-ar rcs
 NM = avr-nm
-AVRDUDE = avrdude
 REMOVE = rm -f
 REMOVEDIR = rmdir
 COPY = cp
@@ -377,7 +376,7 @@ gccversion :
 
 # Program the device.  
 program: $(TARGET).hex $(TARGET).eep
-	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
+	$(PROGRAM_CMD)
 
 
 # Generate avr-gdb config/init file which does the following:

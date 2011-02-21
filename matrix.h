@@ -1,5 +1,5 @@
-#ifndef MATRIX_SKEL_H
-#define MATRIX_SKEL_H 1
+#ifndef MATRIX_H
+#define MATRIX_H
 
 #include <stdbool.h>
 

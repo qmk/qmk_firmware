@@ -10,22 +10,26 @@
 #define PRODUCT         PS/2 keyboard converter
 #define DESCRIPTION     convert PS/2 keyboard to USB
 
+
 /* matrix size */
 #define MATRIX_ROWS 32  // keycode bit: 3-0
 #define MATRIX_COLS 8   // keycode bit: 6-4
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
 
-/* USB NKey Rollover */
-#ifdef USB_NKRO_ENABLE
-#endif
+
+/* key combination for command */
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (BIT_LSHIFT | BIT_RSHIFT) || \
+    keyboard_report->mods == (BIT_LCTRL | BIT_RSHIFT) \
+)
+
 
 /* mouse keys */
 #ifdef MOUSEKEY_ENABLE
 #   define MOUSEKEY_DELAY_TIME 255
 #endif
 
-/* PS/2 mouse */
+
+/* PS/2 lines */
 #define PS2_CLOCK_PORT  PORTF
 #define PS2_CLOCK_PIN   PINF
 #define PS2_CLOCK_DDR   DDRF

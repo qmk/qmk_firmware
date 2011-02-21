@@ -10,9 +10,11 @@
 #define PRODUCT         PS/2 keyboard converter
 #define DESCRIPTION     convert PS/2 keyboard to USB
 
+
 /* matrix size */
 #define MATRIX_ROWS 32  // keycode bit: 3-0
 #define MATRIX_COLS 8   // keycode bit: 6-4
+
 
 /* key combination for command */
 #define IS_COMMAND() ( \
@@ -20,10 +22,6 @@
     keyboard_report->mods == (BIT_LCTRL | BIT_RSHIFT) \
 )
 
-
-/* USB NKey Rollover */
-#ifdef USB_NKRO_ENABLE
-#endif
 
 /* mouse keys */
 #ifdef MOUSEKEY_ENABLE

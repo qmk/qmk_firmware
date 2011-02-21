@@ -47,10 +47,10 @@ Keymap customization
     You can customize keymaps easily by editing source code.
 
 
-Build
------
+Build for Teensy
+----------------
 0. Connect PS/2 keyboard to Teensy by 4 lines(Vcc, GND, Data, Clock).
-1. Define following macros for PS/2 connection in config.h:
+1. Define following macros for PS/2 connection in config_pjrc.h:
    PS2_DATA_PORT
    PS2_DATA_PIN
    PS2_DATA_DDR
@@ -63,6 +63,15 @@ Build
 2. make
 3. program Teensy.
    http://www.pjrc.com/teensy/loader.html
+
+
+Build for V-USB
+---------------
+0. Build V-USB controller board and connect PS/2 keyboard.
+1. Define macros in config_vusb.h if needed.
+2. Edit Makefile.vusb for build options and MCU setting.
+3. make -f Makefile.vusb
+4. program your V-USB controller.
 
 
 Keymap

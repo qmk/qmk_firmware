@@ -9,8 +9,7 @@
 #include "util.h"
 #include "debug.h"
 #include "ps2.h"
-#include "usb_keyboard.h"
-#include "matrix_skel.h"
+#include "matrix.h"
 
 
 #if (MATRIX_COLS > 16)
@@ -60,8 +59,6 @@ static bool matrix_has_ghost_in_row(uint8_t row);
 #endif
 static void matrix_make(uint8_t code);
 static void matrix_break(uint8_t code);
-static void ps2_reset(void);
-static void ps2_set_leds(uint8_t leds);
 
 
 inline
@@ -78,20 +75,8 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    print_enable = true;
     ps2_host_init();
 
-    ps2_reset();
-
-    // flush LEDs
-    ps2_set_leds(1<<PS2_LED_NUM_LOCK);
-    _delay_ms(100);
-    ps2_set_leds(1<<PS2_LED_NUM_LOCK|1<<PS2_LED_CAPS_LOCK);
-    _delay_ms(100);
-    ps2_set_leds(1<<PS2_LED_NUM_LOCK|1<<PS2_LED_CAPS_LOCK|1<<PS2_LED_SCROLL_LOCK);
-    _delay_ms(300);
-    ps2_set_leds(0x00);
-    
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
@@ -191,7 +176,6 @@ uint8_t matrix_scan(void)
 
     uint8_t code;
     while ((code = ps2_host_recv())) {
-debug_hex(code); debug(" ");
         switch (state) {
             case INIT:
                 switch (code) {
@@ -349,22 +333,6 @@ debug_hex(code); debug(" ");
                 state = INIT;
         }
     }
-
-    // handle LED indicators
-    static uint8_t prev_leds = 0;
-    if (prev_leds != usb_keyboard_leds) {
-        uint8_t leds = 0;
-        if (usb_keyboard_leds&(1<<USB_LED_SCROLL_LOCK))
-            leds |= (1<<PS2_LED_SCROLL_LOCK);
-        if (usb_keyboard_leds&(1<<USB_LED_NUM_LOCK))
-            leds |= (1<<PS2_LED_NUM_LOCK);
-        if (usb_keyboard_leds&(1<<USB_LED_CAPS_LOCK))
-            leds |= (1<<PS2_LED_CAPS_LOCK);
-
-        ps2_set_leds(leds);
-        prev_leds = usb_keyboard_leds;
-    }
-
     return 1;
 }
 
@@ -471,20 +439,4 @@ static void matrix_break(uint8_t code)
         matrix[ROW(code)] &= ~(1<<COL(code));
         is_modified = true;
     }
-}
-
-static void ps2_reset(void)
-{
-    ps2_host_send(0xFF);
-    ps2_host_recv(); // 0xFA
-    ps2_host_recv(); // 0xAA
-    _delay_ms(1000);
-}
-
-static void ps2_set_leds(uint8_t leds)
-{
-        ps2_host_send(0xED);
-        ps2_host_recv();        // 0xFA
-        ps2_host_send(leds);
-        ps2_host_recv();        // 0xFA
 }
