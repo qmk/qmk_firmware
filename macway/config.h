@@ -10,20 +10,26 @@
 #define PRODUCT         Macway mod
 #define DESCRIPTION     t.m.k. keyboard firmware for Macway mod
 
+
 /* matrix size */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 8
 /* define if matrix has ghost */
 #define MATRIX_HAS_GHOST
 
-/* USB NKey Rollover */
-#ifdef USB_NKRO_ENABLE
-#endif
+
+/* key combination for command */
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (BIT_LSHIFT | BIT_RSHIFT) || \
+    keyboard_report->mods == (BIT_LCTRL | BIT_RSHIFT) \
+)
+
 
 /* mouse keys */
 #ifdef MOUSEKEY_ENABLE
 #   define MOUSEKEY_DELAY_TIME 192
 #endif
+
 
 /* PS/2 mouse */
 #ifdef PS2_MOUSE_ENABLE

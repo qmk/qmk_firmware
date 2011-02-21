@@ -7,7 +7,7 @@
 #include <util/delay.h>
 #include "print.h"
 #include "util.h"
-#include "matrix_skel.h"
+#include "matrix.h"
 
 
 #if (MATRIX_COLS > 16)
