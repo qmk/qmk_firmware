@@ -4,12 +4,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/pgmspace.h>
-#include "usb_keyboard.h"
 #include "usb_keycodes.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
-#include "keymap_skel.h"
+#include "keymap.h"
 
 
 // Convert physical keyboard layout to matrix array.
@@ -176,10 +175,4 @@ uint8_t keymap_fn_layer(uint8_t fn_bits)
 uint8_t keymap_fn_keycode(uint8_t fn_bits)
 {
     return pgm_read_byte(&fn_keycode[(biton(fn_bits))]);
-}
-
-// define a condition to enter special function mode
-bool keymap_is_special_mode(uint8_t fn_bits)
-{
-    return usb_keyboard_mods == (BIT_LSHIFT | BIT_RSHIFT);
 }
