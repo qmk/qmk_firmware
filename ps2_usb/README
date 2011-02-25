@@ -74,6 +74,30 @@ Build for V-USB
 4. program your V-USB controller.
 
 
+V-USB Circuit
+-------------
+                +---+   +---------------+
+USB            GND  |   |   ATmega168   |
+===                 C3  |               |
+5V <-------+--------+---|Vcc,AVCC       |        PS/2
+           R1           |               |        ====
+D- <----+--+-----R2-----|INT0        RXD|------->DATA
+D+ <----|---+----R3-----|INT1        XCK|------->CLOCK
+        Z1  Z2          |               |      ->5V
+GND<----+---+--+--+-----|GND            |      ->GND
+               |  |     |               |
+               |  C2-+--|XTAL1          |
+               |     X1 |               |
+               +--C3-+--|XTAL2          |
+                        +---------------+
+R1:     1.5K Ohm
+R2,R3:  68 Ohm
+Z1,Z2:  Zenner 3.6V
+C1,C2:  22pF
+C3:     0.1uF
+X1:     Crystal 20MHz(16MHz/12MHz)
+
+
 Keymap
 ------
 You can change a keymap by editing code of keymap.c like following.
