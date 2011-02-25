@@ -86,14 +86,17 @@ uint8_t host_has_anykey(void)
     return cnt;
 }
 
-uint8_t *host_get_keys(void)
+uint8_t host_get_first_key(void)
 {
-    return keyboard_report->keys;
-}
-
-uint8_t host_get_mods(void)
-{
-    return keyboard_report->mods;
+#ifdef USB_NKRO_ENABLE
+    if (keyboard_nkro) {
+        uint8_t i = 0;
+        for (; i < REPORT_KEYS && !keyboard_report->keys[i]; i++)
+            ;
+        return i<<3 | biton(keyboard_report->keys[i]);
+    }
+#endif
+    return keyboard_report->keys[0];
 }
 
 
