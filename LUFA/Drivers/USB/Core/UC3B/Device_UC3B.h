@@ -59,10 +59,6 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 
-		#if (defined(USE_RAM_DESCRIPTORS) && defined(USE_EEPROM_DESCRIPTORS))
-			#error USE_RAM_DESCRIPTORS and USE_EEPROM_DESCRIPTORS are mutually exclusive.
-		#endif
-
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** \name USB Device Mode Option Masks */
@@ -209,7 +205,7 @@
 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;
 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address)
 			{
-				AVR32_USBB.UDCON       = (AVR32_USBB_UDCON & ~AVR32_USBB_UDADDR) | Address;
+				AVR32_USBB.udcon       = (AVR32_USBB.udcon & ~AVR32_USBB_UADD_MASK) | Address;
 				AVR32_USBB.UDCON.adden = true;
 			}
 

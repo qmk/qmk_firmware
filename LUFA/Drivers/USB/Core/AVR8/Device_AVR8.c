@@ -46,7 +46,7 @@ void USB_Device_SendRemoteWakeup(void)
 	USB_CLK_Unfreeze();
 
 	UDCON |= (1 << RMWKUP);
-	while (!(UDCON & (1 << RMWKUP)));
+	while (UDCON & (1 << RMWKUP));
 }
 
 #endif

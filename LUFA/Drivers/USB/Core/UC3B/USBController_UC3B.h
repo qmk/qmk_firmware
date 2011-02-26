@@ -80,71 +80,8 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 
-		#if !defined(F_CLOCK)
-			#error F_CLOCK is not defined. You must define F_CLOCK to the frequency of the unprescaled USB controller clock in your project makefile.
-		#endif
-
-		#if (F_CLOCK == 8000000)
-			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
-			     defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
-			     defined(__AVR_ATmega32U2__))
-				#define USB_PLL_PSC                0
-			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-				#define USB_PLL_PSC                0
-			#elif (defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB1286__) || defined(__AVR_ATmega32U6__))
-				#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
-			#elif (defined(__AVR_AT90USB647__)  || defined(__AVR_AT90USB1287__))
-				#define USB_PLL_PSC                ((1 << PLLP1) | (1 << PLLP0))
-			#endif
-		#elif (F_CLOCK == 16000000)
-			#if (defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || \
-			     defined(__AVR_ATmega8U2__) || defined(__AVR_ATmega16U2__) || \
-			     defined(__AVR_ATmega32U2__))
-				#define USB_PLL_PSC                (1 << PLLP0)
-			#elif (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-				#define USB_PLL_PSC                (1 << PINDIV)
-			#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_ATmega32U6__))
-				#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP1))
-			#elif (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__))
-				#define USB_PLL_PSC                ((1 << PLLP2) | (1 << PLLP0))
-			#endif
-		#endif
-
-		#if !defined(USB_PLL_PSC)
-			#error No PLL prescale value available for chosen F_CLOCK value and AVR model.
-		#endif
-
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** \name USB Controller Option Masks */
-			//@{
-			/** Regulator disable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
-			 *  regulator should be enabled to regulate the data pin voltages to within the USB standard.
-			 *
-			 *  \note See USB AVR data sheet for more information on the internal pad regulator.
-			 */
-			#define USB_OPT_REG_DISABLED               (1 << 1)
-
-			/** Regulator enable option mask for \ref USB_Init(). This indicates that the internal 3.3V USB data pad
-			 *  regulator should be disabled and the AVR's VCC level used for the data pads.
-			 *
-			 *  \note See USB AVR data sheet for more information on the internal pad regulator.
-			 */
-			#define USB_OPT_REG_ENABLED                (0 << 1)
-
-			/** Manual PLL control option mask for \ref USB_Init(). This indicates to the library that the user application
-			 *  will take full responsibility for controlling the AVR's PLL (used to generate the high frequency clock
-			 *  that the USB controller requires) and ensuring that it is locked at the correct frequency for USB operations.
-			 */
-			#define USB_OPT_MANUAL_PLL                 (1 << 2)
-
-			/** Automatic PLL control option mask for \ref USB_Init(). This indicates to the library that the library should
-			 *  take full responsibility for controlling the AVR's PLL (used to generate the high frequency clock
-			 *  that the USB controller requires) and ensuring that it is locked at the correct frequency for USB operations.
-			 */
-			#define USB_OPT_AUTO_PLL                   (0 << 2)
-			//@}
-			
 			/** \name Endpoint/Pipe Type Masks */
 			//@{
 			/** Mask for a CONTROL type endpoint or pipe.
@@ -191,7 +128,7 @@
 			static inline void USB_Detach(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Detach(void)
 			{
-				UDCON  |=  (1 << DETACH);
+				AVR32_USBB.UDCON.detach = true;
 			}
 
 			/** Attaches the device to the USB bus. This announces the device's presence to any attached
@@ -205,7 +142,7 @@
 			static inline void USB_Attach(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Attach(void)
 			{
-				UDCON  &= ~(1 << DETACH);
+				AVR32_USBB.UDCON.detach = false;
 			}
 
 		/* Function Prototypes: */
@@ -341,97 +278,56 @@
 			#endif
 
 		/* Inline Functions: */
-			static inline void USB_PLL_On(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_PLL_On(void)
-			{
-				PLLCSR  = USB_PLL_PSC;
-				PLLCSR |= (1 << PLLE);
-			}
-
-			static inline void USB_PLL_Off(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_PLL_Off(void)
-			{
-				PLLCSR  = 0;
-			}
-
-			static inline bool USB_PLL_IsReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
-			static inline bool USB_PLL_IsReady(void)
-			{
-				return ((PLLCSR  &   (1 << PLOCK)) ? true : false);
-			}
-
-			static inline void USB_REG_On(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_REG_On(void)
-			{
-			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-				UHWCON  |=  (1 << UVREGE);
-			#else
-				REGCR   &= ~(1 << REGDIS);
-			#endif
-			}
-
-			static inline void USB_REG_Off(void) ATTR_ALWAYS_INLINE;
-			static inline void USB_REG_Off(void)
-			{
-			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-				UHWCON  &= ~(1 << UVREGE);
-			#else
-				REGCR   |=  (1 << REGDIS);
-			#endif
-			}
-
 			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 			static inline void USB_OTGPAD_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_OTGPAD_On(void)
 			{
-				USBCON  |=  (1 << OTGPADE);
+				AVR32_USBB.USBCON.otgpade = true;
 			}
 
 			static inline void USB_OTGPAD_Off(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_OTGPAD_Off(void)
 			{
-				USBCON  &= ~(1 << OTGPADE);
+				AVR32_USBB.USBCON.otgpade = false;
 			}
 			#endif
 
 			static inline void USB_CLK_Freeze(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_CLK_Freeze(void)
 			{
-				USBCON  |=  (1 << FRZCLK);
+				AVR32_USBB.USBCON.frzclk = true;
 			}
 
 			static inline void USB_CLK_Unfreeze(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_CLK_Unfreeze(void)
 			{
-				USBCON  &= ~(1 << FRZCLK);
+				AVR32_USBB.USBCON.frzclk = false;
 			}
 
 			static inline void USB_Controller_Enable(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Controller_Enable(void)
 			{
-				USBCON  |=  (1 << USBE);
+				AVR32_USBB.USBCON.usbe = true;
 			}
 
 			static inline void USB_Controller_Disable(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Controller_Disable(void)
 			{
-				USBCON  &= ~(1 << USBE);
+				AVR32_USBB.USBCON.usbe = false;
 			}
 
 			static inline void USB_Controller_Reset(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Controller_Reset(void)
 			{
-				const uint8_t Temp = USBCON;
-
-				USBCON = (Temp & ~(1 << USBE));
-				USBCON = (Temp |  (1 << USBE));
+				AVR32_USBB.USBCON.usbe = false;
+				AVR32_USBB.USBCON.usbe = true;
 			}
 
 			#if defined(USB_CAN_BE_BOTH)
 			static inline uint8_t USB_GetUSBModeFromUID(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t USB_GetUSBModeFromUID(void)
 			{
-				if (USBSTA & (1 << ID))
+				if (AVR32_USBB.USBSTA.id)
 				  return USB_MODE_Device;
 				else
 				  return USB_MODE_Host;

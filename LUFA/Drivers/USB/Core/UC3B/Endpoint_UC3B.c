@@ -41,10 +41,10 @@ uint8_t USB_ControlEndpointSize = ENDPOINT_CONTROLEP_DEFAULT_SIZE;
 
 uint8_t USB_SelectedEndpoint = ENDPOINT_CONTROLEP;
 
+
 bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
                                     const uint32_t UECFGXData)
 {
-#if defined(CONTROL_ONLY_DEVICE) || defined(ORDERED_EP_CONFIG)
 	Endpoint_SelectEndpoint(Number);
 	Endpoint_EnableEndpoint();
 
@@ -52,42 +52,6 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 	*((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint] = UECFGXData;
 
 	return Endpoint_IsConfigured();
-#else	
-	for (uint8_t EPNum = Number; EPNum < ENDPOINT_TOTAL_ENDPOINTS; EPNum++)
-	{
-		uint32_t UECFGXTemp;
-		uint32_t UEIENXTemp;
-
-		Endpoint_SelectEndpoint(EPNum);
-		
-		if (EPNum == Number)
-		{
-			UECFGXTemp = UECFGXData;
-			UEIENXTemp = 0;
-		}
-		else
-		{
-			UECFGXTemp = *((uint32_t*)AVR32_USBB_UECFG0)[EPNum];
-			UEIENXTemp = *((uint32_t*)AVR32_USBB_UEINT0)[EPNum];
-		}
-
-		if (!(UECFGXTemp & AVR32_USBB_ALLOC))
-		  continue;
-
-		Endpoint_DisableEndpoint();
-		*((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint] &= ~AVR32_USBB_ALLOC;
-
-		Endpoint_EnableEndpoint();
-		*((uint32_t*)AVR32_USBB_UECFG0)[EPNum] = UECFGXTemp;
-		*((uint32_t*)AVR32_USBB_UEINT0)[EPNum] = UEINTXTemp;
-			
-		if (!(Endpoint_IsConfigured()))
-		  return false;			
-	}
-	
-	Endpoint_SelectEndpoint(Number);
-	return true;
-#endif
 }
 
 void Endpoint_ClearEndpoints(void)
@@ -97,9 +61,7 @@ void Endpoint_ClearEndpoints(void)
 	for (uint8_t EPNum = 0; EPNum < ENDPOINT_TOTAL_ENDPOINTS; EPNum++)
 	{
 		Endpoint_SelectEndpoint(EPNum);
-		UEIENX  = 0;
-		UEINTX  = 0;
-		UECFG1X = 0;
+		*((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint] = 0;
 		Endpoint_DisableEndpoint();
 	}
 }

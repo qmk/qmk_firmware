@@ -60,15 +60,10 @@ void USB_Init(
 	USB_Options = Options;
 	#endif
 
-	if (!(USB_Options & USB_OPT_REG_DISABLED))
-	  USB_REG_On();
-	else
-	  USB_REG_Off();
-
 	#if defined(USB_CAN_BE_BOTH)
 	if (Mode == USB_MODE_UID)
 	{
-		UHWCON |= (1 << UIDE);
+		AVR32_USBB.USBCON.uide = true;
 		USB_INT_Enable(USB_INT_IDTI);
 		USB_CurrentMode = USB_GetUSBModeFromUID();
 	}
@@ -91,14 +86,7 @@ void USB_Disable(void)
 	USB_Detach();
 	USB_Controller_Disable();
 
-	if (!(USB_Options & USB_OPT_MANUAL_PLL))
-	  USB_PLL_Off();
-
-	USB_REG_Off();
-
-	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 	USB_OTGPAD_Off();
-	#endif
 
 	#if defined(USB_CAN_BE_BOTH)
 	USB_CurrentMode = USB_MODE_None;
@@ -118,20 +106,10 @@ void USB_ResetInterface(void)
 
 	USB_Controller_Reset();
 
-	if (!(USB_Options & USB_OPT_MANUAL_PLL))
-	{
-		#if defined(USB_SERIES_4_AVR)
-		PLLFRQ = ((1 << PLLUSB) | (1 << PDIV3) | (1 << PDIV1));
-		#endif
-
-		USB_PLL_On();
-		while (!(USB_PLL_IsReady()));
-	}
-
 	#if defined(USB_CAN_BE_BOTH)
 	if (UIDModeSelectEnabled)
 	{
-		UHWCON |= (1 << UIDE);
+		AVR32_USBB.USBCON.uide = true;
 		USB_INT_Enable(USB_INT_IDTI);
 	}
 	#endif
@@ -141,25 +119,19 @@ void USB_ResetInterface(void)
 	if (USB_CurrentMode == USB_MODE_Device)
 	{
 		#if defined(USB_CAN_BE_DEVICE)
-		#if (defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
-		UHWCON |=  (1 << UIMOD);
-		#endif
-
+		AVR32_USBB.USBCON.uimod = true;
 		USB_Init_Device();
 		#endif
 	}
 	else if (USB_CurrentMode == USB_MODE_Host)
 	{
 		#if defined(USB_CAN_BE_HOST)
-		UHWCON &= ~(1 << UIMOD);
-
+		AVR32_USBB.USBCON.uimod = false;
 		USB_Init_Host();
 		#endif
 	}
 
-	#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 	USB_OTGPAD_On();
-	#endif
 }
 
 #if defined(USB_CAN_BE_DEVICE)
