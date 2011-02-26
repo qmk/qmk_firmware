@@ -36,6 +36,7 @@
 #include "../Pipe.h"
 
 uint8_t USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
+uint8_t USB_SelectedPipe    = PIPE_CONTROLPIPE;
 
 bool Pipe_ConfigurePipe(const uint8_t Number,
                         const uint8_t Type,
@@ -44,70 +45,19 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
                         const uint16_t Size,
                         const uint8_t Banks)
 {
-#if defined(ORDERED_EP_CONFIG)
 	Pipe_SelectPipe(Number);
 	Pipe_EnablePipe();
 
-	UPCFG1X = 0;
-
-	UPCFG0X = ((Type << EPTYPE0) | Token | ((EndpointNumber & PIPE_EPNUM_MASK) << PEPNUM0));
-	UPCFG1X = ((1 << ALLOC) | Banks | Pipe_BytesToEPSizeMask(Size));
+	*((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe] = 0;
+	*((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe] = (AVR32_USBB_ALLOC_MASK |
+	                                                    ((uint32_t)Type  << AVR32_USBB_PTYPE_OFFSET)  |
+	                                                    ((uint32_t)Token << AVR32_USBB_PTOKEN_OFFSET) |
+	                                                    ((uint32_t)Banks << AVR32_USBB_PBK_OFFSET)    |
+	                                                    ((EndpointNumber & PIPE_EPNUM_MASK) << AVR32_USBB_PEPNUM_OFFSET));
 
 	Pipe_SetInfiniteINRequests();
 
 	return Pipe_IsConfigured();
-#else	
-	for (uint8_t PNum = Number; PNum < PIPE_TOTAL_PIPES; PNum++)
-	{
-		uint8_t UPCFG0XTemp;
-		uint8_t UPCFG1XTemp;
-		uint8_t UPCFG2XTemp;
-		uint8_t UPCONXTemp;
-		uint8_t UPINRQXTemp;
-		uint8_t UPIENXTemp;
-
-		Pipe_SelectPipe(PNum);
-		
-		if (PNum == Number)
-		{
-			UPCFG0XTemp = ((Type << EPTYPE0) | Token | ((EndpointNumber & PIPE_EPNUM_MASK) << PEPNUM0));
-			UPCFG1XTemp = ((1 << ALLOC) | Banks | Pipe_BytesToEPSizeMask(Size));
-			UPCFG2XTemp = 0;
-			UPCONXTemp  = ((1 << PEN) | (1 << INMODE));
-			UPINRQXTemp = 0;
-			UPIENXTemp  = 0;
-		}
-		else
-		{
-			UPCFG0XTemp = UPCFG0X;
-			UPCFG1XTemp = UPCFG1X;
-			UPCFG2XTemp = UPCFG2X;
-			UPCONXTemp  = UPCONX;
-			UPINRQXTemp = UPINRQX;
-			UPIENXTemp  = UPIENX;
-		}
-
-		if (!(UPCFG1XTemp & (1 << ALLOC)))
-		  continue;
-		  
-		Pipe_DisablePipe();
-		UPCFG1X &= (1 << ALLOC);
-
-		Pipe_EnablePipe();
-		UPCFG0X = UPCFG0XTemp;
-		UPCFG1X = UPCFG1XTemp;
-		UPCFG2X = UPCFG2XTemp;
-		UPCONX  = UPCONXTemp;
-		UPINRQX = UPINRQXTemp;
-		UPIENX  = UPIENXTemp;
-
-		if (!(Pipe_IsConfigured()))
-		  return false;		
-	}
-		
-	Pipe_SelectPipe(Number);	
-	return true;
-#endif
 }
 
 void Pipe_ClearPipes(void)
@@ -117,9 +67,7 @@ void Pipe_ClearPipes(void)
 	for (uint8_t PNum = 0; PNum < PIPE_TOTAL_PIPES; PNum++)
 	{
 		Pipe_SelectPipe(PNum);
-		UPIENX  = 0;
-		UPINTX  = 0;
-		UPCFG1X = 0;
+		*((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe] = 0;
 		Pipe_DisablePipe();
 	}
 }

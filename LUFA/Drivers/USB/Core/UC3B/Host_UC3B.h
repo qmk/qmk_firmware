@@ -245,7 +245,7 @@
 			 */
 			static inline uint16_t USB_Host_GetFrameNumber(void)
 			{
-				return UHFNUM;
+				return AVR32_USBB_UHFNUM;
 			}
 
 			#if !defined(NO_SOF_EVENTS)
@@ -282,7 +282,7 @@
 			static inline void USB_Host_ResetBus(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_ResetBus(void)
 			{
-				UHCON |=  (1 << RESET);
+				AVR32_USBB_UHCON.reset = true;
 			}
 
 			/** Determines if a previously issued bus reset (via the \ref USB_Host_ResetBus() macro) has
@@ -293,7 +293,7 @@
 			static inline bool USB_Host_IsBusResetComplete(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_Host_IsBusResetComplete(void)
 			{
-				return ((UHCON & (1 << RESET)) ? false : true);
+				return AVR32_USBB_UHCON.reset;
 			}
 
 			/** Resumes USB communications with an attached and enumerated device, by resuming the transmission
@@ -303,7 +303,7 @@
 			static inline void USB_Host_ResumeBus(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_ResumeBus(void)
 			{
-				UHCON |=  (1 << SOFEN);
+				AVR32_USBB_UHCON.sofe = true;
 			}
 
 			/** Suspends the USB bus, preventing any communications from occurring between the host and attached
@@ -313,7 +313,7 @@
 			static inline void USB_Host_SuspendBus(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_SuspendBus(void)
 			{
-				UHCON &= ~(1 << SOFEN);
+				AVR32_USBB_UHCON.sofe = false;
 			}
 
 			/** Determines if the USB bus has been suspended via the use of the \ref USB_Host_SuspendBus() macro,
@@ -325,7 +325,7 @@
 			static inline bool USB_Host_IsBusSuspended(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_Host_IsBusSuspended(void)
 			{
-				return ((UHCON & (1 << SOFEN)) ? false : true);
+				return AVR32_USBB_UHCON.sofe;
 			}
 
 			/** Determines if the attached device is currently enumerated in Full Speed mode (12Mb/s), or
@@ -336,7 +336,7 @@
 			static inline bool USB_Host_IsDeviceFullSpeed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_Host_IsDeviceFullSpeed(void)
 			{
-				return ((USBSTA & (1 << SPEED)) ? true : false);
+				return (AVR32_USBB_USBSTA.speed == AVR32_USBB_SPEED_FULL);
 			}
 
 			/** Determines if the attached device is currently issuing a Remote Wakeup request, requesting
@@ -347,14 +347,14 @@
 			static inline bool USB_Host_IsRemoteWakeupSent(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_Host_IsRemoteWakeupSent(void)
 			{
-				return ((UHINT & (1 << RXRSMI)) ? true : false);
+				return AVR32_USBB_UHINT.rxrsmi;
 			}
 
 			/** Clears the flag indicating that a Remote Wakeup request has been issued by an attached device. */
 			static inline void USB_Host_ClearRemoteWakeupSent(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_ClearRemoteWakeupSent(void)
 			{
-				UHINT &= ~(1 << RXRSMI);
+				AVR32_USBB_UHINTCLR.rxrsmic = true;
 			}
 
 			/** Accepts a Remote Wakeup request from an attached device. This must be issued in response to
@@ -364,7 +364,7 @@
 			static inline void USB_Host_ResumeFromWakeupRequest(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_ResumeFromWakeupRequest(void)
 			{
-				UHCON |=  (1 << RESUME);
+				AVR32_USBB_UHCON.resume = true;
 			}
 
 			/** Determines if a resume from Remote Wakeup request is currently being sent to an attached
@@ -375,7 +375,7 @@
 			static inline bool USB_Host_IsResumeFromWakeupRequestSent(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool USB_Host_IsResumeFromWakeupRequestSent(void)
 			{
-				return ((UHCON & (1 << RESUME)) ? false : true);
+				return AVR32_USBB_UHCON.resume;
 			}
 
 		/* Function Prototypes: */
@@ -438,59 +438,63 @@
 			static inline void USB_Host_HostMode_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_HostMode_On(void)
 			{
-				USBCON |=  (1 << HOST);
+				// Not required for UC3B
 			}
 
 			static inline void USB_Host_HostMode_Off(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_HostMode_Off(void)
 			{
-				USBCON &= ~(1 << HOST);
+				// Not required for UC3B
 			}
 
 			static inline void USB_Host_VBUS_Auto_Enable(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Auto_Enable(void)
 			{
-				OTGCON &= ~(1 << VBUSHWC);
-				UHWCON |=  (1 << UVCONE);
+				AVR32_USBB_USBCON.vbushwc = false;
 			}
 
 			static inline void USB_Host_VBUS_Manual_Enable(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Manual_Enable(void)
 			{
-				OTGCON |=  (1 << VBUSHWC);
-				UHWCON &= ~(1 << UVCONE);
-
-				DDRE   |=  (1 << 7);
+				AVR32_USBB_USBCON.vbushwc = true;
+				
+				// TODO: Manual VBUS pin output setup
 			}
 
 			static inline void USB_Host_VBUS_Auto_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Auto_On(void)
 			{
-				OTGCON |=  (1 << VBUSREQ);
+				AVR32_USBB_USBSTASET.vbusreqs = true;
 			}
 
 			static inline void USB_Host_VBUS_Manual_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Manual_On(void)
 			{
-				PORTE  |=  (1 << 7);
+				// TODO: Manual VBUS pin output on
 			}
 
 			static inline void USB_Host_VBUS_Auto_Off(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Auto_Off(void)
 			{
-				OTGCON |=  (1 << VBUSRQC);
+				AVR32_USBB_USBSTACLR.vbusreqc = true;
 			}
 
 			static inline void USB_Host_VBUS_Manual_Off(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Manual_Off(void)
 			{
-				PORTE  &= ~(1 << 7);
+				// TODO: Manual VBUS pin output off
 			}
 
 			static inline void USB_Host_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_SetDeviceAddress(const uint8_t Address)
 			{
-				UHADDR  =  (Address & 0x7F);
+				AVR32_USBB_UHADDR1.uhaddrp0 = Address;
+				AVR32_USBB_UHADDR1.uhaddrp1 = Address;
+				AVR32_USBB_UHADDR1.uhaddrp2 = Address;
+				AVR32_USBB_UHADDR1.uhaddrp3 = Address;
+				AVR32_USBB_UHADDR2.uhaddrp4 = Address;
+				AVR32_USBB_UHADDR2.uhaddrp5 = Address;
+				AVR32_USBB_UHADDR2.uhaddrp6 = Address;
 			}
 
 		/* Enums: */

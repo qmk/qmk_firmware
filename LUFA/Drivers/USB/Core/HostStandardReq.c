@@ -38,11 +38,11 @@
 
 uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 {
-	uint8_t* HeaderStream   = (uint8_t*)&USB_ControlRequest;
-	uint8_t* DataStream     = (uint8_t*)BufferPtr;
-	bool     BusSuspended   = USB_Host_IsBusSuspended();
-	uint8_t  ReturnStatus   = HOST_SENDCONTROL_Successful;
-	uint16_t DataLen        = USB_ControlRequest.wLength;
+	uint8_t* HeaderStream = (uint8_t*)&USB_ControlRequest;
+	uint8_t* DataStream   = (uint8_t*)BufferPtr;
+	bool     BusSuspended = USB_Host_IsBusSuspended();
+	uint8_t  ReturnStatus = HOST_SENDCONTROL_Successful;
+	uint16_t DataLen      = USB_ControlRequest.wLength;
 
 	USB_Host_ResumeBus();
 
@@ -50,7 +50,7 @@ uint8_t USB_Host_SendControlRequest(void* const BufferPtr)
 	  goto End_Of_Control_Send;
 
 	Pipe_SetPipeToken(PIPE_TOKEN_SETUP);
-	Pipe_ClearErrorFlags();
+	Pipe_ClearError();
 
 	Pipe_Unfreeze();
 

@@ -101,25 +101,25 @@
 			/** \name Pipe Error Flag Masks */
 			//@{
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that an overflow error occurred in the pipe on the received data. */
-			#define PIPE_ERRORFLAG_OVERFLOW         (1 << 6)
+			#define PIPE_ERRORFLAG_OVERFLOW         ((1 << AVR32_USBB_UPSTA0_OVERFI_OFFSET) << 8)
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that an underflow error occurred in the pipe on the received data. */
-			#define PIPE_ERRORFLAG_UNDERFLOW        (1 << 5)
+			#define PIPE_ERRORFLAG_UNDERFLOW        ((1 << AVR32_USBB_UPSTA0_UNDERFI_OFFSET) << 8)
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a CRC error occurred in the pipe on the received data. */
-			#define PIPE_ERRORFLAG_CRC16            (1 << 4)
+			#define PIPE_ERRORFLAG_CRC16            (1 << AVR32_USBB_UPERR0_CRC16_OFFSET)
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a hardware timeout error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_TIMEOUT          (1 << 3)
+			#define PIPE_ERRORFLAG_TIMEOUT          (1 << AVR32_USBB_UPERR0_TIMEOUT_OFFSET)
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a hardware PID error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_PID              (1 << 2)
+			#define PIPE_ERRORFLAG_PID              (1 << AVR32_USBB_UPERR0_PID_OFFSET)
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a hardware data PID error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_DATAPID          (1 << 1)
+			#define PIPE_ERRORFLAG_DATAPID          (1 << AVR32_USBB_UPERR0_DATAPID_OFFSET)
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a hardware data toggle error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_DATATGL          (1 << 0)
+			#define PIPE_ERRORFLAG_DATATGL          (1 << AVR32_USBB_UPERR0_DATATGL_OFFSET)
 			//@}
 
 			/** \name Pipe Token Masks */
@@ -127,17 +127,17 @@
 			/** Token mask for \ref Pipe_ConfigurePipe(). This sets the pipe as a SETUP token (for CONTROL type pipes),
 			 *  which will trigger a control request on the attached device when data is written to the pipe.
 			 */
-			#define PIPE_TOKEN_SETUP                (0 << PTOKEN0)
+			#define PIPE_TOKEN_SETUP                AVR32_USBB_UPCFG0_PTOKEN_SETUP
 
 			/** Token mask for \ref Pipe_ConfigurePipe(). This sets the pipe as a IN token (for non-CONTROL type pipes),
 			 *  indicating that the pipe data will flow from device to host.
 			 */
-			#define PIPE_TOKEN_IN                   (1 << PTOKEN0)
+			#define PIPE_TOKEN_IN                   AVR32_USBB_UPCFG0_PTOKEN_IN
 
 			/** Token mask for \ref Pipe_ConfigurePipe(). This sets the pipe as a OUT token (for non-CONTROL type pipes),
 			 *  indicating that the pipe data will flow from host to device.
 			 */
-			#define PIPE_TOKEN_OUT                  (2 << PTOKEN0)
+			#define PIPE_TOKEN_OUT                  AVR32_USBB_UPCFG0_PTOKEN_OUT
 			//@}
 			
 			/** \name Pipe Bank Mode Masks */
@@ -146,14 +146,21 @@
 			 *  should have one single bank, which requires less USB FIFO memory but results in slower transfers as
 			 *  only one USB device (the AVR or the attached device) can access the pipe's bank at the one time.
 			 */
-			#define PIPE_BANK_SINGLE                (0 << EPBK0)
+			#define PIPE_BANK_SINGLE                AVR32_USBB_UPCFG0_PBK_SINGLE
 
 			/** Mask for the bank mode selection for the \ref Pipe_ConfigurePipe() macro. This indicates that the pipe
 			 *  should have two banks, which requires more USB FIFO memory but results in faster transfers as one
 			 *  USB device (the AVR or the attached device) can access one bank while the other accesses the second
 			 *  bank.
 			 */
-			#define PIPE_BANK_DOUBLE                (1 << EPBK0)
+			#define PIPE_BANK_DOUBLE                AVR32_USBB_UPCFG0_PBK_DOUBLE
+
+			/** Mask for the bank mode selection for the \ref Pipe_ConfigurePipe() macro. This indicates that the pipe
+			 *  should have three banks, which requires more USB FIFO memory but results in faster transfers as one
+			 *  USB device (the AVR or the attached device) can access one bank while the other accesses the remaining
+			 *  banks.
+			 */
+			#define PIPE_BANK_TRIPLE                AVR32_USBB_UPCFG0_PBK_TRIPLE
 			//@}
 			
 			/** Pipe address for the default control pipe, which always resides in address 0. This is
@@ -223,7 +230,7 @@
 			static inline uint16_t Pipe_BytesInPipe(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_BytesInPipe(void)
 			{
-				return UPBCX;
+				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].pbyct;
 			}
 
 			/** Returns the pipe address of the currently selected pipe. This is typically used to save the
@@ -234,7 +241,7 @@
 			static inline uint8_t Pipe_GetCurrentPipe(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetCurrentPipe(void)
 			{
-				return (UPNUM & PIPE_PIPENUM_MASK);
+				return USB_SelectedPipe;
 			}
 
 			/** Selects the given pipe number. Any pipe operations which do not require the pipe number to be
@@ -245,7 +252,7 @@
 			static inline void Pipe_SelectPipe(const uint8_t PipeNumber) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_SelectPipe(const uint8_t PipeNumber)
 			{
-				UPNUM = PipeNumber;
+				USB_SelectedPipe = PipeNumber;
 			}
 
 			/** Resets the desired pipe, including the pipe banks and flags.
@@ -255,8 +262,8 @@
 			static inline void Pipe_ResetPipe(const uint8_t PipeNumber) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ResetPipe(const uint8_t PipeNumber)
 			{
-				UPRST = (1 << PipeNumber);
-				UPRST = 0;
+				AVR32_USBB.uprst |=  (AVR32_USBB_PRST0_MASK << PipeNumber);
+				AVR32_USBB.uprst &= ~(AVR32_USBB_PRST0_MASK << PipeNumber);
 			}
 
 			/** Enables the currently selected pipe so that data can be sent and received through it to and from
@@ -267,7 +274,7 @@
 			static inline void Pipe_EnablePipe(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_EnablePipe(void)
 			{
-				UPCONX |= (1 << PEN);
+				AVR32_USBB.uprst |=  (AVR32_USBB_PEN0_MASK << PipeNumber);
 			}
 
 			/** Disables the currently selected pipe so that data cannot be sent and received through it to and
@@ -276,7 +283,7 @@
 			static inline void Pipe_DisablePipe(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_DisablePipe(void)
 			{
-				UPCONX &= ~(1 << PEN);
+				AVR32_USBB.uprst &= ~(AVR32_USBB_PEN0_MASK << PipeNumber);
 			}
 
 			/** Determines if the currently selected pipe is enabled, but not necessarily configured.
@@ -286,7 +293,7 @@
 			static inline bool Pipe_IsEnabled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsEnabled(void)
 			{
-				return ((UPCONX & (1 << PEN)) ? true : false);
+				return ((AVR32_USBB.uprst & (AVR32_USBB_PEN0_MASK << PipeNumber)) ? true : false);
 			}
 
 			/** Gets the current pipe token, indicating the pipe's data direction and type.
@@ -296,7 +303,7 @@
 			static inline uint8_t Pipe_GetPipeToken(void) ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetPipeToken(void)
 			{
-				return (UPCFG0X & (0x03 << PTOKEN0));
+				return ((avr32_usbb_upcfg0_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe].ptoken;
 			}
 
 			/** Sets the token for the currently selected pipe to one of the tokens specified by the \c PIPE_TOKEN_*
@@ -309,14 +316,14 @@
 			static inline void Pipe_SetPipeToken(const uint8_t Token) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_SetPipeToken(const uint8_t Token)
 			{
-				UPCFG0X = ((UPCFG0X & ~(0x03 << PTOKEN0)) | Token);
+				((avr32_usbb_upcfg0_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe].ptoken = Token;
 			}
 
 			/** Configures the currently selected pipe to allow for an unlimited number of IN requests. */
 			static inline void Pipe_SetInfiniteINRequests(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_SetInfiniteINRequests(void)
 			{
-				UPCONX |= (1 << INMODE);
+				((avr32_usbb_upinrq0_t*)AVR32_USBB_UPINRQ0)[USB_SelectedPipe].inmode = true;
 			}
 
 			/** Configures the currently selected pipe to only allow the specified number of IN requests to be
@@ -327,8 +334,8 @@
 			static inline void Pipe_SetFiniteINRequests(const uint8_t TotalINRequests) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_SetFiniteINRequests(const uint8_t TotalINRequests)
 			{
-				UPCONX &= ~(1 << INMODE);
-				UPINRQX = TotalINRequests;
+				((avr32_usbb_upinrq0_t*)AVR32_USBB_UPINRQ0)[USB_SelectedPipe].inmode = false;
+				((avr32_usbb_upinrq0_t*)AVR32_USBB_UPINRQ0)[USB_SelectedPipe].inrq   = TotalINRequests;
 			}
 
 			/** Determines if the currently selected pipe is configured.
@@ -338,7 +345,7 @@
 			static inline bool Pipe_IsConfigured(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsConfigured(void)
 			{
-				return ((UPSTAX & (1 << CFGOK)) ? true : false);
+				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].cfgok;
 			}
 
 			/** Retrieves the endpoint number of the endpoint within the attached device that the currently selected
@@ -349,7 +356,7 @@
 			static inline uint8_t Pipe_BoundEndpointNumber(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_BoundEndpointNumber(void)
 			{
-				return ((UPCFG0X >> PEPNUM0) & PIPE_EPNUM_MASK);
+				return ((avr32_usbb_upcfg0_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe].pepnum;
 			}
 
 			/** Sets the period between interrupts for an INTERRUPT type pipe to a specified number of milliseconds.
@@ -359,7 +366,7 @@
 			static inline void Pipe_SetInterruptPeriod(const uint8_t Milliseconds) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_SetInterruptPeriod(const uint8_t Milliseconds)
 			{
-				UPCFG2X = Milliseconds;
+				((avr32_usbb_upcfg0_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe].intfrq = Milliseconds;
 			}
 
 			/** Returns a mask indicating which pipe's interrupt periods have elapsed, indicating that the pipe should
@@ -370,7 +377,10 @@
 			static inline uint8_t Pipe_GetPipeInterrupts(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetPipeInterrupts(void)
 			{
-				return UPINT;
+				return ((AVR32_USBB.uhint & (AVR32_USBB_P6INT_MASK | AVR32_USBB_P5INT_MASK |
+				                             AVR32_USBB_P4INT_MASK | AVR32_USBB_P3INT_MASK |
+				                             AVR32_USBB_P2INT_MASK | AVR32_USBB_P1INT_MASK |
+				                             AVR32_USBB_P0INT_MASK)) >> AVR32_USBB_P0INT_OFFSET);
 			}
 
 			/** Determines if the specified pipe number has interrupted (valid only for INTERRUPT type
@@ -383,21 +393,21 @@
 			static inline bool Pipe_HasPipeInterrupted(const uint8_t PipeNumber) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_HasPipeInterrupted(const uint8_t PipeNumber)
 			{
-				return ((UPINT & (1 << PipeNumber)) ? true : false);
+				return ((AVR32_USBB.uhint & (AVR32_USBB_P0INTES_MASK << USB_SelectedPipe)) ? true : false);
 			}
 
 			/** Unfreezes the selected pipe, allowing it to communicate with an attached device. */
 			static inline void Pipe_Unfreeze(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Unfreeze(void)
 			{
-				UPCONX &= ~(1 << PFREEZE);
+				((avr32_usbb_upcon0clr_t*)AVR32_USBB_UPCON0CLR)[USB_SelectedPipe].pfreezec = true;
 			}
 
 			/** Freezes the selected pipe, preventing it from communicating with an attached device. */
 			static inline void Pipe_Freeze(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Freeze(void)
 			{
-				UPCONX |= (1 << PFREEZE);
+				((avr32_usbb_upcon0set_t*)AVR32_USBB_UPCON0SET)[USB_SelectedPipe].pfreezes = true;
 			}
 
 			/** Determines if the currently selected pipe is frozen, and not able to accept data.
@@ -407,14 +417,14 @@
 			static inline bool Pipe_IsFrozen(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsFrozen(void)
 			{
-				return ((UPCONX & (1 << PFREEZE)) ? true : false);
+				return ((((avr32_usbb_upcon0_t*)AVR32_USBB_UPCON0)[USB_SelectedPipe].pfreeze) ? true : false);
 			}
 
-			/** Clears the master pipe error flag. */
+			/** Clears the error flags for the currently selected pipe. */
 			static inline void Pipe_ClearError(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearError(void)
 			{
-				UPINTX &= ~(1 << PERRI);
+				((uint32_t*)AVR32_USBB_UPERR0)[USB_SelectedPipe] = 0;
 			}
 
 			/** Determines if the master pipe error flag is set for the currently selected pipe, indicating that
@@ -427,16 +437,7 @@
 			static inline bool Pipe_IsError(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsError(void)
 			{
-				return ((UPINTX & (1 << PERRI)) ? true : false);
-			}
-
-			/** Clears all the currently selected pipe's hardware error flags, but does not clear the master error
-			 *  flag for the pipe.
-			 */
-			static inline void Pipe_ClearErrorFlags(void) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_ClearErrorFlags(void)
-			{
-				UPERRX = 0;
+				return ((((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].perri) ? true : false);
 			}
 
 			/** Gets a mask of the hardware error flags which have occurred on the currently selected pipe. This
@@ -463,7 +464,7 @@
 			 */
 			static inline uint8_t Pipe_GetBusyBanks(void)
 			{
-				return (UPSTAX & (0x03 << NBUSYBK0));
+				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].nbusybk;
 			}
 
 			/** Determines if the currently selected pipe may be read from (if data is waiting in the pipe
@@ -482,7 +483,7 @@
 			static inline bool Pipe_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsReadWriteAllowed(void)
 			{
-				return ((UPINTX & (1 << RWAL)) ? true : false);
+				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].rwall;
 			}
 
 			/** Determines if a packet has been received on the currently selected IN pipe from the attached device.
@@ -494,7 +495,7 @@
 			static inline bool Pipe_IsINReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsINReceived(void)
 			{
-				return ((UPINTX & (1 << RXINI)) ? true : false);
+				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].rxini;
 			}
 
 			/** Determines if the currently selected OUT pipe is ready to send an OUT packet to the attached device.
@@ -506,7 +507,7 @@
 			static inline bool Pipe_IsOUTReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsOUTReady(void)
 			{
-				return ((UPINTX & (1 << TXOUTI)) ? true : false);
+				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].rxouti;
 			}
 
 			/** Determines if no SETUP request is currently being sent to the attached device on the selected
@@ -519,7 +520,7 @@
 			static inline bool Pipe_IsSETUPSent(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsSETUPSent(void)
 			{
-				return ((UPINTX & (1 << TXSTPI)) ? true : false);
+				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].txstpi;
 			}
 
 			/** Sends the currently selected CONTROL type pipe's contents to the device as a SETUP packet.
@@ -529,7 +530,7 @@
 			static inline void Pipe_ClearSETUP(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearSETUP(void)
 			{
-				UPINTX &= ~((1 << TXSTPI) | (1 << FIFOCON));
+				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].txstpic = true;
 			}
 
 			/** Acknowledges the reception of a setup IN request from the attached device on the currently selected
@@ -540,7 +541,8 @@
 			static inline void Pipe_ClearIN(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearIN(void)
 			{
-				UPINTX &= ~((1 << RXINI) | (1 << FIFOCON));
+				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].rxinic   = true;
+				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].fifoconc = true;
 			}
 
 			/** Sends the currently selected pipe's contents to the device as an OUT packet on the selected pipe, freeing
@@ -551,7 +553,8 @@
 			static inline void Pipe_ClearOUT(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearOUT(void)
 			{
-				UPINTX &= ~((1 << TXOUTI) | (1 << FIFOCON));
+				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].txoutic  = true;
+				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].fifoconc = true;
 			}
 
 			/** Determines if the device sent a NAK (Negative Acknowledge) in response to the last sent packet on
@@ -567,7 +570,7 @@
 			static inline bool Pipe_IsNAKReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsNAKReceived(void)
 			{
-				return ((UPINTX & (1 << NAKEDI)) ? true : false);
+				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].nakedi;
 			}
 
 			/** Clears the NAK condition on the currently selected pipe.
@@ -579,7 +582,7 @@
 			static inline void Pipe_ClearNAKReceived(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearNAKReceived(void)
 			{
-				UPINTX &= ~(1 << NAKEDI);
+				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].nakedic = true;
 			}
 
 			/** Determines if the currently selected pipe has had the STALL condition set by the attached device.
@@ -591,7 +594,7 @@
 			static inline bool Pipe_IsStalled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsStalled(void)
 			{
-				return ((UPINTX & (1 << RXSTALLI)) ? true : false);
+				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].rxstalledi;
 			}
 
 			/** Clears the STALL condition detection flag on the currently selected pipe, but does not clear the
@@ -602,7 +605,7 @@
 			static inline void Pipe_ClearStall(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearStall(void)
 			{
-				UPINTX &= ~(1 << RXSTALLI);
+				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].rxstalledic = true;
 			}
 
 			/** Reads one byte from the currently selected pipe's bank, for OUT direction pipes.
@@ -614,7 +617,7 @@
 			static inline uint8_t Pipe_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_Read_Byte(void)
 			{
-				return UPDATX;
+				return *((uint8_t*)AVR32_USBB_EP_DATA);
 			}
 
 			/** Writes one byte from the currently selected pipe's bank, for IN direction pipes.
@@ -626,7 +629,7 @@
 			static inline void Pipe_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Byte(const uint8_t Byte)
 			{
-				UPDATX = Byte;
+				*((uint8_t*)AVR32_USBB_EP_DATA) = Byte;
 			}
 
 			/** Discards one byte from the currently selected pipe's bank, for OUT direction pipes.
@@ -638,7 +641,7 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = UPDATX;
+				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
 			}
 
 			/** Reads two bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -657,8 +660,8 @@
 					uint8_t  Bytes[2];
 				} Data;
 
-				Data.Bytes[0] = UPDATX;
-				Data.Bytes[1] = UPDATX;
+				Data.Bytes[0] = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Data.Bytes[1] = *((uint8_t*)AVR32_USBB_EP_DATA);
 
 				return Data.Word;
 			}
@@ -679,8 +682,8 @@
 					uint8_t  Bytes[2];
 				} Data;
 
-				Data.Bytes[1] = UPDATX;
-				Data.Bytes[0] = UPDATX;
+				Data.Bytes[1] = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Data.Bytes[0] = *((uint8_t*)AVR32_USBB_EP_DATA);
 
 				return Data.Word;
 			}
@@ -695,8 +698,8 @@
 			static inline void Pipe_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_LE(const uint16_t Word)
 			{
-				UPDATX = (Word & 0xFF);
-				UPDATX = (Word >> 8);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (Word & 0xFF);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (Word >> 8);
 			}
 
 			/** Writes two bytes to the currently selected pipe's bank in big endian format, for IN
@@ -709,8 +712,8 @@
 			static inline void Pipe_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_BE(const uint16_t Word)
 			{
-				UPDATX = (Word >> 8);
-				UPDATX = (Word & 0xFF);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (Word >> 8);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (Word & 0xFF);
 			}
 
 			/** Discards two bytes from the currently selected pipe's bank, for OUT direction pipes.
@@ -722,8 +725,8 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = UPDATX;
-				Dummy = UPDATX;
+				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
 			}
 
 			/** Reads four bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -742,10 +745,10 @@
 					uint8_t  Bytes[4];
 				} Data;
 
-				Data.Bytes[0] = UPDATX;
-				Data.Bytes[1] = UPDATX;
-				Data.Bytes[2] = UPDATX;
-				Data.Bytes[3] = UPDATX;
+				Data.Bytes[0] = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Data.Bytes[1] = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Data.Bytes[2] = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Data.Bytes[3] = *((uint8_t*)AVR32_USBB_EP_DATA);
 
 				return Data.DWord;
 			}
@@ -766,10 +769,10 @@
 					uint8_t  Bytes[4];
 				} Data;
 
-				Data.Bytes[3] = UPDATX;
-				Data.Bytes[2] = UPDATX;
-				Data.Bytes[1] = UPDATX;
-				Data.Bytes[0] = UPDATX;
+				Data.Bytes[3] = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Data.Bytes[2] = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Data.Bytes[1] = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Data.Bytes[0] = *((uint8_t*)AVR32_USBB_EP_DATA);
 
 				return Data.DWord;
 			}
@@ -784,10 +787,10 @@
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord)
 			{
-				UPDATX = (DWord &  0xFF);
-				UPDATX = (DWord >> 8);
-				UPDATX = (DWord >> 16);
-				UPDATX = (DWord >> 24);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord &  0xFF);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 8);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 16);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 24);
 			}
 
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
@@ -800,10 +803,10 @@
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord)
 			{
-				UPDATX = (DWord >> 24);
-				UPDATX = (DWord >> 16);
-				UPDATX = (DWord >> 8);
-				UPDATX = (DWord &  0xFF);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 24);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 16);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 8);
+				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord &  0xFF);
 			}
 
 			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.
@@ -815,10 +818,10 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = UPDATX;
-				Dummy = UPDATX;
-				Dummy = UPDATX;
-				Dummy = UPDATX;
+				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
 			}
 
 		/* External Variables: */
@@ -911,7 +914,7 @@
 			#if !defined(ENDPOINT_CONTROLEP)
 				#define ENDPOINT_CONTROLEP          0
 			#endif
-
+			
 		/* Inline Functions: */
 			static inline uint8_t Pipe_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_BytesToEPSizeMask(const uint16_t Bytes)
@@ -925,11 +928,14 @@
 					CheckBytes <<= 1;
 				}
 
-				return (MaskVal << EPSIZE0);
+				return (MaskVal << AVR32_USBB_PSIZE_OFFSET);
 			}
 
 		/* Function Prototypes: */
 			void Pipe_ClearPipes(void);
+
+		/* External Variables: */
+			extern uint8_t USB_SelectedPipe;
 	#endif
 
 	/* Disable C linkage for C++ Compilers: */

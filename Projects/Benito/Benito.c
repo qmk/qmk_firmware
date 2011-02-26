@@ -51,9 +51,6 @@ volatile struct
 	uint8_t PingPongLEDPulse; /**< Milliseconds remaining for enumeration Tx/Rx ping-pong LED pulse */
 } PulseMSRemaining;
 
-/** Previous state of the virtual DTR control line from the host */
-bool PreviousDTRState = false;
-
 /** Milliseconds remaining until the receive buffer is flushed to the USB host */
 uint8_t FlushPeriodRemaining = RECEIVE_BUFFER_FLUSH_MS;
 
@@ -286,7 +283,8 @@ ISR(USART1_RX_vect, ISR_BLOCK)
  */
 void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
-	bool CurrentDTRState = (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR);
+	static bool PreviousDTRState = false;
+	bool        CurrentDTRState  = (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR);
 
 	/* Check if the DTR line has been asserted - if so, start the target AVR's reset pulse */
 	if (!(PreviousDTRState) && CurrentDTRState)

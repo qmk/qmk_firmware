@@ -55,6 +55,7 @@
   *     added new versions of the *_SendString() routines that expect a null terminated string instead
   *   - Renamed all driver termination *_ShutDown() functions to the more logical name *_Disable()
   *   - Reduced latency for executing the Start-Of-Frame events (if enabled in the user application)
+  *   - Removed Pipe_ClearErrorFlags(), pipe error flags are now automatically cleared when Pipe_ClearError() is called
   *  - Library Applications:
   *   - Changed the XPLAINBridge software UART to use the regular timer CTC mode instead of the alternative CTC mode
   *     via the Input Capture register, to reduce user confusion

@@ -410,10 +410,11 @@
 				return ((UPCONX & (1 << PFREEZE)) ? true : false);
 			}
 
-			/** Clears the master pipe error flag. */
+			/** Clears the error flags for the currently selected pipe. */
 			static inline void Pipe_ClearError(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearError(void)
 			{
+				UPERRX = 0;
 				UPINTX &= ~(1 << PERRI);
 			}
 
@@ -428,15 +429,6 @@
 			static inline bool Pipe_IsError(void)
 			{
 				return ((UPINTX & (1 << PERRI)) ? true : false);
-			}
-
-			/** Clears all the currently selected pipe's hardware error flags, but does not clear the master error
-			 *  flag for the pipe.
-			 */
-			static inline void Pipe_ClearErrorFlags(void) ATTR_ALWAYS_INLINE;
-			static inline void Pipe_ClearErrorFlags(void)
-			{
-				UPERRX = 0;
 			}
 
 			/** Gets a mask of the hardware error flags which have occurred on the currently selected pipe. This
