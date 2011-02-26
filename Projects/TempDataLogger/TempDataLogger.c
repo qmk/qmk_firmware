@@ -151,10 +151,6 @@ int main(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	sei();
 
-	/* Discard the first sample from the temperature sensor, as it is generally incorrect */
-	volatile uint8_t Dummy = Temperature_GetTemperature();
-	(void)Dummy;
-
 	for (;;)
 	{
 		MS_Device_USBTask(&Disk_MS_Interface);
@@ -204,7 +200,7 @@ void SetupHardware(void)
 	Temperature_Init();
 	Dataflash_Init();
 	USB_Init();
-	TWI_Init();
+	TWI_Init(TWI_BIT_PRESCALE_4, (F_CPU / 4 / 50000) / 2);
 
 	/* 500ms logging interval timer configuration */
 	OCR1A   = (((F_CPU / 1024) / 2) - 1);

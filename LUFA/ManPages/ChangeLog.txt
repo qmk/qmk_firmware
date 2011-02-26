@@ -22,7 +22,8 @@
   *   - Added new MAX() and MIN() convenience macros
   *   - Added new Serial_SendData() function to the Serial driver
   *   - Added board driver support for the Sparkfun ATMEGA8U2 breakout board
-  *   - Started internal restructuring for eventual multiple architecture ports
+  *   - Added TWI baud rate prescaler and bit length parameters to the TWI_Init() function (thanks to Thomas Herlinghaus)
+  *   - Internal restructuring for eventual multiple architecture ports
   *   - Added start of an AVR32 UC3B architecture port (currently incomplete/experimental)
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS

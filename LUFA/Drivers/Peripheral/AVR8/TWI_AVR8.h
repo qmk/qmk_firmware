@@ -53,7 +53,7 @@
  *  <b>Low Level API Example:</b>
  *  \code
  *      // Initialise the TWI driver before first use
- *      TWI_Init();
+ *      TWI_Init(TWI_BIT_PRESCALE_1, 10);
  *
  *      // Start a write session to device at device address 0xA0, internal address 0xDC with a 10ms timeout
  *      if (TWI_StartTransmission(0xA0 | TWI_ADDRESS_WRITE, 10))
@@ -92,7 +92,7 @@
  *  <b>High Level API Example:</b>
  *  \code
  *      // Initialise the TWI driver before first use
- *      TWI_Init();
+ *      TWI_Init(TWI_BIT_PRESCALE_1, 10);
  *
  *      // Start a write session to device at device address 0xA0, internal address 0xDC with a 10ms timeout
  *      uint8_t InternalWriteAddress = 0xDC;
@@ -155,6 +155,18 @@
 			 */
 			#define TWI_DEVICE_ADDRESS_MASK  0xFE
 			
+			/** Bit length prescaler for \ref TWI_Init(). This mask multiplies the TWI bit length prescaler by 1. */
+			#define TWI_BIT_PRESCALE_1       ((0 << TWPS1) | (0 << TWPS0))
+			
+			/** Bit length prescaler for \ref TWI_Init(). This mask multiplies the TWI bit length prescaler by 4. */
+			#define TWI_BIT_PRESCALE_4       ((0 << TWPS1) | (1 << TWPS0))
+
+			/** Bit length prescaler for \ref TWI_Init(). This mask multiplies the TWI bit length prescaler by 16. */
+			#define TWI_BIT_PRESCALE_16      ((1 << TWPS1) | (0 << TWPS0))
+
+			/** Bit length prescaler for \ref TWI_Init(). This mask multiplies the TWI bit length prescaler by 64. */
+			#define TWI_BIT_PRESCALE_64      ((1 << TWPS1) | (1 << TWPS0))
+			
 		/* Enums: */
 			/** Enum for the possible return codes of the TWI transfer start routine and other dependant TWI functions. */
 			enum TWI_ErrorCodes_t
@@ -170,11 +182,21 @@
 		/* Inline Functions: */
 			/** Initialises the TWI hardware into master mode, ready for data transmission and reception. This must be
 			 *  before any other TWI operations.
+			 *
+			 *  The generated SCL frequency will be according to the formula <pre>F_CPU / (16 + 2 * BitLength + 4 ^ Prescale)</pre>.
+			 *
+			 *  \note The value of the \c BitLength parameter should not be set below 10 or invalid bus conditions may
+			 *        occur, as indicated in the AVR8 microcontroller datasheet.
+			 *
+			 *  \param[in] Prescale   Prescaler to use when determining the bus frequency, a \c TWI_BIT_PRESCALE_* value.
+			 *  \param[in] BitLength  Length of the bits sent on the bus.
 			 */
-			static inline void TWI_Init(void) ATTR_ALWAYS_INLINE;
-			static inline void TWI_Init(void)
+			static inline void TWI_Init(const uint8_t Prescale, const uint8_t BitLength) ATTR_ALWAYS_INLINE;
+			static inline void TWI_Init(const uint8_t Prescale, const uint8_t BitLength)
 			{
-				TWCR |=  (1 << TWEN);
+				TWCR |= (1 << TWEN);
+				TWSR  = Prescale;
+				TWBR  = BitLength;
 			}
 
 			/** Turns off the TWI driver hardware. If this is called, any further TWI operations will require a call to
