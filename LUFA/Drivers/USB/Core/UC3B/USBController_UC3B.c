@@ -160,7 +160,7 @@ static void USB_Init_Device(void)
 	else
 	  USB_Device_SetFullSpeed();
 
-	USB_INT_Enable(USB_INT_VBUS);
+	USB_INT_Enable(USB_INT_VBUSTI);
 
 	Endpoint_ConfigureEndpoint(ENDPOINT_CONTROLEP, EP_TYPE_CONTROL,
 							   ENDPOINT_DIR_OUT, USB_ControlEndpointSize,

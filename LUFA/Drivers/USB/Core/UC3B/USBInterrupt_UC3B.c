@@ -61,9 +61,9 @@ ISR(USB_GEN_vect)
 	}
 	#endif
 
-	if (USB_INT_HasOccurred(USB_INT_VBUS) && USB_INT_IsEnabled(USB_INT_VBUS))
+	if (USB_INT_HasOccurred(USB_INT_VBUSTI) && USB_INT_IsEnabled(USB_INT_VBUSTI))
 	{
-		USB_INT_Clear(USB_INT_VBUS);
+		USB_INT_Clear(USB_INT_VBUSTI);
 
 		if (USB_VBUS_GetStatus())
 		{

@@ -84,9 +84,9 @@ ISR(USB_GEN_vect, ISR_BLOCK)
 	#endif
 
 	#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-	if (USB_INT_HasOccurred(USB_INT_VBUS) && USB_INT_IsEnabled(USB_INT_VBUS))
+	if (USB_INT_HasOccurred(USB_INT_VBUSTI) && USB_INT_IsEnabled(USB_INT_VBUSTI))
 	{
-		USB_INT_Clear(USB_INT_VBUS);
+		USB_INT_Clear(USB_INT_VBUSTI);
 
 		if (USB_VBUS_GetStatus())
 		{
