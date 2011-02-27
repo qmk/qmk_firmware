@@ -92,6 +92,8 @@ void USB_Disable(void)
 	USB_CurrentMode = USB_MODE_None;
 	#endif
 
+	AVR32_PM.GCCTRL[3].cen = false;
+
 	USB_IsInitialized = false;
 }
 
@@ -105,6 +107,12 @@ void USB_ResetInterface(void)
 	USB_INT_ClearAllInterrupts();
 
 	USB_Controller_Reset();
+	
+	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].pllsel = !(USB_Options & USB_OPT_GCLK_SRC_OSC);
+	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].oscsel = !(USB_Options & USB_OPT_GCLK_CHANNEL_0);
+	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].diven  = (F_CLOCK != 48000000UL);
+	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].div    = ((F_CLOCK / 2) / 48000000UL);
+	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].cen    = true;
 
 	#if defined(USB_CAN_BE_BOTH)
 	if (UIDModeSelectEnabled)
