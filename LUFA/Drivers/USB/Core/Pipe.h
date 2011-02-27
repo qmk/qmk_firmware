@@ -85,15 +85,38 @@
 	/* Includes: */
 		#include "../../../Common/Common.h"
 
+	/* Preprocessor Checks: */
+		#if !defined(__INCLUDE_FROM_USB_DRIVER)
+			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
+		#endif
+
+	/* Public Interface - May be used in end-application: */
+		/* Macros: */
+			/** Pipe address for the default control pipe, which always resides in address 0. This is
+			 *  defined for convenience to give more readable code when used with the pipe macros.
+			 */
+			#define PIPE_CONTROLPIPE                0
+
+			/** Pipe number mask, for masking against pipe addresses to retrieve the pipe's numerical address
+			 *  in the device.
+			 */
+			#define PIPE_PIPENUM_MASK               0x07
+
+			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
+			 *  numerical address in the attached device.
+			 */
+			#define PIPE_EPNUM_MASK                 0x0F
+
+			/** Endpoint direction mask, for masking against endpoint addresses to retrieve the endpoint's
+			 *  direction for comparing with the \c ENDPOINT_DESCRIPTOR_DIR_* masks.
+			 */
+			#define PIPE_EPDIR_MASK                 0x80
+
+	/* Architecture Includes: */
 		#if (ARCH == ARCH_AVR8)
 			#include "AVR8/Pipe_AVR8.h"
 		#elif (ARCH == ARCH_UC3B)
 			#include "UC3B/Pipe_UC3B.h"
-		#endif
-
-	/* Preprocessor Checks: */
-		#if !defined(__INCLUDE_FROM_USB_DRIVER)
-			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 
 #endif

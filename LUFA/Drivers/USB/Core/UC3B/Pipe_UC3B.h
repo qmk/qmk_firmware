@@ -162,21 +162,11 @@
 			 */
 			#define PIPE_BANK_TRIPLE                AVR32_USBB_UPCFG0_PBK_TRIPLE
 			//@}
-			
-			/** Pipe address for the default control pipe, which always resides in address 0. This is
-			 *  defined for convenience to give more readable code when used with the pipe macros.
-			 */
-			#define PIPE_CONTROLPIPE                0
 
 			/** Default size of the default control pipe's bank, until altered by the Endpoint0Size value
 			 *  in the device descriptor of the attached device.
 			 */
 			#define PIPE_CONTROLPIPE_DEFAULT_SIZE   64
-
-			/** Pipe number mask, for masking against pipe addresses to retrieve the pipe's numerical address
-			 *  in the device.
-			 */
-			#define PIPE_PIPENUM_MASK               0x07
 
 			/** Total number of pipes (including the default control pipe at address 0) which may be used in
 			 *  the device. Different USB AVR models support different amounts of pipes, this value reflects
@@ -190,16 +180,6 @@
 			 *  currently selected USB AVR model.
 			 */
 			#define PIPE_MAX_SIZE                   256
-
-			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
-			 *  numerical address in the attached device.
-			 */
-			#define PIPE_EPNUM_MASK                 0x0F
-
-			/** Endpoint direction mask, for masking against endpoint addresses to retrieve the endpoint's
-			 *  direction for comparing with the \c ENDPOINT_DESCRIPTOR_DIR_* masks.
-			 */
-			#define PIPE_EPDIR_MASK                 0x80
 
 		/* Enums: */
 			/** Enum for the possible error return codes of the \ref Pipe_WaitUntilReady() function.

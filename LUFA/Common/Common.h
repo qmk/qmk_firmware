@@ -92,6 +92,7 @@
 
 			typedef uint32_t uint_reg_t;
 			
+			// TODO
 			#define EEMEM
 			#define PROGMEM                  const
 			#define ISR(Name)                void Name (void)

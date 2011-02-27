@@ -43,16 +43,17 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
-
-		#if (ARCH == ARCH_AVR8)
-			#include "AVR8/USBInterrupt_AVR8.h"
-		#elif (ARCH == ARCH_UC3B)
-			#include "UC3B/USBInterrupt_UC3B.h"
-		#endif
 		
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
+		#endif
+
+	/* Architecture Includes: */
+		#if (ARCH == ARCH_AVR8)
+			#include "AVR8/USBInterrupt_AVR8.h"
+		#elif (ARCH == ARCH_UC3B)
+			#include "UC3B/USBInterrupt_UC3B.h"
 		#endif
 
 #endif

@@ -126,35 +126,6 @@
 			 */
 			void USB_Device_SendRemoteWakeup(void);
 
-		/* Type Defines: */
-			enum USB_Device_States_t
-			{
-				DEVICE_STATE_Unattached                   = 0, /**< Internally implemented by the library. This state indicates
-				                                                *   that the device is not currently connected to a host.
-				                                                */
-				DEVICE_STATE_Powered                      = 1, /**< Internally implemented by the library. This state indicates
-				                                                *   that the device is connected to a host, but enumeration has not
-				                                                *   yet begun.
-				                                                */
-				DEVICE_STATE_Default                      = 2, /**< Internally implemented by the library. This state indicates
-				                                                *   that the device's USB bus has been reset by the host and it is
-				                                                *   now waiting for the host to begin the enumeration process.
-				                                                */
-				DEVICE_STATE_Addressed                    = 3, /**< Internally implemented by the library. This state indicates
-				                                                *   that the device has been addressed by the USB Host, but is not
-				                                                *   yet configured.
-				                                                */
-				DEVICE_STATE_Configured                   = 4, /**< May be implemented by the user project. This state indicates
-				                                                *   that the device has been enumerated by the host and is ready
-				                                                *   for USB communications to begin.
-				                                                */
-				DEVICE_STATE_Suspended                    = 5, /**< May be implemented by the user project. This state indicates
-				                                                *   that the USB bus has been suspended by the host, and the device
-				                                                *   should power down to a minimal power level until the bus is
-				                                                *   resumed.
-				                                                */
-			};
-
 		/* Inline Functions: */
 			/** Returns the current USB frame number, when in device mode. Every millisecond the USB bus is active (i.e. enumerated to a host)
 			 *  the frame number is incremented by one.

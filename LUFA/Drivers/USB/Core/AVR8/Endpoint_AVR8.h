@@ -174,11 +174,6 @@
 			 */
 			#define ENDPOINT_BANK_DOUBLE                    (1 << EPBK0)
 			//@}
-			
-			/** Endpoint address for the default control endpoint, which always resides in address 0. This is
-			 *  defined for convenience to give more readable code when used with the endpoint macros.
-			 */
-			#define ENDPOINT_CONTROLEP                      0
 
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
 				/** Default size of the default control endpoint's bank, until altered by the control endpoint bank size
@@ -186,16 +181,6 @@
 				 */
 				#define ENDPOINT_CONTROLEP_DEFAULT_SIZE     8
 			#endif
-
-			/** Endpoint number mask, for masking against endpoint addresses to retrieve the endpoint's
-			 *  numerical address in the device.
-			 */
-			#define ENDPOINT_EPNUM_MASK                     0x07
-
-			/** Endpoint direction mask, for masking against endpoint addresses to retrieve the endpoint's
-			 *  direction for comparing with the \c ENDPOINT_DESCRIPTOR_DIR_* masks.
-			 */
-			#define ENDPOINT_EPDIR_MASK                     0x80
 
 			/** Retrives the maximum bank size in bytes of a given endpoint.
 			 *

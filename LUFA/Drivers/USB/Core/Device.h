@@ -54,12 +54,6 @@
 		#include "StdDescriptors.h"
 		#include "USBInterrupt.h"
 		#include "Endpoint.h"
-		
-		#if (ARCH == ARCH_AVR8)
-			#include "AVR8/Device_AVR8.h"
-		#elif (ARCH == ARCH_UC3B)
-			#include "UC3B/Device_UC3B.h"
-		#endif
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
@@ -67,6 +61,35 @@
 		#endif
 
 	/* Public Interface - May be used in end-application: */
+		/* Enums: */
+			enum USB_Device_States_t
+			{
+				DEVICE_STATE_Unattached                   = 0, /**< Internally implemented by the library. This state indicates
+				                                                *   that the device is not currently connected to a host.
+				                                                */
+				DEVICE_STATE_Powered                      = 1, /**< Internally implemented by the library. This state indicates
+				                                                *   that the device is connected to a host, but enumeration has not
+				                                                *   yet begun.
+				                                                */
+				DEVICE_STATE_Default                      = 2, /**< Internally implemented by the library. This state indicates
+				                                                *   that the device's USB bus has been reset by the host and it is
+				                                                *   now waiting for the host to begin the enumeration process.
+				                                                */
+				DEVICE_STATE_Addressed                    = 3, /**< Internally implemented by the library. This state indicates
+				                                                *   that the device has been addressed by the USB Host, but is not
+				                                                *   yet configured.
+				                                                */
+				DEVICE_STATE_Configured                   = 4, /**< May be implemented by the user project. This state indicates
+				                                                *   that the device has been enumerated by the host and is ready
+				                                                *   for USB communications to begin.
+				                                                */
+				DEVICE_STATE_Suspended                    = 5, /**< May be implemented by the user project. This state indicates
+				                                                *   that the USB bus has been suspended by the host, and the device
+				                                                *   should power down to a minimal power level until the bus is
+				                                                *   resumed.
+				                                                */
+			};
+
 		/* Function Prototypes: */
 			/** Function to retrieve a given descriptor's size and memory location from the given descriptor type value,
 			 *  index and language ID. This function MUST be overridden in the user application (added with full, identical
@@ -100,6 +123,13 @@
 			                                    , uint8_t* MemoryAddressSpace
 			#endif
 			                                    ) ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
+
+	/* Architecture Includes: */
+		#if (ARCH == ARCH_AVR8)
+			#include "AVR8/Device_AVR8.h"
+		#elif (ARCH == ARCH_UC3B)
+			#include "UC3B/Device_UC3B.h"
+		#endif
 
 #endif
 
