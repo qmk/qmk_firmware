@@ -98,25 +98,15 @@
 			#define _ENDPOINT_GET_BANKS2(EPDetails)        _ENDPOINT_GET_BANKS3(EPDetails)
 			#define _ENDPOINT_GET_BANKS3(MaxSize, Banks)   (Banks)
 
-			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
-				#define ENDPOINT_DETAILS_MAXEP             7
+			#define ENDPOINT_DETAILS_MAXEP                 7
 
-				#define ENDPOINT_DETAILS_EP0               64,  2
-				#define ENDPOINT_DETAILS_EP1               256, 2
-				#define ENDPOINT_DETAILS_EP2               64,  2
-				#define ENDPOINT_DETAILS_EP3               64,  2
-				#define ENDPOINT_DETAILS_EP4               64,  2
-				#define ENDPOINT_DETAILS_EP5               64,  2
-				#define ENDPOINT_DETAILS_EP6               64,  2
-			#else
-				#define ENDPOINT_DETAILS_MAXEP             5
-
-				#define ENDPOINT_DETAILS_EP0               64,  2
-				#define ENDPOINT_DETAILS_EP1               64,  1
-				#define ENDPOINT_DETAILS_EP2               64,  1
-				#define ENDPOINT_DETAILS_EP3               64,  2
-				#define ENDPOINT_DETAILS_EP4               64,  2
-			#endif
+			#define ENDPOINT_DETAILS_EP0                   64,  1
+			#define ENDPOINT_DETAILS_EP1                   64,  2
+			#define ENDPOINT_DETAILS_EP2                   64,  2
+			#define ENDPOINT_DETAILS_EP3                   64,  2
+			#define ENDPOINT_DETAILS_EP4                   64,  2
+			#define ENDPOINT_DETAILS_EP5                   256, 2
+			#define ENDPOINT_DETAILS_EP6                   256, 2
 
 		/* Inline Functions: */
 			static inline uint32_t Endpoint_BytesToEPSizeMask(const uint16_t Bytes) ATTR_WARN_UNUSED_RESULT ATTR_CONST
@@ -174,13 +164,6 @@
 			 *  accesses the second bank.
 			 */
 			#define ENDPOINT_BANK_DOUBLE                    AVR32_USBB_UECFG0_EPBK_DOUBLE
-
-			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
-			 *  that the endpoint should have three banks, which requires more USB FIFO memory but results
-			 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
-			 *  accesses the remaining banks.
-			 */
-			#define ENDPOINT_BANK_TRIPLE                    AVR32_USBB_UECFG0_EPBK_TRIPLE
 			//@}
 
 			#if (!defined(FIXED_CONTROL_ENDPOINT_SIZE) || defined(__DOXYGEN__))
@@ -210,7 +193,7 @@
 
 			#if !defined(CONTROL_ONLY_DEVICE) || defined(__DOXYGEN__)
 				/** Total number of endpoints (including the default control endpoint at address 0) which may
-				 *  be used in the device. Different USB AVR models support different amounts of endpoints,
+				 *  be used in the device. Different AVR models support different amounts of endpoints,
 				 *  this value reflects the maximum number of endpoints for the currently selected AVR model.
 				 */
 				#define ENDPOINT_TOTAL_ENDPOINTS            ENDPOINT_DETAILS_MAXEP
@@ -270,8 +253,8 @@
 			 *        ascending order, or bank corruption will occur.
 			 *        \n\n
 			 *
-			 *  \note Certain models of USB AVR's endpoints may have different maximum packet sizes based on the endpoint's
-			 *        index - refer to the chosen USB AVR's datasheet to determine the maximum bank size for each endpoint.
+			 *  \note Different endpoints may have different maximum packet sizes based on the endpoint's index - refer to
+			 *        the chosen microcontroller model's datasheet to determine the maximum bank size for each endpoint.
 			 *        \n\n
 			 *
 			 *  \note The default control endpoint should not be manually configured by the user application, as

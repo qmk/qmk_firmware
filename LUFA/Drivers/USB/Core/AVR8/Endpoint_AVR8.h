@@ -101,7 +101,7 @@
 			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 				#define ENDPOINT_DETAILS_MAXEP             7
 
-				#define ENDPOINT_DETAILS_EP0               64,  2
+				#define ENDPOINT_DETAILS_EP0               64,  1
 				#define ENDPOINT_DETAILS_EP1               256, 2
 				#define ENDPOINT_DETAILS_EP2               64,  2
 				#define ENDPOINT_DETAILS_EP3               64,  2
@@ -111,7 +111,7 @@
 			#else
 				#define ENDPOINT_DETAILS_MAXEP             5
 
-				#define ENDPOINT_DETAILS_EP0               64,  2
+				#define ENDPOINT_DETAILS_EP0               64,  1
 				#define ENDPOINT_DETAILS_EP1               64,  1
 				#define ENDPOINT_DETAILS_EP2               64,  1
 				#define ENDPOINT_DETAILS_EP3               64,  2
@@ -262,8 +262,8 @@
 			 *        ascending order, or bank corruption will occur.
 			 *        \n\n
 			 *
-			 *  \note Certain models of USB AVR's endpoints may have different maximum packet sizes based on the endpoint's
-			 *        index - refer to the chosen USB AVR's datasheet to determine the maximum bank size for each endpoint.
+			 *  \note Different endpoints may have different maximum packet sizes based on the endpoint's index - refer to
+			 *        the chosen microcontroller model's datasheet to determine the maximum bank size for each endpoint.
 			 *        \n\n
 			 *
 			 *  \note The default control endpoint should not be manually configured by the user application, as

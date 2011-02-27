@@ -63,18 +63,13 @@
 		/* Macros: */
 			/** \name USB Device Mode Option Masks */
 			//@{
-			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__)
-				/** Mask for the Options parameter of the \ref USB_Init() function. This indicates that the
-				 *  USB interface should be initialized in low speed (1.5Mb/s) mode.
-				 *
-				 *  \note Low Speed mode is not available on all USB AVR models.
-				 *        \n
-				 *
-				 *  \note Restrictions apply on the number, size and type of endpoints which can be used
-				 *        when running in low speed mode - refer to the USB 2.0 specification.
-				 */
-				#define USB_DEVICE_OPT_LOWSPEED            (1 << 0)
-			#endif
+			/** Mask for the Options parameter of the \ref USB_Init() function. This indicates that the
+			 *  USB interface should be initialized in low speed (1.5Mb/s) mode.
+			 *
+			 *  \note Restrictions apply on the number, size and type of endpoints which can be used
+			 *        when running in low speed mode - refer to the USB 2.0 specification.
+			 */
+			#define USB_DEVICE_OPT_LOWSPEED                (1 << 0)
 
 			/** Mask for the Options parameter of the \ref USB_Init() function. This indicates that the
 			 *  USB interface should be initialized in full speed (12Mb/s) mode.
@@ -84,7 +79,7 @@
 			
 			/** String descriptor index for the device's unique serial number string descriptor within the device.
 			 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
-			 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some USB AVRs contain
+			 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some microcontrollers contain
 			 *  a unique serial number internally, and setting the device descriptors serial number string index to this value
 			 *  will cause it to use the internal serial number.
 			 *
@@ -152,7 +147,6 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Inline Functions: */
-			#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 			static inline void USB_Device_SetLowSpeed(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Device_SetLowSpeed(void)
 			{
@@ -164,7 +158,6 @@
 			{
 				AVR32_USBB.UDCON.ls = false;
 			}
-			#endif
 
 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;
 			static inline void USB_Device_SetDeviceAddress(const uint8_t Address)

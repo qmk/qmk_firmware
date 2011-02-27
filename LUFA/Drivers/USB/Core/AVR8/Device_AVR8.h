@@ -92,7 +92,7 @@
 			      defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__)  || defined(__AVR_ATmega8U2__)))
 				/** String descriptor index for the device's unique serial number string descriptor within the device.
 				 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
-				 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some USB AVRs contain
+				 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some microcontrollers contain
 				 *  a unique serial number internally, and setting the device descriptors serial number string index to this value
 				 *  will cause it to use the internal serial number.
 				 *

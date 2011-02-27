@@ -123,8 +123,6 @@
 		/* Inline Functions: */
 			/** Determines if the VBUS line is currently high (i.e. the USB host is supplying power).
 			 *
-			 *  \note This function is not available on some AVR models which do not support hardware VBUS monitoring.
-			 *
 			 *  \return Boolean \c true if the VBUS line is currently detecting power from a host, \c false otherwise.
 			 */
 			static inline bool USB_VBUS_GetStatus(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
@@ -193,10 +191,6 @@
 			 *        this function). To statically set the USB options, pass in the \c USE_STATIC_OPTIONS token,
 			 *        defined to the appropriate options masks. When the options are statically set, this
 			 *        parameter does not exist in the function prototype.
-			 *        \n\n
-			 *
-			 *  \note The mode parameter does not exist on devices where only one mode is possible, such as USB
-			 *        AVR models which only implement the USB device mode in hardware.
 			 *
 			 *  \see \ref Group_Device for the \c USB_DEVICE_OPT_* masks.
 			 */

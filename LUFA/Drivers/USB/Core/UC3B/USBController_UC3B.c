@@ -152,25 +152,15 @@ static void USB_Init_Device(void)
 	USB_Descriptor_Device_t* DeviceDescriptorPtr;
 
 	if (CALLBACK_USB_GetDescriptor((DTYPE_Device << 8), 0, (void*)&DeviceDescriptorPtr) != NO_DESCRIPTOR)
-	{
-		#if defined(USE_RAM_DESCRIPTORS)
-		USB_ControlEndpointSize = DeviceDescriptorPtr->Endpoint0Size;
-		#elif defined(USE_EEPROM_DESCRIPTORS)
-		USB_ControlEndpointSize = eeprom_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
-		#else
-		USB_ControlEndpointSize = pgm_read_byte(&DeviceDescriptorPtr->Endpoint0Size);
-		#endif
-	}
+	  USB_ControlEndpointSize = DeviceDescriptorPtr->Endpoint0Size;
 	#endif
 
-	#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 	if (USB_Options & USB_DEVICE_OPT_LOWSPEED)
 	  USB_Device_SetLowSpeed();
 	else
 	  USB_Device_SetFullSpeed();
 
 	USB_INT_Enable(USB_INT_VBUS);
-	#endif
 
 	Endpoint_ConfigureEndpoint(ENDPOINT_CONTROLEP, EP_TYPE_CONTROL,
 							   ENDPOINT_DIR_OUT, USB_ControlEndpointSize,
@@ -192,9 +182,7 @@ static void USB_Init_Host(void)
 
 	USB_Host_HostMode_On();
 
-	USB_Host_VBUS_Auto_Off();
-	USB_Host_VBUS_Manual_Enable();
-	USB_Host_VBUS_Manual_On();
+	USB_Host_VBUS_Auto_On();
 
 	USB_INT_Enable(USB_INT_SRPI);
 	USB_INT_Enable(USB_INT_BCERRI);

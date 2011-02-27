@@ -355,8 +355,6 @@
 			static inline void USB_Host_VBUS_Manual_Enable(void)
 			{
 				AVR32_USBB.USBCON.vbushwc = true;
-				
-				// TODO: Manual VBUS pin output setup
 			}
 
 			static inline void USB_Host_VBUS_Auto_On(void) ATTR_ALWAYS_INLINE;
@@ -368,7 +366,7 @@
 			static inline void USB_Host_VBUS_Manual_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Manual_On(void)
 			{
-				// TODO: Manual VBUS pin output on
+				AVR32_USBB.USBSTASET.vbusrqs = true;
 			}
 
 			static inline void USB_Host_VBUS_Auto_Off(void) ATTR_ALWAYS_INLINE;
@@ -380,7 +378,7 @@
 			static inline void USB_Host_VBUS_Manual_Off(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_Host_VBUS_Manual_Off(void)
 			{
-				// TODO: Manual VBUS pin output off
+				AVR32_USBB.USBSTACLR.vbusrqc = true;
 			}
 
 			static inline void USB_Host_SetDeviceAddress(const uint8_t Address) ATTR_ALWAYS_INLINE;

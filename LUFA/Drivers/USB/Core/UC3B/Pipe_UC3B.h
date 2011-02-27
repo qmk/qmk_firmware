@@ -172,15 +172,14 @@
 			#define PIPE_CONTROLPIPE_DEFAULT_SIZE   64
 
 			/** Total number of pipes (including the default control pipe at address 0) which may be used in
-			 *  the device. Different USB AVR models support different amounts of pipes, this value reflects
-			 *  the maximum number of pipes for the currently selected AVR model.
+			 *  the device.
 			 */
 			#define PIPE_TOTAL_PIPES                7
 
 			/** Size in bytes of the largest pipe bank size possible in the device. Not all banks on each AVR
 			 *  model supports the largest bank size possible on the device; different pipe numbers support
 			 *  different maximum bank sizes. This value reflects the largest possible bank of any pipe on the
-			 *  currently selected USB AVR model.
+			 *  currently selected UC3B AVR model.
 			 */
 			#define PIPE_MAX_SIZE                   256
 
@@ -857,8 +856,8 @@
 			 *        or bank corruption will occur.
 			 *        \n\n
 			 *
-			 *  \note Certain models of USB AVR's pipes may have different maximum packet sizes based on the pipe's
-			 *        index - refer to the chosen USB AVR's datasheet to determine the maximum bank size for each pipe.
+			 *  \note Certain microcontroller model's pipes may have different maximum packet sizes based on the pipe's
+			 *        index - refer to the chosen microcontroller's datasheet to determine the maximum bank size for each pipe.
 			 *        \n\n
 			 *
 			 *  \note The default control pipe should not be manually configured by the user application, as it is

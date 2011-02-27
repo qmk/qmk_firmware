@@ -838,8 +838,8 @@
 			 *        or bank corruption will occur.
 			 *        \n\n
 			 *
-			 *  \note Certain models of USB AVR's pipes may have different maximum packet sizes based on the pipe's
-			 *        index - refer to the chosen USB AVR's datasheet to determine the maximum bank size for each pipe.
+			 *  \note Certain microcontroller model's pipes may have different maximum packet sizes based on the pipe's
+			 *        index - refer to the chosen microcontroller's datasheet to determine the maximum bank size for each pipe.
 			 *        \n\n
 			 *
 			 *  \note The default control pipe should not be manually configured by the user application, as it is
