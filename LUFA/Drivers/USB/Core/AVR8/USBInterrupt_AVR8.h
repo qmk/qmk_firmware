@@ -59,20 +59,28 @@
 		/* Enums: */
 			enum USB_Interrupts_t
 			{
+				#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR) || defined(__DOXYGEN__))
 				USB_INT_VBUSTI  = 0,
+				#endif
+				#if (defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__))
 				USB_INT_IDTI    = 1,
+				#endif
+				#if (defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__))
 				USB_INT_WAKEUPI = 2,
 				USB_INT_SUSPI   = 3,
 				USB_INT_EORSTI  = 4,
 				USB_INT_SOFI    = 5,
-				USB_INT_HSOFI   = 6,
-				USB_INT_DCONNI  = 7,
-				USB_INT_DDISCI  = 8,
-				USB_INT_RSTI    = 9,
-				USB_INT_BCERRI  = 10,
-				USB_INT_VBERRI  = 11,
-				USB_INT_SRPI    = 12,
-				USB_INT_RXSTPI  = 13,
+				USB_INT_RXSTPI  = 6,
+				#endif
+				#if (defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__))
+				USB_INT_HSOFI   = 7,
+				USB_INT_DCONNI  = 8,
+				USB_INT_DDISCI  = 9,
+				USB_INT_RSTI    = 10,
+				USB_INT_BCERRI  = 11,
+				USB_INT_VBERRI  = 12,
+				USB_INT_SRPI    = 13,
+				#endif
 			};
 
 		/* Inline Functions: */
@@ -81,12 +89,17 @@
 			{
 				switch (Interrupt)
 				{
+					#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 					case USB_INT_VBUSTI:
 						USBCON |= (1 << VBUSTE);
 						break;
+					#endif
+					#if defined(USB_CAN_BE_BOTH)
 					case USB_INT_IDTI:
 						USBCON |= (1 << IDTE);
 						break;
+					#endif
+					#if defined(USB_CAN_BE_DEVICE)
 					case USB_INT_WAKEUPI:
 						UDIEN  |= (1 << WAKEUPE);
 						break;
@@ -99,6 +112,11 @@
 					case USB_INT_SOFI:
 						UDIEN  |= (1 << SOFE);
 						break;
+					case USB_INT_RXSTPI:
+						UEIENX |= (1 << RXSTPE);
+						break;
+					#endif
+					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
 						UHIEN  |= (1 << HSOFE);
 						break;
@@ -120,9 +138,7 @@
 					case USB_INT_SRPI:
 						OTGIEN |= (1 << SRPE);						
 						break;
-					case USB_INT_RXSTPI:
-						UEIENX |= (1 << RXSTPE);
-						break;
+					#endif
 				}
 			}
 
@@ -131,12 +147,17 @@
 			{
 				switch (Interrupt)
 				{
+					#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 					case USB_INT_VBUSTI:
 						USBCON &= ~(1 << VBUSTE);
 						break;
+					#endif
+					#if defined(USB_CAN_BE_BOTH)
 					case USB_INT_IDTI:
 						USBCON &= ~(1 << IDTE);
 						break;
+					#endif
+					#if defined(USB_CAN_BE_DEVICE)
 					case USB_INT_WAKEUPI:
 						UDIEN  &= ~(1 << WAKEUPE);
 						break;
@@ -149,6 +170,11 @@
 					case USB_INT_SOFI:
 						UDIEN  &= ~(1 << SOFE);
 						break;
+					case USB_INT_RXSTPI:
+						UEIENX &= ~(1 << RXSTPE);
+						break;
+					#endif
+					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
 						UHIEN  &= ~(1 << HSOFE);
 						break;
@@ -170,9 +196,7 @@
 					case USB_INT_SRPI:
 						OTGIEN &= ~(1 << SRPE);						
 						break;
-					case USB_INT_RXSTPI:
-						UEIENX &= ~(1 << RXSTPE);
-						break;
+					#endif
 				}
 			}
 			
@@ -181,12 +205,17 @@
 			{
 				switch (Interrupt)
 				{
+					#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 					case USB_INT_VBUSTI:
 						USBINT &= ~(1 << VBUSTI);
 						break;
+					#endif
+					#if defined(USB_CAN_BE_BOTH)
 					case USB_INT_IDTI:
 						USBINT &= ~(1 << IDTI);
 						break;
+					#endif
+					#if defined(USB_CAN_BE_DEVICE)
 					case USB_INT_WAKEUPI:
 						UDINT  &= ~(1 << WAKEUPI);
 						break;
@@ -199,6 +228,11 @@
 					case USB_INT_SOFI:
 						UDINT  &= ~(1 << SOFI);
 						break;
+					case USB_INT_RXSTPI:
+						UEINTX &= ~(1 << RXSTPI);
+						break;
+					#endif
+					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
 						UHINT  &= ~(1 << HSOFI);
 						break;
@@ -220,9 +254,7 @@
 					case USB_INT_SRPI:
 						OTGINT &= ~(1 << SRPI);
 						break;
-					case USB_INT_RXSTPI:
-						UEINTX &= ~(1 << RXSTPI);
-						break;
+					#endif
 				}
 			}
 			
@@ -231,10 +263,15 @@
 			{
 				switch (Interrupt)
 				{
+					#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 					case USB_INT_VBUSTI:
 						return (USBCON & (1 << VBUSTE));
+					#endif
+					#if defined(USB_CAN_BE_BOTH)
 					case USB_INT_IDTI:
 						return (USBCON & (1 << IDTE));
+					#endif
+					#if defined(USB_CAN_BE_DEVICE)
 					case USB_INT_WAKEUPI:
 						return (UDIEN  & (1 << WAKEUPE));
 					case USB_INT_SUSPI:
@@ -243,6 +280,10 @@
 						return (UDIEN  & (1 << EORSTE));
 					case USB_INT_SOFI:
 						return (UDIEN  & (1 << SOFE));
+					case USB_INT_RXSTPI:
+						return (UEIENX & (1 << RXSTPE));
+					#endif
+					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
 						return (UHIEN  & (1 << HSOFE));
 					case USB_INT_DCONNI:
@@ -257,9 +298,7 @@
 						return (OTGIEN & (1 << VBERRE));
 					case USB_INT_SRPI:
 						return (OTGIEN & (1 << SRPE));
-					case USB_INT_RXSTPI:
-						return (UEIENX & (1 << RXSTPE));
-						break;
+					#endif
 				}
 				
 				return false;
@@ -270,10 +309,15 @@
 			{
 				switch (Interrupt)
 				{
+					#if (defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR))
 					case USB_INT_VBUSTI:
 						return (USBINT & (1 << VBUSTI));
+					#endif
+					#if defined(USB_CAN_BE_BOTH)
 					case USB_INT_IDTI:
 						return (USBINT & (1 << IDTI));
+					#endif
+					#if defined(USB_CAN_BE_DEVICE)
 					case USB_INT_WAKEUPI:
 						return (UDINT  & (1 << WAKEUPI));
 					case USB_INT_SUSPI:
@@ -282,6 +326,10 @@
 						return (UDINT  & (1 << EORSTI));
 					case USB_INT_SOFI:
 						return (UDINT  & (1 << SOFI));
+					case USB_INT_RXSTPI:
+						return (UEINTX & (1 << RXSTPI));
+					#endif
+					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
 						return (UHINT  & (1 << HSOFI));
 					case USB_INT_DCONNI:
@@ -296,8 +344,7 @@
 						return (OTGINT & (1 << VBERRI));
 					case USB_INT_SRPI:
 						return (OTGINT & (1 << SRPI));
-					case USB_INT_RXSTPI:
-						return (UEINTX & (1 << RXSTPI));
+					#endif
 				}
 
 				return false;

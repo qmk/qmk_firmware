@@ -50,6 +50,7 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
+		#include "USBMode.h"		
 
 	/* Preprocessor Checks and Defines: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)

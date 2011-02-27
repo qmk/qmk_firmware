@@ -60,19 +60,24 @@
 			enum USB_Interrupts_t
 			{
 				USB_INT_VBUSTI  = 0,
+				#if (defined(USB_CAN_BE_BOTH) || defined(__DOXYGEN__))
 				USB_INT_IDTI    = 1,
+				#endif
+				#if (defined(USB_CAN_BE_DEVICE) || defined(__DOXYGEN__))
 				USB_INT_WAKEUPI = 2,
 				USB_INT_SUSPI   = 3,
 				USB_INT_EORSTI  = 4,
 				USB_INT_SOFI    = 5,
-				USB_INT_HSOFI   = 6,
-				USB_INT_DCONNI  = 7,
-				USB_INT_DDISCI  = 8,
-				USB_INT_RSTI    = 9,
-				USB_INT_BCERRI  = 10,
-				USB_INT_VBERRI  = 11,
-				USB_INT_SRPI    = 12,
-				USB_INT_RXSTPI  = 13,
+				USB_INT_RXSTPI  = 6,
+				#endif
+				#if (defined(USB_CAN_BE_HOST) || defined(__DOXYGEN__))			
+				USB_INT_HSOFI   = 7,
+				USB_INT_DCONNI  = 8,
+				USB_INT_DDISCI  = 9,
+				USB_INT_RSTI    = 10,
+				USB_INT_BCERRI  = 11,
+				USB_INT_VBERRI  = 12,
+				#endif
 			};
 			
 		/* Inline Functions: */
@@ -84,9 +89,12 @@
 					case USB_INT_VBUSTI:
 						AVR32_USBB.USBCON.vbuste      = true;
 						break;
+					#if defined(USB_CAN_BE_BOTH)
 					case USB_INT_IDTI:
 						AVR32_USBB.USBCON.idte        = true;
 						break;
+					#endif
+					#if defined(USB_CAN_BE_DEVICE)
 					case USB_INT_WAKEUPI:
 						AVR32_USBB.UDINTESET.wakeupes = true;
 						break;
@@ -99,6 +107,11 @@
 					case USB_INT_SOFI:
 						AVR32_USBB.UDINTESET.sofes    = true;
 						break;
+					case USB_INT_RXSTPI:
+						// TODO
+						return;
+					#endif
+					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
 						AVR32_USBB.UHINTESET.hsofies  = true;
 						break;
@@ -117,10 +130,7 @@
 					case USB_INT_VBERRI:
 						AVR32_USBB.USBCON.vberre      = true;
 						break;
-					case USB_INT_SRPI:
-					case USB_INT_RXSTPI:
-						// TODO
-						return;
+					#endif
 				}
 			}
 
@@ -132,9 +142,12 @@
 					case USB_INT_VBUSTI:
 						AVR32_USBB.USBCON.vbuste      = false;
 						break;
+					#if defined(USB_CAN_BE_BOTH)
 					case USB_INT_IDTI:
 						AVR32_USBB.USBCON.idte        = false;
 						break;
+					#endif
+					#if defined(USB_CAN_BE_DEVICE)
 					case USB_INT_WAKEUPI:
 						AVR32_USBB.UDINTECLR.wakeupec = true;
 						break;
@@ -147,6 +160,11 @@
 					case USB_INT_SOFI:
 						AVR32_USBB.UDINTECLR.sofec    = true;
 						break;
+					case USB_INT_RXSTPI:
+						// TODO
+						return;
+					#endif
+					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
 						AVR32_USBB.UHINTECLR.hsofiec  = true;
 						break;
@@ -165,10 +183,7 @@
 					case USB_INT_VBERRI:
 						AVR32_USBB.USBCON.vberre      = false;
 						break;
-					case USB_INT_SRPI:
-					case USB_INT_RXSTPI:
-						// TODO
-						return;
+					#endif
 				}
 			}
 			
@@ -180,9 +195,12 @@
 					case USB_INT_VBUSTI:
 						AVR32_USBB.USBSTACLR.vbustic = true;
 						break;
+					#if defined(USB_CAN_BE_BOTH)
 					case USB_INT_IDTI:
 						AVR32_USBB.USBSTACLR.idtic   = true;
 						break;
+					#endif
+					#if defined(USB_CAN_BE_DEVICE)
 					case USB_INT_WAKEUPI:
 						AVR32_USBB.UDINTCLR.wakeupc  = true;
 						break;
@@ -195,6 +213,11 @@
 					case USB_INT_SOFI:
 						AVR32_USBB.UDINTCLR.sofc     = true;
 						break;
+					case USB_INT_RXSTPI:
+						// TODO
+						return;
+					#endif
+					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
 						AVR32_USBB.UHINTCLR.hsofic   = true;
 						break;
@@ -213,10 +236,7 @@
 					case USB_INT_VBERRI:
 						AVR32_USBB.USBSTACLR.vberric = true;
 						break;
-					case USB_INT_SRPI:
-					case USB_INT_RXSTPI:
-						// TODO
-						return;
+					#endif
 				}
 			}
 			
@@ -227,8 +247,11 @@
 				{
 					case USB_INT_VBUSTI:
 						return AVR32_USBB.USBCON.vbuste;
+					#if defined(USB_CAN_BE_BOTH)
 					case USB_INT_IDTI:
 						return AVR32_USBB.USBCON.idte;
+					#endif
+					#if defined(USB_CAN_BE_DEVICE)
 					case USB_INT_WAKEUPI:
 						return AVR32_USBB.UDINTE.wakeupe;
 					case USB_INT_SUSPI:
@@ -237,6 +260,11 @@
 						return AVR32_USBB.UDINTE.eorste;
 					case USB_INT_SOFI:
 						return AVR32_USBB.UDINTE.sofe;
+					case USB_INT_RXSTPI:
+						// TODO
+						return false;
+					#endif
+					#if defined(USB_CAN_BE_HOST)					
 					case USB_INT_HSOFI:
 						return AVR32_USBB.UHINTE.hsofie;
 					case USB_INT_DCONNI:
@@ -249,10 +277,7 @@
 						return AVR32_USBB.USBCON.bcerre;
 					case USB_INT_VBERRI:
 						return AVR32_USBB.USBCON.vberre;
-					case USB_INT_SRPI:
-					case USB_INT_RXSTPI:
-						// TODO
-						return false;
+					#endif
 				}
 				
 				return false;
@@ -265,8 +290,11 @@
 				{
 					case USB_INT_VBUSTI:
 						return AVR32_USBB.USBSTA.vbusti;
+					#if defined(USB_CAN_BE_BOTH)
 					case USB_INT_IDTI:
 						return AVR32_USBB.USBSTA.idti;
+					#endif
+					#if defined(USB_CAN_BE_DEVICE)
 					case USB_INT_WAKEUPI:
 						return AVR32_USBB.UDINT.wakeup;
 					case USB_INT_SUSPI:
@@ -275,6 +303,11 @@
 						return AVR32_USBB.UDINT.eorst;
 					case USB_INT_SOFI:
 						return AVR32_USBB.UDINT.sof;
+					case USB_INT_RXSTPI:
+						// TODO
+						return false;
+					#endif
+					#if defined(USB_CAN_BE_HOST)
 					case USB_INT_HSOFI:
 						return AVR32_USBB.UHINT.hsofi;
 					case USB_INT_DCONNI:
@@ -287,10 +320,7 @@
 						return AVR32_USBB.USBSTA.bcerri;
 					case USB_INT_VBERRI:
 						return AVR32_USBB.USBSTA.vberri;
-					case USB_INT_SRPI:
-					case USB_INT_RXSTPI:
-						// TODO
-						return false;
+					#endif
 				}
 
 				return false;

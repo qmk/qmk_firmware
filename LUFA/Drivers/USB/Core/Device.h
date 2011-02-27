@@ -51,6 +51,7 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
+		#include "USBMode.h"		
 		#include "StdDescriptors.h"
 		#include "USBInterrupt.h"
 		#include "Endpoint.h"

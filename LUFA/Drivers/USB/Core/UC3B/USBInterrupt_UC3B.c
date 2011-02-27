@@ -160,10 +160,10 @@ ISR(USB_GEN_vect)
 		USB_HostState = HOST_STATE_Unattached;
 	}
 
-	if (USB_INT_HasOccurred(USB_INT_SRPI) && USB_INT_IsEnabled(USB_INT_SRPI))
+	if (USB_INT_HasOccurred(USB_INT_DCONNI) && USB_INT_IsEnabled(USB_INT_DCONNI))
 	{
-		USB_INT_Clear(USB_INT_SRPI);
-		USB_INT_Disable(USB_INT_SRPI);
+		USB_INT_Clear(USB_INT_DCONNI);
+		USB_INT_Disable(USB_INT_DCONNI);
 
 		EVENT_USB_Host_DeviceAttached();
 

@@ -43,6 +43,7 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
+		#include "USBMode.h"		
 		#include "StdDescriptors.h"
 		#include "Events.h"
 		#include "StdRequestType.h"

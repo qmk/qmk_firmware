@@ -43,11 +43,11 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
+		#include "USBMode.h"		
 		#include "USBController.h"
 		#include "Events.h"
 		#include "StdRequestType.h"
 		#include "StdDescriptors.h"
-		#include "USBMode.h"
 
 		#if defined(USB_CAN_BE_DEVICE)
 			#include "DeviceStandardReq.h"

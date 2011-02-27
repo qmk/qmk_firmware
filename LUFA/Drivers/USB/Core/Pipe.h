@@ -84,6 +84,7 @@
 
 	/* Includes: */
 		#include "../../../Common/Common.h"
+		#include "USBMode.h"		
 
 	/* Preprocessor Checks: */
 		#if !defined(__INCLUDE_FROM_USB_DRIVER)
