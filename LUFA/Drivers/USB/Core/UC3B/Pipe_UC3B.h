@@ -96,30 +96,33 @@
 			#error Do not include this file directly. Include LUFA/Drivers/USB/USB.h instead.
 		#endif
 
+	/* Private Interface - For use in library only: */
+	#if !defined(__DOXYGEN__)
+		/* External Variables: */
+			extern uint8_t USB_SelectedPipe;
+	#endif
+
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
 			/** \name Pipe Error Flag Masks */
 			//@{
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that an overflow error occurred in the pipe on the received data. */
-			#define PIPE_ERRORFLAG_OVERFLOW         ((1 << AVR32_USBB_UPSTA0_OVERFI_OFFSET) << 8)
-
-			/** Mask for \ref Pipe_GetErrorFlags(), indicating that an underflow error occurred in the pipe on the received data. */
-			#define PIPE_ERRORFLAG_UNDERFLOW        ((1 << AVR32_USBB_UPSTA0_UNDERFI_OFFSET) << 8)
+			#define PIPE_ERRORFLAG_OVERFLOW         (AVR32_USBB_UPSTA0_OVERFI_MASK << 8)
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a CRC error occurred in the pipe on the received data. */
-			#define PIPE_ERRORFLAG_CRC16            (1 << AVR32_USBB_UPERR0_CRC16_OFFSET)
+			#define PIPE_ERRORFLAG_CRC16            AVR32_USBB_UPERR0_CRC16_MASK
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a hardware timeout error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_TIMEOUT          (1 << AVR32_USBB_UPERR0_TIMEOUT_OFFSET)
+			#define PIPE_ERRORFLAG_TIMEOUT          AVR32_USBB_UPERR0_TIMEOUT_MASK
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a hardware PID error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_PID              (1 << AVR32_USBB_UPERR0_PID_OFFSET)
+			#define PIPE_ERRORFLAG_PID              AVR32_USBB_UPERR0_PID_MASK
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a hardware data PID error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_DATAPID          (1 << AVR32_USBB_UPERR0_DATAPID_OFFSET)
+			#define PIPE_ERRORFLAG_DATAPID          AVR32_USBB_UPERR0_DATAPID_MASK
 
 			/** Mask for \ref Pipe_GetErrorFlags(), indicating that a hardware data toggle error occurred in the pipe. */
-			#define PIPE_ERRORFLAG_DATATGL          (1 << AVR32_USBB_UPERR0_DATATGL_OFFSET)
+			#define PIPE_ERRORFLAG_DATATGL          AVR32_USBB_UPERR0_DATATGL_MASK
 			//@}
 
 			/** \name Pipe Token Masks */
@@ -254,7 +257,7 @@
 			static inline void Pipe_EnablePipe(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_EnablePipe(void)
 			{
-				AVR32_USBB.uprst |=  (AVR32_USBB_PEN0_MASK << PipeNumber);
+				AVR32_USBB.uprst |=  (AVR32_USBB_PEN0_MASK << USB_SelectedPipe);
 			}
 
 			/** Disables the currently selected pipe so that data cannot be sent and received through it to and
@@ -263,7 +266,7 @@
 			static inline void Pipe_DisablePipe(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_DisablePipe(void)
 			{
-				AVR32_USBB.uprst &= ~(AVR32_USBB_PEN0_MASK << PipeNumber);
+				AVR32_USBB.uprst &= ~(AVR32_USBB_PEN0_MASK << USB_SelectedPipe);
 			}
 
 			/** Determines if the currently selected pipe is enabled, but not necessarily configured.
@@ -273,7 +276,7 @@
 			static inline bool Pipe_IsEnabled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsEnabled(void)
 			{
-				return ((AVR32_USBB.uprst & (AVR32_USBB_PEN0_MASK << PipeNumber)) ? true : false);
+				return ((AVR32_USBB.uprst & (AVR32_USBB_PEN0_MASK << USB_SelectedPipe)) ? true : false);
 			}
 
 			/** Gets the current pipe token, indicating the pipe's data direction and type.
@@ -405,6 +408,7 @@
 			static inline void Pipe_ClearError(void)
 			{
 				((uint32_t*)AVR32_USBB_UPERR0)[USB_SelectedPipe] = 0;
+				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].overfic  = true;
 			}
 
 			/** Determines if the master pipe error flag is set for the currently selected pipe, indicating that
@@ -417,7 +421,8 @@
 			static inline bool Pipe_IsError(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsError(void)
 			{
-				return ((((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].perri) ? true : false);
+				return ((((uint32_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe] &
+				        (AVR32_USBB_PERRI_MASK | AVR32_USBB_OVERFI_MASK)) ? true : false);
 			}
 
 			/** Gets a mask of the hardware error flags which have occurred on the currently selected pipe. This
@@ -428,10 +433,13 @@
 			static inline uint8_t Pipe_GetErrorFlags(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetErrorFlags(void)
 			{
-				return ((UPERRX & (PIPE_ERRORFLAG_CRC16 | PIPE_ERRORFLAG_TIMEOUT |
-				                   PIPE_ERRORFLAG_PID   | PIPE_ERRORFLAG_DATAPID |
-				                   PIPE_ERRORFLAG_DATATGL)) |
-				        (UPSTAX & (PIPE_ERRORFLAG_OVERFLOW | PIPE_ERRORFLAG_UNDERFLOW)));
+				
+				return ((((uint32_t*)AVR32_USBB_UPERR0)[USB_SelectedPipe] &
+				        (PIPE_ERRORFLAG_CRC16 | PIPE_ERRORFLAG_TIMEOUT |
+				         PIPE_ERRORFLAG_PID   | PIPE_ERRORFLAG_DATAPID |
+				         PIPE_ERRORFLAG_DATATGL)) |
+				        ((((uint32_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe] << 8) &
+						 PIPE_ERRORFLAG_OVERFLOW));
 			}
 			
 			/** Retrieves the number of busy banks in the currently selected pipe, which have been queued for
@@ -487,7 +495,7 @@
 			static inline bool Pipe_IsOUTReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsOUTReady(void)
 			{
-				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].rxouti;
+				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].txouti;
 			}
 
 			/** Determines if no SETUP request is currently being sent to the attached device on the selected
@@ -522,7 +530,7 @@
 			static inline void Pipe_ClearIN(void)
 			{
 				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].rxinic   = true;
-				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].fifoconc = true;
+				((avr32_usbb_upcon0clr_t*)AVR32_USBB_UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
 			}
 
 			/** Sends the currently selected pipe's contents to the device as an OUT packet on the selected pipe, freeing
@@ -534,7 +542,7 @@
 			static inline void Pipe_ClearOUT(void)
 			{
 				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].txoutic  = true;
-				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].fifoconc = true;
+				((avr32_usbb_upcon0clr_t*)AVR32_USBB_UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
 			}
 
 			/** Determines if the device sent a NAK (Negative Acknowledge) in response to the last sent packet on
@@ -574,7 +582,7 @@
 			static inline bool Pipe_IsStalled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsStalled(void)
 			{
-				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].rxstalledi;
+				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].rxstalldi;
 			}
 
 			/** Clears the STALL condition detection flag on the currently selected pipe, but does not clear the
@@ -585,7 +593,7 @@
 			static inline void Pipe_ClearStall(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearStall(void)
 			{
-				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].rxstalledic = true;
+				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].rxstalldic = true;
 			}
 
 			/** Reads one byte from the currently selected pipe's bank, for OUT direction pipes.
@@ -913,9 +921,6 @@
 
 		/* Function Prototypes: */
 			void Pipe_ClearPipes(void);
-
-		/* External Variables: */
-			extern uint8_t USB_SelectedPipe;
 	#endif
 
 	/* Disable C linkage for C++ Compilers: */
