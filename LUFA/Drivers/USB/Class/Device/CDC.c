@@ -37,11 +37,6 @@
 #define  __INCLUDE_FROM_CDC_DEVICE_C
 #include "CDC.h"
 
-void CDC_Device_Event_Stub(void)
-{
-
-}
-
 void CDC_Device_ProcessControlRequest(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 {
 	if (!(Endpoint_IsSETUPReceived()))
@@ -293,6 +288,7 @@ void CDC_Device_SendControlLineStateChange(USB_ClassInfo_CDC_Device_t* const CDC
 	Endpoint_ClearIN();
 }
 
+#if defined(FDEV_SETUP_STREAM)
 void CDC_Device_CreateStream(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo,
                              FILE* const Stream)
 {
@@ -337,6 +333,12 @@ static int CDC_Device_getchar_Blocking(FILE* Stream)
 	}
 
 	return ReceivedByte;
+}
+#endif
+
+void CDC_Device_Event_Stub(void)
+{
+
 }
 
 #endif

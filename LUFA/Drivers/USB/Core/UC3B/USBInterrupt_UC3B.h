@@ -57,31 +57,243 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* Macros: */
-			#define USB_INT_Enable(int)       MACROS{ USB_INT_GET_EN_REG(int)   |=   USB_INT_GET_EN_MASK(int);   }MACROE
-			#define USB_INT_Disable(int)      MACROS{ USB_INT_GET_EN_REG(int)   &= ~(USB_INT_GET_EN_MASK(int));  }MACROE
-			#define USB_INT_Clear(int)        MACROS{ USB_INT_GET_INT_REG(int)  &= ~(USB_INT_GET_INT_MASK(int)); }MACROE
-			#define USB_INT_IsEnabled(int)          ((USB_INT_GET_EN_REG(int)   &    USB_INT_GET_EN_MASK(int))  ? true : false)
-			#define USB_INT_HasOccurred(int)        ((USB_INT_GET_INT_REG(int)  &    USB_INT_GET_INT_MASK(int)) ? true : false)
-
-			#define USB_INT_GET_EN_REG(EnableReg, EnableMask, FlagReg, FlagMask)    EnableReg
-			#define USB_INT_GET_EN_MASK(EnableReg, EnableMask, FlagReg, FlagMask)   EnableMask
-			#define USB_INT_GET_INT_REG(EnableReg, EnableMask, FlagReg, FlagMask)   FlagReg
-			#define USB_INT_GET_INT_MASK(EnableReg, EnableMask, FlagReg, FlagMask)  FlagMask
+			enum USB_Interrupts_t
+			{
+				USB_INT_VBUS    = 0,
+				USB_INT_IDTI    = 1,
+				USB_INT_WAKEUPI = 2,
+				USB_INT_SUSPI   = 3,
+				USB_INT_EORSTI  = 4,
+				USB_INT_DCONNI  = 5,
+				USB_INT_DDISCI  = 6,
+				USB_INT_BCERRI  = 7,
+				USB_INT_VBERRI  = 8,
+				USB_INT_SOFI    = 9,
+				USB_INT_HSOFI   = 10,
+				USB_INT_RSTI    = 11,
+				USB_INT_SRPI    = 12,
+				USB_INT_RXSTPI  = 13,
+			};
 			
-			#define USB_INT_VBUS     USBCON, (1 << VBUSTE) , USBINT, (1 << VBUSTI)
-			#define USB_INT_IDTI     USBCON, (1 << IDTE)   , USBINT, (1 << IDTI)
-			#define USB_INT_WAKEUPI  UDIEN , (1 << WAKEUPE), UDINT , (1 << WAKEUPI)
-			#define USB_INT_SUSPI    UDIEN , (1 << SUSPE)  , UDINT , (1 << SUSPI)
-			#define USB_INT_EORSTI   UDIEN , (1 << EORSTE) , UDINT , (1 << EORSTI)
-			#define USB_INT_DCONNI   UHIEN , (1 << DCONNE) , UHINT , (1 << DCONNI)
-			#define USB_INT_DDISCI   UHIEN , (1 << DDISCE) , UHINT , (1 << DDISCI)
-			#define USB_INT_BCERRI   OTGIEN, (1 << BCERRE) , OTGINT, (1 << BCERRI)
-			#define USB_INT_VBERRI   OTGIEN, (1 << VBERRE) , OTGINT, (1 << VBERRI)
-			#define USB_INT_SOFI     UDIEN,  (1 << SOFE)   , UDINT , (1 << SOFI)
-			#define USB_INT_HSOFI    UHIEN,  (1 << HSOFE)  , UHINT , (1 << HSOFI)
-			#define USB_INT_RSTI     UHIEN , (1 << RSTE)   , UHINT , (1 << RSTI)
-			#define USB_INT_SRPI     OTGIEN, (1 << SRPE)   , OTGINT, (1 << SRPI)
-			#define USB_INT_RXSTPI   UEIENX, (1 << RXSTPE) , UEINTX, (1 << RXSTPI)
+			static inline void USB_INT_Enable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_Enable(const uint8_t Interrupt)
+			{
+				switch (Interrupt)
+				{
+					case USB_INT_VBUS:
+						AVR32_USBB.USBCON.vbuste      = true;
+						break;
+					case USB_INT_IDTI:
+						AVR32_USBB.USBCON.idte        = true;
+						break;
+					case USB_INT_WAKEUPI:
+						AVR32_USBB.UDINTESET.wakeupes = true;
+						break;
+					case USB_INT_SUSPI:
+						AVR32_USBB.UDINTESET.suspes   = true;
+						break;
+					case USB_INT_EORSTI:
+						AVR32_USBB.UDINTESET.eorstes  = true;
+						break;
+					case USB_INT_DCONNI:
+						AVR32_USBB.UHINTESET.dconnies = true;
+						break;
+					case USB_INT_DDISCI:
+						AVR32_USBB.UHINTESET.ddiscies = true;
+						break;
+					case USB_INT_BCERRI:
+						AVR32_USBB.USBCON.bcerre      = true;
+						break;
+					case USB_INT_VBERRI:
+						AVR32_USBB.USBCON.vberre      = true;
+						break;
+					case USB_INT_SOFI:
+						AVR32_USBB.UDINTESET.sofes    = true;
+						break;
+					case USB_INT_HSOFI:
+						AVR32_USBB.UHINTESET.hsofies  = true;
+						break;
+					case USB_INT_RSTI:
+						AVR32_USBB.UHINTESET.rsties   = true;
+						break;
+					case USB_INT_SRPI:
+					case USB_INT_RXSTPI:
+						// TODO
+						return;
+				}
+			}
+
+			static inline void USB_INT_Disable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_Disable(const uint8_t Interrupt)
+			{
+				switch (Interrupt)
+				{
+					case USB_INT_VBUS:
+						AVR32_USBB.USBCON.vbuste      = false;
+						break;
+					case USB_INT_IDTI:
+						AVR32_USBB.USBCON.idte        = false;
+						break;
+					case USB_INT_WAKEUPI:
+						AVR32_USBB.UDINTECLR.wakeupec = true;
+						break;
+					case USB_INT_SUSPI:
+						AVR32_USBB.UDINTECLR.suspec   = true;
+						break;
+					case USB_INT_EORSTI:
+						AVR32_USBB.UDINTECLR.eorstec  = true;
+						break;
+					case USB_INT_DCONNI:
+						AVR32_USBB.UHINTECLR.dconniec = true;
+						break;
+					case USB_INT_DDISCI:
+						AVR32_USBB.UHINTECLR.ddisciec = true;
+						break;
+					case USB_INT_BCERRI:
+						AVR32_USBB.USBCON.bcerre      = false;
+						break;
+					case USB_INT_VBERRI:
+						AVR32_USBB.USBCON.vberre      = false;
+						break;
+					case USB_INT_SOFI:
+						AVR32_USBB.UDINTECLR.sofec    = true;
+						break;
+					case USB_INT_HSOFI:
+						AVR32_USBB.UHINTECLR.hsofiec  = true;
+						break;
+					case USB_INT_RSTI:
+						AVR32_USBB.UHINTECLR.rstiec   = true;
+						break;
+					case USB_INT_SRPI:
+					case USB_INT_RXSTPI:
+						// TODO
+						return;
+				}
+			}
+			
+			static inline void USB_INT_Clear(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
+			static inline void USB_INT_Clear(const uint8_t Interrupt)
+			{
+				switch (Interrupt)
+				{
+					case USB_INT_VBUS:
+						AVR32_USBB.USBSTACLR.vbustic = true;
+						break;
+					case USB_INT_IDTI:
+						AVR32_USBB.USBSTACLR.idtic   = true;
+						break;
+					case USB_INT_WAKEUPI:
+						AVR32_USBB.UDINTCLR.wakeupc  = true;
+						break;
+					case USB_INT_SUSPI:
+						AVR32_USBB.UDINTCLR.suspc    = true;
+						break;
+					case USB_INT_EORSTI:
+						AVR32_USBB.UDINTCLR.eorstc   = true;
+						break;
+					case USB_INT_DCONNI:
+						AVR32_USBB.UHINTCLR.dconnic  = true;
+						break;
+					case USB_INT_DDISCI:
+						AVR32_USBB.UHINTCLR.ddiscic  = true;
+						break;
+					case USB_INT_BCERRI:
+						AVR32_USBB.USBSTACLR.bcerric = true;
+						break;
+					case USB_INT_VBERRI:
+						AVR32_USBB.USBSTACLR.vberric = true;
+						break;
+					case USB_INT_SOFI:
+						AVR32_USBB.UDINTCLR.sofc     = true;
+						break;
+					case USB_INT_HSOFI:
+						AVR32_USBB.UHINTCLR.hsofic   = true;
+						break;
+					case USB_INT_RSTI:
+						AVR32_USBB.UHINTCLR.rstic    = true;
+						break;
+					case USB_INT_SRPI:
+					case USB_INT_RXSTPI:
+						// TODO
+						return;
+				}
+			}
+			
+			static inline bool USB_INT_IsEnabled(const uint8_t Interrupt) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+			static inline bool USB_INT_IsEnabled(const uint8_t Interrupt)
+			{
+				switch (Interrupt)
+				{
+					case USB_INT_VBUS:
+						return AVR32_USBB.USBCON.vbuste;
+					case USB_INT_IDTI:
+						return AVR32_USBB.USBCON.idte;
+					case USB_INT_WAKEUPI:
+						return AVR32_USBB.UDINTE.wakeupe;
+					case USB_INT_SUSPI:
+						return AVR32_USBB.UDINTE.suspe;
+					case USB_INT_EORSTI:
+						return AVR32_USBB.UDINTE.eorste;
+					case USB_INT_DCONNI:
+						return AVR32_USBB.UHINTE.dconnie;
+					case USB_INT_DDISCI:
+						return AVR32_USBB.UHINTE.ddiscie;
+					case USB_INT_BCERRI:
+						return AVR32_USBB.USBCON.bcerre;
+					case USB_INT_VBERRI:
+						return AVR32_USBB.USBCON.vberre;
+					case USB_INT_SOFI:
+						return AVR32_USBB.UDINTE.sofe;
+					case USB_INT_HSOFI:
+						return AVR32_USBB.UHINTE.hsofie;
+					case USB_INT_RSTI:
+						return AVR32_USBB.UHINTE.rstie;
+					case USB_INT_SRPI:
+					case USB_INT_RXSTPI:
+						// TODO
+						return false;
+				}
+				
+				return false;
+			}
+		
+			static inline bool USB_INT_HasOccurred(const uint8_t Interrupt) ATTR_ALWAYS_INLINE ATTR_WARN_UNUSED_RESULT;
+			static inline bool USB_INT_HasOccurred(const uint8_t Interrupt)
+			{
+				switch (Interrupt)
+				{
+					case USB_INT_VBUS:
+						return AVR32_USBB.USBSTA.vbusti;
+					case USB_INT_IDTI:
+						return AVR32_USBB.USBSTA.idti;
+					case USB_INT_WAKEUPI:
+						return AVR32_USBB.UDINT.wakeup;
+					case USB_INT_SUSPI:
+						return AVR32_USBB.UDINT.susp;
+					case USB_INT_EORSTI:
+						return AVR32_USBB.UDINT.eorst;
+					case USB_INT_DCONNI:
+						return AVR32_USBB.UHINT.dconni;
+					case USB_INT_DDISCI:
+						return AVR32_USBB.UHINT.ddisci;
+					case USB_INT_BCERRI:
+						return AVR32_USBB.USBSTA.bcerri;
+					case USB_INT_VBERRI:
+						return AVR32_USBB.USBSTA.vberri;
+					case USB_INT_SOFI:
+						return AVR32_USBB.UDINT.sof;
+					case USB_INT_HSOFI:
+						return AVR32_USBB.UHINT.hsofi;
+					case USB_INT_RSTI:
+						return AVR32_USBB.UHINT.rsti;
+					case USB_INT_SRPI:
+					case USB_INT_RXSTPI:
+						// TODO
+						return false;
+				}
+
+				return false;
+			}
 
 		/* Includes: */
 			#include "../USBMode.h"

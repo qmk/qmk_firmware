@@ -92,6 +92,18 @@
 
 			typedef uint32_t uint_reg_t;
 			
+			#define EEMEM
+			#define PROGMEM                  const
+			#define ISR(Name)                void Name (void)
+			#define ATOMIC_BLOCK(x)          if (1)
+			#define ATOMIC_RESTORESTATE
+			#define pgm_read_byte(x)         *x
+			#define eeprom_read_byte(x)      *x
+			#define eeprom_update_byte(x, y) *x = y
+			#define eeprom_write_byte(x, y)  *x = y
+			#define memcmp_P(...)            memcmp(__VA_ARGS__)
+			#define memcpy_P(...)            memcpy(__VA_ARGS__)
+			
 			#warning The UC3B architecture support is currently experimental and incomplete!
 		#endif
 

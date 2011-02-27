@@ -48,12 +48,12 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 	Pipe_SelectPipe(Number);
 	Pipe_EnablePipe();
 
-	*((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe] = 0;
-	*((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe] = (AVR32_USBB_ALLOC_MASK |
-	                                                    ((uint32_t)Type  << AVR32_USBB_PTYPE_OFFSET)  |
-	                                                    ((uint32_t)Token << AVR32_USBB_PTOKEN_OFFSET) |
-	                                                    ((uint32_t)Banks << AVR32_USBB_PBK_OFFSET)    |
-	                                                    ((EndpointNumber & PIPE_EPNUM_MASK) << AVR32_USBB_PEPNUM_OFFSET));
+	((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe] = 0;
+	((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe] = (AVR32_USBB_ALLOC_MASK |
+	                                                   ((uint32_t)Type  << AVR32_USBB_PTYPE_OFFSET)  |
+	                                                   ((uint32_t)Token << AVR32_USBB_PTOKEN_OFFSET) |
+	                                                   ((uint32_t)Banks << AVR32_USBB_PBK_OFFSET)    |
+	                                                   ((EndpointNumber & PIPE_EPNUM_MASK) << AVR32_USBB_PEPNUM_OFFSET));
 
 	Pipe_SetInfiniteINRequests();
 
@@ -62,12 +62,11 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 
 void Pipe_ClearPipes(void)
 {
-	UPINT = 0;
-
 	for (uint8_t PNum = 0; PNum < PIPE_TOTAL_PIPES; PNum++)
 	{
 		Pipe_SelectPipe(PNum);
-		*((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe] = 0;
+		((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe]    = 0;
+		((uint32_t*)AVR32_USBB_UPCON0CLR)[USB_SelectedPipe] = 0xFFFFFFFF;
 		Pipe_DisablePipe();
 	}
 }

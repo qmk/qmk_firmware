@@ -305,6 +305,9 @@
 			 *
 			 *  \note The created stream can be given as stdout if desired to direct the standard output from all <stdio.h> functions
 			 *        to the given CDC interface.
+			 *        \n\n
+			 *
+			 *  \note This function is not available on all microcontroller architectures.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed.
@@ -314,6 +317,8 @@
 
 			/** Identical to \ref CDC_Device_CreateStream(), except that reads are blocking until the calling stream function terminates
 			 *  the transfer. While blocking, the USB and CDC service tasks are called repeatedly to maintain USB communications.
+			 *
+			 *  \note This function is not available on all microcontroller architectures.
 			 *
 			 *  \param[in,out] CDCInterfaceInfo  Pointer to a structure containing a CDC Class configuration and state.
 			 *  \param[in,out] Stream            Pointer to a FILE structure where the created stream should be placed.
@@ -325,10 +330,12 @@
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_CDC_DEVICE_C)
+				#if defined(FDEV_SETUP_STREAM)
 				static int CDC_Device_putchar(char c,
 				                              FILE* Stream) ATTR_NON_NULL_PTR_ARG(2);
 				static int CDC_Device_getchar(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
 				static int CDC_Device_getchar_Blocking(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
+				#endif
 
 				void CDC_Device_Event_Stub(void) ATTR_CONST;
 				void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)

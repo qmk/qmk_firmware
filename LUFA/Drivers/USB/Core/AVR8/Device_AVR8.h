@@ -96,7 +96,7 @@
 				 *  a unique serial number internally, and setting the device descriptors serial number string index to this value
 				 *  will cause it to use the internal serial number.
 				 *
-				 *  On unsupported devices, this will evaluate to NO_DESCRIPTOR and so will force the host to create a pseudo-serial
+				 *  On unsupported devices, this will evaluate to \ref NO_DESCRIPTOR and so will force the host to create a pseudo-serial
 				 *  number for the device.
 				 */
 				#define USE_INTERNAL_SERIAL           0xDC

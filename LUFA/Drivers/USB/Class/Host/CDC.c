@@ -456,6 +456,7 @@ uint8_t CDC_Host_Flush(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 	return PIPE_READYWAIT_NoError;
 }
 
+#if defined(FDEV_SETUP_STREAM)
 void CDC_Host_CreateStream(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo,
                            FILE* const Stream)
 {
@@ -501,6 +502,7 @@ static int CDC_Host_getchar_Blocking(FILE* Stream)
 
 	return ReceivedByte;
 }
+#endif
 
 void CDC_Host_Event_Stub(void)
 {

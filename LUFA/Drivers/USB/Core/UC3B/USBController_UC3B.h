@@ -121,6 +121,18 @@
 			#endif
 
 		/* Inline Functions: */
+			/** Determines if the VBUS line is currently high (i.e. the USB host is supplying power).
+			 *
+			 *  \note This function is not available on some AVR models which do not support hardware VBUS monitoring.
+			 *
+			 *  \return Boolean \c true if the VBUS line is currently detecting power from a host, \c false otherwise.
+			 */
+			static inline bool USB_VBUS_GetStatus(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
+			static inline bool USB_VBUS_GetStatus(void)
+			{
+				return AVR32_USBB.USBSTA.vbus;
+			}
+
 			/** Detaches the device from the USB bus. This has the effect of removing the device from any
 			 *  attached host, ceasing USB communications. If no host is present, this prevents any host from
 			 *  enumerating the device once attached until \ref USB_Attach() is called.
@@ -278,7 +290,6 @@
 			#endif
 
 		/* Inline Functions: */
-			#if defined(USB_SERIES_4_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_7_AVR)
 			static inline void USB_OTGPAD_On(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_OTGPAD_On(void)
 			{
@@ -290,7 +301,6 @@
 			{
 				AVR32_USBB.USBCON.otgpade = false;
 			}
-			#endif
 
 			static inline void USB_CLK_Freeze(void) ATTR_ALWAYS_INLINE;
 			static inline void USB_CLK_Freeze(void)

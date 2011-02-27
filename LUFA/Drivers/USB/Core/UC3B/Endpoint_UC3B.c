@@ -48,20 +48,19 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 	Endpoint_SelectEndpoint(Number);
 	Endpoint_EnableEndpoint();
 
-	*((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint] = 0;
-	*((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint] = UECFGXData;
+	((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint] = 0;
+	((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint] = UECFGXData;
 
 	return Endpoint_IsConfigured();
 }
 
 void Endpoint_ClearEndpoints(void)
 {
-	UEINT = 0;
-
 	for (uint8_t EPNum = 0; EPNum < ENDPOINT_TOTAL_ENDPOINTS; EPNum++)
 	{
 		Endpoint_SelectEndpoint(EPNum);
-		*((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint] = 0;
+		((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint]    = 0;
+		((uint32_t*)AVR32_USBB_UECON0CLR)[USB_SelectedEndpoint] = 0xFFFFFFFF;
 		Endpoint_DisableEndpoint();
 	}
 }

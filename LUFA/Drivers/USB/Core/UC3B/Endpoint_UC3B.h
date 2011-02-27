@@ -166,21 +166,21 @@
 			 *  in slower transfers as only one USB device (the AVR or the host) can access the endpoint's
 			 *  bank at the one time.
 			 */
-			#define ENDPOINT_BANK_SINGLE                    AVR32_USBB_UECFG0_EPBK0_SINGLE
+			#define ENDPOINT_BANK_SINGLE                    AVR32_USBB_UECFG0_EPBK_SINGLE
 
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
 			 *  that the endpoint should have two banks, which requires more USB FIFO memory but results
 			 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
 			 *  accesses the second bank.
 			 */
-			#define ENDPOINT_BANK_DOUBLE                    AVR32_USBB_UECFG0_EPBK0_DOUBLE
+			#define ENDPOINT_BANK_DOUBLE                    AVR32_USBB_UECFG0_EPBK_DOUBLE
 
 			/** Mask for the bank mode selection for the \ref Endpoint_ConfigureEndpoint() macro. This indicates
 			 *  that the endpoint should have three banks, which requires more USB FIFO memory but results
 			 *  in faster transfers as one USB device (the AVR or the host) can access one bank while the other
 			 *  accesses the remaining banks.
 			 */
-			#define ENDPOINT_BANK_TRIPLE                    AVR32_USBB_UECFG0_TRIPLE
+			#define ENDPOINT_BANK_TRIPLE                    AVR32_USBB_UECFG0_EPBK_TRIPLE
 			//@}
 			
 			/** Endpoint address for the default control endpoint, which always resides in address 0. This is

@@ -37,16 +37,10 @@
 
 void USB_Device_SendRemoteWakeup(void)
 {
-	if (!(USB_Options & USB_OPT_MANUAL_PLL))
-	{
-		USB_PLL_On();
-		while (!(USB_PLL_IsReady()));
-	}
-
 	USB_CLK_Unfreeze();
 
-	AVR32_USBB.UDCON.rmwakeup = true;
-	while (AVR32_USBB.UDCON.rmwakeup);
+	AVR32_USBB.UDCON.rmwkup = true;
+	while (AVR32_USBB.UDCON.rmwkup);
 }
 
 #endif
