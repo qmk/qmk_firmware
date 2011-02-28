@@ -84,6 +84,11 @@
 			};
 
 		/* Inline Functions: */
+			static inline void USB_INT_RegisterHandlers(void)
+			{
+				// Not required for AVR8
+			}
+
 			static inline void USB_INT_Enable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
 			static inline void USB_INT_Enable(const uint8_t Interrupt)
 			{

@@ -95,7 +95,7 @@
 			// TODO
 			#define EEMEM
 			#define PROGMEM                  const
-			#define ISR(Name)                void Name (void)
+			#define ISR(Name)                void Name (void) __attribute__((__interrupt__)); void Name (void)
 			#define ATOMIC_BLOCK(x)          if (1)
 			#define ATOMIC_RESTORESTATE
 			#define pgm_read_byte(x)         *x
@@ -105,6 +105,8 @@
 			#define _delay_ms(x)
 			#define memcmp_P(...)            memcmp(__VA_ARGS__)
 			#define memcpy_P(...)            memcpy(__VA_ARGS__)
+			#define cpu_irq_enable()         do { asm volatile("" ::: "memory"); __builtin_csrf(AVR32_SR_GM_OFFSET); } while (0)
+			#define cpu_irq_disable()        do { __builtin_ssrf(AVR32_SR_GM_OFFSET); asm volatile("" ::: "memory"); } while (0)
 			
 			#warning The UC3B architecture support is currently experimental and incomplete!
 		#endif

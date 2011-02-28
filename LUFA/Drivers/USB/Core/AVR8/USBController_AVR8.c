@@ -59,6 +59,8 @@ void USB_Init(
 	#if !defined(USE_STATIC_OPTIONS)
 	USB_Options = Options;
 	#endif
+	
+	USB_INT_RegisterHandlers();
 
 	if (!(USB_Options & USB_OPT_REG_DISABLED))
 	  USB_REG_On();

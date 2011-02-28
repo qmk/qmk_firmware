@@ -59,6 +59,8 @@ void USB_Init(
 	#if !defined(USE_STATIC_OPTIONS)
 	USB_Options = Options;
 	#endif
+	
+	USB_INT_RegisterHandlers();
 
 	#if defined(USB_CAN_BE_BOTH)
 	if (Mode == USB_MODE_UID)
@@ -103,16 +105,16 @@ void USB_ResetInterface(void)
 	bool UIDModeSelectEnabled = AVR32_USBB.USBCON.uide;
 	#endif
 
-	USB_INT_DisableAllInterrupts();
-	USB_INT_ClearAllInterrupts();
-
-	USB_Controller_Reset();
-	
 	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].pllsel = !(USB_Options & USB_OPT_GCLK_SRC_OSC);
 	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].oscsel = !(USB_Options & USB_OPT_GCLK_CHANNEL_0);
 	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].diven  = (F_CLOCK != 48000000UL);
 	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].div    = ((F_CLOCK / 2) / 48000000UL);
 	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].cen    = true;
+
+	USB_INT_DisableAllInterrupts();
+	USB_INT_ClearAllInterrupts();
+
+	USB_Controller_Reset();
 
 	#if defined(USB_CAN_BE_BOTH)
 	if (UIDModeSelectEnabled)
