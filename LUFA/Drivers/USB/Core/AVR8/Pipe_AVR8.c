@@ -87,6 +87,8 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 			UPIENXTemp  = UPIENX;
 		}
 
+		Pipe_SetInfiniteINRequests();
+	
 		if (!(UPCFG1XTemp & (1 << ALLOC)))
 		  continue;
 		  

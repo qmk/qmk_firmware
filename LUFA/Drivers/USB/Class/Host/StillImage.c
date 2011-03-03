@@ -51,7 +51,7 @@ uint8_t SI_Host_ConfigurePipes(USB_ClassInfo_SI_Host_t* const SIInterfaceInfo,
 	if (DESCRIPTOR_TYPE(ConfigDescriptorData) != DTYPE_Configuration)
 	  return SI_ENUMERROR_InvalidConfigDescriptor;
 
-	while (!(DataINEndpoint) || !(DataOUTEndpoint))
+	while (!(DataINEndpoint) || !(DataOUTEndpoint) || !(EventsEndpoint))
 	{
 		if (!(StillImageInterface) ||
 		    USB_GetNextDescriptorComp(&ConfigDescriptorSize, &ConfigDescriptorData,
