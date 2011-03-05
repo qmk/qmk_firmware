@@ -100,6 +100,7 @@
 	#if !defined(__DOXYGEN__)
 		/* External Variables: */
 			extern volatile uint8_t USB_SelectedPipe;
+			extern volatile void*   USB_PipeFIFOPos[];
 	#endif
 
 	/* Public Interface - May be used in end-application: */

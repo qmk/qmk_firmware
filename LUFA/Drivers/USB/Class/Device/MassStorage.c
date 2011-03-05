@@ -142,8 +142,8 @@ void MS_Device_USBTask(USB_ClassInfo_MS_Device_t* const MSInterfaceInfo)
 
 	if (MSInterfaceInfo->State.IsMassStoreReset)
 	{
-		Endpoint_ResetFIFO(MSInterfaceInfo->Config.DataOUTEndpointNumber);
-		Endpoint_ResetFIFO(MSInterfaceInfo->Config.DataINEndpointNumber);
+		Endpoint_ResetEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
+		Endpoint_ResetEndpoint(MSInterfaceInfo->Config.DataINEndpointNumber);
 
 		Endpoint_SelectEndpoint(MSInterfaceInfo->Config.DataOUTEndpointNumber);
 		Endpoint_ClearStall();
