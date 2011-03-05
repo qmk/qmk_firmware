@@ -83,11 +83,6 @@
 			ISR(USB_GEN_vect);
 		
 		/* Inline Functions: */
-			static inline void USB_INT_RegisterHandlers(void)
-			{
-				AVR32_INTC.IPR[AVR32_USBB_IRQ % 32].autovector = (uintptr_t)&USB_GEN_vect;			
-			}
-		
 			static inline void USB_INT_Enable(const uint8_t Interrupt) ATTR_ALWAYS_INLINE;
 			static inline void USB_INT_Enable(const uint8_t Interrupt)
 			{			

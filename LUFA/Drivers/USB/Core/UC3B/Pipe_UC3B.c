@@ -36,7 +36,7 @@
 #include "../Pipe.h"
 
 uint8_t USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
-uint8_t USB_SelectedPipe    = PIPE_CONTROLPIPE;
+volatile uint8_t USB_SelectedPipe = PIPE_CONTROLPIPE;
 
 bool Pipe_ConfigurePipe(const uint8_t Number,
                         const uint8_t Type,
@@ -48,8 +48,8 @@ bool Pipe_ConfigurePipe(const uint8_t Number,
 	Pipe_SelectPipe(Number);
 	Pipe_EnablePipe();
 
-	((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe] = 0;
-	((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe] = (AVR32_USBB_ALLOC_MASK |
+	(&AVR32_USBB.upcfg0)[Number] = 0;
+	(&AVR32_USBB.upcfg0)[Number] = (AVR32_USBB_ALLOC_MASK |
 	                                                   ((uint32_t)Type  << AVR32_USBB_PTYPE_OFFSET)  |
 	                                                   ((uint32_t)Token << AVR32_USBB_PTOKEN_OFFSET) |
 	                                                   ((uint32_t)Banks << AVR32_USBB_PBK_OFFSET)    |
@@ -65,8 +65,8 @@ void Pipe_ClearPipes(void)
 	for (uint8_t PNum = 0; PNum < PIPE_TOTAL_PIPES; PNum++)
 	{
 		Pipe_SelectPipe(PNum);
-		((uint32_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe]    = 0;
-		((uint32_t*)AVR32_USBB_UPCON0CLR)[USB_SelectedPipe] = 0xFFFFFFFF;
+		(&AVR32_USBB.upcfg0)[PNum]    = 0;
+		(&AVR32_USBB.upcon0clr)[PNum] = 0xFFFFFFFF;
 		Pipe_DisablePipe();
 	}
 }

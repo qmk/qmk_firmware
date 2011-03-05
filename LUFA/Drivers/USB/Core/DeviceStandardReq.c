@@ -48,10 +48,11 @@ bool    USB_RemoteWakeupEnabled;
 
 void USB_Device_ProcessControlRequest(void)
 {
-	uint8_t* RequestHeader = (uint8_t*)&USB_ControlRequest;
-
-	for (uint8_t RequestHeaderByte = 0; RequestHeaderByte < sizeof(USB_Request_Header_t); RequestHeaderByte++)
-	  *(RequestHeader++) = Endpoint_Read_Byte();
+	USB_ControlRequest.bmRequestType = Endpoint_Read_Byte();
+	USB_ControlRequest.bRequest      = Endpoint_Read_Byte();
+	USB_ControlRequest.wValue        = le16_to_cpu(Endpoint_Read_Word_LE());
+	USB_ControlRequest.wIndex        = le16_to_cpu(Endpoint_Read_Word_LE());
+	USB_ControlRequest.wLength       = le16_to_cpu(Endpoint_Read_Word_LE());
 
 	EVENT_USB_Device_ControlRequest();
 

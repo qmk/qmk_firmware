@@ -87,15 +87,50 @@
 			#include <util/delay.h>
 			
 			typedef uint8_t uint_reg_t;
+
+			#define le16_to_cpu(x)           x
+			#define le32_to_cpu(x)           x
+			#define be16_to_cpu(x)           SwapEndian_16(x)
+			#define be32_to_cpu(x)           SwapEndian_32(x)
+			#define cpu_to_le16(x)           x
+			#define cpu_to_le32(x)           x
+			#define cpu_to_be16(x)           SwapEndian_16(x)
+			#define cpu_to_be32(x)           SwapEndian_32(x)
+			#define LE16_TO_CPU(x)           x
+			#define LE32_TO_CPU(x)           x
+			#define BE16_TO_CPU(x)           SWAPENDIAN_16(x)
+			#define BE32_TO_CPU(x)           SWAPENDIAN_32(x)
+			#define CPU_TO_LE16(x)           x
+			#define CPU_TO_LE32(x)           x
+			#define CPU_TO_BE16(x)           SWAPENDIAN_16(x)
+			#define CPU_TO_BE32(x)           SWAPENDIAN_32(x)
+
 		#elif (ARCH == ARCH_UC3B)
 			#include <avr32/io.h>
 
 			typedef uint32_t uint_reg_t;
 			
 			// TODO
+			#define le16_to_cpu(x)           SwapEndian_16(x)
+			#define le32_to_cpu(x)           SwapEndian_32(x)
+			#define be16_to_cpu(x)           x
+			#define be32_to_cpu(x)           x
+			#define cpu_to_le16(x)           SwapEndian_16(x)
+			#define cpu_to_le32(x)           SwapEndian_32(x)
+			#define cpu_to_be16(x)           x
+			#define cpu_to_be32(x)           x
+			#define LE16_TO_CPU(x)           SWAPENDIAN_16(x)
+			#define LE32_TO_CPU(x)           SWAPENDIAN_32(x)
+			#define BE16_TO_CPU(x)           x
+			#define BE32_TO_CPU(x)           x
+			#define CPU_TO_LE16(x)           SWAPENDIAN_16(x)
+			#define CPU_TO_LE32(x)           SWAPENDIAN_32(x)
+			#define CPU_TO_BE16(x)           x
+			#define CPU_TO_BE32(x)           x
+			
+			#define ISR(Name)                void Name (void) __attribute__((__interrupt__)); void Name (void)
 			#define EEMEM
 			#define PROGMEM                  const
-			#define ISR(Name)                void Name (void) __attribute__((__interrupt__)); void Name (void)
 			#define ATOMIC_BLOCK(x)          if (1)
 			#define ATOMIC_RESTORESTATE
 			#define pgm_read_byte(x)         *x
@@ -105,10 +140,6 @@
 			#define _delay_ms(x)
 			#define memcmp_P(...)            memcmp(__VA_ARGS__)
 			#define memcpy_P(...)            memcpy(__VA_ARGS__)
-			#define cpu_irq_enable()         do { asm volatile("" ::: "memory"); __builtin_csrf(AVR32_SR_GM_OFFSET); } while (0)
-			#define cpu_irq_disable()        do { __builtin_ssrf(AVR32_SR_GM_OFFSET); asm volatile("" ::: "memory"); } while (0)
-			
-			#warning The UC3B architecture support is currently experimental and incomplete!
 		#endif
 
 	/* Public Interface - May be used in end-application: */

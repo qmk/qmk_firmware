@@ -88,13 +88,13 @@
 			 *  Decimal format for descriptor fields requiring BCD encoding, such as the USB version number in the
 			 *  standard device descriptor.
 			 */
-			#define VERSION_BCD(x)                    ((((VERSION_TENS(x) << 4) | VERSION_ONES(x)) << 8) | \
+			#define VERSION_BCD(x)                    CPU_TO_LE16((((VERSION_TENS(x) << 4) | VERSION_ONES(x)) << 8) | \
 			                                          ((VERSION_TENTHS(x) << 4) | VERSION_HUNDREDTHS(x)))
 
 			/** String language ID for the English language. Should be used in \ref USB_Descriptor_String_t descriptors
 			 *  to indicate that the English language is supported by the device in its string descriptors.
 			 */
-			#define LANGUAGE_ID_ENG                   0x0409
+			#define LANGUAGE_ID_ENG                   CPU_TO_LE16(0x0409)
 
 			/** \name Endpoint Address Direction Masks */
 			//@{

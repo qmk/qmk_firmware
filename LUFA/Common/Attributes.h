@@ -133,6 +133,15 @@
 			 *  \param[in] Func  Name of the function which the given function name should alias.
 			 */
 			#define ATTR_ALIAS(Func)               __attribute__ ((alias( #Func )))
+			
+			/** Marks a variable or struct element for packing into the smallest space available. */
+			#define ATTR_PACKED                     __attribute__ ((packed))
+
+			/** Indicates the minimum alignment in bytes for a variable or struct element.
+			 * 
+			 *  \param[in] Bytes  Minimum number of bytes the item should be aligned to.
+			 */
+			#define ATTR_ALIGNED(Bytes)            __attribute__ ((aligned(Bytes)))
 #endif
 
 /** @} */

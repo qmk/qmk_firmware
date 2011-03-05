@@ -60,8 +60,6 @@ void USB_Init(
 	USB_Options = Options;
 	#endif
 	
-	USB_INT_RegisterHandlers();
-
 	#if defined(USB_CAN_BE_BOTH)
 	if (Mode == USB_MODE_UID)
 	{
@@ -71,6 +69,7 @@ void USB_Init(
 	}
 	else
 	{
+		AVR32_USBB.USBCON.uide = false;
 		USB_CurrentMode = Mode;
 	}
 	#endif
@@ -108,7 +107,7 @@ void USB_ResetInterface(void)
 	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].pllsel = !(USB_Options & USB_OPT_GCLK_SRC_OSC);
 	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].oscsel = !(USB_Options & USB_OPT_GCLK_CHANNEL_0);
 	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].diven  = (F_CLOCK != 48000000UL);
-	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].div    = ((F_CLOCK / 2) / 48000000UL);
+	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].div    = (F_CLOCK == 48000000UL) ? 0 : (uint32_t)(((F_CLOCK / 48000000UL) - 1) / 2);
 	AVR32_PM.GCCTRL[USB_GCLK_USBB_INDEX].cen    = true;
 
 	USB_INT_DisableAllInterrupts();
@@ -181,6 +180,7 @@ static void USB_Init_Device(void)
 	USB_INT_Enable(USB_INT_EORSTI);
 
 	USB_Attach();
+	USB_Device_SetDeviceAddress(0);
 }
 #endif
 

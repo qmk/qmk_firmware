@@ -39,17 +39,18 @@
 uint8_t USB_ControlEndpointSize = ENDPOINT_CONTROLEP_DEFAULT_SIZE;
 #endif
 
-uint8_t USB_SelectedEndpoint = ENDPOINT_CONTROLEP;
-
+volatile uint8_t USB_SelectedEndpoint = ENDPOINT_CONTROLEP;
+volatile void*   USB_EndpointFIFOPos[ENDPOINT_TOTAL_ENDPOINTS];
 
 bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
-                                    const uint32_t UECFGXData)
+                                    const uint32_t UECFG0Data)
 {
 	Endpoint_SelectEndpoint(Number);
 	Endpoint_EnableEndpoint();
 
-	((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint] = 0;
-	((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint] = UECFGXData;
+	(&AVR32_USBB.uecfg0)[Number] = 0;
+	(&AVR32_USBB.uecfg0)[Number] = UECFG0Data;
+	USB_EndpointFIFOPos[Number] = &AVR32_USBB_SLAVE[Number * 0x10000];
 
 	return Endpoint_IsConfigured();
 }
@@ -59,8 +60,9 @@ void Endpoint_ClearEndpoints(void)
 	for (uint8_t EPNum = 0; EPNum < ENDPOINT_TOTAL_ENDPOINTS; EPNum++)
 	{
 		Endpoint_SelectEndpoint(EPNum);
-		((uint32_t*)AVR32_USBB_UECFG0)[USB_SelectedEndpoint]    = 0;
-		((uint32_t*)AVR32_USBB_UECON0CLR)[USB_SelectedEndpoint] = 0xFFFFFFFF;
+		(&AVR32_USBB.uecfg0)[EPNum]    = 0;
+		(&AVR32_USBB.uecon0clr)[EPNum] = 0xFFFFFFFF;
+		USB_EndpointFIFOPos[EPNum] = &AVR32_USBB_SLAVE[EPNum * 0x10000];
 		Endpoint_DisableEndpoint();
 	}
 }

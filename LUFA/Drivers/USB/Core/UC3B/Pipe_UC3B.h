@@ -99,7 +99,7 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* External Variables: */
-			extern uint8_t USB_SelectedPipe;
+			extern volatile uint8_t USB_SelectedPipe;
 	#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -212,7 +212,7 @@
 			static inline uint16_t Pipe_BytesInPipe(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_BytesInPipe(void)
 			{
-				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].pbyct;
+				return (&AVR32_USBB.UPSTA0)[USB_SelectedPipe].pbyct;
 			}
 
 			/** Returns the pipe address of the currently selected pipe. This is typically used to save the
@@ -285,7 +285,7 @@
 			static inline uint8_t Pipe_GetPipeToken(void) ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_GetPipeToken(void)
 			{
-				return ((avr32_usbb_upcfg0_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe].ptoken;
+				return (&AVR32_USBB.UPCFG0)[USB_SelectedPipe].ptoken;
 			}
 
 			/** Sets the token for the currently selected pipe to one of the tokens specified by the \c PIPE_TOKEN_*
@@ -298,14 +298,14 @@
 			static inline void Pipe_SetPipeToken(const uint8_t Token) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_SetPipeToken(const uint8_t Token)
 			{
-				((avr32_usbb_upcfg0_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe].ptoken = Token;
+				(&AVR32_USBB.UPCFG0)[USB_SelectedPipe].ptoken = Token;
 			}
 
 			/** Configures the currently selected pipe to allow for an unlimited number of IN requests. */
 			static inline void Pipe_SetInfiniteINRequests(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_SetInfiniteINRequests(void)
 			{
-				((avr32_usbb_upinrq0_t*)AVR32_USBB_UPINRQ0)[USB_SelectedPipe].inmode = true;
+				(&AVR32_USBB.UPINRQ0)[USB_SelectedPipe].inmode = true;
 			}
 
 			/** Configures the currently selected pipe to only allow the specified number of IN requests to be
@@ -316,8 +316,8 @@
 			static inline void Pipe_SetFiniteINRequests(const uint8_t TotalINRequests) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_SetFiniteINRequests(const uint8_t TotalINRequests)
 			{
-				((avr32_usbb_upinrq0_t*)AVR32_USBB_UPINRQ0)[USB_SelectedPipe].inmode = false;
-				((avr32_usbb_upinrq0_t*)AVR32_USBB_UPINRQ0)[USB_SelectedPipe].inrq   = TotalINRequests;
+				(&AVR32_USBB.UPINRQ0)[USB_SelectedPipe].inmode = false;
+				(&AVR32_USBB.UPINRQ0)[USB_SelectedPipe].inrq   = TotalINRequests;
 			}
 
 			/** Determines if the currently selected pipe is configured.
@@ -327,7 +327,7 @@
 			static inline bool Pipe_IsConfigured(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsConfigured(void)
 			{
-				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].cfgok;
+				return (&AVR32_USBB.UPSTA0)[USB_SelectedPipe].cfgok;
 			}
 
 			/** Retrieves the endpoint number of the endpoint within the attached device that the currently selected
@@ -338,7 +338,7 @@
 			static inline uint8_t Pipe_BoundEndpointNumber(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_BoundEndpointNumber(void)
 			{
-				return ((avr32_usbb_upcfg0_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe].pepnum;
+				return (&AVR32_USBB.UPCFG0)[USB_SelectedPipe].pepnum;
 			}
 
 			/** Sets the period between interrupts for an INTERRUPT type pipe to a specified number of milliseconds.
@@ -348,7 +348,7 @@
 			static inline void Pipe_SetInterruptPeriod(const uint8_t Milliseconds) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_SetInterruptPeriod(const uint8_t Milliseconds)
 			{
-				((avr32_usbb_upcfg0_t*)AVR32_USBB_UPCFG0)[USB_SelectedPipe].intfrq = Milliseconds;
+				(&AVR32_USBB.UPCFG0)[USB_SelectedPipe].intfrq = Milliseconds;
 			}
 
 			/** Returns a mask indicating which pipe's interrupt periods have elapsed, indicating that the pipe should
@@ -382,14 +382,14 @@
 			static inline void Pipe_Unfreeze(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Unfreeze(void)
 			{
-				((avr32_usbb_upcon0clr_t*)AVR32_USBB_UPCON0CLR)[USB_SelectedPipe].pfreezec = true;
+				(&AVR32_USBB.UPCON0CLR)[USB_SelectedPipe].pfreezec = true;
 			}
 
 			/** Freezes the selected pipe, preventing it from communicating with an attached device. */
 			static inline void Pipe_Freeze(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Freeze(void)
 			{
-				((avr32_usbb_upcon0set_t*)AVR32_USBB_UPCON0SET)[USB_SelectedPipe].pfreezes = true;
+				(&AVR32_USBB.UPCON0SET)[USB_SelectedPipe].pfreezes = true;
 			}
 
 			/** Determines if the currently selected pipe is frozen, and not able to accept data.
@@ -399,15 +399,15 @@
 			static inline bool Pipe_IsFrozen(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsFrozen(void)
 			{
-				return ((((avr32_usbb_upcon0_t*)AVR32_USBB_UPCON0)[USB_SelectedPipe].pfreeze) ? true : false);
+				return (((&AVR32_USBB.UPCON0)[USB_SelectedPipe].pfreeze) ? true : false);
 			}
 
 			/** Clears the error flags for the currently selected pipe. */
 			static inline void Pipe_ClearError(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearError(void)
 			{
-				((uint32_t*)AVR32_USBB_UPERR0)[USB_SelectedPipe] = 0;
-				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].overfic  = true;
+				(&AVR32_USBB.uperr0)[USB_SelectedPipe] = 0;
+				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].overfic  = true;
 			}
 
 			/** Determines if the master pipe error flag is set for the currently selected pipe, indicating that
@@ -420,7 +420,7 @@
 			static inline bool Pipe_IsError(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsError(void)
 			{
-				return ((((uint32_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe] &
+				return (((&AVR32_USBB.upsta0)[USB_SelectedPipe] &
 				        (AVR32_USBB_PERRI_MASK | AVR32_USBB_OVERFI_MASK)) ? true : false);
 			}
 
@@ -433,11 +433,11 @@
 			static inline uint8_t Pipe_GetErrorFlags(void)
 			{
 				
-				return ((((uint32_t*)AVR32_USBB_UPERR0)[USB_SelectedPipe] &
+				return (((&AVR32_USBB.uperr0)[USB_SelectedPipe] &
 				        (PIPE_ERRORFLAG_CRC16 | PIPE_ERRORFLAG_TIMEOUT |
 				         PIPE_ERRORFLAG_PID   | PIPE_ERRORFLAG_DATAPID |
 				         PIPE_ERRORFLAG_DATATGL)) |
-				        ((((uint32_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe] << 8) &
+				        (((&AVR32_USBB.upsta0)[USB_SelectedPipe] << 8) &
 						 PIPE_ERRORFLAG_OVERFLOW));
 			}
 			
@@ -451,7 +451,7 @@
 			 */
 			static inline uint8_t Pipe_GetBusyBanks(void)
 			{
-				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].nbusybk;
+				return (&AVR32_USBB.UPSTA0)[USB_SelectedPipe].nbusybk;
 			}
 
 			/** Determines if the currently selected pipe may be read from (if data is waiting in the pipe
@@ -470,7 +470,7 @@
 			static inline bool Pipe_IsReadWriteAllowed(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsReadWriteAllowed(void)
 			{
-				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].rwall;
+				return (&AVR32_USBB.UPSTA0)[USB_SelectedPipe].rwall;
 			}
 
 			/** Determines if a packet has been received on the currently selected IN pipe from the attached device.
@@ -482,7 +482,7 @@
 			static inline bool Pipe_IsINReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsINReceived(void)
 			{
-				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].rxini;
+				return (&AVR32_USBB.UPSTA0)[USB_SelectedPipe].rxini;
 			}
 
 			/** Determines if the currently selected OUT pipe is ready to send an OUT packet to the attached device.
@@ -494,7 +494,7 @@
 			static inline bool Pipe_IsOUTReady(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsOUTReady(void)
 			{
-				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].txouti;
+				return (&AVR32_USBB.UPSTA0)[USB_SelectedPipe].txouti;
 			}
 
 			/** Determines if no SETUP request is currently being sent to the attached device on the selected
@@ -507,7 +507,7 @@
 			static inline bool Pipe_IsSETUPSent(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsSETUPSent(void)
 			{
-				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].txstpi;
+				return (&AVR32_USBB.UPSTA0)[USB_SelectedPipe].txstpi;
 			}
 
 			/** Sends the currently selected CONTROL type pipe's contents to the device as a SETUP packet.
@@ -517,7 +517,7 @@
 			static inline void Pipe_ClearSETUP(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearSETUP(void)
 			{
-				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].txstpic = true;
+				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].txstpic = true;
 			}
 
 			/** Acknowledges the reception of a setup IN request from the attached device on the currently selected
@@ -528,8 +528,8 @@
 			static inline void Pipe_ClearIN(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearIN(void)
 			{
-				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].rxinic   = true;
-				((avr32_usbb_upcon0clr_t*)AVR32_USBB_UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
+				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].rxinic   = true;
+				(&AVR32_USBB.UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
 			}
 
 			/** Sends the currently selected pipe's contents to the device as an OUT packet on the selected pipe, freeing
@@ -540,8 +540,8 @@
 			static inline void Pipe_ClearOUT(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearOUT(void)
 			{
-				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].txoutic  = true;
-				((avr32_usbb_upcon0clr_t*)AVR32_USBB_UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
+				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].txoutic  = true;
+				(&AVR32_USBB.UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
 			}
 
 			/** Determines if the device sent a NAK (Negative Acknowledge) in response to the last sent packet on
@@ -557,7 +557,7 @@
 			static inline bool Pipe_IsNAKReceived(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsNAKReceived(void)
 			{
-				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].nakedi;
+				return (&AVR32_USBB.UPSTA0)[USB_SelectedPipe].nakedi;
 			}
 
 			/** Clears the NAK condition on the currently selected pipe.
@@ -569,7 +569,7 @@
 			static inline void Pipe_ClearNAKReceived(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearNAKReceived(void)
 			{
-				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].nakedic = true;
+				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].nakedic = true;
 			}
 
 			/** Determines if the currently selected pipe has had the STALL condition set by the attached device.
@@ -581,7 +581,7 @@
 			static inline bool Pipe_IsStalled(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline bool Pipe_IsStalled(void)
 			{
-				return ((avr32_usbb_upsta0_t*)AVR32_USBB_UPSTA0)[USB_SelectedPipe].rxstalldi;
+				return (&AVR32_USBB.UPSTA0)[USB_SelectedPipe].rxstalldi;
 			}
 
 			/** Clears the STALL condition detection flag on the currently selected pipe, but does not clear the
@@ -592,7 +592,7 @@
 			static inline void Pipe_ClearStall(void) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_ClearStall(void)
 			{
-				((avr32_usbb_upsta0clr_t*)AVR32_USBB_UPSTA0CLR)[USB_SelectedPipe].rxstalldic = true;
+				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].rxstalldic = true;
 			}
 
 			/** Reads one byte from the currently selected pipe's bank, for OUT direction pipes.
