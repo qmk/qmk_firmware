@@ -247,7 +247,7 @@
 			{
 				AVR32_USBB.uprst |=  (AVR32_USBB_PRST0_MASK << PipeNumber);
 				AVR32_USBB.uprst &= ~(AVR32_USBB_PRST0_MASK << PipeNumber);
-				USB_PipeFIFOPos[Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[Pipe_SelectedPipe * 0x10000];
+				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * 0x10000];
 			}
 
 			/** Enables the currently selected pipe so that data can be sent and received through it to and from
@@ -520,7 +520,7 @@
 			static inline void Pipe_ClearSETUP(void)
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].txstpic = true;
-				USB_PipeFIFOPos[Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[Pipe_SelectedPipe * 0x10000];
+				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * 0x10000];
 			}
 
 			/** Acknowledges the reception of a setup IN request from the attached device on the currently selected
@@ -533,7 +533,7 @@
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].rxinic   = true;
 				(&AVR32_USBB.UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
-				USB_PipeFIFOPos[Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[Pipe_SelectedPipe * 0x10000];
+				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * 0x10000];
 			}
 
 			/** Sends the currently selected pipe's contents to the device as an OUT packet on the selected pipe, freeing
@@ -546,7 +546,7 @@
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].txoutic  = true;
 				(&AVR32_USBB.UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
-				USB_PipeFIFOPos[Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[Pipe_SelectedPipe * 0x10000];
+				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * 0x10000];
 			}
 
 			/** Determines if the device sent a NAK (Negative Acknowledge) in response to the last sent packet on
@@ -598,7 +598,7 @@
 			static inline void Pipe_ClearStall(void)
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].rxstalldic = true;
-				USB_PipeFIFOPos[Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[Pipe_SelectedPipe * 0x10000];
+				USB_PipeFIFOPos[USB_SelectedPipe] = &AVR32_USBB_SLAVE[USB_SelectedPipe * 0x10000];
 			}
 
 			/** Reads one byte from the currently selected pipe's bank, for OUT direction pipes.

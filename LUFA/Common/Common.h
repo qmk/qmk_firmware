@@ -140,6 +140,8 @@
 			#define _delay_ms(x)
 			#define memcmp_P(...)            memcmp(__VA_ARGS__)
 			#define memcpy_P(...)            memcpy(__VA_ARGS__)
+			
+			#define USE_RAM_DESCRIPTORS
 		#endif
 
 	/* Public Interface - May be used in end-application: */
