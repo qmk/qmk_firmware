@@ -332,8 +332,8 @@
 			 *
 			 *  \param[in] EndpointNumber Endpoint number whose FIFO buffers are to be reset.
 			 */
-			static inline void Endpoint_ResetFIFO(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_ResetFIFO(const uint8_t EndpointNumber)
+			static inline void Endpoint_ResetEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_ResetEndpoint(const uint8_t EndpointNumber)
 			{
 				AVR32_USBB.uerst |=  (AVR32_USBB_EPRST0_MASK << EndpointNumber);
 				AVR32_USBB.uerst &= ~(AVR32_USBB_EPRST0_MASK << EndpointNumber);
@@ -397,8 +397,6 @@
 					(&AVR32_USBB.UECON0SET)[USB_SelectedEndpoint].killbks = true;
 					while ((&AVR32_USBB.UECON0)[USB_SelectedEndpoint].killbk);
 				}
-
-				USB_EndpointFIFOPos[USB_SelectedEndpoint] = &AVR32_USBB_SLAVE[USB_SelectedEndpoint * 0x10000];
 			}
 			
 			/** Determines if the currently selected endpoint may be read from (if data is waiting in the endpoint
@@ -647,7 +645,7 @@
 				uint16_t Byte1 = *(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++);
 				uint16_t Byte0 = *(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++);
 
-				return ((Byte1 << 8) | Byte0);
+				return ((Byte0 << 8) | Byte1);
 			}
 
 			/** Reads two bytes from the currently selected endpoint's bank in big endian format, for OUT
@@ -663,7 +661,7 @@
 				uint16_t Byte0 = *(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++);
 				uint16_t Byte1 = *(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++);
 
-				return ((Byte1 << 8) | Byte0);
+				return ((Byte0 << 8) | Byte1);
 			}
 
 			/** Writes two bytes to the currently selected endpoint's bank in little endian format, for IN
@@ -676,8 +674,8 @@
 			static inline void Endpoint_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Word_LE(const uint16_t Word)
 			{
-				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (Word & 0xFF);
 				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (Word >> 8);
+				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (Word & 0xFF);
 			}
 
 			/** Writes two bytes to the currently selected endpoint's bank in big endian format, for IN
@@ -690,8 +688,8 @@
 			static inline void Endpoint_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_Word_BE(const uint16_t Word)
 			{
-				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (Word >> 8);
 				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (Word & 0xFF);
+				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (Word >> 8);
 			}
 
 			/** Discards two bytes from the currently selected endpoint's bank, for OUT direction endpoints.
@@ -722,7 +720,7 @@
 				uint32_t Byte1 = *(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++);
 				uint32_t Byte0 = *(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++);
 
-				return ((Byte3 << 24) | (Byte2 << 16) | (Byte1 << 8) | Byte0);
+				return ((Byte0 << 24) | (Byte1 << 16) | (Byte2 << 8) | Byte3);
 			}
 
 			/** Reads four bytes from the currently selected endpoint's bank in big endian format, for OUT
@@ -740,7 +738,7 @@
 				uint32_t Byte2 = *(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++);
 				uint32_t Byte3 = *(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++);
 
-				return ((Byte3 << 24) | (Byte2 << 16) | (Byte1 << 8) | Byte0);
+				return ((Byte0 << 24) | (Byte1 << 16) | (Byte2 << 8) | Byte3);
 			}
 
 			/** Writes four bytes to the currently selected endpoint's bank in little endian format, for IN
@@ -753,10 +751,10 @@
 			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_DWord_LE(const uint32_t DWord)
 			{
-				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord &  0xFF);
-				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord >> 8);
-				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord >> 16);
 				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord >> 24);
+				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord >> 16);
+				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord >> 8);
+				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord &  0xFF);
 			}
 
 			/** Writes four bytes to the currently selected endpoint's bank in big endian format, for IN
@@ -769,10 +767,10 @@
 			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Endpoint_Write_DWord_BE(const uint32_t DWord)
 			{
-				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord >> 24);
-				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord >> 16);
-				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord >> 8);
 				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord &  0xFF);
+				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord >> 8);
+				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord >> 16);
+				*(((volatile uint8_t** volatile)USB_EndpointFIFOPos)[USB_SelectedEndpoint]++) = (DWord >> 24);
 			}
 
 			/** Discards four bytes from the currently selected endpoint's bank, for OUT direction endpoints.

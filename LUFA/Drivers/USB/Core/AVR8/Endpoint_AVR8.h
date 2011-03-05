@@ -349,8 +349,8 @@
 			 *
 			 *  \param[in] EndpointNumber Endpoint number whose FIFO buffers are to be reset.
 			 */
-			static inline void Endpoint_ResetFIFO(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
-			static inline void Endpoint_ResetFIFO(const uint8_t EndpointNumber)
+			static inline void Endpoint_ResetEndpoint(const uint8_t EndpointNumber) ATTR_ALWAYS_INLINE;
+			static inline void Endpoint_ResetEndpoint(const uint8_t EndpointNumber)
 			{
 				UERST = (1 << EndpointNumber);
 				UERST = 0;

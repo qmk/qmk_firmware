@@ -246,6 +246,7 @@
 			{
 				AVR32_USBB.uprst |=  (AVR32_USBB_PRST0_MASK << PipeNumber);
 				AVR32_USBB.uprst &= ~(AVR32_USBB_PRST0_MASK << PipeNumber);
+				USB_PipeFIFOPos[Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[Pipe_SelectedPipe * 0x10000];
 			}
 
 			/** Enables the currently selected pipe so that data can be sent and received through it to and from
@@ -518,6 +519,7 @@
 			static inline void Pipe_ClearSETUP(void)
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].txstpic = true;
+				USB_PipeFIFOPos[Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[Pipe_SelectedPipe * 0x10000];
 			}
 
 			/** Acknowledges the reception of a setup IN request from the attached device on the currently selected
@@ -530,6 +532,7 @@
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].rxinic   = true;
 				(&AVR32_USBB.UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
+				USB_PipeFIFOPos[Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[Pipe_SelectedPipe * 0x10000];
 			}
 
 			/** Sends the currently selected pipe's contents to the device as an OUT packet on the selected pipe, freeing
@@ -542,6 +545,7 @@
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].txoutic  = true;
 				(&AVR32_USBB.UPCON0CLR)[USB_SelectedPipe].fifoconc = true;
+				USB_PipeFIFOPos[Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[Pipe_SelectedPipe * 0x10000];
 			}
 
 			/** Determines if the device sent a NAK (Negative Acknowledge) in response to the last sent packet on
@@ -593,6 +597,7 @@
 			static inline void Pipe_ClearStall(void)
 			{
 				(&AVR32_USBB.UPSTA0CLR)[USB_SelectedPipe].rxstalldic = true;
+				USB_PipeFIFOPos[Pipe_SelectedPipe] = &AVR32_USBB_SLAVE[Pipe_SelectedPipe * 0x10000];
 			}
 
 			/** Reads one byte from the currently selected pipe's bank, for OUT direction pipes.
@@ -604,7 +609,7 @@
 			static inline uint8_t Pipe_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_Read_Byte(void)
 			{
-				return *((uint8_t*)AVR32_USBB_EP_DATA);
+				return *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
 			}
 
 			/** Writes one byte from the currently selected pipe's bank, for IN direction pipes.
@@ -616,7 +621,7 @@
 			static inline void Pipe_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Byte(const uint8_t Byte)
 			{
-				*((uint8_t*)AVR32_USBB_EP_DATA) = Byte;
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = Byte;
 			}
 
 			/** Discards one byte from the currently selected pipe's bank, for OUT direction pipes.
@@ -628,7 +633,7 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
 			}
 
 			/** Reads two bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -641,16 +646,10 @@
 			static inline uint16_t Pipe_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_Read_Word_LE(void)
 			{
-				union
-				{
-					uint16_t Word;
-					uint8_t  Bytes[2];
-				} Data;
+				uint16_t Byte1 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint16_t Byte0 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
 
-				Data.Bytes[0] = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Data.Bytes[1] = *((uint8_t*)AVR32_USBB_EP_DATA);
-
-				return Data.Word;
+				return ((Byte0 << 8) | Byte1);
 			}
 
 			/** Reads two bytes from the currently selected pipe's bank in big endian format, for OUT
@@ -663,16 +662,10 @@
 			static inline uint16_t Pipe_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_Read_Word_BE(void)
 			{
-				union
-				{
-					uint16_t Word;
-					uint8_t  Bytes[2];
-				} Data;
+				uint16_t Byte0 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint16_t Byte1 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
 
-				Data.Bytes[1] = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Data.Bytes[0] = *((uint8_t*)AVR32_USBB_EP_DATA);
-
-				return Data.Word;
+				return ((Byte0 << 8) | Byte1);
 			}
 
 			/** Writes two bytes to the currently selected pipe's bank in little endian format, for IN
@@ -685,8 +678,8 @@
 			static inline void Pipe_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_LE(const uint16_t Word)
 			{
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (Word & 0xFF);
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (Word >> 8);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (Word >> 8);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (Word & 0xFF);
 			}
 
 			/** Writes two bytes to the currently selected pipe's bank in big endian format, for IN
@@ -699,8 +692,8 @@
 			static inline void Pipe_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_BE(const uint16_t Word)
 			{
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (Word >> 8);
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (Word & 0xFF);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (Word & 0xFF);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (Word >> 8);
 			}
 
 			/** Discards two bytes from the currently selected pipe's bank, for OUT direction pipes.
@@ -712,8 +705,8 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
 			}
 
 			/** Reads four bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -726,18 +719,12 @@
 			static inline uint32_t Pipe_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Pipe_Read_DWord_LE(void)
 			{
-				union
-				{
-					uint32_t DWord;
-					uint8_t  Bytes[4];
-				} Data;
+				uint32_t Byte3 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint32_t Byte2 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint32_t Byte1 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint32_t Byte0 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
 
-				Data.Bytes[0] = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Data.Bytes[1] = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Data.Bytes[2] = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Data.Bytes[3] = *((uint8_t*)AVR32_USBB_EP_DATA);
-
-				return Data.DWord;
+				return ((Byte0 << 24) | (Byte1 << 16) | (Byte2 << 8) | Byte3);
 			}
 
 			/** Reads four bytes from the currently selected pipe's bank in big endian format, for OUT
@@ -750,18 +737,12 @@
 			static inline uint32_t Pipe_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Pipe_Read_DWord_BE(void)
 			{
-				union
-				{
-					uint32_t DWord;
-					uint8_t  Bytes[4];
-				} Data;
+				uint32_t Byte0 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint32_t Byte1 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint32_t Byte2 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint32_t Byte3 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
 
-				Data.Bytes[3] = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Data.Bytes[2] = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Data.Bytes[1] = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Data.Bytes[0] = *((uint8_t*)AVR32_USBB_EP_DATA);
-
-				return Data.DWord;
+				return ((Byte0 << 24) | (Byte1 << 16) | (Byte2 << 8) | Byte3);
 			}
 
 			/** Writes four bytes to the currently selected pipe's bank in little endian format, for IN
@@ -774,10 +755,10 @@
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord)
 			{
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord &  0xFF);
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 8);
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 16);
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 24);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 24);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 16);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 8);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord &  0xFF);
 			}
 
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
@@ -790,10 +771,10 @@
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord)
 			{
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 24);
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 16);
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord >> 8);
-				*((uint8_t*)AVR32_USBB_EP_DATA) = (DWord &  0xFF);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord &  0xFF);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 8);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 16);
+				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 24);
 			}
 
 			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.
@@ -805,10 +786,10 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
-				Dummy = *((uint8_t*)AVR32_USBB_EP_DATA);
+				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
 			}
 
 		/* External Variables: */

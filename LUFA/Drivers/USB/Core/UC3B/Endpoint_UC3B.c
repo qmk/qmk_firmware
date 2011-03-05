@@ -50,7 +50,7 @@ bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
 
 	(&AVR32_USBB.uecfg0)[Number] = 0;
 	(&AVR32_USBB.uecfg0)[Number] = UECFG0Data;
-	USB_EndpointFIFOPos[Number] = &AVR32_USBB_SLAVE[Number * 0x10000];
+	USB_EndpointFIFOPos[Number]  = &AVR32_USBB_SLAVE[Number * 0x10000];
 
 	return Endpoint_IsConfigured();
 }
@@ -62,7 +62,7 @@ void Endpoint_ClearEndpoints(void)
 		Endpoint_SelectEndpoint(EPNum);
 		(&AVR32_USBB.uecfg0)[EPNum]    = 0;
 		(&AVR32_USBB.uecon0clr)[EPNum] = 0xFFFFFFFF;
-		USB_EndpointFIFOPos[EPNum] = &AVR32_USBB_SLAVE[EPNum * 0x10000];
+		USB_EndpointFIFOPos[EPNum]     = &AVR32_USBB_SLAVE[EPNum * 0x10000];
 		Endpoint_DisableEndpoint();
 	}
 }

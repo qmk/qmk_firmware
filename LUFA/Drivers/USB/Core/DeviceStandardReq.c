@@ -50,9 +50,9 @@ void USB_Device_ProcessControlRequest(void)
 {
 	USB_ControlRequest.bmRequestType = Endpoint_Read_Byte();
 	USB_ControlRequest.bRequest      = Endpoint_Read_Byte();
-	USB_ControlRequest.wValue        = le16_to_cpu(Endpoint_Read_Word_LE());
-	USB_ControlRequest.wIndex        = le16_to_cpu(Endpoint_Read_Word_LE());
-	USB_ControlRequest.wLength       = le16_to_cpu(Endpoint_Read_Word_LE());
+	USB_ControlRequest.wValue        = Endpoint_Read_Word_LE();
+	USB_ControlRequest.wIndex        = Endpoint_Read_Word_LE();
+	USB_ControlRequest.wLength       = Endpoint_Read_Word_LE();
 
 	EVENT_USB_Device_ControlRequest();
 
@@ -339,7 +339,7 @@ static void USB_Device_ClearSetFeature(void)
 					else
 					{
 						Endpoint_ClearStall();
-						Endpoint_ResetFIFO(EndpointIndex);
+						Endpoint_ResetEndpoint(EndpointIndex);
 						Endpoint_ResetDataToggle();
 					}
 				}
