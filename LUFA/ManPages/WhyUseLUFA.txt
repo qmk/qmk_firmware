@@ -32,15 +32,12 @@
  *    seconds each time a new release is made.
  *
  *  - <b>Size:</b>
- *    Not just requiring less code to make complex USB devices, LUFA (under most cases with the correct compile options)
- *    requires less FLASH space than Atmel's stack, meaning more space for the user application*.
+ *    Not just requiring less code to make complex USB devices, LUFA is written to compile down as much as possible into
+ *    optimal code, to occupy only a small space for its feature set.
  *
  *  - <b>Support:</b>
  *    Since many people are now using LUFA in their own projects, you can take advantage of other's knowledge when you run
  *    into difficulties or need some advice. In addition, you can also email the library author to receive personalized
  *    support when you need it (subject to author's schedule).
- *
- *   <small>* Atmel Stack Mouse Device Demo 4218 bytes, LUFA Mouse Low Level Device Demo 3526 bytes, under identical build
- *   environments</small>
  */
 

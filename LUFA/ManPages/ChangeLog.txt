@@ -14,7 +14,7 @@
   *   - Added a new general RingBuff.h miscellaneous ring buffer library driver header
   *   - Added new GCC_FORCE_POINTER_ACCESS() macro to correct GCC's mishandling of struct pointer accesses
   *   - Added basic driver example use code to the library documentation
-  *   - Added new Endpoint_Null_Stream() and Pipe_Null_stream() functions
+  *   - Added new Endpoint_Null_Stream() and Pipe_Null_Stream() functions
   *   - Added new ADC_GET_CHANNEL_MASK() convenience macro
   *   - Added new HID report item macros (with HID_RI_ prefix) to allow for easy creation and editing of HID report descriptors
   *   - Added new HID_DESCRIPTOR_MOUSE, HID_DESCRIPTOR_KEYBOARD, HID_DESCRIPTOR_JOYSTICK and HID_DESCRIPTOR_VENDOR macros
@@ -80,6 +80,9 @@
   *     error code enum (thanks to Daniel Seibert)
   *   - Fixed ReportID not being removed from the feature/out report data array in the HID class driver when Report IDs are used
   *   - Fixed incorect BUTTONS_BUTTON1 definition for the Minimus board
+  *   - Fixed Still Image Host class driver exiting the descriptor search routine prematurely if the data pipes (but not event pipe)
+  *     is found
+  *   - Fixed missing call to Pipe_SetInfiniteINRequests() in the Pipe_ConfigurePipe() routine
   *  - Library Applications:
   *   - Fixed Benito project discarding incoming data from the USB virtual serial port when the USART is busy
   *   - Fixed broken DFU bootloader, added XPLAIN support for bootloader start when XCK jumpered to ground

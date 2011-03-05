@@ -5,11 +5,11 @@
  */
 
 /**
- *  \page Page_LUFAvsAtmelStack LUFA vs the Atmel Stack
+ *  \page Page_LUFAvsAtmelStack LUFA vs the Atmel 8-bit USB AVR Stack
  *
- *  Atmel offers an official USB AVR stack, which may be incorporated into user projects and products. As LUFA and the Atmel
- *  stack aims to give roughly the same functionality to a design, it is often asked what advantages LUFA carries over the
- *  official Atmel USB stack. Below are just some of the advantages to choosing LUFA over the official stack.
+ *  Atmel offers an official 8-bit USB AVR stack, which may be incorporated into user projects and products. As LUFA and the Atmel
+ *  stack aims to give roughly the same functionality to a design, it is often asked what advantages LUFA carries over the official
+ *  Atmel USB stack for the 8-bit USB AVRs. Below are just some of the advantages to choosing LUFA over the official Atmel stack.
  *
  *  - <b>Licensing:</b>
  *    LUFA is released under a very permissive MIT license (see \ref Page_LicenseInfo), while the Atmel stack carries several
@@ -42,5 +42,11 @@
  *  - <b>Better Library Support:</b>
  *    As many people are now using LUFA, there is a community being built around it. You can get answers to your LUFA related questions
  *    quickly by either emailing the library author (subject to author's schedule) or by posting to the official LUFA support mailing list.
+ *
+ *  - <b>More Compact Code:</b>
+ *    LUFA is written from the ground up to compile optimally, using clean code and good design. Two demos giving the same functionality -
+ *    the LUFA Low Level API Mouse Demo vs. the Atmel AVR270 HID Mouse application note shows LUFA to be the clear size winner *.
+ *
+ *  * <i>LUFA Low Level Mouse Demo: 3510 bytes, Atmel AVR270 Mouse Application Note: 4222 bytes, using an identical build environment.</i>
  */
 
