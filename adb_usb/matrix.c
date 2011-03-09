@@ -87,7 +87,7 @@ uint8_t matrix_scan(void)
             _register_key(key1);
     }
 
-    if (debug_matrix && matrix_is_modified()) {
+    if (debug_enable) {
         print("adb_host_kbd_recv: "); phex16(codes); print("\n");
     }
     return 1;

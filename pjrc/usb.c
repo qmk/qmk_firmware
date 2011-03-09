@@ -687,10 +687,11 @@ ISR(USB_GEN_vect)
 				usb_keyboard_idle_count++;
 				if (usb_keyboard_idle_count == usb_keyboard_idle_config) {
 					usb_keyboard_idle_count = 0;
-					UEDATX = keyboard_report->mods;
+					UEDATX = keyboard_report_prev->mods;
 					UEDATX = 0;
-					for (i=0; i<6; i++) {
-						UEDATX = keyboard_report->keys[i];
+                                        uint8_t keys = usb_keyboard_protocol ? KBD_REPORT_KEYS : 6;
+					for (i=0; i<keys; i++) {
+						UEDATX = keyboard_report_prev->keys[i];
 					}
 					UEINTX = 0x3A;
 				}

@@ -44,7 +44,7 @@ USB_EXTRA_ENABLE = yes	# Enhanced feature for Windows(Audio control and System c
 
 
 #---------------- Programming Options --------------------------
-PROGRAM_CMD = teensy_loader_cli.exe -mmcu=$(MCU) -w -v $(TARGET).hex
+PROGRAM_CMD = teensy_loader_cli -mmcu=$(MCU) -w -v $(TARGET).hex
 
 
 
