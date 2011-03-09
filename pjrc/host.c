@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <avr/interrupt.h>
 #include "usb_keycodes.h"
 #include "usb_keyboard.h"
 #include "usb_mouse.h"
@@ -58,9 +59,12 @@ void host_add_code(uint8_t code)
 
 void host_swap_keyboard_report(void)
 {
+    uint8_t sreg = SREG;
+    cli();
     report_keyboard_t *tmp = keyboard_report_prev;
     keyboard_report_prev = keyboard_report;
     keyboard_report = tmp;
+    SREG = sreg;
 }
 
 void host_clear_keyboard_report(void)

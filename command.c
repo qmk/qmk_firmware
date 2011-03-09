@@ -102,7 +102,10 @@ uint8_t command_proc(void)
             print("UDCON: "); phex(UDCON); print("\n");
             print("UDIEN: "); phex(UDIEN); print("\n");
             print("UDINT: "); phex(UDINT); print("\n");
-            print("host_keyboard_leds:"); phex(host_keyboard_leds()); print("\n");
+            print("usb_keyboard_leds:"); phex(usb_keyboard_leds); print("\n");
+            print("usb_keyboard_protocol: "); phex(usb_keyboard_protocol); print("\n");
+            print("usb_keyboard_idle_config:"); phex(usb_keyboard_idle_config); print("\n");
+            print("usb_keyboard_idle_count:"); phex(usb_keyboard_idle_count); print("\n");
 #endif
             break;
 #ifdef USB_NKRO_ENABLE

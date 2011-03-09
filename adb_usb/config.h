@@ -17,8 +17,8 @@
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (BIT_LSHIFT | BIT_RSHIFT) || \
-    keyboard_report->mods == (BIT_LCTRL | BIT_RSHIFT) \
+    keyboard_report->mods == (BIT_LSHIFT | BIT_LCTRL | BIT_LALT | BIT_LGUI) || \
+    keyboard_report->mods == (BIT_LSHIFT | BIT_RSHIFT) \
 )
 
 
