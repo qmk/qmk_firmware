@@ -81,10 +81,10 @@
 			#define JOY_UP                    (1UL << 7)
 
 			/** Mask for the joystick being pushed in the right direction. */
-			#define JOY_RIGHT                 (1UL << 8)
+			#define JOY_RIGHT                 (1UL << 9)
 
 			/** Mask for the joystick being pushed in the downward direction. */
-			#define JOY_DOWN                  (1UL << 9)
+			#define JOY_DOWN                  (1UL << 8)
 
 			/** Mask for the joystick being pushed inward. */
 			#define JOY_PRESS                 (1UL << 13)

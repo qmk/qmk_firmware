@@ -251,7 +251,7 @@
 				uint8_t Type; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
 				               *   given by the specific class.
 				               */
-			} USB_Descriptor_Header_t;
+			} ATTR_PACKED USB_Descriptor_Header_t;
 
 			/** \brief Standard USB Descriptor Header (USB-IF naming conventions).
 			 *
@@ -266,7 +266,7 @@
 				uint8_t bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t or a value
 				                          *   given by the specific class.
 				                          */
-			} USB_StdDescriptor_Header_t;
+			} ATTR_PACKED USB_StdDescriptor_Header_t;
 
 			/** \brief Standard USB Device Descriptor (LUFA naming conventions).
 			 *
@@ -315,7 +315,7 @@
 				uint8_t  NumberOfConfigurations; /**< Total number of configurations supported by
 				                                  *   the device.
 				                                  */
-			} USB_Descriptor_Device_t;
+			} ATTR_PACKED USB_Descriptor_Device_t;
 
 			/** \brief Standard USB Device Descriptor (USB-IF naming conventions).
 			 *
@@ -363,7 +363,7 @@
 				uint8_t  bNumConfigurations; /**< Total number of configurations supported by
 				                              *   the device.
 				                              */
-			} USB_StdDescriptor_Device_t;
+			} ATTR_PACKED USB_StdDescriptor_Device_t;
 
 			/** \brief Standard USB Configuration Descriptor (LUFA naming conventions).
 			 *
@@ -392,7 +392,7 @@
 				                               *   current configuration, calculated by the \ref USB_CONFIG_POWER_MA()
 				                               *   macro.
 				                               */
-			} USB_Descriptor_Configuration_Header_t;
+			} ATTR_PACKED USB_Descriptor_Configuration_Header_t;
 
 			/** \brief Standard USB Configuration Descriptor (USB-IF naming conventions).
 			 *
@@ -420,7 +420,7 @@
 				                     *   current configuration, calculated by the \ref USB_CONFIG_POWER_MA()
 				                     *   macro.
 				                     */
-			} USB_StdDescriptor_Configuration_Header_t;
+			} ATTR_PACKED USB_StdDescriptor_Configuration_Header_t;
 
 			/** \brief Standard USB Interface Descriptor (LUFA naming conventions).
 			 *
@@ -446,7 +446,7 @@
 				uint8_t Protocol; /**< Interface protocol ID. */
 
 				uint8_t InterfaceStrIndex; /**< Index of the string descriptor describing the interface. */
-			} USB_Descriptor_Interface_t;
+			} ATTR_PACKED USB_Descriptor_Interface_t;
 
 			/** \brief Standard USB Interface Descriptor (USB-IF naming conventions).
 			 *
@@ -474,7 +474,7 @@
 				uint8_t iInterface; /**< Index of the string descriptor describing the
 				                     *   interface.
 				                     */
-			} USB_StdDescriptor_Interface_t;
+			} ATTR_PACKED USB_StdDescriptor_Interface_t;
 
 			/** \brief Standard USB Interface Association Descriptor (LUFA naming conventions).
 			 *
@@ -503,7 +503,7 @@
 				uint8_t IADStrIndex; /**< Index of the string descriptor describing the
 				                      *   interface association.
 				                      */
-			} USB_Descriptor_Interface_Association_t;
+			} ATTR_PACKED USB_Descriptor_Interface_Association_t;
 
 			/** \brief Standard USB Interface Association Descriptor (USB-IF naming conventions).
 			 *
@@ -533,7 +533,7 @@
 				uint8_t iFunction; /**< Index of the string descriptor describing the
 				                    *   interface association.
 				                    */
-			} USB_StdDescriptor_Interface_Association_t;
+			} ATTR_PACKED USB_StdDescriptor_Interface_Association_t;
 
 			/** \brief Standard USB Endpoint Descriptor (LUFA naming conventions).
 			 *
@@ -558,7 +558,7 @@
 				uint8_t  PollingIntervalMS; /**< Polling interval in milliseconds for the endpoint if it is an INTERRUPT
 				                             *   or ISOCHRONOUS type.
 				                             */
-			} USB_Descriptor_Endpoint_t;
+			} ATTR_PACKED USB_Descriptor_Endpoint_t;
 
 			/** \brief Standard USB Endpoint Descriptor (USB-IF naming conventions).
 			 *
@@ -586,7 +586,7 @@
 				uint8_t  bInterval; /**< Polling interval in milliseconds for the endpoint if it is an INTERRUPT or
 				                     *   ISOCHRONOUS type.
 				                     */
-			} USB_StdDescriptor_Endpoint_t;
+			} ATTR_PACKED USB_StdDescriptor_Endpoint_t;
 
 			/** \brief Standard USB String Descriptor (LUFA naming conventions).
 			 *
@@ -616,7 +616,7 @@
 				                          *   Unicode strings, and may be used instead of an explicit
 				                          *   array of ASCII characters.
 				                          */
-			} USB_Descriptor_String_t;
+			} ATTR_PACKED USB_Descriptor_String_t;
 
 			/** \brief Standard USB String Descriptor (USB-IF naming conventions).
 			 *
@@ -647,7 +647,7 @@
 				                    *   quotation mark) are considered to be Unicode strings, and may be used instead
 				                    *   of an explicit array of ASCII characters.
 				                    */
-			} USB_StdDescriptor_String_t;
+			} ATTR_PACKED USB_StdDescriptor_String_t;
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)

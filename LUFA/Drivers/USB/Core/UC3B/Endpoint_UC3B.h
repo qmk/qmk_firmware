@@ -583,7 +583,7 @@
 			static inline uint32_t Endpoint_GetEndpointDirection(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Endpoint_GetEndpointDirection(void)
 			{
-				return ((&AVR32_USBB.uecfg0)[USB_SelectedEndpoint] & AVR32_USBB_UECFG0_EPDIR_MASK);
+				return ((&AVR32_USBB.uecfg0)[USB_SelectedEndpoint] & AVR32_USBB_UECFG0_EPDIR_MASK) ? ENDPOINT_DIR_IN : ENDPOINT_DIR_OUT;
 			}
 
 			/** Sets the direction of the currently selected endpoint.

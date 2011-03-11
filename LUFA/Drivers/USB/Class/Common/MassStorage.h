@@ -266,7 +266,7 @@
 			uint8_t  LUN; /**< Logical Unit number this command is issued to. */
 			uint8_t  SCSICommandLength; /**< Length of the issued SCSI command within the SCSI command data array. */
 			uint8_t  SCSICommandData[16]; /**< Issued SCSI command in the Command Block. */
-		} MS_CommandBlockWrapper_t;
+		} ATTR_PACKED MS_CommandBlockWrapper_t;
 
 		/** \brief Mass Storage Class Command Status Wrapper.
 		 *
@@ -278,7 +278,7 @@
 			uint32_t Tag; /**< Unique command ID value, to associate a command block wrapper with its command status wrapper. */
 			uint32_t DataTransferResidue; /**< Number of bytes of data not processed in the SCSI command. */
 			uint8_t  Status; /**< Status code of the issued command - a value from the \ref MS_CommandStatusCodes_t enum. */
-		} MS_CommandStatusWrapper_t;
+		} ATTR_PACKED MS_CommandStatusWrapper_t;
 
 		/** \brief Mass Storage Class SCSI Sense Structure
 		 *
@@ -306,7 +306,7 @@
 			uint8_t       AdditionalSenseQualifier;
 			uint8_t       FieldReplaceableUnitCode;
 			uint8_t       SenseKeySpecific[3];
-		} SCSI_Request_Sense_Response_t;
+		} ATTR_PACKED SCSI_Request_Sense_Response_t;
 
 		/** \brief Mass Storage Class SCSI Inquiry Structure.
 		 *
@@ -347,7 +347,7 @@
 			uint8_t       VendorID[8];
 			uint8_t       ProductID[16];
 			uint8_t       RevisionID[4];
-		} SCSI_Inquiry_Response_t;
+		} ATTR_PACKED SCSI_Inquiry_Response_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

@@ -54,6 +54,7 @@
  *  - IR Remote to Keyboard decoder: http://netzhansa.blogspot.com/2010/04/our-living-room-hi-fi-setup-needs-mp3.html
  *  - LED Panel controller: http://projects.peterpolidoro.net/caltech/panelscontroller/panelscontroller.htm
  *  - Motherboard BIOS flasher: http://www.coreboot.org/InSystemFlasher
+ *  - Nikon wireless camera remote control (Norwegian): http://hekta.org/~hpe1119/
  *  - PSGroove, a Playstation 3 Homebrew dongle: http://github.com/psgroove
  *  - Single LED Matrix Display: http://guysoft.wordpress.com/2009/10/08/bumble-b/
  *  - Linux Secure Storage Dongle: http://github.com/TomMD/teensy

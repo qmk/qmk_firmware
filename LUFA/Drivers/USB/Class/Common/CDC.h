@@ -241,7 +241,7 @@
 			uint16_t                CDCSpecification; /**< Version number of the CDC specification implemented by the device,
 			                                           *   encoded in BCD format.
 			                                           */
-		} USB_CDC_Descriptor_FunctionalHeader_t;
+		} ATTR_PACKED USB_CDC_Descriptor_FunctionalHeader_t;
 
 		/** \brief CDC class-specific Functional Header Descriptor (USB-IF naming conventions).
 		 *
@@ -262,7 +262,7 @@
 			                              *   must be \ref CDC_DSUBTYPE_CSInterface_Header.
 			                              */
 			uint16_t bcdCDC; /**< Version number of the CDC specification implemented by the device, encoded in BCD format. */
-		} USB_CDC_StdDescriptor_FunctionalHeader_t;
+		} ATTR_PACKED USB_CDC_StdDescriptor_FunctionalHeader_t;
 
 		/** \brief CDC class-specific Functional ACM Descriptor (LUFA naming conventions).
 		 *
@@ -281,7 +281,7 @@
 			                                       *   this should be set to a fixed value of 0x06 - for other capabilities, refer
 			                                       *   to the CDC ACM specification.
 			                                       */
-		} USB_CDC_Descriptor_FunctionalACM_t;
+		} ATTR_PACKED USB_CDC_Descriptor_FunctionalACM_t;
 
 		/** \brief CDC class-specific Functional ACM Descriptor (USB-IF naming conventions).
 		 *
@@ -304,7 +304,7 @@
 			                         *   this should be set to a fixed value of 0x06 - for other capabilities, refer
 			                         *   to the CDC ACM specification.
 			                         */
-		} USB_CDC_StdDescriptor_FunctionalACM_t;
+		} ATTR_PACKED USB_CDC_StdDescriptor_FunctionalACM_t;
 
 		/** \brief CDC class-specific Functional Union Descriptor (LUFA naming conventions).
 		 *
@@ -321,7 +321,7 @@
 			                                  */
 			uint8_t                 MasterInterfaceNumber; /**< Interface number of the CDC Control interface. */
 			uint8_t                 SlaveInterfaceNumber; /**< Interface number of the CDC Data interface. */
-		} USB_CDC_Descriptor_FunctionalUnion_t;
+		} ATTR_PACKED USB_CDC_Descriptor_FunctionalUnion_t;
 
 		/** \brief CDC class-specific Functional Union Descriptor (USB-IF naming conventions).
 		 *
@@ -342,7 +342,7 @@
 			                             */
 			uint8_t bMasterInterface; /**< Interface number of the CDC Control interface. */
 			uint8_t bSlaveInterface0; /**< Interface number of the CDC Data interface. */
-		} USB_CDC_StdDescriptor_FunctionalUnion_t;
+		} ATTR_PACKED USB_CDC_StdDescriptor_FunctionalUnion_t;
 		
 		/** \brief CDC Virtual Serial Port Line Encoding Settings Structure.
 		 *
@@ -359,7 +359,7 @@
 								  *   \ref CDC_LineEncodingParity_t enum.
 								  */
 			uint8_t  DataBits; /**< Bits of data per character of the virtual serial port. */
-		} CDC_LineEncoding_t;
+		} ATTR_PACKED CDC_LineEncoding_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

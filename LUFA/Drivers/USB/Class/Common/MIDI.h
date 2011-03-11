@@ -113,7 +113,7 @@
 			                                             *   specification version.
 			                                             */
 			uint16_t                TotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
-		} USB_MIDI_Descriptor_AudioInterface_AS_t;
+		} ATTR_PACKED USB_MIDI_Descriptor_AudioInterface_AS_t;
 
 		/** \brief MIDI class-specific Streaming Interface Descriptor (USB-IF naming conventions).
 		 *
@@ -135,7 +135,7 @@
 
 			uint16_t bcdMSC; /**< Binary coded decimal value, indicating the supported MIDI Class specification version. */
 			uint16_t wTotalLength; /**< Total length of the Audio class-specific descriptors, including this descriptor. */
-		} USB_MIDI_StdDescriptor_AudioInterface_AS_t;
+		} ATTR_PACKED USB_MIDI_StdDescriptor_AudioInterface_AS_t;
 
 		/** \brief MIDI class-specific Input Jack Descriptor (LUFA naming conventions).
 		 *
@@ -153,7 +153,7 @@
 			uint8_t                 JackID; /**< ID value of this jack - must be a unique value within the device. */
 
 			uint8_t                 JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_MIDI_Descriptor_InputJack_t;
+		} ATTR_PACKED USB_MIDI_Descriptor_InputJack_t;
 
 		/** \brief MIDI class-specific Input Jack Descriptor (USB-IF naming conventions).
 		 *
@@ -176,7 +176,7 @@
 			uint8_t  bJackID; /**< ID value of this jack - must be a unique value within the device. */
 
 			uint8_t  iJack; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_MIDI_StdDescriptor_InputJack_t;
+		} ATTR_PACKED USB_MIDI_StdDescriptor_InputJack_t;
 
 		/** \brief MIDI class-specific Output Jack Descriptor (LUFA naming conventions).
 		 *
@@ -198,7 +198,7 @@
 			uint8_t                   SourcePinID[1]; /**< Pin number in the input jack of each output pin's source data. */
 
 			uint8_t                   JackStrIndex; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_MIDI_Descriptor_OutputJack_t;
+		} ATTR_PACKED USB_MIDI_Descriptor_OutputJack_t;
 
 		/** \brief MIDI class-specific Output Jack Descriptor (USB-IF naming conventions).
 		 *
@@ -225,7 +225,7 @@
 			uint8_t  baSourcePin[1]; /**< Pin number in the input jack of each output pin's source data. */
 
 			uint8_t  iJack; /**< Index of a string descriptor describing this descriptor within the device. */
-		} USB_MIDI_StdDescriptor_OutputJack_t;
+		} ATTR_PACKED USB_MIDI_StdDescriptor_OutputJack_t;
 
 		/** \brief Audio class-specific Jack Endpoint Descriptor (LUFA naming conventions).
 		 *
@@ -242,7 +242,7 @@
 
 			uint8_t                   TotalEmbeddedJacks; /**< Total number of jacks inside this endpoint. */
 			uint8_t                   AssociatedJackID[1]; /**< IDs of each jack inside the endpoint. */
-		} USB_MIDI_Descriptor_Jack_Endpoint_t;
+		} ATTR_PACKED USB_MIDI_Descriptor_Jack_Endpoint_t;
 
 		/** \brief Audio class-specific Jack Endpoint Descriptor (USB-IF naming conventions).
 		 *
@@ -264,7 +264,7 @@
 
 			uint8_t  bNumEmbMIDIJack; /**< Total number of jacks inside this endpoint. */
 			uint8_t  bAssocJackID[1]; /**< IDs of each jack inside the endpoint. */
-		} USB_MIDI_StdDescriptor_Jack_Endpoint_t;
+		} ATTR_PACKED USB_MIDI_StdDescriptor_Jack_Endpoint_t;
 
 		/** \brief MIDI Class Driver Event Packet.
 		 *
@@ -278,7 +278,7 @@
 			uint8_t Data1; /**< First byte of data in the MIDI event. */
 			uint8_t Data2; /**< Second byte of data in the MIDI event. */
 			uint8_t Data3; /**< Third byte of data in the MIDI event. */
-		} MIDI_EventPacket_t;
+		} ATTR_PACKED MIDI_EventPacket_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)

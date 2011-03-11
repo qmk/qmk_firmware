@@ -581,7 +581,7 @@
 
 			uint8_t                 HIDReportType; /**< Type of HID report, set to \ref HID_DTYPE_Report. */
 			uint16_t                HIDReportLength; /**< Length of the associated HID report descriptor, in bytes. */
-		} USB_HID_Descriptor_HID_t;
+		} ATTR_PACKED USB_HID_Descriptor_HID_t;
 
 		/** \brief HID class-specific HID Descriptor (USB-IF naming conventions).
 		 *
@@ -605,7 +605,7 @@
 
 			uint8_t  bDescriptorType2; /**< Type of HID report, set to \ref HID_DTYPE_Report. */
 			uint16_t wDescriptorLength; /**< Length of the associated HID report descriptor, in bytes. */
-		} USB_HID_StdDescriptor_HID_t;
+		} ATTR_PACKED USB_HID_StdDescriptor_HID_t;
 
 		/** \brief Standard HID Boot Protocol Mouse Report.
 		 *
@@ -616,7 +616,7 @@
 			uint8_t Button; /**< Button mask for currently pressed buttons in the mouse. */
 			int8_t  X; /**< Current delta X movement of the mouse. */
 			int8_t  Y; /**< Current delta Y movement on the mouse. */
-		} USB_MouseReport_Data_t;
+		} ATTR_PACKED USB_MouseReport_Data_t;
 
 		/** \brief Standard HID Boot Protocol Keyboard Report.
 		 *
@@ -629,7 +629,7 @@
 			                   */
 			uint8_t Reserved; /**< Reserved for OEM use, always set to 0. */
 			uint8_t KeyCode[6]; /**< Key codes of the currently pressed keys. */
-		} USB_KeyboardReport_Data_t;
+		} ATTR_PACKED USB_KeyboardReport_Data_t;
 
 		/** Type define for the data type used to store HID report descriptor elements. */
 		typedef uint8_t USB_Descriptor_HIDReport_Datatype_t;

@@ -146,7 +146,7 @@
 			uint16_t Code; /**< Command, event or response code of the container. */
 			uint32_t TransactionID; /**< Unique container ID to link blocks together. */
 			uint32_t Params[3]; /**< Block parameters to be issued along with the block code (command blocks only). */
-		} PIMA_Container_t;
+		} ATTR_PACKED PIMA_Container_t;
 
 	/* Disable C linkage for C++ Compilers: */
 		#if defined(__cplusplus)
