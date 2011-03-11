@@ -99,8 +99,8 @@
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
 		/* External Variables: */
-			extern volatile uint8_t USB_SelectedPipe;
-			extern volatile void*   USB_PipeFIFOPos[];
+			extern volatile uint8_t  USB_SelectedPipe;
+			extern volatile uint8_t* USB_PipeFIFOPos[];
 	#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -610,7 +610,7 @@
 			static inline uint8_t Pipe_Read_Byte(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint8_t Pipe_Read_Byte(void)
 			{
-				return *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				return *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 			}
 
 			/** Writes one byte from the currently selected pipe's bank, for IN direction pipes.
@@ -622,7 +622,7 @@
 			static inline void Pipe_Write_Byte(const uint8_t Byte) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Byte(const uint8_t Byte)
 			{
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = Byte;
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = Byte;
 			}
 
 			/** Discards one byte from the currently selected pipe's bank, for OUT direction pipes.
@@ -634,7 +634,7 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 			}
 
 			/** Reads two bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -647,8 +647,8 @@
 			static inline uint16_t Pipe_Read_Word_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_Read_Word_LE(void)
 			{
-				uint16_t Byte1 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				uint16_t Byte0 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint16_t Byte1 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint16_t Byte0 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 
 				return ((Byte0 << 8) | Byte1);
 			}
@@ -663,8 +663,8 @@
 			static inline uint16_t Pipe_Read_Word_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint16_t Pipe_Read_Word_BE(void)
 			{
-				uint16_t Byte0 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				uint16_t Byte1 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint16_t Byte0 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint16_t Byte1 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 
 				return ((Byte0 << 8) | Byte1);
 			}
@@ -679,8 +679,8 @@
 			static inline void Pipe_Write_Word_LE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_LE(const uint16_t Word)
 			{
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (Word >> 8);
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (Word & 0xFF);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Word >> 8);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Word & 0xFF);
 			}
 
 			/** Writes two bytes to the currently selected pipe's bank in big endian format, for IN
@@ -693,8 +693,8 @@
 			static inline void Pipe_Write_Word_BE(const uint16_t Word) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_Word_BE(const uint16_t Word)
 			{
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (Word & 0xFF);
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (Word >> 8);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Word & 0xFF);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (Word >> 8);
 			}
 
 			/** Discards two bytes from the currently selected pipe's bank, for OUT direction pipes.
@@ -706,8 +706,8 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 			}
 
 			/** Reads four bytes from the currently selected pipe's bank in little endian format, for OUT
@@ -720,10 +720,10 @@
 			static inline uint32_t Pipe_Read_DWord_LE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Pipe_Read_DWord_LE(void)
 			{
-				uint32_t Byte3 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				uint32_t Byte2 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				uint32_t Byte1 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				uint32_t Byte0 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint32_t Byte3 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint32_t Byte2 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint32_t Byte1 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint32_t Byte0 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 
 				return ((Byte0 << 24) | (Byte1 << 16) | (Byte2 << 8) | Byte3);
 			}
@@ -738,10 +738,10 @@
 			static inline uint32_t Pipe_Read_DWord_BE(void) ATTR_WARN_UNUSED_RESULT ATTR_ALWAYS_INLINE;
 			static inline uint32_t Pipe_Read_DWord_BE(void)
 			{
-				uint32_t Byte0 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				uint32_t Byte1 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				uint32_t Byte2 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				uint32_t Byte3 = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				uint32_t Byte0 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint32_t Byte1 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint32_t Byte2 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				uint32_t Byte3 = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 
 				return ((Byte0 << 24) | (Byte1 << 16) | (Byte2 << 8) | Byte3);
 			}
@@ -756,10 +756,10 @@
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_LE(const uint32_t DWord)
 			{
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 24);
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 16);
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 8);
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord &  0xFF);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 24);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 16);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 8);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord &  0xFF);
 			}
 
 			/** Writes four bytes to the currently selected pipe's bank in big endian format, for IN
@@ -772,10 +772,10 @@
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord) ATTR_ALWAYS_INLINE;
 			static inline void Pipe_Write_DWord_BE(const uint32_t DWord)
 			{
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord &  0xFF);
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 8);
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 16);
-				*(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++) = (DWord >> 24);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord &  0xFF);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 8);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 16);
+				*(USB_PipeFIFOPos[USB_SelectedPipe]++) = (DWord >> 24);
 			}
 
 			/** Discards four bytes from the currently selected pipe's bank, for OUT direction pipes.
@@ -787,10 +787,10 @@
 			{
 				uint8_t Dummy;
 
-				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
-				Dummy = *(((volatile uint8_t** volatile)USB_PipeFIFOPos)[USB_SelectedPipe]++);
+				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
+				Dummy = *(USB_PipeFIFOPos[USB_SelectedPipe]++);
 			}
 
 		/* External Variables: */

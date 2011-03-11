@@ -37,8 +37,8 @@
 
 uint8_t USB_ControlPipeSize = PIPE_CONTROLPIPE_DEFAULT_SIZE;
 
-volatile uint8_t USB_SelectedPipe = PIPE_CONTROLPIPE;
-volatile void*   USB_PipeFIFOPos[PIPE_TOTAL_PIPES];
+volatile uint8_t  USB_SelectedPipe = PIPE_CONTROLPIPE;
+volatile uint8_t* USB_PipeFIFOPos[PIPE_TOTAL_PIPES];
 
 bool Pipe_ConfigurePipe(const uint8_t Number,
                         const uint8_t Type,

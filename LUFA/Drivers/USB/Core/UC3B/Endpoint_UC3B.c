@@ -39,8 +39,8 @@
 uint8_t USB_ControlEndpointSize = ENDPOINT_CONTROLEP_DEFAULT_SIZE;
 #endif
 
-volatile uint8_t USB_SelectedEndpoint = ENDPOINT_CONTROLEP;
-volatile void*   USB_EndpointFIFOPos[ENDPOINT_TOTAL_ENDPOINTS];
+volatile uint8_t  USB_SelectedEndpoint = ENDPOINT_CONTROLEP;
+volatile uint8_t* USB_EndpointFIFOPos[ENDPOINT_TOTAL_ENDPOINTS];
 
 bool Endpoint_ConfigureEndpoint_Prv(const uint8_t Number,
                                     const uint32_t UECFG0Data)
