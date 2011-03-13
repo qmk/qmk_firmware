@@ -84,7 +84,7 @@
 			
 			#define  ARCH_LITTLE_ENDIAN
 			#include "Endianness.h"
-		#elif (ARCH == ARCH_UC3B)
+		#elif (ARCH == ARCH_UC3)
 			#include <avr32/io.h>
 
 			// === TODO: Find abstracted way to handle these ===

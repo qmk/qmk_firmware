@@ -53,8 +53,8 @@
 	/* Architecture Includes: */
 		#if (ARCH == ARCH_AVR8)
 			#include "AVR8/USBInterrupt_AVR8.h"
-		#elif (ARCH == ARCH_UC3B)
-			#include "UC3B/USBInterrupt_UC3B.h"
+		#elif (ARCH == ARCH_UC3)
+			#include "UC3/USBInterrupt_UC3.h"
 		#endif
 
 #endif

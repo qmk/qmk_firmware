@@ -12,6 +12,7 @@
 # Check to see if the LUFA_PATH variable has not been set (the makefile is not being included from a project makefile)
 ifeq ($(origin LUFA_PATH), undefined)
    LUFA_ROOT_PATH = .
+   ARCH = {AVR8,UC3}
 else
    LUFA_ROOT_PATH = $(LUFA_PATH)/LUFA
 endif
@@ -65,6 +66,7 @@ ifeq ($(origin LUFA_PATH), undefined)
 
    clean:
 	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.o)
+	rm -f $(LUFA_SRC_ALL_FILES:%.c=%.lst)
 
    clean_list:
 

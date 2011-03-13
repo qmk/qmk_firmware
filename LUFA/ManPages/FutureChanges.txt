@@ -33,7 +33,6 @@
   *      -# Arduino Uno compatible USB-MIDI, USB-HID
   *      -# Make Webserver project work in RNDIS device mode
   *  - Ports
-  *      -# AVR32 UC3B series microcontrollers
   *      -# Atmel ARM7 series microcontrollers
   *      -# Other (commercial) C compilers
   */

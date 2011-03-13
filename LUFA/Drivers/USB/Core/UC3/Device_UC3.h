@@ -29,24 +29,24 @@
 */
 
 /** \file
- *  \brief USB Device definitions for the AVR32 UC3B microcontrollers.
- *  \copydetails Group_Device_UC3B
+ *  \brief USB Device definitions for the AVR32 UC3 microcontrollers.
+ *  \copydetails Group_Device_UC3
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
 /** \ingroup Group_Device
- *  \defgroup Group_Device_UC3B Device Management (UC3B)
- *  \brief USB Device definitions for the AVR32 UC3B microcontrollers.
+ *  \defgroup Group_Device_UC3 Device Management (UC3)
+ *  \brief USB Device definitions for the AVR32 UC3 microcontrollers.
  *
- *  Architecture specific USB Device definitions for the Atmel 32-bit UC3B AVR microcontrollers.
+ *  Architecture specific USB Device definitions for the Atmel 32-bit UC3 AVR microcontrollers.
  *
  *  @{
  */
 
-#ifndef __USBDEVICE_UC3B_H__
-#define __USBDEVICE_UC3B_H__
+#ifndef __USBDEVICE_UC3_H__
+#define __USBDEVICE_UC3_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"

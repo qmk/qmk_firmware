@@ -128,8 +128,8 @@
 	/* Architecture Includes: */
 		#if (ARCH == ARCH_AVR8)
 			#include "AVR8/Device_AVR8.h"
-		#elif (ARCH == ARCH_UC3B)
-			#include "UC3B/Device_UC3B.h"
+		#elif (ARCH == ARCH_UC3)
+			#include "UC3/Device_UC3.h"
 		#endif
 
 #endif

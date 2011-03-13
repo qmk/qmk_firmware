@@ -29,24 +29,24 @@
 */
 
 /** \file
- *  \brief USB Controller definitions for the AVR32 UC3B microcontrollers.
- *  \copydetails Group_USBManagement_UC3B
+ *  \brief USB Controller definitions for the AVR32 UC3 microcontrollers.
+ *  \copydetails Group_USBManagement_UC3
  *
  *  \note This file should not be included directly. It is automatically included as needed by the USB driver
  *        dispatch header located in LUFA/Drivers/USB/USB.h.
  */
 
 /** \ingroup Group_USBManagement
- *  \defgroup Group_USBManagement_UC3B USB Interface Management (UC3B)
- *  \brief USB Controller definitions for the AVR32 UC3B microcontrollers.
+ *  \defgroup Group_USBManagement_UC3 USB Interface Management (UC3)
+ *  \brief USB Controller definitions for the AVR32 UC3 microcontrollers.
  *
  *  Functions, macros, variables, enums and types related to the setup and management of the USB interface.
  *
  *  @{
  */
 
-#ifndef __USBCONTROLLER_UC3B_H__
-#define __USBCONTROLLER_UC3B_H__
+#ifndef __USBCONTROLLER_UC3_H__
+#define __USBCONTROLLER_UC3_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"

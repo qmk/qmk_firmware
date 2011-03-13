@@ -64,8 +64,8 @@
 			/** Selects the Atmel 8-bit AVR (AT90USB* and ATMEGA*U* chips) architecture. */
 			#define ARCH_AVR8           0
 
-			/** Selects the Atmel 32-bit UC3B AVR (AT32UC3B* chips) architecture. */
-			#define ARCH_UC3B           1
+			/** Selects the Atmel 32-bit UC3 AVR (AT32UC3* chips) architecture. */
+			#define ARCH_UC3           1
 			
 			#if !defined(__DOXYGEN__)
 				#define ARCH_           ARCH_AVR8

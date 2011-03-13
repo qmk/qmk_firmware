@@ -13,6 +13,7 @@
   *     in exchange for a smaller compiled program binary size
   *   - Added a new general RingBuff.h miscellaneous ring buffer library driver header
   *   - Added new GCC_FORCE_POINTER_ACCESS() macro to correct GCC's mishandling of struct pointer accesses
+  *   - Added new GCC_MEMORY_BARRIER() macro to prevent instruction reordering across boundaries
   *   - Added basic driver example use code to the library documentation
   *   - Added new Endpoint_Null_Stream() and Pipe_Null_Stream() functions
   *   - Added new ADC_GET_CHANNEL_MASK() convenience macro
@@ -24,7 +25,7 @@
   *   - Added board driver support for the Sparkfun ATMEGA8U2 breakout board
   *   - Added TWI baud rate prescaler and bit length parameters to the TWI_Init() function (thanks to Thomas Herlinghaus)
   *   - Internal restructuring for eventual multiple architecture ports
-  *   - Added start of an AVR32 UC3B architecture port (currently incomplete/experimental)
+  *   - Added start of an AVR32 UC3 architecture port (currently incomplete/experimental)
   *  - Library Applications:
   *   - Added ability to write protect Mass Storage disk write operations from the host OS
   *   - Added new MIDIToneGenerator project

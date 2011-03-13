@@ -101,8 +101,8 @@
 	/* Architecture Includes: */
 		#if (ARCH == ARCH_AVR8)
 			#include "AVR8/Endpoint_AVR8.h"
-		#elif (ARCH == ARCH_UC3B)
-			#include "UC3B/Endpoint_UC3B.h"
+		#elif (ARCH == ARCH_UC3)
+			#include "UC3/Endpoint_UC3.h"
 		#endif
 
 #endif
