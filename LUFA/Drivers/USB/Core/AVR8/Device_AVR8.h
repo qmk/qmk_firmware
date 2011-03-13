@@ -87,9 +87,9 @@
 			//@}
 			
 			#if (!defined(NO_INTERNAL_SERIAL) && \
-			     (defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1287__) || \
-			      defined(__AVR_ATmega32U6__) || defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB1286__) ||  \
-			      defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__)  || defined(__AVR_ATmega8U2__)))
+			     (defined(USB_SERIES_7_AVR) || defined(USB_SERIES_6_AVR) || defined(USB_SERIES_4_AVR) || \
+			      (defined(USB_SERIES_2_AVR) && (!defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__))) || \
+				  defined(__DOXYGEN__)))
 				/** String descriptor index for the device's unique serial number string descriptor within the device.
 				 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
 				 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some microcontrollers contain
@@ -190,7 +190,7 @@
 				return (UDADDR & (1 << ADDEN));
 			}
 		
-			static inline uint8_t USB_Device_GetSerialString(wchar_t* UnicodeString, const uint8_t MaxLen)
+			static inline uint8_t USB_Device_GetSerialString(uint16_t* UnicodeString, const uint8_t MaxLen)
 			{
 				uint8_t SerialCharNum = 0;
 
@@ -213,8 +213,8 @@
 
 						SerialByte &= 0x0F;
 
-						UnicodeString[SerialCharNum] = (SerialByte >= 10) ?
-						                               (('A' - 10) + SerialByte) : ('0' + SerialByte);
+						UnicodeString[SerialCharNum] = cpu_to_le16((SerialByte >= 10) ?
+						                                           (('A' - 10) + SerialByte) : ('0' + SerialByte));
 					}
 				}
 				

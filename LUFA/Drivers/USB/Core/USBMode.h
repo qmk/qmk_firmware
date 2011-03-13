@@ -153,6 +153,12 @@
 				#define USB_SERIES_UC3A3_AVR
 				#define USB_CAN_BE_DEVICE
 				#define USB_CAN_BE_HOST
+			#elif (defined(__AVR32_UC3A4256__) || defined(__AVR32_UC3A4256S__) || \
+			       defined(__AVR32_UC3A4128__) || defined(__AVR32_UC3A4128S__) || \
+			       defined(__AVR32_UC3A464__)  || defined(__AVR32_UC3A464S__))
+				#define USB_SERIES_UC3A4_AVR
+				#define USB_CAN_BE_DEVICE
+				#define USB_CAN_BE_HOST
 			#elif (defined(__AVR32_UC3B0512__) || defined(__AVR32_UC3B0256__) || \
 			       defined(__AVR32_UC3B0128__) || defined(__AVR32_UC3B064__))
 				#define USB_SERIES_UC3B0_AVR

@@ -645,15 +645,15 @@
 				uint8_t bDescriptorType; /**< Type of the descriptor, either a value in \ref USB_DescriptorTypes_t
 				                          *   or a value given by the specific class.
 				                          */
-				int16_t bString[]; /**< String data, as unicode characters (alternatively, string language IDs).
-				                    *   If normal ASCII characters are to be used, they must be added as an array
-				                    *   of characters rather than a normal C string so that they are widened to
-				                    *   Unicode size.
-				                    *
-				                    *   Under GCC, strings prefixed with the "L" character (before the opening string
-				                    *   quotation mark) are considered to be Unicode strings, and may be used instead
-				                    *   of an explicit array of ASCII characters.
-				                    */
+				uint16_t bString[]; /**< String data, as unicode characters (alternatively, string language IDs).
+				                     *   If normal ASCII characters are to be used, they must be added as an array
+				                     *   of characters rather than a normal C string so that they are widened to
+				                     *   Unicode size.
+				                     *
+				                     *   Under GCC, strings prefixed with the "L" character (before the opening string
+				                     *   quotation mark) are considered to be Unicode strings, and may be used instead
+				                     *   of an explicit array of ASCII characters.
+				                     */
 			} ATTR_PACKED USB_StdDescriptor_String_t;
 
 	/* Private Interface - For use in library only: */

@@ -77,16 +77,22 @@
 			#define USB_DEVICE_OPT_FULLSPEED               (0 << 0)
 			//@}
 			
-			/** String descriptor index for the device's unique serial number string descriptor within the device.
-			 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
-			 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some microcontrollers contain
-			 *  a unique serial number internally, and setting the device descriptors serial number string index to this value
-			 *  will cause it to use the internal serial number.
-			 *
-			 *  On unsupported devices, this will evaluate to \ref NO_DESCRIPTOR and so will force the host to create a pseudo-serial
-			 *  number for the device.
-			 */
-			#define USE_INTERNAL_SERIAL                    NO_DESCRIPTOR
+			#if (!defined(NO_INTERNAL_SERIAL) && \
+			     (defined(USB_SERIES_UC3A3_AVR) || defined(USB_SERIES_UC3A4_AVR) || \
+				  defined(__DOXYGEN__)))
+				/** String descriptor index for the device's unique serial number string descriptor within the device.
+				 *  This unique serial number is used by the host to associate resources to the device (such as drivers or COM port
+				 *  number allocations) to a device regardless of the port it is plugged in to on the host. Some microcontrollers contain
+				 *  a unique serial number internally, and setting the device descriptors serial number string index to this value
+				 *  will cause it to use the internal serial number.
+				 *
+				 *  On unsupported devices, this will evaluate to \ref NO_DESCRIPTOR and so will force the host to create a pseudo-serial
+				 *  number for the device.
+				 */
+				#define USE_INTERNAL_SERIAL           0xDC
+			#else
+				#define USE_INTERNAL_SERIAL           NO_DESCRIPTOR
+			#endif	
 			
 		/* Function Prototypes: */
 			/** Sends a Remote Wakeup request to the host. This signals to the host that the device should
@@ -170,6 +176,37 @@
 			static inline bool USB_Device_IsAddressSet(void)
 			{
 				return AVR32_USBB.UDCON.adden;
+			}
+
+			static inline uint8_t USB_Device_GetSerialString(uint16_t* UnicodeString, const uint8_t MaxLen)
+			{
+				uint8_t SerialCharNum = 0;
+
+				ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+				{
+					uint32_t* SigReadAddress = 0x80800204;
+
+					for (SerialCharNum = 0; SerialCharNum < MIN(MaxLen, 30); SerialCharNum++)
+					{
+						if (SerialCharNum == MaxLen)
+						  break;
+
+						uint8_t SerialByte = *SigReadAddress;
+
+						if (SerialCharNum & 0x01)
+						{
+							SerialByte >>= 4;
+							SigReadAddress++;
+						}
+
+						SerialByte &= 0x0F;
+
+						UnicodeString[SerialCharNum] = cpu_to_le16((SerialByte >= 10) ?
+						                                           (('A' - 10) + SerialByte) : ('0' + SerialByte));
+					}
+				}
+				
+				return SerialCharNum;
 			}
 	#endif
 
