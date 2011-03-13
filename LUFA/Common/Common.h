@@ -49,12 +49,6 @@
  *  Macros to aid debugging of a user application.
  */
 
-/** \defgroup Group_BitManip Endian and Bit Macros
- *  \brief Convenience macros to aid in bit manipulations and endianness transforms.
- *
- *  Functions for swapping endianness and reversing bit orders of data.
- */
-
 #ifndef __LUFA_COMMON_H__
 #define __LUFA_COMMON_H__
 
@@ -87,47 +81,13 @@
 			#include <util/delay.h>
 			
 			typedef uint8_t uint_reg_t;
-
-			#define le16_to_cpu(x)           x
-			#define le32_to_cpu(x)           x
-			#define be16_to_cpu(x)           SwapEndian_16(x)
-			#define be32_to_cpu(x)           SwapEndian_32(x)
-			#define cpu_to_le16(x)           x
-			#define cpu_to_le32(x)           x
-			#define cpu_to_be16(x)           SwapEndian_16(x)
-			#define cpu_to_be32(x)           SwapEndian_32(x)
-			#define LE16_TO_CPU(x)           x
-			#define LE32_TO_CPU(x)           x
-			#define BE16_TO_CPU(x)           SWAPENDIAN_16(x)
-			#define BE32_TO_CPU(x)           SWAPENDIAN_32(x)
-			#define CPU_TO_LE16(x)           x
-			#define CPU_TO_LE32(x)           x
-			#define CPU_TO_BE16(x)           SWAPENDIAN_16(x)
-			#define CPU_TO_BE32(x)           SWAPENDIAN_32(x)
-
+			
+			#define  ARCH_LITTLE_ENDIAN
+			#include "Endianness.h"
 		#elif (ARCH == ARCH_UC3B)
 			#include <avr32/io.h>
 
-			typedef uint32_t uint_reg_t;
-			
-			// TODO
-			#define le16_to_cpu(x)           SwapEndian_16(x)
-			#define le32_to_cpu(x)           SwapEndian_32(x)
-			#define be16_to_cpu(x)           x
-			#define be32_to_cpu(x)           x
-			#define cpu_to_le16(x)           SwapEndian_16(x)
-			#define cpu_to_le32(x)           SwapEndian_32(x)
-			#define cpu_to_be16(x)           x
-			#define cpu_to_be32(x)           x
-			#define LE16_TO_CPU(x)           SWAPENDIAN_16(x)
-			#define LE32_TO_CPU(x)           SWAPENDIAN_32(x)
-			#define BE16_TO_CPU(x)           x
-			#define BE32_TO_CPU(x)           x
-			#define CPU_TO_LE16(x)           SWAPENDIAN_16(x)
-			#define CPU_TO_LE32(x)           SWAPENDIAN_32(x)
-			#define CPU_TO_BE16(x)           x
-			#define CPU_TO_BE32(x)           x
-			
+			// === TODO: Find abstracted way to handle these ===
 			#define ISR(Name)                void Name (void) __attribute__((__interrupt__)); void Name (void)
 			#define EEMEM
 			#define PROGMEM                  const
@@ -140,8 +100,15 @@
 			#define _delay_ms(x)
 			#define memcmp_P(...)            memcmp(__VA_ARGS__)
 			#define memcpy_P(...)            memcpy(__VA_ARGS__)
-			
 			#define USE_RAM_DESCRIPTORS
+			// ==================================================
+
+			typedef uint32_t uint_reg_t;
+			
+			#define  ARCH_BIG_ENDIAN
+			#include "Endianness.h"
+		#else
+			#error Unknown device architecture specified.
 		#endif
 
 	/* Public Interface - May be used in end-application: */
@@ -251,34 +218,9 @@
 			 */
 			#define GCC_FORCE_POINTER_ACCESS(StructPtr) __asm__ __volatile__("" : "=b" (StructPtr) : "0" (StructPtr))
 
-			/** Swaps the byte ordering of a 16-bit value at compile time. Do not use this macro for swapping byte orderings
-			 *  of dynamic values computed at runtime, use \ref SwapEndian_16() instead. The result of this macro can be used
-			 *  inside struct or other variable initializers outside of a function, something that is not possible with the
-			 *  inline function variant.
-			 *
-			 *  \param[in]  x  16-bit value whose byte ordering is to be swapped.
-			 *
-			 *  \return Input value with the byte ordering reversed.
-			 */
-			#define SWAPENDIAN_16(x)          ((((x) & 0xFF00) >> 8) | (((x) & 0x00FF) << 8))
-
-			/** Swaps the byte ordering of a 32-bit value at compile time. Do not use this macro for swapping byte orderings
-			 *  of dynamic values computed at runtime- use \ref SwapEndian_32() instead. The result of this macro can be used
-			 *  inside struct or other variable initializers outside of a function, something that is not possible with the
-			 *  inline function variant.
-			 *
-			 *  \param[in]  x  32-bit value whose byte ordering is to be swapped.
-			 *
-			 *  \return Input value with the byte ordering reversed.
-			 */
-			#define SWAPENDIAN_32(x)          ((((x) & 0xFF000000UL) >> 24UL) | (((x) & 0x00FF0000UL) >> 8UL) | \
-			                                   (((x) & 0x0000FF00UL) << 8UL)  | (((x) & 0x000000FFUL) << 24UL))
-
 		/* Inline Functions: */
 			/** Function to reverse the individual bits in a byte - i.e. bit 7 is moved to bit 0, bit 6 to bit 1,
 			 *  etc.
-			 *
-			 *  \ingroup Group_BitManip
 			 *
 			 *  \param[in] Byte  Byte of data whose bits are to be reversed.
 			 */
@@ -290,87 +232,6 @@
 				Byte = (((Byte & 0xAA) >> 1) | ((Byte & 0x55) << 1));
 
 				return Byte;
-			}
-
-			/** Function to reverse the byte ordering of the individual bytes in a 16 bit number.
-			 *
-			 *  \ingroup Group_BitManip
-			 *
-			 *  \param[in] Word  Word of data whose bytes are to be swapped.
-			 */
-			static inline uint16_t SwapEndian_16(const uint16_t Word) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
-			static inline uint16_t SwapEndian_16(const uint16_t Word)
-			{
-				uint8_t Temp;
-
-				union
-				{
-					uint16_t Word;
-					uint8_t  Bytes[2];
-				} Data;
-
-				Data.Word = Word;
-
-				Temp = Data.Bytes[0];
-				Data.Bytes[0] = Data.Bytes[1];
-				Data.Bytes[1] = Temp;
-
-				return Data.Word;
-			}
-
-			/** Function to reverse the byte ordering of the individual bytes in a 32 bit number.
-			 *
-			 *  \ingroup Group_BitManip
-			 *
-			 *  \param[in] DWord  Double word of data whose bytes are to be swapped.
-			 */
-			static inline uint32_t SwapEndian_32(const uint32_t DWord) ATTR_WARN_UNUSED_RESULT ATTR_CONST;
-			static inline uint32_t SwapEndian_32(const uint32_t DWord)
-			{
-				uint8_t Temp;
-
-				union
-				{
-					uint32_t DWord;
-					uint8_t  Bytes[4];
-				} Data;
-
-				Data.DWord = DWord;
-
-				Temp = Data.Bytes[0];
-				Data.Bytes[0] = Data.Bytes[3];
-				Data.Bytes[3] = Temp;
-
-				Temp = Data.Bytes[1];
-				Data.Bytes[1] = Data.Bytes[2];
-				Data.Bytes[2] = Temp;
-
-				return Data.DWord;
-			}
-
-			/** Function to reverse the byte ordering of the individual bytes in a n byte number.
-			 *
-			 *  \ingroup Group_BitManip
-			 *
-			 *  \param[in,out] Data   Pointer to a number containing an even number of bytes to be reversed.
-			 *  \param[in]     Bytes  Length of the data in bytes.
-			 */
-			static inline void SwapEndian_n(void* Data,
-			                                uint8_t Bytes) ATTR_NON_NULL_PTR_ARG(1);
-			static inline void SwapEndian_n(void* Data,
-			                                uint8_t Bytes)
-			{
-				uint8_t* CurrDataPos = (uint8_t*)Data;
-
-				while (Bytes > 1)
-				{
-					uint8_t Temp = *CurrDataPos;
-					*CurrDataPos = *(CurrDataPos + Bytes - 1);
-					*(CurrDataPos + Bytes - 1) = Temp;
-
-					CurrDataPos++;
-					Bytes -= 2;
-				}
 			}
 
 #endif

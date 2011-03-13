@@ -134,7 +134,9 @@
 			 */
 			#define ATTR_ALIAS(Func)               __attribute__ ((alias( #Func )))
 			
-			/** Marks a variable or struct element for packing into the smallest space available. */
+			/** Marks a variable or struct element for packing into the smallest space available, omitting any
+			 *  alignment bytes usually added between fields to optimize field accesses.
+			 */
 			#define ATTR_PACKED                     __attribute__ ((packed))
 
 			/** Indicates the minimum alignment in bytes for a variable or struct element.
