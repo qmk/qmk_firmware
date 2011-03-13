@@ -293,8 +293,12 @@
 
 	/* Private Interface - For use in library only: */
 	#if !defined(__DOXYGEN__)
-		/* Macros: */
-			#define USB_GCLK_USBB_INDEX          3
+		/* Macros: */			
+			#if defined(USB_SERIES_UC3A3_AVR)
+				#define USB_CLOCK_REQUIRED_FREQ  12000000UL
+			#else
+				#define USB_CLOCK_REQUIRED_FREQ  48000000UL
+			#endif
 	
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_USB_CONTROLLER_C)

@@ -76,17 +76,24 @@
 			 */
 			#define NO_DESCRIPTOR                     0
 
-			/** Macro to calculate the power value for the configuration descriptor, from a given number of milliamperes. */
+			/** Macro to calculate the power value for the configuration descriptor, from a given number of milliamperes.
+			 *
+			 *  \param[in] mA  Maximum number of milliamps the device consumes when the given configuration is selected.
+			 */
 			#define USB_CONFIG_POWER_MA(mA)           ((mA) >> 1)
 
 			/** Macro to calculate the Unicode length of a string with a given number of Unicode characters.
 			 *  Should be used in string descriptor's headers for giving the string descriptor's byte length.
+			 *
+			 *  \param[in] UnicodeChars  Number of Unicode characters in the string text.
 			 */
-			#define USB_STRING_LEN(str)               (sizeof(USB_Descriptor_Header_t) + ((str) << 1))
+			#define USB_STRING_LEN(UnicodeChars)      (sizeof(USB_Descriptor_Header_t) + ((UnicodeChars) << 1))
 
 			/** Macro to encode a given four digit floating point version number (e.g. 01.23) into Binary Coded
 			 *  Decimal format for descriptor fields requiring BCD encoding, such as the USB version number in the
 			 *  standard device descriptor.
+			 *
+			 *  \param[in]  x  Version number to encode as a 16-bit little-endian number, as a floating point number.
 			 */
 			#define VERSION_BCD(x)                    CPU_TO_LE16((((VERSION_TENS(x) << 4) | VERSION_ONES(x)) << 8) | \
 			                                          ((VERSION_TENTHS(x) << 4) | VERSION_HUNDREDTHS(x)))

@@ -62,30 +62,50 @@
 
 	/* Public Interface - May be used in end-application: */
 	#if defined(__DOXYGEN__)
-		/** Indicates that the target AVR microcontroller belongs to the Series 2 USB controller
+		/** Indicates that the target AVR microcontroller belongs to the Series 2 AVR8 USB controller
 		 *  (i.e. AT90USBxxx2 or ATMEGAxxU2) when defined.
 		 */
 		#define USB_SERIES_2_AVR
 
-		/** Indicates that the target AVR microcontroller belongs to the Series 4 USB controller
+		/** Indicates that the target AVR microcontroller belongs to the Series 4 AVR8 USB controller
 		 *  (i.e. ATMEGAxxU4) when defined.
 		 */
 		#define USB_SERIES_4_AVR
 
-		/** Indicates that the target AVR microcontroller belongs to the Series 6 USB controller
+		/** Indicates that the target AVR microcontroller belongs to the Series 6 AVR8 USB controller
 		 *  (i.e. AT90USBxxx6) when defined.
 		 */
 		#define USB_SERIES_6_AVR
 
-		/** Indicates that the target AVR microcontroller belongs to the Series 7 USB controller
+		/** Indicates that the target AVR microcontroller belongs to the Series 7 AVR8 USB controller
 		 *  (i.e. AT90USBxxx7) when defined.
 		 */
 		#define USB_SERIES_7_AVR
 
-		/** Indicates that the target AVR microcontroller belongs to the UC3B Series USB controller
-		 *  (i.e. AT32UC3B*) when defined.
+		/** Indicates that the target AVR microcontroller belongs to the AVR32 UC3A0 Series USB controller
+		 *  (i.e. AT32UC3A0*) when defined.
 		 */
-		#define USB_SERIES_UC3B_AVR
+		#define USB_SERIES_UC3A0_AVR
+		
+		/** Indicates that the target AVR microcontroller belongs to the AVR32 UC3A1 Series USB controller
+		 *  (i.e. AT32UC3A1*) when defined.
+		 */
+		#define USB_SERIES_UC3A1_AVR
+
+		/** Indicates that the target AVR microcontroller belongs to the AVR32 UC3A3 Series USB controller
+		 *  (i.e. AT32UC3A3*) when defined.
+		 */
+		#define USB_SERIES_UC3A3_AVR
+
+		/** Indicates that the target AVR microcontroller belongs to the AVR32 UC3B0 Series USB controller
+		 *  (i.e. AT32UC3B0*) when defined.
+		 */
+		#define USB_SERIES_UC3B0_AVR
+
+		/** Indicates that the target AVR microcontroller belongs to the AVR32 UC3B1 Series USB controller
+		 *  (i.e. AT32UC3B1*) when defined.
+		 */
+		#define USB_SERIES_UC3B1_AVR
 
 		/** Indicates that the target microcontroller and compilation settings allow for the
 		 *  target to be configured in USB Device mode when defined.
@@ -117,11 +137,30 @@
 				#define USB_SERIES_7_AVR
 				#define USB_CAN_BE_DEVICE
 				#define USB_CAN_BE_HOST
-			#elif (defined(__AVR32_UC3B0512__) || defined(__AVR32_UC3B1512__) || \
-			       defined(__AVR32_UC3B0256__) || defined(__AVR32_UC3B1256__) || \
-			       defined(__AVR32_UC3B0128__) || defined(__AVR32_UC3B1128__) || \
-			       defined(__AVR32_UC3B064__) || defined(__AVR32_UC3B164__))
-				#define USB_SERIES_UC3B_AVR
+			#elif (defined(__AVR32_UC3A0512__) || defined(__AVR32_UC3A0256__) || \
+			       defined(__AVR32_UC3A0128__) || defined(__AVR32_UC3A064__))
+				#define USB_SERIES_UC3A0_AVR
+				#define USB_CAN_BE_DEVICE
+				#define USB_CAN_BE_HOST
+			#elif (defined(__AVR32_UC3A1512__) || defined(__AVR32_UC3A1256__) || \
+			       defined(__AVR32_UC3A1128__) || defined(__AVR32_UC3A164__))
+				#define USB_SERIES_UC3A1_AVR
+				#define USB_CAN_BE_DEVICE
+				#define USB_CAN_BE_HOST
+			#elif (defined(__AVR32_UC3A3256__) || defined(__AVR32_UC3A3256S__) || \
+			       defined(__AVR32_UC3A3128__) || defined(__AVR32_UC3A3128S__) || \
+			       defined(__AVR32_UC3A364__)  || defined(__AVR32_UC3A364S__))
+				#define USB_SERIES_UC3A3_AVR
+				#define USB_CAN_BE_DEVICE
+				#define USB_CAN_BE_HOST
+			#elif (defined(__AVR32_UC3B0512__) || defined(__AVR32_UC3B0256__) || \
+			       defined(__AVR32_UC3B0128__) || defined(__AVR32_UC3B064__))
+				#define USB_SERIES_UC3B0_AVR
+				#define USB_CAN_BE_DEVICE
+				#define USB_CAN_BE_HOST
+			#elif (defined(__AVR32_UC3B1512__) || defined(__AVR32_UC3B1256__) || \
+			       defined(__AVR32_UC3B1128__) || defined(__AVR32_UC3B164__))
+				#define USB_SERIES_UC3B1_AVR
 				#define USB_CAN_BE_DEVICE
 				#define USB_CAN_BE_HOST
 			#endif
@@ -153,7 +192,7 @@
 			#endif
 
 			#if (!defined(USB_CAN_BE_DEVICE) && !defined(USB_CAN_BE_HOST))
-				#error The currently selected architecture is not supported under the USB component of the library.
+				#error The currently selected device or architecture is not supported under the USB component of the library.
 			#endif
 	#endif
 

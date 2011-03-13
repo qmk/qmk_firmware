@@ -214,6 +214,12 @@
 			 */
 			#define GCC_FORCE_POINTER_ACCESS(StructPtr) __asm__ __volatile__("" : "=b" (StructPtr) : "0" (StructPtr))
 
+			/** Forces GCC to create a memory barrier, ensuring that memory accesses are not reordered past the barrier point.
+			 *  This can be used before ordering-critical operations, to ensure that the compiler does not re-order the resulting
+			 *  assembly output in an unexpected manner on sections of code that are ordering-specific.
+			 */
+			#define GCC_MEMORY_BARRIER()                __asm__ __volatile__("" ::: "memory");
+
 		/* Inline Functions: */
 			/** Function to reverse the individual bits in a byte - i.e. bit 7 is moved to bit 0, bit 6 to bit 1,
 			 *  etc.
