@@ -89,14 +89,10 @@
 
 			// === TODO: Find abstracted way to handle these ===
 			#define ISR(Name)                void Name (void) __attribute__((__interrupt__)); void Name (void)
-			#define EEMEM
 			#define PROGMEM                  const
 			#define ATOMIC_BLOCK(x)          if (1)
 			#define ATOMIC_RESTORESTATE
 			#define pgm_read_byte(x)         *x
-			#define eeprom_read_byte(x)      *x
-			#define eeprom_update_byte(x, y) *x = y
-			#define eeprom_write_byte(x, y)  *x = y
 			#define _delay_ms(x)
 			#define memcmp_P(...)            memcmp(__VA_ARGS__)
 			#define memcpy_P(...)            memcpy(__VA_ARGS__)
